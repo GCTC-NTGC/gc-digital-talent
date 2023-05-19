@@ -784,6 +784,11 @@ class PoolApplicationTest extends TestCase
 
     public function testApplicationSubmitScreeningQuestions(): void
     {
+        $flagBoolean = config('feature.application_revamp');
+        if (!$flagBoolean) {
+            $this->markTestSkipped('application_revamp is OFF');
+        }
+
         $newPool = Pool::factory()->create([
             'closing_date' =>  Carbon::now()->addDays(1),
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
