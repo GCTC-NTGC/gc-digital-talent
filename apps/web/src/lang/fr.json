@@ -534,17 +534,9 @@
     "defaultMessage": "Formulaire de demande",
     "description": "Heading for request form."
   },
-  "N6+rnM": {
-    "defaultMessage": "example@canada.ca...",
-    "description": "Placeholder for government email input in the request form"
-  },
   "NXzsK4": {
     "defaultMessage": "Recherche dans le bassin de talents numériques",
     "description": "Main heading displayed at the top of request page."
-  },
-  "OjhS6t": {
-    "defaultMessage": "Nom complet...",
-    "description": "Placeholder for full name input in the request form."
   },
   "SZTFJq": {
     "defaultMessage": "Recherche dans le bassin de talents numériques",
@@ -630,10 +622,6 @@
     "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
     "description": "Message describing the work location filter in the search form."
   },
-  "zz9pwK": {
-    "defaultMessage": "Développeur...",
-    "description": "Placeholder for job title input in the request form."
-  },
   "ky585k": {
     "defaultMessage": "Conditions d’emploi ({operationalRequirementFilterCount})"
   },
@@ -673,21 +661,9 @@
     "defaultMessage": "Date d’attribution",
     "description": "Label displayed on award form for date awarded input"
   },
-  "5ikciS": {
-    "defaultMessage": "Écrire le titre ici...",
-    "description": "Placeholder displayed on the Community Experience form for role input"
-  },
   "7inIW/": {
     "defaultMessage": "Vous avez des titres de compétences? Partagez votre grade, vos certificats, vos cours en ligne, votre programme d’apprentissage du métier, vos licences ou d’autres titres de compétences. Si vous avez eu un apprentissage dans un établissement scolaire reconnu, faites part de votre expérience ici.",
     "description": "Description blurb for Education Details Form"
-  },
-  "81ITk+": {
-    "defaultMessage": "Écrire le nom du projet ici...",
-    "description": "Placeholder displayed on the Community Experience form for project input"
-  },
-  "8THvSC": {
-    "defaultMessage": "Écrire le titre ici...",
-    "description": "Placeholder for thesis title input"
   },
   "8i+lzm": {
     "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
@@ -701,10 +677,6 @@
     "defaultMessage": "Organisation",
     "description": "Label displayed on Work Experience form for organization input"
   },
-  "9ttiBB": {
-    "defaultMessage": "Écrire le titre accordé ici...",
-    "description": "Placeholder for award title input"
-  },
   "Badvbb": {
     "defaultMessage": "Groupe/Organisation/Collectivité",
     "description": "Label displayed on Community Experience form for organization input"
@@ -712,14 +684,6 @@
   "DyaaHi": {
     "defaultMessage": "Portée du prix",
     "description": "Label displayed on Award form for award scope input"
-  },
-  "EHOcOR": {
-    "defaultMessage": "Écrire le nom ici...",
-    "description": "Placeholder for institution input"
-  },
-  "EfR7Rv": {
-    "defaultMessage": "Écrire le nom du groupe ici...",
-    "description": "Placeholder displayed on the Community Experience form for organization input"
   },
   "N87bC7": {
     "defaultMessage": "Titre de la thèse",
@@ -733,25 +697,9 @@
     "defaultMessage": "1. Détails de l’expérience communautaire",
     "description": "Title for Community Experience form"
   },
-  "Os+BwT": {
-    "defaultMessage": "Décrire les détails de l’expérience ici...",
-    "description": "Placeholder for experience description input"
-  },
-  "Q18B0y": {
-    "defaultMessage": "Écrire le titre ici...",
-    "description": "Placeholder for experience title input"
-  },
-  "TSqr8X": {
-    "defaultMessage": "Écrire le nom ici...",
-    "description": "Placeholder for issuing organization input"
-  },
   "UDpZ1q": {
     "defaultMessage": "1. Détails de l’expérience personnelle",
     "description": "Title for Personal Experience Details form"
-  },
-  "Uv9q53": {
-    "defaultMessage": "Écrire le domaine d’étude ici...",
-    "description": "Placeholder for area of study input"
   },
   "W7LpsW": {
     "defaultMessage": "1. Détails des études",
@@ -1029,10 +977,6 @@
     "defaultMessage": "Il n'y a pas encore de compétences rattachées à cette expérience. Vous pouvez en ajouter quelques-unes à l'étape ci-dessus.",
     "description": "Message to user when no skills have been attached to experience."
   },
-  "H1J8wl": {
-    "defaultMessage": "p. ex., Thomas",
-    "description": "Placeholder displayed for the first name field in create account form."
-  },
   "H3Za3e": {
     "defaultMessage": "Enregistrer et aller sur mon profil",
     "description": "Button label for submit button on create account form."
@@ -1189,10 +1133,6 @@
     "defaultMessage": "Options d'équité en matière d'emploi :",
     "description": "Heading for employment equity categories available to be added to user profile."
   },
-  "UIkTbl": {
-    "defaultMessage": "p. ex. thomas.edison@example.com",
-    "description": "Placeholder displayed for the first name field in create account form."
-  },
   "3vjhOA": {
     "defaultMessage": "Évaluation linguistique du gouvernement du Canada",
     "description": "Message on links to the language evaluation tests"
@@ -1220,10 +1160,6 @@
   "X354at": {
     "defaultMessage": "Évaluation bilingue",
     "description": "Legend bilingual evaluation status in language information form"
-  },
-  "X9IdZQ": {
-    "defaultMessage": "p. ex, Edison",
-    "description": "Placeholder displayed for the first name field in create account form."
   },
   "XBfLOu": {
     "defaultMessage": "Mon statut",
@@ -1356,10 +1292,6 @@
   "i5xxbe": {
     "defaultMessage": "Courriel",
     "description": "Label for email field in About Me form"
-  },
-  "i99arX": {
-    "defaultMessage": "Comment j'ai utilisé cette compétence...",
-    "description": "Placeholder message for textarea in the skills in detail section."
   },
   "jbftvG": {
     "defaultMessage": "<strong>Oui</strong>, je suis un(e) employé(e) du gouvernement du Canada",
@@ -1504,10 +1436,6 @@
   "xDgNfZ": {
     "defaultMessage": "Renseignements du gouvernement",
     "description": "Title for Profile Form Wrapper in Government Information Form"
-  },
-  "xq6TbG": {
-    "defaultMessage": "Commencez à écrire ici...",
-    "description": "Placeholder displayed on the About Me form current city field."
   },
   "Vvb8tu": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
@@ -1928,10 +1856,6 @@
   "NjHXGh": {
     "defaultMessage": "En savoir plus<hidden> sur le Bureau de la dirigeante principale de l’information</hidden>",
     "description": "Link text for the Office of the Chief Information Officer"
-  },
-  "OH5tTS": {
-    "defaultMessage": "En option, ajoutez une ville ou un village ici...",
-    "description": "Location Exemptions field placeholder for work location preference form"
   },
   "5G+j56": {
     "defaultMessage": "Numéro de priorité accordé par la Commission de la fonction publique du Canada",
@@ -3368,10 +3292,6 @@
     "defaultMessage": "Erreur : échec de la mise à jour de la famille de compétences",
     "description": "Message displayed to user after skillFamily fails to get updated."
   },
-  "/MBeNc": {
-    "defaultMessage": "Commencez à écrire vos notes ici...",
-    "description": "Placeholder text for a pool candidates notes field"
-  },
   "/fv4O0": {
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled WorkPreferences section."
@@ -3911,10 +3831,6 @@
     "defaultMessage": "Archive",
     "description": "Text on a button to archive the pool"
   },
-  "PCuQMN": {
-    "defaultMessage": "Saisissez les tâches clés pour cette affiche de poste...",
-    "description": "Placeholder message for  the English - Your Work textarea in the edit pool page."
-  },
   "PH+6C9": {
     "defaultMessage": "Emplacement précis (français)",
     "description": "Label for a pool advertisements specific French Location"
@@ -3955,14 +3871,6 @@
     "defaultMessage": "Professionnel",
     "description": "Title for pool advertisement occupational skill list"
   },
-  "XprYVQ": {
-    "defaultMessage": "Rédiger l'introduction de cette offre d'emploi...",
-    "description": "Placeholder message for  the English - Your Impact textarea in the edit pool page."
-  },
-  "Xsxvql": {
-    "defaultMessage": "Saisissez les tâches clés pour cette affiche de poste...",
-    "description": "Placeholder message for the French - Your Work textarea in the edit pool page."
-  },
   "YH6bFU": {
     "defaultMessage": "Colonnes du tableau",
     "description": "Dialog title for the admin tables columns toggle."
@@ -3978,10 +3886,6 @@
   "cEeW3m": {
     "defaultMessage": "Emplacement (français) : {locationFr}",
     "description": "Pool advertisement location requirement, French"
-  },
-  "cQE6qE": {
-    "defaultMessage": "Rédiger l'introduction de cette offre d'emploi...",
-    "description": "Placeholder message for the French - Your Impact textarea in the edit pool page."
   },
   "cy5aj8": {
     "defaultMessage": "État",
@@ -6163,10 +6067,6 @@
   "h486wf": {
     "defaultMessage": "Erreur : La mise à jour de l’équipe a échoué",
     "description": "Messaged displayed after updating team fails"
-  },
-  "hTzoAW": {
-    "defaultMessage": "personne-ressource@courriel.com",
-    "description": "Placeholder email format example for team contact email input"
   },
   "i0IT1I": {
     "defaultMessage": "Annuler et retourner aux équipes",
