@@ -99,6 +99,10 @@ export function matchStringCaseDiacriticInsensitive(
   needle: string,
   compareString: string,
 ) {
+  if (needle.length > 1000) {
+    // short-circuit for very long needle cases, prevents RegExp crashing
+    return false;
+  }
   const escapedNeedle = escapeAString(needle); // escape certain characters for Regex purposes
   return (
     compareString
