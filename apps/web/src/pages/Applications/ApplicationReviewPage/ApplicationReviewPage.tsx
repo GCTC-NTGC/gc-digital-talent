@@ -53,13 +53,13 @@ export const getPageInfo: GetPageNavInfo = ({
   return {
     title: intl.formatMessage({
       defaultMessage: "Review your submission",
-      id: "rR+M64",
-      description: "Page title for the application review page",
+      id: "JxDtt+",
+      description: "Page title for the application review page.",
     }),
     subtitle: intl.formatMessage({
       defaultMessage: "Review your application and submit it!",
-      id: "O6L+3N",
-      description: "Subtitle for the application review page",
+      id: "4ii2WZ",
+      description: "Subtitle for the application review page.",
     }),
     icon: RocketLaunchIcon,
     crumbs: [
@@ -74,8 +74,8 @@ export const getPageInfo: GetPageNavInfo = ({
       url: path,
       label: intl.formatMessage({
         defaultMessage: "Review and submit",
-        id: "QDcEYJ",
-        description: "Link text for the application review page",
+        id: "DXtgrn",
+        description: "Link text for the application review page.",
       }),
     },
   };
@@ -115,7 +115,9 @@ const ApplicationReview = ({
           toast.success(
             intl.formatMessage({
               defaultMessage: "We successfully received your application",
-              id: "k0//XC",
+              id: "7vOa71",
+              description:
+                "Success message after submission for the application review page.",
             }),
           );
           navigate(nextStep);
@@ -125,7 +127,9 @@ const ApplicationReview = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: submitting application failed",
-            id: "1lFWN/",
+            id: "yC4xI6",
+            description:
+              "Error message after failed submission for the application review page.",
           }),
         );
       });
@@ -162,7 +166,8 @@ const ApplicationReview = ({
           {intl.formatMessage({
             defaultMessage:
               "Before continuing, it’s important that you understand the following notes about your application:",
-            id: "hX7Z1l",
+            id: "GXmpsW",
+            description: "Starting message for the application review page.",
           })}
         </p>
         <ul>
@@ -171,7 +176,9 @@ const ApplicationReview = ({
               {intl.formatMessage({
                 defaultMessage:
                   "When you submit your application, a copy of your profile will be created as a part of your application.",
-                id: "WWoPd/",
+                id: "G4nPxX",
+                description:
+                  "List item message for the application review page.",
               })}
             </p>
           </li>
@@ -180,7 +187,9 @@ const ApplicationReview = ({
               {intl.formatMessage({
                 defaultMessage:
                   "Changes made to your profile after submitting will not be updated on your application.",
-                id: "RvafWw",
+                id: "fE6aTX",
+                description:
+                  "List item message for the application review page.",
               })}
             </p>
           </li>
@@ -189,7 +198,9 @@ const ApplicationReview = ({
               {intl.formatMessage({
                 defaultMessage:
                   "You are still encouraged to keep your profile up to date, as updated versions will be used at later steps of the hiring process.",
-                id: "TIU07I",
+                id: "cWukJu",
+                description:
+                  "List item message for the application review page.",
               })}
             </p>
           </li>
@@ -198,12 +209,16 @@ const ApplicationReview = ({
       <ReviewSection
         title={intl.formatMessage({
           defaultMessage: "Your résumé",
-          id: "IYAKcM",
+          id: "2lOey6",
+          description:
+            "Heading for resume section of the application review page.",
         })}
         path={editPaths.resume}
         editLinkAriaLabel={intl.formatMessage({
           defaultMessage: "Edit your resume",
-          id: "uTCa2Y",
+          id: "v0QzOM",
+          description:
+            "Edit link text for resume section of the application review page.",
         })}
       >
         <TreeView.Root>
@@ -213,7 +228,9 @@ const ApplicationReview = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "This section summarizes your résumé as it will be seen by hiring managers for these positions.",
-                  id: "zAsBK0",
+                  id: "O83lYZ",
+                  description:
+                    "Blurb for resume section of the application review page.",
                 })}
               </p>
             </Card>
@@ -239,7 +256,9 @@ const ApplicationReview = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "It looks like you haven't added any experiences to your résumé yet.",
-                  id: "bOLaWz",
+                  id: "x0Eob3",
+                  description:
+                    "Null state message for resume section of the application review page.",
                 })}
               </p>
             </Well>
@@ -249,12 +268,16 @@ const ApplicationReview = ({
       <ReviewSection
         title={intl.formatMessage({
           defaultMessage: "Minimum experience or equivalent education",
-          id: "Ye8Uif",
+          id: "2je6Bi",
+          description:
+            "Heading for education requirements section of the application review page.",
         })}
         path={editPaths.education}
         editLinkAriaLabel={intl.formatMessage({
           defaultMessage: "Edit education requirements",
-          id: "9KkNpy",
+          id: "jV/FG1",
+          description:
+            "Edit link text for education requirements section of the application review page.",
         })}
       >
         <TreeView.Root>
@@ -264,7 +287,9 @@ const ApplicationReview = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "You’ve indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your résumé:",
-                  id: "U16BJ5",
+                  id: "MZrE40",
+                  description:
+                    "Message on education requirements card on the application review page.",
                 })}
               </p>
             </Card>
@@ -293,7 +318,9 @@ const ApplicationReview = ({
                     {intl.formatMessage({
                       defaultMessage:
                         "It looks like you haven't selected an education requirement yet.",
-                      id: "lZXCYx",
+                      id: "mf8++l",
+                      description:
+                        "Null state message for education requirement section of the application review page.",
                     })}
                   </p>
                 </Well>
@@ -303,7 +330,9 @@ const ApplicationReview = ({
                     {intl.formatMessage({
                       defaultMessage:
                         "It looks like you haven't added any experiences to your résumé yet.",
-                      id: "bOLaWz",
+                      id: "ifzI0r",
+                      description:
+                        "Null state message for education requirement section of the application review page.",
                     })}
                   </p>
                 </Well>
@@ -315,12 +344,16 @@ const ApplicationReview = ({
       <ReviewSection
         title={intl.formatMessage({
           defaultMessage: "Skill requirements",
-          id: "MP+5bd",
+          id: "jX2LG0",
+          description:
+            "Heading for skill requirements section of the application review page.",
         })}
         path={editPaths.skills}
         editLinkAriaLabel={intl.formatMessage({
           defaultMessage: "Edit skill requirements",
-          id: "svskw3",
+          id: "6QGFk9",
+          description:
+            "Edit link text for skill requirements section of the application review page.",
         })}
       >
         <div data-h2-margin-top="base(-x2)">
@@ -342,12 +375,16 @@ const ApplicationReview = ({
         <ReviewSection
           title={intl.formatMessage({
             defaultMessage: "Screening questions",
-            id: "/7P3+F",
+            id: "qGyD4w",
+            description:
+              "Heading for screening questions section of the application review page.",
           })}
           path={editPaths.screeningQuestions}
           editLinkAriaLabel={intl.formatMessage({
             defaultMessage: "Edit screening questions",
-            id: "sNOjXZ",
+            id: "5A0a7w",
+            description:
+              "Edit link text for screening questions section of the application review page.",
           })}
         >
           {screeningQuestionResponses.length > 0 ? (
@@ -356,7 +393,9 @@ const ApplicationReview = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "You’ve answered the following screening questions:",
-                  id: "GJc/j5",
+                  id: "Sd8883",
+                  description:
+                    "Message in screening questions section of the application review page.",
                 })}
               </p>
               <ul>
@@ -381,7 +420,9 @@ const ApplicationReview = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "It looks like you haven't answered any screening questions yet.",
-                  id: "+ojoEd",
+                  id: "V9lxDE",
+                  description:
+                    "Null state message in screening questions section of the application review page.",
                 })}
               </p>
             </Well>
@@ -393,7 +434,9 @@ const ApplicationReview = ({
         <Heading level="h3" data-h2-margin="base(0, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage: "Sign and submit",
-            id: "+sWqVY",
+            id: "fhgZRX",
+            description:
+              "Heading for sign and submit section of application review page.",
           })}
         </Heading>
         <div>
@@ -401,8 +444,10 @@ const ApplicationReview = ({
             <form onSubmit={methods.handleSubmit(handleSubmit)}>
               <p data-h2-margin-bottom="base(x1)">
                 {intl.formatMessage({
-                  defaultMessage: `"You made it! By signing your name, you confirm that:"`,
-                  id: "d0KeTK",
+                  defaultMessage: `You made it! By signing your name, you confirm that:`,
+                  id: "e05s3z",
+                  description:
+                    "Heading for sign and submit section of application review page.",
                 })}
               </p>
               <ul>
@@ -410,7 +455,9 @@ const ApplicationReview = ({
                   <p data-h2-margin-bottom="base(x.5)">
                     {intl.formatMessage({
                       defaultMessage: `"I’ve reviewed everything written in my application"`,
-                      id: "IFVdRD",
+                      id: "Th2Tu0",
+                      description:
+                        "List item for sign and submit section of application review page.",
                     })}
                   </p>
                 </li>
@@ -418,16 +465,19 @@ const ApplicationReview = ({
                   <p data-h2-margin-bottom="base(x.5)">
                     {intl.formatMessage({
                       defaultMessage: `"I understand that I am part of a community who trusts each other"`,
-                      id: "MKU7g2",
+                      id: "ra+ohb",
+                      description:
+                        "List item for sign and submit section of application review page.",
                     })}
                   </p>
                 </li>
                 <li>
                   <p data-h2-margin-bottom="base(x.5)">
                     {intl.formatMessage({
-                      defaultMessage:
-                        "I promise that the information I’ve provided is true",
-                      id: "kAMYLw",
+                      defaultMessage: `"I promise that the information I’ve provided is true"`,
+                      id: "n3vark",
+                      description:
+                        "List item for sign and submit section of application review page.",
                     })}
                   </p>
                 </li>
@@ -437,9 +487,9 @@ const ApplicationReview = ({
                   id="signature"
                   label={intl.formatMessage({
                     defaultMessage: "Your full name",
-                    id: "QlSMW5",
+                    id: "T8eOrg",
                     description:
-                      "Label displayed for signature input in sign and submit page.",
+                      "Label displayed for signature input in sign and submit section of application review page.",
                   })}
                   type="text"
                   name="signature"
