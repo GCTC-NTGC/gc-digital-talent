@@ -478,7 +478,7 @@
     "defaultMessage": "Nous pouvons encore vous aider!",
     "description": "Heading for helping user if no candidates matched the filters chosen."
   },
-  "6mDW+R": {
+  "3BfvIy": {
     "defaultMessage": "Demande de candidats",
     "description": "Button link message on search page that takes user to the request form."
   },
@@ -550,7 +550,7 @@
     "defaultMessage": "Recherche dans le bassin de talents numériques",
     "description": "Title displayed in the hero section of the Search page."
   },
-  "Tg8a57": {
+  "AaoxNX": {
     "defaultMessage": "Utilisez les filtres ci-dessous pour préciser vos besoins d’embauche. En tout temps, vous pouvez consulter les résultats situés en bas de cette page pour voir combien de candidats correspondent aux exigences que vous avez entrées. Lorsque vous êtes satisfait des filtres que vous avez sélectionnés, cliquez sur le bouton Demander des candidats pour ajouter des renseignements et soumettre un formulaire de demande.",
     "description": "Content displayed in the How To area of the hero section of the Search page."
   },
@@ -8055,5 +8055,25 @@
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
+  },
+  "GKKj6G": {
+    "defaultMessage": "Processus exécuté par {team} à[GN1]  {departments}",
+    "description": "Text showing the team and department of the HR pool."
+  },
+  "2Ljgvn": {
+    "defaultMessage": "Consulter l’avis d’emploi pour ce processus de recrutement",
+    "description": "Link message that shows the job poster for the recruitment process."
+  },
+  "SZ2DsZ": {
+    "defaultMessage": "Secrétariat du Conseil du Trésor du Canada",
+    "description": "Text showing the department of the HR pool."
+  },
+  "S82O61": {
+    "defaultMessage": "Équipe de gestion de la collectivité du numérique",
+    "description": "Text showing the team of the HR pool."
+  },
+  "VN6uCI": {
+    "defaultMessage": "Ces compétences essentielles seront évaluées dans le cadre du processus :",
+    "description": "Text showing the essentials skills assessed during the process"
   }
 }
