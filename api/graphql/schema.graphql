@@ -333,7 +333,6 @@ type Pool {
   team: Team @belongsTo @can(ability: "viewAny")
   name: LocalizedString
   key: KeyString
-  description: LocalizedString
   classifications: [Classification] @belongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
@@ -373,7 +372,6 @@ type PoolAdvertisement {
   closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   name: LocalizedString
-  description: LocalizedString
   classifications: [Classification] @belongsToMany
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
@@ -1374,7 +1372,6 @@ input CreatePoolInput {
   team: TeamBelongsTo!
   name: LocalizedStringInput!
   key: KeyString
-  description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
@@ -1401,7 +1398,6 @@ input UpdatePoolInput {
   owner: UserBelongsTo @rename(attribute: "user")
   team: TeamBelongsTo @rename(attribute: "team")
   name: LocalizedStringInput
-  description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
@@ -1412,12 +1408,22 @@ input UpdatePoolInput {
 }
 
 input CreateDepartmentInput {
-  departmentNumber: Int! @rename(attribute: "department_number")
+  departmentNumber: Int!
+    @rename(attribute: "department_number")
+    @rules(
+      apply: ["unique:departments,department_number"]
+      messages: [{ rule: "unique", message: "DepartmentNumberInUse" }]
+    )
   name: LocalizedStringInput
 }
 
 input UpdateDepartmentInput {
-  departmentNumber: Int @rename(attribute: "department_number")
+  departmentNumber: Int
+    @rename(attribute: "department_number")
+    @rules(
+      apply: ["unique:departments,department_number"]
+      messages: [{ rule: "unique", message: "DepartmentNumberInUse" }]
+    )
   name: LocalizedStringInput
 }
 

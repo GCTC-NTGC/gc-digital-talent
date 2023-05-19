@@ -134,7 +134,6 @@ const SearchPools = ({
           },
         )}
       </p>
-
       <Button
         color="secondary"
         mode="outline"

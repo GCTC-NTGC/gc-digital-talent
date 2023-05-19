@@ -33,7 +33,6 @@ class PoolFactory extends Factory
         return [
             'name' => ['en' => $name, 'fr' => $name],
             'key' => KeyStringHelpers::toKeyString($name),
-            'description' => ['en' => $this->faker->paragraph(), 'fr' => $this->faker->paragraph()],
             'user_id' => User::factory(),
             'team_id' => Team::factory(),
             'operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),

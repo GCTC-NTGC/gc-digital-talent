@@ -109,13 +109,6 @@ const YourImpactSection = ({
                   description:
                     "Label for the English - Your Impact textarea in the edit pool page.",
                 })}
-                placeholder={intl.formatMessage({
-                  defaultMessage:
-                    "Write the introduction for this job poster...",
-                  id: "XprYVQ",
-                  description:
-                    "Placeholder message for  the English - Your Impact textarea in the edit pool page.",
-                })}
                 name="yourImpactEn"
                 rules={{
                   validate: {
@@ -147,13 +140,6 @@ const YourImpactSection = ({
                   id: "fPy7Mg",
                   description:
                     "Label for the French - Your Impact textarea in the edit pool page.",
-                })}
-                placeholder={intl.formatMessage({
-                  defaultMessage:
-                    "Write the introduction for this job poster...",
-                  id: "cQE6qE",
-                  description:
-                    "Placeholder message for the French - Your Impact textarea in the edit pool page.",
                 })}
                 name="yourImpactFr"
                 rules={{

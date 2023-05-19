@@ -180,12 +180,6 @@ export const CreateAccountForm = ({
                     name="firstName"
                     type="text"
                     label={labels.firstName}
-                    placeholder={intl.formatMessage({
-                      defaultMessage: "e.g. Thomas",
-                      id: "H1J8wl",
-                      description:
-                        "Placeholder displayed for the first name field in create account form.",
-                    })}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
@@ -197,12 +191,6 @@ export const CreateAccountForm = ({
                     name="lastName"
                     type="text"
                     label={labels.lastName}
-                    placeholder={intl.formatMessage({
-                      defaultMessage: "e.g. Edison",
-                      id: "X9IdZQ",
-                      description:
-                        "Placeholder displayed for the first name field in create account form.",
-                    })}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
@@ -215,12 +203,6 @@ export const CreateAccountForm = ({
                   type="email"
                   name="email"
                   label={labels.email}
-                  placeholder={intl.formatMessage({
-                    defaultMessage: "e.g. thomas.edison@example.com",
-                    id: "UIkTbl",
-                    description:
-                      "Placeholder displayed for the first name field in create account form.",
-                  })}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
