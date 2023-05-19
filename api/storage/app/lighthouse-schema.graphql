@@ -97,6 +97,7 @@ input ApplicantFilterInput {
 
 enum ApplicationStep {
   WELCOME
+  SELF_DECLARATION
   REVIEW_YOUR_PROFILE
   REVIEW_YOUR_RESUME
   EDUCATION_REQUIREMENTS

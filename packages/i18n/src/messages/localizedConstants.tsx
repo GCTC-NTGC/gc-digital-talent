@@ -627,8 +627,8 @@ export const candidateExpiryFilterStatuses = defineMessages({
   },
   [CandidateExpiryFilter.All]: {
     defaultMessage: "All",
-    id: "qQtJDw",
-    description: "All statuses",
+    id: "XnvXtO",
+    description: "All",
   },
   [CandidateExpiryFilter.Expired]: {
     defaultMessage: "Expired",
@@ -654,8 +654,8 @@ export const candidateSuspendedFilterStatuses = defineMessages({
   },
   [CandidateSuspendedFilter.All]: {
     defaultMessage: "All",
-    id: "qQtJDw",
-    description: "All statuses",
+    id: "XnvXtO",
+    description: "All",
   },
   [CandidateSuspendedFilter.Suspended]: {
     defaultMessage: "Suspended",
@@ -1601,9 +1601,9 @@ export const publishingGroups = defineMessages({
   },
   [PublishingGroup.Iap]: {
     defaultMessage: "IAP",
-    id: "LWsmvv",
+    id: "I6gM/P",
     description:
-      "The publishing group called Indigenous Apprenticeship Program",
+      "The publishing group called IT Apprenticeship Program for Indigenous Peoples",
   },
   [PublishingGroup.ItJobs]: {
     defaultMessage: "IT Jobs",

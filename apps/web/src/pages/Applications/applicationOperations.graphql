@@ -251,3 +251,19 @@ mutation UpdateApplication($id: ID!, $application: UpdateApplicationInput!) {
     id
   }
 }
+
+mutation UpdateUserAndApplication(
+  $userId: ID!
+  $userInput: UpdateUserAsUserInput!
+  $applicationId: ID!
+  $applicationInput: UpdateApplicationInput!
+) {
+  updateUserAsUser(id: $userId, user: $userInput) {
+    id
+    indigenousCommunities
+    indigenousDeclarationSignature
+  }
+  updateApplication(id: $applicationId, application: $applicationInput) {
+    id
+  }
+}

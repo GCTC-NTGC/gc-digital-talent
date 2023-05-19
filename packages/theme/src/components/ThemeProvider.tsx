@@ -157,14 +157,14 @@ const ThemeProvider = ({
 
   const state = React.useMemo(
     () => ({
-      mode,
-      key,
+      mode: override?.mode || mode,
+      key: override?.key || key,
       setTheme,
       setMode,
       setKey,
       isPref: !mode || mode === "pref",
     }),
-    [mode, key, setTheme, setMode, setKey],
+    [mode, key, setTheme, setMode, setKey, override],
   );
 
   return (
