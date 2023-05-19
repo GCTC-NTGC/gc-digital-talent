@@ -28,10 +28,49 @@ const messages: Map<string, Messages> = new Map([
   ["mic", micMessages],
 ]);
 
-const Layout = () => {
+const IAPNavMenu = () => {
   const intl = useIntl();
-  const location = useLocation();
   const paths = useRoutes();
+
+  return (
+    <NavMenu
+      mainItems={[
+        <MenuLink key="home" to={paths.iap()}>
+          {intl.formatMessage({
+            defaultMessage: "Home",
+            id: "M1JKQs",
+            description:
+              "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples.",
+          })}
+        </MenuLink>,
+      ]}
+    />
+  );
+};
+
+const IAPSeo = () => {
+  const intl = useIntl();
+
+  return (
+    <SEO
+      title={intl.formatMessage({
+        defaultMessage: "IT Apprenticeship Program for Indigenous Peoples",
+        id: "oMpO+C",
+        description:
+          "Title tag for IT Apprenticeship Program for Indigenous Peoples site",
+      })}
+      description={intl.formatMessage({
+        defaultMessage: "Apply now to get started on your IT career journey.",
+        id: "Z9W+O2",
+        description:
+          "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site",
+      })}
+    />
+  );
+};
+
+const Layout = () => {
+  const location = useLocation();
   useLayoutTheme("iap");
 
   const aiConnectionString = getRuntimeVariable(
@@ -53,22 +92,7 @@ const Layout = () => {
       <AnimatePresence>
         <React.Fragment key={location.pathname}>
           <Favicon project="iap" />
-          <SEO
-            title={intl.formatMessage({
-              defaultMessage:
-                "IT Apprenticeship Program for Indigenous Peoples",
-              id: "oMpO+C",
-              description:
-                "Title tag for IT Apprenticeship Program for Indigenous Peoples site",
-            })}
-            description={intl.formatMessage({
-              defaultMessage:
-                "Apply now to get started on your IT career journey.",
-              id: "Z9W+O2",
-              description:
-                "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site",
-            })}
-          />
+          <IAPSeo />
           <SkipLink />
           <div
             className="container"
@@ -79,18 +103,7 @@ const Layout = () => {
           >
             <div>
               <Header />
-              <NavMenu
-                mainItems={[
-                  <MenuLink key="home" to={paths.iap()}>
-                    {intl.formatMessage({
-                      defaultMessage: "Home",
-                      id: "M1JKQs",
-                      description:
-                        "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples.",
-                    })}
-                  </MenuLink>,
-                ]}
-              />
+              <IAPNavMenu />
             </div>
             <main id="main">
               <Outlet />

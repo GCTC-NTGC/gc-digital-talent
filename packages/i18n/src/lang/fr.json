@@ -781,6 +781,10 @@
     "defaultMessage": "Cette chaîne de clés de famille de compétences est déjà utilisée",
     "description": "Error message that the given skill family key is already in use."
   },
+  "xH10Pp": {
+    "defaultMessage": "Ce numéro de ministère est déjà utilisé",
+    "description": "Error message that the input department number is already in use."
+  },
   "XerShr": {
     "defaultMessage": "Recherche active",
     "description": "Job Looking Status described as Actively looking."
@@ -1141,9 +1145,9 @@
     "defaultMessage": "Suspendu",
     "description": "Suspended status"
   },
-  "qQtJDw": {
+  "XnvXtO": {
     "defaultMessage": "Tous",
-    "description": "All statuses"
+    "description": "All"
   },
   "nLW9zq": {
     "defaultMessage": "Technologie de l’information"

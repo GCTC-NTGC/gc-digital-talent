@@ -98,12 +98,6 @@ const FormFields = ({ labels }: FormFieldProps) => {
           name="currentCity"
           type="text"
           label={labels.currentCity}
-          placeholder={intl.formatMessage({
-            defaultMessage: "Start writing here...",
-            id: "xq6TbG",
-            description:
-              "Placeholder displayed on the About Me form current city field.",
-          })}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}

@@ -92,12 +92,6 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
             id: "PhrOLp",
             description: "Label for the French team display name input",
           })}
-          placeholder={intl.formatMessage({
-            defaultMessage: "contact@email.com",
-            id: "hTzoAW",
-            description:
-              "Placeholder email format example for team contact email input",
-          })}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}

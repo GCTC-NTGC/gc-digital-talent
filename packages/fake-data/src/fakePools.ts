@@ -34,10 +34,6 @@ const generatePool = (
       en: englishName,
       fr: frenchName,
     },
-    description: {
-      en: `EN ${faker.lorem.sentence()}`,
-      fr: `FR ${faker.lorem.sentence()}`,
-    },
     classifications:
       faker.helpers.arrayElements<Classification>(classifications),
     keyTasks: {
