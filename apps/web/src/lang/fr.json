@@ -7958,7 +7958,7 @@
   },
   "SZ2DsZ": {
     "defaultMessage": "Secrétariat du Conseil du Trésor du Canada",
-    "description": "Text showing the department of the HR pool."
+    "description": "Default department for pool"
   },
   "S82O61": {
     "defaultMessage": "Équipe de gestion de la collectivité du numérique",
