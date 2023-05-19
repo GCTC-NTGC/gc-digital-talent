@@ -10,10 +10,6 @@ fragment pool on Pool {
     en
     fr
   }
-  description {
-    en
-    fr
-  }
   keyTasks {
     en
     fr
@@ -69,10 +65,6 @@ query getPools {
       en
       fr
     }
-    description {
-      en
-      fr
-    }
     classifications {
       id
       group
@@ -91,10 +83,6 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
       id
     }
     name {
-      en
-      fr
-    }
-    description {
       en
       fr
     }

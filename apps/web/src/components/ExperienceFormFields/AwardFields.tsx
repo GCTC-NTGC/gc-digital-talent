@@ -22,11 +22,6 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
           <Input
             id="awardTitle"
             label={labels.awardTitle}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Write award title here...",
-              id: "9ttiBB",
-              description: "Placeholder for award title input",
-            })}
             name="awardTitle"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
@@ -76,11 +71,6 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
           <Input
             id="issuedBy"
             label={labels.issuedBy}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Write name here...",
-              id: "TSqr8X",
-              description: "Placeholder for issuing organization input",
-            })}
             name="issuedBy"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
