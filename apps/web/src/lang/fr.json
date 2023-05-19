@@ -7949,7 +7949,7 @@
     "description": "Title displayed on the candidate skill count column."
   },
   "GKKj6G": {
-    "defaultMessage": "Processus exécuté par {team} à[GN1]  {departments}",
+    "defaultMessage": "Processus exécuté par {team} à {departments}",
     "description": "Text showing the team and department of the HR pool."
   },
   "2Ljgvn": {
