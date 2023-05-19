@@ -8151,5 +8151,113 @@
   "RlYe/i": {
     "defaultMessage": "Le passage réussi de deux années d’éducation postsecondaire en sciences informatiques, en technologie de l’information, en gestion de l’information ou dans un autre domaine spécialisé pertinent à ce poste.",
     "description": "post secondary education experience for pool advertisement"
+  },
+  "3O0s49": {
+    "defaultMessage": "Choisissez l’option qui s’applique à votre situation",
+    "description": "Legend for the  radio group in the application education page."
+  },
+  "6Q1N7Z": {
+    "defaultMessage": "Veuillez sélectionner les expériences dans :",
+    "description": "Message before skills list in application education page."
+  },
+  "72pd2Z": {
+    "defaultMessage": "<strong>gestion de l’information</strong>, ou",
+    "description": "List item of experiences required in application education page."
+  },
+  "9+kmjB": {
+    "defaultMessage": "Ma situation concorde avec l’option d’expérience de travail appliquée",
+    "description": "Radio group option for education requirement filter in application education form."
+  },
+  "CnbI8J": {
+    "defaultMessage": "Autre expérience dans un domaine connexe",
+    "description": "List item in applied work option in application education page."
+  },
+  "DEUOhY": {
+    "defaultMessage": "Formation non classique",
+    "description": "List item in applied work option in application education page."
+  },
+  "EdybCb": {
+    "defaultMessage": "<strong>informatique</strong>",
+    "description": "Message before skills list in application education page."
+  },
+  "EyH6FY": {
+    "defaultMessage": "Sélectionnez les expériences pertinentes",
+    "description": "Legend for the checklist in the application education page."
+  },
+  "GXC9N4": {
+    "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expérience de formation à votre curriculum vitæ .</strong>",
+    "description": "Alert message informing user to add education experience in application education page."
+  },
+  "MQUZaf": {
+    "defaultMessage": "Une expérience combinée de l’informatique, de la technologie de l’information, de la gestion de l’information ou d’une autre spécialité pertinente à cette offre d’emploi, y compris l’un ou l’autre des domaines suivants :",
+    "description": "Message under radio button in application education page."
+  },
+  "QYlwuE": {
+    "defaultMessage": "Vous avez mis à jour l’exigence relative aux études que vous devez remplir",
+    "description": "Message displayed to users when saving education requirement is successful."
+  },
+  "RtJ+34": {
+    "defaultMessage": "Scolarité",
+    "description": "List item in applied work option in application education page."
+  },
+  "Vs35dN": {
+    "defaultMessage": "Une fois que vous avez sélectionné le critère auquel vous répondez, nous vous prions de nous indiquer dans cette section les points particuliers de votre curriculum vitæ qui correspondent à cette option. S’il vous faut ajouter d’autres éléments à votre curriculum vitæ, vous pouvez le faire en retournant à l’étape correspondante dans la demande d’emploi.",
+    "description": "Description for checklist section in application education page."
+  },
+  "WkjRzF": {
+    "defaultMessage": "Lien vers votre curriculum vitæ",
+    "description": "Heading for checklist section in application education page."
+  },
+  "ZCUy93": {
+    "defaultMessage": "Erreur : La mise à jour de l’exigence relative aux études a échoué.",
+    "description": "Message displayed to user after education requirement fails to be updated."
+  },
+  "cT6KeA": {
+    "defaultMessage": "Veuillez choisir une option pour continuer.",
+    "description": "Alert message informing user to select an option first in application education page."
+  },
+  "d2s3n5": {
+    "defaultMessage": "Vous pouvez ajouter des expériences au moment <link>de créer une nouvelle expérience dans votre curriculum vitæ à l’étape précédente.</link>",
+    "description": "Deuxième message d’avertissement informant l’utilisatrice ou l’utilisateur qu’il doit ajouter une expérience à la page dédiée aux études de la demande d’emploi."
+  },
+  "fvE7Cx": {
+    "defaultMessage": "Apprentissage en cours d’emploi",
+    "description": "List item in applied work option in application education page."
+  },
+  "h0Mrq9": {
+    "defaultMessage": "<strong>technologie de l’information</strong>",
+    "description": "List item of experiences required in application education page."
+  },
+  "iMAe2n": {
+    "defaultMessage": "<strong>une autre spécialité pertinente à cette offre d’emploi</strong>",
+    "description": "List item of experiences required in application education page."
+  },
+  "lb2jFJ": {
+    "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expérience à votre curriculum vitæ .</strong>",
+    "description": "Alert message informing user to add experience in application education page."
+  },
+  "qEYoGS": {
+    "defaultMessage": "Pour nous aider à comprendre comment vous répondez aux critères d’expérience et de formation minimaux, veuillez indiquer les options qui correspondent à votre situation, ainsi que les expériences de votre curriculum vitæ qui s’appliquent. Si les deux options s’appliquent à vous, tant mieux! N’hésitez pas à choisir l’option qui reflète le mieux vos qualifications.",
+    "description": "Description for radio group section in application education page."
+  },
+  "rGqohv": {
+    "defaultMessage": "Ma situation correspond à l’option de deux années d’études postsecondaires.",
+    "description": "Radio group option for education requirement filter in application education form."
+  },
+  "sHKNfX": {
+    "defaultMessage": "Vous pouvez ajouter des expériences propres à vos études en sélectionnant l’option \"Education and certificates\" (Études et certificats) au moment de <link>créer une nouvelle expérience pertinente à votre curriculum vitæ à l’étape précédente.</link>",
+    "description": "Secondary alert message informing user to add education experience in application education page."
+  },
+  "socp8t": {
+    "defaultMessage": "Achèvement de deux années d’études postsecondaires en informatique, en technologie de l’information, en gestion de l’information ou dans une autre spécialité pertinente à cette offre d’emploi.",
+    "description": "Message under radio button in application education page."
+  },
+  "yJnGeT": {
+    "defaultMessage": "Choisissez le critère auquel vous répondez.",
+    "description": "Heading for radio group section in application education page."
+  },
+  "Td1lSw": {
+    "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience de formation à votre curriculum vitæ .",
+    "description": "Alert message informing user to add education experience in application education page."
   }
 }

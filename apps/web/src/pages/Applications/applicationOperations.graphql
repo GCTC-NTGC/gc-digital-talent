@@ -203,7 +203,14 @@ query GetApplication($id: UUID!) {
         }
       }
     }
-
+    educationRequirementOption
+    educationRequirementExperiences {
+      id
+      applicant {
+        id
+        email
+      }
+    }
     submittedSteps
     screeningQuestionResponses {
       id
