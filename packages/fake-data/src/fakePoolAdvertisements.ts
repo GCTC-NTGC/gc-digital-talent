@@ -34,7 +34,6 @@ const generatePoolAdvertisement = (
       Object.values(AdvertisementStatus),
     ),
     classifications: [faker.helpers.arrayElement(classifications)],
-    description: toLocalizedString(faker.lorem.sentence()),
     essentialSkills: faker.helpers.arrayElements(
       skills,
       faker.datatype.number({
