@@ -159,12 +159,12 @@ const getRoutes = (lang: Locales) => {
     // Applications
     applications: (userId: string) =>
       path.join(userUrl(userId), "applications"),
+    application: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId),
     signAndSubmit: (applicationId: string) =>
       path.join(baseUrl, "browse", "applications", applicationId, "submit"),
     reviewApplication: (applicationId: string) =>
       path.join(baseUrl, "browse", "applications", applicationId, "apply"),
-    application: (applicationId: string) =>
-      path.join(baseUrl, "applications", applicationId),
     applicationWelcome: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "welcome"),
     applicationSelfDeclaration: (applicationId: string) =>

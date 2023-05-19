@@ -116,7 +116,7 @@ const Display = ({
             description: "Contact languages preference label",
           })}
         >
-          <p>
+          <span data-h2-display="base(block)">
             {intl.formatMessage(
               {
                 defaultMessage: "General communication: {language}",
@@ -129,8 +129,8 @@ const Display = ({
                   : notProvided,
               },
             )}
-          </p>
-          <p>
+          </span>
+          <span data-h2-display="base(block)">
             {intl.formatMessage(
               {
                 defaultMessage: "Spoken interviews: {language}",
@@ -145,8 +145,8 @@ const Display = ({
                   : notProvided,
               },
             )}
-          </p>
-          <p>
+          </span>
+          <span data-h2-display="base(block)">
             {intl.formatMessage(
               {
                 defaultMessage: "Written exams: {language}",
@@ -159,7 +159,7 @@ const Display = ({
                   : notProvided,
               },
             )}
-          </p>
+          </span>
         </FieldDisplay>
       </DisplayColumn>
       <DisplayColumn>
