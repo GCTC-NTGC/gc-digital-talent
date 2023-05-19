@@ -11,6 +11,7 @@ import {
 } from "~/api/generated";
 import { ApplicationStepInfo } from "~/types/applicationStep";
 import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
+import selfDeclarationStepInfo from "~/pages/Applications/selfDeclarationStep/selfDeclarationStepInfo";
 import resumeStepInfo from "~/pages/Applications/resumeStep/resumeStepInfo";
 import reviewStepInfo from "~/pages/Applications/reviewStep/reviewStepInfo";
 import questionsStepInfo from "~/pages/Applications/questionsStep/questionsStepInfo";
@@ -18,6 +19,7 @@ import educationStepInfo from "~/pages/Applications/educationStep/educationStepI
 import profileStepInfo from "~/pages/Applications/profileStep/profileStepInfo";
 import successPageInfo from "~/pages/Applications/successStep/successStepInfo";
 import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
+import { isIAPPoolAdvertisement } from "~/pages/Applications/ApplicationContext";
 
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
@@ -38,7 +40,9 @@ export const getApplicationSteps = ({
   // build the order of step functions to call
   const stepInfoFunctions = [
     welcomeStepInfo,
-    // TODO: IAP self declaration optionally here
+    ...(isIAPPoolAdvertisement(poolAdvertisement)
+      ? [selfDeclarationStepInfo]
+      : []),
     profileStepInfo,
     resumeStepInfo,
     educationStepInfo,

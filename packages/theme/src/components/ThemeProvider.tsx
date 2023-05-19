@@ -112,25 +112,25 @@ const ThemeProvider = ({
     });
   }, [key, mode, themeSelector]);
 
-  React.useEffect(() => {
-    function testDark() {
-      const isSet = key || (mode && mode !== "pref");
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-      ).matches;
-      const isSetDark = localStorage.theme === "dark";
-      const isSetLight = localStorage.theme === "light";
+  const testDark = React.useCallback(() => {
+    const isSet = key || (mode && mode !== "pref");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    const isSetDark = localStorage.theme === "dark";
+    const isSetLight = localStorage.theme === "light";
 
-      const isDark =
-        (prefersDark && (!isSet || !isSetLight)) || (isSet && isSetDark);
-      if (isDark) {
-        setTheme({
-          key,
-          mode: "dark",
-        });
-      }
+    const isDark =
+      (prefersDark && (!isSet || !isSetLight)) || (isSet && isSetDark);
+    if (isDark) {
+      setTheme({
+        key,
+        mode: "dark",
+      });
     }
+  }, [key, mode, setTheme]);
 
+  React.useEffect(() => {
     window.addEventListener("load", testDark);
     const darkMatcher = window.matchMedia("(prefers-color-scheme: dark)");
     const lightMatcher = window.matchMedia("(prefers-color-scheme: light)");
@@ -143,29 +143,28 @@ const ThemeProvider = ({
       lightMatcher.removeEventListener("change", testDark);
       window.removeEventListener("load", testDark);
     };
-  }, [key, mode, setTheme]);
+  }, [key, mode, setTheme, testDark]);
 
   React.useEffect(() => {
     if (
-      override?.key &&
-      override.key !== key &&
-      override?.mode &&
-      override.mode !== mode
+      (override?.key && override.key !== key) ||
+      (override?.mode && override.mode !== mode)
     ) {
-      setTheme(getDefaultTheme(override));
+      const newTheme = getDefaultTheme(override);
+      setTheme(newTheme);
     }
   }, [setTheme, override, mode, key]);
 
   const state = React.useMemo(
     () => ({
-      mode,
-      key,
+      mode: override?.mode || mode,
+      key: override?.key || key,
       setTheme,
       setMode,
       setKey,
       isPref: !mode || mode === "pref",
     }),
-    [mode, key, setTheme, setMode, setKey],
+    [mode, key, setTheme, setMode, setKey, override],
   );
 
   return (

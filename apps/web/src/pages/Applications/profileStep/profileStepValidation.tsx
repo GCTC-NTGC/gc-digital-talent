@@ -17,7 +17,10 @@ const stepHasError = (
   const hasEmptyRequiredFields =
     aboutSectionHasEmptyRequiredFields(applicant) ||
     workLocationSectionHasEmptyRequiredFields(applicant) ||
-    diversityEquityInclusionSectionHasEmptyRequiredFields(applicant) ||
+    diversityEquityInclusionSectionHasEmptyRequiredFields(
+      applicant,
+      poolAdvertisement,
+    ) ||
     governmentInformationSectionHasEmptyRequiredFields(applicant) ||
     languageInformationSectionHasEmptyRequiredFields(applicant) ||
     workPreferencesSectionHasEmptyRequiredFields(applicant) ||

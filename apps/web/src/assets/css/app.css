@@ -1,15 +1,3 @@
-@media screen and (min-width: 48em) {
-  [data-h2] .hero-logo {
-    transform: translate(-50%, 0);
-  }
-}
-
-@media screen and (min-width: 48em) {
-  [data-h2] .hero-cta {
-    transform: translate(-50%, 0);
-  }
-}
-
 button,
 input,
 optgroup,
@@ -29,6 +17,15 @@ p {
 
 button:not(disabled) {
   cursor: pointer;
+}
+
+abbr {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+}
+
+abbr:hover {
+  cursor: help;
 }
 
 [data-h2] table {

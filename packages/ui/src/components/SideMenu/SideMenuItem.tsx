@@ -3,6 +3,8 @@ import { NavLink, NavLinkProps } from "react-router-dom";
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
+import { IconType } from "../../types";
+
 const commonStyles = {
   "data-h2-background-color":
     "base(transparent) base:selectors[.active](secondary.darker) base:focus-visible(focus) base:hover(secondary.darker) base:admin(secondary.light) base:admin:selectors[.active](secondary.lighter.10) base:admin:focus-visible(focus) base:admin:hover(secondary.lighter.30) base:iap(secondary.light) base:iap:selectors[.active](secondary.lighter.10) base:iap:focus-visible(focus) base:iap:hover(secondary.lighter.30)",
@@ -18,7 +20,7 @@ const commonStyles = {
 };
 
 interface SideMenuItemChildProps {
-  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon: IconType;
   children: React.ReactNode;
 }
 

@@ -25,18 +25,18 @@ const Featured = () => {
       intl.formatMessage({
         defaultMessage:
           "I'm interested in hiring Indigenous IT apprentices for my team",
-        id: "p/dXxz",
+        id: "E4PMGL",
         description:
-          "Subject of email for info on Indigenous Apprenticeship Program",
+          "Subject of email for info on IT Apprenticeship Program for Indigenous Peoples",
       }),
     ),
     body: encodeURIComponent(
       intl.formatMessage({
         defaultMessage:
-          "I discovered the Indigenous Apprenticeship Program on talent.canada.ca and I'd like to learn more about how I can hire apprentices to my team.",
-        id: "dIIccA",
+          "I discovered the IT Apprenticeship Program for Indigenous Peoples on talent.canada.ca and I'd like to learn more about how I can hire apprentices to my team.",
+        id: "02aheT",
         description:
-          "Body of email for info on Indigenous Apprenticeship Program",
+          "Body of email for info on IT Apprenticeship Program for Indigenous Peoples",
       }),
     ),
   };
@@ -105,9 +105,9 @@ const Featured = () => {
         {
           defaultMessage:
             "Are you looking for entry-level <abbreviation>IT</abbreviation> talent and want to support diversity, inclusion, and reconciliation? Connect with the <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples and start the process to hire Indigenous apprentices today!",
-          id: "LOvD2e",
+          id: "Q0G/5L",
           description:
-            "Summary of the Indigenous Apprenticeship Program for the homepage",
+            "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage",
         },
         {
           abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
@@ -119,9 +119,9 @@ const Featured = () => {
         path: `mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca?subject=${iapEmail.subject}&body=${iapEmail.body}`,
         label: intl.formatMessage({
           defaultMessage: "Contact the Apprenticeship Program",
-          id: "gG5eAt",
+          id: "71f/uH",
           description:
-            "Link text to email about the Indigenous Apprenticeship Program",
+            "Link text to email about the IT Apprenticeship Program for Indigenous Peoples",
         }),
       },
     },

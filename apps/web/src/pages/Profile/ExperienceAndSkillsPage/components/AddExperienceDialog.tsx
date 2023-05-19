@@ -9,7 +9,7 @@ import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import ArrowLeftIcon from "@heroicons/react/24/solid/ArrowLeftIcon";
 
-import { Dialog, IconButton, Link } from "@gc-digital-talent/ui";
+import { Dialog, IconButton, IconType, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";
@@ -20,7 +20,7 @@ type AddExperienceDialogProps = {
 };
 
 interface ExperienceSection {
-  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon: IconType;
   title: string;
   description: string;
   buttonText: string;

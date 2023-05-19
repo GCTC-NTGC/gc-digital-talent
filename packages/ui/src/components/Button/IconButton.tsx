@@ -1,8 +1,10 @@
 import React from "react";
+
 import Button from "./Button";
+import { IconType } from "../../types";
 
 export type IconButtonProps = React.ComponentPropsWithoutRef<typeof Button> & {
-  icon?: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
+  icon?: IconType;
 };
 
 const IconButton = React.forwardRef<
