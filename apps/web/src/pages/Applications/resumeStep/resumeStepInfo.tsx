@@ -32,7 +32,11 @@ const getStepInfo: GetApplicationStepInfo = ({
       resumeEditPageInfo({ paths, intl, application, stepOrdinal, resourceId }),
     ],
     showInStepper: true,
-    prerequisites: [ApplicationStep.Welcome, ApplicationStep.ReviewYourProfile],
+    prerequisites: [
+      ApplicationStep.Welcome,
+      ApplicationStep.SelfDeclaration,
+      ApplicationStep.ReviewYourProfile,
+    ],
     hasError: stepHasError,
   };
 };

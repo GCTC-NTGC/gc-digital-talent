@@ -10,29 +10,47 @@ import {
   within,
 } from "@testing-library/react";
 import React from "react";
+import { Provider as GraphqlProvider } from "urql";
+import { pipe, fromValue, delay } from "wonka";
+
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
-import SelfDeclarationForm, {
-  SelfDeclarationFormProps,
-} from "./SelfDeclarationForm";
+import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import { ApplicationSelfDeclaration } from "../ApplicationSelfDeclarationPage";
 
-const renderSelfDeclarationForm = (props: SelfDeclarationFormProps) =>
-  renderWithProviders(<SelfDeclarationForm {...props} />);
+const mockClient = {
+  executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
+  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+} as any;
+
+const mockApplication = fakePoolCandidates(1)[0];
 
 const mockCallback = jest.fn();
 
+const renderSelfDeclarationForm = () =>
+  renderWithProviders(
+    <GraphqlProvider value={mockClient}>
+      <ApplicationSelfDeclaration
+        application={mockApplication}
+        indigenousCommunities={[]}
+        signature={null}
+        onSubmit={mockCallback}
+      />
+    </GraphqlProvider>,
+  );
+
 describe("SelfDeclarationForm", () => {
   it("should have no accessibility errors", async () => {
-    const { container } = renderSelfDeclarationForm({
-      onSubmit: mockCallback,
+    await act(async () => {
+      const { container } = renderSelfDeclarationForm();
+      await axeTest(container);
     });
-
-    await axeTest(container);
   });
 
   it("should not display communities if not Indigenous", async () => {
-    await renderSelfDeclarationForm({
-      onSubmit: mockCallback,
+    await act(async () => {
+      renderSelfDeclarationForm();
     });
 
     await act(async () => {
@@ -61,8 +79,8 @@ describe("SelfDeclarationForm", () => {
   });
 
   it("should display communities if Indigenous", async () => {
-    await renderSelfDeclarationForm({
-      onSubmit: mockCallback,
+    await act(async () => {
+      renderSelfDeclarationForm();
     });
 
     await act(async () => {
@@ -91,8 +109,8 @@ describe("SelfDeclarationForm", () => {
   });
 
   it("should display status field if Indigenous and First Nations", async () => {
-    await renderSelfDeclarationForm({
-      onSubmit: mockCallback,
+    await act(async () => {
+      renderSelfDeclarationForm();
     });
 
     await act(async () => {
@@ -116,8 +134,8 @@ describe("SelfDeclarationForm", () => {
   });
 
   it("should display alert if community selected with other", async () => {
-    await renderSelfDeclarationForm({
-      onSubmit: mockCallback,
+    await act(async () => {
+      renderSelfDeclarationForm();
     });
 
     fireEvent.click(
@@ -144,10 +162,9 @@ describe("SelfDeclarationForm", () => {
   });
 
   it("should submit with all required fields", async () => {
-    const mockSave = jest.fn();
-
-    renderSelfDeclarationForm({
-      onSubmit: mockSave,
+    mockCallback.mockReset();
+    await act(async () => {
+      renderSelfDeclarationForm();
     });
 
     fireEvent.click(
@@ -184,15 +201,14 @@ describe("SelfDeclarationForm", () => {
     fireEvent.submit(saveBtn);
 
     await waitFor(() => {
-      expect(mockSave).toHaveBeenCalled();
+      expect(mockCallback).toHaveBeenCalled();
     });
   });
 
   it("should fail submission without required fields", async () => {
-    const mockSave = jest.fn();
-
-    renderSelfDeclarationForm({
-      onSubmit: mockSave,
+    mockCallback.mockReset();
+    await act(async () => {
+      renderSelfDeclarationForm();
     });
 
     fireEvent.click(
@@ -212,7 +228,7 @@ describe("SelfDeclarationForm", () => {
     fireEvent.submit(saveBtn);
 
     await waitFor(() => {
-      expect(mockSave).not.toHaveBeenCalled();
+      expect(mockCallback).not.toHaveBeenCalled();
     });
   });
 });
