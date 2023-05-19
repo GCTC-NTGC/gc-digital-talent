@@ -2,7 +2,6 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { Button } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
@@ -29,7 +28,6 @@ const SearchPools = ({
   handleSubmit,
 }: SearchPoolsProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const selectedClassifications =
     pool.classifications as SimpleClassification[];
 
