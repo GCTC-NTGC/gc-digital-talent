@@ -11,3 +11,13 @@ apps/e2e/cypress/downloads
 .jekyll-cache
 .turbo
 .env
+
+
+# Yarn
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
