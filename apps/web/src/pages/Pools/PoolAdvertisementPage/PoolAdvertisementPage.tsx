@@ -37,7 +37,7 @@ import {
   AdvertisementStatus,
   Scalars,
   useGetPoolAdvertisementQuery,
-  PoolAdvertisement,
+  Pool,
 } from "~/api/generated";
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
@@ -70,7 +70,7 @@ const anchorTag = (chunks: React.ReactNode) => (
 );
 
 interface PoolAdvertisementProps {
-  poolAdvertisement: PoolAdvertisement;
+  poolAdvertisement: Pool;
   applicationId?: Scalars["ID"];
   hasApplied?: boolean;
 }
@@ -758,20 +758,19 @@ const PoolAdvertisementPage = () => {
 
   const isVisible = isAdvertisementVisible(
     auth?.roleAssignments?.filter(notEmpty) || [],
-    data?.poolAdvertisement?.advertisementStatus ?? null,
+    data?.pool?.advertisementStatus ?? null,
   );
 
   // Attempt to find an application for this user+pool combination
   const application = data?.me?.poolCandidates?.find(
-    (candidate) =>
-      candidate?.poolAdvertisement?.id === data.poolAdvertisement?.id,
+    (candidate) => candidate?.pool.id === data.pool?.id,
   );
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.poolAdvertisement && isVisible ? (
+      {data?.pool && isVisible ? (
         <PoolAdvertisementPoster
-          poolAdvertisement={data?.poolAdvertisement}
+          poolAdvertisement={data?.pool}
           applicationId={application?.id}
           hasApplied={notEmpty(application?.submittedAt)}
         />

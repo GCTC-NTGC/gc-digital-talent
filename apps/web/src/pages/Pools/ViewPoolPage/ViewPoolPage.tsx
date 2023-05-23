@@ -34,14 +34,14 @@ import {
   Scalars,
   SkillCategory,
   useGetPoolAdvertisementQuery,
-  PoolAdvertisement,
+  Pool,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import adminMessages from "~/messages/adminMessages";
 
 interface ViewPoolProps {
-  pool: PoolAdvertisement;
+  pool: Pool;
 }
 
 export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
@@ -779,7 +779,7 @@ const ViewPoolPage = () => {
     ...(poolId
       ? [
           {
-            label: getLocalizedName(data?.poolAdvertisement?.name, intl),
+            label: getLocalizedName(data?.pool?.name, intl),
             url: routes.poolView(poolId),
           },
         ]
@@ -789,8 +789,8 @@ const ViewPoolPage = () => {
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <Pending fetching={fetching} error={error}>
-        {data?.poolAdvertisement ? (
-          <ViewPool pool={data.poolAdvertisement} />
+        {data?.pool ? (
+          <ViewPool pool={data.pool} />
         ) : (
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}

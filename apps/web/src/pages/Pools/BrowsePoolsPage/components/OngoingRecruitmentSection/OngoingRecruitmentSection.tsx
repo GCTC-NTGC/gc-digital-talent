@@ -17,12 +17,7 @@ import { useAuthorization } from "@gc-digital-talent/auth";
 import { getId, notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 import { getPoolStream } from "@gc-digital-talent/i18n";
 
-import {
-  PoolStream,
-  Skill,
-  PoolAdvertisement,
-  useMySkillsQuery,
-} from "~/api/generated";
+import { PoolStream, Skill, Pool, useMySkillsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 
@@ -39,18 +34,18 @@ interface StreamViewModel {
   classifications: {
     title: React.ReactNode;
     description: React.ReactNode;
-    poolAdvertisement: PoolAdvertisement | undefined;
+    poolAdvertisement: Pool | undefined;
     applyMessage: React.ReactNode;
   }[];
 }
 
 // choose a pool advertisement from a collection of pools for association with a stream, classification group, and classification level
 const selectPoolForSection = (
-  pools: PoolAdvertisement[],
+  pools: Pool[],
   stream: PoolStream,
   group: string,
   level: number,
-): PoolAdvertisement | undefined => {
+): Pool | undefined => {
   return (
     pools
       // last closing date first to be selected
@@ -85,7 +80,7 @@ const streamIsRecommended = (
   );
 
 export interface OngoingRecruitmentSectionProps {
-  pools: PoolAdvertisement[];
+  pools: Pool[];
 }
 
 const OngoingRecruitmentSection = ({

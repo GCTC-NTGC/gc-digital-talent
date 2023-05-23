@@ -45,12 +45,12 @@ export const IndexPoolCandidatePage = () => {
     ...(poolId
       ? [
           {
-            label: getLocalizedName(data?.poolAdvertisement?.name, intl),
+            label: getLocalizedName(data?.pool?.name, intl),
             url: routes.poolView(poolId),
           },
         ]
       : []),
-    ...(data?.poolAdvertisement?.id
+    ...(data?.pool?.id
       ? [
           {
             label: intl.formatMessage({
@@ -58,7 +58,7 @@ export const IndexPoolCandidatePage = () => {
               id: "zzf16k",
               description: "Breadcrumb for the All Candidates page",
             }),
-            url: routes.poolCandidateTable(data.poolAdvertisement.id),
+            url: routes.poolCandidateTable(data.pool.id),
           },
         ]
       : []),
@@ -81,7 +81,7 @@ export const IndexPoolCandidatePage = () => {
           initialFilterInput={{
             applicantFilter: { pools: [{ id: poolId || "" }] },
           }}
-          currentPool={data?.poolAdvertisement}
+          currentPool={data?.pool}
           title={pageTitle}
         />
       </Pending>
