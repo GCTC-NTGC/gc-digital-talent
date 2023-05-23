@@ -2,7 +2,6 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { Button } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
@@ -15,7 +14,7 @@ const testId = (text: React.ReactNode) => (
 
 export interface SearchPoolsProps {
   candidateCount: number;
-  pool: Pick<Pool, "id" | "owner" | "name" | "description" | "classifications">;
+  pool: Pick<Pool, "id" | "owner" | "name" | "classifications">;
   handleSubmit: (
     candidateCount: number,
     poolId: string,
@@ -29,7 +28,6 @@ const SearchPools = ({
   handleSubmit,
 }: SearchPoolsProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const selectedClassifications =
     pool.classifications as SimpleClassification[];
 
@@ -80,7 +78,6 @@ const SearchPools = ({
           },
         )}
       </p>
-      <p data-h2-margin="base(x1, 0)">{pool?.description?.[locale]}</p>
       <Button
         color="secondary"
         mode="outline"

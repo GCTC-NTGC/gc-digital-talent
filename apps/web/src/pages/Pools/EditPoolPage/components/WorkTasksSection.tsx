@@ -109,12 +109,6 @@ const WorkTasksSection = ({
                   description:
                     "Label for the English - Your Work textarea in the edit pool page.",
                 })}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Write the key tasks for this job poster...",
-                  id: "PCuQMN",
-                  description:
-                    "Placeholder message for  the English - Your Work textarea in the edit pool page.",
-                })}
                 name="YourWorkEn"
                 rules={{
                   validate: {
@@ -146,12 +140,6 @@ const WorkTasksSection = ({
                   id: "8bJgxK",
                   description:
                     "Label for the French - Your Work textarea in the edit pool page.",
-                })}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Write the key tasks for this job poster...",
-                  id: "Xsxvql",
-                  description:
-                    "Placeholder message for the French - Your Work textarea in the edit pool page.",
                 })}
                 name="YourWorkFr"
                 rules={{
