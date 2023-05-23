@@ -44,7 +44,7 @@ const LanguageProfile = ({
 
   const missingLanguageRequirements = getMissingLanguageRequirements(
     user as Applicant,
-    application?.poolAdvertisement,
+    application?.pool,
   );
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
@@ -104,7 +104,7 @@ const LanguageProfile = ({
         <MissingLanguageRequirements
           headingLevel="h3"
           applicant={user as Applicant}
-          poolAdvertisement={application?.poolAdvertisement}
+          poolAdvertisement={application?.pool}
         />
       )}
       <ToggleSection.Content>

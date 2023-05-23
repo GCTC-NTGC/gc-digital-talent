@@ -1,4 +1,4 @@
-import { Applicant, PoolAdvertisement } from "@gc-digital-talent/graphql";
+import { Applicant, Pool } from "@gc-digital-talent/graphql";
 
 import {
   aboutSectionHasEmptyRequiredFields,
@@ -10,10 +10,7 @@ import {
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
 
-const stepHasError = (
-  applicant: Applicant,
-  poolAdvertisement: PoolAdvertisement,
-) => {
+const stepHasError = (applicant: Applicant, poolAdvertisement: Pool) => {
   const hasEmptyRequiredFields =
     aboutSectionHasEmptyRequiredFields(applicant) ||
     workLocationSectionHasEmptyRequiredFields(applicant) ||

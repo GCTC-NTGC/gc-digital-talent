@@ -490,7 +490,7 @@ const ApplicationEducationPage = () => {
       fetching={applicationFetching || experienceFetching || applicationStale}
       error={applicationError || experienceError}
     >
-      {application?.poolAdvertisement ? (
+      {application?.pool ? (
         <ApplicationEducation
           application={application}
           experiences={experiences}

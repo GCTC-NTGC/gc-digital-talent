@@ -7,17 +7,13 @@ import { screen, act } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
-import {
-  AdvertisementStatus,
-  PoolAdvertisement,
-  PublishingGroup,
-} from "~/api/generated";
+import { AdvertisementStatus, Pool, PublishingGroup } from "~/api/generated";
 
 import ActiveRecruitmentSection, {
   ActiveRecruitmentSectionProps,
 } from "./ActiveRecruitmentSection";
 
-const publishedPool: PoolAdvertisement = {
+const publishedPool: Pool = {
   id: "publishedPool",
   publishingGroup: PublishingGroup.ItJobs,
   advertisementStatus: AdvertisementStatus.Published,

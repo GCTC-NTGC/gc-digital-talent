@@ -15,7 +15,7 @@ import {
   CommunityExperience,
   EducationExperience,
   PersonalExperience,
-  PoolAdvertisement,
+  Pool,
   Skill,
   WorkExperience,
 } from "~/api/generated";
@@ -44,7 +44,7 @@ export type ExperienceForDate =
 export interface ExperienceAndSkillsProps {
   applicantId: string;
   experiences?: MergedExperiences;
-  poolAdvertisement?: PoolAdvertisement;
+  poolAdvertisement?: Pool;
   missingSkills?: {
     requiredSkills: Skill[];
     optionalSkills: Skill[];

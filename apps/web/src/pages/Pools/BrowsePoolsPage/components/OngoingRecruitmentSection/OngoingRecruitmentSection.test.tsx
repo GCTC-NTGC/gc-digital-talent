@@ -9,7 +9,7 @@ import { screen, act, fireEvent } from "@testing-library/react";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import {
   AdvertisementStatus,
-  PoolAdvertisement,
+  Pool,
   PoolStream,
   PublishingGroup,
 } from "~/api/generated";
@@ -17,7 +17,7 @@ import OngoingRecruitmentSection, {
   OngoingRecruitmentSectionProps,
 } from "./OngoingRecruitmentSection";
 
-const publishedPool: PoolAdvertisement = {
+const publishedPool: Pool = {
   id: "publishedPool",
   publishingGroup: PublishingGroup.ItJobsOngoing,
   advertisementStatus: AdvertisementStatus.Published,

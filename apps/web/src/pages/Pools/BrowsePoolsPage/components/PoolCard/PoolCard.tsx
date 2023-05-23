@@ -16,14 +16,14 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
-import { PoolAdvertisement } from "~/api/generated";
+import { Pool } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import IconLabel from "./IconLabel";
 
 import "./pool-card.css";
 
-const getSalaryRanges = (pool: PoolAdvertisement, locale: string) => {
+const getSalaryRanges = (pool: Pool, locale: string) => {
   if (!pool.classifications) return null;
 
   return pool.classifications
@@ -40,7 +40,7 @@ const getSalaryRanges = (pool: PoolAdvertisement, locale: string) => {
 };
 
 export interface PoolCardProps {
-  pool: PoolAdvertisement;
+  pool: Pool;
   headingLevel?: HeadingRank;
 }
 

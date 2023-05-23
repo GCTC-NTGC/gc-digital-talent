@@ -1,7 +1,7 @@
 import { FieldLabels } from "@gc-digital-talent/forms";
 import {
   Maybe,
-  PoolAdvertisement,
+  Pool,
   UpdateUserAboutMeMutation,
   UpdateUserAsUserInput,
   User,
@@ -24,7 +24,7 @@ export interface SectionProps {
     id: string,
     user: UpdateUserAsUserInput,
   ) => Promise<UpdateUserAboutMeMutation["updateUserAsUser"]>;
-  poolAdvertisement: Maybe<PoolAdvertisement>;
+  poolAdvertisement: Maybe<Pool>;
 }
 
 export interface FormFieldProps {

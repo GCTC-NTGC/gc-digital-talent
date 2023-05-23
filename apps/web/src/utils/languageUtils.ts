@@ -2,14 +2,14 @@ import { MessageDescriptor } from "react-intl";
 
 import {
   Applicant,
-  PoolAdvertisement,
+  Pool,
   PoolAdvertisementLanguage,
 } from "@gc-digital-talent/graphql";
 
 // Is the user missing the "looking for bilingual" profile option for this bilingual pool?
 export const isMissingLookingForBilingual = (
   applicant?: Applicant,
-  poolAdvertisement?: PoolAdvertisement | null,
+  poolAdvertisement?: Pool | null,
 ): boolean => {
   const userLookingForBilingual = !!applicant?.lookingForBilingual;
   const poolNeedsBilingual =
@@ -26,7 +26,7 @@ export const isMissingLookingForBilingual = (
 // Get a list of missing language requirement error message descriptors
 export const getMissingLanguageRequirements = (
   applicant?: Applicant,
-  poolAdvertisement?: PoolAdvertisement | null,
+  poolAdvertisement?: Pool | null,
 ): Array<MessageDescriptor> => {
   const errorMessages: Array<MessageDescriptor> = [];
 

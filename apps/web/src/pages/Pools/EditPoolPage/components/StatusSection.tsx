@@ -7,11 +7,7 @@ import MegaphoneIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 
 import { TableOfContents, Well } from "@gc-digital-talent/ui";
 
-import {
-  PoolAdvertisement,
-  AdvertisementStatus,
-  Scalars,
-} from "~/api/generated";
+import { Pool, AdvertisementStatus, Scalars } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 
 import PublishDialog from "./PublishDialog";
@@ -21,7 +17,7 @@ import ArchiveDialog from "./ArchiveDialog";
 import ExtendDialog from "./ExtendDialog";
 
 interface StatusSectionProps {
-  poolAdvertisement: PoolAdvertisement;
+  poolAdvertisement: Pool;
   sectionMetadata: EditPoolSectionMetadata;
   onPublish: () => void;
   onDelete: () => void;

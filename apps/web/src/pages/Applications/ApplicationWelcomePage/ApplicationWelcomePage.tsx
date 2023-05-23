@@ -70,10 +70,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const poolName = getFullPoolAdvertisementTitleHtml(
-    intl,
-    application.poolAdvertisement,
-  );
+  const poolName = getFullPoolAdvertisementTitleHtml(intl, application.pool);
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();
   const nextStepPath =
     followingPageUrl ?? paths.applicationProfile(application.id);
@@ -166,7 +163,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
           type="button"
           mode="inline"
           color="secondary"
-          href={paths.pool(application?.poolAdvertisement?.id || "")}
+          href={paths.pool(application.pool.id)}
         >
           {intl.formatMessage({
             defaultMessage: "Return to the advertisement",

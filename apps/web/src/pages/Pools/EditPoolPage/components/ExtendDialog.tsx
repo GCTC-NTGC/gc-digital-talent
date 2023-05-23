@@ -10,14 +10,14 @@ import {
   currentDate,
 } from "@gc-digital-talent/date-helpers";
 
-import { PoolAdvertisement, Scalars } from "~/api/generated";
+import { Pool, Scalars } from "~/api/generated";
 
 type FormValues = {
-  endDate?: PoolAdvertisement["closingDate"];
+  endDate?: Pool["closingDate"];
 };
 
 type ExtendDialogProps = {
-  closingDate: PoolAdvertisement["closingDate"];
+  closingDate: Pool["closingDate"];
   onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
 };
 

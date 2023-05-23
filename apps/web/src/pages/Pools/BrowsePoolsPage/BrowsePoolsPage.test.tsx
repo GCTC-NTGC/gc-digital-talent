@@ -7,33 +7,29 @@ import React from "react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
-import {
-  AdvertisementStatus,
-  PoolAdvertisement,
-  PublishingGroup,
-} from "~/api/generated";
+import { AdvertisementStatus, Pool, PublishingGroup } from "~/api/generated";
 
 import { BrowsePools, BrowsePoolsProps } from "./BrowsePoolsPage";
 
-const publishedItJobsPool: PoolAdvertisement = {
+const publishedItJobsPool: Pool = {
   id: "publishedItJobsPool",
   publishingGroup: PublishingGroup.ItJobs,
   advertisementStatus: AdvertisementStatus.Published,
 };
 
-const expiredItJobsPool: PoolAdvertisement = {
+const expiredItJobsPool: Pool = {
   id: "expiredItJobsPool",
   publishingGroup: PublishingGroup.ItJobs,
   advertisementStatus: AdvertisementStatus.Closed,
 };
 
-const archivedItJobsPool: PoolAdvertisement = {
+const archivedItJobsPool: Pool = {
   id: "archivedItJobsPool",
   publishingGroup: PublishingGroup.ItJobs,
   advertisementStatus: AdvertisementStatus.Archived,
 };
 
-const publishedExecJobsPool: PoolAdvertisement = {
+const publishedExecJobsPool: Pool = {
   id: "publishedExecJobsPool",
   publishingGroup: PublishingGroup.ExecutiveJobs,
   advertisementStatus: AdvertisementStatus.Published,

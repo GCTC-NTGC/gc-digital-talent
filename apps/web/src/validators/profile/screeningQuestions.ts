@@ -1,12 +1,12 @@
 /* eslint-disable import/prefer-default-export */
-import { PoolAdvertisement, PoolCandidate } from "@gc-digital-talent/graphql";
+import { Pool, PoolCandidate } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 type PartialPoolCandidate = Pick<PoolCandidate, "screeningQuestionResponses">;
 
 export function hasMissingResponses(
   poolCandidate: PartialPoolCandidate,
-  poolAdvertisement: PoolAdvertisement | null,
+  poolAdvertisement: Pool | null,
 ): boolean {
   const poolQuestionIds =
     poolAdvertisement?.screeningQuestions

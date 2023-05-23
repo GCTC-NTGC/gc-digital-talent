@@ -4,12 +4,12 @@ import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
 
-import { PoolAdvertisement } from "~/api/generated";
+import { Pool } from "~/api/generated";
 
 import PoolCard from "../PoolCard/PoolCard";
 
 export interface ActiveRecruitmentSectionProps {
-  pools: PoolAdvertisement[];
+  pools: Pool[];
 }
 
 const ActiveRecruitmentSection = ({ pools }: ActiveRecruitmentSectionProps) => {
