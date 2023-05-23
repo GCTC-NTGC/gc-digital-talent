@@ -2681,17 +2681,9 @@
     "defaultMessage": "Courriel",
     "description": "Title displayed for the User table Email column."
   },
-  "0PmIE8": {
-    "defaultMessage": "Nom du candidat",
-    "description": "Title displayed on the single search request table candidate name column."
-  },
   "0SoKjt": {
     "defaultMessage": "Utilisateur {userId} introuvable.",
     "description": "Message displayed for user not found."
-  },
-  "1bNptz": {
-    "defaultMessage": "Identifiant du candidat",
-    "description": "Title displayed on the single search request table id column."
   },
   "2wmzS1": {
     "defaultMessage": "Nom",
@@ -2736,10 +2728,6 @@
   "8hee5d": {
     "defaultMessage": "Titre de l’emploi",
     "description": "Title displayed on the search request table job title column."
-  },
-  "97LfRf": {
-    "defaultMessage": "Handicap",
-    "description": "Message for disability option in the employment equity column on the the single search request table."
   },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
@@ -2805,10 +2793,6 @@
     "defaultMessage": "Nom du bassin",
     "description": "Title displayed for the Pool table pool name column."
   },
-  "JtgX1e": {
-    "defaultMessage": "Autochtone",
-    "description": "Message for indigenous option in the employment equity column on the the single search request table."
-  },
   "KSNNgE": {
     "defaultMessage": "Mettre à jour un ministère",
     "description": "Title displayed on the update a department form."
@@ -2824,10 +2808,6 @@
   "Lzd38d": {
     "defaultMessage": "Statut",
     "description": "Title for the status block in the manager info section of the single search request view."
-  },
-  "MmFgbF": {
-    "defaultMessage": "Groupe et niveau",
-    "description": "Title displayed on the single search request table classifications column."
   },
   "Le4EQq": {
     "defaultMessage": "Sélectionnez un niveau",
@@ -2856,14 +2836,6 @@
   "UNScjB": {
     "defaultMessage": "Marquer cette demande comme ayant été traitée",
     "description": "Button label displayed on the search request form which changes request status to done."
-  },
-  "UdZaOq": {
-    "defaultMessage": "Minorité visible",
-    "description": "Message for visible minority option in the employment equity column on the the single search request table."
-  },
-  "VaCRxh": {
-    "defaultMessage": "Femme",
-    "description": "Message for woman option in the employment equity column on the the single search request table."
   },
   "VaVo2t": {
     "defaultMessage": "Erreur : Échec de la création du ministère",
@@ -2920,10 +2892,6 @@
     "defaultMessage": "Nom (français)",
     "description": "Label displayed on the create a department form name (French) field."
   },
-  "c9jMPS": {
-    "defaultMessage": "Erreur : Nom introuvable.",
-    "description": "Error message displayed on the single search request table employment equity column."
-  },
   "d3oN4p": {
     "defaultMessage": "Courriel du gouvernement",
     "description": "Title for the government email block in the manager info section of the single search request view."
@@ -2943,10 +2911,6 @@
   "fhL8jz": {
     "defaultMessage": "Erreur : Échec de l’enregistrement des notes",
     "description": "Message displayed to user after the personal notes fail to save on the single search request page."
-  },
-  "gN/+W2": {
-    "defaultMessage": "Exigences opérationnelles",
-    "description": "Title displayed on the single search request table operational requirements column."
   },
   "gRPGQN": {
     "defaultMessage": "Titre du poste",
@@ -2976,10 +2940,6 @@
     "defaultMessage": "Ministère",
     "description": "Title displayed on the search request table department column."
   },
-  "i45Vxz": {
-    "defaultMessage": "Équité en matière d'emploi",
-    "description": "Title displayed on the single search request table employment equity column."
-  },
   "i9AjuX": {
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
@@ -2999,10 +2959,6 @@
   "l05aVF": {
     "defaultMessage": "Notes personnelles",
     "description": "Heading for the personal notes section of the single search request view."
-  },
-  "lo2bSB": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the single search request table edit column."
   },
   "nXRLAX": {
     "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
