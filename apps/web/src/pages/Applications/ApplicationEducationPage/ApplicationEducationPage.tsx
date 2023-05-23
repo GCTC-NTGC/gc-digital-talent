@@ -352,8 +352,8 @@ const ApplicationEducation = ({
       value: EducationRequirementOption.Education,
       label: isIAP
         ? intl.formatMessage({
-            defaultMessage: "I have a high school diploma or GED equivalent.",
-            id: "u1Jsln",
+            defaultMessage: "I have a high school diploma or GED equivalent",
+            id: "ybi6QM",
             description:
               "Radio group option for education requirement filter in Indigenous apprenticeship application education form.",
           })
