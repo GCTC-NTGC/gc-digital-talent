@@ -17,7 +17,11 @@ const RequirementCard = (props: React.HTMLProps<HTMLDivElement>) => (
   />
 );
 
-const EducationRequirements = () => {
+interface EducationRequirementsProps {
+  isIAP: boolean;
+}
+
+const EducationRequirements = ({ isIAP }: EducationRequirementsProps) => {
   const intl = useIntl();
 
   return (
@@ -105,20 +109,35 @@ const EducationRequirements = () => {
       </span>
       <RequirementCard>
         <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
-          {intl.formatMessage({
-            defaultMessage: "2-year post-secondary",
-            id: "ZIwaDE",
-            description: "Title for the education requirements",
-          })}
+          {isIAP
+            ? intl.formatMessage({
+                defaultMessage: "High school diploma or GED",
+                id: "qF/JU3",
+                description:
+                  "Title for the education requirements (Indigenous apprenticeship program)",
+              })
+            : intl.formatMessage({
+                defaultMessage: "2-year post-secondary",
+                id: "ZIwaDE",
+                description: "Title for the education requirements",
+              })}
         </Heading>
         <Text>
-          {intl.formatMessage({
-            defaultMessage:
-              "Successful completion of two years of post-secondary education in computer science, information technology, information management or another specialty relevant to this position.",
-            id: "RlYe/i",
-            description:
-              "post secondary education experience for pool advertisement",
-          })}
+          {isIAP
+            ? intl.formatMessage({
+                defaultMessage:
+                  "Successful completion of a standard high school diploma or general education development (GED) equivalent.",
+                id: "K2QflB",
+                description:
+                  "Education requirement (Indigenous apprenticeship program)",
+              })
+            : intl.formatMessage({
+                defaultMessage:
+                  "Successful completion of two years of post-secondary education in computer science, information technology, information management or another specialty relevant to this position.",
+                id: "RlYe/i",
+                description:
+                  "post secondary education experience for pool advertisement",
+              })}
         </Text>
       </RequirementCard>
     </div>

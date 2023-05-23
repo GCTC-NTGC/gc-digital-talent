@@ -138,7 +138,8 @@ const ApplicationEducation = ({
   const paths = useRoutes();
   const navigate = useNavigate();
   const { applicantDashboard } = useFeatureFlags(); // TODO: Remove once feature flag has been turned on.
-  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
+  const { followingPageUrl, currentStepOrdinal, isIAP } =
+    useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -349,22 +350,37 @@ const ApplicationEducation = ({
     },
     {
       value: EducationRequirementOption.Education,
-      label: intl.formatMessage({
-        defaultMessage: "I meet the 2-year post-secondary option",
-        id: "rGqohv",
-        description:
-          "Radio group option for education requirement filter in application education form.",
-      }),
+      label: isIAP
+        ? intl.formatMessage({
+            defaultMessage: "I have a high school diploma or GED equivalent.",
+            id: "u1Jsln",
+            description:
+              "Radio group option for education requirement filter in Indigenous apprenticeship application education form.",
+          })
+        : intl.formatMessage({
+            defaultMessage: "I meet the 2-year post-secondary option",
+            id: "rGqohv",
+            description:
+              "Radio group option for education requirement filter in application education form.",
+          }),
       contentBelow: (
         <div data-h2-margin="base(x.5, 0, x.5, x1)">
           <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "Successful completion of two years of post secondary education in computer science, information technology, information management or another specialty relevant to this advertisement.",
-              id: "socp8t",
-              description:
-                "Message under radio button in application education page.",
-            })}
+            {isIAP
+              ? intl.formatMessage({
+                  defaultMessage:
+                    "Successful completion of a standard high school diploma or general education development (GED) equivalent.",
+                  id: "60tHBx",
+                  description:
+                    "Message under radio button in Indigenous apprenticeship application education page.",
+                })
+              : intl.formatMessage({
+                  defaultMessage:
+                    "Successful completion of two years of post secondary education in computer science, information technology, information management or another specialty relevant to this advertisement.",
+                  id: "socp8t",
+                  description:
+                    "Message under radio button in application education page.",
+                })}
           </p>
         </div>
       ),
