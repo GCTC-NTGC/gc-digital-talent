@@ -6,13 +6,16 @@ import {
   fakePoolCandidates,
 } from "@gc-digital-talent/fake-data";
 
+import { ExperienceForDate } from "~/types/experience";
+
 import { ApplicationResume } from "./ApplicationResumePage";
-import { ApplicationPageProps } from "../ApplicationApi";
 
 const fakePoolCandidate = fakePoolCandidates(1)[0];
 const fakeUser = fakePoolCandidate.user;
 
-const noExperiencesProps: ApplicationPageProps = {
+type ApplicationResumeStory = ComponentStory<typeof ApplicationResume>;
+
+const noExperiencesProps: ApplicationResumeStory["args"] = {
   application: {
     ...fakePoolCandidate,
     user: {
@@ -20,9 +23,10 @@ const noExperiencesProps: ApplicationPageProps = {
       experiences: [],
     },
   },
+  experiences: [],
 };
 
-const hasExperiencesProps: ApplicationPageProps = {
+const hasExperiencesProps: ApplicationResumeStory["args"] = {
   application: {
     ...fakePoolCandidate,
     user: {
@@ -30,6 +34,7 @@ const hasExperiencesProps: ApplicationPageProps = {
       experiences: fakeExperiences(5),
     },
   },
+  experiences: fakeExperiences(5) as Array<ExperienceForDate>,
 };
 
 export default {
@@ -37,7 +42,7 @@ export default {
   title: "Pages/Application Revamp/Review Resume",
 } as ComponentMeta<typeof ApplicationResume>;
 
-const Template: ComponentStory<typeof ApplicationResume> = (props) => (
+const Template: ApplicationResumeStory = (props) => (
   <ApplicationResume {...props} />
 );
 

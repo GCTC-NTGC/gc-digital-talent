@@ -269,12 +269,6 @@ export const RequestForm = ({
                   id: "dRnKNR",
                   description: "Label for full name input in the request form",
                 })}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Full name...",
-                  id: "OjhS6t",
-                  description:
-                    "Placeholder for full name input in the request form.",
-                })}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -313,12 +307,6 @@ export const RequestForm = ({
                   description:
                     "Label for government email input in the request form",
                 })}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "example@canada.ca...",
-                  id: "N6+rnM",
-                  description:
-                    "Placeholder for government email input in the request form",
-                })}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -333,12 +321,6 @@ export const RequestForm = ({
                   defaultMessage: "What is the job title for this position?",
                   id: "7lCUIL",
                   description: "Label for job title input in the request form",
-                })}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Developer...",
-                  id: "zz9pwK",
-                  description:
-                    "Placeholder for job title input in the request form.",
                 })}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),

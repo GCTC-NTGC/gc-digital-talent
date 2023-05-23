@@ -181,8 +181,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             empty($this->attributes['location_preferences']) or
             empty($this->attributes['position_duration'])  or
             is_null($this->attributes['citizenship']) or
-            is_null($this->attributes['armed_forces_status']) or
-            $this->expectedGenericJobTitles->isEmpty()
+            is_null($this->attributes['armed_forces_status'])
         ) {
             return false;
         } else {

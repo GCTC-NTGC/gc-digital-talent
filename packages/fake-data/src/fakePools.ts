@@ -48,7 +48,6 @@ const generatePool = (
       en: englishName || `${faker.company.catchPhrase()} EN`,
       fr: frenchName || `${faker.company.catchPhrase()} FR`,
     },
-    description: toLocalizedString(faker.lorem.sentence()),
     classifications:
       faker.helpers.arrayElements<Classification>(classifications),
     keyTasks: toLocalizedString(faker.lorem.paragraphs()),
