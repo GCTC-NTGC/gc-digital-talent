@@ -8160,19 +8160,19 @@
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience de formation à votre curriculum vitæ .",
     "description": "Alert message informing user to add education experience in application education page."
   },
-  "60tHBx": {
+  "CNDcPx": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou Programme d’évaluation en education Générale (PEG) equivalent.",
     "description": "Message under radio button in Indigenous apprenticeship application education page."
   },
-  "K2QflB": {
+  "2osGWe": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou Programme d’évaluation en education Générale (PEG) equivalent.",
-    "description": "Education requirement (Indigenous apprenticeship program)"
+    "description": "Education requirement (IT Apprenticeship Program for Indigenous Peoples)"
   },
-  "qF/JU3": {
+  "CnPVJe": {
     "defaultMessage": "Diplôme d’études secondaires ou PEG",
-    "description": "Title for the education requirements (Indigenous apprenticeship program)"
+    "description": "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)"
   },
-  "u1Jsln": {
+  "ybi6QM": {
     "defaultMessage": "Je détiens un diplôme d’études secondaires ou un équivalent PEG.",
     "description": "Radio group option for education requirement filter in Indigenous apprenticeship application education form."
   }

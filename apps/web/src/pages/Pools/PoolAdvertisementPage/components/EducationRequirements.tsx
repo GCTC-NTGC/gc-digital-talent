@@ -112,9 +112,9 @@ const EducationRequirements = ({ isIAP }: EducationRequirementsProps) => {
           {isIAP
             ? intl.formatMessage({
                 defaultMessage: "High school diploma or GED",
-                id: "J9jNeU",
+                id: "CnPVJe",
                 description:
-                  "Title for the education requirements ( IT Apprenticeship Program for Indigenous Peoples)",
+                  "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)",
               })
             : intl.formatMessage({
                 defaultMessage: "2-year post-secondary",
@@ -126,10 +126,10 @@ const EducationRequirements = ({ isIAP }: EducationRequirementsProps) => {
           {isIAP
             ? intl.formatMessage({
                 defaultMessage:
-                  "Successful completion of a standard high school diploma or general education development (GED) equivalent.",
-                id: "tdW0Kl",
+                  "Successful completion of a standard high school diploma or General Education Development (GED) equivalent.",
+                id: "2osGWe",
                 description:
-                  "Education requirement ( IT Apprenticeship Program for Indigenous Peoples)",
+                  "Education requirement (IT Apprenticeship Program for Indigenous Peoples)",
               })
             : intl.formatMessage({
                 defaultMessage:
