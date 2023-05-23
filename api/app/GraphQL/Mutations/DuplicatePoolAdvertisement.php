@@ -14,8 +14,6 @@ final class DuplicatePoolAdvertisement
      */
     public function __invoke($_, array $args)
     {
-        // grab the specific application
-        // submit to validator the PoolCandidate model
         $pool = Pool::find($args['id']);
 
         $newPool = $pool->replicate()->fill([
