@@ -1,5 +1,6 @@
 global-components:
   Button: button
+  Alert: div[role="alert"]
   AlertDialog.Content: div[role="alertdialog"]
   Dialog.Content: div[role="dialog"]
   Link: a
@@ -9,6 +10,7 @@ global-components:
   MenuLink: a
   ScrollToLink: a
   SkipLink: a
+  TileLink: a
   DefinitionList.Root: dl
   DefinitionList.Item: dt
   Heading: h*
