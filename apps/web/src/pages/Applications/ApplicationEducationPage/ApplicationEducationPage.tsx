@@ -7,6 +7,7 @@ import uniqueId from "lodash/uniqueId";
 
 import {
   Button,
+  ExternalLink,
   Heading,
   Pending,
   Separator,
@@ -33,7 +34,7 @@ import applicationMessages from "~/messages/applicationMessages";
 
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { Radio } from "@gc-digital-talent/forms/src/components/RadioGroup";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -135,6 +136,7 @@ const ApplicationEducation = ({
   experiences,
 }: ApplicationEducationProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const navigate = useNavigate();
   const { applicantDashboard } = useFeatureFlags(); // TODO: Remove once feature flag has been turned on.
@@ -317,6 +319,18 @@ const ApplicationEducation = ({
     }
   };
 
+  const qualityStandardsLink = (chunks: React.ReactNode) => {
+    const href =
+      locale === "en"
+        ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
+        : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#eepr";
+    return (
+      <ExternalLink href={href} newTab>
+        {chunks}
+      </ExternalLink>
+    );
+  };
+
   const educationRequirementOptions: Radio[] = [
     {
       value: EducationRequirementOption.AppliedWork,
@@ -358,13 +372,18 @@ const ApplicationEducation = ({
       contentBelow: (
         <div data-h2-margin="base(x.5, 0, x.5, x1)">
           <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "Successful completion of two years of post secondary education in computer science, information technology, information management or another specialty relevant to this advertisement.",
-              id: "socp8t",
-              description:
-                "Message under radio button in application education page.",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Graduation from a program of 2 years or more offered by a <link>recognized post-secondary institution.</link> The program must have a specialization in computer science, information technology, information management or another specialty relevant to this advertisement.",
+                id: "uWVDQu",
+                description:
+                  "Message under radio button in application education page.",
+              },
+              {
+                link: qualityStandardsLink,
+              },
+            )}
           </p>
         </div>
       ),
