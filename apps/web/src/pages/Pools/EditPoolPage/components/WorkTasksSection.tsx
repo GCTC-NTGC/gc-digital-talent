@@ -38,7 +38,8 @@ interface WorkTasksSectionProps {
   onSave: (submitData: WorkTasksSubmitData) => void;
 }
 
-const TEXT_AREA_MAX_WORDS = 400;
+const TEXT_AREA_MAX_WORDS_EN = 400;
+const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
 const TEXT_AREA_ROWS = 15;
 
 const WorkTasksSection = ({
@@ -108,19 +109,13 @@ const WorkTasksSection = ({
                   description:
                     "Label for the English - Your Work textarea in the edit pool page.",
                 })}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Write the key tasks for this job poster...",
-                  id: "PCuQMN",
-                  description:
-                    "Placeholder message for  the English - Your Work textarea in the edit pool page.",
-                })}
                 name="YourWorkEn"
                 rules={{
                   validate: {
                     wordCount: (value: string) =>
-                      countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS ||
+                      countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS_EN ||
                       intl.formatMessage(errorMessages.overWordLimit, {
-                        value: TEXT_AREA_MAX_WORDS,
+                        value: TEXT_AREA_MAX_WORDS_EN,
                       }),
                   },
                 }}
@@ -131,7 +126,7 @@ const WorkTasksSection = ({
                   <div data-h2-align-self="base(flex-end)">
                     <WordCounter
                       text={watchYourWorkEn ?? ""}
-                      wordLimit={TEXT_AREA_MAX_WORDS}
+                      wordLimit={TEXT_AREA_MAX_WORDS_EN}
                     />
                   </div>
                 )}
@@ -146,19 +141,13 @@ const WorkTasksSection = ({
                   description:
                     "Label for the French - Your Work textarea in the edit pool page.",
                 })}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Write the key tasks for this job poster...",
-                  id: "Xsxvql",
-                  description:
-                    "Placeholder message for the French - Your Work textarea in the edit pool page.",
-                })}
                 name="YourWorkFr"
                 rules={{
                   validate: {
                     wordCount: (value: string) =>
-                      countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS ||
+                      countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS_FR ||
                       intl.formatMessage(errorMessages.overWordLimit, {
-                        value: TEXT_AREA_MAX_WORDS,
+                        value: TEXT_AREA_MAX_WORDS_FR,
                       }),
                   },
                 }}
@@ -169,7 +158,7 @@ const WorkTasksSection = ({
                   <div data-h2-align-self="base(flex-end)">
                     <WordCounter
                       text={watchYourWorkFr ?? ""}
-                      wordLimit={TEXT_AREA_MAX_WORDS}
+                      wordLimit={TEXT_AREA_MAX_WORDS_FR}
                     />
                   </div>
                 )}
