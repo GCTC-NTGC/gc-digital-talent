@@ -7,7 +7,7 @@
     "node": "18.16.0",
     "npm": ">=8.0.0"
   },
-  "packageManager": "npm@8.0.0",
+  "packageManager": "yarn@3.5.1",
   "workspaces": [
     "apps/*",
     "packages/*"
