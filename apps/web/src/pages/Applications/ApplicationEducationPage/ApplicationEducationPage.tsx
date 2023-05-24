@@ -43,32 +43,12 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import LinkResume from "./LinkResume";
 import { useApplicationContext } from "../ApplicationContext";
 
-const appliedWorkListMessages = defineMessages({
-  onTheJob: {
-    defaultMessage: "On-the-job learning",
-    id: "fvE7Cx",
-    description:
-      "List item in applied work option in application education page.",
-  },
-  nonConventional: {
-    defaultMessage: "Non-conventional training",
-    id: "DEUOhY",
-    description:
-      "List item in applied work option in application education page.",
-  },
-  formalEducation: {
-    defaultMessage: "Formal education",
-    id: "RtJ+34",
-    description:
-      "List item in applied work option in application education page.",
-  },
-  other: {
-    defaultMessage: "Other field related experience",
-    id: "CnbI8J",
-    description:
-      "List item in applied work option in application education page.",
-  },
-});
+const appliedWorkListMessages = [
+  applicationMessages.onTheJobLearning,
+  applicationMessages.nonConventionalTraining,
+  applicationMessages.formalEducation,
+  applicationMessages.otherExperience,
+];
 
 type EducationRequirementExperiences = {
   educationRequirementAwardExperiences: { sync: string[] };
@@ -343,13 +323,7 @@ const ApplicationEducation = ({
       contentBelow: (
         <div data-h2-margin="base(x.5, 0, x.5, x1)">
           <p data-h2-margin="base(0, 0, x.5, 0)">
-            {intl.formatMessage({
-              defaultMessage:
-                "Combined experience in computer science, information technology information management or another specialty relevant to this advertisement, including any of the following:",
-              id: "MQUZaf",
-              description:
-                "Message under radio button in application education page.",
-            })}
+            {intl.formatMessage(applicationMessages.appliedWorkExperience)}
           </p>
           <ul>
             {Object.values(appliedWorkListMessages).map((value) => (
@@ -372,18 +346,9 @@ const ApplicationEducation = ({
       contentBelow: (
         <div data-h2-margin="base(x.5, 0, x.5, x1)">
           <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "Graduation from a program of 2 years or more offered by a <link>recognized post-secondary institution</link>. The program must have a specialization in computer science, information technology, information management or another specialty relevant to this advertisement.",
-                id: "uIKNw3",
-                description:
-                  "Message under radio button in application education page.",
-              },
-              {
-                link: qualityStandardsLink,
-              },
-            )}
+            {intl.formatMessage(applicationMessages.postSecondaryEducation, {
+              link: qualityStandardsLink,
+            })}
           </p>
         </div>
       ),
