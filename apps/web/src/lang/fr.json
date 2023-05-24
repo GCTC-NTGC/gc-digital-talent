@@ -8052,6 +8052,10 @@
     "defaultMessage": "Le passage réussi de deux années d’éducation postsecondaire en sciences informatiques, en technologie de l’information, en gestion de l’information ou dans un autre domaine spécialisé pertinent à ce poste.",
     "description": "post secondary education experience for pool advertisement"
   },
+  "VHhOb/": {
+    "defaultMessage": "Le programme est une initiative du gouvernement du Canada, qui est conçue spécifiquement pour les Premières Nations, les Inuits et les Métis. Il s’agit d’un chemin vers l’emploi au sein de la fonction publique fédérale pour les Autochtones qui sont passionnés de technologies de l’information (TI). Nous misons sur cette passion ainsi que sur votre potentiel pour grandir et réussir dans ce domaine.",
+    "description": "Description of how the hiring platform assesses candidates for IAP."
+  },
   "TBsQMo": {
     "defaultMessage": "Choisissez l’option qui s’applique à votre situation",
     "description": "Legend for the radio group in the application education page."

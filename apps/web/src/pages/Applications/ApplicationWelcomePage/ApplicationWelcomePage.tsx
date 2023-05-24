@@ -63,7 +63,8 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
+  const { followingPageUrl, currentStepOrdinal, isIAP } =
+    useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -118,13 +119,21 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
         )}
       </p>
       <p data-h2-margin="base(x1, 0)">
-        {intl.formatMessage({
-          defaultMessage:
-            "The GC Digital Talent platform is a skills-based hiring system. This means that your application will put a heavier focus on your skills and how you've used them in past experiences to help us get a stronger understanding of your fit.",
-          id: "u/DBSl",
-          description:
-            "Description of how the skills-based hiring platform assess candidates.",
-        })}
+        {isIAP
+          ? intl.formatMessage({
+              defaultMessage:
+                "The program is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples. It is a pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology (IT). We focus on that passion, and your potential to grow and succeed in this field.",
+              id: "VHhOb/",
+              description:
+                "Description of how the hiring platform assesses candidates for IAP.",
+            })
+          : intl.formatMessage({
+              defaultMessage:
+                "The GC Digital Talent platform is a skills-based hiring system. This means that your application will put a heavier focus on your skills and how you've used them in past experiences to help us get a stronger understanding of your fit.",
+              id: "u/DBSl",
+              description:
+                "Description of how the skills-based hiring platform assess candidates.",
+            })}
       </p>
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
