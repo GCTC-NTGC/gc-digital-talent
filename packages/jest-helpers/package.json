@@ -11,7 +11,7 @@
     "build": "tsup src/index.ts  --dts --external react --minify",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "watch": "tsup src/index.ts  --watch --dts --external react --minify",
-    "lint": "TIMING=1 eslint \"src/**/*.ts*\""
+    "lint": "eslint \"src/**/*.ts*\""
   },
   "jest": {
     "preset": "jest-presets/jest/node"

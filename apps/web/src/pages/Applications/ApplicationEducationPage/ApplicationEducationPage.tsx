@@ -384,10 +384,10 @@ const ApplicationEducation = ({
           <RadioGroup
             idPrefix="education_requirement"
             legend={intl.formatMessage({
-              defaultMessage: "Select the option the applies to you",
-              id: "3O0s49",
+              defaultMessage: "Select the option that applies to you",
+              id: "TBsQMo",
               description:
-                "Legend for the  radio group in the application education page.",
+                "Legend for the radio group in the application education page.",
             })}
             name="educationRequirement"
             items={educationRequirementOptions}
