@@ -28,7 +28,7 @@ concurrency:
 jobs:
   run-cypress:
     # Platform recommended in cypress-io/github-action docs.
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       # Use native docker command within docker-compose
       COMPOSE_DOCKER_CLI_BUILD: 1
