@@ -1562,7 +1562,7 @@
     "description": "Question displayed when a user attempts to delete an experience from their profile"
   },
   "p3j/0q": {
-    "defaultMessage": "Veuillez communiquer avec l'équipe du bureau de gestion de la communauté numérique si vous avez besoin de mesures d'adaptation au cours de ce processus de candidature",
+    "defaultMessage": "Veuillez communiquer avec l'équipe de gestion de la collectivité du numérique si vous avez besoin de mesures d'adaptation au cours de ce processus de candidature",
     "description": "Description of what to do when accommodations are needed"
   },
   "gC74ro": {
@@ -7848,12 +7848,12 @@
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
   },
-  "GKKj6G": {
+  "e2qUId": {
     "defaultMessage": "Processus exécuté par {team} à {departments}",
     "description": "Team and department of pool"
   },
   "2Ljgvn": {
-    "defaultMessage": "Consulter l’avis d’emploi pour ce processus de recrutement",
+    "defaultMessage": "Consulter l’affiche d’emploi pour ce processus de recrutement",
     "description": "Link message that shows the job poster for the recruitment process."
   },
   "SZ2DsZ": {
@@ -7865,7 +7865,7 @@
     "description": "Default team for pool"
   },
   "VN6uCI": {
-    "defaultMessage": "Ces compétences essentielles seront évaluées dans le cadre du processus :",
+    "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
     "description": "Text showing the essentials skills assessed during the process"
   },
   "AnIVCJ": {

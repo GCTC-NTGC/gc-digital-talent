@@ -112,8 +112,8 @@ const SearchPools = ({
       <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage(
           {
-            defaultMessage: "Process run by: {team} at {departments}",
-            id: "GKKj6G",
+            defaultMessage: "Process run by {team} at {departments}",
+            id: "e2qUId",
             description: "Team and department of pool",
           },
           {
