@@ -1,6 +1,6 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useNavigate, useParams } from "react-router-dom";
 import PresentationChartBarIcon from "@heroicons/react/20/solid/PresentationChartBarIcon";
 import uniqueId from "lodash/uniqueId";

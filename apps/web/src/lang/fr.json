@@ -1545,17 +1545,9 @@
     "defaultMessage": "Sur le fondement de cette définition, je veux ajouter ce qui suit à mon profil :",
     "description": "Text that appears before employment equity form options."
   },
-  "DydUje": {
-    "defaultMessage": "Éducation formelle",
-    "description": "pool experience requirement, formal education"
-  },
   "GIN69n": {
     "defaultMessage": "Date de clôture :",
     "description": "Label for a pool advertisements closing date on the application"
-  },
-  "GNvz2K": {
-    "defaultMessage": "Autre expérience liée au domaine",
-    "description": "pool experience requirement, other"
   },
   "IF1xj8": {
     "defaultMessage": "La préférence sera donnée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",
@@ -1584,10 +1576,6 @@
   "XzUzZz": {
     "defaultMessage": "Il n'y a pas encore d'expériences sur votre profil. Vous pouvez en ajouter en utilisant les boutons précédents.",
     "description": "Message to user when no experiences have been attached to profile."
-  },
-  "YlWJ/N": {
-    "defaultMessage": "Formation non conventionnelle",
-    "description": "pool experience requirement, non-conventional training"
   },
   "ZuFBx5": {
     "defaultMessage": "Débutant <gray>- Je possède des compétences de base en lecture, écriture et communication verbale.</gray>",
@@ -1624,10 +1612,6 @@
   "ojN4Si": {
     "defaultMessage": "Date de clôture :",
     "description": "Label for pool advertisement closing date"
-  },
-  "qNL/Rp": {
-    "defaultMessage": "Apprentissage pendant l'emploi",
-    "description": "pool experience requirement, on job learning"
   },
   "Wnw+oz": {
     "defaultMessage": "<strong>Courriel</strong> : <anchorTag>{emailAddress}</anchorTag>",
@@ -7984,10 +7968,6 @@
     "defaultMessage": "Études postsecondaires de deux ans",
     "description": "Title for the education requirements"
   },
-  "bHHnHZ": {
-    "defaultMessage": "Expérience combinée en informatique, en technologie de l’information, en gestion de l’information ou dans une autre spécialité en rapport avec la présente annonce d’emploi, y compris ce qui suit :",
-    "description": "Descriptive text explaining valid applied work experiences"
-  },
   "btCYxZ": {
     "defaultMessage": "Voir ma demande",
     "description": "Link text to view an existing, submitted application"
@@ -8047,10 +8027,6 @@
   "Ewa83p": {
     "defaultMessage": "Les compétences suivantes sont essentielles à ce rôle et doivent être évidentes dans le cadre de votre demande.",
     "description": "Descriptive text about how required technical skills are used in the application process"
-  },
-  "RlYe/i": {
-    "defaultMessage": "Le passage réussi de deux années d’éducation postsecondaire en sciences informatiques, en technologie de l’information, en gestion de l’information ou dans un autre domaine spécialisé pertinent à ce poste.",
-    "description": "post secondary education experience for pool advertisement"
   },
   "3O0s49": {
     "defaultMessage": "Choisissez l’option qui s’applique à votre situation",
