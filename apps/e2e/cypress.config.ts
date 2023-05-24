@@ -1,7 +1,6 @@
 import { defineConfig } from "cypress";
-import webpackPreprocessor from "@cypress/webpack-preprocessor";
-import wp from "./webpack.config.js";
 const { verifyDownloadTasks } = require("cy-verify-downloads");
+
 const extendedTimeout = 60000;
 
 export default defineConfig({
@@ -31,12 +30,6 @@ export default defineConfig({
     // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {
       on("task", verifyDownloadTasks);
-      on(
-        "file:preprocessor",
-        webpackPreprocessor({
-          webpackOptions: wp,
-        }),
-      );
       return require("./cypress/plugins/index.js")(on, config);
     },
     experimentalSessionAndOrigin: true,
