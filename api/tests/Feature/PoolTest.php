@@ -45,7 +45,7 @@ class PoolTest extends TestCase
         $this->baseUser->syncRoles(["base_user"]);
     }
 
-    public function testPoolAdvertisementAccessor(): void
+    public function testPoolAccessor(): void
     {
         // Create new pools and attach to new pool candidates.
         $pool1 = Pool::factory()->create([
@@ -73,15 +73,15 @@ class PoolTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-        query poolAdvertisement {
-            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
+        query pool {
+            pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
                 advertisementStatus
             }
         }
     '
         )->assertJson([
             "data" => [
-                "poolAdvertisement" => [
+                "pool" => [
                     "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED,
                 ]
             ]
@@ -91,15 +91,15 @@ class PoolTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-        query poolAdvertisement {
-            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
+        query pool {
+            pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
                 advertisementStatus
             }
         }
     '
         )->assertJson([
             "data" => [
-                "poolAdvertisement" => [
+                "pool" => [
                     "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED,
                 ]
             ]
@@ -109,15 +109,15 @@ class PoolTest extends TestCase
         $this->actingAs($this->adminUser, "api")->graphQL(
             /** @lang GraphQL */
             '
-        query poolAdvertisement {
-            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13") {
+        query pool {
+            pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13") {
                 advertisementStatus
             }
         }
     '
         )->assertJson([
             "data" => [
-                "poolAdvertisement" => [
+                "pool" => [
                     "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
                 ]
             ]
@@ -127,22 +127,22 @@ class PoolTest extends TestCase
         $this->actingAs($this->adminUser, "api")->graphQL(
             /** @lang GraphQL */
             '
-        query poolAdvertisement {
-            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14") {
+        query pool {
+            pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14") {
                 advertisementStatus
             }
         }
     '
         )->assertJson([
             "data" => [
-                "poolAdvertisement" => [
+                "pool" => [
                     "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
                 ]
             ]
         ]);
     }
 
-    public function testPoolAdvertisementAccessorTime(): void
+    public function testPoolAccessorTime(): void
     {
         // test that expiry on day of functions as expected, that soon to expire can be applied to and just expired is longer open for application
         $expireInHour = date("Y-m-d H:i:s", strtotime('+1 hour'));
@@ -163,15 +163,15 @@ class PoolTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-        query poolAdvertisement {
-            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
+        query pool {
+            pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
                 advertisementStatus
             }
         }
     '
         )->assertJson([
             "data" => [
-                "poolAdvertisement" => [
+                "pool" => [
                     "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED,
                 ]
             ]
@@ -181,15 +181,15 @@ class PoolTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-        query poolAdvertisement {
-            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
+        query pool {
+            pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
                 advertisementStatus
             }
         }
     '
         )->assertJson([
             "data" => [
-                "poolAdvertisement" => [
+                "pool" => [
                     "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED,
                 ]
             ]
