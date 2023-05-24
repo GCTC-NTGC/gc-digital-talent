@@ -13,6 +13,7 @@
     "@gc-digital-talent/web": "*"
   },
   "devDependencies": {
+    "@cypress/webpack-preprocessor": "^5.17.1",
     "@testing-library/cypress": "^8.0.7",
     "axe-core": "^4.7.1",
     "cy-verify-downloads": "^0.1.14",
