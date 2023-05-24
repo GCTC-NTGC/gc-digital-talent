@@ -375,8 +375,8 @@ const ApplicationEducation = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Graduation from a program of 2 years or more offered by a <link>recognized post-secondary institution.</link> The program must have a specialization in computer science, information technology, information management or another specialty relevant to this advertisement.",
-                id: "uWVDQu",
+                  "Graduation from a program of 2 years or more offered by a <link>recognized post-secondary institution</link>. The program must have a specialization in computer science, information technology, information management or another specialty relevant to this advertisement.",
+                id: "uIKNw3",
                 description:
                   "Message under radio button in application education page.",
               },

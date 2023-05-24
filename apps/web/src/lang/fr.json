@@ -8148,10 +8148,6 @@
     "defaultMessage": "Vous pouvez ajouter des expériences propres à vos études en sélectionnant l’option \"Education and certificates\" (Études et certificats) au moment de <link>créer une nouvelle expérience pertinente à votre curriculum vitæ à l’étape précédente.</link>",
     "description": "Secondary alert message informing user to add education experience in application education page."
   },
-  "socp8t": {
-    "defaultMessage": "Achèvement de deux années d’études postsecondaires en informatique, en technologie de l’information, en gestion de l’information ou dans une autre spécialité pertinente à cette offre d’emploi.",
-    "description": "Message under radio button in application education page."
-  },
   "yJnGeT": {
     "defaultMessage": "Choisissez le critère auquel vous répondez.",
     "description": "Heading for radio group section in application education page."
@@ -8159,5 +8155,9 @@
   "Td1lSw": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience de formation à votre curriculum vitæ .",
     "description": "Alert message informing user to add education experience in application education page."
+  },
+  "uIKNw3": {
+    "defaultMessage": "Obtention d’un diplôme d’un programme de deux ans ou plus offert par <link>une institution postsecondaire reconnue</link>. Le programme doit compter une spécialisation en sciences informatiques, en technologie de l’information, en gestion de l’information ou dans un autre domaine spécialisé pertinent à la présente publication.",
+    "description": "Message under radio button in application education page."
   }
 }
