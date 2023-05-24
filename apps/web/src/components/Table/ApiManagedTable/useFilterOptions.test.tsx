@@ -142,7 +142,7 @@ describe("useFilterOptions", () => {
       await waitFor(() =>
         expect(result.current.optionsData.pools).not.toBeUndefined(),
       );
-      expect(result.current.optionsData.pools).toHaveLength(2);
+      expect(result.current.optionsData.pools).toHaveLength(10);
     });
 
     it("generates appropriate number of options after response: skills", async () => {
