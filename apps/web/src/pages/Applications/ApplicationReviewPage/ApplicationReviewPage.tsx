@@ -176,9 +176,9 @@ const ApplicationReview = ({
               {intl.formatMessage({
                 defaultMessage:
                   "When you submit your application, a copy of your profile will be created as a part of your application.",
-                id: "G4nPxX",
+                id: "A9Urm+",
                 description:
-                  "List item message for the application review page.",
+                  "List item note 1 for the application review page.",
               })}
             </p>
           </li>
@@ -187,9 +187,9 @@ const ApplicationReview = ({
               {intl.formatMessage({
                 defaultMessage:
                   "Changes made to your profile after submitting will not be updated on your application.",
-                id: "fE6aTX",
+                id: "Pasf+O",
                 description:
-                  "List item message for the application review page.",
+                  "List item note 2 for the application review page.",
               })}
             </p>
           </li>
@@ -198,9 +198,9 @@ const ApplicationReview = ({
               {intl.formatMessage({
                 defaultMessage:
                   "You are still encouraged to keep your profile up to date, as updated versions will be used at later steps of the hiring process.",
-                id: "cWukJu",
+                id: "8BR20I",
                 description:
-                  "List item message for the application review page.",
+                  "List item note 3 for the application review page.",
               })}
             </p>
           </li>
@@ -330,9 +330,9 @@ const ApplicationReview = ({
                     {intl.formatMessage({
                       defaultMessage:
                         "It looks like you haven't added any experiences to your résumé yet.",
-                      id: "ifzI0r",
+                      id: "h3Cr80",
                       description:
-                        "Null state message for education requirement section of the application review page.",
+                        "Null state message for experiences section of the application review page.",
                     })}
                   </p>
                 </Well>
@@ -445,9 +445,9 @@ const ApplicationReview = ({
               <p data-h2-margin-bottom="base(x1)">
                 {intl.formatMessage({
                   defaultMessage: `You made it! By signing your name, you confirm that:`,
-                  id: "e05s3z",
+                  id: "pH8wF2",
                   description:
-                    "Heading for sign and submit section of application review page.",
+                    "Instructions for sign and submit section of application review page.",
                 })}
               </p>
               <ul>
@@ -455,9 +455,9 @@ const ApplicationReview = ({
                   <p data-h2-margin-bottom="base(x.5)">
                     {intl.formatMessage({
                       defaultMessage: `"I’ve reviewed everything written in my application"`,
-                      id: "Th2Tu0",
+                      id: "PDbqFR",
                       description:
-                        "List item for sign and submit section of application review page.",
+                        "Review list item for sign and submit section of application review page.",
                     })}
                   </p>
                 </li>
@@ -465,9 +465,9 @@ const ApplicationReview = ({
                   <p data-h2-margin-bottom="base(x.5)">
                     {intl.formatMessage({
                       defaultMessage: `"I understand that I am part of a community who trusts each other"`,
-                      id: "ra+ohb",
+                      id: "jT5ANA",
                       description:
-                        "List item for sign and submit section of application review page.",
+                        "Community list item for sign and submit section of application review page.",
                     })}
                   </p>
                 </li>
@@ -475,9 +475,9 @@ const ApplicationReview = ({
                   <p data-h2-margin-bottom="base(x.5)">
                     {intl.formatMessage({
                       defaultMessage: `"I promise that the information I’ve provided is true"`,
-                      id: "n3vark",
+                      id: "1ZQP80",
                       description:
-                        "List item for sign and submit section of application review page.",
+                        "Truth list item for sign and submit section of application review page.",
                     })}
                   </p>
                 </li>

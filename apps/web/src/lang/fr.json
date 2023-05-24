@@ -8176,9 +8176,9 @@
     "defaultMessage": "Révisez votre candidature et envoyez-la",
     "description": "Link text for the application review page."
   },
-  "G4nPxX": {
+  "A9Urm+": {
     "defaultMessage": "Lorsque vous envoyez votre candidature, une copie de votre profil est automatiquement créée.",
-    "description": "List item message for the application review page."
+    "description": "List item note 1 for the application review page."
   },
   "GXmpsW": {
     "defaultMessage": "Avant de poursuivre, il est important que vous compreniez les remarques suivantes concernant votre candidature :",
@@ -8204,9 +8204,9 @@
     "defaultMessage": "Votre nom complet",
     "description": "Label displayed for signature input in sign and submit section of application review page."
   },
-  "Th2Tu0": {
+  "PDbqFR": {
     "defaultMessage": "\"J’ai relu tout le contenu de ma candidature\"",
-    "description": "List item for sign and submit section of application review page."
+    "description": "Review list item for sign and submit section of application review page."
   },
   "V9lxDE": {
     "defaultMessage": "Il semble que vous n’ayez pas encore répondu aux questions de sélection.",
@@ -8215,25 +8215,25 @@
   "bO9PB4": {
     "defaultMessage": "J’envoie ma candidature"
   },
-  "cWukJu": {
+  "8BR20I": {
     "defaultMessage": "Nous vous encourageons à tenir votre profil à jour, car c’est sa version actualisée qui servira lors des étapes à venir du processus d’embauche.",
-    "description": "List item message for the application review page."
+    "description": "List item note 3 for the application review page."
   },
-  "e05s3z": {
+  "pH8wF2": {
     "defaultMessage": "Bravo, c’est réussi! En signant, vous confirmez ce qui suit :",
-    "description": "Heading for sign and submit section of application review page."
+    "description": "Instructions for sign and submit section of application review page."
   },
-  "fE6aTX": {
+  "Pasf+O": {
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
-    "description": "List item message for the application review page."
+    "description": "List item note 2 for the application review page."
   },
   "fhgZRX": {
     "defaultMessage": "Je signe et j’envoie ma candidature",
     "description": "Heading for sign and submit section of application review page."
   },
-  "ifzI0r": {
+  "h3Cr80": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience professionnelle à votre CV.",
-    "description": "Null state message for education requirement section of the application review page."
+    "description": "Null state message for experiences section of the application review page."
   },
   "jV/FG1": {
     "defaultMessage": "Modifiez la formation requise",
@@ -8250,17 +8250,17 @@
   "mu6uvE": {
     "defaultMessage": "Modifiez cette section"
   },
-  "n3vark": {
+  "1ZQP80": {
     "defaultMessage": "\"Je déclare que les renseignements fournis sont exacts\"",
-    "description": "List item for sign and submit section of application review page."
+    "description": "Truth list item for sign and submit section of application review page."
   },
   "qGyD4w": {
     "defaultMessage": "Questions de sélection",
     "description": "Heading for screening questions section of the application review page."
   },
-  "ra+ohb": {
+  "jT5ANA": {
     "defaultMessage": "\"Je comprends faire partie d’un groupe où règne la confiance mutuelle\"",
-    "description": "List item for sign and submit section of application review page."
+    "description": "Community list item for sign and submit section of application review page."
   },
   "v0QzOM": {
     "defaultMessage": "Modifiez votre CV",
