@@ -220,7 +220,7 @@ class UserFactory extends Factory
      *
      * Usage:
      *      `User::factory()->withRoles(['base_user', 'applicant']);`
-     *      `User::factory()->withRoles(['poo_operator'], 'team_name');`
+     *      `User::factory()->withRoles(['pool_operator'], 'team_name');`
      */
     public function withRoles(array $roles, string|array $team = null)
     {
