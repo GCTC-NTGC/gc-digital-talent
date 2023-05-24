@@ -99,6 +99,7 @@ export const ApplicationProfile = ({
     user,
     isUpdating,
     onUpdate: handleUpdate,
+    poolAdvertisement: application.poolAdvertisement,
   };
 
   return (

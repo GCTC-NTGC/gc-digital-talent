@@ -1,4 +1,4 @@
-import { Color, HeadingRank } from "./types";
+import { Color, HeadingRank, IconType, IconProps } from "./types";
 
 import Accordion from "./components/Accordion";
 import StandardAccordionHeader from "./components/Accordion/StandardHeader";
@@ -98,6 +98,8 @@ export type {
   ExternalLinkProps,
   DownloadCsvProps,
   LinkProps,
+  IconProps,
+  IconType,
   IconLinkProps,
   ScrollToLinkProps,
   ScrollLinkClickFunc,

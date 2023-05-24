@@ -1265,9 +1265,14 @@ class PoolCandidateTest extends TestCase
             }
         ';
 
-        $orderBy =  [
+        $orderByAsc =  [
             'column' => 'skill_count',
             'order' => 'ASC'
+        ];
+
+        $orderByDesc =  [
+            'column' => 'skill_count',
+            'order' => 'DESC'
         ];
 
         $skills = Skill::factory()->count(10)->create();
@@ -1297,7 +1302,6 @@ class PoolCandidateTest extends TestCase
         $personal->skills()->sync([$skills[2]->id]);
         $users[1]->personalExperiences()->save($personal);
 
-
         $userOneCandidate = PoolCandidate::factory()->create([
             'user_id' => $users[0]->id,
             'pool_id' => $this->pool->id,
@@ -1309,10 +1313,10 @@ class PoolCandidateTest extends TestCase
             'submitted_at' => config('constants.past_date'),
         ]);
 
-        // Assert skill count matches the number of skills in the subset adn orders by skill count
+        // Assert skill count matches the number of skills in the subset and orders by skill count in ascending order
         $this->actingAs($this->teamUser, "api")
             ->graphQL($query, [
-                'orderBy' => $orderBy,
+                'orderBy' => $orderByAsc,
                 'where' => [
                     'applicantFilter' => [
                         'skills' => array_map(function ($id) {
@@ -1338,10 +1342,39 @@ class PoolCandidateTest extends TestCase
                 ]
             ]);
 
+        // Assert skill count matches the number of skills in the subset and orders by skill count in descending order
+        $this->actingAs($this->teamUser, "api")
+            ->graphQL($query, [
+                'orderBy' => $orderByDesc,
+                'where' => [
+                    'applicantFilter' => [
+                        'skills' => array_map(function ($id) {
+                            return ['id' => $id];
+                        }, $skillSubset)
+                    ]
+                ]
+            ])
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            [
+                                'id' => $userOneCandidate->id,
+                                'skillCount' => 2
+                            ],
+                            [
+                                'id' => $userTwoCandidate->id,
+                                'skillCount' => 1
+                            ]
+                        ]
+                    ]
+                ]
+            ]);
+
         // Assert no skill count when no overlapping
         $this->actingAs($this->teamUser, "api")
             ->graphQL($query, [
-                'orderBy' => $orderBy,
+                'orderBy' => $orderByAsc,
                 'where' => [
                     'applicantFilter' => [
                         'skills' => array_map(function ($id) {
@@ -1360,13 +1393,13 @@ class PoolCandidateTest extends TestCase
         // Assert no skill count when no skills requested
         $this->actingAs($this->teamUser, "api")
             ->graphQL($query, [
-                'orderBy' => $orderBy,
+                'orderBy' => $orderByAsc,
             ])->assertJsonFragment(['skillCount' => null]);
 
         // Assert skill count only matches one skill overlapping (user two does not exist in the subset)
         $this->actingAs($this->teamUser, "api")
             ->graphQL($query, [
-                'orderBy' => $orderBy,
+                'orderBy' => $orderByAsc,
                 'where' => [
                     'applicantFilter' => [
                         'skills' =>

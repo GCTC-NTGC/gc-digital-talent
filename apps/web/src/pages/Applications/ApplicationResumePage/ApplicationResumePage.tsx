@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import groupBy from "lodash/groupBy";
@@ -10,13 +10,11 @@ import {
   Button,
   Heading,
   Link,
+  Pending,
   Separator,
+  ThrowNotFound,
   Well,
 } from "@gc-digital-talent/ui";
-import {
-  ApplicationStep,
-  useUpdateApplicationMutation,
-} from "@gc-digital-talent/graphql";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Select } from "@gc-digital-talent/forms";
@@ -24,20 +22,24 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { ExperienceType } from "~/types/experience";
+import { ExperienceForDate, ExperienceType } from "~/types/experience";
 import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
 import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
 import applicationMessages from "~/messages/applicationMessages";
+import {
+  ApplicationStep,
+  useGetApplicationQuery,
+  useGetMyExperiencesQuery,
+  useUpdateApplicationMutation,
+} from "~/api/generated";
 
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
 type SortOptions = "date_desc" | "type_asc";
-type PageAction = "continue" | "cancel";
 
 type FormValues = {
   sortExperiencesBy: SortOptions;
-  action: PageAction;
   experienceCount: number;
 };
 
@@ -156,7 +158,14 @@ function formatExperienceCount(
   }
 }
 
-export const ApplicationResume = ({ application }: ApplicationPageProps) => {
+interface ApplicationResumeProps extends ApplicationPageProps {
+  experiences: Array<ExperienceForDate>;
+}
+
+export const ApplicationResume = ({
+  application,
+  experiences,
+}: ApplicationResumeProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -175,23 +184,22 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
   const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
 
   const methods = useForm<FormValues>();
-  const { watch, register, setValue } = methods;
-  const watchSortExperiencesBy = watch("sortExperiencesBy");
-  const actionProps = register("action");
+  const { watch, setValue } = methods;
+  const watchSortExperiencesBy = watch("sortExperiencesBy", "date_desc"); // default first option in the <Select>
 
-  const experiences = application.user.experiences?.filter(notEmpty) ?? [];
+  const nonEmptyExperiences = experiences?.filter(notEmpty) ?? [];
   const hasSomeExperience = !!experiences.length;
 
-  const experiencesByType = groupBy(experiences.filter(notEmpty), (e) => {
+  const experiencesByType = groupBy(nonEmptyExperiences, (e) => {
     return deriveExperienceType(e);
   });
 
   switch (watchSortExperiencesBy) {
     case "date_desc":
-      experiences.sort((a, b) => compareByDate(a, b));
+      nonEmptyExperiences.sort((a, b) => compareByDate(a, b));
       break;
     case "type_asc":
-      experiences.sort((a, b) => {
+      nonEmptyExperiences.sort((a, b) => {
         const typeA = deriveExperienceType(a) ?? "";
         const typeB = deriveExperienceType(b) ?? "";
         return typeA > typeB ? 1 : -1;
@@ -201,7 +209,7 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
     // no op
   }
 
-  const handleSubmit = async (formValues: FormValues) => {
+  const handleSubmit = async () => {
     executeMutation({
       id: application.id,
       application: {
@@ -218,7 +226,7 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
                 "Message displayed to users when saving résumé is successful.",
             }),
           );
-          navigate(formValues.action === "continue" ? nextStep : cancelPath);
+          navigate(nextStep);
         }
       })
       .catch(() => {
@@ -372,7 +380,7 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
           </div>
           {hasSomeExperience ? (
             <Accordion.Root type="multiple">
-              {experiences.map((experience) => {
+              {nonEmptyExperiences.map((experience) => {
                 return (
                   <ExperienceAccordion
                     key={experience.id}
@@ -434,35 +442,20 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
               type="submit"
               mode="solid"
               value="continue"
-              {...actionProps}
               onClick={() => {
-                setValue("action", "continue");
                 setValue("experienceCount", experiences.length);
               }}
             >
-              {intl.formatMessage({
-                defaultMessage: "I’m happy with my résumé",
-                id: "Km89qF",
-                description: "Link text to continue the application process",
-              })}
+              {intl.formatMessage(applicationMessages.saveContinue)}
             </Button>
-            <Button
-              type="submit"
+            <Link
+              type="button"
               mode="inline"
               color="secondary"
-              value="cancel"
-              {...actionProps}
-              onClick={() => {
-                setValue("action", "cancel");
-                setValue("experienceCount", experiences.length);
-              }}
+              href={cancelPath}
             >
-              {intl.formatMessage({
-                defaultMessage: "Save and quit for now",
-                id: "U86N4g",
-                description: "Action button to save and exit an application",
-              })}
-            </Button>
+              {intl.formatMessage(applicationMessages.saveQuit)}
+            </Link>
           </div>
         </form>
       </FormProvider>
@@ -470,8 +463,46 @@ export const ApplicationResume = ({ application }: ApplicationPageProps) => {
   );
 };
 
-export const ApplicationResumePage = () => (
-  <ApplicationApi PageComponent={ApplicationResume} />
-);
+const ApplicationResumePage = () => {
+  const { applicationId } = useParams();
+  const [
+    {
+      data: applicationData,
+      fetching: applicationFetching,
+      error: applicationError,
+    },
+  ] = useGetApplicationQuery({
+    variables: {
+      id: applicationId || "",
+    },
+    requestPolicy: "cache-first",
+  });
+  const [
+    {
+      data: experienceData,
+      fetching: experienceFetching,
+      error: experienceError,
+    },
+  ] = useGetMyExperiencesQuery();
+
+  const application = applicationData?.poolCandidate;
+  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
+
+  return (
+    <Pending
+      fetching={applicationFetching || experienceFetching}
+      error={applicationError || experienceError}
+    >
+      {application?.poolAdvertisement ? (
+        <ApplicationResume
+          application={application}
+          experiences={experiences}
+        />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 
 export default ApplicationResumePage;

@@ -1,9 +1,11 @@
 import { FieldLabels } from "@gc-digital-talent/forms";
 import {
+  Maybe,
+  PoolAdvertisement,
   UpdateUserAboutMeMutation,
   UpdateUserAsUserInput,
   User,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 
@@ -22,6 +24,7 @@ export interface SectionProps {
     id: string,
     user: UpdateUserAsUserInput,
   ) => Promise<UpdateUserAboutMeMutation["updateUserAsUser"]>;
+  poolAdvertisement: Maybe<PoolAdvertisement>;
 }
 
 export interface FormFieldProps {

@@ -97,6 +97,7 @@ input ApplicantFilterInput {
 
 enum ApplicationStep {
   WELCOME
+  SELF_DECLARATION
   REVIEW_YOUR_PROFILE
   REVIEW_YOUR_RESUME
   EDUCATION_REQUIREMENTS
@@ -308,7 +309,6 @@ input CreatePoolInput {
   team: TeamBelongsTo!
   name: LocalizedStringInput!
   key: KeyString
-  description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
@@ -680,7 +680,6 @@ enum OperationalRequirement {
   TRAVEL
   TRANSPORT_EQUIPMENT
   DRIVERS_LICENSE
-  WORK_WEEKENDS
   OVERTIME_SCHEDULED
   OVERTIME_SHORT_NOTICE
   OVERTIME_OCCASIONAL
@@ -812,7 +811,6 @@ type Pool {
   team: Team
   name: LocalizedString
   key: KeyString
-  description: LocalizedString
   classifications: [Classification]
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
@@ -834,7 +832,6 @@ type PoolAdvertisement {
   closingDate: DateTime
   publishedAt: DateTime
   name: LocalizedString
-  description: LocalizedString
   classifications: [Classification]
   keyTasks: LocalizedString
   yourImpact: LocalizedString
@@ -1410,7 +1407,6 @@ input UpdatePoolInput {
   owner: UserBelongsTo
   team: TeamBelongsTo
   name: LocalizedStringInput
-  description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput

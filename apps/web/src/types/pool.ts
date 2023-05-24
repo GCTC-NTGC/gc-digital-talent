@@ -13,7 +13,7 @@ export type SimpleOwner = Pick<
 
 export type SimplePool = Pick<
   Pool,
-  "id" | "description" | "name" | "classifications" | "stream"
+  "id" | "name" | "classifications" | "stream"
 > & {
   classifications?: Maybe<Array<Maybe<SimpleClassification>>>;
   owner?: Maybe<SimpleOwner>;

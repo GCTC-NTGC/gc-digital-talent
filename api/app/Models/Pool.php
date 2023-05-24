@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Auth;
  * @property string $id
  * @property array $name
  * @property string $key
- * @property array $description
  * @property int $user_id
  * @property array $operational_requirements
  * @property array $key_tasks
@@ -51,7 +50,6 @@ class Pool extends Model
      */
     protected $casts = [
         'name' => 'array',
-        'description' => 'array',
         'operational_requirements' => 'array',
         'key_tasks' => 'array',
         'advertisement_location' => 'array',
@@ -75,7 +73,6 @@ class Pool extends Model
         'stream',
         'security_clearance',
         'advertisement_language',
-        'description',
         'your_impact',
         'advertisement_location',
         'publishing_group',
@@ -156,8 +153,12 @@ class Pool extends Model
 
     public function scopeAuthorizedToView(Builder $query)
     {
-        $userId = Auth::user()->id;
-        $user = User::find($userId);
+        $user = Auth::user();
+
+        if (!$user) {
+            return $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
+        }
+
         if (!$user->isAbleTo("view-any-pool")) {
             $query->where(function (Builder $query) use ($user) {
 

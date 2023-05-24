@@ -225,10 +225,6 @@
     "defaultMessage": "Soumis",
     "description": "Default text for submitted button."
   },
-  "6I3OCB": {
-    "defaultMessage": "Travailler les fins de semaine",
-    "description": "The operational requirement described as work weekends."
-  },
   "ACppq6": {
     "defaultMessage": "Placé Occasionnels",
     "description": "The pool candidate's status is Placed Casual."
@@ -457,10 +453,6 @@
     "defaultMessage": "exige <strong>des quarts de travail</strong>.",
     "description": "The operational requirement described as shift work."
   },
-  "CFAc15": {
-    "defaultMessage": "m'oblige à <strong>travailler les fins de semaine</strong>.",
-    "description": "The operational requirement described as work weekends."
-  },
   "TR0Kxz": {
     "defaultMessage": "<strong>Ouvert aux possibilités</strong> – Je ne cherche pas activement, mais je veux être contacté pour trouver des possibilités d'emploi",
     "description": "Job Looking Status described as Open to opportunities."
@@ -504,10 +496,6 @@
   "7Gg5er": {
     "defaultMessage": "Déplacements selon les besoins",
     "description": "The operational requirement described as travel as required. (short-form for limited space)"
-  },
-  "mhO12a": {
-    "defaultMessage": "Travailler les fins de semaine",
-    "description": "The operational requirement described as work weekends. (short-form for limited space)"
   },
   "+6TuVe": {
     "defaultMessage": "Désélectionner {label}",
@@ -780,6 +768,10 @@
   "XTuwjA": {
     "defaultMessage": "Cette chaîne de clés de famille de compétences est déjà utilisée",
     "description": "Error message that the given skill family key is already in use."
+  },
+  "xH10Pp": {
+    "defaultMessage": "Ce numéro de ministère est déjà utilisé",
+    "description": "Error message that the input department number is already in use."
   },
   "XerShr": {
     "defaultMessage": "Recherche active",
@@ -1141,9 +1133,9 @@
     "defaultMessage": "Suspendu",
     "description": "Suspended status"
   },
-  "qQtJDw": {
+  "XnvXtO": {
     "defaultMessage": "Tous",
-    "description": "All statuses"
+    "description": "All"
   },
   "nLW9zq": {
     "defaultMessage": "Technologie de l’information"
@@ -1362,8 +1354,16 @@
     "defaultMessage": "Renseignements manquants",
     "description": "Message displayed when a user has not provided some form of information"
   },
-  "LWsmvv": {
+  "I6gM/P": {
     "defaultMessage": "PAPA",
-    "description": "The publishing group called Indigenous Apprenticeship Program"
+    "description": "The publishing group called IT Apprenticeship Program for Indigenous Peoples"
+  },
+  "4S30lt": {
+    "defaultMessage": "Expérience de travail appliquée",
+    "description": "Option for education requirement, applied work experience"
+  },
+  "TiIkSF": {
+    "defaultMessage": "Deux années post-secondaire",
+    "description": "Option for education requirement, 2-year post-secondary"
   }
 }

@@ -1,9 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-import { IconLink } from "@gc-digital-talent/ui";
-
-import { IconType } from "./types";
+import { IconLink, IconType } from "@gc-digital-talent/ui";
 
 export interface NavItemProps {
   label: React.ReactNode;
