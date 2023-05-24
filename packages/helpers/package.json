@@ -12,7 +12,7 @@
     "build": "tsup src/index.tsx  --dts --external react --minify",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "watch": "tsup src/index.tsx  --watch --dts --external react --minify",
-    "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
+    "lint": "eslint \"src/**/*.ts*\"",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },
   "dependencies": {
