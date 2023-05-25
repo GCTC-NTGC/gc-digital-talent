@@ -47,7 +47,7 @@
     "@heroicons/react": "^2.0.18",
     "@microsoft/applicationinsights-react-js": "^3.4.1",
     "@microsoft/applicationinsights-web": "^2.8.11",
-    "date-fns": "^2.29.3",
+    "date-fns": "^2.30.0",
     "dotenv": "^16.0.3",
     "framer-motion": "^10.12.16",
     "graphql": "^16.6.0",
