@@ -478,7 +478,7 @@
     "defaultMessage": "Nous pouvons encore vous aider!",
     "description": "Heading for helping user if no candidates matched the filters chosen."
   },
-  "6mDW+R": {
+  "3BfvIy": {
     "defaultMessage": "Demande de candidats",
     "description": "Button link message on search page that takes user to the request form."
   },
@@ -542,7 +542,7 @@
     "defaultMessage": "Recherche dans le bassin de talents numériques",
     "description": "Title displayed in the hero section of the Search page."
   },
-  "Tg8a57": {
+  "AaoxNX": {
     "defaultMessage": "Utilisez les filtres ci-dessous pour préciser vos besoins d’embauche. En tout temps, vous pouvez consulter les résultats situés en bas de cette page pour voir combien de candidats correspondent aux exigences que vous avez entrées. Lorsque vous êtes satisfait des filtres que vous avez sélectionnés, cliquez sur le bouton Demander des candidats pour ajouter des renseignements et soumettre un formulaire de demande.",
     "description": "Content displayed in the How To area of the hero section of the Search page."
   },
@@ -628,10 +628,6 @@
   "zDzzb/": {
     "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres : ",
     "description": "Heading for total matching candidates in results section of search page."
-  },
-  "o+a0IN": {
-    "defaultMessage": "Propriétaire du bassin : {name}",
-    "description": "Text showing the owner of the HR pool."
   },
   "RGzfes": {
     "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste.",
@@ -1566,7 +1562,7 @@
     "description": "Question displayed when a user attempts to delete an experience from their profile"
   },
   "p3j/0q": {
-    "defaultMessage": "Veuillez communiquer avec l'équipe du bureau de gestion de la communauté numérique si vous avez besoin de mesures d'adaptation au cours de ce processus de candidature",
+    "defaultMessage": "Veuillez communiquer avec l'équipe de gestion de la collectivité du numérique si vous avez besoin de mesures d'adaptation au cours de ce processus de candidature",
     "description": "Description of what to do when accommodations are needed"
   },
   "gC74ro": {
@@ -7839,6 +7835,26 @@
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
+  },
+  "e2qUId": {
+    "defaultMessage": "Processus exécuté par {team} à {departments}",
+    "description": "Team and department of pool"
+  },
+  "2Ljgvn": {
+    "defaultMessage": "Consulter l’affiche d’emploi pour ce processus de recrutement",
+    "description": "Link message that shows the job poster for the recruitment process."
+  },
+  "SZ2DsZ": {
+    "defaultMessage": "Secrétariat du Conseil du Trésor du Canada",
+    "description": "Default department for pool"
+  },
+  "S82O61": {
+    "defaultMessage": "Équipe de gestion de la collectivité du numérique",
+    "description": "Default team for pool"
+  },
+  "VN6uCI": {
+    "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
+    "description": "Text showing the essentials skills assessed during the process"
   },
   "AnIVCJ": {
     "defaultMessage": "Nous tenons à vous remercier de votre intérêt à devenir un(e) apprenti(e) de la TI au sein du gouvernement du Canada. Votre expérience vécue, votre passion et vos intérêts sont chaleureusement accueillis et reconnus. Un membre de l’équipe du Bureau des initiatives autochtones communiquera avec vous au cours des trois à cinq prochains jours ouvrables pour discuter votre demande.",

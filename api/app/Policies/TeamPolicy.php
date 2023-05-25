@@ -12,26 +12,23 @@ class TeamPolicy
 
     /**
      * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
+     * Everyone is allowed to view the team including guests
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(?User $user)
     {
-        return $user->isAbleTo("view-any-team");
+        return true;
     }
 
     /**
      * Determine whether the user can view a specific model.
      * To be sketched in later with roles and permissions work
-     *
-     * @param  \App\Models\User  $user
-     * @param \App\Models\Team|null $team
+     * Everyone is allowed to view the team including guests
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Team $team = null)
+    public function view(?User $user, Team $team = null)
     {
-        return $user->isAbleTo("view-any-team");
+        return true;
     }
 
     /**
