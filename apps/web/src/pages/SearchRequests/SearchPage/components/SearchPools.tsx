@@ -68,13 +68,11 @@ const SearchPools = ({
           },
         )}
       </p>
-      <p
-        data-h2-margin="base(x.5, 0, x1, 0)"
-        data-h2-color="base(secondary.light)"
-      >
+      <p data-h2-margin="base(x.5, 0, x1, 0)">
         <ExternalLink
           mode="inline"
           type="button"
+          color="secondary"
           href={paths.pool(pool.id || "")}
           newTab
         >
@@ -103,8 +101,8 @@ const SearchPools = ({
       >
         {pool?.essentialSkills && pool?.essentialSkills.length > 0
           ? pool.essentialSkills.map((skill) => (
-              <span key={skill.id} data-h2-color="base(secondary.light)">
-                <Pill key={skill.id} mode="outline" color="secondary">
+              <span key={skill.id}>
+                <Pill key={skill.id} color="secondary" mode="outline">
                   {getLocalizedName(skill?.name, intl)}
                 </Pill>
               </span>
