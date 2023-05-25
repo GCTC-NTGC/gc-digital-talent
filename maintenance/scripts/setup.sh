@@ -1,5 +1,30 @@
 #! /bin/bash
 
+Help()
+{
+  echo "Setup the project and your environment."
+  echo
+  echo "Syntax: setup.sh [-h|c]"
+  echo "   -h   Show this help message."
+  echo "   -c   Setup the environment for CI."
+  echo
+}
+
+CI=false
+
+while getopts ":hc" option; do
+  case $option in
+    h | help) # display Help
+      Help
+      exit;;
+    c | ci)
+      CI=true;;
+    \?) # incorrect option
+      echo "Error: Invalid option"
+      exit;;
+  esac
+done
+
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 source ${parent_path}/lib/common.sh
 
