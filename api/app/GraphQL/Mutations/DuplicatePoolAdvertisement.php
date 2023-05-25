@@ -27,6 +27,16 @@ final class DuplicatePoolAdvertisement
         ]);
         $newPool->save();
 
+        $newPool->classifications()->sync($pool->classifications->pluck('id'));
+        $newPool->essentialSkills()->sync($pool->essentialSkills->pluck('id'));
+        $newPool->nonessentialSkills()->sync($pool->nonessentialSkills->pluck('id'));
+
+        foreach ($pool->screeningQuestions as $screeningQuestion) {
+            $newQuestion = $screeningQuestion->replicate();
+            $newQuestion->save();
+            $newPool->screeningQuestions()->save($newQuestion);
+        }
+
         return $newPool;
     }
 }
