@@ -124,6 +124,24 @@ class PoolPolicy
     }
 
     /**
+     * Determine whether the user can create pools.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function duplicate(User $user, $request)
+    {
+        $existing = Pool::findOrFail($request["id"]);
+
+        // Confirm the user can create pools for the team
+        if ($user->isAbleTo("create-team-pool", $existing->team)) {
+            return true;
+        } else {
+            return Response::deny("Cannot duplicate a pool for that team.");
+        }
+    }
+
+    /**
      * Determine whether the user can update draft pools.
      *
      * @param  \App\Models\User  $user
