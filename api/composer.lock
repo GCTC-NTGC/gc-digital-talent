@@ -6838,16 +6838,16 @@
         },
         {
             "name": "web-token/jwt-core",
-            "version": "3.1.7",
+            "version": "3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-token/jwt-core.git",
-                "reference": "ec2580e8cdd17410016216fbf1b645052c35f644"
+                "reference": "db58b6ebbe1a7d5869688e989b1cf110c6ab888f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-token/jwt-core/zipball/ec2580e8cdd17410016216fbf1b645052c35f644",
-                "reference": "ec2580e8cdd17410016216fbf1b645052c35f644",
+                "url": "https://api.github.com/repos/web-token/jwt-core/zipball/db58b6ebbe1a7d5869688e989b1cf110c6ab888f",
+                "reference": "db58b6ebbe1a7d5869688e989b1cf110c6ab888f",
                 "shasum": ""
             },
             "require": {
@@ -6902,7 +6902,7 @@
                 "symfony"
             ],
             "support": {
-                "source": "https://github.com/web-token/jwt-core/tree/3.1.7"
+                "source": "https://github.com/web-token/jwt-core/tree/3.2.7"
             },
             "funding": [
                 {
@@ -6910,7 +6910,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-02-02T17:25:26+00:00"
+            "time": "2023-02-02T17:35:17+00:00"
         },
         {
             "name": "webmozart/assert",
