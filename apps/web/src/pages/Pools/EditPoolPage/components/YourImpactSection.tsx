@@ -92,8 +92,8 @@ const YourImpactSection = ({
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "This information lets applicants know what kind of work, and environment they are applying to. Use this space to talk about the area of government this process will aim to improve. And the value this kind of work creates.",
-          id: "aGI59+",
+            "This information lets applicants know what kind of work and environment they are applying to. Use this space to talk about the area of government this process will aim to improve and the value this work creates.",
+          id: "Z3Z3Zg",
           description: "Helper message for filling in the pool introduction",
         })}
       </p>
