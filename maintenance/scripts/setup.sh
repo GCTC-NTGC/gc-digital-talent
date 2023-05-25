@@ -36,7 +36,12 @@ touch ./storage/logs/laravel.log
 rm ./bootstrap/cache/*.php --force
 composer install --prefer-dist
 php artisan key:generate
-php artisan migrate:fresh --seed
+if [ "$CI" = true ]; then
+  php artisan migrate:fresh
+  php artisan db:seed --class=CiSeeder
+else
+  php artisan migrate:fresh --seed
+fi
 php artisan lighthouse:print-schema --write
 php artisan config:clear
 chown -R www-data ./storage ./vendor
@@ -49,5 +54,9 @@ cp .env.example .env --preserve=all
 git config --global --add safe.directory /var/www/html
 cd /var/www/html
 npm install
-npm run build:fresh
+if [ "$CI" = true ]; then
+  npm run build:fresh
+else
+  npm run dev:fresh
+fi
 chmod -R a+r,a+w node_modules apps/*/.turbo packages/*/.turbo
