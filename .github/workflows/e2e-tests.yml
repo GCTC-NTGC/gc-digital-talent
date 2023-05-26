@@ -87,4 +87,17 @@ jobs:
 
       - name: "Check logs: web server container"
         if: failure()
-        run: docker-compose logs webserver
+        run:
+          docker-compose logs webserver
+
+          # Allows SSH access into CI environment for up to 1h.
+      # Use `touch ~/continue` with session to end each one.
+      # Only enable when trying to troubleshoot.
+      #
+      # Note: Be cautious, as secrets in environment can be compromised.
+      #   Consider using in PRs from forks, without secrets available.
+      #
+      # See: https://github.com/lhotari/action-upterm
+      - name: Create upterm session for debug
+        uses: lhotari/action-upterm@v1
+        if: ${{ always() }}
