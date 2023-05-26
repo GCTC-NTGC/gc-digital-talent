@@ -47,9 +47,8 @@ class ScreeningQuestionResponsesTest extends TestCase
         $this->team = Team::factory()->create([
             'name' => $this->teamName,
         ]);
-        $this->pool = Pool::factory()->create([
+        $this->pool = Pool::factory()->draft()->create([
             'team_id' => $this->team->id,
-            'published_at' => null,
         ]);
         $this->teamUser = User::factory()->create([
             'email' => 'team-user@test.com',

@@ -97,20 +97,17 @@ class PoolFactory extends Factory
             return [
                 // published in the past, closes in the future
                 'published_at' => $this->faker->dateTimeBetween('-30 days', '-1 days'),
-                'closing_date' => $this->faker->dateTimeBetween('1 day', '1 months'),
 
-                'operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
+                'operational_requirements' => $this->faker->randomElements(ApiEnums::operationalRequirements(), 2),
                 'key_tasks' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
                 'your_impact' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
-                'published_at' => $this->faker->boolean() ? $this->faker->dateTimeBetween('-30 days', '-1 days') : null,
-                'closing_date' => $this->faker->dateTimeBetween('-1 months', '1 months'),
                 'security_clearance' => $this->faker->randomElement(ApiEnums::poolAdvertisementSecurity()),
                 'advertisement_language' => $this->faker->randomElement(ApiEnums::poolAdvertisementLanguages()),
                 'advertisement_location' => !$isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
                 'is_remote' => $isRemote,
-                'stream' => $this->faker->optional->randomElement(ApiEnums::poolStreams()),
-                'process_number' => $this->faker->optional->word(),
-                'publishing_group' => $this->faker->optional->randomElement(ApiEnums::publishingGroups())
+                'stream' => $this->faker->randomElement(ApiEnums::poolStreams()),
+                'process_number' => $this->faker->word(),
+                'publishing_group' => $this->faker->randomElement(ApiEnums::publishingGroups())
             ];
         });
     }

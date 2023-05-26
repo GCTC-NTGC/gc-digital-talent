@@ -59,7 +59,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PoolSeeder::class);
 
         // Seed random pools
-        Pool::factory()->count(10)->create();
+        Pool::factory()->count(2)->draft()->create();
+        Pool::factory()->count(6)->published()->create();
+        Pool::factory()->count(2)->closed()->create();
         // Seed some expected values
         $this->seedPools();
 
@@ -285,7 +287,7 @@ class DatabaseSeeder extends Seeder
         foreach ($classifications as $classification) {
             foreach ($publishingGroups as $publishingGroup) {
                 foreach ($dates as $date) {
-                    Pool::factory()->afterCreating(function ($pool) use ($classification, $faker) {
+                    Pool::factory()->published()->afterCreating(function ($pool) use ($classification, $faker) {
                         $pool->classifications()->sync([$classification->id]);
                     })->create([
                         'closing_date' => $date,

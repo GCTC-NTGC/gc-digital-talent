@@ -1,5 +1,8 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
+import {
+  // createAndPublishPoolAdvertisement,
+  createAndPublishPoolAdvertisement2,
+} from "../../support/poolAdvertisementHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("Pool Candidates", () => {
@@ -68,12 +71,13 @@ describe("Pool Candidates", () => {
 
             // create, update, and publish a new pool advertisement for testing matching
             cy.get("@testClassification").then((classification) => {
-              createAndPublishPoolAdvertisement({
-                adminUserId,
+              createAndPublishPoolAdvertisement2({
+                // adminUserId,
                 teamId: dcmId,
-                englishName: `Cypress Test Pool EN ${uniqueTestId}`,
-                classification,
+                name: `Cypress Test Pool ${uniqueTestId}`,
+                // classification,
                 poolAdvertisementAlias: "publishedTestPoolAdvertisement",
+                essentialSkillIds: [skill.id],
               });
             });
           });
@@ -106,7 +110,7 @@ describe("Pool Candidates", () => {
 
     cy.findByRole("link", {
       name: new RegExp(
-        `View Candidates for Cypress Test Pool EN ${uniqueTestId}`,
+        `View Candidates for Cypress Test Pool ${uniqueTestId}`,
         "i",
       ),
     })
@@ -171,12 +175,13 @@ describe("Pool Candidates", () => {
 
             // create, update, and publish a new pool advertisement for testing matching
             cy.get("@testClassification").then((classification) => {
-              createAndPublishPoolAdvertisement({
-                adminUserId,
+              createAndPublishPoolAdvertisement2({
+                // adminUserId,
                 teamId: dcmId,
-                englishName: `Cypress Test Pool EN ${uniqueTestId}`,
-                classification,
+                name: `Cypress Test Pool ${uniqueTestId}`,
+                // classification,
                 poolAdvertisementAlias: "publishedTestPoolAdvertisement",
+                essentialSkillIds: [skill.id],
               });
             });
           });
@@ -209,7 +214,7 @@ describe("Pool Candidates", () => {
 
     cy.findByRole("link", {
       name: new RegExp(
-        `View Candidates for Cypress Test Pool EN ${uniqueTestId}`,
+        `View Candidates for Cypress Test Pool ${uniqueTestId}`,
         "i",
       ),
     })

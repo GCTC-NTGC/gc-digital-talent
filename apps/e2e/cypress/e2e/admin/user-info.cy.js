@@ -1,5 +1,8 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
+import {
+  // createAndPublishPoolAdvertisement,
+  createAndPublishPoolAdvertisement2,
+} from "../../support/poolAdvertisementHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("User Information Page", () => {
@@ -16,7 +19,7 @@ describe("User Information Page", () => {
     cy.getGenericJobTitles().then((allGenericJobTitles) => {
       const testGenericJobTitle = allGenericJobTitles[0]; // take the first ID for testing matching
       cy.wrap(testGenericJobTitle).as("testGenericJobTitle");
-      cy.wrap(testGenericJobTitle.classification).as("testClassification");
+      // cy.wrap(testGenericJobTitle.classification).as("testClassification");
     });
     // select some dimensions to use for testing
     cy.getTeams().then((allTeams) => {
@@ -55,47 +58,44 @@ describe("User Information Page", () => {
               addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
             });
 
-            // fetch the dcmId for pool creation
-            let dcmId;
-            cy.getDCM().then((dcm) => {
-              dcmId = dcm;
-              addRolesToUser(adminUserId, ["pool_operator"], dcm);
-            });
-
-            // fetch the newTeamId for pool creation
-            let newTeamId;
-            cy.get("@newTeam").then((newTeam) => {
-              newTeamId = newTeam;
-              addRolesToUser(adminUserId, ["pool_operator"], newTeam);
-            });
-
             // create and publish a new dcm pool advertisement
-            cy.get("@testClassification").then((classification) => {
-              createAndPublishPoolAdvertisement({
-                adminUserId,
+            // cy.get("@testClassification").then((classification) => {
+            // fetch the dcmId for pool creation
+            cy.getDCM().then((dcmId) => {
+              addRolesToUser(adminUserId, ["pool_operator"], dcmId);
+
+              createAndPublishPoolAdvertisement2({
+                // userId: adminUserId,
                 teamId: dcmId,
-                englishName: `Cypress Test Pool EN ${uniqueTestId}`,
-                classification,
+                name: `Cypress Test Pool ${uniqueTestId} dcmPoolAdvertisement`,
+                // classification,
                 poolAdvertisementAlias: "dcmPoolAdvertisement",
               });
             });
+            // });
 
             // create and publish a new newTeam pool advertisement
-            cy.get("@testClassification").then((classification) => {
-              createAndPublishPoolAdvertisement({
-                adminUserId,
+            // cy.get("@testClassification").then((classification) => {
+            // fetch the newTeamId for pool creation
+            cy.get("@newTeam").then((newTeamId) => {
+              addRolesToUser(adminUserId, ["pool_operator"], newTeamId);
+
+              createAndPublishPoolAdvertisement2({
+                // userId: adminUserId,
                 teamId: newTeamId,
-                englishName: `Cypress Test Pool EN ${uniqueTestId}`,
-                classification,
+                name: `Cypress Test Pool ${uniqueTestId} newTeamPoolAdvertisement`,
+                // classification,
                 poolAdvertisementAlias: "newTeamPoolAdvertisement",
               });
             });
+            // });
           });
         });
       });
 
     cy.get("@testUser").then((testUser) => {
       const loginAndVisitTestUser = (role) => {
+        cy.log(role);
         cy.loginByRole(`${role}`);
         cy.visit(`/en/admin/users/${testUser.id}`);
         cy.findByRole("heading", {
@@ -130,7 +130,6 @@ describe("User Information Page", () => {
       loginAndVisitTestUser("admin");
 
       /* TEST VIEWING NEW USER WITH APPLICATIONS */
-
       // Submit an application to DCM pool (connected to pool_operator) with the test user
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
