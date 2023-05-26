@@ -313,34 +313,36 @@ class ApplicantFilterTest extends TestCase
             $this->assertCount($filters->find($filter['id'])->pools->count(), $filter['pools']);
         }
         // Assert that the content of at least one item in each collection is correct.
+        $firstFilter = $response->json('data.applicantFilters.0');
+        $firstFilterModel = ApplicantFilter::where('id', $firstFilter['id'])->sole();
         $response->assertJson([
             'data' => [
                 'applicantFilters' => [
                     [
-                        'id' => $filters[0]->id,
+                        'id' => $firstFilterModel->id,
                         'expectedClassifications' => [
                             [
-                                'id' => $filters[0]->classifications->first()->id,
-                                'name' => $filters[0]->classifications->first()->name,
+                                'id' => $firstFilterModel->classifications->first()->id,
+                                'name' => $firstFilterModel->classifications->first()->name,
                             ],
                         ],
                         'qualifiedClassifications' => [
                             [
-                                'id' => $filters[0]->qualifiedClassifications->first()->id,
-                                'name' => $filters[0]->qualifiedClassifications->first()->name,
+                                'id' => $firstFilterModel->qualifiedClassifications->first()->id,
+                                'name' => $firstFilterModel->qualifiedClassifications->first()->name,
                             ],
                         ],
                         'skills' => [
                             [
-                                'id' => $filters[0]->skills->first()->id,
-                                'name' => $filters[0]->skills->first()->name,
+                                'id' => $firstFilterModel->skills->first()->id,
+                                'name' => $firstFilterModel->skills->first()->name,
                             ],
                         ],
                         'pools' => [
                             [
-                                'id' => $filters[0]->pools->first()->id,
-                                'name' => $filters[0]->pools->first()->name,
-                                'key' => $filters[0]->pools->first()->key,
+                                'id' => $firstFilterModel->pools->first()->id,
+                                'name' => $firstFilterModel->pools->first()->name,
+                                'key' => $firstFilterModel->pools->first()->key,
                             ],
                         ],
                     ],

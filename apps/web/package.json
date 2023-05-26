@@ -44,7 +44,7 @@
     "@heroicons/react": "^2.0.18",
     "@microsoft/applicationinsights-react-js": "^3.4.1",
     "@microsoft/applicationinsights-web": "^2.8.11",
-    "date-fns": "^2.29.3",
+    "date-fns": "^2.30.0",
     "dotenv": "^16.0.3",
     "framer-motion": "^10.12.16",
     "graphql": "^16.6.0",
@@ -72,7 +72,7 @@
     "@gc-digital-talent/helpers": "*",
     "@gc-digital-talent/jest-helpers": "*",
     "@graphql-codegen/add": "^5.0.0",
-    "@graphql-codegen/cli": "3.3.1",
+    "@graphql-codegen/cli": "4.0.0",
     "@graphql-codegen/typescript": "^3.0.4",
     "@graphql-codegen/typescript-operations": "^3.0.4",
     "@graphql-codegen/typescript-urql": "^3.7.3",
@@ -97,7 +97,7 @@
     "@types/react-table": "^7.7.13",
     "babel-plugin-formatjs": "^10.5.1",
     "core-js": "^3.30.2",
-    "eslint": "^8.40.0",
+    "eslint": "^8.41.0",
     "eslint-config-custom": "*",
     "hydrogen-webpack-plugin": "*",
     "jest": "^29.5.0",
@@ -110,9 +110,9 @@
     "ts-jest": "^29.1.0",
     "tsconfig": "*",
     "typescript": "^5.0.2",
-    "webpack": "^5.80.0",
-    "webpack-cli": "^5.0.2",
+    "webpack": "^5.84.1",
+    "webpack-cli": "^5.1.1",
     "webpack-config": "*",
-    "webpack-merge": "^5.8.0"
+    "webpack-merge": "^5.9.0"
   }
 }
