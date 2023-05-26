@@ -541,7 +541,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 23
+                        'total' => 21 // 1 user from the pool factories + 20 from the pool candidate factories
                     ]
                 ]
             ]
