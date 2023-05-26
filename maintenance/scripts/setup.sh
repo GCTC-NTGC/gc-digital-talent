@@ -10,7 +10,7 @@ Help()
   echo
 }
 
-CI=false
+GCDT_CI=false
 
 while getopts ":hc" option; do
   case $option in
@@ -18,7 +18,7 @@ while getopts ":hc" option; do
       Help
       exit;;
     c | ci)
-      CI=true;;
+      GCDT_CI=true;;
     \?) # incorrect option
       echo "Error: Invalid option"
       exit;;
@@ -36,7 +36,7 @@ touch ./storage/logs/laravel.log
 rm ./bootstrap/cache/*.php --force
 composer install --prefer-dist
 php artisan key:generate
-if [ "$CI" = true ]; then
+if [ "$GCDT_CI" = true ]; then
   php artisan migrate:fresh
   php artisan db:seed --class=CiSeeder
 else
@@ -54,7 +54,7 @@ cp .env.example .env --preserve=all
 git config --global --add safe.directory /var/www/html
 cd /var/www/html
 npm install
-if [ "$CI" = true ]; then
+if [ "$GCDT_CI" = true ]; then
   npm run build:fresh
 else
   npm run dev:fresh
