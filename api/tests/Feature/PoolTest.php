@@ -313,6 +313,7 @@ class PoolTest extends TestCase
         ]);
 
         $noRoleUser = User::factory()->create();
+        $noRoleUser->syncRoles([]);
         // Assert query will return only the published pool as guest user
         $this->actingAs($noRoleUser, "api")->graphQL(
             /** @lang GraphQL */

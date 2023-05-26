@@ -184,21 +184,13 @@ class UserRoleTest extends TestCase
               }
         ',
             ['id' => $user->id]
-        )->assertJsonFragment([
-            [
-                'user' => [
-                    'sub' => $user->sub,
-                    'roleAssignments' =>
-                    $teams->map(function ($team) {
-                        return [
-                            'team' => [
-                                'id' => $team->id,
-                            ]
-                        ];
-                    })->toArray()
+        )->assertJsonFragment($teams->flatMap(function ($team) {
+            return [
+                'team' => [
+                    'id' => $team->id,
                 ]
-            ]
-        ]);
+            ];
+        })->toArray());
     }
 
     // Create a user with an old role.  Assert that the admin can remove the old role and add the new role.

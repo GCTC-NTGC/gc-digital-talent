@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Policies\UserPolicy;
-use Database\Helpers\ApiEnums;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Mockery;
@@ -29,6 +29,7 @@ class DirectivesTest extends TestCase
     {
         parent::setUp();
 
+        $this->seed(RolePermissionSeeder::class);
         $this->setUpTestSchema();
     }
 
