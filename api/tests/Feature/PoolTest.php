@@ -29,23 +29,17 @@ class PoolTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->adminUser = User::factory()
-            ->withRoles([
-                "guest",
-                "base_user",
-                "platform_admin"
-            ])
+            ->asAdmin()
             ->create([
                 'email' => 'admin@test.com',
                 'sub' => 'admin@test.com',
             ]);
 
         $this->guestUser = User::factory()
-            ->withRoles(["guest"])
+            ->asGuest()
             ->create();
 
-        $this->baseUser = User::factory()
-            ->withRoles(["base_user"])
-            ->create();
+        $this->baseUser = User::factory()->create();
     }
 
     public function testPoolAdvertisementAccessor(): void

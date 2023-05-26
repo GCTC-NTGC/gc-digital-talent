@@ -18,12 +18,6 @@ class UserRoleTest extends TestCase
 
     protected $adminUser;
     protected $baseUser;
-    protected $baseRoles = [
-        "guest",
-        "base_user",
-        "applicant",
-    ];
-
 
     protected function setUp(): void
     {
@@ -32,18 +26,16 @@ class UserRoleTest extends TestCase
         $this->bootRefreshesSchemaCache();
 
         $this->baseUser = User::factory()
-            ->withRoles($this->baseRoles)
+            ->asApplicant()
             ->create([
                 'email' => 'base-user@test.com',
                 'sub' => 'base-user@test.com',
             ]);
 
         $this->adminUser = User::factory()
-            ->withRoles([
-                ...$this->baseRoles,
-                "request_responder",
-                "platform_admin"
-            ])
+            ->asApplicant()
+            ->asRequestResponder()
+            ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
                 'sub' => 'admin-user@test.com',
@@ -89,9 +81,10 @@ class UserRoleTest extends TestCase
         // Delete pre-existing teams to simplify test
         $role = Role::factory()->create(['is_team_based' => true]);
         $team = Team::factory()->create();
-        $users = User::factory()
-            ->withRoles([$role], $team->name)
-            ->count(3)
+        $users = User::factory()->count(3)
+            ->afterCreating(function ($user) use ($role, $team) {
+                $user->syncRoles([$role], $team);
+            })
             ->create();
 
         $this->actingAs($this->adminUser, "api")->graphQL(
@@ -172,9 +165,11 @@ class UserRoleTest extends TestCase
     {
         $role = Role::factory()->create(['is_team_based' => true]);
         $teams = Team::factory()->count(3)->create();
-        $user = User::factory()
-            ->withRoles([$role], $teams->pluck('name')->toArray())
-            ->create();
+        $user = User::factory()->create();
+
+        $teams->each(function ($team) use ($user, $role) {
+            $user->syncRoles([$role], $team);
+        });
 
         $this->actingAs($this->adminUser, "api")->graphQL(
             /** @lang GraphQL */
@@ -211,9 +206,7 @@ class UserRoleTest extends TestCase
     {
         $oldRole = Role::factory()->create(['is_team_based' => false]);
         $newRole = Role::factory()->create(['is_team_based' => false]);
-        $user = User::factory()
-            ->withRoles([$oldRole])
-            ->create();
+        $user = User::factory()->create()->syncRoles([$oldRole]);
 
         $this->actingAs($this->adminUser, "api")->graphQL(
             /** @lang GraphQL */
@@ -259,9 +252,7 @@ class UserRoleTest extends TestCase
         $newRole = Role::factory()->create(['is_team_based' => true]);
         $oldTeam = Team::factory()->create();
         $newTeam = Team::factory()->create();
-        $user = User::factory()
-            ->withRoles([$oldRole], $oldTeam->name)
-            ->create();
+        $user = User::factory()->create()->syncRoles([$oldRole], $oldTeam);
 
         $this->actingAs($this->adminUser, "api")->graphQL(
             /** @lang GraphQL */
@@ -290,16 +281,10 @@ class UserRoleTest extends TestCase
                     ]
                 ]
             ]
-        )->assertJson([
-            'data' => [
-                'updateUserAsAdmin' => [
-                    'roleAssignments' => [
-                        [
-                            'role' =>  ['id' => $newRole->id],
-                            'team' => ['id' => $newTeam->id]
-                        ]
-                    ]
-                ]
+        )->assertJsonFragment([
+            [
+                'role' =>  ['id' => $newRole->id],
+                'team' => ['id' => $newTeam->id]
             ]
         ]);
     }
@@ -379,10 +364,7 @@ class UserRoleTest extends TestCase
     // Create two applicant users.  Assert that one of them cannot query the other's data.
     public function testApplicantCannotQueryAnother()
     {
-        $users = User::factory()
-            ->withRoles($this->baseRoles)
-            ->count(2)
-            ->create();
+        $users = User::factory()->count(2)->asApplicant()->create();
 
         $this->actingAs($users[0], 'api')->graphQL(
             /** @lang GraphQL */
@@ -455,9 +437,7 @@ class UserRoleTest extends TestCase
         $newRole = Role::factory()->create(['is_team_based' => true]);
         $oldTeam = Team::factory()->create();
         $newTeam = Team::factory()->create();
-        $otherUser = User::factory()
-            ->withRoles([$oldRole], $oldTeam->name)
-            ->create();
+        $otherUser = User::factory()->create()->syncRoles([$oldRole], $oldTeam);
 
         $this->actingAs($this->baseUser, 'api')->graphQL(
             /** @lang GraphQL */

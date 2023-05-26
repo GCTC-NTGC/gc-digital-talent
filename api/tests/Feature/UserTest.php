@@ -37,11 +37,7 @@ class UserTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->platformAdmin = User::factory()
-            ->withRoles([
-                "guest",
-                "base_user",
-                "platform_admin"
-            ])
+            ->asAdmin()
             ->create([
                 'email' => 'admin@test.com',
                 'sub' => 'admin@test.com',

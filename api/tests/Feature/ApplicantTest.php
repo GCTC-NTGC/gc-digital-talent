@@ -34,13 +34,9 @@ class ApplicantTest extends TestCase
         $this->bootRefreshesSchemaCache();
 
         $this->adminUser = User::factory()
-            ->withRoles([
-                "guest",
-                "base_user",
-                "applicant",
-                "request_responder",
-                "platform_admin"
-            ])
+            ->asApplicant()
+            ->asRequestResponder()
+            ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
                 'sub' => 'admin-user@test.com',

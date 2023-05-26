@@ -40,14 +40,14 @@ class PoolCandidateUpdateTest extends TestCase
         $baseRoles = ["guest", "base_user", "applicant"];
 
         $this->guestUser = User::factory()
-            ->withRoles(["guest"])
+            ->asGuest()
             ->create([
                 'email' => 'guest-user@test.com',
                 'sub' => 'guest-user@test.com',
             ]);
 
         $this->applicantUser = User::factory()
-            ->withRoles($baseRoles)
+            ->asApplicant()
             ->create([
                 'email' => 'applicant-user@test.com',
                 'sub' => 'applicant-user@test.com',
@@ -55,28 +55,28 @@ class PoolCandidateUpdateTest extends TestCase
 
         $this->team = Team::factory()->create(['name' => 'test-team']);
         $this->poolOperatorUser = User::factory()
-            ->withRoles(["pool_operator"], $this->team->name)
+            ->asPoolOperator($this->team->name)
             ->create([
                 'email' => 'pool-operator-user@test.com',
                 'sub' => 'pool-operator-user@test.com',
             ]);
 
         $this->requestResponderUser = User::factory()
-            ->withRoles(["request_responder"])
+            ->asRequestResponder()
             ->create([
                 'email' => 'request-responder-user@test.com',
                 'sub' => 'request-responder-user@test.com',
             ]);
 
         $this->adminUser = User::factory()
-            ->withRoles(["platform_admin"])
+            ->asAdmin()
             ->create([
                 'email' => 'platform-admin-user@test.com',
                 'sub' => 'platform-admin-user@test.com',
             ]);
 
         $this->candidateUser = User::factory()
-            ->withRoles($baseRoles)
+            ->asApplicant()
             ->create([
                 'email' => 'candidate-user@test.com',
                 'sub' => 'candidate-user@test.com',

@@ -51,12 +51,8 @@ class ScreeningQuestionTest extends TestCase
             'published_at' => null,
         ]); // this seeds 3 questions onto the pool
         $this->teamUser = User::factory()
-            ->withRoles([
-                "guest",
-                "base_user",
-                "applicant"
-            ])
-            ->withRoles(["pool_operator"], $this->team->name)
+            ->asApplicant()
+            ->asPoolOperator($this->team->name)
             ->create([
                 'email' => 'team-user@test.com',
                 'sub' => 'team-user@test.com',

@@ -54,12 +54,8 @@ class PoolCandidateTest extends TestCase
         ]);
 
         $this->teamUser = User::factory()
-            ->withRoles([
-                "guest",
-                "base_user",
-                "applicant"
-            ])
-            ->withRoles(["pool_operator"], $this->team->name)
+            ->asApplicant()
+            ->asPoolOperator($this->team->name)
             ->create([
                 'email' => 'team-user@test.com',
                 'sub' => 'team-user@test.com',

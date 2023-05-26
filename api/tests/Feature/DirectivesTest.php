@@ -144,27 +144,31 @@ class DirectivesTest extends TestCase
     // Ensure the canOnParent custom directive works as expected
     public function testCanOnParent(): void
     {
-        $admin = User::factory()->create([
-            'first_name' => 'Admin',
-            'last_name' => 'Test',
-            'email' => 'admin@test.com',
-            'sub' => 'admin@test.com',
-            'legacy_roles' => [ApiEnums::LEGACY_ROLE_ADMIN, ApiEnums::LEGACY_ROLE_APPLICANT]
-        ]);
-        $applicant = User::factory()->create([
-            'first_name' => 'Applicant',
-            'last_name' => 'Test',
-            'email' => 'applicant@test.com',
-            'sub' => 'applicant@test.com',
-            'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]
-        ]);
-        $otherApplicant = User::factory()->create([
-            'first_name' => 'Other',
-            'last_name' => 'Test',
-            'email' => 'other@test.com',
-            'sub' => 'other@test.com',
-            'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]
-        ]);
+        $admin = User::factory()
+            ->asApplicant()
+            ->asAdmin()
+            ->create([
+                'first_name' => 'Admin',
+                'last_name' => 'Test',
+                'email' => 'admin@test.com',
+                'sub' => 'admin@test.com',
+            ]);
+        $applicant = User::factory()
+            ->asApplicant()
+            ->create([
+                'first_name' => 'Applicant',
+                'last_name' => 'Test',
+                'email' => 'applicant@test.com',
+                'sub' => 'applicant@test.com',
+            ]);
+        $otherApplicant = User::factory()
+            ->asApplicant()
+            ->create([
+                'first_name' => 'Other',
+                'last_name' => 'Test',
+                'email' => 'other@test.com',
+                'sub' => 'other@test.com',
+            ]);
 
         PoolCandidate::factory()->count(3)->availableInSearch()->create([
             'user_id' => $applicant->id,

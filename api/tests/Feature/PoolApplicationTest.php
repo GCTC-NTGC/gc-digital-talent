@@ -121,11 +121,7 @@ class PoolApplicationTest extends TestCase
         $this->bootRefreshesSchemaCache();
 
         $this->applicantUser = User::factory()
-            ->withRoles([
-                "guest",
-                "base_user",
-                "applicant"
-            ])
+            ->asApplicant()
             ->create([
                 'email' => 'applicant-user@test.com',
                 'sub' => 'applicant-user@test.com',
@@ -134,12 +130,8 @@ class PoolApplicationTest extends TestCase
         $this->applicantUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
 
         $this->responderUser = User::factory()
-            ->withRoles([
-                "guest",
-                "base_user",
-                "applicant",
-                "request_responder"
-            ])
+            ->asApplicant()
+            ->asRequestResponder()
             ->create([
                 'email' => 'request-responder-user@test.com',
                 'sub' => 'request-responder-user@test.com',
@@ -149,12 +141,8 @@ class PoolApplicationTest extends TestCase
             'name' => "pool-application-test-team",
         ]);
         $this->teamUser = User::factory()
-            ->withRoles([
-                "guest",
-                "base_user",
-                "applicant"
-            ])
-            ->withRoles(["pool_operator"], $team->name)
+            ->asApplicant()
+            ->asPoolOperator($team->name)
             ->create([
                 'email' => 'team-user@test.com',
                 'sub' => 'team-user@test.com',

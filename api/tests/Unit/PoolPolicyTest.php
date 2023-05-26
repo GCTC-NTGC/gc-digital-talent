@@ -31,17 +31,15 @@ class PoolPolicyTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $baseRoles = ["guest", "base_user", "applicant"];
-
         $this->guestUser = User::factory()
-            ->withRoles(["guest"])
+            ->asGuest()
             ->create([
                 'email' => 'guest-user@test.com',
                 'sub' => 'guest-user@test.com',
             ]);
 
         $this->applicantUser = User::factory()
-            ->withRoles($baseRoles)
+            ->asApplicant()
             ->create([
                 'email' => 'applicant-user@test.com',
                 'sub' => 'applicant-user@test.com',
@@ -49,28 +47,24 @@ class PoolPolicyTest extends TestCase
 
         $this->team = Team::factory()->create(['name' => 'test-team']);
         $this->poolOperatorUser = User::factory()
-            ->withRoles($baseRoles)
-            ->withRoles(["pool_operator"], $this->team->name)
+            ->asApplicant()
+            ->asPoolOperator($this->team->name)
             ->create([
                 'email' => 'pool-operator-user@test.com',
                 'sub' => 'pool-operator-user@test.com',
             ]);
 
         $this->requestResponderUser = User::factory()
-            ->withRoles([
-                ...$baseRoles,
-                "request_responder",
-            ])
+            ->asApplicant()
+            ->asRequestResponder()
             ->create([
                 'email' => 'request-responder-user@test.com',
                 'sub' => 'request-responder-user@test.com',
             ]);
 
         $this->adminUser = User::factory()
-            ->withRoles([
-                ...$baseRoles,
-                "platform_admin",
-            ])
+            ->asApplicant()
+            ->asAdmin()
             ->create([
                 'email' => 'platform-admin-user@test.com',
                 'sub' => 'platform-admin-user@test.com',

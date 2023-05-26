@@ -39,12 +39,8 @@ class ApplicantFilterTest extends TestCase
         // Create super user we run tests as
         // Note: this extra user does change the results of a couple queries
         $this->adminUser = User::factory()
-            ->withRoles([
-                "guest",
-                "base_user",
-                "request_responder",
-                "platform_admin"
-            ])
+            ->asRequestResponder()
+            ->asAdmin()
             ->create([
                 'email' => 'admin@test.com',
                 'sub' => 'admin@test.com',

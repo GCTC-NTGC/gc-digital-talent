@@ -43,7 +43,7 @@ class SnapshotTest extends TestCase
     {
         $snapshotQuery = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
         $user = User::factory()
-            ->withRoles(["base_user", "applicant"])
+            ->asApplicant()
             ->create();
 
         $poolCandidate = PoolCandidate::factory()->create([

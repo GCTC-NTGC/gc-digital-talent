@@ -49,36 +49,29 @@ class TeamsTest extends TestCase
 
         // Create users
         $this->admin = User::factory()
-            ->withRoles([
-                "guest",
-                "base_user",
-                "applicant",
-                "request_responder",
-                "platform_admin",
-            ])
+            ->asApplicant()
+            ->asRequestResponder()
+            ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
                 'sub' => 'admin-user@test.com',
             ]);
 
         $this->poolOperator1 = User::factory()
-            ->withRoles(["guest", "base_user"])
-            ->withRoles(["pool_operator"], $this->team1->name)
+            ->asPoolOperator($this->team1->name)
             ->create([
                 'email' => 'poolOperator1@test.com',
                 'sub' => 'poolOperator1@test.com',
             ]);
 
         $this->poolOperator2 = User::factory()
-            ->withRoles(["guest", "base_user"])
-            ->withRoles(["pool_operator"], $this->team2->name)
+            ->asPoolOperator($this->team2->name)
             ->create([
                 'email' => 'poolOperator2@test.com',
                 'sub' => 'poolOperator2@test.com',
             ]);
 
         $this->poolOperator3 = User::factory()
-            ->withRoles(["guest", "base_user"])
             ->create([
                 'email' => 'poolOperator3@test.com',
                 'sub' => 'poolOperator3@test.com',
