@@ -1,8 +1,4 @@
-import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import {
-  // createAndPublishPoolAdvertisement,
-  createAndPublishPoolAdvertisement2,
-} from "../../support/poolAdvertisementHelpers";
+import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("User Information Page", () => {
@@ -13,13 +9,9 @@ describe("User Information Page", () => {
     cy.getSkills().then((allSkills) => {
       cy.wrap(allSkills[0]).as("testSkill"); // take the first skill for testing
     });
-    cy.getDepartments().then((allDepartments) => {
-      cy.wrap(allDepartments[0]).as("testDepartment"); // take the first department for testing
-    });
     cy.getGenericJobTitles().then((allGenericJobTitles) => {
       const testGenericJobTitle = allGenericJobTitles[0]; // take the first ID for testing matching
       cy.wrap(testGenericJobTitle).as("testGenericJobTitle");
-      // cy.wrap(testGenericJobTitle.classification).as("testClassification");
     });
     // select some dimensions to use for testing
     cy.getTeams().then((allTeams) => {
@@ -59,43 +51,32 @@ describe("User Information Page", () => {
             });
 
             // create and publish a new dcm pool advertisement
-            // cy.get("@testClassification").then((classification) => {
             // fetch the dcmId for pool creation
             cy.getDCM().then((dcmId) => {
               addRolesToUser(adminUserId, ["pool_operator"], dcmId);
-
-              createAndPublishPoolAdvertisement2({
-                // userId: adminUserId,
+              createAndPublishPoolAdvertisement({
                 teamId: dcmId,
                 name: `Cypress Test Pool ${uniqueTestId} dcmPoolAdvertisement`,
-                // classification,
                 poolAdvertisementAlias: "dcmPoolAdvertisement",
               });
             });
-            // });
 
             // create and publish a new newTeam pool advertisement
-            // cy.get("@testClassification").then((classification) => {
             // fetch the newTeamId for pool creation
             cy.get("@newTeam").then((newTeamId) => {
               addRolesToUser(adminUserId, ["pool_operator"], newTeamId);
-
-              createAndPublishPoolAdvertisement2({
-                // userId: adminUserId,
+              createAndPublishPoolAdvertisement({
                 teamId: newTeamId,
                 name: `Cypress Test Pool ${uniqueTestId} newTeamPoolAdvertisement`,
-                // classification,
                 poolAdvertisementAlias: "newTeamPoolAdvertisement",
               });
             });
-            // });
           });
         });
       });
 
     cy.get("@testUser").then((testUser) => {
       const loginAndVisitTestUser = (role) => {
-        cy.log(role);
         cy.loginByRole(`${role}`);
         cy.visit(`/en/admin/users/${testUser.id}`);
         cy.findByRole("heading", {
@@ -130,6 +111,7 @@ describe("User Information Page", () => {
       loginAndVisitTestUser("admin");
 
       /* TEST VIEWING NEW USER WITH APPLICATIONS */
+
       // Submit an application to DCM pool (connected to pool_operator) with the test user
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {

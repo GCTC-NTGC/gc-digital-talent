@@ -35,7 +35,7 @@ class CreatePool extends Command
     public function handle()
     {
         $attributes = [
-            'advertisement_language' => 'ENGLISH' // avoid bilingual validation errors
+            'advertisement_language' => 'ENGLISH' // default to avoid bilingual validation errors
         ];
 
         $userId = $this->option('userId');

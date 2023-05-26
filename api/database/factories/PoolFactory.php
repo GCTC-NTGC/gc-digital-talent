@@ -11,9 +11,6 @@ use App\Models\ScreeningQuestion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\KeyStringHelpers;
 use Database\Helpers\ApiEnums;
-use Exception;
-
-use function PHPUnit\Framework\isEmpty;
 
 class PoolFactory extends Factory
 {
@@ -76,7 +73,7 @@ class PoolFactory extends Factory
     }
 
     /**
-     * Indicate that the pool is published.
+     * Indicate that the pool is draft.
      */
     public function draft(): Factory
     {

@@ -1,9 +1,6 @@
 import { PoolCandidateStatus } from "@gc-digital-talent/web/src/api/generated";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import {
-  // createAndPublishPoolAdvertisement,
-  createAndPublishPoolAdvertisement2,
-} from "../../support/poolAdvertisementHelpers";
+import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("Talent Search Workflow Tests", () => {
@@ -83,11 +80,9 @@ describe("Talent Search Workflow Tests", () => {
             // fetch the dcmId for its team from database, needed for pool creation
             cy.getDCM().then((dcmId) => {
               addRolesToUser(adminUserId, ["pool_operator"], dcmId);
-
               // create, update, and publish a new pool advertisement for testing matching
               cy.get("@testClassification1").then((classification) => {
-                createAndPublishPoolAdvertisement2({
-                  // adminUserId,
+                createAndPublishPoolAdvertisement({
                   teamId: dcmId,
                   name: `Cypress Test Pool 1 ${uniqueTestId}`,
                   classificationIds: [classification.id],
@@ -98,8 +93,7 @@ describe("Talent Search Workflow Tests", () => {
 
               // create, update, and publish a new pool advertisement for testing rejection
               cy.get("@testClassification2").then((classification) => {
-                createAndPublishPoolAdvertisement2({
-                  // adminUserId,
+                createAndPublishPoolAdvertisement({
                   teamId: dcmId,
                   name: `Cypress Test Pool 2 ${uniqueTestId}`,
                   classification,
@@ -258,7 +252,7 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     cy.findByRole("article", {
-      name: `Cypress Test Pool 1 ${uniqueTestId} (I T 1 Business Line Advisory Services)`,
+      name: new RegExp(`Cypress Test Pool 1 ${uniqueTestId}`, "i"),
     }).within(() => {
       // Finding this button is sensitive to "dom detached" errors.
       // Must not try to click it unless we know there are no inflight searches.

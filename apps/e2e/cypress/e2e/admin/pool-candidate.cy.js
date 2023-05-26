@@ -1,8 +1,5 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import {
-  // createAndPublishPoolAdvertisement,
-  createAndPublishPoolAdvertisement2,
-} from "../../support/poolAdvertisementHelpers";
+import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("Pool Candidates", () => {
@@ -45,44 +42,33 @@ describe("Pool Candidates", () => {
 
     // create a test user to attach test candidates to
     cy.loginByRole("admin");
-    cy.getMe()
-      .its("id")
-      .then((adminUserId) => {
-        cy.get("@testGenericJobTitle").then((genericJobTitle) => {
-          cy.get("@testSkill").then((skill) => {
-            // This user must have the entire profile completed to be able to apply to a pool
-            createApplicant({
-              email: `cypress.user.${uniqueTestId}@example.org`,
-              sub: `cypress.sub.${uniqueTestId}`,
-              skill,
-              genericJobTitle,
-              userAlias: "testUser",
-            });
+    cy.get("@testGenericJobTitle").then((genericJobTitle) => {
+      cy.get("@testSkill").then((skill) => {
+        // This user must have the entire profile completed to be able to apply to a pool
+        createApplicant({
+          email: `cypress.user.${uniqueTestId}@example.org`,
+          sub: `cypress.sub.${uniqueTestId}`,
+          skill,
+          genericJobTitle,
+          userAlias: "testUser",
+        });
 
-            cy.get("@testUser").then((testUser) => {
-              addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
-            });
+        cy.get("@testUser").then((testUser) => {
+          addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
+        });
 
-            // fetch the dcmId for its team from database, needed for pool creation
-            let dcmId;
-            cy.getDCM().then((dcm) => {
-              dcmId = dcm;
-            });
-
-            // create, update, and publish a new pool advertisement for testing matching
-            cy.get("@testClassification").then((classification) => {
-              createAndPublishPoolAdvertisement2({
-                // adminUserId,
-                teamId: dcmId,
-                name: `Cypress Test Pool ${uniqueTestId}`,
-                // classification,
-                poolAdvertisementAlias: "publishedTestPoolAdvertisement",
-                essentialSkillIds: [skill.id],
-              });
-            });
+        // fetch the dcmId for its team from database, needed for pool creation
+        cy.getDCM().then((dcmId) => {
+          // create, update, and publish a new pool advertisement for testing matching
+          createAndPublishPoolAdvertisement({
+            teamId: dcmId,
+            name: `Cypress Test Pool ${uniqueTestId}`,
+            poolAdvertisementAlias: "publishedTestPoolAdvertisement",
+            essentialSkillIds: [skill.id],
           });
         });
       });
+    });
 
     // use new test user to submit an application
     cy.get("@testUser").then((testUser) => {
@@ -149,44 +135,34 @@ describe("Pool Candidates", () => {
 
     // create a test user to attach test candidates to
     cy.loginByRole("admin");
-    cy.getMe()
-      .its("id")
-      .then((adminUserId) => {
-        cy.get("@testGenericJobTitle").then((genericJobTitle) => {
-          cy.get("@testSkill").then((skill) => {
-            // This user must have the entire profile completed to be able to apply to a pool
-            createApplicant({
-              email: `cypress.user.${uniqueTestId}@example.org`,
-              sub: `cypress.sub.${uniqueTestId}`,
-              skill,
-              genericJobTitle,
-              userAlias: "testUser",
-            });
 
-            cy.get("@testUser").then((testUser) => {
-              addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
-            });
+    cy.get("@testGenericJobTitle").then((genericJobTitle) => {
+      cy.get("@testSkill").then((skill) => {
+        // This user must have the entire profile completed to be able to apply to a pool
+        createApplicant({
+          email: `cypress.user.${uniqueTestId}@example.org`,
+          sub: `cypress.sub.${uniqueTestId}`,
+          skill,
+          genericJobTitle,
+          userAlias: "testUser",
+        });
 
-            // fetch the dcmId for its team from database, needed for pool creation
-            let dcmId;
-            cy.getDCM().then((dcm) => {
-              dcmId = dcm;
-            });
+        cy.get("@testUser").then((testUser) => {
+          addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
+        });
 
-            // create, update, and publish a new pool advertisement for testing matching
-            cy.get("@testClassification").then((classification) => {
-              createAndPublishPoolAdvertisement2({
-                // adminUserId,
-                teamId: dcmId,
-                name: `Cypress Test Pool ${uniqueTestId}`,
-                // classification,
-                poolAdvertisementAlias: "publishedTestPoolAdvertisement",
-                essentialSkillIds: [skill.id],
-              });
-            });
+        // fetch the dcmId for its team from database, needed for pool creation
+        cy.getDCM().then((dcmId) => {
+          // create, update, and publish a new pool advertisement for testing matching
+          createAndPublishPoolAdvertisement({
+            teamId: dcmId,
+            name: `Cypress Test Pool ${uniqueTestId}`,
+            poolAdvertisementAlias: "publishedTestPoolAdvertisement",
+            essentialSkillIds: [skill.id],
           });
         });
       });
+    });
 
     // use new test user to submit an application
     cy.get("@testUser").then((testUser) => {
