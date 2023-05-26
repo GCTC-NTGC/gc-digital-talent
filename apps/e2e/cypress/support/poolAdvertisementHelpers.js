@@ -7,24 +7,26 @@ export function createAndPublishPoolAdvertisement({
   classificationIds,
   stream,
 }) {
-  let command = "php ../../api/artisan app:create-pool";
-  command += " --state=published";
-  if (userId) command += ` --userId=${userId}`;
-  if (teamId) command += ` --teamId=${teamId}`;
-  if (name) command += ` --name="${name}"`;
+  let phpCommand = "php artisan app:create-pool";
+  phpCommand += " --state=published";
+  if (userId) phpCommand += ` --userId=${userId}`;
+  if (teamId) phpCommand += ` --teamId=${teamId}`;
+  if (name) phpCommand += ` --name='${name}'`;
   if (essentialSkillIds) {
     essentialSkillIds.forEach((id) => {
-      command += ` --essentialSkillId=${id}`;
+      phpCommand += ` --essentialSkillId=${id}`;
     });
   }
   if (classificationIds) {
     classificationIds.forEach((id) => {
-      command += ` --classificationId=${id}`;
+      phpCommand += ` --classificationId=${id}`;
     });
   }
-  if (stream) command += ` --stream=${stream}`;
+  if (stream) phpCommand += ` --stream='${stream}'`;
 
-  cy.exec(command).then((result) => {
+  const dockerCommand = `docker-compose exec -T -w "/var/www/html/wwwroot/api" webserver bash -c "${phpCommand}" `;
+
+  cy.exec(dockerCommand).then((result) => {
     if (poolAdvertisementAlias) {
       cy.wrap(JSON.parse(result.stdout)).as(poolAdvertisementAlias);
     }
