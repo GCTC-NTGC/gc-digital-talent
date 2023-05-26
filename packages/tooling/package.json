@@ -21,7 +21,7 @@
     "eslint-config-custom": "*",
     "tsconfig": "*",
     "tsup": "^6.7.0",
-    "typescript": "^5.0.2",
+    "typescript": "^5.0.4",
     "yargs": "^17.7.2"
   }
 }
