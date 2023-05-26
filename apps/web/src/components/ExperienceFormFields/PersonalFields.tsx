@@ -20,11 +20,6 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
       <Input
         id="experienceTitle"
         label={labels.experienceTitle}
-        placeholder={intl.formatMessage({
-          defaultMessage: "Write title here...",
-          id: "Q18B0y",
-          description: "Placeholder for experience title input",
-        })}
         name="experienceTitle"
         type="text"
         rules={{ required: intl.formatMessage(errorMessages.required) }}
@@ -32,11 +27,6 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
       <TextArea
         id="experienceDescription"
         label={labels.experienceDescription}
-        placeholder={intl.formatMessage({
-          defaultMessage: "Describe experience details here...",
-          id: "Os+BwT",
-          description: "Placeholder for experience description input",
-        })}
         name="experienceDescription"
         rules={{ required: intl.formatMessage(errorMessages.required) }}
       />

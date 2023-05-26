@@ -11,7 +11,7 @@
     "build": "tsup src/index.ts  --dts --external react --minify",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "watch": "tsup src/index.ts  --watch --dts --external react --minify",
-    "lint": "TIMING=1 eslint \"src/**/*.ts*\""
+    "lint": "eslint \"src/**/*.ts*\""
   },
   "jest": {
     "preset": "jest-presets/jest/node"
@@ -21,15 +21,15 @@
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
     "react-intl": "^6.4.2",
-    "react-router-dom": "^6.10.0"
+    "react-router-dom": "^6.11.2"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.56",
+    "@swc/core": "^1.3.60",
     "@testing-library/react": "14.0.0",
     "@types/jest": "^29.5.1",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
-    "eslint": "^8.40.0",
+    "eslint": "^8.41.0",
     "eslint-config-custom": "*",
     "jest": "^29.5.0",
     "jest-axe": "^7.0.1",

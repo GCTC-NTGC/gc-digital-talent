@@ -91,8 +91,8 @@ const CandidateResults = ({
         }
       >
         {intl.formatMessage({
-          defaultMessage: "Request Candidates",
-          id: "6mDW+R",
+          defaultMessage: "Request candidates",
+          id: "3BfvIy",
           description:
             "Button link message on search page that takes user to the request form.",
         })}

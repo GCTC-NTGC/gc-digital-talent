@@ -1,13 +1,13 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { Button } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { Button, ExternalLink, Pill } from "@gc-digital-talent/ui";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
-import { getFullNameHtml } from "~/utils/nameUtils";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { SimpleClassification } from "~/types/pool";
-import { Pool } from "~/api/generated";
+import useRoutes from "~/hooks/useRoutes";
+import { PoolAdvertisement } from "@gc-digital-talent/graphql";
 
 const testId = (text: React.ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
@@ -15,7 +15,10 @@ const testId = (text: React.ReactNode) => (
 
 export interface SearchPoolsProps {
   candidateCount: number;
-  pool: Pick<Pool, "id" | "owner" | "name" | "description" | "classifications">;
+  pool: Pick<
+    PoolAdvertisement,
+    "id" | "owner" | "name" | "classifications" | "team" | "essentialSkills"
+  >;
   handleSubmit: (
     candidateCount: number,
     poolId: string,
@@ -29,9 +32,16 @@ const SearchPools = ({
   handleSubmit,
 }: SearchPoolsProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const selectedClassifications =
     pool.classifications as SimpleClassification[];
+  const paths = useRoutes();
+  const team = pool?.team;
+  const departmentsArray =
+    team?.departments && team?.departments.length > 0
+      ? team.departments.map((department) =>
+          getLocalizedName(department?.name, intl),
+        )
+      : null;
 
   return (
     <article
@@ -58,29 +68,72 @@ const SearchPools = ({
           },
         )}
       </p>
-      <p data-h2-margin="base(x1, 0, 0, 0)">
+      <p data-h2-margin="base(x.5, 0, x1, 0)">
+        <ExternalLink
+          mode="inline"
+          type="button"
+          color="secondary"
+          href={paths.pool(pool.id || "")}
+          newTab
+        >
+          {intl.formatMessage({
+            defaultMessage: "View the job poster for this recruitment process",
+            id: "2Ljgvn",
+            description:
+              "Link message that shows the job poster for the recruitment process.",
+          })}
+        </ExternalLink>
+      </p>
+      <p data-h2-margin="base(x.5, 0, x1, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "These essential skills were assessed during the process:",
+          id: "VN6uCI",
+          description:
+            "Text showing the essentials skills assessed during the process",
+        })}
+      </p>
+      <p
+        data-h2-margin="base(x1, 0, 0, 0)"
+        data-h2-display="base(flex)"
+        data-h2-flex-wrap="base(wrap)"
+        data-h2-gap="base(x.25, x.125)"
+      >
+        {pool?.essentialSkills && pool?.essentialSkills.length > 0
+          ? pool.essentialSkills.map((skill) => (
+              <span key={skill.id}>
+                <Pill key={skill.id} color="secondary" mode="outline">
+                  {getLocalizedName(skill?.name, intl)}
+                </Pill>
+              </span>
+            ))
+          : null}
+      </p>
+      <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage(
           {
-            defaultMessage: "Pool Owner: {name}",
-            id: "o+a0IN",
-            description: "Text showing the owner of the HR pool.",
+            defaultMessage: "Process run by {team} at {departments}",
+            id: "e2qUId",
+            description: "Team and department of pool",
           },
           {
-            name: pool?.owner
-              ? getFullNameHtml(
-                  pool?.owner.firstName,
-                  pool?.owner.lastName,
-                  intl,
-                )
+            team: pool?.team
+              ? getLocalizedName(pool.team.displayName, intl)
               : intl.formatMessage({
-                  defaultMessage: "N/A",
-                  id: "AauSuA",
-                  description: "Not available message.",
+                  defaultMessage: "Digital Community Management Team",
+                  id: "S82O61",
+                  description: "Default team for pool",
+                }),
+            departments: departmentsArray
+              ? departmentsArray.join(", ")
+              : intl.formatMessage({
+                  defaultMessage: "Treasury Board of Canada Secretariat",
+                  id: "SZ2DsZ",
+                  description: "Default department for pool",
                 }),
           },
         )}
       </p>
-      <p data-h2-margin="base(x1, 0)">{pool?.description?.[locale]}</p>
       <Button
         color="secondary"
         mode="outline"
@@ -89,8 +142,8 @@ const SearchPools = ({
         }
       >
         {intl.formatMessage({
-          defaultMessage: "Request Candidates",
-          id: "6mDW+R",
+          defaultMessage: "Request candidates",
+          id: "3BfvIy",
           description:
             "Button link message on search page that takes user to the request form.",
         })}

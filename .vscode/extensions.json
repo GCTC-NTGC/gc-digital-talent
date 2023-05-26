@@ -6,6 +6,7 @@
     "esbenp.prettier-vscode",
     "xdebug.php-debug",
     "bmewburn.vscode-intelephense-client",
-    "ms-azuretools.vscode-docker"
+    "ms-azuretools.vscode-docker",
+    "deque-systems.vscode-axe-linter"
   ]
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { faker } from "@faker-js/faker";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
@@ -6,6 +7,20 @@ import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import PoolCandidatesTable from "./PoolCandidatesTable";
 
 const poolCandidateData = fakePoolCandidates();
+
+const mockPoolCandidatesWithSkillCount = poolCandidateData.map(
+  (poolCandidate) => {
+    const skillCount = faker.datatype.number({
+      min: 0,
+      max: 10,
+    });
+    return {
+      id: poolCandidate.id,
+      poolCandidate,
+      skillCount: skillCount || null,
+    };
+  },
+);
 
 const mockPaginatorInfo = {
   count: 1,
@@ -27,7 +42,7 @@ export default {
       GetPoolCandidatesPaginated: {
         data: {
           poolCandidatesPaginated: {
-            data: poolCandidateData,
+            data: mockPoolCandidatesWithSkillCount,
             paginatorInfo: mockPaginatorInfo,
           },
         },
