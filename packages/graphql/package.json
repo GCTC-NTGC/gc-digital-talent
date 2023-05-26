@@ -23,6 +23,6 @@
     "@graphql-codegen/typescript-urql": "^3.7.3",
     "rimraf": "^5.0.1",
     "tsup": "^6.7.0",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.4"
   }
 }
