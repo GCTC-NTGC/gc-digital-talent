@@ -315,8 +315,9 @@ const ApplicationEducation = ({
     {
       value: EducationRequirementOption.AppliedWork,
       label: intl.formatMessage({
-        defaultMessage: "I meet the applied work experience option",
-        id: "9+kmjB",
+        defaultMessage:
+          "<strong>I meet the applied work experience option</strong>",
+        id: "SNwPLZ",
         description:
           "Radio group option for education requirement filter in application education form.",
       }),
@@ -338,8 +339,9 @@ const ApplicationEducation = ({
     {
       value: EducationRequirementOption.Education,
       label: intl.formatMessage({
-        defaultMessage: "I meet the 2-year post-secondary option",
-        id: "rGqohv",
+        defaultMessage:
+          "<strong>I meet the 2-year post-secondary option</strong>",
+        id: "j+jnML",
         description:
           "Radio group option for education requirement filter in application education form.",
       }),
