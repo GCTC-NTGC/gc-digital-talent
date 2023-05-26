@@ -478,7 +478,7 @@
     "defaultMessage": "Nous pouvons encore vous aider!",
     "description": "Heading for helping user if no candidates matched the filters chosen."
   },
-  "6mDW+R": {
+  "3BfvIy": {
     "defaultMessage": "Demande de candidats",
     "description": "Button link message on search page that takes user to the request form."
   },
@@ -542,7 +542,7 @@
     "defaultMessage": "Recherche dans le bassin de talents numériques",
     "description": "Title displayed in the hero section of the Search page."
   },
-  "Tg8a57": {
+  "AaoxNX": {
     "defaultMessage": "Utilisez les filtres ci-dessous pour préciser vos besoins d’embauche. En tout temps, vous pouvez consulter les résultats situés en bas de cette page pour voir combien de candidats correspondent aux exigences que vous avez entrées. Lorsque vous êtes satisfait des filtres que vous avez sélectionnés, cliquez sur le bouton Demander des candidats pour ajouter des renseignements et soumettre un formulaire de demande.",
     "description": "Content displayed in the How To area of the hero section of the Search page."
   },
@@ -628,10 +628,6 @@
   "zDzzb/": {
     "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres : ",
     "description": "Heading for total matching candidates in results section of search page."
-  },
-  "o+a0IN": {
-    "defaultMessage": "Propriétaire du bassin : {name}",
-    "description": "Text showing the owner of the HR pool."
   },
   "RGzfes": {
     "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste.",
@@ -1558,7 +1554,7 @@
     "description": "Question displayed when a user attempts to delete an experience from their profile"
   },
   "p3j/0q": {
-    "defaultMessage": "Veuillez communiquer avec l'équipe du bureau de gestion de la communauté numérique si vous avez besoin de mesures d'adaptation au cours de ce processus de candidature",
+    "defaultMessage": "Veuillez communiquer avec l'équipe de gestion de la collectivité du numérique si vous avez besoin de mesures d'adaptation au cours de ce processus de candidature",
     "description": "Description of what to do when accommodations are needed"
   },
   "gC74ro": {
@@ -6702,17 +6698,9 @@
     "defaultMessage": "Appliquer à {poolName}",
     "description": "Heading for the application page"
   },
-  "O6L+3N": {
-    "defaultMessage": "Examinez votre candidature et soumettez-la!",
-    "description": "Subtitle for the application review page"
-  },
   "OkREUg": {
     "defaultMessage": "Mettez à jour et révisez les renseignements de votre CV.",
     "description": "Subtitle for the application résumé page"
-  },
-  "QDcEYJ": {
-    "defaultMessage": "Réviser et soumettre",
-    "description": "Link text for the application review page"
   },
   "Tdr8r5": {
     "defaultMessage": "Quelques questions sur le sujet",
@@ -6745,10 +6733,6 @@
   "mxH830": {
     "defaultMessage": "Mettez à jour et révisez les renseignements de votre CV.",
     "description": "Subtitle for the application résumé introduction page"
-  },
-  "rR+M64": {
-    "defaultMessage": "Révisez votre demande",
-    "description": "Page title for the application review page"
   },
   "sTij/C": {
     "defaultMessage": "Question de sélection",
@@ -7836,6 +7820,26 @@
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
   },
+  "e2qUId": {
+    "defaultMessage": "Processus exécuté par {team} à {departments}",
+    "description": "Team and department of pool"
+  },
+  "2Ljgvn": {
+    "defaultMessage": "Consulter l’affiche d’emploi pour ce processus de recrutement",
+    "description": "Link message that shows the job poster for the recruitment process."
+  },
+  "SZ2DsZ": {
+    "defaultMessage": "Secrétariat du Conseil du Trésor du Canada",
+    "description": "Default department for pool"
+  },
+  "S82O61": {
+    "defaultMessage": "Équipe de gestion de la collectivité du numérique",
+    "description": "Default team for pool"
+  },
+  "VN6uCI": {
+    "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
+    "description": "Text showing the essentials skills assessed during the process"
+  },
   "AnIVCJ": {
     "defaultMessage": "Nous tenons à vous remercier de votre intérêt à devenir un(e) apprenti(e) de la TI au sein du gouvernement du Canada. Votre expérience vécue, votre passion et vos intérêts sont chaleureusement accueillis et reconnus. Un membre de l’équipe du Bureau des initiatives autochtones communiquera avec vous au cours des trois à cinq prochains jours ouvrables pour discuter votre demande.",
     "description": "Description of review process and next steps for the indigenous apprenticeship applicant."
@@ -8139,5 +8143,131 @@
   "tJLZYs": {
     "defaultMessage": "Obtention d’un diplôme d’un programme de deux ans ou plus offert par <link>une institution postsecondaire reconnue</link>. Le programme doit compter une spécialisation en sciences informatiques, en technologie de l’information, en gestion de l’information ou dans un autre domaine spécialisé pertinent à la présente publication.",
     "description": "Descriptive text explaining a valid post secondary education."
+  },
+  "2je6Bi": {
+    "defaultMessage": "Expérience minimale ou formation équivalente",
+    "description": "Heading for education requirements section of the application review page."
+  },
+  "2lOey6": {
+    "defaultMessage": "Votre CV",
+    "description": "Heading for resume section of the application review page."
+  },
+  "4ii2WZ": {
+    "defaultMessage": "Révisez votre candidature et envoyez-la!",
+    "description": "Subtitle for the application review page."
+  },
+  "5A0a7w": {
+    "defaultMessage": "Modifiez la liste des questions de sélection",
+    "description": "Edit link text for screening questions section of the application review page."
+  },
+  "6QGFk9": {
+    "defaultMessage": "Modifiez la liste des compétences requises",
+    "description": "Edit link text for skill requirements section of the application review page."
+  },
+  "7vOa71": {
+    "defaultMessage": "Nous avons bien reçu votre candidature",
+    "description": "Success message after submission for the application review page."
+  },
+  "DXtgrn": {
+    "defaultMessage": "Révisez votre candidature et envoyez-la",
+    "description": "Link text for the application review page."
+  },
+  "A9Urm+": {
+    "defaultMessage": "Lorsque vous envoyez votre candidature, une copie de votre profil est automatiquement créée.",
+    "description": "List item note 1 for the application review page."
+  },
+  "GXmpsW": {
+    "defaultMessage": "Avant de poursuivre, il est important que vous compreniez les remarques suivantes concernant votre candidature :",
+    "description": "Starting message for the application review page."
+  },
+  "JxDtt+": {
+    "defaultMessage": "Révisez votre candidature",
+    "description": "Page title for the application review page."
+  },
+  "MZrE40": {
+    "defaultMessage": "Vous avez dit répondre aux <strong>exigences minimales d’expérience ou de formation (deux années d’études postsecondaires)</strong>  et posséder l’expérience professionnelle suivante :",
+    "description": "Message on education requirements card on the application review page."
+  },
+  "O83lYZ": {
+    "defaultMessage": "Cette section résume votre CV tel que le verront les responsables du recrutement pour ces postes.",
+    "description": "Blurb for resume section of the application review page."
+  },
+  "Sd8883": {
+    "defaultMessage": "Vous avez répondu aux questions suivantes :",
+    "description": "Message in screening questions section of the application review page."
+  },
+  "T8eOrg": {
+    "defaultMessage": "Votre nom complet",
+    "description": "Label displayed for signature input in sign and submit section of application review page."
+  },
+  "PDbqFR": {
+    "defaultMessage": "\"J’ai relu tout le contenu de ma candidature\"",
+    "description": "Review list item for sign and submit section of application review page."
+  },
+  "V9lxDE": {
+    "defaultMessage": "Il semble que vous n’ayez pas encore répondu aux questions de sélection.",
+    "description": "Null state message in screening questions section of the application review page."
+  },
+  "bO9PB4": {
+    "defaultMessage": "J’envoie ma candidature"
+  },
+  "8BR20I": {
+    "defaultMessage": "Nous vous encourageons à tenir votre profil à jour, car c’est sa version actualisée qui servira lors des étapes à venir du processus d’embauche.",
+    "description": "List item note 3 for the application review page."
+  },
+  "pH8wF2": {
+    "defaultMessage": "Bravo, c’est réussi! En signant, vous confirmez ce qui suit :",
+    "description": "Instructions for sign and submit section of application review page."
+  },
+  "Pasf+O": {
+    "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
+    "description": "List item note 2 for the application review page."
+  },
+  "fhgZRX": {
+    "defaultMessage": "Je signe et j’envoie ma candidature",
+    "description": "Heading for sign and submit section of application review page."
+  },
+  "h3Cr80": {
+    "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience professionnelle à votre CV.",
+    "description": "Null state message for experiences section of the application review page."
+  },
+  "jV/FG1": {
+    "defaultMessage": "Modifiez la formation requise",
+    "description": "Edit link text for education requirements section of the application review page."
+  },
+  "jX2LG0": {
+    "defaultMessage": "Compétences requises",
+    "description": "Heading for skill requirements section of the application review page."
+  },
+  "mf8++l": {
+    "defaultMessage": "Il semble que vous n’ayez pas encore sélectionné de formation requise.",
+    "description": "Null state message for education requirement section of the application review page."
+  },
+  "mu6uvE": {
+    "defaultMessage": "Modifiez cette section"
+  },
+  "1ZQP80": {
+    "defaultMessage": "\"Je déclare que les renseignements fournis sont exacts\"",
+    "description": "Truth list item for sign and submit section of application review page."
+  },
+  "qGyD4w": {
+    "defaultMessage": "Questions de sélection",
+    "description": "Heading for screening questions section of the application review page."
+  },
+  "jT5ANA": {
+    "defaultMessage": "\"Je comprends faire partie d’un groupe où règne la confiance mutuelle\"",
+    "description": "Community list item for sign and submit section of application review page."
+  },
+  "v0QzOM": {
+    "defaultMessage": "Modifiez votre CV",
+    "description": "Edit link text for resume section of the application review page."
+  },
+  "x0Eob3": {
+    "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience professionnelle à votre CV.",
+    "description": "Null state message for resume section of the application review page."
+  },
+  "yC4xI6": {
+    "defaultMessage": "Erreur : l’envoi de la candidature a échoué",
+    "description": "Error message after failed submission for the application review page."
   }
 }
