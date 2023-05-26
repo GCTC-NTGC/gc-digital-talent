@@ -28,7 +28,7 @@ concurrency:
 jobs:
   run-cypress:
     # Platform recommended in cypress-io/github-action docs.
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       # Use native docker command within docker-compose
       COMPOSE_DOCKER_CLI_BUILD: 1
@@ -62,7 +62,7 @@ jobs:
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
       - name: "Run Cypress tests: all"
-        uses: cypress-io/github-action@v5.7.2
+        uses: cypress-io/github-action@v5.8.0
         with:
           spec: "**/*.cy.js"
           browser: chrome
