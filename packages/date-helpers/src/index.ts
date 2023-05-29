@@ -12,6 +12,7 @@ import toDate from "date-fns-tz/toDate";
 import { Scalars } from "@gc-digital-talent/graphql";
 import { getLocale } from "@gc-digital-talent/i18n";
 
+import { dateMessages } from "@gc-digital-talent/i18n";
 import { FormatDateOptions } from "./types";
 import {
   DATETIME_FORMAT_STRING,
@@ -83,7 +84,7 @@ export const relativeClosingDate = ({
 
   const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
-  const time = myFormatFunc(closingDate, `pp`, {
+  const time = myFormatFunc(closingDate, `p`, {
     locale,
   });
   const dateTime = myFormatFunc(closingDate, `PPP p`, {
@@ -91,41 +92,23 @@ export const relativeClosingDate = ({
   });
 
   if (now > closingDate) {
-    return intl.formatMessage({
-      defaultMessage: "The deadline for submission has passed.",
-      id: "8WC+Ty",
-      description: "Message displayed when a closing date has passed.",
-    });
+    return intl.formatMessage(dateMessages.deadlinePassed);
   }
 
   if (
     myFormatFunc(now, DATE_FORMAT_STRING) ===
     myFormatFunc(closingDate, DATE_FORMAT_STRING)
   ) {
-    return intl.formatMessage(
-      {
-        defaultMessage: "Closes today at {time}",
-        id: "jy7itR",
-        description: "Text displayed when relative date is today.",
-      },
-      {
-        time,
-      },
-    );
+    return intl.formatMessage(dateMessages.deadlineToday, {
+      time,
+    });
   }
 
   if (
     myFormatFunc(add(now, { days: 1 }), DATE_FORMAT_STRING) ===
     myFormatFunc(closingDate, DATE_FORMAT_STRING)
   ) {
-    return intl.formatMessage(
-      {
-        defaultMessage: "Closes tomorrow at {time}",
-        id: "GqmxO8",
-        description: "Text displayed when relative date is tomorrow.",
-      },
-      { time },
-    );
+    return intl.formatMessage(dateMessages.deadlineTomorrow, { time });
   }
 
   return dateTime;
