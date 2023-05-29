@@ -165,8 +165,8 @@ const ResultsDisplay = ({
         }
       >
         {intl.formatMessage({
-          defaultMessage: "Request Candidates",
-          id: "6mDW+R",
+          defaultMessage: "Request candidates",
+          id: "3BfvIy",
           description:
             "Button link message on search page that takes user to the request form.",
         })}
@@ -278,8 +278,8 @@ const SearchContainer = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Use the filters below to specify your hiring needs. At any time you can look at the results located at the bottom of this page to see how many candidates match the requirements you have entered. When you are comfortable with the filters you have selected, click the Request Candidates button to add more details and submit a request form.",
-                  id: "Tg8a57",
+                    "Use the filters below to specify your hiring needs. At any time you can look at the results located at the bottom of this page to see how many candidates match the requirements you have entered. When you are comfortable with the filters you have selected, click the Request candidates button to add more details and submit a request form.",
+                  id: "AaoxNX",
                   description:
                     "Content displayed in the How To area of the hero section of the Search page.",
                 })}

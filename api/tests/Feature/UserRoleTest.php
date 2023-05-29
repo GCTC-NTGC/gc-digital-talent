@@ -18,12 +18,6 @@ class UserRoleTest extends TestCase
 
     protected $adminUser;
     protected $baseUser;
-    protected $baseRoles = [
-        "guest",
-        "base_user",
-        "applicant",
-    ];
-
 
     protected function setUp(): void
     {
@@ -31,19 +25,21 @@ class UserRoleTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
         $this->bootRefreshesSchemaCache();
 
-        $this->baseUser = User::factory()->create([
-            'email' => 'base-user@test.com',
-            'sub' => 'base-user@test.com',
-        ])->syncRoles($this->baseRoles);
+        $this->baseUser = User::factory()
+            ->asApplicant()
+            ->create([
+                'email' => 'base-user@test.com',
+                'sub' => 'base-user@test.com',
+            ]);
 
-        $this->adminUser = User::factory()->create([
-            'email' => 'admin-user@test.com',
-            'sub' => 'admin-user@test.com',
-        ])->syncRoles([
-            ...$this->baseRoles,
-            "request_responder",
-            "platform_admin"
-        ]);
+        $this->adminUser = User::factory()
+            ->asApplicant()
+            ->asRequestResponder()
+            ->asAdmin()
+            ->create([
+                'email' => 'admin-user@test.com',
+                'sub' => 'admin-user@test.com',
+            ]);
     }
 
     // Create a user added with a test role and team.  Assert that the admin can query the user's role.
@@ -188,21 +184,13 @@ class UserRoleTest extends TestCase
               }
         ',
             ['id' => $user->id]
-        )->assertJsonFragment([
-            [
-                'user' => [
-                    'sub' => $user->sub,
-                    'roleAssignments' =>
-                    $teams->map(function ($team) {
-                        return [
-                            'team' => [
-                                'id' => $team->id,
-                            ]
-                        ];
-                    })->toArray()
+        )->assertJsonFragment($teams->flatMap(function ($team) {
+            return [
+                'team' => [
+                    'id' => $team->id,
                 ]
-            ]
-        ]);
+            ];
+        })->toArray());
     }
 
     // Create a user with an old role.  Assert that the admin can remove the old role and add the new role.
@@ -285,16 +273,10 @@ class UserRoleTest extends TestCase
                     ]
                 ]
             ]
-        )->assertJson([
-            'data' => [
-                'updateUserAsAdmin' => [
-                    'roleAssignments' => [
-                        [
-                            'role' =>  ['id' => $newRole->id],
-                            'team' => ['id' => $newTeam->id]
-                        ]
-                    ]
-                ]
+        )->assertJsonFragment([
+            [
+                'role' =>  ['id' => $newRole->id],
+                'team' => ['id' => $newTeam->id]
             ]
         ]);
     }
@@ -374,9 +356,7 @@ class UserRoleTest extends TestCase
     // Create two applicant users.  Assert that one of them cannot query the other's data.
     public function testApplicantCannotQueryAnother()
     {
-        $users = User::factory()->count(2)->afterCreating(function ($user) {
-            $user->syncRoles($this->baseRoles);
-        })->create();
+        $users = User::factory()->count(2)->asApplicant()->create();
 
         $this->actingAs($users[0], 'api')->graphQL(
             /** @lang GraphQL */

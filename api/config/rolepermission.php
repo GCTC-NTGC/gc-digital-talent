@@ -621,6 +621,9 @@ return [
             'skillFamily' => [
                 'any' => ['create', 'update', 'delete']
             ],
+            'applicantProfile' => [
+                'any' => ['view'],
+            ],
             'user' => [
                 'any' => ['view', 'update', 'delete']
             ],
