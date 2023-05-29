@@ -43,6 +43,12 @@ export interface ViewPoolCandidateProps {
   poolCandidate: PoolCandidate;
 }
 
+type SectionContent = {
+  id: string;
+  linkText?: string;
+  title: string;
+};
+
 type SpacerProps = React.HTMLProps<HTMLDivElement>;
 
 const Spacer = ({ children, ...rest }: SpacerProps) => (
@@ -66,20 +72,27 @@ export const ViewPoolCandidate = ({
   const snapshotUserPropertyExists = !!parsedSnapshot;
   const pages = useAdminPoolPages(intl, poolCandidate.pool);
 
+  const sections: Record<string, SectionContent> = {
+    statusForm: {
+      id: "status-form",
+      title: intl.formatMessage({
+        defaultMessage: "Application status",
+        id: "/s66sg",
+        description: "Title for admins to edit an applications status.",
+      }),
+    },
+    snapshot: {
+      id: "snapshot",
+      title: intl.formatMessage({
+        defaultMessage: "Application's profile snapshot",
+        id: "L/Vj+K",
+        description: "Title for the application's profile snapshot.",
+      }),
+    },
+  };
+
   const subTitle = (
     <div data-h2-flex-grid="base(center, x2, x1)">
-      <div
-        data-h2-flex-item="base(1of1) p-tablet(fill)"
-        data-h2-text-align="base(center) p-tablet(left)"
-      >
-        <h2 data-h2-margin="base(x1, 0, 0, 0)">
-          {intl.formatMessage({
-            defaultMessage: "Application’s profile snapshot",
-            id: "rqXJfW",
-            description: "Title for the application's profile snapshot.",
-          })}
-        </h2>
-      </div>
       {snapshotUserPropertyExists && (
         <div
           data-h2-flex-item="base(1of1) p-tablet(content)"
@@ -209,34 +222,32 @@ export const ViewPoolCandidate = ({
       </p>
       <Separator
         data-h2-background-color="base(black.lightest)"
-        data-h2-margin="base(x1, 0, x2, 0)"
+        data-h2-margin="base(x1, 0, 0, 0)"
       />
-      <Spacer>
-        <Link
-          mode="solid"
-          color="primary"
-          data-h2-display="base(inline-flex)"
-          data-h2-align-items="base(center)"
-          href={paths.poolCandidateTable(poolCandidate.pool.id)}
-        >
-          <ArrowLeftCircleIcon
-            style={{ height: "1em", width: "1rem" }}
-            data-h2-margin="base(0, x.25, 0, 0)"
-          />
-          <span>
-            {intl.formatMessage({
-              defaultMessage: "Go back to All candidates",
-              id: "Z2KhWS",
-              description: "Navigation link back to All candidates.",
-            })}
-          </span>
-        </Link>
-      </Spacer>
       <TableOfContents.Wrapper>
-        <TableOfContents.Sidebar>
-          <ApplicationStatusForm id={poolCandidate.id} />
-        </TableOfContents.Sidebar>
-        {mainContent}
+        <TableOfContents.Navigation>
+          <TableOfContents.AnchorLink id={sections.statusForm.id}>
+            {sections.statusForm.title}
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sections.snapshot.id}>
+            {sections.snapshot.title}
+          </TableOfContents.AnchorLink>
+        </TableOfContents.Navigation>
+        <TableOfContents.Content>
+          <TableOfContents.Section id={sections.statusForm.id}>
+            <TableOfContents.Heading
+              data-h2-margin="base(x3, 0, x1, 0)"
+              as="h3"
+            >
+              {sections.statusForm.title}
+            </TableOfContents.Heading>
+            <ApplicationStatusForm id={poolCandidate.id} />
+            <Separator
+              data-h2-background-color="base(black.lightest)"
+              data-h2-margin="base(x1, 0, 0, 0)"
+            />
+          </TableOfContents.Section>
+        </TableOfContents.Content>
       </TableOfContents.Wrapper>
     </>
   );
