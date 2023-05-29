@@ -11,6 +11,7 @@ import {
   Separator,
   TreeView,
   Heading,
+  Accordion,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -38,6 +39,7 @@ import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTree
 
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
 import SkillTree from "../../Applications/ApplicationSkillsPage/components/SkillTree";
+import ExperienceAccordion from "../../../components/ExperienceAccordion/ExperienceAccordion";
 
 export interface ViewPoolCandidateProps {
   poolCandidate: PoolCandidate;
@@ -106,6 +108,14 @@ export const ViewPoolCandidate = ({
         description: "Title for the screening questions snapshot section",
       }),
     },
+    resume: {
+      id: "resume",
+      title: intl.formatMessage({
+        defaultMessage: "Résumé",
+        id: "OxlRKl",
+        description: "Title for the résumé snapshot section",
+      }),
+    },
   };
 
   const subTitle = (
@@ -158,11 +168,12 @@ export const ViewPoolCandidate = ({
     const categorizedEssentialSkills = categorizeSkill(
       poolCandidate.poolAdvertisement?.essentialSkills,
     );
+    const nonEmptyExperiences = parsedSnapshot.experiences?.filter(notEmpty);
     mainContent = (
       <>
         {subTitle}
         <TableOfContents.Section id={sections.minExperience.id}>
-          <TableOfContents.Heading as="h4">
+          <TableOfContents.Heading as="h4" size="h5">
             {sections.minExperience.title}
           </TableOfContents.Heading>
           <p data-h2-margin="base(x1, 0)">
@@ -185,7 +196,7 @@ export const ViewPoolCandidate = ({
           ) : null}
         </TableOfContents.Section>
         <TableOfContents.Section id={sections.skills.id}>
-          <TableOfContents.Heading as="h4">
+          <TableOfContents.Heading as="h4" size="h5">
             {sections.skills.title}
           </TableOfContents.Heading>
           {categorizedEssentialSkills[SkillCategory.Technical]?.map(
@@ -202,14 +213,14 @@ export const ViewPoolCandidate = ({
           )}
         </TableOfContents.Section>
         <TableOfContents.Section id={sections.questions.id}>
-          <TableOfContents.Heading as="h4">
+          <TableOfContents.Heading as="h4" size="h5">
             {sections.questions.title}
           </TableOfContents.Heading>
           {snapshotCandidate?.screeningQuestionResponses
             ?.filter(notEmpty)
             .map((response) => (
               <React.Fragment key={response.id}>
-                <Heading level="h5" data-h2-margin-bottom="base(x.5)">
+                <Heading level="h5" size="h6" data-h2-margin-bottom="base(x.5)">
                   {getLocalizedName(
                     response?.screeningQuestion?.question,
                     intl,
@@ -226,6 +237,36 @@ export const ViewPoolCandidate = ({
                 </div>
               </React.Fragment>
             ))}
+        </TableOfContents.Section>
+        <TableOfContents.Section id={sections.resume.id}>
+          <TableOfContents.Heading as="h4" size="h5">
+            {sections.resume.title}
+          </TableOfContents.Heading>
+          <p data-h2-margin="base(x1, 0)">
+            {intl.formatMessage({
+              defaultMessage: "The following is the applicant's résumé",
+              id: "FN5kFc",
+              description: "Lead-in text for the snapshot résumé section",
+            })}
+          </p>
+          {nonEmptyExperiences?.length ? (
+            <TreeView.Root>
+              {nonEmptyExperiences.map((experience) => (
+                <TreeView.Item key={experience.id}>
+                  <div data-h2-margin="base(-x.5, 0)">
+                    <Accordion.Root type="single" collapsible>
+                      <ExperienceAccordion
+                        key={experience.id}
+                        experience={experience}
+                        headingLevel="h5"
+                        showSkills={false}
+                      />
+                    </Accordion.Root>
+                  </div>
+                </TreeView.Item>
+              ))}
+            </TreeView.Root>
+          ) : null}
         </TableOfContents.Section>
       </>
     );
@@ -314,6 +355,9 @@ export const ViewPoolCandidate = ({
               </TableOfContents.AnchorLink>
               <TableOfContents.AnchorLink id={sections.questions.id}>
                 {sections.questions.title}
+              </TableOfContents.AnchorLink>
+              <TableOfContents.AnchorLink id={sections.resume.id}>
+                {sections.resume.title}
               </TableOfContents.AnchorLink>
             </>
           )}
