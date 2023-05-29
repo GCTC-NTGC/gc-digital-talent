@@ -316,5 +316,35 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("heading", { name: /Review your submission/i })
       .should("exist")
       .and("be.visible");
+    cy.contains(/Definitely not getting screened out response./i) // screening response present
+      .should("exist")
+      .and("be.visible");
+    cy.contains(/QA Testing at Cypress University/i) // experience present
+      .should("exist")
+      .and("be.visible");
+    // assert no error/empty case messages appear
+    cy.contains(
+      /It looks like you haven't added any experiences to your résumé yet./i,
+    ).should("not.exist");
+    cy.contains(
+      /It looks like you haven't selected an education requirement yet./i,
+    ).should("not.exist");
+    cy.contains(
+      /It looks like you haven't answered any screening questions yet./i,
+    ).should("not.exist");
+    // time to submit!
+    cy.findByRole("textbox", { name: /Your full name/i }).type("Signature");
+    cy.findByRole("button", { name: /Submit my application/i }).click();
+    cy.wait("@gqlsubmitApplicationMutation");
+    cy.expectToast(/We successfully received your application/i);
+
+    // Application home after submitting
+    cy.wait("@gqlGetApplicationQuery");
+    cy.findByRole("heading", {
+      name: /We successfully received your application/i,
+    })
+      .should("exist")
+      .and("be.visible");
+    cy.findByRole("link", { name: /Go to my dashboard/i }).should("exist");
   });
 });
