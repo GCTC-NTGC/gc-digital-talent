@@ -4190,8 +4190,8 @@
     "defaultMessage": "Ville actuelle",
     "description": "CSV Header, Current City column"
   },
-  "D24NyA": {
-    "defaultMessage": "Ceci est le profil soumis le {submittedAt} pour le bassin : {poolName}",
+  "V2vBbu": {
+    "defaultMessage": "Ceci est le profil soumis le <strong>{submittedAt}</strong> pour le bassin : <strong>{poolName}</strong>",
     "description": "Snapshot details displayed above the pool candidate application page."
   },
   "DHfumB": {

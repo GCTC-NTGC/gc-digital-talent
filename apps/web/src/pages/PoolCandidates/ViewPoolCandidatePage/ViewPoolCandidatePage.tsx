@@ -10,6 +10,8 @@ import {
   Link,
   ToggleGroup,
   TableOfContents,
+  Heading,
+  Separator,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import PageHeader from "~/components/PageHeader";
@@ -22,12 +24,19 @@ import {
   PoolCandidate,
   Maybe,
 } from "~/api/generated";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import {
+  fullPoolAdvertisementTitle,
+  getFullPoolAdvertisementTitleHtml,
+  getFullPoolAdvertisementTitleLabel,
+  useAdminPoolPages,
+} from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
+import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
+import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
 
 export interface ViewPoolCandidateProps {
@@ -55,6 +64,7 @@ export const ViewPoolCandidate = ({
     poolCandidate.profileSnapshot,
   );
   const snapshotUserPropertyExists = !!parsedSnapshot;
+  const pages = useAdminPoolPages(intl, poolCandidate.pool);
 
   const subTitle = (
     <div data-h2-flex-grid="base(center, x2, x1)">
@@ -165,7 +175,13 @@ export const ViewPoolCandidate = ({
 
   return (
     <>
-      <PageHeader icon={UserCircleIcon}>
+      <PageHeader
+        icon={UserCircleIcon}
+        subtitle={`${poolCandidate.user.firstName} ${
+          poolCandidate.user.lastName
+        } / ${getFullPoolAdvertisementTitleLabel(intl, poolCandidate.pool)}`}
+        navItems={pages}
+      >
         {intl.formatMessage({
           defaultMessage: "Candidate information",
           id: "69/cNW",
@@ -173,29 +189,28 @@ export const ViewPoolCandidate = ({
             "Heading displayed above the pool candidate application page.",
         })}
       </PageHeader>
-      <Spacer>
-        <h3>{`${poolCandidate.user.firstName} ${poolCandidate.user.lastName}`}</h3>
-      </Spacer>
-      <Spacer>
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "This is the profile submitted on {submittedAt} for the pool: {poolName}",
-              id: "D24NyA",
-              description:
-                "Snapshot details displayed above the pool candidate application page.",
-            },
-            {
-              submittedAt: poolCandidate.submittedAt,
-              poolName: getFullPoolAdvertisementTitleHtml(
-                intl,
-                poolCandidate.pool,
-              ),
-            },
-          )}
-        </p>
-      </Spacer>
+      <p data-h2-margin="base(-x1, 0, x1, 0)">
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "This is the profile submitted on <strong>{submittedAt}</strong> for the pool: <strong>{poolName}</strong>",
+            id: "V2vBbu",
+            description:
+              "Snapshot details displayed above the pool candidate application page.",
+          },
+          {
+            submittedAt: poolCandidate.submittedAt,
+            poolName: getFullPoolAdvertisementTitleHtml(
+              intl,
+              poolCandidate.pool,
+            ),
+          },
+        )}
+      </p>
+      <Separator
+        data-h2-background-color="base(black.lightest)"
+        data-h2-margin="base(x1, 0, x2, 0)"
+      />
       <Spacer>
         <Link
           mode="solid"
