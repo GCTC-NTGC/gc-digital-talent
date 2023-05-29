@@ -40,7 +40,7 @@ export const heavyPrimary = (text: React.ReactNode) => (
  * @param text text to wrap.
  */
 export const primary = (text: React.ReactNode) => (
-  <span data-h2-color="base(primary.dark)">{text}</span>
+  <span data-h2-color="base(primary.darker)">{text}</span>
 );
 
 /**

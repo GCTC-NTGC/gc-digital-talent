@@ -3,6 +3,7 @@ import { IntlShape } from "react-intl";
 import { LocalizedString, Maybe, Scalars } from "@gc-digital-talent/graphql";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { getId, notEmpty } from "@gc-digital-talent/helpers";
+import { defaultLogger } from "@gc-digital-talent/logger";
 
 /**
  * Filters out empty data from data response.
@@ -99,6 +100,13 @@ export function matchStringCaseDiacriticInsensitive(
   needle: string,
   compareString: string,
 ) {
+  if (needle.length > 1000) {
+    // short-circuit for very long needle cases, prevents RegExp crashing
+    defaultLogger.warning(
+      "Short-circuit function matchStringCaseDiacriticInsensitive",
+    );
+    return false;
+  }
   const escapedNeedle = escapeAString(needle); // escape certain characters for Regex purposes
   return (
     compareString
