@@ -36,6 +36,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { categorizeSkill } from "~/utils/skillUtils";
 import adminMessages from "~/messages/adminMessages";
+import applicationMessages from "~/messages/applicationMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
@@ -164,6 +165,14 @@ export const ViewPoolCandidate = ({
         defaultMessage: "Language profile",
         id: "KsS1Py",
         description: "Title for the language profile snapshot section",
+      }),
+    },
+    signature: {
+      id: "signature",
+      title: intl.formatMessage({
+        defaultMessage: "Signature",
+        id: "1ZZgbi",
+        description: "Title for the signature snapshot section",
       }),
     },
   };
@@ -396,6 +405,45 @@ export const ViewPoolCandidate = ({
             <LanguageProfileDisplay user={parsedSnapshot as User} />
           </CardBasic>
         </TableOfContents.Section>
+        <TableOfContents.Section id={sections.signature.id}>
+          <TableOfContents.Heading
+            as="h4"
+            size="h5"
+            data-h2-margin="base(x2 0 x.5 0)"
+          >
+            {sections.signature.title}
+          </TableOfContents.Heading>
+          <p data-h2-margin="base(0, 0, x1, 0)">
+            {intl.formatMessage(applicationMessages.confirmationLead)}
+          </p>
+          <ul>
+            <li>
+              {intl.formatMessage(applicationMessages.confirmationReview)}
+            </li>
+            <li>
+              {intl.formatMessage(applicationMessages.confirmationCommunity)}
+            </li>
+            <li>{intl.formatMessage(applicationMessages.confirmationTrue)}</li>
+          </ul>
+          <Heading
+            level="h6"
+            data-h2-font-size="base(copy)"
+            data-h2-font-weight="base(400)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Signed",
+              id: "fEcEv3",
+              description:
+                "Heading for the application snapshot users signature",
+            })}
+          </Heading>
+          <CardBasic data-h2-shadow="base(none)">
+            <p data-h2-font-weight="base(700)">
+              {snapshotCandidate?.signature ||
+                intl.formatMessage(commonMessages.notProvided)}
+            </p>
+          </CardBasic>
+        </TableOfContents.Section>
       </>
     );
   } else if (snapshotUserPropertyExists && !preferRichView) {
@@ -501,6 +549,9 @@ export const ViewPoolCandidate = ({
               </TableOfContents.AnchorLink>
               <TableOfContents.AnchorLink id={sections.language.id}>
                 {sections.language.title}
+              </TableOfContents.AnchorLink>
+              <TableOfContents.AnchorLink id={sections.signature.id}>
+                {sections.signature.title}
               </TableOfContents.AnchorLink>
             </>
           )}
