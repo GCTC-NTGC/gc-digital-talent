@@ -1,12 +1,13 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useNavigate, useParams } from "react-router-dom";
 import PresentationChartBarIcon from "@heroicons/react/20/solid/PresentationChartBarIcon";
 import uniqueId from "lodash/uniqueId";
 
 import {
   Button,
+  ExternalLink,
   Heading,
   Pending,
   Separator,
@@ -33,7 +34,7 @@ import applicationMessages from "~/messages/applicationMessages";
 
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { Radio } from "@gc-digital-talent/forms/src/components/RadioGroup";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -42,32 +43,12 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import LinkResume from "./LinkResume";
 import { useApplicationContext } from "../ApplicationContext";
 
-const appliedWorkListMessages = defineMessages({
-  onTheJob: {
-    defaultMessage: "On-the-job learning",
-    id: "fvE7Cx",
-    description:
-      "List item in applied work option in application education page.",
-  },
-  nonConventional: {
-    defaultMessage: "Non-conventional training",
-    id: "DEUOhY",
-    description:
-      "List item in applied work option in application education page.",
-  },
-  formalEducation: {
-    defaultMessage: "Formal education",
-    id: "RtJ+34",
-    description:
-      "List item in applied work option in application education page.",
-  },
-  other: {
-    defaultMessage: "Other field related experience",
-    id: "CnbI8J",
-    description:
-      "List item in applied work option in application education page.",
-  },
-});
+const appliedWorkListMessages = [
+  applicationMessages.onTheJobLearning,
+  applicationMessages.nonConventionalTraining,
+  applicationMessages.formalEducation,
+  applicationMessages.otherExperience,
+];
 
 type EducationRequirementExperiences = {
   educationRequirementAwardExperiences: { sync: string[] };
@@ -135,6 +116,7 @@ const ApplicationEducation = ({
   experiences,
 }: ApplicationEducationProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const navigate = useNavigate();
   const { applicantDashboard } = useFeatureFlags(); // TODO: Remove once feature flag has been turned on.
@@ -317,25 +299,32 @@ const ApplicationEducation = ({
     }
   };
 
+  const qualityStandardsLink = (chunks: React.ReactNode) => {
+    const href =
+      locale === "en"
+        ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
+        : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#eepr";
+    return (
+      <ExternalLink href={href} newTab>
+        {chunks}
+      </ExternalLink>
+    );
+  };
+
   const educationRequirementOptions: Radio[] = [
     {
       value: EducationRequirementOption.AppliedWork,
       label: intl.formatMessage({
-        defaultMessage: "I meet the applied work experience option",
-        id: "9+kmjB",
+        defaultMessage:
+          "<strong>I meet the applied work experience option</strong>",
+        id: "SNwPLZ",
         description:
           "Radio group option for education requirement filter in application education form.",
       }),
       contentBelow: (
         <div data-h2-margin="base(x.5, 0, x.5, x1)">
           <p data-h2-margin="base(0, 0, x.5, 0)">
-            {intl.formatMessage({
-              defaultMessage:
-                "Combined experience in computer science, information technology information management or another specialty relevant to this advertisement, including any of the following:",
-              id: "MQUZaf",
-              description:
-                "Message under radio button in application education page.",
-            })}
+            {intl.formatMessage(applicationMessages.appliedWorkExperience)}
           </p>
           <ul>
             {Object.values(appliedWorkListMessages).map((value) => (
@@ -350,20 +339,17 @@ const ApplicationEducation = ({
     {
       value: EducationRequirementOption.Education,
       label: intl.formatMessage({
-        defaultMessage: "I meet the 2-year post-secondary option",
-        id: "rGqohv",
+        defaultMessage:
+          "<strong>I meet the 2-year post-secondary option</strong>",
+        id: "j+jnML",
         description:
           "Radio group option for education requirement filter in application education form.",
       }),
       contentBelow: (
         <div data-h2-margin="base(x.5, 0, x.5, x1)">
           <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "Successful completion of two years of post secondary education in computer science, information technology, information management or another specialty relevant to this advertisement.",
-              id: "socp8t",
-              description:
-                "Message under radio button in application education page.",
+            {intl.formatMessage(applicationMessages.postSecondaryEducation, {
+              link: qualityStandardsLink,
             })}
           </p>
         </div>
