@@ -12,15 +12,16 @@ import {
   TreeView,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import PageHeader from "~/components/PageHeader";
-import UserProfile from "~/components/UserProfile";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
+import PageHeader from "~/components/PageHeader";
 import {
   Applicant,
   Scalars,
   useGetPoolCandidateSnapshotQuery,
   PoolCandidate,
   Maybe,
+  SkillCategory,
 } from "~/api/generated";
 import {
   getFullPoolAdvertisementTitleHtml,
@@ -29,14 +30,13 @@ import {
 } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import { categorizeSkill } from "~/utils/skillUtils";
 import adminMessages from "~/messages/adminMessages";
-
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { each } from "lodash";
+import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
+
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
-import Table from "../../../components/Table/ClientManagedTable";
-import ExperienceTreeItems from "../../../components/ExperienceTreeItems/ExperienceTreeItems";
+import SkillTree from "../../Applications/ApplicationSkillsPage/components/SkillTree";
 
 export interface ViewPoolCandidateProps {
   poolCandidate: PoolCandidate;
@@ -84,9 +84,17 @@ export const ViewPoolCandidate = ({
       id: "min-experience",
       title: intl.formatMessage({
         defaultMessage: "Minimum experience or equivalent education",
-        id: "wNOqLt",
+        id: "Fbh/MK",
         description:
-          "Title for the minimum experience or equivalent education section.",
+          "Title for the minimum experience or equivalent education snapshot section.",
+      }),
+    },
+    skills: {
+      id: "skills",
+      title: intl.formatMessage({
+        defaultMessage: "Skill requirements",
+        id: "bqC0/E",
+        description: "Title for the skill requirements snapshot section",
       }),
     },
   };
@@ -138,6 +146,9 @@ export const ViewPoolCandidate = ({
     const snapshotCandidate = parsedSnapshot?.poolCandidates
       ?.filter(notEmpty)
       .find(({ id }) => id === poolCandidate.id);
+    const categorizedEssentialSkills = categorizeSkill(
+      poolCandidate.poolAdvertisement?.essentialSkills,
+    );
     mainContent = (
       <>
         {subTitle}
@@ -163,6 +174,23 @@ export const ViewPoolCandidate = ({
               />
             </TreeView.Root>
           ) : null}
+        </TableOfContents.Section>
+        <TableOfContents.Section id={sections.skills.id}>
+          <TableOfContents.Heading as="h4">
+            {sections.skills.title}
+          </TableOfContents.Heading>
+          {categorizedEssentialSkills[SkillCategory.Technical]?.map(
+            (requiredTechnicalSkill) => (
+              <SkillTree
+                key={requiredTechnicalSkill.id}
+                skill={requiredTechnicalSkill}
+                experiences={parsedSnapshot.experiences?.filter(notEmpty) || []}
+                showDisclaimer
+                hideConnectButton
+                hideEdit
+              />
+            ),
+          )}
         </TableOfContents.Section>
       </>
     );
@@ -242,9 +270,14 @@ export const ViewPoolCandidate = ({
             {sections.snapshot.title}
           </TableOfContents.AnchorLink>
           {showRichSnapshot && (
-            <TableOfContents.AnchorLink id={sections.minExperience.id}>
-              {sections.minExperience.title}
-            </TableOfContents.AnchorLink>
+            <>
+              <TableOfContents.AnchorLink id={sections.minExperience.id}>
+                {sections.minExperience.title}
+              </TableOfContents.AnchorLink>
+              <TableOfContents.AnchorLink id={sections.skills.id}>
+                {sections.skills.title}
+              </TableOfContents.AnchorLink>
+            </>
           )}
         </TableOfContents.Navigation>
         <TableOfContents.Content>

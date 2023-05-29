@@ -21,6 +21,30 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
         level
       }
     }
+    poolAdvertisement {
+      id
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        families {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+      }
+    }
   }
 }
 
