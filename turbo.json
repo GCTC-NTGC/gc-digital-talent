@@ -94,7 +94,9 @@
       "dependsOn": ["^e2e:run:all"]
     },
     "e2e:run:inspect": {},
-    "lint": {},
+    "lint": {
+      "inputs": ["../../packages/eslint-config-custom/index.js"]
+    },
     "tsc": {}
   }
 }

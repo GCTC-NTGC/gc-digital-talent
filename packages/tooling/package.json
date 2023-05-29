@@ -13,15 +13,15 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "watch": "tsup src/checkIntegrity.ts  --watch --dts --external react --minify",
     "check-integrity": "node ./dist/checkIntegrity.js",
-    "lint": "TIMING=1 eslint \"src/**/*.ts*\""
+    "lint": "eslint \"src/**/*.ts*\""
   },
   "devDependencies": {
-    "@swc/core": "^1.3.56",
-    "eslint": "^8.40.0",
+    "@swc/core": "^1.3.60",
+    "eslint": "^8.41.0",
     "eslint-config-custom": "*",
     "tsconfig": "*",
     "tsup": "^6.7.0",
-    "typescript": "^5.0.2",
+    "typescript": "^5.0.4",
     "yargs": "^17.7.2"
   }
 }

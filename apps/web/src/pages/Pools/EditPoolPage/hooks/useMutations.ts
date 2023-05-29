@@ -7,6 +7,7 @@ import useRoutes from "~/hooks/useRoutes";
 import {
   useClosePoolAdvertisementMutation,
   useDeletePoolAdvertisementMutation,
+  useDuplicatePoolAdvertisementMutation,
   usePublishPoolAdvertisementMutation,
   useUpdatePoolAdvertisementMutation,
   useChangePoolClosingDateMutation,
@@ -176,19 +177,57 @@ const useMutations = () => {
       .catch(handleDeleteError);
   };
 
+  const [{ fetching: duplicateFetching }, executeDuplicateMutation] =
+    useDuplicatePoolAdvertisementMutation();
+
+  const handleDuplicateError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage:
+          "Error: Something went wrong, please try again in a minute or contact your administrator.",
+        id: "hHYn/8",
+        description:
+          "Message displayed to user after pool fails to get duplicated.",
+      }),
+    );
+  };
+
+  const duplicatePoolAdvertisement = (id: string, teamId: string) => {
+    executeDuplicateMutation({ id, teamId })
+      .then((result) => {
+        navigateBack();
+        if (result.data?.duplicatePoolAdvertisement?.id) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage:
+                "Success: This pool has been duplicated successfully.",
+              id: "vlyq02",
+              description: "Message displayed to user after pool is deleted",
+            }),
+          );
+          navigate(paths.poolUpdate(result.data.duplicatePoolAdvertisement.id));
+        } else {
+          handleDuplicateError();
+        }
+      })
+      .catch(handleDuplicateError);
+  };
+
   return {
     isFetching:
       updateFetching ||
       extendFetching ||
       publishFetching ||
       closeFetching ||
-      deleteFetching,
+      deleteFetching ||
+      duplicateFetching,
     mutations: {
       update,
       extend,
       publish,
       close,
       delete: deletePoolAdvertisement,
+      duplicate: duplicatePoolAdvertisement,
     },
   };
 };

@@ -30,6 +30,7 @@
     "intl-extract": "turbo run intl-extract",
     "intl-compile": "turbo run intl-compile",
     "dev": "h2-build && turbo run dev --filter='./apps/*' --filter='!@gc-digital-talent/e2e'",
+    "dev:fresh": "h2-build && turbo run dev --filter='./apps/*' --filter='!@gc-digital-talent/e2e' --force",
     "dev:project": "turbo run dev",
     "lint": "turbo run lint",
     "storybook:project": "npm run storybook",
@@ -45,11 +46,11 @@
     "tsc": "turbo run tsc"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "3.3.1",
+    "@graphql-codegen/cli": "4.0.0",
     "@hydrogen-css/hydrogen": "2.0.1",
     "eslint-config-custom": "*",
     "jest-fail-on-console": "^3.1.1",
     "prettier": "^2.8.8",
-    "turbo": "^1.9.3"
+    "turbo": "^1.9.9"
   }
 }
