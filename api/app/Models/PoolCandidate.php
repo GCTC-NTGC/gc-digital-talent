@@ -460,7 +460,9 @@ class PoolCandidate extends Model
             'communityExperiences',
             'educationExperiences',
             'personalExperiences',
-            'workExperiences'
+            'workExperiences',
+            'poolCandidates.screeningQuestionResponses',
+            'poolCandidates.screeningQuestionResponses.screeningQuestion',
         ])->findOrFail($this->user_id);
         $profile = new UserResource($user);
 
