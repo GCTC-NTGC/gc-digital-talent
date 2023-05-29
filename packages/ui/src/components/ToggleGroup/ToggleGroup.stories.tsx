@@ -1,6 +1,6 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { StoryFn, Meta } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 import BanknotesIcon from "@heroicons/react/24/outline/BanknotesIcon";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
@@ -43,9 +43,9 @@ export default {
       page: ToggleGroupDocs,
     },
   },
-} as ComponentMeta<typeof ToggleGroup.Root>;
+} as Meta<typeof ToggleGroup.Root>;
 
-const AllTemplate: ComponentStory<typeof ToggleGroup.Root> = (args) => {
+const AllTemplate: StoryFn<typeof ToggleGroup.Root> = (args) => {
   const intl = useIntl();
   return (
     <div
@@ -168,7 +168,7 @@ const AllTemplate: ComponentStory<typeof ToggleGroup.Root> = (args) => {
   );
 };
 
-const Template: ComponentStory<typeof ToggleGroup.Root> = (args) => {
+const Template: StoryFn<typeof ToggleGroup.Root> = (args) => {
   const { children, ...rest } = args;
 
   return <ToggleGroup.Root {...rest}>{children}</ToggleGroup.Root>;

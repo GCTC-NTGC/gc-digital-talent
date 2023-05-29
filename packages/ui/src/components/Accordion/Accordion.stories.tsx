@@ -1,5 +1,5 @@
 import React from "react";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { StoryFn } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import Cog8ToothIcon from "@heroicons/react/24/solid/Cog8ToothIcon";
 import { faker } from "@faker-js/faker";
@@ -29,12 +29,9 @@ export default {
       page: AccordionDocs,
     },
   },
-} as ComponentMeta<typeof Accordion.Root>;
+};
 
-const Template: ComponentStory<typeof Accordion.Root> = ({
-  children,
-  ...rest
-}) => {
+const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
   return (
     <Accordion.Root {...rest}>
       <Accordion.Item value="one">
