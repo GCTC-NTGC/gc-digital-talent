@@ -29,7 +29,6 @@ class PoolSeederUat extends Seeder
                 'user_id' => $defaultOwner->id,
                 'operational_requirements' => [
                     'SHIFT_WORK',
-                    'WORK_WEEKENDS',
                     'OVERTIME_SCHEDULED',
                     'OVERTIME_SHORT_NOTICE'
                 ],

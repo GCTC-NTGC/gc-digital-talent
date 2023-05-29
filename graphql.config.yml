@@ -8,3 +8,5 @@ projects:
     documents:
       - "apps/web/**/*.graphql"
       - "packages/**/*.graphql"
+    exclude:
+      - "apps/web/src/api/generated.ts"
