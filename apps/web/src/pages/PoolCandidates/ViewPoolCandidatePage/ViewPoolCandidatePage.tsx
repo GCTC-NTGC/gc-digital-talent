@@ -2,16 +2,14 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
-import ArrowLeftCircleIcon from "@heroicons/react/24/solid/ArrowLeftCircleIcon";
 
 import {
   NotFound,
   Pending,
-  Link,
   ToggleGroup,
   TableOfContents,
-  Heading,
   Separator,
+  TreeView,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import PageHeader from "~/components/PageHeader";
@@ -25,19 +23,20 @@ import {
   Maybe,
 } from "~/api/generated";
 import {
-  fullPoolAdvertisementTitle,
   getFullPoolAdvertisementTitleHtml,
   getFullPoolAdvertisementTitleLabel,
   useAdminPoolPages,
 } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
-
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
-import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
-import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
+
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { each } from "lodash";
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
+import Table from "../../../components/Table/ClientManagedTable";
+import ExperienceTreeItems from "../../../components/ExperienceTreeItems/ExperienceTreeItems";
 
 export interface ViewPoolCandidateProps {
   poolCandidate: PoolCandidate;
@@ -49,19 +48,10 @@ type SectionContent = {
   title: string;
 };
 
-type SpacerProps = React.HTMLProps<HTMLDivElement>;
-
-const Spacer = ({ children, ...rest }: SpacerProps) => (
-  <div data-h2-margin-bottom="base(x1)" {...rest}>
-    {children}
-  </div>
-);
-
 export const ViewPoolCandidate = ({
   poolCandidate,
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
-  const paths = useRoutes();
 
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
@@ -71,6 +61,7 @@ export const ViewPoolCandidate = ({
   );
   const snapshotUserPropertyExists = !!parsedSnapshot;
   const pages = useAdminPoolPages(intl, poolCandidate.pool);
+  const showRichSnapshot = snapshotUserPropertyExists && preferRichView;
 
   const sections: Record<string, SectionContent> = {
     statusForm: {
@@ -89,88 +80,106 @@ export const ViewPoolCandidate = ({
         description: "Title for the application's profile snapshot.",
       }),
     },
+    minExperience: {
+      id: "min-experience",
+      title: intl.formatMessage({
+        defaultMessage: "Minimum experience or equivalent education",
+        id: "wNOqLt",
+        description:
+          "Title for the minimum experience or equivalent education section.",
+      }),
+    },
   };
 
   const subTitle = (
-    <div data-h2-flex-grid="base(center, x2, x1)">
-      {snapshotUserPropertyExists && (
-        <div
-          data-h2-flex-item="base(1of1) p-tablet(content)"
-          data-h2-text-align="base(center) p-tablet(right)"
-          data-h2-padding="base(x1, 0, 0, 0)"
-        >
-          <ToggleGroup.Root
-            type="single"
-            color="primary.dark"
-            value={preferRichView ? "text" : "code"}
-            onValueChange={(value) => {
-              if (value) setPreferRichView(value === "text");
-            }}
-          >
-            <ToggleGroup.Item value="text">
-              {intl.formatMessage({
-                defaultMessage: "Text",
-                id: "Ude1JQ",
-                description: "Title for the application's profile snapshot.",
-              })}
-            </ToggleGroup.Item>
-            <ToggleGroup.Item value="code">
-              {intl.formatMessage({
-                defaultMessage: "Code",
-                id: "m0JFE/",
-                description: "Title for the application's profile snapshot.",
-              })}
-            </ToggleGroup.Item>
-          </ToggleGroup.Root>
-        </div>
-      )}
-    </div>
+    <TableOfContents.Section id={sections.snapshot.id}>
+      <div
+        data-h2-display="l-tablet(flex)"
+        data-h2-align-items="base(center)"
+        data-h2-justify-content="base(space-between)"
+        data-h2-margin="base(x1, 0)"
+      >
+        {snapshotUserPropertyExists && (
+          <>
+            <TableOfContents.Heading as="h3" data-h2-margin="base(0)">
+              {sections.snapshot.title}
+            </TableOfContents.Heading>
+            <ToggleGroup.Root
+              type="single"
+              color="primary.dark"
+              value={preferRichView ? "text" : "code"}
+              onValueChange={(value) => {
+                if (value) setPreferRichView(value === "text");
+              }}
+            >
+              <ToggleGroup.Item value="text">
+                {intl.formatMessage({
+                  defaultMessage: "Text",
+                  id: "Ude1JQ",
+                  description: "Title for the application's profile snapshot.",
+                })}
+              </ToggleGroup.Item>
+              <ToggleGroup.Item value="code">
+                {intl.formatMessage({
+                  defaultMessage: "Code",
+                  id: "m0JFE/",
+                  description: "Title for the application's profile snapshot.",
+                })}
+              </ToggleGroup.Item>
+            </ToggleGroup.Root>
+          </>
+        )}
+      </div>
+    </TableOfContents.Section>
   );
 
   let mainContent: React.ReactNode;
-  if (snapshotUserPropertyExists && preferRichView) {
+  if (showRichSnapshot) {
+    const snapshotCandidate = parsedSnapshot?.poolCandidates
+      ?.filter(notEmpty)
+      .find(({ id }) => id === poolCandidate.id);
     mainContent = (
-      <UserProfile
-        applicant={parsedSnapshot}
-        subTitle={subTitle}
-        sections={{
-          myStatus: { isVisible: false },
-          hiringPools: { isVisible: false },
-          about: { isVisible: true },
-          language: {
-            isVisible: true,
-          },
-          government: {
-            isVisible: true,
-          },
-          workLocation: {
-            isVisible: true,
-          },
-          workPreferences: {
-            isVisible: true,
-          },
-          employmentEquity: {
-            isVisible: true,
-          },
-          roleSalary: { isVisible: true },
-          skillsExperience: {
-            isVisible: true,
-          },
-        }}
-        isNavigationVisible={false}
-      />
+      <>
+        {subTitle}
+        <TableOfContents.Section id={sections.minExperience.id}>
+          <TableOfContents.Heading as="h4">
+            {sections.minExperience.title}
+          </TableOfContents.Heading>
+          <p data-h2-margin="base(x1, 0)">
+            {intl.formatMessage({
+              defaultMessage:
+                "Requirement selection: <strong>Minimum experience or education requirement (2 years of post-secondary)</strong> Demonstrated with the following experiences:",
+              id: "b6R4Mk",
+              description:
+                "Application snapshot minimum experience section description",
+            })}
+          </p>
+          {snapshotCandidate?.educationRequirementExperiences?.length ? (
+            <TreeView.Root>
+              <ExperienceTreeItems
+                experiences={snapshotCandidate?.educationRequirementExperiences.filter(
+                  notEmpty,
+                )}
+              />
+            </TreeView.Root>
+          ) : null}
+        </TableOfContents.Section>
+      </>
     );
   } else if (snapshotUserPropertyExists && !preferRichView) {
     mainContent = (
-      <TableOfContents.Content>
+      <>
         {subTitle}
         <pre
-          data-h2-background-color="base(gray.light)"
+          data-h2-background-color="base(background.dark.3)"
+          data-h2-border="base(1px solid background.darker)"
           data-h2-overflow="base(scroll auto)"
+          data-h2-padding="base(x1)"
+          data-h2-radius="base(s)"
         >
           {JSON.stringify(parsedSnapshot, null, 2)}
         </pre>
-      </TableOfContents.Content>
+      </>
     );
   } else {
     mainContent = (
@@ -232,6 +241,11 @@ export const ViewPoolCandidate = ({
           <TableOfContents.AnchorLink id={sections.snapshot.id}>
             {sections.snapshot.title}
           </TableOfContents.AnchorLink>
+          {showRichSnapshot && (
+            <TableOfContents.AnchorLink id={sections.minExperience.id}>
+              {sections.minExperience.title}
+            </TableOfContents.AnchorLink>
+          )}
         </TableOfContents.Navigation>
         <TableOfContents.Content>
           <TableOfContents.Section id={sections.statusForm.id}>
@@ -247,6 +261,7 @@ export const ViewPoolCandidate = ({
               data-h2-margin="base(x1, 0, 0, 0)"
             />
           </TableOfContents.Section>
+          {mainContent}
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
     </>

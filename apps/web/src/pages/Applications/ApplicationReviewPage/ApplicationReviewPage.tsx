@@ -38,6 +38,7 @@ import SkillTree from "../ApplicationSkillsPage/components/SkillTree";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
+import ExperienceTreeItems from "../../../components/ExperienceTreeItems/ExperienceTreeItems";
 
 type FormValues = {
   signature: string;
@@ -295,20 +296,9 @@ const ApplicationReview = ({
             </Card>
           </TreeView.Head>
           {educationRequirementExperiences?.length > 0 ? (
-            educationRequirementExperiences.map((experience) => (
-              <TreeView.Item key={experience.id}>
-                <div data-h2-margin="base(-x.5, 0)">
-                  <Accordion.Root type="single" collapsible>
-                    <ExperienceAccordion
-                      key={experience.id}
-                      experience={experience}
-                      headingLevel="h3"
-                      showSkills={false}
-                    />
-                  </Accordion.Root>
-                </div>
-              </TreeView.Item>
-            ))
+            <ExperienceTreeItems
+              experiences={educationRequirementExperiences}
+            />
           ) : (
             <div>
               {application.educationRequirementOption === null ||
