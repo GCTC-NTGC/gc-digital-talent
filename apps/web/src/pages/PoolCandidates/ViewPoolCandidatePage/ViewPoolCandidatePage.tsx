@@ -187,7 +187,11 @@ export const ViewPoolCandidate = ({
       >
         {snapshotUserPropertyExists && (
           <>
-            <TableOfContents.Heading as="h3" data-h2-margin="base(0)">
+            <TableOfContents.Heading
+              as="h3"
+              data-h2-margin="base(0)"
+              data-h2-font-weight="base(800)"
+            >
               {sections.snapshot.title}
             </TableOfContents.Heading>
             <ToggleGroup.Root
@@ -242,20 +246,31 @@ export const ViewPoolCandidate = ({
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "Requirement selection: <strong>Minimum experience or education requirement (2 years of post-secondary)</strong> Demonstrated with the following experiences:",
-              id: "b6R4Mk",
+                "Requirement selection: <strong>Minimum experience or education requirement (2 years of post-secondary)</strong>.",
+              id: "iXCiSb",
               description:
                 "Application snapshot minimum experience section description",
             })}
           </p>
           {snapshotCandidate?.educationRequirementExperiences?.length ? (
-            <TreeView.Root>
-              <ExperienceTreeItems
-                experiences={snapshotCandidate?.educationRequirementExperiences.filter(
-                  notEmpty,
-                )}
-              />
-            </TreeView.Root>
+            <>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Demonstrated with the following experiences:",
+                  id: "tpTntk",
+                  description:
+                    "Lead in text for experiences that demonstrate minimum education experience",
+                })}
+              </p>
+              <TreeView.Root>
+                <ExperienceTreeItems
+                  experiences={snapshotCandidate?.educationRequirementExperiences.filter(
+                    notEmpty,
+                  )}
+                />
+              </TreeView.Root>
+            </>
           ) : null}
         </TableOfContents.Section>
         <TableOfContents.Section id={sections.skills.id}>
@@ -266,29 +281,43 @@ export const ViewPoolCandidate = ({
           >
             {sections.skills.title}
           </TableOfContents.Heading>
-          {categorizedEssentialSkills[SkillCategory.Technical]?.map(
-            (requiredTechnicalSkill) => (
-              <SkillTree
-                key={requiredTechnicalSkill.id}
-                skill={requiredTechnicalSkill}
-                experiences={parsedSnapshot.experiences?.filter(notEmpty) || []}
-                showDisclaimer
-                hideConnectButton
-                hideEdit
-                disclaimerMessage={
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "There are no experiences attached to this skill.",
-                      id: "XrfkBm",
-                      description:
-                        "Message displayed when no experiences have been attached to a skill",
-                    })}
-                  </p>
-                }
-              />
-            ),
-          )}
+          {categorizedEssentialSkills[SkillCategory.Technical]?.length ? (
+            <>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "Represented by the following experiences:",
+                  id: "mDowK/",
+                  description:
+                    "Lead in text for experiences that represent the users skills",
+                })}
+              </p>
+              {categorizedEssentialSkills[SkillCategory.Technical]?.map(
+                (requiredTechnicalSkill) => (
+                  <SkillTree
+                    key={requiredTechnicalSkill.id}
+                    skill={requiredTechnicalSkill}
+                    experiences={
+                      parsedSnapshot.experiences?.filter(notEmpty) || []
+                    }
+                    showDisclaimer
+                    hideConnectButton
+                    hideEdit
+                    disclaimerMessage={
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "There are no experiences attached to this skill.",
+                          id: "XrfkBm",
+                          description:
+                            "Message displayed when no experiences have been attached to a skill",
+                        })}
+                      </p>
+                    }
+                  />
+                ),
+              )}
+            </>
+          ) : null}
         </TableOfContents.Section>
         <TableOfContents.Section id={sections.questions.id}>
           <TableOfContents.Heading
@@ -330,8 +359,8 @@ export const ViewPoolCandidate = ({
           </TableOfContents.Heading>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
-              defaultMessage: "The following is the applicant's résumé",
-              id: "FN5kFc",
+              defaultMessage: "The following is the applicant's résumé:",
+              id: "Nk/79O",
               description: "Lead-in text for the snapshot résumé section",
             })}
           </p>
@@ -571,6 +600,7 @@ export const ViewPoolCandidate = ({
           <TableOfContents.Section id={sections.statusForm.id}>
             <TableOfContents.Heading
               data-h2-margin="base(x3, 0, x1, 0)"
+              data-h2-font-weight="base(800)"
               as="h3"
             >
               {sections.statusForm.title}

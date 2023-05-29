@@ -105,7 +105,8 @@ export const ApplicationStatusForm = ({
               <div>
                 <Heading
                   level="h4"
-                  size="h6"
+                  size="h5"
+                  data-h2-font-weight="base(400)"
                   data-h2-margin="base(0, 0, x0.25, 0)"
                   data-h2-display="base(flex)"
                   data-h2-align-items="base(center)"
@@ -161,7 +162,8 @@ export const ApplicationStatusForm = ({
               <div>
                 <Heading
                   level="h4"
-                  size="h6"
+                  size="h5"
+                  data-h2-font-weight="base(400)"
                   data-h2-margin="base(0, 0, x0.25, 0)"
                   data-h2-display="base(flex)"
                   data-h2-align-items="base(center)"
