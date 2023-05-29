@@ -359,8 +359,8 @@ const ApplicationEducation = ({
             {isIAP
               ? intl.formatMessage({
                   defaultMessage:
-                    "Successful completion of a standard high school diploma or General Education Development (GED) equivalent.",
-                  id: "CNDcPx",
+                    "Successful completion of a standard high school diploma or GED equivalent.",
+                  id: "tfzO5t",
                   description:
                     "Message under radio button in Indigenous apprenticeship application education page.",
                 })

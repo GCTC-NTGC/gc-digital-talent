@@ -112,8 +112,8 @@ const EducationRequirements = ({ isIAP }: EducationRequirementsProps) => {
           {isIAP
             ? intl.formatMessage({
                 defaultMessage:
-                  "Successful completion of a standard high school diploma or General Education Development (GED) equivalent.",
-                id: "2osGWe",
+                  "Successful completion of a standard high school diploma or GED equivalent.",
+                id: "nWZiWr",
                 description:
                   "Education requirement (IT Apprenticeship Program for Indigenous Peoples)",
               })
