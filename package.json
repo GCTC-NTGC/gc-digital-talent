@@ -30,6 +30,7 @@
     "intl-extract": "turbo run intl-extract",
     "intl-compile": "turbo run intl-compile",
     "dev": "h2-build && turbo run dev --filter='./apps/*' --filter='!@gc-digital-talent/e2e'",
+    "dev:fresh": "h2-build && turbo run dev --filter='./apps/*' --filter='!@gc-digital-talent/e2e' --force",
     "dev:project": "turbo run dev",
     "lint": "turbo run lint",
     "storybook:project": "npm run storybook",
