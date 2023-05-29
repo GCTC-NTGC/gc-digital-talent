@@ -69,6 +69,7 @@ class Pool extends Model
         'closing_date',
         'published_at',
         'name',
+        'key',
         'key_tasks',
         'stream',
         'security_clearance',
