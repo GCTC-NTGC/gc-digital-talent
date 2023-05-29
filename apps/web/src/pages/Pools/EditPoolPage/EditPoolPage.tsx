@@ -361,10 +361,7 @@ export const EditPoolPage = () => {
               onPublish={() => mutations.publish(poolId)}
               onDelete={() => mutations.delete(poolId)}
               onDuplicate={() =>
-                mutations.duplicate(
-                  poolId,
-                  data.poolAdvertisement?.team?.id || "",
-                )
+                mutations.duplicate(poolId, data.pool?.team?.id || "")
               }
               onClose={() => mutations.close(poolId)}
               onExtend={(closingDate) => mutations.extend(poolId, closingDate)}

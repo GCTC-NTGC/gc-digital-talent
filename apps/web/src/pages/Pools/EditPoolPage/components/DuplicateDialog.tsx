@@ -4,14 +4,14 @@ import { useIntl } from "react-intl";
 import { Dialog, Button, Heading } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
-import { PoolAdvertisement } from "~/api/generated";
+import { Pool } from "~/api/generated";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { checkRole } from "~/utils/teamUtils";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
 type DuplicateDialogProps = {
-  poolAdvertisement: PoolAdvertisement;
+  poolAdvertisement: Pool;
   onDuplicate: () => void;
 };
 

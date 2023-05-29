@@ -7,7 +7,7 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import { SimpleClassification } from "~/types/pool";
 import useRoutes from "~/hooks/useRoutes";
-import { PoolAdvertisement } from "@gc-digital-talent/graphql";
+import { Pool } from "@gc-digital-talent/graphql";
 
 const testId = (text: React.ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
@@ -16,7 +16,7 @@ const testId = (text: React.ReactNode) => (
 export interface SearchPoolsProps {
   candidateCount: number;
   pool: Pick<
-    PoolAdvertisement,
+    Pool,
     "id" | "owner" | "name" | "classifications" | "team" | "essentialSkills"
   >;
   handleSubmit: (

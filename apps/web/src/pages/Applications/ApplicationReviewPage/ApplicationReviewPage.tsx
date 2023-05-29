@@ -151,11 +151,11 @@ const ApplicationReview = ({
       : [];
 
   const categorizedEssentialSkills = categorizeSkill(
-    application.poolAdvertisement?.essentialSkills,
+    application.pool.essentialSkills,
   );
 
   const screeningQuestions =
-    application.poolAdvertisement?.screeningQuestions?.filter(notEmpty) || [];
+    application.pool.screeningQuestions?.filter(notEmpty) || [];
   const screeningQuestionResponses =
     application.screeningQuestionResponses?.filter(notEmpty) || [];
   return (
@@ -558,7 +558,7 @@ const ApplicationReviewPage = () => {
       fetching={applicationFetching || experienceFetching}
       error={applicationError || experienceError}
     >
-      {application?.poolAdvertisement ? (
+      {application?.pool ? (
         <ApplicationReview
           application={application}
           experiences={experiences}
