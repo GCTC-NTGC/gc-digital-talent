@@ -1875,6 +1875,10 @@ type Mutation {
     teamId: ID! @rename(attribute: "team_id")
     poolAdvertisement: CreatePoolAdvertisementInput! @spread
   ): Pool @create @guard @can(ability: "create", injectArgs: true)
+  duplicatePoolAdvertisement(
+    id: ID!
+    teamId: ID! @rename(attribute: "team_id")
+  ): Pool @guard @can(ability: "duplicate", injectArgs: true)
   updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
     @update
     @guard

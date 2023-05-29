@@ -24,7 +24,10 @@ type Applicant {
   department: Department
   hasPriorityEntitlement: Boolean
   priorityNumber: String
-  languageAbility: LanguageAbility @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
+  languageAbility: LanguageAbility
+    @deprecated(
+      reason: "deprecated in favour of relying on lookingFor<Language>"
+    )
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -39,7 +42,8 @@ type Applicant {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
+  jobLookingStatus: JobLookingStatus
+    @deprecated(reason: "Removing with applicantDashboard feature flag")
   poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
@@ -47,7 +51,8 @@ type Applicant {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: [Classification]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
+  wouldAcceptTemporary: Boolean
+    @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -67,7 +72,8 @@ type ApplicantFilter {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
+  wouldAcceptTemporary: Boolean
+    @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
   expectedClassifications: [Classification]
   skills: [Skill]
@@ -350,7 +356,9 @@ input CreateTeamInput {
   contactEmail: Email
 }
 
-"""When creating a User, name is required."""
+"""
+When creating a User, name is required.
+"""
 input CreateUserInput {
   sub: String
   legacyRoles: [LegacyRole] = []
@@ -400,7 +408,9 @@ input CreateUserInput {
   awardExperiences: AwardExperienceHasMany
 }
 
-"""A date string with format `Y-m-d`, e.g. `2011-05-23`."""
+"""
+A date string with format `Y-m-d`, e.g. `2011-05-23`.
+"""
 scalar Date
 
 """
@@ -479,7 +489,9 @@ enum EducationType {
   OTHER
 }
 
-"""A RFC 5321 compliant email."""
+"""
+A RFC 5321 compliant email.
+"""
 scalar Email
 
 type EquitySelections {
@@ -578,7 +590,9 @@ input KeyFilterInput {
   key: KeyString!
 }
 
-"""A human readable ID"""
+"""
+A human readable ID
+"""
 scalar KeyString
 
 enum Language {
@@ -593,10 +607,14 @@ enum LanguageAbility {
 }
 
 enum LegacyRole {
-  """A user who has administrator privileges"""
+  """
+  A user who has administrator privileges
+  """
   ADMIN
 
-  """A user who has a profile to apply to hiring pools"""
+  """
+  A user who has a profile to apply to hiring pools
+  """
   APPLICANT
 }
 
@@ -618,45 +636,102 @@ dealing with really large numbers to be on the safe side.
 scalar Mixed
 
 type Mutation {
-  createUser(user: CreateUserInput!): User @deprecated(reason: "The ability of admins to create new users will soon be removed.")
+  createUser(user: CreateUserInput!): User
+    @deprecated(
+      reason: "The ability of admins to create new users will soon be removed."
+    )
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
-  createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
-  updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
+  createPoolCandidateAsAdmin(
+    poolCandidate: CreatePoolCandidateAsAdminInput!
+  ): PoolCandidate
+  updatePoolCandidateAsAdmin(
+    id: ID!
+    poolCandidate: UpdatePoolCandidateAsAdminInput!
+  ): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
-  createClassification(classification: CreateClassificationInput!): Classification
-  updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
+  createClassification(
+    classification: CreateClassificationInput!
+  ): Classification
+  updateClassification(
+    id: ID!
+    classification: UpdateClassificationInput!
+  ): Classification
   deleteClassification(id: ID!): Classification
   createDepartment(department: CreateDepartmentInput!): Department
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
   deleteDepartment(id: ID!): Department
-  createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
-  updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  createPoolCandidateSearchRequest(
+    poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!
+  ): PoolCandidateSearchRequest
+  updatePoolCandidateSearchRequest(
+    id: ID!
+    poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!
+  ): PoolCandidateSearchRequest
   deletePoolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
   updateSkill(id: ID!, skill: UpdateSkillInput!): Skill
-  createWorkExperience(userId: ID!, workExperience: WorkExperienceInput!): WorkExperience
-  createPersonalExperience(userId: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
-  createCommunityExperience(userId: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
-  createEducationExperience(userId: ID!, educationExperience: EducationExperienceInput!): EducationExperience
-  createAwardExperience(userId: ID!, awardExperience: AwardExperienceInput!): AwardExperience
-  updateWorkExperience(id: ID!, workExperience: WorkExperienceInput!): WorkExperience
-  updatePersonalExperience(id: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
-  updateCommunityExperience(id: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
-  updateEducationExperience(id: ID!, educationExperience: EducationExperienceInput!): EducationExperience
-  updateAwardExperience(id: ID!, awardExperience: AwardExperienceInput!): AwardExperience
+  createWorkExperience(
+    userId: ID!
+    workExperience: WorkExperienceInput!
+  ): WorkExperience
+  createPersonalExperience(
+    userId: ID!
+    personalExperience: PersonalExperienceInput!
+  ): PersonalExperience
+  createCommunityExperience(
+    userId: ID!
+    communityExperience: CommunityExperienceInput!
+  ): CommunityExperience
+  createEducationExperience(
+    userId: ID!
+    educationExperience: EducationExperienceInput!
+  ): EducationExperience
+  createAwardExperience(
+    userId: ID!
+    awardExperience: AwardExperienceInput!
+  ): AwardExperience
+  updateWorkExperience(
+    id: ID!
+    workExperience: WorkExperienceInput!
+  ): WorkExperience
+  updatePersonalExperience(
+    id: ID!
+    personalExperience: PersonalExperienceInput!
+  ): PersonalExperience
+  updateCommunityExperience(
+    id: ID!
+    communityExperience: CommunityExperienceInput!
+  ): CommunityExperience
+  updateEducationExperience(
+    id: ID!
+    educationExperience: EducationExperienceInput!
+  ): EducationExperience
+  updateAwardExperience(
+    id: ID!
+    awardExperience: AwardExperienceInput!
+  ): AwardExperience
   deleteWorkExperience(id: ID!): WorkExperience
   deletePersonalExperience(id: ID!): PersonalExperience
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
   createPool(pool: CreatePoolInput!): Pool
-  createPoolAdvertisement(userId: ID!, teamId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): Pool
-  updatePool(id: ID!, pool: UpdatePoolInput!): Pool @deprecated(reason: "Should use updatePoolAdvertisement instead.")
-  updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): Pool
+  createPoolAdvertisement(
+    userId: ID!
+    teamId: ID!
+    poolAdvertisement: CreatePoolAdvertisementInput!
+  ): Pool
+  duplicatePoolAdvertisement(id: ID!, teamId: ID!): Pool
+  updatePool(id: ID!, pool: UpdatePoolInput!): Pool
+    @deprecated(reason: "Should use updatePoolAdvertisement instead.")
+  updatePoolAdvertisement(
+    id: ID!
+    poolAdvertisement: UpdatePoolAdvertisementInput!
+  ): Pool
   publishPoolAdvertisement(id: ID!): Pool
   changePoolClosingDate(id: ID!, newClosingDate: DateTime!): Pool
   closePoolAdvertisement(id: ID!): Pool
@@ -667,13 +742,18 @@ type Mutation {
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): Boolean
   submitApplication(id: ID!, signature: String!): PoolCandidate
-  updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
+  updateApplication(
+    id: ID!
+    application: UpdateApplicationInput!
+  ): PoolCandidate
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
 }
 
-"""e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
+"""
+e.g. Overtime as Required, Shift Work, Travel as Required, etc.
+"""
 enum OperationalRequirement {
   SHIFT_WORK
   ON_CALL
@@ -686,12 +766,18 @@ enum OperationalRequirement {
   OVERTIME_REGULAR
 }
 
-"""Allows ordering a list of records."""
+"""
+Allows ordering a list of records.
+"""
 input OrderByClause {
-  """The column that is used for ordering."""
+  """
+  The column that is used for ordering.
+  """
   column: String!
 
-  """The direction that is used for ordering."""
+  """
+  The direction that is used for ordering.
+  """
   order: SortOrder!
 }
 
@@ -699,7 +785,9 @@ input OrderByClause {
 Aggregate functions when ordering by a relation without specifying a column.
 """
 enum OrderByRelationAggregateFunction {
-  """Amount of items."""
+  """
+  Amount of items.
+  """
   COUNT
 }
 
@@ -707,73 +795,119 @@ enum OrderByRelationAggregateFunction {
 Aggregate functions when ordering by a relation that may specify a column.
 """
 enum OrderByRelationWithColumnAggregateFunction {
-  """Average."""
+  """
+  Average.
+  """
   AVG
 
-  """Minimum."""
+  """
+  Minimum.
+  """
   MIN
 
-  """Maximum."""
+  """
+  Maximum.
+  """
   MAX
 
-  """Sum."""
+  """
+  Sum.
+  """
   SUM
 
-  """Amount of items."""
+  """
+  Amount of items.
+  """
   COUNT
 }
 
-"""Information about pagination using a Relay style cursor connection."""
+"""
+Information about pagination using a Relay style cursor connection.
+"""
 type PageInfo {
-  """When paginating forwards, are there more items?"""
+  """
+  When paginating forwards, are there more items?
+  """
   hasNextPage: Boolean!
 
-  """When paginating backwards, are there more items?"""
+  """
+  When paginating backwards, are there more items?
+  """
   hasPreviousPage: Boolean!
 
-  """The cursor to continue paginating backwards."""
+  """
+  The cursor to continue paginating backwards.
+  """
   startCursor: String
 
-  """The cursor to continue paginating forwards."""
+  """
+  The cursor to continue paginating forwards.
+  """
   endCursor: String
 
-  """Total number of nodes in the paginated connection."""
+  """
+  Total number of nodes in the paginated connection.
+  """
   total: Int!
 
-  """Number of nodes in the current page."""
+  """
+  Number of nodes in the current page.
+  """
   count: Int!
 
-  """Index of the current page."""
+  """
+  Index of the current page.
+  """
   currentPage: Int!
 
-  """Index of the last available page."""
+  """
+  Index of the last available page.
+  """
   lastPage: Int!
 }
 
-"""Information about pagination using a fully featured paginator."""
+"""
+Information about pagination using a fully featured paginator.
+"""
 type PaginatorInfo {
-  """Number of items in the current page."""
+  """
+  Number of items in the current page.
+  """
   count: Int!
 
-  """Index of the current page."""
+  """
+  Index of the current page.
+  """
   currentPage: Int!
 
-  """Index of the first item in the current page."""
+  """
+  Index of the first item in the current page.
+  """
   firstItem: Int
 
-  """Are there more pages after this one?"""
+  """
+  Are there more pages after this one?
+  """
   hasMorePages: Boolean!
 
-  """Index of the last item in the current page."""
+  """
+  Index of the last item in the current page.
+  """
   lastItem: Int
 
-  """Index of the last available page."""
+  """
+  Index of the last available page.
+  """
   lastPage: Int!
 
-  """Number of items per page."""
+  """
+  Number of items per page.
+  """
   perPage: Int!
 
-  """Number of total available items."""
+  """
+  Number of total available items.
+  """
   total: Int!
 }
 
@@ -802,7 +936,9 @@ input PersonalExperienceInput {
   skills: UpdateExperienceSkills
 }
 
-"""A phone number string, accepts any string"""
+"""
+A phone number string, accepts any string
+"""
 scalar PhoneNumber
 
 type Pool {
@@ -956,12 +1092,18 @@ type PoolCandidateWithSkillCount {
   skillCount: Int
 }
 
-"""A paginated list of PoolCandidateWithSkillCount items."""
+"""
+A paginated list of PoolCandidateWithSkillCount items.
+"""
 type PoolCandidateWithSkillCountPaginator {
-  """Pagination information about the list of items."""
+  """
+  Pagination information about the list of items.
+  """
   paginatorInfo: PaginatorInfo!
 
-  """A list of PoolCandidateWithSkillCount items."""
+  """
+  A list of PoolCandidateWithSkillCount items.
+  """
   data: [PoolCandidateWithSkillCount!]!
 }
 
@@ -1024,20 +1166,42 @@ type Query {
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]): [PoolCandidate]!
-  countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
-  searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [PoolCandidate]!
-  countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
+  countPoolCandidates(where: PoolCandidateFilterInput): Int!
+    @deprecated(reason: "Replaced by countApplicants")
+  searchPoolCandidates(
+    where: PoolCandidateFilterInput
+    orderBy: [OrderByClause!]
+    expiryStatus: CandidateExpiryFilter
+  ): [PoolCandidate]!
+  countPoolCandidatesByPool(
+    where: ApplicantFilterInput
+  ): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
   classifications: [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
-  poolCandidateFilter(id: UUID!): PoolCandidateFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
-  poolCandidateFilters: [PoolCandidateFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
-  applicantFilter(id: ID!): ApplicantFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
-  applicantFilters: [ApplicantFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
+  poolCandidateFilter(id: UUID!): PoolCandidateFilter
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
+  poolCandidateFilters: [PoolCandidateFilter]!
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
+  applicantFilter(id: ID!): ApplicantFilter
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
+  applicantFilters: [ApplicantFilter]!
+    @deprecated(
+      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+    )
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
-  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")
+  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
+    @deprecated(
+      reason: "Use poolCandidateSearchRequests instead, with a specified limit"
+    )
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
@@ -1051,33 +1215,49 @@ type Query {
     where: UserFilterInput
     orderBy: [OrderByClause!]
 
-    """Limits number of fetched items. Maximum allowed value: 1000."""
+    """
+    Limits number of fetched items. Maximum allowed value: 1000.
+    """
     first: Int = 10
 
-    """The offset from which items are returned."""
+    """
+    The offset from which items are returned.
+    """
     page: Int
   ): UserPaginator
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
-    """Limits number of fetched items. Maximum allowed value: 1000."""
+    """
+    Limits number of fetched items. Maximum allowed value: 1000.
+    """
     first: Int = 10
 
-    """The offset from which items are returned."""
+    """
+    The offset from which items are returned.
+    """
     page: Int
   ): PoolCandidateWithSkillCountPaginator
 }
 
-"""Order by clause for Query.poolCandidatesPaginated.orderBy."""
+"""
+Order by clause for Query.poolCandidatesPaginated.orderBy.
+"""
 input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
-  """The column that is used for ordering."""
+  """
+  The column that is used for ordering.
+  """
   column: String
 
-  """The direction that is used for ordering."""
+  """
+  The direction that is used for ordering.
+  """
   order: SortOrder!
 
-  """Aggregate specification."""
+  """
+  Aggregate specification.
+  """
   user: QueryPoolCandidatesPaginatedOrderByUser
 }
 
@@ -1085,14 +1265,20 @@ input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
 Aggregate specification for Query.poolCandidatesPaginated.orderBy.user.
 """
 input QueryPoolCandidatesPaginatedOrderByUser {
-  """The aggregate function to apply to the column."""
+  """
+  The aggregate function to apply to the column.
+  """
   aggregate: OrderByRelationWithColumnAggregateFunction!
 
-  """Name of the column to use."""
+  """
+  Name of the column to use.
+  """
   column: QueryPoolCandidatesPaginatedOrderByUserColumn
 }
 
-"""Allowed column names for Query.poolCandidatesPaginated.orderBy."""
+"""
+Allowed column names for Query.poolCandidatesPaginated.orderBy.
+"""
 enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   PRIORITY_WEIGHT
   JOB_LOOKING_STATUS
@@ -1131,51 +1317,83 @@ input RolesInput {
   team: ID
 }
 
-"""The available SQL operators that are used to filter query results."""
+"""
+The available SQL operators that are used to filter query results.
+"""
 enum SQLOperator {
-  """Equal operator (`=`)"""
+  """
+  Equal operator (`=`)
+  """
   EQ
 
-  """Not equal operator (`!=`)"""
+  """
+  Not equal operator (`!=`)
+  """
   NEQ
 
-  """Greater than operator (`>`)"""
+  """
+  Greater than operator (`>`)
+  """
   GT
 
-  """Greater than or equal operator (`>=`)"""
+  """
+  Greater than or equal operator (`>=`)
+  """
   GTE
 
-  """Less than operator (`<`)"""
+  """
+  Less than operator (`<`)
+  """
   LT
 
-  """Less than or equal operator (`<=`)"""
+  """
+  Less than or equal operator (`<=`)
+  """
   LTE
 
-  """Simple pattern matching (`LIKE`)"""
+  """
+  Simple pattern matching (`LIKE`)
+  """
   LIKE
 
-  """Negation of simple pattern matching (`NOT LIKE`)"""
+  """
+  Negation of simple pattern matching (`NOT LIKE`)
+  """
   NOT_LIKE
 
-  """Whether a value is within a set of values (`IN`)"""
+  """
+  Whether a value is within a set of values (`IN`)
+  """
   IN
 
-  """Whether a value is not within a set of values (`NOT IN`)"""
+  """
+  Whether a value is not within a set of values (`NOT IN`)
+  """
   NOT_IN
 
-  """Whether a value is within a range of values (`BETWEEN`)"""
+  """
+  Whether a value is within a range of values (`BETWEEN`)
+  """
   BETWEEN
 
-  """Whether a value is not within a range of values (`NOT BETWEEN`)"""
+  """
+  Whether a value is not within a range of values (`NOT BETWEEN`)
+  """
   NOT_BETWEEN
 
-  """Whether a value is null (`IS NULL`)"""
+  """
+  Whether a value is null (`IS NULL`)
+  """
   IS_NULL
 
-  """Whether a value is not null (`IS NOT NULL`)"""
+  """
+  Whether a value is not null (`IS NOT NULL`)
+  """
   IS_NOT_NULL
 
-  """Whether a set of values contains a value (`@>`)"""
+  """
+  Whether a set of values contains a value (`@>`)
+  """
   CONTAINS
 }
 
@@ -1213,24 +1431,38 @@ enum SecurityStatus {
   TOP_SECRET
 }
 
-"""Information about pagination using a simple paginator."""
+"""
+Information about pagination using a simple paginator.
+"""
 type SimplePaginatorInfo {
-  """Number of items in the current page."""
+  """
+  Number of items in the current page.
+  """
   count: Int!
 
-  """Index of the current page."""
+  """
+  Index of the current page.
+  """
   currentPage: Int!
 
-  """Index of the first item in the current page."""
+  """
+  Index of the first item in the current page.
+  """
   firstItem: Int
 
-  """Index of the last item in the current page."""
+  """
+  Index of the last item in the current page.
+  """
   lastItem: Int
 
-  """Number of items per page."""
+  """
+  Number of items per page.
+  """
   perPage: Int!
 
-  """Are there more pages after this one?"""
+  """
+  Are there more pages after this one?
+  """
   hasMorePages: Boolean!
 }
 
@@ -1282,12 +1514,18 @@ input SkillKeywordsInput {
   fr: [String!]
 }
 
-"""Directions for ordering a list of records."""
+"""
+Directions for ordering a list of records.
+"""
 enum SortOrder {
-  """Sort records in ascending order."""
+  """
+  Sort records in ascending order.
+  """
   ASC
 
-  """Sort records in descending order."""
+  """
+  Sort records in descending order.
+  """
   DESC
 }
 
@@ -1310,17 +1548,25 @@ input TeamBelongsTo {
 Specify if you want to include or exclude trashed results from a query.
 """
 enum Trashed {
-  """Only return trashed results."""
+  """
+  Only return trashed results.
+  """
   ONLY
 
-  """Return both trashed and non-trashed results."""
+  """
+  Return both trashed and non-trashed results.
+  """
   WITH
 
-  """Only return non-trashed results."""
+  """
+  Only return non-trashed results.
+  """
   WITHOUT
 }
 
-"""128 bit universally unique identifier (UUID)"""
+"""
+128 bit universally unique identifier (UUID)
+"""
 scalar UUID
 
 input UpdateApplicationInput {
@@ -1443,7 +1689,9 @@ input UpdateTeamInput {
   contactEmail: Email
 }
 
-"""When updating a User, all fields are optional"""
+"""
+When updating a User, all fields are optional
+"""
 input UpdateUserAsAdminInput {
   id: ID
   sub: String
@@ -1560,7 +1808,10 @@ type User {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
+  languageAbility: LanguageAbility
+    @deprecated(
+      reason: "deprecated in favour of relying on lookingFor<Language>"
+    )
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -1581,14 +1832,16 @@ type User {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
+  jobLookingStatus: JobLookingStatus
+    @deprecated(reason: "Removing with applicantDashboard feature flag")
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: [Classification]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
+  wouldAcceptTemporary: Boolean
+    @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
@@ -1597,7 +1850,10 @@ type User {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
-  pools: [Pool] @deprecated(reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead.")
+  pools: [Pool]
+    @deprecated(
+      reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead."
+    )
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
@@ -1620,12 +1876,18 @@ input UserFilterInput {
   generalSearch: String
 }
 
-"""A paginated list of User items."""
+"""
+A paginated list of User items.
+"""
 type UserPaginator {
-  """Pagination information about the list of items."""
+  """
+  Pagination information about the list of items.
+  """
   paginatorInfo: PaginatorInfo!
 
-  """A list of User items."""
+  """
+  A list of User items.
+  """
   data: [User!]!
 }
 
@@ -1643,21 +1905,33 @@ type UserPublicProfile {
   lastName: String
 }
 
-"""Dynamic WHERE conditions for queries."""
+"""
+Dynamic WHERE conditions for queries.
+"""
 input WhereConditions {
-  """The column that is used for the condition."""
+  """
+  The column that is used for the condition.
+  """
   column: String
 
-  """The operator that is used for the condition."""
+  """
+  The operator that is used for the condition.
+  """
   operator: SQLOperator = EQ
 
-  """The value that is used for the condition."""
+  """
+  The value that is used for the condition.
+  """
   value: Mixed
 
-  """A set of conditions that requires all conditions to match."""
+  """
+  A set of conditions that requires all conditions to match.
+  """
   AND: [WhereConditions!]
 
-  """A set of conditions that requires at least one condition to match."""
+  """
+  A set of conditions that requires at least one condition to match.
+  """
   OR: [WhereConditions!]
 
   """
@@ -1666,18 +1940,28 @@ input WhereConditions {
   HAS: WhereConditionsRelation
 }
 
-"""Dynamic HAS conditions for WHERE condition queries."""
+"""
+Dynamic HAS conditions for WHERE condition queries.
+"""
 input WhereConditionsRelation {
-  """The relation that is checked."""
+  """
+  The relation that is checked.
+  """
   relation: String!
 
-  """The comparison operator to test against the amount."""
+  """
+  The comparison operator to test against the amount.
+  """
   operator: SQLOperator = GTE
 
-  """The amount to test."""
+  """
+  The amount to test.
+  """
   amount: Int = 1
 
-  """Additional condition logic."""
+  """
+  Additional condition logic.
+  """
   condition: WhereConditions
 }
 

@@ -93,6 +93,10 @@ query getEditPoolData($poolId: UUID!) {
         fr
       }
     }
+    team {
+      id
+      name
+    }
   }
 
   # all classifications to populate form dropdown
@@ -169,6 +173,12 @@ mutation closePoolAdvertisement($id: ID!) {
 
 mutation deletePoolAdvertisement($id: ID!) {
   deletePoolAdvertisement(id: $id) {
+    id
+  }
+}
+
+mutation duplicatePoolAdvertisement($id: ID!, $teamId: ID!) {
+  duplicatePoolAdvertisement(id: $id, teamId: $teamId) {
     id
   }
 }
