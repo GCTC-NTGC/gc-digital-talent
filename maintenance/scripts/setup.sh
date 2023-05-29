@@ -14,10 +14,10 @@ GCDT_CI=false
 
 while getopts ":hc" option; do
   case $option in
-    h | help) # display Help
+    h) # display Help
       Help
       exit;;
-    c | ci)
+    c) # setup for CI
       GCDT_CI=true;;
     \?) # incorrect option
       echo "Error: Invalid option"
