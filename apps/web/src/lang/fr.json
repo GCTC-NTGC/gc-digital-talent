@@ -8159,5 +8159,33 @@
   "Td1lSw": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience de formation à votre curriculum vitæ .",
     "description": "Alert message informing user to add education experience in application education page."
+  },
+  "3Rad8l": {
+    "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
+    "description": "Text explaining what will happen after duplicating a pool and confirming the action"
+  },
+  "7NbXj1": {
+    "defaultMessage": "Ceci créera un nouveau basin et copiera toute information qui existe déjà.",
+    "description": "Text explaining what will happen when duplicating a pool"
+  },
+  "b71NDl": {
+    "defaultMessage": "Dupliquer et consulter le nouveau bassin",
+    "description": "Button text to duplicate a pool"
+  },
+  "hHYn/8": {
+    "defaultMessage": "Erreur : Une erreur s’est produite. Veuillez essayer de nouveau dans une minute ou communiquez avec votre administrateur.",
+    "description": "Message displayed to user after pool fails to get duplicated."
+  },
+  "jCS7J4": {
+    "defaultMessage": "Dupliquer ce bassin",
+    "description": "Title to duplicate a pool"
+  },
+  "oJri9k": {
+    "defaultMessage": "Vous êtes sur le point de dupliquer le bassin suivant : {poolName}",
+    "description": "Text to confirm the pool to be duplicated"
+  },
+  "vlyq02": {
+    "defaultMessage": "Réussite : Vous avez réussi à dupliquer ce bassin.",
+    "description": "Message displayed to user after pool is deleted"
   }
 }
