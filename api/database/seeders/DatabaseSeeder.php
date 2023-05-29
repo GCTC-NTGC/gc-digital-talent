@@ -69,6 +69,7 @@ class DatabaseSeeder extends Seeder
             'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]
         ])
             ->count(150)
+            ->withExperiences()
             ->afterCreating(function (User $user) use ($faker, $digitalTalentPool) {
 
                 $genericJobTitles = GenericJobTitle::inRandomOrder()->limit(2)->pluck('id')->toArray();
@@ -115,81 +116,23 @@ class DatabaseSeeder extends Seeder
         $this->seedPoolCandidate($applicant, $pool);
         $this->seedAwardExperienceForPool($applicant, $digitalTalentPool);
 
-        // add experiences to all the users
-        User::all()->each(function ($user) use ($faker) {
-            AwardExperience::factory()
-                ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
-                ->for($user)
-                ->afterCreating(function ($model) use ($faker) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                    $data = [
-                        $skills[0] => ['details' => $faker->text()],
-                        $skills[1] => ['details' => $faker->text()],
-                        $skills[2] => ['details' => $faker->text()],
-                    ];
-                    $model->skills()->sync($data);
-                })->create();
-            CommunityExperience::factory()
-                ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
-                ->for($user)
-                ->afterCreating(function ($model) use ($faker) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                    $data = [
-                        $skills[0] => ['details' => $faker->text()],
-                        $skills[1] => ['details' => $faker->text()],
-                        $skills[2] => ['details' => $faker->text()],
-                    ];
-                    $model->skills()->sync($data);
-                })->create();
-            EducationExperience::factory()
-                ->count($faker->biasedNumberBetween($min = 1, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
-                ->for($user)
-                ->afterCreating(function ($model) use ($faker) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                    $data = [
-                        $skills[0] => ['details' => $faker->text()],
-                        $skills[1] => ['details' => $faker->text()],
-                        $skills[2] => ['details' => $faker->text()],
-                    ];
-                    $model->skills()->sync($data);
-                })->create();
-            PersonalExperience::factory()
-                ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
-                ->for($user)
-                ->afterCreating(function ($model) use ($faker) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                    $data = [
-                        $skills[0] => ['details' => $faker->text()],
-                        $skills[1] => ['details' => $faker->text()],
-                        $skills[2] => ['details' => $faker->text()],
-                    ];
-                    $model->skills()->sync($data);
-                })->create();
-            WorkExperience::factory()
-                ->count($faker->biasedNumberBetween($min = 1, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
-                ->for($user)
-                ->afterCreating(function ($model) use ($faker) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                    $data = [
-                        $skills[0] => ['details' => $faker->text()],
-                        $skills[1] => ['details' => $faker->text()],
-                        $skills[2] => ['details' => $faker->text()],
-                    ];
-                    $model->skills()->sync($data);
-                })->create();
-        });
-
         // attach either a work or education experience to a pool candidate to meet minimum criteria
         PoolCandidate::all()->load('user')->each(function ($poolCandidate) {
             $educationRequirementOption = $poolCandidate->education_requirement_option;
             $user = $poolCandidate->user;
 
             if ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION) {
-                $educationExperience = $user->educationExperiences()->first();
-                $poolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+                //Ensure user has at least one education experience
+                $experience = EducationExperience::factory()->create([
+                    'user_id' => $user->id
+                ]);
+                $poolCandidate->educationRequirementEducationExperiences()->sync([$experience->id]);
             } else if ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
-                $workExperience = $user->workExperiences()->first();
-                $poolCandidate->educationRequirementWorkExperiences()->sync([$workExperience->id]);
+                //Ensure user has at least one work experience
+                $experience = WorkExperience::factory()->create([
+                    'user_id' => $user->id
+                ]);
+                $poolCandidate->educationRequirementWorkExperiences()->sync([$experience->id]);
             }
         });
 
