@@ -8159,5 +8159,9 @@
   "Td1lSw": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience de formation à votre curriculum vitæ .",
     "description": "Alert message informing user to add education experience in application education page."
+  },
+  "HbzGOJ": {
+    "defaultMessage": "Cette information permet aux candidats de savoir quel travail ou dans quel environnement ils appliquent. Utilisez cet espace pour discuter du secteur du gouvernement que le présent processus cherchera à améliorer, de même que des valeurs que ce travail génère.",
+    "description": "Helper message for filling in the pool introduction"
   }
 }
