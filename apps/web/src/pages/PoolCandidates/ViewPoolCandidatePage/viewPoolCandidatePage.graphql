@@ -44,6 +44,13 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
           }
         }
       }
+      screeningQuestions {
+        id
+        question {
+          en
+          fr
+        }
+      }
     }
   }
 }

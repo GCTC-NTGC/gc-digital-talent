@@ -10,6 +10,7 @@ import {
   TableOfContents,
   Separator,
   TreeView,
+  Heading,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -95,6 +96,14 @@ export const ViewPoolCandidate = ({
         defaultMessage: "Skill requirements",
         id: "bqC0/E",
         description: "Title for the skill requirements snapshot section",
+      }),
+    },
+    questions: {
+      id: "questions",
+      title: intl.formatMessage({
+        defaultMessage: "Screening questions",
+        id: "mqWvWR",
+        description: "Title for the screening questions snapshot section",
       }),
     },
   };
@@ -192,6 +201,32 @@ export const ViewPoolCandidate = ({
             ),
           )}
         </TableOfContents.Section>
+        <TableOfContents.Section id={sections.questions.id}>
+          <TableOfContents.Heading as="h4">
+            {sections.questions.title}
+          </TableOfContents.Heading>
+          {snapshotCandidate?.screeningQuestionResponses
+            ?.filter(notEmpty)
+            .map((response) => (
+              <React.Fragment key={response.id}>
+                <Heading level="h5" data-h2-margin-bottom="base(x.5)">
+                  {getLocalizedName(
+                    response?.screeningQuestion?.question,
+                    intl,
+                  )}
+                </Heading>
+                <div
+                  data-h2-background-color="base(white) base:dark(black)"
+                  data-h2-padding="base(x1)"
+                  data-h2-border-left="base(x.5 solid primary)"
+                  data-h2-radius="base(0 rounded rounded 0)"
+                  data-h2-shadow="base(medium)"
+                >
+                  <p>{response.answer}</p>
+                </div>
+              </React.Fragment>
+            ))}
+        </TableOfContents.Section>
       </>
     );
   } else if (snapshotUserPropertyExists && !preferRichView) {
@@ -276,6 +311,9 @@ export const ViewPoolCandidate = ({
               </TableOfContents.AnchorLink>
               <TableOfContents.AnchorLink id={sections.skills.id}>
                 {sections.skills.title}
+              </TableOfContents.AnchorLink>
+              <TableOfContents.AnchorLink id={sections.questions.id}>
+                {sections.questions.title}
               </TableOfContents.AnchorLink>
             </>
           )}
