@@ -655,6 +655,7 @@ type Mutation {
   deleteAwardExperience(id: ID!): AwardExperience
   createPool(pool: CreatePoolInput!): Pool
   createPoolAdvertisement(userId: ID!, teamId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
+  duplicatePoolAdvertisement(id: ID!, teamId: ID!): PoolAdvertisement
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool @deprecated(reason: "Should use updatePoolAdvertisement instead.")
   updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
   publishPoolAdvertisement(id: ID!): PoolAdvertisement

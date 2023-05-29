@@ -17,6 +17,7 @@ import { EditPoolSectionMetadata } from "~/types/pool";
 import PublishDialog from "./PublishDialog";
 import CloseDialog from "./CloseDialog";
 import DeleteDialog from "./DeleteDialog";
+import DuplicateDialog from "./DuplicateDialog";
 import ArchiveDialog from "./ArchiveDialog";
 import ExtendDialog from "./ExtendDialog";
 
@@ -28,6 +29,7 @@ interface StatusSectionProps {
   onClose: () => void;
   onExtend: (submitData: Scalars["DateTime"]) => Promise<void>;
   onArchive: () => void;
+  onDuplicate: () => void;
 }
 
 const StatusSection = ({
@@ -35,6 +37,7 @@ const StatusSection = ({
   sectionMetadata,
   onPublish,
   onDelete,
+  onDuplicate,
   onClose,
   onExtend,
   onArchive,
@@ -236,6 +239,10 @@ const StatusSection = ({
           </div>
         ) : undefined}
       </div>
+      <DuplicateDialog
+        onDuplicate={onDuplicate}
+        poolAdvertisement={poolAdvertisement}
+      />
     </TableOfContents.Section>
   );
 };
