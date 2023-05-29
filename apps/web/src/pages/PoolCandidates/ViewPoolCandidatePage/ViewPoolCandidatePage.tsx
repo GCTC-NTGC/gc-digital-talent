@@ -12,6 +12,7 @@ import {
   TreeView,
   Heading,
   Accordion,
+  CardBasic,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -24,6 +25,7 @@ import {
   PoolCandidate,
   Maybe,
   SkillCategory,
+  User,
 } from "~/api/generated";
 import {
   getFullPoolAdvertisementTitleHtml,
@@ -36,10 +38,15 @@ import { categorizeSkill } from "~/utils/skillUtils";
 import adminMessages from "~/messages/adminMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
+import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
 
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
 import SkillTree from "../../Applications/ApplicationSkillsPage/components/SkillTree";
-import ExperienceAccordion from "../../../components/ExperienceAccordion/ExperienceAccordion";
+import PersonalInformationDisplay from "../../Applications/ApplicationProfilePage/components/PersonalInformation/Display";
+import DiversityEquityInclusionDisplay from "../../Applications/ApplicationProfilePage/components/DiversityEquityInclusion/Display";
+import GovernmentInformationDisplay from "../../Applications/ApplicationProfilePage/components/GovernmentInformation/Display";
+import LanguageProfileDisplay from "../../Applications/ApplicationProfilePage/components/LanguageProfile/Display";
+import WorkPreferencesDisplay from "../../Applications/ApplicationProfilePage/components/WorkPreferences/Display";
 
 export interface ViewPoolCandidateProps {
   poolCandidate: PoolCandidate;
@@ -116,6 +123,49 @@ export const ViewPoolCandidate = ({
         description: "Title for the résumé snapshot section",
       }),
     },
+    personal: {
+      id: "personal",
+      title: intl.formatMessage({
+        defaultMessage: "Personal and contact information",
+        id: "0lUoqK",
+        description:
+          "Title for the personal and contact information snapshot section",
+      }),
+    },
+    work: {
+      id: "work",
+      title: intl.formatMessage({
+        defaultMessage: "Work preferences",
+        id: "s7F24X",
+        description: "Title for the work preferences snapshot section",
+      }),
+    },
+    dei: {
+      id: "dei",
+      title: intl.formatMessage({
+        defaultMessage: "Diversity, equity, and inclusion",
+        id: "zLeH2i",
+        description:
+          "Title for the diversity, equity, and inclusion snapshot section",
+      }),
+    },
+    government: {
+      id: "government",
+      title: intl.formatMessage({
+        defaultMessage: "Government employee information",
+        id: "nEVNHp",
+        description:
+          "Title for the government employee information snapshot section",
+      }),
+    },
+    language: {
+      id: "language",
+      title: intl.formatMessage({
+        defaultMessage: "Language profile",
+        id: "KsS1Py",
+        description: "Title for the language profile snapshot section",
+      }),
+    },
   };
 
   const subTitle = (
@@ -173,7 +223,11 @@ export const ViewPoolCandidate = ({
       <>
         {subTitle}
         <TableOfContents.Section id={sections.minExperience.id}>
-          <TableOfContents.Heading as="h4" size="h5">
+          <TableOfContents.Heading
+            as="h4"
+            size="h5"
+            data-h2-margin="base(x2 0 x.5 0)"
+          >
             {sections.minExperience.title}
           </TableOfContents.Heading>
           <p data-h2-margin="base(x1, 0)">
@@ -196,7 +250,11 @@ export const ViewPoolCandidate = ({
           ) : null}
         </TableOfContents.Section>
         <TableOfContents.Section id={sections.skills.id}>
-          <TableOfContents.Heading as="h4" size="h5">
+          <TableOfContents.Heading
+            as="h4"
+            size="h5"
+            data-h2-margin="base(x2 0 x.5 0)"
+          >
             {sections.skills.title}
           </TableOfContents.Heading>
           {categorizedEssentialSkills[SkillCategory.Technical]?.map(
@@ -213,7 +271,11 @@ export const ViewPoolCandidate = ({
           )}
         </TableOfContents.Section>
         <TableOfContents.Section id={sections.questions.id}>
-          <TableOfContents.Heading as="h4" size="h5">
+          <TableOfContents.Heading
+            as="h4"
+            size="h5"
+            data-h2-margin="base(x2 0 x.5 0)"
+          >
             {sections.questions.title}
           </TableOfContents.Heading>
           {snapshotCandidate?.screeningQuestionResponses
@@ -239,7 +301,11 @@ export const ViewPoolCandidate = ({
             ))}
         </TableOfContents.Section>
         <TableOfContents.Section id={sections.resume.id}>
-          <TableOfContents.Heading as="h4" size="h5">
+          <TableOfContents.Heading
+            as="h4"
+            size="h5"
+            data-h2-margin="base(x2 0 x.5 0)"
+          >
             {sections.resume.title}
           </TableOfContents.Heading>
           <p data-h2-margin="base(x1, 0)">
@@ -250,23 +316,85 @@ export const ViewPoolCandidate = ({
             })}
           </p>
           {nonEmptyExperiences?.length ? (
-            <TreeView.Root>
-              {nonEmptyExperiences.map((experience) => (
-                <TreeView.Item key={experience.id}>
-                  <div data-h2-margin="base(-x.5, 0)">
-                    <Accordion.Root type="single" collapsible>
-                      <ExperienceAccordion
-                        key={experience.id}
-                        experience={experience}
-                        headingLevel="h5"
-                        showSkills={false}
-                      />
-                    </Accordion.Root>
-                  </div>
-                </TreeView.Item>
-              ))}
-            </TreeView.Root>
+            <div data-h2-margin-bottom="base(x2)">
+              <TreeView.Root>
+                {nonEmptyExperiences.map((experience) => (
+                  <TreeView.Item key={experience.id}>
+                    <div data-h2-margin="base(-x.5, 0)">
+                      <Accordion.Root type="single" collapsible>
+                        <ExperienceAccordion
+                          key={experience.id}
+                          experience={experience}
+                          headingLevel="h5"
+                          showSkills={false}
+                        />
+                      </Accordion.Root>
+                    </div>
+                  </TreeView.Item>
+                ))}
+              </TreeView.Root>
+            </div>
           ) : null}
+        </TableOfContents.Section>
+        <TableOfContents.Section id={sections.personal.id}>
+          <TableOfContents.Heading
+            as="h4"
+            size="h5"
+            data-h2-margin="base(x2 0 x.5 0)"
+          >
+            {sections.personal.title}
+          </TableOfContents.Heading>
+          <CardBasic>
+            <PersonalInformationDisplay user={parsedSnapshot as User} />
+          </CardBasic>
+        </TableOfContents.Section>
+        <TableOfContents.Section id={sections.work.id}>
+          <TableOfContents.Heading
+            as="h4"
+            size="h5"
+            data-h2-margin="base(x2 0 x.5 0)"
+          >
+            {sections.work.title}
+          </TableOfContents.Heading>
+          <CardBasic>
+            <WorkPreferencesDisplay user={parsedSnapshot as User} />
+          </CardBasic>
+        </TableOfContents.Section>
+        <TableOfContents.Section id={sections.dei.id}>
+          <TableOfContents.Heading
+            as="h4"
+            size="h5"
+            data-h2-margin="base(x2 0 x.5 0)"
+          >
+            {sections.dei.title}
+          </TableOfContents.Heading>
+          <CardBasic>
+            <DiversityEquityInclusionDisplay user={parsedSnapshot as User} />
+          </CardBasic>
+        </TableOfContents.Section>
+        <TableOfContents.Section id={sections.government.id}>
+          <TableOfContents.Heading
+            as="h4"
+            size="h5"
+            data-h2-margin="base(x2 0 x.5 0)"
+          >
+            {sections.government.title}
+          </TableOfContents.Heading>
+          <CardBasic>
+            <GovernmentInformationDisplay user={parsedSnapshot as User} />
+          </CardBasic>
+        </TableOfContents.Section>
+        <TableOfContents.Section id={sections.language.id}>
+          <TableOfContents.Heading
+            as="h4"
+            size="h5"
+            data-h2-margin="base(x2 0 x.5 0)"
+          >
+            {sections.language.title}
+          </TableOfContents.Heading>
+          <CardBasic>
+            <LanguageProfileDisplay user={parsedSnapshot as User} />
+          </CardBasic>
         </TableOfContents.Section>
       </>
     );
@@ -358,6 +486,21 @@ export const ViewPoolCandidate = ({
               </TableOfContents.AnchorLink>
               <TableOfContents.AnchorLink id={sections.resume.id}>
                 {sections.resume.title}
+              </TableOfContents.AnchorLink>
+              <TableOfContents.AnchorLink id={sections.personal.id}>
+                {sections.personal.title}
+              </TableOfContents.AnchorLink>
+              <TableOfContents.AnchorLink id={sections.work.id}>
+                {sections.work.title}
+              </TableOfContents.AnchorLink>
+              <TableOfContents.AnchorLink id={sections.dei.id}>
+                {sections.dei.title}
+              </TableOfContents.AnchorLink>
+              <TableOfContents.AnchorLink id={sections.government.id}>
+                {sections.government.title}
+              </TableOfContents.AnchorLink>
+              <TableOfContents.AnchorLink id={sections.language.id}>
+                {sections.language.title}
               </TableOfContents.AnchorLink>
             </>
           )}
