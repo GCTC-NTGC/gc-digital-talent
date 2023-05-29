@@ -275,6 +275,17 @@ export const ViewPoolCandidate = ({
                 showDisclaimer
                 hideConnectButton
                 hideEdit
+                disclaimerMessage={
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "There are no experiences attached to this skill.",
+                      id: "XrfkBm",
+                      description:
+                        "Message displayed when no experiences have been attached to a skill",
+                    })}
+                  </p>
+                }
               />
             ),
           )}

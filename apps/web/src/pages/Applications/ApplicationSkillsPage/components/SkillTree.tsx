@@ -34,12 +34,14 @@ interface SkillTreeProps {
   hideConnectButton?: boolean;
   hideEdit?: boolean;
   showDisclaimer?: boolean;
+  disclaimerMessage?: React.ReactNode;
 }
 
 const SkillTree = ({
   skill,
   experiences,
   headingAs,
+  disclaimerMessage,
   hideConnectButton = false,
   hideEdit = false,
   showDisclaimer = false,
@@ -75,15 +77,17 @@ const SkillTree = ({
   const disclaimer = showDisclaimer ? (
     <TreeView.Item>
       <Well color="warning">
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "This required skill must have at least 1 résumé experience associated with it.",
-            id: "x8tCSM",
-            description:
-              "Message that appears when a required skill has no experiences linked to it",
-          })}
-        </p>
+        {disclaimerMessage || (
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "This required skill must have at least 1 résumé experience associated with it.",
+              id: "x8tCSM",
+              description:
+                "Message that appears when a required skill has no experiences linked to it",
+            })}
+          </p>
+        )}
       </Well>
     </TreeView.Item>
   ) : null;
