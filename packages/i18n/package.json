@@ -21,7 +21,7 @@
     "tsc": "tsc --project tsconfig.json --noEmit",
     "test": "jest --detectOpenHandles --forceExit",
     "check-intl": "node ./dist/cli.js",
-    "intl-extract": "formatjs extract './src/**/*.{ts,tsx}' --ignore './**/*.d.ts' --out-file src/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
+    "intl-extract": "formatjs extract './src/**/*.{ts,tsx}' --ignore './**/*.d.ts' --out-file src/lang/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
     "intl-compile": "formatjs compile src/lang/fr.json --ast --out-file src/lang/frCompiled.json",
     "postbuild": "cpy --cwd=src/lang frCompiled.json ../../dist"
   },
