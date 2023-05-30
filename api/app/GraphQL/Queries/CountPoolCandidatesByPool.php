@@ -35,7 +35,7 @@ final class CountPoolCandidatesByPool
         PoolCandidate::scopeAvailable($queryBuilder);
 
         // expiry status filter (filter active pool candidates)
-        PoolCandidate::scopeExpiryFilter($queryBuilder, ['expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE]);
+        PoolCandidate::scopeExpiryStatus($queryBuilder, ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE);
 
 
         $queryBuilder->whereHas('user', function (Builder $userQuery) use ($filters) {
