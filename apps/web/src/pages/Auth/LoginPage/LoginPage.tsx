@@ -58,16 +58,16 @@ const LoginPage = () => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "You can log into your Digital Talent profile using your existing GCKey, even if you’ve never used this platform before.",
-              id: "SSSNwI",
+                "You can log into your Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
+              id: "Ec1Hn9",
               description: "Instructions on how to login with GCKey",
             })}
           </p>
           <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "If you’re unsure whether you have an existing GCKey account, continue to the website and try logging in. If you can’t remember your password, you can also reset it there.",
-              id: "ypVSZh",
+                "If you're unsure whether you have an existing GCKey account, continue to the website and try logging in. If you can't remember your password, you can also reset it there.",
+              id: "NuGNEF",
               description:
                 "Instructions on what to do if user doesn't know if they have a GCKey",
             })}

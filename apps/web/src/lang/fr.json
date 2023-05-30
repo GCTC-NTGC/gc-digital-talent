@@ -1001,10 +1001,6 @@
     "defaultMessage": "Ces renseignements personnels supplémentaires ne seront utilisés qu'à des fins de communication.",
     "description": "Description for Personal Information section of the About Me form"
   },
-  "SSSNwI": {
-    "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
-    "description": "Instructions on how to login with GCKey"
-  },
   "KE49r9": {
     "defaultMessage": "Mon expérience et mes compétences",
     "description": "Heading for experience and skills page in applicant profile."
@@ -1088,10 +1084,6 @@
   "PIgh3U": {
     "defaultMessage": "Faites-nous savoir si vous voulez être contacté(e) pour de nouveaux emplois. Veuillez mettre à jour ce statut si votre situation change.",
     "description": "Description for My Status Form"
-  },
-  "ypVSZh": {
-    "defaultMessage": "Si vous n'êtes pas sûr(e) d'avoir un compte CléGC existant, continuez vers le site Web et essayez de vous connecter. Si vous ne pouvez pas vous souvenir de votre mot de passe, vous pouvez également le réinitialiser là.",
-    "description": "Instructions on what to do if user doesn't know if they have a GCKey"
   },
   "Q96xMb": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
