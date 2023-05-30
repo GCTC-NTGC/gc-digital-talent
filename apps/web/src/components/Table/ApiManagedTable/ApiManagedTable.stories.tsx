@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakeUsers } from "@gc-digital-talent/fake-data";
@@ -84,11 +84,11 @@ export default {
   parameters: {
     themeKey: "admin",
   },
-} as Meta<ApiManageTableProps>;
+};
 
 const allColumnIds = columns.map((c) => c.id);
 
-const Template: Story<ApiManageTableProps> = (args) => {
+const Template: StoryFn<ApiManageTableProps> = (args) => {
   const { header } = args;
   const [sortingRule, setSortingRule] = React.useState<SortingRule<Data>>();
   const [hiddenColumnIds, setHiddenColumnIds] = React.useState<IdType<Data>[]>(

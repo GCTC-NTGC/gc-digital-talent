@@ -91,6 +91,21 @@ const dateMessages = defineMessages({
     id: "T5b8Q7",
     description: "Placeholder for a day input",
   },
+  deadlinePassed: {
+    defaultMessage: "The deadline for submission has passed.",
+    id: "8WC+Ty",
+    description: "Message displayed when a closing date has passed.",
+  },
+  deadlineToday: {
+    defaultMessage: "Closes today at {time}",
+    id: "jy7itR",
+    description: "Text displayed when relative date is today.",
+  },
+  deadlineTomorrow: {
+    defaultMessage: "Closes tomorrow at {time}",
+    id: "GqmxO8",
+    description: "Text displayed when relative date is tomorrow.",
+  },
 });
 
 export default dateMessages;
