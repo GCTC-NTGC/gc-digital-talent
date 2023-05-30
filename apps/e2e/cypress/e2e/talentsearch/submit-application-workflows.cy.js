@@ -104,7 +104,7 @@ describe("Submit Application Workflow Tests", () => {
       .its("id")
       .then((adminUserId) => {
         cy.get("@testClassificationId").then((testClassificationId) => {
-          cy.createPoolAdvertisement(adminUserId, dcmId, [testClassificationId])
+          cy.createPool(adminUserId, dcmId, [testClassificationId])
             .its("id")
             .as("testPoolAdvertisementId")
             .then((testPoolAdvertisementId) => {

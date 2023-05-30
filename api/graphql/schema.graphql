@@ -1340,19 +1340,6 @@ input CreatePoolCandidateAsAdminInput {
   notes: String
 }
 
-input CreatePoolInput {
-  owner: UserBelongsTo! @rename(attribute: "user")
-  team: TeamBelongsTo!
-  name: LocalizedStringInput!
-  key: KeyString
-  classifications: ClassificationBelongsToMany
-  operationalRequirements: [OperationalRequirement]
-    @rename(attribute: "operational_requirements")
-  keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
-  processNumber: String @rename(attribute: "process_number")
-  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
-}
-
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
@@ -1596,7 +1583,7 @@ input GenericJobTitleBelongsToMany {
   sync: [ID!]
 }
 
-input CreatePoolAdvertisementInput {
+input CreatePoolInput {
   classifications: ClassificationBelongsToMany
 }
 
@@ -1850,15 +1837,11 @@ type Mutation {
     @guard
     @can(ability: "delete", find: "id")
 
-  # Pool/PoolAdvertisement mutations
-  createPool(pool: CreatePoolInput! @spread): Pool
-    @create
-    @guard
-    @can(ability: "create", injectArgs: true)
-  createPoolAdvertisement(
+  # Pool mutations
+  createPool(
     userId: ID! @rename(attribute: "user_id")
     teamId: ID! @rename(attribute: "team_id")
-    poolAdvertisement: CreatePoolAdvertisementInput! @spread
+    pool: CreatePoolInput! @spread
   ): Pool @create @guard @can(ability: "create", injectArgs: true)
   duplicatePoolAdvertisement(
     id: ID!

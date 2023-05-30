@@ -75,13 +75,9 @@ class PoolPolicy
      */
     public function create(User $user, $request)
     {
-        // The team id will be located in a different location depending on if this is called by
-        // the createPool or createPoolAdvertisement mutation
         $team_id = null;
         if (array_key_exists('team_id', $request)) {
             $team_id = $request['team_id'];
-        } else if (array_key_exists('team', $request) && array_key_exists('connect', $request['team'])) {
-            $team_id = $request['team']['connect'];
         }
 
         // Failed to get the new pools team - reject

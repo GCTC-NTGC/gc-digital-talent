@@ -6,18 +6,18 @@ import {
 } from "@gc-digital-talent/web/src/api/generated";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
-export function createAndPublishPoolAdvertisement({
+export function createAndPublishPool({
   adminUserId,
   teamId,
   englishName,
   classification,
-  poolAdvertisementAlias,
+  poolAlias,
 }) {
-  cy.createPoolAdvertisement(adminUserId, teamId, [classification.id]).then(
-    (createdPoolAdvertisement) => {
+  cy.createPool(adminUserId, teamId, [classification.id]).then(
+    (createdPool) => {
       cy.get("@testSkill").then((skill) => {
         cy.log(skill);
-        cy.updatePoolAdvertisement(createdPoolAdvertisement.id, {
+        cy.updatePoolAdvertisement(createdPool.id, {
           name: {
             en: englishName
               ? englishName
@@ -42,10 +42,8 @@ export function createAndPublishPoolAdvertisement({
           },
           isRemote: true,
           publishingGroup: PublishingGroup.ItJobs,
-        }).then((updatedPoolAdvertisement) => {
-          cy.publishPoolAdvertisement(updatedPoolAdvertisement.id).as(
-            poolAdvertisementAlias,
-          );
+        }).then((updatedPool) => {
+          cy.publishPoolAdvertisement(updatedPool.id).as(poolAlias);
         });
       });
     },

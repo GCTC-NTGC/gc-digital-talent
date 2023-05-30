@@ -77,16 +77,8 @@ query getPools {
   }
 }
 
-mutation createPoolAdvertisement(
-  $userId: ID!
-  $teamId: ID!
-  $poolAdvertisement: CreatePoolAdvertisementInput!
-) {
-  createPoolAdvertisement(
-    userId: $userId
-    teamId: $teamId
-    poolAdvertisement: $poolAdvertisement
-  ) {
+mutation createPool($userId: ID!, $teamId: ID!, $pool: CreatePoolInput!) {
+  createPool(userId: $userId, teamId: $teamId, pool: $pool) {
     id
     name {
       en

@@ -270,10 +270,6 @@ input CreateDepartmentInput {
   name: LocalizedStringInput
 }
 
-input CreatePoolAdvertisementInput {
-  classifications: ClassificationBelongsToMany
-}
-
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
@@ -305,15 +301,7 @@ input CreatePoolCandidateSearchRequestInput {
 }
 
 input CreatePoolInput {
-  owner: UserBelongsTo!
-  team: TeamBelongsTo!
-  name: LocalizedStringInput!
-  key: KeyString
   classifications: ClassificationBelongsToMany
-  operationalRequirements: [OperationalRequirement]
-  keyTasks: LocalizedStringInput
-  processNumber: String
-  publishingGroup: PublishingGroup
 }
 
 input CreateScreeningQuestionInput {
@@ -653,8 +641,7 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
-  createPool(pool: CreatePoolInput!): Pool
-  createPoolAdvertisement(userId: ID!, teamId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): Pool
+  createPool(userId: ID!, teamId: ID!, pool: CreatePoolInput!): Pool
   duplicatePoolAdvertisement(id: ID!, teamId: ID!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   publishPoolAdvertisement(id: ID!): Pool
