@@ -286,8 +286,8 @@ const ApplicationReview = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You’ve indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your résumé:",
-                  id: "MZrE40",
+                    "You've indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your résumé:",
+                  id: "SBNCsU",
                   description:
                     "Message on education requirements card on the application review page.",
                 })}
