@@ -169,7 +169,8 @@ export const ApplicationResume = ({
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
+  const { followingPageUrl, currentStepOrdinal, isIAP } =
+    useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -181,7 +182,9 @@ export const ApplicationResume = ({
     followingPageUrl ?? paths.applicationEducation(application.id);
   const { applicantDashboard } = useFeatureFlags();
   const [, executeMutation] = useUpdateApplicationMutation();
-  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
+  const cancelPath = applicantDashboard
+    ? paths.dashboard({ fromIapDraft: isIAP })
+    : paths.myProfile();
 
   const methods = useForm<FormValues>();
   const { watch, setValue } = methods;

@@ -93,7 +93,8 @@ const ApplicationReview = ({
   const locale = getLocale(intl);
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { currentStepOrdinal, followingPageUrl } = useApplicationContext();
+  const { currentStepOrdinal, followingPageUrl, isIAP } =
+    useApplicationContext();
   const { applicantDashboard } = useFeatureFlags();
   const pageInfo = getPageInfo({
     intl,
@@ -135,7 +136,9 @@ const ApplicationReview = ({
       });
   };
 
-  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
+  const cancelPath = applicantDashboard
+    ? paths.dashboard({ fromIapDraft: isIAP })
+    : paths.myProfile();
   const editPaths = {
     resume: paths.applicationResume(application.id),
     education: paths.applicationEducation(application.id),
