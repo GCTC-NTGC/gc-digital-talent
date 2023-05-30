@@ -8136,8 +8136,8 @@
     "defaultMessage": "Révisez votre candidature",
     "description": "Page title for the application review page."
   },
-  "MZrE40": {
-    "defaultMessage": "Vous avez dit répondre aux <strong>exigences minimales d’expérience ou de formation (deux années d’études postsecondaires)</strong>  et posséder l’expérience professionnelle suivante :",
+  "SBNCsU": {
+    "defaultMessage": "Vous avez dit répondre aux <strong>exigences minimales d’expérience ou de formation (deux années d’études postsecondaires)</strong> et posséder l’expérience professionnelle suivante :",
     "description": "Message on education requirements card on the application review page."
   },
   "O83lYZ": {
@@ -8153,7 +8153,7 @@
     "description": "Label displayed for signature input in sign and submit section of application review page."
   },
   "PDbqFR": {
-    "defaultMessage": "\"J’ai relu tout le contenu de ma candidature\"",
+    "defaultMessage": "« J’ai relu tout le contenu de ma candidature »",
     "description": "Review list item for sign and submit section of application review page."
   },
   "V9lxDE": {
@@ -8195,11 +8195,12 @@
     "defaultMessage": "Il semble que vous n’ayez pas encore sélectionné de formation requise.",
     "description": "Null state message for education requirement section of the application review page."
   },
-  "mu6uvE": {
-    "defaultMessage": "Modifiez cette section"
+  "Z8hEuY": {
+    "defaultMessage": "Modifiez cette section",
+    "description": "Default edit link text for application review page"
   },
   "1ZQP80": {
-    "defaultMessage": "\"Je déclare que les renseignements fournis sont exacts\"",
+    "defaultMessage": "« Je déclare que les renseignements fournis sont exacts »",
     "description": "Truth list item for sign and submit section of application review page."
   },
   "qGyD4w": {
@@ -8207,7 +8208,7 @@
     "description": "Heading for screening questions section of the application review page."
   },
   "jT5ANA": {
-    "defaultMessage": "\"Je comprends faire partie d’un groupe où règne la confiance mutuelle\"",
+    "defaultMessage": "« Je comprends faire partie d’un groupe où règne la confiance mutuelle »",
     "description": "Community list item for sign and submit section of application review page."
   },
   "v0QzOM": {
@@ -8253,5 +8254,21 @@
   "HbzGOJ": {
     "defaultMessage": "Cette information permet aux candidats de savoir quel travail ou dans quel environnement ils appliquent. Utilisez cet espace pour discuter du secteur du gouvernement que le présent processus cherchera à améliorer, de même que des valeurs que ce travail génère.",
     "description": "Helper message for filling in the pool introduction"
+  },
+  "tfzO5t": {
+    "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
+    "description": "Message under radio button in Indigenous apprenticeship application education page."
+  },
+  "nWZiWr": {
+    "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
+    "description": "Education requirement (IT Apprenticeship Program for Indigenous Peoples)"
+  },
+  "CnPVJe": {
+    "defaultMessage": "Diplôme d’études secondaires ou PEG",
+    "description": "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)"
+  },
+  "ybi6QM": {
+    "defaultMessage": "Je détiens un diplôme d’études secondaires ou un équivalent du GED",
+    "description": "Radio group option for education requirement filter in Indigenous apprenticeship application education form."
   }
 }
