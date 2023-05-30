@@ -13,14 +13,14 @@ import {
   Pool,
   Scalars,
   Skill,
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
 export type EssentialSkillsSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
   "essentialSkills"
 >;
 

@@ -27,7 +27,7 @@ import {
   Pool,
   Scalars,
   AdvertisementStatus,
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 
@@ -46,7 +46,7 @@ type FormValues = {
 };
 
 export type ScreeningQuestionsSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
   "screeningQuestions"
 >;
 

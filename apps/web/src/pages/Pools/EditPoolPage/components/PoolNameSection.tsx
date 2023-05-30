@@ -21,7 +21,7 @@ import {
   Pool,
   PoolStream,
   Scalars,
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 import Spacer from "~/components/Spacer/Spacer";
@@ -37,7 +37,7 @@ type FormValues = {
 };
 
 export type PoolNameSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
   "classifications" | "name"
 >;
 

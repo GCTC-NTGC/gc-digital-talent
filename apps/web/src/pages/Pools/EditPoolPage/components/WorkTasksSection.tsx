@@ -15,7 +15,7 @@ import {
   AdvertisementStatus,
   LocalizedString,
   Pool,
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 import Spacer from "~/components/Spacer/Spacer";
@@ -27,10 +27,7 @@ type FormValues = {
   YourWorkFr?: LocalizedString["fr"];
 };
 
-export type WorkTasksSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
-  "keyTasks"
->;
+export type WorkTasksSubmitData = Pick<UpdatePoolInput, "keyTasks">;
 
 interface WorkTasksSectionProps {
   poolAdvertisement: Pool;

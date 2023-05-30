@@ -97,11 +97,11 @@ class PoolPolicyTest extends TestCase
     }
 
     /**
-     * Assert that anyone can view any published pool advertisements
+     * Assert that anyone can view any published pools
      *
      * @return void
      */
-    public function testViewAnyPublishedAdvertisements()
+    public function testViewAnyPublishedPools()
     {
         $this->assertTrue($this->guestUser->can('viewAnyPublishedAdvertisement', Pool::class));
         $this->assertTrue($this->applicantUser->can('viewAnyPublishedAdvertisement', Pool::class));
@@ -149,46 +149,46 @@ class PoolPolicyTest extends TestCase
     }
 
     /**
-     * Assert that the following can view a draft pool advertisement:
+     * Assert that the following can view a draft pool:
      *
      * pool operator, platform admin
      *
      * @return void
      */
-    public function testViewDraftAdvertisement()
+    public function testViewDraftPool()
     {
         $this->teamPool->published_at = null;
         $this->teamPool->save();
 
-        $this->assertTrue($this->poolOperatorUser->can('viewAdvertisement', $this->teamPool));
-        $this->assertTrue($this->adminUser->can('viewAdvertisement', $this->teamPool));
+        $this->assertTrue($this->poolOperatorUser->can('view', $this->teamPool));
+        $this->assertTrue($this->adminUser->can('view', $this->teamPool));
 
-        $this->assertFalse($this->guestUser->can('viewAdvertisement', $this->teamPool));
-        $this->assertFalse($this->applicantUser->can('viewAdvertisement', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('viewAdvertisement', $this->teamPool));
+        $this->assertFalse($this->guestUser->can('view', $this->teamPool));
+        $this->assertFalse($this->applicantUser->can('view', $this->teamPool));
+        $this->assertFalse($this->requestResponderUser->can('view', $this->teamPool));
 
         // Pool operator cannot view other teams draft pools
         $this->unOwnedPool->published_at = null;
         $this->unOwnedPool->save();
 
-        $this->assertFalse($this->poolOperatorUser->can('viewAdvertisement', $this->unOwnedPool));
+        $this->assertFalse($this->poolOperatorUser->can('view', $this->unOwnedPool));
     }
 
     /**
-     * Assert that anyone can view a published pool advertisement:
+     * Assert that anyone can view a published pool:
      *
      * @return void
      */
-    public function testViewPublishedAdvertisement()
+    public function testViewPublishedPool()
     {
         $this->teamPool->published_at = config('constants.past_date');
         $this->teamPool->save();
 
-        $this->assertTrue($this->guestUser->can('viewAdvertisement', $this->teamPool));
-        $this->assertTrue($this->applicantUser->can('viewAdvertisement', $this->teamPool));
-        $this->assertTrue($this->poolOperatorUser->can('viewAdvertisement', $this->teamPool));
-        $this->assertTrue($this->requestResponderUser->can('viewAdvertisement', $this->teamPool));
-        $this->assertTrue($this->adminUser->can('viewAdvertisement', $this->teamPool));
+        $this->assertTrue($this->guestUser->can('view', $this->teamPool));
+        $this->assertTrue($this->applicantUser->can('view', $this->teamPool));
+        $this->assertTrue($this->poolOperatorUser->can('view', $this->teamPool));
+        $this->assertTrue($this->requestResponderUser->can('view', $this->teamPool));
+        $this->assertTrue($this->adminUser->can('view', $this->teamPool));
     }
 
     /**
@@ -293,11 +293,11 @@ class PoolPolicyTest extends TestCase
     }
 
     /**
-     * Assert that only pool operators can close a pool advertisement
+     * Assert that only pool operators can close a pool
      *
      * @return void
      */
-    public function testCloseAdvertisement()
+    public function testClosePool()
     {
         $this->assertTrue($this->poolOperatorUser->can('closePoolAdvertisement', $this->teamPool));
 
@@ -325,7 +325,7 @@ class PoolPolicyTest extends TestCase
         $this->assertFalse($this->applicantUser->can('deleteDraft', $this->teamPool));
         $this->assertFalse($this->requestResponderUser->can('deleteDraft', $this->teamPool));
         $this->assertFalse($this->adminUser->can('deleteDraft', $this->teamPool));
-        // Pool operator cannot close other teams pool advertisements
+        // Pool operator cannot close other teams pools
         $this->assertFalse($this->poolOperatorUser->can('deleteDraft', $this->unOwnedPool));
     }
 

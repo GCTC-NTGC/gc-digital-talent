@@ -656,8 +656,7 @@ type Mutation {
   createPool(pool: CreatePoolInput!): Pool
   createPoolAdvertisement(userId: ID!, teamId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): Pool
   duplicatePoolAdvertisement(id: ID!, teamId: ID!): Pool
-  updatePool(id: ID!, pool: UpdatePoolInput!): Pool @deprecated(reason: "Should use updatePoolAdvertisement instead.")
-  updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): Pool
+  updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   publishPoolAdvertisement(id: ID!): Pool
   changePoolClosingDate(id: ID!, newClosingDate: DateTime!): Pool
   closePoolAdvertisement(id: ID!): Pool
@@ -1019,10 +1018,9 @@ type Query {
   applicants(includeIds: [ID]!): [Applicant]!
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
-  poolAdvertisements: [Pool]!
+  pools: [Pool]!
   publishedPoolAdvertisements(closingAfter: DateTime): [Pool!]!
   poolByKey(key: String!): Pool
-  pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]): [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
@@ -1191,7 +1189,7 @@ enum SalaryRange {
 
 type ScreeningQuestion {
   id: ID!
-  poolAdvertisement: Pool
+  pool: Pool
   question: LocalizedString
   sortOrder: Int
   screeningQuestionResponses: [ScreeningQuestionResponse]
@@ -1357,7 +1355,19 @@ input UpdateExperienceSkills {
   sync: [ConnectExperienceSkills!]
 }
 
-input UpdatePoolAdvertisementInput {
+input UpdatePoolCandidateAsAdminInput {
+  cmoIdentifier: ID
+  expiryDate: Date
+  status: PoolCandidateStatus
+  notes: String
+}
+
+input UpdatePoolCandidateSearchRequestInput {
+  adminNotes: String
+  status: PoolCandidateSearchStatus
+}
+
+input UpdatePoolInput {
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   stream: PoolStream
@@ -1373,30 +1383,6 @@ input UpdatePoolAdvertisementInput {
   isRemote: Boolean
   publishingGroup: PublishingGroup
   screeningQuestions: UpdateScreeningQuestionsHasMany
-}
-
-input UpdatePoolCandidateAsAdminInput {
-  cmoIdentifier: ID
-  expiryDate: Date
-  status: PoolCandidateStatus
-  notes: String
-}
-
-input UpdatePoolCandidateSearchRequestInput {
-  adminNotes: String
-  status: PoolCandidateSearchStatus
-}
-
-input UpdatePoolInput {
-  owner: UserBelongsTo
-  team: TeamBelongsTo
-  name: LocalizedStringInput
-  classifications: ClassificationBelongsToMany
-  operationalRequirements: [OperationalRequirement]
-  keyTasks: LocalizedStringInput
-  stream: PoolStream
-  processNumber: String
-  publishingGroup: PublishingGroup
 }
 
 input UpdateScreeningQuestionInput {

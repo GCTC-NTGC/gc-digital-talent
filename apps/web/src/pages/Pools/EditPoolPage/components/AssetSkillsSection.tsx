@@ -12,17 +12,14 @@ import {
   Pool,
   Scalars,
   Skill,
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 import SkillPicker from "~/components/SkillPicker";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
-export type AssetSkillsSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
-  "nonessentialSkills"
->;
+export type AssetSkillsSubmitData = Pick<UpdatePoolInput, "nonessentialSkills">;
 
 type FormValues = {
   currentAssetSkills: {

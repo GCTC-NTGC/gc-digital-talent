@@ -44,7 +44,7 @@ class PoolPolicy
             return false;
         }
 
-        // If user has elevated admin, can view all advertisements.
+        // If user has elevated admin, can view all pools.
         if ($user->isAbleTo("view-any-pool")) {
             return true;
         }
@@ -52,28 +52,6 @@ class PoolPolicy
         // Load team only when needed to check if team owns draft.
         $pool->loadMissing('team');
         return $user->isAbleTo("view-team-pool", $pool->team);
-    }
-
-    /**
-     * Determine whether the user can view a poolAdvertisement. All except DRAFT are viewable to all
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Pool  $pool
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAdvertisement(?User $user, Pool $pool)
-    {
-        // Guests and Base Users both have permission to view-any-publishedPoolAdvertisement
-        if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
-            return true;
-        }
-
-        if (is_null($user)) {
-            return false;
-        }
-
-        // PoolAdvertisement is a subset of Pool, so if a user can view the pool, they can view the pool Advertisement.
-        return $this->view($user, $pool);
     }
 
     /**

@@ -142,11 +142,8 @@ query getEditPoolData($poolId: UUID!) {
   }
 }
 
-mutation updatePoolAdvertisement(
-  $id: ID!
-  $poolAdvertisement: UpdatePoolAdvertisementInput!
-) {
-  updatePoolAdvertisement(id: $id, poolAdvertisement: $poolAdvertisement) {
+mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
+  updatePool(id: $id, pool: $pool) {
     id
   }
 }

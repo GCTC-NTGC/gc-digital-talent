@@ -9,9 +9,9 @@ import {
   useDeletePoolAdvertisementMutation,
   useDuplicatePoolAdvertisementMutation,
   usePublishPoolAdvertisementMutation,
-  useUpdatePoolAdvertisementMutation,
+  useUpdatePoolMutation,
   useChangePoolClosingDateMutation,
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
   Scalars,
 } from "~/api/generated";
 
@@ -23,7 +23,7 @@ const useMutations = () => {
   const navigateBack = () => navigate(paths.poolTable());
 
   const [{ fetching: updateFetching }, executeUpdateMutation] =
-    useUpdatePoolAdvertisementMutation();
+    useUpdatePoolMutation();
 
   const handleUpdateError = () => {
     toast.error(
@@ -36,13 +36,10 @@ const useMutations = () => {
     );
   };
 
-  const update = async (
-    id: string,
-    poolAdvertisement: UpdatePoolAdvertisementInput,
-  ) => {
-    await executeUpdateMutation({ id, poolAdvertisement })
+  const update = async (id: string, pool: UpdatePoolInput) => {
+    await executeUpdateMutation({ id, pool })
       .then((result) => {
-        if (result.data?.updatePoolAdvertisement) {
+        if (result.data?.updatePool) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool updated successfully!",

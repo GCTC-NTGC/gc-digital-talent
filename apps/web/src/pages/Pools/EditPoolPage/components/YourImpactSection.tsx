@@ -15,7 +15,7 @@ import {
   AdvertisementStatus,
   LocalizedString,
   Pool,
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 import Spacer from "~/components/Spacer/Spacer";
@@ -27,10 +27,7 @@ type FormValues = {
   yourImpactFr?: LocalizedString["fr"];
 };
 
-export type YourImpactSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
-  "yourImpact"
->;
+export type YourImpactSubmitData = Pick<UpdatePoolInput, "yourImpact">;
 
 interface YourImpactSectionProps {
   poolAdvertisement: Pool;

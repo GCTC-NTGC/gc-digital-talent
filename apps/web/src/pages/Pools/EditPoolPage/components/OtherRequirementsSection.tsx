@@ -25,7 +25,7 @@ import {
   PoolAdvertisementLanguage,
   PublishingGroup,
   SecurityStatus,
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 import Spacer from "~/components/Spacer/Spacer";
@@ -47,7 +47,7 @@ type FormValues = {
 };
 
 export type OtherRequirementsSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
   | "advertisementLanguage"
   | "advertisementLocation"
   | "securityClearance"

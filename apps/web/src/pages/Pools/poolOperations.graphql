@@ -77,30 +77,6 @@ query getPools {
   }
 }
 
-mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
-  updatePool(id: $id, pool: $pool) {
-    owner {
-      id
-    }
-    name {
-      en
-      fr
-    }
-    keyTasks {
-      en
-      fr
-    }
-    classifications {
-      id
-      group
-      level
-    }
-    operationalRequirements
-    stream
-    processNumber
-  }
-}
-
 mutation createPoolAdvertisement(
   $userId: ID!
   $teamId: ID!

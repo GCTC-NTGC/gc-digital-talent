@@ -10,11 +10,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 
 import { useDeepCompareEffect } from "~/hooks/useDeepCompareEffect";
-import {
-  AdvertisementStatus,
-  Pool,
-  UpdatePoolAdvertisementInput,
-} from "~/api/generated";
+import { AdvertisementStatus, Pool, UpdatePoolInput } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 import Spacer from "~/components/Spacer/Spacer";
 
@@ -24,10 +20,7 @@ type FormValues = {
   endDate?: Pool["closingDate"];
 };
 
-export type ClosingDateSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
-  "closingDate"
->;
+export type ClosingDateSubmitData = Pick<UpdatePoolInput, "closingDate">;
 interface ClosingDateSectionProps {
   poolAdvertisement: Pool;
   sectionMetadata: EditPoolSectionMetadata;

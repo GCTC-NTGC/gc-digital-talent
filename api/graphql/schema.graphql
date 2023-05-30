@@ -321,7 +321,7 @@ type UserPublicProfile {
 
 type ScreeningQuestion {
   id: ID!
-  poolAdvertisement: Pool @belongsTo
+  pool: Pool @belongsTo
   question: LocalizedString
   sortOrder: Int @rename(attribute: "sort_order")
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
@@ -448,7 +448,7 @@ type ScreeningQuestionResponse {
 
 type PoolCandidate {
   id: ID!
-  pool: Pool! @belongsTo @can(ability: "viewAdvertisement", resolved: true)
+  pool: Pool! @belongsTo @can(ability: "view", resolved: true)
   user: Applicant! @belongsTo(relation: "user")
 
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
@@ -910,7 +910,7 @@ input PoolCandidateSearchInput {
 }
 
 type CandidateSearchPoolResult {
-  pool: Pool! @can(ability: "viewAdvertisement", resolved: true)
+  pool: Pool! @can(ability: "view", resolved: true)
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
@@ -936,10 +936,8 @@ type Query {
     @can(ability: "viewAnyApplicants", model: "User")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
-  pool(id: UUID! @eq): Pool
-    @find
-    @can(ability: "viewAdvertisement", query: true)
-  poolAdvertisements: [Pool]! @all @can(ability: "viewAny", model: "Pool")
+  pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
+  pools: [Pool]! @all @can(ability: "viewAny", model: "Pool")
   publishedPoolAdvertisements(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
   ): [Pool!]!
@@ -1369,19 +1367,6 @@ input UpdatePoolCandidateAsAdminInput {
   notes: String
 }
 
-input UpdatePoolInput {
-  owner: UserBelongsTo @rename(attribute: "user")
-  team: TeamBelongsTo @rename(attribute: "team")
-  name: LocalizedStringInput
-  classifications: ClassificationBelongsToMany
-  operationalRequirements: [OperationalRequirement]
-    @rename(attribute: "operational_requirements")
-  keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
-  stream: PoolStream
-  processNumber: String @rename(attribute: "process_number")
-  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
-}
-
 input CreateDepartmentInput {
   departmentNumber: Int!
     @rename(attribute: "department_number")
@@ -1632,7 +1617,7 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
-input UpdatePoolAdvertisementInput {
+input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
@@ -1883,11 +1868,6 @@ type Mutation {
     @update
     @guard
     @can(ability: "updateDraft", find: "id")
-    @deprecated(reason: "Should use updatePoolAdvertisement instead.")
-  updatePoolAdvertisement(
-    id: ID!
-    poolAdvertisement: UpdatePoolAdvertisementInput! @spread
-  ): Pool @update @guard @can(ability: "updateDraft", find: "id")
   publishPoolAdvertisement(id: ID!): Pool
     @guard
     @can(ability: "publish", find: "id")
