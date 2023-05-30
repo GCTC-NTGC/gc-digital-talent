@@ -36,7 +36,7 @@ const Display = ({
     <div
       data-h2-display="base(grid)"
       data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-      data-h2-grid-template-rows="p-tablet(repeat(2, 1fr))"
+      data-h2-grid-template-rows="p-tablet(repeat(2, auto))"
       data-h2-gap="base(x1)"
     >
       <DisplayColumn>
