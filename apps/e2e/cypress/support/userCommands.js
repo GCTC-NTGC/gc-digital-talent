@@ -1,6 +1,7 @@
 import {
   CreateUserDocument,
   MeDocument,
+  GetMeDocument,
   ListRolesDocument,
   UpdateUserAsAdminDocument,
 } from "@gc-digital-talent/web/src/api/generated";
@@ -82,6 +83,16 @@ Cypress.Commands.add("getMe", () => {
   cy.graphqlRequest({
     operationName: "me",
     query: getGqlString(MeDocument),
+    variables: {},
+  }).then((data) => {
+    cy.wrap(data.me);
+  });
+});
+
+Cypress.Commands.add("getMeAllData", () => {
+  cy.graphqlRequest({
+    operationName: "getMe",
+    query: getGqlString(GetMeDocument),
     variables: {},
   }).then((data) => {
     cy.wrap(data.me);

@@ -1,6 +1,7 @@
 import {
   CreateApplicationDocument,
   SubmitApplicationDocument,
+  UpdateApplicationDocument,
 } from "@gc-digital-talent/web/src/api/generated";
 import { UpdatePoolCandidateStatusDocument } from "@gc-digital-talent/web/src/api/generated";
 
@@ -31,6 +32,19 @@ Cypress.Commands.add("submitApplication", (applicationId, signature) => {
     },
   }).then((data) => {
     cy.wrap(data.submitApplication);
+  });
+});
+
+Cypress.Commands.add("updateApplication", (applicationId, application) => {
+  cy.graphqlRequest({
+    operationName: "UpdateApplication",
+    query: getGqlString(UpdateApplicationDocument),
+    variables: {
+      id: applicationId,
+      application,
+    },
+  }).then((data) => {
+    cy.wrap(data.updateApplication);
   });
 });
 
