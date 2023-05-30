@@ -112,7 +112,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           dismissible
           onDismiss={() => {
             searchParams.delete(FromIapDraftQueryKey);
-            setSearchParams(searchParams);
+            setSearchParams(searchParams, { replace: true });
           }}
         >
           <Alert.Title>
@@ -159,7 +159,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           dismissible
           onDismiss={() => {
             searchParams.delete(FromIapSuccessQueryKey);
-            setSearchParams(searchParams);
+            setSearchParams(searchParams, { replace: true });
           }}
         >
           <Alert.Title>
