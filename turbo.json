@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["package.json"],
+  "globalDependencies": ["package.json", "**/.env"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],
@@ -83,7 +83,9 @@
       "dependsOn": ["^e2e:run:all"]
     },
     "e2e:run:inspect": {},
-    "lint": {},
+    "lint": {
+      "inputs": ["../../packages/eslint-config-custom/index.js"]
+    },
     "tsc": {}
   }
 }

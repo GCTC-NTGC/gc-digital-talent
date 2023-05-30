@@ -13,12 +13,12 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsup",
     "watch": "tsup --watch",
-    "lint": "TIMING=1 eslint \"src/**/*.ts*\""
+    "lint": "eslint \"src/**/*.ts*\""
   },
   "devDependencies": {
     "eslint-config-custom": "*",
     "rimraf": "^5.0.1",
     "tsup": "^6.7.0",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.4"
   }
 }

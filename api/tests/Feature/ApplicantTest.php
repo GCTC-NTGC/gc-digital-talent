@@ -33,17 +33,14 @@ class ApplicantTest extends TestCase
 
         $this->bootRefreshesSchemaCache();
 
-        $this->adminUser = User::factory()->create([
-            'email' => 'admin-user@test.com',
-            'sub' => 'admin-user@test.com',
-        ]);
-        $this->adminUser->syncRoles([
-            "guest",
-            "base_user",
-            "applicant",
-            "request_responder",
-            "platform_admin"
-        ]);
+        $this->adminUser = User::factory()
+            ->asApplicant()
+            ->asRequestResponder()
+            ->asAdmin()
+            ->create([
+                'email' => 'admin-user@test.com',
+                'sub' => 'admin-user@test.com',
+            ]);
     }
 
     public function testCountApplicantsQuery(): void

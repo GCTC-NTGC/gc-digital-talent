@@ -31,6 +31,7 @@ query getMePools {
           processNumber
           publishingGroup
           createdDate
+          updatedDate
         }
       }
     }

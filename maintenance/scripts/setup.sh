@@ -1,5 +1,30 @@
 #! /bin/bash
 
+Help()
+{
+  echo "Setup the project and your environment."
+  echo
+  echo "Syntax: setup.sh [-h|c]"
+  echo "   -h   Show this help message."
+  echo "   -c   Setup the environment for CI."
+  echo
+}
+
+GCDT_CI=false
+
+while getopts ":hc" option; do
+  case $option in
+    h) # display Help
+      Help
+      exit;;
+    c) # setup for CI
+      GCDT_CI=true;;
+    \?) # incorrect option
+      echo "Error: Invalid option"
+      exit;;
+  esac
+done
+
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 source ${parent_path}/lib/common.sh
 
@@ -11,7 +36,12 @@ touch ./storage/logs/laravel.log
 rm ./bootstrap/cache/*.php --force
 composer install --prefer-dist
 php artisan key:generate
-php artisan migrate:fresh --seed
+if [ "$GCDT_CI" = true ]; then
+  php artisan migrate:fresh
+  php artisan db:seed --class=CiSeeder
+else
+  php artisan migrate:fresh --seed
+fi
 php artisan lighthouse:print-schema --write
 php artisan config:clear
 chown -R www-data ./storage ./vendor
@@ -24,5 +54,9 @@ cp .env.example .env --preserve=all
 git config --global --add safe.directory /var/www/html
 cd /var/www/html
 npm install
-npm run build:fresh
+if [ "$GCDT_CI" = true ]; then
+  npm run build:fresh
+else
+  npm run dev:fresh
+fi
 chmod -R a+r,a+w node_modules apps/*/.turbo packages/*/.turbo
