@@ -8297,5 +8297,25 @@
   "HbzGOJ": {
     "defaultMessage": "Cette information permet aux candidats de savoir quel travail ou dans quel environnement ils appliquent. Utilisez cet espace pour discuter du secteur du gouvernement que le présent processus cherchera à améliorer, de même que des valeurs que ce travail génère.",
     "description": "Helper message for filling in the pool introduction"
+  },
+  "8HdqmJ": {
+    "defaultMessage": "La sauvegarde de l’ébauche de votre demande dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones a été réussie!",
+    "description": "Title for notification that a draft IAP application was saved"
+  },
+  "B1Pa0D": {
+    "defaultMessage": "Le Programme d’apprentissage occupe une partie importante d’une initiative plus vaste sur les talents numériques au sein du gouvernement du Canada, qui a pour but d’embaucher de merveilleux talents numériques, comme vous. Ce profil vous donne accès à d’autres possibilités et recrutement en matière de numérique au-delà du Programme d’apprentissage, si vous décidez de postuler. Si vous souhaitez vous en tenir uniquement au Programme d’apprentissages, c’est également bien!",
+    "description": "Second paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "uSAdtr": {
+    "defaultMessage": "Lorsque vous accédez au compte que vous avez créé, vous serez reconduit(e) à la présente page pour réviser votre demande auprès du Programme d’apprentissage, et faire le suivi de votre poste dans ce dernier.",
+    "description": "Third paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "ueLK1P": {
+    "defaultMessage": "Vous êtes maintenant arrivé(e) à votre page de profil de Talents numériques.",
+    "description": "First paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "vB1p56": {
+    "defaultMessage": "Merci d’avoir postulé dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones!",
+    "description": "Title for notification that a an IAP application was submitted"
   }
 }
