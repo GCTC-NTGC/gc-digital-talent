@@ -1365,5 +1365,17 @@
   "TiIkSF": {
     "defaultMessage": "Deux années post-secondaire",
     "description": "Option for education requirement, 2-year post-secondary"
+  },
+  "8WC+Ty": {
+    "defaultMessage": "La date limite de soumission est passée.",
+    "description": "Message displayed when a closing date has passed."
+  },
+  "GqmxO8": {
+    "defaultMessage": "Termine demain, à {time}",
+    "description": "Text displayed when relative date is tomorrow."
+  },
+  "jy7itR": {
+    "defaultMessage": "Termine aujourd’hui, à {time}",
+    "description": "Text displayed when relative date is today."
   }
 }

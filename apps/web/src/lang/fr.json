@@ -3855,10 +3855,6 @@
     "defaultMessage": "Colonnes du tableau",
     "description": "Dialog title for the admin tables columns toggle."
   },
-  "aGI59+": {
-    "defaultMessage": "Ces informations permettent aux candidats de savoir à quel type de travail et pour quel environnement ils postulent. Utilisez cet espace pour parler du domaine du gouvernement que ce processus visera à améliorer. Ainsi que la valeur que crée ce type de travail",
-    "description": "Helper message for filling in the pool introduction"
-  },
   "bbIDc9": {
     "defaultMessage": "Enregistrer le nom du bassin",
     "description": "Text on a button to save the pool name"
@@ -5109,8 +5105,8 @@
     "defaultMessage": "Nous avons reçu votre demande et la réviserons le plus tôt possible.",
     "description": "Paragraph one, message to user the request was received"
   },
-  "ltn4Er": {
-    "defaultMessage": "Vous recevrez un suivi sur votre demande dans 2 à 4 jours ouvrables.",
+  "3rbRfI": {
+    "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
     "description": "Description of when the user should expect a response to their request"
   },
   "rVgBGi": {
@@ -8309,5 +8305,9 @@
   "vlyq02": {
     "defaultMessage": "Réussite : Vous avez réussi à dupliquer ce bassin.",
     "description": "Message displayed to user after pool is deleted"
+  },
+  "HbzGOJ": {
+    "defaultMessage": "Cette information permet aux candidats de savoir quel travail ou dans quel environnement ils appliquent. Utilisez cet espace pour discuter du secteur du gouvernement que le présent processus cherchera à améliorer, de même que des valeurs que ce travail génère.",
+    "description": "Helper message for filling in the pool introduction"
   }
 }
