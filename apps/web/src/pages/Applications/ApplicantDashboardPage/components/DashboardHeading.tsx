@@ -11,7 +11,10 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { Alert } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero/Hero";
-import useRoutes from "~/hooks/useRoutes";
+import useRoutes, {
+  FromIapDraftQueryKey,
+  FromIapSuccessQueryKey,
+} from "~/hooks/useRoutes";
 import {
   aboutSectionHasEmptyRequiredFields,
   aboutSectionHasEmptyOptionalFields,
@@ -53,9 +56,6 @@ function deriveSectionStatus(
   if (isMissingOptionalFields) return "has-empty-optional-fields";
   return "all-sections-complete";
 }
-
-export const FromIapDraftNotificationKey = "fromIapDraft";
-export const FromIapSuccessNotificationKey = "fromIapSuccess";
 
 export interface DashboardHeadingProps {
   user: PartialUser;
@@ -106,12 +106,12 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         description: "Subtitle for applicant dashboard hero",
       })}
     >
-      {searchParams.get(FromIapDraftNotificationKey) === "true" && (
+      {searchParams.get(FromIapDraftQueryKey) === "true" && (
         <Alert.Root
           type="info"
           dismissible
           onDismiss={() => {
-            searchParams.delete(FromIapDraftNotificationKey);
+            searchParams.delete(FromIapDraftQueryKey);
             setSearchParams(searchParams);
           }}
         >
@@ -153,12 +153,12 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           </p>
         </Alert.Root>
       )}
-      {searchParams.get(FromIapSuccessNotificationKey) === "true" && (
+      {searchParams.get(FromIapSuccessQueryKey) === "true" && (
         <Alert.Root
           type="info"
           dismissible
           onDismiss={() => {
-            searchParams.delete(FromIapSuccessNotificationKey);
+            searchParams.delete(FromIapSuccessQueryKey);
             setSearchParams(searchParams);
           }}
         >
