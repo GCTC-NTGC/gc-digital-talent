@@ -1451,7 +1451,7 @@ input CreatePoolCandidateSearchRequestInput {
   department: DepartmentBelongsTo!
   jobTitle: String! @rename(attribute: "job_title")
   additionalComments: String @rename(attribute: "additional_comments")
-  applicantFilter: ApplicantFilterBelongsTo @rules(apply: ["required"])
+  applicantFilter: ApplicantFilterBelongsTo!
   # requestedDate will be set to current date in Eloquent model.
   # status will be set to PENDING in Eloquent model.
   wasEmpty: Boolean @rename(attribute: "was_empty")

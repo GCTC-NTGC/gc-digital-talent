@@ -289,7 +289,7 @@ input CreatePoolCandidateSearchRequestInput {
   department: DepartmentBelongsTo!
   jobTitle: String!
   additionalComments: String
-  applicantFilter: ApplicantFilterBelongsTo
+  applicantFilter: ApplicantFilterBelongsTo!
   wasEmpty: Boolean
 }
 
