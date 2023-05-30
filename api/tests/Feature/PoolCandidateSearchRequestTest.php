@@ -82,9 +82,9 @@ class PoolCandidateSearchRequestTest extends TestCase
             'department' => [
                 'connect' => Department::inRandomOrder()->first()->id
             ],
-        ])->assertGraphQLValidationKeys([
-            'poolCandidateSearchRequest.applicantFilter'
-        ]);
+        ])->assertSeeText(
+            'Field value.applicantFilter of required type ApplicantFilterBelongsTo! was not provided.'
+        );
     }
 
     /**
