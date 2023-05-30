@@ -120,7 +120,8 @@ const ApplicationEducation = ({
   const paths = useRoutes();
   const navigate = useNavigate();
   const { applicantDashboard } = useFeatureFlags(); // TODO: Remove once feature flag has been turned on.
-  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
+  const { followingPageUrl, currentStepOrdinal, isIAP } =
+    useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -130,7 +131,9 @@ const ApplicationEducation = ({
   const nextStep =
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);
   const previousStep = paths.applicationResume(application.id);
-  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
+  const cancelPath = applicantDashboard
+    ? paths.dashboard({ fromIapDraft: isIAP })
+    : paths.myProfile();
 
   const methods = useForm<FormValues>({
     defaultValues: {

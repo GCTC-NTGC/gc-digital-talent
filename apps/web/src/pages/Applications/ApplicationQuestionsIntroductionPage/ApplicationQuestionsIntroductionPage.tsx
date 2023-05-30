@@ -50,7 +50,7 @@ const ApplicationQuestionsIntroduction = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { currentStepOrdinal } = useApplicationContext();
+  const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -109,7 +109,7 @@ const ApplicationQuestionsIntroduction = ({
           type="button"
           mode="inline"
           color="secondary"
-          href={paths.dashboard()}
+          href={paths.dashboard({ fromIapDraft: isIAP })}
         >
           {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>
