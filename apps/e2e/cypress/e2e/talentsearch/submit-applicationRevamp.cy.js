@@ -8,13 +8,8 @@ import {
   PublishingGroup,
   SecurityStatus,
   WorkRegion,
-  EducationType,
-  EducationStatus,
 } from "@gc-digital-talent/web/src/api/generated";
-import {
-  FAR_FUTURE_DATE,
-  FAR_PAST_DATE,
-} from "@gc-digital-talent/date-helpers";
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import { addRolesToUser } from "../../support/userHelpers";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
@@ -31,6 +26,7 @@ describe("Submit Application Workflow Tests", () => {
       aliasMutation(req, "createApplication");
       aliasMutation(req, "UpdateApplication");
       aliasMutation(req, "submitApplication");
+      aliasMutation(req, "CreateEducationExperience");
       aliasMutation(req, "UpdateEducationExperience");
     });
 
@@ -68,19 +64,6 @@ describe("Submit Application Workflow Tests", () => {
         positionDuration: PositionDuration.Permanent,
         expectedGenericJobTitles: {
           sync: testGenericJobTitleIds,
-        },
-        educationExperiences: {
-          create: [
-            {
-              institution: "Cypress University",
-              areaOfStudy: "QA Testing",
-              startDate: FAR_PAST_DATE,
-              endDate: FAR_PAST_DATE,
-              type: EducationType.Certification,
-              status: EducationStatus.SuccessCredential,
-              details: "Mastering Cypress",
-            },
-          ],
         },
       }).as("testUser");
     });
@@ -204,21 +187,57 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("link", {
       name: /Return to the last step I was working on/i,
     }).click();
-    cy.findByRole("heading", { name: /Review your résumé/i }) // returned to resume step
+    cy.findByRole("heading", { name: /Create your résumé/i }) // returned to resume step
       .should("exist")
       .and("be.visible");
     cy.findByRole("link", {
       name: /Review and submit/i,
     }).click();
-    cy.findByRole("heading", { name: /Review your résumé/i })
+    cy.findByRole("heading", { name: /Create your résumé/i })
       .should("exist")
       .and("be.visible"); // can't skip with the stepper, still on the same page
 
     // Quit trying to skip and continue step three honestly
-    cy.contains(/QA Testing at Cypress University/i)
+    cy.contains(/You don’t have any résumé experiences yet./i)
       .should("exist")
       .and("be.visible");
+    cy.findByRole("button", { name: /Save and continue/i }).click(); // will it let you continue?
+    cy.contains(/Please add at least one experience./i)
+      .should("exist")
+      .and("be.visible");
+    cy.findByRole("link", { name: /Add a new experience/i }).click();
+    cy.url().should("contain", "/resume/add");
+    // at adding experience to resume page now
+    cy.contains(/Add an experience to your résumé/i)
+      .should("exist")
+      .and("be.visible");
+    // fill in education experience
+    cy.findByRole("combobox", { name: /Experience type/i }).select(
+      "Education and certificates",
+    );
+    cy.findByRole("combobox", { name: /Type of Education/i }).select(
+      "Certification",
+    );
+    cy.findByRole("textbox", { name: /Area of study/i }).type("QA Testing");
+    cy.findByRole("textbox", { name: /Institution/i }).type(
+      "Cypress University",
+    );
+    cy.findByLabelText(/Start Date/i).type("2001-01-01");
+    cy.findByLabelText(/End Date/i).type("2001-02-01");
+    cy.findByRole("combobox", { name: /Status/i }).select(
+      "Successful Completion (Credential Awarded)",
+    );
+    cy.findByRole("textbox", { name: /Your tasks and responsibilities/i }).type(
+      "Mastering Cypress",
+    );
+    cy.findByRole("button", { name: /Save and go back/i }).click();
+    cy.wait("@gqlCreateEducationExperienceMutation");
+    cy.expectToast(/Successfully added experience!/i);
+    // returned to main resume review page
     cy.contains(/1 education and certificate experience/i)
+      .should("exist")
+      .and("be.visible");
+    cy.contains(/QA Testing at Cypress University/i) // added experience present
       .should("exist")
       .and("be.visible");
     cy.findByRole("button", { name: /Save and continue/i }).click();
