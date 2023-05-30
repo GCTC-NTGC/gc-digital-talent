@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, Story } from "@storybook/react";
+import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
@@ -22,7 +22,7 @@ type StoryProps = RepeaterProps &
 export default {
   component: Repeater.Fieldset,
   title: "Components/Repeater",
-} as Meta<StoryProps>;
+};
 
 const defaultArgs = {
   label: "Screening Questions",
@@ -114,7 +114,7 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
   );
 };
 
-const Template: Story<StoryProps> = (args) => {
+const Template: StoryFn<StoryProps> = (args) => {
   const { defaultValues, name, ...fieldProps } = args;
   const handleSubmit = (data: unknown) => {
     action("Submit form")(data);
