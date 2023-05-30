@@ -243,14 +243,13 @@ const AccessibilityStatementPage = () => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "The <abbreviation>GC</abbreviation> Digital Talent team follows inclusive <digitalStandardsLink>Government of Canada Digital Standards</digitalStandardsLink>.",
-                id: "a3c78j",
+                  "The GC Digital Talent team follows inclusive <digitalStandardsLink>Government of Canada Digital Standards</digitalStandardsLink>.",
+                id: "tu2Z17",
                 description: "Paragraph describing accessibility standards",
               },
               {
                 digitalStandardsLink: (chunks: React.ReactNode) =>
                   digitalStandardsLink(locale, chunks),
-                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
               },
             )}
           </p>
