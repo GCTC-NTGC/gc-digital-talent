@@ -258,9 +258,11 @@ export const ViewPoolCandidate = ({
               },
               {
                 educationRequirementOption: intl.formatMessage(
-                  getEducationRequirementOption(
-                    snapshotCandidate?.educationRequirementOption || "",
-                  ),
+                  snapshotCandidate?.educationRequirementOption
+                    ? getEducationRequirementOption(
+                        snapshotCandidate.educationRequirementOption,
+                      )
+                    : commonMessages.notAvailable,
                 ),
               },
             )}
