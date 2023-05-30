@@ -277,15 +277,7 @@ export const ViewSearchRequest = ({
           })}
         </Heading>
         {abstractFilter ? (
-          <SingleSearchRequestTableApi
-            filter={abstractFilter}
-            title={intl.formatMessage({
-              defaultMessage: "Candidate Results",
-              id: "Duswz0",
-              description:
-                "Heading for the candidate results section of the single search request view.",
-            })}
-          />
+          <SingleSearchRequestTableApi filter={abstractFilter} />
         ) : (
           <>
             {intl.formatMessage({
