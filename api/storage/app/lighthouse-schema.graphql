@@ -283,24 +283,13 @@ input CreatePoolCandidateAsAdminInput {
   notes: String
 }
 
-input CreatePoolCandidateFilterInput {
-  classifications: ClassificationBelongsToMany
-  hasDiploma: Boolean
-  equity: EquitySelectionsInput
-  languageAbility: LanguageAbility
-  operationalRequirements: [OperationalRequirement]
-  workRegions: [WorkRegion]
-  pools: PoolBelongsToMany
-}
-
 input CreatePoolCandidateSearchRequestInput {
   fullName: String!
   email: Email!
   department: DepartmentBelongsTo!
   jobTitle: String!
   additionalComments: String
-  poolCandidateFilter: PoolCandidateFilterBelongsTo
-  applicantFilter: ApplicantFilterBelongsTo
+  applicantFilter: ApplicantFilterBelongsTo!
   wasEmpty: Boolean
 }
 
@@ -897,25 +886,6 @@ type PoolCandidateFilter {
   pools: [Pool]
 }
 
-input PoolCandidateFilterBelongsTo {
-  create: CreatePoolCandidateFilterInput!
-}
-
-input PoolCandidateFilterInput {
-  equity: EquitySelectionsInput
-  expectedClassifications: [ClassificationFilterInput]
-  email: String
-  generalSearch: String
-  hasDiploma: Boolean
-  languageAbility: LanguageAbility
-  locationPreferences: [WorkRegion]
-  name: String
-  operationalRequirements: [OperationalRequirement]
-  pools: [IdInput]
-  priorityWeight: [Int]
-  poolCandidateStatus: [PoolCandidateStatus]
-}
-
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput
   email: String
@@ -1042,8 +1012,6 @@ type Query {
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]): [PoolCandidate]!
-  countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
-  searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [PoolCandidate]!
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
   classifications: [Classification]!

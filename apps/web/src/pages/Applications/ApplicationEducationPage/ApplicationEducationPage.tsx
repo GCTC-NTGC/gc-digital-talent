@@ -341,19 +341,34 @@ const ApplicationEducation = ({
     },
     {
       value: EducationRequirementOption.Education,
-      label: intl.formatMessage({
-        defaultMessage:
-          "<strong>I meet the 2-year post-secondary option</strong>",
-        id: "j+jnML",
-        description:
-          "Radio group option for education requirement filter in application education form.",
-      }),
+      label: isIAP
+        ? intl.formatMessage({
+            defaultMessage: "I have a high school diploma or GED equivalent",
+            id: "ybi6QM",
+            description:
+              "Radio group option for education requirement filter in Indigenous apprenticeship application education form.",
+          })
+        : intl.formatMessage({
+            defaultMessage:
+              "<strong>I meet the 2-year post-secondary option</strong>",
+            id: "j+jnML",
+            description:
+              "Radio group option for education requirement filter in application education form.",
+          }),
       contentBelow: (
         <div data-h2-margin="base(x.5, 0, x.5, x1)">
           <p>
-            {intl.formatMessage(applicationMessages.postSecondaryEducation, {
-              link: qualityStandardsLink,
-            })}
+            {isIAP
+              ? intl.formatMessage({
+                  defaultMessage:
+                    "Successful completion of a standard high school diploma or GED equivalent.",
+                  id: "tfzO5t",
+                  description:
+                    "Message under radio button in Indigenous apprenticeship application education page.",
+                })
+              : intl.formatMessage(applicationMessages.postSecondaryEducation, {
+                  link: qualityStandardsLink,
+                })}
           </p>
         </div>
       ),

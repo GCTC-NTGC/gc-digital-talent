@@ -38,6 +38,7 @@ import {
   Scalars,
   useGetPoolAdvertisementQuery,
   PoolAdvertisement,
+  PublishingGroup,
 } from "~/api/generated";
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
@@ -437,7 +438,11 @@ export const PoolAdvertisementPoster = ({
                   { title: fullTitle },
                 )}
               </Text>
-              <EducationRequirements />
+              <EducationRequirements
+                isIAP={
+                  poolAdvertisement.publishingGroup === PublishingGroup.Iap
+                }
+              />
               <Heading level="h3" size="h4">
                 {intl.formatMessage({
                   defaultMessage: "Skill requirements",

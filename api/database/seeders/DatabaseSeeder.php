@@ -187,12 +187,8 @@ class DatabaseSeeder extends Seeder
             }
         });
 
-        // Create some SearchRequests with old filters, some with new.
-        PoolCandidateSearchRequest::factory()->count(5)->create([
-            'applicant_filter_id' => null
-        ]);
-        PoolCandidateSearchRequest::factory()->count(5)->create([
-            'pool_candidate_filter_id' => null,
+        // Create some SearchRequests
+        PoolCandidateSearchRequest::factory()->count(10)->create([
             'applicant_filter_id' => ApplicantFilter::factory()->sparse()->withRelationships(true)
         ]);
     }
