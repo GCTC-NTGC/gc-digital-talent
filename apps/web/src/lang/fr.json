@@ -2661,17 +2661,9 @@
     "defaultMessage": "Courriel",
     "description": "Title displayed for the User table Email column."
   },
-  "0PmIE8": {
-    "defaultMessage": "Nom du candidat",
-    "description": "Title displayed on the single search request table candidate name column."
-  },
   "0SoKjt": {
     "defaultMessage": "Utilisateur {userId} introuvable.",
     "description": "Message displayed for user not found."
-  },
-  "1bNptz": {
-    "defaultMessage": "Identifiant du candidat",
-    "description": "Title displayed on the single search request table id column."
   },
   "2wmzS1": {
     "defaultMessage": "Nom",
@@ -2716,10 +2708,6 @@
   "8hee5d": {
     "defaultMessage": "Titre de l’emploi",
     "description": "Title displayed on the search request table job title column."
-  },
-  "97LfRf": {
-    "defaultMessage": "Handicap",
-    "description": "Message for disability option in the employment equity column on the the single search request table."
   },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
@@ -2785,10 +2773,6 @@
     "defaultMessage": "Nom du bassin",
     "description": "Title displayed for the Pool table pool name column."
   },
-  "JtgX1e": {
-    "defaultMessage": "Autochtone",
-    "description": "Message for indigenous option in the employment equity column on the the single search request table."
-  },
   "KSNNgE": {
     "defaultMessage": "Mettre à jour un ministère",
     "description": "Title displayed on the update a department form."
@@ -2804,10 +2788,6 @@
   "Lzd38d": {
     "defaultMessage": "Statut",
     "description": "Title for the status block in the manager info section of the single search request view."
-  },
-  "MmFgbF": {
-    "defaultMessage": "Groupe et niveau",
-    "description": "Title displayed on the single search request table classifications column."
   },
   "Le4EQq": {
     "defaultMessage": "Sélectionnez un niveau",
@@ -2836,14 +2816,6 @@
   "UNScjB": {
     "defaultMessage": "Marquer cette demande comme ayant été traitée",
     "description": "Button label displayed on the search request form which changes request status to done."
-  },
-  "UdZaOq": {
-    "defaultMessage": "Minorité visible",
-    "description": "Message for visible minority option in the employment equity column on the the single search request table."
-  },
-  "VaCRxh": {
-    "defaultMessage": "Femme",
-    "description": "Message for woman option in the employment equity column on the the single search request table."
   },
   "VaVo2t": {
     "defaultMessage": "Erreur : Échec de la création du ministère",
@@ -2900,10 +2872,6 @@
     "defaultMessage": "Nom (français)",
     "description": "Label displayed on the create a department form name (French) field."
   },
-  "c9jMPS": {
-    "defaultMessage": "Erreur : Nom introuvable.",
-    "description": "Error message displayed on the single search request table employment equity column."
-  },
   "d3oN4p": {
     "defaultMessage": "Courriel du gouvernement",
     "description": "Title for the government email block in the manager info section of the single search request view."
@@ -2923,10 +2891,6 @@
   "fhL8jz": {
     "defaultMessage": "Erreur : Échec de l’enregistrement des notes",
     "description": "Message displayed to user after the personal notes fail to save on the single search request page."
-  },
-  "gN/+W2": {
-    "defaultMessage": "Exigences opérationnelles",
-    "description": "Title displayed on the single search request table operational requirements column."
   },
   "gRPGQN": {
     "defaultMessage": "Titre du poste",
@@ -2956,10 +2920,6 @@
     "defaultMessage": "Ministère",
     "description": "Title displayed on the search request table department column."
   },
-  "i45Vxz": {
-    "defaultMessage": "Équité en matière d'emploi",
-    "description": "Title displayed on the single search request table employment equity column."
-  },
   "i9AjuX": {
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
@@ -2979,10 +2939,6 @@
   "l05aVF": {
     "defaultMessage": "Notes personnelles",
     "description": "Heading for the personal notes section of the single search request view."
-  },
-  "lo2bSB": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the single search request table edit column."
   },
   "nXRLAX": {
     "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
@@ -8180,8 +8136,8 @@
     "defaultMessage": "Révisez votre candidature",
     "description": "Page title for the application review page."
   },
-  "MZrE40": {
-    "defaultMessage": "Vous avez dit répondre aux <strong>exigences minimales d’expérience ou de formation (deux années d’études postsecondaires)</strong>  et posséder l’expérience professionnelle suivante :",
+  "SBNCsU": {
+    "defaultMessage": "Vous avez dit répondre aux <strong>exigences minimales d’expérience ou de formation (deux années d’études postsecondaires)</strong> et posséder l’expérience professionnelle suivante :",
     "description": "Message on education requirements card on the application review page."
   },
   "O83lYZ": {
@@ -8197,7 +8153,7 @@
     "description": "Label displayed for signature input in sign and submit section of application review page."
   },
   "PDbqFR": {
-    "defaultMessage": "\"J’ai relu tout le contenu de ma candidature\"",
+    "defaultMessage": "« J’ai relu tout le contenu de ma candidature »",
     "description": "Review list item for sign and submit section of application review page."
   },
   "V9lxDE": {
@@ -8239,11 +8195,12 @@
     "defaultMessage": "Il semble que vous n’ayez pas encore sélectionné de formation requise.",
     "description": "Null state message for education requirement section of the application review page."
   },
-  "mu6uvE": {
-    "defaultMessage": "Modifiez cette section"
+  "Z8hEuY": {
+    "defaultMessage": "Modifiez cette section",
+    "description": "Default edit link text for application review page"
   },
   "1ZQP80": {
-    "defaultMessage": "\"Je déclare que les renseignements fournis sont exacts\"",
+    "defaultMessage": "« Je déclare que les renseignements fournis sont exacts »",
     "description": "Truth list item for sign and submit section of application review page."
   },
   "qGyD4w": {
@@ -8251,7 +8208,7 @@
     "description": "Heading for screening questions section of the application review page."
   },
   "jT5ANA": {
-    "defaultMessage": "\"Je comprends faire partie d’un groupe où règne la confiance mutuelle\"",
+    "defaultMessage": "« Je comprends faire partie d’un groupe où règne la confiance mutuelle »",
     "description": "Community list item for sign and submit section of application review page."
   },
   "v0QzOM": {
@@ -8297,5 +8254,21 @@
   "HbzGOJ": {
     "defaultMessage": "Cette information permet aux candidats de savoir quel travail ou dans quel environnement ils appliquent. Utilisez cet espace pour discuter du secteur du gouvernement que le présent processus cherchera à améliorer, de même que des valeurs que ce travail génère.",
     "description": "Helper message for filling in the pool introduction"
+  },
+  "tfzO5t": {
+    "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
+    "description": "Message under radio button in Indigenous apprenticeship application education page."
+  },
+  "nWZiWr": {
+    "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
+    "description": "Education requirement (IT Apprenticeship Program for Indigenous Peoples)"
+  },
+  "CnPVJe": {
+    "defaultMessage": "Diplôme d’études secondaires ou PEG",
+    "description": "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)"
+  },
+  "ybi6QM": {
+    "defaultMessage": "Je détiens un diplôme d’études secondaires ou un équivalent du GED",
+    "description": "Radio group option for education requirement filter in Indigenous apprenticeship application education form."
   }
 }

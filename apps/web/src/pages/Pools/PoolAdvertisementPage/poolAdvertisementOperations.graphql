@@ -119,6 +119,7 @@ query getPoolAdvertisement($id: UUID!) {
     }
     stream
     processNumber
+    publishingGroup
     screeningQuestions {
       id
       question {
