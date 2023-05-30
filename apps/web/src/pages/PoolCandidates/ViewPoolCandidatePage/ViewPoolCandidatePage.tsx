@@ -14,7 +14,11 @@ import {
   Accordion,
   CardBasic,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getEducationRequirementOption,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import PageHeader from "~/components/PageHeader";
@@ -244,13 +248,22 @@ export const ViewPoolCandidate = ({
             {sections.minExperience.title}
           </TableOfContents.Heading>
           <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
-              defaultMessage:
-                "Requirement selection: <strong>Minimum experience or education requirement (2 years of post-secondary)</strong>.",
-              id: "iXCiSb",
-              description:
-                "Application snapshot minimum experience section description",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Requirement selection: <strong>{educationRequirementOption}</strong>.",
+                id: "J3Ud6R",
+                description:
+                  "Application snapshot minimum experience section description",
+              },
+              {
+                educationRequirementOption: intl.formatMessage(
+                  getEducationRequirementOption(
+                    snapshotCandidate?.educationRequirementOption || "",
+                  ),
+                ),
+              },
+            )}
           </p>
           {snapshotCandidate?.educationRequirementExperiences?.length ? (
             <>

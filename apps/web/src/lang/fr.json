@@ -8330,8 +8330,8 @@
     "defaultMessage": "Signée",
     "description": "Heading for the application snapshot users signature"
   },
-  "iXCiSb": {
-    "defaultMessage": "Exigence de sélection : <strong>Expérience minimale ou exigence en matière d’études (2 années postsecondaires)</strong>.",
+  "J3Ud6R": {
+    "defaultMessage": "Exigence de sélection : <strong>{educationRequirementOption}</strong>.",
     "description": "Application snapshot minimum experience section description"
   },
   "mDowK/": {
