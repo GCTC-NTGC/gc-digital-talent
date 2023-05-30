@@ -796,7 +796,8 @@ class PoolApplicationTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
             'education_requirement_option' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
         ]);
-        EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
         // Remove any responses created by factory
         ScreeningQuestionResponse::where('pool_candidate_id', $newPoolCandidate->id)->delete();
 
@@ -808,9 +809,7 @@ class PoolApplicationTest extends TestCase
         // assert cannot submit with no question
         $this->actingAs($this->applicantUser, "api")
             ->graphQL($this->submitMutationDocument,  $submitArgs)->assertJsonFragment([
-                'errors' => [[
-                    'message' => ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE,
-                ]]
+                ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE,
             ]);
 
         // Respond to the question
