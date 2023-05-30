@@ -289,20 +289,20 @@ export const ApplicationResume = ({
               id: "Q3yncO",
               description: "Title for list of experiences",
             })}
-            <ul data-h2-margin="base(x0.5, 0)">
-              {Object.keys(experiencesByType).map((experienceType) => {
-                return (
-                  <li data-h2-margin="base(x0.5, 0)" key={experienceType}>
-                    {formatExperienceCount(
-                      intl,
-                      experienceType as ExperienceType,
-                      experiencesByType[experienceType].length,
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
           </p>
+          <ul data-h2-margin="base(x0.5, 0, x1, 0)">
+            {Object.keys(experiencesByType).map((experienceType) => {
+              return (
+                <li data-h2-margin="base(x0.5, 0)" key={experienceType}>
+                  {formatExperienceCount(
+                    intl,
+                    experienceType as ExperienceType,
+                    experiencesByType[experienceType].length,
+                  )}
+                </li>
+              );
+            })}
+          </ul>
         </>
       ) : (
         <>
