@@ -1,6 +1,6 @@
-import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
+import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
 describe("User Information Page", () => {
   beforeEach(() => {
@@ -137,6 +137,19 @@ describe("User Information Page", () => {
         cy.get("@dcmPoolAdvertisement").then((poolAdvertisement) => {
           cy.createApplication(testUser.id, poolAdvertisement.id).then(
             (poolCandidate) => {
+              cy.getMeAllData().then((me) => {
+                // update application to be complete, createApplicant attaches a personal experience to the user
+                const experienceId = me.experiences[0].id;
+                cy.updateApplication(poolCandidate.id, {
+                  educationRequirementOption:
+                    EducationRequirementOption.AppliedWork,
+                  educationRequirementPersonalExperiences: {
+                    sync: [experienceId],
+                  },
+                })
+                  .its("id")
+                  .as("poolCandidateId");
+              });
               cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
                 .its("id")
                 .as("poolCandidateId");
@@ -150,6 +163,18 @@ describe("User Information Page", () => {
         cy.get("@newTeamPoolAdvertisement").then((poolAdvertisement) => {
           cy.createApplication(testUser.id, poolAdvertisement.id).then(
             (poolCandidate) => {
+              cy.getMeAllData().then((me) => {
+                const experienceId = me.experiences[0].id;
+                cy.updateApplication(poolCandidate.id, {
+                  educationRequirementOption:
+                    EducationRequirementOption.AppliedWork,
+                  educationRequirementPersonalExperiences: {
+                    sync: [experienceId],
+                  },
+                })
+                  .its("id")
+                  .as("poolCandidateId");
+              });
               cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
                 .its("id")
                 .as("poolCandidateId");
