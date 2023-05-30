@@ -8293,5 +8293,69 @@
   "HbzGOJ": {
     "defaultMessage": "Cette information permet aux candidats de savoir quel travail ou dans quel environnement ils appliquent. Utilisez cet espace pour discuter du secteur du gouvernement que le présent processus cherchera à améliorer, de même que des valeurs que ce travail génère.",
     "description": "Helper message for filling in the pool introduction"
+  },
+  "0lUoqK": {
+    "defaultMessage": "Renseignements personnels et de contact",
+    "description": "Title for the personal and contact information snapshot section"
+  },
+  "1ZZgbi": {
+    "defaultMessage": "Signature",
+    "description": "Title for the signature snapshot section"
+  },
+  "Fbh/MK": {
+    "defaultMessage": "Expérience minimale ou combinaison équivalente d’études",
+    "description": "Title for the minimum experience or equivalent education snapshot section."
+  },
+  "KsS1Py": {
+    "defaultMessage": "Profil linguistique",
+    "description": "Title for the language profile snapshot section"
+  },
+  "Nk/79O": {
+    "defaultMessage": "Voici le CV du/de la candidat(e) :",
+    "description": "Lead-in text for the snapshot résumé section"
+  },
+  "OxlRKl": {
+    "defaultMessage": "CV",
+    "description": "Title for the résumé snapshot section"
+  },
+  "XrfkBm": {
+    "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
+    "description": "Message displayed when no experiences have been attached to a skill"
+  },
+  "bqC0/E": {
+    "defaultMessage": "Exigences en matière de compétences",
+    "description": "Title for the skill requirements snapshot section"
+  },
+  "fEcEv3": {
+    "defaultMessage": "Signée",
+    "description": "Heading for the application snapshot users signature"
+  },
+  "iXCiSb": {
+    "defaultMessage": "Exigence de sélection : <strong>Expérience minimale ou exigence en matière d’études (2 années postsecondaires)</strong>.",
+    "description": "Application snapshot minimum experience section description"
+  },
+  "mDowK/": {
+    "defaultMessage": "Représentée par les expériences suivantes :",
+    "description": "Lead in text for experiences that represent the users skills"
+  },
+  "mqWvWR": {
+    "defaultMessage": "Questions relatives à la sélection préliminaire ",
+    "description": "Title for the screening questions snapshot section"
+  },
+  "nEVNHp": {
+    "defaultMessage": "Information sur l’employé(e) du gouvernement ",
+    "description": "Title for the government employee information snapshot section"
+  },
+  "s7F24X": {
+    "defaultMessage": "Préférences relatives au travail",
+    "description": "Title for the work preferences snapshot section"
+  },
+  "tpTntk": {
+    "defaultMessage": "Démontrée avec les expériences suivantes :",
+    "description": "Lead in text for experiences that demonstrate minimum education experience"
+  },
+  "zLeH2i": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Title for the diversity, equity, and inclusion snapshot section"
   }
 }
