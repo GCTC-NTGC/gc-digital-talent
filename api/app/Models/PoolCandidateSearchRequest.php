@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Carbon\Carbon;
 use UnexpectedValueException;
 
 /**
@@ -22,7 +23,6 @@ use UnexpectedValueException;
  * @property string $additional_comments
  * @property string $pool_candidate_filter_id
  * @property boolean $was_empty
- * @property string $status
  * @property string $admin_notes
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
@@ -75,11 +75,13 @@ class PoolCandidateSearchRequest extends Model
         }
 
         // $searchRequestStatus comes from enum PoolCandidateSearchStatus
+        // status is based off field done_at, a getter found below
         if ($searchRequestStatus == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING) {
-            $query->where('status', ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING);
+            $query->whereDate('done_at', '>', Carbon::now())
+                ->orWhereNull('done_at');
         }
         if ($searchRequestStatus == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE) {
-            $query->where('status', ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE);
+            $query->whereDate('done_at', '<=', Carbon::now());
         }
         return $query;
     }
