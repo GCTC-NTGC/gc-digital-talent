@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\CarbonImmutable;
 use Database\Helpers\ApiEnums;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -46,7 +47,9 @@ class PoolCandidateSearchRequest extends Model
         'done_at' => 'datetime',
     ];
 
-
+    /**
+     * Model relations
+     */
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
@@ -62,6 +65,28 @@ class PoolCandidateSearchRequest extends Model
         return $this->belongsTo(ApplicantFilter::class);
     }
 
+    /**
+     * Scopes/filters
+     */
+    public static function scopeSearchRequestStatus(Builder $query, ?string $searchRequestStatus)
+    {
+        if (empty($searchRequestStatus)) {
+            return $query;
+        }
+
+        // $searchRequestStatus comes from enum PoolCandidateSearchStatus
+        if ($searchRequestStatus == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING) {
+            $query->where('status', ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING);
+        }
+        if ($searchRequestStatus == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE) {
+            $query->where('status', ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE);
+        }
+        return $query;
+    }
+
+    /**
+     * Getters/Mutators
+     */
     public function getStatusAttribute(): string
     {
         $thisDoneAt = $this->done_at;

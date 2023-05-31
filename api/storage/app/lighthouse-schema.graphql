@@ -913,6 +913,19 @@ type PoolCandidateSearchRequest {
   wasEmpty: Boolean
 }
 
+input PoolCandidateSearchRequestInput {
+  status: PoolCandidateSearchStatus
+}
+
+"""A paginated list of PoolCandidateSearchRequest items."""
+type PoolCandidateSearchRequestPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of PoolCandidateSearchRequest items."""
+  data: [PoolCandidateSearchRequest!]!
+}
+
 enum PoolCandidateSearchStatus {
   PENDING
   DONE
@@ -1053,6 +1066,16 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): PoolCandidateWithSkillCountPaginator
+  poolCandidateSearchRequestsPaginated(
+    where: PoolCandidateSearchRequestInput
+    orderBy: [OrderByClause!]
+
+    """Limits number of fetched items. Maximum allowed value: 1000."""
+    first: Int = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): PoolCandidateSearchRequestPaginator
 }
 
 """Order by clause for Query.poolCandidatesPaginated.orderBy."""
