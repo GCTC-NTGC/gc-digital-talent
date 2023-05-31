@@ -1821,7 +1821,7 @@
     "defaultMessage": "Signature",
     "description": "Toc navigation item on sign and submit page."
   },
-  "9Eke1a": {
+  "21QCEK": {
     "defaultMessage": "« J’atteste que les renseignements que j’ai fournis sont vrais »",
     "description": "Signature list item on sign and submit page."
   },
@@ -1889,7 +1889,7 @@
     "defaultMessage": "Candidature présentée!",
     "description": "Message displayed to user after application is submitted successfully."
   },
-  "voTvve": {
+  "iIMpOW": {
     "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
     "description": "Signature list item on sign and submit page."
   },
@@ -1897,7 +1897,7 @@
     "defaultMessage": "Je n’ai pas de droit de priorité",
     "description": "Label displayed for does not have priority entitlement option"
   },
-  "dIZPra": {
+  "uooR1r": {
     "defaultMessage": "« Je comprends que je fais partie d’une communauté qui se fait confiance »",
     "description": "Signature list item on sign and submit page."
   },
@@ -4142,8 +4142,8 @@
     "defaultMessage": "Ville actuelle",
     "description": "CSV Header, Current City column"
   },
-  "D24NyA": {
-    "defaultMessage": "Ceci est le profil soumis le {submittedAt} pour le bassin : {poolName}",
+  "V2vBbu": {
+    "defaultMessage": "Ceci est le profil soumis le <strong>{submittedAt}</strong> pour le bassin : <strong>{poolName}</strong>",
     "description": "Snapshot details displayed above the pool candidate application page."
   },
   "DHfumB": {
@@ -4294,10 +4294,6 @@
     "defaultMessage": "Notes - {poolName}",
     "description": "Label for the notes field for a specific pool"
   },
-  "Z2KhWS": {
-    "defaultMessage": "Retourner à tous les candidats",
-    "description": "Navigation link back to All candidates."
-  },
   "a5msuh": {
     "defaultMessage": "Oui"
   },
@@ -4425,7 +4421,7 @@
     "defaultMessage": "Exigences de fonctionnement acceptées",
     "description": "CSV Header, Accepted Operation Requirements column"
   },
-  "rqXJfW": {
+  "L/Vj+K": {
     "defaultMessage": "Instantané du profil de la candidature",
     "description": "Title for the application's profile snapshot."
   },
@@ -8290,5 +8286,69 @@
   "ybi6QM": {
     "defaultMessage": "Je détiens un diplôme d’études secondaires ou un équivalent du GED",
     "description": "Radio group option for education requirement filter in Indigenous apprenticeship application education form."
+  },
+  "0lUoqK": {
+    "defaultMessage": "Renseignements personnels et de contact",
+    "description": "Title for the personal and contact information snapshot section"
+  },
+  "1ZZgbi": {
+    "defaultMessage": "Signature",
+    "description": "Title for the signature snapshot section"
+  },
+  "Fbh/MK": {
+    "defaultMessage": "Expérience minimale ou combinaison équivalente d’études",
+    "description": "Title for the minimum experience or equivalent education snapshot section."
+  },
+  "KsS1Py": {
+    "defaultMessage": "Profil linguistique",
+    "description": "Title for the language profile snapshot section"
+  },
+  "Nk/79O": {
+    "defaultMessage": "Voici le CV du/de la candidat(e) :",
+    "description": "Lead-in text for the snapshot résumé section"
+  },
+  "OxlRKl": {
+    "defaultMessage": "CV",
+    "description": "Title for the résumé snapshot section"
+  },
+  "XrfkBm": {
+    "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
+    "description": "Message displayed when no experiences have been attached to a skill"
+  },
+  "bqC0/E": {
+    "defaultMessage": "Exigences en matière de compétences",
+    "description": "Title for the skill requirements snapshot section"
+  },
+  "fEcEv3": {
+    "defaultMessage": "Signée",
+    "description": "Heading for the application snapshot users signature"
+  },
+  "J3Ud6R": {
+    "defaultMessage": "Exigence de sélection : <strong>{educationRequirementOption}</strong>.",
+    "description": "Application snapshot minimum experience section description"
+  },
+  "mDowK/": {
+    "defaultMessage": "Représentée par les expériences suivantes :",
+    "description": "Lead in text for experiences that represent the users skills"
+  },
+  "mqWvWR": {
+    "defaultMessage": "Questions relatives à la sélection préliminaire ",
+    "description": "Title for the screening questions snapshot section"
+  },
+  "nEVNHp": {
+    "defaultMessage": "Information sur l’employé(e) du gouvernement ",
+    "description": "Title for the government employee information snapshot section"
+  },
+  "s7F24X": {
+    "defaultMessage": "Préférences relatives au travail",
+    "description": "Title for the work preferences snapshot section"
+  },
+  "tpTntk": {
+    "defaultMessage": "Démontrée avec les expériences suivantes :",
+    "description": "Lead in text for experiences that demonstrate minimum education experience"
+  },
+  "zLeH2i": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Title for the diversity, equity, and inclusion snapshot section"
   }
 }

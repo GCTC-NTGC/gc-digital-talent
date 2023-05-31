@@ -7,6 +7,7 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
       lastName
     }
     profileSnapshot
+    signature
     submittedAt
     pool {
       id
@@ -19,6 +20,37 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
         id
         group
         level
+      }
+    }
+    poolAdvertisement {
+      id
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        families {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+      }
+      screeningQuestions {
+        id
+        question {
+          en
+          fr
+        }
       }
     }
   }

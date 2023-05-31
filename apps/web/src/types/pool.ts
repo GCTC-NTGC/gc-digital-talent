@@ -23,3 +23,5 @@ export interface EditPoolSectionMetadata {
   id: string;
   title: string;
 }
+
+export type PageNavKeys = "view" | "edit" | "candidates";

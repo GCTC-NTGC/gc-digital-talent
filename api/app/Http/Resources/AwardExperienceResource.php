@@ -19,7 +19,7 @@ class AwardExperienceResource extends JsonResource
             '__typename' => 'AwardExperience',
             'title' => $this->title,
             'issuedBy' => $this->issued_by,
-            'awardedDate' => $this->awarded_date,
+            'awardedDate' => $this->awarded_date->format('Y-m-d'),
             'awardedTo' => $this->awarded_to,
             'awardedScope' => $this->awarded_scope,
             'details' => $this->details,

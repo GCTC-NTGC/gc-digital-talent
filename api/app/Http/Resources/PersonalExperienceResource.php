@@ -19,8 +19,8 @@ class PersonalExperienceResource extends JsonResource
             '__typename' => 'PersonalExperience',
             'title' => $this->title,
             'description' => $this->description,
-            'startDate' => $this->start_date,
-            'endDate' => $this->end_date,
+            'startDate' => $this->start_date->format('Y-m-d'),
+            'endDate' => $this->end_date?->format('Y-m-d'),
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills)
         ];
