@@ -801,16 +801,16 @@
     "defaultMessage": "Expérience supprimée",
     "description": "Message displayed to user after experience deleted."
   },
-  "qHVR2p": {
-    "defaultMessage": "Bienvenue sur la plateforme Talent numérique. À l'avenir, vous pouvez vous connecter à votre profil en utilisant le même nom d'utilisateur et le même mot de passe que CléGC.",
+  "cmZ9cx": {
+    "defaultMessage": "Bienvenue sur la plateforme Talents numériques du GC. À l'avenir, vous pouvez vous connecter à votre profil en utilisant le même nom d'utilisateur et le même mot de passe que CléGC.",
     "description": "Message for successful login alert in create account page"
   },
   "0ScnOT": {
     "defaultMessage": "Quelle est votre langue de contact préférée?",
     "description": "Legend text for required language preference in create account form"
   },
-  "0m7BIV": {
-    "defaultMessage": "Bienvenue à Talent numérique",
+  "WVTDgX": {
+    "defaultMessage": "Bienvenue à Talents numériques du GC",
     "description": "Title for the create account page for applicant profiles."
   },
   "1CuGS6": {
@@ -1001,10 +1001,6 @@
     "defaultMessage": "Ces renseignements personnels supplémentaires ne seront utilisés qu'à des fins de communication.",
     "description": "Description for Personal Information section of the About Me form"
   },
-  "SSSNwI": {
-    "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
-    "description": "Instructions on how to login with GCKey"
-  },
   "KE49r9": {
     "defaultMessage": "Mon expérience et mes compétences",
     "description": "Heading for experience and skills page in applicant profile."
@@ -1088,10 +1084,6 @@
   "PIgh3U": {
     "defaultMessage": "Faites-nous savoir si vous voulez être contacté(e) pour de nouveaux emplois. Veuillez mettre à jour ce statut si votre situation change.",
     "description": "Description for My Status Form"
-  },
-  "ypVSZh": {
-    "defaultMessage": "Si vous n'êtes pas sûr(e) d'avoir un compte CléGC existant, continuez vers le site Web et essayez de vous connecter. Si vous ne pouvez pas vous souvenir de votre mot de passe, vous pouvez également le réinitialiser là.",
-    "description": "Instructions on what to do if user doesn't know if they have a GCKey"
   },
   "Q96xMb": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
@@ -1221,8 +1213,8 @@
     "defaultMessage": "Lieu de travail",
     "description": "Display Text for the current page in Work location Form Page"
   },
-  "Ec1Hn9": {
-    "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
+  "NcB+TT": {
+    "defaultMessage": "Vous pouvez vous connecter à votre profil de Talents numériques du GC à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
     "description": "Instructions on how to login with GCKey"
   },
   "cZmuts": {
@@ -2038,7 +2030,7 @@
     "description": "Button message on footer of review my application page."
   },
   "jRmRd+": {
-    "defaultMessage": "Talent numérique du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
+    "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
     "description": "Meta tag description for Talent Search site"
   },
   "rNVDaA": {
@@ -2054,7 +2046,7 @@
     "description": "Subtitle for the Support page"
   },
   "Mz+gUV": {
-    "defaultMessage": "Talent numérique du GC",
+    "defaultMessage": "Talents numériques du GC",
     "description": "Title tag for Talent Search site"
   },
   "PXlO7h": {
@@ -2293,16 +2285,16 @@
     "defaultMessage": "Énoncé sur l’accessibilité",
     "description": "Title for the websites accessibility statement"
   },
-  "rnPvJN": {
-    "defaultMessage": "Talent numérique du <abbreviation>GC</abbreviation> s’engage à créer un service numérique accessible et inclusif. Au cœur de la conception et du développement de notre plateforme, nous nous efforçons de créer des possibilités d'emploi égales pour tous. Pour nous, construire des services accessibles signifie répondre aux besoins du plus grand nombre de personnes possible, y compris les cas marginaux. En fait, nous travaillons dans toutes les disciplines –recherche, développement, conception et accessibilité – pour nous assurer que notre service est intentionnel, accessible et inclusif par sa conception.",
+  "fzqya3": {
+    "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> s’engage à créer un service numérique accessible et inclusif. Au cœur de la conception et du développement de notre plateforme, nous nous efforçons de créer des possibilités d'emploi égales pour tous. Pour nous, construire des services accessibles signifie répondre aux besoins du plus grand nombre de personnes possible, y compris les cas marginaux. En fait, nous travaillons dans toutes les disciplines –recherche, développement, conception et accessibilité – pour nous assurer que notre service est intentionnel, accessible et inclusif par sa conception.",
     "description": "Opening paragraph for accessibility statement"
   },
   "vC9NsS": {
     "defaultMessage": "Nos normes",
     "description": "Title for the accessibility standards"
   },
-  "a3c78j": {
-    "defaultMessage": "L’équipe de Talent numérique <abbreviation>GC</abbreviation> adhère aux <digitalStandardsLink>normes numériques inclusives du gouvernement du Canada</digitalStandardsLink> (GC).",
+  "tu2Z17": {
+    "defaultMessage": "L’équipe de Talents numériques du GC adhère aux <digitalStandardsLink>normes numériques inclusives du gouvernement du Canada</digitalStandardsLink> (GC).",
     "description": "Paragraph describing accessibility standards"
   },
   "ztQSF+": {
@@ -3353,7 +3345,7 @@
     "description": "Second section of text on the add user to pool dialog"
   },
   "MsFCeF": {
-    "defaultMessage": "Bienvenue à Talent numérique du GC, veuillez vous connecter pour continuer.",
+    "defaultMessage": "Bienvenue à Talents numériques du GC, veuillez vous connecter pour continuer.",
     "description": "Instructional text for the talent cloud pool manager portal home page."
   },
   "O8U5Sz": {
@@ -5865,7 +5857,7 @@
     "description": "Link text to skip the list of add skill links"
   },
   "vD6Uia": {
-    "defaultMessage": "Talent numérique du GC",
+    "defaultMessage": "Talents numériques du GC",
     "description": "Default title for the site"
   },
   "FckGRB": {
