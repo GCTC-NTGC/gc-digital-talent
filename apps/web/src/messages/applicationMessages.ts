@@ -63,6 +63,27 @@ const messages = defineMessages({
     id: "oIRkby",
     description: "Experience requirement, other.",
   },
+  confirmationLead: {
+    defaultMessage: "You made it! By signing your name below you confirm that:",
+    id: "i4CKlO",
+    description:
+      "Confirmation message before signature form on sign and submit page.",
+  },
+  confirmationReview: {
+    defaultMessage: `"I've reviewed everything written in my application"`,
+    id: "iIMpOW",
+    description: "Signature list item on sign and submit page.",
+  },
+  confirmationCommunity: {
+    defaultMessage: `"I understand that I am part of a community who trusts each other"`,
+    id: "uooR1r",
+    description: "Signature list item on sign and submit page.",
+  },
+  confirmationTrue: {
+    defaultMessage: `"I promise that the information I've provided is true"`,
+    id: "21QCEK",
+    description: "Signature list item on sign and submit page.",
+  },
 });
 
 export default messages;

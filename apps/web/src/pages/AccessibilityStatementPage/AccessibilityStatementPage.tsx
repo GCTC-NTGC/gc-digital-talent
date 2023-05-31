@@ -222,9 +222,9 @@ const AccessibilityStatementPage = () => {
           <p>
             {intl.formatMessage(
               {
-                id: "rnPvJN",
+                id: "fzqya3",
                 defaultMessage:
-                  "<abbreviation>GC</abbreviation> Digital Talent  is committed to building an accessible and inclusive digital service. At the heart of our platform design and development is an endeavour to create equal employment opportunities for all. To us, building accessible services means meeting the needs of as many people as possible, including edge cases. We are working across all disciplines - research, development, design, and accessibility - to ensure our service is intentional, accessible, and inclusive.",
+                  "<abbreviation>GC</abbreviation> Digital Talent is committed to building an accessible and inclusive digital service. At the heart of our platform design and development is an endeavour to create equal employment opportunities for all. To us, building accessible services means meeting the needs of as many people as possible, including edge cases. We are working across all disciplines - research, development, design, and accessibility - to ensure our service is intentional, accessible, and inclusive.",
                 description: "Opening paragraph for accessibility statement",
               },
               {
@@ -243,14 +243,13 @@ const AccessibilityStatementPage = () => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "The <abbreviation>GC</abbreviation> Digital Talent team follows inclusive <digitalStandardsLink>Government of Canada Digital Standards</digitalStandardsLink>.",
-                id: "a3c78j",
+                  "The GC Digital Talent team follows inclusive <digitalStandardsLink>Government of Canada Digital Standards</digitalStandardsLink>.",
+                id: "tu2Z17",
                 description: "Paragraph describing accessibility standards",
               },
               {
                 digitalStandardsLink: (chunks: React.ReactNode) =>
                   digitalStandardsLink(locale, chunks),
-                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
               },
             )}
           </p>

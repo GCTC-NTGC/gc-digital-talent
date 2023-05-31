@@ -4,6 +4,19 @@ import { useLocale, Locales } from "@gc-digital-talent/i18n";
 
 import { ExperienceType } from "~/types/experience";
 
+export const FromIapDraftQueryKey = "fromIapDraft";
+export const FromIapSuccessQueryKey = "fromIapSuccess";
+
+const createSearchQuery = (parameters: Map<string, string>): string => {
+  if (parameters.size === 0) return "";
+
+  const keyValuePairStrings = Array.from(
+    parameters,
+    ([key, value]) => `${key}=${value}`,
+  );
+  return `?${keyValuePairStrings.join("&")}`;
+};
+
 const getRoutes = (lang: Locales) => {
   const baseUrl = path.join("/", lang);
   const adminUrl = path.join(baseUrl, "admin");
@@ -262,7 +275,19 @@ const getRoutes = (lang: Locales) => {
       createExperienceUrl("work", userId, applicationId),
 
     // Applicant Dashboard
-    dashboard: () => path.join(applicantUrl, "dashboard"),
+    dashboard: (opts?: {
+      fromIapDraft?: boolean;
+      fromIapSuccess?: boolean;
+    }) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.fromIapDraft) searchParams.set(FromIapDraftQueryKey, "true");
+      if (opts?.fromIapSuccess)
+        searchParams.set(FromIapSuccessQueryKey, "true");
+
+      return (
+        path.join(applicantUrl, "dashboard") + createSearchQuery(searchParams)
+      );
+    },
 
     /**
      * Deprecated

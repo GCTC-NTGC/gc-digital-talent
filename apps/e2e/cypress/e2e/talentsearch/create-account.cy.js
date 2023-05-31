@@ -17,7 +17,7 @@ describe("Create account tests", () => {
 
     // should go to the create-account page
     cy.findByRole("heading", {
-      name: "Welcome to Digital Talent",
+      name: "Welcome to GC Digital Talent",
       level: 1,
     }).should("exist");
 

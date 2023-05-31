@@ -20,8 +20,8 @@ class CommunityExperienceResource extends JsonResource
             'title' => $this->title,
             'organization' => $this->organization,
             'project' => $this->project,
-            'startDate' => $this->start_date,
-            'endDate' => $this->end_date,
+            'startDate' => $this->start_date->format('Y-m-d'),
+            'endDate' => $this->end_date?->format('Y-m-d'),
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills)
         ];

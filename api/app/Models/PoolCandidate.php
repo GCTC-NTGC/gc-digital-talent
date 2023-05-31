@@ -442,10 +442,25 @@ class PoolCandidate extends Model
             'expectedClassifications',
             'expectedGenericJobTitles',
             'awardExperiences',
+            'awardExperiences.skills',
             'communityExperiences',
+            'communityExperiences.skills',
             'educationExperiences',
+            'educationExperiences.skills',
             'personalExperiences',
-            'workExperiences'
+            'personalExperiences.skills',
+            'workExperiences',
+            'workExperiences.skills',
+            'poolCandidates',
+            'poolCandidates.pool',
+            'poolCandidates.pool.classifications',
+            'poolCandidates.educationRequirementAwardExperiences.skills',
+            'poolCandidates.educationRequirementCommunityExperiences.skills',
+            'poolCandidates.educationRequirementEducationExperiences.skills',
+            'poolCandidates.educationRequirementPersonalExperiences.skills',
+            'poolCandidates.educationRequirementWorkExperiences.skills',
+            'poolCandidates.screeningQuestionResponses',
+            'poolCandidates.screeningQuestionResponses.screeningQuestion',
         ])->findOrFail($this->user_id);
         $profile = new UserResource($user);
 

@@ -224,9 +224,10 @@ class PoolCandidateUpdateTest extends TestCase
                 'educationRequirementCommunityExperiences' => [
                     'sync' => $communityExperienceIds,
                 ],
-                'educationRequirementEducationExperiences' => [
-                    'sync' => [],
-                ],
+                'educationRequirementAwardExperiences' => ['sync' => []],
+                'educationRequirementEducationExperiences' => ['sync' => [],],
+                'educationRequirementPersonalExperiences' => ['sync' => [],],
+                'educationRequirementWorkExperiences' => ['sync' => [],],
             ]
         ]);
         $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK]);
