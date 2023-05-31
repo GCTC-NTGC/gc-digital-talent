@@ -1,34 +1,53 @@
+import {
+  PoolAdvertisementLanguage,
+  PoolStream,
+  PublishingGroup,
+  SecurityStatus,
+} from "@gc-digital-talent/web/src/api/generated";
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
+
 export function createAndPublishPoolAdvertisement({
-  userId,
+  adminUserId,
   teamId,
-  name,
+  englishName,
+  classification,
   poolAdvertisementAlias,
-  essentialSkillIds,
-  classificationIds,
-  stream,
 }) {
-  let phpCommand = "php artisan app:create-pool";
-  phpCommand += " --state=published";
-  if (userId) phpCommand += ` --userId=${userId}`;
-  if (teamId) phpCommand += ` --teamId=${teamId}`;
-  if (name) phpCommand += ` --name='${name}'`;
-  if (essentialSkillIds) {
-    essentialSkillIds.forEach((id) => {
-      phpCommand += ` --essentialSkillId=${id}`;
-    });
-  }
-  if (classificationIds) {
-    classificationIds.forEach((id) => {
-      phpCommand += ` --classificationId=${id}`;
-    });
-  }
-  if (stream) phpCommand += ` --stream='${stream}'`;
-
-  const dockerCommand = `docker-compose exec -T -w "/var/www/html/wwwroot/api" webserver bash -c "${phpCommand}" `;
-
-  cy.exec(dockerCommand).then((result) => {
-    if (poolAdvertisementAlias) {
-      cy.wrap(JSON.parse(result.stdout)).as(poolAdvertisementAlias);
-    }
-  });
+  cy.createPoolAdvertisement(adminUserId, teamId, [classification.id]).then(
+    (createdPoolAdvertisement) => {
+      cy.get("@testSkill").then((skill) => {
+        cy.log(skill);
+        cy.updatePoolAdvertisement(createdPoolAdvertisement.id, {
+          name: {
+            en: englishName
+              ? englishName
+              : `Cypress Test Pool EN ${Date.now().valueOf()}`,
+            fr: `Cypress Test Pool FR ${Date.now().valueOf()}`,
+          },
+          stream: PoolStream.BusinessAdvisoryServices,
+          closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
+          yourImpact: {
+            en: "test impact EN",
+            fr: "test impact FR",
+          },
+          keyTasks: { en: "key task EN", fr: "key task FR" },
+          essentialSkills: {
+            sync: skill.id,
+          },
+          advertisementLanguage: PoolAdvertisementLanguage.Various,
+          securityClearance: SecurityStatus.Secret,
+          advertisementLocation: {
+            en: "test location EN",
+            fr: "test location FR",
+          },
+          isRemote: true,
+          publishingGroup: PublishingGroup.ItJobs,
+        }).then((updatedPoolAdvertisement) => {
+          cy.publishPoolAdvertisement(updatedPoolAdvertisement.id).as(
+            poolAdvertisementAlias,
+          );
+        });
+      });
+    },
+  );
 }

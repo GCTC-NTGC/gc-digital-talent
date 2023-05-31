@@ -1,3 +1,4 @@
+import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
@@ -9,9 +10,13 @@ describe("User Information Page", () => {
     cy.getSkills().then((allSkills) => {
       cy.wrap(allSkills[0]).as("testSkill"); // take the first skill for testing
     });
+    cy.getDepartments().then((allDepartments) => {
+      cy.wrap(allDepartments[0]).as("testDepartment"); // take the first department for testing
+    });
     cy.getGenericJobTitles().then((allGenericJobTitles) => {
       const testGenericJobTitle = allGenericJobTitles[0]; // take the first ID for testing matching
       cy.wrap(testGenericJobTitle).as("testGenericJobTitle");
+      cy.wrap(testGenericJobTitle.classification).as("testClassification");
     });
     // select some dimensions to use for testing
     cy.getTeams().then((allTeams) => {
@@ -50,24 +55,38 @@ describe("User Information Page", () => {
               addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
             });
 
-            // create and publish a new dcm pool advertisement
             // fetch the dcmId for pool creation
-            cy.getDCM().then((dcmId) => {
-              addRolesToUser(adminUserId, ["pool_operator"], dcmId);
+            let dcmId;
+            cy.getDCM().then((dcm) => {
+              dcmId = dcm;
+              addRolesToUser(adminUserId, ["pool_operator"], dcm);
+            });
+
+            // fetch the newTeamId for pool creation
+            let newTeamId;
+            cy.get("@newTeam").then((newTeam) => {
+              newTeamId = newTeam;
+              addRolesToUser(adminUserId, ["pool_operator"], newTeam);
+            });
+
+            // create and publish a new dcm pool advertisement
+            cy.get("@testClassification").then((classification) => {
               createAndPublishPoolAdvertisement({
+                adminUserId,
                 teamId: dcmId,
-                name: `Cypress Test Pool ${uniqueTestId} dcmPoolAdvertisement`,
+                englishName: `Cypress Test Pool EN ${uniqueTestId}`,
+                classification,
                 poolAdvertisementAlias: "dcmPoolAdvertisement",
               });
             });
 
             // create and publish a new newTeam pool advertisement
-            // fetch the newTeamId for pool creation
-            cy.get("@newTeam").then((newTeamId) => {
-              addRolesToUser(adminUserId, ["pool_operator"], newTeamId);
+            cy.get("@testClassification").then((classification) => {
               createAndPublishPoolAdvertisement({
+                adminUserId,
                 teamId: newTeamId,
-                name: `Cypress Test Pool ${uniqueTestId} newTeamPoolAdvertisement`,
+                englishName: `Cypress Test Pool EN ${uniqueTestId}`,
+                classification,
                 poolAdvertisementAlias: "newTeamPoolAdvertisement",
               });
             });

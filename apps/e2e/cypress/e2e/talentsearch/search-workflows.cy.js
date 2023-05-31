@@ -40,7 +40,7 @@ describe("Talent Search Workflow Tests", () => {
 
     const searchFindsMySingleCandidate = () => {
       cy.findByRole("article", {
-        name: new RegExp(`Cypress Test Pool 1 ${uniqueTestId}`, "i"),
+        name: `Cypress Test Pool EN 1 ${uniqueTestId} (I T 1 Business Line Advisory Services)`,
       }).within(() => {
         cy.contains("There is 1 matching candidate in this pool");
 
@@ -53,7 +53,7 @@ describe("Talent Search Workflow Tests", () => {
 
     const searchRejectsMySingleCandidate = () => {
       cy.findByRole("article", {
-        name: new RegExp(`Cypress Test Pool 1 ${uniqueTestId}`, "i"),
+        name: `Cypress Test Pool 1 EN ${uniqueTestId} (I T 1 Business Line Advisory Services)`,
       }).should("not.exist");
     };
 
@@ -78,28 +78,31 @@ describe("Talent Search Workflow Tests", () => {
             });
 
             // fetch the dcmId for its team from database, needed for pool creation
-            cy.getDCM().then((dcmId) => {
-              addRolesToUser(adminUserId, ["pool_operator"], dcmId);
-              // create, update, and publish a new pool advertisement for testing matching
-              cy.get("@testClassification1").then((classification) => {
-                createAndPublishPoolAdvertisement({
-                  teamId: dcmId,
-                  name: `Cypress Test Pool 1 ${uniqueTestId}`,
-                  classificationIds: [classification.id],
-                  poolAdvertisementAlias: "publishedTestPoolAdvertisement1",
-                  stream: "BUSINESS_ADVISORY_SERVICES",
-                });
-              });
+            let dcmId;
+            cy.getDCM().then((dcm) => {
+              dcmId = dcm;
+              addRolesToUser(adminUserId, ["pool_operator"], dcm);
+            });
 
-              // create, update, and publish a new pool advertisement for testing rejection
-              cy.get("@testClassification2").then((classification) => {
-                createAndPublishPoolAdvertisement({
-                  teamId: dcmId,
-                  name: `Cypress Test Pool 2 ${uniqueTestId}`,
-                  classification,
-                  poolAdvertisementAlias: "publishedTestPoolAdvertisement2",
-                  stream: "BUSINESS_ADVISORY_SERVICES",
-                });
+            // create, update, and publish a new pool advertisement for testing matching
+            cy.get("@testClassification1").then((classification) => {
+              createAndPublishPoolAdvertisement({
+                adminUserId,
+                teamId: dcmId,
+                englishName: `Cypress Test Pool EN 1 ${uniqueTestId}`,
+                classification,
+                poolAdvertisementAlias: "publishedTestPoolAdvertisement1",
+              });
+            });
+
+            // create, update, and publish a new pool advertisement for testing rejection
+            cy.get("@testClassification2").then((classification) => {
+              createAndPublishPoolAdvertisement({
+                adminUserId,
+                teamId: dcmId,
+                englishName: `Cypress Test Pool EN 2 ${uniqueTestId}`,
+                classification,
+                poolAdvertisementAlias: "publishedTestPoolAdvertisement2",
               });
             });
           });
@@ -252,7 +255,7 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     cy.findByRole("article", {
-      name: new RegExp(`Cypress Test Pool 1 ${uniqueTestId}`, "i"),
+      name: `Cypress Test Pool EN 1 ${uniqueTestId} (I T 1 Business Line Advisory Services)`,
     }).within(() => {
       // Finding this button is sensitive to "dom detached" errors.
       // Must not try to click it unless we know there are no inflight searches.
