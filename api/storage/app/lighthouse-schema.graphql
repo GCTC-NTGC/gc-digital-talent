@@ -1070,7 +1070,7 @@ type Query {
     where: PoolCandidateSearchRequestInput
     orderBy: [OrderByClause!]
 
-    """Limits number of fetched items. Maximum allowed value: 1000."""
+    """Limits number of fetched items. Maximum allowed value: 500."""
     first: Int = 10
 
     """The offset from which items are returned."""

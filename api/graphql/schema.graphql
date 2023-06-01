@@ -1060,7 +1060,7 @@ type Query {
     orderBy: [OrderByClause!] @orderBy
   ): [PoolCandidateSearchRequest]!
     @orderBy(column: "created_at", direction: DESC)
-    @paginate(defaultCount: 10, maxCount: 1000)
+    @paginate(defaultCount: 10, maxCount: 500)
     @guard
     @can(ability: "viewAny")
   skillFamily(id: UUID! @eq): SkillFamily @find @can(ability: "view")
