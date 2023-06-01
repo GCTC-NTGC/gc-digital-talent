@@ -100,9 +100,9 @@ const DuplicateDialog = ({
                 onClick={onDuplicate}
               >
                 {intl.formatMessage({
-                  defaultMessage: "Duplicate and view new pool",
-                  id: "b71NDl",
-                  description: "Button text to duplicate a pool",
+                  defaultMessage: "Duplicate and view new job poster",
+                  id: "QmMm7V",
+                  description: "Button text to duplicate a job poster",
                 })}
               </Button>
             </Dialog.Footer>
