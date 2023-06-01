@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 
 import { action } from "@storybook/addon-actions";
 import { getStaticSkills, fakeExperiences } from "@gc-digital-talent/fake-data";
@@ -14,11 +14,11 @@ const mockExperiences = fakeExperiences(5);
 
 export default {
   component: AddASkillToLibraryDialog,
-  title: "Components/Dialog/SkillDialog/AddASkillToLibraryDialog",
+  title: "Components/Dialog/Skill Dialog/Add A Skill To Library",
   decorators: [OverlayOrDialogDecorator],
-} as ComponentMeta<typeof AddASkillToLibraryDialog>;
+};
 
-const Template: ComponentStory<typeof AddASkillToLibraryDialog> = (args) => {
+const Template: StoryFn<typeof AddASkillToLibraryDialog> = (args) => {
   const handleSave = async (values: FormValues) => {
     await new Promise<void>((resolve) => {
       setTimeout(() => {

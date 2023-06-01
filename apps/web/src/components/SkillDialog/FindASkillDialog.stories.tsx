@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
@@ -11,11 +11,11 @@ const mockSkills = getStaticSkills();
 
 export default {
   component: FindASkillDialog,
-  title: "Components/Dialog/SkillDialog/FindASkillDialog",
+  title: "Components/Dialog/Skill Dialog/Find a Skill",
   decorators: [OverlayOrDialogDecorator],
-} as ComponentMeta<typeof FindASkillDialog>;
+};
 
-const Template: ComponentStory<typeof FindASkillDialog> = (args) => {
+const Template: StoryFn<typeof FindASkillDialog> = (args) => {
   const handleSave = async (values: FormValues) => {
     await new Promise<void>((resolve) => {
       action("onSave")(values);
