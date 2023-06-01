@@ -39,7 +39,7 @@
     "urql": "3.0.4"
   },
   "devDependencies": {
-    "@faker-js/faker": "^7.6.0",
+    "@faker-js/faker": "^8.0.2",
     "@gc-digital-talent/fake-data": "*",
     "@gc-digital-talent/jest-helpers": "*",
     "@storybook/addon-actions": "^7.0.6",

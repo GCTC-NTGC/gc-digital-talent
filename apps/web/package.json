@@ -28,7 +28,7 @@
     "**/*.css"
   ],
   "dependencies": {
-    "@faker-js/faker": "^7.6.0",
+    "@faker-js/faker": "^8.0.2",
     "@gc-digital-talent/auth": "*",
     "@gc-digital-talent/client": "*",
     "@gc-digital-talent/date-helpers": "*",

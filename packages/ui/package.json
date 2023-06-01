@@ -50,7 +50,7 @@
     "urql": "3.0.4"
   },
   "devDependencies": {
-    "@faker-js/faker": "^7.6.0",
+    "@faker-js/faker": "^8.0.2",
     "@gc-digital-talent/fake-data": "*",
     "@gc-digital-talent/jest-helpers": "*",
     "@mdx-js/react": "^2.3.0",
