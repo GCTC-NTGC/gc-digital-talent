@@ -70,7 +70,7 @@ class PoolCandidateSearchRequestTest extends TestCase
     }
 
     /**
-     * Test create mutation fail when neither filter present
+     * Test create mutation fail when applicantFilter is not present
      *
      * @return void
      */
@@ -82,10 +82,9 @@ class PoolCandidateSearchRequestTest extends TestCase
             'department' => [
                 'connect' => Department::inRandomOrder()->first()->id
             ],
-        ])->assertGraphQLValidationKeys([
-            'poolCandidateSearchRequest.poolCandidateFilter',
-            'poolCandidateSearchRequest.applicantFilter'
-        ]);
+        ])->assertSeeText(
+            'Field value.applicantFilter of required type ApplicantFilterBelongsTo! was not provided.'
+        );
     }
 
     /**
@@ -105,30 +104,6 @@ class PoolCandidateSearchRequestTest extends TestCase
             'applicantFilter' => [
                 'create' => [
                     'hasDiploma' => true
-                ]
-            ]
-        ])->assertJson(function (AssertableJson $json) {
-            $json->has('data.createPoolCandidateSearchRequest.id');
-        });
-    }
-
-    /**
-     * Test create mutation passes when
-     * pool candidate filter is present
-     *
-     * @return void
-     */
-    public function testMutationCreatePassesWithPoolCandidateFilter()
-    {
-        $this->seed(DepartmentSeeder::class);
-
-        $this->runCreateMutation([
-            'department' => [
-                'connect' => Department::inRandomOrder()->first()->id
-            ],
-            'poolCandidateFilter' => [
-                'create' => [
-                    'hasDiploma' => false
                 ]
             ]
         ])->assertJson(function (AssertableJson $json) {

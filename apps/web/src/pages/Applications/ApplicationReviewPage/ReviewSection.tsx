@@ -35,7 +35,8 @@ const ReviewSection = ({
         >
           {intl.formatMessage({
             defaultMessage: "Edit this section",
-            id: "mu6uvE",
+            id: "Z8hEuY",
+            description: "Default edit link text for application review page",
           })}
         </Link>
       </div>

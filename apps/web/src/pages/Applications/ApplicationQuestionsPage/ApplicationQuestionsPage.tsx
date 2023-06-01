@@ -60,7 +60,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   const paths = useRoutes();
   const navigate = useNavigate();
   const { applicantDashboard } = useFeatureFlags();
-  const { currentStepOrdinal } = useApplicationContext();
+  const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -68,7 +68,9 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
     stepOrdinal: currentStepOrdinal,
   });
   const [, executeMutation] = useUpdateApplicationMutation();
-  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
+  const cancelPath = applicantDashboard
+    ? paths.dashboard({ fromIapDraft: isIAP })
+    : paths.myProfile();
 
   const screeningQuestions =
     application.pool.screeningQuestions?.filter(notEmpty) || [];

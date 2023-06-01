@@ -19,6 +19,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import applicationMessages from "~/messages/applicationMessages";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Pool,
@@ -97,24 +98,9 @@ const SignatureForm = ({
   const methods = useForm<FormValues>();
   const navigate = useNavigate();
   const confirmations = [
-    intl.formatMessage({
-      defaultMessage: `"I've reviewed everything written in my
-        application"`,
-      id: "voTvve",
-      description: "Signature list item on sign and submit page.",
-    }),
-    intl.formatMessage({
-      defaultMessage: `"I understand that I am part of a community who trusts each
-        other"`,
-      id: "dIZPra",
-      description: "Signature list item on sign and submit page.",
-    }),
-    intl.formatMessage({
-      defaultMessage: `"I promise that the information I've provided is
-        true"`,
-      id: "9Eke1a",
-      description: "Signature list item on sign and submit page.",
-    }),
+    intl.formatMessage(applicationMessages.confirmationReview),
+    intl.formatMessage(applicationMessages.confirmationCommunity),
+    intl.formatMessage(applicationMessages.confirmationTrue),
   ];
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
@@ -146,13 +132,7 @@ const SignatureForm = ({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <p data-h2-margin="base(0, 0, x1, 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "You made it! By signing your name below you confirm that:",
-            id: "i4CKlO",
-            description:
-              "Confirmation message before signature form on sign and submit page.",
-          })}
+          {intl.formatMessage(applicationMessages.confirmationLead)}
         </p>
         <ul>
           {confirmations.map((item) => (

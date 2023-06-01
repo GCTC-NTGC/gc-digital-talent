@@ -13,7 +13,7 @@ const testId = (text: React.ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
 );
 
-export interface SearchPoolsProps {
+export interface SearchResultCardProps {
   candidateCount: number;
   pool: Pick<
     Pool,
@@ -26,11 +26,11 @@ export interface SearchPoolsProps {
   ) => Promise<void>;
 }
 
-const SearchPools = ({
+const SearchResultCard = ({
   candidateCount,
   pool,
   handleSubmit,
-}: SearchPoolsProps) => {
+}: SearchResultCardProps) => {
   const intl = useIntl();
   const selectedClassifications =
     pool.classifications as SimpleClassification[];
@@ -152,4 +152,4 @@ const SearchPools = ({
   );
 };
 
-export default SearchPools;
+export default SearchResultCard;

@@ -1,22 +1,28 @@
 import React from "react";
 import { IntlShape } from "react-intl";
-import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
+import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
+import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 
-import { SimpleClassification, SimplePool } from "~/types/pool";
+import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import { RoleAssignment } from "@gc-digital-talent/graphql";
+import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
+import { PageNavKeys, SimpleClassification, SimplePool } from "~/types/pool";
 import {
   PoolStatus,
   Maybe,
   PoolCandidate,
   Scalars,
-  Pool,
   PoolStream,
   Classification,
+  Pool,
 } from "~/api/generated";
 
-import { RoleAssignment } from "@gc-digital-talent/graphql";
-import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { wrapAbbr } from "./nameUtils";
+import { PageNavInfo } from "../types/pages";
+import useRoutes from "../hooks/useRoutes";
 
 /**
  * Check if a pool matches a
@@ -184,3 +190,57 @@ export const getFullPoolTitleLabel = (
   pool: Maybe<Pick<Pool, "name" | "classifications" | "stream">>,
   options?: { defaultTitle?: string },
 ): string => fullPoolTitle(intl, pool, options).label;
+
+export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
+  const paths = useRoutes();
+
+  return new Map<PageNavKeys, PageNavInfo>([
+    [
+      "view",
+      {
+        icon: ClipboardDocumentIcon,
+        title: intl.formatMessage({
+          defaultMessage: "Pool information",
+          id: "Cjp2F6",
+          description: "Title for the pool info page",
+        }),
+        link: {
+          url: paths.poolView(pool.id),
+        },
+      },
+    ],
+    [
+      "edit",
+      {
+        icon: Cog8ToothIcon,
+        title: intl.formatMessage({
+          defaultMessage: "Edit pool",
+          id: "l7Wu86",
+          description: "Title for the edit pool page",
+        }),
+        link: {
+          url: paths.poolUpdate(pool.id),
+        },
+      },
+    ],
+    [
+      "candidates",
+      {
+        icon: UserGroupIcon,
+        title: intl.formatMessage({
+          defaultMessage: "Candidates",
+          id: "X4TOhW",
+          description: "Page title for the admin pool candidates index page",
+        }),
+        link: {
+          url: paths.poolCandidateTable(pool.id),
+          label: intl.formatMessage({
+            defaultMessage: "View Candidates",
+            id: "Rl+0Er",
+            description: "Title for the edit pool page",
+          }),
+        },
+      },
+    ],
+  ]);
+};

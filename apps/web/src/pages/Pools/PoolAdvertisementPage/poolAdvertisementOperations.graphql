@@ -104,6 +104,7 @@ query getPool($id: UUID!) {
     }
     stream
     processNumber
+    publishingGroup
     screeningQuestions {
       id
       question {

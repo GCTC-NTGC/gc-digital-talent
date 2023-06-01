@@ -51,7 +51,7 @@ const ApplicationSkillsIntroduction = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { currentStepOrdinal } = useApplicationContext();
+  const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -107,7 +107,11 @@ const ApplicationSkillsIntroduction = ({
           })}
         </Link>
         <Link
-          href={applicantDashboard ? paths.dashboard() : paths.myProfile()}
+          href={
+            applicantDashboard
+              ? paths.dashboard({ fromIapDraft: isIAP })
+              : paths.myProfile()
+          }
           mode="inline"
           type="button"
           color="secondary"

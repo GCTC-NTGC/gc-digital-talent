@@ -88,8 +88,10 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   );
   const { applicantDashboard } = useFeatureFlags();
   const [, executeMutation] = useUpdateApplicationMutation();
-  const { followingPageUrl } = useApplicationContext();
-  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
+  const { followingPageUrl, isIAP } = useApplicationContext();
+  const cancelPath = applicantDashboard
+    ? paths.dashboard({ fromIapDraft: isIAP })
+    : paths.myProfile();
   const nextStep =
     followingPageUrl ?? paths.applicationQuestionsIntro(application.id);
 

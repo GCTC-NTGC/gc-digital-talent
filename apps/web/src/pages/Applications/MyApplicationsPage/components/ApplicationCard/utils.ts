@@ -74,7 +74,7 @@ export const formatSubmittedAt = (
   return submittedAt
     ? formatDate({
         date: parseDateTimeUtc(submittedAt),
-        formatString: "MMMM do, yyyy",
+        formatString: "PPP p",
         intl,
       })
     : "";

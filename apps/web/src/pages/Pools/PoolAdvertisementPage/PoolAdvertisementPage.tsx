@@ -33,7 +33,13 @@ import {
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
 
-import { PoolStatus, Scalars, useGetPoolQuery, Pool } from "~/api/generated";
+import {
+  PoolStatus,
+  Scalars,
+  useGetPoolQuery,
+  Pool,
+  PublishingGroup,
+} from "~/api/generated";
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
   formatClassificationString,
@@ -416,7 +422,9 @@ export const PoolPoster = ({
                   { title: fullTitle },
                 )}
               </Text>
-              <EducationRequirements />
+              <EducationRequirements
+                isIAP={pool.publishingGroup === PublishingGroup.Iap}
+              />
               <Heading level="h3" size="h4">
                 {intl.formatMessage({
                   defaultMessage: "Skill requirements",
