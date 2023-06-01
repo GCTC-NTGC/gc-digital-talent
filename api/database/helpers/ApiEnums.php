@@ -217,7 +217,7 @@ class ApiEnums
      *
      * @return string[]
      */
-    public static function poolStatuses(): array
+    public static function oldPoolStatuses(): array
     {
         return [
             self::POOL_STATUS_NOT_TAKING_APPLICATIONS,

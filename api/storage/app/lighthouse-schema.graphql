@@ -1,10 +1,3 @@
-enum AdvertisementStatus {
-  DRAFT
-  PUBLISHED
-  CLOSED
-  ARCHIVED
-}
-
 type Applicant {
   id: ID!
   firstName: String
@@ -642,13 +635,12 @@ type Mutation {
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
   createPool(userId: ID!, teamId: ID!, pool: CreatePoolInput!): Pool
-  duplicatePoolAdvertisement(id: ID!, teamId: ID!): Pool
+  duplicatePool(id: ID!, teamId: ID!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
-  publishPoolAdvertisement(id: ID!): Pool
+  publishPool(id: ID!): Pool
   changePoolClosingDate(id: ID!, newClosingDate: DateTime!): Pool
-  closePoolAdvertisement(id: ID!): Pool
+  closePool(id: ID!): Pool
   deletePool(id: ID!): Pool
-  deletePoolAdvertisement(id: ID!): Pool
   archiveApplication(id: ID!): PoolCandidate
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
@@ -804,10 +796,10 @@ type Pool {
   keyTasks: LocalizedString
   yourImpact: LocalizedString
   isRemote: Boolean
-  advertisementLocation: LocalizedString
+  location: LocalizedString
   securityClearance: SecurityStatus
-  advertisementLanguage: PoolAdvertisementLanguage
-  advertisementStatus: AdvertisementStatus
+  language: PoolLanguage
+  status: PoolStatus
   essentialSkills: [Skill!]
   nonessentialSkills: [Skill!]
   stream: PoolStream
@@ -818,14 +810,6 @@ type Pool {
   screeningQuestions: [ScreeningQuestion]
   closingDate: DateTime
   publishedAt: DateTime
-}
-
-enum PoolAdvertisementLanguage {
-  ENGLISH
-  FRENCH
-  VARIOUS
-  BILINGUAL_INTERMEDIATE
-  BILINGUAL_ADVANCED
 }
 
 input PoolBelongsTo {
@@ -952,6 +936,21 @@ type PoolCandidateWithSkillCountPaginator {
   data: [PoolCandidateWithSkillCount!]!
 }
 
+enum PoolLanguage {
+  ENGLISH
+  FRENCH
+  VARIOUS
+  BILINGUAL_INTERMEDIATE
+  BILINGUAL_ADVANCED
+}
+
+enum PoolStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+  ARCHIVED
+}
+
 enum PoolStream {
   BUSINESS_ADVISORY_SERVICES
   DATABASE_MANAGEMENT
@@ -1006,7 +1005,7 @@ type Query {
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   pools: [Pool]!
-  publishedPoolAdvertisements(closingAfter: DateTime): [Pool!]!
+  publishedPools(closingAfter: DateTime): [Pool!]!
   poolByKey(key: String!): Pool
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]): [PoolCandidate]!
@@ -1364,9 +1363,9 @@ input UpdatePoolInput {
   keyTasks: LocalizedStringInput
   essentialSkills: SkillBelongsToMany
   nonessentialSkills: SkillBelongsToMany
-  advertisementLanguage: PoolAdvertisementLanguage
+  language: PoolLanguage
   securityClearance: SecurityStatus
-  advertisementLocation: LocalizedStringInput
+  location: LocalizedStringInput
   isRemote: Boolean
   publishingGroup: PublishingGroup
   screeningQuestions: UpdateScreeningQuestionsHasMany

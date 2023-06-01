@@ -56,7 +56,7 @@ final class PublishPoolValidator extends Validator
             'required' => ':attribute required',
             'exists' => ':attribute does not exist.',
             'closing_date.after' => 'Closing date must be after today.',
-            'advertisement_location.*.required_if' => 'AdvertisementLocationRequired',
+            'advertisement_location.*.required_if' => 'PoolLocationRequired',
             'advertisement_location.*.required_with' => 'You must enter both french and english fields for the advertisement_location',
             'in' => ':attribute does not contain a valid value.',
             'essential_skills.required' => 'EssentialSkillRequired',

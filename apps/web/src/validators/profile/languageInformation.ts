@@ -62,9 +62,7 @@ export function hasEmptyOptionalFields({
 
 export function hasUnsatisfiedRequirements(
   applicant: Applicant,
-  poolAdvertisement: Pool | null,
+  pool: Pool | null,
 ): boolean {
-  return (
-    getMissingLanguageRequirements(applicant, poolAdvertisement).length > 0
-  );
+  return getMissingLanguageRequirements(applicant, pool).length > 0;
 }

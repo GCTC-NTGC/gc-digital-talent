@@ -14,7 +14,7 @@ import educationStepInfo from "~/pages/Applications/educationStep/educationStepI
 import profileStepInfo from "~/pages/Applications/profileStep/profileStepInfo";
 import successPageInfo from "~/pages/Applications/successStep/successStepInfo";
 import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
-import { isIAPPoolAdvertisement } from "~/pages/Applications/ApplicationContext";
+import { isIAPPool } from "~/pages/Applications/ApplicationContext";
 
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
@@ -33,9 +33,7 @@ export const getApplicationSteps = ({
   // build the order of step functions to call
   const stepInfoFunctions = [
     welcomeStepInfo,
-    ...(isIAPPoolAdvertisement(application.pool)
-      ? [selfDeclarationStepInfo]
-      : []),
+    ...(isIAPPool(application.pool) ? [selfDeclarationStepInfo] : []),
     profileStepInfo,
     resumeStepInfo,
     educationStepInfo,

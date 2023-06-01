@@ -345,7 +345,7 @@ type Pool {
   location: LocalizedString @rename(attribute: "advertisement_location")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
   language: PoolLanguage @rename(attribute: "advertisement_language")
-  status: PoolStatus @rename(attribute: "advertisement_status")
+  status: PoolStatus @rename(attribute: "status")
   essentialSkills: [Skill!] @belongsToMany
   nonessentialSkills: [Skill!] @belongsToMany
   stream: PoolStream

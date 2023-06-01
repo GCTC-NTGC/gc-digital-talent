@@ -6,10 +6,10 @@ type PartialPoolCandidate = Pick<PoolCandidate, "screeningQuestionResponses">;
 
 export function hasMissingResponses(
   poolCandidate: PartialPoolCandidate,
-  poolAdvertisement: Pool | null,
+  pool: Pool | null,
 ): boolean {
   const poolQuestionIds =
-    poolAdvertisement?.screeningQuestions
+    pool?.screeningQuestions
       ?.map((q) => {
         return q?.id;
       })

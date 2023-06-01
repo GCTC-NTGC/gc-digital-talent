@@ -8,10 +8,10 @@ import {
 } from "@gc-digital-talent/date-helpers";
 
 import {
-  AdvertisementStatus,
+  PoolStatus,
   Classification,
   Pool,
-  PoolAdvertisementLanguage,
+  PoolLanguage,
   User,
   UserPublicProfile,
   PoolStream,
@@ -56,13 +56,9 @@ const generatePool = (
     publishingGroup: faker.helpers.maybe(() =>
       faker.helpers.arrayElement(Object.values(PublishingGroup)),
     ),
-    advertisementLanguage: faker.helpers.arrayElement(
-      Object.values(PoolAdvertisementLanguage),
-    ),
-    advertisementLocation: toLocalizedString(faker.address.cityName()),
-    advertisementStatus: faker.helpers.arrayElement(
-      Object.values(AdvertisementStatus),
-    ),
+    language: faker.helpers.arrayElement(Object.values(PoolLanguage)),
+    location: toLocalizedString(faker.address.cityName()),
+    status: faker.helpers.arrayElement(Object.values(PoolStatus)),
     essentialSkills: faker.helpers.arrayElements(
       skills,
       faker.datatype.number({

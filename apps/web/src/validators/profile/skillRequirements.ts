@@ -11,10 +11,10 @@ type PartialPool = Pick<Pool, "essentialSkills" | "nonessentialSkills">;
 
 export function isIncomplete(
   applicant: PartialApplicant,
-  poolAdvertisement: PartialPool,
+  pool: PartialPool,
 ): boolean {
   const poolEssentialTechnicalSkills = filterSkillsByCategory(
-    poolAdvertisement.essentialSkills,
+    pool.essentialSkills,
     SkillCategory.Technical,
   );
 

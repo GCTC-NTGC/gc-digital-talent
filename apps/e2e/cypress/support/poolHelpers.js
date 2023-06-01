@@ -1,5 +1,5 @@
 import {
-  PoolAdvertisementLanguage,
+  PoolLanguage,
   PoolStream,
   PublishingGroup,
   SecurityStatus,
@@ -17,7 +17,7 @@ export function createAndPublishPool({
     (createdPool) => {
       cy.get("@testSkill").then((skill) => {
         cy.log(skill);
-        cy.updatePoolAdvertisement(createdPool.id, {
+        cy.updatePool(createdPool.id, {
           name: {
             en: englishName
               ? englishName
@@ -34,16 +34,16 @@ export function createAndPublishPool({
           essentialSkills: {
             sync: skill.id,
           },
-          advertisementLanguage: PoolAdvertisementLanguage.Various,
+          language: PoolLanguage.Various,
           securityClearance: SecurityStatus.Secret,
-          advertisementLocation: {
+          location: {
             en: "test location EN",
             fr: "test location FR",
           },
           isRemote: true,
           publishingGroup: PublishingGroup.ItJobs,
         }).then((updatedPool) => {
-          cy.publishPoolAdvertisement(updatedPool.id).as(poolAlias);
+          cy.publishPool(updatedPool.id).as(poolAlias);
         });
       });
     },
