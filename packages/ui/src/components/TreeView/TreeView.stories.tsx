@@ -8,6 +8,8 @@ import Card from "../Card";
 import Alert from "../Alert";
 import { StandardHeader } from "../Accordion/StandardHeader";
 
+faker.seed(0);
+
 export default {
   component: TreeView.Root,
   title: "Components/TreeView",
