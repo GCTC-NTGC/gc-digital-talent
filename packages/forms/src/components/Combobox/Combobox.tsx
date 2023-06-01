@@ -37,6 +37,8 @@ export interface ComboboxProps
   name: string;
   /** Holds text for the label associated with the input element */
   label: React.ReactNode;
+  /** Button text to clear the current text from the input (optional) */
+  clearLabel?: string;
   /** Optional context which user can view by toggling a button. */
   context?: string;
   /** Set of validation rules and error messages to impose on input. */
@@ -58,6 +60,7 @@ export interface ComboboxProps
 const Combobox = ({
   id,
   label,
+  clearLabel,
   name,
   rules = {},
   readOnly,
@@ -204,9 +207,9 @@ const Combobox = ({
             showClear={!!selectedOption || query !== ""}
             onClear={handleClear}
             fetching={fetching}
-            clearLabel={intl
-              .formatMessage(formMessages.resetCombobox, { label })
-              .toString()}
+            clearLabel={
+              clearLabel || intl.formatMessage(formMessages.resetCombobox)
+            }
           />
         </div>
         <ComboboxPrimitive.Options
