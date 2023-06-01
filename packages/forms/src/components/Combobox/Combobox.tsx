@@ -87,7 +87,6 @@ const Combobox = ({
   const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
 
-  // TODO: Make this filter much smarter, possibly fuse.js
   const filteredOptions = React.useMemo(() => {
     if (query === "" || isExternalSearch) {
       return options;
