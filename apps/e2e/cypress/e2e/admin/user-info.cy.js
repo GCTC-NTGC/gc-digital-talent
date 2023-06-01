@@ -1,5 +1,5 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import { createAndPublishPool } from "../../support/poolAdvertisementHelpers";
+import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("User Information Page", () => {
@@ -134,27 +134,23 @@ describe("User Information Page", () => {
       // Submit an application to DCM pool (connected to pool_operator) with the test user
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
-        cy.get("@dcmPoolAdvertisement").then((poolAdvertisement) => {
-          cy.createApplication(testUser.id, poolAdvertisement.id).then(
-            (poolCandidate) => {
-              cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
-                .its("id")
-                .as("poolCandidateId");
-            },
-          );
+        cy.get("@dcmPool").then((pool) => {
+          cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
+            cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+              .its("id")
+              .as("poolCandidateId");
+          });
         });
       });
       // Submit an application to newTeam pool (NOT connected to pool_operator) with the test user
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
-        cy.get("@newTeamPoolAdvertisement").then((poolAdvertisement) => {
-          cy.createApplication(testUser.id, poolAdvertisement.id).then(
-            (poolCandidate) => {
-              cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
-                .its("id")
-                .as("poolCandidateId");
-            },
-          );
+        cy.get("@newTeamPool").then((pool) => {
+          cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
+            cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+              .its("id")
+              .as("poolCandidateId");
+          });
         });
       });
 

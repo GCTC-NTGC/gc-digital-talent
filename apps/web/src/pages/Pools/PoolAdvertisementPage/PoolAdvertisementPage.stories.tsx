@@ -1,28 +1,28 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { fakePools } from "@gc-digital-talent/fake-data";
-import { PoolAdvertisementPoster } from "./PoolAdvertisementPage";
+import { PoolPoster } from "./PoolAdvertisementPage";
 
-const fakeAdvertisement = fakePools(1)[0];
+const fakePool = fakePools(1)[0];
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const nullAdvertisement: any = {};
-Object.keys(fakeAdvertisement).forEach((key) => {
-  nullAdvertisement[key] = null;
+const nullPool: any = {};
+Object.keys(fakePool).forEach((key) => {
+  nullPool[key] = null;
 });
-nullAdvertisement.id = fakeAdvertisement.id; // advertisement will never have a null id
+nullPool.id = fakePool.id; // pool will never have a null id
 
 export default {
-  component: PoolAdvertisementPoster,
-  title: "Pages/Pool Advertisement Poster",
-} as ComponentMeta<typeof PoolAdvertisementPoster>;
+  component: PoolPoster,
+  title: "Pages/Pool Poster",
+} as ComponentMeta<typeof PoolPoster>;
 
-const Template: ComponentStory<typeof PoolAdvertisementPoster> = (args) => {
-  const { poolAdvertisement } = args;
-  return <PoolAdvertisementPoster poolAdvertisement={poolAdvertisement} />;
+const Template: ComponentStory<typeof PoolPoster> = (args) => {
+  const { pool } = args;
+  return <PoolPoster pool={pool} />;
 };
 
 export const CompletedPoolPoster = Template.bind({});
-CompletedPoolPoster.args = { poolAdvertisement: fakeAdvertisement };
+CompletedPoolPoster.args = { pool: fakePool };
 
 export const NullPoolPoster = Template.bind({});
-NullPoolPoster.args = { poolAdvertisement: nullAdvertisement };
+NullPoolPoster.args = { pool: nullPool };

@@ -9,7 +9,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { Well, ExternalLink } from "@gc-digital-talent/ui";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
   GenericJobTitle,
   GenericJobTitleKey,
@@ -139,7 +139,7 @@ const RoleSalaryForm = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitleHtml(intl, application.pool),
+          label: getFullPoolTitleHtml(intl, application.pool),
           url: paths.pool(application.pool.id),
         },
         {

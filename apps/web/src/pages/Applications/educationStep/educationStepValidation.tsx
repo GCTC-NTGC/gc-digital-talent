@@ -9,7 +9,7 @@ import { isEducationExperience } from "~/utils/experienceUtils";
 
 const stepHasError = (
   _applicant: Applicant,
-  _poolAdvertisement: Pool,
+  _pool: Pool,
   application: Omit<PoolCandidate, "pool">,
 ) => {
   return (

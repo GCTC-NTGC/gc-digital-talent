@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { Button, ExternalLink, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { SimpleClassification } from "~/types/pool";
 import useRoutes from "~/hooks/useRoutes";
 import { Pool } from "@gc-digital-talent/graphql";
@@ -49,7 +49,7 @@ const SearchPools = ({
       aria-labelledby={`search_pool_${pool.id}`}
     >
       <p data-h2-font-weight="base(700)" id={`search_pool_${pool.id}`}>
-        {getFullPoolAdvertisementTitleHtml(intl, pool)}
+        {getFullPoolTitleHtml(intl, pool)}
       </p>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage(

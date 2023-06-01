@@ -5,7 +5,7 @@ import { Heading, HeadingProps, Pill } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getPoolCandidateStatusLabel } from "@gc-digital-talent/i18n";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { type PoolCandidate } from "~/api/generated";
 
 import ApplicationActions from "./ApplicationActions";
@@ -74,7 +74,7 @@ const ApplicationCard = ({
           data-h2-margin="base(0)"
           data-h2-flex-grow="base(1)"
         >
-          {getFullPoolAdvertisementTitleHtml(intl, application.pool)}
+          {getFullPoolTitleHtml(intl, application.pool)}
         </Heading>
         <p data-h2-font-size="base(0.8rem)" data-h2-text-align="base(right)">
           {intl.formatMessage(

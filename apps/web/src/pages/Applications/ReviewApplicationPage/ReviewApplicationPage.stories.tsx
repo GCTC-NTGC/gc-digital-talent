@@ -20,7 +20,7 @@ export default {
   component: ReviewApplication,
   title: "Pages/Review Application",
   args: {
-    poolAdvertisement: pool,
+    pool,
     applicant,
     applicationId: poolCandidate.id,
     closingDate: poolCandidate.pool.closingDate,
@@ -35,7 +35,7 @@ export const ApplicationIsIncomplete = Template.bind({});
 export const ApplicationIsComplete = Template.bind({});
 
 ApplicationIsComplete.args = {
-  poolAdvertisement: {
+  pool: {
     ...pool,
     essentialSkills,
   },

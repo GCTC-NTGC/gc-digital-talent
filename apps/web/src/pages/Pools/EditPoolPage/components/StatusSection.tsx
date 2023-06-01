@@ -7,7 +7,7 @@ import MegaphoneIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 
 import { TableOfContents, Well } from "@gc-digital-talent/ui";
 
-import { Pool, AdvertisementStatus, Scalars } from "~/api/generated";
+import { Pool, PoolStatus, Scalars } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 
 import PublishDialog from "./PublishDialog";
@@ -18,7 +18,7 @@ import ArchiveDialog from "./ArchiveDialog";
 import ExtendDialog from "./ExtendDialog";
 
 interface StatusSectionProps {
-  poolAdvertisement: Pool;
+  pool: Pool;
   sectionMetadata: EditPoolSectionMetadata;
   onPublish: () => void;
   onDelete: () => void;
@@ -29,7 +29,7 @@ interface StatusSectionProps {
 }
 
 const StatusSection = ({
-  poolAdvertisement,
+  pool,
   sectionMetadata,
   onPublish,
   onDelete,
@@ -57,7 +57,7 @@ const StatusSection = ({
 
       <div data-h2-display="base(flex)" style={{ gap: "0.5rem" }}>
         {/* Draft status */}
-        {poolAdvertisement.advertisementStatus === AdvertisementStatus.Draft ? (
+        {pool.status === PoolStatus.Draft ? (
           <>
             <Well data-h2-flex-grow="base(2)">
               <div
@@ -89,7 +89,7 @@ const StatusSection = ({
               </div>
             </Well>
             <PublishDialog
-              closingDate={poolAdvertisement.closingDate}
+              closingDate={pool.closingDate}
               onPublish={onPublish}
             />
             <DeleteDialog onDelete={onDelete} />
@@ -97,8 +97,7 @@ const StatusSection = ({
         ) : undefined}
 
         {/* Published status */}
-        {poolAdvertisement.advertisementStatus ===
-        AdvertisementStatus.Published ? (
+        {pool.status === PoolStatus.Published ? (
           <>
             <div
               data-h2-background-color="base(gray.light)"
@@ -136,20 +135,13 @@ const StatusSection = ({
                 </span>
               </div>
             </div>
-            <CloseDialog
-              closingDate={poolAdvertisement.closingDate}
-              onClose={onClose}
-            />
-            <ExtendDialog
-              closingDate={poolAdvertisement.closingDate}
-              onExtend={onExtend}
-            />
+            <CloseDialog closingDate={pool.closingDate} onClose={onClose} />
+            <ExtendDialog closingDate={pool.closingDate} onExtend={onExtend} />
           </>
         ) : undefined}
 
         {/* Closed status */}
-        {poolAdvertisement.advertisementStatus ===
-        AdvertisementStatus.Closed ? (
+        {pool.status === PoolStatus.Closed ? (
           <>
             <div
               data-h2-background-color="base(gray.light)"
@@ -187,17 +179,13 @@ const StatusSection = ({
                 </span>
               </div>
             </div>
-            <ExtendDialog
-              closingDate={poolAdvertisement.closingDate}
-              onExtend={onExtend}
-            />
+            <ExtendDialog closingDate={pool.closingDate} onExtend={onExtend} />
             <ArchiveDialog onArchive={onArchive} />
           </>
         ) : undefined}
 
         {/* Archived status */}
-        {poolAdvertisement.advertisementStatus ===
-        AdvertisementStatus.Archived ? (
+        {pool.status === PoolStatus.Archived ? (
           <div
             data-h2-background-color="base(gray.light)"
             data-h2-padding="base(x.5)"
@@ -235,10 +223,7 @@ const StatusSection = ({
           </div>
         ) : undefined}
       </div>
-      <DuplicateDialog
-        onDuplicate={onDuplicate}
-        poolAdvertisement={poolAdvertisement}
-      />
+      <DuplicateDialog onDuplicate={onDuplicate} pool={pool} />
     </TableOfContents.Section>
   );
 };

@@ -63,7 +63,7 @@ export type PoolSubmitData =
   | ScreeningQuestionsSubmitData;
 
 export interface EditPoolFormProps {
-  poolAdvertisement: Pool;
+  pool: Pool;
   classifications: Array<Classification>;
   skills: Array<Skill>;
   onSave: (submitData: PoolSubmitData) => void;
@@ -76,7 +76,7 @@ export interface EditPoolFormProps {
 }
 
 export const EditPoolForm = ({
-  poolAdvertisement,
+  pool,
   classifications,
   skills,
   onSave,
@@ -209,7 +209,7 @@ export const EditPoolForm = ({
               {sectionMetadata.status.title}
             </TableOfContents.AnchorLink>
             <Link
-              href={paths.poolView(poolAdvertisement.id)}
+              href={paths.poolView(pool.id)}
               color="secondary"
               mode="outline"
               type="button"
@@ -226,50 +226,50 @@ export const EditPoolForm = ({
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <PoolNameSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               classifications={classifications}
               sectionMetadata={sectionMetadata.poolName}
               onSave={onSave}
             />
             <ClosingDateSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               sectionMetadata={sectionMetadata.closingDate}
               onSave={onSave}
             />
             <YourImpactSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               sectionMetadata={sectionMetadata.yourImpact}
               onSave={onSave}
             />
             <WorkTasksSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               sectionMetadata={sectionMetadata.workTasks}
               onSave={onSave}
             />
             <EssentialSkillsSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               skills={skills}
               sectionMetadata={sectionMetadata.essentialSkills}
               onSave={onSave}
             />
             <AssetSkillsSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               skills={skills}
               sectionMetadata={sectionMetadata.assetSkills}
               onSave={onSave}
             />
             <OtherRequirementsSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               sectionMetadata={sectionMetadata.otherRequirements}
               onSave={onSave}
             />
             <ScreeningQuestions
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               sectionMetadata={sectionMetadata.screeningQuestions}
               onSave={onSave}
             />
             <StatusSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               sectionMetadata={sectionMetadata.status}
               onPublish={onPublish}
               onDelete={onDelete}
@@ -354,7 +354,7 @@ export const EditPoolPage = () => {
         {data?.pool ? (
           <EditPoolContext.Provider value={ctx}>
             <EditPoolForm
-              poolAdvertisement={data.pool}
+              pool={data.pool}
               classifications={data.classifications.filter(notEmpty)}
               skills={data.skills.filter(notEmpty)}
               onSave={(saveData) => mutations.update(poolId, saveData)}

@@ -10,7 +10,7 @@ import {
   isExpired,
   isPlaced,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import QualifiedRecruitmentStatus from "./QualifiedRecruitmentStatus";
 
 export type Application = Omit<PoolCandidate, "user">;
@@ -58,7 +58,7 @@ const QualifiedRecruitmentCard = ({
           data-h2-margin="base(0, 0, x1, 0)"
           data-h2-flex-grow="base(1)"
         >
-          {getFullPoolAdvertisementTitleHtml(intl, application.pool)}
+          {getFullPoolTitleHtml(intl, application.pool)}
         </Heading>
       </div>
       <div data-h2-margin="base(0, 0, x1, 0)">

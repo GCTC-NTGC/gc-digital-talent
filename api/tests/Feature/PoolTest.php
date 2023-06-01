@@ -72,14 +72,14 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
-                advertisementStatus
+                status
             }
         }
     '
         )->assertJson([
             "data" => [
                 "pool" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED,
+                    "status" => ApiEnums::POOL_IS_PUBLISHED,
                 ]
             ]
         ]);
@@ -90,14 +90,14 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
-                advertisementStatus
+                status
             }
         }
     '
         )->assertJson([
             "data" => [
                 "pool" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED,
+                    "status" => ApiEnums::POOL_IS_CLOSED,
                 ]
             ]
         ]);
@@ -108,14 +108,14 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13") {
-                advertisementStatus
+                status
             }
         }
     '
         )->assertJson([
             "data" => [
                 "pool" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
+                    "status" => ApiEnums::POOL_IS_DRAFT,
                 ]
             ]
         ]);
@@ -126,14 +126,14 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14") {
-                advertisementStatus
+                status
             }
         }
     '
         )->assertJson([
             "data" => [
                 "pool" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
+                    "status" => ApiEnums::POOL_IS_DRAFT,
                 ]
             ]
         ]);
@@ -162,14 +162,14 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
-                advertisementStatus
+                status
             }
         }
     '
         )->assertJson([
             "data" => [
                 "pool" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED,
+                    "status" => ApiEnums::POOL_IS_PUBLISHED,
                 ]
             ]
         ]);
@@ -180,21 +180,21 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
-                advertisementStatus
+                status
             }
         }
     '
         )->assertJson([
             "data" => [
                 "pool" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED,
+                    "status" => ApiEnums::POOL_IS_CLOSED,
                 ]
             ]
         ]);
     }
 
-    // The publishedPoolAdvertisements query should only return pools that have been published
-    public function testPoolAdvertisementQueryReturnsOnlyPublished(): void
+    // The publishedPools query should only return pools that have been published
+    public function testPoolQueryReturnsOnlyPublished(): void
     {
         // this pool has been published so it should be returned in the publishedPool query
         $publishedPool = Pool::factory()->create([
@@ -210,14 +210,14 @@ class PoolTest extends TestCase
             /** @lang GraphQL */
             '
         query browsePools {
-            publishedPoolAdvertisements {
+            publishedPools {
               id
             }
           }
     '
         )->assertJson([
             "data" => [
-                "publishedPoolAdvertisements" => [
+                "publishedPools" => [
                     [
                         "id" => $publishedPool->id,
                     ],
@@ -327,8 +327,8 @@ class PoolTest extends TestCase
         )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    // test filtering closing_date on publishedPoolAdvertisements
-    public function testPoolAdvertisementQueryClosingDate(): void
+    // test filtering closing_date on publishedPools
+    public function testPoolQueryClosingDate(): void
     {
         Pool::factory()->create([
             'published_at' => null,
@@ -349,14 +349,14 @@ class PoolTest extends TestCase
                 /** @lang GraphQL */
                 '
         query browsePools  {
-            publishedPoolAdvertisements {
+            publishedPools {
                 id
             }
         }
         ',
                 []
             );
-        $responseCount = count($response->json('data.publishedPoolAdvertisements'));
+        $responseCount = count($response->json('data.publishedPools'));
         assertSame(5, $responseCount);
 
         // assert time argument passed in filters out unpublished and closed pools
@@ -365,7 +365,7 @@ class PoolTest extends TestCase
                 /** @lang GraphQL */
                 '
         query browsePools ($date: DateTime) {
-            publishedPoolAdvertisements(closingAfter: $date) {
+            publishedPools(closingAfter: $date) {
                 id
             }
         }
@@ -373,7 +373,7 @@ class PoolTest extends TestCase
                 ['date' => $timeNow]
             );
 
-        $response2Count = count($response2->json('data.publishedPoolAdvertisements'));
+        $response2Count = count($response2->json('data.publishedPools'));
         assertSame(2, $response2Count);
     }
 }

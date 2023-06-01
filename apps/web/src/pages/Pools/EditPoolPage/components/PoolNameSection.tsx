@@ -14,7 +14,7 @@ import {
 } from "@gc-digital-talent/forms";
 
 import {
-  AdvertisementStatus,
+  PoolStatus,
   Classification,
   LocalizedString,
   Maybe,
@@ -42,7 +42,7 @@ export type PoolNameSubmitData = Pick<
 >;
 
 interface PoolNameSectionProps {
-  poolAdvertisement: Pool;
+  pool: Pool;
   classifications: Array<Maybe<Classification>>;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: PoolNameSubmitData) => void;
@@ -59,7 +59,7 @@ const firstId = (
 };
 
 const PoolNameSection = ({
-  poolAdvertisement,
+  pool,
   classifications,
   sectionMetadata,
   onSave,
@@ -76,7 +76,7 @@ const PoolNameSection = ({
   });
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(poolAdvertisement),
+    defaultValues: dataToFormValues(pool),
   });
   const { handleSubmit } = methods;
 
@@ -115,8 +115,7 @@ const PoolNameSection = ({
   );
 
   // disabled unless status is draft
-  const formDisabled =
-    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+  const formDisabled = pool.status !== PoolStatus.Draft;
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>

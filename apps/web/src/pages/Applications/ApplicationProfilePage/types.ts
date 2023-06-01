@@ -24,7 +24,7 @@ export interface SectionProps {
     id: string,
     user: UpdateUserAsUserInput,
   ) => Promise<UpdateUserAboutMeMutation["updateUserAsUser"]>;
-  poolAdvertisement: Maybe<Pool>;
+  pool: Maybe<Pool>;
 }
 
 export interface FormFieldProps {

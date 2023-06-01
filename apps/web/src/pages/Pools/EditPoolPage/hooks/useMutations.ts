@@ -5,10 +5,10 @@ import { toast } from "@gc-digital-talent/toast";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
-  useClosePoolAdvertisementMutation,
-  useDeletePoolAdvertisementMutation,
-  useDuplicatePoolAdvertisementMutation,
-  usePublishPoolAdvertisementMutation,
+  useClosePoolMutation,
+  useDeletePoolMutation,
+  useDuplicatePoolMutation,
+  usePublishPoolMutation,
   useUpdatePoolMutation,
   useChangePoolClosingDateMutation,
   UpdatePoolInput,
@@ -76,7 +76,7 @@ const useMutations = () => {
   };
 
   const [{ fetching: publishFetching }, executePublishMutation] =
-    usePublishPoolAdvertisementMutation();
+    usePublishPoolMutation();
 
   const handlePublishError = () => {
     toast.error(
@@ -92,7 +92,7 @@ const useMutations = () => {
   const publish = (id: string) => {
     executePublishMutation({ id })
       .then((result) => {
-        if (result.data?.publishPoolAdvertisement) {
+        if (result.data?.publishPool) {
           navigateBack();
           toast.success(
             intl.formatMessage({
@@ -109,7 +109,7 @@ const useMutations = () => {
   };
 
   const [{ fetching: closeFetching }, executeCloseMutation] =
-    useClosePoolAdvertisementMutation();
+    useClosePoolMutation();
 
   const handleCloseError = () => {
     toast.error(
@@ -125,7 +125,7 @@ const useMutations = () => {
   const close = (id: string) => {
     executeCloseMutation({ id })
       .then((result) => {
-        if (result.data?.closePoolAdvertisement) {
+        if (result.data?.closePool) {
           navigateBack();
           toast.success(
             intl.formatMessage({
@@ -142,7 +142,7 @@ const useMutations = () => {
   };
 
   const [{ fetching: deleteFetching }, executeDeleteMutation] =
-    useDeletePoolAdvertisementMutation();
+    useDeletePoolMutation();
 
   const handleDeleteError = () => {
     toast.error(
@@ -155,11 +155,11 @@ const useMutations = () => {
     );
   };
 
-  const deletePoolAdvertisement = (id: string) => {
+  const deletePool = (id: string) => {
     executeDeleteMutation({ id })
       .then((result) => {
         navigateBack();
-        if (result.data?.deletePoolAdvertisement) {
+        if (result.data?.deletePool) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool deleted successfully!",
@@ -175,7 +175,7 @@ const useMutations = () => {
   };
 
   const [{ fetching: duplicateFetching }, executeDuplicateMutation] =
-    useDuplicatePoolAdvertisementMutation();
+    useDuplicatePoolMutation();
 
   const handleDuplicateError = () => {
     toast.error(
@@ -189,11 +189,11 @@ const useMutations = () => {
     );
   };
 
-  const duplicatePoolAdvertisement = (id: string, teamId: string) => {
+  const duplicatePool = (id: string, teamId: string) => {
     executeDuplicateMutation({ id, teamId })
       .then((result) => {
         navigateBack();
-        if (result.data?.duplicatePoolAdvertisement?.id) {
+        if (result.data?.duplicatePool?.id) {
           toast.success(
             intl.formatMessage({
               defaultMessage:
@@ -202,7 +202,7 @@ const useMutations = () => {
               description: "Message displayed to user after pool is deleted",
             }),
           );
-          navigate(paths.poolUpdate(result.data.duplicatePoolAdvertisement.id));
+          navigate(paths.poolUpdate(result.data.duplicatePool.id));
         } else {
           handleDuplicateError();
         }
@@ -223,8 +223,8 @@ const useMutations = () => {
       extend,
       publish,
       close,
-      delete: deletePoolAdvertisement,
-      duplicate: duplicatePoolAdvertisement,
+      delete: deletePool,
+      duplicate: duplicatePool,
     },
   };
 };

@@ -1,7 +1,7 @@
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
-  PoolAdvertisementLanguage,
+  PoolLanguage,
   PoolStream,
   PositionDuration,
   ProvinceOrTerritory,
@@ -20,8 +20,8 @@ describe("Submit Application Workflow Tests", () => {
   beforeEach(() => {
     // register queries
     cy.intercept("POST", "/graphql", function (req) {
-      aliasQuery(req, "browsePoolAdvertisements");
-      aliasQuery(req, "getPoolAdvertisement");
+      aliasQuery(req, "browsePools");
+      aliasQuery(req, "getPool");
       aliasQuery(req, "GetApplication");
       aliasQuery(req, "getApplicationData");
       aliasQuery(req, "MyApplications");
@@ -106,10 +106,10 @@ describe("Submit Application Workflow Tests", () => {
         cy.get("@testClassificationId").then((testClassificationId) => {
           cy.createPool(adminUserId, dcmId, [testClassificationId])
             .its("id")
-            .as("testPoolAdvertisementId")
-            .then((testPoolAdvertisementId) => {
+            .as("testPoolId")
+            .then((testPoolId) => {
               cy.get("@testSkillIds").then((testSkillIds) => {
-                cy.updatePoolAdvertisement(testPoolAdvertisementId, {
+                cy.updatePool(testPoolId, {
                   name: {
                     en: "Cypress Test Pool EN",
                     fr: "Cypress Test Pool FR",
@@ -121,16 +121,16 @@ describe("Submit Application Workflow Tests", () => {
                   essentialSkills: {
                     sync: testSkillIds,
                   },
-                  advertisementLanguage: PoolAdvertisementLanguage.Various,
+                  language: PoolLanguage.Various,
                   securityClearance: SecurityStatus.Secret,
-                  advertisementLocation: {
+                  location: {
                     en: "test location EN",
                     fr: "test location FR",
                   },
                   isRemote: true,
                   publishingGroup: PublishingGroup.ItJobs,
                 });
-                cy.publishPoolAdvertisement(testPoolAdvertisementId);
+                cy.publishPool(testPoolId);
               });
             });
         });
@@ -142,16 +142,16 @@ describe("Submit Application Workflow Tests", () => {
     cy.visit("/en/browse/pools");
 
     // Browse pools page - placeholder so it could change
-    cy.wait("@gqlbrowsePoolAdvertisementsQuery");
+    cy.wait("@gqlbrowsePoolsQuery");
     cy.findByRole("heading", { name: /browse jobs/i })
       .should("exist")
       .and("be.visible");
-    cy.get("@testPoolAdvertisementId").then((testPoolAdvertisementId) => {
-      cy.get(`a[href*="${testPoolAdvertisementId}"]`).click(); // names could be duplicated - choose the one with the right ID in the url
+    cy.get("@testPoolId").then((testPoolId) => {
+      cy.get(`a[href*="${testPoolId}"]`).click(); // names could be duplicated - choose the one with the right ID in the url
     });
 
-    // Pool advertisement page
-    cy.wait("@gqlgetPoolAdvertisementQuery");
+    // Pool page
+    cy.wait("@gqlgetPoolQuery");
     cy.findByRole("heading", { name: /Apply now/i })
       .should("exist")
       .and("be.visible");

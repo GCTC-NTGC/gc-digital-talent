@@ -50,7 +50,7 @@ query CountApplicantsAndCountPoolCandidatesByPool(
 }
 
 query getSearchFormDataAcrossAllPools {
-  publishedPoolAdvertisements {
+  publishedPools {
     id
     key
     owner {

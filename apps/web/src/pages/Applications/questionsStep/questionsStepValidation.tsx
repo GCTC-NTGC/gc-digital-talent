@@ -4,13 +4,10 @@ import { screeningQuestionsSectionHasMissingResponses } from "~/validators/profi
 
 const stepHasError = (
   _applicant: Applicant,
-  poolAdvertisement: Pool,
+  pool: Pool,
   application: Omit<PoolCandidate, "pool">,
 ) => {
-  return screeningQuestionsSectionHasMissingResponses(
-    application,
-    poolAdvertisement,
-  );
+  return screeningQuestionsSectionHasMissingResponses(application, pool);
 };
 
 export default stepHasError;

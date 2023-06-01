@@ -342,13 +342,10 @@ type Pool {
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   isRemote: Boolean @rename(attribute: "is_remote")
-  advertisementLocation: LocalizedString
-    @rename(attribute: "advertisement_location")
+  location: LocalizedString @rename(attribute: "advertisement_location")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
-  advertisementLanguage: PoolAdvertisementLanguage
-    @rename(attribute: "advertisement_language")
-  advertisementStatus: AdvertisementStatus
-    @rename(attribute: "advertisement_status")
+  language: PoolLanguage @rename(attribute: "advertisement_language")
+  status: PoolStatus @rename(attribute: "advertisement_status")
   essentialSkills: [Skill!] @belongsToMany
   nonessentialSkills: [Skill!] @belongsToMany
   stream: PoolStream
@@ -375,7 +372,7 @@ enum PoolStream {
   INFORMATION_DATA_FUNCTIONS
 }
 
-enum AdvertisementStatus {
+enum PoolStatus {
   DRAFT
   PUBLISHED
   CLOSED
@@ -407,7 +404,7 @@ enum SecurityStatus {
   TOP_SECRET
 }
 
-enum PoolAdvertisementLanguage {
+enum PoolLanguage {
   ENGLISH
   FRENCH
   VARIOUS
@@ -938,11 +935,11 @@ type Query {
   countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
   pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
   pools: [Pool]! @all @can(ability: "viewAny", model: "Pool")
-  publishedPoolAdvertisements(
+  publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
   ): [Pool!]!
     @all(scopes: ["wasPublished"])
-    @can(ability: "viewAnyPublishedAdvertisement", model: "Pool")
+    @can(ability: "viewAnyPublished", model: "Pool")
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
   pools: [Pool]!
     @all(scopes: ["authorizedToView"])
@@ -1625,11 +1622,9 @@ input UpdatePoolInput {
   essentialSkills: SkillBelongsToMany
   nonessentialSkills: SkillBelongsToMany
   # Other requirements
-  advertisementLanguage: PoolAdvertisementLanguage
-    @rename(attribute: "advertisement_language")
+  language: PoolLanguage @rename(attribute: "advertisement_language")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
-  advertisementLocation: LocalizedStringInput
-    @rename(attribute: "advertisement_location")
+  location: LocalizedStringInput @rename(attribute: "advertisement_location")
   isRemote: Boolean @rename(attribute: "is_remote")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   screeningQuestions: UpdateScreeningQuestionsHasMany
@@ -1843,17 +1838,14 @@ type Mutation {
     teamId: ID! @rename(attribute: "team_id")
     pool: CreatePoolInput! @spread
   ): Pool @create @guard @can(ability: "create", injectArgs: true)
-  duplicatePoolAdvertisement(
-    id: ID!
-    teamId: ID! @rename(attribute: "team_id")
-  ): Pool @guard @can(ability: "duplicate", injectArgs: true)
+  duplicatePool(id: ID!, teamId: ID! @rename(attribute: "team_id")): Pool
+    @guard
+    @can(ability: "duplicate", injectArgs: true)
   updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
     @update
     @guard
     @can(ability: "updateDraft", find: "id")
-  publishPoolAdvertisement(id: ID!): Pool
-    @guard
-    @can(ability: "publish", find: "id")
+  publishPool(id: ID!): Pool @guard @can(ability: "publish", find: "id")
   changePoolClosingDate(
     id: ID!
     newClosingDate: DateTime!
@@ -1863,14 +1855,12 @@ type Mutation {
         messages: [{ rule: "after", message: "UpdatePoolClosingDate" }]
       )
   ): Pool @guard @can(ability: "changePoolClosingDate", find: "id")
-  closePoolAdvertisement(id: ID!): Pool
-    @guard
-    @can(ability: "closePoolAdvertisement", find: "id")
+  closePool(id: ID!): Pool @guard @can(ability: "closePool", find: "id")
   deletePool(id: ID!): Pool
     @delete(globalId: false)
     @guard
     @can(ability: "deleteDraft", find: "id")
-  deletePoolAdvertisement(id: ID!): Pool
+  deletePool(id: ID!): Pool
     @delete(model: "Pool", globalId: false)
     @guard
     @can(ability: "deleteDraft", find: "id")

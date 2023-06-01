@@ -103,11 +103,11 @@ class PoolPolicyTest extends TestCase
      */
     public function testViewAnyPublishedPools()
     {
-        $this->assertTrue($this->guestUser->can('viewAnyPublishedAdvertisement', Pool::class));
-        $this->assertTrue($this->applicantUser->can('viewAnyPublishedAdvertisement', Pool::class));
-        $this->assertTrue($this->poolOperatorUser->can('viewAnyPublishedAdvertisement', Pool::class));
-        $this->assertTrue($this->requestResponderUser->can('viewAnyPublishedAdvertisement', Pool::class));
-        $this->assertTrue($this->adminUser->can('viewAnyPublishedAdvertisement', Pool::class));
+        $this->assertTrue($this->guestUser->can('viewAnyPublished', Pool::class));
+        $this->assertTrue($this->applicantUser->can('viewAnyPublished', Pool::class));
+        $this->assertTrue($this->poolOperatorUser->can('viewAnyPublished', Pool::class));
+        $this->assertTrue($this->requestResponderUser->can('viewAnyPublished', Pool::class));
+        $this->assertTrue($this->adminUser->can('viewAnyPublished', Pool::class));
     }
 
     /**
@@ -283,14 +283,14 @@ class PoolPolicyTest extends TestCase
      */
     public function testClosePool()
     {
-        $this->assertTrue($this->poolOperatorUser->can('closePoolAdvertisement', $this->teamPool));
+        $this->assertTrue($this->poolOperatorUser->can('closePool', $this->teamPool));
 
-        $this->assertFalse($this->guestUser->can('closePoolAdvertisement', $this->teamPool));
-        $this->assertFalse($this->applicantUser->can('closePoolAdvertisement', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('closePoolAdvertisement', $this->teamPool));
-        $this->assertFalse($this->adminUser->can('closePoolAdvertisement', $this->teamPool));
-        // Pool operator cannot close other teams pool advertisements
-        $this->assertFalse($this->poolOperatorUser->can('closePoolAdvertisement', $this->unOwnedPool));
+        $this->assertFalse($this->guestUser->can('closePool', $this->teamPool));
+        $this->assertFalse($this->applicantUser->can('closePool', $this->teamPool));
+        $this->assertFalse($this->requestResponderUser->can('closePool', $this->teamPool));
+        $this->assertFalse($this->adminUser->can('closePool', $this->teamPool));
+        // Pool operator cannot close other teams pools
+        $this->assertFalse($this->poolOperatorUser->can('closePool', $this->unOwnedPool));
     }
 
     /**

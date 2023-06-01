@@ -21,8 +21,8 @@ describe("Pools", () => {
    * Check for success toast
    */
   const expectUpdate = () => {
-    cy.wait("@gqlupdatePoolAdvertisementMutation")
-      .its("response.body.data.updatePoolAdvertisement")
+    cy.wait("@gqlupdatePoolMutation")
+      .its("response.body.data.updatePool")
       .should("have.property", "id");
     cy.expectToast(/pool updated successfully/i);
   };
@@ -34,10 +34,10 @@ describe("Pools", () => {
       aliasQuery(req, "getMePools");
       aliasQuery(req, "allPools");
       aliasMutation(req, "createPool");
-      aliasMutation(req, "updatePoolAdvertisement");
-      aliasMutation(req, "publishPoolAdvertisement");
-      aliasMutation(req, "closePoolAdvertisement");
-      aliasMutation(req, "deletePoolAdvertisement");
+      aliasMutation(req, "updatePool");
+      aliasMutation(req, "publishPool");
+      aliasMutation(req, "closePool");
+      aliasMutation(req, "deletePool");
     });
   });
 
@@ -270,7 +270,7 @@ describe("Pools", () => {
         cy.findByRole("button", { name: /delete/i }).click();
       });
 
-    cy.wait("@gqldeletePoolAdvertisementMutation");
+    cy.wait("@gqldeletePoolMutation");
 
     cy.expectToast(/pool deleted successfully/i);
   });

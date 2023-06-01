@@ -9,7 +9,7 @@ import { Submit } from "@gc-digital-talent/forms";
 
 import SkillPicker from "~/components/SkillPicker";
 import {
-  AdvertisementStatus,
+  PoolStatus,
   Pool,
   Scalars,
   Skill,
@@ -31,23 +31,21 @@ type FormValues = {
 };
 
 interface EssentialSkillsSectionProps {
-  poolAdvertisement: Pool;
+  pool: Pool;
   skills: Array<Skill>;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: EssentialSkillsSubmitData) => void;
 }
 
 const EssentialSkillsSection = ({
-  poolAdvertisement,
+  pool,
   skills,
   sectionMetadata,
   onSave,
 }: EssentialSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
-  const defaultSkills = poolAdvertisement.essentialSkills
-    ? poolAdvertisement.essentialSkills
-    : [];
+  const defaultSkills = pool.essentialSkills ? pool.essentialSkills : [];
   const methods = useForm<FormValues>({
     defaultValues: {
       currentEssentialSkills: defaultSkills.map(({ id }) => ({ id })),
@@ -85,8 +83,7 @@ const EssentialSkillsSection = ({
   };
 
   // disabled unless status is draft
-  const formDisabled =
-    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+  const formDisabled = pool.status !== PoolStatus.Draft;
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>

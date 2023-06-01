@@ -16,7 +16,7 @@ import { BasicForm, TextArea } from "@gc-digital-talent/forms";
 import { removeFromSessionStorage } from "@gc-digital-talent/storage";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
   Maybe,
@@ -65,7 +65,7 @@ export interface ExperienceFormProps {
   applicationId?: string;
   experienceType: ExperienceType;
   experience?: ExperienceQueryData;
-  poolAdvertisement?: Pool;
+  pool?: Pool;
   skills: Skill[];
   onUpdateExperience: (values: ExperienceDetailsSubmissionData) => void;
   deleteExperience: () => void;
@@ -84,7 +84,7 @@ export const ExperienceForm = ({
   skills,
   cacheKey,
   edit,
-  poolAdvertisement,
+  pool,
 }: ExperienceFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -143,11 +143,8 @@ export const ExperienceForm = ({
 
   let irrelevantSkills: Maybe<Skill[]> = [];
 
-  if (poolAdvertisement) {
-    const advertisementTitle = getFullPoolAdvertisementTitleHtml(
-      intl,
-      poolAdvertisement,
-    );
+  if (pool) {
+    const poolTitle = getFullPoolTitleHtml(intl, pool);
 
     crumbs = [
       {
@@ -159,18 +156,18 @@ export const ExperienceForm = ({
         url: paths.applications(userId),
       },
       {
-        label: advertisementTitle,
-        url: paths.pool(poolAdvertisement.id),
+        label: poolTitle,
+        url: paths.pool(pool.id),
       },
       ...crumbs,
     ];
 
     irrelevantSkills = experience?.skills?.filter((skill) => {
       return (
-        !poolAdvertisement.essentialSkills?.find(
+        !pool.essentialSkills?.find(
           (essentialSkill) => essentialSkill.id === skill.id,
         ) &&
-        !poolAdvertisement.nonessentialSkills?.find(
+        !pool.nonessentialSkills?.find(
           (assetSkill) => assetSkill.id === skill.id,
         )
       );
@@ -243,7 +240,7 @@ export const ExperienceForm = ({
   return (
     <ProfileFormWrapper
       title={pageTitle()}
-      prefixBreadcrumbs={!poolAdvertisement}
+      prefixBreadcrumbs={!pool}
       crumbs={crumbs}
     >
       <BasicForm
@@ -265,10 +262,7 @@ export const ExperienceForm = ({
           <PersonalFormFields labels={labels} />
         )}
         {experienceType === "work" && <WorkFormFields labels={labels} />}
-        <ExperienceSkills
-          skills={skills}
-          poolAdvertisement={poolAdvertisement}
-        />
+        <ExperienceSkills skills={skills} pool={pool} />
         <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x3, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage: "4. Additional information for this experience",
@@ -518,7 +512,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
       {skillsData && found ? (
         <ExperienceForm
           userId={userId || ""}
-          poolAdvertisement={applicationData?.poolCandidate?.pool || undefined}
+          pool={applicationData?.poolCandidate?.pool || undefined}
           experienceId={experienceId || ""}
           applicationId={applicationId || undefined}
           experience={experience as ExperienceQueryData}

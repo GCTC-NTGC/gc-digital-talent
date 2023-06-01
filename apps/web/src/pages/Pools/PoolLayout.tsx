@@ -12,7 +12,7 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import { Pool, useGetBasicPoolInfoQuery } from "~/api/generated";
-import { getFullPoolAdvertisementTitleLabel } from "~/utils/poolUtils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { PageNavInfo } from "~/types/pages";
 
 type PageNavKeys = "view" | "edit" | "candidates";
@@ -75,7 +75,7 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
     ],
   ]);
 
-  const poolTitle = getFullPoolAdvertisementTitleLabel(intl, pool);
+  const poolTitle = getFullPoolTitleLabel(intl, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
 
   return (

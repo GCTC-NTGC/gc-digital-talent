@@ -10,21 +10,15 @@ import {
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
 
-const stepHasError = (applicant: Applicant, poolAdvertisement: Pool) => {
+const stepHasError = (applicant: Applicant, pool: Pool) => {
   const hasEmptyRequiredFields =
     aboutSectionHasEmptyRequiredFields(applicant) ||
     workLocationSectionHasEmptyRequiredFields(applicant) ||
-    diversityEquityInclusionSectionHasEmptyRequiredFields(
-      applicant,
-      poolAdvertisement,
-    ) ||
+    diversityEquityInclusionSectionHasEmptyRequiredFields(applicant, pool) ||
     governmentInformationSectionHasEmptyRequiredFields(applicant) ||
     languageInformationSectionHasEmptyRequiredFields(applicant) ||
     workPreferencesSectionHasEmptyRequiredFields(applicant) ||
-    languageInformationSectionHasUnsatisfiedRequirements(
-      applicant,
-      poolAdvertisement,
-    );
+    languageInformationSectionHasUnsatisfiedRequirements(applicant, pool);
   return hasEmptyRequiredFields;
 };
 

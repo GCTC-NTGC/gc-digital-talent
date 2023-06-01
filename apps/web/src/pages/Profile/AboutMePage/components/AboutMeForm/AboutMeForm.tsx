@@ -21,7 +21,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
 import useApplicationInfo from "~/hooks/useApplicationInfo";
@@ -185,7 +185,7 @@ const AboutMeForm = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitleHtml(intl, application.pool),
+          label: getFullPoolTitleHtml(intl, application.pool),
           url: paths.pool(application.pool.id),
         },
         {

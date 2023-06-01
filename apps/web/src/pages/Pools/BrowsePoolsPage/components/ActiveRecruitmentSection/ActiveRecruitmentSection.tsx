@@ -60,9 +60,9 @@ const ActiveRecruitmentSection = ({ pools }: ActiveRecruitmentSectionProps) => {
             data-h2-padding="base(0)"
             data-h2-list-style="base(none)"
           >
-            {pools.map((poolAdvertisement) => (
-              <li key={poolAdvertisement.id}>
-                <PoolCard pool={poolAdvertisement} />
+            {pools.map((pool) => (
+              <li key={pool.id}>
+                <PoolCard pool={pool} />
               </li>
             ))}
           </ul>

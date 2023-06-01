@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import type { Application } from "./ApplicationCard";
@@ -40,7 +40,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
             description: "Link text to continue a specific application",
           },
           {
-            name: getFullPoolAdvertisementTitleHtml(intl, pool),
+            name: getFullPoolTitleHtml(intl, pool),
           },
         )}
       </Link>
@@ -73,7 +73,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
           description: "Link text to view a specific application",
         },
         {
-          name: getFullPoolAdvertisementTitleHtml(intl, pool),
+          name: getFullPoolTitleHtml(intl, pool),
         },
       )}
     </Link>
@@ -109,7 +109,7 @@ const SeeAdvertisementAction = ({
           description: "Link text to see an applications advertisement",
         },
         {
-          name: getFullPoolAdvertisementTitleHtml(intl, advertisement),
+          name: getFullPoolTitleHtml(intl, advertisement),
         },
       )}
     </Link>
@@ -148,7 +148,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
     return null;
   }
 
-  const name = getFullPoolAdvertisementTitleHtml(intl, application.pool);
+  const name = getFullPoolTitleHtml(intl, application.pool);
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
@@ -231,7 +231,7 @@ const ArchiveAction = ({
     return null;
   }
 
-  const name = getFullPoolAdvertisementTitleHtml(intl, application.pool);
+  const name = getFullPoolTitleHtml(intl, application.pool);
 
   return (
     <AlertDialog.Root>

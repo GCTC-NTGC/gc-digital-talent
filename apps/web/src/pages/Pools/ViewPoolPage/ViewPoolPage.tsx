@@ -17,7 +17,7 @@ import {
 import {
   commonMessages,
   getLocalizedName,
-  getAdvertisementStatus,
+  getPoolStatus,
   getLanguageRequirement,
   getPoolStream,
   getSecurityClearance,
@@ -30,12 +30,7 @@ import {
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import {
-  Scalars,
-  SkillCategory,
-  useGetPoolAdvertisementQuery,
-  Pool,
-} from "~/api/generated";
+import { Scalars, SkillCategory, useGetPoolQuery, Pool } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import adminMessages from "~/messages/adminMessages";
@@ -90,8 +85,8 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     },
   );
 
-  const languageRequirement = pool.advertisementLanguage
-    ? intl.formatMessage(getLanguageRequirement(pool.advertisementLanguage))
+  const languageRequirement = pool.language
+    ? intl.formatMessage(getLanguageRequirement(pool.language))
     : notProvided;
 
   const securityClearance = pool.securityClearance
@@ -350,9 +345,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 type="text"
                 readOnly
                 hideOptional
-                value={intl.formatMessage(
-                  getAdvertisementStatus(pool.advertisementStatus ?? ""),
-                )}
+                value={intl.formatMessage(getPoolStatus(pool.status ?? ""))}
                 label={intl.formatMessage({
                   defaultMessage: "Status",
                   id: "cy5aj8",
@@ -621,7 +614,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                         "Pool advertisement location requirement, English",
                     },
                     {
-                      locationEn: pool.advertisementLocation?.en ?? notProvided,
+                      locationEn: pool.location?.en ?? notProvided,
                     },
                   )}
                 </li>
@@ -634,7 +627,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                         "Pool advertisement location requirement, French",
                     },
                     {
-                      locationFr: pool.advertisementLocation?.fr ?? notProvided,
+                      locationFr: pool.location?.fr ?? notProvided,
                     },
                   )}
                 </li>
@@ -762,7 +755,7 @@ const ViewPoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { poolId } = useParams<RouteParams>();
-  const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
+  const [{ data, fetching, error }] = useGetPoolQuery({
     variables: { id: poolId || "" },
   });
 

@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { Well } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { User, PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import useApplicationInfo from "~/hooks/useApplicationInfo";
@@ -52,7 +52,7 @@ const EmploymentEquityForm = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitleHtml(intl, application.pool),
+          label: getFullPoolTitleHtml(intl, application.pool),
           url: paths.pool(application.pool.id),
         },
         {

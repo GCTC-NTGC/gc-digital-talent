@@ -8,8 +8,8 @@ query getEditPoolData($poolId: UUID!) {
       fr
     }
     closingDate
-    advertisementStatus
-    advertisementLanguage
+    status
+    language
     securityClearance
     classifications {
       id
@@ -79,7 +79,7 @@ query getEditPoolData($poolId: UUID!) {
       }
     }
     isRemote
-    advertisementLocation {
+    location {
       en
       fr
     }
@@ -148,8 +148,8 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
   }
 }
 
-mutation publishPoolAdvertisement($id: ID!) {
-  publishPoolAdvertisement(id: $id) {
+mutation publishPool($id: ID!) {
+  publishPool(id: $id) {
     id
     publishedAt
   }
@@ -161,21 +161,21 @@ mutation changePoolClosingDate($id: ID!, $closingDate: DateTime!) {
   }
 }
 
-mutation closePoolAdvertisement($id: ID!) {
-  closePoolAdvertisement(id: $id) {
+mutation closePool($id: ID!) {
+  closePool(id: $id) {
     id
     closingDate
   }
 }
 
-mutation deletePoolAdvertisement($id: ID!) {
-  deletePoolAdvertisement(id: $id) {
+mutation deletePool($id: ID!) {
+  deletePool(id: $id) {
     id
   }
 }
 
-mutation duplicatePoolAdvertisement($id: ID!, $teamId: ID!) {
-  duplicatePoolAdvertisement(id: $id, teamId: $teamId) {
+mutation duplicatePool($id: ID!, $teamId: ID!) {
+  duplicatePool(id: $id, teamId: $teamId) {
     id
   }
 }

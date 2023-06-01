@@ -13,7 +13,7 @@ import { ApplicationPageProps } from "../ApplicationApi";
 const fakePoolCandidate = fakePoolCandidates(1)[0];
 const fakeUser = fakePoolCandidate.user;
 const mockExperiences = fakeExperiences(5);
-const mockPoolAdvertisementSkills =
+const mockPoolSkills =
   fakePoolCandidate?.pool.essentialSkills?.filter(notEmpty);
 const experienceSkills = mockExperiences
   .filter(notEmpty)
@@ -40,10 +40,7 @@ const hasExperiencesProps: ApplicationPageProps = {
     },
     pool: {
       ...fakePoolCandidate.pool,
-      essentialSkills: [
-        ...(mockPoolAdvertisementSkills || []),
-        ...experienceSkills,
-      ],
+      essentialSkills: [...(mockPoolSkills || []), ...experienceSkills],
     },
   },
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { fakePools, fakeUsers } from "@gc-digital-talent/fake-data";
 
-import { Applicant, Pool, PoolAdvertisementLanguage } from "~/api/generated";
+import { Applicant, Pool, PoolLanguage } from "~/api/generated";
 import MissingLanguageRequirements from "./MissingLanguageRequirements";
 
 type MissingLanguageRequirementsComponent = typeof MissingLanguageRequirements;
@@ -13,9 +13,9 @@ const unilingualApplicant: Applicant = {
   lookingForFrench: false,
   lookingForBilingual: false,
 };
-const bilingualPoolAdvertisement: Pool = {
+const bilingualPool: Pool = {
   ...fakePools(1)[0],
-  advertisementLanguage: PoolAdvertisementLanguage.BilingualAdvanced,
+  language: PoolLanguage.BilingualAdvanced,
 };
 
 export default {
@@ -26,17 +26,12 @@ export default {
 const Template: ComponentStory<MissingLanguageRequirementsComponent> = (
   args,
 ) => {
-  const { applicant, poolAdvertisement } = args;
-  return (
-    <MissingLanguageRequirements
-      applicant={applicant}
-      poolAdvertisement={poolAdvertisement}
-    />
-  );
+  const { applicant, pool } = args;
+  return <MissingLanguageRequirements applicant={applicant} pool={pool} />;
 };
 
 export const MissingRequiredLanguageRequirement = Template.bind({});
 MissingRequiredLanguageRequirement.args = {
   applicant: unilingualApplicant,
-  poolAdvertisement: bilingualPoolAdvertisement,
+  pool: bilingualPool,
 };

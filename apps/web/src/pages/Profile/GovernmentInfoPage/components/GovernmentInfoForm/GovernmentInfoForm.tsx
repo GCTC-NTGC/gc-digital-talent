@@ -25,7 +25,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { ExternalLink } from "@gc-digital-talent/ui";
 
 import { splitAndJoin } from "~/utils/nameUtils";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
   Classification,
   UpdateUserAsUserInput,
@@ -560,7 +560,7 @@ const GovernmentInfoForm = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitleHtml(intl, application.pool),
+          label: getFullPoolTitleHtml(intl, application.pool),
           url: paths.pool(application.pool.id),
         },
         {

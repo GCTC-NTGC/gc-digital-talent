@@ -1,5 +1,5 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import { createAndPublishPool } from "../../support/poolAdvertisementHelpers";
+import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("Pool Candidates", () => {
@@ -66,7 +66,7 @@ describe("Pool Candidates", () => {
               dcmId = dcm;
             });
 
-            // create, update, and publish a new pool advertisement for testing matching
+            // create, update, and publish a new pool for testing matching
             cy.get("@testClassification").then((classification) => {
               createAndPublishPool({
                 adminUserId,

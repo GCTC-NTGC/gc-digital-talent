@@ -35,15 +35,15 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 const usePoolCandidateCsvData = (
   candidates: PoolCandidate[],
-  poolAdvertisement: Maybe<
+  pool: Maybe<
     Pick<Pool, "essentialSkills" | "nonessentialSkills" | "screeningQuestions">
   >,
 ) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const essentialSkillHeaders = poolAdvertisement?.essentialSkills
-    ? poolAdvertisement.essentialSkills.map((skill) => {
+  const essentialSkillHeaders = pool?.essentialSkills
+    ? pool.essentialSkills.map((skill) => {
         return {
           key: skill.key,
           label: intl.formatMessage(
@@ -57,8 +57,8 @@ const usePoolCandidateCsvData = (
         };
       })
     : [];
-  const nonEssentialSkillHeaders = poolAdvertisement?.nonessentialSkills
-    ? poolAdvertisement.nonessentialSkills.map((skill) => {
+  const nonEssentialSkillHeaders = pool?.nonessentialSkills
+    ? pool.nonessentialSkills.map((skill) => {
         return {
           key: skill.key,
           label: intl.formatMessage(
@@ -73,8 +73,8 @@ const usePoolCandidateCsvData = (
       })
     : [];
 
-  const screeningQuestionHeaders = poolAdvertisement?.screeningQuestions
-    ? poolAdvertisement.screeningQuestions
+  const screeningQuestionHeaders = pool?.screeningQuestions
+    ? pool.screeningQuestions
         .filter(notEmpty)
         .map((screeningQuestion, index) => ({
           key: screeningQuestion.id,
@@ -428,7 +428,7 @@ const usePoolCandidateCsvData = (
         user,
         pool: poolAd,
       }) => {
-        const poolAdvertisementSkills =
+        const poolSkills =
           poolAd.essentialSkills && poolAd.nonessentialSkills
             ? [...poolAd.essentialSkills, ...poolAd.nonessentialSkills]
             : [];
@@ -538,7 +538,7 @@ const usePoolCandidateCsvData = (
           ...skillKeyAndJustifications(
             user.experiences,
             labels,
-            poolAdvertisementSkills || [],
+            poolSkills || [],
             intl,
           ),
         };

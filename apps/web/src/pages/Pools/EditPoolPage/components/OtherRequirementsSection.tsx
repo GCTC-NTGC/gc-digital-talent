@@ -18,11 +18,11 @@ import {
 import { empty } from "@gc-digital-talent/helpers";
 
 import {
-  AdvertisementStatus,
+  PoolStatus,
   LocalizedString,
   Maybe,
   Pool,
-  PoolAdvertisementLanguage,
+  PoolLanguage,
   PublishingGroup,
   SecurityStatus,
   UpdatePoolInput,
@@ -38,7 +38,7 @@ enum LocationOption {
 }
 
 type FormValues = {
-  languageRequirement: Pool["advertisementLanguage"];
+  languageRequirement: Pool["language"];
   securityRequirement: Pool["securityClearance"];
   locationOption: LocationOption;
   specificLocationEn?: LocalizedString["en"];
@@ -48,21 +48,17 @@ type FormValues = {
 
 export type OtherRequirementsSubmitData = Pick<
   UpdatePoolInput,
-  | "advertisementLanguage"
-  | "advertisementLocation"
-  | "securityClearance"
-  | "isRemote"
-  | "publishingGroup"
+  "language" | "location" | "securityClearance" | "isRemote" | "publishingGroup"
 >;
 
 interface OtherRequirementsSectionProps {
-  poolAdvertisement: Pool;
+  pool: Pool;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: OtherRequirementsSubmitData) => void;
 }
 
 const OtherRequirementsSection = ({
-  poolAdvertisement,
+  pool,
   sectionMetadata,
   onSave,
 }: OtherRequirementsSectionProps): JSX.Element => {
@@ -78,16 +74,16 @@ const OtherRequirementsSection = ({
   };
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
-    languageRequirement: initialData.advertisementLanguage,
+    languageRequirement: initialData.language,
     securityRequirement: initialData.securityClearance,
     locationOption: getLocationOption(initialData.isRemote),
-    specificLocationEn: initialData.advertisementLocation?.en,
-    specificLocationFr: initialData.advertisementLocation?.fr,
+    specificLocationEn: initialData.location?.en,
+    specificLocationFr: initialData.location?.fr,
     publishingGroup: initialData.publishingGroup,
   });
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(poolAdvertisement),
+    defaultValues: dataToFormValues(pool),
   });
   const { handleSubmit, control } = methods;
   const locationOption: FormValues["locationOption"] = useWatch({
@@ -96,8 +92,7 @@ const OtherRequirementsSection = ({
   });
 
   // disabled unless status is draft
-  const formDisabled =
-    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+  const formDisabled = pool.status !== PoolStatus.Draft;
 
   const formValuesToSubmitData = (formValues: FormValues) => {
     // when the location option is "Remote Optional" then specific locations are not used
@@ -113,10 +108,10 @@ const OtherRequirementsSection = ({
 
   const handleSave = (formValues: FormValues) => {
     onSave({
-      advertisementLanguage: formValues.languageRequirement
+      language: formValues.languageRequirement
         ? formValues.languageRequirement
         : undefined, // can't be set to null, assume not updating if empty
-      advertisementLocation:
+      location:
         formValues.locationOption !== LocationOption.RemoteOptional
           ? {
               en: formValues.specificLocationEn,
@@ -173,12 +168,12 @@ const OtherRequirementsSection = ({
                   id: "7pCluO",
                   description: "Placeholder for language requirement field",
                 })}
-                options={enumToOptions(PoolAdvertisementLanguage, [
-                  PoolAdvertisementLanguage.Various,
-                  PoolAdvertisementLanguage.English,
-                  PoolAdvertisementLanguage.French,
-                  PoolAdvertisementLanguage.BilingualIntermediate,
-                  PoolAdvertisementLanguage.BilingualAdvanced,
+                options={enumToOptions(PoolLanguage, [
+                  PoolLanguage.Various,
+                  PoolLanguage.English,
+                  PoolLanguage.French,
+                  PoolLanguage.BilingualIntermediate,
+                  PoolLanguage.BilingualAdvanced,
                 ]).map(({ value }) => ({
                   value,
                   label: intl.formatMessage(getLanguageRequirement(value)),

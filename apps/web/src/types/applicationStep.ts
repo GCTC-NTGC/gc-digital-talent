@@ -30,7 +30,7 @@ export type ApplicationStepInfo = {
   // Is the applicant valid as far as this step is concerned?
   hasError?: (
     applicant: Applicant,
-    poolAdvertisement: Pool,
+    pool: Pool,
     application: Omit<PoolCandidate, "pool">,
   ) => boolean;
 };

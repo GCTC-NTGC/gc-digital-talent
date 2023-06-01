@@ -33,16 +33,11 @@ import {
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
 
-import {
-  AdvertisementStatus,
-  Scalars,
-  useGetPoolAdvertisementQuery,
-  Pool,
-} from "~/api/generated";
+import { PoolStatus, Scalars, useGetPoolQuery, Pool } from "~/api/generated";
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
   formatClassificationString,
-  getFullPoolAdvertisementTitleLabel,
+  getFullPoolTitleLabel,
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -70,13 +65,13 @@ const anchorTag = (chunks: React.ReactNode) => (
 );
 
 interface PoolAdvertisementProps {
-  poolAdvertisement: Pool;
+  pool: Pool;
   applicationId?: Scalars["ID"];
   hasApplied?: boolean;
 }
 
-export const PoolAdvertisementPoster = ({
-  poolAdvertisement,
+export const PoolPoster = ({
+  pool,
   applicationId,
   hasApplied,
 }: PoolAdvertisementProps) => {
@@ -85,9 +80,7 @@ export const PoolAdvertisementPoster = ({
   const paths = useRoutes();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
-  const classification = poolAdvertisement.classifications
-    ? poolAdvertisement.classifications[0]
-    : null;
+  const classification = pool.classifications ? pool.classifications[0] : null;
   const genericJobTitles =
     classification?.genericJobTitles?.filter(notEmpty) || [];
   let classificationString = ""; // type wrangling the complex type into a string
@@ -97,36 +90,26 @@ export const PoolAdvertisementPoster = ({
       level: classification?.level,
     });
   }
-  const fullTitle = getFullPoolAdvertisementTitleLabel(intl, poolAdvertisement);
+  const fullTitle = getFullPoolTitleLabel(intl, pool);
 
-  const showImpactTasks = !!(
-    poolAdvertisement.keyTasks || poolAdvertisement.yourImpact
-  );
+  const showImpactTasks = !!(pool.keyTasks || pool.yourImpact);
 
-  const languageRequirement = poolAdvertisement.advertisementLanguage
-    ? intl.formatMessage(
-        getLanguageRequirement(poolAdvertisement.advertisementLanguage),
-      )
+  const languageRequirement = pool.language
+    ? intl.formatMessage(getLanguageRequirement(pool.language))
     : "";
 
-  const securityClearance = poolAdvertisement.securityClearance
-    ? intl.formatMessage(
-        getSecurityClearance(poolAdvertisement.securityClearance),
-      )
+  const securityClearance = pool.securityClearance
+    ? intl.formatMessage(getSecurityClearance(pool.securityClearance))
     : "";
 
-  const essentialSkills = categorizeSkill(poolAdvertisement.essentialSkills);
-  const nonEssentialSkills = categorizeSkill(
-    poolAdvertisement.nonessentialSkills,
-  );
+  const essentialSkills = categorizeSkill(pool.essentialSkills);
+  const nonEssentialSkills = categorizeSkill(pool.nonessentialSkills);
 
-  const canApply = !!(
-    poolAdvertisement?.advertisementStatus === AdvertisementStatus.Published
-  );
+  const canApply = !!(pool?.status === PoolStatus.Published);
 
   const applyBtn = (
     <ApplicationLink
-      poolId={poolAdvertisement.id}
+      poolId={pool.id}
       applicationId={applicationId}
       hasApplied={hasApplied}
       canApply={canApply}
@@ -144,7 +127,7 @@ export const PoolAdvertisementPoster = ({
     },
     {
       label: fullTitle,
-      url: paths.pool(poolAdvertisement.id),
+      url: paths.pool(pool.id),
     },
   ]);
 
@@ -352,11 +335,9 @@ export const PoolAdvertisementPoster = ({
                     description: "Label for pool advertisement closing date",
                   })}
                   value={
-                    poolAdvertisement.closingDate
+                    pool.closingDate
                       ? relativeClosingDate({
-                          closingDate: parseDateTimeUtc(
-                            poolAdvertisement.closingDate,
-                          ),
+                          closingDate: parseDateTimeUtc(pool.closingDate),
                           intl,
                         })
                       : notAvailable
@@ -371,13 +352,13 @@ export const PoolAdvertisementPoster = ({
                       "Label for pool advertisement's required skills",
                   })}
                   value={
-                    poolAdvertisement?.essentialSkills?.length ? (
+                    pool?.essentialSkills?.length ? (
                       <div
                         data-h2-display="base(flex)"
                         data-h2-gap="base(x.15)"
                         data-h2-flex-wrap="base(wrap)"
                       >
-                        {poolAdvertisement.essentialSkills.map((skill) => (
+                        {pool.essentialSkills.map((skill) => (
                           <Pill color="secondary" mode="outline" key={skill.id}>
                             {getLocalizedName(skill.name, intl)}
                           </Pill>
@@ -395,10 +376,8 @@ export const PoolAdvertisementPoster = ({
                 <TableOfContents.Heading>
                   {sections.impactTasks.title}
                 </TableOfContents.Heading>
-                {poolAdvertisement.yourImpact && (
-                  <Text>{poolAdvertisement.yourImpact[locale]}</Text>
-                )}
-                {poolAdvertisement.keyTasks && (
+                {pool.yourImpact && <Text>{pool.yourImpact[locale]}</Text>}
+                {pool.keyTasks && (
                   <>
                     <Heading level="h3" size="h4">
                       {intl.formatMessage({
@@ -408,7 +387,7 @@ export const PoolAdvertisementPoster = ({
                           "Title for key tasks on a pool advertisement.",
                       })}
                     </Heading>
-                    <Text>{poolAdvertisement.keyTasks[locale]}</Text>
+                    <Text>{pool.keyTasks[locale]}</Text>
                   </>
                 )}
               </TableOfContents.Section>
@@ -586,17 +565,14 @@ export const PoolAdvertisementPoster = ({
                     "Label for pool advertisement location requirement",
                 })}
                 value={
-                  poolAdvertisement.isRemote
+                  pool.isRemote
                     ? intl.formatMessage({
                         defaultMessage: "Remote optional",
                         id: "NKbfoW",
                         description:
                           "Location requirement when a pool advertisement is remote",
                       })
-                    : getLocalizedName(
-                        poolAdvertisement.advertisementLocation,
-                        intl,
-                      )
+                    : getLocalizedName(pool.location, intl)
                 }
               />
               <DataRow
@@ -752,13 +728,13 @@ const PoolAdvertisementPage = () => {
   const { poolId } = useParams<RouteParams>();
   const auth = useAuthorization();
 
-  const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
+  const [{ data, fetching, error }] = useGetPoolQuery({
     variables: { id: poolId || "" },
   });
 
   const isVisible = isAdvertisementVisible(
     auth?.roleAssignments?.filter(notEmpty) || [],
-    data?.pool?.advertisementStatus ?? null,
+    data?.pool?.status ?? null,
   );
 
   // Attempt to find an application for this user+pool combination
@@ -769,8 +745,8 @@ const PoolAdvertisementPage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.pool && isVisible ? (
-        <PoolAdvertisementPoster
-          poolAdvertisement={data?.pool}
+        <PoolPoster
+          pool={data?.pool}
           applicationId={application?.id}
           hasApplied={notEmpty(application?.submittedAt)}
         />

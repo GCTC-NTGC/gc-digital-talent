@@ -77,20 +77,20 @@ const MissingLanguageRequirementsBlock = ({
 
 export interface MissingLanguageRequirementsProps {
   applicant?: Applicant;
-  poolAdvertisement?: Pool | null;
+  pool?: Pool | null;
   headingLevel?: HeadingRank;
 }
 
 const MissingLanguageRequirements = ({
   applicant,
-  poolAdvertisement,
+  pool,
   headingLevel = "h2",
 }: MissingLanguageRequirementsProps) => {
   const intl = useIntl();
 
   const missingLanguageRequirements = getMissingLanguageRequirements(
     applicant,
-    poolAdvertisement,
+    pool,
   ).map((messageDescriptor) => intl.formatMessage(messageDescriptor));
 
   return missingLanguageRequirements.length ? (

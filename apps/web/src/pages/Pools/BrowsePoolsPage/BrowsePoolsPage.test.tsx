@@ -7,42 +7,42 @@ import React from "react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
-import { AdvertisementStatus, Pool, PublishingGroup } from "~/api/generated";
+import { PoolStatus, Pool, PublishingGroup } from "~/api/generated";
 
 import { BrowsePools, BrowsePoolsProps } from "./BrowsePoolsPage";
 
 const publishedItJobsPool: Pool = {
   id: "publishedItJobsPool",
   publishingGroup: PublishingGroup.ItJobs,
-  advertisementStatus: AdvertisementStatus.Published,
+  status: PoolStatus.Published,
 };
 
 const expiredItJobsPool: Pool = {
   id: "expiredItJobsPool",
   publishingGroup: PublishingGroup.ItJobs,
-  advertisementStatus: AdvertisementStatus.Closed,
+  status: PoolStatus.Closed,
 };
 
 const archivedItJobsPool: Pool = {
   id: "archivedItJobsPool",
   publishingGroup: PublishingGroup.ItJobs,
-  advertisementStatus: AdvertisementStatus.Archived,
+  status: PoolStatus.Archived,
 };
 
 const publishedExecJobsPool: Pool = {
   id: "publishedExecJobsPool",
   publishingGroup: PublishingGroup.ExecutiveJobs,
-  advertisementStatus: AdvertisementStatus.Published,
+  status: PoolStatus.Published,
 };
 
-const renderBrowsePoolsPage = ({ poolAdvertisements }: BrowsePoolsProps) =>
-  renderWithProviders(<BrowsePools poolAdvertisements={poolAdvertisements} />);
+const renderBrowsePoolsPage = ({ pools }: BrowsePoolsProps) =>
+  renderWithProviders(<BrowsePools pools={pools} />);
 
 describe("BrowsePoolsPage", () => {
   it("should have no accessibility errors", async () => {
     await act(async () => {
       const { container } = renderBrowsePoolsPage({
-        poolAdvertisements: [publishedItJobsPool],
+        pools: [publishedItJobsPool],
       });
       await axeTest(container);
     });
@@ -50,7 +50,7 @@ describe("BrowsePoolsPage", () => {
 
   it("should only show published jobs", async () => {
     renderBrowsePoolsPage({
-      poolAdvertisements: [
+      pools: [
         // draft pools can not be returned by API query
         publishedItJobsPool,
         expiredItJobsPool,
@@ -79,7 +79,7 @@ describe("BrowsePoolsPage", () => {
 
   it("should only show IT jobs", async () => {
     renderBrowsePoolsPage({
-      poolAdvertisements: [publishedItJobsPool, publishedExecJobsPool],
+      pools: [publishedItJobsPool, publishedExecJobsPool],
     });
 
     const links = await screen.queryAllByRole("link", {

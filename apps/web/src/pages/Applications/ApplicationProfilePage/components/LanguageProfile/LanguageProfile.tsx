@@ -104,7 +104,7 @@ const LanguageProfile = ({
         <MissingLanguageRequirements
           headingLevel="h3"
           applicant={user as Applicant}
-          poolAdvertisement={application?.pool}
+          pool={application?.pool}
         />
       )}
       <ToggleSection.Content>

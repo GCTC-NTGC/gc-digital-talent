@@ -22,7 +22,7 @@ import {
   PoolCandidate,
   Maybe,
 } from "~/api/generated";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -188,10 +188,7 @@ export const ViewPoolCandidate = ({
             },
             {
               submittedAt: poolCandidate.submittedAt,
-              poolName: getFullPoolAdvertisementTitleHtml(
-                intl,
-                poolCandidate.pool,
-              ),
+              poolName: getFullPoolTitleHtml(intl, poolCandidate.pool),
             },
           )}
         </p>

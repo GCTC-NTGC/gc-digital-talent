@@ -54,7 +54,7 @@ const ExperienceAndSkillsApi = ({
       {data?.poolCandidate ? (
         <ExperienceAndSkills
           applicantId={applicantId}
-          poolAdvertisement={data.poolCandidate.pool}
+          pool={data.poolCandidate.pool}
           missingSkills={missingSkills}
           experiences={experiencesOnlyRelevantSkills}
         />

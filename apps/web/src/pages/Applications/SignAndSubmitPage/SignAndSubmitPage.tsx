@@ -18,7 +18,7 @@ import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Pool,
@@ -223,7 +223,7 @@ const SignatureForm = ({
 
 export interface SignAndSubmitFormProps {
   applicationId: string;
-  poolAdvertisementId: string;
+  poolId: string;
   userId: string;
   closingDate: Pool["closingDate"];
   jobTitle: React.ReactNode;
@@ -235,7 +235,7 @@ export interface SignAndSubmitFormProps {
 
 export const SignAndSubmitForm = ({
   applicationId,
-  poolAdvertisementId,
+  poolId,
   userId,
   closingDate,
   jobTitle,
@@ -300,7 +300,7 @@ export const SignAndSubmitForm = ({
           },
           {
             label: jobTitle,
-            url: paths.pool(poolAdvertisementId),
+            url: paths.pool(poolId),
           },
           {
             label: intl.formatMessage({
@@ -374,7 +374,7 @@ const SignAndSubmitPage = () => {
   });
 
   const jobTitle = data?.poolCandidate
-    ? getFullPoolAdvertisementTitleHtml(intl, data.poolCandidate.pool)
+    ? getFullPoolTitleHtml(intl, data.poolCandidate.pool)
     : intl.formatMessage({
         defaultMessage: "Error, job title not found.",
         id: "oDyHaL",
@@ -395,7 +395,7 @@ const SignAndSubmitPage = () => {
       {data?.poolCandidate ? (
         <SignAndSubmitForm
           applicationId={data.poolCandidate.id}
-          poolAdvertisementId={data.poolCandidate.pool.id}
+          poolId={data.poolCandidate.pool.id}
           userId={data.poolCandidate.user.id}
           closingDate={data.poolCandidate.pool.closingDate}
           jobTitle={jobTitle}

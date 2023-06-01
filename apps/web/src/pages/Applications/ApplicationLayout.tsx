@@ -18,10 +18,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import {
-  getFullPoolAdvertisementTitleHtml,
-  getFullPoolAdvertisementTitleLabel,
-} from "~/utils/poolUtils";
+import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { useGetApplicationQuery } from "~/api/generated";
 import {
   applicationStepsToStepperArgs,
@@ -46,11 +43,8 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     experienceId,
   });
 
-  const poolNameHtml = getFullPoolAdvertisementTitleHtml(
-    intl,
-    application.pool,
-  );
-  const poolName = getFullPoolAdvertisementTitleLabel(intl, application.pool);
+  const poolNameHtml = getFullPoolTitleHtml(intl, application.pool);
+  const poolName = getFullPoolTitleLabel(intl, application.pool);
   const pageTitle = defineMessage({
     defaultMessage: "Apply to {poolName}",
     id: "K8CPir",
@@ -92,7 +86,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     },
     {
       url: paths.pool(application.pool.id),
-      label: getFullPoolAdvertisementTitleHtml(intl, application.pool),
+      label: getFullPoolTitleHtml(intl, application.pool),
     },
     ...currentCrumbs,
   ]);
