@@ -51,7 +51,7 @@ jobs:
         run: docker-compose up --detach --build
 
       - name: "Run: setup.sh"
-        run: docker-compose run --rm maintenance bash setup.sh
+        run: docker-compose run --rm maintenance bash setup.sh -c
 
       - uses: actions/setup-node@v3
         with:

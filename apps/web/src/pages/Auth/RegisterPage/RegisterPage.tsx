@@ -58,8 +58,8 @@ const RegisterPage = () => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "You can log into your Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
-              id: "Ec1Hn9",
+                "You can log into your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
+              id: "NcB+TT",
               description: "Instructions on how to login with GCKey",
             })}
           </p>

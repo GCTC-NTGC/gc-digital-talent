@@ -22,8 +22,8 @@ class EducationExperienceResource extends JsonResource
             'thesisTitle' => $this->thesis_title,
             'type' => $this->type,
             'status' => $this->status,
-            'startDate' => $this->start_date,
-            'endDate' => $this->end_date,
+            'startDate' => $this->start_date->format('Y-m-d'),
+            'endDate' => $this->end_date?->format('Y-m-d'),
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills)
         ];

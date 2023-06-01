@@ -72,6 +72,7 @@ export interface EditPoolFormProps {
   onClose: () => void;
   onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
   onArchive: () => void;
+  onDuplicate: () => void;
 }
 
 export const EditPoolForm = ({
@@ -81,6 +82,7 @@ export const EditPoolForm = ({
   onSave,
   onPublish,
   onDelete,
+  onDuplicate,
   onClose,
   onExtend,
   onArchive,
@@ -274,6 +276,7 @@ export const EditPoolForm = ({
               onClose={onClose}
               onExtend={onExtend}
               onArchive={onArchive}
+              onDuplicate={onDuplicate}
             />
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
@@ -357,6 +360,12 @@ export const EditPoolPage = () => {
               onSave={(saveData) => mutations.update(poolId, saveData)}
               onPublish={() => mutations.publish(poolId)}
               onDelete={() => mutations.delete(poolId)}
+              onDuplicate={() =>
+                mutations.duplicate(
+                  poolId,
+                  data.poolAdvertisement?.team?.id || "",
+                )
+              }
               onClose={() => mutations.close(poolId)}
               onExtend={(closingDate) => mutations.extend(poolId, closingDate)}
               onArchive={() => logger.warning("onArchive not yet implemented")}

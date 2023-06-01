@@ -1,13 +1,20 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useSearchParams } from "react-router-dom";
+
 import BriefcaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
 import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
 import UsersIcon from "@heroicons/react/24/solid/UsersIcon";
 import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
 import StarIcon from "@heroicons/react/24/solid/StarIcon";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { Alert } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero/Hero";
-import useRoutes from "~/hooks/useRoutes";
+import useRoutes, {
+  FromIapDraftQueryKey,
+  FromIapSuccessQueryKey,
+} from "~/hooks/useRoutes";
 import {
   aboutSectionHasEmptyRequiredFields,
   aboutSectionHasEmptyOptionalFields,
@@ -31,16 +38,14 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
-
 import { AwardExperience } from "~/api/generated";
-import { notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   HeroCardExperienceItem,
   HeroCardProfileItem,
   ProfileItemStatus,
 } from "./HeroCardItem";
 import { HeroCard } from "./HeroCard";
-
 import { PartialUser } from "../types";
 
 function deriveSectionStatus(
@@ -59,6 +64,7 @@ export interface DashboardHeadingProps {
 const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const notEmptyExperiences = user.experiences?.filter(notEmpty);
 
@@ -100,6 +106,102 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         description: "Subtitle for applicant dashboard hero",
       })}
     >
+      {searchParams.get(FromIapDraftQueryKey) === "true" && (
+        <Alert.Root
+          type="info"
+          dismissible
+          live={false}
+          onDismiss={() => {
+            searchParams.delete(FromIapDraftQueryKey);
+            setSearchParams(searchParams, { replace: true });
+          }}
+        >
+          <Alert.Title>
+            {intl.formatMessage({
+              defaultMessage:
+                "Your draft application for the IT Apprenticeship Program for Indigenous Peoples has been successfully saved!",
+              id: "8HdqmJ",
+              description:
+                "Title for notification that a draft IAP application was saved",
+            })}
+          </Alert.Title>
+          <p data-h2-margin-bottom="base(x0.5)">
+            {intl.formatMessage({
+              defaultMessage:
+                "You’ve now landed on your Digital Talent profile page.",
+              id: "ueLK1P",
+              description:
+                "First paragraph for applicant dashboard notification welcoming an IAP user",
+            })}
+          </p>
+          <p data-h2-margin-bottom="base(x0.5)">
+            {intl.formatMessage({
+              defaultMessage:
+                "The apprenticeship program is a part of a larger digital talent initiative in the Government of Canada that has the hopes of recruiting awesome digital talent like yourself. This profile provides you access to other digital opportunities and recruitments beyond the apprenticeship program, if you choose to apply. If you’d prefer to stick to the apprenticeship program exclusively, that’s okay too!",
+              id: "B1Pa0D",
+              description:
+                "Second paragraph for applicant dashboard notification welcoming an IAP user",
+            })}
+          </p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "When you log into the account you created, you’ll be taken to this page from now on. You can use this page to review your Indigenous Apprenticeship application and track your position in the program.",
+              id: "uSAdtr",
+              description:
+                "Third paragraph for applicant dashboard notification welcoming an IAP user",
+            })}
+          </p>
+        </Alert.Root>
+      )}
+      {searchParams.get(FromIapSuccessQueryKey) === "true" && (
+        <Alert.Root
+          type="info"
+          dismissible
+          live={false}
+          onDismiss={() => {
+            searchParams.delete(FromIapSuccessQueryKey);
+            setSearchParams(searchParams, { replace: true });
+          }}
+        >
+          <Alert.Title>
+            {intl.formatMessage({
+              defaultMessage:
+                "Thanks for applying to the IT Apprenticeship Program for Indigenous Peoples!",
+              id: "vB1p56",
+              description:
+                "Title for notification that a an IAP application was submitted",
+            })}
+          </Alert.Title>
+          <p data-h2-margin-bottom="base(x0.5)">
+            {intl.formatMessage({
+              defaultMessage:
+                "You’ve now landed on your Digital Talent profile page.",
+              id: "ueLK1P",
+              description:
+                "First paragraph for applicant dashboard notification welcoming an IAP user",
+            })}
+          </p>
+          <p data-h2-margin-bottom="base(x0.5)">
+            {intl.formatMessage({
+              defaultMessage:
+                "The apprenticeship program is a part of a larger digital talent initiative in the Government of Canada that has the hopes of recruiting awesome digital talent like yourself. This profile provides you access to other digital opportunities and recruitments beyond the apprenticeship program, if you choose to apply. If you’d prefer to stick to the apprenticeship program exclusively, that’s okay too!",
+              id: "B1Pa0D",
+              description:
+                "Second paragraph for applicant dashboard notification welcoming an IAP user",
+            })}
+          </p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "When you log into the account you created, you’ll be taken to this page from now on. You can use this page to review your Indigenous Apprenticeship application and track your position in the program.",
+              id: "uSAdtr",
+              description:
+                "Third paragraph for applicant dashboard notification welcoming an IAP user",
+            })}
+          </p>
+        </Alert.Root>
+      )}
       <div
         data-h2-display="base(grid)"
         data-h2-grid-template-columns="base(100%) l-tablet(repeat(2, minmax(0, 1fr)))"

@@ -44,7 +44,7 @@ describe("Talent Search Workflow Tests", () => {
       }).within(() => {
         cy.contains("There is 1 matching candidate in this pool");
 
-        cy.findByRole("button", { name: /Request Candidates/i })
+        cy.findByRole("button", { name: /Request candidates/i })
           .should("exist")
           .and("be.visible")
           .and("not.be.disabled");
@@ -259,7 +259,7 @@ describe("Talent Search Workflow Tests", () => {
     }).within(() => {
       // Finding this button is sensitive to "dom detached" errors.
       // Must not try to click it unless we know there are no inflight searches.
-      cy.findByRole("button", { name: /Request Candidates/i }).click();
+      cy.findByRole("button", { name: /Request candidates/i }).click();
     });
 
     /*

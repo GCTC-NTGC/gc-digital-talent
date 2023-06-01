@@ -1,8 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Heading } from "@gc-digital-talent/ui";
+import applicationMessages from "~/messages/applicationMessages";
+import { ExternalLink, Heading } from "@gc-digital-talent/ui";
 
+import { getLocale } from "@gc-digital-talent/i18n";
 import Text from "./Text";
 
 const RequirementCard = (props: React.HTMLProps<HTMLDivElement>) => (
@@ -17,8 +19,25 @@ const RequirementCard = (props: React.HTMLProps<HTMLDivElement>) => (
   />
 );
 
-const EducationRequirements = () => {
+interface EducationRequirementsProps {
+  isIAP: boolean;
+}
+
+const EducationRequirements = ({ isIAP }: EducationRequirementsProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+
+  const qualityStandardsLink = (chunks: React.ReactNode) => {
+    const href =
+      locale === "en"
+        ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
+        : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#eepr";
+    return (
+      <ExternalLink href={href} newTab>
+        {chunks}
+      </ExternalLink>
+    );
+  };
 
   return (
     <div
@@ -36,44 +55,15 @@ const EducationRequirements = () => {
           })}
         </Heading>
         <Text>
-          {intl.formatMessage({
-            defaultMessage:
-              "Combined experience in computer science, information technology, information management or another specialty relevant to this advertisement, including any of the following:",
-            id: "bHHnHZ",
-            description:
-              "Descriptive text explaining valid applied work experiences",
-          })}
+          {intl.formatMessage(applicationMessages.appliedWorkExperience)}
         </Text>
         <ul>
+          <li>{intl.formatMessage(applicationMessages.onTheJobLearning)}</li>
           <li>
-            {intl.formatMessage({
-              defaultMessage: "On-the-job learning",
-              id: "qNL/Rp",
-              description: "pool experience requirement, on job learning",
-            })}
+            {intl.formatMessage(applicationMessages.nonConventionalTraining)}
           </li>
-          <li>
-            {intl.formatMessage({
-              defaultMessage: "Non-conventional training",
-              id: "YlWJ/N",
-              description:
-                "pool experience requirement, non-conventional training",
-            })}
-          </li>
-          <li>
-            {intl.formatMessage({
-              defaultMessage: "Formal education",
-              id: "DydUje",
-              description: "pool experience requirement, formal education",
-            })}
-          </li>
-          <li>
-            {intl.formatMessage({
-              defaultMessage: "Other field related experience",
-              id: "GNvz2K",
-              description: "pool experience requirement, other",
-            })}
-          </li>
+          <li>{intl.formatMessage(applicationMessages.formalEducation)}</li>
+          <li>{intl.formatMessage(applicationMessages.otherExperience)}</li>
         </ul>
       </RequirementCard>
       <span
@@ -105,20 +95,31 @@ const EducationRequirements = () => {
       </span>
       <RequirementCard>
         <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
-          {intl.formatMessage({
-            defaultMessage: "2-year post-secondary",
-            id: "ZIwaDE",
-            description: "Title for the education requirements",
-          })}
+          {isIAP
+            ? intl.formatMessage({
+                defaultMessage: "High school diploma or GED",
+                id: "CnPVJe",
+                description:
+                  "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)",
+              })
+            : intl.formatMessage({
+                defaultMessage: "2-year post-secondary",
+                id: "ZIwaDE",
+                description: "Title for the education requirements",
+              })}
         </Heading>
         <Text>
-          {intl.formatMessage({
-            defaultMessage:
-              "Successful completion of two years of post-secondary education in computer science, information technology, information management or another specialty relevant to this position.",
-            id: "RlYe/i",
-            description:
-              "post secondary education experience for pool advertisement",
-          })}
+          {isIAP
+            ? intl.formatMessage({
+                defaultMessage:
+                  "Successful completion of a standard high school diploma or GED equivalent.",
+                id: "nWZiWr",
+                description:
+                  "Education requirement (IT Apprenticeship Program for Indigenous Peoples)",
+              })
+            : intl.formatMessage(applicationMessages.postSecondaryEducation, {
+                link: qualityStandardsLink,
+              })}
         </Text>
       </RequirementCard>
     </div>

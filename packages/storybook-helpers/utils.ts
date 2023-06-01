@@ -1,9 +1,13 @@
-import {
-  Viewport,
-  ViewportStyles,
-  Styles,
-  // eslint-disable-next-line import/no-unresolved
-} from "@storybook/addon-viewport/dist/ts3.9/models/Viewport";
+type Styles = ViewportStyles | ((s: ViewportStyles) => ViewportStyles) | null;
+interface Viewport {
+  name: string;
+  styles: Styles;
+  type: "desktop" | "mobile" | "tablet" | "other";
+}
+interface ViewportStyles {
+  height: string;
+  width: string;
+}
 
 // type guard for ViewportStyles
 function isViewportStyles(styles: Styles): styles is ViewportStyles {

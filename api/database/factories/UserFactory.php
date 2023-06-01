@@ -172,7 +172,7 @@ class UserFactory extends Factory
             PersonalExperience::factory(),
             WorkExperience::factory(),
         ];
-        return $this->afterCreating(function (User $user) use ($types, $count) {
+        return $this->withSkills()->afterCreating(function (User $user) use ($types, $count) {
             for ($i = 0; $i < $count; $i++) {
                 $type = $this->faker->randomElement($types);
                 $type->create([
@@ -204,9 +204,78 @@ class UserFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (User $user) {
+            $user->addRole('base_user');
             $user->expectedGenericJobTitles()->saveMany(
                 GenericJobTitle::inRandomOrder()->take(1)->get()
             );
+        });
+    }
+
+    /**
+     * Attach the guest role to a user after creation.
+     *
+     * @return $this
+     */
+    public function asGuest()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->addRole('guest');
+        });
+    }
+
+    /**
+     * Attach the applicant role to a user after creation.
+     *
+     * @return $this
+     */
+    public function asApplicant()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->addRole('applicant');
+        });
+    }
+
+    /**
+     * Attach the request responder role to a user after creation.
+     *
+     * @return $this
+     */
+    public function asRequestResponder()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->addRole('request_responder');
+        });
+    }
+
+    /**
+     * Attach the pool operator role to a user after creation.
+     *
+     * @param   string  $team   Name of the team to attach the role to
+     *
+     * @return $this
+     */
+    public function asPoolOperator(string|array $team)
+    {
+        return $this->afterCreating(function (User $user) use ($team) {
+            if (is_array($team)) {
+                foreach ($team as $singleTeam) {
+                    $user->addRole("pool_operator", $singleTeam);
+                }
+            } else {
+                $user->addRole("pool_operator", $team);
+            }
+        });
+    }
+
+    /**
+     * Attach the admin role to a user after creation.
+     *
+     * @return $this
+     */
+    public function asAdmin()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->addRole('platform_admin');
         });
     }
 }

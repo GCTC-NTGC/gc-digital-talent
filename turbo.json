@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["package.json"],
+  "globalDependencies": ["package.json", "**/.env"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],

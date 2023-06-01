@@ -36,7 +36,7 @@ const Template: ComponentStory<typeof Switch.Root> = () => (
       data-h2-display="base(flex)"
       data-h2-gap="base(0, x.25)"
     >
-      <label htmlFor="checked">Default Not Checked</label>
+      <label htmlFor="unchecked">Default Not Checked</label>
       <Switch.Root id="unchecked">
         <Switch.Thumb />
       </Switch.Root>
