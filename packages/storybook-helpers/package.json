@@ -23,7 +23,7 @@
     "react-router-dom": "^6.11.2",
     "storybook-addon-intl": "^3.2.0",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
-    "urql": "3.0.4",
+    "urql": "4.0.3",
     "wonka": "^6.3.2"
   },
   "devDependencies": {
