@@ -14,8 +14,6 @@ import hero2Landscape from "~/assets/img/hero-2-landscape.jpg";
 import hero3Landscape from "~/assets/img/hero-3-landscape.jpg";
 import hero4Landscape from "~/assets/img/hero-4-landscape.jpg";
 
-import "./hero.css";
-
 const landscapeRandomize = (index?: number | undefined) => {
   const items = [
     hero1Landscape,
@@ -37,15 +35,12 @@ const Hero = ({ defaultImage }: HeroProps) => {
   return (
     <div
       data-h2-background-color="base(black.darkest)"
+      data-h2-position="base(relative)"
       data-h2-padding-top="base(x3) p-tablet(x4) l-tablet(x6)"
       data-h2-padding-bottom="
       base(calc(50vh + 3%))
       p-tablet(calc(60vh + 3%))
       l-tablet(calc((6rem * var(--h2-line-height-copy)) + 3%))"
-      className="hero-bg-image"
-      style={{
-        backgroundImage: `url('${landscapeRandomize(defaultImage)}')`,
-      }}
     >
       <div
         data-h2-position="base(relative)"
@@ -113,6 +108,22 @@ const Hero = ({ defaultImage }: HeroProps) => {
           </CallToActionLink>
         </div>
       </div>
+      <img
+        alt={intl.formatMessage({
+          defaultMessage:
+            "A diverse group of people, representing all races, genders, and backgrounds, gathered together in unity. Everyone is welcome here!",
+          id: "MCFcrj",
+          description: "Hero image alt text.",
+        })}
+        src={landscapeRandomize(defaultImage)}
+        data-h2-position="base(absolute)"
+        data-h2-height="base(50vh) p-tablet(60vh) l-tablet(110%)"
+        data-h2-width="base(auto)"
+        data-h2-left="base(50%) l-tablet(60%)"
+        data-h2-top="base(55%) p-tablet(50%) l-tablet(0)"
+        data-h2-transform="base(translate(-50%)) l-tablet(translate(-30%))"
+        data-h2-max-width="base(200%) p-tablet(100%)"
+      />
     </div>
   );
 };

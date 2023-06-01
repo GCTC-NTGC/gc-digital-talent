@@ -8342,5 +8342,9 @@
   "zLeH2i": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Title for the diversity, equity, and inclusion snapshot section"
+  },
+  "MCFcrj": {
+    "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
+    "description": "Hero image alt text."
   }
 }
