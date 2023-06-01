@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { ChevronRightIcon } from "@heroicons/react/24/solid";
+import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 
 import { Button, Collapsible } from "@gc-digital-talent/ui";
 
