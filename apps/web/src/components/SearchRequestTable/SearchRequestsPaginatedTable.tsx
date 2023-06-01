@@ -4,9 +4,11 @@ import { IntlShape, useIntl } from "react-intl";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
 import {
+  Maybe,
   PoolCandidateSearchRequestInput,
   PoolCandidateSearchRequestPaginator,
   PoolCandidateSearchStatus,
+  Scalars,
   useGetPoolCandidateSearchRequestsPaginatedQuery,
 } from "@gc-digital-talent/graphql";
 
@@ -29,6 +31,7 @@ import {
   getLocalizedName,
   getPoolCandidateSearchStatus,
 } from "@gc-digital-talent/i18n";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 type Data = NonNullable<FromArray<PoolCandidateSearchRequestPaginator["data"]>>;
 
@@ -40,6 +43,18 @@ const statusAccessor = (
   status
     ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
     : "";
+
+function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
+  return date ? (
+    <span>
+      {formatDate({
+        date: parseDateTimeUtc(date),
+        formatString: "PPP p",
+        intl,
+      })}
+    </span>
+  ) : null;
+}
 
 const defaultState = {
   ...TABLE_DEFAULTS,
@@ -140,8 +155,8 @@ const SearchRequestsPaginatedTable = ({
             "Title displayed on the search request table requested date column.",
         }),
         id: "requestedDate",
-        accessor: (d) => d.requestedDate,
         sortColumnName: "created_at",
+        accessor: (d) => dateCell(d.requestedDate, intl),
       },
       {
         label: intl.formatMessage({
