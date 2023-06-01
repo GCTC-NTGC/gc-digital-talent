@@ -113,8 +113,8 @@ export const CreateAccountForm = ({
       />
       <Hero
         title={intl.formatMessage({
-          defaultMessage: "Welcome to Digital Talent",
-          id: "0m7BIV",
+          defaultMessage: "Welcome to GC Digital Talent",
+          id: "WVTDgX",
           description:
             "Title for the create account page for applicant profiles.",
         })}
@@ -141,8 +141,8 @@ export const CreateAccountForm = ({
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Welcome to the Digital Talent platform. Moving forward, you can log into your profile using the same GCKey username and password.",
-                id: "qHVR2p",
+                  "Welcome to the GC Digital Talent platform. Moving forward, you can log into your profile using the same GCKey username and password.",
+                id: "cmZ9cx",
                 description:
                   "Message for successful login alert in create account page",
               })}

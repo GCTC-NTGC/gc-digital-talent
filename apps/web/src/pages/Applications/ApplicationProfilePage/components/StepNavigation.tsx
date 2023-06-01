@@ -44,7 +44,7 @@ const StepNavigation = ({
   const { dirtySections } = useProfileFormContext();
   const [{ fetching: submitting }, executeSubmitMutation] =
     useUpdateApplicationMutation();
-  const { followingPageUrl } = useApplicationContext();
+  const { followingPageUrl, isIAP } = useApplicationContext();
   const nextStepPath =
     followingPageUrl ?? paths.applicationResumeIntro(application.id);
   const methods = useForm<ProfileActionFormValues>({
@@ -91,7 +91,11 @@ const StepNavigation = ({
 
     if (!hasDirtySections) {
       if (values.action === "quit") {
-        navigate(applicantDashboard ? paths.dashboard() : paths.myProfile());
+        navigate(
+          applicantDashboard
+            ? paths.dashboard({ fromIapDraft: isIAP })
+            : paths.myProfile(),
+        );
         return true;
       }
 

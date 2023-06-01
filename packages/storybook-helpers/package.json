@@ -15,7 +15,7 @@
     "@storybook/addons": "^7.0.6",
     "@storybook/react": "^7.0.6",
     "@storybook/react-webpack5": "^7.0.6",
-    "chromatic": "^6.17.4",
+    "chromatic": "^6.18.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -27,6 +27,7 @@
     "wonka": "^6.3.2"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^7.0.18",
     "storybook": "^7.0.6"
   }
 }

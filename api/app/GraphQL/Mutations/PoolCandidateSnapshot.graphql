@@ -82,6 +82,7 @@ query getProfile($userId: UUID!) {
     poolCandidates {
       status
       expiryDate
+      signature
       pool {
         id
         name {
@@ -100,12 +101,25 @@ query getProfile($userId: UUID!) {
       educationRequirementExperiences {
         ...experience
       }
+      screeningQuestionResponses {
+        id
+        answer
+        screeningQuestion {
+          id
+          sortOrder
+          question {
+            en
+            fr
+          }
+        }
+      }
     }
     isProfileComplete
   }
 }
 
 fragment experience on Experience {
+  __typename
   id
   details
   skills {

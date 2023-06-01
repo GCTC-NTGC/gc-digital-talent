@@ -44,6 +44,7 @@ class UserSeederLocal extends Seeder
             ->asRequestResponder()
             ->asAdmin()
             ->asPoolOperator(['digital-community-management', 'test-team'])
+            ->withExperiences()
             ->create([
                 'first_name' => 'Admin',
                 'last_name' => 'Test',
@@ -55,6 +56,7 @@ class UserSeederLocal extends Seeder
         User::factory()
             ->asApplicant()
             ->asAdmin()
+            ->withExperiences()
             ->create([
                 'first_name' => 'Platform',
                 'last_name' => 'Admin',
@@ -66,6 +68,7 @@ class UserSeederLocal extends Seeder
         User::factory()
             ->asApplicant()
             ->asRequestResponder()
+            ->withExperiences()
             ->create([
                 'first_name' => 'Request',
                 'last_name' => 'Responder',
@@ -77,6 +80,7 @@ class UserSeederLocal extends Seeder
         User::factory()
             ->asApplicant()
             ->asPoolOperator(['digital-community-management', 'test-team'])
+            ->withExperiences()
             ->create([
                 'first_name' => 'Pool',
                 'last_name' => 'Operator',
@@ -87,6 +91,7 @@ class UserSeederLocal extends Seeder
 
         User::factory()
             ->asApplicant()
+            ->withExperiences()
             ->create([
                 'first_name' => 'Applicant',
                 'last_name' => 'Test',

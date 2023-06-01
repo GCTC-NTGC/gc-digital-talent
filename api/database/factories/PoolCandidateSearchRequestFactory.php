@@ -32,7 +32,6 @@ class PoolCandidateSearchRequestFactory extends Factory
       'additional_comments' => $this->faker->text(),
       'done_at' => $this->faker->optional()->dateTimeBetween($startDate = '-3 years', $endDate = 'now'),
       'admin_notes' => $this->faker->text(),
-      'pool_candidate_filter_id' => PoolCandidateFilter::factory(),
       'applicant_filter_id' => ApplicantFilter::factory(),
       'was_empty' => $this->faker->boolean()
     ];

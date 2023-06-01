@@ -137,7 +137,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
         <p data-h2-margin="base(x.5, 0)">
           <Link
             type="button"
-            href={paths.dashboard()}
+            href={paths.dashboard({ fromIapSuccess: isIAP })}
             mode="solid"
             color="primary"
           >
