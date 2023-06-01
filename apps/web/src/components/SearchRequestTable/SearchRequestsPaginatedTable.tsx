@@ -6,6 +6,7 @@ import { Pending } from "@gc-digital-talent/ui";
 import {
   PoolCandidateSearchRequestInput,
   PoolCandidateSearchRequestPaginator,
+  PoolCandidateSearchStatus,
   useGetPoolCandidateSearchRequestsPaginatedQuery,
 } from "@gc-digital-talent/graphql";
 
@@ -22,15 +23,35 @@ import {
   TABLE_DEFAULTS,
 } from "~/components/Table/ApiManagedTable/helpers";
 import useTableState from "~/components/Table/ApiManagedTable/useTableState";
+import { tableViewItemButtonAccessor } from "~/components/Table/ClientManagedTable/TableViewItemButton";
+import useRoutes from "~/hooks/useRoutes";
+import {
+  getLocalizedName,
+  getPoolCandidateSearchStatus,
+} from "@gc-digital-talent/i18n";
 
 type Data = NonNullable<FromArray<PoolCandidateSearchRequestPaginator["data"]>>;
 
-//
+// Accessors
+const statusAccessor = (
+  status: PoolCandidateSearchStatus | null | undefined,
+  intl: IntlShape,
+) =>
+  status
+    ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
+    : "";
 
 const defaultState = {
   ...TABLE_DEFAULTS,
   hiddenColumnIds: ["id"],
   filters: {},
+  sortBy: {
+    column: {
+      id: "requestedDate",
+      sortColumnName: "created_at",
+    },
+    desc: false,
+  },
 };
 
 const SearchRequestsPaginatedTable = ({
@@ -41,6 +62,8 @@ const SearchRequestsPaginatedTable = ({
   title: string;
 }) => {
   const intl = useIntl();
+  const paths = useRoutes();
+
   // Note: Need to memoize to prevent infinite update depth
   const memoizedDefaultState = useMemo(
     () => ({
@@ -87,7 +110,17 @@ const SearchRequestsPaginatedTable = ({
             "Title displayed for the search request table edit column.",
         }),
         id: "action",
-        accessor: (d) => `Action ${d.id}`,
+        accessor: (d) =>
+          tableViewItemButtonAccessor(
+            paths.searchRequestView(d.id),
+            intl.formatMessage({
+              defaultMessage: "request",
+              id: "gLtTaW",
+              description:
+                "Text displayed after View text for Search Request table view action",
+            }),
+            d.fullName || "",
+          ),
       },
       {
         label: intl.formatMessage({
@@ -96,7 +129,8 @@ const SearchRequestsPaginatedTable = ({
           description: "Title displayed on the search request table id column.",
         }),
         id: "id",
-        accessor: (d) => `Action ${d.id}`,
+        sortColumnName: "id",
+        accessor: (d) => d.id,
       },
       {
         label: intl.formatMessage({
@@ -106,7 +140,8 @@ const SearchRequestsPaginatedTable = ({
             "Title displayed on the search request table requested date column.",
         }),
         id: "requestedDate",
-        accessor: (d) => `Action ${d.requestedDate}`,
+        accessor: (d) => d.requestedDate,
+        sortColumnName: "created_at",
       },
       {
         label: intl.formatMessage({
@@ -116,7 +151,8 @@ const SearchRequestsPaginatedTable = ({
             "Title displayed on the search request table status column.",
         }),
         id: "status",
-        accessor: (d) => `Action ${d.status}`,
+        sortColumnName: "done_at",
+        accessor: (d) => statusAccessor(d.status, intl),
       },
       {
         label: intl.formatMessage({
@@ -126,7 +162,8 @@ const SearchRequestsPaginatedTable = ({
             "Title displayed on the search request table manager column.",
         }),
         id: "manager",
-        accessor: (d) => `Action ${d.fullName}`,
+        sortColumnName: "full_name",
+        accessor: (d) => d.fullName,
       },
       {
         label: intl.formatMessage({
@@ -136,7 +173,8 @@ const SearchRequestsPaginatedTable = ({
             "Title displayed on the search request table email column.",
         }),
         id: "email",
-        accessor: (d) => `Action ${d.email}`,
+        sortColumnName: "email",
+        accessor: (d) => d.email,
       },
       {
         label: intl.formatMessage({
@@ -146,7 +184,7 @@ const SearchRequestsPaginatedTable = ({
             "Title displayed on the search request table department column.",
         }),
         id: "department",
-        accessor: (d) => `Action ${d.department?.name.en}`,
+        accessor: (d) => getLocalizedName(d.department?.name, intl),
       },
       {
         label: intl.formatMessage({
@@ -156,10 +194,11 @@ const SearchRequestsPaginatedTable = ({
             "Title displayed on the search request table job title column.",
         }),
         id: "jobTitle",
-        accessor: (d) => `Action ${d.jobTitle}`,
+        sortColumnName: "job_title",
+        accessor: (d) => d.jobTitle,
       },
     ],
-    [intl],
+    [intl, paths],
   );
 
   const allColumnIds = columns.map((c) => c.id);
