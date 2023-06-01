@@ -6,10 +6,12 @@ on:
     paths:
       - .github/workflows/*lint*.yml
       - apps/**
+      - packages/**
   pull_request:
     paths:
       - .github/workflows/*lint*.yml
       - apps/**
+      - packages/**
 
 jobs:
   run-linters:
