@@ -8,6 +8,7 @@ use App\Models\Skill;
 use App\Models\User;
 use App\Models\Team;
 use App\Models\ScreeningQuestion;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\KeyStringHelpers;
 use Database\Helpers\ApiEnums;
@@ -28,12 +29,13 @@ class PoolFactory extends Factory
      */
     public function definition()
     {
-        $userId = User::inRandomOrder()
-            ->limit(1)
+        $adminUserId = User::whereHas('roles', function (Builder $query) {
+            $query->where('name', 'platform_admin');
+        })->limit(1)
             ->pluck('id')
             ->first();
-        if (is_null($userId))
-            $userId = User::factory()->create()->id;
+        if (is_null($adminUserId))
+            $adminUserId = User::factory()->asAdmin()->create()->id;
 
         $teamId = Team::inRandomOrder()
             ->limit(1)
@@ -47,7 +49,7 @@ class PoolFactory extends Factory
         return [
             'name' => ['en' => $name, 'fr' => $name],
             'key' => KeyStringHelpers::toKeyString($name),
-            'user_id' => $userId,
+            'user_id' => $adminUserId,
             'team_id' => $teamId,
         ];
     }
