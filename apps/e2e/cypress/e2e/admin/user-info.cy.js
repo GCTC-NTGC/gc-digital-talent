@@ -55,13 +55,6 @@ describe("User Information Page", () => {
               addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
             });
 
-            // fetch the dcmId for pool creation
-            let dcmId;
-            cy.getDCM().then((dcm) => {
-              dcmId = dcm;
-              addRolesToUser(adminUserId, ["pool_operator"], dcm);
-            });
-
             // fetch the newTeamId for pool creation
             let newTeamId;
             cy.get("@newTeam").then((newTeam) => {
@@ -69,14 +62,17 @@ describe("User Information Page", () => {
               addRolesToUser(adminUserId, ["pool_operator"], newTeam);
             });
 
-            // create and publish a new dcm pool advertisement
-            cy.get("@testClassification").then((classification) => {
-              createAndPublishPoolAdvertisement({
-                adminUserId,
-                teamId: dcmId,
-                englishName: `Cypress Test Pool EN ${uniqueTestId}`,
-                classification,
-                poolAdvertisementAlias: "dcmPoolAdvertisement",
+            // fetch the dcmId for pool creation
+            cy.getDCM().then((dcmId) => {
+              // create and publish a new dcm pool advertisement
+              cy.get("@testClassification").then((classification) => {
+                createAndPublishPoolAdvertisement({
+                  adminUserId,
+                  teamId: dcmId,
+                  englishName: `Cypress Test Pool EN ${uniqueTestId}`,
+                  classification,
+                  poolAdvertisementAlias: "dcmPoolAdvertisement",
+                });
               });
             });
 

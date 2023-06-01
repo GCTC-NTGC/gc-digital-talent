@@ -78,31 +78,29 @@ describe("Talent Search Workflow Tests", () => {
             });
 
             // fetch the dcmId for its team from database, needed for pool creation
-            let dcmId;
-            cy.getDCM().then((dcm) => {
-              dcmId = dcm;
-              addRolesToUser(adminUserId, ["pool_operator"], dcm);
-            });
+            cy.getDCM().then((dcmId) => {
+              addRolesToUser(adminUserId, ["pool_operator"], dcmId);
 
-            // create, update, and publish a new pool advertisement for testing matching
-            cy.get("@testClassification1").then((classification) => {
-              createAndPublishPoolAdvertisement({
-                adminUserId,
-                teamId: dcmId,
-                englishName: `Cypress Test Pool EN 1 ${uniqueTestId}`,
-                classification,
-                poolAdvertisementAlias: "publishedTestPoolAdvertisement1",
+              // create, update, and publish a new pool advertisement for testing matching
+              cy.get("@testClassification1").then((classification) => {
+                createAndPublishPoolAdvertisement({
+                  adminUserId,
+                  teamId: dcmId,
+                  englishName: `Cypress Test Pool EN 1 ${uniqueTestId}`,
+                  classification,
+                  poolAdvertisementAlias: "publishedTestPoolAdvertisement1",
+                });
               });
-            });
 
-            // create, update, and publish a new pool advertisement for testing rejection
-            cy.get("@testClassification2").then((classification) => {
-              createAndPublishPoolAdvertisement({
-                adminUserId,
-                teamId: dcmId,
-                englishName: `Cypress Test Pool EN 2 ${uniqueTestId}`,
-                classification,
-                poolAdvertisementAlias: "publishedTestPoolAdvertisement2",
+              // create, update, and publish a new pool advertisement for testing rejection
+              cy.get("@testClassification2").then((classification) => {
+                createAndPublishPoolAdvertisement({
+                  adminUserId,
+                  teamId: dcmId,
+                  englishName: `Cypress Test Pool EN 2 ${uniqueTestId}`,
+                  classification,
+                  poolAdvertisementAlias: "publishedTestPoolAdvertisement2",
+                });
               });
             });
           });
