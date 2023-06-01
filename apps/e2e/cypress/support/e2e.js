@@ -25,6 +25,7 @@ import "./searchRequestCommands";
 import "./skillCommands";
 import "./teamsCommands";
 import "./userCommands";
+import "./artisanCommands";
 
 before(() => {
   cy.log(
