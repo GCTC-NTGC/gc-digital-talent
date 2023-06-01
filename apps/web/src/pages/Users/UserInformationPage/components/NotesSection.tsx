@@ -123,12 +123,6 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                       },
                     )}
                     defaultValue={candidate.notes ? candidate.notes : ""}
-                    placeholder={intl.formatMessage({
-                      defaultMessage: "Start writing your notes here...",
-                      id: "/MBeNc",
-                      description:
-                        "Placeholder text for a pool candidates notes field",
-                    })}
                     rows={4}
                   />
                 </div>

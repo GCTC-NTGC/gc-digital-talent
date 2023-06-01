@@ -627,8 +627,8 @@ export const candidateExpiryFilterStatuses = defineMessages({
   },
   [CandidateExpiryFilter.All]: {
     defaultMessage: "All",
-    id: "qQtJDw",
-    description: "All statuses",
+    id: "XnvXtO",
+    description: "All",
   },
   [CandidateExpiryFilter.Expired]: {
     defaultMessage: "Expired",
@@ -654,8 +654,8 @@ export const candidateSuspendedFilterStatuses = defineMessages({
   },
   [CandidateSuspendedFilter.All]: {
     defaultMessage: "All",
-    id: "qQtJDw",
-    description: "All statuses",
+    id: "XnvXtO",
+    description: "All",
   },
   [CandidateSuspendedFilter.Suspended]: {
     defaultMessage: "Suspended",
@@ -1020,11 +1020,6 @@ export const operationalRequirementLabelFirstPerson = defineMessages({
     id: "duwt+A",
     description: "The operational requirement described as driver's license.",
   },
-  [OperationalRequirement.WorkWeekends]: {
-    defaultMessage: "requires me to <strong>work weekends</strong>.",
-    id: "CFAc15",
-    description: "The operational requirement described as work weekends.",
-  },
   [OperationalRequirement.OvertimeScheduled]: {
     defaultMessage: "requires me to <strong>work scheduled overtime</strong>.",
     id: "1RTwS3",
@@ -1051,7 +1046,6 @@ export const operationalRequirementLabelFirstPerson = defineMessages({
 
 export const OperationalRequirementV1 = [
   OperationalRequirement.ShiftWork,
-  OperationalRequirement.WorkWeekends,
   OperationalRequirement.OvertimeScheduled,
   OperationalRequirement.OvertimeShortNotice,
 ];
@@ -1125,22 +1119,12 @@ export const operationalRequirementLabelFull = defineMessages({
     description:
       "The operational requirement described as occasional overtime.",
   },
-  [OperationalRequirement.WorkWeekends]: {
-    defaultMessage: "Work weekends",
-    id: "6I3OCB",
-    description: "The operational requirement described as work weekends.",
-  },
   [OperationalRequirement.OvertimeOccasional]: {
     defaultMessage:
       "Availability, willingness and ability to work overtime (Occasionally).",
     id: "KzhnAz",
     description:
       "The operational requirement described as occasional overtime.",
-  },
-  [OperationalRequirement.WorkWeekends]: {
-    defaultMessage: "Work weekends",
-    id: "6I3OCB",
-    description: "The operational requirement described as work weekends.",
   },
 });
 
@@ -1198,12 +1182,6 @@ export const operationalRequirementLabelShort = defineMessages({
     id: "WYLjD1",
     description:
       "The operational requirement described as short notice overtime. (short-form for limited space)",
-  },
-  [OperationalRequirement.WorkWeekends]: {
-    defaultMessage: "Work weekends",
-    id: "mhO12a",
-    description:
-      "The operational requirement described as work weekends. (short-form for limited space)",
   },
 });
 
@@ -1601,9 +1579,9 @@ export const publishingGroups = defineMessages({
   },
   [PublishingGroup.Iap]: {
     defaultMessage: "IAP",
-    id: "LWsmvv",
+    id: "I6gM/P",
     description:
-      "The publishing group called Indigenous Apprenticeship Program",
+      "The publishing group called IT Apprenticeship Program for Indigenous Peoples",
   },
   [PublishingGroup.ItJobs]: {
     defaultMessage: "IT Jobs",

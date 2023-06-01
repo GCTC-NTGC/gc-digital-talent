@@ -50,7 +50,7 @@ const ApplicationResumeIntroduction = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { currentStepOrdinal } = useApplicationContext();
+  const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -114,13 +114,13 @@ const ApplicationResumeIntroduction = ({
           type="button"
           mode="inline"
           color="secondary"
-          href={applicantDashboard ? paths.dashboard() : paths.myProfile()}
+          href={
+            applicantDashboard
+              ? paths.dashboard({ fromIapDraft: isIAP })
+              : paths.myProfile()
+          }
         >
-          {intl.formatMessage({
-            defaultMessage: "Save and quit for now",
-            id: "U86N4g",
-            description: "Action button to save and exit an application",
-          })}
+          {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>
       </div>
     </>

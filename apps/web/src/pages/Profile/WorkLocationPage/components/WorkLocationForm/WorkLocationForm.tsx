@@ -228,12 +228,6 @@ const WorkLocationForm = ({
                 id="location-exemptions"
                 label={labels.locationExemptions}
                 name="locationExemptions"
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Optionally, add a city or village here...",
-                  id: "OH5tTS",
-                  description:
-                    "Location Exemptions field placeholder for work location preference form",
-                })}
               />
             </div>
           </div>

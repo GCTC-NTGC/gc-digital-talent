@@ -10,7 +10,7 @@ const shell = require("shelljs");
 const fs = require("fs");
 
 const meta = {
-  title: "GC Digital Talent | Talent numérique du GC",
+  title: "GC Digital Talent | Talents numériques du GC",
   description:
     "Recruitment platform for digital jobs in the Government of Canada. Plateforme de recrutement pour les emplois numériques au gouvernement du Canada.",
   url: "https://talent.canada.ca/",
@@ -136,8 +136,8 @@ module.exports = (basePath) => {
           test: /\.(pdf|doc|docx)$/i,
           type: "asset/resource",
           generator: {
-            filename: 'documents/[name][ext]'
-          }
+            filename: "documents/[name][ext]",
+          },
         },
       ],
     },

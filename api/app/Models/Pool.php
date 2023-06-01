@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Auth;
  * @property string $id
  * @property array $name
  * @property string $key
- * @property array $description
  * @property int $user_id
  * @property array $operational_requirements
  * @property array $key_tasks
@@ -51,7 +50,6 @@ class Pool extends Model
      */
     protected $casts = [
         'name' => 'array',
-        'description' => 'array',
         'operational_requirements' => 'array',
         'key_tasks' => 'array',
         'advertisement_location' => 'array',
@@ -71,11 +69,11 @@ class Pool extends Model
         'closing_date',
         'published_at',
         'name',
+        'key',
         'key_tasks',
         'stream',
         'security_clearance',
         'advertisement_language',
-        'description',
         'your_impact',
         'advertisement_location',
         'publishing_group',

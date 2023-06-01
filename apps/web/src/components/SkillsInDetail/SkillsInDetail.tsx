@@ -146,12 +146,6 @@ const SkillsInDetail = ({
                     description:
                       "Label for the textarea in the skills in detail section.",
                   })}
-                  placeholder={intl.formatMessage({
-                    defaultMessage: "How I used this skill...",
-                    id: "i99arX",
-                    description:
-                      "Placeholder message for textarea in the skills in detail section.",
-                  })}
                   name={`skills.${index}.details`}
                   rules={{
                     required: required

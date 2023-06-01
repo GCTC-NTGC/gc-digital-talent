@@ -356,12 +356,6 @@ const AboutMeForm = ({
               name="currentCity"
               type="text"
               label={labelMap.currentCity}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Start writing here...",
-                id: "xq6TbG",
-                description:
-                  "Placeholder displayed on the About Me form current city field.",
-              })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}

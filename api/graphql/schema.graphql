@@ -333,7 +333,6 @@ type Pool {
   team: Team @belongsTo @can(ability: "viewAny")
   name: LocalizedString
   key: KeyString
-  description: LocalizedString
   classifications: [Classification] @belongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
@@ -373,7 +372,6 @@ type PoolAdvertisement {
   closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   name: LocalizedString
-  description: LocalizedString
   classifications: [Classification] @belongsToMany
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
@@ -445,6 +443,7 @@ enum PublishingGroup {
 
 enum ApplicationStep {
   WELCOME
+  SELF_DECLARATION
   REVIEW_YOUR_PROFILE
   REVIEW_YOUR_RESUME
   EDUCATION_REQUIREMENTS
@@ -531,7 +530,6 @@ enum OperationalRequirement {
   TRAVEL
   TRANSPORT_EQUIPMENT
   DRIVERS_LICENSE
-  WORK_WEEKENDS
   OVERTIME_SCHEDULED
   OVERTIME_SHORT_NOTICE
   OVERTIME_OCCASIONAL
@@ -872,23 +870,6 @@ input UserPoolFilterInput {
   suspendedStatus: CandidateSuspendedFilter = ACTIVE
 }
 
-input PoolCandidateFilterInput {
-  equity: EquitySelectionsInput @scope
-  expectedClassifications: [ClassificationFilterInput]
-    @scope(name: "expectedClassifications")
-  email: String @scope
-  generalSearch: String @scope
-  hasDiploma: Boolean @scope
-  languageAbility: LanguageAbility @scope
-  locationPreferences: [WorkRegion] @scope
-  name: String @scope
-  operationalRequirements: [OperationalRequirement] @scope
-  pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id")
-  priorityWeight: [Int] @scope
-  poolCandidateStatus: [PoolCandidateStatus]
-    @scope(name: "poolCandidateStatuses")
-}
-
 input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
   poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
@@ -1012,21 +993,6 @@ type Query {
     )
     @guard
     @can(ability: "view", resolved: true, model: "App\\Models\\PoolCandidate")
-  # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
-  countPoolCandidates(where: PoolCandidateFilterInput): Int!
-    @deprecated(reason: "Replaced by countApplicants")
-    @can(ability: "count", model: "PoolCandidate")
-    @count(model: "PoolCandidate", scopes: ["expiryFilter", "available"])
-  # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
-  searchPoolCandidates(
-    where: PoolCandidateFilterInput
-    orderBy: [OrderByClause!] @orderBy
-    expiryStatus: CandidateExpiryFilter
-  ): [PoolCandidate]!
-    @all(scopes: ["expiryFilter", "available"])
-    @orderBy(column: "created_at", direction: DESC)
-    @guard
-    @can(ability: "view", resolved: true)
   # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
   # Returns the number of candidates by filtering their parent applicant, grouped by pool.
   countPoolCandidatesByPool(
@@ -1373,7 +1339,6 @@ input CreatePoolInput {
   team: TeamBelongsTo!
   name: LocalizedStringInput!
   key: KeyString
-  description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
@@ -1400,7 +1365,6 @@ input UpdatePoolInput {
   owner: UserBelongsTo @rename(attribute: "user")
   team: TeamBelongsTo @rename(attribute: "team")
   name: LocalizedStringInput
-  description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
@@ -1411,12 +1375,22 @@ input UpdatePoolInput {
 }
 
 input CreateDepartmentInput {
-  departmentNumber: Int! @rename(attribute: "department_number")
+  departmentNumber: Int!
+    @rename(attribute: "department_number")
+    @rules(
+      apply: ["unique:departments,department_number"]
+      messages: [{ rule: "unique", message: "DepartmentNumberInUse" }]
+    )
   name: LocalizedStringInput
 }
 
 input UpdateDepartmentInput {
-  departmentNumber: Int @rename(attribute: "department_number")
+  departmentNumber: Int
+    @rename(attribute: "department_number")
+    @rules(
+      apply: ["unique:departments,department_number"]
+      messages: [{ rule: "unique", message: "DepartmentNumberInUse" }]
+    )
   name: LocalizedStringInput
 }
 
@@ -1449,21 +1423,6 @@ input UpdateTeamInput {
   contactEmail: Email @rename(attribute: "contact_email")
 }
 
-input CreatePoolCandidateFilterInput {
-  classifications: ClassificationBelongsToMany
-  hasDiploma: Boolean @rename(attribute: "has_diploma")
-  equity: EquitySelectionsInput
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
-  operationalRequirements: [OperationalRequirement]
-    @rename(attribute: "operational_requirements")
-  workRegions: [WorkRegion] @rename(attribute: "work_regions")
-  pools: PoolBelongsToMany
-}
-
-input PoolCandidateFilterBelongsTo {
-  create: CreatePoolCandidateFilterInput!
-}
-
 input CreateApplicantFilterInput {
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelectionsInput @spread
@@ -1492,10 +1451,7 @@ input CreatePoolCandidateSearchRequestInput {
   department: DepartmentBelongsTo!
   jobTitle: String! @rename(attribute: "job_title")
   additionalComments: String @rename(attribute: "additional_comments")
-  poolCandidateFilter: PoolCandidateFilterBelongsTo
-    @rules(apply: ["required_without:applicantFilter"]) # TODO: remove this field when we've completed the transition from using poolCandidateCount to applicantCount
-  applicantFilter: ApplicantFilterBelongsTo
-    @rules(apply: ["required_without:poolCandidateFilter"]) # TODO: make this required when we've completed the transition from using poolCandidateCount to applicantCount
+  applicantFilter: ApplicantFilterBelongsTo!
   # requestedDate will be set to current date in Eloquent model.
   # status will be set to PENDING in Eloquent model.
   wasEmpty: Boolean @rename(attribute: "was_empty")
@@ -1896,6 +1852,12 @@ type Mutation {
     @create(model: "Pool")
     @guard
     @can(ability: "create", model: "Pool", injectArgs: true)
+  duplicatePoolAdvertisement(
+    id: ID!
+    teamId: ID! @rename(attribute: "team_id")
+  ): PoolAdvertisement
+    @guard
+    @can(ability: "duplicate", model: "Pool", injectArgs: true)
   updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
     @update
     @guard

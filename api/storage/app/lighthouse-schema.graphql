@@ -97,6 +97,7 @@ input ApplicantFilterInput {
 
 enum ApplicationStep {
   WELCOME
+  SELF_DECLARATION
   REVIEW_YOUR_PROFILE
   REVIEW_YOUR_RESUME
   EDUCATION_REQUIREMENTS
@@ -282,24 +283,13 @@ input CreatePoolCandidateAsAdminInput {
   notes: String
 }
 
-input CreatePoolCandidateFilterInput {
-  classifications: ClassificationBelongsToMany
-  hasDiploma: Boolean
-  equity: EquitySelectionsInput
-  languageAbility: LanguageAbility
-  operationalRequirements: [OperationalRequirement]
-  workRegions: [WorkRegion]
-  pools: PoolBelongsToMany
-}
-
 input CreatePoolCandidateSearchRequestInput {
   fullName: String!
   email: Email!
   department: DepartmentBelongsTo!
   jobTitle: String!
   additionalComments: String
-  poolCandidateFilter: PoolCandidateFilterBelongsTo
-  applicantFilter: ApplicantFilterBelongsTo
+  applicantFilter: ApplicantFilterBelongsTo!
   wasEmpty: Boolean
 }
 
@@ -308,7 +298,6 @@ input CreatePoolInput {
   team: TeamBelongsTo!
   name: LocalizedStringInput!
   key: KeyString
-  description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
@@ -655,6 +644,7 @@ type Mutation {
   deleteAwardExperience(id: ID!): AwardExperience
   createPool(pool: CreatePoolInput!): Pool
   createPoolAdvertisement(userId: ID!, teamId: ID!, poolAdvertisement: CreatePoolAdvertisementInput!): PoolAdvertisement
+  duplicatePoolAdvertisement(id: ID!, teamId: ID!): PoolAdvertisement
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool @deprecated(reason: "Should use updatePoolAdvertisement instead.")
   updatePoolAdvertisement(id: ID!, poolAdvertisement: UpdatePoolAdvertisementInput!): PoolAdvertisement
   publishPoolAdvertisement(id: ID!): PoolAdvertisement
@@ -680,7 +670,6 @@ enum OperationalRequirement {
   TRAVEL
   TRANSPORT_EQUIPMENT
   DRIVERS_LICENSE
-  WORK_WEEKENDS
   OVERTIME_SCHEDULED
   OVERTIME_SHORT_NOTICE
   OVERTIME_OCCASIONAL
@@ -812,7 +801,6 @@ type Pool {
   team: Team
   name: LocalizedString
   key: KeyString
-  description: LocalizedString
   classifications: [Classification]
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
@@ -834,7 +822,6 @@ type PoolAdvertisement {
   closingDate: DateTime
   publishedAt: DateTime
   name: LocalizedString
-  description: LocalizedString
   classifications: [Classification]
   keyTasks: LocalizedString
   yourImpact: LocalizedString
@@ -897,25 +884,6 @@ type PoolCandidateFilter {
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
   pools: [Pool]
-}
-
-input PoolCandidateFilterBelongsTo {
-  create: CreatePoolCandidateFilterInput!
-}
-
-input PoolCandidateFilterInput {
-  equity: EquitySelectionsInput
-  expectedClassifications: [ClassificationFilterInput]
-  email: String
-  generalSearch: String
-  hasDiploma: Boolean
-  languageAbility: LanguageAbility
-  locationPreferences: [WorkRegion]
-  name: String
-  operationalRequirements: [OperationalRequirement]
-  pools: [IdInput]
-  priorityWeight: [Int]
-  poolCandidateStatus: [PoolCandidateStatus]
 }
 
 input PoolCandidateSearchInput {
@@ -1044,8 +1012,6 @@ type Query {
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]): [PoolCandidate]!
-  countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
-  searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [PoolCandidate]!
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
   classifications: [Classification]!
@@ -1410,7 +1376,6 @@ input UpdatePoolInput {
   owner: UserBelongsTo
   team: TeamBelongsTo
   name: LocalizedStringInput
-  description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput

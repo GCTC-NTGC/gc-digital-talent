@@ -13,15 +13,16 @@
     "@gc-digital-talent/web": "*"
   },
   "devDependencies": {
-    "@testing-library/cypress": "^8.0.7",
-    "axe-core": "^4.7.0",
+    "@testing-library/cypress": "^9.0.0",
+    "axe-core": "^4.7.2",
     "cy-verify-downloads": "^0.1.14",
-    "cypress": "^11.2.0",
+    "cypress": "^12.13.0",
     "cypress-axe": "^1.4.0",
     "cypress-multi-reporters": "^1.6.3",
     "cypress-terminal-report": "^5.1.1",
     "eslint-plugin-cypress": "^2.13.3",
-    "prettier": "^2.8.7",
-    "tsconfig": "*"
+    "prettier": "^2.8.8",
+    "tsconfig": "*",
+    "typescript": "4.9.5"
   }
 }

@@ -24,6 +24,7 @@ darkpurple
 datetime
 DCMO
 dedup
+fieldset
 freshdesk
 Freshdesk
 FRESHDESK
@@ -45,8 +46,8 @@ lightgray
 lightnavy
 lightpurple
 Métis
-Michif
 Mi'kmaq
+Michif
 noninteractive
 nuage
 Nuwave

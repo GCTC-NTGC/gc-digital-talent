@@ -120,42 +120,33 @@ class PoolApplicationTest extends TestCase
         $this->setUpFaker();
         $this->bootRefreshesSchemaCache();
 
-        $this->applicantUser = User::factory()->create([
-            'email' => 'applicant-user@test.com',
-            'sub' => 'applicant-user@test.com',
-        ]);
-        $this->applicantUser->syncRoles([
-            "guest",
-            "base_user",
-            "applicant"
-        ]);
+        $this->applicantUser = User::factory()
+            ->asApplicant()
+            ->create([
+                'email' => 'applicant-user@test.com',
+                'sub' => 'applicant-user@test.com',
+            ]);
         // Add generic job title for submission
         $this->applicantUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
 
-        $this->responderUser = User::factory()->create([
-            'email' => 'request-responder-user@test.com',
-            'sub' => 'request-responder-user@test.com',
-        ]);
-        $this->responderUser->syncRoles([
-            "guest",
-            "base_user",
-            "applicant",
-            "request_responder"
-        ]);
+        $this->responderUser = User::factory()
+            ->asApplicant()
+            ->asRequestResponder()
+            ->create([
+                'email' => 'request-responder-user@test.com',
+                'sub' => 'request-responder-user@test.com',
+            ]);
 
         $team = Team::factory()->create([
             'name' => "pool-application-test-team",
         ]);
-        $this->teamUser = User::factory()->create([
-            'email' => 'team-user@test.com',
-            'sub' => 'team-user@test.com',
-        ]);
-        $this->teamUser->syncRoles([
-            "guest",
-            "base_user",
-            "applicant"
-        ]);
-        $this->teamUser->addRole("pool_operator",  $team);
+        $this->teamUser = User::factory()
+            ->asApplicant()
+            ->asPoolOperator($team->name)
+            ->create([
+                'email' => 'team-user@test.com',
+                'sub' => 'team-user@test.com',
+            ]);
     }
 
     public function testApplicationCreation(): void
@@ -784,6 +775,11 @@ class PoolApplicationTest extends TestCase
 
     public function testApplicationSubmitScreeningQuestions(): void
     {
+        $flagBoolean = config('feature.application_revamp');
+        if (!$flagBoolean) {
+            $this->markTestSkipped('application_revamp is OFF');
+        }
+
         $newPool = Pool::factory()->create([
             'closing_date' =>  Carbon::now()->addDays(1),
             'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
@@ -798,7 +794,9 @@ class PoolApplicationTest extends TestCase
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'education_requirement_option' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
         ]);
+        EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         // Remove any responses created by factory
         ScreeningQuestionResponse::where('pool_candidate_id', $newPoolCandidate->id)->delete();
 
@@ -809,7 +807,7 @@ class PoolApplicationTest extends TestCase
 
         // assert cannot submit with no question
         $this->actingAs($this->applicantUser, "api")
-            ->graphQL($this->submitMutationDocument,  $submitArgs)->assertJson([
+            ->graphQL($this->submitMutationDocument,  $submitArgs)->assertJsonFragment([
                 'errors' => [[
                     'message' => ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE,
                 ]]

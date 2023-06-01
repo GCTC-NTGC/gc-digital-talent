@@ -6,6 +6,7 @@ import { Id, toast as toastify } from "react-toastify";
 import { Loading } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 import {
   tryFindMessageDescriptor,
   errorMessages,
@@ -30,6 +31,7 @@ const CreateApplication = () => {
   const errorToastId = React.useRef<Id>("");
   const paths = useRoutes();
   const navigate = useNavigate();
+  const { applicationRevamp } = useFeatureFlags();
   const auth = useAuthorization();
   const [
     { fetching: creating, data: mutationData, operation },
@@ -95,9 +97,10 @@ const CreateApplication = () => {
       executeMutation({ userId, poolId })
         .then((result) => {
           if (result.data?.createApplication) {
-            const newPath = paths.reviewApplication(
-              result.data.createApplication.id,
-            );
+            const { id } = result.data.createApplication;
+            const newPath = applicationRevamp
+              ? paths.application(id)
+              : paths.reviewApplication(id);
             // Redirect user to the application if it exists
             // Toast success or error
             if (!result.error) {
@@ -140,6 +143,7 @@ const CreateApplication = () => {
     poolId,
     executeMutation,
     handleError,
+    applicationRevamp,
     paths,
     navigate,
     intl,

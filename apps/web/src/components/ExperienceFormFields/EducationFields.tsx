@@ -77,11 +77,6 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
           <Input
             id="areaOfStudy"
             label={labels.areaOfStudy}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Write area of study here...",
-              id: "Uv9q53",
-              description: "Placeholder for area of study input",
-            })}
             name="areaOfStudy"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
@@ -134,11 +129,6 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
           <Input
             id="institution"
             label={labels.institution}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Write name here...",
-              id: "EHOcOR",
-              description: "Placeholder for institution input",
-            })}
             name="institution"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
@@ -174,11 +164,6 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
           <Input
             id="thesisTitle"
             label={labels.thesisTitle}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Write title here...",
-              id: "8THvSC",
-              description: "Placeholder for thesis title input",
-            })}
             name="thesisTitle"
             type="text"
           />

@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -20,6 +21,10 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { poolAdvertisement } = application;
+  const { applicationRevamp } = useFeatureFlags();
+  const href = applicationRevamp
+    ? paths.application(application.id)
+    : paths.reviewApplication(application.id);
 
   if (!show) {
     return null;
@@ -27,12 +32,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
 
   return (
     <div data-h2-margin="base(0, 0, 0, auto)">
-      <Link
-        type="button"
-        mode="inline"
-        color="secondary"
-        href={paths.reviewApplication(application.id)}
-      >
+      <Link type="button" mode="inline" color="secondary" href={href}>
         {intl.formatMessage(
           {
             defaultMessage: "Continue this application<hidden> {name}</hidden>",
@@ -55,18 +55,17 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { poolAdvertisement } = application;
+  const { applicationRevamp } = useFeatureFlags();
+  const href = applicationRevamp
+    ? paths.application(application.id)
+    : paths.reviewApplication(application.id);
 
   if (!show) {
     return null;
   }
 
   return (
-    <Link
-      href={paths.reviewApplication(application.id)}
-      mode="inline"
-      type="button"
-      color="secondary"
-    >
+    <Link href={href} mode="inline" type="button" color="secondary">
       {intl.formatMessage(
         {
           defaultMessage: "View this application<hidden> {name}</hidden>",

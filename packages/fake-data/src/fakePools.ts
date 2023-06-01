@@ -34,10 +34,6 @@ const generatePool = (
       en: englishName,
       fr: frenchName,
     },
-    description: {
-      en: `EN ${faker.lorem.sentence()}`,
-      fr: `FR ${faker.lorem.sentence()}`,
-    },
     classifications:
       faker.helpers.arrayElements<Classification>(classifications),
     keyTasks: {
@@ -61,8 +57,8 @@ export default (): Pool[] => {
   return [
     generatePool("CMO", "CMO", users, classifications),
     generatePool(
-      "Indigenous Apprenticeship Program",
-      "Indigenous Apprenticeship Program FR",
+      "IT Apprenticeship Program for Indigenous Peoples",
+      "Programme d’apprentissage en TI pour les personnes autochtones",
       users,
       classifications,
     ),

@@ -22,12 +22,6 @@ const CommunityFields = ({ labels }: SubExperienceFormProps) => {
           <Input
             id="role"
             label={labels.role}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Write title here...",
-              id: "5ikciS",
-              description:
-                "Placeholder displayed on the Community Experience form for role input",
-            })}
             name="role"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
@@ -53,12 +47,6 @@ const CommunityFields = ({ labels }: SubExperienceFormProps) => {
           <Input
             id="organization"
             label={labels.organization}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Write group name here...",
-              id: "EfR7Rv",
-              description:
-                "Placeholder displayed on the Community Experience form for organization input",
-            })}
             name="organization"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
@@ -114,12 +102,6 @@ const CommunityFields = ({ labels }: SubExperienceFormProps) => {
           <Input
             id="project"
             label={labels.project}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Write project name here...",
-              id: "81ITk+",
-              description:
-                "Placeholder displayed on the Community Experience form for project input",
-            })}
             name="project"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}

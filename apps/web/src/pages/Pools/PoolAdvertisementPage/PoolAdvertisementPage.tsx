@@ -1,40 +1,44 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
+import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
-import BriefcaseIconOutline from "@heroicons/react/24/outline/BriefcaseIcon";
-import ClipboardDocumentCheckIcon from "@heroicons/react/24/outline/ClipboardDocumentCheckIcon";
-import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
-import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
-import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
-import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
-import PhoneIcon from "@heroicons/react/24/outline/PhoneIcon";
+import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
+import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
+import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
 import {
-  Button,
   ThrowNotFound,
   Pending,
-  Card,
-  Link,
   Accordion,
   TableOfContents,
-  IconType,
+  Heading,
+  Pill,
+  ExternalLink,
 } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import {
   getLocale,
   getLanguageRequirement,
   getSecurityClearance,
+  localizeSalaryRange,
+  commonMessages,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
+import {
+  parseDateTimeUtc,
+  relativeClosingDate,
+} from "@gc-digital-talent/date-helpers";
 
 import {
   AdvertisementStatus,
   Scalars,
-  SkillCategory,
   useGetPoolAdvertisementQuery,
   PoolAdvertisement,
+  PublishingGroup,
 } from "~/api/generated";
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
@@ -46,95 +50,20 @@ import { wrapAbbr } from "~/utils/nameUtils";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
 
-import PoolInfoCard from "./components/PoolInfoCard";
-import ClassificationDefinition from "./components/ClassificationDefinition";
+import ApplicationLink from "./components/ApplicationLink";
+import Text from "./components/Text";
+import EducationRequirements from "./components/EducationRequirements";
+import SkillAccordion from "./components/SkillAccordion";
+import DataRow from "./components/DataRow";
+import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 
-interface ApplyButtonProps {
-  poolId: Scalars["ID"];
-}
-
-const ApplyButton = ({ poolId }: ApplyButtonProps) => {
-  const intl = useIntl();
-  const paths = useRoutes();
-
-  return (
-    <Link
-      type="button"
-      mode="solid"
-      color="primary"
-      href={paths.createApplication(poolId)}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Apply for this process",
-        id: "W2YIEA",
-        description: "Link text to apply for a pool advertisement",
-      })}
-    </Link>
-  );
-};
-
-interface ContinueButtonProps {
-  applicationId: Scalars["ID"];
-}
-
-const ContinueButton = ({ applicationId }: ContinueButtonProps) => {
-  const intl = useIntl();
-  const paths = useRoutes();
-
-  return (
-    <Link
-      type="button"
-      mode="solid"
-      color="primary"
-      href={paths.reviewApplication(applicationId)}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Continue my application",
-        id: "ugosop",
-        description: "Link text to continue an existing application",
-      })}
-    </Link>
-  );
-};
-
-const AlreadyAppliedButton = () => {
-  const intl = useIntl();
-  return (
-    <Button type="button" color="primary" mode="solid" disabled>
-      {intl.formatMessage({
-        defaultMessage: "You have already applied to this.",
-        id: "mwEGU+",
-        description:
-          "Disabled button when a user already applied to a pool opportunity",
-      })}
-    </Button>
-  );
-};
-
-const Text = ({ children }: { children: React.ReactNode }) => (
-  <p data-h2-margin="base(0, 0, x.5, 0)">{children}</p>
-);
-interface IconTitleProps {
-  children: React.ReactNode;
-  icon: IconType;
-}
-
-const IconTitle = ({ children, icon }: IconTitleProps) => {
-  const Icon = icon;
-
-  return (
-    <h3
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
-      data-h2-font-size="base(h4, 1)"
-      data-h2-margin="base(x2, 0, x1, 0)"
-    >
-      <Icon style={{ width: "1em", marginRight: "0.5rem" }} />
-      <span>{children}</span>
-    </h3>
-  );
+type SectionContent = {
+  id: string;
+  linkText?: string;
+  title: string;
 };
 
 const anchorTag = (chunks: React.ReactNode) => (
@@ -155,24 +84,25 @@ export const PoolAdvertisementPoster = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   const classification = poolAdvertisement.classifications
     ? poolAdvertisement.classifications[0]
     : null;
-  const genericTitle = classification?.genericJobTitles?.length
-    ? classification.genericJobTitles[0]
-    : null;
-  let classificationSuffix = ""; // type wrangling the complex type into a string
+  const genericJobTitles =
+    classification?.genericJobTitles?.filter(notEmpty) || [];
+  let classificationString = ""; // type wrangling the complex type into a string
   if (classification) {
-    classificationSuffix = formatClassificationString({
+    classificationString = formatClassificationString({
       group: classification?.group,
       level: classification?.level,
     });
   }
   const fullTitle = getFullPoolAdvertisementTitleLabel(intl, poolAdvertisement);
-  const canApply =
-    poolAdvertisement.advertisementStatus &&
-    poolAdvertisement.advertisementStatus === AdvertisementStatus.Published;
+
+  const showImpactTasks = !!(
+    poolAdvertisement.keyTasks || poolAdvertisement.yourImpact
+  );
 
   const languageRequirement = poolAdvertisement.advertisementLanguage
     ? intl.formatMessage(
@@ -191,16 +121,20 @@ export const PoolAdvertisementPoster = ({
     poolAdvertisement.nonessentialSkills,
   );
 
-  let applyBtn = <ApplyButton poolId={poolAdvertisement.id} />;
-  if (applicationId) {
-    applyBtn = !hasApplied ? (
-      <ContinueButton applicationId={applicationId} />
-    ) : (
-      <AlreadyAppliedButton />
-    );
-  }
+  const canApply = !!(
+    poolAdvertisement?.advertisementStatus === AdvertisementStatus.Published
+  );
 
-  const links = [
+  const applyBtn = (
+    <ApplicationLink
+      poolId={poolAdvertisement.id}
+      applicationId={applicationId}
+      hasApplied={hasApplied}
+      canApply={canApply}
+    />
+  );
+
+  const links = useBreadcrumbs([
     {
       label: intl.formatMessage({
         defaultMessage: "Browse jobs",
@@ -213,50 +147,65 @@ export const PoolAdvertisementPoster = ({
       label: fullTitle,
       url: paths.pool(poolAdvertisement.id),
     },
-  ];
+  ]);
 
-  const sections: Record<string, { id: string; title: string }> = {
-    about: {
-      id: "about-section",
+  const sections: Record<string, SectionContent> = {
+    summary: {
+      id: "summary-section",
+      linkText: intl.formatMessage({
+        defaultMessage: "Opportunity summary",
+        id: "lKQBZj",
+        description: "Link text for a summary of a job poster",
+      }),
       title: intl.formatMessage({
-        defaultMessage: "About this process",
-        id: "18dDgn",
-        description: "Title for the about section of a pool advertisement",
+        defaultMessage: "About the opportunity",
+        id: "WDsKjD",
+        description: "Title for a summary of a pool advertisement",
       }),
     },
-    requiredSkills: {
-      id: "required-skills-section",
+    impactTasks: {
+      id: "impact-section",
       title: intl.formatMessage({
-        defaultMessage: "Need to have",
-        id: "WkX8Ge",
+        defaultMessage: "Impact and tasks",
+        id: "s5iy2Z",
         description:
-          "Title for the required skills section of a pool advertisement",
+          "Title for the impact and tasks section of a pool advertisement",
       }),
     },
-    optionalSkills: {
-      id: "optional-skills-section",
+    experienceSkills: {
+      id: "experience-skills-section",
       title: intl.formatMessage({
-        defaultMessage: "Nice to have",
-        id: "STLaIq",
+        defaultMessage: "Experience and skill requirements",
+        id: "VXHomP",
         description:
-          "Title for the optional skills section of a pool advertisement",
+          "Title for the experience and skills section of a pool advertisement",
       }),
     },
-    requirements: {
-      id: "requirements-section",
+    locationLangSecurity: {
+      id: "loc-lang-sec-section",
       title: intl.formatMessage({
-        defaultMessage: "Requirements",
-        id: "iP8EMf",
+        defaultMessage: "Location, language, and security",
+        id: "ARSDO1",
         description:
-          "Title for the requirements section of a pool advertisement",
+          "Title for the location, language and security section of a pool advertisement",
       }),
     },
-    details: {
-      id: "details-section",
+    contact: {
+      id: "contact-section",
       title: intl.formatMessage({
-        defaultMessage: "Additional details",
-        id: "mNWpoy",
-        description: "Title for the details section of a pool advertisement",
+        defaultMessage: "Contact and accommodation",
+        id: "BLg0f4",
+        description:
+          "Title for the contact and accommodation section of a pool advertisement",
+      }),
+    },
+    hiringPolicies: {
+      id: "hiring-policies-section",
+      title: intl.formatMessage({
+        defaultMessage: "Hiring policies",
+        id: "2gMnSu",
+        description:
+          "Title for the hiring policies section of a pool advertisement",
       }),
     },
     apply: {
@@ -273,61 +222,63 @@ export const PoolAdvertisementPoster = ({
   return (
     <>
       <SEO title={fullTitle} />
-      <Hero title={fullTitle} crumbs={links} />
-      <div
-        data-h2-background-color="base(white)"
-        data-h2-shadow="base(m)"
-        data-h2-padding="base(x1, 0)"
-      >
-        <div data-h2-container="base(center, large, x1)">
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-            data-h2-justify-content="base(space-between)"
-            data-h2-align-items="base(center) p-tablet(flex-end)"
-          >
-            <div>
-              <PoolInfoCard
-                closingDate={poolAdvertisement.closingDate}
-                classification={classificationSuffix}
-                salary={{
-                  min: classification?.minSalary,
-                  max: classification?.maxSalary,
-                }}
-              />
-            </div>
-            <div>{applyBtn}</div>
-          </div>
-        </div>
-      </div>
+      <Hero
+        title={fullTitle}
+        subtitle={intl.formatMessage(
+          {
+            defaultMessage:
+              "Learn more about {title} opportunities and begin an application.",
+            id: "gPEnzf",
+            description: "Subtitle for a pool advertisement page",
+          },
+          { title: fullTitle },
+        )}
+        crumbs={links}
+      />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
-            <TableOfContents.AnchorLink id={sections.about.id}>
-              {sections.about.title}
+            <TableOfContents.AnchorLink id={sections.summary.id}>
+              {sections.summary.linkText}
             </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sections.requiredSkills.id}>
-              {sections.requiredSkills.title}
+            {showImpactTasks && (
+              <TableOfContents.AnchorLink id={sections.impactTasks.id}>
+                {sections.impactTasks.title}
+              </TableOfContents.AnchorLink>
+            )}
+            <TableOfContents.AnchorLink id={sections.experienceSkills.id}>
+              {sections.experienceSkills.title}
             </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sections.optionalSkills.id}>
-              {sections.optionalSkills.title}
+            <TableOfContents.AnchorLink id={sections.locationLangSecurity.id}>
+              {sections.locationLangSecurity.title}
             </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sections.requirements.id}>
-              {sections.requirements.title}
+            <TableOfContents.AnchorLink id={sections.contact.id}>
+              {sections.contact.title}
             </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sections.details.id}>
-              {sections.details.title}
+            <TableOfContents.AnchorLink id={sections.hiringPolicies.id}>
+              {sections.hiringPolicies.title}
             </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sections.apply.id}>
-              {sections.apply.title}
-            </TableOfContents.AnchorLink>
+            {canApply && (
+              <TableOfContents.AnchorLink id={sections.apply.id}>
+                {sections.apply.title}
+              </TableOfContents.AnchorLink>
+            )}
           </TableOfContents.Navigation>
           <TableOfContents.Content>
-            <TableOfContents.Section id={sections.about.id}>
-              <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
-                {sections.about.title}
-              </TableOfContents.Heading>
-              <Accordion.Root type="single" collapsible>
+            <TableOfContents.Section id={sections.summary.id}>
+              <div
+                data-h2-display="base(flex)"
+                data-h2-gap="base(0 x1)"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
+                <div data-h2-flex-grow="base(1)">
+                  <TableOfContents.Heading data-h2-margin="base(0)">
+                    {sections.summary.title}
+                  </TableOfContents.Heading>
+                </div>
+                <div data-h2-flex-shrink="base(0)">{applyBtn}</div>
+              </div>
+              <Accordion.Root mode="simple" type="single" collapsible>
                 <Accordion.Item value="when">
                   <StandardAccordionHeader>
                     {intl.formatMessage({
@@ -366,403 +317,351 @@ export const PoolAdvertisementPoster = ({
                     </div>
                   </Accordion.Content>
                 </Accordion.Item>
-                {genericTitle?.key && (
-                  <Accordion.Item value="what">
-                    <StandardAccordionHeader>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "What does {classification}{genericTitle} mean?",
-                          id: "gpuTAV",
-                          description:
-                            "Title for description of a pool advertisements classification group/level",
-                        },
-                        {
-                          classification: classificationSuffix,
-                          genericTitle: genericTitle?.name
-                            ? ` ${genericTitle.name[locale]}`
-                            : ``,
-                        },
-                      )}
-                    </StandardAccordionHeader>
-                    <Accordion.Content>
-                      <div data-h2-margin-top="base(x1)">
-                        <ClassificationDefinition name={genericTitle.key} />
-                      </div>
-                    </Accordion.Content>
-                  </Accordion.Item>
-                )}
-              </Accordion.Root>
-              {poolAdvertisement.yourImpact ? (
-                <>
-                  <IconTitle icon={BoltIcon}>
-                    {intl.formatMessage({
-                      defaultMessage: "Your impact",
-                      id: "Kl5OX1",
-                      description:
-                        "Title for a pool advertisements impact section.",
-                    })}
-                  </IconTitle>
-                  <p>{poolAdvertisement.yourImpact[locale]}</p>
-                </>
-              ) : null}
-              {poolAdvertisement.keyTasks ? (
-                <>
-                  <IconTitle icon={BriefcaseIconOutline}>
-                    {intl.formatMessage({
-                      defaultMessage: "Your work",
-                      id: "uv2lY0",
-                      description:
-                        "Title for a pool advertisements key tasks section.",
-                    })}
-                  </IconTitle>
-                  <p>{poolAdvertisement.keyTasks[locale]}</p>
-                </>
-              ) : null}
-            </TableOfContents.Section>
-            <TableOfContents.Section id={sections.requiredSkills.id}>
-              <TableOfContents.Heading data-h2-margin="base(x3, 0, 0, 0)">
-                {sections.requiredSkills.title}
-              </TableOfContents.Heading>
-              {essentialSkills[SkillCategory.Technical]?.length ? (
-                <>
-                  <IconTitle icon={CpuChipIcon}>
-                    {intl.formatMessage({
-                      defaultMessage: "Occupational skills",
-                      id: "zeC2K0",
-                      description:
-                        "Title for occupational skills on a pool advertisement",
-                    })}
-                  </IconTitle>
-                  <Text>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "To be admitted into this process, you will need to submit sufficient information to verify your experience in <strong>all of these skills (Need to have - Occupational)</strong> with your application.",
-                      id: "mbtf3h",
-                      description:
-                        "Explanation of a pools required occupational skills",
-                    })}
-                  </Text>
-                  <Accordion.Root type="multiple">
-                    {essentialSkills[SkillCategory.Technical]?.map((skill) => (
-                      <Accordion.Item value={skill.id} key={skill.id}>
-                        <StandardAccordionHeader>
-                          {skill.name[locale] || ""}
-                        </StandardAccordionHeader>
-                        <Accordion.Content>
-                          <div data-h2-margin-top="base(x1)">
-                            <Text>
-                              {skill.description
-                                ? skill.description[locale]
-                                : ""}
-                            </Text>
-                          </div>
-                        </Accordion.Content>
-                      </Accordion.Item>
+                {genericJobTitles.length ? (
+                  <>
+                    {genericJobTitles.map((genericJobTitle) => (
+                      <GenericJobTitleAccordion
+                        key={genericJobTitle.id}
+                        classification={classificationString}
+                        genericJobTitle={genericJobTitle}
+                      />
                     ))}
-                  </Accordion.Root>
-                </>
-              ) : null}
-              {essentialSkills[SkillCategory.Behavioural]?.length ? (
-                <>
-                  <IconTitle icon={CloudIcon}>
-                    {intl.formatMessage({
-                      defaultMessage: "Transferrable skills",
-                      id: "0I8W8B",
-                      description:
-                        "Title for transferrable skills on a pool advertisement",
-                    })}
-                  </IconTitle>
-                  <Text>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "To be admitted into this process, you will need to display capability in these skills during the assessment process.",
-                      id: "0FjYi+",
-                      description:
-                        "Explanation of a pools required transferrable skills",
-                    })}
-                  </Text>
-                  <Accordion.Root type="multiple">
-                    {essentialSkills[SkillCategory.Behavioural]?.map(
-                      (skill) => (
-                        <Accordion.Item value={skill.id} key={skill.id}>
-                          <StandardAccordionHeader>
-                            {skill.name[locale] || ""}
-                          </StandardAccordionHeader>
-                          <Accordion.Content>
-                            <div data-h2-margin-top="base(x1)">
-                              <Text>
-                                {skill.description
-                                  ? skill.description[locale]
-                                  : ""}
-                              </Text>
-                            </div>
-                          </Accordion.Content>
-                        </Accordion.Item>
-                      ),
-                    )}
-                  </Accordion.Root>
-                </>
-              ) : null}
-            </TableOfContents.Section>
-            <TableOfContents.Section id={sections.optionalSkills.id}>
-              <TableOfContents.Heading data-h2-margin="base(x3, 0, 0, 0)">
-                {sections.optionalSkills.title}
-              </TableOfContents.Heading>
-              {nonEssentialSkills[SkillCategory.Technical]?.length ? (
-                <>
-                  <IconTitle icon={CpuChipIcon}>
-                    {intl.formatMessage({
-                      defaultMessage: "Occupational skills",
-                      id: "zeC2K0",
-                      description:
-                        "Title for occupational skills on a pool advertisement",
-                    })}
-                  </IconTitle>
-                  <Text>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "To strengthen your application, take into consideration these skills that many hiring managers are looking for.",
-                      id: "yu4yB8",
-                      description:
-                        "Explanation of a pools optional transferrable skills",
-                    })}
-                  </Text>
-                  <Accordion.Root type="single" collapsible>
-                    {nonEssentialSkills[SkillCategory.Technical]?.map(
-                      (skill) => (
-                        <Accordion.Item value={skill.id} key={skill.id}>
-                          <StandardAccordionHeader>
-                            {skill.name[locale] || ""}
-                          </StandardAccordionHeader>
-                          <Accordion.Content>
-                            <div data-h2-margin-top="base(x1)">
-                              <Text>
-                                {skill.description
-                                  ? skill.description[locale]
-                                  : ""}
-                              </Text>
-                            </div>
-                          </Accordion.Content>
-                        </Accordion.Item>
-                      ),
-                    )}
-                  </Accordion.Root>
-                </>
-              ) : null}
-              {nonEssentialSkills[SkillCategory.Behavioural]?.length ? (
-                <>
-                  <IconTitle icon={CloudIcon}>
-                    {intl.formatMessage({
-                      defaultMessage: "Transferrable skills",
-                      id: "0I8W8B",
-                      description:
-                        "Title for transferrable skills on a pool advertisement",
-                    })}
-                  </IconTitle>
-                  <Accordion.Root type="single" collapsible>
-                    {nonEssentialSkills[SkillCategory.Behavioural]?.map(
-                      (skill) => (
-                        <Accordion.Item value={skill.id} key={skill.id}>
-                          <StandardAccordionHeader>
-                            {skill.name[locale] || ""}
-                          </StandardAccordionHeader>
-                          <Accordion.Content>
-                            <div data-h2-margin-top="base(x1)">
-                              <Text>
-                                {skill.description
-                                  ? skill.description[locale]
-                                  : ""}
-                              </Text>
-                            </div>
-                          </Accordion.Content>
-                        </Accordion.Item>
-                      ),
-                    )}
-                  </Accordion.Root>
-                </>
-              ) : null}
-            </TableOfContents.Section>
-            <TableOfContents.Section id={sections.requirements.id}>
-              <TableOfContents.Heading data-h2-margin="base(x3, 0, 0, 0)">
-                {sections.requirements.title}
-              </TableOfContents.Heading>
-              <IconTitle icon={LightBulbIcon}>
-                {intl.formatMessage({
-                  defaultMessage: "Experience and education",
-                  id: "owzveI",
-                  description:
-                    "Title for experience and education pool requirements",
-                })}
-              </IconTitle>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column) p-tablet(row)"
-                data-h2-align-items="base(center) p-tablet(stretch)"
-              >
-                <Card
-                  color="secondary"
-                  style={{ width: "100%" }}
-                  title={intl.formatMessage({
-                    defaultMessage: "Combination Experience",
-                    id: "7o+Vzu",
-                    description:
-                      "Title for pool applicant experience requirements",
+                  </>
+                ) : null}
+              </Accordion.Root>
+              <div data-h2-margin-bottom="base(x3)">
+                <DataRow
+                  Icon={CurrencyDollarIcon}
+                  label={intl.formatMessage({
+                    defaultMessage: "Salary range:",
+                    id: "ls7b2p",
+                    description: "Label for pool advertisement salary range",
                   })}
-                >
-                  <Text>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "2 or more years of combined experience in a related field including any of the following:",
-                      id: "s60QyR",
-                      description:
-                        "lead in to list of experience required for a pool applicant",
-                    })}
-                  </Text>
-                  <ul>
-                    <li>
-                      {intl.formatMessage({
-                        defaultMessage: "On-the-job learning",
-                        id: "qNL/Rp",
-                        description:
-                          "pool experience requirement, on job learning",
-                      })}
-                    </li>
-                    <li>
-                      {intl.formatMessage({
-                        defaultMessage: "Non-conventional training",
-                        id: "YlWJ/N",
-                        description:
-                          "pool experience requirement, non-conventional training",
-                      })}
-                    </li>
-                    <li>
-                      {intl.formatMessage({
-                        defaultMessage: "Formal education",
-                        id: "DydUje",
-                        description:
-                          "pool experience requirement, formal education",
-                      })}
-                    </li>
-                    <li>
-                      {intl.formatMessage({
-                        defaultMessage: "Other field related experience",
-                        id: "GNvz2K",
-                        description: "pool experience requirement, other",
-                      })}
-                    </li>
-                  </ul>
-                </Card>
-                <div
-                  data-h2-font-size="base(h4, 1)"
-                  data-h2-padding="base(x.5, x1)"
-                  data-h2-font-weight="base(700)"
-                  data-h2-align-self="base(center)"
-                  data-h2-text-transform="base(uppercase)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "or",
-                    id: "l9AK3C",
-                    description:
-                      "that appears between different experience requirements for a pool applicant",
+                  value={
+                    localizeSalaryRange(
+                      classification?.minSalary,
+                      classification?.maxSalary,
+                      locale,
+                    ) || notAvailable
+                  }
+                />
+                <DataRow
+                  Icon={CalendarDaysIcon}
+                  label={intl.formatMessage({
+                    defaultMessage: "Apply before:",
+                    id: "NSois3",
+                    description: "Label for pool advertisement closing date",
                   })}
-                </div>
-                <Card
-                  style={{ width: "100%" }}
-                  color="secondary"
-                  title={intl.formatMessage({
-                    defaultMessage: "2-Year Post-secondary Education",
-                    id: "U6IroF",
+                  value={
+                    poolAdvertisement.closingDate
+                      ? relativeClosingDate({
+                          closingDate: parseDateTimeUtc(
+                            poolAdvertisement.closingDate,
+                          ),
+                          intl,
+                        })
+                      : notAvailable
+                  }
+                />
+                <DataRow
+                  Icon={BoltIcon}
+                  label={intl.formatMessage({
+                    defaultMessage: "Required skills:",
+                    id: "iSaTbE",
                     description:
-                      "Title for pool applicant education requirements",
+                      "Label for pool advertisement's required skills",
                   })}
-                >
-                  <Text>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Successful completion of two years of post secondary education in computer science, information technology, information management or another specialty relevant to this position.",
-                      id: "r9FSaq",
-                      description:
-                        "post secondary education experience for pool advertisement",
-                    })}
-                  </Text>
-                </Card>
+                  value={
+                    poolAdvertisement?.essentialSkills?.length ? (
+                      <div
+                        data-h2-display="base(flex)"
+                        data-h2-gap="base(x.15)"
+                        data-h2-flex-wrap="base(wrap)"
+                      >
+                        {poolAdvertisement.essentialSkills.map((skill) => (
+                          <Pill color="secondary" mode="outline" key={skill.id}>
+                            {getLocalizedName(skill.name, intl)}
+                          </Pill>
+                        ))}
+                      </div>
+                    ) : (
+                      notAvailable
+                    )
+                  }
+                />
               </div>
-              <IconTitle icon={CheckCircleIcon}>
-                {intl.formatMessage({
-                  defaultMessage: "Other requirements",
-                  id: "cHJFcW",
-                  description: "Title for other pool requirements",
-                })}
-              </IconTitle>
-              <ul>
-                <li>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "Language requirement: {languageRequirement}",
-                      id: "fvJnoC",
-                      description: "Pool advertisement language requirement",
-                    },
-                    {
-                      languageRequirement,
-                    },
-                  )}
-                </li>
-                <li>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Security clearance: {securityClearance}",
-                      id: "GYk6Nz",
-                      description:
-                        "Pool advertisement security clearance requirement",
-                    },
-                    {
-                      securityClearance,
-                    },
-                  )}
-                </li>
-                {poolAdvertisement.isRemote ? (
-                  <li>
-                    {intl.formatMessage({
-                      defaultMessage: "Location: Remote optional",
-                      id: "rakdZh",
-                      description:
-                        "Pool advertisement location requirement, Remote option",
-                    })}
-                  </li>
-                ) : (
-                  poolAdvertisement.advertisementLocation && (
-                    <li>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage: "Location: {location}",
-                          id: "HYm817",
-                          description:
-                            "Pool advertisement location requirement, English",
-                        },
-                        {
-                          location:
-                            poolAdvertisement.advertisementLocation[locale],
-                        },
-                      )}
-                    </li>
-                  )
-                )}
-              </ul>
             </TableOfContents.Section>
-            <TableOfContents.Section id={sections.details.id}>
-              <TableOfContents.Heading data-h2-margin="base(x3, 0, 0, 0)">
-                {sections.details.title}
+            {showImpactTasks && (
+              <TableOfContents.Section id={sections.impactTasks.id}>
+                <TableOfContents.Heading>
+                  {sections.impactTasks.title}
+                </TableOfContents.Heading>
+                {poolAdvertisement.yourImpact && (
+                  <Text>{poolAdvertisement.yourImpact[locale]}</Text>
+                )}
+                {poolAdvertisement.keyTasks && (
+                  <>
+                    <Heading level="h3" size="h4">
+                      {intl.formatMessage({
+                        defaultMessage: "Common tasks in this role",
+                        id: "ATO0GK",
+                        description:
+                          "Title for key tasks on a pool advertisement.",
+                      })}
+                    </Heading>
+                    <Text>{poolAdvertisement.keyTasks[locale]}</Text>
+                  </>
+                )}
+              </TableOfContents.Section>
+            )}
+            <TableOfContents.Section id={sections.experienceSkills.id}>
+              <TableOfContents.Heading>
+                {sections.experienceSkills.title}
               </TableOfContents.Heading>
-              <IconTitle icon={PhoneIcon}>
+              <Heading level="h3" size="h4">
                 {intl.formatMessage({
-                  defaultMessage: "Contact and Accommodations",
-                  id: "W6dFND",
+                  defaultMessage: "Minimum experience or education",
+                  id: "v6boy9",
                   description:
-                    "Title for contact information on pool advertisement",
+                    "Title for minimum experience or education section of a pool advertisement",
                 })}
-              </IconTitle>
+              </Heading>
+              <Text>
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "{title} roles require a minimum amount of experience or a relevant degree.",
+                    id: "LnISTX",
+                    description:
+                      "Descriptive text about experience or education requirements of a pool advertisement",
+                  },
+                  { title: fullTitle },
+                )}
+              </Text>
+              <EducationRequirements
+                isIAP={
+                  poolAdvertisement.publishingGroup === PublishingGroup.Iap
+                }
+              />
+              <Heading level="h3" size="h4">
+                {intl.formatMessage({
+                  defaultMessage: "Skill requirements",
+                  id: "706kTz",
+                  description:
+                    "Title for skill requirements section of a pool advertisement",
+                })}
+              </Heading>
+              <Text>
+                {intl.formatMessage({
+                  defaultMessage:
+                    'All opportunities on this platform require you to use your application to demonstrate a handful of required "occupational" or "technical" skills. Some opportunities will also assess “behavioural” or "soft" skills independently of your application, though you\'re free to add them to your resume.',
+                  id: "6F4HY/",
+                  description:
+                    "Descriptive text about how skills are defined and used for pool advertisements and applications",
+                })}
+              </Text>
+              <Heading level="h4" size="h6">
+                {intl.formatMessage({
+                  defaultMessage: "Required technical skills",
+                  id: "9V8bnL",
+                  description:
+                    "Title for required technical skills section of a pool advertisement",
+                })}
+              </Heading>
+              <Text>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "The following skills are essential to this role and must be demonstrated as a part of your application.",
+                  id: "Ewa83p",
+                  description:
+                    "Descriptive text about how required technical skills are used in the application process",
+                })}
+              </Text>
+              <SkillAccordion
+                skills={essentialSkills.TECHNICAL?.filter(notEmpty) || []}
+                nullMessage={intl.formatMessage({
+                  defaultMessage:
+                    "No required technical skills are being considered for this role.",
+                  id: "AFuhfl",
+                  description:
+                    "Message displayed when a pool advertisement has no required technical skills",
+                })}
+              />
+              <Heading level="h4" size="h6">
+                {intl.formatMessage({
+                  defaultMessage: "Optional technical skills",
+                  id: "CzrCfC",
+                  description:
+                    "Title for optional technical skills section of a pool advertisement",
+                })}
+              </Heading>
+              <Text>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
+                  id: "ry5NUs",
+                  description:
+                    "Descriptive text about how optional technical skills are used in the application process",
+                })}
+              </Text>
+              <SkillAccordion
+                skills={nonEssentialSkills.TECHNICAL?.filter(notEmpty) || []}
+                nullMessage={intl.formatMessage({
+                  defaultMessage:
+                    "No optional technical skills are being considered for this role.",
+                  id: "8XIYUA",
+                  description:
+                    "Message displayed when a pool advertisement has no optional technical skills",
+                })}
+              />
+              <Heading level="h4" size="h6">
+                {intl.formatMessage({
+                  defaultMessage: "Required behavioural skills",
+                  id: "t9HxQm",
+                  description:
+                    "Title for required behavioural skills section of a pool advertisement",
+                })}
+              </Heading>
+              <Text>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "The following skills are required for this role, but aren't required as a part of your application. <strong>They will be reviewed during the assessment process should your application be accepted</strong>.",
+                  id: "v8LEMv",
+                  description:
+                    "Descriptive text about how required behavioural skills are used in the application process",
+                })}
+              </Text>
+              <SkillAccordion
+                skills={essentialSkills.BEHAVIOURAL?.filter(notEmpty) || []}
+                nullMessage={intl.formatMessage({
+                  defaultMessage:
+                    "No required behavioural skills are being considered for this role.",
+                  id: "E+AYNX",
+                  description:
+                    "Message displayed when a pool advertisement has no required behavioural skills",
+                })}
+              />
+              <Heading level="h4" size="h6">
+                {intl.formatMessage({
+                  defaultMessage: "Optional behavioural skills",
+                  id: "LeVJmQ",
+                  description:
+                    "Title for optional behavioural skills section of a pool advertisement",
+                })}
+              </Heading>
+              <Text>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
+                  id: "iXdeVu",
+                  description:
+                    "Descriptive text about how optional behavioural skills are used in the application process",
+                })}
+              </Text>
+              <SkillAccordion
+                skills={nonEssentialSkills.BEHAVIOURAL?.filter(notEmpty) || []}
+                nullMessage={intl.formatMessage({
+                  defaultMessage:
+                    "No optional behavioural skills are being considered for this role.",
+                  id: "KRkZS6",
+                  description:
+                    "Message displayed when a pool advertisement has no optional behavioural skills",
+                })}
+              />
+            </TableOfContents.Section>
+            <TableOfContents.Section id={sections.locationLangSecurity.id}>
+              <TableOfContents.Heading>
+                {sections.locationLangSecurity.title}
+              </TableOfContents.Heading>
+              <Text>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "These opportunities have the following requirements:",
+                  id: "t9Zy30",
+                  description:
+                    "Lead-in text for other requirements on a pool advertisement",
+                })}
+              </Text>
+              <DataRow
+                Icon={MapPinIcon}
+                label={intl.formatMessage({
+                  defaultMessage: "Location:",
+                  id: "H7M6Yv",
+                  description:
+                    "Label for pool advertisement location requirement",
+                })}
+                value={
+                  poolAdvertisement.isRemote
+                    ? intl.formatMessage({
+                        defaultMessage: "Remote optional",
+                        id: "NKbfoW",
+                        description:
+                          "Location requirement when a pool advertisement is remote",
+                      })
+                    : getLocalizedName(
+                        poolAdvertisement.advertisementLocation,
+                        intl,
+                      )
+                }
+              />
+              <DataRow
+                Icon={ChatBubbleLeftRightIcon}
+                label={intl.formatMessage({
+                  defaultMessage: "Language:",
+                  id: "6eA/CF",
+                  description:
+                    "Label for pool advertisement language requirement",
+                })}
+                value={languageRequirement}
+                suffix={
+                  <ExternalLink
+                    newTab
+                    href={
+                      locale === "fr"
+                        ? "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
+                        : "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
+                    }
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Learn more about language testing",
+                      id: "Swde4t",
+                      description: "Link text for language testing information",
+                    })}
+                  </ExternalLink>
+                }
+              />
+              <DataRow
+                Icon={LockClosedIcon}
+                label={intl.formatMessage({
+                  defaultMessage: "Security clearance:",
+                  id: "mmCU6z",
+                  description:
+                    "Label for pool advertisement security clearance requirement",
+                })}
+                value={securityClearance}
+                suffix={
+                  <ExternalLink
+                    newTab
+                    href={
+                      locale === "fr"
+                        ? "https://www.canada.ca/fr/service-renseignement-securite/services/filtrage-de-securite-du-gouvernement.html"
+                        : "https://www.canada.ca/en/security-intelligence-service/services/government-security-screening.html"
+                    }
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Learn more about security clearances",
+                      id: "WlMSeh",
+                      description:
+                        "Link text for security clearance information",
+                    })}
+                  </ExternalLink>
+                }
+              />
+            </TableOfContents.Section>
+            <TableOfContents.Section id={sections.contact.id}>
+              <TableOfContents.Heading>
+                {sections.contact.title}
+              </TableOfContents.Heading>
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
@@ -795,14 +694,11 @@ export const PoolAdvertisementPoster = ({
                   },
                 )}
               </Text>
-              <IconTitle icon={ClipboardDocumentCheckIcon}>
-                {intl.formatMessage({
-                  defaultMessage: "Hiring Policies",
-                  id: "isfAkZ",
-                  description:
-                    "Title for hiring information on pool advertisement",
-                })}
-              </IconTitle>
+            </TableOfContents.Section>
+            <TableOfContents.Section id={sections.hiringPolicies.id}>
+              <TableOfContents.Heading>
+                {sections.hiringPolicies.title}
+              </TableOfContents.Heading>
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
@@ -812,28 +708,26 @@ export const PoolAdvertisementPoster = ({
                 })}
               </Text>
             </TableOfContents.Section>
-            <TableOfContents.Section id={sections.apply.id}>
-              <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
-                {sections.apply.title}
-              </TableOfContents.Heading>
-              <Text>
-                {canApply
-                  ? intl.formatMessage({
+            {canApply && (
+              <TableOfContents.Section id={sections.apply.id}>
+                <TableOfContents.Heading>
+                  {sections.apply.title}
+                </TableOfContents.Heading>
+                <Text>
+                  {intl.formatMessage(
+                    {
                       defaultMessage:
-                        "If this process looks like the right fit for you apply now!",
-                      id: "SuqyvD",
+                        "If you feel like your skills and experience are a good fit for the <strong>{title}</strong> role, we'd love to hear from you! This platform allows you to submit an application using the existing information in your profile and you'll be able to update that information in the next step.",
+                      id: "Io6+0T",
                       description:
-                        "Message displayed when the pool advertisement can be applied to.",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "The deadline for submission has passed.",
-                      id: "U+ApNl",
-                      description:
-                        "Message displayed when the pool advertisement has expired.",
-                    })}
-              </Text>
-              {applyBtn}
-            </TableOfContents.Section>
+                        "Lead-in text to the apply call to action at the end of a pool advertisement",
+                    },
+                    { title: fullTitle },
+                  )}
+                </Text>
+                {applyBtn}
+              </TableOfContents.Section>
+            )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
