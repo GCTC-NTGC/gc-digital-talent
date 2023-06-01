@@ -30,9 +30,9 @@ const DuplicateDialog = ({
   }
 
   const title = intl.formatMessage({
-    defaultMessage: "Duplicate this pool",
-    id: "jCS7J4",
-    description: "Title to duplicate a pool",
+    defaultMessage: "Duplicate job poster",
+    id: "DxvIPq",
+    description: "Title to duplicate a job poster",
   });
   const poolName = getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement);
 

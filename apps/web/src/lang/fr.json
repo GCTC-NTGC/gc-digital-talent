@@ -8227,9 +8227,9 @@
     "defaultMessage": "Erreur : Une erreur s’est produite. Veuillez essayer de nouveau dans une minute ou communiquez avec votre administrateur.",
     "description": "Message displayed to user after pool fails to get duplicated."
   },
-  "jCS7J4": {
-    "defaultMessage": "Dupliquer ce bassin",
-    "description": "Title to duplicate a pool"
+  "DxvIPq": {
+    "defaultMessage": "Dupliquer l’affiche d’emploi",
+    "description": "Title to duplicate a job poster"
   },
   "oJri9k": {
     "defaultMessage": "Vous êtes sur le point de dupliquer le bassin suivant : {poolName}",
