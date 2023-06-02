@@ -178,12 +178,9 @@ const UserProfileDocument = React.forwardRef<
                           icon={HandThumbUpIcon}
                           style={{ flex: "1 1 0%" }}
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "Work Preferences",
-                            id: "V89Ryn",
-                            description:
-                              "Title of the Work Preferences content section",
-                          })}
+                          {intl.formatMessage(
+                            navigationMessages.workPreferences,
+                          )}
                         </Heading>
                       </HeadingWrapper>
                       <WorkPreferencesSection applicant={applicant} />

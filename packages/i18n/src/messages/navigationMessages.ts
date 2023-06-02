@@ -51,6 +51,11 @@ const navigationMessages = defineMessages({
     id: "TCs69O",
     description: "Name of Work location page",
   },
+  workPreferences: {
+    defaultMessage: "Work preferences",
+    id: "nnMYWr",
+    description: "Name of Work preferences page",
+  },
 });
 
 export default navigationMessages;

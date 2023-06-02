@@ -54,7 +54,7 @@ describe("Talentsearch Profile Page", () => {
       cy.contains("Language information");
       cy.contains("Government information");
       cy.contains("Work location");
-      cy.contains("Work Preferences");
+      cy.contains("Work preferences");
       cy.contains("Diversity, equity and inclusion");
 
       cy.visit("/en/talent/profile");
@@ -62,7 +62,7 @@ describe("Talentsearch Profile Page", () => {
       cy.contains("Language information");
       cy.contains("Government information");
       cy.contains("Work location");
-      cy.contains("Work Preferences");
+      cy.contains("Work preferences");
       cy.contains("Diversity, equity and inclusion");
     });
   });

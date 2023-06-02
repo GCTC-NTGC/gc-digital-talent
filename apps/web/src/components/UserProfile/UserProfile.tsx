@@ -236,11 +236,7 @@ const UserProfile = ({
             <TableOfContents.AnchorLink id="work-preferences-section">
               <StatusItem
                 asListItem={false}
-                title={intl.formatMessage({
-                  defaultMessage: "Work Preferences",
-                  id: "0DzlCc",
-                  description: "Title of the Work Preferences link section",
-                })}
+                title={intl.formatMessage(navigationMessages.workPreferences)}
                 status={sectionStatus(
                   workPreferencesSectionHasEmptyRequiredFields,
                   workPreferencesSectionHasEmptyOptionalFields,
@@ -518,23 +514,24 @@ const UserProfile = ({
                   as={headingLevel}
                   icon={HandThumbUpIcon}
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Work Preferences",
-                    id: "V89Ryn",
-                    description:
-                      "Title of the Work Preferences content section",
-                  })}
+                  {intl.formatMessage(navigationMessages.workPreferences)}
                 </TableOfContents.Heading>
               </div>
               {sections.workPreferences?.editUrl && (
                 <EditUrlLink
                   link={sections.workPreferences.editUrl}
-                  text={intl.formatMessage({
-                    defaultMessage: "Edit Work Preferences",
-                    id: "p8Gi1k",
-                    description:
-                      "Text on link to update a users work preferences.",
-                  })}
+                  text={intl.formatMessage(
+                    {
+                      defaultMessage: "Edit {title}",
+                      id: "3R3jKp",
+                      description: "Link to edit object",
+                    },
+                    {
+                      title: intl.formatMessage(
+                        navigationMessages.workPreferences,
+                      ),
+                    },
+                  )}
                 />
               )}
             </HeadingWrapper>

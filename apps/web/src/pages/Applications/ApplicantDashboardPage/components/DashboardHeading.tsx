@@ -258,11 +258,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
 
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "Work Preferences",
-              id: "0DzlCc",
-              description: "Title of the Work Preferences link section",
-            })}
+            sectionName={intl.formatMessage(navigationMessages.workPreferences)}
             status={deriveSectionStatus(
               workPreferencesSectionHasEmptyRequiredFields(user),
               workPreferencesSectionHasEmptyOptionalFields(user),
