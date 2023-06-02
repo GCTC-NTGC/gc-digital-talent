@@ -8,7 +8,6 @@ import {
   TreeView,
   Well,
   HeadingLevel,
-  Accordion,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
