@@ -13,12 +13,31 @@ const styleExclusions: Record<string, Array<ButtonLinkMode>> = {
   border: ["cta", "inline"],
   color: ["cta"],
   padding: ["cta", "inline"],
+  radius: ["inline"],
 };
 
 /**
  * Fallback when a map has no key
  */
 const emptyStyleRecord = {} as StyleRecord;
+
+/**
+ * Get Radius
+ *
+ * Compute a button or links border radius based on its mode
+ *
+ * @param mode ButtonLinkMode
+ * @returns Record<string, string>
+ */
+const getRadius = (mode: ButtonLinkMode): StyleRecord => {
+  return styleExclusions.radius.includes(mode)
+    ? {
+        "data-h2-radius": "base(input)",
+      }
+    : {
+        "data-h2-radius": "base(s)",
+      };
+};
 
 /**
  * Get Padding
@@ -333,7 +352,9 @@ export const getBackground = (
   const background = backgroundMap.get(color);
 
   return styleExclusions.background.includes(mode)
-    ? {}
+    ? {
+        "data-h2-background": "base(transparent) base:focus-visible(focus)",
+      }
     : {
         ...(background ? { ...background } : {}),
       };
@@ -651,12 +672,13 @@ const useCommonButtonLinkStyles: UseCommonButtonLinkStyles = ({
 }) => {
   return {
     "data-h2-font-weight": "base(700)",
-    "data-h2-radius": "base(s)",
     "data-h2-font-size": "base(copy)",
+    "data-h2-text-decoration": "base(underline) base:hover(none)",
     "data-h2-transition": "base(.1s ease-in-out)",
     ...getPadding(mode),
-    ...getBorders(mode, color),
     ...getBlock(block),
+    ...getRadius(mode),
+    ...getBorders(mode, color),
     ...getBackground(mode, color),
     ...getFontColor(mode, color),
   };

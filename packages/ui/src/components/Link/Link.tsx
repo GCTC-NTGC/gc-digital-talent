@@ -44,12 +44,7 @@ const Link = ({
   });
 
   return (
-    <RouterLink
-      to={url || "#"}
-      data-h2-text-decoration="base(underline) base:hover(none)"
-      {...styles}
-      {...rest}
-    >
+    <RouterLink to={url || "#"} {...styles} {...rest}>
       {children}
     </RouterLink>
   );
