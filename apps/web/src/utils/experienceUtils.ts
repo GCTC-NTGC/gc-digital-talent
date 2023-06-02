@@ -552,38 +552,26 @@ export const getExperienceName = (
 
   if (isCommunityExperience(experience)) {
     const { title, organization } = experience;
-    return intl.formatMessage(
-      {
-        defaultMessage: "{title} with {organization}",
-        id: "VAcukn",
-        description: "Title with organization",
-      },
-      { title, organization },
-    );
+    return intl.formatMessage(experienceMessages.communityAt, {
+      title,
+      organization,
+    });
   }
 
   if (isEducationExperience(experience)) {
     const { areaOfStudy, institution } = experience;
-    return intl.formatMessage(
-      {
-        defaultMessage: "{areaOfStudy} at {institution}",
-        id: "UrsGGK",
-        description: "Study at institution",
-      },
-      { areaOfStudy, institution },
-    );
+    return intl.formatMessage(experienceMessages.educationAt, {
+      areaOfStudy,
+      institution,
+    });
   }
 
   if (isWorkExperience(experience)) {
     const { role, organization } = experience;
-    return intl.formatMessage(
-      {
-        defaultMessage: "{role} at {organization}",
-        id: "wTAdQe",
-        description: "Role at organization",
-      },
-      { role, organization },
-    );
+    return intl.formatMessage(experienceMessages.workAt, {
+      role,
+      organization,
+    });
   }
 
   // We should never get here but just in case we do, return no provided
