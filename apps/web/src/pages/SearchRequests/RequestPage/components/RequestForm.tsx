@@ -407,7 +407,6 @@ export const RequestForm = ({
             >
               <Link
                 color="secondary"
-                mode="inline"
                 data-h2-margin="base(0, x.5, 0, 0)"
                 href={paths.search()}
                 state={{

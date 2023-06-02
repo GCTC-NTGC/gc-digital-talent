@@ -143,12 +143,10 @@ const EditExperienceForm = ({
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-align-items="base(flex-start) l-tablet(center)"
         >
-          <Button type="submit" mode="solid">
+          <Button type="submit">
             {intl.formatMessage(formMessages.saveChanges)}
           </Button>
           <Link
-            type="button"
-            mode="inline"
             color="quaternary"
             href={paths.applicationResume(applicationId)}
           >

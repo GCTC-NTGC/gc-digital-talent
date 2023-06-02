@@ -143,7 +143,6 @@ const LoggedOutPage = () => {
               <Link
                 mode="outline"
                 color="primary"
-                type="button"
                 href={
                   applicantDashboard ? paths.dashboard() : paths.myProfile()
                 }

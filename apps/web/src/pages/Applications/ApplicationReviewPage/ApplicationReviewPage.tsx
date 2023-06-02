@@ -504,12 +504,7 @@ const ApplicationReview = ({
                     id: "bO9PB4",
                   })}
                 </Button>
-                <Link
-                  type="button"
-                  mode="inline"
-                  color="secondary"
-                  href={cancelPath}
-                >
+                <Link color="secondary" href={cancelPath}>
                   {intl.formatMessage(applicationMessages.saveQuit)}
                 </Link>
               </div>

@@ -227,9 +227,7 @@ export const ReviewApplication = ({
                       href={paths.signAndSubmit(applicationId)}
                       color="primary"
                       mode="solid"
-                      type="button"
-                      disabled={!isApplicationComplete ?? false}
-                      data-h2-display="base(flex)"
+                      block
                     >
                       {intl.formatMessage({
                         id: "EVGeHh",
@@ -244,8 +242,6 @@ export const ReviewApplication = ({
                     <Link
                       href={paths.applications(applicant.id)}
                       color="secondary"
-                      mode="inline"
-                      type="button"
                     >
                       {intl.formatMessage({
                         id: "zqIEuu",

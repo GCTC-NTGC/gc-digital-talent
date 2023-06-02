@@ -197,15 +197,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           </div>
           {pool.id && (
             <p>
-              <Link
-                color="blue"
-                mode="solid"
-                type="button"
-                weight="bold"
-                href={paths.pool(pool.id)}
-                data-h2-text-align="base(center)"
-                data-h2-display="base(inline-block)"
-              >
+              <Link color="secondary" mode="solid" href={paths.pool(pool.id)}>
                 {intl.formatMessage(
                   {
                     id: "YxqhQt",

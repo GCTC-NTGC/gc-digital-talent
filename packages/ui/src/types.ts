@@ -7,6 +7,7 @@ export type Color =
   | "cta"
   | "white"
   | "black"
+  | "white"
   | "ia-primary"
   | "ia-secondary"
   | "yellow"
@@ -26,6 +27,12 @@ export type IconProps = React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
 
 export type IconType = React.ForwardRefExoticComponent<IconProps>;
 
+type HydrogenAttributeKey = `data-h2-${string}`;
+
+type HydrogenAttributes = {
+  [dataAttribute: HydrogenAttributeKey]: unknown;
+};
+
 export type ButtonLinkMode = "solid" | "outline" | "inline" | "cta";
 
 export type ButtonLinkProps = {
@@ -33,4 +40,4 @@ export type ButtonLinkProps = {
   block?: boolean;
   mode?: ButtonLinkMode;
   icon?: IconType;
-};
+} & HydrogenAttributes;

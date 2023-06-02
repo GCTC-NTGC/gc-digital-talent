@@ -1128,9 +1128,7 @@ const OngoingRecruitmentSection = ({
                           <Link
                             href={paths.pool(classification.pool.id)}
                             color="secondary"
-                            type="button"
                             mode="solid"
-                            data-h2-font-weight="base(700)"
                           >
                             {classification.applyMessage}
                           </Link>

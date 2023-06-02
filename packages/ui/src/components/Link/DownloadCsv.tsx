@@ -10,7 +10,7 @@ interface CsvHeader {
 }
 
 export interface DownloadCsvProps
-  extends Pick<LinkProps, "color" | "mode" | "block" | "type" | "disabled"> {
+  extends Pick<LinkProps, "color" | "mode" | "block" | "type"> {
   headers: CsvHeader[];
   data: Record<string, string>[];
   fileName: string;

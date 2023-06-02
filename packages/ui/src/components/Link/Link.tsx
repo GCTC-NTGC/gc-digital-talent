@@ -6,48 +6,48 @@ import {
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
+import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
+import { ButtonLinkProps } from "../../types";
 import useCommonButtonLinkStyles from "../../hooks/useCommonButtonLinkStyles";
-import { Color } from "../../types";
 
-type DataAttributes = {
-  [key: `data-${string}`]: unknown;
-};
+export type LinkProps = ButtonLinkProps &
+  Omit<RouterLinkProps, "to"> &
+  Omit<
+    React.DetailedHTMLProps<
+      React.AnchorHTMLAttributes<HTMLAnchorElement>,
+      HTMLAnchorElement
+    >,
+    "ref"
+  >;
 
-export interface LinkProps
-  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">,
-    Omit<RouterLinkProps, "to">,
-    DataAttributes {
-  /** The style colour of the link */
-  href?: string;
-  color?: Color;
-  disabled?: boolean;
-  /** The style mode of the element. */
-  mode?: "solid" | "outline" | "inline";
-  block?: boolean;
-  type?: "button" | "link";
-  weight?: "bold";
-}
+const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
+  (
+    {
+      href,
+      color = "primary",
+      mode = "inline",
+      block = false,
+      icon,
+      children,
+      ...rest
+    },
+    ref,
+  ) => {
+    const url = sanitizeUrl(href);
+    const styles = useCommonButtonLinkStyles({
+      mode,
+      color: color || "primary",
+      block,
+    });
 
-const Link = ({
-  href,
-  color,
-  mode = "solid",
-  block = false,
-  children,
-  ...rest
-}: LinkProps): React.ReactElement => {
-  const url = sanitizeUrl(href);
-  const styles = useCommonButtonLinkStyles({
-    mode,
-    color: color || "primary",
-    block,
-  });
-
-  return (
-    <RouterLink to={url || "#"} {...styles} {...rest}>
-      {children}
-    </RouterLink>
-  );
-};
+    return (
+      <RouterLink ref={ref} to={url || "#"} {...styles} {...rest}>
+        <ButtonLinkContent mode={mode} icon={icon}>
+          {children}
+        </ButtonLinkContent>
+      </RouterLink>
+    );
+  },
+);
 
 export default Link;

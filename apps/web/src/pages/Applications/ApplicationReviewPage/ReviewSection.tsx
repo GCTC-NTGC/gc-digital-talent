@@ -26,13 +26,7 @@ const ReviewSection = ({
         <Heading level="h3" data-h2-margin-top="base(0)">
           {title}
         </Heading>
-        <Link
-          type="button"
-          mode="inline"
-          color="secondary"
-          href={path}
-          aria-label={editLinkAriaLabel}
-        >
+        <Link color="secondary" href={path} aria-label={editLinkAriaLabel}>
           {intl.formatMessage({
             defaultMessage: "Edit this section",
             id: "Z8hEuY",

@@ -1,8 +1,8 @@
 import React from "react";
 
-import { IconLink, IconLinkProps, Heading, Well } from "@gc-digital-talent/ui";
+import { IconLink, LinkProps, Heading, Well } from "@gc-digital-talent/ui";
 
-type WellLink = Omit<IconLinkProps, "children"> & {
+type WellLink = Omit<LinkProps, "children"> & {
   label: React.ReactNode;
 };
 

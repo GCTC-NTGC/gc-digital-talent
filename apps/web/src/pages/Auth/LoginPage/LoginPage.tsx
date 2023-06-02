@@ -95,12 +95,7 @@ const LoginPage = () => {
             data-h2-justify-content="base(space-between)"
           >
             <p>
-              <Link
-                href={paths.home()}
-                mode="inline"
-                color="secondary"
-                type="button"
-              >
+              <Link href={paths.home()} color="secondary">
                 {intl.formatMessage({
                   defaultMessage: "Cancel",
                   id: "OT0QP3",

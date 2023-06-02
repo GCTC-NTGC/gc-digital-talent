@@ -187,12 +187,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
                 "Text for save button and add another button on experience form.",
             })}
           </Button>
-          <Link
-            type="button"
-            mode="inline"
-            color="secondary"
-            href={paths.applicationResume(applicationId)}
-          >
+          <Link color="secondary" href={paths.applicationResume(applicationId)}>
             {intl.formatMessage({
               defaultMessage: "Cancel and go back",
               id: "fMcKtJ",

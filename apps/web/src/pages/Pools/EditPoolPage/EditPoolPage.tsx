@@ -212,7 +212,6 @@ export const EditPoolForm = ({
               href={paths.poolView(pool.id)}
               color="secondary"
               mode="outline"
-              type="button"
               data-h2-margin="base(x2, 0, 0, 0)"
               data-h2-text-align="base(center)"
             >

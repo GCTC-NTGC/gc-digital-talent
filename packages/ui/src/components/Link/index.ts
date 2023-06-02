@@ -7,7 +7,6 @@ import ScrollToLink from "./ScrollToLink";
 import SkipLink, { type SkipLinkProps } from "./SkipLink";
 import type { ExternalLinkProps } from "./ExternalLink";
 import type { LinkProps } from "./Link";
-import type { IconLinkProps } from "./IconLink";
 import type { DownloadCsvProps } from "./DownloadCsv";
 import type { ScrollToLinkProps, ScrollLinkClickFunc } from "./ScrollToLink";
 
@@ -24,7 +23,6 @@ export type {
   DownloadCsvProps,
   ExternalLinkProps,
   LinkProps,
-  IconLinkProps,
   ScrollToLinkProps,
   ScrollLinkClickFunc,
   SkipLinkProps,

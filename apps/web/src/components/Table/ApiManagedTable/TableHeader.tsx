@@ -192,7 +192,6 @@ function TableHeader<T extends Record<string, unknown>>({
                 <Link
                   mode="solid"
                   color="primary"
-                  type="button"
                   data-h2-display="base(inline-flex)"
                   data-h2-align-items="base(center)"
                   style={{ textDecoration: "none" }}

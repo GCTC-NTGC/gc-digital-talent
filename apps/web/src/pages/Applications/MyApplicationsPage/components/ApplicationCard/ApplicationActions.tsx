@@ -32,7 +32,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
 
   return (
     <div data-h2-margin="base(0, 0, 0, auto)">
-      <Link type="button" mode="inline" color="secondary" href={href}>
+      <Link type="button" href={href}>
         {intl.formatMessage(
           {
             defaultMessage: "Continue this application<hidden> {name}</hidden>",
@@ -65,7 +65,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
   }
 
   return (
-    <Link href={href} mode="inline" type="button" color="secondary">
+    <Link href={href} color="secondary">
       {intl.formatMessage(
         {
           defaultMessage: "View this application<hidden> {name}</hidden>",
@@ -96,12 +96,7 @@ const SeeAdvertisementAction = ({
   }
 
   return (
-    <Link
-      mode="inline"
-      type="button"
-      color="secondary"
-      href={paths.pool(advertisement.id)}
-    >
+    <Link color="secondary" href={paths.pool(advertisement.id)}>
       {intl.formatMessage(
         {
           defaultMessage: "See job ad<hidden> {name}</hidden>",
@@ -126,7 +121,7 @@ const SupportAction = ({ show }: SupportActionProps) => {
   }
 
   return (
-    <Link href={paths.support()} mode="inline" type="button" color="secondary">
+    <Link href={paths.support()} color="secondary">
       {intl.formatMessage({
         defaultMessage: "Get support",
         id: "rXdaZW",

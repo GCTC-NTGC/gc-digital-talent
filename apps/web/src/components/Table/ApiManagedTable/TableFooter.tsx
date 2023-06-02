@@ -88,7 +88,6 @@ function TableFooter({
                         type="button"
                         mode="inline"
                         color="white"
-                        disabled={disableActions}
                         {...csv}
                       >
                         {intl.formatMessage({

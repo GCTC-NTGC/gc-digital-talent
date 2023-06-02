@@ -14,7 +14,9 @@ const Step = ({ path, label, disabled, ...rest }: StepProps) => (
     mode={disabled ? "solid" : "outline"}
     type="button"
     color="secondary"
-    disabled={disabled}
+    style={{
+      pointerEvents: disabled ? "none" : undefined,
+    }}
     {...rest}
   >
     {label}

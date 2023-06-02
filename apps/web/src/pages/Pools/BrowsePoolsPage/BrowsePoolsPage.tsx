@@ -183,10 +183,8 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
                 </div>
                 <div data-h2-margin="base(x1, 0, 0, 0) p-tablet(0)">
                   <Link
-                    color="blue"
+                    color="secondary"
                     mode="outline"
-                    type="button"
-                    weight="bold"
                     href={loggedIn ? paths.myProfile() : paths.login()}
                     style={{ whiteSpace: "nowrap" }}
                   >

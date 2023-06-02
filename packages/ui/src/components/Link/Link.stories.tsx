@@ -33,7 +33,9 @@ const stoplight: Array<Color> = ["success", "warning", "error"];
 const black: Array<Color> = ["black"];
 const white: Array<Color> = ["white"];
 
-const TemplateLink: StoryFn<LinkProps & { label: string }> = (args) => {
+type Story = StoryFn<Omit<LinkProps, "ref"> & { label: string }>;
+
+const TemplateLink: Story = (args) => {
   const { label, ...rest } = args;
 
   return (
@@ -43,7 +45,7 @@ const TemplateLink: StoryFn<LinkProps & { label: string }> = (args) => {
   );
 };
 
-const TemplateLinkColors: StoryFn<LinkProps & { label: string }> = (args) => {
+const TemplateLinkColors: Story = (args) => {
   const { label, ...rest } = args;
   return (
     <div data-h2-display="base(flex)">
@@ -122,13 +124,6 @@ export const LinkButtonBlock = TemplateLink.bind({});
 LinkButtonBlock.args = {
   mode: "solid",
   block: true,
-};
-
-export const LinkButtonDisabled = TemplateLinkColors.bind({});
-LinkButtonDisabled.args = {
-  type: "button",
-  mode: "solid",
-  disabled: true,
 };
 
 export const ExternalLinkNewTab = TemplateExternalLink.bind({});

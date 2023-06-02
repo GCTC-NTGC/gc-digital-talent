@@ -728,12 +728,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
           )}
         </FormProvider>
         <p data-h2-margin="base(x2, 0, 0, 0)">
-          <Link
-            type="button"
-            mode="solid"
-            color="secondary"
-            href={paths.poolTable()}
-          >
+          <Link mode="solid" color="secondary" href={paths.poolTable()}>
             {intl.formatMessage({
               defaultMessage: "Back to pools",
               id: "Pr8bok",

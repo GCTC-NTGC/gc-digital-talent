@@ -33,11 +33,7 @@ const DiversityEquityInclusionSection = ({
     ) || [];
 
   const pledgeLink = (text: React.ReactNode) => {
-    return editPath ? (
-      <Link mode="inline" href={editPath}>
-        {text}
-      </Link>
-    ) : null;
+    return editPath ? <Link href={editPath}>{text}</Link> : null;
   };
 
   return (
