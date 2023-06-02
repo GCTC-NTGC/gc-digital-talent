@@ -1397,5 +1397,9 @@
   "v9XiWV": {
     "defaultMessage": "Informations linguistiques",
     "description": "Name of Language information page"
+  },
+  "FvV+QW": {
+    "defaultMessage": "Renseignements gouvernementaux",
+    "description": "Name of Government information page"
   }
 }

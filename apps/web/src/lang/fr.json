@@ -1109,10 +1109,6 @@
     "defaultMessage": "Évaluation linguistique du gouvernement du Canada",
     "description": "Message on links to the language evaluation tests"
   },
-  "Uh9Yj4": {
-    "defaultMessage": "Renseignements du gouvernement",
-    "description": "Display Text for Government Information Form Page Link"
-  },
   "W4Svkd": {
     "defaultMessage": "Compréhension",
     "description": "Label displayed on the language information form comprehension field."
@@ -1392,10 +1388,6 @@
   "x6saT3": {
     "defaultMessage": "Avant de vous amener à votre profil, nous devons recueillir les renseignements nécessaires pour compléter la configuration de votre compte.",
     "description": "Message after main heading in create account page."
-  },
-  "xDgNfZ": {
-    "defaultMessage": "Renseignements du gouvernement",
-    "description": "Title for Profile Form Wrapper in Government Information Form"
   },
   "Vvb8tu": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
@@ -3419,10 +3411,6 @@
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
   },
-  "l1cou8": {
-    "defaultMessage": "Renseignements gouvernementaux",
-    "description": "Title of the Government Information content section"
-  },
   "lIwJp4": {
     "defaultMessage": "Bon retour, {name}",
     "description": "Title for dashboard on the talent cloud admin portal."
@@ -5324,10 +5312,6 @@
     "defaultMessage": "Aucune information n'a été fournie",
     "description": "Message on Admin side when user not filled Experience section."
   },
-  "5APACq": {
-    "defaultMessage": "Modifier les renseignements gouvernementaux",
-    "description": "Text on link to update a users government information."
-  },
   "5WOqlf": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
     "description": "Label preceding what groups the user identifies as part of, followed by a colon"
@@ -5383,10 +5367,6 @@
   "MuyuAu": {
     "defaultMessage": "Groupe et classification actuels :",
     "description": "Field label before government employment group and level, followed by colon"
-  },
-  "Nc4sjC": {
-    "defaultMessage": "Renseignements gouvernementaux",
-    "description": "Title of the Government Information link section"
   },
   "P/tHlt": {
     "defaultMessage": "Par type",

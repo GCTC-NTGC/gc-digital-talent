@@ -210,12 +210,9 @@ const UserProfile = ({
             <TableOfContents.AnchorLink id="government-section">
               <StatusItem
                 asListItem={false}
-                title={intl.formatMessage({
-                  defaultMessage: "Government Information",
-                  id: "Nc4sjC",
-                  description:
-                    "Title of the Government Information link section",
-                })}
+                title={intl.formatMessage(
+                  navigationMessages.governmentInformation,
+                )}
                 status={sectionStatus(
                   governmentInformationSectionHasEmptyRequiredFields,
                   governmentInformationSectionHasEmptyOptionalFields,
@@ -444,23 +441,24 @@ const UserProfile = ({
                   as={headingLevel}
                   icon={BuildingLibraryIcon}
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Government Information",
-                    id: "l1cou8",
-                    description:
-                      "Title of the Government Information content section",
-                  })}
+                  {intl.formatMessage(navigationMessages.governmentInformation)}
                 </TableOfContents.Heading>
               </div>
               {sections.government?.editUrl && (
                 <EditUrlLink
                   link={sections.government.editUrl}
-                  text={intl.formatMessage({
-                    defaultMessage: "Edit Government Information",
-                    id: "5APACq",
-                    description:
-                      "Text on link to update a users government information.",
-                  })}
+                  text={intl.formatMessage(
+                    {
+                      defaultMessage: "Edit {title}",
+                      id: "3R3jKp",
+                      description: "Link to edit object",
+                    },
+                    {
+                      title: intl.formatMessage(
+                        navigationMessages.governmentInformation,
+                      ),
+                    },
+                  )}
                 />
               )}
             </HeadingWrapper>

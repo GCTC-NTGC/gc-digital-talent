@@ -175,12 +175,9 @@ const PoolCandidateDocument = React.forwardRef<
                           icon={BuildingLibraryIcon}
                           style={{ flex: "1 1 0%" }}
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "Government Information",
-                            id: "l1cou8",
-                            description:
-                              "Title of the Government Information content section",
-                          })}
+                          {intl.formatMessage(
+                            navigationMessages.governmentInformation,
+                          )}
                         </Heading>
                       </HeadingWrapper>
                       <GovernmentInformationSection

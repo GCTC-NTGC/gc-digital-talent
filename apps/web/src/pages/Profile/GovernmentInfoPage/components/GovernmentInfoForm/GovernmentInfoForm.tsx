@@ -571,12 +571,7 @@ const GovernmentInfoForm = ({
           url: paths.reviewApplication(applicationId ?? ""),
         },
         {
-          label: intl.formatMessage({
-            defaultMessage: "Government Information",
-            id: "Uh9Yj4",
-            description:
-              "Display Text for Government Information Form Page Link",
-          }),
+          label: intl.formatMessage(navigationMessages.governmentInformation),
           url: `${paths.governmentInformation(initialData.id)}${
             applicationId ? `?applicationId=${applicationId}` : ``
           }`,
@@ -593,23 +588,15 @@ const GovernmentInfoForm = ({
         description:
           "Description blurb for Profile Form Wrapper in the Government Information Form",
       })}
-      title={intl.formatMessage({
-        defaultMessage: "Government Information",
-        id: "xDgNfZ",
-        description:
-          "Title for Profile Form Wrapper in Government Information Form",
-      })}
+      title={intl.formatMessage(navigationMessages.governmentInformation)}
       crumbs={
         applicationBreadcrumbs?.length
           ? applicationBreadcrumbs
           : [
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Government Information",
-                  id: "Uh9Yj4",
-                  description:
-                    "Display Text for Government Information Form Page Link",
-                }),
+                label: intl.formatMessage(
+                  navigationMessages.governmentInformation,
+                ),
                 url: paths.governmentInformation(initialData.id),
               },
             ]

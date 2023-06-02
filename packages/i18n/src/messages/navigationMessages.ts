@@ -41,6 +41,11 @@ const navigationMessages = defineMessages({
     id: "v9XiWV",
     description: "Name of Language information page",
   },
+  governmentInformation: {
+    defaultMessage: "Government information",
+    id: "FvV+QW",
+    description: "Name of Government information page",
+  },
 });
 
 export default navigationMessages;

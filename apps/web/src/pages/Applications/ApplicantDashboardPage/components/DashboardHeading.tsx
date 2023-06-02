@@ -239,11 +239,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
 
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "Government Information",
-              id: "Nc4sjC",
-              description: "Title of the Government Information link section",
-            })}
+            sectionName={intl.formatMessage(
+              navigationMessages.governmentInformation,
+            )}
             status={deriveSectionStatus(
               governmentInformationSectionHasEmptyRequiredFields(user),
               governmentInformationSectionHasEmptyOptionalFields(user),
