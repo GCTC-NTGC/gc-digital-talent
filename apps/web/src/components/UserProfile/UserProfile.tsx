@@ -35,8 +35,7 @@ import {
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import ExperienceSection from "./ExperienceSection";
-import { StatusItem } from "../InfoItem";
-import { Status } from "../InfoItem/StatusItem";
+import { StatusItem, Status } from "../StatusItem/StatusItem";
 import AboutSection from "./ProfileSections/AboutSection";
 import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
 import GovernmentInformationSection from "./ProfileSections/GovernmentInformationSection";
@@ -153,7 +152,7 @@ const UserProfile = ({
   ): Status | undefined => {
     if (!featureFlags.applicantDashboard) return undefined;
     if (hasEmptyRequiredFields(applicant)) return "error";
-    if (hasEmptyOptionalFields(applicant)) return "partial";
+    if (hasEmptyOptionalFields(applicant)) return undefined; // status item no longer has partial state
     return "success";
   };
 

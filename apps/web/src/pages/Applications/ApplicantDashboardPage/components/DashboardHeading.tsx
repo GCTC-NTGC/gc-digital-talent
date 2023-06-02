@@ -2,11 +2,12 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
-import BriefcaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
-import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
-import UsersIcon from "@heroicons/react/24/solid/UsersIcon";
-import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
-import StarIcon from "@heroicons/react/24/solid/StarIcon";
+import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
+import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
+import UsersIcon from "@heroicons/react/20/solid/UsersIcon";
+import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
+import StarIcon from "@heroicons/react/20/solid/StarIcon";
+import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Alert } from "@gc-digital-talent/ui";
 
@@ -17,19 +18,11 @@ import useRoutes, {
 } from "~/hooks/useRoutes";
 import {
   aboutSectionHasEmptyRequiredFields,
-  aboutSectionHasEmptyOptionalFields,
-  diversityEquityInclusionSectionHasEmptyRequiredFields,
-  diversityEquityInclusionSectionHasEmptyOptionalFields,
   governmentInformationSectionHasEmptyRequiredFields,
-  governmentInformationSectionHasEmptyOptionalFields,
   languageInformationSectionHasEmptyRequiredFields,
-  languageInformationSectionHasEmptyOptionalFields,
   roleSalarySectionHasEmptyRequiredFields,
-  roleSalarySectionHasEmptyOptionalFields,
   workLocationSectionHasEmptyRequiredFields,
-  workLocationSectionHasEmptyOptionalFields,
   workPreferencesSectionHasEmptyRequiredFields,
-  workPreferencesSectionHasEmptyOptionalFields,
 } from "~/validators/profile";
 import {
   isAwardExperience,
@@ -39,24 +32,10 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import { AwardExperience } from "~/api/generated";
-
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import {
-  HeroCardExperienceItem,
-  HeroCardProfileItem,
-  ProfileItemStatus,
-} from "./HeroCardItem";
-import { HeroCard } from "./HeroCard";
+import { StatusItem } from "~/components/StatusItem/StatusItem";
+import { HeroCard } from "~/components/HeroCard/HeroCard";
 import { PartialUser } from "../types";
-
-function deriveSectionStatus(
-  isMissingRequiredFields: boolean,
-  isMissingOptionalFields: boolean,
-): ProfileItemStatus {
-  if (isMissingRequiredFields) return "has-empty-required-fields";
-  if (isMissingOptionalFields) return "has-empty-optional-fields";
-  return "all-sections-complete";
-}
 
 export interface DashboardHeadingProps {
   user: PartialUser;
@@ -218,71 +197,76 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           })}
           href={paths.profile(user.id)}
         >
-          <HeroCardProfileItem
-            sectionName={intl.formatMessage(navigationMessages.aboutMe)}
-            status={deriveSectionStatus(
-              aboutSectionHasEmptyRequiredFields(user),
-              aboutSectionHasEmptyOptionalFields(user),
-            )}
+          <StatusItem
+            asListItem
+            title={intl.formatMessage(navigationMessages.aboutMe)}
+            status={
+              aboutSectionHasEmptyRequiredFields(user) ? "error" : "success"
+            }
             href={paths.aboutMe(user.id)}
           />
 
-          <HeroCardProfileItem
-            sectionName={intl.formatMessage(
-              navigationMessages.languageInformation,
-            )}
-            status={deriveSectionStatus(
-              languageInformationSectionHasEmptyRequiredFields(user),
-              languageInformationSectionHasEmptyOptionalFields(user),
-            )}
+          <StatusItem
+            asListItem
+            title={intl.formatMessage(navigationMessages.languageInformation)}
+            status={
+              languageInformationSectionHasEmptyRequiredFields(user)
+                ? "error"
+                : "success"
+            }
             href={paths.languageInformation(user.id)}
           />
 
-          <HeroCardProfileItem
-            sectionName={intl.formatMessage(
-              navigationMessages.governmentInformation,
-            )}
-            status={deriveSectionStatus(
-              governmentInformationSectionHasEmptyRequiredFields(user),
-              governmentInformationSectionHasEmptyOptionalFields(user),
-            )}
+          <StatusItem
+            asListItem
+            title={intl.formatMessage(navigationMessages.governmentInformation)}
+            status={
+              governmentInformationSectionHasEmptyRequiredFields(user)
+                ? "error"
+                : "success"
+            }
             href={paths.governmentInformation(user.id)}
           />
-          <HeroCardProfileItem
-            sectionName={intl.formatMessage(navigationMessages.workLocation)}
-            status={deriveSectionStatus(
-              workLocationSectionHasEmptyRequiredFields(user),
-              workLocationSectionHasEmptyOptionalFields(user),
-            )}
+          <StatusItem
+            asListItem
+            title={intl.formatMessage(navigationMessages.workLocation)}
+            status={
+              workLocationSectionHasEmptyRequiredFields(user)
+                ? "error"
+                : "success"
+            }
             href={paths.workLocation(user.id)}
           />
 
-          <HeroCardProfileItem
-            sectionName={intl.formatMessage(navigationMessages.workPreferences)}
-            status={deriveSectionStatus(
-              workPreferencesSectionHasEmptyRequiredFields(user),
-              workPreferencesSectionHasEmptyOptionalFields(user),
-            )}
+          <StatusItem
+            asListItem
+            title={intl.formatMessage(navigationMessages.workPreferences)}
+            status={
+              workPreferencesSectionHasEmptyRequiredFields(user)
+                ? "error"
+                : "success"
+            }
             href={paths.workPreferences(user.id)}
           />
-          <HeroCardProfileItem
-            sectionName={intl.formatMessage(
+          <StatusItem
+            asListItem
+            title={intl.formatMessage(
               navigationMessages.diversityEquityInclusion,
             )}
-            status={deriveSectionStatus(
-              diversityEquityInclusionSectionHasEmptyRequiredFields(user),
-              diversityEquityInclusionSectionHasEmptyOptionalFields(user),
-            )}
             href={paths.diversityEquityInclusion(user.id)}
+            icon={UserGroupIcon}
           />
-          <HeroCardProfileItem
-            sectionName={intl.formatMessage(
+
+          <StatusItem
+            asListItem
+            title={intl.formatMessage(
               navigationMessages.roleSalaryExpectations,
             )}
-            status={deriveSectionStatus(
-              roleSalarySectionHasEmptyRequiredFields(user),
-              roleSalarySectionHasEmptyOptionalFields(user),
-            )}
+            status={
+              roleSalarySectionHasEmptyRequiredFields(user)
+                ? "error"
+                : "success"
+            }
             href={paths.roleSalary(user.id)}
           />
         </HeroCard>
@@ -295,55 +279,50 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           })}
           href={paths.skillsAndExperiences(user.id)}
         >
-          <HeroCardExperienceItem
-            sectionName={intl.formatMessage({
+          <StatusItem
+            title={intl.formatMessage({
               defaultMessage: "Work experience",
               id: "giUfys",
               description: "Title for work experience section",
             })}
             itemCount={workExperiences?.length}
             icon={BriefcaseIcon}
-            color="primary"
           />
-          <HeroCardExperienceItem
-            sectionName={intl.formatMessage({
+          <StatusItem
+            title={intl.formatMessage({
               defaultMessage: "Education experience",
               id: "u6LIbY",
               description: "Title for education experience section",
             })}
             itemCount={educationExperiences?.length}
             icon={BookOpenIcon}
-            color="secondary"
           />
-          <HeroCardExperienceItem
-            sectionName={intl.formatMessage({
+          <StatusItem
+            title={intl.formatMessage({
               defaultMessage: "Volunteer and community experience",
               id: "Rz7WtH",
               description: "Title for community experience section",
             })}
             itemCount={communityExperiences?.length}
             icon={UsersIcon}
-            color="tertiary"
           />
-          <HeroCardExperienceItem
-            sectionName={intl.formatMessage({
+          <StatusItem
+            title={intl.formatMessage({
               defaultMessage: "Personal experience",
               id: "wTFUPE",
               description: "Title for personal experience section",
             })}
             itemCount={personalExperiences?.length}
             icon={LightBulbIcon}
-            color="quaternary"
           />
-          <HeroCardExperienceItem
-            sectionName={intl.formatMessage({
+          <StatusItem
+            title={intl.formatMessage({
               defaultMessage: "Award",
               id: "+ikQY0",
               description: "Title for award section",
             })}
             itemCount={awardExperiences?.length}
             icon={StarIcon}
-            color="quinary"
           />
         </HeroCard>
       </div>
