@@ -9,7 +9,6 @@ import {
   Pending,
 } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
@@ -52,7 +51,6 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
   const paths = useRoutes();
-  const featureFlags = useFeatureFlags();
 
   const title = intl.formatMessage({
     defaultMessage: "Browse jobs",
