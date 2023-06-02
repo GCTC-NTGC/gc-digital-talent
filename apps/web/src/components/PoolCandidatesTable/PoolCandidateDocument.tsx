@@ -241,12 +241,9 @@ const PoolCandidateDocument = React.forwardRef<
                     </div>
                     <HeadingWrapper>
                       <Heading icon={BoltIcon} style={{ flex: "1 1 0%" }}>
-                        {intl.formatMessage({
-                          defaultMessage: "My skills and experience",
-                          id: "Eui2Wf",
-                          description:
-                            "Title of the My skills and experience content section",
-                        })}
+                        {intl.formatMessage(
+                          navigationMessages.mySkillsExperience,
+                        )}
                       </Heading>
                     </HeadingWrapper>
                     <PrintExperienceByType

@@ -260,12 +260,7 @@ const UserProfile = ({
           )}
           {showSection("skillsExperience") && (
             <TableOfContents.AnchorLink id="skills-and-experience-section">
-              {intl.formatMessage({
-                defaultMessage: "My skills and experience",
-                id: "fqIEKE",
-                description:
-                  "Title of the My skills and experience link section",
-              })}
+              {intl.formatMessage(navigationMessages.mySkillsExperience)}
             </TableOfContents.AnchorLink>
           )}
         </TableOfContents.Navigation>
@@ -358,12 +353,18 @@ const UserProfile = ({
               {sections.employmentEquity?.editUrl && (
                 <EditUrlLink
                   link={sections.employmentEquity.editUrl}
-                  text={intl.formatMessage({
-                    defaultMessage: "Edit Diversity, Equity and Inclusion",
-                    id: "AF8g2I",
-                    description:
-                      "Text on link to update a users employment equity.",
-                  })}
+                  text={intl.formatMessage(
+                    {
+                      defaultMessage: "Edit {title}",
+                      id: "3R3jKp",
+                      description: "Link to edit object",
+                    },
+                    {
+                      title: intl.formatMessage(
+                        navigationMessages.diversityEquityInclusion,
+                      ),
+                    },
+                  )}
                 />
               )}
             </HeadingWrapper>
@@ -594,23 +595,24 @@ const UserProfile = ({
                 data-h2-text-align="base(center) p-tablet(left)"
               >
                 <TableOfContents.Heading as={headingLevel} icon={BoltIcon}>
-                  {intl.formatMessage({
-                    defaultMessage: "My skills and experience",
-                    id: "Eui2Wf",
-                    description:
-                      "Title of the My skills and experience content section",
-                  })}
+                  {intl.formatMessage(navigationMessages.mySkillsExperience)}
                 </TableOfContents.Heading>
               </div>
               {sections.skillsExperience?.editUrl && (
                 <EditUrlLink
                   link={sections.skillsExperience.editUrl}
-                  text={intl.formatMessage({
-                    defaultMessage: "Edit Skills and Experience",
-                    id: "XqFhIa",
-                    description:
-                      "Text on link to update a users skills and experiences.",
-                  })}
+                  text={intl.formatMessage(
+                    {
+                      defaultMessage: "Edit {title}",
+                      id: "3R3jKp",
+                      description: "Link to edit object",
+                    },
+                    {
+                      title: intl.formatMessage(
+                        navigationMessages.mySkillsExperience,
+                      ),
+                    },
+                  )}
                 />
               )}
             </HeadingWrapper>

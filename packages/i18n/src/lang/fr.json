@@ -1413,5 +1413,9 @@
   "lp/ZEr": {
     "defaultMessage": "Rôle et salaire escomptés",
     "description": "Name of Role and salary expectations page"
+  },
+  "clhK68": {
+    "defaultMessage": "Mes compétences et mon expérience",
+    "description": "Name of My skills and experience page"
   }
 }

@@ -3252,10 +3252,6 @@
     "defaultMessage": "Téléphone :",
     "description": "Display text for the phone number field on users"
   },
-  "Eui2Wf": {
-    "defaultMessage": "Mes compétences et mon expérience",
-    "description": "Title of the My skills and experience content section"
-  },
   "F00OD4": {
     "defaultMessage": "Statut du candidat",
     "description": "Title of the 'Candidate status' section of the view-user page"
@@ -5308,10 +5304,6 @@
     "defaultMessage": "Vous n'êtes pas inscrit à titre d'employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
   },
-  "AF8g2I": {
-    "defaultMessage": "Modifier la diversité, l'équité et l'inclusion",
-    "description": "Text on link to update a users employment equity."
-  },
   "D7Qb41": {
     "defaultMessage": "Niveau de la langue seconde (compréhension, écrite, verbale) :",
     "description": "Evaluation results for second language, results in that order followed by a colon"
@@ -5360,10 +5352,6 @@
     "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de :",
     "description": "Label for what length of position user prefers, followed by colon"
   },
-  "XqFhIa": {
-    "defaultMessage": "Modifier les compétences et l'expérience",
-    "description": "Text on link to update a users skills and experiences."
-  },
   "azOv8A": {
     "defaultMessage": "Téléphone :",
     "description": "Phone label and colon"
@@ -5387,10 +5375,6 @@
   "eLXTfi": {
     "defaultMessage": "Je ne suis pas un employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
-  },
-  "fqIEKE": {
-    "defaultMessage": "Mes compétences et mon expérience",
-    "description": "Title of the My skills and experience link section"
   },
   "gpcHeU": {
     "defaultMessage": "Canada.ca",
