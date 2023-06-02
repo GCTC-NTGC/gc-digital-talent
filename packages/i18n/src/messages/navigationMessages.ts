@@ -36,6 +36,11 @@ const navigationMessages = defineMessages({
     id: "ad4mTC",
     description: "Name of Diversity, equity and inclusion page",
   },
+  languageInformation: {
+    defaultMessage: "Language information",
+    id: "v9XiWV",
+    description: "Name of Language information page",
+  },
 });
 
 export default navigationMessages;

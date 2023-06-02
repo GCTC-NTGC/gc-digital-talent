@@ -162,12 +162,9 @@ const PoolCandidateDocument = React.forwardRef<
                           icon={ChatBubbleLeftRightIcon}
                           style={{ flex: "1 1 0%" }}
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "Language Information",
-                            id: "1pk/7X",
-                            description:
-                              "Title of the Language Information content section",
-                          })}
+                          {intl.formatMessage(
+                            navigationMessages.languageInformation,
+                          )}
                         </Heading>
                       </HeadingWrapper>
                       <LanguageInformationSection applicant={candidate.user} />

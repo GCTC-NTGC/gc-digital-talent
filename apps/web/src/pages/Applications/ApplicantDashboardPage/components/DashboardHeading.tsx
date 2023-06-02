@@ -228,11 +228,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
 
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "Language Information",
-              id: "B9x0ZV",
-              description: "Title of the Language Information link section",
-            })}
+            sectionName={intl.formatMessage(
+              navigationMessages.languageInformation,
+            )}
             status={deriveSectionStatus(
               languageInformationSectionHasEmptyRequiredFields(user),
               languageInformationSectionHasEmptyOptionalFields(user),

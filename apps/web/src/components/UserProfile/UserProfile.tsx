@@ -196,11 +196,9 @@ const UserProfile = ({
             <TableOfContents.AnchorLink id="language-section">
               <StatusItem
                 asListItem={false}
-                title={intl.formatMessage({
-                  defaultMessage: "Language Information",
-                  id: "B9x0ZV",
-                  description: "Title of the Language Information link section",
-                })}
+                title={intl.formatMessage(
+                  navigationMessages.languageInformation,
+                )}
                 status={sectionStatus(
                   languageInformationSectionHasEmptyRequiredFields,
                   languageInformationSectionHasEmptyOptionalFields,
@@ -404,23 +402,24 @@ const UserProfile = ({
                   as={headingLevel}
                   icon={ChatBubbleLeftRightIcon}
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Language Information",
-                    id: "1pk/7X",
-                    description:
-                      "Title of the Language Information content section",
-                  })}
+                  {intl.formatMessage(navigationMessages.languageInformation)}
                 </TableOfContents.Heading>
               </div>
               {sections.language?.editUrl && (
                 <EditUrlLink
                   link={sections.language.editUrl}
-                  text={intl.formatMessage({
-                    defaultMessage: "Edit Language Information",
-                    id: "Vbw1ES",
-                    description:
-                      "Text on link to update a users language information.",
-                  })}
+                  text={intl.formatMessage(
+                    {
+                      defaultMessage: "Edit {title}",
+                      id: "3R3jKp",
+                      description: "Link to edit object",
+                    },
+                    {
+                      title: intl.formatMessage(
+                        navigationMessages.languageInformation,
+                      ),
+                    },
+                  )}
                 />
               )}
             </HeadingWrapper>

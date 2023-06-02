@@ -793,10 +793,6 @@
     "defaultMessage": "Groupe de classifications actuel ",
     "description": "Label displayed on classification group input"
   },
-  "/k21MP": {
-    "defaultMessage": "Informations linguistiques",
-    "description": "Display Text for Language Information Form Page Link"
-  },
   "/qN7tM": {
     "defaultMessage": "Expérience supprimée",
     "description": "Message displayed to user after experience deleted."
@@ -1084,10 +1080,6 @@
   "Q96xMb": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
     "description": "Heading for employment equity categories added to user profile."
-  },
-  "R5aTZ9": {
-    "defaultMessage": "Informations linguistiques",
-    "description": "Title for Profile Form wrapper in Language Information Form"
   },
   "Rgh/Qb": {
     "defaultMessage": "4. Renseignements complémentaires pour cette expérience",
@@ -3207,10 +3199,6 @@
   "/fv4O0": {
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled WorkPreferences section."
-  },
-  "1pk/7X": {
-    "defaultMessage": "Information linguistiques",
-    "description": "Title of the Language Information content section"
   },
   "3HJ51b": {
     "defaultMessage": "Femme",
@@ -5376,10 +5364,6 @@
     "defaultMessage": "Modifier la diversité, l'équité et l'inclusion",
     "description": "Text on link to update a users employment equity."
   },
-  "B9x0ZV": {
-    "defaultMessage": "Informations linguistiques ",
-    "description": "Title of the Language Information link section"
-  },
   "CEzDTC": {
     "defaultMessage": "Modifier le rôle et le salaire",
     "description": "Text on link to update a users role and salary expectations."
@@ -5435,10 +5419,6 @@
   "UrsGGK": {
     "defaultMessage": "{areaOfStudy} à {institution}",
     "description": "Study at institution"
-  },
-  "Vbw1ES": {
-    "defaultMessage": "Modifier les informations linguistiques",
-    "description": "Text on link to update a users language information."
   },
   "Vc9vE7": {
     "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de :",
