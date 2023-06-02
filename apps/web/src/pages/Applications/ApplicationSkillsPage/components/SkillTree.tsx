@@ -14,7 +14,7 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { Experience, Skill } from "~/api/generated";
 import { getExperienceSkills } from "~/utils/skillUtils";
-import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
+import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 
 import SkillFormDialog from "./SkillFormDialog";
 
@@ -113,19 +113,16 @@ const SkillTree = ({
           <>
             {skillExperiences.map((experience) => (
               <TreeView.Item key={experience.id}>
-                <div data-h2-margin="base(-x.5, 0)">
-                  <Accordion.Root type="single" collapsible>
-                    <ExperienceAccordion
-                      experience={filterExperienceSkills(experience, skill)}
-                      headingLevel="h5"
-                      onEditClick={
-                        !hideEdit
-                          ? () => handleExperienceEdit(experience)
-                          : undefined
-                      }
-                    />
-                  </Accordion.Root>
-                </div>
+                <ExperienceCard
+                  experience={filterExperienceSkills(experience, skill)}
+                  headingLevel="h5"
+                  showEdit={!hideEdit}
+                  onEditClick={
+                    !hideEdit
+                      ? () => handleExperienceEdit(experience)
+                      : undefined
+                  }
+                />
               </TreeView.Item>
             ))}
           </>

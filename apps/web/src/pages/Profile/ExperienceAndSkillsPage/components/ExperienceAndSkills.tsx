@@ -68,18 +68,6 @@ export const ExperienceAndSkills = ({
     ? paths.reviewApplication(applicationId)
     : paths.profile(applicantId);
 
-  const getEditPath = (id: string, type: ExperienceType) => {
-    return `${paths.editExperience(applicantId, type, id)}${applicationParam}`;
-  };
-
-  const experienceEditPaths = {
-    awardUrl: (id: string) => getEditPath(id, "award"),
-    communityUrl: (id: string) => getEditPath(id, "community"),
-    educationUrl: (id: string) => getEditPath(id, "education"),
-    personalUrl: (id: string) => getEditPath(id, "personal"),
-    workUrl: (id: string) => getEditPath(id, "work"),
-  };
-
   const hasExperiences = notEmpty(experiences);
 
   const applicationBreadcrumbs: {
@@ -188,8 +176,8 @@ export const ExperienceAndSkills = ({
         </Well>
       ) : (
         <ExperienceSection
+          editParam={applicationParam}
           experiences={experiences}
-          experienceEditPaths={experienceEditPaths}
           headingLevel="h2"
         />
       )}

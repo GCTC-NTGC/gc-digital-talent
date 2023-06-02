@@ -37,6 +37,7 @@ interface ExperienceCardProps {
   headingLevel?: HeadingRank;
   showSkills?: boolean;
   showEdit?: boolean;
+  editParam?: string;
   // If the edit button is a button, pass the onClick function
   onEditClick?: () => void;
 }
@@ -44,6 +45,7 @@ interface ExperienceCardProps {
 const ExperienceCard = ({
   experience,
   onEditClick,
+  editParam,
   headingLevel = "h2",
   showSkills = true,
   showEdit = true,
@@ -76,7 +78,7 @@ const ExperienceCard = ({
         </Heading>
         {showEdit && (editPath || onEditClick) && (
           <EditLink
-            editUrl={editPath}
+            editUrl={onEditClick ? undefined : `${editPath}${editParam || ""}`}
             onEditClick={onEditClick}
             ariaLabel={intl.formatMessage({
               defaultMessage: "Edit {experienceName}",
