@@ -873,10 +873,6 @@
     "defaultMessage": "Retirer de l'expérience",
     "description": "Message in skills in details section to remove skill from the experience."
   },
-  "7OWQgZ": {
-    "defaultMessage": "Préférences de travail",
-    "description": "Display Text for Work Preferences Form Page Link"
-  },
   "7qR4UK": {
     "defaultMessage": "Renseignements personnels",
     "description": "Title for Personal Information section of the About Me form"
@@ -3328,10 +3324,6 @@
     "defaultMessage": "Connexion",
     "description": "Text label for the login link to the talent cloud admin portal."
   },
-  "V89Ryn": {
-    "defaultMessage": "Préférences de travail",
-    "description": "Title of the Work Preferences content section"
-  },
   "W58QTT": {
     "defaultMessage": "Cet utilisateur n'est encore dans aucun bassin",
     "description": "Message on view-user page that the user is not in any pools"
@@ -5292,10 +5284,6 @@
     "defaultMessage": "Passer à la page précédente",
     "description": "Aria label for previous page button in pagination nav"
   },
-  "0DzlCc": {
-    "defaultMessage": "Préférences de travail",
-    "description": "Title of the Work Preferences link section"
-  },
   "1VFyrc": {
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled WorkLocation section."
@@ -5451,10 +5439,6 @@
   "omDlZN": {
     "defaultMessage": "Thèse : {thesisTitle}",
     "description": "Thesis, if applicable"
-  },
-  "p8Gi1k": {
-    "defaultMessage": "Modifier les préférences de travail",
-    "description": "Text on link to update a users work preferences."
   },
   "pbXAOp": {
     "defaultMessage": "Afficher {numOfRows}",

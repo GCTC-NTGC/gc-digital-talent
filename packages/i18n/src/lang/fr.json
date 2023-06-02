@@ -1405,5 +1405,9 @@
   "TCs69O": {
     "defaultMessage": "Lieu de travail",
     "description": "Name of Work location page"
+  },
+  "nnMYWr": {
+    "defaultMessage": "Préférences de travail",
+    "description": "Name of Work preferences page"
   }
 }
