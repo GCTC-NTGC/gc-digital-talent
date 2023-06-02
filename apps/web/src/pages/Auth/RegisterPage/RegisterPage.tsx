@@ -98,7 +98,7 @@ const RegisterPage = () => {
               <ExternalLink
                 href={loginPath}
                 mode="inline"
-                type="link"
+                type="button"
                 color="secondary"
               >
                 {intl.formatMessage({
