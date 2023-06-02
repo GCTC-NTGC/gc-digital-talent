@@ -9,17 +9,34 @@ type StyleRecord = Record<string, string>;
  * style use cases for specific attributes
  */
 const styleExclusions: Record<string, Array<ButtonLinkMode>> = {
-  background: ["cta", "inline"],
+  background: ["inline"],
   border: ["cta", "inline"],
-  color: ["cta"],
+  overflow: ["cta"],
   padding: ["cta", "inline"],
   radius: ["inline"],
+  shadow: ["inline", "outline", "solid"],
 };
 
 /**
  * Fallback when a map has no key
  */
 const emptyStyleRecord = {} as StyleRecord;
+
+/**
+ * Get Overflow
+ *
+ * Compute a button or links overflow based on its mode
+ *
+ * @param mode ButtonLinkMode
+ * @returns Record<string, string>
+ */
+const getOverflow = (mode: ButtonLinkMode): StyleRecord => {
+  return styleExclusions.overflow.includes(mode)
+    ? {
+        "data-h2-overflow": "base(hidden)",
+      }
+    : {};
+};
 
 /**
  * Get Radius
@@ -40,6 +57,22 @@ const getRadius = (mode: ButtonLinkMode): StyleRecord => {
 };
 
 /**
+ * Get Shadow
+ *
+ * Compute a button or links box shadow based on its mode
+ *
+ * @param mode ButtonLinkMode
+ * @returns Record<string, string>
+ */
+const getShadow = (mode: ButtonLinkMode): StyleRecord => {
+  return styleExclusions.shadow.includes(mode)
+    ? {}
+    : {
+        "data-h2-shadow": "base(medium) base:hover(larger)",
+      };
+};
+
+/**
  * Get Padding
  *
  * Compute a button or links padding based on its mode
@@ -53,7 +86,7 @@ const getPadding = (mode: ButtonLinkMode): StyleRecord => {
         "data-h2-padding": "base(0)",
       }
     : {
-        "data-h2-padding": "base(x.5, x1)",
+        "data-h2-padding": "base(x.5 x1)",
       };
 };
 
@@ -72,70 +105,70 @@ const getBorders = (mode: ButtonLinkMode, color: Color): StyleRecord => {
       "primary",
       {
         "data-h2-border-color":
-          "base(primary.light) base:focus-visible(focus) base:dark(primary.light) base:dark:focus-visible(focus) base:admin(primary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
+          "base(primary.light) base:selectors[:disabled](primary.lightest) base:focus-visible(focus) base:dark(primary.light) base:dark:focus-visible(focus) base:admin(primary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
       "secondary",
       {
         "data-h2-border-color":
-          "base(secondary) base:focus-visible(focus) base:dark(secondary) base:dark:focus-visible(focus) base:admin(secondary) base:admin:focus-visible(focus) base:admin:dark(secondary.lighter) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(secondary.light) base:iap:dark:focus-visible(focus)",
+          "base(secondary) base:selectors[:disabled](secondary.light) base:focus-visible(focus) base:dark(secondary) base:dark:focus-visible(focus) base:admin(secondary) base:admin:focus-visible(focus) base:admin:dark(secondary.lighter) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(secondary.light) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
       "tertiary",
       {
         "data-h2-border-color":
-          "base(tertiary) base:focus-visible(focus) base:dark(tertiary) base:dark:focus-visible(focus) base:admin(tertiary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(tertiary.light) base:iap:dark:focus-visible(focus)",
+          "base(tertiary) base:selectors[:disabled](tertiary.light) base:focus-visible(focus) base:dark(tertiary) base:dark:focus-visible(focus) base:admin(tertiary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(tertiary.light) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
       "quaternary",
       {
         "data-h2-border-color":
-          "base(quaternary) base:focus-visible(focus) base:dark(quaternary) base:dark:focus-visible(focus) base:admin(quaternary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(quaternary.light) base:iap:dark:focus-visible(focus)",
+          "base(quaternary) base:selectors[:disabled](quaternary.light) base:focus-visible(focus) base:dark(quaternary) base:dark:focus-visible(focus) base:admin(quaternary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(quaternary.light) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
       "quinary",
       {
         "data-h2-border-color":
-          "base(quinary) base:focus-visible(focus) base:dark(quinary) base:dark:focus-visible(focus) base:admin(quinary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(quinary.light) base:iap:dark:focus-visible(focus)",
+          "base(quinary) base:selectors[:disabled](quinary.light) base:focus-visible(focus) base:dark(quinary) base:dark:focus-visible(focus) base:admin(quinary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(quinary.light) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
       "success",
       {
         "data-h2-border-color":
-          "base(success.light) base:focus-visible(focus) base:dark(success.light) base:dark:focus-visible(focus)",
+          "base(success.light) base:selectors[:disabled](success.lightest) base:focus-visible(focus) base:dark(success.light) base:dark:focus-visible(focus)",
       },
     ],
     [
       "warning",
       {
         "data-h2-border-color":
-          "base(warning) base:focus-visible(focus) base:dark(warning) base:dark:focus-visible(focus)",
+          "base(warning) base:selectors[:disabled](warning.light) base:focus-visible(focus) base:dark(warning) base:dark:focus-visible(focus)",
       },
     ],
     [
       "error",
       {
         "data-h2-border-color":
-          "base(error.light) base:focus-visible(focus) base:dark(error.light) base:dark:focus-visible(focus)",
+          "base(error.light) base:selectors[:disabled](error.lightest) base:focus-visible(focus) base:dark(error.light) base:dark:focus-visible(focus)",
       },
     ],
     [
       "black",
       {
         "data-h2-border-color":
-          "base(black) base:focus-visible(focus) base:dark:focus-visible(focus)",
+          "base(black) base:selectors[:disabled](black.light) base:focus-visible(focus) base:dark:focus-visible(focus)",
       },
     ],
     [
       "white",
       {
         "data-h2-border-color":
-          "base(white) base:focus-visible(focus) base:dark:focus-visible(focus)",
+          "base(white) base:selectors[:disabled](black.lightest) base:focus-visible(focus) base:dark:focus-visible(focus)",
       },
     ],
   ]);
@@ -151,7 +184,7 @@ const getBorders = (mode: ButtonLinkMode, color: Color): StyleRecord => {
       };
 };
 
-type BackgroundMode = Omit<ButtonLinkMode, "cta" | "inline">;
+type BackgroundMode = Omit<ButtonLinkMode, "cta">;
 
 /**
  * Get Background
@@ -171,7 +204,7 @@ export const getBackground = (
       "solid",
       {
         "data-h2-background":
-          "base(primary.light) base:hover(primary.lightest) base:focus-visible(focus) base:dark(primary.light) base:dark:focus-visible(focus) base:admin(primary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
+          "base(primary.light) base:selectors[:disabled](primary.lightest) base:hover(primary.lightest) base:focus-visible(focus) base:dark(primary.light) base:dark:focus-visible(focus) base:admin(primary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
@@ -181,6 +214,13 @@ export const getBackground = (
           "base(primary.lightest) base:hover(primary.lighter) base:focus-visible(focus) base:dark(primary.darker) base:dark:hover(primary.dark) base:dark:focus-visible(focus) base:admin:focus-visible(focus) base:admin:dark:hover(primary.light) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-background-color":
+          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](primary.light) base:hover:children[span>span:first-child](primary.lightest)",
+      },
+    ],
   ]);
 
   const secondaryBackgroundMap = new Map<BackgroundMode, StyleRecord>([
@@ -188,7 +228,7 @@ export const getBackground = (
       "solid",
       {
         "data-h2-background":
-          "base(secondary) base:hover(secondary.lightest) base:focus-visible(focus) base:dark(secondary) base:dark:focus-visible(focus) base:admin(secondary) base:admin:focus-visible(focus) base:admin:dark(secondary.lighter) base:admin:dark:hover(secondary.darkest) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(secondary.light) base:iap:dark:hover(secondary.darkest) base:iap:dark:focus-visible(focus)",
+          "base(secondary)  base:selectors[:disabled](secondary.light) base:hover(secondary.lightest) base:focus-visible(focus) base:dark(secondary) base:dark:focus-visible(focus) base:admin(secondary) base:admin:focus-visible(focus) base:admin:dark(secondary.lighter) base:admin:dark:hover(secondary.darkest) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(secondary.light) base:iap:dark:hover(secondary.darkest) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
@@ -198,6 +238,13 @@ export const getBackground = (
           "base(secondary.lightest) base:hover(secondary.lighter) base:focus-visible(focus) base:dark(secondary.darker) base:dark:hover(secondary.dark) base:dark:focus-visible(focus) base:admin:focus-visible(focus) base:admin:dark(secondary) base:admin:dark:hover(secondary.lighter) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:hover(secondary) base:iap:dark:focus-visible(focus)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-background-color":
+          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](secondary) base:hover:children[span>span:first-child](secondary.lightest)",
+      },
+    ],
   ]);
 
   const tertiaryBackgroundMap = new Map<BackgroundMode, StyleRecord>([
@@ -205,7 +252,7 @@ export const getBackground = (
       "solid",
       {
         "data-h2-background":
-          "base(tertiary) base:hover(tertiary.lightest) base:focus-visible(focus) base:dark(tertiary) base:dark:focus-visible(focus) base:admin(tertiary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(tertiary.light) base:iap:dark:hover(tertiary.darkest) base:iap:dark:focus-visible(focus)",
+          "base(tertiary) base:selectors[:disabled](tertiary.light) base:hover(tertiary.lightest) base:focus-visible(focus) base:dark(tertiary) base:dark:focus-visible(focus) base:admin(tertiary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(tertiary.light) base:iap:dark:hover(tertiary.darkest) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
@@ -215,6 +262,13 @@ export const getBackground = (
           "base(tertiary.lightest) base:hover(tertiary.lighter) base:focus-visible(focus) base:dark(tertiary.darker) base:dark:hover(tertiary.dark) base:dark:focus-visible(focus) base:admin:focus-visible(focus) base:admin:dark(tertiary.darkest) base:admin:dark:hover(tertiary.darker) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:hover(tertiary) base:iap:dark:focus-visible(focus)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-background-color":
+          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](tertiary) base:hover:children[span>span:first-child](tertiary.lightest)",
+      },
+    ],
   ]);
 
   const quaternaryBackgroundMap = new Map<BackgroundMode, StyleRecord>([
@@ -222,7 +276,7 @@ export const getBackground = (
       "solid",
       {
         "data-h2-background":
-          "base(quaternary) base:hover(quaternary.lightest) base:focus-visible(focus) base:dark(quaternary) base:dark:focus-visible(focus) base:admin(quaternary) base:admin(quaternary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(quaternary.light) base:iap:dark:hover(quaternary.darkest) base:iap:dark:focus-visible(focus)",
+          "base(quaternary) base:selectors[:disabled](quaternary.light) base:hover(quaternary.lightest) base:focus-visible(focus) base:dark(quaternary) base:dark:focus-visible(focus) base:admin(quaternary) base:admin(quaternary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(quaternary.light) base:iap:dark:hover(quaternary.darkest) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
@@ -232,6 +286,13 @@ export const getBackground = (
           "base(quaternary.lightest) base:hover(quaternary.lighter) base:focus-visible(focus) base:dark(quaternary.darker) base:dark:hover(quaternary.dark) base:dark:focus-visible(focus) base:admin:focus-visible(focus) base:admin:dark(quaternary.darkest) base:admin:dark:hover(quaternary.darker) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:hover(quaternary) base:iap:dark:focus-visible(focus)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-background-color":
+          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](quaternary) base:hover:children[span>span:first-child](quaternary.lightest)",
+      },
+    ],
   ]);
 
   const quinaryBackgroundMap = new Map<BackgroundMode, StyleRecord>([
@@ -239,7 +300,7 @@ export const getBackground = (
       "solid",
       {
         "data-h2-background":
-          "base(quinary) base:hover(quinary.lightest) base:focus-visible(focus) base:dark(quinary) base:dark:focus-visible(focus) base:admin(quinary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(quinary.light) base:iap:dark:hover(quinary.darkest) base:iap:dark:focus-visible(focus)",
+          "base(quinary) base:selectors[:disabled](quinary.light) base:hover(quinary.lightest) base:focus-visible(focus) base:dark(quinary) base:dark:focus-visible(focus) base:admin(quinary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(quinary.light) base:iap:dark:hover(quinary.darkest) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
@@ -249,6 +310,13 @@ export const getBackground = (
           "base(quinary.lightest) base:hover(quinary.lighter) base:focus-visible(focus) base:dark(quinary.darker) base:dark:hover(quinary.dark) base:dark:focus-visible(focus) base:admin:focus-visible(focus) base:admin:dark(quinary.darkest) base:admin:dark:hover(quinary.darker) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:hover(quinary) base:iap:dark:focus-visible(focus)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-background-color":
+          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](quinary) base:hover:children[span>span:first-child](quinary.lightest)",
+      },
+    ],
   ]);
 
   const successBackgroundMap = new Map<BackgroundMode, StyleRecord>([
@@ -256,7 +324,7 @@ export const getBackground = (
       "solid",
       {
         "data-h2-background":
-          "base(success.light) base:hover(success.lightest) base:focus-visible(focus) base:dark(success.light) base:dark:focus-visible(focus)",
+          "base(success.light) base:selectors[:disabled](success.lightest) base:hover(success.lightest) base:focus-visible(focus) base:dark(success.light) base:dark:focus-visible(focus)",
       },
     ],
     [
@@ -266,6 +334,13 @@ export const getBackground = (
           "base(success.lightest) base:hover(success.lighter) base:focus-visible(focus) base:dark(success.darker) base:dark:hover(success.dark) base:dark:focus-visible(focus)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-background-color":
+          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](success.light) base:hover:children[span>span:first-child](success.lightest)",
+      },
+    ],
   ]);
 
   const warningBackgroundMap = new Map<BackgroundMode, StyleRecord>([
@@ -273,7 +348,7 @@ export const getBackground = (
       "solid",
       {
         "data-h2-background":
-          "base(warning) base:hover(warning.lightest) base:focus-visible(focus) base:dark(warning) base:dark:focus-visible(focus)",
+          "base(warning) base:selectors[:disabled](warning.light) base:hover(warning.lightest) base:focus-visible(focus) base:dark(warning) base:dark:focus-visible(focus)",
       },
     ],
     [
@@ -283,6 +358,13 @@ export const getBackground = (
           "base(warning.lightest) base:hover(warning.lighter) base:focus-visible(focus) base:dark(warning.darker) base:dark:hover(warning.dark) base:dark:focus-visible(focus)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-background-color":
+          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](warning) base:hover:children[span>span:first-child](warning.lightest)",
+      },
+    ],
   ]);
 
   const errorBackgroundMap = new Map<BackgroundMode, StyleRecord>([
@@ -290,7 +372,7 @@ export const getBackground = (
       "solid",
       {
         "data-h2-background":
-          "base(error.light) base:hover(error.lightest) base:focus-visible(focus) base:dark(error.light) base:dark:focus-visible(focus)",
+          "base(error.light) base:selectors[:disabled](error.lightest) base:hover(error.lightest) base:focus-visible(focus) base:dark(error.light) base:dark:focus-visible(focus)",
       },
     ],
     [
@@ -300,6 +382,13 @@ export const getBackground = (
           "base(error.lightest) base:hover(error.lighter) base:focus-visible(focus) base:dark(error.darker) base:dark:hover(error.dark) base:dark:focus-visible(focus)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-background-color":
+          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](error.light) base:hover:children[span>span:first-child](error.lightest)",
+      },
+    ],
   ]);
 
   const blackBackgroundMap = new Map<BackgroundMode, StyleRecord>([
@@ -307,7 +396,7 @@ export const getBackground = (
       "solid",
       {
         "data-h2-background":
-          "base(black) base:hover(black.lightest) base:focus-visible(focus) base:dark:focus-visible(focus)",
+          "base(black) base:selectors[:disabled](black.light) base:hover(black.lightest) base:focus-visible(focus) base:dark:focus-visible(focus)",
       },
     ],
     [
@@ -317,6 +406,13 @@ export const getBackground = (
           "base(black.lightest) base:hover(black.lighter) base:focus-visible(focus) base:dark(white.darkest) base:dark:hover(white.darker) base:dark:focus-visible(focus)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-background-color":
+          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](black) base:hover:children[span>span:first-child](black.lightest)",
+      },
+    ],
   ]);
 
   const whiteBackgroundMap = new Map<BackgroundMode, StyleRecord>([
@@ -324,7 +420,7 @@ export const getBackground = (
       "solid",
       {
         "data-h2-background":
-          "base(white) base:hover(black.light) base:focus-visible(focus) base:dark:focus-visible(focus)",
+          "base(white) base:selectors[:disabled](gray.lightest) base:hover(black.light) base:focus-visible(focus) base:dark:focus-visible(focus)",
       },
     ],
     [
@@ -332,6 +428,13 @@ export const getBackground = (
       {
         "data-h2-background":
           "base(white.darkest) base:hover(white.darker) base:focus-visible(focus) base:dark(black.lightest) base:dark:hover(black.lighter) base:dark:focus-visible(focus)",
+      },
+    ],
+    [
+      "cta",
+      {
+        "data-h2-background-color":
+          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](white) base:hover:children[span>span:first-child](black.lightest)",
       },
     ],
   ]);
@@ -360,8 +463,6 @@ export const getBackground = (
       };
 };
 
-type FontColorMode = Omit<ButtonLinkMode, "cta">;
-
 /**
  * Get Font Color
  *
@@ -375,7 +476,7 @@ export const getFontColor = (
   mode: ButtonLinkMode,
   color: Color,
 ): StyleRecord => {
-  const primaryFontColorMap = new Map<FontColorMode, StyleRecord>([
+  const primaryFontColorMap = new Map<ButtonLinkMode, StyleRecord>([
     [
       "solid",
       {
@@ -397,9 +498,16 @@ export const getFontColor = (
           "base(primary.darker) base:hover(primary.dark) base:focus-visible(black) base:dark(primary.lighter) base:dark:hover(primary.light) base:dark:focus-visible(black) base:admin(primary) base:admin:hover(primary.light) base:admin:focus-visible(black) base:admin:dark(primary.lighter) base:admin:dark:hover(primary.light) base:admin:dark:focus-visible(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-color":
+          "base(black) base:children[>span>span:first-child]:admin(white) base:children[>span>span:first-child]:admin:hover(black)",
+      },
+    ],
   ]);
 
-  const secondaryFontColorMap = new Map<BackgroundMode, StyleRecord>([
+  const secondaryFontColorMap = new Map<ButtonLinkMode, StyleRecord>([
     [
       "solid",
       {
@@ -421,9 +529,16 @@ export const getFontColor = (
           "base(secondary.darker) base:hover(secondary) base:focus-visible(black) base:dark(secondary.lighter) base:dark:hover(secondary.light) base:dark:focus-visible(black) base:admin(secondary.light) base:admin:hover(secondary.lighter) base:admin:focus-visible(black) base:admin:dark(secondary.lightest) base:admin:dark:hover(secondary.lighter) base:admin:dark:focus-visible(black) base:iap:hover(secondary.light) base:iap:focus-visible(black) base:iap:dark:hover(secondary.light) base:iap:dark:focus-visible(black)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-color":
+          "base(black) base:children[>span>span:first-child]:admin(white) base:children[>span>span:first-child]:admin:hover(black) base:children[>span>span:first-child]:iap(white) base:children[>span>span:first-child]:iap:hover(black)",
+      },
+    ],
   ]);
 
-  const tertiaryFontColorMap = new Map<BackgroundMode, StyleRecord>([
+  const tertiaryFontColorMap = new Map<ButtonLinkMode, StyleRecord>([
     [
       "solid",
       {
@@ -445,9 +560,16 @@ export const getFontColor = (
           "base(tertiary.darker) base:hover(tertiary.dark) base:focus-visible(black) base:dark(tertiary.lighter) base:dark:hover(tertiary.light) base:dark:focus-visible(black) base:admin(tertiary.dark) base:admin:hover(tertiary) base:admin:focus-visible(black) base:admin:dark(tertiary.light) base:admin:dark:hover(tertiary) base:admin:dark:focus-visible(black) base:iap:hover(tertiary.light) base:iap:focus-visible(black) base:iap:dark:hover(tertiary.light) base:iap:dark:focus-visible(black)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-color":
+          "base(black) base:children[>span>span:first-child]:iap(white) base:children[>span>span:first-child]:iap:hover(black)",
+      },
+    ],
   ]);
 
-  const quaternaryFontColorMap = new Map<BackgroundMode, StyleRecord>([
+  const quaternaryFontColorMap = new Map<ButtonLinkMode, StyleRecord>([
     [
       "solid",
       {
@@ -469,9 +591,16 @@ export const getFontColor = (
           "base(quaternary.darker) base:hover(quaternary) base:focus-visible(black) base:dark(quaternary.lighter) base:dark:hover(quaternary.light) base:dark:focus-visible(black) base:admin(quaternary.dark) base:admin:hover(quaternary) base:admin:focus-visible(black) base:admin:dark(quaternary.light) base:admin:dark:hover(quaternary) base:admin:dark:focus-visible(black) base:iap:hover(quaternary.light) base:iap:focus-visible(black) base:iap:dark:hover(quaternary.light) base:iap:dark:focus-visible(black)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-color":
+          "base(black) base:children[>span>span:first-child]:iap(white) base:children[>span>span:first-child]:iap:hover(black)",
+      },
+    ],
   ]);
 
-  const quinaryFontColorMap = new Map<BackgroundMode, StyleRecord>([
+  const quinaryFontColorMap = new Map<ButtonLinkMode, StyleRecord>([
     [
       "solid",
       {
@@ -495,7 +624,7 @@ export const getFontColor = (
     ],
   ]);
 
-  const successFontColorMap = new Map<BackgroundMode, StyleRecord>([
+  const successFontColorMap = new Map<ButtonLinkMode, StyleRecord>([
     [
       "solid",
       {
@@ -517,9 +646,16 @@ export const getFontColor = (
           "base(success.dark) base:hover(success.light) base:focus-visible(black) base:dark(success.lighter) base:dark:hover(success.light) base:dark:focus-visible(black)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-color":
+          "base(black) base:children[>span>span:first-child]:iap(white) base:children[>span>span:first-child]:iap:hover(black)",
+      },
+    ],
   ]);
 
-  const warningFontColorMap = new Map<BackgroundMode, StyleRecord>([
+  const warningFontColorMap = new Map<ButtonLinkMode, StyleRecord>([
     [
       "solid",
       {
@@ -541,9 +677,16 @@ export const getFontColor = (
           "base(warning.darker) base:hover(warning.dark) base:focus-visible(black) base:dark(warning.lighter) base:dark:hover(warning.light) base:dark:focus-visible(black)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-color":
+          "base(black) base:children[>span>span:first-child]:iap(white) base:children[>span>span:first-child]:iap:hover(black)",
+      },
+    ],
   ]);
 
-  const errorFontColorMap = new Map<BackgroundMode, StyleRecord>([
+  const errorFontColorMap = new Map<ButtonLinkMode, StyleRecord>([
     [
       "solid",
       {
@@ -565,9 +708,16 @@ export const getFontColor = (
           "base(error.darker) base:hover(error.dark) base:focus-visible(black) base:dark(error.lighter) base:dark:hover(error.light) base:dark:focus-visible(black)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-color":
+          "base(black) base:children[>span>span:first-child]:iap(white) base:children[>span>span:first-child]:iap:hover(black)",
+      },
+    ],
   ]);
 
-  const blackFontColorMap = new Map<BackgroundMode, StyleRecord>([
+  const blackFontColorMap = new Map<ButtonLinkMode, StyleRecord>([
     [
       "solid",
       {
@@ -589,9 +739,16 @@ export const getFontColor = (
           "base(black) base:hover(black.light) base:focus-visible(black) base:dark:focus-visible(black)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-color":
+          "base(black) base:children[>span>span:first-child](white) base:children[>span>span:first-child]:hover(black)",
+      },
+    ],
   ]);
 
-  const whiteFontColorMap = new Map<BackgroundMode, StyleRecord>([
+  const whiteFontColorMap = new Map<ButtonLinkMode, StyleRecord>([
     [
       "solid",
       {
@@ -613,6 +770,13 @@ export const getFontColor = (
           "base(white) base:hover(white.dark) base:focus-visible(black) base:dark:focus-visible(black)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-color":
+          "base(black) base:children[>span>span:first-child](black) base:children[>span>span:first-child]:hover(black) base:hover:children[span>span:first-child](black)",
+      },
+    ],
   ]);
 
   const fontColorMap = new Map<Color, StyleRecord>([
@@ -630,29 +794,25 @@ export const getFontColor = (
 
   const fontColor = fontColorMap.get(color);
 
-  return styleExclusions.color.includes(mode)
-    ? {}
-    : {
-        ...(fontColor ? { ...fontColor } : {}),
-      };
+  return fontColor ? { ...fontColor } : {};
 };
 
 /**
- * Get Block
+ * Get Display
  *
- * Compute a button or links display
+ * Compute a button or links display value
  *
  * @param block boolean
  * @returns Record<string, string>
  */
-const getBlock = (block?: boolean): StyleRecord => {
+const getDisplay = (block?: boolean): StyleRecord => {
   return block
     ? {
-        "data-h2-display": "base(block)",
+        "data-h2-display": "base(flex)",
         "data-h2-text-align": "base(center)",
         "data-h2-width": "base(100%)",
       }
-    : { "data-h2-display": "base(inline-block)" };
+    : { "data-h2-display": "base(inline-flex)" };
 };
 
 interface UseCommonButtonLinkStylesArgs {
@@ -674,10 +834,12 @@ const useCommonButtonLinkStyles: UseCommonButtonLinkStyles = ({
     "data-h2-font-weight": "base(700)",
     "data-h2-font-size": "base(copy)",
     "data-h2-text-decoration": "base(underline) base:hover(none)",
-    "data-h2-transition": "base(.1s ease-in-out)",
+    "data-h2-transition": "base(all ease .1s) base:children[*](all ease .1s)",
     ...getPadding(mode),
-    ...getBlock(block),
     ...getRadius(mode),
+    ...getShadow(mode),
+    ...getOverflow(mode),
+    ...getDisplay(block),
     ...getBorders(mode, color),
     ...getBackground(mode, color),
     ...getFontColor(mode, color),

@@ -27,3 +27,10 @@ export type IconProps = React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
 export type IconType = React.ForwardRefExoticComponent<IconProps>;
 
 export type ButtonLinkMode = "solid" | "outline" | "inline" | "cta";
+
+export type ButtonLinkProps = {
+  color?: Color;
+  block?: boolean;
+  mode?: ButtonLinkMode;
+  icon?: IconType;
+};

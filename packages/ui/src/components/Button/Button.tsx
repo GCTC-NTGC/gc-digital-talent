@@ -1,29 +1,19 @@
 import React from "react";
 
-import IconText from "../IconText/IconText";
-import { Color, ButtonLinkMode, IconType } from "../../types";
+import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
+import { ButtonLinkProps } from "../../types";
 import useCommonButtonLinkStyles from "../../hooks/useCommonButtonLinkStyles";
 
-export interface ButtonProps
-  extends React.DetailedHTMLProps<
+export type ButtonProps = ButtonLinkProps &
+  React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
-  > {
-  /** The style type of the element. */
-  color?: Color;
-  /** The style mode of the element. */
-  mode?: ButtonLinkMode;
-  /** Determines whether the element should be block level and 100% width. */
-  block?: boolean;
-  disabled?: boolean;
-  icon?: IconType;
-}
+  >;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,
-      disabled,
       icon,
       color = "primary",
       mode = "solid",
@@ -32,6 +22,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
+    // Note: Can we replace this with conditional props?
+    if (!icon && mode === "cta") {
+      throw new Error("Icon is required when mode is set to 'cta'");
+    }
+
     const styles = useCommonButtonLinkStyles({
       mode,
       color,
@@ -40,8 +35,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       // eslint-disable-next-line react/button-has-type
-      <button ref={ref} disabled={disabled} {...styles} {...rest}>
-        <IconText icon={icon}>{children}</IconText>
+      <button ref={ref} {...styles} {...rest}>
+        <ButtonLinkContent mode={mode} icon={icon}>
+          {children}
+        </ButtonLinkContent>
       </button>
     );
   },

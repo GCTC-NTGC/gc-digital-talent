@@ -104,6 +104,13 @@ InlineButton.args = {
   onClick: action("Button clicked"),
 };
 
+export const CallToActionButton = Template.bind({});
+CallToActionButton.args = {
+  mode: "cta",
+  icon: InformationCircleIcon,
+  onClick: action("Button clicked"),
+};
+
 export const BlockButton = Template.bind({});
 BlockButton.args = {
   mode: "solid",

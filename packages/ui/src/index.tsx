@@ -1,4 +1,10 @@
-import { Color, HeadingRank, IconType, IconProps } from "./types";
+import {
+  Color,
+  HeadingRank,
+  IconType,
+  IconProps,
+  ButtonLinkMode,
+} from "./types";
 
 import Accordion from "./components/Accordion";
 import StandardAccordionHeader from "./components/Accordion/StandardHeader";
@@ -6,11 +12,7 @@ import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
-import Button, {
-  IconButton,
-  type ButtonProps,
-  type IconButtonProps,
-} from "./components/Button";
+import Button, { IconButton, type ButtonProps } from "./components/Button";
 import Card, {
   CardBasic,
   CardFlat,
@@ -86,7 +88,7 @@ export type {
   AlertProps,
   BreadcrumbsProps,
   ButtonProps,
-  IconButtonProps,
+  ButtonLinkMode,
   CardFlatProps,
   CardProps,
   CardBasicProps,
