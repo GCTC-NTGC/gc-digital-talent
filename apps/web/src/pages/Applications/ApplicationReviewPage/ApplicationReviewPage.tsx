@@ -244,7 +244,7 @@ const ApplicationReview = ({
                 <ExperienceCard
                   key={experience.id}
                   experience={experience}
-                  headingLevel="h3"
+                  headingLevel="h4"
                   showSkills={false}
                   showEdit={false}
                 />
