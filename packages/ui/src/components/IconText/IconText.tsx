@@ -11,7 +11,6 @@ interface IconTextProps
 }
 
 const IconText = ({ children, icon, ...rest }: IconTextProps) => {
-  console.log(icon);
   // eslint-disable-next-line react/jsx-no-useless-fragment
   if (!icon) return <>{children}</>;
   const Icon = icon;
