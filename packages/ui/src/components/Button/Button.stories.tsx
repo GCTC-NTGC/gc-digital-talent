@@ -1,6 +1,7 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 
 import Button from "./Button";
 import type { ButtonProps } from "./Button";
@@ -26,7 +27,7 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
 const colors: Array<Color> = [
   "primary",
@@ -39,17 +40,17 @@ const stoplight: Array<Color> = ["success", "warning", "error"];
 const black: Array<Color> = ["black"];
 const white: Array<Color> = ["white"];
 
-const Template: Story<Omit<ButtonProps, "color"> & { label: string }> = (
-  args,
-) => {
-  const { label, mode, block, disabled } = args;
+const Template: StoryFn<
+  Omit<ButtonProps, "color" | "ref"> & { label: string }
+> = (args) => {
+  const { label, ...rest } = args;
   return (
     <div data-h2-display="base(flex)">
       <div data-h2-padding="base(x1)" data-h2-background="base(white)">
         {colors.map((color) => (
           <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-            <Button color={color} mode={mode} block={block} disabled={disabled}>
-              <span>{label}</span>
+            <Button color={color} {...rest}>
+              {label}
             </Button>
           </p>
         ))}
@@ -57,8 +58,8 @@ const Template: Story<Omit<ButtonProps, "color"> & { label: string }> = (
       <div data-h2-padding="base(x1)" data-h2-background="base(white)">
         {stoplight.map((color) => (
           <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-            <Button color={color} mode={mode} block={block} disabled={disabled}>
-              <span>{label}</span>
+            <Button color={color} {...rest}>
+              {label}
             </Button>
           </p>
         ))}
@@ -66,8 +67,8 @@ const Template: Story<Omit<ButtonProps, "color"> & { label: string }> = (
       <div data-h2-padding="base(x1)" data-h2-background="base(white)">
         {black.map((color) => (
           <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-            <Button color={color} mode={mode} block={block} disabled={disabled}>
-              <span>{label}</span>
+            <Button color={color} {...rest}>
+              {label}
             </Button>
           </p>
         ))}
@@ -75,8 +76,8 @@ const Template: Story<Omit<ButtonProps, "color"> & { label: string }> = (
       <div data-h2-padding="base(x1)" data-h2-background="base(black)">
         {white.map((color) => (
           <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-            <Button color={color} mode={mode} block={block} disabled={disabled}>
-              <span>{label}</span>
+            <Button color={color} {...rest}>
+              {label}
             </Button>
           </p>
         ))}
@@ -86,34 +87,40 @@ const Template: Story<Omit<ButtonProps, "color"> & { label: string }> = (
 };
 
 export const SolidButton = Template.bind({});
-export const OutlineButton = Template.bind({});
-export const InlineButton = Template.bind({});
-export const BlockButton = Template.bind({});
-export const DisabledButton = Template.bind({});
-
 SolidButton.args = {
   mode: "solid",
   onClick: action("Button clicked"),
 };
 
+export const OutlineButton = Template.bind({});
 OutlineButton.args = {
   mode: "outline",
   onClick: action("Button clicked"),
 };
 
+export const InlineButton = Template.bind({});
 InlineButton.args = {
   mode: "inline",
   onClick: action("Button clicked"),
 };
 
+export const BlockButton = Template.bind({});
 BlockButton.args = {
   mode: "solid",
   block: true,
   onClick: action("Button clicked"),
 };
 
+export const DisabledButton = Template.bind({});
 DisabledButton.args = {
   mode: "solid",
   disabled: true,
+  onClick: action("Button clicked"),
+};
+
+export const IconButton = Template.bind({});
+IconButton.args = {
+  mode: "outline",
+  icon: InformationCircleIcon,
   onClick: action("Button clicked"),
 };

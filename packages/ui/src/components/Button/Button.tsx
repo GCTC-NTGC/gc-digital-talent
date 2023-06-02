@@ -1,26 +1,32 @@
 import React from "react";
 
-import { Color, ButtonLinkMode } from "../../types";
+import IconText from "../IconText/IconText";
+import { Color, ButtonLinkMode, IconType } from "../../types";
 import useCommonButtonLinkStyles from "../../hooks/useCommonButtonLinkStyles";
 
-export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
+export interface ButtonProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   /** The style type of the element. */
   color?: Color;
   /** The style mode of the element. */
   mode?: ButtonLinkMode;
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
-  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  icon?: IconType;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,
-      type = "button",
+      disabled,
+      icon,
       color = "primary",
       mode = "solid",
-      disabled,
       block = false,
       ...rest
     },
@@ -31,22 +37,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       color,
       block,
     });
-    let underline = {};
-    if (mode === "inline") {
-      underline = { "data-h2-text-decoration": "base(underline)" };
-    }
 
     return (
-      <button
-        ref={ref}
-        // eslint-disable-next-line react/button-has-type
-        type={type || "button"}
-        disabled={disabled}
-        {...styles}
-        {...underline}
-        {...rest}
-      >
-        {children}
+      // eslint-disable-next-line react/button-has-type
+      <button ref={ref} disabled={disabled} {...styles} {...rest}>
+        <IconText icon={icon}>{children}</IconText>
       </button>
     );
   },
