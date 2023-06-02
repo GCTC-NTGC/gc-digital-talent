@@ -80,9 +80,8 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
   );
 
   // a different footer message is displayed if there are opportunities showing, otherwise a null state message is used
-  const areOpportunitiesShowing = featureFlags.ongoingRecruitments
-    ? activeRecruitmentPools.length || ongoingRecruitmentPools.length
-    : activeRecruitmentPools.length;
+  const areOpportunitiesShowing =
+    activeRecruitmentPools.length || ongoingRecruitmentPools.length;
 
   return (
     <>
@@ -124,11 +123,9 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
           <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
             <ActiveRecruitmentSection pools={activeRecruitmentPools} />
           </div>
-          {featureFlags.ongoingRecruitments && (
-            <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
-              <OngoingRecruitmentSection pools={ongoingRecruitmentPools} />
-            </div>
-          )}
+          <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
+            <OngoingRecruitmentSection pools={ongoingRecruitmentPools} />
+          </div>
           <div data-h2-padding="base(x3, 0) p-tablet(x4, 0)">
             <div
               data-h2-background-color="base(white) base:dark(black.light)"
