@@ -33,6 +33,7 @@ import {
   workPreferencesSectionHasEmptyOptionalFields,
 } from "~/validators/profile";
 
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import ExperienceSection from "./ExperienceSection";
 import { StatusItem } from "../InfoItem";
 import { Status } from "../InfoItem/StatusItem";
@@ -173,11 +174,7 @@ const UserProfile = ({
             <TableOfContents.AnchorLink id="about-section">
               <StatusItem
                 asListItem={false}
-                title={intl.formatMessage({
-                  defaultMessage: "About Me",
-                  id: "4sJvia",
-                  description: "Title of the About link section",
-                })}
+                title={intl.formatMessage(navigationMessages.aboutMe)}
                 status={sectionStatus(
                   aboutSectionHasEmptyRequiredFields,
                   aboutSectionHasEmptyOptionalFields,
@@ -335,22 +332,22 @@ const UserProfile = ({
                 data-h2-text-align="base(center) p-tablet(left)"
               >
                 <TableOfContents.Heading as={headingLevel} icon={UserIcon}>
-                  {intl.formatMessage({
-                    defaultMessage: "About Me",
-                    id: "CnB8IO",
-                    description: "Title of the about content section",
-                  })}
+                  {intl.formatMessage(navigationMessages.aboutMe)}
                 </TableOfContents.Heading>
               </div>
               {sections.about?.editUrl && (
                 <EditUrlLink
                   link={sections.about.editUrl}
-                  text={intl.formatMessage({
-                    defaultMessage: "Edit About Me",
-                    id: "/+CmAn",
-                    description:
-                      "Text on link to update a users personal information.",
-                  })}
+                  text={intl.formatMessage(
+                    {
+                      defaultMessage: "Edit {title}",
+                      id: "3R3jKp",
+                      description: "Link to edit object",
+                    },
+                    {
+                      title: intl.formatMessage(navigationMessages.aboutMe),
+                    },
+                  )}
                 />
               )}
             </HeadingWrapper>

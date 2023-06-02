@@ -1377,5 +1377,9 @@
   "jy7itR": {
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
+  },
+  "Gx8qCK": {
+    "defaultMessage": "À propos de moi",
+    "description": "Name of About me page"
   }
 }

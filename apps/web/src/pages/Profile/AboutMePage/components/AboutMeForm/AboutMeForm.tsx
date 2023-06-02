@@ -18,6 +18,7 @@ import {
   getLanguage,
   getCitizenshipStatusesProfile,
   getArmedForcesStatusesProfile,
+  formMessages,
 } from "@gc-digital-talent/i18n";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 
@@ -196,11 +197,7 @@ const AboutMeForm = ({
           url: paths.reviewApplication(applicationId ?? ""),
         },
         {
-          label: intl.formatMessage({
-            defaultMessage: "About Me",
-            id: "uG2MuI",
-            description: "Display text for About Me Form Page Link",
-          }),
+          label: intl.formatMessage(navigationMessages.aboutMe),
           url: `${paths.aboutMe(initialUser.id)}${
             applicationId ? `?applicationId=${applicationId}` : ``
           }`,
@@ -241,11 +238,7 @@ const AboutMeForm = ({
           ? applicationBreadcrumbs
           : [
               {
-                label: intl.formatMessage({
-                  defaultMessage: "About Me",
-                  id: "uG2MuI",
-                  description: "Display text for About Me Form Page Link",
-                }),
+                label: intl.formatMessage(navigationMessages.aboutMe),
                 url: paths.aboutMe(initialUser.id),
               },
             ]
@@ -365,12 +358,7 @@ const AboutMeForm = ({
               name="telephone"
               type="tel"
               label={labelMap.telephone}
-              placeholder={intl.formatMessage({
-                defaultMessage: "+123243234",
-                id: "FmN1eN",
-                description:
-                  "Placeholder displayed on the About Me form telephone field.",
-              })}
+              placeholder={intl.formatMessage(formMessages.phonePlaceholder)}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}

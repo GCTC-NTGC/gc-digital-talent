@@ -40,6 +40,7 @@ import {
 } from "~/utils/experienceUtils";
 import { AwardExperience } from "~/api/generated";
 
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   HeroCardExperienceItem,
   HeroCardProfileItem,
@@ -218,11 +219,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           href={paths.profile(user.id)}
         >
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "About Me",
-              id: "4sJvia",
-              description: "Title of the About link section",
-            })}
+            sectionName={intl.formatMessage(navigationMessages.aboutMe)}
             status={deriveSectionStatus(
               aboutSectionHasEmptyRequiredFields(user),
               aboutSectionHasEmptyOptionalFields(user),

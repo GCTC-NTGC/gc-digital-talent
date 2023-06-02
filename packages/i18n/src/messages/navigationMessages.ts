@@ -21,6 +21,11 @@ const navigationMessages = defineMessages({
     id: "Srs7a4",
     description: "Assistive technology skip link",
   },
+  aboutMe: {
+    defaultMessage: "About me",
+    id: "Gx8qCK",
+    description: "Name of About me page",
+  },
 });
 
 export default navigationMessages;

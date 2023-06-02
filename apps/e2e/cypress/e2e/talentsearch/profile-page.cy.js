@@ -50,7 +50,7 @@ describe("Talentsearch Profile Page", () => {
 
     it("loads page successfully", () => {
       cy.visit("/en/users/test-applicant/profile");
-      cy.contains("About Me");
+      cy.contains("About me");
       cy.contains("Language Information");
       cy.contains("Government Information");
       cy.contains("Work Location");
@@ -58,7 +58,7 @@ describe("Talentsearch Profile Page", () => {
       cy.contains("Diversity, equity and inclusion");
 
       cy.visit("/en/talent/profile");
-      cy.contains("About Me");
+      cy.contains("About me");
       cy.contains("Language Information");
       cy.contains("Government Information");
       cy.contains("Work Location");
