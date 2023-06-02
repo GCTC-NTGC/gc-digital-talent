@@ -56,7 +56,7 @@
   margin-bottom: calc((var(--h2-base-whitespace) * 0.5) * 1rem);
   border: 3px solid;
   border-radius: var(--h2-radius-rounded);
-  box-shadow: var(--h2-shadow-medium);
+  box-shadow: var(--h2-shadow-largest);
   display: flex;
   overflow: hidden;
   justify-content: space-between;

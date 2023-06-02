@@ -41,6 +41,7 @@ export interface AlertProps extends React.ComponentPropsWithoutRef<"div"> {
   dismissible?: boolean;
   live?: boolean; // REF: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role
   onDismiss?: () => void;
+  isToast?: boolean;
 }
 
 const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
@@ -78,7 +79,7 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
             data-h2-color="base(black)"
             data-h2-position="base(relative)"
             data-h2-radius="base(rounded)"
-            data-h2-shadow="base(medium)"
+            data-h2-shadow="base(larger)"
             data-h2-overflow="base(hidden)"
             data-h2-margin="base(x1, 0)"
             {...(live ? { role: "alert" } : {})}
