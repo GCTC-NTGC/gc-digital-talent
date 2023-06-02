@@ -23,6 +23,7 @@ import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByTyp
 import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAboutUserSection";
 import { PoolCandidate } from "~/api/generated";
 
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import PoolCandidateDetailsSection from "./PoolCandidateDetailsSection";
 
 const HeadingWrapper = ({ children }: { children?: React.ReactNode }) => {
@@ -150,12 +151,7 @@ const PoolCandidateDocument = React.forwardRef<
                           icon={LightBulbIcon}
                           style={{ flex: "1 1 0%" }}
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "My Status",
-                            id: "Cx3s+E",
-                            description:
-                              "Title of the my status content section",
-                          })}
+                          {intl.formatMessage(navigationMessages.myStatus)}
                         </Heading>
                       </HeadingWrapper>
                       <AdminAboutUserSection applicant={candidate.user} />

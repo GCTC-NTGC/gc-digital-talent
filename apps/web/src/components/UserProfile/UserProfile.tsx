@@ -163,11 +163,7 @@ const UserProfile = ({
         <TableOfContents.Navigation>
           {showSection("myStatus") && (
             <TableOfContents.AnchorLink id="status-section">
-              {intl.formatMessage({
-                defaultMessage: "My Status",
-                id: "TLgbZm",
-                description: "Title of the My Status section",
-              })}
+              {intl.formatMessage(navigationMessages.myStatus)}
             </TableOfContents.AnchorLink>
           )}
           {showSection("about") && (
@@ -303,21 +299,22 @@ const UserProfile = ({
                 data-h2-text-align="base(center) p-tablet(left)"
               >
                 <TableOfContents.Heading as={headingLevel} icon={LightBulbIcon}>
-                  {intl.formatMessage({
-                    defaultMessage: "My Status",
-                    id: "Cx3s+E",
-                    description: "Title of the my status content section",
-                  })}
+                  {intl.formatMessage(navigationMessages.myStatus)}
                 </TableOfContents.Heading>
               </div>
               {sections.myStatus?.editUrl && (
                 <EditUrlLink
                   link={sections.myStatus.editUrl}
-                  text={intl.formatMessage({
-                    defaultMessage: "Edit My Status",
-                    id: "om3i0o",
-                    description: "Text on link to update a users status.",
-                  })}
+                  text={intl.formatMessage(
+                    {
+                      defaultMessage: "Edit {title}",
+                      id: "3R3jKp",
+                      description: "Link to edit object",
+                    },
+                    {
+                      title: intl.formatMessage(navigationMessages.myStatus),
+                    },
+                  )}
                 />
               )}
             </HeadingWrapper>

@@ -26,6 +26,11 @@ const navigationMessages = defineMessages({
     id: "Gx8qCK",
     description: "Name of About me page",
   },
+  myStatus: {
+    defaultMessage: "My status",
+    id: "PxUSSH",
+    description: "Name of My status page",
+  },
 });
 
 export default navigationMessages;

@@ -953,10 +953,6 @@
     "defaultMessage": "Qu'avez-vous accompli, créé ou produit en utilisant cette compétence?",
     "description": "Question for user in skills in detail section of experience form."
   },
-  "uNArwM": {
-    "defaultMessage": "+123243234",
-    "description": "Placeholder for form telephone field"
-  },
   "FtlwFY": {
     "defaultMessage": "Afficher les bassins ouverts",
     "description": "Link text to view all open pools"
@@ -1133,7 +1129,7 @@
     "defaultMessage": "Compréhension",
     "description": "Label displayed on the language information form comprehension field."
   },
-  "W7io0W": {
+  "cyAydm": {
     "defaultMessage": "Mon statut a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
   },
@@ -3284,10 +3280,6 @@
     "defaultMessage": "Notes mises à jour pour le candidat dans le {poolName}",
     "description": "Toast notification for successful update of candidates notes in specified pool"
   },
-  "Cx3s+E": {
-    "defaultMessage": "Mon statut",
-    "description": "Title of the my status content section"
-  },
   "DAmLhV": {
     "defaultMessage": "Nom :",
     "description": "Name label and colon"
@@ -5340,10 +5332,6 @@
     "defaultMessage": "Passer à la page précédente",
     "description": "Aria label for previous page button in pagination nav"
   },
-  "/+CmAn": {
-    "defaultMessage": "Modifier À propos de moi",
-    "description": "Text on link to update a users personal information."
-  },
   "0DzlCc": {
     "defaultMessage": "Préférences de travail",
     "description": "Title of the Work Preferences link section"
@@ -5444,10 +5432,6 @@
     "defaultMessage": "Vous n'avez pas encore ajouté de renseignements ici.",
     "description": "Message for when no data exists for the section"
   },
-  "TLgbZm": {
-    "defaultMessage": "Mon statut",
-    "description": "Title of the My Status section"
-  },
   "TmCffZ": {
     "defaultMessage": "Intéressé par :",
     "description": "Interested in label and colon"
@@ -5535,10 +5519,6 @@
   "oC/GRF": {
     "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
     "description": "The skill is not attached to any experience"
-  },
-  "om3i0o": {
-    "defaultMessage": "Modifier mon statut",
-    "description": "Text on link to update a users status."
   },
   "omDlZN": {
     "defaultMessage": "Thèse : {thesisTitle}",
@@ -8330,5 +8310,9 @@
   "zLeH2i": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Title for the diversity, equity, and inclusion snapshot section"
+  },
+  "3R3jKp": {
+    "defaultMessage": "Modifier {title}",
+    "description": "Link to edit object"
   }
 }

@@ -1381,5 +1381,13 @@
   "Gx8qCK": {
     "defaultMessage": "À propos de moi",
     "description": "Name of About me page"
+  },
+  "PxUSSH": {
+    "defaultMessage": "Mon statut",
+    "description": "Name of My status page"
+  },
+  "uNArwM": {
+    "defaultMessage": "+123243234",
+    "description": "Placeholder for form telephone field"
   }
 }
