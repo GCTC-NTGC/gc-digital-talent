@@ -11,7 +11,6 @@ import {
   Separator,
   TreeView,
   Heading,
-  Accordion,
   CardBasic,
 } from "@gc-digital-talent/ui";
 import {

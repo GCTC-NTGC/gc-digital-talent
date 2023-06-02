@@ -7,7 +7,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
-import { flattenExperienceSkills, ExperienceType } from "~/types/experience";
+import { flattenExperienceSkills } from "~/types/experience";
 import MissingSkills from "~/components/MissingSkills";
 import ExperienceSection from "~/components/UserProfile/ExperienceSection";
 import {

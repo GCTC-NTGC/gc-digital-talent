@@ -6,7 +6,6 @@ import {
   Collapsible,
   HeadingRank,
   Heading,
-  IconLink,
   Button,
   incrementHeadingRank,
   Separator,
