@@ -1,6 +1,9 @@
 export type Color =
   | "primary"
   | "secondary"
+  | "tertiary"
+  | "quaternary"
+  | "quinary"
   | "cta"
   | "white"
   | "black"
@@ -22,3 +25,5 @@ export type IconProps = React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
 } & React.RefAttributes<SVGSVGElement>;
 
 export type IconType = React.ForwardRefExoticComponent<IconProps>;
+
+export type ButtonLinkMode = "solid" | "outline" | "inline" | "cta";
