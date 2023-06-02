@@ -40,7 +40,6 @@ export interface AlertProps extends React.ComponentPropsWithoutRef<"div"> {
   dismissible?: boolean;
   live?: boolean; // REF: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role
   onDismiss?: () => void;
-  isToast?: boolean;
 }
 
 const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
