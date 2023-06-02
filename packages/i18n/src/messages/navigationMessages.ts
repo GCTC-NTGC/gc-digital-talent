@@ -56,6 +56,11 @@ const navigationMessages = defineMessages({
     id: "nnMYWr",
     description: "Name of Work preferences page",
   },
+  roleSalaryExpectations: {
+    defaultMessage: "Role and salary expectations",
+    id: "lp/ZEr",
+    description: "Name of Role and salary expectations page",
+  },
 });
 
 export default navigationMessages;

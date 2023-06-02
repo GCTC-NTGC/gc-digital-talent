@@ -2561,17 +2561,9 @@
     "defaultMessage": "Niveau 1 : Techniciens",
     "description": "title for IT-01 dialog"
   },
-  "dgOYID": {
-    "defaultMessage": "Rôle et salaire escomptés",
-    "description": "Label for role and salary link"
-  },
   "g5pT17": {
     "defaultMessage": "Sélectionnez votre langue d'examen écrite préférée",
     "description": "Legend text for required written exam language preference for exams in About Me form"
-  },
-  "kCBLsJ": {
-    "defaultMessage": "Rôle et salaire escomptés",
-    "description": "Title role and salary expectations form"
   },
   "mTlHta": {
     "defaultMessage": "Niveau 3 : Chef d'équipe",
@@ -5312,10 +5304,6 @@
     "defaultMessage": "Durée permanente",
     "description": "Permanent duration only"
   },
-  "95OYVk": {
-    "defaultMessage": "Rôle et salaire escomptés",
-    "description": "Title of the Role and salary expectations link section"
-  },
   "9pdtnR": {
     "defaultMessage": "Vous n'êtes pas inscrit à titre d'employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
@@ -5323,10 +5311,6 @@
   "AF8g2I": {
     "defaultMessage": "Modifier la diversité, l'équité et l'inclusion",
     "description": "Text on link to update a users employment equity."
-  },
-  "CEzDTC": {
-    "defaultMessage": "Modifier le rôle et le salaire",
-    "description": "Text on link to update a users role and salary expectations."
   },
   "D7Qb41": {
     "defaultMessage": "Niveau de la langue seconde (compréhension, écrite, verbale) :",

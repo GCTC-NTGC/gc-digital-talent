@@ -248,12 +248,9 @@ const UserProfile = ({
             <TableOfContents.AnchorLink id="role-and-salary-section">
               <StatusItem
                 asListItem={false}
-                title={intl.formatMessage({
-                  defaultMessage: "Role and salary expectations",
-                  id: "95OYVk",
-                  description:
-                    "Title of the Role and salary expectations link section",
-                })}
+                title={intl.formatMessage(
+                  navigationMessages.roleSalaryExpectations,
+                )}
                 status={sectionStatus(
                   roleSalarySectionHasEmptyRequiredFields,
                   roleSalarySectionHasEmptyOptionalFields,
@@ -556,23 +553,26 @@ const UserProfile = ({
                   as={headingLevel}
                   icon={CurrencyDollarIcon}
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Role and salary expectations",
-                    id: "uMzeiF",
-                    description:
-                      "Title of the Role and salary expectations section",
-                  })}
+                  {intl.formatMessage(
+                    navigationMessages.roleSalaryExpectations,
+                  )}
                 </TableOfContents.Heading>
               </div>
               {sections.roleSalary?.editUrl && (
                 <EditUrlLink
                   link={sections.roleSalary.editUrl}
-                  text={intl.formatMessage({
-                    defaultMessage: "Edit Role and Salary",
-                    id: "CEzDTC",
-                    description:
-                      "Text on link to update a users role and salary expectations.",
-                  })}
+                  text={intl.formatMessage(
+                    {
+                      defaultMessage: "Edit {title}",
+                      id: "3R3jKp",
+                      description: "Link to edit object",
+                    },
+                    {
+                      title: intl.formatMessage(
+                        navigationMessages.roleSalaryExpectations,
+                      ),
+                    },
+                  )}
                 />
               )}
             </HeadingWrapper>

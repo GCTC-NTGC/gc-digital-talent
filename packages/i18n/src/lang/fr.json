@@ -1409,5 +1409,9 @@
   "nnMYWr": {
     "defaultMessage": "Préférences de travail",
     "description": "Name of Work preferences page"
+  },
+  "lp/ZEr": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Name of Role and salary expectations page"
   }
 }

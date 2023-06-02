@@ -276,12 +276,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             href={paths.diversityEquityInclusion(user.id)}
           />
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "Role and salary expectations",
-              id: "95OYVk",
-              description:
-                "Title of the Role and salary expectations link section",
-            })}
+            sectionName={intl.formatMessage(
+              navigationMessages.roleSalaryExpectations,
+            )}
             status={deriveSectionStatus(
               roleSalarySectionHasEmptyRequiredFields(user),
               roleSalarySectionHasEmptyOptionalFields(user),
