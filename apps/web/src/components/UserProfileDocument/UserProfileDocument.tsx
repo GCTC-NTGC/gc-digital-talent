@@ -192,10 +192,10 @@ const UserProfileDocument = React.forwardRef<
                           style={{ flex: "1 1 0%" }}
                         >
                           {intl.formatMessage({
-                            defaultMessage: "Employment Equity Information",
-                            id: "aa7B7S",
+                            defaultMessage: "Employment equity information",
+                            id: "a92avO",
                             description:
-                              "Title of the Employment Equity Information content section",
+                              "Title of the Employment equity information content section",
                           })}
                         </Heading>
                       </HeadingWrapper>
