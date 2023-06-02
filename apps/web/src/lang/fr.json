@@ -1137,10 +1137,6 @@
     "defaultMessage": "Mon statut",
     "description": "Legend for my status option in my status form"
   },
-  "XY19Sh": {
-    "defaultMessage": "À propos de moi",
-    "description": "Title for Profile Form wrapper in About me form"
-  },
   "XijxiY": {
     "defaultMessage": "Nous aimerions savoir ci-dessous si vous êtes déjà un(e) employé(e) du gouvernement du Canada. Nous recueillons ces renseignements parce qu'ils nous aident à comprendre, au niveau global, comment les compétences numériques sont réparties entre les ministères.",
     "description": "First message before is a government of canada radio group in create account form."

@@ -227,11 +227,7 @@ const AboutMeForm = ({
         description:
           "Description text for the Profile Form wrapper in the About Me form",
       })}
-      title={intl.formatMessage({
-        defaultMessage: "About me",
-        id: "XY19Sh",
-        description: "Title for Profile Form wrapper in About me form",
-      })}
+      title={intl.formatMessage(navigationMessages.aboutMe)}
       prefixBreadcrumbs={!application}
       crumbs={
         applicationBreadcrumbs?.length
