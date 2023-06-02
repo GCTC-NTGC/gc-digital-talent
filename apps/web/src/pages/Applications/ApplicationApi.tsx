@@ -6,7 +6,7 @@ import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { PoolCandidate, useGetApplicationQuery } from "~/api/generated";
 
 export type ApplicationPageProps = {
-  application: Omit<PoolCandidate, "pool">;
+  application: PoolCandidate;
 };
 
 interface ApplicationApiProps {
@@ -26,7 +26,7 @@ const ApplicationApi = ({ PageComponent }: ApplicationApiProps) => {
 
   return (
     <Pending fetching={fetching || stale} error={error}>
-      {application?.poolAdvertisement ? (
+      {application?.pool ? (
         <PageComponent application={application} />
       ) : (
         <ThrowNotFound />

@@ -12,16 +12,11 @@ import MissingSkills from "~/components/MissingSkills";
 import MissingLanguageRequirements from "~/components/MissingLanguageRequirements";
 import ExperienceSection from "~/components/UserProfile/ExperienceSection";
 import SEO from "~/components/SEO/SEO";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 import LanguageInformationSection from "~/components/UserProfile/ProfileSections/LanguageInformationSection";
 import useRoutes from "~/hooks/useRoutes";
-import {
-  Applicant,
-  PoolAdvertisement,
-  Scalars,
-  SkillCategory,
-} from "~/api/generated";
+import { Applicant, Pool, Scalars, SkillCategory } from "~/api/generated";
 import ApplicationPageWrapper from "~/components/ApplicationPageWrapper/ApplicationPageWrapper";
 import { categorizeSkill, getMissingSkills } from "~/utils/skillUtils";
 import { flattenExperienceSkills } from "~/types/experience";
@@ -29,14 +24,14 @@ import { useGetApplicationQuery } from "@gc-digital-talent/graphql";
 
 interface ReviewApplicationProps {
   applicant: Applicant;
-  poolAdvertisement: PoolAdvertisement;
+  pool: Pool;
   applicationId: string;
-  closingDate: PoolAdvertisement["closingDate"];
+  closingDate: Pool["closingDate"];
 }
 
 export const ReviewApplication = ({
   applicant,
-  poolAdvertisement,
+  pool,
   applicationId,
   closingDate,
 }: ReviewApplicationProps) => {
@@ -48,10 +43,10 @@ export const ReviewApplication = ({
         ...experience,
         skills: experience?.skills?.filter((skill) => {
           return (
-            poolAdvertisement.essentialSkills?.find(
+            pool.essentialSkills?.find(
               (essentialSkill) => essentialSkill.id === skill.id,
             ) ||
-            poolAdvertisement.nonessentialSkills?.find(
+            pool.nonessentialSkills?.find(
               (assetSkill) => assetSkill.id === skill.id,
             )
           );
@@ -59,8 +54,8 @@ export const ReviewApplication = ({
       };
     }) || [];
   const missingSkills = {
-    requiredSkills: poolAdvertisement.essentialSkills?.filter(notEmpty),
-    optionalSkills: poolAdvertisement.nonessentialSkills?.filter(notEmpty),
+    requiredSkills: pool.essentialSkills?.filter(notEmpty),
+    optionalSkills: pool.nonessentialSkills?.filter(notEmpty),
   };
   const technicalRequiredSkills = categorizeSkill(missingSkills.requiredSkills)[
     SkillCategory.Technical
@@ -68,7 +63,7 @@ export const ReviewApplication = ({
   const hasExperiences = notEmpty(applicant.experiences);
   const missingLanguageRequirements = getMissingLanguageRequirements(
     applicant,
-    poolAdvertisement,
+    pool,
   );
   const { isProfileComplete } = applicant;
   const isApplicationComplete =
@@ -78,7 +73,7 @@ export const ReviewApplication = ({
       hasExperiences ? flattenExperienceSkills(experiences) : [],
     ).length === 0 &&
     missingLanguageRequirements.length === 0;
-  const jobTitle = getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement);
+  const jobTitle = getFullPoolTitleHtml(intl, pool);
 
   return (
     <>
@@ -107,7 +102,7 @@ export const ReviewApplication = ({
           },
           {
             label: jobTitle,
-            url: paths.pool(poolAdvertisement.id),
+            url: paths.pool(pool.id),
           },
           {
             label: intl.formatMessage(navigationMessages.stepOne),
@@ -157,7 +152,7 @@ export const ReviewApplication = ({
                       <MissingLanguageRequirements
                         headingLevel="h3"
                         applicant={applicant}
-                        poolAdvertisement={poolAdvertisement}
+                        pool={pool}
                       />
                     )}
                   </div>
@@ -301,12 +296,12 @@ const ReviewApplicationPage = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.poolCandidate && data?.poolCandidate?.poolAdvertisement?.id ? (
+      {data?.poolCandidate ? (
         <ReviewApplication
-          poolAdvertisement={data.poolCandidate.poolAdvertisement}
+          pool={data.poolCandidate.pool}
           applicant={data.poolCandidate.user as Applicant}
           applicationId={data.poolCandidate.id}
-          closingDate={data.poolCandidate.poolAdvertisement?.closingDate}
+          closingDate={data.poolCandidate.pool.closingDate}
         />
       ) : (
         <ApplicationNotFound />

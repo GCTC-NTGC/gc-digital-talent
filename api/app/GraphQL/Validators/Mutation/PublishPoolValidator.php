@@ -7,7 +7,7 @@ use Database\Helpers\ApiEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class PublishPoolAdvertisementValidator extends Validator
+final class PublishPoolValidator extends Validator
 {
     /**
      * Return the validation rules.
@@ -41,8 +41,8 @@ final class PublishPoolAdvertisementValidator extends Validator
             'nonessential_skills.*.id' => ['uuid', 'exists:skills,id'],
 
             // Other requirements
-            'advertisement_language' => ['required', Rule::in(ApiEnums::poolAdvertisementLanguages())],
-            'security_clearance' => ['required', Rule::in(ApiEnums::poolAdvertisementSecurity())],
+            'advertisement_language' => ['required', Rule::in(ApiEnums::poolLanguages())],
+            'security_clearance' => ['required', Rule::in(ApiEnums::poolSecurity())],
             'is_remote' => ['required', 'boolean'],
             'advertisement_location.en' => ['required_if:is_remote,false', 'required_with:advertisement_location.fr', 'string'],
             'advertisement_location.fr' => ['required_if:is_remote,false', 'required_with:advertisement_location.en', 'string'],
@@ -56,7 +56,7 @@ final class PublishPoolAdvertisementValidator extends Validator
             'required' => ':attribute required',
             'exists' => ':attribute does not exist.',
             'closing_date.after' => 'Closing date must be after today.',
-            'advertisement_location.*.required_if' => 'AdvertisementLocationRequired',
+            'advertisement_location.*.required_if' => 'PoolLocationRequired',
             'advertisement_location.*.required_with' => 'You must enter both french and english fields for the advertisement_location',
             'in' => ':attribute does not contain a valid value.',
             'essential_skills.required' => 'EssentialSkillRequired',

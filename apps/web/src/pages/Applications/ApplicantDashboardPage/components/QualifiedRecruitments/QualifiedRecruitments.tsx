@@ -46,7 +46,7 @@ const AnimatedContent = React.forwardRef<
   </Accordion.Content>
 ));
 
-export type Application = Omit<PoolCandidate, "pool" | "user">;
+export type Application = Omit<PoolCandidate, "user">;
 
 interface QualifiedRecruitmentsProps {
   applications: Application[];

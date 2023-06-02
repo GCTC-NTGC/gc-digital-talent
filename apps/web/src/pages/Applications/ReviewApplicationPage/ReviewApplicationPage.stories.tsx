@@ -10,7 +10,7 @@ import { Experience } from "~/api/generated";
 import { ReviewApplication } from "./ReviewApplicationPage";
 
 const poolCandidate = fakePoolCandidates(1)[0];
-const { poolAdvertisement } = poolCandidate;
+const { pool } = poolCandidate;
 const applicant = poolCandidate.user;
 const essentialSkills = fakeSkills(1);
 const newExperience = fakeExperiences(1)[0] as Experience;
@@ -20,10 +20,10 @@ export default {
   component: ReviewApplication,
   title: "Pages/Review Application",
   args: {
-    poolAdvertisement,
+    pool,
     applicant,
     applicationId: poolCandidate.id,
-    closingDate: poolCandidate.poolAdvertisement?.closingDate,
+    closingDate: poolCandidate.pool.closingDate,
   },
 } as ComponentMeta<typeof ReviewApplication>;
 
@@ -35,9 +35,8 @@ export const ApplicationIsIncomplete = Template.bind({});
 export const ApplicationIsComplete = Template.bind({});
 
 ApplicationIsComplete.args = {
-  poolAdvertisement: {
-    ...poolAdvertisement,
-    id: poolAdvertisement?.id || "1",
+  pool: {
+    ...pool,
     essentialSkills,
   },
   applicant: {
