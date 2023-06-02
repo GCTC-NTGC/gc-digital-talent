@@ -38,3 +38,11 @@ export const WorkExperienceCard = Template.bind({});
 WorkExperienceCard.args = {
   experience: experienceGenerators.workExperiences()[0],
 };
+
+export const NoSkillsExperienceCard = Template.bind({});
+NoSkillsExperienceCard.args = {
+  experience: {
+    ...experienceGenerators.workExperiences()[0],
+    skills: [],
+  },
+};

@@ -259,40 +259,41 @@ const ExperienceCard = ({
                     "Lead in text for list of skills linked to a specific experience",
                 })}
               </ContentSection>
-              {experience.skills && skillCount ? (
-                <ul
-                  data-h2-margin-top="base(x1)"
-                  data-h2-list-style-position="base(outside)"
-                  data-h2-padding-left="base(x.75)"
-                >
-                  {experience.skills.map((skill) => (
-                    <li key={skill.id} data-h2-margin-bottom="base(x.25)">
-                      <span
-                        data-h2-font-weight="base(700)"
-                        data-h2-display="base(block)"
-                      >
-                        {getLocalizedName(skill.name, intl)}
-                      </span>
-                      <span>
-                        {skill.experienceSkillRecord?.details ??
-                          intl.formatMessage(commonMessages.notAvailable)}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <Well>
-                  <p data-h2-text-align="base(center)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "No skills have been linked to this experience.",
-                      id: "exxM/M",
-                      description:
-                        "Text displayed when no skills have been linked to an experience",
-                    })}
-                  </p>
-                </Well>
-              )}
+              <div data-h2-margin-top="base(x1)">
+                {experience.skills && skillCount ? (
+                  <ul
+                    data-h2-list-style-position="base(outside)"
+                    data-h2-padding-left="base(x.75)"
+                  >
+                    {experience.skills.map((skill) => (
+                      <li key={skill.id} data-h2-margin-bottom="base(x.25)">
+                        <span
+                          data-h2-font-weight="base(700)"
+                          data-h2-display="base(block)"
+                        >
+                          {getLocalizedName(skill.name, intl)}
+                        </span>
+                        <span>
+                          {skill.experienceSkillRecord?.details ??
+                            intl.formatMessage(commonMessages.notAvailable)}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <Well data-h2-margin-top>
+                    <p data-h2-text-align="base(center)">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "No skills have been linked to this experience.",
+                        id: "exxM/M",
+                        description:
+                          "Text displayed when no skills have been linked to an experience",
+                      })}
+                    </p>
+                  </Well>
+                )}
+              </div>
             </>
           )}
         </Collapsible.Content>
