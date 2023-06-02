@@ -3435,10 +3435,6 @@
     "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "Title of the 'Add user to pools' section of the view-user page"
   },
-  "uMzeiF": {
-    "defaultMessage": "Rôle et salaire escomptés",
-    "description": "Title of the Role and salary expectations section"
-  },
   "Bkxf6p": {
     "defaultMessage": "Sélectionnez un statut de bassin",
     "description": "Placeholder displayed on the status field of the change candidate status dialog."

@@ -229,12 +229,9 @@ const PoolCandidateDocument = React.forwardRef<
                           icon={CurrencyDollarIcon}
                           style={{ flex: "1 1 0%" }}
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "Role and salary expectations",
-                            id: "uMzeiF",
-                            description:
-                              "Title of the Role and salary expectations section",
-                          })}
+                          {intl.formatMessage(
+                            navigationMessages.roleSalaryExpectations,
+                          )}
                         </Heading>
                       </HeadingWrapper>
                       <RoleSalarySection applicant={candidate.user} />
