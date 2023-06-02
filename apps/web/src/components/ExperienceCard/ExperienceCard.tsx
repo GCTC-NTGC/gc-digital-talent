@@ -13,18 +13,24 @@ import {
   Separator,
   Well,
 } from "@gc-digital-talent/ui";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { AnyExperience } from "~/types/experience";
 import {
   isAwardExperience,
   isCommunityExperience,
+  isEducationExperience,
+  isPersonalExperience,
+  isWorkExperience,
   useExperienceInfo,
 } from "~/utils/experienceUtils";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import AwardContent from "./AwardContent";
 import ContentSection from "./ContentSection";
 import CommunityContent from "./CommunityContent";
+import EducationContent from "./EducationContent";
+import PersonalContent from "./PersonalContent";
+import WorkContent from "./WorkContent";
 
 interface ExperienceCardProps {
   experience: AnyExperience;
@@ -188,6 +194,24 @@ const ExperienceCard = ({
           )}
           {isCommunityExperience(experience) && (
             <CommunityContent
+              experience={experience}
+              headingLevel={contentHeadingLevel}
+            />
+          )}
+          {isEducationExperience(experience) && (
+            <EducationContent
+              experience={experience}
+              headingLevel={contentHeadingLevel}
+            />
+          )}
+          {isPersonalExperience(experience) && (
+            <PersonalContent
+              experience={experience}
+              headingLevel={contentHeadingLevel}
+            />
+          )}
+          {isWorkExperience(experience) && (
+            <WorkContent
               experience={experience}
               headingLevel={contentHeadingLevel}
             />

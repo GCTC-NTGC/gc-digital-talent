@@ -3,23 +3,23 @@ import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import { CommunityExperience } from "~/api/generated";
+import { WorkExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/dateUtils";
 
 import ContentSection from "./ContentSection";
 import { ContentProps } from "./types";
 
-const CommunityContent = ({
-  experience: { startDate, endDate, project },
+const WorkContent = ({
+  experience: { startDate, endDate, division },
   headingLevel,
-}: ContentProps<CommunityExperience>) => {
+}: ContentProps<WorkExperience>) => {
   const intl = useIntl();
 
   return (
     <div
       data-h2-display="base(grid)"
       data-h2-gap="base(x1)"
-      data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
+      data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
     >
       <ContentSection
         headingLevel={headingLevel}
@@ -33,17 +33,17 @@ const CommunityContent = ({
       </ContentSection>
       <ContentSection
         title={intl.formatMessage({
-          defaultMessage: "Project / product",
-          id: "gEBoM0",
+          defaultMessage: "Team, group, or division",
+          id: "qn77WI",
           description:
-            "Label displayed on Community Experience form for Project / product section",
+            "Label displayed on Work Experience form for team/group/division input",
         })}
         headingLevel={headingLevel}
       >
-        {project ?? intl.formatMessage(commonMessages.notAvailable)}
+        {division ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
     </div>
   );
 };
 
-export default CommunityContent;
+export default WorkContent;
