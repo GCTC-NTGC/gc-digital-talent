@@ -5,7 +5,7 @@ import { Accordion, HeadingRank, Separator } from "@gc-digital-talent/ui";
 import { incrementHeadingRank } from "@gc-digital-talent/ui/src/utils";
 
 import { WorkExperience } from "~/api/generated";
-import { getDateRange } from "~/utils/accordionUtils";
+import { getDateRange } from "~/utils/dateUtils";
 
 import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
 import ContentSection from "../ExperienceAccordionContentSection";

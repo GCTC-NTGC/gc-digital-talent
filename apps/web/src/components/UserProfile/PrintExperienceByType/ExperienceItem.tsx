@@ -9,7 +9,7 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import { Experience, Maybe } from "~/api/generated";
-import { getDateRange } from "~/utils/accordionUtils";
+import { getDateRange } from "~/utils/dateUtils";
 import { AwardContent } from "~/components/ExperienceAccordion/individualExperienceAccordions/AwardAccordion";
 import { CommunityContent } from "~/components/ExperienceAccordion/individualExperienceAccordions/CommunityAccordion";
 import { EducationContent } from "~/components/ExperienceAccordion/individualExperienceAccordions/EducationAccordion";

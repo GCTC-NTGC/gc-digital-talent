@@ -6,7 +6,7 @@ import { incrementHeadingRank } from "@gc-digital-talent/ui/src/utils";
 import { commonMessages, getEducationStatus } from "@gc-digital-talent/i18n";
 
 import { EducationExperience } from "~/api/generated";
-import { getDateRange } from "~/utils/accordionUtils";
+import { getDateRange } from "~/utils/dateUtils";
 
 import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
 import ContentSection from "../ExperienceAccordionContentSection";

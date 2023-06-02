@@ -12,16 +12,19 @@ import {
   incrementHeadingRank,
   Separator,
   Well,
-  DefinitionList,
 } from "@gc-digital-talent/ui";
 
 import { AnyExperience } from "~/types/experience";
-import { isAwardExperience, useExperienceInfo } from "~/utils/experienceUtils";
+import {
+  isAwardExperience,
+  isCommunityExperience,
+  useExperienceInfo,
+} from "~/utils/experienceUtils";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { intlFormat } from "date-fns";
 import AwardContent from "./AwardContent";
 import ContentSection from "./ContentSection";
+import CommunityContent from "./CommunityContent";
 
 interface ExperienceCardProps {
   experience: AnyExperience;
@@ -179,6 +182,12 @@ const ExperienceCard = ({
           />
           {isAwardExperience(experience) && (
             <AwardContent
+              experience={experience}
+              headingLevel={contentHeadingLevel}
+            />
+          )}
+          {isCommunityExperience(experience) && (
+            <CommunityContent
               experience={experience}
               headingLevel={contentHeadingLevel}
             />

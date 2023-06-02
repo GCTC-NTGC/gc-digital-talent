@@ -10,7 +10,7 @@ import {
 import { incrementHeadingRank } from "@gc-digital-talent/ui/src/utils";
 
 import { AwardExperience } from "~/api/generated";
-import { formattedDate } from "~/utils/accordionUtils";
+import { formattedDate } from "~/utils/dateUtils";
 
 import { ExperienceAccordionHeader } from "../ExperienceAccordionHeader";
 import ContentSection from "../ExperienceAccordionContentSection";
