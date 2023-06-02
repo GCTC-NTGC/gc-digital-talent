@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
-import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import {
   Collapsible,
@@ -31,17 +30,23 @@ import CommunityContent from "./CommunityContent";
 import EducationContent from "./EducationContent";
 import PersonalContent from "./PersonalContent";
 import WorkContent from "./WorkContent";
+import EditLink from "./EditLink";
 
 interface ExperienceCardProps {
   experience: AnyExperience;
   headingLevel?: HeadingRank;
   showSkills?: boolean;
+  showEdit?: boolean;
+  // If the edit button is a button, pass the onClick function
+  onEditClick?: () => void;
 }
 
 const ExperienceCard = ({
   experience,
+  onEditClick,
   headingLevel = "h2",
   showSkills = true,
+  showEdit = true,
 }: ExperienceCardProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -69,12 +74,11 @@ const ExperienceCard = ({
         <Heading level={headingLevel} size="h6" data-h2-margin="base(0)">
           {title}
         </Heading>
-        {editPath && (
-          <IconLink
-            icon={PencilSquareIcon}
-            href={editPath}
-            color="secondary"
-            aria-label={intl.formatMessage({
+        {showEdit && (editPath || onEditClick) && (
+          <EditLink
+            editUrl={editPath}
+            onEditClick={onEditClick}
+            ariaLabel={intl.formatMessage({
               defaultMessage: "Edit {experienceName}",
               id: "CDV1Cw",
               description: "Link text to edit a specific experience",
@@ -85,7 +89,7 @@ const ExperienceCard = ({
               id: "vXwT4K",
               description: "Generic link text to edit a miscellaneous item",
             })}
-          </IconLink>
+          </EditLink>
         )}
       </div>
       <p
