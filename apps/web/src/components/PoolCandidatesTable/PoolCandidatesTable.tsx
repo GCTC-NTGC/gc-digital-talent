@@ -30,7 +30,7 @@ import {
   SortOrder,
   useGetPoolCandidatesPaginatedQuery,
   useGetSelectedPoolCandidatesQuery,
-  PoolAdvertisement,
+  Pool,
   Maybe,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
@@ -298,9 +298,7 @@ const PoolCandidatesTable = ({
   title,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<
-    Pick<PoolAdvertisement, "essentialSkills" | "nonessentialSkills">
-  >;
+  currentPool?: Maybe<Pick<Pool, "essentialSkills" | "nonessentialSkills">>;
   title: string;
 }) => {
   const intl = useIntl();

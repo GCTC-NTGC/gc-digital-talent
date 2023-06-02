@@ -5,7 +5,7 @@ import uniqBy from "lodash/uniqBy";
 import { Link, Pill, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
-  getAdvertisementStatus,
+  getPoolStatus,
   getPoolStream,
   getLocale,
   commonMessages,
@@ -16,7 +16,7 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Classification,
@@ -58,7 +58,7 @@ function poolCandidatesLinkAccessor(
           id: "6R9N+h",
           description: "Text for a link to the Pool Candidates table",
         },
-        { label: getFullPoolAdvertisementTitleHtml(intl, pool) },
+        { label: getFullPoolTitleHtml(intl, pool) },
       )}
     </Link>
   );
@@ -67,7 +67,7 @@ function poolCandidatesLinkAccessor(
 function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
   return (
     <Link href={url} type="link">
-      {getFullPoolAdvertisementTitleHtml(intl, pool)}
+      {getFullPoolTitleHtml(intl, pool)}
     </Link>
   );
 }
@@ -254,9 +254,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         }),
         accessor: (d) => {
           return intl.formatMessage(
-            d.advertisementStatus
-              ? getAdvertisementStatus(d.advertisementStatus)
-              : commonMessages.notFound,
+            d.status ? getPoolStatus(d.status) : commonMessages.notFound,
           );
         },
       },

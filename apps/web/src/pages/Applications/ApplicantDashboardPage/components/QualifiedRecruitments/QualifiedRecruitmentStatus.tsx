@@ -10,7 +10,7 @@ import {
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
 import QualifiedRecruitmentDialog from "./QualifiedRecruitmentDialog";
 
-export type Application = Omit<PoolCandidate, "pool" | "user">;
+export type Application = Omit<PoolCandidate, "user">;
 
 export interface QualifiedRecruitmentStatusProps {
   application: Application;

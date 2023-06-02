@@ -4,21 +4,18 @@ import { useIntl } from "react-intl";
 import { Dialog, Button, Heading } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
-import { PoolAdvertisement } from "~/api/generated";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { Pool } from "~/api/generated";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { checkRole } from "~/utils/teamUtils";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
 type DuplicateDialogProps = {
-  poolAdvertisement: PoolAdvertisement;
+  pool: Pool;
   onDuplicate: () => void;
 };
 
-const DuplicateDialog = ({
-  poolAdvertisement,
-  onDuplicate,
-}: DuplicateDialogProps) => {
+const DuplicateDialog = ({ pool, onDuplicate }: DuplicateDialogProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const { roleAssignments } = useAuthorization();
   const { isSubmitting } = useEditPoolContext();
@@ -34,7 +31,7 @@ const DuplicateDialog = ({
     id: "jCS7J4",
     description: "Title to duplicate a pool",
   });
-  const poolName = getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement);
+  const poolName = getFullPoolTitleHtml(intl, pool);
 
   return (
     <>

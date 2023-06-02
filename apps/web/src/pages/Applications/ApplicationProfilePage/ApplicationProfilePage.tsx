@@ -99,7 +99,7 @@ export const ApplicationProfile = ({
     user,
     isUpdating,
     onUpdate: handleUpdate,
-    poolAdvertisement: application.poolAdvertisement,
+    pool: application.pool,
   };
 
   return (
@@ -135,11 +135,7 @@ export const ApplicationProfile = ({
       <StepNavigation
         application={application}
         user={user}
-        isValid={
-          (application?.poolAdvertisement &&
-            !stepHasError(user as Applicant, application.poolAdvertisement)) ??
-          false
-        }
+        isValid={!stepHasError(user as Applicant, application.pool)}
       />
     </ProfileFormProvider>
   );
@@ -170,7 +166,7 @@ const ApplicationProfilePage = () => {
       fetching={applicationFetching || applicationStale || userFetching}
       error={applicationError || userError}
     >
-      {application?.poolAdvertisement && userData?.me ? (
+      {application?.pool && userData?.me ? (
         <ApplicationProfile application={application} user={userData.me} />
       ) : (
         <ThrowNotFound />

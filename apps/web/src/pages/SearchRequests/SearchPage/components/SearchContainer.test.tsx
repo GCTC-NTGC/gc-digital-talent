@@ -6,7 +6,7 @@ import { screen } from "@testing-library/react";
 import React from "react";
 import {
   fakeClassifications,
-  fakePoolAdvertisements,
+  fakePools,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
@@ -15,6 +15,7 @@ import type { SearchContainerProps } from "./SearchContainer";
 
 const mockClassifications = fakeClassifications();
 const mockSkills = fakeSkills();
+const fakedPools = fakePools(2, mockSkills, mockClassifications);
 
 type MockSearchContainerProps = Pick<
   SearchContainerProps,
@@ -44,11 +45,11 @@ const renderSearchContainer = ({
 const poolCandidateResults = [
   {
     candidateCount: 4,
-    pool: fakePoolAdvertisements()[0],
+    pool: fakedPools[0],
   },
   {
     candidateCount: 6,
-    pool: fakePoolAdvertisements()[1],
+    pool: fakedPools[1],
   },
 ];
 

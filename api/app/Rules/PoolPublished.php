@@ -29,9 +29,9 @@ class PoolPublished implements Rule
     {
         $pool = Pool::find($value);
 
-        return !in_array($pool->advertisement_status, [
-            ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
-            ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED
+        return !in_array($pool->status, [
+            ApiEnums::POOL_IS_DRAFT,
+            ApiEnums::POOL_IS_CLOSED
         ]);
     }
 

@@ -1,5 +1,5 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
+import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
@@ -67,14 +67,14 @@ describe("Pool Candidates", () => {
               dcmId = dcm;
             });
 
-            // create, update, and publish a new pool advertisement for testing matching
+            // create, update, and publish a new pool for testing matching
             cy.get("@testClassification").then((classification) => {
-              createAndPublishPoolAdvertisement({
+              createAndPublishPool({
                 adminUserId,
                 teamId: dcmId,
                 englishName: `Cypress Test Pool EN ${uniqueTestId}`,
                 classification,
-                poolAdvertisementAlias: "publishedTestPoolAdvertisement",
+                poolAlias: "publishedTestPool",
               });
             });
           });
@@ -85,27 +85,25 @@ describe("Pool Candidates", () => {
     cy.get("@testUser").then((testUser) => {
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
-        cy.get("@publishedTestPoolAdvertisement").then((poolAdvertisement) => {
-          cy.createApplication(testUser.id, poolAdvertisement.id).then(
-            (poolCandidate) => {
-              cy.getMeAllData().then((me) => {
-                // update application to be complete, createApplicant attaches a personal experience to the user
-                const experienceId = me.experiences[0].id;
-                cy.updateApplication(poolCandidate.id, {
-                  educationRequirementOption:
-                    EducationRequirementOption.AppliedWork,
-                  educationRequirementPersonalExperiences: {
-                    sync: [experienceId],
-                  },
-                })
-                  .its("id")
-                  .as("poolCandidateId");
-              });
-              cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+        cy.get("@publishedTestPool").then((pool) => {
+          cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
+            cy.getMeAllData().then((me) => {
+              // update application to be complete, createApplicant attaches a personal experience to the user
+              const experienceId = me.experiences[0].id;
+              cy.updateApplication(poolCandidate.id, {
+                educationRequirementOption:
+                  EducationRequirementOption.AppliedWork,
+                educationRequirementPersonalExperiences: {
+                  sync: [experienceId],
+                },
+              })
                 .its("id")
                 .as("poolCandidateId");
-            },
-          );
+            });
+            cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+              .its("id")
+              .as("poolCandidateId");
+          });
         });
       });
     });
@@ -179,14 +177,14 @@ describe("Pool Candidates", () => {
               dcmId = dcm;
             });
 
-            // create, update, and publish a new pool advertisement for testing matching
+            // create, update, and publish a new pool for testing matching
             cy.get("@testClassification").then((classification) => {
-              createAndPublishPoolAdvertisement({
+              createAndPublishPool({
                 adminUserId,
                 teamId: dcmId,
                 englishName: `Cypress Test Pool EN ${uniqueTestId}`,
                 classification,
-                poolAdvertisementAlias: "publishedTestPoolAdvertisement",
+                poolAlias: "publishedTestPool",
               });
             });
           });
@@ -197,26 +195,24 @@ describe("Pool Candidates", () => {
     cy.get("@testUser").then((testUser) => {
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
-        cy.get("@publishedTestPoolAdvertisement").then((poolAdvertisement) => {
-          cy.createApplication(testUser.id, poolAdvertisement.id).then(
-            (poolCandidate) => {
-              cy.getMeAllData().then((me) => {
-                const experienceId = me.experiences[0].id;
-                cy.updateApplication(poolCandidate.id, {
-                  educationRequirementOption:
-                    EducationRequirementOption.AppliedWork,
-                  educationRequirementPersonalExperiences: {
-                    sync: [experienceId],
-                  },
-                })
-                  .its("id")
-                  .as("poolCandidateId");
-              });
-              cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+        cy.get("@publishedTestPool").then((pool) => {
+          cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
+            cy.getMeAllData().then((me) => {
+              const experienceId = me.experiences[0].id;
+              cy.updateApplication(poolCandidate.id, {
+                educationRequirementOption:
+                  EducationRequirementOption.AppliedWork,
+                educationRequirementPersonalExperiences: {
+                  sync: [experienceId],
+                },
+              })
                 .its("id")
                 .as("poolCandidateId");
-            },
-          );
+            });
+            cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+              .its("id")
+              .as("poolCandidateId");
+          });
         });
       });
     });

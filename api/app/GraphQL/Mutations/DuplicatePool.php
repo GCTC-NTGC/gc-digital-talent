@@ -4,10 +4,10 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\Pool;
 
-final class DuplicatePoolAdvertisement
+final class DuplicatePool
 {
     /**
-     * Duplicates a pool advertisement
+     * Duplicates a pool
      *
      * @param  null  $_
      * @param  array{}  $args

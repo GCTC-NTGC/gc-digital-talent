@@ -6,7 +6,7 @@ import { Link, Well } from "@gc-digital-talent/ui";
 import { getPoolCandidateStatus } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 
 import { UserInformationProps } from "../types";
 import ChangeStatusDialog from "./ChangeStatusDialog";
@@ -72,7 +72,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
                 >
                   {candidate.pool ? (
                     <Link href={paths.poolView(candidate.pool.id)}>
-                      {getFullPoolAdvertisementTitleHtml(intl, candidate.pool)}
+                      {getFullPoolTitleHtml(intl, candidate.pool)}
                     </Link>
                   ) : (
                     ""

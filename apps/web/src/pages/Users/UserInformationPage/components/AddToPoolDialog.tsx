@@ -10,13 +10,10 @@ import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import {
-  getFullPoolAdvertisementTitleLabel,
-  getFullPoolAdvertisementTitleHtml,
-} from "~/utils/poolUtils";
+import { getFullPoolTitleLabel, getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import {
-  AdvertisementStatus,
+  PoolStatus,
   Applicant,
   CreatePoolCandidateAsAdminInput,
   Pool,
@@ -118,7 +115,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
               <ul>
                 {rejectedRequests.map((rejected) => (
                   <li key={rejected.pool.id}>
-                    {getFullPoolAdvertisementTitleHtml(intl, rejected.pool)}
+                    {getFullPoolTitleHtml(intl, rejected.pool)}
                   </li>
                 ))}
               </ul>
@@ -143,13 +140,13 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
     .filter((pool) => !currentPools.includes(pool.id))
     .filter(
       (pool) =>
-        pool.advertisementStatus === AdvertisementStatus.Published ||
-        pool.advertisementStatus === AdvertisementStatus.Closed,
+        pool.status === PoolStatus.Published ||
+        pool.status === PoolStatus.Closed,
     )
     .map((pool) => {
       return {
         value: pool.id,
-        label: getFullPoolAdvertisementTitleLabel(intl, pool),
+        label: getFullPoolTitleLabel(intl, pool),
       };
     });
 
