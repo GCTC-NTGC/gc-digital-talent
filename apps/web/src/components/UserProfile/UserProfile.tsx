@@ -182,12 +182,9 @@ const UserProfile = ({
             <TableOfContents.AnchorLink id="diversity-equity-inclusion-section">
               <StatusItem
                 asListItem={false}
-                title={intl.formatMessage({
-                  defaultMessage: "Diversity, equity and inclusion",
-                  id: "e2R6fy",
-                  description:
-                    "Title of the Diversity, equity and inclusion link section",
-                })}
+                title={intl.formatMessage(
+                  navigationMessages.diversityEquityInclusion,
+                )}
                 status={sectionStatus(
                   diversityEquityInclusionSectionHasEmptyRequiredFields,
                   diversityEquityInclusionSectionHasEmptyOptionalFields,
@@ -369,12 +366,9 @@ const UserProfile = ({
                   as={headingLevel}
                   icon={UserCircleIcon}
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Diversity, equity and inclusion",
-                    id: "inzzdo",
-                    description:
-                      "Title of the Diversity, equity and inclusion content section",
-                  })}
+                  {intl.formatMessage(
+                    navigationMessages.diversityEquityInclusion,
+                  )}
                 </TableOfContents.Heading>
               </div>
               {sections.employmentEquity?.editUrl && (

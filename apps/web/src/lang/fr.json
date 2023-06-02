@@ -1109,10 +1109,6 @@
     "defaultMessage": "Enregistré",
     "description": "Submitted text for save button on profile form."
   },
-  "TfoHYi": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Title for Profile Form wrapper  in DiversityEquityInclusionForm"
-  },
   "TuhgU0": {
     "defaultMessage": "Options d'équité en matière d'emploi :",
     "description": "Heading for employment equity categories available to be added to user profile."
@@ -1324,10 +1320,6 @@
   "o/YTo0": {
     "defaultMessage": "Pour commencer",
     "description": "Main heading in create account page."
-  },
-  "pGTTrp": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Display Text for Diversity, equity and inclusion Page"
   },
   "pYGf4h": {
     "defaultMessage": "2. Compétences affichées pendant cette expérience",
@@ -5476,10 +5468,6 @@
     "defaultMessage": "1 expérience",
     "description": "Pluralization for one experience"
   },
-  "e2R6fy": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Title of the Diversity, equity and inclusion link section"
-  },
   "eLXTfi": {
     "defaultMessage": "Je ne suis pas un employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
@@ -5495,10 +5483,6 @@
   "gtLuDM": {
     "defaultMessage": "Projet : {project}",
     "description": "Project Name"
-  },
-  "inzzdo": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Title of the Diversity, equity and inclusion content section"
   },
   "kjX7mF": {
     "defaultMessage": "Aucune information n'a été fournie.",

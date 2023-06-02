@@ -278,12 +278,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             href={paths.workPreferences(user.id)}
           />
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "Diversity, equity and inclusion",
-              id: "e2R6fy",
-              description:
-                "Title of the Diversity, equity and inclusion link section",
-            })}
+            sectionName={intl.formatMessage(
+              navigationMessages.diversityEquityInclusion,
+            )}
             status={deriveSectionStatus(
               diversityEquityInclusionSectionHasEmptyRequiredFields(user),
               diversityEquityInclusionSectionHasEmptyOptionalFields(user),

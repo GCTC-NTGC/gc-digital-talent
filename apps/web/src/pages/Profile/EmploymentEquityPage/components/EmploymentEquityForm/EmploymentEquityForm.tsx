@@ -63,12 +63,9 @@ const EmploymentEquityForm = ({
           url: paths.reviewApplication(applicationId ?? ""),
         },
         {
-          label: intl.formatMessage({
-            defaultMessage: "Diversity, equity and inclusion",
-            id: "pGTTrp",
-            description:
-              "Display Text for Diversity, equity and inclusion Page",
-          }),
+          label: intl.formatMessage(
+            navigationMessages.diversityEquityInclusion,
+          ),
           url: `${paths.diversityEquityInclusion(user.id)}${
             applicationId ? `?applicationId=${applicationId}` : ``
           }`,
@@ -85,23 +82,15 @@ const EmploymentEquityForm = ({
         description:
           "Description text for Profile Form wrapper in DiversityEquityInclusionForm",
       })}
-      title={intl.formatMessage({
-        defaultMessage: "Diversity, equity and inclusion",
-        id: "TfoHYi",
-        description:
-          "Title for Profile Form wrapper  in DiversityEquityInclusionForm",
-      })}
+      title={intl.formatMessage(navigationMessages.diversityEquityInclusion)}
       crumbs={
         applicationBreadcrumbs?.length
           ? applicationBreadcrumbs
           : [
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Diversity, equity and inclusion",
-                  id: "pGTTrp",
-                  description:
-                    "Display Text for Diversity, equity and inclusion Page",
-                }),
+                label: intl.formatMessage(
+                  navigationMessages.diversityEquityInclusion,
+                ),
                 url: paths.diversityEquityInclusion(user.id),
               },
             ]

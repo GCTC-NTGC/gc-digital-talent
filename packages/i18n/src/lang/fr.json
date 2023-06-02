@@ -1389,5 +1389,9 @@
   "uNArwM": {
     "defaultMessage": "+123243234",
     "description": "Placeholder for form telephone field"
+  },
+  "ad4mTC": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Name of Diversity, equity and inclusion page"
   }
 }
