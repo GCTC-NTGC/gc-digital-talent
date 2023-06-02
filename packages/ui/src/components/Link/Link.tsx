@@ -6,8 +6,8 @@ import {
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
-import type { Color } from "../Button";
-import useCommonLinkStyles from "./useCommonLinkStyles";
+import useCommonButtonLinkStyles from "../../hooks/useCommonButtonLinkStyles";
+import { Color } from "../../types";
 
 type DataAttributes = {
   [key: `data-${string}`]: unknown;
@@ -31,25 +31,25 @@ export interface LinkProps
 const Link = ({
   href,
   color,
-  weight,
-  disabled,
   mode = "solid",
   block = false,
-  type = "link",
   children,
   ...rest
 }: LinkProps): React.ReactElement => {
   const url = sanitizeUrl(href);
-  const styles = useCommonLinkStyles({
-    color,
+  const styles = useCommonButtonLinkStyles({
     mode,
+    color: color || "primary",
     block,
-    disabled,
-    type,
-    weight,
   });
+
   return (
-    <RouterLink to={url || "#"} {...styles} {...rest}>
+    <RouterLink
+      to={url || "#"}
+      data-h2-text-decoration="base(underline) base:hover(none)"
+      {...styles}
+      {...rest}
+    >
       {children}
     </RouterLink>
   );

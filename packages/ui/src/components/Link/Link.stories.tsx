@@ -1,9 +1,9 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import Link from "./Link";
 import ExternalLink, { ExternalLinkProps } from "./ExternalLink";
 import type { LinkProps } from "./Link";
-import { Color } from "../Button";
+import { Color } from "../../types";
 
 export default {
   component: Link,
@@ -20,7 +20,7 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
 const colors: Array<Color> = [
   "primary",
@@ -33,7 +33,7 @@ const stoplight: Array<Color> = ["success", "warning", "error"];
 const black: Array<Color> = ["black"];
 const white: Array<Color> = ["white"];
 
-const TemplateLink: Story<LinkProps & { label: string }> = (args) => {
+const TemplateLink: StoryFn<LinkProps & { label: string }> = (args) => {
   const { label, ...rest } = args;
 
   return (
@@ -43,7 +43,7 @@ const TemplateLink: Story<LinkProps & { label: string }> = (args) => {
   );
 };
 
-const TemplateLinkColors: Story<LinkProps & { label: string }> = (args) => {
+const TemplateLinkColors: StoryFn<LinkProps & { label: string }> = (args) => {
   const { label, ...rest } = args;
   return (
     <div data-h2-display="base(flex)">
@@ -87,7 +87,7 @@ const TemplateLinkColors: Story<LinkProps & { label: string }> = (args) => {
   );
 };
 
-const TemplateExternalLink: Story<ExternalLinkProps & { label: string }> = (
+const TemplateExternalLink: StoryFn<ExternalLinkProps & { label: string }> = (
   args,
 ) => {
   const { label, ...rest } = args;
@@ -99,31 +99,32 @@ const TemplateExternalLink: Story<ExternalLinkProps & { label: string }> = (
 };
 
 export const LinkDefault = TemplateLink.bind({});
-export const LinkButtonSolid = TemplateLinkColors.bind({});
-export const LinkButtonOutline = TemplateLinkColors.bind({});
-export const LinkButtonBlock = TemplateLinkColors.bind({});
-export const LinkButtonDisabled = TemplateLinkColors.bind({});
-
 LinkDefault.args = {
   type: "link",
 };
 
+export const LinkButtonSolid = TemplateLinkColors.bind({});
 LinkButtonSolid.args = {
-  type: "button",
   mode: "solid",
 };
 
+export const LinkButtonOutline = TemplateLinkColors.bind({});
 LinkButtonOutline.args = {
-  type: "button",
   mode: "outline",
 };
 
+export const LinkButtonInline = TemplateLinkColors.bind({});
+LinkButtonInline.args = {
+  mode: "inline",
+};
+
+export const LinkButtonBlock = TemplateLink.bind({});
 LinkButtonBlock.args = {
-  type: "button",
   mode: "solid",
   block: true,
 };
 
+export const LinkButtonDisabled = TemplateLinkColors.bind({});
 LinkButtonDisabled.args = {
   type: "button",
   mode: "solid",

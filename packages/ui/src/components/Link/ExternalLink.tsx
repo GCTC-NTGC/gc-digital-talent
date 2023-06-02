@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import { LinkProps } from "./Link";
-import useCommonLinkStyles from "./useCommonLinkStyles";
+import useCommonButtonLinkStyles from "../../hooks/useCommonButtonLinkStyles";
 
 export interface ExternalLinkProps
   extends LinkProps,
@@ -22,19 +22,13 @@ const ExternalLink = ({
   color,
   mode,
   block,
-  disabled,
-  type,
-  weight,
   ...rest
 }: ExternalLinkProps) => {
   const intl = useIntl();
-  const styles = useCommonLinkStyles({
-    color,
-    mode,
+  const styles = useCommonButtonLinkStyles({
+    color: color || "black",
+    mode: mode || "solid",
     block,
-    disabled,
-    type,
-    weight,
   });
 
   return (

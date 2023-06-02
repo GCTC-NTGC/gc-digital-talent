@@ -3,7 +3,8 @@ import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import Button from "./Button";
-import type { ButtonProps, Color } from "./Button";
+import type { ButtonProps } from "./Button";
+import { Color } from "../../types";
 
 export default {
   component: Button,

@@ -1,8 +1,8 @@
 import React from "react";
 import { CSVLink } from "react-csv";
 
-import useCommonLinkStyles from "./useCommonLinkStyles";
 import type { LinkProps } from "./Link";
+import useCommonButtonLinkStyles from "../../hooks/useCommonButtonLinkStyles";
 
 interface CsvHeader {
   key: string;
@@ -18,10 +18,8 @@ export interface DownloadCsvProps
 }
 
 const DownloadCsv = ({
-  color,
-  disabled,
-  mode,
-  type,
+  color = "primary",
+  mode = "solid",
   block,
   headers,
   data,
@@ -29,7 +27,11 @@ const DownloadCsv = ({
   children,
   ...rest
 }: DownloadCsvProps) => {
-  const styles = useCommonLinkStyles({ color, disabled, mode, block, type });
+  const styles = useCommonButtonLinkStyles({
+    color,
+    mode,
+    block,
+  });
 
   return (
     <CSVLink

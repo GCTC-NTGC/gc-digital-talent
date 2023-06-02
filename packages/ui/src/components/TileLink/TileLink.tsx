@@ -4,7 +4,7 @@ import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRight
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
-import type { Color } from "../Button";
+import type { Color } from "../../types";
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {

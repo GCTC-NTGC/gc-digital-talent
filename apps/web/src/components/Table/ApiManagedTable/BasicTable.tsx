@@ -121,17 +121,15 @@ function BasicTable<T extends RecordWithId>({
                     {...calculateTableHeaderProps(column)}
                   >
                     {column.sortColumnName ? (
-                      <Button
+                      <button
+                        type="button"
                         data-h2-display="base(flex)"
                         data-h2-align-items="base(center)"
                         data-h2-background-color="base(transparent) base:hover(secondary.lightest.35) base:focus-visible(focus)"
                         data-h2-color="base(white)"
                         data-h2-outline="base(none)"
                         data-h2-padding="base(x.25, x.5)"
-                        type="button"
-                        mode="tableHeader"
-                        color="secondary"
-                        block
+                        data-h2-radius="base(s)"
                         disabled={
                           !column.sortColumnName && column.id !== "selection"
                         }
@@ -141,7 +139,7 @@ function BasicTable<T extends RecordWithId>({
                         {sortingRule?.column.id === column.id && (
                           <SortIcon isSortedDesc={sortingRule.desc} />
                         )}
-                      </Button>
+                      </button>
                     ) : (
                       <span
                         data-h2-display="base(block)"
