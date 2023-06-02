@@ -394,7 +394,7 @@ export const getFontColor = (
       "inline",
       {
         "data-h2-color":
-          "base(primary.dark) base:hover(primary) base:focus-visible(black) base:dark(primary.lighter) base:dark:hover(primary.light) base:dark:focus-visible(black) base:admin(primary) base:admin:hover(primary.light) base:admin:focus-visible(black) base:admin:dark(primary.lighter) base:admin:dark:hover(primary.light) base:admin:dark:focus-visible(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
+          "base(primary.darker) base:hover(primary.dark) base:focus-visible(black) base:dark(primary.lighter) base:dark:hover(primary.light) base:dark:focus-visible(black) base:admin(primary) base:admin:hover(primary.light) base:admin:focus-visible(black) base:admin:dark(primary.lighter) base:admin:dark:hover(primary.light) base:admin:dark:focus-visible(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
       },
     ],
   ]);
@@ -442,7 +442,7 @@ export const getFontColor = (
       "inline",
       {
         "data-h2-color":
-          "base(tertiary.dark) base:hover(tertiary) base:focus-visible(black) base:dark(tertiary.lighter) base:dark:hover(tertiary.light) base:dark:focus-visible(black) base:admin(tertiary.dark) base:admin:hover(tertiary) base:admin:focus-visible(black) base:admin:dark(tertiary.light) base:admin:dark:hover(tertiary) base:admin:dark:focus-visible(black) base:iap:hover(tertiary.light) base:iap:focus-visible(black) base:iap:dark:hover(tertiary.light) base:iap:dark:focus-visible(black)",
+          "base(tertiary.darker) base:hover(tertiary.dark) base:focus-visible(black) base:dark(tertiary.lighter) base:dark:hover(tertiary.light) base:dark:focus-visible(black) base:admin(tertiary.dark) base:admin:hover(tertiary) base:admin:focus-visible(black) base:admin:dark(tertiary.light) base:admin:dark:hover(tertiary) base:admin:dark:focus-visible(black) base:iap:hover(tertiary.light) base:iap:focus-visible(black) base:iap:dark:hover(tertiary.light) base:iap:dark:focus-visible(black)",
       },
     ],
   ]);
@@ -562,7 +562,7 @@ export const getFontColor = (
       "inline",
       {
         "data-h2-color":
-          "base(error.dark) base:hover(error) base:focus-visible(black) base:dark(error.lighter) base:dark:hover(error.light) base:dark:focus-visible(black)",
+          "base(error.darker) base:hover(error.dark) base:focus-visible(black) base:dark(error.lighter) base:dark:hover(error.light) base:dark:focus-visible(black)",
       },
     ],
   ]);
