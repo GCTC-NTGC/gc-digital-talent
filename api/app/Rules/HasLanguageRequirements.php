@@ -31,7 +31,7 @@ class HasLanguageRequirements implements Rule
     {
         $thisUser = User::findOrFail($value);
         $userLookingForBilingual = $thisUser->looking_for_bilingual;
-        $poolNeedsBilingual = $this->pool->advertisement_language == ApiEnums::POOL_ADVERTISEMENT_BILINGUAL_INTERMEDIATE || $this->pool->advertisement_language == ApiEnums::POOL_ADVERTISEMENT_BILINGUAL_ADVANCED;
+        $poolNeedsBilingual = $this->pool->advertisement_language == ApiEnums::POOL_BILINGUAL_INTERMEDIATE || $this->pool->advertisement_language == ApiEnums::POOL_BILINGUAL_ADVANCED;
 
         $passes = !$poolNeedsBilingual || ($poolNeedsBilingual && $userLookingForBilingual);
 

@@ -24,10 +24,10 @@ import {
   CreateScreeningQuestionInput,
   UpdateScreeningQuestionInput,
   LocalizedString,
-  PoolAdvertisement,
+  Pool,
   Scalars,
-  AdvertisementStatus,
-  UpdatePoolAdvertisementInput,
+  PoolStatus,
+  UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 
@@ -46,7 +46,7 @@ type FormValues = {
 };
 
 export type ScreeningQuestionsSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
   "screeningQuestions"
 >;
 
@@ -110,20 +110,20 @@ const ModificationAlert = ({ originalQuestions }: ModificationAlertProps) => {
 };
 
 interface ScreeningQuestionsProps {
-  poolAdvertisement: PoolAdvertisement;
+  pool: Pool;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: ScreeningQuestionsSubmitData) => void;
 }
 
 const ScreeningQuestions = ({
-  poolAdvertisement,
+  pool,
   sectionMetadata,
   onSave,
 }: ScreeningQuestionsProps) => {
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
-  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
+  const dataToFormValues = (initialData: Pool): FormValues => ({
     questions:
       initialData?.screeningQuestions
         ?.filter(notEmpty)
@@ -135,7 +135,7 @@ const ScreeningQuestions = ({
           },
         })) || [],
   });
-  const defaultValues = dataToFormValues(poolAdvertisement);
+  const defaultValues = dataToFormValues(pool);
 
   const methods = useForm<FormValues>({
     defaultValues,
@@ -149,7 +149,7 @@ const ScreeningQuestions = ({
   const handleSave = (formValues: FormValues) => {
     const create: Array<CreateScreeningQuestionInput> = [];
     const update: Array<UpdateScreeningQuestionInput> = [];
-    const toBeDeleted = poolAdvertisement.screeningQuestions
+    const toBeDeleted = pool.screeningQuestions
       ?.filter((existingQuestion) => {
         return !formValues.questions?.some(
           (question) =>
@@ -187,8 +187,7 @@ const ScreeningQuestions = ({
   };
 
   // disabled unless status is draft
-  const formDisabled =
-    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+  const formDisabled = pool.status !== PoolStatus.Draft;
 
   const canAdd = fields.length < 3;
   return (

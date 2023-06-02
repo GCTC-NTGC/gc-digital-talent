@@ -37,10 +37,7 @@ const RoleSalaryFormApi = ({
       {data?.poolCandidate ? (
         <RoleSalaryForm
           initialData={initialData}
-          application={{
-            ...data.poolCandidate,
-            pool: { id: data.poolCandidate.id },
-          }}
+          application={data.poolCandidate}
           updateRoleSalary={updateRoleSalary}
         />
       ) : (

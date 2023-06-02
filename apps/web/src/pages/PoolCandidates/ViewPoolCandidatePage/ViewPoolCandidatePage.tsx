@@ -31,8 +31,8 @@ import {
   User,
 } from "~/api/generated";
 import {
-  getFullPoolAdvertisementTitleHtml,
-  getFullPoolAdvertisementTitleLabel,
+  getFullPoolTitleHtml,
+  getFullPoolTitleLabel,
   useAdminPoolPages,
 } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -232,7 +232,7 @@ export const ViewPoolCandidate = ({
       ?.filter(notEmpty)
       .find(({ id }) => id === poolCandidate.id);
     const categorizedEssentialSkills = categorizeSkill(
-      poolCandidate.poolAdvertisement?.essentialSkills,
+      poolCandidate.pool.essentialSkills,
     );
     const nonEmptyExperiences = parsedSnapshot.experiences?.filter(notEmpty);
 
@@ -533,7 +533,7 @@ export const ViewPoolCandidate = ({
         icon={UserCircleIcon}
         subtitle={`${poolCandidate.user.firstName} ${
           poolCandidate.user.lastName
-        } / ${getFullPoolAdvertisementTitleLabel(intl, poolCandidate.pool)}`}
+        } / ${getFullPoolTitleLabel(intl, poolCandidate.pool)}`}
         navItems={pages}
       >
         {intl.formatMessage({
@@ -554,10 +554,7 @@ export const ViewPoolCandidate = ({
           },
           {
             submittedAt: poolCandidate.submittedAt,
-            poolName: getFullPoolAdvertisementTitleHtml(
-              intl,
-              poolCandidate.pool,
-            ),
+            poolName: getFullPoolTitleHtml(intl, poolCandidate.pool),
           },
         )}
       </p>

@@ -6,7 +6,7 @@ import { Well } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { flattenExperienceSkills } from "~/types/experience";
 import MissingSkills from "~/components/MissingSkills";
 import ExperienceSection from "~/components/UserProfile/ExperienceSection";
@@ -15,7 +15,7 @@ import {
   CommunityExperience,
   EducationExperience,
   PersonalExperience,
-  PoolAdvertisement,
+  Pool,
   Skill,
   WorkExperience,
 } from "~/api/generated";
@@ -44,7 +44,7 @@ export type ExperienceForDate =
 export interface ExperienceAndSkillsProps {
   applicantId: string;
   experiences?: MergedExperiences;
-  poolAdvertisement?: PoolAdvertisement;
+  pool?: Pool;
   missingSkills?: {
     requiredSkills: Skill[];
     optionalSkills: Skill[];
@@ -55,7 +55,7 @@ export const ExperienceAndSkills = ({
   experiences,
   missingSkills,
   applicantId,
-  poolAdvertisement,
+  pool,
 }: ExperienceAndSkillsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -73,7 +73,7 @@ export const ExperienceAndSkills = ({
   const applicationBreadcrumbs: {
     label: string | React.ReactNode;
     url: string;
-  }[] = poolAdvertisement
+  }[] = pool
     ? [
         {
           label: intl.formatMessage({
@@ -84,8 +84,8 @@ export const ExperienceAndSkills = ({
           url: paths.applications(applicantId),
         },
         {
-          label: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
-          url: paths.pool(poolAdvertisement.id),
+          label: getFullPoolTitleHtml(intl, pool),
+          url: paths.pool(pool.id),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
@@ -120,7 +120,7 @@ export const ExperienceAndSkills = ({
               },
             ]
       }
-      prefixBreadcrumbs={!poolAdvertisement}
+      prefixBreadcrumbs={!pool}
       description={intl.formatMessage(
         {
           defaultMessage:

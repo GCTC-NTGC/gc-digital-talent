@@ -23,7 +23,7 @@ import {
 import { enumToOptions } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { getFullPoolAdvertisementTitleLabel } from "~/utils/poolUtils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import {
   PoolStream,
   WorkRegion,
@@ -65,7 +65,7 @@ export default function useFilterOptions(enableEducationType = false) {
   const optionsData = {
     pools: filterRes.data?.pools.filter(notEmpty).map((pool) => ({
       value: pool.id,
-      label: getFullPoolAdvertisementTitleLabel(intl, pool),
+      label: getFullPoolTitleLabel(intl, pool),
     })),
     languageAbility: enumToOptions(LanguageAbility).map(({ value }) => ({
       value,
