@@ -28,6 +28,8 @@ const WorkContent = ({
           id: "PVzyQl",
           description: "Label for the start/end date for an experience",
         })}
+        data-h2-padding-right="p-tablet(x1)"
+        data-h2-border-right="p-tablet(1px solid gray.lighter)"
       >
         <p>{getDateRange({ endDate, startDate, intl })}</p>
       </ContentSection>
@@ -39,6 +41,7 @@ const WorkContent = ({
             "Label displayed on Work Experience form for team/group/division input",
         })}
         headingLevel={headingLevel}
+        data-h2-padding="p-tablet(0 0 x1 0)"
       >
         {division ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>

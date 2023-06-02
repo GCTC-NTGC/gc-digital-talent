@@ -28,6 +28,8 @@ const EducationContent = ({
           id: "PVzyQl",
           description: "Label for the start/end date for an experience",
         })}
+        data-h2-padding-right="l-tablet(x1)"
+        data-h2-border-right="l-tablet(1px solid gray.lighter)"
       >
         <p>{getDateRange({ endDate, startDate, intl })}</p>
       </ContentSection>
@@ -39,6 +41,8 @@ const EducationContent = ({
             "Label displayed on education form for area of study input",
         })}
         headingLevel={headingLevel}
+        data-h2-padding="l-tablet(0 x1)"
+        data-h2-border-right="l-tablet(1px solid gray.lighter)"
       >
         {areaOfStudy ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
@@ -49,6 +53,7 @@ const EducationContent = ({
           description: "Label displayed on Education form for status input",
         })}
         headingLevel={headingLevel}
+        data-h2-padding="l-tablet(0 0 x1 0)"
       >
         {intl.formatMessage(
           status ? getEducationStatus(status) : commonMessages.notAvailable,

@@ -26,6 +26,8 @@ const AwardContent = ({
     >
       <ContentSection
         headingLevel={headingLevel}
+        data-h2-padding-right="p-tablet(x1)"
+        data-h2-border-right="p-tablet(1px solid gray.lighter)"
         title={intl.formatMessage({
           defaultMessage: "Date awarded",
           id: "qrdJ13",
@@ -49,6 +51,8 @@ const AwardContent = ({
           description: "Label for the person or group that received an award",
         })}
         headingLevel={headingLevel}
+        data-h2-padding="p-tablet(0 0 x1 0) l-tablet(0 x1)"
+        data-h2-border-right="l-tablet(1px solid gray.lighter)"
       >
         {intl.formatMessage(
           awardedTo ? getAwardedTo(awardedTo) : commonMessages.notAvailable,
@@ -61,6 +65,8 @@ const AwardContent = ({
           description: "Label displayed on award form for organization section",
         })}
         headingLevel={headingLevel}
+        data-h2-padding="p-tablet(0 0 x1 0) l-tablet(0 x1)"
+        data-h2-border-right="p-tablet(1px solid gray.lighter)"
       >
         {issuedBy ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
@@ -71,6 +77,7 @@ const AwardContent = ({
           description: "Label displayed on award form for scope section",
         })}
         headingLevel={headingLevel}
+        data-h2-padding="p-tablet(0 0 x1 0)"
       >
         {intl.formatMessage(
           awardedScope

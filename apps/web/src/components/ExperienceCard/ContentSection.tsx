@@ -1,7 +1,7 @@
 import React from "react";
 import { HeadingRank } from "@gc-digital-talent/ui";
 
-interface ContentSectionProps {
+interface ContentSectionProps extends React.HTMLProps<HTMLDivElement> {
   title: string;
   children: React.ReactNode;
   headingLevel?: HeadingRank;
@@ -11,10 +11,12 @@ const ContentSection = ({
   title,
   children,
   headingLevel = "h3",
+  ...rest
 }: ContentSectionProps) => {
   const Heading = headingLevel;
+
   return (
-    <div>
+    <div {...rest}>
       <Heading
         data-h2-font-weight="base(700)"
         data-h2-margin-bottom="base(x.5)"

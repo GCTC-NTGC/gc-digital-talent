@@ -28,6 +28,8 @@ const CommunityContent = ({
           id: "PVzyQl",
           description: "Label for the start/end date for an experience",
         })}
+        data-h2-padding-right="p-tablet(x1)"
+        data-h2-border-right="p-tablet(1px solid gray.lighter)"
       >
         <p>{getDateRange({ endDate, startDate, intl })}</p>
       </ContentSection>
@@ -39,6 +41,7 @@ const CommunityContent = ({
             "Label displayed on Community Experience form for Project / product section",
         })}
         headingLevel={headingLevel}
+        data-h2-padding="p-tablet(0 0 x1 0)"
       >
         {project ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
