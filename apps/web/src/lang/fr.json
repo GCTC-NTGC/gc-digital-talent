@@ -3272,10 +3272,6 @@
     "defaultMessage": "Statut du candidat",
     "description": "Title of the 'Candidate status' section of the view-user page"
   },
-  "F9R74z": {
-    "defaultMessage": "Lieu de travail",
-    "description": "Title of the Work Location content section"
-  },
   "FUxE8S": {
     "defaultMessage": "À partir du bassin suivant :",
     "description": "Second section of text on the change candidate status dialog"
@@ -5332,10 +5328,6 @@
     "defaultMessage": "Rôle et salaire escomptés",
     "description": "Title of the Role and salary expectations link section"
   },
-  "9WxeNz": {
-    "defaultMessage": "Lieu de travail",
-    "description": "Title of the Work Location link section"
-  },
   "9pdtnR": {
     "defaultMessage": "Vous n'êtes pas inscrit à titre d'employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
@@ -5351,10 +5343,6 @@
   "D7Qb41": {
     "defaultMessage": "Niveau de la langue seconde (compréhension, écrite, verbale) :",
     "description": "Evaluation results for second language, results in that order followed by a colon"
-  },
-  "FF0ubO": {
-    "defaultMessage": "Modifier le lieu de travail",
-    "description": "Text on link to update a users work location."
   },
   "JerysR": {
     "defaultMessage": "Par compétences",

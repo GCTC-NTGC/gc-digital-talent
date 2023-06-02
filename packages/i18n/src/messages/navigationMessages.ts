@@ -46,6 +46,11 @@ const navigationMessages = defineMessages({
     id: "FvV+QW",
     description: "Name of Government information page",
   },
+  workLocation: {
+    defaultMessage: "Work location",
+    id: "TCs69O",
+    description: "Name of Work location page",
+  },
 });
 
 export default navigationMessages;

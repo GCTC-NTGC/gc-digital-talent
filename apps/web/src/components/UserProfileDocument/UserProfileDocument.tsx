@@ -167,12 +167,7 @@ const UserProfileDocument = React.forwardRef<
                     <div className="page-section">
                       <HeadingWrapper>
                         <Heading icon={MapPinIcon} style={{ flex: "1 1 0%" }}>
-                          {intl.formatMessage({
-                            defaultMessage: "Work Location",
-                            id: "F9R74z",
-                            description:
-                              "Title of the Work Location content section",
-                          })}
+                          {intl.formatMessage(navigationMessages.workLocation)}
                         </Heading>
                       </HeadingWrapper>
                       <WorkLocationSection applicant={applicant} />

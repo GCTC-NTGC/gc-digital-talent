@@ -1401,5 +1401,9 @@
   "FvV+QW": {
     "defaultMessage": "Renseignements gouvernementaux",
     "description": "Name of Government information page"
+  },
+  "TCs69O": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Name of Work location page"
   }
 }

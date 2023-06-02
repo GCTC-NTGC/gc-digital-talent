@@ -249,11 +249,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             href={paths.governmentInformation(user.id)}
           />
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "Work Location",
-              id: "9WxeNz",
-              description: "Title of the Work Location link section",
-            })}
+            sectionName={intl.formatMessage(navigationMessages.workLocation)}
             status={deriveSectionStatus(
               workLocationSectionHasEmptyRequiredFields(user),
               workLocationSectionHasEmptyOptionalFields(user),
