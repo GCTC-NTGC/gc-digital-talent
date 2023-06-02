@@ -12,7 +12,6 @@ import {
   iconMap,
   dismissStyleMap,
   getAlertLevelTitle,
-  separatorStyleMap,
 } from "./utils";
 
 import { AlertHeadingLevel, AlertType } from "./types";
@@ -179,21 +178,16 @@ interface AlertFooterProps {
   children: React.ReactNode;
 }
 
-const Footer = ({ children }: AlertFooterProps) => {
-  const ctx = React.useContext(AlertContext);
-
-  return (
-    <>
-      <Separator
-        orientation="horizontal"
-        data-h2-margin="base(x1, 0)"
-        data-h2-height="base(3px)"
-        {...(ctx?.type && separatorStyleMap[ctx.type])}
-      />
-      {children}
-    </>
-  );
-};
+const Footer = ({ children }: AlertFooterProps) => (
+  <>
+    <Separator
+      orientation="horizontal"
+      data-h2-margin="base(x1, 0)"
+      data-h2-background-color="base(gray.lighter)"
+    />
+    {children}
+  </>
+);
 
 export default {
   Root: Alert,
