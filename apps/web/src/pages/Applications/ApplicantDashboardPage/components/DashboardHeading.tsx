@@ -12,7 +12,7 @@ import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Alert } from "@gc-digital-talent/ui";
+import { Alert, Link, ScrollToLink } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes, {
@@ -39,6 +39,15 @@ import { HeroCard } from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { PartialUser } from "../types";
 
+function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
+  return <Link href={href}>{chunks}</Link>;
+}
+function buildScrollToLink(
+  to: string,
+  chunks: React.ReactNode,
+): React.ReactElement {
+  return <ScrollToLink to={to}>{chunks}</ScrollToLink>;
+}
 export interface DashboardHeadingProps {
   user: PartialUser;
 }
@@ -81,12 +90,24 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           firstName: user.firstName,
         },
       )}
-      subtitle={intl.formatMessage({
-        defaultMessage:
-          "Find new opportunities, update your résumé experience, or track applications.",
-        id: "pqrVnW",
-        description: "Subtitle for applicant dashboard hero",
-      })}
+      subtitle={intl.formatMessage(
+        {
+          defaultMessage:
+            // TODO: split résumé and skills into two separate links when the sections exist
+            "Manage your <a1>profile</a1>, <a2>résumé, skills</a2>, and <a3>track applications</a3>.",
+          id: "vBTn/n",
+          description: "Subtitle for applicant dashboard hero",
+        },
+        {
+          a1: (chunks: React.ReactNode) =>
+            buildLink(paths.profile(user.id), chunks),
+          a2: (chunks: React.ReactNode) =>
+            buildLink(paths.skillsAndExperiences(user.id), chunks),
+          a3: (chunks: React.ReactNode) =>
+            // this section doesn't exist yet
+            buildScrollToLink("track-applications-section", chunks),
+        },
+      )}
     >
       {searchParams.get(FromIapDraftQueryKey) === "true" && (
         <Alert.Root
@@ -281,6 +302,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             })}
             href={paths.profile(
               user.id,
+              // this section doesn't exist yet
               PROFILE_PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY,
             )}
             icon={LockClosedIcon}

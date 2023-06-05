@@ -34,6 +34,7 @@ export const ApplicantDashboard = ({ user }: ApplicantDashboardProps) => {
       <DashboardHeading user={user} />
       <section data-h2-margin="base(x3, 0)">
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+          {/* TODO: use the id track-applications-section or update the subtitle link */}
           <div id="applications-section">
             <ApplicationList applications={applications} />
           </div>
