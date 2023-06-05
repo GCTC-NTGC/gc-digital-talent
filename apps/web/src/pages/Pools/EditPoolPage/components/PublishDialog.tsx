@@ -9,10 +9,10 @@ import {
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
 
-import { PoolAdvertisement } from "~/api/generated";
+import { Pool } from "~/api/generated";
 
 type PublishDialogProps = {
-  closingDate: PoolAdvertisement["closingDate"];
+  closingDate: Pool["closingDate"];
   onPublish: () => void;
 };
 

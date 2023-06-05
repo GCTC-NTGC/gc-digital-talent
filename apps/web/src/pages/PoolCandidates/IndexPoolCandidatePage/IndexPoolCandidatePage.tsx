@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
-import { Scalars, useGetPoolAdvertisementQuery } from "~/api/generated";
+import { Scalars, useGetPoolQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
@@ -23,7 +23,7 @@ export const IndexPoolCandidatePage = () => {
 
   const pageTitle = intl.formatMessage(adminMessages.poolsCandidates);
 
-  const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
+  const [{ data, fetching, error }] = useGetPoolQuery({
     variables: {
       id: poolId || "",
     },
@@ -45,12 +45,12 @@ export const IndexPoolCandidatePage = () => {
     ...(poolId
       ? [
           {
-            label: getLocalizedName(data?.poolAdvertisement?.name, intl),
+            label: getLocalizedName(data?.pool?.name, intl),
             url: routes.poolView(poolId),
           },
         ]
       : []),
-    ...(data?.poolAdvertisement?.id
+    ...(data?.pool?.id
       ? [
           {
             label: intl.formatMessage({
@@ -58,7 +58,7 @@ export const IndexPoolCandidatePage = () => {
               id: "zzf16k",
               description: "Breadcrumb for the All Candidates page",
             }),
-            url: routes.poolCandidateTable(data.poolAdvertisement.id),
+            url: routes.poolCandidateTable(data.pool.id),
           },
         ]
       : []),
@@ -81,7 +81,7 @@ export const IndexPoolCandidatePage = () => {
           initialFilterInput={{
             applicantFilter: { pools: [{ id: poolId || "" }] },
           }}
-          currentPool={data?.poolAdvertisement}
+          currentPool={data?.pool}
           title={pageTitle}
         />
       </Pending>

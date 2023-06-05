@@ -5,16 +5,9 @@
 import React from "react";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
-import {
-  Applicant,
-  PoolAdvertisement,
-  PoolAdvertisementLanguage,
-} from "~/api/generated";
+import { Applicant, Pool, PoolLanguage } from "~/api/generated";
 
-import {
-  fakeUsers,
-  fakePoolAdvertisements,
-} from "@gc-digital-talent/fake-data";
+import { fakeUsers, fakePools } from "@gc-digital-talent/fake-data";
 
 import MissingLanguageRequirements, {
   type MissingLanguageRequirementsProps,
@@ -34,18 +27,18 @@ const bilingualApplicant: Applicant = {
   lookingForBilingual: true,
 };
 
-const fakePoolAdvertisement = fakePoolAdvertisements(1)[0];
-const unilingualPoolAdvertisement: PoolAdvertisement = {
-  ...fakePoolAdvertisement,
-  advertisementLanguage: PoolAdvertisementLanguage.English,
+const fakePool = fakePools(1)[0];
+const unilingualPool: Pool = {
+  ...fakePool,
+  language: PoolLanguage.English,
 };
-const bilingualIntermediatePoolAdvertisement: PoolAdvertisement = {
-  ...fakePoolAdvertisement,
-  advertisementLanguage: PoolAdvertisementLanguage.BilingualIntermediate,
+const bilingualIntermediatePool: Pool = {
+  ...fakePool,
+  language: PoolLanguage.BilingualIntermediate,
 };
-const bilingualAdvancedPoolAdvertisement: PoolAdvertisement = {
-  ...fakePoolAdvertisement,
-  advertisementLanguage: PoolAdvertisementLanguage.BilingualAdvanced,
+const bilingualAdvancedPool: Pool = {
+  ...fakePool,
+  language: PoolLanguage.BilingualAdvanced,
 };
 
 const errorMessage = "There is a missing language requirement";
@@ -53,7 +46,7 @@ const errorMessage = "There is a missing language requirement";
 // This should always make the component visible
 const defaultProps: MissingLanguageRequirementsProps = {
   applicant: unilingualApplicant,
-  poolAdvertisement: bilingualAdvancedPoolAdvertisement,
+  pool: bilingualAdvancedPool,
 };
 
 const renderMissingLanguageRequirements = (
@@ -76,7 +69,7 @@ describe("MissingLanguageRequirements", () => {
   it("should show error message if a unilingual applicant applies to a bilingual intermediate pool", () => {
     const element = renderMissingLanguageRequirements({
       applicant: unilingualApplicant,
-      poolAdvertisement: bilingualIntermediatePoolAdvertisement,
+      pool: bilingualIntermediatePool,
     });
 
     const heading = element.getByRole("heading");
@@ -86,7 +79,7 @@ describe("MissingLanguageRequirements", () => {
   it("should show error message if a unilingual applicant applies to a bilingual advanced pool", () => {
     const element = renderMissingLanguageRequirements({
       applicant: unilingualApplicant,
-      poolAdvertisement: bilingualAdvancedPoolAdvertisement,
+      pool: bilingualAdvancedPool,
     });
 
     const heading = element.getByRole("heading");
@@ -96,7 +89,7 @@ describe("MissingLanguageRequirements", () => {
   it("should show nothing if a unilingual applicant applies to a unilingual pool", () => {
     const element = renderMissingLanguageRequirements({
       applicant: unilingualApplicant,
-      poolAdvertisement: unilingualPoolAdvertisement,
+      pool: unilingualPool,
     });
 
     const headings = element.queryByRole("heading");
@@ -106,7 +99,7 @@ describe("MissingLanguageRequirements", () => {
   it("should show nothing if a bilingual applicant applies to a bilingual pool", () => {
     const element = renderMissingLanguageRequirements({
       applicant: bilingualApplicant,
-      poolAdvertisement: bilingualAdvancedPoolAdvertisement,
+      pool: bilingualAdvancedPool,
     });
 
     const headings = element.queryByRole("heading");
@@ -116,7 +109,7 @@ describe("MissingLanguageRequirements", () => {
   it("should show nothing if a bilingual applicant applies to a unilingual pool", () => {
     const element = renderMissingLanguageRequirements({
       applicant: bilingualApplicant,
-      poolAdvertisement: unilingualPoolAdvertisement,
+      pool: unilingualPool,
     });
 
     const headings = element.queryByRole("heading");

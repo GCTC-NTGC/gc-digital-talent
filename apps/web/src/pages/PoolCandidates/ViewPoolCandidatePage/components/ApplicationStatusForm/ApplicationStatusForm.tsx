@@ -21,7 +21,7 @@ import {
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
   PoolCandidateStatus,
   Scalars,
@@ -204,10 +204,7 @@ export const ApplicationStatusForm = ({
                           "Label for the notes field for a specific pool",
                       },
                       {
-                        poolName: getFullPoolAdvertisementTitleHtml(
-                          intl,
-                          application.pool,
-                        ),
+                        poolName: getFullPoolTitleHtml(intl, application.pool),
                       },
                     )}
                   />

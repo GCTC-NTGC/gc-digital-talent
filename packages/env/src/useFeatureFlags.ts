@@ -1,7 +1,6 @@
 import { getFeatureFlags } from "./utils";
 
 export type FeatureFlags = {
-  ongoingRecruitments: boolean;
   applicantDashboard: boolean;
   applicationRevamp: boolean;
   psacStrike: boolean;

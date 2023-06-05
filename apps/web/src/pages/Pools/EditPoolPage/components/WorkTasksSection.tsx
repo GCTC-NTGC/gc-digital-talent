@@ -12,10 +12,10 @@ import {
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import {
-  AdvertisementStatus,
+  PoolStatus,
   LocalizedString,
-  PoolAdvertisement,
-  UpdatePoolAdvertisementInput,
+  Pool,
+  UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 import Spacer from "~/components/Spacer/Spacer";
@@ -27,13 +27,10 @@ type FormValues = {
   YourWorkFr?: LocalizedString["fr"];
 };
 
-export type WorkTasksSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
-  "keyTasks"
->;
+export type WorkTasksSubmitData = Pick<UpdatePoolInput, "keyTasks">;
 
 interface WorkTasksSectionProps {
-  poolAdvertisement: PoolAdvertisement;
+  pool: Pool;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: WorkTasksSubmitData) => void;
 }
@@ -43,20 +40,20 @@ const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
 const TEXT_AREA_ROWS = 15;
 
 const WorkTasksSection = ({
-  poolAdvertisement,
+  pool,
   sectionMetadata,
   onSave,
 }: WorkTasksSectionProps): JSX.Element => {
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
-  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
+  const dataToFormValues = (initialData: Pool): FormValues => ({
     YourWorkEn: initialData.keyTasks?.en ?? "",
     YourWorkFr: initialData.keyTasks?.fr ?? "",
   });
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(poolAdvertisement),
+    defaultValues: dataToFormValues(pool),
   });
   const { handleSubmit, control } = methods;
   const watchYourWorkEn: FormValues["YourWorkEn"] = useWatch({
@@ -81,8 +78,7 @@ const WorkTasksSection = ({
   };
 
   // disabled unless status is draft
-  const formDisabled =
-    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+  const formDisabled = pool.status !== PoolStatus.Draft;
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>

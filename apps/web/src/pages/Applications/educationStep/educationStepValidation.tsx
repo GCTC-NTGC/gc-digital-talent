@@ -1,7 +1,7 @@
 import {
   Applicant,
   EducationRequirementOption,
-  PoolAdvertisement,
+  Pool,
   PoolCandidate,
 } from "@gc-digital-talent/graphql";
 import { ExperienceForDate } from "~/types/experience";
@@ -9,7 +9,7 @@ import { isEducationExperience } from "~/utils/experienceUtils";
 
 const stepHasError = (
   _applicant: Applicant,
-  _poolAdvertisement: PoolAdvertisement,
+  _pool: Pool,
   application: Omit<PoolCandidate, "pool">,
 ) => {
   return (

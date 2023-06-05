@@ -1,23 +1,23 @@
 import {
-  PoolAdvertisementLanguage,
+  PoolLanguage,
   PoolStream,
   PublishingGroup,
   SecurityStatus,
 } from "@gc-digital-talent/web/src/api/generated";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
-export function createAndPublishPoolAdvertisement({
+export function createAndPublishPool({
   adminUserId,
   teamId,
   englishName,
   classification,
-  poolAdvertisementAlias,
+  poolAlias,
 }) {
-  cy.createPoolAdvertisement(adminUserId, teamId, [classification.id]).then(
-    (createdPoolAdvertisement) => {
+  cy.createPool(adminUserId, teamId, [classification.id]).then(
+    (createdPool) => {
       cy.get("@testSkill").then((skill) => {
         cy.log(skill);
-        cy.updatePoolAdvertisement(createdPoolAdvertisement.id, {
+        cy.updatePool(createdPool.id, {
           name: {
             en: englishName
               ? englishName
@@ -34,18 +34,16 @@ export function createAndPublishPoolAdvertisement({
           essentialSkills: {
             sync: skill.id,
           },
-          advertisementLanguage: PoolAdvertisementLanguage.Various,
+          language: PoolLanguage.Various,
           securityClearance: SecurityStatus.Secret,
-          advertisementLocation: {
+          location: {
             en: "test location EN",
             fr: "test location FR",
           },
           isRemote: true,
           publishingGroup: PublishingGroup.ItJobs,
-        }).then((updatedPoolAdvertisement) => {
-          cy.publishPoolAdvertisement(updatedPoolAdvertisement.id).as(
-            poolAdvertisementAlias,
-          );
+        }).then((updatedPool) => {
+          cy.publishPool(updatedPool.id).as(poolAlias);
         });
       });
     },

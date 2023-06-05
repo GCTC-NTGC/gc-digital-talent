@@ -14,16 +14,16 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
-import { PoolAdvertisement } from "~/api/generated";
+import { Pool } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import IconLabel from "./IconLabel";
 
 import "./pool-card.css";
 
-const getSalaryRanges = (pool: PoolAdvertisement, locale: string) => {
+const getSalaryRanges = (pool: Pool, locale: string) => {
   if (!pool.classifications) return null;
 
   return pool.classifications
@@ -40,7 +40,7 @@ const getSalaryRanges = (pool: PoolAdvertisement, locale: string) => {
 };
 
 export interface PoolCardProps {
-  pool: PoolAdvertisement;
+  pool: Pool;
   headingLevel?: HeadingRank;
 }
 
@@ -108,7 +108,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
             data-h2-margin="base(0, 0, x1, 0) p-tablet(0)"
             style={{ wordBreak: "break-word" }}
           >
-            {getFullPoolAdvertisementTitleHtml(intl, pool)}
+            {getFullPoolTitleHtml(intl, pool)}
           </Heading>
           <div
             data-h2-flex-grow="p-tablet(1)"

@@ -443,7 +443,7 @@ query GetViewUserData($id: UUID!) {
       group
       level
     }
-    advertisementStatus
+    status
   }
 }
 
