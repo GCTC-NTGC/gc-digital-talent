@@ -8219,17 +8219,17 @@
     "defaultMessage": "Ceci créera un nouveau basin et copiera toute information qui existe déjà.",
     "description": "Text explaining what will happen when duplicating a pool"
   },
-  "b71NDl": {
-    "defaultMessage": "Dupliquer et consulter le nouveau bassin",
-    "description": "Button text to duplicate a pool"
+  "QmMm7V": {
+    "defaultMessage": "Dupliquer et consulter la nouvelle affiche d’emploi",
+    "description": "Button text to duplicate a job poster"
   },
   "hHYn/8": {
     "defaultMessage": "Erreur : Une erreur s’est produite. Veuillez essayer de nouveau dans une minute ou communiquez avec votre administrateur.",
     "description": "Message displayed to user after pool fails to get duplicated."
   },
-  "jCS7J4": {
-    "defaultMessage": "Dupliquer ce bassin",
-    "description": "Title to duplicate a pool"
+  "DxvIPq": {
+    "defaultMessage": "Dupliquer l’affiche d’emploi",
+    "description": "Title to duplicate a job poster"
   },
   "oJri9k": {
     "defaultMessage": "Vous êtes sur le point de dupliquer le bassin suivant : {poolName}",

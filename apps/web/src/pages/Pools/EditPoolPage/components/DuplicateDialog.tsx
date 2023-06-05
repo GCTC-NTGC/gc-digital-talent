@@ -27,9 +27,9 @@ const DuplicateDialog = ({ pool, onDuplicate }: DuplicateDialogProps) => {
   }
 
   const title = intl.formatMessage({
-    defaultMessage: "Duplicate this pool",
-    id: "jCS7J4",
-    description: "Title to duplicate a pool",
+    defaultMessage: "Duplicate job poster",
+    id: "DxvIPq",
+    description: "Title to duplicate a job poster",
   });
   const poolName = getFullPoolTitleHtml(intl, pool);
 
@@ -97,9 +97,9 @@ const DuplicateDialog = ({ pool, onDuplicate }: DuplicateDialogProps) => {
                 onClick={onDuplicate}
               >
                 {intl.formatMessage({
-                  defaultMessage: "Duplicate and view new pool",
-                  id: "b71NDl",
-                  description: "Button text to duplicate a pool",
+                  defaultMessage: "Duplicate and view new job poster",
+                  id: "QmMm7V",
+                  description: "Button text to duplicate a job poster",
                 })}
               </Button>
             </Dialog.Footer>
