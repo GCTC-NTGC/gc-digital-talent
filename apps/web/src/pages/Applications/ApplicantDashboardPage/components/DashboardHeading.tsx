@@ -104,7 +104,6 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           a2: (chunks: React.ReactNode) =>
             buildLink(paths.skillsAndExperiences(user.id), chunks),
           a3: (chunks: React.ReactNode) =>
-            // this section doesn't exist yet
             buildScrollToLink("track-applications-section", chunks),
         },
       )}
@@ -122,8 +121,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <Alert.Title>
             {intl.formatMessage({
               defaultMessage:
-                "Your draft application for the IT Apprenticeship Program for Indigenous Peoples has been successfully saved!",
-              id: "8HdqmJ",
+                "Welcome to your Digital Talent profile dashboard",
+              id: "kBEXbF",
               description:
                 "Title for notification that a draft IAP application was saved",
             })}
@@ -131,8 +130,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({
               defaultMessage:
-                "You’ve now landed on your Digital Talent profile page.",
-              id: "ueLK1P",
+                "Are you looking for your application to the IT Apprenticeship Program for Indigenous Peoples?",
+              id: "gJpWLM",
               description:
                 "First paragraph for applicant dashboard notification welcoming an IAP user",
             })}
@@ -140,20 +139,26 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({
               defaultMessage:
-                "The apprenticeship program is a part of a larger digital talent initiative in the Government of Canada that has the hopes of recruiting awesome digital talent like yourself. This profile provides you access to other digital opportunities and recruitments beyond the apprenticeship program, if you choose to apply. If you’d prefer to stick to the apprenticeship program exclusively, that’s okay too!",
-              id: "B1Pa0D",
+                "The apprenticeship program is a part of a larger digital talent initiative in the Government of Canada that aspires to recruit awesome digital talent like yourself. This profile provides access to other digital opportunities and recruitments beyond the apprenticeship program, if you choose to apply. If you’d prefer to stick to the apprenticeship program exclusively, that’s okay too!",
+              id: "+im7hW",
               description:
                 "Second paragraph for applicant dashboard notification welcoming an IAP user",
             })}
           </p>
           <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "When you log into the account you created, you’ll be taken to this page from now on. You can use this page to review your Indigenous Apprenticeship application and track your position in the program.",
-              id: "uSAdtr",
-              description:
-                "Third paragraph for applicant dashboard notification welcoming an IAP user",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "When you log into your account, you’ll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your Indigenous apprenticeship application and track your position in the program.",
+                id: "KUVXJr",
+                description:
+                  "Third paragraph for applicant dashboard notification welcoming an IAP user",
+              },
+              {
+                a: (chunks: React.ReactNode) =>
+                  buildScrollToLink("track-applications-section", chunks),
+              },
+            )}
           </p>
         </Alert.Root>
       )}
@@ -188,20 +193,26 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({
               defaultMessage:
-                "The apprenticeship program is a part of a larger digital talent initiative in the Government of Canada that has the hopes of recruiting awesome digital talent like yourself. This profile provides you access to other digital opportunities and recruitments beyond the apprenticeship program, if you choose to apply. If you’d prefer to stick to the apprenticeship program exclusively, that’s okay too!",
-              id: "B1Pa0D",
+                "The apprenticeship program is a part of a larger digital talent initiative in the Government of Canada that aspires to recruit awesome digital talent like yourself. This profile provides access to other digital opportunities and recruitments beyond the apprenticeship program, if you choose to apply. If you’d prefer to stick to the apprenticeship program exclusively, that’s okay too!",
+              id: "+im7hW",
               description:
                 "Second paragraph for applicant dashboard notification welcoming an IAP user",
             })}
           </p>
           <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "When you log into the account you created, you’ll be taken to this page from now on. You can use this page to review your Indigenous Apprenticeship application and track your position in the program.",
-              id: "uSAdtr",
-              description:
-                "Third paragraph for applicant dashboard notification welcoming an IAP user",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "When you log into your account, you’ll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your Indigenous apprenticeship application and track your status in the program.",
+                id: "RzNVWf",
+                description:
+                  "Third paragraph for applicant dashboard notification welcoming an IAP user",
+              },
+              {
+                a: (chunks: React.ReactNode) =>
+                  buildScrollToLink("track-applications-section", chunks),
+              },
+            )}
           </p>
         </Alert.Root>
       )}
