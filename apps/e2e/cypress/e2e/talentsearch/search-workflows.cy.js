@@ -2,7 +2,6 @@ import { PoolCandidateStatus } from "@gc-digital-talent/web/src/api/generated";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
-import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
 describe("Talent Search Workflow Tests", () => {
   beforeEach(() => {
@@ -116,19 +115,6 @@ describe("Talent Search Workflow Tests", () => {
       cy.getMe().then((testUser) => {
         cy.get("@publishedTestPool1").then((pool) => {
           cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
-            cy.getMe().then((me) => {
-              // update application to be complete, createApplicant attaches a personal experience to the user
-              const experienceId = me.experiences[0].id;
-              cy.updateApplication(poolCandidate.id, {
-                educationRequirementOption:
-                  EducationRequirementOption.AppliedWork,
-                educationRequirementPersonalExperiences: {
-                  sync: [experienceId],
-                },
-              })
-                .its("id")
-                .as("poolCandidateId");
-            });
             cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
               .its("id")
               .as("poolCandidateId");
