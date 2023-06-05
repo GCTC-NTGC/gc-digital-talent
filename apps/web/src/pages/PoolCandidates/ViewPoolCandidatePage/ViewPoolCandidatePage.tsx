@@ -30,6 +30,7 @@ import {
   Maybe,
   SkillCategory,
   User,
+  Pool,
 } from "~/api/generated";
 import {
   getFullPoolTitleHtml,
@@ -45,6 +46,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
 
+import PoolStatusTable from "../../Users/UserInformationPage/components/PoolStatusSection";
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
 import SkillTree from "../../Applications/ApplicationSkillsPage/components/SkillTree";
 import PersonalInformationDisplay from "../../Applications/ApplicationProfilePage/components/PersonalInformation/Display";
@@ -55,6 +57,7 @@ import WorkPreferencesDisplay from "../../Applications/ApplicationProfilePage/co
 
 export interface ViewPoolCandidateProps {
   poolCandidate: PoolCandidate;
+  pools: Pool[];
 }
 
 type SectionContent = {
@@ -65,6 +68,7 @@ type SectionContent = {
 
 export const ViewPoolCandidate = ({
   poolCandidate,
+  pools,
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
 
@@ -85,6 +89,14 @@ export const ViewPoolCandidate = ({
         defaultMessage: "Application status",
         id: "/s66sg",
         description: "Title for admins to edit an applications status.",
+      }),
+    },
+    poolInformation: {
+      id: "pool-information",
+      title: intl.formatMessage({
+        defaultMessage: "Pool information",
+        id: "Cjp2F6",
+        description: "Title for the pool info page",
       }),
     },
     snapshot: {
@@ -570,6 +582,9 @@ export const ViewPoolCandidate = ({
           <TableOfContents.AnchorLink id={sections.statusForm.id}>
             {sections.statusForm.title}
           </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sections.poolInformation.id}>
+            {sections.poolInformation.title}
+          </TableOfContents.AnchorLink>
           <TableOfContents.AnchorLink id={sections.snapshot.id}>
             {sections.snapshot.title}
           </TableOfContents.AnchorLink>
@@ -618,6 +633,20 @@ export const ViewPoolCandidate = ({
               {sections.statusForm.title}
             </TableOfContents.Heading>
             <ApplicationStatusForm id={poolCandidate.id} />
+            <Separator
+              data-h2-background-color="base(black.lightest)"
+              data-h2-margin="base(x1, 0, 0, 0)"
+            />
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.poolInformation.id}>
+            <TableOfContents.Heading
+              data-h2-margin="base(x1, 0, x1, 0)"
+              data-h2-font-weight="base(800)"
+              as="h3"
+            >
+              {sections.poolInformation.title}
+            </TableOfContents.Heading>
+            <PoolStatusTable user={poolCandidate.user} pools={pools} />
             <Separator
               data-h2-background-color="base(black.lightest)"
               data-h2-margin="base(x1, 0, 0, 0)"
@@ -693,8 +722,11 @@ export const ViewPoolCandidatePage = () => {
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <Pending fetching={fetching} error={error}>
-        {data?.poolCandidate ? (
-          <ViewPoolCandidate poolCandidate={data.poolCandidate} />
+        {data?.poolCandidate && data?.pools ? (
+          <ViewPoolCandidate
+            poolCandidate={data.poolCandidate}
+            pools={data.pools.filter(notEmpty)}
+          />
         ) : (
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}
