@@ -131,7 +131,7 @@
   height: 0;
   left: 100%;
   position: absolute;
-  top: calc((1 * var(--h2-base-whitespace)) * 1rem);
+  top: calc((1 * var(--h2-base-whitespace)) * 1.1rem);
   transform: translate(0);
   width: 0;
 }
