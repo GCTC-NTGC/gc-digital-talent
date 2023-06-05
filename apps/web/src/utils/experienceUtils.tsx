@@ -545,33 +545,51 @@ export const queryResultToDefaultValues = (
 export const getExperienceName = (
   experience: AnyExperience,
   intl: IntlShape,
+  html = false,
 ) => {
   if (isAwardExperience(experience) || isPersonalExperience(experience)) {
-    return experience.title;
+    return html ? (
+      <span data-h2-font-weight="base(700)">{experience.title}</span>
+    ) : (
+      experience.title
+    );
   }
 
   if (isCommunityExperience(experience)) {
     const { title, organization } = experience;
-    return intl.formatMessage(experienceMessages.communityAt, {
-      title,
-      organization,
-    });
+    return intl.formatMessage(
+      html
+        ? experienceMessages.communityAtHtml
+        : experienceMessages.communityAt,
+      {
+        title,
+        organization,
+      },
+    );
   }
 
   if (isEducationExperience(experience)) {
     const { areaOfStudy, institution } = experience;
-    return intl.formatMessage(experienceMessages.educationAt, {
-      areaOfStudy,
-      institution,
-    });
+    return intl.formatMessage(
+      html
+        ? experienceMessages.educationAtHtml
+        : experienceMessages.educationAt,
+      {
+        areaOfStudy,
+        institution,
+      },
+    );
   }
 
   if (isWorkExperience(experience)) {
     const { role, organization } = experience;
-    return intl.formatMessage(experienceMessages.workAt, {
-      role,
-      organization,
-    });
+    return intl.formatMessage(
+      html ? experienceMessages.workAtHtml : experienceMessages.workAt,
+      {
+        role,
+        organization,
+      },
+    );
   }
 
   // We should never get here but just in case we do, return no provided
@@ -579,7 +597,8 @@ export const getExperienceName = (
 };
 
 type ExperienceInfo = {
-  title: React.ReactNode;
+  title: string;
+  titleHtml: React.ReactNode;
   editPath?: string;
   typeMessage: React.ReactNode;
   icon: IconType;
@@ -603,7 +622,8 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
   const experienceType = deriveExperienceType(experience);
   const userId = experience?.applicant?.id || user?.id || "";
   const defaults = {
-    title: intl.formatMessage(commonMessages.notProvided),
+    title: intl.formatMessage(commonMessages.notProvided).toString(),
+    titleHtml: intl.formatMessage(commonMessages.notProvided),
     typeMessage: intl.formatMessage(experienceMessages.unknown),
     icon: InformationCircleIcon,
   };
@@ -635,7 +655,8 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
   ]);
 
   return {
-    title: getExperienceName(experience, intl),
+    title: getExperienceName(experience, intl)?.toString() ?? defaults.title,
+    titleHtml: getExperienceName(experience, intl, true),
     editPath: editPaths.get(experienceType),
     typeMessage: typeMessages.get(experienceType) || defaults.typeMessage,
     icon: icons.get(experienceType) || defaults.icon,

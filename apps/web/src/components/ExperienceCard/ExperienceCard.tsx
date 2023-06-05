@@ -51,7 +51,8 @@ const ExperienceCard = ({
 }: ExperienceCardProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const { title, editPath, icon, typeMessage } = useExperienceInfo(experience);
+  const { title, titleHtml, editPath, icon, typeMessage } =
+    useExperienceInfo(experience);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
   const Icon = icon;
 
@@ -72,18 +73,30 @@ const ExperienceCard = ({
         data-h2-gap="base(0 x1)"
         data-h2-margin-bottom="base(x.5)"
       >
-        <Heading level={headingLevel} size="h6" data-h2-margin="base(0)">
-          {title}
+        <Heading
+          level={headingLevel}
+          size="h6"
+          data-h2-margin="base(0)"
+          data-h2-font-weight="base(400)"
+        >
+          {titleHtml}
         </Heading>
         {showEdit && (editPath || onEditClick) && (
           <EditLink
             editUrl={onEditClick ? undefined : `${editPath}${editParam || ""}`}
             onEditClick={onEditClick}
-            ariaLabel={intl.formatMessage({
-              defaultMessage: "Edit {experienceName}",
-              id: "CDV1Cw",
-              description: "Link text to edit a specific experience",
-            })}
+            ariaLabel={intl
+              .formatMessage(
+                {
+                  defaultMessage: "Edit {experienceName}",
+                  id: "CDV1Cw",
+                  description: "Link text to edit a specific experience",
+                },
+                {
+                  experienceName: title,
+                },
+              )
+              .toString()}
           >
             {intl.formatMessage({
               defaultMessage: "Edit",

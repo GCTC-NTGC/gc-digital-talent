@@ -36,20 +36,40 @@ const messages = defineMessages({
     id: "4BpFoX",
     description: "The award title is issued by some group",
   },
+  awardIssuedByHtml: {
+    defaultMessage: "<strong>{title}</strong> issued by {issuedBy}",
+    id: "mHT8kp",
+    description: "The award title is issued by some group, HTML",
+  },
   communityAt: {
     defaultMessage: "{title} at {organization}",
     id: "vV0SDz",
     description: "Title at organization",
+  },
+  communityAtHtml: {
+    defaultMessage: "<strong>{title}</strong> at {organization}",
+    id: "IFKgSr",
+    description: "Title at organization, HTML",
   },
   educationAt: {
     defaultMessage: "{areaOfStudy} at {institution}",
     id: "UrsGGK",
     description: "Study at institution",
   },
+  educationAtHtml: {
+    defaultMessage: "<strong>{areaOfStudy}</strong> at {institution}",
+    id: "bf2scl",
+    description: "Study at institution, HTML",
+  },
   workAt: {
     defaultMessage: "{role} at {organization}",
     id: "wTAdQe",
     description: "Role at organization",
+  },
+  workAtHtml: {
+    defaultMessage: "<strong>{role}</strong> at {organization}",
+    id: "lhV7kM",
+    description: "Role at organization, HTML",
   },
 });
 

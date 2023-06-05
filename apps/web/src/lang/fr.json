@@ -5360,6 +5360,10 @@
     "defaultMessage": "{title} émis par {issuedBy}",
     "description": "The award title is issued by some group"
   },
+  "mHT8kp": {
+    "defaultMessage": "<strong>{title}</strong> émis par {issuedBy}",
+    "description": "The award title is issued by some group, HTML"
+  },
   "4Xa7Pd": {
     "defaultMessage": "Aucune information n'a été fournie",
     "description": "Message on Admin side when user not filled Experience section."
@@ -5459,6 +5463,10 @@
   "UrsGGK": {
     "defaultMessage": "{areaOfStudy} à {institution}",
     "description": "Study at institution"
+  },
+  "bf2scl": {
+    "defaultMessage": "<strong>{areaOfStudy}</strong> à {institution}",
+    "description": "Study at institution, HTML"
   },
   "Vbw1ES": {
     "defaultMessage": "Modifier les informations linguistiques",
@@ -5572,6 +5580,10 @@
     "defaultMessage": "{title} à {organization}",
     "description": "Title at organization"
   },
+  "IFKgSr": {
+    "defaultMessage": "<strong>{title}</strong> à {organization}",
+    "description": "Title at organization, HTML"
+  },
   "G3K1/H": {
     "defaultMessage": "Vous n'avez pas été identifié comme membre de groupes visés par l'équité en matière d'emploi.",
     "description": "Message indicating the user has not been marked as part of an equity group"
@@ -5583,6 +5595,10 @@
   "wTAdQe": {
     "defaultMessage": "{role} à {organization}",
     "description": "Role at organization"
+  },
+  "lhV7kM": {
+    "defaultMessage": "<strong>{role}</strong> à {organization}",
+    "description": "Role at organization, HTML"
   },
   "xNVsei": {
     "defaultMessage": "{experienceLength} Expériences",
