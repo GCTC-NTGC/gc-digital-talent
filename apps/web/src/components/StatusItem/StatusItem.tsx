@@ -37,18 +37,27 @@ const StatusItemTitle = ({
   href,
   scrollTo,
   children,
+  ...rest
 }: {
   href?: string;
   scrollTo?: string;
-  children: React.ReactElement;
+  children?: React.ReactElement;
 }) => {
   if (href) {
-    return <Link href={href}>{children}</Link>;
+    return (
+      <Link href={href} {...rest}>
+        {children}
+      </Link>
+    );
   }
   if (scrollTo) {
-    return <ScrollToLink to={scrollTo}>{children}</ScrollToLink>;
+    return (
+      <ScrollToLink to={scrollTo} {...rest}>
+        {children}
+      </ScrollToLink>
+    );
   }
-  return <span>{children}</span>;
+  return <span {...rest}>{children}</span>;
 };
 
 export interface StatusItemProps {
@@ -102,6 +111,9 @@ export const StatusItem = ({
     </>
   );
 
+  const effectiveIconColor = status ?? iconColor;
+  const effectiveTitleColor = status === "error" ? "error" : titleColor;
+
   return (
     <Wrapper
       data-h2-display="base(flex)"
@@ -123,14 +135,14 @@ export const StatusItem = ({
             data-h2-min-width="base(x.75)"
             data-h2-margin-top="base(x.15)"
             data-h2-transition="base(color .2s ease)"
-            {...iconColorMap[status ?? iconColor]}
+            {...iconColorMap[effectiveIconColor]}
           />
         )}
 
         <StatusItemTitle
           href={href}
           scrollTo={scrollTo}
-          {...{ ...textColorMap[titleColor] }}
+          {...textColorMap[effectiveTitleColor]}
         >
           {combinedTitle}
         </StatusItemTitle>
