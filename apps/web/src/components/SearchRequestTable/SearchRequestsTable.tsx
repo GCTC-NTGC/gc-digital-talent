@@ -65,7 +65,7 @@ const defaultState = {
       id: "requestedDate",
       sortColumnName: "created_at",
     },
-    desc: false,
+    desc: true,
   },
 };
 
