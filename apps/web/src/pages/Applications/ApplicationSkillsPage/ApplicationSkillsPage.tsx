@@ -81,15 +81,17 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   const instructionsPath = paths.applicationSkillsIntro(application.id);
   const experiences = application.user?.experiences?.filter(notEmpty) || [];
   const categorizedEssentialSkills = categorizeSkill(
-    application.poolAdvertisement?.essentialSkills,
+    application.pool.essentialSkills,
   );
   const categorizedOptionalSkills = categorizeSkill(
-    application.poolAdvertisement?.nonessentialSkills,
+    application.pool.nonessentialSkills,
   );
   const { applicantDashboard } = useFeatureFlags();
   const [, executeMutation] = useUpdateApplicationMutation();
-  const { followingPageUrl } = useApplicationContext();
-  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
+  const { followingPageUrl, isIAP } = useApplicationContext();
+  const cancelPath = applicantDashboard
+    ? paths.dashboard({ fromIapDraft: isIAP })
+    : paths.myProfile();
   const nextStep =
     followingPageUrl ?? paths.applicationQuestionsIntro(application.id);
 

@@ -52,6 +52,8 @@ class StoreApplicationSnapshot
             'poolCandidates.educationRequirementEducationExperiences.skills',
             'poolCandidates.educationRequirementPersonalExperiences.skills',
             'poolCandidates.educationRequirementWorkExperiences.skills',
+            'poolCandidates.screeningQuestionResponses',
+            'poolCandidates.screeningQuestionResponses.screeningQuestion',
         ])->findOrFail($poolCandidate->user_id);
 
         // collect skills attached to the Pool to pass into resource collection

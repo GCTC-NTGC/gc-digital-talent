@@ -169,7 +169,8 @@ export const ApplicationResume = ({
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
+  const { followingPageUrl, currentStepOrdinal, isIAP } =
+    useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -181,7 +182,9 @@ export const ApplicationResume = ({
     followingPageUrl ?? paths.applicationEducation(application.id);
   const { applicantDashboard } = useFeatureFlags();
   const [, executeMutation] = useUpdateApplicationMutation();
-  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
+  const cancelPath = applicantDashboard
+    ? paths.dashboard({ fromIapDraft: isIAP })
+    : paths.myProfile();
 
   const methods = useForm<FormValues>();
   const { watch, setValue } = methods;
@@ -289,20 +292,20 @@ export const ApplicationResume = ({
               id: "Q3yncO",
               description: "Title for list of experiences",
             })}
-            <ul data-h2-margin="base(x0.5, 0)">
-              {Object.keys(experiencesByType).map((experienceType) => {
-                return (
-                  <li data-h2-margin="base(x0.5, 0)" key={experienceType}>
-                    {formatExperienceCount(
-                      intl,
-                      experienceType as ExperienceType,
-                      experiencesByType[experienceType].length,
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
           </p>
+          <ul data-h2-margin="base(x0.5, 0, x1, 0)">
+            {Object.keys(experiencesByType).map((experienceType) => {
+              return (
+                <li data-h2-margin="base(x0.5, 0)" key={experienceType}>
+                  {formatExperienceCount(
+                    intl,
+                    experienceType as ExperienceType,
+                    experiencesByType[experienceType].length,
+                  )}
+                </li>
+              );
+            })}
+          </ul>
         </>
       ) : (
         <>
@@ -493,7 +496,7 @@ const ApplicationResumePage = () => {
       fetching={applicationFetching || experienceFetching}
       error={applicationError || experienceError}
     >
-      {application?.poolAdvertisement ? (
+      {application ? (
         <ApplicationResume
           application={application}
           experiences={experiences}

@@ -20,10 +20,10 @@ const ExternalLink = ({
   newTab,
   children,
   color,
-  mode,
-  block,
+  mode = "solid",
+  block = false,
   disabled,
-  type,
+  type = "link",
   weight,
   ...rest
 }: ExternalLinkProps) => {

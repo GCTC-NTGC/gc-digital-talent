@@ -112,8 +112,8 @@ const RequestConfirmationPage = () => {
         <Text>
           {intl.formatMessage({
             defaultMessage:
-              "You will receive a follow up on your request within the next 2 to 4 business days.",
-            id: "ltn4Er",
+              "You will receive a follow up on your request within the next 5 to 10 business days.",
+            id: "3rbRfI",
             description:
               "Description of when the user should expect a response to their request",
           })}

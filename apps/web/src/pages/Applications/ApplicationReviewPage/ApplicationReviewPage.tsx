@@ -38,6 +38,7 @@ import SkillTree from "../ApplicationSkillsPage/components/SkillTree";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
+import ExperienceTreeItems from "../../../components/ExperienceTreeItems/ExperienceTreeItems";
 
 type FormValues = {
   signature: string;
@@ -93,7 +94,8 @@ const ApplicationReview = ({
   const locale = getLocale(intl);
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { currentStepOrdinal, followingPageUrl } = useApplicationContext();
+  const { currentStepOrdinal, followingPageUrl, isIAP } =
+    useApplicationContext();
   const { applicantDashboard } = useFeatureFlags();
   const pageInfo = getPageInfo({
     intl,
@@ -135,7 +137,9 @@ const ApplicationReview = ({
       });
   };
 
-  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
+  const cancelPath = applicantDashboard
+    ? paths.dashboard({ fromIapDraft: isIAP })
+    : paths.myProfile();
   const editPaths = {
     resume: paths.applicationResume(application.id),
     education: paths.applicationEducation(application.id),
@@ -151,11 +155,11 @@ const ApplicationReview = ({
       : [];
 
   const categorizedEssentialSkills = categorizeSkill(
-    application.poolAdvertisement?.essentialSkills,
+    application.pool.essentialSkills,
   );
 
   const screeningQuestions =
-    application.poolAdvertisement?.screeningQuestions?.filter(notEmpty) || [];
+    application.pool.screeningQuestions?.filter(notEmpty) || [];
   const screeningQuestionResponses =
     application.screeningQuestionResponses?.filter(notEmpty) || [];
   return (
@@ -286,8 +290,8 @@ const ApplicationReview = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You’ve indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your résumé:",
-                  id: "MZrE40",
+                    "You've indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your résumé:",
+                  id: "SBNCsU",
                   description:
                     "Message on education requirements card on the application review page.",
                 })}
@@ -295,20 +299,9 @@ const ApplicationReview = ({
             </Card>
           </TreeView.Head>
           {educationRequirementExperiences?.length > 0 ? (
-            educationRequirementExperiences.map((experience) => (
-              <TreeView.Item key={experience.id}>
-                <div data-h2-margin="base(-x.5, 0)">
-                  <Accordion.Root type="single" collapsible>
-                    <ExperienceAccordion
-                      key={experience.id}
-                      experience={experience}
-                      headingLevel="h3"
-                      showSkills={false}
-                    />
-                  </Accordion.Root>
-                </div>
-              </TreeView.Item>
-            ))
+            <ExperienceTreeItems
+              experiences={educationRequirementExperiences}
+            />
           ) : (
             <div>
               {application.educationRequirementOption === null ||
@@ -558,7 +551,7 @@ const ApplicationReviewPage = () => {
       fetching={applicationFetching || experienceFetching}
       error={applicationError || experienceError}
     >
-      {application?.poolAdvertisement ? (
+      {application?.pool ? (
         <ApplicationReview
           application={application}
           experiences={experiences}

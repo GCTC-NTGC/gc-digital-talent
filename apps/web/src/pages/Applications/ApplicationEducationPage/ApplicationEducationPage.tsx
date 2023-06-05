@@ -120,7 +120,8 @@ const ApplicationEducation = ({
   const paths = useRoutes();
   const navigate = useNavigate();
   const { applicantDashboard } = useFeatureFlags(); // TODO: Remove once feature flag has been turned on.
-  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
+  const { followingPageUrl, currentStepOrdinal, isIAP } =
+    useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -130,7 +131,9 @@ const ApplicationEducation = ({
   const nextStep =
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);
   const previousStep = paths.applicationResume(application.id);
-  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
+  const cancelPath = applicantDashboard
+    ? paths.dashboard({ fromIapDraft: isIAP })
+    : paths.myProfile();
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -338,19 +341,34 @@ const ApplicationEducation = ({
     },
     {
       value: EducationRequirementOption.Education,
-      label: intl.formatMessage({
-        defaultMessage:
-          "<strong>I meet the 2-year post-secondary option</strong>",
-        id: "j+jnML",
-        description:
-          "Radio group option for education requirement filter in application education form.",
-      }),
+      label: isIAP
+        ? intl.formatMessage({
+            defaultMessage: "I have a high school diploma or GED equivalent",
+            id: "ybi6QM",
+            description:
+              "Radio group option for education requirement filter in Indigenous apprenticeship application education form.",
+          })
+        : intl.formatMessage({
+            defaultMessage:
+              "<strong>I meet the 2-year post-secondary option</strong>",
+            id: "j+jnML",
+            description:
+              "Radio group option for education requirement filter in application education form.",
+          }),
       contentBelow: (
         <div data-h2-margin="base(x.5, 0, x.5, x1)">
           <p>
-            {intl.formatMessage(applicationMessages.postSecondaryEducation, {
-              link: qualityStandardsLink,
-            })}
+            {isIAP
+              ? intl.formatMessage({
+                  defaultMessage:
+                    "Successful completion of a standard high school diploma or GED equivalent.",
+                  id: "tfzO5t",
+                  description:
+                    "Message under radio button in Indigenous apprenticeship application education page.",
+                })
+              : intl.formatMessage(applicationMessages.postSecondaryEducation, {
+                  link: qualityStandardsLink,
+                })}
           </p>
         </div>
       ),
@@ -476,7 +494,7 @@ const ApplicationEducationPage = () => {
       fetching={applicationFetching || experienceFetching || applicationStale}
       error={applicationError || experienceError}
     >
-      {application?.poolAdvertisement ? (
+      {application?.pool ? (
         <ApplicationEducation
           application={application}
           experiences={experiences}

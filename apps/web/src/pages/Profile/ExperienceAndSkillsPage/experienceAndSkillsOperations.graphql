@@ -65,7 +65,7 @@ fragment applicantExperiences on Applicant {
   }
 }
 
-fragment poolAdvertisementSkills on Skill {
+fragment poolSkills on Skill {
   id
   key
   name {
@@ -99,24 +99,24 @@ query getAllApplicantExperiences($id: UUID!) {
 
 query getAllApplicantExperiencesAndPoolSkills(
   $applicantId: UUID!
-  $poolAdvertisementId: UUID!
+  $poolId: UUID!
 ) {
   applicant(id: $applicantId) {
     ...applicantExperiences
   }
-  poolAdvertisement(id: $poolAdvertisementId) {
+  pool(id: $poolId) {
     essentialSkills {
-      ...poolAdvertisementSkills
+      ...poolSkills
     }
     nonessentialSkills {
-      ...poolAdvertisementSkills
+      ...poolSkills
     }
   }
 }
 
 query GetApplicationDetails($id: UUID!) {
   poolCandidate(id: $id) {
-    poolAdvertisement {
+    pool {
       id
       name {
         en
@@ -141,10 +141,10 @@ query GetApplicationDetails($id: UUID!) {
         }
       }
       essentialSkills {
-        ...poolAdvertisementSkills
+        ...poolSkills
       }
       nonessentialSkills {
-        ...poolAdvertisementSkills
+        ...poolSkills
       }
     }
   }

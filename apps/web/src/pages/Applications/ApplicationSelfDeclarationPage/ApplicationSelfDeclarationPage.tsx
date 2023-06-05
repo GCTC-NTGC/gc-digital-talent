@@ -355,7 +355,9 @@ const ApplicationSelfDeclarationPage = () => {
   const { followingPageUrl } = useApplicationContext();
   const { applicantDashboard } = useFeatureFlags();
   const [, executeMutation] = useUpdateUserAndApplicationMutation();
-  const cancelPath = applicantDashboard ? paths.dashboard() : paths.myProfile();
+  const cancelPath = applicantDashboard
+    ? paths.dashboard({ fromIapDraft: true })
+    : paths.myProfile();
   const nextStep = followingPageUrl ?? cancelPath;
 
   const application = applicationData?.poolCandidate;
@@ -409,7 +411,7 @@ const ApplicationSelfDeclarationPage = () => {
       fetching={applicationFetching || applicationStale || userFetching}
       error={applicationError || userError}
     >
-      {application?.poolAdvertisement && userData?.me ? (
+      {application && userData?.me ? (
         <ApplicationSelfDeclaration
           application={application}
           indigenousCommunities={resolvedIndigenousCommunities}

@@ -172,7 +172,7 @@ class UserFactory extends Factory
             PersonalExperience::factory(),
             WorkExperience::factory(),
         ];
-        return $this->afterCreating(function (User $user) use ($types, $count) {
+        return $this->withSkills()->afterCreating(function (User $user) use ($types, $count) {
             for ($i = 0; $i < $count; $i++) {
                 $type = $this->faker->randomElement($types);
                 $type->create([

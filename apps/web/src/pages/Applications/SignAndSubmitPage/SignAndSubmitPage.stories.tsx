@@ -9,7 +9,7 @@ export default {
   title: "Pages/Sign and Submit Page",
   args: {
     applicationId: "1",
-    poolAdvertisementId: "1",
+    poolId: "1",
     userId: "1",
     closingDate: FAR_FUTURE_DATE,
     jobTitle: "Application Developer - React (IT-01)",

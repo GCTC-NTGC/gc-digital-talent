@@ -7,20 +7,15 @@ import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { screen, act, fireEvent } from "@testing-library/react";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import {
-  AdvertisementStatus,
-  PoolAdvertisement,
-  PoolStream,
-  PublishingGroup,
-} from "~/api/generated";
+import { PoolStatus, Pool, PoolStream, PublishingGroup } from "~/api/generated";
 import OngoingRecruitmentSection, {
   OngoingRecruitmentSectionProps,
 } from "./OngoingRecruitmentSection";
 
-const publishedPool: PoolAdvertisement = {
+const publishedPool: Pool = {
   id: "publishedPool",
   publishingGroup: PublishingGroup.ItJobsOngoing,
-  advertisementStatus: AdvertisementStatus.Published,
+  status: PoolStatus.Published,
   stream: PoolStream.BusinessAdvisoryServices,
   classifications: [{ id: "it-01", group: "IT", level: 1 }],
 };

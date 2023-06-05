@@ -4,19 +4,19 @@ import { useIntl } from "react-intl";
 import { Button, ExternalLink, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { SimpleClassification } from "~/types/pool";
 import useRoutes from "~/hooks/useRoutes";
-import { PoolAdvertisement } from "@gc-digital-talent/graphql";
+import { Pool } from "@gc-digital-talent/graphql";
 
 const testId = (text: React.ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
 );
 
-export interface SearchPoolsProps {
+export interface SearchResultCardProps {
   candidateCount: number;
   pool: Pick<
-    PoolAdvertisement,
+    Pool,
     "id" | "owner" | "name" | "classifications" | "team" | "essentialSkills"
   >;
   handleSubmit: (
@@ -26,11 +26,11 @@ export interface SearchPoolsProps {
   ) => Promise<void>;
 }
 
-const SearchPools = ({
+const SearchResultCard = ({
   candidateCount,
   pool,
   handleSubmit,
-}: SearchPoolsProps) => {
+}: SearchResultCardProps) => {
   const intl = useIntl();
   const selectedClassifications =
     pool.classifications as SimpleClassification[];
@@ -49,7 +49,7 @@ const SearchPools = ({
       aria-labelledby={`search_pool_${pool.id}`}
     >
       <p data-h2-font-weight="base(700)" id={`search_pool_${pool.id}`}>
-        {getFullPoolAdvertisementTitleHtml(intl, pool)}
+        {getFullPoolTitleHtml(intl, pool)}
       </p>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage(
@@ -152,4 +152,4 @@ const SearchPools = ({
   );
 };
 
-export default SearchPools;
+export default SearchResultCard;

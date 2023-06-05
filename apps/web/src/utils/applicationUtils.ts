@@ -3,12 +3,7 @@ import { IntlShape } from "react-intl";
 import { StepType } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import {
-  ApplicationStep,
-  Maybe,
-  PoolAdvertisement,
-  PoolCandidate,
-} from "~/api/generated";
+import { ApplicationStep, Maybe, PoolCandidate } from "~/api/generated";
 import { ApplicationStepInfo } from "~/types/applicationStep";
 import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
 import selfDeclarationStepInfo from "~/pages/Applications/selfDeclarationStep/selfDeclarationStepInfo";
@@ -19,14 +14,13 @@ import educationStepInfo from "~/pages/Applications/educationStep/educationStepI
 import profileStepInfo from "~/pages/Applications/profileStep/profileStepInfo";
 import successPageInfo from "~/pages/Applications/successStep/successStepInfo";
 import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
-import { isIAPPoolAdvertisement } from "~/pages/Applications/ApplicationContext";
+import { isIAPPool } from "~/pages/Applications/ApplicationContext";
 
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
   intl: IntlShape;
-  application: Omit<PoolCandidate, "pool">;
+  application: PoolCandidate;
   experienceId?: string;
-  poolAdvertisement: Maybe<PoolAdvertisement>;
 };
 
 // Dynamically build the list of application steps for this application
@@ -35,21 +29,16 @@ export const getApplicationSteps = ({
   intl,
   application,
   experienceId,
-  poolAdvertisement,
 }: GetApplicationPagesArgs): Array<ApplicationStepInfo> => {
   // build the order of step functions to call
   const stepInfoFunctions = [
     welcomeStepInfo,
-    ...(isIAPPoolAdvertisement(poolAdvertisement)
-      ? [selfDeclarationStepInfo]
-      : []),
+    ...(isIAPPool(application.pool) ? [selfDeclarationStepInfo] : []),
     profileStepInfo,
     resumeStepInfo,
     educationStepInfo,
     skillsStepInfo,
-    ...(poolAdvertisement?.screeningQuestions?.length
-      ? [questionsStepInfo]
-      : []),
+    ...(application.pool.screeningQuestions?.length ? [questionsStepInfo] : []),
     reviewStepInfo,
     successPageInfo,
   ];
@@ -141,7 +130,7 @@ export function isOnDisabledPage(
 
 export function applicationStepsToStepperArgs(
   applicationSteps: Array<ApplicationStepInfo>,
-  application: Omit<PoolCandidate, "pool">,
+  application: PoolCandidate,
 ): StepType[] {
   return applicationSteps
     .filter((step) => step.showInStepper)
@@ -158,13 +147,7 @@ export function applicationStepsToStepperArgs(
           step.prerequisites,
           application.submittedSteps,
         )?.length,
-        error: application.poolAdvertisement
-          ? step.hasError?.(
-              application.user,
-              application.poolAdvertisement,
-              application,
-            )
-          : false,
+        error: step.hasError?.(application.user, application.pool, application),
       };
     });
 }

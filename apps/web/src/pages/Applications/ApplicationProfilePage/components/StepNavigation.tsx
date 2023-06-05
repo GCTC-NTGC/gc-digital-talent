@@ -27,7 +27,7 @@ type ProfileActionFormValues = {
 };
 
 interface StepNavigationProps {
-  application: Omit<PoolCandidate, "pool">;
+  application: PoolCandidate;
   user: User;
   isValid?: boolean;
 }
@@ -44,7 +44,7 @@ const StepNavigation = ({
   const { dirtySections } = useProfileFormContext();
   const [{ fetching: submitting }, executeSubmitMutation] =
     useUpdateApplicationMutation();
-  const { followingPageUrl } = useApplicationContext();
+  const { followingPageUrl, isIAP } = useApplicationContext();
   const nextStepPath =
     followingPageUrl ?? paths.applicationResumeIntro(application.id);
   const methods = useForm<ProfileActionFormValues>({
@@ -91,7 +91,11 @@ const StepNavigation = ({
 
     if (!hasDirtySections) {
       if (values.action === "quit") {
-        navigate(applicantDashboard ? paths.dashboard() : paths.myProfile());
+        navigate(
+          applicantDashboard
+            ? paths.dashboard({ fromIapDraft: isIAP })
+            : paths.myProfile(),
+        );
         return true;
       }
 
@@ -125,7 +129,7 @@ const StepNavigation = ({
       );
       const missingLanguageRequirements = getMissingLanguageRequirements(
         user as Applicant,
-        application?.poolAdvertisement,
+        application?.pool,
       );
       if (missingLanguageRequirements.length > 0) {
         const requirements = missingLanguageRequirements.map((requirement) => (
@@ -144,10 +148,7 @@ const StepNavigation = ({
           ),
         );
       }
-      const completeDEI = !hasEmptyDEIRequiredFields(
-        user,
-        application?.poolAdvertisement,
-      );
+      const completeDEI = !hasEmptyDEIRequiredFields(user, application?.pool);
       if (!completeDEI) {
         toast.error(
           intl.formatMessage(applicationMessages.reservedForIndigenous),

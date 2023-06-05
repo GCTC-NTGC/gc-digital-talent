@@ -3,10 +3,12 @@
 namespace Database\Factories;
 
 use App\Models\EducationExperience;
+use App\Traits\ExperienceFactoryWithSkills;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EducationExperienceFactory extends Factory
 {
+    use ExperienceFactoryWithSkills;
     /**
      * The name of the factory's corresponding model.
      *

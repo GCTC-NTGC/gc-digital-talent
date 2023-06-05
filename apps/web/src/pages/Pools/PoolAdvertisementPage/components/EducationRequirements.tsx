@@ -19,7 +19,11 @@ const RequirementCard = (props: React.HTMLProps<HTMLDivElement>) => (
   />
 );
 
-const EducationRequirements = () => {
+interface EducationRequirementsProps {
+  isIAP: boolean;
+}
+
+const EducationRequirements = ({ isIAP }: EducationRequirementsProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -91,16 +95,31 @@ const EducationRequirements = () => {
       </span>
       <RequirementCard>
         <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
-          {intl.formatMessage({
-            defaultMessage: "2-year post-secondary",
-            id: "ZIwaDE",
-            description: "Title for the education requirements",
-          })}
+          {isIAP
+            ? intl.formatMessage({
+                defaultMessage: "High school diploma or GED",
+                id: "CnPVJe",
+                description:
+                  "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)",
+              })
+            : intl.formatMessage({
+                defaultMessage: "2-year post-secondary",
+                id: "ZIwaDE",
+                description: "Title for the education requirements",
+              })}
         </Heading>
         <Text>
-          {intl.formatMessage(applicationMessages.postSecondaryEducation, {
-            link: qualityStandardsLink,
-          })}
+          {isIAP
+            ? intl.formatMessage({
+                defaultMessage:
+                  "Successful completion of a standard high school diploma or GED equivalent.",
+                id: "nWZiWr",
+                description:
+                  "Education requirement (IT Apprenticeship Program for Indigenous Peoples)",
+              })
+            : intl.formatMessage(applicationMessages.postSecondaryEducation, {
+                link: qualityStandardsLink,
+              })}
         </Text>
       </RequirementCard>
     </div>

@@ -130,7 +130,7 @@ fragment selectedPoolCandidates on PoolCandidate {
       level
     }
   }
-  poolAdvertisement {
+  pool {
     id
     essentialSkills {
       id

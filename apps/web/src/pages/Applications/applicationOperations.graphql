@@ -127,7 +127,7 @@ query GetApplication($id: UUID!) {
         ...experienceSubTypes
       }
     }
-    poolAdvertisement {
+    pool {
       id
       name {
         en
@@ -136,7 +136,7 @@ query GetApplication($id: UUID!) {
       stream
       closingDate
       publishingGroup
-      advertisementLanguage
+      language
       classifications {
         id
         group
@@ -155,10 +155,10 @@ query GetApplication($id: UUID!) {
         }
       }
       essentialSkills {
-        ...poolAdvertisementSkills
+        ...poolSkills
       }
       nonessentialSkills {
-        ...poolAdvertisementSkills
+        ...poolSkills
       }
       screeningQuestions {
         id
@@ -193,7 +193,7 @@ query GetApplication($id: UUID!) {
   }
 }
 
-fragment poolAdvertisementSkills on Skill {
+fragment poolSkills on Skill {
   id
   key
   name {

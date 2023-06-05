@@ -801,16 +801,16 @@
     "defaultMessage": "Expérience supprimée",
     "description": "Message displayed to user after experience deleted."
   },
-  "qHVR2p": {
-    "defaultMessage": "Bienvenue sur la plateforme Talent numérique. À l'avenir, vous pouvez vous connecter à votre profil en utilisant le même nom d'utilisateur et le même mot de passe que CléGC.",
+  "cmZ9cx": {
+    "defaultMessage": "Bienvenue sur la plateforme Talents numériques du GC. À l'avenir, vous pouvez vous connecter à votre profil en utilisant le même nom d'utilisateur et le même mot de passe que CléGC.",
     "description": "Message for successful login alert in create account page"
   },
   "0ScnOT": {
     "defaultMessage": "Quelle est votre langue de contact préférée?",
     "description": "Legend text for required language preference in create account form"
   },
-  "0m7BIV": {
-    "defaultMessage": "Bienvenue à Talent numérique",
+  "WVTDgX": {
+    "defaultMessage": "Bienvenue à Talents numériques du GC",
     "description": "Title for the create account page for applicant profiles."
   },
   "1CuGS6": {
@@ -1001,10 +1001,6 @@
     "defaultMessage": "Ces renseignements personnels supplémentaires ne seront utilisés qu'à des fins de communication.",
     "description": "Description for Personal Information section of the About Me form"
   },
-  "SSSNwI": {
-    "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
-    "description": "Instructions on how to login with GCKey"
-  },
   "KE49r9": {
     "defaultMessage": "Mon expérience et mes compétences",
     "description": "Heading for experience and skills page in applicant profile."
@@ -1088,10 +1084,6 @@
   "PIgh3U": {
     "defaultMessage": "Faites-nous savoir si vous voulez être contacté(e) pour de nouveaux emplois. Veuillez mettre à jour ce statut si votre situation change.",
     "description": "Description for My Status Form"
-  },
-  "ypVSZh": {
-    "defaultMessage": "Si vous n'êtes pas sûr(e) d'avoir un compte CléGC existant, continuez vers le site Web et essayez de vous connecter. Si vous ne pouvez pas vous souvenir de votre mot de passe, vous pouvez également le réinitialiser là.",
-    "description": "Instructions on what to do if user doesn't know if they have a GCKey"
   },
   "Q96xMb": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
@@ -1221,8 +1213,8 @@
     "defaultMessage": "Lieu de travail",
     "description": "Display Text for the current page in Work location Form Page"
   },
-  "Ec1Hn9": {
-    "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
+  "NcB+TT": {
+    "defaultMessage": "Vous pouvez vous connecter à votre profil de Talents numériques du GC à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
     "description": "Instructions on how to login with GCKey"
   },
   "cZmuts": {
@@ -1821,7 +1813,7 @@
     "defaultMessage": "Signature",
     "description": "Toc navigation item on sign and submit page."
   },
-  "9Eke1a": {
+  "21QCEK": {
     "defaultMessage": "« J’atteste que les renseignements que j’ai fournis sont vrais »",
     "description": "Signature list item on sign and submit page."
   },
@@ -1889,7 +1881,7 @@
     "defaultMessage": "Candidature présentée!",
     "description": "Message displayed to user after application is submitted successfully."
   },
-  "voTvve": {
+  "iIMpOW": {
     "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
     "description": "Signature list item on sign and submit page."
   },
@@ -1897,7 +1889,7 @@
     "defaultMessage": "Je n’ai pas de droit de priorité",
     "description": "Label displayed for does not have priority entitlement option"
   },
-  "dIZPra": {
+  "uooR1r": {
     "defaultMessage": "« Je comprends que je fais partie d’une communauté qui se fait confiance »",
     "description": "Signature list item on sign and submit page."
   },
@@ -2038,7 +2030,7 @@
     "description": "Button message on footer of review my application page."
   },
   "jRmRd+": {
-    "defaultMessage": "Talent numérique du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
+    "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
     "description": "Meta tag description for Talent Search site"
   },
   "rNVDaA": {
@@ -2054,7 +2046,7 @@
     "description": "Subtitle for the Support page"
   },
   "Mz+gUV": {
-    "defaultMessage": "Talent numérique du GC",
+    "defaultMessage": "Talents numériques du GC",
     "description": "Title tag for Talent Search site"
   },
   "PXlO7h": {
@@ -2293,16 +2285,16 @@
     "defaultMessage": "Énoncé sur l’accessibilité",
     "description": "Title for the websites accessibility statement"
   },
-  "rnPvJN": {
-    "defaultMessage": "Talent numérique du <abbreviation>GC</abbreviation> s’engage à créer un service numérique accessible et inclusif. Au cœur de la conception et du développement de notre plateforme, nous nous efforçons de créer des possibilités d'emploi égales pour tous. Pour nous, construire des services accessibles signifie répondre aux besoins du plus grand nombre de personnes possible, y compris les cas marginaux. En fait, nous travaillons dans toutes les disciplines –recherche, développement, conception et accessibilité – pour nous assurer que notre service est intentionnel, accessible et inclusif par sa conception.",
+  "fzqya3": {
+    "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> s’engage à créer un service numérique accessible et inclusif. Au cœur de la conception et du développement de notre plateforme, nous nous efforçons de créer des possibilités d'emploi égales pour tous. Pour nous, construire des services accessibles signifie répondre aux besoins du plus grand nombre de personnes possible, y compris les cas marginaux. En fait, nous travaillons dans toutes les disciplines –recherche, développement, conception et accessibilité – pour nous assurer que notre service est intentionnel, accessible et inclusif par sa conception.",
     "description": "Opening paragraph for accessibility statement"
   },
   "vC9NsS": {
     "defaultMessage": "Nos normes",
     "description": "Title for the accessibility standards"
   },
-  "a3c78j": {
-    "defaultMessage": "L’équipe de Talent numérique <abbreviation>GC</abbreviation> adhère aux <digitalStandardsLink>normes numériques inclusives du gouvernement du Canada</digitalStandardsLink> (GC).",
+  "tu2Z17": {
+    "defaultMessage": "L’équipe de Talents numériques du GC adhère aux <digitalStandardsLink>normes numériques inclusives du gouvernement du Canada</digitalStandardsLink> (GC).",
     "description": "Paragraph describing accessibility standards"
   },
   "ztQSF+": {
@@ -2661,17 +2653,9 @@
     "defaultMessage": "Courriel",
     "description": "Title displayed for the User table Email column."
   },
-  "0PmIE8": {
-    "defaultMessage": "Nom du candidat",
-    "description": "Title displayed on the single search request table candidate name column."
-  },
   "0SoKjt": {
     "defaultMessage": "Utilisateur {userId} introuvable.",
     "description": "Message displayed for user not found."
-  },
-  "1bNptz": {
-    "defaultMessage": "Identifiant du candidat",
-    "description": "Title displayed on the single search request table id column."
   },
   "2wmzS1": {
     "defaultMessage": "Nom",
@@ -2716,10 +2700,6 @@
   "8hee5d": {
     "defaultMessage": "Titre de l’emploi",
     "description": "Title displayed on the search request table job title column."
-  },
-  "97LfRf": {
-    "defaultMessage": "Handicap",
-    "description": "Message for disability option in the employment equity column on the the single search request table."
   },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
@@ -2785,10 +2765,6 @@
     "defaultMessage": "Nom du bassin",
     "description": "Title displayed for the Pool table pool name column."
   },
-  "JtgX1e": {
-    "defaultMessage": "Autochtone",
-    "description": "Message for indigenous option in the employment equity column on the the single search request table."
-  },
   "KSNNgE": {
     "defaultMessage": "Mettre à jour un ministère",
     "description": "Title displayed on the update a department form."
@@ -2804,10 +2780,6 @@
   "Lzd38d": {
     "defaultMessage": "Statut",
     "description": "Title for the status block in the manager info section of the single search request view."
-  },
-  "MmFgbF": {
-    "defaultMessage": "Groupe et niveau",
-    "description": "Title displayed on the single search request table classifications column."
   },
   "Le4EQq": {
     "defaultMessage": "Sélectionnez un niveau",
@@ -2836,14 +2808,6 @@
   "UNScjB": {
     "defaultMessage": "Marquer cette demande comme ayant été traitée",
     "description": "Button label displayed on the search request form which changes request status to done."
-  },
-  "UdZaOq": {
-    "defaultMessage": "Minorité visible",
-    "description": "Message for visible minority option in the employment equity column on the the single search request table."
-  },
-  "VaCRxh": {
-    "defaultMessage": "Femme",
-    "description": "Message for woman option in the employment equity column on the the single search request table."
   },
   "VaVo2t": {
     "defaultMessage": "Erreur : Échec de la création du ministère",
@@ -2900,10 +2864,6 @@
     "defaultMessage": "Nom (français)",
     "description": "Label displayed on the create a department form name (French) field."
   },
-  "c9jMPS": {
-    "defaultMessage": "Erreur : Nom introuvable.",
-    "description": "Error message displayed on the single search request table employment equity column."
-  },
   "d3oN4p": {
     "defaultMessage": "Courriel du gouvernement",
     "description": "Title for the government email block in the manager info section of the single search request view."
@@ -2923,10 +2883,6 @@
   "fhL8jz": {
     "defaultMessage": "Erreur : Échec de l’enregistrement des notes",
     "description": "Message displayed to user after the personal notes fail to save on the single search request page."
-  },
-  "gN/+W2": {
-    "defaultMessage": "Exigences opérationnelles",
-    "description": "Title displayed on the single search request table operational requirements column."
   },
   "gRPGQN": {
     "defaultMessage": "Titre du poste",
@@ -2956,10 +2912,6 @@
     "defaultMessage": "Ministère",
     "description": "Title displayed on the search request table department column."
   },
-  "i45Vxz": {
-    "defaultMessage": "Équité en matière d'emploi",
-    "description": "Title displayed on the single search request table employment equity column."
-  },
   "i9AjuX": {
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
@@ -2979,10 +2931,6 @@
   "l05aVF": {
     "defaultMessage": "Notes personnelles",
     "description": "Heading for the personal notes section of the single search request view."
-  },
-  "lo2bSB": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the single search request table edit column."
   },
   "nXRLAX": {
     "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
@@ -3397,7 +3345,7 @@
     "description": "Second section of text on the add user to pool dialog"
   },
   "MsFCeF": {
-    "defaultMessage": "Bienvenue à Talent numérique du GC, veuillez vous connecter pour continuer.",
+    "defaultMessage": "Bienvenue à Talents numériques du GC, veuillez vous connecter pour continuer.",
     "description": "Instructional text for the talent cloud pool manager portal home page."
   },
   "O8U5Sz": {
@@ -4186,8 +4134,8 @@
     "defaultMessage": "Ville actuelle",
     "description": "CSV Header, Current City column"
   },
-  "D24NyA": {
-    "defaultMessage": "Ceci est le profil soumis le {submittedAt} pour le bassin : {poolName}",
+  "V2vBbu": {
+    "defaultMessage": "Ceci est le profil soumis le <strong>{submittedAt}</strong> pour le bassin : <strong>{poolName}</strong>",
     "description": "Snapshot details displayed above the pool candidate application page."
   },
   "DHfumB": {
@@ -4338,10 +4286,6 @@
     "defaultMessage": "Notes - {poolName}",
     "description": "Label for the notes field for a specific pool"
   },
-  "Z2KhWS": {
-    "defaultMessage": "Retourner à tous les candidats",
-    "description": "Navigation link back to All candidates."
-  },
   "a5msuh": {
     "defaultMessage": "Oui"
   },
@@ -4469,7 +4413,7 @@
     "defaultMessage": "Exigences de fonctionnement acceptées",
     "description": "CSV Header, Accepted Operation Requirements column"
   },
-  "rqXJfW": {
+  "L/Vj+K": {
     "defaultMessage": "Instantané du profil de la candidature",
     "description": "Title for the application's profile snapshot."
   },
@@ -5105,8 +5049,8 @@
     "defaultMessage": "Nous avons reçu votre demande et la réviserons le plus tôt possible.",
     "description": "Paragraph one, message to user the request was received"
   },
-  "ltn4Er": {
-    "defaultMessage": "Vous recevrez un suivi sur votre demande dans 2 à 4 jours ouvrables.",
+  "3rbRfI": {
+    "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
     "description": "Description of when the user should expect a response to their request"
   },
   "rVgBGi": {
@@ -5913,7 +5857,7 @@
     "description": "Link text to skip the list of add skill links"
   },
   "vD6Uia": {
-    "defaultMessage": "Talent numérique du GC",
+    "defaultMessage": "Talents numériques du GC",
     "description": "Default title for the site"
   },
   "FckGRB": {
@@ -8180,8 +8124,8 @@
     "defaultMessage": "Révisez votre candidature",
     "description": "Page title for the application review page."
   },
-  "MZrE40": {
-    "defaultMessage": "Vous avez dit répondre aux <strong>exigences minimales d’expérience ou de formation (deux années d’études postsecondaires)</strong>  et posséder l’expérience professionnelle suivante :",
+  "SBNCsU": {
+    "defaultMessage": "Vous avez dit répondre aux <strong>exigences minimales d’expérience ou de formation (deux années d’études postsecondaires)</strong> et posséder l’expérience professionnelle suivante :",
     "description": "Message on education requirements card on the application review page."
   },
   "O83lYZ": {
@@ -8197,7 +8141,7 @@
     "description": "Label displayed for signature input in sign and submit section of application review page."
   },
   "PDbqFR": {
-    "defaultMessage": "\"J’ai relu tout le contenu de ma candidature\"",
+    "defaultMessage": "« J’ai relu tout le contenu de ma candidature »",
     "description": "Review list item for sign and submit section of application review page."
   },
   "V9lxDE": {
@@ -8239,11 +8183,12 @@
     "defaultMessage": "Il semble que vous n’ayez pas encore sélectionné de formation requise.",
     "description": "Null state message for education requirement section of the application review page."
   },
-  "mu6uvE": {
-    "defaultMessage": "Modifiez cette section"
+  "Z8hEuY": {
+    "defaultMessage": "Modifiez cette section",
+    "description": "Default edit link text for application review page"
   },
   "1ZQP80": {
-    "defaultMessage": "\"Je déclare que les renseignements fournis sont exacts\"",
+    "defaultMessage": "« Je déclare que les renseignements fournis sont exacts »",
     "description": "Truth list item for sign and submit section of application review page."
   },
   "qGyD4w": {
@@ -8251,7 +8196,7 @@
     "description": "Heading for screening questions section of the application review page."
   },
   "jT5ANA": {
-    "defaultMessage": "\"Je comprends faire partie d’un groupe où règne la confiance mutuelle\"",
+    "defaultMessage": "« Je comprends faire partie d’un groupe où règne la confiance mutuelle »",
     "description": "Community list item for sign and submit section of application review page."
   },
   "v0QzOM": {
@@ -8274,17 +8219,17 @@
     "defaultMessage": "Ceci créera un nouveau basin et copiera toute information qui existe déjà.",
     "description": "Text explaining what will happen when duplicating a pool"
   },
-  "b71NDl": {
-    "defaultMessage": "Dupliquer et consulter le nouveau bassin",
-    "description": "Button text to duplicate a pool"
+  "QmMm7V": {
+    "defaultMessage": "Dupliquer et consulter la nouvelle affiche d’emploi",
+    "description": "Button text to duplicate a job poster"
   },
   "hHYn/8": {
     "defaultMessage": "Erreur : Une erreur s’est produite. Veuillez essayer de nouveau dans une minute ou communiquez avec votre administrateur.",
     "description": "Message displayed to user after pool fails to get duplicated."
   },
-  "jCS7J4": {
-    "defaultMessage": "Dupliquer ce bassin",
-    "description": "Title to duplicate a pool"
+  "DxvIPq": {
+    "defaultMessage": "Dupliquer l’affiche d’emploi",
+    "description": "Title to duplicate a job poster"
   },
   "oJri9k": {
     "defaultMessage": "Vous êtes sur le point de dupliquer le bassin suivant : {poolName}",
@@ -8297,5 +8242,105 @@
   "HbzGOJ": {
     "defaultMessage": "Cette information permet aux candidats de savoir quel travail ou dans quel environnement ils appliquent. Utilisez cet espace pour discuter du secteur du gouvernement que le présent processus cherchera à améliorer, de même que des valeurs que ce travail génère.",
     "description": "Helper message for filling in the pool introduction"
+  },
+  "8HdqmJ": {
+    "defaultMessage": "La sauvegarde de l’ébauche de votre demande dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones a été réussie!",
+    "description": "Title for notification that a draft IAP application was saved"
+  },
+  "B1Pa0D": {
+    "defaultMessage": "Le Programme d’apprentissage occupe une partie importante d’une initiative plus vaste sur les talents numériques au sein du gouvernement du Canada, qui a pour but d’embaucher de merveilleux talents numériques, comme vous. Ce profil vous donne accès à d’autres possibilités et recrutement en matière de numérique au-delà du Programme d’apprentissage, si vous décidez de postuler. Si vous souhaitez vous en tenir uniquement au Programme d’apprentissages, c’est également bien!",
+    "description": "Second paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "uSAdtr": {
+    "defaultMessage": "Lorsque vous accédez au compte que vous avez créé, vous serez reconduit(e) à la présente page pour réviser votre demande auprès du Programme d’apprentissage, et faire le suivi de votre poste dans ce dernier.",
+    "description": "Third paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "ueLK1P": {
+    "defaultMessage": "Vous êtes maintenant arrivé(e) à votre page de profil de Talents numériques.",
+    "description": "First paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "vB1p56": {
+    "defaultMessage": "Merci d’avoir postulé dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones!",
+    "description": "Title for notification that a an IAP application was submitted"
+  },
+  "tfzO5t": {
+    "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
+    "description": "Message under radio button in Indigenous apprenticeship application education page."
+  },
+  "nWZiWr": {
+    "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
+    "description": "Education requirement (IT Apprenticeship Program for Indigenous Peoples)"
+  },
+  "CnPVJe": {
+    "defaultMessage": "Diplôme d’études secondaires ou PEG",
+    "description": "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)"
+  },
+  "ybi6QM": {
+    "defaultMessage": "Je détiens un diplôme d’études secondaires ou un équivalent du GED",
+    "description": "Radio group option for education requirement filter in Indigenous apprenticeship application education form."
+  },
+  "0lUoqK": {
+    "defaultMessage": "Renseignements personnels et de contact",
+    "description": "Title for the personal and contact information snapshot section"
+  },
+  "1ZZgbi": {
+    "defaultMessage": "Signature",
+    "description": "Title for the signature snapshot section"
+  },
+  "Fbh/MK": {
+    "defaultMessage": "Expérience minimale ou combinaison équivalente d’études",
+    "description": "Title for the minimum experience or equivalent education snapshot section."
+  },
+  "KsS1Py": {
+    "defaultMessage": "Profil linguistique",
+    "description": "Title for the language profile snapshot section"
+  },
+  "Nk/79O": {
+    "defaultMessage": "Voici le CV du/de la candidat(e) :",
+    "description": "Lead-in text for the snapshot résumé section"
+  },
+  "OxlRKl": {
+    "defaultMessage": "CV",
+    "description": "Title for the résumé snapshot section"
+  },
+  "XrfkBm": {
+    "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
+    "description": "Message displayed when no experiences have been attached to a skill"
+  },
+  "bqC0/E": {
+    "defaultMessage": "Exigences en matière de compétences",
+    "description": "Title for the skill requirements snapshot section"
+  },
+  "fEcEv3": {
+    "defaultMessage": "Signée",
+    "description": "Heading for the application snapshot users signature"
+  },
+  "J3Ud6R": {
+    "defaultMessage": "Exigence de sélection : <strong>{educationRequirementOption}</strong>.",
+    "description": "Application snapshot minimum experience section description"
+  },
+  "mDowK/": {
+    "defaultMessage": "Représentée par les expériences suivantes :",
+    "description": "Lead in text for experiences that represent the users skills"
+  },
+  "mqWvWR": {
+    "defaultMessage": "Questions relatives à la sélection préliminaire ",
+    "description": "Title for the screening questions snapshot section"
+  },
+  "nEVNHp": {
+    "defaultMessage": "Information sur l’employé(e) du gouvernement ",
+    "description": "Title for the government employee information snapshot section"
+  },
+  "s7F24X": {
+    "defaultMessage": "Préférences relatives au travail",
+    "description": "Title for the work preferences snapshot section"
+  },
+  "tpTntk": {
+    "defaultMessage": "Démontrée avec les expériences suivantes :",
+    "description": "Lead in text for experiences that demonstrate minimum education experience"
+  },
+  "zLeH2i": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Title for the diversity, equity, and inclusion snapshot section"
   }
 }

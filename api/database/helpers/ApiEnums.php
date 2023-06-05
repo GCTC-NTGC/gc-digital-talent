@@ -217,7 +217,7 @@ class ApiEnums
      *
      * @return string[]
      */
-    public static function poolStatuses(): array
+    public static function oldPoolStatuses(): array
     {
         return [
             self::POOL_STATUS_NOT_TAKING_APPLICATIONS,
@@ -276,51 +276,51 @@ class ApiEnums
     }
 
     /**
-     * Pool Advertisement statuses
+     * Pool statuses
      */
-    const POOL_ADVERTISEMENT_IS_DRAFT = 'DRAFT';
-    const POOL_ADVERTISEMENT_IS_PUBLISHED = 'PUBLISHED';
-    const POOL_ADVERTISEMENT_IS_CLOSED = 'CLOSED';
-    public static function poolAdvertisementStatuses(): array
+    const POOL_IS_DRAFT = 'DRAFT';
+    const POOL_IS_PUBLISHED = 'PUBLISHED';
+    const POOL_IS_CLOSED = 'CLOSED';
+    public static function poolStatuses(): array
     {
         return [
-            self::POOL_ADVERTISEMENT_IS_DRAFT,
-            self::POOL_ADVERTISEMENT_IS_PUBLISHED,
-            self::POOL_ADVERTISEMENT_IS_CLOSED,
+            self::POOL_IS_DRAFT,
+            self::POOL_IS_PUBLISHED,
+            self::POOL_IS_CLOSED,
         ];
     }
 
     /**
-     * Pool Advertisement languages
+     * Pool languages
      */
-    const POOL_ADVERTISEMENT_ENGLISH = 'ENGLISH';
-    const POOL_ADVERTISEMENT_FRENCH = 'FRENCH';
-    const POOL_ADVERTISEMENT_VARIOUS = 'VARIOUS';
-    const POOL_ADVERTISEMENT_BILINGUAL_INTERMEDIATE = 'BILINGUAL_INTERMEDIATE';
-    const POOL_ADVERTISEMENT_BILINGUAL_ADVANCED = 'BILINGUAL_ADVANCED';
-    public static function poolAdvertisementLanguages(): array
+    const POOL_ENGLISH = 'ENGLISH';
+    const POOL_FRENCH = 'FRENCH';
+    const POOL_VARIOUS = 'VARIOUS';
+    const POOL_BILINGUAL_INTERMEDIATE = 'BILINGUAL_INTERMEDIATE';
+    const POOL_BILINGUAL_ADVANCED = 'BILINGUAL_ADVANCED';
+    public static function poolLanguages(): array
     {
         return [
-            self::POOL_ADVERTISEMENT_ENGLISH,
-            self::POOL_ADVERTISEMENT_FRENCH,
-            self::POOL_ADVERTISEMENT_VARIOUS,
-            self::POOL_ADVERTISEMENT_BILINGUAL_INTERMEDIATE,
-            self::POOL_ADVERTISEMENT_BILINGUAL_ADVANCED,
+            self::POOL_ENGLISH,
+            self::POOL_FRENCH,
+            self::POOL_VARIOUS,
+            self::POOL_BILINGUAL_INTERMEDIATE,
+            self::POOL_BILINGUAL_ADVANCED,
         ];
     }
 
     /**
-     * Pool Advertisement security clearances
+     * Pool security clearances
      */
-    const POOL_ADVERTISEMENT_RELIABILITY = 'RELIABILITY';
-    const POOL_ADVERTISEMENT_SECRET = 'SECRET';
-    const POOL_ADVERTISEMENT_TOP_SECRET = 'TOP_SECRET';
-    public static function poolAdvertisementSecurity(): array
+    const POOL_RELIABILITY = 'RELIABILITY';
+    const POOL_SECRET = 'SECRET';
+    const POOL_TOP_SECRET = 'TOP_SECRET';
+    public static function poolSecurity(): array
     {
         return [
-            self::POOL_ADVERTISEMENT_RELIABILITY,
-            self::POOL_ADVERTISEMENT_SECRET,
-            self::POOL_ADVERTISEMENT_TOP_SECRET,
+            self::POOL_RELIABILITY,
+            self::POOL_SECRET,
+            self::POOL_TOP_SECRET,
         ];
     }
 
@@ -499,6 +499,7 @@ class ApiEnums
      * The steps in the job application flow
      */
     const APPLICATION_STEP_WELCOME = 'WELCOME';
+    const APPLICATION_STEP_SELF_DECLARATION = 'SELF_DECLARATION';
     const APPLICATION_STEP_REVIEW_YOUR_PROFILE = 'REVIEW_YOUR_PROFILE';
     const APPLICATION_STEP_REVIEW_YOUR_RESUME = 'REVIEW_YOUR_RESUME';
     const APPLICATION_STEP_EDUCATION_REQUIREMENTS = 'EDUCATION_REQUIREMENTS';
@@ -510,6 +511,7 @@ class ApiEnums
     {
         return [
             self::APPLICATION_STEP_WELCOME,
+            self::APPLICATION_STEP_SELF_DECLARATION,
             self::APPLICATION_STEP_REVIEW_YOUR_PROFILE,
             self::APPLICATION_STEP_REVIEW_YOUR_RESUME,
             self::APPLICATION_STEP_EDUCATION_REQUIREMENTS,

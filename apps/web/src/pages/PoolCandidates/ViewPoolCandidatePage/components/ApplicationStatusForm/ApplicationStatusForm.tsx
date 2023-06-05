@@ -21,7 +21,7 @@ import {
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
   PoolCandidateStatus,
   Scalars,
@@ -94,121 +94,125 @@ export const ApplicationStatusForm = ({
 
   return (
     <div data-h2-width="base(100%)">
-      <Heading
-        level="h2"
-        data-h2-font-size="base(h5)"
-        data-h2-font-weight="base(400)"
-        data-h2-margin="base(x1, 0, 0, 0)"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Application status",
-          id: "/s66sg",
-          description: "Title for admins to edit an applications status.",
-        })}
-      </Heading>
-      <Well>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(handleFormSubmit)}>
-            <Heading
-              level="h3"
-              size="h2"
-              data-h2-font-size="base(h6)"
-              data-h2-margin="base(0, 0, x0.25, 0)"
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-              data-h2-gap="base(x0.25, 0)"
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
+          <Well>
+            <div
+              data-h2-display="base(grid)"
+              data-h2-grid-template-columns="l-tablet(1fr 1fr)"
+              data-h2-gap="base(x1)"
             >
-              <CalendarIcon
-                data-h2-width="base(0.75em)"
-                data-h2-height="base(0.75em)"
-                data-h2-margin="base(0, x0.25, 0, 0)"
-              />
-              <span>
-                {intl.formatMessage({
-                  defaultMessage: "Candidate status",
-                  id: "ETrCOq",
-                  description:
-                    "Title for admin editing a pool candidates status",
-                })}
-              </span>
-            </Heading>
-            <Select
-              label={intl.formatMessage({
-                defaultMessage: "Candidate pool status",
-                id: "/pHz5L",
-                description: "Label for the current applications pool status",
-              })}
-              required
-              rules={{ required: true }}
-              id="status"
-              name="status"
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a status",
-                id: "VMhVyJ",
-                description: "Placeholder text for the pool status field",
-              })}
-              options={allowedStatuses.map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getPoolCandidateStatus(value)),
-              }))}
-            />
-            <Input
-              id="expiryDate"
-              name="expiryDate"
-              label={intl.formatMessage({
-                defaultMessage: "Candidate expiry date",
-                id: "SoKPAb",
-                description:
-                  "Label displayed on the pool candidate application form expiry date field.",
-              })}
-              type="date"
-            />
-            <Heading
-              level="h3"
-              size="h2"
-              data-h2-font-size="base(h6)"
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-            >
-              <PencilSquareIcon
-                data-h2-width="base(0.75em)"
-                data-h2-height="base(0.75em)"
-                data-h2-margin="base(0, x0.25, 0, 0)"
-              />
-              <span>
-                {intl.formatMessage({
-                  defaultMessage: "Notes",
-                  id: "npC3bT",
-                  description:
-                    "Title for admin editing a pool candidates notes",
-                })}
-              </span>
-            </Heading>
-            <p data-h2-margin="base(x0.5, 0, x0.5, 0)">
-              {intl.formatMessage({
-                id: "zLvpBy",
-                defaultMessage:
-                  "These notes are shared between all managers of this pool, but not to candidates.",
-                description: "Description of the pool candidate notes field.",
-              })}
-            </p>
-            <TextArea
-              id="notes"
-              name="notes"
-              label={intl.formatMessage(
-                {
-                  defaultMessage: "Notes - {poolName}",
-                  id: "9Aa5c0",
-                  description: "Label for the notes field for a specific pool",
-                },
-                {
-                  poolName: getFullPoolAdvertisementTitleHtml(
-                    intl,
-                    application.pool,
-                  ),
-                },
-              )}
-            />
+              <div>
+                <Heading
+                  level="h4"
+                  size="h5"
+                  data-h2-font-weight="base(400)"
+                  data-h2-margin="base(0, 0, x0.25, 0)"
+                  data-h2-display="base(flex)"
+                  data-h2-align-items="base(center)"
+                  data-h2-gap="base(x0.25, 0)"
+                >
+                  <CalendarIcon
+                    data-h2-width="base(0.75em)"
+                    data-h2-height="base(0.75em)"
+                    data-h2-margin="base(0, x0.25, 0, 0)"
+                  />
+                  <span>
+                    {intl.formatMessage({
+                      defaultMessage: "Candidate status",
+                      id: "ETrCOq",
+                      description:
+                        "Title for admin editing a pool candidates status",
+                    })}
+                  </span>
+                </Heading>
+                <Select
+                  label={intl.formatMessage({
+                    defaultMessage: "Candidate pool status",
+                    id: "/pHz5L",
+                    description:
+                      "Label for the current applications pool status",
+                  })}
+                  required
+                  rules={{ required: true }}
+                  id="status"
+                  name="status"
+                  nullSelection={intl.formatMessage({
+                    defaultMessage: "Select a status",
+                    id: "VMhVyJ",
+                    description: "Placeholder text for the pool status field",
+                  })}
+                  options={allowedStatuses.map(({ value }) => ({
+                    value,
+                    label: intl.formatMessage(getPoolCandidateStatus(value)),
+                  }))}
+                />
+                <Input
+                  id="expiryDate"
+                  name="expiryDate"
+                  label={intl.formatMessage({
+                    defaultMessage: "Candidate expiry date",
+                    id: "SoKPAb",
+                    description:
+                      "Label displayed on the pool candidate application form expiry date field.",
+                  })}
+                  type="date"
+                />
+              </div>
+              <div>
+                <Heading
+                  level="h4"
+                  size="h5"
+                  data-h2-font-weight="base(400)"
+                  data-h2-margin="base(0, 0, x0.25, 0)"
+                  data-h2-display="base(flex)"
+                  data-h2-align-items="base(center)"
+                  data-h2-gap="base(x0.25, 0)"
+                >
+                  <PencilSquareIcon
+                    data-h2-width="base(0.75em)"
+                    data-h2-height="base(0.75em)"
+                    data-h2-margin="base(0, x0.25, 0, 0)"
+                  />
+                  <span>
+                    {intl.formatMessage({
+                      defaultMessage: "Notes",
+                      id: "npC3bT",
+                      description:
+                        "Title for admin editing a pool candidates notes",
+                    })}
+                  </span>
+                </Heading>
+                <p data-h2-margin="base(x0.25, 0, 0, 0)">
+                  {intl.formatMessage({
+                    id: "zLvpBy",
+                    defaultMessage:
+                      "These notes are shared between all managers of this pool, but not to candidates.",
+                    description:
+                      "Description of the pool candidate notes field.",
+                  })}
+                </p>
+                <div data-h2-margin-top="base(-x0.5)">
+                  <TextArea
+                    id="notes"
+                    name="notes"
+                    label={intl.formatMessage(
+                      {
+                        defaultMessage: "Notes - {poolName}",
+                        id: "9Aa5c0",
+                        description:
+                          "Label for the notes field for a specific pool",
+                      },
+                      {
+                        poolName: getFullPoolTitleHtml(intl, application.pool),
+                      },
+                    )}
+                  />
+                </div>
+              </div>
+            </div>
+          </Well>
+          <p data-h2-margin="base(x1, 0)">
             <Submit
               color="primary"
               isSubmitting={isSubmitting}
@@ -220,9 +224,9 @@ export const ApplicationStatusForm = ({
                   "Text displayed on the pool candidate application submit button while saving",
               })}
             />
-          </form>
-        </FormProvider>
-      </Well>
+          </p>
+        </form>
+      </FormProvider>
     </div>
   );
 };
