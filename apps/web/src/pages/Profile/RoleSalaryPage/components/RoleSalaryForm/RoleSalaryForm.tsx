@@ -7,7 +7,7 @@ import { BasicForm, Checklist, unpackMaybes } from "@gc-digital-talent/forms";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-import { Well, ExternalLink } from "@gc-digital-talent/ui";
+import { Well, Link } from "@gc-digital-talent/ui";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
@@ -121,9 +121,9 @@ const RoleSalaryForm = ({
   // intl styling functions section
   function link(chunks: React.ReactNode, url: string) {
     return (
-      <ExternalLink newTab href={url}>
+      <Link newTab external href={url}>
         {chunks}
-      </ExternalLink>
+      </Link>
     );
   }
 

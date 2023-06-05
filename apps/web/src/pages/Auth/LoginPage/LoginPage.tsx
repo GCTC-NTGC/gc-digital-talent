@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
-import { Link, ExternalLink } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useFeatureFlags } from "@gc-digital-talent/env";
@@ -105,18 +105,13 @@ const LoginPage = () => {
               </Link>
             </p>
             <p>
-              <ExternalLink
-                href={loginPath}
-                mode="solid"
-                type="button"
-                color="primary"
-              >
+              <Link href={loginPath} mode="solid" color="primary" external>
                 {intl.formatMessage({
                   defaultMessage: "Continue to GCKey and Login",
                   id: "eYcQ6h",
                   description: "GCKey login link text on the login page",
                 })}
-              </ExternalLink>
+              </Link>
             </p>
           </div>
         </div>

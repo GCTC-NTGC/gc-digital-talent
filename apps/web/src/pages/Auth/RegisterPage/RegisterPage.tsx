@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
-import { ExternalLink } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { useFeatureFlags } from "@gc-digital-talent/env";
@@ -95,33 +95,23 @@ const RegisterPage = () => {
             data-h2-justify-content="base(space-between)"
           >
             <p>
-              <ExternalLink
-                href={loginPath}
-                mode="inline"
-                type="link"
-                color="secondary"
-              >
+              <Link href={loginPath} mode="inline" color="secondary" external>
                 {intl.formatMessage({
                   defaultMessage: "Log in instead",
                   id: "rUFZwt",
                   description: "Login link text on the registration page.",
                 })}
-              </ExternalLink>
+              </Link>
             </p>
             <p>
-              <ExternalLink
-                href={loginPath}
-                mode="solid"
-                type="button"
-                color="primary"
-              >
+              <Link href={loginPath} mode="solid" color="primary" external>
                 {intl.formatMessage({
                   defaultMessage: "Continue to GCKey and Register",
                   id: "vNvh0G",
                   description:
                     "GCKey registration link text on the registration page",
                 })}
-              </ExternalLink>
+              </Link>
             </p>
           </div>
         </div>

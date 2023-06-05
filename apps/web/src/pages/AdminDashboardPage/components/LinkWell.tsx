@@ -1,6 +1,6 @@
 import React from "react";
 
-import { IconLink, LinkProps, Heading, Well } from "@gc-digital-talent/ui";
+import { Link, LinkProps, Heading, Well } from "@gc-digital-talent/ui";
 
 type WellLink = Omit<LinkProps, "children"> & {
   label: React.ReactNode;
@@ -22,9 +22,9 @@ const LinkWell = ({ title, links }: LinkWellProps) => (
       data-h2-gap="base(x.5)"
     >
       {links.map(({ label, ...rest }) => (
-        <IconLink key={rest.href} color="white" type="button" {...rest}>
+        <Link key={rest.href} color="white" {...rest}>
           {label}
-        </IconLink>
+        </Link>
       ))}
     </div>
   </Well>

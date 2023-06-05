@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { Button, ExternalLink, Pill } from "@gc-digital-talent/ui";
+import { Button, Link, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
@@ -69,9 +69,8 @@ const SearchResultCard = ({
         )}
       </p>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
-        <ExternalLink
+        <Link
           mode="inline"
-          type="button"
           color="secondary"
           href={paths.pool(pool.id || "")}
           newTab
@@ -82,7 +81,7 @@ const SearchResultCard = ({
             description:
               "Link message that shows the job poster for the recruitment process.",
           })}
-        </ExternalLink>
+        </Link>
       </p>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage({

@@ -22,7 +22,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-import { ExternalLink } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 
 import { splitAndJoin } from "~/utils/nameUtils";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
@@ -59,9 +59,9 @@ const priorityEntitlementLink = (locale: string, chunks: React.ReactNode) => {
       ? "https://www.canada.ca/en/public-service-commission/services/information-priority-administration.html"
       : "https://www.canada.ca/fr/commission-fonction-publique/services/administration-priorites.html";
   return (
-    <ExternalLink href={href} newTab>
+    <Link href={href} newTab external>
       {chunks}
-    </ExternalLink>
+    </Link>
   );
 };
 

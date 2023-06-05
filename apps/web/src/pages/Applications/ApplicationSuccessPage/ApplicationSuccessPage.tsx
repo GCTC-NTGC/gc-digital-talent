@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
-import { Alert, ExternalLink, Link } from "@gc-digital-talent/ui";
+import { Alert, Link } from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useLocale } from "@gc-digital-talent/i18n";
 
@@ -91,8 +91,9 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
       <ul data-h2-margin-bottom="base(x1.5)">
         {!isIAP && (
           <li data-h2-margin-bottom="base(x.25)">
-            <ExternalLink
+            <Link
               newTab
+              external
               href={
                 locale === "en"
                   ? "https://www.tbs-sct.canada.ca/tbsf-fsct/330-60-eng.asp"
@@ -105,7 +106,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
                 description:
                   "Link text for government of canada security clearance forms",
               })}
-            </ExternalLink>
+            </Link>
           </li>
         )}
         <li data-h2-margin-bottom="base(x.25)">
