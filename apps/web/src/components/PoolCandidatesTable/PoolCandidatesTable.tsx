@@ -136,7 +136,10 @@ const statusAccessor = (
 ) => {
   if (status === PoolCandidateStatus.NewApplication) {
     return (
-      <span data-h2-color="base(tertiary)" data-h2-font-weight="base(700)">
+      <span
+        data-h2-color="base(tertiary.darker)"
+        data-h2-font-weight="base(700)"
+      >
         {status
           ? intl.formatMessage(getPoolCandidateStatus(status as string))
           : ""}
