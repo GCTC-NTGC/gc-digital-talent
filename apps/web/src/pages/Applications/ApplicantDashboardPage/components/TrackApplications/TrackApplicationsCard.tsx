@@ -11,7 +11,7 @@ import {
   isPlaced,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
-import QualifiedRecruitmentStatus from "./QualifiedRecruitmentStatus";
+import QualifiedRecruitmentStatus from "./TrackApplicationsStatus";
 
 export type Application = Omit<PoolCandidate, "user">;
 

@@ -16,7 +16,7 @@ import {
 import { PoolCandidateStatus } from "~/api/generated";
 import QualifiedRecruitmentCard, {
   type QualifiedRecruitmentCardProps,
-} from "./QualifiedRecruitmentCard";
+} from "./TrackApplicationsCard";
 
 const mockApplication = fakePoolCandidates()[0];
 

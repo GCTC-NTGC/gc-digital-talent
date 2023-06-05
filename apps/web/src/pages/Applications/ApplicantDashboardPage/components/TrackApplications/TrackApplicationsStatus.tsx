@@ -8,7 +8,7 @@ import {
   isExpired,
   isPlaced,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
-import QualifiedRecruitmentDialog from "./QualifiedRecruitmentDialog";
+import QualifiedRecruitmentDialog from "./TrackApplicationsDialog";
 
 export type Application = Omit<PoolCandidate, "user">;
 
