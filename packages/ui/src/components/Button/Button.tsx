@@ -218,7 +218,7 @@ export const h2ButtonColors = {
       "data-h2-border-width": "base(3px)",
       "data-h2-border-style": "base(solid)",
       "data-h2-color":
-        "base(quinary.dark) base:hover(quinary) base:focus-visible(black) base:dark(quinary.lighter) base:dark:hover(quinary.light) base:dark:focus-visible(black) base:admin(quinary.dark) base:admin:hover(quinary) base:admin:focus-visible(black) base:admin:dark(quinary.light) base:admin:dark:hover(quinary) base:admin:dark:focus-visible(black) base:iap:hover(quinary.light) base:iap:focus-visible(black) base:iap:dark:hover(quinary.light) base:iap:dark:focus-visible(black)",
+        "base(quinary.darker) base:hover(quinary.dark) base:focus-visible(black) base:dark(quinary.lighter) base:dark:hover(quinary.light) base:dark:focus-visible(black) base:admin(quinary.dark) base:admin:hover(quinary) base:admin:focus-visible(black) base:admin:dark(quinary.light) base:admin:dark:hover(quinary) base:admin:dark:focus-visible(black) base:iap:hover(quinary.light) base:iap:focus-visible(black) base:iap:dark:hover(quinary.light) base:iap:dark:focus-visible(black)",
       "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
       "data-h2-border-color": "base(transparent)",
     },
@@ -292,7 +292,7 @@ export const h2ButtonColors = {
       "data-h2-border-width": "base(3px)",
       "data-h2-border-style": "base(solid)",
       "data-h2-color":
-        "base(warning.dark) base:hover(warning) base:focus-visible(black) base:dark(warning.lighter) base:dark:hover(warning.light) base:dark:focus-visible(black)",
+        "base(warning.darker) base:hover(warning.dark) base:focus-visible(black) base:dark(warning.lighter) base:dark:hover(warning.light) base:dark:focus-visible(black)",
       "data-h2-background-color": "base(transparent) base:focus-visible(focus)",
       "data-h2-border-color": "base(transparent)",
     },
