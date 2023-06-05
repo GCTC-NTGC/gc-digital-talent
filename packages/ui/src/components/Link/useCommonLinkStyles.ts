@@ -11,7 +11,7 @@ const linkColorMap: Record<Color, Record<string, string>> = {
     "data-h2-color": "base(primary) base:hover(primary.darker)",
   },
   secondary: {
-    "data-h2-color": "base(secondary) base:hover(secondary.darker)",
+    "data-h2-color": "base(secondary.darker) base:hover(secondary.darkest)",
   },
   tertiary: {
     "data-h2-color": "base(tertiary) base:hover(tertiary.darker)",

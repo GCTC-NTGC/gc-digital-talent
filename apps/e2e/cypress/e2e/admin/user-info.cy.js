@@ -1,4 +1,3 @@
-import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
@@ -142,6 +141,7 @@ describe("User Information Page", () => {
           });
         });
       });
+
       // Submit an application to newTeam pool (NOT connected to pool_operator) with the test user
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
