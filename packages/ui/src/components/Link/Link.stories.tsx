@@ -1,7 +1,8 @@
 import React from "react";
 import { StoryFn } from "@storybook/react";
+import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
+
 import Link from "./Link";
-import ExternalLink, { ExternalLinkProps } from "./ExternalLink";
 import type { LinkProps } from "./Link";
 import { Color } from "../../types";
 
@@ -89,21 +90,7 @@ const TemplateLinkColors: Story = (args) => {
   );
 };
 
-const TemplateExternalLink: StoryFn<ExternalLinkProps & { label: string }> = (
-  args,
-) => {
-  const { label, ...rest } = args;
-  return (
-    <ExternalLink {...rest}>
-      <span>{label}</span>
-    </ExternalLink>
-  );
-};
-
 export const LinkDefault = TemplateLink.bind({});
-LinkDefault.args = {
-  type: "link",
-};
 
 export const LinkButtonSolid = TemplateLinkColors.bind({});
 LinkButtonSolid.args = {
@@ -115,9 +102,10 @@ LinkButtonOutline.args = {
   mode: "outline",
 };
 
-export const LinkButtonInline = TemplateLinkColors.bind({});
-LinkButtonInline.args = {
-  mode: "inline",
+export const LinkButtonCallToAction = TemplateLinkColors.bind({});
+LinkButtonCallToAction.args = {
+  mode: "cta",
+  icon: InformationCircleIcon,
 };
 
 export const LinkButtonBlock = TemplateLink.bind({});
@@ -126,15 +114,22 @@ LinkButtonBlock.args = {
   block: true,
 };
 
-export const ExternalLinkNewTab = TemplateExternalLink.bind({});
-export const ExternalLinkNotNewTab = TemplateExternalLink.bind({});
+export const IconLink = TemplateLink.bind({});
+IconLink.args = {
+  mode: "solid",
+  icon: InformationCircleIcon,
+};
 
+export const ExternalLinkNewTab = TemplateLink.bind({});
 ExternalLinkNewTab.args = {
   newTab: true,
+  mode: "inline",
   href: "https://example.com",
 };
 
+export const ExternalLinkNotNewTab = TemplateLink.bind({});
 ExternalLinkNotNewTab.args = {
   newTab: false,
+  mode: "inline",
   href: "https://example.com",
 };
