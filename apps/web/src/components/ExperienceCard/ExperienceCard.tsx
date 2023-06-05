@@ -197,7 +197,7 @@ const ExperienceCard = ({
             </span>
           </Button>
         </Collapsible.Trigger>
-        <Collapsible.Content>
+        <Collapsible.Content data-h2-padding-left="base(x1.5)">
           <Separator
             orientation="horizontal"
             decorative
