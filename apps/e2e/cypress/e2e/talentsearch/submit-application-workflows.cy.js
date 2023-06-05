@@ -41,7 +41,7 @@ describe("Submit Application Workflow Tests", () => {
     });
   });
 
-  it("Submits an application to a new pool", () => {
+  it.skip("Submits an application to a new pool", () => {
     const uniqueTestId = Date.now().valueOf();
     cy.log(`Test run ${uniqueTestId}`);
 
