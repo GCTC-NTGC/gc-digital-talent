@@ -46,10 +46,7 @@ const GovernmentInfoFormApi = ({
           departments={departments}
           classifications={classifications}
           initialData={initialData}
-          application={{
-            ...data.poolCandidate,
-            pool: { id: data.poolCandidate.id },
-          }}
+          application={data.poolCandidate}
           submitHandler={submitHandler}
         />
       ) : (

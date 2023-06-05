@@ -25,8 +25,8 @@ class ScreeningQuestionTest extends TestCase
     protected $updatePoolMutation =
     /** @lang GraphQL */
     '
-        mutation updatePoolAdvertisement($id: ID! ,$poolAdvertisement: UpdatePoolAdvertisementInput!) {
-            updatePoolAdvertisement(id: $id, poolAdvertisement: $poolAdvertisement) {
+        mutation updatePool($id: ID! ,$pool: UpdatePoolInput!) {
+            updatePool(id: $id, pool: $pool) {
                 screeningQuestions {
                     id
                     question {
@@ -65,7 +65,7 @@ class ScreeningQuestionTest extends TestCase
 
         $this->actingAs($this->teamUser, "api")->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
-            'poolAdvertisement' => [
+            'pool' => [
                 'screeningQuestions' => [
                     'create' =>
                     [
@@ -96,7 +96,7 @@ class ScreeningQuestionTest extends TestCase
 
         $this->actingAs($this->teamUser, "api")->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
-            'poolAdvertisement' => [
+            'pool' => [
                 'screeningQuestions' => [
                     'update' =>
                     [
@@ -128,7 +128,7 @@ class ScreeningQuestionTest extends TestCase
 
         $this->actingAs($this->teamUser, "api")->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
-            'poolAdvertisement' => [
+            'pool' => [
                 'screeningQuestions' => [
                     'delete' =>
                     [

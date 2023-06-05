@@ -1,14 +1,15 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { fakePoolAdvertisements } from "@gc-digital-talent/fake-data";
-import { PoolAdvertisement } from "~/api/generated";
+import { fakePools } from "@gc-digital-talent/fake-data";
+import { Pool } from "~/api/generated";
 import PoolCard from "./PoolCard";
 
-const fakedPool = fakePoolAdvertisements()[0];
-const fakedPool2 = fakePoolAdvertisements()[1];
-const fakedPool3 = fakePoolAdvertisements()[2];
-const fakedPool4 = fakePoolAdvertisements()[3];
-const fakedPoolNull = fakePoolAdvertisements()[0];
+const fakedPools = fakePools();
+const fakedPool = fakedPools[0];
+const fakedPool2 = fakedPools[1];
+const fakedPool3 = fakedPools[2];
+const fakedPool4 = fakedPools[3];
+const fakedPoolNull = fakedPools[0];
 
 if (
   fakedPool3.classifications &&
@@ -41,7 +42,7 @@ export default {
   },
 } as Meta;
 
-const TemplatePoolCard: Story<{ pool: PoolAdvertisement }> = () => (
+const TemplatePoolCard: Story<{ pool: Pool }> = () => (
   <div>
     <p data-h2-padding="base(x0.5, 0, x0.5, 0)">First</p>
     <PoolCard pool={fakedPool} />

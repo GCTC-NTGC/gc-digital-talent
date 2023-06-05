@@ -13,9 +13,9 @@ import {
   formDateStringToDate,
   DATE_FORMAT_STRING,
 } from "@gc-digital-talent/date-helpers";
-import { PoolAdvertisement } from "@gc-digital-talent/graphql";
+import { Pool } from "@gc-digital-talent/graphql";
 import { Pending } from "@gc-digital-talent/ui";
-import { fakePoolAdvertisements } from "@gc-digital-talent/fake-data";
+import { fakePools } from "@gc-digital-talent/fake-data";
 
 import DateInput, { DateInputProps } from "./DateInput";
 import Form from "../BasicForm";
@@ -178,21 +178,20 @@ const RenderDependantTemplate: ComponentStory<DateInputArgs> = (args) => {
 export const HideInputWhenInvalid = RenderDependantTemplate.bind({});
 
 type AsyncArgs = DateInputProps & {
-  mockQuery: () => Promise<PoolAdvertisement>;
+  mockQuery: () => Promise<Pool>;
 };
 
 const AsyncTemplate: Story<AsyncArgs> = (args) => {
   const intl = useIntl();
   const { mockQuery, ...rest } = args;
   const [fetching, setFetching] = React.useState<boolean>(false);
-  const [poolAdvertisement, setPoolAdvertisement] =
-    React.useState<PoolAdvertisement | null>(null);
+  const [pool, setPool] = React.useState<Pool | null>(null);
 
   React.useEffect(() => {
     setFetching(true);
     mockQuery()
-      .then((res: PoolAdvertisement) => {
-        setPoolAdvertisement(res);
+      .then((res: Pool) => {
+        setPool(res);
       })
       .finally(() => {
         setFetching(false);
@@ -205,9 +204,9 @@ const AsyncTemplate: Story<AsyncArgs> = (args) => {
         options={{
           mode: "onSubmit",
           defaultValues: {
-            [rest.name]: poolAdvertisement?.closingDate
+            [rest.name]: pool?.closingDate
               ? formatDate({
-                  date: parseISO(poolAdvertisement?.closingDate),
+                  date: parseISO(pool?.closingDate),
                   formatString: DATE_FORMAT_STRING,
                   intl,
                 })
@@ -223,14 +222,14 @@ const AsyncTemplate: Story<AsyncArgs> = (args) => {
   );
 };
 
-const mockPoolAdvertisements = fakePoolAdvertisements(1);
+const mockPool = fakePools(1)[0];
 
 export const AsyncDefaultValue = AsyncTemplate.bind({});
 AsyncDefaultValue.args = {
-  mockQuery: async (): Promise<PoolAdvertisement> => {
+  mockQuery: async (): Promise<Pool> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(mockPoolAdvertisements[0]);
+        resolve(mockPool);
       }, 1000);
     });
   },

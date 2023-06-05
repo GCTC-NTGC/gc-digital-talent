@@ -1,5 +1,5 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
+import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("Pool Candidates", () => {
@@ -66,14 +66,14 @@ describe("Pool Candidates", () => {
               dcmId = dcm;
             });
 
-            // create, update, and publish a new pool advertisement for testing matching
+            // create, update, and publish a new pool for testing matching
             cy.get("@testClassification").then((classification) => {
-              createAndPublishPoolAdvertisement({
+              createAndPublishPool({
                 adminUserId,
                 teamId: dcmId,
                 englishName: `Cypress Test Pool EN ${uniqueTestId}`,
                 classification,
-                poolAdvertisementAlias: "publishedTestPoolAdvertisement",
+                poolAlias: "publishedTestPool",
               });
             });
           });
@@ -84,14 +84,12 @@ describe("Pool Candidates", () => {
     cy.get("@testUser").then((testUser) => {
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
-        cy.get("@publishedTestPoolAdvertisement").then((poolAdvertisement) => {
-          cy.createApplication(testUser.id, poolAdvertisement.id).then(
-            (poolCandidate) => {
-              cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
-                .its("id")
-                .as("poolCandidateId");
-            },
-          );
+        cy.get("@publishedTestPool").then((pool) => {
+          cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
+            cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+              .its("id")
+              .as("poolCandidateId");
+          });
         });
       });
     });
@@ -169,14 +167,14 @@ describe("Pool Candidates", () => {
               dcmId = dcm;
             });
 
-            // create, update, and publish a new pool advertisement for testing matching
+            // create, update, and publish a new pool for testing matching
             cy.get("@testClassification").then((classification) => {
-              createAndPublishPoolAdvertisement({
+              createAndPublishPool({
                 adminUserId,
                 teamId: dcmId,
                 englishName: `Cypress Test Pool EN ${uniqueTestId}`,
                 classification,
-                poolAdvertisementAlias: "publishedTestPoolAdvertisement",
+                poolAlias: "publishedTestPool",
               });
             });
           });
@@ -187,14 +185,12 @@ describe("Pool Candidates", () => {
     cy.get("@testUser").then((testUser) => {
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
-        cy.get("@publishedTestPoolAdvertisement").then((poolAdvertisement) => {
-          cy.createApplication(testUser.id, poolAdvertisement.id).then(
-            (poolCandidate) => {
-              cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
-                .its("id")
-                .as("poolCandidateId");
-            },
-          );
+        cy.get("@publishedTestPool").then((pool) => {
+          cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
+            cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+              .its("id")
+              .as("poolCandidateId");
+          });
         });
       });
     });

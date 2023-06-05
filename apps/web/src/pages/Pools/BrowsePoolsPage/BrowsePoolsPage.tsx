@@ -15,10 +15,10 @@ import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import {
-  AdvertisementStatus,
+  PoolStatus,
   PublishingGroup,
-  PoolAdvertisement,
-  useBrowsePoolAdvertisementsQuery,
+  Pool,
+  useBrowsePoolsQuery,
 } from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
@@ -43,10 +43,10 @@ const getFlourishStyles = (isTop: boolean) => ({
 });
 
 export interface BrowsePoolsProps {
-  poolAdvertisements: PoolAdvertisement[];
+  pools: Pool[];
 }
 
-export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
+export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
   const { mode } = useTheme();
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
@@ -65,15 +65,15 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
     },
   ]);
 
-  const activeRecruitmentPools = poolAdvertisements.filter(
+  const activeRecruitmentPools = pools.filter(
     (p) =>
-      p.advertisementStatus === AdvertisementStatus.Published && // list jobs which have the PUBLISHED AdvertisementStatus
+      p.status === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
       p.publishingGroup === PublishingGroup.ItJobs, // and which are meant to be published on the IT Jobs page
   );
 
-  const ongoingRecruitmentPools = poolAdvertisements.filter(
+  const ongoingRecruitmentPools = pools.filter(
     (p) =>
-      p.advertisementStatus === AdvertisementStatus.Published && // list jobs which have the PUBLISHED AdvertisementStatus
+      p.status === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
       p.publishingGroup === PublishingGroup.ItJobsOngoing, // and which are meant to be published on the IT Jobs page
   );
 
@@ -317,18 +317,17 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
 const now = nowUTCDateTime();
 
 const BrowsePoolsApi = () => {
-  const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery({
+  const [{ data, fetching, error }] = useBrowsePoolsQuery({
     variables: { closingAfter: now }, // pass current dateTime into query argument
   });
 
-  const filteredPoolAdvertisements = data?.publishedPoolAdvertisements.filter(
-    (poolAdvertisement) =>
-      typeof poolAdvertisement !== undefined && !!poolAdvertisement,
-  ) as PoolAdvertisement[];
+  const filteredPools = data?.publishedPools.filter(
+    (pool) => typeof pool !== undefined && !!pool,
+  ) as Pool[];
 
   return (
     <Pending fetching={fetching} error={error}>
-      <BrowsePools poolAdvertisements={filteredPoolAdvertisements} />
+      <BrowsePools pools={filteredPools} />
     </Pending>
   );
 };

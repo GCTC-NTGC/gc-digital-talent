@@ -26,7 +26,7 @@ query getMePools {
             group
             level
           }
-          advertisementStatus
+          status
           stream
           processNumber
           publishingGroup
@@ -56,7 +56,7 @@ query allPools {
       group
       level
     }
-    advertisementStatus
+    status
     stream
     processNumber
     publishingGroup

@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import type { Application } from "./ApplicationCard";
@@ -20,7 +20,7 @@ export interface ContinueActionProps extends ActionProps {
 const ContinueAction = ({ show, application }: ContinueActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { poolAdvertisement } = application;
+  const { pool } = application;
   const { applicationRevamp } = useFeatureFlags();
   const href = applicationRevamp
     ? paths.application(application.id)
@@ -40,7 +40,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
             description: "Link text to continue a specific application",
           },
           {
-            name: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
+            name: getFullPoolTitleHtml(intl, pool),
           },
         )}
       </Link>
@@ -54,7 +54,7 @@ export interface ViewActionProps extends ActionProps {
 const ViewAction = ({ show, application }: ViewActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { poolAdvertisement } = application;
+  const { pool } = application;
   const { applicationRevamp } = useFeatureFlags();
   const href = applicationRevamp
     ? paths.application(application.id)
@@ -73,7 +73,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
           description: "Link text to view a specific application",
         },
         {
-          name: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
+          name: getFullPoolTitleHtml(intl, pool),
         },
       )}
     </Link>
@@ -81,7 +81,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
 };
 
 export interface SeeAdvertisementActionProps extends ActionProps {
-  advertisement: Application["poolAdvertisement"];
+  advertisement: Application["pool"];
 }
 
 const SeeAdvertisementAction = ({
@@ -109,7 +109,7 @@ const SeeAdvertisementAction = ({
           description: "Link text to see an applications advertisement",
         },
         {
-          name: getFullPoolAdvertisementTitleHtml(intl, advertisement),
+          name: getFullPoolTitleHtml(intl, advertisement),
         },
       )}
     </Link>
@@ -148,10 +148,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
     return null;
   }
 
-  const name = getFullPoolAdvertisementTitleHtml(
-    intl,
-    application.poolAdvertisement,
-  );
+  const name = getFullPoolTitleHtml(intl, application.pool);
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
@@ -234,10 +231,7 @@ const ArchiveAction = ({
     return null;
   }
 
-  const name = getFullPoolAdvertisementTitleHtml(
-    intl,
-    application.poolAdvertisement,
-  );
+  const name = getFullPoolTitleHtml(intl, application.pool);
 
   return (
     <AlertDialog.Root>

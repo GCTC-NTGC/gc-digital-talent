@@ -321,7 +321,7 @@ type UserPublicProfile {
 
 type ScreeningQuestion {
   id: ID!
-  poolAdvertisement: PoolAdvertisement @belongsTo(relation: "pool")
+  pool: Pool @belongsTo
   question: LocalizedString
   sortOrder: Int @rename(attribute: "sort_order")
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
@@ -340,8 +340,14 @@ type Pool {
     @hasMany(relation: "publishedPoolCandidates")
     @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
-  advertisementStatus: AdvertisementStatus
-    @rename(attribute: "advertisement_status")
+  yourImpact: LocalizedString @rename(attribute: "your_impact")
+  isRemote: Boolean @rename(attribute: "is_remote")
+  location: LocalizedString @rename(attribute: "advertisement_location")
+  securityClearance: SecurityStatus @rename(attribute: "security_clearance")
+  language: PoolLanguage @rename(attribute: "advertisement_language")
+  status: PoolStatus @rename(attribute: "status")
+  essentialSkills: [Skill!] @belongsToMany
+  nonessentialSkills: [Skill!] @belongsToMany
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
@@ -350,6 +356,8 @@ type Pool {
   screeningQuestions: [ScreeningQuestion]
     @hasMany
     @orderBy(column: "sort_order", direction: ASC)
+  closingDate: DateTime @rename(attribute: "closing_date")
+  publishedAt: DateTime @rename(attribute: "published_at")
 }
 
 enum PoolStream {
@@ -364,36 +372,7 @@ enum PoolStream {
   INFORMATION_DATA_FUNCTIONS
 }
 
-type PoolAdvertisement {
-  id: ID!
-  key: KeyString
-  owner: UserPublicProfile @belongsTo(relation: "user")
-  team: Team @belongsTo @can(ability: "viewAny")
-  closingDate: DateTime @rename(attribute: "closing_date")
-  publishedAt: DateTime @rename(attribute: "published_at")
-  name: LocalizedString
-  classifications: [Classification] @belongsToMany
-  keyTasks: LocalizedString @rename(attribute: "key_tasks")
-  yourImpact: LocalizedString @rename(attribute: "your_impact")
-  isRemote: Boolean @rename(attribute: "is_remote")
-  advertisementLocation: LocalizedString
-    @rename(attribute: "advertisement_location")
-  securityClearance: SecurityStatus @rename(attribute: "security_clearance")
-  advertisementLanguage: PoolAdvertisementLanguage
-    @rename(attribute: "advertisement_language")
-  advertisementStatus: AdvertisementStatus
-    @rename(attribute: "advertisement_status")
-  essentialSkills: [Skill!] @belongsToMany
-  nonessentialSkills: [Skill!] @belongsToMany
-  stream: PoolStream
-  processNumber: String @rename(attribute: "process_number")
-  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
-  screeningQuestions: [ScreeningQuestion]
-    @hasMany
-    @orderBy(column: "sort_order", direction: ASC)
-}
-
-enum AdvertisementStatus {
+enum PoolStatus {
   DRAFT
   PUBLISHED
   CLOSED
@@ -425,7 +404,7 @@ enum SecurityStatus {
   TOP_SECRET
 }
 
-enum PoolAdvertisementLanguage {
+enum PoolLanguage {
   ENGLISH
   FRENCH
   VARIOUS
@@ -467,9 +446,6 @@ type ScreeningQuestionResponse {
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @can(ability: "view", resolved: true)
-  poolAdvertisement: PoolAdvertisement
-    @belongsTo(relation: "pool")
-    @can(ability: "viewAdvertisement", resolved: true)
   user: Applicant! @belongsTo(relation: "user")
 
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
@@ -914,7 +890,7 @@ input PoolCandidateSearchInput {
 }
 
 type CandidateSearchPoolResult {
-  pool: PoolAdvertisement! @can(ability: "viewAdvertisement", resolved: true)
+  pool: Pool! @can(ability: "view", resolved: true)
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
@@ -941,17 +917,12 @@ type Query {
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
   pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
-  poolAdvertisement(id: UUID! @eq): PoolAdvertisement
-    @find(model: "Pool")
-    @can(ability: "viewAdvertisement", model: "Pool", query: true)
-  poolAdvertisements: [PoolAdvertisement]!
-    @all(model: "Pool")
-    @can(ability: "viewAny", model: "Pool")
-  publishedPoolAdvertisements(
+  pools: [Pool]! @all @can(ability: "viewAny", model: "Pool")
+  publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
-  ): [PoolAdvertisement!]!
-    @all(model: "Pool", scopes: ["wasPublished"])
-    @can(ability: "viewAnyPublishedAdvertisement", model: "Pool")
+  ): [Pool!]!
+    @all(scopes: ["wasPublished"])
+    @can(ability: "viewAnyPublished", model: "Pool")
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
   pools: [Pool]!
     @all(scopes: ["authorizedToView"])
@@ -1334,19 +1305,6 @@ input CreatePoolCandidateAsAdminInput {
   notes: String
 }
 
-input CreatePoolInput {
-  owner: UserBelongsTo! @rename(attribute: "user")
-  team: TeamBelongsTo!
-  name: LocalizedStringInput!
-  key: KeyString
-  classifications: ClassificationBelongsToMany
-  operationalRequirements: [OperationalRequirement]
-    @rename(attribute: "operational_requirements")
-  keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
-  processNumber: String @rename(attribute: "process_number")
-  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
-}
-
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
@@ -1359,19 +1317,6 @@ input UpdatePoolCandidateAsAdminInput {
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
   notes: String
-}
-
-input UpdatePoolInput {
-  owner: UserBelongsTo @rename(attribute: "user")
-  team: TeamBelongsTo @rename(attribute: "team")
-  name: LocalizedStringInput
-  classifications: ClassificationBelongsToMany
-  operationalRequirements: [OperationalRequirement]
-    @rename(attribute: "operational_requirements")
-  keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
-  stream: PoolStream
-  processNumber: String @rename(attribute: "process_number")
-  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
 }
 
 input CreateDepartmentInput {
@@ -1585,7 +1530,7 @@ input GenericJobTitleBelongsToMany {
   sync: [ID!]
 }
 
-input CreatePoolAdvertisementInput {
+input CreatePoolInput {
   classifications: ClassificationBelongsToMany
 }
 
@@ -1606,7 +1551,7 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
-input UpdatePoolAdvertisementInput {
+input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
@@ -1627,11 +1572,9 @@ input UpdatePoolAdvertisementInput {
   essentialSkills: SkillBelongsToMany
   nonessentialSkills: SkillBelongsToMany
   # Other requirements
-  advertisementLanguage: PoolAdvertisementLanguage
-    @rename(attribute: "advertisement_language")
+  language: PoolLanguage @rename(attribute: "advertisement_language")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
-  advertisementLocation: LocalizedStringInput
-    @rename(attribute: "advertisement_location")
+  location: LocalizedStringInput @rename(attribute: "advertisement_location")
   isRemote: Boolean @rename(attribute: "is_remote")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   screeningQuestions: UpdateScreeningQuestionsHasMany
@@ -1839,40 +1782,20 @@ type Mutation {
     @guard
     @can(ability: "delete", find: "id")
 
-  # Pool/PoolAdvertisement mutations
-  createPool(pool: CreatePoolInput! @spread): Pool
-    @create
-    @guard
-    @can(ability: "create", injectArgs: true)
-  createPoolAdvertisement(
+  # Pool mutations
+  createPool(
     userId: ID! @rename(attribute: "user_id")
     teamId: ID! @rename(attribute: "team_id")
-    poolAdvertisement: CreatePoolAdvertisementInput! @spread
-  ): PoolAdvertisement
-    @create(model: "Pool")
+    pool: CreatePoolInput! @spread
+  ): Pool @create @guard @can(ability: "create", injectArgs: true)
+  duplicatePool(id: ID!, teamId: ID! @rename(attribute: "team_id")): Pool
     @guard
-    @can(ability: "create", model: "Pool", injectArgs: true)
-  duplicatePoolAdvertisement(
-    id: ID!
-    teamId: ID! @rename(attribute: "team_id")
-  ): PoolAdvertisement
-    @guard
-    @can(ability: "duplicate", model: "Pool", injectArgs: true)
+    @can(ability: "duplicate", injectArgs: true)
   updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
     @update
     @guard
     @can(ability: "updateDraft", find: "id")
-    @deprecated(reason: "Should use updatePoolAdvertisement instead.")
-  updatePoolAdvertisement(
-    id: ID!
-    poolAdvertisement: UpdatePoolAdvertisementInput! @spread
-  ): PoolAdvertisement
-    @update(model: "Pool")
-    @guard
-    @can(ability: "updateDraft", find: "id", model: "Pool")
-  publishPoolAdvertisement(id: ID!): PoolAdvertisement
-    @guard
-    @can(ability: "publish", find: "id", model: "Pool")
+  publishPool(id: ID!): Pool @guard @can(ability: "publish", find: "id")
   changePoolClosingDate(
     id: ID!
     newClosingDate: DateTime!
@@ -1881,20 +1804,16 @@ type Mutation {
         apply: ["after:today"]
         messages: [{ rule: "after", message: "UpdatePoolClosingDate" }]
       )
-  ): PoolAdvertisement
-    @guard
-    @can(ability: "changePoolClosingDate", find: "id", model: "Pool")
-  closePoolAdvertisement(id: ID!): PoolAdvertisement
-    @guard
-    @can(ability: "closePoolAdvertisement", find: "id", model: "Pool")
+  ): Pool @guard @can(ability: "changePoolClosingDate", find: "id")
+  closePool(id: ID!): Pool @guard @can(ability: "closePool", find: "id")
   deletePool(id: ID!): Pool
     @delete(globalId: false)
     @guard
     @can(ability: "deleteDraft", find: "id")
-  deletePoolAdvertisement(id: ID!): PoolAdvertisement
+  deletePool(id: ID!): Pool
     @delete(model: "Pool", globalId: false)
     @guard
-    @can(ability: "deleteDraft", find: "id", model: "Pool")
+    @can(ability: "deleteDraft", find: "id")
 
   # Application mutations
   archiveApplication(id: ID!): PoolCandidate

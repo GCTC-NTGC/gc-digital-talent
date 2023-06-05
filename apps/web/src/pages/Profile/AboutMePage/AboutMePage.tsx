@@ -41,10 +41,7 @@ const AboutMeFormApi = ({
       {data?.poolCandidate ? (
         <AboutMeForm
           initialUser={initialUser}
-          application={{
-            ...data.poolCandidate,
-            pool: { id: data.poolCandidate.id },
-          }}
+          application={data.poolCandidate}
           onUpdateAboutMe={onUpdateAboutMe}
         />
       ) : (
