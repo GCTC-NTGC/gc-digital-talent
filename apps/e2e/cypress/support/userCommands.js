@@ -81,16 +81,6 @@ Cypress.Commands.add("updateUser", (id, user) => {
 
 Cypress.Commands.add("getMe", () => {
   cy.graphqlRequest({
-    operationName: "me",
-    query: getGqlString(MeDocument),
-    variables: {},
-  }).then((data) => {
-    cy.wrap(data.me);
-  });
-});
-
-Cypress.Commands.add("getMeAllData", () => {
-  cy.graphqlRequest({
     operationName: "getMe",
     query: getGqlString(GetMeDocument),
     variables: {},

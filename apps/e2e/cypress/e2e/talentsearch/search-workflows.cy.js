@@ -116,7 +116,7 @@ describe("Talent Search Workflow Tests", () => {
       cy.getMe().then((testUser) => {
         cy.get("@publishedTestPool1").then((pool) => {
           cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
-            cy.getMeAllData().then((me) => {
+            cy.getMe().then((me) => {
               // update application to be complete, createApplicant attaches a personal experience to the user
               const experienceId = me.experiences[0].id;
               cy.updateApplication(poolCandidate.id, {
