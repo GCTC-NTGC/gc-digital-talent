@@ -134,6 +134,9 @@ describe("Pool Candidates", () => {
     cy.findByRole("combobox", { name: /candidate pool status/i }).select(
       "Screened In",
     );
+    cy.findByRole("combobox", { name: /candidate pool status/i }).within(() => {
+      cy.get("option:selected").should("have.text", "Screened In");
+    });
 
     cy.findByLabelText(/Candidate expiry date/i).type("2023-12-01");
 
@@ -243,6 +246,9 @@ describe("Pool Candidates", () => {
     cy.findByRole("combobox", { name: /candidate pool status/i }).select(
       "Screened In",
     );
+    cy.findByRole("combobox", { name: /candidate pool status/i }).within(() => {
+      cy.get("option:selected").should("have.text", "Screened In");
+    });
 
     cy.findByLabelText(/Candidate expiry date/i).clear();
 
