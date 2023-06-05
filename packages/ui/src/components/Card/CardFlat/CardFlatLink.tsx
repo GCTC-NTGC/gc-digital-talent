@@ -1,7 +1,7 @@
 import React from "react";
 import omit from "lodash/omit";
 
-import Link, { ExternalLink, type LinkProps } from "../../Link";
+import Link, { type LinkProps } from "../../Link";
 import { CardColor } from "./types";
 
 export interface CardFlatLinkProps extends Omit<LinkProps, "color"> {
@@ -10,13 +10,11 @@ export interface CardFlatLinkProps extends Omit<LinkProps, "color"> {
   color: CardColor;
 }
 
-const CardFlatLink = ({ external, color, ...link }: CardFlatLinkProps) => {
-  const LinkEl = external ? ExternalLink : Link;
-
+const CardFlatLink = ({ color, ...link }: CardFlatLinkProps) => {
   return (
-    <LinkEl color={color} {...omit(link, "label", "external", "naturalKey")}>
+    <Link color={color} {...omit(link, "label", "naturalKey")}>
       {link.label}
-    </LinkEl>
+    </Link>
   );
 };
 

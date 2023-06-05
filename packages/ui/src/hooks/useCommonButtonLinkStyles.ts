@@ -894,10 +894,23 @@ const getDisplay = (block?: boolean): StyleRecord => {
     : { "data-h2-display": "base(inline-flex)" };
 };
 
+/**
+ * Get Weight
+ *
+ * Compute a button or links font weight value
+ *
+ * @param block boolean
+ * @returns Record<string, string>
+ */
+const getWeight = (light?: boolean): StyleRecord => {
+  return light ? {} : { "data-h2-font-weight": "base(700)" };
+};
+
 interface UseCommonButtonLinkStylesArgs {
   mode: ButtonLinkMode;
   color: Color;
   block?: boolean;
+  light?: boolean;
 }
 
 type UseCommonButtonLinkStyles = (
@@ -908,12 +921,14 @@ const useCommonButtonLinkStyles: UseCommonButtonLinkStyles = ({
   mode,
   color,
   block,
+  light,
 }) => {
   return {
-    "data-h2-font-weight": "base(700)",
     "data-h2-font-size": "base(copy)",
     "data-h2-text-decoration": "base(underline) base:hover(none)",
     "data-h2-transition": "base(all ease .1s) base:children[*](all ease .1s)",
+    "data-h2-outline-offset": "base(4px)",
+    ...getWeight(light),
     ...getPadding(mode),
     ...getRadius(mode),
     ...getShadow(mode),

@@ -76,17 +76,6 @@ const AllTemplate: StoryFn<typeof ToggleGroup.Root> = (args) => {
           {intl.formatMessage(messages.three)}
         </ToggleGroup.Item>
       </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="cta">
-        <ToggleGroup.Item value="one">
-          {intl.formatMessage(messages.one)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="two">
-          {intl.formatMessage(messages.two)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="three">
-          {intl.formatMessage(messages.three)}
-        </ToggleGroup.Item>
-      </ToggleGroup.Root>
       <ToggleGroup.Root {...args} color="black">
         <ToggleGroup.Item value="one">
           {intl.formatMessage(messages.one)}

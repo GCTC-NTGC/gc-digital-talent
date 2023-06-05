@@ -18,7 +18,6 @@ const IconWrapper = ({ mode, ...rest }: IconWrapperProps) => {
       data-h2-align-items="base(center)"
       data-h2-padding="base(x.5) p-tablet(x.25, x.6)"
       data-h2-radius="base(s, 0, 0, s)"
-      data-h2-width="base:children[svg](var(--h2-font-size-h5))"
       {...rest}
     />
   );

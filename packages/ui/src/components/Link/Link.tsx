@@ -33,6 +33,7 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       color = "primary",
       mode = "inline",
       block = false,
+      light = false,
       external = false,
       newTab = false,
       icon,
@@ -52,6 +53,7 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       mode,
       color,
       block,
+      light,
     });
 
     const commonProps = {

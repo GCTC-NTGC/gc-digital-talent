@@ -38,6 +38,7 @@ export type ButtonLinkMode = "solid" | "outline" | "inline" | "cta";
 export type ButtonLinkProps = {
   color?: Color;
   block?: boolean;
+  light?: boolean;
   mode?: ButtonLinkMode;
   icon?: IconType;
 } & HydrogenAttributes;

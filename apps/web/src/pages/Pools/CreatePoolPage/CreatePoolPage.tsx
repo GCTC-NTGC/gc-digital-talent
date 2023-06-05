@@ -169,7 +169,7 @@ export const CreatePoolForm = ({
               }}
             />
             <Submit
-              color="cta"
+              color="tertiary"
               text={intl.formatMessage({
                 defaultMessage: "Create new pool",
                 id: "TLl20s",

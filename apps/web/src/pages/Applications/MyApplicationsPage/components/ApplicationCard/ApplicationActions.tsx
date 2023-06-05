@@ -32,7 +32,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
 
   return (
     <div data-h2-margin="base(0, 0, 0, auto)">
-      <Link type="button" href={href}>
+      <Link color="secondary" href={href}>
         {intl.formatMessage(
           {
             defaultMessage: "Continue this application<hidden> {name}</hidden>",
@@ -196,7 +196,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button mode="solid" color="cta" type="button" onClick={onDelete}>
+            <Button mode="solid" color="error" type="button" onClick={onDelete}>
               {intl.formatMessage({
                 defaultMessage: "Delete",
                 id: "IUQGA0",
@@ -276,7 +276,12 @@ const ArchiveAction = ({
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button mode="solid" color="cta" type="button" onClick={onArchive}>
+            <Button
+              mode="solid"
+              color="secondary"
+              type="button"
+              onClick={onArchive}
+            >
               {intl.formatMessage({
                 defaultMessage: "Archive",
                 id: "PXfQOZ",

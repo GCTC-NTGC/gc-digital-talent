@@ -33,7 +33,7 @@ const EducationRequirements = ({ isIAP }: EducationRequirementsProps) => {
         ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
         : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#eepr";
     return (
-      <Link href={href} newTab external>
+      <Link href={href} color="black" newTab external light>
         {chunks}
       </Link>
     );

@@ -19,18 +19,24 @@ const ButtonLinkContent = ({
   ...rest
 }: IconTextProps) => {
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (!icon) return <>{children}</>;
+  if (!icon) return <span>{children}</span>;
   const Icon = icon;
 
   return (
     <span
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
+      {...(mode === "cta"
+        ? {
+            "data-h2-width": "base:children[svg](var(--h2-font-size-h5))",
+          }
+        : {
+            "data-h2-width": "base:children[svg](1rem)",
+          })}
       {...rest}
     >
       <IconWrapper mode={mode}>
         <Icon
-          data-h2-width="base(1rem)"
           {...(mode !== "cta" && {
             "data-h2-margin": "base(0 x.25 0 0)",
           })}

@@ -596,6 +596,8 @@ export const PoolPoster = ({
                   <Link
                     newTab
                     external
+                    light
+                    color="black"
                     href={
                       locale === "fr"
                         ? "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
@@ -623,6 +625,8 @@ export const PoolPoster = ({
                   <Link
                     newTab
                     external
+                    light
+                    color="black"
                     href={
                       locale === "fr"
                         ? "https://www.canada.ca/fr/service-renseignement-securite/services/filtrage-de-securite-du-gouvernement.html"

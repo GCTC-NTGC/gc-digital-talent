@@ -46,7 +46,7 @@ const Template: Story = () => {
         title="Two Links"
         color="primary"
         links={[
-          { href: "#", label: "With link" },
+          { href: "#", label: "With link", mode: "solid" },
           { href: "#", label: "Second link", mode: "outline" },
         ]}
       >

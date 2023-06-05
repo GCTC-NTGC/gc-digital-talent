@@ -85,7 +85,7 @@ const QualifiedRecruitmentStatus = ({
             id: "TDikDt",
             description:
               "Not suspended recruitment status message on qualified recruitment card.",
-          })}
+          })}{" "}
           {/* Dialog that allows user to suspend the qualified recruitment (application). Sets suspendedAt date to the current time. */}
           <QualifiedRecruitmentDialog
             id={id}
@@ -157,7 +157,7 @@ const QualifiedRecruitmentStatus = ({
           id: "bqWmTD",
           description:
             "Suspended recruitment status message on qualified recruitment card.",
-        })}
+        })}{" "}
         {/* Dialog that allows user to un-suspend the qualified recruitment (application). Sets suspendedAt date to null. */}
         <QualifiedRecruitmentDialog
           id={id}

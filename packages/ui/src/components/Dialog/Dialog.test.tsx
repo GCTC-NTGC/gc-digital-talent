@@ -26,7 +26,7 @@ const DefaultChildren = () => (
         <p>{faker.lorem.sentences(3)}</p>
         <Dialog.Footer>
           <Dialog.Close>
-            <Button color="cta">Close Action</Button>
+            <Button color="tertiary">Close Action</Button>
           </Dialog.Close>
         </Dialog.Footer>
       </Dialog.Body>
@@ -108,7 +108,7 @@ describe("Dialog", () => {
             <p>{faker.lorem.sentences(3)}</p>
             <Dialog.Footer>
               <Dialog.Close>
-                <Button color="cta">Close Action</Button>
+                <Button color="tertiary">Close Action</Button>
               </Dialog.Close>
             </Dialog.Footer>
           </Dialog.Content>
