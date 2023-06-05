@@ -12,7 +12,7 @@ import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
-import Button, { IconButton, type ButtonProps } from "./components/Button";
+import Button, { type ButtonProps } from "./components/Button";
 import Card, {
   CardBasic,
   CardFlat,
@@ -131,7 +131,6 @@ export {
   useAnnouncer,
   Breadcrumbs,
   Button,
-  IconButton,
   Card,
   CardBasic,
   CardFlat,

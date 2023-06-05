@@ -9,7 +9,7 @@ import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import ArrowLeftIcon from "@heroicons/react/24/solid/ArrowLeftIcon";
 
-import { Dialog, IconButton, IconType, Link } from "@gc-digital-talent/ui";
+import { Dialog, Button, IconType, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";
@@ -150,14 +150,14 @@ const AddExperienceDialog = ({
   return (
     <Dialog.Root defaultOpen={defaultOpen}>
       <Dialog.Trigger>
-        <IconButton color="blue" icon={PlusIcon}>
+        <Button color="secondary" icon={PlusIcon}>
           {intl.formatMessage({
             defaultMessage: "Add a new experience",
             id: "bOAF9o",
             description:
               "Button to open modal to add a new experience to the profile",
           })}
-        </IconButton>
+        </Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
@@ -232,13 +232,13 @@ const AddExperienceDialog = ({
           </div>
           <Dialog.Footer>
             <Dialog.Close>
-              <IconButton color="purple" icon={ArrowLeftIcon}>
+              <Button color="primary" icon={ArrowLeftIcon}>
                 {intl.formatMessage({
                   defaultMessage: "Cancel and go back",
                   id: "tiF/jI",
                   description: "Close dialog button",
                 })}
-              </IconButton>
+              </Button>
             </Dialog.Close>
           </Dialog.Footer>
         </Dialog.Body>

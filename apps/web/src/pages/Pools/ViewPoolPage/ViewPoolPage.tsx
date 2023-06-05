@@ -8,7 +8,7 @@ import {
   Pending,
   Chip,
   Chips,
-  IconButton,
+  Button,
   NotFound,
   Link,
 } from "@gc-digital-talent/ui";
@@ -158,7 +158,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
               data-h2-display="base(flex)"
               data-h2-align-items="base(center)"
             >
-              <IconButton
+              <Button
                 data-h2-margin="base(0, x.5, 0, 0)"
                 mode="outline"
                 color="secondary"
@@ -185,7 +185,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                         description: "Button text to copy a url",
                       })}
                 </span>
-              </IconButton>
+              </Button>
               <Link
                 data-h2-margin="base(0, x.5, 0, 0)"
                 mode="outline"

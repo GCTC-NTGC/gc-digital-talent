@@ -3,7 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
-import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 import { MultiSelectField } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -98,9 +98,9 @@ const AddIndividualRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <IconButton color="primary" mode="solid" icon={PlusIcon}>
+        <Button color="primary" mode="solid" icon={PlusIcon}>
           {label}
-        </IconButton>
+        </Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
