@@ -64,6 +64,9 @@ jobs:
       - name: Upgrade to latest npm
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
+      - name: Install Webkit/Safari dependencies
+        run: npx playwright install-deps
+
       - name: "Run Cypress tests: all"
         uses: cypress-io/github-action@v5.8.0
         with:
