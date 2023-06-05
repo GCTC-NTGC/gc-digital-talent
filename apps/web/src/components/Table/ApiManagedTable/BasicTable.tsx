@@ -1,8 +1,6 @@
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 
-import { Button } from "@gc-digital-talent/ui";
-
 import SortIcon from "../ClientManagedTable/SortIcon";
 import {
   Column,
