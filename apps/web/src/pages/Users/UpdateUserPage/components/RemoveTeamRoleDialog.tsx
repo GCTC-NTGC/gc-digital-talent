@@ -154,7 +154,7 @@ const RemoveTeamRoleDialog = ({
             </Dialog.Close>
             <Button
               mode="solid"
-              color="red"
+              color="error"
               onClick={handleRemove}
               disabled={isDeleting}
             >
