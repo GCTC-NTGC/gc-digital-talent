@@ -124,17 +124,22 @@ const ExperienceCard = ({
           />
           <span data-h2-color="base(tertiary.darker)">{typeMessage}</span>
         </span>
-        <span aria-hidden>•</span>
-        <span data-h2-color="base(black.light)">
-          {intl.formatMessage(
-            {
-              defaultMessage: "{skillCount} featured skills",
-              id: "8LPNbf",
-              description: "Number of skills attached to a specific experience",
-            },
-            { skillCount },
-          )}
-        </span>
+        {showSkills && (
+          <>
+            <span aria-hidden>•</span>
+            <span data-h2-color="base(black.light)">
+              {intl.formatMessage(
+                {
+                  defaultMessage: "{skillCount} featured skills",
+                  id: "8LPNbf",
+                  description:
+                    "Number of skills attached to a specific experience",
+                },
+                { skillCount },
+              )}
+            </span>
+          </>
+        )}
       </p>
       <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
         <Collapsible.Trigger asChild>
