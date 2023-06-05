@@ -151,12 +151,18 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("heading", { name: /Welcome, Cypress/i })
       .should("exist")
       .and("be.visible");
+    cy.findByRole("heading", { name: /Step 1 of 7/i }) // this workflow currently is a seven step process
+      .should("exist")
+      .and("be.visible");
     cy.findByRole("button", { name: /Let's go!/i }).click();
     cy.wait("@gqlUpdateApplicationMutation");
 
     // Review profile page - step two
     cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", { name: /Review your profile/i })
+      .should("exist")
+      .and("be.visible");
+    cy.findByRole("heading", { name: /Step 2 of 7/i })
       .should("exist")
       .and("be.visible");
     cy.contains(/Just a heads up!/i).should("not.exist"); // error summary message on profile page not present
@@ -166,6 +172,9 @@ describe("Submit Application Workflow Tests", () => {
     // Review resume page - step three
     cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", { name: /Great work! On to your résumé./i })
+      .should("exist")
+      .and("be.visible");
+    cy.findByRole("heading", { name: /Step 3 of 7/i })
       .should("exist")
       .and("be.visible");
 
@@ -249,6 +258,9 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("heading", { name: /Minimum experience or education/i })
       .should("exist")
       .and("be.visible");
+    cy.findByRole("heading", { name: /Step 4 of 7/i })
+      .should("exist")
+      .and("be.visible");
     cy.contains(/Please select an option to continue./i) // must select education/work option for experiences to appear
       .should("exist")
       .and("be.visible");
@@ -269,6 +281,9 @@ describe("Submit Application Workflow Tests", () => {
     // Skills requirement page - step five
     cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", { name: /Let's talk about skills/i })
+      .should("exist")
+      .and("be.visible");
+    cy.findByRole("heading", { name: /Step 5 of 7/i })
       .should("exist")
       .and("be.visible");
     cy.findByRole("link", { name: /Let's get to it!/i }).click();
@@ -312,6 +327,9 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("heading", { name: /A few related questions/i })
       .should("exist")
       .and("be.visible");
+    cy.findByRole("heading", { name: /Step 6 of 7/i })
+      .should("exist")
+      .and("be.visible");
     cy.findByRole("link", { name: /I'm ready!/i }).click();
     cy.findByRole("heading", { name: /Screening questions/i })
       .should("exist")
@@ -333,6 +351,9 @@ describe("Submit Application Workflow Tests", () => {
     // Review page - step seven
     cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", { name: /Review your submission/i })
+      .should("exist")
+      .and("be.visible");
+    cy.findByRole("heading", { name: /Step 7 of 7/i })
       .should("exist")
       .and("be.visible");
     cy.contains(/Definitely not getting screened out response./i) // screening response present
