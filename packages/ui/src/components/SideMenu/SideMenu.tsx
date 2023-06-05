@@ -9,7 +9,6 @@ import { uiMessages } from "@gc-digital-talent/i18n";
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import { SideMenuButton } from "./SideMenuItem";
-import "./sideMenu.css";
 import { SideMenuProvider } from "./SideMenuProvider";
 import useControllableState from "../../hooks/useControllableState";
 
@@ -74,7 +73,9 @@ const SideMenu = ({
               autoFocus
               returnFocus
               disabled={!isSmallScreen}
-              className={`side-menu${open ? ` side-menu--open` : ``}`}
+              lockProps={{
+                "data-h2-height": "base(100%)",
+              }}
             >
               <RemoveScroll
                 enabled={isSmallScreen && open}
