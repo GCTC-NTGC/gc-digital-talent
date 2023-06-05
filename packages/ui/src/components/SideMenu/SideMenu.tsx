@@ -73,6 +73,7 @@ const SideMenu = ({
               autoFocus
               returnFocus
               disabled={!isSmallScreen}
+              className={`side-menu${open ? ` side-menu--open` : ``}`}
               lockProps={{
                 "data-h2-height": "base(100%)",
               }}

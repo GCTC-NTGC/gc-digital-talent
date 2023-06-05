@@ -33,7 +33,7 @@ describe("SideMenu", () => {
   it("Should be closed if isOpen false", async () => {
     renderSideMenu({
       ...defaultProps,
-      isOpen: false,
+      open: false,
     });
 
     const container = await screen.getByRole("navigation", {
