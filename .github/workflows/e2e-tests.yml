@@ -29,6 +29,9 @@ jobs:
   run-cypress:
     # Platform recommended in cypress-io/github-action docs.
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        browser: [chrome, webkit]
     env:
       # Use native docker command within docker-compose
       COMPOSE_DOCKER_CLI_BUILD: 1
@@ -65,7 +68,7 @@ jobs:
         uses: cypress-io/github-action@v5.8.0
         with:
           spec: "**/*.cy.js"
-          browser: chrome
+          browser: ${{ matrix.browser }}
           config-file: cypress.config.ts
           project: ./apps/e2e
           # See: https://github.com/cypress-io/github-action/issues/489#issuecomment-1021379037
