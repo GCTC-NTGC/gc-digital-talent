@@ -38,8 +38,8 @@ const TemplateSideMenu: Story = (args) => {
     <div data-h2-display="base(flex)">
       <SideMenuComponent
         label="Test Menu"
-        isOpen={isOpen}
-        onToggle={handleToggle}
+        open={isOpen}
+        onOpenChange={setOpen}
         footer={
           <SideMenuButton icon={ArrowRightOnRectangleIcon}>
             Login
