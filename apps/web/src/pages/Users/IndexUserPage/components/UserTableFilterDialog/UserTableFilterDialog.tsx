@@ -45,7 +45,12 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
 
   return (
     <>
-      <Button color="secondary" mode="inline" onClick={handleClear}>
+      <Button
+        color="secondary"
+        mode="inline"
+        type="button"
+        onClick={handleClear}
+      >
         {formatMessage({
           description: "Clear button within the search filter dialog",
           defaultMessage: "Clear filters",
