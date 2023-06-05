@@ -5,6 +5,9 @@ import "@testing-library/jest-dom";
 import { screen, act } from "@testing-library/react";
 import React from "react";
 
+import { Provider as GraphqlProvider } from "urql";
+import { pipe, fromValue, delay } from "wonka";
+
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
 import {
@@ -13,7 +16,7 @@ import {
   PublishingGroup,
 } from "~/api/generated";
 
-import { BrowsePools, BrowsePoolsProps } from "./BrowsePoolsPage";
+import { BrowsePools } from "./BrowsePoolsPage";
 
 const publishedItJobsPool: PoolAdvertisement = {
   id: "publishedItJobsPool",
@@ -39,10 +42,31 @@ const publishedExecJobsPool: PoolAdvertisement = {
   advertisementStatus: AdvertisementStatus.Published,
 };
 
-const renderBrowsePoolsPage = ({ poolAdvertisements }: BrowsePoolsProps) =>
-  renderWithProviders(<BrowsePools poolAdvertisements={poolAdvertisements} />);
-
 describe("BrowsePoolsPage", () => {
+  function renderBrowsePoolsPage({
+    poolAdvertisements,
+    msDelay = 0,
+    responseData = {},
+  }: {
+    poolAdvertisements: PoolAdvertisement[];
+    msDelay?: number;
+    responseData?: object;
+  }) {
+    // Source: https://formidable.com/open-source/urql/docs/advanced/testing/
+    const mockClient = {
+      executeQuery: jest.fn(() =>
+        pipe(fromValue(responseData), delay(msDelay)),
+      ),
+      // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any;
+
+    return renderWithProviders(
+      <GraphqlProvider value={mockClient}>
+        <BrowsePools poolAdvertisements={poolAdvertisements} />
+      </GraphqlProvider>,
+    );
+  }
   it("should have no accessibility errors", async () => {
     await act(async () => {
       const { container } = renderBrowsePoolsPage({
