@@ -9,6 +9,7 @@ import {
   PoolCandidateSearchRequestPaginator,
   PoolCandidateSearchStatus,
   Scalars,
+  SortOrder,
   useGetPoolCandidateSearchRequestsPaginatedQuery,
 } from "@gc-digital-talent/graphql";
 
@@ -60,13 +61,6 @@ const defaultState = {
   ...TABLE_DEFAULTS,
   hiddenColumnIds: ["id"],
   filters: {},
-  sortBy: {
-    column: {
-      id: "requestedDate",
-      sortColumnName: "created_at",
-    },
-    desc: true,
-  },
 };
 
 const SearchRequestsTable = ({
@@ -107,7 +101,12 @@ const SearchRequestsTable = ({
       where: null, // no filtering will happen yet
       page: currentPage,
       first: pageSize,
-      orderBy: sortingRuleToOrderByClause(sortingRule),
+      orderBy: sortingRuleToOrderByClause(sortingRule) ?? [
+        {
+          column: "created_at",
+          order: SortOrder.Desc,
+        },
+      ],
     },
   });
 
