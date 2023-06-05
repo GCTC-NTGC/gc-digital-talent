@@ -8,6 +8,9 @@ import UsersIcon from "@heroicons/react/20/solid/UsersIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
+import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
+import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Alert } from "@gc-digital-talent/ui";
 
@@ -20,7 +23,6 @@ import {
   aboutSectionHasEmptyRequiredFields,
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
-  roleSalarySectionHasEmptyRequiredFields,
   workLocationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
@@ -32,9 +34,9 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import { AwardExperience } from "~/api/generated";
-import { navigationMessages } from "@gc-digital-talent/i18n";
 import { StatusItem } from "~/components/StatusItem/StatusItem";
 import { HeroCard } from "~/components/HeroCard/HeroCard";
+import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { PartialUser } from "../types";
 
 export interface DashboardHeadingProps {
@@ -191,98 +193,112 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           asNav
           color="secondary"
           title={intl.formatMessage({
-            defaultMessage: "My profile information",
-            id: "XvfBqb",
+            defaultMessage: "Profile information",
+            id: "gTjLic",
             description: "applicant dashboard card title for profile card",
           })}
           href={paths.profile(user.id)}
         >
           <StatusItem
             asListItem
-            title={intl.formatMessage(navigationMessages.aboutMe)}
+            title={intl.formatMessage({
+              defaultMessage: "Personal and contact info",
+              id: "b0fN+P",
+              description: "Title of the About link section",
+            })}
             status={
               aboutSectionHasEmptyRequiredFields(user) ? "error" : "success"
             }
-            href={paths.aboutMe(user.id)}
+            href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.ABOUT)}
           />
 
           <StatusItem
             asListItem
-            title={intl.formatMessage(navigationMessages.languageInformation)}
+            title={intl.formatMessage({
+              defaultMessage: "Work preferences",
+              id: "Pf+PA/",
+              description: "Title of the Work Location link section",
+            })}
             status={
-              languageInformationSectionHasEmptyRequiredFields(user)
+              workLocationSectionHasEmptyRequiredFields(user) ||
+              workPreferencesSectionHasEmptyRequiredFields(user)
                 ? "error"
                 : "success"
             }
-            href={paths.languageInformation(user.id)}
+            href={paths.profile(
+              user.id,
+              PROFILE_PAGE_SECTION_ID.WORK_PREFERENCES,
+            )}
           />
 
           <StatusItem
             asListItem
-            title={intl.formatMessage(navigationMessages.governmentInformation)}
+            title={intl.formatMessage({
+              defaultMessage: "Diversity, equity, inclusion",
+              id: "HAkMnl",
+              description:
+                "Title of the Diversity, equity and inclusion link section",
+            })}
+            href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.DEI)}
+            icon={UserGroupIcon}
+          />
+          <StatusItem
+            asListItem
+            title={intl.formatMessage({
+              defaultMessage: "Government employee info",
+              id: "ZsevjY",
+              description: "Title of the Government Information link section",
+            })}
             status={
               governmentInformationSectionHasEmptyRequiredFields(user)
                 ? "error"
                 : "success"
             }
-            href={paths.governmentInformation(user.id)}
-          />
-          <StatusItem
-            asListItem
-            title={intl.formatMessage(navigationMessages.workLocation)}
-            status={
-              workLocationSectionHasEmptyRequiredFields(user)
-                ? "error"
-                : "success"
-            }
-            href={paths.workLocation(user.id)}
+            href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.GOVERNMENT)}
           />
 
           <StatusItem
             asListItem
-            title={intl.formatMessage(navigationMessages.workPreferences)}
+            title={intl.formatMessage({
+              defaultMessage: "Language profile",
+              id: "Ji2C9w",
+              description: "Title of the Language Information link section",
+            })}
             status={
-              workPreferencesSectionHasEmptyRequiredFields(user)
+              languageInformationSectionHasEmptyRequiredFields(user)
                 ? "error"
                 : "success"
             }
-            href={paths.workPreferences(user.id)}
+            href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.LANGUAGE)}
           />
           <StatusItem
             asListItem
-            title={intl.formatMessage(
-              navigationMessages.diversityEquityInclusion,
+            title={intl.formatMessage({
+              defaultMessage: "Account and privacy settings",
+              id: "O+Lj1u",
+              description:
+                "Title of the Account and privacy settings link section",
+            })}
+            href={paths.profile(
+              user.id,
+              PROFILE_PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY,
             )}
-            href={paths.diversityEquityInclusion(user.id)}
-            icon={UserGroupIcon}
-          />
-
-          <StatusItem
-            asListItem
-            title={intl.formatMessage(
-              navigationMessages.roleSalaryExpectations,
-            )}
-            status={
-              roleSalarySectionHasEmptyRequiredFields(user)
-                ? "error"
-                : "success"
-            }
-            href={paths.roleSalary(user.id)}
+            icon={LockClosedIcon}
           />
         </HeroCard>
         <HeroCard
           color="tertiary"
           title={intl.formatMessage({
-            defaultMessage: "My résumé and experience",
-            id: "naaQ+q",
+            defaultMessage: "Résumé and recruitments",
+            id: "Ori6s+",
             description: "applicant dashboard card title for résumé card",
           })}
           href={paths.skillsAndExperiences(user.id)}
         >
           <StatusItem
             title={intl.formatMessage({
-              defaultMessage: "Work experience",
-              id: "giUfys",
+              defaultMessage: "Work experiences",
+              id: "LOmX3T",
               description: "Title for work experience section",
             })}
             itemCount={workExperiences?.length}
@@ -290,8 +306,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
           <StatusItem
             title={intl.formatMessage({
-              defaultMessage: "Education experience",
-              id: "u6LIbY",
+              defaultMessage: "Education and certificates",
+              id: "PFoM2I",
               description: "Title for education experience section",
             })}
             itemCount={educationExperiences?.length}
@@ -299,8 +315,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
           <StatusItem
             title={intl.formatMessage({
-              defaultMessage: "Volunteer and community experience",
-              id: "Rz7WtH",
+              defaultMessage: "Community participation",
+              id: "Uy5Dg2",
               description: "Title for community experience section",
             })}
             itemCount={communityExperiences?.length}
@@ -308,8 +324,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
           <StatusItem
             title={intl.formatMessage({
-              defaultMessage: "Personal experience",
-              id: "wTFUPE",
+              defaultMessage: "Personal learning",
+              id: "UDMUHH",
               description: "Title for personal experience section",
             })}
             itemCount={personalExperiences?.length}
@@ -317,12 +333,22 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
           <StatusItem
             title={intl.formatMessage({
-              defaultMessage: "Award",
-              id: "+ikQY0",
+              defaultMessage: "Awards and recognition",
+              id: "mWnekb",
               description: "Title for award section",
             })}
             itemCount={awardExperiences?.length}
             icon={StarIcon}
+          />
+          <StatusItem
+            title={intl.formatMessage({
+              defaultMessage: "Qualified recruitments",
+              id: "2dpDPq",
+              description: "Title for qualified recruitments section",
+            })}
+            itemCount={0}
+            icon={ShieldCheckIcon}
+            scrollTo="qualified-recruitments-section"
           />
         </HeroCard>
       </div>

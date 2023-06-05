@@ -3,7 +3,7 @@ import * as React from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 
-import { Link, IconType } from "@gc-digital-talent/ui";
+import { Link, IconType, ScrollToLink } from "@gc-digital-talent/ui";
 
 export type Status = "error" | "success";
 export type StatusColor = "default" | Status;
@@ -32,6 +32,25 @@ const iconColorMap: Record<StatusColor, Record<string, string>> = {
   },
 };
 
+// could be a regular link, a scroll link, or just a regular span
+const StatusItemTitle = ({
+  href,
+  scrollTo,
+  children,
+}: {
+  href?: string;
+  scrollTo?: string;
+  children: React.ReactElement;
+}) => {
+  if (href) {
+    return <Link href={href}>{children}</Link>;
+  }
+  if (scrollTo) {
+    return <ScrollToLink to={scrollTo}>{children}</ScrollToLink>;
+  }
+  return <span>{children}</span>;
+};
+
 export interface StatusItemProps {
   title: string;
   titleColor?: StatusColor;
@@ -39,6 +58,7 @@ export interface StatusItemProps {
   icon?: IconType;
   iconColor?: StatusColor;
   href?: string;
+  scrollTo?: string;
   hiddenContextPrefix?: string;
   asListItem?: boolean;
   itemCount?: number;
@@ -51,6 +71,7 @@ export const StatusItem = ({
   icon,
   iconColor = "default",
   href,
+  scrollTo,
   hiddenContextPrefix,
   asListItem = true,
   itemCount,
@@ -106,15 +127,13 @@ export const StatusItem = ({
           />
         )}
 
-        <span>
-          {href ? (
-            <Link href={href} {...{ ...textColorMap[titleColor] }}>
-              {combinedTitle}
-            </Link>
-          ) : (
-            <span {...{ ...textColorMap[titleColor] }}>{combinedTitle}</span>
-          )}
-        </span>
+        <StatusItemTitle
+          href={href}
+          scrollTo={scrollTo}
+          {...{ ...textColorMap[titleColor] }}
+        >
+          {combinedTitle}
+        </StatusItemTitle>
       </span>
 
       {itemCount && <span>{itemCount}</span>}

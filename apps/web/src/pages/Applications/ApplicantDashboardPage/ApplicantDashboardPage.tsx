@@ -34,8 +34,12 @@ export const ApplicantDashboard = ({ user }: ApplicantDashboardProps) => {
       <DashboardHeading user={user} />
       <section data-h2-margin="base(x3, 0)">
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
-          <ApplicationList applications={applications} />
-          <QualifiedRecruitments applications={applications} />
+          <div id="applications-section">
+            <ApplicationList applications={applications} />
+          </div>
+          <div id="qualified-recruitments-section">
+            <QualifiedRecruitments applications={applications} />
+          </div>
         </div>
       </section>
     </>
