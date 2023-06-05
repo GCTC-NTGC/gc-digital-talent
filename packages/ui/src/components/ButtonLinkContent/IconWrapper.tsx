@@ -12,6 +12,7 @@ const IconWrapper = ({ mode, ...rest }: IconWrapperProps) => {
 
   return (
     <span
+      className="ButtonLink__Icon"
       data-h2-align-self="base(stretch)"
       data-h2-display="base(inline-flex)"
       data-h2-align-items="base(center)"

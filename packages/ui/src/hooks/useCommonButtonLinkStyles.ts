@@ -10,7 +10,7 @@ type StyleRecord = Record<string, string>;
  */
 const styleExclusions: Record<string, Array<ButtonLinkMode>> = {
   background: ["inline"],
-  border: ["cta", "inline"],
+  border: ["inline"],
   overflow: ["cta"],
   padding: ["cta", "inline"],
   radius: ["inline"],
@@ -100,7 +100,7 @@ const getPadding = (mode: ButtonLinkMode): StyleRecord => {
  * @returns Record<string, string>
  */
 const getBorders = (mode: ButtonLinkMode, color: Color): StyleRecord => {
-  const borderColorMap = new Map<Color, Record<string, string>>([
+  const borderColorMap = new Map<Color, StyleRecord>([
     [
       "primary",
       {
@@ -173,18 +173,96 @@ const getBorders = (mode: ButtonLinkMode, color: Color): StyleRecord => {
     ],
   ]);
 
-  const borderColor = borderColorMap.get(color);
+  const ctaBorderColorMap = new Map<Color, StyleRecord>([
+    [
+      "primary",
+      {
+        "data-h2-border":
+          "base:children[.ButtonLink__Icon](3px solid primary.light) base:children[>span>span:not(.ButtonLink__Icon)](3px solid foreground) base:focus-visible:children[>span>span:not(.ButtonLink__Icon)](3px solid focus)",
+      },
+    ],
+    [
+      "secondary",
+      {
+        "data-h2-border":
+          "base:children[.ButtonLink__Icon](3px solid secondary) base:children[>span>span:not(.ButtonLink__Icon)](3px solid foreground) base:focus-visible:children[>span>span:not(.ButtonLink__Icon)](3px solid focus)",
+      },
+    ],
+    [
+      "tertiary",
+      {
+        "data-h2-border":
+          "base:children[.ButtonLink__Icon](3px solid tertiary) base:children[>span>span:not(.ButtonLink__Icon)](3px solid foreground) base:focus-visible:children[>span>span:not(.ButtonLink__Icon)](3px solid focus)",
+      },
+    ],
+    [
+      "quaternary",
+      {
+        "data-h2-border":
+          "base:children[.ButtonLink__Icon](3px solid quaternary) base:children[>span>span:not(.ButtonLink__Icon)](3px solid foreground) base:focus-visible:children[>span>span:not(.ButtonLink__Icon)](3px solid focus)",
+      },
+    ],
+    [
+      "quinary",
+      {
+        "data-h2-border":
+          "base:children[.ButtonLink__Icon](3px solid quinary) base:children[>span>span:not(.ButtonLink__Icon)](3px solid foreground) base:focus-visible:children[>span>span:not(.ButtonLink__Icon)](3px solid focus)",
+      },
+    ],
+    [
+      "success",
+      {
+        "data-h2-border":
+          "base:children[.ButtonLink__Icon](3px solid success.light) base:children[>span>span:not(.ButtonLink__Icon)](3px solid foreground) base:focus-visible:children[>span>span:not(.ButtonLink__Icon)](3px solid focus)",
+      },
+    ],
+    [
+      "warning",
+      {
+        "data-h2-border":
+          "base:children[.ButtonLink__Icon](3px solid warning) base:children[>span>span:not(.ButtonLink__Icon)](3px solid foreground) base:focus-visible:children[>span>span:not(.ButtonLink__Icon)](3px solid focus)",
+      },
+    ],
+    [
+      "error",
+      {
+        "data-h2-border":
+          "base:children[.ButtonLink__Icon](3px solid error.light) base:children[>span>span:not(.ButtonLink__Icon)](3px solid foreground) base:focus-visible:children[>span>span:not(.ButtonLink__Icon)](3px solid focus)",
+      },
+    ],
+    [
+      "black",
+      {
+        "data-h2-border":
+          "base:children[.ButtonLink__Icon](3px solid black) base:children[>span>span:not(.ButtonLink__Icon)](3px solid foreground) base:focus-visible:children[>span>span:not(.ButtonLink__Icon)](3px solid focus)",
+      },
+    ],
+    [
+      "white",
+      {
+        "data-h2-border":
+          "base:children[.ButtonLink__Icon](3px solid white) base:children[>span>span:not(.ButtonLink__Icon)](3px solid foreground) base:focus-visible:children[>span>span:not(.ButtonLink__Icon)](3px solid focus)",
+      },
+    ],
+  ]);
+
+  const borderColor =
+    mode === "cta" ? ctaBorderColorMap.get(color) : borderColorMap.get(color);
 
   return styleExclusions.border.includes(mode)
     ? {}
     : {
-        "data-h2-border-width": "base(3px)",
-        "data-h2-border-style": "base(solid)",
+        ...(mode === "cta"
+          ? {}
+          : {
+              "data-h2-border-width": "base(3px)",
+              "data-h2-border-style": "base(solid)",
+            }),
         ...(borderColor ? { ...borderColor } : {}),
       };
 };
 
-type BackgroundMode = Omit<ButtonLinkMode, "cta">;
+type BackgroundMode = Omit<ButtonLinkMode, "inline">;
 
 /**
  * Get Background
@@ -218,7 +296,7 @@ export const getBackground = (
       "cta",
       {
         "data-h2-background-color":
-          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](primary.light) base:hover:children[span>span:first-child](primary.lightest)",
+          "base:children[span:not(.ButtonLink__Icon)](foreground) base:focus-visible:children[span:not(.ButtonLink__Icon)](focus) base:children[.ButtonLink__Icon](primary.light) base:hover:children[.ButtonLink__Icon](primary.lightest)",
       },
     ],
   ]);
@@ -242,7 +320,7 @@ export const getBackground = (
       "cta",
       {
         "data-h2-background-color":
-          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](secondary) base:hover:children[span>span:first-child](secondary.lightest)",
+          "base:children[span:not(.ButtonLink__Icon)](foreground) base:focus-visible:children[span:not(.ButtonLink__Icon)](focus) base:children[.ButtonLink__Icon](secondary) base:hover:children[.ButtonLink__Icon](secondary.lightest)",
       },
     ],
   ]);
@@ -266,7 +344,7 @@ export const getBackground = (
       "cta",
       {
         "data-h2-background-color":
-          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](tertiary) base:hover:children[span>span:first-child](tertiary.lightest)",
+          "base:children[span:not(.ButtonLink__Icon)](foreground) base:focus-visible:children[span:not(.ButtonLink__Icon)](focus) base:children[.ButtonLink__Icon](tertiary) base:hover:children[.ButtonLink__Icon](tertiary.lightest)",
       },
     ],
   ]);
@@ -290,7 +368,7 @@ export const getBackground = (
       "cta",
       {
         "data-h2-background-color":
-          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](quaternary) base:hover:children[span>span:first-child](quaternary.lightest)",
+          "base:children[span:not(.ButtonLink__Icon)](foreground) base:focus-visible:children[span:not(.ButtonLink__Icon)](focus) base:children[.ButtonLink__Icon](quaternary) base:hover:children[.ButtonLink__Icon](quaternary.lightest)",
       },
     ],
   ]);
@@ -314,7 +392,7 @@ export const getBackground = (
       "cta",
       {
         "data-h2-background-color":
-          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](quinary) base:hover:children[span>span:first-child](quinary.lightest)",
+          "base:children[span:not(.ButtonLink__Icon)](foreground) base:focus-visible:children[span:not(.ButtonLink__Icon)](focus) base:children[.ButtonLink__Icon](quinary) base:hover:children[.ButtonLink__Icon](quinary.lightest)",
       },
     ],
   ]);
@@ -338,7 +416,7 @@ export const getBackground = (
       "cta",
       {
         "data-h2-background-color":
-          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](success.light) base:hover:children[span>span:first-child](success.lightest)",
+          "base:children[span:not(.ButtonLink__Icon)](foreground) base:focus-visible:children[span:not(.ButtonLink__Icon)](focus) base:children[.ButtonLink__Icon](success.light) base:hover:children[.ButtonLink__Icon](success.lightest)",
       },
     ],
   ]);
@@ -362,7 +440,7 @@ export const getBackground = (
       "cta",
       {
         "data-h2-background-color":
-          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](warning) base:hover:children[span>span:first-child](warning.lightest)",
+          "base:children[span:not(.ButtonLink__Icon)](foreground) base:focus-visible:children[span:not(.ButtonLink__Icon)](focus) base:children[.ButtonLink__Icon](warning) base:hover:children[.ButtonLink__Icon](warning.lightest)",
       },
     ],
   ]);
@@ -386,7 +464,7 @@ export const getBackground = (
       "cta",
       {
         "data-h2-background-color":
-          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](error.light) base:hover:children[span>span:first-child](error.lightest)",
+          "base:children[span:not(.ButtonLink__Icon)](foreground) base:focus-visible:children[span:not(.ButtonLink__Icon)](focus) base:children[.ButtonLink__Icon](error.light) base:hover:children[.ButtonLink__Icon](error.lightest)",
       },
     ],
   ]);
@@ -410,7 +488,7 @@ export const getBackground = (
       "cta",
       {
         "data-h2-background-color":
-          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](black) base:hover:children[span>span:first-child](black.lightest)",
+          "base:children[span:not(.ButtonLink__Icon)](foreground) base:focus-visible:children[span:not(.ButtonLink__Icon)](focus) base:children[.ButtonLink__Icon](black) base:hover:children[.ButtonLink__Icon](black.lightest)",
       },
     ],
   ]);
@@ -434,7 +512,7 @@ export const getBackground = (
       "cta",
       {
         "data-h2-background-color":
-          "base:children[>span>span:not(:first-child)](foreground) base:focus-visible:children[>span>span:not(:first-child)](focus) base:children[span>span:first-child](white) base:hover:children[span>span:first-child](black.lightest)",
+          "base:children[span:not(.ButtonLink__Icon)](foreground) base:focus-visible:children[span:not(.ButtonLink__Icon)](focus) base:children[.ButtonLink__Icon](white) base:hover:children[.ButtonLink__Icon](black.lightest)",
       },
     ],
   ]);
@@ -502,7 +580,7 @@ export const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>span>span:first-child]:admin(white) base:children[>span>span:first-child]:admin:hover(black)",
+          "base(black) base:children[>.ButtonLink__Icon]:admin(white) base:children[>.ButtonLink__Icon]:admin:hover(black)",
       },
     ],
   ]);
@@ -533,7 +611,7 @@ export const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>span>span:first-child]:admin(white) base:children[>span>span:first-child]:admin:hover(black) base:children[>span>span:first-child]:iap(white) base:children[>span>span:first-child]:iap:hover(black)",
+          "base(black) base:children[>.ButtonLink__Icon]:admin(white) base:children[>.ButtonLink__Icon]:admin:hover(black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
       },
     ],
   ]);
@@ -564,7 +642,7 @@ export const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>span>span:first-child]:iap(white) base:children[>span>span:first-child]:iap:hover(black)",
+          "base(black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
       },
     ],
   ]);
@@ -595,7 +673,7 @@ export const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>span>span:first-child]:iap(white) base:children[>span>span:first-child]:iap:hover(black)",
+          "base(black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
       },
     ],
   ]);
@@ -650,7 +728,7 @@ export const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>span>span:first-child]:iap(white) base:children[>span>span:first-child]:iap:hover(black)",
+          "base(black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
       },
     ],
   ]);
@@ -681,7 +759,7 @@ export const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>span>span:first-child]:iap(white) base:children[>span>span:first-child]:iap:hover(black)",
+          "base(black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
       },
     ],
   ]);
@@ -712,7 +790,7 @@ export const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>span>span:first-child]:iap(white) base:children[>span>span:first-child]:iap:hover(black)",
+          "base(black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
       },
     ],
   ]);
@@ -743,7 +821,7 @@ export const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>span>span:first-child](white) base:children[>span>span:first-child]:hover(black)",
+          "base(black) base:children[.ButtonLink__Icon](white) base:children[.ButtonLink__Icon]:hover(black)",
       },
     ],
   ]);
@@ -774,7 +852,7 @@ export const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>span>span:first-child](black) base:children[>span>span:first-child]:hover(black) base:hover:children[span>span:first-child](black)",
+          "base(black) base:children[>.ButtonLink__Icon](black) base:children[>.ButtonLink__Icon]:hover(black) base:hover:children[.ButtonLink__Icon](black)",
       },
     ],
   ]);
@@ -810,6 +888,7 @@ const getDisplay = (block?: boolean): StyleRecord => {
     ? {
         "data-h2-display": "base(flex)",
         "data-h2-text-align": "base(center)",
+        "data-h2-justify-content": "base(center)",
         "data-h2-width": "base(100%)",
       }
     : { "data-h2-display": "base(inline-flex)" };
