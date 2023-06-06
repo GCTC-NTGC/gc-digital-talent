@@ -140,12 +140,7 @@ const InitialContent = React.forwardRef<
   const id = composeId(NAME.INITIAL_CONTENT, context?.contentId);
 
   return (
-    <div
-      id={id}
-      ref={forwardedRef}
-      aria-selected={!!context?.open || false}
-      {...props}
-    >
+    <div id={id} ref={forwardedRef} {...props}>
       {context?.open ? null : children}
     </div>
   );
@@ -163,12 +158,7 @@ const OpenContent = React.forwardRef<
   const id = composeId(NAME.OPEN_CONTENT, context?.contentId);
 
   return (
-    <div
-      id={id}
-      ref={forwardedRef}
-      aria-selected={context?.open || false}
-      {...props}
-    >
+    <div id={id} ref={forwardedRef} {...props}>
       {context?.open ? children : null}
     </div>
   );
