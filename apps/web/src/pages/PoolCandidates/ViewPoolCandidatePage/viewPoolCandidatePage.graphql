@@ -5,6 +5,28 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
       id
       firstName
       lastName
+      poolCandidates {
+        id
+        status
+        expiryDate
+        notes
+        user {
+          id
+        }
+        pool {
+          id
+          name {
+            en
+            fr
+          }
+          classifications {
+            id
+            group
+            level
+          }
+          stream
+        }
+      }
     }
     profileSnapshot
     signature
@@ -50,6 +72,20 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
         }
       }
     }
+  }
+  pools {
+    id
+    name {
+      en
+      fr
+    }
+    stream
+    classifications {
+      id
+      group
+      level
+    }
+    status
   }
 }
 
