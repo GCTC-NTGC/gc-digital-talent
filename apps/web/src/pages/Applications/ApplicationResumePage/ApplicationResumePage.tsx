@@ -393,6 +393,10 @@ export const ApplicationResume = ({
                     experience={experience}
                     headingLevel="h3"
                     showSkills={false}
+                    editPath={paths.applicationResumeEdit(
+                      application.id,
+                      experience.id,
+                    )}
                   />
                 );
               })}

@@ -39,12 +39,15 @@ interface ExperienceCardProps {
   editParam?: string;
   // If the edit button is a button, pass the onClick function
   onEditClick?: () => void;
+  // Override the edit path if needed
+  editPath?: string;
 }
 
 const ExperienceCard = ({
   experience,
   onEditClick,
   editParam,
+  editPath: editPathProp,
   headingLevel = "h2",
   showSkills = true,
   showEdit = true,
@@ -81,9 +84,13 @@ const ExperienceCard = ({
         >
           {titleHtml}
         </Heading>
-        {showEdit && (editPath || onEditClick) && (
+        {showEdit && (editPathProp || editPath || onEditClick) && (
           <EditLink
-            editUrl={onEditClick ? undefined : `${editPath}${editParam || ""}`}
+            editUrl={
+              onEditClick
+                ? undefined
+                : `${editPathProp || editPath}${editParam || ""}`
+            }
             onEditClick={onEditClick}
             ariaLabel={intl
               .formatMessage(
