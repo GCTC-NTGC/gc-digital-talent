@@ -1,8 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { IconType } from "@gc-digital-talent/ui";
-
 export const IndeterminateCheckbox = ({
   indeterminate,
   labelText,

@@ -16,7 +16,7 @@ import {
   HeaderGroup,
 } from "react-table";
 
-import { Button, Dialog, IconType, Link } from "@gc-digital-talent/ui";
+import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { Fieldset } from "@gc-digital-talent/forms";
 
 import Pagination from "~/components/Pagination";
