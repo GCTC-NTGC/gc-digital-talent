@@ -7,7 +7,7 @@ describe("User Profile Workflow Tests", () => {
 
     // make sure we end up on the profile page
     cy.wait("@gqlgetMeQuery");
-    cy.findByRole("heading", { name: /About Me/i })
+    cy.findByRole("heading", { name: /About me/i })
       .should("exist")
       .and("be.visible");
     cy.url().should("contain", "/profile");
@@ -25,7 +25,7 @@ describe("User Profile Workflow Tests", () => {
 
   it("Reviews a user profile and makes some edits", () => {
     // about me
-    cy.findByRole("link", { name: /Edit About Me/i }).click();
+    cy.findByRole("link", { name: /Edit About me/i }).click();
     cy.findByRole("textbox", { name: /Current city/i })
       .clear()
       .type("Test City");
@@ -35,7 +35,7 @@ describe("User Profile Workflow Tests", () => {
     cy.url().should("contain", "/profile");
 
     // work location
-    cy.findByRole("link", { name: /Edit Work Location/i }).click();
+    cy.findByRole("link", { name: /Edit Work location/i }).click();
     cy.findByRole("textbox", { name: /Location exemptions/i })
       .clear()
       .type("Test Locations");
