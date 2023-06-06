@@ -6351,8 +6351,8 @@
     "defaultMessage": "Ce recrutement a expiré et il n’est plus disponible pour les possibilités d’embauche.",
     "description": "Expired recruitment status message on application card."
   },
-  "TkVYsT": {
-    "defaultMessage": "Vous ne figurez pas actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin IT-01 technicien(ne) de soutien du centre d’assistance.",
+  "GOF2wj": {
+    "defaultMessage": "Vous ne figurez pas actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin {poolName}.",
     "description": "Dialog main body on change search results status from applications section."
   },
   "wYe3P2": {

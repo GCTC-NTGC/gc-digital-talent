@@ -8,6 +8,7 @@ import {
   isExpired,
   isPlaced,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import TrackApplicationsDialog from "./TrackApplicationsDialog";
 
 export type Application = Omit<PoolCandidate, "user">;
@@ -20,7 +21,7 @@ const TrackApplicationsStatus = ({
   application,
 }: TrackApplicationsStatusProps) => {
   const intl = useIntl();
-  const { id, suspendedAt, expiryDate, status } = application;
+  const { id, suspendedAt, expiryDate, status, pool } = application;
 
   // Recruitment card has placed status.
   if (isPlaced(status)) {
@@ -96,13 +97,18 @@ const TrackApplicationsStatus = ({
               description:
                 "Dialog title on change search results status from applications section.",
             })}
-            primaryBodyText={intl.formatMessage({
-              defaultMessage:
-                "You are currently appearing in talent search results for the “{poolName}” pool.",
-              id: "bnEGX7",
-              description:
-                "Dialog main body on change search results status from applications section.",
-            })}
+            primaryBodyText={intl.formatMessage(
+              {
+                defaultMessage:
+                  "You are currently appearing in talent search results for the “{poolName}” pool.",
+                id: "bnEGX7",
+                description:
+                  "Dialog main body on change search results status from applications section.",
+              },
+              {
+                poolName: getFullPoolTitleLabel(intl, pool),
+              },
+            )}
             secondaryBodyText={intl.formatMessage({
               defaultMessage:
                 "If you’ve recently been placed or simply no longer want to be considered for opportunities related to this role, you can remove yourself from the list of candidates available for hire. This will <emphasize>not</emphasize> remove you from the recruitment itself and you can always re-enable your availability if you change your mind.",
@@ -168,13 +174,18 @@ const TrackApplicationsStatus = ({
             description:
               "Dialog title on change search results status from applications section.",
           })}
-          primaryBodyText={intl.formatMessage({
-            defaultMessage:
-              "You are currently not showing up in talent search results for the “IT-01 Helpdesk support technician” pool.",
-            id: "TkVYsT",
-            description:
-              "Dialog main body on change search results status from applications section.",
-          })}
+          primaryBodyText={intl.formatMessage(
+            {
+              defaultMessage:
+                "You are currently not showing up in talent search results for the “{poolName}” pool.",
+              id: "GOF2wj",
+              description:
+                "Dialog main body on change search results status from applications section.",
+            },
+            {
+              poolName: getFullPoolTitleLabel(intl, pool),
+            },
+          )}
           secondaryBodyText={intl.formatMessage({
             defaultMessage:
               "By re-adding yourself to this recruitment processes results, managers will once again be able to request your profile as a part of talent requests. You can always remove yourself again at a later time.",
