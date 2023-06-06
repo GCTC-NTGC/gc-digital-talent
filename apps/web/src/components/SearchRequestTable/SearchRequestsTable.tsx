@@ -60,7 +60,7 @@ function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
 
 const defaultState = {
   ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["id"],
+  hiddenColumnIds: ["id", "email"],
   filters: {},
 };
 
