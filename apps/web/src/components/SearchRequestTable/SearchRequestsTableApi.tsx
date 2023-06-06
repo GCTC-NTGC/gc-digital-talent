@@ -64,7 +64,7 @@ const defaultState = {
   filters: {},
 };
 
-const SearchRequestsPaginatedTable = ({
+const SearchRequestsTableApi = ({
   initialFilterInput,
   title,
 }: {
@@ -340,4 +340,4 @@ const SearchRequestsPaginatedTable = ({
   );
 };
 
-export default SearchRequestsPaginatedTable;
+export default SearchRequestsTableApi;

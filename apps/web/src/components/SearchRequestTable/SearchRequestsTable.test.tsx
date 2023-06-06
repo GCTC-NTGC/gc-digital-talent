@@ -11,7 +11,7 @@ import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { act, screen } from "@testing-library/react";
 import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
 
-import SearchRequestsTable from "./SearchRequestsTable";
+import SearchRequestsTable from "./SearchRequestsTableApi";
 
 const requestsData = fakeSearchRequests();
 const requestOne = requestsData[0];
