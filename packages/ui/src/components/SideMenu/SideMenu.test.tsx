@@ -11,7 +11,7 @@ import type { SideMenuProps } from "./SideMenu";
 import SideMenuItem from "./SideMenuItem";
 
 const defaultProps = {
-  isOpen: true,
+  open: true,
   label: "Main Menu",
   onToggle: jest.fn(() => null),
 };
