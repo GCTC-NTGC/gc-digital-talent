@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import isArray from "lodash/isArray";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
 
 import {
@@ -13,6 +14,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
+import { Skill } from "~/api/generated";
 import { AnyExperience } from "~/types/experience";
 import {
   isAwardExperience,
@@ -34,7 +36,7 @@ import EditLink from "./EditLink";
 interface ExperienceCardProps {
   experience: AnyExperience;
   headingLevel?: HeadingRank;
-  showSkills?: boolean;
+  showSkills?: boolean | Array<Skill>;
   showEdit?: boolean;
   editParam?: string;
   // If the edit button is a button, pass the onClick function
@@ -59,7 +61,13 @@ const ExperienceCard = ({
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
   const Icon = icon;
 
-  const skillCount = experience.skills?.length;
+  const skills = isArray(showSkills)
+    ? experience.skills?.filter((skill) =>
+        showSkills.some((showSkill) => showSkill.id === skill.id),
+      )
+    : experience.skills;
+
+  const skillCount = skills?.length;
 
   return (
     <div
@@ -290,12 +298,12 @@ const ExperienceCard = ({
                 })}
               </ContentSection>
               <div data-h2-margin-top="base(x1)">
-                {experience.skills && skillCount ? (
+                {skills && skillCount ? (
                   <ul
                     data-h2-list-style-position="base(outside)"
                     data-h2-padding-left="base(x.75)"
                   >
-                    {experience.skills.map((skill) => (
+                    {skills.map((skill) => (
                       <li key={skill.id} data-h2-margin-bottom="base(x.25)">
                         <span
                           data-h2-font-weight="base(700)"

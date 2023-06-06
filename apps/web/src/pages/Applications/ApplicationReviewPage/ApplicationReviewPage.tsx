@@ -245,7 +245,12 @@ const ApplicationReview = ({
                   key={experience.id}
                   experience={experience}
                   headingLevel="h4"
-                  showSkills={false}
+                  showSkills={[
+                    ...(application.pool.essentialSkills?.filter(notEmpty) ??
+                      []),
+                    ...(application.pool.nonessentialSkills?.filter(notEmpty) ??
+                      []),
+                  ]}
                   showEdit={false}
                 />
               </TreeView.Item>

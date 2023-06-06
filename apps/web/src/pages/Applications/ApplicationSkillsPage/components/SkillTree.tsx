@@ -116,6 +116,7 @@ const SkillTree = ({
                   experience={filterExperienceSkills(experience, skill)}
                   headingLevel="h5"
                   showEdit={!hideEdit}
+                  showSkills={[skill]}
                   onEditClick={
                     !hideEdit
                       ? () => handleExperienceEdit(experience)
