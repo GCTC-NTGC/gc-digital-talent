@@ -4,6 +4,7 @@ import { IntlShape, useIntl } from "react-intl";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
 import {
+  InputMaybe,
   Maybe,
   PoolCandidateSearchRequestInput,
   PoolCandidateSearchRequestPaginator,
@@ -94,11 +95,33 @@ const SearchRequestsTable = ({
     currentPage,
     sortBy: sortingRule,
     hiddenColumnIds,
+    searchState,
   } = tableState;
+
+  // TODO: fill this in
+  // merge search bar with filter dialog
+  const combinedSearchRequestInput = (
+    // fancyFilterState: PoolCandidateSearchRequestInput | undefined, filter goes here when added
+    searchBarTerm: string | undefined,
+    searchType: string | undefined,
+  ): InputMaybe<PoolCandidateSearchRequestInput> => {
+    if (searchBarTerm === undefined && searchType === undefined) {
+      return null;
+    }
+
+    // return {
+    // search bar
+    // manager, jobTitle...
+    // from fancy filter
+    // status, department...
+    // };
+
+    return null;
+  };
 
   const [result] = useGetPoolCandidateSearchRequestsPaginatedQuery({
     variables: {
-      where: null, // no filtering will happen yet
+      where: combinedSearchRequestInput(searchState?.term, searchState?.type),
       page: currentPage,
       first: pageSize,
       orderBy: sortingRuleToOrderByClause(sortingRule) ?? [
@@ -273,6 +296,7 @@ const SearchRequestsTable = ({
         columns={columns}
         filterComponent={<span />}
         filter={false}
+        initialSearchState={searchState}
         onSearchChange={(
           term: string | undefined,
           type: string | undefined,
