@@ -211,12 +211,9 @@ const PoolCandidateDocument = React.forwardRef<
                           icon={InformationCircleIcon}
                           style={{ flex: "1 1 0%" }}
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "Employment equity information",
-                            id: "a92avO",
-                            description:
-                              "Title of the Employment equity information content section",
-                          })}
+                          {intl.formatMessage(
+                            navigationMessages.diversityEquityInclusion,
+                          )}
                         </Heading>
                       </HeadingWrapper>
                       <DiversityEquityInclusionSection

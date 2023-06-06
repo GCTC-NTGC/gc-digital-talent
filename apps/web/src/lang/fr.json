@@ -3336,10 +3336,6 @@
     "defaultMessage": "Voir les candidats<hidden> pour {label}</hidden>",
     "description": "Text for a link to the Pool Candidates table"
   },
-  "a92avO": {
-    "defaultMessage": "Information sur l'équité en matière d'emploi",
-    "description": "Title of the Employment equity information content section"
-  },
   "bl7pCx": {
     "defaultMessage": "Modifier le statut",
     "description": "Button to change a users status in a pool - located in the table on view-user page"
