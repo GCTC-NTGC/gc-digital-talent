@@ -5,10 +5,10 @@ import { Heading, Well } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import { JobLookingStatus } from "~/api/generated";
+import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 
 import { UserInformationProps } from "../types";
 import AddToPoolDialog from "./AddToPoolDialog";
-import PoolStatusTable from "./PoolStatusSection";
 
 const CandidateStatusSection = ({ user, pools }: UserInformationProps) => {
   const intl = useIntl();

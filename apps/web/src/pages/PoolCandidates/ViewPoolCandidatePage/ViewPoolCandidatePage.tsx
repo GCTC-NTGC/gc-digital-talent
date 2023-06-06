@@ -45,8 +45,8 @@ import applicationMessages from "~/messages/applicationMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
+import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 
-import PoolStatusTable from "../../Users/UserInformationPage/components/PoolStatusSection";
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
 import SkillTree from "../../Applications/ApplicationSkillsPage/components/SkillTree";
 import PersonalInformationDisplay from "../../Applications/ApplicationProfilePage/components/PersonalInformation/Display";
