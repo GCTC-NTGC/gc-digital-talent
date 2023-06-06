@@ -9,7 +9,7 @@ import {
 import { BreadcrumbsProps } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero/Hero";
-import { PoolAdvertisement } from "~/api/generated";
+import { Pool } from "~/api/generated";
 
 import ApplicationNavigation, {
   type ApplicationNavigationProps,
@@ -20,7 +20,7 @@ export interface ApplicationPageWrapperProps {
   subtitle?: React.ReactNode;
   crumbs?: BreadcrumbsProps["crumbs"];
   navigation?: ApplicationNavigationProps;
-  closingDate: PoolAdvertisement["closingDate"];
+  closingDate: Pool["closingDate"];
   children: React.ReactNode;
 }
 

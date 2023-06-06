@@ -40,10 +40,7 @@ const WorkPreferencesFormApi = ({
       {data?.poolCandidate ? (
         <WorkPreferencesForm
           initialData={initialData}
-          application={{
-            ...data.poolCandidate,
-            pool: { id: data.poolCandidate.id },
-          }}
+          application={data.poolCandidate}
           handleWorkPreferences={handleWorkPreferences}
         />
       ) : (

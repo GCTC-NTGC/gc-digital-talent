@@ -63,7 +63,7 @@ return [
         'user' => 'user',
         'userBasicInfo' => 'userBasicInfo',
         'pool' => 'pool',
-        'publishedPoolAdvertisement' => 'publishedPoolAdvertisement',
+        'publishedPool' => 'publishedPool',
         'draftPool' => 'draftPool',
         'poolClosingDate' => 'poolClosingDate',
         'application' => 'application',
@@ -205,8 +205,8 @@ return [
             'en' => 'View any Pool, published or not',
             'fr' => 'Voir n\'importe quel bassin, publié ou non'
         ],
-        'view-any-publishedPoolAdvertisement' => [
-            'en' => 'View Any Published Pool Advertisement',
+        'view-any-publishedPool' => [
+            'en' => 'View Any Published Pool',
             'fr' => 'Visionner toute annonce publiée dans un bassin'
         ],
         'create-team-pool' => [
@@ -495,7 +495,7 @@ return [
             'skillFamily' => [
                 'any' => ['view']
             ],
-            'publishedPoolAdvertisement' => [
+            'publishedPool' => [
                 'any' => ['view']
             ],
             'applicantCount' => [
@@ -531,7 +531,7 @@ return [
             'user' => [
                 'own' => ['view', 'update']
             ],
-            'publishedPoolAdvertisement' => [
+            'publishedPool' => [
                 'any' => ['view']
             ],
             'applicantCount' => [

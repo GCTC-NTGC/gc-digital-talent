@@ -35,7 +35,7 @@ class PoolPolicy
     public function view(?User $user, Pool $pool)
     {
         // Anyone (even unauthenticated) can see published pools.
-        if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
+        if ($pool->getStatusAttribute() !== ApiEnums::POOL_IS_DRAFT) {
             return true;
         }
 
@@ -44,7 +44,7 @@ class PoolPolicy
             return false;
         }
 
-        // If user has elevated admin, can view all advertisements.
+        // If user has elevated admin, can view all pools.
         if ($user->isAbleTo("view-any-pool")) {
             return true;
         }
@@ -55,34 +55,12 @@ class PoolPolicy
     }
 
     /**
-     * Determine whether the user can view a poolAdvertisement. All except DRAFT are viewable to all
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Pool  $pool
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAdvertisement(?User $user, Pool $pool)
-    {
-        // Guests and Base Users both have permission to view-any-publishedPoolAdvertisement
-        if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
-            return true;
-        }
-
-        if (is_null($user)) {
-            return false;
-        }
-
-        // PoolAdvertisement is a subset of Pool, so if a user can view the pool, they can view the pool Advertisement.
-        return $this->view($user, $pool);
-    }
-
-    /**
-     * Determine whether the user can view all published poolAdvertisements.
+     * Determine whether the user can view all published pools.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAnyPublishedAdvertisement(?User $user)
+    public function viewAnyPublished(?User $user)
     {
         return true;
     }
@@ -97,13 +75,9 @@ class PoolPolicy
      */
     public function create(User $user, $request)
     {
-        // The team id will be located in a different location depending on if this is called by
-        // the createPool or createPoolAdvertisement mutation
         $team_id = null;
         if (array_key_exists('team_id', $request)) {
             $team_id = $request['team_id'];
-        } else if (array_key_exists('team', $request) && array_key_exists('connect', $request['team'])) {
-            $team_id = $request['team']['connect'];
         }
 
         // Failed to get the new pools team - reject
@@ -151,12 +125,12 @@ class PoolPolicy
     public function updateDraft(User $user, Pool $pool)
     {
         $pool->loadMissing('team');
-        return $pool->getAdvertisementStatusAttribute() === ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT
+        return $pool->getStatusAttribute() === ApiEnums::POOL_IS_DRAFT
             && $user->isAbleTo("update-team-draftPool", $pool->team);
     }
 
     /**
-     * Determine whether the user can publish the pool advertisement.
+     * Determine whether the user can publish the pool.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Pool  $pool
@@ -165,8 +139,8 @@ class PoolPolicy
     public function publish(User $user, Pool $pool)
     {
         // The status must be DRAFT to be able to publish it.
-        if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
-            return Response::deny("Pool Advertisement has already been published.");
+        if ($pool->getStatusAttribute() !== ApiEnums::POOL_IS_DRAFT) {
+            return Response::deny("Pool has already been published.");
         }
 
         // The closing date must be greater than today's date at the end of day.
@@ -191,13 +165,13 @@ class PoolPolicy
     }
 
     /**
-     * Determine whether the user can close the pool advertisement.
+     * Determine whether the user can close the pool.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Pool  $pool
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function closePoolAdvertisement(User $user, Pool $pool)
+    public function closePool(User $user, Pool $pool)
     {
         $pool->loadMissing('team');
         return $user->isAbleTo("update-team-poolClosingDate", $pool->team);
@@ -213,8 +187,8 @@ class PoolPolicy
     public function deleteDraft(User $user, Pool $pool)
     {
         $pool->loadMissing('team');
-        if ($pool->getAdvertisementStatusAttribute() !== ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT) {
-            return Response::deny("You cannot delete a Pool Advertisement once it's been published.");
+        if ($pool->getStatusAttribute() !== ApiEnums::POOL_IS_DRAFT) {
+            return Response::deny("You cannot delete a Pool once it's been published.");
         }
         return $user->isAbleTo("delete-team-draftPool", $pool->team);
     }

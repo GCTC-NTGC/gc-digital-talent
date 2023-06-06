@@ -57,7 +57,7 @@ class PoolSeeder extends Seeder
                     $classificationIT01Id = Classification::where('group', 'ilike', 'IT')->where('level', 1)->sole()['id'];
                     $createdPool->classifications()->sync([$classificationIT01Id]);
                     $createdPool->stream = ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES;
-                    $createdPool->advertisement_language = ApiEnums::POOL_ADVERTISEMENT_VARIOUS;
+                    $createdPool->advertisement_language = ApiEnums::POOL_VARIOUS;
                     $createdPool->save();
                 }
             } else {

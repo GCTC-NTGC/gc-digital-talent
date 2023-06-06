@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import type { Applicant } from "~/api/generated";
 
 interface CandidatePoolsSectionProps {
@@ -37,9 +37,7 @@ const CandidatePoolsSection = ({ applicant }: CandidatePoolsSectionProps) => {
             data-h2-padding="base(x1, 0)"
           >
             <div>
-              <p>
-                {getFullPoolAdvertisementTitleHtml(intl, poolCandidate?.pool)}
-              </p>
+              <p>{getFullPoolTitleHtml(intl, poolCandidate?.pool)}</p>
             </div>
             <div>
               <p>

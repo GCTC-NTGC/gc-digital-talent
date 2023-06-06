@@ -1,39 +1,24 @@
 query getPool($id: UUID!) {
-  poolAdvertisement(id: $id) {
+  me {
+    id
+    poolCandidates {
+      id
+      pool {
+        id
+      }
+      submittedAt
+    }
+  }
+  pool(id: $id) {
     id
     name {
       en
       fr
     }
     stream
-    classifications {
-      id
-      group
-      level
-    }
-  }
-}
-
-query getPoolAdvertisement($id: UUID!) {
-  me {
-    id
-    poolCandidates {
-      id
-      poolAdvertisement {
-        id
-      }
-      submittedAt
-    }
-  }
-  poolAdvertisement(id: $id) {
-    id
-    name {
-      en
-      fr
-    }
     closingDate
-    advertisementStatus
-    advertisementLanguage
+    status
+    language
     securityClearance
     classifications {
       id
@@ -113,7 +98,7 @@ query getPoolAdvertisement($id: UUID!) {
       }
     }
     isRemote
-    advertisementLocation {
+    location {
       en
       fr
     }
