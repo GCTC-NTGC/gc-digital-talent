@@ -6,10 +6,9 @@
     "roadmap": "https://workflowy.com/s/hydrogens-roadmap/7Gjmdbjiqc0Wst1R",
     "settings": "https://hydrogen.design/en/docs/configuration"
   },
-  "temp": [
-    "../*/src/views/*.html"
-  ],
+  "temp": ["../*/src/views/*.html"],
   "input": [
+    "apps/web/public",
     "apps/web/src/components",
     "apps/web/src/pages",
     "apps/web/src/styles",
