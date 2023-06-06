@@ -90,21 +90,26 @@ const TemplateLinkColors: Story = (args) => {
   );
 };
 
-export const LinkDefault = TemplateLink.bind({});
+export const Default = TemplateLink.bind({});
 
-export const LinkButtonSolid = TemplateLinkColors.bind({});
-LinkButtonSolid.args = {
+export const SolidLink = TemplateLinkColors.bind({});
+SolidLink.args = {
   mode: "solid",
 };
 
-export const LinkButtonCallToAction = TemplateLinkColors.bind({});
-LinkButtonCallToAction.args = {
+export const InlineLink = TemplateLinkColors.bind({});
+InlineLink.args = {
+  mode: "inline",
+};
+
+export const CalltoActionLink = TemplateLinkColors.bind({});
+CalltoActionLink.args = {
   mode: "cta",
   icon: InformationCircleIcon,
 };
 
-export const LinkButtonBlock = TemplateLink.bind({});
-LinkButtonBlock.args = {
+export const BlockLink = TemplateLink.bind({});
+BlockLink.args = {
   mode: "solid",
   block: true,
 };
@@ -115,15 +120,15 @@ IconLink.args = {
   icon: InformationCircleIcon,
 };
 
-export const ExternalLinkNewTab = TemplateLink.bind({});
-ExternalLinkNewTab.args = {
+export const LinkExternalNewTab = TemplateLink.bind({});
+LinkExternalNewTab.args = {
   newTab: true,
   mode: "inline",
   href: "https://example.com",
 };
 
-export const ExternalLinkNotNewTab = TemplateLink.bind({});
-ExternalLinkNotNewTab.args = {
+export const LinkExternalNoNewTab = TemplateLink.bind({});
+LinkExternalNoNewTab.args = {
   newTab: false,
   mode: "inline",
   href: "https://example.com",

@@ -7,6 +7,8 @@ import Button from "./Button";
 import type { ButtonProps } from "./Button";
 import { Color } from "../../types";
 
+type Story = StoryFn<Omit<ButtonProps, "color" | "ref"> & { label: string }>;
+
 export default {
   component: Button,
   title: "Components/Button",
@@ -40,9 +42,7 @@ const stoplight: Array<Color> = ["success", "warning", "error"];
 const black: Array<Color> = ["black"];
 const white: Array<Color> = ["white"];
 
-const Template: StoryFn<
-  Omit<ButtonProps, "color" | "ref"> & { label: string }
-> = (args) => {
+const Template: Story = (args) => {
   const { label, ...rest } = args;
   return (
     <div data-h2-display="base(flex)">
@@ -89,6 +89,14 @@ const Template: StoryFn<
   );
 };
 
+const TemplateButton: Story = (args) => {
+  const { label, ...rest } = args;
+
+  return <Button {...rest}>{label}</Button>;
+};
+
+export const Default = TemplateButton.bind({});
+
 export const SolidButton = Template.bind({});
 SolidButton.args = {
   mode: "solid",
@@ -108,7 +116,7 @@ CallToActionButton.args = {
   onClick: action("Button clicked"),
 };
 
-export const BlockButton = Template.bind({});
+export const BlockButton = TemplateButton.bind({});
 BlockButton.args = {
   mode: "solid",
   block: true,
