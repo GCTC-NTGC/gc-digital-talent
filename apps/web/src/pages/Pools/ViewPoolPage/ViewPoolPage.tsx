@@ -160,7 +160,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
             >
               <Button
                 data-h2-margin="base(0, x.5, 0, 0)"
-                mode="outline"
                 color="secondary"
                 disabled={linkCopied}
                 icon={linkCopied ? CheckIcon : ClipboardIcon}
@@ -188,7 +187,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
               </Button>
               <Link
                 data-h2-margin="base(0, x.5, 0, 0)"
-                mode="outline"
+                mode="solid"
                 color="secondary"
                 href={paths.pool(pool.id)}
                 newTab

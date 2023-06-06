@@ -182,7 +182,7 @@ const EditExperienceForm = ({
               </AlertDialog.Description>
               <AlertDialog.Footer>
                 <AlertDialog.Cancel>
-                  <Button type="button" mode="outline" color="secondary">
+                  <Button type="button" color="secondary">
                     {intl.formatMessage({
                       defaultMessage: "Cancel",
                       id: "KnE2Rk",

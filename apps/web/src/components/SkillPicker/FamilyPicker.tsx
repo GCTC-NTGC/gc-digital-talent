@@ -65,7 +65,6 @@ const FamilyPicker = ({ families, onSelectFamily }: FamilyPickerProps) => {
       <DropdownMenu.Trigger>
         <Button
           color="primary"
-          mode="outline"
           data-h2-align-items="base(center)"
           data-h2-display="base(flex)"
           data-h2-flex-shrink="base(0)"

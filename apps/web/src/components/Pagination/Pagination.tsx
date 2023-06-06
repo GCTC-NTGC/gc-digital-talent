@@ -22,7 +22,7 @@ export interface PaginationProps {
   /** Button font color */
   color: Color;
   /** Button mode type  */
-  mode: "solid" | "outline" | "inline";
+  mode: "solid" | "inline";
   /** Callback that changes to the page number value. */
   onCurrentPageChange: (pageNumber: number) => void;
   /** Callback that changes max number of visible items on a single page */

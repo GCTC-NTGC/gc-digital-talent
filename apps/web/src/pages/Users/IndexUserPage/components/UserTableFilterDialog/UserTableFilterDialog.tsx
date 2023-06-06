@@ -89,12 +89,7 @@ const UserTableFilterDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
       <Dialog.Trigger>
-        <Button
-          mode="outline"
-          color="secondary"
-          type="button"
-          icon={AdjustmentsVerticalIcon}
-        >
+        <Button color="secondary" type="button" icon={AdjustmentsVerticalIcon}>
           {formatMessage({
             defaultMessage: "Filters",
             id: "1HPhji",

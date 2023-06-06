@@ -135,7 +135,6 @@ const SearchResultCard = ({
       </p>
       <Button
         color="secondary"
-        mode="outline"
         onClick={() =>
           handleSubmit(candidateCount, pool.id, selectedClassifications)
         }

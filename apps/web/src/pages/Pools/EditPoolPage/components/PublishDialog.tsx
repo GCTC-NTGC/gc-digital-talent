@@ -28,7 +28,6 @@ const PublishDialog = ({
         <div style={{ flexGrow: 2 } /* push other div to the right */}>
           <Dialog.Close>
             <Button
-              mode="outline"
               color="secondary"
               data-h2-display="base(flex)"
               data-h2-align-items="base(center)"

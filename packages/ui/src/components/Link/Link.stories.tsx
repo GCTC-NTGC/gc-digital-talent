@@ -97,11 +97,6 @@ LinkButtonSolid.args = {
   mode: "solid",
 };
 
-export const LinkButtonOutline = TemplateLinkColors.bind({});
-LinkButtonOutline.args = {
-  mode: "outline",
-};
-
 export const LinkButtonCallToAction = TemplateLinkColors.bind({});
 LinkButtonCallToAction.args = {
   mode: "cta",

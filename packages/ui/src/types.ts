@@ -25,7 +25,7 @@ type HydrogenAttributes = {
   [dataAttribute: HydrogenAttributeKey]: unknown;
 };
 
-export type ButtonLinkMode = "solid" | "outline" | "inline" | "cta";
+export type ButtonLinkMode = "solid" | "inline" | "cta";
 
 export type ButtonLinkProps = {
   color?: Color;

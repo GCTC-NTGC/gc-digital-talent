@@ -47,7 +47,7 @@ const Template: Story = () => {
         color="primary"
         links={[
           { href: "#", label: "With link", mode: "solid" },
-          { href: "#", label: "Second link", mode: "outline" },
+          { href: "#", label: "Second link", mode: "inline" },
         ]}
       >
         <p>{faker.lorem.sentences(1)}</p>

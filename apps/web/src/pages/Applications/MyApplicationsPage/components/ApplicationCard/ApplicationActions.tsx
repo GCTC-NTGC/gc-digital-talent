@@ -187,7 +187,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
-            <Button mode="outline" color="primary" type="button">
+            <Button color="primary" type="button">
               {intl.formatMessage({
                 defaultMessage: "Cancel",
                 id: "/JLaO5",
@@ -267,7 +267,7 @@ const ArchiveAction = ({
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
-            <Button mode="outline" color="primary" type="button">
+            <Button color="primary" type="button">
               {intl.formatMessage({
                 defaultMessage: "Cancel",
                 id: "r6DZ71",

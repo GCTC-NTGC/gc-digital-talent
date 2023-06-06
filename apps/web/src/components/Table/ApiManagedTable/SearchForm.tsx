@@ -82,7 +82,6 @@ const SearchForm = ({
           <DropdownMenu.Trigger>
             <Button
               color="secondary"
-              mode="outline"
               data-h2-flex-shrink="base(0)"
               data-h2-radius="base(s 0 0 s)"
               data-h2-margin-right="base(0)"

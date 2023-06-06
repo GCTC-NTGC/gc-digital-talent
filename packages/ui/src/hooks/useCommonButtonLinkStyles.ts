@@ -14,7 +14,7 @@ const styleExclusions: Record<string, Array<ButtonLinkMode>> = {
   overflow: ["cta"],
   padding: ["cta", "inline"],
   radius: ["inline"],
-  shadow: ["inline", "outline", "solid"],
+  shadow: ["inline", "solid"],
 };
 
 /**
@@ -286,13 +286,6 @@ export const getBackground = (
       },
     ],
     [
-      "outline",
-      {
-        "data-h2-background":
-          "base(primary.lightest) base:hover(primary.lighter) base:focus-visible(focus) base:dark(primary.darker) base:dark:hover(primary.dark) base:dark:focus-visible(focus) base:admin:focus-visible(focus) base:admin:dark:hover(primary.light) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
-      },
-    ],
-    [
       "cta",
       {
         "data-h2-background-color":
@@ -307,13 +300,6 @@ export const getBackground = (
       {
         "data-h2-background":
           "base(secondary)  base:selectors[:disabled](secondary.light) base:hover(secondary.lightest) base:focus-visible(focus) base:dark(secondary) base:dark:focus-visible(focus) base:admin(secondary) base:admin:focus-visible(focus) base:admin:dark(secondary.lighter) base:admin:dark:hover(secondary.darkest) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(secondary.light) base:iap:dark:hover(secondary.darkest) base:iap:dark:focus-visible(focus)",
-      },
-    ],
-    [
-      "outline",
-      {
-        "data-h2-background":
-          "base(secondary.lightest) base:hover(secondary.lighter) base:focus-visible(focus) base:dark(secondary.darker) base:dark:hover(secondary.dark) base:dark:focus-visible(focus) base:admin:focus-visible(focus) base:admin:dark(secondary) base:admin:dark:hover(secondary.lighter) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:hover(secondary) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
@@ -334,13 +320,6 @@ export const getBackground = (
       },
     ],
     [
-      "outline",
-      {
-        "data-h2-background":
-          "base(tertiary.lightest) base:hover(tertiary.lighter) base:focus-visible(focus) base:dark(tertiary.darker) base:dark:hover(tertiary.dark) base:dark:focus-visible(focus) base:admin:focus-visible(focus) base:admin:dark(tertiary.darkest) base:admin:dark:hover(tertiary.darker) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:hover(tertiary) base:iap:dark:focus-visible(focus)",
-      },
-    ],
-    [
       "cta",
       {
         "data-h2-background-color":
@@ -355,13 +334,6 @@ export const getBackground = (
       {
         "data-h2-background":
           "base(quaternary) base:selectors[:disabled](quaternary.light) base:hover(quaternary.lightest) base:focus-visible(focus) base:dark(quaternary) base:dark:focus-visible(focus) base:admin(quaternary) base:admin(quaternary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark(quaternary.light) base:iap:dark:hover(quaternary.darkest) base:iap:dark:focus-visible(focus)",
-      },
-    ],
-    [
-      "outline",
-      {
-        "data-h2-background":
-          "base(quaternary.lightest) base:hover(quaternary.lighter) base:focus-visible(focus) base:dark(quaternary.darker) base:dark:hover(quaternary.dark) base:dark:focus-visible(focus) base:admin:focus-visible(focus) base:admin:dark(quaternary.darkest) base:admin:dark:hover(quaternary.darker) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:hover(quaternary) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
@@ -382,13 +354,6 @@ export const getBackground = (
       },
     ],
     [
-      "outline",
-      {
-        "data-h2-background":
-          "base(quinary.lightest) base:hover(quinary.lighter) base:focus-visible(focus) base:dark(quinary.darker) base:dark:hover(quinary.dark) base:dark:focus-visible(focus) base:admin:focus-visible(focus) base:admin:dark(quinary.darkest) base:admin:dark:hover(quinary.darker) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:hover(quinary) base:iap:dark:focus-visible(focus)",
-      },
-    ],
-    [
       "cta",
       {
         "data-h2-background-color":
@@ -403,13 +368,6 @@ export const getBackground = (
       {
         "data-h2-background":
           "base(success.light) base:selectors[:disabled](success.lightest) base:hover(success.lightest) base:focus-visible(focus) base:dark(success.light) base:dark:focus-visible(focus)",
-      },
-    ],
-    [
-      "outline",
-      {
-        "data-h2-background":
-          "base(success.lightest) base:hover(success.lighter) base:focus-visible(focus) base:dark(success.darker) base:dark:hover(success.dark) base:dark:focus-visible(focus)",
       },
     ],
     [
@@ -430,13 +388,6 @@ export const getBackground = (
       },
     ],
     [
-      "outline",
-      {
-        "data-h2-background":
-          "base(warning.lightest) base:hover(warning.lighter) base:focus-visible(focus) base:dark(warning.darker) base:dark:hover(warning.dark) base:dark:focus-visible(focus)",
-      },
-    ],
-    [
       "cta",
       {
         "data-h2-background-color":
@@ -451,13 +402,6 @@ export const getBackground = (
       {
         "data-h2-background":
           "base(error.light) base:selectors[:disabled](error.lightest) base:hover(error.lightest) base:focus-visible(focus) base:dark(error.light) base:dark:focus-visible(focus)",
-      },
-    ],
-    [
-      "outline",
-      {
-        "data-h2-background":
-          "base(error.lightest) base:hover(error.lighter) base:focus-visible(focus) base:dark(error.darker) base:dark:hover(error.dark) base:dark:focus-visible(focus)",
       },
     ],
     [
@@ -478,13 +422,6 @@ export const getBackground = (
       },
     ],
     [
-      "outline",
-      {
-        "data-h2-background":
-          "base(black.lightest) base:hover(black.lighter) base:focus-visible(focus) base:dark(white.darkest) base:dark:hover(white.darker) base:dark:focus-visible(focus)",
-      },
-    ],
-    [
       "cta",
       {
         "data-h2-background-color":
@@ -499,13 +436,6 @@ export const getBackground = (
       {
         "data-h2-background":
           "base(white) base:selectors[:disabled](black.lightest) base:hover(black.light) base:focus-visible(focus) base:dark:focus-visible(focus)",
-      },
-    ],
-    [
-      "outline",
-      {
-        "data-h2-background":
-          "base(white.darkest) base:hover(white.darker) base:focus-visible(focus) base:dark(black.lightest) base:dark:hover(black.lighter) base:dark:focus-visible(focus)",
       },
     ],
     [
@@ -563,13 +493,6 @@ export const getFontColor = (
       },
     ],
     [
-      "outline",
-      {
-        "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(white) base:dark:hover(white) base:dark:focus-visible(black) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
-      },
-    ],
-    [
       "inline",
       {
         "data-h2-color":
@@ -591,13 +514,6 @@ export const getFontColor = (
       {
         "data-h2-color":
           "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black) base:admin(white) base:admin:hover(black) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark(white) base:iap:dark:hover(white) base:iap:dark:focus-visible(black)",
-      },
-    ],
-    [
-      "outline",
-      {
-        "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(white) base:dark:hover(white) base:dark:focus-visible(black) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
       },
     ],
     [
@@ -625,13 +541,6 @@ export const getFontColor = (
       },
     ],
     [
-      "outline",
-      {
-        "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(white) base:dark:hover(white) base:dark:focus-visible(black) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
-      },
-    ],
-    [
       "inline",
       {
         "data-h2-color":
@@ -653,13 +562,6 @@ export const getFontColor = (
       {
         "data-h2-color":
           "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark(white) base:iap:dark:hover(white) base:iap:dark:focus-visible(black)",
-      },
-    ],
-    [
-      "outline",
-      {
-        "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(white) base:dark:hover(white) base:dark:focus-visible(black) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
       },
     ],
     [
@@ -687,13 +589,6 @@ export const getFontColor = (
       },
     ],
     [
-      "outline",
-      {
-        "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(white) base:dark:hover(white) base:dark:focus-visible(black) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
-      },
-    ],
-    [
       "inline",
       {
         "data-h2-color":
@@ -708,13 +603,6 @@ export const getFontColor = (
       {
         "data-h2-color":
           "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black)",
-      },
-    ],
-    [
-      "outline",
-      {
-        "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(white) base:dark:hover(white) base:dark:focus-visible(black)",
       },
     ],
     [
@@ -742,13 +630,6 @@ export const getFontColor = (
       },
     ],
     [
-      "outline",
-      {
-        "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(white) base:dark:hover(white) base:dark:focus-visible(black)",
-      },
-    ],
-    [
       "inline",
       {
         "data-h2-color":
@@ -770,13 +651,6 @@ export const getFontColor = (
       {
         "data-h2-color":
           "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black)",
-      },
-    ],
-    [
-      "outline",
-      {
-        "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(white) base:dark:hover(white) base:dark:focus-visible(black)",
       },
     ],
     [
@@ -804,13 +678,6 @@ export const getFontColor = (
       },
     ],
     [
-      "outline",
-      {
-        "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(white) base:dark:hover(white) base:dark:focus-visible(black)",
-      },
-    ],
-    [
       "inline",
       {
         "data-h2-color":
@@ -832,13 +699,6 @@ export const getFontColor = (
       {
         "data-h2-color":
           "base(black) base:hover(white) base:focus-visible(black) base:dark:focus-visible(black)",
-      },
-    ],
-    [
-      "outline",
-      {
-        "data-h2-color":
-          "base(white) base:focus-visible(black) base:dark(black) base:dark:focus-visible(black)",
       },
     ],
     [

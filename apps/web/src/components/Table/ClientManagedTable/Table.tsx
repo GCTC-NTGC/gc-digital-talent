@@ -275,7 +275,6 @@ function Table<T extends Record<string, unknown>>({
                       <Dialog.Trigger>
                         <Button
                           icon={TableCellsIcon}
-                          mode="outline"
                           color="secondary"
                           type="button"
                         >

@@ -115,11 +115,7 @@ const Template: StoryFn<ApiManageTableProps> = (args) => {
         columns={columns}
         hiddenColumnIds={hiddenColumnIds}
         filterComponent={
-          <Button
-            color="secondary"
-            mode="outline"
-            onClick={() => action("onOpenFilters")()}
-          >
+          <Button color="secondary" onClick={() => action("onOpenFilters")()}>
             Filters
           </Button>
         }

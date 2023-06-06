@@ -182,7 +182,7 @@ export const CreatePoolForm = ({
       </div>
 
       <div data-h2-margin="base(x2, 0, 0, 0)">
-        <Link href={paths.poolTable()} mode="outline" color="primary">
+        <Link href={paths.poolTable()} mode="solid" color="primary">
           {intl.formatMessage({
             defaultMessage: "Cancel and go back",
             id: "dJxNRU",

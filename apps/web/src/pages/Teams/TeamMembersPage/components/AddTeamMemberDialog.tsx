@@ -104,7 +104,7 @@ AddTeamMemberDialogProps) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="outline" icon={PlusIcon}>
+        <Button color="primary" icon={PlusIcon}>
           {label}
         </Button>
       </Dialog.Trigger>
@@ -173,7 +173,7 @@ AddTeamMemberDialogProps) => {
               />
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button mode="outline" color="secondary">
+                  <Button color="secondary">
                     {intl.formatMessage({
                       defaultMessage: "Cancel and go back",
                       id: "tiF/jI",

@@ -94,7 +94,6 @@ function TableHeader<T extends Record<string, unknown>>({
                     <Dialog.Root>
                       <Dialog.Trigger>
                         <Button
-                          mode="outline"
                           color="secondary"
                           type="button"
                           icon={TableCellsIcon}

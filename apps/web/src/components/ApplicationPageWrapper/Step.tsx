@@ -11,7 +11,7 @@ export interface StepProps {
 const Step = ({ path, label, disabled, ...rest }: StepProps) => (
   <Link
     href={path}
-    mode={disabled ? "solid" : "outline"}
+    mode="solid"
     color="secondary"
     style={{
       pointerEvents: disabled ? "none" : undefined,

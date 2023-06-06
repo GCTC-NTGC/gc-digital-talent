@@ -136,7 +136,7 @@ const AddIndividualRoleDialog = ({
               />
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button mode="outline" color="secondary">
+                  <Button color="secondary">
                     {intl.formatMessage({
                       defaultMessage: "Cancel and go back",
                       id: "tiF/jI",

@@ -92,12 +92,6 @@ SolidButton.args = {
   onClick: action("Button clicked"),
 };
 
-export const OutlineButton = Template.bind({});
-OutlineButton.args = {
-  mode: "outline",
-  onClick: action("Button clicked"),
-};
-
 export const InlineButton = Template.bind({});
 InlineButton.args = {
   mode: "inline",
@@ -127,7 +121,7 @@ DisabledButton.args = {
 
 export const IconButton = Template.bind({});
 IconButton.args = {
-  mode: "outline",
+  mode: "solid",
   icon: InformationCircleIcon,
   onClick: action("Button clicked"),
 };
