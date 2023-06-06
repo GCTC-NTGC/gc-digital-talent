@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Pool;
+use Exception;
 use Illuminate\Console\Command;
 
 class CallFactory extends Command
@@ -33,6 +33,12 @@ class CallFactory extends Command
         $result = null;
 
         $qualifiedClassName = 'App\\Models\\' . $this->argument("class");
+        if (!class_exists($qualifiedClassName)) {
+            throw new Exception("The model class does not exist.");
+        }
+        if (!method_exists($qualifiedClassName, "factory")) {
+            throw new Exception("The model class does not have a factory method.");
+        }
 
         $jsonAttributes = $this->option('attributes');
         if (!empty($jsonAttributes)) {
