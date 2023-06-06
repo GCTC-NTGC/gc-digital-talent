@@ -77,17 +77,6 @@ const IndeterminateCheckbox = ({
   );
 };
 
-const ButtonIcon = ({ icon }: { icon: IconType }) => {
-  const Icon = icon;
-
-  return (
-    <Icon
-      style={{ height: "1em", width: "1rem" }}
-      data-h2-margin="base(0, x.5, 0, 0)"
-    />
-  );
-};
-
 const getSortAttr = (
   isSorted: boolean,
   isSortedDesc?: boolean,
@@ -285,21 +274,17 @@ function Table<T extends Record<string, unknown>>({
                     <Dialog.Root>
                       <Dialog.Trigger>
                         <Button
+                          icon={TableCellsIcon}
                           mode="outline"
                           color="secondary"
                           type="button"
-                          data-h2-display="base(inline-flex)"
-                          data-h2-align-items="base(center)"
                         >
-                          <ButtonIcon icon={TableCellsIcon} />
-                          <span>
-                            {intl.formatMessage({
-                              defaultMessage: "Columns",
-                              id: "xcBl1q",
-                              description:
-                                "Label displayed on the Table Columns toggle button.",
-                            })}
-                          </span>
+                          {intl.formatMessage({
+                            defaultMessage: "Columns",
+                            id: "xcBl1q",
+                            description:
+                              "Label displayed on the Table Columns toggle button.",
+                          })}
                         </Button>
                       </Dialog.Trigger>
                       <Dialog.Content>
@@ -362,13 +347,11 @@ function Table<T extends Record<string, unknown>>({
                   <Link
                     mode="solid"
                     color="primary"
-                    data-h2-display="base(inline-flex)"
-                    data-h2-align-items="base(center)"
+                    icon={PlusIcon}
                     style={{ textDecoration: "none" }}
                     href={addBtn.path}
                   >
-                    <ButtonIcon icon={PlusIcon} />
-                    <span>{addBtn.label}</span>
+                    {addBtn.label}
                   </Link>
                 )}
                 {addDialog || null}

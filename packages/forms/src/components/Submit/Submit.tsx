@@ -2,7 +2,7 @@ import React from "react";
 import { useFormState } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { ButtonProps, Color, Button } from "@gc-digital-talent/ui";
+import { ButtonProps, Color, Button, IconType } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 
 export interface SubmitProps extends Omit<ButtonProps, "ref" | "type"> {
@@ -11,6 +11,7 @@ export interface SubmitProps extends Omit<ButtonProps, "ref" | "type"> {
   isSubmittingText?: string | React.ReactNode;
   color?: Color;
   mode?: "solid" | "outline" | "inline";
+  icon?: IconType;
   isSubmitting?: boolean;
   disabled?: boolean;
 }
@@ -21,6 +22,7 @@ const Submit = ({
   isSubmittingText,
   color,
   mode,
+  icon,
   isSubmitting: overrideSubmitting,
   disabled,
   ...rest
@@ -43,6 +45,7 @@ const Submit = ({
       color={color || "primary"}
       mode={mode || "solid"}
       type="submit"
+      icon={icon}
       disabled={disabled || isSubmitting || overrideSubmitting}
       {...rest}
     >

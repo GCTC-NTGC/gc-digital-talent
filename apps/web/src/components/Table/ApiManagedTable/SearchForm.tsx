@@ -83,17 +83,14 @@ const SearchForm = ({
             <Button
               color="secondary"
               mode="outline"
-              data-h2-align-items="base(center)"
-              data-h2-display="base(flex)"
               data-h2-flex-shrink="base(0)"
-              data-h2-gap="base(0, x.25)"
-              data-h2-radius="base(s, 0, 0, s)"
+              data-h2-radius="base(s 0 0 s)"
               data-h2-margin-right="base(0)"
             >
               <span>{column ? column.label : allTableMsg}</span>
               <ChevronDownIcon
-                data-h2-height="base(1em)"
-                data-h2-width="base(1em)"
+                data-h2-height="base(1rem)"
+                data-h2-width="base(1rem)"
               />
             </Button>
           </DropdownMenu.Trigger>
