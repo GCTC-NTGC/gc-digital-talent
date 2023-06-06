@@ -14,8 +14,8 @@ class CallFactory extends Command
      */
     protected $signature = 'app:call-factory
                             {class : The factory class to call}
-                            {--state= : The factory state to use}
-                            {--attributes= : Override attributes to pass to the factory (JSON)}
+                            {--state=* : The factory state(s) to use}
+                            {--attributes= : Override attributes to pass to the factory (JSON object)}
                             ';
 
     /**
@@ -47,12 +47,13 @@ class CallFactory extends Command
             $attributes = null;
         }
 
-        $state = $this->option('state');
-        if (empty($state)) {
-            $result = $qualifiedClassName::factory()->create($attributes);
-        } else {
-            $result = $qualifiedClassName::factory()->$state()->create($attributes);
+        $factory = $qualifiedClassName::factory();
+        $states = $this->option('state');
+        // apply each state function to the factory (if any)
+        foreach ($states as $state) {
+            $factory = $factory->$state();
         }
+        $result = $factory->create($attributes);
         $this->line($result?->toJson());
     }
 }
