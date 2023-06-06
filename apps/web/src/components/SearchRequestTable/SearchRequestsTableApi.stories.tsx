@@ -18,7 +18,7 @@ const mockPaginatorInfo = {
 };
 
 export default {
-  title: "Tables/Search Requests Table",
+  title: "Tables/Search Requests Table Api",
   component: SearchRequestsTable,
   parameters: {
     themeKey: "admin",
