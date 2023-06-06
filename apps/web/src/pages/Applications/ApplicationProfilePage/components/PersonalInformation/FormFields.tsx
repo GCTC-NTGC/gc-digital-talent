@@ -9,6 +9,7 @@ import {
 } from "@gc-digital-talent/forms";
 import {
   errorMessages,
+  formMessages,
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
   getLanguage,
@@ -65,12 +66,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
           name="telephone"
           type="tel"
           label={labels.telephone}
-          placeholder={intl.formatMessage({
-            defaultMessage: "+123243234",
-            id: "FmN1eN",
-            description:
-              "Placeholder displayed on the About Me form telephone field.",
-          })}
+          placeholder={intl.formatMessage(formMessages.phonePlaceholder)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}

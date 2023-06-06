@@ -50,19 +50,19 @@ describe("Talentsearch Profile Page", () => {
 
     it("loads page successfully", () => {
       cy.visit("/en/users/test-applicant/profile");
-      cy.contains("About Me");
-      cy.contains("Language Information");
-      cy.contains("Government Information");
-      cy.contains("Work Location");
-      cy.contains("Work Preferences");
+      cy.contains("About me");
+      cy.contains("Language information");
+      cy.contains("Government information");
+      cy.contains("Work location");
+      cy.contains("Work preferences");
       cy.contains("Diversity, equity and inclusion");
 
       cy.visit("/en/talent/profile");
-      cy.contains("About Me");
-      cy.contains("Language Information");
-      cy.contains("Government Information");
-      cy.contains("Work Location");
-      cy.contains("Work Preferences");
+      cy.contains("About me");
+      cy.contains("Language information");
+      cy.contains("Government information");
+      cy.contains("Work location");
+      cy.contains("Work preferences");
       cy.contains("Diversity, equity and inclusion");
     });
   });
