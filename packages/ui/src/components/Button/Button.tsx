@@ -39,7 +39,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       // eslint-disable-next-line react/button-has-type
-      <button ref={ref} {...styles} {...rest}>
+      <button ref={ref} disabled={disabled} {...styles} {...rest}>
         <ButtonLinkContent mode={mode} icon={icon}>
           {children}
         </ButtonLinkContent>
