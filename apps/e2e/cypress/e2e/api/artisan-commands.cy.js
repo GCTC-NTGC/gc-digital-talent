@@ -16,18 +16,31 @@ describe("Artisan command tests", () => {
     });
 
     cy.get("@poolId").then((poolId) => {
-      cy.visit(`/en/browse/pools/${poolId}`);
-    });
+      cy.graphqlRequest({
+        query: `
+          query myPool($poolId:UUID!) {
+            pool(id: $poolId) {
+              name {
+                en
+              }
+              keyTasks {
+                en
+              }
+            }
+          }
+        `,
+        variables: {
+          poolId,
+        },
+      }).then((actual) => {
+        cy.get("@poolName").then((expectedName) => {
+          expect(actual.pool.name.en).to.equal(expectedName);
+        });
 
-    cy.get("@poolName").then((poolName) => {
-      cy.findByRole("heading", {
-        name: new RegExp(`^${poolName}`),
-        level: 1,
-      }).should("exist");
-    });
-
-    cy.get("@poolKeyTasks").then((poolKeyTasks) => {
-      cy.findByText(poolKeyTasks);
+        cy.get("@poolKeyTasks").then((expectedKeyTasks) => {
+          expect(actual.pool.keyTasks.en).to.equal(expectedKeyTasks);
+        });
+      });
     });
   });
 });
