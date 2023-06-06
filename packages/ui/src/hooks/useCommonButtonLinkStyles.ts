@@ -786,7 +786,7 @@ const useCommonButtonLinkStyles: UseCommonButtonLinkStyles = ({
   return {
     "data-h2-font-size": "base(copy)",
     "data-h2-text-decoration": "base(underline) base:hover(none)",
-    "data-h2-transition": "base(all ease 50ms)",
+    "data-h2-transition": "base(all ease 50ms) base:children[*](all ease 50ms)",
     "data-h2-outline-offset": "base(4px)",
     ...getWeight(light),
     ...getPadding(mode),
