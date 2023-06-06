@@ -35,7 +35,7 @@ const expiredRecruitments: Application[] = fakePoolCandidates(5).map(
 
 export default {
   component: TrackApplications,
-  title: "Pages/Applicant Dashboard/Qualified Recruitment",
+  title: "Pages/Applicant Dashboard/Track Applications",
   args: {
     applications: [...activeRecruitments, ...expiredRecruitments],
   },

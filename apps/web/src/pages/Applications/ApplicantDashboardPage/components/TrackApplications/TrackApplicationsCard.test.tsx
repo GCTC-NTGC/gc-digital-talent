@@ -14,8 +14,8 @@ import {
 } from "@gc-digital-talent/date-helpers";
 
 import { PoolCandidateStatus } from "~/api/generated";
-import QualifiedRecruitmentCard, {
-  type QualifiedRecruitmentCardProps,
+import TrackApplicationsCard, {
+  TrackApplicationsCardProps,
 } from "./TrackApplicationsCard";
 
 const mockApplication = fakePoolCandidates()[0];
@@ -30,21 +30,21 @@ const mockClient = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } as any;
 
-const renderQualifiedRecruitmentCard = (props: QualifiedRecruitmentCardProps) =>
+const renderCard = (props: TrackApplicationsCardProps) =>
   renderWithProviders(
     <GraphqlProvider value={mockClient}>
-      <QualifiedRecruitmentCard {...props} />
+      <TrackApplicationsCard {...props} />
     </GraphqlProvider>,
   );
 
-describe("QualifiedRecruitmentCard", () => {
+describe("TrackApplicationsCard", () => {
   it("should have no accessibility errors", async () => {
-    const { container } = renderQualifiedRecruitmentCard(defaultProps);
+    const { container } = renderCard(defaultProps);
     await axeTest(container);
   });
 
   it("should have link to remove user from search results", () => {
-    renderQualifiedRecruitmentCard({
+    renderCard({
       ...defaultProps,
       application: {
         ...mockApplication,
@@ -62,7 +62,7 @@ describe("QualifiedRecruitmentCard", () => {
   });
 
   it("should have link to add user back into search results", () => {
-    renderQualifiedRecruitmentCard({
+    renderCard({
       ...defaultProps,
       application: {
         ...mockApplication,
@@ -80,7 +80,7 @@ describe("QualifiedRecruitmentCard", () => {
   });
 
   it("should have congrats message if placed/hired in pool", () => {
-    renderQualifiedRecruitmentCard({
+    renderCard({
       ...defaultProps,
       application: {
         ...mockApplication,
@@ -99,7 +99,7 @@ describe("QualifiedRecruitmentCard", () => {
 
   // TODO: What message should show if the pool candidate has been placed but the pool is expired
   it("should have expired recruitment message if the pool has expired", () => {
-    renderQualifiedRecruitmentCard({
+    renderCard({
       ...defaultProps,
       application: {
         ...mockApplication,
@@ -117,7 +117,7 @@ describe("QualifiedRecruitmentCard", () => {
   });
 
   it("should have expired recruitment message if the admin set application status to expired", () => {
-    renderQualifiedRecruitmentCard({
+    renderCard({
       ...defaultProps,
       application: {
         ...mockApplication,

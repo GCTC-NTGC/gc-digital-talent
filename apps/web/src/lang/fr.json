@@ -6248,25 +6248,25 @@
     "defaultMessage": "Sélectionnez un rôle",
     "description": "Placeholder text for role selection input"
   },
-  "12rbnA": {
+  "JNVceV": {
     "defaultMessage": "Vous avez été ajouté aux résultats de la recherche.",
-    "description": "Alert displayed to the user when qualified recruitment card dialog submits successfully."
+    "description": "Alert displayed to the user when application card dialog submits successfully."
   },
-  "2g1mfB": {
+  "XXEgap": {
     "defaultMessage": "Retirez-moi",
-    "description": "Open dialog text on change search results status from qualified recruitment section."
+    "description": "Open dialog text on change search results status from applications section."
   },
-  "5BkrSp": {
+  "7tdU/G": {
     "defaultMessage": "Erreur : échec de votre suppression des résultats de recherche.",
-    "description": "Alert displayed to the user when qualified recruitment card dialog fails."
+    "description": "Alert displayed to the user when application card dialog fails."
   },
   "6cH+cX": {
     "defaultMessage": "Recrutements expirés",
     "description": "Heading for expired recruitments accordion on the applicant dashboard."
   },
-  "7DfdMY": {
+  "ucOq3J": {
     "defaultMessage": "Erreur : impossible de vous ajouter aux résultats de recherche.",
-    "description": "Alert displayed to the user when qualified recruitment card dialog fails."
+    "description": "Alert displayed to the user when application card dialog fails."
   },
   "7NnNrW": {
     "defaultMessage": "Compétences évaluées :"
@@ -6275,57 +6275,57 @@
     "defaultMessage": "Les recrutements dans cette section ne sont plus pris en compte à des fins d’embauche.",
     "description": "Additional text displayed in active qualified recruitments section when empty."
   },
-  "AVPPm0": {
+  "9U2gWd": {
     "defaultMessage": "Annuler",
-    "description": "Label for close button on qualified recruitment card dialogs."
+    "description": "Label for close button on card dialogs."
   },
   "Cx0rjV": {
     "defaultMessage": "Les recrutements qui ne sont plus actifs s’afficheront ici.",
     "description": "Text displayed in active qualified recruitments section when empty."
   },
-  "EGwR9h": {
+  "GbYTXJ": {
     "defaultMessage": "En vous rajoutant aux résultats de ce processus de recrutement, les gestionnaires pourront de nouveau demander votre profil dans le cadre des demandes de talents. Vous pouvez toujours vous retirer de nouveau ultérieurement.",
-    "description": "Dialog main body on change search results status from qualified recruitment section."
+    "description": "Dialog main body on change search results status from applications section."
   },
-  "FGF3sd": {
+  "3qdrpr": {
     "defaultMessage": "Modifier votre apparence dans les résultats de recherche",
-    "description": "Dialog title on change search results status from qualified recruitment section."
+    "description": "Dialog title on change search results status from applications section."
   },
-  "H/btqJ": {
+  "PoFTwr": {
     "defaultMessage": "Vous avez été supprimé des résultats de la recherche.",
-    "description": "Alert displayed to the user when qualified recruitment card dialog submits successfully."
+    "description": "Alert displayed to the user when application card dialog submits successfully."
   },
-  "SQDh+g": {
+  "abab6G": {
     "defaultMessage": "Félicitations! Vous avez été embauché à la suite de ce processus. À ce titre, vous ne figurerez plus dans les demandes de talents pour ce recrutement.",
-    "description": "Placed recruitment status message on qualified recruitment card."
+    "description": "Placed recruitment status message on application card."
   },
-  "TDikDt": {
+  "5xZ350": {
     "defaultMessage": "Vous figurez activement dans les résultats de l’évaluation des talents pour ce recrutement.",
-    "description": "Not suspended recruitment status message on qualified recruitment card."
+    "description": "Not suspended recruitment status message on application card."
   },
-  "V8GyRL": {
+  "mId+J5": {
     "defaultMessage": "Oui, ajoutez-moi aux résultats de recherche",
-    "description": "Dialog close button on change search results status from qualified recruitment section."
+    "description": "Dialog close button on change search results status from applications section."
   },
   "VUjh3i": {
     "defaultMessage": "Les recrutements dans lesquels vous avez été accepté s’afficheront ici.",
     "description": "Text displayed in active qualified recruitments section when empty."
   },
-  "XHfbPp": {
+  "Ev3BoS": {
     "defaultMessage": "Je veux figurer de nouveau dans les résultats",
-    "description": "Open dialog text on change search results status from qualified recruitment section."
+    "description": "Open dialog text on change search results status from applications section."
   },
-  "Y4kJYI": {
+  "Q1zXns": {
     "defaultMessage": "Si vous avez récemment été recruté ou si vous ne souhaitez tout simplement plus être pris en compte pour les possibilités liées à ce poste, vous pouvez vous retirer de la liste des candidats disponibles à l’embauche. Cela ne vous empêchera <emphasize>pas</emphasize> de participer au recrutement et vous pourrez toujours réactiver votre disponibilité si vous changez d’avis.",
-    "description": "Dialog main body on change search results status from qualified recruitment section."
+    "description": "Dialog main body on change search results status from applications section."
   },
-  "bqWmTD": {
+  "KrAvuk": {
     "defaultMessage": "Vous avez choisi de ne pas figurer dans les résultats de l’évaluation des talents pour ce recrutement.",
-    "description": "Suspended recruitment status message on qualified recruitment card."
+    "description": "Suspended recruitment status message on application card."
   },
-  "dPoE9z": {
-    "defaultMessage": "Vous figurez actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin IT-01 technicien(ne) de soutien du centre d’assistance.",
-    "description": "Dialog main body on change search results status from qualified recruitment section."
+  "bnEGX7": {
+    "defaultMessage": "Vous figurez actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin {poolName}.",
+    "description": "Dialog main body on change search results status from applications section."
   },
   "eGPSG3": {
     "defaultMessage": "Les recrutements de cette section donnent lieu à des embauches.",
@@ -6347,21 +6347,21 @@
     "defaultMessage": "Les recrutements <strong>expirés</strong> sont des processus qui ont pris fin soit parce qu’ils sont devenus obsolètes, soit parce qu’un nouveau recrutement plus récent les a remplacés. Vous ne figurerez pas dans les résultats liés aux recrutements expirés.",
     "description": "Expired list item for my qualified recruitments section on the applicant dashboard."
   },
-  "sfa4iJ": {
+  "sDzeqf": {
     "defaultMessage": "Ce recrutement a expiré et il n’est plus disponible pour les possibilités d’embauche.",
-    "description": "Expired recruitment status message on qualified recruitment card."
+    "description": "Expired recruitment status message on application card."
   },
-  "veIkpN": {
+  "TkVYsT": {
     "defaultMessage": "Vous ne figurez pas actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin IT-01 technicien(ne) de soutien du centre d’assistance.",
-    "description": "Dialog main body on change search results status from qualified recruitment section."
+    "description": "Dialog main body on change search results status from applications section."
   },
   "wYe3P2": {
     "defaultMessage": "Mes recrutements qualifiés",
     "description": "Heading for my qualified recruitments section on the applicant dashboard."
   },
-  "wgRXhR": {
+  "JHpvYR": {
     "defaultMessage": "Oui, supprimez-moi des résultats de recherche",
-    "description": "Dialog close button on change search results status from qualified recruitment section."
+    "description": "Dialog close button on change search results status from applications section."
   },
   "GwbTAz": {
     "defaultMessage": "Volets"

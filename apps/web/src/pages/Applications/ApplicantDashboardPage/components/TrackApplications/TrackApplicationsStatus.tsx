@@ -8,17 +8,17 @@ import {
   isExpired,
   isPlaced,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
-import QualifiedRecruitmentDialog from "./TrackApplicationsDialog";
+import TrackApplicationsDialog from "./TrackApplicationsDialog";
 
 export type Application = Omit<PoolCandidate, "user">;
 
-export interface QualifiedRecruitmentStatusProps {
+export interface TrackApplicationsStatusProps {
   application: Application;
 }
 
-const QualifiedRecruitmentStatus = ({
+const TrackApplicationsStatus = ({
   application,
-}: QualifiedRecruitmentStatusProps) => {
+}: TrackApplicationsStatusProps) => {
   const intl = useIntl();
   const { id, suspendedAt, expiryDate, status } = application;
 
@@ -36,9 +36,9 @@ const QualifiedRecruitmentStatus = ({
           {intl.formatMessage({
             defaultMessage:
               "Congrats! You were hired as a result of this process. As such, you will no longer appear in talent requests for this recruitment.",
-            id: "SQDh+g",
+            id: "abab6G",
             description:
-              "Placed recruitment status message on qualified recruitment card.",
+              "Placed recruitment status message on application card.",
           })}
         </p>
       </div>
@@ -59,9 +59,9 @@ const QualifiedRecruitmentStatus = ({
           {intl.formatMessage({
             defaultMessage:
               "This recruitment has expired and it is no longer available for hiring opportunities.",
-            id: "sfa4iJ",
+            id: "sDzeqf",
             description:
-              "Expired recruitment status message on qualified recruitment card.",
+              "Expired recruitment status message on application card.",
           })}
         </p>
       </div>
@@ -82,57 +82,57 @@ const QualifiedRecruitmentStatus = ({
           {intl.formatMessage({
             defaultMessage:
               "You are actively appearing in talent results for this recruitment.",
-            id: "TDikDt",
+            id: "5xZ350",
             description:
-              "Not suspended recruitment status message on qualified recruitment card.",
+              "Not suspended recruitment status message on application card.",
           })}
-          {/* Dialog that allows user to suspend the qualified recruitment (application). Sets suspendedAt date to the current time. */}
-          <QualifiedRecruitmentDialog
+          {/* Dialog that allows user to suspend the application. Sets suspendedAt date to the current time. */}
+          <TrackApplicationsDialog
             id={id}
             isSuspended={!!suspendedAt}
             title={intl.formatMessage({
               defaultMessage: "Change your appearance in search results",
-              id: "FGF3sd",
+              id: "3qdrpr",
               description:
-                "Dialog title on change search results status from qualified recruitment section.",
+                "Dialog title on change search results status from applications section.",
             })}
             primaryBodyText={intl.formatMessage({
               defaultMessage:
-                "You are currently appearing in talent search results for the “IT-01 Helpdesk support technician” pool.",
-              id: "dPoE9z",
+                "You are currently appearing in talent search results for the “{poolName}” pool.",
+              id: "bnEGX7",
               description:
-                "Dialog main body on change search results status from qualified recruitment section.",
+                "Dialog main body on change search results status from applications section.",
             })}
             secondaryBodyText={intl.formatMessage({
               defaultMessage:
                 "If you’ve recently been placed or simply no longer want to be considered for opportunities related to this role, you can remove yourself from the list of candidates available for hire. This will <emphasize>not</emphasize> remove you from the recruitment itself and you can always re-enable your availability if you change your mind.",
-              id: "Y4kJYI",
+              id: "Q1zXns",
               description:
-                "Dialog main body on change search results status from qualified recruitment section.",
+                "Dialog main body on change search results status from applications section.",
             })}
             openDialogLabel={intl.formatMessage({
               defaultMessage: "Remove me",
-              id: "2g1mfB",
+              id: "XXEgap",
               description:
-                "Open dialog text on change search results status from qualified recruitment section.",
+                "Open dialog text on change search results status from applications section.",
             })}
             closeButtonLabel={intl.formatMessage({
               defaultMessage: "Yes, remove me from search results",
-              id: "wgRXhR",
+              id: "JHpvYR",
               description:
-                "Dialog close button on change search results status from qualified recruitment section.",
+                "Dialog close button on change search results status from applications section.",
             })}
             successMessage={intl.formatMessage({
               defaultMessage: "You have been removed from the search results.",
-              id: "H/btqJ",
+              id: "PoFTwr",
               description:
-                "Alert displayed to the user when qualified recruitment card dialog submits successfully.",
+                "Alert displayed to the user when application card dialog submits successfully.",
             })}
             errorMessage={intl.formatMessage({
               defaultMessage: "Error: failed removing you from search results.",
-              id: "5BkrSp",
+              id: "7tdU/G",
               description:
-                "Alert displayed to the user when qualified recruitment card dialog fails.",
+                "Alert displayed to the user when application card dialog fails.",
             })}
           />
           .
@@ -154,57 +154,57 @@ const QualifiedRecruitmentStatus = ({
         {intl.formatMessage({
           defaultMessage:
             "You have chosen not to appear in talent results for this recruitment.",
-          id: "bqWmTD",
+          id: "KrAvuk",
           description:
-            "Suspended recruitment status message on qualified recruitment card.",
+            "Suspended recruitment status message on application card.",
         })}
-        {/* Dialog that allows user to un-suspend the qualified recruitment (application). Sets suspendedAt date to null. */}
-        <QualifiedRecruitmentDialog
+        {/* Dialog that allows user to un-suspend the application. Sets suspendedAt date to null. */}
+        <TrackApplicationsDialog
           id={id}
           isSuspended={!!suspendedAt}
           title={intl.formatMessage({
             defaultMessage: "Change your appearance in search results",
-            id: "FGF3sd",
+            id: "3qdrpr",
             description:
-              "Dialog title on change search results status from qualified recruitment section.",
+              "Dialog title on change search results status from applications section.",
           })}
           primaryBodyText={intl.formatMessage({
             defaultMessage:
               "You are currently not showing up in talent search results for the “IT-01 Helpdesk support technician” pool.",
-            id: "veIkpN",
+            id: "TkVYsT",
             description:
-              "Dialog main body on change search results status from qualified recruitment section.",
+              "Dialog main body on change search results status from applications section.",
           })}
           secondaryBodyText={intl.formatMessage({
             defaultMessage:
               "By re-adding yourself to this recruitment processes results, managers will once again be able to request your profile as a part of talent requests. You can always remove yourself again at a later time.",
-            id: "EGwR9h",
+            id: "GbYTXJ",
             description:
-              "Dialog main body on change search results status from qualified recruitment section.",
+              "Dialog main body on change search results status from applications section.",
           })}
           openDialogLabel={intl.formatMessage({
             defaultMessage: "I want to appear in results again",
-            id: "XHfbPp",
+            id: "Ev3BoS",
             description:
-              "Open dialog text on change search results status from qualified recruitment section.",
+              "Open dialog text on change search results status from applications section.",
           })}
           closeButtonLabel={intl.formatMessage({
             defaultMessage: "Yes, add me to search results",
-            id: "V8GyRL",
+            id: "mId+J5",
             description:
-              "Dialog close button on change search results status from qualified recruitment section.",
+              "Dialog close button on change search results status from applications section.",
           })}
           successMessage={intl.formatMessage({
             defaultMessage: "You have been added to search results.",
-            id: "12rbnA",
+            id: "JNVceV",
             description:
-              "Alert displayed to the user when qualified recruitment card dialog submits successfully.",
+              "Alert displayed to the user when application card dialog submits successfully.",
           })}
           errorMessage={intl.formatMessage({
             defaultMessage: "Error: failed adding you to search results.",
-            id: "7DfdMY",
+            id: "ucOq3J",
             description:
-              "Alert displayed to the user when qualified recruitment card dialog fails.",
+              "Alert displayed to the user when application card dialog fails.",
           })}
         />
         .
@@ -213,4 +213,4 @@ const QualifiedRecruitmentStatus = ({
   );
 };
 
-export default QualifiedRecruitmentStatus;
+export default TrackApplicationsStatus;

@@ -10,7 +10,7 @@ import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui
 
 import { PoolCandidate, PoolCandidateStatus } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import QualifiedRecruitmentCard from "./TrackApplicationsCard";
+import TrackApplicationsCard from "./TrackApplicationsCard";
 
 interface AnimatedContentProps
   extends React.ComponentPropsWithoutRef<typeof Accordion.Content> {
@@ -44,7 +44,7 @@ const AnimatedContent = React.forwardRef<
   </Accordion.Content>
 ));
 
-export type Application = Omit<PoolCandidate, "pool" | "user">;
+export type Application = Omit<PoolCandidate, "user">;
 
 interface TrackApplicationsProps {
   applications: Application[];
@@ -166,7 +166,7 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
               />
               {inProgressApplications.length > 0 ? (
                 inProgressApplications.map((activeRecruitment) => (
-                  <QualifiedRecruitmentCard
+                  <TrackApplicationsCard
                     key={activeRecruitment.id}
                     application={activeRecruitment}
                   />
@@ -244,7 +244,7 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
               />
               {pastApplications.length > 0 ? (
                 pastApplications.map((pastApplication) => (
-                  <QualifiedRecruitmentCard
+                  <TrackApplicationsCard
                     key={pastApplication.id}
                     application={pastApplication}
                   />
