@@ -159,8 +159,8 @@ const MyStatusApi = () => {
       navigate(paths.profile(id));
       toast.success(
         intl.formatMessage({
-          defaultMessage: "My Status updated successfully!",
-          id: "W7io0W",
+          defaultMessage: "My status updated successfully!",
+          id: "cyAydm",
           description:
             "Message displayed to user after user is updated successfully.",
         }),

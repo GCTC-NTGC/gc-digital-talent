@@ -73,7 +73,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
     : paths.myProfile();
 
   const screeningQuestions =
-    application.poolAdvertisement?.screeningQuestions?.filter(notEmpty) || [];
+    application.pool.screeningQuestions?.filter(notEmpty) || [];
   const screeningQuestionResponses =
     application.screeningQuestionResponses?.filter(notEmpty) || [];
   const handleSubmit = async (formValues: FormValues) => {

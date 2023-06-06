@@ -9,10 +9,10 @@ import {
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
 
-import type { Maybe, PoolAdvertisement } from "~/api/generated";
+import type { Maybe, Pool } from "~/api/generated";
 
 export interface PoolInfoCardProps {
-  closingDate: PoolAdvertisement["closingDate"];
+  closingDate: Pool["closingDate"];
   classification: string;
   salary: {
     min: Maybe<number>;

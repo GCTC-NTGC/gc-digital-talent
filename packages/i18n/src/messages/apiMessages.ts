@@ -125,7 +125,7 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message that at least one Essential Skill is required",
     },
-    AdvertisementLocationRequired: {
+    PoolLocationRequired: {
       defaultMessage:
         "You must fill Specific Location in English and French if advertisement is not remote.",
       id: "aMkZ80",

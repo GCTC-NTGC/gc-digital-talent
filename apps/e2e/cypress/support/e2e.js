@@ -20,7 +20,7 @@ import "./classificationCommands";
 import "./commands";
 import "./departmentCommands";
 import "./genericJobTitleCommands";
-import "./poolAdvertisementCommands";
+import "./poolCommands";
 import "./searchRequestCommands";
 import "./skillCommands";
 import "./teamsCommands";

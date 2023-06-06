@@ -1,5 +1,5 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
+import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("Pool Candidates", () => {
@@ -62,14 +62,14 @@ describe("Pool Candidates", () => {
 
             // fetch the dcmId for its team from database, needed for pool creation
             cy.getDCM().then((dcmId) => {
-              // create, update, and publish a new pool advertisement for testing matching
+              // create, update, and publish a new pool for testing matching
               cy.get("@testClassification").then((classification) => {
-                createAndPublishPoolAdvertisement({
+                createAndPublishPool({
                   adminUserId,
                   teamId: dcmId,
                   englishName: `Cypress Test Pool EN ${uniqueTestId}`,
                   classification,
-                  poolAdvertisementAlias: "publishedTestPoolAdvertisement",
+                  poolAlias: "publishedTestPool",
                 });
               });
             });
@@ -81,14 +81,12 @@ describe("Pool Candidates", () => {
     cy.get("@testUser").then((testUser) => {
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
-        cy.get("@publishedTestPoolAdvertisement").then((poolAdvertisement) => {
-          cy.createApplication(testUser.id, poolAdvertisement.id).then(
-            (poolCandidate) => {
-              cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
-                .its("id")
-                .as("poolCandidateId");
-            },
-          );
+        cy.get("@publishedTestPool").then((pool) => {
+          cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
+            cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+              .its("id")
+              .as("poolCandidateId");
+          });
         });
       });
     });
@@ -97,9 +95,7 @@ describe("Pool Candidates", () => {
 
     cy.wait("@gqlallPoolsQuery");
 
-    cy.findByRole("textbox", { name: /search/i })
-      .clear()
-      .type("cypress");
+    cy.findByRole("textbox", { name: /search/i }).type("cypress");
 
     cy.findByRole("link", {
       name: new RegExp(
@@ -118,15 +114,16 @@ describe("Pool Candidates", () => {
     cy.wait("@gqlgetPoolCandidateSnapshotQuery");
     cy.wait("@gqlGetPoolCandidateStatusQuery");
 
-    cy.findByRole("combobox", { name: /candidate pool status/i })
-      .select("Screened In")
-      .within(() => {
-        cy.get("option:selected").should("have.text", "Screened In");
-      });
+    cy.findByRole("combobox", { name: /candidate pool status/i }).select(
+      "Screened In",
+    );
+    cy.findByRole("combobox", { name: /candidate pool status/i }).within(() => {
+      cy.get("option:selected").should("have.text", "Screened In");
+    });
 
     cy.findByLabelText(/Candidate expiry date/i).type("2023-12-01");
 
-    cy.findByRole("textbox", { name: /notes/i }).clear().type("New Notes");
+    cy.findByRole("textbox", { name: /notes/i }).type("New Notes");
 
     cy.findByRole("button", { name: /save changes/i }).click();
 
@@ -162,14 +159,14 @@ describe("Pool Candidates", () => {
 
             // fetch the dcmId for its team from database, needed for pool creation
             cy.getDCM().then((dcmId) => {
-              // create, update, and publish a new pool advertisement for testing matching
+              // create, update, and publish a new pool for testing matching
               cy.get("@testClassification").then((classification) => {
-                createAndPublishPoolAdvertisement({
+                createAndPublishPool({
                   adminUserId,
                   teamId: dcmId,
                   englishName: `Cypress Test Pool EN ${uniqueTestId}`,
                   classification,
-                  poolAdvertisementAlias: "publishedTestPoolAdvertisement",
+                  poolAlias: "publishedTestPool",
                 });
               });
             });
@@ -181,14 +178,12 @@ describe("Pool Candidates", () => {
     cy.get("@testUser").then((testUser) => {
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
-        cy.get("@publishedTestPoolAdvertisement").then((poolAdvertisement) => {
-          cy.createApplication(testUser.id, poolAdvertisement.id).then(
-            (poolCandidate) => {
-              cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
-                .its("id")
-                .as("poolCandidateId");
-            },
-          );
+        cy.get("@publishedTestPool").then((pool) => {
+          cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
+            cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+              .its("id")
+              .as("poolCandidateId");
+          });
         });
       });
     });
@@ -197,9 +192,7 @@ describe("Pool Candidates", () => {
 
     cy.wait("@gqlallPoolsQuery");
 
-    cy.findByRole("textbox", { name: /search/i })
-      .clear()
-      .type("cypress");
+    cy.findByRole("textbox", { name: /search/i }).type("cypress");
 
     cy.findByRole("link", {
       name: new RegExp(
@@ -218,11 +211,12 @@ describe("Pool Candidates", () => {
     cy.wait("@gqlgetPoolCandidateSnapshotQuery");
     cy.wait("@gqlGetPoolCandidateStatusQuery");
 
-    cy.findByRole("combobox", { name: /candidate pool status/i })
-      .select("Screened In")
-      .within(() => {
-        cy.get("option:selected").should("have.text", "Screened In");
-      });
+    cy.findByRole("combobox", { name: /candidate pool status/i }).select(
+      "Screened In",
+    );
+    cy.findByRole("combobox", { name: /candidate pool status/i }).within(() => {
+      cy.get("option:selected").should("have.text", "Screened In");
+    });
 
     cy.findByLabelText(/Candidate expiry date/i).clear();
 

@@ -8,20 +8,17 @@ import { Separator } from "@gc-digital-talent/ui";
 import SkillPicker from "~/components/SkillPicker";
 import SkillBlock from "~/components/SkillPicker/SkillBlock";
 import { categorizeSkill } from "~/utils/skillUtils";
-import { PoolAdvertisement, Skill, SkillCategory } from "~/api/generated";
+import { Pool, Skill, SkillCategory } from "~/api/generated";
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
 
 import type { FormSkill, FormSkills } from "~/types/experience";
 
 export interface ExperienceSkillsProps {
   skills: Skill[];
-  poolAdvertisement?: PoolAdvertisement;
+  pool?: Pool;
 }
 
-const ExperienceSkills = ({
-  skills,
-  poolAdvertisement,
-}: ExperienceSkillsProps) => {
+const ExperienceSkills = ({ skills, pool }: ExperienceSkillsProps) => {
   const intl = useIntl();
   const { control, watch } = useFormContext();
   const [addedSkills, setAddedSkills] = React.useState<Skill[]>([]);
@@ -84,12 +81,12 @@ const ExperienceSkills = ({
   };
 
   // Only grab technical skills (hard skills).
-  const technicalEssentialSkills = categorizeSkill(
-    poolAdvertisement?.essentialSkills,
-  )[SkillCategory.Technical];
-  const technicalNonessentialSkills = categorizeSkill(
-    poolAdvertisement?.nonessentialSkills,
-  )[SkillCategory.Technical];
+  const technicalEssentialSkills = categorizeSkill(pool?.essentialSkills)[
+    SkillCategory.Technical
+  ];
+  const technicalNonessentialSkills = categorizeSkill(pool?.nonessentialSkills)[
+    SkillCategory.Technical
+  ];
 
   return (
     <>
@@ -108,7 +105,7 @@ const ExperienceSkills = ({
           description: "Description blurb for skills on Experience form",
         })}
       </p>
-      {poolAdvertisement ? (
+      {pool ? (
         <>
           {technicalEssentialSkills && (
             <div
@@ -212,7 +209,7 @@ const ExperienceSkills = ({
       )}
       <SkillsInDetail
         skills={fields as FormSkills}
-        required={!!poolAdvertisement}
+        required={!!pool}
         onDelete={handleRemoveSkill}
       />
     </>
