@@ -15,6 +15,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     {
       children,
       icon,
+      disabled,
       color = "primary",
       mode = "solid",
       block = false,
@@ -33,6 +34,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       color,
       block,
       light,
+      disabled,
     });
 
     return (

@@ -63,6 +63,9 @@ const Template: StoryFn<
             </Button>
           </p>
         ))}
+        <Button disabled {...rest}>
+          Disabled
+        </Button>
       </div>
       <div data-h2-padding="base(x1)" data-h2-background="base(white)">
         {black.map((color) => (
@@ -109,13 +112,6 @@ export const BlockButton = Template.bind({});
 BlockButton.args = {
   mode: "solid",
   block: true,
-  onClick: action("Button clicked"),
-};
-
-export const DisabledButton = Template.bind({});
-DisabledButton.args = {
-  mode: "solid",
-  disabled: true,
   onClick: action("Button clicked"),
 };
 
