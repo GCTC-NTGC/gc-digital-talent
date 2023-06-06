@@ -68,19 +68,20 @@ class PoolCandidateSearchRequest extends Model
     /**
      * Scopes/filters
      */
-    public static function scopeSearchRequestStatus(Builder $query, ?string $searchRequestStatus)
+    public static function scopeSearchRequestStatus(Builder $query, ?array $searchRequestStatuses)
     {
-        if (empty($searchRequestStatus)) {
+        // currently status is either done or pending, so selecting both is the same as doing nothing
+        if (empty($searchRequestStatuses) || count($searchRequestStatuses) >= 2) {
             return $query;
         }
 
-        // $searchRequestStatus comes from enum PoolCandidateSearchStatus
+        // $searchRequestStatuses comes from enum PoolCandidateSearchStatus
         // status is based off field done_at, a getter found below
-        if ($searchRequestStatus == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING) {
+        if ($searchRequestStatuses[0] == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING) {
             $query->whereDate('done_at', '>', Carbon::now())
                 ->orWhereNull('done_at');
         }
-        if ($searchRequestStatus == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE) {
+        if ($searchRequestStatuses[0] == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE) {
             $query->whereDate('done_at', '<=', Carbon::now());
         }
         return $query;

@@ -113,12 +113,38 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
 
         // status pending results in 6 results, so done_at null
         $this->actingAs($this->requestResponder, 'api')
-            ->graphQL($this->searchRequestQuery, ['where' => ['status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING]])
+            ->graphQL(
+                $this->searchRequestQuery,
+                [
+                    'where' => [
+                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING]
+                    ]
+                ]
+            )
             ->assertJsonFragment(['count' => 6]);
 
         // status done results in 4 results, so done_at past date
         $this->actingAs($this->requestResponder, 'api')
-            ->graphQL($this->searchRequestQuery, ['where' => ['status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE]])
+            ->graphQL(
+                $this->searchRequestQuery,
+                [
+                    'where' => [
+                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE]
+                    ]
+                ]
+            )
             ->assertJsonFragment(['count' => 4]);
+
+        // both statuses results in 10 results
+        $this->actingAs($this->requestResponder, 'api')
+            ->graphQL(
+                $this->searchRequestQuery,
+                [
+                    'where' => [
+                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE, ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING]
+                    ]
+                ]
+            )
+            ->assertJsonFragment(['count' => 10]);
     }
 }

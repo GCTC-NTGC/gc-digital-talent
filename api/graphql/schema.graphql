@@ -890,7 +890,7 @@ input PoolCandidateSearchInput {
 }
 
 input PoolCandidateSearchRequestInput {
-  status: PoolCandidateSearchStatus @scope(name: "searchRequestStatus")
+  status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
 }
 
 type CandidateSearchPoolResult {
