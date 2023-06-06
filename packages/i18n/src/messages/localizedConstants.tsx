@@ -18,8 +18,8 @@ import {
   EstimatedLanguageAbility,
   JobLookingStatus,
   GovEmployeeType,
-  AdvertisementStatus,
-  PoolAdvertisementLanguage,
+  PoolStatus,
+  PoolLanguage,
   SecurityStatus,
   CitizenshipStatus,
   ArmedForcesStatus,
@@ -382,27 +382,27 @@ export const getLanguageAbility = (
   );
 
 export const languageRequirements = defineMessages({
-  [PoolAdvertisementLanguage.BilingualAdvanced]: {
+  [PoolLanguage.BilingualAdvanced]: {
     defaultMessage: "Bilingual advanced",
     id: "kKdcZT",
     description: "The language requirement is bilingual advanced.",
   },
-  [PoolAdvertisementLanguage.BilingualIntermediate]: {
+  [PoolLanguage.BilingualIntermediate]: {
     defaultMessage: "Bilingual intermediate",
     id: "O+MHnP",
     description: "The language requirement is bilingual intermediate.",
   },
-  [PoolAdvertisementLanguage.English]: {
+  [PoolLanguage.English]: {
     defaultMessage: "English only",
     id: "5owc3a",
     description: "The language requirement is English only.",
   },
-  [PoolAdvertisementLanguage.French]: {
+  [PoolLanguage.French]: {
     defaultMessage: "French only",
     id: "ZWR/F3",
     description: "The language requirement is French only.",
   },
-  [PoolAdvertisementLanguage.Various]: {
+  [PoolLanguage.Various]: {
     defaultMessage: "Various (English or French)",
     id: "ziaV/E",
     description: "The language requirement is various.",
@@ -1458,31 +1458,31 @@ export const getSimpleGovEmployeeType = (
     `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
   );
 
-export const advertisementStatus = defineMessages({
-  [AdvertisementStatus.Draft]: {
+export const poolStatus = defineMessages({
+  [PoolStatus.Draft]: {
     defaultMessage: "Draft",
     id: "yrLV+n",
     description: "Draft pool advertisement status",
   },
-  [AdvertisementStatus.Published]: {
+  [PoolStatus.Published]: {
     defaultMessage: "Published",
     id: "RQGy+0",
     description: "Published pool advertisement status",
   },
-  [AdvertisementStatus.Closed]: {
+  [PoolStatus.Closed]: {
     defaultMessage: "Closed",
     id: "/UBSoB",
     description: "Closed pool advertisement status",
   },
 });
 
-export const getAdvertisementStatus = (
-  advertisementStatusId: string | number,
+export const getPoolStatus = (
+  poolStatusId: string | number,
 ): MessageDescriptor =>
   getOrThrowError(
-    advertisementStatus,
-    advertisementStatusId,
-    `Invalid Advertisement Status '${advertisementStatusId}'`,
+    poolStatus,
+    poolStatusId,
+    `Invalid Pool Status '${poolStatusId}'`,
   );
 
 export const securityClearances = defineMessages({
@@ -1509,7 +1509,7 @@ export const getSecurityClearance = (
   getOrThrowError(
     securityClearances,
     securityClearanceId,
-    `Invalid  Advertisement Status '${securityClearanceId}'`,
+    `Invalid Security Clearance '${securityClearanceId}'`,
   );
 
 export const bilingualEvaluations = defineMessages({

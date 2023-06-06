@@ -6,10 +6,10 @@ import { Dialog, Button } from "@gc-digital-talent/ui";
 import { InputWrapper } from "@gc-digital-talent/forms";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
-import { PoolAdvertisement } from "~/api/generated";
+import { Pool } from "~/api/generated";
 
 type CloseDialogProps = {
-  closingDate: PoolAdvertisement["closingDate"];
+  closingDate: Pool["closingDate"];
   onClose: () => void;
 };
 

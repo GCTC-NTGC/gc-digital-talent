@@ -1,5 +1,5 @@
 import * as React from "react";
-import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
+import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
@@ -12,7 +12,6 @@ import {
   iconMap,
   dismissStyleMap,
   getAlertLevelTitle,
-  separatorStyleMap,
 } from "./utils";
 
 import { AlertHeadingLevel, AlertType } from "./types";
@@ -78,7 +77,7 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
             data-h2-color="base(black)"
             data-h2-position="base(relative)"
             data-h2-radius="base(rounded)"
-            data-h2-shadow="base(medium)"
+            data-h2-shadow="base(larger)"
             data-h2-overflow="base(hidden)"
             data-h2-margin="base(x1, 0)"
             {...(live ? { role: "alert" } : {})}
@@ -160,7 +159,7 @@ const Title = ({ as = "h2", children, ...rest }: AlertTitleProps) => {
 
   return (
     <Heading
-      data-h2-font-size="base(h6)"
+      data-h2-font-size="base(h6, 1)"
       data-h2-font-weight="base(700)"
       data-h2-margin="base(0, 0, x.5, 0)"
       {...rest}
@@ -178,21 +177,16 @@ interface AlertFooterProps {
   children: React.ReactNode;
 }
 
-const Footer = ({ children }: AlertFooterProps) => {
-  const ctx = React.useContext(AlertContext);
-
-  return (
-    <>
-      <Separator
-        orientation="horizontal"
-        data-h2-margin="base(x1, 0)"
-        data-h2-height="base(3px)"
-        {...(ctx?.type && separatorStyleMap[ctx.type])}
-      />
-      {children}
-    </>
-  );
-};
+const Footer = ({ children }: AlertFooterProps) => (
+  <>
+    <Separator
+      orientation="horizontal"
+      data-h2-margin="base(x1, 0)"
+      data-h2-background-color="base(gray.lighter)"
+    />
+    {children}
+  </>
+);
 
 export default {
   Root: Alert,

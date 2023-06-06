@@ -1,7 +1,7 @@
 import {
   Applicant,
   BilingualEvaluation,
-  PoolAdvertisement,
+  Pool,
 } from "@gc-digital-talent/graphql";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
@@ -62,9 +62,7 @@ export function hasEmptyOptionalFields({
 
 export function hasUnsatisfiedRequirements(
   applicant: Applicant,
-  poolAdvertisement: PoolAdvertisement | null,
+  pool: Pool | null,
 ): boolean {
-  return (
-    getMissingLanguageRequirements(applicant, poolAdvertisement).length > 0
-  );
+  return getMissingLanguageRequirements(applicant, pool).length > 0;
 }

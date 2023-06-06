@@ -1,7 +1,7 @@
 import { IntlShape } from "react-intl";
 
 import { LocalizedString, Maybe, Scalars } from "@gc-digital-talent/graphql";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { getId, notEmpty } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
@@ -170,12 +170,6 @@ export const objectsToSortedOptions = (
     })
     .map(({ id, name }) => ({
       value: id,
-      label:
-        name[locale] ??
-        intl.formatMessage({
-          defaultMessage: "Error: name not found.",
-          id: "62+Jkh",
-          description: "Error message when name is not found on listed item.",
-        }),
+      label: name[locale] ?? intl.formatMessage(commonMessages.notFound),
     }));
 };

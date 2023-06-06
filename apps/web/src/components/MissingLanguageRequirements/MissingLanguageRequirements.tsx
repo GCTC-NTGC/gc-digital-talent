@@ -11,7 +11,7 @@ import {
   HeadingRank,
 } from "@gc-digital-talent/ui";
 
-import { Applicant, PoolAdvertisement } from "~/api/generated";
+import { Applicant, Pool } from "~/api/generated";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 interface MissingLanguageRequirementsBlockProps {
@@ -77,20 +77,20 @@ const MissingLanguageRequirementsBlock = ({
 
 export interface MissingLanguageRequirementsProps {
   applicant?: Applicant;
-  poolAdvertisement?: PoolAdvertisement | null;
+  pool?: Pool | null;
   headingLevel?: HeadingRank;
 }
 
 const MissingLanguageRequirements = ({
   applicant,
-  poolAdvertisement,
+  pool,
   headingLevel = "h2",
 }: MissingLanguageRequirementsProps) => {
   const intl = useIntl();
 
   const missingLanguageRequirements = getMissingLanguageRequirements(
     applicant,
-    poolAdvertisement,
+    pool,
   ).map((messageDescriptor) => intl.formatMessage(messageDescriptor));
 
   return missingLanguageRequirements.length ? (

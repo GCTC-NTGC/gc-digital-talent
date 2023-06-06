@@ -9,7 +9,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { BasicForm, Checklist } from "@gc-digital-talent/forms";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
   Applicant,
   BilingualEvaluation,
@@ -201,11 +201,8 @@ const LanguageInformationForm = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitleHtml(
-            intl,
-            application.poolAdvertisement,
-          ),
-          url: paths.pool(application.poolAdvertisement?.id || ""),
+          label: getFullPoolTitleHtml(intl, application.pool),
+          url: paths.pool(application.pool.id),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
@@ -222,7 +219,7 @@ const LanguageInformationForm = ({
 
   const missingLanguageRequirements = getMissingLanguageRequirements(
     initialData as Applicant,
-    application?.poolAdvertisement,
+    application?.pool,
   );
 
   return (
@@ -253,7 +250,7 @@ const LanguageInformationForm = ({
         <div data-h2-margin="base(x1, 0)">
           <MissingLanguageRequirements
             applicant={initialData as Applicant}
-            poolAdvertisement={application?.poolAdvertisement}
+            pool={application?.pool}
           />
         </div>
       ) : null}

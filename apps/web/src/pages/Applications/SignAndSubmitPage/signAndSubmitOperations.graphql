@@ -1,4 +1,4 @@
-fragment poolAdvertisementSkills on Skill {
+fragment poolSkills on Skill {
   id
   key
   name {
@@ -40,7 +40,7 @@ query getApplicationData($id: UUID!) {
       isProfileComplete
       ...applicantExperiences
     }
-    poolAdvertisement {
+    pool {
       id
       name {
         en
@@ -58,12 +58,12 @@ query getApplicationData($id: UUID!) {
       }
       closingDate
       essentialSkills {
-        ...poolAdvertisementSkills
+        ...poolSkills
       }
       nonessentialSkills {
-        ...poolAdvertisementSkills
+        ...poolSkills
       }
-      advertisementLanguage
+      language
     }
   }
 }

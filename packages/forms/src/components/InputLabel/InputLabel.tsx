@@ -3,7 +3,7 @@ import QuestionMarkCircleIcon from "@heroicons/react/24/solid/QuestionMarkCircle
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import "./input-label.css";
 
@@ -105,12 +105,7 @@ const InputLabel = ({
               onClick={clickHandler}
             >
               <span data-h2-visually-hidden="base(invisible)">
-                {intl.formatMessage({
-                  defaultMessage: "Toggle context",
-                  id: "jhImZp",
-                  description:
-                    "Label to toggle the context description of an input.",
-                })}
+                {intl.formatMessage(formMessages.toggleContext)}
               </span>
               {contextIsActive ? (
                 <XCircleIcon
