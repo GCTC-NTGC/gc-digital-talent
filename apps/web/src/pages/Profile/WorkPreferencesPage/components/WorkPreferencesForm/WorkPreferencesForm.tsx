@@ -156,11 +156,7 @@ const WorkPreferencesForm = ({
           url: paths.reviewApplication(applicationId ?? ""),
         },
         {
-          label: intl.formatMessage({
-            defaultMessage: "Work Preferences",
-            id: "7OWQgZ",
-            description: "Display Text for Work Preferences Form Page Link",
-          }),
+          label: intl.formatMessage(navigationMessages.workPreferences),
           url: `${paths.workPreferences(initialData.id)}${
             applicationId ? `?applicationId=${applicationId}` : ``
           }`,
@@ -187,12 +183,7 @@ const WorkPreferencesForm = ({
           ? applicationBreadcrumbs
           : [
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Work Preferences",
-                  id: "7OWQgZ",
-                  description:
-                    "Display Text for Work Preferences Form Page Link",
-                }),
+                label: intl.formatMessage(navigationMessages.workPreferences),
                 url: paths.workPreferences(initialData.id),
               },
             ]

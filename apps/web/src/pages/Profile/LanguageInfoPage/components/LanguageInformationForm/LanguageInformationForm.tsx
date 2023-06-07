@@ -209,11 +209,7 @@ const LanguageInformationForm = ({
           url: paths.reviewApplication(applicationId ?? ""),
         },
         {
-          label: intl.formatMessage({
-            defaultMessage: "Language Information",
-            id: "/k21MP",
-            description: "Display Text for Language Information Form Page Link",
-          }),
+          label: intl.formatMessage(navigationMessages.languageInformation),
           url: `${paths.languageInformation(initialData.id)}${
             applicationId ? `?applicationId=${applicationId}` : ``
           }`,
@@ -235,23 +231,15 @@ const LanguageInformationForm = ({
         description:
           "Description text for Profile Form wrapper in Language Information Form",
       })}
-      title={intl.formatMessage({
-        defaultMessage: "Language Information",
-        id: "R5aTZ9",
-        description:
-          "Title for Profile Form wrapper in Language Information Form",
-      })}
+      title={intl.formatMessage(navigationMessages.languageInformation)}
       crumbs={
         applicationBreadcrumbs?.length
           ? applicationBreadcrumbs
           : [
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Language Information",
-                  id: "/k21MP",
-                  description:
-                    "Display Text for Language Information Form Page Link",
-                }),
+                label: intl.formatMessage(
+                  navigationMessages.languageInformation,
+                ),
                 url: paths.languageInformation(initialData.id),
               },
             ]

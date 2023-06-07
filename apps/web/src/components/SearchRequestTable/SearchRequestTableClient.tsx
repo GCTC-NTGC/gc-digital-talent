@@ -52,7 +52,7 @@ interface SearchRequestTableProps {
   title: string;
 }
 
-export const SearchRequestTable = ({
+export const SearchRequestTableClient = ({
   poolCandidateSearchRequests,
   title,
 }: SearchRequestTableProps) => {
@@ -167,13 +167,13 @@ export const SearchRequestTable = ({
   );
 };
 
-const SearchRequestTableApi = ({ title }: { title: string }) => {
+const SearchRequestTableWrapper = ({ title }: { title: string }) => {
   const [result] = useGetPoolCandidateSearchRequestsQuery();
   const { data, fetching, error } = result;
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SearchRequestTable
+      <SearchRequestTableClient
         poolCandidateSearchRequests={data?.poolCandidateSearchRequests ?? []}
         title={title}
       />
@@ -181,4 +181,4 @@ const SearchRequestTableApi = ({ title }: { title: string }) => {
   );
 };
 
-export default SearchRequestTableApi;
+export default SearchRequestTableWrapper;

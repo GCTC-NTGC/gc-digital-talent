@@ -116,6 +116,11 @@ const formMessages = defineMessages({
     description:
       "Message shown in options dropdown when Select field has no options.",
   },
+  phonePlaceholder: {
+    defaultMessage: "+123243234",
+    id: "uNArwM",
+    description: "Placeholder for form telephone field",
+  },
 });
 
 export default formMessages;

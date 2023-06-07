@@ -30,7 +30,8 @@ class PoolCandidateSearchRequestFactory extends Factory
       'department_id' => Department::inRandomOrder()->first()->id,
       'job_title' => $this->faker->jobTitle(),
       'additional_comments' => $this->faker->text(),
-      'done_at' => $this->faker->optional()->dateTimeBetween($startDate = '-3 years', $endDate = 'now'),
+      'created_at' => $this->faker->dateTimeBetween($startDate = '-6 months', $endDate = '-1 months'),
+      'done_at' => $this->faker->optional()->dateTimeBetween($startDate = '-1 months', $endDate = 'now'),
       'admin_notes' => $this->faker->text(),
       'applicant_filter_id' => ApplicantFilter::factory(),
       'was_empty' => $this->faker->boolean()

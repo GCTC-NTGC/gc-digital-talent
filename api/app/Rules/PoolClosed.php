@@ -30,7 +30,7 @@ class PoolClosed implements Rule
     {
         $pool = Pool::find($value);
 
-        return $pool->closing_date->isFuture();
+        return is_null($pool->closing_date) || $pool->closing_date->isFuture();
     }
 
     /**
