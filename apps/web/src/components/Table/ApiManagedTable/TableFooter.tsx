@@ -132,6 +132,7 @@ function TableFooter({
                 id: "hlcd+5",
               })}
               color="black"
+              fontColor="white"
               activeColor="primary"
             />
           </div>

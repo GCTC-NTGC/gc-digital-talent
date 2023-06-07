@@ -478,6 +478,7 @@ function Table<T extends Record<string, unknown>>({
                       id: "hlcd+5",
                     })}
                     color="black"
+                    fontColor="white"
                     activeColor="primary"
                   />
                 )}

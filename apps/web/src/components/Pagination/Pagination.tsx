@@ -21,6 +21,8 @@ export interface PaginationProps {
   ariaLabel: string;
   /** Default button colour */
   color: Color;
+  /** font colour */
+  fontColor?: Color;
   /** Colour of the currently active page  */
   activeColor: Color;
   /** Callback that changes to the page number value. */
@@ -37,6 +39,7 @@ const Pagination = ({
   pageSizes,
   ariaLabel,
   color,
+  fontColor: fontColorProp,
   activeColor,
   onCurrentPageChange,
   onPageSizeChange,
@@ -63,9 +66,9 @@ const Pagination = ({
   };
 
   let fontColor = {};
-  if (color === "black") {
+  if (fontColorProp === "black") {
     fontColor = { "data-h2-color": "base(black)" };
-  } else if (color === "white") {
+  } else if (fontColorProp === "white") {
     fontColor = { "data-h2-color": "base(white)" };
   }
 
