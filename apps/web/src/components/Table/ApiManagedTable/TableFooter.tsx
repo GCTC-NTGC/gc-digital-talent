@@ -131,8 +131,8 @@ function TableFooter({
                 defaultMessage: "Table results",
                 id: "hlcd+5",
               })}
-              color="white"
-              mode="solid"
+              color="black"
+              activeColor="primary"
             />
           </div>
         </div>

@@ -19,10 +19,10 @@ export interface PaginationProps {
   pageSizes?: number[];
   /** A unique, descriptive ARIA label for the <nav> element */
   ariaLabel: string;
-  /** Button font color */
+  /** Default button colour */
   color: Color;
-  /** Button mode type  */
-  mode: "solid" | "inline";
+  /** Colour of the currently active page  */
+  activeColor: Color;
   /** Callback that changes to the page number value. */
   onCurrentPageChange: (pageNumber: number) => void;
   /** Callback that changes max number of visible items on a single page */
@@ -37,7 +37,7 @@ const Pagination = ({
   pageSizes,
   ariaLabel,
   color,
-  mode,
+  activeColor,
   onCurrentPageChange,
   onPageSizeChange,
   ...rest
@@ -91,8 +91,6 @@ const Pagination = ({
               <li data-h2-display="base(inline-block)">
                 <Button
                   color={color}
-                  mode={mode}
-                  type="button"
                   disabled={isLeftArrowDisabled || lessThanTwoItems}
                   aria-disabled={isLeftArrowDisabled || lessThanTwoItems}
                   aria-label={intl.formatMessage({
@@ -144,8 +142,7 @@ const Pagination = ({
                   >
                     <Button
                       data-testid="pagination"
-                      color={color}
-                      mode={`${current ? "solid" : mode}`}
+                      color={current ? activeColor : color}
                       type="button"
                       disabled={lessThanTwoItems}
                       aria-label={intl.formatMessage(
@@ -177,7 +174,6 @@ const Pagination = ({
               <li data-h2-display="base(inline-block)">
                 <Button
                   color={color}
-                  mode={mode}
                   type="button"
                   disabled={isRightArrowDisabled || lessThanTwoItems}
                   aria-disabled={isRightArrowDisabled || lessThanTwoItems}

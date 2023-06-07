@@ -477,8 +477,8 @@ function Table<T extends Record<string, unknown>>({
                       defaultMessage: "Table results",
                       id: "hlcd+5",
                     })}
-                    color="white"
-                    mode="solid"
+                    color="black"
+                    activeColor="primary"
                   />
                 )}
               </div>

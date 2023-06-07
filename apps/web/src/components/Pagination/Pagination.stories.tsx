@@ -37,7 +37,7 @@ Default.args = {
   currentPage: 1,
   pageSize: 10,
   color: "black",
-  mode: "solid",
+  activeColor: "primary",
 };
 
 NoDots.args = {
@@ -73,7 +73,7 @@ const TemplatePaginationWithData: Story<PaginationProps> = () => {
       <Pagination
         ariaLabel="Pagination table"
         color="black"
-        mode="solid"
+        activeColor="primary"
         onPageSizeChange={setPageSize}
         currentPage={currentPage}
         pageSize={pageSize}
