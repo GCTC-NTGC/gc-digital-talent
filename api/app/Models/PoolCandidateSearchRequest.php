@@ -124,7 +124,7 @@ class PoolCandidateSearchRequest extends Model
 
         $query->whereHas('applicantFilter', function ($query) use ($classificationIds) {
             $query->whereHas('classifications', function ($query) use ($classificationIds) {
-                Classification::scopeClassificationsByIds($query, $classificationIds);
+                $query->whereIn('classifications.id', $classificationIds);
             });
         });
         return $query;
