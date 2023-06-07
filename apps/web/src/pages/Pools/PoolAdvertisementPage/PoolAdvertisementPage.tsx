@@ -67,7 +67,9 @@ type SectionContent = {
 };
 
 const anchorTag = (chunks: React.ReactNode) => (
-  <a href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>{chunks}</a>
+  <Link external href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>
+    {chunks}
+  </Link>
 );
 
 interface PoolAdvertisementProps {

@@ -51,7 +51,7 @@ const DiversityEquityInclusionSection = ({
               })}
             </p>
             <p data-h2-margin="base(x.5, 0, 0, 0)">
-              <a href={editPath}>
+              <Link href={editPath}>
                 {intl.formatMessage({
                   defaultMessage:
                     "Edit your diversity, equity and inclusion options.",
@@ -59,7 +59,7 @@ const DiversityEquityInclusionSection = ({
                   description:
                     "Link text to edit diversity, equity and inclusion information on profile.",
                 })}
-              </a>
+              </Link>
             </p>
           </div>
         )}

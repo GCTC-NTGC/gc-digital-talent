@@ -73,7 +73,11 @@ const viewAccessor = (url: string, label: Maybe<string>, intl: IntlShape) => (
 
 const emailLinkAccessor = (email: Maybe<string>, intl: IntlShape) => {
   if (email) {
-    return <a href={`mailto:${email}`}>{email}</a>;
+    return (
+      <Link external href={`mailto:${email}`}>
+        {email}
+      </Link>
+    );
   }
   return (
     <span data-h2-font-style="base(italic)">

@@ -13,7 +13,9 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 
 const keyRegistrationLink = (path: string, chunks: React.ReactNode) => (
-  <a href={path}>{chunks}</a>
+  <Link external href={path}>
+    {chunks}
+  </Link>
 );
 
 const RegisterPage = () => {

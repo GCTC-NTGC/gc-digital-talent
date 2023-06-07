@@ -13,7 +13,9 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 const keyRegistrationLink = (path: string, chunks: React.ReactNode) => (
-  <a href={path}>{chunks}</a>
+  <Link external href={path}>
+    {chunks}
+  </Link>
 );
 
 const LoginPage = () => {

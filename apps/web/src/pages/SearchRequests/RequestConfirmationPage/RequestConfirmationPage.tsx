@@ -24,7 +24,9 @@ const Text = ({ children, ...rest }: React.HTMLProps<HTMLParagraphElement>) => (
 );
 
 const mailLink = (chunks: React.ReactNode) => (
-  <a href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">{chunks}</a>
+  <Link external href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">
+    {chunks}
+  </Link>
 );
 
 const RequestConfirmationPage = () => {

@@ -125,7 +125,11 @@ const classificationsCell = (
 
 const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
   if (value) {
-    return <a href={`mailto:${value}`}>{value}</a>;
+    return (
+      <Link external href={`mailto:${value}`}>
+        {value}
+      </Link>
+    );
   }
   return (
     <span data-h2-font-style="base(italic)">

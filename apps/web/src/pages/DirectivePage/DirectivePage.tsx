@@ -40,7 +40,9 @@ const policyLink = (locale: Locales, chunks: React.ReactNode) => (
 );
 
 const contactLink = (chunks: React.ReactNode) => (
-  <a href="mailto:GCTalentGC@tbs-sct.gc.ca">{chunks}</a>
+  <Link external href="mailto:GCTalentGC@tbs-sct.gc.ca">
+    {chunks}
+  </Link>
 );
 
 const DirectivePage = () => {

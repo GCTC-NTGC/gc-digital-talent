@@ -184,15 +184,21 @@ const relayServiceLink = (locale: Locales, chunks: React.ReactNode) => (
 );
 
 const chrcMailLink = (chunks: React.ReactNode) => (
-  <a href="mailto:Info.Com@chrc-ccdp.gc.ca">{chunks}</a>
+  <Link external href="mailto:Info.Com@chrc-ccdp.gc.ca">
+    {chunks}
+  </Link>
 );
 
 const phoneLink = (chunks: React.ReactNode) => (
-  <a href="tel:6139951151">{chunks}</a>
+  <Link external href="tel:6139951151">
+    {chunks}
+  </Link>
 );
 
 const tollFreeLink = (chunks: React.ReactNode) => (
-  <a href="tel:18882141090">{chunks}</a>
+  <Link external href="tel:18882141090">
+    {chunks}
+  </Link>
 );
 
 const AccessibilityStatementPage = () => {
@@ -418,9 +424,12 @@ const AccessibilityStatementPage = () => {
             })}
           </p>
           <p>
-            <a href="mailto:gctalent-talentgc@support-soutien.gc.ca">
+            <Link
+              external
+              href="mailto:gctalent-talentgc@support-soutien.gc.ca"
+            >
               gctalent-talentgc@support-soutien.gc.ca
-            </a>
+            </Link>
           </p>
           <p>
             {intl.formatMessage({

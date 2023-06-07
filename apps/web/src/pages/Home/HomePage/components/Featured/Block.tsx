@@ -21,13 +21,6 @@ export interface FeatureBlockProps {
 
 // Create the page component
 const FeatureBlock = ({ content }: FeatureBlockProps) => {
-  const LinkEl = content.link.external ? "a" : Link;
-  const linkStyles = {
-    "data-h2-background-color": "base:focus-visible(focus)",
-    "data-h2-outline": "base(none)",
-    "data-h2-color": "base:hover(secondary.darker) base:focus-visible(black)",
-  };
-
   return (
     <div
       data-h2-display="base(flex)"
@@ -63,9 +56,13 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
         {content.summary}
       </p>
       <div data-h2-padding="base(0, x1, x1, x1)">
-        <LinkEl href={content.link.path} {...linkStyles}>
+        <Link
+          href={content.link.path}
+          external={content.link.external}
+          data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
+        >
           {content.link.label}
-        </LinkEl>
+        </Link>
       </div>
     </div>
   );
