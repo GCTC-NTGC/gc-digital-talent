@@ -4,7 +4,9 @@ import { useIntl } from "react-intl";
 
 import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
-import SearchRequestTableApi from "~/components/SearchRequestTable/SearchRequestTable";
+// swap the imported table to alternate between client and API versions, adjust return () accordingly
+import SearchRequestsTableWrapper from "~/components/SearchRequestTable/SearchRequestTableClient";
+// import SearchRequestsTableApi from "~/components/SearchRequestTable/SearchRequestsTableApi";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
@@ -34,7 +36,7 @@ export const IndexSearchRequestPage = () => {
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO title={pageTitle} />
       <PageHeader icon={TicketIcon}>{pageTitle}</PageHeader>
-      <SearchRequestTableApi title={pageTitle} />
+      <SearchRequestsTableWrapper title={pageTitle} />
     </AdminContentWrapper>
   );
 };
