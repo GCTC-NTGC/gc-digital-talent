@@ -23,8 +23,7 @@ const ButtonLinkContent = ({
   newTab = false,
   ...rest
 }: IconTextProps) => {
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (!newTab && !icon && !utilityIcon) return <>{children}</>;
+  if (!newTab && !icon && !utilityIcon) return <span>{children}</span>;
   const Icon = icon;
   const UtilityIcon = utilityIcon;
 
