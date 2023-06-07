@@ -812,6 +812,7 @@ const useCommonButtonLinkStyles: UseCommonButtonLinkStyles = ({
     nonTextMode = "inline";
   }
   return {
+    "data-h2-align-items": "base(center)",
     "data-h2-font-size": "base(copy)",
     "data-h2-text-decoration": "base(underline) base:hover(none)",
     "data-h2-transition": "base(all ease 50ms) base:children[*](all ease 50ms)",
