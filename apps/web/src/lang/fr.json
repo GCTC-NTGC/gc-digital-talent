@@ -8342,5 +8342,13 @@
   "zLeH2i": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Title for the diversity, equity, and inclusion snapshot section"
+  },
+  "w7E0He": {
+    "defaultMessage": "Compétences essentielles",
+    "description": "Title for the required skills snapshot section"
+  },
+  "Xpo+u6": {
+    "defaultMessage": "Compétences utiles",
+    "description": "Title for the optional skills snapshot section"
   }
 }
