@@ -6483,8 +6483,8 @@
     "defaultMessage": "Vous avez choisi de ne pas figurer dans les résultats de l’évaluation des talents pour ce recrutement.",
     "description": "Suspended recruitment status message on qualified recruitment card."
   },
-  "dPoE9z": {
-    "defaultMessage": "Vous figurez actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin IT-01 technicien(ne) de soutien du centre d’assistance.",
+  "COpmme": {
+    "defaultMessage": "Vous figurez actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin {poolName}.",
     "description": "Dialog main body on change search results status from qualified recruitment section."
   },
   "eGPSG3": {
@@ -6511,8 +6511,8 @@
     "defaultMessage": "Ce recrutement a expiré et il n’est plus disponible pour les possibilités d’embauche.",
     "description": "Expired recruitment status message on qualified recruitment card."
   },
-  "veIkpN": {
-    "defaultMessage": "Vous ne figurez pas actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin IT-01 technicien(ne) de soutien du centre d’assistance.",
+  "Y0Eii4": {
+    "defaultMessage": "Vous ne figurez pas actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin {poolName}.",
     "description": "Dialog main body on change search results status from qualified recruitment section."
   },
   "wYe3P2": {
