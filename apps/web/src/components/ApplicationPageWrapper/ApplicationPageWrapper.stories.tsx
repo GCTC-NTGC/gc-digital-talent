@@ -36,7 +36,7 @@ BasicApplicationPageWrapper.args = {
   closingDate: FAR_FUTURE_DATE,
   crumbs: [
     { label: "Pool Name", url: "#pool" },
-    { label: "About Me", url: "#about" },
+    { label: "About me", url: "#about" },
   ],
   navigation: {
     currentStep: 1,
@@ -60,7 +60,7 @@ NoNavigationApplicationPageWrapper.args = {
   closingDate: FAR_FUTURE_DATE,
   crumbs: [
     { label: "Pool Name", url: "#pool" },
-    { label: "About Me", url: "#about" },
+    { label: "About me", url: "#about" },
   ],
 };
 
@@ -71,6 +71,6 @@ ExpiredApplicationPageWrapper.args = {
   closingDate: FAR_PAST_DATE,
   crumbs: [
     { label: "Pool Name", url: "#pool" },
-    { label: "About Me", url: "#about" },
+    { label: "About me", url: "#about" },
   ],
 };

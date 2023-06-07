@@ -78,7 +78,7 @@ const CreateApplication = () => {
    * userId - We need a user ID to run the mutation
    * id - We need a pool ID to run the mutation
    * isVisible - Should't run it if user cannot view it
-   * !hasApplied - Users can only apply to a single pool advertisement
+   * !hasApplied - Users can only apply to a single pool
    */
   const userId = auth.user?.id;
   const hasMutationData = notEmpty(mutationData);

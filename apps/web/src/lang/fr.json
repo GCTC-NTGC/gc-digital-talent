@@ -793,10 +793,6 @@
     "defaultMessage": "Groupe de classifications actuel ",
     "description": "Label displayed on classification group input"
   },
-  "/k21MP": {
-    "defaultMessage": "Informations linguistiques",
-    "description": "Display Text for Language Information Form Page Link"
-  },
   "/qN7tM": {
     "defaultMessage": "Expérience supprimée",
     "description": "Message displayed to user after experience deleted."
@@ -877,10 +873,6 @@
     "defaultMessage": "Retirer de l'expérience",
     "description": "Message in skills in details section to remove skill from the experience."
   },
-  "7OWQgZ": {
-    "defaultMessage": "Préférences de travail",
-    "description": "Display Text for Work Preferences Form Page Link"
-  },
   "7qR4UK": {
     "defaultMessage": "Renseignements personnels",
     "description": "Title for Personal Information section of the About Me form"
@@ -952,10 +944,6 @@
   "Dy5kjx": {
     "defaultMessage": "Qu'avez-vous accompli, créé ou produit en utilisant cette compétence?",
     "description": "Question for user in skills in detail section of experience form."
-  },
-  "FmN1eN": {
-    "defaultMessage": "+123243234",
-    "description": "Placeholder displayed on the About Me form telephone field."
   },
   "FtlwFY": {
     "defaultMessage": "Afficher les bassins ouverts",
@@ -1089,10 +1077,6 @@
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
     "description": "Heading for employment equity categories added to user profile."
   },
-  "R5aTZ9": {
-    "defaultMessage": "Informations linguistiques",
-    "description": "Title for Profile Form wrapper in Language Information Form"
-  },
   "Rgh/Qb": {
     "defaultMessage": "4. Renseignements complémentaires pour cette expérience",
     "description": "Title for addition information on Experience form"
@@ -1113,10 +1097,6 @@
     "defaultMessage": "Enregistré",
     "description": "Submitted text for save button on profile form."
   },
-  "TfoHYi": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Title for Profile Form wrapper  in DiversityEquityInclusionForm"
-  },
   "TuhgU0": {
     "defaultMessage": "Options d'équité en matière d'emploi :",
     "description": "Heading for employment equity categories available to be added to user profile."
@@ -1125,15 +1105,11 @@
     "defaultMessage": "Évaluation linguistique du gouvernement du Canada",
     "description": "Message on links to the language evaluation tests"
   },
-  "Uh9Yj4": {
-    "defaultMessage": "Renseignements du gouvernement",
-    "description": "Display Text for Government Information Form Page Link"
-  },
   "W4Svkd": {
     "defaultMessage": "Compréhension",
     "description": "Label displayed on the language information form comprehension field."
   },
-  "W7io0W": {
+  "cyAydm": {
     "defaultMessage": "Mon statut a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
   },
@@ -1152,10 +1128,6 @@
   "XBfLOu": {
     "defaultMessage": "Mon statut",
     "description": "Legend for my status option in my status form"
-  },
-  "XY19Sh": {
-    "defaultMessage": "À propos de moi",
-    "description": "Title for Profile Form wrapper in About me form"
   },
   "XijxiY": {
     "defaultMessage": "Nous aimerions savoir ci-dessous si vous êtes déjà un(e) employé(e) du gouvernement du Canada. Nous recueillons ces renseignements parce qu'ils nous aident à comprendre, au niveau global, comment les compétences numériques sont réparties entre les ministères.",
@@ -1329,10 +1301,6 @@
     "defaultMessage": "Pour commencer",
     "description": "Main heading in create account page."
   },
-  "pGTTrp": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Display Text for Diversity, equity and inclusion Page"
-  },
   "pYGf4h": {
     "defaultMessage": "2. Compétences affichées pendant cette expérience",
     "description": "Title for skills on Experience form"
@@ -1389,10 +1357,6 @@
     "defaultMessage": "Sélectionnez un groupe",
     "description": "Null selection for form."
   },
-  "uG2MuI": {
-    "defaultMessage": "À propos de moi",
-    "description": "Display text for About Me Form Page Link"
-  },
   "uQYCfd": {
     "defaultMessage": "Ces quatre groupes sont les « femmes, les Autochtones, les personnes handicapées et les membres des minorités visibles. »",
     "description": "List of the employment equity categories"
@@ -1420,10 +1384,6 @@
   "x6saT3": {
     "defaultMessage": "Avant de vous amener à votre profil, nous devons recueillir les renseignements nécessaires pour compléter la configuration de votre compte.",
     "description": "Message after main heading in create account page."
-  },
-  "xDgNfZ": {
-    "defaultMessage": "Renseignements du gouvernement",
-    "description": "Title for Profile Form Wrapper in Government Information Form"
   },
   "Vvb8tu": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
@@ -2601,17 +2561,9 @@
     "defaultMessage": "Niveau 1 : Techniciens",
     "description": "title for IT-01 dialog"
   },
-  "dgOYID": {
-    "defaultMessage": "Rôle et salaire escomptés",
-    "description": "Label for role and salary link"
-  },
   "g5pT17": {
     "defaultMessage": "Sélectionnez votre langue d'examen écrite préférée",
     "description": "Legend text for required written exam language preference for exams in About Me form"
-  },
-  "kCBLsJ": {
-    "defaultMessage": "Rôle et salaire escomptés",
-    "description": "Title role and salary expectations form"
   },
   "mTlHta": {
     "defaultMessage": "Niveau 3 : Chef d'équipe",
@@ -3224,10 +3176,6 @@
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled WorkPreferences section."
   },
-  "1pk/7X": {
-    "defaultMessage": "Information linguistiques",
-    "description": "Title of the Language Information content section"
-  },
   "3HJ51b": {
     "defaultMessage": "Femme",
     "description": "Text on view-user page that the user is a woman"
@@ -3288,10 +3236,6 @@
     "defaultMessage": "Notes mises à jour pour le candidat dans le {poolName}",
     "description": "Toast notification for successful update of candidates notes in specified pool"
   },
-  "Cx3s+E": {
-    "defaultMessage": "Mon statut",
-    "description": "Title of the my status content section"
-  },
   "DAmLhV": {
     "defaultMessage": "Nom :",
     "description": "Name label and colon"
@@ -3308,17 +3252,9 @@
     "defaultMessage": "Téléphone :",
     "description": "Display text for the phone number field on users"
   },
-  "Eui2Wf": {
-    "defaultMessage": "Mes compétences et mon expérience",
-    "description": "Title of the My skills and experience content section"
-  },
   "F00OD4": {
     "defaultMessage": "Statut du candidat",
     "description": "Title of the 'Candidate status' section of the view-user page"
-  },
-  "F9R74z": {
-    "defaultMessage": "Lieu de travail",
-    "description": "Title of the Work Location content section"
   },
   "FUxE8S": {
     "defaultMessage": "À partir du bassin suivant :",
@@ -3376,10 +3312,6 @@
     "defaultMessage": "Connexion",
     "description": "Text label for the login link to the talent cloud admin portal."
   },
-  "V89Ryn": {
-    "defaultMessage": "Préférences de travail",
-    "description": "Title of the Work Preferences content section"
-  },
   "W58QTT": {
     "defaultMessage": "Cet utilisateur n'est encore dans aucun bassin",
     "description": "Message on view-user page that the user is not in any pools"
@@ -3403,10 +3335,6 @@
   "6R9N+h": {
     "defaultMessage": "Voir les candidats<hidden> pour {label}</hidden>",
     "description": "Text for a link to the Pool Candidates table"
-  },
-  "aa7B7S": {
-    "defaultMessage": "Information sur l'équité en matière d'emploi",
-    "description": "Title of the Employment Equity Information content section"
   },
   "bl7pCx": {
     "defaultMessage": "Modifier le statut",
@@ -3455,10 +3383,6 @@
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
   },
-  "l1cou8": {
-    "defaultMessage": "Renseignements gouvernementaux",
-    "description": "Title of the Government Information content section"
-  },
   "lIwJp4": {
     "defaultMessage": "Bon retour, {name}",
     "description": "Title for dashboard on the talent cloud admin portal."
@@ -3506,10 +3430,6 @@
   "jtEouE": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "Title of the 'Add user to pools' section of the view-user page"
-  },
-  "uMzeiF": {
-    "defaultMessage": "Rôle et salaire escomptés",
-    "description": "Title of the Role and salary expectations section"
   },
   "Bkxf6p": {
     "defaultMessage": "Sélectionnez un statut de bassin",
@@ -5344,14 +5264,6 @@
     "defaultMessage": "Passer à la page précédente",
     "description": "Aria label for previous page button in pagination nav"
   },
-  "/+CmAn": {
-    "defaultMessage": "Modifier À propos de moi",
-    "description": "Text on link to update a users personal information."
-  },
-  "0DzlCc": {
-    "defaultMessage": "Préférences de travail",
-    "description": "Title of the Work Preferences link section"
-  },
   "1VFyrc": {
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled WorkLocation section."
@@ -5363,10 +5275,6 @@
   "4Xa7Pd": {
     "defaultMessage": "Aucune information n'a été fournie",
     "description": "Message on Admin side when user not filled Experience section."
-  },
-  "5APACq": {
-    "defaultMessage": "Modifier les renseignements gouvernementaux",
-    "description": "Text on link to update a users government information."
   },
   "5WOqlf": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
@@ -5384,37 +5292,13 @@
     "defaultMessage": "Durée permanente",
     "description": "Permanent duration only"
   },
-  "95OYVk": {
-    "defaultMessage": "Rôle et salaire escomptés",
-    "description": "Title of the Role and salary expectations link section"
-  },
-  "9WxeNz": {
-    "defaultMessage": "Lieu de travail",
-    "description": "Title of the Work Location link section"
-  },
   "9pdtnR": {
     "defaultMessage": "Vous n'êtes pas inscrit à titre d'employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
   },
-  "AF8g2I": {
-    "defaultMessage": "Modifier la diversité, l'équité et l'inclusion",
-    "description": "Text on link to update a users employment equity."
-  },
-  "B9x0ZV": {
-    "defaultMessage": "Informations linguistiques ",
-    "description": "Title of the Language Information link section"
-  },
-  "CEzDTC": {
-    "defaultMessage": "Modifier le rôle et le salaire",
-    "description": "Text on link to update a users role and salary expectations."
-  },
   "D7Qb41": {
     "defaultMessage": "Niveau de la langue seconde (compréhension, écrite, verbale) :",
     "description": "Evaluation results for second language, results in that order followed by a colon"
-  },
-  "FF0ubO": {
-    "defaultMessage": "Modifier le lieu de travail",
-    "description": "Text on link to update a users work location."
   },
   "JerysR": {
     "defaultMessage": "Par compétences",
@@ -5427,10 +5311,6 @@
   "MuyuAu": {
     "defaultMessage": "Groupe et classification actuels :",
     "description": "Field label before government employment group and level, followed by colon"
-  },
-  "Nc4sjC": {
-    "defaultMessage": "Renseignements gouvernementaux",
-    "description": "Title of the Government Information link section"
   },
   "P/tHlt": {
     "defaultMessage": "Par type",
@@ -5448,10 +5328,6 @@
     "defaultMessage": "Vous n'avez pas encore ajouté de renseignements ici.",
     "description": "Message for when no data exists for the section"
   },
-  "TLgbZm": {
-    "defaultMessage": "Mon statut",
-    "description": "Title of the My Status section"
-  },
   "TmCffZ": {
     "defaultMessage": "Intéressé par :",
     "description": "Interested in label and colon"
@@ -5464,17 +5340,9 @@
     "defaultMessage": "{areaOfStudy} à {institution}",
     "description": "Study at institution"
   },
-  "Vbw1ES": {
-    "defaultMessage": "Modifier les informations linguistiques",
-    "description": "Text on link to update a users language information."
-  },
   "Vc9vE7": {
     "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de :",
     "description": "Label for what length of position user prefers, followed by colon"
-  },
-  "XqFhIa": {
-    "defaultMessage": "Modifier les compétences et l'expérience",
-    "description": "Text on link to update a users skills and experiences."
   },
   "azOv8A": {
     "defaultMessage": "Téléphone :",
@@ -5496,17 +5364,9 @@
     "defaultMessage": "1 expérience",
     "description": "Pluralization for one experience"
   },
-  "e2R6fy": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Title of the Diversity, equity and inclusion link section"
-  },
   "eLXTfi": {
     "defaultMessage": "Je ne suis pas un employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
-  },
-  "fqIEKE": {
-    "defaultMessage": "Mes compétences et mon expérience",
-    "description": "Title of the My skills and experience link section"
   },
   "gpcHeU": {
     "defaultMessage": "Canada.ca",
@@ -5515,10 +5375,6 @@
   "gtLuDM": {
     "defaultMessage": "Projet : {project}",
     "description": "Project Name"
-  },
-  "inzzdo": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Title of the Diversity, equity and inclusion content section"
   },
   "kjX7mF": {
     "defaultMessage": "Aucune information n'a été fournie.",
@@ -5540,17 +5396,9 @@
     "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
     "description": "The skill is not attached to any experience"
   },
-  "om3i0o": {
-    "defaultMessage": "Modifier mon statut",
-    "description": "Text on link to update a users status."
-  },
   "omDlZN": {
     "defaultMessage": "Thèse : {thesisTitle}",
     "description": "Thesis, if applicable"
-  },
-  "p8Gi1k": {
-    "defaultMessage": "Modifier les préférences de travail",
-    "description": "Text on link to update a users work preferences."
   },
   "pbXAOp": {
     "defaultMessage": "Afficher {numOfRows}",
@@ -5607,14 +5455,6 @@
   "MO80Mu": {
     "defaultMessage": "Ajouter cette compétence<hidden> : {skillName}</hidden>",
     "description": "Button label to add the adjacent skill on skill result block."
-  },
-  "4sJvia": {
-    "defaultMessage": "À propos de moi",
-    "description": "Title of the About link section"
-  },
-  "CnB8IO": {
-    "defaultMessage": "À propos de moi",
-    "description": "Title of the about content section"
   },
   "s3FrzP": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
@@ -8219,17 +8059,17 @@
     "defaultMessage": "Ceci créera un nouveau basin et copiera toute information qui existe déjà.",
     "description": "Text explaining what will happen when duplicating a pool"
   },
-  "b71NDl": {
-    "defaultMessage": "Dupliquer et consulter le nouveau bassin",
-    "description": "Button text to duplicate a pool"
+  "QmMm7V": {
+    "defaultMessage": "Dupliquer et consulter la nouvelle affiche d’emploi",
+    "description": "Button text to duplicate a job poster"
   },
   "hHYn/8": {
     "defaultMessage": "Erreur : Une erreur s’est produite. Veuillez essayer de nouveau dans une minute ou communiquez avec votre administrateur.",
     "description": "Message displayed to user after pool fails to get duplicated."
   },
-  "jCS7J4": {
-    "defaultMessage": "Dupliquer ce bassin",
-    "description": "Title to duplicate a pool"
+  "DxvIPq": {
+    "defaultMessage": "Dupliquer l’affiche d’emploi",
+    "description": "Title to duplicate a job poster"
   },
   "oJri9k": {
     "defaultMessage": "Vous êtes sur le point de dupliquer le bassin suivant : {poolName}",
@@ -8346,5 +8186,9 @@
   "MCFcrj": {
     "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
     "description": "Hero image alt text."
+  },
+  "3R3jKp": {
+    "defaultMessage": "Modifier {title}",
+    "description": "Link to edit object"
   }
 }

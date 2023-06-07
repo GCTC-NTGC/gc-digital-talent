@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { Well } from "@gc-digital-talent/ui";
 
 import { PoolCandidate } from "~/api/generated";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 
 const CandidatePoolsSection = ({
   poolCandidates,
@@ -35,9 +35,7 @@ const CandidatePoolsSection = ({
             data-h2-padding="base(x1, 0)"
           >
             <div>
-              <p>
-                {getFullPoolAdvertisementTitleHtml(intl, poolCandidate?.pool)}
-              </p>
+              <p>{getFullPoolTitleHtml(intl, poolCandidate?.pool)}</p>
             </div>
             <div>
               <p>

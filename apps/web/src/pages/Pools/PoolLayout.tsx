@@ -8,10 +8,7 @@ import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import { Pool, useGetBasicPoolInfoQuery } from "~/api/generated";
-import {
-  getFullPoolAdvertisementTitleLabel,
-  useAdminPoolPages,
-} from "~/utils/poolUtils";
+import { getFullPoolTitleLabel, useAdminPoolPages } from "~/utils/poolUtils";
 import { PageNavKeys } from "~/types/pool";
 
 interface PoolHeaderProps {
@@ -23,7 +20,7 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
 
   const pages = useAdminPoolPages(intl, pool);
 
-  const poolTitle = getFullPoolAdvertisementTitleLabel(intl, pool);
+  const poolTitle = getFullPoolTitleLabel(intl, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
 
   return (

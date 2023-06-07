@@ -48,20 +48,20 @@ export const BothButtons = TemplateProfileFormWrapper.bind({});
 faker.seed(0);
 
 CancelButton.args = {
-  crumbs: [{ label: "About Me", url: "#about-cancel" }],
+  crumbs: [{ label: "About me", url: "#about-cancel" }],
   title: "About me",
   description: faker.lorem.sentences(4),
 };
 
 SaveButton.args = {
-  crumbs: [{ label: "About Me", url: "#about-save" }],
+  crumbs: [{ label: "About me", url: "#about-save" }],
   title: "About me",
   description: faker.lorem.sentences(4),
   mode: "saveButton",
 };
 
 BothButtons.args = {
-  crumbs: [{ label: "About Me", url: "#about-both" }],
+  crumbs: [{ label: "About me", url: "#about-both" }],
   title: "About me",
   description: faker.lorem.sentences(4),
   mode: "bothButtons",

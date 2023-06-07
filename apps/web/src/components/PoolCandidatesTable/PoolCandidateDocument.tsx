@@ -23,6 +23,7 @@ import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByTyp
 import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAboutUserSection";
 import { PoolCandidate } from "~/api/generated";
 
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import PoolCandidateDetailsSection from "./PoolCandidateDetailsSection";
 
 const HeadingWrapper = ({ children }: { children?: React.ReactNode }) => {
@@ -150,12 +151,7 @@ const PoolCandidateDocument = React.forwardRef<
                           icon={LightBulbIcon}
                           style={{ flex: "1 1 0%" }}
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "My Status",
-                            id: "Cx3s+E",
-                            description:
-                              "Title of the my status content section",
-                          })}
+                          {intl.formatMessage(navigationMessages.myStatus)}
                         </Heading>
                       </HeadingWrapper>
                       <AdminAboutUserSection applicant={candidate.user} />
@@ -166,12 +162,9 @@ const PoolCandidateDocument = React.forwardRef<
                           icon={ChatBubbleLeftRightIcon}
                           style={{ flex: "1 1 0%" }}
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "Language Information",
-                            id: "1pk/7X",
-                            description:
-                              "Title of the Language Information content section",
-                          })}
+                          {intl.formatMessage(
+                            navigationMessages.languageInformation,
+                          )}
                         </Heading>
                       </HeadingWrapper>
                       <LanguageInformationSection applicant={candidate.user} />
@@ -182,12 +175,9 @@ const PoolCandidateDocument = React.forwardRef<
                           icon={BuildingLibraryIcon}
                           style={{ flex: "1 1 0%" }}
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "Government Information",
-                            id: "l1cou8",
-                            description:
-                              "Title of the Government Information content section",
-                          })}
+                          {intl.formatMessage(
+                            navigationMessages.governmentInformation,
+                          )}
                         </Heading>
                       </HeadingWrapper>
                       <GovernmentInformationSection
@@ -197,12 +187,7 @@ const PoolCandidateDocument = React.forwardRef<
                     <div className="page-section">
                       <HeadingWrapper>
                         <Heading icon={MapPinIcon} style={{ flex: "1 1 0%" }}>
-                          {intl.formatMessage({
-                            defaultMessage: "Work Location",
-                            id: "F9R74z",
-                            description:
-                              "Title of the Work Location content section",
-                          })}
+                          {intl.formatMessage(navigationMessages.workLocation)}
                         </Heading>
                       </HeadingWrapper>
                       <WorkLocationSection applicant={candidate.user} />
@@ -213,12 +198,9 @@ const PoolCandidateDocument = React.forwardRef<
                           icon={HandThumbUpIcon}
                           style={{ flex: "1 1 0%" }}
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "Work Preferences",
-                            id: "V89Ryn",
-                            description:
-                              "Title of the Work Preferences content section",
-                          })}
+                          {intl.formatMessage(
+                            navigationMessages.workPreferences,
+                          )}
                         </Heading>
                       </HeadingWrapper>
                       <WorkPreferencesSection applicant={candidate.user} />
@@ -229,12 +211,9 @@ const PoolCandidateDocument = React.forwardRef<
                           icon={InformationCircleIcon}
                           style={{ flex: "1 1 0%" }}
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "Employment Equity Information",
-                            id: "aa7B7S",
-                            description:
-                              "Title of the Employment Equity Information content section",
-                          })}
+                          {intl.formatMessage(
+                            navigationMessages.diversityEquityInclusion,
+                          )}
                         </Heading>
                       </HeadingWrapper>
                       <DiversityEquityInclusionSection
@@ -247,24 +226,18 @@ const PoolCandidateDocument = React.forwardRef<
                           icon={CurrencyDollarIcon}
                           style={{ flex: "1 1 0%" }}
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "Role and salary expectations",
-                            id: "uMzeiF",
-                            description:
-                              "Title of the Role and salary expectations section",
-                          })}
+                          {intl.formatMessage(
+                            navigationMessages.roleSalaryExpectations,
+                          )}
                         </Heading>
                       </HeadingWrapper>
                       <RoleSalarySection applicant={candidate.user} />
                     </div>
                     <HeadingWrapper>
                       <Heading icon={BoltIcon} style={{ flex: "1 1 0%" }}>
-                        {intl.formatMessage({
-                          defaultMessage: "My skills and experience",
-                          id: "Eui2Wf",
-                          description:
-                            "Title of the My skills and experience content section",
-                        })}
+                        {intl.formatMessage(
+                          navigationMessages.mySkillsExperience,
+                        )}
                       </Heading>
                     </HeadingWrapper>
                     <PrintExperienceByType

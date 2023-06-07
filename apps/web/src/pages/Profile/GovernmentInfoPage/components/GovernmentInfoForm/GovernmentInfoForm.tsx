@@ -25,7 +25,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { ExternalLink } from "@gc-digital-talent/ui";
 
 import { splitAndJoin } from "~/utils/nameUtils";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
   Classification,
   UpdateUserAsUserInput,
@@ -560,23 +560,15 @@ const GovernmentInfoForm = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitleHtml(
-            intl,
-            application.poolAdvertisement,
-          ),
-          url: paths.pool(application.poolAdvertisement?.id || ""),
+          label: getFullPoolTitleHtml(intl, application.pool),
+          url: paths.pool(application.pool.id),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
           url: paths.reviewApplication(applicationId ?? ""),
         },
         {
-          label: intl.formatMessage({
-            defaultMessage: "Government Information",
-            id: "Uh9Yj4",
-            description:
-              "Display Text for Government Information Form Page Link",
-          }),
+          label: intl.formatMessage(navigationMessages.governmentInformation),
           url: `${paths.governmentInformation(initialData.id)}${
             applicationId ? `?applicationId=${applicationId}` : ``
           }`,
@@ -593,23 +585,15 @@ const GovernmentInfoForm = ({
         description:
           "Description blurb for Profile Form Wrapper in the Government Information Form",
       })}
-      title={intl.formatMessage({
-        defaultMessage: "Government Information",
-        id: "xDgNfZ",
-        description:
-          "Title for Profile Form Wrapper in Government Information Form",
-      })}
+      title={intl.formatMessage(navigationMessages.governmentInformation)}
       crumbs={
         applicationBreadcrumbs?.length
           ? applicationBreadcrumbs
           : [
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Government Information",
-                  id: "Uh9Yj4",
-                  description:
-                    "Display Text for Government Information Form Page Link",
-                }),
+                label: intl.formatMessage(
+                  navigationMessages.governmentInformation,
+                ),
                 url: paths.governmentInformation(initialData.id),
               },
             ]

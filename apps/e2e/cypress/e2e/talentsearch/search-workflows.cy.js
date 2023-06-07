@@ -1,6 +1,6 @@
 import { PoolCandidateStatus } from "@gc-digital-talent/web/src/api/generated";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import { createAndPublishPoolAdvertisement } from "../../support/poolAdvertisementHelpers";
+import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("Talent Search Workflow Tests", () => {
@@ -78,31 +78,29 @@ describe("Talent Search Workflow Tests", () => {
             });
 
             // fetch the dcmId for its team from database, needed for pool creation
-            let dcmId;
-            cy.getDCM().then((dcm) => {
-              dcmId = dcm;
-              addRolesToUser(adminUserId, ["pool_operator"], dcm);
-            });
+            cy.getDCM().then((dcmId) => {
+              addRolesToUser(adminUserId, ["pool_operator"], dcmId);
 
-            // create, update, and publish a new pool advertisement for testing matching
-            cy.get("@testClassification1").then((classification) => {
-              createAndPublishPoolAdvertisement({
-                adminUserId,
-                teamId: dcmId,
-                englishName: `Cypress Test Pool EN 1 ${uniqueTestId}`,
-                classification,
-                poolAdvertisementAlias: "publishedTestPoolAdvertisement1",
+              // create, update, and publish a new pool for testing matching
+              cy.get("@testClassification1").then((classification) => {
+                createAndPublishPool({
+                  adminUserId,
+                  teamId: dcmId,
+                  englishName: `Cypress Test Pool EN 1 ${uniqueTestId}`,
+                  classification,
+                  poolAlias: "publishedTestPool1",
+                });
               });
-            });
 
-            // create, update, and publish a new pool advertisement for testing rejection
-            cy.get("@testClassification2").then((classification) => {
-              createAndPublishPoolAdvertisement({
-                adminUserId,
-                teamId: dcmId,
-                englishName: `Cypress Test Pool EN 2 ${uniqueTestId}`,
-                classification,
-                poolAdvertisementAlias: "publishedTestPoolAdvertisement2",
+              // create, update, and publish a new pool for testing rejection
+              cy.get("@testClassification2").then((classification) => {
+                createAndPublishPool({
+                  adminUserId,
+                  teamId: dcmId,
+                  englishName: `Cypress Test Pool EN 2 ${uniqueTestId}`,
+                  classification,
+                  poolAlias: "publishedTestPool2",
+                });
               });
             });
           });
@@ -113,14 +111,12 @@ describe("Talent Search Workflow Tests", () => {
     cy.get("@testUser").then((testUser) => {
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
-        cy.get("@publishedTestPoolAdvertisement1").then((poolAdvertisement) => {
-          cy.createApplication(testUser.id, poolAdvertisement.id).then(
-            (poolCandidate) => {
-              cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
-                .its("id")
-                .as("poolCandidateId");
-            },
-          );
+        cy.get("@publishedTestPool1").then((pool) => {
+          cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
+            cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+              .its("id")
+              .as("poolCandidateId");
+          });
         });
       });
     });

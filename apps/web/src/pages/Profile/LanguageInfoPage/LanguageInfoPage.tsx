@@ -38,10 +38,7 @@ const LanguageInformationFormApi = ({
       {data?.poolCandidate ? (
         <LanguageInformationForm
           initialData={initialData}
-          application={{
-            ...data.poolCandidate,
-            pool: { id: data.poolCandidate.id },
-          }}
+          application={data.poolCandidate}
           submitHandler={submitHandler}
         />
       ) : (

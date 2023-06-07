@@ -23,24 +23,21 @@ type Entries<T> = {
 
 interface ErrorSummaryProps {
   user: User;
-  application: Omit<PoolCandidate, "pool">;
+  application: PoolCandidate;
 }
 
 const ErrorSummary = ({ user, application }: ErrorSummaryProps) => {
   const intl = useIntl();
   const errors: Record<SectionKey, boolean> = {
     personal: hasEmptyPersonalRequiredFields(user),
-    dei: hasEmptyDEIRequiredFields(user, application.poolAdvertisement),
+    dei: hasEmptyDEIRequiredFields(user, application.pool),
     work:
       hasEmptyWorkLocRequiredFields(user) ||
       hasEmptyWorkPrefRequiredFields(user),
     government: hasEmptyGovernmentRequiredFields(user),
     language:
       hasEmptyLanguageRequiredFields(user) ||
-      hasUnsatisfiedRequirements(
-        user as Applicant,
-        application.poolAdvertisement || null,
-      ),
+      hasUnsatisfiedRequirements(user as Applicant, application.pool),
   };
 
   const hasErrors = Object.values(errors).some((hasError) => hasError);

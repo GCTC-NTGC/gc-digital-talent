@@ -51,13 +51,13 @@ class PoolSeeder extends Seeder
             ];
             $poolModel = Pool::where($identifier)->first();
             if (!$poolModel) {
-                $createdPool = Pool::factory()->create($poolData);
+                $createdPool = Pool::factory()->published()->create($poolData);
                 // constrain CMO Digital Careers pool to predictable values
                 if ($identifier['key'] == 'digital_careers') {
                     $classificationIT01Id = Classification::where('group', 'ilike', 'IT')->where('level', 1)->sole()['id'];
                     $createdPool->classifications()->sync([$classificationIT01Id]);
                     $createdPool->stream = ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES;
-                    $createdPool->advertisement_language = ApiEnums::POOL_ADVERTISEMENT_VARIOUS;
+                    $createdPool->advertisement_language = ApiEnums::POOL_VARIOUS;
                     $createdPool->save();
                 }
             } else {

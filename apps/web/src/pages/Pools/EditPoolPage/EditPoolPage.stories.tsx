@@ -5,19 +5,19 @@ import {
   fakeSkillFamilies,
   fakeClassifications,
   fakeSkills,
-  fakePoolAdvertisements,
+  fakePools,
 } from "@gc-digital-talent/fake-data";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
 
-import { AdvertisementStatus } from "~/api/generated";
+import { PoolStatus } from "~/api/generated";
 import { EditPoolForm, EditPoolFormProps } from "./EditPoolPage";
 
 const classifications = fakeClassifications();
 const skills = fakeSkills(100, fakeSkillFamilies(10));
-const poolAdvertisement = fakePoolAdvertisements(1, skills, classifications)[0];
+const pool = fakePools(1, skills, classifications)[0];
 
 export default {
   component: EditPoolForm,
@@ -43,31 +43,31 @@ const TemplateEditPoolForm: Story<EditPoolFormProps> = (
   return <EditPoolForm {...args} />;
 };
 
-export const DraftAdvertisement = TemplateEditPoolForm.bind({});
-DraftAdvertisement.args = {
-  poolAdvertisement: {
-    ...poolAdvertisement,
+export const DraftPool = TemplateEditPoolForm.bind({});
+DraftPool.args = {
+  pool: {
+    ...pool,
     publishedAt: null,
-    advertisementStatus: AdvertisementStatus.Draft,
+    status: PoolStatus.Draft,
   },
 };
 
-export const PublishedAdvertisement = TemplateEditPoolForm.bind({});
-PublishedAdvertisement.args = {
-  poolAdvertisement: {
-    ...poolAdvertisement,
+export const PublishedPool = TemplateEditPoolForm.bind({});
+PublishedPool.args = {
+  pool: {
+    ...pool,
     publishedAt: FAR_PAST_DATE,
-    advertisementStatus: AdvertisementStatus.Published,
+    status: PoolStatus.Published,
     closingDate: FAR_FUTURE_DATE,
   },
 };
 
-export const ExpiredAdvertisement = TemplateEditPoolForm.bind({});
-ExpiredAdvertisement.args = {
-  poolAdvertisement: {
-    ...poolAdvertisement,
+export const ExpiredPool = TemplateEditPoolForm.bind({});
+ExpiredPool.args = {
+  pool: {
+    ...pool,
     publishedAt: FAR_PAST_DATE,
-    advertisementStatus: AdvertisementStatus.Closed,
+    status: PoolStatus.Closed,
     closingDate: FAR_PAST_DATE,
   },
 };
