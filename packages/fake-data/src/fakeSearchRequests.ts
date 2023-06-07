@@ -1,18 +1,18 @@
 import { faker } from "@faker-js/faker";
 
 import {
+  ApplicantFilter,
   Department,
-  PoolCandidateFilter,
   PoolCandidateSearchRequest,
   PoolCandidateSearchStatus,
 } from "@gc-digital-talent/graphql";
 
+import fakeApplicantFilters from "./fakeApplicantFilters";
 import fakeDepartments from "./fakeDepartments";
-import fakePoolCandidateFilters from "./fakePoolCandidateFilters";
 
 const generateSearchRequest = (
   departments: Department[],
-  poolCandidateFilters: PoolCandidateFilter[],
+  applicantFilters: ApplicantFilter[],
 ): PoolCandidateSearchRequest => {
   faker.setLocale("en");
 
@@ -23,8 +23,8 @@ const generateSearchRequest = (
     department: faker.helpers.arrayElement<Department>(departments),
     jobTitle: faker.name.jobTitle(),
     additionalComments: faker.lorem.sentences(5),
-    poolCandidateFilter:
-      faker.helpers.arrayElement<PoolCandidateFilter>(poolCandidateFilters),
+    applicantFilter:
+      faker.helpers.arrayElement<ApplicantFilter>(applicantFilters),
     requestedDate: faker.date.between("2000-01-01", "2020-12-31").toISOString(),
     status: faker.helpers.arrayElement<PoolCandidateSearchStatus>(
       Object.values(PoolCandidateSearchStatus),
@@ -35,10 +35,10 @@ const generateSearchRequest = (
 
 export default (): PoolCandidateSearchRequest[] => {
   const departments = fakeDepartments();
-  const poolCandidateFilters = fakePoolCandidateFilters();
+  const applicantFilters = fakeApplicantFilters();
 
   faker.seed(0); // repeatable results
   return [...Array(20)].map(() =>
-    generateSearchRequest(departments, poolCandidateFilters),
+    generateSearchRequest(departments, applicantFilters),
   );
 };

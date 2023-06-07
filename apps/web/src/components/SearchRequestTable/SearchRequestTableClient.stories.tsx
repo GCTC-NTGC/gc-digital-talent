@@ -1,24 +1,24 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
 
-import { SearchRequestTable } from "./SearchRequestTable";
+import { SearchRequestTableClient } from "./SearchRequestTableClient";
 
 const mockSearchRequests = fakeSearchRequests();
 
 export default {
-  component: SearchRequestTable,
-  title: "Tables/Search Request Table",
+  component: SearchRequestTableClient,
+  title: "Tables/Search Request Table Client",
   parameters: {
     themeKey: "admin",
   },
-} as ComponentMeta<typeof SearchRequestTable>;
+} as Meta<typeof SearchRequestTableClient>;
 
-const Template: ComponentStory<typeof SearchRequestTable> = (args) => {
+const Template: StoryFn<typeof SearchRequestTableClient> = (args) => {
   const { poolCandidateSearchRequests, title } = args;
   return (
-    <SearchRequestTable
+    <SearchRequestTableClient
       poolCandidateSearchRequests={poolCandidateSearchRequests}
       title={title}
     />

@@ -133,7 +133,7 @@ class DatabaseSeeder extends Seeder
         });
 
         // Create some SearchRequests
-        PoolCandidateSearchRequest::factory()->count(10)->create([
+        PoolCandidateSearchRequest::factory()->count(50)->create([
             'applicant_filter_id' => ApplicantFilter::factory()->sparse()->withRelationships(true)
         ]);
     }
