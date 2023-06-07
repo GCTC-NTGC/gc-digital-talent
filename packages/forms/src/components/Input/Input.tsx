@@ -2,10 +2,13 @@ import * as React from "react";
 import get from "lodash/get";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 
+import Base from "../Base";
+
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import InputWrapper from "../InputWrapper";
+import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 
 export interface InputProps
   extends Omit<
@@ -41,14 +44,10 @@ const Input = ({
   rules = {},
   type,
   readOnly,
-  errorPosition = "bottom",
-  hideOptional,
   whitespaceTrim = true,
   trackUnsaved = true,
-  hidden,
   ...rest
 }: InputProps) => {
-  const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
   const {
     register,
     setValue,
@@ -56,6 +55,7 @@ const Input = ({
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
+  const baseStyles = useCommonInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
@@ -64,7 +64,7 @@ const Input = ({
     show: {
       error,
       unsaved: trackUnsaved && isUnsaved,
-      context: context && isContextVisible,
+      context,
     },
   });
 
@@ -76,43 +76,32 @@ const Input = ({
   };
 
   return (
-    <div data-h2-margin="base(x1, 0)">
-      <InputWrapper
-        inputId={id}
-        inputName={name}
-        label={label}
+    <Base.Wrapper>
+      <Base.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
+        {label}
+      </Base.Label>
+      <input
+        id={id}
+        type={type}
+        aria-describedby={ariaDescribedBy}
         required={!!rules.required}
-        context={context}
-        error={error}
-        hideOptional={hideOptional}
-        errorPosition={errorPosition}
-        trackUnsaved={trackUnsaved}
-        onContextToggle={setContextVisible}
-        descriptionIds={descriptionIds}
-        hidden={hidden}
-      >
-        <input
-          data-h2-padding="base(x.25, x.5)"
-          data-h2-radius="base(input)"
-          data-h2-width="base(100%)"
-          data-h2-min-height="base(40px)"
-          {...stateStyles}
-          id={id}
-          {...register(name, rules)}
-          onBlur={whitespaceTrimmer}
-          type={type}
-          {...(readOnly && {
-            "data-h2-background-color": "base(gray.light)",
-          })}
-          readOnly={readOnly}
-          aria-required={rules.required ? "true" : undefined}
-          aria-invalid={error ? "true" : "false"}
-          aria-describedby={ariaDescribedBy}
-          hidden={hidden}
-          {...rest}
-        />
-      </InputWrapper>
-    </div>
+        {...baseStyles}
+        {...stateStyles}
+        {...register(name, {
+          ...rules,
+          onBlur: whitespaceTrimmer,
+        })}
+        {...rest}
+      />
+      {context && (
+        <Base.Description id={descriptionIds?.context}>
+          {context}
+        </Base.Description>
+      )}
+      {error && (
+        <Base.Error id={descriptionIds?.error}>{error?.toString()}</Base.Error>
+      )}
+    </Base.Wrapper>
   );
 };
 
