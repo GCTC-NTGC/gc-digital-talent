@@ -103,5 +103,4 @@ ReadOnlyTextInput.args = {
   label: "First Name",
   name: "firstName",
   readOnly: true,
-  hideOptional: true,
 };

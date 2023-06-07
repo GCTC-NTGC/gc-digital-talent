@@ -1,23 +1,16 @@
 import React from "react";
-import { IntlShape, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import isEqual from "lodash/isEqual";
 import {
   FormProvider,
   useFieldArray,
   useForm,
   useFormContext,
-  useWatch,
 } from "react-hook-form";
 
 import { TableOfContents, Well } from "@gc-digital-talent/ui";
-import { Locales, errorMessages } from "@gc-digital-talent/i18n";
-import {
-  Repeater,
-  TextArea,
-  Submit,
-  WordCounter,
-  countNumberOfWords,
-} from "@gc-digital-talent/forms";
+import { errorMessages } from "@gc-digital-talent/i18n";
+import { Repeater, TextArea, Submit } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
@@ -49,28 +42,6 @@ export type ScreeningQuestionsSubmitData = Pick<
   UpdatePoolInput,
   "screeningQuestions"
 >;
-
-const WordLimit = ({ locale, index }: { locale: Locales; index: number }) => {
-  const value = useWatch({ name: "questions" });
-
-  return (
-    <div data-h2-margin="base(-x.5, 0, x1, 0)" data-h2-text-align="base(right)">
-      <WordCounter
-        text={value[index].question[locale] || ""}
-        wordLimit={TEXT_AREA_MAX_WORDS}
-      />
-    </div>
-  );
-};
-
-const maxWordValidator = (value: string, intl: IntlShape) => {
-  return (
-    countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS ||
-    intl.formatMessage(errorMessages.overWordLimit, {
-      value: TEXT_AREA_MAX_WORDS,
-    })
-  );
-};
 
 interface ModificationAlertProps {
   originalQuestions: FormValues["questions"];
@@ -259,17 +230,13 @@ const ScreeningQuestions = ({
                           label="Question (EN)"
                           disabled={formDisabled}
                           rows={TEXT_AREA_ROWS}
+                          wordLimit={TEXT_AREA_MAX_WORDS}
                           rules={{
                             required: intl.formatMessage(
                               errorMessages.required,
                             ),
-                            validate: {
-                              wordCount: (value: string) =>
-                                maxWordValidator(value, intl),
-                            },
                           }}
                         />
-                        <WordLimit locale="en" index={index} />
                       </div>
                       <div>
                         <TextArea
@@ -278,17 +245,13 @@ const ScreeningQuestions = ({
                           label="Question (FR)"
                           disabled={formDisabled}
                           rows={TEXT_AREA_ROWS}
+                          wordLimit={TEXT_AREA_MAX_WORDS}
                           rules={{
                             required: intl.formatMessage(
                               errorMessages.required,
                             ),
-                            validate: {
-                              wordCount: (value: string) =>
-                                maxWordValidator(value, intl),
-                            },
                           }}
                         />
-                        <WordLimit locale="fr" index={index} />
                       </div>
                     </div>
                   </Repeater.Fieldset>

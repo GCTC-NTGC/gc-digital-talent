@@ -2,12 +2,8 @@ import React from "react";
 import { useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import {
-  TextArea,
-  WordCounter,
-  countNumberOfWords,
-} from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import { TextArea } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 
@@ -28,7 +24,6 @@ const TasksAndResponsibilities = ({
 }: TaskAndResponsibilitiesProps) => {
   const intl = useIntl();
   const type = useWatch({ name: "experienceType" });
-  const currentValue = useWatch({ name: FIELD_NAME });
   const derivedType = type ?? experienceType;
 
   return (
@@ -56,32 +51,15 @@ const TasksAndResponsibilities = ({
               id={FIELD_NAME}
               name={FIELD_NAME}
               rows={TEXT_AREA_ROWS}
+              wordLimit={TEXT_AREA_MAX_WORDS}
               label={intl.formatMessage({
                 defaultMessage: "Your tasks and responsibilities",
                 id: "ETNZUJ",
                 description:
                   "Label for the experience task and responsibilities field",
               })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                validate: {
-                  wordCount: (value: string) =>
-                    countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS ||
-                    intl.formatMessage(errorMessages.overWordLimit, {
-                      value: TEXT_AREA_MAX_WORDS,
-                    }),
-                },
-              }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
-            <div
-              data-h2-margin="base(-x.5, 0, 0, 0)"
-              data-h2-text-align="base(right)"
-            >
-              <WordCounter
-                text={currentValue}
-                wordLimit={TEXT_AREA_MAX_WORDS}
-              />
-            </div>
           </>
         ) : (
           <NullExperienceType />

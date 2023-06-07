@@ -1,15 +1,9 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 
 import { TableOfContents } from "@gc-digital-talent/ui";
-import {
-  Submit,
-  TextArea,
-  WordCounter,
-  countNumberOfWords,
-} from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { Submit, TextArea } from "@gc-digital-talent/forms";
 
 import {
   PoolStatus,
@@ -55,15 +49,7 @@ const YourImpactSection = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
   });
-  const { handleSubmit, control } = methods;
-  const watchYourImpactEn: FormValues["yourImpactEn"] = useWatch({
-    control,
-    name: "yourImpactEn",
-  });
-  const watchYourImpactFr: FormValues["yourImpactFr"] = useWatch({
-    control,
-    name: "yourImpactFr",
-  });
+  const { handleSubmit } = methods;
 
   const handleSave = (formValues: FormValues) => {
     onSave({
@@ -106,27 +92,10 @@ const YourImpactSection = ({
                     "Label for the English - Your Impact textarea in the edit pool page.",
                 })}
                 name="yourImpactEn"
-                rules={{
-                  validate: {
-                    wordCount: (value: string) =>
-                      countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS_EN ||
-                      intl.formatMessage(errorMessages.overWordLimit, {
-                        value: TEXT_AREA_MAX_WORDS_EN,
-                      }),
-                  },
-                }}
+                {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_EN })}
                 rows={TEXT_AREA_ROWS}
                 disabled={formDisabled}
-              >
-                {!formDisabled && (
-                  <div data-h2-align-self="base(flex-end)">
-                    <WordCounter
-                      text={watchYourImpactEn ?? ""}
-                      wordLimit={TEXT_AREA_MAX_WORDS_EN}
-                    />
-                  </div>
-                )}
-              </TextArea>
+              />
             </Spacer>
             <Spacer style={{ flex: 1 }}>
               <TextArea
@@ -138,27 +107,10 @@ const YourImpactSection = ({
                     "Label for the French - Your Impact textarea in the edit pool page.",
                 })}
                 name="yourImpactFr"
-                rules={{
-                  validate: {
-                    wordCount: (value: string) =>
-                      countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS_FR ||
-                      intl.formatMessage(errorMessages.overWordLimit, {
-                        value: TEXT_AREA_MAX_WORDS_FR,
-                      }),
-                  },
-                }}
+                {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_FR })}
                 rows={TEXT_AREA_ROWS}
                 disabled={formDisabled}
-              >
-                {!formDisabled && (
-                  <div data-h2-align-self="base(flex-end)">
-                    <WordCounter
-                      text={watchYourImpactFr ?? ""}
-                      wordLimit={TEXT_AREA_MAX_WORDS_FR}
-                    />
-                  </div>
-                )}
-              </TextArea>
+              />
             </Spacer>
           </div>
 

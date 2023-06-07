@@ -3,13 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 
 import { TableOfContents } from "@gc-digital-talent/ui";
-import {
-  Submit,
-  TextArea,
-  WordCounter,
-  countNumberOfWords,
-} from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { Submit, TextArea } from "@gc-digital-talent/forms";
 
 import {
   PoolStatus,
@@ -55,15 +49,7 @@ const WorkTasksSection = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
   });
-  const { handleSubmit, control } = methods;
-  const watchYourWorkEn: FormValues["YourWorkEn"] = useWatch({
-    control,
-    name: "YourWorkEn",
-  });
-  const watchYourWorkFr: FormValues["YourWorkFr"] = useWatch({
-    control,
-    name: "YourWorkFr",
-  });
+  const { handleSubmit } = methods;
 
   const handleSave = (formValues: FormValues) => {
     onSave({
@@ -106,27 +92,10 @@ const WorkTasksSection = ({
                     "Label for the English - Your Work textarea in the edit pool page.",
                 })}
                 name="YourWorkEn"
-                rules={{
-                  validate: {
-                    wordCount: (value: string) =>
-                      countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS_EN ||
-                      intl.formatMessage(errorMessages.overWordLimit, {
-                        value: TEXT_AREA_MAX_WORDS_EN,
-                      }),
-                  },
-                }}
                 rows={TEXT_AREA_ROWS}
+                {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_EN })}
                 disabled={formDisabled}
-              >
-                {!formDisabled && (
-                  <div data-h2-align-self="base(flex-end)">
-                    <WordCounter
-                      text={watchYourWorkEn ?? ""}
-                      wordLimit={TEXT_AREA_MAX_WORDS_EN}
-                    />
-                  </div>
-                )}
-              </TextArea>
+              />
             </Spacer>
             <Spacer style={{ flex: 1 }}>
               <TextArea
@@ -138,27 +107,10 @@ const WorkTasksSection = ({
                     "Label for the French - Your Work textarea in the edit pool page.",
                 })}
                 name="YourWorkFr"
-                rules={{
-                  validate: {
-                    wordCount: (value: string) =>
-                      countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS_FR ||
-                      intl.formatMessage(errorMessages.overWordLimit, {
-                        value: TEXT_AREA_MAX_WORDS_FR,
-                      }),
-                  },
-                }}
+                {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_FR })}
                 rows={TEXT_AREA_ROWS}
                 disabled={formDisabled}
-              >
-                {!formDisabled && (
-                  <div data-h2-align-self="base(flex-end)">
-                    <WordCounter
-                      text={watchYourWorkFr ?? ""}
-                      wordLimit={TEXT_AREA_MAX_WORDS_FR}
-                    />
-                  </div>
-                )}
-              </TextArea>
+              />
             </Spacer>
           </div>
 

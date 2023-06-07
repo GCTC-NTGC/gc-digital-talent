@@ -24,6 +24,11 @@ const formMessages = defineMessages({
     id: "mDOWWQ",
     description: "Default text for submitting button.",
   },
+  wordLimit: {
+    defaultMessage: "{wordCount} / {wordLimit} words",
+    id: "YmboX1",
+    description: "Message for words remaining before hitting the limit",
+  },
   wordsOver: {
     defaultMessage:
       "{wordsLeft, plural, one {word over limit} other {words over limit}}.",

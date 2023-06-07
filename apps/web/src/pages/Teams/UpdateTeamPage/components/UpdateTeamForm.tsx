@@ -28,11 +28,9 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 
 import CreateTeamFormFields from "../../CreateTeamPage/components/CreateTeamFormFields";
-import DescriptionWordCounter, {
-  TEXT_AREA_MAX_WORDS,
-} from "./DescriptionWordCounter";
 
 const TEXT_AREA_ROWS = 4;
+const TEXT_AREA_MAX_WORDS = 200;
 
 type FormValues = {
   displayName?: Maybe<LocalizedStringInput>;
@@ -116,6 +114,7 @@ const UpdateTeamForm = ({
             id="description_en"
             name="description.en"
             rows={TEXT_AREA_ROWS}
+            wordLimit={TEXT_AREA_MAX_WORDS}
             label={intl.formatMessage({
               defaultMessage: "Team's short description (English)",
               id: "aGBFm5",
@@ -123,22 +122,15 @@ const UpdateTeamForm = ({
             })}
             rules={{
               required: intl.formatMessage(errorMessages.required),
-              validate: {
-                wordCount: (value: string) =>
-                  countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS ||
-                  intl.formatMessage(errorMessages.overWordLimit, {
-                    value: TEXT_AREA_MAX_WORDS,
-                  }),
-              },
             }}
           />
-          <DescriptionWordCounter name="description.en" />
         </div>
         <div data-h2-flex-item="base(1/2)">
           <TextArea
             id="description_fr"
             name="description.fr"
             rows={TEXT_AREA_ROWS}
+            wordLimit={TEXT_AREA_MAX_WORDS}
             label={intl.formatMessage({
               defaultMessage: "Team's short description (French)",
               id: "XNBegf",
@@ -146,16 +138,8 @@ const UpdateTeamForm = ({
             })}
             rules={{
               required: intl.formatMessage(errorMessages.required),
-              validate: {
-                wordCount: (value: string) =>
-                  countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS ||
-                  intl.formatMessage(errorMessages.overWordLimit, {
-                    value: TEXT_AREA_MAX_WORDS,
-                  }),
-              },
             }}
           />
-          <DescriptionWordCounter name="description.fr" />
         </div>
       </div>
       <div

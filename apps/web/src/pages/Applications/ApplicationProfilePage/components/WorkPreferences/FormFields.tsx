@@ -94,7 +94,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
         id="location-exemptions"
         label={labels.locationExemptions}
         name="locationExemptions"
-        describedBy="location-exemption-description"
+        aria-describedby="location-exemption-description"
       />
       <div
         id="location-exemption-description"

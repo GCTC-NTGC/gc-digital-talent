@@ -32,6 +32,7 @@ const Input = ({
   rules = {},
   type,
   readOnly,
+  "aria-describedby": describedBy,
   whitespaceTrim = true,
   trackUnsaved = true,
   ...rest
@@ -49,6 +50,7 @@ const Input = ({
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
+    describedBy,
     show: {
       error,
       unsaved: trackUnsaved && isUnsaved,

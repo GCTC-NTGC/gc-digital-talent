@@ -1,12 +1,12 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { WordCounterProps } from ".";
+
+import WordCounter, { WordCounterProps } from "./WordCounter";
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
 import TextArea from "../TextArea";
-import WordCounter from "./WordCounter";
 
 export default {
   component: WordCounter,
@@ -15,10 +15,13 @@ export default {
     text: "",
     wordLimit: 5,
   },
-} as Meta;
+};
 
-const TemplateWordCounter: Story<WordCounterProps> = (args) => {
-  const { text } = args;
+const TemplateWordCounter: StoryFn<
+  WordCounterProps & {
+    text: string;
+  }
+> = ({ text, ...args }) => {
   return (
     <div style={{ width: "20rem" }}>
       <BasicForm onSubmit={action("submit")}>
