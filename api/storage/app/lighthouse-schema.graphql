@@ -869,6 +869,9 @@ type PoolCandidateSearchRequest {
 
 input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus]
+  departments: [ID]
+  classifications: [ID]
+  streams: [PoolStream]
 }
 
 """A paginated list of PoolCandidateSearchRequest items."""

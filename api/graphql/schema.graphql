@@ -891,6 +891,9 @@ input PoolCandidateSearchInput {
 
 input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
+  departments: [ID] @scope
+  classifications: [ID] @scope
+  streams: [PoolStream] @scope
 }
 
 type CandidateSearchPoolResult {
