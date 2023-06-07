@@ -834,4 +834,6 @@ RAWSQL2;
             $this->callRolesFunction($roleAssignmentHasMany['sync'], 'syncRoles');
         }
     }
+
+    // TODO: https://laravel.com/docs/10.x/notifications#marking-notifications-as-read
 }

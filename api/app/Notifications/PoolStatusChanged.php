@@ -32,6 +32,7 @@ class PoolStatusChanged extends Notification
 
     /**
      * Get the array representation of the notification.
+     * https://laravel.com/docs/10.x/notifications#formatting-database-notifications
      *
      * @return array<string, mixed>
      */

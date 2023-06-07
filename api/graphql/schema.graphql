@@ -140,6 +140,9 @@ type User {
   priorityWeight: Int @rename(attribute: "priority_weight")
   # teams and roles
   roleAssignments: [RoleAssignment!] @hasMany
+
+  unreadNotifications: [String!]
+  notifications: [String!]
 }
 
 enum ProvinceOrTerritory {

@@ -1543,6 +1543,8 @@ type User {
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
   roleAssignments: [RoleAssignment!]
+  unreadNotifications: [String!]
+  notifications: [String!]
 }
 
 input UserBelongsTo {
