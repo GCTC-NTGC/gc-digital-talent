@@ -144,7 +144,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
               <Input
                 readOnly
                 value={relativeToAbsoluteURL(paths.pool(pool.id))}
-                hideOptional
                 id="poolUrl"
                 name="poolUrl"
                 type="text"
@@ -222,7 +221,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   name="classification"
                   type="text"
                   readOnly
-                  hideOptional
                   value={`${classification.group}-0${
                     classification.level
                   }  (${getLocalizedName(classification.name, intl)})`}
@@ -240,7 +238,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   name="stream"
                   type="text"
                   readOnly
-                  hideOptional
                   value={
                     pool.stream
                       ? intl.formatMessage(getPoolStream(pool.stream))
@@ -260,7 +257,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   name="specificTitleEn"
                   type="text"
                   readOnly
-                  hideOptional
                   value={pool.name?.en ?? ""}
                   label={intl.formatMessage({
                     defaultMessage: "Specific Title (English)",
@@ -276,7 +272,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   name="specificTitleFr"
                   type="text"
                   readOnly
-                  hideOptional
                   value={pool.name?.fr ?? ""}
                   label={intl.formatMessage({
                     defaultMessage: "Specific Title (French)",
@@ -295,7 +290,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 name="processNumber"
                 type="text"
                 readOnly
-                hideOptional
                 value={pool.processNumber ?? ""}
                 label={intl.formatMessage({
                   defaultMessage: "Process Number",
@@ -310,7 +304,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 name="expiryDate"
                 type="text"
                 readOnly
-                hideOptional
                 value={closingStringLocal}
                 label={intl.formatMessage({
                   defaultMessage: "Closing date",
@@ -327,7 +320,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                     name="expiryDatePacific"
                     type="text"
                     readOnly
-                    hideOptional
                     value={closingStringPacific}
                     label={intl.formatMessage({
                       defaultMessage: "Closing date (Pacific time zone)",
@@ -344,7 +336,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 name="status"
                 type="text"
                 readOnly
-                hideOptional
                 value={intl.formatMessage(getPoolStatus(pool.status ?? ""))}
                 label={intl.formatMessage({
                   defaultMessage: "Status",

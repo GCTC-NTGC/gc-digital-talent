@@ -413,7 +413,6 @@ export const ApplicationResume = ({
             id="experienceCount"
             name="experienceCount"
             label=""
-            hideOptional
             type="number"
             hidden
             rules={{

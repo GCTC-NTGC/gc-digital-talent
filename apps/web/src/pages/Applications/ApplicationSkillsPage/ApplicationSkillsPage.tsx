@@ -279,7 +279,6 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
             id="skillsMissingExperiences"
             name="skillsMissingExperiences"
             label=""
-            hideOptional
             type="number"
             hidden
             rules={{
