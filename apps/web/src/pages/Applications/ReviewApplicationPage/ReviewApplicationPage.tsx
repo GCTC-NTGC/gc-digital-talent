@@ -239,10 +239,7 @@ export const ReviewApplication = ({
                         style={{ width: "1rem", marginLeft: "0.5rem" }}
                       />
                     </Link>
-                    <Link
-                      href={paths.applications(applicant.id)}
-                      color="secondary"
-                    >
+                    <Link href={paths.applications(applicant.id)} mode="inline">
                       {intl.formatMessage({
                         id: "zqIEuu",
                         defaultMessage: "Go back to my applications",

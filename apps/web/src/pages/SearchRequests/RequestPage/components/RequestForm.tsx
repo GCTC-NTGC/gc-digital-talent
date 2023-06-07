@@ -406,7 +406,7 @@ export const RequestForm = ({
               data-h2-flex-item="base(1of1) p-tablet(1of2)"
             >
               <Link
-                color="secondary"
+                mode="inline"
                 data-h2-margin="base(0, x.5, 0, 0)"
                 href={paths.search()}
                 state={{

@@ -18,20 +18,15 @@ const CancelButton = ({ href, children }: CancelButtonProps) => {
     <Link
       href={href || paths.myProfile()}
       color="secondary"
-      data-h2-display="p-tablet(inline-flex)"
-      data-h2-width="base(auto)"
-      data-h2-align-items="base(center)"
-      data-h2-padding="base(0)"
+      mode="inline"
+      icon={ArrowLeftCircleIcon}
     >
-      <ArrowLeftCircleIcon style={{ width: "1rem" }} />
-      <span data-h2-margin="base(auto, auto, auto, x.125)">
-        {children ||
-          intl.formatMessage({
-            defaultMessage: "Cancel and go back",
-            id: "fMcKtJ",
-            description: "Text to cancel changes to a form",
-          })}
-      </span>
+      {children ||
+        intl.formatMessage({
+          defaultMessage: "Cancel and go back",
+          id: "fMcKtJ",
+          description: "Text to cancel changes to a form",
+        })}
     </Link>
   );
 };

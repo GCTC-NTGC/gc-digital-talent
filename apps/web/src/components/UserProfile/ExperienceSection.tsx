@@ -197,7 +197,7 @@ const ExperienceSection = ({
             })}
           </p>
           <p>
-            <Link href={editPath}>
+            <Link mode="inline" href={editPath}>
               {intl.formatMessage({
                 defaultMessage: "Edit your experience options.",
                 id: "c39xT8",

@@ -61,7 +61,7 @@ export const roleAssignmentsToRoleTeamArray = (
 };
 
 const viewAccessor = (url: string, label: Maybe<string>, intl: IntlShape) => (
-  <Link href={url} type="link">
+  <Link href={url} color="black">
     {label ||
       intl.formatMessage({
         defaultMessage: "No name provided",
@@ -74,7 +74,7 @@ const viewAccessor = (url: string, label: Maybe<string>, intl: IntlShape) => (
 const emailLinkAccessor = (email: Maybe<string>, intl: IntlShape) => {
   if (email) {
     return (
-      <Link external href={`mailto:${email}`}>
+      <Link color="black" external href={`mailto:${email}`}>
         {email}
       </Link>
     );

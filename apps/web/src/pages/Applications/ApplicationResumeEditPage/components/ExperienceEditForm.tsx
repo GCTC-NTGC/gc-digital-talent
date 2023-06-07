@@ -148,6 +148,7 @@ const EditExperienceForm = ({
           </Button>
           <Link
             color="quaternary"
+            mode="inline"
             href={paths.applicationResume(applicationId)}
           >
             {intl.formatMessage(formMessages.cancelGoBack)}

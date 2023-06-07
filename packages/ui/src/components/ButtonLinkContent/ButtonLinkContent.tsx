@@ -2,6 +2,7 @@ import React from "react";
 
 import { ButtonLinkMode, IconType } from "../../types";
 import IconWrapper from "./IconWrapper";
+import TextWrapper from "./TextWrapper";
 
 interface IconTextProps
   extends React.DetailedHTMLProps<
@@ -11,6 +12,7 @@ interface IconTextProps
   mode: ButtonLinkMode;
   icon?: IconType;
   utilityIcon?: IconType;
+  newTab?: boolean;
 }
 
 const ButtonLinkContent = ({
@@ -18,8 +20,11 @@ const ButtonLinkContent = ({
   icon,
   utilityIcon,
   mode,
+  newTab = false,
   ...rest
 }: IconTextProps) => {
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  if (!newTab && !icon && !utilityIcon) return <>{children}</>;
   const Icon = icon;
   const UtilityIcon = utilityIcon;
 
@@ -45,16 +50,9 @@ const ButtonLinkContent = ({
           />
         </IconWrapper>
       )}
-      <span
-        data-h2-display="base(inline-flex)"
-        data-h2-align-items="base(center)"
-        {...(mode === "cta" && {
-          "data-h2-radius": "base(0 s s 0)",
-          "data-h2-padding": "base(x.5 x1)",
-        })}
-      >
+      <TextWrapper mode={mode} newTab={newTab}>
         {children}
-      </span>
+      </TextWrapper>
       {UtilityIcon && <UtilityIcon data-h2-margin="base(0 0 0 x.25)" />}
     </span>
   );

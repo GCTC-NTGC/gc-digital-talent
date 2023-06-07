@@ -223,7 +223,12 @@ const AddExperienceDialog = ({
                       {section.description}
                     </div>
                   </div>
-                  <Link color="secondary" href={section.buttonPath} block>
+                  <Link
+                    mode="solid"
+                    color="secondary"
+                    href={section.buttonPath}
+                    block
+                  >
                     {section.buttonText}
                   </Link>
                 </div>

@@ -168,7 +168,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
             })}
           </Button>
         </form>
-        <Link color="secondary" href={paths.pool(application.pool.id)}>
+        <Link mode="inline" href={paths.pool(application.pool.id)}>
           {intl.formatMessage({
             defaultMessage: "Return to the advertisement",
             id: "RWvojd",

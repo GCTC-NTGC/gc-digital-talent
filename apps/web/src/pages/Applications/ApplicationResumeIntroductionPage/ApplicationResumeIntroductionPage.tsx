@@ -111,7 +111,7 @@ const ApplicationResumeIntroduction = ({
           })}
         </Link>
         <Link
-          color="secondary"
+          mode="inline"
           href={
             applicantDashboard
               ? paths.dashboard({ fromIapDraft: isIAP })

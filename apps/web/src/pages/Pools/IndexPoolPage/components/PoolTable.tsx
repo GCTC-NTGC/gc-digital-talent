@@ -59,7 +59,11 @@ function poolCandidatesLinkAccessor(
 }
 
 function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
-  return <Link href={url}>{getFullPoolTitleHtml(intl, pool)}</Link>;
+  return (
+    <Link color="black" href={url}>
+      {getFullPoolTitleHtml(intl, pool)}
+    </Link>
+  );
 }
 
 function viewTeamLinkAccessor(
@@ -68,7 +72,7 @@ function viewTeamLinkAccessor(
   intl: IntlShape,
 ) {
   return url ? (
-    <Link href={url}>
+    <Link color="black" href={url}>
       {intl.formatMessage(
         {
           defaultMessage: "<hidden>View team: </hidden>{teamName}",
@@ -126,7 +130,7 @@ const classificationsCell = (
 const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
   if (value) {
     return (
-      <Link external href={`mailto:${value}`}>
+      <Link color="black" external href={`mailto:${value}`}>
         {value}
       </Link>
     );

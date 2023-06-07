@@ -62,7 +62,7 @@ const actionCell = (user: TeamMember, team: Team, roles: Array<Role>) => (
 const emailLinkCell = (email: Maybe<string>, intl: IntlShape) => {
   if (email) {
     return (
-      <Link external href={`mailto:${email}`}>
+      <Link color="black" external href={`mailto:${email}`}>
         {email}
       </Link>
     );

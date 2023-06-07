@@ -111,7 +111,7 @@ const ApplicationSkillsIntroduction = ({
               ? paths.dashboard({ fromIapDraft: isIAP })
               : paths.myProfile()
           }
-          color="secondary"
+          mode="inline"
         >
           {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>

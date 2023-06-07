@@ -147,7 +147,7 @@ const RequestConfirmationPage = () => {
               description: "Button text to print the request confirmation page",
             })}
           </Button>
-          <Link href={paths.search()} color="secondary">
+          <Link mode="inline" href={paths.search()} color="secondary">
             {intl.formatMessage({
               defaultMessage: "Create a new talent request",
               id: "+d2TiI",

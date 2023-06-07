@@ -31,10 +31,9 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
   (
     {
       href,
-      color = "primary",
-      mode = "inline",
+      color = "secondary",
+      mode = "text",
       block = false,
-      light = false,
       external = false,
       newTab = false,
       disabled = false,
@@ -56,7 +55,6 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       mode,
       color,
       block,
-      light,
       disabled,
     });
 
@@ -72,7 +70,12 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
     };
 
     const content = (
-      <ButtonLinkContent mode={mode} icon={icon} utilityIcon={utilityIcon}>
+      <ButtonLinkContent
+        mode={mode}
+        icon={icon}
+        utilityIcon={utilityIcon}
+        newTab={newTab}
+      >
         {children}
         {newTab && (
           <ArrowTopRightOnSquareIcon

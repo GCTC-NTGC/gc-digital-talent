@@ -9,11 +9,12 @@ type StyleRecord = Record<string, string>;
  * style use cases for specific attributes
  */
 const styleExclusions: Record<string, Array<ButtonLinkMode>> = {
-  background: ["inline"],
-  border: ["inline"],
+  background: ["inline", "text"],
+  border: ["inline", "text"],
   overflow: ["cta"],
-  padding: ["cta", "inline"],
-  shadow: ["inline", "solid"],
+  padding: ["cta", "inline", "text"],
+  shadow: ["inline", "solid", "text"],
+  weight: ["text"],
 };
 
 /**
@@ -783,15 +784,16 @@ const getDisplay = (block?: boolean): StyleRecord => {
  * @param block boolean
  * @returns Record<string, string>
  */
-const getWeight = (light?: boolean): StyleRecord => {
-  return light ? {} : { "data-h2-font-weight": "base(700)" };
+const getWeight = (mode: ButtonLinkMode): StyleRecord => {
+  return styleExclusions.weight.includes(mode)
+    ? {}
+    : { "data-h2-font-weight": "base(700)" };
 };
 
 interface UseCommonButtonLinkStylesArgs {
   mode: ButtonLinkMode;
   color: Color;
   block?: boolean;
-  light?: boolean;
   disabled?: boolean;
 }
 
@@ -803,23 +805,26 @@ const useCommonButtonLinkStyles: UseCommonButtonLinkStyles = ({
   mode,
   color,
   block,
-  light,
   disabled,
 }) => {
+  let nonTextMode = mode;
+  if (mode === "text") {
+    nonTextMode = "inline";
+  }
   return {
     "data-h2-font-size": "base(copy)",
     "data-h2-text-decoration": "base(underline) base:hover(none)",
     "data-h2-transition": "base(all ease 50ms) base:children[*](all ease 50ms)",
     "data-h2-outline-offset": "base(4px)",
     "data-h2-radius": "base(s)",
-    ...getWeight(light),
-    ...getPadding(mode),
-    ...getShadow(mode),
-    ...getOverflow(mode),
+    ...getWeight(mode),
+    ...getPadding(nonTextMode),
+    ...getShadow(nonTextMode),
+    ...getOverflow(nonTextMode),
     ...getDisplay(block),
-    ...getBorders(mode, color, disabled),
-    ...getBackground(mode, color, disabled),
-    ...getFontColor(mode, color, disabled),
+    ...getBorders(nonTextMode, color, disabled),
+    ...getBackground(nonTextMode, color, disabled),
+    ...getFontColor(nonTextMode, color, disabled),
   };
 };
 

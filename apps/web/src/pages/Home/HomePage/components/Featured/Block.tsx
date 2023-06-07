@@ -57,9 +57,10 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
       </p>
       <div data-h2-padding="base(0, x1, x1, x1)">
         <Link
+          color="black"
+          mode="inline"
           href={content.link.path}
           external={content.link.external}
-          data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
         >
           {content.link.label}
         </Link>

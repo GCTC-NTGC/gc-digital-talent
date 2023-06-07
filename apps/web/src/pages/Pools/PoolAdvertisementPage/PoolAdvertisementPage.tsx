@@ -598,7 +598,6 @@ export const PoolPoster = ({
                   <Link
                     newTab
                     external
-                    light
                     color="black"
                     href={
                       locale === "fr"
@@ -627,7 +626,6 @@ export const PoolPoster = ({
                   <Link
                     newTab
                     external
-                    light
                     color="black"
                     href={
                       locale === "fr"

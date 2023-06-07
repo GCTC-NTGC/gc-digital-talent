@@ -183,7 +183,7 @@ const SignatureForm = ({
               </span>
             }
           />
-          <Link href={paths.reviewApplication(applicationId)} color="secondary">
+          <Link href={paths.reviewApplication(applicationId)} mode="inline">
             {intl.formatMessage({
               defaultMessage: "Back to previous step",
               id: "SDQWZf",

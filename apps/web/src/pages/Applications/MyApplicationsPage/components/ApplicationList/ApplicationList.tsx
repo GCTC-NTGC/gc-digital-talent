@@ -103,8 +103,12 @@ const ApplicationList = ({ applications }: ApplicationListProps) => {
                       "Text displayed in draft applications section when there are no drafts.",
                   })}
                 </p>
-                <p data-h2-font-weight="base(700)">
-                  <Link color="primary" href={paths.browsePools()}>
+                <p>
+                  <Link
+                    mode="inline"
+                    color="primary"
+                    href={paths.browsePools()}
+                  >
                     {intl.formatMessage({
                       defaultMessage:
                         "Check our available opportunities to start an application.",

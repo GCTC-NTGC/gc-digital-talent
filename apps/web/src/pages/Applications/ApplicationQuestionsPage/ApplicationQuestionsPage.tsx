@@ -128,6 +128,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
         </Heading>
         <Link
           color="secondary"
+          mode="inline"
           href={paths.applicationQuestionsIntro(application.id)}
         >
           {intl.formatMessage({

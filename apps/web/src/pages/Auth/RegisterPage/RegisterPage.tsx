@@ -97,7 +97,7 @@ const RegisterPage = () => {
             data-h2-justify-content="base(space-between)"
           >
             <p>
-              <Link href={loginPath} mode="inline" color="secondary" external>
+              <Link href={loginPath} mode="inline" external>
                 {intl.formatMessage({
                   defaultMessage: "Log in instead",
                   id: "rUFZwt",

@@ -35,7 +35,7 @@ const EditExperienceLink = ({
 
   if (!!editUrl && !onEditClick) {
     return (
-      <Link href={editUrl} {...styles}>
+      <Link mode="inline" href={editUrl} {...styles}>
         {children}
       </Link>
     );
