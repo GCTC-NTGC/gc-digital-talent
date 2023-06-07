@@ -7,7 +7,6 @@ import Base from "../Base";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import InputWrapper from "../InputWrapper";
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 
 export interface InputProps
@@ -91,6 +90,12 @@ const Input = ({
           ...rules,
           onBlur: whitespaceTrimmer,
         })}
+        {...(readOnly
+          ? {
+              readOnly: true,
+              "data-h2-background-color": "base(background.dark)",
+            }
+          : {})}
         {...rest}
       />
       {context && (
