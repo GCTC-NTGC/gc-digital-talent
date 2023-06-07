@@ -13,6 +13,7 @@ const Step = ({ path, label, disabled, ...rest }: StepProps) => (
     href={path}
     mode="solid"
     color="secondary"
+    disabled={disabled}
     style={{
       pointerEvents: disabled ? "none" : undefined,
     }}

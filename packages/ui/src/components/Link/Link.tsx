@@ -24,6 +24,7 @@ export type LinkProps = ButtonLinkProps &
   > & {
     external?: boolean;
     newTab?: boolean;
+    disabled?: boolean;
   };
 
 const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
@@ -36,6 +37,7 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       light = false,
       external = false,
       newTab = false,
+      disabled = false,
       icon,
       children,
       ...rest
@@ -54,6 +56,7 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       color,
       block,
       light,
+      disabled,
     });
 
     const commonProps = {
