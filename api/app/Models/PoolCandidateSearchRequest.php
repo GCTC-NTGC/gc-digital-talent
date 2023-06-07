@@ -87,6 +87,49 @@ class PoolCandidateSearchRequest extends Model
         return $query;
     }
 
+    public static function scopeStreams(Builder $query, ?array $streams): Builder
+    {
+        if (empty($streams)) {
+            return $query;
+        }
+
+        // streams is an array of PoolStream enums
+        $query->whereHas('applicantFilter', function ($query) use ($streams) {
+            $query->where(function ($query) use ($streams) {
+                foreach ($streams as $index => $stream) {
+                    $query->orWhereJsonContains('qualified_streams', $stream);
+                }
+            });
+        });
+        return $query;
+    }
+
+    public static function scopeDepartments(Builder $query, ?array $departmentIds): Builder
+    {
+        if (empty($departmentIds)) {
+            return $query;
+        }
+
+        $query->whereHas('department', function ($query) use ($departmentIds) {
+            Department::scopeDepartmentsByIds($query, $departmentIds);
+        });
+        return $query;
+    }
+
+    public static function scopeClassifications(Builder $query, ?array $classificationIds): Builder
+    {
+        if (empty($classificationIds)) {
+            return $query;
+        }
+
+        $query->whereHas('applicantFilter', function ($query) use ($classificationIds) {
+            $query->whereHas('classifications', function ($query) use ($classificationIds) {
+                Classification::scopeClassificationsByIds($query, $classificationIds);
+            });
+        });
+        return $query;
+    }
+
     /**
      * Getters/Mutators
      */
