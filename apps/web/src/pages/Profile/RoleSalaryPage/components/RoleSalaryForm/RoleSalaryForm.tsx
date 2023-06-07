@@ -147,11 +147,7 @@ const RoleSalaryForm = ({
           url: paths.reviewApplication(applicationId ?? ""),
         },
         {
-          label: intl.formatMessage({
-            defaultMessage: "Role and Salary Expectations",
-            id: "dgOYID",
-            description: "Label for role and salary link",
-          }),
+          label: intl.formatMessage(navigationMessages.roleSalaryExpectations),
           url: initialData.me?.id
             ? `${paths.roleSalary(initialData.me.id)}${
                 applicationId ? `?applicationId=${applicationId}` : ``
@@ -163,11 +159,7 @@ const RoleSalaryForm = ({
 
   return (
     <ProfileFormWrapper
-      title={intl.formatMessage({
-        defaultMessage: "Role and Salary Expectations",
-        id: "kCBLsJ",
-        description: "Title role and salary expectations form",
-      })}
+      title={intl.formatMessage(navigationMessages.roleSalaryExpectations)}
       description={intl.formatMessage({
         defaultMessage:
           "Government classifications are labels that the Government of Canada uses to group similar types of work. In the Government of Canada salary is tied to how positions are classified.",
@@ -179,11 +171,9 @@ const RoleSalaryForm = ({
           ? applicationBreadcrumbs
           : [
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Role and Salary Expectations",
-                  id: "dgOYID",
-                  description: "Label for role and salary link",
-                }),
+                label: intl.formatMessage(
+                  navigationMessages.roleSalaryExpectations,
+                ),
                 url: initialData.me?.id
                   ? paths.roleSalary(initialData.me.id)
                   : "#",

@@ -119,6 +119,51 @@ query getPoolCandidateSearchRequest($id: ID!) {
   }
 }
 
+query getPoolCandidateSearchRequestsPaginated(
+  $where: PoolCandidateSearchRequestInput
+  $first: Int
+  $page: Int
+  $orderBy: [OrderByClause!]
+) {
+  poolCandidateSearchRequestsPaginated(
+    where: $where
+    first: $first
+    page: $page
+    orderBy: $orderBy
+  ) {
+    data {
+      additionalComments
+      adminNotes
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      doneDate
+      email
+      fullName
+      id
+      jobTitle
+      requestedDate
+      status
+      wasEmpty
+    }
+    paginatorInfo {
+      count
+      currentPage
+      firstItem
+      hasMorePages
+      lastItem
+      lastPage
+      perPage
+      total
+    }
+  }
+}
+
 mutation updatePoolCandidateSearchRequest(
   $id: ID!
   $poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!

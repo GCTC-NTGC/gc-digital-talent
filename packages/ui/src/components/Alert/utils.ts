@@ -1,7 +1,7 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
-import EyeIcon from "@heroicons/react/24/outline/EyeIcon";
+import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 
@@ -52,24 +52,9 @@ export const dismissStyleMap: Record<AlertType, Record<string, string>> = {
   },
 };
 
-export const separatorStyleMap: Record<AlertType, Record<string, string>> = {
-  success: {
-    "data-h2-background-color": "base(success.darker)",
-  },
-  warning: {
-    "data-h2-background-color": "base(warning.darker)",
-  },
-  info: {
-    "data-h2-background-color": "base(secondary.darker)",
-  },
-  error: {
-    "data-h2-background-color": "base(error.darker)",
-  },
-};
-
 export const iconMap: Record<AlertType, IconType> = {
   success: CheckCircleIcon,
-  info: EyeIcon,
+  info: BellAlertIcon,
   warning: ExclamationCircleIcon,
   error: ExclamationTriangleIcon,
 };

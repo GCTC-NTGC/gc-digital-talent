@@ -8,9 +8,9 @@ import { getPoolCandidateStatus } from "@gc-digital-talent/i18n";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
-import { UserInformationProps } from "../types";
-import ChangeStatusDialog from "./ChangeStatusDialog";
-import ChangeDateDialog from "./ChangeDateDialog";
+import { UserInformationProps } from "../../pages/Users/UserInformationPage/types";
+import ChangeStatusDialog from "../../pages/Users/UserInformationPage/components/ChangeStatusDialog";
+import ChangeDateDialog from "../../pages/Users/UserInformationPage/components/ChangeDateDialog";
 
 const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
   const intl = useIntl();

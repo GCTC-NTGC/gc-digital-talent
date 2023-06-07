@@ -40,6 +40,7 @@ import {
 } from "~/utils/experienceUtils";
 import { AwardExperience } from "~/api/generated";
 
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   HeroCardExperienceItem,
   HeroCardProfileItem,
@@ -218,11 +219,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           href={paths.profile(user.id)}
         >
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "About Me",
-              id: "4sJvia",
-              description: "Title of the About link section",
-            })}
+            sectionName={intl.formatMessage(navigationMessages.aboutMe)}
             status={deriveSectionStatus(
               aboutSectionHasEmptyRequiredFields(user),
               aboutSectionHasEmptyOptionalFields(user),
@@ -231,11 +228,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
 
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "Language Information",
-              id: "B9x0ZV",
-              description: "Title of the Language Information link section",
-            })}
+            sectionName={intl.formatMessage(
+              navigationMessages.languageInformation,
+            )}
             status={deriveSectionStatus(
               languageInformationSectionHasEmptyRequiredFields(user),
               languageInformationSectionHasEmptyOptionalFields(user),
@@ -244,11 +239,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
 
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "Government Information",
-              id: "Nc4sjC",
-              description: "Title of the Government Information link section",
-            })}
+            sectionName={intl.formatMessage(
+              navigationMessages.governmentInformation,
+            )}
             status={deriveSectionStatus(
               governmentInformationSectionHasEmptyRequiredFields(user),
               governmentInformationSectionHasEmptyOptionalFields(user),
@@ -256,11 +249,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             href={paths.governmentInformation(user.id)}
           />
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "Work Location",
-              id: "9WxeNz",
-              description: "Title of the Work Location link section",
-            })}
+            sectionName={intl.formatMessage(navigationMessages.workLocation)}
             status={deriveSectionStatus(
               workLocationSectionHasEmptyRequiredFields(user),
               workLocationSectionHasEmptyOptionalFields(user),
@@ -269,11 +258,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
 
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "Work Preferences",
-              id: "0DzlCc",
-              description: "Title of the Work Preferences link section",
-            })}
+            sectionName={intl.formatMessage(navigationMessages.workPreferences)}
             status={deriveSectionStatus(
               workPreferencesSectionHasEmptyRequiredFields(user),
               workPreferencesSectionHasEmptyOptionalFields(user),
@@ -281,12 +266,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             href={paths.workPreferences(user.id)}
           />
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "Diversity, equity and inclusion",
-              id: "e2R6fy",
-              description:
-                "Title of the Diversity, equity and inclusion link section",
-            })}
+            sectionName={intl.formatMessage(
+              navigationMessages.diversityEquityInclusion,
+            )}
             status={deriveSectionStatus(
               diversityEquityInclusionSectionHasEmptyRequiredFields(user),
               diversityEquityInclusionSectionHasEmptyOptionalFields(user),
@@ -294,12 +276,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             href={paths.diversityEquityInclusion(user.id)}
           />
           <HeroCardProfileItem
-            sectionName={intl.formatMessage({
-              defaultMessage: "Role and salary expectations",
-              id: "95OYVk",
-              description:
-                "Title of the Role and salary expectations link section",
-            })}
+            sectionName={intl.formatMessage(
+              navigationMessages.roleSalaryExpectations,
+            )}
             status={deriveSectionStatus(
               roleSalarySectionHasEmptyRequiredFields(user),
               roleSalarySectionHasEmptyOptionalFields(user),

@@ -115,7 +115,7 @@ const DiversityEquityInclusionSection = ({
                         <li>
                           <span
                             data-h2-font-weight="base(700)"
-                            data-h2-color="base(primary)"
+                            data-h2-color="base(primary.dark)"
                           >
                             {intl.formatMessage(
                               {
