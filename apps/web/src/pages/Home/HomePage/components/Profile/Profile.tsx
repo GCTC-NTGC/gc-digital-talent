@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 
 import { Link } from "@gc-digital-talent/ui";
 
@@ -81,7 +81,7 @@ const Profile = () => {
               color="quinary"
               mode="cta"
               href={paths.myProfile()}
-              icon={UserGroupIcon}
+              icon={UserPlusIcon}
             >
               {intl.formatMessage({
                 defaultMessage: "Create a profile",
