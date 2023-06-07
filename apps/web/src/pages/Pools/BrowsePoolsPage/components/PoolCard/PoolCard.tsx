@@ -198,16 +198,18 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           {pool.id && (
             <p>
               <Link color="secondary" mode="solid" href={paths.pool(pool.id)}>
-                {intl.formatMessage(
-                  {
-                    id: "YxqhQt",
-                    defaultMessage:
-                      "Apply to this recruitment process ({name})",
-                    description:
-                      "Message on link that say to apply to a recruitment advertisement",
-                  },
-                  { name: classificationAbbr },
-                )}
+                <span>
+                  {intl.formatMessage(
+                    {
+                      id: "YxqhQt",
+                      defaultMessage:
+                        "Apply to this recruitment process ({name})",
+                      description:
+                        "Message on link that say to apply to a recruitment advertisement",
+                    },
+                    { name: classificationAbbr },
+                  )}
+                </span>
               </Link>
             </p>
           )}
