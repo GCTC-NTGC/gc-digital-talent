@@ -27,9 +27,10 @@ const Trigger = React.forwardRef<
     data-h2-background-color="base(white)"
     data-h2-border="base(1px solid gray)"
     data-h2-border-top="
-      base(x.5 solid gray)
+      base:selectors[[data-state='inactive']](x.5 solid gray)
       base:selectors[[data-state='active']](x.5 solid primary)
-      base:hover(x.5 solid gray.dark)"
+      base:selectors[[data-state='inactive']]:hover(x.5 solid gray.dark)
+      base:selectors[[data-state='active']]:hover(x.5 solid primary.dark)"
     data-h2-border-bottom="base:selectors[[data-state='active']](1px solid white)"
     data-h2-cursor="base(pointer)"
     data-h2-padding="base(x.5, x1)"
