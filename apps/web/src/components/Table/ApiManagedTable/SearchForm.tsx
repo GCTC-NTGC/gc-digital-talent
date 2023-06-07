@@ -82,15 +82,10 @@ const SearchForm = ({
           <DropdownMenu.Trigger>
             <Button
               color="secondary"
-              data-h2-flex-shrink="base(0)"
+              utilityIcon={ChevronDownIcon}
               data-h2-radius="base(s 0 0 s)"
-              data-h2-margin-right="base(0)"
             >
-              <span>{column ? column.label : allTableMsg}</span>
-              <ChevronDownIcon
-                data-h2-height="base(1rem)"
-                data-h2-width="base(1rem)"
-              />
+              {column ? column.label : allTableMsg}
             </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>

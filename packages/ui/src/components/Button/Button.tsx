@@ -15,6 +15,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     {
       children,
       icon,
+      utilityIcon,
       disabled,
       color = "primary",
       mode = "solid",
@@ -40,7 +41,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       // eslint-disable-next-line react/button-has-type
       <button ref={ref} disabled={disabled} {...styles} {...rest}>
-        <ButtonLinkContent mode={mode} icon={icon}>
+        <ButtonLinkContent mode={mode} icon={icon} utilityIcon={utilityIcon}>
           {children}
         </ButtonLinkContent>
       </button>

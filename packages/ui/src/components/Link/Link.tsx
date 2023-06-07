@@ -39,6 +39,7 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       newTab = false,
       disabled = false,
       icon,
+      utilityIcon,
       children,
       ...rest
     },
@@ -71,13 +72,12 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
     };
 
     const content = (
-      <ButtonLinkContent mode={mode} icon={icon}>
+      <ButtonLinkContent mode={mode} icon={icon} utilityIcon={utilityIcon}>
         {children}
         {newTab && (
           <ArrowTopRightOnSquareIcon
             aria-label={intl.formatMessage(uiMessages.newTab)}
-            data-h2-width="base(x1)"
-            data-h2-margin="base(0, 0, 0, x.25)"
+            data-h2-margin="base(0 0 0 x.25)"
           />
         )}
       </ButtonLinkContent>

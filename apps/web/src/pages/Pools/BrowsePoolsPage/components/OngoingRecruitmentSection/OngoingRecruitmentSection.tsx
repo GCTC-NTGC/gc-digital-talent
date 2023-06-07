@@ -984,28 +984,14 @@ const OngoingRecruitmentSection = ({
       <div data-h2-display="base(flex)">
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
-            <Button
-              color="primary"
-              data-h2-align-items="base(center)"
-              data-h2-display="base(flex)"
-              data-h2-flex-shrink="base(0)"
-              data-h2-gap="base(0, x.25)"
-              data-h2-radius="base(input, 0px, 0px, input)"
-              data-h2-margin-right="base(0)"
-            >
-              <span>
-                {quickFilterStream === "ALL"
-                  ? intl.formatMessage({
-                      defaultMessage: "All",
-                      id: "XnvXtO",
-                      description: "All",
-                    })
-                  : intl.formatMessage(getPoolStream(quickFilterStream))}
-              </span>
-              <ChevronDownIcon
-                data-h2-height="base(1em)"
-                data-h2-width="base(1em)"
-              />
+            <Button color="primary" utilityIcon={ChevronDownIcon}>
+              {quickFilterStream === "ALL"
+                ? intl.formatMessage({
+                    defaultMessage: "All",
+                    id: "XnvXtO",
+                    description: "All",
+                  })
+                : intl.formatMessage(getPoolStream(quickFilterStream))}
             </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content data-h2-padding="base(0)">

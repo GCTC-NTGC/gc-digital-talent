@@ -33,4 +33,5 @@ export type ButtonLinkProps = {
   light?: boolean;
   mode?: ButtonLinkMode;
   icon?: IconType;
+  utilityIcon?: IconType;
 } & HydrogenAttributes;
