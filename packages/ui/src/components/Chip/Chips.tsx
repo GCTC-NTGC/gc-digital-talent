@@ -7,21 +7,17 @@ interface ChipsProps {
 }
 
 const Chips = ({ children }: ChipsProps) => (
-  <div>
-    {isArray(children) && children.length > 1 ? (
-      <ul
-        data-h2-display="base(flex)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-gap="base(x.25, x.125)"
-      >
-        {children.map((child) => (
-          <li key={child.key}>{child}</li>
-        ))}
-      </ul>
+  <ul
+    data-h2-display="base(flex)"
+    data-h2-flex-wrap="base(wrap)"
+    data-h2-gap="base(x.25, x.125)"
+  >
+    {isArray(children) ? (
+      children.map((child) => <li key={child.key}>{child}</li>)
     ) : (
-      children
+      <li>{children}</li>
     )}
-  </div>
+  </ul>
 );
 
 export default Chips;
