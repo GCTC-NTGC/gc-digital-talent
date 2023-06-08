@@ -1,17 +1,17 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import RadioGroup from ".";
-import type { RadioGroupProps } from ".";
+
+import RadioGroup from "./RadioGroup";
 import Form from "../BasicForm";
 import Submit from "../Submit";
 
 export default {
   component: RadioGroup,
   title: "Form/RadioGroup",
-} as Meta;
+};
 
-const TemplateRadioGroup: Story<RadioGroupProps> = (args) => {
+const TemplateRadioGroup: StoryFn<typeof RadioGroup> = (args) => {
   return (
     <Form onSubmit={action("Submit Form")}>
       <RadioGroup {...args} />
@@ -49,12 +49,6 @@ export const DisabledRadioGroup = TemplateRadioGroup.bind({});
 DisabledRadioGroup.args = {
   ...BasicRadioGroup.args,
   disabled: true,
-};
-
-export const RadioGroupHiddenOptional = TemplateRadioGroup.bind({});
-RadioGroupHiddenOptional.args = {
-  ...BasicRadioGroup.args,
-  hideOptional: true,
 };
 
 export const RadioGroupOfElements = TemplateRadioGroup.bind({});
@@ -100,6 +94,4 @@ LargeRadioGroup.args = {
     { value: "seven", label: "This is the seventh item" },
   ],
   columns: 2,
-  hideLegend: true,
-  hideOptional: true,
 };
