@@ -43,7 +43,7 @@
     "@gc-digital-talent/ui": "*",
     "@heroicons/react": "^2.0.18",
     "@microsoft/applicationinsights-react-js": "^3.4.1",
-    "@microsoft/applicationinsights-web": "^2.8.11",
+    "@microsoft/applicationinsights-web": "^3.0.2",
     "date-fns": "^2.30.0",
     "dotenv": "^16.1.4",
     "framer-motion": "^10.12.16",
