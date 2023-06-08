@@ -13,10 +13,11 @@ import { DateSegment, DATE_SEGMENT } from "./types";
 import {
   getMonthOptions,
   getMonthSpan,
-  inputStyles,
   setComputedValue,
   splitSegments,
 } from "./utils";
+
+import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
@@ -31,6 +32,7 @@ const ControlledInput = ({
   show,
 }: ControlledInputProps) => {
   const intl = useIntl();
+  const inputStyles = useCommonInputStyles();
   const { year, month, day } = splitSegments(
     defaultValues ? defaultValues[name] : undefined,
   );
@@ -85,6 +87,7 @@ const ControlledInput = ({
             onChange={handleYearChange}
             defaultValue={year}
             placeholder={intl.formatMessage(dateMessages.yearPlaceholder)}
+            data-h2-width="base(100%)"
             {...inputStyles}
           />
         </div>
@@ -99,6 +102,7 @@ const ControlledInput = ({
             name={ID.MONTH}
             onChange={handleMonthChange}
             defaultValue={month || ""}
+            data-h2-width="base(100%)"
             {...inputStyles}
           >
             <option disabled value="">
@@ -125,6 +129,7 @@ const ControlledInput = ({
             defaultValue={day}
             max={31}
             placeholder={intl.formatMessage(dateMessages.dayPlaceholder)}
+            data-h2-width="base(100%)"
             {...inputStyles}
           />
         </div>

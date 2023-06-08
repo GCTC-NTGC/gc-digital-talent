@@ -1,11 +1,8 @@
 import React from "react";
 
-type FieldsetProps = React.DetailedHTMLProps<
-  React.FieldsetHTMLAttributes<HTMLFieldSetElement>,
-  HTMLFieldSetElement
->;
+import { HTMLFieldsetProps } from "../../types";
 
-const Fieldset = (props: FieldsetProps) => (
+const Fieldset = (props: HTMLFieldsetProps) => (
   <fieldset
     data-h2-display="base(flex)"
     data-h2-flex-direction="base(column)"
