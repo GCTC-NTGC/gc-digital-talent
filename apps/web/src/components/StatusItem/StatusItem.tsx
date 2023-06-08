@@ -117,7 +117,6 @@ export const StatusItem = ({
   return (
     <Wrapper
       data-h2-display="base(flex)"
-      data-h2-flex-direction="base(row)"
       data-h2-border-top="base:selectors[:not(:first-child)](1px solid gray.lighter)"
       data-h2-margin-top="base:selectors[:not(:first-child)](x.5)"
       data-h2-padding-top="base:selectors[:not(:first-child)](x.5)"
