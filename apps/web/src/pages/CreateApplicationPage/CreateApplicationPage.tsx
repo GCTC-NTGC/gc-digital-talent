@@ -14,7 +14,11 @@ import {
 import { useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
-import { Scalars, useCreateApplicationMutation } from "~/api/generated";
+import {
+  Scalars,
+  useCreateApplicationMutation,
+  useMyApplicationsQuery,
+} from "~/api/generated";
 
 type RouteParams = {
   poolId: Scalars["ID"];
@@ -34,9 +38,28 @@ const CreateApplication = () => {
   const { applicationRevamp } = useFeatureFlags();
   const auth = useAuthorization();
   const [
-    { fetching: creating, data: mutationData, operation },
+    {
+      fetching: creatingNewApplication,
+      data: newApplicationData,
+      operation: newApplicationOperation,
+    },
     executeMutation,
   ] = useCreateApplicationMutation();
+  const [
+    {
+      fetching: fetchingExistingApplications,
+      data: existingApplicationsData,
+      operation: existingApplicationsOperation,
+    },
+  ] = useMyApplicationsQuery();
+
+  const applicationPath = React.useCallback(
+    (applicationId: string) =>
+      applicationRevamp
+        ? paths.application(applicationId)
+        : paths.reviewApplication(applicationId),
+    [applicationRevamp, paths],
+  );
 
   // Store path to redirect to later on
   let redirectPath = paths.pool(poolId || "");
@@ -70,6 +93,29 @@ const CreateApplication = () => {
     [intl, redirectPath, navigate],
   );
 
+  // If a "me" object came back then we've checked.
+  const checkedForExistingApplications = notEmpty(existingApplicationsData?.me);
+
+  // Build a map of existing applications.
+  const existingApplications =
+    existingApplicationsData?.me?.poolCandidates?.map((application) => {
+      return {
+        applicationId: application?.id,
+        poolId: application?.pool.id,
+      };
+    });
+
+  // Find the pool candidate ID if we've already applied to this pool.
+  const existingApplicationIdToThisPool = existingApplications?.find(
+    (a) => a.poolId === poolId,
+  )?.applicationId;
+
+  if (existingApplicationIdToThisPool) {
+    navigate(applicationPath(existingApplicationIdToThisPool), {
+      replace: true,
+    });
+  }
+
   /**
    * Store if the application can be created
    *
@@ -81,11 +127,14 @@ const CreateApplication = () => {
    * !hasApplied - Users can only apply to a single pool
    */
   const userId = auth.user?.id;
-  const hasMutationData = notEmpty(mutationData);
-  const isCreating = creating || hasMutationData || operation?.key;
-  const hasRequiredData = userId && poolId;
+  const hasNewApplicationData = notEmpty(newApplicationData);
+  const isCreating =
+    creatingNewApplication ||
+    hasNewApplicationData ||
+    newApplicationOperation?.key;
+  const hasRequiredDataToCreateNewApplication = userId && poolId;
 
-  if (!hasRequiredData) {
+  if (!hasRequiredDataToCreateNewApplication) {
     if (!poolId) {
       redirectPath = paths.browsePools();
     }
@@ -93,14 +142,18 @@ const CreateApplication = () => {
   }
 
   const createApplication = React.useCallback(() => {
-    if (!isCreating && userId && poolId) {
+    if (
+      !isCreating &&
+      userId &&
+      poolId &&
+      checkedForExistingApplications &&
+      !existingApplicationIdToThisPool
+    ) {
       executeMutation({ userId, poolId })
         .then((result) => {
           if (result.data?.createApplication) {
             const { id } = result.data.createApplication;
-            const newPath = applicationRevamp
-              ? paths.application(id)
-              : paths.reviewApplication(id);
+            const newPath = applicationPath(id);
             // Redirect user to the application if it exists
             // Toast success or error
             if (!result.error) {
@@ -141,10 +194,11 @@ const CreateApplication = () => {
     isCreating,
     userId,
     poolId,
+    checkedForExistingApplications,
+    existingApplicationIdToThisPool,
     executeMutation,
     handleError,
-    applicationRevamp,
-    paths,
+    applicationPath,
     navigate,
     intl,
   ]);
@@ -154,7 +208,7 @@ const CreateApplication = () => {
   }, [createApplication]);
 
   // Don't render the page if the mutation ran already
-  if (hasMutationData) {
+  if (hasNewApplicationData) {
     return null;
   }
 
