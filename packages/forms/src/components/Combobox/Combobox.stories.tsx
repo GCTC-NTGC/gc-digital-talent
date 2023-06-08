@@ -1,5 +1,5 @@
 import React from "react";
-import type { Story, Meta } from "@storybook/react";
+import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
@@ -26,10 +26,10 @@ type ComboboxType = ComboboxProps & {
 
 export default {
   component: Combobox,
-  title: "Components/Combobox",
-} as Meta<ComboboxType>;
+  title: "Form/Combobox",
+};
 
-const Template: Story<ComboboxType> = (args) => {
+const Template: StoryFn<ComboboxType> = (args) => {
   const { mockSearch, options, ...rest } = args;
   const [isSearching, setIsSearching] = React.useState<boolean>(false);
   const [filteredOptions, setFilteredOptions] =
