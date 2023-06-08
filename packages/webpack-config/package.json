@@ -4,7 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "dependencies": {
-    "@formatjs/ts-transformer": "^3.13.0",
+    "@formatjs/ts-transformer": "^3.13.2",
     "@types/node": "^20.2.3",
     "@types/path-browserify": "^1.0.0",
     "babel-loader": "^9.1.2",
