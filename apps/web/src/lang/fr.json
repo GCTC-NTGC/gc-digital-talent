@@ -5272,6 +5272,10 @@
     "defaultMessage": "{title} émis par {issuedBy}",
     "description": "The award title is issued by some group"
   },
+  "mHT8kp": {
+    "defaultMessage": "<strong>{title}</strong> émis par {issuedBy}",
+    "description": "The award title is issued by some group, HTML"
+  },
   "4Xa7Pd": {
     "defaultMessage": "Aucune information n'a été fournie",
     "description": "Message on Admin side when user not filled Experience section."
@@ -5283,10 +5287,6 @@
   "5d0vbr": {
     "defaultMessage": "<strong>Oui</strong>, je suis un employé du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
-  },
-  "JYWwCE": {
-    "defaultMessage": "<strong>{role}</strong> au sein de la {division}",
-    "description": "Role at division"
   },
   "8cRL8r": {
     "defaultMessage": "Durée permanente",
@@ -5339,6 +5339,10 @@
   "UrsGGK": {
     "defaultMessage": "{areaOfStudy} à {institution}",
     "description": "Study at institution"
+  },
+  "bf2scl": {
+    "defaultMessage": "<strong>{areaOfStudy}</strong> à {institution}",
+    "description": "Study at institution, HTML"
   },
   "Vc9vE7": {
     "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de :",
@@ -5424,6 +5428,10 @@
     "defaultMessage": "{title} à {organization}",
     "description": "Title at organization"
   },
+  "IFKgSr": {
+    "defaultMessage": "<strong>{title}</strong> à {organization}",
+    "description": "Title at organization, HTML"
+  },
   "G3K1/H": {
     "defaultMessage": "Vous n'avez pas été identifié comme membre de groupes visés par l'équité en matière d'emploi.",
     "description": "Message indicating the user has not been marked as part of an equity group"
@@ -5435,6 +5443,10 @@
   "wTAdQe": {
     "defaultMessage": "{role} à {organization}",
     "description": "Role at organization"
+  },
+  "lhV7kM": {
+    "defaultMessage": "<strong>{role}</strong> à {organization}",
+    "description": "Role at organization, HTML"
   },
   "xNVsei": {
     "defaultMessage": "{experienceLength} Expériences",
@@ -6926,14 +6938,6 @@
     "defaultMessage": "Créez votre CV",
     "description": "Title for resume page when there are no experiences yet"
   },
-  "E9I34y": {
-    "defaultMessage": "Titre de la thèse",
-    "description": "Label displayed on education form for thesis title input"
-  },
-  "eLpCfR": {
-    "defaultMessage": "Modifier<hidden> {context}</hidden>",
-    "description": "Edit experience link label with context"
-  },
   "YbH6ZO": {
     "defaultMessage": "Cette étape vous permet de modifier toute information sur votre CV que vous avez déjà ajoutée à votre profil. Cliquez sur un élément pour le développer, révélant plus de détails. Si vous n’avez encore rien ajouté à votre CV, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on résumé, paragraph one"
@@ -6941,10 +6945,6 @@
   "9Fzy0s": {
     "defaultMessage": "La rédaction de votre CV consiste à décrire <strong>les expériences de travail</strong>, <strong>l’éducation</strong>, <strong>la participation communautaire</strong>, <strong>l’apprentissage personnel</strong> et <strong>les récompenses que vous avez gagnées</strong>. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre CV en utilisant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to begin working on résumé, paragraph two"
-  },
-  "YJS2CB": {
-    "defaultMessage": "Décerné à",
-    "description": "The award was given to"
   },
   "gEBoM0": {
     "defaultMessage": "Projet/produit",
@@ -6962,10 +6962,6 @@
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
   },
-  "yGFdWK": {
-    "defaultMessage": "<strong>{areaOfStudy}</strong> à {institution}",
-    "description": "Study at institution"
-  },
   "9OBHdP": {
     "defaultMessage": "{date} - Aujourd’hui",
     "description": "A date range that goes to the present day"
@@ -6978,10 +6974,6 @@
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience professionnelle} =1 {1 expérience professionnelle} other {# expériences professionnelles}}",
     "description": "list a number of work experiences"
   },
-  "LfhuFi": {
-    "defaultMessage": "Comment j’ai utilisé «{skillName}» dans ce rôle",
-    "description": "Title for section on how a skill was used in the role"
-  },
   "NGEgVN": {
     "defaultMessage": "Organisation émettrice",
     "description": "Label displayed on award form for organization section"
@@ -6989,10 +6981,6 @@
   "Q3yncO": {
     "defaultMessage": "Votre curriculum vitæ comprend actuellement :",
     "description": "Title for list of experiences"
-  },
-  "TmWbke": {
-    "defaultMessage": "<strong>{title}</strong> avec {organization}",
-    "description": "Title with organization"
   },
   "V6wB0a": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience de participation au sein de la collectivité} =1 {1 expérience de participation au sein de la collectivité} other {# expériences de participation au sein de la collectivité}}",
@@ -7029,10 +7017,6 @@
   "0fexP+": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière d’éducation et de certificats} =1 {1 expérience en matière d’éducation et de certificats} other {# expériences en matière d’éducation et de certificats}}",
     "description": "list a number of education experiences"
-  },
-  "szVmh/": {
-    "defaultMessage": "Description de l’apprentissage",
-    "description": "Label displayed on Personal Experience form for learning description section"
   },
   "K9vqwA": {
     "defaultMessage": "Vous n’avez pas encore de curriculum vitæ.",
@@ -7527,10 +7511,6 @@
   "SEdLz1": {
     "defaultMessage": "Lien établi avec l’expérience!",
     "description": "Success message displayed after linking an experience to a skill"
-  },
-  "VAcukn": {
-    "defaultMessage": "{title} au sein de {organization}",
-    "description": "Title with organization"
   },
   "W+T8Mm": {
     "defaultMessage": "Ajouter cette expérience",
@@ -8186,6 +8166,58 @@
   "3R3jKp": {
     "defaultMessage": "Modifier {title}",
     "description": "Link to edit object"
+  },
+  "8LPNbf": {
+    "defaultMessage": "{skillCount} compétences mises en évidence",
+    "description": "Number of skills attached to a specific experience"
+  },
+  "8lBXWU": {
+    "defaultMessage": "Récipiendaire(s) du prix",
+    "description": "Label for the person or group that received an award"
+  },
+  "CDV1Cw": {
+    "defaultMessage": "Modifier {experienceName}",
+    "description": "Link text to edit a specific experience"
+  },
+  "IxngA3": {
+    "defaultMessage": "Dissimuler les détails de cette expérience",
+    "description": "Button text to hide a miscellaneous experience's details"
+  },
+  "PVzyQl": {
+    "defaultMessage": "Date de début/fin",
+    "description": "Label for the start/end date for an experience"
+  },
+  "a8wd8c": {
+    "defaultMessage": "Compétences mises en évidence",
+    "description": "Label displayed for featured skills attached to an experience"
+  },
+  "exxM/M": {
+    "defaultMessage": "Aucune compétence n’a été liée à cette expérience.",
+    "description": "Text displayed when no skills have been linked to an experience"
+  },
+  "ge40rv": {
+    "defaultMessage": "Afficher les détails de {experienceName}",
+    "description": "Button text to show a specific experience's details"
+  },
+  "pLef1V": {
+    "defaultMessage": "Dissimuler les détails de {experienceName}",
+    "description": "Button text to hide a specific experience's details"
+  },
+  "qrdJ13": {
+    "defaultMessage": "Date de la remise du prix",
+    "description": "Label for the date an award was given"
+  },
+  "vXwT4K": {
+    "defaultMessage": "Modifier",
+    "description": "Generic link text to edit a miscellaneous item"
+  },
+  "xLIImd": {
+    "defaultMessage": "Les compétences suivantes ont été liées à cette expérience par l’entremise des compétences que vous avez démontrées ou dans le cadre de vos demandes d’emploi. Vous pouvez lier vos compétences en modifier cette expérience ou en ajouter la compétence à votre bibliothèque dans la présente mise en évidence. ",
+    "description": "Lead in text for list of skills linked to a specific experience"
+  },
+  "zxLL3N": {
+    "defaultMessage": "Afficher les détails de cette expérience",
+    "description": "Button text to show a miscellaneous experience's details"
   },
   "w7E0He": {
     "defaultMessage": "Compétences essentielles",

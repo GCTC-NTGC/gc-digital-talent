@@ -27,7 +27,7 @@
     "eslint-config-custom": "*",
     "jest": "^29.5.0",
     "jest-presets": "*",
-    "react-intl": "^6.4.2",
+    "react-intl": "^6.4.3",
     "typescript": "^5.0.4"
   }
 }
