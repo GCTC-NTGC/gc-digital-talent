@@ -1,16 +1,14 @@
 import React from "react";
 import { StoryFn } from "@storybook/react";
 
-import Description from "./Description";
+import Context from "./Context";
 
 export default {
-  title: "Form/Base/Description",
-  component: Description,
+  title: "Form/Base/Context",
+  component: Context,
 };
 
-const Template: StoryFn<typeof Description> = (args) => (
-  <Description {...args} />
-);
+const Template: StoryFn<typeof Context> = (args) => <Context {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -2,16 +2,16 @@ import React from "react";
 
 import { Color } from "@gc-digital-talent/ui";
 
-type DescriptionColor = Extract<Color, "error" | "warning" | "success">;
+type ContextColor = Extract<Color, "error" | "warning" | "success">;
 
-export type DescriptionProps = React.DetailedHTMLProps<
+export type ContextProps = React.DetailedHTMLProps<
   React.HtmlHTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > & {
-  color?: DescriptionColor;
+  color?: ContextColor;
 };
 
-const colorMap = new Map<DescriptionColor, Record<string, string>>([
+const colorMap = new Map<ContextColor, Record<string, string>>([
   [
     "error",
     {
@@ -38,7 +38,7 @@ const colorMap = new Map<DescriptionColor, Record<string, string>>([
   ],
 ]);
 
-const getColor = (color?: DescriptionColor) => {
+const getColor = (color?: ContextColor) => {
   const defaultColor = {
     "data-h2-background-color": "base(background.dark)",
     "data-h2-border-color": "base(background.darkest)",
@@ -48,7 +48,7 @@ const getColor = (color?: DescriptionColor) => {
   return color ? colorMap.get(color) : defaultColor;
 };
 
-const Description = ({ color, ...rest }: DescriptionProps) => {
+const Context = ({ color, ...rest }: ContextProps) => {
   const colorStyle = getColor(color);
 
   return (
@@ -64,4 +64,4 @@ const Description = ({ color, ...rest }: DescriptionProps) => {
   );
 };
 
-export default Description;
+export default Context;

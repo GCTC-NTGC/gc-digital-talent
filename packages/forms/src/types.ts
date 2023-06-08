@@ -4,6 +4,14 @@ export type FieldState = "unset" | "invalid" | "dirty";
 
 export type StyleRecord = Record<string, string>;
 
+export type HTMLInputProps = Omit<
+  React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >,
+  "capture" | "type"
+>;
+
 export type CommonInputProps = {
   /** HTML id used to identify the element. */
   id: string;

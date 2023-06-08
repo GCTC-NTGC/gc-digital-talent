@@ -3,20 +3,14 @@ import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
 
 import Base from "../Base";
-import { CommonInputProps } from "../../types";
 
+import { CommonInputProps, HTMLInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 
-export type InputProps = Omit<
-  React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  >,
-  "capture" | "type"
-> &
+export type InputProps = HTMLInputProps &
   CommonInputProps & {
     /** Set the type of the input. */
     type: "text" | "number" | "email" | "tel" | "password" | "date" | "search";
@@ -89,14 +83,7 @@ const Input = ({
           : {})}
         {...rest}
       />
-      {context && (
-        <Base.Description id={descriptionIds?.context}>
-          {context}
-        </Base.Description>
-      )}
-      {error && (
-        <Base.Error id={descriptionIds?.error}>{error?.toString()}</Base.Error>
-      )}
+      <Base.Descriptions ids={descriptionIds} error={error} context={context} />
     </Base.Wrapper>
   );
 };

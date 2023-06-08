@@ -133,14 +133,7 @@ const TextArea = ({
           </div>
         )}
       </div>
-      {context && (
-        <Base.Description id={descriptionIds?.context}>
-          {context}
-        </Base.Description>
-      )}
-      {error && (
-        <Base.Error id={descriptionIds?.error}>{error?.toString()}</Base.Error>
-      )}
+      <Base.Descriptions ids={descriptionIds} error={error} context={context} />
     </Base.Wrapper>
   );
 };

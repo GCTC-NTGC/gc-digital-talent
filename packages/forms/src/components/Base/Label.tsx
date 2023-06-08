@@ -1,5 +1,7 @@
 import React from "react";
 
+import Required from "./Required";
+
 type LabelProps = React.DetailedHTMLProps<
   React.LabelHTMLAttributes<HTMLLabelElement>,
   HTMLLabelElement
@@ -10,7 +12,7 @@ type LabelProps = React.DetailedHTMLProps<
 const Label = ({ required, children, ...props }: LabelProps) => (
   <label {...props}>
     {children}
-    {required && <span data-h2-color="base(error)"> *</span>}
+    <Required required={required} />
   </label>
 );
 
