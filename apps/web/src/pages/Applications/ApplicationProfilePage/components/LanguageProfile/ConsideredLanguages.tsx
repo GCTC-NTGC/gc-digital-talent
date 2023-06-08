@@ -91,8 +91,6 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
 
   const estimatedAbilityItems = getEstimatedAbilityOptions(intl);
 
-  console.log(consideredLanguages);
-
   const isLookingForBilingual = consideredLanguages.includes(
     "lookingForBilingual",
   );
