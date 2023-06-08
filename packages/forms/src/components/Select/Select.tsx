@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, useFormContext } from "react-hook-form";
 import get from "lodash/get";
 import orderBy from "lodash/orderBy";
 import isString from "lodash/isString";

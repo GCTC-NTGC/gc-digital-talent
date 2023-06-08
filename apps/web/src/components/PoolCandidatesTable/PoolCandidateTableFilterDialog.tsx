@@ -132,6 +132,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
                   id="pools"
+                  name="pools"
                   label={formatMessage(adminMessages.pools)}
                   options={optionsData.pools}
                   isLoading={rawGraphqlResults.pools.fetching}
@@ -141,6 +142,7 @@ const PoolCandidateTableFilterDialog = ({
                 <SelectFieldV2
                   forceArrayFormValue
                   id="languageAbility"
+                  name="languageAbility"
                   label={formatMessage({
                     defaultMessage: "Languages",
                     id: "GsBRWL",
@@ -151,6 +153,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="classifications"
+                  name="classifications"
                   label={formatMessage(adminMessages.classifications)}
                   options={optionsData.classifications}
                   isLoading={rawGraphqlResults.classifications.fetching}
@@ -159,6 +162,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="stream"
+                  name="stream"
                   label={formatMessage({
                     defaultMessage: "Streams",
                     id: "GwbTAz",
@@ -169,6 +173,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="operationalRequirement"
+                  name="operationalRequirement"
                   label={formatMessage({
                     defaultMessage: "Work Preferences",
                     id: "1XyQqX",
@@ -179,6 +184,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="workRegion"
+                  name="workRegion"
                   label={formatMessage({
                     defaultMessage: "Work Locations",
                     id: "qhhPj5",
@@ -190,6 +196,7 @@ const PoolCandidateTableFilterDialog = ({
                 <SelectFieldV2
                   forceArrayFormValue
                   id="hasDiploma"
+                  name="hasDiploma"
                   label={formatMessage({
                     defaultMessage: "Has Diploma",
                     id: "+tzO5t",
@@ -201,6 +208,7 @@ const PoolCandidateTableFilterDialog = ({
                 <SelectFieldV2
                   forceArrayFormValue
                   id="expiryStatus"
+                  name="expiryStatus"
                   label={formatMessage({
                     defaultMessage: "Expiry Status",
                     description: "Expiry status",
@@ -213,6 +221,7 @@ const PoolCandidateTableFilterDialog = ({
                 <SelectFieldV2
                   forceArrayFormValue
                   id="suspendedStatus"
+                  name="suspendedStatus"
                   label={formatMessage({
                     defaultMessage: "Candidacy Status",
                     description: "Candidacy status label",
@@ -224,6 +233,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="equity"
+                  name="equity"
                   label={formatMessage({
                     defaultMessage: "Employment Equity",
                     id: "Gr3BwB",
@@ -234,6 +244,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="poolCandidateStatus"
+                  name="poolCandidateStatus"
                   label={formatMessage({
                     defaultMessage: "Status",
                     id: "tzMNF3",
@@ -244,6 +255,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="priorityWeight"
+                  name="priorityWeight"
                   label={formatMessage({
                     defaultMessage: "Priority",
                     id: "8lCjAM",
@@ -254,6 +266,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
                   id="skills"
+                  name="skills"
                   label={formatMessage({
                     defaultMessage: "Skill Filter",
                     id: "GGaxMx",
