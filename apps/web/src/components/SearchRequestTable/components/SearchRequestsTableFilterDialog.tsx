@@ -112,14 +112,14 @@ const SearchRequestsTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
                   id="status"
-                  label="STATUS"
+                  label={formatMessage(adminMessages.status)}
                   options={optionsData.status}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="departments"
-                  label="DEPARTMENTS"
+                  label={formatMessage(adminMessages.departments)}
                   options={optionsData.departments}
                   isLoading={rawGraphqlResults.departments.fetching}
                 />
@@ -127,7 +127,7 @@ const SearchRequestsTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="classifications"
-                  label="CLASSIFICATIONS"
+                  label={formatMessage(adminMessages.classifications)}
                   options={optionsData.classifications}
                   isLoading={rawGraphqlResults.classifications.fetching}
                 />
@@ -135,7 +135,7 @@ const SearchRequestsTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
                   id="streams"
-                  label="STREAMS"
+                  label={formatMessage(adminMessages.streams)}
                   options={optionsData.streams}
                 />
               </div>
