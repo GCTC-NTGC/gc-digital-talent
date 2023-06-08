@@ -54,7 +54,7 @@ interface HomeProps {
   hasApplied?: boolean;
 }
 
-const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
+export const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
   const intl = useIntl();
   const quote = useQuote();
 
