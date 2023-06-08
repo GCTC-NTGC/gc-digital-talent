@@ -16,6 +16,8 @@ export type CheckboxProps = HTMLInputProps &
     boundingBoxLabel?: React.ReactNode;
     /** Determine if it should track unsaved changes and render it */
     isUnsaved?: boolean;
+    /** Render differently when in a list */
+    inCheckList?: boolean;
   };
 
 const Checkbox = ({
@@ -28,6 +30,7 @@ const Checkbox = ({
   boundingBox = false,
   boundingBoxLabel = label,
   trackUnsaved = true,
+  inCheckList = false,
   ...rest
 }: CheckboxProps) => {
   const {
@@ -48,47 +51,57 @@ const Checkbox = ({
   });
 
   const asFieldset = boundingBox && boundingBoxLabel;
+  const Wrapper = asFieldset ? Base.Fieldset : React.Fragment;
 
   return (
-    <Base.Wrapper
-      {...(asFieldset
-        ? {
-            as: "fieldset",
-            ...baseStyles,
-            ...stateStyles,
-            "data-h2-position": "base(relative)",
-            "data-h2-margin-top": "base(x1.5)",
-          }
-        : {})}
-    >
-      {asFieldset && (
-        <legend
-          data-h2-position="base(absolute)"
-          data-h2-left="base(0)"
-          data-h2-top="base(-x1.25)"
-        >
-          {boundingBoxLabel}
-          <Base.Required required={!!rules.required} />
-        </legend>
-      )}
-      <Base.Label
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(flex-start)"
-        data-h2-gap="base(0 x.25)"
+    <Base.Wrapper>
+      <Wrapper
+        {...(asFieldset
+          ? {
+              as: "fieldset",
+              ...baseStyles,
+              ...stateStyles,
+              "data-h2-position": "base(relative)",
+              "data-h2-margin-top": "base(x1.5)",
+            }
+          : {})}
       >
-        <input
-          id={id}
-          type="checkbox"
-          aria-describedby={ariaDescribedBy}
-          required={!!rules.required}
-          {...register(name, rules)}
-          {...rest}
+        {asFieldset && (
+          <legend
+            data-h2-position="base(absolute)"
+            data-h2-left="base(0)"
+            data-h2-top="base(-x1.25)"
+          >
+            {boundingBoxLabel}
+            <Base.Required required={!!rules.required} />
+          </legend>
+        )}
+        <Base.Label
+          data-h2-display="base(flex)"
+          data-h2-align-items="base(flex-start)"
+          data-h2-gap="base(0 x.25)"
+        >
+          <input
+            id={id}
+            type="checkbox"
+            aria-describedby={ariaDescribedBy}
+            required={!!rules.required}
+            {...register(name, rules)}
+            {...rest}
+          />
+          <span data-h2-margin-top="base(-x.125)">{label}</span>
+          {!asFieldset && !inCheckList && (
+            <Base.Required required={!!rules.required} />
+          )}
+        </Base.Label>
+      </Wrapper>
+      {!inCheckList && (
+        <Base.Descriptions
+          ids={descriptionIds}
+          error={error}
+          context={context}
         />
-        <span data-h2-margin-top="base(-x.125)">{label}</span>
-        {!asFieldset && <Base.Required required={!!rules.required} />}
-      </Base.Label>
-
-      <Base.Descriptions ids={descriptionIds} error={error} context={context} />
+      )}
     </Base.Wrapper>
   );
 };

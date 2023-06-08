@@ -12,6 +12,11 @@ export type HTMLInputProps = Omit<
   "capture" | "type"
 >;
 
+export type HTMLFieldsetProps = React.DetailedHTMLProps<
+  React.FieldsetHTMLAttributes<HTMLFieldSetElement>,
+  HTMLFieldSetElement
+>;
+
 export type CommonInputProps = {
   /** HTML id used to identify the element. */
   id: string;

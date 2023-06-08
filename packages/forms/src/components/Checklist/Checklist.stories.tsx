@@ -1,17 +1,17 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Checklist from ".";
-import type { ChecklistProps } from ".";
+
+import Checklist from "./Checklist";
 import Form from "../BasicForm";
 import Submit from "../Submit";
 
 export default {
   component: Checklist,
   title: "Form/Checklist",
-} as Meta;
+};
 
-const TemplateChecklist: Story<ChecklistProps> = (args) => {
+const TemplateChecklist: StoryFn<typeof Checklist> = (args) => {
   return (
     <Form onSubmit={action("Submit Form")}>
       <Checklist {...args} />
@@ -51,12 +51,6 @@ DisabledChecklist.args = {
   disabled: true,
 };
 
-export const ChecklistHiddenOptional = TemplateChecklist.bind({});
-ChecklistHiddenOptional.args = {
-  ...BasicChecklist.args,
-  hideOptional: true,
-};
-
 export const ChecklistOfLabelElements = TemplateChecklist.bind({});
 ChecklistOfLabelElements.args = {
   idPrefix: "elements",
@@ -65,7 +59,14 @@ ChecklistOfLabelElements.args = {
   items: [
     {
       value: "one",
-      label: <span data-h2-background-color="base(error)">Red Selection</span>,
+      label: (
+        <span
+          data-h2-background-color="base(error)"
+          data-h2-color="base(white)"
+        >
+          Red Selection
+        </span>
+      ),
     },
     {
       value: "two",
