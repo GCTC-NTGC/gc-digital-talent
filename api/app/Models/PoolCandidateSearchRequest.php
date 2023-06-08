@@ -123,7 +123,7 @@ class PoolCandidateSearchRequest extends Model
         }
 
         $query->whereHas('applicantFilter', function ($query) use ($classificationIds) {
-            $query->whereHas('classifications', function ($query) use ($classificationIds) {
+            $query->whereHas('qualifiedClassifications', function ($query) use ($classificationIds) {
                 $query->whereIn('classifications.id', $classificationIds);
             });
         });

@@ -221,9 +221,9 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
         $classificationsSeeded = Classification::all()->pluck('id')->toArray();
 
         $applicantFilter1 = ApplicantFilter::factory()->create();
-        $applicantFilter1->classifications()->sync([$classificationsSeeded[0]]);
+        $applicantFilter1->qualifiedClassifications()->sync([$classificationsSeeded[0]]);
         $applicantFilter2 = ApplicantFilter::factory()->create();
-        $applicantFilter2->classifications()->sync([$classificationsSeeded[2]]);
+        $applicantFilter2->qualifiedClassifications()->sync([$classificationsSeeded[2]]);
 
         PoolCandidateSearchRequest::factory()->count(1)->create([
             'applicant_filter_id' => $applicantFilter1->id,
