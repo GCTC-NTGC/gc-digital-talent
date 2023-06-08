@@ -66,7 +66,11 @@ const actionCell = (
 );
 
 const teamCell = (displayName: string, href: string) => {
-  return <Link href={href}>{displayName}</Link>;
+  return (
+    <Link color="black" href={href}>
+      {displayName}
+    </Link>
+  );
 };
 
 type TeamAssignment = {

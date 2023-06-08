@@ -158,12 +158,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
         data-h2-align-items="base(flex-start) p-tablet(center)"
       >
         <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
-        <Link
-          href={instructionsPath}
-          type="button"
-          mode="inline"
-          color="secondary"
-        >
+        <Link href={instructionsPath} mode="inline">
           {intl.formatMessage({
             defaultMessage: "Review instructions",
             id: "VRxiNC",
@@ -319,12 +314,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
             >
               {intl.formatMessage(applicationMessages.saveContinue)}
             </Button>
-            <Link
-              type="button"
-              mode="inline"
-              color="secondary"
-              href={cancelPath}
-            >
+            <Link mode="inline" href={cancelPath}>
               {intl.formatMessage(applicationMessages.saveQuit)}
             </Link>
           </div>

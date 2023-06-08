@@ -121,7 +121,7 @@ const YourImpactSection = ({
                 id: "UduzGA",
                 description: "Text on a button to save the pool introduction",
               })}
-              color="cta"
+              color="tertiary"
               mode="solid"
               isSubmitting={isSubmitting}
             />

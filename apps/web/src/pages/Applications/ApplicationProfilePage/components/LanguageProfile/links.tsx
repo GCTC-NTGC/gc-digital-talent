@@ -1,14 +1,15 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import { ExternalLink } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
 export const languageEvaluationPageLink = (intl: IntlShape) => {
   const locale = getLocale(intl);
   return (
-    <ExternalLink
+    <Link
       newTab
+      external
       href={
         locale === "en"
           ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
@@ -20,14 +21,15 @@ export const languageEvaluationPageLink = (intl: IntlShape) => {
         id: "3vjhOA",
         description: "Message on links to the language evaluation tests",
       })}
-    </ExternalLink>
+    </Link>
   );
 };
 
 export const selfAssessmentLink = (msg: React.ReactNode, locale: Locales) => {
   return (
-    <ExternalLink
+    <Link
       newTab
+      external
       href={
         locale === "en"
           ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html"
@@ -35,6 +37,6 @@ export const selfAssessmentLink = (msg: React.ReactNode, locale: Locales) => {
       }
     >
       {msg}
-    </ExternalLink>
+    </Link>
   );
 };

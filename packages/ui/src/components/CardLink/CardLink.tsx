@@ -84,6 +84,8 @@ const Link = ({ href, external, children }: LinkProps) => {
 
   if (external) {
     return (
+      // NOTE: We do want to allow external links to be rendered as <a> tags
+      // eslint-disable-next-line react/forbid-elements
       <a href={href} {...linkProps}>
         {children}
       </a>

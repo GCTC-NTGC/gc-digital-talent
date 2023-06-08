@@ -178,10 +178,8 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
                 </div>
                 <div data-h2-margin="base(x1, 0, 0, 0) p-tablet(0)">
                   <Link
-                    color="blue"
-                    mode="outline"
-                    type="button"
-                    weight="bold"
+                    color="secondary"
+                    mode="solid"
                     href={loggedIn ? paths.myProfile() : paths.login()}
                     style={{ whiteSpace: "nowrap" }}
                   >
@@ -241,7 +239,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
               links={[
                 {
                   href: `${paths.home()}/indigenous-it-apprentice`,
-                  mode: "outline",
+                  mode: "solid",
                   external: true,
                   label: intl.formatMessage({
                     defaultMessage:
@@ -280,7 +278,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
               links={[
                 {
                   href: paths.search(),
-                  mode: "outline",
+                  mode: "solid",
                   label: intl.formatMessage({
                     defaultMessage: "Find talent",
                     id: "7waBmC",

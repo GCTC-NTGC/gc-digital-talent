@@ -58,7 +58,6 @@ const Chip = ({
       <Pill
         color={color}
         mode={mode}
-        role="listitem"
         data-h2-padding="base(x.25, x.5)"
         {...rest}
       >

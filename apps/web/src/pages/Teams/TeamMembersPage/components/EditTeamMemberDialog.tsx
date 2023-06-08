@@ -103,7 +103,7 @@ const EditTeamMemberDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="outline" aria-label={label}>
+        <Button color="primary" aria-label={label}>
           <PencilIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
         </Button>
       </Dialog.Trigger>
@@ -184,7 +184,7 @@ const EditTeamMemberDialog = ({
               </div>
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button mode="outline" color="secondary">
+                  <Button color="secondary">
                     {intl.formatMessage({
                       defaultMessage: "Cancel and go back",
                       id: "tiF/jI",

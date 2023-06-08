@@ -6,6 +6,7 @@ import {
   Alert,
   ScrollToLink,
   ScrollLinkClickFunc,
+  Link,
 } from "@gc-digital-talent/ui";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -18,7 +19,9 @@ interface ErrorSummaryProps {
 }
 
 const a = (chunks: React.ReactNode) => (
-  <a href="mailto:gctalent-talentgc@support-soutien.gc.ca">{chunks}</a>
+  <Link external href="mailto:gctalent-talentgc@support-soutien.gc.ca">
+    {chunks}
+  </Link>
 );
 
 const ErrorSummary = React.forwardRef<

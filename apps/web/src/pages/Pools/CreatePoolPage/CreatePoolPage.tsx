@@ -176,7 +176,7 @@ export const CreatePoolForm = ({
               />
               <div data-h2-align-self="base(flex-start)">
                 <Submit
-                  color="cta"
+                  color="tertiary"
                   text={intl.formatMessage({
                     defaultMessage: "Create new pool",
                     id: "TLl20s",
@@ -191,12 +191,7 @@ export const CreatePoolForm = ({
       </div>
 
       <div data-h2-margin="base(x2, 0, 0, 0)">
-        <Link
-          type="button"
-          href={paths.poolTable()}
-          mode="outline"
-          color="primary"
-        >
+        <Link href={paths.poolTable()} mode="solid" color="primary">
           {intl.formatMessage({
             defaultMessage: "Cancel and go back",
             id: "dJxNRU",

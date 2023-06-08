@@ -11,7 +11,6 @@ import {
 } from "@gc-digital-talent/forms";
 
 import useFilterOptions from "~/components/Table/ApiManagedTable/useFilterOptions";
-import { ButtonIcon } from "~/components/Table/ClientManagedTable/tableComponents";
 
 import "./UserTableFilterDialog.css";
 import adminMessages from "~/messages/adminMessages";
@@ -45,7 +44,12 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
 
   return (
     <>
-      <Button color="secondary" mode="inline" onClick={handleClear}>
+      <Button
+        color="secondary"
+        mode="inline"
+        type="button"
+        onClick={handleClear}
+      >
         {formatMessage({
           description: "Clear button within the search filter dialog",
           defaultMessage: "Clear filters",
@@ -85,22 +89,13 @@ const UserTableFilterDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
       <Dialog.Trigger>
-        <Button
-          mode="outline"
-          color="secondary"
-          type="button"
-          data-h2-display="base(inline-flex)"
-          data-h2-align-items="base(center)"
-        >
-          <ButtonIcon icon={AdjustmentsVerticalIcon} />
-          <span>
-            {formatMessage({
-              defaultMessage: "Filters",
-              id: "1HPhji",
-              description:
-                "Text label for button to open filter dialog on admin tables.",
-            })}
-          </span>
+        <Button color="secondary" type="button" icon={AdjustmentsVerticalIcon}>
+          {formatMessage({
+            defaultMessage: "Filters",
+            id: "1HPhji",
+            description:
+              "Text label for button to open filter dialog on admin tables.",
+          })}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>

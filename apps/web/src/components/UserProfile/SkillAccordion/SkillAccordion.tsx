@@ -27,7 +27,7 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
-import { getDateRange, formattedDate } from "~/utils/accordionUtils";
+import { getDateRange, formattedDate } from "~/utils/dateUtils";
 
 export interface SkillAccordionProps {
   skill: Skill;

@@ -25,6 +25,8 @@ const StepLink = ({
   // Return a disabled Link
   if (state === "disabled" && !preventDisable) {
     return (
+      // NOTE: This is a custom disabled link component
+      // eslint-disable-next-line react/forbid-elements
       <a role="link" aria-disabled="true" {...(linkStyles || {})} {...rest}>
         {children}
       </a>

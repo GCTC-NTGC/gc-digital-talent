@@ -8,6 +8,7 @@ import {
   isExpired,
   isPlaced,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import QualifiedRecruitmentDialog from "./QualifiedRecruitmentDialog";
 
 export type Application = Omit<PoolCandidate, "user">;
@@ -20,7 +21,7 @@ const QualifiedRecruitmentStatus = ({
   application,
 }: QualifiedRecruitmentStatusProps) => {
   const intl = useIntl();
-  const { id, suspendedAt, expiryDate, status } = application;
+  const { id, suspendedAt, expiryDate, status, pool } = application;
 
   // Recruitment card has placed status.
   if (isPlaced(status)) {
@@ -85,7 +86,7 @@ const QualifiedRecruitmentStatus = ({
             id: "TDikDt",
             description:
               "Not suspended recruitment status message on qualified recruitment card.",
-          })}
+          })}{" "}
           {/* Dialog that allows user to suspend the qualified recruitment (application). Sets suspendedAt date to the current time. */}
           <QualifiedRecruitmentDialog
             id={id}
@@ -96,13 +97,18 @@ const QualifiedRecruitmentStatus = ({
               description:
                 "Dialog title on change search results status from qualified recruitment section.",
             })}
-            primaryBodyText={intl.formatMessage({
-              defaultMessage:
-                "You are currently appearing in talent search results for the “IT-01 Helpdesk support technician” pool.",
-              id: "dPoE9z",
-              description:
-                "Dialog main body on change search results status from qualified recruitment section.",
-            })}
+            primaryBodyText={intl.formatMessage(
+              {
+                defaultMessage:
+                  "You are currently appearing in talent search results for the “{poolName}” pool.",
+                id: "COpmme",
+                description:
+                  "Dialog main body on change search results status from qualified recruitment section.",
+              },
+              {
+                poolName: getFullPoolTitleLabel(intl, pool),
+              },
+            )}
             secondaryBodyText={intl.formatMessage({
               defaultMessage:
                 "If you’ve recently been placed or simply no longer want to be considered for opportunities related to this role, you can remove yourself from the list of candidates available for hire. This will <emphasize>not</emphasize> remove you from the recruitment itself and you can always re-enable your availability if you change your mind.",
@@ -157,7 +163,7 @@ const QualifiedRecruitmentStatus = ({
           id: "bqWmTD",
           description:
             "Suspended recruitment status message on qualified recruitment card.",
-        })}
+        })}{" "}
         {/* Dialog that allows user to un-suspend the qualified recruitment (application). Sets suspendedAt date to null. */}
         <QualifiedRecruitmentDialog
           id={id}
@@ -168,13 +174,18 @@ const QualifiedRecruitmentStatus = ({
             description:
               "Dialog title on change search results status from qualified recruitment section.",
           })}
-          primaryBodyText={intl.formatMessage({
-            defaultMessage:
-              "You are currently not showing up in talent search results for the “IT-01 Helpdesk support technician” pool.",
-            id: "veIkpN",
-            description:
-              "Dialog main body on change search results status from qualified recruitment section.",
-          })}
+          primaryBodyText={intl.formatMessage(
+            {
+              defaultMessage:
+                "You are currently not showing up in talent search results for the “{poolName}” pool.",
+              id: "Y0Eii4",
+              description:
+                "Dialog main body on change search results status from qualified recruitment section.",
+            },
+            {
+              poolName: getFullPoolTitleLabel(intl, pool),
+            },
+          )}
           secondaryBodyText={intl.formatMessage({
             defaultMessage:
               "By re-adding yourself to this recruitment processes results, managers will once again be able to request your profile as a part of talent requests. You can always remove yourself again at a later time.",

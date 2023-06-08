@@ -110,12 +110,11 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a single candidate and expects it to be returned with the pool properties
     public function testThatPoolPropertiesCanBeReturned()
     {
-        $pool = Pool::factory()->create([
+        $pool = Pool::factory()->published()->create([
             'name' => [
                 'en' => 'Test Pool EN',
                 'fr' => 'Test Pool FR'
-            ],
-            'published_at' => config('constants.past_date')
+            ]
         ]);
         $user = User::factory()->create([]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));

@@ -1,10 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
+
+import { Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-
-import CallToActionLink from "~/components/CallToAction/CallToActionLink";
-import { ProfileIcon } from "~/components/CallToAction/Icons";
 
 import profileHeroImg from "~/assets/img/hero-profile.jpg";
 
@@ -77,17 +77,18 @@ const Profile = () => {
             data-h2-gap="base(x1)"
             data-h2-justify-content="base(center) p-tablet(flex-start)"
           >
-            <CallToActionLink
+            <Link
               color="quinary"
+              mode="cta"
               href={paths.myProfile()}
-              Icon={ProfileIcon}
+              icon={UserPlusIcon}
             >
               {intl.formatMessage({
                 defaultMessage: "Create a profile",
                 id: "7hUWc+",
                 description: "Link text for users to create a profile",
               })}
-            </CallToActionLink>
+            </Link>
           </div>
         </div>
       </div>

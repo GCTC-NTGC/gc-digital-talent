@@ -317,7 +317,7 @@ const ScreeningQuestions = ({
                 description:
                   "Text on a button to save the pool screening questions",
               })}
-              color="cta"
+              color="tertiary"
               mode="solid"
               isSubmitting={isSubmitting}
             />
