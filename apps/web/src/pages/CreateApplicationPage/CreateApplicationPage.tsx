@@ -45,14 +45,9 @@ const CreateApplication = () => {
     },
     executeMutation,
   ] = useCreateApplicationMutation();
-  const [
-    {
-      fetching: fetchingExistingApplications,
-      data: existingApplicationsData,
-      operation: existingApplicationsOperation,
-    },
-  ] = useMyApplicationsQuery();
+  const [{ data: existingApplicationsData }] = useMyApplicationsQuery();
 
+  // Path to display application (new or existing).
   const applicationPath = React.useCallback(
     (applicationId: string) =>
       applicationRevamp
@@ -95,8 +90,7 @@ const CreateApplication = () => {
 
   // If a "me" object came back then we've checked.
   const checkedForExistingApplications = notEmpty(existingApplicationsData?.me);
-
-  // Build a map of existing applications.
+  // Build an array of existing applications.
   const existingApplications =
     existingApplicationsData?.me?.poolCandidates?.map((application) => {
       return {
@@ -104,12 +98,11 @@ const CreateApplication = () => {
         poolId: application?.pool.id,
       };
     });
-
   // Find the pool candidate ID if we've already applied to this pool.
   const existingApplicationIdToThisPool = existingApplications?.find(
     (a) => a.poolId === poolId,
   )?.applicationId;
-
+  // An existing application was found for this pool.  No need to create a new one - let's go.
   if (existingApplicationIdToThisPool) {
     navigate(applicationPath(existingApplicationIdToThisPool), {
       replace: true,
