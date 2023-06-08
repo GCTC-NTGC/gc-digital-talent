@@ -80,7 +80,7 @@
     "@mdx-js/react": "^2.3.0",
     "@storybook/addon-actions": "^7.0.18",
     "@storybook/addon-essentials": "^7.0.20",
-    "@storybook/addon-links": "^7.0.18",
+    "@storybook/addon-links": "^7.0.20",
     "@storybook/addon-viewport": "^7.0.6",
     "@storybook/react": "^7.0.6",
     "@storybook/react-webpack5": "^7.0.20",
