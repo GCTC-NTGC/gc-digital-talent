@@ -100,8 +100,8 @@ const TrackApplicationsStatus = ({
             primaryBodyText={intl.formatMessage(
               {
                 defaultMessage:
-                  "You are currently appearing in talent search results for the “{poolName}” pool.",
-                id: "bnEGX7",
+                  'You are currently appearing in talent search results for the "{poolName}" pool.',
+                id: "XGJkdw",
                 description:
                   "Dialog main body on change search results status from applications section.",
               },
@@ -177,8 +177,8 @@ const TrackApplicationsStatus = ({
           primaryBodyText={intl.formatMessage(
             {
               defaultMessage:
-                "You are currently not showing up in talent search results for the “{poolName}” pool.",
-              id: "GOF2wj",
+                'You are currently not showing up in talent search results for the "{poolName}" pool.',
+              id: "qrsLa3",
               description:
                 "Dialog main body on change search results status from applications section.",
             },
