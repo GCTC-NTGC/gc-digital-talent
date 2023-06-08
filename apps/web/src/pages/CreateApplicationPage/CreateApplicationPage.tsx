@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate, useParams } from "react-router-dom";
-import { Id, toast as toastify } from "react-toastify";
 
 import { Loading } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -32,7 +31,6 @@ type RouteParams = {
 const CreateApplication = () => {
   const { poolId } = useParams<RouteParams>();
   const intl = useIntl();
-  const errorToastId = React.useRef<Id>("");
   const paths = useRoutes();
   const navigate = useNavigate();
   const { applicationRevamp } = useFeatureFlags();
@@ -64,22 +62,14 @@ const CreateApplication = () => {
   const handleError = React.useCallback(
     (msg?: React.ReactNode, path?: string) => {
       navigate(path || redirectPath, { replace: true });
-      /**
-       * This is supposed to prevent the toast
-       * from firing twice, but it does not appear to
-       * work. Leaving it in, in the hopes
-       * it finally does 🤷‍♀️
-       */
-      if (!toastify.isActive(errorToastId.current)) {
-        errorToastId.current = toast.error(
-          msg ||
-            intl.formatMessage({
-              defaultMessage: "Error application creation failed",
-              id: "tlAiJm",
-              description: "Application creation failed",
-            }),
-        );
-      }
+      toast.error(
+        msg ||
+          intl.formatMessage({
+            defaultMessage: "Error application creation failed",
+            id: "tlAiJm",
+            description: "Application creation failed",
+          }),
+      );
       return null;
     },
     [intl, redirectPath, navigate],
