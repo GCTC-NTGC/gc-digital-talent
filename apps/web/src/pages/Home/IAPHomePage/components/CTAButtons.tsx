@@ -4,7 +4,7 @@ import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/Appl
 import { ApplyDialog, LearnDialog } from "./Dialog";
 
 interface CTAButtonsProps {
-  latestPoolId: string;
+  latestPoolId?: string;
   applicationId?: string;
   hasApplied?: boolean;
   canApply?: boolean;
