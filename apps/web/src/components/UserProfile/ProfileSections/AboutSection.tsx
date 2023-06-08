@@ -78,12 +78,14 @@ const AboutSection = ({ editPath, applicant }: AboutSectionProps) => {
                 })}
               </span>
               {telephone ? (
-                <a
+                <Link
+                  external
+                  color="black"
                   href={`tel:${telephone}`}
                   aria-label={telephone.replace(/.{1}/g, "$& ")}
                 >
                   <span data-h2-font-weight="base(700)">{telephone}</span>
-                </a>
+                </Link>
               ) : (
                 ""
               )}

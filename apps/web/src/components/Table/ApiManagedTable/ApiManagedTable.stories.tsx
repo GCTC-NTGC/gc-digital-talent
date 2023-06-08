@@ -62,6 +62,8 @@ const columns: ColumnsOf<Data> = [
   {
     label: "Edit",
     id: "edit",
+    // This is just a story
+    // eslint-disable-next-line react/forbid-elements
     accessor: () => <a href="/#">Edit</a>,
   },
 ];

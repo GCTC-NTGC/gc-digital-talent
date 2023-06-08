@@ -1,5 +1,8 @@
+/* eslint-disable react/forbid-elements */
 import * as React from "react";
 import { useIntl } from "react-intl";
+
+import { Link, LinkProps } from "@gc-digital-talent/ui";
 
 import { CanadaLogo, CanadaLogoWhite } from "../Svg";
 
@@ -10,26 +13,28 @@ interface FooterProps {
 const Footer = ({ width }: FooterProps) => {
   const intl = useIntl();
 
-  const links = [
+  const links: LinkProps[] = [
     {
-      route: `/${intl.locale}/support`,
-      label: intl.formatMessage({
+      href: `/${intl.locale}/support`,
+      children: intl.formatMessage({
         defaultMessage: "Contact Us",
         id: "AWiMVP",
         description: "Label for the support link in the Footer.",
       }),
     },
     {
-      route: `/${intl.locale}/terms-and-conditions`,
-      label: intl.formatMessage({
+      href: `/${intl.locale}/terms-and-conditions`,
+      external: true,
+      children: intl.formatMessage({
         defaultMessage: "Terms & Conditions",
         id: "ZGpncy",
         description: "Label for the terms and conditions link in the Footer.",
       }),
     },
     {
-      route: `/${intl.locale}/privacy-notice`,
-      label: intl.formatMessage({
+      href: `/${intl.locale}/privacy-notice`,
+      external: true,
+      children: intl.formatMessage({
         defaultMessage: "Privacy Policy",
         id: "VcOlXA",
         description: "Label for the privacy link in the Footer.",
@@ -37,16 +42,17 @@ const Footer = ({ width }: FooterProps) => {
     },
     {
       // This needs a real route and translated label
-      route: `/${intl.locale}/accessibility-statement`,
-      label: intl.formatMessage({
+      href: `/${intl.locale}/accessibility-statement`,
+      children: intl.formatMessage({
         defaultMessage: "Accessibility statement",
         id: "2iCpAL",
         description: "Title for the websites accessibility statement",
       }),
     },
     {
-      route: `https://www.canada.ca/${intl.locale}.html`,
-      label: intl.formatMessage({
+      href: `https://www.canada.ca/${intl.locale}.html`,
+      external: true,
+      children: intl.formatMessage({
         defaultMessage: "Canada.ca",
         id: "ZE77nf",
         description: "Label for the Canada link in the Footer.",
@@ -92,16 +98,8 @@ const Footer = ({ width }: FooterProps) => {
                   "Label for the policy, conditions and feedback navigation",
               })}
             >
-              {links.map(({ route, label }) => (
-                <a
-                  key={route}
-                  href={route}
-                  data-h2-background-color="base:focus-visible(focus)"
-                  data-h2-outline="base(none)"
-                  data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
-                >
-                  {label}
-                </a>
+              {links.map((props) => (
+                <Link key={props.href} color="black" {...props} />
               ))}
             </nav>
             <div data-h2-margin="base(x2, 0, x1, 0) p-tablet(x1, 0, 0, 0)">

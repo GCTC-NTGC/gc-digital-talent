@@ -1,19 +1,20 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 
 import CloseButton from "./CloseButton";
 
 import { BasicDialogProps } from "./types";
 
 const mailAccessor = (chunks: React.ReactNode) => (
-  <a
+  <Link
+    external
+    color="primary"
     href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
-    data-h2-color="base(primary) base:hover(primary.dark)"
   >
     {chunks}
-  </a>
+  </Link>
 );
 
 const ApplyDialog = ({ btnProps }: BasicDialogProps) => {

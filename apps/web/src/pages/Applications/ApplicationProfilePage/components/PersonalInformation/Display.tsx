@@ -4,6 +4,8 @@ import { useIntl } from "react-intl";
 import { User } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import { empty } from "@gc-digital-talent/helpers";
+import { Link } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getArmedForcesStatusesProfile,
@@ -12,7 +14,6 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 
-import { empty } from "@gc-digital-talent/helpers";
 import FieldDisplay from "../FieldDisplay";
 import DisplayColumn from "../DisplayColumn";
 
@@ -76,12 +77,14 @@ const Display = ({
           })}
         >
           {telephone ? (
-            <a
+            <Link
+              color="black"
+              external
               href={`tel:${telephone}`}
               aria-label={telephone.replace(/.{1}/g, "$& ")}
             >
               {telephone}
-            </a>
+            </Link>
           ) : (
             notProvided
           )}

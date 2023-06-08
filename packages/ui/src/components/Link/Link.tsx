@@ -88,6 +88,8 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
 
     if (external) {
       return (
+        // NOTE: We do want to allow external links to be rendered as <a> tags
+        // eslint-disable-next-line react/forbid-elements
         <a ref={ref} href={url || "#"} {...commonProps}>
           {content}
         </a>
