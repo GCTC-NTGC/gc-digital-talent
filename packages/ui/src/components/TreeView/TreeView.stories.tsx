@@ -44,7 +44,7 @@ const DefaultView: ComponentStory<typeof TreeView.Root> = () => {
         </Card>
       </TreeView.Item>
       <TreeView.Item>
-        <Button color="blue" mode="solid" type="button">
+        <Button color="secondary" mode="solid">
           Button label
         </Button>
       </TreeView.Item>

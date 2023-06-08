@@ -11,10 +11,12 @@ export interface StepProps {
 const Step = ({ path, label, disabled, ...rest }: StepProps) => (
   <Link
     href={path}
-    mode={disabled ? "solid" : "outline"}
-    type="button"
+    mode="solid"
     color="secondary"
     disabled={disabled}
+    style={{
+      pointerEvents: disabled ? "none" : undefined,
+    }}
     {...rest}
   >
     {label}

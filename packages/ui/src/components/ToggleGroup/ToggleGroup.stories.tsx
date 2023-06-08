@@ -44,11 +44,6 @@ const AllTemplate: StoryFn<typeof ToggleGroup.Root> = (args) => {
         <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
         <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
       </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="cta">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
-      </ToggleGroup.Root>
       <ToggleGroup.Root {...args} color="black">
         <ToggleGroup.Item value="one">One</ToggleGroup.Item>
         <ToggleGroup.Item value="two">Two</ToggleGroup.Item>

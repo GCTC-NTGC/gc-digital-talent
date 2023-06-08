@@ -1,9 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useNavigate, useParams } from "react-router-dom";
+import { FormProvider, useForm } from "react-hook-form";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import {
-  Accordion,
   Button,
   Card,
   Heading,
@@ -13,32 +14,30 @@ import {
   TreeView,
   Well,
 } from "@gc-digital-talent/ui";
-
-import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
-import applicationMessages from "~/messages/applicationMessages";
-
-import { ExperienceForDate } from "~/types/experience";
-import { useNavigate, useParams } from "react-router-dom";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
+import { Input } from "@gc-digital-talent/forms";
+import { toast } from "@gc-digital-talent/toast";
 import {
   SkillCategory,
   useGetApplicationQuery,
   useGetMyExperiencesQuery,
   useSubmitApplicationMutation,
 } from "@gc-digital-talent/graphql";
-import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
-import { notEmpty } from "@gc-digital-talent/helpers";
+
+import useRoutes from "~/hooks/useRoutes";
+import { GetPageNavInfo } from "~/types/applicationStep";
+import applicationMessages from "~/messages/applicationMessages";
+import { ExperienceForDate } from "~/types/experience";
 import { categorizeSkill } from "~/utils/skillUtils";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
-import { FormProvider, useForm } from "react-hook-form";
-import { Input } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
+import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
+import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+
 import SkillTree from "../ApplicationSkillsPage/components/SkillTree";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
-import ExperienceTreeItems from "../../../components/ExperienceTreeItems/ExperienceTreeItems";
 
 type FormValues = {
   signature: string;
@@ -242,16 +241,18 @@ const ApplicationReview = ({
           {hasSomeExperience ? (
             nonEmptyExperiences.map((experience) => (
               <TreeView.Item key={experience.id}>
-                <div data-h2-margin="base(-x.5, 0)">
-                  <Accordion.Root type="single" collapsible>
-                    <ExperienceAccordion
-                      key={experience.id}
-                      experience={experience}
-                      headingLevel="h3"
-                      showSkills={false}
-                    />
-                  </Accordion.Root>
-                </div>
+                <ExperienceCard
+                  key={experience.id}
+                  experience={experience}
+                  headingLevel="h4"
+                  showSkills={[
+                    ...(application.pool.essentialSkills?.filter(notEmpty) ??
+                      []),
+                    ...(application.pool.nonessentialSkills?.filter(notEmpty) ??
+                      []),
+                  ]}
+                  showEdit={false}
+                />
               </TreeView.Item>
             ))
           ) : (
@@ -504,12 +505,7 @@ const ApplicationReview = ({
                     id: "bO9PB4",
                   })}
                 </Button>
-                <Link
-                  type="button"
-                  mode="inline"
-                  color="secondary"
-                  href={cancelPath}
-                >
+                <Link mode="inline" href={cancelPath}>
                   {intl.formatMessage(applicationMessages.saveQuit)}
                 </Link>
               </div>

@@ -83,6 +83,8 @@ export const ExternalSideMenuItem = ({
   const url = sanitizeUrl(href);
 
   return (
+    // NOTE: We do want to allow external links to be rendered as <a> tags
+    // eslint-disable-next-line react/forbid-elements
     <a className="side-menu__item" {...commonStyles} href={url}>
       <SideMenuItemChildren icon={icon}>{children}</SideMenuItemChildren>
     </a>

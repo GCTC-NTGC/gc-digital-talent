@@ -141,9 +141,8 @@ const LoggedOutPage = () => {
           <AlertDialog.Footer>
             <AlertDialog.Cancel>
               <Link
-                mode="outline"
                 color="primary"
-                type="button"
+                mode="inline"
                 href={
                   applicantDashboard ? paths.dashboard() : paths.myProfile()
                 }

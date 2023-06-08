@@ -1,12 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { ExternalLink } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 
 const statCanLink = (href: string, chunks: React.ReactNode) => (
-  <ExternalLink newTab href={href}>
+  <Link newTab external href={href}>
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 interface DefinitionProps {

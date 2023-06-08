@@ -2,6 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
 
+import { Link } from "@gc-digital-talent/ui";
+
 import useQuote from "~/hooks/useQuote";
 
 import iapHeroImg from "~/assets/img/iap-hero.jpg";
@@ -38,7 +40,9 @@ import {
 } from "./components/Svg";
 
 const mailLink = (chunks: React.ReactNode) => (
-  <a href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">{chunks}</a>
+  <Link external href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">
+    {chunks}
+  </Link>
 );
 
 const Home = () => {
