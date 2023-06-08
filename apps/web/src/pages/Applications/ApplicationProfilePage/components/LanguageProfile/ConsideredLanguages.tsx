@@ -91,6 +91,8 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
 
   const estimatedAbilityItems = getEstimatedAbilityOptions(intl);
 
+  console.log(consideredLanguages);
+
   const isLookingForBilingual = consideredLanguages.includes(
     "lookingForBilingual",
   );
@@ -208,7 +210,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
         </>
       ) : (
         <>
-          <p data-h2-margin="base(x1, 0 )">
+          <p>
             {intl.formatMessage(
               {
                 defaultMessage:

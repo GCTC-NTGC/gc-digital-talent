@@ -123,7 +123,7 @@ const SkillsInDetail = ({
                   </span>
                 </Button>
               </div>
-              <div data-h2-margin="base(-x.5, 0, 0, 0)">
+              <div data-h2-margin="base(x.5 0)">
                 <input
                   type="hidden"
                   {...register(`skills.${index}.skillId` as const, {

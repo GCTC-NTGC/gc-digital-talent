@@ -103,7 +103,11 @@ const FormFields = ({
   ]);
 
   return (
-    <>
+    <div
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-gap="base(x1 0)"
+    >
       <RadioGroup
         idPrefix="govEmployeeYesNo"
         legend={labels.govEmployeeYesNo}
@@ -252,11 +256,7 @@ const FormFields = ({
           },
         ]}
       />
-      <Well
-        id="priority-description"
-        data-h2-padding="base(x.5)"
-        data-h2-margin="base(x.25, 0, x1, 0)"
-      >
+      <Well id="priority-description" data-h2-padding="base(x.5)">
         <p data-h2-font-size="base(caption)">
           {intl.formatMessage(
             {
@@ -281,7 +281,7 @@ const FormFields = ({
           name="priorityEntitlementNumber"
         />
       )}
-    </>
+    </div>
   );
 };
 

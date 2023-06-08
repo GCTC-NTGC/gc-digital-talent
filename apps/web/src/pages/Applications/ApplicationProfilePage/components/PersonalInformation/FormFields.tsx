@@ -31,8 +31,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
       <div
         data-h2-display="base(grid)"
         data-h2-grid-template-columns="base(1fr 1fr)"
-        data-h2-gap="base(0 x1)"
-        data-h2-margin-top="base(-x1)"
+        data-h2-gap="base(x1)"
       >
         <Input
           id="firstName"
@@ -101,8 +100,9 @@ const FormFields = ({ labels }: FormFieldProps) => {
       </div>
       <div
         data-h2-display="base(grid)"
-        data-h2-gap="l-tablet(0 x1)"
+        data-h2-gap="l-tablet(x1)"
         data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
+        data-h2-margin="base(x1 0)"
       >
         <Select
           id="preferredLang"

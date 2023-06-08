@@ -100,12 +100,7 @@ const DateInput = ({
 
   return (
     <Field.Wrapper>
-      <Field.Fieldset
-        aria-describedby={ariaDescribedBy}
-        data-h2-border="base(none)"
-        data-h2-padding="base(0)"
-        {...rest}
-      >
+      <Field.Fieldset aria-describedby={ariaDescribedBy} flat {...rest}>
         <Field.Legend
           required={required}
           {...(hideLegend && {

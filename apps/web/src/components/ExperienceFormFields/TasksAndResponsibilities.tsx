@@ -38,7 +38,7 @@ const TasksAndResponsibilities = ({
       <div data-h2-margin="base(0, 0, x2, 0)">
         {notEmpty(derivedType) ? (
           <>
-            <p>
+            <p data-h2-margin-bottom="base(x.5)">
               {intl.formatMessage({
                 defaultMessage:
                   "Describe the key tasks and responsibilities you were responsible for during this role.",

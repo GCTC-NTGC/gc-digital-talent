@@ -325,7 +325,7 @@ const ApplicationEducation = ({
           "Radio group option for education requirement filter in application education form.",
       }),
       contentBelow: (
-        <div data-h2-margin="base(x.5, 0, x.5, x1)">
+        <div data-h2-margin="base(x.15, 0, x.5, x1)">
           <p data-h2-margin="base(0, 0, x.5, 0)">
             {intl.formatMessage(applicationMessages.appliedWorkExperience)}
           </p>
@@ -343,8 +343,9 @@ const ApplicationEducation = ({
       value: EducationRequirementOption.Education,
       label: isIAP
         ? intl.formatMessage({
-            defaultMessage: "I have a high school diploma or GED equivalent",
-            id: "ybi6QM",
+            defaultMessage:
+              "<strong>I have a high school diploma or GED equivalent</strong>",
+            id: "4lGQQm",
             description:
               "Radio group option for education requirement filter in Indigenous apprenticeship application education form.",
           })
@@ -356,7 +357,7 @@ const ApplicationEducation = ({
               "Radio group option for education requirement filter in application education form.",
           }),
       contentBelow: (
-        <div data-h2-margin="base(x.5, 0, x.5, x1)">
+        <div data-h2-margin="base(x.15, 0, x.5, x1)">
           <p>
             {isIAP
               ? intl.formatMessage({

@@ -122,7 +122,7 @@ const PoolNameSection = ({
       <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
         {sectionMetadata.title}
       </TableOfContents.Heading>
-      <p>
+      <p data-h2-margin-bottom="base(x1)">
         {intl.formatMessage({
           defaultMessage:
             "Select the classification intended for this recruitment process.",

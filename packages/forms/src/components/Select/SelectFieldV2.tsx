@@ -135,7 +135,12 @@ const StateStyledSelectContainer = ({
   const { stateStyles, baseStyles } = props.selectProps;
 
   return (
-    <div {...baseStyles} {...stateStyles} data-h2-padding="base(x.25)">
+    <div
+      data-h2-background-color="base(white)"
+      {...baseStyles}
+      {...stateStyles}
+      data-h2-padding="base(x.25)"
+    >
       <components.SelectContainer {...props}>
         {children}
       </components.SelectContainer>

@@ -1,6 +1,9 @@
 import Checkbox, { type CheckboxProps } from "./components/Checkbox";
 import CheckButton, { CheckButtonProps } from "./components/CheckButton";
-import Checklist, { type ChecklistProps } from "./components/Checklist";
+import Checklist, {
+  type ChecklistProps,
+  type CheckboxOption,
+} from "./components/Checklist";
 import Combobox, { ComboboxProps } from "./components/Combobox";
 import DateInput, { DateInputProps } from "./components/DateInput/DateInput";
 import Field, {
@@ -59,6 +62,8 @@ import {
   objectsToSortedOptions,
 } from "./utils";
 
+import useCommonInputStyles from "./hooks/useCommonInputStyles";
+
 export {
   DateInput,
   Checkbox,
@@ -89,6 +94,7 @@ export {
 export type {
   DateInputProps,
   CheckboxProps,
+  CheckboxOption,
   CheckButtonProps,
   ChecklistProps,
   ComboboxProps,
@@ -127,4 +133,5 @@ export {
   matchStringsCaseDiacriticInsensitive,
   countNumberOfWords,
   objectsToSortedOptions,
+  useCommonInputStyles,
 };

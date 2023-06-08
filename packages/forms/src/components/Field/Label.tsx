@@ -10,7 +10,7 @@ export type LabelProps = React.DetailedHTMLProps<
 };
 
 const Label = ({ required, children, ...props }: LabelProps) => (
-  <label {...props}>
+  <label data-h2-font-size="base(caption)" {...props}>
     {children}
     <Required required={required} />
   </label>

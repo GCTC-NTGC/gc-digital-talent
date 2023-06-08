@@ -135,42 +135,50 @@ const AddTeamRoleDialog = ({
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleAddRoles)}>
-              <Select
-                id="team"
-                name="team"
-                label={intl.formatMessage({
-                  defaultMessage: "Team",
-                  id: "GaMSN8",
-                  description:
-                    "Label for the input to select team of a team role",
-                })}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Select team",
-                  id: "5C8xs4",
-                  description: "Placeholder text for team selection input",
-                })}
-                options={teamOptions ?? []}
-              />
-              <MultiSelectField
-                id="roles"
-                name="roles"
-                label={intl.formatMessage({
-                  defaultMessage: "Membership roles",
-                  id: "s5hTYo",
-                  description:
-                    "Label for the input to select role of a team role",
-                })}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Select role",
-                  id: "mTsq+x",
-                  description: "Placeholder text for role selection input",
-                })}
-                options={roleOptions}
-              />
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x1 0)"
+              >
+                <Select
+                  id="team"
+                  name="team"
+                  label={intl.formatMessage({
+                    defaultMessage: "Team",
+                    id: "GaMSN8",
+                    description:
+                      "Label for the input to select team of a team role",
+                  })}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  placeholder={intl.formatMessage({
+                    defaultMessage: "Select team",
+                    id: "5C8xs4",
+                    description: "Placeholder text for team selection input",
+                  })}
+                  options={teamOptions ?? []}
+                />
+                <MultiSelectField
+                  id="roles"
+                  name="roles"
+                  label={intl.formatMessage({
+                    defaultMessage: "Membership roles",
+                    id: "s5hTYo",
+                    description:
+                      "Label for the input to select role of a team role",
+                  })}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  placeholder={intl.formatMessage({
+                    defaultMessage: "Select role",
+                    id: "mTsq+x",
+                    description: "Placeholder text for role selection input",
+                  })}
+                  options={roleOptions}
+                />
+              </div>
               <Dialog.Footer>
                 <Dialog.Close>
                   <Button mode="outline" color="secondary">

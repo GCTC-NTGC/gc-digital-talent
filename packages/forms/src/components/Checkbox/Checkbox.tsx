@@ -58,23 +58,15 @@ const Checkbox = ({
       <Wrapper
         {...(asFieldset
           ? {
-              as: "fieldset",
               ...baseStyles,
               ...stateStyles,
-              "data-h2-position": "base(relative)",
-              "data-h2-margin-top": "base(x1.5)",
             }
           : {})}
       >
         {asFieldset && (
-          <legend
-            data-h2-position="base(absolute)"
-            data-h2-left="base(0)"
-            data-h2-top="base(-x1.25)"
-          >
+          <Field.Legend required={!!rules.required}>
             {boundingBoxLabel}
-            <Field.Required required={!!rules.required} />
-          </legend>
+          </Field.Legend>
         )}
         <Field.Label
           data-h2-display="base(flex)"

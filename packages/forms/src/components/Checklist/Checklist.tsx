@@ -10,7 +10,7 @@ import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
-export type Checkbox = {
+export type CheckboxOption = {
   value: string | number;
   label: string | React.ReactNode;
 };
@@ -23,7 +23,7 @@ export type ChecklistProps = Omit<CommonInputProps, "id" | "label"> &
     legend: React.ReactNode;
     /** A list of value and label representing the checkboxes shown.
      * The form will represent the data at `name` as an array containing the values of the checked boxes. */
-    items: Checkbox[];
+    items: CheckboxOption[];
     /** If true, all input elements in this fieldset will be disabled. */
     disabled?: boolean;
   };
@@ -80,6 +80,7 @@ const Checklist = ({
               rules={rules}
               label={label}
               disabled={disabled}
+              value={value}
               inCheckList
             />
           );

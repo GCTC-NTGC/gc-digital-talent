@@ -130,7 +130,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
       <div data-h2-container="base(left, medium, 0)">
         <FormProvider {...form}>
           <h2
-            data-h2-margin="base(x2, 0, 0, 0)"
+            data-h2-margin="base(x2, 0, x1, 0)"
             data-h2-font-size="base(h3, 1)"
           >
             {intl.formatMessage({
@@ -139,7 +139,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
               description: "Sub title for admin view pool page",
             })}
           </h2>
-          <div data-h2-flex-grid="base(flex-start, x1, 0)">
+          <div data-h2-flex-grid="base(flex-start, x1, x1)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 readOnly
@@ -206,7 +206,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
               </IconLink>
             </div>
           </div>
-          <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
+          <h2 data-h2-margin="base(x2, 0, x1, 0)" data-h2-font-size="base(h3)">
             {intl.formatMessage({
               defaultMessage: "Details",
               id: "xzkqPm",
@@ -214,7 +214,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
             })}
           </h2>
           {classification ? (
-            <div data-h2-flex-grid="base(flex-start, x1, 0)">
+            <div data-h2-flex-grid="base(flex-start, x1, x1)">
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Input
                   id="classification"

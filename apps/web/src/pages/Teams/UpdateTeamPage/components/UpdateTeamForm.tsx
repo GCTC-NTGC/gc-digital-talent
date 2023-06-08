@@ -106,7 +106,7 @@ const UpdateTeamForm = ({
         defaultValues: dataToFormValues(team),
       }}
     >
-      <div data-h2-flex-grid="base(center, x1, 0)">
+      <div data-h2-flex-grid="base(center, x1, x1)">
         <CreateTeamFormFields departments={departments} />
         <div data-h2-flex-item="base(1/2)">
           <TextArea

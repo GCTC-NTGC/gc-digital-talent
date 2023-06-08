@@ -17,7 +17,7 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
 
   return (
     <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">
-      <div data-h2-flex-grid="base(flex-start, x2, 0)">
+      <div data-h2-flex-grid="base(flex-start, x2, x1)">
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Input
             id="awardTitle"

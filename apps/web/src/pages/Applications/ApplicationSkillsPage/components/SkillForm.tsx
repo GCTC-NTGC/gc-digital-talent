@@ -155,7 +155,7 @@ const SkillForm = ({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <input type="hidden" {...methods.register("skill")} />
-        <Heading level="h2" size="h6" data-h2-margin-top="base(0)">
+        <Heading level="h2" size="h6" data-h2-margin="base(0 0 x1 0)">
           {intl.formatMessage({
             defaultMessage: "Choose the experience you'd like to add",
             id: "dkYHTv",

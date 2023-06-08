@@ -220,8 +220,7 @@ const ScreeningQuestions = ({
                     <div
                       data-h2-display="base(grid)"
                       data-h2-grid-template-columns="base(1fr 1fr)"
-                      data-h2-gap="base(0, x.5)"
-                      data-h2-margin="base(-x1, 0)"
+                      data-h2-gap="base(0 x1)"
                     >
                       <div>
                         <TextArea

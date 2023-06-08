@@ -71,7 +71,7 @@ const WorkTasksSection = ({
       <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
         {sectionMetadata.title}
       </TableOfContents.Heading>
-      <p>
+      <p data-h2-margin-bottom="base(0)">
         {intl.formatMessage({
           defaultMessage:
             "This information lets applicants know the type of work they will be expected to perform. Talk about the tasks and expectations related to this work.",

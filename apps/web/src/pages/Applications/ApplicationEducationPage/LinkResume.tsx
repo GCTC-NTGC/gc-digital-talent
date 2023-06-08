@@ -13,9 +13,7 @@ import {
   EducationRequirementOption,
   Experience,
 } from "@gc-digital-talent/graphql";
-import Checklist, {
-  Checkbox,
-} from "@gc-digital-talent/forms/src/components/Checklist";
+import { Checklist, CheckboxOption } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Heading, Well } from "@gc-digital-talent/ui";
 
@@ -46,7 +44,7 @@ const essentialExperienceMessages = defineMessages({
   },
 });
 
-const ExperienceChecklist = ({ items }: { items: Checkbox[] }) => {
+const ExperienceChecklist = ({ items }: { items: CheckboxOption[] }) => {
   const intl = useIntl();
   return (
     <Checklist
@@ -85,11 +83,14 @@ const LinkResume = ({
   const experienceItems = experiences.reduce(
     (
       checklistItems: {
-        educationExperiences: Checkbox[];
-        allExperiences: Checkbox[];
+        educationExperiences: CheckboxOption[];
+        allExperiences: CheckboxOption[];
       },
       experience: Experience,
-    ): { educationExperiences: Checkbox[]; allExperiences: Checkbox[] } => {
+    ): {
+      educationExperiences: CheckboxOption[];
+      allExperiences: CheckboxOption[];
+    } => {
       if (isEducationExperience(experience)) {
         const educationExperience = {
           value: experience.id,
