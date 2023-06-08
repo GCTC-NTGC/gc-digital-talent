@@ -769,7 +769,6 @@ const getDisplay = (block?: boolean): StyleRecord => {
   return block
     ? {
         "data-h2-display": "base(flex)",
-        "data-h2-text-align": "base(center)",
         "data-h2-justify-content": "base(center)",
         "data-h2-width": "base(100%)",
       }
@@ -814,10 +813,11 @@ const useCommonButtonLinkStyles: UseCommonButtonLinkStyles = ({
   return {
     "data-h2-align-items": "base(center)",
     "data-h2-font-size": "base(copy)",
-    "data-h2-text-decoration": "base(underline) base:hover(none)",
-    "data-h2-transition": "base(all ease 50ms) base:children[*](all ease 50ms)",
     "data-h2-outline-offset": "base(4px)",
     "data-h2-radius": "base(s)",
+    "data-h2-text-align": "base(center)",
+    "data-h2-text-decoration": "base(underline) base:hover(none)",
+    "data-h2-transition": "base(all ease 50ms) base:children[*](all ease 50ms)",
     ...getWeight(mode),
     ...getPadding(nonTextMode),
     ...getShadow(nonTextMode),
