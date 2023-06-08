@@ -45,7 +45,7 @@
     "@microsoft/applicationinsights-react-js": "^3.4.1",
     "@microsoft/applicationinsights-web": "^2.8.11",
     "date-fns": "^2.30.0",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.1.4",
     "framer-motion": "^10.12.16",
     "graphql": "^16.6.0",
     "lodash": "^4.17.21",
