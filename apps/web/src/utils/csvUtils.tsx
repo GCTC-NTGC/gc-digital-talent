@@ -1,4 +1,4 @@
-import { IntlShape, MessageDescriptor } from "react-intl";
+import { IntlShape } from "react-intl";
 
 import {
   Applicant,
@@ -31,6 +31,7 @@ import {
   isWorkExperience,
   getExperienceName,
 } from "~/utils/experienceUtils";
+import experienceMessages from "~/messages/experienceMessages";
 
 /**
  * Converts a possible boolean
@@ -273,7 +274,6 @@ export const flattenExperiencesToSkills = (
  */
 export const skillKeyAndJustifications = (
   experiences: Applicant["experiences"],
-  labels: Record<string, MessageDescriptor>,
   skills: Skill[],
   intl: IntlShape,
 ) => {
@@ -301,30 +301,39 @@ export const skillKeyAndJustifications = (
             if (isAwardExperience(experience)) {
               justification = {
                 id: currentValue.id,
-                justification: `${intl.formatMessage(labels.awardIssuedBy, {
-                  title: experience.title,
-                  issuedBy: experience.issuedBy,
-                })}: ${currentValue.experienceSkillRecord?.details}`,
+                justification: `${intl.formatMessage(
+                  experienceMessages.awardIssuedBy,
+                  {
+                    title: experience.title,
+                    issuedBy: experience.issuedBy,
+                  },
+                )}: ${currentValue.experienceSkillRecord?.details}`,
               };
             }
 
             if (isCommunityExperience(experience)) {
               justification = {
                 id: currentValue.id,
-                justification: `${intl.formatMessage(labels.communityAt, {
-                  title: experience.title,
-                  organization: experience.organization,
-                })}: ${currentValue.experienceSkillRecord?.details}`,
+                justification: `${intl.formatMessage(
+                  experienceMessages.communityAt,
+                  {
+                    title: experience.title,
+                    organization: experience.organization,
+                  },
+                )}: ${currentValue.experienceSkillRecord?.details}`,
               };
             }
 
             if (isEducationExperience(experience)) {
               justification = {
                 id: currentValue.id,
-                justification: `${intl.formatMessage(labels.educationAt, {
-                  areaOfStudy: experience.areaOfStudy,
-                  institution: experience.institution,
-                })}: ${currentValue.experienceSkillRecord?.details}`,
+                justification: `${intl.formatMessage(
+                  experienceMessages.educationAt,
+                  {
+                    areaOfStudy: experience.areaOfStudy,
+                    institution: experience.institution,
+                  },
+                )}: ${currentValue.experienceSkillRecord?.details}`,
               };
             }
 
@@ -338,10 +347,13 @@ export const skillKeyAndJustifications = (
             if (isWorkExperience(experience)) {
               justification = {
                 id: currentValue.id,
-                justification: `${intl.formatMessage(labels.workAt, {
-                  role: experience.role,
-                  organization: experience.organization,
-                })}: ${currentValue.experienceSkillRecord?.details}`,
+                justification: `${intl.formatMessage(
+                  experienceMessages.workAt,
+                  {
+                    role: experience.role,
+                    organization: experience.organization,
+                  },
+                )}: ${currentValue.experienceSkillRecord?.details}`,
               };
             }
           }

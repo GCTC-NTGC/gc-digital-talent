@@ -1,5 +1,10 @@
 /* eslint-disable no-underscore-dangle */
-import { IntlShape } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
+import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
+import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
+import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
+import StarIcon from "@heroicons/react/20/solid/StarIcon";
+import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 
 import {
   AllExperienceFormValues,
@@ -11,6 +16,10 @@ import {
   ExperienceType,
 } from "~/types/experience";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import React from "react";
+import { useAuthorization } from "@gc-digital-talent/auth";
+import { IconType } from "@gc-digital-talent/ui";
+import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 import {
   AwardExperience,
   CommunityExperience,
@@ -20,6 +29,8 @@ import {
   Skill,
   WorkExperience,
 } from "../api/generated";
+import useRoutes from "../hooks/useRoutes";
+import experienceMessages from "../messages/experienceMessages";
 
 /**
  * Gets all of the experience form labels
@@ -534,47 +545,120 @@ export const queryResultToDefaultValues = (
 export const getExperienceName = (
   experience: AnyExperience,
   intl: IntlShape,
+  html = false,
 ) => {
   if (isAwardExperience(experience) || isPersonalExperience(experience)) {
-    return experience.title;
+    return html ? (
+      <span data-h2-font-weight="base(700)">{experience.title}</span>
+    ) : (
+      experience.title
+    );
   }
 
   if (isCommunityExperience(experience)) {
     const { title, organization } = experience;
     return intl.formatMessage(
+      html
+        ? experienceMessages.communityAtHtml
+        : experienceMessages.communityAt,
       {
-        defaultMessage: "{title} with {organization}",
-        id: "VAcukn",
-        description: "Title with organization",
+        title,
+        organization,
       },
-      { title, organization },
     );
   }
 
   if (isEducationExperience(experience)) {
     const { areaOfStudy, institution } = experience;
     return intl.formatMessage(
+      html
+        ? experienceMessages.educationAtHtml
+        : experienceMessages.educationAt,
       {
-        defaultMessage: "{areaOfStudy} at {institution}",
-        id: "UrsGGK",
-        description: "Study at institution",
+        areaOfStudy,
+        institution,
       },
-      { areaOfStudy, institution },
     );
   }
 
   if (isWorkExperience(experience)) {
     const { role, organization } = experience;
     return intl.formatMessage(
+      html ? experienceMessages.workAtHtml : experienceMessages.workAt,
       {
-        defaultMessage: "{role} at {organization}",
-        id: "wTAdQe",
-        description: "Role at organization",
+        role,
+        organization,
       },
-      { role, organization },
     );
   }
 
   // We should never get here but just in case we do, return no provided
   return intl.formatMessage(commonMessages.notProvided);
+};
+
+type ExperienceInfo = {
+  title: string;
+  titleHtml: React.ReactNode;
+  editPath?: string;
+  typeMessage: React.ReactNode;
+  icon: IconType;
+};
+
+type UseExperienceInfo = (experience: AnyExperience) => ExperienceInfo;
+
+/**
+ * Use experience info
+ *
+ * Returns information about an experience based
+ * on the type
+ *
+ * @param AnyExperience experience
+ * @return
+ */
+export const useExperienceInfo: UseExperienceInfo = (experience) => {
+  const intl = useIntl();
+  const { user } = useAuthorization();
+  const paths = useRoutes();
+  const experienceType = deriveExperienceType(experience);
+  const userId = experience?.applicant?.id || user?.id || "";
+  const defaults = {
+    title: intl.formatMessage(commonMessages.notProvided).toString(),
+    titleHtml: intl.formatMessage(commonMessages.notProvided),
+    typeMessage: intl.formatMessage(experienceMessages.unknown),
+    icon: InformationCircleIcon,
+  };
+
+  if (!experienceType) return defaults;
+
+  const editPaths = new Map<ExperienceType, string>([
+    ["award", paths.editExperience(userId, "award", experience.id)],
+    ["community", paths.editExperience(userId, "community", experience.id)],
+    ["education", paths.editExperience(userId, "education", experience.id)],
+    ["personal", paths.editExperience(userId, "personal", experience.id)],
+    ["work", paths.editExperience(userId, "work", experience.id)],
+  ]);
+
+  const typeMessages = new Map<ExperienceType, string>([
+    ["award", intl.formatMessage(experienceMessages.award)],
+    ["community", intl.formatMessage(experienceMessages.community)],
+    ["education", intl.formatMessage(experienceMessages.education)],
+    ["personal", intl.formatMessage(experienceMessages.personal)],
+    ["work", intl.formatMessage(experienceMessages.work)],
+  ]);
+
+  const icons = new Map<ExperienceType, IconType>([
+    ["award", StarIcon],
+    ["community", UserGroupIcon],
+    ["education", BookOpenIcon],
+    ["personal", LightBulbIcon],
+    ["work", BriefcaseIcon],
+  ]);
+
+  return {
+    title: getExperienceName(experience, intl)?.toString() ?? defaults.title,
+    titleHtml: getExperienceName(experience, intl, true),
+    editPath: editPaths.get(experienceType),
+    typeMessage: typeMessages.get(experienceType) || defaults.typeMessage,
+    icon: icons.get(experienceType) || defaults.icon,
+  };
 };

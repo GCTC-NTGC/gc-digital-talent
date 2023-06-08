@@ -14,24 +14,22 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import { AwardExperience, Experience } from "~/api/generated";
-import ExperienceAccordion, {
-  ExperiencePaths,
-} from "~/components/ExperienceAccordion/ExperienceAccordion";
 
 import SkillAccordion from "./SkillAccordion/SkillAccordion";
 import ExperienceByTypeListing from "./ExperienceByTypeListing";
+import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
 export interface ExperienceSectionProps {
   experiences?: Experience[];
-  experienceEditPaths?: ExperiencePaths; //  If experienceEditPaths is not defined, links to edit experiences will not appear.
+  editParam?: string;
   editPath?: string;
   headingLevel?: HeadingRank;
 }
 
 const ExperienceSection = ({
   experiences,
-  experienceEditPaths,
   editPath,
+  editParam,
   headingLevel = "h3",
 }: ExperienceSectionProps) => {
   const intl = useIntl();
@@ -141,22 +139,26 @@ const ExperienceSection = ({
         ))}
       </Tabs.List>
       <Tabs.Content value="0">
-        <Accordion.Root type="single" collapsible>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x.5 0)"
+        >
           {sortedByDate.map((experience) => (
-            <ExperienceAccordion
+            <ExperienceCard
               headingLevel={headingLevel}
               key={experience.id}
               experience={experience}
-              editPaths={experienceEditPaths}
+              editParam={editParam}
             />
           ))}
-        </Accordion.Root>
+        </div>
       </Tabs.Content>
       <Tabs.Content value="1">
         <ExperienceByTypeListing
           headingLevel={headingLevel}
           experiences={experiences}
-          editPaths={experienceEditPaths}
+          editParam={editParam}
         />
       </Tabs.Content>
       <Tabs.Content value="2">
