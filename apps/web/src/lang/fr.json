@@ -8199,9 +8199,9 @@
     "defaultMessage": "Cette base de données sur les talents est ouverte à la plupart des ministères et organismes. Les candidats de la base de données varient, soit de ceux qui débutent leur carrière, aux professionnels chevronnés qui comptent plusieurs années d’expérience de travail. Il existe de multiples processus de recrutement en cours, ce qui veut donc dire qu’on ajoute de nouveaux candidats chaque semaine.",
     "description": "Content displayed in the About area of the hero section of the Search page."
   },
-  "BunlKD": {
+  "nnMkp+": {
     "defaultMessage": "Rechercher dans la base de données des Talents numériques du GC",
-    "description": "Main heading displayed at the top of request page."
+    "description": "Title displayed in the hero section of the Search page."
   },
   "qnECBT": {
     "defaultMessage": "À propos de la base de données des Talents numériques du GC",
