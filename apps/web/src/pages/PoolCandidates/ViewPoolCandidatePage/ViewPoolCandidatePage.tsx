@@ -11,7 +11,6 @@ import {
   Separator,
   TreeView,
   Heading,
-  Accordion,
   CardBasic,
 } from "@gc-digital-talent/ui";
 import {
@@ -44,7 +43,7 @@ import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
-import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
+import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
@@ -248,6 +247,7 @@ export const ViewPoolCandidate = ({
       poolCandidate.pool.essentialSkills,
     );
     const nonEmptyExperiences = parsedSnapshot.experiences?.filter(notEmpty);
+
     mainContent = (
       <>
         {subTitle}
@@ -396,16 +396,13 @@ export const ViewPoolCandidate = ({
               <TreeView.Root>
                 {nonEmptyExperiences.map((experience) => (
                   <TreeView.Item key={experience.id}>
-                    <div data-h2-margin="base(-x.5, 0)">
-                      <Accordion.Root type="single" collapsible>
-                        <ExperienceAccordion
-                          key={experience.id}
-                          experience={experience}
-                          headingLevel="h5"
-                          showSkills={false}
-                        />
-                      </Accordion.Root>
-                    </div>
+                    <ExperienceCard
+                      key={experience.id}
+                      experience={experience}
+                      headingLevel="h5"
+                      showSkills={false}
+                      showEdit={false}
+                    />
                   </TreeView.Item>
                 ))}
               </TreeView.Root>
