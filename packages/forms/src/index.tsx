@@ -14,7 +14,6 @@ import Field, {
   RequiredProps,
   WrapperProps,
 } from "./components/Field";
-import Fieldset, { type FieldsetProps } from "./components/Fieldset";
 import Input, { type InputProps } from "./components/Input";
 import MultiSelectField from "./components/MultiSelect/MultiSelectField";
 import RadioGroup, { type RadioGroupProps } from "./components/RadioGroup";
@@ -57,7 +56,6 @@ export {
   Checklist,
   Combobox,
   Field,
-  Fieldset,
   Input,
   MultiSelectField,
   Repeater,
@@ -79,7 +77,6 @@ export type {
   CheckButtonProps,
   ChecklistProps,
   ComboboxProps,
-  FieldsetProps,
   InputProps,
   RadioGroupProps,
   SelectProps,

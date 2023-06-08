@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { InputWrapper } from "@gc-digital-talent/forms";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
