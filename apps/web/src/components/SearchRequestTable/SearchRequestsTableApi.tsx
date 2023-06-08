@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
+import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
@@ -35,7 +36,47 @@ import {
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
+import {
+  stringToEnumRequestStatus,
+  stringToEnumStream,
+} from "~/utils/requestUtils";
+import SearchRequestsTableFilterDialog, {
+  FormValues,
+} from "./components/SearchRequestsTableFilterDialog";
+
 type Data = NonNullable<FromArray<PoolCandidateSearchRequestPaginator["data"]>>;
+
+// data massaging functions
+function transformFormValuesToSearchRequestFilterInput(
+  data: FormValues,
+): PoolCandidateSearchRequestInput {
+  return {
+    status: data.status.map((status) => {
+      return stringToEnumRequestStatus(status);
+    }),
+    departments: data.departments,
+    classifications: data.classifications,
+    streams: data.streams.map((stream) => {
+      return stringToEnumStream(stream);
+    }),
+  };
+}
+
+function transformSearchRequestFilterInputToFormValues(
+  input: PoolCandidateSearchRequestInput | undefined,
+): FormValues {
+  return {
+    status: input?.status?.filter(notEmpty) ?? [],
+    departments:
+      input?.departments?.filter(notEmpty).map((department) => department) ??
+      [],
+    classifications:
+      input?.classifications
+        ?.filter(notEmpty)
+        .map((classification) => classification) ?? [],
+    streams: input?.streams?.filter(notEmpty) ?? [],
+  };
+}
 
 // Accessors
 const statusAccessor = (
@@ -86,6 +127,11 @@ const SearchRequestsTableApi = ({
     [initialFilterInput],
   );
 
+  const initialFilters = useMemo(
+    () => transformSearchRequestFilterInputToFormValues(initialFilterInput),
+    [initialFilterInput],
+  );
+
   const [tableState, setTableState] = useTableState<
     Data,
     PoolCandidateSearchRequestInput
@@ -96,12 +142,22 @@ const SearchRequestsTableApi = ({
     sortBy: sortingRule,
     hiddenColumnIds,
     searchState,
+    filters: searchRequestsFilterInput,
   } = tableState;
+
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    const transformedData = transformFormValuesToSearchRequestFilterInput(data);
+
+    setTableState({
+      filters: transformedData,
+      currentPage: defaultState.currentPage,
+    });
+  };
 
   // TODO: fill this in
   // merge search bar with filter dialog
   const combinedSearchRequestInput = (
-    // fancyFilterState: PoolCandidateSearchRequestInput | undefined, filter goes here when added
+    fancyFilterState: PoolCandidateSearchRequestInput | undefined,
     searchBarTerm: string | undefined,
     searchType: string | undefined,
   ): InputMaybe<PoolCandidateSearchRequestInput> => {
@@ -109,19 +165,25 @@ const SearchRequestsTableApi = ({
       return null;
     }
 
-    // return {
-    // search bar
-    // manager, jobTitle...
-    // from fancy filter
-    // status, department...
-    // };
+    return {
+      // search bar
+      // manager, jobTitle...
 
-    return null;
+      // from fancy filter
+      status: fancyFilterState?.status,
+      departments: fancyFilterState?.departments,
+      classifications: fancyFilterState?.classifications,
+      streams: fancyFilterState?.streams,
+    };
   };
 
   const [result] = useGetPoolCandidateSearchRequestsPaginatedQuery({
     variables: {
-      where: combinedSearchRequestInput(searchState?.term, searchState?.type),
+      where: combinedSearchRequestInput(
+        searchRequestsFilterInput,
+        searchState?.term,
+        searchState?.type,
+      ),
       page: currentPage,
       first: pageSize,
       orderBy: sortingRuleToOrderByClause(sortingRule) ?? [
@@ -294,8 +356,12 @@ const SearchRequestsTableApi = ({
       </h2>
       <TableHeader
         columns={columns}
-        filterComponent={<span />}
-        filter={false}
+        filterComponent={
+          <SearchRequestsTableFilterDialog
+            onSubmit={handleFilterSubmit}
+            initialFilters={initialFilters}
+          />
+        }
         initialSearchState={searchState}
         onSearchChange={(
           term: string | undefined,

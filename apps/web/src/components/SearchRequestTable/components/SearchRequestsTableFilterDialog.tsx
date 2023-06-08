@@ -118,24 +118,24 @@ const SearchRequestsTableFilterDialog = ({
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
-                  id="DEPARTMENT"
-                  label="bbb"
+                  id="departments"
+                  label="DEPARTMENTS"
                   options={optionsData.departments}
                   isLoading={rawGraphqlResults.departments.fetching}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
-                  id="CLASSIFICATION"
-                  label="ccc"
+                  id="classifications"
+                  label="CLASSIFICATIONS"
                   options={optionsData.classifications}
                   isLoading={rawGraphqlResults.classifications.fetching}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
-                  id="STREAM"
-                  label="ddd"
+                  id="streams"
+                  label="STREAMS"
                   options={optionsData.streams}
                 />
               </div>
