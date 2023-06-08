@@ -37,14 +37,8 @@ const CreateApplication = () => {
   const navigate = useNavigate();
   const { applicationRevamp } = useFeatureFlags();
   const auth = useAuthorization();
-  const [
-    {
-      fetching: creatingNewApplication,
-      data: newApplicationData,
-      operation: newApplicationOperation,
-    },
-    executeMutation,
-  ] = useCreateApplicationMutation();
+  const [{ data: newApplicationData }, executeMutation] =
+    useCreateApplicationMutation();
   const [{ data: existingApplicationsData }] = useMyApplicationsQuery();
 
   // Path to display application (new or existing).
@@ -58,6 +52,9 @@ const CreateApplication = () => {
 
   // Store path to redirect to later on
   let redirectPath = paths.pool(poolId || "");
+
+  // We hae the mutation in a useCallback to run once only but it fires twice in strict mode.
+  const mutationCounter = React.useRef<number>(0);
 
   /**
    * Handle any errors that occur during mutation
@@ -112,22 +109,18 @@ const CreateApplication = () => {
   /**
    * Store if the application can be created
    *
-   * !creating - Not currently running a mutation
-   * !mutationData - The mutation has not previously ran
    * userId - We need a user ID to run the mutation
-   * id - We need a pool ID to run the mutation
-   * isVisible - Should't run it if user cannot view it
-   * !hasApplied - Users can only apply to a single pool
+   * hasNewApplicationData - We've created the new application and have the results
+   * haveRequiredDataToCreateNewApplication - We need some data to create the new application
+   * mutationCounter.current - Keep track of how many times we've applied - we should only do it once
+   * checkedForExistingApplications - We should check existing applications before applying again
+   * existingApplicationIdToThisPool - If there's already an application to this pool don't apply again
    */
   const userId = auth.user?.id;
   const hasNewApplicationData = notEmpty(newApplicationData);
-  const isCreating =
-    creatingNewApplication ||
-    hasNewApplicationData ||
-    newApplicationOperation?.key;
-  const hasRequiredDataToCreateNewApplication = userId && poolId;
+  const haveRequiredDataToCreateNewApplication = userId && poolId;
 
-  if (!hasRequiredDataToCreateNewApplication) {
+  if (!haveRequiredDataToCreateNewApplication) {
     if (!poolId) {
       redirectPath = paths.browsePools();
     }
@@ -136,12 +129,12 @@ const CreateApplication = () => {
 
   const createApplication = React.useCallback(() => {
     if (
-      !isCreating &&
-      userId &&
-      poolId &&
+      mutationCounter.current === 0 &&
+      haveRequiredDataToCreateNewApplication &&
       checkedForExistingApplications &&
       !existingApplicationIdToThisPool
     ) {
+      mutationCounter.current += 1;
       executeMutation({ userId, poolId })
         .then((result) => {
           if (result.data?.createApplication) {
@@ -184,12 +177,12 @@ const CreateApplication = () => {
         .catch(handleError);
     }
   }, [
-    isCreating,
-    userId,
-    poolId,
+    haveRequiredDataToCreateNewApplication,
     checkedForExistingApplications,
     existingApplicationIdToThisPool,
     executeMutation,
+    userId,
+    poolId,
     handleError,
     applicationPath,
     navigate,
