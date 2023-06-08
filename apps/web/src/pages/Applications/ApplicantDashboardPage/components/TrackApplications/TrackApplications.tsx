@@ -121,7 +121,16 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
         >
           {/* applications in progress */}
           <Accordion.Item value="in_progress">
-            <StandardAccordionHeader headingAs="h3">
+            <StandardAccordionHeader
+              headingAs="h3"
+              subtitle={intl.formatMessage({
+                defaultMessage:
+                  "This section contains your drafts and submitted applications that are still being processed.",
+                id: "WuMMRK",
+                description:
+                  "Introductory text displayed in applications in progress section.",
+              })}
+            >
               {currentAccordionItems.includes("in_progress")
                 ? intl.formatMessage(
                     {
@@ -151,13 +160,6 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
             <AnimatedContent
               isOpen={currentAccordionItems.includes("in_progress")}
             >
-              {intl.formatMessage({
-                defaultMessage:
-                  "This section contains your drafts and submitted applications that are still being processed.",
-                id: "WuMMRK",
-                description:
-                  "Introductory text displayed in applications in progress section.",
-              })}
               <Separator
                 orientation="horizontal"
                 decorative
@@ -201,7 +203,16 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
           </Accordion.Item>
           {/* past applications */}
           <Accordion.Item value="past">
-            <StandardAccordionHeader headingAs="h3">
+            <StandardAccordionHeader
+              headingAs="h3"
+              subtitle={intl.formatMessage({
+                defaultMessage:
+                  "This section contains old applications that have been fully assessed, as well as applications that have missed the submission deadline.",
+                id: "mH2eSA",
+                description:
+                  "Introductory text displayed in past applications section.",
+              })}
+            >
               {currentAccordionItems.includes("past")
                 ? intl.formatMessage(
                     {
@@ -229,13 +240,6 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
                   )}
             </StandardAccordionHeader>
             <AnimatedContent isOpen={currentAccordionItems.includes("past")}>
-              {intl.formatMessage({
-                defaultMessage:
-                  "This section contains old applications that have been fully assessed, as well as applications that have missed the submission deadline.",
-                id: "mH2eSA",
-                description:
-                  "Introductory text displayed in past applications section.",
-              })}
               <Separator
                 orientation="horizontal"
                 decorative
