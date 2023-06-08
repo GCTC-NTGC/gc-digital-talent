@@ -40,18 +40,15 @@ const CreateApplication = () => {
   const [{ data: existingApplicationsData }] = useMyApplicationsQuery();
 
   // Path to display application (new or existing).
-  const applicationPath = React.useCallback(
-    (applicationId: string) =>
-      applicationRevamp
-        ? paths.application(applicationId)
-        : paths.reviewApplication(applicationId),
-    [applicationRevamp, paths],
-  );
+  const applicationPath = (applicationId: string) =>
+    applicationRevamp
+      ? paths.application(applicationId)
+      : paths.reviewApplication(applicationId);
 
   // Store path to redirect to later on
   let redirectPath = paths.pool(poolId || "");
 
-  // We hae the mutation in a useCallback to run once only but it fires twice in strict mode.
+  // We use this ref to make sure we only try to apply once
   const mutationCounter = React.useRef<number>(0);
 
   /**
@@ -59,21 +56,18 @@ const CreateApplication = () => {
    *
    * @returns null
    */
-  const handleError = React.useCallback(
-    (msg?: React.ReactNode, path?: string) => {
-      navigate(path || redirectPath, { replace: true });
-      toast.error(
-        msg ||
-          intl.formatMessage({
-            defaultMessage: "Error application creation failed",
-            id: "tlAiJm",
-            description: "Application creation failed",
-          }),
-      );
-      return null;
-    },
-    [intl, redirectPath, navigate],
-  );
+  const handleError = (msg?: React.ReactNode, path?: string) => {
+    navigate(path || redirectPath, { replace: true });
+    toast.error(
+      msg ||
+        intl.formatMessage({
+          defaultMessage: "Error application creation failed",
+          id: "tlAiJm",
+          description: "Application creation failed",
+        }),
+    );
+    return null;
+  };
 
   // If a "me" object came back then we've checked.
   const checkedForExistingApplications = notEmpty(existingApplicationsData?.me);
@@ -117,71 +111,53 @@ const CreateApplication = () => {
     handleError();
   }
 
-  const createApplication = React.useCallback(() => {
-    if (
-      mutationCounter.current === 0 &&
-      haveRequiredDataToCreateNewApplication &&
-      checkedForExistingApplications &&
-      !existingApplicationIdToThisPool
-    ) {
-      mutationCounter.current += 1;
-      executeMutation({ userId, poolId })
-        .then((result) => {
-          if (result.data?.createApplication) {
-            const { id } = result.data.createApplication;
-            const newPath = applicationPath(id);
-            // Redirect user to the application if it exists
-            // Toast success or error
-            if (!result.error) {
-              navigate(newPath, { replace: true });
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage: "Application created",
-                  id: "U/ji+A",
-                  description: "Application created successfully",
-                }),
-              );
-            } else {
-              const messageDescriptor = tryFindMessageDescriptor(
-                result.error.message,
-              );
-              const message = intl.formatMessage(
-                messageDescriptor ??
-                  errorMessages.unknownErrorRequestErrorTitle,
-              );
-              handleError(message, newPath);
-            }
-          } else if (result.error?.message) {
+  if (
+    mutationCounter.current === 0 &&
+    haveRequiredDataToCreateNewApplication &&
+    checkedForExistingApplications &&
+    !existingApplicationIdToThisPool
+  ) {
+    mutationCounter.current += 1;
+    executeMutation({ userId, poolId })
+      .then((result) => {
+        if (result.data?.createApplication) {
+          const { id } = result.data.createApplication;
+          const newPath = applicationPath(id);
+          // Redirect user to the application if it exists
+          // Toast success or error
+          if (!result.error) {
+            navigate(newPath, { replace: true });
+            toast.success(
+              intl.formatMessage({
+                defaultMessage: "Application created",
+                id: "U/ji+A",
+                description: "Application created successfully",
+              }),
+            );
+          } else {
             const messageDescriptor = tryFindMessageDescriptor(
               result.error.message,
             );
             const message = intl.formatMessage(
               messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
             );
-            handleError(message);
-          } else {
-            // Fallback to generic message
-            handleError();
+            handleError(message, newPath);
           }
-        })
-        .catch(handleError);
-    }
-  }, [
-    haveRequiredDataToCreateNewApplication,
-    checkedForExistingApplications,
-    existingApplicationIdToThisPool,
-    executeMutation,
-    userId,
-    poolId,
-    handleError,
-    applicationPath,
-    navigate,
-    intl,
-  ]);
-
-  React.useEffect(() => {
-    createApplication();
-  }, [createApplication]);
+        } else if (result.error?.message) {
+          const messageDescriptor = tryFindMessageDescriptor(
+            result.error.message,
+          );
+          const message = intl.formatMessage(
+            messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
+          );
+          handleError(message);
+        } else {
+          // Fallback to generic message
+          handleError();
+        }
+      })
+      .catch(handleError);
+  }
 
   // Don't render the page if the mutation ran already
   if (hasNewApplicationData) {
