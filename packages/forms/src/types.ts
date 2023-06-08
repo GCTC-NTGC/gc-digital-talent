@@ -1,4 +1,9 @@
-import { RegisterOptions } from "react-hook-form";
+import {
+  RegisterOptions,
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+} from "react-hook-form";
 
 export type FieldState = "unset" | "invalid" | "dirty";
 
@@ -31,3 +36,11 @@ export type CommonInputProps = {
   /** Determine if it should track unsaved changes and render it */
   trackUnsaved?: boolean;
 };
+
+export type InputFieldError =
+  | string
+  | FieldError
+  // This is from `react-hook-form` so ignore the any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  | Merge<FieldError, FieldErrorsImpl<any>>
+  | undefined;
