@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
-import MagnifyingGlassIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
+import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 
 import { useTheme } from "@gc-digital-talent/theme";
 import { Heading, Link } from "@gc-digital-talent/ui";
@@ -97,7 +97,7 @@ const ErrorPage = () => {
               })}
             </Link>
             <Link
-              icon={MagnifyingGlassIcon}
+              icon={WrenchScrewdriverIcon}
               color="primary"
               mode="cta"
               href={paths.support()}
