@@ -3,9 +3,8 @@ import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
 
 import Checkbox from "../Checkbox";
-import Base from "../Base";
-
-import { CommonInputProps, HTMLFieldsetProps } from "../../types";
+import Field from "../Field";
+import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
@@ -63,14 +62,14 @@ const Checklist = ({
   });
 
   return (
-    <Base.Wrapper>
-      <Base.Fieldset
+    <Field.Wrapper>
+      <Field.Fieldset
         id={idPrefix}
         aria-describedby={ariaDescribedBy}
         {...{ ...baseStyles, ...stateStyles }}
         {...rest}
       >
-        <Base.Legend required={!!rules.required}>{legend}</Base.Legend>
+        <Field.Legend required={!!rules.required}>{legend}</Field.Legend>
         {items.map(({ value, label }) => {
           const id = `${idPrefix}-${value}`;
           return (
@@ -85,9 +84,9 @@ const Checklist = ({
             />
           );
         })}
-      </Base.Fieldset>
-      <Base.Descriptions ids={descriptionIds} {...{ error, context }} />
-    </Base.Wrapper>
+      </Field.Fieldset>
+      <Field.Descriptions ids={descriptionIds} {...{ error, context }} />
+    </Field.Wrapper>
   );
 };
 

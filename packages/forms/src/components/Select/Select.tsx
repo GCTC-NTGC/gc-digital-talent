@@ -4,9 +4,8 @@ import get from "lodash/get";
 import orderBy from "lodash/orderBy";
 import isString from "lodash/isString";
 
-import Base from "../Base";
-
-import { CommonInputProps } from "../../types";
+import Field from "../Field";
+import type { CommonInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
@@ -113,10 +112,10 @@ const Select = ({
   }, [doNotSort, options]);
 
   return (
-    <Base.Wrapper>
-      <Base.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
+    <Field.Wrapper>
+      <Field.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
         {label}
-      </Base.Label>
+      </Field.Label>
       <select
         id={id}
         aria-describedby={ariaDescribedBy}
@@ -157,8 +156,12 @@ const Select = ({
           ),
         )}
       </select>
-      <Base.Descriptions ids={descriptionIds} error={error} context={context} />
-    </Base.Wrapper>
+      <Field.Descriptions
+        ids={descriptionIds}
+        error={error}
+        context={context}
+      />
+    </Field.Wrapper>
   );
 };
 

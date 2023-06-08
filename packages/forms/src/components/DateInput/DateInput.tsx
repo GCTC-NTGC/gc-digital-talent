@@ -12,14 +12,14 @@ import { FieldError, useFormContext, Controller } from "react-hook-form";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
 
-import Base from "../Base";
-
+import Field from "../Field";
 import { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
-import ControlledInput from "./ControlledInput";
-import { DateRegisterOptions, DateSegment, DATE_SEGMENT } from "./types";
-import { splitSegments } from "./utils";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
+
+import ControlledInput from "./ControlledInput";
+import { splitSegments } from "./utils";
+import { DateRegisterOptions, DateSegment, DATE_SEGMENT } from "./types";
 
 export type DateInputProps = Omit<CommonInputProps, "rules" | "label"> &
   HTMLFieldsetProps & {
@@ -99,21 +99,21 @@ const DateInput = ({
   };
 
   return (
-    <Base.Wrapper>
-      <Base.Fieldset
+    <Field.Wrapper>
+      <Field.Fieldset
         aria-describedby={ariaDescribedBy}
         data-h2-border="base(none)"
         data-h2-padding="base(0)"
         {...rest}
       >
-        <Base.Legend
+        <Field.Legend
           required={required}
           {...(hideLegend && {
             "data-h2-visually-hidden": "base(invisible)",
           })}
         >
           {legend}
-        </Base.Legend>
+        </Field.Legend>
         <Controller
           control={control}
           name={name}
@@ -127,9 +127,9 @@ const DateInput = ({
           }}
           render={(props) => <ControlledInput {...props} show={show} />}
         />
-      </Base.Fieldset>
-      <Base.Descriptions ids={descriptionIds} {...{ error, context }} />
-    </Base.Wrapper>
+      </Field.Fieldset>
+      <Field.Descriptions ids={descriptionIds} {...{ error, context }} />
+    </Field.Wrapper>
   );
 };
 

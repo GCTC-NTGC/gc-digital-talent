@@ -2,8 +2,7 @@ import * as React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
 
-import Base from "../Base";
-
+import Field from "../Field";
 import { CommonInputProps, HTMLInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
@@ -60,10 +59,10 @@ const Input = ({
   };
 
   return (
-    <Base.Wrapper>
-      <Base.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
+    <Field.Wrapper>
+      <Field.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
         {label}
-      </Base.Label>
+      </Field.Label>
       <input
         id={id}
         type={type}
@@ -83,8 +82,12 @@ const Input = ({
           : {})}
         {...rest}
       />
-      <Base.Descriptions ids={descriptionIds} error={error} context={context} />
-    </Base.Wrapper>
+      <Field.Descriptions
+        ids={descriptionIds}
+        error={error}
+        context={context}
+      />
+    </Field.Wrapper>
   );
 };
 

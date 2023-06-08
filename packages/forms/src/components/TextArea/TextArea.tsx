@@ -5,10 +5,9 @@ import { useIntl } from "react-intl";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
-import Base from "../Base";
+import Field from "../Field";
 import WordCounter from "../WordCounter";
-
-import { CommonInputProps } from "../../types";
+import type { CommonInputProps } from "../../types";
 import { countNumberOfWords } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
@@ -88,10 +87,10 @@ const TextArea = ({
   }
 
   return (
-    <Base.Wrapper>
-      <Base.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
+    <Field.Wrapper>
+      <Field.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
         {label}
-      </Base.Label>
+      </Field.Label>
       <div data-h2-position="base(relative)" data-h2-z-index="base(1)">
         <textarea
           id={id}
@@ -133,8 +132,12 @@ const TextArea = ({
           </div>
         )}
       </div>
-      <Base.Descriptions ids={descriptionIds} error={error} context={context} />
-    </Base.Wrapper>
+      <Field.Descriptions
+        ids={descriptionIds}
+        error={error}
+        context={context}
+      />
+    </Field.Wrapper>
   );
 };
 

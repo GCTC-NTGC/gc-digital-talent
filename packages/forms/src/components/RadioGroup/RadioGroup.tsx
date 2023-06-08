@@ -2,9 +2,8 @@ import * as React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
 
-import Base from "../Base";
-
-import { CommonInputProps, HTMLFieldsetProps } from "../../types";
+import Field from "../Field";
+import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
@@ -102,14 +101,14 @@ const RadioGroup = ({
   const columnStyles = columnMap.get(columns) ?? {};
 
   return (
-    <Base.Wrapper>
-      <Base.Fieldset
+    <Field.Wrapper>
+      <Field.Fieldset
         id={idPrefix}
         aria-describedby={ariaDescribedBy}
         {...{ ...baseStyles, ...stateStyles }}
         {...rest}
       >
-        <Base.Legend required={!!rules.required}>{legend}</Base.Legend>
+        <Field.Legend required={!!rules.required}>{legend}</Field.Legend>
         <div
           data-h2-display="base(grid)"
           data-h2-gap="base(x.25)"
@@ -118,7 +117,7 @@ const RadioGroup = ({
           {items.map(({ value, label }) => {
             const id = `${idPrefix}-${value}`;
             return (
-              <Base.Label
+              <Field.Label
                 key={value}
                 data-h2-display="base(flex)"
                 data-h2-align-items="base(flex-start)"
@@ -132,13 +131,13 @@ const RadioGroup = ({
                   defaultChecked={defaultSelected === value}
                 />
                 <span data-h2-margin-top="base(-x.125)">{label}</span>
-              </Base.Label>
+              </Field.Label>
             );
           })}
         </div>
-      </Base.Fieldset>
-      <Base.Descriptions ids={descriptionIds} {...{ error, context }} />
-    </Base.Wrapper>
+      </Field.Fieldset>
+      <Field.Descriptions ids={descriptionIds} {...{ error, context }} />
+    </Field.Wrapper>
   );
 };
 

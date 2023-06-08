@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 
 import { TableOfContents } from "@gc-digital-talent/ui";
 import { Submit, TextArea } from "@gc-digital-talent/forms";

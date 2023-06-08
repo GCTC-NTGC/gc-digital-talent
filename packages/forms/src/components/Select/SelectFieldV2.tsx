@@ -15,13 +15,12 @@ import { useIntl } from "react-intl";
 
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 
-import Base from "../Base";
-
+import Field from "../Field";
+import type { CommonInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
-import { CommonInputProps } from "../../types";
 
 export type Option = { value: string | number; label: string };
 export type Group<T> = {
@@ -228,10 +227,10 @@ const SelectFieldV2 = ({
   }, [doNotSort, options]);
 
   return (
-    <Base.Wrapper>
-      <Base.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
+    <Field.Wrapper>
+      <Field.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
         {label}
-      </Base.Label>
+      </Field.Label>
       <Controller
         {...{ name }}
         rules={rulesWithDefaults}
@@ -352,8 +351,12 @@ const SelectFieldV2 = ({
           );
         }}
       />
-      <Base.Descriptions ids={descriptionIds} error={error} context={context} />
-    </Base.Wrapper>
+      <Field.Descriptions
+        ids={descriptionIds}
+        error={error}
+        context={context}
+      />
+    </Field.Wrapper>
   );
 };
 

@@ -2,10 +2,10 @@ import React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
 
+import Field from "../Field";
+import type { CommonInputProps, HTMLInputProps } from "../../types";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
-import type { CommonInputProps, HTMLInputProps } from "../../types";
-import Base from "../Base";
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 
 export type CheckboxProps = HTMLInputProps &
@@ -51,10 +51,10 @@ const Checkbox = ({
   });
 
   const asFieldset = boundingBox && boundingBoxLabel;
-  const Wrapper = asFieldset ? Base.Fieldset : React.Fragment;
+  const Wrapper = asFieldset ? Field.Fieldset : React.Fragment;
 
   return (
-    <Base.Wrapper>
+    <Field.Wrapper>
       <Wrapper
         {...(asFieldset
           ? {
@@ -73,10 +73,10 @@ const Checkbox = ({
             data-h2-top="base(-x1.25)"
           >
             {boundingBoxLabel}
-            <Base.Required required={!!rules.required} />
+            <Field.Required required={!!rules.required} />
           </legend>
         )}
-        <Base.Label
+        <Field.Label
           data-h2-display="base(flex)"
           data-h2-align-items="base(flex-start)"
           data-h2-gap="base(0 x.25)"
@@ -91,18 +91,18 @@ const Checkbox = ({
           />
           <span data-h2-margin-top="base(-x.125)">{label}</span>
           {!asFieldset && !inCheckList && (
-            <Base.Required required={!!rules.required} />
+            <Field.Required required={!!rules.required} />
           )}
-        </Base.Label>
+        </Field.Label>
       </Wrapper>
       {!inCheckList && (
-        <Base.Descriptions
+        <Field.Descriptions
           ids={descriptionIds}
           error={error}
           context={context}
         />
       )}
-    </Base.Wrapper>
+    </Field.Wrapper>
   );
 };
 

@@ -10,7 +10,6 @@ import {
   Submit,
   TextArea,
   unpackIds,
-  countNumberOfWords,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";

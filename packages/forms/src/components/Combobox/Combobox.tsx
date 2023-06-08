@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, useFormContext } from "react-hook-form";
 import { Combobox as ComboboxPrimitive } from "@headlessui/react";
 import debounce from "lodash/debounce";
 import orderBy from "lodash/orderBy";
@@ -8,19 +8,16 @@ import orderBy from "lodash/orderBy";
 import { Scalars } from "@gc-digital-talent/graphql";
 import { formMessages } from "@gc-digital-talent/i18n";
 
+import Field from "../Field";
 import { CommonInputProps, HTMLInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
-import InputUnsaved from "../InputUnsaved";
-import InputError from "../InputError";
-
+import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 import Actions from "./Actions";
-import Label from "./Label";
 import NoOptions from "./NoOptions";
 
 import "./combobox.css";
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
-import Base from "../Base";
+import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
 export interface Option {
   /** The data used on form submission  */
@@ -45,6 +42,7 @@ const Combobox = ({
   id,
   label,
   name,
+  context,
   rules = {},
   readOnly,
   trackUnsaved = true,
@@ -73,6 +71,14 @@ const Combobox = ({
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
+  const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
+    id,
+    show: {
+      error,
+      unsaved: trackUnsaved && isUnsaved,
+      context,
+    },
+  });
 
   // TODO: Make this filter much smarter, possibly fuse.js
   const filteredOptions = React.useMemo(() => {
@@ -93,8 +99,6 @@ const Combobox = ({
   }, [query, isExternalSearch, options]);
 
   const noOptions = fetching || filteredOptions.length === 0;
-
-  const helpId = `${id}-error`;
 
   const handleChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,7 +165,7 @@ const Combobox = ({
       nullable
     >
       <div data-h2-position="base(relative)" data-h2-width="base(100%)">
-        <ComboboxPrimitive.Label as={Base.Label} required={isRequired}>
+        <ComboboxPrimitive.Label as={Field.Label} required={isRequired}>
           {label}
         </ComboboxPrimitive.Label>
         <div
@@ -172,7 +176,7 @@ const Combobox = ({
           data-h2-margin="base(x.125, 0)"
         >
           <ComboboxPrimitive.Input
-            aria-describedby={error || isUnsaved ? helpId : undefined}
+            aria-describedby={ariaDescribedBy}
             aria-required={rules.required ? "true" : undefined}
             aria-invalid={error ? "true" : "false"}
             autoComplete="off"
@@ -243,8 +247,11 @@ const Combobox = ({
           )}
         </ComboboxPrimitive.Options>
       </div>
-      <InputUnsaved isVisible={isUnsaved} id={helpId} />
-      {error && <InputError id={helpId} isVisible={!!error} error={error} />}
+      <Field.Descriptions
+        ids={descriptionIds}
+        error={error}
+        context={context}
+      />
     </ComboboxPrimitive>
   );
 };

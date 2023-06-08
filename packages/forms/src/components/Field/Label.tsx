@@ -2,7 +2,7 @@ import React from "react";
 
 import Required from "./Required";
 
-type LabelProps = React.DetailedHTMLProps<
+export type LabelProps = React.DetailedHTMLProps<
   React.LabelHTMLAttributes<HTMLLabelElement>,
   HTMLLabelElement
 > & {

@@ -7,7 +7,7 @@ import { CommonInputProps } from "../../types";
 import Context from "./Context";
 import Error from "./Error";
 
-interface DescriptionsProps {
+export interface DescriptionsProps {
   context?: CommonInputProps["context"];
   error?: FieldError;
   ids?: DescriptionIds;

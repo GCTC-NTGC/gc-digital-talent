@@ -2,7 +2,7 @@ import React from "react";
 
 import Required from "./Required";
 
-type LegendProps = React.DetailedHTMLProps<
+export type LegendProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLLegendElement>,
   HTMLLegendElement
 > & {

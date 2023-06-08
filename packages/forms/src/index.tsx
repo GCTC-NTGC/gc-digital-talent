@@ -3,6 +3,14 @@ import CheckButton, { CheckButtonProps } from "./components/CheckButton";
 import Checklist, { type ChecklistProps } from "./components/Checklist";
 import Combobox, { ComboboxProps } from "./components/Combobox";
 import DateInput, { DateInputProps } from "./components/DateInput/DateInput";
+import Field, {
+  ContextProps,
+  DescriptionsProps,
+  LabelProps,
+  LegendProps,
+  RequiredProps,
+  WrapperProps,
+} from "./components/Field";
 import Fieldset, { type FieldsetProps } from "./components/Fieldset";
 import Input, { type InputProps } from "./components/Input";
 import InputContext, {
@@ -57,6 +65,7 @@ export {
   CheckButton,
   Checklist,
   Combobox,
+  Field,
   Fieldset,
   Input,
   InputContext,
@@ -100,6 +109,12 @@ export type {
   WordCounterProps,
   BasicFormProps,
   FieldLabels,
+  ContextProps,
+  DescriptionsProps,
+  LabelProps,
+  LegendProps,
+  RequiredProps,
+  WrapperProps,
 };
 
 export {

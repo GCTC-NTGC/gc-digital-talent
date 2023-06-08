@@ -88,7 +88,7 @@ const SkillForm = ({
   const methods = useForm<FormValues>({
     defaultValues,
   });
-  const { register, setValue, watch } = methods;
+  const { register, setValue } = methods;
   const actionProps = register("action");
   const selectedExperienceId = methods.watch("experience");
   const selectedExperience = experiences.find(
@@ -101,7 +101,6 @@ const SkillForm = ({
     "update",
     experienceType,
   );
-  const detailsValue = watch("details");
 
   const handleSubmit = (formValues: FormValues) => {
     const args = getMutationArgs(
