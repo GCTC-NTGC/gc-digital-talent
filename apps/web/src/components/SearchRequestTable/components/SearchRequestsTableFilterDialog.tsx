@@ -6,7 +6,6 @@ import AdjustmentsVerticalIcon from "@heroicons/react/24/outline/AdjustmentsVert
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { BasicForm, MultiSelectField } from "@gc-digital-talent/forms";
 
-import { ButtonIcon } from "~/components/Table/ClientManagedTable/tableComponents";
 import adminMessages from "~/messages/adminMessages";
 
 import "./SearchRequestsTableFilterDialog.css";
@@ -68,22 +67,13 @@ const SearchRequestsTableFilterDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
       <Dialog.Trigger>
-        <Button
-          mode="outline"
-          color="secondary"
-          type="button"
-          data-h2-display="base(inline-flex)"
-          data-h2-align-items="base(center)"
-        >
-          <ButtonIcon icon={AdjustmentsVerticalIcon} />
-          <span>
-            {formatMessage({
-              defaultMessage: "Filters",
-              id: "1HPhji",
-              description:
-                "Text label for button to open filter dialog on admin tables.",
-            })}
-          </span>
+        <Button color="secondary" type="button" icon={AdjustmentsVerticalIcon}>
+          {formatMessage({
+            defaultMessage: "Filters",
+            id: "1HPhji",
+            description:
+              "Text label for button to open filter dialog on admin tables.",
+          })}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
