@@ -1,5 +1,6 @@
 import mapValues from "lodash/mapValues";
 import { useIntl } from "react-intl";
+import { OperationContext } from "urql";
 
 import {
   getPoolStream,
@@ -14,9 +15,14 @@ import {
   useGetFilterDataForRequestsQuery,
 } from "@gc-digital-talent/graphql";
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["Classification", "Department"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first",
+};
+
 export default function useFilterOptions() {
   const intl = useIntl();
-  const [filterRes] = useGetFilterDataForRequestsQuery();
+  const [filterRes] = useGetFilterDataForRequestsQuery({ context });
 
   const optionsData = {
     status: enumToOptions(PoolCandidateSearchStatus).map(({ value }) => ({
