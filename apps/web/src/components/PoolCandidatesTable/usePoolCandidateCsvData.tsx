@@ -29,7 +29,6 @@ import {
   getScreeningQuestionResponses,
 } from "~/utils/csvUtils";
 import { Maybe, PoolCandidate, PositionDuration, Pool } from "~/api/generated";
-import labels from "~/components/ExperienceAccordion/labels";
 import adminMessages from "~/messages/adminMessages";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -537,7 +536,6 @@ const usePoolCandidateCsvData = (
           skills: flattenExperiencesToSkills(user.experiences, locale),
           ...skillKeyAndJustifications(
             user.experiences,
-            labels,
             poolSkills || [],
             intl,
           ),

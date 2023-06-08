@@ -1,9 +1,10 @@
 import React from "react";
 
-import { Accordion, TreeView } from "@gc-digital-talent/ui";
+import { TreeView } from "@gc-digital-talent/ui";
 
 import { Experience } from "~/api/generated";
-import ExperienceAccordion from "../ExperienceAccordion/ExperienceAccordion";
+
+import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
 interface ExperienceTreeItemsProps {
   experiences: Experience[];
@@ -16,16 +17,13 @@ const ExperienceTreeItems = ({ experiences }: ExperienceTreeItemsProps) => {
       {experiences.length
         ? experiences.map((experience) => (
             <TreeView.Item key={experience.id}>
-              <div data-h2-margin="base(-x.5, 0)">
-                <Accordion.Root type="single" collapsible>
-                  <ExperienceAccordion
-                    key={experience.id}
-                    experience={experience}
-                    headingLevel="h3"
-                    showSkills={false}
-                  />
-                </Accordion.Root>
-              </div>
+              <ExperienceCard
+                key={experience.id}
+                experience={experience}
+                headingLevel="h3"
+                showSkills={false}
+                showEdit={false}
+              />
             </TreeView.Item>
           ))
         : null}

@@ -1,33 +1,36 @@
 import React from "react";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
-import { Link, Button } from "@gc-digital-talent/ui";
+import { Link, Button, Color } from "@gc-digital-talent/ui";
 
-interface EditExperienceLinkProps {
+interface EditLinkProps {
   children: React.ReactNode;
+  ariaLabel: string;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
   onEditClick?: () => void; // Callback function if edit is a button
 }
 
-const EditExperienceLink = ({
+const EditLink = ({
   children,
   editUrl,
   onEditClick,
-}: EditExperienceLinkProps) => {
-  const styles = {
-    "data-h2-font-size": "base(h6, 1)",
-    "data-h2-color": "base(primary.darker)",
-    "data-h2-font-weight": "base(700)",
-  };
-
+  ariaLabel,
+}: EditLinkProps) => {
   if (!!onEditClick && !!editUrl) {
     throw new Error(
       "Please only pass either onEditClick or editUrl, not both.",
     );
   }
 
+  const commonProps = {
+    color: "secondary" as Color,
+    icon: PencilSquareIcon,
+    "aria-label": ariaLabel,
+  };
+
   if (!!onEditClick && !editUrl) {
     return (
-      <Button type="button" mode="inline" onClick={onEditClick} {...styles}>
+      <Button mode="inline" onClick={onEditClick} {...commonProps}>
         {children}
       </Button>
     );
@@ -35,7 +38,7 @@ const EditExperienceLink = ({
 
   if (!!editUrl && !onEditClick) {
     return (
-      <Link mode="inline" href={editUrl} {...styles}>
+      <Link href={editUrl} {...commonProps}>
         {children}
       </Link>
     );
@@ -44,4 +47,4 @@ const EditExperienceLink = ({
   return null;
 };
 
-export default EditExperienceLink;
+export default EditLink;
