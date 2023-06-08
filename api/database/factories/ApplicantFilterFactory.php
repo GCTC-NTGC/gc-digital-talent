@@ -88,7 +88,7 @@ class ApplicantFilterFactory extends Factory
             $filter->qualifiedClassifications()->saveMany($pools->flatMap(fn ($pool) => $pool->classifications));
             $stream = (empty($pools) || count($pools) === 0) ? $this->faker->randomElements(
                 ApiEnums::poolStreams(),
-            ) : $pools[0]->stream;
+            ) : [$pools[0]->stream];
             $filter->qualified_streams = $stream;
             $filter->save();
         });
