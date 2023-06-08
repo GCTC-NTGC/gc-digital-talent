@@ -6,7 +6,6 @@ import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
-  Accordion,
   Button,
   Heading,
   Link,
@@ -24,7 +23,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate, ExperienceType } from "~/types/experience";
 import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
-import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
+import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import applicationMessages from "~/messages/applicationMessages";
 import {
   ApplicationStep,
@@ -382,22 +381,26 @@ export const ApplicationResume = ({
             </Link>
           </div>
           {hasSomeExperience ? (
-            <Accordion.Root type="multiple">
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x.5 0)"
+            >
               {nonEmptyExperiences.map((experience) => {
                 return (
-                  <ExperienceAccordion
+                  <ExperienceCard
                     key={experience.id}
                     experience={experience}
                     headingLevel="h3"
+                    showSkills={false}
                     editPath={paths.applicationResumeEdit(
                       application.id,
                       experience.id,
                     )}
-                    showSkills={false}
                   />
                 );
               })}
-            </Accordion.Root>
+            </div>
           ) : (
             <Well>
               <p data-h2-text-align="base(center)">

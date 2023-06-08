@@ -11,7 +11,12 @@ import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import UserCircleIcon from "@heroicons/react/24/solid/UserCircleIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { TableOfContents, HeadingRank, Link } from "@gc-digital-talent/ui";
+import {
+  TableOfContents,
+  HeadingRank,
+  Link,
+  incrementHeadingRank,
+} from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import type { Applicant } from "~/api/generated";
@@ -140,6 +145,7 @@ const UserProfile = ({
   const intl = useIntl();
   const { experiences } = applicant;
   const featureFlags = useFeatureFlags();
+  const contentHeadingLevel = incrementHeadingRank(headingLevel);
 
   type SectionKeys = keyof UserProfileProps["sections"];
 
@@ -633,7 +639,10 @@ const UserProfile = ({
             {sections.skillsExperience?.override ? (
               sections.skillsExperience.override
             ) : (
-              <ExperienceSection experiences={experiences?.filter(notEmpty)} />
+              <ExperienceSection
+                headingLevel={contentHeadingLevel}
+                experiences={experiences?.filter(notEmpty)}
+              />
             )}
           </TableOfContents.Section>
         )}

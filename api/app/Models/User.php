@@ -692,10 +692,13 @@ RAWSQL2;
     {
         if ($search) {
             $query->where(function ($query) use ($search) {
-                $query->where('first_name', "ilike", "%{$search}%")
-                    ->orWhere('last_name', "ilike", "%{$search}%")
-                    ->orWhere('email', "ilike", "%{$search}%")
-                    ->orWhere('telephone', "ilike", "%{$search}%");
+                self::scopeName($query, $search);
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeEmail($query, $search);
+                });
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeTelephone($query, $search);
+                });
             });
         }
         return $query;
