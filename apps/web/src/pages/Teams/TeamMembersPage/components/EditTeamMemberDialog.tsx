@@ -125,7 +125,6 @@ const EditTeamMemberDialog = ({
                 id="userDisplay"
                 name="userDisplay"
                 disabled
-                hideOptional
                 label={intl.formatMessage({
                   defaultMessage: "Manager name",
                   id: "1BEtoY",
@@ -145,7 +144,6 @@ const EditTeamMemberDialog = ({
                 id="teamDisplay"
                 name="teamDisplay"
                 disabled
-                hideOptional
                 label={intl.formatMessage({
                   defaultMessage: "Team",
                   id: "0AaeXe",

@@ -364,7 +364,6 @@ export const ApplicationResume = ({
                   }),
                 },
               ]}
-              hideOptional
               trackUnsaved={false}
             />
 
