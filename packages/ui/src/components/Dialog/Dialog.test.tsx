@@ -10,7 +10,7 @@ import { faker } from "@faker-js/faker";
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import Dialog from ".";
-import Button, { IconButton } from "../Button";
+import Button from "../Button";
 
 type DialogRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
   typeof Dialog.Root
@@ -26,7 +26,7 @@ const DefaultChildren = () => (
         <p>{faker.lorem.sentences(3)}</p>
         <Dialog.Footer>
           <Dialog.Close>
-            <Button color="cta">Close Action</Button>
+            <Button color="tertiary">Close Action</Button>
           </Dialog.Close>
         </Dialog.Footer>
       </Dialog.Body>
@@ -99,7 +99,7 @@ describe("Dialog", () => {
       children: (
         <>
           <Dialog.Trigger>
-            <IconButton icon={PlusIcon}>Open Dialog</IconButton>
+            <Button icon={PlusIcon}>Open Dialog</Button>
           </Dialog.Trigger>
           <Dialog.Content>
             <Dialog.Header subtitle="Dialog Subtitle">
@@ -108,7 +108,7 @@ describe("Dialog", () => {
             <p>{faker.lorem.sentences(3)}</p>
             <Dialog.Footer>
               <Dialog.Close>
-                <Button color="cta">Close Action</Button>
+                <Button color="tertiary">Close Action</Button>
               </Dialog.Close>
             </Dialog.Footer>
           </Dialog.Content>

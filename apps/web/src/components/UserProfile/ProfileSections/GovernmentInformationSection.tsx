@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 import { enumToOptions } from "@gc-digital-talent/forms";
 import {
   commonMessages,
@@ -210,14 +210,14 @@ const GovernmentInformationSection = ({
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-              <a href={editPath}>
+              <Link href={editPath}>
                 {intl.formatMessage({
                   defaultMessage: "Edit your government information options.",
                   id: "3pox8N",
                   description:
                     "Link text to edit government information on profile.",
                 })}
-              </a>
+              </Link>
             </p>
           </div>
         </div>

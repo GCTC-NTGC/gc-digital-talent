@@ -24,7 +24,9 @@ const Text = ({ children, ...rest }: React.HTMLProps<HTMLParagraphElement>) => (
 );
 
 const mailLink = (chunks: React.ReactNode) => (
-  <a href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">{chunks}</a>
+  <Link external href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">
+    {chunks}
+  </Link>
 );
 
 const RequestConfirmationPage = () => {
@@ -145,12 +147,7 @@ const RequestConfirmationPage = () => {
               description: "Button text to print the request confirmation page",
             })}
           </Button>
-          <Link
-            href={paths.search()}
-            mode="inline"
-            color="secondary"
-            type="button"
-          >
+          <Link mode="inline" href={paths.search()} color="secondary">
             {intl.formatMessage({
               defaultMessage: "Create a new talent request",
               id: "+d2TiI",

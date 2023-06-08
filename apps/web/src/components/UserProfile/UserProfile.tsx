@@ -104,8 +104,6 @@ const EditUrlLink = ({ link, text }: { link: string; text: string }) => (
   >
     <Link
       href={link}
-      type="button"
-      color="secondary"
       mode="inline"
       data-h2-margin="p-tablet(x1.5, 0, x.25, 0)"
       data-h2-display="base(block)"

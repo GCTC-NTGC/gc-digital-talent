@@ -1,13 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import StarIcon from "@heroicons/react/24/outline/StarIcon";
+import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
 
-import { Heading } from "@gc-digital-talent/ui";
+import { Heading, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
 import { wrapAbbr } from "~/utils/nameUtils";
-import CallToActionLink from "~/components/CallToAction/CallToActionLink";
-import { HireIcon, JobIcon } from "~/components/CallToAction/Icons";
 
 import hero1Landscape from "~/assets/img/hero-1-landscape.jpg";
 import hero2Landscape from "~/assets/img/hero-2-landscape.jpg";
@@ -89,9 +89,10 @@ const Hero = ({ defaultImage }: HeroProps) => {
           data-h2-justify-content="base(center) p-tablet(flex-start)"
           data-h2-flex-wrap="base(wrap) p-tablet(initial)"
         >
-          <CallToActionLink
+          <Link
             color="quaternary"
-            Icon={JobIcon}
+            mode="cta"
+            icon={MagnifyingGlassIcon}
             href={paths.browsePools()}
           >
             {intl.formatMessage({
@@ -99,10 +100,11 @@ const Hero = ({ defaultImage }: HeroProps) => {
               id: "SUlb9U",
               description: "Link text for applicant call to action",
             })}
-          </CallToActionLink>
-          <CallToActionLink
+          </Link>
+          <Link
             color="secondary"
-            Icon={HireIcon}
+            mode="cta"
+            icon={StarIcon}
             href={paths.search()}
           >
             {intl.formatMessage({
@@ -110,7 +112,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
               id: "sbEk4X",
               description: "Link text for hiring manager call to action",
             })}
-          </CallToActionLink>
+          </Link>
         </div>
       </div>
     </div>

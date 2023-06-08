@@ -62,6 +62,8 @@ const columns: ColumnsOf<Data> = [
   {
     label: "Edit",
     id: "edit",
+    // This is just a story
+    // eslint-disable-next-line react/forbid-elements
     accessor: () => <a href="/#">Edit</a>,
   },
 ];
@@ -115,11 +117,7 @@ const Template: StoryFn<ApiManageTableProps> = (args) => {
         columns={columns}
         hiddenColumnIds={hiddenColumnIds}
         filterComponent={
-          <Button
-            color="secondary"
-            mode="outline"
-            onClick={() => action("onOpenFilters")()}
-          >
+          <Button color="secondary" onClick={() => action("onOpenFilters")()}>
             Filters
           </Button>
         }

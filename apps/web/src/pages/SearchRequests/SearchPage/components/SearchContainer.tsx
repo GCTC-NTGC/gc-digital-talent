@@ -155,7 +155,6 @@ const ResultsDisplay = ({
 
       <Button
         color="secondary"
-        mode="outline"
         onClick={() =>
           handleSubmit(
             totalCandidateCount,

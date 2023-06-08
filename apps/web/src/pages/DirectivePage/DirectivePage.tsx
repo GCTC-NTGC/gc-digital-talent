@@ -6,17 +6,11 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 
-import {
-  Heading,
-  ExternalLink,
-  Accordion,
-  CardFlat,
-} from "@gc-digital-talent/ui";
+import { Heading, Link, Accordion, CardFlat } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
-import CallToActionLink from "~/components/CallToAction/CallToActionLink";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
@@ -32,8 +26,9 @@ import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats
 import { getFormLinks, getGenericLinks } from "./utils";
 
 const policyLink = (locale: Locales, chunks: React.ReactNode) => (
-  <ExternalLink
+  <Link
     newTab
+    external
     href={
       locale === "en"
         ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32603"
@@ -41,11 +36,13 @@ const policyLink = (locale: Locales, chunks: React.ReactNode) => (
     }
   >
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const contactLink = (chunks: React.ReactNode) => (
-  <a href="mailto:GCTalentGC@tbs-sct.gc.ca">{chunks}</a>
+  <Link external href="mailto:GCTalentGC@tbs-sct.gc.ca">
+    {chunks}
+  </Link>
 );
 
 const DirectivePage = () => {
@@ -149,24 +146,26 @@ const DirectivePage = () => {
         crumbs={crumbs}
         linkSlot={
           <>
-            <CallToActionLink
+            <Link
+              mode="cta"
               href={directiveUrl}
               color="quaternary"
-              Icon={NewspaperIcon}
+              icon={NewspaperIcon}
             >
               {readDirectiveMessage}
-            </CallToActionLink>
-            <CallToActionLink
+            </Link>
+            <Link
+              mode="cta"
               href={paths.search()}
               color="secondary"
-              Icon={MagnifyingGlassCircleIcon}
+              icon={MagnifyingGlassCircleIcon}
             >
               {intl.formatMessage({
                 defaultMessage: "Find talent",
                 id: "NKr2Rg",
                 description: "Link text for find talent (search) page",
               })}
-            </CallToActionLink>
+            </Link>
           </>
         }
       />
@@ -226,14 +225,9 @@ const DirectivePage = () => {
             )}
           </p>
           <p>
-            <ExternalLink
-              type="button"
-              color="primary"
-              mode="solid"
-              href={directiveUrl}
-            >
+            <Link color="primary" mode="solid" href={directiveUrl} external>
               {readDirectiveMessage}
-            </ExternalLink>
+            </Link>
           </p>
           <Heading
             Icon={ChartPieIcon}
@@ -369,9 +363,9 @@ const DirectivePage = () => {
                     data-h2-gap="base(x.25)"
                   >
                     {guidanceLinks.map((guidanceLink) => (
-                      <ExternalLink
+                      <Link
                         key={guidanceLink.naturalKey ?? guidanceLink.href}
-                        type="button"
+                        external
                         color="primary"
                         {...guidanceLink}
                       />

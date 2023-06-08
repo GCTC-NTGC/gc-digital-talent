@@ -6,6 +6,7 @@ import { faker } from "@faker-js/faker";
 
 import Alert from "./Alert";
 import { AlertType } from "./types";
+import Link from "../Link";
 
 const types: Array<AlertType> = ["info", "success", "warning", "error"];
 
@@ -40,8 +41,10 @@ const TemplateAlert: ComponentStory<typeof Alert.Root> = ({
             {type === "error" && (
               <Alert.Footer>
                 <p>
-                  <a href="/#">Reach out to our support team</a> if you have any
-                  questions.
+                  <Link external href="/#">
+                    Reach out to our support team
+                  </Link>{" "}
+                  if you have any questions.
                 </p>
               </Alert.Footer>
             )}

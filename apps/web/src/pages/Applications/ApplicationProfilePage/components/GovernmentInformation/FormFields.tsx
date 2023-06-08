@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
-import { ExternalLink, Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 import {
   FieldLabels,
   Input,
@@ -29,9 +29,9 @@ const priorityEntitlementLink = (locale: string, chunks: React.ReactNode) => {
       ? "https://www.canada.ca/en/public-service-commission/services/information-priority-administration.html"
       : "https://www.canada.ca/fr/commission-fonction-publique/services/administration-priorites.html";
   return (
-    <ExternalLink href={href} newTab>
+    <Link href={href} newTab external>
       {chunks}
-    </ExternalLink>
+    </Link>
   );
 };
 
