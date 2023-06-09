@@ -1,9 +1,10 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
+import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
+
 import Link from "./Link";
-import ExternalLink, { ExternalLinkProps } from "./ExternalLink";
 import type { LinkProps } from "./Link";
-import { Color } from "../Button";
+import { Color } from "../../types";
 
 export default {
   component: Link,
@@ -20,7 +21,7 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
 const colors: Array<Color> = [
   "primary",
@@ -33,7 +34,9 @@ const stoplight: Array<Color> = ["success", "warning", "error"];
 const black: Array<Color> = ["black"];
 const white: Array<Color> = ["white"];
 
-const TemplateLink: Story<LinkProps & { label: string }> = (args) => {
+type Story = StoryFn<Omit<LinkProps, "ref"> & { label: string }>;
+
+const TemplateLink: Story = (args) => {
   const { label, ...rest } = args;
 
   return (
@@ -43,7 +46,7 @@ const TemplateLink: Story<LinkProps & { label: string }> = (args) => {
   );
 };
 
-const TemplateLinkColors: Story<LinkProps & { label: string }> = (args) => {
+const TemplateLinkColors: Story = (args) => {
   const { label, ...rest } = args;
   return (
     <div data-h2-display="base(flex)">
@@ -87,58 +90,46 @@ const TemplateLinkColors: Story<LinkProps & { label: string }> = (args) => {
   );
 };
 
-const TemplateExternalLink: Story<ExternalLinkProps & { label: string }> = (
-  args,
-) => {
-  const { label, ...rest } = args;
-  return (
-    <ExternalLink {...rest}>
-      <span>{label}</span>
-    </ExternalLink>
-  );
-};
+export const Default = TemplateLink.bind({});
 
-export const LinkDefault = TemplateLink.bind({});
-export const LinkButtonSolid = TemplateLinkColors.bind({});
-export const LinkButtonOutline = TemplateLinkColors.bind({});
-export const LinkButtonBlock = TemplateLinkColors.bind({});
-export const LinkButtonDisabled = TemplateLinkColors.bind({});
-
-LinkDefault.args = {
-  type: "link",
-};
-
-LinkButtonSolid.args = {
-  type: "button",
+export const SolidLink = TemplateLinkColors.bind({});
+SolidLink.args = {
   mode: "solid",
 };
 
-LinkButtonOutline.args = {
-  type: "button",
-  mode: "outline",
+export const InlineLink = TemplateLinkColors.bind({});
+InlineLink.args = {
+  mode: "inline",
 };
 
-LinkButtonBlock.args = {
-  type: "button",
+export const CalltoActionLink = TemplateLinkColors.bind({});
+CalltoActionLink.args = {
+  mode: "cta",
+  icon: InformationCircleIcon,
+};
+
+export const BlockLink = TemplateLink.bind({});
+BlockLink.args = {
   mode: "solid",
   block: true,
 };
 
-LinkButtonDisabled.args = {
-  type: "button",
+export const IconLink = TemplateLink.bind({});
+IconLink.args = {
   mode: "solid",
-  disabled: true,
+  icon: InformationCircleIcon,
 };
 
-export const ExternalLinkNewTab = TemplateExternalLink.bind({});
-export const ExternalLinkNotNewTab = TemplateExternalLink.bind({});
-
-ExternalLinkNewTab.args = {
+export const LinkExternalNewTab = TemplateLink.bind({});
+LinkExternalNewTab.args = {
   newTab: true,
+  mode: "inline",
   href: "https://example.com",
 };
 
-ExternalLinkNotNewTab.args = {
+export const LinkExternalNoNewTab = TemplateLink.bind({});
+LinkExternalNoNewTab.args = {
   newTab: false,
+  mode: "inline",
   href: "https://example.com",
 };

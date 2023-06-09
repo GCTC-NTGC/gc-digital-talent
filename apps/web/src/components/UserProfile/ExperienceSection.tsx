@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { Accordion, Tabs, HeadingRank } from "@gc-digital-talent/ui";
+import { Accordion, Tabs, HeadingRank, Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import { invertSkillExperienceTree } from "~/utils/skillUtils";
@@ -199,14 +199,14 @@ const ExperienceSection = ({
             })}
           </p>
           <p>
-            <a href={editPath}>
+            <Link mode="inline" href={editPath}>
               {intl.formatMessage({
                 defaultMessage: "Edit your experience options.",
                 id: "c39xT8",
                 description:
                   "Link text to edit experience information on profile.",
               })}
-            </a>
+            </Link>
           </p>
         </>
       )}

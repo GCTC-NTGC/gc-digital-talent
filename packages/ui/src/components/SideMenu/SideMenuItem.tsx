@@ -4,6 +4,7 @@ import { NavLink, NavLinkProps } from "react-router-dom";
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
 import { IconType } from "../../types";
+import { useSideMenuContext } from "./SideMenuProvider";
 
 const commonStyles = {
   "data-h2-background-color":
@@ -26,14 +27,15 @@ interface SideMenuItemChildProps {
 
 const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
   const Icon = icon || null;
+  const ctx = useSideMenuContext();
 
   return (
-    <div
+    <span
       data-h2-display="base(grid)"
       data-h2-grid-template-columns="base(x1 1fr)"
       data-h2-gap="base(x.5)"
     >
-      <div>
+      <span>
         {Icon ? (
           <Icon
             data-h2-width="base(x1)"
@@ -41,16 +43,25 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
             data-h2-vertical-align="base(bottom)"
           />
         ) : null}
-      </div>
-      <div className="side-menu__item__label">
+      </span>
+      <span
+        {...(ctx?.open
+          ? { "data-h2-visually-hidden": "base(invisible)" }
+          : {
+              "data-h2-position": "base(relative)",
+              "data-h2-left": "base(auto)",
+              "data-h2-right": "base(auto)",
+              "data-h2-width": "base(auto)",
+            })}
+      >
         <span
           data-h2-display="base(inline-block)"
           data-h2-min-width="base(12rem)"
         >
           {children}
         </span>
-      </div>
-    </div>
+      </span>
+    </span>
   );
 };
 
@@ -83,6 +94,8 @@ export const ExternalSideMenuItem = ({
   const url = sanitizeUrl(href);
 
   return (
+    // NOTE: We do want to allow external links to be rendered as <a> tags
+    // eslint-disable-next-line react/forbid-elements
     <a className="side-menu__item" {...commonStyles} href={url}>
       <SideMenuItemChildren icon={icon}>{children}</SideMenuItemChildren>
     </a>

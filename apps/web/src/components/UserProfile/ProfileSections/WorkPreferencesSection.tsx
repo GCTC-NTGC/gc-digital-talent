@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getOperationalRequirement,
@@ -90,14 +90,14 @@ const WorkPreferencesSection = ({
             <div data-h2-flex-item="base(1of1)">
               <p>
                 {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-                <a href={editPath}>
+                <Link href={editPath}>
                   {intl.formatMessage({
                     defaultMessage: "Edit your work preference options.",
                     id: "eFCDP4",
                     description:
                       "Link text to edit work preferences on profile",
                   })}
-                </a>
+                </Link>
               </p>
             </div>
           </>

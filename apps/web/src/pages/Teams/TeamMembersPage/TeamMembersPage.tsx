@@ -3,7 +3,13 @@ import { IntlShape, useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 import orderBy from "lodash/orderBy";
 
-import { Heading, Pending, Pill, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  Link,
+  Pending,
+  Pill,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -55,7 +61,11 @@ const actionCell = (user: TeamMember, team: Team, roles: Array<Role>) => (
 
 const emailLinkCell = (email: Maybe<string>, intl: IntlShape) => {
   if (email) {
-    return <a href={`mailto:${email}`}>{email}</a>;
+    return (
+      <Link color="black" external href={`mailto:${email}`}>
+        {email}
+      </Link>
+    );
   }
 
   return (

@@ -315,7 +315,7 @@ const SkillForm = ({
             <Button
               type="submit"
               mode="inline"
-              color="red"
+              color="error"
               {...actionProps}
               onClick={() => setValue("action", "remove")}
             >

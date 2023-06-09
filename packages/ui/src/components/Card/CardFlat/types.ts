@@ -1,4 +1,4 @@
-import type { Color } from "../../Button";
+import type { Color } from "../../../types";
 
 export type CardColor = Extract<
   Color,

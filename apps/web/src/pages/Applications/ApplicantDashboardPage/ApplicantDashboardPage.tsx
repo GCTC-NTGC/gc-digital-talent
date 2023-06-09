@@ -9,8 +9,7 @@ import { useApplicantInformationQuery } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
 
 import DashboardHeading from "./components/DashboardHeading";
-import ApplicationList from "../MyApplicationsPage/components/ApplicationList/ApplicationList";
-import QualifiedRecruitments from "./components/QualifiedRecruitments/QualifiedRecruitments";
+import TrackApplications from "./components/TrackApplications/TrackApplications";
 
 import { PartialUser } from "./types";
 
@@ -34,8 +33,9 @@ export const ApplicantDashboard = ({ user }: ApplicantDashboardProps) => {
       <DashboardHeading user={user} />
       <section data-h2-margin="base(x3, 0)">
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
-          <ApplicationList applications={applications} />
-          <QualifiedRecruitments applications={applications} />
+          <div id="track-applications-section">
+            <TrackApplications applications={applications} />
+          </div>
         </div>
       </section>
     </>
