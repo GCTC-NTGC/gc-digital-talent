@@ -30,13 +30,13 @@ export default function useFilterOptions() {
       label: intl.formatMessage(getPoolCandidateSearchStatus(value)),
     })),
     departments: filterRes?.data?.departments
-      .filter(notEmpty)
+      ?.filter(notEmpty)
       .map((department) => ({
         value: department.id,
         label: getLocalizedName(department.name, intl),
       })),
     classifications: filterRes.data?.classifications
-      .filter(notEmpty)
+      ?.filter(notEmpty)
       .map((classification) => ({
         value: classification.id,
         label: `${classification.group}-0${classification.level}`,
