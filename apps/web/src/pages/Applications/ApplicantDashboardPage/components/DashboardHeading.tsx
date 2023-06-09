@@ -8,8 +8,8 @@ import UsersIcon from "@heroicons/react/20/solid/UsersIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
-// import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
-// import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
+import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
@@ -322,21 +322,26 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             }
             href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.LANGUAGE)}
           />
-          {/* <StatusItem
-            asListItem
-            title={intl.formatMessage({
-              defaultMessage: "Account and privacy settings",
-              id: "O+Lj1u",
-              description:
-                "Title of the Account and privacy settings link section",
-            })}
-            href={paths.profile(
-              user.id,
-              // this section doesn't exist yet
-              PROFILE_PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY,
-            )}
-            icon={LockClosedIcon}
-          /> */}
+          {
+            /* enable in #6772 */
+            false && (
+              <StatusItem
+                asListItem
+                title={intl.formatMessage({
+                  defaultMessage: "Account and privacy settings",
+                  id: "O+Lj1u",
+                  description:
+                    "Title of the Account and privacy settings link section",
+                })}
+                href={paths.profile(
+                  user.id,
+                  // this section doesn't exist yet
+                  PROFILE_PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY,
+                )}
+                icon={LockClosedIcon}
+              />
+            )
+          }
         </HeroCard>
         <HeroCard
           color="tertiary"
@@ -392,16 +397,21 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             itemCount={awardExperiences?.length}
             icon={StarIcon}
           />
-          {/* <StatusItem
-            title={intl.formatMessage({
-              defaultMessage: "Qualified recruitments",
-              id: "2dpDPq",
-              description: "Title for qualified recruitments section",
-            })}
-            itemCount={0}
-            icon={ShieldCheckIcon}
-            scrollTo="qualified-recruitments-section"
-          /> */}
+          {
+            /* enable in #6773 */
+            false && (
+              <StatusItem
+                title={intl.formatMessage({
+                  defaultMessage: "Qualified recruitments",
+                  id: "2dpDPq",
+                  description: "Title for qualified recruitments section",
+                })}
+                itemCount={0}
+                icon={ShieldCheckIcon}
+                scrollTo="qualified-recruitments-section"
+              />
+            )
+          }
         </HeroCard>
       </div>
     </Hero>
