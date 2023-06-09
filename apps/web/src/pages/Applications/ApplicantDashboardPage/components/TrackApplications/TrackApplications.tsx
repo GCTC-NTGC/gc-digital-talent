@@ -5,7 +5,13 @@ import { motion } from "framer-motion";
 import { useIntl } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 
-import { Accordion, Heading, Separator, Well } from "@gc-digital-talent/ui";
+import {
+  Accordion,
+  Heading,
+  Link,
+  Separator,
+  Well,
+} from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import { PoolCandidate, PoolCandidateStatus } from "~/api/generated";
@@ -188,7 +194,7 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
                         "Text displayed in the applications in progress section when empty.",
                     })}
                   </p>
-                  <a href={paths.browsePools()}>
+                  <Link href={paths.browsePools()}>
                     {intl.formatMessage({
                       defaultMessage:
                         "Check out available opportunities to start an application.",
@@ -196,7 +202,7 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
                       description:
                         "Additional text displayed in the applications in progress section when empty.",
                     })}
-                  </a>
+                  </Link>
                 </Well>
               )}
             </AnimatedContent>
