@@ -3,6 +3,7 @@ import path from "path-browserify";
 import { useLocale, Locales } from "@gc-digital-talent/i18n";
 
 import { ExperienceType } from "~/types/experience";
+import { PageSectionId as UserProfilePageSectionId } from "~/components/UserProfile/constants";
 
 export const FromIapDraftQueryKey = "fromIapDraft";
 export const FromIapSuccessQueryKey = "fromIapSuccess";
@@ -226,7 +227,10 @@ const getRoutes = (lang: Locales) => {
       path.join(baseUrl, "applications", applicationId, "success"),
 
     // Profile Routes
-    profile: (userId: string) => path.join(userUrl(userId), "profile"),
+    profile: (userId: string, section?: UserProfilePageSectionId) => {
+      const fragment = section ? `#${section}` : "";
+      return path.join(userUrl(userId), "profile") + fragment;
+    },
     myProfile: () => path.join(baseUrl, "users", "me"),
     aboutMe: (userId: string, applicationId?: string) =>
       userEditUrl("about-me", userId, applicationId),

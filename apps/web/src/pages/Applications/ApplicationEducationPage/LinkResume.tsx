@@ -17,7 +17,7 @@ import Checklist, {
   Checkbox,
 } from "@gc-digital-talent/forms/src/components/Checklist";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { Heading, Well } from "@gc-digital-talent/ui";
+import { Heading, Link, Well } from "@gc-digital-talent/ui";
 
 const essentialExperienceMessages = defineMessages({
   computerScience: {
@@ -80,7 +80,7 @@ const LinkResume = ({
 }: LinkResumeProps) => {
   const intl = useIntl();
   const previousStepLink = (chunks: React.ReactNode) => (
-    <a href={previousStepPath}>{chunks}</a>
+    <Link href={previousStepPath}>{chunks}</Link>
   );
   const experienceItems = experiences.reduce(
     (

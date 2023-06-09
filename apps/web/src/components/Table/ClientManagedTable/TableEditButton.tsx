@@ -24,10 +24,7 @@ function TableEditButton({
   return (
     <Link
       href={href}
-      type="button"
-      mode="inline"
       color="black"
-      data-h2-padding="base(0)"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Edit {label}",

@@ -8,10 +8,10 @@ import {
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
 import { PoolCandidateStatus } from "~/api/generated";
-import QualifiedRecruitments, { Application } from "./QualifiedRecruitments";
+import TrackApplications, { Application } from "./TrackApplications";
 
-type Story = ComponentStory<typeof QualifiedRecruitments>;
-type Meta = ComponentMeta<typeof QualifiedRecruitments>;
+type Story = ComponentStory<typeof TrackApplications>;
+type Meta = ComponentMeta<typeof TrackApplications>;
 
 const mockApplications = fakePoolCandidates(20);
 
@@ -34,15 +34,15 @@ const expiredRecruitments: Application[] = fakePoolCandidates(5).map(
 );
 
 export default {
-  component: QualifiedRecruitments,
-  title: "Pages/Applicant Dashboard/Qualified Recruitment",
+  component: TrackApplications,
+  title: "Pages/Applicant Dashboard/Track Applications",
   args: {
     applications: [...activeRecruitments, ...expiredRecruitments],
   },
 } as Meta;
 
 const Template: Story = (args) => {
-  return <QualifiedRecruitments {...args} />;
+  return <TrackApplications {...args} />;
 };
 
 export const DefaultQualifiedRecruitments = Template.bind({});

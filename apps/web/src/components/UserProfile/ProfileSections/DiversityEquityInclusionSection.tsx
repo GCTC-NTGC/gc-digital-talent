@@ -33,11 +33,7 @@ const DiversityEquityInclusionSection = ({
     ) || [];
 
   const pledgeLink = (text: React.ReactNode) => {
-    return editPath ? (
-      <Link mode="inline" href={editPath}>
-        {text}
-      </Link>
-    ) : null;
+    return editPath ? <Link href={editPath}>{text}</Link> : null;
   };
 
   return (
@@ -55,7 +51,7 @@ const DiversityEquityInclusionSection = ({
               })}
             </p>
             <p data-h2-margin="base(x.5, 0, 0, 0)">
-              <a href={editPath}>
+              <Link href={editPath}>
                 {intl.formatMessage({
                   defaultMessage:
                     "Edit your diversity, equity and inclusion options.",
@@ -63,7 +59,7 @@ const DiversityEquityInclusionSection = ({
                   description:
                     "Link text to edit diversity, equity and inclusion information on profile.",
                 })}
-              </a>
+              </Link>
             </p>
           </div>
         )}

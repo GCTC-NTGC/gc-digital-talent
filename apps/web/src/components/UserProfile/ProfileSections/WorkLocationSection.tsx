@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 import { commonMessages, getWorkRegion } from "@gc-digital-talent/i18n";
 import { insertBetween } from "@gc-digital-talent/helpers";
 
@@ -76,13 +76,13 @@ const WorkLocationSection = ({
             <div data-h2-flex-item="base(1of1)">
               <p>
                 {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-                <a href={editPath}>
+                <Link href={editPath}>
                   {intl.formatMessage({
                     defaultMessage: "Edit your work location options.",
                     id: "F3/88e",
                     description: "Link text to edit work location on profile",
                   })}
-                </a>
+                </Link>
               </p>
             </div>
           </>

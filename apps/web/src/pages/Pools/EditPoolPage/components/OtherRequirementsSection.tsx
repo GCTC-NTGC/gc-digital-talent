@@ -326,7 +326,7 @@ const OtherRequirementsSection = ({
                 description:
                   "Text on a button to save the pool other requirements",
               })}
-              color="cta"
+              color="tertiary"
               mode="solid"
               isSubmitting={isSubmitting}
             />

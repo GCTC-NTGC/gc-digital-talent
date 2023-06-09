@@ -166,6 +166,7 @@ module.exports = {
         message: "Please import the individual icons, not the entire set.",
       },
     ],
+    "react/forbid-elements": [1, { forbid: ["a"] }],
   },
   settings: {
     "import/extensions": [".ts", ".tsx"],

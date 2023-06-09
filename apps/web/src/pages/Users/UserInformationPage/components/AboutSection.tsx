@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 import {
   getArmedForcesStatusesAdmin,
   getCitizenshipStatusesAdmin,
@@ -98,12 +98,13 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
           </p>
           <p>
             {user.telephone ? (
-              <a
+              <Link
+                external
                 href={`tel:${user.telephone}`}
                 aria-label={user.telephone.replace(/.{1}/g, "$& ")}
               >
                 {user.telephone}
-              </a>
+              </Link>
             ) : (
               ""
             )}

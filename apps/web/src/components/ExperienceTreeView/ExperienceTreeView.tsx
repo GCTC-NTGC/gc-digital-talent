@@ -50,7 +50,7 @@ const ExperienceTreeView = ({ skill }: ExperienceTreeViewProps) => {
           </TreeView.Item>
         ))}
       <TreeView.Item>
-        <Button color="blue" mode="solid" type="button">
+        <Button color="secondary" mode="solid" type="button">
           {intl.formatMessage({
             defaultMessage: "Connect a résumé experience",
             id: "GE9NbK",
