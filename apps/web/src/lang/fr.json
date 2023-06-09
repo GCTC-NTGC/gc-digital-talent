@@ -534,10 +534,6 @@
     "defaultMessage": "Formulaire de demande",
     "description": "Heading for request form."
   },
-  "SZTFJq": {
-    "defaultMessage": "Recherche dans le bassin de talents numériques",
-    "description": "Title displayed in the hero section of the Search page."
-  },
   "AaoxNX": {
     "defaultMessage": "Utilisez les filtres ci-dessous pour préciser vos besoins d’embauche. En tout temps, vous pouvez consulter les résultats situés en bas de cette page pour voir combien de candidats correspondent aux exigences que vous avez entrées. Lorsque vous êtes satisfait des filtres que vous avez sélectionnés, cliquez sur le bouton Demander des candidats pour ajouter des renseignements et soumettre un formulaire de demande.",
     "description": "Content displayed in the How To area of the hero section of the Search page."
@@ -8206,5 +8202,9 @@
   "qnECBT": {
     "defaultMessage": "À propos de la base de données des Talents numériques du GC",
     "description": "Heading displayed in the About area of the hero section of the Search page."
+  },
+  "BunlKD": {
+    "defaultMessage": "Rechercher dans la base de données des Talents numériques du GC",
+    "description": "Main heading displayed at the top of request page."
   }
 }
