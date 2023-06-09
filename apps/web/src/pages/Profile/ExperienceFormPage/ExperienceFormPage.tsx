@@ -89,7 +89,7 @@ export const ExperienceForm = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const returnPath = `${paths.skillsAndExperiences(userId)}${
+  const returnPath = `${paths.resumeAndRecruitments(userId)}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 
@@ -375,7 +375,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const { userId, experienceType, experienceId } = useParams<RouteParams>();
   const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
-  const returnPath = `${paths.skillsAndExperiences(userId || "")}${
+  const returnPath = `${paths.resumeAndRecruitments(userId || "")}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 

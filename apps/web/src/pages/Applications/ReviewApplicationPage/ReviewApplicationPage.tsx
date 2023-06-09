@@ -183,9 +183,9 @@ export const ReviewApplication = ({
               isVisible: true,
               editUrl: paths.roleSalary(applicant.id, applicationId),
             },
-            skillsExperience: {
+            resumeAndRecruitments: {
               isVisible: true,
-              editUrl: paths.skillsAndExperiences(applicant.id, applicationId),
+              editUrl: paths.resumeAndRecruitments(applicant.id, applicationId),
               override: (
                 <>
                   <div data-h2-margin="base(0, 0, x1, 0)">

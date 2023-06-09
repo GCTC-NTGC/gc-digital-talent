@@ -93,12 +93,12 @@ export const ResumeAndRecruitments = ({
         },
         {
           label: intl.formatMessage({
-            defaultMessage: "Experience and Skills",
-            id: "PF2m1d",
+            defaultMessage: "Résumé and recruitments",
+            id: "zI/Z89",
             description:
-              "Breadcrumb for experience and skills page in applicant profile.",
+              "Breadcrumb for Résumé and recruitments page in applicant profile.",
           }),
-          url: `${paths.skillsAndExperiences(applicantId)}${applicationParam}`,
+          url: `${paths.resumeAndRecruitments(applicantId)}${applicationParam}`,
         },
       ]
     : [];
@@ -111,12 +111,12 @@ export const ResumeAndRecruitments = ({
           : [
               {
                 label: intl.formatMessage({
-                  defaultMessage: "Experience and Skills",
-                  id: "PF2m1d",
+                  defaultMessage: "Résumé and recruitments",
+                  id: "zI/Z89",
                   description:
-                    "Breadcrumb for experience and skills page in applicant profile.",
+                    "Breadcrumb for Résumé and recruitments page in applicant profile.",
                 }),
-                url: paths.skillsAndExperiences(applicantId),
+                url: paths.resumeAndRecruitments(applicantId),
               },
             ]
       }
@@ -124,20 +124,20 @@ export const ResumeAndRecruitments = ({
       description={intl.formatMessage(
         {
           defaultMessage:
-            "Here is where you can add experiences and skills to your profile. This could be anything from helping community members troubleshoot their computers to full-time employment at an <abbreviation>IT</abbreviation> organization.",
-          id: "Ks4G8p",
+            "Manage your experience and qualified recruitment processes.",
+          id: "XY/crY",
           description:
-            "Description for the experience and skills page in applicant profile.",
+            "Description for the Résumé and recruitments page in applicant profile.",
         },
         {
           abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
         },
       )}
       title={intl.formatMessage({
-        defaultMessage: "My experience and skills",
-        id: "KE49r9",
+        defaultMessage: "Résumé and recruitments",
+        id: "vweyCI",
         description:
-          "Heading for experience and skills page in applicant profile.",
+          "Heading for Résumé and recruitments page in applicant profile.",
       })}
     >
       {missingSkills && (

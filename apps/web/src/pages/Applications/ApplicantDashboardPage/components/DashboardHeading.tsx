@@ -121,7 +121,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           a1: (chunks: React.ReactNode) =>
             buildLink(paths.profile(user.id), chunks, "white"),
           a2: (chunks: React.ReactNode) =>
-            buildLink(paths.skillsAndExperiences(user.id), chunks, "white"),
+            buildLink(paths.resumeAndRecruitments(user.id), chunks, "white"),
           a3: (chunks: React.ReactNode) =>
             buildScrollToLink("track-applications-section", chunks, "white"),
         },
@@ -350,7 +350,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             id: "Ori6s+",
             description: "applicant dashboard card title for résumé card",
           })}
-          href={paths.skillsAndExperiences(user.id)}
+          href={paths.resumeAndRecruitments(user.id)}
         >
           <StatusItem
             title={intl.formatMessage({

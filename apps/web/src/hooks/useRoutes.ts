@@ -247,12 +247,12 @@ const getRoutes = (lang: Locales) => {
     diversityEquityInclusion: (userId: string, applicationId?: string) =>
       userEditUrl("employment-equity", userId, applicationId),
 
-    // Experience & Skills Routes
-    skillsAndExperiences: (userId: string, applicationId?: string) =>
+    // Résumé and recruitments Routes
+    resumeAndRecruitments: (userId: string, applicationId?: string) =>
       `${path.join(
         userUrl(userId),
         "profile",
-        "experiences",
+        "resume-and-recruitments",
       )}${applicationParam(applicationId)}`,
     editExperience: (
       userId: string,
@@ -262,7 +262,7 @@ const getRoutes = (lang: Locales) => {
       path.join(
         userUrl(userId),
         "profile",
-        "experiences",
+        "resume-and-recruitments",
         type,
         experienceId,
         "edit",
