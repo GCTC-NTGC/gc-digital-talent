@@ -34,7 +34,9 @@ const TemplateWordCounter: StoryFn<
           />
           <WordCounter {...args} data-h2-align-self="base(flex-end)" />
         </div>
-        <Submit />
+        <p data-h2-margin-top="base(x1)">
+          <Submit />
+        </p>
       </BasicForm>
     </div>
   );

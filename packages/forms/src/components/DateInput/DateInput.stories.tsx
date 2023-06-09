@@ -66,7 +66,9 @@ const Template: StoryFn<DefaultValueDateInputArgs> = (args) => {
       onSubmit={(data) => action("Submit Form")(data)}
     >
       <DateInput {...rest} />
-      <Submit />
+      <p data-h2-margin-top="base(x1)">
+        <Submit />
+      </p>
     </Form>
   );
 };

@@ -29,7 +29,9 @@ const TemplateInput: Story<InputProps & { maxWidth: string }> = (args) => {
     <div style={{ maxWidth }}>
       <Form onSubmit={action("Submit Form")}>
         <Input {...rest} />
-        <Submit />
+        <p data-h2-margin-top="base(x1)">
+          <Submit />
+        </p>
       </Form>
     </div>
   );

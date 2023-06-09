@@ -15,7 +15,9 @@ const TemplateRadioGroup: StoryFn<typeof RadioGroup> = (args) => {
   return (
     <Form onSubmit={action("Submit Form")}>
       <RadioGroup {...args} />
-      <Submit />
+      <p data-h2-margin-top="base(x1)">
+        <Submit />
+      </p>
     </Form>
   );
 };

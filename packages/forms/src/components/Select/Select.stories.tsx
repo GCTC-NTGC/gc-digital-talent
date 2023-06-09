@@ -36,10 +36,10 @@ const Template: StoryFn<SelectProps> = (args) => {
       onSubmit={action("Submit Form")}
       options={{ defaultValues: { groups: "" } }}
     >
-      <div>
-        <Select {...args} options={departmentOptions} />
+      <Select {...args} options={departmentOptions} />
+      <p data-h2-margin-top="base(x1)">
         <Submit />
-      </div>
+      </p>
     </Form>
   );
 };

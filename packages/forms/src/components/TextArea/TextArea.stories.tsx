@@ -34,7 +34,9 @@ const TemplateTextArea: StoryFn<TextAreaProps & { maxWidth: string }> = (
     <div style={{ maxWidth }}>
       <Form onSubmit={action("Submit Form")}>
         <TextArea {...rest} />
-        <Submit />
+        <p data-h2-margin-top="base(x1)">
+          <Submit />
+        </p>
       </Form>
     </div>
   );

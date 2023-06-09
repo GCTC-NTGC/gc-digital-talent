@@ -16,7 +16,9 @@ const TemplateCheckbox: Story<CheckboxProps> = (args) => {
   return (
     <Form onSubmit={action("Submit Form")}>
       <Checkbox {...args} />
-      <Submit />
+      <p data-h2-margin-top="base(x1)">
+        <Submit />
+      </p>
     </Form>
   );
 };

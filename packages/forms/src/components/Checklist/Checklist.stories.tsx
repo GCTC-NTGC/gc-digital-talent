@@ -15,7 +15,9 @@ const TemplateChecklist: StoryFn<typeof Checklist> = (args) => {
   return (
     <Form onSubmit={action("Submit Form")}>
       <Checklist {...args} />
-      <Submit />
+      <p data-h2-margin-top="base(x1)">
+        <Submit />
+      </p>
     </Form>
   );
 };
