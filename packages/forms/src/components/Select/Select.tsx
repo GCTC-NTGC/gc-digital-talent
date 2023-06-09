@@ -119,7 +119,8 @@ const Select = ({
       <select
         id={id}
         aria-describedby={ariaDescribedBy}
-        required={!!rules.required}
+        aria-required={!!rules.required}
+        aria-invalid={!!error}
         defaultValue=""
         {...baseStyles}
         {...stateStyles}

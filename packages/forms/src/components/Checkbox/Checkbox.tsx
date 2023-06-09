@@ -77,7 +77,8 @@ const Checkbox = ({
             id={id}
             type="checkbox"
             aria-describedby={ariaDescribedBy}
-            required={!!rules.required && !inCheckList}
+            aria-required={!!rules.required && !inCheckList}
+            aria-invalid={!!error}
             {...register(name, rules)}
             {...rest}
           />

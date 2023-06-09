@@ -95,7 +95,8 @@ const TextArea = ({
         <textarea
           id={id}
           aria-describedby={ariaDescribedBy}
-          required={!!rules.required}
+          aria-required={!!rules.required}
+          aria-invalid={!!error}
           data-h2-width="base(100%)"
           data-h2-resize="base(vertical)"
           rows={rows}

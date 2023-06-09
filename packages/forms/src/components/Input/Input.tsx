@@ -67,7 +67,8 @@ const Input = ({
         id={id}
         type={type}
         aria-describedby={ariaDescribedBy}
-        required={!!rules.required}
+        aria-required={!!rules.required}
+        aria-invalid={!!error}
         {...baseStyles}
         {...stateStyles}
         {...register(name, {
