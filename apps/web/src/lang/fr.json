@@ -4333,10 +4333,6 @@
     "defaultMessage": "Exigences de fonctionnement acceptées",
     "description": "CSV Header, Accepted Operation Requirements column"
   },
-  "L/Vj+K": {
-    "defaultMessage": "Instantané du profil de la candidature",
-    "description": "Title for the application's profile snapshot."
-  },
   "uC0YPE": {
     "defaultMessage": "Effacer les filtres",
     "description": "Clear button within the search filter dialog"
@@ -5904,62 +5900,6 @@
     "defaultMessage": "Modifier le bassin",
     "description": "Title for the edit pool page"
   },
-  "+hrTzd": {
-    "defaultMessage": "Cette section comprendra les candidatures qui n’ont pas respecté la date limite de soumission ainsi que les candidatures qui ont été entièrement évaluées.",
-    "description": "Text describing that the historical applications section is used for"
-  },
-  "5isFkb": {
-    "defaultMessage": "Candidatures préliminaires",
-    "description": "Title for the draft applications section"
-  },
-  "ItdSG1": {
-    "defaultMessage": "<strong>Les candidatures préliminaires</strong> correspondent à des demandes que vous avez commencées, mais que vous n’avez pas encore soumises.",
-    "description": "Explainer for draft applications"
-  },
-  "KBa7RY": {
-    "defaultMessage": "Toutes les candidatures qui ne sont plus actives apparaîtront ici.",
-    "description": "Text displayed in historical applications section when there are no historical applications."
-  },
-  "MTSArs": {
-    "defaultMessage": "Historique des candidatures",
-    "description": "Title for the historical applications section"
-  },
-  "O63upZ": {
-    "defaultMessage": "Vérifiez nos offres pour soumettre une candidature.",
-    "description": "Link text to browse opportunities when there are no draft applications"
-  },
-  "U5WfKm": {
-    "defaultMessage": "Les candidatures de cette section vous permettront de suivre leur évolution.",
-    "description": "Text describing that the submitted applications section is used for"
-  },
-  "W/s+MH": {
-    "defaultMessage": "Les candidatures en cours de traitement apparaissent ici.",
-    "description": "Text displayed in draft applications section when there are no drafts."
-  },
-  "X35OfB": {
-    "defaultMessage": "Cette section répertorie toutes vos candidatures aux processus de recrutement. Les candidatures sont classées en trois catégories distinctes :",
-    "description": "Text explaining there are three different groups of applications"
-  },
-  "acCyP9": {
-    "defaultMessage": "Les candidatures soumises",
-    "description": "Title for the submitted applications section"
-  },
-  "jBUwoU": {
-    "defaultMessage": "<strong>Les candidatures soumises</strong> sont en attente d’évaluation ou sont en cours d’examen.",
-    "description": "Explainer for submitted applications"
-  },
-  "tqIOKb": {
-    "defaultMessage": "Après avoir soumis une candidature, celle-ci apparaîtra ici.",
-    "description": "Text displayed in submitted applications section when there are no submitted applications."
-  },
-  "v8gO9Z": {
-    "defaultMessage": "L’<strong>historique de vos candidatures</strong> comprend les candidatures qui sont complètes ou qui n’ont pas respecté la date limite de soumission.",
-    "description": "Explainer for application history section"
-  },
-  "wzScZA": {
-    "defaultMessage": "Mes candidatures",
-    "description": "Title for the list of a users applications"
-  },
   "/17wgm": {
     "defaultMessage": "Rôle(s) ajouté(s) avec succès",
     "description": "Message displayed to user when one or more roles have been added to a user"
@@ -6016,37 +5956,9 @@
     "defaultMessage": "Voulez-vous continuer?",
     "description": "Question posed to user before committing a destructive act"
   },
-  "aRTIWM": {
-    "defaultMessage": "{itemCount, plural, =0 {0 articles ajoutés} =1 {1 article ajouté} other {# articles ajoutés} }",
-    "description": "context message to describe number of experience items added"
-  },
-  "JMe3n2": {
-    "defaultMessage": "Des sections obligatoires sont manquantes",
-    "description": "Context message that some required sections are missing"
-  },
   "Q/f5AF": {
     "defaultMessage": "Bienvenue, {firstName}",
     "description": "Title displayed in the hero section of the Search page."
-  },
-  "XvfBqb": {
-    "defaultMessage": "L’information de mon profil",
-    "description": "applicant dashboard card title for profile card"
-  },
-  "bHIq0J": {
-    "defaultMessage": "Sections facultatives de disponibles",
-    "description": "Context message that some optional sections are available"
-  },
-  "dd/lhx": {
-    "defaultMessage": "Toutes les sections sont remplies",
-    "description": "Context message that all sections are complete"
-  },
-  "naaQ+q": {
-    "defaultMessage": "Mon cv et mon expérience",
-    "description": "applicant dashboard card title for résumé card"
-  },
-  "pqrVnW": {
-    "defaultMessage": "Trouvez de nouvelles occasions, faites la mise à jour de votre cv ou effectuez le suivi de demandes.",
-    "description": "Subtitle for applicant dashboard hero"
   },
   "+e2nr6": {
     "defaultMessage": "Ajouter un nouveau membre",
@@ -6260,120 +6172,80 @@
     "defaultMessage": "Sélectionnez un rôle",
     "description": "Placeholder text for role selection input"
   },
-  "12rbnA": {
+  "JNVceV": {
     "defaultMessage": "Vous avez été ajouté aux résultats de la recherche.",
-    "description": "Alert displayed to the user when qualified recruitment card dialog submits successfully."
+    "description": "Alert displayed to the user when application card dialog submits successfully."
   },
-  "2g1mfB": {
+  "XXEgap": {
     "defaultMessage": "Retirez-moi",
-    "description": "Open dialog text on change search results status from qualified recruitment section."
+    "description": "Open dialog text on change search results status from applications section."
   },
-  "5BkrSp": {
+  "7tdU/G": {
     "defaultMessage": "Erreur : échec de votre suppression des résultats de recherche.",
-    "description": "Alert displayed to the user when qualified recruitment card dialog fails."
+    "description": "Alert displayed to the user when application card dialog fails."
   },
-  "6cH+cX": {
-    "defaultMessage": "Recrutements expirés",
-    "description": "Heading for expired recruitments accordion on the applicant dashboard."
-  },
-  "7DfdMY": {
+  "ucOq3J": {
     "defaultMessage": "Erreur : impossible de vous ajouter aux résultats de recherche.",
-    "description": "Alert displayed to the user when qualified recruitment card dialog fails."
+    "description": "Alert displayed to the user when application card dialog fails."
   },
   "7NnNrW": {
     "defaultMessage": "Compétences évaluées :"
   },
-  "A5CLzi": {
-    "defaultMessage": "Les recrutements dans cette section ne sont plus pris en compte à des fins d’embauche.",
-    "description": "Additional text displayed in active qualified recruitments section when empty."
-  },
-  "AVPPm0": {
+  "9U2gWd": {
     "defaultMessage": "Annuler",
-    "description": "Label for close button on qualified recruitment card dialogs."
+    "description": "Label for close button on card dialogs."
   },
-  "Cx0rjV": {
-    "defaultMessage": "Les recrutements qui ne sont plus actifs s’afficheront ici.",
-    "description": "Text displayed in active qualified recruitments section when empty."
-  },
-  "EGwR9h": {
+  "GbYTXJ": {
     "defaultMessage": "En vous rajoutant aux résultats de ce processus de recrutement, les gestionnaires pourront de nouveau demander votre profil dans le cadre des demandes de talents. Vous pouvez toujours vous retirer de nouveau ultérieurement.",
-    "description": "Dialog main body on change search results status from qualified recruitment section."
+    "description": "Dialog main body on change search results status from applications section."
   },
-  "FGF3sd": {
+  "3qdrpr": {
     "defaultMessage": "Modifier votre apparence dans les résultats de recherche",
-    "description": "Dialog title on change search results status from qualified recruitment section."
+    "description": "Dialog title on change search results status from applications section."
   },
-  "H/btqJ": {
+  "PoFTwr": {
     "defaultMessage": "Vous avez été supprimé des résultats de la recherche.",
-    "description": "Alert displayed to the user when qualified recruitment card dialog submits successfully."
+    "description": "Alert displayed to the user when application card dialog submits successfully."
   },
-  "SQDh+g": {
+  "abab6G": {
     "defaultMessage": "Félicitations! Vous avez été embauché à la suite de ce processus. À ce titre, vous ne figurerez plus dans les demandes de talents pour ce recrutement.",
-    "description": "Placed recruitment status message on qualified recruitment card."
+    "description": "Placed recruitment status message on application card."
   },
-  "TDikDt": {
+  "5xZ350": {
     "defaultMessage": "Vous figurez activement dans les résultats de l’évaluation des talents pour ce recrutement.",
-    "description": "Not suspended recruitment status message on qualified recruitment card."
+    "description": "Not suspended recruitment status message on application card."
   },
-  "V8GyRL": {
+  "mId+J5": {
     "defaultMessage": "Oui, ajoutez-moi aux résultats de recherche",
-    "description": "Dialog close button on change search results status from qualified recruitment section."
+    "description": "Dialog close button on change search results status from applications section."
   },
-  "VUjh3i": {
-    "defaultMessage": "Les recrutements dans lesquels vous avez été accepté s’afficheront ici.",
-    "description": "Text displayed in active qualified recruitments section when empty."
-  },
-  "XHfbPp": {
+  "Ev3BoS": {
     "defaultMessage": "Je veux figurer de nouveau dans les résultats",
-    "description": "Open dialog text on change search results status from qualified recruitment section."
+    "description": "Open dialog text on change search results status from applications section."
   },
-  "Y4kJYI": {
+  "Q1zXns": {
     "defaultMessage": "Si vous avez récemment été recruté ou si vous ne souhaitez tout simplement plus être pris en compte pour les possibilités liées à ce poste, vous pouvez vous retirer de la liste des candidats disponibles à l’embauche. Cela ne vous empêchera <emphasize>pas</emphasize> de participer au recrutement et vous pourrez toujours réactiver votre disponibilité si vous changez d’avis.",
-    "description": "Dialog main body on change search results status from qualified recruitment section."
+    "description": "Dialog main body on change search results status from applications section."
   },
-  "bqWmTD": {
+  "KrAvuk": {
     "defaultMessage": "Vous avez choisi de ne pas figurer dans les résultats de l’évaluation des talents pour ce recrutement.",
-    "description": "Suspended recruitment status message on qualified recruitment card."
+    "description": "Suspended recruitment status message on application card."
   },
-  "COpmme": {
+  "XGJkdw": {
     "defaultMessage": "Vous figurez actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin {poolName}.",
-    "description": "Dialog main body on change search results status from qualified recruitment section."
+    "description": "Dialog main body on change search results status from applications section."
   },
-  "eGPSG3": {
-    "defaultMessage": "Les recrutements de cette section donnent lieu à des embauches.",
-    "description": "Additional text displayed in active qualified recruitments section when empty."
-  },
-  "jdTHer": {
-    "defaultMessage": "Les recrutements <strong>actifs</strong> sont des processus qui font actuellement l’objet d’une embauche. Vous pouvez contrôler si votre profil s’affiche lorsqu’un responsable demande des évaluations des talents à ce groupe de personnes.",
-    "description": "Active list item for my qualified recruitments section on the applicant dashboard."
-  },
-  "lfZeyc": {
-    "defaultMessage": "Recrutements actifs",
-    "description": "Heading for active recruitments accordion on the applicant dashboard."
-  },
-  "qU2ffO": {
-    "defaultMessage": "Les recrutements sont des bassins de talents dans lesquels les gestionnaires du gouvernement du Canada peuvent embaucher. Cette section répertorie tous les recrutements dont vous faites partie, classés en deux groupes :",
-    "description": "Description for my qualified recruitments section on the applicant dashboard."
-  },
-  "qYjmRp": {
-    "defaultMessage": "Les recrutements <strong>expirés</strong> sont des processus qui ont pris fin soit parce qu’ils sont devenus obsolètes, soit parce qu’un nouveau recrutement plus récent les a remplacés. Vous ne figurerez pas dans les résultats liés aux recrutements expirés.",
-    "description": "Expired list item for my qualified recruitments section on the applicant dashboard."
-  },
-  "sfa4iJ": {
+  "sDzeqf": {
     "defaultMessage": "Ce recrutement a expiré et il n’est plus disponible pour les possibilités d’embauche.",
-    "description": "Expired recruitment status message on qualified recruitment card."
+    "description": "Expired recruitment status message on application card."
   },
-  "Y0Eii4": {
+  "qrsLa3": {
     "defaultMessage": "Vous ne figurez pas actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin {poolName}.",
-    "description": "Dialog main body on change search results status from qualified recruitment section."
+    "description": "Dialog main body on change search results status from applications section."
   },
-  "wYe3P2": {
-    "defaultMessage": "Mes recrutements qualifiés",
-    "description": "Heading for my qualified recruitments section on the applicant dashboard."
-  },
-  "wgRXhR": {
+  "JHpvYR": {
     "defaultMessage": "Oui, supprimez-moi des résultats de recherche",
-    "description": "Dialog close button on change search results status from qualified recruitment section."
+    "description": "Dialog close button on change search results status from applications section."
   },
   "GwbTAz": {
     "defaultMessage": "Volets"
@@ -8063,18 +7935,6 @@
     "defaultMessage": "Cette information permet aux candidats de savoir quel travail ou dans quel environnement ils appliquent. Utilisez cet espace pour discuter du secteur du gouvernement que le présent processus cherchera à améliorer, de même que des valeurs que ce travail génère.",
     "description": "Helper message for filling in the pool introduction"
   },
-  "8HdqmJ": {
-    "defaultMessage": "La sauvegarde de l’ébauche de votre demande dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones a été réussie!",
-    "description": "Title for notification that a draft IAP application was saved"
-  },
-  "B1Pa0D": {
-    "defaultMessage": "Le Programme d’apprentissage occupe une partie importante d’une initiative plus vaste sur les talents numériques au sein du gouvernement du Canada, qui a pour but d’embaucher de merveilleux talents numériques, comme vous. Ce profil vous donne accès à d’autres possibilités et recrutement en matière de numérique au-delà du Programme d’apprentissage, si vous décidez de postuler. Si vous souhaitez vous en tenir uniquement au Programme d’apprentissages, c’est également bien!",
-    "description": "Second paragraph for applicant dashboard notification welcoming an IAP user"
-  },
-  "uSAdtr": {
-    "defaultMessage": "Lorsque vous accédez au compte que vous avez créé, vous serez reconduit(e) à la présente page pour réviser votre demande auprès du Programme d’apprentissage, et faire le suivi de votre poste dans ce dernier.",
-    "description": "Third paragraph for applicant dashboard notification welcoming an IAP user"
-  },
   "ueLK1P": {
     "defaultMessage": "Vous êtes maintenant arrivé(e) à votre page de profil de Talents numériques.",
     "description": "First paragraph for applicant dashboard notification welcoming an IAP user"
@@ -8127,10 +7987,6 @@
     "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
     "description": "Message displayed when no experiences have been attached to a skill"
   },
-  "bqC0/E": {
-    "defaultMessage": "Exigences en matière de compétences",
-    "description": "Title for the skill requirements snapshot section"
-  },
   "fEcEv3": {
     "defaultMessage": "Signée",
     "description": "Heading for the application snapshot users signature"
@@ -8166,6 +8022,126 @@
   "3R3jKp": {
     "defaultMessage": "Modifier {title}",
     "description": "Link to edit object"
+  },
+  "+im7hW": {
+    "defaultMessage": "Le programme d’apprentissage fait partie d’une initiative élargie sur les talents du numérique au sein du gouvernement du Canada dont le but consiste à recruter d’incroyables talents du numérique comme vous. Ce profil donne accès à d’autres possibilités et recrutements dans le secteur numérique autres que le programme d’apprentissage, si vous souhaitez y présenter votre candidature. Vous pouvez aussi vous en tenir au programme d’apprentissage si vous préférez!",
+    "description": "Second paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "1u9PTo": {
+    "defaultMessage": "Masquer les candidatures en cours ({applicationCount})",
+    "description": "Heading for applications in progress accordion on the applicant dashboard."
+  },
+  "2dpDPq": {
+    "defaultMessage": "Recrutements qualifiés",
+    "description": "Title for qualified recruitments section"
+  },
+  "682ljn": {
+    "defaultMessage": "Lorsqu’une candidature aura été évaluée avec succès, le bassin de talents sera automatiquement ajouté à votre curriculum vitæ.",
+    "description": "Description for the track applications section on the applicant dashboard, paragraph two."
+  },
+  "C9PbZN": {
+    "defaultMessage": "Les candidatures en cours s’afficheront ici.",
+    "description": "Text displayed in the applications in progress section when empty."
+  },
+  "HAkMnl": {
+    "defaultMessage": "Diversité, équité, inclusion",
+    "description": "Title of the Diversity, equity and inclusion link section"
+  },
+  "Ji2C9w": {
+    "defaultMessage": "Profil linguistique",
+    "description": "Title of the Language Information link section"
+  },
+  "KUVXJr": {
+    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au programme d’apprentissage destiné aux Autochtones et faire le suivi de votre position dans le programme.",
+    "description": "Third paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "LOmX3T": {
+    "defaultMessage": "Expérience de travail",
+    "description": "Title for work experience section"
+  },
+  "O+Lj1u": {
+    "defaultMessage": "Paramètres du compte et de confidentialité",
+    "description": "Title of the Account and privacy settings link section"
+  },
+  "Ori6s+": {
+    "defaultMessage": "Curriculum vitæ et recrutements",
+    "description": "applicant dashboard card title for résumé card"
+  },
+  "Pf+PA/": {
+    "defaultMessage": "Préférences de travail",
+    "description": "Title of the Work Location link section"
+  },
+  "RzNVWf": {
+    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au programme d’apprentissage destiné aux Autochtones et faire le suivi de votre statut dans le programme.",
+    "description": "Third paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "U0qb7j": {
+    "defaultMessage": "Les candidatures qui ne sont plus actives s'affichent ici.",
+    "description": "Text displayed in past applications section when empty."
+  },
+  "VUbrMi": {
+    "defaultMessage": "Afficher les candidatures en cours ({applicationCount})",
+    "description": "Heading for applications in progress accordion on the applicant dashboard."
+  },
+  "Vq97zy": {
+    "defaultMessage": "Masquer les candidatures antérieures ({applicationCount})",
+    "description": "Heading for past applications accordion on the applicant dashboard."
+  },
+  "WuMMRK": {
+    "defaultMessage": "Dans cette section, vous trouverez les ébauches et les candidatures qui ont été présentées et qui sont toujours en cours de traitement.",
+    "description": "Introductory text displayed in applications in progress section."
+  },
+  "ZsevjY": {
+    "defaultMessage": "Renseignements sur les employés du gouvernement",
+    "description": "Title of the Government Information link section"
+  },
+  "b0fN+P": {
+    "defaultMessage": "Renseignements personnels et coordonnées",
+    "description": "Title of the About link section"
+  },
+  "gJpWLM": {
+    "defaultMessage": "Cherchez-vous votre candidature au Programme d’apprentissage en TI pour les Autochtones?",
+    "description": "First paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "gTjLic": {
+    "defaultMessage": "Renseignements du profil",
+    "description": "applicant dashboard card title for profile card"
+  },
+  "iutl39": {
+    "defaultMessage": "Les candidatures pour le bassin de talents et les possibilités de recrutement en cours peuvent être gérées et suivies ici. Vous pourrez voir les dates limites de présentation des candidatures, le statut de votre candidature au fil du temps et les candidatures antérieures.",
+    "description": "Description for the track applications section on the applicant dashboard, paragraph one."
+  },
+  "kBEXbF": {
+    "defaultMessage": "Bienvenue dans le tableau de bord de votre profil de talent du numérique",
+    "description": "Title for notification that a draft IAP application was saved"
+  },
+  "mH2eSA": {
+    "defaultMessage": "Cette section comprend les anciennes candidatures qui ont été évaluées avec succès, ainsi que les candidatures qui n’ont pas été présentées dans les délais impartis.",
+    "description": "Introductory text displayed in past applications section."
+  },
+  "mOGNS3": {
+    "defaultMessage": "Cette section comprendra les candidatures qui n’ont pas été présentées dans les délais impartis ainsi que les candidatures qui ont été évaluées avec succès.",
+    "description": "Additional text displayed in past applications section when empty."
+  },
+  "mWnekb": {
+    "defaultMessage": "Prix et reconnaissances",
+    "description": "Title for award section"
+  },
+  "mYD993": {
+    "defaultMessage": "Afficher les candidatures antérieures ({applicationCount})",
+    "description": "Heading for past applications accordion on the applicant dashboard."
+  },
+  "oSPdz1": {
+    "defaultMessage": "Consulter les possibilités offertes pour commencer à remplir une candidature.",
+    "description": "Additional text displayed in the applications in progress section when empty."
+  },
+  "tZwDLH": {
+    "defaultMessage": "Suivi de vos candidatures",
+    "description": "Heading for track applications section on the applicant dashboard."
+  },
+  "vBTn/n": {
+    "defaultMessage": "Gérez votre <a1>profil</a1>, <a2>votre curriculum vitæ et vos compétences</a2>, et <a3>faites le suivi de vos candidatures</a3>.",
+    "description": "Subtitle for applicant dashboard hero"
   },
   "8LPNbf": {
     "defaultMessage": "{skillCount} compétences mises en évidence",
@@ -8218,5 +8194,13 @@
   "zxLL3N": {
     "defaultMessage": "Afficher les détails de cette expérience",
     "description": "Button text to show a miscellaneous experience's details"
+  },
+  "w7E0He": {
+    "defaultMessage": "Compétences essentielles",
+    "description": "Title for the required skills snapshot section"
+  },
+  "Xpo+u6": {
+    "defaultMessage": "Compétences utiles",
+    "description": "Title for the optional skills snapshot section"
   }
 }

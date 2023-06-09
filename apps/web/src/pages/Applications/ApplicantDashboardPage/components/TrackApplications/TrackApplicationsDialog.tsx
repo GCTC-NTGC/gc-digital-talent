@@ -6,7 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useChangeApplicationSuspendedAtMutation } from "~/api/generated";
 import { useIntl } from "react-intl";
 
-interface QualifiedRecruitmentDialogProps {
+interface TrackApplicationsDialogProps {
   id: string;
   title: string;
   isSuspended: boolean;
@@ -22,7 +22,7 @@ type FormValues = {
   isSuspended: boolean;
 };
 
-const QualifiedRecruitmentDialog = ({
+const TrackApplicationsDialog = ({
   id,
   title,
   isSuspended,
@@ -32,7 +32,7 @@ const QualifiedRecruitmentDialog = ({
   closeButtonLabel,
   successMessage,
   errorMessage,
-}: QualifiedRecruitmentDialogProps) => {
+}: TrackApplicationsDialogProps) => {
   const intl = useIntl();
   const [, executeMutation] = useChangeApplicationSuspendedAtMutation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -84,9 +84,8 @@ const QualifiedRecruitmentDialog = ({
                   <Button color="secondary" mode="inline">
                     {intl.formatMessage({
                       defaultMessage: "Cancel",
-                      id: "AVPPm0",
-                      description:
-                        "Label for close button on qualified recruitment card dialogs.",
+                      id: "9U2gWd",
+                      description: "Label for close button on card dialogs.",
                     })}
                   </Button>
                 </Dialog.Close>
@@ -109,4 +108,4 @@ const QualifiedRecruitmentDialog = ({
   );
 };
 
-export default QualifiedRecruitmentDialog;
+export default TrackApplicationsDialog;

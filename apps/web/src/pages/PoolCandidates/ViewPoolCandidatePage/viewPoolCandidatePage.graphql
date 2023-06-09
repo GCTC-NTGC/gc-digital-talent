@@ -64,6 +64,27 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
           }
         }
       }
+      nonessentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        families {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+      }
       screeningQuestions {
         id
         question {
