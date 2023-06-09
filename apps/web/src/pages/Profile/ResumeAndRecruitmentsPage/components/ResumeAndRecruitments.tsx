@@ -41,7 +41,7 @@ export type ExperienceForDate =
   | PersonalExperience
   | WorkExperience;
 
-export interface ExperienceAndSkillsProps {
+export interface ResumeAndRecruitmentsProps {
   applicantId: string;
   experiences?: MergedExperiences;
   pool?: Pool;
@@ -51,12 +51,12 @@ export interface ExperienceAndSkillsProps {
   };
 }
 
-export const ExperienceAndSkills = ({
+export const ResumeAndRecruitments = ({
   experiences,
   missingSkills,
   applicantId,
   pool,
-}: ExperienceAndSkillsProps) => {
+}: ResumeAndRecruitmentsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
@@ -196,4 +196,4 @@ export const ExperienceAndSkills = ({
   );
 };
 
-export default ExperienceAndSkills;
+export default ResumeAndRecruitments;
