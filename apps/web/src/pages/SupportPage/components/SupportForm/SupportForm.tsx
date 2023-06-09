@@ -10,7 +10,7 @@ import {
   SelectFieldV2,
 } from "@gc-digital-talent/forms";
 import { errorMessages, apiMessages } from "@gc-digital-talent/i18n";
-import { Pending, Button } from "@gc-digital-talent/ui";
+import { Pending, Button, Link } from "@gc-digital-talent/ui";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { useGetMeQuery, User } from "~/api/generated";
@@ -38,7 +38,9 @@ interface SupportFormSuccessProps {
 }
 
 const anchorTag = (chunks: React.ReactNode) => (
-  <a href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>{chunks}</a>
+  <Link external href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>
+    {chunks}
+  </Link>
 );
 
 const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {

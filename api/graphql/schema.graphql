@@ -889,6 +889,10 @@ input PoolCandidateSearchInput {
   suspendedStatus: CandidateSuspendedFilter @scope(name: "suspendedStatus")
 }
 
+input PoolCandidateSearchRequestInput {
+  status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
+}
+
 type CandidateSearchPoolResult {
   pool: Pool! @can(ability: "view", resolved: true)
   candidateCount: Int! @rename(attribute: "candidate_count")
@@ -1022,6 +1026,14 @@ type Query {
     @deprecated(
       reason: "Use poolCandidateSearchRequests instead, with a specified limit"
     )
+  poolCandidateSearchRequestsPaginated(
+    where: PoolCandidateSearchRequestInput
+    orderBy: [OrderByClause!] @orderBy
+  ): [PoolCandidateSearchRequest]!
+    @orderBy(column: "created_at", direction: DESC)
+    @paginate(defaultCount: 10, maxCount: 500)
+    @guard
+    @can(ability: "viewAny")
   skillFamily(id: UUID! @eq): SkillFamily @find @can(ability: "view")
   skillFamilies: [SkillFamily]! @all @can(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @can(ability: "view")

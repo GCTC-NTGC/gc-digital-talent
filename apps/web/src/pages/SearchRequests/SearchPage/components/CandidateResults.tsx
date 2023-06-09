@@ -83,7 +83,6 @@ const CandidateResults = ({
 
       <Button
         color="secondary"
-        mode="outline"
         onClick={() =>
           handleSubmit(
             candidateCount,

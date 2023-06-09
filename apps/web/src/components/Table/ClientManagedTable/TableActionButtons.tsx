@@ -28,7 +28,6 @@ const TableActions = ({ id, label, editPathFunc }: TableActionsProps) => {
         mode="solid"
         data-h2-padding="base(x.5)"
         color="secondary"
-        type="button"
         aria-label={intl.formatMessage(
           {
             defaultMessage: "Edit {label}",

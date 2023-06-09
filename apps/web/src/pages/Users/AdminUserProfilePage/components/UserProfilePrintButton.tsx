@@ -34,12 +34,7 @@ const UserProfilePrintButton = ({
 
   return (
     <>
-      <Button
-        mode="outline"
-        color="primary"
-        type="button"
-        onClick={handlePrint}
-      >
+      <Button color="primary" type="button" onClick={handlePrint}>
         {children}
       </Button>
       <ProfileDocument results={[applicant]} ref={componentRef} />

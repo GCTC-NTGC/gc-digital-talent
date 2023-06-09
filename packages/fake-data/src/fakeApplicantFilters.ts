@@ -25,6 +25,7 @@ const generateApplicantFilters = (
   faker.setLocale("en");
 
   return {
+    __typename: "ApplicantFilter",
     id: faker.datatype.uuid(),
     pools: faker.helpers.arrayElements(pools),
     expectedClassifications: faker.helpers.arrayElements(classifications),

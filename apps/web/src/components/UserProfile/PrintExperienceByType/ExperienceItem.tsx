@@ -7,9 +7,9 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
+  useExperienceInfo,
 } from "~/utils/experienceUtils";
 import { Experience, Maybe } from "~/api/generated";
-import { getDateRange } from "~/utils/accordionUtils";
 import { Heading } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -19,6 +19,7 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Skill } from "@gc-digital-talent/graphql";
+import { getDateRange } from "~/utils/accordionUtils";
 
 interface ExperienceItemProps {
   experience: Experience;
@@ -26,6 +27,7 @@ interface ExperienceItemProps {
 
 const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   const intl = useIntl();
+  const { title } = useExperienceInfo(experience);
 
   const normalizedDateRange = (
     startDate: Maybe<string>,
@@ -56,10 +58,8 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
 
   let content = null;
   let dateRange = null;
-  let title = null;
 
   if (isAwardExperience(experience)) {
-    title = experience.title;
     dateRange = normalizedDateRange(experience.awardedDate, undefined);
     content = (
       <>
@@ -114,7 +114,6 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   }
 
   if (isCommunityExperience(experience)) {
-    title = experience.title;
     dateRange = normalizedDateRange(experience.startDate, experience.endDate);
     content = (
       <>
@@ -143,17 +142,6 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   }
 
   if (isEducationExperience(experience)) {
-    title = intl.formatMessage(
-      {
-        defaultMessage: "{areaOfStudy} at {institution}",
-        id: "UrsGGK",
-        description: "Study at institution",
-      },
-      {
-        areaOfStudy: experience.areaOfStudy,
-        institution: experience.institution,
-      },
-    );
     dateRange = normalizedDateRange(experience.startDate, experience.endDate);
     content = (
       <>
@@ -205,7 +193,6 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   }
 
   if (isPersonalExperience(experience)) {
-    title = experience.title;
     dateRange = normalizedDateRange(experience.startDate, experience.endDate);
     content = (
       <>
@@ -234,14 +221,6 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   }
 
   if (isWorkExperience(experience)) {
-    title = intl.formatMessage(
-      {
-        defaultMessage: "{role} at {organization}",
-        id: "wTAdQe",
-        description: "Role at organization",
-      },
-      { role: experience.role, organization: experience.organization },
-    );
     dateRange = normalizedDateRange(experience.startDate, experience.endDate);
     content = (
       <>

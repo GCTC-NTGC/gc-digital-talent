@@ -21,11 +21,10 @@ import LoginOrLogout from "./LoginOrLogout";
 
 export interface AdminSideMenuProps {
   isOpen: boolean;
-  onToggle: () => void;
-  onDismiss: () => void;
+  onToggle: (newOpen: boolean) => void;
 }
 
-const AdminSideMenu = ({ isOpen, onToggle, onDismiss }: AdminSideMenuProps) => {
+const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -119,9 +118,8 @@ const AdminSideMenu = ({ isOpen, onToggle, onDismiss }: AdminSideMenuProps) => {
         description:
           "Label for the main menu on the pool manager admin portal.",
       })}
-      onToggle={onToggle}
-      isOpen={isOpen}
-      onDismiss={onDismiss}
+      onOpenChange={onToggle}
+      open={isOpen}
       footer={<LoginOrLogout />}
     >
       {menuItems.map((item) => (

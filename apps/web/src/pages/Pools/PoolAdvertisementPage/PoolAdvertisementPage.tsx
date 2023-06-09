@@ -15,7 +15,7 @@ import {
   TableOfContents,
   Heading,
   Pill,
-  ExternalLink,
+  Link,
 } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import {
@@ -67,7 +67,9 @@ type SectionContent = {
 };
 
 const anchorTag = (chunks: React.ReactNode) => (
-  <a href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>{chunks}</a>
+  <Link external href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>
+    {chunks}
+  </Link>
 );
 
 interface PoolAdvertisementProps {
@@ -593,8 +595,10 @@ export const PoolPoster = ({
                 })}
                 value={languageRequirement}
                 suffix={
-                  <ExternalLink
+                  <Link
                     newTab
+                    external
+                    color="black"
                     href={
                       locale === "fr"
                         ? "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
@@ -606,7 +610,7 @@ export const PoolPoster = ({
                       id: "Swde4t",
                       description: "Link text for language testing information",
                     })}
-                  </ExternalLink>
+                  </Link>
                 }
               />
               <DataRow
@@ -619,8 +623,10 @@ export const PoolPoster = ({
                 })}
                 value={securityClearance}
                 suffix={
-                  <ExternalLink
+                  <Link
                     newTab
+                    external
+                    color="black"
                     href={
                       locale === "fr"
                         ? "https://www.canada.ca/fr/service-renseignement-securite/services/filtrage-de-securite-du-gouvernement.html"
@@ -633,7 +639,7 @@ export const PoolPoster = ({
                       description:
                         "Link text for security clearance information",
                     })}
-                  </ExternalLink>
+                  </Link>
                 }
               />
             </TableOfContents.Section>

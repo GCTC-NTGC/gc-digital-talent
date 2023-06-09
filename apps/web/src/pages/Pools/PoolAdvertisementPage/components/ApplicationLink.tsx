@@ -57,7 +57,7 @@ const ApplicationLink = ({
   }
 
   return (
-    <Link type="button" mode="solid" color="primary" href={href}>
+    <Link mode="solid" href={href}>
       {linkText}
     </Link>
   );

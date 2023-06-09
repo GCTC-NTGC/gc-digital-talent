@@ -11,7 +11,6 @@ import {
   Separator,
   TreeView,
   Heading,
-  Accordion,
   CardBasic,
 } from "@gc-digital-talent/ui";
 import {
@@ -30,6 +29,7 @@ import {
   Maybe,
   SkillCategory,
   User,
+  Pool,
 } from "~/api/generated";
 import {
   getFullPoolTitleHtml,
@@ -43,7 +43,8 @@ import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
-import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
+import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
 import SkillTree from "../../Applications/ApplicationSkillsPage/components/SkillTree";
@@ -55,6 +56,7 @@ import WorkPreferencesDisplay from "../../Applications/ApplicationProfilePage/co
 
 export interface ViewPoolCandidateProps {
   poolCandidate: PoolCandidate;
+  pools: Pool[];
 }
 
 type SectionContent = {
@@ -65,6 +67,7 @@ type SectionContent = {
 
 export const ViewPoolCandidate = ({
   poolCandidate,
+  pools,
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
 
@@ -87,12 +90,21 @@ export const ViewPoolCandidate = ({
         description: "Title for admins to edit an applications status.",
       }),
     },
+    poolInformation: {
+      id: "pool-information",
+      title: intl.formatMessage({
+        defaultMessage: "Pool information",
+        id: "Cjp2F6",
+        description: "Title for the pool info page",
+      }),
+    },
     snapshot: {
       id: "snapshot",
       title: intl.formatMessage({
-        defaultMessage: "Application's profile snapshot",
-        id: "L/Vj+K",
-        description: "Title for the application's profile snapshot.",
+        defaultMessage: "Application",
+        id: "5iNcHS",
+        description:
+          "Title displayed for the Pool Candidates table View Application link.",
       }),
     },
     minExperience: {
@@ -104,12 +116,20 @@ export const ViewPoolCandidate = ({
           "Title for the minimum experience or equivalent education snapshot section.",
       }),
     },
-    skills: {
-      id: "skills",
+    essentialSkills: {
+      id: "essential-skills",
       title: intl.formatMessage({
-        defaultMessage: "Skill requirements",
-        id: "bqC0/E",
-        description: "Title for the skill requirements snapshot section",
+        defaultMessage: "Essential skills",
+        id: "w7E0He",
+        description: "Title for the required skills snapshot section",
+      }),
+    },
+    assetSkills: {
+      id: "asset-skills",
+      title: intl.formatMessage({
+        defaultMessage: "Asset skills",
+        id: "Xpo+u6",
+        description: "Title for the optional skills snapshot section",
       }),
     },
     questions: {
@@ -235,7 +255,11 @@ export const ViewPoolCandidate = ({
     const categorizedEssentialSkills = categorizeSkill(
       poolCandidate.pool.essentialSkills,
     );
+    const categorizedAssetSkills = categorizeSkill(
+      poolCandidate.pool.nonessentialSkills,
+    );
     const nonEmptyExperiences = parsedSnapshot.experiences?.filter(notEmpty);
+
     mainContent = (
       <>
         {subTitle}
@@ -288,13 +312,13 @@ export const ViewPoolCandidate = ({
             </>
           ) : null}
         </TableOfContents.Section>
-        <TableOfContents.Section id={sections.skills.id}>
+        <TableOfContents.Section id={sections.essentialSkills.id}>
           <TableOfContents.Heading
             as="h4"
             size="h5"
             data-h2-margin="base(x2 0 x.5 0)"
           >
-            {sections.skills.title}
+            {sections.essentialSkills.title}
           </TableOfContents.Heading>
           {categorizedEssentialSkills[SkillCategory.Technical]?.length ? (
             <>
@@ -311,6 +335,52 @@ export const ViewPoolCandidate = ({
                   <SkillTree
                     key={requiredTechnicalSkill.id}
                     skill={requiredTechnicalSkill}
+                    experiences={
+                      parsedSnapshot.experiences?.filter(notEmpty) || []
+                    }
+                    showDisclaimer
+                    hideConnectButton
+                    hideEdit
+                    disclaimerMessage={
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "There are no experiences attached to this skill.",
+                          id: "XrfkBm",
+                          description:
+                            "Message displayed when no experiences have been attached to a skill",
+                        })}
+                      </p>
+                    }
+                  />
+                ),
+              )}
+            </>
+          ) : null}
+        </TableOfContents.Section>
+        <TableOfContents.Section id={sections.assetSkills.id}>
+          <TableOfContents.Heading
+            as="h4"
+            size="h5"
+            data-h2-margin="base(x2 0 x.5 0)"
+          >
+            {sections.assetSkills.title}
+          </TableOfContents.Heading>
+          {categorizedAssetSkills[SkillCategory.Technical]?.length ? (
+            <>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "Represented by the following experiences:",
+                  id: "mDowK/",
+                  description:
+                    "Lead in text for experiences that represent the users skills",
+                })}
+              </p>
+              {categorizedAssetSkills[SkillCategory.Technical]?.map(
+                (optionalTechnicalSkill) => (
+                  <SkillTree
+                    key={optionalTechnicalSkill.id}
+                    skill={optionalTechnicalSkill}
                     experiences={
                       parsedSnapshot.experiences?.filter(notEmpty) || []
                     }
@@ -384,16 +454,13 @@ export const ViewPoolCandidate = ({
               <TreeView.Root>
                 {nonEmptyExperiences.map((experience) => (
                   <TreeView.Item key={experience.id}>
-                    <div data-h2-margin="base(-x.5, 0)">
-                      <Accordion.Root type="single" collapsible>
-                        <ExperienceAccordion
-                          key={experience.id}
-                          experience={experience}
-                          headingLevel="h5"
-                          showSkills={false}
-                        />
-                      </Accordion.Root>
-                    </div>
+                    <ExperienceCard
+                      key={experience.id}
+                      experience={experience}
+                      headingLevel="h5"
+                      showSkills={false}
+                      showEdit={false}
+                    />
                   </TreeView.Item>
                 ))}
               </TreeView.Root>
@@ -570,6 +637,9 @@ export const ViewPoolCandidate = ({
           <TableOfContents.AnchorLink id={sections.statusForm.id}>
             {sections.statusForm.title}
           </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink id={sections.poolInformation.id}>
+            {sections.poolInformation.title}
+          </TableOfContents.AnchorLink>
           <TableOfContents.AnchorLink id={sections.snapshot.id}>
             {sections.snapshot.title}
           </TableOfContents.AnchorLink>
@@ -578,8 +648,11 @@ export const ViewPoolCandidate = ({
               <TableOfContents.AnchorLink id={sections.minExperience.id}>
                 {sections.minExperience.title}
               </TableOfContents.AnchorLink>
-              <TableOfContents.AnchorLink id={sections.skills.id}>
-                {sections.skills.title}
+              <TableOfContents.AnchorLink id={sections.essentialSkills.id}>
+                {sections.essentialSkills.title}
+              </TableOfContents.AnchorLink>
+              <TableOfContents.AnchorLink id={sections.assetSkills.id}>
+                {sections.assetSkills.title}
               </TableOfContents.AnchorLink>
               <TableOfContents.AnchorLink id={sections.questions.id}>
                 {sections.questions.title}
@@ -618,6 +691,20 @@ export const ViewPoolCandidate = ({
               {sections.statusForm.title}
             </TableOfContents.Heading>
             <ApplicationStatusForm id={poolCandidate.id} />
+            <Separator
+              data-h2-background-color="base(black.lightest)"
+              data-h2-margin="base(x1, 0, 0, 0)"
+            />
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.poolInformation.id}>
+            <TableOfContents.Heading
+              data-h2-margin="base(x1, 0, x1, 0)"
+              data-h2-font-weight="base(800)"
+              as="h3"
+            >
+              {sections.poolInformation.title}
+            </TableOfContents.Heading>
+            <PoolStatusTable user={poolCandidate.user} pools={pools} />
             <Separator
               data-h2-background-color="base(black.lightest)"
               data-h2-margin="base(x1, 0, 0, 0)"
@@ -693,8 +780,11 @@ export const ViewPoolCandidatePage = () => {
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <Pending fetching={fetching} error={error}>
-        {data?.poolCandidate ? (
-          <ViewPoolCandidate poolCandidate={data.poolCandidate} />
+        {data?.poolCandidate && data?.pools ? (
+          <ViewPoolCandidate
+            poolCandidate={data.poolCandidate}
+            pools={data.pools.filter(notEmpty)}
+          />
         ) : (
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}
