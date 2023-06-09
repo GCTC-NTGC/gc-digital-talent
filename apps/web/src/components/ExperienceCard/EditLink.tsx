@@ -1,7 +1,7 @@
 import React from "react";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
-import { IconLink, IconButton, Color } from "@gc-digital-talent/ui";
+import { Link, Button, Color, ButtonLinkMode } from "@gc-digital-talent/ui";
 
 interface EditLinkProps {
   children: React.ReactNode;
@@ -26,21 +26,22 @@ const EditLink = ({
     color: "secondary" as Color,
     icon: PencilSquareIcon,
     "aria-label": ariaLabel,
+    mode: "inline" as ButtonLinkMode,
   };
 
   if (!!onEditClick && !editUrl) {
     return (
-      <IconButton mode="inline" onClick={onEditClick} {...commonProps}>
+      <Button onClick={onEditClick} {...commonProps}>
         {children}
-      </IconButton>
+      </Button>
     );
   }
 
   if (!!editUrl && !onEditClick) {
     return (
-      <IconLink href={editUrl} {...commonProps}>
+      <Link href={editUrl} {...commonProps}>
         {children}
-      </IconLink>
+      </Link>
     );
   }
 

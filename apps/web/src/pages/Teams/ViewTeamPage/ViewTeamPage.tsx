@@ -99,12 +99,7 @@ const ViewTeamPage = () => {
         )}
       </Pending>
       <p data-h2-margin="base(x2, 0, 0, 0)">
-        <Link
-          type="button"
-          mode="solid"
-          color="secondary"
-          href={routes.teamTable()}
-        >
+        <Link mode="solid" color="secondary" href={routes.teamTable()}>
           {intl.formatMessage({
             defaultMessage: "Back to teams",
             id: "LocjmN",

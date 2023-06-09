@@ -261,12 +261,7 @@ export const ApplicationResume = ({
                   "Title for resume page when there are no experiences yet",
               })}
         </Heading>
-        <Link
-          href={instructionsPath}
-          type="button"
-          mode="inline"
-          color="secondary"
-        >
+        <Link href={instructionsPath} mode="inline">
           {intl.formatMessage({
             defaultMessage: "Review instructions",
             id: "VRxiNC",
@@ -368,9 +363,7 @@ export const ApplicationResume = ({
             />
 
             <Link
-              type="button"
               mode="inline"
-              color="secondary"
               href={paths.applicationResumeAdd(application.id)}
             >
               {intl.formatMessage({
@@ -454,12 +447,7 @@ export const ApplicationResume = ({
             >
               {intl.formatMessage(applicationMessages.saveContinue)}
             </Button>
-            <Link
-              type="button"
-              mode="inline"
-              color="secondary"
-              href={cancelPath}
-            >
+            <Link mode="inline" href={cancelPath}>
               {intl.formatMessage(applicationMessages.saveQuit)}
             </Link>
           </div>

@@ -115,7 +115,7 @@ const ExtendDialog = ({
               <Dialog.Footer>
                 <div style={{ flexGrow: 2 } /* push other div to the right */}>
                   <Dialog.Close>
-                    <Button mode="outline" color="secondary">
+                    <Button color="secondary">
                       {intl.formatMessage({
                         defaultMessage: "Cancel and go back",
                         id: "tiF/jI",

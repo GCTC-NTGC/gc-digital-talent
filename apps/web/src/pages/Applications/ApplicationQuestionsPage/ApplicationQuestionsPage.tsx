@@ -127,9 +127,8 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
           {pageInfo.title}
         </Heading>
         <Link
-          mode="inline"
-          type="button"
           color="secondary"
+          mode="inline"
           href={paths.applicationQuestionsIntro(application.id)}
         >
           {intl.formatMessage({

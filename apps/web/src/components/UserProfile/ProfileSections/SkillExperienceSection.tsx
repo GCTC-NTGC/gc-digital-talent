@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -36,14 +36,14 @@ const SkillExperienceSection = ({
         <div data-h2-flex-item="base(1of1)">
           <p>
             {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-            <a href={editPath}>
+            <Link href={editPath}>
               {intl.formatMessage({
                 defaultMessage: "Edit your skill and experience options.",
                 id: "hDupu9",
                 description:
                   "Link text for editing skills and experiences on profile.",
               })}
-            </a>
+            </Link>
           </p>
         </div>
       </div>

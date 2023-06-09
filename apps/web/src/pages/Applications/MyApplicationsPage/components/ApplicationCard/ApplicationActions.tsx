@@ -32,7 +32,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
 
   return (
     <div data-h2-margin="base(0, 0, 0, auto)">
-      <Link type="button" mode="inline" color="secondary" href={href}>
+      <Link mode="inline" href={href}>
         {intl.formatMessage(
           {
             defaultMessage: "Continue this application<hidden> {name}</hidden>",
@@ -65,7 +65,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
   }
 
   return (
-    <Link href={href} mode="inline" type="button" color="secondary">
+    <Link href={href} mode="inline">
       {intl.formatMessage(
         {
           defaultMessage: "View this application<hidden> {name}</hidden>",
@@ -96,12 +96,7 @@ const SeeAdvertisementAction = ({
   }
 
   return (
-    <Link
-      mode="inline"
-      type="button"
-      color="secondary"
-      href={paths.pool(advertisement.id)}
-    >
+    <Link mode="inline" href={paths.pool(advertisement.id)}>
       {intl.formatMessage(
         {
           defaultMessage: "See job ad<hidden> {name}</hidden>",
@@ -126,7 +121,7 @@ const SupportAction = ({ show }: SupportActionProps) => {
   }
 
   return (
-    <Link href={paths.support()} mode="inline" type="button" color="secondary">
+    <Link href={paths.support()} mode="inline">
       {intl.formatMessage({
         defaultMessage: "Get support",
         id: "rXdaZW",
@@ -192,7 +187,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
-            <Button mode="outline" color="primary" type="button">
+            <Button color="primary" type="button">
               {intl.formatMessage({
                 defaultMessage: "Cancel",
                 id: "/JLaO5",
@@ -201,7 +196,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button mode="solid" color="cta" type="button" onClick={onDelete}>
+            <Button mode="solid" color="error" type="button" onClick={onDelete}>
               {intl.formatMessage({
                 defaultMessage: "Delete",
                 id: "IUQGA0",
@@ -272,7 +267,7 @@ const ArchiveAction = ({
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
-            <Button mode="outline" color="primary" type="button">
+            <Button color="primary" type="button">
               {intl.formatMessage({
                 defaultMessage: "Cancel",
                 id: "r6DZ71",
@@ -281,7 +276,12 @@ const ArchiveAction = ({
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button mode="solid" color="cta" type="button" onClick={onArchive}>
+            <Button
+              mode="solid"
+              color="secondary"
+              type="button"
+              onClick={onArchive}
+            >
               {intl.formatMessage({
                 defaultMessage: "Archive",
                 id: "PXfQOZ",

@@ -6,7 +6,7 @@ import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getJobLookingStatus, getLanguage } from "@gc-digital-talent/i18n";
-import { Pending } from "@gc-digital-talent/ui";
+import { Link, Pending } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
@@ -145,12 +145,14 @@ const languageAccessor = (
 const phoneAccessor = (telephone: string | null | undefined) => {
   if (telephone) {
     return (
-      <a
+      <Link
+        external
+        color="black"
         href={`tel:${telephone}`}
         aria-label={telephone.replace(/.{1}/g, "$& ")}
       >
         {telephone}
-      </a>
+      </Link>
     );
   }
   return "";
@@ -159,7 +161,9 @@ const phoneAccessor = (telephone: string | null | undefined) => {
 const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
   if (email) {
     return (
-      <a
+      <Link
+        external
+        color="black"
         href={`mailto:${email}`}
         title={intl.formatMessage({
           defaultMessage: "Link to user email",
@@ -168,7 +172,7 @@ const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
         })}
       >
         {email}
-      </a>
+      </Link>
     );
   }
   return (

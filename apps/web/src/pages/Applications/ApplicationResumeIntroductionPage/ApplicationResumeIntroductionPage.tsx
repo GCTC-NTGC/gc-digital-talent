@@ -103,7 +103,7 @@ const ApplicationResumeIntroduction = ({
         data-h2-flex-direction="base(column) l-tablet(row)"
         data-h2-align-items="base(flex-start) l-tablet(center)"
       >
-        <Link type="button" color="primary" mode="solid" href={nextStep}>
+        <Link color="primary" mode="solid" href={nextStep}>
           {intl.formatMessage({
             defaultMessage: "Got it, let's go!",
             id: "AOrJqm",
@@ -111,9 +111,7 @@ const ApplicationResumeIntroduction = ({
           })}
         </Link>
         <Link
-          type="button"
           mode="inline"
-          color="secondary"
           href={
             applicantDashboard
               ? paths.dashboard({ fromIapDraft: isIAP })

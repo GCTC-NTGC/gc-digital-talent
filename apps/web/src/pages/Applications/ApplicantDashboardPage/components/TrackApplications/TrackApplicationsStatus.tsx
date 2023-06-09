@@ -86,7 +86,7 @@ const TrackApplicationsStatus = ({
             id: "5xZ350",
             description:
               "Not suspended recruitment status message on application card.",
-          })}
+          })}{" "}
           {/* Dialog that allows user to suspend the application. Sets suspendedAt date to the current time. */}
           <TrackApplicationsDialog
             id={id}
@@ -163,7 +163,7 @@ const TrackApplicationsStatus = ({
           id: "KrAvuk",
           description:
             "Suspended recruitment status message on application card.",
-        })}
+        })}{" "}
         {/* Dialog that allows user to un-suspend the application. Sets suspendedAt date to null. */}
         <TrackApplicationsDialog
           id={id}

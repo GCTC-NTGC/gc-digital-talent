@@ -10,7 +10,7 @@ export interface SubmitProps extends Omit<ButtonProps, "ref" | "type"> {
   submittedText?: string | React.ReactNode;
   isSubmittingText?: string | React.ReactNode;
   color?: Color;
-  mode?: "solid" | "outline" | "inline";
+  mode?: "solid" | "inline";
   isSubmitting?: boolean;
   disabled?: boolean;
 }
@@ -21,6 +21,7 @@ const Submit = ({
   isSubmittingText,
   color,
   mode,
+  icon,
   isSubmitting: overrideSubmitting,
   disabled,
   ...rest
@@ -43,6 +44,7 @@ const Submit = ({
       color={color || "primary"}
       mode={mode || "solid"}
       type="submit"
+      icon={icon}
       disabled={disabled || isSubmitting || overrideSubmitting}
       {...rest}
     >
