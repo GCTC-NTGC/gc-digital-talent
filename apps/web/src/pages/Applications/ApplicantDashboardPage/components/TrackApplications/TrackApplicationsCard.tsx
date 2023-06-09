@@ -11,19 +11,19 @@ import {
   isPlaced,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
-import QualifiedRecruitmentStatus from "./QualifiedRecruitmentStatus";
+import TrackApplicationsStatus from "./TrackApplicationsStatus";
 
 export type Application = Omit<PoolCandidate, "user">;
 
-export interface QualifiedRecruitmentCardProps {
+export interface TrackApplicationsCardProps {
   application: Application;
   headingLevel?: HeadingProps["level"];
 }
 
-const QualifiedRecruitmentCard = ({
+const TrackApplicationsCard = ({
   application,
   headingLevel = "h2",
-}: QualifiedRecruitmentCardProps) => {
+}: TrackApplicationsCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -32,7 +32,7 @@ const QualifiedRecruitmentCard = ({
     ? application.pool.essentialSkills
     : [];
 
-  // Conditionals for qualified recruitment card actions
+  // Conditionals for card actions
   const applicationIsDraft = isDraft(application.status);
   const recruitmentIsExpired = isExpired(
     application.status,
@@ -62,7 +62,7 @@ const QualifiedRecruitmentCard = ({
         </Heading>
       </div>
       <div data-h2-margin="base(0, 0, x1, 0)">
-        <QualifiedRecruitmentStatus application={application} />
+        <TrackApplicationsStatus application={application} />
       </div>
       <div>
         {skills.length > 0 ? (
@@ -119,4 +119,4 @@ const QualifiedRecruitmentCard = ({
   );
 };
 
-export default QualifiedRecruitmentCard;
+export default TrackApplicationsCard;
