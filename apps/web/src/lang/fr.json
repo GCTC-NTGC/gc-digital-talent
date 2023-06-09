@@ -4333,10 +4333,6 @@
     "defaultMessage": "Exigences de fonctionnement acceptées",
     "description": "CSV Header, Accepted Operation Requirements column"
   },
-  "L/Vj+K": {
-    "defaultMessage": "Instantané du profil de la candidature",
-    "description": "Title for the application's profile snapshot."
-  },
   "uC0YPE": {
     "defaultMessage": "Effacer les filtres",
     "description": "Clear button within the search filter dialog"
@@ -7991,10 +7987,6 @@
     "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
     "description": "Message displayed when no experiences have been attached to a skill"
   },
-  "bqC0/E": {
-    "defaultMessage": "Exigences en matière de compétences",
-    "description": "Title for the skill requirements snapshot section"
-  },
   "fEcEv3": {
     "defaultMessage": "Signée",
     "description": "Heading for the application snapshot users signature"
@@ -8202,5 +8194,13 @@
   "zxLL3N": {
     "defaultMessage": "Afficher les détails de cette expérience",
     "description": "Button text to show a miscellaneous experience's details"
+  },
+  "w7E0He": {
+    "defaultMessage": "Compétences essentielles",
+    "description": "Title for the required skills snapshot section"
+  },
+  "Xpo+u6": {
+    "defaultMessage": "Compétences utiles",
+    "description": "Title for the optional skills snapshot section"
   }
 }
