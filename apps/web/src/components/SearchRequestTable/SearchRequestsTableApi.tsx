@@ -40,7 +40,7 @@ import {
   stringToEnumRequestStatus,
   stringToEnumStream,
 } from "~/utils/requestUtils";
-import SearchRequestsTableFilterDialog, {
+import SearchRequestsTableFilter, {
   FormValues,
 } from "./components/SearchRequestsTableFilterDialog";
 
@@ -357,7 +357,7 @@ const SearchRequestsTableApi = ({
       <TableHeader
         columns={columns}
         filterComponent={
-          <SearchRequestsTableFilterDialog
+          <SearchRequestsTableFilter
             onSubmit={handleFilterSubmit}
             initialFilters={initialFilters}
           />
