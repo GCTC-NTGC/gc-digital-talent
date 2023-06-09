@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
 
-import { Link } from "@gc-digital-talent/ui";
+import { Link, Pending } from "@gc-digital-talent/ui";
 
 import useQuote from "~/hooks/useQuote";
 
@@ -25,7 +25,6 @@ import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import { Pool, PoolStatus } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
-import { Pending } from "@gc-digital-talent/ui";
 import orderBy from "lodash/orderBy";
 import Banner from "./components/Banner";
 import Card from "./components/Card";
@@ -161,6 +160,7 @@ export const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
               applicationId={applicationId}
               hasApplied={hasApplied}
               canApply={canApply}
+              linkProps={{ block: true }}
             />
           ) : (
             <ApplyDialog />
