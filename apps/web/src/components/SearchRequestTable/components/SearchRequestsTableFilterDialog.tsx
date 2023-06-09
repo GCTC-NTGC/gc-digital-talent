@@ -55,7 +55,7 @@ interface SearchRequestsTableFilterDialogProps {
   activeFilters: FormValues;
 }
 
-const SearchRequestsTableFilterDialog = ({
+export const SearchRequestsTableFilterDialog = ({
   onSubmit,
   activeFilters,
   isOpen,
