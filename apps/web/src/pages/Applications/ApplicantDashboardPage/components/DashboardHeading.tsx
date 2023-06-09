@@ -8,8 +8,8 @@ import UsersIcon from "@heroicons/react/20/solid/UsersIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
-import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
-import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+// import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
+// import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
@@ -322,7 +322,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             }
             href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.LANGUAGE)}
           />
-          <StatusItem
+          {/* <StatusItem
             asListItem
             title={intl.formatMessage({
               defaultMessage: "Account and privacy settings",
@@ -336,7 +336,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               PROFILE_PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY,
             )}
             icon={LockClosedIcon}
-          />
+          /> */}
         </HeroCard>
         <HeroCard
           color="tertiary"
@@ -392,7 +392,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             itemCount={awardExperiences?.length}
             icon={StarIcon}
           />
-          <StatusItem
+          {/* <StatusItem
             title={intl.formatMessage({
               defaultMessage: "Qualified recruitments",
               id: "2dpDPq",
@@ -401,7 +401,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             itemCount={0}
             icon={ShieldCheckIcon}
             scrollTo="qualified-recruitments-section"
-          />
+          /> */}
         </HeroCard>
       </div>
     </Hero>
