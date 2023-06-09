@@ -181,17 +181,6 @@ export const ResumeAndRecruitments = ({
           headingLevel="h2"
         />
       )}
-      <ProfileFormFooter
-        mode="cancelButton"
-        cancelLink={{
-          href: returnRoute,
-          children: intl.formatMessage(
-            applicationId
-              ? navigationMessages.backToApplication
-              : navigationMessages.backToProfile,
-          ),
-        }}
-      />
     </ProfileFormWrapper>
   );
 };

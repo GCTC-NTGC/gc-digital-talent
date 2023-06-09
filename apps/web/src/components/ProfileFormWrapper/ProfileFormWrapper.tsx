@@ -38,8 +38,17 @@ const ProfileFormWrapper = ({
     links = [
       {
         label: intl.formatMessage({
-          defaultMessage: "My profile",
-          id: "+lKz3l",
+          defaultMessage: "Home",
+          id: "riH4U+",
+          description:
+            "Breadcrumb to the dashboard from applicant profile wrapper.",
+        }),
+        url: paths.dashboard(),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Profile and applications",
+          id: "WVbN0f",
           description: "Breadcrumb from applicant profile wrapper.",
         }),
         url: user?.id ? paths.profile(user.id) : paths.myProfile(),
