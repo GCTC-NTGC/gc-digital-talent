@@ -102,7 +102,7 @@ describe("ExperienceForm", () => {
       screen.getByRole("combobox", { name: /award scope/i }),
     ).toBeInTheDocument();
     // Note: Date inputs have no role by default
-    expect(screen.getByLabelText("Date Awarded")).toBeInTheDocument();
+    expect(screen.getByLabelText(/date awarded/i)).toBeInTheDocument();
   });
 
   it("should render community fields", async () => {
@@ -124,8 +124,8 @@ describe("ExperienceForm", () => {
       screen.getByRole("textbox", { name: /project/i }),
     ).toBeInTheDocument();
 
-    expect(screen.getByLabelText("Start Date")).toBeInTheDocument();
-    expect(screen.getByLabelText("End Date")).toBeInTheDocument();
+    expect(screen.getByLabelText(/start date/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/end date/i)).toBeInTheDocument();
   });
 
   it("should render education fields", async () => {
@@ -155,8 +155,8 @@ describe("ExperienceForm", () => {
       screen.getByRole("textbox", { name: /thesis title/i }),
     ).toBeInTheDocument();
 
-    expect(screen.getByLabelText("Start Date")).toBeInTheDocument();
-    expect(screen.getByLabelText("End Date")).toBeInTheDocument();
+    expect(screen.getByLabelText(/start date/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/end date/i)).toBeInTheDocument();
   });
 
   it("should render personal fields", async () => {
@@ -177,14 +177,14 @@ describe("ExperienceForm", () => {
       screen.getByRole("textbox", { name: /experience description/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", { name: /disclaimer/i }),
+      screen.getByRole("group", { name: /disclaimer/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", { name: /current experience/i }),
+      screen.getByRole("group", { name: /current experience/i }),
     ).toBeInTheDocument();
 
-    expect(screen.getByLabelText("Start Date")).toBeInTheDocument();
-    expect(screen.getByLabelText("End Date")).toBeInTheDocument();
+    expect(screen.getByLabelText(/start date/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/end date/i)).toBeInTheDocument();
   });
 
   it("should render work fields", async () => {
@@ -206,11 +206,11 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("textbox", { name: /team/i })).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", { name: /current role/i }),
+      screen.getByRole("group", { name: /current role/i }),
     ).toBeInTheDocument();
 
-    expect(screen.getByLabelText("Start Date")).toBeInTheDocument();
-    expect(screen.getByLabelText("End Date")).toBeInTheDocument();
+    expect(screen.getByLabelText(/start date/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/end date/i)).toBeInTheDocument();
   });
 
   it("should render work fields", async () => {
@@ -275,7 +275,7 @@ describe("ExperienceForm", () => {
     const awardTitle = screen.getByRole("textbox", { name: /award title/i });
     fireEvent.change(awardTitle, { target: { value: "AwardTitle" } });
 
-    const dateAwarded = screen.getByLabelText("Date Awarded");
+    const dateAwarded = screen.getByLabelText(/date awarded/i);
     fireEvent.change(dateAwarded, { target: { value: "1111-11-11" } });
 
     const awardedTo = screen.getByRole("combobox", {
