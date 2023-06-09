@@ -47,7 +47,7 @@ import {
   stringToEnumLocation,
   stringToEnumOperational,
 } from "~/utils/userUtils";
-import UserProfileDocument from "~/components/UserProfileDocument/UserProfileDocument";
+import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 
 import useUserCsvData from "../hooks/useUserCsvData";
 
@@ -455,8 +455,8 @@ const UserTable = ({ title }: { title: string }) => {
     content: () => componentRef.current,
     pageStyle: printStyles,
     documentTitle: intl.formatMessage({
-      defaultMessage: "Candidate Profiles",
-      id: "IE82VM",
+      defaultMessage: "Candidate profiles",
+      id: "scef3o",
       description: "Document title for printing User table results",
     }),
   });
@@ -613,10 +613,7 @@ const UserTable = ({ title }: { title: string }) => {
             !selectedUsersData?.applicants.length
           }
         />
-        <UserProfileDocument
-          applicants={selectedApplicants}
-          ref={componentRef}
-        />
+        <ProfileDocument results={selectedApplicants} ref={componentRef} />
       </div>
     </div>
   );
