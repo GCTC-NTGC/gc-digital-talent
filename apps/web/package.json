@@ -42,7 +42,7 @@
     "@gc-digital-talent/toast": "*",
     "@gc-digital-talent/ui": "*",
     "@heroicons/react": "^2.0.18",
-    "@microsoft/applicationinsights-react-js": "^3.4.1",
+    "@microsoft/applicationinsights-react-js": "^3.4.3",
     "@microsoft/applicationinsights-web": "^2.8.11",
     "date-fns": "^2.30.0",
     "dotenv": "^16.1.4",
