@@ -48,25 +48,23 @@ const CreateApplication = () => {
   // Store path to redirect to later on
   let redirectPath = paths.pool(poolId || "");
 
+  const genericErrorMessage = intl.formatMessage({
+    defaultMessage: "Error application creation failed",
+    id: "tlAiJm",
+    description: "Application creation failed",
+  });
+
   // We use this ref to make sure we only try to apply once
   const mutationCounter = React.useRef<number>(0);
+  // We use this ref to make sure we only try to apply once
+  const navigateWithToastCounter = React.useRef<number>(0);
 
-  /**
-   * Handle any errors that occur during mutation
-   *
-   * @returns null
-   */
-  const handleError = (msg?: React.ReactNode, path?: string) => {
-    navigate(path || redirectPath, { replace: true });
-    toast.error(
-      msg ||
-        intl.formatMessage({
-          defaultMessage: "Error application creation failed",
-          id: "tlAiJm",
-          description: "Application creation failed",
-        }),
-    );
-    return null;
+  // Start navigation and pop a toast.  Uses a ref to ensure we only do this once.
+  const navigateWithToast = (path: string, toastFunction: () => void): void => {
+    if (navigateWithToastCounter.current > 0) return; // we've already started navigation
+    navigate(path, { replace: true });
+    toastFunction();
+    navigateWithToastCounter.current += 1;
   };
 
   // If a "me" object came back then we've checked.
@@ -85,9 +83,16 @@ const CreateApplication = () => {
   )?.applicationId;
   // An existing application was found for this pool.  No need to create a new one - let's go.
   if (existingApplicationIdToThisPool) {
-    navigate(applicationPath(existingApplicationIdToThisPool), {
-      replace: true,
-    });
+    navigateWithToast(applicationPath(existingApplicationIdToThisPool), () =>
+      toast.info(
+        intl.formatMessage({
+          defaultMessage: "You already have an application to this pool.",
+          id: "fY0W2V",
+          description:
+            "Notification when a user attempts to apply to a pool when they already have an application there.",
+        }),
+      ),
+    );
   }
 
   /**
@@ -108,7 +113,7 @@ const CreateApplication = () => {
     if (!poolId) {
       redirectPath = paths.browsePools();
     }
-    handleError();
+    navigateWithToast(redirectPath, () => toast.error(genericErrorMessage));
   }
 
   if (
@@ -126,13 +131,14 @@ const CreateApplication = () => {
           // Redirect user to the application if it exists
           // Toast success or error
           if (!result.error) {
-            navigate(newPath, { replace: true });
-            toast.success(
-              intl.formatMessage({
-                defaultMessage: "Application created",
-                id: "U/ji+A",
-                description: "Application created successfully",
-              }),
+            navigateWithToast(newPath, () =>
+              toast.success(
+                intl.formatMessage({
+                  defaultMessage: "Application created",
+                  id: "U/ji+A",
+                  description: "Application created successfully",
+                }),
+              ),
             );
           } else {
             const messageDescriptor = tryFindMessageDescriptor(
@@ -141,7 +147,7 @@ const CreateApplication = () => {
             const message = intl.formatMessage(
               messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
             );
-            handleError(message, newPath);
+            navigateWithToast(newPath, () => toast.error(message));
           }
         } else if (result.error?.message) {
           const messageDescriptor = tryFindMessageDescriptor(
@@ -150,13 +156,17 @@ const CreateApplication = () => {
           const message = intl.formatMessage(
             messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
           );
-          handleError(message);
+          navigateWithToast(redirectPath, () => toast.error(message));
         } else {
           // Fallback to generic message
-          handleError();
+          navigateWithToast(redirectPath, () =>
+            toast.error(genericErrorMessage),
+          );
         }
       })
-      .catch(handleError);
+      .catch(() =>
+        navigateWithToast(redirectPath, () => toast.error(genericErrorMessage)),
+      );
   }
 
   // Don't render the page if the mutation ran already
