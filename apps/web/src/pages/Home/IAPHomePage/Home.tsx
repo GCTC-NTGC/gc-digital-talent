@@ -941,13 +941,13 @@ const HomeApi = () => {
     data?.publishedPools.filter((pool) => typeof pool !== undefined && !!pool),
     ["publishedAt"],
     ["desc"],
-  ) as Pool[]; // Order by date in desc order
+  ); // Order by date in desc order
 
-  const latestPool = pools[0]; // get latest pool (most recent published_at date)
+  const latestPool = pools && pools.length > 0 ? pools[0] : undefined; // get latest pool (most recent published_at date)
 
   // Attempt to find an application for this user+pool combination
   const application = data?.me?.poolCandidates?.find(
-    (candidate) => candidate?.pool.id === latestPool.id,
+    (candidate) => candidate?.pool.id === latestPool?.id,
   );
   const hasApplied = notEmpty(application?.submittedAt);
 
