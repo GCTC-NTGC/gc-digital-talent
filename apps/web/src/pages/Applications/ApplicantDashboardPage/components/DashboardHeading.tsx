@@ -12,7 +12,13 @@ import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Alert, Link, ScrollToLink } from "@gc-digital-talent/ui";
+import {
+  Alert,
+  Link,
+  LinkProps,
+  ScrollToLink,
+  ScrollToLinkProps,
+} from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes, {
@@ -39,14 +45,27 @@ import { HeroCard } from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { PartialUser } from "../types";
 
-function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
-  return <Link href={href}>{chunks}</Link>;
+function buildLink(
+  href: string,
+  chunks: React.ReactNode,
+  color?: LinkProps["color"],
+): React.ReactElement {
+  return (
+    <Link href={href} color={color}>
+      {chunks}
+    </Link>
+  );
 }
 function buildScrollToLink(
   to: string,
   chunks: React.ReactNode,
+  color?: ScrollToLinkProps["color"],
 ): React.ReactElement {
-  return <ScrollToLink to={to}>{chunks}</ScrollToLink>;
+  return (
+    <ScrollToLink to={to} color={color}>
+      {chunks}
+    </ScrollToLink>
+  );
 }
 export interface DashboardHeadingProps {
   user: PartialUser;
@@ -100,11 +119,11 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         },
         {
           a1: (chunks: React.ReactNode) =>
-            buildLink(paths.profile(user.id), chunks),
+            buildLink(paths.profile(user.id), chunks, "white"),
           a2: (chunks: React.ReactNode) =>
-            buildLink(paths.skillsAndExperiences(user.id), chunks),
+            buildLink(paths.skillsAndExperiences(user.id), chunks, "white"),
           a3: (chunks: React.ReactNode) =>
-            buildScrollToLink("track-applications-section", chunks),
+            buildScrollToLink("track-applications-section", chunks, "white"),
         },
       )}
     >
