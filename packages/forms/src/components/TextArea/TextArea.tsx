@@ -128,6 +128,9 @@ const TextArea = ({
             data-h2-bottom="base(x.5)"
             data-h2-right="base(x1.25)"
             data-h2-z-index="base(2)"
+            data-h2-padding="base(x.125)"
+            data-h2-radius="base(s)"
+            data-h2-background-color="base(white) base:dark(black.light)"
           >
             <WordCounter name={name} wordLimit={wordLimit} />
           </div>

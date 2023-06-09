@@ -15,6 +15,8 @@ export type InputProps = HTMLInputProps &
     type: "text" | "number" | "email" | "tel" | "password" | "date" | "search";
     // Whether to trim leading/ending whitespace upon blurring of an input, default on
     whitespaceTrim?: boolean;
+    // Render as a hidden input
+    hidden?: boolean;
   };
 
 const Input = ({
@@ -28,6 +30,7 @@ const Input = ({
   "aria-describedby": describedBy,
   whitespaceTrim = true,
   trackUnsaved = true,
+  hidden = false,
   ...rest
 }: InputProps) => {
   const {
@@ -57,6 +60,23 @@ const Input = ({
       setValue(name, value);
     }
   };
+
+  if (hidden) {
+    return (
+      <div data-h2-visually-hidden="base(invisible)">
+        <Field.Label htmlFor={id}>{label}</Field.Label>
+        <input
+          id={id}
+          type={type}
+          aria-describedby={ariaDescribedBy}
+          aria-required={!!rules.required}
+          aria-invalid={!!error}
+          {...register(name, rules)}
+          {...rest}
+        />
+      </div>
+    );
+  }
 
   return (
     <Field.Wrapper>

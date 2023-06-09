@@ -409,7 +409,7 @@ const AboutMeForm = ({
               "Title for Account Details section of the About Me form",
           })}
         </h2>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {intl.formatMessage({
             defaultMessage:
               "This information is used to manage your account and to communicate.",

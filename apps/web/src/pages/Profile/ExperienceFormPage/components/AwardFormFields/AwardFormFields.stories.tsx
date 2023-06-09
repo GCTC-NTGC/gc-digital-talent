@@ -19,7 +19,9 @@ const TemplateAwardDetailsForm: Story = () => {
   return (
     <BasicForm onSubmit={action("submit")}>
       <AwardFormFields labels={labels} />
-      <Submit />
+      <p data-h2-margin-top="base(x1)">
+        <Submit />
+      </p>
     </BasicForm>
   );
 };
