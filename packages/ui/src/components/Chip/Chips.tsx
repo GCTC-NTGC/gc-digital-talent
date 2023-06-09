@@ -12,6 +12,7 @@ const Chips = ({ children }: ChipsProps) => (
     data-h2-flex-wrap="base(wrap)"
     data-h2-gap="base(x.25, x.125)"
     data-h2-list-style="base(none)"
+    data-h2-padding="base(0)"
   >
     {isArray(children) ? (
       children.map((child) => <li key={child.key}>{child}</li>)

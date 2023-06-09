@@ -7,10 +7,10 @@ import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import { PoolCandidateStatus } from "~/api/generated";
 
 import { isExpired } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
-import QualifiedRecruitmentCard from "./QualifiedRecruitmentCard";
+import TrackApplicationsCard from "./TrackApplicationsCard";
 
-type Story = ComponentStory<typeof QualifiedRecruitmentCard>;
-type Meta = ComponentMeta<typeof QualifiedRecruitmentCard>;
+type Story = ComponentStory<typeof TrackApplicationsCard>;
+type Meta = ComponentMeta<typeof TrackApplicationsCard>;
 
 const mockApplications = fakePoolCandidates(20);
 
@@ -32,8 +32,8 @@ const expiredApplications = fakePoolCandidates(5).map((application) => ({
 const applications = [...activeApplications, ...expiredApplications];
 
 export default {
-  component: QualifiedRecruitmentCard,
-  title: "Components/Qualified Recruitment Card",
+  component: TrackApplicationsCard,
+  title: "Components/Track Applications Card",
 } as Meta;
 
 const Template: Story = () => {
@@ -53,7 +53,7 @@ const Template: Story = () => {
                 "(EXPIRED)"}
               {application.status}
             </h2>
-            <QualifiedRecruitmentCard application={application} />
+            <TrackApplicationsCard application={application} />
           </div>
         ))}
       </div>

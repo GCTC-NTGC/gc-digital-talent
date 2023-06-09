@@ -8,6 +8,7 @@
   },
   "temp": ["../*/src/views/*.html"],
   "input": [
+    "apps/web/public",
     "apps/web/src/components",
     "apps/web/src/pages",
     "apps/web/src/styles",
