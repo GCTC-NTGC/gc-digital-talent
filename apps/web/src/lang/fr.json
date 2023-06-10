@@ -8282,5 +8282,17 @@
   "Xpo+u6": {
     "defaultMessage": "Compétences utiles",
     "description": "Title for the optional skills snapshot section"
+  },
+  "E9I34y": {
+    "defaultMessage": "Titre de la thèse",
+    "description": "Label displayed on education form for thesis title input"
+  },
+  "YJS2CB": {
+    "defaultMessage": "Décerné à",
+    "description": "The award was given to"
+  },
+  "szVmh/": {
+    "defaultMessage": "Description de l’apprentissage",
+    "description": "Label displayed on Personal Experience form for learning description section"
   }
 }
