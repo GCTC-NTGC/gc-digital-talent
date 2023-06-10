@@ -19,7 +19,7 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Skill } from "@gc-digital-talent/graphql";
-import { getDateRange } from "~/utils/accordionUtils";
+import { getDateRange } from "~/utils/dateUtils";
 
 interface ExperienceItemProps {
   experience: Experience;
