@@ -6,10 +6,10 @@ import { Dialog, Button } from "@gc-digital-talent/ui";
 import { InputWrapper } from "@gc-digital-talent/forms";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
-import { PoolAdvertisement } from "~/api/generated";
+import { Pool } from "~/api/generated";
 
 type CloseDialogProps = {
-  closingDate: PoolAdvertisement["closingDate"];
+  closingDate: Pool["closingDate"];
   onClose: () => void;
 };
 
@@ -24,7 +24,7 @@ const CloseDialog = ({
       <>
         <div style={{ flexGrow: 2 } /* push other div to the right */}>
           <Dialog.Close>
-            <Button mode="outline" color="secondary">
+            <Button color="secondary">
               {intl.formatMessage({
                 defaultMessage: "Cancel and go back",
                 id: "tiF/jI",

@@ -7,9 +7,9 @@ import { BasicForm, Checklist, unpackMaybes } from "@gc-digital-talent/forms";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-import { Well, ExternalLink } from "@gc-digital-talent/ui";
+import { Well, Link } from "@gc-digital-talent/ui";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
   GenericJobTitle,
   GenericJobTitleKey,
@@ -121,9 +121,9 @@ const RoleSalaryForm = ({
   // intl styling functions section
   function link(chunks: React.ReactNode, url: string) {
     return (
-      <ExternalLink newTab href={url}>
+      <Link newTab external href={url}>
         {chunks}
-      </ExternalLink>
+      </Link>
     );
   }
 
@@ -139,22 +139,15 @@ const RoleSalaryForm = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitleHtml(
-            intl,
-            application.poolAdvertisement,
-          ),
-          url: paths.pool(application.poolAdvertisement?.id || ""),
+          label: getFullPoolTitleHtml(intl, application.pool),
+          url: paths.pool(application.pool.id),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
           url: paths.reviewApplication(applicationId ?? ""),
         },
         {
-          label: intl.formatMessage({
-            defaultMessage: "Role and Salary Expectations",
-            id: "dgOYID",
-            description: "Label for role and salary link",
-          }),
+          label: intl.formatMessage(navigationMessages.roleSalaryExpectations),
           url: initialData.me?.id
             ? `${paths.roleSalary(initialData.me.id)}${
                 applicationId ? `?applicationId=${applicationId}` : ``
@@ -166,11 +159,7 @@ const RoleSalaryForm = ({
 
   return (
     <ProfileFormWrapper
-      title={intl.formatMessage({
-        defaultMessage: "Role and Salary Expectations",
-        id: "kCBLsJ",
-        description: "Title role and salary expectations form",
-      })}
+      title={intl.formatMessage(navigationMessages.roleSalaryExpectations)}
       description={intl.formatMessage({
         defaultMessage:
           "Government classifications are labels that the Government of Canada uses to group similar types of work. In the Government of Canada salary is tied to how positions are classified.",
@@ -182,11 +171,9 @@ const RoleSalaryForm = ({
           ? applicationBreadcrumbs
           : [
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Role and Salary Expectations",
-                  id: "dgOYID",
-                  description: "Label for role and salary link",
-                }),
+                label: intl.formatMessage(
+                  navigationMessages.roleSalaryExpectations,
+                ),
                 url: initialData.me?.id
                   ? paths.roleSalary(initialData.me.id)
                   : "#",

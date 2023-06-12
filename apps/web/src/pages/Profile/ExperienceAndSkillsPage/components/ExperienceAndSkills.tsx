@@ -6,8 +6,8 @@ import { Well } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
-import { flattenExperienceSkills, ExperienceType } from "~/types/experience";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { flattenExperienceSkills } from "~/types/experience";
 import MissingSkills from "~/components/MissingSkills";
 import ExperienceSection from "~/components/UserProfile/ExperienceSection";
 import {
@@ -15,7 +15,7 @@ import {
   CommunityExperience,
   EducationExperience,
   PersonalExperience,
-  PoolAdvertisement,
+  Pool,
   Skill,
   WorkExperience,
 } from "~/api/generated";
@@ -44,7 +44,7 @@ export type ExperienceForDate =
 export interface ExperienceAndSkillsProps {
   applicantId: string;
   experiences?: MergedExperiences;
-  poolAdvertisement?: PoolAdvertisement;
+  pool?: Pool;
   missingSkills?: {
     requiredSkills: Skill[];
     optionalSkills: Skill[];
@@ -55,7 +55,7 @@ export const ExperienceAndSkills = ({
   experiences,
   missingSkills,
   applicantId,
-  poolAdvertisement,
+  pool,
 }: ExperienceAndSkillsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -68,24 +68,12 @@ export const ExperienceAndSkills = ({
     ? paths.reviewApplication(applicationId)
     : paths.profile(applicantId);
 
-  const getEditPath = (id: string, type: ExperienceType) => {
-    return `${paths.editExperience(applicantId, type, id)}${applicationParam}`;
-  };
-
-  const experienceEditPaths = {
-    awardUrl: (id: string) => getEditPath(id, "award"),
-    communityUrl: (id: string) => getEditPath(id, "community"),
-    educationUrl: (id: string) => getEditPath(id, "education"),
-    personalUrl: (id: string) => getEditPath(id, "personal"),
-    workUrl: (id: string) => getEditPath(id, "work"),
-  };
-
   const hasExperiences = notEmpty(experiences);
 
   const applicationBreadcrumbs: {
     label: string | React.ReactNode;
     url: string;
-  }[] = poolAdvertisement
+  }[] = pool
     ? [
         {
           label: intl.formatMessage({
@@ -96,8 +84,8 @@ export const ExperienceAndSkills = ({
           url: paths.applications(applicantId),
         },
         {
-          label: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
-          url: paths.pool(poolAdvertisement.id),
+          label: getFullPoolTitleHtml(intl, pool),
+          url: paths.pool(pool.id),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
@@ -132,7 +120,7 @@ export const ExperienceAndSkills = ({
               },
             ]
       }
-      prefixBreadcrumbs={!poolAdvertisement}
+      prefixBreadcrumbs={!pool}
       description={intl.formatMessage(
         {
           defaultMessage:
@@ -188,8 +176,8 @@ export const ExperienceAndSkills = ({
         </Well>
       ) : (
         <ExperienceSection
+          editParam={applicationParam}
           experiences={experiences}
-          experienceEditPaths={experienceEditPaths}
           headingLevel="h2"
         />
       )}

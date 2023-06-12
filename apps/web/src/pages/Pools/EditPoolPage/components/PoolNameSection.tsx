@@ -14,14 +14,14 @@ import {
 } from "@gc-digital-talent/forms";
 
 import {
-  AdvertisementStatus,
+  PoolStatus,
   Classification,
   LocalizedString,
   Maybe,
-  PoolAdvertisement,
+  Pool,
   PoolStream,
   Scalars,
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 import Spacer from "~/components/Spacer/Spacer";
@@ -37,12 +37,12 @@ type FormValues = {
 };
 
 export type PoolNameSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
   "classifications" | "name"
 >;
 
 interface PoolNameSectionProps {
-  poolAdvertisement: PoolAdvertisement;
+  pool: Pool;
   classifications: Array<Maybe<Classification>>;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: PoolNameSubmitData) => void;
@@ -59,7 +59,7 @@ const firstId = (
 };
 
 const PoolNameSection = ({
-  poolAdvertisement,
+  pool,
   classifications,
   sectionMetadata,
   onSave,
@@ -67,7 +67,7 @@ const PoolNameSection = ({
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
-  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
+  const dataToFormValues = (initialData: Pool): FormValues => ({
     classification: firstId(initialData.classifications), // behavior is undefined when there is more than one
     stream: initialData.stream ?? undefined,
     specificTitleEn: initialData.name?.en ?? "",
@@ -76,7 +76,7 @@ const PoolNameSection = ({
   });
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(poolAdvertisement),
+    defaultValues: dataToFormValues(pool),
   });
   const { handleSubmit } = methods;
 
@@ -115,8 +115,7 @@ const PoolNameSection = ({
   );
 
   // disabled unless status is draft
-  const formDisabled =
-    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+  const formDisabled = pool.status !== PoolStatus.Draft;
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
@@ -232,7 +231,7 @@ const PoolNameSection = ({
                 id: "bbIDc9",
                 description: "Text on a button to save the pool name",
               })}
-              color="cta"
+              color="tertiary"
               mode="solid"
               isSubmitting={isSubmitting}
             />

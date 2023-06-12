@@ -13,7 +13,7 @@ const SelfDeclarationDialog = ({ children, btnProps }: BasicDialogProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button color="ia-primary" mode="inline" {...btnProps}>
+        <Button color="primary" mode="inline" {...btnProps}>
           {children}
         </Button>
       </Dialog.Trigger>

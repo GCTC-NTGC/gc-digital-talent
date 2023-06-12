@@ -17,12 +17,7 @@ import { useAuthorization } from "@gc-digital-talent/auth";
 import { getId, notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 import { getPoolStream } from "@gc-digital-talent/i18n";
 
-import {
-  PoolStream,
-  Skill,
-  PoolAdvertisement,
-  useMySkillsQuery,
-} from "~/api/generated";
+import { PoolStream, Skill, Pool, useMySkillsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 
@@ -39,18 +34,18 @@ interface StreamViewModel {
   classifications: {
     title: React.ReactNode;
     description: React.ReactNode;
-    poolAdvertisement: PoolAdvertisement | undefined;
+    pool: Pool | undefined;
     applyMessage: React.ReactNode;
   }[];
 }
 
-// choose a pool advertisement from a collection of pools for association with a stream, classification group, and classification level
+// choose a pool from a collection of pools for association with a stream, classification group, and classification level
 const selectPoolForSection = (
-  pools: PoolAdvertisement[],
+  pools: Pool[],
   stream: PoolStream,
   group: string,
   level: number,
-): PoolAdvertisement | undefined => {
+): Pool | undefined => {
   return (
     pools
       // last closing date first to be selected
@@ -79,13 +74,13 @@ const streamIsRecommended = (
   userSkillIds: Skill["id"][],
 ): boolean =>
   stream.classifications.some((classification) =>
-    classification.poolAdvertisement?.essentialSkills?.every((skill) =>
+    classification.pool?.essentialSkills?.every((skill) =>
       userSkillIds.includes(skill.id),
     ),
   );
 
 export interface OngoingRecruitmentSectionProps {
-  pools: PoolAdvertisement[];
+  pools: Pool[];
 }
 
 const OngoingRecruitmentSection = ({
@@ -148,7 +143,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it01Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.BusinessAdvisoryServices,
             "IT",
@@ -165,7 +160,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it02Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.BusinessAdvisoryServices,
             "IT",
@@ -191,7 +186,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.BusinessAdvisoryServices,
             "IT",
@@ -219,7 +214,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.BusinessAdvisoryServices,
             "IT",
@@ -247,7 +242,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it01Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.DatabaseManagement,
             "IT",
@@ -264,7 +259,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it02Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.DatabaseManagement,
             "IT",
@@ -290,7 +285,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.DatabaseManagement,
             "IT",
@@ -318,7 +313,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.DatabaseManagement,
             "IT",
@@ -348,7 +343,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it01Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.EnterpriseArchitecture,
             "IT",
@@ -365,7 +360,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it02Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.EnterpriseArchitecture,
             "IT",
@@ -391,7 +386,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.EnterpriseArchitecture,
             "IT",
@@ -419,7 +414,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.EnterpriseArchitecture,
             "IT",
@@ -449,7 +444,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it01Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.InfrastructureOperations,
             "IT",
@@ -466,7 +461,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it02Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.InfrastructureOperations,
             "IT",
@@ -492,7 +487,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.InfrastructureOperations,
             "IT",
@@ -520,7 +515,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.InfrastructureOperations,
             "IT",
@@ -550,7 +545,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it01Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.PlanningAndReporting,
             "IT",
@@ -567,7 +562,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it02Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.PlanningAndReporting,
             "IT",
@@ -593,7 +588,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.PlanningAndReporting,
             "IT",
@@ -621,7 +616,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.PlanningAndReporting,
             "IT",
@@ -651,7 +646,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it01Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.ProjectPortfolioManagement,
             "IT",
@@ -668,7 +663,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it02Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.ProjectPortfolioManagement,
             "IT",
@@ -694,7 +689,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.ProjectPortfolioManagement,
             "IT",
@@ -722,7 +717,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.ProjectPortfolioManagement,
             "IT",
@@ -750,12 +745,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it01Description),
-          poolAdvertisement: selectPoolForSection(
-            pools,
-            PoolStream.Security,
-            "IT",
-            1,
-          ),
+          pool: selectPoolForSection(pools, PoolStream.Security, "IT", 1),
           applyMessage: intl.formatMessage(messages.it01ApplyMessage, {
             name: intl.formatMessage(messages.securityTitle, {
               abbreviation,
@@ -767,12 +757,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it02Description),
-          poolAdvertisement: selectPoolForSection(
-            pools,
-            PoolStream.Security,
-            "IT",
-            2,
-          ),
+          pool: selectPoolForSection(pools, PoolStream.Security, "IT", 2),
           applyMessage: intl.formatMessage(messages.it02ApplyMessage, {
             name: intl.formatMessage(messages.securityTitle, {
               abbreviation,
@@ -793,12 +778,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
-            pools,
-            PoolStream.Security,
-            "IT",
-            3,
-          ),
+          pool: selectPoolForSection(pools, PoolStream.Security, "IT", 3),
           applyMessage: intl.formatMessage(messages.it03ApplyMessage, {
             name: intl.formatMessage(messages.securityTitle, {
               abbreviation,
@@ -821,12 +801,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
-            pools,
-            PoolStream.Security,
-            "IT",
-            4,
-          ),
+          pool: selectPoolForSection(pools, PoolStream.Security, "IT", 4),
 
           applyMessage: intl.formatMessage(messages.it04ApplyMessage, {
             name: intl.formatMessage(messages.securityTitle, {
@@ -850,7 +825,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it01Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.SoftwareSolutions,
             "IT",
@@ -867,7 +842,7 @@ const OngoingRecruitmentSection = ({
             abbreviation,
           }),
           description: intl.formatMessage(messages.it02Description),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.SoftwareSolutions,
             "IT",
@@ -893,7 +868,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.SoftwareSolutions,
             "IT",
@@ -921,7 +896,7 @@ const OngoingRecruitmentSection = ({
               </p>
             </>
           ),
-          poolAdvertisement: selectPoolForSection(
+          pool: selectPoolForSection(
             pools,
             PoolStream.SoftwareSolutions,
             "IT",
@@ -941,7 +916,7 @@ const OngoingRecruitmentSection = ({
   const streamsWithAvailablePools = streams.filter(
     (stream) =>
       !!stream.classifications.find(
-        (classification) => classification.poolAdvertisement?.id,
+        (classification) => classification.pool?.id,
       ),
   );
 
@@ -1009,29 +984,14 @@ const OngoingRecruitmentSection = ({
       <div data-h2-display="base(flex)">
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
-            <Button
-              color="primary"
-              mode="outline"
-              data-h2-align-items="base(center)"
-              data-h2-display="base(flex)"
-              data-h2-flex-shrink="base(0)"
-              data-h2-gap="base(0, x.25)"
-              data-h2-radius="base(input, 0px, 0px, input)"
-              data-h2-margin-right="base(0)"
-            >
-              <span>
-                {quickFilterStream === "ALL"
-                  ? intl.formatMessage({
-                      defaultMessage: "All",
-                      id: "XnvXtO",
-                      description: "All",
-                    })
-                  : intl.formatMessage(getPoolStream(quickFilterStream))}
-              </span>
-              <ChevronDownIcon
-                data-h2-height="base(1em)"
-                data-h2-width="base(1em)"
-              />
+            <Button color="primary" utilityIcon={ChevronDownIcon}>
+              {quickFilterStream === "ALL"
+                ? intl.formatMessage({
+                    defaultMessage: "All",
+                    id: "XnvXtO",
+                    description: "All",
+                  })
+                : intl.formatMessage(getPoolStream(quickFilterStream))}
             </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content data-h2-padding="base(0)">
@@ -1135,7 +1095,7 @@ const OngoingRecruitmentSection = ({
                   {stream.classifications
                     .filter(
                       // filter to only classifications with a pool ID that can be applied to
-                      (classification) => classification.poolAdvertisement?.id,
+                      (classification) => classification.pool?.id,
                     )
                     .map((classification) => (
                       <div key={`${classification.title}`}>
@@ -1149,15 +1109,11 @@ const OngoingRecruitmentSection = ({
                         <div data-h2-padding="base(0,0,x0.75, 0)">
                           {classification.description}
                         </div>
-                        {classification.poolAdvertisement?.id && (
+                        {classification.pool?.id && (
                           <Link
-                            href={paths.pool(
-                              classification.poolAdvertisement.id,
-                            )}
+                            href={paths.pool(classification.pool.id)}
                             color="secondary"
-                            type="button"
                             mode="solid"
-                            data-h2-font-weight="base(700)"
                           >
                             {classification.applyMessage}
                           </Link>

@@ -5,7 +5,7 @@ import uniqBy from "lodash/uniqBy";
 import { Link, Pill, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
-  getAdvertisementStatus,
+  getPoolStatus,
   getPoolStream,
   getLocale,
   commonMessages,
@@ -16,7 +16,7 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Classification,
@@ -45,20 +45,14 @@ function poolCandidatesLinkAccessor(
   pool: Maybe<Pick<Pool, "name" | "classifications" | "stream">>,
 ) {
   return (
-    <Link
-      href={poolCandidatesTableUrl}
-      type="button"
-      mode="inline"
-      color="black"
-      data-h2-padding="base(0)"
-    >
+    <Link href={poolCandidatesTableUrl} color="black" data-h2-padding="base(0)">
       {intl.formatMessage(
         {
           defaultMessage: "View Candidates<hidden> for {label}</hidden>",
           id: "6R9N+h",
           description: "Text for a link to the Pool Candidates table",
         },
-        { label: getFullPoolAdvertisementTitleHtml(intl, pool) },
+        { label: getFullPoolTitleHtml(intl, pool) },
       )}
     </Link>
   );
@@ -66,8 +60,8 @@ function poolCandidatesLinkAccessor(
 
 function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
   return (
-    <Link href={url} type="link">
-      {getFullPoolAdvertisementTitleHtml(intl, pool)}
+    <Link color="black" href={url}>
+      {getFullPoolTitleHtml(intl, pool)}
     </Link>
   );
 }
@@ -78,7 +72,7 @@ function viewTeamLinkAccessor(
   intl: IntlShape,
 ) {
   return url ? (
-    <Link href={url} type="link">
+    <Link color="black" href={url}>
       {intl.formatMessage(
         {
           defaultMessage: "<hidden>View team: </hidden>{teamName}",
@@ -135,7 +129,11 @@ const classificationsCell = (
 
 const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
   if (value) {
-    return <a href={`mailto:${value}`}>{value}</a>;
+    return (
+      <Link color="black" external href={`mailto:${value}`}>
+        {value}
+      </Link>
+    );
   }
   return (
     <span data-h2-font-style="base(italic)">
@@ -254,9 +252,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         }),
         accessor: (d) => {
           return intl.formatMessage(
-            d.advertisementStatus
-              ? getAdvertisementStatus(d.advertisementStatus)
-              : commonMessages.notFound,
+            d.status ? getPoolStatus(d.status) : commonMessages.notFound,
           );
         },
       },

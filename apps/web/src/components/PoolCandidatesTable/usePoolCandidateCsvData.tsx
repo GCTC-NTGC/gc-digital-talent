@@ -28,30 +28,21 @@ import {
   getExperienceTitles,
   getScreeningQuestionResponses,
 } from "~/utils/csvUtils";
-import {
-  Maybe,
-  PoolCandidate,
-  PositionDuration,
-  PoolAdvertisement,
-} from "~/api/generated";
-import labels from "~/components/ExperienceAccordion/labels";
+import { Maybe, PoolCandidate, PositionDuration, Pool } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 const usePoolCandidateCsvData = (
   candidates: PoolCandidate[],
-  poolAdvertisement: Maybe<
-    Pick<
-      PoolAdvertisement,
-      "essentialSkills" | "nonessentialSkills" | "screeningQuestions"
-    >
+  pool: Maybe<
+    Pick<Pool, "essentialSkills" | "nonessentialSkills" | "screeningQuestions">
   >,
 ) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const essentialSkillHeaders = poolAdvertisement?.essentialSkills
-    ? poolAdvertisement.essentialSkills.map((skill) => {
+  const essentialSkillHeaders = pool?.essentialSkills
+    ? pool.essentialSkills.map((skill) => {
         return {
           key: skill.key,
           label: intl.formatMessage(
@@ -65,8 +56,8 @@ const usePoolCandidateCsvData = (
         };
       })
     : [];
-  const nonEssentialSkillHeaders = poolAdvertisement?.nonessentialSkills
-    ? poolAdvertisement.nonessentialSkills.map((skill) => {
+  const nonEssentialSkillHeaders = pool?.nonessentialSkills
+    ? pool.nonessentialSkills.map((skill) => {
         return {
           key: skill.key,
           label: intl.formatMessage(
@@ -81,8 +72,8 @@ const usePoolCandidateCsvData = (
       })
     : [];
 
-  const screeningQuestionHeaders = poolAdvertisement?.screeningQuestions
-    ? poolAdvertisement.screeningQuestions
+  const screeningQuestionHeaders = pool?.screeningQuestions
+    ? pool.screeningQuestions
         .filter(notEmpty)
         .map((screeningQuestion, index) => ({
           key: screeningQuestion.id,
@@ -434,10 +425,10 @@ const usePoolCandidateCsvData = (
         educationRequirementExperiences,
         screeningQuestionResponses,
         user,
-        poolAdvertisement: poolAd,
+        pool: poolAd,
       }) => {
-        const poolAdvertisementSkills =
-          poolAd?.essentialSkills && poolAd?.nonessentialSkills
+        const poolSkills =
+          poolAd.essentialSkills && poolAd.nonessentialSkills
             ? [...poolAd.essentialSkills, ...poolAd.nonessentialSkills]
             : [];
         return {
@@ -545,8 +536,7 @@ const usePoolCandidateCsvData = (
           skills: flattenExperiencesToSkills(user.experiences, locale),
           ...skillKeyAndJustifications(
             user.experiences,
-            labels,
-            poolAdvertisementSkills || [],
+            poolSkills || [],
             intl,
           ),
         };

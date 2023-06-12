@@ -10,14 +10,14 @@ import {
   currentDate,
 } from "@gc-digital-talent/date-helpers";
 
-import { PoolAdvertisement, Scalars } from "~/api/generated";
+import { Pool, Scalars } from "~/api/generated";
 
 type FormValues = {
-  endDate?: PoolAdvertisement["closingDate"];
+  endDate?: Pool["closingDate"];
 };
 
 type ExtendDialogProps = {
-  closingDate: PoolAdvertisement["closingDate"];
+  closingDate: Pool["closingDate"];
   onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
 };
 
@@ -115,7 +115,7 @@ const ExtendDialog = ({
               <Dialog.Footer>
                 <div style={{ flexGrow: 2 } /* push other div to the right */}>
                   <Dialog.Close>
-                    <Button mode="outline" color="secondary">
+                    <Button color="secondary">
                       {intl.formatMessage({
                         defaultMessage: "Cancel and go back",
                         id: "tiF/jI",

@@ -14,7 +14,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 
 import SEO from "~/components/SEO/SEO";
 import {
-  PoolAdvertisement,
+  Pool,
   Scalars,
   Classification,
   useGetEditPoolDataQuery,
@@ -63,7 +63,7 @@ export type PoolSubmitData =
   | ScreeningQuestionsSubmitData;
 
 export interface EditPoolFormProps {
-  poolAdvertisement: PoolAdvertisement;
+  pool: Pool;
   classifications: Array<Classification>;
   skills: Array<Skill>;
   onSave: (submitData: PoolSubmitData) => void;
@@ -76,7 +76,7 @@ export interface EditPoolFormProps {
 }
 
 export const EditPoolForm = ({
-  poolAdvertisement,
+  pool,
   classifications,
   skills,
   onSave,
@@ -209,10 +209,9 @@ export const EditPoolForm = ({
               {sectionMetadata.status.title}
             </TableOfContents.AnchorLink>
             <Link
-              href={paths.poolView(poolAdvertisement.id)}
+              href={paths.poolView(pool.id)}
               color="secondary"
-              mode="outline"
-              type="button"
+              mode="solid"
               data-h2-margin="base(x2, 0, 0, 0)"
               data-h2-text-align="base(center)"
             >
@@ -226,50 +225,50 @@ export const EditPoolForm = ({
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <PoolNameSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               classifications={classifications}
               sectionMetadata={sectionMetadata.poolName}
               onSave={onSave}
             />
             <ClosingDateSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               sectionMetadata={sectionMetadata.closingDate}
               onSave={onSave}
             />
             <YourImpactSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               sectionMetadata={sectionMetadata.yourImpact}
               onSave={onSave}
             />
             <WorkTasksSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               sectionMetadata={sectionMetadata.workTasks}
               onSave={onSave}
             />
             <EssentialSkillsSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               skills={skills}
               sectionMetadata={sectionMetadata.essentialSkills}
               onSave={onSave}
             />
             <AssetSkillsSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               skills={skills}
               sectionMetadata={sectionMetadata.assetSkills}
               onSave={onSave}
             />
             <OtherRequirementsSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               sectionMetadata={sectionMetadata.otherRequirements}
               onSave={onSave}
             />
             <ScreeningQuestions
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               sectionMetadata={sectionMetadata.screeningQuestions}
               onSave={onSave}
             />
             <StatusSection
-              poolAdvertisement={poolAdvertisement}
+              pool={pool}
               sectionMetadata={sectionMetadata.status}
               onPublish={onPublish}
               onDelete={onDelete}
@@ -335,7 +334,7 @@ export const EditPoolPage = () => {
       url: routes.poolTable(),
     },
     {
-      label: getLocalizedName(data?.poolAdvertisement?.name, intl),
+      label: getLocalizedName(data?.pool?.name, intl),
       url: routes.poolView(poolId),
     },
     {
@@ -351,20 +350,17 @@ export const EditPoolPage = () => {
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <Pending fetching={fetching} error={error}>
-        {data?.poolAdvertisement ? (
+        {data?.pool ? (
           <EditPoolContext.Provider value={ctx}>
             <EditPoolForm
-              poolAdvertisement={data.poolAdvertisement}
+              pool={data.pool}
               classifications={data.classifications.filter(notEmpty)}
               skills={data.skills.filter(notEmpty)}
               onSave={(saveData) => mutations.update(poolId, saveData)}
               onPublish={() => mutations.publish(poolId)}
               onDelete={() => mutations.delete(poolId)}
               onDuplicate={() =>
-                mutations.duplicate(
-                  poolId,
-                  data.poolAdvertisement?.team?.id || "",
-                )
+                mutations.duplicate(poolId, data.pool?.team?.id || "")
               }
               onClose={() => mutations.close(poolId)}
               onExtend={(closingDate) => mutations.extend(poolId, closingDate)}

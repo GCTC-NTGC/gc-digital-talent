@@ -1,13 +1,13 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { Button, ExternalLink, Pill } from "@gc-digital-talent/ui";
+import { Button, Link, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { SimpleClassification } from "~/types/pool";
 import useRoutes from "~/hooks/useRoutes";
-import { PoolAdvertisement } from "@gc-digital-talent/graphql";
+import { Pool } from "@gc-digital-talent/graphql";
 
 const testId = (text: React.ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
@@ -16,7 +16,7 @@ const testId = (text: React.ReactNode) => (
 export interface SearchResultCardProps {
   candidateCount: number;
   pool: Pick<
-    PoolAdvertisement,
+    Pool,
     "id" | "owner" | "name" | "classifications" | "team" | "essentialSkills"
   >;
   handleSubmit: (
@@ -49,7 +49,7 @@ const SearchResultCard = ({
       aria-labelledby={`search_pool_${pool.id}`}
     >
       <p data-h2-font-weight="base(700)" id={`search_pool_${pool.id}`}>
-        {getFullPoolAdvertisementTitleHtml(intl, pool)}
+        {getFullPoolTitleHtml(intl, pool)}
       </p>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage(
@@ -69,9 +69,8 @@ const SearchResultCard = ({
         )}
       </p>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
-        <ExternalLink
+        <Link
           mode="inline"
-          type="button"
           color="secondary"
           href={paths.pool(pool.id || "")}
           newTab
@@ -82,7 +81,7 @@ const SearchResultCard = ({
             description:
               "Link message that shows the job poster for the recruitment process.",
           })}
-        </ExternalLink>
+        </Link>
       </p>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage({
@@ -136,7 +135,6 @@ const SearchResultCard = ({
       </p>
       <Button
         color="secondary"
-        mode="outline"
         onClick={() =>
           handleSubmit(candidateCount, pool.id, selectedClassifications)
         }

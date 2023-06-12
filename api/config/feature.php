@@ -3,17 +3,6 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Ongoing Recruitments
-    |--------------------------------------------------------------------------
-    |
-    | Long lived recruitment processes, one for each classification.
-    |
-    */
-
-    'ongoing_recruitments' => (bool) env('FEATURE_ONGOING_RECRUITMENTS', false),
-
-    /*
-    |--------------------------------------------------------------------------
     | Applicant Dashboard
     |--------------------------------------------------------------------------
     |

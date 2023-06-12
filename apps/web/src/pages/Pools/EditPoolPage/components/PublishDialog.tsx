@@ -9,10 +9,10 @@ import {
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
 
-import { PoolAdvertisement } from "~/api/generated";
+import { Pool } from "~/api/generated";
 
 type PublishDialogProps = {
-  closingDate: PoolAdvertisement["closingDate"];
+  closingDate: Pool["closingDate"];
   onPublish: () => void;
 };
 
@@ -27,7 +27,11 @@ const PublishDialog = ({
       <>
         <div style={{ flexGrow: 2 } /* push other div to the right */}>
           <Dialog.Close>
-            <Button mode="outline" color="secondary">
+            <Button
+              color="secondary"
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(center)"
+            >
               {intl.formatMessage({
                 defaultMessage: "Cancel and go back",
                 id: "tiF/jI",

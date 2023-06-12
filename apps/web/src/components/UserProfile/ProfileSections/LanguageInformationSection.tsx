@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 import {
   getBilingualEvaluation,
   getLanguageProficiency,
@@ -194,14 +194,14 @@ const LanguageInformationSection = ({
               {editPath && (
                 <>
                   {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-                  <a href={editPath}>
+                  <Link href={editPath}>
                     {intl.formatMessage({
                       defaultMessage: "Edit your language information options.",
                       id: "S9lNLG",
                       description:
                         "Link text to edit language information on profile.",
                     })}
-                  </a>
+                  </Link>
                 </>
               )}
               {!editPath && (

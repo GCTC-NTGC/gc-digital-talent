@@ -117,8 +117,8 @@ class Pool extends Model
         return $this->hasMany(ScreeningQuestion::class);
     }
 
-    /* accessor to obtain Advertisement Status, depends on two variables regarding published and expiry */
-    public function getAdvertisementStatusAttribute()
+    /* accessor to obtain Status, depends on two variables regarding published and expiry */
+    public function getStatusAttribute()
     {
         // given database is functioning in UTC, all backend should consistently enforce the same timezone
         $publishedDate = $this->published_at;
@@ -136,11 +136,11 @@ class Pool extends Model
         }
 
         if (!$isPublished) {
-            return ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT;
+            return ApiEnums::POOL_IS_DRAFT;
         } elseif ($isPublished && !$isClosed) {
-            return ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED;
+            return ApiEnums::POOL_IS_PUBLISHED;
         } elseif ($isPublished && $isClosed) {
-            return ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED;
+            return ApiEnums::POOL_IS_CLOSED;
         } else {
             return null;
         }
@@ -178,7 +178,7 @@ class Pool extends Model
                     });
                 }
 
-                if ($user->isAbleTo("view-any-publishedPoolAdvertisement")) {
+                if ($user->isAbleTo("view-any-publishedPool")) {
                     $query->orWhere('published_at', '<=', Carbon::now()->toDateTimeString());
                 }
 

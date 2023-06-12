@@ -18,12 +18,9 @@ import {
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
 import {
-  getFullPoolAdvertisementTitleHtml,
-  getFullPoolAdvertisementTitleLabel,
-} from "~/utils/poolUtils";
-import {
-  AdvertisementStatus,
+  PoolStatus,
   Applicant,
   Pool,
   PoolCandidate,
@@ -144,13 +141,9 @@ const ChangeStatusDialog = ({
               <ul>
                 {rejectedRequests.map((r) => (
                   <li key={r.poolCandidate.id}>
-                    {getFullPoolAdvertisementTitleHtml(
-                      intl,
-                      r.poolCandidate.pool,
-                      {
-                        defaultTitle: r.poolCandidate.id,
-                      },
-                    )}
+                    {getFullPoolTitleHtml(intl, r.poolCandidate.pool, {
+                      defaultTitle: r.poolCandidate.id,
+                    })}
                   </li>
                 ))}
               </ul>
@@ -214,7 +207,7 @@ const ChangeStatusDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(700)">
-            - {getFullPoolAdvertisementTitleHtml(intl, selectedCandidate?.pool)}
+            - {getFullPoolTitleHtml(intl, selectedCandidate?.pool)}
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
@@ -283,21 +276,20 @@ const ChangeStatusDialog = ({
                     .filter((pool) => selectedCandidate.pool.id !== pool.id) // don't show the pool of the currently selected candidate as an additional option
                     .filter(
                       (pool) =>
-                        pool.advertisementStatus ===
-                          AdvertisementStatus.Published ||
-                        pool.advertisementStatus === AdvertisementStatus.Closed,
+                        pool.status === PoolStatus.Published ||
+                        pool.status === PoolStatus.Closed,
                     )
                     .map((pool) => {
                       return {
                         value: pool.id,
-                        label: getFullPoolAdvertisementTitleLabel(intl, pool),
+                        label: getFullPoolTitleLabel(intl, pool),
                       };
                     })}
                 />
               </div>
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button type="button" mode="outline" color="secondary">
+                  <Button type="button" color="secondary">
                     <span data-h2-text-decoration="base(underline)">
                       {intl.formatMessage({
                         defaultMessage: "Cancel and go back",

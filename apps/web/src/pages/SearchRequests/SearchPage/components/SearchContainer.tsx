@@ -155,7 +155,6 @@ const ResultsDisplay = ({
 
       <Button
         color="secondary"
-        mode="outline"
         onClick={() =>
           handleSubmit(
             totalCandidateCount,
@@ -381,24 +380,21 @@ const SearchContainerApi = () => {
     ApplicantFilterInput | undefined
   >(
     applicantFilterFromBrowserHistory || {
-      pools: searchFormData?.publishedPoolAdvertisements,
+      pools: searchFormData?.publishedPools,
     },
   );
 
   // When pools first load, they should be added to the ApplicantFilter
   useEffect(() => {
     if (
-      searchFormData?.publishedPoolAdvertisements &&
+      searchFormData?.publishedPools &&
       applicantFilterFromBrowserHistory === undefined
     ) {
       setApplicantFilter({
-        pools: searchFormData?.publishedPoolAdvertisements,
+        pools: searchFormData?.publishedPools,
       });
     }
-  }, [
-    searchFormData?.publishedPoolAdvertisements,
-    applicantFilterFromBrowserHistory,
-  ]);
+  }, [searchFormData?.publishedPools, applicantFilterFromBrowserHistory]);
 
   const queryArgs = useMemo(
     () => applicantFilterToQueryArgs(applicantFilter),
@@ -426,9 +422,7 @@ const SearchContainerApi = () => {
   const paths = useRoutes();
 
   const skills = unpackMaybes<Skill>(searchFormData?.skills);
-  const pools = unpackMaybes<SimplePool>(
-    searchFormData?.publishedPoolAdvertisements,
-  );
+  const pools = unpackMaybes<SimplePool>(searchFormData?.publishedPools);
 
   const availableClassifications = pools
     ?.flatMap((pool) => pool?.classifications)

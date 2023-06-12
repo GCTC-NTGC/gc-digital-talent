@@ -7,7 +7,7 @@ import uniqueId from "lodash/uniqueId";
 
 import {
   Button,
-  ExternalLink,
+  Link,
   Heading,
   Pending,
   Separator,
@@ -308,9 +308,9 @@ const ApplicationEducation = ({
         ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
         : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#eepr";
     return (
-      <ExternalLink href={href} newTab>
+      <Link href={href} newTab external>
         {chunks}
-      </ExternalLink>
+      </Link>
     );
   };
 
@@ -494,7 +494,7 @@ const ApplicationEducationPage = () => {
       fetching={applicationFetching || experienceFetching || applicationStale}
       error={applicationError || experienceError}
     >
-      {application?.poolAdvertisement ? (
+      {application?.pool ? (
         <ApplicationEducation
           application={application}
           experiences={experiences}

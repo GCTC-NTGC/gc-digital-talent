@@ -8,7 +8,7 @@ import { Input } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import {
   Applicant,
@@ -117,7 +117,7 @@ const ChangeDateDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(800)">
-            - {getFullPoolAdvertisementTitleHtml(intl, selectedCandidate.pool)}
+            - {getFullPoolTitleHtml(intl, selectedCandidate.pool)}
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
@@ -152,7 +152,7 @@ const ChangeDateDialog = ({
               </div>
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button type="button" mode="outline" color="secondary">
+                  <Button type="button" color="secondary">
                     <span data-h2-text-decoration="base(underline)">
                       {intl.formatMessage({
                         defaultMessage: "Cancel and go back",

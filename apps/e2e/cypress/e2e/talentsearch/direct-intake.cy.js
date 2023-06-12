@@ -3,7 +3,7 @@ import { aliasQuery } from "../../support/graphql-test-utils";
 describe("Talentsearch Direct Intake Page", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "browsePoolAdvertisements");
+      aliasQuery(req, "browsePools");
     });
   });
 
@@ -11,7 +11,7 @@ describe("Talentsearch Direct Intake Page", () => {
     it("renders page", () => {
       ["/en/browse/pools"].forEach((restrictedPath) => {
         cy.visit(restrictedPath);
-        cy.wait("@gqlbrowsePoolAdvertisementsQuery");
+        cy.wait("@gqlbrowsePoolsQuery");
         cy.findByRole("heading", { name: /browse jobs/i })
           .should("exist")
           .and("be.visible");
@@ -20,7 +20,7 @@ describe("Talentsearch Direct Intake Page", () => {
 
     it("has no accessibility errors", () => {
       cy.visit("/en/browse/pools");
-      cy.wait("@gqlbrowsePoolAdvertisementsQuery");
+      cy.wait("@gqlbrowsePoolsQuery");
       cy.injectAxe();
       cy.findByRole("heading", { name: /browse jobs/i }).should("exist");
       cy.checkA11y();

@@ -1,6 +1,6 @@
 import React from "react";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
-import EyeIcon from "@heroicons/react/24/outline/EyeIcon";
+import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import { toast as toastify, ToastOptions } from "react-toastify";
@@ -31,7 +31,7 @@ const toast = {
     }),
   info: (message: React.ReactNode, options?: ToastOptions) =>
     toastify.info(<ToastMessage>{message}</ToastMessage>, {
-      icon: <EyeIcon {...iconStyles} />,
+      icon: <BellAlertIcon {...iconStyles} />,
       ...options,
     }),
 };

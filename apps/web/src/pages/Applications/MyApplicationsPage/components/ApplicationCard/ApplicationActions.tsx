@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import type { Application } from "./ApplicationCard";
@@ -20,7 +20,7 @@ export interface ContinueActionProps extends ActionProps {
 const ContinueAction = ({ show, application }: ContinueActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { poolAdvertisement } = application;
+  const { pool } = application;
   const { applicationRevamp } = useFeatureFlags();
   const href = applicationRevamp
     ? paths.application(application.id)
@@ -32,7 +32,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
 
   return (
     <div data-h2-margin="base(0, 0, 0, auto)">
-      <Link type="button" mode="inline" color="secondary" href={href}>
+      <Link mode="inline" href={href}>
         {intl.formatMessage(
           {
             defaultMessage: "Continue this application<hidden> {name}</hidden>",
@@ -40,7 +40,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
             description: "Link text to continue a specific application",
           },
           {
-            name: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
+            name: getFullPoolTitleHtml(intl, pool),
           },
         )}
       </Link>
@@ -54,7 +54,7 @@ export interface ViewActionProps extends ActionProps {
 const ViewAction = ({ show, application }: ViewActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { poolAdvertisement } = application;
+  const { pool } = application;
   const { applicationRevamp } = useFeatureFlags();
   const href = applicationRevamp
     ? paths.application(application.id)
@@ -65,7 +65,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
   }
 
   return (
-    <Link href={href} mode="inline" type="button" color="secondary">
+    <Link href={href} mode="inline">
       {intl.formatMessage(
         {
           defaultMessage: "View this application<hidden> {name}</hidden>",
@@ -73,7 +73,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
           description: "Link text to view a specific application",
         },
         {
-          name: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
+          name: getFullPoolTitleHtml(intl, pool),
         },
       )}
     </Link>
@@ -81,7 +81,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
 };
 
 export interface SeeAdvertisementActionProps extends ActionProps {
-  advertisement: Application["poolAdvertisement"];
+  advertisement: Application["pool"];
 }
 
 const SeeAdvertisementAction = ({
@@ -96,12 +96,7 @@ const SeeAdvertisementAction = ({
   }
 
   return (
-    <Link
-      mode="inline"
-      type="button"
-      color="secondary"
-      href={paths.pool(advertisement.id)}
-    >
+    <Link mode="inline" href={paths.pool(advertisement.id)}>
       {intl.formatMessage(
         {
           defaultMessage: "See job ad<hidden> {name}</hidden>",
@@ -109,7 +104,7 @@ const SeeAdvertisementAction = ({
           description: "Link text to see an applications advertisement",
         },
         {
-          name: getFullPoolAdvertisementTitleHtml(intl, advertisement),
+          name: getFullPoolTitleHtml(intl, advertisement),
         },
       )}
     </Link>
@@ -126,7 +121,7 @@ const SupportAction = ({ show }: SupportActionProps) => {
   }
 
   return (
-    <Link href={paths.support()} mode="inline" type="button" color="secondary">
+    <Link href={paths.support()} mode="inline">
       {intl.formatMessage({
         defaultMessage: "Get support",
         id: "rXdaZW",
@@ -148,10 +143,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
     return null;
   }
 
-  const name = getFullPoolAdvertisementTitleHtml(
-    intl,
-    application.poolAdvertisement,
-  );
+  const name = getFullPoolTitleHtml(intl, application.pool);
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
@@ -195,7 +187,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
-            <Button mode="outline" color="primary" type="button">
+            <Button color="primary" type="button">
               {intl.formatMessage({
                 defaultMessage: "Cancel",
                 id: "/JLaO5",
@@ -204,7 +196,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button mode="solid" color="cta" type="button" onClick={onDelete}>
+            <Button mode="solid" color="error" type="button" onClick={onDelete}>
               {intl.formatMessage({
                 defaultMessage: "Delete",
                 id: "IUQGA0",
@@ -234,10 +226,7 @@ const ArchiveAction = ({
     return null;
   }
 
-  const name = getFullPoolAdvertisementTitleHtml(
-    intl,
-    application.poolAdvertisement,
-  );
+  const name = getFullPoolTitleHtml(intl, application.pool);
 
   return (
     <AlertDialog.Root>
@@ -278,7 +267,7 @@ const ArchiveAction = ({
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
-            <Button mode="outline" color="primary" type="button">
+            <Button color="primary" type="button">
               {intl.formatMessage({
                 defaultMessage: "Cancel",
                 id: "r6DZ71",
@@ -287,7 +276,12 @@ const ArchiveAction = ({
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button mode="solid" color="cta" type="button" onClick={onArchive}>
+            <Button
+              mode="solid"
+              color="secondary"
+              type="button"
+              onClick={onArchive}
+            >
               {intl.formatMessage({
                 defaultMessage: "Archive",
                 id: "PXfQOZ",

@@ -5,10 +5,10 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import React from "react";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import { fakePoolAdvertisements } from "@gc-digital-talent/fake-data";
+import { fakePools } from "@gc-digital-talent/fake-data";
 import PoolCard, { PoolCardProps } from "./PoolCard";
 
-const fakedPool = fakePoolAdvertisements()[0];
+const fakedPool = fakePools(1)[0];
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const nullPool: any = {};
 Object.keys(fakedPool).forEach((key) => {

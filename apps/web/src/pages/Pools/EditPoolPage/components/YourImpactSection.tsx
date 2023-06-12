@@ -12,10 +12,10 @@ import {
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import {
-  AdvertisementStatus,
+  PoolStatus,
   LocalizedString,
-  PoolAdvertisement,
-  UpdatePoolAdvertisementInput,
+  Pool,
+  UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 import Spacer from "~/components/Spacer/Spacer";
@@ -27,13 +27,10 @@ type FormValues = {
   yourImpactFr?: LocalizedString["fr"];
 };
 
-export type YourImpactSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
-  "yourImpact"
->;
+export type YourImpactSubmitData = Pick<UpdatePoolInput, "yourImpact">;
 
 interface YourImpactSectionProps {
-  poolAdvertisement: PoolAdvertisement;
+  pool: Pool;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: YourImpactSubmitData) => void;
 }
@@ -43,20 +40,20 @@ const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
 const TEXT_AREA_ROWS = 15;
 
 const YourImpactSection = ({
-  poolAdvertisement,
+  pool,
   sectionMetadata,
   onSave,
 }: YourImpactSectionProps): JSX.Element => {
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
-  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
+  const dataToFormValues = (initialData: Pool): FormValues => ({
     yourImpactEn: initialData.yourImpact?.en ?? "",
     yourImpactFr: initialData.yourImpact?.fr ?? "",
   });
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(poolAdvertisement),
+    defaultValues: dataToFormValues(pool),
   });
   const { handleSubmit, control } = methods;
   const watchYourImpactEn: FormValues["yourImpactEn"] = useWatch({
@@ -81,8 +78,7 @@ const YourImpactSection = ({
   };
 
   // disabled unless status is draft
-  const formDisabled =
-    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+  const formDisabled = pool.status !== PoolStatus.Draft;
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
@@ -173,7 +169,7 @@ const YourImpactSection = ({
                 id: "UduzGA",
                 description: "Text on a button to save the pool introduction",
               })}
-              color="cta"
+              color="tertiary"
               mode="solid"
               isSubmitting={isSubmitting}
             />

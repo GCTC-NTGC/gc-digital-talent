@@ -8,21 +8,18 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Submit } from "@gc-digital-talent/forms";
 
 import {
-  AdvertisementStatus,
-  PoolAdvertisement,
+  PoolStatus,
+  Pool,
   Scalars,
   Skill,
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 import SkillPicker from "~/components/SkillPicker";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
-export type AssetSkillsSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
-  "nonessentialSkills"
->;
+export type AssetSkillsSubmitData = Pick<UpdatePoolInput, "nonessentialSkills">;
 
 type FormValues = {
   currentAssetSkills: {
@@ -31,23 +28,21 @@ type FormValues = {
 };
 
 interface AssetSkillsSectionProps {
-  poolAdvertisement: PoolAdvertisement;
+  pool: Pool;
   skills: Array<Skill>;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: AssetSkillsSubmitData) => void;
 }
 
 const AssetSkillsSection = ({
-  poolAdvertisement,
+  pool,
   skills,
   sectionMetadata,
   onSave,
 }: AssetSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
-  const defaultSkills = poolAdvertisement.nonessentialSkills
-    ? poolAdvertisement.nonessentialSkills
-    : [];
+  const defaultSkills = pool.nonessentialSkills ? pool.nonessentialSkills : [];
   const methods = useForm<FormValues>({
     defaultValues: {
       currentAssetSkills: defaultSkills.map(({ id }) => ({ id })),
@@ -85,8 +80,7 @@ const AssetSkillsSection = ({
   };
 
   // disabled unless status is draft
-  const formDisabled =
-    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+  const formDisabled = pool.status !== PoolStatus.Draft;
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
@@ -126,7 +120,7 @@ const AssetSkillsSection = ({
                   id: "j4G/wv",
                   description: "Text on a button to save the pool asset skills",
                 })}
-                color="cta"
+                color="tertiary"
                 mode="solid"
                 isSubmitting={isSubmitting}
                 onClick={methods.handleSubmit(handleSave)}

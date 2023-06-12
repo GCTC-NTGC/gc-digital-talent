@@ -1,7 +1,7 @@
 import {
   Applicant,
   Maybe,
-  PoolAdvertisement,
+  Pool,
   PublishingGroup,
 } from "@gc-digital-talent/graphql";
 
@@ -26,9 +26,9 @@ export function anyCriteriaSelected({
 
 export function hasEmptyRequiredFields(
   applicant: PartialApplicant,
-  poolAdvertisement?: Maybe<PoolAdvertisement>,
+  pool?: Maybe<Pool>,
 ): boolean {
-  if (!(poolAdvertisement?.publishingGroup === PublishingGroup.Iap)) {
+  if (!(pool?.publishingGroup === PublishingGroup.Iap)) {
     return false;
   }
   return !(

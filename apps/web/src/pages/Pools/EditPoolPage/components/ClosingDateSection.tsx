@@ -10,39 +10,32 @@ import {
 } from "@gc-digital-talent/date-helpers";
 
 import { useDeepCompareEffect } from "~/hooks/useDeepCompareEffect";
-import {
-  AdvertisementStatus,
-  PoolAdvertisement,
-  UpdatePoolAdvertisementInput,
-} from "~/api/generated";
+import { PoolStatus, Pool, UpdatePoolInput } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 import Spacer from "~/components/Spacer/Spacer";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
 type FormValues = {
-  endDate?: PoolAdvertisement["closingDate"];
+  endDate?: Pool["closingDate"];
 };
 
-export type ClosingDateSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
-  "closingDate"
->;
+export type ClosingDateSubmitData = Pick<UpdatePoolInput, "closingDate">;
 interface ClosingDateSectionProps {
-  poolAdvertisement: PoolAdvertisement;
+  pool: Pool;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: ClosingDateSubmitData) => void;
 }
 
 const ClosingDateSection = ({
-  poolAdvertisement,
+  pool,
   sectionMetadata,
   onSave,
 }: ClosingDateSectionProps): JSX.Element => {
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
-  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => {
+  const dataToFormValues = (initialData: Pool): FormValues => {
     const closingDateInPacific = initialData.closingDate
       ? convertDateTimeToDate(
           convertDateTimeZone(initialData.closingDate, "UTC", "Canada/Pacific"),
@@ -54,7 +47,7 @@ const ClosingDateSection = ({
     };
   };
 
-  const suppliedValues = dataToFormValues(poolAdvertisement);
+  const suppliedValues = dataToFormValues(pool);
   const methods = useForm<FormValues>({
     defaultValues: suppliedValues,
   });
@@ -82,8 +75,7 @@ const ClosingDateSection = ({
   };
 
   // disabled unless status is draft
-  const formDisabled =
-    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+  const formDisabled = pool.status !== PoolStatus.Draft;
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
@@ -125,7 +117,7 @@ const ClosingDateSection = ({
                 id: "jttjmJ",
                 description: "Text on a button to save the pool closing date",
               })}
-              color="cta"
+              color="tertiary"
               mode="solid"
               isSubmitting={isSubmitting}
             />

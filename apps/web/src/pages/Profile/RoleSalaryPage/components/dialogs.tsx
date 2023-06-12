@@ -18,13 +18,7 @@ export const CloseDialogButton = React.forwardRef<
   React.ElementRef<typeof Button>,
   React.ComponentPropsWithoutRef<typeof Button>
 >((props, forwardedRef) => (
-  <Button
-    ref={forwardedRef}
-    {...props}
-    type="button"
-    mode="outline"
-    color="secondary"
-  />
+  <Button ref={forwardedRef} {...props} type="button" color="secondary" />
 ));
 
 const ModalButton = React.forwardRef<

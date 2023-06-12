@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-elements */
 import React, { useId } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";

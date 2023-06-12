@@ -9,17 +9,16 @@ import {
   Pending,
 } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import {
-  AdvertisementStatus,
+  PoolStatus,
   PublishingGroup,
-  PoolAdvertisement,
-  useBrowsePoolAdvertisementsQuery,
+  Pool,
+  useBrowsePoolsQuery,
 } from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
@@ -44,15 +43,14 @@ const getFlourishStyles = (isTop: boolean) => ({
 });
 
 export interface BrowsePoolsProps {
-  poolAdvertisements: PoolAdvertisement[];
+  pools: Pool[];
 }
 
-export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
+export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
   const { mode } = useTheme();
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
   const paths = useRoutes();
-  const featureFlags = useFeatureFlags();
 
   const title = intl.formatMessage({
     defaultMessage: "Browse jobs",
@@ -67,22 +65,21 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
     },
   ]);
 
-  const activeRecruitmentPools = poolAdvertisements.filter(
+  const activeRecruitmentPools = pools.filter(
     (p) =>
-      p.advertisementStatus === AdvertisementStatus.Published && // list jobs which have the PUBLISHED AdvertisementStatus
+      p.status === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
       p.publishingGroup === PublishingGroup.ItJobs, // and which are meant to be published on the IT Jobs page
   );
 
-  const ongoingRecruitmentPools = poolAdvertisements.filter(
+  const ongoingRecruitmentPools = pools.filter(
     (p) =>
-      p.advertisementStatus === AdvertisementStatus.Published && // list jobs which have the PUBLISHED AdvertisementStatus
+      p.status === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
       p.publishingGroup === PublishingGroup.ItJobsOngoing, // and which are meant to be published on the IT Jobs page
   );
 
   // a different footer message is displayed if there are opportunities showing, otherwise a null state message is used
-  const areOpportunitiesShowing = featureFlags.ongoingRecruitments
-    ? activeRecruitmentPools.length || ongoingRecruitmentPools.length
-    : activeRecruitmentPools.length;
+  const areOpportunitiesShowing =
+    activeRecruitmentPools.length || ongoingRecruitmentPools.length;
 
   return (
     <>
@@ -124,11 +121,9 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
           <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
             <ActiveRecruitmentSection pools={activeRecruitmentPools} />
           </div>
-          {featureFlags.ongoingRecruitments && (
-            <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
-              <OngoingRecruitmentSection pools={ongoingRecruitmentPools} />
-            </div>
-          )}
+          <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
+            <OngoingRecruitmentSection pools={ongoingRecruitmentPools} />
+          </div>
           <div data-h2-padding="base(x3, 0) p-tablet(x4, 0)">
             <div
               data-h2-background-color="base(white) base:dark(black.light)"
@@ -183,10 +178,8 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
                 </div>
                 <div data-h2-margin="base(x1, 0, 0, 0) p-tablet(0)">
                   <Link
-                    color="blue"
-                    mode="outline"
-                    type="button"
-                    weight="bold"
+                    color="secondary"
+                    mode="solid"
                     href={loggedIn ? paths.myProfile() : paths.login()}
                     style={{ whiteSpace: "nowrap" }}
                   >
@@ -246,7 +239,7 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
               links={[
                 {
                   href: `${paths.home()}/indigenous-it-apprentice`,
-                  mode: "outline",
+                  mode: "solid",
                   external: true,
                   label: intl.formatMessage({
                     defaultMessage:
@@ -285,7 +278,7 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
               links={[
                 {
                   href: paths.search(),
-                  mode: "outline",
+                  mode: "solid",
                   label: intl.formatMessage({
                     defaultMessage: "Find talent",
                     id: "7waBmC",
@@ -322,18 +315,17 @@ export const BrowsePools = ({ poolAdvertisements }: BrowsePoolsProps) => {
 const now = nowUTCDateTime();
 
 const BrowsePoolsApi = () => {
-  const [{ data, fetching, error }] = useBrowsePoolAdvertisementsQuery({
+  const [{ data, fetching, error }] = useBrowsePoolsQuery({
     variables: { closingAfter: now }, // pass current dateTime into query argument
   });
 
-  const filteredPoolAdvertisements = data?.publishedPoolAdvertisements.filter(
-    (poolAdvertisement) =>
-      typeof poolAdvertisement !== undefined && !!poolAdvertisement,
-  ) as PoolAdvertisement[];
+  const filteredPools = data?.publishedPools.filter(
+    (pool) => typeof pool !== undefined && !!pool,
+  ) as Pool[];
 
   return (
     <Pending fetching={fetching} error={error}>
-      <BrowsePools poolAdvertisements={filteredPoolAdvertisements} />
+      <BrowsePools pools={filteredPools} />
     </Pending>
   );
 };

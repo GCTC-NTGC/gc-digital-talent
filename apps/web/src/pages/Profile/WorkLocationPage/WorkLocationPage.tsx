@@ -40,10 +40,7 @@ const WorkLocationApi = ({
       {data?.poolCandidate ? (
         <WorkLocationForm
           initialData={initialData}
-          application={{
-            ...data.poolCandidate,
-            pool: { id: data.poolCandidate.id },
-          }}
+          application={data.poolCandidate}
           handleWorkLocationPreference={handleWorkLocation}
         />
       ) : (

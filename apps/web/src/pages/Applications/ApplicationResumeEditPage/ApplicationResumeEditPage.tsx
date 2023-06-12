@@ -132,7 +132,7 @@ const ApplicationResumeEditPage = () => {
       fetching={applicationFetching || experienceFetching}
       error={applicationError || experienceError}
     >
-      {application?.poolAdvertisement && experience ? (
+      {application && experience ? (
         <ApplicationResumeEdit
           application={application}
           experience={experience}

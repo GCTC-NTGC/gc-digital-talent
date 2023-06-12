@@ -11,6 +11,8 @@ const SkipLink = ({ href = "#main" }: SkipLinkProps) => {
   const intl = useIntl();
 
   return (
+    // NOTE: Skip to is a custom link,we do not want to use the Link component
+    // eslint-disable-next-line react/forbid-elements
     <a
       href={href}
       data-h2-visually-hidden="base(invisible) base:focus-visible(visible)"

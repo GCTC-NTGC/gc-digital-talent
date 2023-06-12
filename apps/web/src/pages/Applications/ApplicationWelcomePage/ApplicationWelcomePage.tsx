@@ -9,7 +9,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { useUpdateApplicationMutation, ApplicationStep } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 
@@ -71,10 +71,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const poolName = getFullPoolAdvertisementTitleHtml(
-    intl,
-    application.poolAdvertisement,
-  );
+  const poolName = getFullPoolTitleHtml(intl, application.pool);
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();
   const nextStepPath =
     followingPageUrl ?? paths.applicationProfile(application.id);
@@ -171,12 +168,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
             })}
           </Button>
         </form>
-        <Link
-          type="button"
-          mode="inline"
-          color="secondary"
-          href={paths.pool(application?.poolAdvertisement?.id || "")}
-        >
+        <Link mode="inline" href={paths.pool(application.pool.id)}>
           {intl.formatMessage({
             defaultMessage: "Return to the advertisement",
             id: "RWvojd",

@@ -25,13 +25,6 @@ export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
   const { id: userId, experiences } = profileDataInput;
   const paths = useRoutes();
 
-  const experienceEditPaths = {
-    awardUrl: (id: string) => paths.editExperience(userId, "award", id),
-    communityUrl: (id: string) => paths.editExperience(userId, "community", id),
-    educationUrl: (id: string) => paths.editExperience(userId, "education", id),
-    personalUrl: (id: string) => paths.editExperience(userId, "personal", id),
-    workUrl: (id: string) => paths.editExperience(userId, "work", id),
-  };
   const intl = useIntl();
   const featureFlags = useFeatureFlags();
 
@@ -109,7 +102,6 @@ export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
             override: (
               <ExperienceSection
                 experiences={experiences?.filter(notEmpty)}
-                experienceEditPaths={experienceEditPaths}
                 editPath={paths.skillsAndExperiences(userId)}
               />
             ),

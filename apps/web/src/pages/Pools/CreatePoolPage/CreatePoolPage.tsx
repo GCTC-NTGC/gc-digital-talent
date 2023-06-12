@@ -14,9 +14,9 @@ import PageHeader from "~/components/PageHeader/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import {
-  CreatePoolAdvertisementInput,
-  useCreatePoolAdvertisementMutation,
-  CreatePoolAdvertisementMutation,
+  CreatePoolInput,
+  useCreatePoolMutation,
+  CreatePoolMutation,
   useGetMePoolCreationQuery,
   Classification,
   Maybe,
@@ -38,8 +38,8 @@ interface CreatePoolFormProps {
   handleCreatePool: (
     userId: string,
     teamId: string,
-    data: CreatePoolAdvertisementInput,
-  ) => Promise<CreatePoolAdvertisementMutation["createPoolAdvertisement"]>;
+    data: CreatePoolInput,
+  ) => Promise<CreatePoolMutation["createPool"]>;
   teamsArray: Team[];
 }
 
@@ -56,9 +56,7 @@ export const CreatePoolForm = ({
   const { handleSubmit } = methods;
 
   // submission section, and navigate to edit the created pool
-  const formValuesToSubmitData = (
-    values: FormValues,
-  ): CreatePoolAdvertisementInput => ({
+  const formValuesToSubmitData = (values: FormValues): CreatePoolInput => ({
     classifications: {
       sync: values.classification,
     },
@@ -171,7 +169,7 @@ export const CreatePoolForm = ({
               }}
             />
             <Submit
-              color="cta"
+              color="tertiary"
               text={intl.formatMessage({
                 defaultMessage: "Create new pool",
                 id: "TLl20s",
@@ -184,12 +182,7 @@ export const CreatePoolForm = ({
       </div>
 
       <div data-h2-margin="base(x2, 0, 0, 0)">
-        <Link
-          type="button"
-          href={paths.poolTable()}
-          mode="outline"
-          color="primary"
-        >
+        <Link href={paths.poolTable()} mode="solid" color="primary">
           {intl.formatMessage({
             defaultMessage: "Cancel and go back",
             id: "dJxNRU",
@@ -230,20 +223,18 @@ const CreatePoolPage = () => {
   const classificationsData = unpackMaybes(lookupData?.classifications);
   const teamsArray = roleAssignmentsToTeams(lookupData?.me?.roleAssignments);
 
-  const [, executeMutation] = useCreatePoolAdvertisementMutation();
+  const [, executeMutation] = useCreatePoolMutation();
   const handleCreatePool = (
     userId: string,
     teamId: string,
-    data: CreatePoolAdvertisementInput,
+    data: CreatePoolInput,
   ) =>
-    executeMutation({ userId, teamId, poolAdvertisement: data }).then(
-      (result) => {
-        if (result.data?.createPoolAdvertisement) {
-          return result.data?.createPoolAdvertisement;
-        }
-        return Promise.reject(result.error);
-      },
-    );
+    executeMutation({ userId, teamId, pool: data }).then((result) => {
+      if (result.data?.createPool) {
+        return result.data?.createPool;
+      }
+      return Promise.reject(result.error);
+    });
 
   const navigationCrumbs = [
     {
