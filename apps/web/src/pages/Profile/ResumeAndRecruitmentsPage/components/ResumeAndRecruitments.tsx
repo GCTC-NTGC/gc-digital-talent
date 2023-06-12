@@ -2,8 +2,7 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 
-import { Well, TableOfContents, Heading } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { Well, TableOfContents, Heading, Link } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
@@ -66,7 +65,8 @@ export const ResumeAndRecruitments = ({
     ? `?applicationId=${applicationId}`
     : ``;
 
-  const hasExperiences = notEmpty(experiences);
+  const hasResumeItems = !!experiences?.length;
+  const hasQualifiedRecruitments = false;
 
   const applicationBreadcrumbs: {
     label: string | React.ReactNode;
@@ -122,90 +122,130 @@ export const ResumeAndRecruitments = ({
         },
       )}
       title={intl.formatMessage(titles.resumeAndRecruitments)}
+      leaveRoomForNavigation
     >
-      <TableOfContents.Navigation>
-        <TableOfContents.AnchorLink id={PAGE_SECTION_ID.MANAGE_YOUR_RESUME}>
-          {intl.formatMessage(titles.manageYourResume)}
-        </TableOfContents.AnchorLink>
-        <TableOfContents.AnchorLink
-          id={PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES}
-        >
-          {intl.formatMessage(titles.qualifiedRecruitmentProcesses)}
-        </TableOfContents.AnchorLink>
-      </TableOfContents.Navigation>
-      <TableOfContents.Content>
-        <TableOfContents.Section id={PAGE_SECTION_ID.MANAGE_YOUR_RESUME}>
-          <Heading Icon={BookmarkSquareIcon} color="red">
+      <TableOfContents.Wrapper>
+        <TableOfContents.Navigation>
+          <TableOfContents.AnchorLink id={PAGE_SECTION_ID.MANAGE_YOUR_RESUME}>
             {intl.formatMessage(titles.manageYourResume)}
-          </Heading>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "This section is similar to your traditional résumé and describes your experiences across work, school, and life. You’ll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
-              id: "gPy2MA",
-              description:
-                "Descriptive paragraph for the Manage your resume section of the résumé and recruitments page.",
-            })}
-          </p>
-          {missingSkills && (
-            <div data-h2-margin="base(x1, 0)">
-              <MissingSkills
-                addedSkills={
-                  hasExperiences ? flattenExperienceSkills(experiences) : []
-                }
-                requiredSkills={missingSkills.requiredSkills}
-                optionalSkills={missingSkills.optionalSkills}
-              />
-            </div>
-          )}
-          <div data-h2-margin="base(x2, 0)">
-            <div
-              data-h2-display="base(flex)"
-              data-h2-justify-content="base(flex-end)"
-            >
-              <AddExperienceDialog
-                data-h2-flex-item="base(1of1)"
-                applicantId={applicantId}
-              />
-            </div>
-          </div>
-          {!hasExperiences ? (
-            <Well>
-              <p data-h2-font-style="base(italic)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "There are no experiences on your profile yet. You can add some using the preceding buttons.",
-                  id: "XzUzZz",
-                  description:
-                    "Message to user when no experiences have been attached to profile.",
-                })}
-              </p>
-            </Well>
-          ) : (
-            <ExperienceSection
-              editParam={applicationParam}
-              experiences={experiences}
-              headingLevel="h2"
-            />
-          )}
-        </TableOfContents.Section>
-        <TableOfContents.Section
-          id={PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES}
-        >
-          <Heading Icon={IdentificationIcon} color="blue">
+          </TableOfContents.AnchorLink>
+          <TableOfContents.AnchorLink
+            id={PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES}
+          >
             {intl.formatMessage(titles.qualifiedRecruitmentProcesses)}
-          </Heading>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "When you apply to a recruitment process and successfully pass the assessment, you’re awarded entry and can start being considered for related opportunities. This section highlights all active and expired processes that you’re currently a part of and allows you to manage whether or not you appear in talent searches.",
-              id: "wrTfp3",
-              description:
-                "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitments page.",
-            })}
-          </p>
-        </TableOfContents.Section>
-      </TableOfContents.Content>
+          </TableOfContents.AnchorLink>
+        </TableOfContents.Navigation>
+        <TableOfContents.Content>
+          <TableOfContents.Section id={PAGE_SECTION_ID.MANAGE_YOUR_RESUME}>
+            <Heading Icon={BookmarkSquareIcon} color="red">
+              {intl.formatMessage(titles.manageYourResume)}
+            </Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This section is similar to your traditional résumé and describes your experiences across work, school, and life. You’ll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
+                id: "gPy2MA",
+                description:
+                  "Descriptive paragraph for the Manage your resume section of the résumé and recruitments page.",
+              })}
+            </p>
+            {missingSkills && (
+              <div data-h2-margin="base(x1, 0)">
+                <MissingSkills
+                  addedSkills={
+                    hasResumeItems ? flattenExperienceSkills(experiences) : []
+                  }
+                  requiredSkills={missingSkills.requiredSkills}
+                  optionalSkills={missingSkills.optionalSkills}
+                />
+              </div>
+            )}
+            <div data-h2-margin="base(x2, 0, x.5, 0)">
+              <div
+                data-h2-display="base(flex)"
+                data-h2-justify-content="base(flex-end)"
+              >
+                <AddExperienceDialog
+                  data-h2-flex-item="base(1of1)"
+                  applicantId={applicantId}
+                />
+              </div>
+            </div>
+            {!hasResumeItems ? (
+              <Well data-h2-text-align="base(center)">
+                {intl.formatMessage({
+                  defaultMessage: "You haven’t added any résumé items yet.",
+                  id: "SjY+Wn",
+                  description:
+                    "Message to user when no résumé items have been attached to profile.",
+                })}
+              </Well>
+            ) : (
+              <ExperienceSection
+                editParam={applicationParam}
+                experiences={experiences}
+                headingLevel="h2"
+              />
+            )}
+          </TableOfContents.Section>
+          <TableOfContents.Section
+            id={PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES}
+            data-h2-margin="base(x3, 0, 0, 0)"
+          >
+            <div data-h2-flex-grid="base(center, x1, x1)">
+              <Heading
+                Icon={IdentificationIcon}
+                color="blue"
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+              >
+                {intl.formatMessage(titles.qualifiedRecruitmentProcesses)}
+              </Heading>
+              <Link
+                href={paths.browsePools()}
+                data-h2-flex-item="base(1of1) p-tablet(content)"
+              >
+                Browse jobs
+              </Link>
+            </div>
+            <p data-h2-margin="base(x1, 0)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "When you apply to a recruitment process and successfully pass the assessment, you’re awarded entry and can start being considered for related opportunities. This section highlights all active and expired processes that you’re currently a part of and allows you to manage whether or not you appear in talent searches.",
+                id: "wrTfp3",
+                description:
+                  "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitments page.",
+              })}
+            </p>
+            {!hasQualifiedRecruitments ? (
+              <Well data-h2-text-align="base(center)">
+                <p
+                  data-h2-font-weight="base(700)"
+                  data-h2-margin-bottom="base(x.5)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Recruitment processes that you're awarded entry into will appear here.",
+                    id: "aW/Htv",
+                    description:
+                      "Message to user when no qualified recruitments have been attached to profile, paragraph one.",
+                  })}
+                </p>
+                <a href={paths.browsePools()}>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "You can get started by applying to available targeted or ongoing recruitment processes.",
+                    id: "z7FpHz",
+                    description:
+                      "Message to user when no qualified recruitments have been attached to profile, paragraph two.",
+                  })}
+                </a>
+              </Well>
+            ) : (
+              <span>TODO: qualified recruitments</span>
+            )}
+          </TableOfContents.Section>
+        </TableOfContents.Content>
+      </TableOfContents.Wrapper>
     </ProfileFormWrapper>
   );
 };

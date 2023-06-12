@@ -6,7 +6,7 @@ import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
-import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
+import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import ArrowLeftIcon from "@heroicons/react/24/solid/ArrowLeftIcon";
 
 import { Dialog, Button, IconType, Link } from "@gc-digital-talent/ui";
@@ -150,7 +150,7 @@ const AddExperienceDialog = ({
   return (
     <Dialog.Root defaultOpen={defaultOpen}>
       <Dialog.Trigger>
-        <Button color="secondary" icon={PlusIcon}>
+        <Button color="secondary" icon={PlusCircleIcon}>
           {intl.formatMessage({
             defaultMessage: "Add a new experience",
             id: "bOAF9o",
