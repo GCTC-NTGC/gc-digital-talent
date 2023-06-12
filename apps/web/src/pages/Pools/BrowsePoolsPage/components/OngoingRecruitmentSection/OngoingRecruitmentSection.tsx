@@ -947,7 +947,7 @@ const OngoingRecruitmentSection = ({
         level="h2"
         id="ongoingRecruitments"
         Icon={CpuChipIcon}
-        color="purple"
+        color="primary"
         data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage({

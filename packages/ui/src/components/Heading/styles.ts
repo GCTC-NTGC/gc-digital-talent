@@ -1,4 +1,5 @@
-import type { HeadingLevel, Color } from "./Heading";
+import { Color } from "../../types";
+import type { HeadingLevel } from "./Heading";
 
 export const headingStyles: Record<HeadingLevel, Record<string, string>> = {
   h1: {
@@ -33,17 +34,20 @@ export const headingStyles: Record<HeadingLevel, Record<string, string>> = {
 };
 
 export const iconStyles: Record<Color, Record<string, string>> = {
-  yellow: {
-    "data-h2-color": "base:children[svg](quaternary)",
+  primary: {
+    "data-h2-color": "base:children[svg](primary)",
   },
-  blue: {
+  secondary: {
     "data-h2-color": "base:children[svg](secondary)",
   },
-  red: {
+  tertiary: {
     "data-h2-color": "base:children[svg](tertiary)",
   },
-  purple: {
-    "data-h2-color": "base:children[svg](primary)",
+  quaternary: {
+    "data-h2-color": "base:children[svg](quaternary)",
+  },
+  quinary: {
+    "data-h2-color": "base:children[svg](quinary)",
   },
   error: {
     "data-h2-color": "base:children[svg](error)",
@@ -53,6 +57,12 @@ export const iconStyles: Record<Color, Record<string, string>> = {
   },
   success: {
     "data-h2-color": "base:children[svg](success)",
+  },
+  black: {
+    "data-h2-color": "base:children[svg](black)",
+  },
+  white: {
+    "data-h2-color": "base:children[svg](white)",
   },
 };
 

@@ -26,7 +26,7 @@ const ActiveRecruitmentSection = ({ pools }: ActiveRecruitmentSectionProps) => {
       <Heading
         level="h2"
         Icon={RocketLaunchIcon}
-        color="blue"
+        color="secondary"
         data-h2-margin="base(0, 0, x0.5, 0)"
       >
         {intl.formatMessage({
