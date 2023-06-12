@@ -56,10 +56,10 @@ const CreateApplication = () => {
 
   // We use this ref to make sure we only try to apply once
   const mutationCounter = React.useRef<number>(0);
-  // We use this ref to make sure we only try to apply once
+  // We use this ref to make sure we only start navigation and pop a toast once
   const navigateWithToastCounter = React.useRef<number>(0);
 
-  // Start navigation and pop a toast.  Uses a ref to ensure we only do this once.
+  // Start navigation and pop a toast.  Increment the ref to ensure we only do this once.
   const navigateWithToast = (path: string, toastFunction: () => void): void => {
     if (navigateWithToastCounter.current > 0) return; // we've already started navigation
     navigate(path, { replace: true });
@@ -153,10 +153,10 @@ const CreateApplication = () => {
           const messageDescriptor = tryFindMessageDescriptor(
             result.error.message,
           );
-          const message = intl.formatMessage(
+          const errorMessage = intl.formatMessage(
             messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
           );
-          navigateWithToast(redirectPath, () => toast.error(message));
+          navigateWithToast(redirectPath, () => toast.error(errorMessage));
         } else {
           // Fallback to generic message
           navigateWithToast(redirectPath, () =>
