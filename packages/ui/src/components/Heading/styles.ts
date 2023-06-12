@@ -35,54 +35,33 @@ export const headingStyles: Record<HeadingLevel, Record<string, string>> = {
 
 export const iconStyles: Record<Color, Record<string, string>> = {
   primary: {
-    "data-h2-color": "base:children[svg](primary)",
+    "data-h2-color": "base(primary)",
   },
   secondary: {
-    "data-h2-color": "base:children[svg](secondary)",
+    "data-h2-color": "base(secondary)",
   },
   tertiary: {
-    "data-h2-color": "base:children[svg](tertiary)",
+    "data-h2-color": "base(tertiary)",
   },
   quaternary: {
-    "data-h2-color": "base:children[svg](quaternary)",
+    "data-h2-color": "base(quaternary)",
   },
   quinary: {
-    "data-h2-color": "base:children[svg](quinary)",
+    "data-h2-color": "base(quinary)",
   },
   error: {
-    "data-h2-color": "base:children[svg](error)",
+    "data-h2-color": "base(error)",
   },
   warning: {
-    "data-h2-color": "base:children[svg](warning)",
+    "data-h2-color": "base(warning)",
   },
   success: {
-    "data-h2-color": "base:children[svg](success)",
+    "data-h2-color": "base(success)",
   },
   black: {
-    "data-h2-color": "base:children[svg](black)",
+    "data-h2-color": "base(black)",
   },
   white: {
-    "data-h2-color": "base:children[svg](white)",
-  },
-};
-
-export const iconSize: Record<HeadingLevel, Record<string, string>> = {
-  h1: {
-    "data-h2-width": "base:children[svg](var(--h2-font-size-h1))",
-  },
-  h2: {
-    "data-h2-width": "base:children[svg](var(--h2-font-size-h2))",
-  },
-  h3: {
-    "data-h2-width": "base:children[svg](var(--h2-font-size-h3))",
-  },
-  h4: {
-    "data-h2-width": "base:children[svg](var(--h2-font-size-h4))",
-  },
-  h5: {
-    "data-h2-width": "base:children[svg](var(--h2-font-size-h5))",
-  },
-  h6: {
-    "data-h2-width": "base:children[svg](var(--h2-font-size-h6))",
+    "data-h2-color": "base(white)",
   },
 };
