@@ -67,7 +67,7 @@
     "@babel/preset-env": "^7.22.5",
     "@babel/preset-react": "^7.22.5",
     "@formatjs/cli": "^6.1.3",
-    "@formatjs/ts-transformer": "^3.13.2",
+    "@formatjs/ts-transformer": "^3.13.3",
     "@gc-digital-talent/fake-data": "*",
     "@gc-digital-talent/helpers": "*",
     "@gc-digital-talent/jest-helpers": "*",
