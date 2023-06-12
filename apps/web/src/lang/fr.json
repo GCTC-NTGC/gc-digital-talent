@@ -8195,6 +8195,10 @@
     "defaultMessage": "Afficher les détails de cette expérience",
     "description": "Button text to show a miscellaneous experience's details"
   },
+  "fY0W2V": {
+    "defaultMessage": "Vous avez déjà une demande dans ce bassin.",
+    "description": "Notification when a user attempts to apply to a pool when they already have an application there."
+  },
   "w7E0He": {
     "defaultMessage": "Compétences essentielles",
     "description": "Title for the required skills snapshot section"

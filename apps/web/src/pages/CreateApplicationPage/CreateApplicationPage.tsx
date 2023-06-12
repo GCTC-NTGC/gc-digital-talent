@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate, useParams } from "react-router-dom";
-import { Id, toast as toastify } from "react-toastify";
 
 import { Loading } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -14,7 +13,11 @@ import {
 import { useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
-import { Scalars, useCreateApplicationMutation } from "~/api/generated";
+import {
+  Scalars,
+  useCreateApplicationMutation,
+  useMyApplicationsQuery,
+} from "~/api/generated";
 
 type RouteParams = {
   poolId: Scalars["ID"];
@@ -28,133 +31,146 @@ type RouteParams = {
 const CreateApplication = () => {
   const { poolId } = useParams<RouteParams>();
   const intl = useIntl();
-  const errorToastId = React.useRef<Id>("");
   const paths = useRoutes();
   const navigate = useNavigate();
   const { applicationRevamp } = useFeatureFlags();
   const auth = useAuthorization();
-  const [
-    { fetching: creating, data: mutationData, operation },
-    executeMutation,
-  ] = useCreateApplicationMutation();
+  const [{ data: newApplicationData }, executeMutation] =
+    useCreateApplicationMutation();
+  const [{ data: existingApplicationsData }] = useMyApplicationsQuery();
+
+  // Path to display application (new or existing).
+  const applicationPath = (applicationId: string) =>
+    applicationRevamp
+      ? paths.application(applicationId)
+      : paths.reviewApplication(applicationId);
 
   // Store path to redirect to later on
   let redirectPath = paths.pool(poolId || "");
 
-  /**
-   * Handle any errors that occur during mutation
-   *
-   * @returns null
-   */
-  const handleError = React.useCallback(
-    (msg?: React.ReactNode, path?: string) => {
-      navigate(path || redirectPath, { replace: true });
-      /**
-       * This is supposed to prevent the toast
-       * from firing twice, but it does not appear to
-       * work. Leaving it in, in the hopes
-       * it finally does 🤷‍♀️
-       */
-      if (!toastify.isActive(errorToastId.current)) {
-        errorToastId.current = toast.error(
-          msg ||
-            intl.formatMessage({
-              defaultMessage: "Error application creation failed",
-              id: "tlAiJm",
-              description: "Application creation failed",
-            }),
-        );
-      }
-      return null;
-    },
-    [intl, redirectPath, navigate],
-  );
+  const genericErrorMessage = intl.formatMessage({
+    defaultMessage: "Error application creation failed",
+    id: "tlAiJm",
+    description: "Application creation failed",
+  });
+
+  // We use this ref to make sure we only try to apply once
+  const mutationCounter = React.useRef<number>(0);
+  // We use this ref to make sure we only start navigation and pop a toast once
+  const navigateWithToastCounter = React.useRef<number>(0);
+
+  // Start navigation and pop a toast.  Increment the ref to ensure we only do this once.
+  const navigateWithToast = (path: string, toastFunction: () => void): void => {
+    if (navigateWithToastCounter.current > 0) return; // we've already started navigation
+    navigate(path, { replace: true });
+    toastFunction();
+    navigateWithToastCounter.current += 1;
+  };
+
+  // If a "me" object came back then we've checked.
+  const checkedForExistingApplications = notEmpty(existingApplicationsData?.me);
+  // Build an array of existing applications.
+  const existingApplications =
+    existingApplicationsData?.me?.poolCandidates?.map((application) => {
+      return {
+        applicationId: application?.id,
+        poolId: application?.pool.id,
+      };
+    });
+  // Find the pool candidate ID if we've already applied to this pool.
+  const existingApplicationIdToThisPool = existingApplications?.find(
+    (a) => a.poolId === poolId,
+  )?.applicationId;
+  // An existing application was found for this pool.  No need to create a new one - let's go.
+  if (existingApplicationIdToThisPool) {
+    navigateWithToast(applicationPath(existingApplicationIdToThisPool), () =>
+      toast.info(
+        intl.formatMessage({
+          defaultMessage: "You already have an application to this pool.",
+          id: "fY0W2V",
+          description:
+            "Notification when a user attempts to apply to a pool when they already have an application there.",
+        }),
+      ),
+    );
+  }
 
   /**
    * Store if the application can be created
    *
-   * !creating - Not currently running a mutation
-   * !mutationData - The mutation has not previously ran
    * userId - We need a user ID to run the mutation
-   * id - We need a pool ID to run the mutation
-   * isVisible - Should't run it if user cannot view it
-   * !hasApplied - Users can only apply to a single pool
+   * hasNewApplicationData - We've created the new application and have the results
+   * haveRequiredDataToCreateNewApplication - We need some data to create the new application
+   * mutationCounter.current - Keep track of how many times we've applied - we should only do it once
+   * checkedForExistingApplications - We should check existing applications before applying again
+   * existingApplicationIdToThisPool - If there's already an application to this pool don't apply again
    */
   const userId = auth.user?.id;
-  const hasMutationData = notEmpty(mutationData);
-  const isCreating = creating || hasMutationData || operation?.key;
-  const hasRequiredData = userId && poolId;
+  const hasNewApplicationData = notEmpty(newApplicationData);
+  const haveRequiredDataToCreateNewApplication = userId && poolId;
 
-  if (!hasRequiredData) {
+  if (!haveRequiredDataToCreateNewApplication) {
     if (!poolId) {
       redirectPath = paths.browsePools();
     }
-    handleError();
+    navigateWithToast(redirectPath, () => toast.error(genericErrorMessage));
   }
 
-  const createApplication = React.useCallback(() => {
-    if (!isCreating && userId && poolId) {
-      executeMutation({ userId, poolId })
-        .then((result) => {
-          if (result.data?.createApplication) {
-            const { id } = result.data.createApplication;
-            const newPath = applicationRevamp
-              ? paths.application(id)
-              : paths.reviewApplication(id);
-            // Redirect user to the application if it exists
-            // Toast success or error
-            if (!result.error) {
-              navigate(newPath, { replace: true });
+  if (
+    mutationCounter.current === 0 &&
+    haveRequiredDataToCreateNewApplication &&
+    checkedForExistingApplications &&
+    !existingApplicationIdToThisPool
+  ) {
+    mutationCounter.current += 1;
+    executeMutation({ userId, poolId })
+      .then((result) => {
+        if (result.data?.createApplication) {
+          const { id } = result.data.createApplication;
+          const newPath = applicationPath(id);
+          // Redirect user to the application if it exists
+          // Toast success or error
+          if (!result.error) {
+            navigateWithToast(newPath, () =>
               toast.success(
                 intl.formatMessage({
                   defaultMessage: "Application created",
                   id: "U/ji+A",
                   description: "Application created successfully",
                 }),
-              );
-            } else {
-              const messageDescriptor = tryFindMessageDescriptor(
-                result.error.message,
-              );
-              const message = intl.formatMessage(
-                messageDescriptor ??
-                  errorMessages.unknownErrorRequestErrorTitle,
-              );
-              handleError(message, newPath);
-            }
-          } else if (result.error?.message) {
+              ),
+            );
+          } else {
             const messageDescriptor = tryFindMessageDescriptor(
               result.error.message,
             );
             const message = intl.formatMessage(
               messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
             );
-            handleError(message);
-          } else {
-            // Fallback to generic message
-            handleError();
+            navigateWithToast(newPath, () => toast.error(message));
           }
-        })
-        .catch(handleError);
-    }
-  }, [
-    isCreating,
-    userId,
-    poolId,
-    executeMutation,
-    handleError,
-    applicationRevamp,
-    paths,
-    navigate,
-    intl,
-  ]);
-
-  React.useEffect(() => {
-    createApplication();
-  }, [createApplication]);
+        } else if (result.error?.message) {
+          const messageDescriptor = tryFindMessageDescriptor(
+            result.error.message,
+          );
+          const errorMessage = intl.formatMessage(
+            messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
+          );
+          navigateWithToast(redirectPath, () => toast.error(errorMessage));
+        } else {
+          // Fallback to generic message
+          navigateWithToast(redirectPath, () =>
+            toast.error(genericErrorMessage),
+          );
+        }
+      })
+      .catch(() =>
+        navigateWithToast(redirectPath, () => toast.error(genericErrorMessage)),
+      );
+  }
 
   // Don't render the page if the mutation ran already
-  if (hasMutationData) {
+  if (hasNewApplicationData) {
     return null;
   }
 
