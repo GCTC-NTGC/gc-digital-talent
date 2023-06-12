@@ -20,7 +20,7 @@
     "@gc-digital-talent/i18n": "*",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
-    "react-intl": "^6.4.3",
+    "react-intl": "^6.4.4",
     "react-router-dom": "^6.12.0"
   },
   "devDependencies": {

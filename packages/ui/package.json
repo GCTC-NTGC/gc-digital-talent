@@ -72,7 +72,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "jest-presets": "*",
     "react": "^18.2.0",
-    "react-intl": "^6.4.3",
+    "react-intl": "^6.4.4",
     "react-router-dom": "^6.12.0",
     "rimraf": "^5.0.1",
     "storybook-helpers": "*",
