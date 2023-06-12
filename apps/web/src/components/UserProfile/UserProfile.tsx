@@ -23,25 +23,17 @@ import type { Applicant } from "~/api/generated";
 
 import {
   aboutSectionHasEmptyRequiredFields,
-  aboutSectionHasEmptyOptionalFields,
   diversityEquityInclusionSectionHasEmptyRequiredFields,
-  diversityEquityInclusionSectionHasEmptyOptionalFields,
   governmentInformationSectionHasEmptyRequiredFields,
-  governmentInformationSectionHasEmptyOptionalFields,
   languageInformationSectionHasEmptyRequiredFields,
-  languageInformationSectionHasEmptyOptionalFields,
   roleSalarySectionHasEmptyRequiredFields,
-  roleSalarySectionHasEmptyOptionalFields,
   workLocationSectionHasEmptyRequiredFields,
-  workLocationSectionHasEmptyOptionalFields,
   workPreferencesSectionHasEmptyRequiredFields,
-  workPreferencesSectionHasEmptyOptionalFields,
 } from "~/validators/profile";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import ExperienceSection from "./ExperienceSection";
-import { StatusItem } from "../InfoItem";
-import { Status } from "../InfoItem/StatusItem";
+import { StatusItem, Status } from "../StatusItem/StatusItem";
 import AboutSection from "./ProfileSections/AboutSection";
 import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
 import GovernmentInformationSection from "./ProfileSections/GovernmentInformationSection";
@@ -49,6 +41,7 @@ import LanguageInformationSection from "./ProfileSections/LanguageInformationSec
 import RoleSalarySection from "./ProfileSections/RoleSalarySection";
 import WorkLocationSection from "./ProfileSections/WorkLocationSection";
 import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
+import { PAGE_SECTION_ID } from "./constants";
 
 interface SectionControl {
   isVisible: boolean;
@@ -153,11 +146,10 @@ const UserProfile = ({
 
   const sectionStatus = (
     hasEmptyRequiredFields: (applicant: Applicant) => boolean,
-    hasEmptyOptionalFields: (applicant: Applicant) => boolean,
   ): Status | undefined => {
     if (!featureFlags.applicantDashboard) return undefined;
     if (hasEmptyRequiredFields(applicant)) return "error";
-    if (hasEmptyOptionalFields(applicant)) return "partial";
+
     return "success";
   };
 
@@ -166,24 +158,21 @@ const UserProfile = ({
       {isNavigationVisible && (
         <TableOfContents.Navigation>
           {showSection("myStatus") && (
-            <TableOfContents.AnchorLink id="status-section">
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.STATUS}>
               {intl.formatMessage(navigationMessages.myStatus)}
             </TableOfContents.AnchorLink>
           )}
           {showSection("about") && (
-            <TableOfContents.AnchorLink id="about-section">
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ABOUT}>
               <StatusItem
                 asListItem={false}
                 title={intl.formatMessage(navigationMessages.aboutMe)}
-                status={sectionStatus(
-                  aboutSectionHasEmptyRequiredFields,
-                  aboutSectionHasEmptyOptionalFields,
-                )}
+                status={sectionStatus(aboutSectionHasEmptyRequiredFields)}
               />
             </TableOfContents.AnchorLink>
           )}
           {showSection("employmentEquity") && (
-            <TableOfContents.AnchorLink id="diversity-equity-inclusion-section">
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.DEI}>
               <StatusItem
                 asListItem={false}
                 title={intl.formatMessage(
@@ -191,13 +180,12 @@ const UserProfile = ({
                 )}
                 status={sectionStatus(
                   diversityEquityInclusionSectionHasEmptyRequiredFields,
-                  diversityEquityInclusionSectionHasEmptyOptionalFields,
                 )}
               />
             </TableOfContents.AnchorLink>
           )}
           {showSection("language") && (
-            <TableOfContents.AnchorLink id="language-section">
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.LANGUAGE}>
               <StatusItem
                 asListItem={false}
                 title={intl.formatMessage(
@@ -205,13 +193,12 @@ const UserProfile = ({
                 )}
                 status={sectionStatus(
                   languageInformationSectionHasEmptyRequiredFields,
-                  languageInformationSectionHasEmptyOptionalFields,
                 )}
               />
             </TableOfContents.AnchorLink>
           )}
           {showSection("government") && (
-            <TableOfContents.AnchorLink id="government-section">
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.GOVERNMENT}>
               <StatusItem
                 asListItem={false}
                 title={intl.formatMessage(
@@ -219,60 +206,68 @@ const UserProfile = ({
                 )}
                 status={sectionStatus(
                   governmentInformationSectionHasEmptyRequiredFields,
-                  governmentInformationSectionHasEmptyOptionalFields,
                 )}
               />
             </TableOfContents.AnchorLink>
           )}
           {showSection("workLocation") && (
-            <TableOfContents.AnchorLink id="work-location-section">
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.WORK_LOCATION}>
               <StatusItem
                 asListItem={false}
                 title={intl.formatMessage(navigationMessages.workLocation)}
                 status={sectionStatus(
                   workLocationSectionHasEmptyRequiredFields,
-                  workLocationSectionHasEmptyOptionalFields,
                 )}
               />
             </TableOfContents.AnchorLink>
           )}
           {showSection("workPreferences") && (
-            <TableOfContents.AnchorLink id="work-preferences-section">
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.WORK_PREFERENCES}>
               <StatusItem
                 asListItem={false}
                 title={intl.formatMessage(navigationMessages.workPreferences)}
                 status={sectionStatus(
                   workPreferencesSectionHasEmptyRequiredFields,
-                  workPreferencesSectionHasEmptyOptionalFields,
                 )}
               />
             </TableOfContents.AnchorLink>
           )}
           {showSection("roleSalary") && (
-            <TableOfContents.AnchorLink id="role-and-salary-section">
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ROLE_AND_SALARY}>
               <StatusItem
                 asListItem={false}
                 title={intl.formatMessage(
                   navigationMessages.roleSalaryExpectations,
                 )}
-                status={sectionStatus(
-                  roleSalarySectionHasEmptyRequiredFields,
-                  roleSalarySectionHasEmptyOptionalFields,
-                )}
+                status={sectionStatus(roleSalarySectionHasEmptyRequiredFields)}
               />
             </TableOfContents.AnchorLink>
           )}
           {showSection("skillsExperience") && (
-            <TableOfContents.AnchorLink id="skills-and-experience-section">
+            <TableOfContents.AnchorLink
+              id={PAGE_SECTION_ID.SKILLS_AND_EXPERIENCE}
+            >
               {intl.formatMessage(navigationMessages.mySkillsExperience)}
             </TableOfContents.AnchorLink>
           )}
+          {/* {showSection("accountAndPrivacy") && (
+            <TableOfContents.AnchorLink
+              id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Account and privacy settings",
+                id: "",
+                description:
+                  "Title of the Account and privacy settings link section",
+              })}
+            </TableOfContents.AnchorLink>
+          )} */}
         </TableOfContents.Navigation>
       )}
       <TableOfContents.Content>
         {subTitle}
         {showSection("myStatus") && (
-          <TableOfContents.Section id="status-section">
+          <TableOfContents.Section id={PAGE_SECTION_ID.STATUS}>
             <HeadingWrapper show={!!sections.myStatus?.editUrl}>
               <div
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
@@ -302,7 +297,7 @@ const UserProfile = ({
           </TableOfContents.Section>
         )}
         {showSection("about") && (
-          <TableOfContents.Section id="about-section">
+          <TableOfContents.Section id={PAGE_SECTION_ID.ABOUT}>
             <HeadingWrapper show={!!sections.about?.editUrl}>
               <div
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
@@ -339,7 +334,7 @@ const UserProfile = ({
           </TableOfContents.Section>
         )}
         {showSection("employmentEquity") && (
-          <TableOfContents.Section id="diversity-equity-inclusion-section">
+          <TableOfContents.Section id={PAGE_SECTION_ID.DEI}>
             <HeadingWrapper show={!!sections.employmentEquity?.editUrl}>
               <div
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
@@ -383,7 +378,7 @@ const UserProfile = ({
           </TableOfContents.Section>
         )}
         {showSection("language") && (
-          <TableOfContents.Section id="language-section">
+          <TableOfContents.Section id={PAGE_SECTION_ID.LANGUAGE}>
             <HeadingWrapper show={!!sections.language?.editUrl}>
               <div
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
@@ -425,7 +420,7 @@ const UserProfile = ({
           </TableOfContents.Section>
         )}
         {showSection("government") && (
-          <TableOfContents.Section id="government-section">
+          <TableOfContents.Section id={PAGE_SECTION_ID.GOVERNMENT}>
             <HeadingWrapper show={!!sections.government?.editUrl}>
               <div
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
@@ -467,7 +462,7 @@ const UserProfile = ({
           </TableOfContents.Section>
         )}
         {showSection("workLocation") && (
-          <TableOfContents.Section id="work-location-section">
+          <TableOfContents.Section id={PAGE_SECTION_ID.WORK_LOCATION}>
             <HeadingWrapper show={!!sections.workLocation?.editUrl}>
               <div
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
@@ -506,7 +501,7 @@ const UserProfile = ({
           </TableOfContents.Section>
         )}
         {showSection("workPreferences") && (
-          <TableOfContents.Section id="work-preferences-section">
+          <TableOfContents.Section id={PAGE_SECTION_ID.WORK_PREFERENCES}>
             <HeadingWrapper show={!!sections.workPreferences?.editUrl}>
               <div
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
@@ -548,7 +543,7 @@ const UserProfile = ({
           </TableOfContents.Section>
         )}
         {showSection("roleSalary") && (
-          <TableOfContents.Section id="role-and-salary-section">
+          <TableOfContents.Section id={PAGE_SECTION_ID.ROLE_AND_SALARY}>
             <HeadingWrapper show={!!sections.roleSalary?.editUrl}>
               <div
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
@@ -592,7 +587,7 @@ const UserProfile = ({
           </TableOfContents.Section>
         )}
         {showSection("skillsExperience") && (
-          <TableOfContents.Section id="skills-and-experience-section">
+          <TableOfContents.Section id={PAGE_SECTION_ID.SKILLS_AND_EXPERIENCE}>
             <HeadingWrapper show={!!sections.skillsExperience?.editUrl}>
               <div
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
