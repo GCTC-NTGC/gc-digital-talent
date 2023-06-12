@@ -68,7 +68,7 @@ const QualifiedRecruitmentCard = ({
   return (
     <div
       data-h2-border-left="base(x.5 solid secondary)"
-      data-h2-padding="base(x1)"
+      data-h2-padding="base(x1 x1 x.5 x1)"
       data-h2-shadow="base(larger)"
       data-h2-radius="base(0 rounded rounded 0)"
       data-h2-background-color="base(white) base:dark(black)"
@@ -78,14 +78,8 @@ const QualifiedRecruitmentCard = ({
         data-h2-align-items="base(center)"
         data-h2-justify-content="base(space-between)"
         data-h2-gap="base(0 x1)"
-        data-h2-margin-bottom="base(x.5)"
       >
-        <Heading
-          level={headingLevel}
-          size="h6"
-          data-h2-margin="base(0)"
-          data-h2-font-weight="base(400)"
-        >
+        <Heading level={headingLevel} size="h6" data-h2-margin="base(0)">
           {title.html}
         </Heading>
         <Pill mode="outline" color={statusPillInfo.color}>
@@ -106,7 +100,10 @@ const QualifiedRecruitmentCard = ({
           )}
         </Pill>
       </div>
-      <p data-h2-color="base(secondary.darker)" data-h2-margin="base(x1 0)">
+      <p
+        data-h2-color="base(secondary.darker)"
+        data-h2-margin="base(x.5 0 x1 0)"
+      >
         {isOngoing
           ? intl.formatMessage({
               defaultMessage: "Ongoing recruitment",
@@ -194,6 +191,7 @@ const QualifiedRecruitmentCard = ({
             level={contentHeadingLevel}
             size="h6"
             data-h2-font-size="base(copy)"
+            data-h2-margin="base(x1 0)"
           >
             {intl.formatMessage(
               {
@@ -213,7 +211,7 @@ const QualifiedRecruitmentCard = ({
               <Heading
                 level={incrementHeadingRank(contentHeadingLevel)}
                 Icon={GlobeAmericasIcon}
-                data-h2-margin="base(x.75 0 x.5 0)"
+                data-h2-margin="base(x1 0 x.5 0)"
                 data-h2-font-size="base(copy)"
                 data-h2-font-weight="base(700)"
                 color="secondary"
@@ -238,7 +236,7 @@ const QualifiedRecruitmentCard = ({
               <Heading
                 level={incrementHeadingRank(contentHeadingLevel)}
                 Icon={BoltIcon}
-                data-h2-margin="base(x.75 0 x.5 0)"
+                data-h2-margin="base(x1 0 x.5 0)"
                 data-h2-font-size="base(copy)"
                 data-h2-font-weight="base(700)"
                 color="secondary"
@@ -263,7 +261,7 @@ const QualifiedRecruitmentCard = ({
         decorative
         data-h2-background-color="base(gray.lighter)"
         data-h2-width="base(calc(100% + x2))"
-        data-h2-margin="base(x1 -x1)"
+        data-h2-margin="base(x1 -x1 x.5 -x1)"
       />
       <div
         data-h2-display="base(flex)"
