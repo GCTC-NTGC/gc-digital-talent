@@ -63,9 +63,7 @@ const AddSkillToExperienceDialog = ({ skills, onSave }: SkillDialogProps) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
-        <Button color="blue" mode="solid">
-          {title}
-        </Button>
+        <Button color="secondary">{title}</Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{title}</Dialog.Header>
@@ -83,14 +81,12 @@ const AddSkillToExperienceDialog = ({ skills, onSave }: SkillDialogProps) => {
                     {...(skill
                       ? {
                           disabled: isSubmitting,
-                          color: "blue",
-                          mode: "solid",
+                          color: "secondary",
                           "aria-describedby": undefined,
                         }
                       : {
                           disabled: true,
                           color: "black",
-                          mode: "outline",
                           "aria-describedby": "skill-submit-help",
                         })}
                   >
@@ -122,7 +118,6 @@ const AddSkillToExperienceDialog = ({ skills, onSave }: SkillDialogProps) => {
                   <Button
                     type="button"
                     mode="inline"
-                    color="blue"
                     data-h2-padding="base(x.5, 0)"
                   >
                     {intl.formatMessage({

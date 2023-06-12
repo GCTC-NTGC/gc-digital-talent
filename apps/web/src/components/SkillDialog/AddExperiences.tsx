@@ -8,7 +8,7 @@ import { Select } from "@gc-digital-talent/forms";
 
 import { AnyExperience } from "~/types/experience";
 import { Skill } from "~/api/generated";
-import { getExperienceTitle } from "~/utils/experienceUtils";
+import { getExperienceName } from "~/utils/experienceUtils";
 
 import ExperienceHelpMessage from "./ExperienceHelpMessage";
 import DetailsTextArea from "./DetailsTextArea";
@@ -71,7 +71,7 @@ const AddExperiences = ({
               })}
               options={experiences.map((experience) => ({
                 value: experience.id,
-                label: getExperienceTitle(experience, intl),
+                label: getExperienceName(experience, intl, false),
               }))}
             />
             <DetailsTextArea
@@ -83,7 +83,7 @@ const AddExperiences = ({
             <Button
               type="button"
               mode="inline"
-              color="red"
+              color="tertiary"
               onClick={() => remove(index)}
             >
               {intl.formatMessage(
@@ -101,7 +101,7 @@ const AddExperiences = ({
       </div>
       <Button
         type="button"
-        color="purple"
+        color="primary"
         block
         onClick={() => {
           append({
