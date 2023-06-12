@@ -6294,10 +6294,6 @@
     "defaultMessage": "Tableau de bord",
     "description": "Page title for the applicant dashboard page."
   },
-  "LRZeax": {
-    "defaultMessage": "Mon tableau de bord",
-    "description": "Label displayed on the applicant dashboard menu item."
-  },
   "293bsq": {
     "defaultMessage": "Gestion d’un processus de recrutement",
     "description": "Heading for pool operator dashboard links"
@@ -8206,5 +8202,9 @@
   "Xpo+u6": {
     "defaultMessage": "Compétences utiles",
     "description": "Title for the optional skills snapshot section"
+  },
+  "76KLtb": {
+    "defaultMessage": "Profil et candidatures",
+    "description": "Label displayed on the applicant dashboard menu item."
   }
 }
