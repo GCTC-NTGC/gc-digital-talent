@@ -14,4 +14,10 @@ export const EXPIRED_STATUSES = [
   PoolCandidateStatus.Expired,
 ];
 
+export const PLACED_STATUSES = [
+  PoolCandidateStatus.PlacedCasual,
+  PoolCandidateStatus.PlacedTerm,
+  PoolCandidateStatus.PlacedIndeterminate,
+];
+
 export const ONGOING_PUBLISHING_GROUPS = [PublishingGroup.ItJobsOngoing];

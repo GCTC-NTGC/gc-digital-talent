@@ -4,6 +4,7 @@ import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import GlobeAmericasIcon from "@heroicons/react/24/solid/GlobeAmericasIcon";
 import BoltIcon from "@heroicons/react/24/solid/BoltIcon";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import {
   Button,
@@ -21,13 +22,12 @@ import { PoolCandidate, SkillCategory } from "~/api/generated";
 import { fullPoolTitle } from "~/utils/poolUtils";
 import { categorizeSkill } from "~/utils/skillUtils";
 
-import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
-import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
 import {
   getStatusPillInfo,
   isOngoingPublishingGroup,
   isQualifiedStatus,
 } from "./utils";
+import AvailabilityMessage from "./AvailabilityMessage";
 
 interface QualifiedRecruitmentCardProps {
   candidate: PoolCandidate;
@@ -271,7 +271,13 @@ const QualifiedRecruitmentCard = ({
         data-h2-align-items="base(center)"
         data-h2-justify-content="base(space-between)"
       >
-        <div />
+        <div>
+          <AvailabilityMessage
+            id={candidate.id}
+            status={candidate.status}
+            isSuspended={!!candidate.suspendedAt}
+          />
+        </div>
         <Button
           mode="inline"
           color="black"

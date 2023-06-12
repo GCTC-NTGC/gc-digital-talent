@@ -74,3 +74,11 @@ Expired.args = {
     status: PoolCandidateStatus.Expired,
   },
 };
+
+export const Placed = Template.bind({});
+Placed.args = {
+  candidate: {
+    ...mockCandidate,
+    status: PoolCandidateStatus.PlacedCasual,
+  },
+};
