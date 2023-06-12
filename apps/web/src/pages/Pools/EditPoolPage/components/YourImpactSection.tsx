@@ -12,7 +12,6 @@ import {
   UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
-import Spacer from "~/components/Spacer/Spacer";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
