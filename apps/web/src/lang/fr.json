@@ -2477,10 +2477,6 @@
     "defaultMessage": "Parcourez les emplois",
     "description": "Title for the browse pools page"
   },
-  "E2HkVa": {
-    "defaultMessage": "Rechercher les bassins de talents",
-    "description": "Page title for the search page"
-  },
   "ZxLDpB": {
     "defaultMessage": "Profil de candidature",
     "description": "Page title for pool application review"
@@ -8206,5 +8202,9 @@
   "BunlKD": {
     "defaultMessage": "Rechercher dans la base de données des Talents numériques du GC",
     "description": "Main heading displayed at the top of request page."
+  },
+  "ccBhi2": {
+    "defaultMessage": "Trouvez des talents",
+    "description": "Page title for the search page"
   }
 }
