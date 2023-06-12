@@ -81,37 +81,38 @@ const YourImpactSection = ({
       </p>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleSave)}>
-          <div data-h2-display="base(flex)">
-            <Spacer style={{ flex: 1 }}>
-              <TextArea
-                id="yourImpactEn"
-                label={intl.formatMessage({
-                  defaultMessage: "English - Your impact",
-                  id: "NfRLs/",
-                  description:
-                    "Label for the English - Your Impact textarea in the edit pool page.",
-                })}
-                name="yourImpactEn"
-                {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_EN })}
-                rows={TEXT_AREA_ROWS}
-                disabled={formDisabled}
-              />
-            </Spacer>
-            <Spacer style={{ flex: 1 }}>
-              <TextArea
-                id="yourImpactFr"
-                label={intl.formatMessage({
-                  defaultMessage: "French - Your impact",
-                  id: "fPy7Mg",
-                  description:
-                    "Label for the French - Your Impact textarea in the edit pool page.",
-                })}
-                name="yourImpactFr"
-                {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_FR })}
-                rows={TEXT_AREA_ROWS}
-                disabled={formDisabled}
-              />
-            </Spacer>
+          <div
+            data-h2-display="base(grid)"
+            data-h2-gap="base(x1)"
+            data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
+            data-h2-margin="base(x1 0)"
+          >
+            <TextArea
+              id="yourImpactEn"
+              label={intl.formatMessage({
+                defaultMessage: "English - Your impact",
+                id: "NfRLs/",
+                description:
+                  "Label for the English - Your Impact textarea in the edit pool page.",
+              })}
+              name="yourImpactEn"
+              {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_EN })}
+              rows={TEXT_AREA_ROWS}
+              disabled={formDisabled}
+            />
+            <TextArea
+              id="yourImpactFr"
+              label={intl.formatMessage({
+                defaultMessage: "French - Your impact",
+                id: "fPy7Mg",
+                description:
+                  "Label for the French - Your Impact textarea in the edit pool page.",
+              })}
+              name="yourImpactFr"
+              {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_FR })}
+              rows={TEXT_AREA_ROWS}
+              disabled={formDisabled}
+            />
           </div>
 
           {!formDisabled && (

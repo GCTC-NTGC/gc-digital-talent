@@ -81,37 +81,38 @@ const WorkTasksSection = ({
       </p>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleSave)}>
-          <div data-h2-display="base(flex)">
-            <Spacer style={{ flex: 1 }}>
-              <TextArea
-                id="YourWorkEn"
-                label={intl.formatMessage({
-                  defaultMessage: "English - Your work",
-                  id: "lb7SoP",
-                  description:
-                    "Label for the English - Your Work textarea in the edit pool page.",
-                })}
-                name="YourWorkEn"
-                rows={TEXT_AREA_ROWS}
-                {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_EN })}
-                disabled={formDisabled}
-              />
-            </Spacer>
-            <Spacer style={{ flex: 1 }}>
-              <TextArea
-                id="YourWorkFr"
-                label={intl.formatMessage({
-                  defaultMessage: "French - Your work",
-                  id: "8bJgxK",
-                  description:
-                    "Label for the French - Your Work textarea in the edit pool page.",
-                })}
-                name="YourWorkFr"
-                {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_FR })}
-                rows={TEXT_AREA_ROWS}
-                disabled={formDisabled}
-              />
-            </Spacer>
+          <div
+            data-h2-display="base(grid)"
+            data-h2-gap="base(x1)"
+            data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
+            data-h2-margin="base(x1 0)"
+          >
+            <TextArea
+              id="YourWorkEn"
+              label={intl.formatMessage({
+                defaultMessage: "English - Your work",
+                id: "lb7SoP",
+                description:
+                  "Label for the English - Your Work textarea in the edit pool page.",
+              })}
+              name="YourWorkEn"
+              rows={TEXT_AREA_ROWS}
+              {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_EN })}
+              disabled={formDisabled}
+            />
+            <TextArea
+              id="YourWorkFr"
+              label={intl.formatMessage({
+                defaultMessage: "French - Your work",
+                id: "8bJgxK",
+                description:
+                  "Label for the French - Your Work textarea in the edit pool page.",
+              })}
+              name="YourWorkFr"
+              {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_FR })}
+              rows={TEXT_AREA_ROWS}
+              disabled={formDisabled}
+            />
           </div>
 
           {!formDisabled && (
