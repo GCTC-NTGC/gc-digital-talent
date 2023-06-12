@@ -156,7 +156,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
                   {pool.essentialSkills.map((skill) => (
                     <Chip
                       key={skill.id}
-                      color="blue"
+                      color="secondary"
                       mode="outline"
                       label={getLocalizedName(skill.name, intl)}
                     />
