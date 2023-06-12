@@ -1,8 +1,14 @@
 import React from "react";
 import { IntlShape } from "react-intl";
+import isPast from "date-fns/isPast";
+import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
+import NoSymbolIcon from "@heroicons/react/20/solid/NoSymbolIcon";
+import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Color, IconType } from "@gc-digital-talent/ui";
 import { getPoolCandidateStatus } from "@gc-digital-talent/i18n";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { Maybe, PoolCandidateStatus, PublishingGroup } from "~/api/generated";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -12,17 +18,6 @@ import {
   ONGOING_PUBLISHING_GROUPS,
   PLACED_STATUSES,
 } from "~/constants/poolCandidate";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import isPast from "date-fns/isPast";
-import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
-import NoSymbolIcon from "@heroicons/react/20/solid/NoSymbolIcon";
-import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
-import StarIcon from "@heroicons/react/20/solid/StarIcon";
-
-type StatusPillInfo = {
-  color: Color;
-  text: React.ReactNode;
-};
 
 export const isQualifiedStatus = (
   status: Maybe<PoolCandidateStatus>,
@@ -50,6 +45,11 @@ export const isOngoingPublishingGroup = (
   publishingGroup: Maybe<PublishingGroup>,
 ): boolean =>
   publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;
+
+type StatusPillInfo = {
+  color: Color;
+  text: React.ReactNode;
+};
 
 export const getStatusPillInfo = (
   status: Maybe<PoolCandidateStatus>,
