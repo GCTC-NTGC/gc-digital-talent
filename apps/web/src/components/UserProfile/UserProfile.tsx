@@ -23,19 +23,12 @@ import type { Applicant } from "~/api/generated";
 
 import {
   aboutSectionHasEmptyRequiredFields,
-  aboutSectionHasEmptyOptionalFields,
   diversityEquityInclusionSectionHasEmptyRequiredFields,
-  diversityEquityInclusionSectionHasEmptyOptionalFields,
   governmentInformationSectionHasEmptyRequiredFields,
-  governmentInformationSectionHasEmptyOptionalFields,
   languageInformationSectionHasEmptyRequiredFields,
-  languageInformationSectionHasEmptyOptionalFields,
   roleSalarySectionHasEmptyRequiredFields,
-  roleSalarySectionHasEmptyOptionalFields,
   workLocationSectionHasEmptyRequiredFields,
-  workLocationSectionHasEmptyOptionalFields,
   workPreferencesSectionHasEmptyRequiredFields,
-  workPreferencesSectionHasEmptyOptionalFields,
 } from "~/validators/profile";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -153,11 +146,10 @@ const UserProfile = ({
 
   const sectionStatus = (
     hasEmptyRequiredFields: (applicant: Applicant) => boolean,
-    hasEmptyOptionalFields: (applicant: Applicant) => boolean,
   ): Status | undefined => {
     if (!featureFlags.applicantDashboard) return undefined;
     if (hasEmptyRequiredFields(applicant)) return "error";
-    if (hasEmptyOptionalFields(applicant)) return undefined; // status item no longer has partial state
+
     return "success";
   };
 
@@ -175,10 +167,7 @@ const UserProfile = ({
               <StatusItem
                 asListItem={false}
                 title={intl.formatMessage(navigationMessages.aboutMe)}
-                status={sectionStatus(
-                  aboutSectionHasEmptyRequiredFields,
-                  aboutSectionHasEmptyOptionalFields,
-                )}
+                status={sectionStatus(aboutSectionHasEmptyRequiredFields)}
               />
             </TableOfContents.AnchorLink>
           )}
@@ -191,7 +180,6 @@ const UserProfile = ({
                 )}
                 status={sectionStatus(
                   diversityEquityInclusionSectionHasEmptyRequiredFields,
-                  diversityEquityInclusionSectionHasEmptyOptionalFields,
                 )}
               />
             </TableOfContents.AnchorLink>
@@ -205,7 +193,6 @@ const UserProfile = ({
                 )}
                 status={sectionStatus(
                   languageInformationSectionHasEmptyRequiredFields,
-                  languageInformationSectionHasEmptyOptionalFields,
                 )}
               />
             </TableOfContents.AnchorLink>
@@ -219,7 +206,6 @@ const UserProfile = ({
                 )}
                 status={sectionStatus(
                   governmentInformationSectionHasEmptyRequiredFields,
-                  governmentInformationSectionHasEmptyOptionalFields,
                 )}
               />
             </TableOfContents.AnchorLink>
@@ -231,7 +217,6 @@ const UserProfile = ({
                 title={intl.formatMessage(navigationMessages.workLocation)}
                 status={sectionStatus(
                   workLocationSectionHasEmptyRequiredFields,
-                  workLocationSectionHasEmptyOptionalFields,
                 )}
               />
             </TableOfContents.AnchorLink>
@@ -243,7 +228,6 @@ const UserProfile = ({
                 title={intl.formatMessage(navigationMessages.workPreferences)}
                 status={sectionStatus(
                   workPreferencesSectionHasEmptyRequiredFields,
-                  workPreferencesSectionHasEmptyOptionalFields,
                 )}
               />
             </TableOfContents.AnchorLink>
@@ -255,10 +239,7 @@ const UserProfile = ({
                 title={intl.formatMessage(
                   navigationMessages.roleSalaryExpectations,
                 )}
-                status={sectionStatus(
-                  roleSalarySectionHasEmptyRequiredFields,
-                  roleSalarySectionHasEmptyOptionalFields,
-                )}
+                status={sectionStatus(roleSalarySectionHasEmptyRequiredFields)}
               />
             </TableOfContents.AnchorLink>
           )}
