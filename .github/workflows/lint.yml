@@ -50,3 +50,22 @@ jobs:
         if: always()
         working-directory: ./
         run: npm run tsc
+
+        # Test for Hydrogen build issues
+      - name: "Run Hydrogen build"
+        if: always()
+        working-directory: ./
+        run: |
+          npm run css:build | tee hydrogen.log
+
+      - name: "Check Hydrogen log"
+        working-directory: ./
+        id: check_errors
+        run: echo "errors=$(grep "Error" hydrogen.log | wc -l)"" >> "$GITHUB_OUTPUT"
+
+      - name: "Assess Hydrogen log"
+        if: steps.check_errors.outputs.errors != 0
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.setFailed('Hydrogen build errors found')
