@@ -22,7 +22,7 @@ import { PoolCandidate, SkillCategory } from "~/api/generated";
 import { categorizeSkill } from "~/utils/skillUtils";
 
 import { getQualifiedRecruitmentInfo, joinDepartments } from "./utils";
-import AvailabilityDialog from "./AvailabilityDialog";
+import RecruitmentAvailabilityDialog from "../RecruitmentAvailabilityDialog/RecruitmentAvailabilityDialog";
 
 interface QualifiedRecruitmentCardProps {
   candidate: PoolCandidate;
@@ -283,6 +283,7 @@ const QualifiedRecruitmentCard = ({
             data-h2-align-items="base(flex-start) p-tablet(center)"
             data-h2-gap="base(0 x.25)"
             data-h2-line-height="base(1)"
+            data-h2-flex-grow="base(0)"
           >
             <AvailabilityIcon
               data-h2-height="base(auto)"
@@ -294,7 +295,7 @@ const QualifiedRecruitmentCard = ({
           </p>
           {availability.showDialog && (
             <div data-h2-flex-shrink="base(0)">
-              <AvailabilityDialog candidate={candidate} />
+              <RecruitmentAvailabilityDialog candidate={candidate} />
             </div>
           )}
         </div>
