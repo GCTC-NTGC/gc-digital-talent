@@ -534,14 +534,6 @@
     "defaultMessage": "Formulaire de demande",
     "description": "Heading for request form."
   },
-  "NXzsK4": {
-    "defaultMessage": "Recherche dans le bassin de talents numériques",
-    "description": "Main heading displayed at the top of request page."
-  },
-  "SZTFJq": {
-    "defaultMessage": "Recherche dans le bassin de talents numériques",
-    "description": "Title displayed in the hero section of the Search page."
-  },
   "AaoxNX": {
     "defaultMessage": "Utilisez les filtres ci-dessous pour préciser vos besoins d’embauche. En tout temps, vous pouvez consulter les résultats situés en bas de cette page pour voir combien de candidats correspondent aux exigences que vous avez entrées. Lorsque vous êtes satisfait des filtres que vous avez sélectionnés, cliquez sur le bouton Demander des candidats pour ajouter des renseignements et soumettre un formulaire de demande.",
     "description": "Content displayed in the How To area of the hero section of the Search page."
@@ -561,10 +553,6 @@
   "y827h2": {
     "defaultMessage": "Sélectionnez un ministère",
     "description": "Null selection for department select input in the request form."
-  },
-  "XSxaGk": {
-    "defaultMessage": "Ce bassin est ouvert à la plupart des ministères et organismes. Les candidats dans le bassin sont à la fois des professionnels en début de carrière et des professionnels chevronnés ayant plusieurs années d’expérience de travail. Il s’agit d’un bassin de recrutement continu, ce qui signifie que de nouveaux candidats sont ajoutés chaque semaine.",
-    "description": "Content displayed in the About area of the hero section of the Search page."
   },
   "dlRmxI": {
     "defaultMessage": "Les gestionnaires peuvent demander à consulter des candidats selon leur groupe d’équité en matière d’emploi afin de traiter de certaines lacunes actuelles ou futures par rapport à leur représentation dans le cadre des effectifs. Les catégories reflètent les données sur l’équité en matière d’emploi telles qu’elles sont définies par la Loi sur l’emploi dans la fonction publique, et qui sont recueillies par l’entremise du processus de dotation de la Commission de la fonction publique (CFP). À des fins d’uniformité, la présente plateforme reflète la terminologie de la CFP par rapport aux catégories.",
@@ -632,10 +620,6 @@
   "RGzfes": {
     "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste.",
     "description": "Message describing the work language ability filter in the search form."
-  },
-  "9hdbFi": {
-    "defaultMessage": "À propos du bassin de talents numériques",
-    "description": "Heading displayed in the About area of the hero section of the Search page."
   },
   "0H0CLx": {
     "defaultMessage": "Accordé à",
@@ -2492,10 +2476,6 @@
   "ApyEMy": {
     "defaultMessage": "Parcourez les emplois",
     "description": "Title for the browse pools page"
-  },
-  "E2HkVa": {
-    "defaultMessage": "Rechercher les bassins de talents",
-    "description": "Page title for the search page"
   },
   "ZxLDpB": {
     "defaultMessage": "Profil de candidature",
@@ -6294,10 +6274,6 @@
     "defaultMessage": "Tableau de bord",
     "description": "Page title for the applicant dashboard page."
   },
-  "LRZeax": {
-    "defaultMessage": "Mon tableau de bord",
-    "description": "Label displayed on the applicant dashboard menu item."
-  },
   "293bsq": {
     "defaultMessage": "Gestion d’un processus de recrutement",
     "description": "Heading for pool operator dashboard links"
@@ -8206,5 +8182,29 @@
   "Xpo+u6": {
     "defaultMessage": "Compétences utiles",
     "description": "Title for the optional skills snapshot section"
+  },
+  "76KLtb": {
+    "defaultMessage": "Profil et candidatures",
+    "description": "Label displayed on the applicant dashboard menu item."
+  },
+  "BVwsnS": {
+    "defaultMessage": "Cette base de données sur les talents est ouverte à la plupart des ministères et organismes. Les candidats de la base de données varient, soit de ceux qui débutent leur carrière, aux professionnels chevronnés qui comptent plusieurs années d’expérience de travail. Il existe de multiples processus de recrutement en cours, ce qui veut donc dire qu’on ajoute de nouveaux candidats chaque semaine.",
+    "description": "Content displayed in the About area of the hero section of the Search page."
+  },
+  "nnMkp+": {
+    "defaultMessage": "Rechercher dans la base de données des Talents numériques du GC",
+    "description": "Title displayed in the hero section of the Search page."
+  },
+  "qnECBT": {
+    "defaultMessage": "À propos de la base de données des Talents numériques du GC",
+    "description": "Heading displayed in the About area of the hero section of the Search page."
+  },
+  "BunlKD": {
+    "defaultMessage": "Rechercher dans la base de données des Talents numériques du GC",
+    "description": "Main heading displayed at the top of request page."
+  },
+  "ccBhi2": {
+    "defaultMessage": "Trouvez des talents",
+    "description": "Page title for the search page"
   }
 }
