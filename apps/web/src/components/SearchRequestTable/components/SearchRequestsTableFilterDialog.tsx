@@ -97,37 +97,33 @@ export const SearchRequestsTableFilterDialog = ({
               defaultValues: activeFilters,
             }}
           >
-            <div data-h2-flex-grid="base(flex-start, x1, x.5)">
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
-                <MultiSelectField
-                  id="status"
-                  label={formatMessage(adminMessages.status)}
-                  options={optionsData.status}
-                />
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-                <MultiSelectField
-                  id="departments"
-                  label={formatMessage(adminMessages.departments)}
-                  options={optionsData.departments}
-                  isLoading={rawGraphqlResults.departments.fetching}
-                />
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-                <MultiSelectField
-                  id="classifications"
-                  label={formatMessage(adminMessages.classifications)}
-                  options={optionsData.classifications}
-                  isLoading={rawGraphqlResults.classifications.fetching}
-                />
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
-                <MultiSelectField
-                  id="streams"
-                  label={formatMessage(adminMessages.streams)}
-                  options={optionsData.streams}
-                />
-              </div>
+            <div
+              data-h2-display="base(grid)"
+              data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
+              data-h2-gap="base(x1)"
+            >
+              <MultiSelectField
+                id="status"
+                label={formatMessage(adminMessages.status)}
+                options={optionsData.status}
+              />
+              <MultiSelectField
+                id="departments"
+                label={formatMessage(adminMessages.departments)}
+                options={optionsData.departments}
+                isLoading={rawGraphqlResults.departments.fetching}
+              />
+              <MultiSelectField
+                id="classifications"
+                label={formatMessage(adminMessages.classifications)}
+                options={optionsData.classifications}
+                isLoading={rawGraphqlResults.classifications.fetching}
+              />
+              <MultiSelectField
+                id="streams"
+                label={formatMessage(adminMessages.streams)}
+                options={optionsData.streams}
+              />
             </div>
             <Dialog.Footer>
               <Footer />
