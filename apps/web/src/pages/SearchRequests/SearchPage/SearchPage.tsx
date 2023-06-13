@@ -13,8 +13,8 @@ const SearchPage = () => {
     <div>
       <SEO
         title={intl.formatMessage({
-          defaultMessage: "Search pools",
-          id: "E2HkVa",
+          defaultMessage: "Find talent",
+          id: "ccBhi2",
           description: "Page title for the search page",
         })}
       />
