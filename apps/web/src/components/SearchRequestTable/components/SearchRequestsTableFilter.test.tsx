@@ -67,13 +67,25 @@ describe("SearchRequestsTableFilterDialog", () => {
     });
 
     // assert filter has everything present
-    expect(screen.getAllByText("Status")).toBeTruthy();
-    expect(screen.getAllByText("Departments")).toBeTruthy();
-    expect(screen.getAllByText("Classifications")).toBeTruthy();
-    expect(screen.getAllByText("Streams")).toBeTruthy();
-    expect(screen.getAllByText("Clear filters")).toBeTruthy();
-    expect(screen.getAllByText("Show results")).toBeTruthy();
+    expect(
+      screen.getByRole("combobox", { name: /status/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("combobox", { name: /departments/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("combobox", { name: /classifications/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("combobox", { name: /streams/i }),
+    ).toBeInTheDocument();
     expect(screen.getAllByRole("combobox")).toHaveLength(4);
+    expect(
+      screen.getByRole("button", { name: /clear filters/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /show results/i }),
+    ).toBeInTheDocument();
 
     // select something and then submit
     await selectFilterOption(/Status/i);
