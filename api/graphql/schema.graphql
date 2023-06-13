@@ -924,6 +924,8 @@ type Query {
   pools: [Pool]! @all @can(ability: "viewAny", model: "Pool")
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
+    publishingGroup: PublishingGroup
+      @where(key: "publishing_group", operator: "=")
   ): [Pool!]!
     @all(scopes: ["wasPublished"])
     @can(ability: "viewAnyPublished", model: "Pool")
