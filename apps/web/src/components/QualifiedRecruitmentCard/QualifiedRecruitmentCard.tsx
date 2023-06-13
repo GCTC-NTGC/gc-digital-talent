@@ -1,9 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
-import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
-import GlobeAmericasIcon from "@heroicons/react/24/solid/GlobeAmericasIcon";
-import BoltIcon from "@heroicons/react/24/solid/BoltIcon";
+import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
+import GlobeAmericasIcon from "@heroicons/react/20/solid/GlobeAmericasIcon";
+import CpuChipIcon from "@heroicons/react/20/solid/CpuChipIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import {
@@ -234,7 +234,7 @@ const QualifiedRecruitmentCard = ({
             <>
               <Heading
                 level={incrementHeadingRank(contentHeadingLevel)}
-                Icon={BoltIcon}
+                Icon={CpuChipIcon}
                 data-h2-margin="base(x1 0 x.5 0)"
                 data-h2-font-size="base(copy)"
                 data-h2-font-weight="base(700)"
