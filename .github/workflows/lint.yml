@@ -56,7 +56,7 @@ jobs:
         if: always()
         working-directory: ./
         run: |
-          npm run css:build | tee hydrogen.log
+          npm run build:css | tee hydrogen.log
 
       - name: "Check Hydrogen log"
         working-directory: ./
