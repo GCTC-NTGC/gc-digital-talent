@@ -62,8 +62,8 @@ import {
   stringToEnumPoolCandidateStatus,
 } from "~/utils/userUtils";
 
+import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
-import PoolCandidateDocument from "./PoolCandidateDocument";
 
 import PoolCandidateTableFilterDialog, {
   FormValues,
@@ -692,8 +692,8 @@ const PoolCandidatesTable = ({
     content: () => componentRef.current,
     pageStyle: printStyles,
     documentTitle: intl.formatMessage({
-      defaultMessage: "Candidate Profiles",
-      id: "UmTNmR",
+      defaultMessage: "Candidate profiles",
+      id: "BXR24h",
       description: "Document title for printing Pool Candidate table results",
     }),
   });
@@ -844,10 +844,7 @@ const PoolCandidatesTable = ({
             ),
           }}
         />
-        <PoolCandidateDocument
-          candidates={selectedCandidates}
-          ref={componentRef}
-        />
+        <ProfileDocument results={selectedCandidates} ref={componentRef} />
       </div>
     </div>
   );
