@@ -787,7 +787,7 @@ const getDisplay = (block?: boolean): StyleRecord => {
 const getFontSize = (mode: ButtonLinkMode): StyleRecord => {
   return styleExclusions.fontSize.includes(mode)
     ? {}
-    : { "data-h2-font-font-ize": "base(copy)" };
+    : { "data-h2-font-size": "base(copy)" };
 };
 
 /**
