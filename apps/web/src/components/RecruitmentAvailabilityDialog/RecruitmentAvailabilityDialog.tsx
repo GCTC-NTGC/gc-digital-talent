@@ -97,13 +97,18 @@ const RecruitmentAvailabilityDialog = ({
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(updateSuspendedAtStatus)}>
               <p data-h2-margin-bottom="base(x1)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "As a successful member of the <strong>{title}</strong> recruitment process, you may be contacted about relevant opportunities.",
-                  id: "mHTt67",
-                  description:
-                    "Text describing what it means to be available in a recruitment",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "As a successful member of the <strong>{title}</strong> recruitment process, you may be contacted about relevant opportunities.",
+                    id: "mHTt67",
+                    description:
+                      "Text describing what it means to be available in a recruitment",
+                  },
+                  {
+                    title: title.html,
+                  },
+                )}
               </p>
               <p data-h2-margin-bottom="base(x1)">
                 {intl.formatMessage({
