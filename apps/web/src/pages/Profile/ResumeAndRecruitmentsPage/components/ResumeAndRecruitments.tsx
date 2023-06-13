@@ -23,7 +23,6 @@ import ProfileFormWrapper from "~/components/ProfileFormWrapper/ProfileFormWrapp
 import { wrapAbbr } from "~/utils/nameUtils";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
-import AddExperienceDialog from "./AddExperienceDialog";
 import { PAGE_SECTION_ID, titles } from "../constants";
 
 type MergedExperiences = Array<
@@ -160,33 +159,19 @@ export const ResumeAndRecruitments = ({
                 />
               </div>
             )}
-            <div data-h2-margin="base(x2, 0, x.5, 0)">
-              <div
-                data-h2-display="base(flex)"
-                data-h2-justify-content="base(flex-end)"
-              >
-                <AddExperienceDialog
-                  data-h2-flex-item="base(1of1)"
-                  applicantId={applicantId}
-                />
-              </div>
-            </div>
-            {!hasResumeItems ? (
-              <Well data-h2-text-align="base(center)">
-                {intl.formatMessage({
-                  defaultMessage: "You haven’t added any résumé items yet.",
-                  id: "SjY+Wn",
-                  description:
-                    "Message to user when no résumé items have been attached to profile.",
-                })}
-              </Well>
-            ) : (
-              <ExperienceSection
-                editParam={applicationParam}
-                experiences={experiences}
-                headingLevel="h2"
-              />
-            )}
+
+            <ExperienceSection
+              editParam={applicationParam}
+              experiences={experiences}
+              headingLevel="h2"
+              applicantId={applicantId}
+              nullMessage={intl.formatMessage({
+                defaultMessage: "You haven’t added any résumé items yet.",
+                id: "SjY+Wn",
+                description:
+                  "Message to user when no résumé items have been attached to profile.",
+              })}
+            />
           </TableOfContents.Section>
           <TableOfContents.Section
             id={PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES}
@@ -230,7 +215,7 @@ export const ResumeAndRecruitments = ({
                       "Message to user when no qualified recruitments have been attached to profile, paragraph one.",
                   })}
                 </p>
-                <a href={paths.browsePools()}>
+                <Link href={paths.browsePools()}>
                   {intl.formatMessage({
                     defaultMessage:
                       "You can get started by applying to available targeted or ongoing recruitment processes.",
@@ -238,7 +223,7 @@ export const ResumeAndRecruitments = ({
                     description:
                       "Message to user when no qualified recruitments have been attached to profile, paragraph two.",
                   })}
-                </a>
+                </Link>
               </Well>
             ) : (
               <span>TODO: qualified recruitments</span>

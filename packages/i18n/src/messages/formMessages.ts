@@ -126,6 +126,21 @@ const formMessages = defineMessages({
     id: "uNArwM",
     description: "Placeholder for form telephone field",
   },
+  byDateDescending: {
+    defaultMessage: "By date (recent first)",
+    id: "uIEYeQ",
+    description: "Select the option to start by date, descending",
+  },
+  byDateAscending: {
+    defaultMessage: "By date (recent last)",
+    id: "cKcrlm",
+    description: "Select the option to start by date, ascending",
+  },
+  allTypes: {
+    defaultMessage: "All types",
+    id: "spoY2L",
+    description: "Select the option to sort or filter by all types",
+  },
 });
 
 export default formMessages;
