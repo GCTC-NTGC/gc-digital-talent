@@ -8,7 +8,6 @@ import { BasicForm, MultiSelectField } from "@gc-digital-talent/forms";
 
 import adminMessages from "~/messages/adminMessages";
 
-import "./SearchRequestsTableFilterDialog.css";
 import useFilterOptions from "./utils";
 
 type Option = { value: string; label: string };

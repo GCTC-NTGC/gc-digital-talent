@@ -1,8 +1,0 @@
-/* Force modal to be near-full screen, regardless of breakpoint */
-[data-h2] #user-table-filter-dialog [data-reach-dialog-content] {
-  width: 95vw;
-}
-
-[data-h2] .search-filter__row > :first-child {
-  margin-left: 0;
-}
