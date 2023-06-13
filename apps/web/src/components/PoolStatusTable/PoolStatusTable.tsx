@@ -71,7 +71,10 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
                   data-h2-padding="base(x.25, 0)"
                 >
                   {candidate.pool ? (
-                    <Link href={paths.poolView(candidate.pool.id)}>
+                    <Link
+                      color="black"
+                      href={paths.poolView(candidate.pool.id)}
+                    >
                       {getFullPoolTitleHtml(intl, candidate.pool)}
                     </Link>
                   ) : (

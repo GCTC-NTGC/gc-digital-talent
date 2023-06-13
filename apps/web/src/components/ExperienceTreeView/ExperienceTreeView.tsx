@@ -1,16 +1,13 @@
 import React from "react";
+import { useIntl } from "react-intl";
+
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocale } from "@gc-digital-talent/i18n";
-import {
-  Accordion,
-  Alert,
-  Button,
-  Card,
-  TreeView,
-} from "@gc-digital-talent/ui";
-import { useIntl } from "react-intl";
+import { Alert, Button, Card, TreeView } from "@gc-digital-talent/ui";
+
 import { Skill } from "~/api/generated";
-import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
+
+import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
 interface ExperienceTreeViewProps {
   skill: Skill;
@@ -48,16 +45,12 @@ const ExperienceTreeView = ({ skill }: ExperienceTreeViewProps) => {
       {experiences.length > 0 &&
         experiences.map((experience) => (
           <TreeView.Item key={experience.id}>
-            <div data-h2-margin="base(-x.5, 0)">
-              <Accordion.Root type="single" collapsible>
-                <ExperienceAccordion experience={experience} />{" "}
-                {/* TODO: Add editUrlPaths when edit experience dialog component is completed. */}
-              </Accordion.Root>
-            </div>
+            <ExperienceCard experience={experience} showEdit={false} />
+            {/* TODO: Add editUrlPaths when edit experience dialog component is completed. */}
           </TreeView.Item>
         ))}
       <TreeView.Item>
-        <Button color="blue" mode="solid" type="button">
+        <Button color="secondary" mode="solid" type="button">
           {intl.formatMessage({
             defaultMessage: "Connect a résumé experience",
             id: "GE9NbK",

@@ -1,15 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { Link } from "@gc-digital-talent/ui";
+
 import { wrapAbbr } from "~/utils/nameUtils";
 
 const contactLink = (chunks: React.ReactNode) => (
-  <a
-    data-h2-color="base(primary)"
+  <Link
+    color="primary"
+    external
     href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
   >
     {chunks}
-  </a>
+  </Link>
 );
 
 const HelpLink = () => {

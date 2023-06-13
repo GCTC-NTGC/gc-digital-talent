@@ -7,7 +7,7 @@ import NestedLanguageProvider from "@gc-digital-talent/i18n/src/components/Neste
 
 import { Messages } from "@gc-digital-talent/i18n";
 import * as micMessages from "~/lang/micCompiled.json";
-import Home from "./Home";
+import { Home } from "./Home";
 
 const messages: Map<string, Messages> = new Map([["mic", micMessages]]);
 

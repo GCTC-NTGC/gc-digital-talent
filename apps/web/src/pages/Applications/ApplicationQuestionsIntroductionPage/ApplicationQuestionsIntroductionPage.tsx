@@ -94,7 +94,6 @@ const ApplicationQuestionsIntroduction = ({
         data-h2-align-items="base(flex-start) l-tablet(center)"
       >
         <Link
-          type="button"
           color="primary"
           mode="solid"
           href={paths.applicationQuestions(application.id)}
@@ -105,12 +104,7 @@ const ApplicationQuestionsIntroduction = ({
             description: "An action button to proceed",
           })}
         </Link>
-        <Link
-          type="button"
-          mode="inline"
-          color="secondary"
-          href={paths.dashboard({ fromIapDraft: isIAP })}
-        >
+        <Link color="secondary" href={paths.dashboard({ fromIapDraft: isIAP })}>
           {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>
       </div>

@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import React from "react";
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
-import Home from "./Home";
+import { Home } from "./Home";
 
 const renderHome = () => renderWithProviders(<Home />);
 

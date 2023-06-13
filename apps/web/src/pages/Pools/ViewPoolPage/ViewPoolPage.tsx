@@ -4,15 +4,13 @@ import { useParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
-import ArrowTopRightOnSquareIcon from "@heroicons/react/24/outline/ArrowTopRightOnSquareIcon";
 import {
   Pending,
   Chip,
   Chips,
-  IconButton,
+  Button,
   NotFound,
   Link,
-  IconLink,
 } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -160,9 +158,8 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
               data-h2-display="base(flex)"
               data-h2-align-items="base(center)"
             >
-              <IconButton
+              <Button
                 data-h2-margin="base(0, x.5, 0, 0)"
-                mode="outline"
                 color="secondary"
                 disabled={linkCopied}
                 icon={linkCopied ? CheckIcon : ClipboardIcon}
@@ -187,16 +184,13 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                         description: "Button text to copy a url",
                       })}
                 </span>
-              </IconButton>
-              <IconLink
+              </Button>
+              <Link
                 data-h2-margin="base(0, x.5, 0, 0)"
-                mode="outline"
+                mode="solid"
                 color="secondary"
-                type="button"
                 href={paths.pool(pool.id)}
-                target="_blank"
-                rel="noopener noreferrer"
-                icon={ArrowTopRightOnSquareIcon}
+                newTab
               >
                 {intl.formatMessage({
                   defaultMessage: "View pool advertisement",
@@ -204,7 +198,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   description:
                     "Link text to view the public facing pool advertisement",
                 })}
-              </IconLink>
+              </Link>
             </div>
           </div>
           <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
@@ -728,12 +722,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
           )}
         </FormProvider>
         <p data-h2-margin="base(x2, 0, 0, 0)">
-          <Link
-            type="button"
-            mode="solid"
-            color="secondary"
-            href={paths.poolTable()}
-          >
+          <Link mode="solid" color="secondary" href={paths.poolTable()}>
             {intl.formatMessage({
               defaultMessage: "Back to pools",
               id: "Pr8bok",

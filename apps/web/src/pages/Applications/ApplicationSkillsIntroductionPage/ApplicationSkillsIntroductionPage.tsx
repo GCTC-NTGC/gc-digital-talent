@@ -97,7 +97,6 @@ const ApplicationSkillsIntroduction = ({
         <Link
           href={paths.applicationSkills(application.id)}
           mode="solid"
-          type="button"
           color="primary"
         >
           {intl.formatMessage({
@@ -113,8 +112,6 @@ const ApplicationSkillsIntroduction = ({
               : paths.myProfile()
           }
           mode="inline"
-          type="button"
-          color="secondary"
         >
           {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>

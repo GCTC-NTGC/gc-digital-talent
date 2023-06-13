@@ -33,7 +33,7 @@ const LogoutConfirmation = ({ children }: LogoutConfirmationProps) => {
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
-            <Button mode="outline" color="primary" type="button">
+            <Button color="primary" type="button">
               {intl.formatMessage({
                 defaultMessage: "Cancel",
                 id: "AhNR6n",
