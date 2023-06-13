@@ -70,28 +70,38 @@ const RecruitmentAvailabilityDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button mode="inline" color="black">
+        <Button
+          mode="inline"
+          color="black"
+          aria-label={intl.formatMessage(
+            {
+              defaultMessage: "Change your availability for {title}",
+              id: "T40tdL",
+              description:
+                "Button text to open form to change availability in a specific recruitment",
+            },
+            {
+              title: title.label,
+            },
+          )}
+        >
           {intl.formatMessage({
             defaultMessage: "Change your availability",
-            id: "YW6HNZ",
+            id: "33wMLU",
             description:
-              "Button text to open form to change availability in a recruitment",
+              "Button text to open form to change availability in a generic recruitment",
           })}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
-          {intl.formatMessage(
-            {
-              defaultMessage: "Change your availability in {title}",
-              id: "87rS5g",
-              description:
-                "Header text for dialog to change availability in a recruitment",
-            },
-            {
-              title: title.html,
-            },
-          )}
+          {intl.formatMessage({
+            defaultMessage:
+              "Change your availability in this recruitment process",
+            id: "OF7SCg",
+            description:
+              "Header text for dialog to change availability in a recruitment",
+          })}
         </Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>
@@ -152,7 +162,15 @@ const RecruitmentAvailabilityDialog = ({
                   },
                 ]}
               />
-              <Dialog.Footer>
+              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+                <Button type="submit" disabled={isSubmitting}>
+                  {intl.formatMessage({
+                    defaultMessage: "Save availability",
+                    id: "nDm9dX",
+                    description:
+                      "Button text to save availability in a recruitment",
+                  })}
+                </Button>
                 <Dialog.Close>
                   <Button mode="inline" color="secondary">
                     {intl.formatMessage({
@@ -162,14 +180,6 @@ const RecruitmentAvailabilityDialog = ({
                     })}
                   </Button>
                 </Dialog.Close>
-                <Button type="submit" disabled={isSubmitting}>
-                  {intl.formatMessage({
-                    defaultMessage: "Save availability",
-                    id: "nDm9dX",
-                    description:
-                      "Button text to save availability in a recruitment",
-                  })}
-                </Button>
               </Dialog.Footer>
             </form>
           </FormProvider>
