@@ -19,7 +19,9 @@ import {
   WorkExperience,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import ProfileFormWrapper from "~/components/ProfileFormWrapper/ProfileFormWrapper";
+import ProfileFormWrapper, {
+  ProfileFormFooter,
+} from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 import { wrapAbbr } from "~/utils/nameUtils";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -63,6 +65,9 @@ export const ResumeAndRecruitments = ({
   const applicationParam = applicationId
     ? `?applicationId=${applicationId}`
     : ``;
+  const returnRoute = applicationId
+    ? paths.reviewApplication(applicationId)
+    : paths.profile(applicantId);
 
   const hasResumeItems = !!experiences?.length;
   const hasQualifiedRecruitments = false;
@@ -231,6 +236,17 @@ export const ResumeAndRecruitments = ({
           </TableOfContents.Section>
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
+      <ProfileFormFooter
+        mode="cancelButton"
+        cancelLink={{
+          href: returnRoute,
+          children: intl.formatMessage(
+            applicationId
+              ? navigationMessages.backToApplication
+              : navigationMessages.backToProfile,
+          ),
+        }}
+      />
     </ProfileFormWrapper>
   );
 };
