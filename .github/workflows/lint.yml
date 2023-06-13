@@ -61,7 +61,7 @@ jobs:
       - name: "Check Hydrogen log"
         working-directory: ./
         id: check_errors
-        run: echo "errors=$(grep "Error" hydrogen.log | wc -l)"" >> "$GITHUB_OUTPUT"
+        run: echo "errors=$(grep \"Error\" hydrogen.log | wc -l)" >> "$GITHUB_OUTPUT"
 
       - name: "Assess Hydrogen log"
         if: steps.check_errors.outputs.errors != 0
