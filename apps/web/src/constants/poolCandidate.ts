@@ -1,4 +1,4 @@
-import { PoolCandidateStatus, PublishingGroup } from "~/api/generated";
+import { PoolCandidateStatus } from "~/api/generated";
 
 export const QUALIFIED_STATUSES = [
   PoolCandidateStatus.QualifiedAvailable,
@@ -19,5 +19,3 @@ export const PLACED_STATUSES = [
   PoolCandidateStatus.PlacedTerm,
   PoolCandidateStatus.PlacedIndeterminate,
 ];
-
-export const ONGOING_PUBLISHING_GROUPS = [PublishingGroup.ItJobsOngoing];

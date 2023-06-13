@@ -18,11 +18,13 @@ import {
   PoolStream,
   Classification,
   Pool,
+  PublishingGroup,
 } from "~/api/generated";
+import { PageNavInfo } from "~/types/pages";
+import useRoutes from "~/hooks/useRoutes";
+import { ONGOING_PUBLISHING_GROUPS } from "~/constants/pool";
 
 import { wrapAbbr } from "./nameUtils";
-import { PageNavInfo } from "../types/pages";
-import useRoutes from "../hooks/useRoutes";
 
 /**
  * Check if a pool matches a
@@ -244,3 +246,8 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
     ],
   ]);
 };
+
+export const isOngoingPublishingGroup = (
+  publishingGroup: Maybe<PublishingGroup>,
+): boolean =>
+  publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;

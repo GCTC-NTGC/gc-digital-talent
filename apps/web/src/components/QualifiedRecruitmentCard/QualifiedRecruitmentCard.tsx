@@ -19,15 +19,10 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
 
 import { PoolCandidate, SkillCategory } from "~/api/generated";
-import { fullPoolTitle } from "~/utils/poolUtils";
 import { categorizeSkill } from "~/utils/skillUtils";
 
-import {
-  getStatusPillInfo,
-  isOngoingPublishingGroup,
-  isQualifiedStatus,
-} from "./utils";
-import AvailabilityMessage from "./AvailabilityMessage";
+import { getQualifiedRecruitmentInfo, joinDepartments } from "./utils";
+import AvailabilityDialog from "./AvailabilityDialog";
 
 interface QualifiedRecruitmentCardProps {
   candidate: PoolCandidate;
@@ -41,15 +36,19 @@ const QualifiedRecruitmentCard = ({
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
-  const title = fullPoolTitle(intl, candidate.pool);
-  const isQualified = isQualifiedStatus(candidate.status);
-  const statusPillInfo = getStatusPillInfo(candidate.status, intl);
-  const isOngoing = isOngoingPublishingGroup(candidate.pool.publishingGroup);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
-  const departments =
-    candidate.pool.team?.departments
-      ?.map((department) => getLocalizedName(department?.name, intl))
-      ?.join(", ") ?? "";
+  const {
+    title,
+    isQualified,
+    isOngoing,
+    statusPill,
+    availability: { icon: AvailabilityIcon, ...availability },
+  } = getQualifiedRecruitmentInfo(candidate, intl);
+
+  const departments = joinDepartments(
+    candidate.pool?.team?.departments ?? [],
+    intl,
+  );
 
   // NOTE: Until we store assessed skills, we will just be displayed all essential skills
   const categorizedSkills = categorizeSkill(
@@ -82,7 +81,7 @@ const QualifiedRecruitmentCard = ({
         <Heading level={headingLevel} size="h6" data-h2-margin="base(0)">
           {title.html}
         </Heading>
-        <Pill mode="outline" color={statusPillInfo.color}>
+        <Pill mode="outline" color={statusPill.color}>
           {isQualified ? (
             <span
               data-h2-display="base(flex)"
@@ -93,10 +92,10 @@ const QualifiedRecruitmentCard = ({
                 data-h2-width="base(1rem)"
                 data-h2-height="base(auto)"
               />
-              <span>{statusPillInfo.text}</span>
+              <span>{statusPill.text}</span>
             </span>
           ) : (
-            statusPillInfo.text
+            statusPill.text
           )}
         </Pill>
       </div>
@@ -265,51 +264,76 @@ const QualifiedRecruitmentCard = ({
       />
       <div
         data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-flex-direction="base(column) p-tablet(row)"
         data-h2-align-items="base(center)"
         data-h2-justify-content="base(space-between)"
+        data-h2-gap="base(x.5 0) p-tablet(0 x.5)"
+        data-h2-text-align="base(center) p-tablet(inherit)"
       >
-        <div>
-          <AvailabilityMessage
-            id={candidate.id}
-            status={candidate.status}
-            isSuspended={!!candidate.suspendedAt}
-          />
-        </div>
-        <Button
-          mode="inline"
-          color="black"
-          icon={linkCopied ? CheckIcon : undefined}
-          onClick={() => {
-            navigator.clipboard.writeText(candidate.id);
-            setLinkCopied(true);
-          }}
-          aria-label={intl.formatMessage(
-            {
-              defaultMessage: "Copy {title} ID to clipboard",
-              id: "leFf/M",
-              description:
-                "Button text to copy a specific qualified recruitment's ID",
-            },
-            {
-              title: title.label,
-            },
-          )}
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column) p-tablet(row)"
+          data-h2-align-items="base(center)"
+          data-h2-justify-content="base(space-between)"
+          data-h2-gap="base(x.5 0) p-tablet(0 x.5)"
+          data-h2-text-align="base(center) p-tablet(inherit)"
         >
-          {linkCopied
-            ? intl.formatMessage({
-                defaultMessage: "Recruitment ID copied",
-                id: "5HJIwt",
-                description:
-                  "Button text to indicate that a specific qualified recruitment's ID has been copied",
-              })
-            : intl.formatMessage({
-                defaultMessage: "Copy recruitment ID",
-                id: "iO72f+",
+          <p
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(flex-start) p-tablet(center)"
+            data-h2-gap="base(0 x.25)"
+            data-h2-line-height="base(1)"
+          >
+            <AvailabilityIcon
+              data-h2-height="base(auto)"
+              data-h2-width="base(1em)"
+              data-h2-flex-shrink="base(0)"
+              {...availability.color}
+            />
+            <span>{availability.text}</span>
+          </p>
+          {availability.showDialog && (
+            <div data-h2-flex-shrink="base(0)">
+              <AvailabilityDialog candidate={candidate} />
+            </div>
+          )}
+        </div>
+        <div data-h2-flex-shrink="base(0)">
+          <Button
+            mode="inline"
+            color="black"
+            icon={linkCopied ? CheckIcon : undefined}
+            onClick={() => {
+              navigator.clipboard.writeText(candidate.id);
+              setLinkCopied(true);
+            }}
+            aria-label={intl.formatMessage(
+              {
+                defaultMessage: "Copy {title} ID to clipboard",
+                id: "leFf/M",
                 description:
                   "Button text to copy a specific qualified recruitment's ID",
-              })}
-        </Button>
+              },
+              {
+                title: title.label,
+              },
+            )}
+          >
+            {linkCopied
+              ? intl.formatMessage({
+                  defaultMessage: "Recruitment ID copied",
+                  id: "5HJIwt",
+                  description:
+                    "Button text to indicate that a specific qualified recruitment's ID has been copied",
+                })
+              : intl.formatMessage({
+                  defaultMessage: "Copy recruitment ID",
+                  id: "iO72f+",
+                  description:
+                    "Button text to copy a specific qualified recruitment's ID",
+                })}
+          </Button>
+        </div>
       </div>
     </div>
   );
