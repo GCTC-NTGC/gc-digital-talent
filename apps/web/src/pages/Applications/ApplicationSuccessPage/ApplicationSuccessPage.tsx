@@ -149,7 +149,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           </Link>
         </p>
       )}
-      <p data-h2-font-size="base(caption)">
+      <p data-h2-font-sizzze="base(caption)">
         {intl.formatMessage({
           defaultMessage:
             "* Note that your confirmation number can also be found on your dashboard.",
