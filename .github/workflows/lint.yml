@@ -38,7 +38,7 @@ jobs:
 
       - name: "Setup: all workspaces"
         working-directory: ./
-        run: npm run build
+        run: npm run build:fresh
 
       - name: "Run ESlint: all workspaces"
         working-directory: ./
