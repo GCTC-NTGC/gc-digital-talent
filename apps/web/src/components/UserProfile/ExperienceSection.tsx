@@ -1,11 +1,10 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
-import { HeadingRank, Well } from "@gc-digital-talent/ui";
-import { formMessages } from "@gc-digital-talent/i18n";
-import { Select } from "@gc-digital-talent/forms";
+import { Accordion, Tabs, HeadingRank, Link } from "@gc-digital-talent/ui";
+import { getLocale } from "@gc-digital-talent/i18n";
 
+import { invertSkillExperienceTree } from "~/utils/skillUtils";
 import {
   compareByDate,
   isAwardExperience,
@@ -14,225 +13,138 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
-import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  Experience,
-  PersonalExperience,
-  WorkExperience,
-} from "~/api/generated";
-import experienceMessages from "~/messages/experienceMessages";
-import AddExperienceDialog from "~/pages/Profile/ResumeAndRecruitmentsPage/components/AddExperienceDialog";
+import { AwardExperience, Experience } from "~/api/generated";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { ExperienceForDate } from "~/types/experience";
-import { PAST_DATE } from "@gc-digital-talent/date-helpers";
+import SkillAccordion from "./SkillAccordion/SkillAccordion";
+import ExperienceByTypeListing from "./ExperienceByTypeListing";
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
-
-type SortOptions = "date_desc" | "date_asc";
-type FilterOptions =
-  | "none"
-  | NonNullable<AwardExperience["__typename"]>
-  | NonNullable<CommunityExperience["__typename"]>
-  | NonNullable<EducationExperience["__typename"]>
-  | NonNullable<PersonalExperience["__typename"]>
-  | NonNullable<WorkExperience["__typename"]>;
-
-type FormValues = {
-  sortBy: SortOptions;
-  filterBy: FilterOptions;
-};
 
 export interface ExperienceSectionProps {
   experiences?: Experience[];
   editParam?: string;
+  editPath?: string;
   headingLevel?: HeadingRank;
-  applicantId?: string;
-  nullMessage?: React.ReactNode;
 }
 
 const ExperienceSection = ({
   experiences,
+  editPath,
   editParam,
   headingLevel = "h3",
-  applicantId,
-  nullMessage,
 }: ExperienceSectionProps) => {
   const intl = useIntl();
-  const methods = useForm<FormValues>({
-    defaultValues: {
-      sortBy: "date_desc",
-      filterBy: "none",
-    },
-  });
-  const { watch } = methods;
-  const [sortBy, filterBy] = watch(["sortBy", "filterBy"]);
+  const locale = getLocale(intl);
 
-  const experiencesNotNull = experiences?.filter(notEmpty) ?? [];
-
-  const experiencesDateNormalized: ExperienceForDate[] = experiencesNotNull.map(
-    (experience) => {
-      if (isAwardExperience(experience)) {
-        const e: ExperienceForDate = {
-          ...experience,
-          startDate: experience.awardedDate ?? PAST_DATE,
-          endDate: experience.awardedDate ?? PAST_DATE,
-        };
-        return e;
-      }
-      return experience;
-    },
+  const awardExperiences = React.useMemo(
+    () =>
+      experiences
+        ?.filter(isAwardExperience)
+        .map(
+          (award: AwardExperience) =>
+            ({
+              ...award,
+              startDate: award.awardedDate,
+              endDate: award.awardedDate,
+            } as AwardExperience & { startDate: string; endDate: string }),
+        )
+        .sort(compareByDate) || [],
+    [experiences],
   );
 
-  let experiencesFiltered;
-  switch (filterBy) {
-    case "AwardExperience":
-      experiencesFiltered = experiencesDateNormalized.filter(isAwardExperience);
-      break;
-    case "CommunityExperience":
-      experiencesFiltered = experiencesDateNormalized.filter(
-        isCommunityExperience,
-      );
-      break;
-    case "EducationExperience":
-      experiencesFiltered = experiencesDateNormalized.filter(
-        isEducationExperience,
-      );
-      break;
-    case "PersonalExperience":
-      experiencesFiltered =
-        experiencesDateNormalized.filter(isPersonalExperience);
-      break;
-    case "WorkExperience":
-      experiencesFiltered = experiencesDateNormalized.filter(isWorkExperience);
-      break;
-    default:
-      experiencesFiltered = experiencesDateNormalized;
+  const communityExperiences = React.useMemo(
+    () => experiences?.filter(isCommunityExperience).sort(compareByDate) || [],
+    [experiences],
+  );
+
+  const educationExperiences = React.useMemo(
+    () => experiences?.filter(isEducationExperience).sort(compareByDate) || [],
+    [experiences],
+  );
+
+  const personalExperiences = React.useMemo(
+    () => experiences?.filter(isPersonalExperience).sort(compareByDate) || [],
+    [experiences],
+  );
+
+  const workExperiences = React.useMemo(
+    () => experiences?.filter(isWorkExperience).sort(compareByDate) || [],
+    [experiences],
+  );
+
+  const allExperiences = React.useMemo(
+    () => [
+      ...awardExperiences,
+      ...communityExperiences,
+      ...educationExperiences,
+      ...personalExperiences,
+      ...workExperiences,
+    ],
+    [
+      awardExperiences,
+      communityExperiences,
+      educationExperiences,
+      personalExperiences,
+      workExperiences,
+    ],
+  );
+
+  const sortedByDate = allExperiences.sort(compareByDate);
+
+  const allSkills = React.useMemo(
+    () => invertSkillExperienceTree(allExperiences),
+    [allExperiences],
+  );
+  const skillIds = allSkills.map(({ id }) => id);
+  const sortedBySkills = allSkills
+    .filter(({ id }, index) => !skillIds.includes(id, index + 1)) //  Remove duplicate skills
+    .sort((skill1, skill2) => {
+      const skill1Name: string = skill1.name[locale] || "";
+      const skill2Name: string = skill2.name[locale] || "";
+      return skill1Name.localeCompare(skill2Name);
+    }); //  Sort skills alphabetically
+
+  let isExperience = false;
+  if (allExperiences.length >= 1) {
+    isExperience = true;
   }
 
-  const experiencesSorted = experiencesFiltered;
-  switch (sortBy) {
-    case "date_asc":
-      experiencesSorted.sort((e1, e2) => {
-        return compareByDate(e1, e2) * -1;
-      });
-      break;
-    case "date_desc":
-      experiencesSorted.sort(compareByDate);
-      break;
-    default:
-      break;
-  }
-
-  const experiencesDisplay = experiencesSorted;
-
-  const hasExperiences = experiencesNotNull.length >= 1;
-
-  const sortOptions: Array<{
-    value: FormValues["sortBy"];
-    label: React.ReactNode;
-  }> = [
-    {
-      value: "date_desc",
-      label: intl.formatMessage(formMessages.byDateDescending),
-    },
-    {
-      value: "date_asc",
-      label: intl.formatMessage(formMessages.byDateAscending),
-    },
+  const tabs = [
+    intl.formatMessage({
+      defaultMessage: "By Date",
+      id: "w+L6oa",
+      description:
+        "Tab title for experiences sorted by date in applicant profile.",
+    }),
+    intl.formatMessage({
+      defaultMessage: "By Type",
+      id: "P/tHlt",
+      description:
+        "Tab title for experiences sorted by type in applicant profile.",
+    }),
+    intl.formatMessage({
+      defaultMessage: "By Skills",
+      id: "JerysR",
+      description:
+        "Tab title for experiences sorted by skills in applicant profile.",
+    }),
   ];
 
-  const filterOptions: Array<{
-    value: FormValues["filterBy"];
-    label: React.ReactNode;
-  }> = [
-    {
-      value: "none",
-      label: intl.formatMessage(formMessages.allTypes),
-    },
-    {
-      value: "AwardExperience",
-      label: intl.formatMessage(experienceMessages.award),
-    },
-    {
-      value: "CommunityExperience",
-      label: intl.formatMessage(experienceMessages.community),
-    },
-    {
-      value: "EducationExperience",
-      label: intl.formatMessage(experienceMessages.education),
-    },
-    {
-      value: "PersonalExperience",
-      label: intl.formatMessage(experienceMessages.personal),
-    },
-    {
-      value: "WorkExperience",
-      label: intl.formatMessage(experienceMessages.work),
-    },
-  ];
-
-  return (
-    <>
-      <FormProvider {...methods}>
-        <form>
-          <div data-h2-flex-grid="base(center, x1, x1)">
-            <div
-              data-h2-flex-item="base(1of1) p-tablet(content)"
-              data-h2-align-self="base(flex-end)"
-            >
-              <Select
-                id="sortBy"
-                label={intl.formatMessage({
-                  defaultMessage: "Sort experience by",
-                  id: "2n0e2i",
-                  description:
-                    "Label for selector to choose experience sort options",
-                })}
-                name="sortBy"
-                options={sortOptions}
-                hideOptional
-                trackUnsaved={false}
-              />
-            </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(content)">
-              <Select
-                id="filterBy"
-                label={intl.formatMessage({
-                  defaultMessage: "Filter experience by type",
-                  id: "PE7mMC",
-                  description:
-                    "Label for selector to choose experience filter options",
-                })}
-                name="filterBy"
-                options={filterOptions}
-                hideOptional
-                trackUnsaved={false}
-              />
-            </div>
-
-            <div data-h2-flex-item="base(0of1) p-tablet(fill)">
-              {/* spacer */}
-            </div>
-            {applicantId ? (
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(content)"
-                data-h2-margin="base(x1, 0)"
-              >
-                <AddExperienceDialog applicantId={applicantId} />
-              </div>
-            ) : null}
-          </div>
-        </form>
-      </FormProvider>
-      {hasExperiences ? (
+  return isExperience ? (
+    <Tabs.Root defaultValue="0">
+      <Tabs.List>
+        {tabs.map((tab, index) => (
+          <Tabs.Trigger key={tab} value={`${index}`}>
+            {tab}
+          </Tabs.Trigger>
+        ))}
+      </Tabs.List>
+      <Tabs.Content value="0">
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x.5 0)"
         >
-          {experiencesDisplay.map((experience) => (
+          {sortedByDate.map((experience) => (
             <ExperienceCard
               headingLevel={headingLevel}
               key={experience.id}
@@ -241,21 +153,64 @@ const ExperienceSection = ({
             />
           ))}
         </div>
+      </Tabs.Content>
+      <Tabs.Content value="1">
+        <ExperienceByTypeListing
+          headingLevel={headingLevel}
+          experiences={experiences}
+          editParam={editParam}
+        />
+      </Tabs.Content>
+      <Tabs.Content value="2">
+        <Accordion.Root type="multiple">
+          {sortedBySkills.map((skill) => (
+            <SkillAccordion
+              key={skill.id}
+              skill={skill}
+              headingLevel={headingLevel}
+            />
+          ))}
+        </Accordion.Root>
+      </Tabs.Content>
+    </Tabs.Root>
+  ) : (
+    <div
+      data-h2-background-color="base(background.dark)"
+      data-h2-border="base(1px solid background.darker)"
+      data-h2-padding="base(x1)"
+      data-h2-radius="base(s)"
+    >
+      {!editPath ? (
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "No information has been provided",
+            id: "4Xa7Pd",
+            description:
+              "Message on Admin side when user not filled Experience section.",
+          })}
+        </p>
       ) : (
-        <Well data-h2-text-align="base(center)">
-          {nullMessage ?? (
-            <p>
+        <>
+          <p data-h2-padding="base(0, 0, x1, 0)">
+            {intl.formatMessage({
+              defaultMessage: "You haven't added any information here yet.",
+              id: "SCCX7B",
+              description: "Message for when no data exists for the section",
+            })}
+          </p>
+          <p>
+            <Link mode="inline" href={editPath}>
               {intl.formatMessage({
-                defaultMessage: "No information has been provided",
-                id: "4Xa7Pd",
+                defaultMessage: "Edit your experience options.",
+                id: "c39xT8",
                 description:
-                  "Message on Admin side when user not filled Experience section.",
+                  "Link text to edit experience information on profile.",
               })}
-            </p>
-          )}
-        </Well>
+            </Link>
+          </p>
+        </>
       )}
-    </>
+    </div>
   );
 };
 

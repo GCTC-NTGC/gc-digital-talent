@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { ThrowNotFound, Pending, Link } from "@gc-digital-talent/ui";
+import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
@@ -102,32 +102,7 @@ export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
             override: (
               <ExperienceSection
                 experiences={experiences?.filter(notEmpty)}
-                nullMessage={
-                  <>
-                    <p data-h2-padding="base(0, 0, x1, 0)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "You haven't added any information here yet.",
-                        id: "SCCX7B",
-                        description:
-                          "Message for when no data exists for the section",
-                      })}
-                    </p>
-                    <p>
-                      <Link
-                        mode="inline"
-                        href={paths.resumeAndRecruitments(userId)}
-                      >
-                        {intl.formatMessage({
-                          defaultMessage: "Edit your experience options.",
-                          id: "c39xT8",
-                          description:
-                            "Link text to edit experience information on profile.",
-                        })}
-                      </Link>
-                    </p>
-                  </>
-                }
+                editPath={paths.resumeAndRecruitments(userId)}
               />
             ),
           },
