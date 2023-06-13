@@ -8,7 +8,6 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { flattenExperienceSkills } from "~/types/experience";
 import MissingSkills from "~/components/MissingSkills";
-import ExperienceSection from "~/components/UserProfile/ExperienceSection";
 import {
   AwardExperience,
   CommunityExperience,
@@ -25,6 +24,7 @@ import ProfileFormWrapper, {
 import { wrapAbbr } from "~/utils/nameUtils";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import ExperienceSection from "./ExperienceSection";
 import { PAGE_SECTION_ID, titles } from "../constants";
 
 type MergedExperiences = Array<
