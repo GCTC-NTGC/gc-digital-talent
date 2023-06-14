@@ -570,6 +570,7 @@ export const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
                       applicationId={applicationId}
                       hasApplied={hasApplied}
                       canApply={canApply}
+                      linkProps={{ color: "primary" }}
                     />
                   ) : (
                     <ApplyDialog />
