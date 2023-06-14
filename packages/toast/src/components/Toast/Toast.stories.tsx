@@ -31,8 +31,8 @@ const Template: Story<StoryArgs> = (args) => {
   toast.warning(text, { autoClose: false });
   toast.error(text, { autoClose: false });
 
-  // no transition to avoid issues with Chromatic snapshots
-  return <Toast disableTransition />;
+  // avoid animations with Chromatic snapshots
+  return <Toast disableTransition autoClose={false} />;
 };
 
 export const BasicToast = Template.bind({});
