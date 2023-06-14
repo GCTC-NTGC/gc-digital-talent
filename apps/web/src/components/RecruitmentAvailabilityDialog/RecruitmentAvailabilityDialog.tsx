@@ -30,7 +30,7 @@ const RecruitmentAvailabilityDialog = ({
   const title = fullPoolTitle(intl, candidate.pool);
 
   const methods = useForm<FormValues>({
-    defaultValues: { isSuspended: isSuspended ? "false" : "true" },
+    defaultValues: { isSuspended: isSuspended ? "true" : "false" },
   });
   const {
     handleSubmit,
@@ -148,7 +148,7 @@ const RecruitmentAvailabilityDialog = ({
                       description:
                         "Radio button label for available for opportunities option",
                     }),
-                    value: "true",
+                    value: "false",
                   },
                   {
                     label: intl.formatMessage({
@@ -158,7 +158,7 @@ const RecruitmentAvailabilityDialog = ({
                       description:
                         "Radio button label for not available for opportunities option",
                     }),
-                    value: "false",
+                    value: "true",
                   },
                 ]}
               />
