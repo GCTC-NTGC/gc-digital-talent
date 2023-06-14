@@ -175,7 +175,10 @@ const ResumeSection = ({
     <>
       <FormProvider {...methods}>
         <form>
-          <div data-h2-flex-grid="base(center, x1, x1)">
+          <div
+            data-h2-flex-grid="base(center, x1, x1)"
+            data-h2-margin-bottom="base(x.5)"
+          >
             <div
               data-h2-flex-item="base(1of1) p-tablet(content)"
               data-h2-align-self="base(flex-end)"
@@ -190,7 +193,6 @@ const ResumeSection = ({
                 })}
                 name="sortBy"
                 options={sortOptions}
-                hideOptional
                 trackUnsaved={false}
               />
             </div>
@@ -205,7 +207,6 @@ const ResumeSection = ({
                 })}
                 name="filterBy"
                 options={filterOptions}
-                hideOptional
                 trackUnsaved={false}
               />
             </div>
@@ -216,7 +217,7 @@ const ResumeSection = ({
             {applicantId ? (
               <div
                 data-h2-flex-item="base(1of1) p-tablet(content)"
-                data-h2-margin="base(x1, 0)"
+                data-h2-align-self="base(flex-end)"
               >
                 <AddExperienceDialog applicantId={applicantId} />
               </div>

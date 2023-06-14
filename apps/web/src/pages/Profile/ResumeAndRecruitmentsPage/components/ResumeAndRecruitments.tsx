@@ -167,13 +167,14 @@ export const ResumeAndRecruitments = ({
                 />
               </div>
             )}
-
-            <ResumeSection
-              editParam={applicationParam}
-              experiences={experiences}
-              headingLevel="h2"
-              applicantId={applicantId}
-            />
+            <div data-h2-margin-top="base(x2)">
+              <ResumeSection
+                editParam={applicationParam}
+                experiences={experiences}
+                headingLevel="h2"
+                applicantId={applicantId}
+              />
+            </div>
           </TableOfContents.Section>
           <TableOfContents.Section
             id={PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES}
