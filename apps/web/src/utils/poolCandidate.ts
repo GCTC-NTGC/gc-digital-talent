@@ -3,13 +3,15 @@ import { IntlShape } from "react-intl";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
-import { Maybe, PoolCandidateStatus } from "~/api/generated";
+import { Maybe, PoolCandidateStatus, PublishingGroup } from "~/api/generated";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import {
   EXPIRED_STATUSES,
   PLACED_STATUSES,
   QUALIFIED_STATUSES,
 } from "~/constants/poolCandidate";
+
+import { isOngoingPublishingGroup } from "./poolUtils";
 
 export const isQualifiedStatus = (
   status: Maybe<PoolCandidateStatus>,
@@ -33,7 +35,10 @@ export const isExpiredStatus = (
 export const isPlacedStatus = (status: Maybe<PoolCandidateStatus>): boolean =>
   status ? PLACED_STATUSES.includes(status) : false;
 
-export const getTargetedRecruitment = (isOngoing: boolean, intl: IntlShape) =>
-  isOngoing
+export const getRecruitmentType = (
+  publishingGroup: Maybe<PublishingGroup>,
+  intl: IntlShape,
+) =>
+  isOngoingPublishingGroup(publishingGroup)
     ? intl.formatMessage(poolCandidateMessages.ongoingRecruitment)
     : intl.formatMessage(poolCandidateMessages.targetedRecruitment);
