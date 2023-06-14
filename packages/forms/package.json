@@ -36,7 +36,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.12.0",
     "react-select": "^5.7.3",
-    "urql": "3.0.4"
+    "urql": "4.0.4"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
