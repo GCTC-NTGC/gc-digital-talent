@@ -41,6 +41,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
       base(calc(50vh + 3%))
       p-tablet(calc(60vh + 3%))
       l-tablet(calc((6rem * var(--h2-line-height-copy)) + 3%))"
+      data-h2-overflow="base(hidden)"
     >
       <div
         data-h2-position="base(relative)"
@@ -122,7 +123,8 @@ const Hero = ({ defaultImage }: HeroProps) => {
         data-h2-height="base(50vh) p-tablet(60vh) l-tablet(110%)"
         data-h2-width="base(auto)"
         data-h2-left="base(50%) l-tablet(60%)"
-        data-h2-top="base(55%) p-tablet(50%) l-tablet(0)"
+        data-h2-top="p-tablet(50%) l-tablet(0)"
+        data-h2-bottom="base(-7%)"
         data-h2-transform="base(translate(-50%)) l-tablet(translate(-30%))"
         data-h2-max-width="base(200%) p-tablet(100%)"
       />
