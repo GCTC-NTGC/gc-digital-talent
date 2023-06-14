@@ -7,6 +7,7 @@ import SideMenuComponent from "./SideMenu";
 import { SideMenuButton } from "./SideMenuItem";
 
 import Button from "../Button";
+import SideMenuContentWrapper from "./SideMenuContentWrapper";
 
 export default {
   component: SideMenuComponent,
@@ -35,11 +36,11 @@ const TemplateSideMenu: Story = (args) => {
   };
 
   return (
-    <div data-h2-display="base(flex)">
+    <div data-h2-flex-grid="base(stretch, x1)">
       <SideMenuComponent
         label="Test Menu"
-        isOpen={isOpen}
-        onToggle={handleToggle}
+        open={isOpen}
+        onOpenChange={setOpen}
         footer={
           <SideMenuButton icon={ArrowRightOnRectangleIcon}>
             Login
@@ -50,11 +51,11 @@ const TemplateSideMenu: Story = (args) => {
           Home
         </SideMenuButton>
       </SideMenuComponent>
-      <div data-h2-padding="base(x1)" data-h2-width="base(100%)">
+      <SideMenuContentWrapper>
         <Button color="primary" mode="solid" onClick={handleToggle}>
           Toggle Menu
         </Button>
-      </div>
+      </SideMenuContentWrapper>
     </div>
   );
 };

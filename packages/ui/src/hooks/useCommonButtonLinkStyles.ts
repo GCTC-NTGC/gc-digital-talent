@@ -11,6 +11,7 @@ type StyleRecord = Record<string, string>;
 const styleExclusions: Record<string, Array<ButtonLinkMode>> = {
   background: ["inline", "text"],
   border: ["inline", "text"],
+  fontSize: ["text"],
   overflow: ["cta"],
   padding: ["cta", "inline", "text"],
   shadow: ["inline", "solid", "text"],
@@ -776,11 +777,25 @@ const getDisplay = (block?: boolean): StyleRecord => {
 };
 
 /**
+ * Get Font Size
+ *
+ * Compute a button or links font size value
+ *
+ * @param mode ButtonLinkMode
+ * @returns Record<string, string>
+ */
+const getFontSize = (mode: ButtonLinkMode): StyleRecord => {
+  return styleExclusions.fontSize.includes(mode)
+    ? {}
+    : { "data-h2-font-size": "base(copy)" };
+};
+
+/**
  * Get Weight
  *
  * Compute a button or links font weight value
  *
- * @param block boolean
+ * @param mode ButtonLinkMode
  * @returns Record<string, string>
  */
 const getWeight = (mode: ButtonLinkMode): StyleRecord => {
@@ -812,12 +827,12 @@ const useCommonButtonLinkStyles: UseCommonButtonLinkStyles = ({
   }
   return {
     "data-h2-align-items": "base(center)",
-    "data-h2-font-size": "base(copy)",
     "data-h2-outline-offset": "base(4px)",
     "data-h2-radius": "base(s)",
     "data-h2-text-align": "base(center)",
     "data-h2-text-decoration": "base(underline) base:hover(none)",
     "data-h2-transition": "base(all ease 50ms) base:children[*](all ease 50ms)",
+    ...getFontSize(mode),
     ...getWeight(mode),
     ...getPadding(nonTextMode),
     ...getShadow(nonTextMode),

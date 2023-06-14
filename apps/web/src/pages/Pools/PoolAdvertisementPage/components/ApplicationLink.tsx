@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Link } from "@gc-digital-talent/ui";
+import { Link, LinkProps } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";
@@ -12,6 +12,7 @@ interface ApplicationLinkProps {
   applicationId?: Scalars["ID"];
   hasApplied?: boolean;
   canApply?: boolean;
+  linkProps?: Omit<LinkProps, "color" | "mode" | "ref">;
 }
 
 const ApplicationLink = ({
@@ -19,6 +20,7 @@ const ApplicationLink = ({
   applicationId,
   hasApplied,
   canApply,
+  linkProps,
 }: ApplicationLinkProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -57,7 +59,7 @@ const ApplicationLink = ({
   }
 
   return (
-    <Link mode="solid" href={href}>
+    <Link mode="solid" href={href} {...linkProps}>
       {linkText}
     </Link>
   );
