@@ -130,6 +130,68 @@ class PoolCandidateSearchRequest extends Model
         return $query;
     }
 
+    public static function scopeFullName(Builder $query, ?string $fullName)
+    {
+        if ($fullName) {
+            $query->where('full_name', 'ilike', "%{$fullName}%");
+        }
+        return $query;
+    }
+
+    public static function scopeEmail(Builder $query, ?string $email)
+    {
+        if ($email) {
+            $query->where('email', 'ilike', "%{$email}%");
+        }
+        return $query;
+    }
+
+    public static function scopeJobTitle(Builder $query, ?string $jobTitle)
+    {
+        if ($jobTitle) {
+            $query->where('job_title', 'ilike', "%{$jobTitle}%");
+        }
+        return $query;
+    }
+
+    public static function scopeAdditionalComments(Builder $query, ?string $additionalComments)
+    {
+        if ($additionalComments) {
+            $query->where('additional_comments', 'ilike', "%{$additionalComments}%");
+        }
+        return $query;
+    }
+
+    public static function scopeAdminNotes(Builder $query, ?string $adminNotes)
+    {
+        if ($adminNotes) {
+            $query->where('admin_notes', 'ilike', "%{$adminNotes}%");
+        }
+        return $query;
+    }
+
+    public static function scopeGeneralSearch(Builder $query, ?string $search): Builder
+    {
+        if ($search) {
+            $query->where(function ($query) use ($search) {
+                self::scopeFullName($query, $search);
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeEmail($query, $search);
+                });
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeJobTitle($query, $search);
+                });
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeAdditionalComments($query, $search);
+                });
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeAdminNotes($query, $search);
+                });
+            });
+        }
+        return $query;
+    }
+
     /**
      * Getters/Mutators
      */
