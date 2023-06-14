@@ -27,7 +27,7 @@ const CTAButtons = ({
           applicationId={applicationId}
           hasApplied={hasApplied}
           canApply={canApply}
-          linkProps={{ block: true }}
+          linkProps={{ block: true, color: "primary" }}
         />
       ) : (
         <ApplyDialog btnProps={{ block: true }} />

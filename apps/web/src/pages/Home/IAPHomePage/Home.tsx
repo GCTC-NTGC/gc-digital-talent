@@ -147,12 +147,11 @@ export const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
           </div>
         </div>
         <div
-          data-h2-padding="base(x1, x2)"
           data-h2-position="base(relative) p-tablet(absolute)"
           data-h2-layer="base(1, relative) p-tablet(1, absolute)"
           data-h2-location="p-tablet(auto, auto, 20%, 50%)"
-          data-h2-min-width="base(x12)"
           data-h2-order="base(3)"
+          data-h2-transform="p-tablet(translateX(-50%))"
         >
           {latestPool ? (
             <ApplicationLink
@@ -160,7 +159,7 @@ export const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
               applicationId={applicationId}
               hasApplied={hasApplied}
               canApply={canApply}
-              linkProps={{ block: true }}
+              linkProps={{ block: true, color: "primary" }}
             />
           ) : (
             <ApplyDialog />
