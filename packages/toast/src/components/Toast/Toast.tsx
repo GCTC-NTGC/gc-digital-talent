@@ -28,10 +28,14 @@ const CloseButton = ({ type, closeToast, ariaLabel }: CloseButtonProps) => (
   </button>
 );
 
-const Toast = () => (
+export type ToastProps = {
+  disableTransition?: boolean;
+};
+
+const Toast = ({ disableTransition }: ToastProps) => (
   <ToastContainer
     position="bottom-right"
-    transition={Slide}
+    transition={!disableTransition ? Slide : undefined}
     hideProgressBar
     role="alert"
     closeButton={CloseButton}
