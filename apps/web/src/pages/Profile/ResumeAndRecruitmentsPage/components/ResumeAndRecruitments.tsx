@@ -25,7 +25,7 @@ import ProfileFormWrapper, {
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { Application } from "~/utils/applicationUtils";
-import ExperienceSection from "./ExperienceSection";
+import ResumeSection from "./ResumeSection";
 import { PAGE_SECTION_ID, titles } from "../constants";
 import QualifiedRecruitmentsSection from "./QualifiedRecruitmentsSection";
 
@@ -168,7 +168,7 @@ export const ResumeAndRecruitments = ({
               </div>
             )}
 
-            <ExperienceSection
+            <ResumeSection
               editParam={applicationParam}
               experiences={experiences}
               headingLevel="h2"

@@ -44,19 +44,19 @@ type FormValues = {
   filterBy: FilterOptions;
 };
 
-export interface ExperienceSectionProps {
+export interface ResumeSectionProps {
   experiences?: Experience[];
   editParam?: string;
   headingLevel?: HeadingRank;
   applicantId?: string;
 }
 
-const ExperienceSection = ({
+const ResumeSection = ({
   experiences,
   editParam,
   headingLevel = "h3",
   applicantId,
-}: ExperienceSectionProps) => {
+}: ResumeSectionProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -255,4 +255,4 @@ const ExperienceSection = ({
   );
 };
 
-export default ExperienceSection;
+export default ResumeSection;
