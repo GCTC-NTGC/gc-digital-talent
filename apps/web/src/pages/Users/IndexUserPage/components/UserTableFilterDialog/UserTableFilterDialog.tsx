@@ -124,6 +124,7 @@ const UserTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
                   id="pools"
+                  name="pools"
                   label={formatMessage(adminMessages.pools)}
                   options={optionsData.pools}
                   isLoading={rawGraphqlResults.pools.fetching}
@@ -133,6 +134,7 @@ const UserTableFilterDialog = ({
                 <SelectFieldV2
                   forceArrayFormValue
                   id="languageAbility"
+                  name="languageAbility"
                   label={formatMessage({
                     defaultMessage: "Languages",
                     id: "GsBRWL",
@@ -143,6 +145,7 @@ const UserTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="classifications"
+                  name="classifications"
                   label={formatMessage(adminMessages.classifications)}
                   options={optionsData.classifications}
                   isLoading={rawGraphqlResults.classifications.fetching}
@@ -151,6 +154,7 @@ const UserTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="operationalRequirement"
+                  name="operationalRequirement"
                   label={formatMessage({
                     defaultMessage: "Work Preferences",
                     id: "1XyQqX",
@@ -161,6 +165,7 @@ const UserTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="workRegion"
+                  name="workRegion"
                   label={formatMessage({
                     defaultMessage: "Work Locations",
                     id: "qhhPj5",
@@ -172,6 +177,7 @@ const UserTableFilterDialog = ({
                 <div data-h2-flex-item="base(1of1)">
                   <MultiSelectField
                     id="educationType"
+                    name="educationType"
                     label={formatMessage({
                       defaultMessage: "Education",
                       id: "jtygmI",
@@ -184,6 +190,7 @@ const UserTableFilterDialog = ({
                 <SelectFieldV2
                   forceArrayFormValue
                   id="employmentDuration"
+                  name="employmentDuration"
                   label={formatMessage({
                     defaultMessage: "Duration Preferences",
                     id: "hmfQmT",
@@ -194,6 +201,7 @@ const UserTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="jobLookingStatus"
+                  name="jobLookingStatus"
                   label={formatMessage({
                     defaultMessage: "Availability",
                     id: "hOxIeP",
@@ -205,6 +213,7 @@ const UserTableFilterDialog = ({
                 <SelectFieldV2
                   forceArrayFormValue
                   id="profileComplete"
+                  name="profileComplete"
                   label={formatMessage({
                     defaultMessage: "Profile Complete",
                     id: "OPG1Q0",
@@ -215,6 +224,7 @@ const UserTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
                   id="skills"
+                  name="skills"
                   label={formatMessage({
                     defaultMessage: "Skill Filter",
                     id: "GGaxMx",
@@ -227,6 +237,7 @@ const UserTableFilterDialog = ({
                 <SelectFieldV2
                   forceArrayFormValue
                   id="govEmployee"
+                  name="govEmployee"
                   label={formatMessage({
                     defaultMessage: "Government Employee",
                     id: "YojrdC",

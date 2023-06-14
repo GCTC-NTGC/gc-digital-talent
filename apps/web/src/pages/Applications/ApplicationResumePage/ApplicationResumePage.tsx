@@ -331,6 +331,7 @@ export const ApplicationResume = ({
             data-h2-flex-direction="base(column) p-tablet(row)"
             data-h2-justify-content="base(space-between)"
             data-h2-align-items="base(flex-start) p-tablet(center)"
+            data-h2-margin-bottom="base(x1)"
           >
             <Select
               id="sortExperiencesBy"
@@ -358,7 +359,6 @@ export const ApplicationResume = ({
                   }),
                 },
               ]}
-              hideOptional
               trackUnsaved={false}
             />
 
@@ -409,7 +409,6 @@ export const ApplicationResume = ({
             id="experienceCount"
             name="experienceCount"
             label=""
-            hideOptional
             type="number"
             hidden
             rules={{
@@ -428,7 +427,7 @@ export const ApplicationResume = ({
             orientation="horizontal"
             decorative
             data-h2-background="base(black.light)"
-            data-h2-margin="base(0, 0, x2, 0)"
+            data-h2-margin="base(x1, 0, x2, 0)"
           />
           <div
             data-h2-display="base(flex)"

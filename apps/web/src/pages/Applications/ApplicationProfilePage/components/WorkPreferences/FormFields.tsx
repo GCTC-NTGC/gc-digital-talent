@@ -25,7 +25,11 @@ const FormFields = ({ labels }: FormFieldProps) => {
   useDirtyFields("work");
 
   return (
-    <>
+    <div
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-gap="base(x1 0)"
+    >
       <RadioGroup
         idPrefix="required-work-preferences"
         legend={labels.wouldAcceptTemporary}
@@ -94,7 +98,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
         id="location-exemptions"
         label={labels.locationExemptions}
         name="locationExemptions"
-        describedBy="location-exemption-description"
+        aria-describedby="location-exemption-description"
       />
       <div
         id="location-exemption-description"
@@ -119,7 +123,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
           })}
         </p>
       </div>
-    </>
+    </div>
   );
 };
 

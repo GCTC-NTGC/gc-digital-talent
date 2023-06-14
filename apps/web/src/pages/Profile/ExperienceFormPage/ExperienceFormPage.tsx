@@ -270,7 +270,7 @@ export const ExperienceForm = ({
             description: "Title for addition information on Experience form",
           })}
         </h2>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {intl.formatMessage({
             defaultMessage:
               "Anything else about this experience you would like to share.",

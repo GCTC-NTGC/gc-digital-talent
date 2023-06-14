@@ -84,7 +84,7 @@ const ExtendDialog = ({
               description: "Helper message for changing the pool closing date",
             })}
           </p>
-          <p>
+          <p data-h2-margin="base(x.25 0)">
             {intl.formatMessage({
               defaultMessage: "Write a new closing date:",
               id: "BQsJSG",

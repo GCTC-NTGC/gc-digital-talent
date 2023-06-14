@@ -4092,10 +4092,6 @@
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
   },
-  "JIpjuA": {
-    "defaultMessage": "Détails du candidat du bassin",
-    "description": "Title of the pool candidate details content section"
-  },
   "JJB5Yd": {
     "defaultMessage": "Bassin fermé avec succès!",
     "description": "Message displayed to user after pool is closed"
@@ -4115,10 +4111,6 @@
   "Md/cQS": {
     "defaultMessage": "Membre des FAC :",
     "description": "Veteran/member label"
-  },
-  "OJbrJJ": {
-    "defaultMessage": "Statut :",
-    "description": "Status label and colon"
   },
   "OPG1Q0": {
     "defaultMessage": "Profil complet"
@@ -4155,17 +4147,9 @@
     "defaultMessage": "Erreur : le bassin de publication a échoué",
     "description": "Message displayed to user after pool fails to get publish."
   },
-  "UmNhUa": {
-    "defaultMessage": "Priorité :",
-    "description": "Priority label and colon"
-  },
   "V4+lDw": {
     "defaultMessage": "Afficher les résultats",
     "description": "Submit button within the search filter dialog"
-  },
-  "VDP17+": {
-    "defaultMessage": "Date d'archivage :",
-    "description": "Archival Date label and colon"
   },
   "VMhVyJ": {
     "defaultMessage": "Sélectionnez un statut",
@@ -4201,14 +4185,6 @@
     "defaultMessage": "Candidat du bassin {id} non trouvé.",
     "description": "Message displayed for pool candidate not found."
   },
-  "bKixM0": {
-    "defaultMessage": "Disponibilité :",
-    "description": "Availability label and colon"
-  },
-  "crrqFg": {
-    "defaultMessage": "Date d'expiration :",
-    "description": "Expiry Date label and colon"
-  },
   "dYBwCh": {
     "defaultMessage": "Erreur : la fermeture du bassin a échoué",
     "description": "Message displayed to user after pool fails to get closed."
@@ -4224,10 +4200,6 @@
   "ev6HnY": {
     "defaultMessage": "Notes",
     "description": "CSV Header, Notes column"
-  },
-  "gDSeKw": {
-    "defaultMessage": "Date de réception :",
-    "description": "Date Received label and colon"
   },
   "gKXZaj": {
     "defaultMessage": "Numéro de priorité",
@@ -4269,10 +4241,6 @@
   "l62TJM": {
     "defaultMessage": "Disponibilité",
     "description": "CSV Header, Availability column"
-  },
-  "lkZ+Zt": {
-    "defaultMessage": "Notes :",
-    "description": "Notes label and colon"
   },
   "mRQ/uk": {
     "defaultMessage": "Profil",
@@ -4341,15 +4309,15 @@
     "defaultMessage": "Ces notes sont partagées entre tous les gestionnaires de ce bassin, mais pas avec les candidats",
     "description": "Description of the pool candidate notes field."
   },
-  "Thf4og": {
+  "mVmrEn": {
     "defaultMessage": "Profil du candidat",
     "description": "Document title for printing User profile"
   },
-  "UmTNmR": {
+  "BXR24h": {
     "defaultMessage": "Profils des candidats",
     "description": "Document title for printing Pool Candidate table results"
   },
-  "IE82VM": {
+  "scef3o": {
     "defaultMessage": "Profils des candidats",
     "description": "Document title for printing User table results"
   },
@@ -7939,8 +7907,8 @@
     "defaultMessage": "Diplôme d’études secondaires ou PEG",
     "description": "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)"
   },
-  "ybi6QM": {
-    "defaultMessage": "Je détiens un diplôme d’études secondaires ou un équivalent du GED",
+  "4lGQQm": {
+    "defaultMessage": "<strong>Je détiens un diplôme d’études secondaires ou un équivalent du GED</strong>",
     "description": "Radio group option for education requirement filter in Indigenous apprenticeship application education form."
   },
   "0lUoqK": {
@@ -8006,6 +7974,118 @@
   "3R3jKp": {
     "defaultMessage": "Modifier {title}",
     "description": "Link to edit object"
+  },
+  "/oqWA0": {
+    "defaultMessage": "Intéressé par",
+    "description": "Interested in label"
+  },
+  "2Oubfe": {
+    "defaultMessage": "Type d’emploi",
+    "description": "Label for applicant's employment type"
+  },
+  "M7bb1V": {
+    "defaultMessage": "Ministère",
+    "description": "Label for applicant's Government of Canada department"
+  },
+  "M9x5zm": {
+    "defaultMessage": "Niveau de la langue seconde (compréhension, écrite, verbale)",
+    "description": "Evaluation results for second language, results in that order"
+  },
+  "SZzC9e": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Work location label"
+  },
+  "VTHGET": {
+    "defaultMessage": "Niveau de la langue seconde",
+    "description": "Estimated skill in second language"
+  },
+  "Wd/+eR": {
+    "defaultMessage": "Droit de priorité",
+    "description": "Label for applicant's priority entitlement status"
+  },
+  "b4Kjwl": {
+    "defaultMessage": "<strong>N'envisagerait pas</strong> d'accepter un emploi qui :",
+    "description": "would not accept job line before a list"
+  },
+  "e5/v2u": {
+    "defaultMessage": "Employé du gouvernement du Canada",
+    "description": "Label for status as Government of Canada employee"
+  },
+  "hV2hKJ": {
+    "defaultMessage": "Groupe et classification actuels",
+    "description": "Field label before government employment group and level"
+  },
+  "j/28Dz": {
+    "defaultMessage": "Envisagerait d'accepter un emploi d'une durée de :",
+    "description": "Label for what length of position user prefers, followed by colon"
+  },
+  "mGGj/i": {
+    "defaultMessage": "Numéro de priorité",
+    "description": "Label for applicant's priority number value"
+  },
+  "o4PND7": {
+    "defaultMessage": "A achevé une évaluation officielle du gouvernement du Canada",
+    "description": "Completed a Government of Canada evaluation label"
+  },
+  "q3xbiI": {
+    "defaultMessage": "Envisagerait d'accepter un emploi qui :",
+    "description": "Label for what conditions a user will accept, followed by a colon"
+  },
+  "ruD4vK": {
+    "defaultMessage": "Exemptions de lieux",
+    "description": "Location exemptions label"
+  },
+  "sYuMO8": {
+    "defaultMessage": "Aimerait être référé à des emplois aux niveaux suivants :",
+    "description": "Label for Role and salary expectations sections"
+  },
+  "sr20Tb": {
+    "defaultMessage": "Citoyenneté",
+    "description": "Citizenship label"
+  },
+  "xd9+6O": {
+    "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi",
+    "description": "Label preceding what groups the user identifies as part of"
+  },
+  "ybzxmU": {
+    "defaultMessage": "Membre des FAC",
+    "description": "Veteran/member label"
+  },
+  "DjSiTu": {
+    "defaultMessage": "Date de réception",
+    "description": "Date received label"
+  },
+  "Gthvhd": {
+    "defaultMessage": "Date d'expiration",
+    "description": "Expiry date label"
+  },
+  "bjnh/y": {
+    "defaultMessage": "Date d'archivage",
+    "description": "Archival date label"
+  },
+  "mevv+t": {
+    "defaultMessage": "Disponibilité",
+    "description": "Availability label"
+  },
+  "qSDM1H": {
+    "defaultMessage": "Priorité",
+    "description": "Priority label"
+  },
+  "rwNxlI": {
+    "defaultMessage": "Notes",
+    "description": "Notes label"
+  },
+  "s2y5eG": {
+    "defaultMessage": "Statut",
+    "description": "Status label"
+  },
+  "xD0Vbd": {
+    "defaultMessage": "Détails du candidat du bassin",
+    "description": "Title of the pool candidate details content section"
+  },
+  "mUiS9q": {
+    "defaultMessage": "{resultCount, plural, =1 {Profil du candidat} other {Profils des candidats} }",
+    "description": "Document title for printing profiles"
   },
   "+im7hW": {
     "defaultMessage": "Le programme d’apprentissage fait partie d’une initiative élargie sur les talents du numérique au sein du gouvernement du Canada dont le but consiste à recruter d’incroyables talents du numérique comme vous. Ce profil donne accès à d’autres possibilités et recrutements dans le secteur numérique autres que le programme d’apprentissage, si vous souhaitez y présenter votre candidature. Vous pouvez aussi vous en tenir au programme d’apprentissage si vous préférez!",
@@ -8190,6 +8270,18 @@
   "Xpo+u6": {
     "defaultMessage": "Compétences utiles",
     "description": "Title for the optional skills snapshot section"
+  },
+  "E9I34y": {
+    "defaultMessage": "Titre de la thèse",
+    "description": "Label displayed on education form for thesis title input"
+  },
+  "YJS2CB": {
+    "defaultMessage": "Décerné à",
+    "description": "The award was given to"
+  },
+  "szVmh/": {
+    "defaultMessage": "Description de l’apprentissage",
+    "description": "Label displayed on Personal Experience form for learning description section"
   },
   "76KLtb": {
     "defaultMessage": "Profil et candidatures",
