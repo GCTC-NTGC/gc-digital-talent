@@ -181,13 +181,16 @@ describe("Talent Search Workflow Tests", () => {
     // work location combobox
     cy.findByRole("combobox", { name: /Region/i }).then((combobox) => {
       // fail
+      cy.wrap(combobox).focus();
       cy.wrap(combobox).type("Atlantic{enter}");
       cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
       searchRejectsMySingleCandidate();
       // reset
+      cy.wrap(combobox).focus();
       cy.wrap(combobox).type("{backspace}");
       searchFindsMySingleCandidate();
       // pass
+      cy.wrap(combobox).focus();
       cy.wrap(combobox).type("Ontario{enter}");
       cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
       searchFindsMySingleCandidate();
