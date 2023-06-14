@@ -895,6 +895,12 @@ input PoolCandidateSearchRequestInput {
   departments: [ID] @scope
   classifications: [ID] @scope
   streams: [PoolStream] @scope
+  fullName: String @scope
+  email: String @scope
+  jobTitle: String @scope
+  additionalComments: String @scope
+  adminNotes: String @scope
+  generalSearch: String @scope
 }
 
 type CandidateSearchPoolResult {

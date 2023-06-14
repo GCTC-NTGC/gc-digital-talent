@@ -872,6 +872,12 @@ input PoolCandidateSearchRequestInput {
   departments: [ID]
   classifications: [ID]
   streams: [PoolStream]
+  fullName: String
+  email: String
+  jobTitle: String
+  additionalComments: String
+  adminNotes: String
+  generalSearch: String
 }
 
 """A paginated list of PoolCandidateSearchRequest items."""
