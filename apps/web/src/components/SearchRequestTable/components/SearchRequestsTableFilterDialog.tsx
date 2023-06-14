@@ -104,23 +104,27 @@ export const SearchRequestsTableFilterDialog = ({
             >
               <MultiSelectField
                 id="status"
+                name="status"
                 label={formatMessage(adminMessages.status)}
                 options={optionsData.status}
               />
               <MultiSelectField
                 id="departments"
+                name="departments"
                 label={formatMessage(adminMessages.departments)}
                 options={optionsData.departments}
                 isLoading={rawGraphqlResults.departments.fetching}
               />
               <MultiSelectField
                 id="classifications"
+                name="classifications"
                 label={formatMessage(adminMessages.classifications)}
                 options={optionsData.classifications}
                 isLoading={rawGraphqlResults.classifications.fetching}
               />
               <MultiSelectField
                 id="streams"
+                name="streams"
                 label={formatMessage(adminMessages.streams)}
                 options={optionsData.streams}
               />
