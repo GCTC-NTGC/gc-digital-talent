@@ -50,14 +50,10 @@ function transformFormValuesToSearchRequestFilterInput(
   data: FormValues,
 ): PoolCandidateSearchRequestInput {
   return {
-    status: data.status.map((status) => {
-      return stringToEnumRequestStatus(status);
-    }),
+    status: data.status.map(stringToEnumRequestStatus),
     departments: data.departments,
     classifications: data.classifications,
-    streams: data.streams.map((stream) => {
-      return stringToEnumStream(stream);
-    }),
+    streams: data.streams.map(stringToEnumStream),
   };
 }
 
