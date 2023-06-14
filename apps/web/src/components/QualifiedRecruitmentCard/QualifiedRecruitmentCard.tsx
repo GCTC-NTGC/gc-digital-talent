@@ -81,7 +81,7 @@ const QualifiedRecruitmentCard = ({
         <Heading level={headingLevel} size="h6" data-h2-margin="base(0)">
           {title.html}
         </Heading>
-        <Pill mode="outline" color={statusPill.color}>
+        <Pill bold mode="outline" color={statusPill.color}>
           {isQualified ? (
             <span
               data-h2-display="base(flex)"

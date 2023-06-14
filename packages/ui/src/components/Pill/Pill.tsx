@@ -14,6 +14,7 @@ export interface PillProps
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
   size?: PillSize;
+  bold?: boolean;
 }
 
 export const h2ChipColors = {
@@ -165,6 +166,7 @@ const Pill = ({
   mode,
   size = "md",
   block = false,
+  bold = false,
   ...rest
 }: PillProps) => {
   return (
@@ -178,6 +180,7 @@ const Pill = ({
       {...sizeMap[size]}
       data-h2-text-align="base(center)"
       data-h2-max-width="base(100%)"
+      {...(bold ? { "data-h2-font-weight": "base(700)" } : {})}
       {...rest}
     >
       {children}
