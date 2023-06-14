@@ -367,6 +367,48 @@ const SearchRequestsTableApi = ({
             type,
           });
         }}
+        searchBy={[
+          {
+            label: intl.formatMessage({
+              defaultMessage: "FULL NAME",
+              id: "wmHTQE",
+              description: "FULL NAME",
+            }),
+            value: "fullName",
+          },
+          {
+            label: intl.formatMessage({
+              defaultMessage: "EMAIL",
+              id: "PwjQhL",
+              description: "EMAIL",
+            }),
+            value: "email",
+          },
+          {
+            label: intl.formatMessage({
+              defaultMessage: "JOB TITLE",
+              id: "WYCDL2",
+              description: "JOB TITLE",
+            }),
+            value: "jobTitle",
+          },
+          {
+            label: intl.formatMessage({
+              defaultMessage: "ADDITIONAL COMMENTS",
+              id: "fAQHlI",
+              description: "ADDITIONAL COMMENTS",
+            }),
+            value: "additionalComments",
+          },
+          {
+            label: intl.formatMessage({
+              defaultMessage: "ADMIN NOTES",
+              id: "abUKmy",
+              description: "ADMIN NOTES",
+            }),
+            value: "adminNotes",
+          },
+        ]}
         onColumnHiddenChange={(event) => {
           handleColumnHiddenChange(
             allColumnIds,
