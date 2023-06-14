@@ -1,8 +1,10 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
+import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
-import { Well, TableOfContents, Heading, Link } from "@gc-digital-talent/ui";
+import { TableOfContents, Heading, Link } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
@@ -22,10 +24,10 @@ import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 import { wrapAbbr } from "~/utils/nameUtils";
-import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import { Application } from "~/utils/applicationUtils";
 import ExperienceSection from "./ExperienceSection";
 import { PAGE_SECTION_ID, titles } from "../constants";
+import QualifiedRecruitmentsSection from "./QualifiedRecruitmentsSection";
 
 type MergedExperiences = Array<
   | AwardExperience
@@ -45,6 +47,7 @@ export type ExperienceForDate =
 export interface ResumeAndRecruitmentsProps {
   applicantId: string;
   experiences?: MergedExperiences;
+  applications: Application[];
   pool?: Pool;
   missingSkills?: {
     requiredSkills: Skill[];
@@ -54,6 +57,7 @@ export interface ResumeAndRecruitmentsProps {
 
 export const ResumeAndRecruitments = ({
   experiences,
+  applications,
   missingSkills,
   applicantId,
   pool,
@@ -70,7 +74,6 @@ export const ResumeAndRecruitments = ({
     : paths.profile(applicantId);
 
   const hasResumeItems = !!experiences?.length;
-  const hasQualifiedRecruitments = false;
 
   const applicationBreadcrumbs: {
     label: string | React.ReactNode;
@@ -170,12 +173,6 @@ export const ResumeAndRecruitments = ({
               experiences={experiences}
               headingLevel="h2"
               applicantId={applicantId}
-              nullMessage={intl.formatMessage({
-                defaultMessage: "You haven’t added any résumé items yet.",
-                id: "SjY+Wn",
-                description:
-                  "Message to user when no résumé items have been attached to profile.",
-              })}
             />
           </TableOfContents.Section>
           <TableOfContents.Section
@@ -197,7 +194,7 @@ export const ResumeAndRecruitments = ({
                 Browse jobs
               </Link>
             </div>
-            <p data-h2-margin="base(x1, 0)">
+            <p data-h2-margin="base(x1, 0, x2, 0)">
               {intl.formatMessage({
                 defaultMessage:
                   "When you apply to a recruitment process and successfully pass the assessment, you’re awarded entry and can start being considered for related opportunities. This section highlights all active and expired processes that you’re currently a part of and allows you to manage whether or not you appear in talent searches.",
@@ -206,33 +203,10 @@ export const ResumeAndRecruitments = ({
                   "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitments page.",
               })}
             </p>
-            {!hasQualifiedRecruitments ? (
-              <Well data-h2-text-align="base(center)">
-                <p
-                  data-h2-font-weight="base(700)"
-                  data-h2-margin-bottom="base(x.5)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Recruitment processes that you're awarded entry into will appear here.",
-                    id: "aW/Htv",
-                    description:
-                      "Message to user when no qualified recruitments have been attached to profile, paragraph one.",
-                  })}
-                </p>
-                <Link href={paths.browsePools()}>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "You can get started by applying to available targeted or ongoing recruitment processes.",
-                    id: "z7FpHz",
-                    description:
-                      "Message to user when no qualified recruitments have been attached to profile, paragraph two.",
-                  })}
-                </Link>
-              </Well>
-            ) : (
-              <span>TODO: qualified recruitments</span>
-            )}
+            <QualifiedRecruitmentsSection
+              applications={applications}
+              headingLevel="h2"
+            />
           </TableOfContents.Section>
         </TableOfContents.Content>
       </TableOfContents.Wrapper>

@@ -13,16 +13,19 @@ import {
   useGetApplicationDetailsQuery,
 } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
+import { Application } from "~/utils/applicationUtils";
 import { ResumeAndRecruitments } from "./components/ResumeAndRecruitments";
 
 interface ResumeAndRecruitmentsApiProps {
   applicantId: string;
   experiences: Experience[];
+  applications: Application[];
 }
 
 const ResumeAndRecruitmentsApi = ({
   applicantId,
   experiences,
+  applications,
 }: ResumeAndRecruitmentsApiProps) => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
@@ -57,6 +60,7 @@ const ResumeAndRecruitmentsApi = ({
           pool={data.poolCandidate.pool}
           missingSkills={missingSkills}
           experiences={experiencesOnlyRelevantSkills}
+          applications={applications}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
@@ -78,22 +82,26 @@ interface ApiOrContentProps {
   applicationId: string | null;
   applicantId: string;
   experiences: Experience[];
+  applications: Application[];
 }
 
 const ApiOrContent = ({
   applicationId,
   applicantId,
   experiences,
+  applications,
 }: ApiOrContentProps) =>
   applicationId ? (
     <ResumeAndRecruitmentsApi
       applicantId={applicantId}
       experiences={experiences}
+      applications={applications}
     />
   ) : (
     <ResumeAndRecruitments
       applicantId={applicantId}
       experiences={experiences}
+      applications={applications}
     />
   );
 
@@ -107,6 +115,7 @@ const ResumeAndRecruitmentsPage = () => {
   });
 
   const experiences = data?.applicant?.experiences?.filter(notEmpty);
+  const applications = data?.applicant?.poolCandidates?.filter(notEmpty);
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -115,6 +124,7 @@ const ResumeAndRecruitmentsPage = () => {
           applicantId={data?.applicant.id}
           applicationId={applicationId}
           experiences={experiences || []}
+          applications={applications || []}
         />
       ) : (
         <ThrowNotFound

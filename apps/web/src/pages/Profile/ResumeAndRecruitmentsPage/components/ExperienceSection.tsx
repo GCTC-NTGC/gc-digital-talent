@@ -49,7 +49,6 @@ export interface ExperienceSectionProps {
   editParam?: string;
   headingLevel?: HeadingRank;
   applicantId?: string;
-  nullMessage?: React.ReactNode;
 }
 
 const ExperienceSection = ({
@@ -57,7 +56,6 @@ const ExperienceSection = ({
   editParam,
   headingLevel = "h3",
   applicantId,
-  nullMessage,
 }: ExperienceSectionProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
@@ -243,16 +241,14 @@ const ExperienceSection = ({
         </div>
       ) : (
         <Well data-h2-text-align="base(center)">
-          {nullMessage ?? (
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "No information has been provided",
-                id: "4Xa7Pd",
-                description:
-                  "Message on Admin side when user not filled Experience section.",
-              })}
-            </p>
-          )}
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "You haven’t added any résumé items yet.",
+              id: "SjY+Wn",
+              description:
+                "Message to user when no résumé items have been attached to profile.",
+            })}
+          </p>
         </Well>
       )}
     </>

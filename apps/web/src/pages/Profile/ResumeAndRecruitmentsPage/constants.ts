@@ -11,9 +11,8 @@ export type PageSectionId = ObjectValues<typeof PAGE_SECTION_ID>;
 export const titles = defineMessages({
   resumeAndRecruitments: {
     defaultMessage: "Résumé and recruitments",
-    id: "u3gysT",
-    description:
-      "Title for a page to manage your résumé and recruitments in your applicant profile.",
+    id: "SyJkc/",
+    description: "Name of Résumé and recruitments page",
   },
   manageYourResume: {
     defaultMessage: "Manage your résumé",
