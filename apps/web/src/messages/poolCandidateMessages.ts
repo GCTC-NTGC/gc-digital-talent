@@ -37,6 +37,16 @@ const messages = defineMessages({
     id: "uIWFvk",
     description: "Message displayed when a user is appearing in a recruitment",
   },
+  ongoingRecruitment: {
+    defaultMessage: "Ongoing recruitment",
+    id: "Uxw5DB",
+    description: "Label for an ongoing qualified recruitment",
+  },
+  targetedRecruitment: {
+    defaultMessage: "Targeted recruitment",
+    id: "04smVa",
+    description: "Label for an targeting (active) qualified recruitment",
+  },
 });
 
 export default messages;

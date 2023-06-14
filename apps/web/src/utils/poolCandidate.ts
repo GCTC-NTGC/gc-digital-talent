@@ -1,8 +1,10 @@
 import isPast from "date-fns/isPast";
+import { IntlShape } from "react-intl";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { Maybe, PoolCandidateStatus } from "~/api/generated";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import {
   EXPIRED_STATUSES,
   PLACED_STATUSES,
@@ -30,3 +32,8 @@ export const isExpiredStatus = (
 
 export const isPlacedStatus = (status: Maybe<PoolCandidateStatus>): boolean =>
   status ? PLACED_STATUSES.includes(status) : false;
+
+export const getTargetedRecruitment = (isOngoing: boolean, intl: IntlShape) =>
+  isOngoing
+    ? intl.formatMessage(poolCandidateMessages.ongoingRecruitment)
+    : intl.formatMessage(poolCandidateMessages.targetedRecruitment);

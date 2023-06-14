@@ -20,6 +20,7 @@ import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
 
 import { PoolCandidate, SkillCategory } from "~/api/generated";
 import { categorizeSkill } from "~/utils/skillUtils";
+import { getTargetedRecruitment } from "~/utils/poolCandidate";
 
 import { getQualifiedRecruitmentInfo, joinDepartments } from "./utils";
 import RecruitmentAvailabilityDialog from "../RecruitmentAvailabilityDialog/RecruitmentAvailabilityDialog";
@@ -103,18 +104,7 @@ const QualifiedRecruitmentCard = ({
         data-h2-color="base(secondary.darker)"
         data-h2-margin="base(x.5 0 x1 0)"
       >
-        {isOngoing
-          ? intl.formatMessage({
-              defaultMessage: "Ongoing recruitment",
-              id: "Uxw5DB",
-              description: "Label for an ongoing qualified recruitment",
-            })
-          : intl.formatMessage({
-              defaultMessage: "Targeted recruitment",
-              id: "04smVa",
-              description:
-                "Label for an targeting (active) qualified recruitment",
-            })}
+        {getTargetedRecruitment(isOngoing, intl)}
       </p>
       <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
         <Collapsible.Trigger asChild>
