@@ -46,6 +46,16 @@ const messages = defineMessages({
     id: "F//l5D",
     description: "Title for users",
   },
+  streams: {
+    defaultMessage: "Streams",
+    id: "RW0Ukc",
+    description: "Title for streams",
+  },
+  status: {
+    defaultMessage: "Status",
+    id: "QtzRCh",
+    description: "Title for status",
+  },
 });
 
 export default messages;
