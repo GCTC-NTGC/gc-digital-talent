@@ -218,7 +218,10 @@ export const ReviewApplication = ({
                     )}
                   </div>
                   {hasExperiences && (
-                    <ExperienceSection experiences={experiences} />
+                    <ExperienceSection
+                      experiences={experiences}
+                      editParam={`?applicationId=${applicationId}`}
+                    />
                   )}
                   <div
                     data-h2-display="base(flex)"
