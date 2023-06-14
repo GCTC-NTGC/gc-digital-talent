@@ -75,8 +75,8 @@ const RecruitmentAvailabilityDialog = ({
           color="black"
           aria-label={intl.formatMessage(
             {
-              defaultMessage: "Change your availability for {title}",
-              id: "T40tdL",
+              defaultMessage: "Change your availability for {title}.",
+              id: "K8PP2Y",
               description:
                 "Button text to open form to change availability in a specific recruitment",
             },
