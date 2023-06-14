@@ -161,6 +161,7 @@ export const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
               applicationId={applicationId}
               hasApplied={hasApplied}
               canApply={canApply}
+              isIap
               linkProps={{ block: true, color: "primary" }}
             />
           ) : (
@@ -570,6 +571,7 @@ export const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
                       applicationId={applicationId}
                       hasApplied={hasApplied}
                       canApply={canApply}
+                      isIap
                       linkProps={{ color: "primary" }}
                     />
                   ) : (

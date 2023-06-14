@@ -27,6 +27,7 @@ const CTAButtons = ({
           applicationId={applicationId}
           hasApplied={hasApplied}
           canApply={canApply}
+          isIap
           linkProps={{ block: true, color: "primary" }}
         />
       ) : (
