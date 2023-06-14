@@ -12,7 +12,6 @@ updates:
     schedule:
       interval: "weekly"
       day: "thursday"
-    open-pull-requests-limit: 15
 
   # This ignores all updates to tc-report, since it's now served as a static website.
   #
