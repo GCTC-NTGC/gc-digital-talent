@@ -139,7 +139,6 @@ export const UpdateSearchRequestForm = ({
               <div data-h2-text-align="base(right)">
                 <Button
                   color="primary"
-                  mode="outline"
                   disabled={isSaving}
                   onClick={() => {
                     handleSaveNotes(getValues());

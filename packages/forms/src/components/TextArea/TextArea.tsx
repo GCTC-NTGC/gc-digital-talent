@@ -1,56 +1,52 @@
 import * as React from "react";
 import get from "lodash/get";
-import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
+import { errorMessages } from "@gc-digital-talent/i18n";
+
+import Field from "../Field";
+import WordCounter from "../WordCounter";
+import type { CommonInputProps } from "../../types";
+import { countNumberOfWords } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import InputWrapper from "../InputWrapper";
+import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 
-export interface TextAreaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  /** HTML id used to identify the element. */
-  id: string;
-  /** Optional context which user can view by toggling a button. */
-  context?: string;
-  /** Holds text for the label associated with the input element */
-  label: string | React.ReactNode;
-  /** A string specifying a name for the input control. */
-  name: string;
-  /** Set of validation rules and error messages to impose on input. */
-  rules?: RegisterOptions;
-  // Whether to trim leading/ending whitespace upon blurring of an input, default on
-  whitespaceTrim?: boolean;
-  /** Determine if it should track unsaved changes and render it */
-  trackUnsaved?: boolean;
-  /** Add additional labels by passing space separated IDs */
-  labelledBy?: string;
-  /** Hide the optional label if this field is not required */
-  hideOptional?: boolean;
-  /** ID of a field description (help text) */
-  describedBy?: string;
-}
+export type TextAreaProps = React.DetailedHTMLProps<
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  HTMLTextAreaElement
+> &
+  CommonInputProps & {
+    // Whether to trim leading/ending whitespace upon blurring of an input, default on
+    whitespaceTrim?: boolean;
+    /** Sets a limit on how many words can be submitted with this input */
+    wordLimit?: number;
+  };
 
 const TextArea = ({
   id,
   context,
   label,
   name,
-  labelledBy,
+  wordLimit,
   rules = {},
-  children,
+  readOnly,
+  rows = 4,
   trackUnsaved = true,
   whitespaceTrim = true,
-  hideOptional,
-  describedBy,
+  "aria-labelledby": labelledBy,
+  "aria-describedby": describedBy,
   ...rest
 }: TextAreaProps) => {
-  const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
   const {
     register,
     formState: { errors },
     setValue,
   } = useFormContext();
+  const intl = useIntl();
+  const baseStyles = useCommonInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
@@ -62,7 +58,7 @@ const TextArea = ({
     show: {
       error,
       unsaved: trackUnsaved && isUnsaved,
-      context: context && isContextVisible,
+      context,
     },
   });
 
@@ -73,40 +69,70 @@ const TextArea = ({
     }
   };
 
+  let wordLimitRule = {};
+  let wordLimitStyles = {};
+  if (wordLimit) {
+    wordLimitRule = {
+      wordCount: (value: string) =>
+        countNumberOfWords(value) <= wordLimit ||
+        intl.formatMessage(errorMessages.overWordLimit, {
+          value: wordLimit,
+        }),
+    };
+
+    wordLimitStyles = {
+      "data-h2-padding-bottom": "base(x2)",
+    };
+  }
+
   return (
-    <div data-h2-margin="base(x1, 0)">
-      <InputWrapper
-        inputId={id}
-        inputName={name}
-        label={label}
-        required={!!rules.required}
-        context={context}
-        error={error}
-        trackUnsaved={trackUnsaved}
-        onContextToggle={setContextVisible}
-        descriptionIds={descriptionIds}
-        hideOptional={hideOptional}
-      >
+    <Field.Wrapper>
+      <Field.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
+        {label}
+      </Field.Label>
+      <div data-h2-position="base(relative)" data-h2-z-index="base(1)">
         <textarea
-          data-h2-padding="base(x.25, x.5)"
-          data-h2-radius="base(input)"
-          data-h2-min-height="base(x6)"
+          id={id}
+          aria-describedby={ariaDescribedBy}
+          aria-required={!!rules.required}
+          aria-invalid={!!error}
+          data-h2-width="base(100%)"
+          data-h2-resize="base(vertical)"
+          rows={rows}
+          {...baseStyles}
+          {...stateStyles}
+          {...wordLimitStyles}
+          {...register(name, {
+            ...rules,
+            validate: {
+              ...rules.validate,
+              ...wordLimitRule,
+            },
+            onBlur: whitespaceTrimmer,
+          })}
+          {...(readOnly
+            ? {
+                readOnly: true,
+                "data-h2-background-color": "base(background.dark)",
+              }
+            : {})}
           {...(labelledBy && {
             "aria-labelledby": `${labelledBy} ${id}-label`,
           })}
-          {...stateStyles}
-          style={{ width: "100%", resize: "vertical" }}
-          id={id}
-          {...register(name, rules)}
-          onBlur={whitespaceTrimmer}
-          aria-required={rules.required ? "true" : undefined}
-          aria-invalid={error ? "true" : "false"}
-          aria-describedby={ariaDescribedBy}
           {...rest}
         />
-        {children}
-      </InputWrapper>
-    </div>
+        {wordLimit && (
+          <div data-h2-text-align="base(right)">
+            <WordCounter name={name} wordLimit={wordLimit} />
+          </div>
+        )}
+      </div>
+      <Field.Descriptions
+        ids={descriptionIds}
+        error={error}
+        context={context}
+      />
+    </Field.Wrapper>
   );
 };
 

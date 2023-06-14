@@ -12,7 +12,6 @@ import {
 import { useDeepCompareEffect } from "~/hooks/useDeepCompareEffect";
 import { PoolStatus, Pool, UpdatePoolInput } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
-import Spacer from "~/components/Spacer/Spacer";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
@@ -92,22 +91,24 @@ const ClosingDateSection = ({
       </p>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleSave)}>
-          <div data-h2-display="base(flex)">
-            <Spacer style={{ flex: 1 }}>
-              <Input
-                id="endDate"
-                label={intl.formatMessage({
-                  defaultMessage: "End Date",
-                  id: "80DOGy",
-                  description:
-                    "Label displayed on the pool candidate form end date field.",
-                })}
-                type="date"
-                name="endDate"
-                disabled={formDisabled}
-              />
-            </Spacer>
-            <Spacer style={{ flex: 1 }} />
+          <div
+            data-h2-display="base(grid)"
+            data-h2-gap="base(x1)"
+            data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
+            data-h2-margin="base(x1 0)"
+          >
+            <Input
+              id="endDate"
+              label={intl.formatMessage({
+                defaultMessage: "End Date",
+                id: "80DOGy",
+                description:
+                  "Label displayed on the pool candidate form end date field.",
+              })}
+              type="date"
+              name="endDate"
+              disabled={formDisabled}
+            />
           </div>
 
           {!formDisabled && (
@@ -117,7 +118,7 @@ const ClosingDateSection = ({
                 id: "jttjmJ",
                 description: "Text on a button to save the pool closing date",
               })}
-              color="cta"
+              color="tertiary"
               mode="solid"
               isSubmitting={isSubmitting}
             />

@@ -88,7 +88,6 @@ function TableFooter({
                         type="button"
                         mode="inline"
                         color="white"
-                        disabled={disableActions}
                         {...csv}
                       >
                         {intl.formatMessage({
@@ -132,8 +131,9 @@ function TableFooter({
                 defaultMessage: "Table results",
                 id: "hlcd+5",
               })}
-              color="white"
-              mode="solid"
+              color="black"
+              fontColor="white"
+              activeColor="primary"
             />
           </div>
         </div>

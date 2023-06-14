@@ -95,6 +95,7 @@ const Opportunities = () => {
               links={[
                 {
                   href: paths.browsePools(),
+                  mode: "solid",
                   label: intl.formatMessage(
                     {
                       defaultMessage: "Browse jobs",
@@ -138,6 +139,7 @@ const Opportunities = () => {
               links={[
                 {
                   href: `/${locale}/indigenous-it-apprentice`,
+                  mode: "solid",
                   label: intl.formatMessage({
                     defaultMessage:
                       "Apply<hidden> to the IT Apprenticeship Program for Indigenous Peoples</hidden> now",
@@ -174,6 +176,7 @@ const Opportunities = () => {
               links={[
                 {
                   href: paths.myProfile(),
+                  mode: "solid",
                   label: loggedIn
                     ? intl.formatMessage({
                         defaultMessage: "Get ready by updating your profile",

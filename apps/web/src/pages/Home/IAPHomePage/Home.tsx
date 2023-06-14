@@ -2,6 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
 
+import { Link, Pending } from "@gc-digital-talent/ui";
+
 import useQuote from "~/hooks/useQuote";
 
 import iapHeroImg from "~/assets/img/iap-hero.jpg";
@@ -18,6 +20,12 @@ import lowerBack from "~/assets/img/lower-back.jpg";
 import iconWatermark from "~/assets/img/icon-watermark.svg";
 import indigenousWoman from "~/assets/img/indigenous-woman.png";
 
+import { useIapPublishedPoolsQuery, PublishingGroup } from "~/api/generated";
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
+import { Pool, PoolStatus } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
+import orderBy from "lodash/orderBy";
 import Banner from "./components/Banner";
 import Card from "./components/Card";
 import CTAButtons from "./components/CTAButtons";
@@ -38,12 +46,22 @@ import {
 } from "./components/Svg";
 
 const mailLink = (chunks: React.ReactNode) => (
-  <a href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">{chunks}</a>
+  <Link external href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">
+    {chunks}
+  </Link>
 );
 
-const Home = () => {
+interface HomeProps {
+  latestPool?: Pool;
+  applicationId?: string;
+  hasApplied?: boolean;
+}
+
+export const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
   const intl = useIntl();
   const quote = useQuote();
+
+  const canApply = !!(latestPool && latestPool.status === PoolStatus.Published);
 
   /**
    * Language swapping is a little rough here,
@@ -136,7 +154,17 @@ const Home = () => {
           data-h2-min-width="base(x12)"
           data-h2-order="base(3)"
         >
-          <ApplyDialog />
+          {latestPool ? (
+            <ApplicationLink
+              poolId={latestPool.id}
+              applicationId={applicationId}
+              hasApplied={hasApplied}
+              canApply={canApply}
+              linkProps={{ block: true }}
+            />
+          ) : (
+            <ApplyDialog />
+          )}
         </div>
       </div>
       {/* About section */}
@@ -240,7 +268,12 @@ const Home = () => {
                     })}
                   </p>
                   <div data-h2-margin="base(x2, 0, 0, 0)">
-                    <CTAButtons />
+                    <CTAButtons
+                      latestPoolId={latestPool?.id}
+                      applicationId={applicationId}
+                      hasApplied={hasApplied}
+                      canApply={canApply}
+                    />
                   </div>
                 </div>
               </div>
@@ -334,7 +367,12 @@ const Home = () => {
                   })}
                 </p>
                 <div data-h2-visually-hidden="base(revealed) l-tablet(invisible)">
-                  <CTAButtons />
+                  <CTAButtons
+                    latestPoolId={latestPool?.id}
+                    applicationId={applicationId}
+                    hasApplied={hasApplied}
+                    canApply={canApply}
+                  />
                 </div>
               </div>
             </div>
@@ -525,7 +563,16 @@ const Home = () => {
                       description: "Application box content",
                     })}
                   </p>
-                  <ApplyDialog />
+                  {latestPool ? (
+                    <ApplicationLink
+                      poolId={latestPool.id}
+                      applicationId={applicationId}
+                      hasApplied={hasApplied}
+                      canApply={canApply}
+                    />
+                  ) : (
+                    <ApplyDialog />
+                  )}
                 </div>
               </div>
             </div>
@@ -883,4 +930,36 @@ const Home = () => {
   );
 };
 
-export default Home;
+const now = nowUTCDateTime();
+
+const HomeApi = () => {
+  const [{ data, fetching, error }] = useIapPublishedPoolsQuery({
+    variables: { closingAfter: now, publishingGroup: PublishingGroup.Iap },
+  });
+
+  const pools = orderBy(
+    data?.publishedPools.filter((pool) => typeof pool !== undefined && !!pool),
+    ["publishedAt"],
+    ["desc"],
+  ); // Order by date in desc order
+
+  const latestPool = pools && pools.length > 0 ? pools[0] : undefined; // get latest pool (most recent published_at date)
+
+  // Attempt to find an application for this user+pool combination
+  const application = data?.me?.poolCandidates?.find(
+    (candidate) => candidate?.pool.id === latestPool?.id,
+  );
+  const hasApplied = notEmpty(application?.submittedAt);
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      <Home
+        latestPool={latestPool}
+        applicationId={application?.id}
+        hasApplied={hasApplied}
+      />
+    </Pending>
+  );
+};
+
+export default HomeApi;

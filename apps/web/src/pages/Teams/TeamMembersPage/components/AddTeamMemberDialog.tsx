@@ -3,7 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
-import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 import { MultiSelectField, Select } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -104,9 +104,9 @@ AddTeamMemberDialogProps) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <IconButton color="primary" mode="outline" icon={PlusIcon}>
+        <Button color="primary" icon={PlusIcon}>
           {label}
-        </IconButton>
+        </Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
@@ -122,58 +122,67 @@ AddTeamMemberDialogProps) => {
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <Select
-                id="user"
-                name="user"
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-                label={intl.formatMessage({
-                  defaultMessage: "Manager name",
-                  id: "1BEtoY",
-                  description:
-                    "Label for the user select field on team membership form",
-                })}
-                options={userOptions}
-              />
-              {/** Note: Only one option since we are adding to this team's users */}
-              <input type="hidden" name="team" value={team.id} />
-              <Select
-                id="teamDisplay"
-                name="teamDisplay"
-                disabled
-                hideOptional
-                label={intl.formatMessage({
-                  defaultMessage: "Team",
-                  id: "0AaeXe",
-                  description:
-                    "Label for the team select field on team membership form",
-                })}
-                options={[
-                  {
-                    value: team.id,
-                    label: getLocalizedName(team.displayName, intl),
-                  },
-                ]}
-              />
-              <MultiSelectField
-                id="roles"
-                name="roles"
-                label={intl.formatMessage({
-                  defaultMessage: "Membership roles",
-                  id: "cOJVBW",
-                  description:
-                    "Label for the input to add roles to a user's team membership",
-                })}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Select roles",
-                  id: "Cn73yN",
-                  description: "Placeholder text for role selection input",
-                })}
-                options={roleOptions}
-              />
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x1 0)"
+              >
+                <Select
+                  id="user"
+                  name="user"
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  label={intl.formatMessage({
+                    defaultMessage: "Manager name",
+                    id: "1BEtoY",
+                    description:
+                      "Label for the user select field on team membership form",
+                  })}
+                  options={userOptions}
+                />
+                {/** Note: Only one option since we are adding to this team's users */}
+                <input type="hidden" name="team" value={team.id} />
+                <Select
+                  id="teamDisplay"
+                  name="teamDisplay"
+                  disabled
+                  label={intl.formatMessage({
+                    defaultMessage: "Team",
+                    id: "0AaeXe",
+                    description:
+                      "Label for the team select field on team membership form",
+                  })}
+                  options={[
+                    {
+                      value: team.id,
+                      label: getLocalizedName(team.displayName, intl),
+                    },
+                  ]}
+                />
+                <MultiSelectField
+                  id="roles"
+                  name="roles"
+                  label={intl.formatMessage({
+                    defaultMessage: "Membership roles",
+                    id: "cOJVBW",
+                    description:
+                      "Label for the input to add roles to a user's team membership",
+                  })}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  placeholder={intl.formatMessage({
+                    defaultMessage: "Select roles",
+                    id: "Cn73yN",
+                    description: "Placeholder text for role selection input",
+                  })}
+                  options={roleOptions}
+                />
+              </div>
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button mode="outline" color="secondary">
+                  <Button color="secondary">
                     {intl.formatMessage({
                       defaultMessage: "Cancel and go back",
                       id: "tiF/jI",

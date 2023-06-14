@@ -3,7 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
-import { Dialog, Button, IconButton } from "@gc-digital-talent/ui";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 import { MultiSelectField, Select } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -115,9 +115,9 @@ const AddTeamRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <IconButton color="primary" mode="solid" icon={PlusIcon}>
+        <Button color="primary" mode="solid" icon={PlusIcon}>
           {label}
-        </IconButton>
+        </Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
@@ -135,45 +135,53 @@ const AddTeamRoleDialog = ({
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleAddRoles)}>
-              <Select
-                id="team"
-                name="team"
-                label={intl.formatMessage({
-                  defaultMessage: "Team",
-                  id: "GaMSN8",
-                  description:
-                    "Label for the input to select team of a team role",
-                })}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Select team",
-                  id: "5C8xs4",
-                  description: "Placeholder text for team selection input",
-                })}
-                options={teamOptions ?? []}
-              />
-              <MultiSelectField
-                id="roles"
-                name="roles"
-                label={intl.formatMessage({
-                  defaultMessage: "Membership roles",
-                  id: "s5hTYo",
-                  description:
-                    "Label for the input to select role of a team role",
-                })}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Select role",
-                  id: "mTsq+x",
-                  description: "Placeholder text for role selection input",
-                })}
-                options={roleOptions}
-              />
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x1 0)"
+              >
+                <Select
+                  id="team"
+                  name="team"
+                  label={intl.formatMessage({
+                    defaultMessage: "Team",
+                    id: "GaMSN8",
+                    description:
+                      "Label for the input to select team of a team role",
+                  })}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  placeholder={intl.formatMessage({
+                    defaultMessage: "Select team",
+                    id: "5C8xs4",
+                    description: "Placeholder text for team selection input",
+                  })}
+                  options={teamOptions ?? []}
+                />
+                <MultiSelectField
+                  id="roles"
+                  name="roles"
+                  label={intl.formatMessage({
+                    defaultMessage: "Membership roles",
+                    id: "s5hTYo",
+                    description:
+                      "Label for the input to select role of a team role",
+                  })}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  placeholder={intl.formatMessage({
+                    defaultMessage: "Select role",
+                    id: "mTsq+x",
+                    description: "Placeholder text for role selection input",
+                  })}
+                  options={roleOptions}
+                />
+              </div>
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button mode="outline" color="secondary">
+                  <Button color="secondary">
                     {intl.formatMessage({
                       defaultMessage: "Cancel and go back",
                       id: "tiF/jI",

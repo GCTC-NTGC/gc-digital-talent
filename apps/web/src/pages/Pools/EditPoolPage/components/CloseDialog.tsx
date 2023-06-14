@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { InputWrapper } from "@gc-digital-talent/forms";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { Pool } from "~/api/generated";
@@ -24,7 +23,7 @@ const CloseDialog = ({
       <>
         <div style={{ flexGrow: 2 } /* push other div to the right */}>
           <Dialog.Close>
-            <Button mode="outline" color="secondary">
+            <Button color="secondary">
               {intl.formatMessage({
                 defaultMessage: "Cancel and go back",
                 id: "tiF/jI",
@@ -83,34 +82,28 @@ const CloseDialog = ({
             })}
           </p>
           <FormProvider {...methods}>
-            <InputWrapper
-              inputId="closingDate"
-              label={intl.formatMessage({
+            <p>
+              {intl.formatMessage({
                 defaultMessage: "Closing Date",
                 id: "7OQHcx",
                 description: "Closing Date field label for close pool dialog",
               })}
-              hideOptional
-              required={false}
+            </p>
+            <div
+              data-h2-width="base(100%)"
+              data-h2-background-color="base(gray.light)"
+              data-h2-padding="base(x.5)"
+              data-h2-radius="base(s)"
             >
-              <div
-                data-h2-display="base(flex)"
-                data-h2-width="base(100%)"
-                data-h2-gap="base(.5rem)"
-                data-h2-background-color="base(gray.light)"
-                data-h2-padding="base(x.25)"
-                data-h2-radius="base(s)"
-              >
-                {closingDate
-                  ? formatDate({
-                      date: parseDateTimeUtc(closingDate),
-                      formatString: "PPP",
-                      intl,
-                      timeZone: "Canada/Pacific",
-                    })
-                  : ""}
-              </div>
-            </InputWrapper>
+              {closingDate
+                ? formatDate({
+                    date: parseDateTimeUtc(closingDate),
+                    formatString: "PPP",
+                    intl,
+                    timeZone: "Canada/Pacific",
+                  })
+                : ""}
+            </div>
           </FormProvider>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({

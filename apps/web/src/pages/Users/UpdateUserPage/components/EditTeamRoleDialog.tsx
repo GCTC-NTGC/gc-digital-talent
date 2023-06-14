@@ -113,7 +113,7 @@ const EditTeamRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="black" mode="outline">
+        <Button color="black">
           <PencilIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
           <span data-h2-visually-hidden="base(hidden)">{label}</span>
         </Button>
@@ -164,7 +164,7 @@ const EditTeamRoleDialog = ({
               />
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button mode="outline" color="secondary">
+                  <Button color="secondary">
                     {intl.formatMessage({
                       defaultMessage: "Cancel and go back",
                       id: "tiF/jI",

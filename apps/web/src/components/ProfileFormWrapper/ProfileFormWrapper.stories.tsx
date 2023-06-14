@@ -32,9 +32,20 @@ const TemplateProfileFormWrapper: Story<
           return null;
         }}
       >
-        <Input id="email" label="Email" type="email" name="email" />
-        <Input id="firstName" label="First Name" type="text" name="firstName" />
-        <Input id="lastName" label="Last Name" type="text" name="lastName" />
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x1 0)"
+        >
+          <Input id="email" label="Email" type="email" name="email" />
+          <Input
+            id="firstName"
+            label="First Name"
+            type="text"
+            name="firstName"
+          />
+          <Input id="lastName" label="Last Name" type="text" name="lastName" />
+        </div>
         <ProfileFormFooter mode={mode} />
       </BasicForm>
     </ProfileFormWrapper>
@@ -48,20 +59,20 @@ export const BothButtons = TemplateProfileFormWrapper.bind({});
 faker.seed(0);
 
 CancelButton.args = {
-  crumbs: [{ label: "About Me", url: "#about-cancel" }],
+  crumbs: [{ label: "About me", url: "#about-cancel" }],
   title: "About me",
   description: faker.lorem.sentences(4),
 };
 
 SaveButton.args = {
-  crumbs: [{ label: "About Me", url: "#about-save" }],
+  crumbs: [{ label: "About me", url: "#about-save" }],
   title: "About me",
   description: faker.lorem.sentences(4),
   mode: "saveButton",
 };
 
 BothButtons.args = {
-  crumbs: [{ label: "About Me", url: "#about-both" }],
+  crumbs: [{ label: "About me", url: "#about-both" }],
   title: "About me",
   description: faker.lorem.sentences(4),
   mode: "bothButtons",

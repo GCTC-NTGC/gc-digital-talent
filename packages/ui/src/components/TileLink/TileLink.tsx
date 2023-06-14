@@ -4,7 +4,7 @@ import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRight
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
-import type { Color } from "../Button";
+import type { Color } from "../../types";
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
@@ -35,32 +35,11 @@ const colorMap: Record<Color, Record<string, string>> = {
   error: {
     "data-h2-border-left": "base(x.5 solid error)",
   },
-  cta: {
-    "data-h2-border-left": "base(x.5 solid tertiary.dark)",
-  },
   white: {
     "data-h2-border-left": "base(x.5 solid white)",
   },
   black: {
     "data-h2-border-left": "base(x.5 solid black)",
-  },
-  "ia-primary": {
-    "data-h2-border-left": "base(x.5 solid primary)",
-  },
-  "ia-secondary": {
-    "data-h2-border-left": "base(x.5 solid secondary)",
-  },
-  yellow: {
-    "data-h2-border-left": "base(x.5 solid quaternary)",
-  },
-  red: {
-    "data-h2-border-left": "base(x.5 solid tertiary)",
-  },
-  blue: {
-    "data-h2-border-left": "base(x.5 solid secondary)",
-  },
-  purple: {
-    "data-h2-border-left": "base(x.5 solid primary)",
   },
 };
 
@@ -91,6 +70,8 @@ const Link = ({ href, color, external, children, ...rest }: LinkProps) => {
 
   if (external) {
     return (
+      // NOTE: We do want to allow external links to be rendered as <a> tags
+      // eslint-disable-next-line react/forbid-elements
       <a href={href} {...linkProps}>
         {children}
       </a>

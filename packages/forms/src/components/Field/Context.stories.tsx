@@ -1,0 +1,16 @@
+import React from "react";
+import { StoryFn } from "@storybook/react";
+
+import Context from "./Context";
+
+export default {
+  title: "Form/Field/Context",
+  component: Context,
+};
+
+const Template: StoryFn<typeof Context> = (args) => <Context {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  children: "This is a description",
+};

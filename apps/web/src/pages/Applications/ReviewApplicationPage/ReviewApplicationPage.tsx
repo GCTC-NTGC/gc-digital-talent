@@ -221,15 +221,13 @@ export const ReviewApplication = ({
                   <div
                     data-h2-display="base(flex)"
                     data-h2-padding="base(x2, 0, 0, 0)"
-                    style={{ gap: "1rem" }}
+                    data-h2-align-items="base(center)"
+                    data-h2-gap="base(x1)"
                   >
                     <Link
                       href={paths.signAndSubmit(applicationId)}
                       color="primary"
                       mode="solid"
-                      type="button"
-                      disabled={!isApplicationComplete ?? false}
-                      data-h2-display="base(flex)"
                     >
                       {intl.formatMessage({
                         id: "EVGeHh",
@@ -241,12 +239,7 @@ export const ReviewApplication = ({
                         style={{ width: "1rem", marginLeft: "0.5rem" }}
                       />
                     </Link>
-                    <Link
-                      href={paths.applications(applicant.id)}
-                      color="secondary"
-                      mode="inline"
-                      type="button"
-                    >
+                    <Link href={paths.applications(applicant.id)} mode="inline">
                       {intl.formatMessage({
                         id: "zqIEuu",
                         defaultMessage: "Go back to my applications",

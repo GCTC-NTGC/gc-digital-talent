@@ -7,7 +7,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
-import { flattenExperienceSkills, ExperienceType } from "~/types/experience";
+import { flattenExperienceSkills } from "~/types/experience";
 import MissingSkills from "~/components/MissingSkills";
 import ExperienceSection from "~/components/UserProfile/ExperienceSection";
 import {
@@ -67,18 +67,6 @@ export const ExperienceAndSkills = ({
   const returnRoute = applicationId
     ? paths.reviewApplication(applicationId)
     : paths.profile(applicantId);
-
-  const getEditPath = (id: string, type: ExperienceType) => {
-    return `${paths.editExperience(applicantId, type, id)}${applicationParam}`;
-  };
-
-  const experienceEditPaths = {
-    awardUrl: (id: string) => getEditPath(id, "award"),
-    communityUrl: (id: string) => getEditPath(id, "community"),
-    educationUrl: (id: string) => getEditPath(id, "education"),
-    personalUrl: (id: string) => getEditPath(id, "personal"),
-    workUrl: (id: string) => getEditPath(id, "work"),
-  };
 
   const hasExperiences = notEmpty(experiences);
 
@@ -188,8 +176,8 @@ export const ExperienceAndSkills = ({
         </Well>
       ) : (
         <ExperienceSection
+          editParam={applicationParam}
           experiences={experiences}
-          experienceEditPaths={experienceEditPaths}
           headingLevel="h2"
         />
       )}

@@ -1,5 +1,5 @@
 import Checklist from "./Checklist";
-import type { ChecklistProps, Checkbox } from "./Checklist";
+import type { ChecklistProps, CheckboxOption } from "./Checklist";
 
 export default Checklist;
-export type { ChecklistProps, Checkbox };
+export type { ChecklistProps, CheckboxOption };

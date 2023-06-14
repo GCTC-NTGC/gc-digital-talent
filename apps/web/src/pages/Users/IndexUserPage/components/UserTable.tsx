@@ -6,7 +6,7 @@ import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getJobLookingStatus, getLanguage } from "@gc-digital-talent/i18n";
-import { Pending } from "@gc-digital-talent/ui";
+import { Link, Pending } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
@@ -47,7 +47,7 @@ import {
   stringToEnumLocation,
   stringToEnumOperational,
 } from "~/utils/userUtils";
-import UserProfileDocument from "~/components/UserProfileDocument/UserProfileDocument";
+import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 
 import useUserCsvData from "../hooks/useUserCsvData";
 
@@ -145,12 +145,14 @@ const languageAccessor = (
 const phoneAccessor = (telephone: string | null | undefined) => {
   if (telephone) {
     return (
-      <a
+      <Link
+        external
+        color="black"
         href={`tel:${telephone}`}
         aria-label={telephone.replace(/.{1}/g, "$& ")}
       >
         {telephone}
-      </a>
+      </Link>
     );
   }
   return "";
@@ -159,7 +161,9 @@ const phoneAccessor = (telephone: string | null | undefined) => {
 const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
   if (email) {
     return (
-      <a
+      <Link
+        external
+        color="black"
         href={`mailto:${email}`}
         title={intl.formatMessage({
           defaultMessage: "Link to user email",
@@ -168,7 +172,7 @@ const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
         })}
       >
         {email}
-      </a>
+      </Link>
     );
   }
   return (
@@ -455,8 +459,8 @@ const UserTable = ({ title }: { title: string }) => {
     content: () => componentRef.current,
     pageStyle: printStyles,
     documentTitle: intl.formatMessage({
-      defaultMessage: "Candidate Profiles",
-      id: "IE82VM",
+      defaultMessage: "Candidate profiles",
+      id: "scef3o",
       description: "Document title for printing User table results",
     }),
   });
@@ -613,10 +617,7 @@ const UserTable = ({ title }: { title: string }) => {
             !selectedUsersData?.applicants.length
           }
         />
-        <UserProfileDocument
-          applicants={selectedApplicants}
-          ref={componentRef}
-        />
+        <ProfileDocument results={selectedApplicants} ref={componentRef} />
       </div>
     </div>
   );

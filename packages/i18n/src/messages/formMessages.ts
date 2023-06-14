@@ -24,6 +24,11 @@ const formMessages = defineMessages({
     id: "mDOWWQ",
     description: "Default text for submitting button.",
   },
+  wordLimit: {
+    defaultMessage: "{wordCount} / {wordLimit} words",
+    id: "YmboX1",
+    description: "Message for words remaining before hitting the limit",
+  },
   wordsOver: {
     defaultMessage:
       "{wordsLeft, plural, one {word over limit} other {words over limit}}.",
@@ -115,6 +120,11 @@ const formMessages = defineMessages({
     id: "lsFH+y",
     description:
       "Message shown in options dropdown when Select field has no options.",
+  },
+  phonePlaceholder: {
+    defaultMessage: "+123243234",
+    id: "uNArwM",
+    description: "Placeholder for form telephone field",
   },
 });
 

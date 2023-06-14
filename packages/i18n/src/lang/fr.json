@@ -1377,5 +1377,61 @@
   "jy7itR": {
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
+  },
+  "Gx8qCK": {
+    "defaultMessage": "À propos de moi",
+    "description": "Name of About me page"
+  },
+  "PxUSSH": {
+    "defaultMessage": "Mon statut",
+    "description": "Name of My status page"
+  },
+  "uNArwM": {
+    "defaultMessage": "+123243234",
+    "description": "Placeholder for form telephone field"
+  },
+  "ad4mTC": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Name of Diversity, equity and inclusion page"
+  },
+  "v9XiWV": {
+    "defaultMessage": "Informations linguistiques",
+    "description": "Name of Language information page"
+  },
+  "FvV+QW": {
+    "defaultMessage": "Renseignements gouvernementaux",
+    "description": "Name of Government information page"
+  },
+  "TCs69O": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Name of Work location page"
+  },
+  "nnMYWr": {
+    "defaultMessage": "Préférences de travail",
+    "description": "Name of Work preferences page"
+  },
+  "lp/ZEr": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Name of Role and salary expectations page"
+  },
+  "clhK68": {
+    "defaultMessage": "Mes compétences et mon expérience",
+    "description": "Name of My skills and experience page"
+  },
+  "i3Jl6C": {
+    "defaultMessage": " : ",
+    "description": "Dividing colon with trailing space"
+  },
+  "ayG2k7": {
+    "defaultMessage": "Oui",
+    "description": "Affirmative answer"
+  },
+  "gM4WDL": {
+    "defaultMessage": "Non",
+    "description": "Negative answer"
+  },
+  "YmboX1": {
+    "defaultMessage": "{wordCount} / {wordLimit} mots",
+    "description": "Message for words remaining before hitting the limit"
   }
 }

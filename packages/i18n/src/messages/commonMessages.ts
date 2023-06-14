@@ -79,6 +79,21 @@ const commonMessages = defineMessages({
     id: "99cWuv",
     description: "Message for the success status",
   },
+  dividingColon: {
+    defaultMessage: ": ",
+    id: "i3Jl6C",
+    description: "Dividing colon with trailing space",
+  },
+  yes: {
+    defaultMessage: "Yes",
+    id: "ayG2k7",
+    description: "Affirmative answer",
+  },
+  no: {
+    defaultMessage: "No",
+    id: "gM4WDL",
+    description: "Negative answer",
+  },
 });
 
 export default commonMessages;

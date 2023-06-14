@@ -153,7 +153,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="outline">
+        <Button color="primary">
           <span data-h2-text-decoration="base(underline)">
             {intl.formatMessage({
               defaultMessage: "Add user to pool",
@@ -242,7 +242,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
               </div>
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button type="button" mode="outline" color="secondary">
+                  <Button type="button" color="secondary">
                     <span data-h2-text-decoration="base(underline)">
                       {intl.formatMessage({
                         defaultMessage: "Cancel and go back",
