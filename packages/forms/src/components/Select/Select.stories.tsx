@@ -1,5 +1,5 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import uniqueId from "lodash/uniqueId";
 import { useIntl } from "react-intl";
@@ -22,9 +22,9 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const Template: Story<SelectProps> = (args) => {
+const Template: StoryFn<SelectProps> = (args) => {
   const intl = useIntl();
   const departments = fakeDepartments();
   const departmentOptions: Option[] = departments.map(({ id, name }) => ({
@@ -36,15 +36,15 @@ const Template: Story<SelectProps> = (args) => {
       onSubmit={action("Submit Form")}
       options={{ defaultValues: { groups: "" } }}
     >
-      <div>
-        <Select {...args} options={departmentOptions} />
+      <Select {...args} options={departmentOptions} />
+      <p data-h2-margin-top="base(x1)">
         <Submit />
-      </div>
+      </p>
     </Form>
   );
 };
 
-const TemplateGroups: Story<SelectProps> = (args) => {
+const TemplateGroups: StoryFn<SelectProps> = (args) => {
   const intl = useIntl();
   const departments = fakeDepartments();
   const pools = fakePools();
@@ -148,6 +148,7 @@ SelectRequiredWithErrorAndContext.args = {
 
 export const SelectLabelElement = Template.bind({});
 SelectLabelElement.args = {
+  ...SelectDefault.args,
   label: <span data-h2-font-weight="base(700)">Bold Label</span>,
   name: "LabelElement",
 };

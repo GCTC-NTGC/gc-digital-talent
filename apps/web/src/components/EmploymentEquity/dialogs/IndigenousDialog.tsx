@@ -8,7 +8,7 @@ import {
 } from "react-hook-form";
 
 import { Dialog } from "@gc-digital-talent/ui";
-import { Checkbox, Fieldset, FieldLabels } from "@gc-digital-talent/forms";
+import { Checkbox, Field, FieldLabels } from "@gc-digital-talent/forms";
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
@@ -88,16 +88,14 @@ const IndigenousDialog = ({
             <form onSubmit={handleSubmit(submitHandler)}>
               <AddToProfile />
               <div data-h2-margin="base(x1, 0, x1.5, 0)">
-                <Fieldset
-                  legend={intl.formatMessage({
-                    defaultMessage: "Self-Declaration",
-                    id: "dYS0MA",
-                    description: "Form label for a self-declaration input",
-                  })}
-                  name="isIndigenous"
-                  hideOptional
-                  trackUnsaved={false}
-                >
+                <Field.Fieldset flat>
+                  <Field.Legend>
+                    {intl.formatMessage({
+                      defaultMessage: "Self-Declaration",
+                      id: "dYS0MA",
+                      description: "Form label for a self-declaration input",
+                    })}
+                  </Field.Legend>
                   <Checkbox
                     id="isIndigenous"
                     name="isIndigenous"
@@ -106,7 +104,7 @@ const IndigenousDialog = ({
                     )}
                     trackUnsaved={false}
                   />
-                </Fieldset>
+                </Field.Fieldset>
                 <CommunitySelection labels={labels} />
               </div>
               <Dialog.Footer>

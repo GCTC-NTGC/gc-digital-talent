@@ -248,7 +248,7 @@ export const RequestForm = ({
           description: "Heading for request form.",
         })}
       </h2>
-      <p>
+      <p data-h2-margin-bottom="base(x1)">
         {intl.formatMessage({
           defaultMessage:
             "To submit a request, please provide the following information so we can contact you.",
@@ -258,7 +258,7 @@ export const RequestForm = ({
       </p>
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, 0)">
+          <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, x1)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 id="fullName"
@@ -339,7 +339,7 @@ export const RequestForm = ({
               })}
             </p>
             {candidateCount === 0 ? (
-              <p data-h2-margin="base(x.5, 0, 0, 0)">
+              <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "If you are submitting a form that had zero estimated candidates, let us know more about this request in the comments.",

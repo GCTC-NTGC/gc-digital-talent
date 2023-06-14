@@ -73,7 +73,10 @@ const CreateTeamForm = ({ departments, onSubmit }: CreateTeamFormProps) => {
 
   return (
     <BasicForm onSubmit={handleSubmit}>
-      <div data-h2-flex-grid="base(center, x1, 0)">
+      <div
+        data-h2-flex-grid="base(center, x1, x1)"
+        data-h2-margin-bottom="base(x1)"
+      >
         <CreateTeamFormFields departments={departments} />
       </div>
       <div

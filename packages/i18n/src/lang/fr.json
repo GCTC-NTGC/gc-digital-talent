@@ -1429,5 +1429,9 @@
   "gM4WDL": {
     "defaultMessage": "Non",
     "description": "Negative answer"
+  },
+  "YmboX1": {
+    "defaultMessage": "{wordCount} / {wordLimit} mots",
+    "description": "Message for words remaining before hitting the limit"
   }
 }

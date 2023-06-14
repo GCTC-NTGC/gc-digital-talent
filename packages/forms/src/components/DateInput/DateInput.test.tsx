@@ -51,6 +51,7 @@ const defaultProps: RenderDateInputProps = {
     },
   },
   inputProps: {
+    id: "date",
     name: "date",
     legend: "Date",
   },

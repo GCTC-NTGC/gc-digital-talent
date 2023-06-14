@@ -1,24 +1,20 @@
 import Checkbox, { type CheckboxProps } from "./components/Checkbox";
 import CheckButton, { CheckButtonProps } from "./components/CheckButton";
-import Checklist, { type ChecklistProps } from "./components/Checklist";
+import Checklist, {
+  type ChecklistProps,
+  type CheckboxOption,
+} from "./components/Checklist";
 import Combobox, { ComboboxProps } from "./components/Combobox";
 import DateInput, { DateInputProps } from "./components/DateInput/DateInput";
-import Fieldset, { type FieldsetProps } from "./components/Fieldset";
+import Field, {
+  ContextProps,
+  DescriptionsProps,
+  LabelProps,
+  LegendProps,
+  RequiredProps,
+  WrapperProps,
+} from "./components/Field";
 import Input, { type InputProps } from "./components/Input";
-import InputContext, {
-  type InputContextProps,
-} from "./components/InputContext";
-import InputError, {
-  type InputErrorProps,
-  type InputFieldError,
-} from "./components/InputError";
-import InputLabel, { type InputLabelProps } from "./components/InputLabel";
-import InputUnsaved, {
-  type InputUnsavedProps,
-} from "./components/InputUnsaved";
-import InputWrapper, {
-  type InputWrapperProps,
-} from "./components/InputWrapper";
 import MultiSelectField from "./components/MultiSelect/MultiSelectField";
 import RadioGroup, { type RadioGroupProps } from "./components/RadioGroup";
 import Repeater from "./components/Repeater/Repeater";
@@ -51,19 +47,16 @@ import {
   objectsToSortedOptions,
 } from "./utils";
 
+import useCommonInputStyles from "./hooks/useCommonInputStyles";
+
 export {
   DateInput,
   Checkbox,
   CheckButton,
   Checklist,
   Combobox,
-  Fieldset,
+  Field,
   Input,
-  InputContext,
-  InputError,
-  InputLabel,
-  InputUnsaved,
-  InputWrapper,
   MultiSelectField,
   Repeater,
   RadioGroup,
@@ -80,17 +73,11 @@ export {
 export type {
   DateInputProps,
   CheckboxProps,
+  CheckboxOption,
   CheckButtonProps,
   ChecklistProps,
   ComboboxProps,
-  FieldsetProps,
   InputProps,
-  InputContextProps,
-  InputErrorProps,
-  InputFieldError,
-  InputLabelProps,
-  InputUnsavedProps,
-  InputWrapperProps,
   RadioGroupProps,
   SelectProps,
   SelectFieldV2Props,
@@ -100,6 +87,12 @@ export type {
   WordCounterProps,
   BasicFormProps,
   FieldLabels,
+  ContextProps,
+  DescriptionsProps,
+  LabelProps,
+  LegendProps,
+  RequiredProps,
+  WrapperProps,
 };
 
 export {
@@ -112,4 +105,5 @@ export {
   matchStringsCaseDiacriticInsensitive,
   countNumberOfWords,
   objectsToSortedOptions,
+  useCommonInputStyles,
 };
