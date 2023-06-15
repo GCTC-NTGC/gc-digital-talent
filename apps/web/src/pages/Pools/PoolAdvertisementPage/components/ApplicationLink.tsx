@@ -12,7 +12,6 @@ interface ApplicationLinkProps {
   applicationId?: Scalars["ID"];
   hasApplied?: boolean;
   canApply?: boolean;
-  isIap?: boolean;
   linkProps?: Omit<LinkProps, "mode" | "ref">;
 }
 
@@ -22,7 +21,6 @@ const ApplicationLink = ({
   hasApplied,
   canApply,
   linkProps,
-  isIap = false,
 }: ApplicationLinkProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -41,18 +39,11 @@ const ApplicationLink = ({
       : paths.reviewApplication(applicationId);
   }
 
-  let linkText = isIap
-    ? intl.formatMessage({
-        defaultMessage: "Apply for this program",
-        id: "5ekK7T",
-        description:
-          "Link text to apply for the IT Apprenticeship Program for Indigenous Peoples",
-      })
-    : intl.formatMessage({
-        defaultMessage: "Apply for this process",
-        id: "W2YIEA",
-        description: "Link text to apply for a pool advertisement",
-      });
+  let linkText = intl.formatMessage({
+    defaultMessage: "Apply for this process",
+    id: "W2YIEA",
+    description: "Link text to apply for a pool advertisement",
+  });
   if (applicationId) {
     linkText = hasApplied
       ? intl.formatMessage({
