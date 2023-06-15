@@ -174,56 +174,54 @@ const ResumeSection = ({
   return (
     <>
       <FormProvider {...methods}>
-        <form>
+        <div
+          data-h2-flex-grid="base(center, x1, x1)"
+          data-h2-margin-bottom="base(x.5)"
+        >
           <div
-            data-h2-flex-grid="base(center, x1, x1)"
-            data-h2-margin-bottom="base(x.5)"
+            data-h2-flex-item="base(1of1) p-tablet(content)"
+            data-h2-align-self="base(flex-end)"
           >
+            <Select
+              id="sortBy"
+              label={intl.formatMessage({
+                defaultMessage: "Sort experience by",
+                id: "2n0e2i",
+                description:
+                  "Label for selector to choose experience sort options",
+              })}
+              name="sortBy"
+              options={sortOptions}
+              trackUnsaved={false}
+            />
+          </div>
+          <div data-h2-flex-item="base(1of1) p-tablet(content)">
+            <Select
+              id="filterBy"
+              label={intl.formatMessage({
+                defaultMessage: "Filter experience by type",
+                id: "PE7mMC",
+                description:
+                  "Label for selector to choose experience filter options",
+              })}
+              name="filterBy"
+              options={filterOptions}
+              trackUnsaved={false}
+            />
+          </div>
+
+          <div data-h2-flex-item="base(0of1) p-tablet(fill)">
+            {/* spacer */}
+          </div>
+          {applicantId ? (
             <div
               data-h2-flex-item="base(1of1) p-tablet(content)"
               data-h2-align-self="base(flex-end)"
             >
-              <Select
-                id="sortBy"
-                label={intl.formatMessage({
-                  defaultMessage: "Sort experience by",
-                  id: "2n0e2i",
-                  description:
-                    "Label for selector to choose experience sort options",
-                })}
-                name="sortBy"
-                options={sortOptions}
-                trackUnsaved={false}
-              />
+              <AddExperienceDialog applicantId={applicantId} />
             </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(content)">
-              <Select
-                id="filterBy"
-                label={intl.formatMessage({
-                  defaultMessage: "Filter experience by type",
-                  id: "PE7mMC",
-                  description:
-                    "Label for selector to choose experience filter options",
-                })}
-                name="filterBy"
-                options={filterOptions}
-                trackUnsaved={false}
-              />
-            </div>
-
-            <div data-h2-flex-item="base(0of1) p-tablet(fill)">
-              {/* spacer */}
-            </div>
-            {applicantId ? (
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(content)"
-                data-h2-align-self="base(flex-end)"
-              >
-                <AddExperienceDialog applicantId={applicantId} />
-              </div>
-            ) : null}
-          </div>
-        </form>
+          ) : null}
+        </div>
       </FormProvider>
       {hasExperiences ? (
         <div
