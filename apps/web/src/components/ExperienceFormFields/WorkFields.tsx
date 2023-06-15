@@ -17,7 +17,7 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
 
   return (
     <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">
-      <div data-h2-flex-grid="base(flex-start, x2, 0)">
+      <div data-h2-flex-grid="base(flex-start, x2, x1)">
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Input
             id="role"
@@ -28,20 +28,18 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <div data-h2-margin="base(x1, 0, x.875, 0)">
-            <Checkbox
-              boundingBox
-              boundingBoxLabel={labels.currentRole}
-              id="currentRole"
-              label={intl.formatMessage({
-                defaultMessage: "I am currently active in this role",
-                id: "8i+lzm",
-                description:
-                  "Label displayed on Work Experience form for current role input",
-              })}
-              name="currentRole"
-            />
-          </div>
+          <Checkbox
+            boundingBox
+            boundingBoxLabel={labels.currentRole}
+            id="currentRole"
+            label={intl.formatMessage({
+              defaultMessage: "I am currently active in this role",
+              id: "8i+lzm",
+              description:
+                "Label displayed on Work Experience form for current role input",
+            })}
+            name="currentRole"
+          />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Input

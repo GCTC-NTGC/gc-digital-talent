@@ -218,7 +218,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
       </div>
       {hasCompletedEvaluation ? (
         <div data-h2-padding="base(x.5, 0, 0, 0)">
-          <p>
+          <p data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage:
                 "Please indicate the language levels you acquired from your Government of Canada language evaluation.",

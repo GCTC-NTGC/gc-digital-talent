@@ -3,7 +3,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
-import { ComponentMeta, ComponentStory, Story } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import isAfter from "date-fns/isAfter";
 import parseISO from "date-fns/parseISO";
@@ -44,14 +44,14 @@ export default {
       options: [DATE_SEGMENT.Year, DATE_SEGMENT.Month, DATE_SEGMENT.Day],
     },
   },
-} as ComponentMeta<typeof DateInput>;
+};
 
 type DateInputArgs = typeof DateInput;
 type DefaultValueDateInputArgs = DateInputArgs & {
   defaultValue?: string;
 };
 
-const Template: ComponentStory<DefaultValueDateInputArgs> = (args) => {
+const Template: StoryFn<DefaultValueDateInputArgs> = (args) => {
   const { defaultValue, ...rest } = args;
   return (
     <Form
@@ -66,7 +66,9 @@ const Template: ComponentStory<DefaultValueDateInputArgs> = (args) => {
       onSubmit={(data) => action("Submit Form")(data)}
     >
       <DateInput {...rest} />
-      <Submit />
+      <p data-h2-margin-top="base(x1)">
+        <Submit />
+      </p>
     </Form>
   );
 };
@@ -131,7 +133,7 @@ const ValidationDependantInputs = ({
   );
 };
 
-const ValidationDependantTemplate: ComponentStory<DateInputArgs> = (args) => {
+const ValidationDependantTemplate: StoryFn<DateInputArgs> = (args) => {
   return (
     <Form
       options={{ mode: "onSubmit" }}
@@ -161,7 +163,7 @@ const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
   );
 };
 
-const RenderDependantTemplate: ComponentStory<DateInputArgs> = (args) => {
+const RenderDependantTemplate: StoryFn<DateInputArgs> = (args) => {
   const { name, ...rest } = args;
   return (
     <Form
@@ -181,7 +183,7 @@ type AsyncArgs = DateInputProps & {
   mockQuery: () => Promise<Pool>;
 };
 
-const AsyncTemplate: Story<AsyncArgs> = (args) => {
+const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
   const intl = useIntl();
   const { mockQuery, ...rest } = args;
   const [fetching, setFetching] = React.useState<boolean>(false);

@@ -869,6 +869,9 @@ type PoolCandidateSearchRequest {
 
 input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus]
+  departments: [ID]
+  classifications: [ID]
+  streams: [PoolStream]
 }
 
 """A paginated list of PoolCandidateSearchRequest items."""
@@ -988,7 +991,7 @@ type Query {
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   pools: [Pool]!
-  publishedPools(closingAfter: DateTime): [Pool!]!
+  publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   poolByKey(key: String!): Pool
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]): [PoolCandidate]!

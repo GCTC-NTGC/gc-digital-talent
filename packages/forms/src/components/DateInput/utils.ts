@@ -121,18 +121,6 @@ export const setComputedValue: SetComputedValueFunc = ({
   return [newYear, newMonth, newDay].join("-");
 };
 
-// Shared styles for each component
-export const inputStyles = {
-  "data-h2-padding": "base(x.25, x.5)",
-  "data-h2-radius": "base(input)",
-  "data-h2-width": "base(100%)",
-  "data-h2-min-height": "base(40px)",
-  "data-h2-border":
-    "base(2px solid gray) base:focus-visible(2px solid secondary)",
-  "data-h2-background-color": "base(white)",
-  "data-h2-outline": "base(none)",
-};
-
 /**
  * Get the column span attribute for the month
  * select input based on what other items are

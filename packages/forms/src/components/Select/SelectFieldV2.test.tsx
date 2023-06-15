@@ -42,6 +42,13 @@ const Providers = ({
 // In SelectFieldV2, we hardcode the classNamePrefix prop into react-select's
 // Select component to making styling/testing simpler.
 const CLASS_PREFIX = "react-select";
+const FIELD_NAME = "select-input";
+
+const defaultProps = {
+  name: FIELD_NAME,
+  id: FIELD_NAME,
+  label: "Foo Bar",
+};
 
 // Source: https://github.com/JedWatson/react-select/blob/master/packages/react-select/src/__tests__/StateManaged.test.tsx
 function toggleMenuOpen(container: HTMLElement) {
@@ -119,7 +126,7 @@ describe("useRulesWithDefaultMessages", () => {
 
 describe("SelectFieldV2", () => {
   it("should render properly with only label prop", () => {
-    renderWithProviders(<SelectFieldV2 label="Foo Bar" />);
+    renderWithProviders(<SelectFieldV2 {...defaultProps} />);
     expect(
       screen.getByRole("combobox", { name: /foo bar/i }),
     ).toBeInTheDocument();
@@ -130,29 +137,17 @@ describe("SelectFieldV2", () => {
     ).toBe("");
   });
 
-  it("should auto-populate `name` prop from `label` when `id` missing", () => {
-    renderWithProviders(<SelectFieldV2 label="Foo Bar" />);
-    expect(
-      document.querySelector('input[type="hidden"]')?.getAttribute("name"),
-    ).toBe("fooBar");
-  });
-
-  it("should auto-populate `name` prop from `id` when missing", () => {
-    renderWithProviders(<SelectFieldV2 label="Foo Bar" id="foo" />);
-    expect(
-      document.querySelector('input[type="hidden"]')?.getAttribute("name"),
-    ).toBe("foo");
-  });
-
   it("should use `name` when `id` and `label` also provided", () => {
-    renderWithProviders(<SelectFieldV2 label="Foo Bar" id="foo" name="bar" />);
+    renderWithProviders(
+      <SelectFieldV2 {...defaultProps} id="foo" name="bar" />,
+    );
     expect(
       document.querySelector('input[type="hidden"]')?.getAttribute("name"),
     ).toBe("bar");
   });
 
   it("should write proper text in options menu when none provided", () => {
-    renderWithProviders(<SelectFieldV2 label="Foo Bar" options={[]} />);
+    renderWithProviders(<SelectFieldV2 {...defaultProps} options={[]} />);
     toggleMenuOpen(document.body);
     const noticeText = document.querySelector(
       `.${CLASS_PREFIX}__menu-notice`,
@@ -162,7 +157,7 @@ describe("SelectFieldV2", () => {
 
   it("should submit undefined when no selection (no validation rules)", async () => {
     const mockSubmit = jest.fn();
-    renderWithProviders(<SelectFieldV2 label="Foo Bar" options={[]} />, {
+    renderWithProviders(<SelectFieldV2 {...defaultProps} options={[]} />, {
       wrapperProps: {
         onSubmit: mockSubmit,
       },
@@ -172,12 +167,12 @@ describe("SelectFieldV2", () => {
       fireEvent.submit(screen.getByRole("button"));
     });
     expect(mockSubmit).toBeCalledTimes(1);
-    expect(mockSubmit).toBeCalledWith({ fooBar: undefined });
+    expect(mockSubmit).toBeCalledWith({ [FIELD_NAME]: undefined });
   });
 
   it("should submit default when set and no selection (no validation rules)", async () => {
     const mockSubmit = jest.fn();
-    renderWithProviders(<SelectFieldV2 label="Foo Bar" options={[]} />, {
+    renderWithProviders(<SelectFieldV2 {...defaultProps} options={[]} />, {
       wrapperProps: {
         onSubmit: mockSubmit,
         defaultValues: {
@@ -197,7 +192,7 @@ describe("SelectFieldV2", () => {
     const mockSubmit = jest.fn();
     renderWithProviders(
       <SelectFieldV2
-        label="Foo Bar"
+        {...defaultProps}
         options={[]}
         rules={{ required: "Required!" }}
       />,
@@ -217,8 +212,7 @@ describe("SelectFieldV2", () => {
     const mockSubmit = jest.fn();
     renderWithProviders(
       <SelectFieldV2
-        name="fooBar"
-        label="Foo Bar"
+        {...defaultProps}
         options={[]}
         rules={{ required: "required" }}
       />,
@@ -239,22 +233,17 @@ describe("SelectFieldV2", () => {
     ).toBeInTheDocument();
   });
 
-  it("should show 'optional' text when not required", () => {
-    renderWithProviders(<SelectFieldV2 label="Foo Bar" />);
-    expect(screen.getByText("(Optional)")).toBeInTheDocument();
-  });
-
   it("should show 'required' text when required", () => {
     renderWithProviders(
-      <SelectFieldV2 label="Foo Bar" rules={{ required: true }} />,
+      <SelectFieldV2 {...defaultProps} rules={{ required: true }} />,
     );
-    expect(screen.getByText("(Required)")).toBeInTheDocument();
+    expect(screen.getByText("*")).toBeInTheDocument();
   });
 
   it("should be clearable when not required", () => {
     renderWithProviders(
       <SelectFieldV2
-        label="Foo Bar"
+        {...defaultProps}
         options={[{ value: "BAZ", label: "Baz" }]}
       />,
     );
@@ -288,7 +277,7 @@ describe("SelectFieldV2", () => {
 
   it("should not be clearable when required", () => {
     renderWithProviders(
-      <SelectFieldV2 label="Foo Bar" rules={{ required: "Required!" }} />,
+      <SelectFieldV2 {...defaultProps} rules={{ required: "Required!" }} />,
     );
     toggleMenuOpen(document.body);
     selectFirstOption(document.body);
@@ -299,7 +288,7 @@ describe("SelectFieldV2", () => {
   });
 
   it("should have default placeholder when not specified", () => {
-    renderWithProviders(<SelectFieldV2 label="Foo Bar" />);
+    renderWithProviders(<SelectFieldV2 {...defaultProps} />);
 
     const placeholderText = document.querySelector(
       `.${CLASS_PREFIX}__control`,
@@ -309,7 +298,7 @@ describe("SelectFieldV2", () => {
 
   it("should have custom placeholder when specified", () => {
     renderWithProviders(
-      <SelectFieldV2 label="Foo Bar" placeholder="Select thing" />,
+      <SelectFieldV2 {...defaultProps} placeholder="Select thing" />,
     );
 
     const placeholderText = document.querySelector(
@@ -319,7 +308,7 @@ describe("SelectFieldV2", () => {
   });
 
   it("should show loading indicator when isLoading", () => {
-    renderWithProviders(<SelectFieldV2 label="Foo Bar" isLoading />);
+    renderWithProviders(<SelectFieldV2 {...defaultProps} isLoading />);
 
     const loadingIndicator = document.querySelector(
       `.${CLASS_PREFIX}__loading-indicator`,
@@ -328,7 +317,7 @@ describe("SelectFieldV2", () => {
   });
 
   it("should write proper text in options menu when isLoading", () => {
-    renderWithProviders(<SelectFieldV2 label="Foo Bar" isLoading />);
+    renderWithProviders(<SelectFieldV2 {...defaultProps} isLoading />);
     toggleMenuOpen(document.body);
 
     const loadingText = document.querySelector(
@@ -341,7 +330,7 @@ describe("SelectFieldV2", () => {
     const mockSubmit = jest.fn();
     renderWithProviders(
       <SelectFieldV2
-        label="Foo Bar"
+        {...defaultProps}
         options={[{ value: "BAZ", label: "Baz" }]}
       />,
       { wrapperProps: { onSubmit: mockSubmit } },
@@ -353,7 +342,7 @@ describe("SelectFieldV2", () => {
       fireEvent.submit(screen.getByRole("button"));
     });
     expect(mockSubmit).toBeCalledTimes(1);
-    expect(mockSubmit).toBeCalledWith({ fooBar: "BAZ" });
+    expect(mockSubmit).toBeCalledWith({ [FIELD_NAME]: "BAZ" });
   });
 
   it("should submit a selected value as array when specified", async () => {
@@ -361,7 +350,7 @@ describe("SelectFieldV2", () => {
     renderWithProviders(
       <SelectFieldV2
         forceArrayFormValue
-        label="Foo Bar"
+        {...defaultProps}
         options={[{ value: "BAZ", label: "Baz" }]}
       />,
       { wrapperProps: { onSubmit: mockSubmit } },
@@ -373,6 +362,6 @@ describe("SelectFieldV2", () => {
       fireEvent.submit(screen.getByRole("button"));
     });
     expect(mockSubmit).toBeCalled();
-    expect(mockSubmit).toBeCalledWith({ fooBar: Array("BAZ") });
+    expect(mockSubmit).toBeCalledWith({ [FIELD_NAME]: Array("BAZ") });
   });
 });

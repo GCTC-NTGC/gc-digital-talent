@@ -95,24 +95,27 @@ const Layout = () => {
   if (loggedIn && user) {
     const userRoleNames = user?.roleAssignments?.map((a) => a.role?.name);
 
-    menuItems = [
-      ...menuItems,
-      <MenuLink key="myApplications" to={paths.applications(user.id)}>
-        {intl.formatMessage({
-          defaultMessage: "My applications",
-          id: "ioghLh",
-          description:
-            "Label displayed on the users pool applications menu item.",
-        })}
-      </MenuLink>,
-      <MenuLink key="myProfile" to={paths.profile(user.id)}>
-        {intl.formatMessage({
-          defaultMessage: "My profile",
-          id: "5lBIzg",
-          description: "Label displayed on the applicant profile menu item.",
-        })}
-      </MenuLink>,
-    ];
+    if (!applicantDashboard) {
+      menuItems = [
+        ...menuItems,
+        <MenuLink key="myApplications" to={paths.applications(user.id)}>
+          {intl.formatMessage({
+            defaultMessage: "My applications",
+            id: "ioghLh",
+            description:
+              "Label displayed on the users pool applications menu item.",
+          })}
+        </MenuLink>,
+        <MenuLink key="myProfile" to={paths.profile(user.id)}>
+          {intl.formatMessage({
+            defaultMessage: "My profile",
+            id: "5lBIzg",
+            description: "Label displayed on the applicant profile menu item.",
+          })}
+        </MenuLink>,
+      ];
+    }
+
     if (
       [
         ROLE_NAME.PoolOperator,
@@ -152,8 +155,8 @@ const Layout = () => {
       authLinks = [
         <MenuLink key="dashboard" to={paths.dashboard()}>
           {intl.formatMessage({
-            defaultMessage: "My dashboard",
-            id: "LRZeax",
+            defaultMessage: "Profile and applications",
+            id: "76KLtb",
             description:
               "Label displayed on the applicant dashboard menu item.",
           })}

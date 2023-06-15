@@ -1,6 +1,6 @@
 import React from "react";
 
-import { InputFieldError } from "../components/InputError";
+import { InputFieldError } from "../types";
 
 /** Keys for the different types of descriptions we are using */
 export type InputDescription = "error" | "context" | "unsaved";

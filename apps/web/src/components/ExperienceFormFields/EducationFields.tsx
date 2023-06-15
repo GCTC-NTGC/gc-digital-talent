@@ -27,7 +27,7 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
 
   return (
     <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">
-      <div data-h2-flex-grid="base(flex-start, x2, 0)">
+      <div data-h2-flex-grid="base(flex-start, x2, x1)">
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Select
             id="educationType"
@@ -58,20 +58,18 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <div data-h2-margin="base(x1, 0, x.875, 0)">
-            <Checkbox
-              id="currentRole"
-              boundingBox
-              boundingBoxLabel={labels.currentRole}
-              label={intl.formatMessage({
-                defaultMessage: "I am currently active in this education",
-                id: "491LrZ",
-                description:
-                  "Label displayed on Education Experience form for current education input",
-              })}
-              name="currentRole"
-            />
-          </div>
+          <Checkbox
+            id="currentRole"
+            boundingBox
+            boundingBoxLabel={labels.currentRole}
+            label={intl.formatMessage({
+              defaultMessage: "I am currently active in this education",
+              id: "491LrZ",
+              description:
+                "Label displayed on Education Experience form for current education input",
+            })}
+            name="currentRole"
+          />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Input
