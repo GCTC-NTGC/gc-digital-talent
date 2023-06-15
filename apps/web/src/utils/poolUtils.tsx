@@ -144,10 +144,15 @@ export const formattedPoolPosterTitle = ({
   };
 };
 
+interface FullPoolTitleOptions {
+  defaultTitle?: React.ReactNode;
+  isIap?: boolean;
+}
+
 export const fullPoolTitle = (
   intl: IntlShape,
   pool: Maybe<Pick<Pool, "name" | "classifications" | "stream">>,
-  options?: { defaultTitle?: string },
+  options?: FullPoolTitleOptions,
 ): { html: React.ReactNode; label: string } => {
   const fallbackTitle =
     options?.defaultTitle ??
@@ -161,10 +166,17 @@ export const fullPoolTitle = (
   if (pool === null || pool === undefined)
     return {
       html: fallbackTitle,
-      label: fallbackTitle,
+      label: fallbackTitle.toString(),
     };
 
   const specificTitle = getLocalizedName(pool.name, intl);
+
+  if (options?.isIap) {
+    return {
+      html: specificTitle,
+      label: specificTitle,
+    };
+  }
 
   const formattedTitle = formattedPoolPosterTitle({
     title: specificTitle,
