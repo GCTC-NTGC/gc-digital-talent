@@ -65,8 +65,8 @@ const IAPNavMenu = ({ loggedIn, user }: IAPNavMenuProps) => {
         <MenuLink key="home" to={paths.home()} end>
           {intl.formatMessage({
             defaultMessage: "GC Digital Talent",
-            id: "e8a8MB",
-            description: "Link to the homepage for GC Digital Talent..",
+            id: "hfI9v3",
+            description: "Link to the homepage for GC Digital Talent.",
           })}
         </MenuLink>,
       ]}
