@@ -969,10 +969,6 @@
     "defaultMessage": "Ces renseignements personnels supplémentaires ne seront utilisés qu'à des fins de communication.",
     "description": "Description for Personal Information section of the About Me form"
   },
-  "KE49r9": {
-    "defaultMessage": "Mon expérience et mes compétences",
-    "description": "Heading for experience and skills page in applicant profile."
-  },
   "KmKbA6": {
     "defaultMessage": "Renseignements supplémentaires",
     "description": "Label displayed on experience form for additional information input"
@@ -1040,10 +1036,6 @@
   "P/Mm5G": {
     "defaultMessage": "Expérience et compétences",
     "description": "Display text for My experience and skills Form Page Link"
-  },
-  "PF2m1d": {
-    "defaultMessage": "Expérience et compétences",
-    "description": "Breadcrumb for experience and skills page in applicant profile."
   },
   "PH8qp2": {
     "defaultMessage": "Avez-vous utilisé des techniques ou des approches particulières?",
@@ -1324,10 +1316,6 @@
   "t12bCU": {
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Button text to submit employment equity form."
-  },
-  "+lKz3l": {
-    "defaultMessage": "Mon profil",
-    "description": "Breadcrumb from applicant profile wrapper."
   },
   "ttRVSp": {
     "defaultMessage": "Comment ces données seront-elles utilisées?",
@@ -4637,10 +4625,6 @@
   "KpNUo0": {
     "defaultMessage": "Gestionnaires et conseillers principaux (<abbreviation>TI-04</abbreviation>)",
     "description": "Title for the 'IT-04 Manager' classification"
-  },
-  "Ks4G8p": {
-    "defaultMessage": "Voici où vous pouvez ajouter des expériences et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
-    "description": "Description for the experience and skills page in applicant profile."
   },
   "FEEa2S": {
     "defaultMessage": "Niveau 3 : Chef d'équipe (88 000 $ à 110 000 $). <openModal>En savoir plus sur <abbreviation>TI-03</abbreviation></openModal>",
@@ -8451,5 +8435,53 @@
   "xfYpNf": {
     "defaultMessage": "<strong>Vous avez déjà un compte CléGC?</strong> <a>Accédez plutôt </a>.",
     "description": "Instruction on what to do if user already has a GCKey"
+  },
+  "2n0e2i": {
+    "defaultMessage": "Trier les expériences par ordre de",
+    "description": "Label for selector to choose experience sort options"
+  },
+  "PE7mMC": {
+    "defaultMessage": "Filtrer les expériences par type",
+    "description": "Label for selector to choose experience filter options"
+  },
+  "SjY+Wn": {
+    "defaultMessage": "Vous n’avez toujours pas ajouté d’article lié au CV.",
+    "description": "Message to user when no résumé items have been attached to profile."
+  },
+  "WVbN0f": {
+    "defaultMessage": "Profil et demandes ",
+    "description": "Breadcrumb from applicant profile wrapper."
+  },
+  "XY/crY": {
+    "defaultMessage": "Gérez votre expérience et vos processus de recrutement auxquels vous vous êtes qualifié(e).",
+    "description": "Description for the Résumé and recruitments page in applicant profile."
+  },
+  "aW/Htv": {
+    "defaultMessage": "Les processus de recrutement auxquels vous avez été admis(e) apparaîtront ici.",
+    "description": "Message to user when no qualified recruitments have been attached to profile, paragraph one."
+  },
+  "amibs2": {
+    "defaultMessage": "Gérez votre CV",
+    "description": "Titles for a page section to manage your résumé"
+  },
+  "d8j/Sr": {
+    "defaultMessage": "Processus de recrutement auxquels vous vous êtes qualifié(e)",
+    "description": "Titles for a page section to manage your qualified recruitment processes"
+  },
+  "gPy2MA": {
+    "defaultMessage": "Cette section ressemble à votre CV traditionnel et décrit vos expériences de travail, scolaires, et de la vie. Vous pourrez réutiliser cette information sur chaque demande que vous soumettez par l’entremise de la plateforme, ce qui viendra accélérer le processus et fera en sorte que votre information sera toujours à jour.",
+    "description": "Descriptive paragraph for the Manage your resume section of the résumé and recruitments page."
+  },
+  "wrTfp3": {
+    "defaultMessage": "Lorsque vous formulez une demande dans le cadre d’un processus de recrutement et que vous passez l’évaluation, vous serez admis(e), et vous pourrez donc commencer à être pris(e) en compte pour des possibilités connexes. Cette section met en évidence tous les processus actifs et expires auxquels vous faites actuellement partie, et vous permettra de gérer si vous figurez ou non dans les recherches de talents. ",
+    "description": "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitments page."
+  },
+  "z7FpHz": {
+    "defaultMessage": "Vous pouvez commencer par formuler une demande dans le cadre d’un processus de recrutement ciblé ou en cours.",
+    "description": "Message to user when no qualified recruitments have been attached to profile, paragraph two."
+  },
+  "SyJkc/": {
+    "defaultMessage": "Curriculum vitæ et recrutements",
+    "description": "Name of Résumé and recruitments page"
   }
 }

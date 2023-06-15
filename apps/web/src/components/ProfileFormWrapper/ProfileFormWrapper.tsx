@@ -62,9 +62,8 @@ const ProfileFormWrapper = ({
       {
         label: intl.formatMessage({
           defaultMessage: "Home",
-          id: "riH4U+",
-          description:
-            "Breadcrumb to the dashboard from applicant profile wrapper.",
+          id: "EBmWyo",
+          description: "Link text for the home link in breadcrumbs.",
         }),
         url: paths.dashboard(),
       },
