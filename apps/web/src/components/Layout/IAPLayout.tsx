@@ -4,41 +4,21 @@ import { useLocation, Outlet, ScrollRestoration } from "react-router-dom";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { AnimatePresence } from "framer-motion";
 
-import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
+import { SkipLink } from "@gc-digital-talent/ui";
 import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
+import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
-import NavMenu from "~/components/NavMenu";
 import Header from "~/components/Header";
 import Footer from "~/components/Footer";
+import IAPNavMenu from "~/components/NavMenu/IAPNavMenu";
 
-import useRoutes from "~/hooks/useRoutes";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 import * as micMessages from "~/lang/micCompiled.json";
 
 const messages: Map<string, Messages> = new Map([["mic", micMessages]]);
-
-const IAPNavMenu = () => {
-  const intl = useIntl();
-  const paths = useRoutes();
-
-  return (
-    <NavMenu
-      mainItems={[
-        <MenuLink key="home" to={paths.iap()}>
-          {intl.formatMessage({
-            defaultMessage: "Home",
-            id: "M1JKQs",
-            description:
-              "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples.",
-          })}
-        </MenuLink>,
-      ]}
-    />
-  );
-};
 
 const IAPSeo = () => {
   const intl = useIntl();
@@ -63,6 +43,8 @@ const IAPSeo = () => {
 
 const Layout = () => {
   const location = useLocation();
+  const { user } = useAuthorization();
+  const { loggedIn } = useAuthentication();
   useLayoutTheme("iap");
 
   const aiConnectionString = getRuntimeVariable(
@@ -95,7 +77,7 @@ const Layout = () => {
           >
             <div>
               <Header />
-              <IAPNavMenu />
+              <IAPNavMenu {...{ loggedIn, user }} />
             </div>
             <main id="main">
               <Outlet />
