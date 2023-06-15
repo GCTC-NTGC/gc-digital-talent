@@ -6,6 +6,8 @@ import Toast from "./Toast";
 import toast from "../../toast";
 import "./toast.css";
 
+import ToastDocs from "./Toast.docs.mdx";
+
 interface StoryArgs {
   text: string;
   longText: string;
@@ -19,6 +21,11 @@ export default {
   args: {
     text: "Toast text",
     longText: faker.lorem.sentences(3),
+  },
+  parameters: {
+    docs: {
+      page: ToastDocs,
+    },
   },
 } as Meta;
 
