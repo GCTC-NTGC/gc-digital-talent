@@ -54,7 +54,7 @@ const IAPNavMenu = ({ loggedIn, user }: IAPNavMenuProps) => {
     <NavMenu
       utilityItems={authLinks}
       mainItems={[
-        <MenuLink key="home" to={paths.iap()}>
+        <MenuLink key="iap-home" to={paths.iap()}>
           {intl.formatMessage({
             defaultMessage: "IT Apprenticeship Program for Indigenous Peoples",
             id: "k4Vsh0",
