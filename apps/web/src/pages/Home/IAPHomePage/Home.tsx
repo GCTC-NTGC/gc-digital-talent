@@ -261,10 +261,7 @@ export const Home = ({ latestPool }: HomeProps) => {
                     })}
                   </p>
                   <div data-h2-margin="base(x2, 0, 0, 0)">
-                    <CTAButtons
-                      latestPoolId={latestPool?.id}
-                      canApply={canApply}
-                    />
+                    <CTAButtons latestPoolId={latestPool?.id} />
                   </div>
                 </div>
               </div>
@@ -358,10 +355,7 @@ export const Home = ({ latestPool }: HomeProps) => {
                   })}
                 </p>
                 <div data-h2-visually-hidden="base(revealed) l-tablet(invisible)">
-                  <CTAButtons
-                    latestPoolId={latestPool?.id}
-                    canApply={canApply}
-                  />
+                  <CTAButtons latestPoolId={latestPool?.id} />
                 </div>
               </div>
             </div>
