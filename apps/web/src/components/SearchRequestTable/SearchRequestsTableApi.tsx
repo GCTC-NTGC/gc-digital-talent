@@ -38,6 +38,7 @@ import {
   stringToEnumRequestStatus,
   stringToEnumStream,
 } from "~/utils/requestUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import SearchRequestsTableFilter, {
   FormValues,
@@ -390,43 +391,23 @@ const SearchRequestsTableApi = ({
         }}
         searchBy={[
           {
-            label: intl.formatMessage({
-              defaultMessage: "FULL NAME",
-              id: "wmHTQE",
-              description: "FULL NAME",
-            }),
+            label: intl.formatMessage(adminMessages.manager),
             value: "fullName",
           },
           {
-            label: intl.formatMessage({
-              defaultMessage: "EMAIL",
-              id: "PwjQhL",
-              description: "EMAIL",
-            }),
+            label: intl.formatMessage(adminMessages.email),
             value: "email",
           },
           {
-            label: intl.formatMessage({
-              defaultMessage: "JOB TITLE",
-              id: "WYCDL2",
-              description: "JOB TITLE",
-            }),
+            label: intl.formatMessage(adminMessages.jobTitle),
             value: "jobTitle",
           },
           {
-            label: intl.formatMessage({
-              defaultMessage: "ADDITIONAL COMMENTS",
-              id: "fAQHlI",
-              description: "ADDITIONAL COMMENTS",
-            }),
+            label: intl.formatMessage(adminMessages.details),
             value: "additionalComments",
           },
           {
-            label: intl.formatMessage({
-              defaultMessage: "ADMIN NOTES",
-              id: "abUKmy",
-              description: "ADMIN NOTES",
-            }),
+            label: intl.formatMessage(adminMessages.notes),
             value: "adminNotes",
           },
         ]}
