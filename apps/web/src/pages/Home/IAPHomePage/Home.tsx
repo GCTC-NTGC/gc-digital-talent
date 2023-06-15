@@ -26,7 +26,6 @@ import {
   useIapPublishedPoolsQuery,
   PublishingGroup,
   Pool,
-  PoolStatus,
 } from "~/api/generated";
 
 import Banner from "./components/Banner";
