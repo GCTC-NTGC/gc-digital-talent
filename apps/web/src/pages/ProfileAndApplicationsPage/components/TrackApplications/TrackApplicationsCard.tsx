@@ -41,21 +41,22 @@ const TrackApplicationsCard = ({
   const isApplicantPlaced = isPlaced(application.status);
   return (
     <div
-      data-h2-background="base(foreground)"
-      data-h2-shadow="base(medium)"
-      data-h2-radius="base(rounded)"
+      data-h2-border-left="base(x.5 solid primary)"
       data-h2-padding="base(x1)"
+      data-h2-shadow="base(larger)"
+      data-h2-radius="base(rounded)"
       data-h2-margin="base(0, 0, x.5, 0)"
     >
       <div
         data-h2-display="base(flex)"
-        data-h2-gap="base(0, x.5)"
+        data-h2-align-items="base(center)"
         data-h2-justify-content="base(space-between)"
+        data-h2-gap="base(0 x.5)"
       >
         <Heading
           level={headingLevel}
           size="h6"
-          data-h2-margin="base(0, 0, x1, 0)"
+          data-h2-margin="base(0)"
           data-h2-flex-grow="base(1)"
         >
           {getFullPoolTitleHtml(intl, application.pool)}
@@ -112,6 +113,10 @@ const TrackApplicationsCard = ({
           />
           <ApplicationActions.SupportAction
             show={!recruitmentIsExpired && !isApplicantPlaced}
+          />
+          <ApplicationActions.CopyRecruitmentIdAction
+            show={!applicationIsDraft}
+            application={application}
           />
         </div>
       </div>

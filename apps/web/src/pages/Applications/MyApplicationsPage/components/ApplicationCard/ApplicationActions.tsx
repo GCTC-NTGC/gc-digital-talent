@@ -3,9 +3,11 @@ import { useIntl } from "react-intl";
 
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
 
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { fullPoolTitle, getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
+import { PoolCandidate } from "@gc-digital-talent/graphql";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import type { Application } from "./ApplicationCard";
 
 export interface ActionProps {
@@ -59,8 +61,8 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
     <Link href={paths.application(application.id)} mode="inline">
       {intl.formatMessage(
         {
-          defaultMessage: "View this application<hidden> {name}</hidden>",
-          id: "JM30M7",
+          defaultMessage: "Review application<hidden> {name}</hidden>",
+          id: "KZtBcM",
           description: "Link text to view a specific application",
         },
         {
@@ -90,8 +92,8 @@ const SeeAdvertisementAction = ({
     <Link mode="inline" href={paths.pool(advertisement.id)}>
       {intl.formatMessage(
         {
-          defaultMessage: "See job ad<hidden> {name}</hidden>",
-          id: "si/wtm",
+          defaultMessage: "Review job ad<hidden> {name}</hidden>",
+          id: "HhuKq4",
           description: "Link text to see an applications advertisement",
         },
         {
@@ -119,6 +121,57 @@ const SupportAction = ({ show }: SupportActionProps) => {
         description: "Link text to direct a user to the support page",
       })}
     </Link>
+  );
+};
+
+export interface CopyRecruitmentIdActionProps extends ActionProps {
+  application: Application;
+}
+const CopyRecruitmentIdAction = ({
+  show,
+  application,
+}: CopyRecruitmentIdActionProps) => {
+  const intl = useIntl();
+  const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
+  const title = fullPoolTitle(intl, application.pool);
+  if (!show) {
+    return null;
+  }
+
+  return (
+    <Button
+      mode="inline"
+      color="black"
+      icon={linkCopied ? CheckIcon : undefined}
+      onClick={() => {
+        navigator.clipboard.writeText(application.id);
+        setLinkCopied(true);
+      }}
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage: "Copy {title} ID to clipboard",
+          id: "leFf/M",
+          description:
+            "Button text to copy a specific qualified recruitment's ID",
+        },
+        {
+          title: title.label,
+        },
+      )}
+    >
+      {linkCopied
+        ? intl.formatMessage({
+            defaultMessage: "Application ID copied",
+            id: "gBAz/G",
+            description:
+              "Button text to indicate that a specific application's ID has been copied",
+          })
+        : intl.formatMessage({
+            defaultMessage: "Copy application ID",
+            id: "rvoNoQ",
+            description: "Button text to copy a specific application ID",
+          })}
+    </Button>
   );
 };
 
@@ -293,4 +346,5 @@ export default {
   ArchiveAction,
   SupportAction,
   ViewAction,
+  CopyRecruitmentIdAction,
 };
