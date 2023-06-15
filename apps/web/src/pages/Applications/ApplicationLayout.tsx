@@ -29,7 +29,7 @@ import {
 
 import { ApplicationPageProps } from "./ApplicationApi";
 import { StepDisabledPage } from "./StepDisabledPage/StepDisabledPage";
-import ApplicationContextProvider, { isIAPPool } from "./ApplicationContext";
+import ApplicationContextProvider from "./ApplicationContext";
 
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
@@ -42,9 +42,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     application,
     experienceId,
   });
-  const title = fullPoolTitle(intl, application.pool, {
-    isIap: isIAPPool(application.pool),
-  });
+  const title = fullPoolTitle(intl, application.pool);
 
   const pageTitle = defineMessage({
     defaultMessage: "Apply to {poolName}",

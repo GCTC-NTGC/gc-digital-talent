@@ -1,15 +1,9 @@
 import React from "react";
 import { useTheme } from "@gc-digital-talent/theme";
-import {
-  Maybe,
-  Pool,
-  PoolCandidate,
-  PublishingGroup,
-} from "../../api/generated";
 
-export function isIAPPool(pool: Maybe<Pool>): boolean {
-  return pool?.publishingGroup === PublishingGroup.Iap;
-}
+import { isIAPPool } from "~/utils/poolUtils";
+import { PoolCandidate } from "~/api/generated";
+
 interface ApplicationContextState {
   isIAP: boolean;
   followingPageUrl?: string;
