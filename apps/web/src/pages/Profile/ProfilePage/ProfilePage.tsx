@@ -5,7 +5,6 @@ import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
-import { getFullNameHtml } from "~/utils/nameUtils";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
@@ -29,36 +28,43 @@ export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
   const featureFlags = useFeatureFlags();
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "My profile",
-    id: "pR23NW",
-    description: "Page title for the applicants profile page",
+    defaultMessage: "Profile information",
+    id: "gTjLic",
+    description: "applicant dashboard card title for profile card",
   });
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: pageTitle,
-      url: paths.profile(userId),
-    },
-  ]);
+  const thisCrumb = {
+    label: pageTitle,
+    url: paths.profile(userId),
+  };
+  const crumbs = useBreadcrumbs(
+    featureFlags.applicantDashboard
+      ? [
+          {
+            label: intl.formatMessage({
+              defaultMessage: "Profile and applications",
+              id: "76KLtb",
+              description:
+                "Label displayed on the applicant dashboard menu item.",
+            }),
+            url: paths.dashboard(),
+          },
+          thisCrumb,
+        ]
+      : [thisCrumb],
+  );
 
   return (
     <>
       <SEO title={pageTitle} />
       <Hero
-        title={intl.formatMessage(
-          {
-            defaultMessage: "{name}'s profile",
-            id: "jslBEY",
-            description: "Title for a specific users profile page",
-          },
-          {
-            name: getFullNameHtml(
-              profileDataInput.firstName,
-              profileDataInput.lastName,
-              intl,
-            ),
-          },
-        )}
+        title={pageTitle}
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "View and update account information including contact and work preferences.",
+          id: "NflJW7",
+          description: "subtitle for the profile page",
+        })}
         crumbs={crumbs}
       />
       <UserProfile

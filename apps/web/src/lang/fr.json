@@ -2393,10 +2393,6 @@
     "defaultMessage": "Notre engagement envers la conception, l’élaboration et la prestation de services accessibles.",
     "description": "Subtitle for the accessibility statement page."
   },
-  "jslBEY": {
-    "defaultMessage": "Profile de {name}",
-    "description": "Title for a specific users profile page"
-  },
   "QJ5uDV": {
     "defaultMessage": "Sélectionnez un volet",
     "description": "Placeholder for stream filter in search form."
@@ -2500,10 +2496,6 @@
   "ZxLDpB": {
     "defaultMessage": "Profil de candidature",
     "description": "Page title for pool application review"
-  },
-  "pR23NW": {
-    "defaultMessage": "Mon profil",
-    "description": "Page title for the applicants profile page"
   },
   "pf1Ffp": {
     "defaultMessage": "Soumettre un profil de demande",
