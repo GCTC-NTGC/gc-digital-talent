@@ -1742,7 +1742,13 @@ const Router = () => {
   const featureFlags = useFeatureFlags();
   const routes = useRoutes();
   const router = createRoute(locale, routes.login(), featureFlags);
-  return <RouterProvider router={router} fallbackElement={<Loading />} />;
+  return (
+    <RouterProvider
+      router={router}
+      fallbackElement={<Loading />}
+      future={{ v7_startTransition: true }}
+    />
+  );
 };
 
 export default Router;

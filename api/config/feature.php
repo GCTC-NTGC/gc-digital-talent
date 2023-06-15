@@ -36,4 +36,16 @@ return [
     */
 
     'psac_strike' => (bool) env('FEATURE_PSAC_STRIKE', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Skill library
+    |--------------------------------------------------------------------------
+    |
+    | A feature to allow users to build a library of skills associated with
+    | themselves with competency levels.
+    |
+    */
+
+    'skill_library' => (bool) env('FEATURE_SKILL_LIBRARY', false),
 ];
