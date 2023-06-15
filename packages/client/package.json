@@ -38,10 +38,10 @@
     "@urql/core": "^3.0.0"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.62",
+    "@swc/core": "^1.3.64",
     "@types/jest": "^29.5.2",
     "@types/lodash": "4.14.195",
-    "@types/react": "^18.2.11",
+    "@types/react": "^18.2.12",
     "@types/react-dom": "^18.2.4",
     "eslint": "^8.42.0",
     "eslint-config-custom": "*",
