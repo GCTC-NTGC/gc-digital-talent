@@ -1,8 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
+import orderBy from "lodash/orderBy";
 
 import { Link, Pending } from "@gc-digital-talent/ui";
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import useQuote from "~/hooks/useQuote";
 
@@ -20,12 +22,13 @@ import lowerBack from "~/assets/img/lower-back.jpg";
 import iconWatermark from "~/assets/img/icon-watermark.svg";
 import indigenousWoman from "~/assets/img/indigenous-woman.png";
 
-import { useIapPublishedPoolsQuery, PublishingGroup } from "~/api/generated";
-import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
-import { Pool, PoolStatus } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
-import orderBy from "lodash/orderBy";
+import {
+  useIapPublishedPoolsQuery,
+  PublishingGroup,
+  Pool,
+  PoolStatus,
+} from "~/api/generated";
+
 import Banner from "./components/Banner";
 import Card from "./components/Card";
 import CTAButtons from "./components/CTAButtons";
@@ -34,6 +37,7 @@ import Heading from "./components/Heading";
 import LanguageSelector from "./components/LanguageSelector";
 import Step from "./components/Step";
 import Quote from "./components/Quote";
+import ApplyLink from "./components/ApplyLink";
 
 import {
   BarChart,
@@ -53,11 +57,9 @@ const mailLink = (chunks: React.ReactNode) => (
 
 interface HomeProps {
   latestPool?: Pool;
-  applicationId?: string;
-  hasApplied?: boolean;
 }
 
-export const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
+export const Home = ({ latestPool }: HomeProps) => {
   const intl = useIntl();
   const quote = useQuote();
 
@@ -155,18 +157,7 @@ export const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
           data-h2-order="base(3)"
           data-h2-transform="p-tablet(translateX(-50%))"
         >
-          {latestPool ? (
-            <ApplicationLink
-              poolId={latestPool.id}
-              applicationId={applicationId}
-              hasApplied={hasApplied}
-              canApply={canApply}
-              isIap
-              linkProps={{ block: true, color: "primary" }}
-            />
-          ) : (
-            <ApplyDialog />
-          )}
+          {latestPool ? <ApplyLink id={latestPool.id} /> : <ApplyDialog />}
         </div>
       </div>
       {/* About section */}
@@ -272,8 +263,6 @@ export const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
                   <div data-h2-margin="base(x2, 0, 0, 0)">
                     <CTAButtons
                       latestPoolId={latestPool?.id}
-                      applicationId={applicationId}
-                      hasApplied={hasApplied}
                       canApply={canApply}
                     />
                   </div>
@@ -371,8 +360,6 @@ export const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
                 <div data-h2-visually-hidden="base(revealed) l-tablet(invisible)">
                   <CTAButtons
                     latestPoolId={latestPool?.id}
-                    applicationId={applicationId}
-                    hasApplied={hasApplied}
                     canApply={canApply}
                   />
                 </div>
@@ -566,14 +553,7 @@ export const Home = ({ latestPool, applicationId, hasApplied }: HomeProps) => {
                     })}
                   </p>
                   {latestPool ? (
-                    <ApplicationLink
-                      poolId={latestPool.id}
-                      applicationId={applicationId}
-                      hasApplied={hasApplied}
-                      canApply={canApply}
-                      isIap
-                      linkProps={{ color: "primary" }}
-                    />
+                    <ApplyLink id={latestPool.id} />
                   ) : (
                     <ApplyDialog />
                   )}
@@ -949,19 +929,9 @@ const HomeApi = () => {
 
   const latestPool = pools && pools.length > 0 ? pools[0] : undefined; // get latest pool (most recent published_at date)
 
-  // Attempt to find an application for this user+pool combination
-  const application = data?.me?.poolCandidates?.find(
-    (candidate) => candidate?.pool.id === latestPool?.id,
-  );
-  const hasApplied = notEmpty(application?.submittedAt);
-
   return (
     <Pending fetching={fetching} error={error}>
-      <Home
-        latestPool={latestPool}
-        applicationId={application?.id}
-        hasApplied={hasApplied}
-      />
+      <Home latestPool={latestPool} />
     </Pending>
   );
 };

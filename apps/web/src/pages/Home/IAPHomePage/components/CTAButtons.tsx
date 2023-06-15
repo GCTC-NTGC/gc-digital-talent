@@ -2,6 +2,7 @@ import React from "react";
 
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 import { ApplyDialog, LearnDialog } from "./Dialog";
+import ApplyLink from "./ApplyLink";
 
 interface CTAButtonsProps {
   latestPoolId?: string;
@@ -22,14 +23,7 @@ const CTAButtons = ({
       data-h2-margin="base(0, 0, x1, 0) p-tablet(0, x.5, x1, 0)"
     >
       {latestPoolId ? (
-        <ApplicationLink
-          poolId={latestPoolId}
-          applicationId={applicationId}
-          hasApplied={hasApplied}
-          canApply={canApply}
-          isIap
-          linkProps={{ block: true, color: "primary" }}
-        />
+        <ApplyLink id={latestPoolId} />
       ) : (
         <ApplyDialog btnProps={{ block: true }} />
       )}
