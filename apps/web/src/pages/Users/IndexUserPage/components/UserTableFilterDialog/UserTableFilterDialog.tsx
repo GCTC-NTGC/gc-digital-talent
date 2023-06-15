@@ -27,7 +27,6 @@ export type FormValues = {
   // See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
   educationType?: Option["value"][];
   employmentDuration: Option["value"][];
-  jobLookingStatus: Option["value"][];
   skills: Option["value"][];
   profileComplete: Option["value"][];
   govEmployee: Option["value"][];
@@ -196,17 +195,6 @@ const UserTableFilterDialog = ({
                     id: "hmfQmT",
                   })}
                   options={optionsData.employmentDuration}
-                />
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-                <MultiSelectField
-                  id="jobLookingStatus"
-                  name="jobLookingStatus"
-                  label={formatMessage({
-                    defaultMessage: "Availability",
-                    id: "hOxIeP",
-                  })}
-                  options={optionsData.jobLookingStatus}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">

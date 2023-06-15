@@ -8,7 +8,6 @@ import {
   getLanguageAbility,
   getOperationalRequirement,
   getEducationType,
-  getJobLookingStatus,
   EmploymentDuration,
   OperationalRequirementV2,
   getEmploymentEquityGroup,
@@ -28,7 +27,6 @@ import {
   PoolStream,
   WorkRegion,
   EducationType,
-  JobLookingStatus,
   LanguageAbility,
   PoolCandidateStatus,
   useGetFilterDataQuery,
@@ -101,10 +99,6 @@ export default function useFilterOptions(enableEducationType = false) {
     employmentDuration: enumToOptions(EmploymentDuration).map(({ value }) => ({
       value,
       label: intl.formatMessage(getEmploymentDuration(value, "short")),
-    })),
-    jobLookingStatus: enumToOptions(JobLookingStatus).map(({ value }) => ({
-      value,
-      label: intl.formatMessage(getJobLookingStatus(value, "short")),
     })),
     skills: filterRes.data?.skills.filter(notEmpty).map(({ id, name }) => ({
       value: id,
