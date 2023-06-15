@@ -63,8 +63,6 @@ export const Home = ({ latestPool }: HomeProps) => {
   const intl = useIntl();
   const quote = useQuote();
 
-  const canApply = !!(latestPool && latestPool.status === PoolStatus.Published);
-
   /**
    * Language swapping is a little rough here,
    * motion.div adds a fade to smooth things out a bit
