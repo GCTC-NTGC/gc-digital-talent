@@ -9,6 +9,7 @@ import { Color, IconType } from "@gc-digital-talent/ui";
 import {
   getLocalizedName,
   getPoolCandidateStatus,
+  getPoolCandidateStatusLabel,
 } from "@gc-digital-talent/i18n";
 
 import { Department, Maybe, PoolCandidateStatus } from "~/api/generated";
@@ -41,6 +42,8 @@ export const getStatusPillInfo = (
   status: Maybe<PoolCandidateStatus>,
   intl: IntlShape,
 ): StatusPillInfo => {
+  const label = getPoolCandidateStatusLabel(status);
+
   if (isQualifiedStatus(status)) {
     return {
       color: "success",
@@ -53,13 +56,11 @@ export const getStatusPillInfo = (
       text: intl.formatMessage(poolCandidateMessages.expired),
     };
   }
-
   return {
     color: "primary",
-    text: intl.formatMessage(getPoolCandidateStatus(status ?? "")),
+    text: label ? intl.formatMessage(label) : "",
   };
 };
-
 type AvailabilityInfo = {
   icon: IconType;
   color: Record<string, string>;

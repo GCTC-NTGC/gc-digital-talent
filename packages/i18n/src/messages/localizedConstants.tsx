@@ -1685,7 +1685,14 @@ type StatusLabelKey =
 
 // Map new, consolidated keys to their labels
 const statusLabels = new Map<StatusLabelKey, MessageDescriptor | null>([
-  ["DRAFT", null],
+  [
+    "DRAFT",
+    defineMessage({
+      defaultMessage: "Continue draft",
+      id: "Fj6fIe",
+      description: "Status for an application that has not been submitted",
+    }),
+  ],
   [
     "RECEIVED",
     defineMessage({

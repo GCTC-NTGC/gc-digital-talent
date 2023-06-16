@@ -1,7 +1,16 @@
 import * as React from "react";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocale } from "@gc-digital-talent/i18n";
-import { Chip, Chips, Heading, HeadingProps } from "@gc-digital-talent/ui";
+import {
+  getLocale,
+  getPoolCandidateStatusLabel,
+} from "@gc-digital-talent/i18n";
+import {
+  Chip,
+  Chips,
+  Heading,
+  HeadingProps,
+  Pill,
+} from "@gc-digital-talent/ui";
 import { useIntl } from "react-intl";
 import { PoolCandidate, Skill } from "~/api/generated";
 import ApplicationActions from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/ApplicationActions";
@@ -11,6 +20,8 @@ import {
   isPlaced,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
+import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 import TrackApplicationsStatus from "./TrackApplicationsStatus";
 
 export type Application = Omit<PoolCandidate, "user">;
@@ -39,6 +50,8 @@ const TrackApplicationsCard = ({
     application.pool.closingDate,
   );
   const isApplicantPlaced = isPlaced(application.status);
+  const statusPill = getStatusPillInfo(application.status, intl);
+
   return (
     <div
       data-h2-border-left="base(x.5 solid primary)"
@@ -61,10 +74,26 @@ const TrackApplicationsCard = ({
         >
           {getFullPoolTitleHtml(intl, application.pool)}
         </Heading>
+        {application.status === "DRAFT" ? (
+          <ApplicationLink
+            poolId={application.pool.id}
+            applicationId={application.id}
+            hasApplied={false}
+            canApply
+            linkProps={{ block: true, color: "primary" }}
+            linkText={intl.formatMessage({
+              defaultMessage: "Continue draft",
+              id: "jiJ8qo",
+              description: "Link text to apply for a pool advertisement",
+            })}
+          />
+        ) : (
+          <Pill bold mode="outline" color={statusPill.color}>
+            {statusPill.text}
+          </Pill>
+        )}
       </div>
-      <div data-h2-margin="base(0, 0, x1, 0)">
-        <TrackApplicationsStatus application={application} />
-      </div>
+
       <div>
         {skills.length > 0 ? (
           <div
