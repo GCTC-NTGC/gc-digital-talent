@@ -13,7 +13,7 @@ import {
 import { Pool, Scalars } from "~/api/generated";
 
 type FormValues = {
-  endDate?: Pool["closingDate"];
+  expiryEndDate?: Pool["closingDate"];
 };
 
 type ExtendDialogProps = {
@@ -31,9 +31,9 @@ const ExtendDialog = ({
 
   const handleExtend = useCallback(
     async (formValues: FormValues) => {
-      const closingDateInUtc = formValues.endDate
+      const closingDateInUtc = formValues.expiryEndDate
         ? convertDateTimeZone(
-            `${formValues.endDate} 23:59:59`,
+            `${formValues.expiryEndDate} 23:59:59`,
             "Canada/Pacific",
             "UTC",
           )
@@ -46,7 +46,7 @@ const ExtendDialog = ({
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      endDate: closingDate
+      expiryEndDate: closingDate
         ? new Date(closingDate).toISOString().split("T")[0]
         : "",
     },
@@ -96,14 +96,14 @@ const ExtendDialog = ({
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleExtend)}>
               <DateInput
-                id="extendDialog-endDate"
+                id="expiryEndDate"
                 legend={intl.formatMessage({
                   defaultMessage: "End Date",
                   id: "80DOGy",
                   description:
                     "Label displayed on the pool candidate form end date field.",
                 })}
-                name="endDate"
+                name="expiryEndDate"
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                   min: {
