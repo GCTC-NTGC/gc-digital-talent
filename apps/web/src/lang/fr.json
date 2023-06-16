@@ -131,10 +131,6 @@
     "defaultMessage": "Nous vous inviterons à créer un profil qui sera sauvegardé et présenté comme étant votre demande.",
     "description": "How it works, step 2 content sentence 2"
   },
-  "M1JKQs": {
-    "defaultMessage": "Accueil",
-    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
-  },
   "U8bLT7": {
     "defaultMessage": "Comment cela fonctionnera-t-il?",
     "description": "heading for how the indigenous talent portal will work"
@@ -8295,5 +8291,13 @@
   "u5UAJn": {
     "defaultMessage": "Inactif",
     "description": "Status message if the application is suspended"
+  },
+  "hfI9v3": {
+    "defaultMessage": "Talents numériques du GC",
+    "description": "Link to the homepage for GC Digital Talent."
+  },
+  "k4Vsh0": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
+    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
   }
 }

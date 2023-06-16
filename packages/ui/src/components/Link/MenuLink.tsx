@@ -9,7 +9,7 @@ const MenuLink = ({ children, ...rest }: MenuLinkProps) => {
     <NavLink
       {...rest}
       data-h2-background-color="base(transparent)"
-      data-h2-color="base(black) base:hover(primary)"
+      data-h2-color="base(black) base:hover(primary) base:iap(primary) base:iap:hover(primary.darker)"
       data-h2-border="base(none)"
       data-h2-font-size="base(normal)"
       data-h2-font-weight="base(400) base:selectors[.active](800)"

@@ -42,7 +42,7 @@ type PoolCell = Cell<Pool>;
 function poolCandidatesLinkAccessor(
   poolCandidatesTableUrl: string,
   intl: IntlShape,
-  pool: Maybe<Pick<Pool, "name" | "classifications" | "stream">>,
+  pool: Maybe<Pool>,
 ) {
   return (
     <Link href={poolCandidatesTableUrl} color="black" data-h2-padding="base(0)">
