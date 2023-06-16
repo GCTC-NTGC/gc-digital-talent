@@ -23,6 +23,7 @@ const SkillDescription = ({ skill }: SkillDescriptionProps) => {
       <Heading
         level="h3"
         size="h6"
+        data-h2-font-size="base(copy)"
         data-h2-font-weight="base(700)"
         data-h2-margin-top="base(0)"
       >
