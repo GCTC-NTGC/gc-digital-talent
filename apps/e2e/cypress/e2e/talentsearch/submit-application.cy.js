@@ -231,8 +231,16 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("textbox", { name: /Institution/i }).type(
       "Cypress University",
     );
-    cy.findByLabelText(/Start Date/i).type("2001-01-01");
-    cy.findByLabelText(/End Date/i).type("2001-02-01");
+    cy.findByRole("group", { name: /start date/i }).within(() => {
+      cy.findAllByRole("spinbutton", { name: /year/i }).type("2001");
+      cy.findAllByRole("combobox", { name: /month/i }).select("01");
+      cy.findAllByRole("spinbutton", { name: /day/i }).type("01");
+    });
+    cy.findByRole("group", { name: /end date/i }).within(() => {
+      cy.findAllByRole("spinbutton", { name: /year/i }).type("2001");
+      cy.findAllByRole("combobox", { name: /month/i }).select("01");
+      cy.findAllByRole("spinbutton", { name: /day/i }).type("02");
+    });
     cy.findByRole("combobox", { name: /Status/i }).select(
       "Successful Completion (Credential Awarded)",
     );
