@@ -53,7 +53,7 @@ export const ChipNoDismiss = TemplateNoDismissChip.bind({});
 export const ChipMulti = TemplateMultiChip.bind({});
 
 const defaultLook: Partial<ChipProps> = {
-  color: "neutral",
+  color: "black",
   mode: "outline",
 };
 

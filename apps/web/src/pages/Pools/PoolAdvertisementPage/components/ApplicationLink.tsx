@@ -12,7 +12,7 @@ interface ApplicationLinkProps {
   applicationId?: Scalars["ID"];
   hasApplied?: boolean;
   canApply?: boolean;
-  linkProps?: Omit<LinkProps, "color" | "mode" | "ref">;
+  linkProps?: Omit<LinkProps, "mode" | "ref">;
 }
 
 const ApplicationLink = ({
