@@ -144,7 +144,7 @@ export const ResumeAndRecruitments = ({
         </TableOfContents.Navigation>
         <TableOfContents.Content>
           <TableOfContents.Section id={PAGE_SECTION_ID.MANAGE_YOUR_RESUME}>
-            <Heading Icon={BookmarkSquareIcon} color="red">
+            <Heading Icon={BookmarkSquareIcon} color="tertiary">
               {intl.formatMessage(titles.manageYourResume)}
             </Heading>
             <p>
@@ -183,7 +183,7 @@ export const ResumeAndRecruitments = ({
             <div data-h2-flex-grid="base(center, x1, x1)">
               <Heading
                 Icon={IdentificationIcon}
-                color="blue"
+                color="secondary"
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
               >
                 {intl.formatMessage(titles.qualifiedRecruitmentProcesses)}
