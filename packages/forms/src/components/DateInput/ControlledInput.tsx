@@ -105,7 +105,7 @@ const ControlledInput = ({
             data-h2-width="base(100%)"
             {...inputStyles}
           >
-            <option disabled value="">
+            <option value="">
               {intl.formatMessage(dateMessages.selectAMonth)}
             </option>
             {months.map((monthName, index) => (
