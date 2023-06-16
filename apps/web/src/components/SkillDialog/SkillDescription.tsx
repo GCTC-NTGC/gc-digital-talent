@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 
 import { Well, Heading } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { empty } from "@gc-digital-talent/helpers";
 
 import { Maybe, Skill } from "~/api/generated";
 
