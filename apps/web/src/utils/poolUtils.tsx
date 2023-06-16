@@ -5,12 +5,9 @@ import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
-import { RoleAssignment } from "@gc-digital-talent/graphql";
-import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
-
-import { PageNavKeys, SimpleClassification, SimplePool } from "~/types/pool";
 import {
+  PublishingGroup,
+  RoleAssignment,
   PoolStatus,
   Maybe,
   PoolCandidate,
@@ -18,7 +15,11 @@ import {
   PoolStream,
   Classification,
   Pool,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
+import { PageNavKeys, SimpleClassification, SimplePool } from "~/types/pool";
 
 import { wrapAbbr } from "./nameUtils";
 import { PageNavInfo } from "../types/pages";
@@ -94,6 +95,10 @@ export const hasUserApplied = (
   return hasApplied;
 };
 
+export function isIAPPool(pool: Maybe<Pool>): boolean {
+  return pool?.publishingGroup === PublishingGroup.Iap;
+}
+
 export interface formatClassificationStringProps {
   group: string;
   level: number;
@@ -144,10 +149,14 @@ export const formattedPoolPosterTitle = ({
   };
 };
 
+interface FullPoolTitleOptions {
+  defaultTitle?: React.ReactNode;
+}
+
 export const fullPoolTitle = (
   intl: IntlShape,
-  pool: Maybe<Pick<Pool, "name" | "classifications" | "stream">>,
-  options?: { defaultTitle?: string },
+  pool: Maybe<Pool>,
+  options?: FullPoolTitleOptions,
 ): { html: React.ReactNode; label: string } => {
   const fallbackTitle =
     options?.defaultTitle ??
@@ -161,10 +170,17 @@ export const fullPoolTitle = (
   if (pool === null || pool === undefined)
     return {
       html: fallbackTitle,
-      label: fallbackTitle,
+      label: fallbackTitle.toString(),
     };
 
   const specificTitle = getLocalizedName(pool.name, intl);
+
+  if (isIAPPool(pool)) {
+    return {
+      html: specificTitle,
+      label: specificTitle,
+    };
+  }
 
   const formattedTitle = formattedPoolPosterTitle({
     title: specificTitle,
@@ -181,13 +197,13 @@ export const fullPoolTitle = (
 
 export const getFullPoolTitleHtml = (
   intl: IntlShape,
-  pool: Maybe<Pick<Pool, "name" | "classifications" | "stream">>,
+  pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
 ): React.ReactNode => fullPoolTitle(intl, pool, options).html;
 
 export const getFullPoolTitleLabel = (
   intl: IntlShape,
-  pool: Maybe<Pick<Pool, "name" | "classifications" | "stream">>,
+  pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
 ): string => fullPoolTitle(intl, pool, options).label;
 

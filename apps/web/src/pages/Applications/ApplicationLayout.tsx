@@ -18,7 +18,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
+import { fullPoolTitle } from "~/utils/poolUtils";
 import { useGetApplicationQuery } from "~/api/generated";
 import {
   applicationStepsToStepperArgs,
@@ -42,9 +42,8 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     application,
     experienceId,
   });
+  const title = fullPoolTitle(intl, application.pool);
 
-  const poolNameHtml = getFullPoolTitleHtml(intl, application.pool);
-  const poolName = getFullPoolTitleLabel(intl, application.pool);
   const pageTitle = defineMessage({
     defaultMessage: "Apply to {poolName}",
     id: "K8CPir",
@@ -86,7 +85,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     },
     {
       url: paths.pool(application.pool.id),
-      label: getFullPoolTitleHtml(intl, application.pool),
+      label: title.html,
     },
     ...currentCrumbs,
   ]);
@@ -116,9 +115,9 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
       }
       currentStepOrdinal={currentStepIndex + 1}
     >
-      <SEO title={intl.formatMessage(pageTitle, { poolName })} />
+      <SEO title={intl.formatMessage(pageTitle, { poolName: title.label })} />
       <Hero
-        title={intl.formatMessage(pageTitle, { poolName: poolNameHtml })}
+        title={intl.formatMessage(pageTitle, { poolName: title.html })}
         crumbs={crumbs}
         subtitle={currentPage?.subtitle}
       />
