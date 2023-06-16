@@ -356,4 +356,139 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             )
             ->assertJsonFragment(['count' => 3]);
     }
+
+    public function testSearchRequestFullNameFiltering(): void
+    {
+        PoolCandidateSearchRequest::factory()->count(3)->create([
+            'full_name' => 'John Test',
+        ]);
+        PoolCandidateSearchRequest::factory()->count(1)->create([
+            'full_name' => 'Admin Test',
+        ]);
+
+        // fullName null returns 4 results
+        $this->actingAs($this->requestResponder, 'api')
+            ->graphQL($this->searchRequestQuery, ['where' => ['fullName' => null]])
+            ->assertJsonFragment(['count' => 4]);
+
+        // partial capitals and partial name returns one result correctly
+        $this->actingAs($this->requestResponder, 'api')
+            ->graphQL(
+                $this->searchRequestQuery,
+                [
+                    'where' => [
+                        'fullName' => 'DmIn'
+                    ]
+                ]
+            )
+            ->assertJsonFragment(['count' => 1]);
+    }
+
+    public function testSearchRequestEmailFiltering(): void
+    {
+        PoolCandidateSearchRequest::factory()->count(3)->create([
+            'email' => 'JohnTest@test.com',
+        ]);
+        PoolCandidateSearchRequest::factory()->count(1)->create([
+            'email' => 'AdminTest@government.com',
+        ]);
+
+        // email null returns 4 results
+        $this->actingAs($this->requestResponder, 'api')
+            ->graphQL($this->searchRequestQuery, ['where' => ['email' => null]])
+            ->assertJsonFragment(['count' => 4]);
+
+        // partial capitals and partial email returns one result correctly
+        $this->actingAs($this->requestResponder, 'api')
+            ->graphQL(
+                $this->searchRequestQuery,
+                [
+                    'where' => [
+                        'email' => '@GOVERNment'
+                    ]
+                ]
+            )
+            ->assertJsonFragment(['count' => 1]);
+    }
+
+    public function testSearchRequestJobTitleFiltering(): void
+    {
+        PoolCandidateSearchRequest::factory()->count(3)->create([
+            'job_title' => 'Tester',
+        ]);
+        PoolCandidateSearchRequest::factory()->count(1)->create([
+            'job_title' => 'Adminer',
+        ]);
+
+        // jobTitle null returns 4 results
+        $this->actingAs($this->requestResponder, 'api')
+            ->graphQL($this->searchRequestQuery, ['where' => ['jobTitle' => null]])
+            ->assertJsonFragment(['count' => 4]);
+
+        // partial capitals and partial job title returns one result correctly
+        $this->actingAs($this->requestResponder, 'api')
+            ->graphQL(
+                $this->searchRequestQuery,
+                [
+                    'where' => [
+                        'jobTitle' => 'DmIn'
+                    ]
+                ]
+            )
+            ->assertJsonFragment(['count' => 1]);
+    }
+
+    public function testSearchRequestAdditionalCommentsFiltering(): void
+    {
+        PoolCandidateSearchRequest::factory()->count(3)->create([
+            'additional_comments' => 'Blah blah blah blah.',
+        ]);
+        PoolCandidateSearchRequest::factory()->count(1)->create([
+            'additional_comments' => 'Destined for great things.',
+        ]);
+
+        // additionalComments null returns 4 results
+        $this->actingAs($this->requestResponder, 'api')
+            ->graphQL($this->searchRequestQuery, ['where' => ['additionalComments' => null]])
+            ->assertJsonFragment(['count' => 4]);
+
+        // partial capitals and partial comments returns one result correctly
+        $this->actingAs($this->requestResponder, 'api')
+            ->graphQL(
+                $this->searchRequestQuery,
+                [
+                    'where' => [
+                        'additionalComments' => 'DESTin'
+                    ]
+                ]
+            )
+            ->assertJsonFragment(['count' => 1]);
+    }
+
+    public function testSearchRequestAdminNotesFiltering(): void
+    {
+        PoolCandidateSearchRequest::factory()->count(3)->create([
+            'admin_notes' => 'A test request.',
+        ]);
+        PoolCandidateSearchRequest::factory()->count(1)->create([
+            'admin_notes' => 'An administrative request.',
+        ]);
+
+        // adminNotes null returns 4 results
+        $this->actingAs($this->requestResponder, 'api')
+            ->graphQL($this->searchRequestQuery, ['where' => ['adminNotes' => null]])
+            ->assertJsonFragment(['count' => 4]);
+
+        // partial capitals and partial notes returns one result correctly
+        $this->actingAs($this->requestResponder, 'api')
+            ->graphQL(
+                $this->searchRequestQuery,
+                [
+                    'where' => [
+                        'adminNotes' => 'DmIn'
+                    ]
+                ]
+            )
+            ->assertJsonFragment(['count' => 1]);
+    }
 }

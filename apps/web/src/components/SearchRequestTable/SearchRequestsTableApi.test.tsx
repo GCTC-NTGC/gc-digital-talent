@@ -66,5 +66,12 @@ describe("SearchRequestsTable", () => {
     expect(
       screen.getAllByText(requestOne.department?.name.en ?? ""),
     ).toBeTruthy();
+
+    // Table header buttons exist
+    expect(
+      screen.getByRole("button", { name: /All columns/ }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Filters/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Columns/ })).toBeInTheDocument();
   });
 });

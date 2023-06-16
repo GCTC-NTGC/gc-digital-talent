@@ -38,6 +38,7 @@ import {
   stringToEnumRequestStatus,
   stringToEnumStream,
 } from "~/utils/requestUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import SearchRequestsTableFilter, {
   FormValues,
@@ -149,20 +150,41 @@ const SearchRequestsTableApi = ({
     });
   };
 
-  // TODO: fill this in
   // merge search bar with filter dialog
   const combinedSearchRequestInput = (
     fancyFilterState: PoolCandidateSearchRequestInput | undefined,
     searchBarTerm: string | undefined,
     searchType: string | undefined,
   ): InputMaybe<PoolCandidateSearchRequestInput> => {
-    if (searchBarTerm === undefined && searchType === undefined) {
+    if (
+      fancyFilterState === undefined &&
+      searchBarTerm === undefined &&
+      searchType === undefined
+    ) {
       return null;
     }
 
     return {
       // search bar
-      // manager, jobTitle...
+      generalSearch: !!searchBarTerm && !searchType ? searchBarTerm : undefined,
+      fullName:
+        searchType === "fullName" && !!searchBarTerm
+          ? searchBarTerm
+          : undefined,
+      email:
+        searchType === "email" && !!searchBarTerm ? searchBarTerm : undefined,
+      jobTitle:
+        searchType === "jobTitle" && !!searchBarTerm
+          ? searchBarTerm
+          : undefined,
+      additionalComments:
+        searchType === "additionalComments" && !!searchBarTerm
+          ? searchBarTerm
+          : undefined,
+      adminNotes:
+        searchType === "adminNotes" && !!searchBarTerm
+          ? searchBarTerm
+          : undefined,
 
       // from fancy filter
       status: fancyFilterState?.status,
@@ -367,6 +389,28 @@ const SearchRequestsTableApi = ({
             type,
           });
         }}
+        searchBy={[
+          {
+            label: intl.formatMessage(adminMessages.manager),
+            value: "fullName",
+          },
+          {
+            label: intl.formatMessage(adminMessages.email),
+            value: "email",
+          },
+          {
+            label: intl.formatMessage(adminMessages.jobTitle),
+            value: "jobTitle",
+          },
+          {
+            label: intl.formatMessage(adminMessages.details),
+            value: "additionalComments",
+          },
+          {
+            label: intl.formatMessage(adminMessages.notes),
+            value: "adminNotes",
+          },
+        ]}
         onColumnHiddenChange={(event) => {
           handleColumnHiddenChange(
             allColumnIds,
