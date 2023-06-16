@@ -1,5 +1,10 @@
 import React from "react";
-import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
+import {
+  createSearchParams,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 
 import { useLogger } from "@gc-digital-talent/logger";
 import { Loading } from "@gc-digital-talent/ui";
@@ -23,6 +28,7 @@ const RequireAuth = ({
   const logger = useLogger();
   const { loggedIn } = useAuthentication();
   const { roleAssignments, isLoaded } = useAuthorization();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const userRoleNames = roleAssignments?.map((a) => a.role?.name);
@@ -35,17 +41,21 @@ const RequireAuth = ({
 
   React.useEffect(() => {
     if (!loggedIn) {
+      const loginSearchParams = new URLSearchParams();
+      loginSearchParams.append("from", location.pathname);
+      const personality = searchParams.get("personality");
+      if (personality) loginSearchParams.append("personality", personality);
       navigate(
         {
           pathname: loginPath,
-          search: createSearchParams({ from: location.pathname }).toString(),
+          search: loginSearchParams.toString(),
         },
         {
           replace: true,
         },
       );
     }
-  }, [location.pathname, loggedIn, loginPath, navigate]);
+  }, [location.pathname, loggedIn, loginPath, navigate, searchParams]);
 
   // Prevent showing children while login redirect happens
   if (!loggedIn) {

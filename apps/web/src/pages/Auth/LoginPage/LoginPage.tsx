@@ -27,7 +27,8 @@ const LoginPage = () => {
   const [searchParams] = useSearchParams();
   const { key: themeKey, setKey: setThemeKey } = useTheme();
   const fromPath = searchParams.get("from");
-  const isFromIap = fromPath === paths.iap();
+  const iapMode =
+    fromPath === paths.iap() || searchParams.get("personality") === "iap";
   const fallbackPath = applicantDashboard
     ? paths.dashboard()
     : paths.myProfile();
@@ -53,10 +54,10 @@ const LoginPage = () => {
   ]);
 
   useEffect(() => {
-    if (isFromIap && themeKey !== "iap") {
+    if (iapMode && themeKey !== "iap") {
       setThemeKey("iap");
     }
-  }, [isFromIap, themeKey, setThemeKey]);
+  }, [iapMode, themeKey, setThemeKey]);
 
   return (
     <>
@@ -104,10 +105,7 @@ const LoginPage = () => {
             data-h2-justify-content="base(space-between)"
           >
             <p>
-              <Link
-                href={!isFromIap ? paths.home() : paths.iap()}
-                mode="inline"
-              >
+              <Link href={!iapMode ? paths.home() : paths.iap()} mode="inline">
                 {intl.formatMessage({
                   defaultMessage: "Cancel",
                   id: "OT0QP3",

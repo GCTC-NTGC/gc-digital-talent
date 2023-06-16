@@ -18,16 +18,17 @@ interface IAPNavMenuProps {
 const IAPNavMenu = ({ loggedIn, user }: IAPNavMenuProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const searchParams = `?from=${paths.iap()}&personality=iap`;
 
   let authLinks = [
-    <MenuLink key="login-info" to={`${paths.login()}?from=${paths.iap()}`}>
+    <MenuLink key="login-info" to={`${paths.login()}${searchParams}`}>
       {intl.formatMessage({
         defaultMessage: "Login",
         id: "md7Klw",
         description: "Label displayed on the login link menu item.",
       })}
     </MenuLink>,
-    <MenuLink key="register" to={`${paths.register()}?from=${paths.iap()}`}>
+    <MenuLink key="register" to={`${paths.register()}${searchParams}`}>
       {intl.formatMessage({
         defaultMessage: "Register",
         id: "LMGaDQ",
