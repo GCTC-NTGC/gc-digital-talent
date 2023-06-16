@@ -1,24 +1,34 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Input, Select, enumToOptions } from "@gc-digital-talent/forms";
+import {
+  DateInput,
+  Input,
+  Select,
+  enumToOptions,
+  DATE_SEGMENT,
+} from "@gc-digital-talent/forms";
 import {
   errorMessages,
   getAwardedScope,
   getAwardedTo,
 } from "@gc-digital-talent/i18n";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import { SubExperienceFormProps } from "~/types/experience";
 import { AwardedScope, AwardedTo } from "~/api/generated";
 
 const AwardFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
-  const todayDate = Date();
+  const todayDate = new Date();
 
   return (
     <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+        <div
+          data-h2-flex-item="base(1of1) p-tablet(1of2)"
+          data-h2-align-self="base(flex-end)"
+        >
           <Input
             id="awardTitle"
             label={labels.awardTitle}
@@ -28,15 +38,15 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Input
+          <DateInput
             id="awardedDate"
-            label={labels.awardedDate}
+            legend={labels.awardedDate}
             name="awardedDate"
-            type="date"
+            show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
             rules={{
               required: intl.formatMessage(errorMessages.required),
               max: {
-                value: todayDate,
+                value: strToFormDate(todayDate.toISOString()),
                 message: intl.formatMessage(errorMessages.mustNotBeFuture),
               },
             }}

@@ -4,7 +4,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Input } from "@gc-digital-talent/forms";
+import { DateInput } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 
@@ -131,15 +131,14 @@ const ChangeDateDialog = ({
                 })}
               </p>
               <div data-h2-margin="base(x.5, 0, x.125, 0)">
-                <Input
+                <DateInput
                   id="changeDateDialog-expiryDate"
-                  label={intl.formatMessage({
+                  legend={intl.formatMessage({
                     defaultMessage: "Expiry date",
                     id: "WAO4vD",
                     description:
                       "Label displayed on the date field of the change candidate expiry date dialog",
                   })}
-                  type="date"
                   name="expiryDate"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
