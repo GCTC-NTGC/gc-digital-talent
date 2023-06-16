@@ -19,7 +19,9 @@ const TemplateWorkFormFields: Story = () => {
   return (
     <BasicForm onSubmit={action("submit")}>
       <WorkFormFields labels={labels} />
-      <Submit />
+      <p data-h2-margin-top="base(x1)">
+        <Submit />
+      </p>
     </BasicForm>
   );
 };

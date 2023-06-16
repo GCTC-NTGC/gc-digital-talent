@@ -122,61 +122,70 @@ export const CreatePoolForm = ({
                 description: "Form header to create new pool",
               })}
             </h2>
-            <p>
+            <p data-h2-margin-bottom="base(x1)">
               {intl.formatMessage({
                 defaultMessage: "Create a new job poster from scratch",
                 id: "QodYZE",
                 description: "Form blurb describing create pool form",
               })}
             </p>
-            <Select
-              id="classification"
-              label={intl.formatMessage({
-                defaultMessage: "Starting group and level",
-                id: "gN5gy5",
-                description:
-                  "Label displayed on the pool form classification field.",
-              })}
-              name="classification"
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a classification",
-                id: "tD99Wf",
-                description:
-                  "Placeholder displayed on the pool form classification field.",
-              })}
-              options={classificationOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Select
-              id="team"
-              label={intl.formatMessage({
-                defaultMessage: "Parent team",
-                id: "mOS8rj",
-                description:
-                  "Label displayed for selecting what team a new pool belongs to.",
-              })}
-              name="team"
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a team",
-                id: "COJ3St",
-                description: "Placeholder displayed for team selection input.",
-              })}
-              options={teamOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Submit
-              color="tertiary"
-              text={intl.formatMessage({
-                defaultMessage: "Create new pool",
-                id: "TLl20s",
-                description:
-                  "Label displayed on submit button for new pool form.",
-              })}
-            />
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x.5 0)"
+            >
+              <Select
+                id="classification"
+                label={intl.formatMessage({
+                  defaultMessage: "Starting group and level",
+                  id: "gN5gy5",
+                  description:
+                    "Label displayed on the pool form classification field.",
+                })}
+                name="classification"
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a classification",
+                  id: "tD99Wf",
+                  description:
+                    "Placeholder displayed on the pool form classification field.",
+                })}
+                options={classificationOptions}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <Select
+                id="team"
+                label={intl.formatMessage({
+                  defaultMessage: "Parent team",
+                  id: "mOS8rj",
+                  description:
+                    "Label displayed for selecting what team a new pool belongs to.",
+                })}
+                name="team"
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a team",
+                  id: "COJ3St",
+                  description:
+                    "Placeholder displayed for team selection input.",
+                })}
+                options={teamOptions}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <div data-h2-align-self="base(flex-start)">
+                <Submit
+                  color="tertiary"
+                  text={intl.formatMessage({
+                    defaultMessage: "Create new pool",
+                    id: "TLl20s",
+                    description:
+                      "Label displayed on submit button for new pool form.",
+                  })}
+                />
+              </div>
+            </div>
           </form>
         </FormProvider>
       </div>

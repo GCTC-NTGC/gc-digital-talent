@@ -1414,6 +1414,22 @@
     "defaultMessage": "Mes compétences et mon expérience",
     "description": "Name of My skills and experience page"
   },
+  "i3Jl6C": {
+    "defaultMessage": " : ",
+    "description": "Dividing colon with trailing space"
+  },
+  "ayG2k7": {
+    "defaultMessage": "Oui",
+    "description": "Affirmative answer"
+  },
+  "gM4WDL": {
+    "defaultMessage": "Non",
+    "description": "Negative answer"
+  },
+  "YmboX1": {
+    "defaultMessage": "{wordCount} / {wordLimit} mots",
+    "description": "Message for words remaining before hitting the limit"
+  },
   "5jynud": {
     "defaultMessage": "Compétences comportementales",
     "description": "The skill is considered behavioral."

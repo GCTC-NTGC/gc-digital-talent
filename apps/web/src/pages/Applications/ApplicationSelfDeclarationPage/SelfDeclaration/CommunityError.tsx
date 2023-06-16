@@ -2,7 +2,7 @@ import React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
 
-import { InputError } from "@gc-digital-talent/forms";
+import { Field } from "@gc-digital-talent/forms";
 
 const CommunityError = () => {
   const {
@@ -14,7 +14,7 @@ const CommunityError = () => {
 
   return error ? (
     <div data-h2-display="base(block)" data-h2-margin="base(x.125, 0, 0, 0)">
-      <InputError isVisible={!!error} error={error} />
+      <Field.Error>{error.toString()}</Field.Error>
     </div>
   ) : null;
 };

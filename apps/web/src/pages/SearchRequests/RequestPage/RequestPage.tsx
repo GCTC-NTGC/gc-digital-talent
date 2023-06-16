@@ -33,8 +33,8 @@ const RequestPage = () => {
       <Hero
         centered
         title={intl.formatMessage({
-          defaultMessage: "Search the Digital Talent Pool",
-          id: "NXzsK4",
+          defaultMessage: "Search the GC Digital Talent database",
+          id: "BunlKD",
           description: "Main heading displayed at the top of request page.",
         })}
       >

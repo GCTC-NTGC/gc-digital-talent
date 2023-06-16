@@ -138,7 +138,12 @@ export const UpdateSkillFamilyForm = ({
       </Heading>
       <div>
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x1 0)"
+          >
             <Input
               id="name_en"
               name="name.en"
@@ -230,7 +235,9 @@ export const UpdateSkillFamilyForm = ({
                 options={skillOptions}
               />
             </div>
-            <Submit />
+            <div data-h2-align-self="base(flex-start)">
+              <Submit />
+            </div>
           </form>
         </FormProvider>
       </div>

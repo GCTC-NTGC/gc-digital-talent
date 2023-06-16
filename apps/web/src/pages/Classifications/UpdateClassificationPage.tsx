@@ -86,126 +86,131 @@ export const UpdateClassificationForm = ({
           description: "Title displayed on the update a classification form.",
         })}
       </Heading>
-      <div>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              id="name_en"
-              name="name.en"
-              label={intl.formatMessage({
-                defaultMessage: "Name (English)",
-                id: "7wYPgC",
-                description:
-                  "Label displayed on the classification form name (English) field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_fr"
-              name="name.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Name (French)",
-                id: "uAmdiU",
-                description:
-                  "Label displayed on the classification form name (French) field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="group"
-              name="group"
-              label={intl.formatMessage({
-                defaultMessage: "Group",
-                id: "hgxH8y",
-                description:
-                  "Label displayed for the classification form group field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Select
-              id="level"
-              name="level"
-              label={intl.formatMessage({
-                defaultMessage: "Level",
-                id: "bVRixs",
-                description:
-                  "Label displayed on the classification form level field.",
-              })}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a level",
-                id: "Le4EQq",
-                description:
-                  "Placeholder displayed on the classification form level field.",
-              })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              options={[
-                { value: 1, label: "1" },
-                { value: 2, label: "2" },
-                { value: 3, label: "3" },
-                { value: 4, label: "4" },
-                { value: 5, label: "5" },
-                { value: 6, label: "6" },
-                { value: 7, label: "7" },
-                { value: 8, label: "8" },
-                { value: 9, label: "9" },
-              ]}
-              disabled
-            />
-            <Input
-              id="minSalary"
-              name="minSalary"
-              label={intl.formatMessage({
-                defaultMessage: "Minimum Salary",
-                id: "3b6cy/",
-                description:
-                  "Label displayed for the classification form min salary field.",
-              })}
-              type="number"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                min: {
+      <FormProvider {...methods}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x.5 0)"
+        >
+          <Input
+            id="name_en"
+            name="name.en"
+            label={intl.formatMessage({
+              defaultMessage: "Name (English)",
+              id: "7wYPgC",
+              description:
+                "Label displayed on the classification form name (English) field.",
+            })}
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <Input
+            id="name_fr"
+            name="name.fr"
+            label={intl.formatMessage({
+              defaultMessage: "Name (French)",
+              id: "uAmdiU",
+              description:
+                "Label displayed on the classification form name (French) field.",
+            })}
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <Input
+            id="group"
+            name="group"
+            label={intl.formatMessage({
+              defaultMessage: "Group",
+              id: "hgxH8y",
+              description:
+                "Label displayed for the classification form group field.",
+            })}
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <Select
+            id="level"
+            name="level"
+            label={intl.formatMessage({
+              defaultMessage: "Level",
+              id: "bVRixs",
+              description:
+                "Label displayed on the classification form level field.",
+            })}
+            nullSelection={intl.formatMessage({
+              defaultMessage: "Select a level",
+              id: "Le4EQq",
+              description:
+                "Placeholder displayed on the classification form level field.",
+            })}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            options={[
+              { value: 1, label: "1" },
+              { value: 2, label: "2" },
+              { value: 3, label: "3" },
+              { value: 4, label: "4" },
+              { value: 5, label: "5" },
+              { value: 6, label: "6" },
+              { value: 7, label: "7" },
+              { value: 8, label: "8" },
+              { value: 9, label: "9" },
+            ]}
+            disabled
+          />
+          <Input
+            id="minSalary"
+            name="minSalary"
+            label={intl.formatMessage({
+              defaultMessage: "Minimum Salary",
+              id: "3b6cy/",
+              description:
+                "Label displayed for the classification form min salary field.",
+            })}
+            type="number"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              min: {
+                value: 0,
+                message: intl.formatMessage(errorMessages.mustBeGreater, {
                   value: 0,
-                  message: intl.formatMessage(errorMessages.mustBeGreater, {
-                    value: 0,
-                  }),
-                },
-              }}
-            />
-            <Input
-              id="maxSalary"
-              name="maxSalary"
-              label={intl.formatMessage({
-                defaultMessage: "Maximum Salary",
-                id: "gpKGjq",
-                description:
-                  "Label displayed for the classification form max salary field.",
-              })}
-              type="number"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                min: {
+                }),
+              },
+            }}
+          />
+          <Input
+            id="maxSalary"
+            name="maxSalary"
+            label={intl.formatMessage({
+              defaultMessage: "Maximum Salary",
+              id: "gpKGjq",
+              description:
+                "Label displayed for the classification form max salary field.",
+            })}
+            type="number"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              min: {
+                value: watchMinSalary || 0,
+                message: intl.formatMessage(errorMessages.mustBeGreater, {
                   value: watchMinSalary || 0,
-                  message: intl.formatMessage(errorMessages.mustBeGreater, {
-                    value: watchMinSalary || 0,
-                  }),
-                },
-              }}
-            />
+                }),
+              },
+            }}
+          />
+          <div data-h2-align-self="base(flex-start)">
             <Submit />
-          </form>
-        </FormProvider>
-      </div>
+          </div>
+        </form>
+      </FormProvider>
     </section>
   );
 };

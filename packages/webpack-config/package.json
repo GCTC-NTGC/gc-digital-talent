@@ -4,20 +4,20 @@
   "private": true,
   "license": "AGPL-3.0",
   "dependencies": {
-    "@formatjs/ts-transformer": "^3.13.2",
-    "@types/node": "^20.3.0",
+    "@formatjs/ts-transformer": "^3.13.3",
+    "@types/node": "^20.3.1",
     "@types/path-browserify": "^1.0.0",
     "babel-loader": "^9.1.2",
     "compression-webpack-plugin": "^10.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.8.1",
-    "css-minimizer-webpack-plugin": "^5.0.0",
+    "css-minimizer-webpack-plugin": "^5.0.1",
     "dotenv": "^16.1.4",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
     "shelljs": "^0.8.5",
     "ts-loader": "^9.4.3",
-    "webpack": "^5.86.0",
+    "webpack": "^5.87.0",
     "webpack-shell-plugin-next": "^2.3.1"
   }
 }

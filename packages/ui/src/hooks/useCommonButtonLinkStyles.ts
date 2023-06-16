@@ -11,6 +11,7 @@ type StyleRecord = Record<string, string>;
 const styleExclusions: Record<string, Array<ButtonLinkMode>> = {
   background: ["inline", "text"],
   border: ["inline", "text"],
+  fontSize: ["text"],
   overflow: ["cta"],
   padding: ["cta", "inline", "text"],
   shadow: ["inline", "solid", "text"],
@@ -117,7 +118,7 @@ const getBorders = (
       "primary",
       {
         "data-h2-border-color":
-          "base(primary.light) base:focus-visible(focus) base:dark(primary.light) base:dark:focus-visible(focus) base:admin(primary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
+          "base(primary.light) base:iap(primary) base:focus-visible(focus) base:dark(primary.light) base:dark:focus-visible(focus) base:admin(primary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
@@ -302,7 +303,7 @@ export const getBackground = (
       "solid",
       {
         "data-h2-background":
-          "base(primary.light) base:hover(primary.lightest) base:focus-visible(focus) base:dark(primary.light) base:dark:focus-visible(focus) base:admin(primary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
+          "base(primary.light) base:iap(primary) base:hover(primary.lightest) base:focus-visible(focus) base:dark(primary.light) base:dark:focus-visible(focus) base:admin(primary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
@@ -511,7 +512,7 @@ export const getFontColor = (
       "solid",
       {
         "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black) base:admin(white) base:admin:hover(black) base:admin:focus-visible(black) base:admin:dark(white) base:admin:dark:focus-visible(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
+          "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black) base:admin(white) base:admin:hover(black) base:admin:focus-visible(black) base:admin:dark(white) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
       },
     ],
     [
@@ -776,11 +777,25 @@ const getDisplay = (block?: boolean): StyleRecord => {
 };
 
 /**
+ * Get Font Size
+ *
+ * Compute a button or links font size value
+ *
+ * @param mode ButtonLinkMode
+ * @returns Record<string, string>
+ */
+const getFontSize = (mode: ButtonLinkMode): StyleRecord => {
+  return styleExclusions.fontSize.includes(mode)
+    ? {}
+    : { "data-h2-font-size": "base(copy)" };
+};
+
+/**
  * Get Weight
  *
  * Compute a button or links font weight value
  *
- * @param block boolean
+ * @param mode ButtonLinkMode
  * @returns Record<string, string>
  */
 const getWeight = (mode: ButtonLinkMode): StyleRecord => {
@@ -812,12 +827,12 @@ const useCommonButtonLinkStyles: UseCommonButtonLinkStyles = ({
   }
   return {
     "data-h2-align-items": "base(center)",
-    "data-h2-font-size": "base(copy)",
     "data-h2-outline-offset": "base(4px)",
     "data-h2-radius": "base(s)",
     "data-h2-text-align": "base(center)",
     "data-h2-text-decoration": "base(underline) base:hover(none)",
     "data-h2-transition": "base(all ease 50ms) base:children[*](all ease 50ms)",
+    ...getFontSize(mode),
     ...getWeight(mode),
     ...getPadding(nonTextMode),
     ...getShadow(nonTextMode),

@@ -1,12 +1,7 @@
 import React from "react";
-import { useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import {
-  TextArea,
-  WordCounter,
-  countNumberOfWords,
-} from "@gc-digital-talent/forms";
+import { TextArea } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { ScreeningQuestion } from "~/api/generated";
@@ -21,8 +16,6 @@ interface AnswerInputProps {
 
 const AnswerInput = ({ index, question }: AnswerInputProps) => {
   const intl = useIntl();
-  const inputName = `answers.${index}.answer`;
-  const currentValue = useWatch({ name: inputName });
   const questionId = `answers.${index}.question`;
 
   return (
@@ -37,7 +30,9 @@ const AnswerInput = ({ index, question }: AnswerInputProps) => {
       <TextArea
         id={`answers.${index}.answer`}
         name={`answers.${index}.answer`}
-        labelledBy={questionId}
+        aria-labelledby={questionId}
+        rows={TEXT_AREA_ROWS}
+        wordLimit={TEXT_AREA_MAX_WORDS}
         label={intl.formatMessage(
           { defaultMessage: "Answer to question {number}", id: "3BU43Q" },
           {
@@ -46,22 +41,8 @@ const AnswerInput = ({ index, question }: AnswerInputProps) => {
         )}
         rules={{
           required: intl.formatMessage(errorMessages.required),
-          validate: {
-            wordCount: (value: string) =>
-              countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS ||
-              intl.formatMessage(errorMessages.overWordLimit, {
-                value: TEXT_AREA_MAX_WORDS,
-              }),
-          },
         }}
-        rows={TEXT_AREA_ROWS}
       />
-      <div
-        data-h2-margin="base(-x.5, 0, 0, 0)"
-        data-h2-text-align="base(right)"
-      >
-        <WordCounter text={currentValue} wordLimit={TEXT_AREA_MAX_WORDS} />
-      </div>
     </>
   );
 };
