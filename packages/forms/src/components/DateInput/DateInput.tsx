@@ -12,7 +12,6 @@ import { FieldError, useFormContext, Controller } from "react-hook-form";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
 
-import { is } from "date-fns/locale";
 import Field from "../Field";
 import { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
