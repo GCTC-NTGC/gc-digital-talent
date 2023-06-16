@@ -140,8 +140,8 @@ const LoginPage = () => {
               <p data-h2-margin="base(x1, 0, 0, 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "<strong>Heads up!</strong> Before we send you off to set up your GCKey credentials, we ask that you take another look at the program's <strong>eligibility criteria</strong> to ensure that you meet the requirements.",
-                  id: "F1mBCq",
+                    "<strong>Heads up!</strong> Before we send you off to set up your GCKey credentials, we ask that you take another look at the program's eligibility criteria to ensure that you meet the requirements.",
+                  id: "ow71P8",
                   description:
                     "A request for the user to review the IAP eligibility criteria",
                 })}
