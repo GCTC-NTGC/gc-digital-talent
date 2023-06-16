@@ -5,17 +5,20 @@ import { action } from "@storybook/addon-actions";
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "storybook-helpers";
 
-import FindASkillDialog, { FormValues } from "./FindASkillDialog";
+import SkillDialog, { FormValues } from "./SkillDialog";
 
 const mockSkills = getStaticSkills();
 
 export default {
-  component: FindASkillDialog,
-  title: "Components/Dialog/Skill Dialog/Find a Skill",
+  component: SkillDialog,
+  title: "Components/Dialog/Skill Dialog",
   decorators: [OverlayOrDialogDecorator],
+  args: {
+    skills: mockSkills,
+  },
 };
 
-const Template: StoryFn<typeof FindASkillDialog> = (args) => {
+const Template: StoryFn<typeof SkillDialog> = (args) => {
   const handleSave = async (values: FormValues) => {
     await new Promise<void>((resolve) => {
       action("onSave")(values);
@@ -23,10 +26,18 @@ const Template: StoryFn<typeof FindASkillDialog> = (args) => {
     });
   };
 
-  return <FindASkillDialog {...args} onSave={handleSave} />;
+  return <SkillDialog {...args} onSave={handleSave} />;
 };
 
 export const Default = Template.bind({});
-Default.args = {
-  skills: mockSkills,
+
+export const ExperienceContext = Template.bind({});
+ExperienceContext.args = {
+  context: "experience",
+};
+
+export const LibraryContext = Template.bind({});
+LibraryContext.args = {
+  context: "library",
+  showCategory: false,
 };

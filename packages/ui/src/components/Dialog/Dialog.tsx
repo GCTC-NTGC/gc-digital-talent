@@ -157,7 +157,7 @@ interface DialogFooterProps extends React.HTMLProps<HTMLDivElement> {
 }
 
 const Footer = ({ children, ...rest }: DialogFooterProps) => (
-  <div data-h2-padding="base(x1 0 0 0)">
+  <div data-h2-margin="base(x1 0 0 0)">
     <hr
       data-h2-border="base(none)"
       data-h2-height="base(1px)"

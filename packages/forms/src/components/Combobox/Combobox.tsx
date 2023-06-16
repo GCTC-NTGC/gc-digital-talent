@@ -213,6 +213,7 @@ const Combobox = ({
           data-h2-position="base(absolute)"
           data-h2-location="base(100%, 0, auto, 0)"
           data-h2-overflow="base(visible auto)"
+          data-h2-z-index="base(99)"
           {...baseStyles}
           as={noOptions ? "div" : "ul"}
         >
