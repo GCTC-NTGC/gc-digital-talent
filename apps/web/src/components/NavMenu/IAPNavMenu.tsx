@@ -8,7 +8,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import NavMenu from "./NavMenu";
 import LogoutConfirmation from "../LogoutConfirmation";
-import { LogoutButton } from "../Layout/Layout";
+import LogoutButton from "../Layout/LogoutButton";
 
 interface IAPNavMenuProps {
   loggedIn?: boolean;
