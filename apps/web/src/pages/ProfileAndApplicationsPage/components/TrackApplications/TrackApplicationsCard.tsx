@@ -1,9 +1,6 @@
 import * as React from "react";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  getLocale,
-  getPoolCandidateStatusLabel,
-} from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 import {
   Chip,
   Chips,
@@ -13,7 +10,9 @@ import {
 } from "@gc-digital-talent/ui";
 import { useIntl } from "react-intl";
 import { PoolCandidate, Skill } from "~/api/generated";
-import ApplicationActions from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/ApplicationActions";
+import ApplicationActions, {
+  DeleteActionProps,
+} from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/ApplicationActions";
 import {
   isDraft,
   isExpired,
@@ -22,18 +21,20 @@ import {
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
-import TrackApplicationsStatus from "./TrackApplicationsStatus";
+import useMutations from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/useMutations";
 
 export type Application = Omit<PoolCandidate, "user">;
 
 export interface TrackApplicationsCardProps {
   application: Application;
   headingLevel?: HeadingProps["level"];
+  onDelete: DeleteActionProps["onDelete"];
 }
 
 const TrackApplicationsCard = ({
   application,
   headingLevel = "h2",
+  onDelete,
 }: TrackApplicationsCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -74,7 +75,7 @@ const TrackApplicationsCard = ({
         >
           {getFullPoolTitleHtml(intl, application.pool)}
         </Heading>
-        {application.status === "DRAFT" ? (
+        {applicationIsDraft ? (
           <ApplicationLink
             poolId={application.pool.id}
             applicationId={application.id}
@@ -147,10 +148,33 @@ const TrackApplicationsCard = ({
             show={!applicationIsDraft}
             application={application}
           />
+          <ApplicationActions.DeleteAction
+            show={applicationIsDraft}
+            application={application}
+            onDelete={onDelete}
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default TrackApplicationsCard;
+interface TrackApplicationsCardApiProps {
+  application: Application;
+}
+
+const TrackApplicationsCardApi = ({
+  application,
+}: TrackApplicationsCardApiProps) => {
+  const mutations = useMutations();
+
+  return (
+    <TrackApplicationsCard
+      application={application}
+      onDelete={() => mutations.delete(application.id)}
+    />
+  );
+};
+
+export const TrackApplicationsCardComponent = TrackApplicationsCard;
+export default TrackApplicationsCardApi;

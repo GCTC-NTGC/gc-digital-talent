@@ -22,6 +22,7 @@ const mockApplication = fakePoolCandidates()[0];
 
 const defaultProps = {
   application: mockApplication,
+  onDelete: jest.fn(),
 };
 
 const mockClient = {
@@ -98,6 +99,7 @@ describe("TrackApplicationsCard", () => {
   });
 
   // TODO: What message should show if the pool candidate has been placed but the pool is expired
+
   it("should have expired recruitment message if the pool has expired", () => {
     renderCard({
       ...defaultProps,
