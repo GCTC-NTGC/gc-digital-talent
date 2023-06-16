@@ -121,10 +121,6 @@
   "OujTbA": {
     "defaultMessage": "Diplôme postsecondaire requis"
   },
-  "QNsonS": {
-    "defaultMessage": "Compétences transférables",
-    "description": "The skill is considered behavioral."
-  },
   "TNmGTd": {
     "defaultMessage": "Local",
     "description": "The scope of the award was local."
@@ -1417,5 +1413,9 @@
   "clhK68": {
     "defaultMessage": "Mes compétences et mon expérience",
     "description": "Name of My skills and experience page"
+  },
+  "5jynud": {
+    "defaultMessage": "Compétences comportementales",
+    "description": "The skill is considered behavioral."
   }
 }

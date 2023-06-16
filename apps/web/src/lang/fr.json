@@ -8206,5 +8206,109 @@
   "Xpo+u6": {
     "defaultMessage": "Compétences utiles",
     "description": "Title for the optional skills snapshot section"
+  },
+  "+h7iQH": {
+    "defaultMessage": "Masquer les évaluations des compétences de ce recrutement",
+    "description": "Button text to hide a miscellaneous qualified recruitment's skill assessments"
+  },
+  "04smVa": {
+    "defaultMessage": "Recrutement ciblé",
+    "description": "Label for an targeting (active) qualified recruitment"
+  },
+  "1mYPEx": {
+    "defaultMessage": "Je ne suis <strong>pas disponible</strong> et je ne veux pas que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
+    "description": "Radio button label for not available for opportunities option"
+  },
+  "33wMLU": {
+    "defaultMessage": "Changer votre disponibilité",
+    "description": "Button text to open form to change availability in a generic recruitment"
+  },
+  "3AwFyW": {
+    "defaultMessage": "Si vous avez accepté un emploi récemment ou que vous ne souhaitez tout simplement plus que votre candidature soit prise en compte pour les possibilités, vous pouvez désactiver votre disponibilité dans le cadre de ce processus de recrutement. <strong>Ainsi, votre nom <emphasize>ne sera pas</emphasize> retiré du recrutement</strong> en soi, et vous pourrez toujours réactiver votre disponibilité si vous changez d’avis.",
+    "description": "Text describing what it means to disable your availability and that you can reverse the decision"
+  },
+  "5HJIwt": {
+    "defaultMessage": "Identifiant de recrutement copié",
+    "description": "Button text to indicate that a specific qualified recruitment's ID has been copied"
+  },
+  "BFewIk": {
+    "defaultMessage": "Afficher les évaluations des compétences de ce recrutement",
+    "description": "Button text to show a miscellaneous qualified recruitment's skill assessments"
+  },
+  "LYCaEd": {
+    "defaultMessage": "Expiré",
+    "description": "Simplified status label for expired recruitments"
+  },
+  "OF7SCg": {
+    "defaultMessage": "Changer votre disponibilité dans ce processus de recrutement",
+    "description": "Header text for dialog to change availability in a recruitment"
+  },
+  "OdfEyd": {
+    "defaultMessage": "Qualifié",
+    "description": "Simplified status label for qualified recruitments"
+  },
+  "Uxw5DB": {
+    "defaultMessage": "Recrutement en cours",
+    "description": "Label for an ongoing qualified recruitment"
+  },
+  "VwVXYb": {
+    "defaultMessage": "Les compétences suivantes ont été évaluées par {departments}",
+    "description": "Lead in text describing the skills assessed for a qualified recruitment"
+  },
+  "cAOf3a": {
+    "defaultMessage": "Je suis <strong>disponible</strong> à des fins d’embauche, et je souhaite que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
+    "description": "Radio button label for available for opportunities option"
+  },
+  "cVWREE": {
+    "defaultMessage": "Félicitations! Étant donné que l’on vous a embauché à la suite de ce recrutement, vous ne recevrez plus de possibilités qui y sont liées.",
+    "description": "Message displayed when an applicant has been placed as a result of a recruitment"
+  },
+  "eKPE3F": {
+    "defaultMessage": "Vous ne recevez pas de possibilités découlant de ce recrutement.",
+    "description": "Message displayed when a user has suspended an application to a recruitment"
+  },
+  "eWLKRt": {
+    "defaultMessage": "Masquer les évaluations des compétences de {title}",
+    "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
+  },
+  "iO72f+": {
+    "defaultMessage": "Copier l’identifiant de recrutement",
+    "description": "Button text to copy a specific qualified recruitment's ID"
+  },
+  "jaMIil": {
+    "defaultMessage": "Votre disponibilité",
+    "description": "Label for available for opportunities radio group"
+  },
+  "kekvz1": {
+    "defaultMessage": "Ce recrutement a expiré et n’est plus disponible pour des possibilités d’embauche.",
+    "description": "Message displayed when an applicant application to a recruitment has expired and no longer available"
+  },
+  "leFf/M": {
+    "defaultMessage": "Copier l’identifiant de {title} dans le presse-papiers",
+    "description": "Button text to copy a specific qualified recruitment's ID"
+  },
+  "mHTt67": {
+    "defaultMessage": "En tant que membre retenu du processus de recrutement <strong>{title}</strong>, il se peut que l’on communique avec vous au sujet de possibilités pertinentes.",
+    "description": "Text describing what it means to be available in a recruitment"
+  },
+  "nDm9dX": {
+    "defaultMessage": "Enregistrer la disponibilité",
+    "description": "Button text to save availability in a recruitment"
+  },
+  "uIWFvk": {
+    "defaultMessage": "Vous êtes à l’affût des possibilités découlant de ce recrutement.",
+    "description": "Message displayed when a user is appearing in a recruitment"
+  },
+  "x2/qvf": {
+    "defaultMessage": "Afficher les évaluations des compétences de {title}",
+    "description": "Button text to show a specific qualified recruitment cards's skill assessments"
+  },
+  "yFIC7K": {
+    "defaultMessage": "Annuler",
+    "description": "Label for close availability dialog."
+  },
+  "K8PP2Y": {
+    "defaultMessage": "Changer votre disponibilité pour {title}.",
+    "description": "Button text to open form to change availability in a specific recruitment"
   }
 }
