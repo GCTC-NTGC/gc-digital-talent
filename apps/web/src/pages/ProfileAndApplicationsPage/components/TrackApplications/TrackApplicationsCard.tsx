@@ -9,11 +9,13 @@ import {
   Pill,
 } from "@gc-digital-talent/ui";
 import { useIntl } from "react-intl";
-import { PoolCandidate, Skill } from "~/api/generated";
+import { Maybe, PoolCandidate, Skill } from "~/api/generated";
 import ApplicationActions, {
   DeleteActionProps,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/ApplicationActions";
 import {
+  formatClosingDate,
+  formatSubmittedAt,
   isDraft,
   isExpired,
   isPlaced,
@@ -22,6 +24,7 @@ import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 import useMutations from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/useMutations";
+import { getRecruitmentType } from "~/utils/poolCandidate";
 
 export type Application = Omit<PoolCandidate, "user">;
 
@@ -95,6 +98,26 @@ const TrackApplicationsCard = ({
         )}
       </div>
 
+      <p data-h2-color="base(primary.darker)" data-h2-margin="base(x.5 0 x1 0)">
+        {getRecruitmentType(application.pool.publishingGroup, intl)}
+      </p>
+      {!applicationIsDraft ? (
+        <p data-h2-color="base(black.light)" data-h2-margin="base(x.5 0 x1 0)">
+          {intl.formatMessage({
+            defaultMessage: "Applied On:",
+            id: "iVnq5A",
+          })}{" "}
+          {formatSubmittedAt(application.submittedAt, intl)}
+        </p>
+      ) : (
+        <p data-h2-color="base(black.light)" data-h2-margin="base(x.5 0 x1 0)">
+          {intl.formatMessage({
+            defaultMessage: "Apply By:",
+            id: "mX5tc6",
+          })}{" "}
+          {formatClosingDate(application.pool.closingDate, intl)}
+        </p>
+      )}
       <div>
         {skills.length > 0 ? (
           <div
