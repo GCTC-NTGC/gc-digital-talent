@@ -88,7 +88,7 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
           level="h2"
           data-h2-font-weight="base(400)"
           Icon={FolderOpenIcon}
-          color="purple"
+          color="primary"
         >
           {intl.formatMessage({
             defaultMessage: "Track your applications",

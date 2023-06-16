@@ -114,7 +114,7 @@ const RemoveTeamMemberDialog = ({
               >
                 {user.roles.map((role) => (
                   <li key={role.id}>
-                    <Pill mode="solid" color="neutral">
+                    <Pill mode="solid" color="black">
                       {getLocalizedName(role.displayName, intl)}
                     </Pill>
                   </li>
