@@ -104,7 +104,10 @@ const LoginPage = () => {
             data-h2-justify-content="base(space-between)"
           >
             <p>
-              <Link href={paths.home()} mode="inline">
+              <Link
+                href={!isFromIap ? paths.home() : paths.iap()}
+                mode="inline"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Cancel",
                   id: "OT0QP3",
