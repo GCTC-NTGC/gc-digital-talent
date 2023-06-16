@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
@@ -6,6 +6,7 @@ import { Link } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { useTheme } from "@gc-digital-talent/theme";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -24,13 +25,13 @@ const LoginPage = () => {
   const apiPaths = useApiRoutes();
   const { applicantDashboard } = useFeatureFlags();
   const [searchParams] = useSearchParams();
+  const { key: themeKey, setKey: setThemeKey } = useTheme();
+  const fromPath = searchParams.get("from");
+  const isFromIap = fromPath === paths.iap();
   const fallbackPath = applicantDashboard
     ? paths.dashboard()
     : paths.myProfile();
-  const loginPath = apiPaths.login(
-    searchParams.get("from") ?? fallbackPath,
-    getLocale(intl),
-  );
+  const loginPath = apiPaths.login(fromPath ?? fallbackPath, getLocale(intl));
 
   const seoTitle = intl.formatMessage({
     defaultMessage: "Login using GCKey",
@@ -50,6 +51,12 @@ const LoginPage = () => {
       url: paths.login(),
     },
   ]);
+
+  useEffect(() => {
+    if (isFromIap && themeKey !== "iap") {
+      setThemeKey("iap");
+    }
+  }, [isFromIap, themeKey, setThemeKey]);
 
   return (
     <>

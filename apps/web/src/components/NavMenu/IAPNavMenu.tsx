@@ -20,14 +20,14 @@ const IAPNavMenu = ({ loggedIn, user }: IAPNavMenuProps) => {
   const paths = useRoutes();
 
   let authLinks = [
-    <MenuLink key="login-info" to={`${paths.login()}?iap`}>
+    <MenuLink key="login-info" to={`${paths.login()}?from=${paths.iap()}`}>
       {intl.formatMessage({
         defaultMessage: "Login",
         id: "md7Klw",
         description: "Label displayed on the login link menu item.",
       })}
     </MenuLink>,
-    <MenuLink key="register" to={`${paths.register()}?iap`}>
+    <MenuLink key="register" to={`${paths.register()}?from=${paths.iap()}`}>
       {intl.formatMessage({
         defaultMessage: "Register",
         id: "LMGaDQ",

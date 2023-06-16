@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
@@ -6,6 +6,7 @@ import { Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { useTheme } from "@gc-digital-talent/theme";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -24,13 +25,13 @@ const RegisterPage = () => {
   const apiPaths = useApiRoutes();
   const { applicantDashboard } = useFeatureFlags();
   const [searchParams] = useSearchParams();
+  const { key: themeKey, setKey: setThemeKey } = useTheme();
+  const fromPath = searchParams.get("from");
+  const isFromIap = fromPath === paths.iap();
   const fallbackPath = applicantDashboard
     ? paths.dashboard()
     : paths.myProfile();
-  const loginPath = apiPaths.login(
-    searchParams.get("from") ?? fallbackPath,
-    getLocale(intl),
-  );
+  const loginPath = apiPaths.login(fromPath ?? fallbackPath, getLocale(intl));
 
   const seoTitle = intl.formatMessage({
     defaultMessage: "Register using GCKey",
@@ -50,6 +51,12 @@ const RegisterPage = () => {
       url: paths.register(),
     },
   ]);
+
+  useEffect(() => {
+    if (isFromIap && themeKey !== "iap") {
+      setThemeKey("iap");
+    }
+  }, [isFromIap, themeKey, setThemeKey]);
 
   return (
     <>
