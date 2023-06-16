@@ -6,7 +6,6 @@ import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
 import { fullPoolTitle, getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
-import { PoolCandidate } from "@gc-digital-talent/graphql";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import type { Application } from "./ApplicationCard";
 

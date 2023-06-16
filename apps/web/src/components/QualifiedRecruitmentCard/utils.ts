@@ -8,7 +8,6 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import { Color, IconType } from "@gc-digital-talent/ui";
 import {
   getLocalizedName,
-  getPoolCandidateStatus,
   getPoolCandidateStatusLabel,
 } from "@gc-digital-talent/i18n";
 
