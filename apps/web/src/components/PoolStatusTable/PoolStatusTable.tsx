@@ -64,9 +64,8 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
           <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
             {intl.formatMessage({
               defaultMessage: "Availability",
-              id: "1pPs0u",
-              description:
-                "Title of the 'Availability' column for the table on view-user page",
+              id: "mevv+t",
+              description: "Availability label",
             })}
           </th>
           <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">

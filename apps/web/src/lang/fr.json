@@ -4197,9 +4197,6 @@
     "defaultMessage": "Classification actuelle",
     "description": "CSV Header, Current Classification column"
   },
-  "hOxIeP": {
-    "defaultMessage": "Disponibilité"
-  },
   "hmfQmT": {
     "defaultMessage": "Préférences de durée"
   },
@@ -4420,10 +4417,6 @@
   "zAqJMe": {
     "defaultMessage": "Créé",
     "description": "Title displayed on the Pool table Date Created column"
-  },
-  "Ag+0A4": {
-    "defaultMessage": "Statut",
-    "description": "Title displayed for the User table Status column"
   },
   "+pgXHm": {
     "defaultMessage": "Créé",
@@ -8294,5 +8287,13 @@
   "ccBhi2": {
     "defaultMessage": "Trouvez des talents",
     "description": "Page title for the search page"
+  },
+  "4L9rHO": {
+    "defaultMessage": "Actif",
+    "description": "Status message if the application is not suspended"
+  },
+  "u5UAJn": {
+    "defaultMessage": "Inactif",
+    "description": "Status message if the application is suspended"
   }
 }
