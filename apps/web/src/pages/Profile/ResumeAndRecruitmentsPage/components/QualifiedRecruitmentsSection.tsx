@@ -2,9 +2,9 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { HeadingRank, Link, Well } from "@gc-digital-talent/ui";
-
 import { notEmpty } from "@gc-digital-talent/helpers";
-import TrackApplicationsCard from "~/pages/Applications/ApplicantDashboardPage/components/TrackApplications/TrackApplicationsCard";
+
+import QualifiedRecruitmentCard from "~/components/QualifiedRecruitmentCard/QualifiedRecruitmentCard";
 import useRoutes from "~/hooks/useRoutes";
 import {
   Application,
@@ -38,10 +38,10 @@ const QualifiedRecruitmentsSection = ({
       data-h2-gap="base(x.5 0)"
     >
       {applicationsDisplay.map((application) => (
-        <TrackApplicationsCard
+        <QualifiedRecruitmentCard
           headingLevel={headingLevel}
           key={application.id}
-          application={application}
+          candidate={application}
         />
       ))}
     </div>

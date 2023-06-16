@@ -18,15 +18,16 @@ import {
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
 
-import { PoolCandidate, SkillCategory } from "~/api/generated";
+import { SkillCategory } from "~/api/generated";
 import { categorizeSkill } from "~/utils/skillUtils";
 import { getRecruitmentType } from "~/utils/poolCandidate";
+import { Application } from "~/utils/applicationUtils";
 
 import { getQualifiedRecruitmentInfo, joinDepartments } from "./utils";
 import RecruitmentAvailabilityDialog from "../RecruitmentAvailabilityDialog/RecruitmentAvailabilityDialog";
 
 interface QualifiedRecruitmentCardProps {
-  candidate: PoolCandidate;
+  candidate: Application;
   headingLevel?: HeadingRank;
 }
 
