@@ -50,21 +50,24 @@ const ControlledInput = ({
       show,
     });
 
-    if (newValue) {
-      onChange(newValue);
-    }
+    console.log(newValue);
+
+    onChange(newValue);
   };
 
   const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(e.target.value.padStart(4, "0"), DATE_SEGMENT.Year);
+    const { value: newYear } = e.target;
+    handleChange(newYear ? newYear.padStart(4, "0") : "", DATE_SEGMENT.Year);
   };
 
   const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    handleChange(e.target.value.padStart(2, "0"), DATE_SEGMENT.Month);
+    const { value: newMonth } = e.target;
+    handleChange(newMonth ? newMonth.padStart(2, "0") : "", DATE_SEGMENT.Month);
   };
 
   const handleDayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(e.target.value.padStart(2, "0"), DATE_SEGMENT.Day);
+    const { value: newDay } = e.target;
+    handleChange(newDay ? newDay.padStart(2, "0") : "", DATE_SEGMENT.Day);
   };
 
   const months = getMonthOptions(intl);

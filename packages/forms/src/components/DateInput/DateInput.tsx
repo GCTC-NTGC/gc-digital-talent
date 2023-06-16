@@ -12,6 +12,7 @@ import { FieldError, useFormContext, Controller } from "react-hook-form";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
 
+import { is } from "date-fns/locale";
 import Field from "../Field";
 import { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
@@ -69,8 +70,15 @@ const DateInput = ({
 
   const isValidDate = (value: string) => {
     const { year, month, day } = splitSegments(value);
-    const isOptionalAndEmpty =
-      Boolean(rules.required) && !year && !month && !day;
+    const isOptionalAndEmpty = !rules.required && !year && !month && !day;
+
+    console.log({
+      required: !rules.required,
+      year,
+      month,
+      day,
+    });
+
     return (
       isOptionalAndEmpty ||
       isValid(formDateStringToDate(value)) ||
