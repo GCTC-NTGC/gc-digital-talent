@@ -50,8 +50,6 @@ const ControlledInput = ({
       show,
     });
 
-    console.log(newValue);
-
     onChange(newValue);
   };
 

@@ -72,13 +72,6 @@ const DateInput = ({
     const { year, month, day } = splitSegments(value);
     const isOptionalAndEmpty = !rules.required && !year && !month && !day;
 
-    console.log({
-      required: !rules.required,
-      year,
-      month,
-      day,
-    });
-
     return (
       isOptionalAndEmpty ||
       isValid(formDateStringToDate(value)) ||
