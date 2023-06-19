@@ -185,7 +185,7 @@ const UserTableFilterDialog = ({
                   />
                 </div>
               )}
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <SelectFieldV2
                   forceArrayFormValue
                   id="employmentDuration"
@@ -197,7 +197,7 @@ const UserTableFilterDialog = ({
                   options={optionsData.employmentDuration}
                 />
               </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <SelectFieldV2
                   forceArrayFormValue
                   id="profileComplete"
