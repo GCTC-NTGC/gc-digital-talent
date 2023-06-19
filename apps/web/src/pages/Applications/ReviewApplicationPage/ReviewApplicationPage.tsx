@@ -106,14 +106,14 @@ export const ReviewApplication = ({
           },
           {
             label: intl.formatMessage(navigationMessages.stepOne),
-            url: paths.reviewApplication(applicationId),
+            url: paths.application(applicationId),
           },
         ]}
         navigation={{
           currentStep: 1,
           steps: [
             {
-              path: paths.reviewApplication(applicationId),
+              path: paths.application(applicationId),
               label: intl.formatMessage({
                 id: "LUEVdb",
                 defaultMessage: "Step 1: Review my profile",
