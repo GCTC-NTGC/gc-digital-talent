@@ -10,7 +10,6 @@ import {
 import { Loading } from "@gc-digital-talent/ui";
 import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
-import { useFeatureFlags, type FeatureFlags } from "@gc-digital-talent/env";
 
 import Layout from "~/components/Layout/Layout";
 import AdminLayout from "~/components/Layout/AdminLayout";
@@ -236,27 +235,11 @@ const CreateApplicationPage = React.lazy(() =>
       ),
   ),
 );
-const SignAndSubmitPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSignSubmitPage" */ "../pages/Applications/SignAndSubmitPage/SignAndSubmitPage"
-      ),
-  ),
-);
 const MyApplicationsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
         /* webpackChunkName: "tsMyApplicationsPage" */ "../pages/Applications/MyApplicationsPage/MyApplicationsPage"
-      ),
-  ),
-);
-const ReviewApplicationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsReviewApplicationPage" */ "../pages/Applications/ReviewApplicationPage/ReviewApplicationPage"
       ),
   ),
 );
@@ -708,11 +691,7 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
-const createRoute = (
-  locale: Locales,
-  loginPath: string,
-  featureFlags: FeatureFlags,
-) =>
+const createRoute = (locale: Locales, loginPath: string) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -1020,38 +999,6 @@ const createRoute = (
                               loginPath={loginPath}
                             >
                               <CreateApplicationPage />
-                            </RequireAuth>
-                          ),
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  path: "applications",
-                  children: [
-                    {
-                      path: ":poolCandidateId",
-                      children: [
-                        {
-                          path: "submit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <SignAndSubmitPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "apply",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <ReviewApplicationPage />
                             </RequireAuth>
                           ),
                         },
@@ -1737,9 +1684,8 @@ const createRoute = (
 
 const Router = () => {
   const { locale } = useLocale();
-  const featureFlags = useFeatureFlags();
   const routes = useRoutes();
-  const router = createRoute(locale, routes.login(), featureFlags);
+  const router = createRoute(locale, routes.login());
   return (
     <RouterProvider
       router={router}
