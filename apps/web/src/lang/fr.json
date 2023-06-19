@@ -6767,21 +6767,9 @@
     "defaultMessage": "Instructions de révision",
     "description": "A link back to the instructions for this section"
   },
-  "XuYilo": {
-    "defaultMessage": "Classez vos expériences par ordre de",
-    "description": "Label for experience sort dropdown"
-  },
   "inyUex": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} =1 {1 expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
     "description": "list a number of award experiences"
-  },
-  "m7tUAm": {
-    "defaultMessage": "Type",
-    "description": "Sort experiences by type ascending"
-  },
-  "narnyP": {
-    "defaultMessage": "Date (la plus récente d’abord)",
-    "description": "Sort experiences by date descending"
   },
   "q++unL": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience d’apprentissage personnel} =1 {1 expérience d’apprentissage personnel} other {# expériences d’apprentissage personnel}}",
