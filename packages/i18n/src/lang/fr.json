@@ -1430,6 +1430,10 @@
     "defaultMessage": "Compétences comportementales",
     "description": "The skill is considered behavioral."
   },
+  "J+0v2z": {
+    "defaultMessage": "Par ordre de titre (alphabétiquement)",
+    "description": "Select the option to sort by title, ascending"
+  },
   "spoY2L": {
     "defaultMessage": "Tous les types",
     "description": "Select the option to sort or filter by all types"
