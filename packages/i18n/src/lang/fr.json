@@ -1430,17 +1430,13 @@
     "defaultMessage": "Compétences comportementales",
     "description": "The skill is considered behavioral."
   },
-  "cKcrlm": {
-    "defaultMessage": "Par ordre de date (la plus récente étant en dernier)",
-    "description": "Select the option to start by date, ascending"
-  },
   "spoY2L": {
     "defaultMessage": "Tous les types",
     "description": "Select the option to sort or filter by all types"
   },
-  "uIEYeQ": {
+  "yuWHKJ": {
     "defaultMessage": "Par ordre de date (la plus récente étant en premier)",
-    "description": "Select the option to start by date, descending"
+    "description": "Select the option to sort by date, descending"
   },
   "SyJkc/": {
     "defaultMessage": "Curriculum vitæ et recrutements",

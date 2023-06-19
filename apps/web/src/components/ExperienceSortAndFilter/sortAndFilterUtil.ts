@@ -11,6 +11,7 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
+  useExperienceInfo,
 } from "~/utils/experienceUtils";
 
 import { FormValues as SortAndFilterValues } from "./ExperienceSortAndFilter";
@@ -63,9 +64,11 @@ export function sortAndFilterExperiences(
 
   const experiencesSorted = experiencesFiltered;
   switch (sortAndFilterValues?.sortBy) {
-    case "date_asc":
+    case "title_asc":
       experiencesSorted.sort((e1, e2) => {
-        return compareByDate(e1, e2) * -1;
+        const { title: t1 } = useExperienceInfo(e1);
+        const { title: t2 } = useExperienceInfo(e2);
+        return t1.localeCompare(t2);
       });
       break;
     case "date_desc":

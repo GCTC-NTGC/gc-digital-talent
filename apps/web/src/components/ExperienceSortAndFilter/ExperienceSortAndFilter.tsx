@@ -14,7 +14,7 @@ import {
   WorkExperience,
 } from "~/api/generated";
 
-type SortOptions = "date_desc" | "date_asc";
+type SortOptions = "date_desc" | "title_asc";
 type FilterOptions =
   | "none"
   | NonNullable<AwardExperience["__typename"]>
@@ -63,8 +63,8 @@ const ExperienceSortAndFilter = ({
       label: intl.formatMessage(formMessages.byDateDescending),
     },
     {
-      value: "date_asc",
-      label: intl.formatMessage(formMessages.byDateAscending),
+      value: "title_asc",
+      label: intl.formatMessage(formMessages.byTitleAscending),
     },
   ];
 

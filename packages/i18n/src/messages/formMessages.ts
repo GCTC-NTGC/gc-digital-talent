@@ -128,13 +128,13 @@ const formMessages = defineMessages({
   },
   byDateDescending: {
     defaultMessage: "By date (recent first)",
-    id: "uIEYeQ",
-    description: "Select the option to start by date, descending",
+    id: "yuWHKJ",
+    description: "Select the option to sort by date, descending",
   },
-  byDateAscending: {
-    defaultMessage: "By date (recent last)",
-    id: "cKcrlm",
-    description: "Select the option to start by date, ascending",
+  byTitleAscending: {
+    defaultMessage: "By title (alphabetically)",
+    id: "J+0v2z",
+    description: "Select the option to sort by title, ascending",
   },
   allTypes: {
     defaultMessage: "All types",
