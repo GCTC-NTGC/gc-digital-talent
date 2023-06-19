@@ -15,7 +15,7 @@ const SectionTrigger = ({ children }: SectionTriggerProps) => {
 
   return (
     <ToggleSection.Trigger>
-      <Button mode="inline">
+      <Button mode="inline" color="secondary">
         {ctx?.open
           ? intl.formatMessage({
               defaultMessage: "Cancel editing",

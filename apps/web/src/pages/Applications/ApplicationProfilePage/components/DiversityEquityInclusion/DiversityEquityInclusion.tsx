@@ -52,8 +52,8 @@ const DiversityEquityInclusion = ({
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
-        level="h3"
-        size="h5"
+        level={pool ? "h3" : "h2"}
+        size={pool ? "h5" : "h3"}
         toggle={
           <SectionTrigger>
             {intl.formatMessage({

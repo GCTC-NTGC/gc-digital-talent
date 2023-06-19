@@ -41,7 +41,7 @@ const useSectionInfo = ({
   const title = getSectionTitle(section);
   const icon = getSectionIcon({
     isEditing,
-    error: !isNull && emptyRequired,
+    error: emptyRequired,
     completed: !isNull && !emptyRequired,
     fallback: fallbackIcon,
   });

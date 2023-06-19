@@ -27,7 +27,12 @@ import NullDisplay from "./NullDisplay";
 import Display from "./Display";
 import useSectionInfo from "../../hooks/useSectionInfo";
 
-const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
+const WorkPreferences = ({
+  user,
+  onUpdate,
+  isUpdating,
+  pool,
+}: SectionProps) => {
   const intl = useIntl();
   const isNull =
     hasAllEmptyLocationFields(user) && hasAllEmptyPreferenceFields(user);
@@ -68,8 +73,8 @@ const WorkPreferences = ({ user, onUpdate, isUpdating }: SectionProps) => {
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
-        level="h3"
-        size="h5"
+        level={pool ? "h3" : "h2"}
+        size={pool ? "h5" : "h3"}
         toggle={
           <SectionTrigger>
             {intl.formatMessage({
