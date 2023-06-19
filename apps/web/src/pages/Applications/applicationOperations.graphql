@@ -285,6 +285,13 @@ mutation UpdateApplication($id: ID!, $application: UpdateApplicationInput!) {
   }
 }
 
+mutation SubmitApplication($id: ID!, $signature: String!) {
+  submitApplication(id: $id, signature: $signature) {
+    id
+    signature
+  }
+}
+
 mutation UpdateUserAndApplication(
   $userId: ID!
   $userInput: UpdateUserAsUserInput!
