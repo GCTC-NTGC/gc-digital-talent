@@ -14,7 +14,12 @@ const ApplyLink = ({ id }: ApplyLinkProps) => {
   const paths = useRoutes();
 
   return (
-    <Link color="primary" mode="solid" block href={paths.createApplication(id)}>
+    <Link
+      color="primary"
+      mode="solid"
+      block
+      href={`${paths.createApplication(id)}?personality=iap`}
+    >
       {intl.formatMessage({
         defaultMessage: "Apply Now",
         id: "DvmNR7",

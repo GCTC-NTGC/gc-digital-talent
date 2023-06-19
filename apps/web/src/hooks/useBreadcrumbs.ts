@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import { useSearchParams } from "react-router-dom";
 
 import type { BreadcrumbsProps } from "@gc-digital-talent/ui";
 
@@ -9,10 +10,13 @@ type Crumbs = BreadcrumbsProps["crumbs"];
 const useBreadcrumbs = (crumbs: Crumbs) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const [searchParams] = useSearchParams();
+
+  const iapPersonality = searchParams.get("personality") === "iap";
 
   return [
     {
-      url: paths.home(),
+      url: !iapPersonality ? paths.home() : paths.iap(),
       label: intl.formatMessage({
         defaultMessage: "Home",
         id: "EBmWyo",

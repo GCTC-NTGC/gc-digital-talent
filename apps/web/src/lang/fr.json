@@ -8438,5 +8438,33 @@
   "K8PP2Y": {
     "defaultMessage": "Changer votre disponibilité pour {title}.",
     "description": "Button text to open form to change availability in a specific recruitment"
+  },
+  "ow71P8": {
+    "defaultMessage": "<strong>Préavis!</strong> Avant de vous demander d’aller établir vos justificatifs CléGC, nous vous demandons d’examiner de nouveau les critères d’admissibilité du programme afin de veiller à ce que vous répondiez aux exigences.",
+    "description": "A request for the user to review the IAP eligibility criteria"
+  },
+  "LVPNZ3": {
+    "defaultMessage": "Afin d’entamer la réalisation de votre profil auprès du Programme d’apprentissage destiné aux Autochtones, vous <strong>devez tout d’abord vous inscrire à la plateforme à l’aide de votre CléGC.</strong>.",
+    "description": "Instructions on how to register with GCKey - IAP variant"
+  },
+  "ZOeVCm": {
+    "defaultMessage": "Vous pouvez accéder à votre profil du Programme d’apprentissage destiné aux Autochtones en vous servant de votre CléGC existante, même si vous n’avez jamais utilisé cette plateforme.",
+    "description": "Instructions on how to login with GCKey - IAP variant"
+  },
+  "cPgH94": {
+    "defaultMessage": "La CléGC est un service qui vous permet d’accéder à <a>plusieurs services gouvernementaux variés </a> à l’aide d’un seul nom d’utilisateur et mot de passe. Le bouton qui figure ci-dessous vous mènera au site Web CléGC, à partir duquel vous pourrez créer un compte si vous n’en avez toujours pas un. Une fois inscrit(e) à CléGC, vous reviendrez ici pour compléter votre profil.",
+    "description": "Instructions on how to register with GCKey paragraph 2- IAP variant"
+  },
+  "lRUGPY": {
+    "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
+    "description": "How to get help with logging in - IAP variant"
+  },
+  "oPUU6o": {
+    "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
+    "description": "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant"
+  },
+  "xfYpNf": {
+    "defaultMessage": "<strong>Vous avez déjà un compte CléGC?</strong> <a>Accédez plutôt </a>.",
+    "description": "Instruction on what to do if user already has a GCKey"
   }
 }
