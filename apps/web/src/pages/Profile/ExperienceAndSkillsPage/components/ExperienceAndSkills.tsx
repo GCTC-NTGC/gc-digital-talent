@@ -65,7 +65,7 @@ export const ExperienceAndSkills = ({
     ? `?applicationId=${applicationId}`
     : ``;
   const returnRoute = applicationId
-    ? paths.reviewApplication(applicationId)
+    ? paths.application(applicationId)
     : paths.profile(applicantId);
 
   const hasExperiences = notEmpty(experiences);
@@ -89,7 +89,7 @@ export const ExperienceAndSkills = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(applicationId ?? ""),
+          url: paths.application(applicationId ?? ""),
         },
         {
           label: intl.formatMessage({
