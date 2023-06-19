@@ -89,6 +89,7 @@ const ControlledInput = ({
             defaultValue={year}
             placeholder={intl.formatMessage(dateMessages.yearPlaceholder)}
             data-h2-width="base(100%)"
+            min={1900}
             {...inputStyles}
           />
         </div>
@@ -129,6 +130,7 @@ const ControlledInput = ({
             onChange={handleDayChange}
             defaultValue={day}
             max={31}
+            min={0}
             placeholder={intl.formatMessage(dateMessages.dayPlaceholder)}
             data-h2-width="base(100%)"
             {...inputStyles}
