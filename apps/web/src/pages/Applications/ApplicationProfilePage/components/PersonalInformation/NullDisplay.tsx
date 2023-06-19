@@ -18,7 +18,7 @@ const NullDisplay = () => {
       </p>
       <p>
         <ToggleSection.Open>
-          <Button mode="inline">
+          <Button mode="inline" color="secondary">
             {intl.formatMessage({
               defaultMessage:
                 "Get started<hidden> on your personal and contact information</hidden>",

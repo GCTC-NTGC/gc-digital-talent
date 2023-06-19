@@ -55,13 +55,15 @@ const DiversityEquityInclusion = ({
         level={pool ? "h3" : "h2"}
         size={pool ? "h5" : "h3"}
         toggle={
-          <SectionTrigger>
-            {intl.formatMessage({
-              defaultMessage: "Edit diversity, equity, and inclusion",
-              id: "UqkLAz",
-              description: "Button text to start editing equity information",
-            })}
-          </SectionTrigger>
+          !isNull ? (
+            <SectionTrigger>
+              {intl.formatMessage({
+                defaultMessage: "Edit diversity, equity, and inclusion",
+                id: "UqkLAz",
+                description: "Button text to start editing equity information",
+              })}
+            </SectionTrigger>
+          ) : undefined
         }
       >
         {intl.formatMessage(title)}

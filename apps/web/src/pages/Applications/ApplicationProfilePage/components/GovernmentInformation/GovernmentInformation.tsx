@@ -75,19 +75,21 @@ const GovernmentInformation = ({
         level={pool ? "h3" : "h2"}
         size={pool ? "h5" : "h3"}
         toggle={
-          <SectionTrigger>
-            {intl.formatMessage({
-              defaultMessage: "Edit government information",
-              id: "Ysf8wI",
-              description:
-                "Button text to start editing government information",
-            })}
-          </SectionTrigger>
+          !isNull ? (
+            <SectionTrigger>
+              {intl.formatMessage({
+                defaultMessage: "Edit government information",
+                id: "Ysf8wI",
+                description:
+                  "Button text to start editing government information",
+              })}
+            </SectionTrigger>
+          ) : undefined
         }
       >
         {intl.formatMessage(title)}
       </ToggleSection.Header>
-      {emptyRequired && (
+      {pool && emptyRequired && (
         <Well color="error">
           <p>
             {intl.formatMessage({

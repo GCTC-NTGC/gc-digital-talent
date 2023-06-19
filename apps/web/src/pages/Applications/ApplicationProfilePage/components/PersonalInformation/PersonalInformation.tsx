@@ -70,19 +70,21 @@ const PersonalInformation = ({
         level={pool ? "h3" : "h2"}
         size={pool ? "h5" : "h3"}
         toggle={
-          <SectionTrigger>
-            {intl.formatMessage({
-              defaultMessage: "Edit personal and contact information",
-              id: "WE8ZUX",
-              description:
-                "Button text to start editing personal and contact information",
-            })}
-          </SectionTrigger>
+          !isNull ? (
+            <SectionTrigger>
+              {intl.formatMessage({
+                defaultMessage: "Edit personal and contact information",
+                id: "WE8ZUX",
+                description:
+                  "Button text to start editing personal and contact information",
+              })}
+            </SectionTrigger>
+          ) : undefined
         }
       >
         {title ? intl.formatMessage(title) : null}
       </ToggleSection.Header>
-      {emptyRequired && (
+      {pool && emptyRequired && (
         <Well color="error">
           <p>
             {intl.formatMessage({

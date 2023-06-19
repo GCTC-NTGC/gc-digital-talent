@@ -76,18 +76,20 @@ const WorkPreferences = ({
         level={pool ? "h3" : "h2"}
         size={pool ? "h5" : "h3"}
         toggle={
-          <SectionTrigger>
-            {intl.formatMessage({
-              defaultMessage: "Edit work preferences",
-              id: "w63YYp",
-              description: "Button text to start editing work preferences",
-            })}
-          </SectionTrigger>
+          !isNull ? (
+            <SectionTrigger>
+              {intl.formatMessage({
+                defaultMessage: "Edit work preferences",
+                id: "w63YYp",
+                description: "Button text to start editing work preferences",
+              })}
+            </SectionTrigger>
+          ) : undefined
         }
       >
         {intl.formatMessage(title)}
       </ToggleSection.Header>
-      {emptyRequired && (
+      {pool && emptyRequired && (
         <Well color="error">
           <p>
             {intl.formatMessage({

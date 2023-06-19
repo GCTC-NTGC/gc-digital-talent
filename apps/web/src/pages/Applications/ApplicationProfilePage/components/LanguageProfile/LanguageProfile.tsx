@@ -78,18 +78,20 @@ const LanguageProfile = ({
         level={pool ? "h3" : "h2"}
         size={pool ? "h5" : "h3"}
         toggle={
-          <SectionTrigger>
-            {intl.formatMessage({
-              defaultMessage: "Edit language profile",
-              id: "fxPLAl",
-              description: "Button text to start editing language profile",
-            })}
-          </SectionTrigger>
+          !isNull ? (
+            <SectionTrigger>
+              {intl.formatMessage({
+                defaultMessage: "Edit language profile",
+                id: "fxPLAl",
+                description: "Button text to start editing language profile",
+              })}
+            </SectionTrigger>
+          ) : undefined
         }
       >
         {intl.formatMessage(title)}
       </ToggleSection.Header>
-      {emptyRequired && (
+      {pool && emptyRequired && (
         <Well color="error">
           <p>
             {intl.formatMessage({
