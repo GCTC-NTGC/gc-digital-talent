@@ -401,8 +401,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             })}
             text={intl.formatMessage({
               defaultMessage:
-                "Select the working language ability the candidate needs for this position.",
-              id: "RGzfes",
+                "Select the working language ability the candidate needs for this position. The selected working language ability will be compared to the one chosen by candidates in their applications. To note, candidates who selected Bilingual may not have Government of Canada second language evaluation results.",
+              id: "+PLUZ8",
               description:
                 "Message describing the work language ability filter in the search form.",
             })}
@@ -502,8 +502,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             })}
             text={intl.formatMessage({
               defaultMessage:
-                "If you have more detailed work location requirement, let us know in the comment section of the submission form.",
-              id: "v7sYE7",
+                "If you have more detailed work location requirement, let us know in the comment section of the submission form. You can select more than one region. If you are open to all regions, select All Regions.",
+              id: "fJ35xz",
               description:
                 "Message describing the work location filter in the search form.",
             })}
