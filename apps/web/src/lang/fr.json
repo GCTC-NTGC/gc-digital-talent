@@ -3168,10 +3168,6 @@
     "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "Button to add user to pool on the view-user page"
   },
-  "4N6O+3": {
-    "defaultMessage": "Statut personnel",
-    "description": "Title of the 'Personal status' section of the view-user page"
-  },
   "4Zl/mp": {
     "defaultMessage": "Personne handicapée",
     "description": "Text on view-user page that the user has a disability"
@@ -3426,18 +3422,6 @@
   "ZLDt/c": {
     "defaultMessage": "<strong>{jobTitle}</strong> à <strong>{department}</strong>",
     "description": "Subtitle displayed above the single search request component."
-  },
-  "4pAtT5": {
-    "defaultMessage": "<heavyPrimary>Inactif</heavyPrimary> ‒ Ne souhaite pas être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Inactive' status"
-  },
-  "BqQrcn": {
-    "defaultMessage": "<heavyPrimary>Ouvert aux possibilités</heavyPrimary> ‒ Ne cherche pas activement, mais souhaite toujours être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Open to opportunities' status"
-  },
-  "uv0RmD": {
-    "defaultMessage": "<heavyPrimary>Actif</heavyPrimary> ‒ Souhaite être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Active' status"
   },
   "+5da+V": {
     "defaultMessage": "<heavyPrimary>Archivé</heavyPrimary>",
@@ -4209,9 +4193,6 @@
     "defaultMessage": "Classification actuelle",
     "description": "CSV Header, Current Classification column"
   },
-  "hOxIeP": {
-    "defaultMessage": "Disponibilité"
-  },
   "hmfQmT": {
     "defaultMessage": "Préférences de durée"
   },
@@ -4432,10 +4413,6 @@
   "zAqJMe": {
     "defaultMessage": "Créé",
     "description": "Title displayed on the Pool table Date Created column"
-  },
-  "Ag+0A4": {
-    "defaultMessage": "Statut",
-    "description": "Title displayed for the User table Status column"
   },
   "+pgXHm": {
     "defaultMessage": "Créé",
@@ -8326,6 +8303,14 @@
   "ccBhi2": {
     "defaultMessage": "Trouvez des talents",
     "description": "Page title for the search page"
+  },
+  "4L9rHO": {
+    "defaultMessage": "Actif",
+    "description": "Status message if the application is not suspended"
+  },
+  "u5UAJn": {
+    "defaultMessage": "Inactif",
+    "description": "Status message if the application is suspended"
   },
   "hfI9v3": {
     "defaultMessage": "Talents numériques du GC",

@@ -5,7 +5,7 @@ import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getJobLookingStatus, getLanguage } from "@gc-digital-talent/i18n";
+import { getLanguage } from "@gc-digital-talent/i18n";
 import { Link, Pending } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
@@ -42,7 +42,6 @@ import {
 } from "~/components/Table/ClientManagedTable";
 import {
   durationToEnumPositionDuration,
-  stringToEnumJobLooking,
   stringToEnumLanguage,
   stringToEnumLocation,
   stringToEnumOperational,
@@ -88,9 +87,6 @@ function transformFormValuesToUserFilterInput(
     },
     isGovEmployee: data.govEmployee[0] ? true : undefined,
     isProfileComplete: data.profileComplete[0] ? true : undefined,
-    jobLookingStatus: data.jobLookingStatus.map((status) => {
-      return stringToEnumJobLooking(status);
-    }),
     poolFilters: data.pools.map((pool) => {
       const poolString = pool;
       return { poolId: poolString };
@@ -124,7 +120,6 @@ function transformUserFilterInputToFormValues(
         : [],
     govEmployee: input?.isGovEmployee ? ["true"] : [],
     profileComplete: input?.isProfileComplete ? ["true"] : [],
-    jobLookingStatus: input?.jobLookingStatus?.filter(notEmpty) ?? [],
     pools:
       input?.poolFilters
         ?.filter(notEmpty)
@@ -213,7 +208,6 @@ const defaultState = {
     },
     isGovEmployee: undefined,
     isProfileComplete: undefined,
-    jobLookingStatus: [],
     poolFilters: [],
   },
 };
@@ -261,7 +255,6 @@ const UserTable = ({ title }: { title: string }) => {
       applicantFilter: fancyFilterState?.applicantFilter,
       isGovEmployee: fancyFilterState?.isGovEmployee,
       isProfileComplete: fancyFilterState?.isProfileComplete,
-      jobLookingStatus: fancyFilterState?.jobLookingStatus,
       poolFilters: fancyFilterState?.poolFilters,
     };
   };
@@ -325,21 +318,6 @@ const UserTable = ({ title }: { title: string }) => {
           getFullNameHtml(user.firstName, user.lastName, intl),
         id: "candidateName",
         sortColumnName: "first_name",
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Status",
-          id: "Ag+0A4",
-          description: "Title displayed for the User table Status column",
-        }),
-        accessor: (user) =>
-          user.jobLookingStatus
-            ? intl.formatMessage(
-                getJobLookingStatus(user.jobLookingStatus as string, "short"),
-              )
-            : "",
-        id: "jobLookingStatus",
-        sortColumnName: "job_looking_status",
       },
       {
         label: intl.formatMessage({

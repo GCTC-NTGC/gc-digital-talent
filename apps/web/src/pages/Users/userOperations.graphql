@@ -324,6 +324,7 @@ query GetViewUserData($id: UUID!) {
       status
       expiryDate
       notes
+      suspendedAt
       user {
         id
       }
