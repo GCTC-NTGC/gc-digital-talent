@@ -24,7 +24,6 @@ const ApplicationLink = ({
 }: ApplicationLinkProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { applicationRevamp } = useFeatureFlags();
 
   // Application does not exist and user cannot apply.
   // So, do not show anything
@@ -32,12 +31,9 @@ const ApplicationLink = ({
     return null;
   }
 
-  let href = paths.createApplication(poolId);
-  if (applicationId) {
-    href = applicationRevamp
-      ? paths.application(applicationId)
-      : paths.reviewApplication(applicationId);
-  }
+  const href = applicationId
+    ? paths.application(applicationId)
+    : paths.createApplication(poolId);
 
   let linkText = intl.formatMessage({
     defaultMessage: "Apply for this process",

@@ -1061,97 +1061,95 @@ const createRoute = (
                 },
               ],
             },
-            featureFlags.applicationRevamp
-              ? {
-                  path: "applications",
+            {
+              path: "applications",
+              children: [
+                {
+                  path: ":applicationId",
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.Applicant]}
+                      loginPath={loginPath}
+                    >
+                      <ApplicationLayout />
+                    </RequireAuth>
+                  ),
                   children: [
                     {
-                      path: ":applicationId",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.Applicant]}
-                          loginPath={loginPath}
-                        >
-                          <ApplicationLayout />
-                        </RequireAuth>
-                      ),
+                      path: "welcome",
+                      element: <ApplicationWelcomePage />,
+                    },
+                    {
+                      path: "self-declaration",
+                      element: <ApplicationSelfDeclarationPage />,
+                    },
+                    {
+                      path: "profile",
+                      element: <ApplicationProfilePage />,
+                    },
+                    {
+                      path: "resume",
                       children: [
                         {
-                          path: "welcome",
-                          element: <ApplicationWelcomePage />,
+                          index: true,
+                          element: <ApplicationResumePage />,
                         },
                         {
-                          path: "self-declaration",
-                          element: <ApplicationSelfDeclarationPage />,
+                          path: "introduction",
+                          element: <ApplicationResumeIntroductionPage />,
                         },
                         {
-                          path: "profile",
-                          element: <ApplicationProfilePage />,
+                          path: "add",
+                          element: <ApplicationResumeAddPage />,
                         },
                         {
-                          path: "resume",
-                          children: [
-                            {
-                              index: true,
-                              element: <ApplicationResumePage />,
-                            },
-                            {
-                              path: "introduction",
-                              element: <ApplicationResumeIntroductionPage />,
-                            },
-                            {
-                              path: "add",
-                              element: <ApplicationResumeAddPage />,
-                            },
-                            {
-                              path: ":experienceId",
-                              element: <ApplicationResumeEditPage />,
-                            },
-                          ],
-                        },
-                        {
-                          path: "education",
-                          element: <ApplicationEducationPage />,
-                        },
-                        {
-                          path: "skills",
-                          children: [
-                            {
-                              index: true,
-                              element: <ApplicationSkillsPage />,
-                            },
-                            {
-                              path: "introduction",
-                              element: <ApplicationSkillsIntroductionPage />,
-                            },
-                          ],
-                        },
-                        {
-                          path: "questions",
-                          children: [
-                            {
-                              index: true,
-                              element: <ApplicationQuestionsPage />,
-                            },
-                            {
-                              path: "introduction",
-                              element: <ApplicationQuestionsIntroductionPage />,
-                            },
-                          ],
-                        },
-                        {
-                          path: "review",
-                          element: <ApplicationReviewPage />,
-                        },
-                        {
-                          path: "success",
-                          element: <ApplicationSuccessPage />,
+                          path: ":experienceId",
+                          element: <ApplicationResumeEditPage />,
                         },
                       ],
                     },
+                    {
+                      path: "education",
+                      element: <ApplicationEducationPage />,
+                    },
+                    {
+                      path: "skills",
+                      children: [
+                        {
+                          index: true,
+                          element: <ApplicationSkillsPage />,
+                        },
+                        {
+                          path: "introduction",
+                          element: <ApplicationSkillsIntroductionPage />,
+                        },
+                      ],
+                    },
+                    {
+                      path: "questions",
+                      children: [
+                        {
+                          index: true,
+                          element: <ApplicationQuestionsPage />,
+                        },
+                        {
+                          path: "introduction",
+                          element: <ApplicationQuestionsIntroductionPage />,
+                        },
+                      ],
+                    },
+                    {
+                      path: "review",
+                      element: <ApplicationReviewPage />,
+                    },
+                    {
+                      path: "success",
+                      element: <ApplicationSuccessPage />,
+                    },
                   ],
-                }
-              : {},
+                },
+              ],
+            },
             {
               path: "talent/profile/*",
               element: (

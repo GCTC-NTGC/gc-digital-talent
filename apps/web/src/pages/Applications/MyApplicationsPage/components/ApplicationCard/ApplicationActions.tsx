@@ -21,10 +21,6 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { pool } = application;
-  const { applicationRevamp } = useFeatureFlags();
-  const href = applicationRevamp
-    ? paths.application(application.id)
-    : paths.reviewApplication(application.id);
 
   if (!show) {
     return null;
@@ -32,7 +28,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
 
   return (
     <div data-h2-margin="base(0, 0, 0, auto)">
-      <Link mode="inline" href={href}>
+      <Link mode="inline" href={paths.application(application.id)}>
         {intl.formatMessage(
           {
             defaultMessage: "Continue this application<hidden> {name}</hidden>",
@@ -55,17 +51,13 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { pool } = application;
-  const { applicationRevamp } = useFeatureFlags();
-  const href = applicationRevamp
-    ? paths.application(application.id)
-    : paths.reviewApplication(application.id);
 
   if (!show) {
     return null;
   }
 
   return (
-    <Link href={href} mode="inline">
+    <Link href={paths.application(application.id)} mode="inline">
       {intl.formatMessage(
         {
           defaultMessage: "View this application<hidden> {name}</hidden>",
