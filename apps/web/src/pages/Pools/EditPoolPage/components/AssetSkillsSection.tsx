@@ -120,7 +120,7 @@ const AssetSkillsSection = ({
                   id: "j4G/wv",
                   description: "Text on a button to save the pool asset skills",
                 })}
-                color="cta"
+                color="tertiary"
                 mode="solid"
                 isSubmitting={isSubmitting}
                 onClick={methods.handleSubmit(handleSave)}

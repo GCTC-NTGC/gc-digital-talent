@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { ExternalLink } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 const actLink = (locale: string, chunks: React.ReactNode) => {
@@ -10,9 +10,9 @@ const actLink = (locale: string, chunks: React.ReactNode) => {
       ? "https://laws-lois.justice.gc.ca/eng/acts/e-5.401/"
       : "https://laws-lois.justice.gc.ca/fra/lois/e-5.401/";
   return (
-    <ExternalLink href={href} newTab>
+    <Link external href={href} newTab>
       {chunks}
-    </ExternalLink>
+    </Link>
   );
 };
 const reviewLink = (locale: string, chunks: React.ReactNode) => {
@@ -21,9 +21,9 @@ const reviewLink = (locale: string, chunks: React.ReactNode) => {
       ? "https://www.canada.ca/en/employment-social-development/corporate/portfolio/labour/programs/employment-equity/task-force.html"
       : "https://www.canada.ca/fr/emploi-developpement-social/ministere/portefeuille/travail/programmes/equite-emploi/groupe-travail.html";
   return (
-    <ExternalLink href={href} newTab>
+    <Link external href={href} newTab>
       {chunks}
-    </ExternalLink>
+    </Link>
   );
 };
 

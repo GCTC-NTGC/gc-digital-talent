@@ -9,17 +9,18 @@ import ReactSelect, {
   SingleValue,
 } from "react-select";
 import type { NoticeProps, GroupBase, OptionsOrGroups } from "react-select";
-import camelCase from "lodash/camelCase";
 import flatMap from "lodash/flatMap";
 import orderBy from "lodash/orderBy";
 import { useIntl } from "react-intl";
 
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 
+import Field from "../Field";
+import type { CommonInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import InputWrapper from "../InputWrapper";
+import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 
 export type Option = { value: string | number; label: string };
 export type Group<T> = {
@@ -37,24 +38,15 @@ declare module "react-select/dist/declarations/src/Select" {
     /* eslint-enable @typescript-eslint/no-shadow, @typescript-eslint/no-unused-vars */
   > {
     stateStyles?: Record<string, string>;
+    baseStyles?: Record<string, string>;
     ariaDescription?: string;
   }
 }
 
 // TODO: Eventually extend react-select's Select Props, so that anything extra is passed through.
-export interface SelectFieldV2Props {
-  /** Optional HTML id used to identify the element. Default: camelCase of `label`. */
-  id?: string;
-  /** Optional context which user can view by toggling a button. */
-  context?: string;
-  /** The text for the label associated with the select input. */
-  label: string;
-  /** Optional string specifying a name for the input control. Default: `id` value. */
-  name?: string;
+export type SelectFieldV2Props = CommonInputProps & {
   /** List of options for the select element. */
   options?: Options;
-  /** Object set of validation rules to impose on input. */
-  rules?: RegisterOptions;
   /** Default message shown on select input. */
   placeholder?: string;
   /** Whether field is disabled. */
@@ -64,10 +56,9 @@ export interface SelectFieldV2Props {
   /** Whether to force all form values into array, even single Select. */
   forceArrayFormValue?: boolean;
   isLoading?: boolean;
-  trackUnsaved?: boolean;
   doNotSort?: boolean;
   /** Determine if it should sort options in alphanumeric ascending order */
-}
+};
 
 // User-defined type guard for react-select's readonly Options.
 // See: https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards
@@ -141,10 +132,15 @@ const StateStyledSelectContainer = ({
   children,
   ...props
 }: ContainerProps<Option | Group<Option>>) => {
-  const { stateStyles } = props.selectProps;
+  const { stateStyles, baseStyles } = props.selectProps;
 
   return (
-    <div {...stateStyles} data-h2-radius="base(input)">
+    <div
+      data-h2-background-color="base(white)"
+      {...baseStyles}
+      {...stateStyles}
+      data-h2-padding="base(x.25)"
+    >
       <components.SelectContainer {...props}>
         {children}
       </components.SelectContainer>
@@ -194,7 +190,7 @@ const SelectFieldV2 = ({
   label,
   name,
   options = [],
-  rules,
+  rules = {},
   placeholder,
   isDisabled = false,
   isMulti = false,
@@ -204,36 +200,30 @@ const SelectFieldV2 = ({
   doNotSort = false,
 }: SelectFieldV2Props): JSX.Element => {
   const { formatMessage } = useIntl();
-  const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
-
   const defaultPlaceholder = formatMessage(formMessages.defaultPlaceholder);
-
-  // Defaults from minimal attributes.
-  id ??= camelCase(label); // eslint-disable-line no-param-reassign
-  name ??= id; // eslint-disable-line no-param-reassign
-
   const {
     formState: { errors },
     // TODO: Set explicit TFieldValues. Defaults to Record<string, any>
   } = useFormContext();
-
+  const baseStyles = useCommonInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
-
   const error = errors[name]?.message as FieldError;
-  const isRequired = !!rules?.required;
+  const isRequired = !!rules.required;
   // react-hook-form has no way to set default messages when `{ required: true }`,
   // so that's handled here. (It's a hook because it uses react-intl hook.)
   // See: https://github.com/react-hook-form/react-hook-form/issues/458
-  const rulesWithDefaults = useRulesWithDefaultMessages(label, rules);
-
+  const rulesWithDefaults = useRulesWithDefaultMessages(
+    label?.toString() ?? "",
+    rules,
+  );
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     show: {
       error,
       unsaved: trackUnsaved && isUnsaved,
-      context: context && isContextVisible,
+      context,
     },
   });
 
@@ -242,139 +232,136 @@ const SelectFieldV2 = ({
   }, [doNotSort, options]);
 
   return (
-    <div data-h2-margin="base(0, 0, x.125, 0)">
-      <InputWrapper
-        {...{ label, context, error }}
-        inputId={name}
-        inputName={name}
-        required={isRequired}
-        trackUnsaved={trackUnsaved}
-        onContextToggle={setContextVisible}
-        descriptionIds={descriptionIds}
-      >
-        <div style={{ width: "100%" }}>
-          <Controller
-            {...{ name }}
-            rules={rulesWithDefaults}
-            render={({ field }) => {
-              /** Converts our react-hook-form state to Option or Option[]
-               * format that react-select understands. */
-              const convertValueToOption = (
-                val: Option["value"] | Option["value"][],
-              ) => {
-                const hasGroups = optionsModified.some(
-                  (option) => "options" in option,
-                );
-                const flattenedOptions = hasGroups
-                  ? flatMap(optionsModified, (o) =>
-                      "options" in o ? o.options : o,
-                    )
-                  : optionsModified;
+    <Field.Wrapper>
+      <Field.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
+        {label}
+      </Field.Label>
+      <Controller
+        {...{ name }}
+        rules={rulesWithDefaults}
+        render={({ field }) => {
+          /** Converts our react-hook-form state to Option or Option[]
+           * format that react-select understands. */
+          const convertValueToOption = (
+            val: Option["value"] | Option["value"][],
+          ) => {
+            const hasGroups = optionsModified.some(
+              (option) => "options" in option,
+            );
+            const flattenedOptions = hasGroups
+              ? flatMap(optionsModified, (o) =>
+                  "options" in o ? o.options : o,
+                )
+              : optionsModified;
 
-                if (isArray<Option["value"] | Options>(val)) {
-                  return (
-                    flattenedOptions.filter((o) => {
-                      return "value" in o ? val?.includes(o.value) : false;
-                    }) || []
-                  );
-                }
-                return (
-                  flattenedOptions.find((o) => {
-                    return "value" in o && val === o.value;
-                  }) || null
-                );
-              };
-
-              /** Converts react-select's Option type storage formats into state
-               * we want in react-hook-form: a value or array of values. This
-               * works whether react-select is storing a MultiValue (Option[]))
-               * or SingleValue (Option). */
-              const convertSingleOrMultiOptionsToValues = (
-                newValue:
-                  | MultiValue<Option | Group<Option>>
-                  | SingleValue<Option | Group<Option>>,
-              ) => {
-                // Stores MultiValue as array of values.
-                if (isArray<Option>(newValue)) {
-                  return field.onChange(newValue.map((o) => o.value));
-                }
-
-                // Stores SingleValue as array of one value, or null as empty array.
-                if (forceArrayFormValue) {
-                  return field.onChange(
-                    newValue
-                      ? ["value" in newValue ? newValue?.value : newValue]
-                      : [],
-                  );
-                }
-
-                // Stores SingleValue as value or null
-                return field.onChange(
-                  newValue && "value" in newValue ? newValue.value : null,
-                );
-              };
-
-              // For WCAG-compliant contrasts.
-              const accessibleTextStyle = {
-                color: "#595959",
-              };
-
+            if (isArray<Option["value"] | Options>(val)) {
               return (
-                <ReactSelect
-                  isDisabled={isDisabled}
-                  isClearable={isMulti || !isRequired}
-                  placeholder={placeholder || defaultPlaceholder}
-                  components={{
-                    LoadingMessage: LocalizedLoadingMessage,
-                    NoOptionsMessage: LocalizedNoOptionsMessage,
-                    SelectContainer: StateStyledSelectContainer,
-                    Input,
-                  }}
-                  // Adds predictable prefix, helpful for both theming and Jest testing.
-                  // E.g., `react-select__control` instead of `css-1s2u09g__control`.
-                  classNamePrefix="react-select"
-                  {...field}
-                  {...{ options: optionsModified, isMulti, isLoading }}
-                  value={convertValueToOption(field.value)}
-                  // This only affects react-hook-form state, not internal react-select state.
-                  onChange={convertSingleOrMultiOptionsToValues}
-                  aria-label={label}
-                  aria-required={isRequired}
-                  ariaDescription={ariaDescribedBy}
-                  stateStyles={stateStyles}
-                  styles={{
-                    placeholder: (provided) => ({
-                      ...provided,
-                      ...accessibleTextStyle,
-                    }),
-                    loadingMessage: (provided) => ({
-                      ...provided,
-                      ...accessibleTextStyle,
-                    }),
-                    noOptionsMessage: (provided) => ({
-                      ...provided,
-                      ...accessibleTextStyle,
-                    }),
-                    loadingIndicator: (provided) => ({
-                      ...provided,
-                      ...accessibleTextStyle,
-                    }),
-                    control: (provided) => ({
-                      ...provided,
-                      backgroundColor: isDisabled ? "lightgrey" : "inherit",
-                      border: "none",
-                      boxShadow: "none",
-                    }),
-                    // Setting the z-index to 11 since the InputLabel is set to 10.
-                    menu: (provided) => ({ ...provided, zIndex: 11 }),
-                  }}
-                />
+                flattenedOptions.filter((o) => {
+                  return "value" in o ? val?.includes(o.value) : false;
+                }) || []
               );
-            }}
-          />
-        </div>
-      </InputWrapper>
-    </div>
+            }
+            return (
+              flattenedOptions.find((o) => {
+                return "value" in o && val === o.value;
+              }) || null
+            );
+          };
+
+          /** Converts react-select's Option type storage formats into state
+           * we want in react-hook-form: a value or array of values. This
+           * works whether react-select is storing a MultiValue (Option[]))
+           * or SingleValue (Option). */
+          const convertSingleOrMultiOptionsToValues = (
+            newValue:
+              | MultiValue<Option | Group<Option>>
+              | SingleValue<Option | Group<Option>>,
+          ) => {
+            // Stores MultiValue as array of values.
+            if (isArray<Option>(newValue)) {
+              return field.onChange(newValue.map((o) => o.value));
+            }
+
+            // Stores SingleValue as array of one value, or null as empty array.
+            if (forceArrayFormValue) {
+              return field.onChange(
+                newValue
+                  ? ["value" in newValue ? newValue?.value : newValue]
+                  : [],
+              );
+            }
+
+            // Stores SingleValue as value or null
+            return field.onChange(
+              newValue && "value" in newValue ? newValue.value : null,
+            );
+          };
+
+          // For WCAG-compliant contrasts.
+          const accessibleTextStyle = {
+            color: "#595959",
+          };
+
+          return (
+            <ReactSelect
+              isDisabled={isDisabled}
+              isClearable={isMulti || !isRequired}
+              placeholder={placeholder || defaultPlaceholder}
+              components={{
+                LoadingMessage: LocalizedLoadingMessage,
+                NoOptionsMessage: LocalizedNoOptionsMessage,
+                SelectContainer: StateStyledSelectContainer,
+                Input,
+              }}
+              // Adds predictable prefix, helpful for both theming and Jest testing.
+              // E.g., `react-select__control` instead of `css-1s2u09g__control`.
+              classNamePrefix="react-select"
+              {...field}
+              {...{ options: optionsModified, isMulti, isLoading }}
+              value={convertValueToOption(field.value)}
+              // This only affects react-hook-form state, not internal react-select state.
+              onChange={convertSingleOrMultiOptionsToValues}
+              aria-label={label?.toString()}
+              aria-required={isRequired}
+              ariaDescription={ariaDescribedBy}
+              baseStyles={baseStyles}
+              stateStyles={stateStyles}
+              styles={{
+                placeholder: (provided) => ({
+                  ...provided,
+                  ...accessibleTextStyle,
+                }),
+                loadingMessage: (provided) => ({
+                  ...provided,
+                  ...accessibleTextStyle,
+                }),
+                noOptionsMessage: (provided) => ({
+                  ...provided,
+                  ...accessibleTextStyle,
+                }),
+                loadingIndicator: (provided) => ({
+                  ...provided,
+                  ...accessibleTextStyle,
+                }),
+                control: (provided) => ({
+                  ...provided,
+                  backgroundColor: isDisabled ? "lightgrey" : "inherit",
+                  border: "none",
+                  boxShadow: "none",
+                }),
+                // Setting the z-index to 11 since the InputLabel is set to 10.
+                menu: (provided) => ({ ...provided, zIndex: 11 }),
+              }}
+            />
+          );
+        }}
+      />
+      <Field.Descriptions
+        ids={descriptionIds}
+        error={error}
+        context={context}
+      />
+    </Field.Wrapper>
   );
 };
 

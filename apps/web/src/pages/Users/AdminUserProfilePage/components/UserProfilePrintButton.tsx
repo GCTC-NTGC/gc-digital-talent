@@ -6,7 +6,7 @@ import { Button } from "@gc-digital-talent/ui";
 
 import { Applicant } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
-import UserProfileDocument from "~/components/UserProfileDocument/UserProfileDocument";
+import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 
 export interface UserProfilePrintButtonProps {
   applicant: Applicant;
@@ -26,23 +26,18 @@ const UserProfilePrintButton = ({
     content: () => componentRef.current,
     pageStyle: printStyles,
     documentTitle: intl.formatMessage({
-      defaultMessage: "Candidate Profile",
-      id: "Thf4og",
+      defaultMessage: "Candidate profile",
+      id: "mVmrEn",
       description: "Document title for printing User profile",
     }),
   });
 
   return (
     <>
-      <Button
-        mode="outline"
-        color="primary"
-        type="button"
-        onClick={handlePrint}
-      >
+      <Button color="primary" type="button" onClick={handlePrint}>
         {children}
       </Button>
-      <UserProfileDocument applicants={[applicant]} ref={componentRef} />
+      <ProfileDocument results={[applicant]} ref={componentRef} />
     </>
   );
 };

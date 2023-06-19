@@ -6,7 +6,7 @@ import StarIcon from "@heroicons/react/24/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
 import { useIntl } from "react-intl";
 
-import { Accordion, HeadingRank } from "@gc-digital-talent/ui";
+import { HeadingRank } from "@gc-digital-talent/ui";
 
 import {
   compareByDate,
@@ -17,22 +17,21 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import { AwardExperience, Experience } from "~/api/generated";
-import ExperienceAccordion, {
-  ExperiencePaths,
-} from "~/components/ExperienceAccordion/ExperienceAccordion";
+
+import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
 const ExperienceByType = ({
   title,
   headingLevel = "h2",
   icon,
   experiences,
-  experienceEditPaths,
+  editParam,
 }: {
   title: string;
   headingLevel?: HeadingRank;
   icon: React.ReactNode;
   experiences: Experience[];
-  experienceEditPaths?: ExperiencePaths; // If experienceEditPaths is not defined, links to edit experiences will not appear.
+  editParam?: string;
 }) => {
   return (
     <div className="experience-category">
@@ -45,16 +44,20 @@ const ExperienceByType = ({
         <p data-h2-font-size="base(h5, 1)">{title}</p>
       </div>
       <div>
-        <Accordion.Root type="single" collapsible>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x.5 0)"
+        >
           {experiences.map((experience) => (
-            <ExperienceAccordion
+            <ExperienceCard
               key={experience.id}
               experience={experience}
-              editPaths={experienceEditPaths}
               headingLevel={headingLevel}
+              editParam={editParam}
             />
           ))}
-        </Accordion.Root>
+        </div>
       </div>
     </div>
   );
@@ -62,12 +65,12 @@ const ExperienceByType = ({
 export interface ExperienceSectionProps {
   experiences?: Experience[];
   headingLevel?: HeadingRank;
-  editPaths?: ExperiencePaths;
+  editParam?: string;
 }
 
 const ExperienceByTypeListing = ({
   experiences,
-  editPaths,
+  editParam,
   headingLevel = "h2",
 }: ExperienceSectionProps) => {
   const intl = useIntl();
@@ -105,8 +108,8 @@ const ExperienceByTypeListing = ({
           })}
           icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
           headingLevel={headingLevel}
+          editParam={editParam}
           experiences={personalExperiences}
-          experienceEditPaths={editPaths}
         />
       ) : null}
       {communityExperiences.length > 0 ? (
@@ -120,8 +123,8 @@ const ExperienceByTypeListing = ({
             })}
             headingLevel={headingLevel}
             icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
+            editParam={editParam}
             experiences={communityExperiences}
-            experienceEditPaths={editPaths}
           />
         </div>
       ) : null}
@@ -136,8 +139,8 @@ const ExperienceByTypeListing = ({
             })}
             headingLevel={headingLevel}
             icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
+            editParam={editParam}
             experiences={workExperiences}
-            experienceEditPaths={editPaths}
           />
         </div>
       ) : null}
@@ -152,8 +155,8 @@ const ExperienceByTypeListing = ({
             })}
             headingLevel={headingLevel}
             icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
+            editParam={editParam}
             experiences={educationExperiences}
-            experienceEditPaths={editPaths}
           />
         </div>
       ) : null}
@@ -168,8 +171,8 @@ const ExperienceByTypeListing = ({
             })}
             headingLevel={headingLevel}
             icon={<StarIcon style={{ width: "1.5rem" }} />}
+            editParam={editParam}
             experiences={awardExperiences}
-            experienceEditPaths={editPaths}
           />
         </div>
       ) : null}

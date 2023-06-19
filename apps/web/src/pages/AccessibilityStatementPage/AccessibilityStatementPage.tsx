@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Heading, ExternalLink } from "@gc-digital-talent/ui";
+import { Heading, Link } from "@gc-digital-talent/ui";
 import { getLocale, Locales } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
@@ -12,8 +12,9 @@ import { wrapAbbr } from "~/utils/nameUtils";
 import heroImg from "~/assets/img/accessibility-statement-header.jpg";
 
 const digitalStandardsLink = (locale: Locales, chunks: React.ReactNode) => (
-  <ExternalLink
+  <Link
     newTab
+    external
     href={
       locale === "en"
         ? "https://www.csps-efpc.gc.ca/tools/jobaids/digital-standards-eng.aspx"
@@ -21,30 +22,31 @@ const digitalStandardsLink = (locale: Locales, chunks: React.ReactNode) => (
     }
   >
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const wcagLink = (chunks: React.ReactNode) => (
-  <ExternalLink newTab hrefLang="en" href="https://www.w3.org/TR/WCAG21/">
+  <Link newTab external hrefLang="en" href="https://www.w3.org/TR/WCAG21/">
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const atagLink = (chunks: React.ReactNode) => (
-  <ExternalLink newTab hrefLang="en" href="https://www.w3.org/TR/ATAG20/">
+  <Link newTab external hrefLang="en" href="https://www.w3.org/TR/ATAG20/">
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const fableLink = (chunks: React.ReactNode) => (
-  <ExternalLink newTab hrefLang="en" href="https://makeitfable.com/">
+  <Link newTab external hrefLang="en" href="https://makeitfable.com/">
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const acaLink = (locale: Locales, chunks: React.ReactNode) => (
-  <ExternalLink
+  <Link
     newTab
+    external
     href={
       locale === "en"
         ? "https://laws.justice.gc.ca/eng/acts/A-0.6/page-1.html"
@@ -52,12 +54,13 @@ const acaLink = (locale: Locales, chunks: React.ReactNode) => (
     }
   >
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const acrLink = (locale: Locales, chunks: React.ReactNode): React.ReactNode => (
-  <ExternalLink
+  <Link
     newTab
+    external
     href={
       locale === "en"
         ? "https://laws-lois.justice.gc.ca/eng/regulations/SOR-2021-241/page-1.html"
@@ -65,12 +68,13 @@ const acrLink = (locale: Locales, chunks: React.ReactNode): React.ReactNode => (
     }
   >
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const complaintsLink = (locale: Locales, chunks: React.ReactNode) => (
-  <ExternalLink
+  <Link
     newTab
+    external
     href={
       locale === "en"
         ? "https://www.accessibilitychrc.ca/en/complaints"
@@ -78,12 +82,13 @@ const complaintsLink = (locale: Locales, chunks: React.ReactNode) => (
     }
   >
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const crtcLink = (locale: Locales, chunks: React.ReactNode) => (
-  <ExternalLink
+  <Link
     newTab
+    external
     href={
       locale === "en"
         ? "https://applications.crtc.gc.ca/question/eng/public-inquiries-form?t=8&_ga=2.164713722.457525239.1621277191-2073149377.1618941793"
@@ -91,12 +96,13 @@ const crtcLink = (locale: Locales, chunks: React.ReactNode) => (
     }
   >
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const crtcActLink = (locale: Locales, chunks: React.ReactNode) => (
-  <ExternalLink
+  <Link
     newTab
+    external
     href={
       locale === "en"
         ? "https://laws-lois.justice.gc.ca/eng/acts/C-22/index.html"
@@ -104,12 +110,13 @@ const crtcActLink = (locale: Locales, chunks: React.ReactNode) => (
     }
   >
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const chrcLink = (locale: Locales, chunks: React.ReactNode) => (
-  <ExternalLink
+  <Link
     newTab
+    external
     href={
       locale === "en"
         ? "https://www.chrc-ccdp.gc.ca/en/complaints/make-a-complaint"
@@ -117,12 +124,13 @@ const chrcLink = (locale: Locales, chunks: React.ReactNode) => (
     }
   >
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const chraLink = (locale: Locales, chunks: React.ReactNode) => (
-  <ExternalLink
+  <Link
     newTab
+    external
     href={
       locale === "en"
         ? "https://laws-lois.justice.gc.ca/eng/acts/h-6/FullText.html"
@@ -130,12 +138,13 @@ const chraLink = (locale: Locales, chunks: React.ReactNode) => (
     }
   >
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const ctaLink = (locale: Locales, chunks: React.ReactNode) => (
-  <ExternalLink
+  <Link
     newTab
+    external
     href={
       locale === "en"
         ? "https://otc-cta.gc.ca/eng/accessibility-complaints-about-transportation-services"
@@ -143,12 +152,13 @@ const ctaLink = (locale: Locales, chunks: React.ReactNode) => (
     }
   >
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const relationsLink = (locale: Locales, chunks: React.ReactNode) => (
-  <ExternalLink
+  <Link
     newTab
+    external
     href={
       locale === "en"
         ? "https://www.fpslreb-crtespf.gc.ca/en/index.html"
@@ -156,12 +166,13 @@ const relationsLink = (locale: Locales, chunks: React.ReactNode) => (
     }
   >
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const relayServiceLink = (locale: Locales, chunks: React.ReactNode) => (
-  <ExternalLink
+  <Link
     newTab
+    external
     href={
       locale === "en"
         ? "https://srvcanadavrs.ca/en/"
@@ -169,19 +180,25 @@ const relayServiceLink = (locale: Locales, chunks: React.ReactNode) => (
     }
   >
     {chunks}
-  </ExternalLink>
+  </Link>
 );
 
 const chrcMailLink = (chunks: React.ReactNode) => (
-  <a href="mailto:Info.Com@chrc-ccdp.gc.ca">{chunks}</a>
+  <Link external href="mailto:Info.Com@chrc-ccdp.gc.ca">
+    {chunks}
+  </Link>
 );
 
 const phoneLink = (chunks: React.ReactNode) => (
-  <a href="tel:6139951151">{chunks}</a>
+  <Link external href="tel:6139951151">
+    {chunks}
+  </Link>
 );
 
 const tollFreeLink = (chunks: React.ReactNode) => (
-  <a href="tel:18882141090">{chunks}</a>
+  <Link external href="tel:18882141090">
+    {chunks}
+  </Link>
 );
 
 const AccessibilityStatementPage = () => {
@@ -407,9 +424,12 @@ const AccessibilityStatementPage = () => {
             })}
           </p>
           <p>
-            <a href="mailto:gctalent-talentgc@support-soutien.gc.ca">
+            <Link
+              external
+              href="mailto:gctalent-talentgc@support-soutien.gc.ca"
+            >
               gctalent-talentgc@support-soutien.gc.ca
-            </a>
+            </Link>
           </p>
           <p>
             {intl.formatMessage({

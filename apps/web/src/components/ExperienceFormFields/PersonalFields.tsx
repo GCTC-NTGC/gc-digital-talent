@@ -16,7 +16,12 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
   const watchStartDate = useWatch({ name: "startDate" });
 
   return (
-    <>
+    <div
+      data-h2-margin-top="base(x1)"
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-gap="base(x1 0)"
+    >
       <Input
         id="experienceTitle"
         label={labels.experienceTitle}
@@ -30,22 +35,20 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
         name="experienceDescription"
         rules={{ required: intl.formatMessage(errorMessages.required) }}
       />
-      <div data-h2-margin="base(0, 0, x1, 0)">
-        <Checkbox
-          boundingBox
-          boundingBoxLabel={labels.disclaimer}
-          id="disclaimer"
-          label={intl.formatMessage({
-            defaultMessage:
-              "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
-            id: "oURESC",
-            description:
-              "Label displayed on Personal Experience form for disclaimer checkbox",
-          })}
-          name="disclaimer"
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
-        />
-      </div>
+      <Checkbox
+        boundingBox
+        boundingBoxLabel={labels.disclaimer}
+        id="disclaimer"
+        label={intl.formatMessage({
+          defaultMessage:
+            "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
+          id: "oURESC",
+          description:
+            "Label displayed on Personal Experience form for disclaimer checkbox",
+        })}
+        name="disclaimer"
+        rules={{ required: intl.formatMessage(errorMessages.required) }}
+      />
       <Checkbox
         boundingBox
         boundingBoxLabel={labels.currentRole}
@@ -102,7 +105,7 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

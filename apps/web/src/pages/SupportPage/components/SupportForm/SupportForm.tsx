@@ -10,7 +10,7 @@ import {
   SelectFieldV2,
 } from "@gc-digital-talent/forms";
 import { errorMessages, apiMessages } from "@gc-digital-talent/i18n";
-import { Pending, Button } from "@gc-digital-talent/ui";
+import { Pending, Button, Link } from "@gc-digital-talent/ui";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { useGetMeQuery, User } from "~/api/generated";
@@ -38,7 +38,9 @@ interface SupportFormSuccessProps {
 }
 
 const anchorTag = (chunks: React.ReactNode) => (
-  <a href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>{chunks}</a>
+  <Link external href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>
+    {chunks}
+  </Link>
 );
 
 const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
@@ -124,7 +126,7 @@ const SupportForm = ({
           description: "Support form title",
         })}
       </h2>
-      <p data-h2-margin="base(x1, 0, 0, 0)">
+      <p data-h2-margin="base(x1 0)">
         {intl.formatMessage({
           defaultMessage:
             "Have a specific question? Want to provide feedback or report a bug? Send us a message using this form.",
@@ -134,7 +136,12 @@ const SupportForm = ({
       </p>
       <div>
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x.5 0)"
+          >
             <Input
               id="name"
               name="name"
@@ -217,7 +224,9 @@ const SupportForm = ({
               }}
               trackUnsaved={false}
             />
-            <Submit color="primary" />
+            <div data-h2-align-self="base(flex-start)">
+              <Submit color="primary" />
+            </div>
           </form>
         </FormProvider>
       </div>

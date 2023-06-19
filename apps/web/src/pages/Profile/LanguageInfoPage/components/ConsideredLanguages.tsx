@@ -9,7 +9,7 @@ import {
   FieldLabels,
 } from "@gc-digital-talent/forms";
 import { errorMessages, useLocale } from "@gc-digital-talent/i18n";
-import { ExternalLink } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 
 import {
   BilingualEvaluation,
@@ -37,8 +37,9 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
 
   const languageEvaluationPageLink = () => {
     return (
-      <ExternalLink
+      <Link
         newTab
+        external
         href={
           locale === "en"
             ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
@@ -50,14 +51,15 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
           id: "3vjhOA",
           description: "Message on links to the language evaluation tests",
         })}
-      </ExternalLink>
+      </Link>
     );
   };
 
   const selfAssessmentLink = (msg: React.ReactNode) => {
     return (
-      <ExternalLink
+      <Link
         newTab
+        external
         href={
           locale === "en"
             ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html"
@@ -65,7 +67,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
         }
       >
         {msg}
-      </ExternalLink>
+      </Link>
     );
   };
 
@@ -216,7 +218,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
       </div>
       {hasCompletedEvaluation ? (
         <div data-h2-padding="base(x.5, 0, 0, 0)">
-          <p>
+          <p data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage:
                 "Please indicate the language levels you acquired from your Government of Canada language evaluation.",

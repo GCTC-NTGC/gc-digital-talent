@@ -6,7 +6,6 @@ import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
-  Accordion,
   Button,
   Heading,
   Link,
@@ -24,7 +23,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate, ExperienceType } from "~/types/experience";
 import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
-import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
+import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import applicationMessages from "~/messages/applicationMessages";
 import {
   ApplicationStep,
@@ -262,12 +261,7 @@ export const ApplicationResume = ({
                   "Title for resume page when there are no experiences yet",
               })}
         </Heading>
-        <Link
-          href={instructionsPath}
-          type="button"
-          mode="inline"
-          color="secondary"
-        >
+        <Link href={instructionsPath} mode="inline">
           {intl.formatMessage({
             defaultMessage: "Review instructions",
             id: "VRxiNC",
@@ -337,6 +331,7 @@ export const ApplicationResume = ({
             data-h2-flex-direction="base(column) p-tablet(row)"
             data-h2-justify-content="base(space-between)"
             data-h2-align-items="base(flex-start) p-tablet(center)"
+            data-h2-margin-bottom="base(x1)"
           >
             <Select
               id="sortExperiencesBy"
@@ -364,14 +359,11 @@ export const ApplicationResume = ({
                   }),
                 },
               ]}
-              hideOptional
               trackUnsaved={false}
             />
 
             <Link
-              type="button"
               mode="inline"
-              color="secondary"
               href={paths.applicationResumeAdd(application.id)}
             >
               {intl.formatMessage({
@@ -382,22 +374,26 @@ export const ApplicationResume = ({
             </Link>
           </div>
           {hasSomeExperience ? (
-            <Accordion.Root type="multiple">
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x.5 0)"
+            >
               {nonEmptyExperiences.map((experience) => {
                 return (
-                  <ExperienceAccordion
+                  <ExperienceCard
                     key={experience.id}
                     experience={experience}
                     headingLevel="h3"
+                    showSkills={false}
                     editPath={paths.applicationResumeEdit(
                       application.id,
                       experience.id,
                     )}
-                    showSkills={false}
                   />
                 );
               })}
-            </Accordion.Root>
+            </div>
           ) : (
             <Well>
               <p data-h2-text-align="base(center)">
@@ -413,7 +409,6 @@ export const ApplicationResume = ({
             id="experienceCount"
             name="experienceCount"
             label=""
-            hideOptional
             type="number"
             hidden
             rules={{
@@ -432,7 +427,7 @@ export const ApplicationResume = ({
             orientation="horizontal"
             decorative
             data-h2-background="base(black.light)"
-            data-h2-margin="base(0, 0, x2, 0)"
+            data-h2-margin="base(x1, 0, x2, 0)"
           />
           <div
             data-h2-display="base(flex)"
@@ -451,12 +446,7 @@ export const ApplicationResume = ({
             >
               {intl.formatMessage(applicationMessages.saveContinue)}
             </Button>
-            <Link
-              type="button"
-              mode="inline"
-              color="secondary"
-              href={cancelPath}
-            >
+            <Link mode="inline" href={cancelPath}>
               {intl.formatMessage(applicationMessages.saveQuit)}
             </Link>
           </div>

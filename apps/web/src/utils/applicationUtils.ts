@@ -14,7 +14,7 @@ import educationStepInfo from "~/pages/Applications/educationStep/educationStepI
 import profileStepInfo from "~/pages/Applications/profileStep/profileStepInfo";
 import successPageInfo from "~/pages/Applications/successStep/successStepInfo";
 import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
-import { isIAPPool } from "~/pages/Applications/ApplicationContext";
+import { isIAPPool } from "~/utils/poolUtils";
 
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;

@@ -156,7 +156,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
                   {pool.essentialSkills.map((skill) => (
                     <Chip
                       key={skill.id}
-                      color="blue"
+                      color="secondary"
                       mode="outline"
                       label={getLocalizedName(skill.name, intl)}
                     />
@@ -197,25 +197,19 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           </div>
           {pool.id && (
             <p>
-              <Link
-                color="blue"
-                mode="solid"
-                type="button"
-                weight="bold"
-                href={paths.pool(pool.id)}
-                data-h2-text-align="base(center)"
-                data-h2-display="base(inline-block)"
-              >
-                {intl.formatMessage(
-                  {
-                    id: "YxqhQt",
-                    defaultMessage:
-                      "Apply to this recruitment process ({name})",
-                    description:
-                      "Message on link that say to apply to a recruitment advertisement",
-                  },
-                  { name: classificationAbbr },
-                )}
+              <Link color="secondary" mode="solid" href={paths.pool(pool.id)}>
+                <span>
+                  {intl.formatMessage(
+                    {
+                      id: "YxqhQt",
+                      defaultMessage:
+                        "Apply to this recruitment process ({name})",
+                      description:
+                        "Message on link that say to apply to a recruitment advertisement",
+                    },
+                    { name: classificationAbbr },
+                  )}
+                </span>
               </Link>
             </p>
           )}

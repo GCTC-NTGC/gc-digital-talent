@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
-import SearchRequestTableApi from "~/components/SearchRequestTable/SearchRequestTable";
+import SearchRequestsTableApi from "~/components/SearchRequestTable/SearchRequestsTableApi";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
@@ -34,7 +34,7 @@ export const IndexSearchRequestPage = () => {
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO title={pageTitle} />
       <PageHeader icon={TicketIcon}>{pageTitle}</PageHeader>
-      <SearchRequestTableApi title={pageTitle} />
+      <SearchRequestsTableApi title={pageTitle} />
     </AdminContentWrapper>
   );
 };

@@ -1,6 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
+import orderBy from "lodash/orderBy";
+
+import { Link, Pending } from "@gc-digital-talent/ui";
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import useQuote from "~/hooks/useQuote";
 
@@ -18,6 +22,12 @@ import lowerBack from "~/assets/img/lower-back.jpg";
 import iconWatermark from "~/assets/img/icon-watermark.svg";
 import indigenousWoman from "~/assets/img/indigenous-woman.png";
 
+import {
+  useIapPublishedPoolsQuery,
+  PublishingGroup,
+  Pool,
+} from "~/api/generated";
+
 import Banner from "./components/Banner";
 import Card from "./components/Card";
 import CTAButtons from "./components/CTAButtons";
@@ -26,6 +36,7 @@ import Heading from "./components/Heading";
 import LanguageSelector from "./components/LanguageSelector";
 import Step from "./components/Step";
 import Quote from "./components/Quote";
+import ApplyLink from "./components/ApplyLink";
 
 import {
   BarChart,
@@ -38,10 +49,16 @@ import {
 } from "./components/Svg";
 
 const mailLink = (chunks: React.ReactNode) => (
-  <a href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">{chunks}</a>
+  <Link external href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">
+    {chunks}
+  </Link>
 );
 
-const Home = () => {
+interface HomeProps {
+  latestPool?: Pool;
+}
+
+export const Home = ({ latestPool }: HomeProps) => {
   const intl = useIntl();
   const quote = useQuote();
   /**
@@ -134,8 +151,9 @@ const Home = () => {
           data-h2-location="p-tablet(auto, auto, 20%, 50%)"
           data-h2-min-width="base(x12)"
           data-h2-order="base(3)"
+          data-h2-transform="p-tablet(translateX(-50%))"
         >
-          <ApplyDialog />
+          {latestPool ? <ApplyLink id={latestPool.id} /> : <ApplyDialog />}
         </div>
       </div>
       {/* About section */}
@@ -239,7 +257,7 @@ const Home = () => {
                     })}
                   </p>
                   <div data-h2-margin="base(x2, 0, 0, 0)">
-                    <CTAButtons />
+                    <CTAButtons latestPoolId={latestPool?.id} />
                   </div>
                 </div>
               </div>
@@ -333,7 +351,7 @@ const Home = () => {
                   })}
                 </p>
                 <div data-h2-visually-hidden="base(revealed) l-tablet(invisible)">
-                  <CTAButtons />
+                  <CTAButtons latestPoolId={latestPool?.id} />
                 </div>
               </div>
             </div>
@@ -524,7 +542,11 @@ const Home = () => {
                       description: "Application box content",
                     })}
                   </p>
-                  <ApplyDialog />
+                  {latestPool ? (
+                    <ApplyLink id={latestPool.id} />
+                  ) : (
+                    <ApplyDialog />
+                  )}
                 </div>
               </div>
             </div>
@@ -882,4 +904,26 @@ const Home = () => {
   );
 };
 
-export default Home;
+const now = nowUTCDateTime();
+
+const HomeApi = () => {
+  const [{ data, fetching, error }] = useIapPublishedPoolsQuery({
+    variables: { closingAfter: now, publishingGroup: PublishingGroup.Iap },
+  });
+
+  const pools = orderBy(
+    data?.publishedPools.filter((pool) => typeof pool !== undefined && !!pool),
+    ["publishedAt"],
+    ["desc"],
+  ); // Order by date in desc order
+
+  const latestPool = pools && pools.length > 0 ? pools[0] : undefined; // get latest pool (most recent published_at date)
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      <Home latestPool={latestPool} />
+    </Pending>
+  );
+};
+
+export default HomeApi;

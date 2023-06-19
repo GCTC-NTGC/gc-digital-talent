@@ -125,7 +125,7 @@ const EssentialSkillsSection = ({
                   description:
                     "Text on a button to save the pool essential skills",
                 })}
-                color="cta"
+                color="tertiary"
                 mode="solid"
                 isSubmitting={isSubmitting}
                 onClick={methods.handleSubmit(handleSave)}

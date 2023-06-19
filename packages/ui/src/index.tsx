@@ -1,4 +1,10 @@
-import { Color, HeadingRank, IconType, IconProps } from "./types";
+import {
+  Color,
+  HeadingRank,
+  IconType,
+  IconProps,
+  ButtonLinkMode,
+} from "./types";
 
 import Accordion from "./components/Accordion";
 import StandardAccordionHeader from "./components/Accordion/StandardHeader";
@@ -6,11 +12,7 @@ import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
-import Button, {
-  IconButton,
-  type ButtonProps,
-  type IconButtonProps,
-} from "./components/Button";
+import Button, { type ButtonProps } from "./components/Button";
 import Card, {
   CardBasic,
   CardFlat,
@@ -32,15 +34,11 @@ import Heading, {
 } from "./components/Heading";
 import Link, {
   DownloadCsv,
-  ExternalLink,
-  IconLink,
   ScrollToLink,
   SkipLink,
   MenuLink,
-  type ExternalLinkProps,
   type DownloadCsvProps,
   type LinkProps,
-  type IconLinkProps,
   type ScrollToLinkProps,
   type ScrollLinkClickFunc,
   type SkipLinkProps,
@@ -51,7 +49,6 @@ import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, { type PendingProps } from "./components/Pending";
 import Pill, {
   type PillProps,
-  type PillColor,
   type PillMode,
   type PillSize,
 } from "./components/Pill";
@@ -80,13 +77,15 @@ import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
 
+import { incrementHeadingRank, decrementHeadingRank } from "./utils";
+
 export type {
   Color,
   HeadingRank,
   AlertProps,
   BreadcrumbsProps,
   ButtonProps,
-  IconButtonProps,
+  ButtonLinkMode,
   CardFlatProps,
   CardProps,
   CardBasicProps,
@@ -95,12 +94,10 @@ export type {
   HeadingProps,
   HeadingLevel,
   HeadingRef,
-  ExternalLinkProps,
   DownloadCsvProps,
   LinkProps,
   IconProps,
   IconType,
-  IconLinkProps,
   ScrollToLinkProps,
   ScrollLinkClickFunc,
   SkipLinkProps,
@@ -108,7 +105,6 @@ export type {
   LoadingProps,
   PendingProps,
   PillProps,
-  PillColor,
   PillMode,
   PillSize,
   SideMenuProps,
@@ -131,7 +127,6 @@ export {
   useAnnouncer,
   Breadcrumbs,
   Button,
-  IconButton,
   Card,
   CardBasic,
   CardFlat,
@@ -146,8 +141,6 @@ export {
   Heading,
   Link,
   DownloadCsv,
-  ExternalLink,
-  IconLink,
   ScrollToLink,
   SkipLink,
   MenuLink,
@@ -173,3 +166,5 @@ export {
   TreeView,
   Well,
 };
+
+export { incrementHeadingRank, decrementHeadingRank };

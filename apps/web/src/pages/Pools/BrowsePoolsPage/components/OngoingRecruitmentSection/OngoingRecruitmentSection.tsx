@@ -947,7 +947,7 @@ const OngoingRecruitmentSection = ({
         level="h2"
         id="ongoingRecruitments"
         Icon={CpuChipIcon}
-        color="purple"
+        color="primary"
         data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage({
@@ -984,29 +984,14 @@ const OngoingRecruitmentSection = ({
       <div data-h2-display="base(flex)">
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
-            <Button
-              color="primary"
-              mode="outline"
-              data-h2-align-items="base(center)"
-              data-h2-display="base(flex)"
-              data-h2-flex-shrink="base(0)"
-              data-h2-gap="base(0, x.25)"
-              data-h2-radius="base(input, 0px, 0px, input)"
-              data-h2-margin-right="base(0)"
-            >
-              <span>
-                {quickFilterStream === "ALL"
-                  ? intl.formatMessage({
-                      defaultMessage: "All",
-                      id: "XnvXtO",
-                      description: "All",
-                    })
-                  : intl.formatMessage(getPoolStream(quickFilterStream))}
-              </span>
-              <ChevronDownIcon
-                data-h2-height="base(1em)"
-                data-h2-width="base(1em)"
-              />
+            <Button color="primary" utilityIcon={ChevronDownIcon}>
+              {quickFilterStream === "ALL"
+                ? intl.formatMessage({
+                    defaultMessage: "All",
+                    id: "XnvXtO",
+                    description: "All",
+                  })
+                : intl.formatMessage(getPoolStream(quickFilterStream))}
             </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content data-h2-padding="base(0)">
@@ -1086,7 +1071,7 @@ const OngoingRecruitmentSection = ({
                 headingAs="h3"
                 context={
                   streamIsRecommended(stream, mySkillIds) ? (
-                    <Pill color="green" mode="outline">
+                    <Pill color="success" mode="outline">
                       <span data-h2-color="base(black)">
                         {intl.formatMessage({
                           defaultMessage: "Recommended based on your skills",
@@ -1128,9 +1113,7 @@ const OngoingRecruitmentSection = ({
                           <Link
                             href={paths.pool(classification.pool.id)}
                             color="secondary"
-                            type="button"
                             mode="solid"
-                            data-h2-font-weight="base(700)"
                           >
                             {classification.applyMessage}
                           </Link>

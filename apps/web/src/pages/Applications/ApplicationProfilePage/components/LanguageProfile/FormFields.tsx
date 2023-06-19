@@ -18,7 +18,11 @@ const FormFields = ({ labels }: FormFieldProps) => {
   useDirtyFields("language");
 
   return (
-    <>
+    <div
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-gap="base(x1 0)"
+    >
       <Checklist
         idPrefix="considered-position-languages"
         legend={labels.consideredPositionLanguages}
@@ -30,7 +34,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
         items={consideredLangOptions}
       />
       <ConsideredLanguages labels={labels} />
-    </>
+    </div>
   );
 };
 

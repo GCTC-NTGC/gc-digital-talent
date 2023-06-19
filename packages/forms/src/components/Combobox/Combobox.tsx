@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, useFormContext } from "react-hook-form";
 import { Combobox as ComboboxPrimitive } from "@headlessui/react";
 import debounce from "lodash/debounce";
 import orderBy from "lodash/orderBy";
@@ -8,16 +8,16 @@ import orderBy from "lodash/orderBy";
 import { Scalars } from "@gc-digital-talent/graphql";
 import { formMessages } from "@gc-digital-talent/i18n";
 
+import Field from "../Field";
+import { CommonInputProps, HTMLInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
-import InputUnsaved from "../InputUnsaved";
-import InputError from "../InputError";
-
+import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 import Actions from "./Actions";
-import Label from "./Label";
 import NoOptions from "./NoOptions";
 
 import "./combobox.css";
+import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
 export interface Option {
   /** The data used on form submission  */
@@ -26,47 +26,31 @@ export interface Option {
   label: React.ReactNode;
 }
 
-export interface ComboboxProps
-  extends Omit<
-    React.HTMLProps<HTMLInputElement>,
-    "capture" | "type" | "label"
-  > {
-  /** HTML id used to identify the element. */
-  id: string;
-  /** A string specifying a name for the input control. */
-  name: string;
-  /** Holds text for the label associated with the input element */
-  label: React.ReactNode;
-  /** Optional context which user can view by toggling a button. */
-  context?: string;
-  /** Set of validation rules and error messages to impose on input. */
-  rules?: RegisterOptions;
-  /** If input is not required, hide the 'Optional' label */
-  hideOptional?: boolean;
-  /** Determine if it should track unsaved changes and render it */
-  trackUnsaved?: boolean;
-  /** Array of available options */
-  options: Option[];
-  /** Optional: Set if the options are being fetched */
-  fetching?: boolean;
-  /** Optional: Callback ran when the user types in the input */
-  onSearch?: (term: string) => void;
-  /** Optional: Control the options through external search (API, etc.) */
-  isExternalSearch?: boolean;
-}
+export type ComboboxProps = Omit<HTMLInputProps, "ref"> &
+  CommonInputProps & {
+    /** Array of available options */
+    options: Option[];
+    /** Optional: Set if the options are being fetched */
+    fetching?: boolean;
+    /** Optional: Callback ran when the user types in the input */
+    onSearch?: (term: string) => void;
+    /** Optional: Control the options through external search (API, etc.) */
+    isExternalSearch?: boolean;
+  };
 
 const Combobox = ({
   id,
   label,
   name,
+  context,
   rules = {},
   readOnly,
-  hideOptional,
   trackUnsaved = true,
   onSearch,
   fetching = false,
   isExternalSearch = false,
   options,
+  ...rest
 }: ComboboxProps) => {
   const intl = useIntl();
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -81,11 +65,20 @@ const Combobox = ({
     formState: { errors },
   } = useFormContext();
   const inputProps = register(name, rules);
+  const baseStyles = useCommonInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name || "", !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
+  const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
+    id,
+    show: {
+      error,
+      unsaved: trackUnsaved && isUnsaved,
+      context,
+    },
+  });
 
   // TODO: Make this filter much smarter, possibly fuse.js
   const filteredOptions = React.useMemo(() => {
@@ -106,8 +99,6 @@ const Combobox = ({
   }, [query, isExternalSearch, options]);
 
   const noOptions = fetching || filteredOptions.length === 0;
-
-  const helpId = `${id}-error`;
 
   const handleChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -174,9 +165,9 @@ const Combobox = ({
       nullable
     >
       <div data-h2-position="base(relative)" data-h2-width="base(100%)">
-        <Label hideOptional={hideOptional} required={isRequired}>
+        <ComboboxPrimitive.Label as={Field.Label} required={isRequired}>
           {label}
-        </Label>
+        </ComboboxPrimitive.Label>
         <div
           data-h2-display="base(flex)"
           data-h2-flex-grow="base(1)"
@@ -185,7 +176,7 @@ const Combobox = ({
           data-h2-margin="base(x.125, 0)"
         >
           <ComboboxPrimitive.Input
-            aria-describedby={error || isUnsaved ? helpId : undefined}
+            aria-describedby={ariaDescribedBy}
             aria-required={rules.required ? "true" : undefined}
             aria-invalid={error ? "true" : "false"}
             autoComplete="off"
@@ -193,13 +184,16 @@ const Combobox = ({
             onBlur={inputProps.onBlur}
             displayValue={getDisplayValue}
             ref={inputRef}
+            {...baseStyles}
             {...stateStyles}
-            data-h2-padding="base(x.25, x1.25, x.25, x.5)"
-            data-h2-radius="base(input)"
             data-h2-width="base(100%)"
-            {...(readOnly && {
-              "data-h2-background-color": "base(gray.light)",
-            })}
+            {...(readOnly
+              ? {
+                  readOnly: true,
+                  "data-h2-background-color": "base(background.dark)",
+                }
+              : {})}
+            {...rest}
           />
           <Actions
             showClear={!!selectedOption || query !== ""}
@@ -212,14 +206,12 @@ const Combobox = ({
         </div>
         <ComboboxPrimitive.Options
           data-h2-background-color="base(white)"
-          data-h2-border="base(2px solid gray)"
           data-h2-shadow="base(l)"
-          data-h2-padding="base(x.5)"
-          data-h2-radius="base(input)"
           data-h2-max-height="base(24rem)"
           data-h2-position="base(absolute)"
           data-h2-location="base(100%, 0, auto, 0)"
           data-h2-overflow="base(visible auto)"
+          {...baseStyles}
           as={noOptions ? "div" : "ul"}
         >
           {noOptions ? (
@@ -255,8 +247,11 @@ const Combobox = ({
           )}
         </ComboboxPrimitive.Options>
       </div>
-      <InputUnsaved isVisible={isUnsaved} id={helpId} />
-      {error && <InputError id={helpId} isVisible={!!error} error={error} />}
+      <Field.Descriptions
+        ids={descriptionIds}
+        error={error}
+        context={context}
+      />
     </ComboboxPrimitive>
   );
 };

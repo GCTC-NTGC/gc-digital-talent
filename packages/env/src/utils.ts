@@ -42,4 +42,5 @@ export const getFeatureFlags = () => ({
   applicantDashboard: checkFeatureFlag("FEATURE_APPLICANT_DASHBOARD"),
   applicationRevamp: checkFeatureFlag("FEATURE_APPLICATION_REVAMP"),
   psacStrike: checkFeatureFlag("FEATURE_PSAC_STRIKE"),
+  skillLibrary: checkFeatureFlag("FEATURE_SKILL_LIBRARY"),
 });

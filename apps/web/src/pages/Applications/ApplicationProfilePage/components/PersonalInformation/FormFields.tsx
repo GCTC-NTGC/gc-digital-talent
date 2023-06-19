@@ -9,6 +9,7 @@ import {
 } from "@gc-digital-talent/forms";
 import {
   errorMessages,
+  formMessages,
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
   getLanguage,
@@ -30,8 +31,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
       <div
         data-h2-display="base(grid)"
         data-h2-grid-template-columns="base(1fr 1fr)"
-        data-h2-gap="base(0 x1)"
-        data-h2-margin-top="base(-x1)"
+        data-h2-gap="base(x1)"
       >
         <Input
           id="firstName"
@@ -65,12 +65,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
           name="telephone"
           type="tel"
           label={labels.telephone}
-          placeholder={intl.formatMessage({
-            defaultMessage: "+123243234",
-            id: "FmN1eN",
-            description:
-              "Placeholder displayed on the About Me form telephone field.",
-          })}
+          placeholder={intl.formatMessage(formMessages.phonePlaceholder)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -105,8 +100,9 @@ const FormFields = ({ labels }: FormFieldProps) => {
       </div>
       <div
         data-h2-display="base(grid)"
-        data-h2-gap="l-tablet(0 x1)"
+        data-h2-gap="l-tablet(x1)"
         data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
+        data-h2-margin="base(x1 0)"
       >
         <Select
           id="preferredLang"

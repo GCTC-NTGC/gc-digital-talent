@@ -264,10 +264,10 @@ class User extends Model implements Authenticatable, LaratrustUser
                             }
                             $query->where(function ($query) use ($filter) {
                                 if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
-                                    $query->whereDate('suspended_at', '>=', Carbon::now())
+                                    $query->where('suspended_at', '>=', Carbon::now())
                                         ->orWhereNull('suspended_at');
                                 } else if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
-                                    $query->whereDate('suspended_at', '<', Carbon::now());
+                                    $query->where('suspended_at', '<', Carbon::now());
                                 }
                             });
                             return $query;
@@ -692,10 +692,13 @@ RAWSQL2;
     {
         if ($search) {
             $query->where(function ($query) use ($search) {
-                $query->where('first_name', "ilike", "%{$search}%")
-                    ->orWhere('last_name', "ilike", "%{$search}%")
-                    ->orWhere('email', "ilike", "%{$search}%")
-                    ->orWhere('telephone', "ilike", "%{$search}%");
+                self::scopeName($query, $search);
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeEmail($query, $search);
+                });
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeTelephone($query, $search);
+                });
             });
         }
         return $query;

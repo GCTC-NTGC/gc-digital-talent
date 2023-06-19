@@ -270,7 +270,7 @@ export const ExperienceForm = ({
             description: "Title for addition information on Experience form",
           })}
         </h2>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {intl.formatMessage({
             defaultMessage:
               "Anything else about this experience you would like to share.",
@@ -285,7 +285,6 @@ export const ExperienceForm = ({
             <AlertDialog.Trigger>
               <Button
                 type="button"
-                mode="outline"
                 color="error"
                 data-h2-margin="base(x2, 0, 0, 0)"
               >
@@ -318,7 +317,7 @@ export const ExperienceForm = ({
               </AlertDialog.Description>
               <AlertDialog.Footer>
                 <AlertDialog.Cancel>
-                  <Button type="button" mode="outline" color="secondary">
+                  <Button type="button" color="secondary">
                     {intl.formatMessage({
                       defaultMessage: "Cancel",
                       id: "KnE2Rk",

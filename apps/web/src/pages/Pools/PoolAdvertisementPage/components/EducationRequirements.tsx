@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import applicationMessages from "~/messages/applicationMessages";
-import { ExternalLink, Heading } from "@gc-digital-talent/ui";
+import { Link, Heading } from "@gc-digital-talent/ui";
 
 import { getLocale } from "@gc-digital-talent/i18n";
 import Text from "./Text";
@@ -33,9 +33,9 @@ const EducationRequirements = ({ isIAP }: EducationRequirementsProps) => {
         ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
         : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#eepr";
     return (
-      <ExternalLink href={href} newTab>
+      <Link href={href} color="black" newTab external>
         {chunks}
-      </ExternalLink>
+      </Link>
     );
   };
 

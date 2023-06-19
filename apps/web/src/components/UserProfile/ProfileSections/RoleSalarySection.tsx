@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 import { commonMessages, getGenericJobTitles } from "@gc-digital-talent/i18n";
 
 import { Applicant } from "~/api/generated";
@@ -60,7 +60,7 @@ const RoleSalarySection = ({
             <div data-h2-flex-item="base(1of1)">
               <p>
                 {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-                <a href={editPath}>
+                <Link href={editPath}>
                   {intl.formatMessage({
                     defaultMessage:
                       "Edit your role and salary expectation options.",
@@ -68,7 +68,7 @@ const RoleSalarySection = ({
                     description:
                       "Link text to edit role and salary expectations on profile.",
                   })}
-                </a>
+                </Link>
               </p>
             </div>
           </>

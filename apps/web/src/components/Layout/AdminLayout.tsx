@@ -61,14 +61,6 @@ const AdminLayout = () => {
     }
   }, [isSmallScreen, setMenuOpen]);
 
-  const handleMenuToggle = () => {
-    setMenuOpen(!isMenuOpen);
-  };
-
-  const handleDismiss = () => {
-    setMenuOpen(false);
-  };
-
   return (
     <>
       <Favicon project="admin" />
@@ -87,11 +79,7 @@ const AdminLayout = () => {
       />
       <SkipLink />
       <div data-h2-flex-grid="base(stretch, 0)">
-        <AdminSideMenu
-          isOpen={isMenuOpen}
-          onToggle={handleMenuToggle}
-          onDismiss={handleDismiss}
-        />
+        <AdminSideMenu isOpen={isMenuOpen} onToggle={setMenuOpen} />
         <SideMenuContentWrapper>
           <div
             data-h2-min-height="base(100%)"
@@ -112,7 +100,7 @@ const AdminLayout = () => {
           </div>
         </SideMenuContentWrapper>
       </div>
-      <OpenMenuButton onClick={handleMenuToggle} show={!isMenuOpen}>
+      <OpenMenuButton onClick={() => setMenuOpen(true)} show={!isMenuOpen}>
         {intl.formatMessage({
           defaultMessage: "Open Menu",
           id: "crzWxb",

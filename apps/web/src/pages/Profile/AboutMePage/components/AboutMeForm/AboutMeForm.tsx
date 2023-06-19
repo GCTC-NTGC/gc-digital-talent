@@ -18,6 +18,7 @@ import {
   getLanguage,
   getCitizenshipStatusesProfile,
   getArmedForcesStatusesProfile,
+  formMessages,
 } from "@gc-digital-talent/i18n";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 
@@ -193,11 +194,7 @@ const AboutMeForm = ({
           url: paths.reviewApplication(applicationId ?? ""),
         },
         {
-          label: intl.formatMessage({
-            defaultMessage: "About Me",
-            id: "uG2MuI",
-            description: "Display text for About Me Form Page Link",
-          }),
+          label: intl.formatMessage(navigationMessages.aboutMe),
           url: `${paths.aboutMe(initialUser.id)}${
             applicationId ? `?applicationId=${applicationId}` : ``
           }`,
@@ -227,22 +224,14 @@ const AboutMeForm = ({
         description:
           "Description text for the Profile Form wrapper in the About Me form",
       })}
-      title={intl.formatMessage({
-        defaultMessage: "About me",
-        id: "XY19Sh",
-        description: "Title for Profile Form wrapper in About me form",
-      })}
+      title={intl.formatMessage(navigationMessages.aboutMe)}
       prefixBreadcrumbs={!application}
       crumbs={
         applicationBreadcrumbs?.length
           ? applicationBreadcrumbs
           : [
               {
-                label: intl.formatMessage({
-                  defaultMessage: "About Me",
-                  id: "uG2MuI",
-                  description: "Display text for About Me Form Page Link",
-                }),
+                label: intl.formatMessage(navigationMessages.aboutMe),
                 url: paths.aboutMe(initialUser.id),
               },
             ]
@@ -279,7 +268,11 @@ const AboutMeForm = ({
           })}
         </p>
         <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
-          <div>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x1 0)"
+          >
             <Select
               id="preferredLang"
               label={labelMap.preferredLang}
@@ -362,12 +355,7 @@ const AboutMeForm = ({
               name="telephone"
               type="tel"
               label={labelMap.telephone}
-              placeholder={intl.formatMessage({
-                defaultMessage: "+123243234",
-                id: "FmN1eN",
-                description:
-                  "Placeholder displayed on the About Me form telephone field.",
-              })}
+              placeholder={intl.formatMessage(formMessages.phonePlaceholder)}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -421,7 +409,7 @@ const AboutMeForm = ({
               "Title for Account Details section of the About Me form",
           })}
         </h2>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {intl.formatMessage({
             defaultMessage:
               "This information is used to manage your account and to communicate.",
@@ -431,7 +419,11 @@ const AboutMeForm = ({
           })}
         </p>
         <div data-h2-flex-item="base(1of1)">
-          <div>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x1 0)"
+          >
             <Input
               id="firstName"
               name="firstName"

@@ -42,16 +42,10 @@ type PoolCell = Cell<Pool>;
 function poolCandidatesLinkAccessor(
   poolCandidatesTableUrl: string,
   intl: IntlShape,
-  pool: Maybe<Pick<Pool, "name" | "classifications" | "stream">>,
+  pool: Maybe<Pool>,
 ) {
   return (
-    <Link
-      href={poolCandidatesTableUrl}
-      type="button"
-      mode="inline"
-      color="black"
-      data-h2-padding="base(0)"
-    >
+    <Link href={poolCandidatesTableUrl} color="black" data-h2-padding="base(0)">
       {intl.formatMessage(
         {
           defaultMessage: "View Candidates<hidden> for {label}</hidden>",
@@ -66,7 +60,7 @@ function poolCandidatesLinkAccessor(
 
 function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
   return (
-    <Link href={url} type="link">
+    <Link color="black" href={url}>
       {getFullPoolTitleHtml(intl, pool)}
     </Link>
   );
@@ -78,7 +72,7 @@ function viewTeamLinkAccessor(
   intl: IntlShape,
 ) {
   return url ? (
-    <Link href={url} type="link">
+    <Link color="black" href={url}>
       {intl.formatMessage(
         {
           defaultMessage: "<hidden>View team: </hidden>{teamName}",
@@ -135,7 +129,11 @@ const classificationsCell = (
 
 const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
   if (value) {
-    return <a href={`mailto:${value}`}>{value}</a>;
+    return (
+      <Link color="black" external href={`mailto:${value}`}>
+        {value}
+      </Link>
+    );
   }
   return (
     <span data-h2-font-style="base(italic)">

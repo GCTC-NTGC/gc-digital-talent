@@ -1,20 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import StarIcon from "@heroicons/react/24/outline/StarIcon";
+import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
 
-import { Heading } from "@gc-digital-talent/ui";
+import { Heading, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
 import { wrapAbbr } from "~/utils/nameUtils";
-import CallToActionLink from "~/components/CallToAction/CallToActionLink";
-import { HireIcon, JobIcon } from "~/components/CallToAction/Icons";
 
 import hero1Landscape from "~/assets/img/hero-1-landscape.jpg";
 import hero2Landscape from "~/assets/img/hero-2-landscape.jpg";
 import hero3Landscape from "~/assets/img/hero-3-landscape.jpg";
 import hero4Landscape from "~/assets/img/hero-4-landscape.jpg";
-
-import "./hero.css";
 
 const landscapeRandomize = (index?: number | undefined) => {
   const items = [
@@ -37,15 +35,13 @@ const Hero = ({ defaultImage }: HeroProps) => {
   return (
     <div
       data-h2-background-color="base(black.darkest)"
+      data-h2-position="base(relative)"
       data-h2-padding-top="base(x3) p-tablet(x4) l-tablet(x6)"
       data-h2-padding-bottom="
       base(calc(50vh + 3%))
       p-tablet(calc(60vh + 3%))
       l-tablet(calc((6rem * var(--h2-line-height-copy)) + 3%))"
-      className="hero-bg-image"
-      style={{
-        backgroundImage: `url('${landscapeRandomize(defaultImage)}')`,
-      }}
+      data-h2-overflow="base(hidden)"
     >
       <div
         data-h2-position="base(relative)"
@@ -89,9 +85,10 @@ const Hero = ({ defaultImage }: HeroProps) => {
           data-h2-justify-content="base(center) p-tablet(flex-start)"
           data-h2-flex-wrap="base(wrap) p-tablet(initial)"
         >
-          <CallToActionLink
+          <Link
             color="quaternary"
-            Icon={JobIcon}
+            mode="cta"
+            icon={MagnifyingGlassIcon}
             href={paths.browsePools()}
           >
             {intl.formatMessage({
@@ -99,10 +96,11 @@ const Hero = ({ defaultImage }: HeroProps) => {
               id: "SUlb9U",
               description: "Link text for applicant call to action",
             })}
-          </CallToActionLink>
-          <CallToActionLink
+          </Link>
+          <Link
             color="secondary"
-            Icon={HireIcon}
+            mode="cta"
+            icon={StarIcon}
             href={paths.search()}
           >
             {intl.formatMessage({
@@ -110,9 +108,26 @@ const Hero = ({ defaultImage }: HeroProps) => {
               id: "sbEk4X",
               description: "Link text for hiring manager call to action",
             })}
-          </CallToActionLink>
+          </Link>
         </div>
       </div>
+      <img
+        alt={intl.formatMessage({
+          defaultMessage:
+            "A diverse group of people, representing all races, genders, and backgrounds, gathered together in unity. Everyone is welcome here!",
+          id: "MCFcrj",
+          description: "Hero image alt text.",
+        })}
+        src={landscapeRandomize(defaultImage)}
+        data-h2-position="base(absolute)"
+        data-h2-height="base(50vh) p-tablet(60vh) l-tablet(110%)"
+        data-h2-width="base(auto)"
+        data-h2-left="base(50%) l-tablet(60%)"
+        data-h2-top="p-tablet(50%) l-tablet(0)"
+        data-h2-bottom="base(-7%)"
+        data-h2-transform="base(translate(-50%)) l-tablet(translate(-30%))"
+        data-h2-max-width="base(200%) p-tablet(100%)"
+      />
     </div>
   );
 };

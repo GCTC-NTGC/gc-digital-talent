@@ -634,6 +634,7 @@ type ApplicantFilter {
   expectedClassifications: [Classification]  # Filters applicants based on the classifications they've expressed interest in.
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
+  # request creation connects to qualifiedClassifications
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
   qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
@@ -889,6 +890,19 @@ input PoolCandidateSearchInput {
   suspendedStatus: CandidateSuspendedFilter @scope(name: "suspendedStatus")
 }
 
+input PoolCandidateSearchRequestInput {
+  status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
+  departments: [ID] @scope
+  classifications: [ID] @scope
+  streams: [PoolStream] @scope
+  fullName: String @scope
+  email: String @scope
+  jobTitle: String @scope
+  additionalComments: String @scope
+  adminNotes: String @scope
+  generalSearch: String @scope
+}
+
 type CandidateSearchPoolResult {
   pool: Pool! @can(ability: "view", resolved: true)
   candidateCount: Int! @rename(attribute: "candidate_count")
@@ -920,6 +934,8 @@ type Query {
   pools: [Pool]! @all @can(ability: "viewAny", model: "Pool")
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
+    publishingGroup: PublishingGroup
+      @where(key: "publishing_group", operator: "=")
   ): [Pool!]!
     @all(scopes: ["wasPublished"])
     @can(ability: "viewAnyPublished", model: "Pool")
@@ -1022,6 +1038,14 @@ type Query {
     @deprecated(
       reason: "Use poolCandidateSearchRequests instead, with a specified limit"
     )
+  poolCandidateSearchRequestsPaginated(
+    where: PoolCandidateSearchRequestInput
+    orderBy: [OrderByClause!] @orderBy
+  ): [PoolCandidateSearchRequest]!
+    @orderBy(column: "created_at", direction: DESC)
+    @paginate(defaultCount: 10, maxCount: 500)
+    @guard
+    @can(ability: "viewAny")
   skillFamily(id: UUID! @eq): SkillFamily @find @can(ability: "view")
   skillFamilies: [SkillFamily]! @all @can(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @can(ability: "view")

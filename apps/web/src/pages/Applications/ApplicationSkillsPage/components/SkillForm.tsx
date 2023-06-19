@@ -10,12 +10,7 @@ import {
   StandardAccordionHeader,
   Well,
 } from "@gc-digital-talent/ui";
-import {
-  Select,
-  TextArea,
-  WordCounter,
-  countNumberOfWords,
-} from "@gc-digital-talent/forms";
+import { Select, TextArea } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -93,7 +88,7 @@ const SkillForm = ({
   const methods = useForm<FormValues>({
     defaultValues,
   });
-  const { register, setValue, watch } = methods;
+  const { register, setValue } = methods;
   const actionProps = register("action");
   const selectedExperienceId = methods.watch("experience");
   const selectedExperience = experiences.find(
@@ -106,7 +101,6 @@ const SkillForm = ({
     "update",
     experienceType,
   );
-  const detailsValue = watch("details");
 
   const handleSubmit = (formValues: FormValues) => {
     const args = getMutationArgs(
@@ -161,7 +155,7 @@ const SkillForm = ({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <input type="hidden" {...methods.register("skill")} />
-        <Heading level="h2" size="h6" data-h2-margin-top="base(0)">
+        <Heading level="h2" size="h6" data-h2-margin="base(0 0 x1 0)">
           {intl.formatMessage({
             defaultMessage: "Choose the experience you'd like to add",
             id: "dkYHTv",
@@ -269,37 +263,19 @@ const SkillForm = ({
             </p>
           </Well>
         ) : (
-          <>
-            <TextArea
-              id="details"
-              name="details"
-              rows={3}
-              label={intl.formatMessage({
-                defaultMessage: "Describe how you used this skill",
-                id: "L7PqXn",
-                description: "Label for skill experience details input",
-              })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                validate: {
-                  wordCount: (value: string) =>
-                    countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS ||
-                    intl.formatMessage(errorMessages.overWordLimit, {
-                      value: TEXT_AREA_MAX_WORDS,
-                    }),
-                },
-              }}
-            />
-            <div
-              data-h2-margin="base(-x.5, 0, 0, 0)"
-              data-h2-text-align="base(right)"
-            >
-              <WordCounter
-                text={detailsValue || ""}
-                wordLimit={TEXT_AREA_MAX_WORDS}
-              />
-            </div>
-          </>
+          <TextArea
+            id="details"
+            name="details"
+            wordLimit={TEXT_AREA_MAX_WORDS}
+            label={intl.formatMessage({
+              defaultMessage: "Describe how you used this skill",
+              id: "L7PqXn",
+              description: "Label for skill experience details input",
+            })}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
         )}
         <Dialog.Footer>
           <Dialog.Close>
@@ -315,7 +291,7 @@ const SkillForm = ({
             <Button
               type="submit"
               mode="inline"
-              color="red"
+              color="error"
               {...actionProps}
               onClick={() => setValue("action", "remove")}
             >

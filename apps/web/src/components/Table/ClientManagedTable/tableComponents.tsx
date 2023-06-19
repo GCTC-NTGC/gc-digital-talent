@@ -1,8 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { IconType } from "@gc-digital-talent/ui";
-
 export const IndeterminateCheckbox = ({
   indeterminate,
   labelText,
@@ -43,14 +41,3 @@ export const Spacer = ({ children }: { children?: React.ReactNode }) => (
     {children}
   </div>
 );
-
-export const ButtonIcon = ({ icon }: { icon: IconType }) => {
-  const Icon = icon;
-
-  return (
-    <Icon
-      style={{ height: "1em", width: "1rem" }}
-      data-h2-margin="base(0, x.25, 0, 0)"
-    />
-  );
-};

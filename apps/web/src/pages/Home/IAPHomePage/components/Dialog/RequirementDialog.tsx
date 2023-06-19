@@ -12,7 +12,7 @@ const RequirementDialog = ({ btnProps }: BasicDialogProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button color="ia-primary" mode="solid" {...btnProps}>
+        <Button color="primary" mode="solid" {...btnProps}>
           {intl.formatMessage({
             defaultMessage: "See Eligibility Criteria",
             id: "+do6jV",

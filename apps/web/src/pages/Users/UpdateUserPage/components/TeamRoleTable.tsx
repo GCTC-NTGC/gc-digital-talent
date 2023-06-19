@@ -34,7 +34,7 @@ const rolesCell = (displayNames: string[]) => (
   <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
     {displayNames.map((displayName) => {
       return (
-        <Pill color="neutral" mode="solid" key={displayName}>
+        <Pill color="black" mode="solid" key={displayName}>
           {displayName}
         </Pill>
       );
@@ -66,7 +66,11 @@ const actionCell = (
 );
 
 const teamCell = (displayName: string, href: string) => {
-  return <Link href={href}>{displayName}</Link>;
+  return (
+    <Link color="black" href={href}>
+      {displayName}
+    </Link>
+  );
 };
 
 type TeamAssignment = {

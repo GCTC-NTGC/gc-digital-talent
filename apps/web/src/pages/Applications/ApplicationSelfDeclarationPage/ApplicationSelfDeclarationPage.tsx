@@ -203,15 +203,17 @@ export const ApplicationSelfDeclaration = ({
                       "Disclaimer displayed before signing the Indigenous self-declaration form",
                   })}
                 </p>
-                <Input
-                  type="text"
-                  id="signature"
-                  name="signature"
-                  label={labels.signature}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
+                <div data-h2-margin="base(x1 0)">
+                  <Input
+                    type="text"
+                    id="signature"
+                    name="signature"
+                    label={labels.signature}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
+                </div>
                 <div
                   data-h2-display="base(flex)"
                   data-h2-gap="base(x.25, x.5)"
