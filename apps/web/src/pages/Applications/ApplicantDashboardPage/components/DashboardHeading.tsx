@@ -44,6 +44,7 @@ import { StatusItem } from "~/components/StatusItem/StatusItem";
 import { HeroCard } from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentsPage/constants";
+import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
 import { PartialUser } from "../types";
 
 function buildLink(
@@ -77,7 +78,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const paths = useRoutes();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const notEmptyExperiences = user.experiences?.filter(notEmpty);
+  const notEmptyExperiences = user.experiences?.filter(notEmpty) ?? [];
+  const notEmptyApplications = user.poolCandidates?.filter(notEmpty) ?? [];
 
   const awardExperiences =
     notEmptyExperiences?.filter(isAwardExperience).map(
@@ -404,7 +406,10 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               id: "2dpDPq",
               description: "Title for qualified recruitments section",
             })}
-            itemCount={0}
+            itemCount={
+              notEmptyApplications.filter(isApplicationQualifiedRecruitment)
+                .length
+            }
             icon={ShieldCheckIcon}
             href={paths.resumeAndRecruitments(user.id, {
               section:
