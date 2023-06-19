@@ -8466,5 +8466,9 @@
   "xfYpNf": {
     "defaultMessage": "<strong>Vous avez déjà un compte CléGC?</strong> <a>Accédez plutôt </a>.",
     "description": "Instruction on what to do if user already has a GCKey"
+  },
+  "5U+V2Y": {
+    "defaultMessage": "Nous pouvons encore vous aider!",
+    "description": "Heading for helping user if no candidates matched the filters chosen."
   }
 }
