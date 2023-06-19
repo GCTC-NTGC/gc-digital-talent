@@ -130,7 +130,7 @@ const ControlledInput = ({
             onChange={handleDayChange}
             defaultValue={day}
             max={31}
-            min={0}
+            min={1}
             placeholder={intl.formatMessage(dateMessages.dayPlaceholder)}
             data-h2-width="base(100%)"
             {...inputStyles}
