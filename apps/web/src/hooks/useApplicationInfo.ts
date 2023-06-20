@@ -25,7 +25,7 @@ const useApplicationInfo = (userId?: Scalars["ID"]) => {
   if (searchParams.has("applicationId")) {
     id = searchParams.get("applicationId");
     if (id) {
-      returnRoute = paths.reviewApplication(id);
+      returnRoute = paths.application(id);
     }
   }
 

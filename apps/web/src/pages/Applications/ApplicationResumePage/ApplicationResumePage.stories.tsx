@@ -39,7 +39,7 @@ const hasExperiencesProps: ApplicationResumeStory["args"] = {
 
 export default {
   component: ApplicationResume,
-  title: "Pages/Application Revamp/Review Resume",
+  title: "Pages/Application/Review Resume",
 } as ComponentMeta<typeof ApplicationResume>;
 
 const Template: ApplicationResumeStory = (props) => (

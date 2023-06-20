@@ -14,7 +14,6 @@ const data = new Map([
 
     // Feature flags
     ["FEATURE_APPLICANT_DASHBOARD", filterUnusable("$FEATURE_APPLICANT_DASHBOARD") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_APPLICANT_DASHBOARD %>"],
-    ["FEATURE_APPLICATION_REVAMP", filterUnusable("$FEATURE_APPLICATION_REVAMP") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_APPLICATION_REVAMP %>"],
     ["FEATURE_PSAC_STRIKE", filterUnusable("$FEATURE_PSAC_STRIKE") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_PSAC_STRIKE %>"],
     ["FEATURE_SKILL_LIBRARY", filterUnusable("$FEATURE_SKILL_LIBRARY") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_SKILL_LIBRARY %>"],
 
