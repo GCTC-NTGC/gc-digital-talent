@@ -552,7 +552,7 @@ const GovernmentInfoForm = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(applicationId ?? ""),
+          url: paths.application(applicationId ?? ""),
         },
         {
           label: intl.formatMessage(navigationMessages.governmentInformation),

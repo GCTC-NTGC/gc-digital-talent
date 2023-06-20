@@ -25,7 +25,7 @@ describe("Submit Application Workflow Tests", () => {
 
       aliasMutation(req, "createApplication");
       aliasMutation(req, "UpdateApplication");
-      aliasMutation(req, "submitApplication");
+      aliasMutation(req, "SubmitApplication");
       aliasMutation(req, "CreateEducationExperience");
       aliasMutation(req, "UpdateEducationExperience");
     });
@@ -375,7 +375,7 @@ describe("Submit Application Workflow Tests", () => {
     // time to submit!
     cy.findByRole("textbox", { name: /Your full name/i }).type("Signature");
     cy.findByRole("button", { name: /Submit my application/i }).click();
-    cy.wait("@gqlsubmitApplicationMutation");
+    cy.wait("@gqlSubmitApplicationMutation");
     cy.expectToast(/We successfully received your application/i);
 
     // Application home after submitting
