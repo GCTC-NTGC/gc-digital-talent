@@ -36,6 +36,7 @@ import {
   CandidateSuspendedFilter,
   PoolStream,
   PoolCandidateWithSkillCount,
+  useGetSkillsQuery,
 } from "~/api/generated";
 
 import printStyles from "~/styles/printStyles";
@@ -68,6 +69,7 @@ import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import PoolCandidateTableFilterDialog, {
   FormValues,
 } from "./PoolCandidateTableFilterDialog";
+import { skillMatchDialogAccessor } from "./SkillMatchDialog";
 
 type Data = NonNullable<
   FromArray<PoolCandidateWithSkillCountPaginator["data"]>
@@ -507,6 +509,17 @@ const PoolCandidatesTable = ({
   const candidateData = data?.poolCandidatesPaginated?.data ?? [];
   const filteredData = candidateData.filter(notEmpty);
 
+  const [
+    { data: allSkillsData, fetching: fetchingSkills, error: skillsError },
+  ] = useGetSkillsQuery();
+  const filteredSkillIds = applicantFilterInput?.applicantFilter?.skills?.map(
+    (skill) => skill?.id,
+  );
+  const filteredSkills =
+    allSkillsData?.skills
+      .filter(notEmpty)
+      .filter((skill) => filteredSkillIds?.includes(skill.id)) ?? [];
+
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       rowSelectionColumn(
@@ -629,7 +642,12 @@ const PoolCandidatesTable = ({
         }),
         id: "skillCount",
         sortColumnName: "SKILL_COUNT",
-        accessor: ({ skillCount }) => skillCount,
+        accessor: ({ poolCandidate: { user }, skillCount }) =>
+          skillMatchDialogAccessor(
+            filteredSkills,
+            user.experiences?.filter(notEmpty) ?? [],
+            skillCount,
+          ),
       },
       {
         label: intl.formatMessage({
@@ -806,7 +824,11 @@ const PoolCandidatesTable = ({
         hiddenColumnIds={hiddenColumnIds ?? []}
       />
       <div data-h2-radius="base(s)">
-        <Pending fetching={fetching} error={error} inline>
+        <Pending
+          fetching={fetching || fetchingSkills}
+          error={error || skillsError}
+          inline
+        >
           <BasicTable
             labelledBy="pool-candidate-table-heading"
             title={title}
