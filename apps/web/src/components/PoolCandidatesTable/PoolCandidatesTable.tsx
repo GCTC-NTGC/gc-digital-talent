@@ -512,13 +512,10 @@ const PoolCandidatesTable = ({
   const [
     { data: allSkillsData, fetching: fetchingSkills, error: skillsError },
   ] = useGetSkillsQuery();
-  const filteredSkillIds = applicantFilterInput?.applicantFilter?.skills?.map(
-    (skill) => skill?.id,
-  );
-  const filteredSkills =
-    allSkillsData?.skills
-      .filter(notEmpty)
-      .filter((skill) => filteredSkillIds?.includes(skill.id)) ?? [];
+  const allSkills = allSkillsData?.skills.filter(notEmpty);
+  const filteredSkillIds = applicantFilterInput?.applicantFilter?.skills
+    ?.filter(notEmpty)
+    .map((skill) => skill.id);
 
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
@@ -644,7 +641,9 @@ const PoolCandidatesTable = ({
         sortColumnName: "SKILL_COUNT",
         accessor: ({ poolCandidate: { user }, skillCount }) =>
           skillMatchDialogAccessor(
-            filteredSkills,
+            allSkills?.filter((skill) =>
+              filteredSkillIds?.includes(skill.id),
+            ) ?? [],
             user.experiences?.filter(notEmpty) ?? [],
             skillCount,
           ),
@@ -687,7 +686,7 @@ const PoolCandidatesTable = ({
         sortColumnName: "submitted_at",
       },
     ],
-    [intl, selectedRows, filteredData, paths],
+    [intl, selectedRows, filteredData, paths, allSkills, filteredSkillIds],
   );
 
   const allColumnIds = columns.map((c) => c.id);
