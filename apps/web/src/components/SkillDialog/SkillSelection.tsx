@@ -166,8 +166,12 @@ const SkillSelection = ({
           trackUnsaved={false}
           label={intl.formatMessage(
             {
-              defaultMessage: "Select from {count} matching skills",
-              id: "r5aKc8",
+              defaultMessage: `{count, plural,
+                  one {Select from {count} matching skill}
+                  other {Select from {count} matching skills}
+              }
+              `,
+              id: "+cGG4E",
               description: "Label for the skill select field",
             },
             {
