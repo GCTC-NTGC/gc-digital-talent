@@ -15,16 +15,19 @@ const Fieldset = ({ flat, boundingBox, ...rest }: FieldsetProps) => {
   return (
     <fieldset
       {...(boundingBox && styles)}
-      data-h2-background="base(white) base:dark(black.light)"
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x.25 0)"
       data-h2-position="base(relative)"
       data-h2-margin-top="base(x1.25)"
-      {...(flat && {
-        "data-h2-border": "base(none)",
-        "data-h2-padding": "base(0)",
-      })}
+      {...(flat
+        ? {
+            "data-h2-border": "base(none)",
+            "data-h2-padding": "base(0)",
+          }
+        : {
+            "data-h2-background": "base(white) base:dark(black.light)",
+          })}
       {...rest}
     />
   );

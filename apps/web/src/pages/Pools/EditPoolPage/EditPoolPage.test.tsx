@@ -4,8 +4,10 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import { act, fireEvent, screen, within } from "@testing-library/react";
-import { currentDate } from "@gc-digital-talent/date-helpers";
-import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import {
+  renderWithProviders,
+  updateDate,
+} from "@gc-digital-talent/jest-helpers";
 import { EditPoolForm, EditPoolFormProps } from "./EditPoolPage";
 import EditPoolStory, {
   DraftPool,
@@ -297,15 +299,25 @@ describe("Edit Pool tests", () => {
     });
 
     // find the modal
-    const dialog = screen.getByRole("dialog");
+    const dialog = await screen.getByRole("dialog", {
+      name: /extend closing date/i,
+    });
 
     // interact with the modal
     await act(async () => {
-      fireEvent.change(within(dialog).getByLabelText(/end date/i), {
-        target: { value: currentDate() },
+      const dateInput = within(dialog).getByRole("group", {
+        name: /end date/i,
       });
+      updateDate(dateInput, {
+        day: "01",
+        month: "01",
+        year: "3000",
+      });
+
       fireEvent.click(
-        within(dialog).getByRole("button", { name: /extend closing date/i }),
+        within(dialog).getByRole("button", {
+          name: /extend closing date/i,
+        }),
       );
     });
 

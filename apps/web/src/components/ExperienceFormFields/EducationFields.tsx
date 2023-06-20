@@ -4,6 +4,8 @@ import { useWatch } from "react-hook-form";
 
 import {
   Checkbox,
+  DATE_SEGMENT,
+  DateInput,
   Input,
   Select,
   enumToOptions,
@@ -13,13 +15,14 @@ import {
   getEducationStatus,
   getEducationType,
 } from "@gc-digital-talent/i18n";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import { SubExperienceFormProps } from "~/types/experience";
 import { EducationStatus, EducationType } from "~/api/generated";
 
 const EducationFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
-  const todayDate = Date();
+  const todayDate = new Date();
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
@@ -81,49 +84,6 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <div data-h2-flex-grid="base(flex-start, x2, 0)">
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              <Input
-                id="startDate"
-                label={labels.startDate}
-                name="startDate"
-                type="date"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                  max: {
-                    value: todayDate,
-                    message: intl.formatMessage(errorMessages.mustNotBeFuture),
-                  },
-                }}
-              />
-            </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-              {!isCurrent && (
-                <Input
-                  id="endDate"
-                  label={labels.endDate}
-                  name="endDate"
-                  type="date"
-                  rules={
-                    isCurrent
-                      ? {}
-                      : {
-                          required: intl.formatMessage(errorMessages.required),
-                          min: {
-                            value: watchStartDate,
-                            message: intl.formatMessage(
-                              errorMessages.dateMustFollow,
-                              { value: watchStartDate },
-                            ),
-                          },
-                        }
-                  }
-                />
-              )}
-            </div>
-          </div>
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Input
             id="institution"
             label={labels.institution}
@@ -158,13 +118,52 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
             }))}
           />
         </div>
-        <div data-h2-flex-item="base(1of1)">
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Input
             id="thesisTitle"
             label={labels.thesisTitle}
             name="thesisTitle"
             type="text"
           />
+        </div>
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+          <DateInput
+            id="startDate"
+            legend={labels.startDate}
+            name="startDate"
+            show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              max: {
+                value: strToFormDate(todayDate.toISOString()),
+                message: intl.formatMessage(errorMessages.mustNotBeFuture),
+              },
+            }}
+          />
+        </div>
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+          {!isCurrent && (
+            <DateInput
+              id="endDate"
+              legend={labels.endDate}
+              name="endDate"
+              show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+              rules={
+                isCurrent
+                  ? {}
+                  : {
+                      required: intl.formatMessage(errorMessages.required),
+                      min: {
+                        value: watchStartDate,
+                        message: intl.formatMessage(
+                          errorMessages.dateMustFollow,
+                          { value: watchStartDate },
+                        ),
+                      },
+                    }
+              }
+            />
+          )}
         </div>
       </div>
     </div>

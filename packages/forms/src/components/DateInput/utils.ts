@@ -56,7 +56,7 @@ type GetComputedSegmentValue = (args: GetComputedSegmentValueArgs) => string;
  * @returns string
  */
 const getComputedSegmentValue: GetComputedSegmentValue = ({ values, show }) => {
-  if (values.new) {
+  if (values.new !== null) {
     return values.new;
   }
 
@@ -72,7 +72,7 @@ type SetComputedValueArgs = {
   initialValue?: string;
   show: Array<DateSegment>;
   segment: DateSegment;
-  value: string;
+  value: string | null;
 };
 
 type SetComputedValueFunc = (args: SetComputedValueArgs) => string | undefined;
@@ -117,6 +117,10 @@ export const setComputedValue: SetComputedValueFunc = ({
     },
     show: show.includes(DATE_SEGMENT.Day),
   });
+
+  if (!newYear && !newMonth && !newDay) {
+    return "";
+  }
 
   return [newYear, newMonth, newDay].join("-");
 };

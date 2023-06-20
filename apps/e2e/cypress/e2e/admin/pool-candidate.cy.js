@@ -121,7 +121,13 @@ describe("Pool Candidates", () => {
       cy.get("option:selected").should("have.text", "Screened In");
     });
 
-    cy.findByLabelText(/Candidate expiry date/i).type("2023-12-01");
+    cy.findByRole("group", { name: /candidate expiry date/i }).within(() => {
+      cy.findAllByRole("spinbutton", { name: /year/i }).clear()
+      cy.findAllByRole("spinbutton", { name: /year/i }).type("2023");
+      cy.findAllByRole("combobox", { name: /month/i }).select("12");
+      cy.findAllByRole("spinbutton", { name: /day/i }).clear();
+      cy.findAllByRole("spinbutton", { name: /day/i }).type("01");
+    });
 
     cy.findByRole("textbox", { name: /notes/i }).type("New Notes");
 
@@ -218,7 +224,11 @@ describe("Pool Candidates", () => {
       cy.get("option:selected").should("have.text", "Screened In");
     });
 
-    cy.findByLabelText(/Candidate expiry date/i).clear();
+    cy.findByRole("group", { name: /candidate expiry date/i }).within(() => {
+      cy.findAllByRole("spinbutton", { name: /year/i }).clear()
+      cy.findAllByRole("combobox", { name: /month/i }).select("");
+      cy.findAllByRole("spinbutton", { name: /day/i }).clear();
+    });
 
     cy.findByRole("textbox", { name: /notes/i }).clear();
 
