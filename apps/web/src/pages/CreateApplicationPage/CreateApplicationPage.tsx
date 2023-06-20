@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Loading } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import {
   tryFindMessageDescriptor,
   errorMessages,
