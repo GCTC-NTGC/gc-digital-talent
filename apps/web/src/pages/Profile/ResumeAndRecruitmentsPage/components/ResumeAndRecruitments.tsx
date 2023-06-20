@@ -1,13 +1,10 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { TableOfContents, Heading, Link } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
 
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { flattenExperienceSkills } from "~/types/experience";
 import MissingSkills from "~/components/MissingSkills";
 import {
@@ -20,9 +17,7 @@ import {
   WorkExperience,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import ProfileFormWrapper, {
-  ProfileFormFooter,
-} from "~/components/ProfileFormWrapper/ProfileFormWrapper";
+import ProfileFormWrapper from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { Application } from "~/utils/applicationUtils";
 import ResumeSection from "./ResumeSection";
@@ -64,57 +59,16 @@ export const ResumeAndRecruitments = ({
 }: ResumeAndRecruitmentsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
-  const applicationParam = applicationId
-    ? `?applicationId=${applicationId}`
-    : ``;
-  const returnRoute = applicationId
-    ? paths.reviewApplication(applicationId)
-    : paths.profile(applicantId);
-
   const hasResumeItems = !!experiences?.length;
-
-  const applicationBreadcrumbs: {
-    label: string | React.ReactNode;
-    url: string;
-  }[] = pool
-    ? [
-        {
-          label: intl.formatMessage({
-            defaultMessage: "My applications",
-            id: "jSYDwZ",
-            description: "Link text for breadcrumb to user applications page.",
-          }),
-          url: paths.applications(applicantId),
-        },
-        {
-          label: getFullPoolTitleHtml(intl, pool),
-          url: paths.pool(pool.id),
-        },
-        {
-          label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(applicationId ?? ""),
-        },
-        {
-          label: intl.formatMessage(titles.resumeAndRecruitments),
-          url: `${paths.resumeAndRecruitments(applicantId)}${applicationParam}`,
-        },
-      ]
-    : [];
 
   return (
     <ProfileFormWrapper
-      crumbs={
-        applicationBreadcrumbs?.length
-          ? applicationBreadcrumbs
-          : [
-              {
-                label: intl.formatMessage(titles.resumeAndRecruitments),
-                url: paths.resumeAndRecruitments(applicantId),
-              },
-            ]
-      }
+      crumbs={[
+        {
+          label: intl.formatMessage(titles.resumeAndRecruitments),
+          url: paths.resumeAndRecruitments(applicantId),
+        },
+      ]}
       prefixBreadcrumbs={!pool}
       description={intl.formatMessage(
         {
@@ -169,7 +123,6 @@ export const ResumeAndRecruitments = ({
             )}
             <div data-h2-margin-top="base(x2)">
               <ResumeSection
-                editParam={applicationParam}
                 experiences={experiences}
                 applicantId={applicantId}
               />
@@ -212,17 +165,6 @@ export const ResumeAndRecruitments = ({
           </TableOfContents.Section>
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
-      <ProfileFormFooter
-        mode="cancelButton"
-        cancelLink={{
-          href: returnRoute,
-          children: intl.formatMessage(
-            applicationId
-              ? navigationMessages.backToApplication
-              : navigationMessages.backToProfile,
-          ),
-        }}
-      />
     </ProfileFormWrapper>
   );
 };
