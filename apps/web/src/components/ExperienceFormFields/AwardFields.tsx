@@ -38,21 +38,6 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <DateInput
-            id="awardedDate"
-            legend={labels.awardedDate}
-            name="awardedDate"
-            show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              max: {
-                value: strToFormDate(todayDate.toISOString()),
-                message: intl.formatMessage(errorMessages.mustNotBeFuture),
-              },
-            }}
-          />
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Select
             id="awardedTo"
             label={labels.awardedTo}
@@ -86,7 +71,7 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
             rules={{ required: intl.formatMessage(errorMessages.required) }}
           />
         </div>
-        <div data-h2-flex-item="base(1of1)">
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Select
             id="awardedScope"
             label={labels.awardedScope}
@@ -112,6 +97,21 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
               value,
               label: intl.formatMessage(getAwardedScope(value)),
             }))}
+          />
+        </div>
+        <div data-h2-flex-item="base(1of1)">
+          <DateInput
+            id="awardedDate"
+            legend={labels.awardedDate}
+            name="awardedDate"
+            show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              max: {
+                value: strToFormDate(todayDate.toISOString()),
+                message: intl.formatMessage(errorMessages.mustNotBeFuture),
+              },
+            }}
           />
         </div>
       </div>
