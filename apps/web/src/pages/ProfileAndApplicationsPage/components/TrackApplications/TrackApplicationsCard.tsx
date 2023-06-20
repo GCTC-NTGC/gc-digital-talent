@@ -22,7 +22,8 @@ import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 import useMutations from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/useMutations";
-import { getRecruitmentType } from "~/utils/poolCandidate";
+import { getRecruitmentType, isQualifiedStatus } from "~/utils/poolCandidate";
+import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import { getApplicationDateInfo } from "./utils";
 
 export type Application = Omit<PoolCandidate, "user">;
@@ -53,6 +54,7 @@ const TrackApplicationsCard = ({
     application.pool.closingDate,
   );
   const isApplicantPlaced = isPlaced(application.status);
+  const isApplicantQualified = isQualifiedStatus(application.status);
   const statusPill = getStatusPillInfo(application.status, intl);
   const closingDateInfo = getApplicationDateInfo(application, intl);
   return (
@@ -98,7 +100,21 @@ const TrackApplicationsCard = ({
             />
           ) : (
             <Pill bold mode="outline" color={statusPill.color}>
-              {statusPill.text}
+              {isApplicantQualified ? (
+                <span
+                  data-h2-display="base(flex)"
+                  data-h2-align-items="base(center)"
+                  data-h2-gap="base(0 x.25)"
+                >
+                  <ShieldCheckIcon
+                    data-h2-width="base(1rem)"
+                    data-h2-height="base(auto)"
+                  />
+                  <span>{statusPill.text}</span>
+                </span>
+              ) : (
+                statusPill.text
+              )}
             </Pill>
           )}
         </div>
