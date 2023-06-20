@@ -1033,10 +1033,6 @@
     "defaultMessage": "La Loi sur l'équité en matière d'emploi du Canada (1995) identifie quatre groupes qui ont connu des obstacles systémiques à l'emploi et un certain nombre d'obligations pour le gouvernement du Canada de surmonter ces obstacles.",
     "description": "Description text for Profile Form wrapper in DiversityEquityInclusionForm"
   },
-  "P/Mm5G": {
-    "defaultMessage": "Expérience et compétences",
-    "description": "Display text for My experience and skills Form Page Link"
-  },
   "PH8qp2": {
     "defaultMessage": "Avez-vous utilisé des techniques ou des approches particulières?",
     "description": "Question for user in skills in detail section of experience form."
@@ -1492,10 +1488,6 @@
   "W2YIEA": {
     "defaultMessage": "Postulez pour ce processus",
     "description": "Link text to apply for a pool advertisement"
-  },
-  "XzUzZz": {
-    "defaultMessage": "Il n'y a pas encore d'expériences sur votre profil. Vous pouvez en ajouter en utilisant les boutons précédents.",
-    "description": "Message to user when no experiences have been attached to profile."
   },
   "ZuFBx5": {
     "defaultMessage": "Débutant <gray>- Je possède des compétences de base en lecture, écriture et communication verbale.</gray>",
