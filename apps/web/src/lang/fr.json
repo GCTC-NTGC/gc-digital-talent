@@ -1537,10 +1537,6 @@
     "defaultMessage": "Plage de salaire :",
     "description": "Label for pool advertisement salary range"
   },
-  "ojN4Si": {
-    "defaultMessage": "Date de clôture :",
-    "description": "Label for pool advertisement closing date"
-  },
   "Wnw+oz": {
     "defaultMessage": "<strong>Courriel</strong> : <anchorTag>{emailAddress}</anchorTag>",
     "description": "An email address to contact for help"
