@@ -14,7 +14,8 @@ const Legend = ({ required, children, ...props }: LegendProps) => (
     data-h2-position="base(absolute)"
     data-h2-left="base(0)"
     data-h2-top="base(-x1.25)"
-    data-h2-font-size="base(caption)"
+    data-h2-font-size="base(copy)"
+    data-h2-font-weight="base(700)"
     {...props}
   >
     {children}
