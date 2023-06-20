@@ -1317,6 +1317,10 @@
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Button text to submit employment equity form."
   },
+  "+lKz3l": {
+    "defaultMessage": "Mon profil",
+    "description": "Breadcrumb from applicant profile wrapper."
+  },
   "ttRVSp": {
     "defaultMessage": "Comment ces données seront-elles utilisées?",
     "description": "Heading for how employment equity information will be used."
