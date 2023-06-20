@@ -71,6 +71,15 @@ const FormFields = ({ labels }: FormFieldProps) => {
             required: intl.formatMessage(errorMessages.required),
           }}
         />
+        <Input
+          id="currentCity"
+          name="currentCity"
+          type="text"
+          label={labels.currentCity}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+        />
         <Select
           id="currentProvince"
           name="currentProvince"
@@ -89,65 +98,42 @@ const FormFields = ({ labels }: FormFieldProps) => {
             required: intl.formatMessage(errorMessages.required),
           }}
         />
-        <Input
-          id="currentCity"
-          name="currentCity"
-          type="text"
-          label={labels.currentCity}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
       </div>
       <div
         data-h2-display="base(grid)"
         data-h2-gap="l-tablet(0 x1)"
         data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
+        data-h2-margin-bottom="base(x1)"
       >
-        <Select
+        <RadioGroup
           id="preferredLang"
-          label={labels.preferredLang}
+          legend={labels.preferredLang}
+          idPrefix="preferredLang"
           name="preferredLang"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          nullSelection={intl.formatMessage({
-            defaultMessage: "Select a language",
-            id: "/Y/n1N",
-            description:
-              "Placeholder displayed on the About Me form preferred communication language",
-          })}
-          options={enumToOptions(Language).map(({ value }) => ({
+          items={enumToOptions(Language).map(({ value }) => ({
             value,
             label: intl.formatMessage(getLanguage(value)),
           }))}
         />
-        <Select
+        <RadioGroup
           id="preferredLanguageForInterview"
-          label={labels.preferredLanguageForInterview}
+          legend={labels.preferredLanguageForInterview}
+          idPrefix="preferredLanguageForInterview"
           name="preferredLanguageForInterview"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          nullSelection={intl.formatMessage({
-            defaultMessage: "Select a language",
-            id: "ViNcRW",
-            description:
-              "Placeholder displayed on the About Me form preferred interview language",
-          })}
-          options={enumToOptions(Language).map(({ value }) => ({
+          items={enumToOptions(Language).map(({ value }) => ({
             value,
             label: intl.formatMessage(getLanguage(value)),
           }))}
         />
-        <Select
+        <RadioGroup
           id="preferredLanguageForExam"
-          label={labels.preferredLanguageForExam}
+          legend={labels.preferredLanguageForExam}
+          idPrefix="preferredLanguageForExam"
           name="preferredLanguageForExam"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          nullSelection={intl.formatMessage({
-            defaultMessage: "Select a language",
-            id: "cYw8hN",
-            description:
-              "Placeholder displayed on the About Me form preferred exam language",
-          })}
-          options={enumToOptions(Language).map(({ value }) => ({
+          items={enumToOptions(Language).map(({ value }) => ({
             value,
             label: intl.formatMessage(getLanguage(value)),
           }))}
@@ -177,13 +163,6 @@ const FormFields = ({ labels }: FormFieldProps) => {
             value: status,
             label: intl.formatMessage(getCitizenshipStatusesProfile(status)),
           }))}
-          context={intl.formatMessage({
-            defaultMessage:
-              "Preference will be given to Canadian citizens and permanent residents of Canada",
-            id: "fI6Hjf",
-            description:
-              "Context text for required citizenship status section in About Me form, explaining preference",
-          })}
         />
       </div>
     </>

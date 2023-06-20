@@ -705,8 +705,8 @@
     "defaultMessage": "Autre",
     "description": "user is neither a citizen or permanent resident of Canada"
   },
-  "5vrCDC": {
-    "defaultMessage": "Je suis un citoyen canadien",
+  "l4wLn9": {
+    "defaultMessage": "Je suis un citoyen canadien.",
     "description": "declaring one to be a Canadian citizen"
   },
   "FEfWEH": {
@@ -717,8 +717,8 @@
     "defaultMessage": "Indéterminé",
     "description": "Duration that is permanent (short-form for limited space)"
   },
-  "FrIl8e": {
-    "defaultMessage": "Je suis un résident permanent du Canada",
+  "OaB49n": {
+    "defaultMessage": "Je suis un résident permanent du Canada.",
     "description": "declaring one to be a permanent resident"
   },
   "HMXnoR": {

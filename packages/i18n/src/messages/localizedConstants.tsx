@@ -158,13 +158,13 @@ export const getLanguage = (languageId: string | number): MessageDescriptor =>
 
 export const citizenshipStatusesProfile = defineMessages({
   [CitizenshipStatus.Citizen]: {
-    defaultMessage: "I am a Canadian citizen",
-    id: "5vrCDC",
+    defaultMessage: "I am a Canadian citizen.",
+    id: "l4wLn9",
     description: "declaring one to be a Canadian citizen",
   },
   [CitizenshipStatus.PermanentResident]: {
-    defaultMessage: "I am a permanent resident of Canada",
-    id: "FrIl8e",
+    defaultMessage: "I am a permanent resident of Canada.",
+    id: "OaB49n",
     description: "declaring one to be a permanent resident",
   },
   [CitizenshipStatus.Other]: {
@@ -240,27 +240,49 @@ export const getArmedForcesStatusesAdmin = (
 
 export const armedForcesStatusesProfile = defineMessages({
   [ArmedForcesStatus.Veteran]: {
-    defaultMessage: "I am a veteran of the CAF",
-    id: "0xf5TR",
+    defaultMessage:
+      "I am a <strong>veteran</strong> of the Canadian Armed Forces.",
+    id: "ZpTNbt",
     description: "declare self to be a CAF veteran",
   },
   [ArmedForcesStatus.Member]: {
-    defaultMessage: "I am an active member of the CAF",
-    id: "uj33ws",
+    defaultMessage:
+      "I am an <strong>active member</strong> of the Canadian Armed Forces.",
+    id: "iYNLo1",
     description: "declare self to be a CAF member",
   },
   [ArmedForcesStatus.NonCaf]: {
-    defaultMessage: "I am not a member of the CAF",
-    id: "Y87WVR",
+    defaultMessage:
+      "I am <strong>not a member</strong> of the Canadian Armed Forces.",
+    id: "bAaDat",
     description: "declare self to not be in the CAF",
+  },
+});
+
+export const armedForcesStatusesProfileNoBold = defineMessages({
+  [ArmedForcesStatus.Veteran]: {
+    defaultMessage: "I am a veteran of the Canadian Armed Forces.",
+    id: "jqyjFm",
+    description: "declare self to be a CAF veteran without bolding",
+  },
+  [ArmedForcesStatus.Member]: {
+    defaultMessage: "I am an active member of the Canadian Armed Forces.",
+    id: "TRDfnp",
+    description: "declare self to be a CAF member without bolding",
+  },
+  [ArmedForcesStatus.NonCaf]: {
+    defaultMessage: "I am not a member of the Canadian Armed Forces.",
+    id: "vPDtGU",
+    description: "declare self to not be in the CAF without bolding",
   },
 });
 
 export const getArmedForcesStatusesProfile = (
   armedForcesId: string | number,
+  bold = true,
 ): MessageDescriptor =>
   getOrThrowError(
-    armedForcesStatusesProfile,
+    bold ? armedForcesStatusesProfile : armedForcesStatusesProfileNoBold,
     armedForcesId,
     `Invalid status '${armedForcesId}'`,
   );

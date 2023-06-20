@@ -12,28 +12,25 @@ import { FormValues } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({
   preferredLang: intl.formatMessage({
-    defaultMessage: "Select your preferred communication language",
-    id: "MyUazW",
-    description:
-      "Legend text for required communication language preference in About Me form",
+    defaultMessage: "Communication language",
+    id: "ceofev",
+    description: "Legend text for communication language preference",
   }),
   preferredLanguageForInterview: intl.formatMessage({
-    defaultMessage: "Select your preferred spoken interview language",
-    id: "sOmEaW",
+    defaultMessage: "Spoken interview language",
+    id: "ehrsDa",
     description:
-      "Legend text for required spoken interview language preference for interviews in About Me form",
+      "Legend text for spoken interview language preference for interviews",
   }),
   preferredLanguageForExam: intl.formatMessage({
-    defaultMessage: "Select your preferred written exam language",
-    id: "g5pT17",
-    description:
-      "Legend text for required written exam language preference for exams in About Me form",
+    defaultMessage: "Written exam language",
+    id: "boPmF+",
+    description: "Legend text for written exam language preference for exams",
   }),
   currentProvince: intl.formatMessage({
-    defaultMessage: "Current province or territory",
-    id: "r4PFx0",
-    description:
-      "Label for current province or territory field in About Me form",
+    defaultMessage: "Province or territory",
+    id: "yzgwjd",
+    description: "Label for current province or territory field",
   }),
   currentCity: intl.formatMessage({
     defaultMessage: "Current city",
@@ -46,30 +43,29 @@ export const getLabels = (intl: IntlShape) => ({
     description: "Label for telephone field in About Me form",
   }),
   firstName: intl.formatMessage({
-    defaultMessage: "First Name",
-    id: "btydLe",
-    description: "Label for first name field in About Me form",
+    defaultMessage: "Given name",
+    id: "DUh8zg",
+    description: "Label for given name field",
   }),
   lastName: intl.formatMessage({
-    defaultMessage: "Last Name",
-    id: "wrHSMx",
-    description: "Label for last name field in About Me form",
+    defaultMessage: "Surname",
+    id: "dssZUt",
+    description: "Label for surname field",
   }),
   email: intl.formatMessage({
-    defaultMessage: "Email",
-    id: "i5xxbe",
-    description: "Label for email field in About Me form",
+    defaultMessage: "Personal email",
+    id: "g1++nq",
+    description: "Label for email field",
   }),
   citizenship: intl.formatMessage({
-    defaultMessage: "Citizenship Status",
-    id: "o5pks7",
-    description: "Legend text for required citizenship status in About Me form",
+    defaultMessage: "Citizenship status",
+    id: "7DUfu+",
+    description: "Legend text for citizenship status",
   }),
   armedForcesStatus: intl.formatMessage({
-    defaultMessage: "Member of the Canadian Armed Forces (CAF)",
-    id: "DZwVvi",
-    description:
-      "Legend text for required Canadian Armed Forces selection in About Me form",
+    defaultMessage: "Veteran status",
+    id: "WyejQ2",
+    description: "Legend text for Veteran status selection",
   }),
 });
 
