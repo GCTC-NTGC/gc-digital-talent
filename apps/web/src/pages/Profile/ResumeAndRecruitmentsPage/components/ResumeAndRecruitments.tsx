@@ -171,7 +171,6 @@ export const ResumeAndRecruitments = ({
               <ResumeSection
                 editParam={applicationParam}
                 experiences={experiences}
-                headingLevel="h2"
                 applicantId={applicantId}
               />
             </div>
@@ -209,10 +208,7 @@ export const ResumeAndRecruitments = ({
                   "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitments page.",
               })}
             </p>
-            <QualifiedRecruitmentsSection
-              applications={applications}
-              headingLevel="h2"
-            />
+            <QualifiedRecruitmentsSection applications={applications} />
           </TableOfContents.Section>
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
