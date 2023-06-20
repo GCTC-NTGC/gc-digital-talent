@@ -30,6 +30,7 @@ export interface SkillDialogProps {
   skills: Skill[];
   context?: SkillDialogContext;
   showCategory?: boolean;
+  defaultOpen?: boolean;
   trigger?: {
     label?: React.ReactNode;
     icon?: IconType;
@@ -43,9 +44,10 @@ const SkillDialog = ({
   context,
   showCategory,
   trigger,
+  defaultOpen = false,
 }: SkillDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
   const [selectedSkill, setSelectedSkill] = React.useState<Skill | null>(null);
   const methods = useForm<FormValues>({
     defaultValues: defaultFormValues,

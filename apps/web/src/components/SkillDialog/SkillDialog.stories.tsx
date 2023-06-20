@@ -15,6 +15,7 @@ export default {
   decorators: [OverlayOrDialogDecorator],
   args: {
     skills: mockSkills,
+    defaultOpen: true,
   },
 };
 
