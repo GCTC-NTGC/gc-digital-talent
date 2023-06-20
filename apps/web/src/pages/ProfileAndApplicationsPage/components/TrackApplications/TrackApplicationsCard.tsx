@@ -9,13 +9,11 @@ import {
   Pill,
 } from "@gc-digital-talent/ui";
 import { useIntl } from "react-intl";
-import { Maybe, PoolCandidate, Skill } from "~/api/generated";
+import { PoolCandidate, Skill } from "~/api/generated";
 import ApplicationActions, {
   DeleteActionProps,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/ApplicationActions";
 import {
-  formatClosingDate,
-  formatSubmittedAt,
   isDraft,
   isExpired,
   isPlaced,
@@ -25,6 +23,7 @@ import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 import useMutations from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/useMutations";
 import { getRecruitmentType } from "~/utils/poolCandidate";
+import { getApplicationDateInfo } from "./utils";
 
 export type Application = Omit<PoolCandidate, "user">;
 
@@ -55,7 +54,7 @@ const TrackApplicationsCard = ({
   );
   const isApplicantPlaced = isPlaced(application.status);
   const statusPill = getStatusPillInfo(application.status, intl);
-
+  const closingDateInfo = getApplicationDateInfo(application, intl);
   return (
     <div
       data-h2-border-left="base(x.5 solid primary)"
@@ -78,46 +77,60 @@ const TrackApplicationsCard = ({
         >
           {getFullPoolTitleHtml(intl, application.pool)}
         </Heading>
-        {applicationIsDraft ? (
-          <ApplicationLink
-            poolId={application.pool.id}
-            applicationId={application.id}
-            hasApplied={false}
-            canApply
-            linkProps={{ block: true, color: "primary" }}
-            linkText={intl.formatMessage({
-              defaultMessage: "Continue draft",
-              id: "jiJ8qo",
-              description: "Link text to apply for a pool advertisement",
-            })}
-          />
-        ) : (
-          <Pill bold mode="outline" color={statusPill.color}>
-            {statusPill.text}
-          </Pill>
-        )}
+        <div
+          data-h2-display="base(flex)"
+          data-h2-align-items="base(center)"
+          data-h2-justify-content="base(space-between)"
+          data-h2-gap="base(0 x.5)"
+        >
+          {applicationIsDraft ? (
+            <ApplicationLink
+              poolId={application.pool.id}
+              applicationId={application.id}
+              hasApplied={false}
+              canApply
+              linkProps={{ block: true, color: "primary" }}
+              linkText={intl.formatMessage({
+                defaultMessage: "Continue draft",
+                id: "jiJ8qo",
+                description: "Link text to apply for a pool advertisement",
+              })}
+            />
+          ) : (
+            <Pill bold mode="outline" color={statusPill.color}>
+              {statusPill.text}
+            </Pill>
+          )}
+        </div>
       </div>
-
-      <p data-h2-color="base(primary.darker)" data-h2-margin="base(x.5 0 x1 0)">
-        {getRecruitmentType(application.pool.publishingGroup, intl)}
-      </p>
-      {!applicationIsDraft ? (
-        <p data-h2-color="base(black.light)" data-h2-margin="base(x.5 0 x1 0)">
-          {intl.formatMessage({
-            defaultMessage: "Applied On:",
-            id: "iVnq5A",
-          })}{" "}
-          {formatSubmittedAt(application.submittedAt, intl)}
-        </p>
-      ) : (
-        <p data-h2-color="base(black.light)" data-h2-margin="base(x.5 0 x1 0)">
-          {intl.formatMessage({
-            defaultMessage: "Apply By:",
-            id: "mX5tc6",
-          })}{" "}
-          {formatClosingDate(application.pool.closingDate, intl)}
-        </p>
-      )}
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) p-tablet(row)"
+        data-h2-align-items="base(space-between)"
+        data-h2-justify-content="base(flex-start)"
+        data-h2-gap="base(x.5 0) p-tablet(0 x.5)"
+      >
+        <span
+          data-h2-color="base(primary.darker)"
+          data-h2-margin="base(x.5 0 x1 0)"
+        >
+          {getRecruitmentType(application.pool.publishingGroup, intl)}
+        </span>
+        <span
+          data-h2-color={closingDateInfo.color}
+          data-h2-margin="base(x.5 0 x1 0)"
+        >
+          {intl.formatMessage(
+            {
+              defaultMessage: "{message}",
+              id: "DDJcI/",
+              description: "Label for Application Date",
+            },
+            { message: closingDateInfo.message },
+          )}
+          {closingDateInfo.date}
+        </span>
+      </div>
       <div>
         {skills.length > 0 ? (
           <div
