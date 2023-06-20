@@ -38,7 +38,7 @@ Cypress.Commands.add("createApplication", (userId, poolId) => {
 
 Cypress.Commands.add("submitApplication", (applicationId, signature) => {
   cy.graphqlRequest({
-    operationName: "submitApplication",
+    operationName: "SubmitApplication",
     query: getGqlString(SubmitApplicationDocument),
     variables: {
       id: applicationId,
