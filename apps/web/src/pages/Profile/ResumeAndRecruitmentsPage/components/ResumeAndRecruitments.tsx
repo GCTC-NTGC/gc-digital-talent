@@ -191,8 +191,13 @@ export const ResumeAndRecruitments = ({
               <Link
                 href={paths.browsePools()}
                 data-h2-flex-item="base(1of1) p-tablet(content)"
+                mode="inline"
               >
-                Browse jobs
+                {intl.formatMessage({
+                  defaultMessage: "Browse jobs",
+                  id: "ApyEMy",
+                  description: "Title for the browse pools page",
+                })}
               </Link>
             </div>
             <p data-h2-margin="base(x1, 0, x2, 0)">
