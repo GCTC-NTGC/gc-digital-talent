@@ -46,7 +46,7 @@ const getRoutes = (lang: Locales) => {
     `${path.join(
       userUrl(userId),
       "profile",
-      "experiences",
+      "resume-and-recruitments",
       type,
       "create",
     )}${applicationParam(applicationId)}`;
