@@ -103,6 +103,8 @@ const DateInput = ({
       <Field.Fieldset aria-describedby={ariaDescribedBy} flat {...rest}>
         <Field.Legend
           required={required}
+          data-h2-font-size="base(copy)"
+          data-h2-font-weight="base(700)"
           {...(hideLegend && {
             "data-h2-visually-hidden": "base(invisible)",
           })}
