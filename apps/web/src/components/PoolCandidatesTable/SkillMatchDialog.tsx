@@ -84,6 +84,7 @@ export function skillMatchDialogAccessor(
   experiences: Experience[],
   skillCount: Maybe<number>,
 ) {
+  if (filteredSkills.length === 0) return <p>0/0</p>;
   return (
     <SkillMatchDialog
       filteredSkills={filteredSkills}
