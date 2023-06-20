@@ -6,26 +6,26 @@ import { FormValues } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({
   wouldAcceptTemporary: intl.formatMessage({
-    defaultMessage: "I would consider accepting a job that lasts for:",
-    id: "GNtu/7",
+    defaultMessage: "I would consider accepting a job that lasts for...",
+    id: "/DCykA",
     description:
       "Legend Text for required work preferences options in work preferences form",
   }),
   acceptedOperationalRequirements: intl.formatMessage({
-    defaultMessage: "I would consider accepting a job that:",
-    id: "Vvb8tu",
+    defaultMessage: "I would consider accepting a job that...",
+    id: "82Oe0C",
     description:
       "Legend for optional work preferences check list in work preferences form",
   }),
   locationPreferences: intl.formatMessage({
-    defaultMessage: "Work location",
-    id: "nueuS8",
-    description:
-      "Legend for optional work preferences check list in work preferences form",
+    defaultMessage: "I am willing to work in the...",
+    id: "1PVIbX",
+    description: "Legend for work regions check list in work preferences form",
   }),
   locationExemptions: intl.formatMessage({
-    defaultMessage: "Location exemptions",
-    id: "0qNkIp",
+    defaultMessage:
+      "Please indicate if there is a city that you would like to exclude from a region.",
+    id: "dcvRbO",
     description:
       "Location Exemptions field label for work location preference form",
   }),

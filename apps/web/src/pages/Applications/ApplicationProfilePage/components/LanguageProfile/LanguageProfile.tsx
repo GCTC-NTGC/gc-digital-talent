@@ -68,7 +68,7 @@ const LanguageProfile = ({
 
   return (
     <ToggleSection.Root
-      id="language-section"
+      id="lang-section"
       open={isEditing}
       onOpenChange={setIsEditing}
     >

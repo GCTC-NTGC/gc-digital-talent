@@ -486,36 +486,36 @@ export const workRegions = defineMessages({
 export const workRegionsDetailed = defineMessages({
   [WorkRegion.Telework]: {
     defaultMessage:
-      "<strong>Virtual:</strong> Work from home, anywhere in Canada.",
-    id: "GzVxoB",
+      "<strong>Virtual</strong> (work from home, anywhere in Canada)",
+    id: "pmoexB",
     description: "The work region of Canada described as Telework.",
   },
   [WorkRegion.NationalCapital]: {
     defaultMessage:
-      "<strong>National Capital Region:</strong> Ottawa, ON and Gatineau, QC.",
-    id: "eYak7E",
+      "<strong>National Capital Region</strong> (Ottawa, Ontario and Gatineau, Quebec)",
+    id: "8JxN4A",
     description: "The work region of Canada described as National Capital.",
   },
   [WorkRegion.Atlantic]: {
     defaultMessage:
-      "<strong>Atlantic Region:</strong> New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island.",
-    id: "ubXVBC",
+      "<strong>Atlantic Region</strong> (New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island)",
+    id: "3f6YzQ",
     description: "The work region of Canada described as Atlantic.",
   },
   [WorkRegion.Quebec]: {
-    defaultMessage: "<strong>Quebec Region:</strong> excluding Gatineau.",
-    id: "Gw2JKz",
+    defaultMessage: "<strong>Quebec Region</strong> (excluding Gatineau)",
+    id: "ZoFcYn",
     description: "The work region of Canada described as Quebec.",
   },
   [WorkRegion.Ontario]: {
-    defaultMessage: "<strong>Ontario Region:</strong> excluding Ottawa.",
-    id: "oU4OmU",
+    defaultMessage: "<strong>Ontario Region</strong> (excluding Ottawa)",
+    id: "3agw4G",
     description: "The work region of Canada described as Ontario.",
   },
   [WorkRegion.Prairie]: {
     defaultMessage:
-      "<strong>Prairie Region:</strong> Manitoba, Saskatchewan, Alberta.",
-    id: "x5sy3j",
+      "<strong>Prairie Region</strong> (Manitoba, Saskatchewan, Alberta)",
+    id: "suvoSt",
     description: "The work region of Canada described as Prairie.",
   },
   [WorkRegion.BritishColumbia]: {
@@ -525,17 +525,63 @@ export const workRegionsDetailed = defineMessages({
   },
   [WorkRegion.North]: {
     defaultMessage:
-      "<strong>North Region:</strong> Yukon, Northwest Territories and Nunavut.",
-    id: "/nMdQr",
+      "<strong>North Region</strong> (Yukon, Northwest Territories and Nunavut)",
+    id: "us8fY4",
+    description: "The work region of Canada described as North.",
+  },
+});
+
+export const workRegionsDetailedNoBold = defineMessages({
+  [WorkRegion.Telework]: {
+    defaultMessage: "Virtual (work from home, anywhere in Canada)",
+    id: "x8v6Qp",
+    description: "The work region of Canada described as Telework.",
+  },
+  [WorkRegion.NationalCapital]: {
+    defaultMessage:
+      "National Capital Region (Ottawa, Ontario and Gatineau, Quebec)",
+    id: "dxjUnU",
+    description: "The work region of Canada described as National Capital.",
+  },
+  [WorkRegion.Atlantic]: {
+    defaultMessage:
+      "Atlantic Region (New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island)",
+    id: "ChFxsM",
+    description: "The work region of Canada described as Atlantic.",
+  },
+  [WorkRegion.Quebec]: {
+    defaultMessage: "Quebec Region (excluding Gatineau)",
+    id: "Jpq6MK",
+    description: "The work region of Canada described as Quebec.",
+  },
+  [WorkRegion.Ontario]: {
+    defaultMessage: "Ontario Region (excluding Ottawa)",
+    id: "CGNfbu",
+    description: "The work region of Canada described as Ontario.",
+  },
+  [WorkRegion.Prairie]: {
+    defaultMessage: "Prairie Region (Manitoba, Saskatchewan, Alberta)",
+    id: "oPhurq",
+    description: "The work region of Canada described as Prairie.",
+  },
+  [WorkRegion.BritishColumbia]: {
+    defaultMessage: "British Columbia Region",
+    id: "qtJrUr",
+    description: "The work region of Canada described as British Columbia.",
+  },
+  [WorkRegion.North]: {
+    defaultMessage: "North Region (Yukon, Northwest Territories and Nunavut)",
+    id: "P9roJ7",
     description: "The work region of Canada described as North.",
   },
 });
 
 export const getWorkRegionsDetailed = (
   workRegionId: string | number,
+  showBold = true,
 ): MessageDescriptor =>
   getOrThrowError(
-    workRegionsDetailed,
+    showBold ? workRegionsDetailed : workRegionsDetailedNoBold,
     workRegionId,
     `Invalid Work Region '${workRegionId}'`,
   );
@@ -1020,8 +1066,8 @@ export const operationalRequirementLabelFirstPerson = defineMessages({
     description: "The operational requirement described as shift work.",
   },
   [OperationalRequirement.OnCall]: {
-    defaultMessage: "has <strong>24/7 on call-shifts</strong>.",
-    id: "X/hYMf",
+    defaultMessage: "has <strong>24/7 on-call shifts</strong>.",
+    id: "0gInkY",
     description: "The operational requirement described as 24/7 on-call.",
   },
   [OperationalRequirement.Travel]: {
@@ -1054,14 +1100,66 @@ export const operationalRequirementLabelFirstPerson = defineMessages({
     description: "The operational requirement described as overtime.",
   },
   [OperationalRequirement.OvertimeOccasional]: {
-    defaultMessage: "requires me to <strong>work occasional overtime</strong>.",
-    id: "RYg7vl",
+    defaultMessage: "requires me to work <strong>occasional overtime</strong>.",
+    id: "sfhO+5",
     description:
       "The operational requirement described as occasional overtime.",
   },
   [OperationalRequirement.OvertimeRegular]: {
-    defaultMessage: "requires me to <strong>work regular overtime</strong>.",
-    id: "cEB0aW",
+    defaultMessage: "requires me to work <strong>regular overtime</strong>.",
+    id: "4dD2mf",
+    description: "The operational requirement described as regular overtime.",
+  },
+});
+
+export const operationalRequirementLabelFirstPersonNoBold = defineMessages({
+  [OperationalRequirement.ShiftWork]: {
+    defaultMessage: "has shift-work.",
+    id: "jHYaw8",
+    description: "The operational requirement described as shift work.",
+  },
+  [OperationalRequirement.OnCall]: {
+    defaultMessage: "has 24/7 on-call shifts.",
+    id: "aAMp6e",
+    description: "The operational requirement described as 24/7 on-call.",
+  },
+  [OperationalRequirement.Travel]: {
+    defaultMessage: "requires me to travel.",
+    id: "9ZyJZq",
+    description: "The operational requirement described as travel as required.",
+  },
+  [OperationalRequirement.TransportEquipment]: {
+    defaultMessage:
+      "requires me to transport, lift and set down equipment weighing up to 20kg.",
+    id: "VYbDJk",
+    description:
+      "The operational requirement described as transport equipment up to 20kg.",
+  },
+  [OperationalRequirement.DriversLicense]: {
+    defaultMessage:
+      "requires me to have a valid driver's license or personal mobility to the degree normally associated with the possession of a valid driver's license.",
+    id: "TmCCgR",
+    description: "The operational requirement described as driver's license.",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage: "requires me to >work scheduled overtime.",
+    id: "08jPUg",
+    description: "The operational requirement described as scheduled overtime.",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage: "requires me to work overtime on short notice.",
+    id: "P1ajBo",
+    description: "The operational requirement described as overtime.",
+  },
+  [OperationalRequirement.OvertimeOccasional]: {
+    defaultMessage: "requires me to work occasional overtime.",
+    id: "4mMU7Q",
+    description:
+      "The operational requirement described as occasional overtime.",
+  },
+  [OperationalRequirement.OvertimeRegular]: {
+    defaultMessage: "requires me to work regular overtime.",
+    id: "hWMUFx",
     description: "The operational requirement described as regular overtime.",
   },
 });
@@ -1209,10 +1307,11 @@ export const operationalRequirementLabelShort = defineMessages({
 
 export const getOperationalRequirement = (
   operationalRequirementId: string | number,
-  format: "firstPerson" | "full" | "short" = "full",
+  format: "firstPerson" | "firstPersonNoBold" | "full" | "short" = "full",
 ): MessageDescriptor => {
   const messageDictionary = {
     firstPerson: operationalRequirementLabelFirstPerson,
+    firstPersonNoBold: operationalRequirementLabelFirstPersonNoBold,
     full: operationalRequirementLabelFull,
     short: operationalRequirementLabelShort,
   };

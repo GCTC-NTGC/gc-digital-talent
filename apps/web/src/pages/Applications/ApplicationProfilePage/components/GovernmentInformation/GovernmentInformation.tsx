@@ -65,7 +65,7 @@ const GovernmentInformation = ({
 
   return (
     <ToggleSection.Root
-      id="government-section"
+      id="gov-section"
       open={isEditing}
       onOpenChange={setIsEditing}
     >

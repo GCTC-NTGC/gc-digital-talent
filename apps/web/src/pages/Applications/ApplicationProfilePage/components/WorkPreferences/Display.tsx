@@ -6,13 +6,12 @@ import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getOperationalRequirement,
-  getWorkRegion,
+  getWorkRegionsDetailed,
 } from "@gc-digital-talent/i18n";
 
 import { PositionDuration } from "~/api/generated";
 
 import FieldDisplay from "../FieldDisplay";
-import DisplayColumn from "../DisplayColumn";
 
 interface DisplayProps {
   user: User;
@@ -36,86 +35,100 @@ const Display = ({
     positionDuration && positionDuration.includes(PositionDuration.Temporary)
       ? intl.formatMessage({
           defaultMessage:
-            "any duration. (short term, long term, or indeterminate duration)",
-          id: "uHx3G7",
+            "any duration (short term, long term, indeterminate).",
+          id: "YqWNkT",
           description:
             "Label displayed on Work Preferences form for any duration option",
         })
       : intl.formatMessage({
-          defaultMessage: "Permanent duration",
-          id: "8cRL8r",
-          description: "Permanent duration only",
+          defaultMessage: "indeterminate (permanent only).",
+          id: "+YUDhx",
+          description:
+            "Label displayed on Work Preferences form for indeterminate duration option.",
         });
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-      data-h2-gap="base(x1)"
-    >
-      <DisplayColumn>
-        <FieldDisplay
-          hasError={empty(positionDuration)}
-          label={intl.formatMessage({
-            defaultMessage: "Job duration",
-            id: "/yOfhq",
-            description: "Job duration label",
-          })}
-        >
-          {positionDuration ? durationMessage : notProvided}
-        </FieldDisplay>
-        <div>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Work details",
-              id: "cJtvya",
-              description: "Work details label",
-            })}
-          />
-          {acceptedRequirements?.length ? (
-            <ul>
-              {acceptedRequirements.map((requirement) => (
-                <li key={requirement}>
-                  {intl.formatMessage(getOperationalRequirement(requirement))}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            notProvided
-          )}
-        </div>
-      </DisplayColumn>
-      <DisplayColumn>
-        <div>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Work location(s)",
-              id: "inHQQ2",
-              description: "Work location(s) label",
-            })}
-          />
-          {locations?.length ? (
-            <ul>
-              {locations.map((location) => (
-                <li key={location}>
-                  {intl.formatMessage(getWorkRegion(location))}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            notProvided
-          )}
-        </div>
+    <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+      <FieldDisplay
+        hasError={empty(positionDuration)}
+        label={intl.formatMessage({
+          defaultMessage: "Job duration",
+          id: "/yOfhq",
+          description: "Job duration label",
+        })}
+      >
+        {positionDuration
+          ? `${intl.formatMessage({
+              defaultMessage: "I would accept a job that lasts for",
+              id: "ghg7uN",
+              description:
+                "Start of sentence describing a users accepted working term",
+            })} ${durationMessage}`
+          : notProvided}
+      </FieldDisplay>
+      <div>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Location specifics",
-            id: "oEioz2",
-            description: "Location specifics label",
+            defaultMessage: "Job contexts",
+            id: "4pJgUJ",
+            description: "Work details label",
           })}
-        >
-          {locationExemptions || notProvided}
-        </FieldDisplay>
-      </DisplayColumn>
+        />
+        {acceptedRequirements?.length ? (
+          <ul>
+            {acceptedRequirements.map((requirement) => (
+              <li key={requirement}>
+                {`${intl.formatMessage({
+                  defaultMessage: "I would accept a job that",
+                  id: "sTzKQs",
+                  description:
+                    "Start of sentence describing a users accepted working condition",
+                })} ${intl.formatMessage(
+                  getOperationalRequirement(requirement, "firstPersonNoBold"),
+                )}`}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          notProvided
+        )}
+      </div>
+      <div>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Job locations",
+            id: "K+F5H7",
+            description: "Job locations label",
+          })}
+        />
+        {locations?.length ? (
+          <ul>
+            {locations.map((location) => (
+              <li key={location}>
+                {`${intl.formatMessage({
+                  defaultMessage: "I am willing to work in the",
+                  id: "cS73MC",
+                  description:
+                    "Start of sentence describing a users accepted work regions",
+                })} ${intl.formatMessage(
+                  getWorkRegionsDetailed(location, false),
+                )}`}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          notProvided
+        )}
+      </div>
+      <FieldDisplay
+        label={intl.formatMessage({
+          defaultMessage: "Location exclusions",
+          id: "+SoiCw",
+          description: "Location specifics label",
+        })}
+      >
+        {locationExemptions || notProvided}
+      </FieldDisplay>
     </div>
   );
 };

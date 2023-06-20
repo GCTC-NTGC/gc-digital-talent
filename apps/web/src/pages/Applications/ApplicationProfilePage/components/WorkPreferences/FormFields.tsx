@@ -17,7 +17,6 @@ import {
 import { WorkRegion } from "~/api/generated";
 
 import { FormFieldProps } from "../../types";
-import WithEllipsisPrefix from "./WithEllipsisPrefix";
 import useDirtyFields from "../../hooks/useDirtyFields";
 
 const FormFields = ({ labels }: FormFieldProps) => {
@@ -26,99 +25,73 @@ const FormFields = ({ labels }: FormFieldProps) => {
 
   return (
     <>
-      <RadioGroup
-        idPrefix="required-work-preferences"
-        legend={labels.wouldAcceptTemporary}
-        name="wouldAcceptTemporary"
-        id="wouldAcceptTemporary"
-        rules={{
-          required: intl.formatMessage(errorMessages.required),
-        }}
-        items={[
-          {
-            value: "true",
-            label: (
-              <WithEllipsisPrefix>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "any duration. (short term, long term, or indeterminate duration)",
-                  id: "uHx3G7",
-                  description:
-                    "Label displayed on Work Preferences form for any duration option",
-                })}
-              </WithEllipsisPrefix>
+      <div data-h2-padding-top="base(x1)">
+        <RadioGroup
+          idPrefix="required-work-preferences"
+          legend={labels.wouldAcceptTemporary}
+          name="wouldAcceptTemporary"
+          id="wouldAcceptTemporary"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={[
+            {
+              value: "true",
+              label: intl.formatMessage({
+                defaultMessage:
+                  "any duration (short term, long term, indeterminate).",
+                id: "YqWNkT",
+                description:
+                  "Label displayed on Work Preferences form for any duration option",
+              }),
+            },
+            {
+              value: "false",
+              label: intl.formatMessage({
+                defaultMessage: "indeterminate (permanent only).",
+                id: "+YUDhx",
+                description:
+                  "Label displayed on Work Preferences form for indeterminate duration option.",
+              }),
+            },
+          ]}
+        />
+      </div>
+      <div data-h2-padding-top="base(x1)">
+        <Checklist
+          idPrefix="optional-work-preferences"
+          legend={labels.acceptedOperationalRequirements}
+          name="acceptedOperationalRequirements"
+          id="acceptedOperationalRequirements"
+          items={OperationalRequirementV2.map((value) => ({
+            value,
+            label: intl.formatMessage(
+              getOperationalRequirement(value, "firstPerson"),
             ),
-          },
-          {
-            value: "false",
-            label: intl.formatMessage({
-              defaultMessage:
-                "...indeterminate duration only. (permanent only)",
-              id: "sYqIp5",
-              description:
-                "Label displayed on Work Preferences form for indeterminate duration option.",
-            }),
-          },
-        ]}
-      />
-      <Checklist
-        idPrefix="optional-work-preferences"
-        legend={labels.acceptedOperationalRequirements}
-        name="acceptedOperationalRequirements"
-        id="acceptedOperationalRequirements"
-        items={OperationalRequirementV2.map((value) => ({
-          value,
-          label: (
-            <WithEllipsisPrefix>
-              {intl.formatMessage(
-                getOperationalRequirement(value, "firstPerson"),
-              )}
-            </WithEllipsisPrefix>
-          ),
-        }))}
-      />
-      <Checklist
-        idPrefix="work-location"
-        legend={labels.locationPreferences}
-        name="locationPreferences"
-        id="locationPreferences"
-        items={enumToOptions(WorkRegion).map(({ value }) => ({
-          value,
-          label: intl.formatMessage(getWorkRegionsDetailed(value)),
-        }))}
-        rules={{
-          required: intl.formatMessage(errorMessages.required),
-        }}
-      />
+          }))}
+        />
+      </div>
+      <div data-h2-padding-top="base(x1)">
+        <Checklist
+          idPrefix="work-location"
+          legend={labels.locationPreferences}
+          name="locationPreferences"
+          id="locationPreferences"
+          items={enumToOptions(WorkRegion).map(({ value }) => ({
+            value,
+            label: intl.formatMessage(getWorkRegionsDetailed(value)),
+          }))}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+        />
+      </div>
       <TextArea
         id="location-exemptions"
         label={labels.locationExemptions}
         name="locationExemptions"
         describedBy="location-exemption-description"
       />
-      <div
-        id="location-exemption-description"
-        data-h2-margin="base(-x.75, 0 , x1, 0)"
-      >
-        <p data-h2-font-size="base(caption)">
-          {intl.formatMessage({
-            defaultMessage:
-              "Indicate if there is a city that you would like to exclude from a region.",
-            id: "1CuGS6",
-            description:
-              "Explanation text for Location exemptions field in work location preference form",
-          })}
-        </p>
-        <p data-h2-color="base(gray.dark)" data-h2-font-size="base(caption)">
-          {intl.formatMessage({
-            defaultMessage:
-              "E.g.: You want to be considered for the Quebec region, but not for Montréal.",
-            id: "2K7dVp",
-            description:
-              "Example for Location exemptions field in work location preference form",
-          })}
-        </p>
-      </div>
     </>
   );
 };
