@@ -6,14 +6,12 @@ import { Dialog, Button } from "@gc-digital-talent/ui";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 
-import {
-  PoolCandidate,
-  useChangeApplicationSuspendedAtMutation,
-} from "~/api/generated";
+import { useChangeApplicationSuspendedAtMutation } from "~/api/generated";
 import { fullPoolTitle } from "~/utils/poolUtils";
+import { Application } from "~/utils/applicationUtils";
 
 interface RecruitmentAvailabilityDialogProps {
-  candidate: PoolCandidate;
+  candidate: Application;
 }
 
 type FormValues = {

@@ -201,11 +201,11 @@ const EmploymentEquityPage = React.lazy(() =>
       ),
   ),
 );
-const ExperienceAndSkillsPage = React.lazy(() =>
+const ResumeAndRecruitmentsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsExperienceSkillsPage" */ "../pages/Profile/ExperienceAndSkillsPage/ExperienceAndSkillsPage"
+        /* webpackChunkName: "tsResumeAndRecruitmentsPage" */ "../pages/Profile/ResumeAndRecruitmentsPage/ResumeAndRecruitmentsPage"
       ),
   ),
 );
@@ -910,7 +910,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           ),
                         },
                         {
-                          path: "experiences",
+                          path: "resume-and-recruitments",
                           children: [
                             {
                               index: true,
@@ -919,7 +919,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
-                                  <ExperienceAndSkillsPage />
+                                  <ResumeAndRecruitmentsPage />
                                 </RequireAuth>
                               ),
                             },

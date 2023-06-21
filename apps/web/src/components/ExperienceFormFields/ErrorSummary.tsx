@@ -8,7 +8,7 @@ import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { ExperienceType } from "~/types/experience";
 
 interface ErrorSummaryProps {
-  experienceType?: ExperienceType;
+  experienceType?: ExperienceType | "";
 }
 
 const ErrorSummary = ({ experienceType }: ErrorSummaryProps) => {
