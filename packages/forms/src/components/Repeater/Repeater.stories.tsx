@@ -42,7 +42,9 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
   return (
     <Repeater.Root
       {...rootProps}
-      showAdd={canAdd}
+      addButtonProps={{
+        disabled: !canAdd,
+      }}
       onAdd={() => {
         const newValues = {
           en: "",
