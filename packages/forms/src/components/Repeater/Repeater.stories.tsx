@@ -85,7 +85,7 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
             </Repeater.Fieldset>
           ))
         ) : (
-          <Well>
+          <Well data-h2-text-align="base(center)">
             <p
               data-h2-font-weight="base(700)"
               data-h2-margin-bottom="base(x.5)"
@@ -96,7 +96,7 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
           </Well>
         )}
         {!canAdd && maxItems && (
-          <Well>
+          <Well data-h2-text-align="base(center)">
             <p
               data-h2-font-weight="base(700)"
               data-h2-margin-bottom="base(x.5)"
