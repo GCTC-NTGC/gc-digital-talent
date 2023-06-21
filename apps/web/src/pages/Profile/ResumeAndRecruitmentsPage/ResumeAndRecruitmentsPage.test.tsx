@@ -3,7 +3,7 @@
  */
 import { compareByDate } from "~/utils/experienceUtils";
 import { Applicant, Experience } from "~/api/generated";
-import { ExperienceForDate } from "./components/ExperienceAndSkills";
+import { ExperienceForDate } from "./components/ResumeAndRecruitments";
 
 const applicant: Applicant = { email: "blank", id: "blank" };
 const generateExperience = (
@@ -16,7 +16,7 @@ const generateExperience = (
   startDate,
 });
 
-describe("ExperienceAndSkills tests", () => {
+describe("ResumeAndRecruitments tests", () => {
   test("Should sort experiences by date correctly with no end date", () => {
     const e1 = generateExperience("1990-01-01");
     const e2 = generateExperience("1995-01-02");

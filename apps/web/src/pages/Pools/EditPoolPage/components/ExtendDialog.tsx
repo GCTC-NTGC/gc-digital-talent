@@ -3,17 +3,17 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { Input } from "@gc-digital-talent/forms";
+import { DateInput } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
   convertDateTimeZone,
-  currentDate,
+  strToFormDate,
 } from "@gc-digital-talent/date-helpers";
 
 import { Pool, Scalars } from "~/api/generated";
 
 type FormValues = {
-  endDate?: Pool["closingDate"];
+  expiryEndDate?: Pool["closingDate"];
 };
 
 type ExtendDialogProps = {
@@ -27,12 +27,13 @@ const ExtendDialog = ({
 }: ExtendDialogProps): JSX.Element => {
   const intl = useIntl();
   const [open, setOpen] = React.useState(false);
+  const todayDate = new Date();
 
   const handleExtend = useCallback(
     async (formValues: FormValues) => {
-      const closingDateInUtc = formValues.endDate
+      const closingDateInUtc = formValues.expiryEndDate
         ? convertDateTimeZone(
-            `${formValues.endDate} 23:59:59`,
+            `${formValues.expiryEndDate} 23:59:59`,
             "Canada/Pacific",
             "UTC",
           )
@@ -45,7 +46,7 @@ const ExtendDialog = ({
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      endDate: closingDate
+      expiryEndDate: closingDate
         ? new Date(closingDate).toISOString().split("T")[0]
         : "",
     },
@@ -84,7 +85,7 @@ const ExtendDialog = ({
               description: "Helper message for changing the pool closing date",
             })}
           </p>
-          <p data-h2-margin="base(x.25 0)">
+          <p data-h2-margin="base(x.5 0)">
             {intl.formatMessage({
               defaultMessage: "Write a new closing date:",
               id: "BQsJSG",
@@ -94,20 +95,19 @@ const ExtendDialog = ({
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleExtend)}>
-              <Input
-                id="extendDialog-endDate"
-                label={intl.formatMessage({
+              <DateInput
+                id="expiryEndDate"
+                legend={intl.formatMessage({
                   defaultMessage: "End Date",
                   id: "80DOGy",
                   description:
                     "Label displayed on the pool candidate form end date field.",
                 })}
-                type="date"
-                name="endDate"
+                name="expiryEndDate"
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                   min: {
-                    value: currentDate(),
+                    value: strToFormDate(todayDate.toISOString()),
                     message: intl.formatMessage(errorMessages.futureDate),
                   },
                 }}

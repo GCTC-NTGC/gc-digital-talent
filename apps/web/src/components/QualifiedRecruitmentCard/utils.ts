@@ -11,12 +11,7 @@ import {
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 
-import {
-  Department,
-  Maybe,
-  PoolCandidate,
-  PoolCandidateStatus,
-} from "~/api/generated";
+import { Department, Maybe, PoolCandidateStatus } from "~/api/generated";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { fullPoolTitle, isOngoingPublishingGroup } from "~/utils/poolUtils";
 import {
@@ -24,6 +19,7 @@ import {
   isPlacedStatus,
   isQualifiedStatus,
 } from "~/utils/poolCandidate";
+import { Application } from "~/utils/applicationUtils";
 
 export const joinDepartments = (
   departments: Maybe<Maybe<Department>[]>,
@@ -72,7 +68,7 @@ type AvailabilityInfo = {
 };
 
 export const getAvailabilityInfo = (
-  { status, suspendedAt }: PoolCandidate,
+  { status, suspendedAt }: Application,
   intl: IntlShape,
 ): AvailabilityInfo => {
   if (isExpiredStatus(status)) {
@@ -128,7 +124,7 @@ type QualifiedRecruitmentInfo = {
 };
 
 export const getQualifiedRecruitmentInfo = (
-  candidate: PoolCandidate,
+  candidate: Application,
   intl: IntlShape,
 ): QualifiedRecruitmentInfo => {
   return {

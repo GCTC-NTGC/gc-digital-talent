@@ -91,9 +91,48 @@ fragment poolSkills on Skill {
   }
 }
 
+fragment application on PoolCandidate {
+  id
+  status
+  archivedAt
+  submittedAt
+  suspendedAt
+  pool {
+    id
+    closingDate
+    name {
+      en
+      fr
+    }
+    stream
+    classifications {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+      genericJobTitles {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+      minSalary
+      maxSalary
+    }
+  }
+}
+
 query getAllApplicantExperiences($id: UUID!) {
   applicant(id: $id) {
     ...applicantExperiences
+    poolCandidates {
+      ...application
+    }
   }
 }
 

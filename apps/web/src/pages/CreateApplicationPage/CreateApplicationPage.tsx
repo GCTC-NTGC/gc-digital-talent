@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Loading } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import {
   tryFindMessageDescriptor,
   errorMessages,
@@ -33,17 +32,10 @@ const CreateApplication = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { applicationRevamp } = useFeatureFlags();
   const auth = useAuthorization();
   const [{ data: newApplicationData }, executeMutation] =
     useCreateApplicationMutation();
   const [{ data: existingApplicationsData }] = useMyApplicationsQuery();
-
-  // Path to display application (new or existing).
-  const applicationPath = (applicationId: string) =>
-    applicationRevamp
-      ? paths.application(applicationId)
-      : paths.reviewApplication(applicationId);
 
   // Store path to redirect to later on
   let redirectPath = paths.pool(poolId || "");
@@ -83,7 +75,7 @@ const CreateApplication = () => {
   )?.applicationId;
   // An existing application was found for this pool.  No need to create a new one - let's go.
   if (existingApplicationIdToThisPool) {
-    navigateWithToast(applicationPath(existingApplicationIdToThisPool), () =>
+    navigateWithToast(paths.application(existingApplicationIdToThisPool), () =>
       toast.info(
         intl.formatMessage({
           defaultMessage: "You already have an application to this pool.",
@@ -127,7 +119,7 @@ const CreateApplication = () => {
       .then((result) => {
         if (result.data?.createApplication) {
           const { id } = result.data.createApplication;
-          const newPath = applicationPath(id);
+          const newPath = paths.application(id);
           // Redirect user to the application if it exists
           // Toast success or error
           if (!result.error) {
