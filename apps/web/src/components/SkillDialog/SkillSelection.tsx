@@ -40,10 +40,15 @@ const SkillSelection = ({
 
   const [category, family, skill] = watch(["category", "family", "skill"]);
 
-  const allSkillFamilies = React.useMemo(
-    () => invertSkillSkillFamilyTree(skills),
-    [skills],
-  );
+  const filteredFamilies = React.useMemo(() => {
+    const invertedTree = invertSkillSkillFamilyTree(skills);
+
+    return category
+      ? invertedTree.filter((currentFamily) => {
+          return currentFamily.category === category;
+        })
+      : invertedTree;
+  }, [skills, category]);
 
   const filteredSkills = React.useMemo(() => {
     if (family) {
@@ -80,6 +85,10 @@ const SkillSelection = ({
   React.useEffect(() => {
     resetField("skill");
   }, [category, family, resetField]);
+
+  React.useEffect(() => {
+    resetField("family");
+  }, [category, resetField]);
 
   return (
     <>
@@ -151,7 +160,7 @@ const SkillSelection = ({
                 description: "Label for removing the skill family filter",
               }),
             },
-            ...allSkillFamilies.map((skillFamily) => ({
+            ...filteredFamilies.map((skillFamily) => ({
               value: skillFamily.id,
               label: getLocalizedName(skillFamily.name, intl),
             })),
