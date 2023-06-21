@@ -4,14 +4,14 @@
 
 The GC Digital Talent app is divided into multiple services, each treated as its own sub-project:
 
-- `/api`, API service
+- [`/api`](/api/README.md), API service
 - `/apps`, frontend applications
 - `/packages`, npm packages used within `/apps`
-- `/apps/e2e`, e2e testing with [`Cypress`](/apps/e2e/cypress/README.md)
-- `/tc-report`, static content, mostly the Talent Cloud report, generated with [`Jekyll`](/tc-report/README.md)
-- `/infrastructure`, support files for the docker infrastructure to run the project
-  - this includes a mock oauth2 server (only used for local development environments)
-- `/maintenance`, additional scripts which run inside the docker containers for setup and updates
+- [`/apps/e2e`](/apps/e2e/cypress/README.md), e2e testing with Cypress
+- [`/tc-report`](/tc-report/README.md), static content, mostly the Talent Cloud report, generated with Jekyll
+- [`/infrastructure`](/infrastructure/README.md), support files for the docker infrastructure to run the project
+  - includes a mock OAuth server (only used for local development environments)
+- [`/maintenance`](/maintenance/README.md), scripts which run inside the docker containers for setup and updates
 
 The api and frontend projects are both designed to run in separate containers. However, they can also be run on a single server with requests routed carefully between them. This is currently how the docker infrastructure works.
 
