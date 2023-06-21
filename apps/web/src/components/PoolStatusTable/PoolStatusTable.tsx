@@ -1,9 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
+import isPast from "date-fns/isPast";
 
 import { Link, Well } from "@gc-digital-talent/ui";
 import { getPoolCandidateStatus } from "@gc-digital-talent/i18n";
+import { PoolCandidate } from "@gc-digital-talent/graphql";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -11,6 +14,13 @@ import useRoutes from "~/hooks/useRoutes";
 import { UserInformationProps } from "../../pages/Users/UserInformationPage/types";
 import ChangeStatusDialog from "../../pages/Users/UserInformationPage/components/ChangeStatusDialog";
 import ChangeDateDialog from "../../pages/Users/UserInformationPage/components/ChangeDateDialog";
+
+const isSuspended = (suspendedAt: PoolCandidate["suspendedAt"]): boolean => {
+  if (!suspendedAt) return false;
+
+  const suspendedAtDate = parseDateTimeUtc(suspendedAt);
+  return isPast(suspendedAtDate);
+};
 
 const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
   const intl = useIntl();
@@ -49,6 +59,13 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
               id: "sUx3ZS",
               description:
                 "Title of the 'Status' column for the table on view-user page",
+            })}
+          </th>
+          <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
+            {intl.formatMessage({
+              defaultMessage: "Availability",
+              id: "mevv+t",
+              description: "Availability label",
             })}
           </th>
           <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
@@ -94,6 +111,24 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
                     user={user}
                     pools={pools}
                   />
+                </td>
+                <td
+                  data-h2-background-color="base(gray.light)"
+                  data-h2-padding="base(x.25, 0)"
+                >
+                  {isSuspended(candidate.suspendedAt)
+                    ? intl.formatMessage({
+                        defaultMessage: "Inactive",
+                        id: "u5UAJn",
+                        description:
+                          "Status message if the application is suspended",
+                      })
+                    : intl.formatMessage({
+                        defaultMessage: "Active",
+                        id: "4L9rHO",
+                        description:
+                          "Status message if the application is not suspended",
+                      })}
                 </td>
                 <td
                   data-h2-text-decoration="base(underline)"

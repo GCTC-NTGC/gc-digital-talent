@@ -969,10 +969,6 @@
     "defaultMessage": "Ces renseignements personnels supplémentaires ne seront utilisés qu'à des fins de communication.",
     "description": "Description for Personal Information section of the About Me form"
   },
-  "KE49r9": {
-    "defaultMessage": "Mon expérience et mes compétences",
-    "description": "Heading for experience and skills page in applicant profile."
-  },
   "KmKbA6": {
     "defaultMessage": "Renseignements supplémentaires",
     "description": "Label displayed on experience form for additional information input"
@@ -1036,14 +1032,6 @@
   "Or11km": {
     "defaultMessage": "La Loi sur l'équité en matière d'emploi du Canada (1995) identifie quatre groupes qui ont connu des obstacles systémiques à l'emploi et un certain nombre d'obligations pour le gouvernement du Canada de surmonter ces obstacles.",
     "description": "Description text for Profile Form wrapper in DiversityEquityInclusionForm"
-  },
-  "P/Mm5G": {
-    "defaultMessage": "Expérience et compétences",
-    "description": "Display text for My experience and skills Form Page Link"
-  },
-  "PF2m1d": {
-    "defaultMessage": "Expérience et compétences",
-    "description": "Breadcrumb for experience and skills page in applicant profile."
   },
   "PH8qp2": {
     "defaultMessage": "Avez-vous utilisé des techniques ou des approches particulières?",
@@ -1501,10 +1489,6 @@
     "defaultMessage": "Postulez pour ce processus",
     "description": "Link text to apply for a pool advertisement"
   },
-  "XzUzZz": {
-    "defaultMessage": "Il n'y a pas encore d'expériences sur votre profil. Vous pouvez en ajouter en utilisant les boutons précédents.",
-    "description": "Message to user when no experiences have been attached to profile."
-  },
   "ZuFBx5": {
     "defaultMessage": "Débutant <gray>- Je possède des compétences de base en lecture, écriture et communication verbale.</gray>",
     "description": "Message for the beginner language ability option"
@@ -1536,10 +1520,6 @@
   "ls7b2p": {
     "defaultMessage": "Plage de salaire :",
     "description": "Label for pool advertisement salary range"
-  },
-  "ojN4Si": {
-    "defaultMessage": "Date de clôture :",
-    "description": "Label for pool advertisement closing date"
   },
   "Wnw+oz": {
     "defaultMessage": "<strong>Courriel</strong> : <anchorTag>{emailAddress}</anchorTag>",
@@ -1633,18 +1613,6 @@
     "defaultMessage": "Annuler",
     "description": "Link text to cancel deleting application."
   },
-  "/Mb8b6": {
-    "defaultMessage": "Renseignements importants",
-    "description": "Toc navigation item on sign and submit page."
-  },
-  "/ooPqb": {
-    "defaultMessage": "Mon profil de candidature",
-    "description": "Title for review application page."
-  },
-  "0+hcuo": {
-    "defaultMessage": "Erreur, la candidature ne peut pas être chargée",
-    "description": "Error message, placeholder"
-  },
   "0qNkIp": {
     "defaultMessage": "Exemptions de lieux",
     "description": "Location Exemptions field label for work location preference form"
@@ -1657,10 +1625,6 @@
     "defaultMessage": "Trouvez des talents",
     "description": "Link text for hiring manager call to action"
   },
-  "4NzbMZ": {
-    "defaultMessage": "Les modifications apportées à votre profil après l’envoi ne seront pas mises à jour sur cette copie",
-    "description": "Important info list item on sign and submit page."
-  },
   "5pZFQ3": {
     "defaultMessage": "Êtes-vous certain de vouloir supprimer la candidature {name}?",
     "description": "Question displayed when user attempts to delete an application"
@@ -1668,10 +1632,6 @@
   "6B7e8/": {
     "defaultMessage": "Archiver<hidden> la candidature{name}</hidden>",
     "description": "Link text to continue a specific application"
-  },
-  "6p6syC": {
-    "defaultMessage": "Mon profil de candidature",
-    "description": "Title for sign and submit page."
   },
   "78ITuW": {
     "defaultMessage": "Candidature non trouvée.",
@@ -1709,10 +1669,6 @@
     "defaultMessage": "Membre des Forces armées canadiennes (FAC)",
     "description": "Legend text for required Canadian Armed Forces selection in About Me form"
   },
-  "EVGeHh": {
-    "defaultMessage": "Continuer vers l’étape 2",
-    "description": "Button message on footer of review my application page."
-  },
   "YEarCb": {
     "defaultMessage": "Si vous êtes prêt à assumer un rôle de leadership numérique en agissant concrètement pour les Canadiens, vous trouverez des possibilités d'emplois pour des postes de gestions à travers le <gcAbbreviation>GC</gcAbbreviation> à tous les niveaux jusqu'aux postes de directeur principal de l’information.",
     "description": "Description for executive jobs in government"
@@ -1733,25 +1689,9 @@
     "defaultMessage": "Candidature archivée!",
     "description": "Message displayed to user after application is archived successfully."
   },
-  "Knr0yc": {
-    "defaultMessage": "Présenter ma candidature",
-    "description": "Submit button label on sign and submit page."
-  },
   "JRlnNk": {
     "defaultMessage": "Gestion de la collectivité numérique",
     "description": "Title for the Digital Community Management"
-  },
-  "LOh+c5": {
-    "defaultMessage": "Étape 2 : Signer et présenter",
-    "description": "Navigation step in sign and submit page."
-  },
-  "LUEVdb": {
-    "defaultMessage": "Étape 1 : Examiner mon profil",
-    "description": "Navigation step in sign and submit page."
-  },
-  "Ledr63": {
-    "defaultMessage": "Signature",
-    "description": "Toc navigation item on sign and submit page."
   },
   "21QCEK": {
     "defaultMessage": "« J’atteste que les renseignements que j’ai fournis sont vrais »",
@@ -1781,10 +1721,6 @@
     "defaultMessage": "Erreur, les candidatures ne peuvent pas être chargées",
     "description": "My applications error message, placeholder"
   },
-  "SDQWZf": {
-    "defaultMessage": "Retour à l’étape précédente",
-    "description": "Label for return link on sign and submit page."
-  },
   "SUlb9U": {
     "defaultMessage": "Parcourez les emplois",
     "description": "Link text for applicant call to action"
@@ -1792,10 +1728,6 @@
   "U/ji+A": {
     "defaultMessage": "Candidature créée",
     "description": "Application created successfully"
-  },
-  "Uaew4x": {
-    "defaultMessage": "Mes candidatures",
-    "description": "Breadcrumb for review application page."
   },
   "Vfxtz/": {
     "defaultMessage": "Vous n’avez actuellement aucune candidature archivée.",
@@ -1809,17 +1741,9 @@
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
     "description": "Heading for the IT Apprenticeship Program for Indigenous Peoples on home page"
   },
-  "YZyNUJ": {
-    "defaultMessage": "Signature",
-    "description": "Label displayed for signature input in sign and submit page."
-  },
   "Z0PCOW": {
     "defaultMessage": "Êtes-vous certain de vouloir archiver la candidature {name}?",
     "description": "Question displayed when user attempts to archive an application"
-  },
-  "Zx0ylN": {
-    "defaultMessage": "Candidature présentée!",
-    "description": "Message displayed to user after application is submitted successfully."
   },
   "iIMpOW": {
     "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
@@ -1857,10 +1781,6 @@
     "defaultMessage": "Bureau de la dirigeante principale de l’information",
     "description": "Title for the Office of the Chief Information Officer"
   },
-  "iilT16": {
-    "defaultMessage": "Erreur : la présentation de la candidature a échoué",
-    "description": "Message displayed to user after application fails to submit."
-  },
   "jDv8lx": {
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
     "description": "Link text to learn more about the platform creation"
@@ -1869,17 +1789,9 @@
     "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau de la dirigeante principale de l’information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
     "description": "Description of the Office of the Chief Information Officer"
   },
-  "jcl2s9": {
-    "defaultMessage": "Erreur, le candidat du bassin n’a pas pu être chargé",
-    "description": "Error message, placeholder"
-  },
   "kHypfJ": {
     "defaultMessage": "Du concept au code",
     "description": "Title for how the platform was created"
-  },
-  "kjtiha": {
-    "defaultMessage": "Mes candidatures",
-    "description": "Breadcrumb for sign and submit page."
   },
   "bdDvMZ": {
     "defaultMessage": "Mes candidatures",
@@ -1893,21 +1805,9 @@
     "defaultMessage": "Statut de citoyenneté",
     "description": "Legend text for required citizenship status in About Me form"
   },
-  "oDyHaL": {
-    "defaultMessage": "Erreur, titre du poste non trouvé.",
-    "description": "Error message when job title isn't found."
-  },
-  "oOR4Rd": {
-    "defaultMessage": "Étape 2",
-    "description": "Breadcrumb for sign and submit page."
-  },
   "jSYDwZ": {
     "defaultMessage": "Mes candidatures",
     "description": "Link text for breadcrumb to user applications page."
-  },
-  "qDYcDP": {
-    "defaultMessage": "Vous êtes toujours encouragé à maintenir votre profil à jour, les versions actualisées seront utilisés lors des étapes ultérieures du processus d’embauche.",
-    "description": "Important info list item on sign and submit page."
   },
   "r6DZ71": {
     "defaultMessage": "Annuler",
@@ -1941,14 +1841,6 @@
     "defaultMessage": "Curieux de savoir comment la plateforme Talents numériques du <abbreviation>GC</abbreviation> a été développée? Vous voulez en savoir plus sur les idées, les conceptions et la philosophie de celle-ci? Découvrez le chemin parcouru depuis le pilote expérimental du Nuage de talents du <abbreviation>GC</abbreviation> jusqu’à la plateforme d’aujourd’hui.",
     "description": "Description of how the platform was created."
   },
-  "ww86SN": {
-    "defaultMessage": "Lorsque vous présentez votre candidature, une copie de votre profil sera créée.",
-    "description": "Important info list item on sign and submit page."
-  },
-  "wyxpjm": {
-    "defaultMessage": "Cette copie sera utilisée pour l’examen initial de la candidature.",
-    "description": "Important info list item on sign and submit page."
-  },
   "xdGPxT": {
     "defaultMessage": "Candidature supprimée!",
     "description": "Message displayed to user after application is deleted successfully."
@@ -1964,10 +1856,6 @@
   "58Z5Ld": {
     "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous espériez embaucher ou que vous envisagiez un rôle de direction, c’est l’endroit où venir pour faire partie de la communauté numérique du <abbreviation>GC</abbreviation>.",
     "description": "Description de la candidature sur la page d’accueil"
-  },
-  "zqIEuu": {
-    "defaultMessage": "Retournez à mes candidatures",
-    "description": "Button message on footer of review my application page."
   },
   "jRmRd+": {
     "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
@@ -2473,17 +2361,9 @@
     "defaultMessage": "Parcourez les emplois",
     "description": "Title for the browse pools page"
   },
-  "ZxLDpB": {
-    "defaultMessage": "Profil de candidature",
-    "description": "Page title for pool application review"
-  },
   "pR23NW": {
     "defaultMessage": "Mon profil",
     "description": "Page title for the applicants profile page"
-  },
-  "pf1Ffp": {
-    "defaultMessage": "Soumettre un profil de demande",
-    "description": "Page title for pool application sign and submit page"
   },
   "lPWUoO": {
     "defaultMessage": "Créer un compte",
@@ -3168,10 +3048,6 @@
     "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "Button to add user to pool on the view-user page"
   },
-  "4N6O+3": {
-    "defaultMessage": "Statut personnel",
-    "description": "Title of the 'Personal status' section of the view-user page"
-  },
   "4Zl/mp": {
     "defaultMessage": "Personne handicapée",
     "description": "Text on view-user page that the user has a disability"
@@ -3426,18 +3302,6 @@
   "ZLDt/c": {
     "defaultMessage": "<strong>{jobTitle}</strong> à <strong>{department}</strong>",
     "description": "Subtitle displayed above the single search request component."
-  },
-  "4pAtT5": {
-    "defaultMessage": "<heavyPrimary>Inactif</heavyPrimary> ‒ Ne souhaite pas être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Inactive' status"
-  },
-  "BqQrcn": {
-    "defaultMessage": "<heavyPrimary>Ouvert aux possibilités</heavyPrimary> ‒ Ne cherche pas activement, mais souhaite toujours être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Open to opportunities' status"
-  },
-  "uv0RmD": {
-    "defaultMessage": "<heavyPrimary>Actif</heavyPrimary> ‒ Souhaite être contacté pour des possibilités d'emploi",
-    "description": "Text in view user page saying they currently have the 'Active' status"
   },
   "+5da+V": {
     "defaultMessage": "<heavyPrimary>Archivé</heavyPrimary>",
@@ -4209,9 +4073,6 @@
     "defaultMessage": "Classification actuelle",
     "description": "CSV Header, Current Classification column"
   },
-  "hOxIeP": {
-    "defaultMessage": "Disponibilité"
-  },
   "hmfQmT": {
     "defaultMessage": "Préférences de durée"
   },
@@ -4432,10 +4293,6 @@
   "zAqJMe": {
     "defaultMessage": "Créé",
     "description": "Title displayed on the Pool table Date Created column"
-  },
-  "Ag+0A4": {
-    "defaultMessage": "Statut",
-    "description": "Title displayed for the User table Status column"
   },
   "+pgXHm": {
     "defaultMessage": "Créé",
@@ -4660,10 +4517,6 @@
   "KpNUo0": {
     "defaultMessage": "Gestionnaires et conseillers principaux (<abbreviation>TI-04</abbreviation>)",
     "description": "Title for the 'IT-04 Manager' classification"
-  },
-  "Ks4G8p": {
-    "defaultMessage": "Voici où vous pouvez ajouter des expériences et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
-    "description": "Description for the experience and skills page in applicant profile."
   },
   "FEEa2S": {
     "defaultMessage": "Niveau 3 : Chef d'équipe (88 000 $ à 110 000 $). <openModal>En savoir plus sur <abbreviation>TI-03</abbreviation></openModal>",
@@ -6806,21 +6659,9 @@
     "defaultMessage": "Instructions de révision",
     "description": "A link back to the instructions for this section"
   },
-  "XuYilo": {
-    "defaultMessage": "Classez vos expériences par ordre de",
-    "description": "Label for experience sort dropdown"
-  },
   "inyUex": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} =1 {1 expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
     "description": "list a number of award experiences"
-  },
-  "m7tUAm": {
-    "defaultMessage": "Type",
-    "description": "Sort experiences by type ascending"
-  },
-  "narnyP": {
-    "defaultMessage": "Date (la plus récente d’abord)",
-    "description": "Sort experiences by date descending"
   },
   "q++unL": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience d’apprentissage personnel} =1 {1 expérience d’apprentissage personnel} other {# expériences d’apprentissage personnel}}",
@@ -8327,6 +8168,14 @@
     "defaultMessage": "Trouvez des talents",
     "description": "Page title for the search page"
   },
+  "4L9rHO": {
+    "defaultMessage": "Actif",
+    "description": "Status message if the application is not suspended"
+  },
+  "u5UAJn": {
+    "defaultMessage": "Inactif",
+    "description": "Status message if the application is suspended"
+  },
   "hfI9v3": {
     "defaultMessage": "Talents numériques du GC",
     "description": "Link to the homepage for GC Digital Talent."
@@ -8470,5 +8319,53 @@
   "5U+V2Y": {
     "defaultMessage": "Nous pouvons encore vous aider!",
     "description": "Heading for helping user if no candidates matched the filters chosen."
+  },
+  "2n0e2i": {
+    "defaultMessage": "Trier les expériences par ordre de",
+    "description": "Label for selector to choose experience sort options"
+  },
+  "PE7mMC": {
+    "defaultMessage": "Filtrer les expériences par type",
+    "description": "Label for selector to choose experience filter options"
+  },
+  "SjY+Wn": {
+    "defaultMessage": "Vous n’avez toujours pas ajouté d’article lié au CV.",
+    "description": "Message to user when no résumé items have been attached to profile."
+  },
+  "WVbN0f": {
+    "defaultMessage": "Profil et demandes ",
+    "description": "Breadcrumb from applicant profile wrapper."
+  },
+  "XY/crY": {
+    "defaultMessage": "Gérez votre expérience et vos processus de recrutement auxquels vous vous êtes qualifié(e).",
+    "description": "Description for the Résumé and recruitments page in applicant profile."
+  },
+  "aW/Htv": {
+    "defaultMessage": "Les processus de recrutement auxquels vous avez été admis(e) apparaîtront ici.",
+    "description": "Message to user when no qualified recruitments have been attached to profile, paragraph one."
+  },
+  "amibs2": {
+    "defaultMessage": "Gérez votre CV",
+    "description": "Titles for a page section to manage your résumé"
+  },
+  "d8j/Sr": {
+    "defaultMessage": "Processus de recrutement auxquels vous vous êtes qualifié(e)",
+    "description": "Titles for a page section to manage your qualified recruitment processes"
+  },
+  "gPy2MA": {
+    "defaultMessage": "Cette section ressemble à votre CV traditionnel et décrit vos expériences de travail, scolaires, et de la vie. Vous pourrez réutiliser cette information sur chaque demande que vous soumettez par l’entremise de la plateforme, ce qui viendra accélérer le processus et fera en sorte que votre information sera toujours à jour.",
+    "description": "Descriptive paragraph for the Manage your resume section of the résumé and recruitments page."
+  },
+  "wrTfp3": {
+    "defaultMessage": "Lorsque vous formulez une demande dans le cadre d’un processus de recrutement et que vous passez l’évaluation, vous serez admis(e), et vous pourrez donc commencer à être pris(e) en compte pour des possibilités connexes. Cette section met en évidence tous les processus actifs et expires auxquels vous faites actuellement partie, et vous permettra de gérer si vous figurez ou non dans les recherches de talents. ",
+    "description": "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitments page."
+  },
+  "z7FpHz": {
+    "defaultMessage": "Vous pouvez commencer par formuler une demande dans le cadre d’un processus de recrutement ciblé ou en cours.",
+    "description": "Message to user when no qualified recruitments have been attached to profile, paragraph two."
+  },
+  "SyJkc/": {
+    "defaultMessage": "Curriculum vitæ et recrutements",
+    "description": "Name of Résumé and recruitments page"
   }
 }

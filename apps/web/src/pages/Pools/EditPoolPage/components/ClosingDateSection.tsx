@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { TableOfContents } from "@gc-digital-talent/ui";
-import { Input, Submit } from "@gc-digital-talent/forms";
+import { DateInput, Submit } from "@gc-digital-talent/forms";
 import {
   convertDateTimeToDate,
   convertDateTimeZone,
@@ -91,21 +91,15 @@ const ClosingDateSection = ({
       </p>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleSave)}>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-gap="base(x1)"
-            data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-            data-h2-margin="base(x1 0)"
-          >
-            <Input
+          <div data-h2-margin="base(x1 0)">
+            <DateInput
               id="endDate"
-              label={intl.formatMessage({
+              legend={intl.formatMessage({
                 defaultMessage: "End Date",
                 id: "80DOGy",
                 description:
                   "Label displayed on the pool candidate form end date field.",
               })}
-              type="date"
               name="endDate"
               disabled={formDisabled}
             />

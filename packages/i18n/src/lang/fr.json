@@ -1410,10 +1410,6 @@
     "defaultMessage": "Rôle et salaire escomptés",
     "description": "Name of Role and salary expectations page"
   },
-  "clhK68": {
-    "defaultMessage": "Mes compétences et mon expérience",
-    "description": "Name of My skills and experience page"
-  },
   "i3Jl6C": {
     "defaultMessage": " : ",
     "description": "Dividing colon with trailing space"
@@ -1433,5 +1429,21 @@
   "5jynud": {
     "defaultMessage": "Compétences comportementales",
     "description": "The skill is considered behavioral."
+  },
+  "J+0v2z": {
+    "defaultMessage": "Par ordre de titre (alphabétiquement)",
+    "description": "Select the option to sort by title, ascending"
+  },
+  "spoY2L": {
+    "defaultMessage": "Tous les types",
+    "description": "Select the option to sort or filter by all types"
+  },
+  "yuWHKJ": {
+    "defaultMessage": "Par ordre de date (la plus récente étant en premier)",
+    "description": "Select the option to sort by date, descending"
+  },
+  "SyJkc/": {
+    "defaultMessage": "Curriculum vitæ et recrutements",
+    "description": "Name of Résumé and recruitments page"
   }
 }
