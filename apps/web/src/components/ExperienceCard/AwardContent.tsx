@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
   commonMessages,
   getAwardedScope,
@@ -9,6 +8,7 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import { AwardExperience } from "~/api/generated";
+import { formattedDate } from "~/utils/dateUtils";
 import ContentSection from "./ContentSection";
 import { ContentProps } from "./types";
 
@@ -36,11 +36,7 @@ const AwardContent = ({
       >
         <p>
           {awardedDate
-            ? formatDate({
-                date: parseDateTimeUtc(awardedDate),
-                intl,
-                formatString: "PPP",
-              })
+            ? formattedDate(awardedDate, intl)
             : intl.formatMessage(commonMessages.notProvided)}
         </p>
       </ContentSection>
