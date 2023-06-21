@@ -294,7 +294,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                 "Title of the Diversity, equity and inclusion link section",
             })}
             href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.DEI)}
-            icon={UserGroupIcon}
+            icon={UsersIcon}
           />
           <StatusItem
             asListItem
@@ -380,7 +380,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               description: "Title for community experience section",
             })}
             itemCount={communityExperiences?.length}
-            icon={UsersIcon}
+            icon={UserGroupIcon}
           />
           <StatusItem
             title={intl.formatMessage({
