@@ -142,9 +142,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         >
           <Alert.Title>
             {intl.formatMessage({
-              defaultMessage:
-                "Welcome to your Digital Talent profile dashboard",
-              id: "kBEXbF",
+              defaultMessage: "Welcome to the Digital Talent profile dashboard",
+              id: "GbKnDu",
               description:
                 "Title for notification that a draft IAP application was saved",
             })}
@@ -161,26 +160,35 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({
               defaultMessage:
-                "The apprenticeship program is a part of a larger digital talent initiative in the Government of Canada that aspires to recruit awesome digital talent like yourself. This profile provides access to other digital opportunities and recruitments beyond the apprenticeship program, if you choose to apply. If you’d prefer to stick to the apprenticeship program exclusively, that’s okay too!",
-              id: "+im7hW",
+                "<strong>When you log into your account, you’ll start on this page from now on.</strong>",
+              id: "XOTFae",
               description:
-                "Second paragraph for applicant dashboard notification welcoming an IAP user",
+                "Notice that the application dashboard is the first page after logging in",
             })}
           </p>
-          <p>
+          <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "When you log into your account, you’ll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your Indigenous apprenticeship application and track your position in the program.",
-                id: "KUVXJr",
+                  'The apprenticeship program is a part of a larger digital talent initiative in the Government of Canada that aspires to recruit top digital talent like yourself. You can use the "<a>Track your applications</a>" section on this page to review the status of your application to the IT Apprenticeship Program for Indigenous Peoples.',
+                id: "j6x/rB",
                 description:
-                  "Third paragraph for applicant dashboard notification welcoming an IAP user",
+                  "Second paragraph for applicant dashboard notification welcoming an IAP user",
               },
               {
                 a: (chunks: React.ReactNode) =>
                   buildScrollToLink("track-applications-section", chunks),
               },
             )}
+          </p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "This profile provides access to other recruitment opportunities beyond the apprenticeship program if you choose to apply. If you’d prefer to stick to the apprenticeship program exclusively, that’s okay too!",
+              id: "4l0ayd",
+              description:
+                "Third paragraph for applicant dashboard notification welcoming an IAP user",
+            })}
           </p>
         </Alert.Root>
       )}
@@ -206,8 +214,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({
               defaultMessage:
-                "You’ve now landed on your Digital Talent profile page.",
-              id: "ueLK1P",
+                "You've now landed on your Digital Talent profile page.",
+              id: "0Uq3M8",
               description:
                 "First paragraph for applicant dashboard notification welcoming an IAP user",
             })}
@@ -215,26 +223,35 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({
               defaultMessage:
-                "The apprenticeship program is a part of a larger digital talent initiative in the Government of Canada that aspires to recruit awesome digital talent like yourself. This profile provides access to other digital opportunities and recruitments beyond the apprenticeship program, if you choose to apply. If you’d prefer to stick to the apprenticeship program exclusively, that’s okay too!",
-              id: "+im7hW",
+                "<strong>When you log into your account, you’ll start on this page from now on.</strong>",
+              id: "XOTFae",
               description:
-                "Second paragraph for applicant dashboard notification welcoming an IAP user",
+                "Notice that the application dashboard is the first page after logging in",
             })}
           </p>
-          <p>
+          <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "When you log into your account, you’ll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your Indigenous apprenticeship application and track your status in the program.",
-                id: "RzNVWf",
+                  'The apprenticeship program is a part of a larger digital talent initiative in the Government of Canada that aspires to recruit top digital talent like yourself. You can use the "<a>Track your applications</a>" section on this page to review the status of your application to the IT Apprenticeship Program for Indigenous Peoples.',
+                id: "j6x/rB",
                 description:
-                  "Third paragraph for applicant dashboard notification welcoming an IAP user",
+                  "Second paragraph for applicant dashboard notification welcoming an IAP user",
               },
               {
                 a: (chunks: React.ReactNode) =>
                   buildScrollToLink("track-applications-section", chunks),
               },
             )}
+          </p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "This profile provides access to other recruitment opportunities beyond the apprenticeship program if you choose to apply. If you’d prefer to stick to the apprenticeship program exclusively, that’s okay too!",
+              id: "4l0ayd",
+              description:
+                "Third paragraph for applicant dashboard notification welcoming an IAP user",
+            })}
           </p>
         </Alert.Root>
       )}
