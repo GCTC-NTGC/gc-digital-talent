@@ -5,7 +5,7 @@ import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
-import { Button, useAnnouncer } from "@gc-digital-talent/ui";
+import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 
 import Field from "../Field";
@@ -214,6 +214,8 @@ const Root = ({
   showAdd = true,
   ...rest
 }: RepeaterProps) => {
+  const intl = useIntl();
+  const addId = React.useId();
   return (
     <div
       data-h2-display="base(flex)"
@@ -221,9 +223,21 @@ const Root = ({
       data-h2-gap="base(x.5, 0)"
       {...rest}
     >
+      <Link
+        external
+        href={`#${addId}`}
+        data-h2-visually-hidden="base(invisible)"
+        data-h2-position="base:focus-visible(static)"
+        data-h2-location="base:focus-visible(auto)"
+        data-h2-height="base:focus-visible(auto)"
+        data-h2-width="base:focus-visible(auto)"
+      >
+        {intl.formatMessage(formMessages.repeaterSkipTo)}
+      </Link>
       {children}
       {showAdd && (
         <Button
+          id={addId}
           icon={PlusCircleIcon}
           type="button"
           mode="solid"
