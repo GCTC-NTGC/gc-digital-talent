@@ -31,7 +31,7 @@ We do several types of testing: (internal documentation linked when available)
 - _end-to-end_ testing with **Cypress** (full app in-browser)
   - See [`apps/e2e/cypress/README.md`](/apps/e2e/cypress/README.md): custom commands, usage tips, plugins, etc.
 - security checks (aka _security regression_ testing)
-  - CodeQL (JavaScript, ~~TypeScript~~)
+  - CodeQL (JavaScript, TypeScript)
 
 As much as possible, we aspire to make these runnable on:
 
