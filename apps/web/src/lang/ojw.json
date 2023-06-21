@@ -32,7 +32,7 @@
     "description": "IAP Requirement list item four"
   },
   "436DA5": {
-    "defaultMessage": "ji-ani-maajiishkaagin",
+    "defaultMessage": "ji<softHyphen></softHyphen>ani<softHyphen></softHyphen>maajiish<softHyphen></softHyphen>kaagin",
     "description": "Talent portal strategy item 2 heading"
   },
   "4p0QdF": {
@@ -88,7 +88,7 @@
     "description": "Description for strategy for the indigenous talent portal"
   },
   "iKpxPY": {
-    "defaultMessage": "Bi-izhi’an gidaangibii’igan dibaajimon wenjiimagak waa-onji-gagwe-gikendaman aazhawaatebii’igan wenji-misawendaman ji-gikinoo’amaagooyan: <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Awiiya gaa-anokaadang giga-wiindamaag gaa-ayi-zhiiyan eko-niswi maagizhaa naanogonagak anokiiwigiizhigak",
+    "defaultMessage": "Bi-izhi’an gidaangibii’igan dibaajimon wenjiimagak waa-onji-gagwe-gikendaman aazhawaate<softHyphen></softHyphen>bii’igan wenji-misawendaman ji-gikinoo’amaagooyan: <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Awiiya gaa-anokaadang giga-wiindamaag gaa-ayi-zhiiyan eko-niswi maagizhaa naanogonagak anokiiwigiizhigak",
     "description": "First paragraph for apply now dialog"
   },
   "GnmmgR": {
@@ -112,7 +112,7 @@
     "description": "Learn more dialog question two paragraph two"
   },
   "MgLLHd": {
-    "defaultMessage": "Miiwan onowe endawendaagwakin",
+    "defaultMessage": "Miiwan onowe endawen<softHyphen></softHyphen>daagwakin",
     "description": "Talent portal strategy item 1 heading"
   },
   "NaF4Iu": {
@@ -156,7 +156,7 @@
     "description": "Description of how the indigenous talent portal will work"
   },
   "UQlyXu": {
-    "defaultMessage": "Awiya giga-wiidanokiimig ji-gikendaman ge-izhichigeyan, ji-aabajitooyan aazhawaatebii’igan. Gaa-anokiiwaad ji-naagwatoowaad geget igo gikendaman anokiiwin, weweni ji-gagwejitooyan gaayaabadakin gegoo oshki-aya’iin. Akawe niiyo-giizhig gigagwe-danokii, naanogonagak idash enanokiimagak aazhawaatebii’igan maagizhaa zoom.",
+    "defaultMessage": "Awiya giga-wiidanokiimig ji-gikendaman ge-izhichigeyan, ji-aabajitooyan aazhawaate<softHyphen></softHyphen>bii’igan. Gaa-anokiiwaad ji-naagwatoowaad geget igo gikendaman anokiiwin, weweni ji-gagwejitooyan gaayaabadakin gegoo oshki-aya’iin. Akawe niiyo-giizhig gigagwe-danokii, naanogonagak idash enanokiimagak aazhawaate<softHyphen></softHyphen>bii’igan maagizhaa zoom.",
     "description": "Learn more dialog question eight paragraph one"
   },
   "WDRWcu": {
@@ -200,7 +200,7 @@
     "description": "Learn more dialog question twelve heading"
   },
   "fF4Ex+": {
-    "defaultMessage": "Anishinaabe gaa-nitaawitood aazhawaatebii’igan gaa-gii-ozhitoowaad Anishinaabeg.",
+    "defaultMessage": "Anishinaabe gaa-nitaawitood aazhawaate<softHyphen></softHyphen>bii’igan gaa-gii-ozhitoowaad Anishinaabeg.",
     "description": "Talent portal information sentence 1"
   },
   "fvsYkj": {
@@ -220,11 +220,11 @@
     "description": "Learn more dialog question four heading"
   },
   "lIHNov": {
-    "defaultMessage": "Ji-naanaagajitoong",
+    "defaultMessage": "Ji<softHyphen></softHyphen>naanaagaji<softHyphen></softHyphen>toong",
     "description": "Talent portal strategy item 3 heading"
   },
   "loDwKe": {
-    "defaultMessage": "Anishinaabe gaa-nitaawitood aazhawaatebii’igan",
+    "defaultMessage": "Anishinaabe gaa-nitaawitood aazhawaate<softHyphen></softHyphen>bii’igan",
     "description": "Talent Portal information heading"
   },
   "mfBsJY": {
@@ -232,7 +232,7 @@
     "description": "Learn more dialog question eight heading"
   },
   "osGGIt": {
-    "defaultMessage": "Aazhawaatebii’igani anokiiwin + Anishinaabe netaa-anokaadang",
+    "defaultMessage": "Aazhawaate<softHyphen></softHyphen>bii'gani<softHyphen></softHyphen>anokiiwin + Anishinaabe netaa<softHyphen></softHyphen>anokaadang",
     "description": "heading for indigenous talent portal section"
   },
   "p19YJ2": {
@@ -264,7 +264,7 @@
     "description": "Learn more dialog question five heading"
   },
   "sycoGU": {
-    "defaultMessage": "Gaawiin memwech. Endaawaad da-dananokiiwag, ayaawaad mino-aazhawaatebii’igan. Maagizhaa aanind anokiiwinan giga-onji-aajigos. Geget gichi-apiitendaagoziwag, ezhi-ningo-dogamigiziyang, gaawiin memwech gidaa-naganaasiig.   Akawe gaganoozh gidoogimaam wiindamaw enabichigeyan omaa endaayan.",
+    "defaultMessage": "Gaawiin memwech. Endaawaad da-dananokiiwag, ayaawaad mino-aazhawaate<softHyphen></softHyphen>bii’igan. Maagizhaa aanind anokiiwinan giga-onji-aajigos. Geget gichi-apiitendaagoziwag, ezhi-ningo-dogamigiziyang, gaawiin memwech gidaa-naganaasiig.   Akawe gaganoozh gidoogimaam wiindamaw enabichigeyan omaa endaayan.",
     "description": "Learn more dialog question six paragraph one"
   },
   "wHWE3M": {
