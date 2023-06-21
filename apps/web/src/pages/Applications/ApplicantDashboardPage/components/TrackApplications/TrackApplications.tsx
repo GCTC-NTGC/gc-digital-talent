@@ -24,6 +24,10 @@ interface AnimatedContentProps
   isOpen: boolean;
 }
 
+function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
+  return <Link href={href}>{chunks}</Link>;
+}
+
 const animationVariants = {
   open: {
     height: "auto",
@@ -93,20 +97,26 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
         <p data-h2-margin="base(x.5, 0, 0, 0)">
           {intl.formatMessage({
             defaultMessage:
-              "Applications to talent pool and ongoing recruitment opportunities can be managed and tracked here. You’ll be able to see submission deadlines, your application’s status over time, and past applications.",
-            id: "iutl39",
+              "Applications to targeted or ongoing recruitment opportunities can be managed and tracked here. You’ll be able to see submission deadlines, your application’s status over time, and old or expired applications.",
+            id: "sPufRD",
             description:
               "Description for the track applications section on the applicant dashboard, paragraph one.",
           })}
         </p>
         <p data-h2-margin="base(x.5, 0, x1, 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "After an application is successfully assessed, the talent pool will be added to your résumé automatically.",
-            id: "682ljn",
-            description:
-              "Description for the track applications section on the applicant dashboard, paragraph two.",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "After an application is successfully assessed, the <a>qualified recruitment will be added to your résumé</a> automatically so that managers can see your accomplishments.",
+              id: "3c9+uF",
+              description:
+                "Description for the track applications section on the applicant dashboard, paragraph two.",
+            },
+            {
+              a: (chunks: React.ReactNode) =>
+                buildLink(paths.browsePools(), chunks),
+            },
+          )}
         </p>
       </div>
       <div>
