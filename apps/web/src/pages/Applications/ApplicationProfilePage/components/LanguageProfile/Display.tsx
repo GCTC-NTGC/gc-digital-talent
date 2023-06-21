@@ -45,8 +45,8 @@ const Display = ({
             !lookingForEnglish && !lookingForFrench && !lookingForBilingual
           }
           label={intl.formatMessage({
-            defaultMessage: "Opportunity languages",
-            id: "+gl4rv",
+            defaultMessage: "Job languages",
+            id: "/MMizV",
             description: "Opportunity languages label",
           })}
         >
@@ -58,30 +58,34 @@ const Display = ({
             !lookingForFrench &&
             !lookingForBilingual &&
             intl.formatMessage({
-              defaultMessage: "English positions",
-              id: "vFMPHW",
+              defaultMessage:
+                "I would like to be considered for English positions",
+              id: "vmj/E4",
               description: "English Positions message",
             })}
           {!lookingForEnglish &&
             lookingForFrench &&
             !lookingForBilingual &&
             intl.formatMessage({
-              defaultMessage: "French positions",
-              id: "qT9sS0",
+              defaultMessage:
+                "I would like to be considered for French positions",
+              id: "sWBbdX",
               description: "French Positions message",
             })}
           {lookingForEnglish &&
             lookingForFrench &&
             !lookingForBilingual &&
             intl.formatMessage({
-              defaultMessage: "English or French positions",
-              id: "fFznH0",
+              defaultMessage:
+                "I would like to be considered for English or French positions",
+              id: "B3TZ/v",
               description: "English or French Positions message",
             })}
           {lookingForBilingual &&
             intl.formatMessage({
-              defaultMessage: "Bilingual positions (English and French)",
-              id: "6eCvv1",
+              defaultMessage:
+                "I would like to be considered for Bilingual positions (English and French)",
+              id: "VQiIB7",
               description: "Bilingual Positions message",
             })}
         </FieldDisplay>

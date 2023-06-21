@@ -166,8 +166,8 @@ export const getLabels = (intl: IntlShape) => ({
     description: "Label displayed on classification level input",
   }),
   priorityEntitlementYesNo: intl.formatMessage({
-    defaultMessage: "Priority Entitlement",
-    id: "FqXo5j",
+    defaultMessage: "Do you have a priority entitlement?",
+    id: "/h9mNu",
     description: "Priority Entitlement Status in Government Info Form",
   }),
   priorityEntitlementNumber: intl.formatMessage({

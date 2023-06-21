@@ -117,8 +117,8 @@ const FormFields = ({
             value: "no",
             label: intl.formatMessage({
               defaultMessage:
-                "<strong>No</strong>, I am not a Government of Canada employee",
-              id: "rJMWiV",
+                "<strong>No</strong>, I am not a Government of Canada employee.",
+              id: "PS/LFb",
               description:
                 "Label displayed for is not a government employee option",
             }),
@@ -127,8 +127,8 @@ const FormFields = ({
             value: "yes",
             label: intl.formatMessage({
               defaultMessage:
-                "<strong>Yes</strong>, I am a Government of Canada employee",
-              id: "jbftvG",
+                "<strong>Yes</strong>, I am a Government of Canada employee.",
+              id: "gto/zD",
               description:
                 "Label displayed for is a government employee option",
             }),
@@ -235,8 +235,9 @@ const FormFields = ({
           {
             value: "no",
             label: intl.formatMessage({
-              defaultMessage: "I do not have a priority entitlement",
-              id: "brQu7D",
+              defaultMessage:
+                "<strong>No</strong>, I do not have a priority entitlement.",
+              id: "09ijOa",
               description:
                 "Label displayed for does not have priority entitlement option",
             }),
@@ -244,8 +245,9 @@ const FormFields = ({
           {
             value: "yes",
             label: intl.formatMessage({
-              defaultMessage: "I have a priority entitlement",
-              id: "uQ8Tss",
+              defaultMessage:
+                "<strong>Yes</strong>, I do have a priority entitlement.",
+              id: "Xmtw0V",
               description:
                 "Label displayed does have priority entitlement option",
             }),
@@ -261,10 +263,9 @@ const FormFields = ({
           {intl.formatMessage(
             {
               defaultMessage:
-                "Do you have a priority entitlement for Government of Canada job applications? This is a status provided by the Public Service Commission of Canada. To learn more, <priorityEntitlementLink>visit the information on priority entitlements site</priorityEntitlementLink>.",
-              id: "25VYzu",
-              description:
-                "Sentence asking whether the user possesses priority entitlement",
+                "Priority entitlement is a status provided by the Public Service Commission of Canada. To learn more, <priorityEntitlementLink>visit the Information on Priority Entitlement website</priorityEntitlementLink>.",
+              id: "WpVd0l",
+              description: "Sentence describing what priority entitlement is",
             },
             {
               priorityEntitlementLink: (chunks: React.ReactNode) =>

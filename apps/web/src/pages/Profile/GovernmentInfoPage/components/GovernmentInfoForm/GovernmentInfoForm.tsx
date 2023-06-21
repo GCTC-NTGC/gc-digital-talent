@@ -342,8 +342,8 @@ export const GovernmentInfoFormFields = ({
               value: "no",
               label: intl.formatMessage({
                 defaultMessage:
-                  "<strong>No</strong>, I am not a Government of Canada employee",
-                id: "rJMWiV",
+                  "<strong>No</strong>, I am not a Government of Canada employee.",
+                id: "PS/LFb",
                 description:
                   "Label displayed for is not a government employee option",
               }),
@@ -352,8 +352,8 @@ export const GovernmentInfoFormFields = ({
               value: "yes",
               label: intl.formatMessage({
                 defaultMessage:
-                  "<strong>Yes</strong>, I am a Government of Canada employee",
-                id: "jbftvG",
+                  "<strong>Yes</strong>, I am a Government of Canada employee.",
+                id: "gto/zD",
                 description:
                   "Label displayed for is a government employee option",
               }),

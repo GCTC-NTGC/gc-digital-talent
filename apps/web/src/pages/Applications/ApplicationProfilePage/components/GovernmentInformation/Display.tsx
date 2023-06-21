@@ -39,45 +39,39 @@ const Display = ({
 
   const govEmployeeMessage = isGovEmployee
     ? intl.formatMessage({
-        defaultMessage:
-          "<strong>Yes</strong>, I am a Government of Canada employee.",
-        id: "5d0vbr",
+        defaultMessage: "Yes, I am a Government of Canada employee.",
+        id: "KD5H5s",
         description: "Message to state user is employed by government",
       })
     : intl.formatMessage({
-        defaultMessage:
-          "I am <strong>not</strong> a Government of Canada employee.",
-        id: "mTgQV0",
-        description: "Message to state user is employed by government",
+        defaultMessage: "No, I am not a Government of Canada employee.",
+        id: "usRTou",
+        description: "Message to state user is not employed by government",
       });
 
   const priorityMessage = hasPriorityEntitlement
     ? intl.formatMessage({
-        defaultMessage: "I do have a priority entitlement",
-        id: "+tKl71",
+        defaultMessage: "Yes, I do have a priority entitlement",
+        id: "mkYnUD",
         description: "affirm possession of priority entitlement",
       })
     : intl.formatMessage({
-        defaultMessage: "I do not have a priority entitlement",
-        id: "x0FRH/",
+        defaultMessage: "No, I do not have a priority entitlement",
+        id: "dSxICg",
         description: "affirm no entitlement",
       });
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-      data-h2-gap="base(x1)"
-    >
+    <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
       <FieldDisplay
         hasError={empty(isGovEmployee)}
         label={intl.formatMessage({
-          defaultMessage: "Employee status",
-          id: "um8A1S",
+          defaultMessage: "Government employee status",
+          id: "YMAXhb",
           description: "Employee status label",
         })}
       >
-        {empty(isGovEmployee) ? notProvided : govEmployeeMessage}
+        {empty(isGovEmployee) ? notProvided : `"${govEmployeeMessage}"`}
       </FieldDisplay>
       {isGovEmployee && (
         <>
@@ -119,12 +113,12 @@ const Display = ({
       <FieldDisplay
         hasError={empty(hasPriorityEntitlement)}
         label={intl.formatMessage({
-          defaultMessage: "Priority entitlement",
-          id: "gdivWF",
+          defaultMessage: "Priority status",
+          id: "IDNjBI",
           description: "Priority entitlement label",
         })}
       >
-        {empty(hasPriorityEntitlement) ? notProvided : priorityMessage}
+        {empty(hasPriorityEntitlement) ? notProvided : `"${priorityMessage}"`}
       </FieldDisplay>
       {hasPriorityEntitlement && (
         <FieldDisplay

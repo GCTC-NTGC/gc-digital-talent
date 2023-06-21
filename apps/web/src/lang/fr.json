@@ -1253,8 +1253,8 @@
     "defaultMessage": "Courriel",
     "description": "Label for email field in About Me form"
   },
-  "jbftvG": {
-    "defaultMessage": "<strong>Oui</strong>, je suis un(e) employé(e) du gouvernement du Canada",
+  "gto/zD": {
+    "defaultMessage": "<strong>Oui</strong>, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is a government employee option"
   },
   "4438xW": {
@@ -1317,8 +1317,8 @@
     "defaultMessage": "Province ou territoire actuel",
     "description": "Label for current province or territory field in About Me form"
   },
-  "rJMWiV": {
-    "defaultMessage": "<strong>Non</strong>, je ne suis pas un(e) employé(e) du gouvernement du Canada",
+  "PS/LFb": {
+    "defaultMessage": "<strong>Non</strong>, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is not a government employee option"
   },
   "fMcKtJ": {
