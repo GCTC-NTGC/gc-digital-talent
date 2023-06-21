@@ -18,6 +18,7 @@ import {
   isExpiredStatus,
   isPlacedStatus,
   isQualifiedStatus,
+  isScreenedOutStatus,
 } from "~/utils/poolCandidate";
 import { Application } from "~/utils/applicationUtils";
 
@@ -55,6 +56,18 @@ export const getStatusPillInfo = (
       text: intl.formatMessage(poolCandidateMessages.expired),
     };
   }
+  if (isScreenedOutStatus(status)) {
+    return {
+      color: "secondary",
+      text: label ? intl.formatMessage(label) : "",
+    };
+  }
+  if (status === PoolCandidateStatus.Removed)
+    return {
+      color: "error",
+      text: label ? intl.formatMessage(label) : "",
+    };
+
   return {
     color: "primary",
     text: label ? intl.formatMessage(label) : "",
