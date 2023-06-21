@@ -502,8 +502,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             })}
             text={intl.formatMessage({
               defaultMessage:
-                "If you have more detailed work location requirement, let us know in the comment section of the submission form. You can select more than one region. If you are open to all regions, select All Regions.",
-              id: "fJ35xz",
+                "If you have more detailed work location requirement, let us know in the comment section of the submission form. You can select more than one region.",
+              id: "sM+4cP",
               description:
                 "Message describing the work location filter in the search form.",
             })}
