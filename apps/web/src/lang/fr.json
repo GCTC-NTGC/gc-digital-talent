@@ -470,8 +470,8 @@
     "defaultMessage": "Nombre approximatif de candidats",
     "description": "Heading for total estimated candidates box next to search form."
   },
-  "5U+V2Y": {
-    "defaultMessage": "Nous pouvons encore vous aider!",
+  "STT6FW": {
+    "defaultMessage": "Nous pouvons peut-être vous aider!",
     "description": "Heading for helping user if no candidates matched the filters chosen."
   },
   "3BfvIy": {
@@ -602,8 +602,8 @@
     "defaultMessage": "Lieu de travail",
     "description": "Heading for work location section of the search form."
   },
-  "v7sYE7": {
-    "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
+  "sM+4cP": {
+    "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission. Vous pouvez sélectionner plus d’une région.",
     "description": "Message describing the work location filter in the search form."
   },
   "ky585k": {
@@ -613,8 +613,8 @@
     "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres : ",
     "description": "Heading for total matching candidates in results section of search page."
   },
-  "RGzfes": {
-    "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste.",
+  "+PLUZ8": {
+    "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste. La capacité linguistique sélectionnée sera comparée à celle choisie par les candidats dans leur demande. À noter, les candidats qui ont sélectionné Bilingue peuvent ne pas avoir des résultats d’évaluation de langue seconde du gouvernement du Canada.",
     "description": "Message describing the work language ability filter in the search form."
   },
   "0H0CLx": {
@@ -1526,7 +1526,7 @@
     "description": "An email address to contact for help"
   },
   "5YzNJj": {
-    "defaultMessage": "IT-04: Conseiller principal ou Manager Gestionnaire (101 000 $ à 126 000 $)",
+    "defaultMessage": "IT-04: Conseiller principal ou Gestionnaire (101 000 $ à 126 000 $)",
     "description": "IT-04 classification label including titles and salaries"
   },
   "Aa8SIB": {
@@ -4683,7 +4683,7 @@
     "description": "IT-03 classification aria label including titles and salaries"
   },
   "Ix0KgU": {
-    "defaultMessage": "Conseiller principal ou Manager Gestionnaire I T 4 (101 000 $ à 126 000 $)",
+    "defaultMessage": "Conseiller principal ou Gestionnaire I T 4 (101 000 $ à 126 000 $)",
     "description": "IT-04 classification aria label including titles and salaries"
   },
   "2jFKrM": {
@@ -8327,6 +8327,10 @@
   "xfYpNf": {
     "defaultMessage": "<strong>Vous avez déjà un compte CléGC?</strong> <a>Accédez plutôt </a>.",
     "description": "Instruction on what to do if user already has a GCKey"
+  },
+  "5U+V2Y": {
+    "defaultMessage": "Nous pouvons encore vous aider!",
+    "description": "Heading for helping user if no candidates matched the filters chosen."
   },
   "2n0e2i": {
     "defaultMessage": "Trier les expériences par ordre de",

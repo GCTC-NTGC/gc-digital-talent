@@ -54,6 +54,7 @@ const EditExperienceForm = ({
   );
   const methods = useForm<ExperienceExperienceFormValues>({
     defaultValues,
+    shouldFocusError: false,
   });
   const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
   const { executeMutation, getMutationArgs } = useExperienceMutations(
