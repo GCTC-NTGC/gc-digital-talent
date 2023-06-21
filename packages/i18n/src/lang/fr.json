@@ -1441,9 +1441,5 @@
   "yuWHKJ": {
     "defaultMessage": "Par ordre de date (la plus récente étant en premier)",
     "description": "Select the option to sort by date, descending"
-  },
-  "SyJkc/": {
-    "defaultMessage": "Curriculum vitæ et recrutements",
-    "description": "Name of Résumé and recruitments page"
   }
 }

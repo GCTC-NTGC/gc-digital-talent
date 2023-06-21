@@ -8336,9 +8336,9 @@
     "defaultMessage": "Profil et demandes ",
     "description": "Breadcrumb from applicant profile wrapper."
   },
-  "XY/crY": {
+  "6f8XuQ": {
     "defaultMessage": "Gérez votre expérience et vos processus de recrutement auxquels vous vous êtes qualifié(e).",
-    "description": "Description for the Résumé and recruitments page in applicant profile."
+    "description": "Description for the Résumé and recruitment page in applicant profile."
   },
   "aW/Htv": {
     "defaultMessage": "Les processus de recrutement auxquels vous avez été admis(e) apparaîtront ici.",
@@ -8352,20 +8352,16 @@
     "defaultMessage": "Processus de recrutement auxquels vous vous êtes qualifié(e)",
     "description": "Titles for a page section to manage your qualified recruitment processes"
   },
-  "gPy2MA": {
+  "18FbqO": {
     "defaultMessage": "Cette section ressemble à votre CV traditionnel et décrit vos expériences de travail, scolaires, et de la vie. Vous pourrez réutiliser cette information sur chaque demande que vous soumettez par l’entremise de la plateforme, ce qui viendra accélérer le processus et fera en sorte que votre information sera toujours à jour.",
     "description": "Descriptive paragraph for the Manage your resume section of the résumé and recruitments page."
   },
-  "wrTfp3": {
+  "DI3uQq": {
     "defaultMessage": "Lorsque vous formulez une demande dans le cadre d’un processus de recrutement et que vous passez l’évaluation, vous serez admis(e), et vous pourrez donc commencer à être pris(e) en compte pour des possibilités connexes. Cette section met en évidence tous les processus actifs et expires auxquels vous faites actuellement partie, et vous permettra de gérer si vous figurez ou non dans les recherches de talents. ",
-    "description": "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitments page."
+    "description": "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitment page."
   },
   "z7FpHz": {
     "defaultMessage": "Vous pouvez commencer par formuler une demande dans le cadre d’un processus de recrutement ciblé ou en cours.",
     "description": "Message to user when no qualified recruitments have been attached to profile, paragraph two."
-  },
-  "SyJkc/": {
-    "defaultMessage": "Curriculum vitæ et recrutements",
-    "description": "Name of Résumé and recruitments page"
   }
 }

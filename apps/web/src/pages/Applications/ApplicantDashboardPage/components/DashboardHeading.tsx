@@ -43,7 +43,7 @@ import { AwardExperience } from "~/api/generated";
 import { StatusItem } from "~/components/StatusItem/StatusItem";
 import { HeroCard } from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
-import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentsPage/constants";
+import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
 import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
 import { PartialUser } from "../types";
 
@@ -124,7 +124,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           a1: (chunks: React.ReactNode) =>
             buildLink(paths.profile(user.id), chunks, "white"),
           a2: (chunks: React.ReactNode) =>
-            buildLink(paths.resumeAndRecruitments(user.id), chunks, "white"),
+            buildLink(paths.resumeAndRecruitment(user.id), chunks, "white"),
           a3: (chunks: React.ReactNode) =>
             buildScrollToLink("track-applications-section", chunks, "white"),
         },
@@ -349,11 +349,11 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         <HeroCard
           color="tertiary"
           title={intl.formatMessage({
-            defaultMessage: "Résumé and recruitments",
-            id: "Ori6s+",
+            defaultMessage: "Résumé and recruitment",
+            id: "9nNPo1",
             description: "applicant dashboard card title for résumé card",
           })}
-          href={paths.resumeAndRecruitments(user.id)}
+          href={paths.resumeAndRecruitment(user.id)}
         >
           <StatusItem
             title={intl.formatMessage({
@@ -411,7 +411,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                 .length
             }
             icon={ShieldCheckIcon}
-            href={paths.resumeAndRecruitments(user.id, {
+            href={paths.resumeAndRecruitment(user.id, {
               section:
                 RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
             })}
