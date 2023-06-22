@@ -62,7 +62,7 @@
     "react-intl": "^6.4.4",
     "rimraf": "^5.0.1",
     "tsconfig": "*",
-    "tsup": "^6.7.0",
+    "tsup": "^7.0.0",
     "typescript": "^5.1.3"
   }
 }
