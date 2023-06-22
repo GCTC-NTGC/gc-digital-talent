@@ -15,23 +15,47 @@ import Field from "../Field";
  * Generic button to apply styles to a
  * fieldset action button
  */
-const ActionButton = (
-  props: React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  >,
-) => (
-  <button
-    type="button"
-    data-h2-border="base(none)"
-    data-h2-cursor="base(pointer)"
-    data-h2-display="base(flex)"
-    data-h2-align-items="base(center)"
-    data-h2-padding="base(x.5)"
-    data-h2-background-color="base(background) base:hover(gray.lightest) base:focus(focus)"
-    {...props}
-  />
-);
+const ActionButton = ({
+  decrement = false,
+  animate = true,
+  disabled,
+  ...rest
+}: React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+> & {
+  decrement?: boolean;
+  animate?: boolean;
+}) => {
+  const transform = decrement
+    ? {
+        "data-h2-transform":
+          "base:children[svg](translateY(0%)) base:hover:children[svg](translateY(-20%)) base:focus-visible:children[svg](translateY(-20%))",
+      }
+    : {
+        "data-h2-transform":
+          "base:children[svg](translateY(0%)) base:hover:children[svg](translateY(20%)) base:focus-visible:children[svg](translateY(20%))",
+      };
+  return (
+    <button
+      type="button"
+      data-h2-border="base(none)"
+      data-h2-cursor="base(pointer)"
+      data-h2-display="base(flex)"
+      data-h2-align-items="base(center)"
+      data-h2-padding="base(x.5)"
+      data-h2-background-color="base(background) base:hover(gray.lightest) base:focus(focus)"
+      data-h2-transition="base:children[svg](transform 200ms ease)"
+      {...(disabled
+        ? { disabled: true, "data-h2-color": "base(black.lightest)" }
+        : {
+            "data-h2-color": "base(black)",
+            ...(animate ? transform : {}),
+          })}
+      {...rest}
+    />
+  );
+};
 
 export interface RepeaterFieldsetProps {
   /** Field array index of this item */
@@ -161,6 +185,7 @@ const Fieldset = ({
             <ActionButton
               disabled={disabled || index <= 0}
               onClick={decrement}
+              decrement
               aria-label={intl.formatMessage(formMessages.repeaterMove, {
                 from: position,
                 to: position - 1,
@@ -191,6 +216,7 @@ const Fieldset = ({
           </div>
           <ActionButton
             disabled={disabled}
+            animate={false}
             onClick={handleRemove}
             data-h2-shadow="base(medium)"
             data-h2-radius="base(s)"
