@@ -40,7 +40,7 @@ const ResumeSection = ({ experiences }: ResumeSectionProps) => {
         />
         <div data-h2-flex-item="base(0of1) p-tablet(fill)">{/* spacer */}</div>
       </div>
-      {!hasSomeExperience ? (
+      {hasSomeExperience ? (
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
