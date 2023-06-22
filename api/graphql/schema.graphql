@@ -112,9 +112,6 @@ type User {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-
-  # Pool info
-  poolCandidates: [PoolCandidate] @hasMany @can(ability: "view", resolved: true) # PoolsCandidate objects associate the user with a pool
   # Experiences
   experiences: [Experience]
     @with(relation: "awardExperiences")
@@ -127,6 +124,10 @@ type User {
   educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
   personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
+  # Skill Library
+  userSkills: [UserSkill!] @hasMany
+  # Pool info
+  poolCandidates: [PoolCandidate] @hasMany @can(ability: "view", resolved: true) # PoolsCandidate objects associate the user with a pool
   # Pool Manager info
   pools: [Pool]
     @hasMany
@@ -278,9 +279,6 @@ type Applicant {
   jobLookingStatus: JobLookingStatus
     @rename(attribute: "job_looking_status")
     @deprecated(reason: "Removing with applicantDashboard feature flag")
-  poolCandidates: [PoolCandidate]
-    @hasMany(scopes: ["notDraft", "authorizedToView"])
-    @can(ability: "view", resolved: true)
 
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
@@ -307,6 +305,11 @@ type Applicant {
   personalExperiences: [PersonalExperience] @hasMany
   workExperiences: [WorkExperience] @hasMany
 
+  # Skill Library
+  userSkills: [UserSkill!] @hasMany
+
+  # Pool info
+  poolCandidates: [PoolCandidate] @hasMany @can(ability: "view", resolved: true) # PoolsCandidate objects associate the user with a pool
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
   priorityWeight: Int @rename(attribute: "priority_weight")
@@ -687,6 +690,12 @@ type Skill {
   # ExperienceSkillRecord is the pivot data and may only be queried when Skill is nested in an Experience (eg. experience->skill->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill_pivot")
+}
+
+type UserSkill {
+  id: ID!
+  user: User! @belongsTo @can(ability: "view", resolved: true)
+  skill: Skill! @belongsTo
 }
 
 type SkillKeywords {

@@ -11,6 +11,7 @@ use App\Models\EducationExperience;
 use App\Models\GenericJobTitle;
 use App\Models\PersonalExperience;
 use App\Models\Skill;
+use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\ApiEnums;
@@ -197,6 +198,11 @@ class UserFactory extends Factory
             foreach (Skill::inRandomOrder()->take($count)->get() as $skill) {
                 $experience = $this->faker->randomElement($user->experiences);
                 $experience->skills()->save($skill);
+
+                $userSkill = new UserSkill();
+                $userSkill->user_id = $user->id;
+                $userSkill->skill_id = $skill->id;
+                $userSkill->save();
             }
         });
     }
