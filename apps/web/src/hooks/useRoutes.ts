@@ -301,21 +301,6 @@ const getRoutes = (lang: Locales) => {
       );
     },
 
-    // Applicant Dashboard
-    dashboard: (opts?: {
-      fromIapDraft?: boolean;
-      fromIapSuccess?: boolean;
-    }) => {
-      const searchParams = new Map<string, string>();
-      if (opts?.fromIapDraft) searchParams.set(FromIapDraftQueryKey, "true");
-      if (opts?.fromIapSuccess)
-        searchParams.set(FromIapSuccessQueryKey, "true");
-
-      return (
-        path.join(applicantUrl, "dashboard") + createSearchQuery(searchParams)
-      );
-    },
-
     /**
      * Deprecated
      *
