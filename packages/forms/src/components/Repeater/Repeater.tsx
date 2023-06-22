@@ -255,11 +255,11 @@ const Root = ({
                 "data-h2-background":
                   "base(background) base:hover(secondary.10) base:focus-visible(focus)",
                 "data-h2-border-style":
-                  "base(dashed)  base:focus-visible(solid)",
+                  "base(dashed) base:focus-visible(solid)",
                 "data-h2-border-color":
-                  "base(secondary.darker)  base:focus-visible(focus)",
+                  "base(secondary.darker) base:focus-visible(focus)",
                 "data-h2-color":
-                  "base(secondary.darker)  base:focus-visible(black)",
+                  "base(secondary.darker) base:focus-visible(black)",
               })}
           {...addButtonProps}
         >
