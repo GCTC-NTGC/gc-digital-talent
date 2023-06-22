@@ -28,6 +28,6 @@
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^7.0.20",
-    "storybook": "^7.0.20"
+    "storybook": "^7.0.23"
   }
 }
