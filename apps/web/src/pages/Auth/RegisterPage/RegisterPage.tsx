@@ -31,7 +31,7 @@ const RegisterPage = () => {
   const iapMode =
     fromPath === paths.iap() || searchParams.get("personality") === "iap";
   const fallbackPath = applicantDashboard
-    ? paths.dashboard()
+    ? paths.profileAndApplications()
     : paths.myProfile();
   const loginPath = apiPaths.login(fromPath ?? fallbackPath, getLocale(intl));
 

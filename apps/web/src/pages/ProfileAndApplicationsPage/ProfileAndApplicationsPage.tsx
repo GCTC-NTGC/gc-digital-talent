@@ -8,16 +8,18 @@ import SEO from "~/components/SEO/SEO";
 import { useApplicantInformationQuery } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
 
-import DashboardHeading from "./components/DashboardHeading";
+import ProfileAndApplicationsHeading from "./components/ProfileAndApplicationsHeading";
 import TrackApplications from "./components/TrackApplications/TrackApplications";
 
 import { PartialUser } from "./types";
 
-interface ApplicantDashboardProps {
+interface ProfileAndApplicationsProps {
   user: PartialUser;
 }
 
-export const ApplicantDashboard = ({ user }: ApplicantDashboardProps) => {
+export const ProfileAndApplications = ({
+  user,
+}: ProfileAndApplicationsProps) => {
   const intl = useIntl();
   const applications = user.poolCandidates?.filter(notEmpty) ?? [];
 
@@ -30,7 +32,7 @@ export const ApplicantDashboard = ({ user }: ApplicantDashboardProps) => {
           description: "Page title for the applicant dashboard page.",
         })}
       />
-      <DashboardHeading user={user} />
+      <ProfileAndApplicationsHeading user={user} />
       <section data-h2-margin="base(x3, 0)">
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
           <div id="track-applications-section">
@@ -42,14 +44,14 @@ export const ApplicantDashboard = ({ user }: ApplicantDashboardProps) => {
   );
 };
 
-const ApplicantDashboardPage = () => {
+const ProfileAndApplicationsPage = () => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useApplicantInformationQuery();
 
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <ApplicantDashboard user={data.me} />
+        <ProfileAndApplications user={data.me} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}
@@ -59,4 +61,4 @@ const ApplicantDashboardPage = () => {
   );
 };
 
-export default ApplicantDashboardPage;
+export default ProfileAndApplicationsPage;

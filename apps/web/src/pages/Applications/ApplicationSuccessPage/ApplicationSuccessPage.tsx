@@ -137,7 +137,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
       {applicantDashboard && (
         <p data-h2-margin="base(x.5, 0)">
           <Link
-            href={paths.dashboard({ fromIapSuccess: isIAP })}
+            href={paths.profileAndApplications({ fromIapSuccess: isIAP })}
             mode="solid"
             color="primary"
           >

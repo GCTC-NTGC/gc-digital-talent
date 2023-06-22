@@ -285,6 +285,22 @@ const getRoutes = (lang: Locales) => {
     createWork: (userId: string, applicationId?: string) =>
       createExperienceUrl("work", userId, applicationId),
 
+    // Profile and Applications
+    profileAndApplications: (opts?: {
+      fromIapDraft?: boolean;
+      fromIapSuccess?: boolean;
+    }) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.fromIapDraft) searchParams.set(FromIapDraftQueryKey, "true");
+      if (opts?.fromIapSuccess)
+        searchParams.set(FromIapSuccessQueryKey, "true");
+
+      return (
+        path.join(applicantUrl, "profile-and-applications") +
+        createSearchQuery(searchParams)
+      );
+    },
+
     // Applicant Dashboard
     dashboard: (opts?: {
       fromIapDraft?: boolean;

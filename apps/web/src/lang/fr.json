@@ -8144,9 +8144,9 @@
     "defaultMessage": "Description de l’apprentissage",
     "description": "Label displayed on Personal Experience form for learning description section"
   },
-  "76KLtb": {
+  "nBoNqj": {
     "defaultMessage": "Profil et candidatures",
-    "description": "Label displayed on the applicant dashboard menu item."
+    "description": "Label displayed on the profile and applications menu item."
   },
   "BVwsnS": {
     "defaultMessage": "Cette base de données sur les talents est ouverte à la plupart des ministères et organismes. Les candidats de la base de données varient, soit de ceux qui débutent leur carrière, aux professionnels chevronnés qui comptent plusieurs années d’expérience de travail. Il existe de multiples processus de recrutement en cours, ce qui veut donc dire qu’on ajoute de nouveaux candidats chaque semaine.",
@@ -8332,9 +8332,9 @@
     "defaultMessage": "Vous n’avez toujours pas ajouté d’article lié au CV.",
     "description": "Message to user when no résumé items have been attached to profile."
   },
-  "WVbN0f": {
-    "defaultMessage": "Profil et demandes ",
-    "description": "Breadcrumb from applicant profile wrapper."
+  "wDc+F3": {
+    "defaultMessage": "Profil et demandes",
+    "description": "Breadcrumb for profile and applications page."
   },
   "XY/crY": {
     "defaultMessage": "Gérez votre expérience et vos processus de recrutement auxquels vous vous êtes qualifié(e).",

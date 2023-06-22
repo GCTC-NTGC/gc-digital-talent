@@ -189,10 +189,20 @@ server {
         rewrite "^(?:/[a-z]{2})?/applications(/.*|$)" /apps/web/dist/index.html break;
     }
 
+    # Redirect old dashboard to new profile and applications
+    location = /en/applicant/dashboard {
+      absolute_redirect off;
+      return 301 /en/applicant/profile-and-applications$is_args$args;
+    }
+
+    location = /fr/applicant/dashboard {
+        absolute_redirect off;
+        return 301 /fr/applicant/profile-and-applications$is_args$args;
+    }
+
     # rewrite possible lang prefix then "applicant" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/applicant(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/applicant(/.*|$)" /apps/web/dist/index.html break;
+      rewrite "^(?:/[a-z]{2})?/applicant(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "create-account" to apps/web index.html
