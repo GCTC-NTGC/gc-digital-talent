@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { useIntl } from "react-intl";
 import ChevronUpIcon from "@heroicons/react/24/solid/ChevronUpIcon";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
@@ -52,6 +53,8 @@ export interface RepeaterFieldsetProps {
   children: React.ReactNode;
 }
 
+const MotionFieldset = motion(Field.Fieldset);
+
 const Fieldset = ({
   index,
   total,
@@ -100,7 +103,15 @@ const Fieldset = ({
   };
 
   return (
-    <Field.Fieldset flat>
+    <MotionFieldset
+      flat
+      layout
+      transition={{
+        type: "tween",
+        ease: "anticipate",
+        duration: 0.4,
+      }}
+    >
       <Field.Legend data-h2-visually-hidden="base(invisible)">
         {legend}
       </Field.Legend>
@@ -192,7 +203,7 @@ const Fieldset = ({
           </ActionButton>
         </div>
       </div>
-    </Field.Fieldset>
+    </MotionFieldset>
   );
 };
 
