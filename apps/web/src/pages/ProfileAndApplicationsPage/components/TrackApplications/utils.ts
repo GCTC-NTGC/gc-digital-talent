@@ -1,7 +1,6 @@
 import { IntlShape } from "react-intl";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
-  formatClosingDate,
   formatSubmittedAt,
   isDraft,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
@@ -34,7 +33,17 @@ export const getApplicationDateInfo = (
   application: Application,
   intl: IntlShape,
 ): ApplicationDateInfo => {
-  const message = isDraft(application.status) ? "Apply By: " : "Applied On: ";
+  const ApplyBy = intl.formatMessage({
+    defaultMessage: "Apply By: ",
+    id: "r4bJ8b",
+    description: "Label for showing the closing date of a job posting.",
+  });
+  const AppliedOn = intl.formatMessage({
+    defaultMessage: "Applied On: ",
+    id: "/II3h3",
+    description: "Label for showing the submitted date of an application.",
+  });
+  const message = isDraft(application.status) ? ApplyBy : AppliedOn;
   const closingDate = application.pool.closingDate
     ? parseDateTimeUtc(application.pool.closingDate)
     : "";
@@ -44,7 +53,7 @@ export const getApplicationDateInfo = (
       : "base(black.light)";
 
   const date = isDraft(application.status)
-    ? formatClosingDate(application.pool.closingDate, intl)
+    ? application.pool.closingDate || ""
     : formatSubmittedAt(application.submittedAt, intl);
   return { message, color, date };
 };

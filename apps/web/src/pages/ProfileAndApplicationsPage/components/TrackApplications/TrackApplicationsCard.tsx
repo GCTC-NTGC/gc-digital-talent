@@ -44,6 +44,7 @@ const TrackApplicationsCard = ({
   const isApplicantQualified = isQualifiedStatus(application.status);
   const statusPill = getStatusPillInfo(application.status, intl);
   const closingDateInfo = getApplicationDateInfo(application, intl);
+
   return (
     <div
       data-h2-border-left="base(x.5 solid primary)"
@@ -72,7 +73,7 @@ const TrackApplicationsCard = ({
           data-h2-justify-content="base(space-between)"
           data-h2-gap="base(0 x.5)"
         >
-          {applicationIsDraft ? (
+          {applicationIsDraft && !recruitmentIsExpired ? (
             <ApplicationLink
               poolId={application.pool.id}
               applicationId={application.id}
@@ -109,7 +110,6 @@ const TrackApplicationsCard = ({
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-align-items="base(space-between)"
         data-h2-justify-content="base(flex-start)"
         data-h2-gap="base(x.5 0) p-tablet(0 x.5)"
       >
@@ -120,18 +120,20 @@ const TrackApplicationsCard = ({
           {getRecruitmentType(application.pool.publishingGroup, intl)}
         </span>
         <span
-          data-h2-color={closingDateInfo.color}
+          data-h2-color="base(black.light)"
           data-h2-margin="base(x.5 0 x1 0)"
         >
-          {intl.formatMessage(
-            {
-              defaultMessage: "{message}",
-              id: "DDJcI/",
-              description: "Label for Application Date",
-            },
-            { message: closingDateInfo.message },
-          )}
-          {closingDateInfo.date}
+          •
+        </span>
+        <span
+          data-h2-color="base(black.light)"
+          data-h2-margin="base(x.5 0 x1 0)"
+        >
+          {closingDateInfo.message}
+          <span data-h2-color={closingDateInfo.color}>
+            {" "}
+            {closingDateInfo.date}{" "}
+          </span>
         </span>
       </div>
       <div
