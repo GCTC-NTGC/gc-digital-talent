@@ -181,4 +181,10 @@ export const HiddenIndex = Template.bind({});
 HiddenIndex.args = {
   ...defaultArgs,
   hideIndex: true,
+  defaultValues: [
+    {
+      en: "Question 1 (EN)",
+      fr: "Question 1 (FR)",
+    },
+  ],
 };
