@@ -22,7 +22,6 @@ final class DuplicatePool
                 'en' => $pool->name['en'] . ' (copy)',
                 'fr' => $pool->name['fr'] . ' (copie)',
             ],
-            'key' => $pool->key ? $pool->key . '_' . time() : null, // If duplicating a pool with a non-null key, ensure the new key is unique.
             'closing_date' => null,
             'published_at' => null,
         ]);

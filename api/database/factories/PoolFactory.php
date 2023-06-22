@@ -10,7 +10,6 @@ use App\Models\Team;
 use App\Models\ScreeningQuestion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Database\Helpers\KeyStringHelpers;
 use Database\Helpers\ApiEnums;
 
 class PoolFactory extends Factory
@@ -48,7 +47,6 @@ class PoolFactory extends Factory
         // this is essentially the draft state
         return [
             'name' => ['en' => $name, 'fr' => $name],
-            'key' => KeyStringHelpers::toKeyString($name),
             'user_id' => $adminUserId,
             'team_id' => $teamId,
         ];
