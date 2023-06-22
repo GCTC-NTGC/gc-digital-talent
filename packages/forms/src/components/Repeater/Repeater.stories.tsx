@@ -13,7 +13,7 @@ import TextArea from "../TextArea";
 import Repeater, { RepeaterFieldsetProps, RepeaterProps } from "./Repeater";
 
 type StoryProps = RepeaterProps &
-  Pick<RepeaterFieldsetProps, "hideLegend"> & {
+  Pick<RepeaterFieldsetProps, "hideLegend" | "hideIndex"> & {
     defaultValues: Array<LocalizedString>;
     name: string;
     maxItems?: number;
@@ -31,7 +31,7 @@ const defaultArgs = {
 };
 
 const Fields = (props: Omit<StoryProps, "defaultValues">) => {
-  const { name, hideLegend, maxItems, ...rootProps } = props;
+  const { name, hideLegend, hideIndex, maxItems, ...rootProps } = props;
   const { control } = useFormContext();
   const { remove, move, append, fields } = useFieldArray({
     control,
@@ -65,6 +65,7 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
               onRemove={remove}
               legend={`Screening Question ${index + 1}`}
               hideLegend={hideLegend}
+              hideIndex={hideIndex}
             >
               <div
                 data-h2-display="base(grid)"
@@ -174,4 +175,10 @@ WithMaxItems.args = {
       fr: "Question 2 (FR)",
     },
   ],
+};
+
+export const HiddenIndex = Template.bind({});
+HiddenIndex.args = {
+  ...defaultArgs,
+  hideIndex: true,
 };
