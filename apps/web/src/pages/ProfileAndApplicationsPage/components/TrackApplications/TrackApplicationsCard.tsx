@@ -15,7 +15,7 @@ import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 import useMutations from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/useMutations";
-import { getRecruitmentType, isQualifiedStatus, isScreenedOutStatus } from "~/utils/poolCandidate";
+import { getRecruitmentType, isQualifiedStatus } from "~/utils/poolCandidate";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import { getApplicationDateInfo } from "./utils";
 
