@@ -18,7 +18,7 @@
   "devDependencies": {
     "@graphql-codegen/add": "^5.0.0",
     "@graphql-codegen/cli": "^4.0.1",
-    "@graphql-codegen/typescript": "^3.0.4",
+    "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^3.0.4",
     "@graphql-codegen/typescript-urql": "^3.7.3",
     "rimraf": "^5.0.1",
