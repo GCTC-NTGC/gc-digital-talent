@@ -1441,5 +1441,9 @@
   "yuWHKJ": {
     "defaultMessage": "Par ordre de date (la plus récente étant en premier)",
     "description": "Select the option to sort by date, descending"
+  },
+  "gDBVKb": {
+    "defaultMessage": "CV et recrutement",
+    "description": "Name of Résumé and recruitment page"
   }
 }
