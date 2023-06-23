@@ -81,6 +81,11 @@ const formMessages = defineMessages({
     id: "fMcKtJ",
     description: "Text to cancel changes to a form",
   },
+  repeaterSkipTo: {
+    defaultMessage: "Skip to add an item",
+    id: "sJ+F9z",
+    description: "Link text to skip to the add button in a repeater",
+  },
   repeaterMove: {
     defaultMessage: "Change order from {from} to {to}",
     id: "NVMKe5",
