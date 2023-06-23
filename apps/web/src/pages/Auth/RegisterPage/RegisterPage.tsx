@@ -163,9 +163,9 @@ const RegisterPage = () => {
                   {
                     defaultMessage:
                       "If you have questions concerning this step, or if you are unsure about how to proceed, please feel free to reach out to our support team at <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
-                    id: "NB+kBj",
+                    id: "ltzA7w",
                     description:
-                      "How to get help with from the support team - IAP variant",
+                      "How to get help from the support team - IAP variant",
                   },
                   {
                     a: (chunks: React.ReactNode) =>

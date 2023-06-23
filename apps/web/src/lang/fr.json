@@ -8304,9 +8304,9 @@
     "defaultMessage": "La CléGC est un service qui vous permet d’accéder à <a>plusieurs services gouvernementaux variés </a> à l’aide d’un seul nom d’utilisateur et mot de passe. Le bouton qui figure ci-dessous vous mènera au site Web CléGC, à partir duquel vous pourrez créer un compte si vous n’en avez toujours pas un. Une fois inscrit(e) à CléGC, vous reviendrez ici pour compléter votre profil.",
     "description": "Instructions on how to register with GCKey paragraph 2- IAP variant"
   },
-  "NB+kBj": {
+  "ltzA7w": {
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
-    "description": "How to get help with logging in - IAP variant"
+    "description": "How to get help from the support team - IAP variant"
   },
   "oPUU6o": {
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
