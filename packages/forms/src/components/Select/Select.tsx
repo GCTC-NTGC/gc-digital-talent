@@ -122,6 +122,7 @@ const Select = ({
         aria-required={!!rules.required}
         aria-invalid={!!error}
         defaultValue=""
+        data-h2-width="base(100%)"
         {...baseStyles}
         {...stateStyles}
         {...register(name, rules)}
