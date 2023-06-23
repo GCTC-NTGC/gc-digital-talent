@@ -7744,10 +7744,6 @@
     "defaultMessage": "Cette information permet aux candidats de savoir quel travail ou dans quel environnement ils appliquent. Utilisez cet espace pour discuter du secteur du gouvernement que le présent processus cherchera à améliorer, de même que des valeurs que ce travail génère.",
     "description": "Helper message for filling in the pool introduction"
   },
-  "ueLK1P": {
-    "defaultMessage": "Vous êtes maintenant arrivé(e) à votre page de profil de Talents numériques.",
-    "description": "First paragraph for applicant dashboard notification welcoming an IAP user"
-  },
   "vB1p56": {
     "defaultMessage": "Merci d’avoir postulé dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones!",
     "description": "Title for notification that a an IAP application was submitted"
@@ -7920,10 +7916,6 @@
     "defaultMessage": "{resultCount, plural, =1 {Profil du candidat} other {Profils des candidats} }",
     "description": "Document title for printing profiles"
   },
-  "+im7hW": {
-    "defaultMessage": "Le programme d’apprentissage fait partie d’une initiative élargie sur les talents du numérique au sein du gouvernement du Canada dont le but consiste à recruter d’incroyables talents du numérique comme vous. Ce profil donne accès à d’autres possibilités et recrutements dans le secteur numérique autres que le programme d’apprentissage, si vous souhaitez y présenter votre candidature. Vous pouvez aussi vous en tenir au programme d’apprentissage si vous préférez!",
-    "description": "Second paragraph for applicant dashboard notification welcoming an IAP user"
-  },
   "1u9PTo": {
     "defaultMessage": "Masquer les candidatures en cours ({applicationCount})",
     "description": "Heading for applications in progress accordion on the applicant dashboard."
@@ -7931,10 +7923,6 @@
   "2dpDPq": {
     "defaultMessage": "Recrutements qualifiés",
     "description": "Title for qualified recruitments section"
-  },
-  "682ljn": {
-    "defaultMessage": "Lorsqu’une candidature aura été évaluée avec succès, le bassin de talents sera automatiquement ajouté à votre curriculum vitæ.",
-    "description": "Description for the track applications section on the applicant dashboard, paragraph two."
   },
   "C9PbZN": {
     "defaultMessage": "Les candidatures en cours s’afficheront ici.",
@@ -7948,10 +7936,6 @@
     "defaultMessage": "Profil linguistique",
     "description": "Title of the Language Information link section"
   },
-  "KUVXJr": {
-    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au programme d’apprentissage destiné aux Autochtones et faire le suivi de votre position dans le programme.",
-    "description": "Third paragraph for applicant dashboard notification welcoming an IAP user"
-  },
   "LOmX3T": {
     "defaultMessage": "Expérience de travail",
     "description": "Title for work experience section"
@@ -7960,17 +7944,9 @@
     "defaultMessage": "Paramètres du compte et de confidentialité",
     "description": "Title of the Account and privacy settings link section"
   },
-  "Ori6s+": {
-    "defaultMessage": "Curriculum vitæ et recrutements",
-    "description": "applicant dashboard card title for résumé card"
-  },
   "Pf+PA/": {
     "defaultMessage": "Préférences de travail",
     "description": "Title of the Work Location link section"
-  },
-  "RzNVWf": {
-    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au programme d’apprentissage destiné aux Autochtones et faire le suivi de votre statut dans le programme.",
-    "description": "Third paragraph for applicant dashboard notification welcoming an IAP user"
   },
   "U0qb7j": {
     "defaultMessage": "Les candidatures qui ne sont plus actives s'affichent ici.",
@@ -8003,14 +7979,6 @@
   "gTjLic": {
     "defaultMessage": "Renseignements du profil",
     "description": "applicant dashboard card title for profile card"
-  },
-  "iutl39": {
-    "defaultMessage": "Les candidatures pour le bassin de talents et les possibilités de recrutement en cours peuvent être gérées et suivies ici. Vous pourrez voir les dates limites de présentation des candidatures, le statut de votre candidature au fil du temps et les candidatures antérieures.",
-    "description": "Description for the track applications section on the applicant dashboard, paragraph one."
-  },
-  "kBEXbF": {
-    "defaultMessage": "Bienvenue dans le tableau de bord de votre profil de talent du numérique",
-    "description": "Title for notification that a draft IAP application was saved"
   },
   "mH2eSA": {
     "defaultMessage": "Cette section comprend les anciennes candidatures qui ont été évaluées avec succès, ainsi que les candidatures qui n’ont pas été présentées dans les délais impartis.",
@@ -8308,9 +8276,9 @@
     "defaultMessage": "Profil et demandes ",
     "description": "Breadcrumb from applicant profile wrapper."
   },
-  "XY/crY": {
+  "6f8XuQ": {
     "defaultMessage": "Gérez votre expérience et vos processus de recrutement auxquels vous vous êtes qualifié(e).",
-    "description": "Description for the Résumé and recruitments page in applicant profile."
+    "description": "Description for the Résumé and recruitment page in applicant profile."
   },
   "aW/Htv": {
     "defaultMessage": "Les processus de recrutement auxquels vous avez été admis(e) apparaîtront ici.",
@@ -8324,21 +8292,53 @@
     "defaultMessage": "Processus de recrutement auxquels vous vous êtes qualifié(e)",
     "description": "Titles for a page section to manage your qualified recruitment processes"
   },
-  "gPy2MA": {
+  "18FbqO": {
     "defaultMessage": "Cette section ressemble à votre CV traditionnel et décrit vos expériences de travail, scolaires, et de la vie. Vous pourrez réutiliser cette information sur chaque demande que vous soumettez par l’entremise de la plateforme, ce qui viendra accélérer le processus et fera en sorte que votre information sera toujours à jour.",
-    "description": "Descriptive paragraph for the Manage your resume section of the résumé and recruitments page."
+    "description": "Descriptive paragraph for the Manage your resume section of the résumé and recruitment page."
   },
-  "wrTfp3": {
+  "DI3uQq": {
     "defaultMessage": "Lorsque vous formulez une demande dans le cadre d’un processus de recrutement et que vous passez l’évaluation, vous serez admis(e), et vous pourrez donc commencer à être pris(e) en compte pour des possibilités connexes. Cette section met en évidence tous les processus actifs et expires auxquels vous faites actuellement partie, et vous permettra de gérer si vous figurez ou non dans les recherches de talents. ",
-    "description": "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitments page."
+    "description": "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitment page."
   },
   "z7FpHz": {
     "defaultMessage": "Vous pouvez commencer par formuler une demande dans le cadre d’un processus de recrutement ciblé ou en cours.",
     "description": "Message to user when no qualified recruitments have been attached to profile, paragraph two."
   },
-  "SyJkc/": {
-    "defaultMessage": "Curriculum vitæ et recrutements",
-    "description": "Name of Résumé and recruitments page"
+  "0Uq3M8": {
+    "defaultMessage": "Bienvenue sur la page de votre profil des Talents numériques.",
+    "description": "First paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "3c9+uF": {
+    "defaultMessage": "Une fois que votre candidature aura été retenue, <a>le critère de qualification sera automatiquement ajouté à votre CV</a> afin que les gestionnaires puissent prendre connaissance de vos réalisations.",
+    "description": "Description for the track applications section on the applicant dashboard, paragraph two."
+  },
+  "4l0ayd": {
+    "defaultMessage": "Sachez que votre profil vous donne accès aux possibilités d’emploi autres que celles offertes dans le cadre du programme d’apprentissage. Par conséquent, vous pourriez choisir de poser votre candidature pour l’une de ces offres et de vous en tenir à celles liées au programme d’apprentissage!",
+    "description": "Third paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "9nNPo1": {
+    "defaultMessage": "CV et recrutement",
+    "description": "applicant dashboard card title for résumé card"
+  },
+  "GbKnDu": {
+    "defaultMessage": "Bienvenue au tableau de bord du profil des talents numériques",
+    "description": "Title for notification that a draft IAP application was saved"
+  },
+  "XOTFae": {
+    "defaultMessage": "<strong> Lorsque vous vous connectez à votre compte, vous arriverez sur cette page.</strong>",
+    "description": "Notice that the application dashboard is the first page after logging in"
+  },
+  "gDBVKb": {
+    "defaultMessage": "CV et recrutement",
+    "description": "Name of Résumé and recruitment page"
+  },
+  "j6x/rB": {
+    "defaultMessage": " Le programme d’apprentissage s’inscrit dans le cadre d’une vaste initiative du gouvernement du Canada qui vise à recruter les meilleurs talents dans le domaine du numérique, comme vous. Vous pouvez utiliser la section « Suivre vos demandes » de cette page pour vérifier le statut de votre candidature au Programme d’apprentissage en matière de TI pour les personnes autochtones.",
+    "description": "Second paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "sPufRD": {
+    "defaultMessage": "Vous pouvez y suivre vos dossiers de candidature pour des offres d’emploi ciblées ou en cours. Vous pourrez consulter les dates de soumission, l’évolution de vos dossiers de candidature ainsi que les offres d’emploi antérieures ou expirées.",
+    "description": "Description for the track applications section on the applicant dashboard, paragraph one."
   },
   "o4tj77": {
     "defaultMessage": "Pour nous joindre",

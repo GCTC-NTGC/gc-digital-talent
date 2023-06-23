@@ -682,7 +682,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                       <PageSection>
                         <Heading level="h3">
                           {intl.formatMessage(
-                            navigationMessages.resumeAndRecruitments,
+                            navigationMessages.resumeAndRecruitment,
                           )}
                         </Heading>
                         <PrintExperienceByType

@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { HeadingRank, Well } from "@gc-digital-talent/ui";
 
 import { Experience } from "~/api/generated";
-import AddExperienceDialog from "~/pages/Profile/ResumeAndRecruitmentsPage/components/AddExperienceDialog";
+import AddExperienceDialog from "~/pages/Profile/ResumeAndRecruitmentPage/components/AddExperienceDialog";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSortAndFilter, {
   FormValues as ExperienceSortAndFilterFormValues,
