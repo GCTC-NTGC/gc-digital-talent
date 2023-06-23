@@ -48,7 +48,7 @@ export const getApplicationDateInfo = (
     ? parseDateTimeUtc(application.pool.closingDate)
     : "";
   const color =
-    closingDate && isClosingSoon(closingDate)
+    closingDate && isClosingSoon(closingDate) && isDraft(application.status)
       ? "base(error)"
       : "base(black.light)";
 

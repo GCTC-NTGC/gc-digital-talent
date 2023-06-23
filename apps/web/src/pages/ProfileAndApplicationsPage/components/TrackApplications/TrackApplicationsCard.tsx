@@ -17,6 +17,7 @@ import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/Appl
 import useMutations from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/useMutations";
 import { getRecruitmentType, isQualifiedStatus } from "~/utils/poolCandidate";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 import { getApplicationDateInfo } from "./utils";
 
 export type Application = Omit<PoolCandidate, "user">;
@@ -40,10 +41,16 @@ const TrackApplicationsCard = ({
     application.status,
     application.pool.closingDate,
   );
+  const isDraftExpired = applicationIsDraft && recruitmentIsExpired;
   const isApplicantPlaced = isPlaced(application.status);
   const isApplicantQualified = isQualifiedStatus(application.status);
-  const statusPill = getStatusPillInfo(application.status, intl);
-  const closingDateInfo = getApplicationDateInfo(application, intl);
+
+  // We don't get DraftExpired status from the API, so we need to check if the draft is expired ourselves
+  const statusPill = isDraftExpired
+    ? getStatusPillInfo(PoolCandidateStatus.DraftExpired, intl)
+    : getStatusPillInfo(application.status, intl);
+
+  const applicationDateInfo = getApplicationDateInfo(application, intl);
 
   return (
     <div
@@ -129,10 +136,10 @@ const TrackApplicationsCard = ({
           data-h2-color="base(black.light)"
           data-h2-margin="base(x.5 0 x1 0)"
         >
-          {closingDateInfo.message}
-          <span data-h2-color={closingDateInfo.color}>
+          {applicationDateInfo.message}
+          <span data-h2-color={applicationDateInfo.color}>
             {" "}
-            {closingDateInfo.date}{" "}
+            {applicationDateInfo.date}{" "}
           </span>
         </span>
       </div>

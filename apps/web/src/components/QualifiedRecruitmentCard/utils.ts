@@ -53,7 +53,7 @@ export const getStatusPillInfo = (
   if (isExpiredStatus(status)) {
     return {
       color: "error",
-      text: intl.formatMessage(poolCandidateMessages.expired),
+      text: label ? intl.formatMessage(label) : "",
     };
   }
   if (isScreenedOutStatus(status)) {
