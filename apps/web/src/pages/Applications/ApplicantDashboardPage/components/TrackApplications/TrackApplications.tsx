@@ -14,14 +14,19 @@ import {
 } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
-import { PoolCandidate } from "~/api/generated";
+import { PoolCandidate, Scalars } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { isApplicationInProgress } from "~/utils/applicationUtils";
+import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
 import TrackApplicationsCard from "./TrackApplicationsCard";
 
 interface AnimatedContentProps
   extends React.ComponentPropsWithoutRef<typeof Accordion.Content> {
   isOpen: boolean;
+}
+
+function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
+  return <Link href={href}>{chunks}</Link>;
 }
 
 const animationVariants = {
@@ -55,11 +60,15 @@ export type Application = Omit<PoolCandidate, "user">;
 
 interface TrackApplicationsProps {
   applications: Application[];
+  userId: Scalars["ID"];
 }
 
 type AccordionItems = Array<"in_progress" | "past" | "">;
 
-const TrackApplications = ({ applications }: TrackApplicationsProps) => {
+const TrackApplications = ({
+  applications,
+  userId,
+}: TrackApplicationsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -77,36 +86,62 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
   return (
     <section>
       <div>
-        <Heading
-          level="h2"
-          data-h2-font-weight="base(400)"
-          Icon={FolderOpenIcon}
-          color="primary"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Track your applications",
-            id: "tZwDLH",
-            description:
-              "Heading for track applications section on the applicant dashboard.",
-          })}
-        </Heading>
+        <div data-h2-flex-grid="base(center, x1, x1)">
+          <Heading
+            level="h2"
+            data-h2-font-weight="base(400)"
+            Icon={FolderOpenIcon}
+            color="primary"
+            data-h2-flex-item="base(1of1) p-tablet(fill)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Track your applications",
+              id: "tZwDLH",
+              description:
+                "Heading for track applications section on the applicant dashboard.",
+            })}
+          </Heading>
+          <Link
+            href={paths.browsePools()}
+            data-h2-flex-item="base(1of1) p-tablet(content)"
+            mode="inline"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Browse jobs",
+              id: "ApyEMy",
+              description: "Title for the browse pools page",
+            })}
+          </Link>
+        </div>
         <p data-h2-margin="base(x.5, 0, 0, 0)">
           {intl.formatMessage({
             defaultMessage:
-              "Applications to talent pool and ongoing recruitment opportunities can be managed and tracked here. You’ll be able to see submission deadlines, your application’s status over time, and past applications.",
-            id: "iutl39",
+              "Applications to targeted or ongoing recruitment opportunities can be managed and tracked here. You’ll be able to see submission deadlines, your application’s status over time, and old or expired applications.",
+            id: "sPufRD",
             description:
               "Description for the track applications section on the applicant dashboard, paragraph one.",
           })}
         </p>
         <p data-h2-margin="base(x.5, 0, x1, 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "After an application is successfully assessed, the talent pool will be added to your résumé automatically.",
-            id: "682ljn",
-            description:
-              "Description for the track applications section on the applicant dashboard, paragraph two.",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "After an application is successfully assessed, the <a>qualified recruitment will be added to your résumé</a> automatically so that managers can see your accomplishments.",
+              id: "3c9+uF",
+              description:
+                "Description for the track applications section on the applicant dashboard, paragraph two.",
+            },
+            {
+              a: (chunks: React.ReactNode) =>
+                buildLink(
+                  paths.resumeAndRecruitment(userId, {
+                    section:
+                      RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
+                  }),
+                  chunks,
+                ),
+            },
+          )}
         </p>
       </div>
       <div>
