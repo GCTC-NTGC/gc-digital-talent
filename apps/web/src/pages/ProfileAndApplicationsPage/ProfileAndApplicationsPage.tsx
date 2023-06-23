@@ -27,9 +27,9 @@ export const ProfileAndApplications = ({
     <>
       <SEO
         title={intl.formatMessage({
-          defaultMessage: "Dashboard",
-          id: "2i8/jR",
-          description: "Page title for the applicant dashboard page.",
+          defaultMessage: "Profile and applications",
+          id: "d5U44H",
+          description: "Page title for the profile and applications page.",
         })}
       />
       <ProfileAndApplicationsHeading user={user} />

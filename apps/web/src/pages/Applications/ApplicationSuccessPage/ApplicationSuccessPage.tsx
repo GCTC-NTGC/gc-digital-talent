@@ -142,9 +142,10 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
             color="primary"
           >
             {intl.formatMessage({
-              defaultMessage: "Go to my dashboard",
-              id: "pKY4PC",
-              description: "Link text to navigate to the applicant dashboard",
+              defaultMessage: "Visit your Profile and applications page",
+              id: "26Qj2A",
+              description:
+                "Link text to navigate to the profile and applications page",
             })}
           </Link>
         </p>
@@ -152,10 +153,10 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
       <p data-h2-font-size="base(caption)">
         {intl.formatMessage({
           defaultMessage:
-            "* Note that your confirmation number can also be found on your dashboard.",
-          id: "PIzMYn",
+            "* Note that your confirmation number can also be found in the Track your applications section on your Profile and applications page.",
+          id: "lxDgNf",
           description:
-            "Note that the application confirmation number is available on the dashboard",
+            "Note that the application confirmation number is available on the profile and applications page",
         })}
       </p>
     </Alert.Root>

@@ -85,27 +85,27 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
         >
           {intl.formatMessage({
             defaultMessage: "Track your applications",
-            id: "tZwDLH",
+            id: "uqiPvH",
             description:
-              "Heading for track applications section on the applicant dashboard.",
+              "Heading for track applications section on the profile and applications.",
           })}
         </Heading>
         <p data-h2-margin="base(x.5, 0, 0, 0)">
           {intl.formatMessage({
             defaultMessage:
               "Applications to talent pool and ongoing recruitment opportunities can be managed and tracked here. You’ll be able to see submission deadlines, your application’s status over time, and past applications.",
-            id: "iutl39",
+            id: "igTx2a",
             description:
-              "Description for the track applications section on the applicant dashboard, paragraph one.",
+              "Description for the track applications section on the profile and applications, paragraph one.",
           })}
         </p>
         <p data-h2-margin="base(x.5, 0, x1, 0)">
           {intl.formatMessage({
             defaultMessage:
               "After an application is successfully assessed, the talent pool will be added to your résumé automatically.",
-            id: "682ljn",
+            id: "fI9wkt",
             description:
-              "Description for the track applications section on the applicant dashboard, paragraph two.",
+              "Description for the track applications section on the profile and applications, paragraph two.",
           })}
         </p>
       </div>
@@ -135,9 +135,9 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
                     {
                       defaultMessage:
                         "Hide applications in progress ({applicationCount})",
-                      id: "1u9PTo",
+                      id: "6QrhJQ",
                       description:
-                        "Heading for applications in progress accordion on the applicant dashboard.",
+                        "Heading for applications in progress accordion on profile and applications.",
                     },
                     {
                       applicationCount: inProgressApplications.length ?? "0",
@@ -147,9 +147,9 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
                     {
                       defaultMessage:
                         "Show applications in progress ({applicationCount})",
-                      id: "VUbrMi",
+                      id: "agiL8L",
                       description:
-                        "Heading for applications in progress accordion on the applicant dashboard.",
+                        "Heading for applications in progress accordion on profile and applications.",
                     },
                     {
                       applicationCount: inProgressApplications.length ?? "0",
@@ -217,9 +217,9 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
                     {
                       defaultMessage:
                         "Hide past applications ({applicationCount})",
-                      id: "Vq97zy",
+                      id: "Kaoxhq",
                       description:
-                        "Heading for past applications accordion on the applicant dashboard.",
+                        "Heading for past applications accordion on profile and applications.",
                     },
                     {
                       applicationCount: pastApplications.length ?? "0",
@@ -229,9 +229,9 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
                     {
                       defaultMessage:
                         "Show past applications ({applicationCount})",
-                      id: "mYD993",
+                      id: "1fMzyo",
                       description:
-                        "Heading for past applications accordion on the applicant dashboard.",
+                        "Heading for past applications accordion on profile and applications.",
                     },
                     {
                       applicationCount: pastApplications.length ?? "0",
