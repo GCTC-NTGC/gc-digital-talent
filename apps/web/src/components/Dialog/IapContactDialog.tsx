@@ -32,10 +32,10 @@ const IapContactDialog = () => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "If you have questions concerning this step, or if you are unsure about how to proceed, please feel free to reach out to our support team at <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>",
-                id: "TxyOcb",
+                  "If you have questions concerning this step, or if you are unsure about how to proceed, please feel free to reach out to our support team at <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
+                id: "NB+kBj",
                 description:
-                  "Text for contacting the support team within the Indigenous Apprenticeship Program application process",
+                  "How to get help with from the support team - IAP variant",
               },
               { mailLink },
             )}
