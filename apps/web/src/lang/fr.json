@@ -8314,5 +8314,129 @@
   "k4Vsh0": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
     "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
+  },
+  "+clYLj": {
+    "defaultMessage": "Sélectionnez votre expérience de cette compétence",
+    "description": "Description for the skill level radio group"
+  },
+  "0Q89Cz": {
+    "defaultMessage": "Trouvez une compétence dans notre bibliothèque en utilisant les filtres et la recherche par mot-clé.",
+    "description": "Subtitle for the find a skill dialog"
+  },
+  "9LwRRx": {
+    "defaultMessage": "Responsable",
+    "description": "Label for the lead skill level"
+  },
+  "AxRGK2": {
+    "defaultMessage": "Cacher les renseignements sur les choses à faire si vous ne trouvez pas une compétence",
+    "description": "Button text to hide help information about skills"
+  },
+  "DYpwKZ": {
+    "defaultMessage": "Utilisez-vous actuellement cette compétence?",
+    "description": "Description for the current skill radio group"
+  },
+  "HrRgTT": {
+    "defaultMessage": "Veuillez sélectionner une compétence pour continuer.",
+    "description": "Help text to tell users to select a skill before submitting"
+  },
+  "JzK3m/": {
+    "defaultMessage": "Intermédiaire",
+    "description": "Label for the intermediate skill level"
+  },
+  "KdbrIC": {
+    "defaultMessage": "Ajouter un nouvel élément",
+    "description": "Button text to open the skill dialog and add a skill to the users library"
+  },
+  "OVBFto": {
+    "defaultMessage": "Annuler",
+    "description": "Button text to cancel and close the skill dialog"
+  },
+  "Ok+Ojl": {
+    "defaultMessage": "{skill} est défini comme :",
+    "description": "Heading for a specific skills definition"
+  },
+  "Q0AKK4": {
+    "defaultMessage": "Si vous ne trouvez pas une compétence, essayez d’élargir vos filtres ou de chercher le nom d’une compétence à l’aide d’autres termes de l’industrie.",
+    "description": "Help text to tell users to change their filters to find a skill"
+  },
+  "QU2NLF": {
+    "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel",
+    "description": "Label for the current skill yes option"
+  },
+  "R9dzE0": {
+    "defaultMessage": "Filtrer les compétences par catégorie",
+    "description": "Label for the skill category filter field"
+  },
+  "TVoXiS": {
+    "defaultMessage": "<strong>Non</strong>, ce n’est pas une compétence que j’ai déjà utilisée",
+    "description": "Label for the current skill no option"
+  },
+  "XpiMeF": {
+    "defaultMessage": "Chercher dans notre base de données de compétences et les associer à votre profil.",
+    "description": "Subtitle for the find a skill dialog within the skill library"
+  },
+  "Y96JXz": {
+    "defaultMessage": "La compétence que vous avez choisie sera aussi ajoutée à votre présentation de compétences, si elle ne s’y trouve pas déjà.",
+    "description": "Subtitle for the find a skill dialog within an experience"
+  },
+  "ZtHmo1": {
+    "defaultMessage": "Toutes les catégories",
+    "description": "Label for removing the skill category filter"
+  },
+  "bMY93S": {
+    "defaultMessage": "Une fois que vous avez trouvé une compétence, nous vous demandons de donner une évaluation honnête de votre niveau d’expérience approximatif. Ce niveau sera communiqué aux gestionnaires recruteurs conjointement avec toute évaluation officielle des compétences par le gouvernement du Canada, ce qui facilitera une compréhension plus globale de vos capacités.",
+    "description": "Help text for providing a skill level"
+  },
+  "c0SFYY": {
+    "defaultMessage": "Si vous ne trouvez toujours pas une compétence, il est possible qu’elle n’ait pas encore été ajoutée à notre bibliothèque. Nous enrichissons constamment notre liste de compétences et serions ravis de connaître votre avis. <a>Faites-nous part de vos suggestions</a>.",
+    "description": "Help text to tell users to change their filters to find a skill"
+  },
+  "eLk4bq": {
+    "defaultMessage": "Toutes les familles de compétences",
+    "description": "Label for removing the skill family filter"
+  },
+  "iMtZOR": {
+    "defaultMessage": "Trouvez une nouvelle compétence et ajoutez-la à votre bibliothèque",
+    "description": "Title for the find a skill dialog within the skill library"
+  },
+  "karCOz": {
+    "defaultMessage": "Débutant",
+    "description": "Label for the beginner skill level"
+  },
+  "mAN6yW": {
+    "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
+    "description": "Button text to show help information about skills"
+  },
+  "mLmPpf": {
+    "defaultMessage": "Trouver une compétence",
+    "description": "Title for the find a skill dialog"
+  },
+  "mS15HC": {
+    "defaultMessage": "Ajouter une compétence",
+    "description": "Button text to open the skill dialog and add a skill"
+  },
+  "maibxu": {
+    "defaultMessage": "Trouver une compétence",
+    "description": "Button text to open the skill dialog"
+  },
+  "oZvIAg": {
+    "defaultMessage": "Avancé",
+    "description": "Label for the advanced skill level"
+  },
+  "taxkCS": {
+    "defaultMessage": "Enregistrer et ajouter une compétence",
+    "description": "Button text to save a specific skill to a users profile"
+  },
+  "wUlyLG": {
+    "defaultMessage": "Filtrer les compétences par famille de compétences",
+    "description": "Label for the skill family filter field"
+  },
+  "xkJAuq": {
+    "defaultMessage": "Ajouter cette compétence",
+    "description": "Button text to select a specific skill in the skill dialog"
+  },
+  "yiNnwk": {
+    "defaultMessage": "Trouver une compétence et l’associer à votre expérience sur votre curriculum vitæ",
+    "description": "Title for the find a skill dialog within an experience"
   }
 }

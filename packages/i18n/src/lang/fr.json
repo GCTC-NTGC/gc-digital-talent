@@ -1045,10 +1045,6 @@
     "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
     "description": "Message displayed when number of user attempts exceeds rate limit"
   },
-  "b3ar1X": {
-    "defaultMessage": "Rétablir {label}",
-    "description": "Button text to reset the combobox input"
-  },
   "IRCKBP": {
     "defaultMessage": "Aucun résultat n’a été trouvé.",
     "description": "Message displayed when combobox has no options available"
@@ -1433,5 +1429,9 @@
   "YmboX1": {
     "defaultMessage": "{wordCount} / {wordLimit} mots",
     "description": "Message for words remaining before hitting the limit"
+  },
+  "U/4a27": {
+    "defaultMessage": "Effacer votre sélection",
+    "description": "Button text to reset the combobox input"
   }
 }
