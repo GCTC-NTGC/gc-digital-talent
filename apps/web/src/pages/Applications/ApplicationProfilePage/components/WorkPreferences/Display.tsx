@@ -13,6 +13,7 @@ import { PositionDuration } from "~/api/generated";
 
 import FieldDisplay from "../FieldDisplay";
 import DisplayColumn from "../DisplayColumn";
+import { useApplicationContext } from "../../../ApplicationContext";
 
 interface DisplayProps {
   user: User;
@@ -27,6 +28,7 @@ const Display = ({
   },
 }: DisplayProps) => {
   const intl = useIntl();
+  const { isIAP } = useApplicationContext();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const locations = locationPreferences?.filter(notEmpty);
   const acceptedRequirements =
@@ -54,16 +56,18 @@ const Display = ({
       data-h2-gap="base(x1)"
     >
       <DisplayColumn>
-        <FieldDisplay
-          hasError={empty(positionDuration)}
-          label={intl.formatMessage({
-            defaultMessage: "Job duration",
-            id: "/yOfhq",
-            description: "Job duration label",
-          })}
-        >
-          {positionDuration ? durationMessage : notProvided}
-        </FieldDisplay>
+        {!isIAP && (
+          <FieldDisplay
+            hasError={empty(positionDuration)}
+            label={intl.formatMessage({
+              defaultMessage: "Job duration",
+              id: "/yOfhq",
+              description: "Job duration label",
+            })}
+          >
+            {positionDuration ? durationMessage : notProvided}
+          </FieldDisplay>
+        )}
         <div>
           <FieldDisplay
             label={intl.formatMessage({
