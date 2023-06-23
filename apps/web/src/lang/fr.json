@@ -8367,5 +8367,9 @@
   "SyJkc/": {
     "defaultMessage": "Curriculum vitæ et recrutements",
     "description": "Name of Résumé and recruitments page"
+  },
+  "o4tj77": {
+    "defaultMessage": "Pour nous joindre",
+    "description": "Title for the contact dialog for the Indigenous Apprenticeship Program application process"
   }
 }
