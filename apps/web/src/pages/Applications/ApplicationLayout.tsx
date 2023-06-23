@@ -13,12 +13,13 @@ import { empty, notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
+import IapContactDialog from "~/components/Dialog/IapContactDialog";
 
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { fullPoolTitle } from "~/utils/poolUtils";
+import { fullPoolTitle, isIAPPool } from "~/utils/poolUtils";
 import { useGetApplicationQuery } from "~/api/generated";
 import {
   applicationStepsToStepperArgs,
@@ -43,6 +44,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     experienceId,
   });
   const title = fullPoolTitle(intl, application.pool);
+  const isIAP = isIAPPool(application.pool);
 
   const pageTitle = defineMessage({
     defaultMessage: "Apply to {poolName}",
@@ -136,6 +138,11 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
               currentIndex={currentStepIndex}
               steps={applicationStepsToStepperArgs(steps, application)}
             />
+            {isIAP && (
+              <div data-h2-margin="base(x1 0)">
+                <IapContactDialog />
+              </div>
+            )}
           </TableOfContents.Sidebar>
           <TableOfContents.Content>
             {userIsOnDisabledPage ? (

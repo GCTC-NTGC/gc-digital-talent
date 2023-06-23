@@ -7908,37 +7908,9 @@
     "defaultMessage": "Membre des FAC",
     "description": "Veteran/member label"
   },
-  "DjSiTu": {
-    "defaultMessage": "Date de réception",
-    "description": "Date received label"
-  },
-  "Gthvhd": {
-    "defaultMessage": "Date d'expiration",
-    "description": "Expiry date label"
-  },
-  "bjnh/y": {
-    "defaultMessage": "Date d'archivage",
-    "description": "Archival date label"
-  },
   "mevv+t": {
     "defaultMessage": "Disponibilité",
     "description": "Availability label"
-  },
-  "qSDM1H": {
-    "defaultMessage": "Priorité",
-    "description": "Priority label"
-  },
-  "rwNxlI": {
-    "defaultMessage": "Notes",
-    "description": "Notes label"
-  },
-  "s2y5eG": {
-    "defaultMessage": "Statut",
-    "description": "Status label"
-  },
-  "xD0Vbd": {
-    "defaultMessage": "Détails du candidat du bassin",
-    "description": "Title of the pool candidate details content section"
   },
   "mUiS9q": {
     "defaultMessage": "{resultCount, plural, =1 {Profil du candidat} other {Profils des candidats} }",
@@ -8272,9 +8244,9 @@
     "defaultMessage": "La CléGC est un service qui vous permet d’accéder à <a>plusieurs services gouvernementaux variés </a> à l’aide d’un seul nom d’utilisateur et mot de passe. Le bouton qui figure ci-dessous vous mènera au site Web CléGC, à partir duquel vous pourrez créer un compte si vous n’en avez toujours pas un. Une fois inscrit(e) à CléGC, vous reviendrez ici pour compléter votre profil.",
     "description": "Instructions on how to register with GCKey paragraph 2- IAP variant"
   },
-  "lRUGPY": {
+  "ltzA7w": {
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
-    "description": "How to get help with logging in - IAP variant"
+    "description": "How to get help from the support team - IAP variant"
   },
   "oPUU6o": {
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
@@ -8367,5 +8339,13 @@
   "sPufRD": {
     "defaultMessage": "Vous pouvez y suivre vos dossiers de candidature pour des offres d’emploi ciblées ou en cours. Vous pourrez consulter les dates de soumission, l’évolution de vos dossiers de candidature ainsi que les offres d’emploi antérieures ou expirées.",
     "description": "Description for the track applications section on the applicant dashboard, paragraph one."
+  },
+  "SyJkc/": {
+    "defaultMessage": "Curriculum vitæ et recrutements",
+    "description": "Name of Résumé and recruitments page"
+  },
+  "o4tj77": {
+    "defaultMessage": "Pour nous joindre",
+    "description": "Title for the contact dialog for the Indigenous Apprenticeship Program application process"
   }
 }
