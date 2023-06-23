@@ -10,6 +10,12 @@ const useDirtyFields = (section: SectionKey): void => {
 
   useEffect(() => {
     toggleDirty(section, isDirty);
+    /**
+     * Note: toggleDirty is updated after toggling causing and infinite
+     * state update loop
+     *
+     * This is necessary to facilitate validating all of the forms at once
+     */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDirty]);
 };
