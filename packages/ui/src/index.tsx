@@ -49,7 +49,6 @@ import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, { type PendingProps } from "./components/Pending";
 import Pill, {
   type PillProps,
-  type PillColor,
   type PillMode,
   type PillSize,
 } from "./components/Pill";
@@ -106,7 +105,6 @@ export type {
   LoadingProps,
   PendingProps,
   PillProps,
-  PillColor,
   PillMode,
   PillSize,
   SideMenuProps,

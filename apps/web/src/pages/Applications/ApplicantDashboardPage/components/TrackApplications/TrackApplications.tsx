@@ -14,8 +14,9 @@ import {
 } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
-import { PoolCandidate, PoolCandidateStatus } from "~/api/generated";
+import { PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import { isApplicationInProgress } from "~/utils/applicationUtils";
 import TrackApplicationsCard from "./TrackApplicationsCard";
 
 interface AnimatedContentProps
@@ -58,14 +59,6 @@ interface TrackApplicationsProps {
 
 type AccordionItems = Array<"in_progress" | "past" | "">;
 
-const isApplicationInProgress = (a: Application): boolean => {
-  return (
-    a.status === PoolCandidateStatus.Draft ||
-    a.status === PoolCandidateStatus.NewApplication ||
-    a.status === PoolCandidateStatus.ApplicationReview
-  );
-};
-
 const TrackApplications = ({ applications }: TrackApplicationsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -88,7 +81,7 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
           level="h2"
           data-h2-font-weight="base(400)"
           Icon={FolderOpenIcon}
-          color="purple"
+          color="primary"
         >
           {intl.formatMessage({
             defaultMessage: "Track your applications",

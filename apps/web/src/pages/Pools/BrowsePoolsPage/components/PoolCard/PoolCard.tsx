@@ -70,6 +70,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
       data-h2-radius="base(rounded)"
     >
       <div
+        aria-hidden="true"
         data-h2-position="base(absolute)"
         data-h2-location="base(0, auto, auto, x.5) p-tablet(0, auto, auto, x2)"
       >
@@ -156,7 +157,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
                   {pool.essentialSkills.map((skill) => (
                     <Chip
                       key={skill.id}
-                      color="blue"
+                      color="secondary"
                       mode="outline"
                       label={getLocalizedName(skill.name, intl)}
                     />

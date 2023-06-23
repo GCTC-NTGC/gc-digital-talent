@@ -8,7 +8,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import NavMenu from "./NavMenu";
 import LogoutConfirmation from "../LogoutConfirmation";
-import { LogoutButton } from "../Layout/Layout";
+import LogoutButton from "../Layout/LogoutButton";
 
 interface IAPNavMenuProps {
   loggedIn?: boolean;
@@ -18,16 +18,17 @@ interface IAPNavMenuProps {
 const IAPNavMenu = ({ loggedIn, user }: IAPNavMenuProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const searchParams = `?from=${paths.iap()}&personality=iap`;
 
   let authLinks = [
-    <MenuLink key="login-info" to={`${paths.login()}?iap`}>
+    <MenuLink key="login-info" to={`${paths.login()}${searchParams}`}>
       {intl.formatMessage({
         defaultMessage: "Login",
         id: "md7Klw",
         description: "Label displayed on the login link menu item.",
       })}
     </MenuLink>,
-    <MenuLink key="register" to={`${paths.register()}?iap`}>
+    <MenuLink key="register" to={`${paths.register()}${searchParams}`}>
       {intl.formatMessage({
         defaultMessage: "Register",
         id: "LMGaDQ",

@@ -6,7 +6,7 @@ import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
-  Input,
+  DateInput,
   Select,
   Submit,
   TextArea,
@@ -152,16 +152,15 @@ export const ApplicationStatusForm = ({
                       label: intl.formatMessage(getPoolCandidateStatus(value)),
                     }))}
                   />
-                  <Input
+                  <DateInput
                     id="expiryDate"
                     name="expiryDate"
-                    label={intl.formatMessage({
+                    legend={intl.formatMessage({
                       defaultMessage: "Candidate expiry date",
                       id: "SoKPAb",
                       description:
                         "Label displayed on the pool candidate application form expiry date field.",
                     })}
-                    type="date"
                   />
                 </div>
               </div>

@@ -158,7 +158,7 @@ class PoolCandidate extends Model
         })
             ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
-                $query->whereDate('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
+                $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
             // Now scope for valid pools, according to streams
             ->whereHas('pool', function ($query) use ($streams) {
@@ -187,7 +187,7 @@ class PoolCandidate extends Model
         })
             ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
-                $query->whereDate('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
+                $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
             // Now ensure the PoolCandidate is in a pool with the right classification
             ->whereHas('pool', function ($query) use ($classifications) {
@@ -345,7 +345,7 @@ class PoolCandidate extends Model
     {
         $query->whereIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])
             ->where(function ($query) {
-                $query->whereDate('suspended_at', '>=', Carbon::now())
+                $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
             });
         return $query;
@@ -382,11 +382,11 @@ class PoolCandidate extends Model
         $suspendedStatus = isset($suspendedStatus) ? $suspendedStatus : ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE;
         if ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
             $query->where(function ($query) {
-                $query->whereDate('suspended_at', '>=', Carbon::now())
+                $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
             });
         } else if ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
-            $query->whereDate('suspended_at', '<', Carbon::now());
+            $query->where('suspended_at', '<', Carbon::now());
         }
         return $query;
     }

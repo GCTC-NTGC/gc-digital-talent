@@ -6,6 +6,7 @@ import Checklist, {
 } from "./components/Checklist";
 import Combobox, { ComboboxProps } from "./components/Combobox";
 import DateInput, { DateInputProps } from "./components/DateInput/DateInput";
+import { DateSegment, DATE_SEGMENT } from "./components/DateInput/types";
 import Field, {
   ContextProps,
   DescriptionsProps,
@@ -50,6 +51,7 @@ import {
 import useCommonInputStyles from "./hooks/useCommonInputStyles";
 
 export {
+  DATE_SEGMENT,
   DateInput,
   Checkbox,
   CheckButton,
@@ -72,6 +74,7 @@ export {
 
 export type {
   DateInputProps,
+  DateSegment,
   CheckboxProps,
   CheckboxOption,
   CheckButtonProps,

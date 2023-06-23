@@ -1,34 +1,20 @@
 import React from "react";
 
-import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 import { ApplyDialog, LearnDialog } from "./Dialog";
+import ApplyLink from "./ApplyLink";
 
 interface CTAButtonsProps {
   latestPoolId?: string;
-  applicationId?: string;
-  hasApplied?: boolean;
-  canApply?: boolean;
 }
 
-const CTAButtons = ({
-  latestPoolId,
-  applicationId,
-  hasApplied,
-  canApply,
-}: CTAButtonsProps) => (
+const CTAButtons = ({ latestPoolId }: CTAButtonsProps) => (
   <div data-h2-display="p-tablet(flex)">
     <div
       data-h2-width="p-tablet(50%)"
       data-h2-margin="base(0, 0, x1, 0) p-tablet(0, x.5, x1, 0)"
     >
       {latestPoolId ? (
-        <ApplicationLink
-          poolId={latestPoolId}
-          applicationId={applicationId}
-          hasApplied={hasApplied}
-          canApply={canApply}
-          linkProps={{ block: true }}
-        />
+        <ApplyLink id={latestPoolId} />
       ) : (
         <ApplyDialog btnProps={{ block: true }} />
       )}

@@ -34,7 +34,7 @@ const stoplight: Array<"success" | "warning" | "error"> = [
   "warning",
   "error",
 ];
-const neutral: Array<"neutral"> = ["neutral"];
+const black: Array<"black"> = ["black"];
 
 const TemplatePill: Story<Omit<PillProps, "color"> & { content: string }> = (
   args,
@@ -61,7 +61,7 @@ const TemplatePill: Story<Omit<PillProps, "color"> & { content: string }> = (
         ))}
       </div>
       <div data-h2-padding="base(x1)" data-h2-background="base(white)">
-        {neutral.map((color) => (
+        {black.map((color) => (
           <Pill key={color} color={color} {...rest}>
             {content}
           </Pill>

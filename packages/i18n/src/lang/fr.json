@@ -3,8 +3,8 @@
     "defaultMessage": "Oh non... ",
     "description": "Title displayed for a table error loading state."
   },
-  "B7fcr5": {
-    "defaultMessage": "Chargement...",
+  "o/6zAs": {
+    "defaultMessage": "Chargement",
     "description": "Title displayed for a table initial loading state."
   },
   "KC/sxi": {
@@ -120,10 +120,6 @@
   },
   "OujTbA": {
     "defaultMessage": "Diplôme postsecondaire requis"
-  },
-  "QNsonS": {
-    "defaultMessage": "Compétences transférables",
-    "description": "The skill is considered behavioral."
   },
   "TNmGTd": {
     "defaultMessage": "Local",
@@ -1410,10 +1406,6 @@
     "defaultMessage": "Rôle et salaire escomptés",
     "description": "Name of Role and salary expectations page"
   },
-  "clhK68": {
-    "defaultMessage": "Mes compétences et mon expérience",
-    "description": "Name of My skills and experience page"
-  },
   "i3Jl6C": {
     "defaultMessage": " : ",
     "description": "Dividing colon with trailing space"
@@ -1429,6 +1421,26 @@
   "YmboX1": {
     "defaultMessage": "{wordCount} / {wordLimit} mots",
     "description": "Message for words remaining before hitting the limit"
+  },
+  "5jynud": {
+    "defaultMessage": "Compétences comportementales",
+    "description": "The skill is considered behavioral."
+  },
+  "J+0v2z": {
+    "defaultMessage": "Par ordre de titre (alphabétiquement)",
+    "description": "Select the option to sort by title, ascending"
+  },
+  "spoY2L": {
+    "defaultMessage": "Tous les types",
+    "description": "Select the option to sort or filter by all types"
+  },
+  "yuWHKJ": {
+    "defaultMessage": "Par ordre de date (la plus récente étant en premier)",
+    "description": "Select the option to sort by date, descending"
+  },
+  "SyJkc/": {
+    "defaultMessage": "Curriculum vitæ et recrutements",
+    "description": "Name of Résumé and recruitments page"
   },
   "U/4a27": {
     "defaultMessage": "Effacer votre sélection",

@@ -15,15 +15,16 @@ import {
   PoolStream,
   Classification,
   Pool,
-} from "@gc-digital-talent/graphql";
+} from "~/api/generated";
+import { PageNavInfo } from "~/types/pages";
+import useRoutes from "~/hooks/useRoutes";
+import { ONGOING_PUBLISHING_GROUPS } from "~/constants/pool";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { PageNavKeys, SimpleClassification, SimplePool } from "~/types/pool";
 
 import { wrapAbbr } from "./nameUtils";
-import { PageNavInfo } from "../types/pages";
-import useRoutes from "../hooks/useRoutes";
 
 /**
  * Check if a pool matches a
@@ -260,3 +261,8 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
     ],
   ]);
 };
+
+export const isOngoingPublishingGroup = (
+  publishingGroup: Maybe<PublishingGroup>,
+): boolean =>
+  publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;

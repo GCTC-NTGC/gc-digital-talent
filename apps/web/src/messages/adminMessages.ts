@@ -56,6 +56,31 @@ const messages = defineMessages({
     id: "QtzRCh",
     description: "Title for status",
   },
+  manager: {
+    defaultMessage: "Manager",
+    id: "TXl1qY",
+    description: "Title for manager full name",
+  },
+  email: {
+    defaultMessage: "Email",
+    id: "dJd5/f",
+    description: "Title for email",
+  },
+  jobTitle: {
+    defaultMessage: "Job title",
+    id: "HBuWZ0",
+    description: "Title for job title for a position",
+  },
+  details: {
+    defaultMessage: "Details",
+    id: "5LWxHq",
+    description: "Title for additional comments shorthand",
+  },
+  notes: {
+    defaultMessage: "Notes",
+    id: "EK+25s",
+    description: "Title for admin notes shorthand",
+  },
 });
 
 export default messages;

@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { Outlet, ScrollRestoration, useSearchParams } from "react-router-dom";
 
 import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
 import {
@@ -19,28 +19,8 @@ import LogoutConfirmation from "~/components/LogoutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
-
-interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
-  children: React.ReactNode;
-}
-export const LogoutButton = React.forwardRef<
-  HTMLButtonElement,
-  LogoutButtonProps
->(({ children, ...rest }, forwardedRef) => (
-  <button
-    data-h2-color="base(black) base:hover(primary) base:iap(primary) base:iap:hover(primary.darker)"
-    data-h2-font-size="base(normal)"
-    data-h2-text-decoration="base(underline)"
-    style={{
-      background: "none",
-    }}
-    ref={forwardedRef}
-    {...rest}
-    type="button"
-  >
-    {children}
-  </button>
-));
+import IAPNavMenu from "../NavMenu/IAPNavMenu";
+import LogoutButton from "./LogoutButton";
 
 const Layout = () => {
   const intl = useIntl();
@@ -50,6 +30,10 @@ const Layout = () => {
 
   const { user } = useAuthorization();
   const { loggedIn } = useAuthentication();
+
+  const [searchParams] = useSearchParams();
+
+  const iapPersonality = searchParams.get("personality") === "iap";
 
   let menuItems = [
     <MenuLink key="home" to={paths.home()} end>
@@ -193,7 +177,11 @@ const Layout = () => {
       >
         <div>
           <Header />
-          <NavMenu mainItems={menuItems} utilityItems={authLinks} />
+          {!iapPersonality ? (
+            <NavMenu mainItems={menuItems} utilityItems={authLinks} />
+          ) : (
+            <IAPNavMenu {...{ loggedIn, user }} />
+          )}
         </div>
         <main id="main">
           <Outlet />
