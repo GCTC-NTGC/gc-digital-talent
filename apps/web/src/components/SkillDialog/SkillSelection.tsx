@@ -176,11 +176,11 @@ const SkillSelection = ({
           label={intl.formatMessage(
             {
               defaultMessage: `{count, plural,
-                  one {Select from {count} matching skill}
+                  one {Select from 1 matching skill}
                   other {Select from {count} matching skills}
               }
               `,
-              id: "+cGG4E",
+              id: "7PEUi6",
               description: "Label for the skill select field",
             },
             {

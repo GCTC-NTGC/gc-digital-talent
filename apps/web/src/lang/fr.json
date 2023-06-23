@@ -8463,5 +8463,9 @@
   "yiNnwk": {
     "defaultMessage": "Trouver une compétence et l’associer à votre expérience sur votre curriculum vitæ",
     "description": "Title for the find a skill dialog within an experience"
+  },
+  "7PEUi6": {
+    "defaultMessage": "{count, plural, one {Sélectionnez à partir d’une compétences correspondante} other {Sélectionnez à partir de {count} compétences correspondantes} }",
+    "description": "Label for the skill select field"
   }
 }
