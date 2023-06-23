@@ -20,6 +20,7 @@ import {
   ScrollToLink,
   ScrollToLinkProps,
 } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes, {
@@ -46,7 +47,6 @@ import { HeroCard } from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentsPage/constants";
 import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { PartialUser } from "../types";
 
 function buildLink(
