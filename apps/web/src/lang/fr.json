@@ -7904,37 +7904,9 @@
     "defaultMessage": "Membre des FAC",
     "description": "Veteran/member label"
   },
-  "DjSiTu": {
-    "defaultMessage": "Date de réception",
-    "description": "Date received label"
-  },
-  "Gthvhd": {
-    "defaultMessage": "Date d'expiration",
-    "description": "Expiry date label"
-  },
-  "bjnh/y": {
-    "defaultMessage": "Date d'archivage",
-    "description": "Archival date label"
-  },
   "mevv+t": {
     "defaultMessage": "Disponibilité",
     "description": "Availability label"
-  },
-  "qSDM1H": {
-    "defaultMessage": "Priorité",
-    "description": "Priority label"
-  },
-  "rwNxlI": {
-    "defaultMessage": "Notes",
-    "description": "Notes label"
-  },
-  "s2y5eG": {
-    "defaultMessage": "Statut",
-    "description": "Status label"
-  },
-  "xD0Vbd": {
-    "defaultMessage": "Détails du candidat du bassin",
-    "description": "Title of the pool candidate details content section"
   },
   "mUiS9q": {
     "defaultMessage": "{resultCount, plural, =1 {Profil du candidat} other {Profils des candidats} }",
