@@ -8132,6 +8132,10 @@
     "defaultMessage": "Compétences utiles",
     "description": "Title for the optional skills snapshot section"
   },
+  "VeiXJP": {
+    "defaultMessage": "Aucune des compétences n’est jointe.",
+    "description": "Informing that a section is empty of any associated asset skills."
+  },
   "E9I34y": {
     "defaultMessage": "Titre de la thèse",
     "description": "Label displayed on education form for thesis title input"
