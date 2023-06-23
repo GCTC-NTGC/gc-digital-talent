@@ -267,7 +267,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         {...(skillLibraryFlag
           ? {
               "data-h2-grid-template-columns":
-                "base(100%) p-tablet(repeat(3, minmax(0, 1fr)))",
+                "base(100%) l-tablet(repeat(3, minmax(0, 1fr)))",
             }
           : {
               "data-h2-grid-template-columns":
