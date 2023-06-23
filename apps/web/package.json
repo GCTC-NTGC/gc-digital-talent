@@ -47,7 +47,7 @@
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "framer-motion": "^10.12.16",
-    "graphql": "^16.7.0",
+    "graphql": "^16.7.1",
     "lodash": "^4.17.21",
     "path-browserify": "^1.0.1",
     "react": "^18.2.0",
