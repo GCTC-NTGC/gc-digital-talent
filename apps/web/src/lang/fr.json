@@ -8340,10 +8340,6 @@
     "defaultMessage": "Vous pouvez y suivre vos dossiers de candidature pour des offres d’emploi ciblées ou en cours. Vous pourrez consulter les dates de soumission, l’évolution de vos dossiers de candidature ainsi que les offres d’emploi antérieures ou expirées.",
     "description": "Description for the track applications section on the applicant dashboard, paragraph one."
   },
-  "SyJkc/": {
-    "defaultMessage": "Curriculum vitæ et recrutements",
-    "description": "Name of Résumé and recruitments page"
-  },
   "o4tj77": {
     "defaultMessage": "Pour nous joindre",
     "description": "Title for the contact dialog for the Indigenous Apprenticeship Program application process"
