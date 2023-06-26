@@ -51,7 +51,7 @@ const TrackApplicationsCard = ({
 
   const applicationDateInfo = getApplicationDateInfo(application, intl);
   const { user } = useAuthorization();
-  const applicationTitle = getFullPoolTitleHtml(application.pool);
+  const applicationTitle = getFullPoolTitleHtml(intl, application.pool);
   return (
     <div
       data-h2-border-left="base(x.5 solid primary)"
@@ -192,7 +192,7 @@ const TrackApplicationsCard = ({
             userID={user?.id ?? ""}
             application={application}
           />
-          <ApplicationActions.SupportAction show />
+          <ApplicationActions.SupportAction show application={application} />
           <ApplicationActions.DeleteAction
             show={applicationIsDraft}
             application={application}

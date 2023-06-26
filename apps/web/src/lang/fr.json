@@ -1485,10 +1485,6 @@
     "defaultMessage": "Durée de l'emploi",
     "description": "Heading for employment duration section of the search form."
   },
-  "W2YIEA": {
-    "defaultMessage": "Postulez pour ce processus",
-    "description": "Link text to apply for a pool advertisement"
-  },
   "ZuFBx5": {
     "defaultMessage": "Débutant <gray>- Je possède des compétences de base en lecture, écriture et communication verbale.</gray>",
     "description": "Message for the beginner language ability option"
@@ -5581,10 +5577,6 @@
     "defaultMessage": "Brève description de l’équipe (en anglais)",
     "description": "Short description for a team in English"
   },
-  "10Ous+": {
-    "defaultMessage": "Supprimer cette application<hidden> ({name})</hidden>",
-    "description": "Link text to delete a specific application"
-  },
   "3Q8D5y": {
     "defaultMessage": "Appliquée le : <strong>{submittedAt}</strong>",
     "description": "Text notifying user of the date they submitted an application"
@@ -5593,10 +5585,6 @@
     "defaultMessage": "Poursuivre avec cette application<hidden> {name}</hidden>",
     "description": "Link text to continue a specific application"
   },
-  "JM30M7": {
-    "defaultMessage": "Consulter cette application<hidden> {name}</hidden>",
-    "description": "Link text to view a specific application"
-  },
   "eqVWC6": {
     "defaultMessage": "Appliquée par : <strong><red>{closingDate}</red></strong>",
     "description": "Text notifying user of closing date for an application"
@@ -5604,10 +5592,6 @@
   "rXdaZW": {
     "defaultMessage": "Obtenir du soutien",
     "description": "Link text to direct a user to the support page"
-  },
-  "si/wtm": {
-    "defaultMessage": "Consulter l’offre d’emploi <hidden> {name}</hidden>",
-    "description": "Link text to see an applications advertisement"
   },
   "2ni0ia": {
     "defaultMessage": "La mise à jour de l’équipe a été réussie!",
@@ -5976,9 +5960,6 @@
   "ucOq3J": {
     "defaultMessage": "Erreur : impossible de vous ajouter aux résultats de recherche.",
     "description": "Alert displayed to the user when application card dialog fails."
-  },
-  "7NnNrW": {
-    "defaultMessage": "Compétences évaluées :"
   },
   "9U2gWd": {
     "defaultMessage": "Annuler",
