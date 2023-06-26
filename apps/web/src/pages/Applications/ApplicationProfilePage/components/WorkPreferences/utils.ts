@@ -24,10 +24,9 @@ export const getLabels = (intl: IntlShape) => ({
       "Legend for optional work preferences check list in work preferences form",
   }),
   locationExemptions: intl.formatMessage({
-    defaultMessage: "Location exemptions",
-    id: "0qNkIp",
-    description:
-      "Location Exemptions field label for work location preference form",
+    defaultMessage: "Work location exceptions",
+    id: "OpKC2i",
+    description: "Work location exceptions label",
   }),
 });
 

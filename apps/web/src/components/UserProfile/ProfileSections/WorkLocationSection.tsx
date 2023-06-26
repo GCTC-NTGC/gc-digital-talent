@@ -50,10 +50,11 @@ const WorkLocationSection = ({
             <p>
               <span data-h2-display="base(block)">
                 {intl.formatMessage({
-                  defaultMessage: "Location exemptions:",
-                  id: "MoWNS4",
-                  description: "Location Exemptions label, followed by colon",
+                  defaultMessage: "Work location exceptions",
+                  id: "OpKC2i",
+                  description: "Work location exceptions label",
                 })}
+                {intl.formatMessage(commonMessages.dividingColon)}
               </span>
               <span data-h2-font-weight="base(700)">
                 {applicant.locationExemptions}

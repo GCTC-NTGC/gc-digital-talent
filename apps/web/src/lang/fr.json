@@ -1613,10 +1613,6 @@
     "defaultMessage": "Annuler",
     "description": "Link text to cancel deleting application."
   },
-  "0qNkIp": {
-    "defaultMessage": "Exemptions de lieux",
-    "description": "Location Exemptions field label for work location preference form"
-  },
   "1q/MmU": {
     "defaultMessage": "À vous de découvrir",
     "description": "Heading for featured items on the homepage"
@@ -5097,10 +5093,6 @@
     "defaultMessage": "Par compétences",
     "description": "Tab title for experiences sorted by skills in applicant profile."
   },
-  "MoWNS4": {
-    "defaultMessage": "Exemptions à l'emplacement :",
-    "description": "Location Exemptions label, followed by colon"
-  },
   "MuyuAu": {
     "defaultMessage": "Groupe et classification actuels :",
     "description": "Field label before government employment group and level, followed by colon"
@@ -6943,10 +6935,6 @@
     "defaultMessage": "Commencez <hidden> à remplir la section sur la diversité, l’équité et l’inclusion </hidden> ",
     "description": "Call to action to begin editing work preferences"
   },
-  "oEioz2": {
-    "defaultMessage": "Détails au sujet du lieu de travail",
-    "description": "Location specifics label"
-  },
   "u1N0nT": {
     "defaultMessage": "Diversité, équité et inclusion.",
     "description": "Heading for the diversity, equity, and inclusion section on the application profile"
@@ -7888,10 +7876,6 @@
     "defaultMessage": "Envisagerait d'accepter un emploi qui :",
     "description": "Label for what conditions a user will accept, followed by a colon"
   },
-  "ruD4vK": {
-    "defaultMessage": "Exemptions de lieux",
-    "description": "Location exemptions label"
-  },
   "sYuMO8": {
     "defaultMessage": "Aimerait être référé à des emplois aux niveaux suivants :",
     "description": "Label for Role and salary expectations sections"
@@ -8347,5 +8331,13 @@
   "o4tj77": {
     "defaultMessage": "Pour nous joindre",
     "description": "Title for the contact dialog for the Indigenous Apprenticeship Program application process"
+  },
+  "58x4fO": {
+    "defaultMessage": "Indiquez s'il y a une ville que vous souhaitez exclure d'une région.",
+    "description": "Explanation text for Work location exceptions field in work location preference form"
+  },
+  "qnaIOA": {
+    "defaultMessage": "P. ex. : Vous voulez postuler pour la région du Québec, mais pas pour Montréal.",
+    "description": "Example for Work location exceptions field in work location preference form"
   }
 }
