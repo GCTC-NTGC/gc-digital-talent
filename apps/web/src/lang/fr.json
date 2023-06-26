@@ -8339,5 +8339,9 @@
   "qnaIOA": {
     "defaultMessage": "P. ex. : Vous voulez postuler pour la région du Québec, mais pas pour Montréal.",
     "description": "Example for Work location exceptions field in work location preference form"
+  },
+  "OpKC2i": {
+    "defaultMessage": "Exceptions relatives au lieu de travail",
+    "description": "Work location exceptions label"
   }
 }
