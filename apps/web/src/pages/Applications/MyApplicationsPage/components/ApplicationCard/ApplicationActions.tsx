@@ -178,7 +178,7 @@ const VisitResumeAction = ({ show, userID }: VisitResumeActionProps) => {
   }
 
   return (
-    <Link href={paths.resumeAndRecruitments(userID)} mode="inline">
+    <Link href={paths.resumeAndRecruitment(userID)} mode="inline">
       {intl.formatMessage({
         defaultMessage: "Visit résumé",
         id: "Dq+GKf",
