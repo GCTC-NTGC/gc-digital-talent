@@ -9,7 +9,6 @@ import ApplicationActions, {
 import {
   isDraft,
   isExpired,
-  isPlaced,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
@@ -44,7 +43,7 @@ const TrackApplicationsCard = ({
   );
   const isDraftExpired = applicationIsDraft && recruitmentIsExpired;
   const isApplicantQualified = isQualifiedStatus(application.status);
-  
+
   // We don't get DraftExpired status from the API, so we need to check if the draft is expired ourselves
   const statusPill = isDraftExpired
     ? getStatusPillInfo(PoolCandidateStatus.DraftExpired, intl)
@@ -52,6 +51,7 @@ const TrackApplicationsCard = ({
 
   const applicationDateInfo = getApplicationDateInfo(application, intl);
   const { user } = useAuthorization();
+  const applicationTitle = getFullPoolTitleHtml(application.pool);
   return (
     <div
       data-h2-border-left="base(x.5 solid primary)"
@@ -72,7 +72,7 @@ const TrackApplicationsCard = ({
           data-h2-margin="base(0)"
           data-h2-flex-grow="base(1)"
         >
-          {getFullPoolTitleHtml(intl, application.pool)}
+          {applicationTitle}
         </Heading>
         <div
           data-h2-display="base(flex)"
@@ -92,6 +92,17 @@ const TrackApplicationsCard = ({
                 id: "jiJ8qo",
                 description: "Link text to apply for a pool advertisement",
               })}
+              aria-label={intl.formatMessage(
+                {
+                  defaultMessage: "Continue draft",
+                  id: "B6dzk7",
+                  description:
+                    "Continue your application draft to the {applicationTitle} job",
+                },
+                {
+                  applicationTitle,
+                },
+              )}
             />
           ) : (
             <Pill bold mode="outline" color={statusPill.color}>
@@ -174,10 +185,12 @@ const TrackApplicationsCard = ({
           <ApplicationActions.VisitResumeAction
             show={isApplicantQualified}
             userID={user?.id ?? ""}
+            application={application}
           />
           <ApplicationActions.ManageAvailabilityAction
             show={isApplicantQualified}
             userID={user?.id ?? ""}
+            application={application}
           />
           <ApplicationActions.SupportAction show />
           <ApplicationActions.DeleteAction

@@ -51,7 +51,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { pool } = application;
-
+  const title = getFullPoolTitleHtml(intl, pool);
   if (!show) {
     return null;
   }
@@ -82,13 +82,27 @@ const SeeAdvertisementAction = ({
 }: SeeAdvertisementActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const jobTitle = getFullPoolTitleHtml(intl, advertisement) && "";
 
   if (!show || !advertisement) {
     return null;
   }
 
   return (
-    <Link mode="inline" href={paths.pool(advertisement.id)}>
+    <Link
+      mode="inline"
+      href={paths.pool(advertisement.id)}
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage: "Review Job ad",
+          id: "uJ3erR",
+          description: "Review the {title} job advertisement",
+        },
+        {
+          title: jobTitle,
+        },
+      )}
+    >
       {intl.formatMessage(
         {
           defaultMessage: "Review job ad<hidden> {name}</hidden>",
@@ -96,7 +110,7 @@ const SeeAdvertisementAction = ({
           description: "Link text to see an applications advertisement",
         },
         {
-          name: getFullPoolTitleHtml(intl, advertisement),
+          name: jobTitle,
         },
       )}
     </Link>
@@ -135,7 +149,7 @@ const CopyApplicationIdAction = ({
   if (!show) {
     return null;
   }
-
+  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
   return (
     <Button
       mode="inline"
@@ -145,11 +159,16 @@ const CopyApplicationIdAction = ({
         navigator.clipboard.writeText(application.id);
         setLinkCopied(true);
       }}
-      aria-label={intl.formatMessage({
-        defaultMessage: "Copy application ID",
-        id: "1XVhdj",
-        description: "Button text to copy a specific application's ID",
-      })}
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage: "Copy application ID",
+          id: "moQNcr",
+          description: "Copy your {title} application's ID",
+        },
+        {
+          title: jobTitle,
+        },
+      )}
     >
       {linkCopied
         ? intl.formatMessage({
@@ -168,17 +187,36 @@ const CopyApplicationIdAction = ({
 };
 export interface VisitResumeActionProps extends ActionProps {
   userID: string;
+  application: Application;
 }
-const VisitResumeAction = ({ show, userID }: VisitResumeActionProps) => {
+const VisitResumeAction = ({
+  show,
+  userID,
+  application,
+}: VisitResumeActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
 
   if (!show) {
     return null;
   }
 
   return (
-    <Link href={paths.resumeAndRecruitment(userID)} mode="inline">
+    <Link
+      href={paths.resumeAndRecruitment(userID)}
+      mode="inline"
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage: "Visit résumé",
+          id: "5MBUPD",
+          description: "Visit the {title} recruitment on your résumé",
+        },
+        {
+          title: jobTitle,
+        },
+      )}
+    >
       {intl.formatMessage({
         defaultMessage: "Visit résumé",
         id: "Dq+GKf",
@@ -190,20 +228,36 @@ const VisitResumeAction = ({ show, userID }: VisitResumeActionProps) => {
 
 export interface ManageAvailabilityActionProps extends ActionProps {
   userID: string;
+  application: Application;
 }
 const ManageAvailabilityAction = ({
   show,
   userID,
+  application,
 }: ManageAvailabilityActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
 
   if (!show) {
     return null;
   }
 
   return (
-    <Link href={paths.profile(userID)} mode="inline">
+    <Link
+      href={paths.profile(userID)}
+      mode="inline"
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage: "Manage availability",
+          id: "s2eIUS",
+          description: "Manage your availability for the {title} recruitment",
+        },
+        {
+          title: jobTitle,
+        },
+      )}
+    >
       {intl.formatMessage({
         defaultMessage: "Manage availability",
         id: "SjhNGq",
@@ -226,11 +280,25 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
     return null;
   }
 
-  const name = getFullPoolTitleHtml(intl, application.pool);
+  const name = getFullPoolTitleHtml(intl, application.pool) && "";
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button mode="inline" type="button" color="error">
+        <Button
+          mode="inline"
+          type="button"
+          color="error"
+          aria-label={intl.formatMessage(
+            {
+              defaultMessage: "Delete application",
+              id: "rktmw4",
+              description: "Delete your application to the {title} job",
+            },
+            {
+              title: name,
+            },
+          )}
+        >
           {intl.formatMessage(
             {
               defaultMessage: "Delete application<hidden> ({name})</hidden>",
