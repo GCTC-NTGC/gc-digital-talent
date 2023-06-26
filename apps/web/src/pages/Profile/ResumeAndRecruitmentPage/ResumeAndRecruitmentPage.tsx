@@ -14,19 +14,19 @@ import {
 } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
 import { Application } from "~/utils/applicationUtils";
-import { ResumeAndRecruitments } from "./components/ResumeAndRecruitments";
+import { ResumeAndRecruitment } from "./components/ResumeAndRecruitment";
 
-interface ResumeAndRecruitmentsApiProps {
+interface ResumeAndRecruitmentApiProps {
   applicantId: string;
   experiences: Experience[];
   applications: Application[];
 }
 
-const ResumeAndRecruitmentsApi = ({
+const ResumeAndRecruitmentApi = ({
   applicantId,
   experiences,
   applications,
-}: ResumeAndRecruitmentsApiProps) => {
+}: ResumeAndRecruitmentApiProps) => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
@@ -55,7 +55,7 @@ const ResumeAndRecruitmentsApi = ({
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolCandidate ? (
-        <ResumeAndRecruitments
+        <ResumeAndRecruitment
           applicantId={applicantId}
           pool={data.poolCandidate.pool}
           missingSkills={missingSkills}
@@ -92,20 +92,20 @@ const ApiOrContent = ({
   applications,
 }: ApiOrContentProps) =>
   applicationId ? (
-    <ResumeAndRecruitmentsApi
+    <ResumeAndRecruitmentApi
       applicantId={applicantId}
       experiences={experiences}
       applications={applications}
     />
   ) : (
-    <ResumeAndRecruitments
+    <ResumeAndRecruitment
       applicantId={applicantId}
       experiences={experiences}
       applications={applications}
     />
   );
 
-const ResumeAndRecruitmentsPage = () => {
+const ResumeAndRecruitmentPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
@@ -135,4 +135,4 @@ const ResumeAndRecruitmentsPage = () => {
   );
 };
 
-export default ResumeAndRecruitmentsPage;
+export default ResumeAndRecruitmentPage;

@@ -4,7 +4,7 @@ import { IntlShape } from "react-intl";
 
 import { getLocale } from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 
 import {
   Experience,
@@ -188,6 +188,28 @@ export const getExperienceSkills = (
       (experienceSkill) => experienceSkill.id === skill.id,
     ),
   );
+};
+
+/**
+ * Get Experience's Skill Ids
+ *
+ * Given an array of experiences, return an array of skill ids found with duplicates removed
+ *
+ * @param experiences Experience[] Array of experiences
+ * @returns String[] Array of unique skill ids
+ */
+export const getExperiencesSkillIds = (experiences: Experience[]): string[] => {
+  let idCollection: string[] = [];
+  experiences.forEach((experience) => {
+    const { skills } = experience;
+    if (skills && skills.length > 0) {
+      const skillIdArray = skills.map((skill) => skill.id);
+      idCollection = [...idCollection, ...skillIdArray];
+    }
+  });
+  const deDupedIdCollection = uniqueItems(idCollection);
+
+  return deDupedIdCollection;
 };
 
 export default { invertSkillSkillFamilyTree, invertSkillExperienceTree };
