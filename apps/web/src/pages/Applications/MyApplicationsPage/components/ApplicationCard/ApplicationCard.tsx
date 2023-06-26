@@ -131,6 +131,7 @@ const ApplicationCard = ({
           />
           <ApplicationActions.SupportAction
             show={!recruitmentIsExpired && !isApplicantPlaced}
+            application={application}
           />
           <ApplicationActions.DeleteAction
             onDelete={onDelete}

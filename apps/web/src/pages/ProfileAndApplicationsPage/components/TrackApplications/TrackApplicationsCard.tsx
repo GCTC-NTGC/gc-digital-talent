@@ -57,7 +57,6 @@ const TrackApplicationsCard = ({
       data-h2-border-left="base(x.5 solid primary)"
       data-h2-padding="base(x1)"
       data-h2-shadow="base(larger)"
-      data-h2-radius="base(rounded)"
       data-h2-margin="base(0, 0, x.5, 0)"
     >
       <div
