@@ -17,7 +17,6 @@ global-components:
   Separator: hr
   Step: a
   Checkbox: input[type="checkbox"]
-  CheckButton: button
   CheckList: fieldset
   ComboBox: input[type="text"]
   Fieldset: fieldset
