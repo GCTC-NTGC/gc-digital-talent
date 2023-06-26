@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Class User
@@ -146,6 +145,10 @@ class User extends Model implements Authenticatable, LaratrustUser
     public function roleAssignments(): HasMany
     {
         return $this->hasMany(RoleAssignment::class);
+    }
+    public function userSkills(): HasMany
+    {
+        return $this->hasMany(UserSkill::class);
     }
     public function getExperiencesAttribute()
     {
