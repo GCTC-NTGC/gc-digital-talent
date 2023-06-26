@@ -44,6 +44,7 @@
     "@heroicons/react": "^2.0.18",
     "@microsoft/applicationinsights-react-js": "^3.4.3",
     "@microsoft/applicationinsights-web": "^2.8.11",
+    "@tanstack/react-table": "^8.9.3",
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "framer-motion": "^10.12.17",
