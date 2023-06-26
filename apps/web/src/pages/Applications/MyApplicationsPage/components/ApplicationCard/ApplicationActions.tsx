@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
 
-import { fullPoolTitle, getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
@@ -123,16 +123,15 @@ const SupportAction = ({ show }: SupportActionProps) => {
   );
 };
 
-export interface CopyRecruitmentIdActionProps extends ActionProps {
+export interface CopyApplicationIdActionProps extends ActionProps {
   application: Application;
 }
-const CopyRecruitmentIdAction = ({
+const CopyApplicationIdAction = ({
   show,
   application,
-}: CopyRecruitmentIdActionProps) => {
+}: CopyApplicationIdActionProps) => {
   const intl = useIntl();
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
-  const title = fullPoolTitle(intl, application.pool);
   if (!show) {
     return null;
   }
@@ -146,17 +145,11 @@ const CopyRecruitmentIdAction = ({
         navigator.clipboard.writeText(application.id);
         setLinkCopied(true);
       }}
-      aria-label={intl.formatMessage(
-        {
-          defaultMessage: "Copy {title} ID to clipboard",
-          id: "leFf/M",
-          description:
-            "Button text to copy a specific qualified recruitment's ID",
-        },
-        {
-          title: title.label,
-        },
-      )}
+      aria-label={intl.formatMessage({
+        defaultMessage: "Copy application ID",
+        id: "1XVhdj",
+        description: "Button text to copy a specific application's ID",
+      })}
     >
       {linkCopied
         ? intl.formatMessage({
@@ -171,6 +164,53 @@ const CopyRecruitmentIdAction = ({
             description: "Button text to copy a specific application ID",
           })}
     </Button>
+  );
+};
+export interface VisitResumeActionProps extends ActionProps {
+  userID: string;
+}
+const VisitResumeAction = ({ show, userID }: VisitResumeActionProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+
+  if (!show) {
+    return null;
+  }
+
+  return (
+    <Link href={paths.resumeAndRecruitments(userID)} mode="inline">
+      {intl.formatMessage({
+        defaultMessage: "Visit résumé",
+        id: "Dq+GKf",
+        description: "Link text to direct a user to the Résumé page",
+      })}
+    </Link>
+  );
+};
+
+export interface ManageAvailabilityActionProps extends ActionProps {
+  userID: string;
+}
+const ManageAvailabilityAction = ({
+  show,
+  userID,
+}: ManageAvailabilityActionProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+
+  if (!show) {
+    return null;
+  }
+
+  return (
+    <Link href={paths.profile(userID)} mode="inline">
+      {intl.formatMessage({
+        defaultMessage: "Manage availability",
+        id: "SjhNGq",
+        description:
+          "Link text to direct a user to change the availability of the specific recruitment process",
+      })}
+    </Link>
   );
 };
 
@@ -193,9 +233,8 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
         <Button mode="inline" type="button" color="error">
           {intl.formatMessage(
             {
-              defaultMessage:
-                "Delete this application<hidden> ({name})</hidden>",
-              id: "10Ous+",
+              defaultMessage: "Delete application<hidden> ({name})</hidden>",
+              id: "CH6FQA",
               description: "Link text to delete a specific application",
             },
             {
@@ -345,5 +384,7 @@ export default {
   ArchiveAction,
   SupportAction,
   ViewAction,
-  CopyRecruitmentIdAction,
+  CopyApplicationIdAction,
+  VisitResumeAction,
+  ManageAvailabilityAction,
 };

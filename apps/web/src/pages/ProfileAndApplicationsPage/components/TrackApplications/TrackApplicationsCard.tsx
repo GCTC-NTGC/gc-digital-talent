@@ -1,6 +1,6 @@
 import * as React from "react";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Heading, HeadingProps, Pill } from "@gc-digital-talent/ui";
+import { Heading, HeadingProps, Pill, Separator } from "@gc-digital-talent/ui";
 import { useIntl } from "react-intl";
 import { PoolCandidate } from "~/api/generated";
 import ApplicationActions, {
@@ -18,6 +18,7 @@ import useMutations from "~/pages/Applications/MyApplicationsPage/components/App
 import { getRecruitmentType, isQualifiedStatus } from "~/utils/poolCandidate";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import { useAuthorization } from "@gc-digital-talent/auth";
 import { getApplicationDateInfo } from "./utils";
 
 export type Application = Omit<PoolCandidate, "user">;
@@ -42,16 +43,15 @@ const TrackApplicationsCard = ({
     application.pool.closingDate,
   );
   const isDraftExpired = applicationIsDraft && recruitmentIsExpired;
-  const isApplicantPlaced = isPlaced(application.status);
   const isApplicantQualified = isQualifiedStatus(application.status);
-
+  
   // We don't get DraftExpired status from the API, so we need to check if the draft is expired ourselves
   const statusPill = isDraftExpired
     ? getStatusPillInfo(PoolCandidateStatus.DraftExpired, intl)
     : getStatusPillInfo(application.status, intl);
 
   const applicationDateInfo = getApplicationDateInfo(application, intl);
-
+  const { user } = useAuthorization();
   return (
     <div
       data-h2-border-left="base(x.5 solid primary)"
@@ -139,16 +139,24 @@ const TrackApplicationsCard = ({
           {applicationDateInfo.message}
           <span data-h2-color={applicationDateInfo.color}>
             {" "}
-            {applicationDateInfo.date}{" "}
+            {applicationDateInfo.date}
           </span>
         </span>
       </div>
+      <Separator
+        orientation="horizontal"
+        decorative
+        data-h2-background-color="base(gray.lighter)"
+        data-h2-width="base(calc(100% + x2))"
+        data-h2-margin="base(x1 -x1 x.5 -x1)"
+      />
       <div
         data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column) p-tablet(row)"
         data-h2-align-items="base(center)"
-        data-h2-gap="base(x1)"
         data-h2-justify-content="base(space-between)"
-        data-h2-margin="base(x1, 0, 0, 0)"
+        data-h2-gap="base(x.5 0) p-tablet(0 x.5)"
+        data-h2-text-align="base(center) p-tablet(inherit)"
       >
         <div
           data-h2-display="base(flex)"
@@ -163,17 +171,25 @@ const TrackApplicationsCard = ({
             show={!applicationIsDraft}
             application={application}
           />
-          <ApplicationActions.SupportAction
-            show={!recruitmentIsExpired && !isApplicantPlaced}
+          <ApplicationActions.VisitResumeAction
+            show={isApplicantQualified}
+            userID={user?.id ?? ""}
           />
-          <ApplicationActions.CopyRecruitmentIdAction
-            show={!applicationIsDraft}
-            application={application}
+          <ApplicationActions.ManageAvailabilityAction
+            show={isApplicantQualified}
+            userID={user?.id ?? ""}
           />
+          <ApplicationActions.SupportAction show />
           <ApplicationActions.DeleteAction
             show={applicationIsDraft}
             application={application}
             onDelete={onDelete}
+          />
+        </div>
+        <div data-h2-flex-shrink="base(0)">
+          <ApplicationActions.CopyApplicationIdAction
+            show={!applicationIsDraft}
+            application={application}
           />
         </div>
       </div>
