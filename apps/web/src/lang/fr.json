@@ -7920,10 +7920,6 @@
     "defaultMessage": "Recrutements qualifiés",
     "description": "Title for qualified recruitments section"
   },
-  "fI9wkt": {
-    "defaultMessage": "Lorsqu’une candidature aura été évaluée avec succès, le bassin de talents sera automatiquement ajouté à votre curriculum vitæ.",
-    "description": "Description for the track applications section on the profile and applications, paragraph two."
-  },
   "C9PbZN": {
     "defaultMessage": "Les candidatures en cours s’afficheront ici.",
     "description": "Text displayed in the applications in progress section when empty."
@@ -8324,41 +8320,13 @@
     "defaultMessage": "Vous pouvez commencer par formuler une demande dans le cadre d’un processus de recrutement ciblé ou en cours.",
     "description": "Message to user when no qualified recruitments have been attached to profile, paragraph two."
   },
-  "0Uq3M8": {
-    "defaultMessage": "Bienvenue sur la page de votre profil des Talents numériques.",
-    "description": "First paragraph for applicant dashboard notification welcoming an IAP user"
-  },
   "3c9+uF": {
     "defaultMessage": "Une fois que votre candidature aura été retenue, <a>le critère de qualification sera automatiquement ajouté à votre CV</a> afin que les gestionnaires puissent prendre connaissance de vos réalisations.",
     "description": "Description for the track applications section on the applicant dashboard, paragraph two."
   },
-  "4l0ayd": {
-    "defaultMessage": "Sachez que votre profil vous donne accès aux possibilités d’emploi autres que celles offertes dans le cadre du programme d’apprentissage. Par conséquent, vous pourriez choisir de poser votre candidature pour l’une de ces offres et de vous en tenir à celles liées au programme d’apprentissage!",
-    "description": "Third paragraph for applicant dashboard notification welcoming an IAP user"
-  },
-  "9nNPo1": {
-    "defaultMessage": "CV et recrutement",
-    "description": "applicant dashboard card title for résumé card"
-  },
-  "GbKnDu": {
-    "defaultMessage": "Bienvenue au tableau de bord du profil des talents numériques",
-    "description": "Title for notification that a draft IAP application was saved"
-  },
-  "XOTFae": {
-    "defaultMessage": "<strong> Lorsque vous vous connectez à votre compte, vous arriverez sur cette page.</strong>",
-    "description": "Notice that the application dashboard is the first page after logging in"
-  },
   "gDBVKb": {
     "defaultMessage": "CV et recrutement",
     "description": "Name of Résumé and recruitment page"
-  },
-  "j6x/rB": {
-    "defaultMessage": " Le programme d’apprentissage s’inscrit dans le cadre d’une vaste initiative du gouvernement du Canada qui vise à recruter les meilleurs talents dans le domaine du numérique, comme vous. Vous pouvez utiliser la section « Suivre vos demandes » de cette page pour vérifier le statut de votre candidature au Programme d’apprentissage en matière de TI pour les personnes autochtones.",
-    "description": "Second paragraph for applicant dashboard notification welcoming an IAP user"
-  },
-  "sPufRD": {
-    "defaultMessage": "Vous pouvez y suivre vos dossiers de candidature pour des offres d’emploi ciblées ou en cours. Vous pourrez consulter les dates de soumission, l’évolution de vos dossiers de candidature ainsi que les offres d’emploi antérieures ou expirées.",
-    "description": "Description for the track applications section on the applicant dashboard, paragraph one."
   },
   "o4tj77": {
     "defaultMessage": "Pour nous joindre",
@@ -8367,5 +8335,17 @@
   "d5U44H": {
     "defaultMessage": "Profil et candidatures",
     "description": "Page title for the profile and applications page."
+  },
+  "26Qj2A": {
+    "defaultMessage": "Visitez votre profil et la page de candidature",
+    "description": "Link text to navigate to the profile and applications page"
+  },
+  "d03yTk": {
+    "defaultMessage": "Bienvenue à votre profil de talent numérique et à votre page de candidature",
+    "description": "Title for notification that a draft IAP application was saved"
+  },
+  "lxDgNf": {
+    "defaultMessage": "* Veuillez prendre note que votre numéro de confirmation peut également se trouver dans la section « Suivi de vos candidatures » à partir de votre page de profil et de candidature.",
+    "description": "Note that the application confirmation number is available on the profile and applications page"
   }
 }
