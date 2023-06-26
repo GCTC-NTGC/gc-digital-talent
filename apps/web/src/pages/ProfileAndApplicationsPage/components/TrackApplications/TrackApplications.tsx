@@ -14,10 +14,15 @@ import {
 } from "@gc-digital-talent/ui";
 import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
-import { PoolCandidate } from "~/api/generated";
+import { PoolCandidate, Scalars } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { isApplicationInProgress } from "~/utils/applicationUtils";
+import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
 import TrackApplicationsCard from "./TrackApplicationsCard";
+
+function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
+  return <Link href={href}>{chunks}</Link>;
+}
 
 interface AnimatedContentProps
   extends React.ComponentPropsWithoutRef<typeof Accordion.Content> {
@@ -55,11 +60,15 @@ export type Application = Omit<PoolCandidate, "user">;
 
 interface TrackApplicationsProps {
   applications: Application[];
+  userId: Scalars["ID"];
 }
 
 type AccordionItems = Array<"in_progress" | "past" | "">;
 
-const TrackApplications = ({ applications }: TrackApplicationsProps) => {
+const TrackApplications = ({
+  applications,
+  userId,
+}: TrackApplicationsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -100,13 +109,25 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
           })}
         </p>
         <p data-h2-margin="base(x.5, 0, x1, 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "After an application is successfully assessed, the talent pool will be added to your résumé automatically.",
-            id: "fI9wkt",
-            description:
-              "Description for the track applications section on the profile and applications, paragraph two.",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "After an application is successfully assessed, the <a>qualified recruitment will be added to your résumé</a> automatically so that managers can see your accomplishments.",
+              id: "3c9+uF",
+              description:
+                "Description for the track applications section on the applicant dashboard, paragraph two.",
+            },
+            {
+              a: (chunks: React.ReactNode) =>
+                buildLink(
+                  paths.resumeAndRecruitment(userId, {
+                    section:
+                      RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
+                  }),
+                  chunks,
+                ),
+            },
+          )}
         </p>
       </div>
       <div>
