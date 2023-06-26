@@ -94,10 +94,10 @@ const TrackApplicationsCard = ({
               })}
               aria-label={intl.formatMessage(
                 {
-                  defaultMessage: "Continue draft",
-                  id: "B6dzk7",
-                  description:
+                  defaultMessage:
                     "Continue your application draft to the {applicationTitle} job",
+                  id: "KqAp09",
+                  description: "Link text to apply for a pool advertisement",
                 },
                 {
                   applicationTitle,

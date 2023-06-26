@@ -51,13 +51,26 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { pool } = application;
-  const title = getFullPoolTitleHtml(intl, pool);
+  const title = getFullPoolTitleHtml(intl, pool) && "";
   if (!show) {
     return null;
   }
 
   return (
-    <Link href={paths.application(application.id)} mode="inline">
+    <Link
+      href={paths.application(application.id)}
+      mode="inline"
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage: "Review your application to the {title} job",
+          id: "XhQ7Ky",
+          description: "Link text to view a specific application",
+        },
+        {
+          title,
+        },
+      )}
+    >
       {intl.formatMessage(
         {
           defaultMessage: "Review application<hidden> {name}</hidden>",
@@ -65,7 +78,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
           description: "Link text to view a specific application",
         },
         {
-          name: getFullPoolTitleHtml(intl, pool),
+          name: title,
         },
       )}
     </Link>
@@ -94,9 +107,9 @@ const SeeAdvertisementAction = ({
       href={paths.pool(advertisement.id)}
       aria-label={intl.formatMessage(
         {
-          defaultMessage: "Review Job ad",
-          id: "uJ3erR",
-          description: "Review the {title} job advertisement",
+          defaultMessage: "Review the {title} job advertisement",
+          id: "5pTphq",
+          description: "Link text to see an applications advertisement",
         },
         {
           title: jobTitle,
@@ -116,18 +129,33 @@ const SeeAdvertisementAction = ({
     </Link>
   );
 };
-export type SupportActionProps = ActionProps;
+export interface SupportActionProps extends ActionProps {
+  application: Application;
+}
 
-const SupportAction = ({ show }: SupportActionProps) => {
+const SupportAction = ({ show, application }: SupportActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-
+  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
   if (!show) {
     return null;
   }
 
   return (
-    <Link href={paths.support()} mode="inline">
+    <Link
+      href={paths.support()}
+      mode="inline"
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage: "Get support for the {title} job",
+          id: "yE/QNS",
+          description: "Link text to direct a user to the support page",
+        },
+        {
+          title: jobTitle,
+        },
+      )}
+    >
       {intl.formatMessage({
         defaultMessage: "Get support",
         id: "rXdaZW",
@@ -159,16 +187,30 @@ const CopyApplicationIdAction = ({
         navigator.clipboard.writeText(application.id);
         setLinkCopied(true);
       }}
-      aria-label={intl.formatMessage(
-        {
-          defaultMessage: "Copy application ID",
-          id: "moQNcr",
-          description: "Copy your {title} application's ID",
-        },
-        {
-          title: jobTitle,
-        },
-      )}
+      aria-label={
+        linkCopied
+          ? intl.formatMessage(
+              {
+                defaultMessage: "Copy your {title} application's ID",
+                id: "WJSVBr",
+                description: "Button text to copy a specific application ID",
+              },
+              {
+                title: jobTitle,
+              },
+            )
+          : intl.formatMessage(
+              {
+                defaultMessage: "Your {title} application's ID copied",
+                id: "ftg8sT",
+                description:
+                  "Button text to indicate that a specific application's ID has been copied",
+              },
+              {
+                title: jobTitle,
+              },
+            )
+      }
     >
       {linkCopied
         ? intl.formatMessage({
@@ -208,9 +250,9 @@ const VisitResumeAction = ({
       mode="inline"
       aria-label={intl.formatMessage(
         {
-          defaultMessage: "Visit résumé",
-          id: "5MBUPD",
-          description: "Visit the {title} recruitment on your résumé",
+          defaultMessage: "Visit the {title} recruitment on your résumé",
+          id: "pqsnpk",
+          description: "Link text to direct a user to the Résumé page",
         },
         {
           title: jobTitle,
@@ -249,9 +291,11 @@ const ManageAvailabilityAction = ({
       mode="inline"
       aria-label={intl.formatMessage(
         {
-          defaultMessage: "Manage availability",
-          id: "s2eIUS",
-          description: "Manage your availability for the {title} recruitment",
+          defaultMessage:
+            "Manage your availability for the {title} recruitment",
+          id: "3QkRNc",
+          description:
+            "Link text to direct a user to change the availability of the specific recruitment process",
         },
         {
           title: jobTitle,
@@ -290,9 +334,9 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
           color="error"
           aria-label={intl.formatMessage(
             {
-              defaultMessage: "Delete application",
-              id: "rktmw4",
-              description: "Delete your application to the {title} job",
+              defaultMessage: "Delete your application to the {title} job",
+              id: "5O4CY1",
+              description: "Link text to delete a specific application",
             },
             {
               title: name,
