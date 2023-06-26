@@ -4,7 +4,7 @@ import { useLocale, Locales } from "@gc-digital-talent/i18n";
 
 import { ExperienceType } from "~/types/experience";
 import { PageSectionId as UserProfilePageSectionId } from "~/components/UserProfile/constants";
-import { PageSectionId as ResumeAndRecruitmentsPageSectionId } from "~/pages/Profile/ResumeAndRecruitmentsPage/constants";
+import { PageSectionId as ResumeAndRecruitmentPageSectionId } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
 
 export const FromIapDraftQueryKey = "fromIapDraft";
 export const FromIapSuccessQueryKey = "fromIapSuccess";
@@ -46,7 +46,7 @@ const getRoutes = (lang: Locales) => {
     `${path.join(
       userUrl(userId),
       "profile",
-      "resume-and-recruitments",
+      "resume-and-recruitment",
       type,
       "create",
     )}${applicationParam(applicationId)}`;
@@ -246,19 +246,19 @@ const getRoutes = (lang: Locales) => {
     diversityEquityInclusion: (userId: string, applicationId?: string) =>
       userEditUrl("employment-equity", userId, applicationId),
 
-    // Résumé and recruitments Routes
-    resumeAndRecruitments: (
+    // Résumé and recruitment Routes
+    resumeAndRecruitment: (
       userId: string,
       opts?: {
         applicationId?: string;
-        section?: ResumeAndRecruitmentsPageSectionId;
+        section?: ResumeAndRecruitmentPageSectionId;
       },
     ) => {
       const fragment = opts?.section ? `#${opts.section}` : "";
       return `${path.join(
         userUrl(userId),
         "profile",
-        "resume-and-recruitments",
+        "resume-and-recruitment",
       )}${applicationParam(opts?.applicationId)}${fragment}`;
     },
     editExperience: (
@@ -269,7 +269,7 @@ const getRoutes = (lang: Locales) => {
       path.join(
         userUrl(userId),
         "profile",
-        "resume-and-recruitments",
+        "resume-and-recruitment",
         type,
         experienceId,
         "edit",

@@ -9,10 +9,10 @@ type ObjectValues<T> = T[keyof T];
 export type PageSectionId = ObjectValues<typeof PAGE_SECTION_ID>;
 
 export const titles = defineMessages({
-  resumeAndRecruitments: {
-    defaultMessage: "Résumé and recruitments",
-    id: "SyJkc/",
-    description: "Name of Résumé and recruitments page",
+  resumeAndRecruitment: {
+    defaultMessage: "Résumé and recruitment",
+    id: "gDBVKb",
+    description: "Name of Résumé and recruitment page",
   },
   manageYourResume: {
     defaultMessage: "Manage your résumé",

@@ -7900,37 +7900,9 @@
     "defaultMessage": "Membre des FAC",
     "description": "Veteran/member label"
   },
-  "DjSiTu": {
-    "defaultMessage": "Date de réception",
-    "description": "Date received label"
-  },
-  "Gthvhd": {
-    "defaultMessage": "Date d'expiration",
-    "description": "Expiry date label"
-  },
-  "bjnh/y": {
-    "defaultMessage": "Date d'archivage",
-    "description": "Archival date label"
-  },
   "mevv+t": {
     "defaultMessage": "Disponibilité",
     "description": "Availability label"
-  },
-  "qSDM1H": {
-    "defaultMessage": "Priorité",
-    "description": "Priority label"
-  },
-  "rwNxlI": {
-    "defaultMessage": "Notes",
-    "description": "Notes label"
-  },
-  "s2y5eG": {
-    "defaultMessage": "Statut",
-    "description": "Status label"
-  },
-  "xD0Vbd": {
-    "defaultMessage": "Détails du candidat du bassin",
-    "description": "Title of the pool candidate details content section"
   },
   "mUiS9q": {
     "defaultMessage": "{resultCount, plural, =1 {Profil du candidat} other {Profils des candidats} }",
@@ -8116,6 +8088,10 @@
     "defaultMessage": "Compétences utiles",
     "description": "Title for the optional skills snapshot section"
   },
+  "VeiXJP": {
+    "defaultMessage": "Aucune des compétences n’est jointe.",
+    "description": "Informing that a section is empty of any associated asset skills."
+  },
   "E9I34y": {
     "defaultMessage": "Titre de la thèse",
     "description": "Label displayed on education form for thesis title input"
@@ -8288,9 +8264,9 @@
     "defaultMessage": "La CléGC est un service qui vous permet d’accéder à <a>plusieurs services gouvernementaux variés </a> à l’aide d’un seul nom d’utilisateur et mot de passe. Le bouton qui figure ci-dessous vous mènera au site Web CléGC, à partir duquel vous pourrez créer un compte si vous n’en avez toujours pas un. Une fois inscrit(e) à CléGC, vous reviendrez ici pour compléter votre profil.",
     "description": "Instructions on how to register with GCKey paragraph 2- IAP variant"
   },
-  "lRUGPY": {
+  "ltzA7w": {
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
-    "description": "How to get help with logging in - IAP variant"
+    "description": "How to get help from the support team - IAP variant"
   },
   "oPUU6o": {
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
@@ -8320,9 +8296,9 @@
     "defaultMessage": "Profil et demandes",
     "description": "Breadcrumb for profile and applications page."
   },
-  "XY/crY": {
+  "6f8XuQ": {
     "defaultMessage": "Gérez votre expérience et vos processus de recrutement auxquels vous vous êtes qualifié(e).",
-    "description": "Description for the Résumé and recruitments page in applicant profile."
+    "description": "Description for the Résumé and recruitment page in applicant profile."
   },
   "aW/Htv": {
     "defaultMessage": "Les processus de recrutement auxquels vous avez été admis(e) apparaîtront ici.",
@@ -8336,21 +8312,57 @@
     "defaultMessage": "Processus de recrutement auxquels vous vous êtes qualifié(e)",
     "description": "Titles for a page section to manage your qualified recruitment processes"
   },
-  "gPy2MA": {
+  "18FbqO": {
     "defaultMessage": "Cette section ressemble à votre CV traditionnel et décrit vos expériences de travail, scolaires, et de la vie. Vous pourrez réutiliser cette information sur chaque demande que vous soumettez par l’entremise de la plateforme, ce qui viendra accélérer le processus et fera en sorte que votre information sera toujours à jour.",
-    "description": "Descriptive paragraph for the Manage your resume section of the résumé and recruitments page."
+    "description": "Descriptive paragraph for the Manage your resume section of the résumé and recruitment page."
   },
-  "wrTfp3": {
+  "DI3uQq": {
     "defaultMessage": "Lorsque vous formulez une demande dans le cadre d’un processus de recrutement et que vous passez l’évaluation, vous serez admis(e), et vous pourrez donc commencer à être pris(e) en compte pour des possibilités connexes. Cette section met en évidence tous les processus actifs et expires auxquels vous faites actuellement partie, et vous permettra de gérer si vous figurez ou non dans les recherches de talents. ",
-    "description": "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitments page."
+    "description": "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitment page."
   },
   "z7FpHz": {
     "defaultMessage": "Vous pouvez commencer par formuler une demande dans le cadre d’un processus de recrutement ciblé ou en cours.",
     "description": "Message to user when no qualified recruitments have been attached to profile, paragraph two."
   },
-  "SyJkc/": {
-    "defaultMessage": "Curriculum vitæ et recrutements",
-    "description": "Name of Résumé and recruitments page"
+  "0Uq3M8": {
+    "defaultMessage": "Bienvenue sur la page de votre profil des Talents numériques.",
+    "description": "First paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "3c9+uF": {
+    "defaultMessage": "Une fois que votre candidature aura été retenue, <a>le critère de qualification sera automatiquement ajouté à votre CV</a> afin que les gestionnaires puissent prendre connaissance de vos réalisations.",
+    "description": "Description for the track applications section on the applicant dashboard, paragraph two."
+  },
+  "4l0ayd": {
+    "defaultMessage": "Sachez que votre profil vous donne accès aux possibilités d’emploi autres que celles offertes dans le cadre du programme d’apprentissage. Par conséquent, vous pourriez choisir de poser votre candidature pour l’une de ces offres et de vous en tenir à celles liées au programme d’apprentissage!",
+    "description": "Third paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "9nNPo1": {
+    "defaultMessage": "CV et recrutement",
+    "description": "applicant dashboard card title for résumé card"
+  },
+  "GbKnDu": {
+    "defaultMessage": "Bienvenue au tableau de bord du profil des talents numériques",
+    "description": "Title for notification that a draft IAP application was saved"
+  },
+  "XOTFae": {
+    "defaultMessage": "<strong> Lorsque vous vous connectez à votre compte, vous arriverez sur cette page.</strong>",
+    "description": "Notice that the application dashboard is the first page after logging in"
+  },
+  "gDBVKb": {
+    "defaultMessage": "CV et recrutement",
+    "description": "Name of Résumé and recruitment page"
+  },
+  "j6x/rB": {
+    "defaultMessage": " Le programme d’apprentissage s’inscrit dans le cadre d’une vaste initiative du gouvernement du Canada qui vise à recruter les meilleurs talents dans le domaine du numérique, comme vous. Vous pouvez utiliser la section « Suivre vos demandes » de cette page pour vérifier le statut de votre candidature au Programme d’apprentissage en matière de TI pour les personnes autochtones.",
+    "description": "Second paragraph for applicant dashboard notification welcoming an IAP user"
+  },
+  "sPufRD": {
+    "defaultMessage": "Vous pouvez y suivre vos dossiers de candidature pour des offres d’emploi ciblées ou en cours. Vous pourrez consulter les dates de soumission, l’évolution de vos dossiers de candidature ainsi que les offres d’emploi antérieures ou expirées.",
+    "description": "Description for the track applications section on the applicant dashboard, paragraph one."
+  },
+  "o4tj77": {
+    "defaultMessage": "Pour nous joindre",
+    "description": "Title for the contact dialog for the Indigenous Apprenticeship Program application process"
   },
   "d5U44H": {
     "defaultMessage": "Profil et candidatures",

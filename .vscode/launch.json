@@ -18,36 +18,39 @@
     },
     {
       "type": "node",
-      "name": "jest-common",
+      "name": "Jest apps/web",
       "request": "launch",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "disableOptimisticBPs": true,
-      "program": "${workspaceRoot}/frontend/node_modules/jest/bin/jest.js",
-      "cwd": "${workspaceFolder}/frontend/common",
-      "args": ["--runInBand", "--watchAll=false"]
+      "program": "${workspaceRoot}/node_modules/.bin/jest",
+      "cwd": "${workspaceFolder}/apps/web",
+      "args": [
+        "--runInBand",
+        "--watchAll=false"
+        // "src/components/.....test.tsx"
+      ]
     },
     {
-      "type": "node",
-      "name": "jest-admin",
+      "name": "Firefox",
+      "type": "firefox",
       "request": "launch",
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "disableOptimisticBPs": true,
-      "program": "${workspaceRoot}/frontend/node_modules/jest/bin/jest.js",
-      "cwd": "${workspaceFolder}/frontend/admin",
-      "args": ["--runInBand", "--watchAll=false"]
-    },
-    {
-      "type": "node",
-      "name": "jest-talentsearch",
-      "request": "launch",
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "disableOptimisticBPs": true,
-      "program": "${workspaceRoot}/frontend/node_modules/jest/bin/jest.js",
-      "cwd": "${workspaceFolder}/frontend/talentsearch",
-      "args": ["--runInBand", "--watchAll=false"]
+      "reAttach": true,
+      "url": "http://localhost:8000/",
+      // Without a profile, the extension uses a temporary profile with no history or extensions.
+      // For help with profile manager visit https://support.mozilla.org/en-US/kb/profile-manager-create-remove-switch-firefox-profiles#w_starting-the-profile-manager
+      // Use the profile name defined here 👇️
+      "profile": "debug-profile",
+      "keepProfileChanges": true,
+      "pathMappings": [
+        {
+          "url": "webpack://gc-digital-talent/web/src",
+          "path": "${workspaceFolder}/apps/web/src"
+        }
+        // Can't debug packages currently. 😢
+      ],
+      "reloadOnChange": {
+        "watch": ["${workspaceFolder}/apps/web/dist"]
+      }
     }
   ]
 }
