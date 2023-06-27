@@ -418,8 +418,8 @@ export const Home = ({ latestPool }: HomeProps) => {
                 <p data-h2-margin="base(x2, 0, x1, 0)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "The program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Métis, and if you have a passion for technology, then this Program is for you!",
-                    id: "UYuwG9",
+                      "The program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Métis, and if you have a passion for technology, then this program is for you!",
+                    id: "f/yvXg",
                     description: "First paragraph about who the program is for",
                   })}
                 </p>
@@ -427,8 +427,8 @@ export const Home = ({ latestPool }: HomeProps) => {
                   {intl.formatMessage(
                     {
                       defaultMessage:
-                        "If you are not sure if this Program is right for you, please <mailLink>contact us</mailLink> and a member of our team will be happy to meet with you to answer any questions you may have.",
-                      id: "1FM1VL",
+                        "If you are not sure if this program is right for you, please <mailLink>contact us</mailLink> and a member of our team will be happy to meet with you to answer any questions you may have.",
+                      id: "kspVvy",
                       description:
                         "Second paragraph about who the program is for",
                     },
