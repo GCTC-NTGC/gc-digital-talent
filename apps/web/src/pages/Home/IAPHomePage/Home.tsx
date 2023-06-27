@@ -147,7 +147,7 @@ export const Home = ({ latestPool }: HomeProps) => {
         <div
           data-h2-padding="base(x1, x2)"
           data-h2-position="base(relative) p-tablet(absolute)"
-          data-h2-layer="base(1, relative) p-tablet(1, absolute)"
+          data-h2-layer="base(1, relative) p-tablet(2, absolute)"
           data-h2-location="p-tablet(auto, auto, 20%, 50%)"
           data-h2-min-width="base(x12)"
           data-h2-order="base(3)"
