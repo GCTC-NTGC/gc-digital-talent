@@ -15,7 +15,7 @@
     "defaultMessage": "Ozhibii’an wenjiiyan ayaawiyan",
     "description": "How it works, step 2 heading"
   },
-  "/7NWbF": {
+  "tBGvoD": {
     "defaultMessage": "Miigwech misawendaman wii-kagwe-gikendaman. Giga-bii’igoo ji-nakwetaman!",
     "description": "Third paragraph for apply now dialog"
   },
@@ -67,7 +67,7 @@
     "defaultMessage": "Gegoo na inaginde owe?",
     "description": "Learn more dialog question ten heading"
   },
-  "CqLV19": {
+  "hyJz3G": {
     "defaultMessage": "Owe gikinoo’amaadiwin",
     "description": "Program information section title"
   },
@@ -275,7 +275,7 @@
     "defaultMessage": "Gikinoo’amaadiiwimazina’igan (GED)",
     "description": "IAP Requirement list item two"
   },
-  "wqwPhL": {
+  "wNJSJ7": {
     "defaultMessage": "Giishpin weweni minwendaman anokaadaman owe, gaawiin memwech gichi-gikendaasowin, gaawiin wanashkwejigemagak. Mii owe gaa-onji-ozhichigaadeg, ogowe miziwe Anishinaabeg omaa Zhaaganaashiiwakiing. Owe weweni ji-wiidanokiimaawaad wenjiiwaad Anishinaabe’.",
     "description": "Second paragraph about the program"
   },
@@ -287,7 +287,7 @@
     "defaultMessage": "Mii Owe Ge-miigiweyan",
     "description": "How it works, step 3 heading"
   },
-  "1B4niz": {
+  "J9HjFN": {
     "defaultMessage": "Gaa-onji-izhichigaadeg owe anokiiwin ji-onji-nisiwinaadiyang.",
     "description": "How it works, step 1 content paragraph 1"
   },
@@ -311,7 +311,7 @@
     "defaultMessage": "Onjida na ji-ayaayaan GED gaye high school gikinoo’amaadiwinan. Gaawiin memwech gichi-gikendaasowigamig.",
     "description": "Learn more dialog question twelve paragraph one"
   },
-  "khChKa": {
+  "f/yvXg": {
     "defaultMessage": "Anishinaabeg, Inuit gaye Wiisaakodewininiwag. Giishpin giin eni-anishinaabewinen gaye Metis, mii owe gidanokiiwin!",
     "description": "First paragraph about who the program is for"
   },
@@ -363,7 +363,7 @@
     "defaultMessage": "Gaawiinoon owe ji-ganawaabandanziiwan.",
     "description": "Heading for the message saying the page to view is not authorized."
   },
-  "1FM1VL": {
+  "kspVvy": {
     "defaultMessage": "Giishpin inendaman inendanziwan wii-aabajitoosiwan, <mailLink>wiindamawishinaam</mailLink> gaye niwiiji’aagonaanig da-minwendamoog ji-wiiji’ikwaa gegoo ezhi-gagwedweyan.",
     "description": "Second paragraph about who the program is for"
   },

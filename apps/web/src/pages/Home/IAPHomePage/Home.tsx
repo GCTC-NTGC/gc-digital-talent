@@ -147,7 +147,7 @@ export const Home = ({ latestPool }: HomeProps) => {
         <div
           data-h2-padding="base(x1, x2)"
           data-h2-position="base(relative) p-tablet(absolute)"
-          data-h2-layer="base(1, relative) p-tablet(1, absolute)"
+          data-h2-layer="base(1, relative) p-tablet(2, absolute)"
           data-h2-location="p-tablet(auto, auto, 20%, 50%)"
           data-h2-min-width="base(x12)"
           data-h2-order="base(3)"
@@ -225,10 +225,11 @@ export const Home = ({ latestPool }: HomeProps) => {
                     data-h2-font-size="base(h3, 1)"
                     data-h2-margin="base(x6, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
                     data-h2-text-align="base(center) p-tablet(left)"
+                    data-h2-layer="base(1, relative)"
                   >
                     {intl.formatMessage({
-                      defaultMessage: "About the Program",
-                      id: "CqLV19",
+                      defaultMessage: "About the program",
+                      id: "hyJz3G",
                       description: "Program information section title",
                     })}
                   </Heading>
@@ -243,8 +244,8 @@ export const Home = ({ latestPool }: HomeProps) => {
                   <p data-h2-margin="base(x1, 0)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "By valuing and focusing on a person’s potential, rather than on their educational attainment level, the Program removes one of the biggest barriers that exists when it comes to employment within the digital economy. The Program has been developed by, with, and for Indigenous peoples from across Canada. Its design incorporates the preferences and needs of Indigenous learners while recognizing the importance of community.",
-                      id: "wqwPhL",
+                        "By valuing and focusing on a person’s potential, rather than on their educational attainment level, the program removes one of the biggest barriers that exists when it comes to employment within the digital economy. The program has been developed by, with, and for Indigenous peoples from across Canada. Its design incorporates the preferences and needs of Indigenous learners while recognizing the importance of community.",
+                      id: "wNJSJ7",
                       description: "Second paragraph about the program",
                     })}
                   </p>
@@ -418,8 +419,8 @@ export const Home = ({ latestPool }: HomeProps) => {
                 <p data-h2-margin="base(x2, 0, x1, 0)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "The Program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Métis, and if you have a passion for technology, then this Program is for you!",
-                    id: "khChKa",
+                      "The program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Métis, and if you have a passion for technology, then this program is for you!",
+                    id: "f/yvXg",
                     description: "First paragraph about who the program is for",
                   })}
                 </p>
@@ -427,8 +428,8 @@ export const Home = ({ latestPool }: HomeProps) => {
                   {intl.formatMessage(
                     {
                       defaultMessage:
-                        "If you are not sure if this Program is right for you, please <mailLink>contact us</mailLink> and a member of our team will be happy to meet with you to answer any questions you may have.",
-                      id: "1FM1VL",
+                        "If you are not sure if this program is right for you, please <mailLink>contact us</mailLink> and a member of our team will be happy to meet with you to answer any questions you may have.",
+                      id: "kspVvy",
                       description:
                         "Second paragraph about who the program is for",
                     },
@@ -643,8 +644,8 @@ export const Home = ({ latestPool }: HomeProps) => {
                 <p data-h2-margin="base(x1, 0, 0, 0)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "The Program was designed to respond to reconciliation and the building of a renewed relationship based on recognition of rights, respect, cooperation and partnership with Indigenous peoples.",
-                    id: "1B4niz",
+                      "The program was designed to respond to reconciliation and the building of a renewed relationship based on recognition of rights, respect, cooperation and partnership with Indigenous peoples.",
+                    id: "J9HjFN",
                     description: "How it works, step 1 content paragraph 1",
                   })}
                 </p>
