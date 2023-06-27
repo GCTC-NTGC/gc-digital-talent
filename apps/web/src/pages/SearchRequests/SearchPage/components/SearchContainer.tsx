@@ -27,9 +27,8 @@ import useRoutes from "~/hooks/useRoutes";
 import { SimpleClassification, SimplePool } from "~/types/pool";
 import Spinner from "~/components/Spinner/Spinner";
 import nonExecutiveITClassifications from "~/constants/nonExecutiveITClassifications";
-
 import { LocationState } from "~/types/searchRequest";
-import debounce from "lodash/debounce";
+
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import CandidateResults from "./CandidateResults";
