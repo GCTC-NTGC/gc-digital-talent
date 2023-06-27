@@ -340,7 +340,7 @@ const CreateAccount = () => {
   // OK to navigate to profile once we have a user ID and an email
   const shouldNavigate = meId && authContext.email;
   const fallbackTarget = applicantDashboard
-    ? paths.dashboard()
+    ? paths.profileAndApplications()
     : paths.profile(meId ?? "");
   const navigationTarget = from || fallbackTarget;
   React.useEffect(() => {

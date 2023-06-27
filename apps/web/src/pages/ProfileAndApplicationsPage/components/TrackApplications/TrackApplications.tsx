@@ -20,13 +20,13 @@ import { isApplicationInProgress } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
 import TrackApplicationsCard from "./TrackApplicationsCard";
 
+function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
+  return <Link href={href}>{chunks}</Link>;
+}
+
 interface AnimatedContentProps
   extends React.ComponentPropsWithoutRef<typeof Accordion.Content> {
   isOpen: boolean;
-}
-
-function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
-  return <Link href={href}>{chunks}</Link>;
 }
 
 const animationVariants = {
@@ -86,40 +86,26 @@ const TrackApplications = ({
   return (
     <section>
       <div>
-        <div data-h2-flex-grid="base(center, x1, x1)">
-          <Heading
-            level="h2"
-            data-h2-font-weight="base(400)"
-            Icon={FolderOpenIcon}
-            color="primary"
-            data-h2-flex-item="base(1of1) p-tablet(fill)"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Track your applications",
-              id: "tZwDLH",
-              description:
-                "Heading for track applications section on the applicant dashboard.",
-            })}
-          </Heading>
-          <Link
-            href={paths.browsePools()}
-            data-h2-flex-item="base(1of1) p-tablet(content)"
-            mode="inline"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Browse jobs",
-              id: "ApyEMy",
-              description: "Title for the browse pools page",
-            })}
-          </Link>
-        </div>
+        <Heading
+          level="h2"
+          data-h2-font-weight="base(400)"
+          Icon={FolderOpenIcon}
+          color="primary"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Track your applications",
+            id: "uqiPvH",
+            description:
+              "Heading for track applications section on the profile and applications.",
+          })}
+        </Heading>
         <p data-h2-margin="base(x.5, 0, 0, 0)">
           {intl.formatMessage({
             defaultMessage:
-              "Applications to targeted or ongoing recruitment opportunities can be managed and tracked here. You’ll be able to see submission deadlines, your application’s status over time, and old or expired applications.",
-            id: "sPufRD",
+              "Applications to talent pool and ongoing recruitment opportunities can be managed and tracked here. You’ll be able to see submission deadlines, your application’s status over time, and past applications.",
+            id: "igTx2a",
             description:
-              "Description for the track applications section on the applicant dashboard, paragraph one.",
+              "Description for the track applications section on the profile and applications, paragraph one.",
           })}
         </p>
         <p data-h2-margin="base(x.5, 0, x1, 0)">
@@ -170,9 +156,9 @@ const TrackApplications = ({
                     {
                       defaultMessage:
                         "Hide applications in progress ({applicationCount})",
-                      id: "1u9PTo",
+                      id: "6QrhJQ",
                       description:
-                        "Heading for applications in progress accordion on the applicant dashboard.",
+                        "Heading for applications in progress accordion on profile and applications.",
                     },
                     {
                       applicationCount: inProgressApplications.length ?? "0",
@@ -182,9 +168,9 @@ const TrackApplications = ({
                     {
                       defaultMessage:
                         "Show applications in progress ({applicationCount})",
-                      id: "VUbrMi",
+                      id: "agiL8L",
                       description:
-                        "Heading for applications in progress accordion on the applicant dashboard.",
+                        "Heading for applications in progress accordion on profile and applications.",
                     },
                     {
                       applicationCount: inProgressApplications.length ?? "0",
@@ -252,9 +238,9 @@ const TrackApplications = ({
                     {
                       defaultMessage:
                         "Hide past applications ({applicationCount})",
-                      id: "Vq97zy",
+                      id: "Kaoxhq",
                       description:
-                        "Heading for past applications accordion on the applicant dashboard.",
+                        "Heading for past applications accordion on profile and applications.",
                     },
                     {
                       applicationCount: pastApplications.length ?? "0",
@@ -264,9 +250,9 @@ const TrackApplications = ({
                     {
                       defaultMessage:
                         "Show past applications ({applicationCount})",
-                      id: "mYD993",
+                      id: "1fMzyo",
                       description:
-                        "Heading for past applications accordion on the applicant dashboard.",
+                        "Heading for past applications accordion on profile and applications.",
                     },
                     {
                       applicationCount: pastApplications.length ?? "0",
