@@ -8308,10 +8308,6 @@
     "defaultMessage": "Vous pouvez commencer par formuler une demande dans le cadre d’un processus de recrutement ciblé ou en cours.",
     "description": "Message to user when no qualified recruitments have been attached to profile, paragraph two."
   },
-  "SyJkc/": {
-    "defaultMessage": "Curriculum vitæ et recrutements",
-    "description": "Name of Résumé and recruitments page"
-  },
   "Jdlnz6": {
     "defaultMessage": "ᓀᐦᐃᔭᐍᐏᐣ nēhiyawēwin (Cris des Plaines)",
     "description": "Name of Plains Cree language"
