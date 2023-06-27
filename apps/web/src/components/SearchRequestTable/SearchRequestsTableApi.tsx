@@ -17,6 +17,7 @@ import {
 import {
   getLocalizedName,
   getPoolCandidateSearchStatus,
+  getPoolStream,
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
@@ -43,6 +44,8 @@ import adminMessages from "~/messages/adminMessages";
 import SearchRequestsTableFilter, {
   FormValues,
 } from "./components/SearchRequestsTableFilterDialog";
+import tableClassificationPills from "../Table/ClientManagedTable/tableClassificationPills";
+import tableCommaList from "../Table/ClientManagedTable/tableCommaList";
 
 type Data = NonNullable<FromArray<PoolCandidateSearchRequestPaginator["data"]>>;
 
@@ -216,16 +219,6 @@ const SearchRequestsTableApi = ({
   const requestsData = data?.poolCandidateSearchRequestsPaginated?.data ?? [];
   const filteredData = requestsData.filter(notEmpty);
 
-  /*
-    - [x] Combine "Job title" and "Action" and set as first column. New name is "Request Job title".
-    - [x] Ensure sorting still works on new request job title column
-    - [x] Reorder all columns (not including group and stream):
-          ID (hidden) | Request job title | GLS | Manager (hidden) | Department | Status | Date Received
-    - [ ] Add group-level and streams of request to api response.
-    - [ ] Add new columns for group and level, and stream.
-    - [ ] Add it to group-level and stream to filtering.
-  */
-
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
@@ -241,9 +234,9 @@ const SearchRequestsTableApi = ({
       {
         label: intl.formatMessage({
           defaultMessage: "Request job title",
-          id: "oc7cTw",
+          id: "6AhLsc",
           description:
-            "Title displayed for the search request table edit column.",
+            "Title displayed for the search request table request job title column.",
         }),
         id: "job_title",
         accessor: (d) =>
@@ -252,6 +245,37 @@ const SearchRequestsTableApi = ({
             d.jobTitle || "",
             "", // TODO: What should I use here incase of a duplicate job title?
           ),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Group and level",
+          id: "y+r+ej",
+          description:
+            "Title displayed on the search request table group and level column.",
+        }),
+        id: "group_and_level",
+        accessor: (d) =>
+          tableClassificationPills({
+            classifications:
+              d.applicantFilter?.qualifiedClassifications?.filter(notEmpty),
+          }),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Stream",
+          id: "LoKxJe",
+          description:
+            "Title displayed on the search request table stream column.",
+        }),
+        id: "stream",
+        accessor: (d) =>
+          tableCommaList({
+            list:
+              d.applicantFilter?.qualifiedStreams
+                ?.filter(notEmpty)
+                .map((stream) => intl.formatMessage(getPoolStream(stream))) ??
+              [],
+          }),
       },
       {
         label: intl.formatMessage({
