@@ -97,7 +97,7 @@ describe("WorkLocationForm", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      await screen.getByLabelText(/Location exemptions/i),
+      await screen.getByLabelText(/Work location exceptions/i),
     ).toBeInTheDocument();
   });
   it("Can't submit unless form is valid (at least one location selected)", async () => {
