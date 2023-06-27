@@ -70,6 +70,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
           title,
         },
       )}
+      data-h2-color="base(black.light)"
     >
       {intl.formatMessage(
         {
@@ -105,6 +106,7 @@ const SeeAdvertisementAction = ({
     <Link
       mode="inline"
       href={paths.pool(advertisement.id)}
+      data-h2-color="base(black.light)"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Review the {title} job advertisement",
@@ -145,6 +147,7 @@ const SupportAction = ({ show, application }: SupportActionProps) => {
     <Link
       href={paths.support()}
       mode="inline"
+      data-h2-color="base(black.light)"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Get support for the {title} job",
@@ -181,7 +184,7 @@ const CopyApplicationIdAction = ({
   return (
     <Button
       mode="inline"
-      color="black"
+      data-h2-color="base(black.light)"
       icon={linkCopied ? CheckIcon : undefined}
       onClick={() => {
         navigator.clipboard.writeText(application.id);
@@ -248,6 +251,7 @@ const VisitResumeAction = ({
     <Link
       href={paths.resumeAndRecruitment(userID)}
       mode="inline"
+      data-h2-color="base(black.light)"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Visit the {title} recruitment on your résumé",
@@ -289,6 +293,7 @@ const ManageAvailabilityAction = ({
     <Link
       href={paths.profile(userID)}
       mode="inline"
+      data-h2-color="base(black.light)"
       aria-label={intl.formatMessage(
         {
           defaultMessage:
@@ -331,7 +336,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
         <Button
           mode="inline"
           type="button"
-          color="error"
+          data-h2-color="base(error.dark)"
           aria-label={intl.formatMessage(
             {
               defaultMessage: "Delete your application to the {title} job",

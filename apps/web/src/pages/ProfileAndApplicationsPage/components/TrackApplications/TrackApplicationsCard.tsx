@@ -55,7 +55,7 @@ const TrackApplicationsCard = ({
   return (
     <div
       data-h2-border-left="base(x.5 solid primary)"
-      data-h2-padding="base(x1)"
+      data-h2-padding="base(x1 x1 x.5 x1)"
       data-h2-shadow="base(larger)"
       data-h2-margin="base(0, 0, x.5, 0)"
     >
@@ -63,7 +63,7 @@ const TrackApplicationsCard = ({
         data-h2-display="base(flex)"
         data-h2-align-items="base(center)"
         data-h2-justify-content="base(space-between)"
-        data-h2-gap="base(0 x.5)"
+        data-h2-gap="base(0 x1)"
       >
         <Heading
           level={headingLevel}
@@ -132,7 +132,7 @@ const TrackApplicationsCard = ({
       >
         <span
           data-h2-color="base(primary.darker)"
-          data-h2-margin="base(x.5 0 x1 0)"
+          data-h2-margin="base(x.5 0 x.5 0)"
         >
           {getRecruitmentType(application.pool.publishingGroup, intl)}
         </span>
@@ -171,7 +171,7 @@ const TrackApplicationsCard = ({
         <div
           data-h2-display="base(flex)"
           data-h2-align-items="base(center)"
-          data-h2-gap="base(x1)"
+          data-h2-gap="base(0 x1)"
         >
           <ApplicationActions.SeeAdvertisementAction
             show={notEmpty(application.pool)}
@@ -198,7 +198,7 @@ const TrackApplicationsCard = ({
             onDelete={onDelete}
           />
         </div>
-        <div data-h2-flex-shrink="base(0)">
+        <div data-h2-align-items="base(center)">
           <ApplicationActions.CopyApplicationIdAction
             show={!applicationIsDraft}
             application={application}
