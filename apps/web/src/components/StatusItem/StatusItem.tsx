@@ -22,7 +22,7 @@ const textColorMap: Record<StatusColor, Record<string, string>> = {
 
 const iconColorMap: Record<StatusColor, Record<string, string>> = {
   default: {
-    "data-h2-color": "base(black) base:hover(primary)",
+    "data-h2-color": "base(black.light) base:hover(primary)",
   },
   error: {
     "data-h2-color": "base(error)",
