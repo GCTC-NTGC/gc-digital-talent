@@ -144,7 +144,9 @@ const LoggedOutPage = () => {
                 color="primary"
                 mode="inline"
                 href={
-                  applicantDashboard ? paths.dashboard() : paths.myProfile()
+                  applicantDashboard
+                    ? paths.profileAndApplications()
+                    : paths.myProfile()
                 }
               >
                 {intl.formatMessage({

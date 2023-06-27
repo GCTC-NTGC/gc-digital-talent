@@ -137,7 +137,7 @@ const ApplicationReview = ({
   };
 
   const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: isIAP })
+    ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
   const editPaths = {
     resume: paths.applicationResume(application.id),

@@ -125,7 +125,7 @@ const ApplicationEducation = ({
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);
   const previousStep = paths.applicationResume(application.id);
   const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: isIAP })
+    ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
 
   const methods = useForm<FormValues>({
