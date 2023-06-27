@@ -1253,7 +1253,7 @@
     "defaultMessage": "Lieu de travail",
     "description": "Title for Profile Form wrapper  in Work Location Preferences Form"
   },
-  "1F7at9": {
+  "4faEVw": {
     "defaultMessage": "Vous pouvez découvrir vos niveaux à l’aide d’une <selfAssessmentLink>auto-évaluation des aptitudes linguistiques</selfAssessmentLink>.",
     "description": "Text including link to language proficiency evaluation in language information form"
   },
@@ -6495,6 +6495,10 @@
     "defaultMessage": "Mi'kmaq",
     "description": "Name of Mi'kmaq language"
   },
+  "zAl7ZH": {
+    "defaultMessage": "Michif",
+    "description": "Name of Michif language"
+  },
   "F7RkOA": {
     "defaultMessage": "<strong>Pour commencer, nous vous demanderons de vérifier les renseignements de base de votre profil</strong>. Si vous n’avez pas encore créé votre profil, pas de problème! Vous pouvez ajouter tous les renseignements pertinents à l’étape suivante.",
     "description": "Description of the application process and the next step"
@@ -7489,10 +7493,6 @@
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expérience de formation à votre curriculum vitæ .</strong>",
     "description": "Alert message informing user to add education experience in application education page."
   },
-  "TEVNs4": {
-    "defaultMessage": "Une expérience combinée de l’informatique, de la technologie de l’information, de la gestion de l’information ou d’une autre spécialité pertinente à cette offre d’emploi, y compris l’un ou l’autre des domaines suivants :",
-    "description": "Descriptive text explaining valid applied work experiences."
-  },
   "QYlwuE": {
     "defaultMessage": "Vous avez mis à jour l’exigence relative aux études que vous devez remplir",
     "description": "Message displayed to users when saving education requirement is successful."
@@ -7739,10 +7739,6 @@
   "CnPVJe": {
     "defaultMessage": "Diplôme d’études secondaires ou PEG",
     "description": "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)"
-  },
-  "4lGQQm": {
-    "defaultMessage": "<strong>Je détiens un diplôme d’études secondaires ou un équivalent du GED</strong>",
-    "description": "Radio group option for education requirement filter in Indigenous apprenticeship application education form."
   },
   "0lUoqK": {
     "defaultMessage": "Renseignements personnels et de contact",
@@ -8304,6 +8300,14 @@
     "defaultMessage": "Vous pouvez commencer par formuler une demande dans le cadre d’un processus de recrutement ciblé ou en cours.",
     "description": "Message to user when no qualified recruitments have been attached to profile, paragraph two."
   },
+  "Jdlnz6": {
+    "defaultMessage": "ᓀᐦᐃᔭᐍᐏᐣ nēhiyawēwin (Cris des Plaines)",
+    "description": "Name of Plains Cree language"
+  },
+  "Hi7hnj": {
+    "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
+    "description": "Name of Western Ojibwe language"
+  },
   "3c9+uF": {
     "defaultMessage": "Une fois que votre candidature aura été retenue, <a>le critère de qualification sera automatiquement ajouté à votre CV</a> afin que les gestionnaires puissent prendre connaissance de vos réalisations.",
     "description": "Description for the track applications section on the applicant dashboard, paragraph two."
@@ -8343,6 +8347,26 @@
   "lxDgNf": {
     "defaultMessage": "* Veuillez prendre note que votre numéro de confirmation peut également se trouver dans la section « Suivi de vos candidatures » à partir de votre page de profil et de candidature.",
     "description": "Note that the application confirmation number is available on the profile and applications page"
+  },
+  "0HPwnA": {
+    "defaultMessage": "Expérience combinée en sciences informatiques, en sciences, en technologie de l’information, en gestion de l’information ou en tout autre spécialité pertinente au présent concours, y compris n’importe quelle des expériences suivantes : ",
+    "description": "Descriptive text explaining valid applied work experiences."
+  },
+  "0IggSg": {
+    "defaultMessage": "Veuillez sélectionner les options qui reflètent le mieux vos qualifications",
+    "description": "Legend for the radio group in the application education page - IAP variant."
+  },
+  "GZSvWZ": {
+    "defaultMessage": "<strong>Je possède un diplôme d’études secondaires ou l’équivalent (p. ex., formation Générale). </strong>",
+    "description": "Radio group option for education requirement filter in Indigenous apprenticeship application education form."
+  },
+  "kukr/B": {
+    "defaultMessage": "<strong>Je respecte l’option d’expérience appliquée</strong>",
+    "description": "Radio group option for education requirement filter in application education form - IAP variant."
+  },
+  "GSHQHG": {
+    "defaultMessage": "Autre experience connexe (p. ex., personnelle, communautaire, familiale).",
+    "description": "Experience requirement, other."
   },
   "+clYLj": {
     "defaultMessage": "Sélectionnez votre expérience de cette compétence",

@@ -1,0 +1,378 @@
+{
+  "+JIfBy": {
+    "defaultMessage": "Aandi ge-dananokiid?",
+    "description": "Learn more dialog question nine heading"
+  },
+  "+cn9MN": {
+    "defaultMessage": "Anokii’igooyan bebakaanidiba’igan giga-anokiitaanan weweni ji-anokiimagak gidaazhawaatebii’igan.",
+    "description": "IAP Requirement list item six"
+  },
+  "+do6jV": {
+    "defaultMessage": "Ge-izhichigeyan wii-anokii’igoziyan",
+    "description": "Button text for program eligibility criteria"
+  },
+  "/5tYua": {
+    "defaultMessage": "Ozhibii’an wenjiiyan ayaawiyan",
+    "description": "How it works, step 2 heading"
+  },
+  "/7NWbF": {
+    "defaultMessage": "Miigwech misawendaman wii-kagwe-gikendaman. Giga-bii’igoo ji-nakwetaman!",
+    "description": "Third paragraph for apply now dialog"
+  },
+  "/ar49+": {
+    "defaultMessage": "Ji-wiindamaageyan wii-kagwe-giizhitooyan, gakina ji-dazhiikaman gikinoo’amaagewinan",
+    "description": "IAP Requirement list item five"
+  },
+  "v9mTgX": {
+    "defaultMessage": "Wiiba go, da-naagwad aazhawaatebii’iganing ge-onji-gikendaman. Wewiib, bi-izhinizha’an dibaajimon wenjiimagak gimazina’igan: edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca",
+    "description": "Learn more dialog question eleven paragraph one"
+  },
+  "27FjxB": {
+    "defaultMessage": "Ji-minwendaman dazhiikaman aazhawaatebii’iganan, ji-naagwatooyan geget andawendaman",
+    "description": "IAP Requirement list item four"
+  },
+  "436DA5": {
+    "defaultMessage": "ji<softHyphen></softHyphen>ani<softHyphen></softHyphen>maajiish<softHyphen></softHyphen>kaagin",
+    "description": "Talent portal strategy item 2 heading"
+  },
+  "4p0QdF": {
+    "defaultMessage": "Mii minik",
+    "description": "Button text used to close an open modal"
+  },
+  "6l9YH+": {
+    "defaultMessage": "Waa-anokiiwaa’ miiwan onowe endawendamowaad:",
+    "description": "Heading for the applicant requirements dialog"
+  },
+  "81iywD": {
+    "defaultMessage": "Giga-gagwejimigoo giishpin weweni gii-dibaajindizoyan",
+    "description": "How it works, step 3 content sentence 1"
+  },
+  "84rSVg": {
+    "defaultMessage": "Ji-naagwak ji-mikawendwaa ge-anokiitamowaad anokiwinan",
+    "description": "Talent portal strategy item 2 content"
+  },
+  "8PhWBd": {
+    "defaultMessage": "Maajitaawin",
+    "description": "Talent portal strategy item 4 heading"
+  },
+  "BSSYnh": {
+    "defaultMessage": "Ayaapiichinaag nindibaabandaamin, awenen mesawendang wii-gikendang Anishinaabe dinowa.",
+    "description": "Second paragraph for apply now dialog"
+  },
+  "CY+493": {
+    "defaultMessage": "Nawaj geyaabi gagwe-gikendan",
+    "description": "Button text to learn more about the program"
+  },
+  "CZGta2": {
+    "defaultMessage": "Gegoo na inaginde owe?",
+    "description": "Learn more dialog question ten heading"
+  },
+  "CqLV19": {
+    "defaultMessage": "Owe gikinoo’amaadiwin",
+    "description": "Program information section title"
+  },
+  "DBczOG": {
+    "defaultMessage": "Ge-izhichigeyang",
+    "description": "Heading for strategy for the indigenous talent portal"
+  },
+  "DgMIfz": {
+    "defaultMessage": "Giga-minwendaan in owe anokiiwin?",
+    "description": "Application box heading part one"
+  },
+  "DvmNR7": {
+    "defaultMessage": "Noongom gagwedwen wewiib",
+    "description": "Button text to apply for program"
+  },
+  "Dzyk1q": {
+    "defaultMessage": "Anishinaabe anokii’indwaa mii owe ge-izhichigeyan giga-naanaagadawaabandaamin aazhawaatebii’iganan:",
+    "description": "Description for strategy for the indigenous talent portal"
+  },
+  "iKpxPY": {
+    "defaultMessage": "Bi-izhi’an gidaangibii’igan dibaajimon wenjiimagak waa-onji-gagwe-gikendaman aazhawaate<softHyphen></softHyphen>bii’igan wenji-misawendaman ji-gikinoo’amaagooyan: <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Awiiya gaa-anokaadang giga-wiindamaag gaa-ayi-zhiiyan eko-niswi maagizhaa naanogonagak anokiiwigiizhigak",
+    "description": "First paragraph for apply now dialog"
+  },
+  "GnmmgR": {
+    "defaultMessage": "Gii-noondamaang idash, ayaawiyan giga-nakwetaagoo 3-5 giizhigadoon.",
+    "description": "How it works, step 3 content sentence 2"
+  },
+  "Ilot3b": {
+    "defaultMessage": "Aaniin ge-izhiseg gii-kiizhichigaadeg owe izhichigewin?",
+    "description": "Learn more dialog question three heading"
+  },
+  "KdXvmY": {
+    "defaultMessage": "Aaniin ge-onji-gikendamaan ji-minwendamaan anokiiwin?",
+    "description": "Learn more dialog question seven heading"
+  },
+  "L9yjr3": {
+    "defaultMessage": "Nawaj geyaabi gagwe-gikendan onowe Zhaaganaashii izhichigewinan onjii ogowe Anishinaabeg",
+    "description": "Heading for the Learn more dialog"
+  },
+  "LGSw+f": {
+    "defaultMessage": "Da-wanaabamaawag weweni ge-wiiji’ikwaa. Gaa-gii-pi-biinjiwewaad onjida ji-wiiji’itwaawaad, gii-gashkitooyan owe giga-wiidanokiimaag aanind Anishinaabeg ogowe enokiitawaawaad Zhaaganaashii ogimaa.",
+    "description": "Learn more dialog question two paragraph two"
+  },
+  "MgLLHd": {
+    "defaultMessage": "Miiwan onowe endawen<softHyphen></softHyphen>daagwakin",
+    "description": "Talent portal strategy item 1 heading"
+  },
+  "NaF4Iu": {
+    "defaultMessage": "Noongom igo gagwedwen!",
+    "description": "Application box heading part two"
+  },
+  "O0z6Ym": {
+    "defaultMessage": "Awenen o’owe odanokiiwin?",
+    "description": "Heading for section about who the program is for"
+  },
+  "OcIvN1": {
+    "defaultMessage": "Gii-kiizhitooyan izhichigewin ampegish weweni wiidanokiimad Zhaaganaashii Ogimaa.",
+    "description": "Learn more dialog question three paragraph one"
+  },
+  "PvH5lJ": {
+    "defaultMessage": "Miiwan onowe gaa-gii-noondamang",
+    "description": "Heading for the quotes sections"
+  },
+  "QkZ7Oy": {
+    "defaultMessage": "Aaniin ge-izhichigeyaan ji-miinigooyaan gaye ji-dibenamaan anokiiwin?",
+    "description": "Learn more dialog question eleven heading"
+  },
+  "Qt9Q8k": {
+    "defaultMessage": "Aaniin minik ge-dazhiikikaadeg owe izhichigewin?",
+    "description": "Learn more dialog question two heading"
+  },
+  "S/PXt/": {
+    "defaultMessage": "Miiziwe baatenadoon anokiiwinan omaa Zhaaganaashiiwakiing. Giga-miinigoo anokiiwin menwendaman anokaadaman.",
+    "description": "Learn more dialog question nine paragraph one"
+  },
+  "SnnuD+": {
+    "defaultMessage": "Weweni mooshkinebii’an ge-onji-gikenimigooyan.",
+    "description": "How it works, step 2 content sentence 2"
+  },
+  "U8bLT7": {
+    "defaultMessage": "Mii owe enanokiing",
+    "description": "heading for how the indigenous talent portal will work"
+  },
+  "UDHGGA": {
+    "defaultMessage": "Wiiba go, da-naagwad omaa, aazhawaatebii’iganing. Mii owe waa-izhichigeng:",
+    "description": "Description of how the indigenous talent portal will work"
+  },
+  "UQlyXu": {
+    "defaultMessage": "Awiya giga-wiidanokiimig ji-gikendaman ge-izhichigeyan, ji-aabajitooyan aazhawaate<softHyphen></softHyphen>bii’igan. Gaa-anokiiwaad ji-naagwatoowaad geget igo gikendaman anokiiwin, weweni ji-gagwejitooyan gaayaabadakin gegoo oshki-aya’iin. Akawe niiyo-giizhig gigagwe-danokii, naanogonagak idash enanokiimagak aazhawaate<softHyphen></softHyphen>bii’igan maagizhaa zoom.",
+    "description": "Learn more dialog question eight paragraph one"
+  },
+  "WDRWcu": {
+    "defaultMessage": "Onjida na ningoji ji-aajigooziyaan Ottawaang?",
+    "description": "Learn more dialog question six heading"
+  },
+  "XS21o1": {
+    "defaultMessage": "Geget igo! Gakina anokiidamowaad Zhaaganaashii anokiiwin, da-diba’amaawag gibichiiwaad gegoo ojaanimendaagwak maagizhaa aakoziwin gaye anwebiwin. Apii ishkwaa-ningodwaaso-giiziswagak, da-wiiji’aawag ge-ondinamowaad wiiji’idiwin aakoziwin endasogamigiziyeg, gaye giizhanokii diba’amaadiwin.",
+    "description": "Learn more dialog question five paragraph one"
+  },
+  "Xhfkfg": {
+    "defaultMessage": "Anishinaabe netaawitoowaad aazhawaatebii’iganan",
+    "description": "Talent portal strategy item 1 content"
+  },
+  "YGM/D5": {
+    "defaultMessage": "Owe niizhitana-ashi-niiyo-giizis da-dazhiikigaade, ayaawag ge-wiiji’ikwaa gaye ge-wiiji’igooyan.",
+    "description": "Learn more dialog question two paragraph one"
+  },
+  "b09U1u": {
+    "defaultMessage": "Ishkwaaseg niishtana-ashi-niiyo-giizis, giga-miinigoo anokii-mazina’igan, giga-anokii igo omaa Zhaaganaashiiwakiing gaye bakaan ningoji.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "cNXORI": {
+    "defaultMessage": "Awashime ashi-ningodwaaso-biboonweyan",
+    "description": "IAP Requirement list item three"
+  },
+  "cYq1Dp": {
+    "defaultMessage": "Ogowe Anishinaabeg “gaa-dazhiikamowaad” naagwad gegoo ezhiwendak, “nawaj naagwad ge-izhi-wiiji’idiyang”, gaye “gaawiin gegoo giga-baabandanziin”.",
+    "description": "Third paragraph about the program"
+  },
+  "ce892L": {
+    "defaultMessage": "Noongom gagwedwen wewiib!",
+    "description": "Heading for the apply now dialog"
+  },
+  "dDHy5d": {
+    "defaultMessage": "Ako-niishtana-ashi-niiyo-giiziswagak giga-anokaadaanan gikinoo’amaagoo anokiiwinan.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "dgG8md": {
+    "defaultMessage": "Akawe na ji-andone’amaan – gichi-gikendaasowinan?",
+    "description": "Learn more dialog question twelve heading"
+  },
+  "fF4Ex+": {
+    "defaultMessage": "Anishinaabe gaa-nitaawitood aazhawaate<softHyphen></softHyphen>bii’igan gaa-gii-ozhitoowaad Anishinaabeg.",
+    "description": "Talent portal information sentence 1"
+  },
+  "fvsYkj": {
+    "defaultMessage": "Wegonen dinowa ge-gikinoo’amaagoyaan?",
+    "description": "What applicants will learn sections heading"
+  },
+  "hSmKjD": {
+    "defaultMessage": "Geget igo! Ishpendaagwad eshtigeyan Da-diba’amawaa ge-anokaadang gaye ge-ani-onji-ondaadizid Anishinaabe naagaj. Nitam dibaa’amaadiwin $29.00 miinawaa $33.00 endaso-diba’igan, gaa-izhichigeyan daa-onji-maajise mii omaa ge-onji-gikendaagwak maamawi-anokiiwidebenjiged Ogimaa.  Da-mooshkinediba’amaawag gaa-anokiiwaad, 37.5 endaso-go anama’e giizhik.",
+    "description": "Learn more dialog question four paragraph one"
+  },
+  "hdBTPI": {
+    "defaultMessage": "Giga-miinigoo geyaabajitooyan ji-anokiiyan gaawiin gegoo inagindesinoon. Giishpin endaayan wii-dananokiiyan giin, giga-diba’aanan geyaabajitooyan.",
+    "description": "Learn more dialog question ten paragraph one"
+  },
+  "jA4kuU": {
+    "defaultMessage": "Wii-tiba’amawaa na gaa-anokaadang owe izhichigewin?",
+    "description": "Learn more dialog question four heading"
+  },
+  "lIHNov": {
+    "defaultMessage": "Ji<softHyphen></softHyphen>naanaagaji<softHyphen></softHyphen>toong",
+    "description": "Talent portal strategy item 3 heading"
+  },
+  "loDwKe": {
+    "defaultMessage": "Anishinaabe gaa-nitaawitood aazhawaate<softHyphen></softHyphen>bii’igan",
+    "description": "Talent Portal information heading"
+  },
+  "mfBsJY": {
+    "defaultMessage": "Aaniin enanokiing?",
+    "description": "Learn more dialog question eight heading"
+  },
+  "osGGIt": {
+    "defaultMessage": "Aazhawaate<softHyphen></softHyphen>bii'gani<softHyphen></softHyphen>anokiiwin + Anishinaabe netaa<softHyphen></softHyphen>anokaadang",
+    "description": "heading for indigenous talent portal section"
+  },
+  "p19YJ2": {
+    "defaultMessage": "Noongom maajitaan ji-dazhiikaman anokiiwin.",
+    "description": "Application box content"
+  },
+  "p2sBh3": {
+    "defaultMessage": "Awenen awe waa-kagwe-gikendang owe Zhaaganaashii izhichigewin onjii ogowe Anishinaabeg?",
+    "description": "Learn more dialog question one heading"
+  },
+  "pWoAv0": {
+    "defaultMessage": "O’owe gikinoo’amaadiwin Zhaaganaashi ogii-ozhitoon ji-wiiji’indwaa Enanishinaabewiwaad, Inuit, gaye Wiisaakode Anishinaabeg. Miiwan onowe ge-wiiji’igooyan ji-mikaman anokiiwinan omaa Zhaaganaashiiwakiing ogowe gaa-minwendamowaad aabajitoowaad aazhawaatebii’iganan.",
+    "description": "First paragraph about the program"
+  },
+  "pkFLpT": {
+    "defaultMessage": "Giishpin aabajitooyan aazhawaatebii’iganan gaye Anishinaabewiyan, mii owe ge-inanokiiyan.",
+    "description": "Learn more dialog question seven paragraph one"
+  },
+  "q5FQbu": {
+    "defaultMessage": "Wiiba go da-naagwad!",
+    "description": "Heading for a coming soon section"
+  },
+  "rQ61eh": {
+    "defaultMessage": "Ji-gagwejimindwaa aaniin wiinawaa enendamowaad",
+    "description": "Talent portal strategy item 3 content"
+  },
+  "rz21yp": {
+    "defaultMessage": "Da-miininim ina giizhanokii diba’amaadiwin?",
+    "description": "Learn more dialog question five heading"
+  },
+  "sycoGU": {
+    "defaultMessage": "Gaawiin memwech. Endaawaad da-dananokiiwag, ayaawaad mino-aazhawaate<softHyphen></softHyphen>bii’igan. Maagizhaa aanind anokiiwinan giga-onji-aajigos. Geget gichi-apiitendaagoziwag, ezhi-ningo-dogamigiziyang, gaawiin memwech gidaa-naganaasiig.   Akawe gaganoozh gidoogimaam wiindamaw enabichigeyan omaa endaayan.",
+    "description": "Learn more dialog question six paragraph one"
+  },
+  "wHWE3M": {
+    "defaultMessage": "Mii omaa naagwakin niibiwa anokiiwinan gaa-gii-ozhichigaadeg, ji-naagwakin netaawitood Anishinaabe.",
+    "description": "Talent portal information sentence 2"
+  },
+  "wgIThY": {
+    "defaultMessage": "Gikinoo’amaadiiwimazina’igan (GED)",
+    "description": "IAP Requirement list item two"
+  },
+  "wqwPhL": {
+    "defaultMessage": "Giishpin weweni minwendaman anokaadaman owe, gaawiin memwech gichi-gikendaasowin, gaawiin wanashkwejigemagak. Mii owe gaa-onji-ozhichigaadeg, ogowe miziwe Anishinaabeg omaa Zhaaganaashiiwakiing. Owe weweni ji-wiidanokiimaawaad wenjiiwaad Anishinaabe’.",
+    "description": "Second paragraph about the program"
+  },
+  "yZMQ6j": {
+    "defaultMessage": "Ji-gagwe-gikenimigooyan ayaawiyan minwendaman aazhawaatebii’iganan!",
+    "description": "How it works, step 2 content sentence 1"
+  },
+  "zlYw3Z": {
+    "defaultMessage": "Mii Owe Ge-miigiweyan",
+    "description": "How it works, step 3 heading"
+  },
+  "1B4niz": {
+    "defaultMessage": "Gaa-onji-izhichigaadeg owe anokiiwin ji-onji-nisiwinaadiyang.",
+    "description": "How it works, step 1 content paragraph 1"
+  },
+  "jyQi0m": {
+    "defaultMessage": "Giishpin giin Anishinaabewiyan, Inuk gaye Wiisaakodewinini, ayaayan omaa Zhaaganaashiikiing, wii-kagwe-gikendaman.",
+    "description": "Learn more dialog question on paragraph one"
+  },
+  "nzcwrW": {
+    "defaultMessage": "Awiya giga-wiidanokiimaa ge-ganawaabandang gidanokiiwin, awiya gaye ge-naanaagaji’ig ezhichigeyan.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "pPOGwF": {
+    "defaultMessage": "Anishinaabe (gaawiin anishinaabe), Inuit, gaye Wiisaakodewininiwag",
+    "description": "IAP Requirement list item one"
+  },
+  "49UIne": {
+    "defaultMessage": "Zhaaganaashiiwaki aazhawaatebii’igani anokiiwinan",
+    "description": "author of testimonial number one"
+  },
+  "74Sg+4": {
+    "defaultMessage": "Onjida na ji-ayaayaan GED gaye high school gikinoo’amaadiwinan. Gaawiin memwech gichi-gikendaasowigamig.",
+    "description": "Learn more dialog question twelve paragraph one"
+  },
+  "khChKa": {
+    "defaultMessage": "Anishinaabeg, Inuit gaye Wiisaakodewininiwag. Giishpin giin eni-anishinaabewinen gaye Metis, mii owe gidanokiiwin!",
+    "description": "First paragraph about who the program is for"
+  },
+  "1pFMSH": {
+    "defaultMessage": "Ozhibii’an Ezhi-anishinaabewiyan",
+    "description": "How it works, step 1 heading"
+  },
+  "uJ1rk3": {
+    "defaultMessage": "Niswewaanigiziwag Anishinaabeg omaa Zhaaganaashiiwakiing. Gigagwejimigoo aandi wenjiiyan gaye ayaawiyan",
+    "description": "How it works, step 1 content paragraph 2"
+  },
+  "0i34ZZ": {
+    "defaultMessage": "Giga-maajitoomin anokiiwin ani-ziigwang 2023.",
+    "description": "Talent portal strategy item 4 content"
+  },
+  "gj0bQO": {
+    "defaultMessage": "Anishinaabe Gikinoo’amaadiwin Izhichigewin ogowe Anishinaabeg",
+    "description": "Homepage title for IT Apprenticeship Program for Indigenous Peoples"
+  },
+  "nn9B4R": {
+    "defaultMessage": "Noongom maajitoon aazhawaatebii’igano-anokiiwining.",
+    "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
+  },
+  "pBJzgi": {
+    "defaultMessage": "Hay’ Gaawiin ninga-mikanziimin gaa-dibaadondaman ozhibii’igan.",
+    "description": "Heading for the message saying the page was not found."
+  },
+  "pgHTkX": {
+    "defaultMessage": " Hay’ Gaawiin ninga-mikanziimin gaa-dibaadondaman ozhibii’igan.",
+    "description": "Detailed message saying the page was not found."
+  },
+  "404R1N": {
+    "defaultMessage": "Owe izhichigewin aapichi go niwiiji’igon niwaabandaan <b>niigaan ji-ani-minoseg</b>.",
+    "description": "testimonial number one"
+  },
+  "Srs7a4": {
+    "defaultMessage": "Izhaan ge-onji-gikendaman",
+    "description": "Assistive technology skip link"
+  },
+  "M1JKQs": {
+    "defaultMessage": "Endaawin",
+    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
+  },
+  "gKyog2": {
+    "defaultMessage": "Hay’aa, gigii-wanibidoon ge-gii-izhaasiwanban.",
+    "description": "Detailed message saying the page to view is not authorized."
+  },
+  "jPLaDk": {
+    "defaultMessage": "Gaawiinoon owe ji-ganawaabandanziiwan.",
+    "description": "Heading for the message saying the page to view is not authorized."
+  },
+  "1FM1VL": {
+    "defaultMessage": "Giishpin inendaman inendanziwan wii-aabajitoosiwan, <mailLink>wiindamawishinaam</mailLink> gaye niwiiji’aagonaanig da-minwendamoog ji-wiiji’ikwaa gegoo ezhi-gagwedweyan.",
+    "description": "Second paragraph about who the program is for"
+  },
+  "Z9W+O2": {
+    "defaultMessage": "Noongom igo maajitaan waa-anokaadaman giniigaaniiming.",
+    "description": "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site"
+  },
+  "oMpO+C": {
+    "defaultMessage": "Anishinaabe Gikinoo’amaadiwin Izhichigewin ogowe Anishinaabeg",
+    "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
+  }
+}
