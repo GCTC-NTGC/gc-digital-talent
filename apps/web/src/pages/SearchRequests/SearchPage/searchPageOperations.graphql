@@ -52,7 +52,6 @@ query CountApplicantsAndCountPoolCandidatesByPool(
 query getSearchFormDataAcrossAllPools {
   publishedPools {
     id
-    key
     owner {
       email
       firstName
