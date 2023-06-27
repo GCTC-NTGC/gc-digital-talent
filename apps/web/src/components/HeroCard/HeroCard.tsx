@@ -2,8 +2,6 @@ import * as React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 
-import useCommonButtonLinkStyles from "@gc-digital-talent/ui/src/hooks/useCommonButtonLinkStyles";
-
 export type Color =
   | "primary"
   | "secondary"
@@ -55,11 +53,6 @@ export const HeroCard = ({
   asNav,
 }: HeroCardProps) => {
   const Wrapper = asNav ? "nav" : "div";
-  const linkStyles = useCommonButtonLinkStyles({
-    mode: "text",
-    color: "black",
-    block: true,
-  });
   return (
     <Wrapper
       data-h2-background-color="base:all(white)"
@@ -81,8 +74,9 @@ export const HeroCard = ({
           to={href}
           data-h2-transform="base:hover:children[svg](translate(20%, 0))"
           data-h2-transition="base:children[svg](transform .2s ease)"
+          data-h2-color="base(black) base:hover(black)"
+          data-h2-text-decoration="base(underline) base:hover(none)"
           data-h2-width="base(100%)"
-          {...linkStyles}
         >
           <span
             data-h2-align-items="base(center)"
