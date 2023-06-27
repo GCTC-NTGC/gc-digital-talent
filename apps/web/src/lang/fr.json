@@ -8344,7 +8344,7 @@
     "defaultMessage": "Veuillez sélectionner les options qui reflètent le mieux vos qualifications",
     "description": "Legend for the radio group in the application education page - IAP variant."
   },
-  "h3TVeX": {
+  "GZSvWZ": {
     "defaultMessage": "<strong>Je possède un diplôme d’études secondaires ou l’équivalent (p. ex., formation Générale). </strong>",
     "description": "Radio group option for education requirement filter in Indigenous apprenticeship application education form."
   },
@@ -8352,7 +8352,7 @@
     "defaultMessage": "<strong>Je respecte l’option d’expérience appliquée</strong>",
     "description": "Radio group option for education requirement filter in application education form - IAP variant."
   },
-  "ovQIJY": {
+  "GSHQHG": {
     "defaultMessage": "Autre experience connexe (p. ex., personnelle, communautaire, familiale).",
     "description": "Experience requirement, other."
   }

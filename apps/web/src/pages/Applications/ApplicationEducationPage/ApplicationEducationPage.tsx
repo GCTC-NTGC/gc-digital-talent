@@ -354,8 +354,8 @@ const ApplicationEducation = ({
       label: isIAP
         ? intl.formatMessage({
             defaultMessage:
-              "<strong>I have a high school diploma or equivalent (i.e. GED)</strong>",
-            id: "h3TVeX",
+              "<strong>I have a high school diploma or equivalent (e.g. GED)</strong>",
+            id: "GZSvWZ",
             description:
               "Radio group option for education requirement filter in Indigenous apprenticeship application education form.",
           })

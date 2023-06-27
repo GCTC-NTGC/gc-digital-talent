@@ -65,8 +65,8 @@ const messages = defineMessages({
   },
   otherExperience: {
     defaultMessage:
-      "Other related experience (i.e. personal, community, family)",
-    id: "ovQIJY",
+      "Other related experience (e.g. personal, community, family)",
+    id: "GSHQHG",
     description: "Experience requirement, other.",
   },
   confirmationLead: {
