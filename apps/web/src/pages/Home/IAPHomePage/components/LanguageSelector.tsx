@@ -23,17 +23,17 @@ const LanguageSelector = () => {
     [
       "crk",
       intl.formatMessage({
-        id: "TEt9Ua",
-        defaultMessage: "Plains Cree",
+        id: "Jdlnz6",
+        defaultMessage: "ᓀᐦᐃᔭᐍᐏᐣ nēhiyawēwin (Plains Cree)",
         description: "Name of Plains Cree language",
       }),
     ],
     [
       "ojw",
       intl.formatMessage({
-        id: "HtllH6",
-        defaultMessage: "Western Ojibway",
-        description: "Name of Western Ojibway language",
+        id: "Hi7hnj",
+        defaultMessage: "Anishinaabemowin (Western Ojibwe)",
+        description: "Name of Western Ojibwe language",
       }),
     ],
     [

@@ -6503,14 +6503,6 @@
     "defaultMessage": "Lier à une expérience tirée du cv",
     "description": "Experience tree view action button label"
   },
-  "HtllH6": {
-    "defaultMessage": "Ojibwé de l’Ouest",
-    "description": "Name of Western Ojibway language"
-  },
-  "TEt9Ua": {
-    "defaultMessage": "Cris des Plaines",
-    "description": "Name of Plains Cree language"
-  },
   "nAgrVL": {
     "defaultMessage": "Mi'kmaq",
     "description": "Name of Mi'kmaq language"
@@ -8379,5 +8371,13 @@
   "SyJkc/": {
     "defaultMessage": "Curriculum vitæ et recrutements",
     "description": "Name of Résumé and recruitments page"
+  },
+  "Jdlnz6": {
+    "defaultMessage": "ᓀᐦᐃᔭᐍᐏᐣ nēhiyawēwin (Cris des Plaines)",
+    "description": "Name of Plains Cree language"
+  },
+  "Hi7hnj": {
+    "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
+    "description": "Name of Western Ojibwe language"
   }
 }
