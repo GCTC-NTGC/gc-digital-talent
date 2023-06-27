@@ -46,7 +46,7 @@ import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTree
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
-import ResumeSection from "./components/ResumeSection";
+import ResumeSection from "./components/ResumeSection/ResumeSection";
 import SkillTree from "../../Applications/ApplicationSkillsPage/components/SkillTree";
 import PersonalInformationDisplay from "../../Applications/ApplicationProfilePage/components/PersonalInformation/Display";
 import DiversityEquityInclusionDisplay from "../../Applications/ApplicationProfilePage/components/DiversityEquityInclusion/Display";
