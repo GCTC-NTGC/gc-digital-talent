@@ -36,6 +36,14 @@ export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
 
   const crumbs = useBreadcrumbs([
     {
+      label: intl.formatMessage({
+        defaultMessage: "Profile and applications",
+        id: "wDc+F3",
+        description: "Breadcrumb for profile and applications page.",
+      }),
+      url: paths.profileAndApplications(),
+    },
+    {
       label: pageTitle,
       url: paths.profile(userId),
     },

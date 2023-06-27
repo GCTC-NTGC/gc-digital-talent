@@ -39,8 +39,8 @@ const messages = defineMessages({
   },
   appliedWorkExperience: {
     defaultMessage:
-      "Combined experience in computer science, information technology information management or another specialty relevant to this advertisement, including any of the following:",
-    id: "TEVNs4",
+      "Combined experience in computer science, information technology, information management or another specialty relevant to this advertisement, including any of the following:",
+    id: "0HPwnA",
     description: "Descriptive text explaining valid applied work experiences.",
   },
   onTheJobLearning: {
@@ -58,9 +58,15 @@ const messages = defineMessages({
     id: "LWtWs1",
     description: "Experience requirement, formal education.",
   },
-  otherExperience: {
+  otherFieldExperience: {
     defaultMessage: "Other field related experience",
     id: "oIRkby",
+    description: "Experience requirement, other.",
+  },
+  otherExperience: {
+    defaultMessage:
+      "Other related experience (e.g. personal, community, family)",
+    id: "GSHQHG",
     description: "Experience requirement, other.",
   },
   confirmationLead: {

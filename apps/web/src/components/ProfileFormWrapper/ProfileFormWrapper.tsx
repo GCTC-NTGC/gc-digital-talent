@@ -61,10 +61,10 @@ const ProfileFormWrapper = ({
     ? {
         label: intl.formatMessage({
           defaultMessage: "Profile and applications",
-          id: "WVbN0f",
-          description: "Breadcrumb from applicant profile wrapper.",
+          id: "wDc+F3",
+          description: "Breadcrumb for profile and applications page.",
         }),
-        url: paths.dashboard(),
+        url: paths.profileAndApplications(),
       }
     : {
         label: intl.formatMessage({
