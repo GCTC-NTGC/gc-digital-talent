@@ -332,7 +332,6 @@ type Pool {
   owner: UserPublicProfile @belongsTo(relation: "user")
   team: Team @belongsTo @can(ability: "viewAny")
   name: LocalizedString
-  key: KeyString
   classifications: [Classification] @belongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")

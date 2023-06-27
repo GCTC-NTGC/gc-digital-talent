@@ -36,7 +36,7 @@ describe("User Profile Workflow Tests", () => {
 
     // work location
     cy.findByRole("link", { name: /Edit Work location/i }).click();
-    cy.findByRole("textbox", { name: /Location exemptions/i })
+    cy.findByRole("textbox", { name: /Work location exceptions/i })
       .clear()
       .type("Test Locations");
     cy.findByRole("button", { name: /Save and go back/i }).click();
