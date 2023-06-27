@@ -47,8 +47,8 @@ export const employmentEquityGroups = defineMessages({
     description: "Group for when someone indicates they are indigenous",
   },
   minority: {
-    defaultMessage: "Member of a visible minority",
-    id: "6FX40U",
+    defaultMessage: "Visible minority",
+    id: "/sSeis",
     description: "Group for when someone indicates they are a visible minority",
   },
   disability: {
@@ -69,25 +69,25 @@ export const getEmploymentEquityGroup = (
 
 export const employmentEquityStatements = defineMessages({
   woman: {
-    defaultMessage: '"I identify as a woman"',
-    id: "IW/eej",
+    defaultMessage: '"I identify as a woman."',
+    id: "O8bWMs",
     description: "Statement for when someone indicates they are a woman",
   },
   indigenous: {
     defaultMessage:
-      '"I affirm that I am First Nations (status or non-status), Inuk (Inuit), or a Métis person"',
-    id: "KwdzPs",
+      '"I affirm that I am First Nations (status or non-status), Inuk (Inuit), or a Métis person."',
+    id: "y3W6tX",
     description: "Text for the option to self-declare as Indigenous",
   },
   minority: {
-    defaultMessage: '"I identify as a member of a visible minority"',
-    id: "s4y1nI",
+    defaultMessage: '"I identify as a member of a visible minority."',
+    id: "ejBpHk",
     description:
       "Statement for when someone indicates they are a visible minority",
   },
   disability: {
-    defaultMessage: '"I identify as a person with a disability"',
-    id: "MLP6tt",
+    defaultMessage: '"I identify as a person with a disability."',
+    id: "jOMlnn",
     description: "Statement for when someone indicates they have a disability",
   },
 });
