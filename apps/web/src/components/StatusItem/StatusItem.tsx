@@ -10,7 +10,7 @@ export type StatusColor = "default" | Status;
 
 const textColorMap: Record<StatusColor, Record<string, string>> = {
   default: {
-    "data-h2-color": "base(black) base:hover(primary)",
+    "data-h2-color": "base(black)",
   },
   error: {
     "data-h2-color": "base(error.darker) base:hover(error.darkest)",
