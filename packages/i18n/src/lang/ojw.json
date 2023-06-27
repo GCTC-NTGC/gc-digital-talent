@@ -1,0 +1,14 @@
+{
+    "AWiMVP": {
+      "defaultMessage": "Wiindamawishinaam",
+      "description": "Label for the support link in the Footer."
+    },
+    "ZGpncy": {
+    "defaultMessage": "Izhichigewinan",
+      "description": "Label for the terms and conditions link in the Footer."
+    },
+    "VcOlXA": {
+      "defaultMessage": "Ge-naagwatoosiwang mazina’igan",
+      "description": "Label for the privacy link in the Footer."
+    }
+}

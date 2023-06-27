@@ -36,6 +36,14 @@ export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
 
   const crumbs = useBreadcrumbs([
     {
+      label: intl.formatMessage({
+        defaultMessage: "Profile and applications",
+        id: "wDc+F3",
+        description: "Breadcrumb for profile and applications page.",
+      }),
+      url: paths.profileAndApplications(),
+    },
+    {
       label: pageTitle,
       url: paths.profile(userId),
     },
@@ -96,13 +104,13 @@ export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
             editUrl: paths.diversityEquityInclusion(userId),
           },
           roleSalary: { isVisible: true, editUrl: paths.roleSalary(userId) },
-          resumeAndRecruitments: {
+          resumeAndRecruitment: {
             isVisible: !featureFlags.applicantDashboard,
-            editUrl: paths.resumeAndRecruitments(userId),
+            editUrl: paths.resumeAndRecruitment(userId),
             override: (
               <ExperienceSection
                 experiences={experiences?.filter(notEmpty)}
-                editPath={paths.resumeAndRecruitments(userId)}
+                editPath={paths.resumeAndRecruitment(userId)}
               />
             ),
           },

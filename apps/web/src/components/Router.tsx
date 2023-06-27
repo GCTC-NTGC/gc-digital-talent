@@ -121,11 +121,11 @@ const CreateAccountPage = React.lazy(() =>
       ),
   ),
 );
-const ApplicantDashboardPage = React.lazy(() =>
+const ProfileAndApplicationsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicantDashboardPage" */ "../pages/Applications/ApplicantDashboardPage/ApplicantDashboardPage"
+        /* webpackChunkName: "tsProfileAndApplicationsPage" */ "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
       ),
   ),
 );
@@ -201,11 +201,11 @@ const EmploymentEquityPage = React.lazy(() =>
       ),
   ),
 );
-const ResumeAndRecruitmentsPage = React.lazy(() =>
+const ResumeAndRecruitmentPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsResumeAndRecruitmentsPage" */ "../pages/Profile/ResumeAndRecruitmentsPage/ResumeAndRecruitmentsPage"
+        /* webpackChunkName: "tsResumeAndRecruitmentPage" */ "../pages/Profile/ResumeAndRecruitmentPage/ResumeAndRecruitmentPage"
       ),
   ),
 );
@@ -793,8 +793,8 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   ),
                 },
                 {
-                  path: "dashboard",
-                  element: <ApplicantDashboardPage />,
+                  path: "profile-and-applications",
+                  element: <ProfileAndApplicationsPage />,
                 },
               ],
             },
@@ -910,7 +910,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           ),
                         },
                         {
-                          path: "resume-and-recruitments",
+                          path: "resume-and-recruitment",
                           children: [
                             {
                               index: true,
@@ -919,7 +919,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
-                                  <ResumeAndRecruitmentsPage />
+                                  <ResumeAndRecruitmentPage />
                                 </RequireAuth>
                               ),
                             },

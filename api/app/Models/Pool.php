@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Auth;
  *
  * @property string $id
  * @property array $name
- * @property string $key
  * @property int $user_id
  * @property array $operational_requirements
  * @property array $key_tasks
@@ -69,7 +68,6 @@ class Pool extends Model
         'closing_date',
         'published_at',
         'name',
-        'key',
         'key_tasks',
         'stream',
         'security_clearance',

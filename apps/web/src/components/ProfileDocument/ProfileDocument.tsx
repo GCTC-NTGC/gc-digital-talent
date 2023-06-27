@@ -451,9 +451,9 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         {!!result.locationExemptions && (
                           <p>
                             {intl.formatMessage({
-                              defaultMessage: "Location exemptions",
-                              id: "ruD4vK",
-                              description: "Location exemptions label",
+                              defaultMessage: "Work location exceptions",
+                              id: "OpKC2i",
+                              description: "Work location exceptions label",
                             })}
                             {intl.formatMessage(commonMessages.dividingColon)}
                             {result.locationExemptions}
@@ -682,7 +682,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                       <PageSection>
                         <Heading level="h3">
                           {intl.formatMessage(
-                            navigationMessages.resumeAndRecruitments,
+                            navigationMessages.resumeAndRecruitment,
                           )}
                         </Heading>
                         <PrintExperienceByType

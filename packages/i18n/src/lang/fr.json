@@ -1442,8 +1442,12 @@
     "defaultMessage": "Par ordre de date (la plus récente étant en premier)",
     "description": "Select the option to sort by date, descending"
   },
-  "SyJkc/": {
-    "defaultMessage": "Curriculum vitæ et recrutements",
-    "description": "Name of Résumé and recruitments page"
+  "gDBVKb": {
+    "defaultMessage": "CV et recrutement",
+    "description": "Name of Résumé and recruitment page"
+  },
+  "sJ+F9z": {
+    "defaultMessage": "Sauter pour ajouter un élément",
+    "description": "Link text to skip to the add button in a repeater"
   }
 }

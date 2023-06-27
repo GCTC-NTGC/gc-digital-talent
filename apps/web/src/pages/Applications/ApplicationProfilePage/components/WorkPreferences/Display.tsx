@@ -112,9 +112,9 @@ const Display = ({
         </div>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Location specifics",
-            id: "oEioz2",
-            description: "Location specifics label",
+            defaultMessage: "Work location exceptions",
+            id: "OpKC2i",
+            description: "Work location exceptions label",
           })}
         >
           {locationExemptions || notProvided}

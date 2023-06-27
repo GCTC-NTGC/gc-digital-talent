@@ -358,7 +358,7 @@ const ApplicationSelfDeclarationPage = () => {
   const { applicantDashboard } = useFeatureFlags();
   const [, executeMutation] = useUpdateUserAndApplicationMutation();
   const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: true })
+    ? paths.profileAndApplications({ fromIapDraft: true })
     : paths.myProfile();
   const nextStep = followingPageUrl ?? cancelPath;
 
