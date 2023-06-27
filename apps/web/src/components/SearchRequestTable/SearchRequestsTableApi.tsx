@@ -243,7 +243,7 @@ const SearchRequestsTableApi = ({
           tableViewItemButtonAccessor(
             paths.searchRequestView(d.id),
             d.jobTitle || "",
-            "", // TODO: What should I use here incase of a duplicate job title?
+            "",
           ),
       },
       {
