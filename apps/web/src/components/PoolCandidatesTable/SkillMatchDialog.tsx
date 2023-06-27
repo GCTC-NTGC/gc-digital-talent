@@ -8,27 +8,69 @@ interface SkillMatchDialogProps {
   filteredSkills: Skill[];
   experiences: Experience[];
   skillsCount: Maybe<number>;
+  poolCandidateName: string;
 }
 
 const SkillMatchDialog = ({
   filteredSkills,
   experiences,
   skillsCount,
+  poolCandidateName,
 }: SkillMatchDialogProps) => {
   const intl = useIntl();
+  const filteredSkillsTotal = filteredSkills.length;
+
+  if (filteredSkills.length === 0)
+    return (
+      <p
+        aria-label={intl.formatMessage(
+          {
+            defaultMessage: "{poolCandidateName} has 0 of 0 skills",
+            id: "4SNVtn",
+            description:
+              "Aria-label for the title displayed on the candidate skill count column.",
+          },
+          { poolCandidateName },
+        )}
+      >
+        {intl.formatMessage({
+          defaultMessage: "0 of 0",
+          id: "gkLEbN",
+          description:
+            "Title displayed on the candidate skill count column when no skills are selected.",
+        })}
+      </p>
+    );
 
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button color="black" mode="inline">
+        <Button
+          color="black"
+          mode="inline"
+          aria-label={intl.formatMessage(
+            {
+              defaultMessage:
+                "{poolCandidateName} has {skillsCount} of {filteredSkillsTotal} skills",
+              id: "4QEl+4",
+              description:
+                "Aria-label for the title displayed on the candidate skill count column.",
+            },
+            {
+              poolCandidateName,
+              skillsCount,
+              filteredSkillsTotal,
+            },
+          )}
+        >
           {intl.formatMessage(
             {
-              defaultMessage: "{skillsCount}/{filteredSkillsTotal}",
-              id: "npcY4+",
+              defaultMessage: "{skillsCount} of {filteredSkillsTotal}",
+              id: "WFhX9m",
               description:
                 "Title displayed on the candidate skill count column.",
             },
-            { skillsCount, filteredSkillsTotal: filteredSkills.length },
+            { skillsCount, filteredSkillsTotal },
           )}
         </Button>
       </Dialog.Trigger>
@@ -83,13 +125,14 @@ export function skillMatchDialogAccessor(
   filteredSkills: Skill[],
   experiences: Experience[],
   skillCount: Maybe<number>,
+  poolCandidateName: string,
 ) {
-  if (filteredSkills.length === 0) return <p>0/0</p>;
   return (
     <SkillMatchDialog
       filteredSkills={filteredSkills}
       experiences={experiences}
       skillsCount={skillCount}
+      poolCandidateName={poolCandidateName}
     />
   );
 }

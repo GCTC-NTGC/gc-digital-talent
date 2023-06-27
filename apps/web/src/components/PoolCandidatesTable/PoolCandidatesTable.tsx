@@ -646,6 +646,7 @@ const PoolCandidatesTable = ({
             ) ?? [],
             user.experiences?.filter(notEmpty) ?? [],
             skillCount,
+            `${user.firstName} ${user.lastName}`,
           ),
       },
       {
