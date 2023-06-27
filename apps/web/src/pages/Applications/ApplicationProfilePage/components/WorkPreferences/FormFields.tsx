@@ -16,12 +16,16 @@ import {
 
 import { WorkRegion } from "~/api/generated";
 
+import { useFormContext } from "react-hook-form";
 import { FormFieldProps } from "../../types";
 import WithEllipsisPrefix from "./WithEllipsisPrefix";
 import useDirtyFields from "../../hooks/useDirtyFields";
+import { useApplicationContext } from "../../../ApplicationContext";
 
 const FormFields = ({ labels }: FormFieldProps) => {
   const intl = useIntl();
+  const { isIAP } = useApplicationContext();
+  const { register } = useFormContext();
   useDirtyFields("work");
 
   return (
@@ -30,41 +34,49 @@ const FormFields = ({ labels }: FormFieldProps) => {
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x1 0)"
     >
-      <RadioGroup
-        idPrefix="required-work-preferences"
-        legend={labels.wouldAcceptTemporary}
-        name="wouldAcceptTemporary"
-        id="wouldAcceptTemporary"
-        rules={{
-          required: intl.formatMessage(errorMessages.required),
-        }}
-        items={[
-          {
-            value: "true",
-            label: (
-              <WithEllipsisPrefix>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "any duration. (short term, long term, or indeterminate duration)",
-                  id: "uHx3G7",
-                  description:
-                    "Label displayed on Work Preferences form for any duration option",
-                })}
-              </WithEllipsisPrefix>
-            ),
-          },
-          {
-            value: "false",
-            label: intl.formatMessage({
-              defaultMessage:
-                "...indeterminate duration only. (permanent only)",
-              id: "sYqIp5",
-              description:
-                "Label displayed on Work Preferences form for indeterminate duration option.",
-            }),
-          },
-        ]}
-      />
+      {isIAP ? (
+        <input
+          {...register("wouldAcceptTemporary")}
+          type="hidden"
+          value="true"
+        />
+      ) : (
+        <RadioGroup
+          idPrefix="required-work-preferences"
+          legend={labels.wouldAcceptTemporary}
+          name="wouldAcceptTemporary"
+          id="wouldAcceptTemporary"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={[
+            {
+              value: "true",
+              label: (
+                <WithEllipsisPrefix>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "any duration. (short term, long term, or indeterminate duration)",
+                    id: "uHx3G7",
+                    description:
+                      "Label displayed on Work Preferences form for any duration option",
+                  })}
+                </WithEllipsisPrefix>
+              ),
+            },
+            {
+              value: "false",
+              label: intl.formatMessage({
+                defaultMessage:
+                  "...indeterminate duration only. (permanent only)",
+                id: "sYqIp5",
+                description:
+                  "Label displayed on Work Preferences form for indeterminate duration option.",
+              }),
+            },
+          ]}
+        />
+      )}
       <Checklist
         idPrefix="optional-work-preferences"
         legend={labels.acceptedOperationalRequirements}

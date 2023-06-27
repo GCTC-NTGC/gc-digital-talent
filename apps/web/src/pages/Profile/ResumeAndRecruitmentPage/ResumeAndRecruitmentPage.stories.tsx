@@ -5,20 +5,20 @@ import { OverlayOrDialogDecorator } from "storybook-helpers";
 import { fakeSkills, fakeExperiences } from "@gc-digital-talent/fake-data";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { ResumeAndRecruitments } from "./components/ResumeAndRecruitments";
+import { ResumeAndRecruitment } from "./components/ResumeAndRecruitment";
 import AddExperienceDialog from "./components/AddExperienceDialog";
 
 export default {
-  title: "Pages/Experience and Skills Page",
+  title: "Pages/Résumé and recruitment",
   args: {
     applicantId: "test",
   },
-} as ComponentMeta<typeof ResumeAndRecruitments>;
+} as ComponentMeta<typeof ResumeAndRecruitment>;
 
-const ResumeAndRecruitmentsTemplate: ComponentStory<
-  typeof ResumeAndRecruitments
+const ResumeAndRecruitmentTemplate: ComponentStory<
+  typeof ResumeAndRecruitment
 > = (args) => {
-  return <ResumeAndRecruitments {...args} />;
+  return <ResumeAndRecruitment {...args} />;
 };
 const AddExperienceDialogTemplate: ComponentStory<
   typeof AddExperienceDialog
@@ -26,12 +26,10 @@ const AddExperienceDialogTemplate: ComponentStory<
   return <AddExperienceDialog {...args} />;
 };
 
-export const NoExperiences = ResumeAndRecruitmentsTemplate.bind({});
-export const WithExperiences = ResumeAndRecruitmentsTemplate.bind({});
-export const NoExperiencesMissingSkills = ResumeAndRecruitmentsTemplate.bind(
-  {},
-);
-export const WithExperiencesMissingSkills = ResumeAndRecruitmentsTemplate.bind(
+export const NoExperiences = ResumeAndRecruitmentTemplate.bind({});
+export const WithExperiences = ResumeAndRecruitmentTemplate.bind({});
+export const NoExperiencesMissingSkills = ResumeAndRecruitmentTemplate.bind({});
+export const WithExperiencesMissingSkills = ResumeAndRecruitmentTemplate.bind(
   {},
 );
 export const AddExperienceDialogOpen = AddExperienceDialogTemplate.bind({});

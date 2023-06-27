@@ -18,7 +18,7 @@
   "dependencies": {
     "@gc-digital-talent/graphql": "*",
     "@gc-digital-talent/storage": "*",
-    "graphql": "^16.6.0",
+    "graphql": "^16.7.1",
     "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "urql": "3.0.4"

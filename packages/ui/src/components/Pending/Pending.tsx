@@ -20,7 +20,7 @@ export interface PendingProps extends LoadingProps {
 const Pending = ({
   fetching,
   error,
-  live = "assertive",
+  live = "polite",
   inline = false,
   children,
 }: PendingProps): JSX.Element => {
