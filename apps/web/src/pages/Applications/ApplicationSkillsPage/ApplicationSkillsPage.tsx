@@ -90,7 +90,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   const [, executeMutation] = useUpdateApplicationMutation();
   const { followingPageUrl, isIAP } = useApplicationContext();
   const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: isIAP })
+    ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
   const nextStep =
     followingPageUrl ?? paths.applicationQuestionsIntro(application.id);

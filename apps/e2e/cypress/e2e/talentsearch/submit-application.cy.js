@@ -391,6 +391,6 @@ describe("Submit Application Workflow Tests", () => {
     })
       .should("exist")
       .and("be.visible");
-    cy.findByRole("link", { name: /Go to my dashboard/i }).should("exist");
+    cy.findByRole("link", { name: /visit your Profile and applications page/i }).should("exist");
   });
 });
