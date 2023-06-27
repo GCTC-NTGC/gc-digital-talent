@@ -225,6 +225,7 @@ export const Home = ({ latestPool }: HomeProps) => {
                     data-h2-font-size="base(h3, 1)"
                     data-h2-margin="base(x6, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
                     data-h2-text-align="base(center) p-tablet(left)"
+                    data-h2-layer="base(1, relative)"
                   >
                     {intl.formatMessage({
                       defaultMessage: "About the Program",
