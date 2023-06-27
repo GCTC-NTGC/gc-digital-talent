@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import { ScrollToLink } from "@gc-digital-talent/ui";
 
 import Spinner from "~/components/Spinner/Spinner";
-import useAriaLive from "~/hooks/useAriaLive";
 
 const testId = (chunks: React.ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>
@@ -67,7 +66,6 @@ const EstimatedCandidates = ({
   updatePending,
 }: EstimatedCandidatesProps) => {
   const intl = useIntl();
-  const ariaLive = useAriaLive("polite");
 
   return (
     <div data-h2-height="base(100%)" data-h2-position="base(relative)">
@@ -102,7 +100,6 @@ const EstimatedCandidates = ({
             </p>
           </div>
           <div
-            aria-live={ariaLive}
             data-h2-padding="base(x1)"
             data-h2-radius="base(0, 0, s, s)"
             data-h2-text-align="base(center)"
