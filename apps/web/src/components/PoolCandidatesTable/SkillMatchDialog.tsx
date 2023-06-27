@@ -87,6 +87,7 @@ const SkillMatchDialog = ({
           {filteredSkills.map((skill) => (
             <SkillTree
               key={skill.id}
+              headingAs="h3"
               skill={skill}
               experiences={experiences}
               showDisclaimer
