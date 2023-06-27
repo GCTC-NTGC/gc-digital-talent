@@ -138,13 +138,13 @@ const TrackApplicationsCard = ({
         </span>
         <span
           data-h2-color="base(black.light)"
-          data-h2-margin="base(x.5 0 x1 0)"
+          data-h2-margin="base(x.5 0 x.5 0)"
         >
           •
         </span>
         <span
           data-h2-color="base(black.light)"
-          data-h2-margin="base(x.5 0 x1 0)"
+          data-h2-margin="base(x.5 0 x.5 0)"
         >
           {applicationDateInfo.message}
           <span data-h2-color={applicationDateInfo.color}>
@@ -158,7 +158,7 @@ const TrackApplicationsCard = ({
         decorative
         data-h2-background-color="base(gray.lighter)"
         data-h2-width="base(calc(100% + x2))"
-        data-h2-margin="base(x1 -x1 x.5 -x1)"
+        data-h2-margin="base(x.5 -x1 x.5 -x1)"
       />
       <div
         data-h2-display="base(flex)"
@@ -173,14 +173,15 @@ const TrackApplicationsCard = ({
           data-h2-align-items="base(center)"
           data-h2-gap="base(0 x1)"
         >
-          <ApplicationActions.SeeAdvertisementAction
-            show={notEmpty(application.pool)}
-            advertisement={application.pool}
-          />
           <ApplicationActions.ViewAction
             show={!applicationIsDraft}
             application={application}
           />
+          <ApplicationActions.SeeAdvertisementAction
+            show={notEmpty(application.pool)}
+            advertisement={application.pool}
+          />
+
           <ApplicationActions.VisitResumeAction
             show={isApplicantQualified}
             userID={user?.id ?? ""}
