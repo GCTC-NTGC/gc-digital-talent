@@ -8367,5 +8367,9 @@
   "GSHQHG": {
     "defaultMessage": "Autre experience connexe (p. ex., personnelle, communautaire, familiale).",
     "description": "Experience requirement, other."
+  },
+  "Jnk2pb": {
+    "defaultMessage": "Aucune expérience n’a été trouvée",
+    "description": "Null state messages for résumé list when no experiences are found."
   }
 }
