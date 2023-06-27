@@ -1613,10 +1613,6 @@
     "defaultMessage": "Annuler",
     "description": "Link text to cancel deleting application."
   },
-  "0qNkIp": {
-    "defaultMessage": "Exemptions de lieux",
-    "description": "Location Exemptions field label for work location preference form"
-  },
   "1q/MmU": {
     "defaultMessage": "À vous de découvrir",
     "description": "Heading for featured items on the homepage"
@@ -5097,10 +5093,6 @@
     "defaultMessage": "Par compétences",
     "description": "Tab title for experiences sorted by skills in applicant profile."
   },
-  "MoWNS4": {
-    "defaultMessage": "Exemptions à l'emplacement :",
-    "description": "Location Exemptions label, followed by colon"
-  },
   "MuyuAu": {
     "defaultMessage": "Groupe et classification actuels :",
     "description": "Field label before government employment group and level, followed by colon"
@@ -6087,10 +6079,6 @@
     "defaultMessage": "Pour l’équipe suivante : <strong>{teamDisplayName}</strong>",
     "description": "Follow in text for the team being updated"
   },
-  "2i8/jR": {
-    "defaultMessage": "Tableau de bord",
-    "description": "Page title for the applicant dashboard page."
-  },
   "293bsq": {
     "defaultMessage": "Gestion d’un processus de recrutement",
     "description": "Heading for pool operator dashboard links"
@@ -6691,10 +6679,6 @@
     "defaultMessage": "Votre numéro de confirmation est le suivant : <strong>{id}</strong>",
     "description": "An application confirmation number"
   },
-  "PIzMYn": {
-    "defaultMessage": "* Nota : Votre numéro de confirmation se trouve également sur votre tableau de bord.",
-    "description": "Note that the application confirmation number is available on the dashboard"
-  },
   "ZTnze/": {
     "defaultMessage": "Soumettre une candidature au bassin de talent pour le recrutement.",
     "description": "Link text to the ongoing recruitments section on the browse page"
@@ -6710,10 +6694,6 @@
   "otUMji": {
     "defaultMessage": "Trouvez et remplissez le formulaire d’autorisation de sécurité",
     "description": "Link text for government of canada security clearance forms"
-  },
-  "pKY4PC": {
-    "defaultMessage": "Accéder à mon tableau de bord",
-    "description": "Link text to navigate to the applicant dashboard"
   },
   "0moSLr": {
     "defaultMessage": "Question {number} (EN)",
@@ -6946,10 +6926,6 @@
   "o5SbFT": {
     "defaultMessage": "Commencez <hidden> à remplir la section sur la diversité, l’équité et l’inclusion </hidden> ",
     "description": "Call to action to begin editing work preferences"
-  },
-  "oEioz2": {
-    "defaultMessage": "Détails au sujet du lieu de travail",
-    "description": "Location specifics label"
   },
   "u1N0nT": {
     "defaultMessage": "Diversité, équité et inclusion.",
@@ -7748,9 +7724,9 @@
     "defaultMessage": "Cette information permet aux candidats de savoir quel travail ou dans quel environnement ils appliquent. Utilisez cet espace pour discuter du secteur du gouvernement que le présent processus cherchera à améliorer, de même que des valeurs que ce travail génère.",
     "description": "Helper message for filling in the pool introduction"
   },
-  "ueLK1P": {
+  "y+Pq1f": {
     "defaultMessage": "Vous êtes maintenant arrivé(e) à votre page de profil de Talents numériques.",
-    "description": "First paragraph for applicant dashboard notification welcoming an IAP user"
+    "description": "First paragraph for profile and applications notification welcoming an IAP user"
   },
   "vB1p56": {
     "defaultMessage": "Merci d’avoir postulé dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones!",
@@ -7896,10 +7872,6 @@
     "defaultMessage": "Envisagerait d'accepter un emploi qui :",
     "description": "Label for what conditions a user will accept, followed by a colon"
   },
-  "ruD4vK": {
-    "defaultMessage": "Exemptions de lieux",
-    "description": "Location exemptions label"
-  },
   "sYuMO8": {
     "defaultMessage": "Aimerait être référé à des emplois aux niveaux suivants :",
     "description": "Label for Role and salary expectations sections"
@@ -7916,57 +7888,25 @@
     "defaultMessage": "Membre des FAC",
     "description": "Veteran/member label"
   },
-  "DjSiTu": {
-    "defaultMessage": "Date de réception",
-    "description": "Date received label"
-  },
-  "Gthvhd": {
-    "defaultMessage": "Date d'expiration",
-    "description": "Expiry date label"
-  },
-  "bjnh/y": {
-    "defaultMessage": "Date d'archivage",
-    "description": "Archival date label"
-  },
   "mevv+t": {
     "defaultMessage": "Disponibilité",
     "description": "Availability label"
-  },
-  "qSDM1H": {
-    "defaultMessage": "Priorité",
-    "description": "Priority label"
-  },
-  "rwNxlI": {
-    "defaultMessage": "Notes",
-    "description": "Notes label"
-  },
-  "s2y5eG": {
-    "defaultMessage": "Statut",
-    "description": "Status label"
-  },
-  "xD0Vbd": {
-    "defaultMessage": "Détails du candidat du bassin",
-    "description": "Title of the pool candidate details content section"
   },
   "mUiS9q": {
     "defaultMessage": "{resultCount, plural, =1 {Profil du candidat} other {Profils des candidats} }",
     "description": "Document title for printing profiles"
   },
-  "+im7hW": {
+  "aMhznA": {
     "defaultMessage": "Le programme d’apprentissage fait partie d’une initiative élargie sur les talents du numérique au sein du gouvernement du Canada dont le but consiste à recruter d’incroyables talents du numérique comme vous. Ce profil donne accès à d’autres possibilités et recrutements dans le secteur numérique autres que le programme d’apprentissage, si vous souhaitez y présenter votre candidature. Vous pouvez aussi vous en tenir au programme d’apprentissage si vous préférez!",
-    "description": "Second paragraph for applicant dashboard notification welcoming an IAP user"
+    "description": "Second paragraph for profile and applications notification welcoming an IAP user"
   },
-  "1u9PTo": {
+  "6QrhJQ": {
     "defaultMessage": "Masquer les candidatures en cours ({applicationCount})",
-    "description": "Heading for applications in progress accordion on the applicant dashboard."
+    "description": "Heading for applications in progress accordion on profile and applications."
   },
   "2dpDPq": {
     "defaultMessage": "Recrutements qualifiés",
     "description": "Title for qualified recruitments section"
-  },
-  "682ljn": {
-    "defaultMessage": "Lorsqu’une candidature aura été évaluée avec succès, le bassin de talents sera automatiquement ajouté à votre curriculum vitæ.",
-    "description": "Description for the track applications section on the applicant dashboard, paragraph two."
   },
   "C9PbZN": {
     "defaultMessage": "Les candidatures en cours s’afficheront ici.",
@@ -7980,9 +7920,9 @@
     "defaultMessage": "Profil linguistique",
     "description": "Title of the Language Information link section"
   },
-  "KUVXJr": {
+  "gNyD/H": {
     "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au programme d’apprentissage destiné aux Autochtones et faire le suivi de votre position dans le programme.",
-    "description": "Third paragraph for applicant dashboard notification welcoming an IAP user"
+    "description": "Third paragraph for profile and applications notification welcoming an IAP user"
   },
   "LOmX3T": {
     "defaultMessage": "Expérience de travail",
@@ -7992,29 +7932,29 @@
     "defaultMessage": "Paramètres du compte et de confidentialité",
     "description": "Title of the Account and privacy settings link section"
   },
-  "Ori6s+": {
+  "FSViGC": {
     "defaultMessage": "Curriculum vitæ et recrutements",
-    "description": "applicant dashboard card title for résumé card"
+    "description": "Profile and applications card title for résumé card"
   },
   "Pf+PA/": {
     "defaultMessage": "Préférences de travail",
     "description": "Title of the Work Location link section"
   },
-  "RzNVWf": {
+  "DeWP/3": {
     "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au programme d’apprentissage destiné aux Autochtones et faire le suivi de votre statut dans le programme.",
-    "description": "Third paragraph for applicant dashboard notification welcoming an IAP user"
+    "description": "Third paragraph for profile and applications notification welcoming an IAP user"
   },
   "U0qb7j": {
     "defaultMessage": "Les candidatures qui ne sont plus actives s'affichent ici.",
     "description": "Text displayed in past applications section when empty."
   },
-  "VUbrMi": {
+  "agiL8L": {
     "defaultMessage": "Afficher les candidatures en cours ({applicationCount})",
-    "description": "Heading for applications in progress accordion on the applicant dashboard."
+    "description": "Heading for applications in progress accordion on profile and applications."
   },
-  "Vq97zy": {
+  "Kaoxhq": {
     "defaultMessage": "Masquer les candidatures antérieures ({applicationCount})",
-    "description": "Heading for past applications accordion on the applicant dashboard."
+    "description": "Heading for past applications accordion on profile and applications."
   },
   "WuMMRK": {
     "defaultMessage": "Dans cette section, vous trouverez les ébauches et les candidatures qui ont été présentées et qui sont toujours en cours de traitement.",
@@ -8028,21 +7968,17 @@
     "defaultMessage": "Renseignements personnels et coordonnées",
     "description": "Title of the About link section"
   },
-  "gJpWLM": {
+  "G5Joq7": {
     "defaultMessage": "Cherchez-vous votre candidature au Programme d’apprentissage en TI pour les Autochtones?",
-    "description": "First paragraph for applicant dashboard notification welcoming an IAP user"
+    "description": "First paragraph for profile and applications notification welcoming an IAP user"
   },
-  "gTjLic": {
+  "zd/ve4": {
     "defaultMessage": "Renseignements du profil",
-    "description": "applicant dashboard card title for profile card"
+    "description": "Profile and applications card title for profile card"
   },
-  "iutl39": {
+  "igTx2a": {
     "defaultMessage": "Les candidatures pour le bassin de talents et les possibilités de recrutement en cours peuvent être gérées et suivies ici. Vous pourrez voir les dates limites de présentation des candidatures, le statut de votre candidature au fil du temps et les candidatures antérieures.",
-    "description": "Description for the track applications section on the applicant dashboard, paragraph one."
-  },
-  "kBEXbF": {
-    "defaultMessage": "Bienvenue dans le tableau de bord de votre profil de talent du numérique",
-    "description": "Title for notification that a draft IAP application was saved"
+    "description": "Description for the track applications section on the profile and applications, paragraph one."
   },
   "mH2eSA": {
     "defaultMessage": "Cette section comprend les anciennes candidatures qui ont été évaluées avec succès, ainsi que les candidatures qui n’ont pas été présentées dans les délais impartis.",
@@ -8056,21 +7992,21 @@
     "defaultMessage": "Prix et reconnaissances",
     "description": "Title for award section"
   },
-  "mYD993": {
+  "1fMzyo": {
     "defaultMessage": "Afficher les candidatures antérieures ({applicationCount})",
-    "description": "Heading for past applications accordion on the applicant dashboard."
+    "description": "Heading for past applications accordion on profile and applications."
   },
   "oSPdz1": {
     "defaultMessage": "Consulter les possibilités offertes pour commencer à remplir une candidature.",
     "description": "Additional text displayed in the applications in progress section when empty."
   },
-  "tZwDLH": {
+  "uqiPvH": {
     "defaultMessage": "Suivi de vos candidatures",
-    "description": "Heading for track applications section on the applicant dashboard."
+    "description": "Heading for track applications section on the profile and applications."
   },
-  "vBTn/n": {
+  "zJHMt9": {
     "defaultMessage": "Gérez votre <a1>profil</a1>, <a2>votre curriculum vitæ et vos compétences</a2>, et <a3>faites le suivi de vos candidatures</a3>.",
-    "description": "Subtitle for applicant dashboard hero"
+    "description": "Subtitle for profile and applications hero"
   },
   "8LPNbf": {
     "defaultMessage": "{skillCount} compétences mises en évidence",
@@ -8136,6 +8072,10 @@
     "defaultMessage": "Compétences utiles",
     "description": "Title for the optional skills snapshot section"
   },
+  "VeiXJP": {
+    "defaultMessage": "Aucune des compétences n’est jointe.",
+    "description": "Informing that a section is empty of any associated asset skills."
+  },
   "E9I34y": {
     "defaultMessage": "Titre de la thèse",
     "description": "Label displayed on education form for thesis title input"
@@ -8148,9 +8088,9 @@
     "defaultMessage": "Description de l’apprentissage",
     "description": "Label displayed on Personal Experience form for learning description section"
   },
-  "76KLtb": {
+  "nBoNqj": {
     "defaultMessage": "Profil et candidatures",
-    "description": "Label displayed on the applicant dashboard menu item."
+    "description": "Label displayed on the profile and applications menu item."
   },
   "BVwsnS": {
     "defaultMessage": "Cette base de données sur les talents est ouverte à la plupart des ministères et organismes. Les candidats de la base de données varient, soit de ceux qui débutent leur carrière, aux professionnels chevronnés qui comptent plusieurs années d’expérience de travail. Il existe de multiples processus de recrutement en cours, ce qui veut donc dire qu’on ajoute de nouveaux candidats chaque semaine.",
@@ -8308,9 +8248,9 @@
     "defaultMessage": "La CléGC est un service qui vous permet d’accéder à <a>plusieurs services gouvernementaux variés </a> à l’aide d’un seul nom d’utilisateur et mot de passe. Le bouton qui figure ci-dessous vous mènera au site Web CléGC, à partir duquel vous pourrez créer un compte si vous n’en avez toujours pas un. Une fois inscrit(e) à CléGC, vous reviendrez ici pour compléter votre profil.",
     "description": "Instructions on how to register with GCKey paragraph 2- IAP variant"
   },
-  "lRUGPY": {
+  "ltzA7w": {
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
-    "description": "How to get help with logging in - IAP variant"
+    "description": "How to get help from the support team - IAP variant"
   },
   "oPUU6o": {
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
@@ -8336,13 +8276,13 @@
     "defaultMessage": "Vous n’avez toujours pas ajouté d’article lié au CV.",
     "description": "Message to user when no résumé items have been attached to profile."
   },
-  "WVbN0f": {
-    "defaultMessage": "Profil et demandes ",
-    "description": "Breadcrumb from applicant profile wrapper."
+  "wDc+F3": {
+    "defaultMessage": "Profil et demandes",
+    "description": "Breadcrumb for profile and applications page."
   },
-  "XY/crY": {
+  "6f8XuQ": {
     "defaultMessage": "Gérez votre expérience et vos processus de recrutement auxquels vous vous êtes qualifié(e).",
-    "description": "Description for the Résumé and recruitments page in applicant profile."
+    "description": "Description for the Résumé and recruitment page in applicant profile."
   },
   "aW/Htv": {
     "defaultMessage": "Les processus de recrutement auxquels vous avez été admis(e) apparaîtront ici.",
@@ -8356,13 +8296,13 @@
     "defaultMessage": "Processus de recrutement auxquels vous vous êtes qualifié(e)",
     "description": "Titles for a page section to manage your qualified recruitment processes"
   },
-  "gPy2MA": {
+  "18FbqO": {
     "defaultMessage": "Cette section ressemble à votre CV traditionnel et décrit vos expériences de travail, scolaires, et de la vie. Vous pourrez réutiliser cette information sur chaque demande que vous soumettez par l’entremise de la plateforme, ce qui viendra accélérer le processus et fera en sorte que votre information sera toujours à jour.",
-    "description": "Descriptive paragraph for the Manage your resume section of the résumé and recruitments page."
+    "description": "Descriptive paragraph for the Manage your resume section of the résumé and recruitment page."
   },
-  "wrTfp3": {
+  "DI3uQq": {
     "defaultMessage": "Lorsque vous formulez une demande dans le cadre d’un processus de recrutement et que vous passez l’évaluation, vous serez admis(e), et vous pourrez donc commencer à être pris(e) en compte pour des possibilités connexes. Cette section met en évidence tous les processus actifs et expires auxquels vous faites actuellement partie, et vous permettra de gérer si vous figurez ou non dans les recherches de talents. ",
-    "description": "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitments page."
+    "description": "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitment page."
   },
   "z7FpHz": {
     "defaultMessage": "Vous pouvez commencer par formuler une demande dans le cadre d’un processus de recrutement ciblé ou en cours.",
@@ -8379,5 +8319,45 @@
   "Hi7hnj": {
     "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
     "description": "Name of Western Ojibwe language"
+  },
+  "3c9+uF": {
+    "defaultMessage": "Une fois que votre candidature aura été retenue, <a>le critère de qualification sera automatiquement ajouté à votre CV</a> afin que les gestionnaires puissent prendre connaissance de vos réalisations.",
+    "description": "Description for the track applications section on the applicant dashboard, paragraph two."
+  },
+  "gDBVKb": {
+    "defaultMessage": "CV et recrutement",
+    "description": "Name of Résumé and recruitment page"
+  },
+  "o4tj77": {
+    "defaultMessage": "Pour nous joindre",
+    "description": "Title for the contact dialog for the Indigenous Apprenticeship Program application process"
+  },
+  "58x4fO": {
+    "defaultMessage": "Indiquez s'il y a une ville que vous souhaitez exclure d'une région.",
+    "description": "Explanation text for Work location exceptions field in work location preference form"
+  },
+  "qnaIOA": {
+    "defaultMessage": "P. ex. : Vous voulez postuler pour la région du Québec, mais pas pour Montréal.",
+    "description": "Example for Work location exceptions field in work location preference form"
+  },
+  "OpKC2i": {
+    "defaultMessage": "Exceptions relatives au lieu de travail",
+    "description": "Work location exceptions label"
+  },
+  "d5U44H": {
+    "defaultMessage": "Profil et candidatures",
+    "description": "Page title for the profile and applications page."
+  },
+  "26Qj2A": {
+    "defaultMessage": "Visitez votre profil et la page de candidature",
+    "description": "Link text to navigate to the profile and applications page"
+  },
+  "d03yTk": {
+    "defaultMessage": "Bienvenue à votre profil de talent numérique et à votre page de candidature",
+    "description": "Title for notification that a draft IAP application was saved"
+  },
+  "lxDgNf": {
+    "defaultMessage": "* Veuillez prendre note que votre numéro de confirmation peut également se trouver dans la section « Suivi de vos candidatures » à partir de votre page de profil et de candidature.",
+    "description": "Note that the application confirmation number is available on the profile and applications page"
   }
 }

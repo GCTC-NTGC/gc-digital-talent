@@ -39,7 +39,7 @@ export type ExperienceForDate =
   | PersonalExperience
   | WorkExperience;
 
-export interface ResumeAndRecruitmentsProps {
+export interface ResumeAndRecruitmentProps {
   applicantId: string;
   experiences?: MergedExperiences;
   applications: Application[];
@@ -50,13 +50,13 @@ export interface ResumeAndRecruitmentsProps {
   };
 }
 
-export const ResumeAndRecruitments = ({
+export const ResumeAndRecruitment = ({
   experiences,
   applications,
   missingSkills,
   applicantId,
   pool,
-}: ResumeAndRecruitmentsProps) => {
+}: ResumeAndRecruitmentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const hasResumeItems = !!experiences?.length;
@@ -65,8 +65,8 @@ export const ResumeAndRecruitments = ({
     <ProfileFormWrapper
       crumbs={[
         {
-          label: intl.formatMessage(titles.resumeAndRecruitments),
-          url: paths.resumeAndRecruitments(applicantId),
+          label: intl.formatMessage(titles.resumeAndRecruitment),
+          url: paths.resumeAndRecruitment(applicantId),
         },
       ]}
       prefixBreadcrumbs={!pool}
@@ -74,15 +74,15 @@ export const ResumeAndRecruitments = ({
         {
           defaultMessage:
             "Manage your experience and qualified recruitment processes.",
-          id: "XY/crY",
+          id: "6f8XuQ",
           description:
-            "Description for the Résumé and recruitments page in applicant profile.",
+            "Description for the Résumé and recruitment page in applicant profile.",
         },
         {
           abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
         },
       )}
-      title={intl.formatMessage(titles.resumeAndRecruitments)}
+      title={intl.formatMessage(titles.resumeAndRecruitment)}
       leaveRoomForNavigation
     >
       <TableOfContents.Wrapper>
@@ -105,9 +105,9 @@ export const ResumeAndRecruitments = ({
               {intl.formatMessage({
                 defaultMessage:
                   "This section is similar to your traditional résumé and describes your experiences across work, school, and life. You’ll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
-                id: "gPy2MA",
+                id: "18FbqO",
                 description:
-                  "Descriptive paragraph for the Manage your resume section of the résumé and recruitments page.",
+                  "Descriptive paragraph for the Manage your resume section of the résumé and recruitment page.",
               })}
             </p>
             {missingSkills && (
@@ -156,9 +156,9 @@ export const ResumeAndRecruitments = ({
               {intl.formatMessage({
                 defaultMessage:
                   "When you apply to a recruitment process and successfully pass the assessment, you’re awarded entry and can start being considered for related opportunities. This section highlights all active and expired processes that you’re currently a part of and allows you to manage whether or not you appear in talent searches.",
-                id: "wrTfp3",
+                id: "DI3uQq",
                 description:
-                  "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitments page.",
+                  "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitment page.",
               })}
             </p>
             <QualifiedRecruitmentsSection applications={applications} />
@@ -169,4 +169,4 @@ export const ResumeAndRecruitments = ({
   );
 };
 
-export default ResumeAndRecruitments;
+export default ResumeAndRecruitment;
