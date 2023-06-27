@@ -97,7 +97,7 @@ function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
 
 const defaultState = {
   ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["id", "email"],
+  hiddenColumnIds: ["id", "manager", "email"],
   filters: {},
 };
 
@@ -216,28 +216,18 @@ const SearchRequestsTableApi = ({
   const requestsData = data?.poolCandidateSearchRequestsPaginated?.data ?? [];
   const filteredData = requestsData.filter(notEmpty);
 
+  /*
+    - [x] Combine "Job title" and "Action" and set as first column. New name is "Request Job title".
+    - [x] Ensure sorting still works on new request job title column
+    - [x] Reorder all columns (not including group and stream):
+          ID (hidden) | Request job title | GLS | Manager (hidden) | Department | Status | Date Received
+    - [ ] Add group-level and streams of request to api response.
+    - [ ] Add new columns for group and level, and stream.
+    - [ ] Add it to group-level and stream to filtering.
+  */
+
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Action",
-          id: "TDTE1c",
-          description:
-            "Title displayed for the search request table edit column.",
-        }),
-        id: "action",
-        accessor: (d) =>
-          tableViewItemButtonAccessor(
-            paths.searchRequestView(d.id),
-            intl.formatMessage({
-              defaultMessage: "request",
-              id: "gLtTaW",
-              description:
-                "Text displayed after View text for Search Request table view action",
-            }),
-            d.fullName || "",
-          ),
-      },
       {
         label: intl.formatMessage({
           defaultMessage: "ID",
@@ -250,25 +240,18 @@ const SearchRequestsTableApi = ({
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Date Received",
-          id: "r2gD/4",
+          defaultMessage: "Request job title",
+          id: "oc7cTw",
           description:
-            "Title displayed on the search request table requested date column.",
+            "Title displayed for the search request table edit column.",
         }),
-        id: "requestedDate",
-        sortColumnName: "created_at",
-        accessor: (d) => dateCell(d.requestedDate, intl),
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Status",
-          id: "t3sEc+",
-          description:
-            "Title displayed on the search request table status column.",
-        }),
-        id: "status",
-        sortColumnName: "done_at",
-        accessor: (d) => statusAccessor(d.status, intl),
+        id: "job_title",
+        accessor: (d) =>
+          tableViewItemButtonAccessor(
+            paths.searchRequestView(d.id),
+            d.jobTitle || "",
+            "", // TODO: What should I use here incase of a duplicate job title?
+          ),
       },
       {
         label: intl.formatMessage({
@@ -304,14 +287,25 @@ const SearchRequestsTableApi = ({
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Job Title",
-          id: "8hee5d",
+          defaultMessage: "Status",
+          id: "t3sEc+",
           description:
-            "Title displayed on the search request table job title column.",
+            "Title displayed on the search request table status column.",
         }),
-        id: "jobTitle",
-        sortColumnName: "job_title",
-        accessor: (d) => d.jobTitle,
+        id: "status",
+        sortColumnName: "done_at",
+        accessor: (d) => statusAccessor(d.status, intl),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Date Received",
+          id: "r2gD/4",
+          description:
+            "Title displayed on the search request table requested date column.",
+        }),
+        id: "requestedDate",
+        sortColumnName: "created_at",
+        accessor: (d) => dateCell(d.requestedDate, intl),
       },
     ],
     [intl, paths],
