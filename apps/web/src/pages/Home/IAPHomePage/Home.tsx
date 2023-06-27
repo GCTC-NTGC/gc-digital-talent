@@ -227,8 +227,8 @@ export const Home = ({ latestPool }: HomeProps) => {
                     data-h2-text-align="base(center) p-tablet(left)"
                   >
                     {intl.formatMessage({
-                      defaultMessage: "About the Program",
-                      id: "CqLV19",
+                      defaultMessage: "About the program",
+                      id: "hyJz3G",
                       description: "Program information section title",
                     })}
                   </Heading>
@@ -243,8 +243,8 @@ export const Home = ({ latestPool }: HomeProps) => {
                   <p data-h2-margin="base(x1, 0)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "By valuing and focusing on a person’s potential, rather than on their educational attainment level, the Program removes one of the biggest barriers that exists when it comes to employment within the digital economy. The Program has been developed by, with, and for Indigenous peoples from across Canada. Its design incorporates the preferences and needs of Indigenous learners while recognizing the importance of community.",
-                      id: "wqwPhL",
+                        "By valuing and focusing on a person’s potential, rather than on their educational attainment level, the program removes one of the biggest barriers that exists when it comes to employment within the digital economy. The program has been developed by, with, and for Indigenous peoples from across Canada. Its design incorporates the preferences and needs of Indigenous learners while recognizing the importance of community.",
+                      id: "wNJSJ7",
                       description: "Second paragraph about the program",
                     })}
                   </p>
@@ -418,8 +418,8 @@ export const Home = ({ latestPool }: HomeProps) => {
                 <p data-h2-margin="base(x2, 0, x1, 0)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "The Program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Métis, and if you have a passion for technology, then this Program is for you!",
-                    id: "khChKa",
+                      "The program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Métis, and if you have a passion for technology, then this Program is for you!",
+                    id: "UYuwG9",
                     description: "First paragraph about who the program is for",
                   })}
                 </p>
@@ -643,8 +643,8 @@ export const Home = ({ latestPool }: HomeProps) => {
                 <p data-h2-margin="base(x1, 0, 0, 0)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "The Program was designed to respond to reconciliation and the building of a renewed relationship based on recognition of rights, respect, cooperation and partnership with Indigenous peoples.",
-                    id: "1B4niz",
+                      "The program was designed to respond to reconciliation and the building of a renewed relationship based on recognition of rights, respect, cooperation and partnership with Indigenous peoples.",
+                    id: "J9HjFN",
                     description: "How it works, step 1 content paragraph 1",
                   })}
                 </p>
