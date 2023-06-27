@@ -96,13 +96,13 @@ export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
             editUrl: paths.diversityEquityInclusion(userId),
           },
           roleSalary: { isVisible: true, editUrl: paths.roleSalary(userId) },
-          skillsExperience: {
+          resumeAndRecruitment: {
             isVisible: !featureFlags.applicantDashboard,
-            editUrl: paths.skillsAndExperiences(userId),
+            editUrl: paths.resumeAndRecruitment(userId),
             override: (
               <ExperienceSection
                 experiences={experiences?.filter(notEmpty)}
-                editPath={paths.skillsAndExperiences(userId)}
+                editPath={paths.resumeAndRecruitment(userId)}
               />
             ),
           },

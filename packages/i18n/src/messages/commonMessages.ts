@@ -2,8 +2,8 @@ import { defineMessages } from "react-intl";
 
 const commonMessages = defineMessages({
   loadingTitle: {
-    defaultMessage: "Loading...",
-    id: "B7fcr5",
+    defaultMessage: "Loading",
+    id: "o/6zAs",
     description: "Title displayed for a table initial loading state.",
   },
   saving: {

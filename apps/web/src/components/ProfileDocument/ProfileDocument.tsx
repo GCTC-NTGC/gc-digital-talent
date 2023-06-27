@@ -16,12 +16,9 @@ import {
   getEmploymentEquityStatement,
   getGenericJobTitles,
   getIndigenousCommunity,
-  getJobLookingStatus,
   getLanguageProficiency,
   getLocale,
   getOperationalRequirement,
-  getPoolCandidatePriorities,
-  getPoolCandidateStatus,
   getSimpleGovEmployeeType,
   getWorkRegion,
   navigationMessages,
@@ -88,11 +85,8 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
             )}
             {results &&
               results.map((initialResult, index) => {
-                const isPoolCandidate = "user" in initialResult;
                 const result: Applicant =
                   "user" in initialResult ? initialResult.user : initialResult;
-                const resultPoolCandidate: PoolCandidate | null =
-                  isPoolCandidate ? initialResult : null;
 
                 const govEmployeeTypeId =
                   enumToOptions(GovEmployeeType).find(
@@ -185,110 +179,6 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                             )}
                         </Heading>
                       </PageSection>
-                      {isPoolCandidate ? (
-                        <PageSection>
-                          <Heading level="h3">
-                            {intl.formatMessage({
-                              defaultMessage: "Pool candidate details",
-                              id: "xD0Vbd",
-                              description:
-                                "Title of the pool candidate details content section",
-                            })}
-                          </Heading>
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage: "Status",
-                              id: "s2y5eG",
-                              description: "Status label",
-                            })}
-                            {intl.formatMessage(commonMessages.dividingColon)}
-                            {resultPoolCandidate && resultPoolCandidate.status
-                              ? intl.formatMessage(
-                                  getPoolCandidateStatus(
-                                    resultPoolCandidate.status as string,
-                                  ),
-                                )
-                              : ""}
-                          </p>
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage: "Priority",
-                              id: "qSDM1H",
-                              description: "Priority label",
-                            })}
-                            {intl.formatMessage(commonMessages.dividingColon)}
-                            {result.priorityWeight
-                              ? intl.formatMessage(
-                                  getPoolCandidatePriorities(
-                                    result.priorityWeight,
-                                  ),
-                                )
-                              : ""}
-                          </p>
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage: "Availability",
-                              id: "mevv+t",
-                              description: "Availability label",
-                            })}
-                            {intl.formatMessage(commonMessages.dividingColon)}
-                            {result.jobLookingStatus
-                              ? intl.formatMessage(
-                                  getJobLookingStatus(
-                                    result.jobLookingStatus as string,
-                                    "short",
-                                  ),
-                                )
-                              : ""}
-                          </p>
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage: "Notes",
-                              id: "rwNxlI",
-                              description: "Notes label",
-                            })}
-                            {intl.formatMessage(commonMessages.dividingColon)}
-                            {(resultPoolCandidate &&
-                              resultPoolCandidate.notes) ||
-                              ""}
-                          </p>
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage: "Date received",
-                              id: "DjSiTu",
-                              description: "Date received label",
-                            })}
-                            {intl.formatMessage(commonMessages.dividingColon)}
-                            {(resultPoolCandidate &&
-                              resultPoolCandidate.submittedAt) ||
-                              ""}
-                          </p>
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage: "Expiry date",
-                              id: "Gthvhd",
-                              description: "Expiry date label",
-                            })}
-                            {intl.formatMessage(commonMessages.dividingColon)}
-                            {(resultPoolCandidate &&
-                              resultPoolCandidate.expiryDate) ||
-                              ""}
-                          </p>
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage: "Archival date",
-                              id: "bjnh/y",
-                              description: "Archival date label",
-                            })}
-                            {intl.formatMessage(commonMessages.dividingColon)}
-                            {(resultPoolCandidate &&
-                              resultPoolCandidate.archivedAt) ||
-                              ""}
-                          </p>
-                        </PageSection>
-                      ) : (
-                        ""
-                      )}
                       <PageSection>
                         <Heading level="h3">
                           {intl.formatMessage(navigationMessages.myStatus)}
@@ -792,7 +682,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                       <PageSection>
                         <Heading level="h3">
                           {intl.formatMessage(
-                            navigationMessages.mySkillsExperience,
+                            navigationMessages.resumeAndRecruitment,
                           )}
                         </Heading>
                         <PrintExperienceByType

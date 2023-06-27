@@ -14,7 +14,9 @@ import educationStepInfo from "~/pages/Applications/educationStep/educationStepI
 import profileStepInfo from "~/pages/Applications/profileStep/profileStepInfo";
 import successPageInfo from "~/pages/Applications/successStep/successStepInfo";
 import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
+
 import { isIAPPool } from "~/utils/poolUtils";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
@@ -150,4 +152,27 @@ export function applicationStepsToStepperArgs(
         error: step.hasError?.(application.user, application.pool, application),
       };
     });
+}
+
+export type Application = Omit<PoolCandidate, "user">;
+
+export function isApplicationInProgress(a: Application): boolean {
+  return (
+    a.status === PoolCandidateStatus.Draft ||
+    a.status === PoolCandidateStatus.NewApplication ||
+    a.status === PoolCandidateStatus.ApplicationReview ||
+    a.status === PoolCandidateStatus.UnderAssessment
+  );
+}
+
+export function isApplicationQualifiedRecruitment(a: Application): boolean {
+  return (
+    a.status === PoolCandidateStatus.QualifiedAvailable ||
+    a.status === PoolCandidateStatus.QualifiedUnavailable ||
+    a.status === PoolCandidateStatus.QualifiedWithdrew ||
+    a.status === PoolCandidateStatus.PlacedCasual ||
+    a.status === PoolCandidateStatus.PlacedTerm ||
+    a.status === PoolCandidateStatus.PlacedIndeterminate ||
+    a.status === PoolCandidateStatus.Expired
+  );
 }

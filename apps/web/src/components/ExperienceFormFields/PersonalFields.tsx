@@ -2,14 +2,21 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
 
-import { Checkbox, Input, TextArea } from "@gc-digital-talent/forms";
+import {
+  Checkbox,
+  DATE_SEGMENT,
+  DateInput,
+  Input,
+  TextArea,
+} from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import { SubExperienceFormProps } from "~/types/experience";
 
 const PersonalFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
-  const todayDate = Date();
+  const todayDate = new Date();
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
@@ -61,32 +68,29 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
         })}
         name="currentRole"
       />
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-      >
-        <div data-h2-padding="base(0) p-tablet(0, x2, 0, 0)">
-          <Input
+      <div data-h2-flex-grid="base(flex-start, x2, x1)">
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+          <DateInput
             id="startDate"
-            label={labels.startDate}
+            legend={labels.startDate}
             name="startDate"
-            type="date"
+            show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
             rules={{
               required: intl.formatMessage(errorMessages.required),
               max: {
-                value: todayDate,
+                value: strToFormDate(todayDate.toISOString()),
                 message: intl.formatMessage(errorMessages.mustNotBeFuture),
               },
             }}
           />
         </div>
-        <div>
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           {!isCurrent && (
-            <Input
+            <DateInput
               id="endDate"
-              label={labels.endDate}
+              legend={labels.endDate}
               name="endDate"
-              type="date"
+              show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
               rules={
                 isCurrent
                   ? {}

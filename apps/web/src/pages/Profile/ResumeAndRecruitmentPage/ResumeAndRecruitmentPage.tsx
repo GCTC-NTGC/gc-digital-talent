@@ -13,17 +13,20 @@ import {
   useGetApplicationDetailsQuery,
 } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
-import { ExperienceAndSkills } from "./components/ExperienceAndSkills";
+import { Application } from "~/utils/applicationUtils";
+import { ResumeAndRecruitment } from "./components/ResumeAndRecruitment";
 
-interface ExperienceAndSkillsApiProps {
+interface ResumeAndRecruitmentApiProps {
   applicantId: string;
   experiences: Experience[];
+  applications: Application[];
 }
 
-const ExperienceAndSkillsApi = ({
+const ResumeAndRecruitmentApi = ({
   applicantId,
   experiences,
-}: ExperienceAndSkillsApiProps) => {
+  applications,
+}: ResumeAndRecruitmentApiProps) => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
@@ -52,11 +55,12 @@ const ExperienceAndSkillsApi = ({
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolCandidate ? (
-        <ExperienceAndSkills
+        <ResumeAndRecruitment
           applicantId={applicantId}
           pool={data.poolCandidate.pool}
           missingSkills={missingSkills}
           experiences={experiencesOnlyRelevantSkills}
+          applications={applications}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
@@ -78,23 +82,30 @@ interface ApiOrContentProps {
   applicationId: string | null;
   applicantId: string;
   experiences: Experience[];
+  applications: Application[];
 }
 
 const ApiOrContent = ({
   applicationId,
   applicantId,
   experiences,
+  applications,
 }: ApiOrContentProps) =>
   applicationId ? (
-    <ExperienceAndSkillsApi
+    <ResumeAndRecruitmentApi
       applicantId={applicantId}
       experiences={experiences}
+      applications={applications}
     />
   ) : (
-    <ExperienceAndSkills applicantId={applicantId} experiences={experiences} />
+    <ResumeAndRecruitment
+      applicantId={applicantId}
+      experiences={experiences}
+      applications={applications}
+    />
   );
 
-const ExperienceAndSkillsPage = () => {
+const ResumeAndRecruitmentPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
@@ -104,6 +115,7 @@ const ExperienceAndSkillsPage = () => {
   });
 
   const experiences = data?.applicant?.experiences?.filter(notEmpty);
+  const applications = data?.applicant?.poolCandidates?.filter(notEmpty);
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -112,6 +124,7 @@ const ExperienceAndSkillsPage = () => {
           applicantId={data?.applicant.id}
           applicationId={applicationId}
           experiences={experiences || []}
+          applications={applications || []}
         />
       ) : (
         <ThrowNotFound
@@ -122,4 +135,4 @@ const ExperienceAndSkillsPage = () => {
   );
 };
 
-export default ExperienceAndSkillsPage;
+export default ResumeAndRecruitmentPage;

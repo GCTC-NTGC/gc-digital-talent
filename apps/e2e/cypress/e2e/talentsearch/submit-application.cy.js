@@ -25,7 +25,7 @@ describe("Submit Application Workflow Tests", () => {
 
       aliasMutation(req, "createApplication");
       aliasMutation(req, "UpdateApplication");
-      aliasMutation(req, "submitApplication");
+      aliasMutation(req, "SubmitApplication");
       aliasMutation(req, "CreateEducationExperience");
       aliasMutation(req, "UpdateEducationExperience");
     });
@@ -231,8 +231,14 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("textbox", { name: /Institution/i }).type(
       "Cypress University",
     );
-    cy.findByLabelText(/Start Date/i).type("2001-01-01");
-    cy.findByLabelText(/End Date/i).type("2001-02-01");
+    cy.findByRole("group", { name: /start date/i }).within(() => {
+      cy.findAllByRole("spinbutton", { name: /year/i }).type("2001");
+      cy.findAllByRole("combobox", { name: /month/i }).select("01");
+    });
+    cy.findByRole("group", { name: /end date/i }).within(() => {
+      cy.findAllByRole("spinbutton", { name: /year/i }).type("2001");
+      cy.findAllByRole("combobox", { name: /month/i }).select("02");
+    });
     cy.findByRole("combobox", { name: /Status/i }).select(
       "Successful Completion (Credential Awarded)",
     );
@@ -375,7 +381,7 @@ describe("Submit Application Workflow Tests", () => {
     // time to submit!
     cy.findByRole("textbox", { name: /Your full name/i }).type("Signature");
     cy.findByRole("button", { name: /Submit my application/i }).click();
-    cy.wait("@gqlsubmitApplicationMutation");
+    cy.wait("@gqlSubmitApplicationMutation");
     cy.expectToast(/We successfully received your application/i);
 
     // Application home after submitting

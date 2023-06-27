@@ -70,6 +70,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
       data-h2-radius="base(rounded)"
     >
       <div
+        aria-hidden="true"
         data-h2-position="base(absolute)"
         data-h2-location="base(0, auto, auto, x.5) p-tablet(0, auto, auto, x2)"
       >

@@ -59,7 +59,7 @@ export interface UserProfileProps {
     language?: SectionControl;
     myStatus?: SectionControl;
     roleSalary?: SectionControl;
-    skillsExperience?: SectionControl;
+    resumeAndRecruitment?: SectionControl;
     workLocation?: SectionControl;
     workPreferences?: SectionControl;
   };
@@ -243,11 +243,11 @@ const UserProfile = ({
               />
             </TableOfContents.AnchorLink>
           )}
-          {showSection("skillsExperience") && (
+          {showSection("resumeAndRecruitment") && (
             <TableOfContents.AnchorLink
-              id={PAGE_SECTION_ID.SKILLS_AND_EXPERIENCE}
+              id={PAGE_SECTION_ID.RESUME_AND_RECRUITMENT}
             >
-              {intl.formatMessage(navigationMessages.mySkillsExperience)}
+              {intl.formatMessage(navigationMessages.resumeAndRecruitment)}
             </TableOfContents.AnchorLink>
           )}
           {/* {showSection("accountAndPrivacy") && (
@@ -586,20 +586,20 @@ const UserProfile = ({
             )}
           </TableOfContents.Section>
         )}
-        {showSection("skillsExperience") && (
-          <TableOfContents.Section id={PAGE_SECTION_ID.SKILLS_AND_EXPERIENCE}>
-            <HeadingWrapper show={!!sections.skillsExperience?.editUrl}>
+        {showSection("resumeAndRecruitment") && (
+          <TableOfContents.Section id={PAGE_SECTION_ID.RESUME_AND_RECRUITMENT}>
+            <HeadingWrapper show={!!sections.resumeAndRecruitment?.editUrl}>
               <div
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
                 <TableOfContents.Heading as={headingLevel} icon={BoltIcon}>
-                  {intl.formatMessage(navigationMessages.mySkillsExperience)}
+                  {intl.formatMessage(navigationMessages.resumeAndRecruitment)}
                 </TableOfContents.Heading>
               </div>
-              {sections.skillsExperience?.editUrl && (
+              {sections.resumeAndRecruitment?.editUrl && (
                 <EditUrlLink
-                  link={sections.skillsExperience.editUrl}
+                  link={sections.resumeAndRecruitment.editUrl}
                   text={intl.formatMessage(
                     {
                       defaultMessage: "Edit {title}",
@@ -608,15 +608,15 @@ const UserProfile = ({
                     },
                     {
                       title: intl.formatMessage(
-                        navigationMessages.mySkillsExperience,
+                        navigationMessages.resumeAndRecruitment,
                       ),
                     },
                   )}
                 />
               )}
             </HeadingWrapper>
-            {sections.skillsExperience?.override ? (
-              sections.skillsExperience.override
+            {sections.resumeAndRecruitment?.override ? (
+              sections.resumeAndRecruitment.override
             ) : (
               <ExperienceSection
                 headingLevel={contentHeadingLevel}

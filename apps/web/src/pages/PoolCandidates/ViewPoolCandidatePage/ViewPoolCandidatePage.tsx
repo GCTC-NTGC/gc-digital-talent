@@ -53,6 +53,7 @@ import DiversityEquityInclusionDisplay from "../../Applications/ApplicationProfi
 import GovernmentInformationDisplay from "../../Applications/ApplicationProfilePage/components/GovernmentInformation/Display";
 import LanguageProfileDisplay from "../../Applications/ApplicationProfilePage/components/LanguageProfile/Display";
 import WorkPreferencesDisplay from "../../Applications/ApplicationProfilePage/components/WorkPreferences/Display";
+import AssetSkillsFiltered from "./components/ApplicationStatusForm/AssetSkillsFiltered";
 
 export interface ViewPoolCandidateProps {
   poolCandidate: PoolCandidate;
@@ -367,41 +368,10 @@ export const ViewPoolCandidate = ({
             {sections.assetSkills.title}
           </TableOfContents.Heading>
           {categorizedAssetSkills[SkillCategory.Technical]?.length ? (
-            <>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Represented by the following experiences:",
-                  id: "mDowK/",
-                  description:
-                    "Lead in text for experiences that represent the users skills",
-                })}
-              </p>
-              {categorizedAssetSkills[SkillCategory.Technical]?.map(
-                (optionalTechnicalSkill) => (
-                  <SkillTree
-                    key={optionalTechnicalSkill.id}
-                    skill={optionalTechnicalSkill}
-                    experiences={
-                      parsedSnapshot.experiences?.filter(notEmpty) || []
-                    }
-                    showDisclaimer
-                    hideConnectButton
-                    hideEdit
-                    disclaimerMessage={
-                      <p>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "There are no experiences attached to this skill.",
-                          id: "XrfkBm",
-                          description:
-                            "Message displayed when no experiences have been attached to a skill",
-                        })}
-                      </p>
-                    }
-                  />
-                ),
-              )}
-            </>
+            <AssetSkillsFiltered
+              poolAssetSkills={categorizedAssetSkills[SkillCategory.Technical]}
+              experiences={parsedSnapshot.experiences?.filter(notEmpty) || []}
+            />
           ) : null}
         </TableOfContents.Section>
         <TableOfContents.Section id={sections.questions.id}>

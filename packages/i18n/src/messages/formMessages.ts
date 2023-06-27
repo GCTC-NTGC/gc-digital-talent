@@ -81,6 +81,11 @@ const formMessages = defineMessages({
     id: "fMcKtJ",
     description: "Text to cancel changes to a form",
   },
+  repeaterSkipTo: {
+    defaultMessage: "Skip to add an item",
+    id: "sJ+F9z",
+    description: "Link text to skip to the add button in a repeater",
+  },
   repeaterMove: {
     defaultMessage: "Change order from {from} to {to}",
     id: "NVMKe5",
@@ -125,6 +130,21 @@ const formMessages = defineMessages({
     defaultMessage: "+123243234",
     id: "uNArwM",
     description: "Placeholder for form telephone field",
+  },
+  byDateDescending: {
+    defaultMessage: "By date (recent first)",
+    id: "yuWHKJ",
+    description: "Select the option to sort by date, descending",
+  },
+  byTitleAscending: {
+    defaultMessage: "By title (alphabetically)",
+    id: "J+0v2z",
+    description: "Select the option to sort by title, ascending",
+  },
+  allTypes: {
+    defaultMessage: "All types",
+    id: "spoY2L",
+    description: "Select the option to sort or filter by all types",
   },
 });
 
