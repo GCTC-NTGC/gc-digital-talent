@@ -61,9 +61,10 @@ const TrackApplicationsCard = ({
     >
       <div
         data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
+        data-h2-align-items="base(flex-start) p-tablet(center)"
         data-h2-justify-content="base(space-between)"
-        data-h2-gap="base(0 x1)"
+        data-h2-flex-direction="base(column) p-tablet(row)"
+        data-h2-gap="base(x.25 0) p-tablet(0 x1)"
       >
         <Heading
           level={headingLevel}
@@ -128,24 +129,19 @@ const TrackApplicationsCard = ({
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column) p-tablet(row)"
         data-h2-justify-content="base(flex-start)"
-        data-h2-gap="base(x.5 0) p-tablet(0 x.5)"
+        data-h2-gap="base(x.25 0) p-tablet(0 x.5)"
+        data-h2-margin="base(x.5 0)"
       >
-        <span
-          data-h2-color="base(primary.darker)"
-          data-h2-margin="base(x.5 0 x.5 0)"
-        >
+        <span data-h2-color="base(primary.darker)">
           {getRecruitmentType(application.pool.publishingGroup, intl)}
         </span>
         <span
+          data-h2-display="base(none) p-tablet(inline)"
           data-h2-color="base(black.light)"
-          data-h2-margin="base(x.5 0 x.5 0)"
         >
           •
         </span>
-        <span
-          data-h2-color="base(black.light)"
-          data-h2-margin="base(x.5 0 x.5 0)"
-        >
+        <span data-h2-color="base(black.light)">
           {applicationDateInfo.message}
           <span data-h2-color={applicationDateInfo.color}>
             {" "}
@@ -171,7 +167,8 @@ const TrackApplicationsCard = ({
         <div
           data-h2-display="base(flex)"
           data-h2-align-items="base(center)"
-          data-h2-gap="base(0 x1)"
+          data-h2-flex-direction="base(column) p-tablet(row)"
+          data-h2-gap="base(x.25 0) p-tablet(0 x1)"
         >
           <ApplicationActions.ViewAction
             show={!applicationIsDraft}
