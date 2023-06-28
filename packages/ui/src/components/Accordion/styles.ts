@@ -29,7 +29,7 @@ const simpleStyles: AccordionStyles = {
   "data-h2-color": `
     base:selectors[>.Accordion__Item > .Accordion__Content > .Accordion__Separator](secondary.dark)
     base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger > .Accordion__Chevron](secondary.dark)
-    base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger .Accordion__Subtitle](secondary.dark)
+    base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger .Accordion__Subtitle](black.light)
   `,
   "data-h2-display":
     "base:selectors[>.Accordion__Item .Accordion__Separator](none)",

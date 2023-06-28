@@ -45,8 +45,8 @@ import { AwardExperience } from "~/api/generated";
 import { StatusItem } from "~/components/StatusItem/StatusItem";
 import { HeroCard } from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
-import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentsPage/constants";
 import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
+import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
 import { PartialUser } from "../types";
 
 function buildLink(
@@ -140,14 +140,14 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           defaultMessage:
             // TODO: split résumé and skills into two separate links when the sections exist
             "Manage your <a1>profile</a1>, <a2>résumé, skills</a2>, and <a3>track applications</a3>.",
-          id: "vBTn/n",
-          description: "Subtitle for applicant dashboard hero",
+          id: "zJHMt9",
+          description: "Subtitle for profile and applications hero",
         },
         {
           a1: (chunks: React.ReactNode) =>
             buildLink(paths.profile(user.id), chunks, "white"),
           a2: (chunks: React.ReactNode) =>
-            buildLink(paths.resumeAndRecruitments(user.id), chunks, "white"),
+            buildLink(paths.resumeAndRecruitment(user.id), chunks, "white"),
           a3: (chunks: React.ReactNode) =>
             buildScrollToLink("track-applications-section", chunks, "white"),
         },
@@ -166,8 +166,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <Alert.Title>
             {intl.formatMessage({
               defaultMessage:
-                "Welcome to your Digital Talent profile dashboard",
-              id: "kBEXbF",
+                "Welcome to your Digital Talent Profile and applications page",
+              id: "d03yTk",
               description:
                 "Title for notification that a draft IAP application was saved",
             })}
@@ -176,28 +176,28 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             {intl.formatMessage({
               defaultMessage:
                 "Are you looking for your application to the IT Apprenticeship Program for Indigenous Peoples?",
-              id: "gJpWLM",
+              id: "G5Joq7",
               description:
-                "First paragraph for applicant dashboard notification welcoming an IAP user",
+                "First paragraph for profile and applications notification welcoming an IAP user",
             })}
           </p>
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({
               defaultMessage:
                 "The apprenticeship program is a part of a larger digital talent initiative in the Government of Canada that aspires to recruit awesome digital talent like yourself. This profile provides access to other digital opportunities and recruitments beyond the apprenticeship program, if you choose to apply. If you’d prefer to stick to the apprenticeship program exclusively, that’s okay too!",
-              id: "+im7hW",
+              id: "aMhznA",
               description:
-                "Second paragraph for applicant dashboard notification welcoming an IAP user",
+                "Second paragraph for profile and applications notification welcoming an IAP user",
             })}
           </p>
           <p>
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "When you log into your account, you’ll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your Indigenous apprenticeship application and track your position in the program.",
-                id: "KUVXJr",
+                  "When you log into your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your Indigenous apprenticeship application and track your position in the program.",
+                id: "gNyD/H",
                 description:
-                  "Third paragraph for applicant dashboard notification welcoming an IAP user",
+                  "Third paragraph for profile and applications notification welcoming an IAP user",
               },
               {
                 a: (chunks: React.ReactNode) =>
@@ -229,29 +229,29 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({
               defaultMessage:
-                "You’ve now landed on your Digital Talent profile page.",
-              id: "ueLK1P",
+                "You've now landed on your Digital Talent profile page.",
+              id: "y+Pq1f",
               description:
-                "First paragraph for applicant dashboard notification welcoming an IAP user",
+                "First paragraph for profile and applications notification welcoming an IAP user",
             })}
           </p>
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({
               defaultMessage:
                 "The apprenticeship program is a part of a larger digital talent initiative in the Government of Canada that aspires to recruit awesome digital talent like yourself. This profile provides access to other digital opportunities and recruitments beyond the apprenticeship program, if you choose to apply. If you’d prefer to stick to the apprenticeship program exclusively, that’s okay too!",
-              id: "+im7hW",
+              id: "aMhznA",
               description:
-                "Second paragraph for applicant dashboard notification welcoming an IAP user",
+                "Second paragraph for profile and applications notification welcoming an IAP user",
             })}
           </p>
           <p>
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "When you log into your account, you’ll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your Indigenous apprenticeship application and track your status in the program.",
-                id: "RzNVWf",
+                  "When you log into your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your Indigenous apprenticeship application and track your status in the program.",
+                id: "DeWP/3",
                 description:
-                  "Third paragraph for applicant dashboard notification welcoming an IAP user",
+                  "Third paragraph for profile and applications notification welcoming an IAP user",
               },
               {
                 a: (chunks: React.ReactNode) =>
@@ -279,8 +279,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           color="secondary"
           title={intl.formatMessage({
             defaultMessage: "Profile information",
-            id: "gTjLic",
-            description: "applicant dashboard card title for profile card",
+            id: "zd/ve4",
+            description: "Profile and applications card title for profile card",
           })}
           href={paths.profile(user.id)}
         >
@@ -381,10 +381,10 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           color="tertiary"
           title={intl.formatMessage({
             defaultMessage: "Résumé and recruitments",
-            id: "Ori6s+",
-            description: "applicant dashboard card title for résumé card",
+            id: "FSViGC",
+            description: "Profile and applications card title for résumé card",
           })}
-          href={paths.resumeAndRecruitments(user.id)}
+          href={paths.resumeAndRecruitment(user.id)}
         >
           <StatusItem
             title={intl.formatMessage({
@@ -442,7 +442,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                 .length
             }
             icon={ShieldCheckIcon}
-            href={paths.resumeAndRecruitments(user.id, {
+            href={paths.resumeAndRecruitment(user.id, {
               section:
                 RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
             })}

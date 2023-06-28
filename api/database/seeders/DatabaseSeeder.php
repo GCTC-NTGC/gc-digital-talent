@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
         // Seed some expected values
         $this->seedPools();
 
-        $digitalTalentPool = Pool::where('key', "digital_careers")->sole();
+        $digitalTalentPool = Pool::where('name->en', 'CMO Digital Careers')->sole();
 
         User::factory([
             'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]

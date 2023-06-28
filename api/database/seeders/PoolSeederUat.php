@@ -20,7 +20,7 @@ class PoolSeederUat extends Seeder
         $defaultOwner = User::where('email', 'tristan-orourke@talent.test')->first();
 
         $digitalCareers = Pool::updateOrCreate(
-            ['key' => 'digital_careers'],
+            ['name->en' => 'Digital Careers'],
             [
                 'name' => [
                     'en' => 'Digital Careers',

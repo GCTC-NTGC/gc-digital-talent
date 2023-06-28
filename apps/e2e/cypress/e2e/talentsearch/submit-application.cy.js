@@ -72,55 +72,51 @@ describe("Submit Application Workflow Tests", () => {
       addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
     });
 
-    // fetch the dcmId for its team from database, needed for pool creation
-    let dcmId;
-    cy.getDCM().then((dcm) => {
-      dcmId = dcm;
-    });
-
-    cy.getMe()
-      .its("id")
-      .then((adminUserId) => {
-        cy.get("@testClassificationId").then((testClassificationId) => {
-          cy.createPool(adminUserId, dcmId, [testClassificationId])
-            .its("id")
-            .as("testPoolId")
-            .then((testPoolId) => {
-              cy.get("@testSkillIds").then((testSkillIds) => {
-                cy.updatePool(testPoolId, {
-                  name: {
-                    en: "Cypress Test Pool EN",
-                    fr: "Cypress Test Pool FR",
-                  },
-                  stream: PoolStream.BusinessAdvisoryServices,
-                  closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
-                  yourImpact: { en: "test impact EN", fr: "test impact FR" },
-                  keyTasks: { en: "key task EN", fr: "key task FR" },
-                  essentialSkills: {
-                    sync: testSkillIds,
-                  },
-                  language: PoolLanguage.Various,
-                  securityClearance: SecurityStatus.Secret,
-                  location: {
-                    en: "test location EN",
-                    fr: "test location FR",
-                  },
-                  isRemote: true,
-                  publishingGroup: PublishingGroup.ItJobs,
-                  screeningQuestions: {
-                    create: [
-                      {
-                        question: { en: "Question EN", fr: "Question FR" },
-                        sortOrder: 1,
-                      },
-                    ],
-                  },
+    cy.getDCM().then((dcmId) => {
+      cy.getMe()
+        .its("id")
+        .then((adminUserId) => {
+          cy.get("@testClassificationId").then((testClassificationId) => {
+            cy.createPool(adminUserId, dcmId, [testClassificationId])
+              .its("id")
+              .as("testPoolId")
+              .then((testPoolId) => {
+                cy.get("@testSkillIds").then((testSkillIds) => {
+                  cy.updatePool(testPoolId, {
+                    name: {
+                      en: "Cypress Test Pool EN",
+                      fr: "Cypress Test Pool FR",
+                    },
+                    stream: PoolStream.BusinessAdvisoryServices,
+                    closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
+                    yourImpact: { en: "test impact EN", fr: "test impact FR" },
+                    keyTasks: { en: "key task EN", fr: "key task FR" },
+                    essentialSkills: {
+                      sync: testSkillIds,
+                    },
+                    language: PoolLanguage.Various,
+                    securityClearance: SecurityStatus.Secret,
+                    location: {
+                      en: "test location EN",
+                      fr: "test location FR",
+                    },
+                    isRemote: true,
+                    publishingGroup: PublishingGroup.ItJobs,
+                    screeningQuestions: {
+                      create: [
+                        {
+                          question: { en: "Question EN", fr: "Question FR" },
+                          sortOrder: 1,
+                        },
+                      ],
+                    },
+                  });
+                  cy.publishPool(testPoolId);
                 });
-                cy.publishPool(testPoolId);
               });
-            });
+          });
         });
-      });
+    });
 
     cy.get("@testUser").then((user) => {
       cy.loginBySubject(user.sub);
@@ -391,6 +387,6 @@ describe("Submit Application Workflow Tests", () => {
     })
       .should("exist")
       .and("be.visible");
-    cy.findByRole("link", { name: /Go to my dashboard/i }).should("exist");
+    cy.findByRole("link", { name: /visit your Profile and applications page/i }).should("exist");
   });
 });

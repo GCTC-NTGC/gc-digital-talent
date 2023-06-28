@@ -114,7 +114,7 @@ const ApplicationResumeIntroduction = ({
           mode="inline"
           href={
             applicantDashboard
-              ? paths.dashboard({ fromIapDraft: isIAP })
+              ? paths.profileAndApplications({ fromIapDraft: isIAP })
               : paths.myProfile()
           }
         >

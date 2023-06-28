@@ -17,9 +17,12 @@ export type HTMLInputProps = Omit<
   "capture" | "type"
 >;
 
-export type HTMLFieldsetProps = React.DetailedHTMLProps<
-  React.FieldsetHTMLAttributes<HTMLFieldSetElement>,
-  HTMLFieldSetElement
+export type HTMLFieldsetProps = Omit<
+  React.DetailedHTMLProps<
+    React.FieldsetHTMLAttributes<HTMLFieldSetElement>,
+    HTMLFieldSetElement
+  >,
+  "ref"
 >;
 
 export type CommonInputProps = {

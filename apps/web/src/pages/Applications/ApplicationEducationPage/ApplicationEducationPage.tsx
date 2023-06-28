@@ -43,13 +43,6 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import LinkResume from "./LinkResume";
 import { useApplicationContext } from "../ApplicationContext";
 
-const appliedWorkListMessages = [
-  applicationMessages.onTheJobLearning,
-  applicationMessages.nonConventionalTraining,
-  applicationMessages.formalEducation,
-  applicationMessages.otherExperience,
-];
-
 type EducationRequirementExperiences = {
   educationRequirementAwardExperiences: { sync: string[] };
   educationRequirementCommunityExperiences: { sync: string[] };
@@ -132,7 +125,7 @@ const ApplicationEducation = ({
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);
   const previousStep = paths.applicationResume(application.id);
   const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: isIAP })
+    ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
 
   const methods = useForm<FormValues>({
@@ -314,16 +307,33 @@ const ApplicationEducation = ({
     );
   };
 
+  const appliedWorkListMessages = [
+    applicationMessages.onTheJobLearning,
+    applicationMessages.nonConventionalTraining,
+    applicationMessages.formalEducation,
+    isIAP
+      ? applicationMessages.otherExperience
+      : applicationMessages.otherFieldExperience,
+  ];
+
   const educationRequirementOptions: Radio[] = [
     {
       value: EducationRequirementOption.AppliedWork,
-      label: intl.formatMessage({
-        defaultMessage:
-          "<strong>I meet the applied work experience option</strong>",
-        id: "SNwPLZ",
-        description:
-          "Radio group option for education requirement filter in application education form.",
-      }),
+      label: isIAP
+        ? intl.formatMessage({
+            defaultMessage:
+              "<strong>I meet the applied experience option</strong>",
+            id: "kukr/B",
+            description:
+              "Radio group option for education requirement filter in application education form - IAP variant.",
+          })
+        : intl.formatMessage({
+            defaultMessage:
+              "<strong>I meet the applied work experience option</strong>",
+            id: "SNwPLZ",
+            description:
+              "Radio group option for education requirement filter in application education form.",
+          }),
       contentBelow: (
         <div data-h2-margin="base(x.15, 0, x.5, x1)">
           <p data-h2-margin="base(0, 0, x.5, 0)">
@@ -344,8 +354,8 @@ const ApplicationEducation = ({
       label: isIAP
         ? intl.formatMessage({
             defaultMessage:
-              "<strong>I have a high school diploma or GED equivalent</strong>",
-            id: "4lGQQm",
+              "<strong>I have a high school diploma or equivalent (e.g. GED)</strong>",
+            id: "GZSvWZ",
             description:
               "Radio group option for education requirement filter in Indigenous apprenticeship application education form.",
           })
@@ -404,12 +414,22 @@ const ApplicationEducation = ({
           </p>
           <RadioGroup
             idPrefix="education_requirement"
-            legend={intl.formatMessage({
-              defaultMessage: "Select the option that applies to you",
-              id: "TBsQMo",
-              description:
-                "Legend for the radio group in the application education page.",
-            })}
+            legend={
+              isIAP
+                ? intl.formatMessage({
+                    defaultMessage:
+                      "Please select the option that best reflects your qualifications",
+                    id: "0IggSg",
+                    description:
+                      "Legend for the radio group in the application education page - IAP variant.",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Select the option that applies to you",
+                    id: "TBsQMo",
+                    description:
+                      "Legend for the radio group in the application education page.",
+                  })
+            }
             name="educationRequirement"
             items={educationRequirementOptions}
             rules={{

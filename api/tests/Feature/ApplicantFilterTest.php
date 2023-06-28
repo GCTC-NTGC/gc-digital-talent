@@ -288,7 +288,6 @@ class ApplicantFilterTest extends TestCase
                             en
                             fr
                         }
-                        key
                     }
                     qualifiedStreams
                     qualifiedClassifications {
@@ -339,7 +338,6 @@ class ApplicantFilterTest extends TestCase
                             [
                                 'id' => $firstFilterModel->pools->first()->id,
                                 'name' => $firstFilterModel->pools->first()->name,
-                                'key' => $firstFilterModel->pools->first()->key,
                             ],
                         ],
                     ],

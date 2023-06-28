@@ -1,43 +1,32 @@
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { Well } from "@gc-digital-talent/ui";
 import * as React from "react";
 import { useIntl } from "react-intl";
-
-import { HeadingRank, Well } from "@gc-digital-talent/ui";
-
 import { Experience } from "~/api/generated";
-import AddExperienceDialog from "~/pages/Profile/ResumeAndRecruitmentsPage/components/AddExperienceDialog";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSortAndFilter, {
   FormValues as ExperienceSortAndFilterFormValues,
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
-export interface ResumeSectionProps {
-  experiences?: Experience[];
-  editParam?: string;
-  headingLevel?: HeadingRank;
-  applicantId?: string;
+interface ResumeSectionProps {
+  experiences: Experience[];
 }
 
-const ResumeSection = ({
-  experiences,
-  editParam,
-  headingLevel = "h3",
-  applicantId,
-}: ResumeSectionProps) => {
+const ResumeSection = ({ experiences }: ResumeSectionProps) => {
   const intl = useIntl();
-
   const [sortAndFilterValues, setSortAndFilterValues] =
     React.useState<ExperienceSortAndFilterFormValues>({
       sortBy: "date_desc",
       filterBy: "none",
     });
-
+  const nonEmptyExperiences = experiences?.filter(notEmpty) ?? [];
   const experienceList = sortAndFilterExperiences(
-    experiences,
+    nonEmptyExperiences,
     sortAndFilterValues,
   );
 
-  const hasExperiences = experiences && experiences.length >= 1;
+  const hasSomeExperience = !!experiences.length;
 
   return (
     <>
@@ -49,41 +38,34 @@ const ResumeSection = ({
           initialFormValues={sortAndFilterValues}
           onChange={(formValues) => setSortAndFilterValues(formValues)}
         />
-
         <div data-h2-flex-item="base(0of1) p-tablet(fill)">{/* spacer */}</div>
-        {applicantId ? (
-          <div
-            data-h2-flex-item="base(1of1) p-tablet(content)"
-            data-h2-align-self="base(flex-end)"
-          >
-            <AddExperienceDialog applicantId={applicantId} />
-          </div>
-        ) : null}
       </div>
-
-      {hasExperiences ? (
+      {hasSomeExperience ? (
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x.5 0)"
         >
-          {experienceList.map((experience) => (
-            <ExperienceCard
-              headingLevel={headingLevel}
-              key={experience.id}
-              experience={experience}
-              editParam={editParam}
-            />
-          ))}
+          {experienceList.map((experience) => {
+            return (
+              <ExperienceCard
+                key={experience.id}
+                experience={experience}
+                headingLevel="h3"
+                showSkills={false}
+                showEdit={false}
+              />
+            );
+          })}
         </div>
       ) : (
-        <Well data-h2-text-align="base(center)">
-          <p>
+        <Well>
+          <p data-h2-text-align="base(center)">
             {intl.formatMessage({
-              defaultMessage: "You haven’t added any résumé items yet.",
-              id: "SjY+Wn",
+              defaultMessage: "No experiences found",
+              id: "Jnk2pb",
               description:
-                "Message to user when no résumé items have been attached to profile.",
+                "Null state messages for résumé list when no experiences are found.",
             })}
           </p>
         </Well>
