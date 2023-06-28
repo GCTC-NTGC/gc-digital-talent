@@ -15,14 +15,14 @@ import {
 } from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import SEO from "~/components/SEO/SEO";
-import PersonalInformation from "~/pages/Applications/ApplicationProfilePage/components/PersonalInformation/PersonalInformation";
-import { SectionProps } from "~/pages/Applications/ApplicationProfilePage/types";
+import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
+import { SectionProps } from "~/components/Profile/types";
 import { PAGE_SECTION_ID } from "~/components/UserProfile/constants";
-import { getSectionTitle } from "~/pages/Applications/ApplicationProfilePage/utils";
-import WorkPreferences from "~/pages/Applications/ApplicationProfilePage/components/WorkPreferences/WorkPreferences";
-import LanguageProfile from "~/pages/Applications/ApplicationProfilePage/components/LanguageProfile/LanguageProfile";
-import GovernmentInformation from "~/pages/Applications/ApplicationProfilePage/components/GovernmentInformation/GovernmentInformation";
-import DiversityEquityInclusion from "~/pages/Applications/ApplicationProfilePage/components/DiversityEquityInclusion/DiversityEquityInclusion";
+import { getSectionTitle } from "~/components/Profile/utils";
+import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
+import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
+import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
+import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 
 export interface ProfilePageProps {
   user: User;

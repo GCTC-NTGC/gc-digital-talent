@@ -20,17 +20,17 @@ import {
   useUpdateUserAsUserMutation,
 } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
+import { SectionProps } from "~/components/Profile/types";
+import ErrorSummary from "~/components/Profile/components/ErrorSummary";
+import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
+import StepNavigation from "~/components/Profile/components/StepNavigation";
+import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
+import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
+import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
+import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
+import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 
 import { ApplicationPageProps } from "../ApplicationApi";
-import PersonalInformation from "./components/PersonalInformation/PersonalInformation";
-import WorkPreferences from "./components/WorkPreferences/WorkPreferences";
-import DiversityEquityInclusion from "./components/DiversityEquityInclusion/DiversityEquityInclusion";
-import GovernmentInformation from "./components/GovernmentInformation/GovernmentInformation";
-import LanguageProfile from "./components/LanguageProfile/LanguageProfile";
-import { SectionProps } from "./types";
-import ErrorSummary from "./components/ErrorSummary";
-import ProfileFormProvider from "./components/ProfileFormContext";
-import StepNavigation from "./components/StepNavigation";
 import stepHasError from "../profileStep/profileStepValidation";
 import { useApplicationContext } from "../ApplicationContext";
 

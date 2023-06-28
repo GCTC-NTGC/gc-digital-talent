@@ -19,8 +19,8 @@ import {
 } from "~/api/generated";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 import { hasEmptyRequiredFields as hasEmptyDEIRequiredFields } from "~/validators/profile/diversityEquityInclusion";
+import { useApplicationContext } from "~/pages/Applications/ApplicationContext";
 import { useProfileFormContext } from "./ProfileFormContext";
-import { useApplicationContext } from "../../ApplicationContext";
 
 type ProfileActionFormValues = {
   action: "continue" | "quit";

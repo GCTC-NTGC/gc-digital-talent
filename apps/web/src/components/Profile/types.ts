@@ -7,7 +7,7 @@ import {
   User,
 } from "@gc-digital-talent/graphql";
 
-import { ApplicationPageProps } from "../ApplicationApi";
+import { ApplicationPageProps } from "~/pages/Applications/ApplicationApi";
 
 export type SectionKey =
   | "personal"
