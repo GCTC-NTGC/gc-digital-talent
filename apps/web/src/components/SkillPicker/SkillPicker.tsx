@@ -56,11 +56,14 @@ const SkillPicker = ({
     mode: "onChange",
     defaultValues,
   });
-  const { watch } = methods;
+  const {
+    watch,
+    formState: { isDirty },
+  } = methods;
   const staticId = useId();
   const skipToHeadingId = `selected-skills-heading-${skillType || staticId}`;
   const queryInputId = `query-${skillType || staticId}`;
-  const ariaLive = useAriaLive("polite");
+  const ariaLive = useAriaLive("polite", isDirty);
 
   React.useEffect(() => {
     const subscription = watch(({ query, skillFamily }) => {

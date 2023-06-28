@@ -2,18 +2,29 @@ import React, { AriaAttributes } from "react";
 
 type AriaLive = AriaAttributes["aria-live"];
 
-type UseAriaLive = (ariaLive?: AriaLive) => AriaLive;
+type UseAriaLive = (ariaLive?: AriaLive, add?: boolean) => AriaLive;
 
-const useAriaLive: UseAriaLive = (ariaLive: AriaLive = "polite") => {
+/**
+ * Retroactively add aria-live attribute to
+ * prevent announcements on load
+ *
+ * @param ariaLive
+ * @param add Prevent it from being added at all until this is true
+ * @returns
+ */
+const useAriaLive: UseAriaLive = (
+  ariaLive: AriaLive = "polite",
+  add = true,
+) => {
   const [ariaLiveAttr, setAriaLiveAttr] = React.useState<AriaLive>("off");
   const isSet = React.useRef<boolean>(false);
 
   React.useEffect(() => {
     if (!isSet.current) {
       setAriaLiveAttr(ariaLive);
-      isSet.current = true;
+      isSet.current = add;
     }
-  }, [ariaLive]);
+  }, [ariaLive, add]);
 
   return ariaLiveAttr;
 };

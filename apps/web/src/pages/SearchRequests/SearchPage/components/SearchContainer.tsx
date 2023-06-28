@@ -458,9 +458,9 @@ const SearchContainerApi = () => {
   /**
    * Announce the candidate count to users in a less verbose way
    *
-   * Note: 3 is a magic number, our current candidate count is causing
-   * a lot of re-runs for some reason and this prevents the announcer
-   * repeating itself excessively
+   * Note: `announceCount.current > 3` is a magic number, our current candidate count is causing
+   * a lot of re-runs for some reason (specifically 3 on initial loading)
+   * and this prevents the announcer  repeating itself excessively
    */
   const announceCount = React.useRef<number>(0);
   React.useEffect(() => {
