@@ -61,6 +61,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
     <Link
       href={paths.application(application.id)}
       mode="inline"
+      data-h2-font-size="base(caption)"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Review your application to the {title} job",
@@ -108,6 +109,7 @@ const SeeAdvertisementAction = ({
       mode="inline"
       href={paths.pool(advertisement.id)}
       data-h2-color="base(black.light)"
+      data-h2-font-size="base(caption)"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Review the {title} job advertisement",
@@ -149,6 +151,7 @@ const SupportAction = ({ show, application }: SupportActionProps) => {
       href={paths.support()}
       mode="inline"
       data-h2-color="base(black.light)"
+      data-h2-font-size="base(caption)"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Get support for the {title} job",
@@ -186,6 +189,7 @@ const CopyApplicationIdAction = ({
     <Button
       mode="inline"
       data-h2-color="base(black.light)"
+      data-h2-font-size="base(caption)"
       icon={linkCopied ? CheckIcon : undefined}
       onClick={() => {
         navigator.clipboard.writeText(application.id);
@@ -258,6 +262,7 @@ const VisitResumeAction = ({
       href={recruitmentSectionUrl}
       mode="inline"
       data-h2-color="base(black.light)"
+      data-h2-font-size="base(caption)"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Visit the {title} recruitment on your résumé",
@@ -300,6 +305,7 @@ const ManageAvailabilityAction = ({
       href={paths.profile(userID)}
       mode="inline"
       data-h2-color="base(black.light)"
+      data-h2-font-size="base(caption)"
       aria-label={intl.formatMessage(
         {
           defaultMessage:
@@ -343,6 +349,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
           mode="inline"
           type="button"
           data-h2-color="base(error.dark)"
+          data-h2-font-size="base(caption)"
           aria-label={intl.formatMessage(
             {
               defaultMessage: "Delete your application to the {title} job",
