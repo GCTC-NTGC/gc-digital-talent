@@ -33,7 +33,6 @@ type Applicant {
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
   jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
-  poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -48,6 +47,8 @@ type Applicant {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
+  userSkills: [UserSkill!]
+  poolCandidates: [PoolCandidate]
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
@@ -1562,13 +1563,14 @@ type User {
   expectedClassifications: [Classification]
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
-  poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
   communityExperiences: [CommunityExperience]
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
+  userSkills: [UserSkill!]
+  poolCandidates: [PoolCandidate]
   pools: [Pool] @deprecated(reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead.")
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
@@ -1613,6 +1615,12 @@ type UserPublicProfile {
   email: Email
   firstName: String
   lastName: String
+}
+
+type UserSkill {
+  id: ID!
+  user: User!
+  skill: Skill!
 }
 
 """Dynamic WHERE conditions for queries."""
