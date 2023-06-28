@@ -5,8 +5,8 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { DateInput } from "@gc-digital-talent/forms";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { currentDate } from "@gc-digital-talent/date-helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { emptyToNull } from "@gc-digital-talent/helpers";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
@@ -51,7 +51,7 @@ const ChangeDateDialog = ({
     formValues: FormValues,
   ) => {
     await requestMutation(selectedCandidate.id, {
-      expiryDate: formValues.expiryDate,
+      expiryDate: formValues.expiryDate || emptyToNull(formValues.expiryDate),
     })
       .then(() => {
         toast.success(
@@ -82,7 +82,14 @@ const ChangeDateDialog = ({
       <Dialog.Trigger>
         <Button color="black" mode="inline" data-h2-padding="base(0)">
           <span data-h2-text-decoration="base(underline)">
-            {selectedCandidate?.expiryDate}
+            {selectedCandidate?.expiryDate
+              ? selectedCandidate.expiryDate
+              : intl.formatMessage({
+                  defaultMessage: "Change date",
+                  id: "1CJaAZ",
+                  description:
+                    "trigger for change expiry date dialog on view-user page",
+                })}
           </span>
         </Button>
       </Dialog.Trigger>
@@ -140,13 +147,7 @@ const ChangeDateDialog = ({
                       "Label displayed on the date field of the change candidate expiry date dialog",
                   })}
                   name="expiryDate"
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                    min: {
-                      value: currentDate(),
-                      message: intl.formatMessage(errorMessages.futureDate),
-                    },
-                  }}
+                  // DateInput min validation doesn't work with optional inputs. #7137
                 />
               </div>
               <Dialog.Footer>

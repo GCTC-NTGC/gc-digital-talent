@@ -7,8 +7,7 @@ import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { DateInput, MultiSelectField } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { currentDate } from "@gc-digital-talent/date-helpers";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 
 import { getFullPoolTitleLabel, getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
@@ -72,7 +71,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
         user: {
           connect: user.id,
         },
-        expiryDate: formValues.expiryDate,
+        expiryDate: formValues.expiryDate || emptyToNull(formValues.expiryDate),
       }).catch((err) => {
         throw err;
       });
@@ -230,13 +229,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
                       "Label displayed on the date field of the add user to pool dialog",
                   })}
                   name="expiryDate"
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                    min: {
-                      value: currentDate(),
-                      message: intl.formatMessage(errorMessages.futureDate),
-                    },
-                  }}
+                  // DateInput min validation doesn't work with optional inputs. #7137
                 />
               </div>
               <Dialog.Footer>

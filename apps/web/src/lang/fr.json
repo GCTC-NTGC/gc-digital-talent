@@ -3204,6 +3204,10 @@
     "defaultMessage": "Changer la date",
     "description": "Confirmation button for change expiry date dialog"
   },
+  "1CJaAZ": {
+    "defaultMessage": "Changer la date",
+    "description": "trigger for change expiry date dialog on view-user page"
+  },
   "hIaETV": {
     "defaultMessage": "Statut du bassin",
     "description": "Title of the 'Pool status' section of the view-user page"
