@@ -8451,5 +8451,9 @@
   "xfYpNf": {
     "defaultMessage": "<strong>Vous avez déjà un compte CléGC?</strong> <a>Accédez plutôt </a>.",
     "description": "Instruction on what to do if user already has a GCKey"
+  },
+  "dwe1M+": {
+    "defaultMessage": "{count} candidats répondent à vos critères.",
+    "description": "Message announced to assistive technology users when the estimated candidate count changes."
   }
 }
