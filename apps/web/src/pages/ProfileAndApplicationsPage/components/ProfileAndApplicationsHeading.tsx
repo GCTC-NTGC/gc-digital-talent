@@ -10,6 +10,7 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+import BeakerIcon from "@heroicons/react/20/solid/BeakerIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
@@ -19,6 +20,7 @@ import {
   ScrollToLink,
   ScrollToLinkProps,
 } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes, {
@@ -77,6 +79,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { skillLibrary: skillLibraryFlag } = useFeatureFlags();
 
   const notEmptyExperiences = user.experiences?.filter(notEmpty) ?? [];
   const notEmptyApplications = user.poolCandidates?.filter(notEmpty) ?? [];
@@ -97,6 +100,26 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const personalExperiences =
     notEmptyExperiences?.filter(isPersonalExperience) || [];
   const workExperiences = notEmptyExperiences?.filter(isWorkExperience) || [];
+
+  // TODO - complete these
+  const skillShowcaseUrl = "#";
+  const behaviouralSkillLibraryUrl = "#"; // Behavioural skill library links to the page_with_curl Create the "Skill library" page #6936 and scrolls the user to the relevant page section title
+  const technicalSkillLibraryUrl = "#"; // Technical skill library links to the page_with_curl Create the "Skill library" page #6936 and scrolls the user to the relevant page section title
+  const behaviouralSkillShowcaseUrl = "#"; // Behavioural skill showcase links to the eventual Skill showcase page and scrolls the user to the relevant page section title
+  const technicalSkillShowcaseUrl = "#"; // Technical skill showcase links to the eventual Skill showcase page and scrolls the user to the relevant page section title
+  const typesOfWorkInterestUrl = "#"; // Types of work of interest links to the eventual Skill showcase page and scrolls the user to the relevant page section title
+  const skillCredentialsUrl = "#"; // Skill credentials links to the eventual Skill showcase page and scrolls the user to the relevant page section title
+  const behaviouralSkillLibraryCount = 0;
+  const technicalSkillLibraryCount = 0;
+  const typesOfWorkInterestCount = 0;
+  const skillCredentialsCount = 0;
+  // The completion states are determined by the following rules:
+  //   The skill library items need to have at least 1 skill
+  //   The showcase items need to have at least 1 skill added to each of the 4 showcases
+  const behaviouralSkillLibraryStatus = "success";
+  const technicalSkillLibraryStatus = "success";
+  const behaviouralSkillShowcaseStatus = "success";
+  const technicalSkillShowcaseStatus = "success";
 
   return (
     <Hero
@@ -240,8 +263,16 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       )}
       <div
         data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(100%) p-tablet(repeat(2, minmax(0, 1fr)))"
         data-h2-gap="base(x1)"
+        {...(skillLibraryFlag
+          ? {
+              "data-h2-grid-template-columns":
+                "base(100%) l-tablet(repeat(3, minmax(0, 1fr)))",
+            }
+          : {
+              "data-h2-grid-template-columns":
+                "base(100%) p-tablet(repeat(2, minmax(0, 1fr)))",
+            })}
       >
         <HeroCard
           asNav
@@ -417,6 +448,76 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             })}
           />
         </HeroCard>
+        {skillLibraryFlag ? (
+          <HeroCard
+            color="quaternary"
+            title={intl.formatMessage({
+              defaultMessage: "Skill showcase",
+              id: "OXyqf7",
+              description: "applicant dashboard card title for skill showcase",
+            })}
+            href={skillShowcaseUrl}
+          >
+            <StatusItem
+              title={intl.formatMessage({
+                defaultMessage: "Behavioural skill library",
+                id: "yzqnvb",
+                description: "Title for behavioural skill library section",
+              })}
+              itemCount={behaviouralSkillLibraryCount}
+              status={behaviouralSkillLibraryStatus}
+              href={behaviouralSkillLibraryUrl}
+            />
+            <StatusItem
+              title={intl.formatMessage({
+                defaultMessage: "Technical skill library",
+                id: "FEK54g",
+                description: "Title for technical skill library section",
+              })}
+              itemCount={technicalSkillLibraryCount}
+              status={technicalSkillLibraryStatus}
+              href={technicalSkillLibraryUrl}
+            />
+            <StatusItem
+              title={intl.formatMessage({
+                defaultMessage: "Behavioural skill showcase",
+                id: "qxRpIs",
+                description: "Title for behavioural skill showcase section",
+              })}
+              status={behaviouralSkillShowcaseStatus}
+              href={behaviouralSkillShowcaseUrl}
+            />
+            <StatusItem
+              title={intl.formatMessage({
+                defaultMessage: "Technical skill showcase",
+                id: "tgG8VK",
+                description: "Title for technical skill showcase section",
+              })}
+              status={technicalSkillShowcaseStatus}
+              href={technicalSkillShowcaseUrl}
+            />
+            <StatusItem
+              title={intl.formatMessage({
+                defaultMessage: "Types of work of interest",
+                id: "3Ix4Rz",
+                description: "Title for types of work of interest section",
+              })}
+              itemCount={typesOfWorkInterestCount}
+              icon={BeakerIcon}
+              href={typesOfWorkInterestUrl}
+            />
+            <StatusItem
+              title={intl.formatMessage({
+                defaultMessage: "Skill credentials",
+                id: "KSH0Di",
+                description: "Title for skill credentials section",
+              })}
+              itemCount={skillCredentialsCount}
+              icon={ShieldCheckIcon}
+              href={skillCredentialsUrl}
+            />
+          </HeroCard>
+        ) : null}
       </div>
     </Hero>
   );
