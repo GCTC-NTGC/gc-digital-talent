@@ -10,15 +10,12 @@ import {
   StandardAccordionHeader,
   Well,
 } from "@gc-digital-talent/ui";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
-
-import {
-  isExpired,
-  isPlaced,
-} from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
-import { unpackMaybes } from "@gc-digital-talent/forms";
 import TrackApplicationsCard from "~/pages/Applications/ApplicantDashboardPage/components/TrackApplications/TrackApplicationsCard";
+
 import { SectionProps } from "../../types";
 import { getSectionTitle } from "../../utils";
 
@@ -34,9 +31,19 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
     React.useState<AccordionItems>([]); // Start with accordion closed
 
   const activeApplications = unpackMaybes(user.poolCandidates).filter(
-    (candidate) =>
-      !isPlaced(candidate.status) &&
-      !isExpired(candidate.status, candidate.expiryDate),
+    ({ status }) => {
+      return status
+        ? [
+            PoolCandidateStatus.QualifiedAvailable,
+            PoolCandidateStatus.QualifiedUnavailable,
+            PoolCandidateStatus.QualifiedWithdrew,
+            PoolCandidateStatus.PlacedCasual,
+            PoolCandidateStatus.PlacedIndeterminate,
+            PoolCandidateStatus.PlacedTerm,
+            PoolCandidateStatus.Expired,
+          ].includes(status)
+        : false;
+    },
   );
 
   const gckeyURL =
