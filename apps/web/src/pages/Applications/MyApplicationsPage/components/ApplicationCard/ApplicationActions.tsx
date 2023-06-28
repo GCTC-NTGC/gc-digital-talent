@@ -28,7 +28,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
   }
 
   return (
-    <div data-h2-margin="base(0, 0, 0, auto)">
+    <div data-h2-margin="l-tablet(0, 0, 0, auto)">
       <Link mode="inline" href={paths.application(application.id)}>
         {intl.formatMessage(
           {
