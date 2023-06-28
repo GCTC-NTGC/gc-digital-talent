@@ -8,7 +8,6 @@ import Spinner from "~/components/Spinner/Spinner";
 const testId = (chunks: React.ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>
 );
-
 interface CandidateMessageProps {
   candidateCount: number;
 }
@@ -103,7 +102,6 @@ const EstimatedCandidates = ({
           <div
             data-h2-padding="base(x1)"
             data-h2-radius="base(0, 0, s, s)"
-            aria-live="polite"
             data-h2-text-align="base(center)"
           >
             {updatePending ? (

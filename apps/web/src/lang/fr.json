@@ -8527,5 +8527,9 @@
   "7PEUi6": {
     "defaultMessage": "{count, plural, one {Sélectionnez à partir d’une compétences correspondante} other {Sélectionnez à partir de {count} compétences correspondantes} }",
     "description": "Label for the skill select field"
+  },
+  "dwe1M+": {
+    "defaultMessage": "{count} candidats répondent à vos critères.",
+    "description": "Message announced to assistive technology users when the estimated candidate count changes."
   }
 }

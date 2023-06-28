@@ -14,6 +14,7 @@ import { Field } from "@gc-digital-talent/forms";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { Scalars, Skill, SkillFamily } from "~/api/generated";
+import useAriaLive from "~/hooks/useAriaLive";
 import {
   filterSkillsByNameOrKeywords,
   invertSkillSkillFamilyTree,
@@ -55,10 +56,14 @@ const SkillPicker = ({
     mode: "onChange",
     defaultValues,
   });
-  const { watch } = methods;
+  const {
+    watch,
+    formState: { isDirty },
+  } = methods;
   const staticId = useId();
   const skipToHeadingId = `selected-skills-heading-${skillType || staticId}`;
   const queryInputId = `query-${skillType || staticId}`;
+  const ariaLive = useAriaLive("polite", isDirty);
 
   React.useEffect(() => {
     const subscription = watch(({ query, skillFamily }) => {
@@ -151,7 +156,7 @@ const SkillPicker = ({
       </div>
 
       <p
-        aria-live="polite"
+        aria-live={ariaLive}
         aria-atomic="true"
         data-h2-font-size="base(copy, 1)"
         data-h2-font-weight="base(700)"
