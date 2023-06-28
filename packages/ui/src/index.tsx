@@ -71,7 +71,6 @@ import TableOfContents, {
   TocSectionProps,
 } from "./components/TableOfContents";
 import Tabs from "./components/Tabs";
-import TileLink, { type TileLinkProps } from "./components/TileLink";
 import ToggleGroup from "./components/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
@@ -114,7 +113,6 @@ export type {
   TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
-  TileLinkProps,
   WellProps,
 };
 
@@ -160,7 +158,6 @@ export {
   Switch,
   TableOfContents,
   Tabs,
-  TileLink,
   ToggleGroup,
   ToggleSection,
   TreeView,
