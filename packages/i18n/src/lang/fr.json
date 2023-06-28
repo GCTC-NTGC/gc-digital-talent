@@ -1449,5 +1449,9 @@
   "U/4a27": {
     "defaultMessage": "Effacer votre sélection",
     "description": "Button text to reset the combobox input"
+  },
+  "vTyr7O": {
+    "defaultMessage": "Retiré",
+    "description": "Status for an application that has been removed from the recruitment"
   }
 }
