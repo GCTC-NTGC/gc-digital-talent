@@ -15,20 +15,6 @@ import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Submit Application for IAP Workflow Tests", () => {
   beforeEach(() => {
-    // register queries
-    cy.intercept("POST", "/graphql", function (req) {
-      aliasQuery(req, "GetApplication");
-      aliasQuery(req, "ApplicantInformation");
-      aliasQuery(req, "IAPPublishedPools");
-
-      aliasMutation(req, "createApplication");
-      aliasMutation(req, "UpdateApplication");
-      aliasMutation(req, "SubmitApplication");
-      aliasMutation(req, "CreateEducationExperience");
-      aliasMutation(req, "UpdateEducationExperience");
-      aliasMutation(req, "UpdateUserAndApplication");
-    });
-
     cy.getSkills().then((allSkills) => {
       cy.wrap([allSkills[0].id]).as("testSkillIds"); // take the first ID for testing
     });
@@ -115,7 +101,6 @@ describe("Submit Application for IAP Workflow Tests", () => {
     cy.visit("/en/indigenous-it-apprentice");
 
     // IAP home page
-    cy.wait("@gqlIAPPublishedPoolsQuery");
     cy.findByRole("heading", {
       name: /IT Apprenticeship Program for Indigenous Peoples/i,
       level: 1,
@@ -129,10 +114,8 @@ describe("Submit Application for IAP Workflow Tests", () => {
         .first() // there are several buttons on the page to "Apply Now"
         .click();
     });
-    cy.wait("@gqlcreateApplicationMutation");
 
     // Welcome page - step one
-    cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", {
       name: "Apply to Cypress Test Pool EN",
       level: 1,
@@ -151,7 +134,6 @@ describe("Submit Application for IAP Workflow Tests", () => {
       "The program is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples.",
     ); // customized copy for IAP
     cy.findByRole("button", { name: /Let's go!/i }).click();
-    cy.wait("@gqlUpdateApplicationMutation");
 
     // Self-Declaration - step two
     cy.findByRole("heading", {
@@ -187,20 +169,16 @@ describe("Submit Application for IAP Workflow Tests", () => {
       name: /signature/i,
     }).type(uniqueTestId);
     cy.findByRole("button", { name: /Sign and continue/i }).click();
-    cy.wait("@gqlUpdateUserAndApplicationMutation");
 
     // Review profile page - step three
-    cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", { name: /Review your profile/i })
       .should("exist")
       .and("be.visible");
     cy.contains(/I affirm that I am First Nations/i);
     cy.contains(/Status First Nations/i);
     cy.findByRole("button", { name: /Save and continue/i }).click();
-    cy.wait("@gqlUpdateApplicationMutation");
 
     // Review resume page - step four
-    cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", { name: /Great work! On to your résumé./i })
       .should("exist")
       .and("be.visible");
@@ -210,7 +188,6 @@ describe("Submit Application for IAP Workflow Tests", () => {
       cy.findByRole("link", { name: /Save and quit for now/i }).click();
 
       // Back on dashboard
-      cy.wait("@gqlApplicantInformationQuery");
       cy.findByRole("heading", {
         name: /Welcome back, Cypress/i,
       })
@@ -221,12 +198,10 @@ describe("Submit Application for IAP Workflow Tests", () => {
       ); // customized notification for draft IAP application
 
       cy.visit(urlBeforeQuitting);
-      cy.wait("@gqlGetApplicationQuery");
     });
 
     // back on résumé intro
     cy.findByRole("link", { name: /Got it, let's go/i }).click();
-    cy.wait("@gqlGetApplicationQuery");
 
     cy.findByRole("link", { name: /Add a new experience/i }).click();
     // fill in education experience
@@ -255,7 +230,6 @@ describe("Submit Application for IAP Workflow Tests", () => {
       "Mastering Cypress",
     );
     cy.findByRole("button", { name: /Save and go back/i }).click();
-    cy.wait("@gqlCreateEducationExperienceMutation");
     cy.expectToast(/Successfully added experience!/i);
     // returned to main resume review page
     cy.contains(/1 education and certificate experience/i)
@@ -265,11 +239,9 @@ describe("Submit Application for IAP Workflow Tests", () => {
       .should("exist")
       .and("be.visible");
     cy.findByRole("button", { name: /Save and continue/i }).click();
-    cy.wait("@gqlUpdateApplicationMutation");
     cy.expectToast(/Successfully updated your résumé!/i);
 
     // Education experience page - step five
-    cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", { name: /Minimum experience or education/i })
       .should("exist")
       .and("be.visible");
@@ -283,7 +255,6 @@ describe("Submit Application for IAP Workflow Tests", () => {
     cy.expectToast(/Successfully updated your education requirement!/i);
 
     // Skills requirement page - step six, no difference for IAP
-    cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", { name: /Let's talk about skills/i })
       .should("exist")
       .and("be.visible");
@@ -296,22 +267,17 @@ describe("Submit Application for IAP Workflow Tests", () => {
       name: /Describe how you used this skill/i,
     }).type("Riveting justification.");
     cy.findByRole("button", { name: /Add this experience/i }).click();
-    cy.wait("@gqlUpdateEducationExperienceMutation");
     cy.findByRole("button", { name: /Save and continue/i }).click();
-    cy.wait("@gqlUpdateApplicationMutation");
 
     // Review page - step eight
-    cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", { name: /Review your submission/i })
       .should("exist")
       .and("be.visible");
     // time to submit!
     cy.findByRole("textbox", { name: /Your full name/i }).type("Signature");
     cy.findByRole("button", { name: /Submit my application/i }).click();
-    cy.wait("@gqlSubmitApplicationMutation");
 
     // Success page
-    cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", {
       name: /We successfully received your application/i,
     })
@@ -325,7 +291,6 @@ describe("Submit Application for IAP Workflow Tests", () => {
     }).click();
 
     // Back on dashboard
-    cy.wait("@gqlApplicantInformationQuery");
     cy.findByRole("heading", {
       name: /Welcome back, Cypress/i,
     })
