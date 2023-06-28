@@ -7,6 +7,7 @@ import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import { PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
 import type { Application } from "./ApplicationCard";
 
 export interface ActionProps {
@@ -247,9 +248,14 @@ const VisitResumeAction = ({
     return null;
   }
 
+  const recruitmentSectionUrl = paths.resumeAndRecruitment(userID, {
+    applicationId: application.id,
+    section: PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
+  });
+
   return (
     <Link
-      href={paths.resumeAndRecruitment(userID)}
+      href={recruitmentSectionUrl}
       mode="inline"
       data-h2-color="base(black.light)"
       aria-label={intl.formatMessage(
