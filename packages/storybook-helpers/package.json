@@ -27,7 +27,7 @@
     "wonka": "^6.3.2"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^7.0.23",
+    "@storybook/addon-a11y": "^7.0.24",
     "storybook": "^7.0.24"
   }
 }
