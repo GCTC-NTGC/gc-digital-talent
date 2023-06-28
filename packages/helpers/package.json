@@ -18,14 +18,14 @@
   "dependencies": {
     "@gc-digital-talent/graphql": "*",
     "@gc-digital-talent/storage": "*",
-    "graphql": "^16.6.0",
+    "graphql": "^16.7.1",
     "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "urql": "3.0.4"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.64",
+    "@swc/core": "^1.3.66",
     "eslint-config-custom": "*",
-    "tsup": "^6.7.0"
+    "tsup": "^7.1.0"
   }
 }

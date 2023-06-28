@@ -778,7 +778,6 @@ type Pool {
   owner: UserPublicProfile
   team: Team
   name: LocalizedString
-  key: KeyString
   classifications: [Classification]
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]

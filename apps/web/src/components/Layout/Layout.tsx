@@ -137,12 +137,15 @@ const Layout = () => {
       hasRole(ROLE_NAME.Applicant, user.roleAssignments)
     ) {
       authLinks = [
-        <MenuLink key="dashboard" to={paths.dashboard()}>
+        <MenuLink
+          key="profile-applications"
+          to={paths.profileAndApplications()}
+        >
           {intl.formatMessage({
             defaultMessage: "Profile and applications",
-            id: "76KLtb",
+            id: "nBoNqj",
             description:
-              "Label displayed on the applicant dashboard menu item.",
+              "Label displayed on the profile and applications menu item.",
           })}
         </MenuLink>,
         ...authLinks,

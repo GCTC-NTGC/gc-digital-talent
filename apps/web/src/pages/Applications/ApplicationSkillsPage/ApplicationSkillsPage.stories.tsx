@@ -47,7 +47,7 @@ const hasExperiencesProps: ApplicationPageProps = {
 
 export default {
   component: ApplicationSkills,
-  title: "Pages/Application Revamp/Skill Requirements",
+  title: "Pages/Application/Skill Requirements",
 } as ComponentMeta<typeof ApplicationSkills>;
 
 const Template: ComponentStory<typeof ApplicationSkills> = (props) => (

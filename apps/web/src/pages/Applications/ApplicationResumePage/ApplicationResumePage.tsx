@@ -16,13 +16,13 @@ import {
 } from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { toast } from "@gc-digital-talent/toast";
-import { Input, Select } from "@gc-digital-talent/forms";
+import { Input } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate, ExperienceType } from "~/types/experience";
-import { compareByDate, deriveExperienceType } from "~/utils/experienceUtils";
+import { deriveExperienceType } from "~/utils/experienceUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import applicationMessages from "~/messages/applicationMessages";
 import {
@@ -31,6 +31,10 @@ import {
   useGetMyExperiencesQuery,
   useUpdateApplicationMutation,
 } from "~/api/generated";
+import ExperienceSortAndFilter, {
+  FormValues as ExperienceSortAndFilterFormValues,
+} from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
+import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -182,34 +186,27 @@ export const ApplicationResume = ({
   const { applicantDashboard } = useFeatureFlags();
   const [, executeMutation] = useUpdateApplicationMutation();
   const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: isIAP })
+    ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
 
   const methods = useForm<FormValues>();
-  const { watch, setValue } = methods;
-  const watchSortExperiencesBy = watch("sortExperiencesBy", "date_desc"); // default first option in the <Select>
+  const { setValue } = methods;
+
+  const [sortAndFilterValues, setSortAndFilterValues] =
+    React.useState<ExperienceSortAndFilterFormValues>({
+      sortBy: "date_desc",
+      filterBy: "none",
+    });
 
   const nonEmptyExperiences = experiences?.filter(notEmpty) ?? [];
-  const hasSomeExperience = !!experiences.length;
-
+  const experienceList = sortAndFilterExperiences(
+    nonEmptyExperiences,
+    sortAndFilterValues,
+  );
   const experiencesByType = groupBy(nonEmptyExperiences, (e) => {
     return deriveExperienceType(e);
   });
-
-  switch (watchSortExperiencesBy) {
-    case "date_desc":
-      nonEmptyExperiences.sort((a, b) => compareByDate(a, b));
-      break;
-    case "type_asc":
-      nonEmptyExperiences.sort((a, b) => {
-        const typeA = deriveExperienceType(a) ?? "";
-        const typeB = deriveExperienceType(b) ?? "";
-        return typeA > typeB ? 1 : -1;
-      });
-      break;
-    default:
-    // no op
-  }
+  const hasSomeExperience = !!experiences.length;
 
   const handleSubmit = async () => {
     executeMutation({
@@ -324,87 +321,60 @@ export const ApplicationResume = ({
         </>
       )}
 
+      <div
+        data-h2-flex-grid="base(center, x1, x1)"
+        data-h2-margin-bottom="base(x.5)"
+      >
+        <ExperienceSortAndFilter
+          initialFormValues={sortAndFilterValues}
+          onChange={(formValues) => setSortAndFilterValues(formValues)}
+        />
+        <div data-h2-flex-item="base(0of1) p-tablet(fill)">{/* spacer */}</div>
+
+        <div data-h2-flex-item="base(1of1) p-tablet(content)">
+          <Link mode="inline" href={paths.applicationResumeAdd(application.id)}>
+            {intl.formatMessage({
+              defaultMessage: "Add a new experience",
+              id: "ON4+Yr",
+              description: "A link to add a new experience to your resume",
+            })}
+          </Link>
+        </div>
+      </div>
+      {hasSomeExperience ? (
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x.5 0)"
+        >
+          {experienceList.map((experience) => {
+            return (
+              <ExperienceCard
+                key={experience.id}
+                experience={experience}
+                headingLevel="h3"
+                showSkills={false}
+                editPath={paths.applicationResumeEdit(
+                  application.id,
+                  experience.id,
+                )}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <Well>
+          <p data-h2-text-align="base(center)">
+            {intl.formatMessage({
+              defaultMessage: "You don’t have any résumé experiences yet.",
+              id: "K9vqwA",
+              description: "Null state messages for résumé list",
+            })}
+          </p>
+        </Well>
+      )}
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-            data-h2-justify-content="base(space-between)"
-            data-h2-align-items="base(flex-start) p-tablet(center)"
-            data-h2-margin-bottom="base(x1)"
-          >
-            <Select
-              id="sortExperiencesBy"
-              label={intl.formatMessage({
-                defaultMessage: "Sort your experiences by",
-                id: "XuYilo",
-                description: "Label for experience sort dropdown",
-              })}
-              name="sortExperiencesBy"
-              options={[
-                {
-                  value: "date_desc",
-                  label: intl.formatMessage({
-                    defaultMessage: "Date (recent first)",
-                    id: "narnyP",
-                    description: "Sort experiences by date descending",
-                  }),
-                },
-                {
-                  value: "type_asc",
-                  label: intl.formatMessage({
-                    defaultMessage: "Type",
-                    id: "m7tUAm",
-                    description: "Sort experiences by type ascending",
-                  }),
-                },
-              ]}
-              trackUnsaved={false}
-            />
-
-            <Link
-              mode="inline"
-              href={paths.applicationResumeAdd(application.id)}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Add a new experience",
-                id: "ON4+Yr",
-                description: "A link to add a new experience to your resume",
-              })}
-            </Link>
-          </div>
-          {hasSomeExperience ? (
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x.5 0)"
-            >
-              {nonEmptyExperiences.map((experience) => {
-                return (
-                  <ExperienceCard
-                    key={experience.id}
-                    experience={experience}
-                    headingLevel="h3"
-                    showSkills={false}
-                    editPath={paths.applicationResumeEdit(
-                      application.id,
-                      experience.id,
-                    )}
-                  />
-                );
-              })}
-            </div>
-          ) : (
-            <Well>
-              <p data-h2-text-align="base(center)">
-                {intl.formatMessage({
-                  defaultMessage: "You don’t have any résumé experiences yet.",
-                  id: "K9vqwA",
-                  description: "Null state messages for résumé list",
-                })}
-              </p>
-            </Well>
-          )}
           <Input
             id="experienceCount"
             name="experienceCount"

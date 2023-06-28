@@ -25,7 +25,7 @@ describe("Submit Application Workflow Tests", () => {
 
       aliasMutation(req, "createApplication");
       aliasMutation(req, "UpdateApplication");
-      aliasMutation(req, "submitApplication");
+      aliasMutation(req, "SubmitApplication");
       aliasMutation(req, "CreateEducationExperience");
       aliasMutation(req, "UpdateEducationExperience");
     });
@@ -72,55 +72,51 @@ describe("Submit Application Workflow Tests", () => {
       addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
     });
 
-    // fetch the dcmId for its team from database, needed for pool creation
-    let dcmId;
-    cy.getDCM().then((dcm) => {
-      dcmId = dcm;
-    });
-
-    cy.getMe()
-      .its("id")
-      .then((adminUserId) => {
-        cy.get("@testClassificationId").then((testClassificationId) => {
-          cy.createPool(adminUserId, dcmId, [testClassificationId])
-            .its("id")
-            .as("testPoolId")
-            .then((testPoolId) => {
-              cy.get("@testSkillIds").then((testSkillIds) => {
-                cy.updatePool(testPoolId, {
-                  name: {
-                    en: "Cypress Test Pool EN",
-                    fr: "Cypress Test Pool FR",
-                  },
-                  stream: PoolStream.BusinessAdvisoryServices,
-                  closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
-                  yourImpact: { en: "test impact EN", fr: "test impact FR" },
-                  keyTasks: { en: "key task EN", fr: "key task FR" },
-                  essentialSkills: {
-                    sync: testSkillIds,
-                  },
-                  language: PoolLanguage.Various,
-                  securityClearance: SecurityStatus.Secret,
-                  location: {
-                    en: "test location EN",
-                    fr: "test location FR",
-                  },
-                  isRemote: true,
-                  publishingGroup: PublishingGroup.ItJobs,
-                  screeningQuestions: {
-                    create: [
-                      {
-                        question: { en: "Question EN", fr: "Question FR" },
-                        sortOrder: 1,
-                      },
-                    ],
-                  },
+    cy.getDCM().then((dcmId) => {
+      cy.getMe()
+        .its("id")
+        .then((adminUserId) => {
+          cy.get("@testClassificationId").then((testClassificationId) => {
+            cy.createPool(adminUserId, dcmId, [testClassificationId])
+              .its("id")
+              .as("testPoolId")
+              .then((testPoolId) => {
+                cy.get("@testSkillIds").then((testSkillIds) => {
+                  cy.updatePool(testPoolId, {
+                    name: {
+                      en: "Cypress Test Pool EN",
+                      fr: "Cypress Test Pool FR",
+                    },
+                    stream: PoolStream.BusinessAdvisoryServices,
+                    closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
+                    yourImpact: { en: "test impact EN", fr: "test impact FR" },
+                    keyTasks: { en: "key task EN", fr: "key task FR" },
+                    essentialSkills: {
+                      sync: testSkillIds,
+                    },
+                    language: PoolLanguage.Various,
+                    securityClearance: SecurityStatus.Secret,
+                    location: {
+                      en: "test location EN",
+                      fr: "test location FR",
+                    },
+                    isRemote: true,
+                    publishingGroup: PublishingGroup.ItJobs,
+                    screeningQuestions: {
+                      create: [
+                        {
+                          question: { en: "Question EN", fr: "Question FR" },
+                          sortOrder: 1,
+                        },
+                      ],
+                    },
+                  });
+                  cy.publishPool(testPoolId);
                 });
-                cy.publishPool(testPoolId);
               });
-            });
+          });
         });
-      });
+    });
 
     cy.get("@testUser").then((user) => {
       cy.loginBySubject(user.sub);
@@ -231,8 +227,14 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("textbox", { name: /Institution/i }).type(
       "Cypress University",
     );
-    cy.findByLabelText(/Start Date/i).type("2001-01-01");
-    cy.findByLabelText(/End Date/i).type("2001-02-01");
+    cy.findByRole("group", { name: /start date/i }).within(() => {
+      cy.findAllByRole("spinbutton", { name: /year/i }).type("2001");
+      cy.findAllByRole("combobox", { name: /month/i }).select("01");
+    });
+    cy.findByRole("group", { name: /end date/i }).within(() => {
+      cy.findAllByRole("spinbutton", { name: /year/i }).type("2001");
+      cy.findAllByRole("combobox", { name: /month/i }).select("02");
+    });
     cy.findByRole("combobox", { name: /Status/i }).select(
       "Successful Completion (Credential Awarded)",
     );
@@ -375,7 +377,7 @@ describe("Submit Application Workflow Tests", () => {
     // time to submit!
     cy.findByRole("textbox", { name: /Your full name/i }).type("Signature");
     cy.findByRole("button", { name: /Submit my application/i }).click();
-    cy.wait("@gqlsubmitApplicationMutation");
+    cy.wait("@gqlSubmitApplicationMutation");
     cy.expectToast(/We successfully received your application/i);
 
     // Application home after submitting
@@ -385,6 +387,6 @@ describe("Submit Application Workflow Tests", () => {
     })
       .should("exist")
       .and("be.visible");
-    cy.findByRole("link", { name: /Go to my dashboard/i }).should("exist");
+    cy.findByRole("link", { name: /visit your Profile and applications page/i }).should("exist");
   });
 });

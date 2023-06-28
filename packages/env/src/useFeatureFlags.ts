@@ -2,8 +2,8 @@ import { getFeatureFlags } from "./utils";
 
 export type FeatureFlags = {
   applicantDashboard: boolean;
-  applicationRevamp: boolean;
   psacStrike: boolean;
+  skillLibrary: boolean;
 };
 
 const useFeatureFlags = (): FeatureFlags => {

@@ -21,7 +21,6 @@ final class DuplicatePool
                 'en' => $pool->name['en'] . ' (copy)',
                 'fr' => $pool->name['fr'] . ' (copie)',
             ],
-            'key' => $pool->key . '_' . time(), // Ensure unique key
             'closing_date' => null,
             'published_at' => null,
         ]);

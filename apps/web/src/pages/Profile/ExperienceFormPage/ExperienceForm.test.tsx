@@ -5,7 +5,11 @@ import "@testing-library/jest-dom";
 import { screen, fireEvent, act, waitFor } from "@testing-library/react";
 import React from "react";
 import { fakeSkills } from "@gc-digital-talent/fake-data";
-import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import {
+  axeTest,
+  renderWithProviders,
+  updateDate,
+} from "@gc-digital-talent/jest-helpers";
 import type { ExperienceType } from "~/types/experience";
 import { ExperienceForm, ExperienceFormProps } from "./ExperienceFormPage";
 
@@ -102,7 +106,9 @@ describe("ExperienceForm", () => {
       screen.getByRole("combobox", { name: /award scope/i }),
     ).toBeInTheDocument();
     // Note: Date inputs have no role by default
-    expect(screen.getByLabelText(/date awarded/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: /date awarded/i }),
+    ).toBeInTheDocument();
   });
 
   it("should render community fields", async () => {
@@ -124,8 +130,12 @@ describe("ExperienceForm", () => {
       screen.getByRole("textbox", { name: /project/i }),
     ).toBeInTheDocument();
 
-    expect(screen.getByLabelText(/start date/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/end date/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: /start date/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: /end date/i }),
+    ).toBeInTheDocument();
   });
 
   it("should render education fields", async () => {
@@ -155,8 +165,12 @@ describe("ExperienceForm", () => {
       screen.getByRole("textbox", { name: /thesis title/i }),
     ).toBeInTheDocument();
 
-    expect(screen.getByLabelText(/start date/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/end date/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: /start date/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: /end date/i }),
+    ).toBeInTheDocument();
   });
 
   it("should render personal fields", async () => {
@@ -183,8 +197,12 @@ describe("ExperienceForm", () => {
       screen.getByRole("group", { name: /current experience/i }),
     ).toBeInTheDocument();
 
-    expect(screen.getByLabelText(/start date/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/end date/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: /start date/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: /end date/i }),
+    ).toBeInTheDocument();
   });
 
   it("should render work fields", async () => {
@@ -209,8 +227,12 @@ describe("ExperienceForm", () => {
       screen.getByRole("group", { name: /current role/i }),
     ).toBeInTheDocument();
 
-    expect(screen.getByLabelText(/start date/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/end date/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: /start date/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: /end date/i }),
+    ).toBeInTheDocument();
   });
 
   it("should render work fields", async () => {
@@ -275,8 +297,11 @@ describe("ExperienceForm", () => {
     const awardTitle = screen.getByRole("textbox", { name: /award title/i });
     fireEvent.change(awardTitle, { target: { value: "AwardTitle" } });
 
-    const dateAwarded = screen.getByLabelText(/date awarded/i);
-    fireEvent.change(dateAwarded, { target: { value: "1111-11-11" } });
+    const dateAwarded = screen.getByRole("group", { name: /date awarded/i });
+    updateDate(dateAwarded, {
+      year: "1111",
+      month: "11",
+    });
 
     const awardedTo = screen.getByRole("combobox", {
       name: /awarded to/i,

@@ -27,12 +27,6 @@ class QuestionsAnswered implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        // short-circuit check off feature flag
-        $flagBoolean = config('feature.application_revamp');
-        if (!$flagBoolean) {
-            return;
-        }
-
         $questions = ScreeningQuestion::where('pool_id', $value)
             ->get()
             ->pluck('id');
