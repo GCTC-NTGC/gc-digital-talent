@@ -106,6 +106,15 @@ export const sectionTitles = new Map<SectionKey, MessageDescriptor>([
         "Heading for the language profile section on the application profile",
     }),
   ],
+  [
+    "account",
+    defineMessage({
+      defaultMessage: "Account and privacy settings",
+      id: "SMWsMk",
+      description:
+        "Heading for the account and privacy settings section on the profile",
+    }),
+  ],
 ]);
 
 export const getSectionTitle = (key: SectionKey): MessageDescriptor => {

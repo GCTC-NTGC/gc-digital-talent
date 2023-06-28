@@ -14,7 +14,8 @@ export type SectionKey =
   | "work"
   | "dei"
   | "government"
-  | "language";
+  | "language"
+  | "account";
 
 export interface SectionProps {
   user: User;

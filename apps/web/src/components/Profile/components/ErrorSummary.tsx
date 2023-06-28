@@ -38,6 +38,7 @@ const ErrorSummary = ({ user, application }: ErrorSummaryProps) => {
     language:
       hasEmptyLanguageRequiredFields(user) ||
       hasUnsatisfiedRequirements(user as Applicant, application.pool),
+    account: false,
   };
 
   const hasErrors = Object.values(errors).some((hasError) => hasError);
