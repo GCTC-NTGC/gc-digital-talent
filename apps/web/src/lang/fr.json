@@ -8372,6 +8372,34 @@
     "defaultMessage": "Aucune expérience n’a été trouvée",
     "description": "Null state messages for résumé list when no experiences are found."
   },
+  "3Ix4Rz": {
+    "defaultMessage": "Types de travail d’intérêt",
+    "description": "Title for types of work of interest section"
+  },
+  "FEK54g": {
+    "defaultMessage": "Bibliothèque des compétences techniques",
+    "description": "Title for technical skill library section"
+  },
+  "KSH0Di": {
+    "defaultMessage": "Justificatifs sur les compétences",
+    "description": "Title for skill credentials section"
+  },
+  "OXyqf7": {
+    "defaultMessage": "Mise en valeur des compétences showcase",
+    "description": "applicant dashboard card title for skill showcase"
+  },
+  "qxRpIs": {
+    "defaultMessage": "Mise en valeur des compétences comportementales",
+    "description": "Title for behavioural skill showcase section"
+  },
+  "tgG8VK": {
+    "defaultMessage": "Mise en valeur des compétences techniques",
+    "description": "Title for technical skill showcase section"
+  },
+  "yzqnvb": {
+    "defaultMessage": "Bibliothèque des compétences comportementales",
+    "description": "Title for behavioural skill library section"
+  },
   "+clYLj": {
     "defaultMessage": "Sélectionnez votre expérience de cette compétence",
     "description": "Description for the skill level radio group"
