@@ -58,28 +58,43 @@ const TrackApplicationsCard = ({
       data-h2-padding="base(x1 x1 x.5 x1)"
       data-h2-shadow="base(larger)"
       data-h2-margin="base(0, 0, x.5, 0)"
+      data-h2-radius="base(0px rounded rounded 0px)"
     >
       <div
         data-h2-display="base(flex)"
-        data-h2-align-items="base(flex-start) p-tablet(center)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-gap="base(x.25 0) p-tablet(0 x1)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-gap="base(x1)"
       >
-        <Heading
-          level={headingLevel}
-          size="h6"
-          data-h2-margin="base(0)"
-          data-h2-flex-grow="base(1)"
-        >
-          {applicationTitle}
-        </Heading>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(center)"
-          data-h2-justify-content="base(space-between)"
-          data-h2-gap="base(0 x.5)"
-        >
+        <div data-h2-flex-grow="l-tablet(1)">
+          <Heading
+            level={headingLevel}
+            size="h6"
+            data-h2-margin="base(0, 0, x.5, 0)"
+            data-h2-flex-grow="base(1)"
+          >
+            {applicationTitle}
+          </Heading>
+          <div data-h2-display="base:children[>span](block) l-tablet:children[>span](inline-block)">
+            <span data-h2-color="base(primary.darker)">
+              {getRecruitmentType(application.pool.publishingGroup, intl)}
+            </span>
+            <span
+              data-h2-display="base(none) l-tablet(inline-block)"
+              data-h2-color="base(black.light)"
+              data-h2-margin="base(0, x.5)"
+            >
+              •
+            </span>
+            <span data-h2-color="base(black.light)">
+              {applicationDateInfo.message}
+              <span data-h2-color={applicationDateInfo.color}>
+                {" "}
+                {applicationDateInfo.date}
+              </span>
+            </span>
+          </div>
+        </div>
+        <div>
           {applicationIsDraft && !recruitmentIsExpired ? (
             <ApplicationLink
               poolId={application.pool.id}
@@ -125,50 +140,22 @@ const TrackApplicationsCard = ({
           )}
         </div>
       </div>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-justify-content="base(flex-start)"
-        data-h2-gap="base(x.25 0) p-tablet(0 x.5)"
-        data-h2-margin="base(x.5 0)"
-      >
-        <span data-h2-color="base(primary.darker)">
-          {getRecruitmentType(application.pool.publishingGroup, intl)}
-        </span>
-        <span
-          data-h2-display="base(none) p-tablet(inline)"
-          data-h2-color="base(black.light)"
-        >
-          •
-        </span>
-        <span data-h2-color="base(black.light)">
-          {applicationDateInfo.message}
-          <span data-h2-color={applicationDateInfo.color}>
-            {" "}
-            {applicationDateInfo.date}
-          </span>
-        </span>
-      </div>
       <Separator
         orientation="horizontal"
         decorative
         data-h2-background-color="base(gray.lighter)"
         data-h2-width="base(calc(100% + x2))"
-        data-h2-margin="base(x.5 -x1 x.5 -x1)"
+        data-h2-margin="base(x1 -x1 x.5 -x1)"
       />
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-align-items="base(center)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-gap="base(x.5 0) p-tablet(0 x.5)"
-        data-h2-text-align="base(center) p-tablet(inherit)"
+        data-h2-gap="base(x.5) p-tablet(x1)"
       >
         <div
           data-h2-display="base(flex)"
-          data-h2-align-items="base(center)"
-          data-h2-flex-direction="base(column) p-tablet(row)"
-          data-h2-gap="base(x.25 0) p-tablet(0 x1)"
+          data-h2-justify-content="base(center) p-tablet(flex-start)"
+          data-h2-gap="base(x1)"
         >
           <ApplicationActions.ViewAction
             show={!applicationIsDraft}
@@ -196,7 +183,10 @@ const TrackApplicationsCard = ({
             onDelete={onDelete}
           />
         </div>
-        <div data-h2-align-items="base(center)">
+        <div
+          data-h2-flex-grow="p-tablet(1)"
+          data-h2-text-align="base(center) p-tablet(right)"
+        >
           <ApplicationActions.CopyApplicationIdAction
             show={!applicationIsDraft}
             application={application}
