@@ -86,9 +86,8 @@ const ChangeDateDialog = ({
               ? selectedCandidate.expiryDate
               : intl.formatMessage({
                   defaultMessage: "Change date",
-                  id: "1CJaAZ",
-                  description:
-                    "trigger for change expiry date dialog on view-user page",
+                  id: "DspBFX",
+                  description: "Command to change a date",
                 })}
           </span>
         </Button>
@@ -177,9 +176,8 @@ const ChangeDateDialog = ({
                     <span data-h2-text-decoration="base(underline)">
                       {intl.formatMessage({
                         defaultMessage: "Change date",
-                        id: "gvomlw",
-                        description:
-                          "Confirmation button for change expiry date dialog",
+                        id: "DspBFX",
+                        description: "Command to change a date",
                       })}
                     </span>
                   )}
