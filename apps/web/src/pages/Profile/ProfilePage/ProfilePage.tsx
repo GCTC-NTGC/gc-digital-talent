@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -32,7 +31,6 @@ export interface ProfilePageProps {
 export const ProfileForm = ({ user }: ProfilePageProps) => {
   const paths = useRoutes();
   const intl = useIntl();
-  const featureFlags = useFeatureFlags();
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Profile information",
