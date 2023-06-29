@@ -107,7 +107,7 @@ describe("Pool Candidates", () => {
       .click();
     cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
 
-    cy.findAllByRole("link", { name: /view application/i })
+    cy.findAllByRole("link", { name: /view(.+)application/i })
       .eq(0)
       .click();
 
