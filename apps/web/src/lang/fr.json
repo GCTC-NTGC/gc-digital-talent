@@ -8228,12 +8228,12 @@
     "defaultMessage": "<strong>Préavis!</strong> Avant de vous demander d’aller établir vos justificatifs CléGC, nous vous demandons d’examiner de nouveau les critères d’admissibilité du programme afin de veiller à ce que vous répondiez aux exigences.",
     "description": "A request for the user to review the IAP eligibility criteria"
   },
-  "LVPNZ3": {
-    "defaultMessage": "Afin d’entamer la réalisation de votre profil auprès du Programme d’apprentissage destiné aux Autochtones, vous <strong>devez tout d’abord vous inscrire à la plateforme à l’aide de votre CléGC.</strong>.",
+  "epqFro": {
+    "defaultMessage": "Afin d’entamer la réalisation de votre profil auprès du Programme d’apprentissage en TI pour les personnes autochtones, vous <strong>devez tout d’abord vous inscrire à la plateforme à l’aide de votre CléGC.</strong>.",
     "description": "Instructions on how to register with GCKey - IAP variant"
   },
   "ZOeVCm": {
-    "defaultMessage": "Vous pouvez accéder à votre profil du Programme d’apprentissage destiné aux Autochtones en vous servant de votre CléGC existante, même si vous n’avez jamais utilisé cette plateforme.",
+    "defaultMessage": "Vous pouvez accéder à votre profil du Programme d’apprentissage en TI pour les personnes autochtones en vous servant de votre CléGC existante, même si vous n’avez jamais utilisé cette plateforme.",
     "description": "Instructions on how to login with GCKey - IAP variant"
   },
   "cPgH94": {
@@ -8318,7 +8318,7 @@
   },
   "o4tj77": {
     "defaultMessage": "Pour nous joindre",
-    "description": "Title for the contact dialog for the Indigenous Apprenticeship Program application process"
+    "description": "Title for the contact dialog for the IT Apprenticeship Program for Indigenous Peoples application process"
   },
   "58x4fO": {
     "defaultMessage": "Indiquez s'il y a une ville que vous souhaitez exclure d'une région.",
