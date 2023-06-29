@@ -16,6 +16,6 @@
   "devDependencies": {
     "eslint-config-custom": "*",
     "react": "^18.2.0",
-    "typescript": "^5.1.3"
+    "typescript": "^5.1.6"
   }
 }
