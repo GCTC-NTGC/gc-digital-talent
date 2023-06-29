@@ -42,7 +42,7 @@ const DiversityEquityInclusion = ({
         data-h2-margin="base(0)"
         data-h2-padding-bottom="base(x1)"
         Icon={UsersIcon}
-        color="blue"
+        color="secondary"
         level={pool ? "h3" : "h2"}
         size={pool ? "h5" : "h3"}
       >

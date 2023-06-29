@@ -100,7 +100,7 @@ const IndigenousDialog = ({
               <div data-h2-margin="base(x1, 0, x1.5, 0)">
                 <CommunityList labels={labels} />
               </div>
-              <p>
+              <p data-h2-padding-bottom="base(x1)">
                 {intl.formatMessage({
                   defaultMessage:
                     "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these opportunities.",

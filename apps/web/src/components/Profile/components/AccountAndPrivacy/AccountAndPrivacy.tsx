@@ -14,7 +14,7 @@ import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
-import TrackApplicationsCard from "~/pages/Applications/ApplicantDashboardPage/components/TrackApplications/TrackApplicationsCard";
+import TrackApplicationsCard from "~/pages/ProfileAndApplicationsPage/components/TrackApplications/TrackApplicationsCard";
 
 import { SectionProps } from "../../types";
 import { getSectionTitle } from "../../utils";
@@ -63,7 +63,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
         data-h2-margin="base(0)"
         data-h2-padding-bottom="base(x1)"
         Icon={LockClosedIcon}
-        color="blue"
+        color="secondary"
         level={pool ? "h3" : "h2"}
         size={pool ? "h5" : "h3"}
       >
@@ -203,7 +203,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                 },
                 {
                   link: (chunks: React.ReactNode) =>
-                    inlineLink(paths.dashboard(), chunks),
+                    inlineLink(paths.profileAndApplications(), chunks),
                 },
               )}
             </p>
