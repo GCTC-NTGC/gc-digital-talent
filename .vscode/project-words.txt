@@ -63,6 +63,7 @@ recrutementgiti
 résumé
 rolepermission
 skillset
+spinbutton
 subcomponents
 subquery
 TALENTSEARCH

@@ -6,7 +6,7 @@ import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
-  Input,
+  DateInput,
   Select,
   Submit,
   TextArea,
@@ -107,7 +107,7 @@ export const ApplicationStatusForm = ({
                   level="h4"
                   size="h5"
                   data-h2-font-weight="base(400)"
-                  data-h2-margin="base(0, 0, x0.25, 0)"
+                  data-h2-margin="base(0, 0, x0.5, 0)"
                   data-h2-display="base(flex)"
                   data-h2-align-items="base(center)"
                   data-h2-gap="base(x0.25, 0)"
@@ -126,38 +126,43 @@ export const ApplicationStatusForm = ({
                     })}
                   </span>
                 </Heading>
-                <Select
-                  label={intl.formatMessage({
-                    defaultMessage: "Candidate pool status",
-                    id: "/pHz5L",
-                    description:
-                      "Label for the current applications pool status",
-                  })}
-                  required
-                  rules={{ required: true }}
-                  id="status"
-                  name="status"
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a status",
-                    id: "VMhVyJ",
-                    description: "Placeholder text for the pool status field",
-                  })}
-                  options={allowedStatuses.map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getPoolCandidateStatus(value)),
-                  }))}
-                />
-                <Input
-                  id="expiryDate"
-                  name="expiryDate"
-                  label={intl.formatMessage({
-                    defaultMessage: "Candidate expiry date",
-                    id: "SoKPAb",
-                    description:
-                      "Label displayed on the pool candidate application form expiry date field.",
-                  })}
-                  type="date"
-                />
+                <div
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column)"
+                  data-h2-gap="base(x.5 0)"
+                >
+                  <Select
+                    label={intl.formatMessage({
+                      defaultMessage: "Candidate pool status",
+                      id: "/pHz5L",
+                      description:
+                        "Label for the current applications pool status",
+                    })}
+                    required
+                    rules={{ required: true }}
+                    id="status"
+                    name="status"
+                    nullSelection={intl.formatMessage({
+                      defaultMessage: "Select a status",
+                      id: "VMhVyJ",
+                      description: "Placeholder text for the pool status field",
+                    })}
+                    options={allowedStatuses.map(({ value }) => ({
+                      value,
+                      label: intl.formatMessage(getPoolCandidateStatus(value)),
+                    }))}
+                  />
+                  <DateInput
+                    id="expiryDate"
+                    name="expiryDate"
+                    legend={intl.formatMessage({
+                      defaultMessage: "Candidate expiry date",
+                      id: "SoKPAb",
+                      description:
+                        "Label displayed on the pool candidate application form expiry date field.",
+                    })}
+                  />
+                </div>
               </div>
               <div>
                 <Heading
@@ -183,7 +188,7 @@ export const ApplicationStatusForm = ({
                     })}
                   </span>
                 </Heading>
-                <p data-h2-margin="base(x0.25, 0, 0, 0)">
+                <p data-h2-margin="base(x0.25 0)">
                   {intl.formatMessage({
                     id: "zLvpBy",
                     defaultMessage:
@@ -192,23 +197,21 @@ export const ApplicationStatusForm = ({
                       "Description of the pool candidate notes field.",
                   })}
                 </p>
-                <div data-h2-margin-top="base(-x0.5)">
-                  <TextArea
-                    id="notes"
-                    name="notes"
-                    label={intl.formatMessage(
-                      {
-                        defaultMessage: "Notes - {poolName}",
-                        id: "9Aa5c0",
-                        description:
-                          "Label for the notes field for a specific pool",
-                      },
-                      {
-                        poolName: getFullPoolTitleHtml(intl, application.pool),
-                      },
-                    )}
-                  />
-                </div>
+                <TextArea
+                  id="notes"
+                  name="notes"
+                  label={intl.formatMessage(
+                    {
+                      defaultMessage: "Notes - {poolName}",
+                      id: "9Aa5c0",
+                      description:
+                        "Label for the notes field for a specific pool",
+                    },
+                    {
+                      poolName: getFullPoolTitleHtml(intl, application.pool),
+                    },
+                  )}
+                />
               </div>
             </div>
           </Well>

@@ -1,10 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
-import BriefcaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
-import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
-import StarIcon from "@heroicons/react/24/solid/StarIcon";
-import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
 
 import { AwardExperience, Experience } from "~/api/generated";
 import {
@@ -55,7 +50,6 @@ const PrintExperienceByType = ({ experiences }: PrintExperienceByTypeProps) => {
             description:
               "Heading for personal experiences in experience by type listing",
           })}
-          icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
           experiences={personalExperiences}
         />
       ) : null}
@@ -67,7 +61,6 @@ const PrintExperienceByType = ({ experiences }: PrintExperienceByTypeProps) => {
             description:
               "Heading for community experiences in experience by type listing",
           })}
-          icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
           experiences={communityExperiences}
         />
       ) : null}
@@ -79,7 +72,6 @@ const PrintExperienceByType = ({ experiences }: PrintExperienceByTypeProps) => {
             description:
               "Heading for personal experiences in experience by type listing",
           })}
-          icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
           experiences={workExperiences}
         />
       ) : null}
@@ -91,7 +83,6 @@ const PrintExperienceByType = ({ experiences }: PrintExperienceByTypeProps) => {
             description:
               "Heading for education experiences in experience by type listing",
           })}
-          icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
           experiences={educationExperiences}
         />
       ) : null}
@@ -103,7 +94,6 @@ const PrintExperienceByType = ({ experiences }: PrintExperienceByTypeProps) => {
             description:
               "Heading for award experiences in experience by type listing",
           })}
-          icon={<StarIcon style={{ width: "1.5rem" }} />}
           experiences={awardExperiences}
         />
       ) : null}

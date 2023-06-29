@@ -5,7 +5,7 @@ import ExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriang
 import {
   Chip,
   Chips,
-  PillColor,
+  Color,
   PillMode,
   Heading,
   HeadingRank,
@@ -15,7 +15,7 @@ import { Applicant, Pool } from "~/api/generated";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 interface MissingLanguageRequirementsBlockProps {
-  pillType: { color: PillColor; mode: PillMode };
+  pillType: { color: Color; mode: PillMode };
   /** Title for the block */
   title: React.ReactNode;
   /** Message displayed before language requirements that are missing from application */

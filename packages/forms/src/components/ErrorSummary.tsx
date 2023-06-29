@@ -72,7 +72,7 @@ const ErrorSummary = React.forwardRef<
   };
 
   return invalidFields.length > 0 ? (
-    <Alert.Root type="error" ref={forwardedRef} tabIndex={0}>
+    <Alert.Root type="error" ref={forwardedRef} tabIndex={-1}>
       <Alert.Title>
         {intl.formatMessage(errorMessages.summaryTitle)}
       </Alert.Title>

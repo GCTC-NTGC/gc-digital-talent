@@ -778,7 +778,6 @@ type Pool {
   owner: UserPublicProfile
   team: Team
   name: LocalizedString
-  key: KeyString
   classifications: [Classification]
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
@@ -869,6 +868,15 @@ type PoolCandidateSearchRequest {
 
 input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus]
+  departments: [ID]
+  classifications: [ID]
+  streams: [PoolStream]
+  fullName: String
+  email: String
+  jobTitle: String
+  additionalComments: String
+  adminNotes: String
+  generalSearch: String
 }
 
 """A paginated list of PoolCandidateSearchRequest items."""

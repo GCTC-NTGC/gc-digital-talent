@@ -15,6 +15,7 @@ import {
 import { BasicForm, TextArea } from "@gc-digital-talent/forms";
 import { removeFromSessionStorage } from "@gc-digital-talent/storage";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { categorizeSkill } from "~/utils/skillUtils";
@@ -89,7 +90,7 @@ export const ExperienceForm = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const returnPath = `${paths.skillsAndExperiences(userId)}${
+  const returnPath = `${paths.resumeAndRecruitment(userId)}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 
@@ -116,11 +117,7 @@ export const ExperienceForm = ({
 
   let crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
-      label: intl.formatMessage({
-        defaultMessage: "Experience and Skills",
-        id: "P/Mm5G",
-        description: "Display text for My experience and skills Form Page Link",
-      }),
+      label: intl.formatMessage(navigationMessages.resumeAndRecruitment),
       url: returnPath,
     },
     {
@@ -270,7 +267,7 @@ export const ExperienceForm = ({
             description: "Title for addition information on Experience form",
           })}
         </h2>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {intl.formatMessage({
             defaultMessage:
               "Anything else about this experience you would like to share.",
@@ -375,7 +372,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const { userId, experienceType, experienceId } = useParams<RouteParams>();
   const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
-  const returnPath = `${paths.skillsAndExperiences(userId || "")}${
+  const returnPath = `${paths.resumeAndRecruitment(userId || "")}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 

@@ -327,77 +327,73 @@ export const GovernmentInfoFormFields = ({
 
   // render the actual form
   return (
-    <div>
-      <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of6) desktop(1of12)">
-        <RadioGroup
-          idPrefix="govEmployeeYesNo"
-          legend={labels.govEmployeeYesNo}
-          id="govEmployeeYesNo"
-          name="govEmployeeYesNo"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          items={[
-            {
-              value: "no",
-              label: intl.formatMessage({
-                defaultMessage:
-                  "<strong>No</strong>, I am not a Government of Canada employee.",
-                id: "PS/LFb",
-                description:
-                  "Label displayed for is not a government employee option",
-              }),
-            },
-            {
-              value: "yes",
-              label: intl.formatMessage({
-                defaultMessage:
-                  "<strong>Yes</strong>, I am a Government of Canada employee.",
-                id: "gto/zD",
-                description:
-                  "Label displayed for is a government employee option",
-              }),
-            },
-          ]}
-        />
-      </div>
+    <div
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-gap="base(x1 0)"
+      data-h2-margin="base(x1 0)"
+    >
+      <RadioGroup
+        idPrefix="govEmployeeYesNo"
+        legend={labels.govEmployeeYesNo}
+        id="govEmployeeYesNo"
+        name="govEmployeeYesNo"
+        rules={{
+          required: intl.formatMessage(errorMessages.required),
+        }}
+        items={[
+          {
+            value: "no",
+            label: intl.formatMessage({
+              defaultMessage:
+                "<strong>No</strong>, I am not a Government of Canada employee.",
+              id: "PS/LFb",
+              description:
+                "Label displayed for is not a government employee option",
+            }),
+          },
+          {
+            value: "yes",
+            label: intl.formatMessage({
+              defaultMessage:
+                "<strong>Yes</strong>, I am a Government of Canada employee.",
+              id: "gto/zD",
+              description:
+                "Label displayed for is a government employee option",
+            }),
+          },
+        ]}
+      />
       {isGovEmployee && (
         <>
-          <div data-h2-padding="base(x1, 0)">
-            <Select
-              id="department"
-              name="department"
-              label={labels.department}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a department",
-                id: "y827h2",
-                description:
-                  "Null selection for department select input in the request form.",
-              })}
-              options={objectsToSortedOptions(departments, intl)}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-          </div>
-          <div
-            data-h2-padding="base(0, 0, x.5, 0)"
-            data-h2-flex-item="base(1of3)"
-          >
-            <RadioGroup
-              idPrefix="govEmployeeType"
-              legend={labels.govEmployeeType}
-              name="govEmployeeType"
-              id="govEmployeeType"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              items={enumToOptions(GovEmployeeType).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getGovEmployeeType(value)),
-              }))}
-            />
-          </div>
+          <Select
+            id="department"
+            name="department"
+            label={labels.department}
+            nullSelection={intl.formatMessage({
+              defaultMessage: "Select a department",
+              id: "y827h2",
+              description:
+                "Null selection for department select input in the request form.",
+            })}
+            options={objectsToSortedOptions(departments, intl)}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <RadioGroup
+            idPrefix="govEmployeeType"
+            legend={labels.govEmployeeType}
+            name="govEmployeeType"
+            id="govEmployeeType"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            items={enumToOptions(GovEmployeeType).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getGovEmployeeType(value)),
+            }))}
+          />
         </>
       )}
       {isPlaced && (
@@ -412,105 +408,96 @@ export const GovernmentInfoFormFields = ({
             })}
           </p>
           <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
+            data-h2-display="base(grid)"
+            data-h2-gap="base(x1)"
+            data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
+            data-h2-margin="base(x1 0)"
           >
-            <div
-              data-h2-padding="p-tablet(0, x2, 0, 0)"
-              data-h2-width="base(100%)"
-            >
+            <Select
+              id="currentClassificationGroup"
+              label={labels.currentClassificationGroup}
+              name="currentClassificationGroup"
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a group",
+                id: "9Upe1V",
+                description: "Null selection for form.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              options={groupOptions}
+            />
+            {notEmpty(groupSelection) && (
               <Select
-                id="currentClassificationGroup"
-                label={labels.currentClassificationGroup}
-                name="currentClassificationGroup"
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a group",
-                  id: "9Upe1V",
-                  description: "Null selection for form.",
-                })}
+                id="currentClassificationLevel"
+                label={labels.currentClassificationLevel}
+                name="currentClassificationLevel"
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
-                options={groupOptions}
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a level",
+                  id: "/ImWz4",
+                  description: "Null selection for form.",
+                })}
+                options={levelOptions}
               />
-            </div>
-            {notEmpty(groupSelection) && (
-              <div style={{ width: "100%" }}>
-                <Select
-                  id="currentClassificationLevel"
-                  label={labels.currentClassificationLevel}
-                  name="currentClassificationLevel"
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a level",
-                    id: "/ImWz4",
-                    description: "Null selection for form.",
-                  })}
-                  options={levelOptions}
-                />
-              </div>
             )}
           </div>
         </>
       )}
-      <div data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(1of6) desktop(1of12)">
-        <p data-h2-padding="base(x1, 0)">
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "Do you have a priority entitlement for Government of Canada job applications? This is a status provided by the Public Service Commission of Canada. To learn more, <priorityEntitlementLink>visit the information on priority entitlements site</priorityEntitlementLink>.",
-              id: "25VYzu",
-              description:
-                "Sentence asking whether the user possesses priority entitlement",
-            },
-            {
-              priorityEntitlementLink: (chunks: React.ReactNode) =>
-                priorityEntitlementLink(locale, chunks),
-            },
-          )}
-        </p>
-        <RadioGroup
-          idPrefix="priorityEntitlementYesNo"
-          legend={labels.priorityEntitlementYesNo}
-          name="priorityEntitlementYesNo"
-          id="priorityEntitlementYesNo"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          items={[
-            {
-              value: "no",
-              label: intl.formatMessage({
-                defaultMessage: "I do not have a priority entitlement",
-                id: "brQu7D",
-                description:
-                  "Label displayed for does not have priority entitlement option",
-              }),
-            },
-            {
-              value: "yes",
-              label: intl.formatMessage({
-                defaultMessage: "I have a priority entitlement",
-                id: "uQ8Tss",
-                description:
-                  "Label displayed does have priority entitlement option",
-              }),
-            },
-          ]}
-        />
-        {hasPriorityEntitlement && (
-          <div data-h2-padding="base(x.25, 0)">
-            <Input
-              id="priorityEntitlementNumber"
-              type="text"
-              label={labels.priorityEntitlementNumber}
-              name="priorityEntitlementNumber"
-            />
-          </div>
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "Do you have a priority entitlement for Government of Canada job applications? This is a status provided by the Public Service Commission of Canada. To learn more, <priorityEntitlementLink>visit the information on priority entitlements site</priorityEntitlementLink>.",
+            id: "25VYzu",
+            description:
+              "Sentence asking whether the user possesses priority entitlement",
+          },
+          {
+            priorityEntitlementLink: (chunks: React.ReactNode) =>
+              priorityEntitlementLink(locale, chunks),
+          },
         )}
-      </div>
+      </p>
+      <RadioGroup
+        idPrefix="priorityEntitlementYesNo"
+        legend={labels.priorityEntitlementYesNo}
+        name="priorityEntitlementYesNo"
+        id="priorityEntitlementYesNo"
+        rules={{
+          required: intl.formatMessage(errorMessages.required),
+        }}
+        items={[
+          {
+            value: "no",
+            label: intl.formatMessage({
+              defaultMessage: "I do not have a priority entitlement",
+              id: "brQu7D",
+              description:
+                "Label displayed for does not have priority entitlement option",
+            }),
+          },
+          {
+            value: "yes",
+            label: intl.formatMessage({
+              defaultMessage: "I have a priority entitlement",
+              id: "uQ8Tss",
+              description:
+                "Label displayed does have priority entitlement option",
+            }),
+          },
+        ]}
+      />
+      {hasPriorityEntitlement && (
+        <Input
+          id="priorityEntitlementNumber"
+          type="text"
+          label={labels.priorityEntitlementNumber}
+          name="priorityEntitlementNumber"
+        />
+      )}
     </div>
   );
 };
@@ -565,7 +552,7 @@ const GovernmentInfoForm = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(applicationId ?? ""),
+          url: paths.application(applicationId ?? ""),
         },
         {
           label: intl.formatMessage(navigationMessages.governmentInformation),

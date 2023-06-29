@@ -1,10 +1,17 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
-import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  Link,
+  Pending,
+  Separator,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
@@ -18,10 +25,13 @@ import {
   SkillCategory,
   useUpdateApplicationMutation,
   ApplicationStep,
+  useGetMyExperiencesQuery,
+  useGetApplicationQuery,
 } from "~/api/generated";
+import { ExperienceForDate } from "~/types/experience";
 
 import SkillTree from "./components/SkillTree";
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { ApplicationPageProps } from "../ApplicationApi";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 import { useApplicationContext } from "../ApplicationContext";
 
@@ -67,7 +77,14 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
+interface ApplicationSkillsProps extends ApplicationPageProps {
+  experiences: Array<ExperienceForDate>;
+}
+
+export const ApplicationSkills = ({
+  application,
+  experiences,
+}: ApplicationSkillsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -79,7 +96,6 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
     stepOrdinal: currentStepOrdinal,
   });
   const instructionsPath = paths.applicationSkillsIntro(application.id);
-  const experiences = application.user?.experiences?.filter(notEmpty) || [];
   const categorizedEssentialSkills = categorizeSkill(
     application.pool.essentialSkills,
   );
@@ -90,7 +106,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   const [, executeMutation] = useUpdateApplicationMutation();
   const { followingPageUrl, isIAP } = useApplicationContext();
   const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: isIAP })
+    ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
   const nextStep =
     followingPageUrl ?? paths.applicationQuestionsIntro(application.id);
@@ -274,7 +290,6 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
             id="skillsMissingExperiences"
             name="skillsMissingExperiences"
             label=""
-            hideOptional
             type="number"
             hidden
             rules={{
@@ -325,8 +340,45 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationSkillsPage = () => (
-  <ApplicationApi PageComponent={ApplicationSkills} />
-);
+const ApplicationSkillsPage = () => {
+  const { applicationId } = useParams();
+  const [
+    {
+      data: applicationData,
+      fetching: applicationFetching,
+      error: applicationError,
+    },
+  ] = useGetApplicationQuery({
+    variables: {
+      id: applicationId || "",
+    },
+    requestPolicy: "cache-first",
+  });
+  const [
+    {
+      data: experienceData,
+      fetching: experienceFetching,
+      error: experienceError,
+    },
+  ] = useGetMyExperiencesQuery();
 
+  const application = applicationData?.poolCandidate;
+  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
+
+  return (
+    <Pending
+      fetching={applicationFetching || experienceFetching}
+      error={applicationError || experienceError}
+    >
+      {application ? (
+        <ApplicationSkills
+          application={application}
+          experiences={experiences}
+        />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 export default ApplicationSkillsPage;

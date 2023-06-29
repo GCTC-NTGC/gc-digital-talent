@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
+import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
@@ -13,9 +14,13 @@ import {
   SortOrder,
   useGetPoolCandidateSearchRequestsPaginatedQuery,
 } from "@gc-digital-talent/graphql";
+import {
+  getLocalizedName,
+  getPoolCandidateSearchStatus,
+} from "@gc-digital-talent/i18n";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { FromArray } from "~/types/utility";
-
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";
 import TableFooter from "~/components/Table/ApiManagedTable/TableFooter";
 import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
@@ -30,12 +35,44 @@ import useTableState from "~/components/Table/ApiManagedTable/useTableState";
 import { tableViewItemButtonAccessor } from "~/components/Table/ClientManagedTable/TableViewItemButton";
 import useRoutes from "~/hooks/useRoutes";
 import {
-  getLocalizedName,
-  getPoolCandidateSearchStatus,
-} from "@gc-digital-talent/i18n";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+  stringToEnumRequestStatus,
+  stringToEnumStream,
+} from "~/utils/requestUtils";
+import adminMessages from "~/messages/adminMessages";
+
+import SearchRequestsTableFilter, {
+  FormValues,
+} from "./components/SearchRequestsTableFilterDialog";
 
 type Data = NonNullable<FromArray<PoolCandidateSearchRequestPaginator["data"]>>;
+
+// data massaging functions
+function transformFormValuesToSearchRequestFilterInput(
+  data: FormValues,
+): PoolCandidateSearchRequestInput {
+  return {
+    status: data.status.map(stringToEnumRequestStatus),
+    departments: data.departments,
+    classifications: data.classifications,
+    streams: data.streams.map(stringToEnumStream),
+  };
+}
+
+function transformSearchRequestFilterInputToFormValues(
+  input: PoolCandidateSearchRequestInput | undefined,
+): FormValues {
+  return {
+    status: input?.status?.filter(notEmpty) ?? [],
+    departments:
+      input?.departments?.filter(notEmpty).map((department) => department) ??
+      [],
+    classifications:
+      input?.classifications
+        ?.filter(notEmpty)
+        .map((classification) => classification) ?? [],
+    streams: input?.streams?.filter(notEmpty) ?? [],
+  };
+}
 
 // Accessors
 const statusAccessor = (
@@ -86,6 +123,11 @@ const SearchRequestsTableApi = ({
     [initialFilterInput],
   );
 
+  const initialFilters = useMemo(
+    () => transformSearchRequestFilterInputToFormValues(initialFilterInput),
+    [initialFilterInput],
+  );
+
   const [tableState, setTableState] = useTableState<
     Data,
     PoolCandidateSearchRequestInput
@@ -96,32 +138,69 @@ const SearchRequestsTableApi = ({
     sortBy: sortingRule,
     hiddenColumnIds,
     searchState,
+    filters: searchRequestsFilterInput,
   } = tableState;
 
-  // TODO: fill this in
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    const transformedData = transformFormValuesToSearchRequestFilterInput(data);
+
+    setTableState({
+      filters: transformedData,
+      currentPage: defaultState.currentPage,
+    });
+  };
+
   // merge search bar with filter dialog
   const combinedSearchRequestInput = (
-    // fancyFilterState: PoolCandidateSearchRequestInput | undefined, filter goes here when added
+    fancyFilterState: PoolCandidateSearchRequestInput | undefined,
     searchBarTerm: string | undefined,
     searchType: string | undefined,
   ): InputMaybe<PoolCandidateSearchRequestInput> => {
-    if (searchBarTerm === undefined && searchType === undefined) {
+    if (
+      fancyFilterState === undefined &&
+      searchBarTerm === undefined &&
+      searchType === undefined
+    ) {
       return null;
     }
 
-    // return {
-    // search bar
-    // manager, jobTitle...
-    // from fancy filter
-    // status, department...
-    // };
+    return {
+      // search bar
+      generalSearch: !!searchBarTerm && !searchType ? searchBarTerm : undefined,
+      fullName:
+        searchType === "fullName" && !!searchBarTerm
+          ? searchBarTerm
+          : undefined,
+      email:
+        searchType === "email" && !!searchBarTerm ? searchBarTerm : undefined,
+      jobTitle:
+        searchType === "jobTitle" && !!searchBarTerm
+          ? searchBarTerm
+          : undefined,
+      additionalComments:
+        searchType === "additionalComments" && !!searchBarTerm
+          ? searchBarTerm
+          : undefined,
+      adminNotes:
+        searchType === "adminNotes" && !!searchBarTerm
+          ? searchBarTerm
+          : undefined,
 
-    return null;
+      // from fancy filter
+      status: fancyFilterState?.status,
+      departments: fancyFilterState?.departments,
+      classifications: fancyFilterState?.classifications,
+      streams: fancyFilterState?.streams,
+    };
   };
 
   const [result] = useGetPoolCandidateSearchRequestsPaginatedQuery({
     variables: {
-      where: combinedSearchRequestInput(searchState?.term, searchState?.type),
+      where: combinedSearchRequestInput(
+        searchRequestsFilterInput,
+        searchState?.term,
+        searchState?.type,
+      ),
       page: currentPage,
       first: pageSize,
       orderBy: sortingRuleToOrderByClause(sortingRule) ?? [
@@ -294,8 +373,12 @@ const SearchRequestsTableApi = ({
       </h2>
       <TableHeader
         columns={columns}
-        filterComponent={<span />}
-        filter={false}
+        filterComponent={
+          <SearchRequestsTableFilter
+            onSubmit={handleFilterSubmit}
+            initialFilters={initialFilters}
+          />
+        }
         initialSearchState={searchState}
         onSearchChange={(
           term: string | undefined,
@@ -306,6 +389,28 @@ const SearchRequestsTableApi = ({
             type,
           });
         }}
+        searchBy={[
+          {
+            label: intl.formatMessage(adminMessages.manager),
+            value: "fullName",
+          },
+          {
+            label: intl.formatMessage(adminMessages.email),
+            value: "email",
+          },
+          {
+            label: intl.formatMessage(adminMessages.jobTitle),
+            value: "jobTitle",
+          },
+          {
+            label: intl.formatMessage(adminMessages.details),
+            value: "additionalComments",
+          },
+          {
+            label: intl.formatMessage(adminMessages.notes),
+            value: "adminNotes",
+          },
+        ]}
         onColumnHiddenChange={(event) => {
           handleColumnHiddenChange(
             allColumnIds,

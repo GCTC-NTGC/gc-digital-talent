@@ -332,7 +332,6 @@ type Pool {
   owner: UserPublicProfile @belongsTo(relation: "user")
   team: Team @belongsTo @can(ability: "viewAny")
   name: LocalizedString
-  key: KeyString
   classifications: [Classification] @belongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
@@ -634,6 +633,7 @@ type ApplicantFilter {
   expectedClassifications: [Classification]  # Filters applicants based on the classifications they've expressed interest in.
     @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
+  # request creation connects to qualifiedClassifications
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
   qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
@@ -891,6 +891,15 @@ input PoolCandidateSearchInput {
 
 input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
+  departments: [ID] @scope
+  classifications: [ID] @scope
+  streams: [PoolStream] @scope
+  fullName: String @scope
+  email: String @scope
+  jobTitle: String @scope
+  additionalComments: String @scope
+  adminNotes: String @scope
+  generalSearch: String @scope
 }
 
 type CandidateSearchPoolResult {

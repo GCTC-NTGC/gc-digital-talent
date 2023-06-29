@@ -137,7 +137,7 @@ const ApplicationReview = ({
   };
 
   const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: isIAP })
+    ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
   const editPaths = {
     resume: paths.applicationResume(application.id),
@@ -476,7 +476,7 @@ const ApplicationReview = ({
                   </p>
                 </li>
               </ul>
-              <div>
+              <div data-h2-margin="base(x1 0)">
                 <Input
                   id="signature"
                   label={intl.formatMessage({

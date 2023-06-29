@@ -1,27 +1,21 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { Button, Well } from "@gc-digital-talent/ui";
-import {
-  TextArea,
-  WordCounter,
-  countNumberOfWords,
-} from "@gc-digital-talent/forms";
+import { TextArea } from "@gc-digital-talent/forms";
 import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
 
 import type { FormSkills } from "~/types/experience";
-
-type FormValues = {
-  skills: { [id: string]: { details: string } };
-};
 
 export interface SkillsInDetailProps {
   skills: FormSkills;
   required?: boolean;
   onDelete: (id: string) => void;
 }
+
+const MAX_WORDS = 160;
 
 const SkillsInDetail = ({
   skills,
@@ -31,8 +25,6 @@ const SkillsInDetail = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const { register } = useForm();
-  const watchSkills: FormValues["skills"] = useWatch({ name: "skills" });
-  const MAX_WORDS = 160;
 
   return (
     <section>
@@ -131,7 +123,7 @@ const SkillsInDetail = ({
                   </span>
                 </Button>
               </div>
-              <div data-h2-margin="base(-x.5, 0, 0, 0)">
+              <div data-h2-margin="base(x.5 0)">
                 <input
                   type="hidden"
                   {...register(`skills.${index}.skillId` as const, {
@@ -140,37 +132,20 @@ const SkillsInDetail = ({
                 />
                 <TextArea
                   id={`skill-in-detail-${id}`}
+                  name={`skills.${index}.details`}
+                  wordLimit={MAX_WORDS}
                   label={intl.formatMessage({
                     defaultMessage: "Skill in detail",
                     id: "J5oMC8",
                     description:
                       "Label for the textarea in the skills in detail section.",
                   })}
-                  name={`skills.${index}.details`}
                   rules={{
                     required: required
                       ? intl.formatMessage(errorMessages.required)
                       : undefined,
-                    validate: {
-                      wordCount: (value: string) =>
-                        countNumberOfWords(value) <= MAX_WORDS ||
-                        intl.formatMessage(errorMessages.overWordLimit, {
-                          value: MAX_WORDS,
-                        }),
-                    },
                   }}
-                >
-                  <div data-h2-align-self="base(flex-end)">
-                    <WordCounter
-                      text={
-                        watchSkills && watchSkills[index]
-                          ? watchSkills[index].details
-                          : ""
-                      }
-                      wordLimit={MAX_WORDS}
-                    />
-                  </div>
-                </TextArea>
+                />
               </div>
             </React.Fragment>
           ))

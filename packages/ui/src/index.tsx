@@ -49,7 +49,6 @@ import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, { type PendingProps } from "./components/Pending";
 import Pill, {
   type PillProps,
-  type PillColor,
   type PillMode,
   type PillSize,
 } from "./components/Pill";
@@ -72,7 +71,6 @@ import TableOfContents, {
   TocSectionProps,
 } from "./components/TableOfContents";
 import Tabs from "./components/Tabs";
-import TileLink, { type TileLinkProps } from "./components/TileLink";
 import ToggleGroup from "./components/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
@@ -106,7 +104,6 @@ export type {
   LoadingProps,
   PendingProps,
   PillProps,
-  PillColor,
   PillMode,
   PillSize,
   SideMenuProps,
@@ -116,7 +113,6 @@ export type {
   TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
-  TileLinkProps,
   WellProps,
 };
 
@@ -162,7 +158,6 @@ export {
   Switch,
   TableOfContents,
   Tabs,
-  TileLink,
   ToggleGroup,
   ToggleSection,
   TreeView,

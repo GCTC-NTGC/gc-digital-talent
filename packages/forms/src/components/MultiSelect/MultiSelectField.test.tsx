@@ -41,6 +41,13 @@ const Providers = ({
 // In SelectFieldV2, we hardcode the classNamePrefix prop into react-select's
 // Select component to making styling/testing simpler.
 const CLASS_PREFIX = "react-select";
+const FIELD_NAME = "select-input";
+
+const defaultProps = {
+  name: FIELD_NAME,
+  id: FIELD_NAME,
+  label: "Foo Bar",
+};
 
 // Source: https://github.com/JedWatson/react-select/blob/master/packages/react-select/src/__tests__/StateManaged.test.tsx
 function toggleMenuOpen(container: HTMLElement) {
@@ -69,7 +76,7 @@ const renderWithProviders = (
 
 describe("MultiSelectField", () => {
   it("should render properly with only label prop", () => {
-    renderWithProviders(<MultiSelectField label="Foo Bar" />);
+    renderWithProviders(<MultiSelectField {...defaultProps} />);
     expect(
       screen.getByRole("combobox", { name: /foo bar/i }),
     ).toBeInTheDocument();
@@ -82,7 +89,7 @@ describe("MultiSelectField", () => {
 
   it("should submit undefine when no default (no validation rules)", async () => {
     const mockSubmit = jest.fn();
-    renderWithProviders(<MultiSelectField label="Foo Bar" options={[]} />, {
+    renderWithProviders(<MultiSelectField {...defaultProps} options={[]} />, {
       wrapperProps: {
         onSubmit: mockSubmit,
       },
@@ -92,14 +99,14 @@ describe("MultiSelectField", () => {
       fireEvent.submit(screen.getByRole("button"));
     });
     expect(mockSubmit).toBeCalledTimes(1);
-    expect(mockSubmit).toBeCalledWith({ fooBar: undefined });
+    expect(mockSubmit).toBeCalledWith({ [FIELD_NAME]: undefined });
   });
 
   it("should submit correctly as array of values", async () => {
     const mockSubmit = jest.fn();
     renderWithProviders(
       <MultiSelectField
-        label="Foo Bar"
+        {...defaultProps}
         options={[
           { value: "BAZ", label: "Baz" },
           { value: "BAM", label: "Bam" },
@@ -110,7 +117,7 @@ describe("MultiSelectField", () => {
         wrapperProps: {
           onSubmit: mockSubmit,
           defaultValues: {
-            fooBar: [],
+            [FIELD_NAME]: [],
           },
         },
       },
@@ -120,7 +127,7 @@ describe("MultiSelectField", () => {
       fireEvent.submit(screen.getByRole("button"));
     });
     expect(mockSubmit).toBeCalledTimes(1);
-    expect(mockSubmit).toHaveBeenLastCalledWith({ fooBar: [] });
+    expect(mockSubmit).toHaveBeenLastCalledWith({ [FIELD_NAME]: [] });
 
     // Select first option.
     toggleMenuOpen(document.body);
@@ -130,7 +137,7 @@ describe("MultiSelectField", () => {
       fireEvent.submit(screen.getByRole("button", { name: /submit/i }));
     });
     expect(mockSubmit).toBeCalledTimes(2);
-    expect(mockSubmit).toHaveBeenLastCalledWith({ fooBar: ["BAZ"] });
+    expect(mockSubmit).toHaveBeenLastCalledWith({ [FIELD_NAME]: ["BAZ"] });
 
     // Select second option.
     toggleMenuOpen(document.body);
@@ -140,13 +147,15 @@ describe("MultiSelectField", () => {
       fireEvent.submit(screen.getByRole("button", { name: /submit/i }));
     });
     expect(mockSubmit).toBeCalledTimes(3);
-    expect(mockSubmit).toHaveBeenLastCalledWith({ fooBar: ["BAZ", "BAM"] });
+    expect(mockSubmit).toHaveBeenLastCalledWith({
+      [FIELD_NAME]: ["BAZ", "BAM"],
+    });
   });
 
   it("should be clearable even when required", () => {
     renderWithProviders(
       <MultiSelectField
-        label="Foo Bar"
+        {...defaultProps}
         rules={{ required: "Required!" }}
         options={[{ value: "BAZ", label: "Baz" }]}
       />,
@@ -160,7 +169,7 @@ describe("MultiSelectField", () => {
   });
 
   it("should show loading indicator when isLoading", () => {
-    renderWithProviders(<MultiSelectField label="Foo Bar" isLoading />);
+    renderWithProviders(<MultiSelectField {...defaultProps} isLoading />);
 
     const loadingIndicator = document.querySelector(
       `.${CLASS_PREFIX}__loading-indicator`,

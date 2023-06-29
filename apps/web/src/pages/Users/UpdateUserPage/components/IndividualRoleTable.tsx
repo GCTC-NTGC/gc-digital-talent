@@ -14,7 +14,7 @@ import { UpdateUserFunc } from "../types";
 
 const roleCell = (displayName: string) => {
   return (
-    <Pill color="neutral" mode="solid">
+    <Pill color="black" mode="solid">
       {displayName}
     </Pill>
   );

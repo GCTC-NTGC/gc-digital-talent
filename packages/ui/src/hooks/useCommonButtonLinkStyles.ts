@@ -118,7 +118,7 @@ const getBorders = (
       "primary",
       {
         "data-h2-border-color":
-          "base(primary.light) base:focus-visible(focus) base:dark(primary.light) base:dark:focus-visible(focus) base:admin(primary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
+          "base(primary.light) base:iap(primary) base:focus-visible(focus) base:dark(primary.light) base:dark:focus-visible(focus) base:admin(primary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
@@ -303,7 +303,7 @@ export const getBackground = (
       "solid",
       {
         "data-h2-background":
-          "base(primary.light) base:hover(primary.lightest) base:focus-visible(focus) base:dark(primary.light) base:dark:focus-visible(focus) base:admin(primary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
+          "base(primary.light) base:iap(primary) base:hover(primary.lightest) base:focus-visible(focus) base:dark(primary.light) base:dark:focus-visible(focus) base:admin(primary) base:admin:focus-visible(focus) base:admin:dark:focus-visible(focus) base:iap:focus-visible(focus) base:iap:dark:focus-visible(focus)",
       },
     ],
     [
@@ -512,7 +512,7 @@ export const getFontColor = (
       "solid",
       {
         "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black) base:admin(white) base:admin:hover(black) base:admin:focus-visible(black) base:admin:dark(white) base:admin:dark:focus-visible(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
+          "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black) base:admin(white) base:admin:hover(black) base:admin:focus-visible(black) base:admin:dark(white) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
       },
     ],
     [
@@ -787,7 +787,7 @@ const getDisplay = (block?: boolean): StyleRecord => {
 const getFontSize = (mode: ButtonLinkMode): StyleRecord => {
   return styleExclusions.fontSize.includes(mode)
     ? {}
-    : { "data-h2-font-font-ize": "base(copy)" };
+    : { "data-h2-font-size": "base(copy)" };
 };
 
 /**

@@ -15,18 +15,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Revamp
-    |--------------------------------------------------------------------------
-    |
-    | AKA Application V6, AKA New Application Flow.  A wizard-style application
-    | process.
-    |
-    */
-
-    'application_revamp' => (bool) env('FEATURE_APPLICATION_REVAMP', false),
-
-    /*
-    |--------------------------------------------------------------------------
     | PSAC Strike
     |--------------------------------------------------------------------------
     |
@@ -36,4 +24,16 @@ return [
     */
 
     'psac_strike' => (bool) env('FEATURE_PSAC_STRIKE', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Skill library
+    |--------------------------------------------------------------------------
+    |
+    | A feature to allow users to build a library of skills associated with
+    | themselves with competency levels.
+    |
+    */
+
+    'skill_library' => (bool) env('FEATURE_SKILL_LIBRARY', false),
 ];

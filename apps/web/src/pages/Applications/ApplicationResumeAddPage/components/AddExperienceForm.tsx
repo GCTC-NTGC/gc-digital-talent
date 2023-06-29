@@ -20,6 +20,7 @@ import {
 } from "~/types/experience";
 import TasksAndResponsibilities from "~/components/ExperienceFormFields/TasksAndResponsibilities";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
+import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 
 import { experienceTypeTitles } from "../messages";
 
@@ -38,7 +39,9 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
   const navigate = useNavigate();
   const paths = useRoutes();
   const { user } = useAuthorization();
-  const methods = useForm<ExperienceExperienceFormValues>();
+  const methods = useForm<ExperienceExperienceFormValues>({
+    shouldFocusError: false,
+  });
   const {
     watch,
     register,
@@ -100,6 +103,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
+        <ErrorSummary experienceType={type} />
         <Heading level="h3">
           {intl.formatMessage({
             defaultMessage: "Select a type of experience",

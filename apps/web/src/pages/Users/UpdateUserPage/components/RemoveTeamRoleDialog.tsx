@@ -129,7 +129,7 @@ const RemoveTeamRoleDialog = ({
           </p>
           <p data-h2-margin="base(x1, 0)">
             {roles.map((r) => (
-              <Pill mode="solid" color="blue" key={r.id}>
+              <Pill mode="solid" color="secondary" key={r.id}>
                 {roleDisplayName(r)}
               </Pill>
             ))}

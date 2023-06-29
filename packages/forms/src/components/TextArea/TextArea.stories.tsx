@@ -1,6 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import { Meta, Story } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import Form from "../BasicForm";
 import Submit from "../Submit";
 import TextArea from ".";
@@ -10,6 +10,9 @@ export default {
   component: TextArea,
   title: "Form/TextArea",
   args: {
+    id: "description",
+    name: "description",
+    label: "Description",
     maxWidth: "20rem",
   },
   argTypes: {
@@ -21,9 +24,9 @@ export default {
       },
     },
   },
-} as Meta;
+};
 
-const TemplateTextArea: Story<TextAreaProps & { maxWidth: string }> = (
+const TemplateTextArea: StoryFn<TextAreaProps & { maxWidth: string }> = (
   args,
 ) => {
   const { maxWidth, ...rest } = args;
@@ -31,29 +34,28 @@ const TemplateTextArea: Story<TextAreaProps & { maxWidth: string }> = (
     <div style={{ maxWidth }}>
       <Form onSubmit={action("Submit Form")}>
         <TextArea {...rest} />
-        <Submit />
+        <p data-h2-margin-top="base(x1)">
+          <Submit />
+        </p>
       </Form>
     </div>
   );
 };
 
-export const BasicTextArea = TemplateTextArea.bind({});
-export const BasicTextElementLabel = TemplateTextArea.bind({});
-
-BasicTextArea.args = {
-  id: "description",
+export const Default = TemplateTextArea.bind({});
+Default.args = {
   context: "Additional context about this field.",
-  label: "Description",
-  name: "description",
   rules: {
     required: "This field is required",
-    maxLength: { value: 500, message: "Too long!" },
   },
 };
 
-BasicTextElementLabel.args = {
-  id: "element",
-  context: "Additional context about this field.",
+export const CustomLabel = TemplateTextArea.bind({});
+CustomLabel.args = {
   label: <span data-h2-font-weight="base(700)">Bolded question</span>,
-  name: "element",
+};
+
+export const WordLimit = TemplateTextArea.bind({});
+WordLimit.args = {
+  wordLimit: 10,
 };

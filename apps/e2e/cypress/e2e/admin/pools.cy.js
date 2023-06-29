@@ -175,8 +175,13 @@ describe("Pools", () => {
     expectUpdate();
 
     // Update expiry date to some arbitrary date in the future
-    cy.findByLabelText(/end date/i).clear();
-    cy.findByLabelText(/end date/i).type("2030-01-01");
+    cy.findByRole("group", { name: /end date/i }).within(() => {
+      cy.findAllByRole("spinbutton", { name: /year/i }).clear()
+      cy.findAllByRole("spinbutton", { name: /year/i }).type("2030");
+      cy.findAllByRole("combobox", { name: /month/i }).select("01");
+      cy.findAllByRole("spinbutton", { name: /day/i }).clear();
+      cy.findAllByRole("spinbutton", { name: /day/i }).type("01");
+    });
 
     cy.findByRole("button", { name: /save closing date/i }).click();
     expectUpdate();

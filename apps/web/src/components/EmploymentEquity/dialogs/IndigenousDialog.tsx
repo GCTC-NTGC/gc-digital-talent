@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 
 import { Dialog } from "@gc-digital-talent/ui";
+import { Input } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   getEmploymentEquityGroup,
@@ -15,7 +16,7 @@ import {
   FormValuesWithBoolean as FormValues,
   formValuesToApiCommunities,
 } from "~/utils/indigenousDeclaration";
-import { Input } from "@gc-digital-talent/forms";
+
 import { IndigenousDialogProps } from "../types";
 
 import Definition from "./Definition";

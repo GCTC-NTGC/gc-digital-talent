@@ -108,7 +108,7 @@ const ApplicationSkillsIntroduction = ({
         <Link
           href={
             applicantDashboard
-              ? paths.dashboard({ fromIapDraft: isIAP })
+              ? paths.profileAndApplications({ fromIapDraft: isIAP })
               : paths.myProfile()
           }
           mode="inline"

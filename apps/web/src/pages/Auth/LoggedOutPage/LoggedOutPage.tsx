@@ -1,13 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import {
-  TileLink,
-  AlertDialog,
-  Alert,
-  Button,
-  Link,
-} from "@gc-digital-talent/ui";
+import { AlertDialog, Alert, Button, Link } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useFeatureFlags } from "@gc-digital-talent/env";
@@ -82,42 +76,35 @@ const LoggedOutPage = () => {
           })}
         </p>
         <div data-h2-margin="base(x1, 0, 0, 0)">
-          <div
-            data-h2-flex-grid="base(normal, x.5)"
-            style={{ margin: "0 -0.5rem" }}
-          >
-            <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
-              <TileLink href={paths.home()} color="primary">
+          <ul>
+            <li>
+              <Link href={paths.home()}>
                 {intl.formatMessage({
                   defaultMessage: "Return home",
                   id: "Hgd/PL",
                   description: "Link text to return to the home page",
                 })}
-              </TileLink>
-            </div>
-            <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
-              <TileLink href={paths.browsePools()} color="primary">
+              </Link>
+            </li>
+            <li>
+              <Link href={paths.browsePools()}>
                 {intl.formatMessage({
                   defaultMessage: "View open pools",
                   id: "FtlwFY",
                   description: "Link text to view all open pools",
                 })}
-              </TileLink>
-            </div>
-            <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
-              <TileLink
-                href={`/${locale}/talent-cloud/report`}
-                color="primary"
-                external
-              >
+              </Link>
+            </li>
+            <li>
+              <Link href={`/${locale}/talent-cloud/report`} external>
                 {intl.formatMessage({
                   defaultMessage: "Talent Cloud report",
                   id: "L9mWLV",
                   description: "Link text to read the report on talent cloud",
                 })}
-              </TileLink>
-            </div>
-          </div>
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
       <AlertDialog.Root open={loggedIn}>
@@ -144,7 +131,9 @@ const LoggedOutPage = () => {
                 color="primary"
                 mode="inline"
                 href={
-                  applicantDashboard ? paths.dashboard() : paths.myProfile()
+                  applicantDashboard
+                    ? paths.profileAndApplications()
+                    : paths.myProfile()
                 }
               >
                 {intl.formatMessage({

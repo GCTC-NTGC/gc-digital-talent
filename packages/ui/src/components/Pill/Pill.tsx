@@ -1,29 +1,20 @@
 import React from "react";
 
+import { Color } from "../../types";
+
 export type PillSize = "sm" | "md" | "lg";
-export type PillColor =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "quaternary"
-  | "quinary"
-  | "success"
-  | "warning"
-  | "error"
-  | "neutral"
-  | "blue"
-  | "green";
 export type PillMode = "solid" | "outline";
 
 export interface PillProps
   extends Omit<React.HTMLProps<HTMLSpanElement>, "size"> {
   /** The style type of the element. */
-  color: PillColor;
+  color: Color;
   /** The style mode of the element. */
   mode: PillMode;
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
   size?: PillSize;
+  bold?: boolean;
 }
 
 export const h2ChipColors = {
@@ -124,7 +115,7 @@ export const h2ChipColors = {
       "data-h2-color": "base(error.darker)",
     },
   },
-  neutral: {
+  black: {
     solid: {
       "data-h2-border": "base(1px solid gray.light)",
       "data-h2-background-color": "base(gray.light)",
@@ -139,7 +130,7 @@ export const h2ChipColors = {
 };
 
 const colorMap: Record<
-  PillColor,
+  Color,
   Record<"solid" | "outline", Record<string, string>>
 > = {
   primary: h2ChipColors.primary,
@@ -150,9 +141,8 @@ const colorMap: Record<
   success: h2ChipColors.success,
   warning: h2ChipColors.warning,
   error: h2ChipColors.error,
-  blue: h2ChipColors.secondary,
-  green: h2ChipColors.quinary,
-  neutral: h2ChipColors.neutral,
+  black: h2ChipColors.black,
+  white: h2ChipColors.black,
 };
 
 const sizeMap: Record<PillSize, Record<string, string>> = {
@@ -176,6 +166,7 @@ const Pill = ({
   mode,
   size = "md",
   block = false,
+  bold = false,
   ...rest
 }: PillProps) => {
   return (
@@ -189,6 +180,7 @@ const Pill = ({
       {...sizeMap[size]}
       data-h2-text-align="base(center)"
       data-h2-max-width="base(100%)"
+      {...(bold ? { "data-h2-font-weight": "base(700)" } : {})}
       {...rest}
     >
       {children}

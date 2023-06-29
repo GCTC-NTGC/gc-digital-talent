@@ -765,8 +765,8 @@ export const getPoolCandidateSearchStatus = (
 
 export const SkillCategories = defineMessages({
   [SkillCategory.Behavioural]: {
-    defaultMessage: "Transferable Skills",
-    id: "QNsonS",
+    defaultMessage: "Behavioural Skills",
+    id: "5jynud",
     description: "The skill is considered behavioral.",
   },
   [SkillCategory.Technical]: {

@@ -19,7 +19,9 @@ const TemplateCommunityFormFields: Story = () => {
   return (
     <BasicForm onSubmit={action("submit")}>
       <CommunityFormFields labels={labels} />
-      <Submit />
+      <p data-h2-margin-top="base(x1)">
+        <Submit />
+      </p>
     </BasicForm>
   );
 };

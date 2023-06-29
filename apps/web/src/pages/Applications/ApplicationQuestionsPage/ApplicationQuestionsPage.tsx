@@ -69,7 +69,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   });
   const [, executeMutation] = useUpdateApplicationMutation();
   const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: isIAP })
+    ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
 
   const screeningQuestions =

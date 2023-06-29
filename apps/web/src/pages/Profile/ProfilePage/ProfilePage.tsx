@@ -40,26 +40,20 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
     description: "applicant dashboard card title for profile card",
   });
 
-  const thisCrumb = {
-    label: pageTitle,
-    url: paths.profile(user.id),
-  };
-  const crumbs = useBreadcrumbs(
-    featureFlags.applicantDashboard
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Profile and applications",
-              id: "76KLtb",
-              description:
-                "Label displayed on the applicant dashboard menu item.",
-            }),
-            url: paths.dashboard(),
-          },
-          thisCrumb,
-        ]
-      : [thisCrumb],
-  );
+  const crumbs = useBreadcrumbs([
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Profile and applications",
+        id: "wDc+F3",
+        description: "Breadcrumb for profile and applications page.",
+      }),
+      url: paths.profileAndApplications(),
+    },
+    {
+      label: pageTitle,
+      url: paths.profile(user.id),
+    },
+  ]);
 
   const [{ fetching: isUpdating }, executeUpdateMutation] =
     useUpdateUserAsUserMutation();

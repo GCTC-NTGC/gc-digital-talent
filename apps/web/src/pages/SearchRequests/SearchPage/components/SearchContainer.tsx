@@ -3,7 +3,13 @@ import { useIntl } from "react-intl";
 import { useLocation, useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
 
-import { Button, Heading, Separator, Pending } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  Separator,
+  Pending,
+  useAnnouncer,
+} from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -21,8 +27,8 @@ import useRoutes from "~/hooks/useRoutes";
 import { SimpleClassification, SimplePool } from "~/types/pool";
 import Spinner from "~/components/Spinner/Spinner";
 import nonExecutiveITClassifications from "~/constants/nonExecutiveITClassifications";
-
 import { LocationState } from "~/types/searchRequest";
+
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import CandidateResults from "./CandidateResults";
@@ -363,7 +369,9 @@ const SearchContainer = ({
 };
 
 const SearchContainerApi = () => {
+  const intl = useIntl();
   const location = useLocation();
+  const { announce } = useAnnouncer();
   const state = location.state as LocationState;
 
   const navigate = useNavigate();
@@ -446,6 +454,39 @@ const SearchContainerApi = () => {
   const poolCandidateResults = filterIncludesPools
     ? candidatesData?.countPoolCandidatesByPool
     : [];
+
+  /**
+   * Announce the candidate count to users in a less verbose way
+   *
+   * Note: `announceCount.current > 3` is a magic number, our current candidate count is causing
+   * a lot of re-runs for some reason (specifically 3 on initial loading)
+   * and this prevents the announcer  repeating itself excessively
+   */
+  const announceCount = React.useRef<number>(0);
+  React.useEffect(() => {
+    if (applicantFilter && announceCount.current > 3 && !fetchingCandidates) {
+      announce(
+        intl.formatMessage(
+          {
+            defaultMessage: "{count} candidates meet your criteria.",
+            id: "dwe1M+",
+            description:
+              "Message announced to assistive technology users when the estimated candidate count changes.",
+          },
+          {
+            count: totalCandidateCount,
+          },
+        ),
+      );
+    }
+    announceCount.current += 1;
+  }, [
+    totalCandidateCount,
+    announce,
+    applicantFilter,
+    fetchingCandidates,
+    intl,
+  ]);
 
   const onSubmit = async (
     candidateCount: number,

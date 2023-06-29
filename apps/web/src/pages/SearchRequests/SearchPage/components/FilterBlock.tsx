@@ -31,7 +31,15 @@ const FilterBlock = ({
         </Heading>
       )}
       <p data-h2-margin="base(0, 0, x1, 0)">{text}</p>
-      {children && <div>{children}</div>}
+      {children && (
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x1 0)"
+        >
+          {children}
+        </div>
+      )}
     </div>
   );
 };

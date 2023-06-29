@@ -69,7 +69,7 @@ const Opportunities = () => {
           <Heading
             level="h2"
             Icon={MagnifyingGlassCircleIcon}
-            color="yellow"
+            color="quaternary"
             data-h2-margin="base(0, 0, x0.5, 0)"
           >
             {intl.formatMessage({

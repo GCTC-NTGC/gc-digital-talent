@@ -61,10 +61,10 @@ const navigationMessages = defineMessages({
     id: "lp/ZEr",
     description: "Name of Role and salary expectations page",
   },
-  mySkillsExperience: {
-    defaultMessage: "My skills and experience",
-    id: "clhK68",
-    description: "Name of My skills and experience page",
+  resumeAndRecruitment: {
+    defaultMessage: "Résumé and recruitment",
+    id: "gDBVKb",
+    description: "Name of Résumé and recruitment page",
   },
 });
 

@@ -177,7 +177,7 @@ const DirectivePage = () => {
           <Heading
             Icon={MapIcon}
             size="h3"
-            color="red"
+            color="tertiary"
             data-h2-margin="base(0, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -232,7 +232,7 @@ const DirectivePage = () => {
           <Heading
             Icon={ChartPieIcon}
             size="h3"
-            color="blue"
+            color="secondary"
             data-h2-margin="base(x3, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -378,7 +378,7 @@ const DirectivePage = () => {
           <Heading
             Icon={BookmarkSquareIcon}
             size="h3"
-            color="purple"
+            color="primary"
             data-h2-margin="base(x3, 0, x1, 0)"
           >
             {intl.formatMessage({

@@ -13,10 +13,11 @@ import { DateSegment, DATE_SEGMENT } from "./types";
 import {
   getMonthOptions,
   getMonthSpan,
-  inputStyles,
   setComputedValue,
   splitSegments,
 } from "./utils";
+
+import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
@@ -31,6 +32,7 @@ const ControlledInput = ({
   show,
 }: ControlledInputProps) => {
   const intl = useIntl();
+  const inputStyles = useCommonInputStyles();
   const { year, month, day } = splitSegments(
     defaultValues ? defaultValues[name] : undefined,
   );
@@ -48,21 +50,22 @@ const ControlledInput = ({
       show,
     });
 
-    if (newValue) {
-      onChange(newValue);
-    }
+    onChange(newValue);
   };
 
   const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(e.target.value.padStart(4, "0"), DATE_SEGMENT.Year);
+    const { value: newYear } = e.target;
+    handleChange(newYear ? newYear.padStart(4, "0") : "", DATE_SEGMENT.Year);
   };
 
   const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    handleChange(e.target.value.padStart(2, "0"), DATE_SEGMENT.Month);
+    const { value: newMonth } = e.target;
+    handleChange(newMonth ? newMonth.padStart(2, "0") : "", DATE_SEGMENT.Month);
   };
 
   const handleDayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(e.target.value.padStart(2, "0"), DATE_SEGMENT.Day);
+    const { value: newDay } = e.target;
+    handleChange(newDay ? newDay.padStart(2, "0") : "", DATE_SEGMENT.Day);
   };
 
   const months = getMonthOptions(intl);
@@ -85,6 +88,8 @@ const ControlledInput = ({
             onChange={handleYearChange}
             defaultValue={year}
             placeholder={intl.formatMessage(dateMessages.yearPlaceholder)}
+            data-h2-width="base(100%)"
+            min={1900}
             {...inputStyles}
           />
         </div>
@@ -99,9 +104,10 @@ const ControlledInput = ({
             name={ID.MONTH}
             onChange={handleMonthChange}
             defaultValue={month || ""}
+            data-h2-width="base(100%)"
             {...inputStyles}
           >
-            <option disabled value="">
+            <option value="">
               {intl.formatMessage(dateMessages.selectAMonth)}
             </option>
             {months.map((monthName, index) => (
@@ -124,7 +130,9 @@ const ControlledInput = ({
             onChange={handleDayChange}
             defaultValue={day}
             max={31}
+            min={1}
             placeholder={intl.formatMessage(dateMessages.dayPlaceholder)}
+            data-h2-width="base(100%)"
             {...inputStyles}
           />
         </div>
