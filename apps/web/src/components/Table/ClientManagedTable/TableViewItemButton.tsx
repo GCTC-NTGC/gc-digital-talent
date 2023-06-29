@@ -1,4 +1,4 @@
-import React, { AriaAttributes, HTMLAttributes } from "react";
+import React, { AriaAttributes } from "react";
 import { useIntl } from "react-intl";
 
 import { Link, LinkProps } from "@gc-digital-talent/ui";
