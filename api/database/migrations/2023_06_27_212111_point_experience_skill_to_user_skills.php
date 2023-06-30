@@ -114,6 +114,7 @@ return new class extends Migration
             $table->dropColumn('user_skill_id');
 
             // Re-add foreign and uniqueness constraints
+            $table->uuid('skill_id')->nullable(false)->change();
             $table->foreign('skill_id')->references('id')->on('skills');
             $table->unique(['skill_id', 'experience_id'], 'experience_skill_unique');
             $table->unique(['skill_id', 'experience_id', 'experience_type'], 'experience_skill_skill_id_experience_id_experience_type_unique');
