@@ -2501,10 +2501,6 @@
     "defaultMessage": "Ministère {departmentId} introuvable.",
     "description": "Message displayed for department not found."
   },
-  "8hee5d": {
-    "defaultMessage": "Titre de l’emploi",
-    "description": "Title displayed on the search request table job title column."
-  },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
@@ -3779,10 +3775,6 @@
     "defaultMessage": "Vue {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
-  "gLtTaW": {
-    "defaultMessage": "demande",
-    "description": "Text displayed after View text for Search Request table view action"
-  },
   "/pHz5L": {
     "defaultMessage": "Statut du bassin de candidats",
     "description": "Label for the current applications pool status"
@@ -3994,10 +3986,6 @@
   "SoKPAb": {
     "defaultMessage": "Date d'expiration du candidat",
     "description": "Label displayed on the pool candidate application form expiry date field."
-  },
-  "TDTE1c": {
-    "defaultMessage": "Action",
-    "description": "Title displayed for the search request table edit column."
   },
   "TkTpzk": {
     "defaultMessage": "Erreur : le bassin de publication a échoué",
@@ -8531,5 +8519,17 @@
   "dwe1M+": {
     "defaultMessage": "{count} candidats répondent à vos critères.",
     "description": "Message announced to assistive technology users when the estimated candidate count changes."
+  },
+  "6AhLsc": {
+    "defaultMessage": "Demander le titre du poste",
+    "description": "Title displayed for the search request table request job title column."
+  },
+  "LoKxJe": {
+    "defaultMessage": "Flux",
+    "description": "Title displayed on the search request table stream column."
+  },
+  "y+r+ej": {
+    "defaultMessage": "Groupe et niveau",
+    "description": "Title displayed on the search request table group and level column."
   }
 }
