@@ -45,6 +45,7 @@ class UserSeederLocal extends Seeder
             ->asAdmin()
             ->asPoolOperator(['digital-community-management', 'test-team'])
             ->withExperiences()
+            ->withSkills()
             ->create([
                 'first_name' => 'Admin',
                 'last_name' => 'Test',
@@ -92,6 +93,7 @@ class UserSeederLocal extends Seeder
         User::factory()
             ->asApplicant()
             ->withExperiences()
+            ->withSkills()
             ->create([
                 'first_name' => 'Applicant',
                 'last_name' => 'Test',
