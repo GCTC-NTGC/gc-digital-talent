@@ -3,10 +3,12 @@
     "code": "https://github.com/hydrogen-css/hydrogen",
     "docs": "https://hydrogen.design/",
     "feedback": "https://forms.office.com/r/vz80dsUabZ",
-    "roadmap": "https://workflowy.com/s/hydrogens-roadmap/7Gjmdbjiqc0Wst1R",
-    "settings": "https://hydrogen.design/en/docs/configuration"
+    "roadmap": "https://github.com/orgs/hydrogen-css/projects/3/views/3",
+    "settings": "https://hydrogen.design/en/docs/configuration/"
   },
-  "temp": ["../*/src/views/*.html"],
+  "temp": [
+    "../*/src/views/*.html"
+  ],
   "input": [
     "apps/web/public",
     "apps/web/src/components",
@@ -32,7 +34,6 @@
   },
   "logging": {
     "generate_logs": false,
-    "show_timers": false,
     "verbose_console_output": false
   },
   "media": {
@@ -66,15 +67,35 @@
       "typography": [
         {
           "size": "100%",
-          "line_height": "1.5",
           "query_key": "base",
-          "type_scale": "1.15"
+          "type_scale": "1.15",
+          "line_heights": {
+            "caption": "1.5",
+            "body": "1.5",
+            "h6": "1.1",
+            "h5": "1.1",
+            "h4": "1.1",
+            "h3": "1.1",
+            "h2": "1.1",
+            "h1": "1.1",
+            "display": "1.1"
+          }
         },
         {
           "size": "112.5%",
-          "line_height": "1.5",
           "query_key": "desktop",
-          "type_scale": "1.2"
+          "type_scale": "1.2",
+          "line_heights": {
+            "caption": "1.5",
+            "body": "1.5",
+            "h6": "1.1",
+            "h5": "1.1",
+            "h4": "1.1",
+            "h3": "1.1",
+            "h2": "1.1",
+            "h1": "1.1",
+            "display": "1.1"
+          }
         }
       ],
       "colors": [

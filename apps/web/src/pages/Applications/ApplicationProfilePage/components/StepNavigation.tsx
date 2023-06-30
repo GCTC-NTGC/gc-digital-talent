@@ -93,7 +93,7 @@ const StepNavigation = ({
       if (values.action === "quit") {
         navigate(
           applicantDashboard
-            ? paths.dashboard({ fromIapDraft: isIAP })
+            ? paths.profileAndApplications({ fromIapDraft: isIAP })
             : paths.myProfile(),
         );
         return true;

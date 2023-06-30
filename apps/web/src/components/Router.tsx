@@ -121,11 +121,11 @@ const CreateAccountPage = React.lazy(() =>
       ),
   ),
 );
-const ApplicantDashboardPage = React.lazy(() =>
+const ProfileAndApplicationsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicantDashboardPage" */ "../pages/Applications/ApplicantDashboardPage/ApplicantDashboardPage"
+        /* webpackChunkName: "tsProfileAndApplicationsPage" */ "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
       ),
   ),
 );
@@ -793,8 +793,8 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   ),
                 },
                 {
-                  path: "dashboard",
-                  element: <ApplicantDashboardPage />,
+                  path: "profile-and-applications",
+                  element: <ProfileAndApplicationsPage />,
                 },
               ],
             },

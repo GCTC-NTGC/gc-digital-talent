@@ -43,10 +43,10 @@ import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
-import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
+import ResumeSection from "./components/ResumeSection/ResumeSection";
 import SkillTree from "../../Applications/ApplicationSkillsPage/components/SkillTree";
 import PersonalInformationDisplay from "../../Applications/ApplicationProfilePage/components/PersonalInformation/Display";
 import DiversityEquityInclusionDisplay from "../../Applications/ApplicationProfilePage/components/DiversityEquityInclusion/Display";
@@ -419,23 +419,7 @@ export const ViewPoolCandidate = ({
               description: "Lead-in text for the snapshot résumé section",
             })}
           </p>
-          {nonEmptyExperiences?.length ? (
-            <div data-h2-margin-bottom="base(x2)">
-              <TreeView.Root>
-                {nonEmptyExperiences.map((experience) => (
-                  <TreeView.Item key={experience.id}>
-                    <ExperienceCard
-                      key={experience.id}
-                      experience={experience}
-                      headingLevel="h5"
-                      showSkills={false}
-                      showEdit={false}
-                    />
-                  </TreeView.Item>
-                ))}
-              </TreeView.Root>
-            </div>
-          ) : null}
+          <ResumeSection experiences={nonEmptyExperiences ?? []} />
         </TableOfContents.Section>
         <TableOfContents.Section id={sections.personal.id}>
           <TableOfContents.Heading
