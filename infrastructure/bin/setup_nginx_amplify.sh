@@ -16,11 +16,12 @@ apt-get update --allow-releaseinfo-change
 
 # This image comes with logrotate scripts for Ngnix and Amplify installs one, too.
 # Amplify uses sudo to run tests
-apt-get install logrotate sudo -y
+# These are already installed in the Azure appsvc but not in the Docker container
+# apt-get install logrotate sudo -y
 
 # Download and install Amplify Agent
-curl -L -O https://github.com/nginxinc/nginx-amplify-agent/raw/master/packages/install.sh
-API_KEY=$AMPLIFY_API_KEY sh ./install.sh -y
+curl --output-dir "/tmp" -L -O https://github.com/nginxinc/nginx-amplify-agent/raw/master/packages/install.sh
+API_KEY=$AMPLIFY_API_KEY sh /tmp/install.sh -y
 
 # Clean up apt.
 apt-get clean
