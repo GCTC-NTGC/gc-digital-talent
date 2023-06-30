@@ -188,7 +188,7 @@ const TrackApplicationsCard = ({
           data-h2-text-align="base(center) p-tablet(right)"
         >
           <ApplicationActions.CopyApplicationIdAction
-            show={!applicationIsDraft}
+            show
             application={application}
           />
         </div>

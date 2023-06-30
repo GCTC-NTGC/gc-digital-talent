@@ -1,6 +1,7 @@
 import { IntlShape } from "react-intl";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
+  formatClosingDate,
   formatSubmittedAt,
   isDraft,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
@@ -53,7 +54,7 @@ export const getApplicationDateInfo = (
       : "base(black.light)";
 
   const date = isDraft(application.status)
-    ? application.pool.closingDate || ""
+    ? formatClosingDate(application.pool.closingDate, intl) || ""
     : formatSubmittedAt(application.submittedAt, intl);
   return { message, color, date };
 };
