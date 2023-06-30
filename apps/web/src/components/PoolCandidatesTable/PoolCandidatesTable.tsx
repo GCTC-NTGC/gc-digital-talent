@@ -61,8 +61,9 @@ import {
   stringToEnumOperational,
   stringToEnumPoolCandidateStatus,
 } from "~/utils/userUtils";
-
+import { getFullNameLabel } from "~/utils/nameUtils";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 
 import PoolCandidateTableFilterDialog, {
@@ -239,7 +240,11 @@ const viewAccessor = (
     candidate.status !== PoolCandidateStatus.ScreenedOutApplication &&
     candidate.status !== PoolCandidateStatus.UnderAssessment &&
     candidate.status !== PoolCandidateStatus.ScreenedOutAssessment;
-
+  const candidateName = getFullNameLabel(
+    candidate.user.firstName,
+    candidate.user.lastName,
+    intl,
+  );
   if (isQualified) {
     return (
       <span data-h2-font-weight="base(700)">
@@ -251,6 +256,18 @@ const viewAccessor = (
             description:
               "Title displayed for the Pool Candidates table View Profile link.",
           }),
+          undefined,
+          intl.formatMessage(
+            {
+              defaultMessage: "View {name}'s profile",
+              id: "bWTzRy",
+              description:
+                "Link text to view a candidates profile for assistive technologies",
+            },
+            {
+              name: candidateName,
+            },
+          ),
         )}
       </span>
     );
@@ -265,6 +282,18 @@ const viewAccessor = (
           description:
             "Title displayed for the Pool Candidates table View Application link.",
         }),
+        undefined,
+        intl.formatMessage(
+          {
+            defaultMessage: "View {name}'s application",
+            id: "mzGMZC",
+            description:
+              "Link text to view a candidates application for assistive technologies",
+          },
+          {
+            name: candidateName,
+          },
+        ),
       )}
     </span>
   );

@@ -8531,5 +8531,13 @@
   "dwe1M+": {
     "defaultMessage": "{count} candidats répondent à vos critères.",
     "description": "Message announced to assistive technology users when the estimated candidate count changes."
+  },
+  "bWTzRy": {
+    "defaultMessage": "Consulter le profil de {name}",
+    "description": "Link text to view a candidates profile for assistive technologies"
+  },
+  "mzGMZC": {
+    "defaultMessage": "Consulter la demande de {name}",
+    "description": "Link text to view a candidates application for assistive technologies"
   }
 }
