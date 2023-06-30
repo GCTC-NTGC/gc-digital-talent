@@ -7261,9 +7261,9 @@
     "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
     "description": "Text showing the essentials skills assessed during the process"
   },
-  "AnIVCJ": {
+  "cTCdw5": {
     "defaultMessage": "Nous tenons à vous remercier de votre intérêt à devenir un(e) apprenti(e) de la TI au sein du gouvernement du Canada. Votre expérience vécue, votre passion et vos intérêts sont chaleureusement accueillis et reconnus. Un membre de l’équipe du Bureau des initiatives autochtones communiquera avec vous au cours des trois à cinq prochains jours ouvrables pour discuter votre demande.",
-    "description": "Description of review process and next steps for the indigenous apprenticeship applicant."
+    "description": "Description of review process and next steps for the IAP applicant."
   },
   "VldclB": {
     "defaultMessage": "Expériences relatives aux exigences pédagogiques",
@@ -7728,9 +7728,9 @@
     "defaultMessage": "Merci d’avoir postulé dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones!",
     "description": "Title for notification that a an IAP application was submitted"
   },
-  "tfzO5t": {
+  "nIJlba": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
-    "description": "Message under radio button in Indigenous apprenticeship application education page."
+    "description": "Message under radio button in IAP application education page."
   },
   "nWZiWr": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
@@ -7912,8 +7912,8 @@
     "defaultMessage": "Profil linguistique",
     "description": "Title of the Language Information link section"
   },
-  "gNyD/H": {
-    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au programme d’apprentissage destiné aux Autochtones et faire le suivi de votre position dans le programme.",
+  "Z9wBwT": {
+    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au Programme d’apprentissage en TI pour les personnes autochtones et faire le suivi de votre position dans le programme.",
     "description": "Third paragraph for profile and applications notification welcoming an IAP user"
   },
   "LOmX3T": {
@@ -7932,8 +7932,8 @@
     "defaultMessage": "Préférences de travail",
     "description": "Title of the Work Location link section"
   },
-  "DeWP/3": {
-    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au programme d’apprentissage destiné aux Autochtones et faire le suivi de votre statut dans le programme.",
+  "vYvmxq": {
+    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au Programme d’apprentissage en TI pour les personnes autochtones et faire le suivi de votre statut dans le programme.",
     "description": "Third paragraph for profile and applications notification welcoming an IAP user"
   },
   "U0qb7j": {
@@ -8356,9 +8356,9 @@
     "defaultMessage": "Veuillez sélectionner les options qui reflètent le mieux vos qualifications",
     "description": "Legend for the radio group in the application education page - IAP variant."
   },
-  "GZSvWZ": {
+  "8IIIER": {
     "defaultMessage": "<strong>Je possède un diplôme d’études secondaires ou l’équivalent (p. ex., formation Générale). </strong>",
-    "description": "Radio group option for education requirement filter in Indigenous apprenticeship application education form."
+    "description": "Radio group option for education requirement filter in IAP application education form."
   },
   "kukr/B": {
     "defaultMessage": "<strong>Je respecte l’option d’expérience appliquée</strong>",

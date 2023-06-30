@@ -76,9 +76,9 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           ? intl.formatMessage({
               defaultMessage:
                 "Thank you for your interest in becoming an IT apprentice with the Government of Canada. Your lived experience, skills, passion and interests are warmly received and acknowledged. A member of the Office of Indigenous Initiatives team will contact you within the next three to five business days to discuss your application.",
-              id: "AnIVCJ",
+              id: "cTCdw5",
               description:
-                "Description of review process and next steps for the indigenous apprenticeship applicant.",
+                "Description of review process and next steps for the IAP applicant.",
             })
           : intl.formatMessage({
               defaultMessage:
