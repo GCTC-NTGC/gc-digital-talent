@@ -22,12 +22,10 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property Illuminate\Support\Carbon $updated_at
  */
 
-class PersonalExperience extends Model
+class PersonalExperience extends Experience
 {
     use HasFactory;
     use SoftDeletes;
-
-    protected $keyType = 'string';
 
     /**
      * The attributes that should be cast.
@@ -38,17 +36,4 @@ class PersonalExperience extends Model
         'start_date' => 'date',
         'end_date' => 'date',
     ];
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function skills(): MorphToMany
-    {
-        return $this->morphToMany(Skill::class, 'experience', 'experience_skill')
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experience_skill_pivot');
-    }
 }

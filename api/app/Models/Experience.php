@@ -10,32 +10,30 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
- * Class WorkExperience
+ * Class Experience
  *
  * @property int $id
  * @property int $user_id
- * @property string $role
- * @property string $organization
- * @property string $division
- * @property Illuminate\Support\Carbon $start_date
- * @property Illuminate\Support\Carbon $end_date
- * @property string $details
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
 
-class WorkExperience extends Experience
+abstract class Experience extends Model
 {
-    use HasFactory;
     use SoftDeletes;
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
-    ];
+    protected $keyType = 'string';
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function skills(): MorphToMany
+    {
+        return $this->morphToMany(Skill::class, 'experience', 'experience_skill')
+            ->withTimestamps()
+            ->withPivot('details')
+            ->as('experience_skill_pivot');
+    }
 }
