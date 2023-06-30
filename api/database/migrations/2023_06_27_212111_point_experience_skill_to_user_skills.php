@@ -101,7 +101,7 @@ return new class extends Migration
         });
 
         // Restore skill_id value
-        DB::raw("UPDATE experience_skill
+        DB::statement("UPDATE experience_skill
             SET skill_id = user_skills.skill_id
             FROM user_skills
             WHERE experience_skill.user_skill_id = user_skills.id");
