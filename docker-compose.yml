@@ -39,6 +39,7 @@ services:
       - ROBOTS_FILENAME=dev.robots.txt
     # Uncomment to test out Nginx Amplify
     # - AMPLIFY_API_KEY=
+    # - WEBSITE_SITE_NAME=
     # Uncomment to test out post deployment script
     # command: ./infrastructure/bin/post_deployment.sh .
     extra_hosts:
