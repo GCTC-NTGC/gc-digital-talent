@@ -186,7 +186,7 @@ export const ApplicationResume = ({
   const { applicantDashboard } = useFeatureFlags();
   const [, executeMutation] = useUpdateApplicationMutation();
   const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: isIAP })
+    ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
 
   const methods = useForm<FormValues>();

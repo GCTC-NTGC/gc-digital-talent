@@ -124,6 +124,7 @@ const RadioGroup = ({
               >
                 <Field.Label
                   key={value}
+                  data-h2-font-size="base(copy)"
                   data-h2-display="base(flex)"
                   data-h2-align-items="base(flex-start)"
                   data-h2-gap="base(0 x.25)"

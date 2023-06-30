@@ -64,10 +64,9 @@ const WorkLocationForm = ({
         "Legend for optional work preferences check list in work preferences form",
     }),
     locationExemptions: intl.formatMessage({
-      defaultMessage: "Location exemptions",
-      id: "0qNkIp",
-      description:
-        "Location Exemptions field label for work location preference form",
+      defaultMessage: "Work location exceptions",
+      id: "OpKC2i",
+      description: "Work location exceptions label",
     }),
   };
 
@@ -200,18 +199,18 @@ const WorkLocationForm = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "Indicate if there is a city that you would like to exclude from a region.",
-                  id: "1CuGS6",
+                  id: "58x4fO",
                   description:
-                    "Explanation text for Location exemptions field in work location preference form",
+                    "Explanation text for Work location exceptions field in work location preference form",
                 })}
               </p>
               <p data-h2-color="base(gray.dark)">
                 {intl.formatMessage({
                   defaultMessage:
                     "E.g.: You want to be considered for the Quebec region, but not for Montréal.",
-                  id: "2K7dVp",
+                  id: "qnaIOA",
                   description:
-                    "Example for Location exemptions field in work location preference form",
+                    "Example for Work location exceptions field in work location preference form",
                 })}
               </p>
             </div>

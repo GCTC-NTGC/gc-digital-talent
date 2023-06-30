@@ -285,8 +285,8 @@ const getRoutes = (lang: Locales) => {
     createWork: (userId: string, applicationId?: string) =>
       createExperienceUrl("work", userId, applicationId),
 
-    // Applicant Dashboard
-    dashboard: (opts?: {
+    // Profile and Applications
+    profileAndApplications: (opts?: {
       fromIapDraft?: boolean;
       fromIapSuccess?: boolean;
     }) => {
@@ -296,7 +296,8 @@ const getRoutes = (lang: Locales) => {
         searchParams.set(FromIapSuccessQueryKey, "true");
 
       return (
-        path.join(applicantUrl, "dashboard") + createSearchQuery(searchParams)
+        path.join(applicantUrl, "profile-and-applications") +
+        createSearchQuery(searchParams)
       );
     },
 

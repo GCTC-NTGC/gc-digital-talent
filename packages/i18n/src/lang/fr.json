@@ -1041,10 +1041,6 @@
     "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
     "description": "Message displayed when number of user attempts exceeds rate limit"
   },
-  "b3ar1X": {
-    "defaultMessage": "Rétablir {label}",
-    "description": "Button text to reset the combobox input"
-  },
   "IRCKBP": {
     "defaultMessage": "Aucun résultat n’a été trouvé.",
     "description": "Message displayed when combobox has no options available"
@@ -1449,5 +1445,9 @@
   "sJ+F9z": {
     "defaultMessage": "Sauter pour ajouter un élément",
     "description": "Link text to skip to the add button in a repeater"
+  },
+  "U/4a27": {
+    "defaultMessage": "Effacer votre sélection",
+    "description": "Button text to reset the combobox input"
   }
 }
