@@ -1,5 +1,4 @@
 services:
-
   postgres:
     image: postgres:12.11
     restart: always
@@ -31,13 +30,15 @@ services:
     restart: always
     volumes:
       - ./:/home/site/wwwroot
-      - ./infrastructure/conf/nginx-conf-local:/etc/nginx/sites-available/
+      - ./infrastructure/conf/nginx/site-default-local:/etc/nginx/sites-available/default
       - ./infrastructure/conf/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
     ports:
       - 8000:8080
     environment:
       - NGINX_PORT=8080
       - ROBOTS_FILENAME=dev.robots.txt
+    # Uncomment to test out Nginx Amplify
+    # - AMPLIFY_API_KEY=
     # Uncomment to test out post deployment script
     # command: ./infrastructure/bin/post_deployment.sh .
     extra_hosts:

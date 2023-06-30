@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # This script is run after the deployment is complete to help set up the environment in the app service.
 # It sends a message to a slack webook URI.
+# To run from a Docker host: docker-compose exec webserver /home/site/wwwroot/infrastructure/bin/post_deployment.sh /home/site/wwwroot
 
 ROOT_DIR=$1
 SLACK_WEBHOOK_URI=$2
@@ -52,11 +53,18 @@ fi
 CLEANED_STDOUT=${MIGRATION_STDOUT//[^a-zA-Z0-9_ $'\n']/}
 BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\":\"$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK\" } }"
 
-# Copy nginx config and reload
-if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default /etc/nginx/sites-available/default && nginx -s reload ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Config copy for Nginx *successful*.\" } }"
+# Copy Nginx config and reload
+if /home/site/wwwroot/infrastructure/bin/setup_nginx.sh ; then
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Setup Ngnix *successful*.\" } }"
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Config copy for Nginx *failed*. $MENTION\" } }"
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Setup Nginx *failed*. $MENTION\" } }"
+fi
+
+# Setup Nginx Amplify agent
+if /home/site/wwwroot/infrastructure/bin/setup_nginx_amplify.sh ; then
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Setup Ngnix Amplify agent *successful*.\" } }"
+else
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Setup Nginx Amplify agent *failed*. $MENTION\" } }"
 fi
 
 # Environment config variable substitutions
