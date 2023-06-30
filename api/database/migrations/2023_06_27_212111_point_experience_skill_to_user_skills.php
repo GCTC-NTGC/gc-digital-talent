@@ -16,16 +16,17 @@ return new class extends Migration
      */
     public function createUserSkillRecordsForExistingExperiences($experienceTable)
     {
-        DB::raw("UPDATE experience_skill
-            SET user_skill_id = subquery.user_skill_id
-            FROM (
-                SELECT user_skills.id AS user_skill_id, experience_skill.id AS experience_skill_id
+        DB::statement("WITH distinct_experience_skills AS (
+                SELECT DISTINCT user_id, skill_id
                 FROM experience_skill
-                INNER JOIN $experienceTable ON experience_skill.experience_id = $experienceTable.id
-                INNER JOIN user_skills ON $experienceTable.user_id = user_skills.user_id
-                    AND experience_skill.skill_id = user_skills.skill_id
-            ) as subquery
-            WHERE experience_skill.id = subquery.experience_skill_id");
+                    LEFT JOIN $experienceTable as experience ON experience.id = experience_id
+                WHERE user_id IS NOT null
+                    AND skill_id IS NOT null
+            )
+            INSERT INTO user_skills (user_id, skill_id, created_at, updated_at)
+            SELECT user_id, skill_id, now(), now() FROM distinct_experience_skills
+            ON CONFLICT ON CONSTRAINT user_skills_user_id_skill_id_unique
+                DO NOTHING");
     }
 
     /**
@@ -37,7 +38,7 @@ return new class extends Migration
      */
     public function updateExperienceSkillTable($experienceTable)
     {
-        DB::raw("UPDATE experience_skill
+        DB::statement("UPDATE experience_skill
             SET user_skill_id = subquery.user_skill_id
             FROM (
                 SELECT user_skills.id AS user_skill_id, experience_skill.id AS experience_skill_id
@@ -71,17 +72,17 @@ return new class extends Migration
 
         foreach ($experienceTables as $experienceTable) {
             // Create any necessary UserSkill records that don't exist yet.
-            $this->createUserSkillRecordsForExistingExperiences($experienceTable);
+            print_r($this->createUserSkillRecordsForExistingExperiences($experienceTable));
             // Now link each Experience to the correct UserSkill.
-            $this->updateExperienceSkillTable($experienceTable);
+            print_r($this->updateExperienceSkillTable($experienceTable));
         }
 
         Schema::table('experience_skill', function (Blueprint $table) {
             // Now that all experience-skill entries have been updated, make nullable false
             $table->uuid('user_skill_id')->nullable(false)->change();
             // Drop old uniqueness constraints based on skill_id, and replace with one based on user_skill_id
-            $table->dropUnique('experience_skills_unique');
-            $table->dropUnique('experience_skills_skill_id_experience_id_experience_type_unique');
+            $table->dropUnique('experience_skill_unique');
+            $table->dropUnique('experience_skill_skill_id_experience_id_experience_type_unique');
             $table->unique(['user_skill_id', 'experience_id'], 'experience_user_skill_unique');
 
             // And remove the direct link to the skills table
