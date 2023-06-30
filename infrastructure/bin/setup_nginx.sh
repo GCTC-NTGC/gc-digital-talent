@@ -10,6 +10,6 @@ set -o pipefail
 set -o nounset
 
 cp /home/site/wwwroot/infrastructure/conf/nginx/nginx.conf /etc/nginx/nginx.conf
-/home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default /etc/nginx/sites-available/default
+/home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/infrastructure/conf/nginx/site-default-deploy /etc/nginx/sites-available/default
 cp /home/site/wwwroot/infrastructure/conf/nginx/stub_status.conf /etc/nginx/conf.d/stub_status.conf
 nginx -s reload
