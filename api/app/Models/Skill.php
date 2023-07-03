@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Skill
@@ -49,12 +50,17 @@ class Skill extends Model
         return $this->belongsToMany(SkillFamily::class);
     }
 
+    public function userSkills(): HasMany
+    {
+        return $this->hasMany(UserSkill::class);
+    }
+
     public function awardExperiences()
     {
         return $this->morphedByMany(
             AwardExperience::class,
             'experience',
-            'experience_skill'
+            ExperienceSkill::class
         )
             ->withTimestamps()
             ->withPivot('details')
@@ -65,7 +71,7 @@ class Skill extends Model
         return $this->morphedByMany(
             CommunityExperience::class,
             'experience',
-            'experience_skill'
+            ExperienceSkill::class
         )
             ->withTimestamps()
             ->withPivot('details')
@@ -76,18 +82,18 @@ class Skill extends Model
         return $this->morphedByMany(
             EducationExperience::class,
             'experience',
-            'experience_skill'
+            ExperienceSkill::class
         )
             ->withTimestamps()
             ->withPivot('details')
-            ->as('experience_skill');
+            ->as(ExperienceSkill::class);
     }
     public function personalExperiences()
     {
         return $this->morphedByMany(
             PersonalExperience::class,
             'experience',
-            'experience_skill'
+            ExperienceSkill::class
         )
             ->withTimestamps()
             ->withPivot('details')
@@ -98,7 +104,7 @@ class Skill extends Model
         return $this->morphedByMany(
             WorkExperience::class,
             'experience',
-            'experience_skill'
+            ExperienceSkill::class
         )
             ->withTimestamps()
             ->withPivot('details')
