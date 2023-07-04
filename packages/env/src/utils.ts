@@ -40,6 +40,5 @@ export const checkFeatureFlag = (name: string): boolean => {
  */
 export const getFeatureFlags = () => ({
   applicantDashboard: checkFeatureFlag("FEATURE_APPLICANT_DASHBOARD"),
-  psacStrike: checkFeatureFlag("FEATURE_PSAC_STRIKE"),
   skillLibrary: checkFeatureFlag("FEATURE_SKILL_LIBRARY"),
 });

@@ -6575,14 +6575,6 @@
     "defaultMessage": "Je suis prêt!",
     "description": "An action button to proceed"
   },
-  "oF8h5+": {
-    "defaultMessage": "Le gouvernement du Canada et l'Alliance de la Fonction publique du Canada (AFPC) sont en pourparlers actuellement pour les conventions collectives.",
-    "description": "Heading for the PSAC strike notice."
-  },
-  "6q29tj": {
-    "defaultMessage": "En cas d'interruption du travail, les services de référence de cette plateforme seront touchés. Veuillez noter que votre demande sera traitée lorsque les services reprendront. Merci de votre patience.",
-    "description": "Content for the PSAC strike notice."
-  },
   "+AUFyC": {
     "defaultMessage": "Apprentissage personnel",
     "description": "Title for personal learning section"
