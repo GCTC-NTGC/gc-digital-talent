@@ -99,8 +99,8 @@ const messages = defineMessages({
   },
   projectPortfolioSummary: {
     defaultMessage:
-      "This bucket includes working full-time on large, formal projects that require the sharing of and application of rigorous application of <abbreviation>IT</abbreviation> project management skills and knowledge.",
-    id: "hKKYYL",
+      "This stream includes working full-time on large, formal projects that require the sharing of and application of rigorous application of <abbreviation>IT</abbreviation> project management skills and knowledge.",
+    id: "Cq+1U7",
     description: "Title for the 'project portfolio management' IT work stream",
   },
   securityTitle: {
