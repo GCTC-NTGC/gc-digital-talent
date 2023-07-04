@@ -5,7 +5,8 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { DateInput } from "@gc-digital-talent/forms";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { currentDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
@@ -146,7 +147,12 @@ const ChangeDateDialog = ({
                       "Label displayed on the date field of the change candidate expiry date dialog",
                   })}
                   name="expiryDate"
-                  // DateInput min validation doesn't work with optional inputs. #7137
+                  rules={{
+                    min: {
+                      value: currentDate(),
+                      message: intl.formatMessage(errorMessages.futureDate),
+                    },
+                  }}
                 />
               </div>
               <Dialog.Footer>
