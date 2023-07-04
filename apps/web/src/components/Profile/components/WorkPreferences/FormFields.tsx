@@ -86,12 +86,14 @@ const FormFields = ({ labels }: FormFieldProps) => {
           }}
         />
       </div>
-      <TextArea
-        id="location-exemptions"
-        label={labels.locationExemptions}
-        name="locationExemptions"
-        aria-describedby="location-exemption-description"
-      />
+      <div data-h2-padding-top="base(x1)">
+        <TextArea
+          id="location-exemptions"
+          label={labels.locationExemptions}
+          name="locationExemptions"
+          aria-describedby="location-exemption-description"
+        />
+      </div>
     </>
   );
 };
