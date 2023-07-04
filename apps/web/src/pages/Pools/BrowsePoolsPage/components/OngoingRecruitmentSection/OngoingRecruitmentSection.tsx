@@ -126,7 +126,7 @@ const OngoingRecruitmentSection = ({
 
   // this great big object is all the data to populate the accordions
   const streams: StreamViewModel[] = [
-    // IT business line advisory services bucket
+    // IT business line advisory services
     {
       key: PoolStream.BusinessAdvisoryServices,
       title: intl.formatMessage(messages.businessAdvisoryServicesTitle, {
