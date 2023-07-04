@@ -125,7 +125,6 @@ const OngoingRecruitmentSection = ({
   const abbreviation = (text: React.ReactNode) => wrapAbbr(text, intl);
 
   // this great big object is all the data to populate the accordions
-  // this great big object is all the data to populate the accordions
   const streams: StreamViewModel[] = [
     // IT business line advisory services bucket
     {
