@@ -3200,9 +3200,9 @@
     "defaultMessage": "Oups, on dirait que vous avez atterri sur une page que vous n'êtes pas autorisé(e) à consulter.",
     "description": "Detailed message saying the page to view is not authorized."
   },
-  "gvomlw": {
+  "DspBFX": {
     "defaultMessage": "Changer la date",
-    "description": "Confirmation button for change expiry date dialog"
+    "description": "Command to change a date"
   },
   "hIaETV": {
     "defaultMessage": "Statut du bassin",
