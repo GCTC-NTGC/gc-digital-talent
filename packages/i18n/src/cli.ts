@@ -85,11 +85,8 @@ const frOriginal = readDataFile(argv.fr, {});
 const whitelist = readDataFile(argv.whitelist, []);
 const frNew = readDataFile(argv["merge-fr"], {});
 
-// If merge-fr file was specified, use it to overwrite values from frOriginal.
-const fr = { ...frOriginal, ...frNew };
-
 // This variable is used to track changes that may need to be made to fr.json. That way, we only update the file once, at the end.
-let outputFr = null;
+let outputFr = { ...frOriginal, ...frNew };
 
 /**
  * T
@@ -107,7 +104,6 @@ const saveJson = (file: string, obj: Record<string, unknown>) =>
   });
 
 if (Object.keys(frNew).length > 0) {
-  outputFr = fr;
   console.log(`Entries from ${argv["merge-fr"]} merged into ${argv.fr}`);
 }
 
@@ -153,13 +149,13 @@ const enKeys = Object.keys(en);
 
 // Keys which appear in the en file, but not at all in the fr file.
 const missingKeys = enKeys.filter((enKey) => {
-  return fr[enKey] === undefined;
+  return outputFr[enKey] === undefined;
 });
 
 // Keys for whom the value is the same in en and fr (not including those whitelisted).
 const untranslatedKeys = enKeys.filter(
   (enKey) =>
-    fr[enKey]?.defaultMessage === en[enKey].defaultMessage &&
+    outputFr[enKey]?.defaultMessage === en[enKey].defaultMessage &&
     !whitelist.includes(enKey),
 );
 
@@ -174,8 +170,10 @@ if (untranslatedKeys.length > 0) {
 
 // Orphaned keys are those which appear in the fr file, but which no longer appear in the en file,
 // which suggests they are no longer used in code.
-const orphanedKeys = Object.keys(fr).filter((frKey) => en[frKey] === undefined);
-const orphaned = pick(fr, orphanedKeys);
+const orphanedKeys = Object.keys(outputFr).filter(
+  (frKey) => en[frKey] === undefined,
+);
+const orphaned = pick(outputFr, orphanedKeys);
 
 if (
   argv["output-untranslated"] &&
@@ -189,7 +187,7 @@ if (
 }
 
 if (argv["rm-orphaned"] && orphanedKeys.length > 0) {
-  outputFr = omit(outputFr !== null ? outputFr : fr, orphanedKeys);
+  outputFr = omit(outputFr, orphanedKeys);
   console.warn(
     "These values were removed from fr as they are not in en:",
     orphaned,
