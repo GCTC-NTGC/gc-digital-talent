@@ -3,10 +3,10 @@ import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { FieldLabels, Checklist } from "@gc-digital-talent/forms";
-import { Alert } from "@gc-digital-talent/ui";
+import { Alert, Chip, Chips } from "@gc-digital-talent/ui";
 
 import HelpLink from "./HelpLink";
-import { hasCommunityAndOther } from "./utils";
+import { getCommunityLabels, hasCommunityAndOther } from "./utils";
 import CommunityIcon from "./CommunityIcon";
 
 interface CommunityListProps {
@@ -18,7 +18,9 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
   const [isAlertOpen, setIsAlertOpen] = React.useState<boolean>(false);
   const [hasDismissedAlert, setHasDismissedAlert] =
     React.useState<boolean>(false);
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext();
+
+  const communityLabels = getCommunityLabels(intl);
 
   const [communitiesValue] = watch(["communities"]);
 
@@ -32,6 +34,13 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
   const handleAlertDismiss = () => {
     setIsAlertOpen(false);
     setHasDismissedAlert(true);
+  };
+
+  const handleDismissCommunity = (community: string) => {
+    const newCommunities = communitiesValue.filter(
+      (value: string) => value !== community,
+    );
+    setValue("communities", newCommunities);
   };
 
   return (
@@ -140,6 +149,26 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
           <CommunityIcon values={["other"]} community="other" />
         </div>
       </div>
+      {communitiesValue && communitiesValue.length > 0 ? (
+        <Chips>
+          {communitiesValue.map((community: string) => {
+            const label = communityLabels.get(community);
+            return label ? (
+              <Chip
+                key={community}
+                mode="outline"
+                color={
+                  isOtherAndHasCommunity && isAlertOpen && community === "other"
+                    ? "warning"
+                    : "primary"
+                }
+                onDismiss={() => handleDismissCommunity(community)}
+                label={label}
+              />
+            ) : null;
+          })}
+        </Chips>
+      ) : null}
       {isAlertOpen && (
         <Alert.Root type="warning" dismissible onDismiss={handleAlertDismiss}>
           <Alert.Title>

@@ -6,7 +6,6 @@ import { Dialog } from "@gc-digital-talent/ui";
 import { Checklist } from "@gc-digital-talent/forms";
 
 import {
-  errorMessages,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
 } from "@gc-digital-talent/i18n";
@@ -81,9 +80,6 @@ const DisabilityDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
                     description:
                       "Prompt text for a user selecting an employment equity group for their profile",
                   })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
                   trackUnsaved={false}
                   items={[
                     {

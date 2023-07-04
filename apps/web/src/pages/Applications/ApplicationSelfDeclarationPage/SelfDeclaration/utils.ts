@@ -47,3 +47,47 @@ export const hasCommunityAndOther = (selectedCommunities?: Array<string>) => {
     selectedCommunities.includes("other")
   );
 };
+
+export const getCommunityLabels = (intl: IntlShape) =>
+  new Map([
+    [
+      "status",
+      intl.formatMessage({
+        defaultMessage: "Status First Nations",
+        id: "1Wbu+6",
+        description: "The indigenous community for status First Nations",
+      }),
+    ],
+    [
+      "nonStatus",
+      intl.formatMessage({
+        defaultMessage: "Non-status First Nations",
+        id: "JamdKo",
+        description: "The indigenous community for non-status First Nations",
+      }),
+    ],
+    [
+      "inuk",
+      intl.formatMessage({
+        id: "kUHaE/",
+        defaultMessage: "Inuk",
+        description: "Label for Inuk community",
+      }),
+    ],
+    [
+      "metis",
+      intl.formatMessage({
+        id: "KaisAC",
+        defaultMessage: "Métis",
+        description: "Label for Métis community",
+      }),
+    ],
+    [
+      "other",
+      intl.formatMessage({
+        id: "Xvvcsg",
+        defaultMessage: "I am Indigenous and I don't see my community here",
+        description: "Label for not represented community",
+      }),
+    ],
+  ]);

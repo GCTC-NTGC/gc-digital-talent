@@ -311,10 +311,6 @@
     "defaultMessage": "Cette page est accessible en langues autochtones",
     "description": "Text displayed as label for Indigenous languages selector"
   },
-  "+M8xoo": {
-    "defaultMessage": "Statut des membres des Premières Nations",
-    "description": "label for the First Nations status self-declaration input"
-  },
   "BwEf/S": {
     "defaultMessage": "« Je ne suis pas membre d’un groupe autochtone mais j’aimerais bénéficier d’autres occasions »",
     "description": "Text for the option to self-declare as not an Indigenous person"
@@ -323,21 +319,9 @@
     "defaultMessage": "« Je suis métis(se) »",
     "description": "Label text for Métis community declaration"
   },
-  "1nOT0r": {
-    "defaultMessage": "Ma communauté ou mes communautés :",
-    "description": "Text label for list of the users selected Indigenous communities"
-  },
-  "3oW16P": {
-    "defaultMessage": "Signature",
-    "description": "label for the signature input on the self-declaration form"
-  },
   "luj0xr": {
     "defaultMessage": "Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Certains moyens d’y parvenir sont inclus dans l’énoncé de définition au début de cette demande, notamment une carte de certificat de statut d’Indien, une carte de bénéficiaire inuit, une carte de citoyenneté métisse, une lettre d’un représentant autorisé d’une communauté autochtone reconnue, en plus d’un formulaire d’attestation. Aux fins d’inclusion, l’objet de ces mesures est de garantir que ce programme reste accessible aux peuples autochtones du Canada.",
     "description": "Content for the self-declaration verification dialog"
-  },
-  "4e74J2": {
-    "defaultMessage": "« Je suis un membre d’une communauté des Premières Nations »",
-    "description": "Label text for First Nations community declaration"
   },
   "5dgCOy": {
     "defaultMessage": "Pourquoi vous demande-t-on de déclarer votre statut?",
@@ -358,10 +342,6 @@
   "AMboRG": {
     "defaultMessage": "Voir <whyLink>Raison pour lesquelles nous vous demandons de déclarer votre statut</whyLink>, <verificationLink>Mode de vérification</verificationLink> Le terme <definitionLink>autochtone comme il est défini pour ce programme</definitionLink>.",
     "description": "Links to more information on the self-declaration process and definition of Indigenous"
-  },
-  "BIgaKT": {
-    "defaultMessage": "Métis",
-    "description": "Trigger text for Métis tab"
   },
   "Ap86I/": {
     "defaultMessage": "Ce programme s’adresse aux membres des Premières Nations, aux Inuits et aux Métis qui se trouvent au Canada. Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Vous pouvez en savoir plus sur la vérification de votre statut ci-dessous.",
@@ -386,18 +366,6 @@
   "UOeiIa": {
     "defaultMessage": "Autochtone selon la définition de ce programme",
     "description": "Heading for the definition of Indigenous dialog"
-  },
-  "NxmuI4": {
-    "defaultMessage": "Premières Nations",
-    "description": "Trigger text for First Nations tab"
-  },
-  "WDtanj": {
-    "defaultMessage": "Inuk",
-    "description": "Trigger text for Inuk tab"
-  },
-  "WwEznG": {
-    "defaultMessage": "Autre",
-    "description": "Trigger text for not represented community declaration tab"
   },
   "Xe90FW": {
     "defaultMessage": "Ne suis-je pas un membre d’un groupe autochtone?",
@@ -439,10 +407,6 @@
     "defaultMessage": "Auto-déclaration",
     "description": "label for the Indigenous self-declaration input"
   },
-  "reUbO2": {
-    "defaultMessage": "(Sélectionnez tout ce qui s’applique à vous)",
-    "description": "Disclaimer for the checkbox group for selecting Indigenous communities"
-  },
   "sSE4kt": {
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
     "description": "Text for the option to self-declare as a non-status first nations"
@@ -458,10 +422,6 @@
   "w4SSBu": {
     "defaultMessage": "<strong>Le terme autochtone </strong>: désigne une personne reconnue comme membre « d’un des peuples autochtones du Canada » au sens de l’article 35 de la Loi constitutionnelle de 1982, qui stipule en outre qu’aux fins de la Constitution, les « peuples autochtones du Canada comprennent les Autochtones, les Inuits et les Métis du Canada ». Cette politique (conforme aux pratiques canadiennes générales) considère que le terme « Autochtones » dans la Constitution est désormais remplacé par le terme « Premières Nations ».",
     "description": "Content for the definition of Indigenous dialog"
-  },
-  "zSH7Hx": {
-    "defaultMessage": "Sélectionnez une ou plusieurs communautés :",
-    "description": "Legend for the checkbox group for selecting Indigenous communities"
   },
   ".ellipsis": {
     "defaultMessage": "... "
@@ -761,10 +721,6 @@
     "defaultMessage": "Veuillez remplir tous les champs obligatoires de votre profil avant de définir votre statut comme actif.",
     "description": "Message in My Status Form."
   },
-  "/AJCvK": {
-    "defaultMessage": "Ajouter <hidden>{title} </hidden>au profil",
-    "description": "Text label for button to add employment equity category to profile."
-  },
   "GNtu/7": {
     "defaultMessage": "J'envisagerais d'accepter un emploi :",
     "description": "Legend Text for required work preferences options in work preferences form"
@@ -789,17 +745,9 @@
     "defaultMessage": "Bienvenue à Talents numériques du GC",
     "description": "Title for the create account page for applicant profiles."
   },
-  "1CuGS6": {
-    "defaultMessage": "Indiquez s'il y a une ville que vous souhaitez exclure d'une région.",
-    "description": "Explanation text for Location exemptions field in work location preference form"
-  },
   "248YQT": {
     "defaultMessage": "Pas encore prêt à partir? Retournez à la page d'accueil, découvrez de nouvelles possibilités, ou apprenez-en plus sur certaines recherches derrière cette plateforme.",
     "description": "Description of the links presented on the logged out page."
-  },
-  "2K7dVp": {
-    "defaultMessage": "P. ex. : Vous voulez postuler pour la région du Québec, mais pas pour Montréal.",
-    "description": "Example for Location exemptions field in work location preference form"
   },
   "2cUBGT": {
     "defaultMessage": "Utilisateur introuvable.",
@@ -1021,10 +969,6 @@
     "defaultMessage": "Expérience actuelle",
     "description": "Label displayed on Personal Experience form for current experience bounded box"
   },
-  "OQ+K+X": {
-    "defaultMessage": "Retirer <hidden>{title} </hidden>du profil",
-    "description": "Text label for button to remove employment equity category from profile."
-  },
   "OT0QP3": {
     "defaultMessage": "Annuler",
     "description": "Link text to cancel logging in and return to talent search home."
@@ -1040,10 +984,6 @@
   "PIgh3U": {
     "defaultMessage": "Faites-nous savoir si vous voulez être contacté(e) pour de nouveaux emplois. Veuillez mettre à jour ce statut si votre situation change.",
     "description": "Description for My Status Form"
-  },
-  "Q96xMb": {
-    "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
-    "description": "Heading for employment equity categories added to user profile."
   },
   "Rgh/Qb": {
     "defaultMessage": "4. Renseignements complémentaires pour cette expérience",
@@ -1064,10 +1004,6 @@
   "TV4UWm": {
     "defaultMessage": "Enregistré",
     "description": "Submitted text for save button on profile form."
-  },
-  "TuhgU0": {
-    "defaultMessage": "Options d'équité en matière d'emploi :",
-    "description": "Heading for employment equity categories available to be added to user profile."
   },
   "3vjhOA": {
     "defaultMessage": "Évaluation linguistique du gouvernement du Canada",
@@ -1189,10 +1125,6 @@
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
   },
-  "fK7jxe": {
-    "defaultMessage": "Vous n'avez ajouté aucune option d'équité en matière d'emploi à votre profil.",
-    "description": "Message displayed when a user has no employment equity information."
-  },
   "gBWsuB": {
     "defaultMessage": "Téléphone",
     "description": "Label for telephone field in About Me form"
@@ -1309,10 +1241,6 @@
     "defaultMessage": "Avertissement",
     "description": "Label displayed on Personal Experience form for disclaimer bounded box"
   },
-  "t12bCU": {
-    "defaultMessage": "Sauvegarder et revenir en arrière",
-    "description": "Button text to submit employment equity form."
-  },
   "+lKz3l": {
     "defaultMessage": "Mon profil",
     "description": "Breadcrumb from applicant profile wrapper."
@@ -1385,10 +1313,6 @@
     "defaultMessage": "Réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité.",
     "description": "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page."
   },
-  "z44LTK": {
-    "defaultMessage": "Tel que défini par <link>Statistique Canada</link>.",
-    "description": "Link to Statistics Canada's employment equity definitions"
-  },
   "sk9CeW": {
     "defaultMessage": "Langue",
     "description": "Legend for the Working Language Ability radio buttons"
@@ -1456,10 +1380,6 @@
   "C6YPk3": {
     "defaultMessage": "Postulez maintenant",
     "description": "Title for the apply button section of a pool advertisement"
-  },
-  "DDwQg5": {
-    "defaultMessage": "Sur le fondement de cette définition, je veux ajouter ce qui suit à mon profil :",
-    "description": "Text that appears before employment equity form options."
   },
   "GIN69n": {
     "defaultMessage": "Date de clôture :",
@@ -2353,22 +2273,6 @@
     "defaultMessage": "Parcourez les emplois",
     "description": "Title for the browse pools page"
   },
-  "E2HkVa": {
-    "defaultMessage": "Rechercher les bassins de talents",
-    "description": "Page title for the search page"
-  },
-  "ZxLDpB": {
-    "defaultMessage": "Profil de candidature",
-    "description": "Page title for pool application review"
-  },
-  "pf1Ffp": {
-    "defaultMessage": "Soumettre un profil de demande",
-    "description": "Page title for pool application sign and submit page"
-  },
-  "pR23NW": {
-    "defaultMessage": "Mon profil",
-    "description": "Page title for the applicants profile page"
-  },
   "lPWUoO": {
     "defaultMessage": "Créer un compte",
     "description": "Page title for the account creation page"
@@ -2444,10 +2348,6 @@
   "/Y/n1N": {
     "defaultMessage": "Sélectionnez une langue",
     "description": "Placeholder displayed on the About Me form preferred communication language"
-  },
-  "dYS0MA": {
-    "defaultMessage": "Autodéclaration",
-    "description": "Form label for a self-declaration input"
   },
   "/Y7x+s": {
     "defaultMessage": "Créer un bassin",
@@ -4838,10 +4738,6 @@
     "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} =1 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} }",
     "description": "Message for total estimated candidates box next to search form."
   },
-  "s7QD5B": {
-    "defaultMessage": "Modifier <hidden>{title}</hidden>",
-    "description": "Text label for button to edit employment equity category from profile."
-  },
   "6eCvv1": {
     "defaultMessage": "Postes bilingues (français et anglais)",
     "description": "Bilingual Positions message"
@@ -6751,10 +6647,6 @@
     "defaultMessage": "Ajoutez une question filtre",
     "description": "Button text to add a new screening question"
   },
-  "+gl4rv": {
-    "defaultMessage": "Langues des possibilités d’emploi ",
-    "description": "Opportunity languages label"
-  },
   "/3sMii": {
     "defaultMessage": "Cette section facultative vous demande si vous souhaitez vous identifier comme membre d’un groupe visé par l’équité en matière d’emploi. ",
     "description": "Descriptive text explaining the diversity, equity, and inclusion section of the application profile"
@@ -6831,10 +6723,6 @@
     "defaultMessage": "Commencez <hidden> à entrer vos renseignements personnels et vos coordonnées </hidden>",
     "description": "Call to action to begin editing personal and contact information"
   },
-  "MAz7iU": {
-    "defaultMessage": "Lieu de travail actuel",
-    "description": "Current location label"
-  },
   "N6kGOU": {
     "defaultMessage": "Vous devez indiquer dans cette section vos connaissances linguistiques dans les deux langues officielles",
     "description": "Descriptive text explaining the language profile section of the application profile"
@@ -6850,10 +6738,6 @@
   "Rq14QK": {
     "defaultMessage": "Il manque des données requises par le gouvernement",
     "description": "Error message displayed when a users government information is incomplete"
-  },
-  "UqkLAz": {
-    "defaultMessage": "Modification des données sur la diversité, l’équité et l’inclusion.",
-    "description": "Button text to start editing equity information"
   },
   "WE8ZUX": {
     "defaultMessage": "Modification des renseignements personnels et des coordonnées",
@@ -6879,10 +6763,6 @@
     "defaultMessage": "Vos préférences en matière de travail ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates their work preferences."
   },
-  "cJtvya": {
-    "defaultMessage": "Détails concernant le travail",
-    "description": "Work details label"
-  },
   "dVc2uY": {
     "defaultMessage": "Les renseignements gouvernementaux ont été mis à jour avec succès!",
     "description": "Message displayed when a user successfully updates their government employee information."
@@ -6894,14 +6774,6 @@
   "fyEFN7": {
     "defaultMessage": "Renseignements personnels et coordonnées",
     "description": "Heading for the personal info section on the application profile"
-  },
-  "gOkIvb": {
-    "defaultMessage": "Nom",
-    "description": "Name label"
-  },
-  "gdivWF": {
-    "defaultMessage": "Droit de priorité",
-    "description": "Priority entitlement label"
   },
   "h30KEc": {
     "defaultMessage": "Il manque des données en ce qui concerne vos préférences en matière de travail",
@@ -6915,17 +6787,9 @@
     "defaultMessage": "Numéro de priorité",
     "description": "Priority number label"
   },
-  "inHQQ2": {
-    "defaultMessage": "Lieu(x) de travail",
-    "description": "Work location(s) label"
-  },
   "k28EAQ": {
     "defaultMessage": "Ancien combattant",
     "description": "Veteran status label"
-  },
-  "mTgQV0": {
-    "defaultMessage": "Je ne suis pas un(e) employé(e) du gouvernement du Canada",
-    "description": "Message to state user is employed by government"
   },
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
@@ -6938,10 +6802,6 @@
   "u1N0nT": {
     "defaultMessage": "Diversité, équité et inclusion.",
     "description": "Heading for the diversity, equity, and inclusion section on the application profile"
-  },
-  "um8A1S": {
-    "defaultMessage": "Statut de l’employé(e)",
-    "description": "Employee status label"
   },
   "vEniKQ": {
     "defaultMessage": "Annulation des modifications",
@@ -6987,25 +6847,9 @@
     "defaultMessage": "Cette occasion ne s’adresse qu’aux candidat(e)s autochtones seulement.",
     "description": "Error message displayed when a user's equity information does not match an opportunity"
   },
-  "7CjXox": {
-    "defaultMessage": "Communication générale : {language}",
-    "description": "General communication preference label"
-  },
-  "EZX/44": {
-    "defaultMessage": "Examens écrits : {language}",
-    "description": "Written exams preference label"
-  },
-  "FkPxBO": {
-    "defaultMessage": "Entrevues orales : {language}",
-    "description": "Spoken interviews preference label"
-  },
   "KZk48E": {
     "defaultMessage": "Sauvegarder et poursuivre",
     "description": "Button text to save an application step and continue to the next one"
-  },
-  "jlyzU4": {
-    "defaultMessage": "Langues de préférence",
-    "description": "Contact languages preference label"
   },
   "/sBGov": {
     "defaultMessage": "Question {number}",

@@ -5,7 +5,6 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { Dialog } from "@gc-digital-talent/ui";
 import { Checklist } from "@gc-digital-talent/forms";
 import {
-  errorMessages,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
 } from "@gc-digital-talent/i18n";
@@ -84,9 +83,6 @@ const VisibleMinorityDialog = ({
                     description:
                       "Prompt text for a user selecting an employment equity group for their profile",
                   })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
                   trackUnsaved={false}
                   items={[
                     {
