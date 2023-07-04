@@ -1,9 +1,9 @@
-import React from "react";
+import React, { AriaAttributes } from "react";
 import { useIntl } from "react-intl";
 
-import { Link } from "@gc-digital-talent/ui";
+import { Link, LinkProps } from "@gc-digital-talent/ui";
 
-export interface TableViewItemButtonProps {
+export interface TableViewItemButtonProps extends LinkProps {
   /** The destination url. */
   viewUrl: string;
   /** Name of the type of object */
@@ -16,10 +16,11 @@ function TableViewItemButton({
   viewUrl,
   name,
   hiddenLabel,
+  ...rest
 }: TableViewItemButtonProps): React.ReactElement {
   const intl = useIntl();
   return (
-    <Link href={viewUrl}>
+    <Link href={viewUrl} {...rest}>
       {intl.formatMessage(
         {
           defaultMessage: "View {name} <hidden>{hiddenLabel}</hidden>",
@@ -38,9 +39,11 @@ export function tableViewItemButtonAccessor(
   viewUrl: string,
   name: string,
   hiddenLabel?: string,
+  ariaLabel?: AriaAttributes["aria-label"],
 ) {
   return (
     <TableViewItemButton
+      aria-label={ariaLabel}
       viewUrl={viewUrl}
       name={name}
       hiddenLabel={hiddenLabel}
