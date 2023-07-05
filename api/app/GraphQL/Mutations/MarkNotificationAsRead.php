@@ -18,10 +18,14 @@ final class MarkNotificationAsRead
         $notificationId = $args['id'];
         $userId = Auth::id();
         $notifications = User::find($userId)->notifications;
-        $notification = $notifications->sole(function ($n) use ($notificationId) {
+        $notification = $notifications->first(function ($n) use ($notificationId) {
             return $n->id === $notificationId;
         });
-        $notification->markAsRead();
-        return $notification;
+        if (!is_null($notification)) {
+            $notification->markAsRead();
+            return $notification;
+        } else {
+            return null; // notification not found
+        }
     }
 }
