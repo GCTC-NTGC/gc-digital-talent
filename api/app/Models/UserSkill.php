@@ -27,4 +27,60 @@ class UserSkill extends Model
     {
         return $this->belongsTo(Skill::class);
     }
+
+    public function awardExperiences()
+    {
+        return $this->morphedByMany(
+            AwardExperience::class,
+            'experience',
+            'experience_skill'
+        )
+            ->withTimestamps()
+            ->withPivot('details')
+            ->as('experienceSkillRecord');
+    }
+    public function communityExperiences()
+    {
+        return $this->morphedByMany(
+            CommunityExperience::class,
+            'experience',
+            'experience_skill'
+        )
+            ->withTimestamps()
+            ->withPivot('details')
+            ->as('experienceSkillRecord');
+    }
+    public function educationExperiences()
+    {
+        return $this->morphedByMany(
+            EducationExperience::class,
+            'experience',
+            'experience_skill'
+        )
+            ->withTimestamps()
+            ->withPivot('details')
+            ->as('experience_skill');
+    }
+    public function personalExperiences()
+    {
+        return $this->morphedByMany(
+            PersonalExperience::class,
+            'experience',
+            'experience_skill'
+        )
+            ->withTimestamps()
+            ->withPivot('details')
+            ->as('experienceSkillRecord');
+    }
+    public function workExperiences()
+    {
+        return $this->morphedByMany(
+            WorkExperience::class,
+            'experience',
+            'experience_skill'
+        )
+            ->withTimestamps()
+            ->withPivot('details')
+            ->as('experience_skill_pivot');
+    }
 }

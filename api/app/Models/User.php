@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
  * Class User
@@ -141,15 +142,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         return $this->hasMany(WorkExperience::class);
     }
-    // A relationship to the custom roleAssignments pivot model
-    public function roleAssignments(): HasMany
-    {
-        return $this->hasMany(RoleAssignment::class);
-    }
-    public function userSkills(): HasMany
-    {
-        return $this->hasMany(UserSkill::class);
-    }
+
     public function getExperiencesAttribute()
     {
         $collection = collect();
@@ -160,6 +153,38 @@ class User extends Model implements Authenticatable, LaratrustUser
         $collection = $collection->merge($this->workExperiences);
         return $collection;
     }
+
+    // A relationship to the custom roleAssignments pivot model
+    public function roleAssignments(): HasMany
+    {
+        return $this->hasMany(RoleAssignment::class);
+    }
+
+    public function userSkills(): HasMany
+    {
+        return $this->hasMany(UserSkill::class);
+    }
+    public function Skills(): HasManyThrough
+    {
+        return $this->through('userSkills')->has('skill');
+    }
+    // This method will add the specified skills to UserSkills if they don't exist yet.
+    public function addSkills($skill_ids)
+    {
+        // If any of the skills already exist but are soft-deleted, restore them
+        $this->userSkills()->withTrashed()->whereIn('skill_id', $skill_ids)->restore();
+        // Create a basic UserSkill for any skills not yet related to this user.
+        $existingSkillIds = $this->userSkills()->withTrashed()->pluck('skill_id');
+        $newSkillIds = collect($skill_ids)->diff($existingSkillIds);
+        foreach ($newSkillIds as $skillId) {
+            $userSkill = new UserSkill();
+            $userSkill->skill_id = $skillId;
+            $this->userSkills()->save($userSkill);
+        }
+        // If this User instance continues to be used, ensure the in-memory instance has the updated skills.
+        $this->refresh();
+    }
+
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
     public function getIsProfileCompleteAttribute(): bool

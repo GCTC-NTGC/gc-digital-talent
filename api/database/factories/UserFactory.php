@@ -195,20 +195,10 @@ class UserFactory extends Factory
                 $user->refresh();
             }
 
-            // Tale $count random skills and assign each to a random experience of this user.
-            foreach (Skill::inRandomOrder()->take($count)->get() as $skill) {
-                $experience = $this->faker->randomElement($user->experiences);
-                // Check for duplicates
-                $existingSkillIds = $experience->skills->pluck('id');
-                if (!$existingSkillIds->contains($skill->id)) {
-                    $experience->skills()->save($skill);
-                }
-
-                $userSkill = new UserSkill();
-                $userSkill->user_id = $user->id;
-                $userSkill->skill_id = $skill->id;
-                $userSkill->save();
-            }
+            // Take $count random skills and assign each to a random experience of this user.
+            $skills = Skill::inRandomOrder()->take($count)->get();
+            $experience = $this->faker->randomElement($user->experiences);
+            $experience->syncSkills($skills->only(['id']));
         });
     }
 

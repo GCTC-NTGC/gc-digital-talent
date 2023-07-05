@@ -57,58 +57,23 @@ class Skill extends Model
 
     public function awardExperiences()
     {
-        return $this->morphedByMany(
-            AwardExperience::class,
-            'experience',
-            ExperienceSkill::class
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experienceSkillRecord');
+        return $this->hasManyThrough(AwardExperience::class, UserSkill::class);
     }
     public function communityExperiences()
     {
-        return $this->morphedByMany(
-            CommunityExperience::class,
-            'experience',
-            ExperienceSkill::class
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experienceSkillRecord');
+        return $this->hasManyThrough(CommunityExperience::class, UserSkill::class);
     }
     public function educationExperiences()
     {
-        return $this->morphedByMany(
-            EducationExperience::class,
-            'experience',
-            ExperienceSkill::class
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as(ExperienceSkill::class);
+        return $this->hasManyThrough(EducationExperience::class, UserSkill::class);
     }
     public function personalExperiences()
     {
-        return $this->morphedByMany(
-            PersonalExperience::class,
-            'experience',
-            ExperienceSkill::class
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experienceSkillRecord');
+        return $this->hasManyThrough(PersonalExperience::class, UserSkill::class);
     }
     public function workExperiences()
     {
-        return $this->morphedByMany(
-            WorkExperience::class,
-            'experience',
-            ExperienceSkill::class
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experience_skill_pivot');
+        return $this->hasManyThrough(WorkExperience::class, UserSkill::class);
     }
     public function getExperiencesAttribute()
     {
