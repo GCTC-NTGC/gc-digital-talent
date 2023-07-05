@@ -18,6 +18,7 @@ const List = ({ children, space = "lg", ...rest }: ListProps) => {
   const { applicantDashboard } = useFeatureFlags();
   return (
     <ul
+      data-h2-list-style-type="base(disc)"
       {...(space === "lg"
         ? {
             "data-h2-margin": "base(x1 0)",
