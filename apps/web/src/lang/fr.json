@@ -969,10 +969,6 @@
     "defaultMessage": "Ces renseignements personnels supplémentaires ne seront utilisés qu'à des fins de communication.",
     "description": "Description for Personal Information section of the About Me form"
   },
-  "KmKbA6": {
-    "defaultMessage": "Renseignements supplémentaires",
-    "description": "Label displayed on experience form for additional information input"
-  },
   "KnE2Rk": {
     "defaultMessage": "Annuler",
     "description": "Cancel confirmation"
@@ -1044,10 +1040,6 @@
   "Q96xMb": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
     "description": "Heading for employment equity categories added to user profile."
-  },
-  "Rgh/Qb": {
-    "defaultMessage": "4. Renseignements complémentaires pour cette expérience",
-    "description": "Title for addition information on Experience form"
   },
   "T1TKNL": {
     "defaultMessage": "Niveau de compétence en langue seconde",
@@ -1208,10 +1200,6 @@
   "gnGAe8": {
     "defaultMessage": "Niveau de classification actuel",
     "description": "Label displayed on classification level input"
-  },
-  "h1wsiL": {
-    "defaultMessage": "Toute autre chose au sujet de cette expérience que vous aimeriez partager.",
-    "description": "Description blurb for additional information on Experience form"
   },
   "hTJgV2": {
     "defaultMessage": "Tous les champs obligatoires sont remplis. Vous pouvez maintenant modifier votre statut.",
@@ -5553,10 +5541,6 @@
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title for employment equity section on summary of filters section"
   },
-  "+nS/ak": {
-    "defaultMessage": "Renseignements supplémentaires : ",
-    "description": "Additional information if provided (without details)"
-  },
   "LocjmN": {
     "defaultMessage": "De retour aux équipes",
     "description": "Button text to return to the table of teams page"
@@ -6411,10 +6395,6 @@
     "defaultMessage": "Nous comptons toute une gamme de réalisations et d’expériences qui viennent façonner tant notre carrière que nos compétences. Veuillez nous faire part de ce que vous êtes confortable à partager avec un collègue. Sur cette plateforme, vous pouvez ajouter ce qui suit à votre CV :",
     "description": "Lead-in text for the list of experience type definitions"
   },
-  "4x7seT": {
-    "defaultMessage": "Veuillez décrire les principales tâches et responsabilités pour lesquelles vous étiez responsable dans le cadre de ce rôle.",
-    "description": "Help text for the experience tasks and responsibilities field"
-  },
   "5PUycY": {
     "defaultMessage": "Sélectionnez un type",
     "description": "Default selection for the experience type field"
@@ -6426,10 +6406,6 @@
   "DRYl88": {
     "defaultMessage": "Prix et reconnaissance",
     "description": "Title for award experience section"
-  },
-  "ETNZUJ": {
-    "defaultMessage": "Vos tâches et responsabilités",
-    "description": "Label for the experience task and responsibilities field"
   },
   "GNHnrr": {
     "defaultMessage": "Veuillez partager vos expériences à temps partiel, à plein temps, dans le cadre d’un emploi à votre compte, d’une bourse, d’une organisation sans but lucratif ou de tout stage.",
@@ -6470,10 +6446,6 @@
   "h5OdMq": {
     "defaultMessage": "Apprenez-en davantage sur les types d’expérience que vous pouvez ajouter",
     "description": "Button text to open section describing experience types"
-  },
-  "jDvu8u": {
-    "defaultMessage": "Tâches et responsabilités",
-    "description": "Heading for the tasks section of the experience form"
   },
   "jw6Umr": {
     "defaultMessage": "Veuillez sélectionner un type d’expérience",
@@ -8531,5 +8503,25 @@
   "mzGMZC": {
     "defaultMessage": "Consulter la demande de {name}",
     "description": "Link text to view a candidates application for assistive technologies"
+  },
+  "E1BnhC": {
+    "defaultMessage": "4. Souligner d’autres détails additionnels",
+    "description": "Title for addition information on Experience form"
+  },
+  "KteuZ5": {
+    "defaultMessage": "<strong>Tâches</strong>, <strong>responsabilités</strong> ou autre <strong>information clés facultatives</strong> qui, selon vous, sont essentielles à l’importance de cette expérience.",
+    "description": "Help text for the experience additional details field"
+  },
+  "QfOWr0": {
+    "defaultMessage": "Détails additionnels :",
+    "description": "Additional details if provided (without details)"
+  },
+  "fPIZn9": {
+    "defaultMessage": "Détails additionnels",
+    "description": "Label displayed on experience form/card for additional details input/section"
+  },
+  "u+r0gl": {
+    "defaultMessage": "Souligner d’autres détails additionnels",
+    "description": "Heading for the tasks section of the experience form"
   }
 }
