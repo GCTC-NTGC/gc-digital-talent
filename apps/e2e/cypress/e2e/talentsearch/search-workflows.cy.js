@@ -176,20 +176,19 @@ describe("Talent Search Workflow Tests", () => {
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
     searchFindsMySingleCandidate();
 
-    // work location combobox
-    cy.findByRole("combobox", { name: /Region/i }).then((combobox) => {
-      // fail
-      cy.wrap(combobox).type("Atlantic{enter}");
-      cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
-      searchRejectsMySingleCandidate();
-      // reset
-      cy.wrap(combobox).type("{backspace}");
-      searchFindsMySingleCandidate();
-      // pass
-      cy.wrap(combobox).type("Ontario{enter}");
-      cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
-      searchFindsMySingleCandidate();
-    });
+    // work location - fail
+    cy.findByRole("checkbox", {
+      name: /Atlantic/i,
+    }).click();
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    searchRejectsMySingleCandidate();
+
+    // work location - pass
+    cy.findByRole("checkbox", {
+      name: /Ontario/i,
+    }).click();
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    searchFindsMySingleCandidate();
 
     // working language ability - fail
     cy.findByRole("radio", {
