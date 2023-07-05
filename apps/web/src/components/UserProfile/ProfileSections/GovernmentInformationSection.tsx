@@ -170,7 +170,7 @@ const GovernmentInformationSection = ({
               </span>
             </p>
           </div>
-          {user.priorityNumber && (
+          {user.hasPriorityEntitlement && (
             <div data-h2-flex-item="base(1of1)">
               <p>
                 <span data-h2-display="base(block)">
@@ -181,7 +181,9 @@ const GovernmentInformationSection = ({
                   })}
                 </span>
                 <span data-h2-font-weight="base(700)">
-                  {user.priorityNumber}
+                  {user.priorityNumber
+                    ? user.priorityNumber
+                    : intl.formatMessage(commonMessages.notProvided)}
                 </span>
               </p>
             </div>
