@@ -50,6 +50,10 @@ class SnapshotTest extends TestCase
             "user_id" => $user->id,
             "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
         ]);
+        $poolCandidateUnrelated = PoolCandidate::factory()->create([
+            "user_id" => $user->id,
+            "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
+        ]);
 
         // get what the snapshot should look like
         $expectedSnapshot = $this->actingAs($user, "api")
@@ -74,6 +78,12 @@ class SnapshotTest extends TestCase
         )->json("data.poolCandidate.profileSnapshot");
 
         $decodedActual = json_decode($actualSnapshot, true);
+
+        // there are two pool candidates present, only one should appear in the snapshot, adjust expectedSnapshot to fit this
+        $filteredPoolCandidates = array_filter($expectedSnapshot['poolCandidates'], function ($individualPoolCandidate) use ($poolCandidate) {
+            return in_array($poolCandidate['id'], $individualPoolCandidate);
+        });
+        $expectedSnapshot['poolCandidates'] = $filteredPoolCandidates;
 
         assertEquals($expectedSnapshot, $decodedActual);
     }

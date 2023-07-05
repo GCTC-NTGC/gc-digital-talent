@@ -2281,8 +2281,8 @@
     "defaultMessage": "Ce volet comprend la programmation, la conception et le développement de systèmes, l’analyse des activités, la configuration, les tests et la mise en œuvre.",
     "description": "Title for the 'software solutions' IT work stream"
   },
-  "MyDw3F": {
-    "defaultMessage": "Nous proposons également des processus de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir. Bien qu’il n’y ait aucune garantie qu’un emploi résultera des possibilités ci-dessous, c’est un moyen facile pour que votre nom et votre CV soient trouvés par les gestionnaires le moment venu. N’hésitez pas à soumettre votre nom pour tout poste qui correspond à vos compétences.",
+  "y5/tVk": {
+    "defaultMessage": "Nous proposons également des processus de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir. Bien qu’il n’y ait aucune garantie qu’un emploi résultera des possibilités ci-dessous, c’est un moyen facile pour que votre nom et votre CV soient trouvés par les gestionnaires le moment venu. N’hésitez pas à soumettre votre nom pour tout volet qui correspond à vos compétences.",
     "description": "instructions for section with ongoing pool advertisements"
   },
   "BxJSsB": {
@@ -3196,9 +3196,9 @@
     "defaultMessage": "Oups, on dirait que vous avez atterri sur une page que vous n'êtes pas autorisé(e) à consulter.",
     "description": "Detailed message saying the page to view is not authorized."
   },
-  "gvomlw": {
+  "DspBFX": {
     "defaultMessage": "Changer la date",
-    "description": "Confirmation button for change expiry date dialog"
+    "description": "Command to change a date"
   },
   "hIaETV": {
     "defaultMessage": "Statut du bassin",
@@ -4598,8 +4598,8 @@
     "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
     "description": "How it works, step 2 content sentence 1"
   },
-  "hKKYYL": {
-    "defaultMessage": "Ce lot comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.",
+  "Cq+1U7": {
+    "defaultMessage": "Ce volet comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.",
     "description": "Title for the 'project portfolio management' IT work stream"
   },
   "iA1BBF": {
@@ -8504,6 +8504,34 @@
   "dwe1M+": {
     "defaultMessage": "{count} candidats répondent à vos critères.",
     "description": "Message announced to assistive technology users when the estimated candidate count changes."
+  },
+  "4QEl+4": {
+    "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences",
+    "description": "Aria-label for the title displayed on the candidate skill count column."
+  },
+  "4SNVtn": {
+    "defaultMessage": "{poolCandidateName} possède 0 des 0 compétences",
+    "description": "Aria-label for the title displayed on the candidate skill count column."
+  },
+  "GAYZpV": {
+    "defaultMessage": "Fermer",
+    "description": "Button text used to close an skills match dialog"
+  },
+  "WFhX9m": {
+    "defaultMessage": "{skillsCount} des {filteredSkillsTotal}",
+    "description": "Title displayed on the candidate skill count column."
+  },
+  "gkLEbN": {
+    "defaultMessage": "0 des 0",
+    "description": "Title displayed on the candidate skill count column when no skills are selected."
+  },
+  "pJqoQF": {
+    "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
+    "description": "Disclaimer displayed in the skill tree on the skill match dialog."
+  },
+  "qQZQj+": {
+    "defaultMessage": "L'adéquation des compétences en détail",
+    "description": "Heading displayed on the candidate skill match dialog."
   },
   "bWTzRy": {
     "defaultMessage": "Consulter le profil de {name}",
