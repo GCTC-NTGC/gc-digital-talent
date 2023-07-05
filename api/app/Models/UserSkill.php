@@ -37,7 +37,7 @@ class UserSkill extends Model
         )
             ->withTimestamps()
             ->withPivot('details')
-            ->as('experienceSkillRecord');
+            ->as('experience_skill');
     }
     public function communityExperiences()
     {
@@ -48,7 +48,7 @@ class UserSkill extends Model
         )
             ->withTimestamps()
             ->withPivot('details')
-            ->as('experienceSkillRecord');
+            ->as('experience_skill');
     }
     public function educationExperiences()
     {
@@ -70,7 +70,7 @@ class UserSkill extends Model
         )
             ->withTimestamps()
             ->withPivot('details')
-            ->as('experienceSkillRecord');
+            ->as('experience_skill');
     }
     public function workExperiences()
     {

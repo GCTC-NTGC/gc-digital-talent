@@ -36,13 +36,13 @@ abstract class Experience extends Model
         return $this->morphToMany(UserSkill::class, 'experience', 'experience_skill')
         ->withTimestamps()
         ->withPivot('details')
-        ->as('experience_skill_pivot');
+        ->as('experience_skill');
     }
 
     public function skills(): HasManyThrough
     {
         return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill())
-            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'], ExperienceSkill::class, 'experience_skill_pivot');
+            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details']);
     }
 
     /**
