@@ -136,13 +136,22 @@ enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   CURRENT_CITY
 }
 
-"""A paginated list of PoolCandidate items."""
-type PoolCandidatePaginator {
+"""A paginated list of PoolCandidateWithSkillCount items."""
+type PoolCandidateWithSkillCountPaginator {
   """Pagination information about the list of items."""
   paginatorInfo: PaginatorInfo!
 
-  """A list of PoolCandidate items."""
-  data: [PoolCandidate!]!
+  """A list of PoolCandidateWithSkillCount items."""
+  data: [PoolCandidateWithSkillCount!]!
+}
+
+"""A paginated list of PoolCandidateSearchRequest items."""
+type PoolCandidateSearchRequestPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of PoolCandidateSearchRequest items."""
+  data: [PoolCandidateSearchRequest!]!
 }
 
 """

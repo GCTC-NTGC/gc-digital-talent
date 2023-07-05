@@ -39,10 +39,16 @@ enum LegacyRole {
 
 type User {
   id: ID!
-  sub: String
-  legacyRoles: [LegacyRole] @rename(attribute: "legacy_roles")
-  createdDate: DateTime @rename(attribute: "created_at")
-  updatedDate: DateTime @rename(attribute: "updated_at")
+  sub: String @canAccess(requiredRoles: ["platform_admin"])
+  legacyRoles: [LegacyRole]
+    @rename(attribute: "legacy_roles")
+    @canAccess(requiredRoles: ["platform_admin"])
+  createdDate: DateTime
+    @rename(attribute: "created_at")
+    @canAccess(requiredRoles: ["platform_admin"])
+  updatedDate: DateTime
+    @rename(attribute: "updated_at")
+    @canAccess(requiredRoles: ["platform_admin"])
 
   # Personal info
   firstName: String @rename(attribute: "first_name")
