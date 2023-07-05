@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class User
@@ -75,6 +75,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     use HasFactory;
     use SoftDeletes;
     use AuthenticatableTrait;
+    use Notifiable;
 
     protected $keyType = 'string';
 

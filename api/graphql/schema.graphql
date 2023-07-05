@@ -140,6 +140,10 @@ type User {
   priorityWeight: Int @rename(attribute: "priority_weight")
   # teams and roles
   roleAssignments: [RoleAssignment!] @hasMany
+
+  # Notifications
+  unreadNotifications: [Notification!]
+  notifications: [Notification!]
 }
 
 enum ProvinceOrTerritory {
@@ -216,6 +220,17 @@ enum IndigenousCommunity {
   METIS
   OTHER
   LEGACY_IS_INDIGENOUS
+}
+
+type Notification {
+  id: ID!
+  type: String
+  notifiableType: String @rename(attribute: "notifiable_type")
+  notifiableId: String @rename(attribute: "notifiable_id")
+  data: JSON
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime @rename(attribute: "created_at")
+  updatedAt: DateTime @rename(attribute: "updated_at")
 }
 
 type Applicant {

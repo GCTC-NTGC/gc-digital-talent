@@ -641,6 +641,17 @@ type Mutation {
   deleteTeam(id: UUID!): Team
 }
 
+type Notification {
+  id: ID!
+  type: String
+  notifiableType: String
+  notifiableId: String
+  data: JSON
+  readAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
 enum OperationalRequirement {
   SHIFT_WORK
@@ -1574,6 +1585,8 @@ type User {
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
   roleAssignments: [RoleAssignment!]
+  unreadNotifications: [Notification!]
+  notifications: [Notification!]
 }
 
 input UserBelongsTo {
