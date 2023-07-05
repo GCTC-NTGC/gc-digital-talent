@@ -2,7 +2,7 @@ import * as React from "react";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, HeadingProps, Pill, Separator } from "@gc-digital-talent/ui";
 import { useIntl } from "react-intl";
-import { PoolCandidate } from "~/api/generated";
+import { PoolCandidate } from "@gc-digital-talent/graphql";
 import ApplicationActions, {
   DeleteActionProps,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/ApplicationActions";
