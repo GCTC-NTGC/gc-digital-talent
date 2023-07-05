@@ -107,8 +107,8 @@ const LoginPage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You can log into your IT Indigenous Apprenticeship Program profile using your existing GCKey, even if you’ve never used this platform before.",
-                  id: "ZOeVCm",
+                    "You can log into your IT Apprenticeship Program for Indigenous Peoples profile using your existing GCKey, even if you’ve never used this platform before.",
+                  id: "ySpJ2L",
                   description:
                     "Instructions on how to login with GCKey - IAP variant",
                 })}

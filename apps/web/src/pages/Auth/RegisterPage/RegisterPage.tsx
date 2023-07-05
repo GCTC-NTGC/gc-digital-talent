@@ -108,8 +108,8 @@ const RegisterPage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "In order to get started on your profile with the IT Indigenous Apprenticeship Program, you <strong>first have to register for the platform using GCKey</strong>.",
-                  id: "LVPNZ3",
+                    "In order to get started on your profile with the IT Apprenticeship Program for Indigenous Peoples, you <strong>first have to register for the platform using GCKey</strong>.",
+                  id: "epqFro",
                   description:
                     "Instructions on how to register with GCKey - IAP variant",
                 })}
