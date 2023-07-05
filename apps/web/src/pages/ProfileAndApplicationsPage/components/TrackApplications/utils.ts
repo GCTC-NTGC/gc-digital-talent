@@ -5,7 +5,7 @@ import {
   formatSubmittedAt,
   isDraft,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
-import { PoolCandidate } from "~/api/generated";
+import { PoolCandidate } from "@gc-digital-talent/graphql";
 
 export type Application = Omit<PoolCandidate, "user">;
 
