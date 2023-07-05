@@ -3,7 +3,6 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pill } from "@gc-digital-talent/ui";
 import { Maybe } from "@gc-digital-talent/graphql";
 import { Classification } from "~/api/generated";
-import uniqueId from "lodash/uniqueId";
 
 interface TableClassificationPillsProps {
   classifications: Maybe<Maybe<Classification>[]>;
@@ -18,7 +17,7 @@ const TableClassificationPills = ({
   const pillsArray = filteredClassifications.map((classification, index) => {
     return (
       <span
-        key={uniqueId()}
+        key={classification.id}
         {...(index + 1 !== filteredClassifications.length && {
           "data-h2-padding-right": "base(x1)",
         })}
