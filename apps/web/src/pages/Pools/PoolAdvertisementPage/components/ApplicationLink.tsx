@@ -38,8 +38,8 @@ const ApplicationLink = ({
   let linkTextLabel;
   if (!linkText) {
     linkTextLabel = intl.formatMessage({
-      defaultMessage: "Apply for this process ",
-      id: "71C7df",
+      defaultMessage: "Apply for this process",
+      id: "W2YIEA",
       description: "Link text to apply for a pool advertisement",
     });
     if (applicationId) {

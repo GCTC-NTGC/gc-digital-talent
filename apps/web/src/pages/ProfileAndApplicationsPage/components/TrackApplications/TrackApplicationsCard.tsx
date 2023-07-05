@@ -2,7 +2,7 @@ import * as React from "react";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, HeadingProps, Pill, Separator } from "@gc-digital-talent/ui";
 import { useIntl } from "react-intl";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
+import { PoolCandidate, PoolCandidateStatus } from "@gc-digital-talent/graphql";
 import ApplicationActions, {
   DeleteActionProps,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/ApplicationActions";
@@ -16,8 +16,8 @@ import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/Appl
 import useMutations from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/useMutations";
 import { getRecruitmentType, isQualifiedStatus } from "~/utils/poolCandidate";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { getApplicationDateInfo } from "./utils";
 
 export type Application = Omit<PoolCandidate, "user">;
@@ -82,13 +82,14 @@ const TrackApplicationsCard = ({
               data-h2-display="base(none) l-tablet(inline-block)"
               data-h2-color="base(black.light)"
               data-h2-margin="base(0, x.5)"
+              aria-hidden="true"
             >
               •
             </span>
             <span data-h2-color="base(black.light)">
               {applicationDateInfo.message}
+              {intl.formatMessage(commonMessages.dividingColon)}
               <span data-h2-color={applicationDateInfo.color}>
-                {" "}
                 {applicationDateInfo.date}
               </span>
             </span>

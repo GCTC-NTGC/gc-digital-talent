@@ -35,12 +35,12 @@ export const getApplicationDateInfo = (
   intl: IntlShape,
 ): ApplicationDateInfo => {
   const ApplyBy = intl.formatMessage({
-    defaultMessage: "Apply By: ",
+    defaultMessage: "Apply by",
     id: "r4bJ8b",
     description: "Label for showing the closing date of a job posting.",
   });
   const AppliedOn = intl.formatMessage({
-    defaultMessage: "Applied On: ",
+    defaultMessage: "Applied on",
     id: "/II3h3",
     description: "Label for showing the submitted date of an application.",
   });
