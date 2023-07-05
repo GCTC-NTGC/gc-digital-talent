@@ -22,13 +22,12 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import PageHeader from "~/components/PageHeader";
 import {
-  Applicant,
+  User,
   Scalars,
   useGetPoolCandidateSnapshotQuery,
   PoolCandidate,
   Maybe,
   SkillCategory,
-  User,
   Pool,
 } from "~/api/generated";
 import {
@@ -75,9 +74,7 @@ export const ViewPoolCandidate = ({
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
 
-  const parsedSnapshot: Maybe<Applicant> = JSON.parse(
-    poolCandidate.profileSnapshot,
-  );
+  const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
   const snapshotUserPropertyExists = !!parsedSnapshot;
   const pages = useAdminPoolPages(intl, poolCandidate.pool);
   const showRichSnapshot = snapshotUserPropertyExists && preferRichView;

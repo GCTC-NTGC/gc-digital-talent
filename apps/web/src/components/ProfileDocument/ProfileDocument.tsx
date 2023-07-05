@@ -29,7 +29,7 @@ import {
   GovEmployeeType,
   OperationalRequirement,
   PositionDuration,
-  Applicant,
+  User,
   BilingualEvaluation,
   IndigenousCommunity,
   PoolCandidate,
@@ -39,7 +39,7 @@ import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } fr
 import { anyCriteriaSelected as anyCriteriaSelectedRoleSalarySection } from "~/validators/profile/roleSalary";
 
 export interface ProfileDocumentProps {
-  results: Applicant[] | PoolCandidate[];
+  results: User[] | PoolCandidate[];
 }
 
 const PageSection = ({ children }: { children: React.ReactNode }) => (
@@ -85,7 +85,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
             )}
             {results &&
               results.map((initialResult, index) => {
-                const result: Applicant =
+                const result: User =
                   "user" in initialResult ? initialResult.user : initialResult;
 
                 const govEmployeeTypeId =

@@ -1,4 +1,4 @@
-fragment applicant on Applicant {
+fragment user on User {
   id
   email
 }
@@ -6,8 +6,8 @@ fragment applicant on Applicant {
 fragment experience on Experience {
   id
   details
-  applicant {
-    ...applicant
+  user {
+    ...user
   }
   skills {
     id
@@ -58,7 +58,7 @@ fragment experience on Experience {
   }
 }
 
-fragment applicantExperiences on Applicant {
+fragment applicantExperiences on User {
   id
   experiences {
     ...experience
