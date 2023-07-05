@@ -7,6 +7,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { DateInput } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
+import { emptyToNull } from "@gc-digital-talent/helpers";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
@@ -51,7 +52,7 @@ const ChangeDateDialog = ({
     formValues: FormValues,
   ) => {
     await requestMutation(selectedCandidate.id, {
-      expiryDate: formValues.expiryDate,
+      expiryDate: formValues.expiryDate || emptyToNull(formValues.expiryDate),
     })
       .then(() => {
         toast.success(
@@ -82,7 +83,13 @@ const ChangeDateDialog = ({
       <Dialog.Trigger>
         <Button color="black" mode="inline" data-h2-padding="base(0)">
           <span data-h2-text-decoration="base(underline)">
-            {selectedCandidate?.expiryDate}
+            {selectedCandidate?.expiryDate
+              ? selectedCandidate.expiryDate
+              : intl.formatMessage({
+                  defaultMessage: "Change date",
+                  id: "DspBFX",
+                  description: "Command to change a date",
+                })}
           </span>
         </Button>
       </Dialog.Trigger>
@@ -141,7 +148,6 @@ const ChangeDateDialog = ({
                   })}
                   name="expiryDate"
                   rules={{
-                    required: intl.formatMessage(errorMessages.required),
                     min: {
                       value: currentDate(),
                       message: intl.formatMessage(errorMessages.futureDate),
@@ -176,9 +182,8 @@ const ChangeDateDialog = ({
                     <span data-h2-text-decoration="base(underline)">
                       {intl.formatMessage({
                         defaultMessage: "Change date",
-                        id: "gvomlw",
-                        description:
-                          "Confirmation button for change expiry date dialog",
+                        id: "DspBFX",
+                        description: "Command to change a date",
                       })}
                     </span>
                   )}

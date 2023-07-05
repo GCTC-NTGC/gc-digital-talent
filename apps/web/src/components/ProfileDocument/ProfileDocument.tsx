@@ -419,19 +419,20 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                             ? intl.formatMessage(commonMessages.yes)
                             : intl.formatMessage(commonMessages.no)}
                         </p>
-                        {result.hasPriorityEntitlement &&
-                          result.priorityNumber && (
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage: "Priority number",
-                                id: "mGGj/i",
-                                description:
-                                  "Label for applicant's priority number value",
-                              })}
-                              {intl.formatMessage(commonMessages.dividingColon)}
-                              {result.priorityNumber}
-                            </p>
-                          )}
+                        {result.hasPriorityEntitlement && (
+                          <p>
+                            {intl.formatMessage({
+                              defaultMessage: "Priority number",
+                              id: "mGGj/i",
+                              description:
+                                "Label for applicant's priority number value",
+                            })}
+                            {intl.formatMessage(commonMessages.dividingColon)}
+                            {result.priorityNumber
+                              ? result.priorityNumber
+                              : intl.formatMessage(commonMessages.notProvided)}
+                          </p>
+                        )}
                       </PageSection>
                       <PageSection>
                         <Heading level="h3">

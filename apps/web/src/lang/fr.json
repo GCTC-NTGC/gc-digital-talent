@@ -2285,8 +2285,8 @@
     "defaultMessage": "Ce volet comprend la programmation, la conception et le développement de systèmes, l’analyse des activités, la configuration, les tests et la mise en œuvre.",
     "description": "Title for the 'software solutions' IT work stream"
   },
-  "MyDw3F": {
-    "defaultMessage": "Nous proposons également des processus de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir. Bien qu’il n’y ait aucune garantie qu’un emploi résultera des possibilités ci-dessous, c’est un moyen facile pour que votre nom et votre CV soient trouvés par les gestionnaires le moment venu. N’hésitez pas à soumettre votre nom pour tout poste qui correspond à vos compétences.",
+  "y5/tVk": {
+    "defaultMessage": "Nous proposons également des processus de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir. Bien qu’il n’y ait aucune garantie qu’un emploi résultera des possibilités ci-dessous, c’est un moyen facile pour que votre nom et votre CV soient trouvés par les gestionnaires le moment venu. N’hésitez pas à soumettre votre nom pour tout volet qui correspond à vos compétences.",
     "description": "instructions for section with ongoing pool advertisements"
   },
   "BxJSsB": {
@@ -3196,9 +3196,9 @@
     "defaultMessage": "Oups, on dirait que vous avez atterri sur une page que vous n'êtes pas autorisé(e) à consulter.",
     "description": "Detailed message saying the page to view is not authorized."
   },
-  "gvomlw": {
+  "DspBFX": {
     "defaultMessage": "Changer la date",
-    "description": "Confirmation button for change expiry date dialog"
+    "description": "Command to change a date"
   },
   "hIaETV": {
     "defaultMessage": "Statut du bassin",
@@ -4590,8 +4590,8 @@
     "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
     "description": "How it works, step 2 content sentence 1"
   },
-  "hKKYYL": {
-    "defaultMessage": "Ce lot comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.",
+  "Cq+1U7": {
+    "defaultMessage": "Ce volet comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.",
     "description": "Title for the 'project portfolio management' IT work stream"
   },
   "iA1BBF": {
@@ -6563,14 +6563,6 @@
     "defaultMessage": "Je suis prêt!",
     "description": "An action button to proceed"
   },
-  "oF8h5+": {
-    "defaultMessage": "Le gouvernement du Canada et l'Alliance de la Fonction publique du Canada (AFPC) sont en pourparlers actuellement pour les conventions collectives.",
-    "description": "Heading for the PSAC strike notice."
-  },
-  "6q29tj": {
-    "defaultMessage": "En cas d'interruption du travail, les services de référence de cette plateforme seront touchés. Veuillez noter que votre demande sera traitée lorsque les services reprendront. Merci de votre patience.",
-    "description": "Content for the PSAC strike notice."
-  },
   "+AUFyC": {
     "defaultMessage": "Apprentissage personnel",
     "description": "Title for personal learning section"
@@ -7249,9 +7241,9 @@
     "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
     "description": "Text showing the essentials skills assessed during the process"
   },
-  "AnIVCJ": {
+  "cTCdw5": {
     "defaultMessage": "Nous tenons à vous remercier de votre intérêt à devenir un(e) apprenti(e) de la TI au sein du gouvernement du Canada. Votre expérience vécue, votre passion et vos intérêts sont chaleureusement accueillis et reconnus. Un membre de l’équipe du Bureau des initiatives autochtones communiquera avec vous au cours des trois à cinq prochains jours ouvrables pour discuter votre demande.",
-    "description": "Description of review process and next steps for the indigenous apprenticeship applicant."
+    "description": "Description of review process and next steps for the IAP applicant."
   },
   "VldclB": {
     "defaultMessage": "Expériences relatives aux exigences pédagogiques",
@@ -7716,9 +7708,9 @@
     "defaultMessage": "Merci d’avoir postulé dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones!",
     "description": "Title for notification that a an IAP application was submitted"
   },
-  "tfzO5t": {
+  "nIJlba": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
-    "description": "Message under radio button in Indigenous apprenticeship application education page."
+    "description": "Message under radio button in IAP application education page."
   },
   "nWZiWr": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
@@ -7900,8 +7892,8 @@
     "defaultMessage": "Profil linguistique",
     "description": "Title of the Language Information link section"
   },
-  "gNyD/H": {
-    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au programme d’apprentissage destiné aux Autochtones et faire le suivi de votre position dans le programme.",
+  "Z9wBwT": {
+    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au Programme d’apprentissage en TI pour les personnes autochtones et faire le suivi de votre position dans le programme.",
     "description": "Third paragraph for profile and applications notification welcoming an IAP user"
   },
   "LOmX3T": {
@@ -7920,8 +7912,8 @@
     "defaultMessage": "Préférences de travail",
     "description": "Title of the Work Location link section"
   },
-  "DeWP/3": {
-    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au programme d’apprentissage destiné aux Autochtones et faire le suivi de votre statut dans le programme.",
+  "vYvmxq": {
+    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au Programme d’apprentissage en TI pour les personnes autochtones et faire le suivi de votre statut dans le programme.",
     "description": "Third paragraph for profile and applications notification welcoming an IAP user"
   },
   "U0qb7j": {
@@ -8216,12 +8208,12 @@
     "defaultMessage": "<strong>Préavis!</strong> Avant de vous demander d’aller établir vos justificatifs CléGC, nous vous demandons d’examiner de nouveau les critères d’admissibilité du programme afin de veiller à ce que vous répondiez aux exigences.",
     "description": "A request for the user to review the IAP eligibility criteria"
   },
-  "LVPNZ3": {
-    "defaultMessage": "Afin d’entamer la réalisation de votre profil auprès du Programme d’apprentissage destiné aux Autochtones, vous <strong>devez tout d’abord vous inscrire à la plateforme à l’aide de votre CléGC.</strong>.",
+  "epqFro": {
+    "defaultMessage": "Afin d’entamer la réalisation de votre profil auprès du Programme d’apprentissage en TI pour les personnes autochtones, vous <strong>devez tout d’abord vous inscrire à la plateforme à l’aide de votre CléGC.</strong>.",
     "description": "Instructions on how to register with GCKey - IAP variant"
   },
-  "ZOeVCm": {
-    "defaultMessage": "Vous pouvez accéder à votre profil du Programme d’apprentissage destiné aux Autochtones en vous servant de votre CléGC existante, même si vous n’avez jamais utilisé cette plateforme.",
+  "ySpJ2L": {
+    "defaultMessage": "Vous pouvez accéder à votre profil du Programme d’apprentissage en TI pour les personnes autochtones en vous servant de votre CléGC existante, même si vous n’avez jamais utilisé cette plateforme.",
     "description": "Instructions on how to login with GCKey - IAP variant"
   },
   "cPgH94": {
@@ -8304,9 +8296,9 @@
     "defaultMessage": "CV et recrutement",
     "description": "Name of Résumé and recruitment page"
   },
-  "o4tj77": {
+  "k1rUj5": {
     "defaultMessage": "Pour nous joindre",
-    "description": "Title for the contact dialog for the Indigenous Apprenticeship Program application process"
+    "description": "Title for the contact dialog for the IT Apprenticeship Program for Indigenous Peoples application process"
   },
   "58x4fO": {
     "defaultMessage": "Indiquez s'il y a une ville que vous souhaitez exclure d'une région.",
@@ -8344,9 +8336,9 @@
     "defaultMessage": "Veuillez sélectionner les options qui reflètent le mieux vos qualifications",
     "description": "Legend for the radio group in the application education page - IAP variant."
   },
-  "GZSvWZ": {
+  "8IIIER": {
     "defaultMessage": "<strong>Je possède un diplôme d’études secondaires ou l’équivalent (p. ex., formation Générale). </strong>",
-    "description": "Radio group option for education requirement filter in Indigenous apprenticeship application education form."
+    "description": "Radio group option for education requirement filter in IAP application education form."
   },
   "kukr/B": {
     "defaultMessage": "<strong>Je respecte l’option d’expérience appliquée</strong>",
@@ -8531,5 +8523,13 @@
   "y+r+ej": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed on the search request table group and level column."
+  },
+  "bWTzRy": {
+    "defaultMessage": "Consulter le profil de {name}",
+    "description": "Link text to view a candidates profile for assistive technologies"
+  },
+  "mzGMZC": {
+    "defaultMessage": "Consulter la demande de {name}",
+    "description": "Link text to view a candidates application for assistive technologies"
   }
 }

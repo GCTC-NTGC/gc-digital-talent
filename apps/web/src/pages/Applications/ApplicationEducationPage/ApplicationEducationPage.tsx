@@ -355,9 +355,9 @@ const ApplicationEducation = ({
         ? intl.formatMessage({
             defaultMessage:
               "<strong>I have a high school diploma or equivalent (e.g. GED)</strong>",
-            id: "GZSvWZ",
+            id: "8IIIER",
             description:
-              "Radio group option for education requirement filter in Indigenous apprenticeship application education form.",
+              "Radio group option for education requirement filter in IAP application education form.",
           })
         : intl.formatMessage({
             defaultMessage:
@@ -373,9 +373,9 @@ const ApplicationEducation = ({
               ? intl.formatMessage({
                   defaultMessage:
                     "Successful completion of a standard high school diploma or GED equivalent.",
-                  id: "tfzO5t",
+                  id: "nIJlba",
                   description:
-                    "Message under radio button in Indigenous apprenticeship application education page.",
+                    "Message under radio button in IAP application education page.",
                 })
               : intl.formatMessage(applicationMessages.postSecondaryEducation, {
                   link: qualityStandardsLink,
