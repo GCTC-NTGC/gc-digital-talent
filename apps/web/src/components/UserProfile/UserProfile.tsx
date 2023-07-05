@@ -157,111 +157,141 @@ const UserProfile = ({
     <Container show={isNavigationVisible}>
       {isNavigationVisible && (
         <TableOfContents.Navigation>
-          {showSection("myStatus") && (
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.STATUS}>
-              {intl.formatMessage(navigationMessages.myStatus)}
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("about") && (
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ABOUT}>
-              <StatusItem
-                asListItem={false}
-                title={intl.formatMessage(navigationMessages.aboutMe)}
-                status={sectionStatus(aboutSectionHasEmptyRequiredFields)}
-              />
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("employmentEquity") && (
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.DEI}>
-              <StatusItem
-                asListItem={false}
-                title={intl.formatMessage(
-                  navigationMessages.diversityEquityInclusion,
-                )}
-                status={sectionStatus(
-                  diversityEquityInclusionSectionHasEmptyRequiredFields,
-                )}
-              />
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("language") && (
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.LANGUAGE}>
-              <StatusItem
-                asListItem={false}
-                title={intl.formatMessage(
-                  navigationMessages.languageInformation,
-                )}
-                status={sectionStatus(
-                  languageInformationSectionHasEmptyRequiredFields,
-                )}
-              />
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("government") && (
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.GOVERNMENT}>
-              <StatusItem
-                asListItem={false}
-                title={intl.formatMessage(
-                  navigationMessages.governmentInformation,
-                )}
-                status={sectionStatus(
-                  governmentInformationSectionHasEmptyRequiredFields,
-                )}
-              />
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("workLocation") && (
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.WORK_LOCATION}>
-              <StatusItem
-                asListItem={false}
-                title={intl.formatMessage(navigationMessages.workLocation)}
-                status={sectionStatus(
-                  workLocationSectionHasEmptyRequiredFields,
-                )}
-              />
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("workPreferences") && (
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.WORK_PREFERENCES}>
-              <StatusItem
-                asListItem={false}
-                title={intl.formatMessage(navigationMessages.workPreferences)}
-                status={sectionStatus(
-                  workPreferencesSectionHasEmptyRequiredFields,
-                )}
-              />
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("roleSalary") && (
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ROLE_AND_SALARY}>
-              <StatusItem
-                asListItem={false}
-                title={intl.formatMessage(
-                  navigationMessages.roleSalaryExpectations,
-                )}
-                status={sectionStatus(roleSalarySectionHasEmptyRequiredFields)}
-              />
-            </TableOfContents.AnchorLink>
-          )}
-          {showSection("resumeAndRecruitment") && (
-            <TableOfContents.AnchorLink
-              id={PAGE_SECTION_ID.RESUME_AND_RECRUITMENT}
-            >
-              {intl.formatMessage(navigationMessages.resumeAndRecruitment)}
-            </TableOfContents.AnchorLink>
-          )}
-          {/* {showSection("accountAndPrivacy") && (
-            <TableOfContents.AnchorLink
-              id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Account and privacy settings",
-                id: "",
-                description:
-                  "Title of the Account and privacy settings link section",
-              })}
-            </TableOfContents.AnchorLink>
+          <TableOfContents.List>
+            {showSection("myStatus") && (
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.STATUS}>
+                  {intl.formatMessage(navigationMessages.myStatus)}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            )}
+            {showSection("about") && (
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ABOUT}>
+                  <StatusItem
+                    asListItem={false}
+                    title={intl.formatMessage(navigationMessages.aboutMe)}
+                    status={sectionStatus(aboutSectionHasEmptyRequiredFields)}
+                  />
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            )}
+            {showSection("employmentEquity") && (
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.DEI}>
+                  <StatusItem
+                    asListItem={false}
+                    title={intl.formatMessage(
+                      navigationMessages.diversityEquityInclusion,
+                    )}
+                    status={sectionStatus(
+                      diversityEquityInclusionSectionHasEmptyRequiredFields,
+                    )}
+                  />
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            )}
+            {showSection("language") && (
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.LANGUAGE}>
+                  <StatusItem
+                    asListItem={false}
+                    title={intl.formatMessage(
+                      navigationMessages.languageInformation,
+                    )}
+                    status={sectionStatus(
+                      languageInformationSectionHasEmptyRequiredFields,
+                    )}
+                  />
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            )}
+            {showSection("government") && (
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.GOVERNMENT}>
+                  <StatusItem
+                    asListItem={false}
+                    title={intl.formatMessage(
+                      navigationMessages.governmentInformation,
+                    )}
+                    status={sectionStatus(
+                      governmentInformationSectionHasEmptyRequiredFields,
+                    )}
+                  />
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            )}
+            {showSection("workLocation") && (
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.WORK_LOCATION}>
+                  <StatusItem
+                    asListItem={false}
+                    title={intl.formatMessage(navigationMessages.workLocation)}
+                    status={sectionStatus(
+                      workLocationSectionHasEmptyRequiredFields,
+                    )}
+                  />
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            )}
+            {showSection("workPreferences") && (
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={PAGE_SECTION_ID.WORK_PREFERENCES}
+                >
+                  <StatusItem
+                    asListItem={false}
+                    title={intl.formatMessage(
+                      navigationMessages.workPreferences,
+                    )}
+                    status={sectionStatus(
+                      workPreferencesSectionHasEmptyRequiredFields,
+                    )}
+                  />
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            )}
+            {showSection("roleSalary") && (
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={PAGE_SECTION_ID.ROLE_AND_SALARY}
+                >
+                  <StatusItem
+                    asListItem={false}
+                    title={intl.formatMessage(
+                      navigationMessages.roleSalaryExpectations,
+                    )}
+                    status={sectionStatus(
+                      roleSalarySectionHasEmptyRequiredFields,
+                    )}
+                  />
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            )}
+            {showSection("resumeAndRecruitment") && (
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={PAGE_SECTION_ID.RESUME_AND_RECRUITMENT}
+                >
+                  {intl.formatMessage(navigationMessages.resumeAndRecruitment)}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            )}
+            {/* {showSection("accountAndPrivacy") && (
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Account and privacy settings",
+                    id: "",
+                    description:
+                      "Title of the Account and privacy settings link section",
+                  })}
+                </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
           )} */}
+          </TableOfContents.List>
         </TableOfContents.Navigation>
       )}
       <TableOfContents.Content>

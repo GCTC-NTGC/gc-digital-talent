@@ -225,41 +225,62 @@ export const PoolPoster = ({
         )}
         crumbs={links}
       />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div
+        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-margin-top="base(x3)"
+      >
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
-            <TableOfContents.AnchorLink id={sections.summary.id}>
-              {sections.summary.linkText}
-            </TableOfContents.AnchorLink>
-            {showImpactTasks && (
-              <TableOfContents.AnchorLink id={sections.impactTasks.id}>
-                {sections.impactTasks.title}
-              </TableOfContents.AnchorLink>
-            )}
-            <TableOfContents.AnchorLink id={sections.experienceSkills.id}>
-              {sections.experienceSkills.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sections.locationLangSecurity.id}>
-              {sections.locationLangSecurity.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sections.contact.id}>
-              {sections.contact.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sections.hiringPolicies.id}>
-              {sections.hiringPolicies.title}
-            </TableOfContents.AnchorLink>
-            {canApply && (
-              <TableOfContents.AnchorLink id={sections.apply.id}>
-                {sections.apply.title}
-              </TableOfContents.AnchorLink>
-            )}
+            <TableOfContents.List>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sections.summary.id}>
+                  {sections.summary.linkText}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              {showImpactTasks && (
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.impactTasks.id}>
+                    {sections.impactTasks.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              )}
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sections.experienceSkills.id}>
+                  {sections.experienceSkills.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={sections.locationLangSecurity.id}
+                >
+                  {sections.locationLangSecurity.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sections.contact.id}>
+                  {sections.contact.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sections.hiringPolicies.id}>
+                  {sections.hiringPolicies.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              {canApply && (
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.apply.id}>
+                    {sections.apply.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              )}
+            </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <TableOfContents.Section id={sections.summary.id}>
               <div
                 data-h2-display="base(flex)"
                 data-h2-gap="base(0 x1)"
-                data-h2-margin="base(x3, 0, x1, 0)"
+                data-h2-margin="base(0, 0, x1, 0)"
               >
                 <div data-h2-flex-grow="base(1)">
                   <TableOfContents.Heading data-h2-margin="base(0)">

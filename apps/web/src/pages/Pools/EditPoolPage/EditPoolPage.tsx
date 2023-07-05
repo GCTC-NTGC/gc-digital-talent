@@ -177,37 +177,59 @@ export const EditPoolForm = ({
       <div data-h2-container="base(left, large, 0)">
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
-            <TableOfContents.AnchorLink id={sectionMetadata.poolName.id}>
-              {sectionMetadata.poolName.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sectionMetadata.closingDate.id}>
-              {sectionMetadata.closingDate.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sectionMetadata.yourImpact.id}>
-              {sectionMetadata.yourImpact.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sectionMetadata.workTasks.id}>
-              {sectionMetadata.workTasks.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sectionMetadata.essentialSkills.id}>
-              {sectionMetadata.essentialSkills.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sectionMetadata.assetSkills.id}>
-              {sectionMetadata.assetSkills.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink
-              id={sectionMetadata.otherRequirements.id}
-            >
-              {sectionMetadata.otherRequirements.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink
-              id={sectionMetadata.screeningQuestions.id}
-            >
-              {sectionMetadata.screeningQuestions.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
-              {sectionMetadata.status.title}
-            </TableOfContents.AnchorLink>
+            <TableOfContents.List>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sectionMetadata.poolName.id}>
+                  {sectionMetadata.poolName.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sectionMetadata.closingDate.id}>
+                  {sectionMetadata.closingDate.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sectionMetadata.yourImpact.id}>
+                  {sectionMetadata.yourImpact.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sectionMetadata.workTasks.id}>
+                  {sectionMetadata.workTasks.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={sectionMetadata.essentialSkills.id}
+                >
+                  {sectionMetadata.essentialSkills.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sectionMetadata.assetSkills.id}>
+                  {sectionMetadata.assetSkills.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={sectionMetadata.otherRequirements.id}
+                >
+                  {sectionMetadata.otherRequirements.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={sectionMetadata.screeningQuestions.id}
+                >
+                  {sectionMetadata.screeningQuestions.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
+                  {sectionMetadata.status.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            </TableOfContents.List>
             <Link
               href={paths.poolView(pool.id)}
               color="secondary"

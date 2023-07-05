@@ -3,6 +3,11 @@ import AnchorLink, {
 } from "./AnchorLink";
 import Content from "./Content";
 import Heading, { type HeadingProps as TocHeadingProps } from "./Heading";
+import List, {
+  ListItem,
+  ListProps as TocListProps,
+  ListItemProps as TocListItemProps,
+} from "./List";
 import Navigation from "./Navigation";
 import Section, { type SectionProps as TocSectionProps } from "./Section";
 import Sidebar from "./Sidebar";
@@ -12,6 +17,8 @@ const TableOfContents = {
   AnchorLink,
   Content,
   Heading,
+  List,
+  ListItem,
   Navigation,
   Section,
   Sidebar,
@@ -19,4 +26,10 @@ const TableOfContents = {
 };
 
 export default TableOfContents;
-export type { TocAnchorLinkProps, TocHeadingProps, TocSectionProps };
+export type {
+  TocAnchorLinkProps,
+  TocHeadingProps,
+  TocSectionProps,
+  TocListProps,
+  TocListItemProps,
+};
