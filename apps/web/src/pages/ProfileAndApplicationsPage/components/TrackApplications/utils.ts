@@ -36,12 +36,12 @@ export const getApplicationDateInfo = (
 ): ApplicationDateInfo => {
   const ApplyBy = intl.formatMessage({
     defaultMessage: "Apply by",
-    id: "r4bJ8b",
+    id: "a+j1+H",
     description: "Label for showing the closing date of a job posting.",
   });
   const AppliedOn = intl.formatMessage({
     defaultMessage: "Applied on",
-    id: "/II3h3",
+    id: "BdsZwe",
     description: "Label for showing the submitted date of an application.",
   });
   const message = isDraft(application.status) ? ApplyBy : AppliedOn;
