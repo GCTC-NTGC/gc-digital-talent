@@ -78,7 +78,7 @@ const WorkPreferences = ({
         toggle={
           !isNull ? (
             <SectionTrigger
-              aria-describedby={intl.formatMessage({
+              aria-label={intl.formatMessage({
                 defaultMessage: "Edit work preferences",
                 id: "w63YYp",
                 description: "Button text to start editing work preferences",

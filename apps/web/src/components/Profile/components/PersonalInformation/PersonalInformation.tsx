@@ -72,7 +72,7 @@ const PersonalInformation = ({
         toggle={
           !isNull ? (
             <SectionTrigger
-              aria-describedby={intl.formatMessage({
+              aria-label={intl.formatMessage({
                 defaultMessage: "Edit personal and contact information",
                 id: "WE8ZUX",
                 description:

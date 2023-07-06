@@ -80,7 +80,7 @@ const LanguageProfile = ({
         toggle={
           !isNull ? (
             <SectionTrigger
-              aria-describedby={intl.formatMessage({
+              aria-label={intl.formatMessage({
                 defaultMessage: "Edit language profile",
                 id: "fxPLAl",
                 description: "Button text to start editing language profile",

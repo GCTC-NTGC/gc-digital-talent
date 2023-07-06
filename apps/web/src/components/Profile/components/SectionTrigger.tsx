@@ -9,13 +9,13 @@ interface SectionTriggerProps {
   children: React.ReactNode;
 }
 
-const SectionTrigger = ({ children }: SectionTriggerProps) => {
+const SectionTrigger = ({ children, ...rest }: SectionTriggerProps) => {
   const intl = useIntl();
   const ctx = useContext();
 
   return (
     <ToggleSection.Trigger>
-      <Button mode="inline" color="secondary">
+      <Button mode="inline" color="secondary" {...rest}>
         {ctx?.open
           ? intl.formatMessage({
               defaultMessage: "Cancel editing",

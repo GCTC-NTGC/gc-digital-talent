@@ -77,7 +77,7 @@ const GovernmentInformation = ({
         toggle={
           !isNull ? (
             <SectionTrigger
-              aria-describedby={intl.formatMessage({
+              aria-label={intl.formatMessage({
                 defaultMessage: "Edit government information",
                 id: "Ysf8wI",
                 description:
