@@ -2457,16 +2457,16 @@
         },
         {
             "name": "mll-lab/laravel-graphiql",
-            "version": "v3.0.2",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mll-lab/laravel-graphiql.git",
-                "reference": "8e4a6d6a70abe1ab696f5299e3b3c04a643f9d9d"
+                "reference": "54d7dbe5376ab87a6ea83be11b1431d0af9e2f6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mll-lab/laravel-graphiql/zipball/8e4a6d6a70abe1ab696f5299e3b3c04a643f9d9d",
-                "reference": "8e4a6d6a70abe1ab696f5299e3b3c04a643f9d9d",
+                "url": "https://api.github.com/repos/mll-lab/laravel-graphiql/zipball/54d7dbe5376ab87a6ea83be11b1431d0af9e2f6c",
+                "reference": "54d7dbe5376ab87a6ea83be11b1431d0af9e2f6c",
                 "shasum": ""
             },
             "require": {
@@ -2517,9 +2517,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mll-lab/laravel-graphiql/issues",
-                "source": "https://github.com/mll-lab/laravel-graphiql/tree/v3.0.2"
+                "source": "https://github.com/mll-lab/laravel-graphiql/tree/v3.1.0"
             },
-            "time": "2023-06-26T07:04:16+00:00"
+            "time": "2023-07-04T13:58:40+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2624,16 +2624,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.67.0",
+            "version": "2.68.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "c1001b3bc75039b07f38a79db5237c4c529e04c8"
+                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/c1001b3bc75039b07f38a79db5237c4c529e04c8",
-                "reference": "c1001b3bc75039b07f38a79db5237c4c529e04c8",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4f991ed2a403c85efbc4f23eb4030063fdbe01da",
+                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da",
                 "shasum": ""
             },
             "require": {
@@ -2722,7 +2722,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-25T22:09:47+00:00"
+            "time": "2023-06-20T18:29:04+00:00"
         },
         {
             "name": "nette/schema",
