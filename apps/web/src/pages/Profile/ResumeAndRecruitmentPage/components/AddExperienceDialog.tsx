@@ -183,10 +183,7 @@ const AddExperienceDialog = ({
               description: "Instructions for the Add Experience dialog",
             })}
           </div>
-          <div
-            data-h2-margin="base(0, x0.5)"
-            data-h2-flex-grid="base(stretch, x2, x1)"
-          >
+          <div data-h2-flex-grid="base(stretch, x2, x1)">
             {experienceSections.map(({ icon: Icon, ...section }) => (
               <div
                 key={section.title}

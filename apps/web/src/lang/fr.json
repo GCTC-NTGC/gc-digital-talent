@@ -8496,6 +8496,34 @@
     "defaultMessage": "{count} candidats répondent à vos critères.",
     "description": "Message announced to assistive technology users when the estimated candidate count changes."
   },
+  "4QEl+4": {
+    "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences",
+    "description": "Aria-label for the title displayed on the candidate skill count column."
+  },
+  "4SNVtn": {
+    "defaultMessage": "{poolCandidateName} possède 0 des 0 compétences",
+    "description": "Aria-label for the title displayed on the candidate skill count column."
+  },
+  "GAYZpV": {
+    "defaultMessage": "Fermer",
+    "description": "Button text used to close an skills match dialog"
+  },
+  "WFhX9m": {
+    "defaultMessage": "{skillsCount} des {filteredSkillsTotal}",
+    "description": "Title displayed on the candidate skill count column."
+  },
+  "gkLEbN": {
+    "defaultMessage": "0 des 0",
+    "description": "Title displayed on the candidate skill count column when no skills are selected."
+  },
+  "pJqoQF": {
+    "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
+    "description": "Disclaimer displayed in the skill tree on the skill match dialog."
+  },
+  "qQZQj+": {
+    "defaultMessage": "L'adéquation des compétences en détail",
+    "description": "Heading displayed on the candidate skill match dialog."
+  },
   "bWTzRy": {
     "defaultMessage": "Consulter le profil de {name}",
     "description": "Link text to view a candidates profile for assistive technologies"

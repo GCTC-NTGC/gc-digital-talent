@@ -36,6 +36,7 @@ import {
   CandidateSuspendedFilter,
   PoolStream,
   PoolCandidateWithSkillCount,
+  useGetSkillsQuery,
 } from "~/api/generated";
 
 import printStyles from "~/styles/printStyles";
@@ -69,6 +70,7 @@ import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import PoolCandidateTableFilterDialog, {
   FormValues,
 } from "./PoolCandidateTableFilterDialog";
+import { skillMatchDialogAccessor } from "./SkillMatchDialog";
 
 type Data = NonNullable<
   FromArray<PoolCandidateWithSkillCountPaginator["data"]>
@@ -536,6 +538,14 @@ const PoolCandidatesTable = ({
   const candidateData = data?.poolCandidatesPaginated?.data ?? [];
   const filteredData = candidateData.filter(notEmpty);
 
+  const [
+    { data: allSkillsData, fetching: fetchingSkills, error: skillsError },
+  ] = useGetSkillsQuery();
+  const allSkills = allSkillsData?.skills.filter(notEmpty);
+  const filteredSkillIds = applicantFilterInput?.applicantFilter?.skills
+    ?.filter(notEmpty)
+    .map((skill) => skill.id);
+
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       rowSelectionColumn(
@@ -658,7 +668,15 @@ const PoolCandidatesTable = ({
         }),
         id: "skillCount",
         sortColumnName: "SKILL_COUNT",
-        accessor: ({ skillCount }) => skillCount,
+        accessor: ({ poolCandidate: { user }, skillCount }) =>
+          skillMatchDialogAccessor(
+            allSkills?.filter((skill) =>
+              filteredSkillIds?.includes(skill.id),
+            ) ?? [],
+            user.experiences?.filter(notEmpty) ?? [],
+            skillCount,
+            `${user.firstName} ${user.lastName}`,
+          ),
       },
       {
         label: intl.formatMessage({
@@ -698,7 +716,7 @@ const PoolCandidatesTable = ({
         sortColumnName: "submitted_at",
       },
     ],
-    [intl, selectedRows, filteredData, paths],
+    [intl, selectedRows, filteredData, paths, allSkills, filteredSkillIds],
   );
 
   const allColumnIds = columns.map((c) => c.id);
@@ -835,7 +853,11 @@ const PoolCandidatesTable = ({
         hiddenColumnIds={hiddenColumnIds ?? []}
       />
       <div data-h2-radius="base(s)">
-        <Pending fetching={fetching} error={error} inline>
+        <Pending
+          fetching={fetching || fetchingSkills}
+          error={error || skillsError}
+          inline
+        >
           <BasicTable
             labelledBy="pool-candidate-table-heading"
             title={title}
