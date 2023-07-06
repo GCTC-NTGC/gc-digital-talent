@@ -43,7 +43,7 @@ class PoolCandidateSearchRequest extends Model
      */
 
     protected $casts = [
-        'done_at' => 'datetime',
+        'status_changed_at' => 'datetime',
     ];
 
     /**
