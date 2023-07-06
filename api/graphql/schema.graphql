@@ -1492,7 +1492,7 @@ input WorkExperienceInput {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 input PersonalExperienceInput {
   title: String
@@ -1500,7 +1500,7 @@ input PersonalExperienceInput {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 input CommunityExperienceInput {
   title: String
@@ -1509,7 +1509,7 @@ input CommunityExperienceInput {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 input EducationExperienceInput {
   institution: String
@@ -1520,7 +1520,7 @@ input EducationExperienceInput {
   type: EducationType
   status: EducationStatus
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 input AwardExperienceInput {
   title: String
@@ -1529,13 +1529,13 @@ input AwardExperienceInput {
   awardedTo: AwardedTo @rename(attribute: "awarded_to")
   awardedScope: AwardedScope @rename(attribute: "awarded_scope")
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 
 input UpdateExperienceSkills {
-  connect: [ConnectExperienceSkills!]
-  disconnect: [ID!]
-  sync: [ConnectExperienceSkills!]
+  connect: [ConnectExperienceSkills!] @resolveWith(method: "connectSkills")
+  disconnect: [ID!] @resolveWith(method: "disconnectSkills")
+  sync: [ConnectExperienceSkills!] @resolveWith(method: "syncSkills")
 }
 
 input ConnectExperienceSkills {

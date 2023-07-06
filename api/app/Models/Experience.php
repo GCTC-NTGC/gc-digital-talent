@@ -53,6 +53,10 @@ abstract class Experience extends Model
      */
     public function syncSkills($skills)
     {
+        if ($skills === null) {
+            return; //TODO: should null be ignored, or be treated as empty array, which unsyncs existing skills?
+        }
+
         // TODO: make experience_skill soft-deletable (and restorable)
 
         $skillIds = collect($skills)->pluck('id');
@@ -67,6 +71,42 @@ abstract class Experience extends Model
         });
         // Sync experience to userSkills
         $this->userSkills()->sync($syncSkills);
+        // If this experience instance continues to be used, ensure the in-memory instance is updated.
+        $this->refresh();
+    }
+
+    public function connectSkills($skills)
+    {
+        if ($skills === null) {
+            return;
+        }
+
+        // TODO: make experience_skill soft-deletable (and restorable)
+        $skillIds = collect($skills)->pluck('id');
+        // First ensure that UserSkills exist for each of these skills
+        $this->user->addSkills($skillIds);
+        // Map skills to UserSkills, for syncing: https://laravel.com/docs/10.x/eloquent-relationships#syncing-associations
+        $userSkills = $this->user->userSkills;
+        $syncSkills = collect($skills)->flatMap(function ($skill) use ($userSkills) {
+            $userSkillId = $userSkills->firstWhere('skill_id', $skill['id'])->id;
+            $details = array_key_exists('details', $skill) ? $skill['details'] : null;
+            return [$userSkillId => ['details' => $details]];
+        });
+        // Sync experience to new userSkills without removing any.
+        $this->userSkills()->syncWithoutDetaching($syncSkills);
+        // If this experience instance continues to be used, ensure the in-memory instance is updated.
+        $this->refresh();
+    }
+
+    public function disconnectSkills($skillIds)
+    {
+        if ($skillIds === null) {
+            return;
+        }
+        // Find the userSkills that correspond to these skills.
+        $userSkillIds = $this->user->userSkills()->whereIn('skill_id', $skillIds)->pluck('id');
+        // Simply detach the required userSkills
+        $this->userSkills()->detach($userSkillIds);
         // If this experience instance continues to be used, ensure the in-memory instance is updated.
         $this->refresh();
     }
