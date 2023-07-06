@@ -44,6 +44,10 @@ return new class extends Migration
                 STORED;
                 SQL,
         );
+        Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
+            $table->dropColumn('done_at');
+            $table->timestamp('status_changed_at')->nullable();
+        });
     }
 
     /**
@@ -54,6 +58,8 @@ return new class extends Migration
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
             $table->dropColumn('request_status_weight');
             $table->dropColumn('request_status');
+            $table->dropColumn('status_changed_at');
+            $table->timestamp('done_at')->nullable();
         });
     }
 };
