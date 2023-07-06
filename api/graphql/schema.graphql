@@ -586,7 +586,9 @@ type RoleAssignment {
 }
 
 enum PoolCandidateSearchStatus {
-  PENDING
+  NEW
+  IN_PROGRESS
+  WAITING
   DONE
 }
 
@@ -647,7 +649,7 @@ type PoolCandidateSearchRequest {
   jobTitle: String @rename(attribute: "job_title")
   additionalComments: String @rename(attribute: "additional_comments")
   requestedDate: DateTime @rename(attribute: "created_at")
-  status: PoolCandidateSearchStatus
+  status: PoolCandidateSearchStatus @rename(attribute: "request_status")
   adminNotes: String @rename(attribute: "admin_notes")
   poolCandidateFilter: PoolCandidateFilter @belongsTo
   applicantFilter: ApplicantFilter @belongsTo
