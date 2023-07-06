@@ -267,7 +267,7 @@ const SearchRequestsTableApi = ({
             "Title displayed on the search request table status column.",
         }),
         id: "status",
-        sortColumnName: "done_at",
+        sortColumnName: "request_status_weight",
         accessor: (d) => statusAccessor(d.status, intl),
       },
       {
