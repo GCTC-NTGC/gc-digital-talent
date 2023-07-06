@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Carbon\CarbonImmutable;
 
 /**
  * Class PoolCandidateSearchRequest
@@ -25,7 +26,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $deleted_at
- * @property Illuminate\Support\Carbon $done_at
+ * @property Illuminate\Support\Carbon $status_changed_at
  */
 
 class PoolCandidateSearchRequest extends Model
@@ -179,5 +180,15 @@ class PoolCandidateSearchRequest extends Model
             });
         }
         return $query;
+    }
+
+    /**
+     * Getters/Mutators
+     */
+
+    public function setStatusAttribute($statusInput): void
+    {
+        $this->request_status = $statusInput;
+        $this->status_changed_at = CarbonImmutable::now();
     }
 }
