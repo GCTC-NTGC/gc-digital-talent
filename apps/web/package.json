@@ -84,7 +84,7 @@
     "@storybook/addon-actions": "^7.0.24",
     "@storybook/addon-essentials": "^7.0.24",
     "@storybook/addon-links": "^7.0.24",
-    "@storybook/addon-viewport": "^7.0.6",
+    "@storybook/addon-viewport": "^7.0.26",
     "@storybook/react": "^7.0.6",
     "@storybook/react-webpack5": "^7.0.24",
     "@testing-library/jest-dom": "^5.16.5",
