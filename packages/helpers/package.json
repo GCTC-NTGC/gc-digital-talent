@@ -24,7 +24,7 @@
     "urql": "3.0.4"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.67",
+    "@swc/core": "^1.3.68",
     "eslint-config-custom": "*",
     "tsup": "^7.1.0"
   }

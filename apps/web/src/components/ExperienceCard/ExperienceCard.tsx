@@ -17,6 +17,7 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Skill } from "~/api/generated";
 import { AnyExperience } from "~/types/experience";
 import {
+  getExperienceFormLabels,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
@@ -55,6 +56,7 @@ const ExperienceCard = ({
   showEdit = true,
 }: ExperienceCardProps) => {
   const intl = useIntl();
+  const experienceLabels = getExperienceFormLabels(intl);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const { title, titleHtml, editPath, icon, typeMessage } =
     useExperienceInfo(experience);
@@ -261,12 +263,7 @@ const ExperienceCard = ({
             data-h2-margin="base(x1 0)"
           />
           <ContentSection
-            title={intl.formatMessage({
-              defaultMessage: "Tasks and responsibilities",
-              id: "jDvu8u",
-              description:
-                "Heading for the tasks section of the experience form",
-            })}
+            title={experienceLabels.details}
             headingLevel={headingLevel}
           >
             {experience.details ??

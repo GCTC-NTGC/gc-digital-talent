@@ -3243,10 +3243,6 @@
     "defaultMessage": "Ajouter cette compétence<hidden> : {skillName}</hidden>",
     "description": "Button label to add the adjacent skill on skill result block."
   },
-  "MS9dB9": {
-    "defaultMessage": "Talents numériques du GC",
-    "description": "Application title"
-  },
   "MTwQ3S": {
     "defaultMessage": "À quel courriel souhaitez-vous être contacté(e)?",
     "description": "Label displayed for the email field in create account form."
