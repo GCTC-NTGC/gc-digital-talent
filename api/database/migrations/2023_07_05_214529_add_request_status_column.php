@@ -45,8 +45,7 @@ return new class extends Migration
                 SQL,
         );
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
-            $table->dropColumn('done_at');
-            $table->timestamp('status_changed_at')->nullable();
+            $table->renameColumn('done_at', 'status_changed_at');
         });
     }
 
@@ -58,8 +57,7 @@ return new class extends Migration
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
             $table->dropColumn('request_status_weight');
             $table->dropColumn('request_status');
-            $table->dropColumn('status_changed_at');
-            $table->timestamp('done_at')->nullable();
+            $table->renameColumn('status_changed_at', 'done_at');
         });
     }
 };
