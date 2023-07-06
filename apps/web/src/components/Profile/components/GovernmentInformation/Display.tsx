@@ -52,13 +52,13 @@ const Display = ({
 
   const priorityMessage = hasPriorityEntitlement
     ? intl.formatMessage({
-        defaultMessage: "Yes, I do have a priority entitlement",
-        id: "mkYnUD",
+        defaultMessage: "Yes, I do have a priority entitlement.",
+        id: "FVAQCH",
         description: "affirm possession of priority entitlement",
       })
     : intl.formatMessage({
-        defaultMessage: "No, I do not have a priority entitlement",
-        id: "dSxICg",
+        defaultMessage: "No, I do not have a priority entitlement.",
+        id: "I6Qz7N",
         description: "affirm no entitlement",
       });
 

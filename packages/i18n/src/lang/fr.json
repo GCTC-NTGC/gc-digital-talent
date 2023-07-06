@@ -281,8 +281,8 @@
     "defaultMessage": "Manitoba",
     "description": "Manitoba selection for province or territory input"
   },
-  "RE7o8x": {
-    "defaultMessage": "Je suis un(e) <strong>étudiant(e)</strong>",
+  "zhzuZu": {
+    "defaultMessage": "Je suis un(e) <strong>étudiant(e)</strong>.",
     "description": "Student selection for government employee type."
   },
   "RQTXLS": {
@@ -305,12 +305,12 @@
     "defaultMessage": "Nouveau-Brunswick",
     "description": "New Brunswick selection for province or territory input"
   },
-  "YFPM7a": {
-    "defaultMessage": "J'ai un contrat <strong>occasionnel</strong>",
+  "9ays+c": {
+    "defaultMessage": "J'ai un contrat <strong>occasionnel</strong>.",
     "description": "Casual selection for government employee type."
   },
-  "YVLfw+": {
-    "defaultMessage": "Je suis un employé nommé pour une période <strong>indéterminée</strong>",
+  "HGM0YR": {
+    "defaultMessage": "Je suis un employé nommé pour une période <strong>indéterminée</strong>.",
     "description": "Indeterminate selection for government employee type."
   },
   "j6WJBY": {

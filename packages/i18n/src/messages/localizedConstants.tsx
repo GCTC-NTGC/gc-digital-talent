@@ -1517,13 +1517,13 @@ export const getPoolStream = (
 
 export const govEmployeeType = defineMessages({
   [GovEmployeeType.Student]: {
-    defaultMessage: "I am a <strong>student</strong>",
-    id: "RE7o8x",
+    defaultMessage: "I am a <strong>student</strong>.",
+    id: "zhzuZu",
     description: "Student selection for government employee type.",
   },
   [GovEmployeeType.Casual]: {
-    defaultMessage: "I have a <strong>casual</strong> contract",
-    id: "YFPM7a",
+    defaultMessage: "I have a <strong>casual</strong> contract.",
+    id: "9ays+c",
     description: "Casual selection for government employee type.",
   },
   [GovEmployeeType.Term]: {
@@ -1532,8 +1532,8 @@ export const govEmployeeType = defineMessages({
     description: "Term selection for government employee type.",
   },
   [GovEmployeeType.Indeterminate]: {
-    defaultMessage: "I am an <strong>indeterminate</strong> employee",
-    id: "YVLfw+",
+    defaultMessage: "I am an <strong>indeterminate</strong> employee.",
+    id: "HGM0YR",
     description: "Indeterminate selection for government employee type.",
   },
 });

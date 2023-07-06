@@ -176,8 +176,8 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "By agreeing to use the GC Digital Talent platform, you agree to your data being anonymized for use in statistical purposes. You can learn more about how we handle your privacy in our platform <link>Privacy Policy</link>.",
-                  id: "SRP0Ax",
+                    "By agreeing to use the GC Digital Talent platform, you agree to your data being anonymized and used for statistical purposes. You can learn more about how we handle your privacy in our platform <link>Privacy policy</link>.",
+                  id: "yITGeG",
                   description: "Description of how we handle privacy.",
                 },
                 {
@@ -190,8 +190,8 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    'By applying to a talent pool on the platform, you agree to receive notifications about related potential employment opportunities. You can disable these notifications using the "availability" controls below, or by reviewing your <link>current recruitment processes on your résumé</link>.',
-                  id: "rDD/Vk",
+                    "By applying to a talent pool on the platform, you agree to receive notifications about related potential employment opportunities. You can manage these notifications using the <strong>availability controls</strong>, or by reviewing the <link>current recruitment processes on your résumé</link>.",
+                  id: "DX/e8R",
                   description:
                     "Description for managing recruitment availability.",
                 },

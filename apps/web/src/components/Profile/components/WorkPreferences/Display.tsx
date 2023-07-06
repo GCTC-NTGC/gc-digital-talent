@@ -112,7 +112,7 @@ const Display = ({
                     "Start of sentence describing a users accepted work regions",
                 })} ${intl.formatMessage(
                   getWorkRegionsDetailed(location, false),
-                )}`}
+                )}.`}
               </li>
             ))}
           </ul>

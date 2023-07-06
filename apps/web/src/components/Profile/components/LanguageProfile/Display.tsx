@@ -49,8 +49,8 @@ const Display = ({
               <li>
                 {intl.formatMessage({
                   defaultMessage:
-                    "I would like to be considered for English positions",
-                  id: "vmj/E4",
+                    "I would like to be considered for English positions.",
+                  id: "HYSPug",
                   description: "English Positions message",
                 })}
               </li>
@@ -59,8 +59,8 @@ const Display = ({
               <li>
                 {intl.formatMessage({
                   defaultMessage:
-                    "I would like to be considered for French positions",
-                  id: "sWBbdX",
+                    "I would like to be considered for French positions.",
+                  id: "xff04x",
                   description: "French Positions message",
                 })}
               </li>
@@ -69,8 +69,8 @@ const Display = ({
               <li>
                 {intl.formatMessage({
                   defaultMessage:
-                    "I would like to be considered for bilingual positions (English and French)",
-                  id: "jx7Sf1",
+                    "I would like to be considered for bilingual positions (English and French).",
+                  id: "ak4twG",
                   description: "Bilingual Positions message",
                 })}
               </li>

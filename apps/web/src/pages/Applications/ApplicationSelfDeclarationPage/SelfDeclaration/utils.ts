@@ -22,8 +22,8 @@ export const getSelfDeclarationLabels = (intl: IntlShape) => ({
     description: "Label for Métis community",
   }),
   other: intl.formatMessage({
-    id: "Xvvcsg",
-    defaultMessage: "I am Indigenous and I don't see my community here",
+    id: "LIpK1v",
+    defaultMessage: "My community isn't listed",
     description: "Label for not represented community",
   }),
   signature: intl.formatMessage({
