@@ -50,7 +50,7 @@
     "@hydrogen-css/hydrogen": "2.0.2",
     "eslint-config-custom": "*",
     "jest-fail-on-console": "^3.1.1",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.0",
     "turbo": "^1.10.6"
   }
 }

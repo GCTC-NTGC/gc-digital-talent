@@ -21,7 +21,7 @@
     "cypress-multi-reporters": "^1.6.3",
     "cypress-terminal-report": "^5.2.0",
     "eslint-plugin-cypress": "^2.13.3",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.0",
     "tsconfig": "*",
     "typescript": "4.9.5"
   }
