@@ -121,7 +121,9 @@ const Container = ({
 
   return (
     <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
-      <TableOfContents.Wrapper>{children}</TableOfContents.Wrapper>
+      <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+        {children}
+      </TableOfContents.Wrapper>
     </div>
   );
 };
@@ -333,7 +335,11 @@ const UserProfile = ({
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
-                <TableOfContents.Heading as={headingLevel} icon={UserIcon}>
+                <TableOfContents.Heading
+                  as={headingLevel}
+                  icon={UserIcon}
+                  data-h2-margin-top="base(0)"
+                >
                   {intl.formatMessage(navigationMessages.aboutMe)}
                 </TableOfContents.Heading>
               </div>
