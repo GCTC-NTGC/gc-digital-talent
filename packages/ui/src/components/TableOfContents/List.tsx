@@ -5,8 +5,13 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 export type ListItemProps = React.HTMLProps<HTMLLIElement>;
 
 export const ListItem = ({ children, ...rest }: ListItemProps) => (
-  <li data-h2-margin="base(0, 0, x.25, 0)" {...rest}>
-    {children}
+  <li data-h2-margin-bottom="base(x.25)" {...rest}>
+    <span
+      data-h2-display="base(inline-flex)"
+      data-h2-align-items="base(flex-start)"
+    >
+      {children}
+    </span>
   </li>
 );
 
