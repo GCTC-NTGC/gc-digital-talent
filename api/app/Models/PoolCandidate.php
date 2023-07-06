@@ -578,10 +578,11 @@ class PoolCandidate extends Model
                 if ($user->isAbleTo("view-team-submittedApplication")) {
                     $teamIds = $user->rolesTeams()->get()->pluck('id');
                     $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
-                        // TO DO: Check not draft
-                        return $query->whereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
+                        return $query
+                            ->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                            ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            });
                     });
                 }
 
