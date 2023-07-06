@@ -9,20 +9,20 @@ import { Heading } from "@gc-digital-talent/ui";
 
 import { ExperienceType } from "~/types/experience";
 
+import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import NullExperienceType from "./NullExperienceType";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
 const FIELD_NAME = "details";
 
-interface TaskAndResponsibilitiesProps {
+interface AdditionalDetailsProps {
   experienceType?: ExperienceType;
 }
 
-const TasksAndResponsibilities = ({
-  experienceType,
-}: TaskAndResponsibilitiesProps) => {
+const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
   const intl = useIntl();
+  const experienceLabels = getExperienceFormLabels(intl);
   const type = useWatch({ name: "experienceType" });
   const derivedType = type ?? experienceType;
 
@@ -30,8 +30,8 @@ const TasksAndResponsibilities = ({
     <>
       <Heading level="h3" size="h5">
         {intl.formatMessage({
-          defaultMessage: "Tasks and responsibilities",
-          id: "jDvu8u",
+          defaultMessage: "Highlight additional details",
+          id: "u+r0gl",
           description: "Heading for the tasks section of the experience form",
         })}
       </Heading>
@@ -41,10 +41,10 @@ const TasksAndResponsibilities = ({
             <p data-h2-margin-bottom="base(x.5)">
               {intl.formatMessage({
                 defaultMessage:
-                  "Describe the key tasks and responsibilities you were responsible for during this role.",
-                id: "4x7seT",
+                  "Optionally describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important.",
+                id: "KteuZ5",
                 description:
-                  "Help text for the experience tasks and responsibilities field",
+                  "Help text for the experience additional details field",
               })}
             </p>
             <TextArea
@@ -52,12 +52,7 @@ const TasksAndResponsibilities = ({
               name={FIELD_NAME}
               rows={TEXT_AREA_ROWS}
               wordLimit={TEXT_AREA_MAX_WORDS}
-              label={intl.formatMessage({
-                defaultMessage: "Your tasks and responsibilities",
-                id: "ETNZUJ",
-                description:
-                  "Label for the experience task and responsibilities field",
-              })}
+              label={experienceLabels.details}
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
           </>
@@ -69,4 +64,4 @@ const TasksAndResponsibilities = ({
   );
 };
 
-export default TasksAndResponsibilities;
+export default AdditionalDetails;
