@@ -37,7 +37,7 @@ const ManagerInfo = ({
     jobTitle,
     status,
     requestedDate,
-    doneDate,
+    statusChangedAt,
   } = searchRequest;
 
   return (
@@ -164,23 +164,22 @@ const ManagerInfo = ({
                 />
                 <FilterBlock
                   title={intl.formatMessage({
-                    defaultMessage: "Date done",
-                    id: "BAzKWq",
+                    defaultMessage: "Status last changed",
+                    id: "pAW6AU",
                     description:
-                      "Title for the date done block in the manager info section of the single search request view.",
+                      "Title for the status last changed field in the search request view.",
                   })}
                   content={
-                    doneDate
+                    statusChangedAt
                       ? formatDate({
-                          date: parseDateTimeUtc(doneDate),
+                          date: parseDateTimeUtc(statusChangedAt),
                           formatString: "PPP p",
                           intl,
                         })
                       : intl.formatMessage({
-                          defaultMessage: "(Request is still pending)",
-                          id: "FxceQZ",
-                          description:
-                            "Text for when date done is pending in the manager info section of the single search request view.",
+                          defaultMessage: "(Not changed)",
+                          id: "rfDHc0",
+                          description: "Null state, nothing changed yet.",
                         })
                   }
                 />
