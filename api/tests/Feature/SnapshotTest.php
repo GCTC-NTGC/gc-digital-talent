@@ -27,11 +27,29 @@ class SnapshotTest extends TestCase
     use RefreshesSchemaCache;
     use WithFaker;
 
+    protected $applicant;
+    protected $platformAdmin;
+
     protected function setUp(): void
     {
         parent::setUp();
         $this->bootRefreshesSchemaCache();
         $this->seed(RolePermissionSeeder::class);
+
+        $this->applicant = User::factory()
+            ->asApplicant()
+            ->create([
+                'email' => 'applicant-user@test.com',
+                'sub' => 'applicant-user@test.com',
+            ]);
+
+        $this->platformAdmin = User::factory()
+            ->asRequestResponder()
+            ->asAdmin()
+            ->create([
+                'email' => 'admin-user@test.com',
+                'sub' => 'admin-user@test.com',
+            ]);
     }
 
     /**
@@ -42,22 +60,20 @@ class SnapshotTest extends TestCase
     public function testCreateSnapshot()
     {
         $snapshotQuery = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
-        $user = User::factory()
-            ->asApplicant()
-            ->create();
 
         $poolCandidate = PoolCandidate::factory()->create([
-            "user_id" => $user->id,
+            "user_id" => $this->applicant->id,
+            "submitted_at" => config('constants.past_date'),
             "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
         ]);
         $poolCandidateUnrelated = PoolCandidate::factory()->create([
-            "user_id" => $user->id,
+            "user_id" => $this->applicant->id,
             "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
         ]);
 
         // get what the snapshot should look like
-        $expectedSnapshot = $this->actingAs($user, "api")
-            ->graphQL($snapshotQuery, ["userId" => $user->id])
+        $expectedSnapshot = $this->actingAs($this->applicant, "api")
+            ->graphQL($snapshotQuery, ["userId" => $this->applicant->id])
             ->json("data.user");
 
         assertNotNull($expectedSnapshot);
@@ -65,7 +81,7 @@ class SnapshotTest extends TestCase
         ApplicationSubmitted::dispatch($poolCandidate);
 
         // get the just-created snapshot
-        $actualSnapshot = $this->actingAs($user, "api")->graphQL(
+        $actualSnapshot = $this->actingAs($this->platformAdmin, "api")->graphQL(
             /** @lang GraphQL */
             '
             query getSnapshot($poolCandidateId:UUID!) {

@@ -42,7 +42,7 @@ type User {
   sub: String @canAccess(requiredRoles: ["platform_admin"], ownerKey: "id")
   legacyRoles: [LegacyRole]
     @rename(attribute: "legacy_roles")
-    @canAccess(requiredRoles: ["platform_admin"])
+    @canAccess(requiredRoles: ["platform_admin"], ownerKey: "id")
   createdDate: DateTime @rename(attribute: "created_at")
   updatedDate: DateTime @rename(attribute: "updated_at")
 
