@@ -137,17 +137,13 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
         <Accordion.Item value="recruitment_availability">
           <StandardAccordionHeader
             headingAs="h3"
-            subtitle={
-              <span data-h2-color="base(black)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "See how your data is accessed and manage availability and communication.",
-                  id: "Sgp2Zb",
-                  description:
-                    "Introductory text displayed in recruitment availability accordion.",
-                })}
-              </span>
-            }
+            subtitle={intl.formatMessage({
+              defaultMessage:
+                "See how your data is accessed and manage availability and communication.",
+              id: "Sgp2Zb",
+              description:
+                "Introductory text displayed in recruitment availability accordion.",
+            })}
           >
             {currentAccordionItems.includes("recruitment_availability")
               ? intl.formatMessage({
