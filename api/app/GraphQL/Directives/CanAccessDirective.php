@@ -10,6 +10,7 @@ use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class CanAccessDirective extends BaseDirective implements FieldMiddleware
 {
@@ -26,6 +27,10 @@ directive @canAccess(
   The name of the role authorized users need to have.
   """
   requiredRoles: [String]!
+  """
+  Database column for foreign key indicating ownership
+  """
+  ownerKey: String
 ) on FIELD_DEFINITION
 GRAPHQL;
     }
@@ -36,22 +41,22 @@ GRAPHQL;
 
         $fieldValue->setResolver(function ($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) use ($originalResolver) {
             $requiredRoles = $this->directiveArgValue('requiredRoles');
+            $ownerKey = $this->directiveArgValue('ownerKey');
+
             // Throw in case of an invalid schema definition to remind the developer
             if ($requiredRoles === null || empty($requiredRoles)) {
                 throw new DefinitionException("Missing argument 'requiredRoles' for directive '@canAccess'.");
             }
 
             $user = User::find($context->user()->id);
-            if (
-                // Unauthenticated users don't get to see anything
-                !$user
-                // The user's role has to match have the required role
-                || !$user->hasRole($requiredRoles)
-            ) {
-                return null;
+            $owned = $ownerKey && $user->id === $root->$ownerKey;
+            $authorized = $user && $user->hasRole($requiredRoles);
+
+            if ($owned || $authorized) {
+                return $originalResolver($root, $args, $context, $resolveInfo);
             }
 
-            return $originalResolver($root, $args, $context, $resolveInfo);
+            return null;
         });
 
         return $next($fieldValue);

@@ -39,7 +39,7 @@ enum LegacyRole {
 
 type User {
   id: ID!
-  sub: String @canAccess(requiredRoles: ["platform_admin"])
+  sub: String @canAccess(requiredRoles: ["platform_admin"], ownerKey: "id")
   legacyRoles: [LegacyRole]
     @rename(attribute: "legacy_roles")
     @canAccess(requiredRoles: ["platform_admin"])
