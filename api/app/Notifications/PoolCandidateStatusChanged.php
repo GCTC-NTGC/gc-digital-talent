@@ -13,8 +13,10 @@ class PoolCandidateStatusChanged extends Notification
      * Create a new notification instance.
      */
     public function __construct(
+        public string $old_status,
         public string $new_status,
-        public string $pool_name,
+        public string $pool_id,
+        public array $pool_name,
     ) {
     }
 
@@ -36,8 +38,9 @@ class PoolCandidateStatusChanged extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'user_name' => trim($notifiable->first_name . " " . $notifiable->last_name),
+            'old_status' => $this->old_status,
             'new_status' => $this->new_status,
+            'pool_id' => $this->pool_id,
             'pool_name' => $this->pool_name,
         ];
     }
