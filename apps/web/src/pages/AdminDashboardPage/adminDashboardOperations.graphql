@@ -59,7 +59,7 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
   }
   requestedDate
   status
-  doneDate
+  statusChangedAt
   adminNotes
   applicantFilter {
     id
