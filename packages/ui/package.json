@@ -46,7 +46,7 @@
     "react-dom": "^18.2.0",
     "react-focus-lock": "^2.9.4",
     "react-remove-scroll": "^2.5.6",
-    "react-router-dom": "^6.14.0",
+    "react-router-dom": "^6.14.1",
     "urql": "3.0.4"
   },
   "devDependencies": {
@@ -69,11 +69,11 @@
     "eslint": "^8.43.0",
     "eslint-config-custom": "*",
     "jest": "^29.5.0",
-    "jest-environment-jsdom": "^29.5.0",
+    "jest-environment-jsdom": "^29.6.0",
     "jest-presets": "*",
     "react": "^18.2.0",
     "react-intl": "^6.4.4",
-    "react-router-dom": "^6.14.0",
+    "react-router-dom": "^6.14.1",
     "rimraf": "^5.0.1",
     "storybook-helpers": "*",
     "tsconfig": "*",
