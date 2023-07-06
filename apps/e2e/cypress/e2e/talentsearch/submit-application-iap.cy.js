@@ -226,7 +226,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
     cy.findByRole("combobox", { name: /Status/i }).select(
       "Successful Completion (Credential Awarded)",
     );
-    cy.findByRole("textbox", { name: /Your tasks and responsibilities/i }).type(
+    cy.findByRole("textbox", { name: /Additional details/i }).type(
       "Mastering Cypress",
     );
     cy.findByRole("button", { name: /Save and go back/i }).click();
