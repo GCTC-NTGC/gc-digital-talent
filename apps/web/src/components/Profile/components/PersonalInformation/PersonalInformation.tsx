@@ -71,12 +71,19 @@ const PersonalInformation = ({
         size={pool ? "h5" : "h3"}
         toggle={
           !isNull ? (
-            <SectionTrigger>
-              {intl.formatMessage({
+            <SectionTrigger
+              aria-describedby={intl.formatMessage({
                 defaultMessage: "Edit personal and contact information",
                 id: "WE8ZUX",
                 description:
                   "Button text to start editing personal and contact information",
+              })}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Edit this section",
+                id: "co9aIV",
+                description:
+                  "Button text to start editing one of the profile sections.",
               })}
             </SectionTrigger>
           ) : undefined

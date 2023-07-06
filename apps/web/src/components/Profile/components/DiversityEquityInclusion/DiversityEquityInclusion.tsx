@@ -72,8 +72,8 @@ const DiversityEquityInclusion = ({
         <li>
           {intl.formatMessage({
             defaultMessage:
-              "You are a comfortable sharing your employment equity information for recruitment opportunities and anonymized statistical purposes.",
-            id: "52SQVm",
+              "You are comfortable sharing your employment equity information for recruitment opportunities and anonymized statistical purposes.",
+            id: "OgizOq",
             description:
               "Second condition for selecting an employment equity group",
           })}

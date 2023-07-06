@@ -12,6 +12,7 @@ import {
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
+  withLocalizedQuotes,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -266,13 +267,16 @@ const EquityOptions = ({
                     title={intl.formatMessage(
                       getEmploymentEquityGroup("indigenous"),
                     )}
-                    description={`"${intl.formatMessage({
-                      defaultMessage:
-                        "Indigenous identity refers to whether the person identified with the Indigenous peoples of Canada. This includes those who identify as First Nations (North American Indian), Métis and/or Inuk (Inuit), and/or those who report being Registered or Treaty Indians (that is, registered under the Indian Act of Canada), and/or those who have membership in a First Nation or Indian band. Aboriginal peoples of Canada (referred to here as Indigenous peoples) are defined in the Constitution Act, 1982, Section 35 (2) as including the Indian, Inuit and Métis peoples of Canada.",
-                      id: "YDeXEW",
-                      description:
-                        "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page.",
-                    })}"`}
+                    description={withLocalizedQuotes(
+                      intl.formatMessage({
+                        defaultMessage:
+                          "Indigenous identity refers to whether the person identified with the Indigenous peoples of Canada. This includes those who identify as First Nations (North American Indian), Métis and/or Inuk (Inuit), and/or those who report being Registered or Treaty Indians (that is, registered under the Indian Act of Canada), and/or those who have membership in a First Nation or Indian band. Aboriginal peoples of Canada (referred to here as Indigenous peoples) are defined in the Constitution Act, 1982, Section 35 (2) as including the Indian, Inuit and Métis peoples of Canada.",
+                        id: "YDeXEW",
+                        description:
+                          "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page.",
+                      }),
+                      intl,
+                    )}
                   />
                 ) : null}
                 {!resolvedDisability && (
@@ -285,13 +289,16 @@ const EquityOptions = ({
                     title={intl.formatMessage(
                       getEmploymentEquityGroup("disability"),
                     )}
-                    description={`"${intl.formatMessage({
-                      defaultMessage:
-                        "Refers to a person whose daily activities are limited as a result of an impairment or difficulty with particular tasks. The only exception to this is for developmental disabilities where a person is considered to be disabled if the respondent has been diagnosed with this condition.",
-                      id: "y5Z2Li",
-                      description:
-                        "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page.",
-                    })}"`}
+                    description={withLocalizedQuotes(
+                      intl.formatMessage({
+                        defaultMessage:
+                          "Refers to a person whose daily activities are limited as a result of an impairment or difficulty with particular tasks. The only exception to this is for developmental disabilities where a person is considered to be disabled if the respondent has been diagnosed with this condition.",
+                        id: "y5Z2Li",
+                        description:
+                          "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page.",
+                      }),
+                      intl,
+                    )}
                   />
                 )}
                 {!resolvedMinority && (
@@ -304,13 +311,16 @@ const EquityOptions = ({
                     title={intl.formatMessage(
                       getEmploymentEquityGroup("minority"),
                     )}
-                    description={`"${intl.formatMessage({
-                      defaultMessage:
-                        'Visible minority refers to whether a person is a visible minority or not, as defined by the Employment Equity Act. The Employment Equity Act defines visible minorities as "persons, other than Aboriginal peoples, who are non-Caucasian in race or non-white in colour". The visible minority population consists mainly of the following groups: South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese.',
-                      id: "F4K5RB",
-                      description:
-                        "Definition of Visible minority from the StatsCan 'Visible minority of person' page.",
-                    })}"`}
+                    description={withLocalizedQuotes(
+                      intl.formatMessage({
+                        defaultMessage:
+                          'Visible minority refers to whether a person is a visible minority or not, as defined by the Employment Equity Act. The Employment Equity Act defines visible minorities as "persons, other than Aboriginal peoples, who are non-Caucasian in race or non-white in colour". The visible minority population consists mainly of the following groups: South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese.',
+                        id: "F4K5RB",
+                        description:
+                          "Definition of Visible minority from the StatsCan 'Visible minority of person' page.",
+                      }),
+                      intl,
+                    )}
                   />
                 )}
                 {!resolvedWoman && (
@@ -323,13 +333,16 @@ const EquityOptions = ({
                     title={intl.formatMessage(
                       getEmploymentEquityGroup("woman"),
                     )}
-                    description={`"${intl.formatMessage({
-                      defaultMessage:
-                        "This category includes persons whose reported gender is female. It includes cisgender (cis) and transgender (trans) women.",
-                      id: "6danS7",
-                      description:
-                        "Definition of the Woman category from the StatsCan 'Classification of gender' page.",
-                    })}"`}
+                    description={withLocalizedQuotes(
+                      intl.formatMessage({
+                        defaultMessage:
+                          "This category includes persons whose reported gender is female. It includes cisgender (cis) and transgender (trans) women.",
+                        id: "6danS7",
+                        description:
+                          "Definition of the Woman category from the StatsCan 'Classification of gender' page.",
+                      }),
+                      intl,
+                    )}
                   />
                 )}
               </>

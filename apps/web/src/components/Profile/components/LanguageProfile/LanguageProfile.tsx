@@ -79,11 +79,18 @@ const LanguageProfile = ({
         size={pool ? "h5" : "h3"}
         toggle={
           !isNull ? (
-            <SectionTrigger>
-              {intl.formatMessage({
+            <SectionTrigger
+              aria-describedby={intl.formatMessage({
                 defaultMessage: "Edit language profile",
                 id: "fxPLAl",
                 description: "Button text to start editing language profile",
+              })}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Edit this section",
+                id: "co9aIV",
+                description:
+                  "Button text to start editing one of the profile sections.",
               })}
             </SectionTrigger>
           ) : undefined

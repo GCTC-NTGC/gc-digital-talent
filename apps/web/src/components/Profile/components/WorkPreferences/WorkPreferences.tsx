@@ -77,11 +77,18 @@ const WorkPreferences = ({
         size={pool ? "h5" : "h3"}
         toggle={
           !isNull ? (
-            <SectionTrigger>
-              {intl.formatMessage({
+            <SectionTrigger
+              aria-describedby={intl.formatMessage({
                 defaultMessage: "Edit work preferences",
                 id: "w63YYp",
                 description: "Button text to start editing work preferences",
+              })}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Edit this section",
+                id: "co9aIV",
+                description:
+                  "Button text to start editing one of the profile sections.",
               })}
             </SectionTrigger>
           ) : undefined

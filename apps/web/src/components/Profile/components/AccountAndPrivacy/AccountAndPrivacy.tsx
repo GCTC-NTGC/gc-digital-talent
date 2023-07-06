@@ -31,19 +31,17 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
     React.useState<AccordionItems>([]); // Start with accordion closed
 
   const activeApplications = unpackMaybes(user.poolCandidates).filter(
-    ({ status }) => {
-      return status
-        ? [
-            PoolCandidateStatus.QualifiedAvailable,
-            PoolCandidateStatus.QualifiedUnavailable,
-            PoolCandidateStatus.QualifiedWithdrew,
-            PoolCandidateStatus.PlacedCasual,
-            PoolCandidateStatus.PlacedIndeterminate,
-            PoolCandidateStatus.PlacedTerm,
-            PoolCandidateStatus.Expired,
-          ].includes(status)
-        : false;
-    },
+    ({ status }) =>
+      status &&
+      [
+        PoolCandidateStatus.QualifiedAvailable,
+        PoolCandidateStatus.QualifiedUnavailable,
+        PoolCandidateStatus.QualifiedWithdrew,
+        PoolCandidateStatus.PlacedCasual,
+        PoolCandidateStatus.PlacedIndeterminate,
+        PoolCandidateStatus.PlacedTerm,
+        PoolCandidateStatus.Expired,
+      ].includes(status),
   );
 
   const gckeyURL =
@@ -80,17 +78,13 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
         <Accordion.Item value="login_authentication">
           <StandardAccordionHeader
             headingAs="h3"
-            subtitle={
-              <span data-h2-color="base(black)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Find out about GCKey and find links to account information.",
-                  id: "d3HIMV",
-                  description:
-                    "Introductory text displayed in login and authentication accordion.",
-                })}
-              </span>
-            }
+            subtitle={intl.formatMessage({
+              defaultMessage:
+                "Find out about GCKey and find links to account information.",
+              id: "d3HIMV",
+              description:
+                "Introductory text displayed in login and authentication accordion.",
+            })}
           >
             {currentAccordionItems.includes("login_authentication")
               ? intl.formatMessage({

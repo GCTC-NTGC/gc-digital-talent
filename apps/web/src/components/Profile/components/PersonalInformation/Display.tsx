@@ -11,6 +11,7 @@ import {
   getCitizenshipStatusesProfile,
   getLanguage,
   getProvinceOrTerritory,
+  withLocalizedQuotes,
 } from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "../FieldDisplay";
@@ -173,9 +174,12 @@ const Display = ({
         data-h2-padding-top="base(x1)"
       >
         {armedForcesStatus !== null && armedForcesStatus !== undefined
-          ? `"${intl.formatMessage(
-              getArmedForcesStatusesProfile(armedForcesStatus, false),
-            )}"`
+          ? withLocalizedQuotes(
+              intl.formatMessage(
+                getArmedForcesStatusesProfile(armedForcesStatus, false),
+              ),
+              intl,
+            )
           : notProvided}
       </FieldDisplay>
       <FieldDisplay
@@ -188,9 +192,10 @@ const Display = ({
         data-h2-padding-top="base(x1)"
       >
         {citizenship
-          ? `"${intl.formatMessage(
-              getCitizenshipStatusesProfile(citizenship),
-            )}"`
+          ? withLocalizedQuotes(
+              intl.formatMessage(getCitizenshipStatusesProfile(citizenship)),
+              intl,
+            )
           : notProvided}
       </FieldDisplay>
     </>

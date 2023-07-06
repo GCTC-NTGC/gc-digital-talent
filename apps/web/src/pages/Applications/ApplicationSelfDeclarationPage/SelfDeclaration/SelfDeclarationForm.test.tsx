@@ -115,31 +115,6 @@ describe("SelfDeclarationForm", () => {
     ).toBeInTheDocument();
   });
 
-  // it("should display status field if Indigenous and First Nations", async () => {
-  //   await act(async () => {
-  //     renderSelfDeclarationForm();
-  //   });
-
-  //   await act(async () => {
-  //     fireEvent.click(
-  //       await screen.getByRole("radio", { name: /i affirm that/i }),
-  //     );
-  //   });
-
-  //   const checkbox = await screen.findByRole("checkbox", {
-  //     name: /i am first nations/i,
-  //   });
-
-  //   expect(checkbox).toBeInTheDocument();
-  //   await act(async () => {
-  //     fireEvent.click(checkbox);
-  //   });
-
-  //   expect(
-  //     await screen.queryByRole("group", { name: /first nations status/i }),
-  //   ).toBeInTheDocument();
-  // });
-
   it("should display alert if community selected with other", async () => {
     await act(async () => {
       renderSelfDeclarationForm();

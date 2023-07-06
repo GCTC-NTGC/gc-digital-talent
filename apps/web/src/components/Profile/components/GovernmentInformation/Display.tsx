@@ -7,6 +7,7 @@ import {
   commonMessages,
   getGovEmployeeType,
   getLocalizedName,
+  withLocalizedQuotes,
 } from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -71,7 +72,9 @@ const Display = ({
           description: "Employee status label",
         })}
       >
-        {empty(isGovEmployee) ? notProvided : `"${govEmployeeMessage}"`}
+        {empty(isGovEmployee)
+          ? notProvided
+          : withLocalizedQuotes(govEmployeeMessage, intl)}
       </FieldDisplay>
       {isGovEmployee && (
         <>
@@ -118,7 +121,9 @@ const Display = ({
           description: "Priority entitlement label",
         })}
       >
-        {empty(hasPriorityEntitlement) ? notProvided : `"${priorityMessage}"`}
+        {empty(hasPriorityEntitlement)
+          ? notProvided
+          : withLocalizedQuotes(priorityMessage, intl)}
       </FieldDisplay>
       {hasPriorityEntitlement && (
         <FieldDisplay

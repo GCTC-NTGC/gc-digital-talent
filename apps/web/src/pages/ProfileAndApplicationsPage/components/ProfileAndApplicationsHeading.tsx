@@ -366,7 +366,6 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             })}
             href={paths.profile(
               user.id,
-              // this section doesn't exist yet
               PROFILE_PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY,
             )}
             icon={LockClosedIcon}

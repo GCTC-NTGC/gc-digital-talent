@@ -1142,8 +1142,8 @@ export const operationalRequirementLabelFirstPersonNoBold = defineMessages({
     description: "The operational requirement described as driver's license.",
   },
   [OperationalRequirement.OvertimeScheduled]: {
-    defaultMessage: "requires me to >work scheduled overtime.",
-    id: "08jPUg",
+    defaultMessage: "requires me to work scheduled overtime.",
+    id: "+U4KU4",
     description: "The operational requirement described as scheduled overtime.",
   },
   [OperationalRequirement.OvertimeShortNotice]: {

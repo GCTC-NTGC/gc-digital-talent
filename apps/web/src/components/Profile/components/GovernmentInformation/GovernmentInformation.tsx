@@ -76,12 +76,19 @@ const GovernmentInformation = ({
         size={pool ? "h5" : "h3"}
         toggle={
           !isNull ? (
-            <SectionTrigger>
-              {intl.formatMessage({
+            <SectionTrigger
+              aria-describedby={intl.formatMessage({
                 defaultMessage: "Edit government information",
                 id: "Ysf8wI",
                 description:
                   "Button text to start editing government information",
+              })}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Edit this section",
+                id: "co9aIV",
+                description:
+                  "Button text to start editing one of the profile sections.",
               })}
             </SectionTrigger>
           ) : undefined
