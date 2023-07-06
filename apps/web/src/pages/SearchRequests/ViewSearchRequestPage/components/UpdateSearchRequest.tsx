@@ -4,9 +4,17 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Button, Heading } from "@gc-digital-talent/ui";
-import { Submit, TextArea } from "@gc-digital-talent/forms";
+import {
+  SelectFieldV2,
+  Submit,
+  TextArea,
+  enumToOptions,
+} from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getPoolCandidateSearchStatus,
+} from "@gc-digital-talent/i18n";
 
 import {
   PoolCandidateSearchRequest,
@@ -37,7 +45,7 @@ export const UpdateSearchRequestForm = ({
   const methods = useForm<FormValues>({
     defaultValues: initialSearchRequest,
   });
-  const { handleSubmit, getValues } = methods;
+  const { handleSubmit } = methods;
 
   const handleSaveNotes: SubmitHandler<FormValues> = async (
     data: FormValues,
@@ -78,112 +86,164 @@ export const UpdateSearchRequestForm = ({
       });
   };
 
-  const handleStatusChangeToDone: SubmitHandler<FormValues> = async (
+  const handleSaveStatus: SubmitHandler<FormValues> = async (
     data: FormValues,
   ) => {
+    setIsSaving(true);
     return handleUpdateSearchRequest(initialSearchRequest.id, {
-      adminNotes: data.adminNotes,
-      status: PoolCandidateSearchStatus.Done,
+      status: data.status,
     })
       .then(() => {
+        // HACK: This marks the field as clean after
+        // submitting the data since the form is never
+        // submitted in the traditional sense
+        methods.resetField("status", {
+          keepDirty: false,
+          defaultValue: data.status,
+        });
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Request status successfully set to done!",
-            id: "xjOcT7",
+            defaultMessage: "Request status updated!",
+            id: "+mCsoW",
             description:
-              "Message displayed to user after the request has been successfully set to done on the single search request page.",
+              "Message displayed to user after the request status is successfully updated.",
           }),
         );
       })
       .catch(() => {
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Error: saving notes failed",
-            id: "RIYFZu",
+            defaultMessage: "Error: updating status failed",
+            id: "CaDy8n",
             description:
-              "Message displayed to user after the request has failed to change the status tp done on the single search request page.",
+              "Message displayed to user after the request status fails to be updated.",
           }),
         );
+      })
+      .finally(() => {
+        setIsSaving(false);
       });
   };
 
   return (
-    <section>
-      <Heading level="h2" size="h4">
-        {intl.formatMessage({
-          defaultMessage: "Personal Notes",
-          id: "l05aVF",
-          description:
-            "Heading for the personal notes section of the single search request view.",
-        })}
-      </Heading>
-      <div>
+    <div>
+      <div
+        data-h2-border-bottom="base(1px solid gray)"
+        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-padding="base(0, 0, x1, 0)"
+      >
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(handleStatusChangeToDone)}>
-            <div
-              data-h2-border-bottom="base(1px solid gray)"
-              data-h2-margin="base(0, 0, x1, 0)"
-              data-h2-padding="base(0, 0, x1, 0)"
-            >
-              <TextArea
-                id="adminNotes"
-                name="adminNotes"
-                label={intl.formatMessage({
-                  defaultMessage: "Personal Notes",
-                  id: "p7D5i5",
-                  description:
-                    "Label displayed on the search request form personal notes field.",
-                })}
-                rows={8}
+          <form onSubmit={handleSubmit(handleSaveNotes)}>
+            <Heading level="h2" size="h4">
+              {intl.formatMessage({
+                defaultMessage: "Personal Notes",
+                id: "l05aVF",
+                description:
+                  "Heading for the personal notes section of the single search request view.",
+              })}
+            </Heading>
+            <TextArea
+              id="adminNotes"
+              name="adminNotes"
+              label={intl.formatMessage({
+                defaultMessage: "Personal Notes",
+                id: "p7D5i5",
+                description:
+                  "Label displayed on the search request form personal notes field.",
+              })}
+              rows={8}
+            />
+            <div data-h2-text-align="base(right)">
+              <Submit
+                color="primary"
+                disabled={isSaving}
+                isSubmitting={isSaving}
+              >
+                {isSaving
+                  ? intl.formatMessage(commonMessages.saving)
+                  : intl.formatMessage({
+                      defaultMessage: "Save Notes",
+                      id: "DRsBYY",
+                      description:
+                        "Button label displayed on the search request form which saves the users personal notes.",
+                    })}
+              </Submit>
+            </div>
+          </form>
+        </FormProvider>
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(handleSaveStatus)}>
+            <Heading level="h2" size="h4">
+              {intl.formatMessage(commonMessages.status)}
+            </Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Track the progress of this request by setting the right status.",
+                id: "YIt7Su",
+                description:
+                  "Text describing the input to change request status",
+              })}
+            </p>
+            <div data-h2-max-width="base(40rem)">
+              <SelectFieldV2
+                id="status"
+                name="status"
+                label={intl.formatMessage(commonMessages.status)}
+                options={enumToOptions(PoolCandidateSearchStatus, [
+                  PoolCandidateSearchStatus.New,
+                  PoolCandidateSearchStatus.InProgress,
+                  PoolCandidateSearchStatus.Waiting,
+                  PoolCandidateSearchStatus.Done,
+                ]).map(({ value }) => ({
+                  value,
+                  label: intl.formatMessage(
+                    getPoolCandidateSearchStatus(value),
+                  ),
+                }))}
+                doNotSort
               />
-              <div data-h2-text-align="base(right)">
-                <Button
+              <div
+                data-h2-text-align="base(right)"
+                data-h2-padding-top="base(x.5)"
+              >
+                <Submit
                   color="primary"
                   disabled={isSaving}
-                  onClick={() => {
-                    handleSaveNotes(getValues());
-                  }}
+                  isSubmitting={isSaving}
                 >
                   {isSaving
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage({
-                        defaultMessage: "Save Notes",
-                        id: "DRsBYY",
+                        defaultMessage: "Save status change",
+                        id: "B6SqfX",
                         description:
-                          "Button label displayed on the search request form which saves the users personal notes.",
+                          "Button label displayed that saves the users status selection.",
                       })}
-                </Button>
+                </Submit>
               </div>
-            </div>
-            <div data-h2-margin="base(0, 0, x1, 0)">
-              <Button
-                color="secondary"
-                mode="inline"
-                onClick={() => {
-                  navigate(paths.searchRequestTable());
-                }}
-                data-h2-margin="base(x1, x1, 0, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Back to requests",
-                  id: "O8nHiQ",
-                  description:
-                    "Button label displayed on the search request form which returns the user back to requests.",
-                })}
-              </Button>
-              <Submit
-                text={intl.formatMessage({
-                  defaultMessage: "Mark this request as done",
-                  id: "UNScjB",
-                  description:
-                    "Button label displayed on the search request form which changes request status to done.",
-                })}
-              />
             </div>
           </form>
         </FormProvider>
       </div>
-    </section>
+      <div data-h2-margin="base(0, 0, x1, 0)">
+        <Button
+          color="secondary"
+          mode="inline"
+          onClick={() => {
+            navigate(paths.searchRequestTable());
+          }}
+          data-h2-margin="base(x1, x1, 0, 0)"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Back to requests",
+            id: "O8nHiQ",
+            description:
+              "Button label displayed on the search request form which returns the user back to requests.",
+          })}
+        </Button>
+      </div>
+    </div>
   );
 };
 
