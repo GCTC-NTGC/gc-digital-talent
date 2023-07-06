@@ -69,7 +69,7 @@
     "eslint": "^8.44.0",
     "eslint-config-custom": "*",
     "jest": "^29.6.1",
-    "jest-environment-jsdom": "^29.6.0",
+    "jest-environment-jsdom": "^29.6.1",
     "jest-presets": "*",
     "react": "^18.2.0",
     "react-intl": "^6.4.4",
