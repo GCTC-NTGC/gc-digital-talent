@@ -79,7 +79,7 @@ fragment poolCandidateTable on PoolCandidate {
     experiences {
       id
       __typename
-      applicant {
+      user {
         id
         email
       }
