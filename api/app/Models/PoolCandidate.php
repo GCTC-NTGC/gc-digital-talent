@@ -299,7 +299,7 @@ class PoolCandidate extends Model
 
         $query->whereHas('user', function ($query) use ($search) {
             User::scopeGeneralSearch($query, $search);
-        });
+        })->orWhere('notes', 'ilike', "%{$search}%");
 
         return $query;
     }
