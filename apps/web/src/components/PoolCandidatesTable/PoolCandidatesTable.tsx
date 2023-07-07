@@ -64,6 +64,7 @@ import {
 } from "~/utils/userUtils";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+import adminMessages from "~/messages/adminMessages";
 
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 
@@ -671,12 +672,7 @@ const PoolCandidatesTable = ({
         sortColumnName: "FIRST_NAME",
       },
       {
-        label: intl.formatMessage({
-          defaultMessage: "Notes",
-          id: "caSdGd",
-          description:
-            "Title displayed on the Pool Candidates table notes column.",
-        }),
+        label: intl.formatMessage(adminMessages.notes),
         id: "notes",
         accessor: ({ poolCandidate }) => notesAccessor(poolCandidate, intl),
       },

@@ -854,10 +854,6 @@
     "defaultMessage": "Apprenti en TI du Gouvernement du Canada",
     "description": "author of testimonial number one"
   },
-  "4AubyK": {
-    "defaultMessage": "Notes",
-    "description": "Title of the 'Notes' section of the view-user page"
-  },
   "4BpFoX": {
     "defaultMessage": "{title} émis par {issuedBy}",
     "description": "The award title is issued by some group"
@@ -5406,10 +5402,6 @@
     "defaultMessage": "À la prochaine fois!",
     "description": "Title for the page users land on after successful logout."
   },
-  "caSdGd": {
-    "defaultMessage": "Notes",
-    "description": "Title displayed on the Pool Candidates table notes column."
-  },
   "cag7TH": {
     "defaultMessage": "Question {number} (FR)",
     "description": "Heading for displaying a screening question French"
@@ -5745,10 +5737,6 @@
   "eqVWC6": {
     "defaultMessage": "Appliquée par : <strong><red>{closingDate}</red></strong>",
     "description": "Text notifying user of closing date for an application"
-  },
-  "ev6HnY": {
-    "defaultMessage": "Notes",
-    "description": "CSV Header, Notes column"
   },
   "evxvnW": {
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
@@ -7057,10 +7045,6 @@
   "nok2sR": {
     "defaultMessage": "Nom :",
     "description": "Display text for the name field on users"
-  },
-  "npC3bT": {
-    "defaultMessage": "Notes",
-    "description": "Title for admin editing a pool candidates notes"
   },
   "nsm/uC": {
     "defaultMessage": "{skillName} (Essentielles)",
