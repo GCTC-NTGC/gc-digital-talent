@@ -8551,5 +8551,85 @@
   "zzwPOR": {
     "defaultMessage": "Langue préférée pour l'examen écrit :",
     "description": "Display text for the preferred written exam language field on users"
+  },
+  "3QkRNc": {
+    "defaultMessage": "Gérer votre disponibilité pour le recrutement {title}",
+    "description": "Link text to direct a user to change the availability of the specific recruitment process"
+  },
+  "5O4CY1": {
+    "defaultMessage": "Supprimer votre demande pour le poste {title}",
+    "description": "Link text to delete a specific application"
+  },
+  "5pTphq": {
+    "defaultMessage": "Examiner l’offre d’emploi {title}",
+    "description": "Link text to see an applications advertisement"
+  },
+  "KqAp09": {
+    "defaultMessage": "Poursuivre l’ébauche de votre demande pour le poste {applicationTitle}",
+    "description": "Link text to apply for a pool advertisement"
+  },
+  "WJSVBr": {
+    "defaultMessage": "Copier l’identification de votre demande {title}",
+    "description": "Button text to copy a specific application ID"
+  },
+  "XhQ7Ky": {
+    "defaultMessage": "Examiner votre demande pour le poste {title}",
+    "description": "Link text to view a specific application"
+  },
+  "ftg8sT": {
+    "defaultMessage": "L’identification de votre demande {title} a été copiée ",
+    "description": "Button text to indicate that a specific application’s ID has been copied"
+  },
+  "pqsnpk": {
+    "defaultMessage": "Visititez le recrutement {title} de votre cv",
+    "description": "Link text to direct a user to the Résumé page"
+  },
+  "yE/QNS": {
+    "defaultMessage": "Obtenez du soutien pour le poste {title}",
+    "description": "Link text to direct a user to the support page"
+  },
+  "/II3h3": {
+    "defaultMessage": "Candidature formulée le cv :",
+    "description": "Label for showing the submitted date of an application."
+  },
+  "71C7df": {
+    "defaultMessage": "Formuler une demande pour ce process",
+    "description": "Link text to apply for a pool advertisement"
+  },
+  "CH6FQA": {
+    "defaultMessage": "Supprimer la demande<hidden> ({name})</hidden>",
+    "description": "Link text to delete a specific application"
+  },
+  "Dq+GKf": {
+    "defaultMessage": "Consulter le cv ",
+    "description": "Link text to direct a user to the Résumé page"
+  },
+  "HhuKq4": {
+    "defaultMessage": "Examiner l’offre d’emploi<hidden> {name}</hidden>",
+    "description": "Link text to see an applications advertisement"
+  },
+  "KZtBcM": {
+    "defaultMessage": "Examiner la demande<hidden> {name}</hidden>",
+    "description": "Link text to view a specific application"
+  },
+  "SjhNGq": {
+    "defaultMessage": "Gérer la disponibilité",
+    "description": "Link text to direct a user to change the availability of the specific recruitment process"
+  },
+  "gBAz/G": {
+    "defaultMessage": "Identification de la demande copiée",
+    "description": "Button text to indicate that a specific application’s ID has been copied"
+  },
+  "jiJ8qo": {
+    "defaultMessage": "Poursuivre l’ébauche",
+    "description": "Link text to apply for a pool advertisement"
+  },
+  "r4bJ8b": {
+    "defaultMessage": "Formulez votre demande d’ici le :",
+    "description": "Label for showing the closing date of a job posting."
+  },
+  "rvoNoQ": {
+    "defaultMessage": "Copier l’identification de la demande",
+    "description": "Button text to copy a specific application ID"
   }
 }
