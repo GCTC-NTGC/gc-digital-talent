@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import {
+  getExperienceFormLabels,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
@@ -28,6 +29,7 @@ interface ExperienceItemProps {
 const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   const intl = useIntl();
   const { title } = useExperienceInfo(experience);
+  const experienceLabels = getExperienceFormLabels(intl);
 
   const normalizedDateRange = (
     startDate: Maybe<string>,
@@ -100,11 +102,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
           )}
         </p>
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Tasks and responsibilities",
-            id: "jDvu8u",
-            description: "Heading for the tasks section of the experience form",
-          })}
+          {experienceLabels.details}
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
         </p>
@@ -128,11 +126,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
           {experience.project}
         </p>
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Tasks and responsibilities",
-            id: "jDvu8u",
-            description: "Heading for the tasks section of the experience form",
-          })}
+          {experienceLabels.details}
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
         </p>
@@ -179,11 +173,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
           {experience.thesisTitle}
         </p>
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Tasks and responsibilities",
-            id: "jDvu8u",
-            description: "Heading for the tasks section of the experience form",
-          })}
+          {experienceLabels.details}
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
         </p>
@@ -207,11 +197,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
           {experience.description}
         </p>
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Tasks and responsibilities",
-            id: "jDvu8u",
-            description: "Heading for the tasks section of the experience form",
-          })}
+          {experienceLabels.details}
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
         </p>
@@ -235,11 +221,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
           {experience.division}
         </p>
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Tasks and responsibilities",
-            id: "jDvu8u",
-            description: "Heading for the tasks section of the experience form",
-          })}
+          {experienceLabels.details}
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
         </p>
