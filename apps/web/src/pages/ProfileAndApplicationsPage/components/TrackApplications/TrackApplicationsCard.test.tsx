@@ -15,7 +15,6 @@ import {
 import { PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
 
 import { PoolCandidateStatus } from "~/api/generated";
-import useRoutes from "~/hooks/useRoutes";
 import TrackApplicationsCard, {
   TrackApplicationsCardProps,
 } from "./TrackApplicationsCard";
