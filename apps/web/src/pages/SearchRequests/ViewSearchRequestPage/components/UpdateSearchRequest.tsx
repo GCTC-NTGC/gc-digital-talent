@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 
 import { Button, Heading } from "@gc-digital-talent/ui";
 import {
-  SelectFieldV2,
+  Select,
   Submit,
   TextArea,
   enumToOptions,
@@ -189,7 +189,7 @@ export const UpdateSearchRequestForm = ({
               })}
             </p>
             <div data-h2-max-width="base(40rem)">
-              <SelectFieldV2
+              <Select
                 id="status"
                 name="status"
                 label={intl.formatMessage(commonMessages.status)}
