@@ -158,16 +158,19 @@ export const UpdateSearchRequestForm = ({
                 color="primary"
                 disabled={isSaving}
                 isSubmitting={isSaving}
-              >
-                {isSaving
-                  ? intl.formatMessage(commonMessages.saving)
-                  : intl.formatMessage({
-                      defaultMessage: "Save Notes",
-                      id: "DRsBYY",
-                      description:
-                        "Button label displayed on the search request form which saves the users personal notes.",
-                    })}
-              </Submit>
+                text={intl.formatMessage({
+                  defaultMessage: "Save Notes",
+                  id: "DRsBYY",
+                  description:
+                    "Button label displayed on the search request form which saves the users personal notes.",
+                })}
+                submittedText={intl.formatMessage({
+                  defaultMessage: "Save Notes",
+                  id: "DRsBYY",
+                  description:
+                    "Button label displayed on the search request form which saves the users personal notes.",
+                })}
+              />
             </div>
           </form>
         </FormProvider>
@@ -211,16 +214,19 @@ export const UpdateSearchRequestForm = ({
                   color="primary"
                   disabled={isSaving}
                   isSubmitting={isSaving}
-                >
-                  {isSaving
-                    ? intl.formatMessage(commonMessages.saving)
-                    : intl.formatMessage({
-                        defaultMessage: "Save status change",
-                        id: "B6SqfX",
-                        description:
-                          "Button label displayed that saves the users status selection.",
-                      })}
-                </Submit>
+                  text={intl.formatMessage({
+                    defaultMessage: "Save status change",
+                    id: "B6SqfX",
+                    description:
+                      "Button label displayed that saves the users status selection.",
+                  })}
+                  submittedText={intl.formatMessage({
+                    defaultMessage: "Save status change",
+                    id: "B6SqfX",
+                    description:
+                      "Button label displayed that saves the users status selection.",
+                  })}
+                />
               </div>
             </div>
           </form>
