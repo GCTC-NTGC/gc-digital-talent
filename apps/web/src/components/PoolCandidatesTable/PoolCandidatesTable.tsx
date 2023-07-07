@@ -6,7 +6,7 @@ import { SubmitHandler } from "react-hook-form";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pending } from "@gc-digital-talent/ui";
+import { Pending, Spoiler } from "@gc-digital-talent/ui";
 import {
   getCandidateSuspendedFilterStatus,
   getLanguage,
@@ -65,6 +65,7 @@ import {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 
+import { User } from "@gc-digital-talent/graphql";
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 
 import PoolCandidateTableFilterDialog, {
@@ -308,9 +309,31 @@ const provinceAccessor = (
     ? intl.formatMessage(getProvinceOrTerritory(province as string))
     : "";
 
+const notesAccessor = (candidate: PoolCandidate, intl: IntlShape) =>
+  candidate?.notes ? (
+    <Spoiler
+      text={candidate.notes}
+      linkSuffix={intl.formatMessage(
+        {
+          defaultMessage: "notes for {name}",
+          id: "CZbb7c",
+          description:
+            "Link text suffix to read more notes for a pool candidate",
+        },
+        {
+          name: getFullNameLabel(
+            candidate.user.firstName,
+            candidate.user.lastName,
+            intl,
+          ),
+        },
+      )}
+    />
+  ) : null;
+
 const defaultState = {
   ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["candidacyStatus"],
+  hiddenColumnIds: ["candidacyStatus", "notes"],
   filters: {
     applicantFilter: {
       operationalRequirements: [],
@@ -647,6 +670,16 @@ const PoolCandidatesTable = ({
         accessor: ({ poolCandidate: { user } }) =>
           `${user?.firstName} ${user?.lastName}`,
         sortColumnName: "FIRST_NAME",
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Notes",
+          id: "caSdGd",
+          description:
+            "Title displayed on the Pool Candidates table notes column.",
+        }),
+        id: "notes",
+        accessor: ({ poolCandidate }) => notesAccessor(poolCandidate, intl),
       },
       {
         label: intl.formatMessage({
