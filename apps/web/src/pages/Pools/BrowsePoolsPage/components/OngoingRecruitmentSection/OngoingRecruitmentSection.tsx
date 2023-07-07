@@ -125,9 +125,8 @@ const OngoingRecruitmentSection = ({
   const abbreviation = (text: React.ReactNode) => wrapAbbr(text, intl);
 
   // this great big object is all the data to populate the accordions
-  // this great big object is all the data to populate the accordions
   const streams: StreamViewModel[] = [
-    // IT business line advisory services bucket
+    // IT business line advisory services
     {
       key: PoolStream.BusinessAdvisoryServices,
       title: intl.formatMessage(messages.businessAdvisoryServicesTitle, {
@@ -966,9 +965,9 @@ const OngoingRecruitmentSection = ({
       </p>
       <p>
         {intl.formatMessage({
-          id: "MyDw3F",
+          id: "y5/tVk",
           defaultMessage:
-            "We also offer passive recruitment process buckets that allow us to find talent fast when the demand arises. While there’s no guarantee a job will result from the opportunities below, it’s an easy way for your name and résumé to be found by managers when the time comes. Feel free to submit your name to any bucket that matches your skills.",
+            "We also offer passive recruitment processes that allow us to find talent fast when the demand arises. While there’s no guarantee a job will result from the opportunities below, it’s an easy way for your name and résumé to be found by managers when the time comes. Feel free to submit your name to any stream that matches your skills.",
           description:
             "instructions for section with ongoing pool advertisements",
         })}

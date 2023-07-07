@@ -167,6 +167,14 @@ module.exports = {
       },
     ],
     "react/forbid-elements": [1, { forbid: ["a"] }],
+    "no-restricted-syntax": [
+      "error",
+      {
+        selector: "Literal[value=/Indigenous Apprenticeship Program/i]",
+        message:
+          "The name of the program is IT Apprenticeship Program for Indigenous Peoples.",
+      },
+    ],
   },
   settings: {
     "import/extensions": [".ts", ".tsx"],

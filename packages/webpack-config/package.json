@@ -5,7 +5,7 @@
   "license": "AGPL-3.0",
   "dependencies": {
     "@formatjs/ts-transformer": "^3.13.3",
-    "@types/node": "^20.3.2",
+    "@types/node": "^20.4.0",
     "@types/path-browserify": "^1.0.0",
     "babel-loader": "^9.1.2",
     "compression-webpack-plugin": "^10.0.0",
@@ -17,7 +17,7 @@
     "mini-css-extract-plugin": "^2.7.6",
     "shelljs": "^0.8.5",
     "ts-loader": "^9.4.4",
-    "webpack": "^5.88.0",
+    "webpack": "^5.88.1",
     "webpack-shell-plugin-next": "^2.3.1"
   }
 }

@@ -196,9 +196,9 @@ const SkillAccordion = ({
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
           {intl.formatMessage({
-            defaultMessage: "Additional information:",
-            id: "+nS/ak",
-            description: "Additional information if provided (without details)",
+            defaultMessage: "Additional details:",
+            id: "QfOWr0",
+            description: "Additional details if provided (without details)",
           })}
         </p>
 
@@ -252,9 +252,9 @@ const SkillAccordion = ({
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
           {intl.formatMessage({
-            defaultMessage: "Additional information:",
-            id: "+nS/ak",
-            description: "Additional information if provided (without details)",
+            defaultMessage: "Additional details:",
+            id: "QfOWr0",
+            description: "Additional details if provided (without details)",
           })}
         </p>
         <p>{details}</p>
@@ -299,9 +299,9 @@ const SkillAccordion = ({
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
           {intl.formatMessage({
-            defaultMessage: "Additional information:",
-            id: "+nS/ak",
-            description: "Additional information if provided (without details)",
+            defaultMessage: "Additional details:",
+            id: "QfOWr0",
+            description: "Additional details if provided (without details)",
           })}
         </p>
         <p>{details}</p>

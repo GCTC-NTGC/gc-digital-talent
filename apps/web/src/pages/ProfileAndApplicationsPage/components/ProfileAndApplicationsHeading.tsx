@@ -194,8 +194,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "When you log into your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your Indigenous apprenticeship application and track your position in the program.",
-                id: "gNyD/H",
+                  "When you log into your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your position in the program.",
+                id: "Z9wBwT",
                 description:
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },
@@ -248,8 +248,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "When you log into your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your Indigenous apprenticeship application and track your status in the program.",
-                id: "DeWP/3",
+                  "When you log into your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your status in the program.",
+                id: "vYvmxq",
                 description:
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },
