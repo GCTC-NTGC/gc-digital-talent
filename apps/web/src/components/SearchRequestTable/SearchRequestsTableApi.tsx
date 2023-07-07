@@ -239,6 +239,7 @@ const SearchRequestsTableApi = ({
             "Title displayed for the search request table request job title column.",
         }),
         id: "job_title",
+        sortColumnName: "job_title",
         accessor: (d) =>
           tableViewItemButtonAccessor(
             paths.searchRequestView(d.id),
