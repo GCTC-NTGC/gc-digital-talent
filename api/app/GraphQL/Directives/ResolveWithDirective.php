@@ -15,7 +15,7 @@ final class ResolveWithDirective extends BaseDirective implements ArgDirective, 
     {
         return /** @lang GraphQL */ <<<'GRAPHQL'
 """
-Process an input field by passing it to a specific method.
+Process an input field by passing it to a specific method. By default, looks for a method on the root object.
 Note that if your input field contains an array, it will be passed to the method as a single argument.
 """
 directive @resolveWith(
@@ -24,7 +24,7 @@ directive @resolveWith(
     """
     method: String!
     """
-    By default, this will call a method on the root object. If class is specified, it will look for a static method on that class.
+    If class is specified, this will look for a static method on that class. example: "App\\Models\\User"
     """
     class: String
 ) on INPUT_FIELD_DEFINITION
