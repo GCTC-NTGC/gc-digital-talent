@@ -1118,6 +1118,10 @@
     "defaultMessage": "Les techniciens en <abbreviation>TI</abbreviation> se retrouvent principalement dans trois filières de travail :",
     "description": "Preceding list description"
   },
+  "6AhLsc": {
+    "defaultMessage": "Demander le titre du poste",
+    "description": "Title displayed for the search request table request job title column."
+  },
   "6B7e8/": {
     "defaultMessage": "Archiver<hidden> la candidature{name}</hidden>",
     "description": "Link text to continue a specific application"
@@ -1496,10 +1500,6 @@
   "8fQWTc": {
     "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
     "description": "No preference for employment duration - will accept any"
-  },
-  "8hee5d": {
-    "defaultMessage": "Titre de l’emploi",
-    "description": "Title displayed on the search request table job title column."
   },
   "8hnUdh": {
     "defaultMessage": "Ajouter une expérience",
@@ -3191,6 +3191,10 @@
     "defaultMessage": "{title} Les exigent un minimum d’expérience ou un diplôme pertinent.",
     "description": "Descriptive text about experience or education requirements of a pool advertisement"
   },
+  "LoKxJe": {
+    "defaultMessage": "Flux",
+    "description": "Title displayed on the search request table stream column."
+  },
   "LocjmN": {
     "defaultMessage": "De retour aux équipes",
     "description": "Button text to return to the table of teams page"
@@ -4113,10 +4117,6 @@
   "TBsQMo": {
     "defaultMessage": "Choisissez l’option qui s’applique à votre situation",
     "description": "Legend for the radio group in the application education page."
-  },
-  "TDTE1c": {
-    "defaultMessage": "Action",
-    "description": "Title displayed for the search request table edit column."
   },
   "TGCq/w": {
     "defaultMessage": "Utilisez le formulaire ci-dessous pour nous aider à mieux comprendre vos préférences et vos capacités linguistiques",
@@ -5949,10 +5949,6 @@
   "gLHr9Y": {
     "defaultMessage": "La clôture automatique de ce bassin est programmés pour le :",
     "description": "Third paragraph for publish pool dialog"
-  },
-  "gLtTaW": {
-    "defaultMessage": "demande",
-    "description": "Text displayed after View text for Search Request table view action"
   },
   "gN5gy5": {
     "defaultMessage": "Groupe et niveau de départ",
@@ -8328,6 +8324,10 @@
     "defaultMessage": "Vous êtes maintenant arrivé(e) à votre page de profil de Talents numériques.",
     "description": "First paragraph for profile and applications notification welcoming an IAP user"
   },
+  "y+r+ej": {
+    "defaultMessage": "Groupe et niveau",
+    "description": "Title displayed on the search request table group and level column."
+  },
   "y2Rl/m": {
     "defaultMessage": "Étapes relatives à l’application",
     "description": "Label for the application stepper navigation"
@@ -8543,18 +8543,6 @@
   "zzf16k": {
     "defaultMessage": "Candidats",
     "description": "Breadcrumb for the All Candidates page"
-  },
-  "6AhLsc": {
-    "defaultMessage": "Demander le titre du poste",
-    "description": "Title displayed for the search request table request job title column."
-  },
-  "LoKxJe": {
-    "defaultMessage": "Flux",
-    "description": "Title displayed on the search request table stream column."
-  },
-  "y+r+ej": {
-    "defaultMessage": "Groupe et niveau",
-    "description": "Title displayed on the search request table group and level column."
   },
   "zzr/9B": {
     "defaultMessage": "Supprimer l'expérience de mon profil",
