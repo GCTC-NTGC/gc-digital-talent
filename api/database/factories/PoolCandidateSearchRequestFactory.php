@@ -35,6 +35,7 @@ class PoolCandidateSearchRequestFactory extends Factory
       'applicant_filter_id' => ApplicantFilter::factory(),
       'was_empty' => $this->faker->boolean(),
       'request_status' => $this->faker->randomElement(ApiEnums::poolCandidateSearchStatuses()),
+      'status_changed_at' => $this->faker->boolean() ? $this->faker->dateTimeBetween($startDate = '-1 months', $endDate = 'now') : null,
     ];
   }
 }
