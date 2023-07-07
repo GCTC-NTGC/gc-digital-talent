@@ -876,6 +876,10 @@
     "defaultMessage": "Terminé avec succès (aucun titre de compétence)",
     "description": "Successful Completion with no credentials for education status input"
   },
+  "cCWdDX": {
+    "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
+    "description": "Button text to expand truncated text to view all contents"
+  },
   "cEB0aW": {
     "defaultMessage": "exige des <strong>heures supplémentaires régulièrement</strong>.",
     "description": "The operational requirement described as regular overtime."
@@ -1218,6 +1222,10 @@
   "rlq4uZ": {
     "defaultMessage": "Compétences techniques",
     "description": "The skill is considered technical."
+  },
+  "rnZULP": {
+    "defaultMessage": "Lire moins <hidden> {context}</hidden>",
+    "description": "Button text to truncate text to view fewer characters"
   },
   "rsxrMs": {
     "defaultMessage": "Retirer {label}",

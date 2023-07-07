@@ -2012,6 +2012,10 @@
     "defaultMessage": "Y a-t-il des frais pour participer au programme?",
     "description": "Learn more dialog question ten heading"
   },
+  "CZbb7c": {
+    "defaultMessage": "notes pour {name}",
+    "description": "Link text suffix to read more notes for a pool candidate"
+  },
   "CfNtWn": {
     "defaultMessage": "Ce processus ne comporte pas de questions filtres. Vous pouvez passer à l’étape suivante.",
     "description": "Message displayed to users when there are no screening questions for a process"
@@ -5401,6 +5405,10 @@
   "cZmuts": {
     "defaultMessage": "À la prochaine fois!",
     "description": "Title for the page users land on after successful logout."
+  },
+  "caSdGd": {
+    "defaultMessage": "Notes",
+    "description": "Title displayed on the Pool Candidates table notes column."
   },
   "cag7TH": {
     "defaultMessage": "Question {number} (FR)",
