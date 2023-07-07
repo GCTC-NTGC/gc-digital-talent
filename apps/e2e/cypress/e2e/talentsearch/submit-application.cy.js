@@ -238,7 +238,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("combobox", { name: /Status/i }).select(
       "Successful Completion (Credential Awarded)",
     );
-    cy.findByRole("textbox", { name: /Your tasks and responsibilities/i }).type(
+    cy.findByRole("textbox", { name: /Additional details/i }).type(
       "Mastering Cypress",
     );
     cy.findByRole("button", { name: /Save and go back/i }).click();
@@ -387,6 +387,8 @@ describe("Submit Application Workflow Tests", () => {
     })
       .should("exist")
       .and("be.visible");
-    cy.findByRole("link", { name: /visit your Profile and applications page/i }).should("exist");
+    cy.findByRole("link", {
+      name: /visit your Profile and applications page/i,
+    }).should("exist");
   });
 });
