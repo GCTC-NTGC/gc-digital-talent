@@ -390,89 +390,35 @@ class User extends Model implements Authenticatable, LaratrustUser
     /**
      * Skills filtering
      */
-    public static function scopeSkillsIntersectional(Builder $query, ?array $skills): Builder
+    public static function scopeSkillsIntersectional(Builder $query, ?array $skill_ids): Builder
     {
-        if (empty($skills)) {
+        if (empty($skill_ids)) {
             return $query;
         }
 
         // skills AND filtering. The query should only return candidates with ALL of the skills.
-        $query->whereExists(function ($query) use ($skills) {
-            $query->select(DB::raw('null'))
-                ->from(function ($query) {
-                    $query->selectRaw('experiences.user_id, jsonb_agg(experience_skill.skill_id) as user_skills_grouped')
-                        ->from('experience_skill')
-                        ->joinSub(function ($query) {
-                            $query->select('award_experiences.id as experience_id', 'award_experiences.user_id')
-                                ->from('award_experiences')
-                                ->unionAll(function ($query) {
-                                    $query->select('community_experiences.id as experience_id', 'community_experiences.user_id')
-                                        ->from('community_experiences');
-                                })
-                                ->unionAll(function ($query) {
-                                    $query->select('education_experiences.id as experience_id', 'education_experiences.user_id')
-                                        ->from('education_experiences');
-                                })
-                                ->unionAll(function ($query) {
-                                    $query->select('personal_experiences.id as experience_id', 'personal_experiences.user_id')
-                                        ->from('personal_experiences');
-                                })
-                                ->unionAll(function ($query) {
-                                    $query->select('work_experiences.id as experience_id', 'work_experiences.user_id')
-                                        ->from('work_experiences');
-                                });
-                        }, 'experiences', function ($join) {
-                            $join->on('experience_skill.experience_id', '=', 'experiences.experience_id');
-                        })
-                        ->groupBy('experiences.user_id');
-                }, "aggregate_experiences")
-                ->whereJsonContains('aggregate_experiences.user_skills_grouped', $skills)
-                ->whereColumn('aggregate_experiences.user_id', 'users.id');
-        });
+        foreach ($skill_ids as $skill_id) {
+            $query->whereExists(function ($query) use ($skill_id) {
+                $query->select(DB::raw('null'))
+                    ->from('user_skills')
+                    ->whereColumn('user_skills.user_id', 'users.id')
+                    ->where('user_skills.skill_id', $skill_id);
+            });
+        }
         return $query;
     }
-    public static function scopeSkillsAdditive(Builder $query, ?array $skills): Builder
+    public static function scopeSkillsAdditive(Builder $query, ?array $skill_ids): Builder
     {
-        if (empty($skills)) {
+        if (empty($skill_ids)) {
             return $query;
         }
 
         // skills OR filtering. The query should return candidates with ANY of the skills.
-        $query->whereExists(function ($query) use ($skills) {
+        $query->whereExists(function ($query) use ($skill_ids) {
             $query->select(DB::raw('null'))
-                ->from(function ($query) {
-                    $query->selectRaw('experiences.user_id, jsonb_agg(experience_skill.skill_id) as user_skills_grouped')
-                        ->from('experience_skill')
-                        ->joinSub(function ($query) {
-                            $query->select('award_experiences.id as experience_id', 'award_experiences.user_id')
-                                ->from('award_experiences')
-                                ->unionAll(function ($query) {
-                                    $query->select('community_experiences.id as experience_id', 'community_experiences.user_id')
-                                        ->from('community_experiences');
-                                })
-                                ->unionAll(function ($query) {
-                                    $query->select('education_experiences.id as experience_id', 'education_experiences.user_id')
-                                        ->from('education_experiences');
-                                })
-                                ->unionAll(function ($query) {
-                                    $query->select('personal_experiences.id as experience_id', 'personal_experiences.user_id')
-                                        ->from('personal_experiences');
-                                })
-                                ->unionAll(function ($query) {
-                                    $query->select('work_experiences.id as experience_id', 'work_experiences.user_id')
-                                        ->from('work_experiences');
-                                });
-                        }, 'experiences', function ($join) {
-                            $join->on('experience_skill.experience_id', '=', 'experiences.experience_id');
-                        })
-                        ->groupBy('experiences.user_id');
-                }, "aggregate_experiences")
-                ->where(function ($query) use ($skills) {
-                    foreach ($skills as $key => $value) {
-                        $query->orWhereJsonContains('aggregate_experiences.user_skills_grouped', $value);
-                    }
-                })
-                ->whereColumn('aggregate_experiences.user_id', 'users.id');
+                ->from('user_skills')
+                ->whereColumn('user_skills.user_id', 'users.id')
+                ->whereIn('user_skills.skill_id', $skill_ids);
         });
         return $query;
     }
