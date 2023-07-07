@@ -46,40 +46,20 @@ describe("TrackApplicationsCard", () => {
     await axeTest(container);
   });
 
-  it("should have link to remove user from search results", () => {
+  it("should have proper action links if the application is in draft", async () => {
     renderCard({
       ...defaultProps,
       application: {
         ...mockApplication,
-        status: PoolCandidateStatus.QualifiedAvailable,
-        expiryDate: FAR_FUTURE_DATE,
-        suspendedAt: null,
+        status: PoolCandidateStatus.Draft,
       },
     });
-
-    const removeMeLink = screen.queryByRole("button", {
-      name: /remove me/i,
-    });
-
-    expect(removeMeLink).toBeInTheDocument();
-  });
-
-  it("should have link to add user back into search results", () => {
-    renderCard({
-      ...defaultProps,
-      application: {
-        ...mockApplication,
-        status: PoolCandidateStatus.QualifiedAvailable,
-        expiryDate: FAR_FUTURE_DATE,
-        suspendedAt: new Date().toUTCString(),
-      },
-    });
-
-    const addMeLink = screen.queryByRole("button", {
-      name: /I want to appear in results again/i,
-    });
-
-    expect(addMeLink).toBeInTheDocument();
+    const links = screen.queryAllByRole("link");
+    expect(links).toHaveLength(3);
+    expect(links[0]).toHaveAttribute(
+      "href",
+      expect.stringContaining(mockApplication.id),
+    );
   });
 
   it("should have proper label and action links if placed/hired in pool", async () => {
@@ -92,7 +72,6 @@ describe("TrackApplicationsCard", () => {
         suspendedAt: new Date().toUTCString(),
       },
     });
-    const paths = useRoutes();
 
     const links = screen.queryAllByRole("link");
     expect(links).toHaveLength(5);
@@ -116,13 +95,13 @@ describe("TrackApplicationsCard", () => {
     expect(links[3]).toHaveTextContent("Manage availability");
     expect(links[3]).toHaveAttribute(
       "href",
-      expect.stringContaining(mockApplication.pool.id),
+      expect.stringContaining("profile"),
     );
 
     expect(links[4]).toHaveTextContent("Get support");
     expect(links[4]).toHaveAttribute(
       "href",
-      expect.stringContaining(paths.support()),
+      expect.stringContaining("support"),
     );
     const qualifiedLabel = screen.queryByText("Qualified");
 
@@ -139,12 +118,8 @@ describe("TrackApplicationsCard", () => {
       },
     });
     const links = await screen.queryAllByRole("link");
-    expect(links).toHaveLength(1);
-    expect(links[0]).toHaveAttribute(
-      "href",
-      expect.stringContaining(mockApplication.id),
-    );
-    const qualifiedLabel = screen.queryByText("Qualified");
+    expect(links).toHaveLength(3);
+    const qualifiedLabel = screen.queryByText("Submission date passed");
 
     expect(qualifiedLabel).toBeInTheDocument();
   });
