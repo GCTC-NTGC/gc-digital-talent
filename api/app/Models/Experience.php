@@ -66,7 +66,7 @@ abstract class Experience extends Model
         $userSkills = $this->user->userSkills;
         $syncSkills = collect($skills)->flatMap(function ($skill) use ($userSkills) {
             $userSkillId = $userSkills->firstWhere('skill_id', $skill['id'])->id;
-            $details = array_key_exists('details', $skill) ? $skill['details'] : null;
+            $details = collect($skill)->get('details', null);
             return [$userSkillId => ['details' => $details]];
         });
         // Sync experience to userSkills
@@ -89,7 +89,7 @@ abstract class Experience extends Model
         $userSkills = $this->user->userSkills;
         $syncSkills = collect($skills)->flatMap(function ($skill) use ($userSkills) {
             $userSkillId = $userSkills->firstWhere('skill_id', $skill['id'])->id;
-            $details = array_key_exists('details', $skill) ? $skill['details'] : null;
+            $details = collect($skill)->get('details', null);
             return [$userSkillId => ['details' => $details]];
         });
         // Sync experience to new userSkills without removing any.
