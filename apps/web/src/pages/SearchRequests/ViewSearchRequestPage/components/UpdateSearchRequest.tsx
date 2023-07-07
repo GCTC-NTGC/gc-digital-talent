@@ -179,7 +179,7 @@ export const UpdateSearchRequestForm = ({
             <Heading level="h2" size="h4">
               {intl.formatMessage(commonMessages.status)}
             </Heading>
-            <p>
+            <p data-h2-padding="base(x.5, 0, x.5, 0)">
               {intl.formatMessage({
                 defaultMessage:
                   "Track the progress of this request by setting the right status.",
