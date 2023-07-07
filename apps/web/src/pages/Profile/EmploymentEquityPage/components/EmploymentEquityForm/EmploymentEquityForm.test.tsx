@@ -54,7 +54,7 @@ describe("DiversityEquityInclusionForm", () => {
       name: /add person with a disability to my profile/i,
     });
     const removeDisability = screen.queryByRole("button", {
-      name: /edit this information for "I identify as a person with a disability."/i,
+      name: /edit this information for I identify as a person with a disability./i,
     });
 
     if (mockUser.hasDisability) {
@@ -69,7 +69,7 @@ describe("DiversityEquityInclusionForm", () => {
       name: /add indigenous identity to my profile/i,
     });
     const removeIndigenous = screen.queryByRole("button", {
-      name: /Edit this information for "I affirm that I am First Nations/i,
+      name: /Edit this information for I affirm that I am First Nations/i,
     });
 
     if (mockUser.indigenousCommunities?.length) {
@@ -84,7 +84,7 @@ describe("DiversityEquityInclusionForm", () => {
       name: /add visible minority to my profile/i,
     });
     const removeVisibleMinority = screen.queryByRole("button", {
-      name: /edit this information for "I identify as a member of a visible minority."/i,
+      name: /edit this information for I identify as a member of a visible minority./i,
     });
 
     if (mockUser.isVisibleMinority) {
@@ -99,7 +99,7 @@ describe("DiversityEquityInclusionForm", () => {
       name: /add woman to my profile/i,
     });
     const removeWoman = screen.queryByRole("button", {
-      name: /edit this information for "i identify as a woman."/i,
+      name: /edit this information for i identify as a woman./i,
     });
 
     if (mockUser.isWoman) {
