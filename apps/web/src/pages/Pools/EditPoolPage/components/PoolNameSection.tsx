@@ -118,7 +118,7 @@ const PoolNameSection = ({
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
-      <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
+      <TableOfContents.Heading data-h2-margin="base(0, 0, x1, 0)">
         {sectionMetadata.title}
       </TableOfContents.Heading>
       <p>

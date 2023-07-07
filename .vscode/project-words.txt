@@ -55,7 +55,6 @@ OCIO
 Ojibway
 personalisation
 pgsql
-psac
 Queueable
 recruitmentimit
 recruitments
