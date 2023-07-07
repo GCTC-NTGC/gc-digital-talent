@@ -9,12 +9,9 @@
 - 9yGJ6k # 'Description' Title displayed for the skill table Description column.
 - XSo129 # 'Description' Title displayed for the Skill Family table Description column.
 - hlcd+5 # 'Résultats du tableau'
-- 4AubyK # Notes (Title of the 'Notes' section of the view-user page)
 - Hqt/ej # 'Archive' 'Heading for the archive pool dialog'
 - P8NuMo # 'Archive' 'Text on a button to archive the pool'
 - TDTE1c # 'Action' Title displayed for the search request table edit column.
-- ev6HnY # 'Notes' CSV Header, Notes column
-- npC3bT # 'Notes' Title for admin editing a pool candidates notes
 - m0JFE/ # 'Code' Title for the application's profile snapshot
 - w/qZsH # 'Classification' Label displayed on the pool form classification field.
 - wHX/8C # 'Admin' Title tag for Admin site
@@ -30,6 +27,4 @@
 - cag7TH # 'Question {number} (FR)'
 - /sBGov # 'Question {number}' - Question is same, number is untranslated
 - kvpRgN # 'Classifications' - Title for classifications
-- rwNxlI # 'Notes' - Notes label
 - EK+25s # 'Notes' - Notes in adminMessages constant
-- caSdGd # 'Notes' - Pool Candidate table column
