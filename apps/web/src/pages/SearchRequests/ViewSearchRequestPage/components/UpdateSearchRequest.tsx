@@ -1,9 +1,8 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Button, Heading } from "@gc-digital-talent/ui";
+import { Heading, Link } from "@gc-digital-talent/ui";
 import {
   Select,
   Submit,
@@ -40,7 +39,6 @@ export const UpdateSearchRequestForm = ({
 }: UpdateSearchRequestFormProps) => {
   const intl = useIntl();
   const [isSaving, setIsSaving] = React.useState<boolean>(false);
-  const navigate = useNavigate();
   const paths = useRoutes();
   const methods = useForm<FormValues>({
     defaultValues: initialSearchRequest,
@@ -233,21 +231,14 @@ export const UpdateSearchRequestForm = ({
         </FormProvider>
       </div>
       <div data-h2-margin="base(0, 0, x1, 0)">
-        <Button
-          color="secondary"
-          mode="inline"
-          onClick={() => {
-            navigate(paths.searchRequestTable());
-          }}
-          data-h2-margin="base(x1, x1, 0, 0)"
-        >
+        <Link href={paths.searchRequestTable()} mode="inline" color="secondary">
           {intl.formatMessage({
             defaultMessage: "Back to requests",
             id: "O8nHiQ",
             description:
               "Button label displayed on the search request form which returns the user back to requests.",
           })}
-        </Button>
+        </Link>
       </div>
     </div>
   );
