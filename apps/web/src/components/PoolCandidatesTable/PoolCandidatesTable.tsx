@@ -65,7 +65,6 @@ import {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 
-import { User } from "@gc-digital-talent/graphql";
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 
 import PoolCandidateTableFilterDialog, {
