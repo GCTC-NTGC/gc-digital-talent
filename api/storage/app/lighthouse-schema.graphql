@@ -642,12 +642,8 @@ type Mutation {
   markNotificationAsRead(id: UUID!): Notification
 }
 
-type Notification {
+interface Notification {
   id: ID!
-  type: String
-  notifiableType: String
-  notifiableId: String
-  data: JSON
   readAt: DateTime
   createdAt: DateTime
   updatedAt: DateTime
@@ -922,6 +918,17 @@ enum PoolCandidateStatus {
   PLACED_INDETERMINATE
   EXPIRED
   REMOVED
+}
+
+type PoolCandidateStatusChangedNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  oldStatus: PoolCandidateStatus
+  newStatus: PoolCandidateStatus
+  poolId: ID
+  poolName: LocalizedString
 }
 
 type PoolCandidateWithSkillCount {

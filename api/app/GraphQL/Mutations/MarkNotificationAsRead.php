@@ -23,9 +23,8 @@ final class MarkNotificationAsRead
         });
         if (!is_null($notification)) {
             $notification->markAsRead();
+            User::enrichNotification($notification);
             return $notification;
-        } else {
-            return null; // notification not found
         }
     }
 }

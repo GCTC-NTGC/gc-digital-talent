@@ -143,7 +143,8 @@ type User {
 
   # Notifications
   unreadNotifications: [Notification!]
-  notifications: [Notification!]
+    @rename(attribute: "unread_enriched_notifications")
+  notifications: [Notification!] @rename(attribute: "enriched_notifications")
 }
 
 enum ProvinceOrTerritory {
@@ -222,15 +223,23 @@ enum IndigenousCommunity {
   LEGACY_IS_INDIGENOUS
 }
 
-type Notification {
+interface Notification {
   id: ID!
-  type: String
-  notifiableType: String @rename(attribute: "notifiable_type")
-  notifiableId: String @rename(attribute: "notifiable_id")
-  data: JSON
   readAt: DateTime @rename(attribute: "read_at")
   createdAt: DateTime @rename(attribute: "created_at")
   updatedAt: DateTime @rename(attribute: "updated_at")
+}
+
+type PoolCandidateStatusChangedNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime @rename(attribute: "created_at")
+  updatedAt: DateTime @rename(attribute: "updated_at")
+
+  oldStatus: PoolCandidateStatus @rename(attribute: "old_status")
+  newStatus: PoolCandidateStatus @rename(attribute: "new_status")
+  poolId: ID @rename(attribute: "pool_id")
+  poolName: LocalizedString @rename(attribute: "pool_name")
 }
 
 type Applicant {

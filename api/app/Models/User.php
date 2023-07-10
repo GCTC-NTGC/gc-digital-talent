@@ -837,4 +837,33 @@ RAWSQL2;
             $this->callRolesFunction($roleAssignmentHasMany['sync'], 'syncRoles');
         }
     }
+
+    // reattach all the extra fields from the JSON data column
+    public static function enrichNotification(object $notification)
+    {
+        $dataFields = $notification->data;
+        foreach ($dataFields as $key => $value) {
+            $notification->$key = $value;
+        }
+    }
+
+    // Changed property name from notifications to enriched_notifications to avoid overloading built-in function used in mutation.
+    public function getEnrichedNotificationsAttribute()
+    {
+        $notifications = $this->notifications()->get();
+        $notifications->each(function ($n) {
+            self::enrichNotification($n);
+        });
+        return $notifications;
+    }
+
+    // Changed property name from unread_notifications to concrete_enriched_notifications to avoid overloading built-in function used in mutation.
+    public function getUnreadEnrichedNotificationsAttribute()
+    {
+        $notifications = $this->unreadNotifications()->get();
+        $notifications->each(function ($n) {
+            self::enrichNotification($n);
+        });
+        return $notifications;
+    }
 }
