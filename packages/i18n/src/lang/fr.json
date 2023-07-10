@@ -905,10 +905,6 @@
     "defaultMessage": "La demande a déjà été archivée.",
     "description": "Error message that the given application is already archived."
   },
-  "CVmEkf": {
-    "defaultMessage": "Création impossible – cet identifiant d’utilisateur (sub) est déjà utilisé",
-    "description": "Error message that the given user identifier is already in use when creating."
-  },
   "J2V3XI": {
     "defaultMessage": "Un champ obligatoire est vide : Exigence linguistique",
     "description": "Error message that the pool advertisement must have an advertisement language."
@@ -928,10 +924,6 @@
   "VqrVpT": {
     "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
     "description": "Error message that the given email address is already in use when updating."
-  },
-  "WUAAr1": {
-    "defaultMessage": "Création impossible – cette adresse courriel est déjà utilisée.",
-    "description": "Error message that the given user identifier is already in use when creating."
   },
   "XNDPQM": {
     "defaultMessage": "Un champ obligatoire est vide : Date de fin",
