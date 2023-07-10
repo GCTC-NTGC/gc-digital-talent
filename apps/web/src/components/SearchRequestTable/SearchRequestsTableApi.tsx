@@ -106,7 +106,7 @@ const notesAccessor = (
       linkSuffix={intl.formatMessage(
         {
           defaultMessage: "notes for {name}",
-          id: "I73/lv",
+          id: "6eih3b",
           description:
             "Link text suffix to read more notes for a search request",
         },
