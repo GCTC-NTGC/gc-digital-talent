@@ -2744,6 +2744,10 @@
     "defaultMessage": "Placement",
     "description": "User placement breadcrumb text"
   },
+  "I73/lv": {
+    "defaultMessage": "notes pour {name}",
+    "description": "Link text suffix to read more notes for a search request"
+  },
   "I7rxxQ": {
     "defaultMessage": "Mots-clés",
     "description": "Title displayed for the skill table Keywords column."

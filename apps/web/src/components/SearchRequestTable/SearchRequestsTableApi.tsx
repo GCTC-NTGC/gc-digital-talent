@@ -108,7 +108,7 @@ const notesAccessor = (
           defaultMessage: "notes for {name}",
           id: "I73/lv",
           description:
-            "Link text suffix to read more notes for a pool searchRequest",
+            "Link text suffix to read more notes for a search request",
         },
         {
           name: searchRequest.fullName,
