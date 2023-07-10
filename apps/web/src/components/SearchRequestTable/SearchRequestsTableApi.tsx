@@ -3,7 +3,7 @@ import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pending } from "@gc-digital-talent/ui";
+import { Pending, Spoiler } from "@gc-digital-talent/ui";
 import {
   InputMaybe,
   Maybe,
@@ -43,6 +43,7 @@ import adminMessages from "~/messages/adminMessages";
 import SearchRequestsTableFilter, {
   FormValues,
 } from "./components/SearchRequestsTableFilterDialog";
+import { PoolCandidateSearchRequest } from "../../api/generated";
 
 type Data = NonNullable<FromArray<PoolCandidateSearchRequestPaginator["data"]>>;
 
@@ -95,9 +96,30 @@ function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
   ) : null;
 }
 
+const notesAccessor = (
+  searchRequest: PoolCandidateSearchRequest,
+  intl: IntlShape,
+) =>
+  searchRequest?.adminNotes ? (
+    <Spoiler
+      text={searchRequest.adminNotes}
+      linkSuffix={intl.formatMessage(
+        {
+          defaultMessage: "notes for {name}",
+          id: "I73/lv",
+          description:
+            "Link text suffix to read more notes for a pool searchRequest",
+        },
+        {
+          name: searchRequest.fullName,
+        },
+      )}
+    />
+  ) : null;
+
 const defaultState = {
   ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["id", "email"],
+  hiddenColumnIds: ["id", "email", "adminNotes"],
   filters: {},
 };
 
@@ -312,6 +334,11 @@ const SearchRequestsTableApi = ({
         id: "jobTitle",
         sortColumnName: "job_title",
         accessor: (d) => d.jobTitle,
+      },
+      {
+        label: intl.formatMessage(adminMessages.notes),
+        id: "adminNotes",
+        accessor: (d) => notesAccessor(d, intl),
       },
     ],
     [intl, paths],
