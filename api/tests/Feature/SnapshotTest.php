@@ -99,8 +99,8 @@ class SnapshotTest extends TestCase
                 ->count(2)
                 ->for($user)
                 ->afterCreating(function ($model) use ($faker) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->map(function ($skill) use ($faker) {
-                        return ['id' => $skill->id, 'details' => $faker->text()];
+                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->map(function ($skill_id) use ($faker) {
+                        return ['id' => $skill_id, 'details' => $faker->text()];
                     });
                     $model->syncSkills($skills);
                 })->create();

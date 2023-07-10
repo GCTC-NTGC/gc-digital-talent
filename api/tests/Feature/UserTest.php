@@ -1790,31 +1790,31 @@ class UserTest extends TestCase
             AwardExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $skills = Skill::inRandomOrder()->limit(3)->get();
                     $model->syncSkills($skills);
                 })->create();
             CommunityExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $skills = Skill::inRandomOrder()->limit(3)->get();
                     $model->syncSkills($skills);
                 })->create();
             EducationExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $skills = Skill::inRandomOrder()->limit(3)->get();
                     $model->syncSkills($skills);
                 })->create();
             PersonalExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $skills = Skill::inRandomOrder()->limit(3)->get();
                     $model->syncSkills($skills);
                 })->create();
             WorkExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $skills = Skill::inRandomOrder()->limit(3)->get();
                     $model->syncSkills($skills);
                 })->create();
         });
