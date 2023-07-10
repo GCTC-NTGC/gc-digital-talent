@@ -936,8 +936,8 @@ type Query {
   me: User
   user(id: UUID!): User
   users: [User]!
-  applicant(id: UUID!): User
-  applicants(includeIds: [ID]!): [User]!
+  applicant(id: UUID!): User @deprecated(reason: "Removing in favour of user query")
+  applicants(includeIds: [ID]!): [User]! @deprecated(reason: "Removing in favour of users query")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   pools: [Pool]!
