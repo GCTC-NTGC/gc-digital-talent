@@ -847,8 +847,7 @@ RAWSQL2;
         }
     }
 
-    // Changed property name from notifications to enriched_notifications to avoid overloading built-in function used in mutation.
-    public function getEnrichedNotificationsAttribute()
+    public function getNotificationsAttribute()
     {
         $notifications = $this->notifications()->get();
         $notifications->each(function ($n) {
@@ -857,8 +856,7 @@ RAWSQL2;
         return $notifications;
     }
 
-    // Changed property name from unread_notifications to concrete_enriched_notifications to avoid overloading built-in function used in mutation.
-    public function getUnreadEnrichedNotificationsAttribute()
+    public function getUnreadNotificationsAttribute()
     {
         $notifications = $this->unreadNotifications()->get();
         $notifications->each(function ($n) {
