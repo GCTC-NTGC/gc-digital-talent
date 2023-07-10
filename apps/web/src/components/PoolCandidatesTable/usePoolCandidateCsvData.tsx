@@ -118,11 +118,7 @@ const usePoolCandidateCsvData = (
     },
     {
       key: "notes",
-      label: intl.formatMessage({
-        defaultMessage: "Notes",
-        id: "ev6HnY",
-        description: "CSV Header, Notes column",
-      }),
+      label: intl.formatMessage(adminMessages.notes),
     },
     {
       key: "currentProvince",
