@@ -242,7 +242,6 @@ const AboutMeForm = ({
         cacheKey="about-me-form"
         onSubmit={handleSubmit}
         options={{
-          mode: "onChange",
           defaultValues: initialDataToFormValues(initialUser),
         }}
       >

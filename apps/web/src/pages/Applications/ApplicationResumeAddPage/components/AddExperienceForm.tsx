@@ -18,7 +18,7 @@ import {
   AllExperienceFormValues,
   ExperienceType,
 } from "~/types/experience";
-import TasksAndResponsibilities from "~/components/ExperienceFormFields/TasksAndResponsibilities";
+import TasksAndResponsibilities from "~/components/ExperienceFormFields/AdditionalDetails";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 
