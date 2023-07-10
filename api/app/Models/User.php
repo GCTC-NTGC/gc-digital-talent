@@ -119,7 +119,7 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function isAdmin(): bool
     {
-        return is_array($this->legacy_roles) && in_array('ADMIN', $this->legacy_roles);
+        return $this->hasRole('platform_admin');
     }
     // All the relationships for experiences
     public function awardExperiences(): HasMany
