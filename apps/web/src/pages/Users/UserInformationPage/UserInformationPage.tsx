@@ -67,21 +67,31 @@ const UserInformation = ({ user, pools }: UserInformationProps) => {
   ];
 
   return (
-    <TableOfContents.Wrapper>
+    <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
       <TableOfContents.Navigation>
-        {items.map((item) => (
-          <TableOfContents.AnchorLink key={item.id} id={item.id}>
-            {item.title}
-          </TableOfContents.AnchorLink>
-        ))}
+        <TableOfContents.List>
+          {items.map((item) => (
+            <TableOfContents.ListItem key={item.id}>
+              <TableOfContents.AnchorLink id={item.id}>
+                {item.title}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+          ))}
+        </TableOfContents.List>
       </TableOfContents.Navigation>
       <TableOfContents.Content>
-        {items.map((item) => (
+        {items.map((item, index) => (
           <TableOfContents.Section key={item.id} id={item.id}>
             <TableOfContents.Heading
               icon={item.titleIcon}
               as="h3"
-              data-h2-margin="base(x3, 0, x1, 0)"
+              {...(index > 0
+                ? {
+                    "data-h2-margin": "base(x3, 0, x1, 0)",
+                  }
+                : {
+                    "data-h2-margin": "base(0, 0, x1, 0)",
+                  })}
             >
               {item.title}
             </TableOfContents.Heading>

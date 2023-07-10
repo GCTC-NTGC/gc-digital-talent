@@ -53,7 +53,7 @@ const SkillPicker = ({
   const Heading = headingLevel;
   const [validData, setValidData] = React.useState<FormValues>(defaultValues);
   const methods = useForm<FormValues>({
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues,
   });
   const {

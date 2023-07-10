@@ -85,20 +85,32 @@ export const ResumeAndRecruitment = ({
       title={intl.formatMessage(titles.resumeAndRecruitment)}
       leaveRoomForNavigation
     >
-      <TableOfContents.Wrapper>
+      <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
         <TableOfContents.Navigation>
-          <TableOfContents.AnchorLink id={PAGE_SECTION_ID.MANAGE_YOUR_RESUME}>
-            {intl.formatMessage(titles.manageYourResume)}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink
-            id={PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES}
-          >
-            {intl.formatMessage(titles.qualifiedRecruitmentProcesses)}
-          </TableOfContents.AnchorLink>
+          <TableOfContents.List>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink
+                id={PAGE_SECTION_ID.MANAGE_YOUR_RESUME}
+              >
+                {intl.formatMessage(titles.manageYourResume)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink
+                id={PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES}
+              >
+                {intl.formatMessage(titles.qualifiedRecruitmentProcesses)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+          </TableOfContents.List>
         </TableOfContents.Navigation>
         <TableOfContents.Content>
           <TableOfContents.Section id={PAGE_SECTION_ID.MANAGE_YOUR_RESUME}>
-            <Heading Icon={BookmarkSquareIcon} color="tertiary">
+            <Heading
+              Icon={BookmarkSquareIcon}
+              color="tertiary"
+              data-h2-margin-top="base(0)"
+            >
               {intl.formatMessage(titles.manageYourResume)}
             </Heading>
             <p>
