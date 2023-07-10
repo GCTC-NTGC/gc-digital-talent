@@ -61,8 +61,9 @@ describe("SearchRequestsTable", () => {
     });
 
     // Assert table filled with values and the result of requests[0] is present
-    expect(screen.getAllByText(requestOne.fullName ?? "")).toBeTruthy();
-    expect(screen.getAllByText(requestOne.jobTitle ?? "")).toBeTruthy();
+    expect(
+      screen.getAllByText(`View ${requestOne.jobTitle ?? ""}`),
+    ).toBeTruthy();
     expect(
       screen.getAllByText(requestOne.department?.name.en ?? ""),
     ).toBeTruthy();

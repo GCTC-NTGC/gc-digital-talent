@@ -134,6 +134,15 @@ query getPoolCandidateSearchRequestsPaginated(
     data {
       additionalComments
       adminNotes
+      applicantFilter {
+        id
+        qualifiedClassifications {
+          id
+          group
+          level
+        }
+        qualifiedStreams
+      }
       department {
         id
         departmentNumber
