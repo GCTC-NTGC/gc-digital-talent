@@ -17,6 +17,8 @@ import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
 
 import { isIAPPool } from "~/utils/poolUtils";
 import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import isPast from "date-fns/isPast";
 
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
@@ -157,11 +159,16 @@ export function applicationStepsToStepperArgs(
 export type Application = Omit<PoolCandidate, "user">;
 
 export function isApplicationInProgress(a: Application): boolean {
+  const isExpired = a.pool.closingDate
+    ? isPast(parseDateTimeUtc(a.pool.closingDate))
+    : false;
   return (
-    a.status === PoolCandidateStatus.Draft ||
-    a.status === PoolCandidateStatus.NewApplication ||
-    a.status === PoolCandidateStatus.ApplicationReview ||
-    a.status === PoolCandidateStatus.UnderAssessment
+    !isExpired &&
+    (a.status === PoolCandidateStatus.Draft ||
+      a.status === PoolCandidateStatus.NewApplication ||
+      a.status === PoolCandidateStatus.ApplicationReview ||
+      a.status === PoolCandidateStatus.UnderAssessment ||
+      a.status === PoolCandidateStatus.ScreenedIn)
   );
 }
 
