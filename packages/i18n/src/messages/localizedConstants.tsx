@@ -1691,8 +1691,8 @@ const statusLabels = new Map<StatusLabelKey, MessageDescriptor | null>([
     "DRAFT",
     defineMessage({
       defaultMessage: "Continue draft",
-      id: "Fj6fIe",
-      description: "Status for an application that has not been submitted",
+      id: "pf3KKo",
+      description: "Link text to continue a application draft",
     }),
   ],
   [
@@ -1759,8 +1759,8 @@ const statusLabels = new Map<StatusLabelKey, MessageDescriptor | null>([
     "EXPIRED",
     defineMessage({
       defaultMessage: "Expired",
-      id: "qPG9ls",
-      description: "Status for an application that has expired",
+      id: "GIC6EK",
+      description: "Expired status",
     }),
   ],
   [
