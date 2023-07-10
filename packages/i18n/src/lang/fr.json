@@ -409,10 +409,6 @@
     "defaultMessage": "Période indéterminée",
     "description": "The pool candidate's status is Placed Indeterminate."
   },
-  "IQviGG": {
-    "defaultMessage": "En attente",
-    "description": "The search status is Pending."
-  },
   "IRCKBP": {
     "defaultMessage": "Aucun résultat n’a été trouvé.",
     "description": "Message displayed when combobox has no options available"
@@ -599,6 +595,10 @@
   "QrKbH+": {
     "defaultMessage": "Durée",
     "description": "Simple term selection for government employee type."
+  },
+  "QtzRCh": {
+    "defaultMessage": "Statut",
+    "description": "Title for status"
   },
   "R2BWry": {
     "defaultMessage": "Candidature rejetée",
