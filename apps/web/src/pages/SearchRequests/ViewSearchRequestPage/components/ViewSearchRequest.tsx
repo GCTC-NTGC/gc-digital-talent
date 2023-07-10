@@ -122,6 +122,30 @@ const ManagerInfo = ({
               >
                 <FilterBlock
                   title={intl.formatMessage({
+                    defaultMessage: "Date Received",
+                    id: "r2gD/4",
+                    description:
+                      "Title displayed on the search request table requested date column.",
+                  })}
+                  content={
+                    requestedDate
+                      ? formatDate({
+                          date: parseDateTimeUtc(requestedDate),
+                          formatString: "PPP p",
+                          intl,
+                        })
+                      : null
+                  }
+                />
+              </div>
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of4)">
+              <div
+                data-h2-padding="base(0, x1, 0, 0)"
+                data-h2-height="base(100%)"
+              >
+                <FilterBlock
+                  title={intl.formatMessage({
                     defaultMessage: "Status",
                     id: "Lzd38d",
                     description:
@@ -138,36 +162,12 @@ const ManagerInfo = ({
                         })
                   }
                 />
-              </div>
-            </div>
-            <div data-h2-flex-item="base(1of1) p-tablet(1of4)">
-              <div
-                data-h2-padding="base(0, x1, 0, 0)"
-                data-h2-height="base(100%)"
-              >
                 <FilterBlock
                   title={intl.formatMessage({
-                    defaultMessage: "Date Requested",
-                    id: "hzL/Gd",
+                    defaultMessage: "Status change",
+                    id: "IUoUqs",
                     description:
-                      "Title for the date requested block in the manager info section of the single search request view.",
-                  })}
-                  content={
-                    requestedDate
-                      ? formatDate({
-                          date: parseDateTimeUtc(requestedDate),
-                          formatString: "PPP p",
-                          intl,
-                        })
-                      : null
-                  }
-                />
-                <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Status last changed",
-                    id: "pAW6AU",
-                    description:
-                      "Title for the status last changed field in the search request view.",
+                      "Title for the request status last changed at date block.",
                   })}
                   content={
                     statusChangedAt
