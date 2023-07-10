@@ -12,7 +12,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
-class CanAccessDirective extends BaseDirective implements FieldMiddleware
+class HasRolesDirective extends BaseDirective implements FieldMiddleware
 {
     public static function definition(): string
     {
@@ -22,7 +22,7 @@ class CanAccessDirective extends BaseDirective implements FieldMiddleware
 """
 Limit field access to users of a certain role.
 """
-directive @canAccess(
+directive @hasRoles(
   """
   The name of the role authorized users need to have.
   """
