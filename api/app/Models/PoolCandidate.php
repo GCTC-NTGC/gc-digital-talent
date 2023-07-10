@@ -297,9 +297,13 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query->whereHas('user', function ($query) use ($search) {
-            User::scopeGeneralSearch($query, $search);
-        })->orWhere('notes', 'ilike', "%{$search}%");
+        $query->where(function ($query) use ($search) {
+            $query->whereHas('user', function ($query) use ($search) {
+                User::scopeGeneralSearch($query, $search);
+            })->orWhere(function ($query) use ($search) {
+                self::scopeNotes($query, $search);
+            });
+        });
 
         return $query;
     }
