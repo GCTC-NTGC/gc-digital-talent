@@ -854,10 +854,6 @@
     "defaultMessage": "Apprenti en TI du Gouvernement du Canada",
     "description": "author of testimonial number one"
   },
-  "4AubyK": {
-    "defaultMessage": "Notes",
-    "description": "Title of the 'Notes' section of the view-user page"
-  },
   "4BpFoX": {
     "defaultMessage": "{title} émis par {issuedBy}",
     "description": "The award title is issued by some group"
@@ -1205,6 +1201,10 @@
   "6eCvv1": {
     "defaultMessage": "Postes bilingues (français et anglais)",
     "description": "Bilingual Positions message"
+  },
+  "6eih3b": {
+    "defaultMessage": "notes pour {name}",
+    "description": "Link text suffix to read more notes for a search request"
   },
   "6esMaA": {
     "defaultMessage": "Expérience ou formation minimale",
@@ -2024,6 +2024,10 @@
   "CZGta2": {
     "defaultMessage": "Y a-t-il des frais pour participer au programme?",
     "description": "Learn more dialog question ten heading"
+  },
+  "CZbb7c": {
+    "defaultMessage": "notes pour {name}",
+    "description": "Link text suffix to read more notes for a pool candidate"
   },
   "CfNtWn": {
     "defaultMessage": "Ce processus ne comporte pas de questions filtres. Vous pouvez passer à l’étape suivante.",
@@ -5779,10 +5783,6 @@
     "defaultMessage": "Appliquée par : <strong><red>{closingDate}</red></strong>",
     "description": "Text notifying user of closing date for an application"
   },
-  "ev6HnY": {
-    "defaultMessage": "Notes",
-    "description": "CSV Header, Notes column"
-  },
   "evxvnW": {
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
@@ -7098,10 +7098,6 @@
   "nok2sR": {
     "defaultMessage": "Nom :",
     "description": "Display text for the name field on users"
-  },
-  "npC3bT": {
-    "defaultMessage": "Notes",
-    "description": "Title for admin editing a pool candidates notes"
   },
   "nsm/uC": {
     "defaultMessage": "{skillName} (Essentielles)",
