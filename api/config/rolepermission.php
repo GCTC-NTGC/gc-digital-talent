@@ -68,7 +68,6 @@ return [
         'poolClosingDate' => 'poolClosingDate',
         'application' => 'application',
         'submittedApplication' => 'submittedApplication',
-        'applicantProfile' => 'applicantProfile',
         'draftApplication' => 'draftApplication',
         'applicationStatus' => 'applicationStatus',
         'applicantCount' => 'applicantCount',
@@ -245,18 +244,6 @@ return [
         'view-any-submittedApplication' => [
             'en' => 'View any submitted Applications',
             'fr' => 'Voir n\import quelle candidature soumises à n\'importe quel bassin.'
-        ],
-        'view-own-applicantProfile' => [
-            'en' => 'View own Applicant Profile.',
-            'fr' => 'Voir son propre profil de candidat.'
-        ],
-        'view-team-applicantProfile' => [
-            'en' => 'View the Profile of a users accepted to any of this Team\'s Pools',
-            'fr' => 'Voir le profil d\'un utilisateur accepté dans l\'un des bassins de cette équipe.'
-        ],
-        'view-any-applicantProfile' => [
-            'en' => 'View the Profile of any user accepted into any Pool',
-            'fr' => 'Voir le profil de n\'import quel utilisateur accepté dans n\'import quel bassin.'
         ],
         'create-own-draftApplication' => [
             'en' => 'Begin my own Application to any Pool',
@@ -558,9 +545,6 @@ return [
             'submittedApplication' => [
                 'own' => ['archive', 'suspend']
             ],
-            'applicantProfile' => [
-                'own' => ['view']
-            ],
         ],
 
         'pool_operator' => [
@@ -576,9 +560,6 @@ return [
             'submittedApplication' => [
                 'team' => ['view']
             ],
-            'applicantProfile' => [
-                'team' => ['view']
-            ],
             'applicationStatus' => [
                 'team' => ['update']
             ],
@@ -592,9 +573,6 @@ return [
 
         'request_responder' => [
             'submittedApplication' => [
-                'any' => ['view'],
-            ],
-            'applicantProfile' => [
                 'any' => ['view'],
             ],
             'applicationStatus' => [
@@ -620,9 +598,6 @@ return [
             ],
             'skillFamily' => [
                 'any' => ['create', 'update', 'delete']
-            ],
-            'applicantProfile' => [
-                'any' => ['view'],
             ],
             'user' => [
                 'any' => ['view', 'update', 'delete']

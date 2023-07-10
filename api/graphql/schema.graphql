@@ -832,11 +832,13 @@ type Query {
   applicant(id: UUID! @eq): User
     @find(model: "User")
     @guard
-    @can(ability: "viewApplicant", query: true, model: "User")
+    @can(ability: "view", query: true, model: "User")
+    @deprecated(reason: "Removing in favour of user query")
   applicants(includeIds: [ID]! @in(key: "id")): [User]!
     @all(model: "User")
     @guard
-    @can(ability: "viewAnyApplicants", model: "User")
+    @can(ability: "viewAny", model: "User")
+    @deprecated(reason: "Removing in favour of users query")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
   pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
