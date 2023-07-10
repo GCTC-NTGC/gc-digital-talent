@@ -55,7 +55,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin(); //TODO: return false when createUser mutation is removed.
+        return $user->isAdmin();
     }
 
     /**
