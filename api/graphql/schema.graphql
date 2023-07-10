@@ -882,6 +882,7 @@ input PoolCandidateSearchInput {
   email: String @scope
   generalSearch: String @scope
   name: String @scope
+  notes: String @scope
   priorityWeight: [Int] @scope(name: "priorityWeight")
   poolCandidateStatus: [PoolCandidateStatus]
     @scope(name: "poolCandidateStatuses")
@@ -896,6 +897,7 @@ input PoolCandidateSearchRequestInput {
   streams: [PoolStream] @scope
   fullName: String @scope
   email: String @scope
+  adminNotes: String @scope
   jobTitle: String @scope
   additionalComments: String @scope
   adminNotes: String @scope

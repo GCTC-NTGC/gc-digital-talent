@@ -330,6 +330,16 @@ class PoolCandidate extends Model
         return $query;
     }
 
+    public static function scopeNotes(Builder $query, ?string $notes): Builder
+    {
+
+        if (!empty($notes)) {
+            $query->where('notes', 'ilike', "%{$notes}%");
+        }
+
+        return $query;
+    }
+
 
     public function scopePoolCandidateStatuses(Builder $query, ?array $poolCandidateStatuses): Builder
     {

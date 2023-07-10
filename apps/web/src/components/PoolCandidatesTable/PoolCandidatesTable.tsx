@@ -474,6 +474,7 @@ const PoolCandidatesTable = ({
       generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
       email: searchType === "email" ? searchBarTerm : undefined,
       name: searchType === "name" ? searchBarTerm : undefined,
+      notes: searchType === "notes" ? searchBarTerm : undefined,
 
       // from fancy filter
       applicantFilter: fancyFilterState?.applicantFilter,
@@ -868,6 +869,10 @@ const PoolCandidatesTable = ({
               description: "Label for user table search dropdown (email).",
             }),
             value: "email",
+          },
+          {
+            label: intl.formatMessage(adminMessages.notes),
+            value: "notes",
           },
         ]}
         onColumnHiddenChange={(event) => {

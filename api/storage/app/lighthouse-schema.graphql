@@ -844,6 +844,7 @@ input PoolCandidateSearchInput {
   email: String
   generalSearch: String
   name: String
+  notes: String
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
