@@ -6,7 +6,7 @@ import { SubmitHandler } from "react-hook-form";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pending } from "@gc-digital-talent/ui";
+import { Pending, Spoiler } from "@gc-digital-talent/ui";
 import {
   getCandidateSuspendedFilterStatus,
   getLanguage,
@@ -64,6 +64,7 @@ import {
 } from "~/utils/userUtils";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+import adminMessages from "~/messages/adminMessages";
 
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 
@@ -308,9 +309,31 @@ const provinceAccessor = (
     ? intl.formatMessage(getProvinceOrTerritory(province as string))
     : "";
 
+const notesAccessor = (candidate: PoolCandidate, intl: IntlShape) =>
+  candidate?.notes ? (
+    <Spoiler
+      text={candidate.notes}
+      linkSuffix={intl.formatMessage(
+        {
+          defaultMessage: "notes for {name}",
+          id: "CZbb7c",
+          description:
+            "Link text suffix to read more notes for a pool candidate",
+        },
+        {
+          name: getFullNameLabel(
+            candidate.user.firstName,
+            candidate.user.lastName,
+            intl,
+          ),
+        },
+      )}
+    />
+  ) : null;
+
 const defaultState = {
   ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["candidacyStatus"],
+  hiddenColumnIds: ["candidacyStatus", "notes"],
   filters: {
     applicantFilter: {
       operationalRequirements: [],
@@ -451,6 +474,7 @@ const PoolCandidatesTable = ({
       generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
       email: searchType === "email" ? searchBarTerm : undefined,
       name: searchType === "name" ? searchBarTerm : undefined,
+      notes: searchType === "notes" ? searchBarTerm : undefined,
 
       // from fancy filter
       applicantFilter: fancyFilterState?.applicantFilter,
@@ -649,6 +673,11 @@ const PoolCandidatesTable = ({
         sortColumnName: "FIRST_NAME",
       },
       {
+        label: intl.formatMessage(adminMessages.notes),
+        id: "notes",
+        accessor: ({ poolCandidate }) => notesAccessor(poolCandidate, intl),
+      },
+      {
         label: intl.formatMessage({
           defaultMessage: "Preferred Communication Language",
           id: "eN8J/9",
@@ -840,6 +869,10 @@ const PoolCandidatesTable = ({
               description: "Label for user table search dropdown (email).",
             }),
             value: "email",
+          },
+          {
+            label: intl.formatMessage(adminMessages.notes),
+            value: "notes",
           },
         ]}
         onColumnHiddenChange={(event) => {
