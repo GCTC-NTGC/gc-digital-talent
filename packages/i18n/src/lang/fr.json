@@ -99,6 +99,10 @@
     "defaultMessage": "Simple",
     "description": "Sélection simple pour le type d’employé du gouvernement."
   },
+  "25reyq": {
+    "defaultMessage": "Nouveau",
+    "description": "The status is new."
+  },
   "2G+fJt": {
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
@@ -244,6 +248,10 @@
   "7p6mDv": {
     "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
     "description": "Message displayed when user attempts an action they are not allowed to do."
+  },
+  "8JCCPM": {
+    "defaultMessage": "En cours",
+    "description": "The status is in progress."
   },
   "8SCmdb": {
     "defaultMessage": "Solutions logicielles de la TI",
@@ -639,6 +647,10 @@
   "Rwh/Ld": {
     "defaultMessage": "Indéterminé",
     "description": "Simple indeterminate selection for government employee type."
+  },
+  "S2zQmD": {
+    "defaultMessage": "En attente (voir les notes)",
+    "description": "The status is blocked and you can refer to notes field for more information."
   },
   "S9BRBL": {
     "defaultMessage": "Durée (court terme, long terme)",

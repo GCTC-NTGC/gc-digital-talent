@@ -95,6 +95,10 @@
     "defaultMessage": "Mon profil",
     "description": "Breadcrumb from applicant profile wrapper."
   },
+  "+mCsoW": {
+    "defaultMessage": "Demande d’état mise à jour!",
+    "description": "Message displayed to user after the request status is successfully updated."
+  },
   "+pgXHm": {
     "defaultMessage": "Créé",
     "description": "Title displayed for the User table Date Created column"
@@ -1804,6 +1808,10 @@
     "defaultMessage": "Cette information est utilisée à des fins de gestion des comptes et de communication, elle n'a aucune incidence sur la correspondance des tâches ou les recommandations d'emploi.",
     "description": "Description text for the Profile Form wrapper in the About Me form"
   },
+  "B6SqfX": {
+    "defaultMessage": "Sauvegarder le changement d’état",
+    "description": "Button label displayed that saves the users status selection."
+  },
   "B89Ihf": {
     "defaultMessage": "Compétences requises pour la demande",
     "description": "Title that appears when a user is missing required skills on their profile."
@@ -2011,6 +2019,10 @@
   "CZbb7c": {
     "defaultMessage": "notes pour {name}",
     "description": "Link text suffix to read more notes for a pool candidate"
+  },
+  "CaDy8n": {
+    "defaultMessage": "Erreur : la mise à jour de l’état a échoué",
+    "description": "Message displayed to user after the request status fails to be updated."
   },
   "CfNtWn": {
     "defaultMessage": "Ce processus ne comporte pas de questions filtres. Vous pouvez passer à l’étape suivante.",
@@ -2779,6 +2791,10 @@
   "IUQGA0": {
     "defaultMessage": "Supprimer",
     "description": "Link text to delete."
+  },
+  "IUoUqs": {
+    "defaultMessage": "Modification de l’état",
+    "description": "Title for the request status last changed at date block."
   },
   "IWJ/Qi": {
     "defaultMessage": "Veuillez nous faire part de prix et de reconnaissances en particulier que vous avez reçus en raison du fait que vous avez été au-delà de votre devoir.",
@@ -4849,6 +4865,10 @@
   "YImugL": {
     "defaultMessage": "Processus actifs de recrutement de talents",
     "description": "Title for the current jobs recruiting candidates"
+  },
+  "YIt7Su": {
+    "defaultMessage": "Effectuez le suivi de cette demande en réglant l’état approprié.",
+    "description": "Text describing the input to change request status"
   },
   "YJS2CB": {
     "defaultMessage": "Décerné à",
@@ -7492,6 +7512,10 @@
   "reUbO2": {
     "defaultMessage": "(Sélectionnez tout ce qui s’applique à vous)",
     "description": "Disclaimer for the checkbox group for selecting Indigenous communities"
+  },
+  "rfDHc0": {
+    "defaultMessage": "(Aucun changement)",
+    "description": "Null state, nothing changed yet."
   },
   "rkPb6M": {
     "defaultMessage": "La clôture automatique de ce bassin est programmés pour le :",
