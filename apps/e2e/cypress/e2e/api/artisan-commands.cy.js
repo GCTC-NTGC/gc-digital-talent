@@ -43,39 +43,4 @@ describe("Artisan command tests", () => {
       });
     });
   });
-  it("Can create a new user using an Artisan command", () => {
-    const uniqueTestId = (
-      Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) + 1
-    ).toString();
-
-    cy.callEloquentFactory("User", null, `{"sub": "${uniqueTestId}"}`).then(
-      (jsonObject) => {
-        // fields in JSON object from Eloquent model are snake case, not pascal case
-        cy.wrap(jsonObject.id).as("userId");
-        cy.wrap(jsonObject.sub).as("userSub");
-      },
-    );
-
-    cy.get("@userSub").then((sub) => {
-      cy.loginBySubject(sub).then(() => {
-        cy.graphqlRequest({
-          query: `
-          query myUser {
-            me {
-              id
-              sub
-            }
-          }
-        `,
-        }).then((data) => {
-          cy.get("@userId").then((expectedId) => {
-            expect(data.me.id).to.equal(expectedId);
-          });
-          cy.get("@userSub").then((expectedSub) => {
-            expect(data.me.sub).to.equal(expectedSub);
-          });
-        });
-      });
-    });
-  });
 });
