@@ -1190,6 +1190,10 @@
     "defaultMessage": "Postes bilingues (français et anglais)",
     "description": "Bilingual Positions message"
   },
+  "6eih3b": {
+    "defaultMessage": "notes pour {name}",
+    "description": "Link text suffix to read more notes for a search request"
+  },
   "6esMaA": {
     "defaultMessage": "Expérience ou formation minimale",
     "description": "Page title for the application education page"
@@ -2743,10 +2747,6 @@
   "I0VGC0": {
     "defaultMessage": "Placement",
     "description": "User placement breadcrumb text"
-  },
-  "6eih3b": {
-    "defaultMessage": "notes pour {name}",
-    "description": "Link text suffix to read more notes for a search request"
   },
   "I7rxxQ": {
     "defaultMessage": "Mots-clés",
