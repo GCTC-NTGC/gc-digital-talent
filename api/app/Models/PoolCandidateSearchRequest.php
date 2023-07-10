@@ -26,7 +26,7 @@ use Carbon\CarbonImmutable;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $deleted_at
- * @property Illuminate\Support\Carbon $status_changed_at
+ * @property Illuminate\Support\Carbon $request_status_changed_at
  */
 
 class PoolCandidateSearchRequest extends Model
@@ -43,7 +43,7 @@ class PoolCandidateSearchRequest extends Model
      */
 
     protected $casts = [
-        'status_changed_at' => 'datetime',
+        'request_status_changed_at' => 'datetime',
     ];
 
     /**
@@ -189,6 +189,6 @@ class PoolCandidateSearchRequest extends Model
     public function setStatusAttribute($statusInput): void
     {
         $this->request_status = $statusInput;
-        $this->status_changed_at = CarbonImmutable::now();
+        $this->request_status_changed_at = CarbonImmutable::now();
     }
 }

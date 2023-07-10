@@ -650,7 +650,7 @@ type PoolCandidateSearchRequest {
   additionalComments: String @rename(attribute: "additional_comments")
   requestedDate: DateTime @rename(attribute: "created_at")
   status: PoolCandidateSearchStatus @rename(attribute: "request_status")
-  statusChangedAt: DateTime @rename(attribute: "status_changed_at")
+  statusChangedAt: DateTime @rename(attribute: "request_status_changed_at")
   adminNotes: String @rename(attribute: "admin_notes")
   poolCandidateFilter: PoolCandidateFilter @belongsTo
   applicantFilter: ApplicantFilter @belongsTo
