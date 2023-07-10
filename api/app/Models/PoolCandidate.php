@@ -579,7 +579,7 @@ class PoolCandidate extends Model
                     $teamIds = $user->rolesTeams()->get()->pluck('id');
                     $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
                         return $query
-                            ->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                            ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
                             ->whereHas('team', function (Builder $query) use ($teamIds) {
                                 return $query->whereIn('id', $teamIds);
                             });
