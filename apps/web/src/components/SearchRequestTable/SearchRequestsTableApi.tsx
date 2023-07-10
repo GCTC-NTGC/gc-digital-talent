@@ -114,7 +114,7 @@ const notesAccessor = (
             "Link text suffix to read more notes for a search request",
         },
         {
-          name: searchRequest.fullName,
+          name: searchRequest.jobTitle,
         },
       )}
     />
