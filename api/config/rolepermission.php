@@ -183,6 +183,10 @@ return [
             'en' => 'View Own User',
             'fr' => 'Visionner son propre utilisateur'
         ],
+        'view-team-user' => [
+            'en' => 'View Team User',
+            'fr' => 'Visionner l\'utilisateur de l\'équipe'
+        ],
         'update-any-user' => [
             'en' => 'Update Any User',
             'fr' => 'Mettre à jour tout utilisateur'
