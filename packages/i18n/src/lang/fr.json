@@ -7,10 +7,6 @@
     "defaultMessage": "Québec",
     "description": "The work region of Canada described as Quebec."
   },
-  "+HxUqd": {
-    "defaultMessage": "En attente d’évaluation des compétences",
-    "description": "Status for an application that ie having skills reviewed"
-  },
   "+ZPD1J": {
     "defaultMessage": "Fermer le menu",
     "description": "Text label for button that closes side menu."
@@ -66,6 +62,10 @@
   "0xf5TR": {
     "defaultMessage": "Je suis un vétéran des FAC",
     "description": "declare self to be a CAF veteran"
+  },
+  "13fSK+": {
+    "defaultMessage": "La date de soumission est dépassée",
+    "description": "Status for an application that where the recruitment has expired"
   },
   "14Cv7d": {
     "defaultMessage": "Retrait en cours...",
@@ -142,10 +142,6 @@
   "48qVi9": {
     "defaultMessage": "Autre",
     "description": "user is neither a citizen or permanent resident of Canada"
-  },
-  "4KRs8G": {
-    "defaultMessage": "La date de soumission est dépassée",
-    "description": "Status for an application that where the recruitment has expired"
   },
   "4MKYKl": {
     "defaultMessage": "aaaa",
@@ -272,6 +268,10 @@
   "99cWuv": {
     "defaultMessage": "réussite",
     "description": "Message for the success status"
+  },
+  "9Pxjw5": {
+    "defaultMessage": "Évaluation en cours",
+    "description": "Status for an application that where applicant is being assessed"
   },
   "9ayzJI": {
     "defaultMessage": "Région de l’Atlantique",
@@ -716,6 +716,10 @@
     "defaultMessage": "S.O.",
     "description": "displayed when localized string not available"
   },
+  "UZWLKn": {
+    "defaultMessage": "En attente d’évaluation des compétences",
+    "description": "Status for an application that ie having skills reviewed"
+  },
   "UayO6H": {
     "defaultMessage": "Qualifié",
     "description": "Status for an application where the applicant has qualified"
@@ -855,6 +859,10 @@
   "aMkZ80": {
     "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
     "description": "Error message that advertisement locations must be filled in English and French."
+  },
+  "aagbij": {
+    "defaultMessage": "En cours de révision",
+    "description": "Status for an application that is being reviewed"
   },
   "ad4CnG": {
     "defaultMessage": "Ébauche expirée",
@@ -1107,10 +1115,6 @@
     "defaultMessage": "Sélectionné",
     "description": "Status for an application that has been screened out of eligibility"
   },
-  "nm1YKH": {
-    "defaultMessage": "Évaluation en cours",
-    "description": "Status for an application that where applicant is being assessed"
-  },
   "nnMYWr": {
     "defaultMessage": "Préférences de travail",
     "description": "Name of Work preferences page"
@@ -1174,6 +1178,10 @@
   "pPPm5b": {
     "defaultMessage": "Moi",
     "description": "The award was given to me."
+  },
+  "pf3KKo": {
+    "defaultMessage": "Poursuivre l’ébauche",
+    "description": "Link text to continue a application draft"
   },
   "plwOsC": {
     "defaultMessage": "Sélectionnez",
@@ -1326,6 +1334,10 @@
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
   },
+  "vTyr7O": {
+    "defaultMessage": "Retiré",
+    "description": "Status for an application that has been removed from the recruitment"
+  },
   "vgxxk0": {
     "defaultMessage": "Vétéran",
     "description": "user is a CAF veteran"
@@ -1353,10 +1365,6 @@
   "wFZLxf": {
     "defaultMessage": "IT-03 (chef d'équipe)",
     "description": "The name of the Team leader Analyst classification with group and level."
-  },
-  "wK5+0z": {
-    "defaultMessage": "En cours de révision",
-    "description": "Status for an application that is being reviewed"
   },
   "wT3L9C": {
     "defaultMessage": "Français seulement",
