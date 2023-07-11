@@ -116,7 +116,9 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         return $this->belongsToMany(GenericJobTitle::class, 'generic_job_title_user')->withTimestamps();
     }
-
+    /**
+     * @deprecated
+     */
     public function isAdmin(): bool
     {
         return $this->hasRole('platform_admin');
