@@ -47,7 +47,7 @@ query User($id: UUID!) {
 }
 
 query UserName($userId: UUID!) {
-  applicant(id: $userId) {
+  user(id: $userId) {
     id
     firstName
     lastName
@@ -282,7 +282,7 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
 }
 
 query GetViewUserData($id: UUID!) {
-  applicant(id: $id) {
+  user(id: $id) {
     id
     email
     firstName
