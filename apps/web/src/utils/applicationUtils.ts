@@ -163,12 +163,11 @@ export function isApplicationInProgress(a: Application): boolean {
     ? isPast(parseDateTimeUtc(a.pool.closingDate))
     : false;
   return (
-    !isExpired &&
-    (a.status === PoolCandidateStatus.Draft ||
-      a.status === PoolCandidateStatus.NewApplication ||
-      a.status === PoolCandidateStatus.ApplicationReview ||
-      a.status === PoolCandidateStatus.UnderAssessment ||
-      a.status === PoolCandidateStatus.ScreenedIn)
+    (!isExpired && a.status === PoolCandidateStatus.Draft) ||
+    a.status === PoolCandidateStatus.NewApplication ||
+    a.status === PoolCandidateStatus.ApplicationReview ||
+    a.status === PoolCandidateStatus.UnderAssessment ||
+    a.status === PoolCandidateStatus.ScreenedIn
   );
 }
 
