@@ -22,7 +22,7 @@ class PoolCandidateObserver
     {
         $oldStatus = $poolCandidate->getOriginal('pool_candidate_status');
         $newStatus = $poolCandidate->pool_candidate_status;
-        if ($oldStatus != $newStatus) {
+        if (config('feature.status_notifications') && $oldStatus != $newStatus) {
             $poolCandidate->user->notify(new PoolCandidateStatusChanged($oldStatus, $newStatus, $poolCandidate->pool->id, $poolCandidate->pool->name));
         }
     }

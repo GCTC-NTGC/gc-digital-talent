@@ -24,4 +24,16 @@ return [
     */
 
     'skill_library' => (bool) env('FEATURE_SKILL_LIBRARY', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Skill library
+    |--------------------------------------------------------------------------
+    |
+    | A feature to allow users to build a library of skills associated with
+    | themselves with competency levels.
+    |
+    */
+
+    'status_notifications' => (bool) env('FEATURE_STATUS_NOTIFICATIONS', false),
 ];

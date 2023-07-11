@@ -251,6 +251,10 @@ class PoolCandidateUpdateTest extends TestCase
      */
     public function testStatusChangeCausesNotifications()
     {
+        if (!config('feature.status_notifications')) {
+            $this->markTestSkipped("This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.");
+        }
+
         Notification::fake(); // initialize notification facade
 
         // set up submitted candidate
@@ -260,8 +264,6 @@ class PoolCandidateUpdateTest extends TestCase
         // simulate screening in
         $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_SCREENED_IN;
         $this->poolCandidate->save();
-
-        $actualPoolCandidate = $this->poolCandidate;
 
         // check that notification was fired
         Notification::assertSentTo([$this->candidateUser], PoolCandidateStatusChanged::class);
@@ -274,6 +276,10 @@ class PoolCandidateUpdateTest extends TestCase
      */
     public function testCanQueryForNotifications()
     {
+        if (!config('feature.status_notifications')) {
+            $this->markTestSkipped("This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.");
+        }
+
         $screenInTime = config('constants.far_past_datetime');
 
         // set up submitted candidate
@@ -345,6 +351,10 @@ class PoolCandidateUpdateTest extends TestCase
      */
     public function testCanDismissNotifications()
     {
+        if (!config('feature.status_notifications')) {
+            $this->markTestSkipped("This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.");
+        }
+
         $screenInTime = config('constants.far_past_datetime');
         $dismissNotificationTime = config('constants.past_datetime');
 
