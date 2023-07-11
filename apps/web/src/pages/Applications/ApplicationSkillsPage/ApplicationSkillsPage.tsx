@@ -77,7 +77,7 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-interface ApplicationSkillsProps extends ApplicationPageProps {
+export interface ApplicationSkillsProps extends ApplicationPageProps {
   experiences: Array<ExperienceForDate>;
 }
 

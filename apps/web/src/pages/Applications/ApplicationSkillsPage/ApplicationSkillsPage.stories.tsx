@@ -1,27 +1,27 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import {
-  fakeExperiences,
   fakePoolCandidates,
+  fakeExperienceForDate,
 } from "@gc-digital-talent/fake-data";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { ApplicationSkills } from "./ApplicationSkillsPage";
-import { ApplicationPageProps } from "../ApplicationApi";
+import {
+  ApplicationSkills,
+  ApplicationSkillsProps,
+} from "./ApplicationSkillsPage";
 
 const fakePoolCandidate = fakePoolCandidates(1)[0];
 const fakeUser = fakePoolCandidate.user;
-const mockExperiences = fakeExperiences(5);
-const mockPoolSkills =
-  fakePoolCandidate?.pool.essentialSkills?.filter(notEmpty);
+const mockExperiences = fakeExperienceForDate(5);
 const experienceSkills = mockExperiences
   .filter(notEmpty)
   .map((experience) => experience.skills)
   .filter(notEmpty)
   .flatMap((skill) => skill);
 
-const noSkills: ApplicationPageProps = {
+const noSkills: ApplicationSkillsProps = {
   application: {
     ...fakePoolCandidate,
     user: {
@@ -29,9 +29,10 @@ const noSkills: ApplicationPageProps = {
       experiences: mockExperiences,
     },
   },
+  experiences: mockExperiences,
 };
 
-const hasExperiencesProps: ApplicationPageProps = {
+const hasExperiencesProps: ApplicationSkillsProps = {
   application: {
     ...fakePoolCandidate,
     user: {
@@ -40,17 +41,18 @@ const hasExperiencesProps: ApplicationPageProps = {
     },
     pool: {
       ...fakePoolCandidate.pool,
-      essentialSkills: [...(mockPoolSkills || []), ...experienceSkills],
+      essentialSkills: [...experienceSkills],
     },
   },
+  experiences: mockExperiences,
 };
 
 export default {
   component: ApplicationSkills,
   title: "Pages/Application/Skill Requirements",
-} as ComponentMeta<typeof ApplicationSkills>;
+} as Meta<typeof ApplicationSkills>;
 
-const Template: ComponentStory<typeof ApplicationSkills> = (props) => (
+const Template: StoryFn<typeof ApplicationSkills> = (props) => (
   <ApplicationSkills {...props} />
 );
 
