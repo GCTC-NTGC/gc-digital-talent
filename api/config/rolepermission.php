@@ -172,6 +172,10 @@ return [
             'fr' => 'Supprimer toute famille de compétences'
         ],
 
+        'create-any-user' => [
+            'en' => 'Create Any User',
+            'fr' => 'Créer tout utilisateur'
+        ],
         'view-any-user' => [
             'en' => 'View Any User',
             'fr' => 'Visionner tout utilisateur'
@@ -625,7 +629,7 @@ return [
                 'any' => ['view'],
             ],
             'user' => [
-                'any' => ['view', 'update', 'delete']
+                'any' => ['create', 'view', 'update', 'delete']
             ],
             'userBasicInfo' => [
                 'any' => ['view']
