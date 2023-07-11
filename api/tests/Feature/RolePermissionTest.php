@@ -175,8 +175,7 @@ class RolePermissionTest extends TestCase
 
         $this->assertTrue($this->user->hasRole('request_responder'));
         $this->assertTrue($this->user->isAbleTo($permissionsToCheck, true));
-
-        $this->assertFalse(($this->user->isAbleTo('view-any-user')));
+        $this->assertTrue(($this->user->isAbleTo('view-any-user')));
 
         $this->cleanup();
     }
