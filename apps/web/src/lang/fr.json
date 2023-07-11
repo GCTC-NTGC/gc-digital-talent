@@ -567,6 +567,10 @@
     "defaultMessage": "Visitez votre profil et la page de candidature",
     "description": "Link text to navigate to the profile and applications page"
   },
+  "276x9r": {
+    "defaultMessage": "{skillCount, plural, =0 {0 compétence mise en évidence} =1 {1 compétence mise en évidence} other {# compétences mises en évidence}}",
+    "description": "Number of skills attached to a specific experience"
+  },
   "27FjxB": {
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
@@ -1452,10 +1456,6 @@
   "8L5kDc": {
     "defaultMessage": "Téléphone",
     "description": "Label displayed on the user form telephone field."
-  },
-  "8LPNbf": {
-    "defaultMessage": "{skillCount} compétences mises en évidence",
-    "description": "Number of skills attached to a specific experience"
   },
   "8M2Tbu": {
     "defaultMessage": "<strong>Service de relais vidéo :</strong>La CCDP accepte les appels utilisant le service de relais vidéo effectués par l’intermédiaire de <relayServiceLink>SRV Canada</relayServiceLink>.",
