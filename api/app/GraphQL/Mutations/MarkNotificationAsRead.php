@@ -17,8 +17,7 @@ final class MarkNotificationAsRead
     {
         $notificationId = $args['id'];
         $userId = Auth::id();
-        // Use the parent `notifications` function instead of the enriched one.  Otherwise `markAsRead` gets upset when it tries to save back the model.
-        $notifications = User::find($userId)->parent::notifications->get();
+        $notifications = User::find($userId)->notifications()->get();
         $notification = $notifications->first(function ($n) use ($notificationId) {
             return $n->id === $notificationId;
         });

@@ -847,7 +847,8 @@ RAWSQL2;
         }
     }
 
-    public function getNotificationsAttribute()
+    // rename accessor to avoid hiding parent's notification function
+    public function getEnrichedNotificationsAttribute()
     {
         $notifications = $this->notifications()->get();
         $notifications->each(function ($n) {
@@ -856,7 +857,8 @@ RAWSQL2;
         return $notifications;
     }
 
-    public function getUnreadNotificationsAttribute()
+    // rename accessor to avoid hiding parent's notification function
+    public function getUnreadEnrichedNotificationsAttribute()
     {
         $notifications = $this->unreadNotifications()->get();
         $notifications->each(function ($n) {

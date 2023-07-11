@@ -143,7 +143,8 @@ type User {
 
   # Notifications
   unreadNotifications: [Notification!]
-  notifications: [Notification!]
+    @rename(attribute: "unread_enriched_notifications")
+  notifications: [Notification!] @rename(attribute: "enriched_notifications")
 }
 
 enum ProvinceOrTerritory {
