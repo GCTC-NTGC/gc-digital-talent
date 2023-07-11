@@ -1,20 +1,16 @@
-# Definition of Done:
+# Definition of Done
 
-- Step by step testing instructions
-- At least one peer review acceptance
-- Chromatic testing by design
-- Definition of done checklist from issue template (eventually)
-- If the route to a live page has been changed, a Permanent Redirect (301) has also been added to the nginx conf file
-- Build pipeline successful, including:
-  - JavaScript linting
+- Step-by-step testing instructions
+- At least one peer review approval
+- If the route to a live page has been changed, a Permanent Redirect (301) has also been added to the `nginx` conf files
+- Build pipeline successful, including passing tests for:
+  - TypeScript linting
   - PHPUnit testing
   - Chromatic testing
-  - Verifying JavaScript bundle size changes
   - CodeQL security vulnerability testing
-  - Security integration checks for NPM
   - End-to-end testing
-  - Security scans (eventually)
-  - Visual regression testing (eventually)
-  - Zero axe errors
+  - Translation checks
+  - `jest-axe` accessibility testing
 
-For more information about accessibility refer to the [accessibility guidelines](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/documentation/accessibility.md).
+## Accessibility
+For more information about accessibility, refer to the [accessibility guidelines](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/documentation/accessibility.md).
