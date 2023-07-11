@@ -569,6 +569,9 @@ return [
             'role' => [
                 'any' => ['view'],
             ],
+            'user' => [
+                'team' => ['view']
+            ]
         ],
 
         'request_responder' => [
