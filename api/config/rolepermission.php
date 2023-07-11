@@ -172,6 +172,10 @@ return [
             'fr' => 'Supprimer toute famille de compétences'
         ],
 
+        'create-any-user' => [
+            'en' => 'Create Any User',
+            'fr' => 'Créer tout utilisateur'
+        ],
         'view-any-user' => [
             'en' => 'View Any User',
             'fr' => 'Visionner tout utilisateur'
@@ -454,7 +458,7 @@ return [
         'platform_admin' => [
             'display_name' => [
                 'en' => 'Platform Administrator',
-                'fr' => 'administrateur de plateforme'
+                'fr' => 'Administrateur de plateforme'
             ],
             'description' => [
                 'en' => 'Makes teams, assigns roles to other users (including assigning users to orgs), publishes pools, manages business data, and has the extraordinary ability to edit or delete other users.',
@@ -625,7 +629,7 @@ return [
                 'any' => ['view'],
             ],
             'user' => [
-                'any' => ['view', 'update', 'delete']
+                'any' => ['create', 'view', 'update', 'delete']
             ],
             'userBasicInfo' => [
                 'any' => ['view']

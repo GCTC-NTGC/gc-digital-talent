@@ -18,7 +18,6 @@ import { toast } from "@gc-digital-talent/toast";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
-  CreateUserInput,
   CreateWorkLocationMutation,
   WorkRegion,
   UpdateUserAsUserInput,
@@ -34,7 +33,7 @@ import ProfileFormWrapper, {
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
 export type FormValues = Pick<
-  CreateUserInput,
+  UpdateUserAsUserInput,
   "locationPreferences" | "locationExemptions"
 >;
 export interface WorkLocationFormProps {

@@ -337,10 +337,6 @@
     "defaultMessage": "Colombie-Britannique",
     "description": "British Columbia selection for province or territory input"
   },
-  "CVmEkf": {
-    "defaultMessage": "Création impossible – cet identifiant d’utilisateur (sub) est déjà utilisé",
-    "description": "Error message that the given user identifier is already in use when creating."
-  },
   "DUuisY": {
     "defaultMessage": "Oui, évaluation en français terminée",
     "description": "Completed a French language evaluation"
@@ -755,10 +751,6 @@
   "WPJrmN": {
     "defaultMessage": "{wordsLeft, plural, one {mot au-dessus de la limite} other {mots au-dessus de la limite}}.",
     "description": "Message for when user goes over word limit."
-  },
-  "WUAAr1": {
-    "defaultMessage": "Création impossible – cette adresse courriel est déjà utilisée.",
-    "description": "Error message that the given user identifier is already in use when creating."
   },
   "WUC9pX": {
     "defaultMessage": "Facultatif",

@@ -281,10 +281,6 @@
     "defaultMessage": "Votre numéro de confirmation est le suivant : <strong>{id}</strong>",
     "description": "An application confirmation number"
   },
-  "/uqLeF": {
-    "defaultMessage": "Créer un utilisateur",
-    "description": "Title displayed on the create a user form."
-  },
   "/vsOxF": {
     "defaultMessage": "Mettre à jour mon profil",
     "description": "Link text to direct users to the profile page when logged in"
@@ -2072,10 +2068,6 @@
     "defaultMessage": "Candidatures archivées",
     "description": "Title for a users archived applications"
   },
-  "D45cvR": {
-    "defaultMessage": "Sélectionnez une langue",
-    "description": "Placeholder displayed on the user form preferred written exam language field."
-  },
   "D6HIId": {
     "defaultMessage": "Modifier<hidden> le bassin</hidden>",
     "description": "Edit pool breadcrumb text"
@@ -2287,10 +2279,6 @@
   "EdybCb": {
     "defaultMessage": "<strong>informatique</strong>",
     "description": "Message before skills list in application education page."
-  },
-  "EfRVfk": {
-    "defaultMessage": "Erreur : Échec de la création d’utilisateur",
-    "description": "Message displayed to user after user fails to get created."
   },
   "EjhuA1": {
     "defaultMessage": "Demandes",
@@ -5769,10 +5757,6 @@
   "fA79sM": {
     "defaultMessage": "Les compétences suivantes sont requises pour ce rôle, mais ne sont pas requises dans le cadre de cette candidature. <strong>Ils seront examinés au cours du processus d’évaluation si votre candidature est acceptée</strong>.",
     "description": "Information regarding required behavioural skills"
-  },
-  "fAIozk": {
-    "defaultMessage": "Création de l’utilisateur réussie!",
-    "description": "Message displayed to user after user is created successfully."
   },
   "fBabZh": {
     "defaultMessage": "Ajoutez une expérience à votre CV",
