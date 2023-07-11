@@ -674,15 +674,26 @@ export const getCandidateSuspendedFilterStatus = (
   );
 
 export const poolCandidateSearchStatuses = defineMessages({
+  [PoolCandidateSearchStatus.New]: {
+    defaultMessage: "New",
+    id: "25reyq",
+    description: "The status is new.",
+  },
+  [PoolCandidateSearchStatus.InProgress]: {
+    defaultMessage: "In progress",
+    id: "8JCCPM",
+    description: "The status is in progress.",
+  },
+  [PoolCandidateSearchStatus.Waiting]: {
+    defaultMessage: "Waiting (see notes)",
+    id: "S2zQmD",
+    description:
+      "The status is blocked and you can refer to notes field for more information.",
+  },
   [PoolCandidateSearchStatus.Done]: {
     defaultMessage: "Done",
     id: "prkkM+",
     description: "The search status is Done.",
-  },
-  [PoolCandidateSearchStatus.Pending]: {
-    defaultMessage: "Pending",
-    id: "IQviGG",
-    description: "The search status is Pending.",
   },
 });
 

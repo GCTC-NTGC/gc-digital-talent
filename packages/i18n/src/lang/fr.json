@@ -99,6 +99,10 @@
     "defaultMessage": "Simple",
     "description": "Sélection simple pour le type d’employé du gouvernement."
   },
+  "25reyq": {
+    "defaultMessage": "Nouveau",
+    "description": "The status is new."
+  },
   "2G+fJt": {
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
@@ -240,6 +244,10 @@
   "7p6mDv": {
     "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
     "description": "Message displayed when user attempts an action they are not allowed to do."
+  },
+  "8JCCPM": {
+    "defaultMessage": "En cours",
+    "description": "The status is in progress."
   },
   "8SCmdb": {
     "defaultMessage": "Solutions logicielles de la TI",
@@ -408,10 +416,6 @@
   "IANM2P": {
     "defaultMessage": "Période indéterminée",
     "description": "The pool candidate's status is Placed Indeterminate."
-  },
-  "IQviGG": {
-    "defaultMessage": "En attente",
-    "description": "The search status is Pending."
   },
   "IRCKBP": {
     "defaultMessage": "Aucun résultat n’a été trouvé.",
@@ -600,6 +604,10 @@
     "defaultMessage": "Durée",
     "description": "Simple term selection for government employee type."
   },
+  "QtzRCh": {
+    "defaultMessage": "Statut",
+    "description": "Title for status"
+  },
   "R2BWry": {
     "defaultMessage": "Candidature rejetée",
     "description": "The pool candidate's status is Screened Out Application"
@@ -639,6 +647,10 @@
   "Rwh/Ld": {
     "defaultMessage": "Indéterminé",
     "description": "Simple indeterminate selection for government employee type."
+  },
+  "S2zQmD": {
+    "defaultMessage": "En attente (voir les notes)",
+    "description": "The status is blocked and you can refer to notes field for more information."
   },
   "S9BRBL": {
     "defaultMessage": "Durée (court terme, long terme)",

@@ -50,7 +50,7 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
   }
   requestedDate
   status
-  doneDate
+  statusChangedAt
   adminNotes
   applicantFilter {
     id
@@ -151,13 +151,13 @@ query getPoolCandidateSearchRequestsPaginated(
           fr
         }
       }
-      doneDate
       email
       fullName
       id
       jobTitle
       requestedDate
       status
+      statusChangedAt
       wasEmpty
     }
     paginatorInfo {
