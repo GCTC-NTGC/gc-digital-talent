@@ -434,14 +434,18 @@ class ApiEnums
     /**
      * Pool Candidate Request Statuses
      */
+    const POOL_CANDIDATE_SEARCH_STATUS_NEW = 'NEW';
+    const POOL_CANDIDATE_SEARCH_STATUS_IN_PROGRESS = 'IN_PROGRESS';
+    const POOL_CANDIDATE_SEARCH_STATUS_WAITING = 'WAITING';
     const POOL_CANDIDATE_SEARCH_STATUS_DONE = 'DONE';
-    const POOL_CANDIDATE_SEARCH_STATUS_PENDING = 'PENDING';
 
     public static function poolCandidateSearchStatuses(): array
     {
         return [
+            self::POOL_CANDIDATE_SEARCH_STATUS_NEW,
+            self::POOL_CANDIDATE_SEARCH_STATUS_IN_PROGRESS,
+            self::POOL_CANDIDATE_SEARCH_STATUS_WAITING,
             self::POOL_CANDIDATE_SEARCH_STATUS_DONE,
-            self::POOL_CANDIDATE_SEARCH_STATUS_PENDING,
         ];
     }
 

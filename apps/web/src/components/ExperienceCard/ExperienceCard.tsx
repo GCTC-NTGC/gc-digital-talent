@@ -147,8 +147,9 @@ const ExperienceCard = ({
             <span data-h2-color="base(black.light)">
               {intl.formatMessage(
                 {
-                  defaultMessage: "{skillCount} featured skills",
-                  id: "8LPNbf",
+                  defaultMessage:
+                    "{skillCount, plural, =0 {0 featured skills} =1 {1 featured skill} other {# featured skills}}",
+                  id: "276x9r",
                   description:
                     "Number of skills attached to a specific experience",
                 },

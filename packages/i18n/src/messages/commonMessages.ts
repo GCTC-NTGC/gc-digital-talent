@@ -94,6 +94,11 @@ const commonMessages = defineMessages({
     id: "gM4WDL",
     description: "Negative answer",
   },
+  status: {
+    defaultMessage: "Status",
+    id: "QtzRCh",
+    description: "Title for status",
+  },
 });
 
 export default commonMessages;

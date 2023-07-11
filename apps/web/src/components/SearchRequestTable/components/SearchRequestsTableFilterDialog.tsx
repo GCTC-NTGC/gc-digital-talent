@@ -107,6 +107,7 @@ export const SearchRequestsTableFilterDialog = ({
                 name="status"
                 label={formatMessage(adminMessages.status)}
                 options={optionsData.status}
+                doNotSort
               />
               <MultiSelectField
                 id="departments"
