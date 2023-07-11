@@ -458,7 +458,7 @@ return [
         'platform_admin' => [
             'display_name' => [
                 'en' => 'Platform Administrator',
-                'fr' => 'administrateur de plateforme'
+                'fr' => 'Administrateur de plateforme'
             ],
             'description' => [
                 'en' => 'Makes teams, assigns roles to other users (including assigning users to orgs), publishes pools, manages business data, and has the extraordinary ability to edit or delete other users.',
