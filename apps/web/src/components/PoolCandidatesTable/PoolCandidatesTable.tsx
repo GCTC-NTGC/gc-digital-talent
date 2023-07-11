@@ -613,16 +613,16 @@ const PoolCandidatesTable = ({
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Priority",
-          id: "EZQ9Dj",
+          defaultMessage: "Category",
+          id: "qrDCTV",
           description:
             "Title displayed for the Pool Candidates table Priority column.",
         }),
         header: (
           <span>
             {intl.formatMessage({
-              defaultMessage: "Priority",
-              id: "EZQ9Dj",
+              defaultMessage: "Category",
+              id: "qrDCTV",
               description:
                 "Title displayed for the Pool Candidates table Priority column.",
             })}
