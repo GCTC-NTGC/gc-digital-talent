@@ -860,10 +860,10 @@ type PoolCandidateSearchRequest {
   additionalComments: String
   requestedDate: DateTime
   status: PoolCandidateSearchStatus
+  statusChangedAt: DateTime
   adminNotes: String
   poolCandidateFilter: PoolCandidateFilter
   applicantFilter: ApplicantFilter
-  doneDate: DateTime
   wasEmpty: Boolean
 }
 
@@ -890,7 +890,9 @@ type PoolCandidateSearchRequestPaginator {
 }
 
 enum PoolCandidateSearchStatus {
-  PENDING
+  NEW
+  IN_PROGRESS
+  WAITING
   DONE
 }
 
