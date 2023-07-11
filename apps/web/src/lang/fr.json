@@ -1513,9 +1513,6 @@
     "defaultMessage": "Récipiendaire(s) du prix",
     "description": "Label for the person or group that received an award"
   },
-  "8lCjAM": {
-    "defaultMessage": "Priorité"
-  },
   "8mt/5/": {
     "defaultMessage": "Exemptions de lieux",
     "description": "CSV Header, Location Exemptions column"
@@ -2263,10 +2260,6 @@
   "EWzkQb": {
     "defaultMessage": "Une fois que vous avez mis votre CV à jour et que vous êtes satisfait des expériences que vous avez ajoutées, vous les utiliserez dans d’autres étapes pour nous aider à mieux comprendre comment vous répondez aux exigences de compétences pour cette occasion.",
     "description": "Application step to begin working on résumé, paragraph three"
-  },
-  "EZQ9Dj": {
-    "defaultMessage": "Priorité",
-    "description": "Title displayed for the Pool Candidates table Priority column."
   },
   "EZX/44": {
     "defaultMessage": "Examens écrits : {language}",
@@ -7086,6 +7079,10 @@
     "defaultMessage": "Créer<hidden> des équipes</hidden>",
     "description": "Breadcrumb title for the create team page link."
   },
+  "o9B983": {
+    "defaultMessage": "Catégorie",
+    "description": "CSV Header, Priority column"
+  },
   "oC/GRF": {
     "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
     "description": "The skill is not attached to any experience"
@@ -7388,6 +7385,10 @@
   "qnaIOA": {
     "defaultMessage": "P. ex. : Vous voulez postuler pour la région du Québec, mais pas pour Montréal.",
     "description": "Example for Work location exceptions field in work location preference form"
+  },
+  "qrDCTV": {
+    "defaultMessage": "Catégorie",
+    "description": "Title displayed for the Pool Candidates table Priority column."
   },
   "qrdJ13": {
     "defaultMessage": "Date de la remise du prix",
@@ -8087,10 +8088,6 @@
   "w9FYqi": {
     "defaultMessage": "Annonce du bassin",
     "description": "Sub title for admin view pool page"
-  },
-  "w9RqOI": {
-    "defaultMessage": "Priorité",
-    "description": "CSV Header, Priority column"
   },
   "wASF5V": {
     "defaultMessage": "Je suis actuellement actif dans ce rôle.",
