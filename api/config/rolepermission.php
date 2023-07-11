@@ -581,6 +581,9 @@ return [
             'searchRequest' => [
                 'any' => ['view', 'update', 'delete']
             ],
+            'user' => [
+                'any' => ['view']
+            ]
         ],
 
         'platform_admin' => [
