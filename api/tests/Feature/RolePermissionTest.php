@@ -208,6 +208,7 @@ class RolePermissionTest extends TestCase
             'create-any-skillFamily',
             'update-any-skillFamily',
             'delete-any-skillFamily',
+            'create-any-user',
             'view-any-user',
             'view-any-userBasicInfo',
             'update-any-user',

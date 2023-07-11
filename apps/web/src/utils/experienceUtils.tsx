@@ -199,10 +199,10 @@ export const getExperienceFormLabels = (
         "Label displayed on Work Experience form for team/group/division input",
     }),
     details: intl.formatMessage({
-      defaultMessage: "Additional Information",
-      id: "KmKbA6",
+      defaultMessage: "Additional details",
+      id: "fPIZn9",
       description:
-        "Label displayed on experience form for additional information input",
+        "Label displayed on experience form/card for additional details input/section",
     }),
   };
 };

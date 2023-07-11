@@ -583,59 +583,89 @@ export const ViewPoolCandidate = ({
         data-h2-background-color="base(black.lightest)"
         data-h2-margin="base(x1, 0, 0, 0)"
       />
-      <TableOfContents.Wrapper>
+      <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
         <TableOfContents.Navigation>
-          <TableOfContents.AnchorLink id={sections.statusForm.id}>
-            {sections.statusForm.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sections.poolInformation.id}>
-            {sections.poolInformation.title}
-          </TableOfContents.AnchorLink>
-          <TableOfContents.AnchorLink id={sections.snapshot.id}>
-            {sections.snapshot.title}
-          </TableOfContents.AnchorLink>
-          {showRichSnapshot && (
-            <>
-              <TableOfContents.AnchorLink id={sections.minExperience.id}>
-                {sections.minExperience.title}
+          <TableOfContents.List>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink id={sections.statusForm.id}>
+                {sections.statusForm.title}
               </TableOfContents.AnchorLink>
-              <TableOfContents.AnchorLink id={sections.essentialSkills.id}>
-                {sections.essentialSkills.title}
+            </TableOfContents.ListItem>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink id={sections.poolInformation.id}>
+                {sections.poolInformation.title}
               </TableOfContents.AnchorLink>
-              <TableOfContents.AnchorLink id={sections.assetSkills.id}>
-                {sections.assetSkills.title}
+            </TableOfContents.ListItem>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink id={sections.snapshot.id}>
+                {sections.snapshot.title}
               </TableOfContents.AnchorLink>
-              <TableOfContents.AnchorLink id={sections.questions.id}>
-                {sections.questions.title}
-              </TableOfContents.AnchorLink>
-              <TableOfContents.AnchorLink id={sections.resume.id}>
-                {sections.resume.title}
-              </TableOfContents.AnchorLink>
-              <TableOfContents.AnchorLink id={sections.personal.id}>
-                {sections.personal.title}
-              </TableOfContents.AnchorLink>
-              <TableOfContents.AnchorLink id={sections.work.id}>
-                {sections.work.title}
-              </TableOfContents.AnchorLink>
-              <TableOfContents.AnchorLink id={sections.dei.id}>
-                {sections.dei.title}
-              </TableOfContents.AnchorLink>
-              <TableOfContents.AnchorLink id={sections.government.id}>
-                {sections.government.title}
-              </TableOfContents.AnchorLink>
-              <TableOfContents.AnchorLink id={sections.language.id}>
-                {sections.language.title}
-              </TableOfContents.AnchorLink>
-              <TableOfContents.AnchorLink id={sections.signature.id}>
-                {sections.signature.title}
-              </TableOfContents.AnchorLink>
-            </>
-          )}
+            </TableOfContents.ListItem>
+            {showRichSnapshot && (
+              <>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.minExperience.id}>
+                    {sections.minExperience.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.essentialSkills.id}>
+                    {sections.essentialSkills.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.assetSkills.id}>
+                    {sections.assetSkills.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.questions.id}>
+                    {sections.questions.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.resume.id}>
+                    {sections.resume.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.personal.id}>
+                    {sections.personal.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.work.id}>
+                    {sections.work.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.dei.id}>
+                    {sections.dei.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.government.id}>
+                    {sections.government.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.language.id}>
+                    {sections.language.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.signature.id}>
+                    {sections.signature.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              </>
+            )}
+          </TableOfContents.List>
         </TableOfContents.Navigation>
         <TableOfContents.Content>
           <TableOfContents.Section id={sections.statusForm.id}>
             <TableOfContents.Heading
-              data-h2-margin="base(x3, 0, x1, 0)"
+              data-h2-margin="base(0, 0, x1, 0)"
               data-h2-font-weight="base(800)"
               as="h3"
             >

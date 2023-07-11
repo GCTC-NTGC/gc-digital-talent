@@ -20,19 +20,6 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message that the given email address is already in use when updating.",
     },
-    CreateUserSubInUse: {
-      defaultMessage:
-        "Cannot create - this user identifier (sub) is already in use",
-      id: "CVmEkf",
-      description:
-        "Error message that the given user identifier is already in use when creating.",
-    },
-    CreateUserEmailInUse: {
-      defaultMessage: "Cannot create - this email address is already in use.",
-      id: "WUAAr1",
-      description:
-        "Error message that the given user identifier is already in use when creating.",
-    },
 
     // skill validation
     SkillFamilyKeyStringInUse: {

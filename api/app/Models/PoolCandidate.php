@@ -297,8 +297,12 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query->whereHas('user', function ($query) use ($search) {
-            User::scopeGeneralSearch($query, $search);
+        $query->where(function ($query) use ($search) {
+            $query->whereHas('user', function ($query) use ($search) {
+                User::scopeGeneralSearch($query, $search);
+            })->orWhere(function ($query) use ($search) {
+                self::scopeNotes($query, $search);
+            });
         });
 
         return $query;
@@ -326,6 +330,16 @@ class PoolCandidate extends Model
         $query->whereHas('user', function ($query) use ($email) {
             User::scopeEmail($query, $email);
         });
+
+        return $query;
+    }
+
+    public static function scopeNotes(Builder $query, ?string $notes): Builder
+    {
+
+        if (!empty($notes)) {
+            $query->where('notes', 'ilike', "%{$notes}%");
+        }
 
         return $query;
     }

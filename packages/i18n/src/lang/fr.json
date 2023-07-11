@@ -1,237 +1,115 @@
 {
-  "AvBSV+": {
-    "defaultMessage": "Oh non... ",
-    "description": "Title displayed for a table error loading state."
-  },
-  "o/6zAs": {
-    "defaultMessage": "Chargement",
-    "description": "Title displayed for a table initial loading state."
-  },
-  "KC/sxi": {
-    "defaultMessage": "Ce champ est obligatoire.",
-    "description": "Error message that this field must filled for the form to be valid."
-  },
-  "ZhQEUx": {
-    "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
-    "description": "Error message that the provided date must be in the future."
-  },
-  "adbcoS": {
-    "defaultMessage": "Ce champ doit suivre le modèle +123243234",
-    "description": "Error message that the field must contain a phone number validated by the specified pattern."
-  },
-  "h3lIyO": {
-    "defaultMessage": "Français",
-    "description": "The language French."
-  },
-  "RaypPP": {
-    "defaultMessage": "Anglais",
-    "description": "The language English."
-  },
-  "WcXADs": {
-    "defaultMessage": "Anglais seulement",
-    "description": "The language ability is English only."
-  },
-  "wT3L9C": {
-    "defaultMessage": "Français seulement",
-    "description": "The language ability is French only."
+  "+6TuVe": {
+    "defaultMessage": "Désélectionner {label}",
+    "description": "Text to uncheck checkbox button"
   },
   "+EQZK5": {
     "defaultMessage": "Québec",
     "description": "The work region of Canada described as Quebec."
   },
+  "+HxUqd": {
+    "defaultMessage": "En attente d’évaluation des compétences",
+    "description": "Status for an application that ie having skills reviewed"
+  },
+  "+ZPD1J": {
+    "defaultMessage": "Fermer le menu",
+    "description": "Text label for button that closes side menu."
+  },
+  "/EWDdn": {
+    "defaultMessage": "Octobre",
+    "description": "Name of the tenth month"
+  },
+  "/I9tx9": {
+    "defaultMessage": "Cette demande ne peut pas être supprimée. Vous pouvez uniquement supprimer les demandes avant leur soumission.",
+    "description": "Error message that the application cannot be deleted."
+  },
+  "/SBJ7g": {
+    "defaultMessage": "Sélectionnez {label}",
+    "description": "Text to check checkbox button"
+  },
+  "/UBSoB": {
+    "defaultMessage": "Fermée",
+    "description": "Closed pool advertisement status"
+  },
   "/a8X4d": {
     "defaultMessage": "Ontario",
     "description": "The work region of Canada described as Ontario."
   },
-  "6TqakV": {
-    "defaultMessage": "Période déterminée",
-    "description": "The pool candidate's status is Placed Term."
+  "/hsnPJ": {
+    "defaultMessage": "Travailler des heures supplémentaires régulièrement",
+    "description": "The operational requirement described as regular overtime. (short-form for limited space)"
   },
-  "8stxoN": {
-    "defaultMessage": "Télétravail",
-    "description": "The work region of Canada described as Telework."
-  },
-  "9ayzJI": {
-    "defaultMessage": "Région de l’Atlantique",
-    "description": "The work region of Canada described as Atlantic."
-  },
-  "IANM2P": {
-    "defaultMessage": "Période indéterminée",
-    "description": "The pool candidate's status is Placed Indeterminate."
-  },
-  "IQviGG": {
-    "defaultMessage": "En attente",
-    "description": "The search status is Pending."
-  },
-  "KoUKWc": {
-    "defaultMessage": "Capitale nationale",
-    "description": "The work region of Canada described as National Capital."
-  },
-  "NNMJXo": {
-    "defaultMessage": "Nord",
+  "/nMdQr": {
+    "defaultMessage": "<strong>Région du Nord :</strong> Yukon, Territoires du Nord-Ouest et Nunavut.",
     "description": "The work region of Canada described as North."
   },
-  "jNo5Zk": {
-    "defaultMessage": "Région des Prairies",
-    "description": "The work region of Canada described as Prairie."
+  "0LjLgD": {
+    "defaultMessage": "Pas dans les FAC",
+    "description": "user is not in the CAF"
   },
-  "prkkM+": {
-    "defaultMessage": "Fait",
-    "description": "The search status is Done."
+  "0Nz6aa": {
+    "defaultMessage": "Travailler des heures supplémentaires prévues",
+    "description": "The operational requirement described as scheduled overtime. (short-form for limited space)"
   },
-  "wCft6M": {
-    "defaultMessage": "Colombie Britannique",
-    "description": "The work region of Canada described as British Columbia."
+  "0OPWbJ": {
+    "defaultMessage": "Vous avez déjà postulé dans ce bassin",
+    "description": "Message displayed when a user attempts to apply to pool more than once"
   },
-  "2eBm5y": {
-    "defaultMessage": "Terminé avec succès (titre de compétence accordé)",
-    "description": "Successful Completion with credential selection for education status input"
+  "0bcof1": {
+    "defaultMessage": "<hidden>Étape, actuelle, </hidden>{label}",
+    "description": "Prefix when a step is the currently active one."
   },
-  "4dx4ju": {
-    "defaultMessage": "Peut accepter une combinaison d’expériences de travail et d’études."
+  "0p1W7Q": {
+    "defaultMessage": "Fils d’Ariane",
+    "description": "Label for the links to page ancestors"
   },
-  "4i9X6i": {
-    "defaultMessage": "En cours",
-    "description": "In Progress selection for education status input"
+  "0xf5TR": {
+    "defaultMessage": "Je suis un vétéran des FAC",
+    "description": "declare self to be a CAF veteran"
   },
-  "4vQtRT": {
-    "defaultMessage": "International",
-    "description": "The scope of the award was international."
+  "14Cv7d": {
+    "defaultMessage": "Retrait en cours...",
+    "description": "Submitting text for delete button."
   },
-  "6F1rsN": {
-    "defaultMessage": "Baccalauréat ",
-    "description": "Bachelors Degree selection for education type input"
+  "16AY+M": {
+    "defaultMessage": "Incapable de postuler pour ce bassin",
+    "description": "Message displayed when user attempts to apply to an unpublished pool"
   },
-  "Gyey3L": {
-    "defaultMessage": "Cours en ligne",
-    "description": "Online Course selection for education type input"
+  "1RTwS3": {
+    "defaultMessage": "nécessite que je fasse des <strong>heures supplémentaires planifiées</strong>.",
+    "description": "The operational requirement described as scheduled overtime."
   },
-  "LBNX0O": {
-    "defaultMessage": "Administrateur",
-    "description": "The name of the Administrator user role."
+  "1Wbu+6": {
+    "defaultMessage": "Premières Nations détenant le statut ",
+    "description": "The indigenous community for status First Nations"
   },
-  "LJpdaI": {
-    "defaultMessage": "Provincial",
-    "description": "The scope of the award was provincial."
-  },
-  "NWQ4Rj": {
-    "defaultMessage": "Non réussi",
-    "description": "Did not complete selection for education status input"
-  },
-  "OujTbA": {
-    "defaultMessage": "Diplôme postsecondaire requis"
-  },
-  "TNmGTd": {
-    "defaultMessage": "Local",
-    "description": "The scope of the award was local."
-  },
-  "Uk0WG0": {
-    "defaultMessage": "Organisationnel",
-    "description": "The scope of the award was organizational."
-  },
-  "WC5em7": {
-    "defaultMessage": "Mon organisation",
-    "description": "The award was given to my organization."
-  },
-  "Z+6NCp": {
-    "defaultMessage": "Sous-organisationnel (direction)",
-    "description": "The scope of the award was sub-organizational (branch)."
-  },
-  "Zhm9yQ": {
-    "defaultMessage": "Audité",
-    "description": "Audited selection for education status input"
-  },
-  "baPSLH": {
-    "defaultMessage": "Terminé avec succès (aucun titre de compétence)",
-    "description": "Successful Completion with no credentials for education status input"
-  },
-  "eGg734": {
-    "defaultMessage": "Autre",
-    "description": "Other selection for education type input"
-  },
-  "jS69se": {
-    "defaultMessage": "Certification",
-    "description": "Certification selection for education type input"
-  },
-  "jfwk14": {
-    "defaultMessage": "Diplôme",
-    "description": "Diploma selection for education type input"
-  },
-  "nv2kXl": {
-    "defaultMessage": "Maîtrise",
-    "description": "Masters Degree selection for education type input"
-  },
-  "oANrhM": {
-    "defaultMessage": "Collectivité",
-    "description": "The scope of the award was within the community."
-  },
-  "pPPm5b": {
-    "defaultMessage": "Moi",
-    "description": "The award was given to me."
-  },
-  "qfQx7T": {
-    "defaultMessage": "Ph. D.",
-    "description": "Phd selection for education type input"
-  },
-  "rlq4uZ": {
-    "defaultMessage": "Compétences techniques",
-    "description": "The skill is considered technical."
-  },
-  "sNUWqY": {
-    "defaultMessage": "Bourses postdoctorales",
-    "description": "Post Doctoral Fellowship selection for education type input"
-  },
-  "wD5ZuD": {
-    "defaultMessage": "National",
-    "description": "The scope of the award was national."
-  },
-  "xqacUI": {
-    "defaultMessage": "Mon équipe",
-    "description": "The award was given to my team."
-  },
-  "zXHYAs": {
-    "defaultMessage": "Mon projet",
-    "description": "The award was given to my project."
-  },
-  "Bvr4b6": {
-    "defaultMessage": "Champ obligatoire",
-    "description": "Displayed next to required form inputs."
-  },
-  "WUC9pX": {
-    "defaultMessage": "Facultatif",
-    "description": "Displayed next to optional form inputs."
-  },
-  "5gS1sZ": {
-    "defaultMessage": "La valeur doit être supérieure à {value}",
-    "description": "Error message that the provided value must be greater than some referenced minimum value."
-  },
-  "RkxqoB": {
-    "defaultMessage": "La date ne doit pas être antérieure {value}",
-    "description": "Error message that the date provided must follow and not precede some referenced date"
-  },
-  "YHqVoj": {
-    "defaultMessage": "Soumettre",
-    "description": "Default text for submit button."
-  },
-  "mDOWWQ": {
-    "defaultMessage": "Soumission",
-    "description": "Default text for submitting button."
-  },
-  "rGTGvl": {
-    "defaultMessage": "Soumis",
-    "description": "Default text for submitted button."
-  },
-  "ACppq6": {
-    "defaultMessage": "Placé Occasionnels",
-    "description": "The pool candidate's status is Placed Casual."
-  },
-  "XTw9Me": {
-    "defaultMessage": "Expiré",
-    "description": "The pool candidate's status is Expired."
+  "1Wq7Pf": {
+    "defaultMessage": "Juin",
+    "description": "Name of the sixth month"
   },
   "1X8RC4": {
     "defaultMessage": "Ontario",
     "description": "Ontario selection for province or territory input"
+  },
+  "1YuZjR": {
+    "defaultMessage": "Emplois en TI (en cours)",
+    "description": "The publishing group called IT Jobs for ongoing recruitments"
+  },
+  "1pMCyl": {
+    "defaultMessage": "Simple",
+    "description": "Sélection simple pour le type d’employé du gouvernement."
+  },
+  "25reyq": {
+    "defaultMessage": "Nouveau",
+    "description": "The status is new."
+  },
+  "2G+fJt": {
+    "defaultMessage": "L’article {index} a été supprimé.",
+    "description": "Message announced to assistive technology when a repeatable field has been removed"
+  },
+  "2Ka1oj": {
+    "defaultMessage": "Très secret",
+    "description": "Top secret security clearance"
   },
   "2W9CMn": {
     "defaultMessage": "Activer ou désactiver le contexte",
@@ -241,6 +119,10 @@
     "defaultMessage": "Niveau 3 : Conseiller technique",
     "description": "The name of the Technical advisor role."
   },
+  "2eBm5y": {
+    "defaultMessage": "Terminé avec succès (titre de compétence accordé)",
+    "description": "Successful Completion with credential selection for education status input"
+  },
   "2ohWuK": {
     "defaultMessage": "Oui, évaluation en anglais terminée",
     "description": "Completed an English language evaluation"
@@ -249,13 +131,207 @@
     "defaultMessage": "Sur cette page",
     "description": "Title for  pages table of contents."
   },
+  "3e4sM7": {
+    "defaultMessage": "Le lieu doit être indiqué ou l’option « À distance » doit être sélectionnée",
+    "description": "Error message that the pool advertisement must have location filled."
+  },
+  "3m7hT5": {
+    "defaultMessage": "Services consultatifs auprès des secteurs d’activités de la TI",
+    "description": "Pool Stream described as Business Line Advisory Services."
+  },
+  "48qVi9": {
+    "defaultMessage": "Autre",
+    "description": "user is neither a citizen or permanent resident of Canada"
+  },
+  "4KRs8G": {
+    "defaultMessage": "La date de soumission est dépassée",
+    "description": "Status for an application that where the recruitment has expired"
+  },
+  "4MKYKl": {
+    "defaultMessage": "aaaa",
+    "description": "Placeholder for a year input"
+  },
+  "4S30lt": {
+    "defaultMessage": "Expérience de travail appliquée",
+    "description": "Option for education requirement, applied work experience"
+  },
+  "4TmwRU": {
+    "defaultMessage": "Candidature reçue",
+    "description": "Status for an application that has been submitted"
+  },
+  "4dx4ju": {
+    "defaultMessage": "Peut accepter une combinaison d’expériences de travail et d’études."
+  },
+  "4i9X6i": {
+    "defaultMessage": "En cours",
+    "description": "In Progress selection for education status input"
+  },
+  "4l+gBD": {
+    "defaultMessage": "Recherche...",
+    "description": "Message to display when a search is being done."
+  },
+  "4pZrst": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à voyager au besoin.",
+    "description": "The operational requirement described as travel as required."
+  },
+  "4vQtRT": {
+    "defaultMessage": "International",
+    "description": "The scope of the award was international."
+  },
+  "55rtyE": {
+    "defaultMessage": "IT-03 (Conseiller technique)",
+    "description": "The name of the Technical advisor classification with group and level."
+  },
   "5LQuV9": {
     "defaultMessage": "Île-du-Prince-Édouard",
     "description": "Prince Edward Island selection for province or territory input"
   },
+  "5gS1sZ": {
+    "defaultMessage": "La valeur doit être supérieure à {value}",
+    "description": "Error message that the provided value must be greater than some referenced minimum value."
+  },
+  "5hXz/z": {
+    "defaultMessage": "Sélectionnez un mois",
+    "description": "Placeholder for a month select field"
+  },
+  "5jynud": {
+    "defaultMessage": "Compétences comportementales",
+    "description": "The skill is considered behavioral."
+  },
+  "5owc3a": {
+    "defaultMessage": "Anglais seulement",
+    "description": "The language requirement is English only."
+  },
+  "5vrCDC": {
+    "defaultMessage": "Je suis un citoyen canadien",
+    "description": "declaring one to be a Canadian citizen"
+  },
+  "6F1rsN": {
+    "defaultMessage": "Baccalauréat ",
+    "description": "Bachelors Degree selection for education type input"
+  },
+  "6FX40U": {
+    "defaultMessage": "Membre d'une minorité visible",
+    "description": "Group for when someone indicates they are a visible minority"
+  },
+  "6O1sjV": {
+    "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
+    "description": "Error message that the given user identifier is already in use when updating."
+  },
+  "6TqakV": {
+    "defaultMessage": "Période déterminée",
+    "description": "The pool candidate's status is Placed Term."
+  },
   "6fxO9t": {
     "defaultMessage": "Terre-Neuve-et-Labrador",
     "description": "Newfoundland and Labrador selection for province or territory input"
+  },
+  "6iZHGg": {
+    "defaultMessage": "Alerte d’avertissement :",
+    "description": "Descriptor for a warning alert"
+  },
+  "6svHxg": {
+    "defaultMessage": "Services administratifs"
+  },
+  "6tekaa": {
+    "defaultMessage": "Septembre",
+    "description": "Name of the ninth month"
+  },
+  "76QTNv": {
+    "defaultMessage": "La demande a déjà été soumise.",
+    "description": "Error message that the given application is already submitted."
+  },
+  "7Gg5er": {
+    "defaultMessage": "Déplacements selon les besoins",
+    "description": "The operational requirement described as travel as required. (short-form for limited space)"
+  },
+  "7p6mDv": {
+    "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
+    "description": "Message displayed when user attempts an action they are not allowed to do."
+  },
+  "8JCCPM": {
+    "defaultMessage": "En cours",
+    "description": "The status is in progress."
+  },
+  "8SCmdb": {
+    "defaultMessage": "Solutions logicielles de la TI",
+    "description": "Pool Stream described as Software Solutions."
+  },
+  "8WC+Ty": {
+    "defaultMessage": "La date limite de soumission est passée.",
+    "description": "Message displayed when a closing date has passed."
+  },
+  "8sfFGc": {
+    "defaultMessage": "IT-02 (analyste)",
+    "description": "The name of the Technician Analyst classification with group and level."
+  },
+  "8stxoN": {
+    "defaultMessage": "Télétravail",
+    "description": "The work region of Canada described as Telework."
+  },
+  "99cWuv": {
+    "defaultMessage": "réussite",
+    "description": "Message for the success status"
+  },
+  "9ayzJI": {
+    "defaultMessage": "Région de l’Atlantique",
+    "description": "The work region of Canada described as Atlantic."
+  },
+  "9hjEsr": {
+    "defaultMessage": "Vous avez des modifications non sauvegardées",
+    "description": "Title for unsaved changes warning on profile forms"
+  },
+  "9rn/MG": {
+    "defaultMessage": "exige <strong>des quarts de travail</strong>.",
+    "description": "The operational requirement described as shift work."
+  },
+  "9u6ULg": {
+    "defaultMessage": "Vous avez des modifications non sauvegardées",
+    "description": "Displayed next to form inputs when they have been changed but not saved."
+  },
+  "9zyjjw": {
+    "defaultMessage": "<hidden>Étape complétée, </hidden>{label}",
+    "description": "Prefix when a step has been completed."
+  },
+  "A+dFlE": {
+    "defaultMessage": "La demande a déjà été archivée.",
+    "description": "Error message that the given application is already archived."
+  },
+  "A1fb/r": {
+    "defaultMessage": "Il y a une exigence linguistique manquante",
+    "description": "Message displayed when user attempts to apply to a pool without the language requirement"
+  },
+  "ACO2Uz": {
+    "defaultMessage": "erreur",
+    "description": "Message for the error status"
+  },
+  "ACppq6": {
+    "defaultMessage": "Placé Occasionnels",
+    "description": "The pool candidate's status is Placed Casual."
+  },
+  "AvBSV+": {
+    "defaultMessage": "Oh non... ",
+    "description": "Title displayed for a table error loading state."
+  },
+  "BnnVAv": {
+    "defaultMessage": "Permis de conduire",
+    "description": "The operational requirement described as driver's license. (short-form for limited space)"
+  },
+  "Bvr4b6": {
+    "defaultMessage": "Champ obligatoire",
+    "description": "Displayed next to required form inputs."
+  },
+  "C/tnCE": {
+    "defaultMessage": "Le profil est incomplet",
+    "description": "Message displayed when user attempts to apply to a pool with an incomplete profile"
+  },
+  "C7cFDV": {
+    "defaultMessage": "Débutant",
+    "description": "Beginner, skill level"
+  },
+  "C8nrGM": {
+    "defaultMessage": "Emplois en TI",
+    "description": "The publishing group called IT Jobs"
   },
   "CUi1Ti": {
     "defaultMessage": "Colombie-Britannique",
@@ -265,445 +341,13 @@
     "defaultMessage": "Oui, évaluation en français terminée",
     "description": "Completed a French language evaluation"
   },
-  "HalXgi": {
-    "defaultMessage": "Nouvelle-Écosse",
-    "description": "Nova Scotia selection for province or territory input"
-  },
-  "MGqCaE": {
-    "defaultMessage": "Demandeur",
-    "description": "The name of the Applicant user role."
-  },
-  "N0hBAG": {
-    "defaultMessage": "Niveau 3 : Chef d'équipe",
-    "description": "The name of the Team leader Analyst role."
-  },
-  "P6PD/I": {
-    "defaultMessage": "Manitoba",
-    "description": "Manitoba selection for province or territory input"
-  },
-  "RE7o8x": {
-    "defaultMessage": "Je suis un(e) <strong>étudiant(e)</strong>",
-    "description": "Student selection for government employee type."
-  },
-  "RQTXLS": {
-    "defaultMessage": "Niveau 4 : conseiller principal",
-    "description": "The name of the Senior advisor role."
-  },
-  "SvcqPG": {
-    "defaultMessage": "Alberta",
-    "description": "Alberta selection for province or territory input"
-  },
-  "W1Kt8D": {
-    "defaultMessage": "Niveau 2 : Analyste",
-    "description": "The name of the Technician Analyst role."
-  },
-  "WPJrmN": {
-    "defaultMessage": "{wordsLeft, plural, one {mot au-dessus de la limite} other {mots au-dessus de la limite}}.",
-    "description": "Message for when user goes over word limit."
-  },
-  "Xtu3HH": {
-    "defaultMessage": "Nouveau-Brunswick",
-    "description": "New Brunswick selection for province or territory input"
-  },
-  "YFPM7a": {
-    "defaultMessage": "J'ai un contrat <strong>occasionnel</strong>",
-    "description": "Casual selection for government employee type."
-  },
-  "YVLfw+": {
-    "defaultMessage": "Je suis un employé nommé pour une période <strong>indéterminée</strong>",
-    "description": "Indeterminate selection for government employee type."
-  },
-  "j6WJBY": {
-    "defaultMessage": "{wordsLeft, plural, one {mot restant} other {mots restants}}.",
-    "description": "Message for when user goes over word limit."
-  },
-  "janplU": {
-    "defaultMessage": "Bilingue (français et anglais)",
-    "description": "The language ability is bilingual - both English and French."
-  },
-  "mLwm2+": {
-    "defaultMessage": "Yukon",
-    "description": "Yukon selection for province or territory input"
-  },
-  "mMw73T": {
-    "defaultMessage": "Niveau 1 : Technicien",
-    "description": "The name of the Technician classification role."
-  },
-  "nu3Zyc": {
-    "defaultMessage": "Niveau 4 : Gestionnaire",
-    "description": "The name of the Senior advisor role."
-  },
-  "qfioSi": {
-    "defaultMessage": "J'ai un poste de durée <strong>déterminée</strong>.",
-    "description": "Term selection for government employee type."
-  },
-  "spP+Tz": {
-    "defaultMessage": "Nunavut",
-    "description": "Nunavut selection for province or territory input"
-  },
-  "tXze8h": {
-    "defaultMessage": "Québec",
-    "description": "Quebec selection for province or territory input"
-  },
-  "ufSiRU": {
-    "defaultMessage": "Introuvable",
-    "description": "Title displayed when an item cannot be found."
-  },
-  "yK/VlQ": {
-    "defaultMessage": "Saskatchewan",
-    "description": "Saskatchewan selection for province or territory input"
-  },
-  "z7UVe6": {
-    "defaultMessage": "Ce champ doit contenir moins de {value} mots.",
-    "description": "Error Message displayed on word counter when user passes the limit."
-  },
-  "zKjtAa": {
-    "defaultMessage": "Territoires du Nord-Ouest",
-    "description": "Northwest Territories selection for province or territory input"
-  },
-  "4pZrst": {
-    "defaultMessage": "Être disponible, disposé(e) et apte à voyager au besoin.",
-    "description": "The operational requirement described as travel as required."
-  },
-  "Gc9PeN": {
-    "defaultMessage": "Être disponible, disposé(e) et apte à travailler par quarts.",
-    "description": "The operational requirement described as shift work."
-  },
-  "KzhnAz": {
-    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement).",
-    "description": "The operational requirement described as occasional overtime."
-  },
-  "QhRU19": {
-    "defaultMessage": "Doit posséder un permis de conduire valide ou une mobilité personnelle du degré normalement associé à la possession d'un permis de conduire valide.",
-    "description": "The operational requirement described as driver's license."
-  },
-  "XpK4rL": {
-    "defaultMessage": "Être disponible, disposé(e) et apte à transporter, soulever et déposer de l'équipement pouvant peser jusqu'à 20 kg.",
-    "description": "The operational requirement described as transport equipment up to 20kg."
-  },
-  "vDrJp6": {
-    "defaultMessage": "Être disponible, disposé(e) et apte à travailler sur appel 24/7.",
-    "description": "The operational requirement described as 24/7 on-call."
-  },
-  "vvtqRv": {
-    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",
-    "description": "The operational requirement described as regular overtime."
-  },
-  "/nMdQr": {
-    "defaultMessage": "<strong>Région du Nord :</strong> Yukon, Territoires du Nord-Ouest et Nunavut.",
-    "description": "The work region of Canada described as North."
-  },
-  "cnFVR1": {
-    "defaultMessage": "m'oblige à faire des <strong>heures supplémentaires sans préavis</strong>.",
-    "description": "The operational requirement described as overtime."
-  },
-  "oU4OmU": {
-    "defaultMessage": "<strong>Région de l'Ontario :</strong> à l'exclusion d'Ottawa.",
-    "description": "The work region of Canada described as Ontario."
-  },
-  "duwt+A": {
-    "defaultMessage": "m'exige d'avoir un <strong>permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
-    "description": "The operational requirement described as driver's license."
-  },
-  "eYak7E": {
-    "defaultMessage": "<strong>Région de la capitale nationale :</strong> Ottawa (Ont.) et Gatineau (Qc).",
-    "description": "The work region of Canada described as National Capital."
-  },
-  "1RTwS3": {
-    "defaultMessage": "nécessite que je fasse des <strong>heures supplémentaires planifiées</strong>.",
-    "description": "The operational requirement described as scheduled overtime."
-  },
-  "Gw2JKz": {
-    "defaultMessage": "<strong>Région du Québec :</strong> à l'exclusion de Gatineau.",
-    "description": "The work region of Canada described as Quebec."
-  },
-  "x5sy3j": {
-    "defaultMessage": "<strong>Région des Prairies :</strong> Manitoba, Saskatchewan, Alberta.",
-    "description": "The work region of Canada described as Prairie."
-  },
-  "tgt0og": {
-    "defaultMessage": "<strong>Région de la Colombie-Britannique</strong>",
-    "description": "The work region of Canada described as British Columbia."
-  },
-  "dIZ4oj": {
-    "defaultMessage": "m'exige de <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
-    "description": "The operational requirement described as transport equipment up to 20kg."
-  },
-  "ubXVBC": {
-    "defaultMessage": "<strong>Région de l'Atlantique :</strong> Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.",
-    "description": "The work region of Canada described as Atlantic."
-  },
-  "X/hYMf": {
-    "defaultMessage": "exige des <strong>quarts de travail sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
-    "description": "The operational requirement described as 24/7 on-call."
-  },
-  "qnYbyw": {
-    "defaultMessage": "m'exige de <strong>voyager</strong>.",
-    "description": "The operational requirement described as travel as required."
+  "DdOEWx": {
+    "defaultMessage": "Erreur : nom pas chargé",
+    "description": "Message when name value not found"
   },
   "EdAaI7": {
     "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
     "description": "Message that there are required fields missing"
-  },
-  "9rn/MG": {
-    "defaultMessage": "exige <strong>des quarts de travail</strong>.",
-    "description": "The operational requirement described as shift work."
-  },
-  "TR0Kxz": {
-    "defaultMessage": "<strong>Ouvert aux possibilités</strong> – Je ne cherche pas activement, mais je veux être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Open to opportunities."
-  },
-  "nrWEuL": {
-    "defaultMessage": "<strong>Inactif</strong> – Je ne veux pas être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Inactive."
-  },
-  "BnnVAv": {
-    "defaultMessage": "Permis de conduire",
-    "description": "The operational requirement described as driver's license. (short-form for limited space)"
-  },
-  "NtxfWk": {
-    "defaultMessage": "Garde 24/7",
-    "description": "The operational requirement described as 24/7 on-call. (short-form for limited space)"
-  },
-  "Lw0WrP": {
-    "defaultMessage": "Travailler occasionnellement des heures supplémentaires",
-    "description": "The operational requirement described as occasional overtime. (short-form for limited space)"
-  },
-  "/hsnPJ": {
-    "defaultMessage": "Travailler des heures supplémentaires régulièrement",
-    "description": "The operational requirement described as regular overtime. (short-form for limited space)"
-  },
-  "0Nz6aa": {
-    "defaultMessage": "Travailler des heures supplémentaires prévues",
-    "description": "The operational requirement described as scheduled overtime. (short-form for limited space)"
-  },
-  "WYLjD1": {
-    "defaultMessage": "Travailler des heures supplémentaires à court préavis",
-    "description": "The operational requirement described as short notice overtime. (short-form for limited space)"
-  },
-  "RRSGnD": {
-    "defaultMessage": "Travailler des quarts de travail",
-    "description": "The operational requirement described as shift work. (short-form for limited space)"
-  },
-  "ovtI5X": {
-    "defaultMessage": "Transport de matériel jusqu'à 20 kg",
-    "description": "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)"
-  },
-  "7Gg5er": {
-    "defaultMessage": "Déplacements selon les besoins",
-    "description": "The operational requirement described as travel as required. (short-form for limited space)"
-  },
-  "+6TuVe": {
-    "defaultMessage": "Désélectionner {label}",
-    "description": "Text to uncheck checkbox button"
-  },
-  "/SBJ7g": {
-    "defaultMessage": "Sélectionnez {label}",
-    "description": "Text to check checkbox button"
-  },
-  "2Ka1oj": {
-    "defaultMessage": "Très secret",
-    "description": "Top secret security clearance"
-  },
-  "55rtyE": {
-    "defaultMessage": "IT-03 (Conseiller technique)",
-    "description": "The name of the Technical advisor classification with group and level."
-  },
-  "5owc3a": {
-    "defaultMessage": "Anglais seulement",
-    "description": "The language requirement is English only."
-  },
-  "6FX40U": {
-    "defaultMessage": "Membre d'une minorité visible",
-    "description": "Group for when someone indicates they are a visible minority"
-  },
-  "8sfFGc": {
-    "defaultMessage": "IT-02 (analyste)",
-    "description": "The name of the Technician Analyst classification with group and level."
-  },
-  "C7cFDV": {
-    "defaultMessage": "Débutant",
-    "description": "Beginner, skill level"
-  },
-  "RYg7vl": {
-    "defaultMessage": "exige des <strong>heures supplémentaires occasionnelles</strong>.",
-    "description": "The operational requirement described as occasional overtime."
-  },
-  "GzVxoB": {
-    "defaultMessage": "<strong>Virtuel : </strong>Travaillez de chez vous, partout au Canada.",
-    "description": "The work region of Canada described as Telework."
-  },
-  "IW/eej": {
-    "defaultMessage": "« Je m’identifie comme une femme »",
-    "description": "Statement for when someone indicates they are a woman"
-  },
-  "LuYmWd": {
-    "defaultMessage": "<strong>Recherche active</strong> - Mon profil est à jour, je souhaite être contacté pour des occasions d'emploi",
-    "description": "Job Looking Status described as Actively looking."
-  },
-  "LzUgil": {
-    "defaultMessage": "Secret ou plus élevée",
-    "description": "Secret security clearance"
-  },
-  "MLP6tt": {
-    "defaultMessage": "« Je m'identifie comme une personne handicapée »",
-    "description": "Statement for when someone indicates they have a disability"
-  },
-  "O+MHnP": {
-    "defaultMessage": "Bilingue intermédiaire",
-    "description": "The language requirement is bilingual intermediate."
-  },
-  "OBQ8b9": {
-    "defaultMessage": "(s'ouvre dans un nouvel onglet)",
-    "description": "Text that appears in links that open in a new tab."
-  },
-  "cEB0aW": {
-    "defaultMessage": "exige des <strong>heures supplémentaires régulièrement</strong>.",
-    "description": "The operational requirement described as regular overtime."
-  },
-  "QZpZQh": {
-    "defaultMessage": "Personne handicapée",
-    "description": "Group for when someone indicates they have a disability"
-  },
-  "RQGy+0": {
-    "defaultMessage": "Publiée",
-    "description": "Published pool advertisement status"
-  },
-  "RnSbKI": {
-    "defaultMessage": "Fiabilité ou plus élevée",
-    "description": "Reliability security clearance"
-  },
-  "TO/Q6I": {
-    "defaultMessage": "Femme",
-    "description": "Group for when someone indicates they are a woman"
-  },
-  "UCGAzS": {
-    "defaultMessage": "S.O.",
-    "description": "displayed when localized string not available"
-  },
-  "ZWR/F3": {
-    "defaultMessage": "Français seulement",
-    "description": "The language requirement is French only."
-  },
-  "b02Azd": {
-    "defaultMessage": "IT-04 (gestionnaire)",
-    "description": "The name of the Senior advisor classification with group and level."
-  },
-  "g2X8Fx": {
-    "defaultMessage": "Fermer la fenêtre de dialogue",
-    "description": "Text for the button to close a modal dialog."
-  },
-  "gz2VrQ": {
-    "defaultMessage": "Intermédiaire",
-    "description": "Intermediate, skill level"
-  },
-  "ju5h1m": {
-    "defaultMessage": "Avancé",
-    "description": "Advanced, skill level"
-  },
-  "kKdcZT": {
-    "defaultMessage": "Bilingue avancé",
-    "description": "The language requirement is bilingual advanced."
-  },
-  "lDeaXK": {
-    "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
-    "description": "The operational requirement described as scheduled overtime."
-  },
-  "ghhKNZ": {
-    "defaultMessage": "Identité autochtone",
-    "description": "Group for when someone indicates they are indigenous"
-  },
-  "o5J75O": {
-    "defaultMessage": "IT-04 (conseiller principal)",
-    "description": "The name of the Senior advisor classification with group and level."
-  },
-  "s4y1nI": {
-    "defaultMessage": "« Je m'identifie comme membre d'une minorité visible »",
-    "description": "Statement for when someone indicates they are a visible minority"
-  },
-  "wFZLxf": {
-    "defaultMessage": "IT-03 (chef d'équipe)",
-    "description": "The name of the Team leader Analyst classification with group and level."
-  },
-  "yrLV+n": {
-    "defaultMessage": "Ébauche",
-    "description": "Draft pool advertisement status"
-  },
-  "zVm0jL": {
-    "defaultMessage": "IT-01 (technicien)",
-    "description": "The name of the Technician classification with group and level."
-  },
-  "ziaV/E": {
-    "defaultMessage": "Divers (anglais ou français)",
-    "description": "The language requirement is various."
-  },
-  "+ZPD1J": {
-    "defaultMessage": "Fermer le menu",
-    "description": "Text label for button that closes side menu."
-  },
-  "KMSWLW": {
-    "defaultMessage": "Ouvrir le menu",
-    "description": "Text label for button that opens side menu."
-  },
-  "MvSp9b": {
-    "defaultMessage": "Gestion de bases de données de la TI",
-    "description": "Pool Stream described as Database Management."
-  },
-  "iYot5P": {
-    "defaultMessage": "Architecture intégrée de la TI",
-    "description": "Pool Stream described as Enterprise Architecture."
-  },
-  "jHa7VO": {
-    "defaultMessage": "Opérations d’infrastructure de la TI",
-    "description": "Pool Stream described as Infrastructure Operations."
-  },
-  "ZlEEjR": {
-    "defaultMessage": "Planification et établissement de rapports en matière de TI",
-    "description": "Pool Stream described as Planning and Reporting."
-  },
-  "coUese": {
-    "defaultMessage": "Gestion de portefeuilles de projets de la TI",
-    "description": "Pool Stream described as Project Portfolio Management."
-  },
-  "zvUFdA": {
-    "defaultMessage": "Sécurité de la TI",
-    "description": "Pool Stream described as Security."
-  },
-  "8SCmdb": {
-    "defaultMessage": "Solutions logicielles de la TI",
-    "description": "Pool Stream described as Software Solutions."
-  },
-  "3m7hT5": {
-    "defaultMessage": "Services consultatifs auprès des secteurs d’activités de la TI",
-    "description": "Pool Stream described as Business Line Advisory Services."
-  },
-  "xr36aa": {
-    "defaultMessage": "Fonctions d’information et de données",
-    "description": "Pool Stream described as Information and Data Functions."
-  },
-  "rsxrMs": {
-    "defaultMessage": "Retirer {label}",
-    "description": "Button text for a dismissible chip"
-  },
-  "0LjLgD": {
-    "defaultMessage": "Pas dans les FAC",
-    "description": "user is not in the CAF"
-  },
-  "0xf5TR": {
-    "defaultMessage": "Je suis un vétéran des FAC",
-    "description": "declare self to be a CAF veteran"
-  },
-  "1pMCyl": {
-    "defaultMessage": "Simple",
-    "description": "Sélection simple pour le type d’employé du gouvernement."
-  },
-  "48qVi9": {
-    "defaultMessage": "Autre",
-    "description": "user is neither a citizen or permanent resident of Canada"
-  },
-  "5vrCDC": {
-    "defaultMessage": "Je suis un citoyen canadien",
-    "description": "declaring one to be a Canadian citizen"
   },
   "FEfWEH": {
     "defaultMessage": "Ébauche",
@@ -717,201 +361,157 @@
     "defaultMessage": "Je suis un résident permanent du Canada",
     "description": "declaring one to be a permanent resident"
   },
+  "FvV+QW": {
+    "defaultMessage": "Renseignements gouvernementaux",
+    "description": "Name of Government information page"
+  },
+  "GIC6EK": {
+    "defaultMessage": "Expiré",
+    "description": "Expired status"
+  },
+  "Gc9PeN": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler par quarts.",
+    "description": "The operational requirement described as shift work."
+  },
+  "GqmxO8": {
+    "defaultMessage": "Termine demain, à {time}",
+    "description": "Text displayed when relative date is tomorrow."
+  },
+  "Gw2JKz": {
+    "defaultMessage": "<strong>Région du Québec :</strong> à l'exclusion de Gatineau.",
+    "description": "The work region of Canada described as Quebec."
+  },
+  "Gx8qCK": {
+    "defaultMessage": "À propos de moi",
+    "description": "Name of About me page"
+  },
+  "Gyey3L": {
+    "defaultMessage": "Cours en ligne",
+    "description": "Online Course selection for education type input"
+  },
+  "GzVxoB": {
+    "defaultMessage": "<strong>Virtuel : </strong>Travaillez de chez vous, partout au Canada.",
+    "description": "The work region of Canada described as Telework."
+  },
+  "H8eisr": {
+    "defaultMessage": "Compétences essentielles manquantes",
+    "description": "Message displayed when user attempts to apply to a pool without an essential skill"
+  },
   "HMXnoR": {
     "defaultMessage": "Retourner à ma demande",
     "description": "Link text for button to return to user application"
+  },
+  "HalXgi": {
+    "defaultMessage": "Nouvelle-Écosse",
+    "description": "Nova Scotia selection for province or territory input"
+  },
+  "I6gM/P": {
+    "defaultMessage": "PAPA",
+    "description": "The publishing group called IT Apprenticeship Program for Indigenous Peoples"
+  },
+  "IANM2P": {
+    "defaultMessage": "Période indéterminée",
+    "description": "The pool candidate's status is Placed Indeterminate."
+  },
+  "IRCKBP": {
+    "defaultMessage": "Aucun résultat n’a été trouvé.",
+    "description": "Message displayed when combobox has no options available"
+  },
+  "IW/eej": {
+    "defaultMessage": "« Je m’identifie comme une femme »",
+    "description": "Statement for when someone indicates they are a woman"
+  },
+  "IlPyP8": {
+    "defaultMessage": "Vous devez remédier aux erreurs suivantes avant de soumettre le formulaire :",
+    "description": "Message indicating which errors the form has"
+  },
+  "J+0v2z": {
+    "defaultMessage": "Par ordre de titre (alphabétiquement)",
+    "description": "Select the option to sort by title, ascending"
+  },
+  "J2V3XI": {
+    "defaultMessage": "Un champ obligatoire est vide : Exigence linguistique",
+    "description": "Error message that the pool advertisement must have an advertisement language."
+  },
+  "J30FT0": {
+    "defaultMessage": "La signature représente un champ obligatoire",
+    "description": "Message displayed when user attempts to apply to a pool without a signature"
   },
   "JHgARn": {
     "defaultMessage": "Vous avez dépassé la limite de mots, {wordLimit}.",
     "description": "Text read out to assistive technology when over the word limit."
   },
+  "JamdKo": {
+    "defaultMessage": "Premières Nations sans statut ",
+    "description": "The indigenous community for non-status First Nations"
+  },
   "K80psp": {
     "defaultMessage": "Autre",
     "description": "Priority text for users with no priority"
+  },
+  "KC/sxi": {
+    "defaultMessage": "Ce champ est obligatoire.",
+    "description": "Error message that this field must filled for the form to be valid."
+  },
+  "KMSWLW": {
+    "defaultMessage": "Ouvrir le menu",
+    "description": "Text label for button that opens side menu."
+  },
+  "KoUKWc": {
+    "defaultMessage": "Capitale nationale",
+    "description": "The work region of Canada described as National Capital."
+  },
+  "KwdzPs": {
+    "defaultMessage": "« J’affirme que je suis un membre des Premières Nations (avec ou sans statut), un Inuk (Inuit) ou un Métis »",
+    "description": "Text for the option to self-declare as Indigenous"
+  },
+  "KzhnAz": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement).",
+    "description": "The operational requirement described as occasional overtime."
+  },
+  "L05/+D": {
+    "defaultMessage": "Mois",
+    "description": "Label for a month input field"
+  },
+  "LBNX0O": {
+    "defaultMessage": "Administrateur",
+    "description": "The name of the Administrator user role."
+  },
+  "LBqw5w": {
+    "defaultMessage": "Vous devez répondre à toutes les questions filtres",
+    "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
+  },
+  "LJpdaI": {
+    "defaultMessage": "Provincial",
+    "description": "The scope of the award was provincial."
+  },
+  "LuYmWd": {
+    "defaultMessage": "<strong>Recherche active</strong> - Mon profil est à jour, je souhaite être contacté pour des occasions d'emploi",
+    "description": "Job Looking Status described as Actively looking."
+  },
+  "Lw0WrP": {
+    "defaultMessage": "Travailler occasionnellement des heures supplémentaires",
+    "description": "The operational requirement described as occasional overtime. (short-form for limited space)"
   },
   "LwZY5H": {
     "defaultMessage": "Qualifié non disponible",
     "description": "The pool candidate's status is Qualified Unavailable."
   },
+  "LzUgil": {
+    "defaultMessage": "Secret ou plus élevée",
+    "description": "Secret security clearance"
+  },
   "M/6+SI": {
     "defaultMessage": "Inactif",
     "description": "Job Looking Status described as Actively looking."
   },
-  "OMmTA4": {
-    "defaultMessage": "Nouvelle candidature",
-    "description": "The pool candidate's status is New Application."
+  "MGqCaE": {
+    "defaultMessage": "Demandeur",
+    "description": "The name of the Applicant user role."
   },
-  "QVdubF": {
-    "defaultMessage": "Membre",
-    "description": "user is a CAF member"
-  },
-  "QrKbH+": {
-    "defaultMessage": "Durée",
-    "description": "Simple term selection for government employee type."
-  },
-  "R2BWry": {
-    "defaultMessage": "Candidature rejetée",
-    "description": "The pool candidate's status is Screened Out Application"
-  },
-  "Rwh/Ld": {
-    "defaultMessage": "Indéterminé",
-    "description": "Simple indeterminate selection for government employee type."
-  },
-  "S9BRBL": {
-    "defaultMessage": "Durée (court terme, long terme)",
-    "description": "Duration of a non-permanent length"
-  },
-  "XTuwjA": {
-    "defaultMessage": "Cette chaîne de clés de famille de compétences est déjà utilisée",
-    "description": "Error message that the given skill family key is already in use."
-  },
-  "xH10Pp": {
-    "defaultMessage": "Ce numéro de ministère est déjà utilisé",
-    "description": "Error message that the input department number is already in use."
-  },
-  "XerShr": {
-    "defaultMessage": "Recherche active",
-    "description": "Job Looking Status described as Actively looking."
-  },
-  "Y87WVR": {
-    "defaultMessage": "Je ne suis pas membre des FAC",
-    "description": "declare self to not be in the CAF"
-  },
-  "Yq2EZj": {
-    "defaultMessage": "Examen des candidatures",
-    "description": "The pool candidate's status is Application Review."
-  },
-  "ZEsIZi": {
-    "defaultMessage": "Non",
-    "description": "No, did not complete a language evaluation"
-  },
-  "ad4CnG": {
-    "defaultMessage": "Ébauche expirée",
-    "description": "The pool candidate's status is Expired Draft."
-  },
-  "dnGlXQ": {
-    "defaultMessage": "Accepté",
-    "description": "The pool candidate's status is Screened In."
-  },
-  "g08hvq": {
-    "defaultMessage": "Étape 1",
-    "description": "Breadcrumb back to review application page."
-  },
-  "j1p7LR": {
-    "defaultMessage": "Droit de priorité",
-    "description": "Priority text for users with priority entitlement"
-  },
-  "jwPlv1": {
-    "defaultMessage": "Durée",
-    "description": "Duration of a non-permanent length (short-form for limited space)"
-  },
-  "kwaeXP": {
-    "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (à court terme)",
-    "description": "The operational requirement described as occasional overtime."
-  },
-  "lr2+2R": {
-    "defaultMessage": "Autre",
-    "description": "declaring one to be neither a citizen or permanent resident of Canada"
-  },
-  "lx9NFI": {
-    "defaultMessage": "Qualifié disponible",
-    "description": "The pool candidate's status is Qualified Available"
-  },
-  "m4v2w3": {
-    "defaultMessage": "Ouvert aux possibilités",
-    "description": "Job Looking Status described as Actively looking."
-  },
-  "oMyc4e": {
-    "defaultMessage": "Citoyen ou résident",
-    "description": "Priority text for citizens of canada"
-  },
-  "oU8C65": {
-    "defaultMessage": "Vétéran",
-    "description": "Priority text for veterans"
-  },
-  "pLlu65": {
-    "defaultMessage": "Évaluation rejetée",
-    "description": "The pool candidate's status is Screened Out Assessment."
-  },
-  "rYodJu": {
-    "defaultMessage": "Durée indéterminée (permanente)",
-    "description": "Duration that is permanent"
-  },
-  "swTjNd": {
-    "defaultMessage": "Citoyen canadien",
-    "description": "user is a Canadian citizen"
-  },
-  "u+NuHm": {
-    "defaultMessage": "Retourner à mon profil",
-    "description": "Link text for button to return to user profile"
-  },
-  "uj33ws": {
-    "defaultMessage": "Je suis un membre actif des FAC",
-    "description": "declare self to be a CAF member"
-  },
-  "v6T4Y0": {
-    "defaultMessage": "Ce champ ne peut pas utiliser de dates dans le futur.",
-    "description": "Error message that the date cannot be in the future."
-  },
-  "vgxxk0": {
-    "defaultMessage": "Vétéran",
-    "description": "user is a CAF veteran"
-  },
-  "w2Jpt8": {
-    "defaultMessage": "Étudiant",
-    "description": "Simple student selection for government employee type."
-  },
-  "xCBinq": {
-    "defaultMessage": "Résident permanent",
-    "description": "user is a permanent resident"
-  },
-  "y5u8P0": {
-    "defaultMessage": "En cours d’évaluation",
-    "description": "The pool candidate's status is Under Assessment."
-  },
-  "yRxy3a": {
-    "defaultMessage": "Retrait qualifié",
-    "description": "The pool candidate's status is Qualified Withdrew."
-  },
-  "0OPWbJ": {
-    "defaultMessage": "Vous avez déjà postulé dans ce bassin",
-    "description": "Message displayed when a user attempts to apply to pool more than once"
-  },
-  "16AY+M": {
-    "defaultMessage": "Incapable de postuler pour ce bassin",
-    "description": "Message displayed when user attempts to apply to an unpublished pool"
-  },
-  "/I9tx9": {
-    "defaultMessage": "Cette demande ne peut pas être supprimée. Vous pouvez uniquement supprimer les demandes avant leur soumission.",
-    "description": "Error message that the application cannot be deleted."
-  },
-  "0p1W7Q": {
-    "defaultMessage": "Fils d’Ariane",
-    "description": "Label for the links to page ancestors"
-  },
-  "3e4sM7": {
-    "defaultMessage": "Le lieu doit être indiqué ou l’option « À distance » doit être sélectionnée",
-    "description": "Error message that the pool advertisement must have location filled."
-  },
-  "6O1sjV": {
-    "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
-    "description": "Error message that the given user identifier is already in use when updating."
-  },
-  "76QTNv": {
-    "defaultMessage": "La demande a déjà été soumise.",
-    "description": "Error message that the given application is already submitted."
-  },
-  "A+dFlE": {
-    "defaultMessage": "La demande a déjà été archivée.",
-    "description": "Error message that the given application is already archived."
-  },
-  "CVmEkf": {
-    "defaultMessage": "Création impossible – cet identifiant d’utilisateur (sub) est déjà utilisé",
-    "description": "Error message that the given user identifier is already in use when creating."
-  },
-  "J2V3XI": {
-    "defaultMessage": "Un champ obligatoire est vide : Exigence linguistique",
-    "description": "Error message that the pool advertisement must have an advertisement language."
+  "MLP6tt": {
+    "defaultMessage": "« Je m'identifie comme une personne handicapée »",
+    "description": "Statement for when someone indicates they have a disability"
   },
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
@@ -921,246 +521,587 @@
     "defaultMessage": "Postes de direction",
     "description": "The publishing group called Executive Jobs"
   },
-  "TjeaLS": {
-    "defaultMessage": "Cette demande ne peut pas être archivée. Vous ne pouvez archiver que les demandes ayant expiré.",
-    "description": "Error message that the application cannot be archived."
-  },
-  "VqrVpT": {
-    "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
-    "description": "Error message that the given email address is already in use when updating."
-  },
-  "WUAAr1": {
-    "defaultMessage": "Création impossible – cette adresse courriel est déjà utilisée.",
-    "description": "Error message that the given user identifier is already in use when creating."
-  },
-  "XNDPQM": {
-    "defaultMessage": "Un champ obligatoire est vide : Date de fin",
-    "description": "Error message that the pool advertisement must have an expiry date."
-  },
-  "aMkZ80": {
-    "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
-    "description": "Error message that advertisement locations must be filled in English and French."
-  },
-  "euwgms": {
-    "defaultMessage": "Un champ obligatoire est vide : Français – Votre travail",
-    "description": "Error message that Work Tasks in French must be filled"
-  },
-  "juklNA": {
-    "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre incidence",
-    "description": "Error message that Your Impact in English must be filled"
-  },
-  "kg28xx": {
-    "defaultMessage": "Un champ obligatoire est vide : Français – Votre incidence",
-    "description": "Error message that Your Impact in French must be filled"
-  },
-  "mv7JO3": {
-    "defaultMessage": "Autre",
-    "description": "The publishing group called Other"
-  },
-  "nPKPFa": {
-    "defaultMessage": "Un champ obligatoire est vide : Groupe des publications",
-    "description": "Error message that the pool advertisement must have publishing group filled."
-  },
-  "r7x5H3": {
-    "defaultMessage": "S. O.",
-    "description": "Message displayed when specific information is not applicable"
-  },
-  "t4F/0R": {
-    "defaultMessage": "Un champ obligatoire est vide : Exigence relative à la sécurité",
-    "description": "Error message that the pool advertisement must have a security clearance."
-  },
-  "tW4k56": {
-    "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre travail",
-    "description": "Error message that Work Tasks in English must be filled"
-  },
-  "w2tWfH": {
-    "defaultMessage": "Un champ obligatoire est vide : Titres des volets/emplois",
-    "description": "Error message that the pool advertisement must have a stream."
-  },
-  "9hjEsr": {
-    "defaultMessage": "Vous avez des modifications non sauvegardées",
-    "description": "Title for unsaved changes warning on profile forms"
-  },
-  "9u6ULg": {
-    "defaultMessage": "Vous avez des modifications non sauvegardées",
-    "description": "Displayed next to form inputs when they have been changed but not saved."
-  },
-  "DdOEWx": {
-    "defaultMessage": "Erreur : nom pas chargé",
-    "description": "Message when name value not found"
-  },
-  "edeLyW": {
-    "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",
-    "description": "Title for the unexpected error page."
-  },
-  "quLfED": {
-    "defaultMessage": "Nous avons relevé une erreur d’origine inconnue pendant le traitement de votre demande.",
-    "description": "Body text for the unexpected error page."
-  },
-  "oGXgxJ": {
-    "defaultMessage": "Alerte de fermeture",
-    "description": "Text for the close button on alerts"
-  },
-  "vGENdP": {
-    "defaultMessage": "Alerte d’information :",
-    "description": "Descriptor for an info alert"
-  },
-  "6iZHGg": {
-    "defaultMessage": "Alerte d’avertissement :",
-    "description": "Descriptor for a warning alert"
-  },
-  "Ss95s5": {
-    "defaultMessage": "Alerte de réussite :",
-    "description": "Descriptor for a success alert"
-  },
-  "oSa0Aa": {
-    "defaultMessage": "Alerte d’erreur :",
-    "description": "Descriptor for an error alert"
-  },
-  "IlPyP8": {
-    "defaultMessage": "Vous devez remédier aux erreurs suivantes avant de soumettre le formulaire :",
-    "description": "Message indicating which errors the form has"
-  },
-  "iqD8qE": {
-    "defaultMessage": "Erreur inconnue",
-    "description": "Fallback text when an error message is not supplied"
-  },
-  "sVsZmT": {
-    "defaultMessage": "<a>Veuillez communiquer avec notre équipe de soutien</a> si vous avez des questions.",
-    "description": "Telling users to email support team with any questions about errors"
-  },
-  "xAxxmc": {
-    "defaultMessage": "Oupse! Vous avez des erreurs!",
-    "description": "Title for error summary on profile forms"
-  },
-  "Tw90Pi": {
-    "defaultMessage": "Enregistrement...",
-    "description": "Submitting text for save button."
-  },
-  "SUYPIt": {
-    "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
-    "description": "Message displayed when number of user attempts exceeds rate limit"
-  },
-  "IRCKBP": {
-    "defaultMessage": "Aucun résultat n’a été trouvé.",
-    "description": "Message displayed when combobox has no options available"
-  },
-  "4l+gBD": {
-    "defaultMessage": "Recherche...",
-    "description": "Message to display when a search is being done."
-  },
-  "qmEyxS": {
-    "defaultMessage": "Le bassin doit avoir une date de clôture postérieure à aujourd’hui.",
-    "description": "Error message that the pool closing date isn't in the future."
-  },
-  "/UBSoB": {
-    "defaultMessage": "Fermée",
-    "description": "Closed pool advertisement status"
-  },
-  "csLjMi": {
-    "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
-    "description": "Error message that the given skill closing date must be after today."
-  },
-  "C/tnCE": {
-    "defaultMessage": "Le profil est incomplet",
-    "description": "Message displayed when user attempts to apply to a pool with an incomplete profile"
-  },
-  "V3+fXY": {
-    "defaultMessage": "L’exigence relative à l’éducation est incomplete",
-    "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
-  },
-  "H8eisr": {
-    "defaultMessage": "Compétences essentielles manquantes",
-    "description": "Message displayed when user attempts to apply to a pool without an essential skill"
-  },
-  "A1fb/r": {
-    "defaultMessage": "Il y a une exigence linguistique manquante",
-    "description": "Message displayed when user attempts to apply to a pool without the language requirement"
-  },
-  "J30FT0": {
-    "defaultMessage": "La signature représente un champ obligatoire",
-    "description": "Message displayed when user attempts to apply to a pool without a signature"
-  },
   "Mm+Me1": {
     "defaultMessage": "Impossible d’appliquer à un bassin fermé",
     "description": "Message displayed when user attempts to apply to a closed pool"
+  },
+  "MvSp9b": {
+    "defaultMessage": "Gestion de bases de données de la TI",
+    "description": "Pool Stream described as Database Management."
+  },
+  "N0hBAG": {
+    "defaultMessage": "Niveau 3 : Chef d'équipe",
+    "description": "The name of the Team leader Analyst role."
   },
   "NNFXCN": {
     "defaultMessage": "Retiré",
     "description": "The pool candidate's status is Removed."
   },
-  "1Wbu+6": {
-    "defaultMessage": "Premières Nations détenant le statut ",
-    "description": "The indigenous community for status First Nations"
+  "NNMJXo": {
+    "defaultMessage": "Nord",
+    "description": "The work region of Canada described as North."
   },
-  "JamdKo": {
-    "defaultMessage": "Premières Nations sans statut ",
-    "description": "The indigenous community for non-status First Nations"
+  "NVMKe5": {
+    "defaultMessage": "Modifier la séquence de {from} à {to}",
+    "description": "Button text for moving an item from one position to another"
   },
-  "eNUS2A": {
-    "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
-    "description": "The selection for being part of an indigenous community not already listed"
+  "NWQ4Rj": {
+    "defaultMessage": "Non réussi",
+    "description": "Did not complete selection for education status input"
   },
-  "xaCwEO": {
-    "defaultMessage": "Métis",
-    "description": "The indigenous community for Métis"
+  "NtxfWk": {
+    "defaultMessage": "Garde 24/7",
+    "description": "The operational requirement described as 24/7 on-call. (short-form for limited space)"
   },
-  "gTB9r8": {
-    "defaultMessage": "Inuk (Inuit)",
-    "description": "The indigenous community for Inuit"
+  "O+MHnP": {
+    "defaultMessage": "Bilingue intermédiaire",
+    "description": "The language requirement is bilingual intermediate."
   },
-  "KwdzPs": {
-    "defaultMessage": "« J’affirme que je suis un membre des Premières Nations (avec ou sans statut), un Inuk (Inuit) ou un Métis »",
-    "description": "Text for the option to self-declare as Indigenous"
+  "OBQ8b9": {
+    "defaultMessage": "(s'ouvre dans un nouvel onglet)",
+    "description": "Text that appears in links that open in a new tab."
   },
-  "GIC6EK": {
-    "defaultMessage": "Expiré",
-    "description": "Expired status"
+  "OMmTA4": {
+    "defaultMessage": "Nouvelle candidature",
+    "description": "The pool candidate's status is New Application."
+  },
+  "OujTbA": {
+    "defaultMessage": "Diplôme postsecondaire requis"
+  },
+  "P6PD/I": {
+    "defaultMessage": "Manitoba",
+    "description": "Manitoba selection for province or territory input"
+  },
+  "PAXoFY": {
+    "defaultMessage": "L’article a été déplacé de {from} à {to}.",
+    "description": "Message announced to assistive technology when a repeatable field has moved position"
+  },
+  "PMwqcS": {
+    "defaultMessage": "La date doit être avant ou égale au {date}",
+    "description": "Error message when a date was entered that is greater than the maximum required"
+  },
+  "PxUSSH": {
+    "defaultMessage": "Mon statut",
+    "description": "Name of My status page"
+  },
+  "QVdubF": {
+    "defaultMessage": "Membre",
+    "description": "user is a CAF member"
+  },
+  "QZpZQh": {
+    "defaultMessage": "Personne handicapée",
+    "description": "Group for when someone indicates they have a disability"
+  },
+  "QhRU19": {
+    "defaultMessage": "Doit posséder un permis de conduire valide ou une mobilité personnelle du degré normalement associé à la possession d'un permis de conduire valide.",
+    "description": "The operational requirement described as driver's license."
+  },
+  "QrKbH+": {
+    "defaultMessage": "Durée",
+    "description": "Simple term selection for government employee type."
+  },
+  "QtzRCh": {
+    "defaultMessage": "Statut",
+    "description": "Title for status"
+  },
+  "R2BWry": {
+    "defaultMessage": "Candidature rejetée",
+    "description": "The pool candidate's status is Screened Out Application"
+  },
+  "RE7o8x": {
+    "defaultMessage": "Je suis un(e) <strong>étudiant(e)</strong>",
+    "description": "Student selection for government employee type."
+  },
+  "RQGy+0": {
+    "defaultMessage": "Publiée",
+    "description": "Published pool advertisement status"
+  },
+  "RQTXLS": {
+    "defaultMessage": "Niveau 4 : conseiller principal",
+    "description": "The name of the Senior advisor role."
+  },
+  "RRSGnD": {
+    "defaultMessage": "Travailler des quarts de travail",
+    "description": "The operational requirement described as shift work. (short-form for limited space)"
+  },
+  "RYg7vl": {
+    "defaultMessage": "exige des <strong>heures supplémentaires occasionnelles</strong>.",
+    "description": "The operational requirement described as occasional overtime."
+  },
+  "RaypPP": {
+    "defaultMessage": "Anglais",
+    "description": "The language English."
+  },
+  "RkxqoB": {
+    "defaultMessage": "La date ne doit pas être antérieure {value}",
+    "description": "Error message that the date provided must follow and not precede some referenced date"
+  },
+  "RnSbKI": {
+    "defaultMessage": "Fiabilité ou plus élevée",
+    "description": "Reliability security clearance"
+  },
+  "Rwh/Ld": {
+    "defaultMessage": "Indéterminé",
+    "description": "Simple indeterminate selection for government employee type."
+  },
+  "S2zQmD": {
+    "defaultMessage": "En attente (voir les notes)",
+    "description": "The status is blocked and you can refer to notes field for more information."
+  },
+  "S9BRBL": {
+    "defaultMessage": "Durée (court terme, long terme)",
+    "description": "Duration of a non-permanent length"
+  },
+  "SUYPIt": {
+    "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
+    "description": "Message displayed when number of user attempts exceeds rate limit"
+  },
+  "Srs7a4": {
+    "defaultMessage": "Passer au contenu principal",
+    "description": "Assistive technology skip link"
+  },
+  "Ss95s5": {
+    "defaultMessage": "Alerte de réussite :",
+    "description": "Descriptor for a success alert"
   },
   "SuKmqa": {
     "defaultMessage": "Actif",
     "description": "Active status"
   },
-  "zafWLP": {
-    "defaultMessage": "Suspendu",
-    "description": "Suspended status"
+  "SvcqPG": {
+    "defaultMessage": "Alberta",
+    "description": "Alberta selection for province or territory input"
+  },
+  "T/97gk": {
+    "defaultMessage": "Supprimer l’article {index}",
+    "description": "Button text to remove an item from repeatable fields"
+  },
+  "T5b8Q7": {
+    "defaultMessage": "jj",
+    "description": "Placeholder for a day input"
+  },
+  "TCs69O": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Name of Work location page"
+  },
+  "TNmGTd": {
+    "defaultMessage": "Local",
+    "description": "The scope of the award was local."
+  },
+  "TO/Q6I": {
+    "defaultMessage": "Femme",
+    "description": "Group for when someone indicates they are a woman"
+  },
+  "TR0Kxz": {
+    "defaultMessage": "<strong>Ouvert aux possibilités</strong> – Je ne cherche pas activement, mais je veux être contacté pour trouver des possibilités d'emploi",
+    "description": "Job Looking Status described as Open to opportunities."
+  },
+  "TiIkSF": {
+    "defaultMessage": "Deux années post-secondaire",
+    "description": "Option for education requirement, 2-year post-secondary"
+  },
+  "TjeaLS": {
+    "defaultMessage": "Cette demande ne peut pas être archivée. Vous ne pouvez archiver que les demandes ayant expiré.",
+    "description": "Error message that the application cannot be archived."
+  },
+  "Tw90Pi": {
+    "defaultMessage": "Enregistrement...",
+    "description": "Submitting text for save button."
+  },
+  "U/4a27": {
+    "defaultMessage": "Effacer votre sélection",
+    "description": "Button text to reset the combobox input"
+  },
+  "UCGAzS": {
+    "defaultMessage": "S.O.",
+    "description": "displayed when localized string not available"
+  },
+  "UayO6H": {
+    "defaultMessage": "Qualifié",
+    "description": "Status for an application where the applicant has qualified"
+  },
+  "Uk0WG0": {
+    "defaultMessage": "Organisationnel",
+    "description": "The scope of the award was organizational."
+  },
+  "V3+fXY": {
+    "defaultMessage": "L’exigence relative à l’éducation est incomplete",
+    "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
+  "VqrVpT": {
+    "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
+    "description": "Error message that the given email address is already in use when updating."
+  },
+  "W1Kt8D": {
+    "defaultMessage": "Niveau 2 : Analyste",
+    "description": "The name of the Technician Analyst role."
+  },
+  "WC5em7": {
+    "defaultMessage": "Mon organisation",
+    "description": "The award was given to my organization."
+  },
+  "WGoaKQ": {
+    "defaultMessage": "Enregistrer les modifications",
+    "description": "Text for submit button on edit forms"
+  },
+  "WL3bq/": {
+    "defaultMessage": "Étape {current} de {label}",
+    "description": "Title for a list of steps indicating the current step of the total number of step"
+  },
+  "WPJrmN": {
+    "defaultMessage": "{wordsLeft, plural, one {mot au-dessus de la limite} other {mots au-dessus de la limite}}.",
+    "description": "Message for when user goes over word limit."
+  },
+  "WUC9pX": {
+    "defaultMessage": "Facultatif",
+    "description": "Displayed next to optional form inputs."
+  },
+  "WYLjD1": {
+    "defaultMessage": "Travailler des heures supplémentaires à court préavis",
+    "description": "The operational requirement described as short notice overtime. (short-form for limited space)"
+  },
+  "WcXADs": {
+    "defaultMessage": "Anglais seulement",
+    "description": "The language ability is English only."
+  },
+  "WhXfSx": {
+    "defaultMessage": "Veuillez entrer une date valide",
+    "description": "Error message that appears when a user enters an invalid date into a date input"
+  },
+  "X/hYMf": {
+    "defaultMessage": "exige des <strong>quarts de travail sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
+    "description": "The operational requirement described as 24/7 on-call."
+  },
+  "XNDPQM": {
+    "defaultMessage": "Un champ obligatoire est vide : Date de fin",
+    "description": "Error message that the pool advertisement must have an expiry date."
+  },
+  "XTuwjA": {
+    "defaultMessage": "Cette chaîne de clés de famille de compétences est déjà utilisée",
+    "description": "Error message that the given skill family key is already in use."
+  },
+  "XTw9Me": {
+    "defaultMessage": "Expiré",
+    "description": "The pool candidate's status is Expired."
+  },
+  "XerShr": {
+    "defaultMessage": "Recherche active",
+    "description": "Job Looking Status described as Actively looking."
   },
   "XnvXtO": {
     "defaultMessage": "Tous",
     "description": "All"
   },
+  "XpK4rL": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à transporter, soulever et déposer de l'équipement pouvant peser jusqu'à 20 kg.",
+    "description": "The operational requirement described as transport equipment up to 20kg."
+  },
+  "Xtu3HH": {
+    "defaultMessage": "Nouveau-Brunswick",
+    "description": "New Brunswick selection for province or territory input"
+  },
+  "Y87WVR": {
+    "defaultMessage": "Je ne suis pas membre des FAC",
+    "description": "declare self to not be in the CAF"
+  },
+  "YFPM7a": {
+    "defaultMessage": "J'ai un contrat <strong>occasionnel</strong>",
+    "description": "Casual selection for government employee type."
+  },
+  "YHqVoj": {
+    "defaultMessage": "Soumettre",
+    "description": "Default text for submit button."
+  },
+  "YVLfw+": {
+    "defaultMessage": "Je suis un employé nommé pour une période <strong>indéterminée</strong>",
+    "description": "Indeterminate selection for government employee type."
+  },
+  "YmboX1": {
+    "defaultMessage": "{wordCount} / {wordLimit} mots",
+    "description": "Message for words remaining before hitting the limit"
+  },
+  "Yq2EZj": {
+    "defaultMessage": "Examen des candidatures",
+    "description": "The pool candidate's status is Application Review."
+  },
+  "Z+6NCp": {
+    "defaultMessage": "Sous-organisationnel (direction)",
+    "description": "The scope of the award was sub-organizational (branch)."
+  },
+  "ZEsIZi": {
+    "defaultMessage": "Non",
+    "description": "No, did not complete a language evaluation"
+  },
+  "ZWR/F3": {
+    "defaultMessage": "Français seulement",
+    "description": "The language requirement is French only."
+  },
+  "ZhQEUx": {
+    "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
+    "description": "Error message that the provided date must be in the future."
+  },
+  "Zhm9yQ": {
+    "defaultMessage": "Audité",
+    "description": "Audited selection for education status input"
+  },
+  "ZlEEjR": {
+    "defaultMessage": "Planification et établissement de rapports en matière de TI",
+    "description": "Pool Stream described as Planning and Reporting."
+  },
+  "a5edSg": {
+    "defaultMessage": "Jour",
+    "description": "Label for a day of the month input field"
+  },
+  "aMkZ80": {
+    "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
+    "description": "Error message that advertisement locations must be filled in English and French."
+  },
+  "ad4CnG": {
+    "defaultMessage": "Ébauche expirée",
+    "description": "The pool candidate's status is Expired Draft."
+  },
+  "ad4mTC": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Name of Diversity, equity and inclusion page"
+  },
+  "adbcoS": {
+    "defaultMessage": "Ce champ doit suivre le modèle +123243234",
+    "description": "Error message that the field must contain a phone number validated by the specified pattern."
+  },
+  "ayG2k7": {
+    "defaultMessage": "Oui",
+    "description": "Affirmative answer"
+  },
+  "b02Azd": {
+    "defaultMessage": "IT-04 (gestionnaire)",
+    "description": "The name of the Senior advisor classification with group and level."
+  },
+  "baPSLH": {
+    "defaultMessage": "Terminé avec succès (aucun titre de compétence)",
+    "description": "Successful Completion with no credentials for education status input"
+  },
+  "cCWdDX": {
+    "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
+    "description": "Button text to expand truncated text to view all contents"
+  },
+  "cEB0aW": {
+    "defaultMessage": "exige des <strong>heures supplémentaires régulièrement</strong>.",
+    "description": "The operational requirement described as regular overtime."
+  },
+  "cnFVR1": {
+    "defaultMessage": "m'oblige à faire des <strong>heures supplémentaires sans préavis</strong>.",
+    "description": "The operational requirement described as overtime."
+  },
+  "coUese": {
+    "defaultMessage": "Gestion de portefeuilles de projets de la TI",
+    "description": "Pool Stream described as Project Portfolio Management."
+  },
+  "csLjMi": {
+    "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
+    "description": "Error message that the given skill closing date must be after today."
+  },
+  "dIZ4oj": {
+    "defaultMessage": "m'exige de <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
+    "description": "The operational requirement described as transport equipment up to 20kg."
+  },
+  "dnGlXQ": {
+    "defaultMessage": "Accepté",
+    "description": "The pool candidate's status is Screened In."
+  },
+  "duwt+A": {
+    "defaultMessage": "m'exige d'avoir un <strong>permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
+    "description": "The operational requirement described as driver's license."
+  },
+  "eGg734": {
+    "defaultMessage": "Autre",
+    "description": "Other selection for education type input"
+  },
+  "eNUS2A": {
+    "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
+    "description": "The selection for being part of an indigenous community not already listed"
+  },
+  "eYak7E": {
+    "defaultMessage": "<strong>Région de la capitale nationale :</strong> Ottawa (Ont.) et Gatineau (Qc).",
+    "description": "The work region of Canada described as National Capital."
+  },
+  "edeLyW": {
+    "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",
+    "description": "Title for the unexpected error page."
+  },
+  "euwgms": {
+    "defaultMessage": "Un champ obligatoire est vide : Français – Votre travail",
+    "description": "Error message that Work Tasks in French must be filled"
+  },
+  "fAj9+G": {
+    "defaultMessage": "Avril",
+    "description": "Name of the fourth month"
+  },
+  "fMcKtJ": {
+    "defaultMessage": "Annuler et revenir en arrière",
+    "description": "Text to cancel changes to a form"
+  },
+  "g08hvq": {
+    "defaultMessage": "Étape 1",
+    "description": "Breadcrumb back to review application page."
+  },
+  "g2X8Fx": {
+    "defaultMessage": "Fermer la fenêtre de dialogue",
+    "description": "Text for the button to close a modal dialog."
+  },
+  "gDBVKb": {
+    "defaultMessage": "CV et recrutement",
+    "description": "Name of Résumé and recruitment page"
+  },
+  "gM4WDL": {
+    "defaultMessage": "Non",
+    "description": "Negative answer"
+  },
+  "gTB9r8": {
+    "defaultMessage": "Inuk (Inuit)",
+    "description": "The indigenous community for Inuit"
+  },
+  "ghhKNZ": {
+    "defaultMessage": "Identité autochtone",
+    "description": "Group for when someone indicates they are indigenous"
+  },
+  "gz2VrQ": {
+    "defaultMessage": "Intermédiaire",
+    "description": "Intermediate, skill level"
+  },
+  "h3lIyO": {
+    "defaultMessage": "Français",
+    "description": "The language French."
+  },
+  "i3Jl6C": {
+    "defaultMessage": " : ",
+    "description": "Dividing colon with trailing space"
+  },
+  "iSfiWx": {
+    "defaultMessage": "Année",
+    "description": "Label for a year input field"
+  },
+  "iYot5P": {
+    "defaultMessage": "Architecture intégrée de la TI",
+    "description": "Pool Stream described as Enterprise Architecture."
+  },
+  "iqD8qE": {
+    "defaultMessage": "Erreur inconnue",
+    "description": "Fallback text when an error message is not supplied"
+  },
+  "j1p7LR": {
+    "defaultMessage": "Droit de priorité",
+    "description": "Priority text for users with priority entitlement"
+  },
+  "j6WJBY": {
+    "defaultMessage": "{wordsLeft, plural, one {mot restant} other {mots restants}}.",
+    "description": "Message for when user goes over word limit."
+  },
+  "jHa7VO": {
+    "defaultMessage": "Opérations d’infrastructure de la TI",
+    "description": "Pool Stream described as Infrastructure Operations."
+  },
+  "jNo5Zk": {
+    "defaultMessage": "Région des Prairies",
+    "description": "The work region of Canada described as Prairie."
+  },
+  "jS69se": {
+    "defaultMessage": "Certification",
+    "description": "Certification selection for education type input"
+  },
+  "janplU": {
+    "defaultMessage": "Bilingue (français et anglais)",
+    "description": "The language ability is bilingual - both English and French."
+  },
+  "jfwk14": {
+    "defaultMessage": "Diplôme",
+    "description": "Diploma selection for education type input"
+  },
+  "ju5h1m": {
+    "defaultMessage": "Avancé",
+    "description": "Advanced, skill level"
+  },
+  "juklNA": {
+    "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre incidence",
+    "description": "Error message that Your Impact in English must be filled"
+  },
+  "jwPlv1": {
+    "defaultMessage": "Durée",
+    "description": "Duration of a non-permanent length (short-form for limited space)"
+  },
+  "jy7itR": {
+    "defaultMessage": "Termine aujourd’hui, à {time}",
+    "description": "Text displayed when relative date is today."
+  },
+  "kKdcZT": {
+    "defaultMessage": "Bilingue avancé",
+    "description": "The language requirement is bilingual advanced."
+  },
+  "kg28xx": {
+    "defaultMessage": "Un champ obligatoire est vide : Français – Votre incidence",
+    "description": "Error message that Your Impact in French must be filled"
+  },
+  "kwaeXP": {
+    "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (à court terme)",
+    "description": "The operational requirement described as occasional overtime."
+  },
+  "lDeaXK": {
+    "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
+    "description": "The operational requirement described as scheduled overtime."
+  },
+  "ldthVj": {
+    "defaultMessage": "Août",
+    "description": "Name of the eighth month"
+  },
+  "lp/ZEr": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Name of Role and salary expectations page"
+  },
+  "lr2+2R": {
+    "defaultMessage": "Autre",
+    "description": "declaring one to be neither a citizen or permanent resident of Canada"
+  },
+  "lsFH+y": {
+    "defaultMessage": "Aucune option",
+    "description": "Message shown in options dropdown when Select field has no options."
+  },
+  "lx9NFI": {
+    "defaultMessage": "Qualifié disponible",
+    "description": "The pool candidate's status is Qualified Available"
+  },
+  "m4v2w3": {
+    "defaultMessage": "Ouvert aux possibilités",
+    "description": "Job Looking Status described as Actively looking."
+  },
+  "mDOWWQ": {
+    "defaultMessage": "Soumission",
+    "description": "Default text for submitting button."
+  },
+  "mLwm2+": {
+    "defaultMessage": "Yukon",
+    "description": "Yukon selection for province or territory input"
+  },
+  "mMw73T": {
+    "defaultMessage": "Niveau 1 : Technicien",
+    "description": "The name of the Technician classification role."
+  },
+  "mhZmff": {
+    "defaultMessage": "La demande doit être soumise.",
+    "description": "Error message that the given application must already be submitted."
+  },
+  "mv7JO3": {
+    "defaultMessage": "Autre",
+    "description": "The publishing group called Other"
+  },
+  "n+SiHy": {
+    "defaultMessage": "Juillet",
+    "description": "Name of the seventh month"
+  },
   "nLW9zq": {
     "defaultMessage": "Technologie de l’information"
   },
-  "6svHxg": {
-    "defaultMessage": "Services administratifs"
-  },
-  "t9i8Ml": {
-    "defaultMessage": "Gouvernement du Canada"
-  },
-  "1YuZjR": {
-    "defaultMessage": "Emplois en TI (en cours)",
-    "description": "The publishing group called IT Jobs for ongoing recruitments"
-  },
-  "C8nrGM": {
-    "defaultMessage": "Emplois en TI",
-    "description": "The publishing group called IT Jobs"
-  },
-  "+HxUqd": {
-    "defaultMessage": "En attente d’évaluation des compétences",
-    "description": "Status for an application that ie having skills reviewed"
-  },
-  "4KRs8G": {
-    "defaultMessage": "La date de soumission est dépassée",
-    "description": "Status for an application that where the recruitment has expired"
-  },
-  "4TmwRU": {
-    "defaultMessage": "Candidature reçue",
-    "description": "Status for an application that has been submitted"
-  },
-  "UayO6H": {
-    "defaultMessage": "Qualifié",
-    "description": "Status for an application where the applicant has qualified"
+  "nPKPFa": {
+    "defaultMessage": "Un champ obligatoire est vide : Groupe des publications",
+    "description": "Error message that the pool advertisement must have publishing group filled."
   },
   "njJCTd": {
     "defaultMessage": "Sélectionné",
@@ -1170,284 +1111,355 @@
     "defaultMessage": "Évaluation en cours",
     "description": "Status for an application that where applicant is being assessed"
   },
-  "wK5+0z": {
-    "defaultMessage": "En cours de révision",
-    "description": "Status for an application that is being reviewed"
+  "nnMYWr": {
+    "defaultMessage": "Préférences de travail",
+    "description": "Name of Work preferences page"
   },
-  "14Cv7d": {
-    "defaultMessage": "Retrait en cours...",
-    "description": "Submitting text for delete button."
+  "nrWEuL": {
+    "defaultMessage": "<strong>Inactif</strong> – Je ne veux pas être contacté pour trouver des possibilités d'emploi",
+    "description": "Job Looking Status described as Inactive."
   },
-  "WGoaKQ": {
-    "defaultMessage": "Enregistrer les modifications",
-    "description": "Text for submit button on edit forms"
+  "nu3Zyc": {
+    "defaultMessage": "Niveau 4 : Gestionnaire",
+    "description": "The name of the Senior advisor role."
   },
-  "mhZmff": {
-    "defaultMessage": "La demande doit être soumise.",
-    "description": "Error message that the given application must already be submitted."
+  "nv2kXl": {
+    "defaultMessage": "Maîtrise",
+    "description": "Masters Degree selection for education type input"
   },
-  "/EWDdn": {
-    "defaultMessage": "Octobre",
-    "description": "Name of the tenth month"
+  "o/6zAs": {
+    "defaultMessage": "Chargement",
+    "description": "Title displayed for a table initial loading state."
   },
-  "1Wq7Pf": {
-    "defaultMessage": "Juin",
-    "description": "Name of the sixth month"
+  "o5J75O": {
+    "defaultMessage": "IT-04 (conseiller principal)",
+    "description": "The name of the Senior advisor classification with group and level."
   },
-  "6tekaa": {
-    "defaultMessage": "Septembre",
-    "description": "Name of the ninth month"
+  "oANrhM": {
+    "defaultMessage": "Collectivité",
+    "description": "The scope of the award was within the community."
   },
-  "L05/+D": {
-    "defaultMessage": "Mois",
-    "description": "Label for a month input field"
+  "oGXgxJ": {
+    "defaultMessage": "Alerte de fermeture",
+    "description": "Text for the close button on alerts"
   },
-  "PMwqcS": {
-    "defaultMessage": "La date doit être avant ou égale au {date}",
-    "description": "Error message when a date was entered that is greater than the maximum required"
-  },
-  "WhXfSx": {
-    "defaultMessage": "Veuillez entrer une date valide",
-    "description": "Error message that appears when a user enters an invalid date into a date input"
-  },
-  "a5edSg": {
-    "defaultMessage": "Jour",
-    "description": "Label for a day of the month input field"
-  },
-  "5hXz/z": {
-    "defaultMessage": "Sélectionnez un mois",
-    "description": "Placeholder for a month select field"
-  },
-  "fAj9+G": {
-    "defaultMessage": "Avril",
-    "description": "Name of the fourth month"
-  },
-  "iSfiWx": {
-    "defaultMessage": "Année",
-    "description": "Label for a year input field"
-  },
-  "ldthVj": {
-    "defaultMessage": "Août",
-    "description": "Name of the eighth month"
-  },
-  "n+SiHy": {
-    "defaultMessage": "Juillet",
-    "description": "Name of the seventh month"
+  "oMyc4e": {
+    "defaultMessage": "Citoyen ou résident",
+    "description": "Priority text for citizens of canada"
   },
   "oR0evm": {
     "defaultMessage": "La date doit être égale ou supérieure au {date}",
     "description": "Error message when a date was entered that is less than the minimum required"
   },
-  "rCXko4": {
-    "defaultMessage": "Novembre",
-    "description": "Name of the eleventh month"
+  "oSa0Aa": {
+    "defaultMessage": "Alerte d’erreur :",
+    "description": "Descriptor for an error alert"
   },
-  "x61BXA": {
-    "defaultMessage": "Mars",
-    "description": "Name of the third month"
+  "oU4OmU": {
+    "defaultMessage": "<strong>Région de l'Ontario :</strong> à l'exclusion d'Ottawa.",
+    "description": "The work region of Canada described as Ontario."
   },
-  "xNESdj": {
-    "defaultMessage": "Février",
-    "description": "Name of the second month"
+  "oU8C65": {
+    "defaultMessage": "Vétéran",
+    "description": "Priority text for veterans"
   },
-  "y4oBW4": {
-    "defaultMessage": "Décembre",
-    "description": "Name of the twelfth month"
+  "ovtI5X": {
+    "defaultMessage": "Transport de matériel jusqu'à 20 kg",
+    "description": "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)"
   },
-  "yHeFkO": {
-    "defaultMessage": "Janvier",
-    "description": "Name of the first month"
+  "pLlu65": {
+    "defaultMessage": "Évaluation rejetée",
+    "description": "The pool candidate's status is Screened Out Assessment."
   },
-  "zXRf0L": {
-    "defaultMessage": "Mai",
-    "description": "Name of the fifth month"
-  },
-  "99cWuv": {
-    "defaultMessage": "réussite",
-    "description": "Message for the success status"
-  },
-  "ACO2Uz": {
-    "defaultMessage": "erreur",
-    "description": "Message for the error status"
-  },
-  "qVI4xG": {
-    "defaultMessage": "réussite partielle",
-    "description": "Message for the partial success status"
-  },
-  "0bcof1": {
-    "defaultMessage": "<hidden>Étape, actuelle, </hidden>{label}",
-    "description": "Prefix when a step is the currently active one."
-  },
-  "9zyjjw": {
-    "defaultMessage": "<hidden>Étape complétée, </hidden>{label}",
-    "description": "Prefix when a step has been completed."
-  },
-  "WL3bq/": {
-    "defaultMessage": "Étape {current} de {label}",
-    "description": "Title for a list of steps indicating the current step of the total number of step"
-  },
-  "sfQN9S": {
-    "defaultMessage": "<hidden>Erreur au niveau de l’étape, </hidden>{label}",
-    "description": "Prefix when a step has an error."
-  },
-  "4MKYKl": {
-    "defaultMessage": "aaaa",
-    "description": "Placeholder for a year input"
-  },
-  "T5b8Q7": {
-    "defaultMessage": "jj",
-    "description": "Placeholder for a day input"
-  },
-  "Srs7a4": {
-    "defaultMessage": "Passer au contenu principal",
-    "description": "Assistive technology skip link"
-  },
-  "7p6mDv": {
-    "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
-    "description": "Message displayed when user attempts an action they are not allowed to do."
-  },
-  "fMcKtJ": {
-    "defaultMessage": "Annuler et revenir en arrière",
-    "description": "Text to cancel changes to a form"
-  },
-  "2G+fJt": {
-    "defaultMessage": "L’article {index} a été supprimé.",
-    "description": "Message announced to assistive technology when a repeatable field has been removed"
-  },
-  "NVMKe5": {
-    "defaultMessage": "Modifier la séquence de {from} à {to}",
-    "description": "Button text for moving an item from one position to another"
-  },
-  "PAXoFY": {
-    "defaultMessage": "L’article a été déplacé de {from} à {to}.",
-    "description": "Message announced to assistive technology when a repeatable field has moved position"
-  },
-  "T/97gk": {
-    "defaultMessage": "Supprimer l’article {index}",
-    "description": "Button text to remove an item from repeatable fields"
-  },
-  "lsFH+y": {
-    "defaultMessage": "Aucune option",
-    "description": "Message shown in options dropdown when Select field has no options."
+  "pPPm5b": {
+    "defaultMessage": "Moi",
+    "description": "The award was given to me."
   },
   "plwOsC": {
     "defaultMessage": "Sélectionnez",
     "description": "Default placeholder shown when Select field has nothing actively selected."
   },
-  "ylHC90": {
-    "defaultMessage": "Chargement...",
-    "description": "Message shown in options dropdown when Select field is loading options."
+  "prkkM+": {
+    "defaultMessage": "Fait",
+    "description": "The search status is Done."
   },
-  "LBqw5w": {
-    "defaultMessage": "Vous devez répondre à toutes les questions filtres",
-    "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
+  "qVI4xG": {
+    "defaultMessage": "réussite partielle",
+    "description": "Message for the partial success status"
   },
-  "tpVujp": {
-    "defaultMessage": "Renseignements manquants",
-    "description": "Message displayed when a user has not provided some form of information"
+  "qfQx7T": {
+    "defaultMessage": "Ph. D.",
+    "description": "Phd selection for education type input"
   },
-  "I6gM/P": {
-    "defaultMessage": "PAPA",
-    "description": "The publishing group called IT Apprenticeship Program for Indigenous Peoples"
+  "qfioSi": {
+    "defaultMessage": "J'ai un poste de durée <strong>déterminée</strong>.",
+    "description": "Term selection for government employee type."
   },
-  "4S30lt": {
-    "defaultMessage": "Expérience de travail appliquée",
-    "description": "Option for education requirement, applied work experience"
+  "qmEyxS": {
+    "defaultMessage": "Le bassin doit avoir une date de clôture postérieure à aujourd’hui.",
+    "description": "Error message that the pool closing date isn't in the future."
   },
-  "TiIkSF": {
-    "defaultMessage": "Deux années post-secondaire",
-    "description": "Option for education requirement, 2-year post-secondary"
+  "qnYbyw": {
+    "defaultMessage": "m'exige de <strong>voyager</strong>.",
+    "description": "The operational requirement described as travel as required."
   },
-  "8WC+Ty": {
-    "defaultMessage": "La date limite de soumission est passée.",
-    "description": "Message displayed when a closing date has passed."
+  "quLfED": {
+    "defaultMessage": "Nous avons relevé une erreur d’origine inconnue pendant le traitement de votre demande.",
+    "description": "Body text for the unexpected error page."
   },
-  "GqmxO8": {
-    "defaultMessage": "Termine demain, à {time}",
-    "description": "Text displayed when relative date is tomorrow."
+  "r7x5H3": {
+    "defaultMessage": "S. O.",
+    "description": "Message displayed when specific information is not applicable"
   },
-  "jy7itR": {
-    "defaultMessage": "Termine aujourd’hui, à {time}",
-    "description": "Text displayed when relative date is today."
+  "rCXko4": {
+    "defaultMessage": "Novembre",
+    "description": "Name of the eleventh month"
   },
-  "Gx8qCK": {
-    "defaultMessage": "À propos de moi",
-    "description": "Name of About me page"
+  "rGTGvl": {
+    "defaultMessage": "Soumis",
+    "description": "Default text for submitted button."
   },
-  "PxUSSH": {
-    "defaultMessage": "Mon statut",
-    "description": "Name of My status page"
+  "rYodJu": {
+    "defaultMessage": "Durée indéterminée (permanente)",
+    "description": "Duration that is permanent"
   },
-  "uNArwM": {
-    "defaultMessage": "+123243234",
-    "description": "Placeholder for form telephone field"
+  "rlq4uZ": {
+    "defaultMessage": "Compétences techniques",
+    "description": "The skill is considered technical."
   },
-  "ad4mTC": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Name of Diversity, equity and inclusion page"
+  "rnZULP": {
+    "defaultMessage": "Lire moins <hidden> {context}</hidden>",
+    "description": "Button text to truncate text to view fewer characters"
   },
-  "v9XiWV": {
-    "defaultMessage": "Informations linguistiques",
-    "description": "Name of Language information page"
+  "rsxrMs": {
+    "defaultMessage": "Retirer {label}",
+    "description": "Button text for a dismissible chip"
   },
-  "FvV+QW": {
-    "defaultMessage": "Renseignements gouvernementaux",
-    "description": "Name of Government information page"
-  },
-  "TCs69O": {
-    "defaultMessage": "Lieu de travail",
-    "description": "Name of Work location page"
-  },
-  "nnMYWr": {
-    "defaultMessage": "Préférences de travail",
-    "description": "Name of Work preferences page"
-  },
-  "lp/ZEr": {
-    "defaultMessage": "Rôle et salaire escomptés",
-    "description": "Name of Role and salary expectations page"
-  },
-  "i3Jl6C": {
-    "defaultMessage": " : ",
-    "description": "Dividing colon with trailing space"
-  },
-  "ayG2k7": {
-    "defaultMessage": "Oui",
-    "description": "Affirmative answer"
-  },
-  "gM4WDL": {
-    "defaultMessage": "Non",
-    "description": "Negative answer"
-  },
-  "YmboX1": {
-    "defaultMessage": "{wordCount} / {wordLimit} mots",
-    "description": "Message for words remaining before hitting the limit"
-  },
-  "5jynud": {
-    "defaultMessage": "Compétences comportementales",
-    "description": "The skill is considered behavioral."
-  },
-  "J+0v2z": {
-    "defaultMessage": "Par ordre de titre (alphabétiquement)",
-    "description": "Select the option to sort by title, ascending"
-  },
-  "spoY2L": {
-    "defaultMessage": "Tous les types",
-    "description": "Select the option to sort or filter by all types"
-  },
-  "yuWHKJ": {
-    "defaultMessage": "Par ordre de date (la plus récente étant en premier)",
-    "description": "Select the option to sort by date, descending"
-  },
-  "gDBVKb": {
-    "defaultMessage": "CV et recrutement",
-    "description": "Name of Résumé and recruitment page"
+  "s4y1nI": {
+    "defaultMessage": "« Je m'identifie comme membre d'une minorité visible »",
+    "description": "Statement for when someone indicates they are a visible minority"
   },
   "sJ+F9z": {
     "defaultMessage": "Sauter pour ajouter un élément",
     "description": "Link text to skip to the add button in a repeater"
   },
-  "U/4a27": {
-    "defaultMessage": "Effacer votre sélection",
-    "description": "Button text to reset the combobox input"
+  "sNUWqY": {
+    "defaultMessage": "Bourses postdoctorales",
+    "description": "Post Doctoral Fellowship selection for education type input"
+  },
+  "sVsZmT": {
+    "defaultMessage": "<a>Veuillez communiquer avec notre équipe de soutien</a> si vous avez des questions.",
+    "description": "Telling users to email support team with any questions about errors"
+  },
+  "sfQN9S": {
+    "defaultMessage": "<hidden>Erreur au niveau de l’étape, </hidden>{label}",
+    "description": "Prefix when a step has an error."
+  },
+  "spP+Tz": {
+    "defaultMessage": "Nunavut",
+    "description": "Nunavut selection for province or territory input"
+  },
+  "spoY2L": {
+    "defaultMessage": "Tous les types",
+    "description": "Select the option to sort or filter by all types"
+  },
+  "swTjNd": {
+    "defaultMessage": "Citoyen canadien",
+    "description": "user is a Canadian citizen"
+  },
+  "t4F/0R": {
+    "defaultMessage": "Un champ obligatoire est vide : Exigence relative à la sécurité",
+    "description": "Error message that the pool advertisement must have a security clearance."
+  },
+  "t9i8Ml": {
+    "defaultMessage": "Gouvernement du Canada"
+  },
+  "tW4k56": {
+    "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre travail",
+    "description": "Error message that Work Tasks in English must be filled"
+  },
+  "tXze8h": {
+    "defaultMessage": "Québec",
+    "description": "Quebec selection for province or territory input"
+  },
+  "tgt0og": {
+    "defaultMessage": "<strong>Région de la Colombie-Britannique</strong>",
+    "description": "The work region of Canada described as British Columbia."
+  },
+  "tpVujp": {
+    "defaultMessage": "Renseignements manquants",
+    "description": "Message displayed when a user has not provided some form of information"
+  },
+  "u+NuHm": {
+    "defaultMessage": "Retourner à mon profil",
+    "description": "Link text for button to return to user profile"
+  },
+  "uNArwM": {
+    "defaultMessage": "+123243234",
+    "description": "Placeholder for form telephone field"
+  },
+  "ubXVBC": {
+    "defaultMessage": "<strong>Région de l'Atlantique :</strong> Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.",
+    "description": "The work region of Canada described as Atlantic."
+  },
+  "ufSiRU": {
+    "defaultMessage": "Introuvable",
+    "description": "Title displayed when an item cannot be found."
+  },
+  "uj33ws": {
+    "defaultMessage": "Je suis un membre actif des FAC",
+    "description": "declare self to be a CAF member"
+  },
+  "v6T4Y0": {
+    "defaultMessage": "Ce champ ne peut pas utiliser de dates dans le futur.",
+    "description": "Error message that the date cannot be in the future."
+  },
+  "v9XiWV": {
+    "defaultMessage": "Informations linguistiques",
+    "description": "Name of Language information page"
+  },
+  "vDrJp6": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler sur appel 24/7.",
+    "description": "The operational requirement described as 24/7 on-call."
+  },
+  "vGENdP": {
+    "defaultMessage": "Alerte d’information :",
+    "description": "Descriptor for an info alert"
+  },
+  "vgxxk0": {
+    "defaultMessage": "Vétéran",
+    "description": "user is a CAF veteran"
+  },
+  "vvtqRv": {
+    "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",
+    "description": "The operational requirement described as regular overtime."
+  },
+  "w2Jpt8": {
+    "defaultMessage": "Étudiant",
+    "description": "Simple student selection for government employee type."
+  },
+  "w2tWfH": {
+    "defaultMessage": "Un champ obligatoire est vide : Titres des volets/emplois",
+    "description": "Error message that the pool advertisement must have a stream."
+  },
+  "wCft6M": {
+    "defaultMessage": "Colombie Britannique",
+    "description": "The work region of Canada described as British Columbia."
+  },
+  "wD5ZuD": {
+    "defaultMessage": "National",
+    "description": "The scope of the award was national."
+  },
+  "wFZLxf": {
+    "defaultMessage": "IT-03 (chef d'équipe)",
+    "description": "The name of the Team leader Analyst classification with group and level."
+  },
+  "wK5+0z": {
+    "defaultMessage": "En cours de révision",
+    "description": "Status for an application that is being reviewed"
+  },
+  "wT3L9C": {
+    "defaultMessage": "Français seulement",
+    "description": "The language ability is French only."
+  },
+  "x5sy3j": {
+    "defaultMessage": "<strong>Région des Prairies :</strong> Manitoba, Saskatchewan, Alberta.",
+    "description": "The work region of Canada described as Prairie."
+  },
+  "x61BXA": {
+    "defaultMessage": "Mars",
+    "description": "Name of the third month"
+  },
+  "xAxxmc": {
+    "defaultMessage": "Oupse! Vous avez des erreurs!",
+    "description": "Title for error summary on profile forms"
+  },
+  "xCBinq": {
+    "defaultMessage": "Résident permanent",
+    "description": "user is a permanent resident"
+  },
+  "xH10Pp": {
+    "defaultMessage": "Ce numéro de ministère est déjà utilisé",
+    "description": "Error message that the input department number is already in use."
+  },
+  "xNESdj": {
+    "defaultMessage": "Février",
+    "description": "Name of the second month"
+  },
+  "xaCwEO": {
+    "defaultMessage": "Métis",
+    "description": "The indigenous community for Métis"
+  },
+  "xqacUI": {
+    "defaultMessage": "Mon équipe",
+    "description": "The award was given to my team."
+  },
+  "xr36aa": {
+    "defaultMessage": "Fonctions d’information et de données",
+    "description": "Pool Stream described as Information and Data Functions."
+  },
+  "y4oBW4": {
+    "defaultMessage": "Décembre",
+    "description": "Name of the twelfth month"
+  },
+  "y5u8P0": {
+    "defaultMessage": "En cours d’évaluation",
+    "description": "The pool candidate's status is Under Assessment."
+  },
+  "yHeFkO": {
+    "defaultMessage": "Janvier",
+    "description": "Name of the first month"
+  },
+  "yK/VlQ": {
+    "defaultMessage": "Saskatchewan",
+    "description": "Saskatchewan selection for province or territory input"
+  },
+  "yRxy3a": {
+    "defaultMessage": "Retrait qualifié",
+    "description": "The pool candidate's status is Qualified Withdrew."
+  },
+  "ylHC90": {
+    "defaultMessage": "Chargement...",
+    "description": "Message shown in options dropdown when Select field is loading options."
+  },
+  "yrLV+n": {
+    "defaultMessage": "Ébauche",
+    "description": "Draft pool advertisement status"
+  },
+  "yuWHKJ": {
+    "defaultMessage": "Par ordre de date (la plus récente étant en premier)",
+    "description": "Select the option to sort by date, descending"
+  },
+  "z7UVe6": {
+    "defaultMessage": "Ce champ doit contenir moins de {value} mots.",
+    "description": "Error Message displayed on word counter when user passes the limit."
+  },
+  "zKjtAa": {
+    "defaultMessage": "Territoires du Nord-Ouest",
+    "description": "Northwest Territories selection for province or territory input"
+  },
+  "zVm0jL": {
+    "defaultMessage": "IT-01 (technicien)",
+    "description": "The name of the Technician classification with group and level."
+  },
+  "zXHYAs": {
+    "defaultMessage": "Mon projet",
+    "description": "The award was given to my project."
+  },
+  "zXRf0L": {
+    "defaultMessage": "Mai",
+    "description": "Name of the fifth month"
+  },
+  "zafWLP": {
+    "defaultMessage": "Suspendu",
+    "description": "Suspended status"
+  },
+  "ziaV/E": {
+    "defaultMessage": "Divers (anglais ou français)",
+    "description": "The language requirement is various."
+  },
+  "zvUFdA": {
+    "defaultMessage": "Sécurité de la TI",
+    "description": "Pool Stream described as Security."
   }
 }

@@ -533,7 +533,7 @@ dealing with really large numbers to be on the safe side.
 scalar Mixed
 
 type Mutation {
-  createUser(user: CreateUserInput!): User @deprecated(reason: "The ability of admins to create new users will soon be removed.")
+  createUser(user: CreateUserInput!): User
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
@@ -789,6 +789,7 @@ input PoolCandidateSearchInput {
   email: String
   generalSearch: String
   name: String
+  notes: String
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
@@ -804,10 +805,10 @@ type PoolCandidateSearchRequest {
   additionalComments: String
   requestedDate: DateTime
   status: PoolCandidateSearchStatus
+  statusChangedAt: DateTime
   adminNotes: String
   poolCandidateFilter: PoolCandidateFilter
   applicantFilter: ApplicantFilter
-  doneDate: DateTime
   wasEmpty: Boolean
 }
 
@@ -834,7 +835,9 @@ type PoolCandidateSearchRequestPaginator {
 }
 
 enum PoolCandidateSearchStatus {
-  PENDING
+  NEW
+  IN_PROGRESS
+  WAITING
   DONE
 }
 
