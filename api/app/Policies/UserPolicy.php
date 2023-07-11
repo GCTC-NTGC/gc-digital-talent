@@ -55,7 +55,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAbleTo("create-any-user");
     }
 
     /**
