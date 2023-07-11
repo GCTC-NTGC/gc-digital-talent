@@ -6,7 +6,6 @@ use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Models\Team;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Log;
 
 class UserPolicy
 {
@@ -33,7 +32,12 @@ class UserPolicy
     public function view(User $user, User $model)
     {
         return $user->isAbleTo('view-any-user')
-            || ($user->isAbleTo('view-own-user') && $user->id === $model->id);
+            || ($user->isAbleTo('view-own-user') && $user->id === $model->id) || ($user->isAbleTo('view-team-user')
+                && $this->applicantHasAppliedToPoolInTeams(
+                    $model,
+                    $user->rolesTeams()->get()->pluck('id')
+                )
+            );
     }
 
     /**
