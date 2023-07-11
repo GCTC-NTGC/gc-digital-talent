@@ -38,13 +38,6 @@ const staticDates = {
   end: "1993-10-23",
 };
 
-type ExperienceForDate =
-  | (AwardExperience & { startDate: string; endDate: string })
-  | CommunityExperience
-  | EducationExperience
-  | PersonalExperience
-  | WorkExperience;
-
 // 5 generators to generate experiences of a certain type
 // actual generators start here
 const generateAward = (): AwardExperience => {
@@ -240,71 +233,4 @@ export const experienceGenerators = {
       return generateWork();
     });
   },
-};
-
-// specifically for playing nice with Type ExperienceForDate, adjusted awardGenerator
-const generateAwardWithDates = (): AwardExperience & {
-  startDate: string;
-  endDate: string;
-} => {
-  faker.setLocale("en");
-
-  return {
-    __typename: "AwardExperience",
-    applicant: sampleApp,
-    id: faker.datatype.uuid(),
-    skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
-      ...skill,
-      experienceSkillRecord: theExperienceSkillRecord,
-    })),
-    details: `experience details ${faker.random.words()}`,
-    title: `experience title ${faker.lorem.word()}`,
-    awardedTo: faker.helpers.arrayElement<AwardedTo>([
-      AwardedTo.Me,
-      AwardedTo.MyOrganization,
-      AwardedTo.MyProject,
-      AwardedTo.MyTeam,
-    ]),
-    awardedScope: faker.helpers.arrayElement<AwardedScope>([
-      AwardedScope.Community,
-      AwardedScope.International,
-      AwardedScope.Local,
-      AwardedScope.National,
-      AwardedScope.Organizational,
-      AwardedScope.Provincial,
-      AwardedScope.SubOrganizational,
-    ]),
-    awardedDate: staticDates.start,
-    issuedBy: faker.company.name(),
-    experienceSkillRecord: {
-      details: `experience.experienceSkillRecord ${faker.random.words()}`,
-    },
-    startDate: staticDates.start, // awarded = start = end
-    endDate: staticDates.start,
-  };
-};
-
-// generate experiences for Type ExperienceForDate
-export const fakeExperienceForDate = (
-  numberOfExperiences: number,
-): ExperienceForDate[] => {
-  faker.seed(0);
-
-  const generators = [
-    generateAwardWithDates,
-    generateCommunity,
-    generateEducation,
-    generatePersonal,
-    generateWork,
-  ];
-
-  // fill an array with random experiences
-  const experiences: ExperienceForDate[] = [...Array(numberOfExperiences)].map(
-    () => {
-      const generator = faker.helpers.arrayElement(generators);
-      return generator();
-    },
-  );
-
-  return experiences;
 };
