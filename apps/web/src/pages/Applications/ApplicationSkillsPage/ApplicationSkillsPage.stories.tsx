@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 
 import {
   fakePoolCandidates,
-  fakeExperienceForDate,
+  fakeExperiences,
 } from "@gc-digital-talent/fake-data";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -14,7 +14,7 @@ import {
 
 const fakePoolCandidate = fakePoolCandidates(1)[0];
 const fakeUser = fakePoolCandidate.user;
-const mockExperiences = fakeExperienceForDate(5);
+const mockExperiences = fakeExperiences(5);
 const experienceSkills = mockExperiences
   .filter(notEmpty)
   .map((experience) => experience.skills)
