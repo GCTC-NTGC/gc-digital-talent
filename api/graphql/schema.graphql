@@ -1380,12 +1380,7 @@ input CreateDepartmentInput {
 }
 
 input UpdateDepartmentInput {
-  departmentNumber: Int
-    @rename(attribute: "department_number")
-    @rules(
-      apply: ["unique:departments,department_number"]
-      messages: [{ rule: "unique", message: "DepartmentNumberInUse" }]
-    )
+  departmentNumber: Int @rename(attribute: "department_number")
   name: LocalizedStringInput
 }
 
