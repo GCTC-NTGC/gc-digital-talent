@@ -117,7 +117,6 @@ const WorkPreferences = ({
             labels={labels}
             onSubmit={handleSubmit}
             options={{
-              mode: "onChange",
               defaultValues: dataToFormValues(user),
             }}
           >

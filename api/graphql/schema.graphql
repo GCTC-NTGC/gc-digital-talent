@@ -140,6 +140,11 @@ type User {
   priorityWeight: Int @rename(attribute: "priority_weight")
   # teams and roles
   roleAssignments: [RoleAssignment!] @hasMany
+
+  # Notifications
+  unreadNotifications: [Notification!]
+    @rename(attribute: "unread_enriched_notifications")
+  notifications: [Notification!] @rename(attribute: "enriched_notifications")
 }
 
 enum ProvinceOrTerritory {
@@ -216,6 +221,25 @@ enum IndigenousCommunity {
   METIS
   OTHER
   LEGACY_IS_INDIGENOUS
+}
+
+interface Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime @rename(attribute: "created_at")
+  updatedAt: DateTime @rename(attribute: "updated_at")
+}
+
+type PoolCandidateStatusChangedNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime @rename(attribute: "created_at")
+  updatedAt: DateTime @rename(attribute: "updated_at")
+
+  oldStatus: PoolCandidateStatus @rename(attribute: "old_status")
+  newStatus: PoolCandidateStatus @rename(attribute: "new_status")
+  poolId: ID @rename(attribute: "pool_id")
+  poolName: LocalizedString @rename(attribute: "pool_name")
 }
 
 type Applicant {
@@ -586,7 +610,9 @@ type RoleAssignment {
 }
 
 enum PoolCandidateSearchStatus {
-  PENDING
+  NEW
+  IN_PROGRESS
+  WAITING
   DONE
 }
 
@@ -647,11 +673,11 @@ type PoolCandidateSearchRequest {
   jobTitle: String @rename(attribute: "job_title")
   additionalComments: String @rename(attribute: "additional_comments")
   requestedDate: DateTime @rename(attribute: "created_at")
-  status: PoolCandidateSearchStatus
+  status: PoolCandidateSearchStatus @rename(attribute: "request_status")
+  statusChangedAt: DateTime @rename(attribute: "request_status_changed_at")
   adminNotes: String @rename(attribute: "admin_notes")
   poolCandidateFilter: PoolCandidateFilter @belongsTo
   applicantFilter: ApplicantFilter @belongsTo
-  doneDate: DateTime @rename(attribute: "done_at")
   wasEmpty: Boolean @rename(attribute: "was_empty")
 }
 
@@ -882,6 +908,7 @@ input PoolCandidateSearchInput {
   email: String @scope
   generalSearch: String @scope
   name: String @scope
+  notes: String @scope
   priorityWeight: [Int] @scope(name: "priorityWeight")
   poolCandidateStatus: [PoolCandidateStatus]
     @scope(name: "poolCandidateStatuses")
@@ -1353,12 +1380,7 @@ input CreateDepartmentInput {
 }
 
 input UpdateDepartmentInput {
-  departmentNumber: Int
-    @rename(attribute: "department_number")
-    @rules(
-      apply: ["unique:departments,department_number"]
-      messages: [{ rule: "unique", message: "DepartmentNumberInUse" }]
-    )
+  departmentNumber: Int @rename(attribute: "department_number")
   name: LocalizedStringInput
 }
 
@@ -1658,9 +1680,6 @@ type Mutation {
     @guard
     @can(ability: "create")
     @throttle(maxAttempts: 100)
-    @deprecated(
-      reason: "The ability of admins to create new users will soon be removed."
-    ) #TODO: update UserPolicy.create when this mutation is removed.
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User
     @update
     @guard
@@ -1872,4 +1891,7 @@ type Mutation {
     @delete(globalId: false)
     @guard
     @can(ability: "delete", find: "id")
+
+  # Notifications
+  markNotificationAsRead(id: UUID!): Notification
 }

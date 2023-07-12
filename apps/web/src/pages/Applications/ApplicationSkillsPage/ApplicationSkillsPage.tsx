@@ -28,7 +28,7 @@ import {
   useGetMyExperiencesQuery,
   useGetApplicationQuery,
 } from "~/api/generated";
-import { ExperienceForDate } from "~/types/experience";
+import { AnyExperience } from "~/types/experience";
 
 import SkillTree from "./components/SkillTree";
 import { ApplicationPageProps } from "../ApplicationApi";
@@ -77,8 +77,8 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-interface ApplicationSkillsProps extends ApplicationPageProps {
-  experiences: Array<ExperienceForDate>;
+export interface ApplicationSkillsProps extends ApplicationPageProps {
+  experiences: Array<AnyExperience>;
 }
 
 export const ApplicationSkills = ({
@@ -363,7 +363,7 @@ const ApplicationSkillsPage = () => {
   ] = useGetMyExperiencesQuery();
 
   const application = applicationData?.poolCandidate;
-  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
+  const experiences = experienceData?.me?.experiences as AnyExperience[];
 
   return (
     <Pending

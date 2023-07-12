@@ -8,7 +8,7 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import { Color, IconType } from "@gc-digital-talent/ui";
 import {
   getLocalizedName,
-  getPoolCandidateStatus,
+  getPoolCandidateStatusLabel,
 } from "@gc-digital-talent/i18n";
 
 import { Department, Maybe, PoolCandidateStatus } from "~/api/generated";
@@ -18,6 +18,7 @@ import {
   isExpiredStatus,
   isPlacedStatus,
   isQualifiedStatus,
+  isScreenedOutStatus,
 } from "~/utils/poolCandidate";
 import { Application } from "~/utils/applicationUtils";
 
@@ -41,6 +42,8 @@ export const getStatusPillInfo = (
   status: Maybe<PoolCandidateStatus>,
   intl: IntlShape,
 ): StatusPillInfo => {
+  const label = getPoolCandidateStatusLabel(status);
+
   if (isQualifiedStatus(status)) {
     return {
       color: "success",
@@ -50,16 +53,26 @@ export const getStatusPillInfo = (
   if (isExpiredStatus(status)) {
     return {
       color: "error",
-      text: intl.formatMessage(poolCandidateMessages.expired),
+      text: label ? intl.formatMessage(label) : "",
     };
   }
+  if (isScreenedOutStatus(status)) {
+    return {
+      color: "secondary",
+      text: label ? intl.formatMessage(label) : "",
+    };
+  }
+  if (status === PoolCandidateStatus.Removed)
+    return {
+      color: "error",
+      text: label ? intl.formatMessage(label) : "",
+    };
 
   return {
     color: "primary",
-    text: intl.formatMessage(getPoolCandidateStatus(status ?? "")),
+    text: label ? intl.formatMessage(label) : "",
   };
 };
-
 type AvailabilityInfo = {
   icon: IconType;
   color: Record<string, string>;

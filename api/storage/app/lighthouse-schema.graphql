@@ -588,7 +588,7 @@ dealing with really large numbers to be on the safe side.
 scalar Mixed
 
 type Mutation {
-  createUser(user: CreateUserInput!): User @deprecated(reason: "The ability of admins to create new users will soon be removed.")
+  createUser(user: CreateUserInput!): User
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
@@ -639,6 +639,14 @@ type Mutation {
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
+  markNotificationAsRead(id: UUID!): Notification
+}
+
+interface Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -844,6 +852,7 @@ input PoolCandidateSearchInput {
   email: String
   generalSearch: String
   name: String
+  notes: String
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
@@ -859,10 +868,10 @@ type PoolCandidateSearchRequest {
   additionalComments: String
   requestedDate: DateTime
   status: PoolCandidateSearchStatus
+  statusChangedAt: DateTime
   adminNotes: String
   poolCandidateFilter: PoolCandidateFilter
   applicantFilter: ApplicantFilter
-  doneDate: DateTime
   wasEmpty: Boolean
 }
 
@@ -889,7 +898,9 @@ type PoolCandidateSearchRequestPaginator {
 }
 
 enum PoolCandidateSearchStatus {
-  PENDING
+  NEW
+  IN_PROGRESS
+  WAITING
   DONE
 }
 
@@ -910,6 +921,17 @@ enum PoolCandidateStatus {
   PLACED_INDETERMINATE
   EXPIRED
   REMOVED
+}
+
+type PoolCandidateStatusChangedNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  oldStatus: PoolCandidateStatus
+  newStatus: PoolCandidateStatus
+  poolId: ID
+  poolName: LocalizedString
 }
 
 type PoolCandidateWithSkillCount {
@@ -1574,6 +1596,8 @@ type User {
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
   roleAssignments: [RoleAssignment!]
+  unreadNotifications: [Notification!]
+  notifications: [Notification!]
 }
 
 input UserBelongsTo {

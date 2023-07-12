@@ -742,15 +742,26 @@ export const getCandidateSuspendedFilterStatus = (
   );
 
 export const poolCandidateSearchStatuses = defineMessages({
+  [PoolCandidateSearchStatus.New]: {
+    defaultMessage: "New",
+    id: "25reyq",
+    description: "The status is new.",
+  },
+  [PoolCandidateSearchStatus.InProgress]: {
+    defaultMessage: "In progress",
+    id: "8JCCPM",
+    description: "The status is in progress.",
+  },
+  [PoolCandidateSearchStatus.Waiting]: {
+    defaultMessage: "Waiting (see notes)",
+    id: "S2zQmD",
+    description:
+      "The status is blocked and you can refer to notes field for more information.",
+  },
   [PoolCandidateSearchStatus.Done]: {
     defaultMessage: "Done",
     id: "prkkM+",
     description: "The search status is Done.",
-  },
-  [PoolCandidateSearchStatus.Pending]: {
-    defaultMessage: "Pending",
-    id: "IQviGG",
-    description: "The search status is Pending.",
   },
 });
 
@@ -1802,11 +1813,20 @@ type StatusLabelKey =
   | "ASSESSMENT"
   | "DATE_PASSED"
   | "SCREENED_OUT"
-  | "QUALIFIED";
+  | "QUALIFIED"
+  | "EXPIRED"
+  | "REMOVED";
 
 // Map new, consolidated keys to their labels
 const statusLabels = new Map<StatusLabelKey, MessageDescriptor | null>([
-  ["DRAFT", null],
+  [
+    "DRAFT",
+    defineMessage({
+      defaultMessage: "Continue draft",
+      id: "pf3KKo",
+      description: "Link text to continue a application draft",
+    }),
+  ],
   [
     "RECEIVED",
     defineMessage({
@@ -1818,24 +1838,24 @@ const statusLabels = new Map<StatusLabelKey, MessageDescriptor | null>([
   [
     "UNDER_REVIEW",
     defineMessage({
-      defaultMessage: "Under review",
-      id: "wK5+0z",
+      defaultMessage: "Application under review",
+      id: "aagbij",
       description: "Status for an application that is being reviewed",
     }),
   ],
   [
     "PENDING_SKILLS",
     defineMessage({
-      defaultMessage: "Pending skills assessment",
-      id: "+HxUqd",
-      description: "Status for an application that ie having skills reviewed",
+      defaultMessage: "Application pending assessment",
+      id: "UZWLKn",
+      description: "Status for an application that is having skills reviewed",
     }),
   ],
   [
     "ASSESSMENT",
     defineMessage({
-      defaultMessage: "Assessment in progress",
-      id: "nm1YKH",
+      defaultMessage: "Application pending assessment",
+      id: "9Pxjw5",
       description:
         "Status for an application that where applicant is being assessed",
     }),
@@ -1843,8 +1863,8 @@ const statusLabels = new Map<StatusLabelKey, MessageDescriptor | null>([
   [
     "DATE_PASSED",
     defineMessage({
-      defaultMessage: "Submission date has passed",
-      id: "4KRs8G",
+      defaultMessage: "Submission date passed",
+      id: "13fSK+",
       description:
         "Status for an application that where the recruitment has expired",
     }),
@@ -1867,6 +1887,23 @@ const statusLabels = new Map<StatusLabelKey, MessageDescriptor | null>([
         "Status for an application where the applicant has qualified",
     }),
   ],
+  [
+    "EXPIRED",
+    defineMessage({
+      defaultMessage: "Expired",
+      id: "GIC6EK",
+      description: "Expired status",
+    }),
+  ],
+  [
+    "REMOVED",
+    defineMessage({
+      defaultMessage: "Removed",
+      id: "vTyr7O",
+      description:
+        "Status for an application that has been removed from the recruitment",
+    }),
+  ],
 ]);
 
 // Map existing statuses to their new, consolidated keys
@@ -1885,8 +1922,8 @@ const statusLabelMap = new Map<PoolCandidateStatus, StatusLabelKey>([
   [PoolCandidateStatus.PlacedCasual, "QUALIFIED"],
   [PoolCandidateStatus.PlacedTerm, "QUALIFIED"],
   [PoolCandidateStatus.PlacedIndeterminate, "QUALIFIED"],
-  [PoolCandidateStatus.Expired, "QUALIFIED"],
-  [PoolCandidateStatus.Removed, "QUALIFIED"],
+  [PoolCandidateStatus.Expired, "EXPIRED"],
+  [PoolCandidateStatus.Removed, "REMOVED"],
 ]);
 
 /**

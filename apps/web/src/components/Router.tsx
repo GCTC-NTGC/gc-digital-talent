@@ -409,14 +409,6 @@ const IndexUserPage = React.lazy(() =>
       ),
   ),
 );
-const CreateUserPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateUserPage" */ "../pages/Users/CreateUserPage/CreateUserPage"
-      ),
-  ),
-);
 const UserLayout = React.lazy(() =>
   lazyRetry(
     () =>
@@ -1162,17 +1154,6 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       loginPath={loginPath}
                     >
                       <IndexUserPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: "create",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
-                      loginPath={loginPath}
-                    >
-                      <CreateUserPage />
                     </RequireAuth>
                   ),
                 },

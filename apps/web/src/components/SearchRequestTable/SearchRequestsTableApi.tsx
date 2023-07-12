@@ -3,7 +3,7 @@ import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pending } from "@gc-digital-talent/ui";
+import { Pending, Spoiler } from "@gc-digital-talent/ui";
 import {
   InputMaybe,
   Maybe,
@@ -17,6 +17,7 @@ import {
 import {
   getLocalizedName,
   getPoolCandidateSearchStatus,
+  getPoolStream,
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
@@ -39,10 +40,13 @@ import {
   stringToEnumStream,
 } from "~/utils/requestUtils";
 import adminMessages from "~/messages/adminMessages";
+import { PoolCandidateSearchRequest } from "~/api/generated";
 
 import SearchRequestsTableFilter, {
   FormValues,
 } from "./components/SearchRequestsTableFilterDialog";
+import tableClassificationPills from "../Table/ClientManagedTable/tableClassificationPills";
+import tableCommaList from "../Table/ClientManagedTable/tableCommaList";
 
 type Data = NonNullable<FromArray<PoolCandidateSearchRequestPaginator["data"]>>;
 
@@ -95,9 +99,30 @@ function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
   ) : null;
 }
 
+const notesAccessor = (
+  searchRequest: PoolCandidateSearchRequest,
+  intl: IntlShape,
+) =>
+  searchRequest?.adminNotes ? (
+    <Spoiler
+      text={searchRequest.adminNotes}
+      linkSuffix={intl.formatMessage(
+        {
+          defaultMessage: "notes for {name}",
+          id: "6eih3b",
+          description:
+            "Link text suffix to read more notes for a search request",
+        },
+        {
+          name: searchRequest.jobTitle,
+        },
+      )}
+    />
+  ) : null;
+
 const defaultState = {
   ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["id", "email"],
+  hiddenColumnIds: ["id", "manager", "email", "adminNotes"],
   filters: {},
 };
 
@@ -220,26 +245,6 @@ const SearchRequestsTableApi = ({
     () => [
       {
         label: intl.formatMessage({
-          defaultMessage: "Action",
-          id: "TDTE1c",
-          description:
-            "Title displayed for the search request table edit column.",
-        }),
-        id: "action",
-        accessor: (d) =>
-          tableViewItemButtonAccessor(
-            paths.searchRequestView(d.id),
-            intl.formatMessage({
-              defaultMessage: "request",
-              id: "gLtTaW",
-              description:
-                "Text displayed after View text for Search Request table view action",
-            }),
-            d.fullName || "",
-          ),
-      },
-      {
-        label: intl.formatMessage({
           defaultMessage: "ID",
           id: "f24Z8p",
           description: "Title displayed on the search request table id column.",
@@ -250,25 +255,50 @@ const SearchRequestsTableApi = ({
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Date Received",
-          id: "r2gD/4",
+          defaultMessage: "Request job title",
+          id: "6AhLsc",
           description:
-            "Title displayed on the search request table requested date column.",
+            "Title displayed for the search request table request job title column.",
         }),
-        id: "requestedDate",
-        sortColumnName: "created_at",
-        accessor: (d) => dateCell(d.requestedDate, intl),
+        id: "job_title",
+        sortColumnName: "job_title",
+        accessor: (d) =>
+          tableViewItemButtonAccessor(
+            paths.searchRequestView(d.id),
+            d.jobTitle || "",
+            "",
+          ),
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Status",
-          id: "t3sEc+",
+          defaultMessage: "Group and level",
+          id: "y+r+ej",
           description:
-            "Title displayed on the search request table status column.",
+            "Title displayed on the search request table group and level column.",
         }),
-        id: "status",
-        sortColumnName: "done_at",
-        accessor: (d) => statusAccessor(d.status, intl),
+        id: "group_and_level",
+        accessor: (d) =>
+          tableClassificationPills({
+            classifications:
+              d.applicantFilter?.qualifiedClassifications?.filter(notEmpty),
+          }),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Stream",
+          id: "LoKxJe",
+          description:
+            "Title displayed on the search request table stream column.",
+        }),
+        id: "stream",
+        accessor: (d) =>
+          tableCommaList({
+            list:
+              d.applicantFilter?.qualifiedStreams
+                ?.filter(notEmpty)
+                .map((stream) => intl.formatMessage(getPoolStream(stream))) ??
+              [],
+          }),
       },
       {
         label: intl.formatMessage({
@@ -304,14 +334,30 @@ const SearchRequestsTableApi = ({
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Job Title",
-          id: "8hee5d",
+          defaultMessage: "Status",
+          id: "t3sEc+",
           description:
-            "Title displayed on the search request table job title column.",
+            "Title displayed on the search request table status column.",
         }),
-        id: "jobTitle",
-        sortColumnName: "job_title",
-        accessor: (d) => d.jobTitle,
+        id: "status",
+        sortColumnName: "request_status_weight",
+        accessor: (d) => statusAccessor(d.status, intl),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Date Received",
+          id: "r2gD/4",
+          description:
+            "Title displayed on the search request table requested date column.",
+        }),
+        id: "requestedDate",
+        sortColumnName: "created_at",
+        accessor: (d) => dateCell(d.requestedDate, intl),
+      },
+      {
+        label: intl.formatMessage(adminMessages.notes),
+        id: "adminNotes",
+        accessor: (d) => notesAccessor(d, intl),
       },
     ],
     [intl, paths],

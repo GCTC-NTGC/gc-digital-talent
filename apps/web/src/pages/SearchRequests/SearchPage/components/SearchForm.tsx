@@ -201,8 +201,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
         state?.selectedClassifications,
         pools,
       ),
-      mode: "onChange",
-      reValidateMode: "onChange",
+      mode: "onSubmit",
+      reValidateMode: "onSubmit",
     });
     const { watch, trigger } = methods;
 

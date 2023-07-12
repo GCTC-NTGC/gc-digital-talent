@@ -12,6 +12,7 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
+import { PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
 
 import { PoolCandidateStatus } from "~/api/generated";
 import TrackApplicationsCard, {
@@ -22,6 +23,7 @@ const mockApplication = fakePoolCandidates()[0];
 
 const defaultProps = {
   application: mockApplication,
+  onDelete: jest.fn(),
 };
 
 const mockClient = {
@@ -43,43 +45,23 @@ describe("TrackApplicationsCard", () => {
     await axeTest(container);
   });
 
-  it("should have link to remove user from search results", () => {
+  it("should have proper action links if the application is in draft", async () => {
     renderCard({
       ...defaultProps,
       application: {
         ...mockApplication,
-        status: PoolCandidateStatus.QualifiedAvailable,
-        expiryDate: FAR_FUTURE_DATE,
-        suspendedAt: null,
+        status: PoolCandidateStatus.Draft,
       },
     });
-
-    const removeMeLink = screen.queryByRole("button", {
-      name: /remove me/i,
-    });
-
-    expect(removeMeLink).toBeInTheDocument();
+    const links = screen.queryAllByRole("link");
+    expect(links).toHaveLength(3);
+    expect(links[0]).toHaveAttribute(
+      "href",
+      expect.stringContaining(mockApplication.id),
+    );
   });
 
-  it("should have link to add user back into search results", () => {
-    renderCard({
-      ...defaultProps,
-      application: {
-        ...mockApplication,
-        status: PoolCandidateStatus.QualifiedAvailable,
-        expiryDate: FAR_FUTURE_DATE,
-        suspendedAt: new Date().toUTCString(),
-      },
-    });
-
-    const addMeLink = screen.queryByRole("button", {
-      name: /I want to appear in results again/i,
-    });
-
-    expect(addMeLink).toBeInTheDocument();
-  });
-
-  it("should have congrats message if placed/hired in pool", () => {
+  it("should have proper label and action links if placed/hired in pool", async () => {
     renderCard({
       ...defaultProps,
       application: {
@@ -90,47 +72,54 @@ describe("TrackApplicationsCard", () => {
       },
     });
 
-    const congrats = screen.queryByText(
-      "Congrats! You were hired as a result of this process. As such, you will no longer appear in talent requests for this recruitment.",
+    const links = screen.queryAllByRole("link");
+    expect(links).toHaveLength(5);
+    expect(links[0]).toHaveAttribute(
+      "href",
+      expect.stringContaining(mockApplication.id),
+    );
+    expect(links[0]).toHaveTextContent("Review application");
+
+    expect(links[1]).toHaveAttribute(
+      "href",
+      expect.stringContaining(mockApplication.pool.id),
+    );
+    expect(links[1]).toHaveTextContent("Review job ad");
+
+    expect(links[2]).toHaveTextContent("Visit résumé");
+    expect(links[2]).toHaveAttribute(
+      "href",
+      expect.stringContaining(PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES),
+    );
+    expect(links[3]).toHaveTextContent("Manage availability");
+    expect(links[3]).toHaveAttribute(
+      "href",
+      expect.stringContaining("profile"),
     );
 
-    expect(congrats).toBeInTheDocument();
+    expect(links[4]).toHaveTextContent("Get support");
+    expect(links[4]).toHaveAttribute(
+      "href",
+      expect.stringContaining("support"),
+    );
+    const qualifiedLabel = screen.queryByText("Qualified");
+
+    expect(qualifiedLabel).toBeInTheDocument();
   });
 
-  // TODO: What message should show if the pool candidate has been placed but the pool is expired
-  it("should have expired recruitment message if the pool has expired", () => {
+  it("should have proper label if the application is draft but the pool is expired", async () => {
     renderCard({
       ...defaultProps,
       application: {
         ...mockApplication,
-        status: PoolCandidateStatus.QualifiedAvailable,
+        status: PoolCandidateStatus.DraftExpired,
         expiryDate: FAR_PAST_DATE,
-        suspendedAt: new Date().toUTCString(),
       },
     });
+    const links = await screen.queryAllByRole("link");
+    expect(links).toHaveLength(3);
+    const qualifiedLabel = screen.queryByText("Submission date passed");
 
-    const expired = screen.queryByText(
-      "This recruitment has expired and it is no longer available for hiring opportunities.",
-    );
-
-    expect(expired).toBeInTheDocument();
-  });
-
-  it("should have expired recruitment message if the admin set application status to expired", () => {
-    renderCard({
-      ...defaultProps,
-      application: {
-        ...mockApplication,
-        status: PoolCandidateStatus.Expired,
-        expiryDate: FAR_FUTURE_DATE,
-        suspendedAt: new Date().toUTCString(),
-      },
-    });
-
-    const expired = screen.queryByText(
-      "This recruitment has expired and it is no longer available for hiring opportunities.",
-    );
-
-    expect(expired).toBeInTheDocument();
+    expect(qualifiedLabel).toBeInTheDocument();
   });
 });
