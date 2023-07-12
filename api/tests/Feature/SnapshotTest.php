@@ -94,6 +94,10 @@ class SnapshotTest extends TestCase
         });
         $expectedSnapshot['poolCandidates'] = $filteredPoolCandidates;
 
+        fwrite(STDERR, print_r($expectedSnapshot, true));
+        fwrite(STDERR, print_r($decodedActual, true));
+
+
         assertEquals($expectedSnapshot, $decodedActual);
     }
 
