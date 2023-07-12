@@ -4,14 +4,7 @@ All of the defined criteria must be met or the feature is not considered done.
 
 - Step-by-step testing instructions
 - At least one peer review approval
-- Build pipeline successful, including passing tests for:
-  - TypeScript linting
-  - PHPUnit testing
-  - Chromatic testing
-  - CodeQL security vulnerability testing
-  - End-to-end testing
-  - Translation checks
-  - `jest-axe` accessibility testing
+- Build pipeline successful with passing tests
 
 ## Accessibility
 
