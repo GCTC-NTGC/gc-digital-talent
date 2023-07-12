@@ -85,27 +85,43 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
       />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper>
-          <TableOfContents.Navigation>
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ABOUT}>
-              {intl.formatMessage(getSectionTitle("personal"))}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.WORK_PREFERENCES}>
-              {intl.formatMessage(getSectionTitle("work"))}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.DEI}>
-              {intl.formatMessage(getSectionTitle("dei"))}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.GOVERNMENT}>
-              {intl.formatMessage(getSectionTitle("government"))}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.LANGUAGE}>
-              {intl.formatMessage(getSectionTitle("language"))}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink
-              id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
-            >
-              {intl.formatMessage(getSectionTitle("account"))}
-            </TableOfContents.AnchorLink>
+          <TableOfContents.Navigation data-h2-padding-top="base(x3)">
+            <TableOfContents.List>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ABOUT}>
+                  {intl.formatMessage(getSectionTitle("personal"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={PAGE_SECTION_ID.WORK_PREFERENCES}
+                >
+                  {intl.formatMessage(getSectionTitle("work"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.DEI}>
+                  {intl.formatMessage(getSectionTitle("dei"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.GOVERNMENT}>
+                  {intl.formatMessage(getSectionTitle("government"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.LANGUAGE}>
+                  {intl.formatMessage(getSectionTitle("language"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
+                >
+                  {intl.formatMessage(getSectionTitle("account"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content data-h2-padding-top="base(x3)">
             <TableOfContents.Section id={PAGE_SECTION_ID.ABOUT}>
