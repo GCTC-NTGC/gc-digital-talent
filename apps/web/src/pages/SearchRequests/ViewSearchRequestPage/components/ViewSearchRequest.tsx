@@ -11,7 +11,6 @@ import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
-import { FilterBlock } from "~/components/SearchRequestFilters/deprecated/SearchRequestFilters";
 import {
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestQuery,
@@ -20,6 +19,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import useRoutes from "~/hooks/useRoutes";
 
 import adminMessages from "~/messages/adminMessages";
+import FilterBlock from "~/components/SearchRequestFilters/FilterBlock";
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
 
