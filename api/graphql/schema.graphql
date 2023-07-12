@@ -140,6 +140,11 @@ type User {
   priorityWeight: Int @rename(attribute: "priority_weight")
   # teams and roles
   roleAssignments: [RoleAssignment!] @hasMany
+
+  # Notifications
+  unreadNotifications: [Notification!]
+    @rename(attribute: "unread_enriched_notifications")
+  notifications: [Notification!] @rename(attribute: "enriched_notifications")
 }
 
 enum ProvinceOrTerritory {
@@ -216,6 +221,25 @@ enum IndigenousCommunity {
   METIS
   OTHER
   LEGACY_IS_INDIGENOUS
+}
+
+interface Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime @rename(attribute: "created_at")
+  updatedAt: DateTime @rename(attribute: "updated_at")
+}
+
+type PoolCandidateStatusChangedNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime @rename(attribute: "created_at")
+  updatedAt: DateTime @rename(attribute: "updated_at")
+
+  oldStatus: PoolCandidateStatus @rename(attribute: "old_status")
+  newStatus: PoolCandidateStatus @rename(attribute: "new_status")
+  poolId: ID @rename(attribute: "pool_id")
+  poolName: LocalizedString @rename(attribute: "pool_name")
 }
 
 type Applicant {
@@ -1872,4 +1896,7 @@ type Mutation {
     @delete(globalId: false)
     @guard
     @can(ability: "delete", find: "id")
+
+  # Notifications
+  markNotificationAsRead(id: UUID!): Notification
 }
