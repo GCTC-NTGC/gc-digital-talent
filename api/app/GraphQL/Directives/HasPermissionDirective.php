@@ -10,9 +10,8 @@ use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
 
-class HasRolesDirective extends BaseDirective implements FieldMiddleware
+class HasPermissionDirective extends BaseDirective implements FieldMiddleware
 {
     public static function definition(): string
     {
@@ -22,13 +21,13 @@ class HasRolesDirective extends BaseDirective implements FieldMiddleware
 """
 Limit field access to users of a certain role.
 """
-directive @hasRoles(
+directive @hasPermission(
   """
-  The name of the role authorized users need to have.
+  The name of the permission authorized users need to have for the field and type.
   """
-  requiredRoles: [String]!
+  permissions: [String]!
   """
-  Database column for foreign key indicating ownership
+  The name of the column to check for ownership.
   """
   ownerKey: String
 ) on FIELD_DEFINITION
@@ -40,23 +39,29 @@ GRAPHQL;
         $originalResolver = $fieldValue->getResolver();
 
         $fieldValue->setResolver(function ($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) use ($originalResolver) {
-            $requiredRoles = $this->directiveArgValue('requiredRoles');
+            $permissions = $this->directiveArgValue('permissions');
             $ownerKey = $this->directiveArgValue('ownerKey');
 
             // Throw in case of an invalid schema definition to remind the developer
-            if ($requiredRoles === null || empty($requiredRoles)) {
-                throw new DefinitionException("Missing argument 'requiredRoles' for directive '@canAccess'.");
+            if ($permissions === null || empty($permissions)) {
+                throw new DefinitionException("Missing argument 'permissions' for directive '@hasPermission'.");
             }
 
             $user = User::find($context->user()->id);
             $owned = $ownerKey && $user->id === $root->$ownerKey;
-            $authorized = $user && $user->hasRole($requiredRoles);
+            $checkOwnership = false;
 
-            if ($owned || $authorized) {
-                return $originalResolver($root, $args, $context, $resolveInfo);
+            foreach ($permissions as $permission) {
+                if (strpos('-own-', $permission)) {
+                    $checkOwnership = true;
+                    break;
+                }
             }
 
-            return null;
+            $authorized = $user->hasPermission($permissions);
+            if ($checkOwnership && !$owned) $authorized = false;
+
+            return $authorized ? $originalResolver($root, $args, $context, $resolveInfo) : null;
         });
 
         return $next($fieldValue);
