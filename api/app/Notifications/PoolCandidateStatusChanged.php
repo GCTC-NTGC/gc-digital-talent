@@ -13,8 +13,8 @@ class PoolCandidateStatusChanged extends Notification
      * Create a new notification instance.
      */
     public function __construct(
-        public string $old_status,
-        public string $new_status,
+        public string | null $old_status,
+        public string | null $new_status,
         public string $pool_id,
         public array $pool_name,
     ) {
