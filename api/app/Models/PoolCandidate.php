@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\PoolCandidateObserver;
 use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -75,6 +76,14 @@ class PoolCandidate extends Model
         'expiry_date',
         'pool_candidate_status',
     ];
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        PoolCandidate::observe(PoolCandidateObserver::class);
+    }
 
     public function user(): BelongsTo
     {

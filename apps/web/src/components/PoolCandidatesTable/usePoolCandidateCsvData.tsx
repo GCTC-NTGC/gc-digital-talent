@@ -103,8 +103,8 @@ const usePoolCandidateCsvData = (
     {
       key: "priority",
       label: intl.formatMessage({
-        defaultMessage: "Priority",
-        id: "w9RqOI",
+        defaultMessage: "Category",
+        id: "o9B983",
         description: "CSV Header, Priority column",
       }),
     },
