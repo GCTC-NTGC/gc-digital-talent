@@ -16,11 +16,10 @@ final class MarkNotificationAsRead
     public function __invoke($_, array $args)
     {
         $notificationId = $args['id'];
-        $userId = Auth::id();
-        $notifications = User::find($userId)->notifications()->get();
-        $notification = $notifications->first(function ($n) use ($notificationId) {
-            return $n->id === $notificationId;
-        });
+        $notification = Auth::user()
+            ->notifications()
+            ->firstWhere('id', $notificationId);
+
         if (!is_null($notification)) {
             $notification->markAsRead();
             User::enrichNotification($notification);
