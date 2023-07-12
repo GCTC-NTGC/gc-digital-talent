@@ -4,7 +4,6 @@ All of the defined criteria must be met or the feature is not considered done.
 
 - Step-by-step testing instructions
 - At least one peer review approval
-- If the route to a live page has been changed, a Permanent Redirect (301) has also been added to the `nginx` conf files
 - Build pipeline successful, including passing tests for:
   - TypeScript linting
   - PHPUnit testing
