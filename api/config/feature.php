@@ -27,11 +27,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Skill library
+    | Status notifications
     |--------------------------------------------------------------------------
     |
-    | A feature to allow users to build a library of skills associated with
-    | themselves with competency levels.
+    | A feature to provide users with notifications queued whenever one of
+    | their pool candidates changes status.
     |
     */
 
