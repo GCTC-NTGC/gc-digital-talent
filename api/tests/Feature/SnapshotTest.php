@@ -46,14 +46,23 @@ class SnapshotTest extends TestCase
             ->asApplicant()
             ->create();
 
-        $poolCandidate = PoolCandidate::factory()->create([
-            "user_id" => $user->id,
-            "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
-        ]);
-        $poolCandidateUnrelated = PoolCandidate::factory()->create([
-            "user_id" => $user->id,
-            "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
-        ]);
+        $pool1 = Pool::factory()->published()->create();
+        $pool2 = Pool::factory()->published()->create();
+
+        $poolCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                "user_id" => $user->id,
+                "pool_id" => $pool1->id,
+                "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
+            ]);
+        $poolCandidateUnrelated = PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                "user_id" => $user->id,
+                "pool_id" => $pool2->id,
+                "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
+            ]);
 
         // get what the snapshot should look like
         $expectedSnapshot = $this->actingAs($user, "api")
