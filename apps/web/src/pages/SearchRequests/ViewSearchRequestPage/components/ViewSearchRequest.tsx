@@ -7,11 +7,10 @@ import {
   getPoolCandidateSearchStatus,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
+import { Pending, NotFound, Heading, Link } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
-import { FilterBlock } from "~/components/SearchRequestFilters/deprecated/SearchRequestFilters";
 import {
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestQuery,
@@ -20,6 +19,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import useRoutes from "~/hooks/useRoutes";
 
 import adminMessages from "~/messages/adminMessages";
+import FilterBlock from "~/components/SearchRequestFilters/FilterBlock";
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
 
@@ -80,7 +80,13 @@ const ManagerInfo = ({
                     description:
                       "Title for the government email block in the manager info section of the single search request view.",
                   })}
-                  content={email}
+                  content={
+                    email ? (
+                      <Link external href={`mailto:${email}`}>
+                        {email}
+                      </Link>
+                    ) : null
+                  }
                 />
               </div>
             </div>
