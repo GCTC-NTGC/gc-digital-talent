@@ -90,7 +90,7 @@ class SnapshotTest extends TestCase
 
         // there are two pool candidates present, only one should appear in the snapshot, adjust expectedSnapshot to fit this
         $filteredPoolCandidates = array_filter($expectedSnapshot['poolCandidates'], function ($individualPoolCandidate) use ($poolCandidate) {
-            return in_array($poolCandidate['id'], $individualPoolCandidate);
+            return $poolCandidate['id'] === $individualPoolCandidate['id'];
         });
         $expectedSnapshot['poolCandidates'] = $filteredPoolCandidates;
 
