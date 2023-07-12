@@ -5,6 +5,7 @@ All of the defined criteria must be met or the feature is not considered done.
 - Step-by-step testing instructions
 - At least one peer review approval
 - Build pipeline successful with passing tests
+- Completed acceptance criteria
 
 ## Accessibility
 
