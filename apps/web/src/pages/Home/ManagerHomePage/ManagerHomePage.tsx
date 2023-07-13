@@ -338,7 +338,7 @@ const HomePage = () => {
                 </p>
               ),
               link: {
-                path: paths.browsePools(), // TO DO: Update once we have a manager specific page (#6312)
+                path: paths.browsePools(), // Note: Update once we have a manager specific page
                 label: intl.formatMessage({
                   defaultMessage: "Browse jobs",
                   id: "NNosUu",
@@ -369,7 +369,7 @@ const HomePage = () => {
                 </p>
               ),
               link: {
-                path: "#", // Note: Update once we have a path for the executive home page
+                path: "#", // TO DO: Update once we have a path for the executive home page (#6312)
                 label: intl.formatMessage({
                   defaultMessage:
                     "Learn more<hidden> about executive jobs</hidden>",
