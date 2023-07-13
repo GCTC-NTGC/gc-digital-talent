@@ -64,7 +64,7 @@
     "urql": "3.0.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.8",
+    "@babel/core": "^7.22.9",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-proposal-private-methods": "^7.18.6",
     "@babel/preset-env": "^7.22.7",
@@ -104,7 +104,7 @@
     "eslint-config-custom": "*",
     "hydrogen-webpack-plugin": "*",
     "jest": "^29.6.1",
-    "jest-axe": "^7.0.1",
+    "jest-axe": "^8.0.0",
     "jest-environment-jsdom": "^29.6.1",
     "postcss": "^8.4.25",
     "prettier": "^2.8.8",
