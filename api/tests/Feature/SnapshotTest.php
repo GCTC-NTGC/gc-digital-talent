@@ -94,11 +94,6 @@ class SnapshotTest extends TestCase
             return $poolCandidate['id'] === $individualPoolCandidate['id'];
         }));
         $expectedSnapshot['poolCandidates'] = $filteredPoolCandidates;
-
-        fwrite(STDERR, print_r($expectedSnapshot, true));
-        fwrite(STDERR, print_r($decodedActual, true));
-
-
         assertEquals($expectedSnapshot, $decodedActual);
     }
 
