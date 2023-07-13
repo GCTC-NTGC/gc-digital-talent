@@ -119,8 +119,8 @@ const ResultsDisplay = ({
     >
       <Heading level="h4" size="h6" data-h2-margin="base(0)">
         {intl.formatMessage({
-          defaultMessage: "We can still help!",
-          id: "5U+V2Y",
+          defaultMessage: "We may be able to help!",
+          id: "xAfVa9",
           description:
             "Heading for helping user if no candidates matched the filters chosen.",
         })}
