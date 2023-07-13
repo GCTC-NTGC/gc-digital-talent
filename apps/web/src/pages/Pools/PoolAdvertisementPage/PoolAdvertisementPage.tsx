@@ -1,4 +1,4 @@
-import React, { ReactSVG } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
