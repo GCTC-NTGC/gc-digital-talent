@@ -104,7 +104,7 @@
     "eslint-config-custom": "*",
     "hydrogen-webpack-plugin": "*",
     "jest": "^29.6.1",
-    "jest-axe": "^7.0.1",
+    "jest-axe": "^8.0.0",
     "jest-environment-jsdom": "^29.6.1",
     "postcss": "^8.4.25",
     "prettier": "^2.8.8",
