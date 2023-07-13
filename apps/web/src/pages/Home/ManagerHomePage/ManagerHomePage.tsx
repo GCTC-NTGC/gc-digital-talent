@@ -194,10 +194,10 @@ const HomePage = () => {
               },
             ]}
           >
-            <p>
+            <p data-h2-margin-bottom="base(x.5)">
               {intl.formatMessage({
-                defaultMessage: "Coming fall 2023",
-                id: "VIjPZs",
+                defaultMessage: "Coming Fall 2023",
+                id: "5yYtE6",
                 description:
                   "Text displayed for soon to come data talent data portal",
               })}
@@ -213,14 +213,13 @@ const HomePage = () => {
           </CardFlat>
         </div>
       </SkewedContainer>
-      <SkewedImageContainer imgSrc={managerProfileHero}>
+      <SkewedImageContainer imgSrc={managerProfileHero} imgSide="right">
         <p
           data-h2-font-size="base(h6, 1.4)"
           data-h2-font-weight="base(300)"
           data-h2-color="base(white)"
           data-h2-margin="base(0, 0, x2, 0)"
           data-h2-max-width="p-tablet(50%)"
-          data-h2-text-align="base(center) p-tablet(left)"
         >
           {intl.formatMessage({
             defaultMessage:
@@ -233,7 +232,7 @@ const HomePage = () => {
         <div
           data-h2-display="base(flex)"
           data-h2-gap="base(x1)"
-          data-h2-justify-content="base(center) p-tablet(flex-start)"
+          data-h2-justify-content="base(flex-start)"
         >
           <Link
             color="quinary"
@@ -279,7 +278,7 @@ const HomePage = () => {
               }),
               summary: (
                 <>
-                  <p>
+                  <p data-h2-margin-bottom="base(x.5)">
                     {intl.formatMessage({
                       defaultMessage:
                         "New to being a manager? Looking to gain some experience in hiring and learn more about HR processes?",

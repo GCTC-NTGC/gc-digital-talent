@@ -9,8 +9,6 @@ import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContai
 
 import profileHeroImg from "~/assets/img/hero-profile.jpg";
 
-import "./profile.css";
-
 const Profile = () => {
   const intl = useIntl();
   const paths = useRoutes();
