@@ -16,7 +16,8 @@ final class MarkNotificationAsRead
     public function __invoke($_, array $args)
     {
         $notificationId = $args['id'];
-        $notification = Auth::user()
+        $user = User::find(Auth::id());
+        $notification = $user
             ->notifications()
             ->firstWhere('id', $notificationId);
 
