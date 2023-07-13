@@ -40,16 +40,7 @@ enum LegacyRole {
 type User {
   id: ID!
   sub: String
-    @hasPermission(
-      permissions: ["view-any-user", "view-own-user"]
-      ownerKey: "id"
-    )
-  legacyRoles: [LegacyRole]
-    @rename(attribute: "legacy_roles")
-    @hasPermission(
-      permissions: ["view-any-user", "view-own-user"]
-      ownerKey: "id"
-    )
+  legacyRoles: [LegacyRole] @rename(attribute: "legacy_roles")
   createdDate: DateTime @rename(attribute: "created_at")
   updatedDate: DateTime @rename(attribute: "updated_at")
 
