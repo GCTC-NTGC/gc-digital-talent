@@ -338,7 +338,7 @@ const HomePage = () => {
                 </p>
               ),
               link: {
-                path: paths.browsePools(), // Note: Update once we have a manager specific page
+                path: paths.browsePools(), // TO DO: Update once we have a manager specific page (#6312)
                 label: intl.formatMessage({
                   defaultMessage: "Browse jobs",
                   id: "NNosUu",
