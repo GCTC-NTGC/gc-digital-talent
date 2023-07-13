@@ -213,7 +213,13 @@ const HomePage = () => {
           </CardFlat>
         </div>
       </SkewedContainer>
-      <SkewedImageContainer imgSrc={managerProfileHero} imgSide="right">
+      <SkewedImageContainer
+        imgSrc={managerProfileHero}
+        imgProps={{
+          "data-h2-background-position":
+            "base(80% 110%) l-tablet(60% 50%) desktop(right 50%)",
+        }}
+      >
         <p
           data-h2-font-size="base(h6, 1.4)"
           data-h2-font-weight="base(300)"

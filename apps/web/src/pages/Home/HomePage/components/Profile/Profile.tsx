@@ -14,7 +14,13 @@ const Profile = () => {
   const paths = useRoutes();
 
   return (
-    <SkewedImageContainer imgSrc={profileHeroImg}>
+    <SkewedImageContainer
+      imgSrc={profileHeroImg}
+      imgProps={{
+        "data-h2-background-position":
+          "base(100% 110%) l-tablet(calc(50% + 20rem) 50%)",
+      }}
+    >
       <p
         data-h2-font-size="base(h6, 1.4)"
         data-h2-font-weight="base(300)"

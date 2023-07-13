@@ -1,41 +1,21 @@
 import React from "react";
 
-type ImgSide = "left" | "center" | "right";
-
 interface SkewedImageContainerProps {
   children: React.ReactNode;
   imgSrc: string;
-  imgSide?: ImgSide;
+  imgProps?: React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > & {
+    [data: string]: string;
+  };
 }
 
 const SkewedImageContainer = ({
   children,
   imgSrc,
-  imgSide = "center",
+  imgProps,
 }: SkewedImageContainerProps) => {
-  const imgSideMap = new Map<ImgSide, Record<string, string>>([
-    [
-      "left",
-      {
-        "data-h2-background-position": "base(left 110%) l-tablet(right 50%)",
-      },
-    ],
-    [
-      "center",
-      {
-        "data-h2-background-position": "base(center 110%) l-tablet(right 50%)",
-      },
-    ],
-    [
-      "right",
-      {
-        "data-h2-background-position": "base(right 110%) l-tablet(right 50%)",
-      },
-    ],
-  ]);
-
-  const imgSideStyle = imgSideMap.get(imgSide) ?? imgSideMap.get("center");
-
   return (
     <div
       data-h2-background-color="base(white) base:dark(black.light)"
@@ -57,7 +37,7 @@ const SkewedImageContainer = ({
           data-h2-width="base(100%)"
           data-h2-background-repeat="base(no-repeat)"
           data-h2-background-size="base(auto 50vh) p-tablet(auto 60vh) l-tablet(auto 110%)"
-          {...imgSideStyle}
+          {...imgProps}
           style={{
             backgroundImage: `url('${imgSrc}')`,
           }}
