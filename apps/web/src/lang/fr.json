@@ -2710,10 +2710,6 @@
     "defaultMessage": "Déconnexion",
     "description": "Title for the modal that appears when an authenticated user lands on /logged-out."
   },
-  "HkzjEV": {
-    "defaultMessage": "Utilitaire",
-    "description": "Label for the utility link navigation"
-  },
   "HocLRh": {
     "defaultMessage": "Nom du bassin",
     "description": "Title displayed for the Pool table pool name column."
@@ -3140,6 +3136,10 @@
   "LGSw+f": {
     "defaultMessage": "Tous les apprentis seront appuyés par des pairs et des mentors soigneusement sélectionnés. Les apprentis seront également invités à se joindre à un Réseau d’apprentissage pour les Autochtones, où ils auront des occasions de communiquer avec d’autres employés autochtones du gouvernement du Canada et avec d’autres apprentis autochtones qui participent à ce programme.",
     "description": "Learn more dialog question two paragraph two"
+  },
+  "LIhwJ+": {
+    "defaultMessage": "Menu du compte",
+    "description": "Label for the user account navigation menu"
   },
   "LMGaDQ": {
     "defaultMessage": "S'inscrire",
