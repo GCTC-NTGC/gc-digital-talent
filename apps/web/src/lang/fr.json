@@ -1042,10 +1042,6 @@
     "defaultMessage": "Modifier<hidden> le regroupement des compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
   },
-  "xAfVa9": {
-    "defaultMessage": "Nous pouvons peut-être vous aider!",
-    "description": "Heading for helping user if no candidates matched the filters chosen."
-  },
   "5U4C61": {
     "defaultMessage": "Nous utilisons également ces renseignements pour vous offrir des possibilités et des suggestions plus contextualisées en fonction de votre situation d'emploi.",
     "description": "Second message before is a government of canada radio group in create account form."
@@ -4047,10 +4043,6 @@
   "STDYoR": {
     "defaultMessage": "Date d'expiration",
     "description": "Title of the 'Expiry date' column for the table on view-user page"
-  },
-  "STT6FW": {
-    "defaultMessage": "Nous pouvons peut-être vous aider!",
-    "description": "Heading for helping user if no candidates matched the filters chosen."
   },
   "SUUqzt": {
     "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
@@ -8257,6 +8249,10 @@
   "x8tCSM": {
     "defaultMessage": "Cette compétence nécessaire doit être jumelée à au moins une expérience figurant dans le CV",
     "description": "Message that appears when a required skill has no experiences linked to it"
+  },
+  "xAfVa9": {
+    "defaultMessage": "Nous pouvons peut-être vous aider!",
+    "description": "Heading for helping user if no candidates matched the filters chosen."
   },
   "xGjm2A": {
     "defaultMessage": "Sélectionnez les compétences qui amélioreront les chances de correspondre aux qualités recherchées par le les gestionnaire. Celles-ci peuvent généralement être appris en cours de travail et ne sont pas nécessaires pour être accepté dans le bassin",
