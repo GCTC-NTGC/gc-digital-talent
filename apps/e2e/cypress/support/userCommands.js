@@ -21,7 +21,6 @@ const defaultUser = {
   // optional
   telephone: undefined,
   email: undefined,
-  legacyRoles: [],
   currentProvince: undefined,
   currentCity: undefined,
   languageAbility: undefined,
