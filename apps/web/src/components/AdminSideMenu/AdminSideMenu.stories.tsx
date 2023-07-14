@@ -1,14 +1,14 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import {
   AuthorizationContext,
   AuthenticationContext,
   useAuthentication,
   useAuthorization,
+  ROLE_NAME,
 } from "@gc-digital-talent/auth";
-
-import { LegacyRole } from "~/api/generated";
+import { RoleAssignment } from "@gc-digital-talent/graphql";
 
 import AdminSideMenu, { AdminSideMenuProps } from "./AdminSideMenu";
 
@@ -18,30 +18,30 @@ export default {
   parameters: {
     themeKey: "admin",
   },
-} as ComponentMeta<typeof AdminSideMenu>;
+} as Meta<typeof AdminSideMenu>;
 
 interface TemplateProps extends AdminSideMenuProps {
   isLoggedIn: boolean;
+  roleAssignments: RoleAssignment[];
 }
 
-const Template: Story<TemplateProps> = (args) => {
-  const { isLoggedIn, ...rest } = args;
+const Template: StoryFn<TemplateProps> = (args) => {
+  const { isLoggedIn, roleAssignments, ...rest } = args;
   const authenticationState = useAuthentication();
   const authorizationState = useAuthorization();
   const mockAuthState = React.useMemo(
     () => ({
       ...authenticationState,
-      loggedIn: isLoggedIn,
+      isLoggedIn,
     }),
     [isLoggedIn, authenticationState],
   );
   const mockAuthorizationState = React.useMemo(
     () => ({
       ...authorizationState,
-      loggedInUserRoles: isLoggedIn ? [LegacyRole.Admin] : null,
-      isLoaded: true,
+      roleAssignments,
     }),
-    [isLoggedIn, authorizationState],
+    [roleAssignments, authorizationState],
   );
 
   return (
@@ -69,10 +69,18 @@ export const LoggedInAndClosed = Template.bind({});
 LoggedInAndClosed.args = {
   isOpen: false,
   isLoggedIn: true,
+  roleAssignments: [
+    { id: "abc", role: { id: "123", name: ROLE_NAME.PlatformAdmin } },
+    { id: "def", role: { id: "456", name: ROLE_NAME.RequestResponder } },
+  ],
 };
 
 export const LoggedInAndOpen = Template.bind({});
 LoggedInAndOpen.args = {
   isOpen: true,
   isLoggedIn: true,
+  roleAssignments: [
+    { id: "abc", role: { id: "123", name: ROLE_NAME.PlatformAdmin } },
+    { id: "def", role: { id: "456", name: ROLE_NAME.RequestResponder } },
+  ],
 };
