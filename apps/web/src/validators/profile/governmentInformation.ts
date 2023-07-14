@@ -1,8 +1,8 @@
-import { Applicant } from "@gc-digital-talent/graphql";
+import { User } from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
 
-type PartialApplicant = Pick<
-  Applicant,
+type PartialUser = Pick<
+  User,
   | "isGovEmployee"
   | "govEmployeeType"
   | "department"
@@ -14,20 +14,20 @@ type PartialApplicant = Pick<
 export function hasAllEmptyFields({
   isGovEmployee,
   hasPriorityEntitlement,
-}: PartialApplicant): boolean {
+}: PartialUser): boolean {
   return empty(isGovEmployee) && empty(hasPriorityEntitlement);
 }
 
 export function hasEmptyRequiredFields({
   isGovEmployee,
   hasPriorityEntitlement,
-}: PartialApplicant): boolean {
+}: PartialUser): boolean {
   return empty(isGovEmployee) || empty(hasPriorityEntitlement);
 }
 
 export function hasEmptyOptionalFields({
   hasPriorityEntitlement,
   priorityNumber,
-}: PartialApplicant): boolean {
+}: PartialUser): boolean {
   return !!(hasPriorityEntitlement && !priorityNumber);
 }

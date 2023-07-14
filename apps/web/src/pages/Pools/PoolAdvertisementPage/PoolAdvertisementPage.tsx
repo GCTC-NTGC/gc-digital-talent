@@ -51,7 +51,6 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
 
 import ApplicationLink from "./components/ApplicationLink";
 import Text from "./components/Text";
@@ -66,8 +65,8 @@ type SectionContent = {
   title: string;
 };
 
-const anchorTag = (chunks: React.ReactNode) => (
-  <Link external href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>
+const anchorTag = (chunks: React.ReactNode, email: string) => (
+  <Link external href={`mailto:${email}`}>
     {chunks}
   </Link>
 );
@@ -112,6 +111,8 @@ export const PoolPoster = ({
 
   const essentialSkills = categorizeSkill(pool.essentialSkills);
   const nonEssentialSkills = categorizeSkill(pool.nonessentialSkills);
+
+  const contactEmail = pool.team?.contactEmail;
 
   const canApply = !!(pool?.status === PoolStatus.Published);
 
@@ -686,20 +687,23 @@ export const PoolPoster = ({
                     "Description of what to do when accommodations are needed",
                 })}
               </Text>
-              <Text>
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "<strong>Email</strong>: <anchorTag>{emailAddress}</anchorTag>",
-                    id: "Wnw+oz",
-                    description: "An email address to contact for help",
-                  },
-                  {
-                    anchorTag,
-                    emailAddress: TALENTSEARCH_RECRUITMENT_EMAIL,
-                  },
-                )}
-              </Text>
+              {contactEmail && (
+                <Text>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "<strong>Email</strong>: <anchorTag>{emailAddress}</anchorTag>",
+                      id: "Wnw+oz",
+                      description: "An email address to contact for help",
+                    },
+                    {
+                      anchorTag: (chunks: React.ReactNode) =>
+                        anchorTag(chunks, contactEmail),
+                      emailAddress: contactEmail,
+                    },
+                  )}
+                </Text>
+              )}
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.hiringPolicies.id}>
               <TableOfContents.Heading>

@@ -9,7 +9,6 @@ import {
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { Applicant } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -135,7 +134,7 @@ export const ApplicationProfile = ({
       <StepNavigation
         application={application}
         user={user}
-        isValid={!stepHasError(user as Applicant, application.pool)}
+        isValid={!stepHasError(user, application.pool)}
       />
     </ProfileFormProvider>
   );

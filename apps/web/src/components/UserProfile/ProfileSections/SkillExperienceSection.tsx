@@ -5,21 +5,21 @@ import { Link, Well } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { Applicant } from "~/api/generated";
+import { User } from "~/api/generated";
 
 import ExperienceSection from "../ExperienceSection";
 
 export type PathFunc = (path: void | string, id: void | string) => string;
 
 const SkillExperienceSection = ({
-  applicant,
+  user,
   editPath,
 }: {
-  applicant: Pick<Applicant, "experiences">;
+  user: Pick<User, "experiences">;
   editPath?: string;
 }) => {
   const intl = useIntl();
-  const { experiences } = applicant;
+  const { experiences } = user;
 
   return !experiences || experiences?.length === 0 ? (
     <Well>
