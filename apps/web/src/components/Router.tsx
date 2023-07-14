@@ -902,7 +902,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           ),
                         },
                         {
-                          path: "resume-and-recruitment",
+                          path: "career-timeline-and-recruitment",
                           children: [
                             {
                               index: true,

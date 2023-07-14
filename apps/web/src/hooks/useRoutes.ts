@@ -46,7 +46,7 @@ const getRoutes = (lang: Locales) => {
     `${path.join(
       userUrl(userId),
       "profile",
-      "resume-and-recruitment",
+      "career-timeline-and-recruitment",
       type,
       "create",
     )}${applicationParam(applicationId)}`;
@@ -258,7 +258,7 @@ const getRoutes = (lang: Locales) => {
       return `${path.join(
         userUrl(userId),
         "profile",
-        "resume-and-recruitment",
+        "career-timeline-and-recruitment",
       )}${applicationParam(opts?.applicationId)}${fragment}`;
     },
     editExperience: (
@@ -269,7 +269,7 @@ const getRoutes = (lang: Locales) => {
       path.join(
         userUrl(userId),
         "profile",
-        "resume-and-recruitment",
+        "career-timeline-and-recruitment",
         type,
         experienceId,
         "edit",
