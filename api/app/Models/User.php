@@ -18,6 +18,7 @@ use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class User
@@ -75,6 +76,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     use HasFactory;
     use SoftDeletes;
     use AuthenticatableTrait;
+    use HasRelationships;
 
     protected $keyType = 'string';
 
@@ -162,11 +164,11 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function userSkills(): HasMany
     {
-        return $this->hasMany(UserSkill::class);
+        return $this->hasMany(UserSkill::class, 'user_id');
     }
-    public function Skills(): HasManyThrough
+    public function skills()
     {
-        return $this->through('userSkills')->has('skill');
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill());
     }
     // This method will add the specified skills to UserSkills if they don't exist yet.
     public function addSkills($skill_ids)
@@ -175,7 +177,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         $this->userSkills()->withTrashed()->whereIn('skill_id', $skill_ids)->restore();
         // Create a basic UserSkill for any skills not yet related to this user.
         $existingSkillIds = $this->userSkills()->withTrashed()->pluck('skill_id');
-        $newSkillIds = collect($skill_ids)->diff($existingSkillIds);
+        $newSkillIds = collect($skill_ids)->diff($existingSkillIds)->unique();
         foreach ($newSkillIds as $skillId) {
             $userSkill = new UserSkill();
             $userSkill->skill_id = $skillId;

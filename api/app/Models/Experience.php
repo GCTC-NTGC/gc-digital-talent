@@ -65,9 +65,11 @@ abstract class Experience extends Model
         // Map skills to UserSkills, for syncing: https://laravel.com/docs/10.x/eloquent-relationships#syncing-associations
         $userSkills = $this->user->userSkills;
         $syncSkills = collect($skills)->flatMap(function ($skill) use ($userSkills) {
-            $userSkillId = $userSkills->firstWhere('skill_id', $skill['id'])->id;
-            $details = collect($skill)->get('details', null);
-            return [$userSkillId => ['details' => $details]];
+            $skill = collect($skill);
+            $userSkillId = $userSkills->firstWhere('skill_id', $skill->get('id'))->id;
+            return $skill->has('details')
+                ? [$userSkillId => ['details' => $skill->get('details', null)]]
+                : [$userSkillId];
         });
         // Sync experience to userSkills
         $this->userSkills()->sync($syncSkills);
@@ -75,25 +77,41 @@ abstract class Experience extends Model
         $this->refresh();
     }
 
+     /**
+     * Connect means we will add missing skills and update the details of existing skills, but not remove any skills.
+     *
+     * @param [id => uuid, details => undefined|string] $skills - Skills must be an array of items, each of which must have an id, and optionally have a details string.
+     * @return void
+     */
     public function connectSkills($skills)
     {
         if ($skills === null) {
             return;
         }
-
         // TODO: make experience_skill soft-deletable (and restorable)
-        $skillIds = collect($skills)->pluck('id');
+
         // First ensure that UserSkills exist for each of these skills
+        $skillIds = collect($skills)->pluck('id');
         $this->user->addSkills($skillIds);
-        // Map skills to UserSkills, for syncing: https://laravel.com/docs/10.x/eloquent-relationships#syncing-associations
-        $userSkills = $this->user->userSkills;
-        $syncSkills = collect($skills)->flatMap(function ($skill) use ($userSkills) {
-            $userSkillId = $userSkills->firstWhere('skill_id', $skill['id'])->id;
-            $details = collect($skill)->get('details', null);
-            return [$userSkillId => ['details' => $details]];
-        });
-        // Sync experience to new userSkills without removing any.
-        $this->userSkills()->syncWithoutDetaching($syncSkills);
+
+        $skillsAlreadyAttachedToExperience = $this->userSkills()->pluck('skill_id');
+
+        // I wanted to use syncWithoutDetaching, but it doesn't allow for updating pivot values like sync does.
+        foreach($skills as $newSkill) {
+            $newSkill = collect($newSkill);
+            $userSkillId = $this->user->userSkills->firstWhere('skill_id', $newSkill->get('id'))->id;
+            $detailsArray = $newSkill->only('details')->toArray();
+            // If experienceSkill already exists
+            if ($skillsAlreadyAttachedToExperience->contains($newSkill->get('id'))) {
+                // And details is defined, then update details
+                if ($newSkill->has('details')) {
+                    $this->userSkills()->updateExistingPivot($userSkillId, $detailsArray);
+                }
+            // Otherwise experienceSkill doesn't exist, so add it now
+            } else {
+                $this->userSkills()->attach($userSkillId, $detailsArray);
+            }
+        }
         // If this experience instance continues to be used, ensure the in-memory instance is updated.
         $this->refresh();
     }
