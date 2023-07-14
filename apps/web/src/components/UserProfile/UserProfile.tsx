@@ -273,7 +273,7 @@ const UserProfile = ({
             {showSection("careerTimelineAndRecruitment") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink
-                  id={PAGE_SECTION_ID.RESUME_AND_RECRUITMENT}
+                  id={PAGE_SECTION_ID.CAREER_TIMELINE_AND_RECRUITMENT}
                 >
                   {intl.formatMessage(
                     navigationMessages.careerTimelineAndRecruitment,
@@ -625,7 +625,9 @@ const UserProfile = ({
           </TableOfContents.Section>
         )}
         {showSection("careerTimelineAndRecruitment") && (
-          <TableOfContents.Section id={PAGE_SECTION_ID.RESUME_AND_RECRUITMENT}>
+          <TableOfContents.Section
+            id={PAGE_SECTION_ID.CAREER_TIMELINE_AND_RECRUITMENT}
+          >
             <HeadingWrapper
               show={!!sections.careerTimelineAndRecruitment?.editUrl}
             >
