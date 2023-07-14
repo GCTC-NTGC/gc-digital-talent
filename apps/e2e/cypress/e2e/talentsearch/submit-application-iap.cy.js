@@ -178,7 +178,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
     cy.contains(/Status First Nations/i);
     cy.findByRole("button", { name: /Save and continue/i }).click();
 
-    // Review resume page - step four
+    // Review career timeline page - step four
     cy.findByRole("heading", {
       name: /Great work! On to your career timeline./i,
     })
@@ -233,7 +233,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
     );
     cy.findByRole("button", { name: /Save and go back/i }).click();
     cy.expectToast(/Successfully added experience!/i);
-    // returned to main resume review page
+    // returned to main career timeline review page
     cy.contains(/1 education and certificate experience/i)
       .should("exist")
       .and("be.visible");

@@ -165,7 +165,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("button", { name: /Save and continue/i }).click();
     cy.wait("@gqlUpdateApplicationMutation");
 
-    // Review resume page - step three
+    // Review career timeline page - step three
     cy.wait("@gqlGetApplicationQuery");
     cy.findByRole("heading", {
       name: /Great work! On to your career timeline./i,
@@ -214,7 +214,7 @@ describe("Submit Application Workflow Tests", () => {
       .and("be.visible");
     cy.findByRole("link", { name: /Add a new experience/i }).click();
     cy.url().should("contain", "/resume/add");
-    // at adding experience to resume page now
+    // at adding experience to career timeline page now
     cy.contains(/Add an experience to your career timeline/i)
       .should("exist")
       .and("be.visible");
@@ -246,7 +246,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("button", { name: /Save and go back/i }).click();
     cy.wait("@gqlCreateEducationExperienceMutation");
     cy.expectToast(/Successfully added experience!/i);
-    // returned to main resume review page
+    // returned to main career timeline review page
     cy.contains(/1 education and certificate experience/i)
       .should("exist")
       .and("be.visible");

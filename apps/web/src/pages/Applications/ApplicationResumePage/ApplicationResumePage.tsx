@@ -253,9 +253,9 @@ export const ApplicationResume = ({
             ? pageInfo.title
             : intl.formatMessage({
                 defaultMessage: "Create your career timeline",
-                id: "cMzCOr",
+                id: "sLqKuH",
                 description:
-                  "Title for resume page when there are no experiences yet",
+                  "Title for career timeline page when there are no experiences yet",
               })}
         </Heading>
         <Link href={instructionsPath} mode="inline">
