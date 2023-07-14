@@ -3429,10 +3429,6 @@
     "defaultMessage": "Contact et soutien",
     "description": "Page title for the Support page"
   },
-  "Mcpbc1": {
-    "defaultMessage": "Nous avons trouvé quelques erreurs sur la page. Vous pouvez accéder directement à la section concernée en utilisant les liens suivants, qui vous indiqueront ce qui ne va pas.",
-    "description": "Descriptive text indicating there are errors in one or more forms and how to fix them"
-  },
   "Md/cQS": {
     "defaultMessage": "Membre des FAC :",
     "description": "Veteran/member label"
@@ -6248,13 +6244,13 @@
     "defaultMessage": "Titre du poste",
     "description": "Title for the job title block in the manager info section of the single search request view."
   },
-  "gURsqG": {
-    "defaultMessage": "Consultez les processus de recrutement de gestionnaires les plus récents pour des possibilités précises ou présentez votre candidature dans le cadre de processus de recrutement en cours dans l’un des volets de travail génériques de la technologie de l’information. Revenez souvent pour consulter de nouvelles possibilités.",
-    "description": "Summary for the feature about finding manager jobs"
-  },
   "gTjLic": {
     "defaultMessage": "Renseignements du profil",
     "description": "applicant dashboard card title for profile card"
+  },
+  "gURsqG": {
+    "defaultMessage": "Consultez les processus de recrutement de gestionnaires les plus récents pour des possibilités précises ou présentez votre candidature dans le cadre de processus de recrutement en cours dans l’un des volets de travail génériques de la technologie de l’information. Revenez souvent pour consulter de nouvelles possibilités.",
+    "description": "Summary for the feature about finding manager jobs"
   },
   "gUb3PY": {
     "defaultMessage": "Demande créée avec succès!",
@@ -7599,10 +7595,6 @@
   "q++unL": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience d’apprentissage personnel} =1 {1 expérience d’apprentissage personnel} other {# expériences d’apprentissage personnel}}",
     "description": "list a number of personal experiences"
-  },
-  "q/OZDK": {
-    "defaultMessage": "Juste un petit conseil!",
-    "description": "Heading for profile review page error summary"
   },
   "q3Gl23": {
     "defaultMessage": "Niveau de la langue seconde :",
