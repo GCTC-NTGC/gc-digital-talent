@@ -61,9 +61,7 @@ class DatabaseSeeder extends Seeder
 
         $digitalTalentPool = Pool::where('name->en', 'CMO Digital Careers')->sole();
 
-        User::factory([
-            'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]
-        ])
+        User::factory()
             ->count(150)
             ->withExperiences()
             ->afterCreating(function (User $user) use ($faker, $digitalTalentPool) {
