@@ -65,8 +65,8 @@ export const ResumeAndRecruitment = ({
     <ProfileFormWrapper
       crumbs={[
         {
-          label: intl.formatMessage(titles.resumeAndRecruitment),
-          url: paths.resumeAndRecruitment(applicantId),
+          label: intl.formatMessage(titles.careerTimelineAndRecruitment),
+          url: paths.careerTimelineAndRecruitment(applicantId),
         },
       ]}
       prefixBreadcrumbs={!pool}
@@ -82,7 +82,7 @@ export const ResumeAndRecruitment = ({
           abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
         },
       )}
-      title={intl.formatMessage(titles.resumeAndRecruitment)}
+      title={intl.formatMessage(titles.careerTimelineAndRecruitment)}
       leaveRoomForNavigation
     >
       <TableOfContents.Wrapper data-h2-margin-top="base(x3)">

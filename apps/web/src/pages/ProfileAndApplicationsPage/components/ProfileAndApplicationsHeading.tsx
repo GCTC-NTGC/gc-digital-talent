@@ -147,7 +147,11 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           a1: (chunks: React.ReactNode) =>
             buildLink(paths.profile(user.id), chunks, "white"),
           a2: (chunks: React.ReactNode) =>
-            buildLink(paths.resumeAndRecruitment(user.id), chunks, "white"),
+            buildLink(
+              paths.careerTimelineAndRecruitment(user.id),
+              chunks,
+              "white",
+            ),
           a3: (chunks: React.ReactNode) =>
             buildScrollToLink("track-applications-section", chunks, "white"),
         },
@@ -385,7 +389,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             description:
               "Profile and applications card title for career timeline card",
           })}
-          href={paths.resumeAndRecruitment(user.id)}
+          href={paths.careerTimelineAndRecruitment(user.id)}
         >
           <StatusItem
             title={intl.formatMessage({
@@ -443,7 +447,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                 .length
             }
             icon={ShieldCheckIcon}
-            href={paths.resumeAndRecruitment(user.id, {
+            href={paths.careerTimelineAndRecruitment(user.id, {
               section:
                 RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
             })}

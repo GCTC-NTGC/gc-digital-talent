@@ -59,7 +59,7 @@ export interface UserProfileProps {
     language?: SectionControl;
     myStatus?: SectionControl;
     roleSalary?: SectionControl;
-    resumeAndRecruitment?: SectionControl;
+    careerTimelineAndRecruitment?: SectionControl;
     workLocation?: SectionControl;
     workPreferences?: SectionControl;
   };
@@ -270,12 +270,14 @@ const UserProfile = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
-            {showSection("resumeAndRecruitment") && (
+            {showSection("careerTimelineAndRecruitment") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink
                   id={PAGE_SECTION_ID.RESUME_AND_RECRUITMENT}
                 >
-                  {intl.formatMessage(navigationMessages.resumeAndRecruitment)}
+                  {intl.formatMessage(
+                    navigationMessages.careerTimelineAndRecruitment,
+                  )}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
@@ -622,20 +624,24 @@ const UserProfile = ({
             )}
           </TableOfContents.Section>
         )}
-        {showSection("resumeAndRecruitment") && (
+        {showSection("careerTimelineAndRecruitment") && (
           <TableOfContents.Section id={PAGE_SECTION_ID.RESUME_AND_RECRUITMENT}>
-            <HeadingWrapper show={!!sections.resumeAndRecruitment?.editUrl}>
+            <HeadingWrapper
+              show={!!sections.careerTimelineAndRecruitment?.editUrl}
+            >
               <div
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
                 <TableOfContents.Heading as={headingLevel} icon={BoltIcon}>
-                  {intl.formatMessage(navigationMessages.resumeAndRecruitment)}
+                  {intl.formatMessage(
+                    navigationMessages.careerTimelineAndRecruitment,
+                  )}
                 </TableOfContents.Heading>
               </div>
-              {sections.resumeAndRecruitment?.editUrl && (
+              {sections.careerTimelineAndRecruitment?.editUrl && (
                 <EditUrlLink
-                  link={sections.resumeAndRecruitment.editUrl}
+                  link={sections.careerTimelineAndRecruitment.editUrl}
                   text={intl.formatMessage(
                     {
                       defaultMessage: "Edit {title}",
@@ -644,15 +650,15 @@ const UserProfile = ({
                     },
                     {
                       title: intl.formatMessage(
-                        navigationMessages.resumeAndRecruitment,
+                        navigationMessages.careerTimelineAndRecruitment,
                       ),
                     },
                   )}
                 />
               )}
             </HeadingWrapper>
-            {sections.resumeAndRecruitment?.override ? (
-              sections.resumeAndRecruitment.override
+            {sections.careerTimelineAndRecruitment?.override ? (
+              sections.careerTimelineAndRecruitment.override
             ) : (
               <ExperienceSection
                 headingLevel={contentHeadingLevel}

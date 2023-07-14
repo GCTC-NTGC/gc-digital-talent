@@ -9,7 +9,7 @@ type ObjectValues<T> = T[keyof T];
 export type PageSectionId = ObjectValues<typeof PAGE_SECTION_ID>;
 
 export const titles = defineMessages({
-  resumeAndRecruitment: {
+  careerTimelineAndRecruitment: {
     defaultMessage: "Career timeline and recruitment",
     id: "Icl1fF",
     description: "Name of Career timeline and recruitment page",

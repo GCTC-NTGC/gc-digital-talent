@@ -120,7 +120,7 @@ const TrackApplications = ({
             {
               a: (chunks: React.ReactNode) =>
                 buildLink(
-                  paths.resumeAndRecruitment(userId, {
+                  paths.careerTimelineAndRecruitment(userId, {
                     section:
                       RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
                   }),

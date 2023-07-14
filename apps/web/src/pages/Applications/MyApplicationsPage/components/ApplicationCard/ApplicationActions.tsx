@@ -252,7 +252,7 @@ const VisitResumeAction = ({
     return null;
   }
 
-  const recruitmentSectionUrl = paths.resumeAndRecruitment(userID, {
+  const recruitmentSectionUrl = paths.careerTimelineAndRecruitment(userID, {
     applicationId: application.id,
     section: PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
   });

@@ -61,7 +61,7 @@ const navigationMessages = defineMessages({
     id: "lp/ZEr",
     description: "Name of Role and salary expectations page",
   },
-  resumeAndRecruitment: {
+  careerTimelineAndRecruitment: {
     defaultMessage: "Career timeline and recruitment",
     id: "Icl1fF",
     description: "Name of Career timeline and recruitment page",
