@@ -12,7 +12,7 @@ import { emptyToNull } from "@gc-digital-talent/helpers";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import {
-  Applicant,
+  User,
   PoolCandidate,
   UpdatePoolCandidateAsAdminInput,
   useUpdatePoolCandidateMutation,
@@ -24,7 +24,7 @@ type FormValues = {
 
 export interface ChangeDateDialogProps {
   selectedCandidate: PoolCandidate;
-  user: Applicant;
+  user: User;
 }
 
 const ChangeDateDialog = ({

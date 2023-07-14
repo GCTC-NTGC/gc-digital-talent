@@ -8,6 +8,17 @@ Will be replaced by a generated type during schema manipulation.
 """
 scalar _
 
+# Directive class: App\GraphQL\Directives\CanAccessDirective
+"""
+Limit field access to users of a certain role.
+"""
+directive @canAccess(
+  """
+  The name of the role authorized users need to have.
+  """
+  requiredRoles: [String]!
+) on FIELD_DEFINITION
+
 # Directive class: App\GraphQL\Directives\CanOnParentDirective
 """
 Check a Laravel Policy to ensure the current user is authorized to access a field.
@@ -35,7 +46,7 @@ directive @canOnParent(
   args: CanArgs
 ) repeatable on FIELD_DEFINITION
 
-    """
+"""
 Any constant literal value: https://graphql.github.io/graphql-spec/draft/#sec-Input-Values
 """
 scalar CanOnParentArgs
@@ -66,10 +77,10 @@ If used on an array, this plucks a value from each object, returning a flattened
 If used on a single object, this returns the value at key.
 """
 directive @pluck(
-    """
-    The key to pluck from each object.
-    """
-    key: String!
+  """
+  The key to pluck from each object.
+  """
+  key: String!
 ) on INPUT_FIELD_DEFINITION
 
 # Directive class: App\GraphQL\Directives\SelfDirective
@@ -77,7 +88,7 @@ directive @pluck(
 The field will be resolved to the same value as its parent.
 For example, useful in the following situation:
 type User {
-    profile: Applicant @self
+    profile: User @self
 }
 """
 directive @self on FIELD_DEFINITION
@@ -87,10 +98,10 @@ directive @self on FIELD_DEFINITION
 Allows you to easily hook up a resolver for an endpoint.
 """
 directive @mock(
-    """
-    Specify a unique key for the mock resolver.
-    """
-    key: String = "default"
+  """
+  Specify a unique key for the mock resolver.
+  """
+  key: String = "default"
 ) on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Auth\AuthDirective
@@ -290,20 +301,20 @@ directive @globalId(
 Options for the `decode` argument of `@globalId`.
 """
 enum GlobalIdDecode {
-    """
-    Return an array of `[$type, $id]`.
-    """
-    ARRAY
+  """
+  Return an array of `[$type, $id]`.
+  """
+  ARRAY
 
-    """
-    Return just `$type`.
-    """
-    TYPE
+  """
+  Return just `$type`.
+  """
+  TYPE
 
-    """
-    Return just `$id`.
-    """
-    ID
+  """
+  Return just `$id`.
+  """
+  ID
 }
 
 # Directive class: Nuwave\Lighthouse\GlobalId\NodeDirective
@@ -337,78 +348,78 @@ directive @node(
 Sort a result list by one or more given columns.
 """
 directive @orderBy(
-    """
-    Restrict the allowed column names to a well-defined list.
-    This improves introspection capabilities and security.
-    Mutually exclusive with `columnsEnum`.
-    Only used when the directive is added on an argument.
-    """
-    columns: [String!]
+  """
+  Restrict the allowed column names to a well-defined list.
+  This improves introspection capabilities and security.
+  Mutually exclusive with `columnsEnum`.
+  Only used when the directive is added on an argument.
+  """
+  columns: [String!]
 
-    """
-    Use an existing enumeration type to restrict the allowed columns to a predefined list.
-    This allows you to re-use the same enum for multiple fields.
-    Mutually exclusive with `columns`.
-    Only used when the directive is added on an argument.
-    """
-    columnsEnum: String
+  """
+  Use an existing enumeration type to restrict the allowed columns to a predefined list.
+  This allows you to re-use the same enum for multiple fields.
+  Mutually exclusive with `columns`.
+  Only used when the directive is added on an argument.
+  """
+  columnsEnum: String
 
-    """
-    Allow clients to sort by aggregates on relations.
-    Only used when the directive is added on an argument.
-    """
-    relations: [OrderByRelation!]
+  """
+  Allow clients to sort by aggregates on relations.
+  Only used when the directive is added on an argument.
+  """
+  relations: [OrderByRelation!]
 
-    """
-    The database column for which the order by clause will be applied on.
-    Only used when the directive is added on a field.
-    """
-    column: String
+  """
+  The database column for which the order by clause will be applied on.
+  Only used when the directive is added on a field.
+  """
+  column: String
 
-    """
-    The direction of the order by clause.
-    Only used when the directive is added on a field.
-    """
-    direction: OrderByDirection = ASC
+  """
+  The direction of the order by clause.
+  Only used when the directive is added on a field.
+  """
+  direction: OrderByDirection = ASC
 ) on ARGUMENT_DEFINITION | FIELD_DEFINITION
 
 """
 Options for the `direction` argument on `@orderBy`.
 """
 enum OrderByDirection {
-    """
-    Sort in ascending order.
-    """
-    ASC
+  """
+  Sort in ascending order.
+  """
+  ASC
 
-    """
-    Sort in descending order.
-    """
-    DESC
+  """
+  Sort in descending order.
+  """
+  DESC
 }
 
 """
 Options for the `relations` argument on `@orderBy`.
 """
 input OrderByRelation {
-    """
-    Name of the relation.
-    """
-    relation: String!
+  """
+  Name of the relation.
+  """
+  relation: String!
 
-    """
-    Restrict the allowed column names to a well-defined list.
-    This improves introspection capabilities and security.
-    Mutually exclusive with `columnsEnum`.
-    """
-    columns: [String!]
+  """
+  Restrict the allowed column names to a well-defined list.
+  This improves introspection capabilities and security.
+  Mutually exclusive with `columnsEnum`.
+  """
+  columns: [String!]
 
-    """
-    Use an existing enumeration type to restrict the allowed columns to a predefined list.
-    This allows you to re-use the same enum for multiple fields.
-    Mutually exclusive with `columns`.
-    """
-    columnsEnum: String
+  """
+  Use an existing enumeration type to restrict the allowed columns to a predefined list.
+  This allows you to re-use the same enum for multiple fields.
+  Mutually exclusive with `columns`.
+  """
+  columnsEnum: String
 }
 
 # Directive class: Nuwave\Lighthouse\Pagination\PaginateDirective
@@ -582,15 +593,15 @@ directive @rules(
 Input for the `messages` argument of `@rules`.
 """
 input RulesMessage {
-    """
-    Name of the rule, e.g. `"email"`.
-    """
-    rule: String!
+  """
+  Name of the rule, e.g. `"email"`.
+  """
+  rule: String!
 
-    """
-    Message to display if the rule fails, e.g. `"Must be a valid email"`.
-    """
-    message: String!
+  """
+  Message to display if the rule fails, e.g. `"Must be a valid email"`.
+  """
+  message: String!
 }
 
 # Directive class: Nuwave\Lighthouse\Validation\RulesForArrayDirective
@@ -620,15 +631,15 @@ directive @rulesForArray(
 Input for the `messages` argument of `@rulesForArray`.
 """
 input RulesForArrayMessage {
-    """
-    Name of the rule, e.g. `"email"`.
-    """
-    rule: String!
+  """
+  Name of the rule, e.g. `"email"`.
+  """
+  rule: String!
 
-    """
-    Message to display if the rule fails, e.g. `"Must be a valid email"`.
-    """
-    message: String!
+  """
+  Message to display if the rule fails, e.g. `"Must be a valid email"`.
+  """
+  message: String!
 }
 
 # Directive class: Nuwave\Lighthouse\Validation\ValidateDirective
@@ -657,32 +668,32 @@ directive @validator(
 Add a dynamically client-controlled WHERE condition to a fields query.
 """
 directive @whereConditions(
-    """
-    Restrict the allowed column names to a well-defined list.
-    This improves introspection capabilities and security.
-    Mutually exclusive with `columnsEnum`.
-    """
-    columns: [String!]
+  """
+  Restrict the allowed column names to a well-defined list.
+  This improves introspection capabilities and security.
+  Mutually exclusive with `columnsEnum`.
+  """
+  columns: [String!]
 
-    """
-    Use an existing enumeration type to restrict the allowed columns to a predefined list.
-    This allows you to re-use the same enum for multiple fields.
-    Mutually exclusive with `columns`.
-    """
-    columnsEnum: String
+  """
+  Use an existing enumeration type to restrict the allowed columns to a predefined list.
+  This allows you to re-use the same enum for multiple fields.
+  Mutually exclusive with `columns`.
+  """
+  columnsEnum: String
 
-    """
-    Reference a method that applies the client given conditions to the query builder.
+  """
+  Reference a method that applies the client given conditions to the query builder.
 
-    Expected signature: `(
-        \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $builder,
-        array<string, mixed> $whereConditions
-    ): void`
+  Expected signature: `(
+      \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $builder,
+      array<string, mixed> $whereConditions
+  ): void`
 
-    Consists of two parts: a class name and a method name, separated by an `@` symbol.
-    If you pass only a class name, the method name defaults to `__invoke`.
-    """
-    handler: String = "\\Nuwave\\Lighthouse\\WhereConditions\\WhereConditionsHandler"
+  Consists of two parts: a class name and a method name, separated by an `@` symbol.
+  If you pass only a class name, the method name defaults to `__invoke`.
+  """
+  handler: String = "\\Nuwave\\Lighthouse\\WhereConditions\\WhereConditionsHandler"
 ) on ARGUMENT_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\WhereConditions\WhereHasConditionsDirective
@@ -691,41 +702,41 @@ Allows clients to filter a query based on the existence of a related model, usin
 a dynamically controlled `WHERE` condition that applies to the relationship.
 """
 directive @whereHasConditions(
-    """
-    The Eloquent relationship that the conditions will be applied to.
+  """
+  The Eloquent relationship that the conditions will be applied to.
 
-    This argument can be omitted if the argument name follows the naming
-    convention `has{$RELATION}`. For example, if the Eloquent relationship
-    is named `posts`, the argument name must be `hasPosts`.
-    """
-    relation: String
+  This argument can be omitted if the argument name follows the naming
+  convention `has{$RELATION}`. For example, if the Eloquent relationship
+  is named `posts`, the argument name must be `hasPosts`.
+  """
+  relation: String
 
-    """
-    Restrict the allowed column names to a well-defined list.
-    This improves introspection capabilities and security.
-    Mutually exclusive with `columnsEnum`.
-    """
-    columns: [String!]
+  """
+  Restrict the allowed column names to a well-defined list.
+  This improves introspection capabilities and security.
+  Mutually exclusive with `columnsEnum`.
+  """
+  columns: [String!]
 
-    """
-    Use an existing enumeration type to restrict the allowed columns to a predefined list.
-    This allows you to re-use the same enum for multiple fields.
-    Mutually exclusive with `columns`.
-    """
-    columnsEnum: String
+  """
+  Use an existing enumeration type to restrict the allowed columns to a predefined list.
+  This allows you to re-use the same enum for multiple fields.
+  Mutually exclusive with `columns`.
+  """
+  columnsEnum: String
 
-    """
-    Reference a method that applies the client given conditions to the query builder.
+  """
+  Reference a method that applies the client given conditions to the query builder.
 
-    Expected signature: `(
-        \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $builder,
-        array<string, mixed> $whereConditions
-    ): void`
+  Expected signature: `(
+      \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $builder,
+      array<string, mixed> $whereConditions
+  ): void`
 
-    Consists of two parts: a class name and a method name, separated by an `@` symbol.
-    If you pass only a class name, the method name defaults to `__invoke`.
-    """
-    handler: String = "\\Nuwave\\Lighthouse\\WhereConditions\\WhereConditionsHandler"
+  Consists of two parts: a class name and a method name, separated by an `@` symbol.
+  If you pass only a class name, the method name defaults to `__invoke`.
+  """
+  handler: String = "\\Nuwave\\Lighthouse\\WhereConditions\\WhereConditionsHandler"
 ) on ARGUMENT_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\AggregateDirective
@@ -886,20 +897,20 @@ directive @belongsToMany(
 Options for the `type` argument of `@belongsToMany`.
 """
 enum BelongsToManyType {
-    """
-    Offset-based pagination, similar to the Laravel default.
-    """
-    PAGINATOR
+  """
+  Offset-based pagination, similar to the Laravel default.
+  """
+  PAGINATOR
 
-    """
-    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-    """
-    SIMPLE
+  """
+  Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
+  """
+  SIMPLE
 
-    """
-    Cursor-based pagination, compatible with the Relay specification.
-    """
-    CONNECTION
+  """
+  Cursor-based pagination, compatible with the Relay specification.
+  """
+  CONNECTION
 }
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\BuilderDirective
@@ -1208,20 +1219,20 @@ directive @hasMany(
 Options for the `type` argument of `@hasMany`.
 """
 enum HasManyType {
-    """
-    Offset-based pagination, similar to the Laravel default.
-    """
-    PAGINATOR
+  """
+  Offset-based pagination, similar to the Laravel default.
+  """
+  PAGINATOR
 
-    """
-    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-    """
-    SIMPLE
+  """
+  Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
+  """
+  SIMPLE
 
-    """
-    Cursor-based pagination, compatible with the Relay specification.
-    """
-    CONNECTION
+  """
+  Cursor-based pagination, compatible with the Relay specification.
+  """
+  CONNECTION
 }
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\HasManyThroughDirective
@@ -1270,20 +1281,20 @@ directive @hasManyThrough(
 Options for the `type` argument of `@hasManyThrough`.
 """
 enum HasManyThroughType {
-    """
-    Offset-based pagination, similar to the Laravel default.
-    """
-    PAGINATOR
+  """
+  Offset-based pagination, similar to the Laravel default.
+  """
+  PAGINATOR
 
-    """
-    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-    """
-    SIMPLE
+  """
+  Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
+  """
+  SIMPLE
 
-    """
-    Cursor-based pagination, compatible with the Relay specification.
-    """
-    CONNECTION
+  """
+  Cursor-based pagination, compatible with the Relay specification.
+  """
+  CONNECTION
 }
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\HasOneDirective
@@ -1323,6 +1334,26 @@ directive @in(
   """
   key: String
 ) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Schema\Directives\InjectDirective
+"""
+Inject a value from the context object into the arguments.
+"""
+directive @inject(
+  """
+  A path to the property of the context that will be injected.
+  If the value is nested within the context, you may use dot notation
+  to get it, e.g. "user.id".
+  """
+  context: String!
+
+  """
+  The target name of the argument into which the value is injected.
+  You can use dot notation to set the value at arbitrary depth
+  within the incoming argument.
+  """
+  name: String!
+) repeatable on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\InterfaceDirective
 """
@@ -1458,20 +1489,20 @@ directive @morphMany(
 Options for the `type` argument of `@morphMany`.
 """
 enum MorphManyType {
-    """
-    Offset-based pagination, similar to the Laravel default.
-    """
-    PAGINATOR
+  """
+  Offset-based pagination, similar to the Laravel default.
+  """
+  PAGINATOR
 
-    """
-    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-    """
-    SIMPLE
+  """
+  Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
+  """
+  SIMPLE
 
-    """
-    Cursor-based pagination, compatible with the Relay specification.
-    """
-    CONNECTION
+  """
+  Cursor-based pagination, compatible with the Relay specification.
+  """
+  CONNECTION
 }
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\MorphOneDirective
@@ -1555,20 +1586,20 @@ directive @morphToMany(
 Options for the `type` argument of `@morphToMany`.
 """
 enum MorphToManyType {
-    """
-    Offset-based pagination, similar to the Laravel default.
-    """
-    PAGINATOR
+  """
+  Offset-based pagination, similar to the Laravel default.
+  """
+  PAGINATOR
 
-    """
-    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-    """
-    SIMPLE
+  """
+  Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
+  """
+  SIMPLE
 
-    """
-    Cursor-based pagination, compatible with the Relay specification.
-    """
-    CONNECTION
+  """
+  Cursor-based pagination, compatible with the Relay specification.
+  """
+  CONNECTION
 }
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\NamespaceDirective
@@ -1671,25 +1702,25 @@ directive @spread on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 Sets rate limit to access the field. Does the same as ThrottleRequests Laravel Middleware.
 """
 directive @throttle(
-    """
-    Named preconfigured rate limiter. Requires Laravel 8.x or later.
-    """
-    name: String
+  """
+  Named preconfigured rate limiter. Requires Laravel 8.x or later.
+  """
+  name: String
 
-    """
-    Maximum number of attempts in a specified time interval.
-    """
-    maxAttempts: Int = 60
+  """
+  Maximum number of attempts in a specified time interval.
+  """
+  maxAttempts: Int = 60
 
-    """
-    Time in minutes to reset attempts.
-    """
-    decayMinutes: Float = 1.0
+  """
+  Time in minutes to reset attempts.
+  """
+  decayMinutes: Float = 1.0
 
-    """
-    Prefix to distinguish several field groups.
-    """
-    prefix: String
+  """
+  Prefix to distinguish several field groups.
+  """
+  prefix: String
 ) on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\TransformArgsDirective

@@ -1,8 +1,8 @@
-import { Applicant } from "@gc-digital-talent/graphql";
+import { User } from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
 
-type PartialApplicant = Pick<
-  Applicant,
+type PartialUser = Pick<
+  User,
   | "firstName"
   | "lastName"
   | "email"
@@ -26,7 +26,7 @@ export function hasAllEmptyFields({
   currentProvince,
   citizenship,
   armedForcesStatus,
-}: PartialApplicant): boolean {
+}: PartialUser): boolean {
   return !!(
     !firstName &&
     !lastName &&
@@ -51,7 +51,7 @@ export function hasEmptyRequiredFields({
   currentProvince,
   citizenship,
   armedForcesStatus,
-}: PartialApplicant): boolean {
+}: PartialUser): boolean {
   return (
     !firstName ||
     !lastName ||
@@ -68,7 +68,7 @@ export function hasEmptyRequiredFields({
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {
+export function hasEmptyOptionalFields(applicant: PartialUser): boolean {
   // no optional fields
   return false;
 }

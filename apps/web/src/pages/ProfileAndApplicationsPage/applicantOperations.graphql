@@ -115,7 +115,7 @@ query ApplicantInformation {
     experiences {
       id
       __typename
-      applicant {
+      user {
         id
         email
       }

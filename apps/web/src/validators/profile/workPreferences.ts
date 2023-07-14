@@ -1,25 +1,24 @@
-import { Applicant } from "@gc-digital-talent/graphql";
 import isEmpty from "lodash/isEmpty";
 
-type PartialApplicant = Pick<
-  Applicant,
+import { User } from "@gc-digital-talent/graphql";
+
+type PartialUser = Pick<
+  User,
   "acceptedOperationalRequirements" | "positionDuration"
 >;
 
-export function hasAllEmptyFields({
-  positionDuration,
-}: PartialApplicant): boolean {
+export function hasAllEmptyFields({ positionDuration }: PartialUser): boolean {
   return isEmpty(positionDuration);
 }
 
 export function hasEmptyRequiredFields({
   positionDuration,
-}: PartialApplicant): boolean {
+}: PartialUser): boolean {
   return isEmpty(positionDuration);
 }
 
 export function hasEmptyOptionalFields({
   acceptedOperationalRequirements,
-}: PartialApplicant): boolean {
+}: PartialUser): boolean {
   return isEmpty(acceptedOperationalRequirements);
 }
