@@ -5185,8 +5185,8 @@
     "defaultMessage": "Afficher les candidatures en cours ({applicationCount})",
     "description": "Heading for applications in progress accordion on profile and applications."
   },
-  "ak4oel": {
-    "defaultMessage": "Nous n’avons trouvé aucun candidat qui répondait automatiquement à vos critères, mais notre équipe peut toujours vous aider.",
+  "bq1MMd": {
+    "defaultMessage": "Nous n’avons trouvé aucun candidat qui répondait automatiquement à vos critères, mais nous pouvons peut-être encore vous aider.",
     "description": "Text telling users they can still be helped regardless of search results"
   },
   "amibs2": {
