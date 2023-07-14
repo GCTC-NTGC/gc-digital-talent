@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\PoolCandidateObserver;
 use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -75,6 +76,14 @@ class PoolCandidate extends Model
         'expiry_date',
         'pool_candidate_status',
     ];
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        PoolCandidate::observe(PoolCandidateObserver::class);
+    }
 
     public function user(): BelongsTo
     {
@@ -297,8 +306,12 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query->whereHas('user', function ($query) use ($search) {
-            User::scopeGeneralSearch($query, $search);
+        $query->where(function ($query) use ($search) {
+            $query->whereHas('user', function ($query) use ($search) {
+                User::scopeGeneralSearch($query, $search);
+            })->orWhere(function ($query) use ($search) {
+                self::scopeNotes($query, $search);
+            });
         });
 
         return $query;
@@ -326,6 +339,16 @@ class PoolCandidate extends Model
         $query->whereHas('user', function ($query) use ($email) {
             User::scopeEmail($query, $email);
         });
+
+        return $query;
+    }
+
+    public static function scopeNotes(Builder $query, ?string $notes): Builder
+    {
+
+        if (!empty($notes)) {
+            $query->where('notes', 'ilike', "%{$notes}%");
+        }
 
         return $query;
     }
@@ -578,9 +601,11 @@ class PoolCandidate extends Model
                 if ($user->isAbleTo("view-team-submittedApplication")) {
                     $teamIds = $user->rolesTeams()->get()->pluck('id');
                     $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
-                        return $query->whereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
+                        return $query
+                            ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                            ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            });
                     });
                 }
 

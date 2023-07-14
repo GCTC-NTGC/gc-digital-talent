@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
@@ -76,6 +77,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     use HasFactory;
     use SoftDeletes;
     use AuthenticatableTrait;
+    use Notifiable;
     use HasRelationships;
 
     protected $keyType = 'string';
@@ -118,10 +120,12 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         return $this->belongsToMany(GenericJobTitle::class, 'generic_job_title_user')->withTimestamps();
     }
-
+    /**
+     * @deprecated
+     */
     public function isAdmin(): bool
     {
-        return is_array($this->legacy_roles) && in_array('ADMIN', $this->legacy_roles);
+        return $this->hasRole('platform_admin');
     }
     // All the relationships for experiences
     public function awardExperiences(): HasMany
@@ -811,5 +815,34 @@ RAWSQL2;
         if (array_key_exists('sync', $roleAssignmentHasMany)) {
             $this->callRolesFunction($roleAssignmentHasMany['sync'], 'syncRoles');
         }
+    }
+
+    // reattach all the extra fields from the JSON data column
+    public static function enrichNotification(object $notification)
+    {
+        $dataFields = $notification->data;
+        foreach ($dataFields as $key => $value) {
+            $notification->$key = $value;
+        }
+    }
+
+    // rename accessor to avoid hiding parent's notification function
+    public function getEnrichedNotificationsAttribute()
+    {
+        $notifications = $this->notifications()->get();
+        $notifications->each(function ($n) {
+            self::enrichNotification($n);
+        });
+        return $notifications;
+    }
+
+    // rename accessor to avoid hiding parent's notification function
+    public function getUnreadEnrichedNotificationsAttribute()
+    {
+        $notifications = $this->unreadNotifications()->get();
+        $notifications->each(function ($n) {
+            self::enrichNotification($n);
+        });
+        return $notifications;
     }
 }

@@ -1,59 +1,3 @@
-type Applicant {
-  id: ID!
-  firstName: String
-  lastName: String
-  email: Email
-  telephone: PhoneNumber
-  preferredLang: Language
-  preferredLanguageForInterview: Language
-  preferredLanguageForExam: Language
-  currentProvince: ProvinceOrTerritory
-  currentCity: String
-  citizenship: CitizenshipStatus
-  armedForcesStatus: ArmedForcesStatus
-  isGovEmployee: Boolean
-  govEmployeeType: GovEmployeeType
-  currentClassification: Classification
-  department: Department
-  hasPriorityEntitlement: Boolean
-  priorityNumber: String
-  languageAbility: LanguageAbility @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
-  lookingForEnglish: Boolean
-  lookingForFrench: Boolean
-  lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
-  comprehensionLevel: EvaluatedLanguageAbility
-  writtenLevel: EvaluatedLanguageAbility
-  verbalLevel: EvaluatedLanguageAbility
-  estimatedLanguageAbility: EstimatedLanguageAbility
-  isWoman: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean @deprecated(reason: "replaced by indigenousCommunities")
-  isVisibleMinority: Boolean
-  indigenousCommunities: [IndigenousCommunity]
-  indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
-  hasDiploma: Boolean
-  locationPreferences: [WorkRegion]
-  locationExemptions: String
-  acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: [Classification]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
-  positionDuration: [PositionDuration]
-  experiences: [Experience]
-  awardExperiences: [AwardExperience]
-  communityExperiences: [CommunityExperience]
-  educationExperiences: [EducationExperience]
-  personalExperiences: [PersonalExperience]
-  workExperiences: [WorkExperience]
-  userSkills: [UserSkill!]
-  poolCandidates: [PoolCandidate]
-  isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle]
-  priorityWeight: Int
-}
-
 type ApplicantFilter {
   id: ID!
   hasDiploma: Boolean
@@ -108,7 +52,7 @@ enum ArmedForcesStatus {
 
 type AwardExperience implements Experience {
   id: ID!
-  applicant: Applicant!
+  user: User!
   title: String
   issuedBy: String
   awardedDate: Date
@@ -205,7 +149,7 @@ input ClassificationFilterInput {
 
 type CommunityExperience implements Experience {
   id: ID!
-  applicant: Applicant!
+  user: User!
   title: String
   organization: String
   project: String
@@ -397,7 +341,7 @@ input DepartmentBelongsToMany {
 
 type EducationExperience implements Experience {
   id: ID!
-  applicant: Applicant!
+  user: User!
   institution: String
   areaOfStudy: String
   thesisTitle: String
@@ -484,7 +428,7 @@ enum EvaluatedLanguageAbility {
 
 interface Experience {
   id: ID!
-  applicant: Applicant!
+  user: User!
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
@@ -589,7 +533,7 @@ dealing with really large numbers to be on the safe side.
 scalar Mixed
 
 type Mutation {
-  createUser(user: CreateUserInput!): User @deprecated(reason: "The ability of admins to create new users will soon be removed.")
+  createUser(user: CreateUserInput!): User
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
@@ -640,6 +584,14 @@ type Mutation {
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
+  markNotificationAsRead(id: UUID!): Notification
+}
+
+interface Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -748,7 +700,7 @@ type PaginatorInfo {
 
 type PersonalExperience implements Experience {
   id: ID!
-  applicant: Applicant!
+  user: User!
   title: String
   description: String
   startDate: Date
@@ -812,7 +764,7 @@ input PoolBelongsToMany {
 type PoolCandidate {
   id: ID!
   pool: Pool!
-  user: Applicant!
+  user: User!
   cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus
@@ -845,6 +797,7 @@ input PoolCandidateSearchInput {
   email: String
   generalSearch: String
   name: String
+  notes: String
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
@@ -860,10 +813,10 @@ type PoolCandidateSearchRequest {
   additionalComments: String
   requestedDate: DateTime
   status: PoolCandidateSearchStatus
+  statusChangedAt: DateTime
   adminNotes: String
   poolCandidateFilter: PoolCandidateFilter
   applicantFilter: ApplicantFilter
-  doneDate: DateTime
   wasEmpty: Boolean
 }
 
@@ -890,7 +843,9 @@ type PoolCandidateSearchRequestPaginator {
 }
 
 enum PoolCandidateSearchStatus {
-  PENDING
+  NEW
+  IN_PROGRESS
+  WAITING
   DONE
 }
 
@@ -911,6 +866,17 @@ enum PoolCandidateStatus {
   PLACED_INDETERMINATE
   EXPIRED
   REMOVED
+}
+
+type PoolCandidateStatusChangedNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  oldStatus: PoolCandidateStatus
+  newStatus: PoolCandidateStatus
+  poolId: ID
+  poolName: LocalizedString
 }
 
 type PoolCandidateWithSkillCount {
@@ -992,8 +958,8 @@ type Query {
   me: User
   user(id: UUID!): User
   users: [User]!
-  applicant(id: UUID!): Applicant
-  applicants(includeIds: [ID]!): [Applicant]!
+  applicant(id: UUID!): User @deprecated(reason: "Removing in favour of user query")
+  applicants(includeIds: [ID]!): [User]! @deprecated(reason: "Removing in favour of users query")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   pools: [Pool]!
@@ -1563,6 +1529,7 @@ type User {
   expectedClassifications: [Classification]
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
+  poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
   communityExperiences: [CommunityExperience]
@@ -1570,12 +1537,13 @@ type User {
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
   userSkills: [UserSkill!]
-  poolCandidates: [PoolCandidate]
   pools: [Pool] @deprecated(reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead.")
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
   roleAssignments: [RoleAssignment!]
+  unreadNotifications: [Notification!]
+  notifications: [Notification!]
 }
 
 input UserBelongsTo {
@@ -1663,7 +1631,7 @@ input WhereConditionsRelation {
 
 type WorkExperience implements Experience {
   id: ID!
-  applicant: Applicant!
+  user: User!
   role: String
   organization: String
   division: String

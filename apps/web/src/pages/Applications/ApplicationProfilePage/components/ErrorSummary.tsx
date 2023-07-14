@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Heading, Well, ScrollToLink } from "@gc-digital-talent/ui";
 
-import { Applicant, PoolCandidate, User } from "~/api/generated";
+import { PoolCandidate, User } from "~/api/generated";
 import { hasEmptyRequiredFields as hasEmptyPersonalRequiredFields } from "~/validators/profile/about";
 import { hasEmptyRequiredFields as hasEmptyGovernmentRequiredFields } from "~/validators/profile/governmentInformation";
 import { hasEmptyRequiredFields as hasEmptyWorkPrefRequiredFields } from "~/validators/profile/workPreferences";
@@ -37,7 +37,7 @@ const ErrorSummary = ({ user, application }: ErrorSummaryProps) => {
     government: hasEmptyGovernmentRequiredFields(user),
     language:
       hasEmptyLanguageRequiredFields(user) ||
-      hasUnsatisfiedRequirements(user as Applicant, application.pool),
+      hasUnsatisfiedRequirements(user, application.pool),
   };
 
   const hasErrors = Object.values(errors).some((hasError) => hasError);

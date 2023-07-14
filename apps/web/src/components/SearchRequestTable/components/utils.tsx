@@ -25,7 +25,12 @@ export default function useFilterOptions() {
   const [filterRes] = useGetFilterDataForRequestsQuery({ context });
 
   const optionsData = {
-    status: enumToOptions(PoolCandidateSearchStatus).map(({ value }) => ({
+    status: enumToOptions(PoolCandidateSearchStatus, [
+      PoolCandidateSearchStatus.New,
+      PoolCandidateSearchStatus.InProgress,
+      PoolCandidateSearchStatus.Waiting,
+      PoolCandidateSearchStatus.Done,
+    ]).map(({ value }) => ({
       value,
       label: intl.formatMessage(getPoolCandidateSearchStatus(value)),
     })),

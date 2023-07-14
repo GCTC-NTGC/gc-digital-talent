@@ -11,6 +11,7 @@ fragment application on PoolCandidate {
       en
       fr
     }
+    publishingGroup
     stream
     classifications {
       id
@@ -115,7 +116,7 @@ query ApplicantInformation {
     experiences {
       id
       __typename
-      applicant {
+      user {
         id
         email
       }

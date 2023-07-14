@@ -27,6 +27,14 @@ const HomePage = React.lazy(() =>
       ),
   ),
 );
+const ManagerHomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsManagerHomePage" */ "../pages/Home/ManagerHomePage/ManagerHomePage"
+      ),
+  ),
+);
 const ErrorPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -409,14 +417,6 @@ const IndexUserPage = React.lazy(() =>
       ),
   ),
 );
-const CreateUserPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateUserPage" */ "../pages/Users/CreateUserPage/CreateUserPage"
-      ),
-  ),
-);
 const UserLayout = React.lazy(() =>
   lazyRetry(
     () =>
@@ -705,6 +705,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
             {
               index: true,
               element: <HomePage />,
+            },
+            {
+              path: "manager",
+              element: <ManagerHomePage />,
             },
             {
               path: "support",
@@ -1162,17 +1166,6 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       loginPath={loginPath}
                     >
                       <IndexUserPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: "create",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
-                      loginPath={loginPath}
-                    >
-                      <CreateUserPage />
                     </RequireAuth>
                   ),
                 },

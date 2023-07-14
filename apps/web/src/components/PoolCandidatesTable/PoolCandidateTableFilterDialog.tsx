@@ -247,8 +247,10 @@ const PoolCandidateTableFilterDialog = ({
                   id="priorityWeight"
                   name="priorityWeight"
                   label={formatMessage({
-                    defaultMessage: "Priority",
-                    id: "8lCjAM",
+                    defaultMessage: "Category",
+                    id: "qrDCTV",
+                    description:
+                      "Title displayed for the Pool Candidates table Priority column.",
                   })}
                   options={optionsData.priorityWeight}
                 />

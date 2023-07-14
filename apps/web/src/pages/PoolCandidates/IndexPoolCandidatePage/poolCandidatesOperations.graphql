@@ -79,7 +79,7 @@ fragment poolCandidateTable on PoolCandidate {
     experiences {
       id
       __typename
-      applicant {
+      user {
         id
         email
       }
@@ -280,7 +280,7 @@ fragment selectedPoolCandidates on PoolCandidate {
     experiences {
       id
       __typename
-      applicant {
+      user {
         id
         email
       }
@@ -346,7 +346,7 @@ fragment selectedPoolCandidates on PoolCandidate {
   educationRequirementExperiences {
     id
     __typename
-    applicant {
+    user {
       id
       email
     }
@@ -567,7 +567,7 @@ query getCandidateProfile($id: UUID!) {
       experiences {
         id
         __typename
-        applicant {
+        user {
           id
           email
         }

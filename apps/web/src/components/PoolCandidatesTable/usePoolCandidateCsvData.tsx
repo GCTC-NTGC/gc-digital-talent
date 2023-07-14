@@ -103,8 +103,8 @@ const usePoolCandidateCsvData = (
     {
       key: "priority",
       label: intl.formatMessage({
-        defaultMessage: "Priority",
-        id: "w9RqOI",
+        defaultMessage: "Category",
+        id: "o9B983",
         description: "CSV Header, Priority column",
       }),
     },
@@ -118,11 +118,7 @@ const usePoolCandidateCsvData = (
     },
     {
       key: "notes",
-      label: intl.formatMessage({
-        defaultMessage: "Notes",
-        id: "ev6HnY",
-        description: "CSV Header, Notes column",
-      }),
+      label: intl.formatMessage(adminMessages.notes),
     },
     {
       key: "currentProvince",

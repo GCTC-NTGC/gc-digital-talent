@@ -49,11 +49,7 @@ const UserInformation = ({ user, pools }: UserInformationProps) => {
     },
     {
       id: "notes",
-      title: intl.formatMessage({
-        defaultMessage: "Notes",
-        id: "4AubyK",
-        description: "Title of the 'Notes' section of the view-user page",
-      }),
+      title: intl.formatMessage(adminMessages.notes),
       titleIcon: PencilSquareIcon,
       content: <NotesSection user={user} />,
     },
@@ -119,7 +115,7 @@ const UserInformationPage = () => {
     variables: { id: userId || "" },
   });
 
-  const user = lookupData?.applicant;
+  const user = lookupData?.user;
   const pools = lookupData?.pools.filter(notEmpty);
 
   const navigationCrumbs = [

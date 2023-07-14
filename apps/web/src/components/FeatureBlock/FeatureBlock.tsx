@@ -2,7 +2,6 @@ import React from "react";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 
-// Define the interface
 export interface FeatureBlockProps {
   content: {
     title: string;
@@ -19,7 +18,6 @@ export interface FeatureBlockProps {
   };
 }
 
-// Create the page component
 const FeatureBlock = ({ content }: FeatureBlockProps) => {
   return (
     <div
@@ -52,9 +50,9 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
           backgroundSize: "cover",
         }}
       />
-      <p data-h2-flex-grow="base(1)" data-h2-padding="base(x1)">
+      <div data-h2-flex-grow="base(1)" data-h2-padding="base(x1)">
         {content.summary}
-      </p>
+      </div>
       <div data-h2-padding="base(0, x1, x1, x1)">
         <Link
           color="black"
@@ -69,5 +67,4 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
   );
 };
 
-// Export the component
 export default FeatureBlock;
