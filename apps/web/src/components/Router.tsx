@@ -27,6 +27,14 @@ const HomePage = React.lazy(() =>
       ),
   ),
 );
+const ExecutiveHomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsExecutiveHomePage" */ "../pages/Home/ExecutiveHomePage/ExecutiveHomePage"
+      ),
+  ),
+);
 const ManagerHomePage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -705,6 +713,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
             {
               index: true,
               element: <HomePage />,
+            },
+            {
+              path: "executive",
+              element: <ExecutiveHomePage />,
             },
             {
               path: "manager",
