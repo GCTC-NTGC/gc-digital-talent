@@ -140,7 +140,7 @@ const ApplicationReview = ({
     ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
   const editPaths = {
-    resume: paths.applicationResume(application.id),
+    careerTimeline: paths.applicationResume(application.id),
     education: paths.applicationEducation(application.id),
     skills: paths.applicationSkills(application.id),
     screeningQuestions: paths.applicationQuestions(application.id),
@@ -212,16 +212,16 @@ const ApplicationReview = ({
       <ReviewSection
         title={intl.formatMessage({
           defaultMessage: "Your career timeline",
-          id: "rojiLP",
+          id: "0w59dG",
           description:
-            "Heading for resume section of the application review page.",
+            "Heading for career timeline section of the application review page.",
         })}
-        path={editPaths.resume}
+        path={editPaths.careerTimeline}
         editLinkAriaLabel={intl.formatMessage({
-          defaultMessage: "Edit your resume",
-          id: "v0QzOM",
+          defaultMessage: "Edit your career timeline",
+          id: "MdVah3",
           description:
-            "Edit link text for resume section of the application review page.",
+            "Edit link text for career timeline section of the application review page.",
         })}
       >
         <TreeView.Root>
@@ -231,9 +231,9 @@ const ApplicationReview = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "This section summarizes your career timeline as it will be seen by hiring managers for these positions.",
-                  id: "up4/g2",
+                  id: "eCkRlc",
                   description:
-                    "Blurb for resume section of the application review page.",
+                    "Blurb for career timeline section of the application review page.",
                 })}
               </p>
             </Card>
@@ -261,9 +261,9 @@ const ApplicationReview = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "It looks like you haven't added any experiences to your career timeline yet.",
-                  id: "ne3Ulo",
+                  id: "yfzR+U",
                   description:
-                    "Null state message for resume section of the application review page.",
+                    "Null state message for career timeline section of the application review page.",
                 })}
               </p>
             </Well>

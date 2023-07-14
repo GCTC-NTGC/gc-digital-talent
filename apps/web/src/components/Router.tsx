@@ -1027,7 +1027,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       element: <ApplicationProfilePage />,
                     },
                     {
-                      path: "resume",
+                      path: "career-timeline",
                       children: [
                         {
                           index: true,

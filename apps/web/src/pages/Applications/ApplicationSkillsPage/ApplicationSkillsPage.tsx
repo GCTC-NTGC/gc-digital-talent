@@ -35,7 +35,7 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 import { useApplicationContext } from "../ApplicationContext";
 
-const resumeLink = (children: React.ReactNode, href: string) => (
+const careerTimelineLink = (children: React.ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
 );
 
@@ -186,14 +186,17 @@ export const ApplicationSkills = ({
         {intl.formatMessage(
           {
             defaultMessage:
-              "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. Similarly to the minimum experience and education step, if you need to add or change a career timeline experience, you can do so by returning to the <resumeLink>career timeline step</resumeLink> in the application.",
-            id: "CyJKb3",
+              "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. Similarly to the minimum experience and education step, if you need to add or change a career timeline experience, you can do so by returning to the <careerTimelineLink>career timeline step</careerTimelineLink> in the application.",
+            id: "MUwxzr",
             description:
               "Lead in paragraph for adding experiences to a users skills",
           },
           {
-            resumeLink: (chunks: React.ReactNode) =>
-              resumeLink(chunks, paths.applicationResume(application.id)),
+            careerTimelineLink: (chunks: React.ReactNode) =>
+              careerTimelineLink(
+                chunks,
+                paths.applicationResume(application.id),
+              ),
           },
         )}
       </p>

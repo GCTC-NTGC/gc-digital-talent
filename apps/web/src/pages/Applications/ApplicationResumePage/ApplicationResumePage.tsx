@@ -335,8 +335,9 @@ export const ApplicationResume = ({
           <Link mode="inline" href={paths.applicationResumeAdd(application.id)}>
             {intl.formatMessage({
               defaultMessage: "Add a new experience",
-              id: "ON4+Yr",
-              description: "A link to add a new experience to your resume",
+              id: "ARFz8L",
+              description:
+                "A link to add a new experience to your career timeline",
             })}
           </Link>
         </div>

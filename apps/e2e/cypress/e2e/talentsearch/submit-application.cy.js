@@ -179,9 +179,11 @@ describe("Submit Application Workflow Tests", () => {
     // Attempt skipping to review
     cy.url().then((url) => {
       const reviewResumeIntroUrl = url;
-      cy.expect(reviewResumeIntroUrl).to.have.string("resume/introduction");
+      cy.expect(reviewResumeIntroUrl).to.have.string(
+        "career-timeline/introduction",
+      );
       const hackedUrl = reviewResumeIntroUrl.replace(
-        "resume/introduction",
+        "career-timeline/introduction",
         "review",
       );
       cy.visit(hackedUrl);
@@ -194,7 +196,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("link", {
       name: /Return to the last step I was working on/i,
     }).click();
-    cy.findByRole("heading", { name: /Create your career timeline/i }) // returned to resume step
+    cy.findByRole("heading", { name: /Create your career timeline/i }) // returned to career timeline step
       .should("exist")
       .and("be.visible");
     cy.findByRole("link", {
@@ -213,7 +215,7 @@ describe("Submit Application Workflow Tests", () => {
       .should("exist")
       .and("be.visible");
     cy.findByRole("link", { name: /Add a new experience/i }).click();
-    cy.url().should("contain", "/resume/add");
+    cy.url().should("contain", "/career-timeline/add");
     // at adding experience to career timeline page now
     cy.contains(/Add an experience to your career timeline/i)
       .should("exist")

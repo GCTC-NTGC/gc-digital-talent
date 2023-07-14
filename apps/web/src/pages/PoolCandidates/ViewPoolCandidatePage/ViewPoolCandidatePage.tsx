@@ -141,8 +141,8 @@ export const ViewPoolCandidate = ({
         description: "Title for the screening questions snapshot section",
       }),
     },
-    resume: {
-      id: "resume",
+    careerTimeline: {
+      id: "career-timeline",
       title: intl.formatMessage({
         defaultMessage: "Career timeline",
         id: "2KM4iz",
@@ -404,13 +404,13 @@ export const ViewPoolCandidate = ({
               </React.Fragment>
             ))}
         </TableOfContents.Section>
-        <TableOfContents.Section id={sections.resume.id}>
+        <TableOfContents.Section id={sections.careerTimeline.id}>
           <TableOfContents.Heading
             as="h4"
             size="h5"
             data-h2-margin="base(x2 0 x.5 0)"
           >
-            {sections.resume.title}
+            {sections.careerTimeline.title}
           </TableOfContents.Heading>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
@@ -629,8 +629,8 @@ export const ViewPoolCandidate = ({
                   </TableOfContents.AnchorLink>
                 </TableOfContents.ListItem>
                 <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.resume.id}>
-                    {sections.resume.title}
+                  <TableOfContents.AnchorLink id={sections.careerTimeline.id}>
+                    {sections.careerTimeline.title}
                   </TableOfContents.AnchorLink>
                 </TableOfContents.ListItem>
                 <TableOfContents.ListItem>
