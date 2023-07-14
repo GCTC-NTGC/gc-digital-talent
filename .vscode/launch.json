@@ -7,7 +7,8 @@
       "port": 9003,
       "pathMappings": {
         "/home/site/wwwroot/": "${workspaceFolder}"
-      }
+      },
+      "hostname": "localhost"
       // For configuration, see the infrastructure/conf/xdebug.ini file.
     },
     {
@@ -49,7 +50,9 @@
         // Can't debug packages currently. 😢
       ],
       "reloadOnChange": {
-        "watch": ["${workspaceFolder}/apps/web/dist"]
+        "watch": [
+          "${workspaceFolder}/apps/web/dist"
+        ]
       }
     }
   ]
