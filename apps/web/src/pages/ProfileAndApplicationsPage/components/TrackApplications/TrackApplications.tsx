@@ -17,7 +17,7 @@ import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui
 import { PoolCandidate, Scalars } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { isApplicationInProgress } from "~/utils/applicationUtils";
-import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import TrackApplicationsCard from "./TrackApplicationsCard";
 
 function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
@@ -122,7 +122,7 @@ const TrackApplications = ({
                 buildLink(
                   paths.careerTimelineAndRecruitment(userId, {
                     section:
-                      RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
+                      CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
                   }),
                   chunks,
                 ),

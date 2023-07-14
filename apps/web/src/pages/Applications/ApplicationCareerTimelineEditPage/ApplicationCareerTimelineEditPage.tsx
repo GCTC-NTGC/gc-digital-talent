@@ -25,7 +25,10 @@ export const getPageInfo: GetPageNavInfo = ({
   intl,
   stepOrdinal,
 }) => {
-  const path = paths.applicationResumeEdit(application.id, resourceId ?? "");
+  const path = paths.applicationCareerTimelineEdit(
+    application.id,
+    resourceId ?? "",
+  );
   return {
     title: intl.formatMessage({
       defaultMessage: "Edit your experience",
@@ -41,7 +44,7 @@ export const getPageInfo: GetPageNavInfo = ({
     icon: StarIcon,
     crumbs: [
       {
-        url: paths.applicationResume(application.id),
+        url: paths.applicationCareerTimeline(application.id),
         label: intl.formatMessage(applicationMessages.numberedStep, {
           stepOrdinal,
         }),
@@ -62,14 +65,14 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-interface ApplicationResumeEditProps extends ApplicationPageProps {
+interface ApplicationCareerTimelineEditProps extends ApplicationPageProps {
   experience: AnyExperience;
 }
 
-const ApplicationResumeEdit = ({
+const ApplicationCareerTimelineEdit = ({
   application,
   experience,
-}: ApplicationResumeEditProps) => {
+}: ApplicationCareerTimelineEditProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { experienceId } = useParams();
@@ -101,7 +104,7 @@ const ApplicationResumeEdit = ({
   );
 };
 
-const ApplicationResumeEditPage = () => {
+const ApplicationCareerTimelineEditPage = () => {
   const { applicationId, experienceId } = useParams();
   const [
     {
@@ -134,7 +137,7 @@ const ApplicationResumeEditPage = () => {
       error={applicationError || experienceError}
     >
       {application && experience ? (
-        <ApplicationResumeEdit
+        <ApplicationCareerTimelineEdit
           application={application}
           experience={experience}
         />
@@ -145,4 +148,4 @@ const ApplicationResumeEditPage = () => {
   );
 };
 
-export default ApplicationResumeEditPage;
+export default ApplicationCareerTimelineEditPage;

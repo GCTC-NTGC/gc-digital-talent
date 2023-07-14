@@ -140,7 +140,7 @@ const ApplicationReview = ({
     ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
   const editPaths = {
-    careerTimeline: paths.applicationResume(application.id),
+    careerTimeline: paths.applicationCareerTimeline(application.id),
     education: paths.applicationEducation(application.id),
     skills: paths.applicationSkills(application.id),
     screeningQuestions: paths.applicationQuestions(application.id),

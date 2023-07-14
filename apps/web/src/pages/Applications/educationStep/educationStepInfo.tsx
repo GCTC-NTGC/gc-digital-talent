@@ -22,7 +22,7 @@ const getStepInfo: GetApplicationStepInfo = ({
       ApplicationStep.Welcome,
       ApplicationStep.SelfDeclaration,
       ApplicationStep.ReviewYourProfile,
-      ApplicationStep.ReviewYourResume,
+      ApplicationStep.ReviewYourCareerTimeline,
     ],
     hasError: stepHasError,
   };

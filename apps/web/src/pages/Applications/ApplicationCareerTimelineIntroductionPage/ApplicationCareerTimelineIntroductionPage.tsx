@@ -18,7 +18,7 @@ export const getPageInfo: GetPageNavInfo = ({
   intl,
   stepOrdinal,
 }) => {
-  const path = paths.applicationResumeIntro(application.id);
+  const path = paths.applicationCareerTimelineIntro(application.id);
   return {
     title: intl.formatMessage({
       defaultMessage: "Great work! On to your career timeline.",
@@ -47,7 +47,7 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-const ApplicationResumeIntroduction = ({
+const applicationCareerTimelineIntroduction = ({
   application,
 }: ApplicationPageProps) => {
   const intl = useIntl();
@@ -59,7 +59,7 @@ const ApplicationResumeIntroduction = ({
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const nextStep = paths.applicationResume(application.id);
+  const nextStep = paths.applicationCareerTimeline(application.id);
   const { applicantDashboard } = useFeatureFlags();
 
   return (
@@ -127,8 +127,8 @@ const ApplicationResumeIntroduction = ({
   );
 };
 
-const ApplicationResumeIntroductionPage = () => (
-  <ApplicationApi PageComponent={ApplicationResumeIntroduction} />
+const ApplicationCareerTimelineIntroductionPage = () => (
+  <ApplicationApi PageComponent={applicationCareerTimelineIntroduction} />
 );
 
-export default ApplicationResumeIntroductionPage;
+export default ApplicationCareerTimelineIntroductionPage;

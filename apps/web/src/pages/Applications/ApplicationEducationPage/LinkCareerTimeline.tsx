@@ -65,17 +65,17 @@ const ExperienceChecklist = ({ items }: { items: CheckboxOption[] }) => {
   );
 };
 
-interface LinkResumeProps {
+interface LinkCareerTimelineProps {
   experiences: Experience[];
   watchEducationRequirement: EducationRequirementOption;
   previousStepPath: string;
 }
 
-const LinkResume = ({
+const LinkCareerTimeline = ({
   experiences,
   watchEducationRequirement,
   previousStepPath,
-}: LinkResumeProps) => {
+}: LinkCareerTimelineProps) => {
   const intl = useIntl();
   const previousStepLink = (chunks: React.ReactNode) => (
     <Link href={previousStepPath}>{chunks}</Link>
@@ -304,4 +304,4 @@ const LinkResume = ({
   );
 };
 
-export default LinkResume;
+export default LinkCareerTimeline;

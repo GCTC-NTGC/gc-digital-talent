@@ -20,7 +20,7 @@ import useRoutes from "~/hooks/useRoutes";
 import ProfileFormWrapper from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { Application } from "~/utils/applicationUtils";
-import ResumeSection from "./ResumeSection";
+import CareerTimelineSection from "./CareerTimelineSection";
 import { PAGE_SECTION_ID, titles } from "../constants";
 import QualifiedRecruitmentsSection from "./QualifiedRecruitmentsSection";
 
@@ -39,7 +39,7 @@ export type ExperienceForDate =
   | PersonalExperience
   | WorkExperience;
 
-export interface ResumeAndRecruitmentProps {
+export interface CareerTimelineAndRecruitmentProps {
   applicantId: string;
   experiences?: MergedExperiences;
   applications: Application[];
@@ -50,16 +50,16 @@ export interface ResumeAndRecruitmentProps {
   };
 }
 
-export const ResumeAndRecruitment = ({
+export const CareerTimelineAndRecruitment = ({
   experiences,
   applications,
   missingSkills,
   applicantId,
   pool,
-}: ResumeAndRecruitmentProps) => {
+}: CareerTimelineAndRecruitmentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const hasResumeItems = !!experiences?.length;
+  const hasCareerTimelineItems = !!experiences?.length;
 
   return (
     <ProfileFormWrapper
@@ -92,7 +92,7 @@ export const ResumeAndRecruitment = ({
               <TableOfContents.AnchorLink
                 id={PAGE_SECTION_ID.MANAGE_YOUR_CAREER_TIMELINE}
               >
-                {intl.formatMessage(titles.manageYourResume)}
+                {intl.formatMessage(titles.manageYourCareerTimeline)}
               </TableOfContents.AnchorLink>
             </TableOfContents.ListItem>
             <TableOfContents.ListItem>
@@ -113,7 +113,7 @@ export const ResumeAndRecruitment = ({
               color="tertiary"
               data-h2-margin-top="base(0)"
             >
-              {intl.formatMessage(titles.manageYourResume)}
+              {intl.formatMessage(titles.manageYourCareerTimeline)}
             </Heading>
             <p>
               {intl.formatMessage({
@@ -121,14 +121,16 @@ export const ResumeAndRecruitment = ({
                   "This section is similar to your traditional career timeline and describes your experiences across work, school, and life. You’ll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
                 id: "/MJq3v",
                 description:
-                  "Descriptive paragraph for the Manage your resume section of the career timeline and recruitment page.",
+                  "Descriptive paragraph for the Manage your career timeline section of the career timeline and recruitment page.",
               })}
             </p>
             {missingSkills && (
               <div data-h2-margin="base(x1, 0)">
                 <MissingSkills
                   addedSkills={
-                    hasResumeItems ? flattenExperienceSkills(experiences) : []
+                    hasCareerTimelineItems
+                      ? flattenExperienceSkills(experiences)
+                      : []
                   }
                   requiredSkills={missingSkills.requiredSkills}
                   optionalSkills={missingSkills.optionalSkills}
@@ -136,7 +138,7 @@ export const ResumeAndRecruitment = ({
               </div>
             )}
             <div data-h2-margin-top="base(x2)">
-              <ResumeSection
+              <CareerTimelineSection
                 experiences={experiences}
                 applicantId={applicantId}
               />
@@ -183,4 +185,4 @@ export const ResumeAndRecruitment = ({
   );
 };
 
-export default ResumeAndRecruitment;
+export default CareerTimelineAndRecruitment;

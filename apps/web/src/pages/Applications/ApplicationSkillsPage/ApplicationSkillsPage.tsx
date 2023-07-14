@@ -195,7 +195,7 @@ export const ApplicationSkills = ({
             careerTimelineLink: (chunks: React.ReactNode) =>
               careerTimelineLink(
                 chunks,
-                paths.applicationResume(application.id),
+                paths.applicationCareerTimeline(application.id),
               ),
           },
         )}

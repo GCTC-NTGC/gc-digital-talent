@@ -52,7 +52,7 @@ export const getPageInfo: GetPageNavInfo = ({
   intl,
   stepOrdinal,
 }) => {
-  const path = paths.applicationResume(application.id);
+  const path = paths.applicationCareerTimeline(application.id);
   return {
     title: intl.formatMessage({
       defaultMessage: "Review your career timeline",
@@ -161,14 +161,14 @@ function formatExperienceCount(
   }
 }
 
-interface ApplicationResumeProps extends ApplicationPageProps {
+interface ApplicationCareerTimelineProps extends ApplicationPageProps {
   experiences: Array<ExperienceForDate>;
 }
 
-export const ApplicationResume = ({
+export const ApplicationCareerTimeline = ({
   application,
   experiences,
-}: ApplicationResumeProps) => {
+}: ApplicationCareerTimelineProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -180,7 +180,7 @@ export const ApplicationResume = ({
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const instructionsPath = paths.applicationResumeIntro(application.id);
+  const instructionsPath = paths.applicationCareerTimelineIntro(application.id);
   const nextStep =
     followingPageUrl ?? paths.applicationEducation(application.id);
   const { applicantDashboard } = useFeatureFlags();
@@ -212,7 +212,7 @@ export const ApplicationResume = ({
     executeMutation({
       id: application.id,
       application: {
-        insertSubmittedStep: ApplicationStep.ReviewYourResume,
+        insertSubmittedStep: ApplicationStep.ReviewYourCareerTimeline,
       },
     })
       .then((res) => {
@@ -332,7 +332,10 @@ export const ApplicationResume = ({
         <div data-h2-flex-item="base(0of1) p-tablet(fill)">{/* spacer */}</div>
 
         <div data-h2-flex-item="base(1of1) p-tablet(content)">
-          <Link mode="inline" href={paths.applicationResumeAdd(application.id)}>
+          <Link
+            mode="inline"
+            href={paths.applicationCareerTimelineAdd(application.id)}
+          >
             {intl.formatMessage({
               defaultMessage: "Add a new experience",
               id: "ARFz8L",
@@ -355,7 +358,7 @@ export const ApplicationResume = ({
                 experience={experience}
                 headingLevel="h3"
                 showSkills={false}
-                editPath={paths.applicationResumeEdit(
+                editPath={paths.applicationCareerTimelineEdit(
                   application.id,
                   experience.id,
                 )}
@@ -428,7 +431,7 @@ export const ApplicationResume = ({
   );
 };
 
-const ApplicationResumePage = () => {
+const ApplicationCareerTimelinePage = () => {
   const { applicationId } = useParams();
   const [
     {
@@ -459,7 +462,7 @@ const ApplicationResumePage = () => {
       error={applicationError || experienceError}
     >
       {application ? (
-        <ApplicationResume
+        <ApplicationCareerTimeline
           application={application}
           experiences={experiences}
         />
@@ -470,4 +473,4 @@ const ApplicationResumePage = () => {
   );
 };
 
-export default ApplicationResumePage;
+export default ApplicationCareerTimelinePage;

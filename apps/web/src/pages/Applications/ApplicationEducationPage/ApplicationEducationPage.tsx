@@ -40,7 +40,7 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
 import { ApplicationPageProps } from "../ApplicationApi";
-import LinkResume from "./LinkResume";
+import LinkCareerTimeline from "./LinkCareerTimeline";
 import { useApplicationContext } from "../ApplicationContext";
 
 type EducationRequirementExperiences = {
@@ -123,7 +123,7 @@ const ApplicationEducation = ({
   });
   const nextStep =
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);
-  const previousStep = paths.applicationResume(application.id);
+  const previousStep = paths.applicationCareerTimeline(application.id);
   const cancelPath = applicantDashboard
     ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
@@ -436,7 +436,7 @@ const ApplicationEducation = ({
               required: intl.formatMessage(errorMessages.required),
             }}
           />
-          <LinkResume
+          <LinkCareerTimeline
             experiences={experiences}
             watchEducationRequirement={watchEducationRequirement}
             previousStepPath={previousStep}

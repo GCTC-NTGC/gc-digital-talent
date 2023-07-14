@@ -14,7 +14,7 @@ export const titles = defineMessages({
     id: "Icl1fF",
     description: "Name of Career timeline and recruitment page",
   },
-  manageYourResume: {
+  manageYourCareerTimeline: {
     defaultMessage: "Manage your career timeline",
     id: "eZYP/W",
     description: "Titles for a page section to manage your career timeline",

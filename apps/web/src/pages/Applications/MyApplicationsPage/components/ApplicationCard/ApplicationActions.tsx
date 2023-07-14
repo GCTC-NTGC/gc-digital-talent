@@ -7,7 +7,7 @@ import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
-import { PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import type { Application } from "./ApplicationCard";
 
 export interface ActionProps {
@@ -235,15 +235,15 @@ const CopyApplicationIdAction = ({
     </Button>
   );
 };
-export interface VisitResumeActionProps extends ActionProps {
+export interface VisitCareerTimelineActionProps extends ActionProps {
   userID: string;
   application: Application;
 }
-const VisitResumeAction = ({
+const VisitCareerTimelineAction = ({
   show,
   userID,
   application,
-}: VisitResumeActionProps) => {
+}: VisitCareerTimelineActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
@@ -516,6 +516,6 @@ export default {
   SupportAction,
   ViewAction,
   CopyApplicationIdAction,
-  VisitResumeAction,
+  VisitCareerTimelineAction,
   ManageAvailabilityAction,
 };

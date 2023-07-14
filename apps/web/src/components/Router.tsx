@@ -201,11 +201,11 @@ const EmploymentEquityPage = React.lazy(() =>
       ),
   ),
 );
-const ResumeAndRecruitmentPage = React.lazy(() =>
+const CareerTimelineAndRecruitmentPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsResumeAndRecruitmentPage" */ "../pages/Profile/ResumeAndRecruitmentPage/ResumeAndRecruitmentPage"
+        /* webpackChunkName: "tsCareerTimelineAndRecruitmentPage" */ "../pages/Profile/CareerTimelineAndRecruitmentPage/CareerTimelineAndRecruitmentPage"
       ),
   ),
 );
@@ -275,35 +275,35 @@ const ApplicationProfilePage = React.lazy(() =>
       ),
   ),
 );
-const ApplicationResumeIntroductionPage = React.lazy(() =>
+const ApplicationCareerTimelineIntroductionPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationResumeIntroductionPage" */ "../pages/Applications/ApplicationResumeIntroductionPage/ApplicationResumeIntroductionPage"
+        /* webpackChunkName: "tsApplicationCareerTimelineIntroductionPage" */ "../pages/Applications/ApplicationCareerTimelineIntroductionPage/ApplicationCareerTimelineIntroductionPage"
       ),
   ),
 );
-const ApplicationResumePage = React.lazy(() =>
+const ApplicationCareerTimelinePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationResumePage" */ "../pages/Applications/ApplicationResumePage/ApplicationResumePage"
+        /* webpackChunkName: "tsApplicationCareerTimelinePage" */ "../pages/Applications/ApplicationCareerTimelinePage/ApplicationCareerTimelinePage"
       ),
   ),
 );
-const ApplicationResumeAddPage = React.lazy(() =>
+const ApplicationCareerTimelineAddPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationResumeAddPage" */ "../pages/Applications/ApplicationResumeAddPage/ApplicationResumeAddPage"
+        /* webpackChunkName: "tsApplicationCareerTimelineAddPage" */ "../pages/Applications/ApplicationCareerTimelineAddPage/ApplicationCareerTimelineAddPage"
       ),
   ),
 );
-const ApplicationResumeEditPage = React.lazy(() =>
+const ApplicationCareerTimelineEditPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationResumeEditPage" */ "../pages/Applications/ApplicationResumeEditPage/ApplicationResumeEditPage"
+        /* webpackChunkName: "tsApplicationCareerTimelineEditPage" */ "../pages/Applications/ApplicationCareerTimelineEditPage/ApplicationCareerTimelineEditPage"
       ),
   ),
 );
@@ -911,7 +911,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
-                                  <ResumeAndRecruitmentPage />
+                                  <CareerTimelineAndRecruitmentPage />
                                 </RequireAuth>
                               ),
                             },
@@ -1031,19 +1031,21 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       children: [
                         {
                           index: true,
-                          element: <ApplicationResumePage />,
+                          element: <ApplicationCareerTimelinePage />,
                         },
                         {
                           path: "introduction",
-                          element: <ApplicationResumeIntroductionPage />,
+                          element: (
+                            <ApplicationCareerTimelineIntroductionPage />
+                          ),
                         },
                         {
                           path: "add",
-                          element: <ApplicationResumeAddPage />,
+                          element: <ApplicationCareerTimelineAddPage />,
                         },
                         {
                           path: ":experienceId",
-                          element: <ApplicationResumeEditPage />,
+                          element: <ApplicationCareerTimelineEditPage />,
                         },
                       ],
                     },

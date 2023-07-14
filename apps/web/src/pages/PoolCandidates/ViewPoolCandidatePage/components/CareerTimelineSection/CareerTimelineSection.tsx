@@ -9,11 +9,11 @@ import ExperienceSortAndFilter, {
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
-interface ResumeSectionProps {
+interface CareerTimelineSectionProps {
   experiences: Experience[];
 }
 
-const ResumeSection = ({ experiences }: ResumeSectionProps) => {
+const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
   const intl = useIntl();
   const [sortAndFilterValues, setSortAndFilterValues] =
     React.useState<ExperienceSortAndFilterFormValues>({
@@ -74,4 +74,4 @@ const ResumeSection = ({ experiences }: ResumeSectionProps) => {
   );
 };
 
-export default ResumeSection;
+export default CareerTimelineSection;

@@ -1,9 +1,9 @@
 import { Applicant } from "@gc-digital-talent/graphql";
 
-import { resumeIsIncomplete } from "~/validators/profile";
+import { careerTimelineIsIncomplete } from "~/validators/profile";
 
 const stepHasError = (applicant: Applicant) => {
-  const isIncomplete = resumeIsIncomplete(applicant);
+  const isIncomplete = careerTimelineIsIncomplete(applicant);
   return isIncomplete;
 };
 

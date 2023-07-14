@@ -24,7 +24,7 @@ export const getPageInfo: GetPageNavInfo = ({
   intl,
   stepOrdinal,
 }) => {
-  const path = paths.applicationResumeAdd(application.id);
+  const path = paths.applicationCareerTimelineAdd(application.id);
   return {
     title: intl.formatMessage({
       defaultMessage: "Add an experience to your career timeline",
@@ -40,13 +40,13 @@ export const getPageInfo: GetPageNavInfo = ({
     icon: StarIcon,
     crumbs: [
       {
-        url: paths.applicationResume(application.id),
+        url: paths.applicationCareerTimeline(application.id),
         label: intl.formatMessage(applicationMessages.numberedStep, {
           stepOrdinal,
         }),
       },
       {
-        url: paths.applicationResumeAdd(application.id),
+        url: paths.applicationCareerTimelineAdd(application.id),
         label: intl.formatMessage({
           defaultMessage: "Add Experience",
           id: "K+ZIOB",
@@ -61,7 +61,9 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-const ApplicationResumeAdd = ({ application }: ApplicationPageProps) => {
+const applicationCareerTimelineAdd = ({
+  application,
+}: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { currentStepOrdinal } = useApplicationContext();
@@ -170,8 +172,8 @@ const ApplicationResumeAdd = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationResumeAddPage = () => (
-  <ApplicationApi PageComponent={ApplicationResumeAdd} />
+const ApplicationCareerTimelineAddPage = () => (
+  <ApplicationApi PageComponent={applicationCareerTimelineAdd} />
 );
 
-export default ApplicationResumeAddPage;
+export default ApplicationCareerTimelineAddPage;

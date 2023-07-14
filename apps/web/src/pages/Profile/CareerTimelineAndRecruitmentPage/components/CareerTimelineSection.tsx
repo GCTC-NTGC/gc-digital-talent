@@ -4,26 +4,26 @@ import { useIntl } from "react-intl";
 import { HeadingRank, Well } from "@gc-digital-talent/ui";
 
 import { Experience } from "~/api/generated";
-import AddExperienceDialog from "~/pages/Profile/ResumeAndRecruitmentPage/components/AddExperienceDialog";
+import AddExperienceDialog from "~/pages/Profile/CareerTimelineAndRecruitmentPage/components/AddExperienceDialog";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSortAndFilter, {
   FormValues as ExperienceSortAndFilterFormValues,
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
-export interface ResumeSectionProps {
+export interface CareerTimelineSectionProps {
   experiences?: Experience[];
   editParam?: string;
   headingLevel?: HeadingRank;
   applicantId?: string;
 }
 
-const ResumeSection = ({
+const CareerTimelineSection = ({
   experiences,
   editParam,
   headingLevel = "h3",
   applicantId,
-}: ResumeSectionProps) => {
+}: CareerTimelineSectionProps) => {
   const intl = useIntl();
 
   const [sortAndFilterValues, setSortAndFilterValues] =
@@ -93,4 +93,4 @@ const ResumeSection = ({
   );
 };
 
-export default ResumeSection;
+export default CareerTimelineSection;
