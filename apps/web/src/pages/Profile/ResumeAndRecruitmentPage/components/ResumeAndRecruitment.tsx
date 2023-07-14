@@ -74,9 +74,9 @@ export const ResumeAndRecruitment = ({
         {
           defaultMessage:
             "Manage your experience and qualified recruitment processes.",
-          id: "6f8XuQ",
+          id: "zJKngJ",
           description:
-            "Description for the Résumé and recruitment page in applicant profile.",
+            "Description for the Career timeline and recruitment page in applicant profile.",
         },
         {
           abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
@@ -116,10 +116,10 @@ export const ResumeAndRecruitment = ({
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "This section is similar to your traditional résumé and describes your experiences across work, school, and life. You’ll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
-                id: "18FbqO",
+                  "This section is similar to your traditional career timeline and describes your experiences across work, school, and life. You’ll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
+                id: "/MJq3v",
                 description:
-                  "Descriptive paragraph for the Manage your resume section of the résumé and recruitment page.",
+                  "Descriptive paragraph for the Manage your resume section of the career timeline and recruitment page.",
               })}
             </p>
             {missingSkills && (
@@ -168,9 +168,9 @@ export const ResumeAndRecruitment = ({
               {intl.formatMessage({
                 defaultMessage:
                   "When you apply to a recruitment process and successfully pass the assessment, you’re awarded entry and can start being considered for related opportunities. This section highlights all active and expired processes that you’re currently a part of and allows you to manage whether or not you appear in talent searches.",
-                id: "DI3uQq",
+                id: "4r4MJP",
                 description:
-                  "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitment page.",
+                  "Descriptive paragraph for the Qualified recruitment processes section of the career timeline and recruitment page.",
               })}
             </p>
             <QualifiedRecruitmentsSection applications={applications} />

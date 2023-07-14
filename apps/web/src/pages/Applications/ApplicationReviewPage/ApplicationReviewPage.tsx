@@ -211,8 +211,8 @@ const ApplicationReview = ({
       </div>
       <ReviewSection
         title={intl.formatMessage({
-          defaultMessage: "Your résumé",
-          id: "2lOey6",
+          defaultMessage: "Your career timeline",
+          id: "rojiLP",
           description:
             "Heading for resume section of the application review page.",
         })}
@@ -230,8 +230,8 @@ const ApplicationReview = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "This section summarizes your résumé as it will be seen by hiring managers for these positions.",
-                  id: "O83lYZ",
+                    "This section summarizes your career timeline as it will be seen by hiring managers for these positions.",
+                  id: "up4/g2",
                   description:
                     "Blurb for resume section of the application review page.",
                 })}
@@ -260,8 +260,8 @@ const ApplicationReview = ({
               <p data-h2-text-align="base(center)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "It looks like you haven't added any experiences to your résumé yet.",
-                  id: "x0Eob3",
+                    "It looks like you haven't added any experiences to your career timeline yet.",
+                  id: "ne3Ulo",
                   description:
                     "Null state message for resume section of the application review page.",
                 })}
@@ -291,8 +291,8 @@ const ApplicationReview = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You've indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your résumé:",
-                  id: "SBNCsU",
+                    "You've indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your career timeline:",
+                  id: "rCpVpZ",
                   description:
                     "Message on education requirements card on the application review page.",
                 })}
@@ -323,8 +323,8 @@ const ApplicationReview = ({
                   <p data-h2-text-align="base(center)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "It looks like you haven't added any experiences to your résumé yet.",
-                      id: "h3Cr80",
+                        "It looks like you haven't added any experiences to your career timeline yet.",
+                      id: "4liNMy",
                       description:
                         "Null state message for experiences section of the application review page.",
                     })}

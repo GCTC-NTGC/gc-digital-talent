@@ -29,13 +29,14 @@ export const getPageInfo: GetPageNavInfo = ({
   return {
     title: intl.formatMessage({
       defaultMessage: "Edit your experience",
-      id: "WiUlEh",
-      description: "Page title for the application résumé edit experience page",
+      id: "QRI/bf",
+      description:
+        "Page title for the application career timeline edit experience page",
     }),
     subtitle: intl.formatMessage({
-      defaultMessage: "Update and review your résumé information.",
-      id: "OkREUg",
-      description: "Subtitle for the application résumé page",
+      defaultMessage: "Update and review your career timeline information.",
+      id: "5dFzBc",
+      description: "Subtitle for the application career timeline page",
     }),
     icon: StarIcon,
     crumbs: [
@@ -49,9 +50,9 @@ export const getPageInfo: GetPageNavInfo = ({
         url: path,
         label: intl.formatMessage({
           defaultMessage: "Edit Experience",
-          id: "dTJT+y",
+          id: "nnRlUH",
           description:
-            "Breadcrumb link text for the application résumé edit experience page",
+            "Breadcrumb link text for the application career timeline edit experience page",
         }),
       },
     ],

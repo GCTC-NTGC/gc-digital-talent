@@ -21,14 +21,16 @@ export const getPageInfo: GetPageNavInfo = ({
   const path = paths.applicationResumeIntro(application.id);
   return {
     title: intl.formatMessage({
-      defaultMessage: "Great work! On to your résumé.",
-      id: "VTYtzg",
-      description: "Page title for the application résumé introduction page",
+      defaultMessage: "Great work! On to your career timeline.",
+      id: "oX23Z+",
+      description:
+        "Page title for the application career timeline introduction page",
     }),
     subtitle: intl.formatMessage({
-      defaultMessage: "Update and review your résumé information.",
-      id: "mxH830",
-      description: "Subtitle for the application résumé introduction page",
+      defaultMessage: "Update and review your career timeline information.",
+      id: "qGSEMx",
+      description:
+        "Subtitle for the application career timeline introduction page",
     }),
     icon: StarIcon,
     crumbs: [
@@ -66,28 +68,28 @@ const ApplicationResumeIntroduction = ({
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "The next step is to make sure that your résumé is as up-to-date as possible.",
-          id: "kfXCY8",
+            "The next step is to make sure that your career timeline is as up-to-date as possible.",
+          id: "C780XI",
           description:
-            "Application step to begin working on résumé, paragraph one",
+            "Application step to begin working on career timeline, paragraph one",
         })}
       </p>
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "More specifically, not only do we want to know your <strong>work history</strong>, but we highly value knowing about your <strong>community experience</strong>, <strong>awards</strong>, <strong>personal initiatives</strong>, and <strong>education</strong> too!",
-          id: "rpES4b",
+          id: "fKaw5B",
           description:
-            "Application step to begin working on résumé, paragraph two",
+            "Application step to begin working on career timeline, paragraph two",
         })}
       </p>
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "Once you’ve completed your résumé and are happy with the experiences you’ve added, you’ll use them in further steps to help us better understand how you meet the skill requirements for this opportunity.",
-          id: "EWzkQb",
+            "Once you’ve completed your career timeline and are happy with the experiences you’ve added, you’ll use them in further steps to help us better understand how you meet the skill requirements for this opportunity.",
+          id: "1dZLbs",
           description:
-            "Application step to begin working on résumé, paragraph three",
+            "Application step to begin working on career timeline, paragraph three",
         })}
       </p>
       <Separator

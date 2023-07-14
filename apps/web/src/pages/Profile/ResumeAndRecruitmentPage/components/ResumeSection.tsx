@@ -80,10 +80,11 @@ const ResumeSection = ({
         <Well data-h2-text-align="base(center)">
           <p>
             {intl.formatMessage({
-              defaultMessage: "You haven’t added any résumé items yet.",
-              id: "SjY+Wn",
+              defaultMessage:
+                "You haven’t added any career timeline items yet.",
+              id: "31HF1c",
               description:
-                "Message to user when no résumé items have been attached to profile.",
+                "Message to user when no career timeline items have been attached to profile.",
             })}
           </p>
         </Well>

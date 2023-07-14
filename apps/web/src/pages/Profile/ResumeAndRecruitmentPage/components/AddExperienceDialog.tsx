@@ -169,8 +169,8 @@ const AddExperienceDialog = ({
           })}
         >
           {intl.formatMessage({
-            defaultMessage: "Add a new experience to your résumé",
-            id: "aFVp5f",
+            defaultMessage: "Add a new experience to your career timeline",
+            id: "YxJELj",
             description: "Heading for the Add Experience dialog",
           })}
         </Dialog.Header>

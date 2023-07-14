@@ -144,9 +144,9 @@ export const ViewPoolCandidate = ({
     resume: {
       id: "resume",
       title: intl.formatMessage({
-        defaultMessage: "Résumé",
-        id: "OxlRKl",
-        description: "Title for the résumé snapshot section",
+        defaultMessage: "Career timeline",
+        id: "2KM4iz",
+        description: "Title for the career timeline snapshot section",
       }),
     },
     personal: {
@@ -414,9 +414,11 @@ export const ViewPoolCandidate = ({
           </TableOfContents.Heading>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
-              defaultMessage: "The following is the applicant's résumé:",
-              id: "Nk/79O",
-              description: "Lead-in text for the snapshot résumé section",
+              defaultMessage:
+                "The following is the applicant's career timeline:",
+              id: "ghcC8V",
+              description:
+                "Lead-in text for the snapshot career timeline section",
             })}
           </p>
           <ResumeSection experiences={nonEmptyExperiences ?? []} />

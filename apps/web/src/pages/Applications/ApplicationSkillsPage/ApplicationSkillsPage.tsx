@@ -186,8 +186,8 @@ export const ApplicationSkills = ({
         {intl.formatMessage(
           {
             defaultMessage:
-              "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. Similarly to the minimum experience and education step, if you need to add or change a résumé experience, you can do so by returning to the <resumeLink>résumé step</resumeLink> in the application.",
-            id: "pHTwBd",
+              "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. Similarly to the minimum experience and education step, if you need to add or change a career timeline experience, you can do so by returning to the <resumeLink>career timeline step</resumeLink> in the application.",
+            id: "CyJKb3",
             description:
               "Lead in paragraph for adding experiences to a users skills",
           },
@@ -209,8 +209,8 @@ export const ApplicationSkills = ({
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Please ensure that you provide <strong>at least 1 résumé experience</strong> for each required skill, along with a concise description of why that experience highlights your abilities in that skill.",
-              id: "TbqFOI",
+                "Please ensure that you provide <strong>at least 1 career timeline experience</strong> for each required skill, along with a concise description of why that experience highlights your abilities in that skill.",
+              id: "N5qMql",
               description: "Instructions on requiring information for skills",
             })}
           </p>
@@ -297,8 +297,8 @@ export const ApplicationSkills = ({
                 value: 0,
                 message: intl.formatMessage({
                   defaultMessage:
-                    "Please connect at least one résumé experience to each required technical skill.",
-                  id: "4YUt61",
+                    "Please connect at least one career timeline experience to each required technical skill.",
+                  id: "hi9+Mu",
                   description: "Error message if there are no experiences",
                 }),
               },

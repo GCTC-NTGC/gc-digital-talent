@@ -138,9 +138,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       subtitle={intl.formatMessage(
         {
           defaultMessage:
-            // TODO: split résumé and skills into two separate links when the sections exist
-            "Manage your <a1>profile</a1>, <a2>résumé, skills</a2>, and <a3>track applications</a3>.",
-          id: "zJHMt9",
+            // TODO: split career timeline and skills into two separate links when the sections exist
+            "Manage your <a1>profile</a1>, <a2>career timeline, skills</a2>, and <a3>track applications</a3>.",
+          id: "dwspOv",
           description: "Subtitle for profile and applications hero",
         },
         {
@@ -380,9 +380,10 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         <HeroCard
           color="tertiary"
           title={intl.formatMessage({
-            defaultMessage: "Résumé and recruitments",
-            id: "FSViGC",
-            description: "Profile and applications card title for résumé card",
+            defaultMessage: "Career timeline and recruitments",
+            id: "BYxqL/",
+            description:
+              "Profile and applications card title for career timeline card",
           })}
           href={paths.resumeAndRecruitment(user.id)}
         >

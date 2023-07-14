@@ -112,8 +112,8 @@ const TrackApplications = ({
           {intl.formatMessage(
             {
               defaultMessage:
-                "After an application is successfully assessed, the <a>qualified recruitment will be added to your résumé</a> automatically so that managers can see your accomplishments.",
-              id: "3c9+uF",
+                "After an application is successfully assessed, the <a>qualified recruitment will be added to your career timeline</a> automatically so that managers can see your accomplishments.",
+              id: "ZQbSfP",
               description:
                 "Description for the track applications section on the applicant dashboard, paragraph two.",
             },

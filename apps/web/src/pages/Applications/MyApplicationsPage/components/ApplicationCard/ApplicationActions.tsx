@@ -265,9 +265,10 @@ const VisitResumeAction = ({
       data-h2-font-size="base(caption)"
       aria-label={intl.formatMessage(
         {
-          defaultMessage: "Visit the {title} recruitment on your résumé",
-          id: "pqsnpk",
-          description: "Link text to direct a user to the Résumé page",
+          defaultMessage:
+            "Visit the {title} recruitment on your career timeline",
+          id: "MqPn3A",
+          description: "Link text to direct a user to the Career timeline page",
         },
         {
           title: jobTitle,
@@ -275,9 +276,9 @@ const VisitResumeAction = ({
       )}
     >
       {intl.formatMessage({
-        defaultMessage: "Visit résumé",
-        id: "Dq+GKf",
-        description: "Link text to direct a user to the Résumé page",
+        defaultMessage: "Visit career timeline",
+        id: "EDjz14",
+        description: "Link text to direct a user to the Career timeline page",
       })}
     </Link>
   );

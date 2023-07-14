@@ -9,7 +9,7 @@ import { ResumeAndRecruitment } from "./components/ResumeAndRecruitment";
 import AddExperienceDialog from "./components/AddExperienceDialog";
 
 export default {
-  title: "Pages/Résumé and recruitment",
+  title: "Pages/Career timeline and recruitment",
   args: {
     applicantId: "test",
   },

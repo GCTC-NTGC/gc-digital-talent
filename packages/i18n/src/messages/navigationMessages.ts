@@ -62,9 +62,9 @@ const navigationMessages = defineMessages({
     description: "Name of Role and salary expectations page",
   },
   resumeAndRecruitment: {
-    defaultMessage: "Résumé and recruitment",
-    id: "gDBVKb",
-    description: "Name of Résumé and recruitment page",
+    defaultMessage: "Career timeline and recruitment",
+    id: "Icl1fF",
+    description: "Name of Career timeline and recruitment page",
   },
 });
 

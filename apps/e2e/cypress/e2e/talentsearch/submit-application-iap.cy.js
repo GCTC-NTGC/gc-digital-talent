@@ -179,7 +179,9 @@ describe("Submit Application for IAP Workflow Tests", () => {
     cy.findByRole("button", { name: /Save and continue/i }).click();
 
     // Review resume page - step four
-    cy.findByRole("heading", { name: /Great work! On to your résumé./i })
+    cy.findByRole("heading", {
+      name: /Great work! On to your career timeline./i,
+    })
       .should("exist")
       .and("be.visible");
 
@@ -200,7 +202,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
       cy.visit(urlBeforeQuitting);
     });
 
-    // back on résumé intro
+    // back on career timeline intro
     cy.findByRole("link", { name: /Got it, let's go/i }).click();
 
     cy.findByRole("link", { name: /Add a new experience/i }).click();
@@ -239,7 +241,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
       .should("exist")
       .and("be.visible");
     cy.findByRole("button", { name: /Save and continue/i }).click();
-    cy.expectToast(/Successfully updated your résumé!/i);
+    cy.expectToast(/Successfully updated your career timeline!/i);
 
     // Education experience page - step five
     cy.findByRole("heading", { name: /Minimum experience or education/i })
@@ -259,7 +261,9 @@ describe("Submit Application for IAP Workflow Tests", () => {
       .should("exist")
       .and("be.visible");
     cy.findByRole("link", { name: /Let's get to it!/i }).click();
-    cy.findByRole("button", { name: /Connect a résumé experience/i }).click();
+    cy.findByRole("button", {
+      name: /Connect a career timeline experience/i,
+    }).click();
     cy.findByRole("combobox", { name: /Select an experience/i }).select(
       "QA Testing at Cypress University",
     );

@@ -246,7 +246,7 @@ const getRoutes = (lang: Locales) => {
     diversityEquityInclusion: (userId: string, applicationId?: string) =>
       userEditUrl("employment-equity", userId, applicationId),
 
-    // Résumé and recruitment Routes
+    // Career timeline and recruitment Routes
     resumeAndRecruitment: (
       userId: string,
       opts?: {

@@ -27,14 +27,15 @@ export const getPageInfo: GetPageNavInfo = ({
   const path = paths.applicationResumeAdd(application.id);
   return {
     title: intl.formatMessage({
-      defaultMessage: "Add an experience to your résumé",
-      id: "fBabZh",
-      description: "Page title for the application résumé add experience page",
+      defaultMessage: "Add an experience to your career timeline",
+      id: "9YuUR/",
+      description:
+        "Page title for the application career timeline add experience page",
     }),
     subtitle: intl.formatMessage({
-      defaultMessage: "Update and review your résumé information.",
-      id: "OkREUg",
-      description: "Subtitle for the application résumé page",
+      defaultMessage: "Update and review your career timeline information.",
+      id: "5dFzBc",
+      description: "Subtitle for the application career timeline page",
     }),
     icon: StarIcon,
     crumbs: [
@@ -48,9 +49,9 @@ export const getPageInfo: GetPageNavInfo = ({
         url: paths.applicationResumeAdd(application.id),
         label: intl.formatMessage({
           defaultMessage: "Add Experience",
-          id: "8hnUdh",
+          id: "K+ZIOB",
           description:
-            "Breadcrumb link text for the application résumé add experience page",
+            "Breadcrumb link text for the application career timeline add experience page",
         }),
       },
     ],
@@ -77,10 +78,10 @@ const ApplicationResumeAdd = ({ application }: ApplicationPageProps) => {
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "This form allows you to add a new experience to your résumé. Get started by selecting the type of experience you’d like to add. If you need more information about what a certain type can include, expand the information below to see examples.",
-          id: "F5KhNJ",
+            "This form allows you to add a new experience to your career timeline. Get started by selecting the type of experience you’d like to add. If you need more information about what a certain type can include, expand the information below to see examples.",
+          id: "myEzIh",
           description:
-            "Instructions on how to add an experience to your résumé",
+            "Instructions on how to add an experience to your career timeline",
         })}
       </p>
       <Accordion.Root type="multiple" mode="simple">
@@ -98,8 +99,8 @@ const ApplicationResumeAdd = ({ application }: ApplicationPageProps) => {
             <p data-h2-margin-top="base(x1)">
               {intl.formatMessage({
                 defaultMessage:
-                  "We all have a variety of accomplishments and experiences that shape both our careers and skills. Please only share what you would be comfortable sharing with a coworker. On this platform, you can add the following to your résumé:",
-                id: "0jNQ/I",
+                  "We all have a variety of accomplishments and experiences that shape both our careers and skills. Please only share what you would be comfortable sharing with a coworker. On this platform, you can add the following to your career timeline:",
+                id: "OYjVy4",
                 description:
                   "Lead-in text for the list of experience type definitions",
               })}
