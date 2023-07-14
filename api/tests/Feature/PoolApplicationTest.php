@@ -658,7 +658,7 @@ class PoolApplicationTest extends TestCase
         $secondExperience = AwardExperience::factory()->create([
             'user_id' => $this->applicantUser->id,
         ]);
-        $secondExperience->syncSkills($essentialSkills->only('id'));
+        $secondExperience->syncSkills($essentialSkills);
 
         // assert user can now submit application as the essential skill is present
         $this->actingAs($this->applicantUser, "api")
