@@ -112,6 +112,11 @@ query getPool($id: UUID!) {
         fr
       }
     }
+    team {
+      id
+      name
+      contactEmail
+    }
   }
 }
 
