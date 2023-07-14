@@ -591,10 +591,6 @@
     "defaultMessage": "P. ex. : Vous voulez postuler pour la région du Québec, mais pas pour Montréal.",
     "description": "Example for Location exemptions field in work location preference form"
   },
-  "2K8q04": {
-    "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions sur ce processus?",
-    "description": "Opening sentence asking if accommodations are needed"
-  },
   "2KjiDn": {
     "defaultMessage": "Niveau 4 : Gestionnaire",
     "description": "title for IT-04 manager dialog"
@@ -646,10 +642,6 @@
   "2ekC5r": {
     "defaultMessage": "Famille de compétences mise à jour avec succès!",
     "description": "Message displayed to user after skillFamily is updated successfully."
-  },
-  "2gMnSu": {
-    "defaultMessage": "Politiques d’embauche",
-    "description": "Title for the hiring policies section of a pool advertisement"
   },
   "2iCpAL": {
     "defaultMessage": "Énoncé sur l’accessibilité",
@@ -2174,6 +2166,10 @@
     "defaultMessage": "Nom de famille",
     "description": "CSV Header, Last Name column"
   },
+  "DomrM8": {
+    "defaultMessage": "Personnes résidant au Canada, et citoyens canadiens et résidents permanents résidant à l’étranger.",
+    "description": "List of criteria needed in order to apply"
+  },
   "Dq+GKf": {
     "defaultMessage": "Consulter le cv ",
     "description": "Link text to direct a user to the Résumé page"
@@ -2765,10 +2761,6 @@
   "IEkhMc": {
     "defaultMessage": "Prénom",
     "description": "Label displayed for the first name field in create account form."
-  },
-  "IF1xj8": {
-    "defaultMessage": "La préférence sera donnée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",
-    "description": "First hiring policy for pool advertisement"
   },
   "IFGKCz": {
     "defaultMessage": "Supprimer",
@@ -3380,10 +3372,6 @@
   "NIEIAC": {
     "defaultMessage": "Aucun renseignement n’a été fourni.",
     "description": "Message on Admin side when user not filled about me section."
-  },
-  "NKbfoW": {
-    "defaultMessage": "Option à distance",
-    "description": "Location requirement when a pool advertisement is remote"
   },
   "NKr2Rg": {
     "defaultMessage": "Trouver des talents",
@@ -4356,6 +4344,10 @@
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
     "description": "Descriptive text about the list of users in the admin portal."
   },
+  "UwdpPS": {
+    "defaultMessage": "Qui peut formuler une demande?",
+    "description": "Title for the hiring policies section of a pool advertisement"
+  },
   "UxF291": {
     "defaultMessage": "Nom de famille",
     "description": "Label displayed for the last name field in create account form."
@@ -4683,10 +4675,6 @@
   "Wmuizf": {
     "defaultMessage": "Langue préférée pour l'entretien parlé :",
     "description": "Display text for the preferred spoken interview language field on users"
-  },
-  "Wnw+oz": {
-    "defaultMessage": "<strong>Courriel</strong> : <anchorTag>{emailAddress}</anchorTag>",
-    "description": "An email address to contact for help"
   },
   "WoAuKA": {
     "defaultMessage": "Mettre à jour une compétence",
@@ -5129,6 +5117,10 @@
   "aBSEkP": {
     "defaultMessage": "Expériences de travail",
     "description": "Heading for personal experiences in experience by type listing"
+  },
+  "aCg/OZ": {
+    "defaultMessage": "La préférence sera accordée aux anciens combattants, aux citoyens canadiens et aux résidants permanents.",
+    "description": "First hiring policy for pool advertisement"
   },
   "aDRIDD": {
     "defaultMessage": "Éducation actuelle",
@@ -7240,10 +7232,6 @@
     "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
   },
-  "p3j/0q": {
-    "defaultMessage": "Veuillez communiquer avec l'équipe de gestion de la collectivité du numérique si vous avez besoin de mesures d'adaptation au cours de ce processus de candidature",
-    "description": "Description of what to do when accommodations are needed"
-  },
   "p72C40": {
     "defaultMessage": "Compétence linguistique au travail",
     "description": "Heading for working language ability section of the search form."
@@ -7511,6 +7499,10 @@
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the create a skill form description (English) field."
   },
+  "rKUVdL": {
+    "defaultMessage": "Veuillez communiquer avec l’équipe <a>{name} </a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation </strong> tout au long de ce processus.",
+    "description": "Opening sentence asking if accommodations are needed"
+  },
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
     "description": "Support form toast message error"
@@ -7734,6 +7726,10 @@
   "ssJxrj": {
     "defaultMessage": "Je suis un membre des Premières Nations.",
     "description": "Text for the option to self-declare as a status first nations"
+  },
+  "swESO/": {
+    "defaultMessage": "À distance, hybride ou sur site",
+    "description": "Location requirement when a pool advertisement is remote"
   },
   "swugkW": {
     "defaultMessage": "Droit de priorité :",
