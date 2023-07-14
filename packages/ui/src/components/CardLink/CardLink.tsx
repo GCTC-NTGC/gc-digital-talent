@@ -11,10 +11,7 @@ export type Color =
   | "secondary"
   | "tertiary"
   | "quaternary"
-  | "quinary"
-  | "ts-primary"
-  | "ia-primary"
-  | "ia-secondary";
+  | "quinary";
 
 export interface CardLinkProps {
   href: string;
@@ -52,19 +49,6 @@ export const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-background-color": "base(quinary) base:dark:iap(quinary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
-  "ts-primary": {
-    "data-h2-background-color": "base(secondary) base:iap(primary)",
-    "data-h2-color": "base(white) base:all:iap(white)",
-  },
-  "ia-primary": {
-    "data-h2-background": "base(secondary) base:iap(primary)",
-    "data-h2-color": "base(white) base:all:iap(white)",
-  },
-  "ia-secondary": {
-    "data-h2-background":
-      "base(primary) base:iap(secondary) base:admin(tertiary)",
-    "data-h2-color": "base(white) base:admin(black)",
-  },
 };
 
 interface LinkProps {
@@ -101,7 +85,7 @@ const Link = ({ href, external, children }: LinkProps) => {
 
 const CardLink = ({
   href,
-  color = "ts-primary",
+  color = "primary",
   external,
   icon,
   label,

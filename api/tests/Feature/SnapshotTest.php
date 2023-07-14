@@ -27,29 +27,11 @@ class SnapshotTest extends TestCase
     use RefreshesSchemaCache;
     use WithFaker;
 
-    protected $applicant;
-    protected $platformAdmin;
-
     protected function setUp(): void
     {
         parent::setUp();
         $this->bootRefreshesSchemaCache();
         $this->seed(RolePermissionSeeder::class);
-
-        $this->applicant = User::factory()
-            ->asApplicant()
-            ->create([
-                'email' => 'applicant-user@test.com',
-                'sub' => 'applicant-user@test.com',
-            ]);
-
-        $this->platformAdmin = User::factory()
-            ->asRequestResponder()
-            ->asAdmin()
-            ->create([
-                'email' => 'admin-user@test.com',
-                'sub' => 'admin-user@test.com',
-            ]);
     }
 
     /**
@@ -60,20 +42,27 @@ class SnapshotTest extends TestCase
     public function testCreateSnapshot()
     {
         $snapshotQuery = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
+        $user = User::factory()
+            ->asApplicant()
+            ->create();
+
+        $pool1 = Pool::factory()->published()->create();
+        $pool2 = Pool::factory()->published()->create();
 
         $poolCandidate = PoolCandidate::factory()->create([
-            "user_id" => $this->applicant->id,
-            "submitted_at" => config('constants.past_date'),
+            "user_id" => $user->id,
+            "pool_id" => $pool1->id,
             "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
         ]);
         $poolCandidateUnrelated = PoolCandidate::factory()->create([
-            "user_id" => $this->applicant->id,
+            "user_id" => $user->id,
+            "pool_id" => $pool2->id,
             "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
         ]);
 
         // get what the snapshot should look like
-        $expectedSnapshot = $this->actingAs($this->applicant, "api")
-            ->graphQL($snapshotQuery, ["userId" => $this->applicant->id])
+        $expectedSnapshot = $this->actingAs($user, "api")
+            ->graphQL($snapshotQuery, ["userId" => $user->id])
             ->json("data.user");
 
         assertNotNull($expectedSnapshot);
@@ -81,7 +70,7 @@ class SnapshotTest extends TestCase
         ApplicationSubmitted::dispatch($poolCandidate);
 
         // get the just-created snapshot
-        $actualSnapshot = $this->actingAs($this->platformAdmin, "api")->graphQL(
+        $actualSnapshot = $this->actingAs($user, "api")->graphQL(
             /** @lang GraphQL */
             '
             query getSnapshot($poolCandidateId:UUID!) {
@@ -96,11 +85,11 @@ class SnapshotTest extends TestCase
         $decodedActual = json_decode($actualSnapshot, true);
 
         // there are two pool candidates present, only one should appear in the snapshot, adjust expectedSnapshot to fit this
-        $filteredPoolCandidates = array_filter($expectedSnapshot['poolCandidates'], function ($individualPoolCandidate) use ($poolCandidate) {
-            return in_array($poolCandidate['id'], $individualPoolCandidate);
-        });
+        // array_values reindexes the array from zero https://stackoverflow.com/a/3401863
+        $filteredPoolCandidates = array_values(array_filter($expectedSnapshot['poolCandidates'], function ($individualPoolCandidate) use ($poolCandidate) {
+            return $poolCandidate['id'] === $individualPoolCandidate['id'];
+        }));
         $expectedSnapshot['poolCandidates'] = $filteredPoolCandidates;
-
         assertEquals($expectedSnapshot, $decodedActual);
     }
 

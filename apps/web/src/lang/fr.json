@@ -2710,10 +2710,6 @@
     "defaultMessage": "Déconnexion",
     "description": "Title for the modal that appears when an authenticated user lands on /logged-out."
   },
-  "HkzjEV": {
-    "defaultMessage": "Utilitaire",
-    "description": "Label for the utility link navigation"
-  },
   "HocLRh": {
     "defaultMessage": "Nom du bassin",
     "description": "Title displayed for the Pool table pool name column."
@@ -2901,6 +2897,10 @@
   "JUejJU": {
     "defaultMessage": "Le bureau de gestion de la collectivité du numérique souhaite vous aider à trouver le bon talent.",
     "description": "Text telling users that Digital Community Management can still help them"
+  },
+  "JZk4NZ": {
+    "defaultMessage": "{candidateCount, plural, one {Il y a environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères dans ce bassin.} other {Il y a environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères dans ce bassin.}}",
+    "description": "Message for total estimated matching candidates in pool"
   },
   "Jc0lds": {
     "defaultMessage": "Bassin archivé",
@@ -3140,6 +3140,10 @@
   "LGSw+f": {
     "defaultMessage": "Tous les apprentis seront appuyés par des pairs et des mentors soigneusement sélectionnés. Les apprentis seront également invités à se joindre à un Réseau d’apprentissage pour les Autochtones, où ils auront des occasions de communiquer avec d’autres employés autochtones du gouvernement du Canada et avec d’autres apprentis autochtones qui participent à ce programme.",
     "description": "Learn more dialog question two paragraph two"
+  },
+  "LIhwJ+": {
+    "defaultMessage": "Menu du compte",
+    "description": "Label for the user account navigation menu"
   },
   "LMGaDQ": {
     "defaultMessage": "S'inscrire",
@@ -7219,10 +7223,6 @@
   "ow71P8": {
     "defaultMessage": "<strong>Préavis!</strong> Avant de vous demander d’aller établir vos justificatifs CléGC, nous vous demandons d’examiner de nouveau les critères d’admissibilité du programme afin de veiller à ce que vous répondiez aux exigences.",
     "description": "A request for the user to review the IAP eligibility criteria"
-  },
-  "oyFGYC": {
-    "defaultMessage": "{candidateCount, plural, one {Il y a <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères dans ce bassin.} other {Il y a <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères dans ce bassin.}}",
-    "description": "Message for total estimated matching candidates in pool"
   },
   "p+YRN1": {
     "defaultMessage": "Vous êtes sur le point de modifier le statut de cet utilisateur :",
