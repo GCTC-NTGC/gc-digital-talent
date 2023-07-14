@@ -178,11 +178,11 @@ describe("Submit Application Workflow Tests", () => {
 
     // Attempt skipping to review
     cy.url().then((url) => {
-      const reviewResumeIntroUrl = url;
-      cy.expect(reviewResumeIntroUrl).to.have.string(
+      const reviewCareerTimelineIntroUrl = url;
+      cy.expect(reviewCareerTimelineIntroUrl).to.have.string(
         "career-timeline/introduction",
       );
-      const hackedUrl = reviewResumeIntroUrl.replace(
+      const hackedUrl = reviewCareerTimelineIntroUrl.replace(
         "career-timeline/introduction",
         "review",
       );
