@@ -134,20 +134,20 @@ export const UpdateSearchRequestForm = ({
           <form onSubmit={handleSubmit(handleSaveNotes)}>
             <Heading level="h2" size="h4">
               {intl.formatMessage({
-                defaultMessage: "Personal Notes",
-                id: "l05aVF",
+                defaultMessage: "Notes about this request",
+                id: "peTSHR",
                 description:
-                  "Heading for the personal notes section of the single search request view.",
+                  "Heading for the notes about this request section of the single search request view.",
               })}
             </Heading>
             <TextArea
               id="adminNotes"
               name="adminNotes"
               label={intl.formatMessage({
-                defaultMessage: "Personal Notes",
-                id: "p7D5i5",
+                defaultMessage: "Request notes",
+                id: "Pe1kas",
                 description:
-                  "Label displayed on the search request form personal notes field.",
+                  "Label displayed on the search request form request notes field.",
               })}
               rows={8}
             />
