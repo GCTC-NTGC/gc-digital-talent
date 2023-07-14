@@ -20,10 +20,10 @@ import {
   yesOrNo,
 } from "~/utils/csvUtils";
 
-import { Applicant, PositionDuration } from "~/api/generated";
+import { User, PositionDuration } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
 
-const useUserCsvData = (applicants: Applicant[]) => {
+const useUserCsvData = (users: User[]) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -235,7 +235,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
   ];
 
   const data: DownloadCsvProps["data"] = React.useMemo(() => {
-    const flattenedApplicants: DownloadCsvProps["data"] = applicants.map(
+    const flattenedApplicants: DownloadCsvProps["data"] = users.map(
       ({
         firstName,
         lastName,
@@ -322,7 +322,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
     );
 
     return flattenedApplicants;
-  }, [applicants, intl, locale]);
+  }, [users, intl, locale]);
 
   return { headers, data };
 };

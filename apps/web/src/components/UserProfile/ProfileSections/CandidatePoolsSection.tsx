@@ -5,15 +5,15 @@ import { Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
-import type { Applicant } from "~/api/generated";
+import type { User } from "~/api/generated";
 
 interface CandidatePoolsSectionProps {
-  applicant: Applicant;
+  user: User;
 }
 
-const CandidatePoolsSection = ({ applicant }: CandidatePoolsSectionProps) => {
+const CandidatePoolsSection = ({ user }: CandidatePoolsSectionProps) => {
   const intl = useIntl();
-  const poolCandidates = unpackMaybes(applicant.poolCandidates);
+  const poolCandidates = unpackMaybes(user.poolCandidates);
 
   return (
     <Well>

@@ -77,7 +77,7 @@ query getMe {
     experiences {
       id
       __typename
-      applicant {
+      user {
         id
         email
       }

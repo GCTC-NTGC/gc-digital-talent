@@ -11,7 +11,6 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
 import {
-  Applicant,
   PoolCandidate,
   useUpdateApplicationMutation,
   User,
@@ -128,7 +127,7 @@ const StepNavigation = ({
         }),
       );
       const missingLanguageRequirements = getMissingLanguageRequirements(
-        user as Applicant,
+        user,
         application?.pool,
       );
       if (missingLanguageRequirements.length > 0) {

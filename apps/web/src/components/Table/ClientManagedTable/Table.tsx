@@ -308,7 +308,9 @@ function Table<T extends Record<string, unknown>>({
                               </Field.Legend>
                               <div data-h2-margin="base(x.125, 0)">
                                 <IndeterminateCheckbox
-                                  {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                                  {...(getToggleHideAllColumnsProps({
+                                    title: undefined,
+                                  }) as React.ComponentProps<
                                     typeof IndeterminateCheckbox
                                   >)}
                                 />
@@ -318,11 +320,12 @@ function Table<T extends Record<string, unknown>>({
                                   key={column.id}
                                   data-h2-margin="base(x.125, 0)"
                                 >
-                                  <label htmlFor={column.Header?.toString()}>
+                                  <label>
                                     <input
-                                      id={column.Header?.toString()}
                                       type="checkbox"
-                                      {...column.getToggleHiddenProps()}
+                                      {...column.getToggleHiddenProps({
+                                        title: undefined,
+                                      })}
                                     />
                                     {` ${column.Header}`}
                                   </label>

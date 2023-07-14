@@ -4,7 +4,7 @@ namespace App\GraphQL\Validators\Mutation;
 
 use Nuwave\Lighthouse\Validation\Validator;
 use App\Models\PoolCandidate;
-use App\Rules\PoolClosed;
+use App\Rules\PoolNotClosed;
 use App\Rules\UserProfileComplete;
 use App\Rules\HasEssentialSkills;
 use App\Rules\HasLanguageRequirements;
@@ -42,7 +42,7 @@ final class SubmitApplicationValidator extends Validator
                 new HasLanguageRequirements($this->application->pool),
             ],
             'pool_id' => [
-                new PoolClosed,
+                new PoolNotClosed,
                 new QuestionsAnswered($this->application)
             ],
             'submitted_at' => ['prohibited', 'nullable'],

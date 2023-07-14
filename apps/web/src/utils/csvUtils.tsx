@@ -1,7 +1,7 @@
 import { IntlShape } from "react-intl";
 
 import {
-  Applicant,
+  User,
   GovEmployeeType,
   Skill,
   Maybe,
@@ -139,12 +139,12 @@ export const getLookingForLanguage = (
  * Converts possible Employee Type
  * to a string
  *
- * @param type  Applicant["govEmployeeType"]
+ * @param type  User["govEmployeeType"]
  * @param intl react-intl object
  * @returns string The employee type
  */
 export const employeeTypeToString = (
-  type: Applicant["govEmployeeType"],
+  type: User["govEmployeeType"],
   intl: IntlShape,
 ) => {
   const govEmployeeTypeId =
@@ -161,12 +161,12 @@ export const employeeTypeToString = (
  * Converts a possible location preference
  * to a string
  *
- * @param preference  Applicant["locationPreferences"]
+ * @param preference  User["locationPreferences"]
  * @param intl react-intl object
  * @returns string
  */
 export const getLocationPreference = (
-  preference: Applicant["locationPreferences"],
+  preference: User["locationPreferences"],
   intl: IntlShape,
 ) => {
   const squishedPreference = preference
@@ -186,12 +186,12 @@ export const getLocationPreference = (
  * Converts possible array of operational requirements
  * to a comma separated list or empty string
  *
- * @param requirements  Applicant["acceptedOperationalRequirements"]
+ * @param requirements  User["acceptedOperationalRequirements"]
  * @param intl react-intl object
  * @returns string
  */
 export const getOperationalRequirements = (
-  requirements: Applicant["acceptedOperationalRequirements"],
+  requirements: User["acceptedOperationalRequirements"],
   intl: IntlShape,
 ) => {
   const accepted = requirements
@@ -216,7 +216,7 @@ export const getOperationalRequirements = (
  * @returns string
  */
 export const getExpectedClassifications = (
-  genericTitles: Applicant["expectedGenericJobTitles"],
+  genericTitles: User["expectedGenericJobTitles"],
   intl: IntlShape,
 ) => {
   const expected = genericTitles
@@ -242,7 +242,7 @@ export const getExpectedClassifications = (
  * @returns string
  */
 export const flattenExperiencesToSkills = (
-  experiences: Applicant["experiences"],
+  experiences: User["experiences"],
   locale: Locales,
 ) => {
   const skills = experiences
@@ -265,7 +265,7 @@ export const flattenExperiencesToSkills = (
 /**
  * Creates an object with the a skill-justification as the key-value pair.
  * The skill must be associated within the skills list,
- * and also be an experience-skill of the Applicant.
+ * and also be an experience-skill of the User.
  *
  * @param experiences Maybe<Maybe<Experience>[]>
  * @param skills Skill[]
@@ -273,7 +273,7 @@ export const flattenExperiencesToSkills = (
  * @returns { [key]: string }
  */
 export const skillKeyAndJustifications = (
-  experiences: Applicant["experiences"],
+  experiences: User["experiences"],
   skills: Skill[],
   intl: IntlShape,
 ) => {

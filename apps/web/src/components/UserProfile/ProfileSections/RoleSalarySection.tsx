@@ -4,21 +4,21 @@ import { useIntl } from "react-intl";
 import { Link, Well } from "@gc-digital-talent/ui";
 import { commonMessages, getGenericJobTitles } from "@gc-digital-talent/i18n";
 
-import { Applicant } from "~/api/generated";
+import { User } from "~/api/generated";
 import {
   anyCriteriaSelected,
   hasAllEmptyFields,
 } from "~/validators/profile/roleSalary";
 
 const RoleSalarySection = ({
-  applicant,
+  user,
   editPath,
 }: {
-  applicant: Pick<Applicant, "expectedGenericJobTitles">;
+  user: Pick<User, "expectedGenericJobTitles">;
   editPath?: string;
 }) => {
   const intl = useIntl();
-  const { expectedGenericJobTitles } = applicant;
+  const { expectedGenericJobTitles } = user;
   const expectedClassificationArray = expectedGenericJobTitles
     ? expectedGenericJobTitles.map((es) => (
         <li data-h2-font-weight="base(700)" key={es?.key}>
@@ -30,7 +30,7 @@ const RoleSalarySection = ({
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {anyCriteriaSelected(applicant) && (
+        {anyCriteriaSelected(user) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
@@ -45,7 +45,7 @@ const RoleSalarySection = ({
             </ul>
           </div>
         )}
-        {hasAllEmptyFields(applicant) && editPath && (
+        {hasAllEmptyFields(user) && editPath && (
           <>
             <div data-h2-flex-item="base(1of1)">
               <p>
@@ -73,7 +73,7 @@ const RoleSalarySection = ({
             </div>
           </>
         )}
-        {hasAllEmptyFields(applicant) && !editPath && (
+        {hasAllEmptyFields(user) && !editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
