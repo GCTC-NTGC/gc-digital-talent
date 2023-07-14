@@ -3,10 +3,6 @@
     "defaultMessage": "Désélectionner {label}",
     "description": "Text to uncheck checkbox button"
   },
-  "+EQZK5": {
-    "defaultMessage": "Québec",
-    "description": "The work region of Canada described as Quebec."
-  },
   "+ZPD1J": {
     "defaultMessage": "Fermer le menu",
     "description": "Text label for button that closes side menu."
@@ -26,10 +22,6 @@
   "/UBSoB": {
     "defaultMessage": "Fermée",
     "description": "Closed pool advertisement status"
-  },
-  "/a8X4d": {
-    "defaultMessage": "Ontario",
-    "description": "The work region of Canada described as Ontario."
   },
   "/hsnPJ": {
     "defaultMessage": "Travailler des heures supplémentaires régulièrement",
@@ -273,10 +265,6 @@
     "defaultMessage": "Évaluation en cours",
     "description": "Status for an application that where applicant is being assessed"
   },
-  "9ayzJI": {
-    "defaultMessage": "Région de l’Atlantique",
-    "description": "The work region of Canada described as Atlantic."
-  },
   "9hjEsr": {
     "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Title for unsaved changes warning on profile forms"
@@ -457,10 +445,6 @@
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for button that opens side menu."
   },
-  "KoUKWc": {
-    "defaultMessage": "Capitale nationale",
-    "description": "The work region of Canada described as National Capital."
-  },
   "KwdzPs": {
     "defaultMessage": "« J’affirme que je suis un membre des Premières Nations (avec ou sans statut), un Inuk (Inuit) ou un Métis »",
     "description": "Text for the option to self-declare as Indigenous"
@@ -536,10 +520,6 @@
   "NNFXCN": {
     "defaultMessage": "Retiré",
     "description": "The pool candidate's status is Removed."
-  },
-  "NNMJXo": {
-    "defaultMessage": "Nord",
-    "description": "The work region of Canada described as North."
   },
   "NVMKe5": {
     "defaultMessage": "Modifier la séquence de {from} à {to}",
@@ -1007,10 +987,6 @@
   "jHa7VO": {
     "defaultMessage": "Opérations d’infrastructure de la TI",
     "description": "Pool Stream described as Infrastructure Operations."
-  },
-  "jNo5Zk": {
-    "defaultMessage": "Région des Prairies",
-    "description": "The work region of Canada described as Prairie."
   },
   "jS69se": {
     "defaultMessage": "Certification",
