@@ -11,6 +11,7 @@ use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
 use App\Models\GenericJobTitle;
+use App\Models\UserSkill;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -1827,24 +1828,24 @@ class UserTest extends TestCase
             AwardExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) use ($skill1) {
-                    $model->syncSkills([$skill1['id']]);
+                    $model->syncSkills([$skill1]);
                 })->create();
             WorkExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) use ($skill1) {
-                    $model->syncSkills([$skill1['id']]);
+                    $model->syncSkills([$skill1]);
                 })->create();
         })->create();
         User::factory()->afterCreating(function ($user) use ($skill1, $skill2) {
             CommunityExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) use ($skill1) {
-                    $model->syncSkills([$skill1['id']]);
+                    $model->syncSkills([$skill1]);
                 })->create();
             PersonalExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) use ($skill2) {
-                    $model->syncSkills([$skill2['id']]);
+                    $model->syncSkills([$skill2]);
                 })->create();
         })->create();
 
@@ -2867,5 +2868,51 @@ class UserTest extends TestCase
                 ]
             ]
         ]);
+    }
+
+    /** After running addSkills, the user should have a UserSkill for each added skill. */
+    public function testAddSkillsAddsUserSkills(): void
+    {
+        $skills = Skill::factory(3)->create();
+        $this->platformAdmin->addSkills($skills->pluck('id'));
+        $userSkillSkillIds = $this->platformAdmin->userSkills->pluck('skill_id');
+        $this->assertSameSize($skills, $userSkillSkillIds);
+        foreach ($skills as $skill) {
+            $this->assertContains($skill->id, $userSkillSkillIds);
+        }
+    }
+
+    public function testAddSkillsRestoresSoftDeletedUserSkills(): void
+    {
+        $userSkill = UserSkill::factory()->create([
+            'user_id' => $this->platformAdmin->id
+        ]);
+        $this->platformAdmin->userSkills->first()->delete();
+        // The user skill should be trashed (soft-deleted) and by default shouldn't appear in results.
+        $this->assertSoftDeleted($userSkill);
+        $this->assertEmpty($this->platformAdmin->refresh()->userSkills);
+        // Adding the same skill should restore the previous userSkill
+        $this->platformAdmin->addSkills([$userSkill->skill_id]);
+        $this->assertNotSoftDeleted($userSkill);
+        $this->assertContains($userSkill->id, $this->platformAdmin->refresh()->userSkills->pluck('id'));
+    }
+
+    public function testAddSkillsDoesNotAddDuplicates(): void
+    {
+        $skills = Skill::factory(3)->create();
+        // The user will already have the first skill.
+        $userSkill = UserSkill::factory()->create([
+            'user_id' => $this->platformAdmin->id,
+            'skill_id' => $skills[0]->id
+        ]);
+        $addSkills = [
+            $skills[0]->id, // This skill is already present
+            $skills[1]->id,
+            $skills[1]->id, // We will try to add this skill twice.
+            $skills[2]->id,
+        ];
+        $this->platformAdmin->addSkills($addSkills);
+        // After adding, user should still only have 3 userSkills.
+        $this->assertCount(3, $this->platformAdmin->userSkills);
     }
 }
