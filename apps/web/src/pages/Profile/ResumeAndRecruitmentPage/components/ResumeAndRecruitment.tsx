@@ -90,7 +90,7 @@ export const ResumeAndRecruitment = ({
           <TableOfContents.List>
             <TableOfContents.ListItem>
               <TableOfContents.AnchorLink
-                id={PAGE_SECTION_ID.MANAGE_YOUR_RESUME}
+                id={PAGE_SECTION_ID.MANAGE_YOUR_CAREER_TIMELINE}
               >
                 {intl.formatMessage(titles.manageYourResume)}
               </TableOfContents.AnchorLink>
@@ -105,7 +105,9 @@ export const ResumeAndRecruitment = ({
           </TableOfContents.List>
         </TableOfContents.Navigation>
         <TableOfContents.Content>
-          <TableOfContents.Section id={PAGE_SECTION_ID.MANAGE_YOUR_RESUME}>
+          <TableOfContents.Section
+            id={PAGE_SECTION_ID.MANAGE_YOUR_CAREER_TIMELINE}
+          >
             <Heading
               Icon={BookmarkSquareIcon}
               color="tertiary"

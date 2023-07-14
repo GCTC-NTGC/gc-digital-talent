@@ -1,7 +1,7 @@
 import { defineMessages } from "react-intl";
 
 export const PAGE_SECTION_ID = {
-  MANAGE_YOUR_RESUME: "manage-your-resume",
+  MANAGE_YOUR_CAREER_TIMELINE: "manage-your-resume",
   QUALIFIED_RECRUITMENT_PROCESSES: "qualified-recruitment-processes",
 } as const;
 
