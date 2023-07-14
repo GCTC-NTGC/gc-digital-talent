@@ -2,7 +2,6 @@ query getMe {
   me {
     id
     sub
-    legacyRoles
     firstName
     lastName
     email
