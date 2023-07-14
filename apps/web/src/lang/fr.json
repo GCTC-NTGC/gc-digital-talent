@@ -4040,10 +4040,6 @@
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux de la <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques d'experts et une orientation stratégique à leur domaine d'expertise, dans la prestation de solutions et de services aux clients internes ou externes, de même qu'aux intervenants. Les conseillers principaux de la <abbreviation>TI</abbreviation> se trouvent surtout dans six volets de travail :",
     "description": "IT-04 senior advisor description precursor to work stream list"
   },
-  "SQqD4j": {
-    "defaultMessage": "Sélectionnez zéro rôle ou plus",
-    "description": "Placeholder displayed on the user form roles field."
-  },
   "STDYoR": {
     "defaultMessage": "Date d'expiration",
     "description": "Title of the 'Expiry date' column for the table on view-user page"
@@ -4970,10 +4966,6 @@
   "Z6o8ym": {
     "defaultMessage": "Identité",
     "description": "Title displayed on the Skill table ID column."
-  },
-  "Z6sh9j": {
-    "defaultMessage": "Les rôles accordent une autre fonctionnalité à la connexion d’un utilisateur.",
-    "description": "Additional context describing the purpose of the users's 'role' field."
   },
   "Z8hEuY": {
     "defaultMessage": "Modifiez cette section",
@@ -6664,10 +6656,6 @@
   "kvpRgN": {
     "defaultMessage": "Classifications",
     "description": "Title for classifications"
-  },
-  "kwNyl6": {
-    "defaultMessage": "Rôles",
-    "description": "Label displayed on the user form roles field."
   },
   "kxseH4": {
     "defaultMessage": "Compétences techniques",

@@ -7,7 +7,6 @@ import {
   WorkRegion,
   PoolCandidateSearchStatus,
   SkillCategory,
-  LegacyRole,
   GenericJobTitleKey,
   AwardedTo,
   AwardedScope,
@@ -727,22 +726,6 @@ export const getSkillCategory = (
     skillCategoryId,
     `Invalid Skill Category '${skillCategoryId}'`,
   );
-
-export const Roles = defineMessages({
-  [LegacyRole.Admin]: {
-    defaultMessage: "Administrator",
-    id: "LBNX0O",
-    description: "The name of the Administrator user role.",
-  },
-  [LegacyRole.Applicant]: {
-    defaultMessage: "Applicant",
-    id: "MGqCaE",
-    description: "The name of the Applicant user role.",
-  },
-});
-
-export const getRole = (roleId: string | number): MessageDescriptor =>
-  getOrThrowError(Roles, roleId, `Invalid role '${roleId}'`);
 
 export const GenericJobTitles = defineMessages({
   [GenericJobTitleKey.TechnicianIt01]: {
