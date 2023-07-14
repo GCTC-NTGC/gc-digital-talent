@@ -620,7 +620,7 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
   const { user } = useAuthorization();
   const paths = useRoutes();
   const experienceType = deriveExperienceType(experience);
-  const userId = experience?.applicant?.id || user?.id || "";
+  const userId = experience?.user?.id || user?.id || "";
   const defaults = {
     title: intl.formatMessage(commonMessages.notProvided).toString(),
     titleHtml: intl.formatMessage(commonMessages.notProvided),

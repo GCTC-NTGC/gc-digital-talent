@@ -14,7 +14,6 @@ import {
   hasAllEmptyFields,
 } from "~/validators/profile/languageInformation";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
-import { Applicant } from "~/api/generated";
 
 import { SectionProps } from "../../types";
 import SectionTrigger from "../SectionTrigger";
@@ -43,7 +42,7 @@ const LanguageProfile = ({
   });
 
   const missingLanguageRequirements = getMissingLanguageRequirements(
-    user as Applicant,
+    user,
     application?.pool,
   );
 
@@ -103,7 +102,7 @@ const LanguageProfile = ({
       {missingLanguageRequirements.length > 0 && (
         <MissingLanguageRequirements
           headingLevel="h3"
-          applicant={user as Applicant}
+          user={user}
           pool={application?.pool}
         />
       )}

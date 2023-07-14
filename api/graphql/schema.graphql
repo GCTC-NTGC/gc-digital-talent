@@ -114,7 +114,9 @@ type User {
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Pool info
-  poolCandidates: [PoolCandidate] @hasMany @can(ability: "view", resolved: true) # PoolsCandidate objects associate the user with a pool
+  poolCandidates: [PoolCandidate]
+    @hasMany(scopes: ["authorizedToView"])
+    @can(ability: "view", resolved: true) # PoolsCandidate objects associate the user with a pool
   # Experiences
   experiences: [Experience]
     @with(relation: "awardExperiences")
@@ -240,100 +242,6 @@ type PoolCandidateStatusChangedNotification implements Notification {
   newStatus: PoolCandidateStatus @rename(attribute: "new_status")
   poolId: ID @rename(attribute: "pool_id")
   poolName: LocalizedString @rename(attribute: "pool_name")
-}
-
-type Applicant {
-  id: ID!
-
-  # Personal info
-  firstName: String @rename(attribute: "first_name")
-  lastName: String @rename(attribute: "last_name")
-  email: Email
-  telephone: PhoneNumber
-  preferredLang: Language @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: Language
-    @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: Language
-    @rename(attribute: "preferred_language_for_exam")
-  currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
-  currentCity: String @rename(attribute: "current_city")
-  citizenship: CitizenshipStatus
-  armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
-
-  # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
-  currentClassification: Classification @belongsTo # Users current classification
-  department: Department @belongsTo
-  hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
-  priorityNumber: String @rename(attribute: "priority_number")
-
-  # Language
-  languageAbility: LanguageAbility
-    @rename(attribute: "language_ability")
-    @deprecated(
-      reason: "deprecated in favour of relying on lookingFor<Language>"
-    )
-  lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
-  lookingForFrench: Boolean @rename(attribute: "looking_for_french")
-  lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  bilingualEvaluation: BilingualEvaluation
-    @rename(attribute: "bilingual_evaluation")
-  comprehensionLevel: EvaluatedLanguageAbility
-    @rename(attribute: "comprehension_level")
-  writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
-  verbalLevel: EvaluatedLanguageAbility @rename(attribute: "verbal_level")
-  estimatedLanguageAbility: EstimatedLanguageAbility
-    @rename(attribute: "estimated_language_ability")
-
-  # Employment equity
-  isWoman: Boolean @rename(attribute: "is_woman")
-  hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean
-    @rename(attribute: "is_indigenous")
-    @deprecated(reason: "replaced by indigenousCommunities")
-  isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [IndigenousCommunity]
-    @rename(attribute: "indigenous_communities")
-  indigenousDeclarationSignature: String
-    @rename(attribute: "indigenous_declaration_signature")
-
-  # Applicant info
-  jobLookingStatus: JobLookingStatus
-    @rename(attribute: "job_looking_status")
-    @deprecated(reason: "Removing with applicantDashboard feature flag")
-  poolCandidates: [PoolCandidate]
-    @hasMany(scopes: ["notDraft", "authorizedToView"])
-    @can(ability: "view", resolved: true)
-
-  hasDiploma: Boolean @rename(attribute: "has_diploma")
-  locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-  locationExemptions: String @rename(attribute: "location_exemptions")
-  acceptedOperationalRequirements: [OperationalRequirement]
-    @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-  expectedClassifications: [Classification] @belongsToMany
-  wouldAcceptTemporary: Boolean
-    @rename(attribute: "would_accept_temporary")
-    @deprecated(reason: "replaced with positionDuration")
-  positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-
-  # Experiences
-  experiences: [Experience]
-    @with(relation: "awardExperiences")
-    @with(relation: "communityExperiences")
-    @with(relation: "educationExperiences")
-    @with(relation: "personalExperiences")
-    @with(relation: "workExperiences")
-  awardExperiences: [AwardExperience] @hasMany
-  communityExperiences: [CommunityExperience] @hasMany
-  educationExperiences: [EducationExperience] @hasMany
-  personalExperiences: [PersonalExperience] @hasMany
-  workExperiences: [WorkExperience] @hasMany
-
-  isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
-  priorityWeight: Int @rename(attribute: "priority_weight")
 }
 
 type UserPublicProfile {
@@ -469,7 +377,7 @@ type ScreeningQuestionResponse {
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @can(ability: "view", resolved: true)
-  user: Applicant! @belongsTo(relation: "user")
+  user: User! @belongsTo(relation: "user")
 
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
@@ -756,7 +664,7 @@ enum EducationStatus {
 
 interface Experience {
   id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
+  user: User! @belongsTo(relation: "user")
   details: String
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
@@ -766,7 +674,7 @@ interface Experience {
 
 type WorkExperience implements Experience {
   id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
+  user: User! @belongsTo(relation: "user")
   role: String
   organization: String
   division: String
@@ -780,7 +688,7 @@ type WorkExperience implements Experience {
 }
 type PersonalExperience implements Experience {
   id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
+  user: User! @belongsTo(relation: "user")
   title: String
   description: String
   startDate: Date @rename(attribute: "start_date")
@@ -793,7 +701,7 @@ type PersonalExperience implements Experience {
 }
 type CommunityExperience implements Experience {
   id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
+  user: User! @belongsTo(relation: "user")
   title: String
   organization: String
   project: String
@@ -807,7 +715,7 @@ type CommunityExperience implements Experience {
 }
 type EducationExperience implements Experience {
   id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
+  user: User! @belongsTo(relation: "user")
   institution: String
   areaOfStudy: String @rename(attribute: "area_of_study")
   thesisTitle: String @rename(attribute: "thesis_title")
@@ -823,7 +731,7 @@ type EducationExperience implements Experience {
 }
 type AwardExperience implements Experience {
   id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
+  user: User! @belongsTo(relation: "user")
   title: String
   issuedBy: String @rename(attribute: "issued_by")
   awardedDate: Date @rename(attribute: "awarded_date")
@@ -946,14 +854,16 @@ type Query {
     @paginate(defaultCount: 10, maxCount: 1000)
     @guard
     @can(ability: "viewAny")
-  applicant(id: UUID! @eq): Applicant
+  applicant(id: UUID! @eq): User
     @find(model: "User")
     @guard
-    @can(ability: "viewApplicant", query: true, model: "User")
-  applicants(includeIds: [ID]! @in(key: "id")): [Applicant]!
+    @can(ability: "view", query: true, model: "User")
+    @deprecated(reason: "Removing in favour of user query")
+  applicants(includeIds: [ID]! @in(key: "id")): [User]!
     @all(model: "User")
     @guard
-    @can(ability: "viewAnyApplicants", model: "User")
+    @can(ability: "viewAny", model: "User")
+    @deprecated(reason: "Removing in favour of users query")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
   pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)

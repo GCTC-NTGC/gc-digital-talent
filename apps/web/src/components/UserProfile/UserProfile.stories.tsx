@@ -3,7 +3,7 @@ import { Meta, Story } from "@storybook/react";
 
 import { fakeExperiences, fakeApplicants } from "@gc-digital-talent/fake-data";
 
-import { Applicant, IndigenousCommunity } from "~/api/generated";
+import { User, IndigenousCommunity } from "~/api/generated";
 
 import UserProfile from "./UserProfile";
 
@@ -15,10 +15,10 @@ export default {
   args: {},
 } as Meta;
 
-const TemplateUserProfile: Story<Applicant> = (args) => {
+const TemplateUserProfile: Story<User> = (args) => {
   return (
     <UserProfile
-      applicant={args as Applicant}
+      user={args}
       sections={{
         about: { isVisible: true },
         language: { isVisible: true },

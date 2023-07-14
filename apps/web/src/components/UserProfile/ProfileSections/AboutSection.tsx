@@ -11,15 +11,15 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import type { Applicant } from "~/api/generated";
+import type { User } from "~/api/generated";
 import { hasEmptyRequiredFields } from "~/validators/profile/about";
 
 interface AboutSectionProps {
-  applicant: Applicant;
+  user: User;
   editPath?: string;
 }
 
-const AboutSection = ({ editPath, applicant }: AboutSectionProps) => {
+const AboutSection = ({ editPath, user }: AboutSectionProps) => {
   const intl = useIntl();
   const {
     firstName,
@@ -33,7 +33,7 @@ const AboutSection = ({ editPath, applicant }: AboutSectionProps) => {
     currentProvince,
     citizenship,
     armedForcesStatus,
-  } = applicant;
+  } = user;
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
@@ -207,7 +207,7 @@ const AboutSection = ({ editPath, applicant }: AboutSectionProps) => {
           ""
         )}
       </div>
-      {hasEmptyRequiredFields(applicant) && (
+      {hasEmptyRequiredFields(user) && (
         <div data-h2-margin="base(x1, 0, 0, 0)">
           <p>
             {editPath && (

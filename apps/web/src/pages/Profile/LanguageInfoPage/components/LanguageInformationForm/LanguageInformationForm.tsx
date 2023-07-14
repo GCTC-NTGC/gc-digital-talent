@@ -11,7 +11,6 @@ import { BasicForm, Checklist } from "@gc-digital-talent/forms";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
-  Applicant,
   BilingualEvaluation,
   GetLanguageInformationQuery,
   PoolCandidate,
@@ -218,7 +217,7 @@ const LanguageInformationForm = ({
     : [];
 
   const missingLanguageRequirements = getMissingLanguageRequirements(
-    initialData as Applicant,
+    initialData,
     application?.pool,
   );
 
@@ -249,7 +248,7 @@ const LanguageInformationForm = ({
       {missingLanguageRequirements.length ? (
         <div data-h2-margin="base(x1, 0)">
           <MissingLanguageRequirements
-            applicant={initialData as Applicant}
+            user={initialData}
             pool={application?.pool}
           />
         </div>

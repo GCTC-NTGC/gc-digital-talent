@@ -1,7 +1,7 @@
-import { Applicant, Pool } from "~/api/generated";
+import { User, Pool } from "~/api/generated";
 
 export interface BasicUserInformationProps {
-  user: Applicant;
+  user: User;
 }
 
 export interface UserInformationProps extends BasicUserInformationProps {

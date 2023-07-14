@@ -1,12 +1,8 @@
-import {
-  Applicant,
-  BilingualEvaluation,
-  Pool,
-} from "@gc-digital-talent/graphql";
+import { User, BilingualEvaluation, Pool } from "@gc-digital-talent/graphql";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
-type PartialApplicant = Pick<
-  Applicant,
+type PartialUser = Pick<
+  User,
   | "lookingForEnglish"
   | "lookingForFrench"
   | "lookingForBilingual"
@@ -22,7 +18,7 @@ export function hasAllEmptyFields({
   lookingForFrench,
   lookingForBilingual,
   bilingualEvaluation,
-}: PartialApplicant): boolean {
+}: PartialUser): boolean {
   return (
     !lookingForEnglish &&
     !lookingForFrench &&
@@ -39,7 +35,7 @@ export function hasEmptyRequiredFields({
   writtenLevel,
   comprehensionLevel,
   verbalLevel,
-}: PartialApplicant): boolean {
+}: PartialUser): boolean {
   return !!(
     (!lookingForEnglish && !lookingForFrench && !lookingForBilingual) ||
     (lookingForBilingual &&
@@ -53,7 +49,7 @@ export function hasEmptyRequiredFields({
 export function hasEmptyOptionalFields({
   bilingualEvaluation,
   estimatedLanguageAbility,
-}: PartialApplicant): boolean {
+}: PartialUser): boolean {
   return (
     bilingualEvaluation === BilingualEvaluation.NotCompleted &&
     !estimatedLanguageAbility
@@ -61,8 +57,8 @@ export function hasEmptyOptionalFields({
 }
 
 export function hasUnsatisfiedRequirements(
-  applicant: Applicant,
+  user: User,
   pool: Pool | null,
 ): boolean {
-  return getMissingLanguageRequirements(applicant, pool).length > 0;
+  return getMissingLanguageRequirements(user, pool).length > 0;
 }
