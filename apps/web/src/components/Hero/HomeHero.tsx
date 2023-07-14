@@ -15,7 +15,7 @@ const HomeHero = ({
   children,
 }: HomeHeroProps) => (
   <div
-    data-h2-background-color="base(black.darkest)"
+    data-h2-background-color="base(#000)"
     data-h2-position="base(relative)"
     data-h2-padding-top="base(x3) p-tablet(x4) l-tablet(x6)"
     data-h2-padding-bottom="base(calc(50vh + 3%)) p-tablet(calc(60vh + 3%)) l-tablet(calc((6rem * var(--h2-line-height-copy)) + 3%))"
