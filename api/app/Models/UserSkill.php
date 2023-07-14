@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,16 +17,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class UserSkill extends Model
 {
     use SoftDeletes;
+    use HasFactory;
 
     protected $keyType = 'string';
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
     public function skill(): BelongsTo
     {
-        return $this->belongsTo(Skill::class);
+        return $this->belongsTo(Skill::class, 'skill_id');
     }
 
     public function awardExperiences()
