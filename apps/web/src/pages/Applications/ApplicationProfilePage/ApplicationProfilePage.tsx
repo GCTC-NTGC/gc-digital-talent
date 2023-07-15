@@ -20,7 +20,6 @@ import {
 } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 import { SectionProps } from "~/components/Profile/types";
-import ErrorSummary from "~/components/Profile/components/ErrorSummary";
 import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
 import StepNavigation from "~/components/Profile/components/StepNavigation";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
@@ -118,7 +117,6 @@ export const ApplicationProfile = ({
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1, 0)"
       >
-        <ErrorSummary user={user} application={application} />
         <PersonalInformation {...sectionProps} />
         <WorkPreferences {...sectionProps} />
         <DiversityEquityInclusion {...sectionProps} />
