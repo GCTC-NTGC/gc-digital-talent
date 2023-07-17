@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Well } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import { UpdateUserAsUserInput } from "@gc-digital-talent/graphql";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { User, PoolCandidate } from "~/api/generated";
@@ -34,10 +35,8 @@ const EmploymentEquityForm = ({
   const paths = useRoutes();
   const { id: applicationId, returnRoute } = useApplicationInfo(user.id);
 
-  const handleUpdate = (key: EquityKeys, value: unknown) => {
-    return onUpdate(user.id, {
-      [key]: value,
-    });
+  const handleUpdate = (data: UpdateUserAsUserInput) => {
+    return onUpdate(user.id, data);
   };
 
   const applicationBreadcrumbs = application
@@ -190,9 +189,10 @@ const EmploymentEquityForm = ({
         isVisibleMinority={user.isVisibleMinority}
         isWoman={user.isWoman}
         hasDisability={user.hasDisability}
-        onAdd={(key: EquityKeys) => handleUpdate(key, true)}
-        onRemove={(key: EquityKeys) => handleUpdate(key, false)}
-        onUpdate={(key: EquityKeys, value: unknown) => handleUpdate(key, value)}
+        onAdd={(key: EquityKeys) => handleUpdate({ [key]: true })}
+        onRemove={(key: EquityKeys) => handleUpdate({ [key]: false })}
+        onUpdate={handleUpdate}
+        inApplication={!!application}
       />
       <ProfileFormFooter
         mode="cancelButton"

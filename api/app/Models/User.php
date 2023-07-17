@@ -31,7 +31,6 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $last_name
  * @property string $telephone
  * @property string $preferred_lang
- * @property array $legacy_roles
  * @property string $job_looking_status
  * @property string $current_province
  * @property string $current_city
@@ -83,7 +82,6 @@ class User extends Model implements Authenticatable, LaratrustUser
     protected $keyType = 'string';
 
     protected $casts = [
-        'legacy_roles' => 'array',
         'location_preferences' => 'array',
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
