@@ -477,10 +477,6 @@
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for button that opens side menu."
   },
-  "KwdzPs": {
-    "defaultMessage": "« J’affirme que je suis un membre des Premières Nations (avec ou sans statut), un Inuk (Inuit) ou un Métis »",
-    "description": "Text for the option to self-declare as Indigenous"
-  },
   "KzhnAz": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement).",
     "description": "The operational requirement described as occasional overtime."
