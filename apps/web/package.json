@@ -61,7 +61,7 @@
     "react-table": "^7.8.0",
     "react-to-print": "^2.14.13",
     "react-toastify": "^9.1.3",
-    "urql": "4.0.2"
+    "urql": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.22.9",
