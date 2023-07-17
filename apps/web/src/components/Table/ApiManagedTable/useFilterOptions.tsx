@@ -83,7 +83,16 @@ export default function useFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getOperationalRequirement(value, "short")),
     })),
-    workRegion: enumToOptions(WorkRegion).map(({ value }) => ({
+    workRegion: enumToOptions(WorkRegion, [
+      WorkRegion.Telework,
+      WorkRegion.NationalCapital,
+      WorkRegion.Atlantic,
+      WorkRegion.Quebec,
+      WorkRegion.Ontario,
+      WorkRegion.North,
+      WorkRegion.Prairie,
+      WorkRegion.BritishColumbia,
+    ]).map(({ value }) => ({
       value,
       label: intl.formatMessage(getWorkRegion(value)),
     })),

@@ -179,7 +179,16 @@ const WorkLocationForm = ({
                 legend={labels.locationPreferences}
                 name="locationPreferences"
                 id="locationPreferences"
-                items={enumToOptions(WorkRegion).map(({ value }) => ({
+                items={enumToOptions(WorkRegion, [
+                  WorkRegion.Telework,
+                  WorkRegion.NationalCapital,
+                  WorkRegion.Atlantic,
+                  WorkRegion.Quebec,
+                  WorkRegion.Ontario,
+                  WorkRegion.North,
+                  WorkRegion.Prairie,
+                  WorkRegion.BritishColumbia,
+                ]).map(({ value }) => ({
                   value,
                   label: intl.formatMessage(getWorkRegionsDetailed(value)),
                 }))}

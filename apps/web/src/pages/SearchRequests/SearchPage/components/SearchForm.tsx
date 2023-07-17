@@ -529,7 +529,16 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 description:
                   "Placeholder for work location filter in search form.",
               })}
-              items={enumToOptions(WorkRegion).map(({ value }) => ({
+              items={enumToOptions(WorkRegion, [
+                WorkRegion.Telework,
+                WorkRegion.NationalCapital,
+                WorkRegion.Atlantic,
+                WorkRegion.Quebec,
+                WorkRegion.Ontario,
+                WorkRegion.North,
+                WorkRegion.Prairie,
+                WorkRegion.BritishColumbia,
+              ]).map(({ value }) => ({
                 value,
                 label: intl.formatMessage(getWorkRegion(value)),
               }))}
