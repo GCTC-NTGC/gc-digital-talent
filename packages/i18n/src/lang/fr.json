@@ -529,10 +529,6 @@
     "defaultMessage": "Inactif",
     "description": "Job Looking Status described as Actively looking."
   },
-  "MLP6tt": {
-    "defaultMessage": "« Je m'identifie comme une personne handicapée »",
-    "description": "Statement for when someone indicates they have a disability"
-  },
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
     "description": "Error message that at least one Essential Skill is required"
