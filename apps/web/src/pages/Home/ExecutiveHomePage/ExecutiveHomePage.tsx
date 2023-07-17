@@ -170,7 +170,15 @@ export const HomePage = ({ pools }: HomePageProps) => {
               })}
               links={[
                 {
-                  href: "#", // Note: Waiting on email address
+                  href: `mailto:gctalent-talentgc@support-soutien.gc.ca?subject=${encodeURIComponent(
+                    intl.formatMessage({
+                      defaultMessage:
+                        "I'm looking for pre-qualified executive talent",
+                      id: "BGC19+",
+                      description:
+                        "Subject line for contact email to find pre-qualified executive talent",
+                    }),
+                  )}`,
                   mode: "solid",
                   external: true,
                   label: intl.formatMessage({
