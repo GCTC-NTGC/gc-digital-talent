@@ -16,8 +16,14 @@ export interface EquityDialogProps {
   children: React.ReactNode;
 }
 
+export interface IndigenousUpdateProps {
+  indigenousCommunities: Array<IndigenousCommunity>;
+  indigenousDeclarationSignature: string | undefined;
+}
+
 export interface IndigenousDialogProps {
   indigenousCommunities: Array<IndigenousCommunity>;
-  onSave: (indigenousCommunities: Array<IndigenousCommunity>) => void;
+  signature: string | undefined;
+  onSave: (data: IndigenousUpdateProps) => void;
   children: React.ReactNode;
 }

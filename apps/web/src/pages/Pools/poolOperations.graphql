@@ -89,7 +89,6 @@ mutation createPool($userId: ID!, $teamId: ID!, $pool: CreatePoolInput!) {
 
 query getMePoolCreation {
   me {
-    legacyRoles
     id
     roleAssignments {
       id
