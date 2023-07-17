@@ -169,34 +169,48 @@ describe("UserTableFilterDialog", () => {
   it("correctly selects work location filter", async () => {
     renderButton({ isOpenDefault: true });
 
-    expect(await screen.queryByText("Atlantic")).not.toBeInTheDocument();
-    await selectFilterOption(/work locations/i, "Atlantic");
-    expect(await screen.getByText("Atlantic")).toBeVisible();
+    expect(
+      await screen.queryByText("Atlantic (NB, NS, PE and NL)"),
+    ).not.toBeInTheDocument();
+    await selectFilterOption(/work locations/i, "Atlantic (NB, NS, PE and NL)");
+    expect(
+      await screen.getByText("Atlantic (NB, NS, PE and NL)"),
+    ).toBeVisible();
   });
 
   describe("data persistence", () => {
     it("doesn't persist form data changes when modal closed with X", async () => {
       renderButton({ isOpenDefault: true });
-      selectFilterOption(/work locations/i, "Atlantic");
+      selectFilterOption(/work locations/i, "Atlantic (NB, NS, PE and NL)");
       closeDialog();
 
       openDialog();
-      expect(screen.queryByText("Atlantic")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Atlantic (NB, NS, PE and NL)"),
+      ).not.toBeInTheDocument();
     });
 
     it("persists form data when modal submitted and re-opened", async () => {
       renderButton({ isOpenDefault: true });
-      await selectFilterOption(/work locations/i, "Atlantic");
+      await selectFilterOption(
+        /work locations/i,
+        "Atlantic (NB, NS, PE and NL)",
+      );
       await submitFilters();
       await openDialog();
-      expect(await screen.getByText("Atlantic")).toBeVisible();
+      expect(
+        await screen.getByText("Atlantic (NB, NS, PE and NL)"),
+      ).toBeVisible();
     });
   });
 
   describe("prior state", () => {
     beforeEach(async () => {
       renderButton({ isOpenDefault: true });
-      await selectFilterOption(/work locations/i, "Atlantic");
+      await selectFilterOption(
+        /work locations/i,
+        "Atlantic (NB, NS, PE and NL)",
+      );
       await submitFilters();
     });
 
@@ -206,7 +220,7 @@ describe("UserTableFilterDialog", () => {
       await submitFilters();
 
       await openDialog();
-      const location = await screen.queryByText("Atlantic");
+      const location = await screen.queryByText("Atlantic (NB, NS, PE and NL)");
       expect(location).not.toBeInTheDocument();
     });
 
@@ -216,7 +230,7 @@ describe("UserTableFilterDialog", () => {
       await closeDialog();
 
       await openDialog();
-      const location = await screen.queryByText("Atlantic");
+      const location = await screen.queryByText("Atlantic (NB, NS, PE and NL)");
       expect(location).toBeInTheDocument();
     });
   });
