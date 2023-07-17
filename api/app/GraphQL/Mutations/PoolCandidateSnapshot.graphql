@@ -78,6 +78,17 @@ query getProfile($userId: UUID!) {
     experiences {
       ...experience
     }
+    userSkills {
+      id
+      skill {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
     poolCandidates {
       status
       expiryDate
