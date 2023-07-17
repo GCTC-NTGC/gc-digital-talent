@@ -9,7 +9,7 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
-import { Applicant, useGetMeQuery, User, GetMeQuery } from "~/api/generated";
+import { useGetMeQuery, User, GetMeQuery } from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import UserProfile from "~/components/UserProfile";
 import SEO from "~/components/SEO/SEO";
@@ -70,7 +70,7 @@ export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
         crumbs={crumbs}
       />
       <UserProfile
-        applicant={profileDataInput as Applicant}
+        user={profileDataInput}
         sections={{
           myStatus: {
             isVisible: !featureFlags.applicantDashboard,
@@ -82,7 +82,7 @@ export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
             editUrl: paths.languageInformation(userId),
             override: (
               <LanguageInformationSection
-                applicant={profileDataInput as Applicant}
+                user={profileDataInput}
                 editPath={paths.languageInformation(userId)}
               />
             ),
