@@ -100,6 +100,7 @@ class UserResource extends JsonResource
             'experiences' => $collection,
             'priorityNumber' => $this->priority_number,
             'isProfileComplete' => $this->isProfileComplete,
+            'userSkills' => UserSkillResource::collection($this->whenLoaded('userSkills')),
         ];
     }
 }
