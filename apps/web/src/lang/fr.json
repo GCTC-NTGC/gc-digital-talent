@@ -2266,10 +2266,6 @@
     "defaultMessage": "Nom de famille",
     "description": "CSV Header, Last Name column"
   },
-  "DomrM8": {
-    "defaultMessage": "Personnes résidant au Canada, et citoyens canadiens et résidents permanents résidant à l’étranger.",
-    "description": "List of criteria needed in order to apply"
-  },
   "Dq+GKf": {
     "defaultMessage": "Consulter le cv ",
     "description": "Link text to direct a user to the Résumé page"
@@ -6099,6 +6095,10 @@
   "fYyK2p": {
     "defaultMessage": "Créer une classification",
     "description": "Page title for the classification creation page"
+  },
+  "faWz84": {
+    "defaultMessage": "Personnes résidant au Canada, et citoyens canadiens et résidents permanents résidant à l’étranger.",
+    "description": "List of criteria needed in order to apply"
   },
   "fdKtYm": {
     "defaultMessage": "Description (anglais)",

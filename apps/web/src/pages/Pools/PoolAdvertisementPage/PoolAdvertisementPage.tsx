@@ -698,8 +698,8 @@ export const PoolPoster = ({
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Persons residing in Canada, and Canadian citizens and Permanent residents abroad.",
-                  id: "DomrM8",
+                    "Persons residing in Canada, and Canadian citizens and permanent residents abroad.",
+                  id: "faWz84",
                   description: "List of criteria needed in order to apply",
                 })}
               </Text>
