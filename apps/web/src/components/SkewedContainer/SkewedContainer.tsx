@@ -22,8 +22,8 @@ const SkewedContainer = ({ children }: SkewedContainerProps) => (
         data-h2-position="base(absolute)"
         data-h2-location="base(0, 0, auto, auto)"
         data-h2-transform="base(translate(32%, -52%) skew(3deg)) l-tablet(translate(0, 0) skew(3deg))"
-        data-h2-height="base(auto) l-tablet(40%)"
-        data-h2-width="base(250%) l-tablet(auto)"
+        data-h2-height="base(auto)"
+        data-h2-width="base(250%) l-tablet(40%)"
         data-h2-max-width="base(initial)"
         src={desktopGraphicsLight1}
         alt=""
@@ -33,8 +33,8 @@ const SkewedContainer = ({ children }: SkewedContainerProps) => (
         data-h2-position="base(absolute)"
         data-h2-location="base(0, 0, auto, auto)"
         data-h2-transform="base(translate(32%, -52%) skew(3deg)) l-tablet(translate(0, 0) skew(3deg))"
-        data-h2-height="base(auto) l-tablet(40%)"
-        data-h2-width="base(250%) l-tablet(auto)"
+        data-h2-height="base(auto)"
+        data-h2-width="base(250%) l-tablet(40%)"
         data-h2-max-width="base(initial)"
         src={desktopGraphicsDark1}
         alt=""

@@ -11,8 +11,10 @@ import {
   Flourish,
   Heading,
   Link,
+  Pending,
   StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -21,11 +23,18 @@ import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
+import PoolCard from "~/components/PoolCard/PoolCard";
+import { Pool, useBrowsePoolsQuery } from "~/api/generated";
+import { isExecPool } from "~/utils/poolUtils";
 
 import executiveHero from "~/assets/img/people-sitting-in-line-shaking-hands.jpg";
 import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-at-laptop.jpg";
 
-const HomePage = () => {
+interface HomePageProps {
+  pools: Pool[];
+}
+
+export const HomePage = ({ pools }: HomePageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -34,8 +43,6 @@ const HomePage = () => {
     id: "gtU+9w",
     description: "Page title for the executives homepage",
   });
-
-  const executivePools = [];
 
   return (
     <>
@@ -85,14 +92,28 @@ const HomePage = () => {
             id: "FS23BP",
           })}
         </p>
-        {executivePools.length > 0 ? null : (
+        {pools.length > 0 ? (
+          <div data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)">
+            <ul
+              data-h2-margin="base(0)"
+              data-h2-padding="base(0)"
+              data-h2-list-style="base(none)"
+            >
+              {pools.map((pool) => (
+                <li key={pool.id}>
+                  <PoolCard pool={pool} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
           <div
             data-h2-padding="base(x1)"
             data-h2-radius="base(s)"
             data-h2-shadow="base(medium)"
             data-h2-background="base(foreground)"
           >
-            <Heading level="h3" size="h6">
+            <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
               {intl.formatMessage({
                 defaultMessage: "More opportunities are coming soon!",
                 id: "Cia2li",
@@ -291,9 +312,9 @@ const HomePage = () => {
         >
           {intl.formatMessage({
             defaultMessage: "EXposition",
-            id: "vEoJ1u",
+            id: "7tv7ct",
             description:
-              "Heading for exposition section on the excutive homepage",
+              "Heading for exposition section on the executive homepage",
           })}
         </Heading>
         <Heading level="h3">
@@ -327,9 +348,24 @@ const HomePage = () => {
             description: "Heading for exposition services",
           })}
         </Heading>
-        <Accordion.Root mode="simple" type="single" data-h2-margin="base(x1 0)">
-          <Accordion.Item value="digital-community-support">
-            <StandardAccordionHeader headingAs="h4">
+        <Accordion.Root
+          mode="simple"
+          type="single"
+          collapsible
+          data-h2-margin="base(x1 0)"
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x1 0)"
+        >
+          <Accordion.Item
+            data-h2-radius="base(s)"
+            data-h2-shadow="base(medium)"
+            value="digital-community-support"
+          >
+            <StandardAccordionHeader
+              headingAs="h4"
+              data-h2-padding="base(x.5 x.25)"
+            >
               {intl.formatMessage({
                 defaultMessage: "Digital community support",
                 id: "pHIcBU",
@@ -348,8 +384,15 @@ const HomePage = () => {
               </p>
             </Accordion.Content>
           </Accordion.Item>
-          <Accordion.Item value="id-digital-talents">
-            <StandardAccordionHeader headingAs="h4">
+          <Accordion.Item
+            data-h2-radius="base(s)"
+            data-h2-shadow="base(medium)"
+            value="id-digital-talents"
+          >
+            <StandardAccordionHeader
+              headingAs="h4"
+              data-h2-padding="base(x.5 x.25)"
+            >
               {intl.formatMessage({
                 defaultMessage:
                   "Identification of digital talents - Talent management round table discussions",
@@ -369,8 +412,15 @@ const HomePage = () => {
               </p>
             </Accordion.Content>
           </Accordion.Item>
-          <Accordion.Item value="referral-services">
-            <StandardAccordionHeader headingAs="h4">
+          <Accordion.Item
+            data-h2-radius="base(s)"
+            data-h2-shadow="base(medium)"
+            value="referral-services"
+          >
+            <StandardAccordionHeader
+              headingAs="h4"
+              data-h2-padding="base(x.5 x.25)"
+            >
               {intl.formatMessage({
                 defaultMessage: "Referrals Services",
                 id: "AQCee5",
@@ -389,8 +439,15 @@ const HomePage = () => {
               </p>
             </Accordion.Content>
           </Accordion.Item>
-          <Accordion.Item value="digital-community-mentorship-program">
-            <StandardAccordionHeader headingAs="h4">
+          <Accordion.Item
+            data-h2-radius="base(s)"
+            data-h2-shadow="base(medium)"
+            value="digital-community-mentorship-program"
+          >
+            <StandardAccordionHeader
+              headingAs="h4"
+              data-h2-padding="base(x.5 x.25)"
+            >
               {intl.formatMessage({
                 defaultMessage: "Digital Community Mentorship Program",
                 id: "c+P41C",
@@ -437,4 +494,22 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+const now = nowUTCDateTime();
+
+const HomePageApi = () => {
+  const [{ data, fetching, error }] = useBrowsePoolsQuery({
+    variables: { closingAfter: now }, // pass current dateTime into query argument
+  });
+
+  const filteredPools = data?.publishedPools.filter(
+    (pool) => typeof pool !== undefined && !!pool && isExecPool(pool),
+  ) as Pool[];
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      <HomePage pools={filteredPools} />
+    </Pending>
+  );
+};
+
+export default HomePageApi;
