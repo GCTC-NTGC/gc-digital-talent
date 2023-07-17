@@ -558,6 +558,18 @@ export const poolCandidateStatuses = defineMessages({
     id: "R2BWry",
     description: "The pool candidate's status is Screened Out Application",
   },
+  [PoolCandidateStatus.ScreenedOutNotInterested]: {
+    defaultMessage: "Screened out - No longer interested",
+    id: "R2BWry",
+    description:
+      "The pool candidate's status is Screened Out because of no interest",
+  },
+  [PoolCandidateStatus.ScreenedOutNotResponding]: {
+    defaultMessage: "Screened out - Not responsive",
+    id: "R2BWry",
+    description:
+      "The pool candidate's status is Screened Out because no longer responding",
+  },
   [PoolCandidateStatus.UnderAssessment]: {
     defaultMessage: "Under Assessment",
     id: "y5u8P0",
@@ -1795,6 +1807,8 @@ const statusLabelMap = new Map<PoolCandidateStatus, StatusLabelKey>([
   [PoolCandidateStatus.DraftExpired, "DATE_PASSED"],
   [PoolCandidateStatus.ScreenedOutApplication, "SCREENED_OUT"],
   [PoolCandidateStatus.ScreenedOutAssessment, "SCREENED_OUT"],
+  [PoolCandidateStatus.ScreenedOutNotInterested, "SCREENED_OUT"],
+  [PoolCandidateStatus.ScreenedOutNotResponding, "SCREENED_OUT"],
   [PoolCandidateStatus.QualifiedAvailable, "QUALIFIED"],
   [PoolCandidateStatus.QualifiedUnavailable, "QUALIFIED"],
   [PoolCandidateStatus.QualifiedWithdrew, "QUALIFIED"],

@@ -154,6 +154,8 @@ const statusAccessor = (
     status === PoolCandidateStatus.ApplicationReview ||
     status === PoolCandidateStatus.ScreenedIn ||
     status === PoolCandidateStatus.ScreenedOutApplication ||
+    status === PoolCandidateStatus.ScreenedOutNotInterested ||
+    status === PoolCandidateStatus.ScreenedOutNotResponding ||
     status === PoolCandidateStatus.UnderAssessment ||
     status === PoolCandidateStatus.ScreenedOutAssessment
   ) {
