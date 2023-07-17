@@ -158,10 +158,6 @@ describe("Submit Application for IAP Workflow Tests", () => {
 
     cy.findByRole("checkbox", {
       // community selection
-      name: /I am First Nations/i,
-    }).click();
-    cy.findByRole("radio", {
-      // community sub-selection
       name: /I am Status First Nations/i,
     }).click();
     cy.findByRole("textbox", {
