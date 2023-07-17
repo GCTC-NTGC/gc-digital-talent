@@ -140,6 +140,15 @@ export const UpdateSearchRequestForm = ({
                   "Heading for the notes about this request section of the single search request view.",
               })}
             </Heading>
+            <p data-h2-padding="base(x.5, 0, x.5, 0)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "These notes are available to all managers of this pool, but not to candidates.",
+                id: "VkBcGJ",
+                description:
+                  "Description for the notes about this request section of the single search request view.",
+              })}
+            </p>
             <TextArea
               id="adminNotes"
               name="adminNotes"
@@ -150,6 +159,7 @@ export const UpdateSearchRequestForm = ({
                   "Label displayed on the search request form request notes field.",
               })}
               rows={8}
+              required={false}
             />
             <div data-h2-text-align="base(right)">
               <Submit
@@ -157,14 +167,14 @@ export const UpdateSearchRequestForm = ({
                 disabled={isSaving}
                 isSubmitting={isSaving}
                 text={intl.formatMessage({
-                  defaultMessage: "Save Notes",
-                  id: "DRsBYY",
+                  defaultMessage: "Save notes",
+                  id: "fzuAHN",
                   description:
                     "Button label displayed on the search request form which saves the users personal notes.",
                 })}
                 submittedText={intl.formatMessage({
-                  defaultMessage: "Save Notes",
-                  id: "DRsBYY",
+                  defaultMessage: "Save notes",
+                  id: "fzuAHN",
                   description:
                     "Button label displayed on the search request form which saves the users personal notes.",
                 })}
