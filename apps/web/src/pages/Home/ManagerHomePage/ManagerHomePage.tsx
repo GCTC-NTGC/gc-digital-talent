@@ -375,7 +375,7 @@ const HomePage = () => {
                 </p>
               ),
               link: {
-                path: "#", // TO DO: Update once we have a path for the executive home page (#6312)
+                path: paths.executive(),
                 label: intl.formatMessage({
                   defaultMessage:
                     "Learn more<hidden> about executive jobs</hidden>",
