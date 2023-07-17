@@ -3,9 +3,11 @@ import { useIntl } from "react-intl";
 
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import { PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
 import type { Application } from "./ApplicationCard";
 
 export interface ActionProps {
@@ -19,20 +21,15 @@ export interface ContinueActionProps extends ActionProps {
 const ContinueAction = ({ show, application }: ContinueActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { poolAdvertisement } = application;
+  const { pool } = application;
 
   if (!show) {
     return null;
   }
 
   return (
-    <div data-h2-margin="base(0, 0, 0, auto)">
-      <Link
-        type="button"
-        mode="inline"
-        color="secondary"
-        href={paths.reviewApplication(application.id)}
-      >
+    <div data-h2-margin="l-tablet(0, 0, 0, auto)">
+      <Link mode="inline" href={paths.application(application.id)}>
         {intl.formatMessage(
           {
             defaultMessage: "Continue this application<hidden> {name}</hidden>",
@@ -40,7 +37,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
             description: "Link text to continue a specific application",
           },
           {
-            name: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
+            name: getFullPoolTitleHtml(intl, pool),
           },
         )}
       </Link>
@@ -54,27 +51,37 @@ export interface ViewActionProps extends ActionProps {
 const ViewAction = ({ show, application }: ViewActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { poolAdvertisement } = application;
-
+  const { pool } = application;
+  const title = getFullPoolTitleHtml(intl, pool) && "";
   if (!show) {
     return null;
   }
 
   return (
     <Link
-      href={paths.reviewApplication(application.id)}
+      href={paths.application(application.id)}
       mode="inline"
-      type="button"
-      color="secondary"
-    >
-      {intl.formatMessage(
+      data-h2-font-size="base(caption)"
+      aria-label={intl.formatMessage(
         {
-          defaultMessage: "View this application<hidden> {name}</hidden>",
-          id: "JM30M7",
+          defaultMessage: "Review your application to the {title} job",
+          id: "XhQ7Ky",
           description: "Link text to view a specific application",
         },
         {
-          name: getFullPoolAdvertisementTitleHtml(intl, poolAdvertisement),
+          title,
+        },
+      )}
+      data-h2-color="base(black.light)"
+    >
+      {intl.formatMessage(
+        {
+          defaultMessage: "Review application<hidden> {name}</hidden>",
+          id: "KZtBcM",
+          description: "Link text to view a specific application",
+        },
+        {
+          name: title,
         },
       )}
     </Link>
@@ -82,7 +89,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
 };
 
 export interface SeeAdvertisementActionProps extends ActionProps {
-  advertisement: Application["poolAdvertisement"];
+  advertisement: Application["pool"];
 }
 
 const SeeAdvertisementAction = ({
@@ -91,6 +98,7 @@ const SeeAdvertisementAction = ({
 }: SeeAdvertisementActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const jobTitle = getFullPoolTitleHtml(intl, advertisement) && "";
 
   if (!show || !advertisement) {
     return null;
@@ -99,39 +107,223 @@ const SeeAdvertisementAction = ({
   return (
     <Link
       mode="inline"
-      type="button"
-      color="secondary"
       href={paths.pool(advertisement.id)}
-    >
-      {intl.formatMessage(
+      data-h2-color="base(black.light)"
+      data-h2-font-size="base(caption)"
+      aria-label={intl.formatMessage(
         {
-          defaultMessage: "See job ad<hidden> {name}</hidden>",
-          id: "si/wtm",
+          defaultMessage: "Review the {title} job advertisement",
+          id: "5pTphq",
           description: "Link text to see an applications advertisement",
         },
         {
-          name: getFullPoolAdvertisementTitleHtml(intl, advertisement),
+          title: jobTitle,
+        },
+      )}
+    >
+      {intl.formatMessage(
+        {
+          defaultMessage: "Review job ad<hidden> {name}</hidden>",
+          id: "HhuKq4",
+          description: "Link text to see an applications advertisement",
+        },
+        {
+          name: jobTitle,
         },
       )}
     </Link>
   );
 };
-export type SupportActionProps = ActionProps;
+export interface SupportActionProps extends ActionProps {
+  application: Application;
+}
 
-const SupportAction = ({ show }: SupportActionProps) => {
+const SupportAction = ({ show, application }: SupportActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
+  if (!show) {
+    return null;
+  }
+
+  return (
+    <Link
+      href={paths.support()}
+      mode="inline"
+      data-h2-color="base(black.light)"
+      data-h2-font-size="base(caption)"
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage: "Get support for the {title} job",
+          id: "yE/QNS",
+          description: "Link text to direct a user to the support page",
+        },
+        {
+          title: jobTitle,
+        },
+      )}
+    >
+      {intl.formatMessage({
+        defaultMessage: "Get support",
+        id: "rXdaZW",
+        description: "Link text to direct a user to the support page",
+      })}
+    </Link>
+  );
+};
+
+export interface CopyApplicationIdActionProps extends ActionProps {
+  application: Application;
+}
+const CopyApplicationIdAction = ({
+  show,
+  application,
+}: CopyApplicationIdActionProps) => {
+  const intl = useIntl();
+  const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
+  if (!show) {
+    return null;
+  }
+  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
+  return (
+    <Button
+      mode="inline"
+      data-h2-color="base(black.light)"
+      data-h2-font-size="base(caption)"
+      icon={linkCopied ? CheckIcon : undefined}
+      onClick={() => {
+        navigator.clipboard.writeText(application.id);
+        setLinkCopied(true);
+      }}
+      aria-label={
+        linkCopied
+          ? intl.formatMessage(
+              {
+                defaultMessage: "Copy your {title} application's ID",
+                id: "WJSVBr",
+                description: "Button text to copy a specific application ID",
+              },
+              {
+                title: jobTitle,
+              },
+            )
+          : intl.formatMessage(
+              {
+                defaultMessage: "Your {title} application's ID copied",
+                id: "ftg8sT",
+                description:
+                  "Button text to indicate that a specific application's ID has been copied",
+              },
+              {
+                title: jobTitle,
+              },
+            )
+      }
+    >
+      {linkCopied
+        ? intl.formatMessage({
+            defaultMessage: "Application ID copied",
+            id: "gBAz/G",
+            description:
+              "Button text to indicate that a specific application's ID has been copied",
+          })
+        : intl.formatMessage({
+            defaultMessage: "Copy application ID",
+            id: "rvoNoQ",
+            description: "Button text to copy a specific application ID",
+          })}
+    </Button>
+  );
+};
+export interface VisitResumeActionProps extends ActionProps {
+  userID: string;
+  application: Application;
+}
+const VisitResumeAction = ({
+  show,
+  userID,
+  application,
+}: VisitResumeActionProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
+
+  if (!show) {
+    return null;
+  }
+
+  const recruitmentSectionUrl = paths.resumeAndRecruitment(userID, {
+    applicationId: application.id,
+    section: PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
+  });
+
+  return (
+    <Link
+      href={recruitmentSectionUrl}
+      mode="inline"
+      data-h2-color="base(black.light)"
+      data-h2-font-size="base(caption)"
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage: "Visit the {title} recruitment on your résumé",
+          id: "pqsnpk",
+          description: "Link text to direct a user to the Résumé page",
+        },
+        {
+          title: jobTitle,
+        },
+      )}
+    >
+      {intl.formatMessage({
+        defaultMessage: "Visit résumé",
+        id: "Dq+GKf",
+        description: "Link text to direct a user to the Résumé page",
+      })}
+    </Link>
+  );
+};
+
+export interface ManageAvailabilityActionProps extends ActionProps {
+  userID: string;
+  application: Application;
+}
+const ManageAvailabilityAction = ({
+  show,
+  userID,
+  application,
+}: ManageAvailabilityActionProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
 
   if (!show) {
     return null;
   }
 
   return (
-    <Link href={paths.support()} mode="inline" type="button" color="secondary">
+    <Link
+      href={paths.profile(userID)}
+      mode="inline"
+      data-h2-color="base(black.light)"
+      data-h2-font-size="base(caption)"
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage:
+            "Manage your availability for the {title} recruitment",
+          id: "3QkRNc",
+          description:
+            "Link text to direct a user to change the availability of the specific recruitment process",
+        },
+        {
+          title: jobTitle,
+        },
+      )}
+    >
       {intl.formatMessage({
-        defaultMessage: "Get support",
-        id: "rXdaZW",
-        description: "Link text to direct a user to the support page",
+        defaultMessage: "Manage availability",
+        id: "SjhNGq",
+        description:
+          "Link text to direct a user to change the availability of the specific recruitment process",
       })}
     </Link>
   );
@@ -149,19 +341,30 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
     return null;
   }
 
-  const name = getFullPoolAdvertisementTitleHtml(
-    intl,
-    application.poolAdvertisement,
-  );
+  const name = getFullPoolTitleHtml(intl, application.pool) && "";
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button mode="inline" type="button" color="error">
+        <Button
+          mode="inline"
+          type="button"
+          data-h2-color="base(error.dark)"
+          data-h2-font-size="base(caption)"
+          aria-label={intl.formatMessage(
+            {
+              defaultMessage: "Delete your application to the {title} job",
+              id: "5O4CY1",
+              description: "Link text to delete a specific application",
+            },
+            {
+              title: name,
+            },
+          )}
+        >
           {intl.formatMessage(
             {
-              defaultMessage:
-                "Delete this application<hidden> ({name})</hidden>",
-              id: "10Ous+",
+              defaultMessage: "Delete application<hidden> ({name})</hidden>",
+              id: "CH6FQA",
               description: "Link text to delete a specific application",
             },
             {
@@ -196,7 +399,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
-            <Button mode="outline" color="primary" type="button">
+            <Button color="primary" type="button">
               {intl.formatMessage({
                 defaultMessage: "Cancel",
                 id: "/JLaO5",
@@ -205,7 +408,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button mode="solid" color="cta" type="button" onClick={onDelete}>
+            <Button mode="solid" color="error" type="button" onClick={onDelete}>
               {intl.formatMessage({
                 defaultMessage: "Delete",
                 id: "IUQGA0",
@@ -235,10 +438,7 @@ const ArchiveAction = ({
     return null;
   }
 
-  const name = getFullPoolAdvertisementTitleHtml(
-    intl,
-    application.poolAdvertisement,
-  );
+  const name = getFullPoolTitleHtml(intl, application.pool);
 
   return (
     <AlertDialog.Root>
@@ -279,7 +479,7 @@ const ArchiveAction = ({
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
-            <Button mode="outline" color="primary" type="button">
+            <Button color="primary" type="button">
               {intl.formatMessage({
                 defaultMessage: "Cancel",
                 id: "r6DZ71",
@@ -288,7 +488,12 @@ const ArchiveAction = ({
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button mode="solid" color="cta" type="button" onClick={onArchive}>
+            <Button
+              mode="solid"
+              color="secondary"
+              type="button"
+              onClick={onArchive}
+            >
               {intl.formatMessage({
                 defaultMessage: "Archive",
                 id: "PXfQOZ",
@@ -309,4 +514,7 @@ export default {
   ArchiveAction,
   SupportAction,
   ViewAction,
+  CopyApplicationIdAction,
+  VisitResumeAction,
+  ManageAvailabilityAction,
 };

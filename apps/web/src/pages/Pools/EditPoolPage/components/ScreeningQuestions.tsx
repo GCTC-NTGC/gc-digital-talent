@@ -1,33 +1,26 @@
 import React from "react";
-import { IntlShape, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import isEqual from "lodash/isEqual";
 import {
   FormProvider,
   useFieldArray,
   useForm,
   useFormContext,
-  useWatch,
 } from "react-hook-form";
 
 import { TableOfContents, Well } from "@gc-digital-talent/ui";
-import { Locales, errorMessages } from "@gc-digital-talent/i18n";
-import {
-  Repeater,
-  TextArea,
-  Submit,
-  WordCounter,
-  countNumberOfWords,
-} from "@gc-digital-talent/forms";
+import { errorMessages } from "@gc-digital-talent/i18n";
+import { Repeater, TextArea, Submit } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   CreateScreeningQuestionInput,
   UpdateScreeningQuestionInput,
   LocalizedString,
-  PoolAdvertisement,
+  Pool,
   Scalars,
-  AdvertisementStatus,
-  UpdatePoolAdvertisementInput,
+  PoolStatus,
+  UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 
@@ -46,31 +39,9 @@ type FormValues = {
 };
 
 export type ScreeningQuestionsSubmitData = Pick<
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
   "screeningQuestions"
 >;
-
-const WordLimit = ({ locale, index }: { locale: Locales; index: number }) => {
-  const value = useWatch({ name: "questions" });
-
-  return (
-    <div data-h2-margin="base(-x.5, 0, x1, 0)" data-h2-text-align="base(right)">
-      <WordCounter
-        text={value[index].question[locale] || ""}
-        wordLimit={TEXT_AREA_MAX_WORDS}
-      />
-    </div>
-  );
-};
-
-const maxWordValidator = (value: string, intl: IntlShape) => {
-  return (
-    countNumberOfWords(value) <= TEXT_AREA_MAX_WORDS ||
-    intl.formatMessage(errorMessages.overWordLimit, {
-      value: TEXT_AREA_MAX_WORDS,
-    })
-  );
-};
 
 interface ModificationAlertProps {
   originalQuestions: FormValues["questions"];
@@ -110,20 +81,20 @@ const ModificationAlert = ({ originalQuestions }: ModificationAlertProps) => {
 };
 
 interface ScreeningQuestionsProps {
-  poolAdvertisement: PoolAdvertisement;
+  pool: Pool;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: ScreeningQuestionsSubmitData) => void;
 }
 
 const ScreeningQuestions = ({
-  poolAdvertisement,
+  pool,
   sectionMetadata,
   onSave,
 }: ScreeningQuestionsProps) => {
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
-  const dataToFormValues = (initialData: PoolAdvertisement): FormValues => ({
+  const dataToFormValues = (initialData: Pool): FormValues => ({
     questions:
       initialData?.screeningQuestions
         ?.filter(notEmpty)
@@ -135,7 +106,7 @@ const ScreeningQuestions = ({
           },
         })) || [],
   });
-  const defaultValues = dataToFormValues(poolAdvertisement);
+  const defaultValues = dataToFormValues(pool);
 
   const methods = useForm<FormValues>({
     defaultValues,
@@ -149,7 +120,7 @@ const ScreeningQuestions = ({
   const handleSave = (formValues: FormValues) => {
     const create: Array<CreateScreeningQuestionInput> = [];
     const update: Array<UpdateScreeningQuestionInput> = [];
-    const toBeDeleted = poolAdvertisement.screeningQuestions
+    const toBeDeleted = pool.screeningQuestions
       ?.filter((existingQuestion) => {
         return !formValues.questions?.some(
           (question) =>
@@ -187,8 +158,7 @@ const ScreeningQuestions = ({
   };
 
   // disabled unless status is draft
-  const formDisabled =
-    poolAdvertisement.advertisementStatus !== AdvertisementStatus.Draft;
+  const formDisabled = pool.status !== PoolStatus.Draft;
 
   const canAdd = fields.length < 3;
   return (
@@ -250,8 +220,7 @@ const ScreeningQuestions = ({
                     <div
                       data-h2-display="base(grid)"
                       data-h2-grid-template-columns="base(1fr 1fr)"
-                      data-h2-gap="base(0, x.5)"
-                      data-h2-margin="base(-x1, 0)"
+                      data-h2-gap="base(0 x1)"
                     >
                       <div>
                         <TextArea
@@ -260,17 +229,13 @@ const ScreeningQuestions = ({
                           label="Question (EN)"
                           disabled={formDisabled}
                           rows={TEXT_AREA_ROWS}
+                          wordLimit={TEXT_AREA_MAX_WORDS}
                           rules={{
                             required: intl.formatMessage(
                               errorMessages.required,
                             ),
-                            validate: {
-                              wordCount: (value: string) =>
-                                maxWordValidator(value, intl),
-                            },
                           }}
                         />
-                        <WordLimit locale="en" index={index} />
                       </div>
                       <div>
                         <TextArea
@@ -279,17 +244,13 @@ const ScreeningQuestions = ({
                           label="Question (FR)"
                           disabled={formDisabled}
                           rows={TEXT_AREA_ROWS}
+                          wordLimit={TEXT_AREA_MAX_WORDS}
                           rules={{
                             required: intl.formatMessage(
                               errorMessages.required,
                             ),
-                            validate: {
-                              wordCount: (value: string) =>
-                                maxWordValidator(value, intl),
-                            },
                           }}
                         />
-                        <WordLimit locale="fr" index={index} />
                       </div>
                     </div>
                   </Repeater.Fieldset>
@@ -356,7 +317,7 @@ const ScreeningQuestions = ({
                 description:
                   "Text on a button to save the pool screening questions",
               })}
-              color="cta"
+              color="tertiary"
               mode="solid"
               isSubmitting={isSubmitting}
             />

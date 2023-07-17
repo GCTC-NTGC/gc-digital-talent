@@ -34,7 +34,7 @@ export const StepDisabledPage = ({
         decorative
       />
       {returnUrl ? (
-        <Link href={returnUrl} color="primary" mode="solid" type="button">
+        <Link href={returnUrl} color="primary" mode="solid">
           {intl.formatMessage({
             id: "88dH+F",
             defaultMessage: "Return to the last step I was working on",

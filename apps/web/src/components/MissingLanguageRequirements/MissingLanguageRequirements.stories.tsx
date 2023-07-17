@@ -1,28 +1,21 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import {
-  fakePoolAdvertisements,
-  fakeUsers,
-} from "@gc-digital-talent/fake-data";
+import { fakePools, fakeUsers } from "@gc-digital-talent/fake-data";
 
-import {
-  Applicant,
-  PoolAdvertisement,
-  PoolAdvertisementLanguage,
-} from "~/api/generated";
+import { User, Pool, PoolLanguage } from "~/api/generated";
 import MissingLanguageRequirements from "./MissingLanguageRequirements";
 
 type MissingLanguageRequirementsComponent = typeof MissingLanguageRequirements;
 
-const unilingualApplicant: Applicant = {
-  ...(fakeUsers(1)[0] as Applicant),
+const unilingualUser: User = {
+  ...(fakeUsers(1)[0] as User),
   lookingForEnglish: true,
   lookingForFrench: false,
   lookingForBilingual: false,
 };
-const bilingualPoolAdvertisement: PoolAdvertisement = {
-  ...fakePoolAdvertisements(1)[0],
-  advertisementLanguage: PoolAdvertisementLanguage.BilingualAdvanced,
+const bilingualPool: Pool = {
+  ...fakePools(1)[0],
+  language: PoolLanguage.BilingualAdvanced,
 };
 
 export default {
@@ -33,17 +26,12 @@ export default {
 const Template: ComponentStory<MissingLanguageRequirementsComponent> = (
   args,
 ) => {
-  const { applicant, poolAdvertisement } = args;
-  return (
-    <MissingLanguageRequirements
-      applicant={applicant}
-      poolAdvertisement={poolAdvertisement}
-    />
-  );
+  const { user, pool } = args;
+  return <MissingLanguageRequirements user={user} pool={pool} />;
 };
 
 export const MissingRequiredLanguageRequirement = Template.bind({});
 MissingRequiredLanguageRequirement.args = {
-  applicant: unilingualApplicant,
-  poolAdvertisement: bilingualPoolAdvertisement,
+  user: unilingualUser,
+  pool: bilingualPool,
 };

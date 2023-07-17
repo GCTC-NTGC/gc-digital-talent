@@ -27,12 +27,6 @@ class HasEducationRequirement implements Rule
      */
     public function passes($attribute, $value)
     {
-        // short-circuit check off feature flag
-        $flagBoolean = config('feature.application_revamp');
-        if (!$flagBoolean) {
-            return true;
-        }
-
         $poolCandidate = PoolCandidate::findOrFail($value);
         if (!$poolCandidate->education_requirement_option) {
             return false;

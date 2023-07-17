@@ -6,6 +6,8 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestionResponse;
 use App\Models\User;
+use App\Models\EducationExperience;
+use App\Models\WorkExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\DB;
@@ -33,9 +35,7 @@ class PoolCandidateFactory extends Factory
                 $this->faker->randomElement([ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])  :
                 ApiEnums::candidateStatuses()[array_rand((ApiEnums::candidateStatuses()))],
             'user_id' => User::factory(),
-            'pool_id' => Pool::factory([
-                'published_at' => config('constants.past_date'),
-            ]),
+            'pool_id' => Pool::factory()->published(),
             'notes' => $this->faker->paragraphs(3, true),
             'submitted_at' => null,
             'suspended_at' => null,
@@ -77,6 +77,20 @@ class PoolCandidateFactory extends Factory
                         'answer' => $this->faker->paragraph(),
                     ]);
                 }
+            }
+
+            if ($poolCandidate->education_requirement_option === ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION) {
+                //Ensure user has at least one education experience
+                $experience = EducationExperience::factory()->create([
+                    'user_id' => $poolCandidate->user_id
+                ]);
+                $poolCandidate->educationRequirementEducationExperiences()->sync([$experience->id]);
+            } else if ($poolCandidate->education_requirement_option === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
+                //Ensure user has at least one work experience
+                $experience = WorkExperience::factory()->create([
+                    'user_id' => $poolCandidate->user_id
+                ]);
+                $poolCandidate->educationRequirementWorkExperiences()->sync([$experience->id]);
             }
         });
     }

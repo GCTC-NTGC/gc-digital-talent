@@ -38,6 +38,10 @@ server {
         alias /home/site/wwwroot/infrastructure/conf/dev.robots.txt;
     }
 
+    location = /restricted.html {
+        alias /home/site/wwwroot/apps/web/dist/restricted.html;
+    }
+
     # Permanent redirects to avoid dead links
     location = /en/communities/digital-talent { return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html; }
     location = /fr/communities/digital-talent { return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html; }
@@ -159,6 +163,11 @@ server {
         rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /apps/web/dist/index.html break;
     }
 
+    # rewrite possible lang prefix then "manager" to manager index.html
+    location ~ "^(?:/[a-z]{2})?/manager(/?.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/manager(/?.*|$)" /apps/web/dist/index.html break;
+    }
+
     # rewrite possible lang prefix then "users" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/users(/.*|$)" {
         rewrite "^(?:/[a-z]{2})?/users(/.*|$)" /apps/web/dist/index.html break;
@@ -204,9 +213,20 @@ server {
         rewrite "^(?:/[a-z]{2})?/applications(/.*|$)" /apps/web/dist/index.html break;
     }
 
+    # Redirect old dashboard to new profile and applications
+    location = /en/applicant/dashboard {
+      absolute_redirect off;
+      return 301 /en/applicant/profile-and-applications$is_args$args;
+    }
+
+    location = /fr/applicant/dashboard {
+        absolute_redirect off;
+        return 301 /fr/applicant/profile-and-applications$is_args$args;
+    }
+
     # rewrite possible lang prefix then "applicant" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/applicant(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/applicant(/.*|$)" /apps/web/dist/index.html break;
+      rewrite "^(?:/[a-z]{2})?/applicant(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "create-account" to apps/web index.html

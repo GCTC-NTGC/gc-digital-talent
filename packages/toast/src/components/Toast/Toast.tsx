@@ -1,5 +1,10 @@
 import * as React from "react";
-import { ToastContainer, Slide, CloseButtonProps } from "react-toastify";
+import {
+  ToastContainer,
+  Slide,
+  CloseButtonProps,
+  ToastContainerProps,
+} from "react-toastify";
 
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 
@@ -28,14 +33,20 @@ const CloseButton = ({ type, closeToast, ariaLabel }: CloseButtonProps) => (
   </button>
 );
 
-const Toast = () => (
+export type ToastProps = {
+  disableTransition?: boolean;
+  autoClose?: ToastContainerProps["autoClose"];
+};
+
+const Toast = ({ disableTransition, autoClose }: ToastProps) => (
   <ToastContainer
     position="bottom-right"
-    transition={Slide}
+    transition={!disableTransition ? Slide : undefined}
     hideProgressBar
     role="alert"
     closeButton={CloseButton}
     icon={false}
+    autoClose={autoClose}
   />
 );
 

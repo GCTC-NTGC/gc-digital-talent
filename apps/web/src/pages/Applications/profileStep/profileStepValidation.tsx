@@ -1,4 +1,4 @@
-import { Applicant, PoolAdvertisement } from "@gc-digital-talent/graphql";
+import { User, Pool } from "@gc-digital-talent/graphql";
 
 import {
   aboutSectionHasEmptyRequiredFields,
@@ -10,24 +10,15 @@ import {
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
 
-const stepHasError = (
-  applicant: Applicant,
-  poolAdvertisement: PoolAdvertisement,
-) => {
+const stepHasError = (user: User, pool: Pool) => {
   const hasEmptyRequiredFields =
-    aboutSectionHasEmptyRequiredFields(applicant) ||
-    workLocationSectionHasEmptyRequiredFields(applicant) ||
-    diversityEquityInclusionSectionHasEmptyRequiredFields(
-      applicant,
-      poolAdvertisement,
-    ) ||
-    governmentInformationSectionHasEmptyRequiredFields(applicant) ||
-    languageInformationSectionHasEmptyRequiredFields(applicant) ||
-    workPreferencesSectionHasEmptyRequiredFields(applicant) ||
-    languageInformationSectionHasUnsatisfiedRequirements(
-      applicant,
-      poolAdvertisement,
-    );
+    aboutSectionHasEmptyRequiredFields(user) ||
+    workLocationSectionHasEmptyRequiredFields(user) ||
+    diversityEquityInclusionSectionHasEmptyRequiredFields(user, pool) ||
+    governmentInformationSectionHasEmptyRequiredFields(user) ||
+    languageInformationSectionHasEmptyRequiredFields(user) ||
+    workPreferencesSectionHasEmptyRequiredFields(user) ||
+    languageInformationSectionHasUnsatisfiedRequirements(user, pool);
   return hasEmptyRequiredFields;
 };
 

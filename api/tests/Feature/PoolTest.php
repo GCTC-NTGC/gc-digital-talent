@@ -28,24 +28,21 @@ class PoolTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->adminUser = User::factory()->create([
-            'email' => 'admin@test.com',
-            'sub' => 'admin@test.com',
-        ]);
-        $this->adminUser->syncRoles([
-            "guest",
-            "base_user",
-            "platform_admin"
-        ]);
+        $this->adminUser = User::factory()
+            ->asAdmin()
+            ->create([
+                'email' => 'admin@test.com',
+                'sub' => 'admin@test.com',
+            ]);
 
-        $this->guestUser = User::factory()->create();
-        $this->guestUser->syncRoles(["guest"]);
+        $this->guestUser = User::factory()
+            ->asGuest()
+            ->create();
 
         $this->baseUser = User::factory()->create();
-        $this->baseUser->syncRoles(["base_user"]);
     }
 
-    public function testPoolAdvertisementAccessor(): void
+    public function testPoolAccessor(): void
     {
         // Create new pools and attach to new pool candidates.
         $pool1 = Pool::factory()->create([
@@ -73,16 +70,16 @@ class PoolTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-        query poolAdvertisement {
-            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
-                advertisementStatus
+        query pool {
+            pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
+                status
             }
         }
     '
         )->assertJson([
             "data" => [
-                "poolAdvertisement" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED,
+                "pool" => [
+                    "status" => ApiEnums::POOL_IS_PUBLISHED,
                 ]
             ]
         ]);
@@ -91,16 +88,16 @@ class PoolTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-        query poolAdvertisement {
-            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
-                advertisementStatus
+        query pool {
+            pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
+                status
             }
         }
     '
         )->assertJson([
             "data" => [
-                "poolAdvertisement" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED,
+                "pool" => [
+                    "status" => ApiEnums::POOL_IS_CLOSED,
                 ]
             ]
         ]);
@@ -109,16 +106,16 @@ class PoolTest extends TestCase
         $this->actingAs($this->adminUser, "api")->graphQL(
             /** @lang GraphQL */
             '
-        query poolAdvertisement {
-            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13") {
-                advertisementStatus
+        query pool {
+            pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13") {
+                status
             }
         }
     '
         )->assertJson([
             "data" => [
-                "poolAdvertisement" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
+                "pool" => [
+                    "status" => ApiEnums::POOL_IS_DRAFT,
                 ]
             ]
         ]);
@@ -127,22 +124,22 @@ class PoolTest extends TestCase
         $this->actingAs($this->adminUser, "api")->graphQL(
             /** @lang GraphQL */
             '
-        query poolAdvertisement {
-            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14") {
-                advertisementStatus
+        query pool {
+            pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14") {
+                status
             }
         }
     '
         )->assertJson([
             "data" => [
-                "poolAdvertisement" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
+                "pool" => [
+                    "status" => ApiEnums::POOL_IS_DRAFT,
                 ]
             ]
         ]);
     }
 
-    public function testPoolAdvertisementAccessorTime(): void
+    public function testPoolAccessorTime(): void
     {
         // test that expiry on day of functions as expected, that soon to expire can be applied to and just expired is longer open for application
         $expireInHour = date("Y-m-d H:i:s", strtotime('+1 hour'));
@@ -163,16 +160,16 @@ class PoolTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-        query poolAdvertisement {
-            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
-                advertisementStatus
+        query pool {
+            pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
+                status
             }
         }
     '
         )->assertJson([
             "data" => [
-                "poolAdvertisement" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED,
+                "pool" => [
+                    "status" => ApiEnums::POOL_IS_PUBLISHED,
                 ]
             ]
         ]);
@@ -181,23 +178,23 @@ class PoolTest extends TestCase
         $this->graphQL(
             /** @lang GraphQL */
             '
-        query poolAdvertisement {
-            poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
-                advertisementStatus
+        query pool {
+            pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
+                status
             }
         }
     '
         )->assertJson([
             "data" => [
-                "poolAdvertisement" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_CLOSED,
+                "pool" => [
+                    "status" => ApiEnums::POOL_IS_CLOSED,
                 ]
             ]
         ]);
     }
 
-    // The publishedPoolAdvertisements query should only return pools that have been published
-    public function testPoolAdvertisementQueryReturnsOnlyPublished(): void
+    // The publishedPools query should only return pools that have been published
+    public function testPoolQueryReturnsOnlyPublished(): void
     {
         // this pool has been published so it should be returned in the publishedPool query
         $publishedPool = Pool::factory()->create([
@@ -213,14 +210,14 @@ class PoolTest extends TestCase
             /** @lang GraphQL */
             '
         query browsePools {
-            publishedPoolAdvertisements {
+            publishedPools {
               id
             }
           }
     '
         )->assertJson([
             "data" => [
-                "publishedPoolAdvertisements" => [
+                "publishedPools" => [
                     [
                         "id" => $publishedPool->id,
                     ],
@@ -241,14 +238,15 @@ class PoolTest extends TestCase
 
         // Assert query will return only the published pool as anonymous user
         $this->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
         query browsePools {
             pools {
                 id
             }
         }
-        ')
+        '
+        )
             ->assertJsonCount(1, "data.pools")
             ->assertJsonFragment(["id" => $publishedPool->id]);
     }
@@ -265,14 +263,15 @@ class PoolTest extends TestCase
 
         // Assert query will return only the published pool as base role user
         $this->actingAs($this->baseUser, "api")->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
         query browsePools {
             pools {
                 id
             }
         }
-        ')
+        '
+        )
             ->assertJsonCount(1, "data.pools")
             ->assertJsonFragment(["id" => $publishedPool->id]);
     }
@@ -289,14 +288,15 @@ class PoolTest extends TestCase
 
         // Assert query will return only the published pool as guest role user
         $this->actingAs($this->guestUser, "api")->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
         query browsePools {
             pools {
                 id
             }
         }
-        ')
+        '
+        )
             ->assertJsonCount(1, "data.pools")
             ->assertJsonFragment(["id" => $publishedPool->id]);
     }
@@ -313,20 +313,22 @@ class PoolTest extends TestCase
         ]);
 
         $noRoleUser = User::factory()->create();
+        $noRoleUser->syncRoles([]);
         // Assert query will return only the published pool as guest user
         $this->actingAs($noRoleUser, "api")->graphQL(
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
         query browsePools {
             pools {
                 id
             }
         }
-        ')->assertGraphQLErrorMessage('This action is unauthorized.');
+        '
+        )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    // test filtering closing_date on publishedPoolAdvertisements
-    public function testPoolAdvertisementQueryClosingDate(): void
+    // test filtering closing_date on publishedPools
+    public function testPoolQueryClosingDate(): void
     {
         Pool::factory()->create([
             'published_at' => null,
@@ -347,14 +349,14 @@ class PoolTest extends TestCase
                 /** @lang GraphQL */
                 '
         query browsePools  {
-            publishedPoolAdvertisements {
+            publishedPools {
                 id
             }
         }
         ',
                 []
             );
-        $responseCount = count($response->json('data.publishedPoolAdvertisements'));
+        $responseCount = count($response->json('data.publishedPools'));
         assertSame(5, $responseCount);
 
         // assert time argument passed in filters out unpublished and closed pools
@@ -363,7 +365,7 @@ class PoolTest extends TestCase
                 /** @lang GraphQL */
                 '
         query browsePools ($date: DateTime) {
-            publishedPoolAdvertisements(closingAfter: $date) {
+            publishedPools(closingAfter: $date) {
                 id
             }
         }
@@ -371,7 +373,7 @@ class PoolTest extends TestCase
                 ['date' => $timeNow]
             );
 
-        $response2Count = count($response2->json('data.publishedPoolAdvertisements'));
+        $response2Count = count($response2->json('data.publishedPools'));
         assertSame(2, $response2Count);
     }
 }

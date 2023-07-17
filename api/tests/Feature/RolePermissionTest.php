@@ -56,7 +56,7 @@ class RolePermissionTest extends TestCase
             'view-any-genericJobTitle',
             'view-any-skill',
             'view-any-skillFamily',
-            'view-any-publishedPoolAdvertisement',
+            'view-any-publishedPool',
             'view-any-applicantCount',
             'create-any-searchRequest',
             'view-any-team',
@@ -87,7 +87,7 @@ class RolePermissionTest extends TestCase
             'view-any-skillFamily',
             'view-own-user',
             'update-own-user',
-            'view-any-publishedPoolAdvertisement',
+            'view-any-publishedPool',
             'view-any-applicantCount',
             'create-any-searchRequest',
             'view-any-team',
@@ -113,7 +113,6 @@ class RolePermissionTest extends TestCase
         $this->assertTrue($this->user->isAbleTo([
             'view-own-application',
             'submit-own-application',
-            'view-own-applicantProfile',
             'create-own-draftApplication',
             'delete-own-draftApplication',
             'archive-own-submittedApplication',
@@ -144,7 +143,6 @@ class RolePermissionTest extends TestCase
             'update-team-poolClosingDate',
             'delete-team-draftPool',
             'view-team-submittedApplication',
-            'view-team-applicantProfile',
             'update-team-applicationStatus',
             'view-team-teamMembers',
         ];
@@ -170,7 +168,6 @@ class RolePermissionTest extends TestCase
 
         $permissionsToCheck = [
             'view-any-submittedApplication',
-            'view-any-applicantProfile',
             'view-any-searchRequest',
             'update-any-searchRequest',
             'delete-any-searchRequest',
@@ -178,8 +175,7 @@ class RolePermissionTest extends TestCase
 
         $this->assertTrue($this->user->hasRole('request_responder'));
         $this->assertTrue($this->user->isAbleTo($permissionsToCheck, true));
-
-        $this->assertFalse(($this->user->isAbleTo('view-any-user')));
+        $this->assertTrue(($this->user->isAbleTo('view-any-user')));
 
         $this->cleanup();
     }
@@ -211,6 +207,7 @@ class RolePermissionTest extends TestCase
             'create-any-skillFamily',
             'update-any-skillFamily',
             'delete-any-skillFamily',
+            'create-any-user',
             'view-any-user',
             'view-any-userBasicInfo',
             'update-any-user',

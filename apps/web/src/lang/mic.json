@@ -15,7 +15,7 @@
     "defaultMessage": "Ika’te’n ki’l ta’n koqowey ewikasik",
     "description": "How it works, step 2 heading"
   },
-  "/7NWbF": {
+  "tBGvoD": {
     "defaultMessage": "Wela’lin wjit ki’l ta’n menuweken wula Program. Ninen menaqate’tmek wjit nutman wjit ki’l apajiw!",
     "description": "Third paragraph for apply now dialog"
   },
@@ -67,7 +67,7 @@
     "defaultMessage": "Net etek ta’n telawtik wjit wesuwa’tasik wula program?",
     "description": "Learn more dialog question ten heading"
   },
-  "CqLV19": {
+  "hyJz3G": {
     "defaultMessage": "Wjit wula Program",
     "description": "Program information section title"
   },
@@ -275,7 +275,7 @@
     "defaultMessage": "Weskunmin High School diploma kisna kutey (GED)",
     "description": "IAP Requirement list item two"
   },
-  "wqwPhL": {
+  "wNJSJ7": {
     "defaultMessage": "Ta’n ketmamite’tmin aqq pasik nekmowey ankaptmin wjit majuinu kisa’toq, katu wjit ta’n ekina’masij te’sik, na Program ejkla’toq newte’ ajki’k mu asite’tasinuk ta’n etek pekisitoq lukwaqn wjit wula digital economy. Wula Program na kisitasik wejiaq, ta’n toqa’tasik, aqq wjit l’nu’k majuinu’k pemiaq Kanata. Ta’n kisitoq wiaqtekn wula preferences aqq ta’n nuta’q wjit l’nu’k ekina’masultijik ta’n tujiw nemitasik nuta’q wjit wutan.",
     "description": "Second paragraph about the program"
   },
@@ -287,7 +287,7 @@
     "defaultMessage": "PIskwa’te’n Ki’l Profile wjit ki’l Wi’katikn piskwa’tu’n",
     "description": "How it works, step 3 heading"
   },
-  "1B4niz": {
+  "J9HjFN": {
     "defaultMessage": "Na wula program eltasikip wjit klusa’sin wjit ila’matultinew aqq l’tmnew ta’n iliankaptasik wejiaq ta’n nemitasik rights aqq toq-lukuti’tijik wjit l’nu’k majuinu’k.",
     "description": "How it works, step 1 content paragraph 1"
   },
@@ -311,7 +311,7 @@
     "defaultMessage": "Ta’n mawi tekle’j asite’tasik na nuta’q GED kisna high scholl diploma. Na collage kisna university kina’masuti mu nuta’nuk.",
     "description": "Learn more dialog question twelve paragraph one"
   },
-  "khChKa": {
+  "f/yvXg": {
     "defaultMessage": "Wula program na wjit L’nu’k, Inuit, aqq Metis majuinu’k. Technology ta’n tujiw ki’l l’nuwin, aqq Inuk, kisna Metis, aqq ta’n tujiw ksatmin technology, na wula program wjit ki’l!",
     "description": "First paragraph about who the program is for"
   },
@@ -327,9 +327,13 @@
     "defaultMessage": "Jinu'kwalsi kisi tuwa'tn wula program ta'n poqjiaq 2023.",
     "description": "Talent portal strategy item 4 content"
   },
-  "qZvV7b": {
-    "defaultMessage": "IT Apprenticeship Program wjit L’nu’k. Suwa’te’n kiskuk wjit poqjilukwatn ki’l IT career wutawti.",
-    "description": "Homepage title for Indigenous Apprenticeship Program"
+  "gj0bQO": {
+    "defaultMessage": "IT Apprenticeship Program wjit L’nu’k",
+    "description": "Homepage title for IT Apprenticeship Program for Indigenous Peoples"
+  },
+  "nn9B4R": {
+    "defaultMessage": "Suwa’te’n kiskuk wjit poqjilukwatn ki’l IT career wutawti.",
+    "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
   "pBJzgi": {
     "defaultMessage": "Meskeyi, mu we’jituwek ta’n teluwek wi’katikn ninen kwilmek wjit koqowey.",
@@ -347,9 +351,9 @@
     "defaultMessage": "Ikanteske’n wjit elien ikant",
     "description": "Assistive technology skip link"
   },
-  "TFeQL2": {
+  "M1JKQs": {
     "defaultMessage": "Wikuwow",
-    "description": "Link to the homepage for indigenous apprenticeship program."
+    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
   },
   "gKyog2": {
     "defaultMessage": "Oops, teltek kutey  ki’l kisi ika’tu’n wula wi’katikn ki’l ewikasik ta’n teluwek mu sama’tasin tujiw ankaptasin.",
@@ -359,16 +363,16 @@
     "defaultMessage": "Meskeyi, mu ki’l asite’tasiwun ankaptmin wula ta’n ewikasik.",
     "description": "Heading for the message saying the page to view is not authorized."
   },
-  "1FM1VL": {
+  "kspVvy": {
     "defaultMessage": "Ta’n tujiw mu kisita’suwun wjit wula program tepaqtek wjit ki’l, <mailLink>ke tliwula’tike</mailLink> aqq pipanimitisnen aqq na’tuwan wl’ta’sitew kisis apoqmask ta’n koqowey keut’ pipanikesin.",
     "description": "Second paragraph about who the program is for"
   },
-  "Oh1/Gc": {
+  "Z9W+O2": {
     "defaultMessage": " Suwa’te’n nike’ wjit poqjilukwatn ki’l IT career wutawti.",
-    "description": "Meta tag description for Indigenous Apprenticeship Program site"
+    "description": "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site"
   },
-  "C5tUG2": {
-    "defaultMessage": "L’nu’k Apprenticeship Program ewikasik",
-    "description": "Title tag for Indigenous Apprenticeship Program site"
+  "oMpO+C": {
+    "defaultMessage": "IT Apprenticeship Program wjit L’nu’k",
+    "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
   }
 }

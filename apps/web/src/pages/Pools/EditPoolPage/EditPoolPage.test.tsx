@@ -4,13 +4,15 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import { act, fireEvent, screen, within } from "@testing-library/react";
-import { currentDate } from "@gc-digital-talent/date-helpers";
-import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import {
+  renderWithProviders,
+  updateDate,
+} from "@gc-digital-talent/jest-helpers";
 import { EditPoolForm, EditPoolFormProps } from "./EditPoolPage";
 import EditPoolStory, {
-  DraftAdvertisement,
-  PublishedAdvertisement,
-  ExpiredAdvertisement,
+  DraftPool,
+  PublishedPool,
+  ExpiredPool,
 } from "./EditPoolPage.stories";
 
 jest.setTimeout(500 * 1000);
@@ -20,7 +22,7 @@ describe("Edit Pool tests", () => {
     const handleSave = jest.fn();
     const props = {
       ...EditPoolStory.args,
-      ...DraftAdvertisement.args,
+      ...DraftPool.args,
       onSave: handleSave,
     } as EditPoolFormProps;
 
@@ -77,13 +79,13 @@ describe("Edit Pool tests", () => {
     const handleEvent = jest.fn();
     const props = {
       ...EditPoolStory.args,
-      ...DraftAdvertisement.args,
+      ...DraftPool.args,
       onPublish: handleEvent,
     } as EditPoolFormProps;
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithProviders(<DraftAdvertisement {...props} />);
+      renderWithProviders(<DraftPool {...props} />);
     });
 
     await act(async () => {
@@ -110,13 +112,13 @@ describe("Edit Pool tests", () => {
 
     const props = {
       ...EditPoolStory.args,
-      ...DraftAdvertisement.args,
+      ...DraftPool.args,
       onPublish: handleEvent,
     } as EditPoolFormProps;
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithProviders(<DraftAdvertisement {...props} />);
+      renderWithProviders(<DraftPool {...props} />);
     });
 
     await act(async () => {
@@ -143,13 +145,13 @@ describe("Edit Pool tests", () => {
 
     const props = {
       ...EditPoolStory.args,
-      ...DraftAdvertisement.args,
+      ...DraftPool.args,
       onDelete: handleEvent,
     } as EditPoolFormProps;
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithProviders(<DraftAdvertisement {...props} />);
+      renderWithProviders(<DraftPool {...props} />);
     });
 
     await act(async () => {
@@ -172,11 +174,11 @@ describe("Edit Pool tests", () => {
   it("should not have buttons for close, extend, archive when the status is draft", async () => {
     const props = {
       ...EditPoolStory.args,
-      ...DraftAdvertisement.args,
+      ...DraftPool.args,
     } as EditPoolFormProps;
 
     await act(async () => {
-      renderWithProviders(<DraftAdvertisement {...props} />);
+      renderWithProviders(<DraftPool {...props} />);
     });
 
     expect(
@@ -194,13 +196,13 @@ describe("Edit Pool tests", () => {
     const handleEvent = jest.fn();
     const props = {
       ...EditPoolStory.args,
-      ...PublishedAdvertisement.args,
+      ...PublishedPool.args,
       onClose: handleEvent,
     } as EditPoolFormProps;
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithProviders(<PublishedAdvertisement {...props} />);
+      renderWithProviders(<PublishedPool {...props} />);
     });
 
     await act(async () => {
@@ -226,13 +228,13 @@ describe("Edit Pool tests", () => {
     const handleEvent = jest.fn(() => Promise.resolve());
     const props = {
       ...EditPoolStory.args,
-      ...PublishedAdvertisement.args,
+      ...PublishedPool.args,
       onExtend: handleEvent,
     } as EditPoolFormProps;
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithProviders(<PublishedAdvertisement {...props} />);
+      renderWithProviders(<PublishedPool {...props} />);
     });
 
     await act(async () => {
@@ -259,11 +261,11 @@ describe("Edit Pool tests", () => {
   it("should not have buttons for publish, delete, archive when the status is published", async () => {
     const props = {
       ...EditPoolStory.args,
-      ...PublishedAdvertisement.args,
+      ...PublishedPool.args,
     } as EditPoolFormProps;
 
     await act(async () => {
-      renderWithProviders(<PublishedAdvertisement {...props} />);
+      renderWithProviders(<PublishedPool {...props} />);
     });
 
     expect(
@@ -281,13 +283,13 @@ describe("Edit Pool tests", () => {
     const handleEvent = jest.fn(() => Promise.resolve());
     const props = {
       ...EditPoolStory.args,
-      ...ExpiredAdvertisement.args,
+      ...ExpiredPool.args,
       onExtend: handleEvent,
     } as EditPoolFormProps;
 
     // render story and click the button to open the modal
     await act(async () => {
-      renderWithProviders(<ExpiredAdvertisement {...props} />);
+      renderWithProviders(<ExpiredPool {...props} />);
     });
 
     await act(async () => {
@@ -297,15 +299,25 @@ describe("Edit Pool tests", () => {
     });
 
     // find the modal
-    const dialog = screen.getByRole("dialog");
+    const dialog = await screen.getByRole("dialog", {
+      name: /extend closing date/i,
+    });
 
     // interact with the modal
     await act(async () => {
-      fireEvent.change(within(dialog).getByLabelText(/end date/i), {
-        target: { value: currentDate() },
+      const dateInput = within(dialog).getByRole("group", {
+        name: /end date/i,
       });
+      updateDate(dateInput, {
+        day: "01",
+        month: "01",
+        year: "3000",
+      });
+
       fireEvent.click(
-        within(dialog).getByRole("button", { name: /extend closing date/i }),
+        within(dialog).getByRole("button", {
+          name: /extend closing date/i,
+        }),
       );
     });
 
@@ -317,11 +329,11 @@ describe("Edit Pool tests", () => {
   it("should not have buttons for publish, delete, close when the status is published", async () => {
     const props = {
       ...EditPoolStory.args,
-      ...ExpiredAdvertisement.args,
+      ...ExpiredPool.args,
     } as EditPoolFormProps;
 
     await act(async () => {
-      renderWithProviders(<ExpiredAdvertisement {...props} />);
+      renderWithProviders(<ExpiredPool {...props} />);
     });
 
     expect(

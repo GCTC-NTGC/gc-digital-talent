@@ -9,9 +9,8 @@ import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { BasicForm, Checklist } from "@gc-digital-talent/forms";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
-  Applicant,
   BilingualEvaluation,
   GetLanguageInformationQuery,
   PoolCandidate,
@@ -201,22 +200,15 @@ const LanguageInformationForm = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitleHtml(
-            intl,
-            application.poolAdvertisement,
-          ),
-          url: paths.pool(application.poolAdvertisement?.id || ""),
+          label: getFullPoolTitleHtml(intl, application.pool),
+          url: paths.pool(application.pool.id),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(applicationId ?? ""),
+          url: paths.application(applicationId ?? ""),
         },
         {
-          label: intl.formatMessage({
-            defaultMessage: "Language Information",
-            id: "/k21MP",
-            description: "Display Text for Language Information Form Page Link",
-          }),
+          label: intl.formatMessage(navigationMessages.languageInformation),
           url: `${paths.languageInformation(initialData.id)}${
             applicationId ? `?applicationId=${applicationId}` : ``
           }`,
@@ -225,8 +217,8 @@ const LanguageInformationForm = ({
     : [];
 
   const missingLanguageRequirements = getMissingLanguageRequirements(
-    initialData as Applicant,
-    application?.poolAdvertisement,
+    initialData,
+    application?.pool,
   );
 
   return (
@@ -238,23 +230,15 @@ const LanguageInformationForm = ({
         description:
           "Description text for Profile Form wrapper in Language Information Form",
       })}
-      title={intl.formatMessage({
-        defaultMessage: "Language Information",
-        id: "R5aTZ9",
-        description:
-          "Title for Profile Form wrapper in Language Information Form",
-      })}
+      title={intl.formatMessage(navigationMessages.languageInformation)}
       crumbs={
         applicationBreadcrumbs?.length
           ? applicationBreadcrumbs
           : [
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Language Information",
-                  id: "/k21MP",
-                  description:
-                    "Display Text for Language Information Form Page Link",
-                }),
+                label: intl.formatMessage(
+                  navigationMessages.languageInformation,
+                ),
                 url: paths.languageInformation(initialData.id),
               },
             ]
@@ -264,8 +248,8 @@ const LanguageInformationForm = ({
       {missingLanguageRequirements.length ? (
         <div data-h2-margin="base(x1, 0)">
           <MissingLanguageRequirements
-            applicant={initialData as Applicant}
-            poolAdvertisement={application?.poolAdvertisement}
+            user={initialData}
+            pool={application?.pool}
           />
         </div>
       ) : null}

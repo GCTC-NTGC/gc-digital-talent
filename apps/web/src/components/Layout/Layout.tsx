@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { Outlet, ScrollRestoration, useSearchParams } from "react-router-dom";
 
 import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
 import {
@@ -19,28 +19,8 @@ import LogoutConfirmation from "~/components/LogoutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
-
-interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
-  children: React.ReactNode;
-}
-export const LogoutButton = React.forwardRef<
-  HTMLButtonElement,
-  LogoutButtonProps
->(({ children, ...rest }, forwardedRef) => (
-  <button
-    data-h2-color="base(black) base:hover(primary)"
-    data-h2-font-size="base(normal)"
-    data-h2-text-decoration="base(underline)"
-    style={{
-      background: "none",
-    }}
-    ref={forwardedRef}
-    {...rest}
-    type="button"
-  >
-    {children}
-  </button>
-));
+import IAPNavMenu from "../NavMenu/IAPNavMenu";
+import LogoutButton from "./LogoutButton";
 
 const Layout = () => {
   const intl = useIntl();
@@ -50,6 +30,10 @@ const Layout = () => {
 
   const { user } = useAuthorization();
   const { loggedIn } = useAuthentication();
+
+  const [searchParams] = useSearchParams();
+
+  const iapPersonality = searchParams.get("personality") === "iap";
 
   let menuItems = [
     <MenuLink key="home" to={paths.home()} end>
@@ -95,24 +79,27 @@ const Layout = () => {
   if (loggedIn && user) {
     const userRoleNames = user?.roleAssignments?.map((a) => a.role?.name);
 
-    menuItems = [
-      ...menuItems,
-      <MenuLink key="myApplications" to={paths.applications(user.id)}>
-        {intl.formatMessage({
-          defaultMessage: "My applications",
-          id: "ioghLh",
-          description:
-            "Label displayed on the users pool applications menu item.",
-        })}
-      </MenuLink>,
-      <MenuLink key="myProfile" to={paths.profile(user.id)}>
-        {intl.formatMessage({
-          defaultMessage: "My profile",
-          id: "5lBIzg",
-          description: "Label displayed on the applicant profile menu item.",
-        })}
-      </MenuLink>,
-    ];
+    if (!applicantDashboard) {
+      menuItems = [
+        ...menuItems,
+        <MenuLink key="myApplications" to={paths.applications(user.id)}>
+          {intl.formatMessage({
+            defaultMessage: "My applications",
+            id: "ioghLh",
+            description:
+              "Label displayed on the users pool applications menu item.",
+          })}
+        </MenuLink>,
+        <MenuLink key="myProfile" to={paths.profile(user.id)}>
+          {intl.formatMessage({
+            defaultMessage: "My profile",
+            id: "5lBIzg",
+            description: "Label displayed on the applicant profile menu item.",
+          })}
+        </MenuLink>,
+      ];
+    }
+
     if (
       [
         ROLE_NAME.PoolOperator,
@@ -150,12 +137,15 @@ const Layout = () => {
       hasRole(ROLE_NAME.Applicant, user.roleAssignments)
     ) {
       authLinks = [
-        <MenuLink key="dashboard" to={paths.dashboard()}>
+        <MenuLink
+          key="profile-applications"
+          to={paths.profileAndApplications()}
+        >
           {intl.formatMessage({
-            defaultMessage: "My dashboard",
-            id: "LRZeax",
+            defaultMessage: "Profile and applications",
+            id: "nBoNqj",
             description:
-              "Label displayed on the applicant dashboard menu item.",
+              "Label displayed on the profile and applications menu item.",
           })}
         </MenuLink>,
         ...authLinks,
@@ -190,7 +180,11 @@ const Layout = () => {
       >
         <div>
           <Header />
-          <NavMenu mainItems={menuItems} utilityItems={authLinks} />
+          {!iapPersonality ? (
+            <NavMenu mainItems={menuItems} utilityItems={authLinks} />
+          ) : (
+            <IAPNavMenu {...{ loggedIn, user }} />
+          )}
         </div>
         <main id="main">
           <Outlet />

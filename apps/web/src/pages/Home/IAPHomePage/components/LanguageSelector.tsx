@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
-import { DropdownMenu, Button, Separator } from "@gc-digital-talent/ui";
+import { DropdownMenu, Button } from "@gc-digital-talent/ui";
 
 const LanguageSelector = () => {
   const intl = useIntl();
@@ -12,6 +12,30 @@ const LanguageSelector = () => {
   const locale = searchParams.get("locale");
 
   const localeMap = new Map([
+    [
+      "crg",
+      intl.formatMessage({
+        id: "zAl7ZH",
+        defaultMessage: "Michif",
+        description: "Name of Michif language",
+      }),
+    ],
+    [
+      "crk",
+      intl.formatMessage({
+        id: "Jdlnz6",
+        defaultMessage: "ᓀᐦᐃᔭᐍᐏᐣ nēhiyawēwin (Plains Cree)",
+        description: "Name of Plains Cree language",
+      }),
+    ],
+    [
+      "ojw",
+      intl.formatMessage({
+        id: "Hi7hnj",
+        defaultMessage: "Anishinaabemowin (Western Ojibwe)",
+        description: "Name of Western Ojibwe language",
+      }),
+    ],
     [
       "mic",
       intl.formatMessage({
@@ -62,33 +86,15 @@ const LanguageSelector = () => {
         </p>
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
-            <Button
-              color="ia-primary"
-              data-h2-align-items="base(center)"
-              data-h2-display="base(flex)"
-              data-h2-flex-shrink="base(0)"
-              data-h2-gap="base(0, x.5)"
-            >
-              <span>
-                {currentLocale ||
-                  intl.formatMessage({
-                    defaultMessage:
-                      "Select<hidden> an Indigenous language</hidden>",
-                    description:
-                      "Button text displayed for Indigenous languages dropdown",
-                    id: "kiH9nz",
-                  })}
-              </span>
-              <Separator
-                data-h2-background-color="base(white)"
-                data-h2-height="base(1em)"
-                orientation="vertical"
-                decorative
-              />
-              <ChevronDownIcon
-                data-h2-height="base(1em)"
-                data-h2-width="base(1em)"
-              />
+            <Button color="primary" utilityIcon={ChevronDownIcon}>
+              {currentLocale ||
+                intl.formatMessage({
+                  defaultMessage:
+                    "Select<hidden> an Indigenous language</hidden>",
+                  description:
+                    "Button text displayed for Indigenous languages dropdown",
+                  id: "kiH9nz",
+                })}
             </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>

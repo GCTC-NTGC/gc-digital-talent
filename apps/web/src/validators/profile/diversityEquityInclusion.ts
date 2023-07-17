@@ -1,12 +1,7 @@
-import {
-  Applicant,
-  Maybe,
-  PoolAdvertisement,
-  PublishingGroup,
-} from "@gc-digital-talent/graphql";
+import { User, Maybe, Pool, PublishingGroup } from "@gc-digital-talent/graphql";
 
-type PartialApplicant = Pick<
-  Applicant,
+type PartialUser = Pick<
+  User,
   "isWoman" | "hasDisability" | "isVisibleMinority" | "indigenousCommunities"
 >;
 
@@ -15,7 +10,7 @@ export function anyCriteriaSelected({
   hasDisability,
   isVisibleMinority,
   indigenousCommunities,
-}: PartialApplicant): boolean {
+}: PartialUser): boolean {
   return !!(
     isWoman ||
     isVisibleMinority ||
@@ -25,10 +20,10 @@ export function anyCriteriaSelected({
 }
 
 export function hasEmptyRequiredFields(
-  applicant: PartialApplicant,
-  poolAdvertisement?: Maybe<PoolAdvertisement>,
+  applicant: PartialUser,
+  pool?: Maybe<Pool>,
 ): boolean {
-  if (!(poolAdvertisement?.publishingGroup === PublishingGroup.Iap)) {
+  if (!(pool?.publishingGroup === PublishingGroup.Iap)) {
     return false;
   }
   return !(
@@ -37,10 +32,10 @@ export function hasEmptyRequiredFields(
   );
 }
 
-export function hasEmptyOptionalFields(applicant: PartialApplicant): boolean {
+export function hasEmptyOptionalFields(applicant: PartialUser): boolean {
   return !anyCriteriaSelected(applicant);
 }
 
-export function hasAllEmptyFields(applicant: PartialApplicant): boolean {
+export function hasAllEmptyFields(applicant: PartialUser): boolean {
   return !anyCriteriaSelected(applicant);
 }

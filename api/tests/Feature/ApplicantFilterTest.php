@@ -38,16 +38,13 @@ class ApplicantFilterTest extends TestCase
 
         // Create super user we run tests as
         // Note: this extra user does change the results of a couple queries
-        $this->adminUser = User::factory()->create([
-            'email' => 'admin@test.com',
-            'sub' => 'admin@test.com',
-        ]);
-        $this->adminUser->syncRoles([
-            "guest",
-            "base_user",
-            "request_responder",
-            "platform_admin"
-        ]);
+        $this->adminUser = User::factory()
+            ->asRequestResponder()
+            ->asAdmin()
+            ->create([
+                'email' => 'admin@test.com',
+                'sub' => 'admin@test.com',
+            ]);
     }
 
     /**
@@ -291,7 +288,6 @@ class ApplicantFilterTest extends TestCase
                             en
                             fr
                         }
-                        key
                     }
                     qualifiedStreams
                     qualifiedClassifications {
@@ -313,34 +309,35 @@ class ApplicantFilterTest extends TestCase
             $this->assertCount($filters->find($filter['id'])->pools->count(), $filter['pools']);
         }
         // Assert that the content of at least one item in each collection is correct.
+        $firstFilter = $response->json('data.applicantFilters.0');
+        $firstFilterModel = ApplicantFilter::where('id', $firstFilter['id'])->sole();
         $response->assertJson([
             'data' => [
                 'applicantFilters' => [
                     [
-                        'id' => $filters[0]->id,
+                        'id' => $firstFilterModel->id,
                         'expectedClassifications' => [
                             [
-                                'id' => $filters[0]->classifications->first()->id,
-                                'name' => $filters[0]->classifications->first()->name,
+                                'id' => $firstFilterModel->classifications->first()->id,
+                                'name' => $firstFilterModel->classifications->first()->name,
                             ],
                         ],
                         'qualifiedClassifications' => [
                             [
-                                'id' => $filters[0]->qualifiedClassifications->first()->id,
-                                'name' => $filters[0]->qualifiedClassifications->first()->name,
+                                'id' => $firstFilterModel->qualifiedClassifications->first()->id,
+                                'name' => $firstFilterModel->qualifiedClassifications->first()->name,
                             ],
                         ],
                         'skills' => [
                             [
-                                'id' => $filters[0]->skills->first()->id,
-                                'name' => $filters[0]->skills->first()->name,
+                                'id' => $firstFilterModel->skills->first()->id,
+                                'name' => $firstFilterModel->skills->first()->name,
                             ],
                         ],
                         'pools' => [
                             [
-                                'id' => $filters[0]->pools->first()->id,
-                                'name' => $filters[0]->pools->first()->name,
-                                'key' => $filters[0]->pools->first()->key,
+                                'id' => $firstFilterModel->pools->first()->id,
+                                'name' => $firstFilterModel->pools->first()->name,
                             ],
                         ],
                     ],
@@ -421,12 +418,11 @@ class ApplicantFilterTest extends TestCase
         $this->seed(SkillSeeder::class);
         $this->seed(PoolSeeder::class);
 
-        $pool = Pool::factory()->create([
+        $pool = Pool::factory()->published()->create([
             'name' => [
                 'en' => 'Test Pool EN',
                 'fr' => 'Test Pool FR'
             ],
-            'published_at' => config('constants.past_date'),
             'stream' => ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES
         ]);
         // Create candidates who may show up in searches
@@ -464,7 +460,19 @@ class ApplicantFilterTest extends TestCase
         $filter->qualifiedClassifications()->saveMany(
             $pool->classifications->unique()
         );
-        $candidateSkills = $candidate->user->experiences->pluck('skills')->flatten()->unique();
+        $candidateUser = User::with([
+            'awardExperiences',
+            'awardExperiences.skills',
+            'communityExperiences',
+            'communityExperiences.skills',
+            'educationExperiences',
+            'educationExperiences.skills',
+            'personalExperiences',
+            'personalExperiences.skills',
+            'workExperiences',
+            'workExperiences.skills',
+        ])->find($candidate->user_id);
+        $candidateSkills = $candidateUser->experiences->pluck('skills')->flatten()->unique();
         $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
         $filter->pools()->save($pool);
         $filter->qualified_streams = $pool->stream;

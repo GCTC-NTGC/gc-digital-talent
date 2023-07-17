@@ -24,6 +24,7 @@ darkpurple
 datetime
 DCMO
 dedup
+fieldset
 freshdesk
 Freshdesk
 FRESHDESK
@@ -45,8 +46,8 @@ lightgray
 lightnavy
 lightpurple
 Métis
-Michif
 Mi'kmaq
+Michif
 noninteractive
 nuage
 Nuwave
@@ -54,7 +55,6 @@ OCIO
 Ojibway
 personalisation
 pgsql
-psac
 Queueable
 recruitmentimit
 recruitments
@@ -62,6 +62,7 @@ recrutementgiti
 résumé
 rolepermission
 skillset
+spinbutton
 subcomponents
 subquery
 TALENTSEARCH

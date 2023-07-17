@@ -9,6 +9,7 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
+use Carbon\Carbon;
 
 class PoolCandidateSearchTest extends TestCase
 {
@@ -37,16 +38,13 @@ class PoolCandidateSearchTest extends TestCase
             'team_id' => $this->team->id
         ]);
 
-        $this->teamUser = User::factory()->create([
-            'email' => 'team-user@test.com',
-            'sub' => 'team-user@test.com',
-        ]);
-        $this->teamUser->syncRoles([
-            "guest",
-            "base_user",
-            "applicant"
-        ]);
-        $this->teamUser->addRole("pool_operator", $this->team);
+        $this->teamUser = User::factory()
+            ->asApplicant()
+            ->asPoolOperator($this->team->name)
+            ->create([
+                'email' => 'team-user@test.com',
+                'sub' => 'team-user@test.com',
+            ]);
     }
 
     public function testPoolCandidatesSearchFilter(): void
@@ -287,6 +285,123 @@ class PoolCandidateSearchTest extends TestCase
                 "poolCandidatesPaginated" => [
                     "paginatorInfo" => [
                         'count' => 4,
+                    ]
+                ]
+            ]
+        ]);
+    }
+
+    public function testPoolCandidatesSearchSuspendedFilter(): void
+    {
+        PoolCandidate::factory()->count(5)->create([
+            'pool_id' => $this->pool->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'suspended_at' => null,
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $this->pool->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'suspended_at' => config('constants.far_past_datetime'),
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $this->pool->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'suspended_at' => Carbon::now()->subMinutes(1)
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $this->pool->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'suspended_at' => Carbon::now()->addMinutes(1)
+        ]);
+
+        $query =
+            /** @lang GraphQL */
+            '
+            query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginated (
+                  where: $where
+                  orderBy: [
+                  { column: "status_weight", order: ASC }
+                  { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+                ]) {
+                    paginatorInfo {
+                        count
+                    }
+                }
+            }
+        ';
+
+        // assert active 6 returned
+        $this->actingAs($this->teamUser, "api")->graphQL(
+            $query,
+            [
+                'where' => [
+                    'suspendedStatus' => null, // default active for the scope
+                ]
+            ]
+        )->assertJson([
+            "data" => [
+                "poolCandidatesPaginated" => [
+                    "paginatorInfo" => [
+                        'count' => 6,
+                    ]
+                ]
+            ]
+        ]);
+
+        // assert active 6 returned
+        $this->actingAs($this->teamUser, "api")->graphQL(
+            $query,
+            [
+                'where' => [
+                    'suspendedStatus' => ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE,
+                ]
+            ]
+        )->assertJson([
+            "data" => [
+                "poolCandidatesPaginated" => [
+                    "paginatorInfo" => [
+                        'count' => 6,
+                    ]
+                ]
+            ]
+        ]);
+
+        // assert suspended 2 returned
+        $this->actingAs($this->teamUser, "api")->graphQL(
+            $query,
+            [
+                'where' => [
+                    'suspendedStatus' => ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED,
+                ]
+            ]
+        )->assertJson([
+            "data" => [
+                "poolCandidatesPaginated" => [
+                    "paginatorInfo" => [
+                        'count' => 2,
+                    ]
+                ]
+            ]
+        ]);
+
+        // assert all 8 returned
+        $this->actingAs($this->teamUser, "api")->graphQL(
+            $query,
+            [
+                'where' => [
+                    'suspendedStatus' => ApiEnums::CANDIDATE_SUSPENDED_FILTER_ALL,
+                ]
+            ]
+        )->assertJson([
+            "data" => [
+                "poolCandidatesPaginated" => [
+                    "paginatorInfo" => [
+                        'count' => 8,
                     ]
                 ]
             ]

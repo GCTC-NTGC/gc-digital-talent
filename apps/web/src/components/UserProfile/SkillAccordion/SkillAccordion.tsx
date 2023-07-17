@@ -27,7 +27,7 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
-import { getDateRange, formattedDate } from "~/utils/accordionUtils";
+import { getDateRange, formattedDate } from "~/utils/dateUtils";
 
 export interface SkillAccordionProps {
   skill: Skill;
@@ -74,13 +74,13 @@ const SkillAccordion = ({
 
     return (
       <>
-        <p data-h2-color="base(primary)">{title}</p>
+        <p data-h2-color="base(primary.darker)">{title}</p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
           {getDateRange({ endDate, startDate, intl })}
         </p>
-        <p> {description} </p>
+        <p>{description}</p>
         <p>{justification}</p>
-        <p> {details} </p>
+        <p>{details}</p>
       </>
     );
   };
@@ -103,7 +103,7 @@ const SkillAccordion = ({
     return (
       <div>
         <p>
-          <span data-h2-color="base(primary)"> {areaOfStudy} </span>
+          <span data-h2-color="base(primary.darker)">{areaOfStudy}</span>{" "}
           {intl.formatMessage(
             {
               defaultMessage: " at {institution}",
@@ -118,7 +118,10 @@ const SkillAccordion = ({
         </p>
         <p>
           {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
-          <span data-h2-color="base(primary)" data-h2-font-style="base(italic)">
+          <span
+            data-h2-color="base(primary.darker)"
+            data-h2-font-style="base(italic)"
+          >
             {status ? intl.formatMessage(getEducationStatus(status)) : ""}{" "}
           </span>
         </p>
@@ -134,7 +137,7 @@ const SkillAccordion = ({
               )
             : ""}
         </p>
-        <p> {details} </p>
+        <p>{details}</p>
         <p>{justification}</p>
       </div>
     );
@@ -188,14 +191,14 @@ const SkillAccordion = ({
         </p>
         <p>{justification}</p>
         <p
-          data-h2-color="base(primary)"
+          data-h2-color="base(primary.darker)"
           data-h2-font-weight="base(700)"
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
           {intl.formatMessage({
-            defaultMessage: "Additional information:",
-            id: "+nS/ak",
-            description: "Additional information if provided (without details)",
+            defaultMessage: "Additional details:",
+            id: "QfOWr0",
+            description: "Additional details if provided (without details)",
           })}
         </p>
 
@@ -244,14 +247,14 @@ const SkillAccordion = ({
         </p>
         <p>{justification}</p>
         <p
-          data-h2-color="base(primary)"
+          data-h2-color="base(primary.darker)"
           data-h2-font-weight="base(700)"
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
           {intl.formatMessage({
-            defaultMessage: "Additional information:",
-            id: "+nS/ak",
-            description: "Additional information if provided (without details)",
+            defaultMessage: "Additional details:",
+            id: "QfOWr0",
+            description: "Additional details if provided (without details)",
           })}
         </p>
         <p>{details}</p>
@@ -291,14 +294,14 @@ const SkillAccordion = ({
         <p>{division}</p>
         <p>{justification}</p>
         <p
-          data-h2-color="base(primary)"
+          data-h2-color="base(primary.darker)"
           data-h2-font-weight="base(700)"
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
           {intl.formatMessage({
-            defaultMessage: "Additional information:",
-            id: "+nS/ak",
-            description: "Additional information if provided (without details)",
+            defaultMessage: "Additional details:",
+            id: "QfOWr0",
+            description: "Additional details if provided (without details)",
           })}
         </p>
         <p>{details}</p>

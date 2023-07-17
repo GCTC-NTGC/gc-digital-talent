@@ -20,19 +20,6 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message that the given email address is already in use when updating.",
     },
-    CreateUserSubInUse: {
-      defaultMessage:
-        "Cannot create - this user identifier (sub) is already in use",
-      id: "CVmEkf",
-      description:
-        "Error message that the given user identifier is already in use when creating.",
-    },
-    CreateUserEmailInUse: {
-      defaultMessage: "Cannot create - this email address is already in use.",
-      id: "WUAAr1",
-      description:
-        "Error message that the given user identifier is already in use when creating.",
-    },
 
     // skill validation
     SkillFamilyKeyStringInUse: {
@@ -40,6 +27,14 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "XTuwjA",
       description:
         "Error message that the given skill family key is already in use.",
+    },
+
+    // department validation
+    DepartmentNumberInUse: {
+      defaultMessage: "This department number is already in use",
+      id: "xH10Pp",
+      description:
+        "Error message that the input department number is already in use.",
     },
 
     // application validation
@@ -117,7 +112,7 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message that at least one Essential Skill is required",
     },
-    AdvertisementLocationRequired: {
+    PoolLocationRequired: {
       defaultMessage:
         "You must fill Specific Location in English and French if advertisement is not remote.",
       id: "aMkZ80",

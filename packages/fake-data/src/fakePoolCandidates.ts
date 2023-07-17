@@ -9,25 +9,17 @@ import {
   PoolCandidate,
   Pool,
   User,
-  Applicant,
-  PoolAdvertisement,
 } from "@gc-digital-talent/graphql";
 
 import fakePools from "./fakePools";
 import fakeUsers from "./fakeUsers";
-import fakePoolAdvertisements from "./fakePoolAdvertisements";
 
-const generatePoolCandidate = (
-  pools: Pool[],
-  poolAdvertisements: PoolAdvertisement[],
-  users: User[],
-): PoolCandidate => {
+const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
   faker.setLocale("en");
   return {
     id: faker.datatype.uuid(),
     pool: faker.helpers.arrayElement(pools),
-    poolAdvertisement: faker.helpers.arrayElement(poolAdvertisements),
-    user: faker.helpers.arrayElement<User>(users) as Applicant,
+    user: faker.helpers.arrayElement<User>(users),
     cmoIdentifier: faker.helpers.slugify(
       faker.lorem.words(faker.datatype.number({ min: 1, max: 3 })),
     ),
@@ -49,10 +41,9 @@ const generatePoolCandidate = (
 export default (amount?: number): PoolCandidate[] => {
   const pools = fakePools();
   const users = fakeUsers();
-  const poolAdvertisements = fakePoolAdvertisements();
 
   faker.seed(0); // repeatable results
   return [...Array(amount || 20)].map(() =>
-    generatePoolCandidate(pools, poolAdvertisements, users),
+    generatePoolCandidate(pools, users),
   );
 };

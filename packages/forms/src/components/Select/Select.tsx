@@ -1,13 +1,15 @@
 import React, { useMemo } from "react";
-import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
+import { FieldError, useFormContext } from "react-hook-form";
 import get from "lodash/get";
 import orderBy from "lodash/orderBy";
 import isString from "lodash/isString";
 
+import Field from "../Field";
+import type { CommonInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import InputWrapper from "../InputWrapper";
+import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 
 export type Option = {
   label: React.ReactNode;
@@ -27,29 +29,18 @@ export type OptGroup = {
 };
 export type OptGroupOrOption = OptGroup | Option;
 
-export interface SelectProps
-  extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  /** HTML id used to identify the element. */
-  id: string;
-  /** The text for the label associated with the select input. */
-  label: string | React.ReactNode;
-  /** A string specifying a name for the input control. */
-  name: string;
-  /** List of options and/or optgroups for the select element. */
-  options: OptGroupOrOption[];
-  /** Object set of validation rules to impose on input. */
-  rules?: RegisterOptions;
-  /** Optional context which user can view by toggling a button. */
-  context?: string;
-  /** Null selection string provides a null value with instructions to user (eg. Select a department...) */
-  nullSelection?: string;
-  /** Determine if it should track unsaved changes and render it */
-  trackUnsaved?: boolean;
-  /** Determine if it should sort options in alphanumeric ascending order */
-  doNotSort?: boolean;
-  /** Hides the (optional) label if true */
-  hideOptional?: boolean;
-}
+export type SelectProps = CommonInputProps &
+  React.DetailedHTMLProps<
+    React.SelectHTMLAttributes<HTMLSelectElement>,
+    HTMLSelectElement
+  > & {
+    /** List of options and/or optgroups for the select element. */
+    options: OptGroupOrOption[];
+    /** Null selection string provides a null value with instructions to user (eg. Select a department...) */
+    nullSelection?: string;
+    /** Determine if it should sort options in alphanumeric ascending order */
+    doNotSort?: boolean;
+  };
 
 function sortOptions(options: OptGroupOrOption[]) {
   const tempOptions = options.map((option: OptGroupOrOption) =>
@@ -88,29 +79,31 @@ const Select = ({
   label,
   name,
   options,
-  rules,
+  rules = {},
   context,
   nullSelection,
-  hideOptional,
+  "aria-describedby": describedBy,
   trackUnsaved = true,
   doNotSort = false,
   ...rest
 }: SelectProps) => {
-  const [isContextVisible, setContextVisible] = React.useState<boolean>(false);
   const {
     register,
     formState: { errors },
   } = useFormContext();
-  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
+  // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
+  const baseStyles = useCommonInputStyles();
+  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
+    describedBy,
     show: {
       error,
       unsaved: trackUnsaved && isUnsaved,
-      context: context && isContextVisible,
+      context,
     },
   });
 
@@ -119,65 +112,58 @@ const Select = ({
   }, [doNotSort, options]);
 
   return (
-    <div data-h2-margin="base(x1, 0)">
-      <InputWrapper
-        inputId={id}
-        inputName={name}
-        label={label}
-        required={!!rules?.required}
-        context={context}
-        error={error}
-        trackUnsaved={trackUnsaved}
-        onContextToggle={setContextVisible}
-        descriptionIds={descriptionIds}
-        hideOptional={hideOptional}
+    <Field.Wrapper>
+      <Field.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
+        {label}
+      </Field.Label>
+      <select
+        id={id}
+        aria-describedby={ariaDescribedBy}
+        aria-required={!!rules.required}
+        aria-invalid={!!error}
+        defaultValue=""
+        data-h2-width="base(100%)"
+        {...baseStyles}
+        {...stateStyles}
+        {...register(name, rules)}
+        {...rest}
       >
-        <select
-          data-h2-padding="base(x.25, x.5)"
-          data-h2-radius="base(input)"
-          data-h2-width="base(100%)"
-          data-h2-min-height="base(40px)"
-          {...stateStyles}
-          id={id}
-          {...register(name, rules)}
-          aria-invalid={error ? "true" : "false"}
-          aria-required={rules?.required ? "true" : undefined}
-          aria-describedby={ariaDescribedBy}
-          {...rest}
-          defaultValue=""
-        >
-          {nullSelection && (
-            <option value="" disabled>
-              {nullSelection}
+        {nullSelection && (
+          <option value="" disabled>
+            {nullSelection}
+          </option>
+        )}
+        {optionsModified.map((option) =>
+          Object.prototype.hasOwnProperty.call(option, "options") ? (
+            <optgroup
+              key={`optgroup${option.label}`}
+              label={option.label?.toString() ?? ""}
+            >
+              {option.options?.map(
+                ({ value, label: optionLabel, ariaLabel }) => (
+                  <option aria-label={ariaLabel} key={value} value={value}>
+                    {optionLabel}
+                  </option>
+                ),
+              )}
+            </optgroup>
+          ) : (
+            <option
+              aria-label={option.ariaLabel}
+              key={option.value}
+              value={option.value}
+            >
+              {option.label}
             </option>
-          )}
-          {optionsModified.map((option) =>
-            Object.prototype.hasOwnProperty.call(option, "options") ? (
-              <optgroup
-                key={`optgroup${option.label}`}
-                label={option.label?.toString() ?? ""}
-              >
-                {option.options?.map(
-                  ({ value, label: optionLabel, ariaLabel }) => (
-                    <option aria-label={ariaLabel} key={value} value={value}>
-                      {optionLabel}
-                    </option>
-                  ),
-                )}
-              </optgroup>
-            ) : (
-              <option
-                aria-label={option.ariaLabel}
-                key={option.value}
-                value={option.value}
-              >
-                {option.label}
-              </option>
-            ),
-          )}
-        </select>
-      </InputWrapper>
-    </div>
+          ),
+        )}
+      </select>
+      <Field.Descriptions
+        ids={descriptionIds}
+        error={error}
+        context={context}
+      />
+    </Field.Wrapper>
   );
 };
 

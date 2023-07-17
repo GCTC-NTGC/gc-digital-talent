@@ -63,12 +63,11 @@ return [
         'user' => 'user',
         'userBasicInfo' => 'userBasicInfo',
         'pool' => 'pool',
-        'publishedPoolAdvertisement' => 'publishedPoolAdvertisement',
+        'publishedPool' => 'publishedPool',
         'draftPool' => 'draftPool',
         'poolClosingDate' => 'poolClosingDate',
         'application' => 'application',
         'submittedApplication' => 'submittedApplication',
-        'applicantProfile' => 'applicantProfile',
         'draftApplication' => 'draftApplication',
         'applicationStatus' => 'applicationStatus',
         'applicantCount' => 'applicantCount',
@@ -172,6 +171,10 @@ return [
             'fr' => 'Supprimer toute famille de compétences'
         ],
 
+        'create-any-user' => [
+            'en' => 'Create Any User',
+            'fr' => 'Créer tout utilisateur'
+        ],
         'view-any-user' => [
             'en' => 'View Any User',
             'fr' => 'Visionner tout utilisateur'
@@ -183,6 +186,10 @@ return [
         'view-own-user' => [
             'en' => 'View Own User',
             'fr' => 'Visionner son propre utilisateur'
+        ],
+        'view-team-user' => [
+            'en' => 'View Team User',
+            'fr' => 'Visionner l\'utilisateur de l\'équipe'
         ],
         'update-any-user' => [
             'en' => 'Update Any User',
@@ -205,8 +212,8 @@ return [
             'en' => 'View any Pool, published or not',
             'fr' => 'Voir n\'importe quel bassin, publié ou non'
         ],
-        'view-any-publishedPoolAdvertisement' => [
-            'en' => 'View Any Published Pool Advertisement',
+        'view-any-publishedPool' => [
+            'en' => 'View Any Published Pool',
             'fr' => 'Visionner toute annonce publiée dans un bassin'
         ],
         'create-team-pool' => [
@@ -245,18 +252,6 @@ return [
         'view-any-submittedApplication' => [
             'en' => 'View any submitted Applications',
             'fr' => 'Voir n\import quelle candidature soumises à n\'importe quel bassin.'
-        ],
-        'view-own-applicantProfile' => [
-            'en' => 'View own Applicant Profile.',
-            'fr' => 'Voir son propre profil de candidat.'
-        ],
-        'view-team-applicantProfile' => [
-            'en' => 'View the Profile of a users accepted to any of this Team\'s Pools',
-            'fr' => 'Voir le profil d\'un utilisateur accepté dans l\'un des bassins de cette équipe.'
-        ],
-        'view-any-applicantProfile' => [
-            'en' => 'View the Profile of any user accepted into any Pool',
-            'fr' => 'Voir le profil de n\'import quel utilisateur accepté dans n\'import quel bassin.'
         ],
         'create-own-draftApplication' => [
             'en' => 'Begin my own Application to any Pool',
@@ -454,7 +449,7 @@ return [
         'platform_admin' => [
             'display_name' => [
                 'en' => 'Platform Administrator',
-                'fr' => 'administrateur de plateforme'
+                'fr' => 'Administrateur de plateforme'
             ],
             'description' => [
                 'en' => 'Makes teams, assigns roles to other users (including assigning users to orgs), publishes pools, manages business data, and has the extraordinary ability to edit or delete other users.',
@@ -495,7 +490,7 @@ return [
             'skillFamily' => [
                 'any' => ['view']
             ],
-            'publishedPoolAdvertisement' => [
+            'publishedPool' => [
                 'any' => ['view']
             ],
             'applicantCount' => [
@@ -531,7 +526,7 @@ return [
             'user' => [
                 'own' => ['view', 'update']
             ],
-            'publishedPoolAdvertisement' => [
+            'publishedPool' => [
                 'any' => ['view']
             ],
             'applicantCount' => [
@@ -558,9 +553,6 @@ return [
             'submittedApplication' => [
                 'own' => ['archive', 'suspend']
             ],
-            'applicantProfile' => [
-                'own' => ['view']
-            ],
         ],
 
         'pool_operator' => [
@@ -576,9 +568,6 @@ return [
             'submittedApplication' => [
                 'team' => ['view']
             ],
-            'applicantProfile' => [
-                'team' => ['view']
-            ],
             'applicationStatus' => [
                 'team' => ['update']
             ],
@@ -588,13 +577,13 @@ return [
             'role' => [
                 'any' => ['view'],
             ],
+            'user' => [
+                'team' => ['view']
+            ]
         ],
 
         'request_responder' => [
             'submittedApplication' => [
-                'any' => ['view'],
-            ],
-            'applicantProfile' => [
                 'any' => ['view'],
             ],
             'applicationStatus' => [
@@ -603,6 +592,9 @@ return [
             'searchRequest' => [
                 'any' => ['view', 'update', 'delete']
             ],
+            'user' => [
+                'any' => ['view']
+            ]
         ],
 
         'platform_admin' => [
@@ -622,7 +614,7 @@ return [
                 'any' => ['create', 'update', 'delete']
             ],
             'user' => [
-                'any' => ['view', 'update', 'delete']
+                'any' => ['create', 'view', 'update', 'delete']
             ],
             'userBasicInfo' => [
                 'any' => ['view']

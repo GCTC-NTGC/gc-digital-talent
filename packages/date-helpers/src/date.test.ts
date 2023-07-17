@@ -37,7 +37,7 @@ describe("relativeClosingDate tests", () => {
       now: new Date("2021-12-31 23:00:00"),
       intl,
     });
-    expect(s).toBe("Closes today at 11:59:59 PM");
+    expect(s).toBe("Closes today at 11:59 PM");
   });
 
   // tomorrow might not be 24 hours away
@@ -47,7 +47,7 @@ describe("relativeClosingDate tests", () => {
       now: new Date("2021-12-30 23:59:59"),
       intl,
     });
-    expect(s).toBe("Closes tomorrow at 12:59:59 AM");
+    expect(s).toBe("Closes tomorrow at 12:59 AM");
   });
 
   test("future days", () => {
@@ -69,7 +69,7 @@ describe("relativeClosingDate tests", () => {
       intl,
       timeZone: "Canada/Pacific",
     });
-    expect(s).toBe("Closes today at 11:59:59 PM");
+    expect(s).toBe("Closes today at 11:59 PM");
   });
 
   // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
@@ -82,7 +82,7 @@ describe("relativeClosingDate tests", () => {
       intl,
       timeZone: "Canada/Pacific",
     });
-    expect(s).toBe("Closes tomorrow at 11:59:59 PM");
+    expect(s).toBe("Closes tomorrow at 11:59 PM");
   });
 
   // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET

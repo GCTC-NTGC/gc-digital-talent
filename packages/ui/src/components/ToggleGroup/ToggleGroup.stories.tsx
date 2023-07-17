@@ -1,30 +1,11 @@
 import React from "react";
-import { defineMessages, useIntl } from "react-intl";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { StoryFn, Meta } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 import BanknotesIcon from "@heroicons/react/24/outline/BanknotesIcon";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 
 import ToggleGroupDocs from "./ToggleGroup.docs.mdx";
 import ToggleGroup from "./ToggleGroup";
-
-const messages = defineMessages({
-  one: {
-    defaultMessage: "One",
-    id: "R7CBRQ",
-    description: "Placeholder text for first toggle group option",
-  },
-  two: {
-    defaultMessage: "Two",
-    id: "w6ZMZl",
-    description: "Placeholder text for second toggle group option",
-  },
-  three: {
-    defaultMessage: "Three",
-    id: "L2BR/I",
-    description: "Placeholder text for third toggle group option",
-  },
-});
 
 export default {
   component: ToggleGroup.Root,
@@ -43,10 +24,9 @@ export default {
       page: ToggleGroupDocs,
     },
   },
-} as ComponentMeta<typeof ToggleGroup.Root>;
+} as Meta<typeof ToggleGroup.Root>;
 
-const AllTemplate: ComponentStory<typeof ToggleGroup.Root> = (args) => {
-  const intl = useIntl();
+const AllTemplate: StoryFn<typeof ToggleGroup.Root> = (args) => {
   return (
     <div
       data-h2-display="base(flex)"
@@ -55,120 +35,50 @@ const AllTemplate: ComponentStory<typeof ToggleGroup.Root> = (args) => {
       data-h2-align-items="base(center)"
     >
       <ToggleGroup.Root {...args}>
-        <ToggleGroup.Item value="one">
-          {intl.formatMessage(messages.one)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="two">
-          {intl.formatMessage(messages.two)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="three">
-          {intl.formatMessage(messages.three)}
-        </ToggleGroup.Item>
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
+        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
+      </ToggleGroup.Root>
+      <ToggleGroup.Root {...args} color="primary.dark">
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
+        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
       </ToggleGroup.Root>
       <ToggleGroup.Root {...args} color="secondary">
-        <ToggleGroup.Item value="one">
-          {intl.formatMessage(messages.one)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="two">
-          {intl.formatMessage(messages.two)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="three">
-          {intl.formatMessage(messages.three)}
-        </ToggleGroup.Item>
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
+        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
       </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="cta">
-        <ToggleGroup.Item value="one">
-          {intl.formatMessage(messages.one)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="two">
-          {intl.formatMessage(messages.two)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="three">
-          {intl.formatMessage(messages.three)}
-        </ToggleGroup.Item>
+      <ToggleGroup.Root {...args} color="tertiary">
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
+        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
+      </ToggleGroup.Root>
+      <ToggleGroup.Root {...args} color="quaternary">
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
+        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
+      </ToggleGroup.Root>
+      <ToggleGroup.Root {...args} color="quinary">
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
+        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
       </ToggleGroup.Root>
       <ToggleGroup.Root {...args} color="black">
-        <ToggleGroup.Item value="one">
-          {intl.formatMessage(messages.one)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="two">
-          {intl.formatMessage(messages.two)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="three">
-          {intl.formatMessage(messages.three)}
-        </ToggleGroup.Item>
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
+        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
       </ToggleGroup.Root>
       <ToggleGroup.Root {...args} color="white">
-        <ToggleGroup.Item value="one">
-          {intl.formatMessage(messages.one)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="two">
-          {intl.formatMessage(messages.two)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="three">
-          {intl.formatMessage(messages.three)}
-        </ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="ia-primary">
-        <ToggleGroup.Item value="one">
-          {intl.formatMessage(messages.one)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="two">
-          {intl.formatMessage(messages.two)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="three">
-          {intl.formatMessage(messages.three)}
-        </ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="ia-secondary">
-        <ToggleGroup.Item value="one">
-          {intl.formatMessage(messages.one)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="two">
-          {intl.formatMessage(messages.two)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="three">
-          {intl.formatMessage(messages.three)}
-        </ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="yellow">
-        <ToggleGroup.Item value="one">
-          {intl.formatMessage(messages.one)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="two">
-          {intl.formatMessage(messages.two)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="three">
-          {intl.formatMessage(messages.three)}
-        </ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="blue">
-        <ToggleGroup.Item value="one">
-          {intl.formatMessage(messages.one)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="two">
-          {intl.formatMessage(messages.two)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="three">
-          {intl.formatMessage(messages.three)}
-        </ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="red">
-        <ToggleGroup.Item value="one">
-          {intl.formatMessage(messages.one)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="two">
-          {intl.formatMessage(messages.two)}
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="three">
-          {intl.formatMessage(messages.three)}
-        </ToggleGroup.Item>
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
+        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
       </ToggleGroup.Root>
     </div>
   );
 };
 
-const Template: ComponentStory<typeof ToggleGroup.Root> = (args) => {
+const Template: StoryFn<typeof ToggleGroup.Root> = (args) => {
   const { children, ...rest } = args;
 
   return <ToggleGroup.Root {...rest}>{children}</ToggleGroup.Root>;
@@ -191,15 +101,10 @@ WithDefaultValue.args = {
 };
 
 const TwoOptionsChildren = () => {
-  const intl = useIntl();
   return (
     <>
-      <ToggleGroup.Item value="one">
-        {intl.formatMessage(messages.one)}
-      </ToggleGroup.Item>
-      <ToggleGroup.Item value="two">
-        {intl.formatMessage(messages.two)}
-      </ToggleGroup.Item>
+      <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+      <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
     </>
   );
 };

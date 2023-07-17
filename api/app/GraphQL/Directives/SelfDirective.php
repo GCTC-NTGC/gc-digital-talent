@@ -19,7 +19,7 @@ final class SelfDirective extends BaseDirective implements FieldResolver
 The field will be resolved to the same value as its parent.
 For example, useful in the following situation:
 type User {
-    profile: Applicant @self
+    profile: User @self
 }
 """
 directive @self on FIELD_DEFINITION

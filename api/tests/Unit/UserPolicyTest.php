@@ -30,65 +30,50 @@ class UserPolicyTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->guest = User::factory()->create([
-            'email' => 'guest-user@test.com',
-            'sub' => 'guest-user@test.com',
-        ]);
-        $this->guest->syncRoles([
-            "guest",
-        ]);
+        $this->guest = User::factory()
+            ->asGuest()
+            ->create([
+                'email' => 'guest-user@test.com',
+                'sub' => 'guest-user@test.com',
+            ]);
 
-        $this->applicant = User::factory()->create([
-            'email' => 'applicant-user@test.com',
-            'sub' => 'applicant-user@test.com',
-        ]);
-        $this->applicant->syncRoles([
-            "guest",
-            "base_user",
-            "applicant"
-        ]);
-        $this->otherApplicant = User::factory()->create([
-            'email' => 'other-applicant-user@test.com',
-            'sub' => 'other-applicant-user@test.com',
-        ]);
-        $this->otherApplicant->syncRoles([
-            "guest",
-            "base_user",
-            "applicant"
-        ]);
+        $this->applicant = User::factory()
+            ->asApplicant()
+            ->create([
+                'email' => 'applicant-user@test.com',
+                'sub' => 'applicant-user@test.com',
+            ]);
 
-        $this->requestResponder = User::factory()->create([
-            'email' => 'request-responder@test.com',
-            'sub' => 'request-responder@test.com',
-        ]);
-        $this->requestResponder->syncRoles([
-            "guest",
-            "base_user",
-            "request_responder"
-        ]);
+        $this->otherApplicant = User::factory()
+            ->asApplicant()
+            ->create([
+                'email' => 'other-applicant-user@test.com',
+                'sub' => 'other-applicant-user@test.com',
+            ]);
 
-        $this->poolOperator = User::factory()->create([
-            'email' => 'team-user@test.com',
-            'sub' => 'team-user@test.com',
-        ]);
-        $this->poolOperator->syncRoles([
-            "guest",
-            "base_user",
-        ]);
+        $this->requestResponder = User::factory()
+            ->asRequestResponder()
+            ->create([
+                'email' => 'request-responder@test.com',
+                'sub' => 'request-responder@test.com',
+            ]);
+
         $this->team = Team::factory()->create([
             'name' => 'test-team'
         ]);
-        $this->poolOperator->addRole("pool_operator", $this->team);
+        $this->poolOperator = User::factory()
+            ->asPoolOperator($this->team->name)
+            ->create([
+                'email' => 'team-user@test.com',
+                'sub' => 'team-user@test.com',
+            ]);
 
-        $this->platformAdmin = User::factory()->create([
-            'email' => 'admin-user@test.com',
-            'sub' => 'admin-user@test.com',
-        ]);
-        $this->platformAdmin->syncRoles([
-            "guest",
-            "base_user",
-            "platform_admin"
-        ]);
+        $this->platformAdmin = User::factory()
+            ->asAdmin()
+            ->create([
+                'email' => 'admin-user@test.com',
+                'sub' => 'admin-user@test.com',
+            ]);
     }
 
     /**
@@ -101,7 +86,7 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->guest->can('viewAny', User::class));
         $this->assertFalse($this->applicant->can('viewAny', User::class));
         $this->assertFalse($this->poolOperator->can('viewAny', User::class));
-        $this->assertFalse($this->requestResponder->can('viewAny', User::class));
+        $this->assertTrue($this->requestResponder->can('viewAny', User::class));
         $this->assertTrue($this->platformAdmin->can('viewAny', User::class));
     }
 
@@ -116,7 +101,7 @@ class UserPolicyTest extends TestCase
         $this->assertTrue($this->applicant->can('view', $this->applicant));
         $this->assertFalse($this->otherApplicant->can('view', $this->applicant));
         $this->assertFalse($this->poolOperator->can('view', $this->applicant));
-        $this->assertFalse($this->requestResponder->can('view', $this->applicant));
+        $this->assertTrue($this->requestResponder->can('view', $this->applicant));
         $this->assertTrue($this->platformAdmin->can('view', $this->applicant));
     }
 
@@ -183,7 +168,7 @@ class UserPolicyTest extends TestCase
      * Pool Operators can view an applicant profile if they have applied to a pool in their team.
      *
      * @return void
-     */
+    */
     public function viewApplicant()
     {
         $pool = Pool::factory()->create([

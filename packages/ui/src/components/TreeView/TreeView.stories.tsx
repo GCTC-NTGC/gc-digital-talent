@@ -8,6 +8,8 @@ import Card from "../Card";
 import Alert from "../Alert";
 import { StandardHeader } from "../Accordion/StandardHeader";
 
+faker.seed(0);
+
 export default {
   component: TreeView.Root,
   title: "Components/TreeView",
@@ -42,7 +44,7 @@ const DefaultView: ComponentStory<typeof TreeView.Root> = () => {
         </Card>
       </TreeView.Item>
       <TreeView.Item>
-        <Button color="blue" mode="solid" type="button">
+        <Button color="secondary" mode="solid">
           Button label
         </Button>
       </TreeView.Item>

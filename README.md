@@ -4,16 +4,16 @@
 
 The GC Digital Talent app is divided into multiple services, each treated as its own sub-project:
 
-- `/api`, the API service
-- `/apps`, (new) location for frontend applications
+- [`/api`](/api/README.md), API service
+- `/apps`, frontend applications
 - `/packages`, npm packages used within `/apps`
-- `/apps/e2e`, e2e testing with [`Cypress`](/apps/e2e/cypress/README.md)
-- `/tc-report`, containing static content generated with Jekyll, mostly the Talent Cloud report. This used to be maintained in a [separate repo](https://github.com/GCTC-NTGC/tc-report), but now the entire project has been imported into this repo. See [`/tc-report/README.md`](/tc-report/README.md) for instructions on how to run Jekyll and re-generate the site content.
-- `/infrastructure`, support files for the docker infrastructure to run the project
-  - this includes a mock oauth2 server (only used for local development envs)
-- `/maintenance`, additional scripts which run inside the docker containers for setup and updates
+- [`/apps/e2e`](/apps/e2e/cypress/README.md), e2e testing with Cypress
+- [`/tc-report`](/tc-report/README.md), static content, mostly the Talent Cloud report, generated with Jekyll
+- [`/infrastructure`](/infrastructure/README.md), support files for the docker infrastructure to run the project
+  - includes a mock OAuth server (only used for local development environments)
+- [`/maintenance`](/maintenance/README.md), scripts which run inside the docker containers for setup and updates
 
-The api, and frontend projects are designed to each run in a separate container. However, since they all use the [Laravel](https://github.com/laravel/laravel) framework, they can also be run on a single PHP server, with requests routed carefully between them. This is currently how docker infrastructure works.
+The api and frontend projects are both designed to run in separate containers. However, they can also be run on a single server with requests routed carefully between them. This is currently how the docker infrastructure works.
 
 Each sub-project has its own `README.md`, with advice on how to contribute to that sub-project. The README files also contain notes on how to configure the sub-projects, but if you simply want to get the project running on a new machine, you may disregard these notes and move straight to the steps below.
 
@@ -26,18 +26,18 @@ We do several types of testing: (internal documentation linked when available)
 - _unit_ testing
   - **Jest** (ReactJS)
   - **PHPUnit** (PHP)
-- _visual regression_ Testing
+- _visual regression_ testing
   - **Storybook** (ReactJS components)
 - _end-to-end_ testing with **Cypress** (full app in-browser)
   - See [`apps/e2e/cypress/README.md`](/apps/e2e/cypress/README.md): custom commands, usage tips, plugins, etc.
 - security checks (aka _security regression_ testing)
-  - CodeQL (JavaScript, ~~TypeScript~~)
+  - CodeQL (JavaScript, TypeScript)
 
 As much as possible, we aspire to make these runnable on:
 
-- :keyboard: your local command line
-- :computer: your IDE
-- :cloud: our continuous integration (CI) environment
+- :keyboard: your CLI (command-line interface)
+- :computer: your IDE (integrated development environment)
+- :cloud: our CI (continuous integration) environment
 
 ## Getting Started
 
@@ -45,7 +45,7 @@ As much as possible, we aspire to make these runnable on:
 
 We strongly recommend running the project entirely with Docker. In this case the only dependency you must install on your machine is [Docker Desktop](https://www.docker.com/products/docker-desktop).
 
-Then, follow the instructions in `./maintenance/README.md` to build the project docker containers and run the build scripts. That should handle everything!
+Then, follow the instructions in [`/maintenance/README.md`](/maintenance/README.md) to build the project docker containers and run the build scripts. That should handle everything!
 
 ### Complications?
 

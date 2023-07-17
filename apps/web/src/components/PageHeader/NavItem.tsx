@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-import { IconLink, IconType } from "@gc-digital-talent/ui";
+import { Link, IconType } from "@gc-digital-talent/ui";
 
 export interface NavItemProps {
   label: React.ReactNode;
@@ -14,8 +14,7 @@ const NavItem = ({ label, icon, url }: NavItemProps) => {
 
   const isActive = pathname === url;
   return (
-    <IconLink
-      type="button"
+    <Link
       href={url}
       mode="inline"
       color="secondary"
@@ -28,7 +27,7 @@ const NavItem = ({ label, icon, url }: NavItemProps) => {
         : {})}
     >
       {label}
-    </IconLink>
+    </Link>
   );
 };
 

@@ -1,24 +1,24 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 import {
   getBilingualEvaluation,
   getLanguageProficiency,
   commonMessages,
 } from "@gc-digital-talent/i18n";
 
-import { Applicant, BilingualEvaluation } from "~/api/generated";
+import { User, BilingualEvaluation } from "~/api/generated";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
 } from "~/validators/profile/languageInformation";
 
 const LanguageInformationSection = ({
-  applicant,
+  user,
   editPath,
 }: {
-  applicant: Applicant;
+  user: User;
   editPath?: string;
 }) => {
   const intl = useIntl();
@@ -32,7 +32,7 @@ const LanguageInformationSection = ({
     writtenLevel,
     comprehensionLevel,
     verbalLevel,
-  } = applicant;
+  } = user;
 
   return (
     <Well>
@@ -177,7 +177,7 @@ const LanguageInformationSection = ({
               </p>
             </div>
           )}
-        {hasAllEmptyFields(applicant) && editPath && (
+        {hasAllEmptyFields(user) && editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
@@ -188,20 +188,20 @@ const LanguageInformationSection = ({
             </p>
           </div>
         )}
-        {hasEmptyRequiredFields(applicant) && (
+        {hasEmptyRequiredFields(user) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {editPath && (
                 <>
                   {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-                  <a href={editPath}>
+                  <Link href={editPath}>
                     {intl.formatMessage({
                       defaultMessage: "Edit your language information options.",
                       id: "S9lNLG",
                       description:
                         "Link text to edit language information on profile.",
                     })}
-                  </a>
+                  </Link>
                 </>
               )}
               {!editPath && (

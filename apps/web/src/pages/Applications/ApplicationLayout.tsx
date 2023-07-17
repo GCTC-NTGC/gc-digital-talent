@@ -13,15 +13,13 @@ import { empty, notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
+import IapContactDialog from "~/components/Dialog/IapContactDialog";
 
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import {
-  getFullPoolAdvertisementTitleHtml,
-  getFullPoolAdvertisementTitleLabel,
-} from "~/utils/poolUtils";
+import { fullPoolTitle, isIAPPool } from "~/utils/poolUtils";
 import { useGetApplicationQuery } from "~/api/generated";
 import {
   applicationStepsToStepperArgs,
@@ -44,17 +42,10 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     paths,
     application,
     experienceId,
-    poolAdvertisement: application.poolAdvertisement,
   });
+  const title = fullPoolTitle(intl, application.pool);
+  const isIAP = isIAPPool(application.pool);
 
-  const poolNameHtml = getFullPoolAdvertisementTitleHtml(
-    intl,
-    application.poolAdvertisement,
-  );
-  const poolName = getFullPoolAdvertisementTitleLabel(
-    intl,
-    application.poolAdvertisement,
-  );
   const pageTitle = defineMessage({
     defaultMessage: "Apply to {poolName}",
     id: "K8CPir",
@@ -95,13 +86,8 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
       }),
     },
     {
-      url: application.poolAdvertisement?.id
-        ? paths.pool(application.poolAdvertisement.id)
-        : "#",
-      label: getFullPoolAdvertisementTitleHtml(
-        intl,
-        application.poolAdvertisement,
-      ),
+      url: paths.pool(application.pool.id),
+      label: title.html,
     },
     ...currentCrumbs,
   ]);
@@ -131,9 +117,9 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
       }
       currentStepOrdinal={currentStepIndex + 1}
     >
-      <SEO title={intl.formatMessage(pageTitle, { poolName })} />
+      <SEO title={intl.formatMessage(pageTitle, { poolName: title.label })} />
       <Hero
-        title={intl.formatMessage(pageTitle, { poolName: poolNameHtml })}
+        title={intl.formatMessage(pageTitle, { poolName: title.html })}
         crumbs={crumbs}
         subtitle={currentPage?.subtitle}
       />
@@ -152,6 +138,11 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
               currentIndex={currentStepIndex}
               steps={applicationStepsToStepperArgs(steps, application)}
             />
+            {isIAP && (
+              <div data-h2-margin="base(x1 0)">
+                <IapContactDialog />
+              </div>
+            )}
           </TableOfContents.Sidebar>
           <TableOfContents.Content>
             {userIsOnDisabledPage ? (
@@ -181,7 +172,7 @@ const ApplicationLayout = () => {
 
   return (
     <Pending fetching={fetching || stale} error={error}>
-      {application?.poolAdvertisement ? (
+      {application ? (
         <ApplicationContextProvider application={application}>
           <ApplicationPageWrapper application={application} />
         </ApplicationContextProvider>

@@ -3,7 +3,13 @@ import { useIntl } from "react-intl";
 import { useLocation, useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
 
-import { Button, Heading, Separator, Pending } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  Separator,
+  Pending,
+  useAnnouncer,
+} from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -21,8 +27,8 @@ import useRoutes from "~/hooks/useRoutes";
 import { SimpleClassification, SimplePool } from "~/types/pool";
 import Spinner from "~/components/Spinner/Spinner";
 import nonExecutiveITClassifications from "~/constants/nonExecutiveITClassifications";
-
 import { LocationState } from "~/types/searchRequest";
+
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import CandidateResults from "./CandidateResults";
@@ -155,7 +161,6 @@ const ResultsDisplay = ({
 
       <Button
         color="secondary"
-        mode="outline"
         onClick={() =>
           handleSubmit(
             totalCandidateCount,
@@ -165,8 +170,8 @@ const ResultsDisplay = ({
         }
       >
         {intl.formatMessage({
-          defaultMessage: "Request Candidates",
-          id: "6mDW+R",
+          defaultMessage: "Request candidates",
+          id: "3BfvIy",
           description:
             "Button link message on search page that takes user to the request form.",
         })}
@@ -278,8 +283,8 @@ const SearchContainer = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Use the filters below to specify your hiring needs. At any time you can look at the results located at the bottom of this page to see how many candidates match the requirements you have entered. When you are comfortable with the filters you have selected, click the Request Candidates button to add more details and submit a request form.",
-                  id: "Tg8a57",
+                    "Use the filters below to specify your hiring needs. At any time you can look at the results located at the bottom of this page to see how many candidates match the requirements you have entered. When you are comfortable with the filters you have selected, click the Request candidates button to add more details and submit a request form.",
+                  id: "AaoxNX",
                   description:
                     "Content displayed in the How To area of the hero section of the Search page.",
                 })}
@@ -364,7 +369,9 @@ const SearchContainer = ({
 };
 
 const SearchContainerApi = () => {
+  const intl = useIntl();
   const location = useLocation();
+  const { announce } = useAnnouncer();
   const state = location.state as LocationState;
 
   const navigate = useNavigate();
@@ -381,24 +388,21 @@ const SearchContainerApi = () => {
     ApplicantFilterInput | undefined
   >(
     applicantFilterFromBrowserHistory || {
-      pools: searchFormData?.publishedPoolAdvertisements,
+      pools: searchFormData?.publishedPools,
     },
   );
 
   // When pools first load, they should be added to the ApplicantFilter
   useEffect(() => {
     if (
-      searchFormData?.publishedPoolAdvertisements &&
+      searchFormData?.publishedPools &&
       applicantFilterFromBrowserHistory === undefined
     ) {
       setApplicantFilter({
-        pools: searchFormData?.publishedPoolAdvertisements,
+        pools: searchFormData?.publishedPools,
       });
     }
-  }, [
-    searchFormData?.publishedPoolAdvertisements,
-    applicantFilterFromBrowserHistory,
-  ]);
+  }, [searchFormData?.publishedPools, applicantFilterFromBrowserHistory]);
 
   const queryArgs = useMemo(
     () => applicantFilterToQueryArgs(applicantFilter),
@@ -426,9 +430,7 @@ const SearchContainerApi = () => {
   const paths = useRoutes();
 
   const skills = unpackMaybes<Skill>(searchFormData?.skills);
-  const pools = unpackMaybes<SimplePool>(
-    searchFormData?.publishedPoolAdvertisements,
-  );
+  const pools = unpackMaybes<SimplePool>(searchFormData?.publishedPools);
 
   const availableClassifications = pools
     ?.flatMap((pool) => pool?.classifications)
@@ -452,6 +454,39 @@ const SearchContainerApi = () => {
   const poolCandidateResults = filterIncludesPools
     ? candidatesData?.countPoolCandidatesByPool
     : [];
+
+  /**
+   * Announce the candidate count to users in a less verbose way
+   *
+   * Note: `announceCount.current > 3` is a magic number, our current candidate count is causing
+   * a lot of re-runs for some reason (specifically 3 on initial loading)
+   * and this prevents the announcer  repeating itself excessively
+   */
+  const announceCount = React.useRef<number>(0);
+  React.useEffect(() => {
+    if (applicantFilter && announceCount.current > 3 && !fetchingCandidates) {
+      announce(
+        intl.formatMessage(
+          {
+            defaultMessage: "{count} candidates meet your criteria.",
+            id: "dwe1M+",
+            description:
+              "Message announced to assistive technology users when the estimated candidate count changes.",
+          },
+          {
+            count: totalCandidateCount,
+          },
+        ),
+      );
+    }
+    announceCount.current += 1;
+  }, [
+    totalCandidateCount,
+    announce,
+    applicantFilter,
+    fetchingCandidates,
+    intl,
+  ]);
 
   const onSubmit = async (
     candidateCount: number,

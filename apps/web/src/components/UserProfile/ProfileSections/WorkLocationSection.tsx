@@ -1,11 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 import { commonMessages, getWorkRegion } from "@gc-digital-talent/i18n";
 import { insertBetween } from "@gc-digital-talent/helpers";
 
-import { Applicant } from "~/api/generated";
+import { User } from "~/api/generated";
 import {
   anyCriteriaSelected,
   hasAllEmptyFields,
@@ -13,16 +13,16 @@ import {
 } from "~/validators/profile/workLocation";
 
 const WorkLocationSection = ({
-  applicant,
+  user,
   editPath,
 }: {
-  applicant: Applicant;
+  user: User;
   editPath?: string;
 }) => {
   const intl = useIntl();
   // generate array of location preferences localized and formatted with spaces/commas
-  const regionPreferencesSquished = applicant.locationPreferences?.map(
-    (region) => (region ? intl.formatMessage(getWorkRegion(region)) : ""),
+  const regionPreferencesSquished = user.locationPreferences?.map((region) =>
+    region ? intl.formatMessage(getWorkRegion(region)) : "",
   );
   const regionPreferences = regionPreferencesSquished
     ? insertBetween(", ", regionPreferencesSquished)
@@ -31,7 +31,7 @@ const WorkLocationSection = ({
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {anyCriteriaSelected(applicant) && (
+        {anyCriteriaSelected(user) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               <span data-h2-display="base(block)">
@@ -45,23 +45,24 @@ const WorkLocationSection = ({
             </p>
           </div>
         )}
-        {!!applicant.locationExemptions && (
+        {!!user.locationExemptions && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               <span data-h2-display="base(block)">
                 {intl.formatMessage({
-                  defaultMessage: "Location exemptions:",
-                  id: "MoWNS4",
-                  description: "Location Exemptions label, followed by colon",
+                  defaultMessage: "Work location exceptions",
+                  id: "OpKC2i",
+                  description: "Work location exceptions label",
                 })}
+                {intl.formatMessage(commonMessages.dividingColon)}
               </span>
               <span data-h2-font-weight="base(700)">
-                {applicant.locationExemptions}
+                {user.locationExemptions}
               </span>
             </p>
           </div>
         )}
-        {hasEmptyRequiredFields(applicant) && editPath && (
+        {hasEmptyRequiredFields(user) && editPath && (
           <>
             <div data-h2-flex-item="base(1of1)">
               <p>
@@ -76,18 +77,18 @@ const WorkLocationSection = ({
             <div data-h2-flex-item="base(1of1)">
               <p>
                 {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-                <a href={editPath}>
+                <Link href={editPath}>
                   {intl.formatMessage({
                     defaultMessage: "Edit your work location options.",
                     id: "F3/88e",
                     description: "Link text to edit work location on profile",
                   })}
-                </a>
+                </Link>
               </p>
             </div>
           </>
         )}
-        {hasAllEmptyFields(applicant) && !editPath && (
+        {hasAllEmptyFields(user) && !editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({

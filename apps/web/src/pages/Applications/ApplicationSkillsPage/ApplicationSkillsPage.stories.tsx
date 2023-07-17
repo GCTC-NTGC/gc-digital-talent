@@ -1,27 +1,27 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import {
-  fakeExperiences,
   fakePoolCandidates,
+  fakeExperiences,
 } from "@gc-digital-talent/fake-data";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { ApplicationSkills } from "./ApplicationSkillsPage";
-import { ApplicationPageProps } from "../ApplicationApi";
+import {
+  ApplicationSkills,
+  ApplicationSkillsProps,
+} from "./ApplicationSkillsPage";
 
 const fakePoolCandidate = fakePoolCandidates(1)[0];
 const fakeUser = fakePoolCandidate.user;
 const mockExperiences = fakeExperiences(5);
-const mockPoolAdvertisementSkills =
-  fakePoolCandidate?.poolAdvertisement?.essentialSkills?.filter(notEmpty);
 const experienceSkills = mockExperiences
   .filter(notEmpty)
   .map((experience) => experience.skills)
   .filter(notEmpty)
   .flatMap((skill) => skill);
 
-const noSkills: ApplicationPageProps = {
+const noSkills: ApplicationSkillsProps = {
   application: {
     ...fakePoolCandidate,
     user: {
@@ -29,33 +29,30 @@ const noSkills: ApplicationPageProps = {
       experiences: mockExperiences,
     },
   },
+  experiences: mockExperiences,
 };
 
-const hasExperiencesProps: ApplicationPageProps = {
+const hasExperiencesProps: ApplicationSkillsProps = {
   application: {
     ...fakePoolCandidate,
     user: {
       ...fakeUser,
       experiences: mockExperiences,
     },
-    poolAdvertisement: fakePoolCandidate.poolAdvertisement
-      ? {
-          ...fakePoolCandidate.poolAdvertisement,
-          essentialSkills: [
-            ...(mockPoolAdvertisementSkills || []),
-            ...experienceSkills,
-          ],
-        }
-      : undefined,
+    pool: {
+      ...fakePoolCandidate.pool,
+      essentialSkills: [...experienceSkills],
+    },
   },
+  experiences: mockExperiences,
 };
 
 export default {
   component: ApplicationSkills,
-  title: "Pages/Application Revamp/Skill Requirements",
-} as ComponentMeta<typeof ApplicationSkills>;
+  title: "Pages/Application/Skill Requirements",
+} as Meta<typeof ApplicationSkills>;
 
-const Template: ComponentStory<typeof ApplicationSkills> = (props) => (
+const Template: StoryFn<typeof ApplicationSkills> = (props) => (
   <ApplicationSkills {...props} />
 );
 

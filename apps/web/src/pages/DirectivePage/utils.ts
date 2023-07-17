@@ -1,7 +1,7 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import { CardFlatProps, ExternalLinkProps } from "@gc-digital-talent/ui";
+import { CardFlatProps, LinkProps } from "@gc-digital-talent/ui";
 
 interface GetFormLinkArgs {
   formName: React.ReactNode;
@@ -70,14 +70,14 @@ interface GetGenericLinksArgs {
 }
 
 // add a natural key since mocked files do not have unique hrefs
-type GenericLinkType = ExternalLinkProps & { naturalKey?: string };
+type GenericLinkType = LinkProps & { naturalKey?: string };
 
 /**
  * Gets English and French link props and reverses
  * them so the active language is the first item
  * in an array
  *
- * @returns Array<ExternalLinkProps> A tuple of the link props
+ * @returns Array<LinkProps> A tuple of the link props
  */
 export const getGenericLinks = ({
   labels,

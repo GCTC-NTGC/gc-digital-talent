@@ -17,7 +17,7 @@ describe("Create account tests", () => {
 
     // should go to the create-account page
     cy.findByRole("heading", {
-      name: "Welcome to Digital Talent",
+      name: "Welcome to GC Digital Talent",
       level: 1,
     }).should("exist");
 
@@ -58,7 +58,7 @@ describe("Create account tests", () => {
     cy.wait("@gqlCreateAccountMutation");
     // should go to the profile page
     cy.findByRole("heading", {
-      name: `Cypress ${uniqueTestId}'s profile`,
+      name: `Profile information`,
       level: 1,
     }).should("exist");
   });

@@ -3,8 +3,9 @@ import { useIntl } from "react-intl";
 
 import { Well } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import { UpdateUserAsUserInput } from "@gc-digital-talent/graphql";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { User, PoolCandidate } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import useApplicationInfo from "~/hooks/useApplicationInfo";
@@ -34,10 +35,8 @@ const EmploymentEquityForm = ({
   const paths = useRoutes();
   const { id: applicationId, returnRoute } = useApplicationInfo(user.id);
 
-  const handleUpdate = (key: EquityKeys, value: unknown) => {
-    return onUpdate(user.id, {
-      [key]: value,
-    });
+  const handleUpdate = (data: UpdateUserAsUserInput) => {
+    return onUpdate(user.id, data);
   };
 
   const applicationBreadcrumbs = application
@@ -52,23 +51,17 @@ const EmploymentEquityForm = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitleHtml(
-            intl,
-            application.poolAdvertisement,
-          ),
-          url: paths.pool(application.poolAdvertisement?.id || ""),
+          label: getFullPoolTitleHtml(intl, application.pool),
+          url: paths.pool(application.pool.id),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(applicationId ?? ""),
+          url: paths.application(applicationId ?? ""),
         },
         {
-          label: intl.formatMessage({
-            defaultMessage: "Diversity, equity and inclusion",
-            id: "pGTTrp",
-            description:
-              "Display Text for Diversity, equity and inclusion Page",
-          }),
+          label: intl.formatMessage(
+            navigationMessages.diversityEquityInclusion,
+          ),
           url: `${paths.diversityEquityInclusion(user.id)}${
             applicationId ? `?applicationId=${applicationId}` : ``
           }`,
@@ -85,23 +78,15 @@ const EmploymentEquityForm = ({
         description:
           "Description text for Profile Form wrapper in DiversityEquityInclusionForm",
       })}
-      title={intl.formatMessage({
-        defaultMessage: "Diversity, equity and inclusion",
-        id: "TfoHYi",
-        description:
-          "Title for Profile Form wrapper  in DiversityEquityInclusionForm",
-      })}
+      title={intl.formatMessage(navigationMessages.diversityEquityInclusion)}
       crumbs={
         applicationBreadcrumbs?.length
           ? applicationBreadcrumbs
           : [
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Diversity, equity and inclusion",
-                  id: "pGTTrp",
-                  description:
-                    "Display Text for Diversity, equity and inclusion Page",
-                }),
+                label: intl.formatMessage(
+                  navigationMessages.diversityEquityInclusion,
+                ),
                 url: paths.diversityEquityInclusion(user.id),
               },
             ]
@@ -204,9 +189,10 @@ const EmploymentEquityForm = ({
         isVisibleMinority={user.isVisibleMinority}
         isWoman={user.isWoman}
         hasDisability={user.hasDisability}
-        onAdd={(key: EquityKeys) => handleUpdate(key, true)}
-        onRemove={(key: EquityKeys) => handleUpdate(key, false)}
-        onUpdate={(key: EquityKeys, value: unknown) => handleUpdate(key, value)}
+        onAdd={(key: EquityKeys) => handleUpdate({ [key]: true })}
+        onRemove={(key: EquityKeys) => handleUpdate({ [key]: false })}
+        onUpdate={handleUpdate}
+        inApplication={!!application}
       />
       <ProfileFormFooter
         mode="cancelButton"

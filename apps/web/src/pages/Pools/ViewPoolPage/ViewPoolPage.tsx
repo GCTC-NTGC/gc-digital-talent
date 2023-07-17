@@ -4,20 +4,18 @@ import { useParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
-import ArrowTopRightOnSquareIcon from "@heroicons/react/24/outline/ArrowTopRightOnSquareIcon";
 import {
   Pending,
   Chip,
   Chips,
-  IconButton,
+  Button,
   NotFound,
   Link,
-  IconLink,
 } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getLocalizedName,
-  getAdvertisementStatus,
+  getPoolStatus,
   getLanguageRequirement,
   getPoolStream,
   getSecurityClearance,
@@ -30,18 +28,13 @@ import {
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import {
-  Scalars,
-  SkillCategory,
-  useGetPoolAdvertisementQuery,
-  PoolAdvertisement,
-} from "~/api/generated";
+import { Scalars, SkillCategory, useGetPoolQuery, Pool } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import adminMessages from "~/messages/adminMessages";
 
 interface ViewPoolProps {
-  pool: PoolAdvertisement;
+  pool: Pool;
 }
 
 export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
@@ -49,6 +42,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
   const paths = useRoutes();
   const form = useForm();
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   /** Reset link copied after 3 seconds */
   React.useEffect(() => {
@@ -89,13 +83,13 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     },
   );
 
-  const languageRequirement = pool.advertisementLanguage
-    ? intl.formatMessage(getLanguageRequirement(pool.advertisementLanguage))
-    : "";
+  const languageRequirement = pool.language
+    ? intl.formatMessage(getLanguageRequirement(pool.language))
+    : notProvided;
 
   const securityClearance = pool.securityClearance
     ? intl.formatMessage(getSecurityClearance(pool.securityClearance))
-    : "";
+    : notProvided;
 
   const screeningQuestions = pool?.screeningQuestions?.filter(notEmpty) || [];
 
@@ -134,7 +128,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
       <div data-h2-container="base(left, medium, 0)">
         <FormProvider {...form}>
           <h2
-            data-h2-margin="base(x2, 0, 0, 0)"
+            data-h2-margin="base(x2, 0, x1, 0)"
             data-h2-font-size="base(h3, 1)"
           >
             {intl.formatMessage({
@@ -143,12 +137,11 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
               description: "Sub title for admin view pool page",
             })}
           </h2>
-          <div data-h2-flex-grid="base(flex-start, x1, 0)">
+          <div data-h2-flex-grid="base(flex-start, x1, x1)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 readOnly
                 value={relativeToAbsoluteURL(paths.pool(pool.id))}
-                hideOptional
                 id="poolUrl"
                 name="poolUrl"
                 type="text"
@@ -164,9 +157,8 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
               data-h2-display="base(flex)"
               data-h2-align-items="base(center)"
             >
-              <IconButton
+              <Button
                 data-h2-margin="base(0, x.5, 0, 0)"
-                mode="outline"
                 color="secondary"
                 disabled={linkCopied}
                 icon={linkCopied ? CheckIcon : ClipboardIcon}
@@ -191,16 +183,13 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                         description: "Button text to copy a url",
                       })}
                 </span>
-              </IconButton>
-              <IconLink
+              </Button>
+              <Link
                 data-h2-margin="base(0, x.5, 0, 0)"
-                mode="outline"
+                mode="solid"
                 color="secondary"
-                type="button"
                 href={paths.pool(pool.id)}
-                target="_blank"
-                rel="noopener noreferrer"
-                icon={ArrowTopRightOnSquareIcon}
+                newTab
               >
                 {intl.formatMessage({
                   defaultMessage: "View pool advertisement",
@@ -208,10 +197,10 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   description:
                     "Link text to view the public facing pool advertisement",
                 })}
-              </IconLink>
+              </Link>
             </div>
           </div>
-          <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
+          <h2 data-h2-margin="base(x2, 0, x1, 0)" data-h2-font-size="base(h3)">
             {intl.formatMessage({
               defaultMessage: "Details",
               id: "xzkqPm",
@@ -219,14 +208,13 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
             })}
           </h2>
           {classification ? (
-            <div data-h2-flex-grid="base(flex-start, x1, 0)">
+            <div data-h2-flex-grid="base(flex-start, x1, x1)">
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Input
                   id="classification"
                   name="classification"
                   type="text"
                   readOnly
-                  hideOptional
                   value={`${classification.group}-0${
                     classification.level
                   }  (${getLocalizedName(classification.name, intl)})`}
@@ -244,7 +232,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   name="stream"
                   type="text"
                   readOnly
-                  hideOptional
                   value={
                     pool.stream
                       ? intl.formatMessage(getPoolStream(pool.stream))
@@ -264,7 +251,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   name="specificTitleEn"
                   type="text"
                   readOnly
-                  hideOptional
                   value={pool.name?.en ?? ""}
                   label={intl.formatMessage({
                     defaultMessage: "Specific Title (English)",
@@ -280,7 +266,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   name="specificTitleFr"
                   type="text"
                   readOnly
-                  hideOptional
                   value={pool.name?.fr ?? ""}
                   label={intl.formatMessage({
                     defaultMessage: "Specific Title (French)",
@@ -299,7 +284,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 name="processNumber"
                 type="text"
                 readOnly
-                hideOptional
                 value={pool.processNumber ?? ""}
                 label={intl.formatMessage({
                   defaultMessage: "Process Number",
@@ -314,7 +298,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 name="expiryDate"
                 type="text"
                 readOnly
-                hideOptional
                 value={closingStringLocal}
                 label={intl.formatMessage({
                   defaultMessage: "Closing date",
@@ -331,7 +314,6 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                     name="expiryDatePacific"
                     type="text"
                     readOnly
-                    hideOptional
                     value={closingStringPacific}
                     label={intl.formatMessage({
                       defaultMessage: "Closing date (Pacific time zone)",
@@ -348,10 +330,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 name="status"
                 type="text"
                 readOnly
-                hideOptional
-                value={intl.formatMessage(
-                  getAdvertisementStatus(pool.advertisementStatus ?? ""),
-                )}
+                value={intl.formatMessage(getPoolStatus(pool.status ?? ""))}
                 label={intl.formatMessage({
                   defaultMessage: "Status",
                   id: "cy5aj8",
@@ -385,7 +364,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 })}
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
-                {pool.yourImpact?.en || ""}
+                {pool.yourImpact?.en || notProvided}
               </p>
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -401,7 +380,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 })}
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
-                {pool.yourImpact?.fr || ""}
+                {pool.yourImpact?.fr || notProvided}
               </p>
             </div>
             <div data-h2-flex-item="base(1of1)">
@@ -429,7 +408,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 })}
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
-                {pool.keyTasks?.en || ""}
+                {pool.keyTasks?.en || notProvided}
               </p>
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -445,7 +424,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 })}
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
-                {pool.keyTasks?.fr || ""}
+                {pool.keyTasks?.fr || notProvided}
               </p>
             </div>
           </div>
@@ -456,58 +435,58 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
               description: "Title required skills for a pool advertisement",
             })}
           </h2>
+          <h3
+            data-h2-font-size="base(h6)"
+            data-h2-font-weight="base(700)"
+            data-h2-margin="base(x1, 0, x.5, 0)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Occupational",
+              id: "Vpk+nl",
+              description:
+                "Title for pool advertisement occupational skill list",
+            })}
+          </h3>
           {essentialOccupationalSkills?.length ? (
-            <>
-              <h3
-                data-h2-font-size="base(h6)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x1, 0, x.5, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Occupational",
-                  id: "Vpk+nl",
-                  description:
-                    "Title for pool advertisement occupational skill list",
-                })}
-              </h3>
-              <Chips>
-                {essentialOccupationalSkills.map((skill) => (
-                  <Chip
-                    key={`occupationalSkill-${skill.id}`}
-                    mode="outline"
-                    color="primary"
-                    label={getLocalizedName(skill.name, intl)}
-                  />
-                ))}
-              </Chips>
-            </>
-          ) : null}
+            <Chips>
+              {essentialOccupationalSkills.map((skill) => (
+                <Chip
+                  key={`occupationalSkill-${skill.id}`}
+                  mode="outline"
+                  color="primary"
+                  label={getLocalizedName(skill.name, intl)}
+                />
+              ))}
+            </Chips>
+          ) : (
+            <p>{notProvided}</p>
+          )}
+          <h3
+            data-h2-font-size="base(h6)"
+            data-h2-font-weight="base(700)"
+            data-h2-margin="base(x1, 0, x.5, 0)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Transferable",
+              id: "eGEusj",
+              description:
+                "Title for pool advertisement transferable skill list",
+            })}
+          </h3>
           {essentialTransferableSkills?.length ? (
-            <>
-              <h3
-                data-h2-font-size="base(h6)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x1, 0, x.5, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Transferable",
-                  id: "eGEusj",
-                  description:
-                    "Title for pool advertisement transferable skill list",
-                })}
-              </h3>
-              <Chips>
-                {essentialTransferableSkills.map((skill) => (
-                  <Chip
-                    key={`occupationalSkill-${skill.id}`}
-                    mode="outline"
-                    color="primary"
-                    label={getLocalizedName(skill.name, intl)}
-                  />
-                ))}
-              </Chips>
-            </>
-          ) : null}
+            <Chips>
+              {essentialTransferableSkills.map((skill) => (
+                <Chip
+                  key={`occupationalSkill-${skill.id}`}
+                  mode="outline"
+                  color="primary"
+                  label={getLocalizedName(skill.name, intl)}
+                />
+              ))}
+            </Chips>
+          ) : (
+            <p>{notProvided}</p>
+          )}
           <h2 data-h2-margin="base(x2, 0, 0, 0)" data-h2-font-size="base(h3)">
             {intl.formatMessage({
               defaultMessage: "Nice to have skills",
@@ -515,58 +494,58 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
               description: "Title optional skills for a pool advertisement",
             })}
           </h2>
+          <h3
+            data-h2-font-size="base(h6)"
+            data-h2-font-weight="base(700)"
+            data-h2-margin="base(x1, 0, x.5, 0)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Occupational",
+              id: "Vpk+nl",
+              description:
+                "Title for pool advertisement occupational skill list",
+            })}
+          </h3>
           {nonEssentialOccupationalSkills?.length ? (
-            <>
-              <h3
-                data-h2-font-size="base(h6)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x1, 0, x.5, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Occupational",
-                  id: "Vpk+nl",
-                  description:
-                    "Title for pool advertisement occupational skill list",
-                })}
-              </h3>
-              <Chips>
-                {nonEssentialOccupationalSkills.map((skill) => (
-                  <Chip
-                    key={`occupationalSkill-${skill.id}`}
-                    mode="outline"
-                    color="primary"
-                    label={getLocalizedName(skill.name, intl)}
-                  />
-                ))}
-              </Chips>
-            </>
-          ) : null}
+            <Chips>
+              {nonEssentialOccupationalSkills.map((skill) => (
+                <Chip
+                  key={`occupationalSkill-${skill.id}`}
+                  mode="outline"
+                  color="primary"
+                  label={getLocalizedName(skill.name, intl)}
+                />
+              ))}
+            </Chips>
+          ) : (
+            <p>{notProvided}</p>
+          )}
+          <h3
+            data-h2-font-size="base(h6)"
+            data-h2-font-weight="base(700)"
+            data-h2-margin="base(x1, 0, x.5, 0)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Transferable",
+              id: "eGEusj",
+              description:
+                "Title for pool advertisement transferable skill list",
+            })}
+          </h3>
           {nonEssentialTransferableSkills?.length ? (
-            <>
-              <h3
-                data-h2-font-size="base(h6)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x1, 0, x.5, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Transferable",
-                  id: "eGEusj",
-                  description:
-                    "Title for pool advertisement transferable skill list",
-                })}
-              </h3>
-              <Chips>
-                {nonEssentialTransferableSkills.map((skill) => (
-                  <Chip
-                    key={`occupationalSkill-${skill.id}`}
-                    mode="outline"
-                    color="primary"
-                    label={getLocalizedName(skill.name, intl)}
-                  />
-                ))}
-              </Chips>
-            </>
-          ) : null}
+            <Chips>
+              {nonEssentialTransferableSkills.map((skill) => (
+                <Chip
+                  key={`occupationalSkill-${skill.id}`}
+                  mode="outline"
+                  color="primary"
+                  label={getLocalizedName(skill.name, intl)}
+                />
+              ))}
+            </Chips>
+          ) : (
+            <p>{notProvided}</p>
+          )}
           <h2 data-h2-margin="base(x2, 0, x1, 0)" data-h2-font-size="base(h3)">
             {intl.formatMessage({
               defaultMessage: "Requirements",
@@ -620,7 +599,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                         "Pool advertisement location requirement, English",
                     },
                     {
-                      locationEn: pool.advertisementLocation?.en ?? "",
+                      locationEn: pool.location?.en ?? notProvided,
                     },
                   )}
                 </li>
@@ -633,7 +612,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                         "Pool advertisement location requirement, French",
                     },
                     {
-                      locationFr: pool.advertisementLocation?.fr ?? "",
+                      locationFr: pool.location?.fr ?? notProvided,
                     },
                   )}
                 </li>
@@ -729,15 +708,12 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 </div>
               ))}
             </div>
-          ) : null}
+          ) : (
+            <p>{notProvided}</p>
+          )}
         </FormProvider>
         <p data-h2-margin="base(x2, 0, 0, 0)">
-          <Link
-            type="button"
-            mode="solid"
-            color="secondary"
-            href={paths.poolTable()}
-          >
+          <Link mode="solid" color="secondary" href={paths.poolTable()}>
             {intl.formatMessage({
               defaultMessage: "Back to pools",
               id: "Pr8bok",
@@ -759,7 +735,7 @@ const ViewPoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { poolId } = useParams<RouteParams>();
-  const [{ data, fetching, error }] = useGetPoolAdvertisementQuery({
+  const [{ data, fetching, error }] = useGetPoolQuery({
     variables: { id: poolId || "" },
   });
 
@@ -779,7 +755,7 @@ const ViewPoolPage = () => {
     ...(poolId
       ? [
           {
-            label: getLocalizedName(data?.poolAdvertisement?.name, intl),
+            label: getLocalizedName(data?.pool?.name, intl),
             url: routes.poolView(poolId),
           },
         ]
@@ -789,8 +765,8 @@ const ViewPoolPage = () => {
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <Pending fetching={fetching} error={error}>
-        {data?.poolAdvertisement ? (
-          <ViewPool pool={data.poolAdvertisement} />
+        {data?.pool ? (
+          <ViewPool pool={data.pool} />
         ) : (
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}

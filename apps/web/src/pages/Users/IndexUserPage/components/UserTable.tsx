@@ -5,8 +5,8 @@ import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getJobLookingStatus, getLanguage } from "@gc-digital-talent/i18n";
-import { Pending } from "@gc-digital-talent/ui";
+import { getLanguage } from "@gc-digital-talent/i18n";
+import { Link, Pending } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
@@ -42,12 +42,11 @@ import {
 } from "~/components/Table/ClientManagedTable";
 import {
   durationToEnumPositionDuration,
-  stringToEnumJobLooking,
   stringToEnumLanguage,
   stringToEnumLocation,
   stringToEnumOperational,
 } from "~/utils/userUtils";
-import UserProfileDocument from "~/components/UserProfileDocument/UserProfileDocument";
+import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 
 import useUserCsvData from "../hooks/useUserCsvData";
 
@@ -88,9 +87,6 @@ function transformFormValuesToUserFilterInput(
     },
     isGovEmployee: data.govEmployee[0] ? true : undefined,
     isProfileComplete: data.profileComplete[0] ? true : undefined,
-    jobLookingStatus: data.jobLookingStatus.map((status) => {
-      return stringToEnumJobLooking(status);
-    }),
     poolFilters: data.pools.map((pool) => {
       const poolString = pool;
       return { poolId: poolString };
@@ -124,7 +120,6 @@ function transformUserFilterInputToFormValues(
         : [],
     govEmployee: input?.isGovEmployee ? ["true"] : [],
     profileComplete: input?.isProfileComplete ? ["true"] : [],
-    jobLookingStatus: input?.jobLookingStatus?.filter(notEmpty) ?? [],
     pools:
       input?.poolFilters
         ?.filter(notEmpty)
@@ -145,12 +140,14 @@ const languageAccessor = (
 const phoneAccessor = (telephone: string | null | undefined) => {
   if (telephone) {
     return (
-      <a
+      <Link
+        external
+        color="black"
         href={`tel:${telephone}`}
         aria-label={telephone.replace(/.{1}/g, "$& ")}
       >
         {telephone}
-      </a>
+      </Link>
     );
   }
   return "";
@@ -159,7 +156,9 @@ const phoneAccessor = (telephone: string | null | undefined) => {
 const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
   if (email) {
     return (
-      <a
+      <Link
+        external
+        color="black"
         href={`mailto:${email}`}
         title={intl.formatMessage({
           defaultMessage: "Link to user email",
@@ -168,7 +167,7 @@ const emailLinkAccessor = (email: string | null, intl: IntlShape) => {
         })}
       >
         {email}
-      </a>
+      </Link>
     );
   }
   return (
@@ -209,7 +208,6 @@ const defaultState = {
     },
     isGovEmployee: undefined,
     isProfileComplete: undefined,
-    jobLookingStatus: [],
     poolFilters: [],
   },
 };
@@ -257,7 +255,6 @@ const UserTable = ({ title }: { title: string }) => {
       applicantFilter: fancyFilterState?.applicantFilter,
       isGovEmployee: fancyFilterState?.isGovEmployee,
       isProfileComplete: fancyFilterState?.isProfileComplete,
-      jobLookingStatus: fancyFilterState?.jobLookingStatus,
       poolFilters: fancyFilterState?.poolFilters,
     };
   };
@@ -321,21 +318,6 @@ const UserTable = ({ title }: { title: string }) => {
           getFullNameHtml(user.firstName, user.lastName, intl),
         id: "candidateName",
         sortColumnName: "first_name",
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Status",
-          id: "Ag+0A4",
-          description: "Title displayed for the User table Status column",
-        }),
-        accessor: (user) =>
-          user.jobLookingStatus
-            ? intl.formatMessage(
-                getJobLookingStatus(user.jobLookingStatus as string, "short"),
-              )
-            : "",
-        id: "jobLookingStatus",
-        sortColumnName: "job_looking_status",
       },
       {
         label: intl.formatMessage({
@@ -455,8 +437,8 @@ const UserTable = ({ title }: { title: string }) => {
     content: () => componentRef.current,
     pageStyle: printStyles,
     documentTitle: intl.formatMessage({
-      defaultMessage: "Candidate Profiles",
-      id: "IE82VM",
+      defaultMessage: "Candidate profiles",
+      id: "scef3o",
       description: "Document title for printing User table results",
     }),
   });
@@ -613,10 +595,7 @@ const UserTable = ({ title }: { title: string }) => {
             !selectedUsersData?.applicants.length
           }
         />
-        <UserProfileDocument
-          applicants={selectedApplicants}
-          ref={componentRef}
-        />
+        <ProfileDocument results={selectedApplicants} ref={componentRef} />
       </div>
     </div>
   );

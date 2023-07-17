@@ -8,6 +8,8 @@ import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { IntlProvider } from "react-intl";
 
+import { selectFilterOption, submitFilters } from "~/utils/jestUtils";
+
 import UserTableFilters from "./UserTableFilterDialog";
 import type { UserTableFiltersProps } from "./UserTableFilterDialog";
 
@@ -28,7 +30,6 @@ const emptyFormValues = {
   classifications: [],
   employmentDuration: [],
   govEmployee: [],
-  jobLookingStatus: [],
   languageAbility: [],
   operationalRequirement: [],
   pools: [],
@@ -62,43 +63,17 @@ function renderButton(props: Partial<UserTableFiltersProps>) {
   });
 }
 
-const openDialog = () => {
-  fireEvent.click(screen.getByRole("button", { name: /filter/i }));
+const openDialog = async () => {
+  fireEvent.click(await screen.getByRole("button", { name: /filter/i }));
 };
 
-const closeDialog = () => {
-  fireEvent.click(screen.getByRole("button", { name: /close dialog/i }));
+const closeDialog = async () => {
+  fireEvent.click(await screen.getByRole("button", { name: /close dialog/i }));
 };
 
-const clearFilters = () => {
-  fireEvent.click(screen.getByRole("button", { name: /clear/i }));
-};
-
-/**
- * Selects first available option from a given SelectField, or a specific option when label provided.
- * @param fieldLabel label of filter to choose option from.
- * @param optionLabel label for dropdown option to select. (optional)
- */
-const selectFilterOption = (
-  fieldLabel: string | RegExp,
-  optionLabel?: string,
-) => {
-  fireEvent.mouseDown(screen.getByRole("combobox", { name: fieldLabel }), {
-    button: 0,
-  });
-  const elem = optionLabel
-    ? screen.getByText(optionLabel)
-    : document.body.querySelector(".react-select__menu");
-  if (elem)
-    fireEvent.keyDown(elem, {
-      keyCode: 13,
-      key: "Enter",
-    });
-};
-
-const submitFilters = async () => {
+const clearFilters = async () => {
   await act(async () => {
-    fireEvent.click(screen.getByRole("button", { name: /show results/i }));
+    fireEvent.click(await screen.getByRole("button", { name: /clear/i }));
   });
 };
 
@@ -108,26 +83,26 @@ beforeEach(() => {
 
 describe("UserTableFilterDialog", () => {
   describe("UserTableFilterDialog.Button", () => {
-    it("modal is hidden by default", () => {
+    it("modal is hidden by default", async () => {
       renderButton({});
-      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+      expect(await screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
-    it("opens modal when clicked", () => {
+    it("opens modal when clicked", async () => {
       renderButton({});
-      openDialog();
-      expect(screen.getByRole("dialog")).toBeVisible();
+      await openDialog();
+      expect(await screen.getByRole("dialog")).toBeVisible();
     });
 
-    it("can be set to start with modal open", () => {
+    it("can be set to start with modal open", async () => {
       renderButton({ isOpenDefault: true });
-      expect(screen.getByRole("dialog")).toBeVisible();
+      expect(await screen.getByRole("dialog")).toBeVisible();
     });
 
-    it("can be closed via X button", () => {
+    it("can be closed via X button", async () => {
       renderButton({ isOpenDefault: true });
-      closeDialog();
-      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+      await closeDialog();
+      expect(await screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
   });
 
@@ -139,16 +114,16 @@ describe("UserTableFilterDialog", () => {
       expect(mockSubmit).toHaveBeenCalledWith(emptyFormValues);
     });
 
-    it("doesn't call submit handler when cleared", () => {
+    it("doesn't call submit handler when cleared", async () => {
       renderButton({ isOpenDefault: true });
-      clearFilters();
+      await clearFilters();
       expect(mockSubmit).not.toHaveBeenCalled();
     });
 
     it("closes the dialog on submission", async () => {
       renderButton({ isOpenDefault: true });
       await submitFilters();
-      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+      expect(await screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
     // This test is prone to going beyond the 5s default timeout.
@@ -159,22 +134,21 @@ describe("UserTableFilterDialog", () => {
         renderButton({ isOpenDefault: true });
 
         // Static filters.
-        selectFilterOption(/languages/i);
-        selectFilterOption(/work preferences/i);
-        selectFilterOption(/work locations/i);
-        selectFilterOption(/duration/i);
-        selectFilterOption(/availability/i);
-        selectFilterOption(/profile complete/i);
-        selectFilterOption(/government employee/i);
-        selectFilterOption(/classifications/i);
-        selectFilterOption(/pools/i);
-        selectFilterOption(/skill filter/i);
+        await selectFilterOption(/languages/i);
+        await selectFilterOption(/work preferences/i);
+        await selectFilterOption(/work locations/i);
+        await selectFilterOption(/duration/i);
+        await selectFilterOption(/profile complete/i);
+        await selectFilterOption(/government employee/i);
+        await selectFilterOption(/classifications/i);
+        await selectFilterOption(/pools/i);
+        await selectFilterOption(/skill filter/i);
 
         await submitFilters();
         expect(mockSubmit).toHaveBeenCalledTimes(1);
 
         const activeFilter = mockSubmit.mock.lastCall[0];
-        expect(Object.keys(activeFilter)).toHaveLength(17);
+        expect(Object.keys(activeFilter)).toHaveLength(16);
         // Static filters.
         expect(activeFilter.workRegion).toHaveLength(1);
         expect(activeFilter.employmentDuration).toHaveLength(1);
@@ -192,12 +166,12 @@ describe("UserTableFilterDialog", () => {
     );
   });
 
-  it("correctly selects work location filter", () => {
+  it("correctly selects work location filter", async () => {
     renderButton({ isOpenDefault: true });
 
-    expect(screen.queryByText("Atlantic")).not.toBeInTheDocument();
-    selectFilterOption(/work locations/i, "Atlantic");
-    expect(screen.getByText("Atlantic")).toBeVisible();
+    expect(await screen.queryByText("Atlantic")).not.toBeInTheDocument();
+    await selectFilterOption(/work locations/i, "Atlantic");
+    expect(await screen.getByText("Atlantic")).toBeVisible();
   });
 
   describe("data persistence", () => {
@@ -212,42 +186,44 @@ describe("UserTableFilterDialog", () => {
 
     it("persists form data when modal submitted and re-opened", async () => {
       renderButton({ isOpenDefault: true });
-      selectFilterOption(/work locations/i, "Atlantic");
+      await selectFilterOption(/work locations/i, "Atlantic");
       await submitFilters();
-      openDialog();
-      expect(screen.getByText("Atlantic")).toBeVisible();
+      await openDialog();
+      expect(await screen.getByText("Atlantic")).toBeVisible();
     });
   });
 
   describe("prior state", () => {
     beforeEach(async () => {
       renderButton({ isOpenDefault: true });
-      selectFilterOption(/work locations/i, "Atlantic");
+      await selectFilterOption(/work locations/i, "Atlantic");
       await submitFilters();
     });
 
     it("clears prior state when cleared and submitted", async () => {
-      openDialog();
-      clearFilters();
+      await openDialog();
+      await clearFilters();
       await submitFilters();
 
-      openDialog();
-      expect(screen.queryByText("Atlantic")).not.toBeInTheDocument();
+      await openDialog();
+      const location = await screen.queryByText("Atlantic");
+      expect(location).not.toBeInTheDocument();
     });
 
     it("keeps prior state when cleared but not submitted", async () => {
-      openDialog();
-      clearFilters();
-      closeDialog();
+      await openDialog();
+      await clearFilters();
+      await closeDialog();
 
-      openDialog();
-      expect(screen.getByText("Atlantic")).toBeVisible();
+      await openDialog();
+      const location = await screen.queryByText("Atlantic");
+      expect(location).toBeInTheDocument();
     });
   });
 
   it("shows correct filters in modal", () => {
     renderButton({ isOpenDefault: true });
-    expect(screen.getAllByRole("combobox")).toHaveLength(10);
+    expect(screen.getAllByRole("combobox")).toHaveLength(9);
   });
 
   describe("enableEducationType prop", () => {
@@ -263,7 +239,7 @@ describe("UserTableFilterDialog", () => {
         isOpenDefault: true,
         enableEducationType: true,
       });
-      expect(screen.getAllByRole("combobox")).toHaveLength(11);
+      expect(screen.getAllByRole("combobox")).toHaveLength(10);
       expect(
         screen.getByRole("combobox", { name: /education/i }),
       ).toBeVisible();
@@ -286,8 +262,8 @@ describe("UserTableFilterDialog", () => {
         isOpenDefault: true,
         enableEducationType: true,
       });
-      selectFilterOption(/education/i);
-      selectFilterOption(/education/i);
+      await selectFilterOption(/education/i);
+      await selectFilterOption(/education/i);
       await submitFilters();
 
       const activeFilter = mockSubmit.mock.lastCall[0];

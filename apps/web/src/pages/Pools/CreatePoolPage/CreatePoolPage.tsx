@@ -14,9 +14,9 @@ import PageHeader from "~/components/PageHeader/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import {
-  CreatePoolAdvertisementInput,
-  useCreatePoolAdvertisementMutation,
-  CreatePoolAdvertisementMutation,
+  CreatePoolInput,
+  useCreatePoolMutation,
+  CreatePoolMutation,
   useGetMePoolCreationQuery,
   Classification,
   Maybe,
@@ -38,8 +38,8 @@ interface CreatePoolFormProps {
   handleCreatePool: (
     userId: string,
     teamId: string,
-    data: CreatePoolAdvertisementInput,
-  ) => Promise<CreatePoolAdvertisementMutation["createPoolAdvertisement"]>;
+    data: CreatePoolInput,
+  ) => Promise<CreatePoolMutation["createPool"]>;
   teamsArray: Team[];
 }
 
@@ -56,9 +56,7 @@ export const CreatePoolForm = ({
   const { handleSubmit } = methods;
 
   // submission section, and navigate to edit the created pool
-  const formValuesToSubmitData = (
-    values: FormValues,
-  ): CreatePoolAdvertisementInput => ({
+  const formValuesToSubmitData = (values: FormValues): CreatePoolInput => ({
     classifications: {
       sync: values.classification,
     },
@@ -124,72 +122,76 @@ export const CreatePoolForm = ({
                 description: "Form header to create new pool",
               })}
             </h2>
-            <p>
+            <p data-h2-margin-bottom="base(x1)">
               {intl.formatMessage({
                 defaultMessage: "Create a new job poster from scratch",
                 id: "QodYZE",
                 description: "Form blurb describing create pool form",
               })}
             </p>
-            <Select
-              id="classification"
-              label={intl.formatMessage({
-                defaultMessage: "Starting group and level",
-                id: "gN5gy5",
-                description:
-                  "Label displayed on the pool form classification field.",
-              })}
-              name="classification"
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a classification",
-                id: "tD99Wf",
-                description:
-                  "Placeholder displayed on the pool form classification field.",
-              })}
-              options={classificationOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Select
-              id="team"
-              label={intl.formatMessage({
-                defaultMessage: "Parent team",
-                id: "mOS8rj",
-                description:
-                  "Label displayed for selecting what team a new pool belongs to.",
-              })}
-              name="team"
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a team",
-                id: "COJ3St",
-                description: "Placeholder displayed for team selection input.",
-              })}
-              options={teamOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Submit
-              color="cta"
-              text={intl.formatMessage({
-                defaultMessage: "Create new pool",
-                id: "TLl20s",
-                description:
-                  "Label displayed on submit button for new pool form.",
-              })}
-            />
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x.5 0)"
+            >
+              <Select
+                id="classification"
+                label={intl.formatMessage({
+                  defaultMessage: "Starting group and level",
+                  id: "gN5gy5",
+                  description:
+                    "Label displayed on the pool form classification field.",
+                })}
+                name="classification"
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a classification",
+                  id: "tD99Wf",
+                  description:
+                    "Placeholder displayed on the pool form classification field.",
+                })}
+                options={classificationOptions}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <Select
+                id="team"
+                label={intl.formatMessage({
+                  defaultMessage: "Parent team",
+                  id: "mOS8rj",
+                  description:
+                    "Label displayed for selecting what team a new pool belongs to.",
+                })}
+                name="team"
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a team",
+                  id: "COJ3St",
+                  description:
+                    "Placeholder displayed for team selection input.",
+                })}
+                options={teamOptions}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <div data-h2-align-self="base(flex-start)">
+                <Submit
+                  color="tertiary"
+                  text={intl.formatMessage({
+                    defaultMessage: "Create new pool",
+                    id: "TLl20s",
+                    description:
+                      "Label displayed on submit button for new pool form.",
+                  })}
+                />
+              </div>
+            </div>
           </form>
         </FormProvider>
       </div>
 
       <div data-h2-margin="base(x2, 0, 0, 0)">
-        <Link
-          type="button"
-          href={paths.poolTable()}
-          mode="outline"
-          color="primary"
-        >
+        <Link href={paths.poolTable()} mode="solid" color="primary">
           {intl.formatMessage({
             defaultMessage: "Cancel and go back",
             id: "dJxNRU",
@@ -230,20 +232,18 @@ const CreatePoolPage = () => {
   const classificationsData = unpackMaybes(lookupData?.classifications);
   const teamsArray = roleAssignmentsToTeams(lookupData?.me?.roleAssignments);
 
-  const [, executeMutation] = useCreatePoolAdvertisementMutation();
+  const [, executeMutation] = useCreatePoolMutation();
   const handleCreatePool = (
     userId: string,
     teamId: string,
-    data: CreatePoolAdvertisementInput,
+    data: CreatePoolInput,
   ) =>
-    executeMutation({ userId, teamId, poolAdvertisement: data }).then(
-      (result) => {
-        if (result.data?.createPoolAdvertisement) {
-          return result.data?.createPoolAdvertisement;
-        }
-        return Promise.reject(result.error);
-      },
-    );
+    executeMutation({ userId, teamId, pool: data }).then((result) => {
+      if (result.data?.createPool) {
+        return result.data?.createPool;
+      }
+      return Promise.reject(result.error);
+    });
 
   const navigationCrumbs = [
     {

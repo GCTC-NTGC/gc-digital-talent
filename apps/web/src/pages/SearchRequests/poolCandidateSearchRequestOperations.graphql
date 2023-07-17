@@ -50,7 +50,7 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
   }
   requestedDate
   status
-  doneDate
+  statusChangedAt
   adminNotes
   applicantFilter {
     id
@@ -116,6 +116,60 @@ query getPoolCandidateSearchRequests {
 query getPoolCandidateSearchRequest($id: ID!) {
   poolCandidateSearchRequest(id: $id) {
     ...poolCandidateSearchRequest
+  }
+}
+
+query getPoolCandidateSearchRequestsPaginated(
+  $where: PoolCandidateSearchRequestInput
+  $first: Int
+  $page: Int
+  $orderBy: [OrderByClause!]
+) {
+  poolCandidateSearchRequestsPaginated(
+    where: $where
+    first: $first
+    page: $page
+    orderBy: $orderBy
+  ) {
+    data {
+      additionalComments
+      adminNotes
+      applicantFilter {
+        id
+        qualifiedClassifications {
+          id
+          group
+          level
+        }
+        qualifiedStreams
+      }
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      email
+      fullName
+      id
+      jobTitle
+      requestedDate
+      status
+      statusChangedAt
+      wasEmpty
+    }
+    paginatorInfo {
+      count
+      currentPage
+      firstItem
+      hasMorePages
+      lastItem
+      lastPage
+      perPage
+      total
+    }
   }
 }
 

@@ -24,6 +24,11 @@ const formMessages = defineMessages({
     id: "mDOWWQ",
     description: "Default text for submitting button.",
   },
+  wordLimit: {
+    defaultMessage: "{wordCount} / {wordLimit} words",
+    id: "YmboX1",
+    description: "Message for words remaining before hitting the limit",
+  },
   wordsOver: {
     defaultMessage:
       "{wordsLeft, plural, one {word over limit} other {words over limit}}.",
@@ -57,8 +62,8 @@ const formMessages = defineMessages({
     description: "Text to check checkbox button",
   },
   resetCombobox: {
-    defaultMessage: "Reset {label}",
-    id: "b3ar1X",
+    defaultMessage: "Clear your selection",
+    id: "U/4a27",
     description: "Button text to reset the combobox input",
   },
   noResultsCombobox: {
@@ -75,6 +80,11 @@ const formMessages = defineMessages({
     defaultMessage: "Cancel and go back",
     id: "fMcKtJ",
     description: "Text to cancel changes to a form",
+  },
+  repeaterSkipTo: {
+    defaultMessage: "Skip to add an item",
+    id: "sJ+F9z",
+    description: "Link text to skip to the add button in a repeater",
   },
   repeaterMove: {
     defaultMessage: "Change order from {from} to {to}",
@@ -115,6 +125,26 @@ const formMessages = defineMessages({
     id: "lsFH+y",
     description:
       "Message shown in options dropdown when Select field has no options.",
+  },
+  phonePlaceholder: {
+    defaultMessage: "+123243234",
+    id: "uNArwM",
+    description: "Placeholder for form telephone field",
+  },
+  byDateDescending: {
+    defaultMessage: "By date (recent first)",
+    id: "yuWHKJ",
+    description: "Select the option to sort by date, descending",
+  },
+  byTitleAscending: {
+    defaultMessage: "By title (alphabetically)",
+    id: "J+0v2z",
+    description: "Select the option to sort by title, ascending",
+  },
+  allTypes: {
+    defaultMessage: "All types",
+    id: "spoY2L",
+    description: "Select the option to sort or filter by all types",
   },
 });
 

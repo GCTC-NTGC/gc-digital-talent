@@ -113,8 +113,8 @@ export const CreateAccountForm = ({
       />
       <Hero
         title={intl.formatMessage({
-          defaultMessage: "Welcome to Digital Talent",
-          id: "0m7BIV",
+          defaultMessage: "Welcome to GC Digital Talent",
+          id: "WVTDgX",
           description:
             "Title for the create account page for applicant profiles.",
         })}
@@ -141,8 +141,8 @@ export const CreateAccountForm = ({
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Welcome to the Digital Talent platform. Moving forward, you can log into your profile using the same GCKey username and password.",
-                id: "qHVR2p",
+                  "Welcome to the GC Digital Talent platform. Moving forward, you can log into your profile using the same GCKey username and password.",
+                id: "cmZ9cx",
                 description:
                   "Message for successful login alert in create account page",
               })}
@@ -180,12 +180,6 @@ export const CreateAccountForm = ({
                     name="firstName"
                     type="text"
                     label={labels.firstName}
-                    placeholder={intl.formatMessage({
-                      defaultMessage: "e.g. Thomas",
-                      id: "H1J8wl",
-                      description:
-                        "Placeholder displayed for the first name field in create account form.",
-                    })}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
@@ -197,12 +191,6 @@ export const CreateAccountForm = ({
                     name="lastName"
                     type="text"
                     label={labels.lastName}
-                    placeholder={intl.formatMessage({
-                      defaultMessage: "e.g. Edison",
-                      id: "X9IdZQ",
-                      description:
-                        "Placeholder displayed for the first name field in create account form.",
-                    })}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
@@ -215,12 +203,6 @@ export const CreateAccountForm = ({
                   type="email"
                   name="email"
                   label={labels.email}
-                  placeholder={intl.formatMessage({
-                    defaultMessage: "e.g. thomas.edison@example.com",
-                    id: "UIkTbl",
-                    description:
-                      "Placeholder displayed for the first name field in create account form.",
-                  })}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
@@ -358,7 +340,7 @@ const CreateAccount = () => {
   // OK to navigate to profile once we have a user ID and an email
   const shouldNavigate = meId && authContext.email;
   const fallbackTarget = applicantDashboard
-    ? paths.dashboard()
+    ? paths.profileAndApplications()
     : paths.profile(meId ?? "");
   const navigationTarget = from || fallbackTarget;
   React.useEffect(() => {

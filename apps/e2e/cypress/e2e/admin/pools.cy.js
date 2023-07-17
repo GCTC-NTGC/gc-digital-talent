@@ -21,8 +21,8 @@ describe("Pools", () => {
    * Check for success toast
    */
   const expectUpdate = () => {
-    cy.wait("@gqlupdatePoolAdvertisementMutation")
-      .its("response.body.data.updatePoolAdvertisement")
+    cy.wait("@gqlupdatePoolMutation")
+      .its("response.body.data.updatePool")
       .should("have.property", "id");
     cy.expectToast(/pool updated successfully/i);
   };
@@ -33,11 +33,11 @@ describe("Pools", () => {
       aliasQuery(req, "getMePoolCreation");
       aliasQuery(req, "getMePools");
       aliasQuery(req, "allPools");
-      aliasMutation(req, "createPoolAdvertisement");
-      aliasMutation(req, "updatePoolAdvertisement");
-      aliasMutation(req, "publishPoolAdvertisement");
-      aliasMutation(req, "closePoolAdvertisement");
-      aliasMutation(req, "deletePoolAdvertisement");
+      aliasMutation(req, "createPool");
+      aliasMutation(req, "updatePool");
+      aliasMutation(req, "publishPool");
+      aliasMutation(req, "closePool");
+      aliasMutation(req, "deletePool");
     });
   });
 
@@ -106,30 +106,32 @@ describe("Pools", () => {
       .and("be.visible");
 
     // Set starting group/level
-    cy.findByRole("combobox", { name: /starting group and level/i })
-      .select("IT-01 (Information Technology)")
-    cy.findByRole("combobox", { name: /starting group and level/i })
-      .within(() => {
+    cy.findByRole("combobox", { name: /starting group and level/i }).select(
+      "IT-01 (Information Technology)",
+    );
+    cy.findByRole("combobox", { name: /starting group and level/i }).within(
+      () => {
         cy.get("option:selected").should(
           "have.text",
           "IT-01 (Information Technology)",
         );
-      });
+      },
+    );
 
     // Set team
-    cy.findByRole("combobox", { name: /parent team/i })
-      .select("Digital Community Management")
-    cy.findByRole("combobox", { name: /parent team/i })
-      .within(() => {
-        cy.get("option:selected").should(
-          "have.text",
-          "Digital Community Management",
-        );
-      });
+    cy.findByRole("combobox", { name: /parent team/i }).select(
+      "Digital Community Management",
+    );
+    cy.findByRole("combobox", { name: /parent team/i }).within(() => {
+      cy.get("option:selected").should(
+        "have.text",
+        "Digital Community Management",
+      );
+    });
 
     // Submit form
     cy.findByRole("button", { name: /create new pool/i }).click();
-    cy.wait("@gqlcreatePoolAdvertisementMutation");
+    cy.wait("@gqlcreatePoolMutation");
     cy.expectToast(/pool created successfully/i);
 
     // Ensure we got to the correct page
@@ -138,66 +140,75 @@ describe("Pools", () => {
       .and("be.visible");
 
     // Update the classification field
-    cy.findByRole("combobox", { name: /classification/i })
-      .select("IT-04 (Information Technology)")
+    cy.findByRole("combobox", { name: /classification/i }).select(
+      "IT-04 (Information Technology)",
+    );
 
-    cy.findByRole("combobox", { name: /classification/i })
-      .within(() => {
-        cy.get("option:selected").should(
-          "have.text",
-          "IT-04 (Information Technology)",
-        );
-      });
+    cy.findByRole("combobox", { name: /classification/i }).within(() => {
+      cy.get("option:selected").should(
+        "have.text",
+        "IT-04 (Information Technology)",
+      );
+    });
 
     const title = "Test Pool";
-    cy.findByRole("textbox", { name: /specific title \(english\)/i })
-      .type(`${title} EN`)
+    cy.findByRole("textbox", { name: /specific title \(english\)/i }).type(
+      `${title} EN`,
+    );
 
-    cy.findByRole("textbox", { name: /specific title \(english\)/i })
-      .should("have.value", `${title} EN`);
+    cy.findByRole("textbox", { name: /specific title \(english\)/i }).should(
+      "have.value",
+      `${title} EN`,
+    );
 
-    cy.findByRole("textbox", { name: /specific title \(french\)/i })
-      .type(`${title} FR`)
+    cy.findByRole("textbox", { name: /specific title \(french\)/i }).type(
+      `${title} FR`,
+    );
 
-    cy.findByRole("textbox", { name: /specific title \(french\)/i })
-      .should("have.value", `${title} FR`);
+    cy.findByRole("textbox", { name: /specific title \(french\)/i }).should(
+      "have.value",
+      `${title} FR`,
+    );
 
     // Submit the form
     cy.findByRole("button", { name: /save pool name/i }).click();
     expectUpdate();
 
     // Update expiry date to some arbitrary date in the future
-    cy.findByLabelText(/end date/i)
-      .clear()
-    cy.findByLabelText(/end date/i)
-      .type("2030-01-01");
+    cy.findByRole("group", { name: /end date/i }).within(() => {
+      cy.findAllByRole("spinbutton", { name: /year/i }).clear()
+      cy.findAllByRole("spinbutton", { name: /year/i }).type("2030");
+      cy.findAllByRole("combobox", { name: /month/i }).select("01");
+      cy.findAllByRole("spinbutton", { name: /day/i }).clear();
+      cy.findAllByRole("spinbutton", { name: /day/i }).type("01");
+    });
 
     cy.findByRole("button", { name: /save closing date/i }).click();
     expectUpdate();
 
     const langRequirement = "Bilingual intermediate";
-    cy.findByRole("combobox", { name: /language requirement/i })
-      .select(langRequirement)
-    cy.findByRole("combobox", { name: /language requirement/i })
-      .within(() => {
-        cy.get("option:selected").should("have.text", langRequirement);
-      });
+    cy.findByRole("combobox", { name: /language requirement/i }).select(
+      langRequirement,
+    );
+    cy.findByRole("combobox", { name: /language requirement/i }).within(() => {
+      cy.get("option:selected").should("have.text", langRequirement);
+    });
 
     const securityRequirement = "Reliability or higher";
-    cy.findByRole("combobox", { name: /security requirement/i })
-      .select(securityRequirement)
-    cy.findByRole("combobox", { name: /security requirement/i })
-      .within(() => {
-        cy.get("option:selected").should("have.text", securityRequirement);
-      });
+    cy.findByRole("combobox", { name: /security requirement/i }).select(
+      securityRequirement,
+    );
+    cy.findByRole("combobox", { name: /security requirement/i }).within(() => {
+      cy.get("option:selected").should("have.text", securityRequirement);
+    });
 
     const publishingGroup = "Other";
-    cy.findByRole("combobox", { name: /publishing group/i })
-      .select(publishingGroup)
-    cy.findByRole("combobox", { name: /publishing group/i })
-      .within(() => {
-        cy.get("option:selected").should("have.text", publishingGroup);
-      });
+    cy.findByRole("combobox", { name: /publishing group/i }).select(
+      publishingGroup,
+    );
+    cy.findByRole("combobox", { name: /publishing group/i }).within(() => {
+      cy.get("option:selected").should("have.text", publishingGroup);
+    });
 
     cy.findByRole("button", { name: /save other requirements/i }).click();
     expectUpdate();
@@ -264,7 +275,7 @@ describe("Pools", () => {
         cy.findByRole("button", { name: /delete/i }).click();
       });
 
-    cy.wait("@gqldeletePoolAdvertisementMutation");
+    cy.wait("@gqldeletePoolMutation");
 
     cy.expectToast(/pool deleted successfully/i);
   });

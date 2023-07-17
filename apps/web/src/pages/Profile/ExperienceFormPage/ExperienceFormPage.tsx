@@ -15,13 +15,14 @@ import {
 import { BasicForm, TextArea } from "@gc-digital-talent/forms";
 import { removeFromSessionStorage } from "@gc-digital-talent/storage";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
   Maybe,
   SkillCategory,
-  PoolAdvertisement,
+  Pool,
   Scalars,
   Skill,
   useGetApplicationQuery,
@@ -65,7 +66,7 @@ export interface ExperienceFormProps {
   applicationId?: string;
   experienceType: ExperienceType;
   experience?: ExperienceQueryData;
-  poolAdvertisement?: PoolAdvertisement;
+  pool?: Pool;
   skills: Skill[];
   onUpdateExperience: (values: ExperienceDetailsSubmissionData) => void;
   deleteExperience: () => void;
@@ -84,12 +85,12 @@ export const ExperienceForm = ({
   skills,
   cacheKey,
   edit,
-  poolAdvertisement,
+  pool,
 }: ExperienceFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const returnPath = `${paths.skillsAndExperiences(userId)}${
+  const returnPath = `${paths.resumeAndRecruitment(userId)}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 
@@ -116,11 +117,7 @@ export const ExperienceForm = ({
 
   let crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
-      label: intl.formatMessage({
-        defaultMessage: "Experience and Skills",
-        id: "P/Mm5G",
-        description: "Display text for My experience and skills Form Page Link",
-      }),
+      label: intl.formatMessage(navigationMessages.resumeAndRecruitment),
       url: returnPath,
     },
     {
@@ -143,11 +140,8 @@ export const ExperienceForm = ({
 
   let irrelevantSkills: Maybe<Skill[]> = [];
 
-  if (poolAdvertisement) {
-    const advertisementTitle = getFullPoolAdvertisementTitleHtml(
-      intl,
-      poolAdvertisement,
-    );
+  if (pool) {
+    const poolTitle = getFullPoolTitleHtml(intl, pool);
 
     crumbs = [
       {
@@ -159,18 +153,18 @@ export const ExperienceForm = ({
         url: paths.applications(userId),
       },
       {
-        label: advertisementTitle,
-        url: paths.pool(poolAdvertisement.id),
+        label: poolTitle,
+        url: paths.pool(pool.id),
       },
       ...crumbs,
     ];
 
     irrelevantSkills = experience?.skills?.filter((skill) => {
       return (
-        !poolAdvertisement.essentialSkills?.find(
+        !pool.essentialSkills?.find(
           (essentialSkill) => essentialSkill.id === skill.id,
         ) &&
-        !poolAdvertisement.nonessentialSkills?.find(
+        !pool.nonessentialSkills?.find(
           (assetSkill) => assetSkill.id === skill.id,
         )
       );
@@ -243,7 +237,7 @@ export const ExperienceForm = ({
   return (
     <ProfileFormWrapper
       title={pageTitle()}
-      prefixBreadcrumbs={!poolAdvertisement}
+      prefixBreadcrumbs={!pool}
       crumbs={crumbs}
     >
       <BasicForm
@@ -265,24 +259,21 @@ export const ExperienceForm = ({
           <PersonalFormFields labels={labels} />
         )}
         {experienceType === "work" && <WorkFormFields labels={labels} />}
-        <ExperienceSkills
-          skills={skills}
-          poolAdvertisement={poolAdvertisement}
-        />
+        <ExperienceSkills skills={skills} pool={pool} />
         <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x3, 0, x1, 0)">
           {intl.formatMessage({
-            defaultMessage: "4. Additional information for this experience",
-            id: "Rgh/Qb",
+            defaultMessage: "4. Highlight additional details",
+            id: "E1BnhC",
             description: "Title for addition information on Experience form",
           })}
         </h2>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {intl.formatMessage({
             defaultMessage:
-              "Anything else about this experience you would like to share.",
-            id: "h1wsiL",
+              "Optionally describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important.",
+            id: "KteuZ5",
             description:
-              "Description blurb for additional information on Experience form",
+              "Help text for the experience additional details field",
           })}
         </p>
         <TextArea id="details" label={labels.details} name="details" />
@@ -291,7 +282,6 @@ export const ExperienceForm = ({
             <AlertDialog.Trigger>
               <Button
                 type="button"
-                mode="outline"
                 color="error"
                 data-h2-margin="base(x2, 0, 0, 0)"
               >
@@ -324,7 +314,7 @@ export const ExperienceForm = ({
               </AlertDialog.Description>
               <AlertDialog.Footer>
                 <AlertDialog.Cancel>
-                  <Button type="button" mode="outline" color="secondary">
+                  <Button type="button" color="secondary">
                     {intl.formatMessage({
                       defaultMessage: "Cancel",
                       id: "KnE2Rk",
@@ -382,7 +372,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const { userId, experienceType, experienceId } = useParams<RouteParams>();
   const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
-  const returnPath = `${paths.skillsAndExperiences(userId || "")}${
+  const returnPath = `${paths.resumeAndRecruitment(userId || "")}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 
@@ -518,9 +508,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
       {skillsData && found ? (
         <ExperienceForm
           userId={userId || ""}
-          poolAdvertisement={
-            applicationData?.poolCandidate?.poolAdvertisement || undefined
-          }
+          pool={applicationData?.poolCandidate?.pool || undefined}
           experienceId={experienceId || ""}
           applicationId={applicationId || undefined}
           experience={experience as ExperienceQueryData}

@@ -6,7 +6,7 @@ const extendedTimeout = 60000;
 export default defineConfig({
   defaultCommandTimeout: process.env.CYPRESS_EXTEND_TIMEOUTS
     ? extendedTimeout
-    : 8000,
+    : 20000,
   pageLoadTimeout: process.env.CYPRESS_EXTEND_TIMEOUTS
     ? extendedTimeout
     : 60000,
@@ -32,7 +32,6 @@ export default defineConfig({
       on("task", verifyDownloadTasks);
       return require("./cypress/plugins/index.js")(on, config);
     },
-    experimentalSessionAndOrigin: true,
     excludeSpecPattern: "**/examples/*.spec.js",
     baseUrl: "http://localhost:8000",
   },

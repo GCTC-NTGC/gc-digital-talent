@@ -36,32 +36,29 @@ class UserTest extends TestCase
         $this->seed(ClassificationSeeder::class);
         $this->seed(RolePermissionSeeder::class);
 
-        $this->platformAdmin = User::factory()->create([
-            'email' => 'admin@test.com',
-            'sub' => 'admin@test.com',
-            'legacy_roles' => ['ADMIN'],
+        $this->platformAdmin = User::factory()
+            ->asAdmin()
+            ->create([
+                'email' => 'admin@test.com',
+                'sub' => 'admin@test.com',
+                'legacy_roles' => ['ADMIN'],
 
-            // The following properties make sure this user doesn't match certain test queries, skewing results.
-            'looking_for_english' => null,
-            'looking_for_french' => null,
-            'looking_for_bilingual' => null,
-            'expected_salary' => [],
-            'job_looking_status' => null,
-            'accepted_operational_requirements' => null,
-            'location_preferences' => [],
-            'has_diploma' => false,
-            'position_duration' => [],
-            'job_looking_status' => null,
-            'is_gov_employee' => false,
-            'telephone' => null,
-            'first_name' => null,
-            'last_name' => null,
-        ]);
-        $this->platformAdmin->syncRoles([
-            "guest",
-            "base_user",
-            "platform_admin"
-        ]);
+                // The following properties make sure this user doesn't match certain test queries, skewing results.
+                'looking_for_english' => null,
+                'looking_for_french' => null,
+                'looking_for_bilingual' => null,
+                'expected_salary' => [],
+                'job_looking_status' => null,
+                'accepted_operational_requirements' => null,
+                'location_preferences' => [],
+                'has_diploma' => false,
+                'position_duration' => [],
+                'job_looking_status' => null,
+                'is_gov_employee' => false,
+                'telephone' => null,
+                'first_name' => null,
+                'last_name' => null,
+            ]);
     }
 
     public function testCreateUserDefaultRoles()
@@ -541,7 +538,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 23
+                        'total' => 21 // 1 user from the pool factories + 20 from the pool candidate factories
                     ]
                 ]
             ]

@@ -4,9 +4,11 @@ import { useIntl } from "react-intl";
 import { Button, Heading, Separator } from "@gc-digital-talent/ui";
 
 import { SimpleClassification } from "~/types/pool";
-import SearchPools, { type SearchPoolsProps } from "./SearchPools";
+import SearchResultCard, {
+  type SearchResultCardProps,
+} from "./SearchResultCard";
 
-type CandidateResultsProps = SearchPoolsProps;
+type CandidateResultsProps = SearchResultCardProps;
 
 const CandidateResults = ({
   candidateCount,
@@ -23,7 +25,7 @@ const CandidateResults = ({
       data-h2-margin="base(x.5, 0, 0, 0)"
       data-h2-radius="base(0, s, s, 0)"
     >
-      <SearchPools
+      <SearchResultCard
         candidateCount={candidateCount}
         pool={pool}
         handleSubmit={handleSubmit}
@@ -81,7 +83,6 @@ const CandidateResults = ({
 
       <Button
         color="secondary"
-        mode="outline"
         onClick={() =>
           handleSubmit(
             candidateCount,
@@ -91,8 +92,8 @@ const CandidateResults = ({
         }
       >
         {intl.formatMessage({
-          defaultMessage: "Request Candidates",
-          id: "6mDW+R",
+          defaultMessage: "Request candidates",
+          id: "3BfvIy",
           description:
             "Button link message on search page that takes user to the request form.",
         })}

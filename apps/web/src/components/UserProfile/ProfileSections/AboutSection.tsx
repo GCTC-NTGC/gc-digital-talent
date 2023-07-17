@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getProvinceOrTerritory,
@@ -11,15 +11,15 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import type { Applicant } from "~/api/generated";
+import type { User } from "~/api/generated";
 import { hasEmptyRequiredFields } from "~/validators/profile/about";
 
 interface AboutSectionProps {
-  applicant: Applicant;
+  user: User;
   editPath?: string;
 }
 
-const AboutSection = ({ editPath, applicant }: AboutSectionProps) => {
+const AboutSection = ({ editPath, user }: AboutSectionProps) => {
   const intl = useIntl();
   const {
     firstName,
@@ -33,7 +33,7 @@ const AboutSection = ({ editPath, applicant }: AboutSectionProps) => {
     currentProvince,
     citizenship,
     armedForcesStatus,
-  } = applicant;
+  } = user;
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
@@ -78,12 +78,14 @@ const AboutSection = ({ editPath, applicant }: AboutSectionProps) => {
                 })}
               </span>
               {telephone ? (
-                <a
+                <Link
+                  external
+                  color="black"
                   href={`tel:${telephone}`}
                   aria-label={telephone.replace(/.{1}/g, "$& ")}
                 >
                   <span data-h2-font-weight="base(700)">{telephone}</span>
-                </a>
+                </Link>
               ) : (
                 ""
               )}
@@ -205,20 +207,20 @@ const AboutSection = ({ editPath, applicant }: AboutSectionProps) => {
           ""
         )}
       </div>
-      {hasEmptyRequiredFields(applicant) && (
+      {hasEmptyRequiredFields(user) && (
         <div data-h2-margin="base(x1, 0, 0, 0)">
           <p>
             {editPath && (
               <>
                 {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-                <a href={editPath}>
+                <Link href={editPath}>
                   {intl.formatMessage({
                     defaultMessage: "Edit your about me options.",
                     id: "L9AGk7",
                     description:
                       "Link text to edit about me section on profile.",
                   })}
-                </a>
+                </Link>
               </>
             )}
             {!editPath && (

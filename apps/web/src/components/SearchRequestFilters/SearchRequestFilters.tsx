@@ -1,5 +1,3 @@
-import uniqueId from "lodash/uniqueId";
-import isEmpty from "lodash/isEmpty";
 import * as React from "react";
 import { useIntl } from "react-intl";
 
@@ -15,7 +13,7 @@ import {
   getPoolStream,
 } from "@gc-digital-talent/i18n";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import {
   ApplicantFilter,
@@ -25,96 +23,9 @@ import {
   PoolCandidateFilter,
   PositionDuration,
 } from "~/api/generated";
+import FilterBlock from "./FilterBlock";
 
 export type SimpleClassification = Pick<Classification, "group" | "level">;
-
-export interface FilterBlockProps {
-  title: string;
-  content?: Maybe<string | React.ReactNode> | Maybe<string[]>;
-  children?: React.ReactNode;
-}
-
-const FilterBlock = ({ title, content, children }: FilterBlockProps) => {
-  const intl = useIntl();
-
-  const emptyArrayOutput = (
-    input: string | React.ReactNode | string[] | null | undefined,
-  ) => {
-    return input && !isEmpty(input) ? (
-      <p data-h2-display="base(inline)" data-h2-color="base(black)">
-        {input}
-      </p>
-    ) : (
-      <ul data-h2-color="base(black)">
-        <li>
-          {intl.formatMessage({
-            defaultMessage: "(None selected)",
-            id: "+O6J4u",
-            description: "Text shown when the filter was not selected",
-          })}
-        </li>
-      </ul>
-    );
-  };
-
-  return (
-    <div data-h2-padding="base(0, 0, x1, 0)">
-      <div data-h2-visually-hidden="base(visible) p-tablet(hidden)">
-        <p
-          data-h2-display="base(inline)"
-          data-h2-padding="base(0, x.125, 0, 0)"
-          data-h2-font-weight="base(600)"
-        >
-          {title}:
-        </p>
-        {content !== undefined && (
-          <span>
-            {content instanceof Array && content.length > 0 ? (
-              <p data-h2-display="base(inline)" data-h2-color="base(black)">
-                {content.map((text): string => text).join(", ")}
-              </p>
-            ) : (
-              <p data-h2-display="base(inline)" data-h2-color="base(black)">
-                {content && !isEmpty(content)
-                  ? content
-                  : intl.formatMessage({
-                      defaultMessage: "N/A",
-                      id: "i9AjuX",
-                      description:
-                        "Text shown when the filter was not selected",
-                    })}
-              </p>
-            )}
-          </span>
-        )}
-        {children && children}
-      </div>
-      <div data-h2-visually-hidden="base(hidden) p-tablet(visible)">
-        <p
-          data-h2-display="base(block)"
-          data-h2-padding="base(0, x.125, 0, 0)"
-          data-h2-font-weight="base(600)"
-        >
-          {title}
-        </p>
-        {content !== undefined && (
-          <span>
-            {content instanceof Array && content.length > 0 ? (
-              <ul data-h2-color="base(black)">
-                {content.map((text) => (
-                  <li key={uniqueId()}>{text}</li>
-                ))}
-              </ul>
-            ) : (
-              emptyArrayOutput(content)
-            )}
-          </span>
-        )}
-        {children && children}
-      </div>
-    </div>
-  );
-};
 
 const ApplicantFilters = ({
   applicantFilter,
@@ -266,7 +177,7 @@ const ApplicantFilters = ({
             content={
               applicantFilter
                 ? applicantFilter?.pools?.map((pool) =>
-                    getFullPoolAdvertisementTitleHtml(intl, pool),
+                    getFullPoolTitleHtml(intl, pool),
                   )
                 : null
             }
@@ -531,9 +442,7 @@ const SearchRequestFilters = ({
               })}
               content={
                 pools
-                  ? pools.map((pool) =>
-                      getFullPoolAdvertisementTitleHtml(intl, pool),
-                    )
+                  ? pools.map((pool) => getFullPoolTitleHtml(intl, pool))
                   : null
               }
             />

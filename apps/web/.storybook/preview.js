@@ -2,8 +2,6 @@ import {
   INITIAL_VIEWPORTS,
   MINIMAL_VIEWPORTS,
 } from "@storybook/addon-viewport";
-import { setIntlConfig, withIntl } from "storybook-addon-intl";
-
 import {
   HelmetDecorator,
   MockGraphqlDecorator,
@@ -20,6 +18,16 @@ import frCompiled from "../src/lang/frCompiled.json";
 import "../src/assets/css/hydrogen.css";
 import "../src/assets/css/app.css";
 
+const messages = {
+  en: null,
+  fr: {
+    ...frCompiled,
+    ...frCommonCompiled,
+  },
+};
+
+const getMessages = (locale) => messages[locale];
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   backgrounds: {
@@ -33,6 +41,12 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  intl: {
+    locales: ["en", "fr"],
+    defaultLocale: "en",
+    getMessages,
+    defaultRichTextElements,
+  },
   viewport: {
     // for possible values: https://github.com/storybookjs/storybook/blob/master/addons/viewport/src/defaults.ts
     viewports: {
@@ -42,20 +56,6 @@ export const parameters = {
   },
 };
 
-const messages = {
-  en: null,
-  fr: {
-    ...frCompiled,
-    ...frCommonCompiled,
-  },
-};
-setIntlConfig({
-  locales: ["en", "fr"],
-  defaultLocale: "en",
-  getMessages: (locale) => messages[locale],
-  defaultRichTextElements,
-});
-
 export const globalTypes = {
   themeKey,
   themeMode,
@@ -64,7 +64,6 @@ export const globalTypes = {
 export const decorators = [
   HelmetDecorator,
   MockGraphqlDecorator,
-  withIntl,
   ThemeDecorator,
   RouterDecorator,
   (Story) => (

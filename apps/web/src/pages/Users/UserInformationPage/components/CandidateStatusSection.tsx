@@ -1,14 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Heading, Well } from "@gc-digital-talent/ui";
+import { Heading } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
-import { JobLookingStatus } from "~/api/generated";
+import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 
 import { UserInformationProps } from "../types";
 import AddToPoolDialog from "./AddToPoolDialog";
-import PoolStatusTable from "./PoolStatusSection";
 
 const CandidateStatusSection = ({ user, pools }: UserInformationProps) => {
   const intl = useIntl();
@@ -21,40 +20,6 @@ const CandidateStatusSection = ({ user, pools }: UserInformationProps) => {
 
   return (
     <>
-      <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
-        {intl.formatMessage({
-          defaultMessage: "Personal status",
-          id: "4N6O+3",
-          description:
-            "Title of the 'Personal status' section of the view-user page",
-        })}
-      </Heading>
-      <Well>
-        {user.jobLookingStatus === JobLookingStatus.ActivelyLooking &&
-          intl.formatMessage({
-            defaultMessage:
-              "<heavyPrimary>Active</heavyPrimary> - Wants to be contacted for job opportunities",
-            id: "uv0RmD",
-            description:
-              "Text in view user page saying they currently have the 'Active' status",
-          })}
-        {user.jobLookingStatus === JobLookingStatus.OpenToOpportunities &&
-          intl.formatMessage({
-            defaultMessage:
-              "<heavyPrimary>Open to opportunities</heavyPrimary> - Not actively looking but still wants to be contacted for job opportunities",
-            id: "BqQrcn",
-            description:
-              "Text in view user page saying they currently have the 'Open to opportunities' status",
-          })}
-        {user.jobLookingStatus === JobLookingStatus.Inactive &&
-          intl.formatMessage({
-            defaultMessage:
-              "<heavyPrimary>Inactive</heavyPrimary> - Does not want to be contacted for job opportunities",
-            id: "4pAtT5",
-            description:
-              "Text in view user page saying they currently have the 'Inactive' status",
-          })}
-      </Well>
       <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage: "Pool status",

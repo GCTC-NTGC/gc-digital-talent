@@ -8,7 +8,6 @@ import {
   getLanguageAbility,
   getOperationalRequirement,
   getEducationType,
-  getJobLookingStatus,
   EmploymentDuration,
   OperationalRequirementV2,
   getEmploymentEquityGroup,
@@ -23,12 +22,11 @@ import {
 import { enumToOptions } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { getFullPoolAdvertisementTitleLabel } from "~/utils/poolUtils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import {
   PoolStream,
   WorkRegion,
   EducationType,
-  JobLookingStatus,
   LanguageAbility,
   PoolCandidateStatus,
   useGetFilterDataQuery,
@@ -65,7 +63,7 @@ export default function useFilterOptions(enableEducationType = false) {
   const optionsData = {
     pools: filterRes.data?.pools.filter(notEmpty).map((pool) => ({
       value: pool.id,
-      label: getFullPoolAdvertisementTitleLabel(intl, pool),
+      label: getFullPoolTitleLabel(intl, pool),
     })),
     languageAbility: enumToOptions(LanguageAbility).map(({ value }) => ({
       value,
@@ -101,10 +99,6 @@ export default function useFilterOptions(enableEducationType = false) {
     employmentDuration: enumToOptions(EmploymentDuration).map(({ value }) => ({
       value,
       label: intl.formatMessage(getEmploymentDuration(value, "short")),
-    })),
-    jobLookingStatus: enumToOptions(JobLookingStatus).map(({ value }) => ({
-      value,
-      label: intl.formatMessage(getJobLookingStatus(value, "short")),
     })),
     skills: filterRes.data?.skills.filter(notEmpty).map(({ id, name }) => ({
       value: id,

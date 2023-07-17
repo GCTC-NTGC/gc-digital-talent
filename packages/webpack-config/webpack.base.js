@@ -10,7 +10,7 @@ const shell = require("shelljs");
 const fs = require("fs");
 
 const meta = {
-  title: "GC Digital Talent | Talent numérique du GC",
+  title: "GC Digital Talent | Talents numériques du GC",
   description:
     "Recruitment platform for digital jobs in the Government of Canada. Plateforme de recrutement pour les emplois numériques au gouvernement du Canada.",
   url: "https://talent.canada.ca/",
@@ -47,9 +47,6 @@ module.exports = (basePath) => {
       new DefinePlugin({
         "process.env": {
           API_URI: JSON.stringify(process.env.API_URI),
-          TALENTSEARCH_APP_URL: JSON.stringify(
-            process.env.TALENTSEARCH_APP_URL,
-          ),
           TALENTSEARCH_APP_DIR: JSON.stringify(
             process.env.TALENTSEARCH_APP_DIR,
           ),
@@ -136,8 +133,8 @@ module.exports = (basePath) => {
           test: /\.(pdf|doc|docx)$/i,
           type: "asset/resource",
           generator: {
-            filename: 'documents/[name][ext]'
-          }
+            filename: "documents/[name][ext]",
+          },
         },
       ],
     },

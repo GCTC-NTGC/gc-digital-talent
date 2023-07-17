@@ -5,8 +5,31 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
       id
       firstName
       lastName
+      poolCandidates {
+        id
+        status
+        expiryDate
+        notes
+        user {
+          id
+        }
+        pool {
+          id
+          name {
+            en
+            fr
+          }
+          classifications {
+            id
+            group
+            level
+          }
+          stream
+        }
+      }
     }
     profileSnapshot
+    signature
     submittedAt
     pool {
       id
@@ -20,7 +43,70 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
         group
         level
       }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        families {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+      }
+      nonessentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        families {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+      }
+      screeningQuestions {
+        id
+        question {
+          en
+          fr
+        }
+      }
     }
+  }
+  pools {
+    id
+    name {
+      en
+      fr
+    }
+    stream
+    classifications {
+      id
+      group
+      level
+    }
+    status
   }
 }
 

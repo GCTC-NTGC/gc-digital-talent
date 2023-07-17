@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakeUsers } from "@gc-digital-talent/fake-data";
@@ -62,6 +62,8 @@ const columns: ColumnsOf<Data> = [
   {
     label: "Edit",
     id: "edit",
+    // This is just a story
+    // eslint-disable-next-line react/forbid-elements
     accessor: () => <a href="/#">Edit</a>,
   },
 ];
@@ -84,11 +86,11 @@ export default {
   parameters: {
     themeKey: "admin",
   },
-} as Meta<ApiManageTableProps>;
+};
 
 const allColumnIds = columns.map((c) => c.id);
 
-const Template: Story<ApiManageTableProps> = (args) => {
+const Template: StoryFn<ApiManageTableProps> = (args) => {
   const { header } = args;
   const [sortingRule, setSortingRule] = React.useState<SortingRule<Data>>();
   const [hiddenColumnIds, setHiddenColumnIds] = React.useState<IdType<Data>[]>(
@@ -115,11 +117,7 @@ const Template: Story<ApiManageTableProps> = (args) => {
         columns={columns}
         hiddenColumnIds={hiddenColumnIds}
         filterComponent={
-          <Button
-            color="secondary"
-            mode="outline"
-            onClick={() => action("onOpenFilters")()}
-          >
+          <Button color="secondary" onClick={() => action("onOpenFilters")()}>
             Filters
           </Button>
         }

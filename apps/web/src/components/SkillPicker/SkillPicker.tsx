@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-elements */
 import React, { useId } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -9,10 +10,11 @@ import {
   Separator,
   ScrollArea,
 } from "@gc-digital-talent/ui";
-import { InputLabel } from "@gc-digital-talent/forms";
+import { Field } from "@gc-digital-talent/forms";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { Scalars, Skill, SkillFamily } from "~/api/generated";
+import useAriaLive from "~/hooks/useAriaLive";
 import {
   filterSkillsByNameOrKeywords,
   invertSkillSkillFamilyTree,
@@ -51,13 +53,17 @@ const SkillPicker = ({
   const Heading = headingLevel;
   const [validData, setValidData] = React.useState<FormValues>(defaultValues);
   const methods = useForm<FormValues>({
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues,
   });
-  const { watch } = methods;
+  const {
+    watch,
+    formState: { isDirty },
+  } = methods;
   const staticId = useId();
   const skipToHeadingId = `selected-skills-heading-${skillType || staticId}`;
   const queryInputId = `query-${skillType || staticId}`;
+  const ariaLive = useAriaLive("polite", isDirty);
 
   React.useEffect(() => {
     const subscription = watch(({ query, skillFamily }) => {
@@ -117,15 +123,13 @@ const SkillPicker = ({
 
   return (
     <FormProvider {...methods}>
-      <InputLabel
-        required={false}
-        inputId={queryInputId}
-        label={intl.formatMessage({
+      <Field.Label required={false} htmlFor={queryInputId}>
+        {intl.formatMessage({
           defaultMessage: "Search skills by keyword",
           id: "ARqO1j",
           description: "Label for the skills search bar.",
         })}
-      />
+      </Field.Label>
       <div data-h2-display="base(flex)" data-h2-margin="base(x.25, 0, 0, 0)">
         <FamilyPicker
           onSelectFamily={handleCheckFamily}
@@ -152,7 +156,7 @@ const SkillPicker = ({
       </div>
 
       <p
-        aria-live="polite"
+        aria-live={ariaLive}
         aria-atomic="true"
         data-h2-font-size="base(copy, 1)"
         data-h2-font-weight="base(700)"

@@ -3,6 +3,21 @@ import path from "path-browserify";
 import { useLocale, Locales } from "@gc-digital-talent/i18n";
 
 import { ExperienceType } from "~/types/experience";
+import { PageSectionId as UserProfilePageSectionId } from "~/components/UserProfile/constants";
+import { PageSectionId as ResumeAndRecruitmentPageSectionId } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
+
+export const FromIapDraftQueryKey = "fromIapDraft";
+export const FromIapSuccessQueryKey = "fromIapSuccess";
+
+const createSearchQuery = (parameters: Map<string, string>): string => {
+  if (parameters.size === 0) return "";
+
+  const keyValuePairStrings = Array.from(
+    parameters,
+    ([key, value]) => `${key}=${value}`,
+  );
+  return `?${keyValuePairStrings.join("&")}`;
+};
 
 const getRoutes = (lang: Locales) => {
   const baseUrl = path.join("/", lang);
@@ -31,7 +46,7 @@ const getRoutes = (lang: Locales) => {
     `${path.join(
       userUrl(userId),
       "profile",
-      "experiences",
+      "resume-and-recruitment",
       type,
       "create",
     )}${applicationParam(applicationId)}`;
@@ -159,12 +174,14 @@ const getRoutes = (lang: Locales) => {
     // Applications
     applications: (userId: string) =>
       path.join(userUrl(userId), "applications"),
-    signAndSubmit: (applicationId: string) =>
-      path.join(baseUrl, "browse", "applications", applicationId, "submit"),
-    reviewApplication: (applicationId: string) =>
-      path.join(baseUrl, "browse", "applications", applicationId, "apply"),
+    application: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId),
+
+    // Application
     applicationWelcome: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "welcome"),
+    applicationSelfDeclaration: (applicationId: string) =>
+      path.join(baseUrl, "applications", applicationId, "self-declaration"),
     applicationProfile: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "profile"),
     applicationResume: (applicationId: string) =>
@@ -209,7 +226,10 @@ const getRoutes = (lang: Locales) => {
       path.join(baseUrl, "applications", applicationId, "success"),
 
     // Profile Routes
-    profile: (userId: string) => path.join(userUrl(userId), "profile"),
+    profile: (userId: string, section?: UserProfilePageSectionId) => {
+      const fragment = section ? `#${section}` : "";
+      return path.join(userUrl(userId), "profile") + fragment;
+    },
     myProfile: () => path.join(baseUrl, "users", "me"),
     aboutMe: (userId: string, applicationId?: string) =>
       userEditUrl("about-me", userId, applicationId),
@@ -226,13 +246,21 @@ const getRoutes = (lang: Locales) => {
     diversityEquityInclusion: (userId: string, applicationId?: string) =>
       userEditUrl("employment-equity", userId, applicationId),
 
-    // Experience & Skills Routes
-    skillsAndExperiences: (userId: string, applicationId?: string) =>
-      `${path.join(
+    // Résumé and recruitment Routes
+    resumeAndRecruitment: (
+      userId: string,
+      opts?: {
+        applicationId?: string;
+        section?: ResumeAndRecruitmentPageSectionId;
+      },
+    ) => {
+      const fragment = opts?.section ? `#${opts.section}` : "";
+      return `${path.join(
         userUrl(userId),
         "profile",
-        "experiences",
-      )}${applicationParam(applicationId)}`,
+        "resume-and-recruitment",
+      )}${applicationParam(opts?.applicationId)}${fragment}`;
+    },
     editExperience: (
       userId: string,
       type: ExperienceType,
@@ -241,7 +269,7 @@ const getRoutes = (lang: Locales) => {
       path.join(
         userUrl(userId),
         "profile",
-        "experiences",
+        "resume-and-recruitment",
         type,
         experienceId,
         "edit",
@@ -257,8 +285,21 @@ const getRoutes = (lang: Locales) => {
     createWork: (userId: string, applicationId?: string) =>
       createExperienceUrl("work", userId, applicationId),
 
-    // Applicant Dashboard
-    dashboard: () => path.join(applicantUrl, "dashboard"),
+    // Profile and Applications
+    profileAndApplications: (opts?: {
+      fromIapDraft?: boolean;
+      fromIapSuccess?: boolean;
+    }) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.fromIapDraft) searchParams.set(FromIapDraftQueryKey, "true");
+      if (opts?.fromIapSuccess)
+        searchParams.set(FromIapSuccessQueryKey, "true");
+
+      return (
+        path.join(applicantUrl, "profile-and-applications") +
+        createSearchQuery(searchParams)
+      );
+    },
 
     /**
      * Deprecated

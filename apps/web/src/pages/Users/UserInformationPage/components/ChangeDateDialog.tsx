@@ -4,14 +4,15 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Input } from "@gc-digital-talent/forms";
+import { DateInput } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
+import { emptyToNull } from "@gc-digital-talent/helpers";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import {
-  Applicant,
+  User,
   PoolCandidate,
   UpdatePoolCandidateAsAdminInput,
   useUpdatePoolCandidateMutation,
@@ -23,7 +24,7 @@ type FormValues = {
 
 export interface ChangeDateDialogProps {
   selectedCandidate: PoolCandidate;
-  user: Applicant;
+  user: User;
 }
 
 const ChangeDateDialog = ({
@@ -51,7 +52,7 @@ const ChangeDateDialog = ({
     formValues: FormValues,
   ) => {
     await requestMutation(selectedCandidate.id, {
-      expiryDate: formValues.expiryDate,
+      expiryDate: formValues.expiryDate || emptyToNull(formValues.expiryDate),
     })
       .then(() => {
         toast.success(
@@ -82,7 +83,13 @@ const ChangeDateDialog = ({
       <Dialog.Trigger>
         <Button color="black" mode="inline" data-h2-padding="base(0)">
           <span data-h2-text-decoration="base(underline)">
-            {selectedCandidate?.expiryDate}
+            {selectedCandidate?.expiryDate
+              ? selectedCandidate.expiryDate
+              : intl.formatMessage({
+                  defaultMessage: "Change date",
+                  id: "DspBFX",
+                  description: "Command to change a date",
+                })}
           </span>
         </Button>
       </Dialog.Trigger>
@@ -117,7 +124,7 @@ const ChangeDateDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(800)">
-            - {getFullPoolAdvertisementTitleHtml(intl, selectedCandidate.pool)}
+            - {getFullPoolTitleHtml(intl, selectedCandidate.pool)}
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
@@ -131,18 +138,16 @@ const ChangeDateDialog = ({
                 })}
               </p>
               <div data-h2-margin="base(x.5, 0, x.125, 0)">
-                <Input
+                <DateInput
                   id="changeDateDialog-expiryDate"
-                  label={intl.formatMessage({
+                  legend={intl.formatMessage({
                     defaultMessage: "Expiry date",
                     id: "WAO4vD",
                     description:
                       "Label displayed on the date field of the change candidate expiry date dialog",
                   })}
-                  type="date"
                   name="expiryDate"
                   rules={{
-                    required: intl.formatMessage(errorMessages.required),
                     min: {
                       value: currentDate(),
                       message: intl.formatMessage(errorMessages.futureDate),
@@ -152,7 +157,7 @@ const ChangeDateDialog = ({
               </div>
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button type="button" mode="outline" color="secondary">
+                  <Button type="button" color="secondary">
                     <span data-h2-text-decoration="base(underline)">
                       {intl.formatMessage({
                         defaultMessage: "Cancel and go back",
@@ -177,9 +182,8 @@ const ChangeDateDialog = ({
                     <span data-h2-text-decoration="base(underline)">
                       {intl.formatMessage({
                         defaultMessage: "Change date",
-                        id: "gvomlw",
-                        description:
-                          "Confirmation button for change expiry date dialog",
+                        id: "DspBFX",
+                        description: "Command to change a date",
                       })}
                     </span>
                   )}

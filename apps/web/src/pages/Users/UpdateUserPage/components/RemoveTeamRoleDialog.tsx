@@ -87,7 +87,7 @@ const RemoveTeamRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="black" mode="outline">
+        <Button color="black">
           <TrashIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
           <span data-h2-visually-hidden="base(hidden)">{label}</span>
         </Button>
@@ -129,7 +129,7 @@ const RemoveTeamRoleDialog = ({
           </p>
           <p data-h2-margin="base(x1, 0)">
             {roles.map((r) => (
-              <Pill mode="solid" color="blue" key={r.id}>
+              <Pill mode="solid" color="secondary" key={r.id}>
                 {roleDisplayName(r)}
               </Pill>
             ))}
@@ -144,7 +144,7 @@ const RemoveTeamRoleDialog = ({
           </p>
           <Dialog.Footer>
             <Dialog.Close>
-              <Button mode="outline" color="secondary">
+              <Button color="secondary">
                 {intl.formatMessage({
                   defaultMessage: "Cancel and go back",
                   id: "tiF/jI",
@@ -154,7 +154,7 @@ const RemoveTeamRoleDialog = ({
             </Dialog.Close>
             <Button
               mode="solid"
-              color="red"
+              color="error"
               onClick={handleRemove}
               disabled={isDeleting}
             >

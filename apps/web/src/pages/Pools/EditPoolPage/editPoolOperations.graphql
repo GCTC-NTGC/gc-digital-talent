@@ -1,15 +1,15 @@
 # query to populated the edit pool page
 query getEditPoolData($poolId: UUID!) {
   # the existing data of the pool to edit
-  poolAdvertisement(id: $poolId) {
+  pool(id: $poolId) {
     id
     name {
       en
       fr
     }
     closingDate
-    advertisementStatus
-    advertisementLanguage
+    status
+    language
     securityClearance
     classifications {
       id
@@ -79,7 +79,7 @@ query getEditPoolData($poolId: UUID!) {
       }
     }
     isRemote
-    advertisementLocation {
+    location {
       en
       fr
     }
@@ -92,6 +92,10 @@ query getEditPoolData($poolId: UUID!) {
         en
         fr
       }
+    }
+    team {
+      id
+      name
     }
   }
 
@@ -138,17 +142,14 @@ query getEditPoolData($poolId: UUID!) {
   }
 }
 
-mutation updatePoolAdvertisement(
-  $id: ID!
-  $poolAdvertisement: UpdatePoolAdvertisementInput!
-) {
-  updatePoolAdvertisement(id: $id, poolAdvertisement: $poolAdvertisement) {
+mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
+  updatePool(id: $id, pool: $pool) {
     id
   }
 }
 
-mutation publishPoolAdvertisement($id: ID!) {
-  publishPoolAdvertisement(id: $id) {
+mutation publishPool($id: ID!) {
+  publishPool(id: $id) {
     id
     publishedAt
   }
@@ -160,15 +161,21 @@ mutation changePoolClosingDate($id: ID!, $closingDate: DateTime!) {
   }
 }
 
-mutation closePoolAdvertisement($id: ID!) {
-  closePoolAdvertisement(id: $id) {
+mutation closePool($id: ID!) {
+  closePool(id: $id) {
     id
     closingDate
   }
 }
 
-mutation deletePoolAdvertisement($id: ID!) {
-  deletePoolAdvertisement(id: $id) {
+mutation deletePool($id: ID!) {
+  deletePool(id: $id) {
+    id
+  }
+}
+
+mutation duplicatePool($id: ID!, $teamId: ID!) {
+  duplicatePool(id: $id, teamId: $teamId) {
     id
   }
 }

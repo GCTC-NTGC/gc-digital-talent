@@ -24,7 +24,7 @@ import {
   ExperienceType,
   AnyExperience,
 } from "~/types/experience";
-import TasksAndResponsibilities from "~/components/ExperienceFormFields/TasksAndResponsibilities";
+import TasksAndResponsibilities from "~/components/ExperienceFormFields/AdditionalDetails";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 
@@ -54,6 +54,7 @@ const EditExperienceForm = ({
   );
   const methods = useForm<ExperienceExperienceFormValues>({
     defaultValues,
+    shouldFocusError: false,
   });
   const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
   const { executeMutation, getMutationArgs } = useExperienceMutations(
@@ -143,13 +144,12 @@ const EditExperienceForm = ({
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-align-items="base(flex-start) l-tablet(center)"
         >
-          <Button type="submit" mode="solid">
+          <Button type="submit">
             {intl.formatMessage(formMessages.saveChanges)}
           </Button>
           <Link
-            type="button"
-            mode="inline"
             color="quaternary"
+            mode="inline"
             href={paths.applicationResume(applicationId)}
           >
             {intl.formatMessage(formMessages.cancelGoBack)}
@@ -184,7 +184,7 @@ const EditExperienceForm = ({
               </AlertDialog.Description>
               <AlertDialog.Footer>
                 <AlertDialog.Cancel>
-                  <Button type="button" mode="outline" color="secondary">
+                  <Button type="button" color="secondary">
                     {intl.formatMessage({
                       defaultMessage: "Cancel",
                       id: "KnE2Rk",

@@ -73,7 +73,10 @@ const CreateTeamForm = ({ departments, onSubmit }: CreateTeamFormProps) => {
 
   return (
     <BasicForm onSubmit={handleSubmit}>
-      <div data-h2-flex-grid="base(center, x1, 0)">
+      <div
+        data-h2-flex-grid="base(center, x1, x1)"
+        data-h2-margin-bottom="base(x1)"
+      >
         <CreateTeamFormFields departments={departments} />
       </div>
       <div
@@ -81,7 +84,7 @@ const CreateTeamForm = ({ departments, onSubmit }: CreateTeamFormProps) => {
         data-h2-gap="base(x1)"
         data-h2-align-items="base(center)"
       >
-        <Link href={paths.teamTable()}>
+        <Link mode="inline" href={paths.teamTable()}>
           {intl.formatMessage({
             defaultMessage: "Cancel and go back to teams",
             id: "i0IT1I",

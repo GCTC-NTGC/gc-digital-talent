@@ -16,8 +16,8 @@ import {
   HeaderGroup,
 } from "react-table";
 
-import { Button, Dialog, IconType, Link } from "@gc-digital-talent/ui";
-import { Fieldset } from "@gc-digital-talent/forms";
+import { Button, Dialog, Link } from "@gc-digital-talent/ui";
+import { Field } from "@gc-digital-talent/forms";
 
 import Pagination from "~/components/Pagination";
 
@@ -74,17 +74,6 @@ const IndeterminateCheckbox = ({
         description: "Label displayed on the Table Columns toggle fieldset.",
       })}
     </label>
-  );
-};
-
-const ButtonIcon = ({ icon }: { icon: IconType }) => {
-  const Icon = icon;
-
-  return (
-    <Icon
-      style={{ height: "1em", width: "1rem" }}
-      data-h2-margin="base(0, x.5, 0, 0)"
-    />
   );
 };
 
@@ -285,21 +274,16 @@ function Table<T extends Record<string, unknown>>({
                     <Dialog.Root>
                       <Dialog.Trigger>
                         <Button
-                          mode="outline"
+                          icon={TableCellsIcon}
                           color="secondary"
                           type="button"
-                          data-h2-display="base(inline-flex)"
-                          data-h2-align-items="base(center)"
                         >
-                          <ButtonIcon icon={TableCellsIcon} />
-                          <span>
-                            {intl.formatMessage({
-                              defaultMessage: "Columns",
-                              id: "xcBl1q",
-                              description:
-                                "Label displayed on the Table Columns toggle button.",
-                            })}
-                          </span>
+                          {intl.formatMessage({
+                            defaultMessage: "Columns",
+                            id: "xcBl1q",
+                            description:
+                              "Label displayed on the Table Columns toggle button.",
+                          })}
                         </Button>
                       </Dialog.Trigger>
                       <Dialog.Content>
@@ -313,18 +297,20 @@ function Table<T extends Record<string, unknown>>({
                         </Dialog.Header>
                         <Dialog.Body>
                           <FormProvider {...methods}>
-                            <Fieldset
-                              name="visibleColumns"
-                              legend={intl.formatMessage({
-                                defaultMessage: "Visible columns",
-                                id: "H9rxOR",
-                                description:
-                                  "Legend for the column toggle in admin tables.",
-                              })}
-                            >
+                            <Field.Fieldset boundingBox>
+                              <Field.Legend>
+                                {intl.formatMessage({
+                                  defaultMessage: "Visible columns",
+                                  id: "H9rxOR",
+                                  description:
+                                    "Legend for the column toggle in admin tables.",
+                                })}
+                              </Field.Legend>
                               <div data-h2-margin="base(x.125, 0)">
                                 <IndeterminateCheckbox
-                                  {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                                  {...(getToggleHideAllColumnsProps({
+                                    title: undefined,
+                                  }) as React.ComponentProps<
                                     typeof IndeterminateCheckbox
                                   >)}
                                 />
@@ -334,17 +320,18 @@ function Table<T extends Record<string, unknown>>({
                                   key={column.id}
                                   data-h2-margin="base(x.125, 0)"
                                 >
-                                  <label htmlFor={column.Header?.toString()}>
+                                  <label>
                                     <input
-                                      id={column.Header?.toString()}
                                       type="checkbox"
-                                      {...column.getToggleHiddenProps()}
+                                      {...column.getToggleHiddenProps({
+                                        title: undefined,
+                                      })}
                                     />
                                     {` ${column.Header}`}
                                   </label>
                                 </div>
                               ))}
-                            </Fieldset>
+                            </Field.Fieldset>
                           </FormProvider>
                         </Dialog.Body>
                       </Dialog.Content>
@@ -362,14 +349,11 @@ function Table<T extends Record<string, unknown>>({
                   <Link
                     mode="solid"
                     color="primary"
-                    type="button"
-                    data-h2-display="base(inline-flex)"
-                    data-h2-align-items="base(center)"
+                    icon={PlusIcon}
                     style={{ textDecoration: "none" }}
                     href={addBtn.path}
                   >
-                    <ButtonIcon icon={PlusIcon} />
-                    <span>{addBtn.label}</span>
+                    {addBtn.label}
                   </Link>
                 )}
                 {addDialog || null}
@@ -496,8 +480,9 @@ function Table<T extends Record<string, unknown>>({
                       defaultMessage: "Table results",
                       id: "hlcd+5",
                     })}
-                    color="white"
-                    mode="solid"
+                    color="black"
+                    fontColor="white"
+                    activeColor="primary"
                   />
                 )}
               </div>

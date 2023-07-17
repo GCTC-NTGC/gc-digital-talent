@@ -5,13 +5,10 @@ import TableCellsIcon from "@heroicons/react/24/outline/TableCellsIcon";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Button, Link, Dialog } from "@gc-digital-talent/ui";
-import { Fieldset } from "@gc-digital-talent/forms";
+import { Field } from "@gc-digital-talent/forms";
 
 import SearchForm from "./SearchForm";
-import {
-  ButtonIcon,
-  IndeterminateCheckbox,
-} from "../ClientManagedTable/tableComponents";
+import { IndeterminateCheckbox } from "../ClientManagedTable/tableComponents";
 import type {
   ColumnHiddenEvent,
   ColumnsOf,
@@ -97,21 +94,16 @@ function TableHeader<T extends Record<string, unknown>>({
                     <Dialog.Root>
                       <Dialog.Trigger>
                         <Button
-                          mode="outline"
                           color="secondary"
                           type="button"
-                          data-h2-display="base(inline-flex)"
-                          data-h2-align-items="base(center)"
+                          icon={TableCellsIcon}
                         >
-                          <ButtonIcon icon={TableCellsIcon} />
-                          <span>
-                            {intl.formatMessage({
-                              defaultMessage: "Columns",
-                              id: "xcBl1q",
-                              description:
-                                "Label displayed on the Table Columns toggle button.",
-                            })}
-                          </span>
+                          {intl.formatMessage({
+                            defaultMessage: "Columns",
+                            id: "xcBl1q",
+                            description:
+                              "Label displayed on the Table Columns toggle button.",
+                          })}
                         </Button>
                       </Dialog.Trigger>
                       <Dialog.Content>
@@ -125,15 +117,15 @@ function TableHeader<T extends Record<string, unknown>>({
                         </Dialog.Header>
                         <Dialog.Body>
                           <FormProvider {...methods}>
-                            <Fieldset
-                              name="visibleColumns"
-                              legend={intl.formatMessage({
-                                defaultMessage: "Visible columns",
-                                id: "H9rxOR",
-                                description:
-                                  "Legend for the column toggle in admin tables.",
-                              })}
-                            >
+                            <Field.Fieldset boundingBox>
+                              <Field.Legend>
+                                {intl.formatMessage({
+                                  defaultMessage: "Visible columns",
+                                  id: "H9rxOR",
+                                  description:
+                                    "Legend for the column toggle in admin tables.",
+                                })}
+                              </Field.Legend>
                               <div data-h2-margin="base(x.125, 0)">
                                 <IndeterminateCheckbox
                                   checked={hiddenColumnIds.length === 0}
@@ -178,7 +170,7 @@ function TableHeader<T extends Record<string, unknown>>({
                                   </label>
                                 </div>
                               ))}
-                            </Fieldset>
+                            </Field.Fieldset>
                           </FormProvider>
                         </Dialog.Body>
                       </Dialog.Content>
@@ -192,14 +184,11 @@ function TableHeader<T extends Record<string, unknown>>({
                 <Link
                   mode="solid"
                   color="primary"
-                  type="button"
-                  data-h2-display="base(inline-flex)"
-                  data-h2-align-items="base(center)"
+                  icon={PlusIcon}
                   style={{ textDecoration: "none" }}
                   href={addBtn.path}
                 >
-                  <ButtonIcon icon={PlusIcon} />
-                  <span>{addBtn.label}</span>
+                  {addBtn.label}
                 </Link>
               )}
             </div>

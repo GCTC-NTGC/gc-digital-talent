@@ -6,11 +6,7 @@ export type Color =
   | "tertiary"
   | "quaternary"
   | "quinary"
-  | "white"
-  | "ts-primary"
-  | "ia-primary"
-  | "ts-secondary"
-  | "ia-secondary";
+  | "white";
 
 export interface CardProps {
   title: string;
@@ -49,22 +45,6 @@ const colorMap = {
     "data-h2-background-color": "base(white)",
     "data-h2-color": "base:all(black)",
   },
-  "ts-primary": {
-    "data-h2-background-color": "base(primary)",
-    "data-h2-color": "base(white)",
-  },
-  "ts-secondary": {
-    "data-h2-background-color": "base(secondary)",
-    "data-h2-color": "base(white)",
-  },
-  "ia-primary": {
-    "data-h2-background-color": "base(primary)",
-    "data-h2-color": "base(white)",
-  },
-  "ia-secondary": {
-    "data-h2-background-color": "base(secondary)",
-    "data-h2-color": "base(white)",
-  },
 };
 
 const Card = ({
@@ -84,17 +64,19 @@ const Card = ({
       data-h2-shadow="base(medium)"
       {...rest}
     >
-      <span
-        className="card__header"
-        data-h2-display="base(block)"
-        data-h2-font-size="base(h5, 1)"
-        data-h2-padding="base(x1)"
-        data-h2-margin="base(0)"
-        {...(bold && { "data-h2-font-weight": "base(700)" })}
-        {...colorMap[color]}
-      >
-        {title}
-      </span>
+      {title && (
+        <span
+          className="card__header"
+          data-h2-display="base(block)"
+          data-h2-font-size="base(h5, 1)"
+          data-h2-padding="base(x1)"
+          data-h2-margin="base(0)"
+          {...(bold && { "data-h2-font-weight": "base(700)" })}
+          {...colorMap[color]}
+        >
+          {title}
+        </span>
+      )}
       <div
         className="card__body"
         data-h2-background-color="base(foreground)"

@@ -1,13 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
+import orderBy from "lodash/orderBy";
+
+import { Link, Pending } from "@gc-digital-talent/ui";
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import useQuote from "~/hooks/useQuote";
 
 import iapHeroImg from "~/assets/img/iap-hero.jpg";
-import logoEn from "~/assets/img/iap-logo-en.svg";
-import logoFr from "~/assets/img/iap-logo-fr.svg";
-import logoMic from "~/assets/img/iap-logo-mic.svg";
+import logoImg from "~/assets/img/iap-logo.svg";
 import womanSmiling from "~/assets/img/indigenous-woman-smiling.jpg";
 import feathers from "~/assets/img/feathers.png";
 import manOnComputer from "~/assets/img/man-on-computer.jpg";
@@ -20,6 +22,12 @@ import lowerBack from "~/assets/img/lower-back.jpg";
 import iconWatermark from "~/assets/img/icon-watermark.svg";
 import indigenousWoman from "~/assets/img/indigenous-woman.png";
 
+import {
+  useIapPublishedPoolsQuery,
+  PublishingGroup,
+  Pool,
+} from "~/api/generated";
+
 import Banner from "./components/Banner";
 import Card from "./components/Card";
 import CTAButtons from "./components/CTAButtons";
@@ -28,6 +36,7 @@ import Heading from "./components/Heading";
 import LanguageSelector from "./components/LanguageSelector";
 import Step from "./components/Step";
 import Quote from "./components/Quote";
+import ApplyLink from "./components/ApplyLink";
 
 import {
   BarChart,
@@ -39,26 +48,19 @@ import {
   Triangle,
 } from "./components/Svg";
 
-import "./home.css";
-
 const mailLink = (chunks: React.ReactNode) => (
-  <a href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">{chunks}</a>
+  <Link external href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">
+    {chunks}
+  </Link>
 );
 
-const Home = () => {
+interface HomeProps {
+  latestPool?: Pool;
+}
+
+export const Home = ({ latestPool }: HomeProps) => {
   const intl = useIntl();
   const quote = useQuote();
-  let logoImg = logoEn;
-  switch (intl.locale) {
-    case "fr":
-      logoImg = logoFr;
-      break;
-    case "mic":
-      logoImg = logoMic;
-      break;
-    default:
-      logoImg = logoEn;
-  }
   /**
    * Language swapping is a little rough here,
    * motion.div adds a fade to smooth things out a bit
@@ -72,62 +74,86 @@ const Home = () => {
       exit={{ opacity: 0 }}
     >
       <LanguageSelector />
-      {/* Hero */}
       <div
         data-h2-width="base(100%)"
         data-h2-position="base(relative)"
-        data-h2-display="base(flex) p-tablet(block)"
+        data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
       >
-        <div
-          data-h2-background="base(primary-transparent-linear)"
-          data-h2-height="base(x2)"
-          data-h2-order="base(2)"
-          data-h2-display="base(block) p-tablet(none)"
-          data-h2-layer="base(2, relative)"
-          data-h2-width="base(100%)"
-        />
         <img
           data-h2-display="base(block)"
           data-h2-layer="base(1, relative)"
-          data-h2-margin="base(-x2, 0, 0, 0) p-tablet(0)"
           data-h2-width="base(100%)"
-          data-h2-order="base(2) p-tablet(1)"
+          data-h2-order="base(2)"
           src={iapHeroImg}
           alt=""
         />
         <div
-          className="hero-logo"
-          data-h2-background-color="base(primary.darker) p-tablet(transparent)"
-          data-h2-padding="base(x1.2, x2, x1, x2) p-tablet(0)"
-          data-h2-layer="base(1, relative) p-tablet(1, absolute)"
-          data-h2-order="base(1) p-tablet(2)"
-          data-h2-location="p-tablet(5%, auto, auto, 50%)"
-          data-h2-width="base(100%) p-tablet(40vw)"
+          data-h2-background="base(linear-gradient(#46032c, #46032c 90%, transparent)) p-tablet(linear-gradient(#46032c, #46032c 60%, transparent)) l-tablet(linear-gradient(#46032c, #46032c 30%, transparent)) laptop(transparent)"
+          data-h2-layer="base(2, relative)"
+          data-h2-padding="base(x1.2 x2 x3 x2) p-tablet(x2 x2 x1 x2) l-tablet(x2 x2 0 x2) laptop(0)"
+          data-h2-margin-bottom="base(-x2) p-tablet(-x4.5) l-tablet(-x6) laptop(0)"
+          data-h2-height="laptop(0)"
+          data-h2-overflow="laptop(visible)"
+          data-h2-width="base(100%)"
         >
-          <h1>
-            <img data-h2-width="base(100%)" src={logoImg} alt="" />
-            <span data-h2-visually-hidden="base(invisible)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "IT Apprenticeship Program for Indigenous Peoples. Apply today to get started on your IT career journey.",
-                id: "qZvV7b",
-                description:
-                  "Homepage title for Indigenous Apprenticeship Program",
-              })}
-            </span>
-          </h1>
+          <div
+            data-h2-align-items="p-tablet(center)"
+            data-h2-display="p-tablet(flex)"
+            data-h2-gap="p-tablet(x1)"
+            data-h2-max-width="base(x23) laptop(x28)"
+            data-h2-margin="base(0 auto)"
+            data-h2-padding="p-tablet(0 0 0 x1) laptop(x2 0 0 x1)"
+          >
+            <img
+              src={logoImg}
+              alt=""
+              data-h2-display="base(block)"
+              data-h2-margin="base(0, auto, x.5, auto)"
+              data-h2-width="base(x4) laptop(x7)"
+            />
+            <div
+              data-h2-text-align="base(center) p-tablet(left)"
+              data-h2-color="base(white)"
+            >
+              <h1
+                data-h2-font-size="base(h3, 1.2)"
+                data-h2-font-weight="base(bold)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "IT Apprenticeship Program for Indigenous Peoples",
+                  id: "gj0bQO",
+                  description:
+                    "Homepage title for IT Apprenticeship Program for Indigenous Peoples",
+                })}
+              </h1>
+              <p
+                data-h2-font-size="base(caption)"
+                data-h2-font-weight="base(bold)"
+                data-h2-margin-top="base(x.5)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Apply today to get started on your IT career journey.",
+                  id: "nn9B4R",
+                  description:
+                    "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples",
+                })}
+              </p>
+            </div>
+          </div>
         </div>
         <div
-          className="hero-cta"
           data-h2-padding="base(x1, x2)"
           data-h2-position="base(relative) p-tablet(absolute)"
-          data-h2-layer="base(1, relative) p-tablet(1, absolute)"
+          data-h2-layer="base(1, relative) p-tablet(2, absolute)"
           data-h2-location="p-tablet(auto, auto, 20%, 50%)"
           data-h2-min-width="base(x12)"
           data-h2-order="base(3)"
+          data-h2-transform="p-tablet(translateX(-50%))"
         >
-          <ApplyDialog />
+          {latestPool ? <ApplyLink id={latestPool.id} /> : <ApplyDialog />}
         </div>
       </div>
       {/* About section */}
@@ -199,10 +225,11 @@ const Home = () => {
                     data-h2-font-size="base(h3, 1)"
                     data-h2-margin="base(x6, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
                     data-h2-text-align="base(center) p-tablet(left)"
+                    data-h2-layer="base(1, relative)"
                   >
                     {intl.formatMessage({
-                      defaultMessage: "About the Program",
-                      id: "CqLV19",
+                      defaultMessage: "About the program",
+                      id: "hyJz3G",
                       description: "Program information section title",
                     })}
                   </Heading>
@@ -217,8 +244,8 @@ const Home = () => {
                   <p data-h2-margin="base(x1, 0)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "By valuing and focusing on a person’s potential, rather than on their educational attainment level, the Program removes one of the biggest barriers that exists when it comes to employment within the digital economy. The Program has been developed by, with, and for Indigenous peoples from across Canada. Its design incorporates the preferences and needs of Indigenous learners while recognizing the importance of community.",
-                      id: "wqwPhL",
+                        "By valuing and focusing on a person’s potential, rather than on their educational attainment level, the program removes one of the biggest barriers that exists when it comes to employment within the digital economy. The program has been developed by, with, and for Indigenous peoples from across Canada. Its design incorporates the preferences and needs of Indigenous learners while recognizing the importance of community.",
+                      id: "wNJSJ7",
                       description: "Second paragraph about the program",
                     })}
                   </p>
@@ -231,7 +258,7 @@ const Home = () => {
                     })}
                   </p>
                   <div data-h2-margin="base(x2, 0, 0, 0)">
-                    <CTAButtons />
+                    <CTAButtons latestPoolId={latestPool?.id} />
                   </div>
                 </div>
               </div>
@@ -257,7 +284,6 @@ const Home = () => {
                   data-h2-position="base(relative)"
                 >
                   <RadiatingCircles
-                    className=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(110%)"
                     data-h2-location="base(-x2, -x12, auto, auto)"
@@ -326,7 +352,7 @@ const Home = () => {
                   })}
                 </p>
                 <div data-h2-visually-hidden="base(revealed) l-tablet(invisible)">
-                  <CTAButtons />
+                  <CTAButtons latestPoolId={latestPool?.id} />
                 </div>
               </div>
             </div>
@@ -348,7 +374,6 @@ const Home = () => {
                   data-h2-position="base(relative)"
                 >
                   <Triangle
-                    className=""
                     data-h2-position="base(absolute)"
                     data-h2-width="base(120%)"
                     data-h2-color="base(secondary)"
@@ -394,8 +419,8 @@ const Home = () => {
                 <p data-h2-margin="base(x2, 0, x1, 0)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "The Program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Métis, and if you have a passion for technology, then this Program is for you!",
-                    id: "khChKa",
+                      "The program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Métis, and if you have a passion for technology, then this program is for you!",
+                    id: "f/yvXg",
                     description: "First paragraph about who the program is for",
                   })}
                 </p>
@@ -403,8 +428,8 @@ const Home = () => {
                   {intl.formatMessage(
                     {
                       defaultMessage:
-                        "If you are not sure if this Program is right for you, please <mailLink>contact us</mailLink> and a member of our team will be happy to meet with you to answer any questions you may have.",
-                      id: "1FM1VL",
+                        "If you are not sure if this program is right for you, please <mailLink>contact us</mailLink> and a member of our team will be happy to meet with you to answer any questions you may have.",
+                      id: "kspVvy",
                       description:
                         "Second paragraph about who the program is for",
                     },
@@ -518,7 +543,11 @@ const Home = () => {
                       description: "Application box content",
                     })}
                   </p>
-                  <ApplyDialog />
+                  {latestPool ? (
+                    <ApplyLink id={latestPool.id} />
+                  ) : (
+                    <ApplyDialog />
+                  )}
                 </div>
               </div>
             </div>
@@ -539,14 +568,12 @@ const Home = () => {
           data-h2-overflow="base(hidden)"
         >
           <RadiatingCircles
-            className=""
             data-h2-color="base(primary)"
             data-h2-position="base(absolute)"
             data-h2-location="base(x10, auto, auto, -10%)"
             data-h2-width="base(50%)"
           />
           <ThickCircle
-            className=""
             data-h2-position="base(absolute)"
             data-h2-location="base(auto, -10%, x35, auto)"
             data-h2-width="base(35%)"
@@ -617,8 +644,8 @@ const Home = () => {
                 <p data-h2-margin="base(x1, 0, 0, 0)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "The Program was designed to respond to reconciliation and the building of a renewed relationship based on recognition of rights, respect, cooperation and partnership with Indigenous peoples.",
-                    id: "1B4niz",
+                      "The program was designed to respond to reconciliation and the building of a renewed relationship based on recognition of rights, respect, cooperation and partnership with Indigenous peoples.",
+                    id: "J9HjFN",
                     description: "How it works, step 1 content paragraph 1",
                   })}
                 </p>
@@ -797,7 +824,6 @@ const Home = () => {
                 style={{ transform: "rotate(180deg) scaleX(-1)" }}
               >
                 <Triangle
-                  className=""
                   data-h2-width="base(100%)"
                   data-h2-color="base(secondary.light)"
                 />
@@ -879,4 +905,26 @@ const Home = () => {
   );
 };
 
-export default Home;
+const now = nowUTCDateTime();
+
+const HomeApi = () => {
+  const [{ data, fetching, error }] = useIapPublishedPoolsQuery({
+    variables: { closingAfter: now, publishingGroup: PublishingGroup.Iap },
+  });
+
+  const pools = orderBy(
+    data?.publishedPools.filter((pool) => typeof pool !== undefined && !!pool),
+    ["publishedAt"],
+    ["desc"],
+  ); // Order by date in desc order
+
+  const latestPool = pools && pools.length > 0 ? pools[0] : undefined; // get latest pool (most recent published_at date)
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      <Home latestPool={latestPool} />
+    </Pending>
+  );
+};
+
+export default HomeApi;

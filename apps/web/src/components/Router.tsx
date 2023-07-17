@@ -10,7 +10,6 @@ import {
 import { Loading } from "@gc-digital-talent/ui";
 import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
-import { useFeatureFlags, type FeatureFlags } from "@gc-digital-talent/env";
 
 import Layout from "~/components/Layout/Layout";
 import AdminLayout from "~/components/Layout/AdminLayout";
@@ -25,6 +24,14 @@ const HomePage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "tsHomePage" */ "../pages/Home/HomePage/HomePage"
+      ),
+  ),
+);
+const ManagerHomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsManagerHomePage" */ "../pages/Home/ManagerHomePage/ManagerHomePage"
       ),
   ),
 );
@@ -122,11 +129,11 @@ const CreateAccountPage = React.lazy(() =>
       ),
   ),
 );
-const ApplicantDashboardPage = React.lazy(() =>
+const ProfileAndApplicationsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicantDashboardPage" */ "../pages/Applications/ApplicantDashboardPage/ApplicantDashboardPage"
+        /* webpackChunkName: "tsProfileAndApplicationsPage" */ "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
       ),
   ),
 );
@@ -202,11 +209,11 @@ const EmploymentEquityPage = React.lazy(() =>
       ),
   ),
 );
-const ExperienceAndSkillsPage = React.lazy(() =>
+const ResumeAndRecruitmentPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsExperienceSkillsPage" */ "../pages/Profile/ExperienceAndSkillsPage/ExperienceAndSkillsPage"
+        /* webpackChunkName: "tsResumeAndRecruitmentPage" */ "../pages/Profile/ResumeAndRecruitmentPage/ResumeAndRecruitmentPage"
       ),
   ),
 );
@@ -236,27 +243,11 @@ const CreateApplicationPage = React.lazy(() =>
       ),
   ),
 );
-const SignAndSubmitPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSignSubmitPage" */ "../pages/Applications/SignAndSubmitPage/SignAndSubmitPage"
-      ),
-  ),
-);
 const MyApplicationsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
         /* webpackChunkName: "tsMyApplicationsPage" */ "../pages/Applications/MyApplicationsPage/MyApplicationsPage"
-      ),
-  ),
-);
-const ReviewApplicationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsReviewApplicationPage" */ "../pages/Applications/ReviewApplicationPage/ReviewApplicationPage"
       ),
   ),
 );
@@ -273,6 +264,14 @@ const ApplicationWelcomePage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "tsApplicationWelcomePage" */ "../pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage"
+      ),
+  ),
+);
+const ApplicationSelfDeclarationPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsApplicationSelfDeclarationPage" */ "../pages/Applications/ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage"
       ),
   ),
 );
@@ -415,14 +414,6 @@ const IndexUserPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "adminIndexUserPage" */ "../pages/Users/IndexUserPage/IndexUserPage"
-      ),
-  ),
-);
-const CreateUserPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateUserPage" */ "../pages/Users/CreateUserPage/CreateUserPage"
       ),
   ),
 );
@@ -700,11 +691,7 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
-const createRoute = (
-  locale: Locales,
-  loginPath: string,
-  featureFlags: FeatureFlags,
-) =>
+const createRoute = (locale: Locales, loginPath: string) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -718,6 +705,10 @@ const createRoute = (
             {
               index: true,
               element: <HomePage />,
+            },
+            {
+              path: "manager",
+              element: <ManagerHomePage />,
             },
             {
               path: "support",
@@ -806,8 +797,8 @@ const createRoute = (
                   ),
                 },
                 {
-                  path: "dashboard",
-                  element: <ApplicantDashboardPage />,
+                  path: "profile-and-applications",
+                  element: <ProfileAndApplicationsPage />,
                 },
               ],
             },
@@ -923,7 +914,7 @@ const createRoute = (
                           ),
                         },
                         {
-                          path: "experiences",
+                          path: "resume-and-recruitment",
                           children: [
                             {
                               index: true,
@@ -932,7 +923,7 @@ const createRoute = (
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
-                                  <ExperienceAndSkillsPage />
+                                  <ResumeAndRecruitmentPage />
                                 </RequireAuth>
                               ),
                             },
@@ -1019,127 +1010,97 @@ const createRoute = (
                     },
                   ],
                 },
+              ],
+            },
+            {
+              path: "applications",
+              children: [
                 {
-                  path: "applications",
+                  path: ":applicationId",
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.Applicant]}
+                      loginPath={loginPath}
+                    >
+                      <ApplicationLayout />
+                    </RequireAuth>
+                  ),
                   children: [
                     {
-                      path: ":poolCandidateId",
+                      path: "welcome",
+                      element: <ApplicationWelcomePage />,
+                    },
+                    {
+                      path: "self-declaration",
+                      element: <ApplicationSelfDeclarationPage />,
+                    },
+                    {
+                      path: "profile",
+                      element: <ApplicationProfilePage />,
+                    },
+                    {
+                      path: "resume",
                       children: [
                         {
-                          path: "submit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <SignAndSubmitPage />
-                            </RequireAuth>
-                          ),
+                          index: true,
+                          element: <ApplicationResumePage />,
                         },
                         {
-                          path: "apply",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <ReviewApplicationPage />
-                            </RequireAuth>
-                          ),
+                          path: "introduction",
+                          element: <ApplicationResumeIntroductionPage />,
+                        },
+                        {
+                          path: "add",
+                          element: <ApplicationResumeAddPage />,
+                        },
+                        {
+                          path: ":experienceId",
+                          element: <ApplicationResumeEditPage />,
                         },
                       ],
+                    },
+                    {
+                      path: "education",
+                      element: <ApplicationEducationPage />,
+                    },
+                    {
+                      path: "skills",
+                      children: [
+                        {
+                          index: true,
+                          element: <ApplicationSkillsPage />,
+                        },
+                        {
+                          path: "introduction",
+                          element: <ApplicationSkillsIntroductionPage />,
+                        },
+                      ],
+                    },
+                    {
+                      path: "questions",
+                      children: [
+                        {
+                          index: true,
+                          element: <ApplicationQuestionsPage />,
+                        },
+                        {
+                          path: "introduction",
+                          element: <ApplicationQuestionsIntroductionPage />,
+                        },
+                      ],
+                    },
+                    {
+                      path: "review",
+                      element: <ApplicationReviewPage />,
+                    },
+                    {
+                      path: "success",
+                      element: <ApplicationSuccessPage />,
                     },
                   ],
                 },
               ],
             },
-            featureFlags.applicationRevamp
-              ? {
-                  path: "applications",
-                  children: [
-                    {
-                      path: ":applicationId",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.Applicant]}
-                          loginPath={loginPath}
-                        >
-                          <ApplicationLayout />
-                        </RequireAuth>
-                      ),
-                      children: [
-                        {
-                          path: "welcome",
-                          element: <ApplicationWelcomePage />,
-                        },
-                        {
-                          path: "profile",
-                          element: <ApplicationProfilePage />,
-                        },
-                        {
-                          path: "resume",
-                          children: [
-                            {
-                              index: true,
-                              element: <ApplicationResumePage />,
-                            },
-                            {
-                              path: "introduction",
-                              element: <ApplicationResumeIntroductionPage />,
-                            },
-                            {
-                              path: "add",
-                              element: <ApplicationResumeAddPage />,
-                            },
-                            {
-                              path: ":experienceId",
-                              element: <ApplicationResumeEditPage />,
-                            },
-                          ],
-                        },
-                        {
-                          path: "education",
-                          element: <ApplicationEducationPage />,
-                        },
-                        {
-                          path: "skills",
-                          children: [
-                            {
-                              index: true,
-                              element: <ApplicationSkillsPage />,
-                            },
-                            {
-                              path: "introduction",
-                              element: <ApplicationSkillsIntroductionPage />,
-                            },
-                          ],
-                        },
-                        {
-                          path: "questions",
-                          children: [
-                            {
-                              index: true,
-                              element: <ApplicationQuestionsPage />,
-                            },
-                            {
-                              path: "introduction",
-                              element: <ApplicationQuestionsIntroductionPage />,
-                            },
-                          ],
-                        },
-                        {
-                          path: "review",
-                          element: <ApplicationReviewPage />,
-                        },
-                        {
-                          path: "success",
-                          element: <ApplicationSuccessPage />,
-                        },
-                      ],
-                    },
-                  ],
-                }
-              : {},
             {
               path: "talent/profile/*",
               element: (
@@ -1205,17 +1166,6 @@ const createRoute = (
                       loginPath={loginPath}
                     >
                       <IndexUserPage />
-                    </RequireAuth>
-                  ),
-                },
-                {
-                  path: "create",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
-                      loginPath={loginPath}
-                    >
-                      <CreateUserPage />
                     </RequireAuth>
                   ),
                 },
@@ -1727,10 +1677,15 @@ const createRoute = (
 
 const Router = () => {
   const { locale } = useLocale();
-  const featureFlags = useFeatureFlags();
   const routes = useRoutes();
-  const router = createRoute(locale, routes.login(), featureFlags);
-  return <RouterProvider router={router} fallbackElement={<Loading />} />;
+  const router = createRoute(locale, routes.login());
+  return (
+    <RouterProvider
+      router={router}
+      fallbackElement={<Loading />}
+      future={{ v7_startTransition: true }}
+    />
+  );
 };
 
 export default Router;

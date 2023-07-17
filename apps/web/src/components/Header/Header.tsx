@@ -1,6 +1,7 @@
+/* eslint-disable react/forbid-elements */
 import React from "react";
 import { useIntl } from "react-intl";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import {
   localizePath,
@@ -16,8 +17,7 @@ export interface HeaderProps {
 
 const Header = ({ width }: HeaderProps) => {
   const intl = useIntl();
-  const navigate = useNavigate();
-  const { locale, setLocale } = useLocale();
+  const { locale } = useLocale();
 
   const location = useLocation();
   const changeToLang = oppositeLocale(locale);
@@ -97,11 +97,6 @@ const Header = ({ width }: HeaderProps) => {
                 data-h2-outline="base(none)"
                 data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
                 href={languageTogglePath}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setLocale(changeToLang);
-                  navigate(languageTogglePath);
-                }}
                 lang={changeToLang === "en" ? "en" : "fr"}
               >
                 {intl.formatMessage({

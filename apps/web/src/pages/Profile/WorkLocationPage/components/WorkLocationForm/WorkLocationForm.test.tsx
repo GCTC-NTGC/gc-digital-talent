@@ -63,41 +63,41 @@ describe("WorkLocationForm", () => {
     ).toBeInTheDocument();
     expect(
       await screen.getByRole("checkbox", {
-        name: /Virtual: Work from home/i,
+        name: /Virtual \(work from home/i,
       }),
     ).toBeInTheDocument();
     expect(
       await screen.getByRole("checkbox", {
-        name: /National Capital Region: Ottawa/i,
+        name: /National capital region \(Ottawa/i,
       }),
     ).toBeInTheDocument();
     expect(
       await screen.getByRole("checkbox", {
-        name: /Atlantic Region: New Brunswick/i,
+        name: /Atlantic region \(New Brunswick/i,
       }),
     ).toBeInTheDocument();
     expect(
       await screen.getByRole("checkbox", {
-        name: /Quebec Region: excluding Gatineau/i,
+        name: /Quebec region \(excluding Gatineau\)/i,
       }),
     ).toBeInTheDocument();
     expect(
       await screen.getByRole("checkbox", {
-        name: /Ontario Region: excluding Ottawa/i,
+        name: /Ontario region \(excluding Ottawa\)/i,
       }),
     ).toBeInTheDocument();
     expect(
       await screen.getByRole("checkbox", {
-        name: /Prairie Region: Manitoba, Saskatchewan/i,
+        name: /Prairie region \(Manitoba/i,
       }),
     ).toBeInTheDocument();
     expect(
       await screen.getByRole("checkbox", {
-        name: /British Columbia Region/i,
+        name: /British Columbia region/i,
       }),
     ).toBeInTheDocument();
     expect(
-      await screen.getByLabelText(/Location exemptions/i),
+      await screen.getByLabelText(/Work location exceptions/i),
     ).toBeInTheDocument();
   });
   it("Can't submit unless form is valid (at least one location selected)", async () => {

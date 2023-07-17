@@ -1,6 +1,8 @@
 import React from "react";
 import { useTheme } from "@gc-digital-talent/theme";
-import { PoolCandidate, PublishingGroup } from "../../api/generated";
+
+import { isIAPPool } from "~/utils/poolUtils";
+import { PoolCandidate } from "~/api/generated";
 
 interface ApplicationContextState {
   isIAP: boolean;
@@ -24,7 +26,7 @@ export const useApplicationContext = () => {
 };
 
 interface ApplicationContextProviderProps {
-  application: Omit<PoolCandidate, "pool">;
+  application: PoolCandidate;
   followingPageUrl?: string;
   currentStepOrdinal?: number;
   children: React.ReactNode;
@@ -39,8 +41,7 @@ const ApplicationContextProvider = ({
   const { setKey } = useTheme();
   const state = React.useMemo(
     () => ({
-      isIAP:
-        application.poolAdvertisement?.publishingGroup === PublishingGroup.Iap,
+      isIAP: isIAPPool(application.pool),
       followingPageUrl,
       currentStepOrdinal,
     }),
@@ -49,9 +50,7 @@ const ApplicationContextProvider = ({
 
   React.useEffect(() => {
     const themeCheck = setTimeout(() => {
-      if (
-        application.poolAdvertisement?.publishingGroup === PublishingGroup.Iap
-      ) {
+      if (isIAPPool(application.pool)) {
         setKey("iap");
       }
     }, 10);

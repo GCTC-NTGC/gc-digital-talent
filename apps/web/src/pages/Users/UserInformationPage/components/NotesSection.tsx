@@ -6,7 +6,7 @@ import { Button, Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, TextArea } from "@gc-digital-talent/forms";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 
 import {
   UpdatePoolCandidateAsAdminInput,
@@ -48,10 +48,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                     "Toast notification for successful update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getFullPoolAdvertisementTitleHtml(
-                    intl,
-                    candidate.pool,
-                  ),
+                  poolName: getFullPoolTitleHtml(intl, candidate.pool),
                 },
               ),
             );
@@ -67,10 +64,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                     "Toast notification for failed update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getFullPoolAdvertisementTitleHtml(
-                    intl,
-                    candidate.pool,
-                  ),
+                  poolName: getFullPoolTitleHtml(intl, candidate.pool),
                 },
               ),
             );
@@ -116,19 +110,10 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                           "Label for the notes field for a specific pool",
                       },
                       {
-                        poolName: getFullPoolAdvertisementTitleHtml(
-                          intl,
-                          candidate.pool,
-                        ),
+                        poolName: getFullPoolTitleHtml(intl, candidate.pool),
                       },
                     )}
                     defaultValue={candidate.notes ? candidate.notes : ""}
-                    placeholder={intl.formatMessage({
-                      defaultMessage: "Start writing your notes here...",
-                      id: "/MBeNc",
-                      description:
-                        "Placeholder text for a pool candidates notes field",
-                    })}
                     rows={4}
                   />
                 </div>

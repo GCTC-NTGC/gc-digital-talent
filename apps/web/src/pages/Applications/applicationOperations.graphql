@@ -20,6 +20,71 @@ query GetProfileFormOptions {
   }
 }
 
+fragment experienceFragment on Experience {
+  id
+  __typename
+  user {
+    id
+    email
+  }
+  details
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    experienceSkillRecord {
+      details
+    }
+  }
+  ... on AwardExperience {
+    title
+    issuedBy
+    awardedDate
+    awardedTo
+    awardedScope
+  }
+  ... on CommunityExperience {
+    title
+    organization
+    project
+    startDate
+    endDate
+  }
+  ... on EducationExperience {
+    institution
+    areaOfStudy
+    thesisTitle
+    startDate
+    endDate
+    type
+    status
+  }
+  ... on PersonalExperience {
+    title
+    description
+    startDate
+    endDate
+  }
+  ... on WorkExperience {
+    role
+    organization
+    division
+    startDate
+    endDate
+  }
+}
+
 query GetApplication($id: UUID!) {
   poolCandidate(id: $id) {
     id
@@ -100,7 +165,7 @@ query GetApplication($id: UUID!) {
       experiences {
         id
         __typename
-        applicant {
+        user {
           id
           email
         }
@@ -124,45 +189,10 @@ query GetApplication($id: UUID!) {
             details
           }
         }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-        }
+        ...experienceSubTypes
       }
     }
-    poolAdvertisement {
+    pool {
       id
       name {
         en
@@ -171,7 +201,7 @@ query GetApplication($id: UUID!) {
       stream
       closingDate
       publishingGroup
-      advertisementLanguage
+      language
       classifications {
         id
         group
@@ -190,10 +220,10 @@ query GetApplication($id: UUID!) {
         }
       }
       essentialSkills {
-        ...poolAdvertisementSkills
+        ...poolSkills
       }
       nonessentialSkills {
-        ...poolAdvertisementSkills
+        ...poolSkills
       }
       screeningQuestions {
         id
@@ -203,7 +233,10 @@ query GetApplication($id: UUID!) {
         }
       }
     }
-
+    educationRequirementOption
+    educationRequirementExperiences {
+      ...experienceFragment
+    }
     submittedSteps
     screeningQuestionResponses {
       id
@@ -220,7 +253,7 @@ query GetApplication($id: UUID!) {
   }
 }
 
-fragment poolAdvertisementSkills on Skill {
+fragment poolSkills on Skill {
   id
   key
   name {
@@ -249,5 +282,72 @@ fragment poolAdvertisementSkills on Skill {
 mutation UpdateApplication($id: ID!, $application: UpdateApplicationInput!) {
   updateApplication(id: $id, application: $application) {
     id
+  }
+}
+
+mutation SubmitApplication($id: ID!, $signature: String!) {
+  submitApplication(id: $id, signature: $signature) {
+    id
+    signature
+  }
+}
+
+mutation UpdateUserAndApplication(
+  $userId: ID!
+  $userInput: UpdateUserAsUserInput!
+  $applicationId: ID!
+  $applicationInput: UpdateApplicationInput!
+) {
+  updateUserAsUser(id: $userId, user: $userInput) {
+    id
+    indigenousCommunities
+    indigenousDeclarationSignature
+  }
+  updateApplication(id: $applicationId, application: $applicationInput) {
+    id
+  }
+}
+
+fragment experienceSubTypes on Experience {
+  ... on AwardExperience {
+    title
+    issuedBy
+    awardedDate
+    awardedTo
+    awardedScope
+    details
+  }
+  ... on CommunityExperience {
+    title
+    organization
+    project
+    startDate
+    endDate
+    details
+  }
+  ... on EducationExperience {
+    institution
+    areaOfStudy
+    thesisTitle
+    startDate
+    endDate
+    type
+    status
+    details
+  }
+  ... on PersonalExperience {
+    title
+    description
+    startDate
+    endDate
+    details
+  }
+  ... on WorkExperience {
+    role
+    organization
+    division
+    startDate
+    endDate
+    details
   }
 }

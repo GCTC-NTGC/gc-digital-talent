@@ -47,7 +47,7 @@ query User($id: UUID!) {
 }
 
 query UserName($userId: UUID!) {
-  applicant(id: $userId) {
+  user(id: $userId) {
     id
     firstName
     lastName
@@ -282,7 +282,7 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
 }
 
 query GetViewUserData($id: UUID!) {
-  applicant(id: $id) {
+  user(id: $id) {
     id
     email
     firstName
@@ -324,6 +324,7 @@ query GetViewUserData($id: UUID!) {
       status
       expiryDate
       notes
+      suspendedAt
       user {
         id
       }
@@ -369,7 +370,7 @@ query GetViewUserData($id: UUID!) {
     experiences {
       id
       __typename
-      applicant {
+      user {
         id
         email
       }
@@ -443,7 +444,7 @@ query GetViewUserData($id: UUID!) {
       group
       level
     }
-    advertisementStatus
+    status
   }
 }
 
@@ -543,7 +544,7 @@ query selectedUsers($ids: [ID]!) {
     experiences {
       id
       __typename
-      applicant {
+      user {
         id
         email
       }

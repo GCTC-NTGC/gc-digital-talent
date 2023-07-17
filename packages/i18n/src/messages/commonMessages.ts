@@ -2,8 +2,8 @@ import { defineMessages } from "react-intl";
 
 const commonMessages = defineMessages({
   loadingTitle: {
-    defaultMessage: "Loading...",
-    id: "B7fcr5",
+    defaultMessage: "Loading",
+    id: "o/6zAs",
     description: "Title displayed for a table initial loading state.",
   },
   saving: {
@@ -78,6 +78,26 @@ const commonMessages = defineMessages({
     defaultMessage: "success",
     id: "99cWuv",
     description: "Message for the success status",
+  },
+  dividingColon: {
+    defaultMessage: ": ",
+    id: "i3Jl6C",
+    description: "Dividing colon with trailing space",
+  },
+  yes: {
+    defaultMessage: "Yes",
+    id: "ayG2k7",
+    description: "Affirmative answer",
+  },
+  no: {
+    defaultMessage: "No",
+    id: "gM4WDL",
+    description: "Negative answer",
+  },
+  status: {
+    defaultMessage: "Status",
+    id: "QtzRCh",
+    description: "Title for status",
   },
 });
 

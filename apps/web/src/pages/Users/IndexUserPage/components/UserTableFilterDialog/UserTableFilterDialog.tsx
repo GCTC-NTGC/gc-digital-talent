@@ -11,7 +11,6 @@ import {
 } from "@gc-digital-talent/forms";
 
 import useFilterOptions from "~/components/Table/ApiManagedTable/useFilterOptions";
-import { ButtonIcon } from "~/components/Table/ClientManagedTable/tableComponents";
 
 import "./UserTableFilterDialog.css";
 import adminMessages from "~/messages/adminMessages";
@@ -28,7 +27,6 @@ export type FormValues = {
   // See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
   educationType?: Option["value"][];
   employmentDuration: Option["value"][];
-  jobLookingStatus: Option["value"][];
   skills: Option["value"][];
   profileComplete: Option["value"][];
   govEmployee: Option["value"][];
@@ -45,7 +43,12 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
 
   return (
     <>
-      <Button color="secondary" mode="inline" onClick={handleClear}>
+      <Button
+        color="secondary"
+        mode="inline"
+        type="button"
+        onClick={handleClear}
+      >
         {formatMessage({
           description: "Clear button within the search filter dialog",
           defaultMessage: "Clear filters",
@@ -85,22 +88,13 @@ const UserTableFilterDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
       <Dialog.Trigger>
-        <Button
-          mode="outline"
-          color="secondary"
-          type="button"
-          data-h2-display="base(inline-flex)"
-          data-h2-align-items="base(center)"
-        >
-          <ButtonIcon icon={AdjustmentsVerticalIcon} />
-          <span>
-            {formatMessage({
-              defaultMessage: "Filters",
-              id: "1HPhji",
-              description:
-                "Text label for button to open filter dialog on admin tables.",
-            })}
-          </span>
+        <Button color="secondary" type="button" icon={AdjustmentsVerticalIcon}>
+          {formatMessage({
+            defaultMessage: "Filters",
+            id: "1HPhji",
+            description:
+              "Text label for button to open filter dialog on admin tables.",
+          })}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
@@ -129,6 +123,7 @@ const UserTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
                   id="pools"
+                  name="pools"
                   label={formatMessage(adminMessages.pools)}
                   options={optionsData.pools}
                   isLoading={rawGraphqlResults.pools.fetching}
@@ -138,6 +133,7 @@ const UserTableFilterDialog = ({
                 <SelectFieldV2
                   forceArrayFormValue
                   id="languageAbility"
+                  name="languageAbility"
                   label={formatMessage({
                     defaultMessage: "Languages",
                     id: "GsBRWL",
@@ -148,6 +144,7 @@ const UserTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="classifications"
+                  name="classifications"
                   label={formatMessage(adminMessages.classifications)}
                   options={optionsData.classifications}
                   isLoading={rawGraphqlResults.classifications.fetching}
@@ -156,6 +153,7 @@ const UserTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="operationalRequirement"
+                  name="operationalRequirement"
                   label={formatMessage({
                     defaultMessage: "Work Preferences",
                     id: "1XyQqX",
@@ -166,6 +164,7 @@ const UserTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="workRegion"
+                  name="workRegion"
                   label={formatMessage({
                     defaultMessage: "Work Locations",
                     id: "qhhPj5",
@@ -177,6 +176,7 @@ const UserTableFilterDialog = ({
                 <div data-h2-flex-item="base(1of1)">
                   <MultiSelectField
                     id="educationType"
+                    name="educationType"
                     label={formatMessage({
                       defaultMessage: "Education",
                       id: "jtygmI",
@@ -185,10 +185,11 @@ const UserTableFilterDialog = ({
                   />
                 </div>
               )}
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <SelectFieldV2
                   forceArrayFormValue
                   id="employmentDuration"
+                  name="employmentDuration"
                   label={formatMessage({
                     defaultMessage: "Duration Preferences",
                     id: "hmfQmT",
@@ -196,20 +197,11 @@ const UserTableFilterDialog = ({
                   options={optionsData.employmentDuration}
                 />
               </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-                <MultiSelectField
-                  id="jobLookingStatus"
-                  label={formatMessage({
-                    defaultMessage: "Availability",
-                    id: "hOxIeP",
-                  })}
-                  options={optionsData.jobLookingStatus}
-                />
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <SelectFieldV2
                   forceArrayFormValue
                   id="profileComplete"
+                  name="profileComplete"
                   label={formatMessage({
                     defaultMessage: "Profile Complete",
                     id: "OPG1Q0",
@@ -220,6 +212,7 @@ const UserTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
                   id="skills"
+                  name="skills"
                   label={formatMessage({
                     defaultMessage: "Skill Filter",
                     id: "GGaxMx",
@@ -232,6 +225,7 @@ const UserTableFilterDialog = ({
                 <SelectFieldV2
                   forceArrayFormValue
                   id="govEmployee"
+                  name="govEmployee"
                   label={formatMessage({
                     defaultMessage: "Government Employee",
                     id: "YojrdC",

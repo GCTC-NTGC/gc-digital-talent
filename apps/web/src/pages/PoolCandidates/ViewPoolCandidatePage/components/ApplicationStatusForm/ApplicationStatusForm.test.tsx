@@ -8,6 +8,7 @@ import { act, fireEvent, screen, waitFor } from "@testing-library/react";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
+import { PoolCandidateStatus } from "~/api/generated";
 import {
   ApplicationStatusForm,
   type ApplicationStatusFormProps,
@@ -44,7 +45,9 @@ describe("ApplicationStatusForm", () => {
       screen.getByRole("combobox", { name: /candidate pool status/i }),
     ).toBeInTheDocument();
 
-    expect(screen.getByLabelText(/candidate expiry date/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: /candidate expiry date/i }),
+    ).toBeInTheDocument();
 
     expect(screen.getByRole("textbox", { name: /notes/i })).toBeInTheDocument();
 
@@ -58,6 +61,10 @@ describe("ApplicationStatusForm", () => {
     await act(async () => {
       renderApplicationStatusForm({
         ...defaultProps,
+        application: {
+          ...mockApplication,
+          status: PoolCandidateStatus.QualifiedAvailable, // The Draft, DraftExpired, and Expired statuses are not valid options
+        },
         onSubmit: mockSubmit,
       });
     });

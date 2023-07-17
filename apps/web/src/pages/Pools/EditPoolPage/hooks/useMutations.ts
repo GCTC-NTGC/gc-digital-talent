@@ -5,12 +5,13 @@ import { toast } from "@gc-digital-talent/toast";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
-  useClosePoolAdvertisementMutation,
-  useDeletePoolAdvertisementMutation,
-  usePublishPoolAdvertisementMutation,
-  useUpdatePoolAdvertisementMutation,
+  useClosePoolMutation,
+  useDeletePoolMutation,
+  useDuplicatePoolMutation,
+  usePublishPoolMutation,
+  useUpdatePoolMutation,
   useChangePoolClosingDateMutation,
-  UpdatePoolAdvertisementInput,
+  UpdatePoolInput,
   Scalars,
 } from "~/api/generated";
 
@@ -22,7 +23,7 @@ const useMutations = () => {
   const navigateBack = () => navigate(paths.poolTable());
 
   const [{ fetching: updateFetching }, executeUpdateMutation] =
-    useUpdatePoolAdvertisementMutation();
+    useUpdatePoolMutation();
 
   const handleUpdateError = () => {
     toast.error(
@@ -35,13 +36,10 @@ const useMutations = () => {
     );
   };
 
-  const update = async (
-    id: string,
-    poolAdvertisement: UpdatePoolAdvertisementInput,
-  ) => {
-    await executeUpdateMutation({ id, poolAdvertisement })
+  const update = async (id: string, pool: UpdatePoolInput) => {
+    await executeUpdateMutation({ id, pool })
       .then((result) => {
-        if (result.data?.updatePoolAdvertisement) {
+        if (result.data?.updatePool) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool updated successfully!",
@@ -78,7 +76,7 @@ const useMutations = () => {
   };
 
   const [{ fetching: publishFetching }, executePublishMutation] =
-    usePublishPoolAdvertisementMutation();
+    usePublishPoolMutation();
 
   const handlePublishError = () => {
     toast.error(
@@ -94,7 +92,7 @@ const useMutations = () => {
   const publish = (id: string) => {
     executePublishMutation({ id })
       .then((result) => {
-        if (result.data?.publishPoolAdvertisement) {
+        if (result.data?.publishPool) {
           navigateBack();
           toast.success(
             intl.formatMessage({
@@ -111,7 +109,7 @@ const useMutations = () => {
   };
 
   const [{ fetching: closeFetching }, executeCloseMutation] =
-    useClosePoolAdvertisementMutation();
+    useClosePoolMutation();
 
   const handleCloseError = () => {
     toast.error(
@@ -127,7 +125,7 @@ const useMutations = () => {
   const close = (id: string) => {
     executeCloseMutation({ id })
       .then((result) => {
-        if (result.data?.closePoolAdvertisement) {
+        if (result.data?.closePool) {
           navigateBack();
           toast.success(
             intl.formatMessage({
@@ -144,7 +142,7 @@ const useMutations = () => {
   };
 
   const [{ fetching: deleteFetching }, executeDeleteMutation] =
-    useDeletePoolAdvertisementMutation();
+    useDeletePoolMutation();
 
   const handleDeleteError = () => {
     toast.error(
@@ -157,11 +155,11 @@ const useMutations = () => {
     );
   };
 
-  const deletePoolAdvertisement = (id: string) => {
+  const deletePool = (id: string) => {
     executeDeleteMutation({ id })
       .then((result) => {
         navigateBack();
-        if (result.data?.deletePoolAdvertisement) {
+        if (result.data?.deletePool) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool deleted successfully!",
@@ -176,19 +174,57 @@ const useMutations = () => {
       .catch(handleDeleteError);
   };
 
+  const [{ fetching: duplicateFetching }, executeDuplicateMutation] =
+    useDuplicatePoolMutation();
+
+  const handleDuplicateError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage:
+          "Error: Something went wrong, please try again in a minute or contact your administrator.",
+        id: "hHYn/8",
+        description:
+          "Message displayed to user after pool fails to get duplicated.",
+      }),
+    );
+  };
+
+  const duplicatePool = (id: string, teamId: string) => {
+    executeDuplicateMutation({ id, teamId })
+      .then((result) => {
+        navigateBack();
+        if (result.data?.duplicatePool?.id) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage:
+                "Success: This pool has been duplicated successfully.",
+              id: "vlyq02",
+              description: "Message displayed to user after pool is deleted",
+            }),
+          );
+          navigate(paths.poolUpdate(result.data.duplicatePool.id));
+        } else {
+          handleDuplicateError();
+        }
+      })
+      .catch(handleDuplicateError);
+  };
+
   return {
     isFetching:
       updateFetching ||
       extendFetching ||
       publishFetching ||
       closeFetching ||
-      deleteFetching,
+      deleteFetching ||
+      duplicateFetching,
     mutations: {
       update,
       extend,
       publish,
       close,
-      delete: deletePoolAdvertisement,
+      delete: deletePool,
+      duplicate: duplicatePool,
     },
   };
 };

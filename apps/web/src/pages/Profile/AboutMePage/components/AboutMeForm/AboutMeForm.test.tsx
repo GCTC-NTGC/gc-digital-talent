@@ -84,19 +84,19 @@ describe("AboutMeForm", () => {
 
     expect(
       await screen.getByRole("radio", {
-        name: /I am not a member of the CAF/i,
+        name: /I am not a member of the Canadian Armed Forces/i,
       }),
     ).toBeInTheDocument();
 
     expect(
       await screen.getByRole("radio", {
-        name: /I am an active member of the CAF/i,
+        name: /I am an active member of the Canadian Armed Forces/i,
       }),
     ).toBeInTheDocument();
 
     expect(
       await screen.getByRole("radio", {
-        name: /I am a veteran of the CAF/i,
+        name: /I am a veteran of the Canadian Armed Forces/i,
       }),
     ).toBeInTheDocument();
 

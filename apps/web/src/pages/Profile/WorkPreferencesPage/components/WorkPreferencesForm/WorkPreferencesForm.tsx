@@ -12,7 +12,7 @@ import {
 import { BasicForm, Checklist, RadioGroup } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
   PoolCandidate,
   PositionDuration,
@@ -148,22 +148,15 @@ const WorkPreferencesForm = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitleHtml(
-            intl,
-            application.poolAdvertisement,
-          ),
-          url: paths.pool(application.poolAdvertisement?.id || ""),
+          label: getFullPoolTitleHtml(intl, application.pool),
+          url: paths.pool(application.pool.id),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(applicationId ?? ""),
+          url: paths.application(applicationId ?? ""),
         },
         {
-          label: intl.formatMessage({
-            defaultMessage: "Work Preferences",
-            id: "7OWQgZ",
-            description: "Display Text for Work Preferences Form Page Link",
-          }),
+          label: intl.formatMessage(navigationMessages.workPreferences),
           url: `${paths.workPreferences(initialData.id)}${
             applicationId ? `?applicationId=${applicationId}` : ``
           }`,
@@ -190,12 +183,7 @@ const WorkPreferencesForm = ({
           ? applicationBreadcrumbs
           : [
               {
-                label: intl.formatMessage({
-                  defaultMessage: "Work Preferences",
-                  id: "7OWQgZ",
-                  description:
-                    "Display Text for Work Preferences Form Page Link",
-                }),
+                label: intl.formatMessage(navigationMessages.workPreferences),
                 url: paths.workPreferences(initialData.id),
               },
             ]

@@ -31,13 +31,12 @@ final class SubmitApplication
         }
 
         // all validation has successfully completed above, execute the core function of this resolver
-        // TODO - decide on a default expiry date, placeholder of year past submission
         // add signature and submission, as well as update the set expiry date and status, update([]) not used due to not working correctly
         $dateNow = Carbon::now();
-        $expiryDate = Carbon::now()->addYear();
         $application->submitted_at = $dateNow;
         $application->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
-        $application->expiry_date = $expiryDate;
+        $application->setInsertSubmittedStepAttribute(ApiEnums::APPLICATION_STEP_REVIEW_AND_SUBMIT);
+
         $success = $application->save();
 
         ApplicationSubmitted::dispatchIf($success, $application);

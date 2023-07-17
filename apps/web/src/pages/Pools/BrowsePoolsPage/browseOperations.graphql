@@ -1,17 +1,13 @@
-query browsePoolAdvertisements($closingAfter: DateTime) {
-  publishedPoolAdvertisements(closingAfter: $closingAfter) {
+query browsePools($closingAfter: DateTime) {
+  publishedPools(closingAfter: $closingAfter) {
     id
     name {
       en
       fr
     }
-    description {
-      en
-      fr
-    }
     closingDate
-    advertisementStatus
-    advertisementLanguage
+    status
+    language
     securityClearance
     classifications {
       id
@@ -83,7 +79,7 @@ query browsePoolAdvertisements($closingAfter: DateTime) {
       }
     }
     isRemote
-    advertisementLocation {
+    location {
       en
       fr
     }

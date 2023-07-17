@@ -1,19 +1,20 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 
 import CloseButton from "./CloseButton";
 
 import { BasicDialogProps } from "./types";
 
 const mailAccessor = (chunks: React.ReactNode) => (
-  <a
+  <Link
+    external
+    color="primary"
     href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
-    data-h2-color="base(primary) base:hover(primary.dark)"
   >
     {chunks}
-  </a>
+  </Link>
 );
 
 const ApplyDialog = ({ btnProps }: BasicDialogProps) => {
@@ -21,7 +22,7 @@ const ApplyDialog = ({ btnProps }: BasicDialogProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button color="ia-primary" mode="solid" {...btnProps}>
+        <Button color="primary" mode="solid" {...btnProps}>
           {intl.formatMessage({
             defaultMessage: "Apply Now",
             id: "DvmNR7",
@@ -62,8 +63,8 @@ const ApplyDialog = ({ btnProps }: BasicDialogProps) => {
           <p data-h2-margin="base(x1, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "Thank you for your interest in this Program. We look forward to hearing from you!",
-              id: "/7NWbF",
+                "Thank you for your interest in this program. We look forward to hearing from you!",
+              id: "tBGvoD",
               description: "Third paragraph for apply now dialog",
             })}
           </p>

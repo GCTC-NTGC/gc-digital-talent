@@ -16,9 +16,8 @@ import {
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
-import { getFullPoolAdvertisementTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
-  CreateUserInput,
   CreateWorkLocationMutation,
   WorkRegion,
   UpdateUserAsUserInput,
@@ -34,7 +33,7 @@ import ProfileFormWrapper, {
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
 export type FormValues = Pick<
-  CreateUserInput,
+  UpdateUserAsUserInput,
   "locationPreferences" | "locationExemptions"
 >;
 export interface WorkLocationFormProps {
@@ -64,10 +63,9 @@ const WorkLocationForm = ({
         "Legend for optional work preferences check list in work preferences form",
     }),
     locationExemptions: intl.formatMessage({
-      defaultMessage: "Location exemptions",
-      id: "0qNkIp",
-      description:
-        "Location Exemptions field label for work location preference form",
+      defaultMessage: "Work location exceptions",
+      id: "OpKC2i",
+      description: "Work location exceptions label",
     }),
   };
 
@@ -109,15 +107,12 @@ const WorkLocationForm = ({
           url: paths.applications(application.user.id),
         },
         {
-          label: getFullPoolAdvertisementTitleHtml(
-            intl,
-            application.poolAdvertisement,
-          ),
-          url: paths.pool(application.poolAdvertisement?.id || ""),
+          label: getFullPoolTitleHtml(intl, application.pool),
+          url: paths.pool(application.pool.id),
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(applicationId ?? ""),
+          url: paths.application(applicationId ?? ""),
         },
         {
           label: intl.formatMessage({
@@ -203,18 +198,18 @@ const WorkLocationForm = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "Indicate if there is a city that you would like to exclude from a region.",
-                  id: "1CuGS6",
+                  id: "58x4fO",
                   description:
-                    "Explanation text for Location exemptions field in work location preference form",
+                    "Explanation text for Work location exceptions field in work location preference form",
                 })}
               </p>
               <p data-h2-color="base(gray.dark)">
                 {intl.formatMessage({
                   defaultMessage:
                     "E.g.: You want to be considered for the Quebec region, but not for Montréal.",
-                  id: "2K7dVp",
+                  id: "qnaIOA",
                   description:
-                    "Example for Location exemptions field in work location preference form",
+                    "Example for Work location exceptions field in work location preference form",
                 })}
               </p>
             </div>
@@ -228,12 +223,6 @@ const WorkLocationForm = ({
                 id="location-exemptions"
                 label={labels.locationExemptions}
                 name="locationExemptions"
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Optionally, add a city or village here...",
-                  id: "OH5tTS",
-                  description:
-                    "Location Exemptions field placeholder for work location preference form",
-                })}
               />
             </div>
           </div>

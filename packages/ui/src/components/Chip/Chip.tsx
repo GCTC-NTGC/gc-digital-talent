@@ -5,13 +5,14 @@ import { useIntl } from "react-intl";
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import Pill from "../Pill";
-import type { PillColor, PillMode, PillProps } from "../Pill";
+import { Color } from "../../types";
+import type { PillMode, PillProps } from "../Pill";
 
 import "./chip.css";
 
 export interface ChipProps extends PillProps {
   /** The style type of the element. */
-  color: PillColor;
+  color: Color;
   /** The style mode of the element. */
   mode: PillMode;
   /** Handler for clicking the dismiss button in the chip */
@@ -58,7 +59,6 @@ const Chip = ({
       <Pill
         color={color}
         mode={mode}
-        role="listitem"
         data-h2-padding="base(x.25, x.5)"
         {...rest}
       >

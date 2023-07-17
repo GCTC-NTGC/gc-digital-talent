@@ -21,20 +21,17 @@ query getMePools {
             en
             fr
           }
-          description {
-            en
-            fr
-          }
           classifications {
             id
             group
             level
           }
-          advertisementStatus
+          status
           stream
           processNumber
           publishingGroup
           createdDate
+          updatedDate
         }
       }
     }
@@ -54,16 +51,12 @@ query allPools {
       en
       fr
     }
-    description {
-      en
-      fr
-    }
     classifications {
       id
       group
       level
     }
-    advertisementStatus
+    status
     stream
     processNumber
     publishingGroup

@@ -4,12 +4,12 @@ import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
 
-import { PoolAdvertisement } from "~/api/generated";
+import { Pool } from "~/api/generated";
 
 import PoolCard from "../PoolCard/PoolCard";
 
 export interface ActiveRecruitmentSectionProps {
-  pools: PoolAdvertisement[];
+  pools: Pool[];
 }
 
 const ActiveRecruitmentSection = ({ pools }: ActiveRecruitmentSectionProps) => {
@@ -26,7 +26,7 @@ const ActiveRecruitmentSection = ({ pools }: ActiveRecruitmentSectionProps) => {
       <Heading
         level="h2"
         Icon={RocketLaunchIcon}
-        color="blue"
+        color="secondary"
         data-h2-margin="base(0, 0, x0.5, 0)"
       >
         {intl.formatMessage({
@@ -60,9 +60,9 @@ const ActiveRecruitmentSection = ({ pools }: ActiveRecruitmentSectionProps) => {
             data-h2-padding="base(0)"
             data-h2-list-style="base(none)"
           >
-            {pools.map((poolAdvertisement) => (
-              <li key={poolAdvertisement.id}>
-                <PoolCard pool={poolAdvertisement} />
+            {pools.map((pool) => (
+              <li key={pool.id}>
+                <PoolCard pool={pool} />
               </li>
             ))}
           </ul>

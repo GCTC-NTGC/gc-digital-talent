@@ -5,8 +5,8 @@ namespace Database\Factories;
 use App\Models\ApplicantFilter;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\Department;
-use App\Models\PoolCandidateFilter;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Database\Helpers\ApiEnums;
 
 class PoolCandidateSearchRequestFactory extends Factory
 {
@@ -30,11 +30,12 @@ class PoolCandidateSearchRequestFactory extends Factory
       'department_id' => Department::inRandomOrder()->first()->id,
       'job_title' => $this->faker->jobTitle(),
       'additional_comments' => $this->faker->text(),
-      'done_at' => $this->faker->optional()->dateTimeBetween($startDate = '-3 years', $endDate = 'now'),
+      'created_at' => $this->faker->dateTimeBetween($startDate = '-6 months', $endDate = '-1 months'),
       'admin_notes' => $this->faker->text(),
-      'pool_candidate_filter_id' => PoolCandidateFilter::factory(),
       'applicant_filter_id' => ApplicantFilter::factory(),
-      'was_empty' => $this->faker->boolean()
+      'was_empty' => $this->faker->boolean(),
+      'request_status' => $this->faker->randomElement(ApiEnums::poolCandidateSearchStatuses()),
+      'request_status_changed_at' => $this->faker->boolean() ? $this->faker->dateTimeBetween($startDate = '-1 months', $endDate = 'now') : null,
     ];
   }
 }

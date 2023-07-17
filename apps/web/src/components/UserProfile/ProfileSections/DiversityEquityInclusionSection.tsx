@@ -8,7 +8,7 @@ import {
   getIndigenousCommunity,
 } from "@gc-digital-talent/i18n";
 
-import { Applicant, IndigenousCommunity } from "~/api/generated";
+import { User, IndigenousCommunity } from "~/api/generated";
 
 import firstNationsIcon from "~/assets/img/first-nations-true.png";
 import inuitIcon from "~/assets/img/inuit-true.png";
@@ -17,33 +17,29 @@ import otherIcon from "~/assets/img/other-true.png";
 import { anyCriteriaSelected } from "~/validators/profile/diversityEquityInclusion";
 
 const DiversityEquityInclusionSection = ({
-  applicant,
+  user,
   editPath,
 }: {
-  applicant: Applicant;
+  user: User;
   editPath?: string;
 }) => {
   const intl = useIntl();
 
   const { isWoman, hasDisability, isVisibleMinority, indigenousCommunities } =
-    applicant;
+    user;
   const nonLegacyIndigenousCommunities =
     unpackMaybes(indigenousCommunities).filter(
       (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
 
   const pledgeLink = (text: React.ReactNode) => {
-    return editPath ? (
-      <Link mode="inline" href={editPath}>
-        {text}
-      </Link>
-    ) : null;
+    return editPath ? <Link href={editPath}>{text}</Link> : null;
   };
 
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {!anyCriteriaSelected(applicant) && editPath && (
+        {!anyCriteriaSelected(user) && editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
@@ -55,7 +51,7 @@ const DiversityEquityInclusionSection = ({
               })}
             </p>
             <p data-h2-margin="base(x.5, 0, 0, 0)">
-              <a href={editPath}>
+              <Link href={editPath}>
                 {intl.formatMessage({
                   defaultMessage:
                     "Edit your diversity, equity and inclusion options.",
@@ -63,11 +59,11 @@ const DiversityEquityInclusionSection = ({
                   description:
                     "Link text to edit diversity, equity and inclusion information on profile.",
                 })}
-              </a>
+              </Link>
             </p>
           </div>
         )}
-        {!anyCriteriaSelected(applicant) && !editPath && (
+        {!anyCriteriaSelected(user) && !editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
@@ -80,7 +76,7 @@ const DiversityEquityInclusionSection = ({
             </p>
           </div>
         )}
-        {anyCriteriaSelected(applicant) && (
+        {anyCriteriaSelected(user) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
@@ -119,7 +115,7 @@ const DiversityEquityInclusionSection = ({
                         <li>
                           <span
                             data-h2-font-weight="base(700)"
-                            data-h2-color="base(primary)"
+                            data-h2-color="base(primary.dark)"
                           >
                             {intl.formatMessage(
                               {

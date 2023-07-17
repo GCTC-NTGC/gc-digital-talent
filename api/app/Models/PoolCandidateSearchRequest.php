@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use Carbon\CarbonImmutable;
-use Database\Helpers\ApiEnums;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use UnexpectedValueException;
+use Carbon\CarbonImmutable;
 
 /**
  * Class PoolCandidateSearchRequest
@@ -21,12 +20,13 @@ use UnexpectedValueException;
  * @property string $additional_comments
  * @property string $pool_candidate_filter_id
  * @property boolean $was_empty
- * @property string $status
  * @property string $admin_notes
+ * @property string $request_status
+ * @property int $request_status_weight
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $deleted_at
- * @property Illuminate\Support\Carbon $done_at
+ * @property Illuminate\Support\Carbon $request_status_changed_at
  */
 
 class PoolCandidateSearchRequest extends Model
@@ -43,10 +43,12 @@ class PoolCandidateSearchRequest extends Model
      */
 
     protected $casts = [
-        'done_at' => 'datetime',
+        'request_status_changed_at' => 'datetime',
     ];
 
-
+    /**
+     * Model relations
+     */
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
@@ -62,22 +64,131 @@ class PoolCandidateSearchRequest extends Model
         return $this->belongsTo(ApplicantFilter::class);
     }
 
-    public function getStatusAttribute(): string
+    /**
+     * Scopes/filters
+     */
+    public static function scopeSearchRequestStatus(Builder $query, ?array $searchRequestStatuses)
     {
-        $thisDoneAt = $this->done_at;
-        if (!is_null($thisDoneAt) && $thisDoneAt->isPast())
-            return ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE;
-        else
-            return ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING;
+        if (empty($searchRequestStatuses)) {
+            return $query;
+        }
+
+        $query->whereIn('request_status', $searchRequestStatuses);
+        return $query;
     }
+
+    public static function scopeStreams(Builder $query, ?array $streams): Builder
+    {
+        if (empty($streams)) {
+            return $query;
+        }
+
+        // streams is an array of PoolStream enums
+        $query->whereHas('applicantFilter', function ($query) use ($streams) {
+            $query->where(function ($query) use ($streams) {
+                foreach ($streams as $index => $stream) {
+                    $query->orWhereJsonContains('qualified_streams', $stream);
+                }
+            });
+        });
+        return $query;
+    }
+
+    public static function scopeDepartments(Builder $query, ?array $departmentIds): Builder
+    {
+        if (empty($departmentIds)) {
+            return $query;
+        }
+
+        $query->whereHas('department', function ($query) use ($departmentIds) {
+            Department::scopeDepartmentsByIds($query, $departmentIds);
+        });
+        return $query;
+    }
+
+    public static function scopeClassifications(Builder $query, ?array $classificationIds): Builder
+    {
+        if (empty($classificationIds)) {
+            return $query;
+        }
+
+        $query->whereHas('applicantFilter', function ($query) use ($classificationIds) {
+            $query->whereHas('qualifiedClassifications', function ($query) use ($classificationIds) {
+                $query->whereIn('classifications.id', $classificationIds);
+            });
+        });
+        return $query;
+    }
+
+    public static function scopeFullName(Builder $query, ?string $fullName)
+    {
+        if ($fullName) {
+            $query->where('full_name', 'ilike', "%{$fullName}%");
+        }
+        return $query;
+    }
+
+    public static function scopeEmail(Builder $query, ?string $email)
+    {
+        if ($email) {
+            $query->where('email', 'ilike', "%{$email}%");
+        }
+        return $query;
+    }
+
+    public static function scopeJobTitle(Builder $query, ?string $jobTitle)
+    {
+        if ($jobTitle) {
+            $query->where('job_title', 'ilike', "%{$jobTitle}%");
+        }
+        return $query;
+    }
+
+    public static function scopeAdditionalComments(Builder $query, ?string $additionalComments)
+    {
+        if ($additionalComments) {
+            $query->where('additional_comments', 'ilike', "%{$additionalComments}%");
+        }
+        return $query;
+    }
+
+    public static function scopeAdminNotes(Builder $query, ?string $adminNotes)
+    {
+        if ($adminNotes) {
+            $query->where('admin_notes', 'ilike', "%{$adminNotes}%");
+        }
+        return $query;
+    }
+
+    public static function scopeGeneralSearch(Builder $query, ?string $search): Builder
+    {
+        if ($search) {
+            $query->where(function ($query) use ($search) {
+                self::scopeFullName($query, $search);
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeEmail($query, $search);
+                });
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeJobTitle($query, $search);
+                });
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeAdditionalComments($query, $search);
+                });
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeAdminNotes($query, $search);
+                });
+            });
+        }
+        return $query;
+    }
+
+    /**
+     * Getters/Mutators
+     */
 
     public function setStatusAttribute($statusInput): void
     {
-        if ($statusInput == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE)
-            $this->done_at = CarbonImmutable::now();
-        else if ($statusInput == ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING)
-            $this->done_at = null;
-        else
-            throw new UnexpectedValueException("status");
+        $this->request_status = $statusInput;
+        $this->request_status_changed_at = CarbonImmutable::now();
     }
 }

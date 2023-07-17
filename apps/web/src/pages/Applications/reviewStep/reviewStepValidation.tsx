@@ -1,12 +1,8 @@
-import {
-  Applicant,
-  PoolAdvertisement,
-  PoolCandidate,
-} from "@gc-digital-talent/graphql";
+import { User, Pool, PoolCandidate } from "@gc-digital-talent/graphql";
 
 const stepHasError = (
-  _applicant: Applicant,
-  _poolAdvertisement: PoolAdvertisement,
+  _user: User,
+  _pool: Pool,
   application: Omit<PoolCandidate, "pool">,
 ) => {
   return !application.signature;

@@ -5,19 +5,16 @@ import zipWith from "lodash/zipWith";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Input, MultiSelectField } from "@gc-digital-talent/forms";
+import { DateInput, MultiSelectField } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 
-import {
-  getFullPoolAdvertisementTitleLabel,
-  getFullPoolAdvertisementTitleHtml,
-} from "~/utils/poolUtils";
+import { getFullPoolTitleLabel, getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import {
-  AdvertisementStatus,
-  Applicant,
+  PoolStatus,
+  User,
   CreatePoolCandidateAsAdminInput,
   Pool,
   PoolCandidate,
@@ -31,7 +28,7 @@ type FormValues = {
 };
 
 export interface AddToPoolDialogProps {
-  user: Applicant;
+  user: User;
   pools: Pool[];
 }
 
@@ -75,7 +72,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
         user: {
           connect: user.id,
         },
-        expiryDate: formValues.expiryDate,
+        expiryDate: formValues.expiryDate || emptyToNull(formValues.expiryDate),
       }).catch((err) => {
         throw err;
       });
@@ -118,7 +115,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
               <ul>
                 {rejectedRequests.map((rejected) => (
                   <li key={rejected.pool.id}>
-                    {getFullPoolAdvertisementTitleHtml(intl, rejected.pool)}
+                    {getFullPoolTitleHtml(intl, rejected.pool)}
                   </li>
                 ))}
               </ul>
@@ -143,20 +140,20 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
     .filter((pool) => !currentPools.includes(pool.id))
     .filter(
       (pool) =>
-        pool.advertisementStatus === AdvertisementStatus.Published ||
-        pool.advertisementStatus === AdvertisementStatus.Closed,
+        pool.status === PoolStatus.Published ||
+        pool.status === PoolStatus.Closed,
     )
     .map((pool) => {
       return {
         value: pool.id,
-        label: getFullPoolAdvertisementTitleLabel(intl, pool),
+        label: getFullPoolTitleLabel(intl, pool),
       };
     });
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="outline">
+        <Button color="primary">
           <span data-h2-text-decoration="base(underline)">
             {intl.formatMessage({
               defaultMessage: "Add user to pool",
@@ -224,18 +221,16 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
                 })}
               </p>
               <div data-h2-margin="base(x.5, 0, x.125, 0)">
-                <Input
+                <DateInput
                   id="addToPoolDialog-expiryDate"
-                  label={intl.formatMessage({
+                  legend={intl.formatMessage({
                     defaultMessage: "Expiry date",
                     id: "sICXeM",
                     description:
                       "Label displayed on the date field of the add user to pool dialog",
                   })}
-                  type="date"
                   name="expiryDate"
                   rules={{
-                    required: intl.formatMessage(errorMessages.required),
                     min: {
                       value: currentDate(),
                       message: intl.formatMessage(errorMessages.futureDate),
@@ -245,7 +240,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
               </div>
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button type="button" mode="outline" color="secondary">
+                  <Button type="button" color="secondary">
                     <span data-h2-text-decoration="base(underline)">
                       {intl.formatMessage({
                         defaultMessage: "Cancel and go back",

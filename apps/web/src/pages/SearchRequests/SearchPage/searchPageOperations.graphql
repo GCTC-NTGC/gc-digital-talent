@@ -14,15 +14,35 @@ query CountApplicantsAndCountPoolCandidatesByPool(
         en
         fr
       }
-      description {
-        en
-        fr
-      }
       stream
       classifications {
         id
         group
         level
+      }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+      team {
+        id
+        name
+        displayName {
+          en
+          fr
+        }
+        departments {
+          id
+          departmentNumber
+          name {
+            en
+            fr
+          }
+        }
       }
     }
     candidateCount
@@ -30,19 +50,14 @@ query CountApplicantsAndCountPoolCandidatesByPool(
 }
 
 query getSearchFormDataAcrossAllPools {
-  publishedPoolAdvertisements {
+  publishedPools {
     id
-    key
     owner {
       email
       firstName
       lastName
     }
     name {
-      en
-      fr
-    }
-    description {
       en
       fr
     }

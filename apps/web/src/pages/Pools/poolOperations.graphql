@@ -10,10 +10,6 @@ fragment pool on Pool {
     en
     fr
   }
-  description {
-    en
-    fr
-  }
   keyTasks {
     en
     fr
@@ -69,60 +65,20 @@ query getPools {
       en
       fr
     }
-    description {
-      en
-      fr
-    }
     classifications {
       id
       group
       level
     }
-    advertisementStatus
+    status
     stream
     processNumber
     createdDate
   }
 }
 
-mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
-  updatePool(id: $id, pool: $pool) {
-    owner {
-      id
-    }
-    name {
-      en
-      fr
-    }
-    description {
-      en
-      fr
-    }
-    keyTasks {
-      en
-      fr
-    }
-    classifications {
-      id
-      group
-      level
-    }
-    operationalRequirements
-    stream
-    processNumber
-  }
-}
-
-mutation createPoolAdvertisement(
-  $userId: ID!
-  $teamId: ID!
-  $poolAdvertisement: CreatePoolAdvertisementInput!
-) {
-  createPoolAdvertisement(
-    userId: $userId
-    teamId: $teamId
-    poolAdvertisement: $poolAdvertisement
-  ) {
+mutation createPool($userId: ID!, $teamId: ID!, $pool: CreatePoolInput!) {
+  createPool(userId: $userId, teamId: $teamId, pool: $pool) {
     id
     name {
       en

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\PoolCandidateObserver;
 use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +15,8 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Str;
 
 /**
  * Class PoolCandidate
@@ -73,6 +76,14 @@ class PoolCandidate extends Model
         'expiry_date',
         'pool_candidate_status',
     ];
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        PoolCandidate::observe(PoolCandidateObserver::class);
+    }
 
     public function user(): BelongsTo
     {
@@ -156,7 +167,7 @@ class PoolCandidate extends Model
         })
             ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
-                $query->whereDate('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
+                $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
             // Now scope for valid pools, according to streams
             ->whereHas('pool', function ($query) use ($streams) {
@@ -185,7 +196,7 @@ class PoolCandidate extends Model
         })
             ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
-                $query->whereDate('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
+                $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
             // Now ensure the PoolCandidate is in a pool with the right classification
             ->whereHas('pool', function ($query) use ($classifications) {
@@ -295,8 +306,12 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query->whereHas('user', function ($query) use ($search) {
-            User::scopeGeneralSearch($query, $search);
+        $query->where(function ($query) use ($search) {
+            $query->whereHas('user', function ($query) use ($search) {
+                User::scopeGeneralSearch($query, $search);
+            })->orWhere(function ($query) use ($search) {
+                self::scopeNotes($query, $search);
+            });
         });
 
         return $query;
@@ -328,6 +343,16 @@ class PoolCandidate extends Model
         return $query;
     }
 
+    public static function scopeNotes(Builder $query, ?string $notes): Builder
+    {
+
+        if (!empty($notes)) {
+            $query->where('notes', 'ilike', "%{$notes}%");
+        }
+
+        return $query;
+    }
+
 
     public function scopePoolCandidateStatuses(Builder $query, ?array $poolCandidateStatuses): Builder
     {
@@ -343,7 +368,7 @@ class PoolCandidate extends Model
     {
         $query->whereIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])
             ->where(function ($query) {
-                $query->whereDate('suspended_at', '>=', Carbon::now())
+                $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
             });
         return $query;
@@ -361,21 +386,6 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public static function scopeExpiryFilter(Builder $query, ?array $args)
-    {
-        $expiryStatus = isset($args['expiryStatus']) ? $args['expiryStatus'] : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
-        if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
-            $query->where(function ($query) {
-                $query->whereDate('expiry_date', '>=', date("Y-m-d"))
-                    ->orWhereNull('expiry_date');
-            });
-        } else if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
-            $query->whereDate('expiry_date', '<', date("Y-m-d"));
-        }
-        return $query;
-    }
-
-    // to replace scopeExpiryFilter which is entangled in deprecated queries
     public static function scopeExpiryStatus(Builder $query, ?string $expiryStatus)
     {
         $expiryStatus = isset($expiryStatus) ? $expiryStatus : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
@@ -395,11 +405,11 @@ class PoolCandidate extends Model
         $suspendedStatus = isset($suspendedStatus) ? $suspendedStatus : ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE;
         if ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
             $query->where(function ($query) {
-                $query->whereDate('suspended_at', '>=', Carbon::now())
+                $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
             });
         } else if ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
-            $query->whereDate('suspended_at', '<', Carbon::now());
+            $query->where('suspended_at', '<', Carbon::now());
         }
         return $query;
     }
@@ -455,10 +465,25 @@ class PoolCandidate extends Model
             'expectedClassifications',
             'expectedGenericJobTitles',
             'awardExperiences',
+            'awardExperiences.skills',
             'communityExperiences',
+            'communityExperiences.skills',
             'educationExperiences',
+            'educationExperiences.skills',
             'personalExperiences',
-            'workExperiences'
+            'personalExperiences.skills',
+            'workExperiences',
+            'workExperiences.skills',
+            'poolCandidates',
+            'poolCandidates.pool',
+            'poolCandidates.pool.classifications',
+            'poolCandidates.educationRequirementAwardExperiences.skills',
+            'poolCandidates.educationRequirementCommunityExperiences.skills',
+            'poolCandidates.educationRequirementEducationExperiences.skills',
+            'poolCandidates.educationRequirementPersonalExperiences.skills',
+            'poolCandidates.educationRequirementWorkExperiences.skills',
+            'poolCandidates.screeningQuestionResponses',
+            'poolCandidates.screeningQuestionResponses.screeningQuestion',
         ])->findOrFail($this->user_id);
         $profile = new UserResource($user);
 
@@ -576,9 +601,11 @@ class PoolCandidate extends Model
                 if ($user->isAbleTo("view-team-submittedApplication")) {
                     $teamIds = $user->rolesTeams()->get()->pluck('id');
                     $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
-                        return $query->whereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
+                        return $query
+                            ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                            ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            });
                     });
                 }
 
@@ -604,10 +631,17 @@ class PoolCandidate extends Model
     public function scopeWithSkillCount(Builder $query)
     {
         // Checks if the query already has a skill_count select and if it does, it skips adding it again
-        $currentSql = $query->getQuery()->toSql();
-        $skillCountAppearances = substr_count($currentSql, 'skill_count');
-        $orderedBySkillCount = str_contains($currentSql, 'order by "skill_count"');
-        if ($orderedBySkillCount && $skillCountAppearances === 2) {
+        $columns = $query->getQuery()->columns;
+        $normalizedColumns = array_map(function ($column) {
+            // Massage the column name to be a string and only return the column name
+            return $column instanceof Expression
+                ? Str::afterLast($column->getValue(DB::getQueryGrammar()), 'as ')
+                : Str::afterLast($column, 'as ');
+        }, $columns ?? []);
+
+        // Check if our array of columns contains the skill_count column
+        // If it does, we do not need to add it again
+        if (in_array('"skill_count"', $normalizedColumns)) {
             return $query;
         }
 

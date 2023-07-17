@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Link, Well } from "@gc-digital-talent/ui";
 import { enumToOptions } from "@gc-digital-talent/forms";
 import {
   commonMessages,
@@ -10,28 +10,28 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
-import { Applicant, GovEmployeeType } from "~/api/generated";
+import { User, GovEmployeeType } from "~/api/generated";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
 } from "~/validators/profile/governmentInformation";
 
 const GovernmentInformationSection = ({
-  applicant,
+  user,
   editPath,
 }: {
-  applicant: Applicant;
+  user: User;
   editPath?: string;
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const govEmployeeTypeId =
     enumToOptions(GovEmployeeType).find(
-      (govEmployeeType) => govEmployeeType.value === applicant.govEmployeeType,
+      (govEmployeeType) => govEmployeeType.value === user.govEmployeeType,
     )?.value || "";
   return (
     <Well>
-      {applicant.isGovEmployee && (
+      {user.isGovEmployee && (
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
@@ -53,7 +53,7 @@ const GovernmentInformationSection = ({
               </span>
             </p>
           </div>
-          {applicant.department && (
+          {user.department && (
             <div data-h2-flex-item="base(1of1)">
               <p>
                 <span data-h2-display="base(block)">
@@ -65,12 +65,12 @@ const GovernmentInformationSection = ({
                   })}
                 </span>
                 <span data-h2-font-weight="base(700)">
-                  {applicant.department.name[locale]}
+                  {user.department.name[locale]}
                 </span>
               </p>
             </div>
           )}
-          {applicant.govEmployeeType && (
+          {user.govEmployeeType && (
             <div data-h2-flex-item="base(1of1)">
               <p>
                 <span data-h2-display="base(block)">
@@ -86,8 +86,8 @@ const GovernmentInformationSection = ({
               </p>
             </div>
           )}
-          {!!applicant.currentClassification?.group &&
-            !!applicant.currentClassification?.level && (
+          {!!user.currentClassification?.group &&
+            !!user.currentClassification?.level && (
               <div data-h2-flex-item="base(1of1)">
                 <p>
                   <span data-h2-display="base(block)">
@@ -100,7 +100,7 @@ const GovernmentInformationSection = ({
                   </span>
                   <span data-h2-font-weight="base(700)">
                     {wrapAbbr(
-                      `${applicant.currentClassification?.group}-${applicant.currentClassification?.level}`,
+                      `${user.currentClassification?.group}-${user.currentClassification?.level}`,
                       intl,
                     )}
                   </span>
@@ -109,7 +109,7 @@ const GovernmentInformationSection = ({
             )}
         </div>
       )}
-      {applicant.isGovEmployee === false && editPath && (
+      {user.isGovEmployee === false && editPath && (
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
@@ -125,7 +125,7 @@ const GovernmentInformationSection = ({
         </div>
       )}
 
-      {applicant.isGovEmployee === false && !editPath && (
+      {user.isGovEmployee === false && !editPath && (
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
@@ -140,7 +140,7 @@ const GovernmentInformationSection = ({
         </div>
       )}
 
-      {applicant.hasPriorityEntitlement !== null && (
+      {user.hasPriorityEntitlement !== null && (
         <div
           data-h2-flex-grid="base(flex-start, x2, x1)"
           data-h2-padding="base(x1, 0, 0, 0)"
@@ -156,7 +156,7 @@ const GovernmentInformationSection = ({
                 })}
               </span>
               <span data-h2-font-weight="base(700)">
-                {applicant.hasPriorityEntitlement
+                {user.hasPriorityEntitlement
                   ? intl.formatMessage({
                       defaultMessage: "I do have a priority entitlement",
                       id: "+tKl71",
@@ -170,7 +170,7 @@ const GovernmentInformationSection = ({
               </span>
             </p>
           </div>
-          {applicant.priorityNumber && (
+          {user.hasPriorityEntitlement && (
             <div data-h2-flex-item="base(1of1)">
               <p>
                 <span data-h2-display="base(block)">
@@ -181,14 +181,16 @@ const GovernmentInformationSection = ({
                   })}
                 </span>
                 <span data-h2-font-weight="base(700)">
-                  {applicant.priorityNumber}
+                  {user.priorityNumber
+                    ? user.priorityNumber
+                    : intl.formatMessage(commonMessages.notProvided)}
                 </span>
               </p>
             </div>
           )}
         </div>
       )}
-      {hasAllEmptyFields(applicant) && editPath && (
+      {hasAllEmptyFields(user) && editPath && (
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
@@ -202,7 +204,7 @@ const GovernmentInformationSection = ({
         </div>
       )}
 
-      {hasEmptyRequiredFields(applicant) && editPath && (
+      {hasEmptyRequiredFields(user) && editPath && (
         <div
           data-h2-flex-grid="base(flex-start, x2, x1)"
           data-h2-padding="base(x1, 0, 0, 0)"
@@ -210,21 +212,21 @@ const GovernmentInformationSection = ({
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-              <a href={editPath}>
+              <Link href={editPath}>
                 {intl.formatMessage({
                   defaultMessage: "Edit your government information options.",
                   id: "3pox8N",
                   description:
                     "Link text to edit government information on profile.",
                 })}
-              </a>
+              </Link>
             </p>
           </div>
         </div>
       )}
 
-      {applicant.isGovEmployee === null &&
-        applicant.hasPriorityEntitlement === null &&
+      {user.isGovEmployee === null &&
+        user.hasPriorityEntitlement === null &&
         !editPath && (
           <div data-h2-flex-grid="base(flex-start, x2, x1)">
             <div data-h2-flex-item="base(1of1)">

@@ -3,14 +3,10 @@ import { IntlShape } from "react-intl";
 import { StepType } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import {
-  ApplicationStep,
-  Maybe,
-  PoolAdvertisement,
-  PoolCandidate,
-} from "~/api/generated";
+import { ApplicationStep, Maybe, PoolCandidate } from "~/api/generated";
 import { ApplicationStepInfo } from "~/types/applicationStep";
 import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
+import selfDeclarationStepInfo from "~/pages/Applications/selfDeclarationStep/selfDeclarationStepInfo";
 import resumeStepInfo from "~/pages/Applications/resumeStep/resumeStepInfo";
 import reviewStepInfo from "~/pages/Applications/reviewStep/reviewStepInfo";
 import questionsStepInfo from "~/pages/Applications/questionsStep/questionsStepInfo";
@@ -19,12 +15,16 @@ import profileStepInfo from "~/pages/Applications/profileStep/profileStepInfo";
 import successPageInfo from "~/pages/Applications/successStep/successStepInfo";
 import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
 
+import { isIAPPool } from "~/utils/poolUtils";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import isPast from "date-fns/isPast";
+
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
   intl: IntlShape;
-  application: Omit<PoolCandidate, "pool">;
+  application: PoolCandidate;
   experienceId?: string;
-  poolAdvertisement: Maybe<PoolAdvertisement>;
 };
 
 // Dynamically build the list of application steps for this application
@@ -33,19 +33,16 @@ export const getApplicationSteps = ({
   intl,
   application,
   experienceId,
-  poolAdvertisement,
 }: GetApplicationPagesArgs): Array<ApplicationStepInfo> => {
   // build the order of step functions to call
   const stepInfoFunctions = [
     welcomeStepInfo,
-    // TODO: IAP self declaration optionally here
+    ...(isIAPPool(application.pool) ? [selfDeclarationStepInfo] : []),
     profileStepInfo,
     resumeStepInfo,
     educationStepInfo,
     skillsStepInfo,
-    ...(poolAdvertisement?.screeningQuestions?.length
-      ? [questionsStepInfo]
-      : []),
+    ...(application.pool.screeningQuestions?.length ? [questionsStepInfo] : []),
     reviewStepInfo,
     successPageInfo,
   ];
@@ -137,7 +134,7 @@ export function isOnDisabledPage(
 
 export function applicationStepsToStepperArgs(
   applicationSteps: Array<ApplicationStepInfo>,
-  application: Omit<PoolCandidate, "pool">,
+  application: PoolCandidate,
 ): StepType[] {
   return applicationSteps
     .filter((step) => step.showInStepper)
@@ -154,13 +151,34 @@ export function applicationStepsToStepperArgs(
           step.prerequisites,
           application.submittedSteps,
         )?.length,
-        error: application.poolAdvertisement
-          ? step.hasError?.(
-              application.user,
-              application.poolAdvertisement,
-              application,
-            )
-          : false,
+        error: step.hasError?.(application.user, application.pool, application),
       };
     });
+}
+
+export type Application = Omit<PoolCandidate, "user">;
+
+export function isApplicationInProgress(a: Application): boolean {
+  const isExpired = a.pool.closingDate
+    ? isPast(parseDateTimeUtc(a.pool.closingDate))
+    : false;
+  return (
+    (!isExpired && a.status === PoolCandidateStatus.Draft) ||
+    a.status === PoolCandidateStatus.NewApplication ||
+    a.status === PoolCandidateStatus.ApplicationReview ||
+    a.status === PoolCandidateStatus.UnderAssessment ||
+    a.status === PoolCandidateStatus.ScreenedIn
+  );
+}
+
+export function isApplicationQualifiedRecruitment(a: Application): boolean {
+  return (
+    a.status === PoolCandidateStatus.QualifiedAvailable ||
+    a.status === PoolCandidateStatus.QualifiedUnavailable ||
+    a.status === PoolCandidateStatus.QualifiedWithdrew ||
+    a.status === PoolCandidateStatus.PlacedCasual ||
+    a.status === PoolCandidateStatus.PlacedTerm ||
+    a.status === PoolCandidateStatus.PlacedIndeterminate ||
+    a.status === PoolCandidateStatus.Expired
+  );
 }

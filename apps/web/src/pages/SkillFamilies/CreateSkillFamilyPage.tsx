@@ -121,7 +121,12 @@ export const CreateSkillFamilyForm = ({
       </Heading>
       <div>
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x1 0)"
+          >
             <Input
               id="key"
               name="key"
@@ -227,21 +232,21 @@ export const CreateSkillFamilyForm = ({
                 label: intl.formatMessage(getSkillCategory(value)),
               }))}
             />
-            <div data-h2-margin="base(x1, 0)">
-              <MultiSelectField
-                id="skills"
-                name="skills"
-                label={intl.formatMessage(adminMessages.skills)}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Select one or more skills",
-                  id: "GhszAa",
-                  description:
-                    "Placeholder displayed on the skill family form skills field.",
-                })}
-                options={skillOptions}
-              />
+            <MultiSelectField
+              id="skills"
+              name="skills"
+              label={intl.formatMessage(adminMessages.skills)}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select one or more skills",
+                id: "GhszAa",
+                description:
+                  "Placeholder displayed on the skill family form skills field.",
+              })}
+              options={skillOptions}
+            />
+            <div data-h2-align-self="base(flex-start)">
+              <Submit />
             </div>
-            <Submit />
           </form>
         </FormProvider>
       </div>

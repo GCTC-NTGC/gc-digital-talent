@@ -2,14 +2,15 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { wrapAbbr } from "~/utils/nameUtils";
-
 import { GenericJobTitleKey } from "~/api/generated";
+
+import Text from "./Text";
 
 const LevelOne = () => {
   const intl = useIntl();
 
   return (
-    <p>
+    <Text>
       {intl.formatMessage(
         {
           defaultMessage:
@@ -21,7 +22,7 @@ const LevelOne = () => {
           abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
         },
       )}
-    </p>
+    </Text>
   );
 };
 
@@ -29,7 +30,7 @@ const LevelTwo = () => {
   const intl = useIntl();
 
   return (
-    <p>
+    <Text>
       {intl.formatMessage(
         {
           defaultMessage:
@@ -41,7 +42,7 @@ const LevelTwo = () => {
           abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
         },
       )}
-    </p>
+    </Text>
   );
 };
 
@@ -50,7 +51,7 @@ const LevelThreeLead = () => {
 
   return (
     <>
-      <p>
+      <Text>
         {intl.formatMessage(
           {
             defaultMessage:
@@ -62,8 +63,8 @@ const LevelThreeLead = () => {
             abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
           },
         )}
-      </p>
-      <p>
+      </Text>
+      <Text>
         {intl.formatMessage(
           {
             defaultMessage:
@@ -75,7 +76,7 @@ const LevelThreeLead = () => {
             abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
           },
         )}
-      </p>
+      </Text>
     </>
   );
 };
@@ -85,7 +86,7 @@ const LevelThreeAdvisor = () => {
 
   return (
     <>
-      <p>
+      <Text>
         {intl.formatMessage(
           {
             defaultMessage:
@@ -97,8 +98,8 @@ const LevelThreeAdvisor = () => {
             abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
           },
         )}
-      </p>
-      <p>
+      </Text>
+      <Text>
         {intl.formatMessage(
           {
             defaultMessage:
@@ -110,7 +111,7 @@ const LevelThreeAdvisor = () => {
             abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
           },
         )}
-      </p>
+      </Text>
     </>
   );
 };
@@ -120,7 +121,7 @@ const LevelFourManager = () => {
 
   return (
     <>
-      <p>
+      <Text>
         {intl.formatMessage(
           {
             defaultMessage:
@@ -132,8 +133,8 @@ const LevelFourManager = () => {
             abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
           },
         )}
-      </p>
-      <p>
+      </Text>
+      <Text>
         {intl.formatMessage(
           {
             defaultMessage:
@@ -145,7 +146,7 @@ const LevelFourManager = () => {
             abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
           },
         )}
-      </p>
+      </Text>
     </>
   );
 };
@@ -155,7 +156,7 @@ const LevelFourAdvisor = (): JSX.Element => {
 
   return (
     <>
-      <p>
+      <Text>
         {intl.formatMessage(
           {
             defaultMessage:
@@ -167,8 +168,8 @@ const LevelFourAdvisor = (): JSX.Element => {
             abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
           },
         )}
-      </p>
-      <p>
+      </Text>
+      <Text>
         {intl.formatMessage(
           {
             defaultMessage:
@@ -181,7 +182,7 @@ const LevelFourAdvisor = (): JSX.Element => {
             abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
           },
         )}
-      </p>
+      </Text>
     </>
   );
 };

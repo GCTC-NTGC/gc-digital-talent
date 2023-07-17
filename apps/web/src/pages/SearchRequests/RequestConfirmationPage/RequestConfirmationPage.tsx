@@ -6,7 +6,6 @@ import { Heading, ThrowNotFound, Button, Link } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
-import StrikeNotice from "~/components/StrikeNotice/StrikeNotice";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
@@ -24,7 +23,9 @@ const Text = ({ children, ...rest }: React.HTMLProps<HTMLParagraphElement>) => (
 );
 
 const mailLink = (chunks: React.ReactNode) => (
-  <a href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">{chunks}</a>
+  <Link external href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">
+    {chunks}
+  </Link>
 );
 
 const RequestConfirmationPage = () => {
@@ -71,7 +72,6 @@ const RequestConfirmationPage = () => {
         crumbs={crumbs}
       />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
-        <StrikeNotice />
         <Text data-h2-font-size="base(3rem)">
           {intl.formatMessage({
             defaultMessage: "We got it!",
@@ -112,8 +112,8 @@ const RequestConfirmationPage = () => {
         <Text>
           {intl.formatMessage({
             defaultMessage:
-              "You will receive a follow up on your request within the next 2 to 4 business days.",
-            id: "ltn4Er",
+              "You will receive a follow up on your request within the next 5 to 10 business days.",
+            id: "3rbRfI",
             description:
               "Description of when the user should expect a response to their request",
           })}
@@ -145,12 +145,7 @@ const RequestConfirmationPage = () => {
               description: "Button text to print the request confirmation page",
             })}
           </Button>
-          <Link
-            href={paths.search()}
-            mode="inline"
-            color="secondary"
-            type="button"
-          >
+          <Link mode="inline" href={paths.search()} color="secondary">
             {intl.formatMessage({
               defaultMessage: "Create a new talent request",
               id: "+d2TiI",

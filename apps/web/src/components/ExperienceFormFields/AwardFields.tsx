@@ -1,50 +1,40 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Input, Select, enumToOptions } from "@gc-digital-talent/forms";
+import {
+  DateInput,
+  Input,
+  Select,
+  enumToOptions,
+  DATE_SEGMENT,
+} from "@gc-digital-talent/forms";
 import {
   errorMessages,
   getAwardedScope,
   getAwardedTo,
 } from "@gc-digital-talent/i18n";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import { SubExperienceFormProps } from "~/types/experience";
 import { AwardedScope, AwardedTo } from "~/api/generated";
 
 const AwardFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
-  const todayDate = Date();
+  const todayDate = new Date();
 
   return (
     <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">
-      <div data-h2-flex-grid="base(flex-start, x2, 0)">
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+      <div data-h2-flex-grid="base(flex-start, x2, x1)">
+        <div
+          data-h2-flex-item="base(1of1) p-tablet(1of2)"
+          data-h2-align-self="base(flex-end)"
+        >
           <Input
             id="awardTitle"
             label={labels.awardTitle}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Write award title here...",
-              id: "9ttiBB",
-              description: "Placeholder for award title input",
-            })}
             name="awardTitle"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Input
-            id="awardedDate"
-            label={labels.awardedDate}
-            name="awardedDate"
-            type="date"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              max: {
-                value: todayDate,
-                message: intl.formatMessage(errorMessages.mustNotBeFuture),
-              },
-            }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -76,17 +66,12 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
           <Input
             id="issuedBy"
             label={labels.issuedBy}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Write name here...",
-              id: "TSqr8X",
-              description: "Placeholder for issuing organization input",
-            })}
             name="issuedBy"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
           />
         </div>
-        <div data-h2-flex-item="base(1of1)">
+        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Select
             id="awardedScope"
             label={labels.awardedScope}
@@ -112,6 +97,21 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
               value,
               label: intl.formatMessage(getAwardedScope(value)),
             }))}
+          />
+        </div>
+        <div data-h2-flex-item="base(1of1)">
+          <DateInput
+            id="awardedDate"
+            legend={labels.awardedDate}
+            name="awardedDate"
+            show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              max: {
+                value: strToFormDate(todayDate.toISOString()),
+                message: intl.formatMessage(errorMessages.mustNotBeFuture),
+              },
+            }}
           />
         </div>
       </div>

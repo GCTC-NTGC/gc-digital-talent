@@ -8,13 +8,13 @@ import {
   TreeView,
   Well,
   HeadingLevel,
-  Accordion,
+  incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { Experience, Skill } from "~/api/generated";
 import { getExperienceSkills } from "~/utils/skillUtils";
-import ExperienceAccordion from "~/components/ExperienceAccordion/ExperienceAccordion";
+import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 
 import SkillFormDialog from "./SkillFormDialog";
 
@@ -31,16 +31,23 @@ interface SkillTreeProps {
   skill: Skill;
   experiences: Experience[];
   headingAs?: HeadingLevel;
+  hideConnectButton?: boolean;
+  hideEdit?: boolean;
   showDisclaimer?: boolean;
+  disclaimerMessage?: React.ReactNode;
 }
 
 const SkillTree = ({
   skill,
   experiences,
-  headingAs,
+  headingAs = "h4",
+  disclaimerMessage,
+  hideConnectButton = false,
+  hideEdit = false,
   showDisclaimer = false,
 }: SkillTreeProps) => {
   const intl = useIntl();
+  const contentHeadingLevel = incrementHeadingRank(headingAs);
   const [isFormOpen, setIsFormOpen] = React.useState<boolean>(false);
   const [currentExperience, setCurrentExperience] =
     React.useState<Experience | null>(null);
@@ -71,15 +78,17 @@ const SkillTree = ({
   const disclaimer = showDisclaimer ? (
     <TreeView.Item>
       <Well color="warning">
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "This required skill must have at least 1 résumé experience associated with it.",
-            id: "x8tCSM",
-            description:
-              "Message that appears when a required skill has no experiences linked to it",
-          })}
-        </p>
+        {disclaimerMessage || (
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "This required skill must have at least 1 résumé experience associated with it.",
+              id: "x8tCSM",
+              description:
+                "Message that appears when a required skill has no experiences linked to it",
+            })}
+          </p>
+        )}
       </Well>
     </TreeView.Item>
   ) : null;
@@ -89,11 +98,7 @@ const SkillTree = ({
       <TreeView.Root data-h2-margin="base(x2, 0)">
         <TreeView.Head>
           <CardBasic>
-            <Heading
-              level={headingAs || "h4"}
-              size="h6"
-              data-h2-margin-top="base(0)"
-            >
+            <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
               {title}
             </Heading>
             {skill.description && (
@@ -105,22 +110,24 @@ const SkillTree = ({
           <>
             {skillExperiences.map((experience) => (
               <TreeView.Item key={experience.id}>
-                <div data-h2-margin="base(-x.5, 0)">
-                  <Accordion.Root type="single" collapsible>
-                    <ExperienceAccordion
-                      experience={filterExperienceSkills(experience, skill)}
-                      headingLevel="h5"
-                      onEditClick={() => handleExperienceEdit(experience)}
-                    />
-                  </Accordion.Root>
-                </div>
+                <ExperienceCard
+                  experience={filterExperienceSkills(experience, skill)}
+                  headingLevel={contentHeadingLevel}
+                  showEdit={!hideEdit}
+                  showSkills={[skill]}
+                  onEditClick={
+                    !hideEdit
+                      ? () => handleExperienceEdit(experience)
+                      : undefined
+                  }
+                />
               </TreeView.Item>
             ))}
           </>
         ) : (
           disclaimer
         )}
-        {availableExperiences.length > 0 ? (
+        {!hideConnectButton && availableExperiences.length > 0 ? (
           <TreeView.Item>
             <Button
               type="button"

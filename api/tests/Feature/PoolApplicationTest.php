@@ -58,7 +58,7 @@ class PoolApplicationTest extends TestCase
                 user {
                     id
                 }
-                poolAdvertisement {
+                pool {
                     id
                 }
                 status
@@ -120,42 +120,33 @@ class PoolApplicationTest extends TestCase
         $this->setUpFaker();
         $this->bootRefreshesSchemaCache();
 
-        $this->applicantUser = User::factory()->create([
-            'email' => 'applicant-user@test.com',
-            'sub' => 'applicant-user@test.com',
-        ]);
-        $this->applicantUser->syncRoles([
-            "guest",
-            "base_user",
-            "applicant"
-        ]);
+        $this->applicantUser = User::factory()
+            ->asApplicant()
+            ->create([
+                'email' => 'applicant-user@test.com',
+                'sub' => 'applicant-user@test.com',
+            ]);
         // Add generic job title for submission
         $this->applicantUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
 
-        $this->responderUser = User::factory()->create([
-            'email' => 'request-responder-user@test.com',
-            'sub' => 'request-responder-user@test.com',
-        ]);
-        $this->responderUser->syncRoles([
-            "guest",
-            "base_user",
-            "applicant",
-            "request_responder"
-        ]);
+        $this->responderUser = User::factory()
+            ->asApplicant()
+            ->asRequestResponder()
+            ->create([
+                'email' => 'request-responder-user@test.com',
+                'sub' => 'request-responder-user@test.com',
+            ]);
 
         $team = Team::factory()->create([
             'name' => "pool-application-test-team",
         ]);
-        $this->teamUser = User::factory()->create([
-            'email' => 'team-user@test.com',
-            'sub' => 'team-user@test.com',
-        ]);
-        $this->teamUser->syncRoles([
-            "guest",
-            "base_user",
-            "applicant"
-        ]);
-        $this->teamUser->addRole("pool_operator",  $team);
+        $this->teamUser = User::factory()
+            ->asApplicant()
+            ->asPoolOperator($team->name)
+            ->create([
+                'email' => 'team-user@test.com',
+                'sub' => 'team-user@test.com',
+            ]);
     }
 
     public function testApplicationCreation(): void
@@ -164,7 +155,7 @@ class PoolApplicationTest extends TestCase
         $pool = Pool::factory()->create([
             'published_at' => config('constants.past_date'),
             'closing_date' => config('constants.far_future_date'),
-            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
+            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
         ]);
 
         $variables = [
@@ -178,7 +169,7 @@ class PoolApplicationTest extends TestCase
                     'user' => [
                         'id' => $this->applicantUser->id,
                     ],
-                    'poolAdvertisement' => [
+                    'pool' => [
                         'id' => $pool->id,
                     ],
                     'status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
@@ -214,7 +205,7 @@ class PoolApplicationTest extends TestCase
             'id' => '3ecf840d-b0ed-4207-8fc4-f45c4a865eaf',
             'published_at' => null,
             'closing_date' => config('constants.far_future_date'),
-            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
+            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
         ]);
 
         $variables = [
@@ -242,7 +233,7 @@ class PoolApplicationTest extends TestCase
             'id' => 'f755f7da-c490-4fe1-a1f0-a6c233796442',
             'published_at' => null,
             'closing_date' => config('constants.far_past_date'),
-            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
+            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
         ]);
 
         $variables = [
@@ -482,7 +473,7 @@ class PoolApplicationTest extends TestCase
         // pool with no essential skills
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
+            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -561,7 +552,7 @@ class PoolApplicationTest extends TestCase
     {
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
+            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -631,7 +622,7 @@ class PoolApplicationTest extends TestCase
         // create a pool, attach one essential skill to it
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
+            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
         ]);
         $essentialSkills = Skill::inRandomOrder()->limit(5)->get();
         $newPool->essentialSkills()->sync($essentialSkills);
@@ -698,7 +689,7 @@ class PoolApplicationTest extends TestCase
     {
         $newPool = Pool::factory()->create([
             'closing_date' =>  Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
+            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -728,7 +719,7 @@ class PoolApplicationTest extends TestCase
         //Closed Pool
         $newPool = Pool::factory()->create([
             'closing_date' =>  Carbon::now()->subDays(1),
-            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
+            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -786,7 +777,7 @@ class PoolApplicationTest extends TestCase
     {
         $newPool = Pool::factory()->create([
             'closing_date' =>  Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH, // avoid language requirements
+            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
         ScreeningQuestion::where('pool_id', $newPool->id)->delete();
@@ -798,7 +789,10 @@ class PoolApplicationTest extends TestCase
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'education_requirement_option' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
         ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
         // Remove any responses created by factory
         ScreeningQuestionResponse::where('pool_candidate_id', $newPoolCandidate->id)->delete();
 
@@ -809,10 +803,8 @@ class PoolApplicationTest extends TestCase
 
         // assert cannot submit with no question
         $this->actingAs($this->applicantUser, "api")
-            ->graphQL($this->submitMutationDocument,  $submitArgs)->assertJson([
-                'errors' => [[
-                    'message' => ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE,
-                ]]
+            ->graphQL($this->submitMutationDocument,  $submitArgs)->assertJsonFragment([
+                ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE,
             ]);
 
         // Respond to the question
@@ -1102,7 +1094,7 @@ class PoolApplicationTest extends TestCase
     {
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH,
+            'advertisement_language' => ApiEnums::POOL_ENGLISH,
         ]);
         $newPool->essentialSkills()->sync([]);
         $newPoolCandidate = PoolCandidate::factory()->create([
@@ -1163,15 +1155,9 @@ class PoolApplicationTest extends TestCase
 
     public function testApplicationSubmitEducationRequirement(): void
     {
-        // short-circuit test off feature flag
-        $flagBoolean = config('feature.application_revamp');
-        if (!$flagBoolean) {
-            $this->markTestSkipped('application_revamp is OFF');
-        }
-
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ADVERTISEMENT_ENGLISH,
+            'advertisement_language' => ApiEnums::POOL_ENGLISH,
         ]);
         $newPool->essentialSkills()->sync([]);
         $newPoolCandidate = PoolCandidate::factory()->create([

@@ -7,9 +7,12 @@ use App\Models\User;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
 use App\Models\Skill;
+use App\Notifications\PoolCandidateStatusChanged;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Notification;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 
@@ -39,46 +42,48 @@ class PoolCandidateUpdateTest extends TestCase
 
         $baseRoles = ["guest", "base_user", "applicant"];
 
-        $this->guestUser = User::factory()->create([
-            'email' => 'guest-user@test.com',
-            'sub' => 'guest-user@test.com',
-        ]);
-        $this->guestUser->syncRoles(["guest"]);
+        $this->guestUser = User::factory()
+            ->asGuest()
+            ->create([
+                'email' => 'guest-user@test.com',
+                'sub' => 'guest-user@test.com',
+            ]);
 
-        $this->applicantUser = User::factory()->create([
-            'email' => 'applicant-user@test.com',
-            'sub' => 'applicant-user@test.com',
-        ]);
-        $this->applicantUser->syncRoles($baseRoles);
+        $this->applicantUser = User::factory()
+            ->asApplicant()
+            ->create([
+                'email' => 'applicant-user@test.com',
+                'sub' => 'applicant-user@test.com',
+            ]);
 
-        $this->poolOperatorUser = User::factory()->create([
-            'email' => 'pool-operator-user@test.com',
-            'sub' => 'pool-operator-user@test.com',
-        ]);
         $this->team = Team::factory()->create(['name' => 'test-team']);
-        $this->poolOperatorUser->addRole("pool_operator", $this->team);
+        $this->poolOperatorUser = User::factory()
+            ->asPoolOperator($this->team->name)
+            ->create([
+                'email' => 'pool-operator-user@test.com',
+                'sub' => 'pool-operator-user@test.com',
+            ]);
 
-        $this->requestResponderUser = User::factory()->create([
-            'email' => 'request-responder-user@test.com',
-            'sub' => 'request-responder-user@test.com',
-        ]);
-        $this->requestResponderUser->syncRoles([
-            "request_responder"
-        ]);
+        $this->requestResponderUser = User::factory()
+            ->asRequestResponder()
+            ->create([
+                'email' => 'request-responder-user@test.com',
+                'sub' => 'request-responder-user@test.com',
+            ]);
 
-        $this->adminUser = User::factory()->create([
-            'email' => 'platform-admin-user@test.com',
-            'sub' => 'platform-admin-user@test.com',
-        ]);
-        $this->adminUser->syncRoles([
-            "platform_admin"
-        ]);
+        $this->adminUser = User::factory()
+            ->asAdmin()
+            ->create([
+                'email' => 'platform-admin-user@test.com',
+                'sub' => 'platform-admin-user@test.com',
+            ]);
 
-        $this->candidateUser = User::factory()->create([
-            'email' => 'candidate-user@test.com',
-            'sub' => 'candidate-user@test.com',
-        ]);
-        $this->candidateUser->syncRoles($baseRoles);
+        $this->candidateUser = User::factory()
+            ->asApplicant()
+            ->create([
+                'email' => 'candidate-user@test.com',
+                'sub' => 'candidate-user@test.com',
+            ]);
 
         $this->teamPool = Pool::factory()->create([
             'user_id' => $this->poolOperatorUser->id,
@@ -222,9 +227,10 @@ class PoolCandidateUpdateTest extends TestCase
                 'educationRequirementCommunityExperiences' => [
                     'sync' => $communityExperienceIds,
                 ],
-                'educationRequirementEducationExperiences' => [
-                    'sync' => [],
-                ],
+                'educationRequirementAwardExperiences' => ['sync' => []],
+                'educationRequirementEducationExperiences' => ['sync' => [],],
+                'educationRequirementPersonalExperiences' => ['sync' => [],],
+                'educationRequirementWorkExperiences' => ['sync' => [],],
             ]
         ]);
         $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK]);
@@ -236,5 +242,175 @@ class PoolCandidateUpdateTest extends TestCase
         $response->assertJsonFragment(['id' => $communityExperienceIds[2]]);
         $experiencesAttached = $response->json('data.updateApplication.educationRequirementExperiences');
         assertEquals(3, count($experiencesAttached));
+    }
+
+    /**
+     * Test that notifications are generated for status changes
+     *
+     * @return void
+     */
+    public function testStatusChangeCausesNotifications()
+    {
+        if (!config('feature.status_notifications')) {
+            $this->markTestSkipped("This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.");
+        }
+
+        Notification::fake(); // initialize notification facade
+
+        // set up submitted candidate
+        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
+        $this->poolCandidate->saveQuietly(); // don't generate events during set up
+
+        // simulate screening in
+        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_SCREENED_IN;
+        $this->poolCandidate->save();
+
+        // check that notification was fired
+        Notification::assertSentTo([$this->candidateUser], PoolCandidateStatusChanged::class);
+    }
+
+    /**
+     * Test that use can query for notifications
+     *
+     * @return void
+     */
+    public function testCanQueryForNotifications()
+    {
+        if (!config('feature.status_notifications')) {
+            $this->markTestSkipped("This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.");
+        }
+
+        $screenInTime = config('constants.far_past_datetime');
+
+        // set up submitted candidate
+        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
+        $this->poolCandidate->saveQuietly(); // don't generate events during set up
+
+        Carbon::setTestNow($screenInTime);
+
+        // simulate screening in
+        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_SCREENED_IN;
+        $this->poolCandidate->save();
+
+        // gather expected notification ID
+        $notificationId = $this->candidateUser->notifications()->sole()->id;
+
+        // check for a notification
+        $this->actingAs($this->candidateUser, "api")
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+                query myNotifications {
+                    me {
+                        notifications {
+                            id
+                            readAt
+                            createdAt
+                            updatedAt
+                            ... on PoolCandidateStatusChangedNotification {
+                                oldStatus
+                                newStatus
+                                poolId
+                                poolName {
+                                    en
+                                    fr
+                                }
+                            }
+                        }
+                    }
+                }
+            '
+            )
+            ->assertJson([
+                'data' =>  [
+                    'me' => [
+                        'notifications' => [
+                            [
+                                'id' => $notificationId,
+                                'readAt' => null,
+                                'createdAt' => $screenInTime,
+                                'updatedAt' => $screenInTime,
+                                'oldStatus' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+                                'newStatus' => $this->poolCandidate->pool_candidate_status,
+                                'poolId' => $this->poolCandidate->pool->id,
+                                'poolName' => [
+                                    'en' => $this->poolCandidate->pool->name["en"],
+                                    'fr' => $this->poolCandidate->pool->name["fr"]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]);
+    }
+
+    /**
+     * Test that use can dismiss notifications
+     *
+     * @return void
+     */
+    public function testCanDismissNotifications()
+    {
+        if (!config('feature.status_notifications')) {
+            $this->markTestSkipped("This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.");
+        }
+
+        $screenInTime = config('constants.far_past_datetime');
+        $dismissNotificationTime = config('constants.past_datetime');
+
+        // set up submitted candidate
+        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
+        $this->poolCandidate->saveQuietly(); // don't generate events during set up
+
+        Carbon::setTestNow($screenInTime);
+
+        // simulate screening in
+        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_SCREENED_IN;
+        $this->poolCandidate->save();
+
+        $notificationId = $this->candidateUser->notifications()->sole()->id;
+
+        Carbon::setTestNow($dismissNotificationTime);
+
+        // dismiss notification
+        $this->actingAs($this->candidateUser, "api")
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+                mutation readNotifications($id: UUID!) {
+                    markNotificationAsRead(id: $id) { id }
+                  }
+                ',
+                [
+                    'id' => $notificationId
+                ]
+            );
+
+        // check for notifications
+        $this->actingAs($this->candidateUser, "api")
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+                query myNotifications {
+                    me {
+                        notifications { id, readAt }
+                        unreadNotifications { id, readAt }
+                    }
+                }
+            '
+            )
+            ->assertJson([
+                'data' =>  [
+                    'me' => [
+                        'notifications' => [
+                            [
+                                'id' => $notificationId,
+                                'readAt' => $dismissNotificationTime
+                            ]
+                        ],
+                        'unreadNotifications' => []
+                    ]
+                ]
+            ]);
     }
 }

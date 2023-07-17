@@ -11,12 +11,7 @@ const CloseButton = React.forwardRef<
   return (
     <div data-h2-display="base(flex)" data-h2-justify-content="base(flex-end)">
       <Dialog.Close>
-        <Button
-          ref={forwardedRef}
-          {...props}
-          mode="outline"
-          color="ia-secondary"
-        >
+        <Button ref={forwardedRef} {...props} color="secondary">
           {intl.formatMessage({
             defaultMessage: "Close",
             id: "4p0QdF",
