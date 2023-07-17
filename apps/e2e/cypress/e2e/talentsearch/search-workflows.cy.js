@@ -178,14 +178,14 @@ describe("Talent Search Workflow Tests", () => {
 
     // work location - fail
     cy.findByRole("checkbox", {
-      name: /Atlantic/i,
+      name: /Atlantic (NB, NS, PE and NL)/i,
     }).click();
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
     searchRejectsMySingleCandidate();
 
     // work location - pass
     cy.findByRole("checkbox", {
-      name: /Ontario/i,
+      name: /Ontario (excluding Ottawa area)/i,
     }).click();
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
     searchFindsMySingleCandidate();
