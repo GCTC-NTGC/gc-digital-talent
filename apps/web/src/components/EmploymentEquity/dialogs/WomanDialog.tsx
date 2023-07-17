@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 
 import { Dialog } from "@gc-digital-talent/ui";
-import { Checkbox } from "@gc-digital-talent/forms";
+import { Checklist } from "@gc-digital-talent/forms";
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
@@ -11,7 +11,6 @@ import {
 
 import type { EquityDialogProps } from "../types";
 
-import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
 import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
@@ -38,38 +37,57 @@ const WomanDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
       <Dialog.Trigger>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
-          {intl.formatMessage(getEmploymentEquityGroup("woman"))}
+          {intl.formatMessage(
+            {
+              defaultMessage: 'Add "{title}" to your profile',
+              id: "OleLgS",
+              description:
+                "Heading for the add employment equity option to profile dialogs",
+            },
+            {
+              title: intl.formatMessage(getEmploymentEquityGroup("woman")),
+            },
+          )}
         </Dialog.Header>
         <Dialog.Body>
           <UnderReview />
-          <div data-h2-margin="base(x1, 0)">
-            <Definition
-              url={
-                intl.locale === "en"
-                  ? "https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
-                  : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
-              }
-            />
-          </div>
-          <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
+          <Definition
+            url={
+              intl.locale === "en"
+                ? "https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
+                : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
+            }
+            quotedDefinition={intl.formatMessage({
               defaultMessage:
-                "This category includes persons whose reported gender is female. It includes cisgender (cis) and transgender (trans) women.",
-              id: "6danS7",
+                '"... includes persons whose reported gender is female. It includes cisgender (cis) and transgender (trans) women."',
+              id: "2yXxyQ",
               description:
                 "Definition of the Woman category from the StatsCan 'Classification of gender' page.",
             })}
-          </p>
+          />
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitHandler)}>
-              <AddToProfile />
-              <div data-h2-margin="base(x1, 0, x1.5, 0)">
-                <Checkbox
+              <div data-h2-margin="base(x1, 0, 0, 0)">
+                <Checklist
+                  idPrefix="isWoman"
                   id="isWoman"
                   name="isWoman"
-                  label={intl.formatMessage(
-                    getEmploymentEquityStatement("woman"),
-                  )}
+                  legend={intl.formatMessage({
+                    defaultMessage:
+                      "Based on the definition provided, I want to add:",
+                    id: "O+fNOe",
+                    description:
+                      "Prompt text for a user selecting an employment equity group for their profile",
+                  })}
+                  trackUnsaved={false}
+                  items={[
+                    {
+                      value: "true",
+                      label: intl.formatMessage(
+                        getEmploymentEquityStatement("woman"),
+                      ),
+                    },
+                  ]}
                 />
               </div>
               <Dialog.Footer>
