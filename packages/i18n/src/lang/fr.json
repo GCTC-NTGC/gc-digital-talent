@@ -3,6 +3,14 @@
     "defaultMessage": "Désélectionner {label}",
     "description": "Text to uncheck checkbox button"
   },
+  "+9VBmQ": {
+    "defaultMessage": "Je m'identifie en tant que femme.",
+    "description": "Statement for when someone indicates they are a woman"
+  },
+  "+U4KU4": {
+    "defaultMessage": "Cela m'oblige à faire les heures supplémentaires prévues.",
+    "description": "The operational requirement described as scheduled overtime."
+  },
   "+ZPD1J": {
     "defaultMessage": "Fermer le menu",
     "description": "Text label for button that closes side menu."
@@ -27,9 +35,9 @@
     "defaultMessage": "Travailler des heures supplémentaires régulièrement",
     "description": "The operational requirement described as regular overtime. (short-form for limited space)"
   },
-  "/nMdQr": {
-    "defaultMessage": "<strong>Région du Nord :</strong> Yukon, Territoires du Nord-Ouest et Nunavut.",
-    "description": "The work region of Canada described as North."
+  "/sSeis": {
+    "defaultMessage": "Minorité visible",
+    "description": "Group for when someone indicates they are a visible minority"
   },
   "0LjLgD": {
     "defaultMessage": "Pas dans les FAC",
@@ -47,13 +55,13 @@
     "defaultMessage": "<hidden>Étape, actuelle, </hidden>{label}",
     "description": "Prefix when a step is the currently active one."
   },
+  "0gInkY": {
+    "defaultMessage": "possède <strong>des équipes de garde 24/7.</strong>",
+    "description": "The operational requirement described as 24/7 on-call."
+  },
   "0p1W7Q": {
     "defaultMessage": "Fils d’Ariane",
     "description": "Label for the links to page ancestors"
-  },
-  "0xf5TR": {
-    "defaultMessage": "Je suis un vétéran des FAC",
-    "description": "declare self to be a CAF veteran"
   },
   "13fSK+": {
     "defaultMessage": "La date de soumission est dépassée",
@@ -123,9 +131,17 @@
     "defaultMessage": "Sur cette page",
     "description": "Title for  pages table of contents."
   },
+  "3agw4G": {
+    "defaultMessage": "<strong> Région de l'Ontario</strong>(excluant Ottawa)",
+    "description": "The work region of Canada described as Ontario."
+  },
   "3e4sM7": {
     "defaultMessage": "Le lieu doit être indiqué ou l’option « À distance » doit être sélectionnée",
     "description": "Error message that the pool advertisement must have location filled."
+  },
+  "3f6YzQ": {
+    "defaultMessage": "<strong> Région de l'Atlantique</strong> (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard).",
+    "description": "La région de travail du Canada décrite comme l'Atlantique."
   },
   "3m7hT5": {
     "defaultMessage": "Services consultatifs auprès des secteurs d’activités de la TI",
@@ -147,6 +163,10 @@
     "defaultMessage": "Candidature reçue",
     "description": "Status for an application that has been submitted"
   },
+  "4dD2mf": {
+    "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires habituelles.</strong>",
+    "description": "The operational requirement described as regular overtime."
+  },
   "4dx4ju": {
     "defaultMessage": "Peut accepter une combinaison d’expériences de travail et d’études."
   },
@@ -157,6 +177,10 @@
   "4l+gBD": {
     "defaultMessage": "Recherche...",
     "description": "Message to display when a search is being done."
+  },
+  "4mMU7Q": {
+    "defaultMessage": "cela m'oblige à faire des heures supplémentaires occasionnelles.",
+    "description": "The operational requirement described as occasional overtime."
   },
   "4pZrst": {
     "defaultMessage": "Être disponible, disposé(e) et apte à voyager au besoin.",
@@ -190,17 +214,9 @@
     "defaultMessage": "Anglais seulement",
     "description": "The language requirement is English only."
   },
-  "5vrCDC": {
-    "defaultMessage": "Je suis un citoyen canadien",
-    "description": "declaring one to be a Canadian citizen"
-  },
   "6F1rsN": {
     "defaultMessage": "Baccalauréat ",
     "description": "Bachelors Degree selection for education type input"
-  },
-  "6FX40U": {
-    "defaultMessage": "Membre d'une minorité visible",
-    "description": "Group for when someone indicates they are a visible minority"
   },
   "6O1sjV": {
     "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
@@ -241,6 +257,10 @@
     "defaultMessage": "En cours",
     "description": "The status is in progress."
   },
+  "8JxN4A": {
+    "defaultMessage": "<strong> Région de la capitale nationale</strong>(Ottawa, en Ontario et Gatineau, au Québec).",
+    "description": "The work region of Canada described as National Capital."
+  },
   "8SCmdb": {
     "defaultMessage": "Solutions logicielles de la TI",
     "description": "Pool Stream described as Software Solutions."
@@ -264,6 +284,14 @@
   "9Pxjw5": {
     "defaultMessage": "Évaluation en cours",
     "description": "Status for an application that where applicant is being assessed"
+  },
+  "9ZyJZq": {
+    "defaultMessage": "cela m'oblige à me déplacer.",
+    "description": "The operational requirement described as travel as required."
+  },
+  "9ays+c": {
+    "defaultMessage": "J'ai un <strong>contrat</strong> d'employé occasionnel.",
+    "description": "Casual selection for government employee type."
   },
   "9hjEsr": {
     "defaultMessage": "Vous avez des modifications non sauvegardées",
@@ -321,9 +349,17 @@
     "defaultMessage": "Emplois en TI",
     "description": "The publishing group called IT Jobs"
   },
+  "CGNfbu": {
+    "defaultMessage": "Région de l'Ontario (excluant Ottawa)",
+    "description": "The work region of Canada described as Ontario."
+  },
   "CUi1Ti": {
     "defaultMessage": "Colombie-Britannique",
     "description": "British Columbia selection for province or territory input"
+  },
+  "ChFxsM": {
+    "defaultMessage": "Région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.)",
+    "description": "The work region of Canada described as Atlantic."
   },
   "DUuisY": {
     "defaultMessage": "Oui, évaluation en français terminée",
@@ -345,10 +381,6 @@
     "defaultMessage": "Indéterminé",
     "description": "Duration that is permanent (short-form for limited space)"
   },
-  "FrIl8e": {
-    "defaultMessage": "Je suis un résident permanent du Canada",
-    "description": "declaring one to be a permanent resident"
-  },
   "FvV+QW": {
     "defaultMessage": "Renseignements gouvernementaux",
     "description": "Name of Government information page"
@@ -365,10 +397,6 @@
     "defaultMessage": "Termine demain, à {time}",
     "description": "Text displayed when relative date is tomorrow."
   },
-  "Gw2JKz": {
-    "defaultMessage": "<strong>Région du Québec :</strong> à l'exclusion de Gatineau.",
-    "description": "The work region of Canada described as Quebec."
-  },
   "Gx8qCK": {
     "defaultMessage": "À propos de moi",
     "description": "Name of About me page"
@@ -377,13 +405,13 @@
     "defaultMessage": "Cours en ligne",
     "description": "Online Course selection for education type input"
   },
-  "GzVxoB": {
-    "defaultMessage": "<strong>Virtuel : </strong>Travaillez de chez vous, partout au Canada.",
-    "description": "The work region of Canada described as Telework."
-  },
   "H8eisr": {
     "defaultMessage": "Compétences essentielles manquantes",
     "description": "Message displayed when user attempts to apply to a pool without an essential skill"
+  },
+  "HGM0YR": {
+    "defaultMessage": "Je suis un employé <strong>nommé pour une période indéterminée</strong>.",
+    "description": "Indeterminate selection for government employee type."
   },
   "HMXnoR": {
     "defaultMessage": "Retourner à ma demande",
@@ -405,10 +433,6 @@
     "defaultMessage": "Aucun résultat n’a été trouvé.",
     "description": "Message displayed when combobox has no options available"
   },
-  "IW/eej": {
-    "defaultMessage": "« Je m’identifie comme une femme »",
-    "description": "Statement for when someone indicates they are a woman"
-  },
   "IlPyP8": {
     "defaultMessage": "Vous devez remédier aux erreurs suivantes avant de soumettre le formulaire :",
     "description": "Message indicating which errors the form has"
@@ -425,6 +449,10 @@
     "defaultMessage": "La signature représente un champ obligatoire",
     "description": "Message displayed when user attempts to apply to a pool without a signature"
   },
+  "JD0G28": {
+    "defaultMessage": "Je m'identifie comme une personne en situation de handicap.",
+    "description": "Statement for when someone indicates they have a disability"
+  },
   "JHgARn": {
     "defaultMessage": "Vous avez dépassé la limite de mots, {wordLimit}.",
     "description": "Text read out to assistive technology when over the word limit."
@@ -432,6 +460,10 @@
   "JamdKo": {
     "defaultMessage": "Premières Nations sans statut ",
     "description": "The indigenous community for non-status First Nations"
+  },
+  "Jpq6MK": {
+    "defaultMessage": "Région de Québec (excluant Gatineau)",
+    "description": "The work region of Canada described as Quebec."
   },
   "K80psp": {
     "defaultMessage": "Autre",
@@ -493,10 +525,6 @@
     "defaultMessage": "Demandeur",
     "description": "The name of the Applicant user role."
   },
-  "MLP6tt": {
-    "defaultMessage": "« Je m'identifie comme une personne handicapée »",
-    "description": "Statement for when someone indicates they have a disability"
-  },
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
     "description": "Error message that at least one Essential Skill is required"
@@ -545,12 +573,24 @@
     "defaultMessage": "Nouvelle candidature",
     "description": "The pool candidate's status is New Application."
   },
+  "OaB49n": {
+    "defaultMessage": "Je suis un(e) résident(e) permanent(e) du Canada.",
+    "description": "declaring one to be a permanent resident"
+  },
   "OujTbA": {
     "defaultMessage": "Diplôme postsecondaire requis"
+  },
+  "P1ajBo": {
+    "defaultMessage": "cela m'oblige à faire des heures supplémentaires à court préavis.",
+    "description": "The operational requirement described as overtime."
   },
   "P6PD/I": {
     "defaultMessage": "Manitoba",
     "description": "Manitoba selection for province or territory input"
+  },
+  "P9roJ7": {
+    "defaultMessage": "Région du Nord (Yukon, Territoires du Nord-Ouest et Nunavut)",
+    "description": "The work region of Canada described as North."
   },
   "PAXoFY": {
     "defaultMessage": "L’article a été déplacé de {from} à {to}.",
@@ -588,10 +628,6 @@
     "defaultMessage": "Candidature rejetée",
     "description": "The pool candidate's status is Screened Out Application"
   },
-  "RE7o8x": {
-    "defaultMessage": "Je suis un(e) <strong>étudiant(e)</strong>",
-    "description": "Student selection for government employee type."
-  },
   "RQGy+0": {
     "defaultMessage": "Publiée",
     "description": "Published pool advertisement status"
@@ -604,13 +640,13 @@
     "defaultMessage": "Travailler des quarts de travail",
     "description": "The operational requirement described as shift work. (short-form for limited space)"
   },
-  "RYg7vl": {
-    "defaultMessage": "exige des <strong>heures supplémentaires occasionnelles</strong>.",
-    "description": "The operational requirement described as occasional overtime."
-  },
   "RaypPP": {
     "defaultMessage": "Anglais",
     "description": "The language English."
+  },
+  "RgCSri": {
+    "defaultMessage": "J'affirme que je suis membre d'une Première Nation (inscrit ou non inscrit), Inuk (Inuit) ou Métis.",
+    "description": "Text for the option to self-declare as Indigenous"
   },
   "RkxqoB": {
     "defaultMessage": "La date ne doit pas être antérieure {value}",
@@ -660,6 +696,10 @@
     "defaultMessage": "jj",
     "description": "Placeholder for a day input"
   },
+  "T7IoJU": {
+    "defaultMessage": "Je m'identifie comme membre d'une minorité visible.",
+    "description": "Statement for when someone indicates they are a visible minority"
+  },
   "TCs69O": {
     "defaultMessage": "Lieu de travail",
     "description": "Name of Work location page"
@@ -676,6 +716,10 @@
     "defaultMessage": "<strong>Ouvert aux possibilités</strong> – Je ne cherche pas activement, mais je veux être contacté pour trouver des possibilités d'emploi",
     "description": "Job Looking Status described as Open to opportunities."
   },
+  "TRDfnp": {
+    "defaultMessage": "Je suis un membre actif des Forces armées canadiennes.",
+    "description": "declare self to be a CAF member without bolding"
+  },
   "TiIkSF": {
     "defaultMessage": "Deux années post-secondaire",
     "description": "Option for education requirement, 2-year post-secondary"
@@ -683,6 +727,10 @@
   "TjeaLS": {
     "defaultMessage": "Cette demande ne peut pas être archivée. Vous ne pouvez archiver que les demandes ayant expiré.",
     "description": "Error message that the application cannot be archived."
+  },
+  "TmCCgR": {
+    "defaultMessage": "cela m'oblige à d'avoir un permis de conduire valide ou un degré de mobilité personnelle habituellement associée à la possession d'un permis de conduire valide.",
+    "description": "The operational requirement described as driver's license."
   },
   "Tw90Pi": {
     "defaultMessage": "Enregistrement...",
@@ -711,6 +759,10 @@
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
+  "VYbDJk": {
+    "defaultMessage": "cela me demande de transporter, soulever et déposer des équipements pesant jusqu'à 20 kg.",
+    "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "VqrVpT": {
     "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
@@ -752,10 +804,6 @@
     "defaultMessage": "Veuillez entrer une date valide",
     "description": "Error message that appears when a user enters an invalid date into a date input"
   },
-  "X/hYMf": {
-    "defaultMessage": "exige des <strong>quarts de travail sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
-    "description": "The operational requirement described as 24/7 on-call."
-  },
   "XNDPQM": {
     "defaultMessage": "Un champ obligatoire est vide : Date de fin",
     "description": "Error message that the pool advertisement must have an expiry date."
@@ -784,21 +832,9 @@
     "defaultMessage": "Nouveau-Brunswick",
     "description": "New Brunswick selection for province or territory input"
   },
-  "Y87WVR": {
-    "defaultMessage": "Je ne suis pas membre des FAC",
-    "description": "declare self to not be in the CAF"
-  },
-  "YFPM7a": {
-    "defaultMessage": "J'ai un contrat <strong>occasionnel</strong>",
-    "description": "Casual selection for government employee type."
-  },
   "YHqVoj": {
     "defaultMessage": "Soumettre",
     "description": "Default text for submit button."
-  },
-  "YVLfw+": {
-    "defaultMessage": "Je suis un employé nommé pour une période <strong>indéterminée</strong>",
-    "description": "Indeterminate selection for government employee type."
   },
   "YmboX1": {
     "defaultMessage": "{wordCount} / {wordLimit} mots",
@@ -832,9 +868,21 @@
     "defaultMessage": "Planification et établissement de rapports en matière de TI",
     "description": "Pool Stream described as Planning and Reporting."
   },
+  "ZoFcYn": {
+    "defaultMessage": "<strong> Région de Québec</strong>(excluant Gatineau)",
+    "description": "The work region of Canada described as Quebec."
+  },
+  "ZpTNbt": {
+    "defaultMessage": "Je suis un <strong>ancien combattant</strong> des Forces armées canadiennes.",
+    "description": "declare self to be a CAF veteran"
+  },
   "a5edSg": {
     "defaultMessage": "Jour",
     "description": "Label for a day of the month input field"
+  },
+  "aAMp6e": {
+    "defaultMessage": "possède des équipes de garde 24/7.",
+    "description": "The operational requirement described as 24/7 on-call."
   },
   "aMkZ80": {
     "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
@@ -864,6 +912,10 @@
     "defaultMessage": "IT-04 (gestionnaire)",
     "description": "The name of the Senior advisor classification with group and level."
   },
+  "bAaDat": {
+    "defaultMessage": "Je <strong>ne suis pas</strong> des Forces armées canadiennes.",
+    "description": "declare self to not be in the CAF"
+  },
   "baPSLH": {
     "defaultMessage": "Terminé avec succès (aucun titre de compétence)",
     "description": "Successful Completion with no credentials for education status input"
@@ -871,10 +923,6 @@
   "cCWdDX": {
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
     "description": "Button text to expand truncated text to view all contents"
-  },
-  "cEB0aW": {
-    "defaultMessage": "exige des <strong>heures supplémentaires régulièrement</strong>.",
-    "description": "The operational requirement described as regular overtime."
   },
   "cnFVR1": {
     "defaultMessage": "m'oblige à faire des <strong>heures supplémentaires sans préavis</strong>.",
@@ -900,6 +948,10 @@
     "defaultMessage": "m'exige d'avoir un <strong>permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
+  "dxjUnU": {
+    "defaultMessage": "Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec.)",
+    "description": "The work region of Canada described as National Capital."
+  },
   "eGg734": {
     "defaultMessage": "Autre",
     "description": "Other selection for education type input"
@@ -907,10 +959,6 @@
   "eNUS2A": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
     "description": "The selection for being part of an indigenous community not already listed"
-  },
-  "eYak7E": {
-    "defaultMessage": "<strong>Région de la capitale nationale :</strong> Ottawa (Ont.) et Gatineau (Qc).",
-    "description": "The work region of Canada described as National Capital."
   },
   "edeLyW": {
     "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",
@@ -960,6 +1008,10 @@
     "defaultMessage": "Français",
     "description": "The language French."
   },
+  "hWMUFx": {
+    "defaultMessage": "cela m'oblige à faire des heures supplémentaires habituelles.",
+    "description": "The operational requirement described as regular overtime."
+  },
   "i3Jl6C": {
     "defaultMessage": " : ",
     "description": "Dividing colon with trailing space"
@@ -967,6 +1019,10 @@
   "iSfiWx": {
     "defaultMessage": "Année",
     "description": "Label for a year input field"
+  },
+  "iYNLo1": {
+    "defaultMessage": "e suis un <strong>membre actif </strong> des Forces armées canadiennes.",
+    "description": "declare self to be a CAF member"
   },
   "iYot5P": {
     "defaultMessage": "Architecture intégrée de la TI",
@@ -984,6 +1040,10 @@
     "defaultMessage": "{wordsLeft, plural, one {mot restant} other {mots restants}}.",
     "description": "Message for when user goes over word limit."
   },
+  "jHYaw8": {
+    "defaultMessage": "possède un travail par quarts.",
+    "description": "The operational requirement described as shift work."
+  },
   "jHa7VO": {
     "defaultMessage": "Opérations d’infrastructure de la TI",
     "description": "Pool Stream described as Infrastructure Operations."
@@ -999,6 +1059,10 @@
   "jfwk14": {
     "defaultMessage": "Diplôme",
     "description": "Diploma selection for education type input"
+  },
+  "jqyjFm": {
+    "defaultMessage": "Je suis un ancien combattant des Forces armées canadiennes.",
+    "description": "declare self to be a CAF veteran without bolding"
   },
   "ju5h1m": {
     "defaultMessage": "Avancé",
@@ -1027,6 +1091,10 @@
   "kwaeXP": {
     "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (à court terme)",
     "description": "The operational requirement described as occasional overtime."
+  },
+  "l4wLn9": {
+    "defaultMessage": "Je suis un citoyen canadien.",
+    "description": "declaring one to be a Canadian citizen"
   },
   "lDeaXK": {
     "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
@@ -1127,6 +1195,10 @@
     "defaultMessage": "Citoyen ou résident",
     "description": "Priority text for citizens of canada"
   },
+  "oPhurq": {
+    "defaultMessage": "Région des Prairies (Manitoba, Saskatchewan, Alberta.)",
+    "description": "The work region of Canada described as Prairie."
+  },
   "oR0evm": {
     "defaultMessage": "La date doit être égale ou supérieure au {date}",
     "description": "Error message when a date was entered that is less than the minimum required"
@@ -1134,10 +1206,6 @@
   "oSa0Aa": {
     "defaultMessage": "Alerte d’erreur :",
     "description": "Descriptor for an error alert"
-  },
-  "oU4OmU": {
-    "defaultMessage": "<strong>Région de l'Ontario :</strong> à l'exclusion d'Ottawa.",
-    "description": "The work region of Canada described as Ontario."
   },
   "oU8C65": {
     "defaultMessage": "Vétéran",
@@ -1163,6 +1231,10 @@
     "defaultMessage": "Sélectionnez",
     "description": "Default placeholder shown when Select field has nothing actively selected."
   },
+  "pmoexB": {
+    "defaultMessage": "<strong> Virtuel</strong>  (travail à domicile, partout au Canada.)",
+    "description": "The work region of Canada described as Telework."
+  },
   "prkkM+": {
     "defaultMessage": "Fait",
     "description": "The search status is Done."
@@ -1186,6 +1258,10 @@
   "qnYbyw": {
     "defaultMessage": "m'exige de <strong>voyager</strong>.",
     "description": "The operational requirement described as travel as required."
+  },
+  "qtJrUr": {
+    "defaultMessage": "Région de la Colombie-Britannique",
+    "description": "The work region of Canada described as British Columbia."
   },
   "quLfED": {
     "defaultMessage": "Nous avons relevé une erreur d’origine inconnue pendant le traitement de votre demande.",
@@ -1219,10 +1295,6 @@
     "defaultMessage": "Retirer {label}",
     "description": "Button text for a dismissible chip"
   },
-  "s4y1nI": {
-    "defaultMessage": "« Je m'identifie comme membre d'une minorité visible »",
-    "description": "Statement for when someone indicates they are a visible minority"
-  },
   "sJ+F9z": {
     "defaultMessage": "Sauter pour ajouter un élément",
     "description": "Link text to skip to the add button in a repeater"
@@ -1239,6 +1311,10 @@
     "defaultMessage": "<hidden>Erreur au niveau de l’étape, </hidden>{label}",
     "description": "Prefix when a step has an error."
   },
+  "sfhO+5": {
+    "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires occasionnelles</strong>.",
+    "description": "The operational requirement described as occasional overtime."
+  },
   "spP+Tz": {
     "defaultMessage": "Nunavut",
     "description": "Nunavut selection for province or territory input"
@@ -1246,6 +1322,10 @@
   "spoY2L": {
     "defaultMessage": "Tous les types",
     "description": "Select the option to sort or filter by all types"
+  },
+  "suvoSt": {
+    "defaultMessage": "<strong> Région des Prairies</strong> (Manitoba, Saskatchewan, Alberta.)",
+    "description": "The work region of Canada described as Prairie."
   },
   "swTjNd": {
     "defaultMessage": "Citoyen canadien",
@@ -1282,17 +1362,13 @@
     "defaultMessage": "+123243234",
     "description": "Placeholder for form telephone field"
   },
-  "ubXVBC": {
-    "defaultMessage": "<strong>Région de l'Atlantique :</strong> Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.",
-    "description": "The work region of Canada described as Atlantic."
-  },
   "ufSiRU": {
     "defaultMessage": "Introuvable",
     "description": "Title displayed when an item cannot be found."
   },
-  "uj33ws": {
-    "defaultMessage": "Je suis un membre actif des FAC",
-    "description": "declare self to be a CAF member"
+  "us8fY4": {
+    "defaultMessage": "<strong> Région du Nord</strong> (Yukon, Territoires du Nord-Ouest et Nunavut.)",
+    "description": "The work region of Canada described as North."
   },
   "v6T4Y0": {
     "defaultMessage": "Ce champ ne peut pas utiliser de dates dans le futur.",
@@ -1309,6 +1385,10 @@
   "vGENdP": {
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
+  },
+  "vPDtGU": {
+    "defaultMessage": "e ne suis pas membre des Forces armées canadiennes.",
+    "description": "declare self to not be in the CAF without bolding"
   },
   "vTyr7O": {
     "defaultMessage": "Retiré",
@@ -1346,13 +1426,13 @@
     "defaultMessage": "Français seulement",
     "description": "The language ability is French only."
   },
-  "x5sy3j": {
-    "defaultMessage": "<strong>Région des Prairies :</strong> Manitoba, Saskatchewan, Alberta.",
-    "description": "The work region of Canada described as Prairie."
-  },
   "x61BXA": {
     "defaultMessage": "Mars",
     "description": "Name of the third month"
+  },
+  "x8v6Qp": {
+    "defaultMessage": "Virtuel (travail à domicile, partout au Canada.)",
+    "description": "The work region of Canada described as Telework."
   },
   "xAxxmc": {
     "defaultMessage": "Oupse! Vous avez des erreurs!",
@@ -1437,6 +1517,10 @@
   "zafWLP": {
     "defaultMessage": "Suspendu",
     "description": "Suspended status"
+  },
+  "zhzuZu": {
+    "defaultMessage": "Je suis un(e) <strong>étudiant(e)</strong>.",
+    "description": "Student selection for government employee type."
   },
   "ziaV/E": {
     "defaultMessage": "Divers (anglais ou français)",
