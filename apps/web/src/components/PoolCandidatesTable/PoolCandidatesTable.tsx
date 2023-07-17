@@ -243,6 +243,8 @@ const viewAccessor = (
     candidate.status !== PoolCandidateStatus.ApplicationReview &&
     candidate.status !== PoolCandidateStatus.ScreenedIn &&
     candidate.status !== PoolCandidateStatus.ScreenedOutApplication &&
+    candidate.status !== PoolCandidateStatus.ScreenedOutNotInterested &&
+    candidate.status !== PoolCandidateStatus.ScreenedOutNotResponding &&
     candidate.status !== PoolCandidateStatus.UnderAssessment &&
     candidate.status !== PoolCandidateStatus.ScreenedOutAssessment;
   const candidateName = getFullNameLabel(
