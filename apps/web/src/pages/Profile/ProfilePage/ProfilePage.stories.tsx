@@ -29,7 +29,7 @@ export default {
 } as Meta;
 
 const Template: Story<User> = (args) => {
-  return <ProfileForm profileDataInput={args} />;
+  return <ProfileForm user={args} />;
 };
 
 export const CompletedWithoutExperiences = Template.bind({});

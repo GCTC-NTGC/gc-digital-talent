@@ -90,7 +90,14 @@ describe("SelfDeclarationForm", () => {
     });
 
     expect(
-      await screen.findByRole("checkbox", { name: /i am first nations/i }),
+      await screen.findByRole("checkbox", {
+        name: /I am Status First Nations/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByRole("checkbox", {
+        name: /I am non-Status First Nations/i,
+      }),
     ).toBeInTheDocument();
 
     expect(
@@ -105,31 +112,6 @@ describe("SelfDeclarationForm", () => {
       await screen.findByRole("checkbox", {
         name: /i don't see my community/i,
       }),
-    ).toBeInTheDocument();
-  });
-
-  it("should display status field if Indigenous and First Nations", async () => {
-    await act(async () => {
-      renderSelfDeclarationForm();
-    });
-
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("radio", { name: /i affirm that/i }),
-      );
-    });
-
-    const checkbox = await screen.findByRole("checkbox", {
-      name: /i am first nations/i,
-    });
-
-    expect(checkbox).toBeInTheDocument();
-    await act(async () => {
-      fireEvent.click(checkbox);
-    });
-
-    expect(
-      await screen.queryByRole("group", { name: /first nations status/i }),
     ).toBeInTheDocument();
   });
 
@@ -173,12 +155,6 @@ describe("SelfDeclarationForm", () => {
 
     fireEvent.click(
       await screen.findByRole("checkbox", {
-        name: /i am first nations/i,
-      }),
-    );
-
-    fireEvent.click(
-      await screen.findByRole("radio", {
         name: /i am status first nations/i,
       }),
     );
@@ -202,33 +178,6 @@ describe("SelfDeclarationForm", () => {
 
     await waitFor(() => {
       expect(mockCallback).toHaveBeenCalled();
-    });
-  });
-
-  it("should fail submission without required fields", async () => {
-    mockCallback.mockReset();
-    await act(async () => {
-      renderSelfDeclarationForm();
-    });
-
-    fireEvent.click(
-      await screen.getByRole("radio", { name: /i affirm that/i }),
-    );
-
-    fireEvent.click(
-      await screen.findByRole("checkbox", {
-        name: /i am first nations/i,
-      }),
-    );
-
-    const saveBtn = await screen.findByRole("button", {
-      name: /sign and continue/i,
-    });
-
-    fireEvent.submit(saveBtn);
-
-    await waitFor(() => {
-      expect(mockCallback).not.toHaveBeenCalled();
     });
   });
 });

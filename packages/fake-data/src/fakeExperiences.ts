@@ -8,7 +8,7 @@ import {
   PersonalExperience,
   WorkExperience,
   // required imports to generate AnExperience to export
-  Applicant,
+  User,
   ExperienceSkillRecord,
   Skill,
   // imports required by specific experiences and are linked
@@ -21,7 +21,7 @@ import { getStaticSkills } from "./fakeSkills";
 
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 // defining the skills here
-const sampleApp: Applicant = {
+const sampleApp: User = {
   email: faker.internet.email(),
   id: faker.datatype.uuid(),
 };
@@ -45,7 +45,7 @@ const generateAward = (): AwardExperience => {
 
   return {
     __typename: "AwardExperience",
-    applicant: sampleApp,
+    user: sampleApp,
     id: faker.datatype.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,
@@ -80,7 +80,7 @@ const generateCommunity = (): CommunityExperience => {
   faker.setLocale("en");
   return {
     __typename: "CommunityExperience",
-    applicant: sampleApp,
+    user: sampleApp,
     id: faker.datatype.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,
@@ -102,7 +102,7 @@ const generateEducation = (): EducationExperience => {
   faker.setLocale("en");
   return {
     __typename: "EducationExperience",
-    applicant: sampleApp,
+    user: sampleApp,
     id: faker.datatype.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,
@@ -141,7 +141,7 @@ const generatePersonal = (): PersonalExperience => {
   faker.setLocale("en");
   return {
     __typename: "PersonalExperience",
-    applicant: sampleApp,
+    user: sampleApp,
     id: faker.datatype.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,
@@ -162,7 +162,7 @@ const generateWork = (): WorkExperience => {
   faker.setLocale("en");
   return {
     __typename: "WorkExperience",
-    applicant: sampleApp,
+    user: sampleApp,
     id: faker.datatype.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,

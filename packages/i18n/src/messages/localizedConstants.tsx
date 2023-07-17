@@ -47,8 +47,8 @@ export const employmentEquityGroups = defineMessages({
     description: "Group for when someone indicates they are indigenous",
   },
   minority: {
-    defaultMessage: "Member of a visible minority",
-    id: "6FX40U",
+    defaultMessage: "Visible minority",
+    id: "/sSeis",
     description: "Group for when someone indicates they are a visible minority",
   },
   disability: {
@@ -69,25 +69,25 @@ export const getEmploymentEquityGroup = (
 
 export const employmentEquityStatements = defineMessages({
   woman: {
-    defaultMessage: '"I identify as a woman"',
-    id: "IW/eej",
+    defaultMessage: "I identify as a woman.",
+    id: "+9VBmQ",
     description: "Statement for when someone indicates they are a woman",
   },
   indigenous: {
     defaultMessage:
-      '"I affirm that I am First Nations (status or non-status), Inuk (Inuit), or a Métis person"',
-    id: "KwdzPs",
+      "I affirm that I am First Nations (status or non-status), Inuk (Inuit), or a Métis person.",
+    id: "RgCSri",
     description: "Text for the option to self-declare as Indigenous",
   },
   minority: {
-    defaultMessage: '"I identify as a member of a visible minority"',
-    id: "s4y1nI",
+    defaultMessage: "I identify as a member of a visible minority.",
+    id: "T7IoJU",
     description:
       "Statement for when someone indicates they are a visible minority",
   },
   disability: {
-    defaultMessage: '"I identify as a person with a disability"',
-    id: "MLP6tt",
+    defaultMessage: "I identify as a person with a disability.",
+    id: "JD0G28",
     description: "Statement for when someone indicates they have a disability",
   },
 });
@@ -158,13 +158,13 @@ export const getLanguage = (languageId: string | number): MessageDescriptor =>
 
 export const citizenshipStatusesProfile = defineMessages({
   [CitizenshipStatus.Citizen]: {
-    defaultMessage: "I am a Canadian citizen",
-    id: "5vrCDC",
+    defaultMessage: "I am a Canadian citizen.",
+    id: "l4wLn9",
     description: "declaring one to be a Canadian citizen",
   },
   [CitizenshipStatus.PermanentResident]: {
-    defaultMessage: "I am a permanent resident of Canada",
-    id: "FrIl8e",
+    defaultMessage: "I am a permanent resident of Canada.",
+    id: "OaB49n",
     description: "declaring one to be a permanent resident",
   },
   [CitizenshipStatus.Other]: {
@@ -240,27 +240,49 @@ export const getArmedForcesStatusesAdmin = (
 
 export const armedForcesStatusesProfile = defineMessages({
   [ArmedForcesStatus.Veteran]: {
-    defaultMessage: "I am a veteran of the CAF",
-    id: "0xf5TR",
+    defaultMessage:
+      "I am a <strong>veteran</strong> of the Canadian Armed Forces.",
+    id: "ZpTNbt",
     description: "declare self to be a CAF veteran",
   },
   [ArmedForcesStatus.Member]: {
-    defaultMessage: "I am an active member of the CAF",
-    id: "uj33ws",
+    defaultMessage:
+      "I am an <strong>active member</strong> of the Canadian Armed Forces.",
+    id: "iYNLo1",
     description: "declare self to be a CAF member",
   },
   [ArmedForcesStatus.NonCaf]: {
-    defaultMessage: "I am not a member of the CAF",
-    id: "Y87WVR",
+    defaultMessage:
+      "I am <strong>not a member</strong> of the Canadian Armed Forces.",
+    id: "bAaDat",
     description: "declare self to not be in the CAF",
+  },
+});
+
+export const armedForcesStatusesProfileNoBold = defineMessages({
+  [ArmedForcesStatus.Veteran]: {
+    defaultMessage: "I am a veteran of the Canadian Armed Forces.",
+    id: "jqyjFm",
+    description: "declare self to be a CAF veteran without bolding",
+  },
+  [ArmedForcesStatus.Member]: {
+    defaultMessage: "I am an active member of the Canadian Armed Forces.",
+    id: "TRDfnp",
+    description: "declare self to be a CAF member without bolding",
+  },
+  [ArmedForcesStatus.NonCaf]: {
+    defaultMessage: "I am not a member of the Canadian Armed Forces.",
+    id: "vPDtGU",
+    description: "declare self to not be in the CAF without bolding",
   },
 });
 
 export const getArmedForcesStatusesProfile = (
   armedForcesId: string | number,
+  bold = true,
 ): MessageDescriptor =>
   getOrThrowError(
-    armedForcesStatusesProfile,
+    bold ? armedForcesStatusesProfile : armedForcesStatusesProfileNoBold,
     armedForcesId,
     `Invalid status '${armedForcesId}'`,
   );
@@ -464,36 +486,36 @@ export const workRegions = defineMessages({
 export const workRegionsDetailed = defineMessages({
   [WorkRegion.Telework]: {
     defaultMessage:
-      "<strong>Virtual:</strong> Work from home, anywhere in Canada.",
-    id: "GzVxoB",
+      "<strong>Virtual</strong> (work from home, anywhere in Canada)",
+    id: "pmoexB",
     description: "The work region of Canada described as Telework.",
   },
   [WorkRegion.NationalCapital]: {
     defaultMessage:
-      "<strong>National Capital Region:</strong> Ottawa, ON and Gatineau, QC.",
-    id: "eYak7E",
+      "<strong>National Capital Region</strong> (Ottawa, Ontario and Gatineau, Quebec)",
+    id: "8JxN4A",
     description: "The work region of Canada described as National Capital.",
   },
   [WorkRegion.Atlantic]: {
     defaultMessage:
-      "<strong>Atlantic Region:</strong> New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island.",
-    id: "ubXVBC",
+      "<strong>Atlantic Region</strong> (New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island)",
+    id: "3f6YzQ",
     description: "The work region of Canada described as Atlantic.",
   },
   [WorkRegion.Quebec]: {
-    defaultMessage: "<strong>Quebec Region:</strong> excluding Gatineau.",
-    id: "Gw2JKz",
+    defaultMessage: "<strong>Quebec Region</strong> (excluding Gatineau)",
+    id: "ZoFcYn",
     description: "The work region of Canada described as Quebec.",
   },
   [WorkRegion.Ontario]: {
-    defaultMessage: "<strong>Ontario Region:</strong> excluding Ottawa.",
-    id: "oU4OmU",
+    defaultMessage: "<strong>Ontario Region</strong> (excluding Ottawa)",
+    id: "3agw4G",
     description: "The work region of Canada described as Ontario.",
   },
   [WorkRegion.Prairie]: {
     defaultMessage:
-      "<strong>Prairie Region:</strong> Manitoba, Saskatchewan, Alberta.",
-    id: "x5sy3j",
+      "<strong>Prairie Region</strong> (Manitoba, Saskatchewan, Alberta)",
+    id: "suvoSt",
     description: "The work region of Canada described as Prairie.",
   },
   [WorkRegion.BritishColumbia]: {
@@ -503,17 +525,63 @@ export const workRegionsDetailed = defineMessages({
   },
   [WorkRegion.North]: {
     defaultMessage:
-      "<strong>North Region:</strong> Yukon, Northwest Territories and Nunavut.",
-    id: "/nMdQr",
+      "<strong>North Region</strong> (Yukon, Northwest Territories and Nunavut)",
+    id: "us8fY4",
+    description: "The work region of Canada described as North.",
+  },
+});
+
+export const workRegionsDetailedNoBold = defineMessages({
+  [WorkRegion.Telework]: {
+    defaultMessage: "Virtual (work from home, anywhere in Canada)",
+    id: "x8v6Qp",
+    description: "The work region of Canada described as Telework.",
+  },
+  [WorkRegion.NationalCapital]: {
+    defaultMessage:
+      "National Capital Region (Ottawa, Ontario and Gatineau, Quebec)",
+    id: "dxjUnU",
+    description: "The work region of Canada described as National Capital.",
+  },
+  [WorkRegion.Atlantic]: {
+    defaultMessage:
+      "Atlantic Region (New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island)",
+    id: "ChFxsM",
+    description: "The work region of Canada described as Atlantic.",
+  },
+  [WorkRegion.Quebec]: {
+    defaultMessage: "Quebec Region (excluding Gatineau)",
+    id: "Jpq6MK",
+    description: "The work region of Canada described as Quebec.",
+  },
+  [WorkRegion.Ontario]: {
+    defaultMessage: "Ontario Region (excluding Ottawa)",
+    id: "CGNfbu",
+    description: "The work region of Canada described as Ontario.",
+  },
+  [WorkRegion.Prairie]: {
+    defaultMessage: "Prairie Region (Manitoba, Saskatchewan, Alberta)",
+    id: "oPhurq",
+    description: "The work region of Canada described as Prairie.",
+  },
+  [WorkRegion.BritishColumbia]: {
+    defaultMessage: "British Columbia Region",
+    id: "qtJrUr",
+    description: "The work region of Canada described as British Columbia.",
+  },
+  [WorkRegion.North]: {
+    defaultMessage: "North Region (Yukon, Northwest Territories and Nunavut)",
+    id: "P9roJ7",
     description: "The work region of Canada described as North.",
   },
 });
 
 export const getWorkRegionsDetailed = (
   workRegionId: string | number,
+  showBold = true,
 ): MessageDescriptor =>
   getOrThrowError(
-    workRegionsDetailed,
+    showBold ? workRegionsDetailed : workRegionsDetailedNoBold,
     workRegionId,
     `Invalid Work Region '${workRegionId}'`,
   );
@@ -1009,8 +1077,8 @@ export const operationalRequirementLabelFirstPerson = defineMessages({
     description: "The operational requirement described as shift work.",
   },
   [OperationalRequirement.OnCall]: {
-    defaultMessage: "has <strong>24/7 on call-shifts</strong>.",
-    id: "X/hYMf",
+    defaultMessage: "has <strong>24/7 on-call shifts</strong>.",
+    id: "0gInkY",
     description: "The operational requirement described as 24/7 on-call.",
   },
   [OperationalRequirement.Travel]: {
@@ -1043,14 +1111,66 @@ export const operationalRequirementLabelFirstPerson = defineMessages({
     description: "The operational requirement described as overtime.",
   },
   [OperationalRequirement.OvertimeOccasional]: {
-    defaultMessage: "requires me to <strong>work occasional overtime</strong>.",
-    id: "RYg7vl",
+    defaultMessage: "requires me to work <strong>occasional overtime</strong>.",
+    id: "sfhO+5",
     description:
       "The operational requirement described as occasional overtime.",
   },
   [OperationalRequirement.OvertimeRegular]: {
-    defaultMessage: "requires me to <strong>work regular overtime</strong>.",
-    id: "cEB0aW",
+    defaultMessage: "requires me to work <strong>regular overtime</strong>.",
+    id: "4dD2mf",
+    description: "The operational requirement described as regular overtime.",
+  },
+});
+
+export const operationalRequirementLabelFirstPersonNoBold = defineMessages({
+  [OperationalRequirement.ShiftWork]: {
+    defaultMessage: "has shift-work.",
+    id: "jHYaw8",
+    description: "The operational requirement described as shift work.",
+  },
+  [OperationalRequirement.OnCall]: {
+    defaultMessage: "has 24/7 on-call shifts.",
+    id: "aAMp6e",
+    description: "The operational requirement described as 24/7 on-call.",
+  },
+  [OperationalRequirement.Travel]: {
+    defaultMessage: "requires me to travel.",
+    id: "9ZyJZq",
+    description: "The operational requirement described as travel as required.",
+  },
+  [OperationalRequirement.TransportEquipment]: {
+    defaultMessage:
+      "requires me to transport, lift and set down equipment weighing up to 20kg.",
+    id: "VYbDJk",
+    description:
+      "The operational requirement described as transport equipment up to 20kg.",
+  },
+  [OperationalRequirement.DriversLicense]: {
+    defaultMessage:
+      "requires me to have a valid driver's license or personal mobility to the degree normally associated with the possession of a valid driver's license.",
+    id: "TmCCgR",
+    description: "The operational requirement described as driver's license.",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage: "requires me to work scheduled overtime.",
+    id: "+U4KU4",
+    description: "The operational requirement described as scheduled overtime.",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage: "requires me to work overtime on short notice.",
+    id: "P1ajBo",
+    description: "The operational requirement described as overtime.",
+  },
+  [OperationalRequirement.OvertimeOccasional]: {
+    defaultMessage: "requires me to work occasional overtime.",
+    id: "4mMU7Q",
+    description:
+      "The operational requirement described as occasional overtime.",
+  },
+  [OperationalRequirement.OvertimeRegular]: {
+    defaultMessage: "requires me to work regular overtime.",
+    id: "hWMUFx",
     description: "The operational requirement described as regular overtime.",
   },
 });
@@ -1198,10 +1318,11 @@ export const operationalRequirementLabelShort = defineMessages({
 
 export const getOperationalRequirement = (
   operationalRequirementId: string | number,
-  format: "firstPerson" | "full" | "short" = "full",
+  format: "firstPerson" | "firstPersonNoBold" | "full" | "short" = "full",
 ): MessageDescriptor => {
   const messageDictionary = {
     firstPerson: operationalRequirementLabelFirstPerson,
+    firstPersonNoBold: operationalRequirementLabelFirstPersonNoBold,
     full: operationalRequirementLabelFull,
     short: operationalRequirementLabelShort,
   };
@@ -1407,13 +1528,13 @@ export const getPoolStream = (
 
 export const govEmployeeType = defineMessages({
   [GovEmployeeType.Student]: {
-    defaultMessage: "I am a <strong>student</strong>",
-    id: "RE7o8x",
+    defaultMessage: "I am a <strong>student</strong>.",
+    id: "zhzuZu",
     description: "Student selection for government employee type.",
   },
   [GovEmployeeType.Casual]: {
-    defaultMessage: "I have a <strong>casual</strong> contract",
-    id: "YFPM7a",
+    defaultMessage: "I have a <strong>casual</strong> contract.",
+    id: "9ays+c",
     description: "Casual selection for government employee type.",
   },
   [GovEmployeeType.Term]: {
@@ -1422,8 +1543,8 @@ export const govEmployeeType = defineMessages({
     description: "Term selection for government employee type.",
   },
   [GovEmployeeType.Indeterminate]: {
-    defaultMessage: "I am an <strong>indeterminate</strong> employee",
-    id: "YVLfw+",
+    defaultMessage: "I am an <strong>indeterminate</strong> employee.",
+    id: "HGM0YR",
     description: "Indeterminate selection for government employee type.",
   },
 });
