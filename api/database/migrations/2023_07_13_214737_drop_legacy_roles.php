@@ -24,29 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // ELOQUENT
-
-        // Schema::table('users', function (Blueprint $table) {
-        //     $table->jsonb('legacy_roles')->nullable();
-        // });
-
-        // $platformAdmin = Role::where('name', 'platform_admin')->value('id');
-        // $users = User::all()->load('roleAssignments');
-
-        // foreach ($users as $user) {
-        //     $roleAssignments = $user->roleAssignments()->pluck('role_id')->toArray();
-
-        //     if (!empty($roleAssignments) && in_array($platformAdmin, $roleAssignments)) {
-        //         $user->legacy_roles = (['ADMIN', 'APPLICANT']);
-        //         $user->save();
-        //     } else {
-        //         $user->legacy_roles = ['APPLICANT'];
-        //         $user->save();
-        //     }
-        // }
-
-        // FACADE
-
         Schema::table('users', function (Blueprint $table) {
             $table->jsonb('legacy_roles')->nullable()->default(json_encode(['APPLICANT']));
         });
