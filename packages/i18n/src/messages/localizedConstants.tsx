@@ -559,14 +559,14 @@ export const poolCandidateStatuses = defineMessages({
     description: "The pool candidate's status is Screened Out Application",
   },
   [PoolCandidateStatus.ScreenedOutNotInterested]: {
-    defaultMessage: "Screened out - No longer interested",
-    id: "Zdcq76",
+    defaultMessage: "Screened Out - No Longer Interested",
+    id: "TN8HIH",
     description:
       "The pool candidate's status is Screened Out because of no interest",
   },
   [PoolCandidateStatus.ScreenedOutNotResponding]: {
-    defaultMessage: "Screened out - Not responsive",
-    id: "+/OGZ/",
+    defaultMessage: "Screened Out - Not Responsive",
+    id: "QCcpJr",
     description:
       "The pool candidate's status is Screened Out because no longer responding",
   },
