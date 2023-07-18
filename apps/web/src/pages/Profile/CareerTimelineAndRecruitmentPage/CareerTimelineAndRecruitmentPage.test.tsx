@@ -2,16 +2,16 @@
  * @jest-environment jsdom
  */
 import { compareByDate } from "~/utils/experienceUtils";
-import { Applicant, Experience } from "~/api/generated";
+import { User, Experience } from "~/api/generated";
 import { ExperienceForDate } from "./components/CareerTimelineAndRecruitment";
 
-const applicant: Applicant = { email: "blank", id: "blank" };
+const user: User = { email: "blank", id: "blank" };
 const generateExperience = (
   startDate?: string,
   endDate?: string,
 ): ExperienceForDate => ({
   id: "0",
-  applicant,
+  user,
   endDate,
   startDate,
 });

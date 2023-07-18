@@ -115,7 +115,7 @@ const UserInformationPage = () => {
     variables: { id: userId || "" },
   });
 
-  const user = lookupData?.applicant;
+  const user = lookupData?.user;
   const pools = lookupData?.pools.filter(notEmpty);
 
   const navigationCrumbs = [

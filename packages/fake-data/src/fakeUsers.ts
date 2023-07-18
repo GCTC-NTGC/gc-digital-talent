@@ -21,7 +21,6 @@ import {
   PersonalExperience,
   WorkExperience,
   GovEmployeeType,
-  Applicant,
   Department,
   CitizenshipStatus,
   ArmedForcesStatus,
@@ -203,11 +202,11 @@ export const defaultGenerator = (numToGenerate = 20): User[] => {
   );
 };
 
-export const fakeApplicants = (numToGenerate = 20): Applicant[] => {
+export const fakeApplicants = (numToGenerate = 20): User[] => {
   return defaultGenerator(numToGenerate).map((user) => {
     return {
       ...user,
-      __typename: "Applicant",
+      __typename: "User",
     };
   });
 };

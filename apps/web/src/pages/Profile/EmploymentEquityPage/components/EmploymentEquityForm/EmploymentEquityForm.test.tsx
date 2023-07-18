@@ -42,7 +42,7 @@ describe("DiversityEquityInclusionForm", () => {
    * Checks to see if the proper add/remove buttons
    * are rendered based on the users EE info.
    */
-  it("should render proper buttons", () => {
+  it("should render proper buttons", async () => {
     const mockSave = jest.fn();
     renderDiversityEquityInclusionForm({
       user: mockUser,
@@ -51,10 +51,10 @@ describe("DiversityEquityInclusionForm", () => {
     });
 
     const addDisability = screen.queryByRole("button", {
-      name: /add person with a disability to profile/i,
+      name: /add person with a disability to my profile/i,
     });
     const removeDisability = screen.queryByRole("button", {
-      name: /remove "I identify as a person with a disability" from profile/i,
+      name: /edit this information for I identify as a person with a disability./i,
     });
 
     if (mockUser.hasDisability) {
@@ -66,10 +66,10 @@ describe("DiversityEquityInclusionForm", () => {
     }
 
     const addIndigenous = screen.queryByRole("button", {
-      name: /add indigenous identity to profile/i,
+      name: /add indigenous identity to my profile/i,
     });
     const removeIndigenous = screen.queryByRole("button", {
-      name: /Edit "I affirm that I am First Nations \(status or non-status\), Inuk \(Inuit\), or a Métis person"/i,
+      name: /Edit this information for I affirm that I am First Nations/i,
     });
 
     if (mockUser.indigenousCommunities?.length) {
@@ -81,10 +81,10 @@ describe("DiversityEquityInclusionForm", () => {
     }
 
     const addVisibleMinority = screen.queryByRole("button", {
-      name: /add member of a visible minority to profile/i,
+      name: /add visible minority to my profile/i,
     });
     const removeVisibleMinority = screen.queryByRole("button", {
-      name: /remove "I identify as a member of a visible minority" from profile/i,
+      name: /edit this information for I identify as a member of a visible minority./i,
     });
 
     if (mockUser.isVisibleMinority) {
@@ -96,10 +96,10 @@ describe("DiversityEquityInclusionForm", () => {
     }
 
     const addWoman = screen.queryByRole("button", {
-      name: /add woman to profile/i,
+      name: /add woman to my profile/i,
     });
     const removeWoman = screen.queryByRole("button", {
-      name: /remove "i identify as a woman" from profile/i,
+      name: /edit this information for i identify as a woman./i,
     });
 
     if (mockUser.isWoman) {
@@ -123,7 +123,7 @@ describe("DiversityEquityInclusionForm", () => {
     });
 
     const addWoman = await screen.findByRole("button", {
-      name: /add Woman to profile/i,
+      name: /add Woman to my profile/i,
     });
 
     fireEvent.click(addWoman);
@@ -147,7 +147,7 @@ describe("DiversityEquityInclusionForm", () => {
     });
 
     const addWoman = await screen.findByRole("button", {
-      name: /add Woman to profile/i,
+      name: /add Woman to my profile/i,
     });
 
     act(() => {

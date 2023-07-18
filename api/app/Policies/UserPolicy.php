@@ -6,7 +6,6 @@ use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Models\Team;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Log;
 
 class UserPolicy
 {
@@ -33,7 +32,12 @@ class UserPolicy
     public function view(User $user, User $model)
     {
         return $user->isAbleTo('view-any-user')
-            || ($user->isAbleTo('view-own-user') && $user->id === $model->id);
+            || ($user->isAbleTo('view-own-user') && $user->id === $model->id) || ($user->isAbleTo('view-team-user')
+                && $this->applicantHasAppliedToPoolInTeams(
+                    $model,
+                    $user->rolesTeams()->get()->pluck('id')
+                )
+            );
     }
 
     /**
@@ -94,37 +98,6 @@ class UserPolicy
     }
 
     /*******************  APPLICANT QUERIES  *******************/
-
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAnyApplicants(User $user)
-    {
-        return $user->isAbleTo('view-any-applicantProfile');
-    }
-
-    /**
-     * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewApplicant(User $user, User $model)
-    {
-        return $user->isAbleTo('view-any-applicantProfile')
-            || ($user->isAbleTo('view-team-applicantProfile')
-                && $this->applicantHasAppliedToPoolInTeams(
-                    $model,
-                    $user->rolesTeams()->get()->pluck('id')
-                ) || ($user->isAbleTo('view-own-applicantProfile')
-                    && $user->id === $model->id
-                )
-            );
-    }
 
     protected function applicantHasAppliedToPoolInTeams(User $applicant, $teamIds)
     {

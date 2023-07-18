@@ -22,13 +22,12 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import PageHeader from "~/components/PageHeader";
 import {
-  Applicant,
+  User,
   Scalars,
   useGetPoolCandidateSnapshotQuery,
   PoolCandidate,
   Maybe,
   SkillCategory,
-  User,
   Pool,
 } from "~/api/generated";
 import {
@@ -48,11 +47,11 @@ import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import SkillTree from "../../Applications/ApplicationSkillsPage/components/SkillTree";
-import PersonalInformationDisplay from "../../Applications/ApplicationProfilePage/components/PersonalInformation/Display";
-import DiversityEquityInclusionDisplay from "../../Applications/ApplicationProfilePage/components/DiversityEquityInclusion/Display";
-import GovernmentInformationDisplay from "../../Applications/ApplicationProfilePage/components/GovernmentInformation/Display";
-import LanguageProfileDisplay from "../../Applications/ApplicationProfilePage/components/LanguageProfile/Display";
-import WorkPreferencesDisplay from "../../Applications/ApplicationProfilePage/components/WorkPreferences/Display";
+import PersonalInformationDisplay from "../../../components/Profile/components/PersonalInformation/Display";
+import DiversityEquityInclusionDisplay from "../../../components/Profile/components/DiversityEquityInclusion/Display";
+import GovernmentInformationDisplay from "../../../components/Profile/components/GovernmentInformation/Display";
+import LanguageProfileDisplay from "../../../components/Profile/components/LanguageProfile/Display";
+import WorkPreferencesDisplay from "../../../components/Profile/components/WorkPreferences/Display";
 import AssetSkillsFiltered from "./components/ApplicationStatusForm/AssetSkillsFiltered";
 
 export interface ViewPoolCandidateProps {
@@ -75,9 +74,7 @@ export const ViewPoolCandidate = ({
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
 
-  const parsedSnapshot: Maybe<Applicant> = JSON.parse(
-    poolCandidate.profileSnapshot,
-  );
+  const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
   const snapshotUserPropertyExists = !!parsedSnapshot;
   const pages = useAdminPoolPages(intl, poolCandidate.pool);
   const showRichSnapshot = snapshotUserPropertyExists && preferRichView;

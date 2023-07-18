@@ -19,7 +19,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
-import type { Applicant } from "~/api/generated";
+import type { User } from "~/api/generated";
 
 import {
   aboutSectionHasEmptyRequiredFields,
@@ -50,7 +50,7 @@ interface SectionControl {
 }
 
 export interface UserProfileProps {
-  applicant: Applicant;
+  user: User;
   sections: {
     about?: SectionControl;
     employmentEquity?: SectionControl;
@@ -129,14 +129,14 @@ const Container = ({
 };
 
 const UserProfile = ({
-  applicant,
+  user,
   sections,
   subTitle,
   headingLevel = "h2",
   isNavigationVisible = true,
 }: UserProfileProps) => {
   const intl = useIntl();
-  const { experiences } = applicant;
+  const { experiences } = user;
   const featureFlags = useFeatureFlags();
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
 
@@ -147,10 +147,10 @@ const UserProfile = ({
   };
 
   const sectionStatus = (
-    hasEmptyRequiredFields: (applicant: Applicant) => boolean,
+    hasEmptyRequiredFields: (user: User) => boolean,
   ): Status | undefined => {
     if (!featureFlags.applicantDashboard) return undefined;
-    if (hasEmptyRequiredFields(applicant)) return "error";
+    if (hasEmptyRequiredFields(user)) return "error";
 
     return "success";
   };
@@ -364,10 +364,7 @@ const UserProfile = ({
             {sections.about?.override ? (
               sections.about.override
             ) : (
-              <AboutSection
-                applicant={applicant}
-                editPath={sections.about?.editUrl}
-              />
+              <AboutSection user={user} editPath={sections.about?.editUrl} />
             )}
           </TableOfContents.Section>
         )}
@@ -409,7 +406,7 @@ const UserProfile = ({
               sections.employmentEquity.override
             ) : (
               <DiversityEquityInclusionSection
-                applicant={applicant}
+                user={user}
                 editPath={sections.employmentEquity?.editUrl}
               />
             )}
@@ -451,7 +448,7 @@ const UserProfile = ({
               sections.language.override
             ) : (
               <LanguageInformationSection
-                applicant={applicant}
+                user={user}
                 editPath={sections.language?.editUrl}
               />
             )}
@@ -493,7 +490,7 @@ const UserProfile = ({
               sections.government.override
             ) : (
               <GovernmentInformationSection
-                applicant={applicant}
+                user={user}
                 editPath={sections.government?.editUrl}
               />
             )}
@@ -532,7 +529,7 @@ const UserProfile = ({
               sections.workLocation.override
             ) : (
               <WorkLocationSection
-                applicant={applicant}
+                user={user}
                 editPath={sections.workLocation?.editUrl}
               />
             )}
@@ -574,7 +571,7 @@ const UserProfile = ({
               sections.workPreferences.override
             ) : (
               <WorkPreferencesSection
-                applicant={applicant}
+                user={user}
                 editPath={sections.workPreferences?.editUrl}
               />
             )}
@@ -618,7 +615,7 @@ const UserProfile = ({
               sections.roleSalary.override
             ) : (
               <RoleSalarySection
-                applicant={applicant}
+                user={user}
                 editPath={sections.roleSalary?.editUrl}
               />
             )}

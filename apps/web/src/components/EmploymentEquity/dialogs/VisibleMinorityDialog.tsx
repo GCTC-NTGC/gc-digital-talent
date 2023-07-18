@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 
 import { Dialog } from "@gc-digital-talent/ui";
-import { Checkbox } from "@gc-digital-talent/forms";
+import { Checklist } from "@gc-digital-talent/forms";
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
@@ -11,7 +11,6 @@ import {
 
 import type { EquityDialogProps } from "../types";
 
-import AddToProfile from "./AddToProfile";
 import Definition from "./Definition";
 import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
@@ -42,7 +41,17 @@ const VisibleMinorityDialog = ({
       <Dialog.Trigger>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
-          {intl.formatMessage(getEmploymentEquityGroup("minority"))}
+          {intl.formatMessage(
+            {
+              defaultMessage: 'Add "{title}" to your profile',
+              id: "OleLgS",
+              description:
+                "Heading for the add employment equity option to profile dialogs",
+            },
+            {
+              title: intl.formatMessage(getEmploymentEquityGroup("minority")),
+            },
+          )}
         </Dialog.Header>
         <Dialog.Body>
           <UnderReview />
@@ -52,26 +61,37 @@ const VisibleMinorityDialog = ({
                 ? "https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=45152"
                 : "https://www23.statcan.gc.ca/imdb/p3Var_f.pl?Function=DEC&Id=45152"
             }
-          />
-          <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
+            quotedDefinition={intl.formatMessage({
               defaultMessage:
-                'Visible minority refers to whether a person is a visible minority or not, as defined by the Employment Equity Act. The Employment Equity Act defines visible minorities as "persons, other than Aboriginal peoples, who are non-Caucasian in race or non-white in colour". The visible minority population consists mainly of the following groups: South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese.',
-              id: "F4K5RB",
+                '"... refers to whether a person is a visible minority or not, as defined by the Employment Equity Act. The Employment Equity Act defines visible minorities as "persons, other than Aboriginal peoples, who are non-Caucasian in race or non-white in colour". The visible minority population consists mainly of the following groups: South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese."',
+              id: "uPQ1t+",
               description:
                 "Definition of Visible minority from the StatsCan 'Visible minority of person' page.",
             })}
-          </p>
+          />
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitHandler)}>
-              <AddToProfile />
-              <div data-h2-margin="base(x1, 0, x1.5, 0)">
-                <Checkbox
+              <div data-h2-margin="base(x1, 0, 0, 0)">
+                <Checklist
+                  idPrefix="isVisibleMinority"
                   id="isVisibleMinority"
                   name="isVisibleMinority"
-                  label={intl.formatMessage(
-                    getEmploymentEquityStatement("minority"),
-                  )}
+                  legend={intl.formatMessage({
+                    defaultMessage:
+                      "Based on the definition provided, I want to add:",
+                    id: "O+fNOe",
+                    description:
+                      "Prompt text for a user selecting an employment equity group for their profile",
+                  })}
+                  trackUnsaved={false}
+                  items={[
+                    {
+                      value: "true",
+                      label: intl.formatMessage(
+                        getEmploymentEquityStatement("minority"),
+                      ),
+                    },
+                  ]}
                 />
               </div>
               <Dialog.Footer>

@@ -150,14 +150,14 @@ class AuthServiceProviderTest extends TestCase
         // manually add the user with the sub
         $existingUser = new User;
         $existingUser->sub = $testSub;
-        $existingUser->legacy_roles = $testRoles;
+        $existingUser->first_name = 'test';
         $existingUser->save();
 
         // they should exist now
-        $this->assertDatabaseHas('users', ['sub' => $testSub, 'legacy_roles' => json_encode($testRoles)]);
+        $this->assertDatabaseHas('users', ['sub' => $testSub, 'first_name' => 'test']);
         // this should not recreate them - that would wipe out the test role on our test user
         $resolvedUser = $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
-        // make sure our test user did not get roles wiped
-        $this->assertDatabaseHas('users', ['sub' => $testSub, 'legacy_roles' => json_encode($testRoles)]);
+        // make sure our test user did not get wiped
+        $this->assertDatabaseHas('users', ['sub' => $testSub, 'first_name' => 'test']);
     }
 }

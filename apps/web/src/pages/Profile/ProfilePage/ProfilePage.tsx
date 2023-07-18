@@ -1,37 +1,41 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
+import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 
-import { getFullNameHtml } from "~/utils/nameUtils";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
-import { Applicant, useGetMeQuery, User, GetMeQuery } from "~/api/generated";
+import {
+  useGetMeQuery,
+  User,
+  GetMeQuery,
+  useUpdateUserAsUserMutation,
+} from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import UserProfile from "~/components/UserProfile";
 import SEO from "~/components/SEO/SEO";
-import LanguageInformationSection from "~/components/UserProfile/ProfileSections/LanguageInformationSection";
-import ExperienceSection from "~/components/UserProfile/ExperienceSection";
-import MyStatusApi from "./components/MyStatusForm/MyStatusForm";
+import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
+import { SectionProps } from "~/components/Profile/types";
+import { PAGE_SECTION_ID } from "~/components/UserProfile/constants";
+import { getSectionTitle } from "~/components/Profile/utils";
+import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
+import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
+import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
+import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
+import AccountAndPrivacy from "~/components/Profile/components/AccountAndPrivacy/AccountAndPrivacy";
 
 export interface ProfilePageProps {
-  profileDataInput: User;
+  user: User;
 }
 
-export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
-  const { id: userId, experiences } = profileDataInput;
+export const ProfileForm = ({ user }: ProfilePageProps) => {
   const paths = useRoutes();
-
   const intl = useIntl();
-  const featureFlags = useFeatureFlags();
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "My profile",
-    id: "pR23NW",
-    description: "Page title for the applicants profile page",
+    defaultMessage: "Profile information",
+    id: "gTjLic",
+    description: "applicant dashboard card title for profile card",
   });
 
   const crumbs = useBreadcrumbs([
@@ -45,77 +49,117 @@ export const ProfileForm = ({ profileDataInput }: ProfilePageProps) => {
     },
     {
       label: pageTitle,
-      url: paths.profile(userId),
+      url: paths.profile(user.id),
     },
   ]);
+
+  const [{ fetching: isUpdating }, executeUpdateMutation] =
+    useUpdateUserAsUserMutation();
+
+  const handleUpdate: SectionProps["onUpdate"] = (userId, userData) => {
+    return executeUpdateMutation({
+      id: userId,
+      user: userData,
+    }).then((res) => res.data?.updateUserAsUser);
+  };
+
+  const sectionProps = {
+    user,
+    isUpdating,
+    onUpdate: handleUpdate,
+    pool: null,
+  };
 
   return (
     <>
       <SEO title={pageTitle} />
       <Hero
-        title={intl.formatMessage(
-          {
-            defaultMessage: "{name}'s profile",
-            id: "jslBEY",
-            description: "Title for a specific users profile page",
-          },
-          {
-            name: getFullNameHtml(
-              profileDataInput.firstName,
-              profileDataInput.lastName,
-              intl,
-            ),
-          },
-        )}
+        title={pageTitle}
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "View and update account information including contact and work preferences.",
+          id: "NflJW7",
+          description: "subtitle for the profile page",
+        })}
         crumbs={crumbs}
       />
-      <UserProfile
-        applicant={profileDataInput as Applicant}
-        sections={{
-          myStatus: {
-            isVisible: !featureFlags.applicantDashboard,
-            override: <MyStatusApi />,
-          },
-          about: { isVisible: true, editUrl: paths.aboutMe(userId) },
-          language: {
-            isVisible: true,
-            editUrl: paths.languageInformation(userId),
-            override: (
-              <LanguageInformationSection
-                applicant={profileDataInput as Applicant}
-                editPath={paths.languageInformation(userId)}
-              />
-            ),
-          },
-          government: {
-            isVisible: true,
-            editUrl: paths.governmentInformation(userId),
-          },
-          workLocation: {
-            isVisible: true,
-            editUrl: paths.workLocation(userId),
-          },
-          workPreferences: {
-            isVisible: true,
-            editUrl: paths.workPreferences(userId),
-          },
-          employmentEquity: {
-            isVisible: true,
-            editUrl: paths.diversityEquityInclusion(userId),
-          },
-          roleSalary: { isVisible: true, editUrl: paths.roleSalary(userId) },
-          careerTimelineAndRecruitment: {
-            isVisible: !featureFlags.applicantDashboard,
-            editUrl: paths.careerTimelineAndRecruitment(userId),
-            override: (
-              <ExperienceSection
-                experiences={experiences?.filter(notEmpty)}
-                editPath={paths.careerTimelineAndRecruitment(userId)}
-              />
-            ),
-          },
-        }}
-      />
+      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+        <TableOfContents.Wrapper>
+          <TableOfContents.Navigation data-h2-padding-top="base(x3)">
+            <TableOfContents.List>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ABOUT}>
+                  {intl.formatMessage(getSectionTitle("personal"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={PAGE_SECTION_ID.WORK_PREFERENCES}
+                >
+                  {intl.formatMessage(getSectionTitle("work"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.DEI}>
+                  {intl.formatMessage(getSectionTitle("dei"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.GOVERNMENT}>
+                  {intl.formatMessage(getSectionTitle("government"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.LANGUAGE}>
+                  {intl.formatMessage(getSectionTitle("language"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
+                >
+                  {intl.formatMessage(getSectionTitle("account"))}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            </TableOfContents.List>
+          </TableOfContents.Navigation>
+          <TableOfContents.Content data-h2-padding-top="base(x3)">
+            <TableOfContents.Section id={PAGE_SECTION_ID.ABOUT}>
+              <PersonalInformation {...sectionProps} />
+            </TableOfContents.Section>
+            <TableOfContents.Section
+              id={PAGE_SECTION_ID.WORK_PREFERENCES}
+              data-h2-padding-top="base(x2)"
+            >
+              <WorkPreferences {...sectionProps} />
+            </TableOfContents.Section>
+            <TableOfContents.Section
+              id={PAGE_SECTION_ID.DEI}
+              data-h2-padding-top="base(x2)"
+            >
+              <DiversityEquityInclusion {...sectionProps} />
+            </TableOfContents.Section>
+            <TableOfContents.Section
+              id={PAGE_SECTION_ID.GOVERNMENT}
+              data-h2-padding-top="base(x2)"
+            >
+              <GovernmentInformation {...sectionProps} />
+            </TableOfContents.Section>
+            <TableOfContents.Section
+              id={PAGE_SECTION_ID.LANGUAGE}
+              data-h2-padding-top="base(x2)"
+            >
+              <LanguageProfile {...sectionProps} />
+            </TableOfContents.Section>
+            <TableOfContents.Section
+              id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
+              data-h2-padding-top="base(x2)"
+            >
+              <AccountAndPrivacy {...sectionProps} />
+            </TableOfContents.Section>
+          </TableOfContents.Content>
+        </TableOfContents.Wrapper>
+      </div>
     </>
   );
 };
@@ -139,7 +183,7 @@ const ProfilePage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {userData ? (
-        <ProfileForm profileDataInput={userData} />
+        <ProfileForm user={userData} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}

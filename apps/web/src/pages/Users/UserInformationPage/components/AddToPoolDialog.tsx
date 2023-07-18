@@ -14,7 +14,7 @@ import { getFullPoolTitleLabel, getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import {
   PoolStatus,
-  Applicant,
+  User,
   CreatePoolCandidateAsAdminInput,
   Pool,
   PoolCandidate,
@@ -28,7 +28,7 @@ type FormValues = {
 };
 
 export interface AddToPoolDialogProps {
-  user: Applicant;
+  user: User;
   pools: Pool[];
 }
 
