@@ -37,7 +37,7 @@ fragment pool on Pool {
 }
 
 query GetBasicPoolInfo($poolId: UUID!) {
-  pool(id: $poolId) {
+  pool(id: $poolId, trashed: WITH) {
     id
     name {
       en

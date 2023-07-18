@@ -1,7 +1,7 @@
 # query to populated the edit pool page
 query getEditPoolData($poolId: UUID!) {
   # the existing data of the pool to edit
-  pool(id: $poolId) {
+  pool(id: $poolId, trashed: WITH) {
     id
     name {
       en

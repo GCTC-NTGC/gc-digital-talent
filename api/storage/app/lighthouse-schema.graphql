@@ -952,7 +952,12 @@ type Query {
   applicant(id: UUID!): User @deprecated(reason: "Removing in favour of user query")
   applicants(includeIds: [ID]!): [User]! @deprecated(reason: "Removing in favour of users query")
   countApplicants(where: ApplicantFilterInput): Int!
-  pool(id: UUID!): Pool
+  pool(
+    id: UUID!
+
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): Pool
   pools: [Pool]!
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   poolByKey(key: String!): Pool

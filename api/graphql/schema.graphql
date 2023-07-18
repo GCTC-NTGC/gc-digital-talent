@@ -858,7 +858,10 @@ type Query {
     @deprecated(reason: "Removing in favour of users query")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
-  pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
+  pool(id: UUID! @eq): Pool
+    @find
+    @can(ability: "view", query: true)
+    @softDeletes
   pools: [Pool]! @all @can(ability: "viewAny", model: "Pool")
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
