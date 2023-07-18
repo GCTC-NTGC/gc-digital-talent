@@ -1082,10 +1082,6 @@
     "defaultMessage": "Modifier<hidden> le regroupement des compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
   },
-  "5U+V2Y": {
-    "defaultMessage": "Nous pouvons encore vous aider!",
-    "description": "Heading for helping user if no candidates matched the filters chosen."
-  },
   "5U4C61": {
     "defaultMessage": "Nous utilisons également ces renseignements pour vous offrir des possibilités et des suggestions plus contextualisées en fonction de votre situation d'emploi.",
     "description": "Second message before is a government of canada radio group in create account form."
@@ -4192,10 +4188,6 @@
     "defaultMessage": "Date d'expiration",
     "description": "Title of the 'Expiry date' column for the table on view-user page"
   },
-  "STT6FW": {
-    "defaultMessage": "Nous pouvons peut-être vous aider!",
-    "description": "Heading for helping user if no candidates matched the filters chosen."
-  },
   "SUUqzt": {
     "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
     "description": "Message displayed when a user successfully updates their diversity, equity and inclusion information."
@@ -5373,10 +5365,6 @@
     "defaultMessage": "Afficher les candidatures en cours ({applicationCount})",
     "description": "Heading for applications in progress accordion on profile and applications."
   },
-  "ak4oel": {
-    "defaultMessage": "Nous n’avons trouvé aucun candidat qui répondait automatiquement à vos critères, mais notre équipe peut toujours vous aider.",
-    "description": "Text telling users they can still be helped regardless of search results"
-  },
   "ak4twG": {
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes bilingues (français et anglais).",
     "description": "Bilingual Positions message"
@@ -5515,6 +5503,10 @@
   "boPmF+": {
     "defaultMessage": "Examen de langue écrit",
     "description": "Legend text for written exam language preference for exams"
+  },
+  "bq1MMd": {
+    "defaultMessage": "Nous n’avons trouvé aucun candidat qui répondait automatiquement à vos critères, mais nous pouvons peut-être encore vous aider.",
+    "description": "Text telling users they can still be helped regardless of search results"
   },
   "bqaNWT": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
@@ -8505,6 +8497,10 @@
   "x8tCSM": {
     "defaultMessage": "Cette compétence nécessaire doit être jumelée à au moins une expérience figurant dans le CV",
     "description": "Message that appears when a required skill has no experiences linked to it"
+  },
+  "xAfVa9": {
+    "defaultMessage": "Nous pouvons peut-être vous aider!",
+    "description": "Heading for helping user if no candidates matched the filters chosen."
   },
   "xGjm2A": {
     "defaultMessage": "Sélectionnez les compétences qui amélioreront les chances de correspondre aux qualités recherchées par le les gestionnaire. Celles-ci peuvent généralement être appris en cours de travail et ne sont pas nécessaires pour être accepté dans le bassin",

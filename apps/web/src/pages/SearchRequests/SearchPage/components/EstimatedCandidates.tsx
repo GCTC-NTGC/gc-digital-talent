@@ -46,8 +46,8 @@ const CandidateMessage = ({ candidateCount }: CandidateMessageProps) => {
       </p>
       <p data-h2-font-weight="base(700)" data-h2-margin="base(x.5 0)">
         {intl.formatMessage({
-          defaultMessage: "We may be able help!",
-          id: "STT6FW",
+          defaultMessage: "We may be able to help!",
+          id: "xAfVa9",
           description:
             "Heading for helping user if no candidates matched the filters chosen.",
         })}
