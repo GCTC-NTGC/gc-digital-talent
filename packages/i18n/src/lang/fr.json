@@ -992,10 +992,6 @@
     "defaultMessage": "Fermer la fenêtre de dialogue",
     "description": "Text for the button to close a modal dialog."
   },
-  "gDBVKb": {
-    "defaultMessage": "CV et recrutement",
-    "description": "Name of Résumé and recruitment page"
-  },
   "gM4WDL": {
     "defaultMessage": "Non",
     "description": "Negative answer"
