@@ -23,6 +23,8 @@ use Carbon\CarbonImmutable;
  * @property string $admin_notes
  * @property string $request_status
  * @property int $request_status_weight
+ * @property string $manager_job_title
+ * @property string $position_type
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $deleted_at
