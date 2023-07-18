@@ -100,6 +100,11 @@ const uiMessages = defineMessages({
     id: "rnZULP",
     description: "Button text to truncate text to view fewer characters",
   },
+  confirmContinue: {
+    defaultMessage: "Do you wish to continue?",
+    id: "ijGl5r",
+    description: "A request to confirm that the user wants to continue",
+  },
 });
 
 export default uiMessages;

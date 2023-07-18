@@ -196,4 +196,22 @@ class PoolPolicy
             return Response::deny("You cannot delete a pool with this status.");
         }
     }
+
+    /**
+     * Determine whether the user can restore the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Pool  $pool
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restore(User $user, Pool $pool)
+    {
+        $pool->loadMissing('team');
+        $poolStatus = $pool->getStatusAttribute();
+        if ($poolStatus == ApiEnums::POOL_IS_ARCHIVED) {
+            return $user->isAbleTo("delete-team-closedPool", $pool->team);  // same permission to delete and un-delete
+        } else {
+            return Response::deny("You cannot restore a pool with this status.");
+        }
+    }
 }

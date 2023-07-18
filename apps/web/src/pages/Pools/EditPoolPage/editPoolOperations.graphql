@@ -179,3 +179,9 @@ mutation duplicatePool($id: ID!, $teamId: ID!) {
     id
   }
 }
+
+mutation restorePool($id: ID!) {
+  restorePool(id: $id) {
+    id
+  }
+}

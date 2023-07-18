@@ -16,6 +16,7 @@ import DeleteDialog from "./DeleteDialog";
 import DuplicateDialog from "./DuplicateDialog";
 import ArchiveDialog from "./ArchiveDialog";
 import ExtendDialog from "./ExtendDialog";
+import UnarchiveDialog from "./UnarchiveDialog";
 
 interface StatusSectionProps {
   pool: Pool;
@@ -26,6 +27,7 @@ interface StatusSectionProps {
   onExtend: (submitData: Scalars["DateTime"]) => Promise<void>;
   onArchive: () => void;
   onDuplicate: () => void;
+  onUnarchive: () => void;
 }
 
 const StatusSection = ({
@@ -37,6 +39,7 @@ const StatusSection = ({
   onClose,
   onExtend,
   onArchive,
+  onUnarchive,
 }: StatusSectionProps): JSX.Element => {
   const intl = useIntl();
 
@@ -186,41 +189,45 @@ const StatusSection = ({
 
         {/* Archived status */}
         {pool.status === PoolStatus.Archived ? (
-          <div
-            data-h2-background-color="base(gray.light)"
-            data-h2-padding="base(x.5)"
-            data-h2-radius="base(s)"
-            style={{ flexGrow: 2 }} // to push buttons to the right side
-          >
+          <>
             <div
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-              style={{ gap: "0.5rem" }}
+              data-h2-background-color="base(gray.light)"
+              data-h2-padding="base(x.5)"
+              data-h2-radius="base(s)"
+              style={{ flexGrow: 2 }} // to push buttons to the right side
             >
-              <FolderOpenIcon
-                style={{
-                  width: "1rem",
-                  height: "1rem",
-                  marginRight: "0.5rem",
-                }}
-              />
-              <span>
-                {intl.formatMessage({
-                  defaultMessage: "<heavyPrimary>Archived</heavyPrimary>",
-                  id: "+5da+V",
-                  description: "Status name of a pool in ARCHIVED status",
-                })}
-              </span>
-              <span>
-                {intl.formatMessage({
-                  defaultMessage: "This pool is no longer advertised.",
-                  id: "HxTuuy",
-                  description:
-                    "Status description of a pool in ARCHIVED status",
-                })}
-              </span>
+              <div
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
+                style={{ gap: "0.5rem" }}
+              >
+                <FolderOpenIcon
+                  style={{
+                    width: "1rem",
+                    height: "1rem",
+                    marginRight: "0.5rem",
+                  }}
+                />
+                <span>
+                  {intl.formatMessage({
+                    defaultMessage: "<heavyPrimary>Archived</heavyPrimary>",
+                    id: "+5da+V",
+                    description: "Status name of a pool in ARCHIVED status",
+                  })}
+                </span>
+                <span>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "This pool is no longer advertised or visible to the public.",
+                    id: "TtX+o7",
+                    description:
+                      "Status description of a pool in ARCHIVED status",
+                  })}
+                </span>
+              </div>
             </div>
-          </div>
+            <UnarchiveDialog pool={pool} onUnarchive={onUnarchive} />
+          </>
         ) : undefined}
       </div>
       <DuplicateDialog onDuplicate={onDuplicate} pool={pool} />

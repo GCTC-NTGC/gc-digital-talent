@@ -72,6 +72,7 @@ export interface EditPoolFormProps {
   onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
   onArchive: () => void;
   onDuplicate: () => void;
+  onUnarchive: () => void;
 }
 
 export const EditPoolForm = ({
@@ -85,6 +86,7 @@ export const EditPoolForm = ({
   onClose,
   onExtend,
   onArchive,
+  onUnarchive,
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -297,6 +299,7 @@ export const EditPoolForm = ({
               onExtend={onExtend}
               onArchive={onArchive}
               onDuplicate={onDuplicate}
+              onUnarchive={onUnarchive}
             />
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
@@ -384,7 +387,8 @@ export const EditPoolPage = () => {
               }
               onClose={() => mutations.close(poolId)}
               onExtend={(closingDate) => mutations.extend(poolId, closingDate)}
-              onArchive={() => mutations.delete(poolId)}
+              onArchive={() => mutations.archive(poolId)}
+              onUnarchive={() => mutations.unarchive(poolId)}
             />
           </EditPoolContext.Provider>
         ) : (

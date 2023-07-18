@@ -3,19 +3,19 @@ import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Pool } from "@gc-digital-talent/graphql";
-import { uiMessages } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import { uiMessages } from "@gc-digital-talent/i18n";
 
-type ArchiveDialogProps = {
+type UnarchiveDialogProps = {
   pool: Pool;
-  onArchive: () => void;
+  onUnarchive: () => void;
 };
 
-const ArchiveDialog = ({
+const UnarchiveDialog = ({
   pool,
-  onArchive,
-}: ArchiveDialogProps): JSX.Element => {
+  onUnarchive,
+}: UnarchiveDialogProps): JSX.Element => {
   const intl = useIntl();
   const Footer = React.useMemo(
     () => (
@@ -33,48 +33,48 @@ const ArchiveDialog = ({
         <Dialog.Close>
           <Button
             onClick={() => {
-              onArchive();
+              onUnarchive();
             }}
             mode="solid"
             color="error"
           >
             {intl.formatMessage({
-              defaultMessage: "Archive this pool",
-              id: "Jp0Beg",
+              defaultMessage: "Un-archive this pool",
+              id: "Rs50V0",
               description:
-                "Button to archive the pool in the archive pool dialog",
+                "Button to un-archive the pool in the un-archive pool dialog",
             })}
           </Button>
         </Dialog.Close>
       </>
     ),
-    [intl, onArchive],
+    [intl, onUnarchive],
   );
   return (
     <Dialog.Root>
       <Dialog.Trigger>
         <Button color="secondary" mode="solid">
           {intl.formatMessage({
-            defaultMessage: "Archive",
-            id: "P8NuMo",
-            description: "Text on a button to archive the pool",
+            defaultMessage: "Un-archive",
+            id: "U/zhJQ",
+            description: "Text on a button to un-archive the pool",
           })}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
           {intl.formatMessage({
-            defaultMessage: "Archive this pool",
-            id: "7gOyU5",
-            description: "Heading for the archive pool dialog",
+            defaultMessage: "Un-archive this pool",
+            id: "jdD/iA",
+            description: "Heading for the un-archive pool dialog",
           })}
         </Dialog.Header>
         <Dialog.Body>
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({
-              defaultMessage: "You're about to archive this pool:",
-              id: "FboyrB",
-              description: "First paragraph for archive pool dialog",
+              defaultMessage: "You're about to un-archive this pool:",
+              id: "/42EqQ",
+              description: "First paragraph for un-archive pool dialog",
             })}
           </p>
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x0.5)">
@@ -83,12 +83,12 @@ const ArchiveDialog = ({
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({
               defaultMessage:
-                "This will hide this pool from all relevant tables and from a user's pool information.",
-              id: "FGedDI",
-              description: "Second paragraph for archive pool dialog",
+                "This will show this pool back to the public.  All users associated with this pool will be able to see it on their profile information.",
+              id: "8Bsa1r",
+              description: "Second paragraph for un-archive pool dialog",
             })}
           </p>
-          <p>{intl.formatMessage(uiMessages.confirmContinue)}</p>
+          {intl.formatMessage(uiMessages.confirmContinue)}
           <Dialog.Footer>{Footer}</Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>
@@ -96,4 +96,4 @@ const ArchiveDialog = ({
   );
 };
 
-export default ArchiveDialog;
+export default UnarchiveDialog;

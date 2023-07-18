@@ -122,6 +122,7 @@ class Pool extends Model
         $publishedDate = $this->published_at;
         $closedDate = $this->closing_date;
         $currentTime = date("Y-m-d H:i:s");
+        $deletedDate = $this->deleted_at;
         if ($closedDate != null) {
             $isClosed = $currentTime >= $closedDate ? true : false;
         } else {
@@ -132,8 +133,15 @@ class Pool extends Model
         } else {
             $isPublished = false;
         }
+        if ($deletedDate != null) {
+            $isDeleted = $currentTime >= $deletedDate ? true : false;
+        } else {
+            $isDeleted = false;
+        }
 
-        if (!$isPublished) {
+        if ($isDeleted) {
+            return ApiEnums::POOL_IS_ARCHIVED;
+        } elseif (!$isPublished) {
             return ApiEnums::POOL_IS_DRAFT;
         } elseif ($isPublished && !$isClosed) {
             return ApiEnums::POOL_IS_PUBLISHED;
