@@ -19,7 +19,7 @@ const getStepInfo: GetApplicationStepInfo = ({
   stepOrdinal,
 }): ApplicationStepInfo => {
   return {
-    applicationStep: ApplicationStep.ReviewYourCareerTimeline,
+    applicationStep: ApplicationStep.ReviewYourResume,
     mainPage: careerTimelinePageInfo({ paths, intl, application, stepOrdinal }),
     introductionPage: careerTimelineIntroductionPageInfo({
       paths,

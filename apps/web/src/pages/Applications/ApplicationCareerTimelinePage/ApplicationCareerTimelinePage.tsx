@@ -212,7 +212,7 @@ export const ApplicationCareerTimeline = ({
     executeMutation({
       id: application.id,
       application: {
-        insertSubmittedStep: ApplicationStep.ReviewYourCareerTimeline,
+        insertSubmittedStep: ApplicationStep.ReviewYourResume,
       },
     })
       .then((res) => {
