@@ -485,10 +485,6 @@
     "defaultMessage": "Mois",
     "description": "Label for a month input field"
   },
-  "LBNX0O": {
-    "defaultMessage": "Administrateur",
-    "description": "The name of the Administrator user role."
-  },
   "LBqw5w": {
     "defaultMessage": "Vous devez répondre à toutes les questions filtres",
     "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
@@ -516,10 +512,6 @@
   "M/6+SI": {
     "defaultMessage": "Inactif",
     "description": "Job Looking Status described as Actively looking."
-  },
-  "MGqCaE": {
-    "defaultMessage": "Demandeur",
-    "description": "The name of the Applicant user role."
   },
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",

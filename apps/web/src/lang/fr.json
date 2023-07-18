@@ -619,10 +619,6 @@
     "defaultMessage": "Souhaitez-vous poursuivre?",
     "description": "Message displayed to users before removing a member from a team"
   },
-  "2K8q04": {
-    "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions sur ce processus?",
-    "description": "Opening sentence asking if accommodations are needed"
-  },
   "2KjiDn": {
     "defaultMessage": "Niveau 4 : Gestionnaire",
     "description": "title for IT-04 manager dialog"
@@ -678,10 +674,6 @@
   "2ekC5r": {
     "defaultMessage": "Famille de compétences mise à jour avec succès!",
     "description": "Message displayed to user after skillFamily is updated successfully."
-  },
-  "2gMnSu": {
-    "defaultMessage": "Politiques d’embauche",
-    "description": "Title for the hiring policies section of a pool advertisement"
   },
   "2iCpAL": {
     "defaultMessage": "Énoncé sur l’accessibilité",
@@ -1089,10 +1081,6 @@
   "5SKmte": {
     "defaultMessage": "Modifier<hidden> le regroupement des compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
-  },
-  "5U+V2Y": {
-    "defaultMessage": "Nous pouvons encore vous aider!",
-    "description": "Heading for helping user if no candidates matched the filters chosen."
   },
   "5U4C61": {
     "defaultMessage": "Nous utilisons également ces renseignements pour vous offrir des possibilités et des suggestions plus contextualisées en fonction de votre situation d'emploi.",
@@ -2878,10 +2866,6 @@
     "defaultMessage": "Prénom",
     "description": "Label displayed for the first name field in create account form."
   },
-  "IF1xj8": {
-    "defaultMessage": "La préférence sera donnée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",
-    "description": "First hiring policy for pool advertisement"
-  },
   "IFGKCz": {
     "defaultMessage": "Supprimer",
     "description": "Text on a button to delete the pool"
@@ -3512,10 +3496,6 @@
   "NIEIAC": {
     "defaultMessage": "Aucun renseignement n’a été fourni.",
     "description": "Message on Admin side when user not filled about me section."
-  },
-  "NKbfoW": {
-    "defaultMessage": "Option à distance",
-    "description": "Location requirement when a pool advertisement is remote"
   },
   "NKr2Rg": {
     "defaultMessage": "Trouver des talents",
@@ -4204,17 +4184,9 @@
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux de la <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques d'experts et une orientation stratégique à leur domaine d'expertise, dans la prestation de solutions et de services aux clients internes ou externes, de même qu'aux intervenants. Les conseillers principaux de la <abbreviation>TI</abbreviation> se trouvent surtout dans six volets de travail :",
     "description": "IT-04 senior advisor description precursor to work stream list"
   },
-  "SQqD4j": {
-    "defaultMessage": "Sélectionnez zéro rôle ou plus",
-    "description": "Placeholder displayed on the user form roles field."
-  },
   "STDYoR": {
     "defaultMessage": "Date d'expiration",
     "description": "Title of the 'Expiry date' column for the table on view-user page"
-  },
-  "STT6FW": {
-    "defaultMessage": "Nous pouvons peut-être vous aider!",
-    "description": "Heading for helping user if no candidates matched the filters chosen."
   },
   "SUUqzt": {
     "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
@@ -4519,6 +4491,10 @@
   "UvKDXK": {
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
     "description": "Descriptive text about the list of users in the admin portal."
+  },
+  "UwdpPS": {
+    "defaultMessage": "Qui peut formuler une demande?",
+    "description": "Title for the hiring policies section of a pool advertisement"
   },
   "UxF291": {
     "defaultMessage": "Nom de famille",
@@ -4848,10 +4824,6 @@
     "defaultMessage": "Langue préférée pour l'entretien parlé :",
     "description": "Display text for the preferred spoken interview language field on users"
   },
-  "Wnw+oz": {
-    "defaultMessage": "<strong>Courriel</strong> : <anchorTag>{emailAddress}</anchorTag>",
-    "description": "An email address to contact for help"
-  },
   "WoAuKA": {
     "defaultMessage": "Mettre à jour une compétence",
     "description": "Title displayed on the update a skill form."
@@ -5159,10 +5131,6 @@
     "defaultMessage": "Identité",
     "description": "Title displayed on the Skill table ID column."
   },
-  "Z6sh9j": {
-    "defaultMessage": "Les rôles accordent une autre fonctionnalité à la connexion d’un utilisateur.",
-    "description": "Additional context describing the purpose of the users's 'role' field."
-  },
   "Z8hEuY": {
     "defaultMessage": "Modifiez cette section",
     "description": "Default edit link text for application review page"
@@ -5322,6 +5290,10 @@
     "defaultMessage": "Expériences de travail",
     "description": "Heading for personal experiences in experience by type listing"
   },
+  "aCg/OZ": {
+    "defaultMessage": "La préférence sera accordée aux anciens combattants, aux citoyens canadiens et aux résidants permanents.",
+    "description": "First hiring policy for pool advertisement"
+  },
   "aDRIDD": {
     "defaultMessage": "Éducation actuelle",
     "description": "Label displayed on Education Experience form for current education bounded box"
@@ -5392,10 +5364,6 @@
   "agiL8L": {
     "defaultMessage": "Afficher les candidatures en cours ({applicationCount})",
     "description": "Heading for applications in progress accordion on profile and applications."
-  },
-  "ak4oel": {
-    "defaultMessage": "Nous n’avons trouvé aucun candidat qui répondait automatiquement à vos critères, mais notre équipe peut toujours vous aider.",
-    "description": "Text telling users they can still be helped regardless of search results"
   },
   "ak4twG": {
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes bilingues (français et anglais).",
@@ -5535,6 +5503,10 @@
   "boPmF+": {
     "defaultMessage": "Examen de langue écrit",
     "description": "Legend text for written exam language preference for exams"
+  },
+  "bq1MMd": {
+    "defaultMessage": "Nous n’avons trouvé aucun candidat qui répondait automatiquement à vos critères, mais nous pouvons peut-être encore vous aider.",
+    "description": "Text telling users they can still be helped regardless of search results"
   },
   "bqaNWT": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
@@ -6107,6 +6079,10 @@
   "fYyK2p": {
     "defaultMessage": "Créer une classification",
     "description": "Page title for the classification creation page"
+  },
+  "faWz84": {
+    "defaultMessage": "Personnes résidant au Canada, et citoyens canadiens et résidents permanents résidant à l’étranger.",
+    "description": "List of criteria needed in order to apply"
   },
   "fdKtYm": {
     "defaultMessage": "Description (anglais)",
@@ -6925,10 +6901,6 @@
     "defaultMessage": "Classifications",
     "description": "Title for classifications"
   },
-  "kwNyl6": {
-    "defaultMessage": "Rôles",
-    "description": "Label displayed on the user form roles field."
-  },
   "kxseH4": {
     "defaultMessage": "Compétences techniques",
     "description": "Tab name for a list of technical skills"
@@ -7496,10 +7468,6 @@
     "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
   },
-  "p3j/0q": {
-    "defaultMessage": "Veuillez communiquer avec l'équipe de gestion de la collectivité du numérique si vous avez besoin de mesures d'adaptation au cours de ce processus de candidature",
-    "description": "Description of what to do when accommodations are needed"
-  },
   "p72C40": {
     "defaultMessage": "Compétence linguistique au travail",
     "description": "Heading for working language ability section of the search form."
@@ -7755,6 +7723,10 @@
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the create a skill form description (English) field."
   },
+  "rKUVdL": {
+    "defaultMessage": "Veuillez communiquer avec l’équipe <a>{name} </a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation </strong> tout au long de ce processus.",
+    "description": "Opening sentence asking if accommodations are needed"
+  },
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
     "description": "Support form toast message error"
@@ -7982,6 +7954,10 @@
   "ssJxrj": {
     "defaultMessage": "Je suis un membre des Premières Nations.",
     "description": "Text for the option to self-declare as a status first nations"
+  },
+  "swESO/": {
+    "defaultMessage": "À distance, hybride ou sur site",
+    "description": "Location requirement when a pool advertisement is remote"
   },
   "swugkW": {
     "defaultMessage": "Droit de priorité :",
@@ -8521,6 +8497,10 @@
   "x8tCSM": {
     "defaultMessage": "Cette compétence nécessaire doit être jumelée à au moins une expérience figurant dans le CV",
     "description": "Message that appears when a required skill has no experiences linked to it"
+  },
+  "xAfVa9": {
+    "defaultMessage": "Nous pouvons peut-être vous aider!",
+    "description": "Heading for helping user if no candidates matched the filters chosen."
   },
   "xGjm2A": {
     "defaultMessage": "Sélectionnez les compétences qui amélioreront les chances de correspondre aux qualités recherchées par le les gestionnaire. Celles-ci peuvent généralement être appris en cours de travail et ne sont pas nécessaires pour être accepté dans le bassin",
