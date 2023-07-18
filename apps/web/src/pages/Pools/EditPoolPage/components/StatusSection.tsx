@@ -180,7 +180,7 @@ const StatusSection = ({
               </div>
             </div>
             <ExtendDialog closingDate={pool.closingDate} onExtend={onExtend} />
-            <ArchiveDialog onArchive={onArchive} />
+            <ArchiveDialog pool={pool} onArchive={onArchive} />
           </>
         ) : undefined}
 

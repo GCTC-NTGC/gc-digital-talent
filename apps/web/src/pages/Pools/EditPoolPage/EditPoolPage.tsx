@@ -10,7 +10,6 @@ import {
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { useLogger } from "@gc-digital-talent/logger";
 
 import SEO from "~/components/SEO/SEO";
 import {
@@ -313,7 +312,6 @@ type RouteParams = {
 export const EditPoolPage = () => {
   const intl = useIntl();
   const { poolId } = useParams<RouteParams>();
-  const logger = useLogger();
   const routes = useRoutes();
 
   const notFoundMessage = intl.formatMessage(
@@ -386,7 +384,7 @@ export const EditPoolPage = () => {
               }
               onClose={() => mutations.close(poolId)}
               onExtend={(closingDate) => mutations.extend(poolId, closingDate)}
-              onArchive={() => logger.warning("onArchive not yet implemented")}
+              onArchive={() => mutations.delete(poolId)}
             />
           </EditPoolContext.Provider>
         ) : (
