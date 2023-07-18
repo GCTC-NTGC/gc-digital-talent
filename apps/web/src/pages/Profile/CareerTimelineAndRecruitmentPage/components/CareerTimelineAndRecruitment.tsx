@@ -119,7 +119,7 @@ export const CareerTimelineAndRecruitment = ({
               {intl.formatMessage({
                 defaultMessage:
                   "This section is similar to your traditional career timeline and describes your experiences across work, school, and life. You’ll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
-                id: "/MJq3v",
+                id: "dAGii/",
                 description:
                   "Descriptive paragraph for the Manage your career timeline section of the career timeline and recruitment page.",
               })}
