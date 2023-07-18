@@ -516,6 +516,11 @@ enum PoolCandidateSearchStatus {
   DONE
 }
 
+enum PoolCandidateSearchPositionType {
+  INDIVIDUAL_CONTRIBUTOR
+  TEAM_LEAD
+}
+
 # equity selections goes with the pool/applicant filters and not user model
 type EquitySelections {
   isWoman: Boolean @rename(attribute: "is_woman")
@@ -579,6 +584,9 @@ type PoolCandidateSearchRequest {
   poolCandidateFilter: PoolCandidateFilter @belongsTo
   applicantFilter: ApplicantFilter @belongsTo
   wasEmpty: Boolean @rename(attribute: "was_empty")
+  managerJobTitle: String @rename(attribute: "manager_job_title")
+  positionType: PoolCandidateSearchPositionType
+    @rename(attribute: "position_type")
 }
 
 enum SkillCategory {
@@ -1342,14 +1350,17 @@ input CreatePoolCandidateSearchRequestInput {
   jobTitle: String! @rename(attribute: "job_title")
   additionalComments: String @rename(attribute: "additional_comments")
   applicantFilter: ApplicantFilterBelongsTo!
-  # requestedDate will be set to current date in Eloquent model.
-  # status will be set to PENDING in Eloquent model.
+  # status will be set to NEW by default in Postgres
   wasEmpty: Boolean @rename(attribute: "was_empty")
+  managerJobTitle: String! @rename(attribute: "manager_job_title")
+  positionType: PoolCandidateSearchPositionType!
+    @rename(attribute: "position_type")
 }
 
 input UpdatePoolCandidateSearchRequestInput {
   adminNotes: String @rename(attribute: "admin_notes")
   status: PoolCandidateSearchStatus
+  # statusChangedAt updated in the Eloquent model
 }
 
 input SkillBelongsToMany {
