@@ -9,6 +9,7 @@ import { ExternalSideMenuItem, SideMenuButton } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import LogoutConfirmation from "~/components/LogoutConfirmation";
+import authMessages from "~/messages/authMessages";
 
 const LoginOrLogout = () => {
   const intl = useIntl();
@@ -20,11 +21,7 @@ const LoginOrLogout = () => {
     return (
       <LogoutConfirmation>
         <SideMenuButton icon={ArrowLeftOnRectangleIcon}>
-          {intl.formatMessage({
-            defaultMessage: "Logout",
-            id: "TGV2F7",
-            description: "Label displayed on the Logout menu item.",
-          })}
+          {intl.formatMessage(authMessages.signOut)}
         </SideMenuButton>
       </LogoutConfirmation>
     );
@@ -35,11 +32,7 @@ const LoginOrLogout = () => {
       icon={ArrowRightOnRectangleIcon}
       href={apiRoutes.login(location.pathname, getLocale(intl))}
     >
-      {intl.formatMessage({
-        defaultMessage: "Login",
-        id: "71ID2W",
-        description: "Label displayed on the Login menu item.",
-      })}
+      {intl.formatMessage(authMessages.signIn)}
     </ExternalSideMenuItem>
   );
 };

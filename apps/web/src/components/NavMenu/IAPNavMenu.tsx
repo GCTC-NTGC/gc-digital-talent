@@ -5,6 +5,7 @@ import { MenuLink } from "@gc-digital-talent/ui";
 import { Maybe, User } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
+import authMessages from "~/messages/authMessages";
 
 import NavMenu from "./NavMenu";
 import LogoutConfirmation from "../LogoutConfirmation";
@@ -21,32 +22,18 @@ const IAPNavMenu = ({ loggedIn, user }: IAPNavMenuProps) => {
   const searchParams = `?from=${paths.iap()}&personality=iap`;
 
   let authLinks = [
-    <MenuLink key="login-info" to={`${paths.login()}${searchParams}`}>
-      {intl.formatMessage({
-        defaultMessage: "Login",
-        id: "md7Klw",
-        description: "Label displayed on the login link menu item.",
-      })}
+    <MenuLink key="sign-in" to={`${paths.login()}${searchParams}`}>
+      {intl.formatMessage(authMessages.signIn)}
     </MenuLink>,
-    <MenuLink key="register" to={`${paths.register()}${searchParams}`}>
-      {intl.formatMessage({
-        defaultMessage: "Register",
-        id: "LMGaDQ",
-        description: "Label displayed on the register link menu item.",
-      })}
+    <MenuLink key="sign-up" to={`${paths.register()}${searchParams}`}>
+      {intl.formatMessage(authMessages.signUp)}
     </MenuLink>,
   ];
 
   if (loggedIn && user) {
     authLinks = [
-      <LogoutConfirmation key="logout">
-        <LogoutButton>
-          {intl.formatMessage({
-            defaultMessage: "Logout",
-            id: "3vDhoc",
-            description: "Label displayed on the logout link menu item.",
-          })}
-        </LogoutButton>
+      <LogoutConfirmation key="sign-out">
+        <LogoutButton>{intl.formatMessage(authMessages.signOut)}</LogoutButton>
       </LogoutConfirmation>,
     ];
   }

@@ -19,6 +19,8 @@ import LogoutConfirmation from "~/components/LogoutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
+import authMessages from "~/messages/authMessages";
+
 import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import LogoutButton from "./LogoutButton";
 
@@ -60,19 +62,11 @@ const Layout = () => {
   ];
 
   let authLinks = [
-    <MenuLink key="login-info" to={paths.login()}>
-      {intl.formatMessage({
-        defaultMessage: "Login",
-        id: "md7Klw",
-        description: "Label displayed on the login link menu item.",
-      })}
+    <MenuLink key="sign-in" to={paths.login()}>
+      {intl.formatMessage(authMessages.signIn)}
     </MenuLink>,
-    <MenuLink key="register" to={paths.register()}>
-      {intl.formatMessage({
-        defaultMessage: "Register",
-        id: "LMGaDQ",
-        description: "Label displayed on the register link menu item.",
-      })}
+    <MenuLink key="sign-up" to={paths.register()}>
+      {intl.formatMessage(authMessages.signUp)}
     </MenuLink>,
   ];
 
@@ -121,14 +115,8 @@ const Layout = () => {
       ];
     }
     authLinks = [
-      <LogoutConfirmation key="logout">
-        <LogoutButton>
-          {intl.formatMessage({
-            defaultMessage: "Logout",
-            id: "3vDhoc",
-            description: "Label displayed on the logout link menu item.",
-          })}
-        </LogoutButton>
+      <LogoutConfirmation key="sign-out">
+        <LogoutButton>{intl.formatMessage(authMessages.signOut)}</LogoutButton>
       </LogoutConfirmation>,
     ];
 

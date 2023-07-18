@@ -132,19 +132,19 @@ export const CreateAccountForm = ({
           >
             <Alert.Title>
               {intl.formatMessage({
-                defaultMessage: "You’ve successfully logged in",
-                id: "4FEV7d",
+                defaultMessage: "You've successfully signed in",
+                id: "DeGAS5",
                 description:
-                  "Title for successful login alert in create account page.",
+                  "Title for successful sign in alert in create account page.",
               })}
             </Alert.Title>
             <p>
               {intl.formatMessage({
                 defaultMessage:
                   "Welcome to the GC Digital Talent platform. Moving forward, you can log into your profile using the same GCKey username and password.",
-                id: "cmZ9cx",
+                id: "HHIXc0",
                 description:
-                  "Message for successful login alert in create account page",
+                  "Message for successful sign in alert in create account page",
               })}
             </p>
           </Alert.Root>

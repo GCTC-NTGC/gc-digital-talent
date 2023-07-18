@@ -35,15 +35,9 @@ const RegisterPage = () => {
     : paths.myProfile();
   const loginPath = apiPaths.login(fromPath ?? fallbackPath, getLocale(intl));
 
-  const seoTitle = intl.formatMessage({
-    defaultMessage: "Register using GCKey",
-    id: "yxx7np",
-    description: "SEO title for the registration page for applicant profiles",
-  });
-
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Register using GCKey",
-    id: "vZntuH",
+    defaultMessage: "Sign up using GCKey",
+    id: "e8SFXx",
     description: "Page title for the registration page for applicant profiles",
   });
 
@@ -62,7 +56,7 @@ const RegisterPage = () => {
 
   return (
     <>
-      <SEO title={seoTitle} />
+      <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={crumbs} />
       <div data-h2-padding="base(x3, 0)">
         <div data-h2-container="base(center, small, x1) p-tablet(center, small, x2)">
@@ -72,16 +66,16 @@ const RegisterPage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You can log into your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
-                  id: "NcB+TT",
-                  description: "Instructions on how to login with GCKey",
+                    "You can sign into your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
+                  id: "2G3YI3",
+                  description: "Instructions on how to sign in with GCKey",
                 })}
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "If you're unsure whether you have an existing GCKey account, continue to the website and try logging in. If you can't remember your password, you can also reset it there.",
-                  id: "NuGNEF",
+                    "If you're unsure whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
+                  id: "8diKHR",
                   description:
                     "Instructions on what to do if user doesn't know if they have a GCKey",
                 })}
@@ -90,8 +84,8 @@ const RegisterPage = () => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "<strong>Don't have a GCKey account?</strong> <a>Register for one</a>.",
-                    id: "q53yRm",
+                      "<strong>Don't have a GCKey account?</strong> <a>Sign up for one</a>.",
+                    id: "QsWizb",
                     description:
                       "Instruction on what to do if user does not have a GCKey",
                   },
@@ -108,8 +102,8 @@ const RegisterPage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "In order to get started on your profile with the IT Apprenticeship Program for Indigenous Peoples, you <strong>first have to register for the platform using GCKey</strong>.",
-                  id: "epqFro",
+                    "In order to get started on your profile with the IT Apprenticeship Program for Indigenous Peoples, you <strong>first have to sign up for the platform using GCKey</strong>.",
+                  id: "6TKE1K",
                   description:
                     "Instructions on how to register with GCKey - IAP variant",
                 })}
@@ -118,8 +112,8 @@ const RegisterPage = () => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "GCKey is a service that allows you to log into <a>many different government services</a> with a single username and password. The button below will take you to GCKey’s website, where you’ll be able to create an account if you don’t already have one. Once you’ve registered for GCKey, you’ll be brought back here to complete your profile.",
-                    id: "cPgH94",
+                      "GCKey is a service that allows you to sign into <a>many different government services</a> with a single username and password. The button below will take you to GCKey's website, where you'll be able to create an account if you don't already have one. Once you've signed up for GCKey, you'll be brought back here to complete your profile.",
+                    id: "B/xPdU",
                     description:
                       "Instructions on how to register with GCKey paragraph 2- IAP variant",
                   },
@@ -138,8 +132,8 @@ const RegisterPage = () => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "<strong>Already have a GCKey account?</strong> <a>Login instead</a>.",
-                    id: "xfYpNf",
+                      "<strong>Already have a GCKey account?</strong> <a>Sign in instead</a>.",
+                    id: "7CtKdX",
                     description:
                       "Instruction on what to do if user already has a GCKey",
                   },
@@ -189,19 +183,18 @@ const RegisterPage = () => {
             <p>
               <Link href={loginPath} mode="inline" external>
                 {intl.formatMessage({
-                  defaultMessage: "Log in instead",
-                  id: "rUFZwt",
-                  description: "Login link text on the registration page.",
+                  defaultMessage: "Sign in instead",
+                  id: "Ovlh3a",
+                  description: "Sign in link text on the registration page.",
                 })}
               </Link>
             </p>
             <p>
               <Link href={loginPath} mode="solid" color="primary" external>
                 {intl.formatMessage({
-                  defaultMessage: "Continue to GCKey and Register",
-                  id: "vNvh0G",
-                  description:
-                    "GCKey registration link text on the registration page",
+                  defaultMessage: "Continue to GCKey and sign up",
+                  id: "Nd1bIG",
+                  description: "GCKey sign up link text on the sign up page",
                 })}
               </Link>
             </p>

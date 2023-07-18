@@ -11,6 +11,7 @@ import SEO from "~/components/SEO/SEO";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import authMessages from "~/messages/authMessages";
 
 const LoggedOutPage = () => {
   const intl = useIntl();
@@ -43,18 +44,18 @@ const LoggedOutPage = () => {
         <Alert.Root type="success" live={false}>
           <Alert.Title>
             {intl.formatMessage({
-              defaultMessage: "You've successfully logged out of the platform",
-              id: "NamQ1+",
+              defaultMessage: "You've successfully signed out of the platform",
+              id: "F1OHq7",
               description:
-                "Title for the alert displayed after a user logs out",
+                "Title for the alert displayed after a user signs out",
             })}
           </Alert.Title>
           <p>
             {intl.formatMessage({
               defaultMessage:
                 "Remember, to sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
-              id: "A6H4EY",
-              description: "Message displayed to a user after logging out",
+              id: "8M/lmC",
+              description: "Message displayed to a user after signing out",
             })}
           </p>
         </Alert.Root>
@@ -110,17 +111,12 @@ const LoggedOutPage = () => {
       <AlertDialog.Root open={loggedIn}>
         <AlertDialog.Content>
           <AlertDialog.Title>
-            {intl.formatMessage({
-              defaultMessage: "Logout",
-              id: "Hiv/2m",
-              description:
-                "Title for the modal that appears when an authenticated user lands on /logged-out.",
-            })}
+            {intl.formatMessage(authMessages.signOut)}
           </AlertDialog.Title>
           <p data-h2-font-size="base(h5, 1)">
             {intl.formatMessage({
-              defaultMessage: "Are you sure you would like to logout?",
-              id: "Zx3BVC",
+              defaultMessage: "Are you sure you would like to sign out?",
+              id: "mNNgEF",
               description:
                 "Question displayed when authenticated user lands on /logged-out.",
             })}
@@ -152,11 +148,7 @@ const LoggedOutPage = () => {
                   logout();
                 }}
               >
-                {intl.formatMessage({
-                  defaultMessage: "Logout",
-                  id: "6rhyxk",
-                  description: "Link text to logout.",
-                })}
+                {intl.formatMessage(authMessages.signOut)}
               </Button>
             </AlertDialog.Action>
           </AlertDialog.Footer>

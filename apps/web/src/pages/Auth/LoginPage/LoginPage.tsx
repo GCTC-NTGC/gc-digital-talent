@@ -34,16 +34,10 @@ const LoginPage = () => {
     : paths.myProfile();
   const loginPath = apiPaths.login(fromPath ?? fallbackPath, getLocale(intl));
 
-  const seoTitle = intl.formatMessage({
-    defaultMessage: "Login using GCKey",
-    id: "VWU6bj",
-    description: "SEO title for the login page for applicant profiles.",
-  });
-
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Login using GCKey",
-    id: "LVSun4",
-    description: "Page title for the login page for applicant profiles",
+    defaultMessage: "Sign in using GCKey",
+    id: "vkAhEM",
+    description: "Page title for the sign in page for applicant profiles",
   });
 
   const crumbs = useBreadcrumbs([
@@ -61,7 +55,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <SEO title={seoTitle} />
+      <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={crumbs} />
       <div data-h2-padding="base(x3, 0)">
         <div data-h2-container="base(center, small, x1) p-tablet(center, small, x2)">
@@ -71,16 +65,16 @@ const LoginPage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You can log into your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
-                  id: "NcB+TT",
-                  description: "Instructions on how to login with GCKey",
+                    "You can sign into your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
+                  id: "2G3YI3",
+                  description: "Instructions on how to sign in with GCKey",
                 })}
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "If you're unsure whether you have an existing GCKey account, continue to the website and try logging in. If you can't remember your password, you can also reset it there.",
-                  id: "NuGNEF",
+                    "If you're unsure whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
+                  id: "8diKHR",
                   description:
                     "Instructions on what to do if user doesn't know if they have a GCKey",
                 })}
@@ -89,8 +83,8 @@ const LoginPage = () => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "<strong>Don't have a GCKey account?</strong> <a>Register for one</a>.",
-                    id: "q53yRm",
+                      "<strong>Don't have a GCKey account?</strong> <a>Sign up for one</a>.",
+                    id: "QsWizb",
                     description:
                       "Instruction on what to do if user does not have a GCKey",
                   },
@@ -107,17 +101,17 @@ const LoginPage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You can log into your IT Apprenticeship Program for Indigenous Peoples profile using your existing GCKey, even if you’ve never used this platform before.",
-                  id: "ySpJ2L",
+                    "You can log into your IT Apprenticeship Program for Indigenous Peoples profile using your existing GCKey, even if you've never used this platform before.",
+                  id: "0UeJoO",
                   description:
-                    "Instructions on how to login with GCKey - IAP variant",
+                    "Instructions on how to sign in with GCKey - IAP variant",
                 })}
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "If you’re unsure of whether you have an existing GCKey account, continue to the website and try logging in. If you can’t remember your password, you can also reset it there.",
-                  id: "oPUU6o",
+                    "If you're unsure of whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
+                  id: "Z+gi2d",
                   description:
                     "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant",
                 })}
@@ -126,8 +120,8 @@ const LoginPage = () => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "<strong>Don't have a GCKey account?</strong> <a>Register for one</a>.",
-                    id: "q53yRm",
+                      "<strong>Don't have a GCKey account?</strong> <a>Sign up for one</a>.",
+                    id: "QsWizb",
                     description:
                       "Instruction on what to do if user does not have a GCKey",
                   },
@@ -187,9 +181,9 @@ const LoginPage = () => {
             <p>
               <Link href={loginPath} mode="solid" color="primary" external>
                 {intl.formatMessage({
-                  defaultMessage: "Continue to GCKey and Login",
-                  id: "eYcQ6h",
-                  description: "GCKey login link text on the login page",
+                  defaultMessage: "Continue to GCKey and sign in",
+                  id: "4sLCWZ",
+                  description: "GCKey sign in link text on the sign in page",
                 })}
               </Link>
             </p>
