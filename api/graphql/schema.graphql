@@ -1751,7 +1751,7 @@ type Mutation {
   deletePool(id: ID!): Pool
     @delete(globalId: false)
     @guard
-    @can(ability: "deleteDraft", find: "id")
+    @can(ability: "delete", find: "id")
 
   # Application mutations
   archiveApplication(id: ID!): PoolCandidate

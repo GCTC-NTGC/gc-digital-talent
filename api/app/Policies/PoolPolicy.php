@@ -184,12 +184,16 @@ class PoolPolicy
      * @param  \App\Models\Pool  $pool
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function deleteDraft(User $user, Pool $pool)
+    public function delete(User $user, Pool $pool)
     {
         $pool->loadMissing('team');
-        if ($pool->getStatusAttribute() !== ApiEnums::POOL_IS_DRAFT) {
-            return Response::deny("You cannot delete a Pool once it's been published.");
+        $poolStatus = $pool->getStatusAttribute();
+        if ($poolStatus == ApiEnums::POOL_IS_DRAFT) {
+            return $user->isAbleTo("delete-team-draftPool", $pool->team);
+        } else if ($poolStatus == ApiEnums::POOL_IS_CLOSED) {
+            return $user->isAbleTo("delete-team-closedPool", $pool->team);
+        } else {
+            return Response::deny("You cannot delete a pool with this status.");
         }
-        return $user->isAbleTo("delete-team-draftPool", $pool->team);
     }
 }

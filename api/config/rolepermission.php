@@ -65,6 +65,7 @@ return [
         'pool' => 'pool',
         'publishedPool' => 'publishedPool',
         'draftPool' => 'draftPool',
+        'closedPool' => 'closedPool',
         'poolClosingDate' => 'poolClosingDate',
         'application' => 'application',
         'submittedApplication' => 'submittedApplication',
@@ -239,6 +240,10 @@ return [
         'delete-team-draftPool' => [
             'en' => 'Delete draft Pools in this Team',
             'fr' => 'Supprimer les pools de brouillons dans cette équipe'
+        ],
+        'delete-team-closedPool' => [
+            'en' => 'Delete closed pools in this team',
+            'fr' => 'Supprimer des bassins fermés dans cette équipe'
         ],
 
         'view-own-application' => [
@@ -561,6 +566,9 @@ return [
             ],
             'draftPool' => [
                 'team' => ['update', 'delete']
+            ],
+            'closedPool' => [
+                'team' => ['delete']
             ],
             'poolClosingDate' => [
                 'team' => ['update']
