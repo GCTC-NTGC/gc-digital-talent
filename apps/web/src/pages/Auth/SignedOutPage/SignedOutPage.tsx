@@ -13,7 +13,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import authMessages from "~/messages/authMessages";
 
-const LoggedOutPage = () => {
+const SignedOutPage = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { loggedIn, logout } = useAuthentication();
@@ -158,4 +158,4 @@ const LoggedOutPage = () => {
   );
 };
 
-export default LoggedOutPage;
+export default SignedOutPage;
