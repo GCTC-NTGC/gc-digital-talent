@@ -727,6 +727,7 @@ type Pool {
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
   yourImpact: LocalizedString
+  whatToExpect: LocalizedString
   isRemote: Boolean
   location: LocalizedString
   securityClearance: SecurityStatus
@@ -1318,6 +1319,7 @@ input UpdatePoolInput {
   closingDate: DateTime
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
+  whatToExpect: LocalizedStringInput
   essentialSkills: SkillBelongsToMany
   nonessentialSkills: SkillBelongsToMany
   language: PoolLanguage
