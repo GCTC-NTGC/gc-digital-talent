@@ -22,8 +22,8 @@ return new class extends Migration
         when pool_candidate_status = 'APPLICATION_REVIEW' then 40
         when pool_candidate_status = 'SCREENED_IN' then 50
         when pool_candidate_status = 'SCREENED_OUT_APPLICATION' then 60
-        when pool_candidate_status = 'SCREENED_OUT_NOT_INTERESTED' then 61
-        when pool_candidate_status = 'SCREENED_OUT_NOT_RESPONSIVE' then 62
+        when pool_candidate_status = 'SCREENED_OUT_NOT_INTERESTED' then 64
+        when pool_candidate_status = 'SCREENED_OUT_NOT_RESPONSIVE' then 65
         when pool_candidate_status = 'UNDER_ASSESSMENT' then 70
         when pool_candidate_status = 'SCREENED_OUT_ASSESSMENT' then 80
         when pool_candidate_status = 'QUALIFIED_AVAILABLE' then 90
@@ -33,6 +33,7 @@ return new class extends Migration
         when pool_candidate_status = 'PLACED_TERM' then 130
         when pool_candidate_status = 'PLACED_INDETERMINATE' then 140
         when pool_candidate_status = 'EXPIRED' then 150
+        when pool_candidate_status = 'REMOVED' then 160
         else null
         end)
         STORED;");
