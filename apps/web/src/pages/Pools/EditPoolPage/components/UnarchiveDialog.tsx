@@ -83,8 +83,8 @@ const UnarchiveDialog = ({
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({
               defaultMessage:
-                "This will show this pool back to the public.  All users associated with this pool will be able to see it on their profile information.",
-              id: "8Bsa1r",
+                "This will show this pool back to the public.  All users associated with this pool will be able to see it in their profile information.",
+              id: "Bg1Pga",
               description: "Second paragraph for un-archive pool dialog",
             })}
           </p>
