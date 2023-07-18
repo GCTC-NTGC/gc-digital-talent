@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pools', function (Blueprint $table) {
-            $table->jsonb('what_to_expect')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));;
+            $table->jsonb('what_to_expect')->nullable()->default(json_encode(['en' => '', 'fr' => '']));
         });
     }
 
