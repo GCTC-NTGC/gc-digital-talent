@@ -19,7 +19,10 @@ import {
   getCandidateSuspendedFilterStatus,
   getPoolStream,
 } from "@gc-digital-talent/i18n";
-import { enumToOptions } from "@gc-digital-talent/forms";
+import {
+  enumToOptions,
+  enumToOptionsWorkRegionSorted,
+} from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
@@ -83,16 +86,7 @@ export default function useFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getOperationalRequirement(value, "short")),
     })),
-    workRegion: enumToOptions(WorkRegion, [
-      WorkRegion.Telework,
-      WorkRegion.NationalCapital,
-      WorkRegion.Atlantic,
-      WorkRegion.Quebec,
-      WorkRegion.Ontario,
-      WorkRegion.North,
-      WorkRegion.Prairie,
-      WorkRegion.BritishColumbia,
-    ]).map(({ value }) => ({
+    workRegion: enumToOptionsWorkRegionSorted(WorkRegion).map(({ value }) => ({
       value,
       label: intl.formatMessage(getWorkRegion(value)),
     })),

@@ -10,6 +10,7 @@ import {
   Select,
   enumToOptions,
   unpackMaybes,
+  enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
 import {
   getLanguageAbility,
@@ -529,19 +530,12 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 description:
                   "Placeholder for work location filter in search form.",
               })}
-              items={enumToOptions(WorkRegion, [
-                WorkRegion.Telework,
-                WorkRegion.NationalCapital,
-                WorkRegion.Atlantic,
-                WorkRegion.Quebec,
-                WorkRegion.Ontario,
-                WorkRegion.North,
-                WorkRegion.Prairie,
-                WorkRegion.BritishColumbia,
-              ]).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getWorkRegion(value)),
-              }))}
+              items={enumToOptionsWorkRegionSorted(WorkRegion).map(
+                ({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getWorkRegion(value)),
+                }),
+              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
