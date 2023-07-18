@@ -6,6 +6,7 @@ import {
   commonMessages,
   getPoolCandidateSearchStatus,
   getLocalizedName,
+  getPoolCandidateSearchPositionType,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading, Link } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -34,7 +35,7 @@ const ManagerInfo = ({
     fullName,
     department,
     email,
-    jobTitle,
+    managerJobTitle,
     status,
     requestedDate,
     statusChangedAt,
@@ -108,13 +109,8 @@ const ManagerInfo = ({
                   content={department?.name?.[locale]}
                 />
                 <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Job title for this position",
-                    id: "gRPGQN",
-                    description:
-                      "Title for the job title block in the manager info section of the single search request view.",
-                  })}
-                  content={jobTitle}
+                  title={intl.formatMessage(adminMessages.jobTitle)}
+                  content={managerJobTitle}
                 />
               </div>
             </div>
@@ -207,8 +203,14 @@ export const ViewSearchRequest = ({
 }: SingleSearchRequestProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const { additionalComments, poolCandidateFilter, applicantFilter, wasEmpty } =
-    searchRequest;
+  const {
+    additionalComments,
+    poolCandidateFilter,
+    applicantFilter,
+    wasEmpty,
+    jobTitle,
+    positionType,
+  } = searchRequest;
 
   const abstractFilter = applicantFilter ?? poolCandidateFilter;
   return (
@@ -260,6 +262,34 @@ export const ViewSearchRequest = ({
             data-h2-border-top="base(1px solid gray)"
             data-h2-margin="base(x1, 0, 0, 0)"
           >
+            <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, x1)">
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Position job title",
+                    id: "OI7Bc7",
+                    description: "Label for an opportunity's job title.",
+                  })}
+                  content={jobTitle}
+                />
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Type of position",
+                    id: "nZT/WM",
+                    description: "Label for an opportunity's position type.",
+                  })}
+                  content={
+                    positionType
+                      ? intl.formatMessage(
+                          getPoolCandidateSearchPositionType(positionType),
+                        )
+                      : null
+                  }
+                />
+              </div>
+            </div>
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Additional Comments",
