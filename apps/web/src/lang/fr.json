@@ -2250,10 +2250,6 @@
     "defaultMessage": "Nom de famille",
     "description": "CSV Header, Last Name column"
   },
-  "Dq+GKf": {
-    "defaultMessage": "Consulter le cv ",
-    "description": "Link text to direct a user to the Résumé page"
-  },
   "DrR60L": {
     "defaultMessage": "J'aimerais être recommandé(e) à des emplois aux niveaux suivants :",
     "description": "Legend for role and salary checklist form"
@@ -7495,10 +7491,6 @@
   "pkFLpT": {
     "defaultMessage": "Si vous avez un intérêt et une passion pour la technologie et que vous vous identifiez comme Autochtone, ce programme est pour vous.",
     "description": "Learn more dialog question seven paragraph one"
-  },
-  "pqsnpk": {
-    "defaultMessage": "Visititez le recrutement {title} de votre cv",
-    "description": "Link text to direct a user to the Résumé page"
   },
   "pvQVVh": {
     "defaultMessage": "Veuillez soumettre cette demande « telle quelle », puis nous vous reviendrons.",

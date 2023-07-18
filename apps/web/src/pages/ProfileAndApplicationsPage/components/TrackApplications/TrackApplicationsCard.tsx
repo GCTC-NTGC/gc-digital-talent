@@ -172,11 +172,6 @@ const TrackApplicationsCard = ({
             userID={user?.id ?? ""}
             application={application}
           />
-          <ApplicationActions.ManageAvailabilityAction
-            show={isApplicantQualified}
-            userID={user?.id ?? ""}
-            application={application}
-          />
           <ApplicationActions.SupportAction show application={application} />
           <ApplicationActions.DeleteAction
             show={applicationIsDraft}
