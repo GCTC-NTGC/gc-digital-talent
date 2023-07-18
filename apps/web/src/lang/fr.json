@@ -3273,10 +3273,6 @@
     "defaultMessage": "Modifier l'expérience communautaire",
     "description": "Page title for the community experience profile form"
   },
-  "LOYv+/": {
-    "defaultMessage": "Formulaire de demande",
-    "description": "Heading for request form."
-  },
   "LOhcO4": {
     "defaultMessage": "Citoyenneté :",
     "description": "label for citizenship status"
@@ -6215,10 +6211,6 @@
   "gQl1LT": {
     "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
     "description": "Subtitle for the self-declaration page"
-  },
-  "gRPGQN": {
-    "defaultMessage": "Titre du poste",
-    "description": "Title for the job title block in the manager info section of the single search request view."
   },
   "gTjLic": {
     "defaultMessage": "Renseignements du profil",
