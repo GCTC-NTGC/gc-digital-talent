@@ -554,8 +554,8 @@ export const poolCandidateStatuses = defineMessages({
     description: "The pool candidate's status is Screened In.",
   },
   [PoolCandidateStatus.ScreenedOutApplication]: {
-    defaultMessage: "Screened Out Application",
-    id: "R2BWry",
+    defaultMessage: "Screened Out - Application",
+    id: "+J9x7H",
     description: "The pool candidate's status is Screened Out Application",
   },
   [PoolCandidateStatus.ScreenedOutNotInterested]: {
@@ -576,8 +576,8 @@ export const poolCandidateStatuses = defineMessages({
     description: "The pool candidate's status is Under Assessment.",
   },
   [PoolCandidateStatus.ScreenedOutAssessment]: {
-    defaultMessage: "Screened Out Assessment",
-    id: "pLlu65",
+    defaultMessage: "Screened Out - Assessment",
+    id: "C2RURL",
     description: "The pool candidate's status is Screened Out Assessment.",
   },
   [PoolCandidateStatus.QualifiedAvailable]: {
