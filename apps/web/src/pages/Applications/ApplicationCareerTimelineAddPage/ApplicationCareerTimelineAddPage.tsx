@@ -61,7 +61,7 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-const applicationCareerTimelineAdd = ({
+const ApplicationCareerTimelineAdd = ({
   application,
 }: ApplicationPageProps) => {
   const intl = useIntl();
@@ -173,7 +173,7 @@ const applicationCareerTimelineAdd = ({
 };
 
 const ApplicationCareerTimelineAddPage = () => (
-  <ApplicationApi PageComponent={applicationCareerTimelineAdd} />
+  <ApplicationApi PageComponent={ApplicationCareerTimelineAdd} />
 );
 
 export default ApplicationCareerTimelineAddPage;
