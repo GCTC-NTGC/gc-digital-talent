@@ -56,8 +56,10 @@ const MyStatusForm = ({ initialData, handleMyStatus }: MyStatusFormProps) => {
 
   const handleSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     if (initialData?.me) {
-      await handleMyStatus(initialData.me?.id, formValuesToSubmitData(data));
+      return handleMyStatus(initialData.me?.id, formValuesToSubmitData(data));
     }
+
+    return undefined;
   };
 
   const disabledColor: Record<string, unknown> = !isFormActive

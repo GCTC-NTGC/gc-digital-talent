@@ -47,7 +47,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     register,
     setValue,
     setFocus,
-    formState: { isSubmitSuccessful },
+    formState: { isSubmitSuccessful, isSubmitting },
     reset,
   } = methods;
   const [type, action] = watch(["experienceType", "action"]);
@@ -169,6 +169,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
             type="submit"
             mode="solid"
             value="return"
+            disabled={isSubmitting}
             {...actionProps}
             onClick={() => setValue("action", "return")}
           >
@@ -181,6 +182,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
           <Button
             type="submit"
             mode="inline"
+            disabled={isSubmitting}
             {...actionProps}
             onClick={() => setValue("action", "add-another")}
           >

@@ -190,7 +190,10 @@ export const ApplicationResume = ({
     : paths.myProfile();
 
   const methods = useForm<FormValues>();
-  const { setValue } = methods;
+  const {
+    setValue,
+    formState: { isSubmitting },
+  } = methods;
 
   const [sortAndFilterValues, setSortAndFilterValues] =
     React.useState<ExperienceSortAndFilterFormValues>({
@@ -410,6 +413,7 @@ export const ApplicationResume = ({
               type="submit"
               mode="solid"
               value="continue"
+              disabled={isSubmitting}
               onClick={() => {
                 setValue("experienceCount", experiences.length);
               }}

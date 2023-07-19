@@ -124,7 +124,10 @@ export const ApplicationSkills = ({
     .filter(notEmpty);
 
   const methods = useForm<FormValues>();
-  const { setValue } = methods;
+  const {
+    setValue,
+    formState: { isSubmitting },
+  } = methods;
 
   const optionalDisclaimer = intl.formatMessage({
     defaultMessage:
@@ -321,6 +324,7 @@ export const ApplicationSkills = ({
               type="submit"
               mode="solid"
               value="continue"
+              disabled={isSubmitting}
               onClick={() => {
                 setValue(
                   "skillsMissingExperiences",

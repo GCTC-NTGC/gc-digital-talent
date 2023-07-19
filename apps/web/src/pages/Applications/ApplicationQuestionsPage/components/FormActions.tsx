@@ -8,7 +8,11 @@ import applicationMessages from "~/messages/applicationMessages";
 
 const FormActions = () => {
   const intl = useIntl();
-  const { register, setValue } = useFormContext();
+  const {
+    register,
+    setValue,
+    formState: { isSubmitting },
+  } = useFormContext();
   const actionProps = register("action");
 
   return (
@@ -30,6 +34,7 @@ const FormActions = () => {
           type="submit"
           mode="solid"
           value="continue"
+          disabled={isSubmitting}
           {...actionProps}
           onClick={() => setValue("action", "continue")}
         >
@@ -40,6 +45,7 @@ const FormActions = () => {
           mode="inline"
           color="secondary"
           value="cancel"
+          disabled={isSubmitting}
           {...actionProps}
           onClick={() => setValue("action", "cancel")}
         >

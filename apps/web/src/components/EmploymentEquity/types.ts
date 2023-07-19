@@ -14,6 +14,7 @@ export interface EquityDialogProps {
   isAdded: boolean;
   onSave: (value: boolean) => void;
   children: React.ReactNode;
+  disabled?: boolean;
 }
 
 export interface IndigenousUpdateProps {

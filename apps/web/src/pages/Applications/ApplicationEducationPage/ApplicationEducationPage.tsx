@@ -144,7 +144,12 @@ const ApplicationEducation = ({
       }),
     },
   });
-  const { register, setValue, watch } = methods;
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { isSubmitting },
+  } = methods;
   const watchEducationRequirement = watch("educationRequirement");
   const actionProps = register("action");
 
@@ -458,6 +463,7 @@ const ApplicationEducation = ({
               type="submit"
               mode="solid"
               value="continue"
+              disabled={isSubmitting}
               {...actionProps}
               onClick={() => {
                 setValue("action", "continue");
@@ -470,6 +476,7 @@ const ApplicationEducation = ({
               mode="inline"
               color="secondary"
               value="cancel"
+              disabled={isSubmitting}
               {...actionProps}
               onClick={() => {
                 setValue("action", "cancel");

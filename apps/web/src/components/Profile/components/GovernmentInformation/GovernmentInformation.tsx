@@ -46,7 +46,10 @@ const GovernmentInformation = ({
   const departments = data?.departments.filter(notEmpty) || [];
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    await onUpdate(user.id, formValuesToSubmitData(formValues, classifications))
+    return onUpdate(
+      user.id,
+      formValuesToSubmitData(formValues, classifications),
+    )
       .then(() => {
         toast.success(
           intl.formatMessage({

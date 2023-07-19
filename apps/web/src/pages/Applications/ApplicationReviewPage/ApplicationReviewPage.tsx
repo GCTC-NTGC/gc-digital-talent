@@ -106,6 +106,9 @@ const ApplicationReview = ({
 
   const [, executeMutation] = useSubmitApplicationMutation();
   const methods = useForm<FormValues>();
+  const {
+    formState: { isSubmitting },
+  } = methods;
   const handleSubmit = (formValues: FormValues) => {
     executeMutation({
       id: application.id,
@@ -499,7 +502,12 @@ const ApplicationReview = ({
                 data-h2-flex-direction="base(column) l-tablet(row)"
                 data-h2-align-items="base(flex-start) l-tablet(center)"
               >
-                <Button type="submit" mode="solid" value="continue">
+                <Button
+                  type="submit"
+                  mode="solid"
+                  value="continue"
+                  disabled={isSubmitting}
+                >
                   {intl.formatMessage({
                     defaultMessage: "Submit my application",
                     id: "bO9PB4",

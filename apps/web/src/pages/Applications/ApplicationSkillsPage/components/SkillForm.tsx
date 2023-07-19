@@ -88,7 +88,11 @@ const SkillForm = ({
   const methods = useForm<FormValues>({
     defaultValues,
   });
-  const { register, setValue } = methods;
+  const {
+    register,
+    setValue,
+    formState: { isSubmitting },
+  } = methods;
   const actionProps = register("action");
   const selectedExperienceId = methods.watch("experience");
   const selectedExperience = experiences.find(
@@ -292,6 +296,7 @@ const SkillForm = ({
               type="submit"
               mode="inline"
               color="error"
+              disabled={isSubmitting}
               {...actionProps}
               onClick={() => setValue("action", "remove")}
             >
@@ -307,6 +312,7 @@ const SkillForm = ({
             type="submit"
             mode="solid"
             color="primary"
+            disabled={isSubmitting}
             {...actionProps}
             onClick={() => setValue("action", "connect")}
           >

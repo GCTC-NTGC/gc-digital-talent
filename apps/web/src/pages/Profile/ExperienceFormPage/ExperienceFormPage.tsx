@@ -68,8 +68,11 @@ export interface ExperienceFormProps {
   experience?: ExperienceQueryData;
   pool?: Pool;
   skills: Skill[];
-  onUpdateExperience: (values: ExperienceDetailsSubmissionData) => void;
+  onUpdateExperience: (
+    values: ExperienceDetailsSubmissionData,
+  ) => Promise<void> | undefined;
   deleteExperience: () => void;
+  executing?: boolean;
   cacheKey?: string;
   edit?: boolean;
 }
@@ -82,6 +85,7 @@ export const ExperienceForm = ({
   experienceType,
   onUpdateExperience,
   deleteExperience,
+  executing,
   skills,
   cacheKey,
   edit,
@@ -192,7 +196,7 @@ export const ExperienceForm = ({
       formValues,
       irrelevantSkills,
     );
-    await onUpdateExperience(data);
+    return onUpdateExperience(data);
   };
 
   const labels = getExperienceFormLabels(intl, experienceType);
@@ -341,6 +345,7 @@ export const ExperienceForm = ({
           </AlertDialog.Root>
         )}
         <ProfileFormFooter
+          disabled={executing}
           mode="bothButtons"
           cancelLink={{
             href: returnPath,
@@ -456,17 +461,17 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
     }) as ExperienceQueryData;
   }
 
-  const { executeMutation, getMutationArgs } = useExperienceMutations(
-    experience ? "update" : "create",
-    experienceType,
-  );
+  const { executeMutation, getMutationArgs, executing } =
+    useExperienceMutations(experience ? "update" : "create", experienceType);
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
     const args = getMutationArgs(experienceId || userId || "", values);
     if (executeMutation) {
       const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
-      res.then(handleMutationResponse).catch(handleError);
+      return res.then(handleMutationResponse).catch(handleError);
     }
+
+    return undefined;
   };
 
   // delete functionality //
@@ -520,6 +525,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           } // Only grab technical skills (hard skills).
           onUpdateExperience={handleUpdateExperience}
           deleteExperience={handleDeleteExperience}
+          executing={executing}
           cacheKey={cacheKey}
           edit={edit}
         />

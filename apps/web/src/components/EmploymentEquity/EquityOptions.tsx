@@ -34,7 +34,7 @@ interface EquityOptionsProps {
   indigenousDeclarationSignature?: Maybe<string>;
   isVisibleMinority?: Maybe<boolean>;
   isWoman?: Maybe<boolean>;
-  isDisabled: boolean;
+  isDisabled?: boolean;
   onAdd: (key: EquityKeys) => UserMutationPromise;
   onRemove: (key: EquityKeys) => UserMutationPromise;
   onUpdate: (data: UpdateUserAsUserInput) => UserMutationPromise;
