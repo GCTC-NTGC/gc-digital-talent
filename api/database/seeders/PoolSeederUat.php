@@ -18,7 +18,7 @@ class PoolSeederUat extends Seeder
      */
     public function run()
     {
-        $defaultOwner = User::where('email', 'tristan-orourke@talent.test')->first();
+        $defaultOwner = User::where('email', "tristan.o'rourke@tbs-sct.gc.ca")->first();
 
         $digitalCareers = Pool::updateOrCreate(
             ['name->en' => 'Digital Careers'],
