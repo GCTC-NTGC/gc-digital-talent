@@ -19,6 +19,6 @@ Assist reviewers with steps they can take to test that the PR does what it says 
 
 Add a screenshot (if possible).
 
-## 🚀 Deployment Notes
+## 🚚 Deployment Notes
 
 Add any additional details that are required for deploying the application.
