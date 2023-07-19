@@ -615,10 +615,6 @@
     "defaultMessage": "Apprentissage en cours d’emploi",
     "description": "Experience requirement, On the job."
   },
-  "2K8q04": {
-    "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions sur ce processus?",
-    "description": "Opening sentence asking if accommodations are needed"
-  },
   "2KjiDn": {
     "defaultMessage": "Niveau 4 : Gestionnaire",
     "description": "title for IT-04 manager dialog"
@@ -4480,6 +4476,10 @@
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
     "description": "Descriptive text about the list of users in the admin portal."
   },
+  "UwdpPS": {
+    "defaultMessage": "Qui peut formuler une demande?",
+    "description": "Title for the hiring policies section of a pool advertisement"
+  },
   "UxF291": {
     "defaultMessage": "Nom de famille",
     "description": "Label displayed for the last name field in create account form."
@@ -5274,6 +5274,10 @@
     "defaultMessage": "Expériences de travail",
     "description": "Heading for personal experiences in experience by type listing"
   },
+  "aCg/OZ": {
+    "defaultMessage": "La préférence sera accordée aux anciens combattants, aux citoyens canadiens et aux résidants permanents.",
+    "description": "First hiring policy for pool advertisement"
+  },
   "aDRIDD": {
     "defaultMessage": "Éducation actuelle",
     "description": "Label displayed on Education Experience form for current education bounded box"
@@ -5483,6 +5487,10 @@
   "boPmF+": {
     "defaultMessage": "Examen de langue écrit",
     "description": "Legend text for written exam language preference for exams"
+  },
+  "bq1MMd": {
+    "defaultMessage": "Nous n’avons trouvé aucun candidat qui répondait automatiquement à vos critères, mais nous pouvons peut-être encore vous aider.",
+    "description": "Text telling users they can still be helped regardless of search results"
   },
   "bqaNWT": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
@@ -6055,6 +6063,10 @@
   "fYyK2p": {
     "defaultMessage": "Créer une classification",
     "description": "Page title for the classification creation page"
+  },
+  "faWz84": {
+    "defaultMessage": "Personnes résidant au Canada, et citoyens canadiens et résidents permanents résidant à l’étranger.",
+    "description": "List of criteria needed in order to apply"
   },
   "fdKtYm": {
     "defaultMessage": "Description (anglais)",
@@ -7695,6 +7707,10 @@
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the create a skill form description (English) field."
   },
+  "rKUVdL": {
+    "defaultMessage": "Veuillez communiquer avec l’équipe <a>{name} </a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation </strong> tout au long de ce processus.",
+    "description": "Opening sentence asking if accommodations are needed"
+  },
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
     "description": "Support form toast message error"
@@ -7922,6 +7938,10 @@
   "ssJxrj": {
     "defaultMessage": "Je suis un membre des Premières Nations.",
     "description": "Text for the option to self-declare as a status first nations"
+  },
+  "swESO/": {
+    "defaultMessage": "À distance, hybride ou sur site",
+    "description": "Location requirement when a pool advertisement is remote"
   },
   "swugkW": {
     "defaultMessage": "Droit de priorité :",
@@ -8457,6 +8477,10 @@
   "x8tCSM": {
     "defaultMessage": "Cette compétence nécessaire doit être jumelée à au moins une expérience figurant dans le CV",
     "description": "Message that appears when a required skill has no experiences linked to it"
+  },
+  "xAfVa9": {
+    "defaultMessage": "Nous pouvons peut-être vous aider!",
+    "description": "Heading for helping user if no candidates matched the filters chosen."
   },
   "xGjm2A": {
     "defaultMessage": "Sélectionnez les compétences qui amélioreront les chances de correspondre aux qualités recherchées par le les gestionnaire. Celles-ci peuvent généralement être appris en cours de travail et ne sont pas nécessaires pour être accepté dans le bassin",
