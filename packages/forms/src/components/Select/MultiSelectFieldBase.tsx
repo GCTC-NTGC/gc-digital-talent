@@ -183,6 +183,9 @@ export const useRulesWithDefaultMessages = (
   return rulesWithDefaults;
 };
 
+/**
+ * MultiSelectFieldBase should not be used on its own. MultiSelectField should be used instead.
+ */
 const MultiSelectFieldBase = ({
   id,
   context,
