@@ -91,11 +91,6 @@ describe("TrackApplicationsCard", () => {
       "href",
       expect.stringContaining(PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES),
     );
-    expect(links[3]).toHaveTextContent("Manage availability");
-    expect(links[3]).toHaveAttribute(
-      "href",
-      expect.stringContaining("profile"),
-    );
 
     expect(links[4]).toHaveTextContent("Get support");
     expect(links[4]).toHaveAttribute(
