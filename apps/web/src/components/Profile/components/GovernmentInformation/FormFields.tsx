@@ -280,6 +280,7 @@ const FormFields = ({
           type="text"
           label={labels.priorityEntitlementNumber}
           name="priorityEntitlementNumber"
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
       )}
     </div>
