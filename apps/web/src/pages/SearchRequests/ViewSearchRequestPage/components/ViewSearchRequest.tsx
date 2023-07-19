@@ -110,7 +110,10 @@ const ManagerInfo = ({
                 />
                 <FilterBlock
                   title={intl.formatMessage(adminMessages.jobTitle)}
-                  content={managerJobTitle}
+                  content={
+                    managerJobTitle ??
+                    intl.formatMessage(adminMessages.noneProvided)
+                  }
                 />
               </div>
             </div>
@@ -285,7 +288,7 @@ export const ViewSearchRequest = ({
                       ? intl.formatMessage(
                           getPoolCandidateSearchPositionType(positionType),
                         )
-                      : null
+                      : intl.formatMessage(adminMessages.noneProvided)
                   }
                 />
               </div>
