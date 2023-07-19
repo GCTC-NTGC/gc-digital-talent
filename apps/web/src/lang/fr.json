@@ -834,10 +834,6 @@
     "defaultMessage": "Modifiez vos options d'informations gouvernementales.",
     "description": "Link text to edit government information on profile."
   },
-  "3qdrpr": {
-    "defaultMessage": "Modifier votre apparence dans les résultats de recherche",
-    "description": "Dialog title on change search results status from applications section."
-  },
   "3quMA8": {
     "defaultMessage": "<strong>Pourquoi ne puis-je pas modifier mon statut?</strong>",
     "description": "Message in My Status Form."
@@ -1145,10 +1141,6 @@
   "5r5XSh": {
     "defaultMessage": "Veuillez vérifier votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
-  },
-  "5xZ350": {
-    "defaultMessage": "Vous figurez activement dans les résultats de l’évaluation des talents pour ce recrutement.",
-    "description": "Not suspended recruitment status message on application card."
   },
   "5yYtE6": {
     "defaultMessage": "À venir à l’automne 2023",
@@ -1657,10 +1649,6 @@
   "9QxHnD": {
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
-  },
-  "9U2gWd": {
-    "defaultMessage": "Annuler",
-    "description": "Label for close button on card dialogs."
   },
   "9UZ/eS": {
     "defaultMessage": "Organisation",
@@ -2390,10 +2378,6 @@
     "defaultMessage": "Téléphone :",
     "description": "Display text for the phone number field on users"
   },
-  "Ev3BoS": {
-    "defaultMessage": "Je veux figurer de nouveau dans les résultats",
-    "description": "Open dialog text on change search results status from applications section."
-  },
   "Ew/GPP": {
     "defaultMessage": "Inscrivez-vous<hidden> au Programme d’apprentissage en TI pour les personnes autochtones</hidden> maintenant",
     "description": "Link text to apply for the IT Apprenticeship Program for Indigenous Peoples"
@@ -2664,10 +2648,6 @@
   "GaMSN8": {
     "defaultMessage": "Équipe",
     "description": "Label for the input to select team of a team role"
-  },
-  "GbYTXJ": {
-    "defaultMessage": "En vous rajoutant aux résultats de ce processus de recrutement, les gestionnaires pourront de nouveau demander votre profil dans le cadre des demandes de talents. Vous pouvez toujours vous retirer de nouveau ultérieurement.",
-    "description": "Dialog main body on change search results status from applications section."
   },
   "GdOQeo": {
     "defaultMessage": "Quelle est la Directive sur les talents numériques?",
@@ -2982,17 +2962,9 @@
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
   },
-  "JHpvYR": {
-    "defaultMessage": "Oui, supprimez-moi des résultats de recherche",
-    "description": "Dialog close button on change search results status from applications section."
-  },
   "JJB5Yd": {
     "defaultMessage": "Bassin fermé avec succès!",
     "description": "Message displayed to user after pool is closed"
-  },
-  "JNVceV": {
-    "defaultMessage": "Vous avez été ajouté aux résultats de la recherche.",
-    "description": "Alert displayed to the user when application card dialog submits successfully."
   },
   "JRlnNk": {
     "defaultMessage": "Gestion de la collectivité numérique",
@@ -3196,10 +3168,6 @@
   "KqAp09": {
     "defaultMessage": "Poursuivre l’ébauche de votre demande pour le poste {applicationTitle}",
     "description": "Link text to apply for a pool advertisement"
-  },
-  "KrAvuk": {
-    "defaultMessage": "Vous avez choisi de ne pas figurer dans les résultats de l’évaluation des talents pour ce recrutement.",
-    "description": "Suspended recruitment status message on application card."
   },
   "KsS1Py": {
     "defaultMessage": "Profil linguistique",
@@ -3927,10 +3895,6 @@
   "Q0gIlv": {
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the create a skill family form description (French) field."
-  },
-  "Q1zXns": {
-    "defaultMessage": "Si vous avez récemment été recruté ou si vous ne souhaitez tout simplement plus être pris en compte pour les possibilités liées à ce poste, vous pouvez vous retirer de la liste des candidats disponibles à l’embauche. Cela ne vous empêchera <emphasize>pas</emphasize> de participer au recrutement et vous pourrez toujours réactiver votre disponibilité si vous changez d’avis.",
-    "description": "Dialog main body on change search results status from applications section."
   },
   "Q3yncO": {
     "defaultMessage": "Votre curriculum vitæ comprend actuellement :",
@@ -4900,10 +4864,6 @@
     "defaultMessage": "Gérer la disponibilité pour le recrutement",
     "description": "Heading for opening the recruitment availability accordion in account and privacy"
   },
-  "XGJkdw": {
-    "defaultMessage": "Vous figurez actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin {poolName}.",
-    "description": "Dialog main body on change search results status from applications section."
-  },
   "XJ/xK1": {
     "defaultMessage": "Consultez notre base de données pour trouver des talents entièrement qualifiés, prêts à être embauchés sans autre processus concurrentiel. Travaillez avec notre équipe pour mettre la dernière main à vos documents de ressources humaines afin que vous puissiez faire une offre et mettre les talents en place rapidement et facilement.",
     "description": "Description for the digital government talent search"
@@ -4931,10 +4891,6 @@
   "XVWN/C": {
     "defaultMessage": "Remplir les formulaires obligatoires",
     "description": "Heading for section for the downloadable forms section"
-  },
-  "XXEgap": {
-    "defaultMessage": "Retirez-moi",
-    "description": "Open dialog text on change search results status from applications section."
   },
   "XaYhX3": {
     "defaultMessage": "Créer une nouvelle équipe à partir de zéro",
@@ -5348,10 +5304,6 @@
   "aWsXoR": {
     "defaultMessage": "bassin_candidats_{date}.csv",
     "description": "Filename for pool candidate CSV file download"
-  },
-  "abab6G": {
-    "defaultMessage": "Félicitations! Vous avez été embauché à la suite de ce processus. À ce titre, vous ne figurerez plus dans les demandes de talents pour ce recrutement.",
-    "description": "Placed recruitment status message on application card."
   },
   "adM1fA": {
     "defaultMessage": "Si vous soumettez un formulaire qui n’avait aucun candidat d’évalué, veuillez nous en parler davantage dans les commentaires.",
@@ -7080,10 +7032,6 @@
     "defaultMessage": "À venir",
     "description": "Text displayed for executive jobs on homepage, indicating it is not ready"
   },
-  "mId+J5": {
-    "defaultMessage": "Oui, ajoutez-moi aux résultats de recherche",
-    "description": "Dialog close button on change search results status from applications section."
-  },
   "mJ1HE4": {
     "defaultMessage": "Ajouter une expérience",
     "description": "Display text for add experience form in breadcrumbs"
@@ -7667,10 +7615,6 @@
     "defaultMessage": "Date de la remise du prix",
     "description": "Label for the date an award was given"
   },
-  "qrsLa3": {
-    "defaultMessage": "Vous ne figurez pas actuellement dans les résultats de recherche de l’évaluation des talents pour le bassin {poolName}.",
-    "description": "Dialog main body on change search results status from applications section."
-  },
   "qs/dFw": {
     "defaultMessage": "Exigences de fonctionnement acceptées",
     "description": "CSV Header, Accepted Operation Requirements column"
@@ -7846,10 +7790,6 @@
   "sBksyQ": {
     "defaultMessage": "Supprimer",
     "description": "Delete confirmation"
-  },
-  "sDzeqf": {
-    "defaultMessage": "Ce recrutement a expiré et il n’est plus disponible pour les possibilités d’embauche.",
-    "description": "Expired recruitment status message on application card."
   },
   "sGPKUt": {
     "defaultMessage": "Veuillez consulter la Directive",
@@ -8189,10 +8129,6 @@
   "uSdcX4": {
     "defaultMessage": "Le statut de candidat du bassin a été mis à jour avec succès",
     "description": "Message displayed when a pool candidate has been updated by and admin"
-  },
-  "ucOq3J": {
-    "defaultMessage": "Erreur : impossible de vous ajouter aux résultats de recherche.",
-    "description": "Alert displayed to the user when application card dialog fails."
   },
   "ugRTOW": {
     "defaultMessage": "Aucune information n'a été fournie.",
