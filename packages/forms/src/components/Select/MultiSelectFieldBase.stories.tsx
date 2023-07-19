@@ -14,11 +14,11 @@ import {
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
-import SelectFieldV2, { Option } from "./SelectFieldV2";
+import MultiSelectFieldBase, { Option } from "./MultiSelectFieldBase";
 
 export default {
-  component: SelectFieldV2,
-  title: "Form/SelectFieldV2",
+  component: MultiSelectFieldBase,
+  title: "Form/MultiSelectFieldBase",
   decorators: [
     (Story) => {
       return (
@@ -35,9 +35,9 @@ export default {
       );
     },
   ],
-} as ComponentMeta<typeof SelectFieldV2>;
+} as ComponentMeta<typeof MultiSelectFieldBase>;
 
-const Template: ComponentStory<typeof SelectFieldV2> = (args) => {
+const Template: ComponentStory<typeof MultiSelectFieldBase> = (args) => {
   const intl = useIntl();
   const skillFamilies = fakeSkillFamilies(10, fakeSkills(2));
   const fakeOptions: Option[] = skillFamilies.map(({ id, name }) => ({
@@ -45,10 +45,10 @@ const Template: ComponentStory<typeof SelectFieldV2> = (args) => {
     label: getLocalizedName(name, intl),
   }));
 
-  return <SelectFieldV2 {...args} options={fakeOptions} />;
+  return <MultiSelectFieldBase {...args} options={fakeOptions} />;
 };
 
-const TemplateGroup: ComponentStory<typeof SelectFieldV2> = (args) => {
+const TemplateGroup: ComponentStory<typeof MultiSelectFieldBase> = (args) => {
   const intl = useIntl();
   const departments = fakeDepartments();
   const pools = fakePools();
@@ -89,7 +89,7 @@ const TemplateGroup: ComponentStory<typeof SelectFieldV2> = (args) => {
     options: group.options,
   }));
 
-  return <SelectFieldV2 {...args} options={groupOptions} />;
+  return <MultiSelectFieldBase {...args} options={groupOptions} />;
 };
 
 export const Default = Template.bind({});

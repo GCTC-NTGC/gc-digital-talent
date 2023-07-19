@@ -14,7 +14,9 @@ import {
 import { FormProvider, useForm, RegisterOptions } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
 import IntlProvider from "react-intl/src/components/provider";
-import SelectFieldV2, { useRulesWithDefaultMessages } from "./SelectFieldV2";
+import MultiSelectFieldBase, {
+  useRulesWithDefaultMessages,
+} from "./MultiSelectFieldBase";
 
 const Providers = ({
   children,
@@ -39,7 +41,7 @@ const Providers = ({
   );
 };
 
-// In SelectFieldV2, we hardcode the classNamePrefix prop into react-select's
+// In MultiSelectFieldBase, we hardcode the classNamePrefix prop into react-select's
 // Select component to making styling/testing simpler.
 const CLASS_PREFIX = "react-select";
 const FIELD_NAME = "select-input";
@@ -124,9 +126,9 @@ describe("useRulesWithDefaultMessages", () => {
   });
 });
 
-describe("SelectFieldV2", () => {
+describe("MultiSelectFieldBase", () => {
   it("should render properly with only label prop", () => {
-    renderWithProviders(<SelectFieldV2 {...defaultProps} />);
+    renderWithProviders(<MultiSelectFieldBase {...defaultProps} />);
     expect(
       screen.getByRole("combobox", { name: /foo bar/i }),
     ).toBeInTheDocument();
@@ -139,7 +141,7 @@ describe("SelectFieldV2", () => {
 
   it("should use `name` when `id` and `label` also provided", () => {
     renderWithProviders(
-      <SelectFieldV2 {...defaultProps} id="foo" name="bar" />,
+      <MultiSelectFieldBase {...defaultProps} id="foo" name="bar" />,
     );
     expect(
       document.querySelector('input[type="hidden"]')?.getAttribute("name"),
@@ -147,7 +149,9 @@ describe("SelectFieldV2", () => {
   });
 
   it("should write proper text in options menu when none provided", () => {
-    renderWithProviders(<SelectFieldV2 {...defaultProps} options={[]} />);
+    renderWithProviders(
+      <MultiSelectFieldBase {...defaultProps} options={[]} />,
+    );
     toggleMenuOpen(document.body);
     const noticeText = document.querySelector(
       `.${CLASS_PREFIX}__menu-notice`,
@@ -157,11 +161,14 @@ describe("SelectFieldV2", () => {
 
   it("should submit undefined when no selection (no validation rules)", async () => {
     const mockSubmit = jest.fn();
-    renderWithProviders(<SelectFieldV2 {...defaultProps} options={[]} />, {
-      wrapperProps: {
-        onSubmit: mockSubmit,
+    renderWithProviders(
+      <MultiSelectFieldBase {...defaultProps} options={[]} />,
+      {
+        wrapperProps: {
+          onSubmit: mockSubmit,
+        },
       },
-    });
+    );
 
     await act(async () => {
       fireEvent.submit(screen.getByRole("button"));
@@ -172,14 +179,17 @@ describe("SelectFieldV2", () => {
 
   it("should submit default when set and no selection (no validation rules)", async () => {
     const mockSubmit = jest.fn();
-    renderWithProviders(<SelectFieldV2 {...defaultProps} options={[]} />, {
-      wrapperProps: {
-        onSubmit: mockSubmit,
-        defaultValues: {
-          fooBar: "",
+    renderWithProviders(
+      <MultiSelectFieldBase {...defaultProps} options={[]} />,
+      {
+        wrapperProps: {
+          onSubmit: mockSubmit,
+          defaultValues: {
+            fooBar: "",
+          },
         },
       },
-    });
+    );
 
     await act(async () => {
       fireEvent.submit(screen.getByRole("button"));
@@ -191,7 +201,7 @@ describe("SelectFieldV2", () => {
   it("should prevent submit when required and throw custom error message", async () => {
     const mockSubmit = jest.fn();
     renderWithProviders(
-      <SelectFieldV2
+      <MultiSelectFieldBase
         {...defaultProps}
         options={[]}
         rules={{ required: "Required!" }}
@@ -211,7 +221,7 @@ describe("SelectFieldV2", () => {
   it("should prevent submit when required and throw default error message", async () => {
     const mockSubmit = jest.fn();
     renderWithProviders(
-      <SelectFieldV2
+      <MultiSelectFieldBase
         {...defaultProps}
         options={[]}
         rules={{ required: "required" }}
@@ -235,14 +245,14 @@ describe("SelectFieldV2", () => {
 
   it("should show 'required' text when required", () => {
     renderWithProviders(
-      <SelectFieldV2 {...defaultProps} rules={{ required: true }} />,
+      <MultiSelectFieldBase {...defaultProps} rules={{ required: true }} />,
     );
     expect(screen.getByText("*")).toBeInTheDocument();
   });
 
   it("should be clearable when not required", () => {
     renderWithProviders(
-      <SelectFieldV2
+      <MultiSelectFieldBase
         {...defaultProps}
         options={[{ value: "BAZ", label: "Baz" }]}
       />,
@@ -277,7 +287,10 @@ describe("SelectFieldV2", () => {
 
   it("should not be clearable when required", () => {
     renderWithProviders(
-      <SelectFieldV2 {...defaultProps} rules={{ required: "Required!" }} />,
+      <MultiSelectFieldBase
+        {...defaultProps}
+        rules={{ required: "Required!" }}
+      />,
     );
     toggleMenuOpen(document.body);
     selectFirstOption(document.body);
@@ -288,7 +301,7 @@ describe("SelectFieldV2", () => {
   });
 
   it("should have default placeholder when not specified", () => {
-    renderWithProviders(<SelectFieldV2 {...defaultProps} />);
+    renderWithProviders(<MultiSelectFieldBase {...defaultProps} />);
 
     const placeholderText = document.querySelector(
       `.${CLASS_PREFIX}__control`,
@@ -298,7 +311,7 @@ describe("SelectFieldV2", () => {
 
   it("should have custom placeholder when specified", () => {
     renderWithProviders(
-      <SelectFieldV2 {...defaultProps} placeholder="Select thing" />,
+      <MultiSelectFieldBase {...defaultProps} placeholder="Select thing" />,
     );
 
     const placeholderText = document.querySelector(
@@ -308,7 +321,7 @@ describe("SelectFieldV2", () => {
   });
 
   it("should show loading indicator when isLoading", () => {
-    renderWithProviders(<SelectFieldV2 {...defaultProps} isLoading />);
+    renderWithProviders(<MultiSelectFieldBase {...defaultProps} isLoading />);
 
     const loadingIndicator = document.querySelector(
       `.${CLASS_PREFIX}__loading-indicator`,
@@ -317,7 +330,7 @@ describe("SelectFieldV2", () => {
   });
 
   it("should write proper text in options menu when isLoading", () => {
-    renderWithProviders(<SelectFieldV2 {...defaultProps} isLoading />);
+    renderWithProviders(<MultiSelectFieldBase {...defaultProps} isLoading />);
     toggleMenuOpen(document.body);
 
     const loadingText = document.querySelector(
@@ -329,7 +342,7 @@ describe("SelectFieldV2", () => {
   it("should submit selected value as string by default", async () => {
     const mockSubmit = jest.fn();
     renderWithProviders(
-      <SelectFieldV2
+      <MultiSelectFieldBase
         {...defaultProps}
         options={[{ value: "BAZ", label: "Baz" }]}
       />,
@@ -348,7 +361,7 @@ describe("SelectFieldV2", () => {
   it("should submit a selected value as array when specified", async () => {
     const mockSubmit = jest.fn();
     renderWithProviders(
-      <SelectFieldV2
+      <MultiSelectFieldBase
         forceArrayFormValue
         {...defaultProps}
         options={[{ value: "BAZ", label: "Baz" }]}

@@ -44,7 +44,7 @@ declare module "react-select/dist/declarations/src/Select" {
 }
 
 // TODO: Eventually extend react-select's Select Props, so that anything extra is passed through.
-export type SelectFieldV2Props = CommonInputProps & {
+export type MultiSelectFieldBaseProps = CommonInputProps & {
   /** List of options for the select element. */
   options?: Options;
   /** Default message shown on select input. */
@@ -184,7 +184,7 @@ export const useRulesWithDefaultMessages = (
   return rulesWithDefaults;
 };
 
-const SelectFieldV2 = ({
+const MultiSelectFieldBase = ({
   id,
   context,
   label,
@@ -198,7 +198,7 @@ const SelectFieldV2 = ({
   isLoading = false,
   trackUnsaved = true,
   doNotSort = false,
-}: SelectFieldV2Props): JSX.Element => {
+}: MultiSelectFieldBaseProps): JSX.Element => {
   const { formatMessage } = useIntl();
   const defaultPlaceholder = formatMessage(formMessages.defaultPlaceholder);
   const {
@@ -365,4 +365,4 @@ const SelectFieldV2 = ({
   );
 };
 
-export default SelectFieldV2;
+export default MultiSelectFieldBase;
