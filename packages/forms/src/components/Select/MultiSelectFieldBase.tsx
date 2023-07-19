@@ -43,7 +43,6 @@ declare module "react-select/dist/declarations/src/Select" {
   }
 }
 
-// TODO: Eventually extend react-select's Select Props, so that anything extra is passed through.
 export type MultiSelectFieldBaseProps = CommonInputProps & {
   /** List of options for the select element. */
   options?: Options;
@@ -203,7 +202,6 @@ const MultiSelectFieldBase = ({
   const defaultPlaceholder = formatMessage(formMessages.defaultPlaceholder);
   const {
     formState: { errors },
-    // TODO: Set explicit TFieldValues. Defaults to Record<string, any>
   } = useFormContext();
   const baseStyles = useCommonInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
