@@ -1,0 +1,260 @@
+enum ContractAuthority {
+  HR
+  PROCUREMENT
+  FINANCE
+  LABOUR_RELATIONS
+  OTHER
+}
+
+enum YesNo {
+  YES
+  NO
+}
+
+enum YesNoUnsure {
+  YES
+  NO
+  I_DONT_KNOW
+}
+
+enum ContractValueRange {
+  FROM_0_TO_10K
+  FROM_10K_TO_25K
+  FROM_25K_TO_50K
+  FROM_50K_TO_1M
+  FROM_1M_TO_2500K
+  FROM_2500K_TO_5M
+  FROM_5M_TO_10M
+  FROM_10M_TO_15M
+  FROM_15M_TO_25M
+  GREATER_THAN_25M
+}
+
+enum ContractStartTimeframe {
+  FROM_0_TO_3M
+  FROM_3M_TO_6M
+  FROM_6M_TO_1Y
+  FROM_1Y_TO_2Y
+  UNKNOWN
+  VARIABLE
+}
+
+enum ContractCommodity {
+  TELECOM_SERVICES
+  SUPPORT_SERVICES
+  OTHER
+}
+
+enum ContractInstrument {
+  SUPPLY_ARRANGEMENT
+  STANDING_OFFER
+  CONTRACT
+  AMENDMENT
+}
+
+enum ContractSupplyMethod {
+  NOT_APPLICABLE
+  SOLUTIONS_BASED_INFORMATICS_PROFESSIONAL_SERVICES
+  TASK_BASED_INFORMATICS_PROFESSIONAL_SERVICES
+  TEMPORARY_HELP
+  OTHER
+}
+
+enum ContractSolicitationProcedure {
+  ADVANCE_CONTRACT_AWARD_NOTICE
+  COMPETITIVE
+  NON_COMPETITIVE
+}
+
+enum PersonnelScreeningLevel {
+  RELIABILITY
+  ENHANCED_RELIABILITY
+  SECRET
+  TOP_SECRET
+  OTHER
+}
+
+enum PersonnelLanguage {
+  ENGLISH_ONLY
+  FRENCH_ONLY
+  BILINGUAL_INTERMEDIATE
+  BILINGUAL_ADVANCED
+  OTHER
+}
+
+enum PersonnelWorkLocation {
+  GC_PREMISES
+  OFFSITE_SPECIFIC
+  OFFSITE_ANY
+}
+
+enum PersonnelOtherRequirement {
+  SHIFT_WORK
+  ON_CALL_24_7
+  OVERTIME_SHORT_NOTICE
+  AS_NEEDED
+  OTHER
+}
+
+enum SkillExpertiseLevel {
+  BEGINNER
+  INTERMEDIATE
+  EXPERT
+  LEAD
+}
+
+enum PersonnelTeleworkOption {
+  FULL_TIME
+  PART_TIME
+  NO
+}
+
+enum OperationsConsideration {
+  FINANCE_VEHICLE_NOT_USABLE
+  FUNDING_SECURED_COST_RECOVERY_BASIS
+  UNABLE_CREATE_NEW_INDETERMINATE
+  UNABLE_CREATE_NEW_TERM
+  UNABLE_CREATE_CLASSIFICATION_RESTRICTION
+  STAFFING_FREEZE
+  OTHER
+}
+
+enum ContractingRationale {
+  SHORTAGE_OF_TALENT
+  TIMING_REQUIREMENTS
+  HR_SITUATION
+  FINANCIAL_SITUATION
+  REQUIRES_INDEPENDENT
+  INTELLECTUAL_PROPERTY_FACTORS
+  OTHER
+}
+
+type PersonnelSkillRequirement {
+  skill: Skill
+  level: SkillExpertiseLevel
+}
+
+type PersonnelRequirement {
+  resourceType: String
+  skillRequirements: [PersonnelSkillRequirement!]
+  language: PersonnelLanguage
+  languageOther: String
+  security: PersonnelScreeningLevel
+  securityOther: String
+  telework: PersonnelTeleworkOption
+  quantity: Int
+}
+
+type DigitalContractingQuestionnaire {
+  id: UUID!
+  readPreamble: Boolean @rename(attribute: "read_preamble")
+  department: Department
+  departmentOther: String @rename(attribute: "department_other")
+  branchOther: String @rename(attribute: "branch_other")
+  businessOwnerName: String @rename(attribute: "business_owner_name")
+  businessOwnerJobTitle: String @rename(attribute: "business_owner_job_title")
+  businessOwnerEmail: String @rename(attribute: "business_owner_email")
+  financialAuthorityName: String @rename(attribute: "financial_authority_name_")
+  financialAuthorityJobTitle: String
+    @rename(attribute: "financial_authority_job_title")
+  financialAuthorityEmail: String
+    @rename(attribute: "financial_authority_email")
+  authoritiesInvolved: [ContractAuthority!]
+    @rename(attribute: "authorities_involved")
+  authorityInvolvedOther: String @rename(attribute: "authority_involved_other")
+  contractBehalfOfGc: YesNoUnsure @rename(attribute: "contract_behalf_of_gc")
+  contractServiceOfGc: YesNoUnsure @rename(attribute: "contract_service_of_gc")
+  contractForDigitalInitiative: YesNoUnsure
+    @rename(attribute: "contract_for_digital_initiative")
+  digitalInitiativeName: String @rename(attribute: "digital_initiative_name")
+  digitalInitiativePlanSubmitted: YesNoUnsure
+    @rename(attribute: "digital_initiative_plan_submitted")
+  digitalInitiativePlanUpdated: YesNoUnsure
+    @rename(attribute: "digital_initiative_plan_updated")
+  digitalInitiativePlanComplemented: YesNoUnsure
+    @rename(attribute: "digital_initiative_plan_complemented")
+  contractTitle: String @rename(attribute: "contract_title")
+  contractStartDate: Date @rename(attribute: "contract_start_date")
+  contractEndDate: Date @rename(attribute: "contract_end_date")
+  contractExtendable: YesNo @rename(attribute: "contract_extendable")
+  contractAmendable: YesNo @rename(attribute: "contract_amendable")
+  contractMultiyear: YesNo @rename(attribute: "contract_multiyear")
+  contractValue: ContractValueRange @rename(attribute: "contract_value")
+  contractResourcesStartTimeframe: ContractStartTimeframe
+    @rename(attribute: "contract_resources_start_timeframe")
+  commodityType: ContractCommodity @rename(attribute: "commodity_type")
+  commodityTypeOther: String @rename(attribute: "commodity_type_other")
+  instrumentType: ContractInstrument @rename(attribute: "instrument_type")
+  methodOfSupply: ContractSupplyMethod @rename(attribute: "method_of_supply")
+  methodOfSupplyOther: String @rename(attribute: "method_of_supply_other")
+  solicitationProcedure: ContractSolicitationProcedure
+    @rename(attribute: "solicitation_procedure")
+  subjectToTradeAgreement: YesNoUnsure
+    @rename(attribute: "subject_to_trade_agreement")
+  workRequirementDescription: String
+    @rename(attribute: "work_requirement_description")
+  qualificationRequirement: String
+    @rename(attribute: "qualification_requirement")
+  requirementAccessToSecure: YesNoUnsure
+    @rename(attribute: "requirement_access_to_secure")
+  requirementScreeningLevels: [PersonnelScreeningLevel!]
+    @rename(attribute: "requirement_screening_levels")
+  requirementScreeningLevelOther: String
+    @rename(attribute: "requirement_screening_level_other")
+  requirementWorkLanguages: [PersonnelLanguage!]
+    @rename(attribute: "requirement_work_languages")
+  requirementWorkLanguageOther: String
+    @rename(attribute: "requirement_work_language_other")
+  requirementWorkLocations: [PersonnelWorkLocation!]
+    @rename(attribute: "requirement_work_locations")
+  requirementWorkLocationSpecific: String
+    @rename(attribute: "requirement_work_location_specific")
+  requirementOthers: [PersonnelOtherRequirement!]
+    @rename(attribute: "requirement_others")
+  requirementOtherOther: String @rename(attribute: "requirement_other")
+  hasPersonnelRequirements: YesNo @rename(attribute: "requirement_other_other")
+  personnelRequirements: [PersonnelRequirement!]
+    @rename(attribute: "has_personnel_requirements")
+  isTechnologicalChange: YesNo @rename(attribute: "personnel_requirements")
+  hasImpactOnYourDepartment: YesNo @rename(attribute: "is_technological_change")
+  hasImmediateImpactOnOtherDepartments: YesNo
+    @rename(attribute: "has_impact_on_your_department")
+  hasFutureImpactOnOtherDepartments: YesNo
+    @rename(attribute: "has_immediate_impact_on_other_departments")
+  operationsConsiderations: [OperationsConsideration!]
+    @rename(attribute: "has_future_impact_on_other_departments")
+  operationsConsiderationsOther: String
+    @rename(attribute: "operations_considerations")
+  contractingRationalePrimary: ContractingRationale
+    @rename(attribute: "contracting_rationale_primary")
+  contractingRationalePrimaryOther: String
+    @rename(attribute: "contracting_rationale_primary_other")
+  contractingRationalesSecondary: [ContractingRationale!]
+    @rename(attribute: "contracting_rationales_secondary")
+  contractingRationalesSecondaryOther: String
+    @rename(attribute: "contracting_rationales_secondary_other")
+  ocioConfirmedTalentShortage: YesNo
+    @rename(attribute: "contracting_rationales_secondary")
+  talentSearchTrackingNumber: String
+    @rename(attribute: "talent_search_tracking_number")
+  ongoingNeedForKnowledge: YesNo
+    @rename(attribute: "ongoing_need_for_knowledge")
+  knowledgeTransferInContract: YesNo
+    @rename(attribute: "knowledge_transfer_in_contract")
+  employeesHaveAccessToKnowledge: YesNo
+    @rename(attribute: "employees_have_access_to_knowledge")
+  ocioEngagedForTraining: YesNo @rename(attribute: "ocio_engaged_for_training")
+}
+
+type Query {
+  digitalContractingQuestionnaire(
+    id: UUID! @eq
+  ): DigitalContractingQuestionnaire
+    @find
+    @guard
+    @can(ability: "view", query: true)
+  digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
+    @all
+    @guard
+    @can(ability: "viewAny")
+}
