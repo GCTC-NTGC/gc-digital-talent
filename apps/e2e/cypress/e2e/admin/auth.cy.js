@@ -142,17 +142,17 @@ describe("Auth flows (development)", () => {
 
     it("performs logout and removes token data from local storage", () => {
       cy.visit("/admin");
-      cy.findByRole("button", { name: "Logout" }).as("logoutToggle");
+      cy.findByRole("button", { name: "Sign out" }).as("logoutToggle");
       cy.get("@logoutToggle")
         .should("exist")
         .and("be.visible")
         .click()
         .then(() => {
-          cy.findByRole("alertdialog", { name: "Logout" }).as("logoutModal");
+          cy.findByRole("alertdialog", { name: "Sign out" }).as("logoutModal");
           cy.get("@logoutModal")
             .should("exist")
             .and("be.visible")
-            .findByRole("button", { name: "Logout" })
+            .findByRole("button", { name: "Sign out" })
             .as("logoutBtn");
 
           cy.get("@logoutBtn")
