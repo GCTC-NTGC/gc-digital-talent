@@ -8,7 +8,9 @@
       "pathMappings": {
         "/home/site/wwwroot/": "${workspaceFolder}"
       },
-      "hostname": "localhost"
+      "linux": {
+        "hostname": "localhost",
+      },
       // For configuration, see the infrastructure/conf/xdebug.ini file.
     },
     {
