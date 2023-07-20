@@ -313,6 +313,10 @@
     "defaultMessage": "Durée de l’emploi ",
     "description": "Job duration label "
   },
+  "/zVZCP": {
+    "defaultMessage": "Collectivité des cadres",
+    "description": "Heading for executive jobs in government"
+  },
   "0+g2jN": {
     "defaultMessage": "Courriel",
     "description": "Title displayed for the User table Email column."
@@ -331,10 +335,6 @@
   "028BJx": {
     "defaultMessage": "Activités d'infrastructure de <abbreviation>TI</abbreviation>",
     "description": "work stream example"
-  },
-  "02aheT": {
-    "defaultMessage": "J’ai découvert le Programme d’apprentissage en TI pour les personnes autochtones sur talent.canada.ca et j’aimerais en savoir davantage sur la façon dont je peux embaucher des stagiaires pour mon équipe.",
-    "description": "Body of email for info on IT Apprenticeship Program for Indigenous Peoples"
   },
   "044hi7": {
     "defaultMessage": "Copier le lien",
@@ -950,6 +950,10 @@
     "defaultMessage": "{poolCandidateName} possède 0 des 0 compétences",
     "description": "Aria-label for the title displayed on the candidate skill count column."
   },
+  "4V/DsD": {
+    "defaultMessage": "En savoir plus<hidden> à propos de la collectivité des gestionnaires</hidden>",
+    "description": "Link text to the managers community"
+  },
   "4Washm": {
     "defaultMessage": "Rôles des membres",
     "description": "Title displayed for the team members table roles column."
@@ -1017,10 +1021,6 @@
   "56WpMU": {
     "defaultMessage": "Laissez les préférences de votre navigateur dicter le thème du site Web.",
     "description": "Button text to set no theme mode"
-  },
-  "58Z5Ld": {
-    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous espériez embaucher ou que vous envisagiez un rôle de direction, c’est l’endroit où venir pour faire partie de la communauté numérique du <abbreviation>GC</abbreviation>.",
-    "description": "Description de la candidature sur la page d’accueil"
   },
   "58x4fO": {
     "defaultMessage": "Indiquez s'il y a une ville que vous souhaitez exclure d'une région.",
@@ -1294,6 +1294,10 @@
     "defaultMessage": "Déconnexion",
     "description": "Link text to logout."
   },
+  "6tqGpT": {
+    "defaultMessage": "En savoir plus<hidden> le Programme d’apprentissage en TI pour les populations autochtones</hidden>",
+    "description": "Link text to the IT Apprenticeship Program for Indigenous Peoples"
+  },
   "6uce1H": {
     "defaultMessage": "Toutes les compétences",
     "description": "Label for the skill picker family filter"
@@ -1317,10 +1321,6 @@
   "71ID2W": {
     "defaultMessage": "Connexion",
     "description": "Label displayed on the Login menu item."
-  },
-  "71f/uH": {
-    "defaultMessage": "Communiquez avec le Programme d’apprentissage",
-    "description": "Link text to email about the IT Apprenticeship Program for Indigenous Peoples"
   },
   "72pd2Z": {
     "defaultMessage": "<strong>gestion de l’information</strong>, ou",
@@ -1645,10 +1645,6 @@
   "9Fzy0s": {
     "defaultMessage": "La rédaction de votre CV consiste à décrire <strong>les expériences de travail</strong>, <strong>l’éducation</strong>, <strong>la participation communautaire</strong>, <strong>l’apprentissage personnel</strong> et <strong>les récompenses que vous avez gagnées</strong>. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre CV en utilisant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to begin working on résumé, paragraph two"
-  },
-  "9KOwXq": {
-    "defaultMessage": "Les cadres dans le gouvernement numérique",
-    "description": "Vers des emplois de cadres dans le gouvernement"
   },
   "9LwRRx": {
     "defaultMessage": "Responsable",
@@ -2338,6 +2334,10 @@
     "defaultMessage": "Lorsque vous soumettez votre signature (en tapant votre nom complet), vous contribuez à créer un espace équitable et sécuritaire afin de permettre aux peuples autochtones de profiter de ces occasions.",
     "description": "Disclaimer displayed before signing the Indigenous self-declaration form"
   },
+  "DzCUmx": {
+    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
+    "description": "Description of the application on the homepage"
+  },
   "Dzyk1q": {
     "defaultMessage": "En collaboration avec le Programme d’apprentissage en TI pour les personnes autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en TI et en technologie, ce qui permettra :",
     "description": "Description for strategy for the indigenous talent portal"
@@ -2353,10 +2353,6 @@
   "E3loNV": {
     "defaultMessage": "Planification et établissement de rapports en matière de <abbreviation>TI</abbreviation>",
     "description": "Title for the 'planning and reporting' IT work stream"
-  },
-  "E4PMGL": {
-    "defaultMessage": "Je souhaite embaucher des stagiaires autochtones en TI pour mon équipe",
-    "description": "Subject of email for info on IT Apprenticeship Program for Indigenous Peoples"
   },
   "E8BMJW": {
     "defaultMessage": "Créer<hidden> une classification</hidden>",
@@ -2417,10 +2413,6 @@
   "EnvwAC": {
     "defaultMessage": "Téléphone :",
     "description": "Display text for the phone number field on users"
-  },
-  "Ew/GPP": {
-    "defaultMessage": "Inscrivez-vous<hidden> au Programme d’apprentissage en TI pour les personnes autochtones</hidden> maintenant",
-    "description": "Link text to apply for the IT Apprenticeship Program for Indigenous Peoples"
   },
   "Ewa83p": {
     "defaultMessage": "Les compétences suivantes sont essentielles à ce rôle et doivent être évidentes dans le cadre de votre demande.",
@@ -3114,6 +3106,10 @@
     "defaultMessage": "Changer votre disponibilité pour {title}.",
     "description": "Button text to open form to change availability in a specific recruitment"
   },
+  "K9YLac": {
+    "defaultMessage": "En savoir plus<hidden> sur la collectivité des cadres</hidden>",
+    "description": "Link text to the executive community"
+  },
   "K9vqwA": {
     "defaultMessage": "Vous n’avez pas encore de curriculum vitæ.",
     "description": "Null state messages for résumé list"
@@ -3133,6 +3129,10 @@
   "KRkZS6": {
     "defaultMessage": "Aucune compétence comportementale facultative n’est prise en compte pour ce poste.",
     "description": "Message displayed when a pool advertisement has no optional behavioural skills"
+  },
+  "KS1jGw": {
+    "defaultMessage": "Bâtissez votre carrière numérique",
+    "description": "Heading for the recruitment opportunities"
   },
   "KSH0Di": {
     "defaultMessage": "Justificatifs sur les compétences",
@@ -3545,6 +3545,10 @@
     "defaultMessage": "Ce champ accepte une liste de virgules séparées par des mots-clés séparés associés à la compétence.",
     "description": "Additional context describing the purpose of the skills 'keyword' field."
   },
+  "NV+5pq": {
+    "defaultMessage": "Vous voulez en faire plus? Acquérez de l’expérience en matière de gestion au sein d’un comité d’embauche ou essayez de diriger votre propre processus de recrutement.",
+    "description": "Paragraph two, description of the managers community"
+  },
   "NWEmsp": {
     "defaultMessage": "Équipes",
     "description": "Title for teams"
@@ -3676,10 +3680,6 @@
   "OIk63O": {
     "defaultMessage": "Prolonger la date de clôture",
     "description": "Button to extend the pool closing date in the extend pool closing date dialog"
-  },
-  "OMDX09": {
-    "defaultMessage": "Préparez-vous en mettant à jour votre profil",
-    "description": "Link text to update your profile for executive jobs in government"
   },
   "ON4+Yr": {
     "defaultMessage": "Ajouter une nouvelle expérience",
@@ -3939,10 +3939,6 @@
   "Q0AKK4": {
     "defaultMessage": "Si vous ne trouvez pas une compétence, essayez d’élargir vos filtres ou de chercher le nom d’une compétence à l’aide d’autres termes de l’industrie.",
     "description": "Help text to tell users to change their filters to find a skill"
-  },
-  "Q0G/5L": {
-    "defaultMessage": "Vous recherchez des talents en <abbreviation>TI</abbreviation> de niveau débutant et vous désirez soutenir la diversité, l’inclusion et la réconciliation? Communiquez avec le programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones et lancez le processus d’embauche de stagiaires autochtones dès aujourd’hui!",
-    "description": "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage"
   },
   "Q0gIlv": {
     "defaultMessage": "Description (français)",
@@ -4323,6 +4319,10 @@
   "TS63OC": {
     "defaultMessage": "Veuillez indiquer la classification et le niveau de votre groupe de travail actuel.",
     "description": "Text blurb, asking about classification and level in the government info form"
+  },
+  "TUi+jx": {
+    "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats au niveau débutant pour des occasions d’apprentissage et de perfectionnement en matière de TI au sein du gouvernement.",
+    "description": "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage"
   },
   "TV4UWm": {
     "defaultMessage": "Enregistré",
@@ -5051,10 +5051,6 @@
   "YDeXEW": {
     "defaultMessage": "Identité autochtone désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35 (2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada.",
     "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
-  },
-  "YEarCb": {
-    "defaultMessage": "Si vous êtes prêt à assumer un rôle de leadership numérique en agissant concrètement pour les Canadiens, vous trouverez des possibilités d'emplois pour des postes de gestions à travers le <gcAbbreviation>GC</gcAbbreviation> à tous les niveaux jusqu'aux postes de directeur principal de l’information.",
-    "description": "Description for executive jobs in government"
   },
   "YGM/D5": {
     "defaultMessage": "Le programme dure 24 mois et les apprentis ont accès à un soutien pendant leur période de participation au programme.",
@@ -5908,6 +5904,10 @@
     "defaultMessage": "Employé du gouvernement du Canada",
     "description": "Label for status as Government of Canada employee"
   },
+  "e6hj69": {
+    "defaultMessage": "Trouvez des talents préqualifiés pour votre équipe ou planifiez votre prochaine évolution de carrière.",
+    "description": "Paragraph one, description of the managers community"
+  },
   "e9fSNq": {
     "defaultMessage": "Avez-vous utilisé certaines techniques ou approches spéciales?",
     "description": "Question 3 for clarifying skill details"
@@ -6207,6 +6207,10 @@
   "g5pT17": {
     "defaultMessage": "Sélectionnez votre langue d'examen écrite préférée",
     "description": "Legend text for required written exam language preference for exams in About Me form"
+  },
+  "g7HWuc": {
+    "defaultMessage": "Collectivité des gestionnaires.",
+    "description": "Heading for the Managers community page"
   },
   "gBAz/G": {
     "defaultMessage": "Identification de la demande copiée",
@@ -7132,10 +7136,6 @@
     "defaultMessage": "En tant que membre retenu du processus de recrutement <strong>{title}</strong>, il se peut que l’on communique avec vous au sujet de possibilités pertinentes.",
     "description": "Text describing what it means to be available in a recruitment"
   },
-  "mI6AeU": {
-    "defaultMessage": "À venir",
-    "description": "Text displayed for executive jobs on homepage, indicating it is not ready"
-  },
   "mJ1HE4": {
     "defaultMessage": "Ajouter une expérience",
     "description": "Display text for add experience form in breadcrumbs"
@@ -7288,10 +7288,6 @@
     "defaultMessage": "Enregistrer la disponibilité",
     "description": "Button text to save availability in a recruitment"
   },
-  "nEMeaQ": {
-    "defaultMessage": "Recrutement en cours",
-    "description": "Heading for the recruitment opportunities"
-  },
   "nEVNHp": {
     "defaultMessage": "Information sur l’employé(e) du gouvernement ",
     "description": "Title for the government employee information snapshot section"
@@ -7331,10 +7327,6 @@
   "nXRLAX": {
     "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
     "description": "Message displayed to user after department fails to get updated."
-  },
-  "nYA+Tj": {
-    "defaultMessage": "Nous embauchons des talents autochtones dans le domaine de la technologie",
-    "description": "Title for the Indigenous tech talent feature item"
   },
   "nYriNg": {
     "defaultMessage": "Statut mis à jour avec succès",
@@ -7667,10 +7659,6 @@
   "qGyD4w": {
     "defaultMessage": "Questions de sélection",
     "description": "Heading for screening questions section of the application review page."
-  },
-  "qLYONf": {
-    "defaultMessage": "Préparez-vous en créant un profil",
-    "description": "Link text to create a profile for executive jobs in government"
   },
   "qPxrKm": {
     "defaultMessage": "Modifier ou retirer les permissions d’adhésion.",
@@ -8042,10 +8030,6 @@
   "szVmh/": {
     "defaultMessage": "Description de l’apprentissage",
     "description": "Label displayed on Personal Experience form for learning description section"
-  },
-  "szt3yx": {
-    "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats pour des postes de niveau d'entrée pour des possibilités d’apprentissage et de développement des <abbreviation>TI</abbreviation> dans l’ensemble du gouvernement.",
-    "description": "Description for the IT Apprenticeship Program for Indigenous Peoples on home page"
   },
   "t+WUYM": {
     "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>TI-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
@@ -8653,6 +8637,10 @@
   "xlsfRu": {
     "defaultMessage": "Sélectionnez les exigences requises pour cette annonce.",
     "description": "Helper message for filling in the pool other requirements"
+  },
+  "xnNnwu": {
+    "defaultMessage": "Qu’il s’agisse d’un poste de cadre débutant ou d’un poste de DPI au sein du gouvernement du Canada, vous êtes au bon endroit pour franchir une nouvelle étape dans le leadership numérique.",
+    "description": "Description of the executive community"
   },
   "xwBt36": {
     "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} =1 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} }",
