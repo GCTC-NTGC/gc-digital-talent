@@ -10,8 +10,8 @@ import {
   Heading,
   DropdownMenu,
   Button,
+  StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { getId, notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
@@ -1037,7 +1037,6 @@ const OngoingRecruitmentSection = ({
           </DropdownMenu.Content>
         </DropdownMenu.Root>
       </div>
-
       <p aria-live="polite" data-h2-visually-hidden="base(invisible)">
         {quickFilterStream !== "ALL"
           ? intl.formatMessage(
@@ -1060,8 +1059,7 @@ const OngoingRecruitmentSection = ({
                 "Announcement that the job stream filter is not active.",
             })}
       </p>
-
-      <div>
+      {streamsToShow.length ? (
         <Accordion.Root type="multiple">
           {streamsToShow.map((stream) => (
             <Accordion.Item value={stream.key} key={stream.key}>
@@ -1124,7 +1122,7 @@ const OngoingRecruitmentSection = ({
             </Accordion.Item>
           ))}
         </Accordion.Root>
-      </div>
+      ) : null}
     </>
   );
 };

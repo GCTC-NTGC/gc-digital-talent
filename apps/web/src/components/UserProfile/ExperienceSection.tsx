@@ -162,15 +162,17 @@ const ExperienceSection = ({
         />
       </Tabs.Content>
       <Tabs.Content value="2">
-        <Accordion.Root type="multiple">
-          {sortedBySkills.map((skill) => (
-            <SkillAccordion
-              key={skill.id}
-              skill={skill}
-              headingLevel={headingLevel}
-            />
-          ))}
-        </Accordion.Root>
+        {sortedBySkills.length ? (
+          <Accordion.Root type="multiple">
+            {sortedBySkills.map((skill) => (
+              <SkillAccordion
+                key={skill.id}
+                skill={skill}
+                headingLevel={headingLevel}
+              />
+            ))}
+          </Accordion.Root>
+        ) : null}
       </Tabs.Content>
     </Tabs.Root>
   ) : (

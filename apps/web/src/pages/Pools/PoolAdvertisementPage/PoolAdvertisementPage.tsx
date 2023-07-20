@@ -16,8 +16,8 @@ import {
   Heading,
   Pill,
   Link,
+  StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import {
   getLocale,
   getLanguageRequirement,

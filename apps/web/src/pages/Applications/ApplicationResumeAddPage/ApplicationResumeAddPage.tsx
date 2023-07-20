@@ -6,8 +6,12 @@ import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 
-import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
+import {
+  Accordion,
+  DefinitionList,
+  Heading,
+  StandardAccordionHeader,
+} from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
