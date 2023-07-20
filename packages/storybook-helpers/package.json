@@ -13,7 +13,7 @@
     "@storybook/addon-links": "^7.0.27",
     "@storybook/addon-viewport": "^7.0.27",
     "@storybook/addons": "^7.1.0",
-    "@storybook/react": "^7.0.27",
+    "@storybook/react": "^7.1.0",
     "@storybook/react-webpack5": "^7.0.27",
     "chromatic": "^6.19.9",
     "lodash": "^4.17.21",
