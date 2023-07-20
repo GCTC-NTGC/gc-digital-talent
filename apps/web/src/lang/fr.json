@@ -1926,10 +1926,6 @@
     "defaultMessage": "Je suis à la recherche de cadres préqualifiés",
     "description": "Subject line for contact email to find pre-qualified executive talent"
   },
-  "BIgaKT": {
-    "defaultMessage": "Métis",
-    "description": "Trigger text for Métis tab"
-  },
   "BJFLx/": {
     "defaultMessage": "Identification des talents numériques – Tables rondes sur la gestion des talents",
     "description": "Button text to open section describing identification of digital talents"
