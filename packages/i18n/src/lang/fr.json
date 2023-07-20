@@ -453,6 +453,10 @@
     "defaultMessage": "Aucun résultat n’a été trouvé.",
     "description": "Message displayed when combobox has no options available"
   },
+  "Icl1fF": {
+    "defaultMessage": "Parcours professionnel et recrutement",
+    "description": "Name of Career timeline and recruitment page"
+  },
   "IlPyP8": {
     "defaultMessage": "Vous devez remédier aux erreurs suivantes avant de soumettre le formulaire :",
     "description": "Message indicating which errors the form has"
