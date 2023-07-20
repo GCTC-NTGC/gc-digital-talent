@@ -11,13 +11,13 @@
     "defaultMessage": "Québec",
     "description": "The work region of Canada described as Quebec."
   },
-  "+U4KU4": {
-    "defaultMessage": "Cela m'oblige à faire les heures supplémentaires prévues.",
-    "description": "The operational requirement described as scheduled overtime."
-  },
   "+J9x7H": {
     "defaultMessage": "Éliminé à la présélection – candidature",
     "description": "The pool candidate's status is Screened Out Application"
+  },
+  "+U4KU4": {
+    "defaultMessage": "Cela m'oblige à faire les heures supplémentaires prévues.",
+    "description": "The operational requirement described as scheduled overtime."
   },
   "+ZPD1J": {
     "defaultMessage": "Fermer le menu",
