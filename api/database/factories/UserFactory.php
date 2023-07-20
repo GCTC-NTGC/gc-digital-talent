@@ -11,7 +11,6 @@ use App\Models\EducationExperience;
 use App\Models\GenericJobTitle;
 use App\Models\PersonalExperience;
 use App\Models\Skill;
-use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\ApiEnums;
