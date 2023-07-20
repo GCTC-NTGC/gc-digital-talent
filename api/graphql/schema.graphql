@@ -123,8 +123,6 @@ type User {
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Skill Library
   userSkills: [UserSkill!] @hasMany
-  # Pool info
-  poolCandidates: [PoolCandidate] @hasMany @can(ability: "view", resolved: true) # PoolsCandidate objects associate the user with a pool
   # Pool Manager info
   pools: [Pool]
     @hasMany
