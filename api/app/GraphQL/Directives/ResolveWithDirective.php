@@ -9,7 +9,6 @@ use Nuwave\Lighthouse\Support\Contracts\ArgResolver;
 
 final class ResolveWithDirective extends BaseDirective implements ArgDirective, ArgResolver
 {
-    // TODO implement the directive https://lighthouse-php.com/master/custom-directives/getting-started.html
 
     public static function definition(): string
     {
