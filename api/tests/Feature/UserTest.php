@@ -41,7 +41,6 @@ class UserTest extends TestCase
             ->create([
                 'email' => 'admin@test.com',
                 'sub' => 'admin@test.com',
-                'legacy_roles' => ['ADMIN'],
 
                 // The following properties make sure this user doesn't match certain test queries, skewing results.
                 'looking_for_english' => null,
@@ -75,7 +74,6 @@ class UserTest extends TestCase
                     preferredLang
                     preferredLanguageForInterview
                     preferredLanguageForExam
-                    legacyRoles
                 }
             }
         ',
@@ -97,7 +95,6 @@ class UserTest extends TestCase
                     'preferredLang' => null,
                     'preferredLanguageForInterview' => null,
                     'preferredLanguageForExam' => null,
-                    'legacyRoles' => []
                 ]
             ]
         ]);
@@ -119,7 +116,6 @@ class UserTest extends TestCase
                     preferredLang
                     preferredLanguageForInterview
                     preferredLanguageForExam
-                    legacyRoles
                 }
             }
         ',
@@ -128,7 +124,6 @@ class UserTest extends TestCase
                     'firstName' => 'Jane',
                     'lastName' => 'Tester',
                     'email' => 'jane@test.com',
-                    'legacyRoles' => ['ADMIN']
                 ]
             ]
         )->assertJson([
@@ -141,74 +136,11 @@ class UserTest extends TestCase
                     'preferredLang' => null,
                     'preferredLanguageForInterview' => null,
                     'preferredLanguageForExam' => null,
-                    'legacyRoles' => ['ADMIN']
                 ]
             ]
         ]);
         // Ensure user was saved
         $this->assertDatabaseHas('users', ['email' => 'jane@test.com']);
-    }
-
-    public function testUpdateUserLegacyRole()
-    {
-        $user = User::factory()->create(['legacy_roles' => []]);
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            mutation UpdateUser($id: ID!, $user: UpdateUserAsAdminInput!) {
-                updateUserAsAdmin(id: $id, user: $user) {
-                    id
-                    legacyRoles
-                }
-            }
-        ',
-            [
-                'id' => $user->id,
-                'user' => [
-                    'legacyRoles' => ['ADMIN']
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'updateUserAsAdmin' => [
-                    'id' => strval($user->id),
-                    'legacyRoles' => ['ADMIN']
-                ]
-            ]
-        ]);
-        // Ensure change was saved
-        $this->assertContains('ADMIN', $user->fresh()->legacy_roles);
-    }
-
-    public function testUpdateUserRole()
-    {
-        $user = User::factory()->create(['legacy_roles' => []]);
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            mutation UpdateUser($id: ID!, $user: UpdateUserAsAdminInput!) {
-                updateUserAsAdmin(id: $id, user: $user) {
-                    id
-                    legacyRoles
-                }
-            }
-        ',
-            [
-                'id' => $user->id,
-                'user' => [
-                    'legacyRoles' => ['ADMIN']
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'updateUserAsAdmin' => [
-                    'id' => strval($user->id),
-                    'legacyRoles' => ['ADMIN']
-                ]
-            ]
-        ]);
-        // Ensure change was saved
-        $this->assertContains('ADMIN', $user->fresh()->legacy_roles);
     }
 
     public function testFilterByPoolCandidateStatuses(): void
