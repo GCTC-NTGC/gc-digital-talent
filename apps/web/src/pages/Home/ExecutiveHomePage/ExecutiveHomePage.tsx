@@ -26,6 +26,7 @@ import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
 import PoolCard from "~/components/PoolCard/PoolCard";
 import { Pool, useBrowsePoolsQuery } from "~/api/generated";
 import { isExecPool } from "~/utils/poolUtils";
+import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 
 import executiveHero from "~/assets/img/people-sitting-in-line-shaking-hands.jpg";
 import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-at-laptop.jpg";
@@ -170,7 +171,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               })}
               links={[
                 {
-                  href: `mailto:gctalent-talentgc@support-soutien.gc.ca?subject=${encodeURIComponent(
+                  href: `mailto:${TALENTSEARCH_SUPPORT_EMAIL}?subject=${encodeURIComponent(
                     intl.formatMessage({
                       defaultMessage:
                         "I'm looking for pre-qualified executive talent",
@@ -238,7 +239,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               })}
               links={[
                 {
-                  href: `mailto:gctalent-talentgc@support-soutien.gc.ca?subject=${encodeURIComponent(
+                  href: `mailto:${TALENTSEARCH_SUPPORT_EMAIL}?subject=${encodeURIComponent(
                     intl.formatMessage({
                       defaultMessage:
                         "I'm interested in gaining hiring experience",
@@ -480,7 +481,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             external
             mode="solid"
             color="primary"
-            href={`mailto:gctalent-talentgc@support-soutien.gc.ca?subject=${encodeURIComponent(
+            href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}?subject=${encodeURIComponent(
               intl.formatMessage({
                 defaultMessage: "EXposition",
                 id: "vPPz4w",
