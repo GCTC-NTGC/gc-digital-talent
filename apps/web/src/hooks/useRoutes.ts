@@ -66,6 +66,8 @@ const getRoutes = (lang: Locales) => {
     createAccount: () => path.join(baseUrl, "create-account"),
     accessibility: () => path.join(baseUrl, "accessibility-statement"),
     directive: () => path.join(baseUrl, "directive-on-digital-talent"),
+    manager: () => path.join(baseUrl, "manager"),
+    executive: () => path.join(baseUrl, "executive"),
 
     // Admin
     admin: () => adminUrl,

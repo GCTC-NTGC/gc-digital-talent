@@ -18,3 +18,17 @@ Assist reviewers with steps they can take to test that the PR does what it says 
 ## 📸 Screenshot
 
 Add a screenshot (if possible).
+
+## 🚚 Deployment
+
+Add any additional details that are required for deploying the application.
+
+Examples of when this is required include:
+
+- re-running database seeders
+- environment variable changes
+
+> **Notes**
+>
+> - Remove deployment section if no steps are needed
+> - Add [deployment label](https://github.com/GCTC-NTGC/gc-digital-talent/labels/deployment) to the linked issue if deployment steps are needed
