@@ -17,7 +17,10 @@ use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Notifications\Notifiable;
+use Nuwave\Lighthouse\Exceptions\ValidationException;
+use Throwable;
 
 /**
  * Class User
@@ -228,6 +231,50 @@ class User extends Model implements Authenticatable, LaratrustUser
     protected static function boot()
     {
         parent::boot();
+
+        static::deleting(function (User $user) {
+            // Cascade delete to child models
+            foreach ($user->poolCandidates as $candidate) {
+                $candidate->delete();
+            }
+            foreach ($user->experiences as $experience) {
+                $experience->delete();
+            }
+
+            // Modify the email to allow it to be used for another user
+            $newEmail = $user->email . "-deleted-at-" . Carbon::now()->format('Y-m-d');
+            $user->update(['email' => $newEmail]);
+        });
+
+        static::restoring(function (User $user) {
+            // Cascade restore to child models
+            foreach ($user->poolCandidates()->withTrashed()->get() as $candidate) {
+                $candidate->restore();
+            }
+            foreach ($user->awardExperiences()->withTrashed()->get() as $experience) {
+                $experience->restore();
+            }
+            foreach ($user->communityExperiences()->withTrashed()->get() as $experience) {
+                $experience->restore();
+            }
+            foreach ($user->educationExperiences()->withTrashed()->get() as $experience) {
+                $experience->restore();
+            }
+            foreach ($user->personalExperiences()->withTrashed()->get() as $experience) {
+                $experience->restore();
+            }
+            foreach ($user->workExperiences()->withTrashed()->get() as $experience) {
+                $experience->restore();
+            }
+
+            // Remove the deleted-at text from the end of the email
+            $newEmail = substr($user->email, 0, -22);
+            // try {
+            $user->update(['email' => $newEmail]);
+            // } catch (Throwable $e) {
+            //     throw new Exception("Email would be duplicated");
+            // }
+        });
     }
 
     // Search filters

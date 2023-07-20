@@ -116,6 +116,7 @@ type AwardExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 input AwardExperienceHasMany {
@@ -213,6 +214,7 @@ type CommunityExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 input CommunityExperienceHasMany {
@@ -407,6 +409,7 @@ type EducationExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 input EducationExperienceHasMany {
@@ -487,6 +490,7 @@ interface Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 type ExperienceSkillRecord {
@@ -592,6 +596,7 @@ type Mutation {
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
+  restoreUser(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
@@ -763,6 +768,7 @@ type PersonalExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 input PersonalExperienceHasMany {
@@ -828,6 +834,7 @@ type PoolCandidate {
   archivedAt: DateTime
   submittedAt: DateTime
   suspendedAt: DateTime
+  deletedDate: DateTime
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
@@ -1011,7 +1018,12 @@ enum PublishingGroup {
 
 type Query {
   me: User
-  user(id: UUID!): User
+  user(
+    id: UUID!
+
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): User
   users: [User]!
   applicant(id: UUID!): Applicant
   applicants(includeIds: [ID]!): [Applicant]!
@@ -1543,6 +1555,7 @@ type User {
   legacyRoles: [LegacyRole]
   createdDate: DateTime
   updatedDate: DateTime
+  deletedDate: DateTime
   firstName: String
   lastName: String
   email: Email
@@ -1584,13 +1597,34 @@ type User {
   expectedClassifications: [Classification]
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
-  poolCandidates: [PoolCandidate]
-  experiences: [Experience]
-  awardExperiences: [AwardExperience]
-  communityExperiences: [CommunityExperience]
-  educationExperiences: [EducationExperience]
-  personalExperiences: [PersonalExperience]
-  workExperiences: [WorkExperience]
+  poolCandidates(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): [PoolCandidate]
+  experiences(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): [Experience]
+  awardExperiences(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): [AwardExperience]
+  communityExperiences(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): [CommunityExperience]
+  educationExperiences(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): [EducationExperience]
+  personalExperiences(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): [PersonalExperience]
+  workExperiences(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): [WorkExperience]
   pools: [Pool] @deprecated(reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead.")
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
@@ -1688,6 +1722,7 @@ type WorkExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 input WorkExperienceHasMany {
