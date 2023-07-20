@@ -48,7 +48,7 @@
     "json-stable-stringify": "^1.0.2",
     "react": "^18.2.0",
     "react-intl": "^6.4.4",
-    "react-router-dom": "^6.14.1",
+    "react-router-dom": "^6.14.2",
     "rimraf": "^5.0.1",
     "tsconfig": "*",
     "tsup": "^7.1.0",
