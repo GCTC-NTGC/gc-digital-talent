@@ -39,7 +39,6 @@ query ApplicantInformation {
   me {
     id
     sub
-    legacyRoles
     firstName
     lastName
     email
