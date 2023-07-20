@@ -740,6 +740,10 @@
     "defaultMessage": "Effacer votre sélection",
     "description": "Button text to reset the combobox input"
   },
+  "U4Gfow": {
+    "defaultMessage": "Prairies (Alb., Sask., Man.)",
+    "description": "The work region of Canada described as Prairies."
+  },
   "UCGAzS": {
     "defaultMessage": "S.O.",
     "description": "displayed when localized string not available"
@@ -920,6 +924,10 @@
     "defaultMessage": "Terminé avec succès (aucun titre de compétence)",
     "description": "Successful Completion with no credentials for education status input"
   },
+  "c/o/E4": {
+    "defaultMessage": "Région de la capitale nationale (Ottawa/Gatineau)",
+    "description": "The work region of Canada described as National Capital."
+  },
   "cCWdDX": {
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
     "description": "Button text to expand truncated text to view all contents"
@@ -1019,6 +1027,10 @@
   "iSfiWx": {
     "defaultMessage": "Année",
     "description": "Label for a year input field"
+  },
+  "iUCkxX": {
+    "defaultMessage": "Ontario (à l'exclusion de la région d'Ottawa)",
+    "description": "The work region of Canada described as Ontario, excluding Ottawa."
   },
   "iYNLo1": {
     "defaultMessage": "e suis un <strong>membre actif </strong> des Forces armées canadiennes.",
@@ -1378,6 +1390,10 @@
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler sur appel 24/7.",
     "description": "The operational requirement described as 24/7 on-call."
   },
+  "vDulgp": {
+    "defaultMessage": "Québec (à l'exclusion de la région de Gatineau)",
+    "description": "The work region of Canada described as Quebec, excluding Gatineau."
+  },
   "vGENdP": {
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
@@ -1405,6 +1421,10 @@
   "w2tWfH": {
     "defaultMessage": "Un champ obligatoire est vide : Titres des volets/emplois",
     "description": "Error message that the pool advertisement must have a stream."
+  },
+  "w4vHfG": {
+    "defaultMessage": "Nord (Nu., T.N.-O., Yn)",
+    "description": "The work region of Canada described as North."
   },
   "wCft6M": {
     "defaultMessage": "Colombie Britannique",
@@ -1465,6 +1485,10 @@
   "y5u8P0": {
     "defaultMessage": "En cours d’évaluation",
     "description": "The pool candidate's status is Under Assessment."
+  },
+  "yBi2pM": {
+    "defaultMessage": "Atlantique (N.-B., N.-É., Î.-P.-É. et T.-N.-L)",
+    "description": "The work region of Canada described as Atlantic."
   },
   "yHeFkO": {
     "defaultMessage": "Janvier",
