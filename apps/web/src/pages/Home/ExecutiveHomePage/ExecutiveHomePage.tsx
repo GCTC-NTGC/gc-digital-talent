@@ -329,8 +329,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
         <Heading level="h3">
           {intl.formatMessage({
             defaultMessage: "Who is EXposition for?",
-            id: "VKE4nf",
-            description: "Heading for exposition eligibility",
+            id: "XoGKAf",
+            description: "Heading for EXposition eligibility",
           })}
         </Heading>
         <p data-h2-margin="base(x1 0)">
@@ -353,8 +353,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
           {intl.formatMessage({
             defaultMessage:
               "Learn more about our 4 services and discover how we can help you achieve your goals!",
-            id: "02DYRh",
-            description: "Heading for exposition services",
+            id: "C+Je0f",
+            description: "Heading for EXposition services",
           })}
         </Heading>
         <Accordion.Root
