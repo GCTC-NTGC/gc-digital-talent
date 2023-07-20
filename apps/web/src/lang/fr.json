@@ -3788,6 +3788,10 @@
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
     "description": "List item note 2 for the application review page."
   },
+  "Pe1kas": {
+    "defaultMessage": "Notes sur les demandes",
+    "description": "Label displayed on the search request form request notes field."
+  },
   "Pf+PA/": {
     "defaultMessage": "Préférences de travail",
     "description": "Title of the Work Location link section"
@@ -4575,6 +4579,10 @@
   "ViNcRW": {
     "defaultMessage": "Sélectionnez une langue",
     "description": "Placeholder displayed on the About Me form preferred interview language"
+  },
+  "VkBcGJ": {
+    "defaultMessage": "Ces notes sont accessibles à tous les gestionnaires de ce bassin, mais pas aux candidats..",
+    "description": "Description for the notes about this request section of the single search request view."
   },
   "VlI1K4": {
     "defaultMessage": "Tous les utilisateurs",
@@ -7407,6 +7415,10 @@
   "pe5WkF": {
     "defaultMessage": "Courriel du propriétaire",
     "description": "Title displayed for the Pool table Owner Email column"
+  },
+  "peTSHR": {
+    "defaultMessage": "Notes sur cette demande",
+    "description": "Heading for the notes about this request section of the single search request view."
   },
   "pg1S01": {
     "defaultMessage": "Sauter la liste des compétences.",
