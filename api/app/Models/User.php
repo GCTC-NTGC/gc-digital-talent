@@ -178,6 +178,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             ) or
             is_null($this->attributes['is_gov_employee']) or
             is_null($this->attributes['has_priority_entitlement']) or
+            ($this->attributes['has_priority_entitlement'] && is_null($this->attributes["priority_number"])) or
             is_null($this->attributes['location_preferences']) or
             empty($this->attributes['location_preferences']) or
             empty($this->attributes['position_duration'])  or
