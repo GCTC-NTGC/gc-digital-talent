@@ -53,7 +53,7 @@
     "@types/lodash": "4.14.195",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
-    "eslint": "^8.44.0",
+    "eslint": "^8.45.0",
     "eslint-config-custom": "*",
     "jest": "^29.6.1",
     "jest-environment-jsdom": "^29.6.1",
