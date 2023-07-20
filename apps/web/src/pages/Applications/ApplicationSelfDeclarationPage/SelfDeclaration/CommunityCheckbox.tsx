@@ -37,7 +37,7 @@ const CommunityCheckbox = ({
       data-h2-padding="base(x1)"
       data-h2-cursor="base(pointer)"
     >
-      <CommunityIcon community={community} value={value} />
+      <CommunityIcon community={community} values={[value]} />
       <span
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"

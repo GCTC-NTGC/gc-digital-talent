@@ -116,6 +116,10 @@ query getPool($id: UUID!) {
       id
       name
       contactEmail
+      displayName {
+        en
+        fr
+      }
     }
   }
 }
