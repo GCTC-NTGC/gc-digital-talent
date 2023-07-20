@@ -61,6 +61,7 @@ recruitments
 recrutementgiti
 résumé
 rolepermission
+roundtable
 skillset
 spinbutton
 subcomponents

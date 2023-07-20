@@ -352,8 +352,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
         <Heading level="h3">
           {intl.formatMessage({
             defaultMessage:
-              "Learn more about our 4 services and discover how we can help you achieve your goals!",
-            id: "C+Je0f",
+              "Learn more about our four services and discover how we can help you achieve your goals!",
+            id: "ZaCyXP",
             description: "Heading for EXposition services",
           })}
         </Heading>
@@ -404,8 +404,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
             >
               {intl.formatMessage({
                 defaultMessage:
-                  "Identification of digital talents - Talent management round table discussions",
-                id: "BJFLx/",
+                  "Identification of digital talents - Talent management roundtable discussions",
+                id: "vJ/8Mk",
                 description:
                   "Button text to open section describing identification of digital talents",
               })}
@@ -414,8 +414,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Across the years, hundreds of nominees at different groups and levels (EXposition focus on EX while EXtend EXposition focus on the non-EX groups and levels) have been brought forward and their nominations are compiled in the Digital Talent Management Repository. This Talent Management repository is the primary data source when organizations require to obtain Referrals throughout the year.",
-                  id: "M9pEkI",
+                    "Over the years, hundreds of nominees at different groups and levels (EXposition focus on EX while EXtend EXposition focus on the non-EX groups and levels) have been brought forward and their nominations are compiled in the Digital Talent Management Repository. This talent management repository is the primary data source when organizations are required to obtain referrals throughout the year.",
+                  id: "0prZY7",
                   description: "Description of identifying digital talents",
                 })}
               </p>
@@ -431,8 +431,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
               data-h2-padding="base(x.5 x.25)"
             >
               {intl.formatMessage({
-                defaultMessage: "Referrals Services",
-                id: "AQCee5",
+                defaultMessage: "Referrals services",
+                id: "9Vzxgu",
                 description:
                   "Button text to open section describing referrals services",
               })}
@@ -441,8 +441,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Completed 42 placements of C-Suite and other leadership positions this fiscal year promoting digital talent management which doubled the placements in 2022-2023 previous fiscal year. Note that the digital talents are identified at the interdepartmental annual talent management roundtable discussions.",
-                  id: "dc6gqR",
+                    "Completed 42 placements of C-suite and other leadership positions this fiscal year promoting digital talent management which doubled the placements in 2022-2023 previous fiscal year. Note that the digital talents are identified at the interdepartmental annual talent management roundtable discussions.",
+                  id: "lKoKu0",
                   description: "Description of executive referral services",
                 })}
               </p>
@@ -468,8 +468,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Launched the third cohort of the Digital Community Mentorship Program for members of an Employment Equity groups.",
-                  id: "83ynuC",
+                    "Launched the third cohort of the Digital Community Mentorship Program for members of a Employment Equity groups.",
+                  id: "VMXY2I",
                   description: "Description of the mentorship program",
                 })}
               </p>
