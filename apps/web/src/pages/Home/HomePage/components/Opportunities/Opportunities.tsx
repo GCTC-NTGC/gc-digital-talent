@@ -1,35 +1,28 @@
-// Vendor dependencies
 import React from "react";
 import { useIntl } from "react-intl";
-import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
+import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 
-// Local assets
 import { Heading, CardFlat } from "@gc-digital-talent/ui";
-import { useLocale } from "@gc-digital-talent/i18n";
-import { useAuthentication } from "@gc-digital-talent/auth";
 
 import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 
-// Create the page component
 const Opportunities = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { locale } = useLocale();
-  const { loggedIn } = useAuthentication();
 
   return (
     <SkewedContainer>
       <Heading
         level="h2"
-        Icon={MagnifyingGlassCircleIcon}
-        color="quaternary"
+        Icon={SparklesIcon}
+        color="primary"
         data-h2-margin="base(0, 0, x0.5, 0)"
       >
         {intl.formatMessage({
-          defaultMessage: "Ongoing recruitment",
-          id: "nEMeaQ",
+          defaultMessage: "Build your digital career",
+          id: "KS1jGw",
           description: "Heading for the recruitment opportunities",
         })}
       </Heading>
@@ -82,89 +75,74 @@ const Opportunities = () => {
         <CardFlat
           color="secondary"
           title={intl.formatMessage({
-            defaultMessage: "IT Apprenticeship Program for Indigenous Peoples",
-            id: "4N/PxH",
-            description:
-              "Heading for the IT Apprenticeship Program for Indigenous Peoples on home page",
+            defaultMessage: "Managers community",
+            id: "g7HWuc",
+            description: "Heading for the Managers community page",
           })}
           links={[
             {
-              href: `/${locale}/indigenous-it-apprentice`,
+              href: paths.manager(),
               mode: "solid",
               label: intl.formatMessage({
                 defaultMessage:
-                  "Apply<hidden> to the IT Apprenticeship Program for Indigenous Peoples</hidden> now",
-                description:
-                  "Link text to apply for the IT Apprenticeship Program for Indigenous Peoples",
-                id: "Ew/GPP",
+                  "Learn more<hidden> about the managers community</hidden>",
+                description: "Link text to the managers community",
+                id: "4V/DsD",
               }),
             },
           ]}
         >
-          <p>
+          <p data-h2-margin-bottom="base(x1)">
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Designed by the Indigenous community for the Indigenous community, this program recruits entry-level applicants for learning and development <abbreviation>IT</abbreviation> opportunities across government.",
-                id: "szt3yx",
+                  "Find pre-qualified talent for your team or plan your own next career move.",
+                id: "e6hj69",
                 description:
-                  "Description for the IT Apprenticeship Program for Indigenous Peoples on home page",
+                  "Paragraph one, description of the managers community",
               },
               {
                 abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
               },
             )}
           </p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Want to do more? Gain management experience on a hiring panel or try leading your own recruitment process.",
+              id: "NV+5pq",
+              description:
+                "Paragraph two, description of the managers community",
+            })}
+          </p>
         </CardFlat>
         <CardFlat
           color="tertiary"
           title={intl.formatMessage({
-            defaultMessage: "Executives in digital government",
-            id: "9KOwXq",
+            defaultMessage: "Executive community",
+            id: "/zVZCP",
             description: "Heading for executive jobs in government",
           })}
           links={[
             {
-              href: paths.myProfile(),
+              href: paths.executive(),
               mode: "solid",
-              label: loggedIn
-                ? intl.formatMessage({
-                    defaultMessage: "Get ready by updating your profile",
-                    id: "OMDX09",
-                    description:
-                      "Link text to update your profile for executive jobs in government",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Get ready by creating a profile",
-                    id: "qLYONf",
-                    description:
-                      "Link text to create a profile for executive jobs in government",
-                  }),
+              label: intl.formatMessage({
+                defaultMessage:
+                  "Learn more<hidden> about the executive community</hidden>",
+                id: "K9YLac",
+                description: "Link text to the executive community",
+              }),
             },
           ]}
         >
           <p>
             {intl.formatMessage({
-              defaultMessage: "Coming soon",
-              id: "mI6AeU",
-              description:
-                "Text displayed for executive jobs on homepage, indicating it is not ready",
+              defaultMessage:
+                "From entry-level executive roles to CIO opportunities across the Government of Canada, this is the place to come if you're ready to take your next step in digital leadership.",
+              id: "xnNnwu",
+              description: "Description of the executive community",
             })}
-          </p>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "From entry-level executives to <cioAbbreviation>CIO</cioAbbreviation> opportunities across the <gcAbbreviation>GC</gcAbbreviation>, this is the place to come if you're ready to take on a digital leadership role making a difference for Canadians.",
-                id: "YEarCb",
-                description: "Description for executive jobs in government",
-              },
-              {
-                cioAbbreviation: (text: React.ReactNode) =>
-                  wrapAbbr(text, intl, "Chief Information Officer of Canada"),
-                gcAbbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-              },
-            )}
           </p>
         </CardFlat>
       </div>
@@ -172,5 +150,4 @@ const Opportunities = () => {
   );
 };
 
-// Export the component
 export default Opportunities;

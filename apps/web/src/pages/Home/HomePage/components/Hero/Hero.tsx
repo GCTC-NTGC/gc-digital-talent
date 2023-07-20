@@ -88,8 +88,8 @@ const Hero = ({ defaultImage }: HeroProps) => {
         {intl.formatMessage(
           {
             defaultMessage:
-              "Whether you're thinking about joining government or already an employee, hoping to hire or considering an executive role, this is the place to come to be part of the <abbreviation>GC</abbreviation> digital community.",
-            id: "58Z5Ld",
+              "Whether you're thinking about joining government or already an employee, hoping to hire or considering a new role, this is the place to come to be part of the GC digital community.",
+            id: "DzCUmx",
             description: "Description of the application on the homepage",
           },
           {
