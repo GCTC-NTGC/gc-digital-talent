@@ -12,6 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // main table for digital contracting questionnaires
         Schema::create('digital_contracting_questionnaires', function (Blueprint $table) {
             $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->timestamps();
@@ -61,7 +62,7 @@ return new class extends Migration
             $table->string('requirement_work_location_specific')->nullable();
             $table->string('requirement_others')->default(new Expression('\'[]\'::jsonb'));
             $table->string('requirement_other_other')->nullable();
-            $table->string('has_personnel_requirements')->nullable();
+            $table->boolean('has_personnel_requirements')->nullable();
             $table->jsonb('personnel_requirements')->default(new Expression('\'[]\'::jsonb'));
             $table->string('is_technological_change')->nullable();
             $table->string('has_impact_on_your_department')->nullable();
@@ -80,6 +81,41 @@ return new class extends Migration
             $table->string('employees_have_access_to_knowledge')->nullable();
             $table->string('ocio_engaged_for_training')->nullable();
         });
+
+        // questionnaires one-to-many personnel requirements
+        Schema::create('digital_contracting_personnel_requirements', function (Blueprint $table) {
+            $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
+            $table->timestamps();
+            $table->uuid('digital_contracting_questionnaire_id');
+            $table->foreign('digital_contracting_questionnaire_id')
+                ->references('id')->on('digital_contracting_questionnaires')
+                ->onUpdate('cascade')
+                ->onDelete('cascade'); // requirement doesn't exist apart from questionnaire
+            $table->string('resource_type')->nullable();
+            $table->string('language')->nullable();
+            $table->string('language_other')->nullable();
+            $table->string('security')->nullable();
+            $table->string('security_other')->nullable();
+            $table->string('telework')->nullable();
+            $table->integer('quantity')->nullable();
+        });
+
+        // personnel requirements many-to-many skills
+        Schema::create('digital_contracting_personnel_requirement_skill', function (Blueprint $table) {
+            $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
+            $table->uuid('digital_contracting_personnel_requirement_id');
+            $table->foreign('digital_contracting_personnel_requirement_id')
+                ->references('id')->on('digital_contracting_personnel_requirements')
+                ->onUpdate('cascade')
+                ->onDelete('cascade'); // skill requirement doesn't exist apart from parent requirement
+            $table->uuid('skill_id')->nullable();
+            $table->foreign('skill_id')
+                ->references('id')->on('skills')
+                ->onUpdate('cascade')
+                ->onDelete('cascade'); // skill requirement doesn't exist apart from parent skill
+            $table->unique(['digital_contracting_personnel_requirement_id', 'skill_id'], 'uq_personnel_requirement_skill'); // A requirement can only specify a skill once
+            $table->string('level')->nullable();
+        });
     }
 
     /**
@@ -87,6 +123,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('digital_contracting_personnel_requirement_skill');
+        Schema::dropIfExists('digital_contracting_personnel_requirements');
         Schema::dropIfExists('digital_contracting_questionnaires');
     }
 };

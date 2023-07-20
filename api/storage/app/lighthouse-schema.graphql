@@ -405,6 +405,22 @@ input DepartmentBelongsToMany {
   sync: [ID!]
 }
 
+type DigitalContractingPersonnelRequirement {
+  resourceType: String
+  skillRequirements: [DigitalContractingPersonnelRequirementSkill!]
+  language: PersonnelLanguage
+  languageOther: String
+  security: PersonnelScreeningLevel
+  securityOther: String
+  telework: PersonnelTeleworkOption
+  quantity: Int
+}
+
+type DigitalContractingPersonnelRequirementSkill {
+  skill: Skill
+  level: PersonnelSkillExpertiseLevel
+}
+
 type DigitalContractingQuestionnaire {
   id: UUID!
   readPreamble: Boolean
@@ -417,7 +433,7 @@ type DigitalContractingQuestionnaire {
   financialAuthorityName: String
   financialAuthorityJobTitle: String
   financialAuthorityEmail: String
-  authorityInvolved: [ContractAuthority!]
+  authoritiesInvolved: [ContractAuthority!]
   authorityInvolvedOther: String
   contractBehalfOfGc: YesNoUnsure
   contractServiceOfGc: YesNoUnsure
@@ -444,16 +460,16 @@ type DigitalContractingQuestionnaire {
   workRequirementDescription: String
   qualificationRequirement: String
   requirementAccessToSecure: YesNoUnsure
-  requirementScreeningLevel: [PersonnelScreeningLevel!]
+  requirementScreeningLevels: [PersonnelScreeningLevel!]
   requirementScreeningLevelOther: String
-  requirementWorkLanguage: [PersonnelLanguage!]
+  requirementWorkLanguages: [PersonnelLanguage!]
   requirementWorkLanguageOther: String
-  requirementWorkLocation: [PersonnelWorkLocation!]
+  requirementWorkLocations: [PersonnelWorkLocation!]
   requirementWorkLocationSpecific: String
-  requirementOther: [PersonnelOtherRequirements!]
+  requirementOthers: [PersonnelOtherRequirement!]
   requirementOtherOther: String
   hasPersonnelRequirements: YesNo
-  personnelRequirements: [PersonnelRequirement!]
+  personnelRequirements: [DigitalContractingPersonnelRequirement!]
   isTechnologicalChange: YesNo
   hasImpactOnYourDepartment: YesNo
   hasImmediateImpactOnOtherDepartments: YesNo
@@ -866,23 +882,12 @@ enum PersonnelLanguage {
   OTHER
 }
 
-enum PersonnelOtherRequirements {
+enum PersonnelOtherRequirement {
   SHIFT_WORK
   ON_CALL_24_7
   OVERTIME_SHORT_NOTICE
   AS_NEEDED
   OTHER
-}
-
-type PersonnelRequirement {
-  resourceType: String
-  skillRequirements: [PersonnelSkillRequirement!]
-  language: PersonnelLanguage
-  languageOther: String
-  security: PersonnelScreeningLevel
-  securityOther: String
-  telework: PersonnelTeleworkOption
-  quantity: Int
 }
 
 enum PersonnelScreeningLevel {
@@ -893,9 +898,11 @@ enum PersonnelScreeningLevel {
   OTHER
 }
 
-type PersonnelSkillRequirement {
-  skill: Skill
-  level: SkillExpertiseLevel
+enum PersonnelSkillExpertiseLevel {
+  BEGINNER
+  INTERMEDIATE
+  EXPERT
+  LEAD
 }
 
 enum PersonnelTeleworkOption {
@@ -1284,13 +1291,6 @@ input SkillBelongsToMany {
 enum SkillCategory {
   TECHNICAL
   BEHAVIOURAL
-}
-
-enum SkillExpertiseLevel {
-  BEGINNER
-  INTERMEDIATE
-  EXPERT
-  LEAD
 }
 
 type SkillFamily {

@@ -96,7 +96,7 @@ enum PersonnelOtherRequirement {
   OTHER
 }
 
-enum SkillExpertiseLevel {
+enum PersonnelSkillExpertiseLevel {
   BEGINNER
   INTERMEDIATE
   EXPERT
@@ -129,18 +129,18 @@ enum ContractingRationale {
   OTHER
 }
 
-type PersonnelSkillRequirement {
+type DigitalContractingPersonnelRequirementSkill {
   skill: Skill
-  level: SkillExpertiseLevel
+  level: PersonnelSkillExpertiseLevel
 }
 
-type PersonnelRequirement {
-  resourceType: String
-  skillRequirements: [PersonnelSkillRequirement!]
+type DigitalContractingPersonnelRequirement {
+  resourceType: String @rename(attribute: "resource_type")
+  skillRequirements: [DigitalContractingPersonnelRequirementSkill!]
   language: PersonnelLanguage
-  languageOther: String
+  languageOther: String @rename(attribute: "language_other")
   security: PersonnelScreeningLevel
-  securityOther: String
+  securityOther: String @rename(attribute: "security_other")
   telework: PersonnelTeleworkOption
   quantity: Int
 }
@@ -213,7 +213,7 @@ type DigitalContractingQuestionnaire {
     @rename(attribute: "requirement_others")
   requirementOtherOther: String @rename(attribute: "requirement_other")
   hasPersonnelRequirements: YesNo @rename(attribute: "requirement_other_other")
-  personnelRequirements: [PersonnelRequirement!]
+  personnelRequirements: [DigitalContractingPersonnelRequirement!]
     @rename(attribute: "has_personnel_requirements")
   isTechnologicalChange: YesNo @rename(attribute: "personnel_requirements")
   hasImpactOnYourDepartment: YesNo @rename(attribute: "is_technological_change")
