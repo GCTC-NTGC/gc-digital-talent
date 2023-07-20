@@ -268,7 +268,6 @@ input CreateTeamInput {
 """When creating a User, name is required."""
 input CreateUserInput {
   sub: String
-  legacyRoles: [LegacyRole] = []
   firstName: String!
   lastName: String!
   email: Email
@@ -505,14 +504,6 @@ enum LanguageAbility {
   ENGLISH
   FRENCH
   BILINGUAL
-}
-
-enum LegacyRole {
-  """A user who has administrator privileges"""
-  ADMIN
-
-  """A user who has a profile to apply to hiring pools"""
-  APPLICANT
 }
 
 type LocalizedString {
@@ -1388,7 +1379,6 @@ input UpdateTeamInput {
 input UpdateUserAsAdminInput {
   id: ID
   sub: String
-  legacyRoles: [LegacyRole]
   email: Email
   firstName: String
   lastName: String
@@ -1487,7 +1477,6 @@ input UpdateUserAsUserInput {
 type User {
   id: ID!
   sub: String
-  legacyRoles: [LegacyRole]
   createdDate: DateTime
   updatedDate: DateTime
   firstName: String
