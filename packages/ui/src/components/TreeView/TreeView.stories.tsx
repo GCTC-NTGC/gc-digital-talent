@@ -6,7 +6,7 @@ import Button from "../Button";
 import Accordion from "../Accordion";
 import Card from "../Card";
 import Alert from "../Alert";
-import { StandardHeader } from "../Accordion/StandardHeader";
+import StandardHeader from "../Accordion/StandardHeader";
 
 faker.seed(0);
 
