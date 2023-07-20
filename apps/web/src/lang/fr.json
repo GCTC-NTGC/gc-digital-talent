@@ -312,6 +312,10 @@
     "defaultMessage": "Activités d'infrastructure de <abbreviation>TI</abbreviation>",
     "description": "work stream example"
   },
+  "02DYRh": {
+    "defaultMessage": "Découvrez nos quatre services et la manière dont nous pouvons vous aider à atteindre vos objectifs!",
+    "description": "Heading for exposition services"
+  },
   "02aheT": {
     "defaultMessage": "J’ai découvert le Programme d’apprentissage en TI pour les personnes autochtones sur talent.canada.ca et j’aimerais en savoir davantage sur la façon dont je peux embaucher des stagiaires pour mon équipe.",
     "description": "Body of email for info on IT Apprenticeship Program for Indigenous Peoples"
@@ -483,6 +487,10 @@
   "1Qw7ZV": {
     "defaultMessage": "Erreur : Vous n’avez pas réussi à ajouter des renseignements sur les compétences",
     "description": "Message displayed to user after skill details fails to be created."
+  },
+  "1R3SYH": {
+    "defaultMessage": "Trouver des cadres talentueux préqualifiés",
+    "description": "Heading for the digital government executive talent search"
   },
   "1UYQaC": {
     "defaultMessage": "Date du début",
@@ -966,6 +974,10 @@
     "defaultMessage": "Vous pouvez découvrir vos niveaux à l’aide d’une <selfAssessmentLink>auto-évaluation des aptitudes linguistiques</selfAssessmentLink>.",
     "description": "Text including link to language proficiency evaluation in language information form"
   },
+  "4iWzFv": {
+    "defaultMessage": "Consultez les processus de recrutement de gestionnaires les plus récents afin de connaître les perspectives spécifiques ou posez votre candidature à un recrutement en cours dans l’un des domaines d’activité génériques de TI.Consultez régulièrement le site pour connaître les nouvelles opportunités.",
+    "description": "Description for browsing executive recruitment processes"
+  },
   "4ii2WZ": {
     "defaultMessage": "Révisez votre candidature et envoyez-la!",
     "description": "Subtitle for the application review page."
@@ -1081,6 +1093,10 @@
   "5YzNJj": {
     "defaultMessage": "IT-04: Conseiller principal ou Gestionnaire (101 000 $ à 126 000 $)",
     "description": "IT-04 classification label including titles and salaries"
+  },
+  "5bdLGy": {
+    "defaultMessage": "Ce que nous pouvons faire pour vous",
+    "description": "Heading for the executive opportunities"
   },
   "5d0vbr": {
     "defaultMessage": "<strong>Oui</strong>, je suis un employé du gouvernement du Canada.",
@@ -1422,6 +1438,10 @@
     "defaultMessage": "Erreur : échec de votre suppression des résultats de recherche.",
     "description": "Alert displayed to the user when application card dialog fails."
   },
+  "7tv7ct": {
+    "defaultMessage": "EXposition",
+    "description": "Heading for exposition section on the executive homepage"
+  },
   "7vOa71": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Success message after submission for the application review page."
@@ -1453,6 +1473,10 @@
   "83v9YH": {
     "defaultMessage": "Autochtones",
     "description": "CSV Header, Indigenous column"
+  },
+  "83ynuC": {
+    "defaultMessage": "Lancement de la troisième cohorte du programme de mentorat de la collectivité numérique destiné aux membres des groupes d’équité en matière d’emploi.",
+    "description": "Description of the mentorship program"
   },
   "84rSVg": {
     "defaultMessage": "Permettre une croissance dans le cadre de sa portée de recrutement, en ciblant d’autres domaines professionnels à l’avenir.",
@@ -1730,6 +1754,10 @@
     "defaultMessage": "J'ai compris, allons-y!",
     "description": "Link text to continue the application process"
   },
+  "AQCee5": {
+    "defaultMessage": "Services d’orientation",
+    "description": "Button text to open section describing referrals services"
+  },
   "AR+sqf": {
     "defaultMessage": "Gestion de bases de données de la TI",
     "description": "Label for the 'database management' IT work stream"
@@ -1842,6 +1870,10 @@
     "defaultMessage": "Exigences en matière d’études pour le poste",
     "description": "Heading for education requirement filter of the search form."
   },
+  "AzCfxE": {
+    "defaultMessage": "Trouvez des offres d’emploi de cadres numériques au sein du gouvernement du Canada et posez votre candidature",
+    "description": "Subtitle for the executive homepage"
+  },
   "B/LE8S": {
     "defaultMessage": "Cette information est utilisée à des fins de gestion des comptes et de communication, elle n'a aucune incidence sur la correspondance des tâches ou les recommandations d'emploi.",
     "description": "Description text for the Profile Form wrapper in the About Me form"
@@ -1870,9 +1902,17 @@
     "defaultMessage": "la conception de mises en page et d’éléments interactifs accessibles",
     "description": "List item one, things designers consider for accessibility"
   },
+  "BGC19+": {
+    "defaultMessage": "Je suis à la recherche de cadres préqualifiés",
+    "description": "Subject line for contact email to find pre-qualified executive talent"
+  },
   "BIgaKT": {
     "defaultMessage": "Métis",
     "description": "Trigger text for Métis tab"
+  },
+  "BJFLx/": {
+    "defaultMessage": "Identification des talents numériques – Tables rondes sur la gestion des talents",
+    "description": "Button text to open section describing identification of digital talents"
   },
   "BLg0f4": {
     "defaultMessage": "Contact et hébergement",
@@ -2090,6 +2130,10 @@
     "defaultMessage": "Langue de communication préférée",
     "description": "Title displayed for the User table Preferred Communication Language column."
   },
+  "Cia2li": {
+    "defaultMessage": "Des nouvelles opportunités sont à venir!",
+    "description": "Heading for message when there are no executive opportunities available"
+  },
   "CjkBMT": {
     "defaultMessage": "Téléphone",
     "description": "Label for user table search dropdown (phone)."
@@ -2237,6 +2281,10 @@
   "DrR60L": {
     "defaultMessage": "J'aimerais être recommandé(e) à des emplois aux niveaux suivants :",
     "description": "Legend for role and salary checklist form"
+  },
+  "DsUtfO": {
+    "defaultMessage": "Mise en œuvre de 573 entretiens personnalisés de gestion et d’accompagnement de carrière avec des candidats à l’emploi et des cadres au cours de l’exercice fiscal 2022-2023.",
+    "description": "Description of digital community support"
   },
   "DspBFX": {
     "defaultMessage": "Changer la date",
@@ -2461,6 +2509,10 @@
   "FRcbbi": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
     "description": "Label text for not represented community declaration"
+  },
+  "FS23BP": {
+    "defaultMessage": "Cette plateforme vous permet de postuler à des processus de recrutement qui permettent aux cadres supérieurs et aux équipes de recrutement des RH de vous trouver facilement. Cette page vous offre un aperçu de nos processus de recrutement ouverts. Revenez consulter cette page régulièrement!",
+    "description": "Summary of the platform for executives and opportunities available"
   },
   "FSViGC": {
     "defaultMessage": "Curriculum vitæ et recrutements",
@@ -2689,6 +2741,10 @@
   },
   "GwbTAz": {
     "defaultMessage": "Volets"
+  },
+  "H/aUwM": {
+    "defaultMessage": "Vous êtes un cadre supérieur de la collectivité numérique du GC et vous êtes à la recherche de talents, contactez notre équipe afin d’obtenir des recommandations, une liste de candidats préqualifiés ainsi que leurs profils.",
+    "description": "Description for the digital government executive talent search"
   },
   "H02JZe": {
     "defaultMessage": "Courriel",
@@ -3317,6 +3373,10 @@
     "defaultMessage": "Évaluation bilingue",
     "description": "CSV Header, Bilingual Evaluation column"
   },
+  "M9pEkI": {
+    "defaultMessage": "Au fil des ans, des centaines de candidats de différents groupes et niveaux (le recrutement pour les cadres se concentre sur les cadres tandis que les postes externes se concentrent sur les groupes et niveaux qui n’occupent pas un poste des cadres, qui ont été présentés et dont les nominations sont compilées dans le référentiel de gestion des talents numériques. Tout au long de l’année, le référentiel de gestion des talents constitue la principale source de données lorsque les organisations ont besoin d’obtenir des recommandations.",
+    "description": "Description of identifying digital talents"
+  },
   "M9x5zm": {
     "defaultMessage": "Niveau de la langue seconde (compréhension, écrite, verbale)",
     "description": "Evaluation results for second language, results in that order"
@@ -3376,6 +3436,10 @@
   "MhgtB6": {
     "defaultMessage": "Avant de commencer à décrire votre expérience, nous aimerions d’abord savoir dans quelle catégorie elle se situe. Il y a cinq options parmi lesquelles choisir, vous pouvez ajouter autant d’expériences que vous le souhaitez dans chaque catégorie.",
     "description": "Instructions for the Add Experience dialog"
+  },
+  "Mozx6m": {
+    "defaultMessage": "Communiquez avec nous",
+    "description": "Link text to contact the the team about gaining hiring experience"
   },
   "MsFCeF": {
     "defaultMessage": "Bienvenue à Talents numériques du GC, veuillez vous connecter pour continuer.",
@@ -4216,6 +4280,10 @@
     "defaultMessage": "Déconnexion",
     "description": "Label displayed on the Logout menu item."
   },
+  "TJ+5Xn": {
+    "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez perfectionné vos compétences et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, un profil solide vous préparera pour de nouvelles possibilités.",
+    "description": "Description of how application profiles work for managers."
+  },
   "TLl20s": {
     "defaultMessage": "Créer un nouveau bassin",
     "description": "Label displayed on submit button for new pool form."
@@ -4364,6 +4432,10 @@
     "defaultMessage": "IT-02: Analyste (75 000 $ à 91 000 $)",
     "description": "IT-02 classification label including titles and salaries"
   },
+  "UNMEfB": {
+    "defaultMessage": "Processus de recrutement des cadres",
+    "description": "Heading for the executive opportunities"
+  },
   "UOO1gW": {
     "defaultMessage": "Oui",
     "description": "Message for when a value is true"
@@ -4371,6 +4443,10 @@
   "UOeiIa": {
     "defaultMessage": "Autochtone selon la définition de ce programme",
     "description": "Heading for the definition of Indigenous dialog"
+  },
+  "UPtqUI": {
+    "defaultMessage": "Acquérir de l’expérience en matière d’embauche",
+    "description": "Heading for the direct on digital talent section"
   },
   "UPx6kk": {
     "defaultMessage": "<primary>{title}</primary> à {organization}",
@@ -4495,6 +4571,14 @@
   "VJm1GR": {
     "defaultMessage": "Mise à jour réussie de votre curriculum vitae",
     "description": "Message displayed to users when saving résumé is successful."
+  },
+  "VK/lwK": {
+    "defaultMessage": "Parcourir les offres d’emploi",
+    "description": "Link text for executive jobs in government call to action"
+  },
+  "VKE4nf": {
+    "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
+    "description": "Heading for exposition eligibility"
   },
   "VMhVyJ": {
     "defaultMessage": "Sélectionnez un statut",
@@ -5071,6 +5155,10 @@
     "defaultMessage": "La Directive sur les talents numériques clarifie les exigences de la Politique sur les services et le numérique en ce qui concerne les nominations des DPI et la gestion des talents. L’objectif est de continuer à soutenir les parcours professionnels des cadres, en mettant l’accent sur la prestation de services publics numériques modernes.",
     "description": "The directives digital executive roles and structures component"
   },
+  "ZA20CY": {
+    "defaultMessage": "Tous les cadres n’ont pas eu l’occasion de gérer leurs propres processus de recrutement. Si ce domaine éveille votre intérêt, pensez à acquérir de l’expérience en participant de manière volontaire à une équipe interministérielle responsable du déroulement du processus sur la plateforme.",
+    "description": "Text displayed for gaining hiring experience"
+  },
   "ZCUy93": {
     "defaultMessage": "Erreur : La mise à jour de l’exigence relative aux études a échoué.",
     "description": "Message displayed to user after education requirement fails to be updated."
@@ -5229,10 +5317,6 @@
   "aGaaPi": {
     "defaultMessage": "Femme",
     "description": "CSV Header, Woman column"
-  },
-  "TJ+5Xn": {
-    "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez perfectionné vos compétences et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, un profil solide vous préparera pour de nouvelles possibilités.",
-    "description": "Description of how application profiles work for managers."
   },
   "aLMroa": {
     "defaultMessage": "Niveau 1 : Techniciens",
@@ -5435,6 +5519,10 @@
   "bz6geU": {
     "defaultMessage": "Ce volet comprend des compétences spécialisées en matière de sécurité, axées sur la programmation, l’infrastructure, les applications commerciales et les données.",
     "description": "Title for the 'security' IT work stream"
+  },
+  "c+P41C": {
+    "defaultMessage": "Programme de mentorat de la collectivité numérique",
+    "description": "Button text to open section describing mentorship program"
   },
   "c+QwbR": {
     "defaultMessage": "Questions filtres",
@@ -5664,6 +5752,10 @@
     "defaultMessage": "Modifier - bassin",
     "description": "Page title for the edit pool page"
   },
+  "dc6gqR": {
+    "defaultMessage": "42 postes de cadres supérieurs et autres postes de dirigeants ont été pourvus au cours de cet exercice, ce qui a permis de doubler les affectations réalisées au cours de l’exercice précédent (2022-2023) et de promouvoir la gestion des talents numériques. Veillez à noter que les talents numériques sont ciblés lors des tables rondes annuelles interministérielles sur la gestion des talents.",
+    "description": "Description of executive referral services"
+  },
   "dcV5qH": {
     "defaultMessage": "La <actLink>Loi sur l'équité en matière d'emploi</actLink> est actuellement <reviewLink>en cours de révision</reviewLink>.",
     "description": "Text that appears in Employment equity dialogs explaining the act is under review."
@@ -5687,6 +5779,10 @@
   "dj8GiH": {
     "defaultMessage": "Détails sur le candidat",
     "description": "Page title for the individual user page"
+  },
+  "dk+1RB": {
+    "defaultMessage": "Je souhaite acquérir de l’expérience en matière d’embauche",
+    "description": "Subject line for contact email to gain hiring experience"
   },
   "dkHB8N": {
     "defaultMessage": "Parcourez les emplois",
@@ -5755,6 +5851,10 @@
   "e9fSNq": {
     "defaultMessage": "Avez-vous utilisé certaines techniques ou approches spéciales?",
     "description": "Question 3 for clarifying skill details"
+  },
+  "eAQwAl": {
+    "defaultMessage": "Communiquez avec nous",
+    "description": "Link text for hiring manager call to action"
   },
   "eCK3Ng": {
     "defaultMessage": "Accepter les temporaires",
@@ -6151,6 +6251,10 @@
   "gtLuDM": {
     "defaultMessage": "Projet : {project}",
     "description": "Project Name"
+  },
+  "gtU+9w": {
+    "defaultMessage": "Bienvenue aux cadres",
+    "description": "Page title for the executives homepage"
   },
   "gtns9R": {
     "defaultMessage": "Confirmez que vous avez l’expérience minimale ou une formation équivalente pour le poste.",
@@ -6697,6 +6801,10 @@
     "defaultMessage": "Mise à jour réussie des réponses aux questions filtres!",
     "description": "Message displayed to users when saving screening question responses is successful."
   },
+  "kK1Z9U": {
+    "defaultMessage": "Gérez votre carrière",
+    "description": "Heading for the browse executive jobs section"
+  },
   "kLGIuJ": {
     "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des compétences ayant été sélectionnées",
     "description": "Context for skills selection filter in search form."
@@ -7156,6 +7264,10 @@
     "defaultMessage": "Statut mis à jour avec succès",
     "description": "Toast for successful status update on view-user page"
   },
+  "naE1xF": {
+    "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez la manière dont vous avez développé vos capacités et utilisez votre profil pour postuler à des emplois. Que vous soyez à la recherche d’un emploi ou que vous songiez à l’avenir, un profil solide vous ouvrira la voie vers de nouvelles opportunités d’emploi.",
+    "description": "Description of how application profiles works for managers/executives."
+  },
   "nfZQ89": {
     "defaultMessage": "Membres",
     "description": "Breadcrumb title for the team members page link."
@@ -7260,6 +7372,10 @@
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
     "description": "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant"
   },
+  "oQR/Ac": {
+    "defaultMessage": "Si vous avez répondu par l’affirmative à une ou plusieurs des questions ci-dessus, nous avons la solution que vous recherchez. Depuis 2019, nous avons établi une relation de confiance avec des centaines de dirigeants numériques de dizaines d’organisations à travers le GC afin d’aider les employés talentueux à optimiser leurs capacités, à atteindre tout leur potentiel, à acquérir de nouvelles expériences et à participer dans le processus de planification de la relève.",
+    "description": "Paragraph two, about who is eligible for exposition"
+  },
   "oQnVSn": {
     "defaultMessage": "Nom de famille",
     "description": "Label displayed on the user form last name field."
@@ -7356,6 +7472,10 @@
     "defaultMessage": "Bravo, c’est réussi! En signant, vous confirmez ce qui suit :",
     "description": "Instructions for sign and submit section of application review page."
   },
+  "pHIcBU": {
+    "defaultMessage": "Soutien à la collectivité numérique",
+    "description": "Button text to open section describing digital community support"
+  },
   "pHTwBd": {
     "defaultMessage": "Maintenant, relions vos expériences aux compétences qui sont critiques pour ce rôle. Il s’agit de l’étape la plus importante du processus de dotation. Tout comme dans le cas de l’expérience minimum et l’étape ayant trait à la scolarité, si vous avez besoin d’ajouter quoi que ce soit ou de modifier une expérience dans votre CV, vous pouvez le faire en retournant à <resumeLink>l’étape du CV </resumeLink> de la demande.",
     "description": "Lead in paragraph for adding experiences to a users skills"
@@ -7427,6 +7547,10 @@
   "pqsnpk": {
     "defaultMessage": "Visititez le recrutement {title} de votre cv",
     "description": "Link text to direct a user to the Résumé page"
+  },
+  "psqrZz": {
+    "defaultMessage": "Êtes-vous un dirigeant qui cherche à attirer ou à promouvoir des talents à fort potentiel au sein de la collectivité numérique (domaines de GI, TI ou données)? Y a-t-il des employés talentueux que vous souhaitez nommer au niveau EX moins un vers le groupe et le niveau EX-03? Vous faites partie de la collectivité des ressources humaines et vous voulez créer des opportunités interministérielles pour votre main-d’œuvre numérique?",
+    "description": "Paragraph one, about who is eligible for exposition"
   },
   "pvQVVh": {
     "defaultMessage": "Veuillez soumettre cette demande « telle quelle », puis nous vous reviendrons.",
@@ -7590,6 +7714,10 @@
   "r7lf0k": {
     "defaultMessage": "Aucun nom de famille fourni",
     "description": "Fallback for last name value"
+  },
+  "rE/TUL": {
+    "defaultMessage": "Communiquez avec nous<hidden>À propos du EXposition</hidden>",
+    "description": "Link text to email the team about EXposition"
   },
   "rGE0gj": {
     "defaultMessage": "Votre incidence",
@@ -7814,6 +7942,10 @@
   "sde2Dj": {
     "defaultMessage": "Bienvenue",
     "description": "Link text for the application welcome page"
+  },
+  "sfyaOe": {
+    "defaultMessage": "De nouvelles opportunités d’emploi sont publiées tout au long de l’année. En créant votre profil dès maintenant, vous serez mieux préparé pour présenter une candidature solide le moment venu.",
+    "description": "Message displayed when there are no executive opportunities available"
   },
   "shPV27": {
     "defaultMessage": "A achevé une évaluation officielle du <abbreviation>GC</abbreviation> :",
@@ -8165,6 +8297,10 @@
   "vNvh0G": {
     "defaultMessage": "Continuer vers CléGC et s'inscrire",
     "description": "GCKey registration link text on the registration page"
+  },
+  "vPPz4w": {
+    "defaultMessage": "EXposition",
+    "description": "Subject line for contact email for EXposition"
   },
   "vRLrmc": {
     "defaultMessage": "Voulez-vous continuer?",
