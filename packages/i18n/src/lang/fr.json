@@ -7,6 +7,10 @@
     "defaultMessage": "Je m'identifie en tant que femme.",
     "description": "Statement for when someone indicates they are a woman"
   },
+  "+J9x7H": {
+    "defaultMessage": "Éliminé à la présélection – candidature",
+    "description": "The pool candidate's status is Screened Out Application"
+  },
   "+U4KU4": {
     "defaultMessage": "Cela m'oblige à faire les heures supplémentaires prévues.",
     "description": "The operational requirement described as scheduled overtime."
@@ -341,6 +345,10 @@
     "defaultMessage": "Le profil est incomplet",
     "description": "Message displayed when user attempts to apply to a pool with an incomplete profile"
   },
+  "C2RURL": {
+    "defaultMessage": "Éliminé à la présélection – évaluation",
+    "description": "The pool candidate's status is Screened Out Assessment."
+  },
   "C7cFDV": {
     "defaultMessage": "Débutant",
     "description": "Beginner, skill level"
@@ -592,6 +600,10 @@
     "defaultMessage": "Mon statut",
     "description": "Name of My status page"
   },
+  "QCcpJr": {
+    "defaultMessage": "Éliminé à la présélection – non réactif",
+    "description": "The pool candidate's status is Screened Out because no longer responding"
+  },
   "QVdubF": {
     "defaultMessage": "Membre",
     "description": "user is a CAF member"
@@ -611,10 +623,6 @@
   "QtzRCh": {
     "defaultMessage": "Statut",
     "description": "Title for status"
-  },
-  "R2BWry": {
-    "defaultMessage": "Candidature rejetée",
-    "description": "The pool candidate's status is Screened Out Application"
   },
   "RQGy+0": {
     "defaultMessage": "Publiée",
@@ -691,6 +699,10 @@
   "TCs69O": {
     "defaultMessage": "Lieu de travail",
     "description": "Name of Work location page"
+  },
+  "TN8HIH": {
+    "defaultMessage": "Éliminé à la présélection – pas d’intérêt",
+    "description": "The pool candidate's status is Screened Out because of no interest"
   },
   "TNmGTd": {
     "defaultMessage": "Local",
@@ -1202,10 +1214,6 @@
   "ovtI5X": {
     "defaultMessage": "Transport de matériel jusqu'à 20 kg",
     "description": "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)"
-  },
-  "pLlu65": {
-    "defaultMessage": "Évaluation rejetée",
-    "description": "The pool candidate's status is Screened Out Assessment."
   },
   "pPPm5b": {
     "defaultMessage": "Moi",

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\GraphQL\Validators\Mutation;
+
 use Database\Helpers\ApiEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -19,6 +20,8 @@ final class ArchiveApplicationValidator extends Validator
             'pool_candidate_status' => [Rule::in([
                 ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
                 ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
+                ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_NOT_INTERESTED,
+                ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_NOT_RESPONSIVE,
                 ApiEnums::CANDIDATE_STATUS_EXPIRED,
                 ApiEnums::CANDIDATE_STATUS_REMOVED,
             ])],
