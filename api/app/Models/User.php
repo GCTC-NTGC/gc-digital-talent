@@ -208,7 +208,13 @@ class User extends Model implements Authenticatable, LaratrustUser
                 $query->orWhereNotNull('looking_for_bilingual');
             });
             $query->whereNotNull('is_gov_employee');
-            $query->whereNotNull('has_priority_entitlement');
+            $query->where(function (Builder $query) {
+                $query->whereNotNull('has_priority_entitlement')
+                    ->orWhere(function (Builder $query) {
+                        $query->where('has_priority_entitlement', true)
+                            ->whereNotNull('priority_number');
+                    });
+            });
             $query->whereNotNull('location_preferences');
             $query->whereJsonLength('location_preferences', '>', 0);
             $query->whereJsonLength('position_duration', '>', 0);
