@@ -389,7 +389,7 @@
     "description": "Application step for skill requirements, introduction, description, paragraph two"
   },
   "0PeEzR": {
-    "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour le développer et obtenir plus de détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
+    "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour le développer et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on career timeline, paragraph one"
   },
   "0Q89Cz": {
@@ -548,7 +548,7 @@
     "description": "IT-01 classification aria label including titles and salaries"
   },
   "1dZLbs": {
-    "defaultMessage": "Une fois que vous avez terminé votre parcours professionnel et que vous êtes satisfait des expériences que vous avez ajoutées, vous les utiliserez dans les étapes suivantes pour nous aider à mieux comprendre en quoi vous répondez aux exigences en matière de compétences pour cette opportunité.",
+    "defaultMessage": "Une fois que vous avez terminé votre parcours professionnel et que vous êtes satisfait(e) des expériences que vous avez ajoutées, vous les utiliserez dans les étapes suivantes pour nous aider à mieux comprendre en quoi vous répondez aux exigences en matière de compétences pour cette possibilité.",
     "description": "Application step to begin working on career timeline, paragraph three"
   },
   "1fMzyo": {
@@ -999,7 +999,7 @@
     "description": "Work details label"
   },
   "4r4MJP": {
-    "defaultMessage": "Lorsque vous postulez à un processus de recrutement et que vous réussissez l’évaluation, vous êtes admis et vous pouvez commencer à être pris en considération pour les opportunités correspondantes. Cette section présente tous les processus actifs et expirés auxquels vous participez actuellement et vous permet de gérer le fait que vous apparaissiez ou non dans les recherches de talents.",
+    "defaultMessage": "Lorsque vous postulez à un processus de recrutement et que vous réussissez l’évaluation, vous êtes admis(e) et vous pouvez commencer à être pris en considération pour les possibilités correspondantes. Cette section présente tous les processus actifs et expirés auxquels vous participez actuellement et vous permet de gérer le fait que vous apparaissiez ou non dans les recherches de talents.",
     "description": "Descriptive paragraph for the Qualified recruitment processes section of the career timeline and recruitment page."
   },
   "4uiPHx": {
@@ -2843,7 +2843,7 @@
     "description": "Message describing the operational requirements filter in the search form."
   },
   "ITLoHV": {
-    "defaultMessage": "Nous proposons également des processus de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir. Bien qu’il n’y ait aucune garantie qu’un emploi résultera des opportunités ci-dessous, il s’agit d’un moyen facile pour permettre aux gestionnaires de trouver votre nom et votre parcours professionnel le moment venu. N’hésitez pas à soumettre votre nom à toute filière correspondant à vos compétences.",
+    "defaultMessage": "Nous proposons également des processus de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir. Bien qu’il n’y ait aucune garantie qu’un emploi résultera des possibilités ci-dessous, il s’agit d’un moyen facile pour permettre aux gestionnaires de trouver votre nom et votre parcours professionnel le moment venu. N’hésitez pas à soumettre votre nom à toute filière correspondant à vos compétences.",
     "description": "instructions for section with ongoing pool advertisements"
   },
   "ITkmBQ": {
@@ -3454,7 +3454,7 @@
     "description": "Link text for current users teams page"
   },
   "N5qMql": {
-    "defaultMessage": "Veillez à fournir <strong>au moins une expérience de parcours professionnel</strong>pour chaque compétence requise, ainsi qu’une description concise des raisons pour lesquelles cette expérience met en évidence vos capacités dans cette compétence.",
+    "defaultMessage": "Veillez à fournir <strong>au moins une expérience de parcours professionnel</strong> pour chaque compétence requise, ainsi qu’une description concise des raisons pour lesquelles cette expérience met en évidence vos capacités dans cette compétence.",
     "description": "Instructions on requiring information for skills"
   },
   "N6kGOU": {
@@ -4189,7 +4189,7 @@
     "description": "Introductory text displayed in recruitment availability accordion."
   },
   "SiF2cz": {
-    "defaultMessage": "Toutes les opportunités offertes sur cette plateforme exigent que vous utilisiez votre candidature pour démontrer un certain nombre de compétences « professionnelles » ou « techniques » requises. Certaines opportunités évalueront également les compétences « du savoir-être » ou « non techniques » indépendamment de votre candidature, bien que vous soyez libre de les ajouter à votre parcours professionnel.",
+    "defaultMessage": "Toutes les possibilités offertes sur cette plateforme exigent que vous utilisiez votre candidature pour démontrer un certain nombre de compétences « professionnelles » ou « techniques » requises. Certaines possibilités évalueront également les compétences « du savoir-être » ou « non techniques » indépendamment de votre candidature, bien que vous soyez libre de les ajouter à votre parcours professionnel.",
     "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
   },
   "SjhNGq": {
@@ -5370,7 +5370,7 @@
     "description": "Telephone label"
   },
   "bDmp5T": {
-    "defaultMessage": "Vous élaborez votre parcours professionnel en décrivant <strong>vos expériences professionnelles</strong>, <strong>vos études</strong>, <strong>votre participation à la vie communautaire</strong>, <strong>votre apprentissage personnel</strong>, et <strong>les récompenses</strong> que vous avez reçues. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre parcours professionnel en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
+    "defaultMessage": "Vous élaborez votre parcours professionnel en décrivant <strong>vos expériences professionnelles</strong>, <strong>vos études</strong>, <strong>votre participation à la vie communautaire</strong>, <strong>votre apprentissage personnel</strong>, et <strong>les récompenses </strong> que vous avez reçues. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre parcours professionnel en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to begin working on career timeline, paragraph two"
   },
   "bEwwY/": {
@@ -7273,7 +7273,7 @@
     "description": "Legend for optional work preferences check list in work preferences form"
   },
   "nx5fZY": {
-    "defaultMessage": "En postulant à un bassin de talents sur la plateforme, vous acceptez de recevoir des notifications sur les opportunités d’emploi potentielles qui y sont liées. Vous pouvez gérer ces notifications à l’aide des <strong>contrôles de disponibilité</strong>, ou en consultant les <link>processus de recrutement actuels sur votre parcours professionnel</link>.",
+    "defaultMessage": "En postulant à un bassin de talents sur la plateforme, vous acceptez de recevoir des notifications sur les possibilités d’emploi potentielles qui y sont liées. Vous pouvez gérer ces notifications à l’aide des <strong>mesures de contrôle de disponibilité</strong>, ou en consultant les <link>processus de recrutement actuels sur votre parcours professionnel</link>.",
     "description": "Description for managing recruitment availability."
   },
   "nxsvto": {
@@ -7652,7 +7652,7 @@
     "description": "Fallback for last name value"
   },
   "rCpVpZ": {
-    "defaultMessage": "Vous avez indiqué que vous répondiez aux <strong>exigences minimales en matière d’expérience ou d’études (2 années d’études post-secondaires)</strong> en mentionnant les expériences suivantes sur votre parcours professionnel :",
+    "defaultMessage": "Vous avez indiqué que vous répondiez aux <strong>exigences minimales en matière d’expérience ou d’études (2 années d’études post-secondaires)</strong> en mentionnant les expériences suivantes sur votre parcours professionnel :",
     "description": "Message on education requirements card on the application review page."
   },
   "rGE0gj": {
@@ -7736,7 +7736,7 @@
     "description": "Messaged displayed when a user has no applications."
   },
   "rxo7fM": {
-    "defaultMessage": "Pour nous aider à comprendre comment vous répondez aux critères minimaux d’expérience ou d’études, veuillez indiquer les options que vous remplissez, ainsi que les expériences qui s’appliquent à votre parcours professionnel. Si les deux s’appliquent à vous, c’est formidable! N’hésitez pas à sélectionner l’option qui correspond le mieux à vos qualifications.",
+    "defaultMessage": "Pour nous aider à comprendre comment vous répondez aux critères minimaux d’expérience ou d’études, veuillez indiquer les options auxquelles vous répondez, ainsi que les expériences qui s’appliquent à votre parcours professionnel. Si les deux s’appliquent à vous, c’est formidable! N’hésitez pas à sélectionner l’option qui correspond le mieux à vos qualifications.",
     "description": "Description for radio group section in application education page."
   },
   "ry3jFR": {
@@ -7824,7 +7824,7 @@
     "description": "Heading for closing the login and authentication accordion in account and privacy"
   },
   "sQkwFY": {
-    "defaultMessage": "Une fois que vous avez sélectionné les critères que vous remplissez, cette section vous demande de nous indiquer quels sont les éléments spécifiques de votre parcours professionnel qui répondent à cette option. Si vous devez ajouter quelque chose à votre parcours professionnel, vous pouvez le faire en retournant à l’étape du parcours professionnel dans le formulaire de candidature.",
+    "defaultMessage": "Une fois que vous avez sélectionné les critères auxquels vous répondez, cette section vous demande de nous indiquer quels sont les éléments spécifiques de votre parcours professionnel qui répondent à cette option. Si vous devez ajouter quelque chose à votre parcours professionnel, vous pouvez le faire en retournant à l’étape du parcours professionnel dans le formulaire de candidature.",
     "description": "Description for checklist section in application education page."
   },
   "sSE4kt": {
@@ -8699,7 +8699,7 @@
     "description": "Second language level (Comprehension, Written, Verbal) label"
   },
   "zJKngJ": {
-    "defaultMessage": "Gérer votre expérience et les processus de recrutement pour lesquels vous êtes qualifié.",
+    "defaultMessage": "Gérer votre expérience et les processus de recrutement pour lesquels vous êtes qualifié(e).",
     "description": "Description for the Career timeline and recruitment page in applicant profile."
   },
   "zJdfyv": {
