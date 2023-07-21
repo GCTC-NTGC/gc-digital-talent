@@ -209,7 +209,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             });
             $query->whereNotNull('is_gov_employee');
             $query->where(function (Builder $query) {
-                $query->whereNotNull('has_priority_entitlement')
+                $query->where('has_priority_entitlement', false)
                     ->orWhere(function (Builder $query) {
                         $query->where('has_priority_entitlement', true)
                             ->whereNotNull('priority_number');
