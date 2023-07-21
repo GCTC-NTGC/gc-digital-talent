@@ -170,6 +170,7 @@ const UserTableFilterDialog = ({
                     id: "qhhPj5",
                   })}
                   options={optionsData.workRegion}
+                  doNotSort
                 />
               </div>
               {enableEducationType && (

@@ -180,6 +180,7 @@ const PoolCandidateTableFilterDialog = ({
                     id: "qhhPj5",
                   })}
                   options={optionsData.workRegion}
+                  doNotSort
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
