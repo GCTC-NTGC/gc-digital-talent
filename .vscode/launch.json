@@ -9,7 +9,7 @@
         "/home/site/wwwroot/": "${workspaceFolder}"
       },
       "linux": {
-        "hostname": "localhost",
+        "hostname": "localhost", // WSL-specific: This is necessary when connecting to a webserver running in a docker container from inside WSL. If on native linux, you may need to comment out this line.
       },
       // For configuration, see the infrastructure/conf/xdebug.ini file.
     },
