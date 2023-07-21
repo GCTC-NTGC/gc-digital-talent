@@ -141,8 +141,8 @@ export const CreateAccountForm = ({
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Welcome to the GC Digital Talent platform. Moving forward, you can log into your profile using the same GCKey username and password.",
-                id: "HHIXc0",
+                  "Welcome to the GC Digital Talent platform. Moving forward, you can sign in to your profile using the same GCKey username and password.",
+                id: "OBRGkE",
                 description:
                   "Message for successful sign in alert in create account page",
               })}

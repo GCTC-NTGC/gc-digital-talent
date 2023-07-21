@@ -101,8 +101,8 @@ const SignInPage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You can log into your IT Apprenticeship Program for Indigenous Peoples profile using your existing GCKey, even if you've never used this platform before.",
-                  id: "0UeJoO",
+                    "You can sign in to your IT Apprenticeship Program for Indigenous Peoples profile using your existing GCKey, even if you've never used this platform before.",
+                  id: "6SfJEp",
                   description:
                     "Instructions on how to sign in with GCKey - IAP variant",
                 })}
