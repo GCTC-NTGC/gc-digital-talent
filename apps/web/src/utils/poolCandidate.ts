@@ -49,7 +49,7 @@ export const isScreenedOutStatus = (
   return (
     status === PoolCandidateStatus.ScreenedOutApplication ||
     status === PoolCandidateStatus.ScreenedOutNotInterested ||
-    status === PoolCandidateStatus.ScreenedOutNotResponding ||
+    status === PoolCandidateStatus.ScreenedOutNotResponsive ||
     status === PoolCandidateStatus.ScreenedOutAssessment
   );
 };
