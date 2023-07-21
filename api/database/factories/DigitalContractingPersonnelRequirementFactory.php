@@ -6,6 +6,7 @@ use App\Models\DigitalContractingPersonnelRequirement;
 use App\Models\DigitalContractingPersonnelSkill;
 use App\Models\Skill;
 use Database\Helpers\DirectiveFormsApiEnums;
+use ErrorException;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -37,15 +38,23 @@ class DigitalContractingPersonnelRequirementFactory extends Factory
 
     public function configure()
     {
-        return $this->afterCreating(function (DigitalContractingPersonnelRequirement $personnelRequirement) {
-            $skillIds = Skill::inRandomOrder()
-                ->limit($this->faker->numberBetween(1, 5))
-                ->pluck('id');
-            foreach ($skillIds as $skillId) {
-                DigitalContractingPersonnelSkill::factory()
-                    ->for($personnelRequirement)
-                    ->create(['skill_id' => $skillId]);
-            }
-        });
+        return $this
+            ->afterMaking(function (DigitalContractingPersonnelRequirement $personnelRequirement) {
+                if (is_null($personnelRequirement->digital_contracting_questionnaire_id)) {
+                    // https://laravel.com/docs/10.x/eloquent-factories#belongs-to-relationships
+                    throw new ErrorException("digital_contracting_questionnaire_id must be set to use this factory.  Try calling this factory with the `for` method to specify the parent questionnaire.");
+                }
+            })
+            ->afterCreating(function (DigitalContractingPersonnelRequirement $personnelRequirement) {
+                $skills = Skill::inRandomOrder()
+                    ->limit($this->faker->numberBetween(1, 5))
+                    ->get();
+                foreach ($skills as $skill) {
+                    DigitalContractingPersonnelSkill::factory()
+                        ->for($personnelRequirement)
+                        ->for($skill)
+                        ->create();
+                }
+            });
     }
 }
