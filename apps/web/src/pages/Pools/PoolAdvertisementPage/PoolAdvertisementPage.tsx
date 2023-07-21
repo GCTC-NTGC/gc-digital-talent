@@ -100,6 +100,7 @@ export const PoolPoster = ({
   const fullTitle = getFullPoolTitleLabel(intl, pool);
 
   const showImpactTasks = !!(pool.keyTasks || pool.yourImpact);
+  const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);
 
   const languageRequirement = pool.language
     ? intl.formatMessage(getLanguageRequirement(pool.language))
@@ -199,6 +200,15 @@ export const PoolPoster = ({
           "Title for the hiring policies section of a pool advertisement",
       }),
     },
+    whatToExpect: {
+      id: "what-to-expect-section",
+      title: intl.formatMessage({
+        defaultMessage: "What to expect after you apply",
+        id: "D2HsoO",
+        description:
+          "Title for the what to expect section of a pool advertisement",
+      }),
+    },
     apply: {
       id: "apply-section",
       title: intl.formatMessage({
@@ -264,7 +274,13 @@ export const PoolPoster = ({
                   </TableOfContents.AnchorLink>
                 </TableOfContents.ListItem>
               )}
-
+              {showWhatToExpect && (
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.whatToExpect.id}>
+                    {sections.whatToExpect.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              )}
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={sections.whoCanApply.id}>
                   {sections.whoCanApply.title}
@@ -689,6 +705,14 @@ export const PoolPoster = ({
                     },
                   )}
                 </Text>
+              </TableOfContents.Section>
+            )}
+            {showWhatToExpect && (
+              <TableOfContents.Section id={sections.whatToExpect.id}>
+                <TableOfContents.Heading>
+                  {sections.whatToExpect.title}
+                </TableOfContents.Heading>
+                <Text>{getLocalizedName(pool.whatToExpect, intl)}</Text>
               </TableOfContents.Section>
             )}
             <TableOfContents.Section id={sections.whoCanApply.id}>
