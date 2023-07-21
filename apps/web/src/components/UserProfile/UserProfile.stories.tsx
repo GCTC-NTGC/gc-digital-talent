@@ -27,7 +27,7 @@ const TemplateUserProfile: Story<User> = (args) => {
         workPreferences: { isVisible: true },
         employmentEquity: { isVisible: true },
         roleSalary: { isVisible: true },
-        resumeAndRecruitment: { isVisible: true },
+        careerTimelineAndRecruitment: { isVisible: true },
       }}
     />
   );
