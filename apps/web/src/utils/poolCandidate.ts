@@ -48,6 +48,8 @@ export const isScreenedOutStatus = (
 ): boolean => {
   return (
     status === PoolCandidateStatus.ScreenedOutApplication ||
+    status === PoolCandidateStatus.ScreenedOutNotInterested ||
+    status === PoolCandidateStatus.ScreenedOutNotResponding ||
     status === PoolCandidateStatus.ScreenedOutAssessment
   );
 };
