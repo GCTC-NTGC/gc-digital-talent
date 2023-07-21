@@ -105,7 +105,7 @@ class DigitalContractingQuestionnaireFactory extends Factory
             'requirement_other_other' => function (array $attributes) {
                 return in_array(DirectiveFormsApiEnums::PERSONNEL_OTHER_REQUIREMENT_OTHER, $attributes['requirement_others']) ? $this->faker->word() : null;
             },
-            'has_personnel_requirements' => $this->faker->boolean(),
+            'has_personnel_requirements' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             // personnel_requirements added in configure method
             'is_technological_change' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             'has_impact_on_your_department' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
@@ -147,7 +147,7 @@ class DigitalContractingQuestionnaireFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (DigitalContractingQuestionnaire $questionnaire) {
-            if ($questionnaire->has_personnel_requirements) {
+            if ($questionnaire->has_personnel_requirements == DirectiveFormsApiEnums::YESNO_YES) {
                 DigitalContractingPersonnelRequirement::factory()
                     ->count($this->faker->numberBetween(1, 10))
                     ->for($questionnaire)

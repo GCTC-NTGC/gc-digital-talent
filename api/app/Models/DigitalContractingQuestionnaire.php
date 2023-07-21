@@ -93,11 +93,11 @@ class DigitalContractingQuestionnaire extends Model
 
     public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class, "department");
+        return $this->belongsTo(Department::class);
     }
 
     public function personnelRequirements(): HasMany
     {
-        return $this->hasMany(DigitalContractingQuestionnairePersonnelRequirement::class);
+        return $this->hasMany(DigitalContractingPersonnelRequirement::class);
     }
 }

@@ -129,14 +129,14 @@ enum ContractingRationale {
   OTHER
 }
 
-type DigitalContractingPersonnelRequirementSkill {
-  skill: Skill
+type DigitalContractingPersonnelSkill {
+  skill: Skill @belongsTo
   level: PersonnelSkillExpertiseLevel
 }
 
 type DigitalContractingPersonnelRequirement {
   resourceType: String @rename(attribute: "resource_type")
-  skillRequirements: [DigitalContractingPersonnelRequirementSkill!]
+  skillRequirements: [DigitalContractingPersonnelSkill!] @hasMany
   language: PersonnelLanguage
   languageOther: String @rename(attribute: "language_other")
   security: PersonnelScreeningLevel
@@ -148,7 +148,7 @@ type DigitalContractingPersonnelRequirement {
 type DigitalContractingQuestionnaire {
   id: UUID!
   readPreamble: Boolean @rename(attribute: "read_preamble")
-  department: Department
+  department: Department @belongsTo
   departmentOther: String @rename(attribute: "department_other")
   branchOther: String @rename(attribute: "branch_other")
   businessOwnerName: String @rename(attribute: "business_owner_name")
@@ -211,20 +211,21 @@ type DigitalContractingQuestionnaire {
     @rename(attribute: "requirement_work_location_specific")
   requirementOthers: [PersonnelOtherRequirement!]
     @rename(attribute: "requirement_others")
-  requirementOtherOther: String @rename(attribute: "requirement_other")
-  hasPersonnelRequirements: YesNo @rename(attribute: "requirement_other_other")
-  personnelRequirements: [DigitalContractingPersonnelRequirement!]
+  requirementOtherOther: String @rename(attribute: "requirement_other_other")
+  hasPersonnelRequirements: YesNo
     @rename(attribute: "has_personnel_requirements")
-  isTechnologicalChange: YesNo @rename(attribute: "personnel_requirements")
-  hasImpactOnYourDepartment: YesNo @rename(attribute: "is_technological_change")
-  hasImmediateImpactOnOtherDepartments: YesNo
+  personnelRequirements: [DigitalContractingPersonnelRequirement!] @hasMany
+  isTechnologicalChange: YesNo @rename(attribute: "is_technological_change")
+  hasImpactOnYourDepartment: YesNo
     @rename(attribute: "has_impact_on_your_department")
+  hasImmediateImpactOnOtherDepartments: YesNo
+    @rename(attribute: "has_immediate_impact_on_other_departments")
   hasFutureImpactOnOtherDepartments: YesNo
     @rename(attribute: "has_immediate_impact_on_other_departments")
   operationsConsiderations: [OperationsConsideration!]
-    @rename(attribute: "has_future_impact_on_other_departments")
-  operationsConsiderationsOther: String
     @rename(attribute: "operations_considerations")
+  operationsConsiderationsOther: String
+    @rename(attribute: "operations_considerations_other")
   contractingRationalePrimary: ContractingRationale
     @rename(attribute: "contracting_rationale_primary")
   contractingRationalePrimaryOther: String
@@ -234,7 +235,7 @@ type DigitalContractingQuestionnaire {
   contractingRationalesSecondaryOther: String
     @rename(attribute: "contracting_rationales_secondary_other")
   ocioConfirmedTalentShortage: YesNo
-    @rename(attribute: "contracting_rationales_secondary")
+    @rename(attribute: "ocio_confirmed_talent_shortage")
   talentSearchTrackingNumber: String
     @rename(attribute: "talent_search_tracking_number")
   ongoingNeedForKnowledge: YesNo
@@ -246,15 +247,13 @@ type DigitalContractingQuestionnaire {
   ocioEngagedForTraining: YesNo @rename(attribute: "ocio_engaged_for_training")
 }
 
-type Query {
+extend type Query {
   digitalContractingQuestionnaire(
     id: UUID! @eq
-  ): DigitalContractingQuestionnaire
-    @find
-    @guard
-    @can(ability: "view", query: true)
-  digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
-    @all
-    @guard
-    @can(ability: "viewAny")
+  ): DigitalContractingQuestionnaire @find
+  # @guard
+  # @can(ability: "view", query: true)
+  digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]! @all
+  # @guard
+  # @can(ability: "viewAny")
 }

@@ -62,7 +62,7 @@ return new class extends Migration
             $table->string('requirement_work_location_specific')->nullable();
             $table->string('requirement_others')->default(new Expression('\'[]\'::jsonb'));
             $table->string('requirement_other_other')->nullable();
-            $table->boolean('has_personnel_requirements')->nullable();
+            $table->string('has_personnel_requirements')->nullable();
             $table->jsonb('personnel_requirements')->default(new Expression('\'[]\'::jsonb'));
             $table->string('is_technological_change')->nullable();
             $table->string('has_impact_on_your_department')->nullable();
@@ -101,8 +101,9 @@ return new class extends Migration
         });
 
         // personnel requirements many-to-many skills
-        Schema::create('digital_contracting_personnel_requirement_skill', function (Blueprint $table) {
+        Schema::create('digital_contracting_personnel_skills', function (Blueprint $table) {
             $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
+            $table->timestamps();
             $table->uuid('digital_contracting_personnel_requirement_id');
             $table->foreign('digital_contracting_personnel_requirement_id')
                 ->references('id')->on('digital_contracting_personnel_requirements')
@@ -113,7 +114,7 @@ return new class extends Migration
                 ->references('id')->on('skills')
                 ->onUpdate('cascade')
                 ->onDelete('cascade'); // skill requirement doesn't exist apart from parent skill
-            $table->unique(['digital_contracting_personnel_requirement_id', 'skill_id'], 'uq_personnel_requirement_skill'); // A requirement can only specify a skill once
+            $table->unique(['digital_contracting_personnel_requirement_id', 'skill_id'], 'uq_personnel_requirement_skills'); // A requirement can only specify a skill once
             $table->string('level')->nullable();
         });
     }
@@ -123,7 +124,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('digital_contracting_personnel_requirement_skill');
+        Schema::dropIfExists('digital_contracting_personnel_skills');
         Schema::dropIfExists('digital_contracting_personnel_requirements');
         Schema::dropIfExists('digital_contracting_questionnaires');
     }

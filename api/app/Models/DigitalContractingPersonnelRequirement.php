@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class DigitalContractingPersonnelRequirement
@@ -30,8 +30,8 @@ class DigitalContractingPersonnelRequirement extends Model
         return $this->belongsTo(DigitalContractingQuestionnaire::class);
     }
 
-    public function skills(): BelongsToMany
+    public function skillRequirements(): HasMany
     {
-        return $this->belongsToMany(Skill::class);
+        return $this->hasMany(DigitalContractingPersonnelSkill::class);
     }
 }

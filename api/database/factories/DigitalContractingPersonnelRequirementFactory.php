@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\DigitalContractingPersonnelRequirement;
+use App\Models\DigitalContractingPersonnelSkill;
 use App\Models\Skill;
 use Database\Helpers\DirectiveFormsApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -27,7 +28,7 @@ class DigitalContractingPersonnelRequirementFactory extends Factory
             },
             'security' => $this->faker->randomElement(DirectiveFormsApiEnums::personnelScreeningLevels()),
             'security_other' => function (array $attributes) {
-                $attributes['security'] == DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER ? $this->faker->word() : null;
+                return $attributes['security'] == DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER ? $this->faker->word() : null;
             },
             'telework' => $this->faker->randomElement(DirectiveFormsApiEnums::personnelTeleworkOptions()),
             'quantity' => $this->faker->numberBetween(0, 100),
@@ -37,11 +38,14 @@ class DigitalContractingPersonnelRequirementFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (DigitalContractingPersonnelRequirement $personnelRequirement) {
-            $skillCount = $this->faker->numberBetween(1, 5);
-            $personnelRequirement->skills()->syncWithPivotValues(
-                Skill::inRandomOrder()->limit($skillCount)->get(),
-                ['level' => $this->faker->randomElement(DirectiveFormsApiEnums::personnelSkillExpertiseLevels())],
-            );
+            $skillIds = Skill::inRandomOrder()
+                ->limit($this->faker->numberBetween(1, 5))
+                ->pluck('id');
+            foreach ($skillIds as $skillId) {
+                DigitalContractingPersonnelSkill::factory()
+                    ->for($personnelRequirement)
+                    ->create(['skill_id' => $skillId]);
+            }
         });
     }
 }

@@ -407,7 +407,7 @@ input DepartmentBelongsToMany {
 
 type DigitalContractingPersonnelRequirement {
   resourceType: String
-  skillRequirements: [DigitalContractingPersonnelRequirementSkill!]
+  skillRequirements: [DigitalContractingPersonnelSkill!]
   language: PersonnelLanguage
   languageOther: String
   security: PersonnelScreeningLevel
@@ -416,7 +416,7 @@ type DigitalContractingPersonnelRequirement {
   quantity: Int
 }
 
-type DigitalContractingPersonnelRequirementSkill {
+type DigitalContractingPersonnelSkill {
   skill: Skill
   level: PersonnelSkillExpertiseLevel
 }
@@ -1028,6 +1028,15 @@ input PoolCandidateSearchRequestInput {
   generalSearch: String
 }
 
+"""A paginated list of PoolCandidateSearchRequest items."""
+type PoolCandidateSearchRequestPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of PoolCandidateSearchRequest items."""
+  data: [PoolCandidateSearchRequest!]!
+}
+
 enum PoolCandidateSearchStatus {
   NEW
   IN_PROGRESS
@@ -1071,6 +1080,15 @@ type PoolCandidateWithSkillCount {
   id: ID!
   poolCandidate: PoolCandidate!
   skillCount: Int
+}
+
+"""A paginated list of PoolCandidateWithSkillCount items."""
+type PoolCandidateWithSkillCountPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of PoolCandidateWithSkillCount items."""
+  data: [PoolCandidateWithSkillCount!]!
 }
 
 enum PoolLanguage {
@@ -1134,8 +1152,106 @@ enum PublishingGroup {
 }
 
 type Query {
+  me: User
+  user(id: UUID!): User
+  users: [User]!
+  applicant(id: UUID!): User @deprecated(reason: "Removing in favour of user query")
+  applicants(includeIds: [ID]!): [User]! @deprecated(reason: "Removing in favour of users query")
+  countApplicants(where: ApplicantFilterInput): Int!
+  pool(id: UUID!): Pool
+  pools: [Pool]!
+  publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
+  poolByKey(key: String!): Pool
+  poolCandidate(id: UUID!): PoolCandidate
+  poolCandidates(includeIds: [ID]): [PoolCandidate]!
+  countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
+  classification(id: UUID!): Classification
+  classifications: [Classification]!
+  department(id: UUID!): Department
+  departments: [Department]!
+  poolCandidateFilter(id: UUID!): PoolCandidateFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
+  poolCandidateFilters: [PoolCandidateFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
+  applicantFilter(id: ID!): ApplicantFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
+  applicantFilters: [ApplicantFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
+  poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
+  poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
+  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")
+  skillFamily(id: UUID!): SkillFamily
+  skillFamilies: [SkillFamily]!
+  skill(id: UUID!): Skill
+  skills: [Skill]!
+  genericJobTitle(id: UUID!): GenericJobTitle
+  genericJobTitles: [GenericJobTitle]!
+  team(id: UUID!): Team
+  teams: [Team]!
+  roles: [Role]!
   digitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
+  usersPaginated(
+    where: UserFilterInput
+    orderBy: [OrderByClause!]
+
+    """Limits number of fetched items. Maximum allowed value: 1000."""
+    first: Int = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): UserPaginator
+  poolCandidatesPaginated(
+    where: PoolCandidateSearchInput
+    orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
+
+    """Limits number of fetched items. Maximum allowed value: 1000."""
+    first: Int = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): PoolCandidateWithSkillCountPaginator
+  poolCandidateSearchRequestsPaginated(
+    where: PoolCandidateSearchRequestInput
+    orderBy: [OrderByClause!]
+
+    """Limits number of fetched items. Maximum allowed value: 500."""
+    first: Int = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): PoolCandidateSearchRequestPaginator
+}
+
+"""Order by clause for Query.poolCandidatesPaginated.orderBy."""
+input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
+  """The column that is used for ordering."""
+  column: String
+
+  """The direction that is used for ordering."""
+  order: SortOrder!
+
+  """Aggregate specification."""
+  user: QueryPoolCandidatesPaginatedOrderByUser
+}
+
+"""
+Aggregate specification for Query.poolCandidatesPaginated.orderBy.user.
+"""
+input QueryPoolCandidatesPaginatedOrderByUser {
+  """The aggregate function to apply to the column."""
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  """Name of the column to use."""
+  column: QueryPoolCandidatesPaginatedOrderByUserColumn
+}
+
+"""Allowed column names for Query.poolCandidatesPaginated.orderBy."""
+enum QueryPoolCandidatesPaginatedOrderByUserColumn {
+  PRIORITY_WEIGHT
+  JOB_LOOKING_STATUS
+  FIRST_NAME
+  EMAIL
+  PREFERRED_LANG
+  PREFERRED_LANGUAGE_FOR_INTERVIEW
+  PREFERRED_LANGUAGE_FOR_EXAM
+  CURRENT_CITY
 }
 
 type Role {
@@ -1641,6 +1757,15 @@ input UserFilterInput {
   email: String
   name: String
   generalSearch: String
+}
+
+"""A paginated list of User items."""
+type UserPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of User items."""
+  data: [User!]!
 }
 
 input UserPoolFilterInput {
