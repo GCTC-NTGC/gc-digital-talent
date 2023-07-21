@@ -399,32 +399,33 @@ input DigitalContractingQuestionnaireInput {
 extend type Query {
   digitalContractingQuestionnaire(
     id: UUID! @eq
-  ): DigitalContractingQuestionnaire @find
-  # @guard
-  # @can(ability: "view", query: true)
-  digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]! @all
-  # @guard
-  # @can(ability: "viewAny")
+  ): DigitalContractingQuestionnaire
+    @find
+    @guard
+    @can(ability: "view", query: true)
+  digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
+    @all
+    @guard
+    @can(ability: "viewAny")
 }
 
 extend type Mutation {
   createDigitalContractingQuestionnaire(
     digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!
       @spread
-  ): DigitalContractingQuestionnaire @create
-  # @guard
-  # @can(ability: "create")
-  # @throttle(maxAttempts: 100)
+  ): DigitalContractingQuestionnaire @create @guard @can(ability: "create")
   updateDigitalContractingQuestionnaire(
     id: UUID!
     digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!
       @spread
-  ): DigitalContractingQuestionnaire @update
-  # @guard
-  # @can(ability: "update", find: "id", injectArgs: true)
+  ): DigitalContractingQuestionnaire
+    @update
+    @guard
+    @can(ability: "update", find: "id")
   deleteDigitalContractingQuestionnaire(
     id: UUID!
-  ): DigitalContractingQuestionnaire @delete
-  # @guard
-  # @can(ability: "delete", find: "id")
+  ): DigitalContractingQuestionnaire
+    @delete
+    @guard
+    @can(ability: "delete", find: "id")
 }
