@@ -1,5 +1,5 @@
 import React from "react";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { StoryFn } from "@storybook/react";
 import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
 
 import Button from "../Button";
@@ -15,7 +15,7 @@ export default {
       page: DropdownMenuDocs,
     },
   },
-} as ComponentMeta<typeof DropdownMenu.Root>;
+};
 
 const Check = () => (
   <DropdownMenu.ItemIndicator>
@@ -23,10 +23,11 @@ const Check = () => (
   </DropdownMenu.ItemIndicator>
 );
 
-const Template: ComponentStory<typeof DropdownMenu.Root> = () => {
+const Template: StoryFn<typeof DropdownMenu.Root> = () => {
+  const [isOpen, setIsOpen] = React.useState<boolean>(true);
   const [value, setValue] = React.useState<string>("");
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenu.Trigger>
         <Button>Open Dropdown</Button>
       </DropdownMenu.Trigger>
