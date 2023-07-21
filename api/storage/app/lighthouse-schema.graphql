@@ -275,6 +275,22 @@ input CreateDepartmentInput {
   name: LocalizedStringInput
 }
 
+input CreateDigitalContractingPersonnelRequirementInput {
+  resourceType: String
+  skillRequirements: DigitalContractingPersonnelSkillBelongsTo
+  language: PersonnelLanguage
+  languageOther: String
+  security: PersonnelScreeningLevel
+  securityOther: String
+  telework: PersonnelTeleworkOption
+  quantity: Int
+}
+
+input CreateDigitalContractingPersonnelSkillInput {
+  skill: SkillBelongsTo
+  level: PersonnelSkillExpertiseLevel
+}
+
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
@@ -418,19 +434,9 @@ type DigitalContractingPersonnelRequirement {
 }
 
 input DigitalContractingPersonnelRequirementBelongsToMany {
-  create: [DigitalContractingPersonnelRequirementInput!]
-  delete: [ID!]
-}
-
-input DigitalContractingPersonnelRequirementInput {
-  resourceType: String
-  skillRequirements: DigitalContractingPersonnelSkillBelongsTo
-  language: PersonnelLanguage
-  languageOther: String
-  security: PersonnelScreeningLevel
-  securityOther: String
-  telework: PersonnelTeleworkOption
-  quantity: Int
+  create: [CreateDigitalContractingPersonnelRequirementInput!]
+  update: [UpdateDigitalContractingPersonnelRequirementInput!]
+  delete: [UUID!]
 }
 
 type DigitalContractingPersonnelSkill {
@@ -440,13 +446,9 @@ type DigitalContractingPersonnelSkill {
 }
 
 input DigitalContractingPersonnelSkillBelongsTo {
-  create: [DigitalContractingPersonnelSkillInput!]
-  delete: [ID!]
-}
-
-input DigitalContractingPersonnelSkillInput {
-  skill: SkillBelongsTo
-  level: PersonnelSkillExpertiseLevel
+  create: [CreateDigitalContractingPersonnelSkillInput!]
+  update: [UpdateDigitalContractingPersonnelSkillInput!]
+  delete: [UUID!]
 }
 
 type DigitalContractingQuestionnaire {
@@ -1595,6 +1597,24 @@ input UpdateClassificationInput {
 input UpdateDepartmentInput {
   departmentNumber: Int
   name: LocalizedStringInput
+}
+
+input UpdateDigitalContractingPersonnelRequirementInput {
+  id: UUID!
+  resourceType: String
+  skillRequirements: DigitalContractingPersonnelSkillBelongsTo
+  language: PersonnelLanguage
+  languageOther: String
+  security: PersonnelScreeningLevel
+  securityOther: String
+  telework: PersonnelTeleworkOption
+  quantity: Int
+}
+
+input UpdateDigitalContractingPersonnelSkillInput {
+  id: UUID!
+  skill: SkillBelongsTo
+  level: PersonnelSkillExpertiseLevel
 }
 
 input UpdateEducationExperiencesRequirementBelongsToMany {

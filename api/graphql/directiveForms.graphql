@@ -249,17 +249,36 @@ type DigitalContractingQuestionnaire {
   ocioEngagedForTraining: YesNo @rename(attribute: "ocio_engaged_for_training")
 }
 
-input DigitalContractingPersonnelSkillInput {
+input CreateDigitalContractingPersonnelSkillInput {
+  skill: SkillBelongsTo
+  level: PersonnelSkillExpertiseLevel
+}
+
+input UpdateDigitalContractingPersonnelSkillInput {
+  id: UUID!
   skill: SkillBelongsTo
   level: PersonnelSkillExpertiseLevel
 }
 
 input DigitalContractingPersonnelSkillBelongsTo {
-  create: [DigitalContractingPersonnelSkillInput!]
-  delete: [ID!]
+  create: [CreateDigitalContractingPersonnelSkillInput!]
+  update: [UpdateDigitalContractingPersonnelSkillInput!]
+  delete: [UUID!]
 }
 
-input DigitalContractingPersonnelRequirementInput {
+input CreateDigitalContractingPersonnelRequirementInput {
+  resourceType: String @rename(attribute: "resource_type")
+  skillRequirements: DigitalContractingPersonnelSkillBelongsTo
+  language: PersonnelLanguage
+  languageOther: String @rename(attribute: "language_other")
+  security: PersonnelScreeningLevel
+  securityOther: String @rename(attribute: "security_other")
+  telework: PersonnelTeleworkOption
+  quantity: Int
+}
+
+input UpdateDigitalContractingPersonnelRequirementInput {
+  id: UUID!
   resourceType: String @rename(attribute: "resource_type")
   skillRequirements: DigitalContractingPersonnelSkillBelongsTo
   language: PersonnelLanguage
@@ -271,8 +290,9 @@ input DigitalContractingPersonnelRequirementInput {
 }
 
 input DigitalContractingPersonnelRequirementBelongsToMany {
-  create: [DigitalContractingPersonnelRequirementInput!]
-  delete: [ID!]
+  create: [CreateDigitalContractingPersonnelRequirementInput!]
+  update: [UpdateDigitalContractingPersonnelRequirementInput!]
+  delete: [UUID!]
 }
 
 input DigitalContractingQuestionnaireInput {
