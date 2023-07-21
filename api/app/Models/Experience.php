@@ -54,10 +54,8 @@ abstract class Experience extends Model
     public function syncSkills($skills)
     {
         if ($skills === null) {
-            return; //TODO: should null be ignored, or be treated as empty array, which unsyncs existing skills?
+            return; // Just like the Eloquent sync operation, null will be ignored instead of overwriting existing values.
         }
-
-        // TODO: make experience_skill soft-deletable (and restorable)
 
         $skillIds = collect($skills)->pluck('id');
         // First ensure that UserSkills exist for each of these skills
@@ -86,9 +84,8 @@ abstract class Experience extends Model
     public function connectSkills($skills)
     {
         if ($skills === null) {
-            return;
+            return; // Just like the Eloquent sync operation, null will be ignored instead of overwriting existing values.
         }
-        // TODO: make experience_skill soft-deletable (and restorable)
 
         // First ensure that UserSkills exist for each of these skills
         $skillIds = collect($skills)->pluck('id');
@@ -119,7 +116,7 @@ abstract class Experience extends Model
     public function disconnectSkills($skillIds)
     {
         if ($skillIds === null) {
-            return;
+            return; // Just like the Eloquent sync operation, null will be ignored instead of overwriting existing values.
         }
         // Find the userSkills that correspond to these skills.
         $userSkillIds = $this->user->userSkills()->whereIn('skill_id', $skillIds)->pluck('id');
