@@ -14,19 +14,19 @@ import {
 } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
 import { Application } from "~/utils/applicationUtils";
-import { ResumeAndRecruitment } from "./components/ResumeAndRecruitment";
+import { CareerTimelineAndRecruitment } from "./components/CareerTimelineAndRecruitment";
 
-interface ResumeAndRecruitmentApiProps {
+interface CareerTimelineAndRecruitmentApiProps {
   applicantId: string;
   experiences: Experience[];
   applications: Application[];
 }
 
-const ResumeAndRecruitmentApi = ({
+const CareerTimelineAndRecruitmentApi = ({
   applicantId,
   experiences,
   applications,
-}: ResumeAndRecruitmentApiProps) => {
+}: CareerTimelineAndRecruitmentApiProps) => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
@@ -55,7 +55,7 @@ const ResumeAndRecruitmentApi = ({
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolCandidate ? (
-        <ResumeAndRecruitment
+        <CareerTimelineAndRecruitment
           applicantId={applicantId}
           pool={data.poolCandidate.pool}
           missingSkills={missingSkills}
@@ -92,20 +92,20 @@ const ApiOrContent = ({
   applications,
 }: ApiOrContentProps) =>
   applicationId ? (
-    <ResumeAndRecruitmentApi
+    <CareerTimelineAndRecruitmentApi
       applicantId={applicantId}
       experiences={experiences}
       applications={applications}
     />
   ) : (
-    <ResumeAndRecruitment
+    <CareerTimelineAndRecruitment
       applicantId={applicantId}
       experiences={experiences}
       applications={applications}
     />
   );
 
-const ResumeAndRecruitmentPage = () => {
+const CareerTimelineAndRecruitmentPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
@@ -135,4 +135,4 @@ const ResumeAndRecruitmentPage = () => {
   );
 };
 
-export default ResumeAndRecruitmentPage;
+export default CareerTimelineAndRecruitmentPage;

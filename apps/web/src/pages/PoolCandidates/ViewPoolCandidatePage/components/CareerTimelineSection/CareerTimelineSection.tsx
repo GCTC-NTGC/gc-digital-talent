@@ -9,11 +9,11 @@ import ExperienceSortAndFilter, {
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
-interface ResumeSectionProps {
+interface CareerTimelineSectionProps {
   experiences: Experience[];
 }
 
-const ResumeSection = ({ experiences }: ResumeSectionProps) => {
+const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
   const intl = useIntl();
   const [sortAndFilterValues, setSortAndFilterValues] =
     React.useState<ExperienceSortAndFilterFormValues>({
@@ -63,9 +63,9 @@ const ResumeSection = ({ experiences }: ResumeSectionProps) => {
           <p data-h2-text-align="base(center)">
             {intl.formatMessage({
               defaultMessage: "No experiences found",
-              id: "Jnk2pb",
+              id: "gHMj31",
               description:
-                "Null state messages for résumé list when no experiences are found.",
+                "Null state messages for career timeline list when no experiences are found.",
             })}
           </p>
         </Well>
@@ -74,4 +74,4 @@ const ResumeSection = ({ experiences }: ResumeSectionProps) => {
   );
 };
 
-export default ResumeSection;
+export default CareerTimelineSection;

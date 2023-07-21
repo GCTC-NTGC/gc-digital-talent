@@ -45,7 +45,7 @@ const StepNavigation = ({
     useUpdateApplicationMutation();
   const { followingPageUrl, isIAP } = useApplicationContext();
   const nextStepPath =
-    followingPageUrl ?? paths.applicationResumeIntro(application.id);
+    followingPageUrl ?? paths.applicationCareerTimelineIntro(application.id);
   const methods = useForm<ProfileActionFormValues>({
     defaultValues: {
       action: "continue",

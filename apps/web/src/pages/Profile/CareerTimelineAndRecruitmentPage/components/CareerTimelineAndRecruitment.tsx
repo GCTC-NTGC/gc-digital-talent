@@ -20,7 +20,7 @@ import useRoutes from "~/hooks/useRoutes";
 import ProfileFormWrapper from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { Application } from "~/utils/applicationUtils";
-import ResumeSection from "./ResumeSection";
+import CareerTimelineSection from "./CareerTimelineSection";
 import { PAGE_SECTION_ID, titles } from "../constants";
 import QualifiedRecruitmentsSection from "./QualifiedRecruitmentsSection";
 
@@ -39,7 +39,7 @@ export type ExperienceForDate =
   | PersonalExperience
   | WorkExperience;
 
-export interface ResumeAndRecruitmentProps {
+export interface CareerTimelineAndRecruitmentProps {
   applicantId: string;
   experiences?: MergedExperiences;
   applications: Application[];
@@ -50,23 +50,23 @@ export interface ResumeAndRecruitmentProps {
   };
 }
 
-export const ResumeAndRecruitment = ({
+export const CareerTimelineAndRecruitment = ({
   experiences,
   applications,
   missingSkills,
   applicantId,
   pool,
-}: ResumeAndRecruitmentProps) => {
+}: CareerTimelineAndRecruitmentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const hasResumeItems = !!experiences?.length;
+  const hasCareerTimelineItems = !!experiences?.length;
 
   return (
     <ProfileFormWrapper
       crumbs={[
         {
-          label: intl.formatMessage(titles.resumeAndRecruitment),
-          url: paths.resumeAndRecruitment(applicantId),
+          label: intl.formatMessage(titles.careerTimelineAndRecruitment),
+          url: paths.careerTimelineAndRecruitment(applicantId),
         },
       ]}
       prefixBreadcrumbs={!pool}
@@ -74,15 +74,15 @@ export const ResumeAndRecruitment = ({
         {
           defaultMessage:
             "Manage your experience and qualified recruitment processes.",
-          id: "6f8XuQ",
+          id: "zJKngJ",
           description:
-            "Description for the Résumé and recruitment page in applicant profile.",
+            "Description for the Career timeline and recruitment page in applicant profile.",
         },
         {
           abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
         },
       )}
-      title={intl.formatMessage(titles.resumeAndRecruitment)}
+      title={intl.formatMessage(titles.careerTimelineAndRecruitment)}
       leaveRoomForNavigation
     >
       <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
@@ -90,9 +90,9 @@ export const ResumeAndRecruitment = ({
           <TableOfContents.List>
             <TableOfContents.ListItem>
               <TableOfContents.AnchorLink
-                id={PAGE_SECTION_ID.MANAGE_YOUR_RESUME}
+                id={PAGE_SECTION_ID.MANAGE_YOUR_CAREER_TIMELINE}
               >
-                {intl.formatMessage(titles.manageYourResume)}
+                {intl.formatMessage(titles.manageYourCareerTimeline)}
               </TableOfContents.AnchorLink>
             </TableOfContents.ListItem>
             <TableOfContents.ListItem>
@@ -105,28 +105,32 @@ export const ResumeAndRecruitment = ({
           </TableOfContents.List>
         </TableOfContents.Navigation>
         <TableOfContents.Content>
-          <TableOfContents.Section id={PAGE_SECTION_ID.MANAGE_YOUR_RESUME}>
+          <TableOfContents.Section
+            id={PAGE_SECTION_ID.MANAGE_YOUR_CAREER_TIMELINE}
+          >
             <Heading
               Icon={BookmarkSquareIcon}
               color="tertiary"
               data-h2-margin-top="base(0)"
             >
-              {intl.formatMessage(titles.manageYourResume)}
+              {intl.formatMessage(titles.manageYourCareerTimeline)}
             </Heading>
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "This section is similar to your traditional résumé and describes your experiences across work, school, and life. You’ll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
-                id: "18FbqO",
+                  "This section is similar to your traditional career timeline and describes your experiences across work, school, and life. You’ll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
+                id: "dAGii/",
                 description:
-                  "Descriptive paragraph for the Manage your resume section of the résumé and recruitment page.",
+                  "Descriptive paragraph for the Manage your career timeline section of the career timeline and recruitment page.",
               })}
             </p>
             {missingSkills && (
               <div data-h2-margin="base(x1, 0)">
                 <MissingSkills
                   addedSkills={
-                    hasResumeItems ? flattenExperienceSkills(experiences) : []
+                    hasCareerTimelineItems
+                      ? flattenExperienceSkills(experiences)
+                      : []
                   }
                   requiredSkills={missingSkills.requiredSkills}
                   optionalSkills={missingSkills.optionalSkills}
@@ -134,7 +138,7 @@ export const ResumeAndRecruitment = ({
               </div>
             )}
             <div data-h2-margin-top="base(x2)">
-              <ResumeSection
+              <CareerTimelineSection
                 experiences={experiences}
                 applicantId={applicantId}
               />
@@ -168,9 +172,9 @@ export const ResumeAndRecruitment = ({
               {intl.formatMessage({
                 defaultMessage:
                   "When you apply to a recruitment process and successfully pass the assessment, you’re awarded entry and can start being considered for related opportunities. This section highlights all active and expired processes that you’re currently a part of and allows you to manage whether or not you appear in talent searches.",
-                id: "DI3uQq",
+                id: "4r4MJP",
                 description:
-                  "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitment page.",
+                  "Descriptive paragraph for the Qualified recruitment processes section of the career timeline and recruitment page.",
               })}
             </p>
             <QualifiedRecruitmentsSection applications={applications} />
@@ -181,4 +185,4 @@ export const ResumeAndRecruitment = ({
   );
 };
 
-export default ResumeAndRecruitment;
+export default CareerTimelineAndRecruitment;
