@@ -406,6 +406,7 @@ input DepartmentBelongsToMany {
 }
 
 type DigitalContractingPersonnelRequirement {
+  id: UUID!
   resourceType: String
   skillRequirements: [DigitalContractingPersonnelSkill!]
   language: PersonnelLanguage
@@ -416,8 +417,35 @@ type DigitalContractingPersonnelRequirement {
   quantity: Int
 }
 
+input DigitalContractingPersonnelRequirementBelongsToMany {
+  create: [DigitalContractingPersonnelRequirementInput!]
+  delete: [ID!]
+}
+
+input DigitalContractingPersonnelRequirementInput {
+  resourceType: String
+  skillRequirements: DigitalContractingPersonnelSkillBelongsTo
+  language: PersonnelLanguage
+  languageOther: String
+  security: PersonnelScreeningLevel
+  securityOther: String
+  telework: PersonnelTeleworkOption
+  quantity: Int
+}
+
 type DigitalContractingPersonnelSkill {
+  id: UUID!
   skill: Skill
+  level: PersonnelSkillExpertiseLevel
+}
+
+input DigitalContractingPersonnelSkillBelongsTo {
+  create: [DigitalContractingPersonnelSkillInput!]
+  delete: [ID!]
+}
+
+input DigitalContractingPersonnelSkillInput {
+  skill: SkillBelongsTo
   level: PersonnelSkillExpertiseLevel
 }
 
@@ -470,6 +498,72 @@ type DigitalContractingQuestionnaire {
   requirementOtherOther: String
   hasPersonnelRequirements: YesNo
   personnelRequirements: [DigitalContractingPersonnelRequirement!]
+  isTechnologicalChange: YesNo
+  hasImpactOnYourDepartment: YesNo
+  hasImmediateImpactOnOtherDepartments: YesNo
+  hasFutureImpactOnOtherDepartments: YesNo
+  operationsConsiderations: [OperationsConsideration!]
+  operationsConsiderationsOther: String
+  contractingRationalePrimary: ContractingRationale
+  contractingRationalePrimaryOther: String
+  contractingRationalesSecondary: [ContractingRationale!]
+  contractingRationalesSecondaryOther: String
+  ocioConfirmedTalentShortage: YesNo
+  talentSearchTrackingNumber: String
+  ongoingNeedForKnowledge: YesNo
+  knowledgeTransferInContract: YesNo
+  employeesHaveAccessToKnowledge: YesNo
+  ocioEngagedForTraining: YesNo
+}
+
+input DigitalContractingQuestionnaireInput {
+  readPreamble: Boolean
+  department: DepartmentBelongsTo
+  departmentOther: String
+  branchOther: String
+  businessOwnerName: String
+  businessOwnerJobTitle: String
+  businessOwnerEmail: String
+  financialAuthorityName: String
+  financialAuthorityJobTitle: String
+  financialAuthorityEmail: String
+  authoritiesInvolved: [ContractAuthority!]
+  authorityInvolvedOther: String
+  contractBehalfOfGc: YesNoUnsure
+  contractServiceOfGc: YesNoUnsure
+  contractForDigitalInitiative: YesNoUnsure
+  digitalInitiativeName: String
+  digitalInitiativePlanSubmitted: YesNoUnsure
+  digitalInitiativePlanUpdated: YesNoUnsure
+  digitalInitiativePlanComplemented: YesNoUnsure
+  contractTitle: String
+  contractStartDate: Date
+  contractEndDate: Date
+  contractExtendable: YesNo
+  contractAmendable: YesNo
+  contractMultiyear: YesNo
+  contractValue: ContractValueRange
+  contractResourcesStartTimeframe: ContractStartTimeframe
+  commodityType: ContractCommodity
+  commodityTypeOther: String
+  instrumentType: ContractInstrument
+  methodOfSupply: ContractSupplyMethod
+  methodOfSupplyOther: String
+  solicitationProcedure: ContractSolicitationProcedure
+  subjectToTradeAgreement: YesNoUnsure
+  workRequirementDescription: String
+  qualificationRequirement: String
+  requirementAccessToSecure: YesNoUnsure
+  requirementScreeningLevels: [PersonnelScreeningLevel!]
+  requirementScreeningLevelOther: String
+  requirementWorkLanguages: [PersonnelLanguage!]
+  requirementWorkLanguageOther: String
+  requirementWorkLocations: [PersonnelWorkLocation!]
+  requirementWorkLocationSpecific: String
+  requirementOthers: [PersonnelOtherRequirement!]
+  requirementOtherOther: String
+  hasPersonnelRequirements: YesNo
+  personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
   isTechnologicalChange: YesNo
   hasImpactOnYourDepartment: YesNo
   hasImmediateImpactOnOtherDepartments: YesNo
@@ -726,6 +820,9 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
   markNotificationAsRead(id: UUID!): Notification
+  createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
+  updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
+  deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
 }
 
 interface Notification {
@@ -1398,6 +1495,10 @@ type Skill {
   personalExperiences: [PersonalExperience!]
   workExperiences: [WorkExperience!]
   experienceSkillRecord: ExperienceSkillRecord
+}
+
+input SkillBelongsTo {
+  connect: ID!
 }
 
 input SkillBelongsToMany {

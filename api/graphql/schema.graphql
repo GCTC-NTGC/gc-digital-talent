@@ -1358,6 +1358,10 @@ input UpdatePoolCandidateSearchRequestInput {
 input SkillBelongsToMany {
   sync: [ID!]
 }
+input SkillBelongsTo {
+  connect: ID!
+}
+
 input CreateSkillFamilyInput {
   key: KeyString!
     @rules(
