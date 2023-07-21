@@ -2162,6 +2162,10 @@
     "defaultMessage": "Candidatures archivées",
     "description": "Title for a users archived applications"
   },
+  "D2HsoO": {
+    "defaultMessage": "Que se passe-t-il après avoir répondu à l’offre d’emploi?",
+    "description": "Title for the what to expect section of a pool advertisement"
+  },
   "D6HIId": {
     "defaultMessage": "Modifier<hidden> le bassin</hidden>",
     "description": "Edit pool breadcrumb text"
@@ -3988,6 +3992,10 @@
     "defaultMessage": "Il manque des renseignements personnels",
     "description": "Error message displayed when a users personal information is incomplete"
   },
+  "QdSYpe": {
+    "defaultMessage": "Que se passe-t-il après avoir répondu à l’offre d’emploi?",
+    "description": "Sub title for the what to expect section"
+  },
   "QdXUwo": {
     "defaultMessage": "Aller à la page :",
     "description": "Label for pagination input in admin table."
@@ -5417,9 +5425,17 @@
     "defaultMessage": "<strong>N'envisagerait pas</strong> d'accepter un emploi qui :",
     "description": "would not accept job line before a list"
   },
+  "b4lNeU": {
+    "defaultMessage": "Texte en français sur ce à quoi s’attendre",
+    "description": "Title for French pool advertisement what to expect"
+  },
   "b5bUa0": {
     "defaultMessage": "Lieu de travail :",
     "description": "Work Location label, followed by colon"
+  },
+  "b6MBKR": {
+    "defaultMessage": "Texte en anglais sur ce à quoi s’attendre",
+    "description": "Title for English pool advertisement what to expect"
   },
   "b9/MXQ": {
     "defaultMessage": "Quel était votre niveau de responsabilité dans ce rôle?",
@@ -7360,6 +7376,10 @@
     "defaultMessage": "Statut de citoyenneté",
     "description": "Legend text for required citizenship status in About Me form"
   },
+  "o7OKLq": {
+    "defaultMessage": "Anglais - À quoi s’attendre",
+    "description": "Label for the English - What to expect textarea in the edit pool page."
+  },
   "o7SM7j": {
     "defaultMessage": "Créer<hidden> des équipes</hidden>",
     "description": "Breadcrumb title for the create team page link."
@@ -8418,6 +8438,10 @@
     "defaultMessage": "Sélectionnez une famille ou plus",
     "description": "Placeholder displayed on the skill form families field."
   },
+  "wPXjeq": {
+    "defaultMessage": "Ces renseignements permettent aux candidats de savoir à quoi s’attendre après avoir répondu à l’offre d’emploi, par exemple les examens complémentaires, les rencontres directes avec les gestionnaires et les échéances possibles.",
+    "description": "Helper message for filling in the pool what to expect after you apply section"
+  },
   "wPpvvm": {
     "defaultMessage": "Créer un profil",
     "description": "Link text to direct users to the profile page when anonymous"
@@ -8453,6 +8477,10 @@
   "wiUfZL": {
     "defaultMessage": "Si vous souhaitez voir ce message d’état changer à l’échelle de divers bassins, veuillez les sélectionner à partir d’ici :",
     "description": "Header for section to add additional pools to the change status operation"
+  },
+  "wimmA1": {
+    "defaultMessage": "Sauvegarder ce à quoi s’attendre",
+    "description": "Text on a button to save the pool what to expect"
   },
   "wl8GI6": {
     "defaultMessage": "Mon rôle",
@@ -8757,6 +8785,10 @@
   "zAqJMe": {
     "defaultMessage": "Créé",
     "description": "Title displayed on the Pool table Date Created column"
+  },
+  "zDHOiY": {
+    "defaultMessage": "Français - À quoi s’attendre",
+    "description": "Label for the French - What to expect textarea in the edit pool page."
   },
   "zDO6tt": {
     "defaultMessage": "Date d'expiration",
