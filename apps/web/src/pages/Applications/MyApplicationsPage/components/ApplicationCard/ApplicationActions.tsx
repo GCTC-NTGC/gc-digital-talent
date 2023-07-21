@@ -7,7 +7,7 @@ import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
-import { PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import type { Application } from "./ApplicationCard";
 
 export interface ActionProps {
@@ -235,15 +235,15 @@ const CopyApplicationIdAction = ({
     </Button>
   );
 };
-export interface VisitResumeActionProps extends ActionProps {
+export interface VisitCareerTimelineActionProps extends ActionProps {
   userID: string;
   application: Application;
 }
-const VisitResumeAction = ({
+const VisitCareerTimelineAction = ({
   show,
   userID,
   application,
-}: VisitResumeActionProps) => {
+}: VisitCareerTimelineActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
@@ -252,7 +252,7 @@ const VisitResumeAction = ({
     return null;
   }
 
-  const recruitmentSectionUrl = paths.resumeAndRecruitment(userID, {
+  const recruitmentSectionUrl = paths.careerTimelineAndRecruitment(userID, {
     applicationId: application.id,
     section: PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
   });
@@ -265,9 +265,10 @@ const VisitResumeAction = ({
       data-h2-font-size="base(caption)"
       aria-label={intl.formatMessage(
         {
-          defaultMessage: "Visit the {title} recruitment on your résumé",
-          id: "pqsnpk",
-          description: "Link text to direct a user to the Résumé page",
+          defaultMessage:
+            "Visit the {title} recruitment on your career timeline",
+          id: "MqPn3A",
+          description: "Link text to direct a user to the Career timeline page",
         },
         {
           title: jobTitle,
@@ -275,9 +276,9 @@ const VisitResumeAction = ({
       )}
     >
       {intl.formatMessage({
-        defaultMessage: "Visit résumé",
-        id: "Dq+GKf",
-        description: "Link text to direct a user to the Résumé page",
+        defaultMessage: "Visit career timeline",
+        id: "EDjz14",
+        description: "Link text to direct a user to the Career timeline page",
       })}
     </Link>
   );
@@ -515,6 +516,6 @@ export default {
   SupportAction,
   ViewAction,
   CopyApplicationIdAction,
-  VisitResumeAction,
+  VisitCareerTimelineAction,
   ManageAvailabilityAction,
 };
