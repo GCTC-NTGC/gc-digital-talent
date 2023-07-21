@@ -88,7 +88,8 @@ const itemStyleProps = {
   },
   "data-h2-align-items": "base(center)",
   "data-h2-background-color": "base(transparent) base:hover(secondary.15)",
-  "data-h2-color": "base(secondary.dark) base:selectors[[data-disabled]](gray)",
+  "data-h2-color":
+    "base(black) base:selectors[[data-disabled]](black.lightest)",
   "data-h2-cursor": "base(pointer)",
   "data-h2-display": "base(flex)",
   "data-h2-padding": "base(x.25, x.5, x.25, x1)",
@@ -134,7 +135,7 @@ const Label = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Label
-    data-h2-color="base(gray)"
+    data-h2-color="base(black)"
     ref={forwardedRef}
     {...props}
   />
