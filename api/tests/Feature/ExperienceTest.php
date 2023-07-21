@@ -19,7 +19,6 @@ class ExperienceTest extends TestCase
     use RefreshesSchemaCache;
     use InteractsWithExceptionHandling;
 
-    // protected $requestResponder;
     protected $platformAdmin;
 
     protected function setUp(): void
