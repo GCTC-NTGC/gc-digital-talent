@@ -49,6 +49,9 @@ import AssetSkillsSection, {
 import ScreeningQuestions, {
   type ScreeningQuestionsSubmitData,
 } from "./components/ScreeningQuestions";
+import WhatToExpectSection, {
+  type WhatToExpectSubmitData,
+} from "./components/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
 import useMutations from "./hooks/useMutations";
 
@@ -60,6 +63,7 @@ export type PoolSubmitData =
   | PoolNameSubmitData
   | WorkTasksSubmitData
   | YourImpactSubmitData
+  | WhatToExpectSubmitData
   | ScreeningQuestionsSubmitData;
 
 export interface EditPoolFormProps {
@@ -155,6 +159,14 @@ export const EditPoolForm = ({
         description: "Subtitle for the pool screening questions",
       }),
     },
+    whatToExpect: {
+      id: "what-to-expect",
+      title: intl.formatMessage({
+        defaultMessage: "What to expect after you apply",
+        id: "QdSYpe",
+        description: "Sub title for the what to expect section",
+      }),
+    },
     status: {
       id: "status",
       title: intl.formatMessage({
@@ -225,6 +237,13 @@ export const EditPoolForm = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={sectionMetadata.whatToExpect.id}
+                >
+                  {sectionMetadata.whatToExpect.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
                   {sectionMetadata.status.title}
                 </TableOfContents.AnchorLink>
@@ -287,6 +306,11 @@ export const EditPoolForm = ({
             <ScreeningQuestions
               pool={pool}
               sectionMetadata={sectionMetadata.screeningQuestions}
+              onSave={onSave}
+            />
+            <WhatToExpectSection
+              pool={pool}
+              sectionMetadata={sectionMetadata.whatToExpect}
               onSave={onSave}
             />
             <StatusSection

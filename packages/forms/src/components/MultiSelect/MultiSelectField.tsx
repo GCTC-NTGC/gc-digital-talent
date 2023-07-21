@@ -1,16 +1,16 @@
 import React from "react";
 
-import SelectFieldV2, {
-  type SelectFieldV2Props,
-} from "../Select/SelectFieldV2";
+import MultiSelectFieldBase, {
+  type MultiSelectFieldBaseProps,
+} from "../Select/MultiSelectFieldBase";
 
 export type MultiSelectFieldProps = Omit<
-  SelectFieldV2Props,
+  MultiSelectFieldBaseProps,
   "isMulti" | "forceArrayFormValue"
 >;
 
 const MultiSelectField = (props: MultiSelectFieldProps) => (
-  <SelectFieldV2 isMulti {...props} />
+  <MultiSelectFieldBase isMulti {...props} />
 );
 
 export default MultiSelectField;

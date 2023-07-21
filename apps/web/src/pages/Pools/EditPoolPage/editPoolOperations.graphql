@@ -36,6 +36,10 @@ query getEditPoolData($poolId: UUID!) {
       en
       fr
     }
+    whatToExpect {
+      en
+      fr
+    }
     essentialSkills {
       id
       key

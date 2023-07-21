@@ -12,7 +12,7 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import { PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 
 import { PoolCandidateStatus } from "~/api/generated";
 import TrackApplicationsCard, {
@@ -86,7 +86,7 @@ describe("TrackApplicationsCard", () => {
     );
     expect(links[1]).toHaveTextContent("Review job ad");
 
-    expect(links[2]).toHaveTextContent("Visit résumé");
+    expect(links[2]).toHaveTextContent("Visit career timeline");
     expect(links[2]).toHaveAttribute(
       "href",
       expect.stringContaining(PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES),

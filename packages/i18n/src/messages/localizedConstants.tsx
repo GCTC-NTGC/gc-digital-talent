@@ -442,8 +442,8 @@ export const getLanguageRequirement = (
 
 export const workRegions = defineMessages({
   [WorkRegion.Atlantic]: {
-    defaultMessage: "Atlantic",
-    id: "9ayzJI",
+    defaultMessage: "Atlantic (NB, NS, PE and NL)",
+    id: "yBi2pM",
     description: "The work region of Canada described as Atlantic.",
   },
   [WorkRegion.BritishColumbia]: {
@@ -452,29 +452,31 @@ export const workRegions = defineMessages({
     description: "The work region of Canada described as British Columbia.",
   },
   [WorkRegion.NationalCapital]: {
-    defaultMessage: "National Capital",
-    id: "KoUKWc",
+    defaultMessage: "National Capital Region (Ottawa/Gatineau)",
+    id: "c/o/E4",
     description: "The work region of Canada described as National Capital.",
   },
   [WorkRegion.North]: {
-    defaultMessage: "North",
-    id: "NNMJXo",
+    defaultMessage: "Northern (NU, NT, YT)",
+    id: "w4vHfG",
     description: "The work region of Canada described as North.",
   },
   [WorkRegion.Ontario]: {
-    defaultMessage: "Ontario",
-    id: "/a8X4d",
-    description: "The work region of Canada described as Ontario.",
+    defaultMessage: "Ontario (excluding Ottawa area)",
+    id: "iUCkxX",
+    description:
+      "The work region of Canada described as Ontario, excluding Ottawa.",
   },
   [WorkRegion.Prairie]: {
-    defaultMessage: "Prairie",
-    id: "jNo5Zk",
-    description: "The work region of Canada described as Prairie.",
+    defaultMessage: "Prairies (AB, SK, MB)",
+    id: "U4Gfow",
+    description: "The work region of Canada described as Prairies.",
   },
   [WorkRegion.Quebec]: {
-    defaultMessage: "Quebec",
-    id: "+EQZK5",
-    description: "The work region of Canada described as Quebec.",
+    defaultMessage: "Quebec (excluding Gatineau area)",
+    id: "vDulgp",
+    description:
+      "The work region of Canada described as Quebec, excluding Gatineau.",
   },
   [WorkRegion.Telework]: {
     defaultMessage: "Telework",
@@ -622,9 +624,21 @@ export const poolCandidateStatuses = defineMessages({
     description: "The pool candidate's status is Screened In.",
   },
   [PoolCandidateStatus.ScreenedOutApplication]: {
-    defaultMessage: "Screened Out Application",
-    id: "R2BWry",
+    defaultMessage: "Screened Out - Application",
+    id: "+J9x7H",
     description: "The pool candidate's status is Screened Out Application",
+  },
+  [PoolCandidateStatus.ScreenedOutNotInterested]: {
+    defaultMessage: "Screened Out - No Longer Interested",
+    id: "TN8HIH",
+    description:
+      "The pool candidate's status is Screened Out because of no interest",
+  },
+  [PoolCandidateStatus.ScreenedOutNotResponding]: {
+    defaultMessage: "Screened Out - Not Responsive",
+    id: "QCcpJr",
+    description:
+      "The pool candidate's status is Screened Out because no longer responding",
   },
   [PoolCandidateStatus.UnderAssessment]: {
     defaultMessage: "Under Assessment",
@@ -632,8 +646,8 @@ export const poolCandidateStatuses = defineMessages({
     description: "The pool candidate's status is Under Assessment.",
   },
   [PoolCandidateStatus.ScreenedOutAssessment]: {
-    defaultMessage: "Screened Out Assessment",
-    id: "pLlu65",
+    defaultMessage: "Screened Out - Assessment",
+    id: "C2RURL",
     description: "The pool candidate's status is Screened Out Assessment.",
   },
   [PoolCandidateStatus.QualifiedAvailable]: {
@@ -1922,6 +1936,8 @@ const statusLabelMap = new Map<PoolCandidateStatus, StatusLabelKey>([
   [PoolCandidateStatus.DraftExpired, "DATE_PASSED"],
   [PoolCandidateStatus.ScreenedOutApplication, "SCREENED_OUT"],
   [PoolCandidateStatus.ScreenedOutAssessment, "SCREENED_OUT"],
+  [PoolCandidateStatus.ScreenedOutNotInterested, "SCREENED_OUT"],
+  [PoolCandidateStatus.ScreenedOutNotResponding, "SCREENED_OUT"],
   [PoolCandidateStatus.QualifiedAvailable, "QUALIFIED"],
   [PoolCandidateStatus.QualifiedUnavailable, "QUALIFIED"],
   [PoolCandidateStatus.QualifiedWithdrew, "QUALIFIED"],

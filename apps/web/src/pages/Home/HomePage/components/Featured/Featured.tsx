@@ -5,37 +5,16 @@ import { Heading } from "@gc-digital-talent/ui";
 
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
-import { wrapAbbr } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import glassesOnBooks from "~/assets/img/glasses-on-books.jpg";
 // import digitalAmbitionImg from "~/assets/img/check_it_out_digital_ambition.jpg";
 import iapManagerImg from "~/assets/img/check_it_out_IAP_manager_callout.jpg";
+import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 
 const Featured = () => {
   const intl = useIntl();
   const paths = useRoutes();
-
-  const iapEmail = {
-    subject: encodeURIComponent(
-      intl.formatMessage({
-        defaultMessage:
-          "I'm interested in hiring Indigenous IT apprentices for my team",
-        id: "E4PMGL",
-        description:
-          "Subject of email for info on IT Apprenticeship Program for Indigenous Peoples",
-      }),
-    ),
-    body: encodeURIComponent(
-      intl.formatMessage({
-        defaultMessage:
-          "I discovered the IT Apprenticeship Program for Indigenous Peoples on talent.canada.ca and I'd like to learn more about how I can hire apprentices to my team.",
-        id: "02aheT",
-        description:
-          "Body of email for info on IT Apprenticeship Program for Indigenous Peoples",
-      }),
-    ),
-  };
 
   // TEMP: Removed in https://github.com/GCTC-NTGC/gc-digital-talent/pull/6143
   // const digitalAmbition = {
@@ -98,35 +77,31 @@ const Featured = () => {
     {
       key: "hiring-indigenous-talent",
       title: intl.formatMessage({
-        defaultMessage: "Hiring Indigenous Tech Talent",
-        id: "nYA+Tj",
-        description: "Title for the Indigenous tech talent feature item",
+        defaultMessage: "IT Apprenticeship Program for Indigenous Peoples",
+        id: "4N/PxH",
+        description:
+          "Heading for the IT Apprenticeship Program for Indigenous Peoples on home page",
       }),
       summary: (
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "Are you looking for entry-level <abbreviation>IT</abbreviation> talent and want to support diversity, inclusion, and reconciliation? Connect with the <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples and start the process to hire Indigenous apprentices today!",
-              id: "Q0G/5L",
-              description:
-                "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage",
-            },
-            {
-              abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-            },
-          )}
+        <p data-h2-margin-bottom="base(x1)">
+          {intl.formatMessage({
+            defaultMessage:
+              "Designed by the Indigenous community for the Indigenous community, this program recruits entry-level applicants for learning and development IT opportunities across government.",
+            id: "TUi+jx",
+            description:
+              "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage",
+          })}
         </p>
       ),
       img: { path: iapManagerImg },
       link: {
-        external: true,
-        path: `mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca?subject=${iapEmail.subject}&body=${iapEmail.body}`,
+        path: paths.iap(),
         label: intl.formatMessage({
-          defaultMessage: "Contact the Apprenticeship Program",
-          id: "71f/uH",
+          defaultMessage:
+            "Learn more<hidden> about the IT Apprenticeship Program for Indigenous Peoples</hidden>",
+          id: "6tqGpT",
           description:
-            "Link text to email about the IT Apprenticeship Program for Indigenous Peoples",
+            "Link text to the IT Apprenticeship Program for Indigenous Peoples",
         }),
       },
     },
@@ -134,7 +109,12 @@ const Featured = () => {
 
   return (
     <FlourishContainer>
-      <Heading level="h2" data-h2-margin="base(0, 0, x0.5, 0)">
+      <Heading
+        level="h2"
+        data-h2-margin="base(0, 0, x0.5, 0)"
+        color="quinary"
+        Icon={MagnifyingGlassCircleIcon}
+      >
         {intl.formatMessage({
           defaultMessage: "Check it out",
           id: "1q/MmU",

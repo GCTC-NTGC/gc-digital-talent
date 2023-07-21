@@ -47,6 +47,10 @@ query getPool($id: UUID!) {
       en
       fr
     }
+    whatToExpect {
+      en
+      fr
+    }
     essentialSkills {
       id
       key
