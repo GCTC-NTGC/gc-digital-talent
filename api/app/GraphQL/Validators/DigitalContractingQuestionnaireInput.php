@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Rules\ArrayConsistentWithDetail;
 use Database\Helpers\DirectiveFormsApiEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -23,9 +24,11 @@ final class DigitalContractingQuestionnaireInput extends Validator
             ],
             'businessOwnerEmail' => ['email'],
             'financialAuthorityEmail' => ['email'],
+            'authoritiesInvolved' => [
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_AUTHORITY_OTHER, 'authorityInvolvedOther')
+            ],
             'authorityInvolvedOther' => [
-                Rule::requiredIf(in_array(DirectiveFormsApiEnums::CONTRACT_AUTHORITY_OTHER, $this->arg('authoritiesInvolved'))),
-                Rule::prohibitedIf(!in_array(DirectiveFormsApiEnums::CONTRACT_AUTHORITY_OTHER, $this->arg('authoritiesInvolved')))
+                Rule::prohibitedIf(!is_array($this->arg('authoritiesInvolved')))
             ],
             'contractEndDate' => ['after_or_equal:contractStartDate'],
             'commodityTypeOther' => [
@@ -36,29 +39,39 @@ final class DigitalContractingQuestionnaireInput extends Validator
                 'requiredIf:methodOfSupply,' . DirectiveFormsApiEnums::CONTRACT_SUPPLY_METHOD_OTHER,
                 'prohibited_unless:methodOfSupply,' . DirectiveFormsApiEnums::CONTRACT_SUPPLY_METHOD_OTHER,
             ],
+            'requirementScreeningLevels' => [
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, 'requirementScreeningLevelOther')
+            ],
             'requirementScreeningLevelOther' => [
-                Rule::requiredIf(in_array(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, $this->arg('requirementScreeningLevels'))),
-                Rule::prohibitedIf(!in_array(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, $this->arg('requirementScreeningLevels')))
+                Rule::prohibitedIf(!is_array($this->arg('requirementScreeningLevels')))
+            ],
+            'requirementWorkLanguages' => [
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, 'requirementWorkLanguageOther')
             ],
             'requirementWorkLanguageOther' => [
-                Rule::requiredIf(in_array(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, $this->arg('requirementWorkLanguages'))),
-                Rule::prohibitedIf(!in_array(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, $this->arg('requirementWorkLanguages')))
+                Rule::prohibitedIf(!is_array($this->arg('requirementWorkLanguages')))
+            ],
+            'requirementWorkLocations' => [
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_OFFSITE_SPECIFIC, 'requirementWorkLocationSpecific')
             ],
             'requirementWorkLocationSpecific' => [
-                Rule::requiredIf(in_array(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_OFFSITE_SPECIFIC, $this->arg('requirementWorkLocations'))),
-                Rule::prohibitedIf(!in_array(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_OFFSITE_SPECIFIC, $this->arg('requirementWorkLocations')))
+                Rule::prohibitedIf(!is_array($this->arg('requirementWorkLocations')))
+            ],
+            'requirementOthers' => [
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_OTHER_REQUIREMENT_OTHER, 'requirementOtherOther')
             ],
             'requirementOtherOther' => [
-                Rule::requiredIf(in_array(DirectiveFormsApiEnums::PERSONNEL_OTHER_REQUIREMENT_OTHER, $this->arg('requirementOthers'))),
-                Rule::prohibitedIf(!in_array(DirectiveFormsApiEnums::PERSONNEL_OTHER_REQUIREMENT_OTHER, $this->arg('requirementOthers')))
+                Rule::prohibitedIf(!is_array($this->arg('requirementOthers')))
             ],
             'personnelRequirements' => [
                 'requiredIf:hasPersonnelRequirements,' . DirectiveFormsApiEnums::YESNOUNSURE_YES,
                 'prohibited_unless:hasPersonnelRequirements,' . DirectiveFormsApiEnums::YESNOUNSURE_YES,
             ],
+            'operationsConsiderations' => [
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::OPERATIONS_CONSIDERATION_OTHER, 'operationsConsiderationsOther')
+            ],
             'operationsConsiderationsOther' => [
-                Rule::requiredIf(in_array(DirectiveFormsApiEnums::OPERATIONS_CONSIDERATION_OTHER, $this->arg('operationsConsiderations'))),
-                Rule::prohibitedIf(!in_array(DirectiveFormsApiEnums::OPERATIONS_CONSIDERATION_OTHER, $this->arg('operationsConsiderations')))
+                Rule::prohibitedIf(!is_array($this->arg('operationsConsiderations')))
             ],
             'contractingRationalePrimary' => [
                 Rule::notIn($this->arg('contractingRationalesSecondary')),
@@ -67,9 +80,11 @@ final class DigitalContractingQuestionnaireInput extends Validator
                 'requiredIf:contractingRationalePrimary,' . DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER,
                 'prohibited_unless:contractingRationalePrimary,' . DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER,
             ],
+            'contractingRationalesSecondary' => [
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, 'contractingRationalesSecondaryOther')
+            ],
             'contractingRationalesSecondaryOther' => [
-                Rule::requiredIf(in_array(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, $this->arg('contractingRationalesSecondary'))),
-                Rule::prohibitedIf(!in_array(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, $this->arg('contractingRationalesSecondary')))
+                Rule::prohibitedIf(!is_array($this->arg('contractingRationalesSecondary')))
             ],
             'talentSearchTrackingNumber' => ['requiredIf:ocioConfirmedTalentShortage,' . DirectiveFormsApiEnums::YESNOUNSURE_YES],
         ];
