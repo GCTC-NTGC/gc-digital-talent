@@ -20,8 +20,8 @@ import MultiSelectField from "./components/MultiSelect/MultiSelectField";
 import RadioGroup, { type RadioGroupProps } from "./components/RadioGroup";
 import Repeater from "./components/Repeater/Repeater";
 import Select, {
-  SelectFieldV2,
-  type SelectFieldV2Props,
+  MultiSelectFieldBase,
+  type MultiSelectFieldBaseProps,
   type SelectProps,
   type Option,
 } from "./components/Select";
@@ -40,6 +40,7 @@ import {
   unpackMaybes,
   unpackIds,
   enumToOptions,
+  enumToOptionsWorkRegionSorted,
   getValues,
   escapeAString,
   matchStringCaseDiacriticInsensitive,
@@ -63,7 +64,7 @@ export {
   Repeater,
   RadioGroup,
   Select,
-  SelectFieldV2,
+  MultiSelectFieldBase,
   Submit,
   TextArea,
   WordCounter,
@@ -83,7 +84,7 @@ export type {
   InputProps,
   RadioGroupProps,
   SelectProps,
-  SelectFieldV2Props,
+  MultiSelectFieldBaseProps,
   Option,
   SubmitProps,
   TextAreaProps,
@@ -102,6 +103,7 @@ export {
   unpackMaybes,
   unpackIds,
   enumToOptions,
+  enumToOptionsWorkRegionSorted,
   getValues,
   escapeAString,
   matchStringCaseDiacriticInsensitive,

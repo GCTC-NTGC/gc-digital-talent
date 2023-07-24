@@ -59,7 +59,6 @@ Queueable
 recruitmentimit
 recruitments
 recrutementgiti
-résumé
 rolepermission
 skillset
 spinbutton

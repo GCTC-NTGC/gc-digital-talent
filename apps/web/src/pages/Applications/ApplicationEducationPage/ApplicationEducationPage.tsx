@@ -40,7 +40,7 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
 import { ApplicationPageProps } from "../ApplicationApi";
-import LinkResume from "./LinkResume";
+import LinkCareerTimeline from "./LinkCareerTimeline";
 import { useApplicationContext } from "../ApplicationContext";
 
 type EducationRequirementExperiences = {
@@ -123,7 +123,7 @@ const ApplicationEducation = ({
   });
   const nextStep =
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);
-  const previousStep = paths.applicationResume(application.id);
+  const previousStep = paths.applicationCareerTimeline(application.id);
   const cancelPath = applicantDashboard
     ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
@@ -286,8 +286,8 @@ const ApplicationEducation = ({
       toast.error(
         intl.formatMessage({
           defaultMessage:
-            "It looks like you haven't added any education experiences to your résumé yet.",
-          id: "Td1lSw",
+            "It looks like you haven't added any education experiences to your career timeline yet.",
+          id: "UjxhSB",
           description:
             "Alert message informing user to add education experience in application education page.",
         }),
@@ -406,8 +406,8 @@ const ApplicationEducation = ({
           <p data-h2-margin="base(0, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "To help us understand how you meet the minimum experience or education criteria, please identify which of the options you meet, as well as which experiences in your résumé apply. If both apply to you, that’s great! Feel free to select the option that best reflects your qualifications.",
-              id: "qEYoGS",
+                "To help us understand how you meet the minimum experience or education criteria, please identify which of the options you meet, as well as which experiences in your career timeline apply. If both apply to you, that’s great! Feel free to select the option that best reflects your qualifications.",
+              id: "rxo7fM",
               description:
                 "Description for radio group section in application education page.",
             })}
@@ -436,7 +436,7 @@ const ApplicationEducation = ({
               required: intl.formatMessage(errorMessages.required),
             }}
           />
-          <LinkResume
+          <LinkCareerTimeline
             experiences={experiences}
             watchEducationRequirement={watchEducationRequirement}
             previousStepPath={previousStep}

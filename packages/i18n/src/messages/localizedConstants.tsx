@@ -30,6 +30,7 @@ import {
   CandidateSuspendedFilter,
   Maybe,
   EducationRequirementOption,
+  PoolCandidateSearchPositionType,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -441,8 +442,8 @@ export const getLanguageRequirement = (
 
 export const workRegions = defineMessages({
   [WorkRegion.Atlantic]: {
-    defaultMessage: "Atlantic",
-    id: "9ayzJI",
+    defaultMessage: "Atlantic (NB, NS, PE and NL)",
+    id: "yBi2pM",
     description: "The work region of Canada described as Atlantic.",
   },
   [WorkRegion.BritishColumbia]: {
@@ -451,29 +452,31 @@ export const workRegions = defineMessages({
     description: "The work region of Canada described as British Columbia.",
   },
   [WorkRegion.NationalCapital]: {
-    defaultMessage: "National Capital",
-    id: "KoUKWc",
+    defaultMessage: "National Capital Region (Ottawa/Gatineau)",
+    id: "c/o/E4",
     description: "The work region of Canada described as National Capital.",
   },
   [WorkRegion.North]: {
-    defaultMessage: "North",
-    id: "NNMJXo",
+    defaultMessage: "Northern (NU, NT, YT)",
+    id: "w4vHfG",
     description: "The work region of Canada described as North.",
   },
   [WorkRegion.Ontario]: {
-    defaultMessage: "Ontario",
-    id: "/a8X4d",
-    description: "The work region of Canada described as Ontario.",
+    defaultMessage: "Ontario (excluding Ottawa area)",
+    id: "iUCkxX",
+    description:
+      "The work region of Canada described as Ontario, excluding Ottawa.",
   },
   [WorkRegion.Prairie]: {
-    defaultMessage: "Prairie",
-    id: "jNo5Zk",
-    description: "The work region of Canada described as Prairie.",
+    defaultMessage: "Prairies (AB, SK, MB)",
+    id: "U4Gfow",
+    description: "The work region of Canada described as Prairies.",
   },
   [WorkRegion.Quebec]: {
-    defaultMessage: "Quebec",
-    id: "+EQZK5",
-    description: "The work region of Canada described as Quebec.",
+    defaultMessage: "Quebec (excluding Gatineau area)",
+    id: "vDulgp",
+    description:
+      "The work region of Canada described as Quebec, excluding Gatineau.",
   },
   [WorkRegion.Telework]: {
     defaultMessage: "Telework",
@@ -631,7 +634,7 @@ export const poolCandidateStatuses = defineMessages({
     description:
       "The pool candidate's status is Screened Out because of no interest",
   },
-  [PoolCandidateStatus.ScreenedOutNotResponding]: {
+  [PoolCandidateStatus.ScreenedOutNotResponsive]: {
     defaultMessage: "Screened Out - Not Responsive",
     id: "QCcpJr",
     description:
@@ -783,6 +786,28 @@ export const getPoolCandidateSearchStatus = (
     poolCandidateSearchStatuses,
     poolCandidateSearchStatusId,
     `Invalid Pool Candidate Search Status '${poolCandidateSearchStatusId}'`,
+  );
+
+export const poolCandidateSearchPositionTypes = defineMessages({
+  [PoolCandidateSearchPositionType.IndividualContributor]: {
+    defaultMessage: "Individual contributor",
+    id: "Ij1cFC",
+    description: "The position type is an individual contributor.",
+  },
+  [PoolCandidateSearchPositionType.TeamLead]: {
+    defaultMessage: "Team lead",
+    id: "R0pQGQ",
+    description: "The position type is a team lead.",
+  },
+});
+
+export const getPoolCandidateSearchPositionType = (
+  poolCandidateSearchPositionTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    poolCandidateSearchPositionTypes,
+    poolCandidateSearchPositionTypeId,
+    `Invalid Pool Candidate Search Position Type '${poolCandidateSearchPositionTypeId}'`,
   );
 
 export const SkillCategories = defineMessages({
@@ -1912,7 +1937,7 @@ const statusLabelMap = new Map<PoolCandidateStatus, StatusLabelKey>([
   [PoolCandidateStatus.ScreenedOutApplication, "SCREENED_OUT"],
   [PoolCandidateStatus.ScreenedOutAssessment, "SCREENED_OUT"],
   [PoolCandidateStatus.ScreenedOutNotInterested, "SCREENED_OUT"],
-  [PoolCandidateStatus.ScreenedOutNotResponding, "SCREENED_OUT"],
+  [PoolCandidateStatus.ScreenedOutNotResponsive, "SCREENED_OUT"],
   [PoolCandidateStatus.QualifiedAvailable, "QUALIFIED"],
   [PoolCandidateStatus.QualifiedUnavailable, "QUALIFIED"],
   [PoolCandidateStatus.QualifiedWithdrew, "QUALIFIED"],

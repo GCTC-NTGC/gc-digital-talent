@@ -107,6 +107,10 @@
     "defaultMessage": "Mon profil",
     "description": "Breadcrumb from applicant profile wrapper."
   },
+  "+lSoN3": {
+    "defaultMessage": "Cette compétence requise doit être associée à au moins une expérience au cours de votre parcours professionnel.",
+    "description": "Message that appears when a required skill has no experiences linked to it"
+  },
   "+mCsoW": {
     "defaultMessage": "Demande d’état mise à jour!",
     "description": "Message displayed to user after the request status is successfully updated."
@@ -380,6 +384,14 @@
     "defaultMessage": "Veuillez sélectionner les options qui reflètent le mieux vos qualifications",
     "description": "Legend for the radio group in the application education page - IAP variant."
   },
+  "0Ma07A": {
+    "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre parcours professionnel pour confirmer les exigences en matière d’expérience et d’études, nous vous demanderons de décrire une ou plusieurs expériences de votre parcours professionnel au cours desquelles vous avez activement utilisé la compétence requise.",
+    "description": "Application step for skill requirements, introduction, description, paragraph two"
+  },
+  "0PeEzR": {
+    "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour le développer et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
+    "description": "Application step to continue working on career timeline, paragraph one"
+  },
   "0Q89Cz": {
     "defaultMessage": "Trouvez une compétence dans notre bibliothèque en utilisant les filtres et la recherche par mot-clé.",
     "description": "Subtitle for the find a skill dialog"
@@ -428,10 +440,6 @@
     "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select status in the education form."
   },
-  "0jNQ/I": {
-    "defaultMessage": "Nous comptons toute une gamme de réalisations et d’expériences qui viennent façonner tant notre carrière que nos compétences. Veuillez nous faire part de ce que vous êtes confortable à partager avec un collègue. Sur cette plateforme, vous pouvez ajouter ce qui suit à votre CV :",
-    "description": "Lead-in text for the list of experience type definitions"
-  },
   "0lDq3P": {
     "defaultMessage": "La liste n’est pas filtrée. ",
     "description": "Announcement that the job stream filter is not active."
@@ -456,6 +464,10 @@
     "defaultMessage": "Ce bassin est actuellement en cours de publication et ouvert à la réception de nouvelles candidatures.",
     "description": "Status description of a pool in PUBLISHED status"
   },
+  "0w59dG": {
+    "defaultMessage": "Votre parcours professionnel",
+    "description": "Heading for career timeline section of the application review page."
+  },
   "0zo274": {
     "defaultMessage": "Demande soumise",
     "description": "Link text for request confirmation breadcrumb"
@@ -471,14 +483,6 @@
   "159+n7": {
     "defaultMessage": "Compétences sélectionnées ({numOfSkills})",
     "description": "Title for skills section on summary of filters section"
-  },
-  "18FbqO": {
-    "defaultMessage": "Cette section ressemble à votre CV traditionnel et décrit vos expériences de travail, scolaires, et de la vie. Vous pourrez réutiliser cette information sur chaque demande que vous soumettez par l’entremise de la plateforme, ce qui viendra accélérer le processus et fera en sorte que votre information sera toujours à jour.",
-    "description": "Descriptive paragraph for the Manage your resume section of the résumé and recruitment page."
-  },
-  "19hs6x": {
-    "defaultMessage": "La création de votre CV est un peu différente sur cette plateforme. Tout d’abord, tout travail que vous effectuez ici sera enregistré dans votre profil afin que vous puissiez le réutiliser sur d’autres demandes ultérieurement.",
-    "description": "Application step to begin working on résumé, paragraph one"
   },
   "1BEtoY": {
     "defaultMessage": "Nom du gestionnaire",
@@ -542,6 +546,10 @@
   "1c+inU": {
     "defaultMessage": "Technicien(ne) T I 1 (60 000 $ à 78 000 $)",
     "description": "IT-01 classification aria label including titles and salaries"
+  },
+  "1dZLbs": {
+    "defaultMessage": "Une fois que vous avez terminé votre parcours professionnel et que vous êtes satisfait(e) des expériences que vous avez ajoutées, vous les utiliserez dans les étapes suivantes pour nous aider à mieux comprendre en quoi vous répondez aux exigences en matière de compétences pour cette possibilité.",
+    "description": "Application step to begin working on career timeline, paragraph three"
   },
   "1fMzyo": {
     "defaultMessage": "Afficher les candidatures antérieures ({applicationCount})",
@@ -619,6 +627,10 @@
     "defaultMessage": "Souhaitez-vous poursuivre?",
     "description": "Message displayed to users before removing a member from a team"
   },
+  "2KM4iz": {
+    "defaultMessage": "Parcours professionnel",
+    "description": "Title for the career timeline snapshot section"
+  },
   "2KjiDn": {
     "defaultMessage": "Niveau 4 : Gestionnaire",
     "description": "title for IT-04 manager dialog"
@@ -691,10 +703,6 @@
     "defaultMessage": "Ajouter un nouveau rôle",
     "description": "Label for the form to add a role to a user"
   },
-  "2lOey6": {
-    "defaultMessage": "Votre CV",
-    "description": "Heading for resume section of the application review page."
-  },
   "2n0e2i": {
     "defaultMessage": "Trier les expériences par ordre de",
     "description": "Label for selector to choose experience sort options"
@@ -726,6 +734,10 @@
   "304KKb": {
     "defaultMessage": "Responsabilités liées à la Directive",
     "description": "Link text for the page call to action"
+  },
+  "31HF1c": {
+    "defaultMessage": "Vous n’avez pas encore ajouté d’éléments à votre parcours professionnel.",
+    "description": "Message to user when no career timeline items have been attached to profile."
   },
   "33wMLU": {
     "defaultMessage": "Changer votre disponibilité",
@@ -805,10 +817,6 @@
   "3b6cy/": {
     "defaultMessage": "Salaire minimal",
     "description": "Label displayed for the classification form min salary field."
-  },
-  "3c9+uF": {
-    "defaultMessage": "Une fois que votre candidature aura été retenue, <a>le critère de qualification sera automatiquement ajouté à votre CV</a> afin que les gestionnaires puissent prendre connaissance de vos réalisations.",
-    "description": "Description for the track applications section on the applicant dashboard, paragraph two."
   },
   "3eNQnt": {
     "defaultMessage": "Date de réception",
@@ -954,13 +962,13 @@
     "defaultMessage": "Aucune information n'a été fournie",
     "description": "Message on Admin side when user not filled Experience section."
   },
-  "4YUt61": {
-    "defaultMessage": "Veuillez établir un lien entre au moins une des expériences figurant sur votre CV et les compétences techniques demandées.",
-    "description": "Error message if there are no experiences"
-  },
   "4Zl/mp": {
     "defaultMessage": "Personne handicapée",
     "description": "Text on view-user page that the user has a disability"
+  },
+  "4bWCNR": {
+    "defaultMessage": "(Aucun fourni)",
+    "description": "Message displayed when a given field has no values to display, that no information is present."
   },
   "4bjh8X": {
     "defaultMessage": "Erreur : utilisateur introuvable",
@@ -982,6 +990,10 @@
     "defaultMessage": "Révisez votre candidature et envoyez-la!",
     "description": "Subtitle for the application review page."
   },
+  "4liNMy": {
+    "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.",
+    "description": "Null state message for experiences section of the application review page."
+  },
   "4p0QdF": {
     "defaultMessage": "Fermer",
     "description": "Button text used to close an open modal"
@@ -989,6 +1001,10 @@
   "4pJgUJ": {
     "defaultMessage": "Contextes professionnels",
     "description": "Work details label"
+  },
+  "4r4MJP": {
+    "defaultMessage": "Lorsque vous postulez à un processus de recrutement et que vous réussissez l’évaluation, vous êtes admis(e) et vous pouvez commencer à être pris en considération pour les possibilités correspondantes. Cette section présente tous les processus actifs et expirés auxquels vous participez actuellement et vous permet de gérer le fait que vous apparaissiez ou non dans les recherches de talents.",
+    "description": "Descriptive paragraph for the Qualified recruitment processes section of the career timeline and recruitment page."
   },
   "4uiPHx": {
     "defaultMessage": "Passer à la page suivante",
@@ -1094,6 +1110,10 @@
     "defaultMessage": "<strong>Oui</strong>, je suis un employé du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
   },
+  "5dFzBc": {
+    "defaultMessage": "Mettre à jour et passer en revue les informations relatives à votre parcours professionnel.",
+    "description": "Subtitle for the application career timeline page"
+  },
   "5dgCOy": {
     "defaultMessage": "Pourquoi vous demande-t-on de déclarer votre statut?",
     "description": "Heading for the self-declaration explanation dialog"
@@ -1178,10 +1198,6 @@
     "defaultMessage": "Accueil",
     "description": "Title for homepage on the talent cloud admin portal."
   },
-  "6F4HY/": {
-    "defaultMessage": "Toutes les possibilités sur cette plateforme exigent que vous utilisiez votre demande pour démontrer quelques compétences « professionnelles » ou « techniques » requises. Certaines occasions évalueront également les compétences « comportementales » ou « générales » indépendamment de votre demande, même si vous êtes libre de les ajouter à votre curriculum vitæ.",
-    "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
-  },
   "6G1ESr": {
     "defaultMessage": "Opérations d’infrastructure de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'infrastructure operations' IT work stream"
@@ -1257,10 +1273,6 @@
   "6esMaA": {
     "defaultMessage": "Expérience ou formation minimale",
     "description": "Page title for the application education page"
-  },
-  "6f8XuQ": {
-    "defaultMessage": "Gérez votre expérience et vos processus de recrutement auxquels vous vous êtes qualifié(e).",
-    "description": "Description for the Résumé and recruitment page in applicant profile."
   },
   "6kSk+R": {
     "defaultMessage": "Architecture intégrée de la <abbreviation>TI</abbreviation>",
@@ -1386,10 +1398,6 @@
     "defaultMessage": "Modifier le prix",
     "description": "Page title for the award profile form"
   },
-  "7XSyhV": {
-    "defaultMessage": "Cette habilité obligatoires doit compter au moins une expérience connexe tirée du cv.",
-    "description": "Experience tree view error message"
-  },
   "7d/ot8": {
     "defaultMessage": "Basculer tout",
     "description": "Label displayed on the Table Columns toggle fieldset."
@@ -1461,6 +1469,10 @@
   "80DOGy": {
     "defaultMessage": "Date de fin",
     "description": "Label displayed on the pool candidate form end date field."
+  },
+  "81Bib7": {
+    "defaultMessage": "Vous pouvez ajouter des expériences spécifiques en matière d’études en sélectionnant l’option « Études et certificats » lorsque vous <link>créez une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
+    "description": "Secondary alert message informing user to add education experience in application education page."
   },
   "81iywD": {
     "defaultMessage": "On vous demandera de confirmer les renseignements que vous avez fournis.",
@@ -1562,10 +1574,6 @@
     "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
     "description": "No preference for employment duration - will accept any"
   },
-  "8hnUdh": {
-    "defaultMessage": "Ajouter une expérience",
-    "description": "Breadcrumb link text for the application résumé add experience page"
-  },
   "8i+lzm": {
     "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
     "description": "Label displayed on Work Experience form for current role input"
@@ -1622,10 +1630,6 @@
     "defaultMessage": "Peut accepter une combinaison d’expérience de travail et d’études",
     "description": "Education level message when candidate does not have a diploma found on the request page."
   },
-  "9Fzy0s": {
-    "defaultMessage": "La rédaction de votre CV consiste à décrire <strong>les expériences de travail</strong>, <strong>l’éducation</strong>, <strong>la participation communautaire</strong>, <strong>l’apprentissage personnel</strong> et <strong>les récompenses que vous avez gagnées</strong>. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre CV en utilisant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
-    "description": "Application step to begin working on résumé, paragraph two"
-  },
   "9LwRRx": {
     "defaultMessage": "Responsable",
     "description": "Label for the lead skill level"
@@ -1658,6 +1662,10 @@
     "defaultMessage": "Compétences techniques requises",
     "description": "Title for required technical skills section of a pool advertisement"
   },
+  "9YuUR/": {
+    "defaultMessage": "Ajouter une expérience à votre parcours professionnel",
+    "description": "Page title for the application career timeline add experience page"
+  },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
@@ -1689,10 +1697,6 @@
   "9yGJ6k": {
     "defaultMessage": "Description",
     "description": "Title displayed for the skill table Description column."
-  },
-  "9zHQV0": {
-    "defaultMessage": "Créez votre CV",
-    "description": "Title for resume page when there are no experiences yet"
   },
   "A1QU9O": {
     "defaultMessage": "Statut des forces armées",
@@ -1745,6 +1749,10 @@
   "AR+sqf": {
     "defaultMessage": "Gestion de bases de données de la TI",
     "description": "Label for the 'database management' IT work stream"
+  },
+  "ARFz8L": {
+    "defaultMessage": "Ajouter une nouvelle expérience",
+    "description": "A link to add a new experience to your career timeline"
   },
   "ARSDO1": {
     "defaultMessage": "Localisation, langue et sécurité.",
@@ -1801,6 +1809,10 @@
   "AfSlkm": {
     "defaultMessage": "« ... désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35(2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
     "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
+  },
+  "AgUBsQ": {
+    "defaultMessage": "Quel est le titre de votre poste?",
+    "description": "Input label asking for the user's job title."
   },
   "AhNR6n": {
     "defaultMessage": "Annuler",
@@ -1926,6 +1938,10 @@
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title of the 'Employment equity' section of the view-user page"
   },
+  "BYxqL/": {
+    "defaultMessage": "Parcours professionnel et recrutements",
+    "description": "Profile and applications card title for career timeline card"
+  },
   "Badvbb": {
     "defaultMessage": "Groupe/Organisation/Collectivité",
     "description": "Label displayed on Community Experience form for organization input"
@@ -2001,6 +2017,10 @@
   "C6kQXh": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience} =1 {1 expérience} other {# expériences}}",
     "description": "list a number of unknown experiences"
+  },
+  "C780XI": {
+    "defaultMessage": "L’étape suivante consiste à s’assurer que votre parcours professionnel est aussi à jour que possible.",
+    "description": "Application step to begin working on career timeline, paragraph one"
   },
   "C7sYnb": {
     "defaultMessage": "Cette plateforme vous permet de postuler à des processus de recrutement qui permettront aux gestionnaires qui embauchent de vous trouver facilement. Cette page donne un aperçu de nos processus de recrutement ouverts. Revenez-y et consultez cette page fréquemment!",
@@ -2146,6 +2166,10 @@
     "defaultMessage": "Candidatures archivées",
     "description": "Title for a users archived applications"
   },
+  "D2HsoO": {
+    "defaultMessage": "Que se passe-t-il après avoir répondu à l’offre d’emploi?",
+    "description": "Title for the what to expect section of a pool advertisement"
+  },
   "D6HIId": {
     "defaultMessage": "Modifier<hidden> le bassin</hidden>",
     "description": "Edit pool breadcrumb text"
@@ -2182,10 +2206,6 @@
     "defaultMessage": "Employé du gouvernement",
     "description": "CSV Header, Government Employee column"
   },
-  "DI3uQq": {
-    "defaultMessage": "Lorsque vous formulez une demande dans le cadre d’un processus de recrutement et que vous passez l’évaluation, vous serez admis(e), et vous pourrez donc commencer à être pris(e) en compte pour des possibilités connexes. Cette section met en évidence tous les processus actifs et expires auxquels vous faites actuellement partie, et vous permettra de gérer si vous figurez ou non dans les recherches de talents. ",
-    "description": "Descriptive paragraph for the Qualified recruitment processes section of the résumé and recruitment page."
-  },
   "DK870a": {
     "defaultMessage": "Compte créé avec succès.",
     "description": "Message displayed to user if account is created successfully."
@@ -2198,17 +2218,9 @@
     "defaultMessage": "Prix et reconnaissance",
     "description": "Title for award experience section"
   },
-  "DRsBYY": {
-    "defaultMessage": "Enregistrer les notes",
-    "description": "Button label displayed on the search request form which saves the users personal notes."
-  },
   "DUh8zg": {
     "defaultMessage": "Prénom",
     "description": "Label for given name field"
-  },
-  "DX/e8R": {
-    "defaultMessage": "En postulant pour faire partie d'un bassin de talents sur la plateforme, vous acceptez de recevoir des avis sur les possibilités d'emploi potentielles connexes. Vous pouvez gérer ces avis à l'aide des <strong>mesures de contrôle de disponibilité</strong>, ou en passant en revue les <link>processus de recrutement actuels dans votre curriculum vitæ</link>.",
-    "description": "Description for managing recruitment availability."
   },
   "DXtgrn": {
     "defaultMessage": "Révisez votre candidature et envoyez-la",
@@ -2326,6 +2338,10 @@
     "defaultMessage": "Accueil",
     "description": "Link text for the home link in breadcrumbs."
   },
+  "EDjz14": {
+    "defaultMessage": "Visiter le parcours professionnel",
+    "description": "Link text to direct a user to the Career timeline page"
+  },
   "EHh5pb": {
     "defaultMessage": "Groupe et classification actuels",
     "description": "Current group and classification label"
@@ -2341,10 +2357,6 @@
   "ETrCOq": {
     "defaultMessage": "Statut du candidat",
     "description": "Title for admin editing a pool candidates status"
-  },
-  "EWzkQb": {
-    "defaultMessage": "Une fois que vous avez mis votre CV à jour et que vous êtes satisfait des expériences que vous avez ajoutées, vous les utiliserez dans d’autres étapes pour nous aider à mieux comprendre comment vous répondez aux exigences de compétences pour cette occasion.",
-    "description": "Application step to begin working on résumé, paragraph three"
   },
   "EdUZaX": {
     "defaultMessage": "Candidats",
@@ -2410,10 +2422,6 @@
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
   },
-  "F5KhNJ": {
-    "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre CV. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter. Si vous avez besoin de plus de renseignements sur ce qu’un certain type peut inclure, jetez un œil sur les renseignements ci-dessous pour voir des exemples.",
-    "description": "Instructions on how to add an experience to your résumé"
-  },
   "F7RkOA": {
     "defaultMessage": "<strong>Pour commencer, nous vous demanderons de vérifier les renseignements de base de votre profil</strong>. Si vous n’avez pas encore créé votre profil, pas de problème! Vous pouvez ajouter tous les renseignements pertinents à l’étape suivante.",
     "description": "Description of the application process and the next step"
@@ -2458,13 +2466,13 @@
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed for the Pool table Group and Level column."
   },
+  "FNgThS": {
+    "defaultMessage": "Détails sur l'offre d'emploi",
+    "description": "Form header for filling in job opportunity information section."
+  },
   "FRcbbi": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
     "description": "Label text for not represented community declaration"
-  },
-  "FSViGC": {
-    "defaultMessage": "Curriculum vitæ et recrutements",
-    "description": "Profile and applications card title for résumé card"
   },
   "FSlrKF": {
     "defaultMessage": "Erreur : Impossible de mettre à jour le statut du candidat du bassin",
@@ -2530,6 +2538,10 @@
     "defaultMessage": "Faire suivre le plan de talents",
     "description": "Short name for Forward Talent Plan Form"
   },
+  "G1OWMo": {
+    "defaultMessage": "Vous pouvez ajouter des expériences lorsque vous <link>créez une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
+    "description": "Secondary alert message informing user to add experience in application education page."
+  },
   "G1RNXj": {
     "defaultMessage": "Accueil",
     "description": "Link to the Homepage in the nav menu."
@@ -2553,10 +2565,6 @@
   "GAYZpV": {
     "defaultMessage": "Fermer",
     "description": "Button text used to close an skills match dialog"
-  },
-  "GE9NbK": {
-    "defaultMessage": "Lier à une expérience tirée du cv",
-    "description": "Experience tree view action button label"
   },
   "GG15JI": {
     "defaultMessage": "Éditer {label}",
@@ -2612,10 +2620,6 @@
   "GTR9Pt": {
     "defaultMessage": "Ministère mis à jour avec succès!",
     "description": "Message displayed to user after department is updated successfully."
-  },
-  "GXC9N4": {
-    "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expérience de formation à votre curriculum vitæ .</strong>",
-    "description": "Alert message informing user to add education experience in application education page."
   },
   "GXmpsW": {
     "defaultMessage": "Avant de poursuivre, il est important que vous compreniez les remarques suivantes concernant votre candidature :",
@@ -2854,6 +2858,10 @@
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées à celles choisies par les candidats dans leur demande.",
     "description": "Message describing the operational requirements filter in the search form."
   },
+  "ITLoHV": {
+    "defaultMessage": "Nous proposons également des processus de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir. Bien qu’il n’y ait aucune garantie qu’un emploi résultera des possibilités ci-dessous, il s’agit d’un moyen facile pour permettre aux gestionnaires de trouver votre nom et votre parcours professionnel le moment venu. N’hésitez pas à soumettre votre nom à toute filière correspondant à vos compétences.",
+    "description": "instructions for section with ongoing pool advertisements"
+  },
   "ITkmBQ": {
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Heading for employment equity section of the search form."
@@ -2877,6 +2885,10 @@
   "IcDAU1": {
     "defaultMessage": "Emplacement (anglais) : {locationEn}",
     "description": "Pool advertisement location requirement, English"
+  },
+  "Icl1fF": {
+    "defaultMessage": "Parcours professionnel et recrutement",
+    "description": "Name of Career timeline and recruitment page"
   },
   "IexFo4": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
@@ -3006,10 +3018,6 @@
     "defaultMessage": "Vous êtes sur le point de modifier la date d'expiration pour cet utilisateur :",
     "description": "First section of text on the change candidate expiry date dialog"
   },
-  "Jnk2pb": {
-    "defaultMessage": "Aucune expérience n’a été trouvée",
-    "description": "Null state messages for résumé list when no experiences are found."
-  },
   "Jorewd": {
     "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
     "description": "Text describing upcoming opportunities instructing users to update a profile when logged in"
@@ -3030,6 +3038,10 @@
     "defaultMessage": "Lieux de travail",
     "description": "Job locations label"
   },
+  "K+ZIOB": {
+    "defaultMessage": "Ajouter une expérience",
+    "description": "Breadcrumb link text for the application career timeline add experience page"
+  },
   "K+roYh": {
     "defaultMessage": "Date de clôture",
     "description": "Closing Date field label for publish pool dialog"
@@ -3046,6 +3058,10 @@
     "defaultMessage": "Avez-vous des accréditations? Indiquez vos diplômes, vos certificats, les cours en ligne que vous avez suivis, votre apprentissage d’un métier, vos licences ou autres titres de compétences. Si vous avez appris quelque chose auprès d’un fournisseur de services éducatifs reconnu, indiquez ici cette expérience.",
     "description": "Description for work experience section"
   },
+  "K6Tzh1": {
+    "defaultMessage": "Relier votre parcours professionnel",
+    "description": "Heading for checklist section in application education page."
+  },
   "K7fcQT": {
     "defaultMessage": "Langue préférée de l'examen écrit",
     "description": "CSV Header, Preferred Written Exam Language column"
@@ -3061,10 +3077,6 @@
   "K9YLac": {
     "defaultMessage": "En savoir plus<hidden> sur la collectivité des cadres</hidden>",
     "description": "Link text to the executive community"
-  },
-  "K9vqwA": {
-    "defaultMessage": "Vous n’avez pas encore de curriculum vitæ.",
-    "description": "Null state messages for résumé list"
   },
   "KD5H5s": {
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
@@ -3241,10 +3253,6 @@
     "defaultMessage": "Modifier l'expérience communautaire",
     "description": "Page title for the community experience profile form"
   },
-  "LOYv+/": {
-    "defaultMessage": "Formulaire de demande",
-    "description": "Heading for request form."
-  },
   "LOhcO4": {
     "defaultMessage": "Citoyenneté :",
     "description": "label for citizenship status"
@@ -3373,6 +3381,10 @@
     "defaultMessage": "À quel courriel souhaitez-vous être contacté(e)?",
     "description": "Label displayed for the email field in create account form."
   },
+  "MUwxzr": {
+    "defaultMessage": "Faisons maintenant le lien entre vos expériences et les compétences essentielles pour ce poste. Il s’agit de l’étape la plus importante du processus de candidature. Comme pour l’étape d’expérience et d’études minimales, si vous avez besoin d’ajouter ou de modifier une expérience dans votre parcours professionnel, vous pouvez le faire en revenant à l’<careerTimelineLink>étape du parcours professionnel</careerTimelineLink> dans le formulaire de candidature.",
+    "description": "Lead in paragraph for adding experiences to a users skills"
+  },
   "MWZgsB": {
     "defaultMessage": "Lieu de travail",
     "description": "Title for work location section on summary of filters section"
@@ -3385,6 +3397,10 @@
     "defaultMessage": "Membre des FAC :",
     "description": "Veteran/member label"
   },
+  "MdVah3": {
+    "defaultMessage": "Modifier votre parcours professionnel",
+    "description": "Edit link text for career timeline section of the application review page."
+  },
   "MgLLHd": {
     "defaultMessage": "Demande élevée",
     "description": "Talent portal strategy item 1 heading"
@@ -3392,6 +3408,10 @@
   "MhgtB6": {
     "defaultMessage": "Avant de commencer à décrire votre expérience, nous aimerions d’abord savoir dans quelle catégorie elle se situe. Il y a cinq options parmi lesquelles choisir, vous pouvez ajouter autant d’expériences que vous le souhaitez dans chaque catégorie.",
     "description": "Instructions for the Add Experience dialog"
+  },
+  "MqPn3A": {
+    "defaultMessage": "Visiter le recrutement de {titre} sur votre parcours professionnel",
+    "description": "Link text to direct a user to the Career timeline page"
   },
   "MsFCeF": {
     "defaultMessage": "Bienvenue à Talents numériques du GC, veuillez vous connecter pour continuer.",
@@ -3444,6 +3464,10 @@
   "N3uD4m": {
     "defaultMessage": "Mes équipes",
     "description": "Link text for current users teams page"
+  },
+  "N5qMql": {
+    "defaultMessage": "Veillez à fournir <strong>au moins une expérience de parcours professionnel</strong> pour chaque compétence requise, ainsi qu’une description concise des raisons pour lesquelles cette expérience met en évidence vos capacités dans cette compétence.",
+    "description": "Instructions on requiring information for skills"
   },
   "N6kGOU": {
     "defaultMessage": "Vous devez indiquer dans cette section vos connaissances linguistiques dans les deux langues officielles",
@@ -3533,10 +3557,6 @@
     "defaultMessage": "Consultez et mettez à jour les renseignements sur le compte, y compris les coordonnées et les préférences de travail.",
     "description": "subtitle for the profile page"
   },
-  "NgHjK8": {
-    "defaultMessage": " Établir un lien entre une expérience figurant sur votre CV <hidden> et {skillName}</hidden>",
-    "description": "Button text to open form to connect an experience to a skill"
-  },
   "Nj6c0X": {
     "defaultMessage": "<strong>La présente section est facultative. Toutefois, afin d’être admissible au Programme d’apprentis en <abbreviation>TI</abbreviation> pour les peuples autochtones, vous devez vous autodéclarer en tant qu’Autochtone.</strong> Si vous êtes membre de l’un ou de plusieurs de ces groupes d’équité en matière d’emploi, et que vous ne souhaitez pas vous autodéclarer sur cette plateforme, vous n’êtes pas oblige(e) de le faire. <strong>Veuillez remplir le formulaire ci-dessous si vous répondez à ces conditions :</strong>",
     "description": "Explanation that employment equity information is optional."
@@ -3544,10 +3564,6 @@
   "NjHXGh": {
     "defaultMessage": "En savoir plus<hidden> sur le Bureau de la dirigeante principale de l’information</hidden>",
     "description": "Link text for the Office of the Chief Information Officer"
-  },
-  "Nk/79O": {
-    "defaultMessage": "Voici le CV du/de la candidat(e) :",
-    "description": "Lead-in text for the snapshot résumé section"
   },
   "NkZeS1": {
     "defaultMessage": "Talents numériques du GC s'associe au service de justificatifs du gouvernement du Canada, CléGC, pour vous donner accès à votre compte à l'aide d'une seule combinaison de nom d'utilisateur et de mot de passe. Vous pouvez gérer les données connexes sur le site Web de CléGC, et elles s'afficheront automatiquement ici lorsque vous accéderez à votre compte.",
@@ -3585,10 +3601,6 @@
     "defaultMessage": "À qui ce programme est-il destiné?",
     "description": "Heading for section about who the program is for"
   },
-  "O83lYZ": {
-    "defaultMessage": "Cette section résume votre CV tel que le verront les responsables du recrutement pour ces postes.",
-    "description": "Blurb for resume section of the application review page."
-  },
   "O8U5Sz": {
     "defaultMessage": "Utilisateur ajouté avec succès",
     "description": "Toast for successful add user to pool on view-user page"
@@ -3625,13 +3637,13 @@
     "defaultMessage": "Changer votre disponibilité dans ce processus de recrutement",
     "description": "Header text for dialog to change availability in a recruitment"
   },
+  "OI7Bc7": {
+    "defaultMessage": "Titre du poste",
+    "description": "Label for an opportunity's job title."
+  },
   "OIk63O": {
     "defaultMessage": "Prolonger la date de clôture",
     "description": "Button to extend the pool closing date in the extend pool closing date dialog"
-  },
-  "ON4+Yr": {
-    "defaultMessage": "Ajouter une nouvelle expérience",
-    "description": "A link to add a new experience to your resume"
   },
   "OPG1Q0": {
     "defaultMessage": "Profil complet"
@@ -3659,6 +3671,10 @@
   "OXyqf7": {
     "defaultMessage": "Mise en valeur des compétences showcase",
     "description": "applicant dashboard card title for skill showcase"
+  },
+  "OYjVy4": {
+    "defaultMessage": "Nous avons tous des réalisations et des expériences diverses qui façonnent nos carrières et nos compétences. Ne communiquez que ce que vous seriez prêt à partager avec un collègue de travail. Sur cette plateforme, vous pouvez ajouter les éléments suivants à votre parcours professionnel :",
+    "description": "Lead-in text for the list of experience type definitions"
   },
   "OZe0NZ": {
     "defaultMessage": "Options des compétences techniques",
@@ -3696,10 +3712,6 @@
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"
   },
-  "OkREUg": {
-    "defaultMessage": "Mettez à jour et révisez les renseignements de votre CV.",
-    "description": "Subtitle for the application résumé page"
-  },
   "OleLgS": {
     "defaultMessage": "Ajouter « {title} » à votre profil",
     "description": "Heading for the add employment equity option to profile dialogs"
@@ -3727,10 +3739,6 @@
   "OxeGLu": {
     "defaultMessage": "Mesures",
     "description": "Title displayed for the team table actions column"
-  },
-  "OxlRKl": {
-    "defaultMessage": "CV",
-    "description": "Title for the résumé snapshot section"
   },
   "P+m8Wl": {
     "defaultMessage": "Langue parlée préférée pour l'entretien",
@@ -3824,6 +3832,10 @@
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
     "description": "List item note 2 for the application review page."
   },
+  "Pe1kas": {
+    "defaultMessage": "Notes sur les demandes",
+    "description": "Label displayed on the search request form request notes field."
+  },
   "Pf+PA/": {
     "defaultMessage": "Préférences de travail",
     "description": "Title of the Work Location link section"
@@ -3876,6 +3888,10 @@
     "defaultMessage": "Volets/Titres de postes",
     "description": "Label displayed on the pool form stream/job title field."
   },
+  "Q+7LUo": {
+    "defaultMessage": "Trouver et associer une compétence à votre expérience de parcours professionnel",
+    "description": "Title for the find a skill dialog within an experience"
+  },
   "Q/clLF": {
     "defaultMessage": "Langue",
     "description": "CSV Header, Language column"
@@ -3892,10 +3908,6 @@
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the create a skill family form description (French) field."
   },
-  "Q3yncO": {
-    "defaultMessage": "Votre curriculum vitæ comprend actuellement :",
-    "description": "Title for list of experiences"
-  },
   "Q6ws0E": {
     "defaultMessage": "Il semblerait que vous soyez sur une page qui n'existe pas ou qui a été déplacée.",
     "description": "Body text for the 404 page not found page."
@@ -3907,6 +3919,10 @@
   "Q7yh4j": {
     "defaultMessage": "Erreur, les candidatures ne peuvent pas être chargées",
     "description": "My applications error message, placeholder"
+  },
+  "Q83U92": {
+    "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.</strong>",
+    "description": "Alert message informing user to add experience in application education page."
   },
   "QHR5ay": {
     "defaultMessage": "Vous n'avez pas actuellement de bassins de talents dans votre profil.",
@@ -3923,6 +3939,10 @@
   "QOvS1b": {
     "defaultMessage": "Numéro de ministère",
     "description": "Title displayed for the Department table Department # column."
+  },
+  "QRI/bf": {
+    "defaultMessage": "Modifier votre expérience",
+    "description": "Page title for the application career timeline edit experience page"
   },
   "QSTaWO": {
     "defaultMessage": "Solutions logicielles de la TI",
@@ -3944,9 +3964,17 @@
     "defaultMessage": "Vous avez mis à jour l’exigence relative aux études que vous devez remplir",
     "description": "Message displayed to users when saving education requirement is successful."
   },
+  "QagkWo": {
+    "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.</strong>",
+    "description": "Alert message informing user to add education experience in application education page."
+  },
   "QceO8G": {
     "defaultMessage": "Il manque des renseignements personnels",
     "description": "Error message displayed when a users personal information is incomplete"
+  },
+  "QdSYpe": {
+    "defaultMessage": "Que se passe-t-il après avoir répondu à l’offre d’emploi?",
+    "description": "Sub title for the what to expect section"
   },
   "QdXUwo": {
     "defaultMessage": "Aller à la page :",
@@ -4112,10 +4140,6 @@
     "defaultMessage": "Modifier le statut",
     "description": "title for change status dialog on view-user page"
   },
-  "SBNCsU": {
-    "defaultMessage": "Vous avez dit répondre aux <strong>exigences minimales d’expérience ou de formation (deux années d’études postsecondaires)</strong> et posséder l’expérience professionnelle suivante :",
-    "description": "Message on education requirements card on the application review page."
-  },
   "SCCX7B": {
     "defaultMessage": "Vous n'avez pas encore ajouté de renseignements ici.",
     "description": "Message for when no data exists for the section"
@@ -4192,9 +4216,9 @@
     "defaultMessage": "Voyez comment vos données sont consultées et gérez la disponibilité et les communications.",
     "description": "Introductory text displayed in recruitment availability accordion."
   },
-  "SjY+Wn": {
-    "defaultMessage": "Vous n’avez toujours pas ajouté d’article lié au CV.",
-    "description": "Message to user when no résumé items have been attached to profile."
+  "SiF2cz": {
+    "defaultMessage": "Toutes les possibilités offertes sur cette plateforme exigent que vous utilisiez votre candidature pour démontrer un certain nombre de compétences « professionnelles » ou « techniques » requises. Certaines possibilités évalueront également les compétences « du savoir-être » ou « non techniques » indépendamment de votre candidature, bien que vous soyez libre de les ajouter à votre parcours professionnel.",
+    "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
   },
   "SjhNGq": {
     "defaultMessage": "Gérer la disponibilité",
@@ -4231,6 +4255,10 @@
   "T49QiO": {
     "defaultMessage": "Type d’emploi :",
     "description": "Label for applicant's employment type"
+  },
+  "T8J2Lp": {
+    "defaultMessage": "Vos coordonnées",
+    "description": "Form header for filling in contact information section."
   },
   "T8eOrg": {
     "defaultMessage": "Votre nom complet",
@@ -4283,14 +4311,6 @@
   "TXl1qY": {
     "defaultMessage": "Gestionnaire",
     "description": "Title for manager full name"
-  },
-  "TbqFOI": {
-    "defaultMessage": "Veillez à fournir <strong>au moins une expérience dans votre CV </strong> pour chacune des compétences exigées, de même qu’une brève description de la raison pour laquelle cette expérience vient mettre en valeur vos capacités par rapport à cette compétence.",
-    "description": "Instructions on requiring information for skills"
-  },
-  "Td1lSw": {
-    "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience de formation à votre curriculum vitæ .",
-    "description": "Alert message informing user to add education experience in application education page."
   },
   "Tdr8r5": {
     "defaultMessage": "Quelques questions sur le sujet",
@@ -4416,6 +4436,10 @@
     "defaultMessage": "Les apprentis feront l’expérience d’un apprentissage au travail et pendant la formation en ligne dans un ou plusieurs domaines de la technologie de l’information. On s’attend à ce que les apprentis démontrent leur intérêt et leur passion pour la technologie en étant prêts à observer, à apprendre et à pratiquer de nouvelles compétences qui sont développées au cours du programme. En moyenne, un apprenti passera quatre jours par semaine en apprentissage pratique, tandis que le cinquième jour de la semaine sera consacré au perfectionnement personnel et professionnel par la formation en ligne et par d’autres possibilités de formation et de perfectionnement.",
     "description": "Learn more dialog question eight paragraph one"
   },
+  "URRpKO": {
+    "defaultMessage": "Relier une expérience de parcours professionnel",
+    "description": "Experience tree view action button label"
+  },
   "UTFKyy": {
     "defaultMessage": "La compétence a été mise à jour avec succès!",
     "description": "Message displayed to user after skill is updated successfully."
@@ -4443,6 +4467,10 @@
   "UjGx0m": {
     "defaultMessage": "Texte de travail en anglais",
     "description": "Title for English pool advertisement Work"
+  },
+  "UjxhSB": {
+    "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.",
+    "description": "Alert message informing user to add education experience in application education page."
   },
   "UoZLL/": {
     "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> (CCDP) traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
@@ -4528,10 +4556,6 @@
     "defaultMessage": "Équipe {teamId} non trouvée.",
     "description": "Message displayed for team not found."
   },
-  "VJm1GR": {
-    "defaultMessage": "Mise à jour réussie de votre curriculum vitae",
-    "description": "Message displayed to users when saving résumé is successful."
-  },
   "VMhVyJ": {
     "defaultMessage": "Sélectionnez un statut",
     "description": "Placeholder text for the pool status field"
@@ -4551,10 +4575,6 @@
   "VTHGET": {
     "defaultMessage": "Niveau de la langue seconde",
     "description": "Estimated skill in second language"
-  },
-  "VTYtzg": {
-    "defaultMessage": "Excellent travail! Passons à votre CV.",
-    "description": "Page title for the application résumé introduction page"
   },
   "VW3KlZ": {
     "defaultMessage": "Partagez vos diplômes, certificats, cours en ligne, stages, licences ou autres justificatifs ayant été reçus de la part d’établissements d’enseignement.",
@@ -4616,6 +4636,10 @@
     "defaultMessage": "Sélectionnez une langue",
     "description": "Placeholder displayed on the About Me form preferred interview language"
   },
+  "VkBcGJ": {
+    "defaultMessage": "Ces notes sont accessibles à tous les gestionnaires de ce bassin, mais pas aux candidats.",
+    "description": "Description for the notes about this request section of the single search request view."
+  },
   "VlI1K4": {
     "defaultMessage": "Tous les utilisateurs",
     "description": "Title for the admin users table"
@@ -4635,10 +4659,6 @@
   "VqyL+/": {
     "defaultMessage": "Identifiant",
     "description": "Title displayed on the Classification table ID column."
-  },
-  "Vs35dN": {
-    "defaultMessage": "Une fois que vous avez sélectionné le critère auquel vous répondez, nous vous prions de nous indiquer dans cette section les points particuliers de votre curriculum vitæ qui correspondent à cette option. S’il vous faut ajouter d’autres éléments à votre curriculum vitæ, vous pouvez le faire en retournant à l’étape correspondante dans la demande d’emploi.",
-    "description": "Description for checklist section in application education page."
   },
   "Vs8wOD": {
     "defaultMessage": "Je souhaite exécuter un processus de recrutement",
@@ -4768,10 +4788,6 @@
     "defaultMessage": "Nos développeurs prêtent une attention particulière aux éléments suivants : ",
     "description": "Intro to list of items developers consider for accessibility"
   },
-  "WiUlEh": {
-    "defaultMessage": "Modifiez votre expérience",
-    "description": "Page title for the application résumé edit experience page"
-  },
   "WieVH/": {
     "defaultMessage": "En vertu de la nouvelle Directive, les ministères sont tenus de fournir des renseignements supplémentaires au Bureau de la dirigeante principale de l’information du Canada. Ces données sont ensuite utilisées pour créer des renseignements opérationnels et des processus de recrutement accélérés au service des ministères et des organismes du gouvernement fédéral. L’objectif est de veiller à ce que la collectivité du numérique du GC ait accès aux talents dont elle a besoin pour fournir des services numériques modernes et efficaces aux Canadiens.",
     "description": "Second paragraph describing the directive on digital talent"
@@ -4779,10 +4795,6 @@
   "WkD8tV": {
     "defaultMessage": "Ajouter une expérience professionnelle",
     "description": "Button text to add a work experience to the profile"
-  },
-  "WkjRzF": {
-    "defaultMessage": "Lien vers votre curriculum vitæ",
-    "description": "Heading for checklist section in application education page."
   },
   "WlMSeh": {
     "defaultMessage": "En apprendre davantage sur les cotes de sécurité",
@@ -5024,10 +5036,6 @@
     "defaultMessage": "<strong>Cheminement en gestion</strong> : les gestionnaires de la <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) sont responsables de la gestion du développement et de la prestation des services et des activités de <abbreviation>TI</abbreviation> par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-04 manager path description"
   },
-  "YbH6ZO": {
-    "defaultMessage": "Cette étape vous permet de modifier toute information sur votre CV que vous avez déjà ajoutée à votre profil. Cliquez sur un élément pour le développer, révélant plus de détails. Si vous n’avez encore rien ajouté à votre CV, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
-    "description": "Application step to continue working on résumé, paragraph one"
-  },
   "YbkM7u": {
     "defaultMessage": "Architecture intégrée de la TI",
     "description": "Label for the 'enterprise architecture' IT work stream"
@@ -5055,6 +5063,10 @@
   "YojrdC": {
     "defaultMessage": "Employé du gouvernement"
   },
+  "YqQuy8": {
+    "defaultMessage": "Vous n’avez pas encore d’expérience de parcours professionnel.",
+    "description": "Null state messages for career timeline list"
+  },
   "YqWNkT": {
     "defaultMessage": "n'importe quelle durée (court terme, long terme, période indéterminée).",
     "description": "Label displayed on Work Preferences form for any duration option"
@@ -5066,6 +5078,10 @@
   "Ytlyzb": {
     "defaultMessage": "Modifier l’expérience de travail",
     "description": "Page title for the work experience profile form"
+  },
+  "YxJELj": {
+    "defaultMessage": "Ajoutez une nouvelle expérience à votre parcours professionnel",
+    "description": "Heading for the Add Experience dialog"
   },
   "YxqhQt": {
     "defaultMessage": "Posez votre candidature dans le cadre de ce processus de recrutement ({name})",
@@ -5135,6 +5151,10 @@
     "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la TI",
     "description": "Label for the 'business line advisory services' IT work stream"
   },
+  "ZQbSfP": {
+    "defaultMessage": "Lorsqu’une candidature a été évaluée avec succès, le <a>recrutement qualifié sera ajouté à votre parcours professionnel</a> automatiquement afin que les gestionnaires puissent voir vos réalisations.",
+    "description": "Description for the track applications section on the applicant dashboard, paragraph two."
+  },
   "ZSAzrR": {
     "defaultMessage": "Date d'expiration :",
     "description": "The expiry date label and colon"
@@ -5179,6 +5199,10 @@
     "defaultMessage": "Identité",
     "description": "Title displayed on the Skill Family table ID column."
   },
+  "ZqZc8Z": {
+    "defaultMessage": "La création de votre parcours professionnel est un peu différente sur cette plateforme. Tout d’abord, le travail que vous effectuez ici sera enregistré dans votre profil afin que vous puissiez le réutiliser ultérieurement pour d’autres candidatures.",
+    "description": "Application step to begin working on career timeline, paragraph one"
+  },
   "Zre7E9": {
     "defaultMessage": "Si vous n’êtes pas satisfait de notre réponse à votre plainte, communiquez avec la CCDP aux coordonnées ci-dessous : ",
     "description": "Description of what to do if users are not content with complaint response"
@@ -5198,6 +5222,10 @@
   "ZuyuPO": {
     "defaultMessage": "IT-01: Technicien(ne) (60 000 $ à 78 000 $)",
     "description": "IT-01 classification label including titles and salaries"
+  },
+  "ZwGMwT": {
+    "defaultMessage": "Cette compétence requise doit être associée à au moins une expérience de parcours professionnel.",
+    "description": "Experience tree view error message"
   },
   "Zx3BVC": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
@@ -5258,10 +5286,6 @@
     "defaultMessage": "Passez en revue votre profil",
     "description": "Page title for the application profile page"
   },
-  "aFVp5f": {
-    "defaultMessage": "Ajoutez une nouvelle expérience à votre CV",
-    "description": "Heading for the Add Experience dialog"
-  },
   "aGBFm5": {
     "defaultMessage": "Brève description de l’équipe (Anglais)",
     "description": "Label for the English team description input"
@@ -5321,10 +5345,6 @@
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes bilingues (français et anglais).",
     "description": "Bilingual Positions message"
   },
-  "amibs2": {
-    "defaultMessage": "Gérez votre CV",
-    "description": "Titles for a page section to manage your résumé"
-  },
   "amxWPg": {
     "defaultMessage": "Votre numéro de suivi pour cette demande est : <strong>{requestId}</strong>",
     "description": "Message to the user about the ID of their request for referencing the request"
@@ -5369,9 +5389,17 @@
     "defaultMessage": "<strong>N'envisagerait pas</strong> d'accepter un emploi qui :",
     "description": "would not accept job line before a list"
   },
+  "b4lNeU": {
+    "defaultMessage": "Texte en français sur ce à quoi s’attendre",
+    "description": "Title for French pool advertisement what to expect"
+  },
   "b5bUa0": {
     "defaultMessage": "Lieu de travail :",
     "description": "Work Location label, followed by colon"
+  },
+  "b6MBKR": {
+    "defaultMessage": "Texte en anglais sur ce à quoi s’attendre",
+    "description": "Title for English pool advertisement what to expect"
   },
   "b9/MXQ": {
     "defaultMessage": "Quel était votre niveau de responsabilité dans ce rôle?",
@@ -5384,6 +5412,10 @@
   "bCtIa8": {
     "defaultMessage": "Numéro de téléphone",
     "description": "Telephone label"
+  },
+  "bDmp5T": {
+    "defaultMessage": "Vous élaborez votre parcours professionnel en décrivant <strong>vos expériences professionnelles</strong>, <strong>vos études</strong>, <strong>votre participation à la vie communautaire</strong>, <strong>votre apprentissage personnel</strong>, et <strong>les récompenses </strong> que vous avez reçues. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre parcours professionnel en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
+    "description": "Application step to begin working on career timeline, paragraph two"
   },
   "bEwwY/": {
     "defaultMessage": "Langue de communication préférée :",
@@ -5580,6 +5612,10 @@
     "defaultMessage": "Trouvez des talents",
     "description": "Page title for the search page"
   },
+  "ce3IeQ": {
+    "defaultMessage": "Votre parcours professionnel comprend actuellement :",
+    "description": "Title for list of experiences"
+  },
   "ce892L": {
     "defaultMessage": "Inscrivez-vous dès maintenant",
     "description": "Heading for the apply now dialog"
@@ -5632,10 +5668,6 @@
     "defaultMessage": "Quelles tâches ou activités avez-vous effectuées qui ont trait à cette compétence?",
     "description": "Question for user in skills in detail section of experience form."
   },
-  "d2s3n5": {
-    "defaultMessage": "Vous pouvez ajouter des expériences au moment <link>de créer une nouvelle expérience dans votre curriculum vitæ à l’étape précédente.</link>",
-    "description": "Deuxième message d’avertissement informant l’utilisatrice ou l’utilisateur qu’il doit ajouter une expérience à la page dédiée aux études de la demande d’emploi."
-  },
   "d3HIMV": {
     "defaultMessage": "Se renseigner sur la CléGC et trouver des liens vers les renseignements sur le compte.",
     "description": "Introductory text displayed in login and authentication accordion."
@@ -5663,6 +5695,10 @@
   "d9OIGt": {
     "defaultMessage": "Langue de communication préférée",
     "description": "CSV Header, Preferred Communication Language column"
+  },
+  "dAGii/": {
+    "defaultMessage": "Cette section est similaire à votre parcours professionnel traditionnel et décrit vos expériences au travail, à l’école et dans la vie. Vous pourrez réutiliser ces informations pour chaque candidature que vous soumettrez sur la plateforme, ce qui accélérera le processus et garantira que vos informations sont toujours à jour.",
+    "description": "Descriptive paragraph for the Manage your career timeline section of the career timeline and recruitment page."
   },
   "dAopan": {
     "defaultMessage": "l’optimisation des résultats de la recherche en matière de l'expérience utilisateur",
@@ -5700,10 +5736,6 @@
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
     "description": "Paragraph two for the self-declaration explanation dialog"
   },
-  "dTJT+y": {
-    "defaultMessage": "Modifier l'expérience",
-    "description": "Breadcrumb link text for the application résumé edit experience page"
-  },
   "dTMBj9": {
     "defaultMessage": "Après avoir ajouté quelques compétences, veuillez expliquer comment vous les avez utilisées, essayez de répondre à une ou plusieurs de ces questions :",
     "description": "Description for skills in detail section of experience form."
@@ -5739,6 +5771,10 @@
   "de2F/x": {
     "defaultMessage": "Annonce du bassin",
     "description": "Label for pool advertisement url field"
+  },
+  "dfkNm9": {
+    "defaultMessage": "Mise à jour réussie de votre parcours professionnel!",
+    "description": "Message displayed to users when saving career timeline is successful."
   },
   "dgG8md": {
     "defaultMessage": "Quelles sont les exigences en matière d’études – puis-je présenter une demande si je n’ai pas de diplôme collégial ou universitaire?",
@@ -5800,6 +5836,10 @@
     "defaultMessage": "{count} candidats répondent à vos critères.",
     "description": "Message announced to assistive technology users when the estimated candidate count changes."
   },
+  "dwspOv": {
+    "defaultMessage": "Gérer <a1>votre profil</a1>, <a2>votre parcours professionnel et vos compétences</a2>, et <a3>faire le suivi de vos candidatures</a3>.",
+    "description": "Subtitle for profile and applications hero"
+  },
   "dxv7Jx": {
     "defaultMessage": "Nous utilisons ce filtre pour apparier les candidats qui expriment de l’intérêt pour un niveau de classification, ou certains salaires prévus dans ces classifications.",
     "description": "Message describing the classification filter of the search form."
@@ -5831,6 +5871,10 @@
   "eCK3Ng": {
     "defaultMessage": "Accepter les temporaires",
     "description": "CSV Header, Accept Temporary column"
+  },
+  "eCkRlc": {
+    "defaultMessage": "Cette section résume votre parcours professionnel tel qu’il sera perçu par les gestionnaires d’embauche pour ces postes.",
+    "description": "Blurb for career timeline section of the application review page."
   },
   "eFCDP4": {
     "defaultMessage": "Modifiez vos options de préférences de travail.",
@@ -5896,6 +5940,10 @@
     "defaultMessage": "Rôles fondés sur l’équipe",
     "description": "Heading for updating a users team roles"
   },
+  "eZYP/W": {
+    "defaultMessage": "Gérer votre parcours professionnel",
+    "description": "Titles for a page section to manage your career timeline"
+  },
   "eeWkWi": {
     "defaultMessage": "{totalCandidateCount, plural, =0 {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{totalCandidateCount}</testId> candidat correspondant à vos critères} other {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères}}",
     "description": "Heading for total matching candidates in results section of search page."
@@ -5960,10 +6008,6 @@
     "defaultMessage": "Les compétences suivantes sont requises pour ce rôle, mais ne sont pas requises dans le cadre de cette candidature. <strong>Ils seront examinés au cours du processus d’évaluation si votre candidature est acceptée</strong>.",
     "description": "Information regarding required behavioural skills"
   },
-  "fBabZh": {
-    "defaultMessage": "Ajoutez une expérience à votre CV",
-    "description": "Page title for the application résumé add experience page"
-  },
   "fCXZ4R": {
     "defaultMessage": "Équipe",
     "description": "Title displayed for the Pool table Team column"
@@ -5983,6 +6027,10 @@
   "fI6Hjf": {
     "defaultMessage": "La préférence sera accordée aux citoyens canadiens et aux résidents permanents du Canada",
     "description": "Context text for required citizenship status section in About Me form, explaining preference"
+  },
+  "fKaw5B": {
+    "defaultMessage": "Plus précisément, nous voulons non seulement connaître vos <strong>antécédents professionnels</strong>, mais nous attachons une grande importance <strong>à votre expérience communautaire</strong>, <strong>aux récompenses que vous avez reçues </strong>, <strong>à vos initiatives personnelles</strong>, ainsi qu’à <strong>vos études</strong> !",
+    "description": "Application step to begin working on career timeline, paragraph two"
   },
   "fLohdl": {
     "defaultMessage": "Autodéclaration",
@@ -6011,6 +6059,10 @@
   "fR6xVv": {
     "defaultMessage": "Sélectionnez un volet/un titre de poste",
     "description": "Placeholder displayed on the pool form classification field."
+  },
+  "fRwqM9": {
+    "defaultMessage": "Relier une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
+    "description": "Button text to open form to connect an experience to a skill"
   },
   "fSBslq": {
     "defaultMessage": "Taille de la page",
@@ -6100,6 +6152,10 @@
     "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> s’engage à créer un service numérique accessible et inclusif. Au cœur de la conception et du développement de notre plateforme, nous nous efforçons de créer des possibilités d'emploi égales pour tous. Pour nous, construire des services accessibles signifie répondre aux besoins du plus grand nombre de personnes possible, y compris les cas marginaux. En fait, nous travaillons dans toutes les disciplines –recherche, développement, conception et accessibilité – pour nous assurer que notre service est intentionnel, accessible et inclusif par sa conception.",
     "description": "Opening paragraph for accessibility statement"
   },
+  "fzuAHN": {
+    "defaultMessage": "Enregistrer les notes",
+    "description": "Button label displayed on the search request form which saves the users personal notes."
+  },
   "g+JcDC": {
     "defaultMessage": "D’autres offres seront bientôt affichées!",
     "description": "Heading for message about upcoming opportunities"
@@ -6140,13 +6196,13 @@
     "defaultMessage": "Parcourez les emplois",
     "description": "Breadcrumb title for the browse pools page."
   },
-  "gDBVKb": {
-    "defaultMessage": "CV et recrutement",
-    "description": "Name of Résumé and recruitment page"
-  },
   "gEBoM0": {
     "defaultMessage": "Projet/produit",
     "description": "Label displayed on Community Experience form for Project / product section"
+  },
+  "gHMj31": {
+    "defaultMessage": "Aucune expérience trouvée",
+    "description": "Null state messages for career timeline list when no experiences are found."
   },
   "gIXZ1i": {
     "defaultMessage": "Sélectionnez une option",
@@ -6176,10 +6232,6 @@
     "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
     "description": "Subtitle for the self-declaration page"
   },
-  "gRPGQN": {
-    "defaultMessage": "Titre du poste",
-    "description": "Title for the job title block in the manager info section of the single search request view."
-  },
   "gTjLic": {
     "defaultMessage": "Renseignements du profil",
     "description": "applicant dashboard card title for profile card"
@@ -6199,6 +6251,10 @@
   "ge40rv": {
     "defaultMessage": "Afficher les détails de {experienceName}",
     "description": "Button text to show a specific experience's details"
+  },
+  "ghcC8V": {
+    "defaultMessage": "Voici le parcours professionnel du candidat :",
+    "description": "Lead-in text for the snapshot career timeline section"
   },
   "ghg7uN": {
     "defaultMessage": "J'accepterais un emploi d'une durée de...",
@@ -6271,10 +6327,6 @@
   "h30KEc": {
     "defaultMessage": "Il manque des données en ce qui concerne vos préférences en matière de travail",
     "description": "Error message displayed when a users work preferences is incomplete"
-  },
-  "h3Cr80": {
-    "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience professionnelle à votre CV.",
-    "description": "Null state message for experiences section of the application review page."
   },
   "h486wf": {
     "defaultMessage": "Erreur : La mise à jour de l’équipe a échoué",
@@ -6395,6 +6447,10 @@
   "hhE2b6": {
     "defaultMessage": "Votre signature",
     "description": "label for the signature input on the self-declaration form"
+  },
+  "hi9+Mu": {
+    "defaultMessage": "Veuillez relier au moins une expérience de parcours professionnel à chaque compétence technique requise.",
+    "description": "Error message if there are no experiences"
   },
   "hiZAeF": {
     "defaultMessage": "Courriel",
@@ -6821,10 +6877,6 @@
     "defaultMessage": "Assurez-vous de sauvegarder ou de fermer tout formulaire ouvert avant de continuer.",
     "description": "Message displayed to users when they attempt to quit the profile form with unsaved changes"
   },
-  "kfXCY8": {
-    "defaultMessage": "L’étape suivante consiste à vous assurer que votre CV est aussi à jour que possible.",
-    "description": "Application step to begin working on résumé, paragraph one"
-  },
   "kfzKrV": {
     "defaultMessage": "Signaler une page manquante",
     "description": "Link text to go report a missing page on the 404"
@@ -6875,10 +6927,6 @@
   "l/jGX9": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
     "description": "Label for what conditions a user will accept, followed by a colon"
-  },
-  "l05aVF": {
-    "defaultMessage": "Notes personnelles",
-    "description": "Heading for the personal notes section of the single search request view."
   },
   "l62TJM": {
     "defaultMessage": "Disponibilité",
@@ -6939,10 +6987,6 @@
   "lai6E5": {
     "defaultMessage": "Enregistrement...",
     "description": "Submitting text for save button on profile form."
-  },
-  "lb2jFJ": {
-    "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expérience à votre curriculum vitæ .</strong>",
-    "description": "Alert message informing user to add experience in application education page."
   },
   "lb7SoP": {
     "defaultMessage": "Anglais - Votre travail",
@@ -7140,6 +7184,10 @@
     "defaultMessage": "Questions relatives à la sélection préliminaire ",
     "description": "Title for the screening questions snapshot section"
   },
+  "mrMxsI": {
+    "defaultMessage": "Oui, il s'agit d'un poste de supervision",
+    "description": "Checkbox selection that confirms a job opportunity will have supervising duties. "
+  },
   "msn4mz": {
     "defaultMessage": "Posez une question",
     "description": "Support form subject field question option label"
@@ -7152,13 +7200,13 @@
     "defaultMessage": "Vous avez acquis de l’expérience en faisant partie d’une communauté ou en lui donnant en retour? Les gens acquièrent des compétences à partir d’un large éventail d’expériences, comme le bénévolat ou la participation à des organisations sans but lucratif, à des communautés autochtones ou à des collaborations virtuelles. Il peut s’agir d’aider lors d’événements et de cérémonies, de faire le disc-jockey au mariage d’un ami, de jouer et de faire de la diffusion en continu.",
     "description": "Description for community experience section"
   },
-  "mxH830": {
-    "defaultMessage": "Mettez à jour et révisez les renseignements de votre CV.",
-    "description": "Subtitle for the application résumé introduction page"
-  },
   "mxOuYK": {
     "defaultMessage": "Télécharger CSV",
     "description": "Text label for button to download a csv file of items in a table."
+  },
+  "myEzIh": {
+    "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre parcours professionnel. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter. Si vous avez besoin de plus d’informations sur ce qu’un certain type d’expérience peut inclure, développez les informations ci-dessous pour voir des exemples.",
+    "description": "Instructions on how to add an experience to your career timeline"
   },
   "mzGMZC": {
     "defaultMessage": "Consulter la demande de {name}",
@@ -7232,6 +7280,10 @@
     "defaultMessage": "Statut mis à jour avec succès",
     "description": "Toast for successful status update on view-user page"
   },
+  "nZT/WM": {
+    "defaultMessage": "Type de poste",
+    "description": "Label for an opportunity's position type."
+  },
   "nfZQ89": {
     "defaultMessage": "Membres",
     "description": "Breadcrumb title for the team members page link."
@@ -7248,6 +7300,10 @@
     "defaultMessage": "Rechercher dans la base de données des Talents numériques du GC",
     "description": "Title displayed in the hero section of the Search page."
   },
+  "nnRlUH": {
+    "defaultMessage": "Modifier l’expérience",
+    "description": "Breadcrumb link text for the application career timeline edit experience page"
+  },
   "nok2sR": {
     "defaultMessage": "Nom :",
     "description": "Display text for the name field on users"
@@ -7263,6 +7319,10 @@
   "nueuS8": {
     "defaultMessage": "Lieu de travail",
     "description": "Legend for optional work preferences check list in work preferences form"
+  },
+  "nx5fZY": {
+    "defaultMessage": "En postulant à un bassin de talents sur la plateforme, vous acceptez de recevoir des notifications sur les possibilités d’emploi potentielles qui y sont liées. Vous pouvez gérer ces notifications à l’aide des <strong>mesures de contrôle de disponibilité</strong>, ou en consultant les <link>processus de recrutement actuels sur votre parcours professionnel</link>.",
+    "description": "Description for managing recruitment availability."
   },
   "nxsvto": {
     "defaultMessage": "Date d'archivage",
@@ -7303,6 +7363,10 @@
   "o5pks7": {
     "defaultMessage": "Statut de citoyenneté",
     "description": "Legend text for required citizenship status in About Me form"
+  },
+  "o7OKLq": {
+    "defaultMessage": "Anglais - À quoi s’attendre",
+    "description": "Label for the English - What to expect textarea in the edit pool page."
   },
   "o7SM7j": {
     "defaultMessage": "Créer<hidden> des équipes</hidden>",
@@ -7351,6 +7415,10 @@
   "oVgVhK": {
     "defaultMessage": "Modifier l’adhésion pour {userName}",
     "description": "Label for the form to edit a users team membership"
+  },
+  "oX23Z+": {
+    "defaultMessage": "Excellent travail! Au tour de votre parcours professionnel.",
+    "description": "Page title for the application career timeline introduction page"
   },
   "oXYnZN": {
     "defaultMessage": "Communiquez avec nous",
@@ -7416,10 +7484,6 @@
     "defaultMessage": "Compétence linguistique au travail",
     "description": "Heading for working language ability section of the search form."
   },
-  "p7D5i5": {
-    "defaultMessage": "Notes personnelles",
-    "description": "Label displayed on the search request form personal notes field."
-  },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
     "description": "Label for the row-selection column in the tables column-selection modal."
@@ -7428,10 +7492,6 @@
     "defaultMessage": "Bravo, c’est réussi! En signant, vous confirmez ce qui suit :",
     "description": "Instructions for sign and submit section of application review page."
   },
-  "pHTwBd": {
-    "defaultMessage": "Maintenant, relions vos expériences aux compétences qui sont critiques pour ce rôle. Il s’agit de l’étape la plus importante du processus de dotation. Tout comme dans le cas de l’expérience minimum et l’étape ayant trait à la scolarité, si vous avez besoin d’ajouter quoi que ce soit ou de modifier une expérience dans votre CV, vous pouvez le faire en retournant à <resumeLink>l’étape du CV </resumeLink> de la demande.",
-    "description": "Lead in paragraph for adding experiences to a users skills"
-  },
   "pIiisf": {
     "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones, veuillez <link>nous contacter</link> nous serons heureux de vous rencontrer.",
     "description": "Text describing where to get help with the self-declaration form"
@@ -7439,10 +7499,6 @@
   "pJqoQF": {
     "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
     "description": "Disclaimer displayed in the skill tree on the skill match dialog."
-  },
-  "pKLIzg": {
-    "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre CV pour confirmer les exigences en matière d’expérience et de formation, nous vous demanderons de décrire une ou plusieurs expériences de votre CV où vous avez activement utilisé la compétence requise.",
-    "description": "Application step for skill requirements, introduction, description, paragraph two"
   },
   "pLef1V": {
     "defaultMessage": "Dissimuler les détails de {experienceName}",
@@ -7483,6 +7539,10 @@
   "pe5WkF": {
     "defaultMessage": "Courriel du propriétaire",
     "description": "Title displayed for the Pool table Owner Email column"
+  },
+  "peTSHR": {
+    "defaultMessage": "Notes sur cette demande",
+    "description": "Heading for the notes about this request section of the single search request view."
   },
   "pg1S01": {
     "defaultMessage": "Sauter la liste des compétences.",
@@ -7528,13 +7588,13 @@
     "defaultMessage": "Non",
     "description": "Message for when a value is false"
   },
-  "qEYoGS": {
-    "defaultMessage": "Pour nous aider à comprendre comment vous répondez aux critères d’expérience et de formation minimaux, veuillez indiquer les options qui correspondent à votre situation, ainsi que les expériences de votre curriculum vitæ qui s’appliquent. Si les deux options s’appliquent à vous, tant mieux! N’hésitez pas à choisir l’option qui reflète le mieux vos qualifications.",
-    "description": "Description for radio group section in application education page."
-  },
   "qEvJjr": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
     "description": "Paragraph three for the self-declaration explanation dialog"
+  },
+  "qGSEMx": {
+    "defaultMessage": "Mettre à jour et passer en revue les informations relatives à votre parcours professionnel.",
+    "description": "Subtitle for the application career timeline introduction page"
   },
   "qGyD4w": {
     "defaultMessage": "Questions de sélection",
@@ -7643,6 +7703,10 @@
     "defaultMessage": "Aucun nom de famille fourni",
     "description": "Fallback for last name value"
   },
+  "rCpVpZ": {
+    "defaultMessage": "Vous avez indiqué que vous répondiez aux <strong>exigences minimales en matière d’expérience ou d’études (2 années d’études post-secondaires)</strong> en mentionnant les expériences suivantes sur votre parcours professionnel :",
+    "description": "Message on education requirements card on the application review page."
+  },
   "rGE0gj": {
     "defaultMessage": "Votre incidence",
     "description": "Title for pool advertisement impact section"
@@ -7711,10 +7775,6 @@
     "defaultMessage": "La clôture automatique de ce bassin est programmés pour le :",
     "description": "First paragraph for the close pool dialog"
   },
-  "rpES4b": {
-    "defaultMessage": "Plus précisément, non seulement nous voulons connaître votre <strong>parcours professionnel</strong>, mais également votre <strong>expérience communautaire</strong>, vos <strong>récompenses</strong>, vos <strong>initiatives personnelles</strong> et votre <strong>éducation</strong>!",
-    "description": "Application step to begin working on résumé, paragraph two"
-  },
   "ruEs9/": {
     "defaultMessage": "Cette demande n’a résulté en aucun appariement. Veuillez nous en parler davantage dans le champ réservé aux commentaires, à la fin du présent formulaire.",
     "description": "Message to admins that a search request resulted in no candidates being found"
@@ -7726,6 +7786,10 @@
   "rw05Jq": {
     "defaultMessage": "Vous n’avez actuellement aucune candidature.",
     "description": "Messaged displayed when a user has no applications."
+  },
+  "rxo7fM": {
+    "defaultMessage": "Pour nous aider à comprendre comment vous répondez aux critères minimaux d’expérience ou d’études, veuillez indiquer les options auxquelles vous répondez, ainsi que les expériences qui s’appliquent à votre parcours professionnel. Si les deux s’appliquent à vous, c’est formidable! N’hésitez pas à sélectionner l’option qui correspond le mieux à vos qualifications.",
+    "description": "Description for radio group section in application education page."
   },
   "ry3jFR": {
     "defaultMessage": "Votre impact",
@@ -7783,10 +7847,6 @@
     "defaultMessage": "Veuillez consulter la Directive",
     "description": "Link text to read the directive on digital talent"
   },
-  "sHKNfX": {
-    "defaultMessage": "Vous pouvez ajouter des expériences propres à vos études en sélectionnant l’option \"Education and certificates\" (Études et certificats) au moment de <link>créer une nouvelle expérience pertinente à votre curriculum vitæ à l’étape précédente.</link>",
-    "description": "Secondary alert message informing user to add education experience in application education page."
-  },
   "sICXeM": {
     "defaultMessage": "Date d'expiration",
     "description": "Label displayed on the date field of the add user to pool dialog"
@@ -7794,6 +7854,10 @@
   "sKAo0/": {
     "defaultMessage": "Envoyer le formulaire du plan pour les talents",
     "description": "Heading for the forward talent plan form"
+  },
+  "sLqKuH": {
+    "defaultMessage": "Créer votre parcours professionnel",
+    "description": "Title for career timeline page when there are no experiences yet"
   },
   "sM+4cP": {
     "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission. Vous pouvez sélectionner plus d’une région.",
@@ -7810,6 +7874,10 @@
   "sPXW3j": {
     "defaultMessage": "Cacher les renseignements sur l'ouverture de séance et l'authentification",
     "description": "Heading for closing the login and authentication accordion in account and privacy"
+  },
+  "sQkwFY": {
+    "defaultMessage": "Une fois que vous avez sélectionné les critères auxquels vous répondez, cette section vous demande de nous indiquer quels sont les éléments spécifiques de votre parcours professionnel qui répondent à cette option. Si vous devez ajouter quelque chose à votre parcours professionnel, vous pouvez le faire en retournant à l’étape du parcours professionnel dans le formulaire de candidature.",
+    "description": "Description for checklist section in application education page."
   },
   "sSE4kt": {
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
@@ -7830,10 +7898,6 @@
   "sUx3ZS": {
     "defaultMessage": "Statut",
     "description": "Title of the 'Status' column for the table on view-user page"
-  },
-  "sXjm+Z": {
-    "defaultMessage": "Passez en revue votre CV",
-    "description": "Page title for the application résumé page"
   },
   "sYqIp5": {
     "defaultMessage": "... d'une durée indéterminée seulement. (permanent seulement)",
@@ -7950,6 +8014,10 @@
   "tKtdVT": {
     "defaultMessage": "Apprenez-en davantage<hidden> sur les emplois de cadre supérieur</hidden>",
     "description": "Link text for executive jobs in government call to action"
+  },
+  "tKyj1t": {
+    "defaultMessage": "Le titulaire du poste devra-t-il superviser d'autres personnes?",
+    "description": "Label for input asking whether a job opportunity will have supervising duties."
   },
   "tMnjyJ": {
     "defaultMessage": "N’oubliez pas de faire une pause si nécessaire! Le bouton « Enregistrer et quitter » vous permet d’enregistrer vos progrès et de revenir plus tard sur les questions qui vous posent problème.",
@@ -8154,10 +8222,6 @@
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
     "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
   },
-  "v0QzOM": {
-    "defaultMessage": "Modifiez votre CV",
-    "description": "Edit link text for resume section of the application review page."
-  },
   "v6boy9": {
     "defaultMessage": "Expérience ou études minimales",
     "description": "Title for minimum experience or education section of a pool advertisement"
@@ -8278,6 +8342,10 @@
     "defaultMessage": "Vous êtes sur le point d’ajouter des rôles à l’utilisateur suivant : <strong>{userName}</strong>",
     "description": "Lead in text for the add role to user form."
   },
+  "w3BYPV": {
+    "defaultMessage": "Passer en revue votre parcours professionnel",
+    "description": "Page title for the application career timeline page"
+  },
   "w4SSBu": {
     "defaultMessage": "<strong>Le terme autochtone </strong>: désigne une personne reconnue comme membre « d’un des peuples autochtones du Canada » au sens de l’article 35 de la Loi constitutionnelle de 1982, qui stipule en outre qu’aux fins de la Constitution, les « peuples autochtones du Canada comprennent les Autochtones, les Inuits et les Métis du Canada ». Cette politique (conforme aux pratiques canadiennes générales) considère que le terme « Autochtones » dans la Constitution est désormais remplacé par le terme « Premières Nations ».",
     "description": "Content for the definition of Indigenous dialog"
@@ -8338,6 +8406,10 @@
     "defaultMessage": "Sélectionnez une famille ou plus",
     "description": "Placeholder displayed on the skill form families field."
   },
+  "wPXjeq": {
+    "defaultMessage": "Ces renseignements permettent aux candidats de savoir à quoi s’attendre après avoir répondu à l’offre d’emploi, par exemple les examens complémentaires, les rencontres directes avec les gestionnaires et les échéances possibles.",
+    "description": "Helper message for filling in the pool what to expect after you apply section"
+  },
   "wPpvvm": {
     "defaultMessage": "Créer un profil",
     "description": "Link text to direct users to the profile page when anonymous"
@@ -8374,6 +8446,10 @@
     "defaultMessage": "Si vous souhaitez voir ce message d’état changer à l’échelle de divers bassins, veuillez les sélectionner à partir d’ici :",
     "description": "Header for section to add additional pools to the change status operation"
   },
+  "wimmA1": {
+    "defaultMessage": "Sauvegarder ce à quoi s’attendre",
+    "description": "Text on a button to save the pool what to expect"
+  },
   "wl8GI6": {
     "defaultMessage": "Mon rôle",
     "description": "Label displayed on an Experience form for role input"
@@ -8389,10 +8465,6 @@
   "wzoCfb": {
     "defaultMessage": "Sécurité de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'security' IT work stream"
-  },
-  "x0Eob3": {
-    "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience professionnelle à votre CV.",
-    "description": "Null state message for resume section of the application review page."
   },
   "x0FRH/": {
     "defaultMessage": "Je n’ai pas de droit de priorité",
@@ -8413,10 +8485,6 @@
   "x6saT3": {
     "defaultMessage": "Avant de vous amener à votre profil, nous devons recueillir les renseignements nécessaires pour compléter la configuration de votre compte.",
     "description": "Message after main heading in create account page."
-  },
-  "x8tCSM": {
-    "defaultMessage": "Cette compétence nécessaire doit être jumelée à au moins une expérience figurant dans le CV",
-    "description": "Message that appears when a required skill has no experiences linked to it"
   },
   "xAfVa9": {
     "defaultMessage": "Nous pouvons peut-être vous aider!",
@@ -8542,10 +8610,6 @@
     "defaultMessage": "Étapes relatives à l’application",
     "description": "Label for the application stepper navigation"
   },
-  "y5/tVk": {
-    "defaultMessage": "Nous proposons également des processus de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir. Bien qu’il n’y ait aucune garantie qu’un emploi résultera des possibilités ci-dessous, c’est un moyen facile pour que votre nom et votre CV soient trouvés par les gestionnaires le moment venu. N’hésitez pas à soumettre votre nom pour tout volet qui correspond à vos compétences.",
-    "description": "instructions for section with ongoing pool advertisements"
-  },
   "y5Z2Li": {
     "defaultMessage": "Réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité.",
     "description": "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page."
@@ -8622,13 +8686,13 @@
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous prévoyez une initiative numérique nouvelle ou élargie qui ajoutera 10 postes équivalents temps plein ou plus à votre ministère. Nous voulons veiller à ce que des talents pleinement qualifiés et prêts à être embauchés soient disponibles lorsque vous en avez besoin.",
     "description": "Description for the forward talent plan form"
   },
+  "yfzR+U": {
+    "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.",
+    "description": "Null state message for career timeline section of the application review page."
+  },
   "yiJYdP": {
     "defaultMessage": "Archiver la candidature",
     "description": "Titre du modèle qui apparaît lorsqu’un utilisateur tente d’archiver une candidature"
-  },
-  "yiNnwk": {
-    "defaultMessage": "Trouver une compétence et l’associer à votre expérience sur votre curriculum vitæ",
-    "description": "Title for the find a skill dialog within an experience"
   },
   "ytTGvb": {
     "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une famille de compétences. Elle devrait être fondée sur le nom anglais de la famille de compétences et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
@@ -8682,6 +8746,10 @@
     "defaultMessage": "Créé",
     "description": "Title displayed on the Pool table Date Created column"
   },
+  "zDHOiY": {
+    "defaultMessage": "Français - À quoi s’attendre",
+    "description": "Label for the French - What to expect textarea in the edit pool page."
+  },
   "zDO6tt": {
     "defaultMessage": "Date d'expiration",
     "description": "title for change expiry date dialog on view-user page"
@@ -8698,9 +8766,9 @@
     "defaultMessage": "Niveau de connaissance de la langue seconde (compréhension, écrit, oral.)",
     "description": "Second language level (Comprehension, Written, Verbal) label"
   },
-  "zJHMt9": {
-    "defaultMessage": "Gérez votre <a1>profil</a1>, <a2>votre curriculum vitæ et vos compétences</a2>, et <a3>faites le suivi de vos candidatures</a3>.",
-    "description": "Subtitle for profile and applications hero"
+  "zJKngJ": {
+    "defaultMessage": "Gérer votre expérience et les processus de recrutement pour lesquels vous êtes qualifié(e).",
+    "description": "Description for the Career timeline and recruitment page in applicant profile."
   },
   "zJdfyv": {
     "defaultMessage": "Prenez une longueur d’avance sur les prochaines étapes ou découvrez d’autres occasions.",

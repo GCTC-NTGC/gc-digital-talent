@@ -81,6 +81,12 @@ const messages = defineMessages({
     id: "EK+25s",
     description: "Title for admin notes shorthand",
   },
+  noneProvided: {
+    defaultMessage: "(None provided)",
+    id: "4bWCNR",
+    description:
+      "Message displayed when a given field has no values to display, that no information is present.",
+  },
 });
 
 export default messages;

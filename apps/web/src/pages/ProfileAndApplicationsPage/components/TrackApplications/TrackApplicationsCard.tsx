@@ -167,7 +167,7 @@ const TrackApplicationsCard = ({
             advertisement={application.pool}
           />
 
-          <ApplicationActions.VisitResumeAction
+          <ApplicationActions.VisitCareerTimelineAction
             show={isApplicantQualified}
             userID={user?.id ?? ""}
             application={application}
