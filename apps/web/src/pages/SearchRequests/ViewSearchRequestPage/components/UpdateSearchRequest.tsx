@@ -159,7 +159,6 @@ export const UpdateSearchRequestForm = ({
                   "Label displayed on the search request form request notes field.",
               })}
               rows={8}
-              required={false}
             />
             <div data-h2-text-align="base(right)">
               <Submit
