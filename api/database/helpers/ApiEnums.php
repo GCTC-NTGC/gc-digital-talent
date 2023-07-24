@@ -529,4 +529,18 @@ class ApiEnums
             self::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
         ];
     }
+
+    /**
+     * PoolCandidate Search Position Types
+     */
+    const POOL_CANDIDATE_SEARCH_POSITION_INDIVIDUAL_CONTRIBUTOR = 'INDIVIDUAL_CONTRIBUTOR';
+    const POOL_CANDIDATE_SEARCH_POSITION_TEAM_LEAD = 'TEAM_LEAD';
+
+    public static function poolCandidateSearchPositionTypes(): array
+    {
+        return [
+            self::POOL_CANDIDATE_SEARCH_POSITION_INDIVIDUAL_CONTRIBUTOR,
+            self::POOL_CANDIDATE_SEARCH_POSITION_TEAM_LEAD,
+        ];
+    }
 }

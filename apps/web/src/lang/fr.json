@@ -966,6 +966,10 @@
     "defaultMessage": "Personne handicapée",
     "description": "Text on view-user page that the user has a disability"
   },
+  "4bWCNR": {
+    "defaultMessage": "(Aucun fourni)",
+    "description": "Message displayed when a given field has no values to display, that no information is present."
+  },
   "4bjh8X": {
     "defaultMessage": "Erreur : utilisateur introuvable",
     "description": "Message displayed to user if user is not found"
@@ -1806,6 +1810,10 @@
     "defaultMessage": "« ... désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35(2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
     "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
   },
+  "AgUBsQ": {
+    "defaultMessage": "Quel est le titre de votre poste?",
+    "description": "Input label asking for the user's job title."
+  },
   "AhNR6n": {
     "defaultMessage": "Annuler",
     "description": "Link text to cancel logging out."
@@ -2461,6 +2469,10 @@
   "FGUGtr": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed for the Pool table Group and Level column."
+  },
+  "FNgThS": {
+    "defaultMessage": "Détails sur l'offre d'emploi",
+    "description": "Form header for filling in job opportunity information section."
   },
   "FRcbbi": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
@@ -3241,10 +3253,6 @@
     "defaultMessage": "Modifier l'expérience communautaire",
     "description": "Page title for the community experience profile form"
   },
-  "LOYv+/": {
-    "defaultMessage": "Formulaire de demande",
-    "description": "Heading for request form."
-  },
   "LOhcO4": {
     "defaultMessage": "Citoyenneté :",
     "description": "label for citizenship status"
@@ -3628,6 +3636,10 @@
   "OF7SCg": {
     "defaultMessage": "Changer votre disponibilité dans ce processus de recrutement",
     "description": "Header text for dialog to change availability in a recruitment"
+  },
+  "OI7Bc7": {
+    "defaultMessage": "Titre du poste",
+    "description": "Label for an opportunity's job title."
   },
   "OIk63O": {
     "defaultMessage": "Prolonger la date de clôture",
@@ -4235,6 +4247,10 @@
   "T49QiO": {
     "defaultMessage": "Type d’emploi :",
     "description": "Label for applicant's employment type"
+  },
+  "T8J2Lp": {
+    "defaultMessage": "Vos coordonnées",
+    "description": "Form header for filling in contact information section."
   },
   "T8eOrg": {
     "defaultMessage": "Votre nom complet",
@@ -6200,10 +6216,6 @@
     "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
     "description": "Subtitle for the self-declaration page"
   },
-  "gRPGQN": {
-    "defaultMessage": "Titre du poste",
-    "description": "Title for the job title block in the manager info section of the single search request view."
-  },
   "gTjLic": {
     "defaultMessage": "Renseignements du profil",
     "description": "applicant dashboard card title for profile card"
@@ -7160,6 +7172,10 @@
     "defaultMessage": "Questions relatives à la sélection préliminaire ",
     "description": "Title for the screening questions snapshot section"
   },
+  "mrMxsI": {
+    "defaultMessage": "Oui, il s'agit d'un poste de supervision",
+    "description": "Checkbox selection that confirms a job opportunity will have supervising duties. "
+  },
   "msn4mz": {
     "defaultMessage": "Posez une question",
     "description": "Support form subject field question option label"
@@ -7251,6 +7267,10 @@
   "nYriNg": {
     "defaultMessage": "Statut mis à jour avec succès",
     "description": "Toast for successful status update on view-user page"
+  },
+  "nZT/WM": {
+    "defaultMessage": "Type de poste",
+    "description": "Label for an opportunity's position type."
   },
   "nfZQ89": {
     "defaultMessage": "Membres",
@@ -7982,6 +8002,10 @@
   "tKtdVT": {
     "defaultMessage": "Apprenez-en davantage<hidden> sur les emplois de cadre supérieur</hidden>",
     "description": "Link text for executive jobs in government call to action"
+  },
+  "tKyj1t": {
+    "defaultMessage": "Le titulaire du poste devra-t-il superviser d'autres personnes?",
+    "description": "Label for input asking whether a job opportunity will have supervising duties."
   },
   "tMnjyJ": {
     "defaultMessage": "N’oubliez pas de faire une pause si nécessaire! Le bouton « Enregistrer et quitter » vous permet d’enregistrer vos progrès et de revenir plus tard sur les questions qui vous posent problème.",

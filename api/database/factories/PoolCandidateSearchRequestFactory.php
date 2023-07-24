@@ -24,6 +24,8 @@ class PoolCandidateSearchRequestFactory extends Factory
    */
   public function definition()
   {
+    $isOldRequest = $this->faker->boolean(20); // simulate requests created before the addition of new required fields
+
     return [
       'full_name' => $this->faker->name(),
       'email' => $this->faker->unique()->safeEmail,
@@ -36,6 +38,8 @@ class PoolCandidateSearchRequestFactory extends Factory
       'was_empty' => $this->faker->boolean(),
       'request_status' => $this->faker->randomElement(ApiEnums::poolCandidateSearchStatuses()),
       'request_status_changed_at' => $this->faker->boolean() ? $this->faker->dateTimeBetween($startDate = '-1 months', $endDate = 'now') : null,
+      'manager_job_title' => $isOldRequest ? null :  $this->faker->jobTitle(),
+      'position_type' => $isOldRequest ? null : $this->faker->randomElement(ApiEnums::poolCandidateSearchPositionTypes()),
     ];
   }
 }

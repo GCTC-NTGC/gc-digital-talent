@@ -225,6 +225,8 @@ input CreatePoolCandidateSearchRequestInput {
   additionalComments: String
   applicantFilter: ApplicantFilterBelongsTo!
   wasEmpty: Boolean
+  managerJobTitle: String!
+  positionType: PoolCandidateSearchPositionType!
 }
 
 input CreatePoolInput {
@@ -796,6 +798,11 @@ input PoolCandidateSearchInput {
   suspendedStatus: CandidateSuspendedFilter
 }
 
+enum PoolCandidateSearchPositionType {
+  INDIVIDUAL_CONTRIBUTOR
+  TEAM_LEAD
+}
+
 type PoolCandidateSearchRequest {
   id: ID!
   fullName: String
@@ -810,6 +817,8 @@ type PoolCandidateSearchRequest {
   poolCandidateFilter: PoolCandidateFilter
   applicantFilter: ApplicantFilter
   wasEmpty: Boolean
+  managerJobTitle: String
+  positionType: PoolCandidateSearchPositionType
 }
 
 input PoolCandidateSearchRequestInput {

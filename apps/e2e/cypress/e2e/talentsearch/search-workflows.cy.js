@@ -269,6 +269,10 @@ describe("Talent Search Workflow Tests", () => {
       "test@tbs-sct.gc.ca",
     );
 
+    cy.findByRole("textbox", { name: /What is your job title\?/i }).type(
+      "Manager",
+    );
+
     cy.findByRole("textbox", {
       name: /What is the job title for this position\?/i,
     }).type("Test Job Title");

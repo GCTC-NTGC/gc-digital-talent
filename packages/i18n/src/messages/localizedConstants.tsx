@@ -30,6 +30,7 @@ import {
   CandidateSuspendedFilter,
   Maybe,
   EducationRequirementOption,
+  PoolCandidateSearchPositionType,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -785,6 +786,28 @@ export const getPoolCandidateSearchStatus = (
     poolCandidateSearchStatuses,
     poolCandidateSearchStatusId,
     `Invalid Pool Candidate Search Status '${poolCandidateSearchStatusId}'`,
+  );
+
+export const poolCandidateSearchPositionTypes = defineMessages({
+  [PoolCandidateSearchPositionType.IndividualContributor]: {
+    defaultMessage: "Individual contributor",
+    id: "Ij1cFC",
+    description: "The position type is an individual contributor.",
+  },
+  [PoolCandidateSearchPositionType.TeamLead]: {
+    defaultMessage: "Team lead",
+    id: "R0pQGQ",
+    description: "The position type is a team lead.",
+  },
+});
+
+export const getPoolCandidateSearchPositionType = (
+  poolCandidateSearchPositionTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    poolCandidateSearchPositionTypes,
+    poolCandidateSearchPositionTypeId,
+    `Invalid Pool Candidate Search Position Type '${poolCandidateSearchPositionTypeId}'`,
   );
 
 export const SkillCategories = defineMessages({
