@@ -8,7 +8,7 @@ import {
   UpdateUserAsUserInput,
   User,
 } from "~/api/generated";
-import { FormValues } from "./types";
+import { FormValues, PartialUser } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({
   preferredLang: intl.formatMessage({
@@ -69,7 +69,7 @@ export const getLabels = (intl: IntlShape) => ({
   }),
 });
 
-export const dataToFormValues = (data?: User | null): FormValues => ({
+export const dataToFormValues = (data?: PartialUser | null): FormValues => ({
   preferredLang: data?.preferredLang,
   preferredLanguageForInterview: data?.preferredLanguageForInterview,
   preferredLanguageForExam: data?.preferredLanguageForExam,
@@ -85,7 +85,7 @@ export const dataToFormValues = (data?: User | null): FormValues => ({
 
 export const formValuesToSubmitData = (
   data: FormValues,
-  initialUser: User,
+  initialUser: Pick<User, "id">,
 ): UpdateUserAsUserInput => {
   return {
     ...data,

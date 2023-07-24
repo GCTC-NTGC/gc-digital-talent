@@ -11,9 +11,10 @@ import {
 import { BilingualEvaluation } from "~/api/generated";
 
 import FieldDisplay from "../FieldDisplay";
+import { PartialUser } from "./types";
 
 interface DisplayProps {
-  user: User;
+  user: PartialUser;
 }
 
 const Display = ({
