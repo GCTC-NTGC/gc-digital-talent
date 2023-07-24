@@ -2218,10 +2218,6 @@
     "defaultMessage": "Prix et reconnaissance",
     "description": "Title for award experience section"
   },
-  "DRsBYY": {
-    "defaultMessage": "Enregistrer les notes",
-    "description": "Button label displayed on the search request form which saves the users personal notes."
-  },
   "DUh8zg": {
     "defaultMessage": "Prénom",
     "description": "Label for given name field"
@@ -3832,6 +3828,10 @@
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
     "description": "List item note 2 for the application review page."
   },
+  "Pe1kas": {
+    "defaultMessage": "Notes sur les demandes",
+    "description": "Label displayed on the search request form request notes field."
+  },
   "Pf+PA/": {
     "defaultMessage": "Préférences de travail",
     "description": "Title of the Work Location link section"
@@ -4627,6 +4627,10 @@
   "ViNcRW": {
     "defaultMessage": "Sélectionnez une langue",
     "description": "Placeholder displayed on the About Me form preferred interview language"
+  },
+  "VkBcGJ": {
+    "defaultMessage": "Ces notes sont accessibles à tous les gestionnaires de ce bassin, mais pas aux candidats.",
+    "description": "Description for the notes about this request section of the single search request view."
   },
   "VlI1K4": {
     "defaultMessage": "Tous les utilisateurs",
@@ -6140,6 +6144,10 @@
     "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> s’engage à créer un service numérique accessible et inclusif. Au cœur de la conception et du développement de notre plateforme, nous nous efforçons de créer des possibilités d'emploi égales pour tous. Pour nous, construire des services accessibles signifie répondre aux besoins du plus grand nombre de personnes possible, y compris les cas marginaux. En fait, nous travaillons dans toutes les disciplines –recherche, développement, conception et accessibilité – pour nous assurer que notre service est intentionnel, accessible et inclusif par sa conception.",
     "description": "Opening paragraph for accessibility statement"
   },
+  "fzuAHN": {
+    "defaultMessage": "Enregistrer les notes",
+    "description": "Button label displayed on the search request form which saves the users personal notes."
+  },
   "g+JcDC": {
     "defaultMessage": "D’autres offres seront bientôt affichées!",
     "description": "Heading for message about upcoming opportunities"
@@ -6912,10 +6920,6 @@
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
     "description": "Label for what conditions a user will accept, followed by a colon"
   },
-  "l05aVF": {
-    "defaultMessage": "Notes personnelles",
-    "description": "Heading for the personal notes section of the single search request view."
-  },
   "l62TJM": {
     "defaultMessage": "Disponibilité",
     "description": "CSV Header, Availability column"
@@ -7472,10 +7476,6 @@
     "defaultMessage": "Compétence linguistique au travail",
     "description": "Heading for working language ability section of the search form."
   },
-  "p7D5i5": {
-    "defaultMessage": "Notes personnelles",
-    "description": "Label displayed on the search request form personal notes field."
-  },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
     "description": "Label for the row-selection column in the tables column-selection modal."
@@ -7531,6 +7531,10 @@
   "pe5WkF": {
     "defaultMessage": "Courriel du propriétaire",
     "description": "Title displayed for the Pool table Owner Email column"
+  },
+  "peTSHR": {
+    "defaultMessage": "Notes sur cette demande",
+    "description": "Heading for the notes about this request section of the single search request view."
   },
   "pg1S01": {
     "defaultMessage": "Sauter la liste des compétences.",
