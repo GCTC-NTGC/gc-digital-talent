@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { User } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getBilingualEvaluation,
