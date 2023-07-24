@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Department;
+use App\Models\DigitalContractingQuestionnaire;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -8,6 +9,8 @@ use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
+
+use function PHPUnit\Framework\assertEquals;
 
 class DigitalContractingQuestionnaireTest extends TestCase
 {
@@ -31,6 +34,17 @@ class DigitalContractingQuestionnaireTest extends TestCase
             ->create([
                 'sub' => 'platform-admin@test.com',
             ]);
+    }
+
+    // make sure the factory works
+    public function testFactoryWorks(): void
+    {
+        Department::factory()->count(10)->create();
+        Skill::factory()->count(10)->create();
+
+        $questionnaires = DigitalContractingQuestionnaire::factory()->count(10)->create();
+
+        assertEquals(10, $questionnaires->count());
     }
 
     // create a new questionnaire and make sure it comes back the same way
