@@ -37,7 +37,7 @@ describe("Talentsearch Profile Page", () => {
         "/en/users/test-no-role/profile/work-location/edit",
         "/en/users/test-no-role/profile/work-preferences/edit",
         "/en/users/test-no-role/profile/employment-equity/edit",
-        "/en/users/test-no-role/profile/resume-and-recruitment",
+        "/en/users/test-no-role/profile/career-timeline-and-recruitment",
       ].forEach((restrictedPath) => {
         cy.visit(restrictedPath);
         cy.contains("not authorized");

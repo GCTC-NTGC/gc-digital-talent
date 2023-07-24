@@ -6,7 +6,7 @@ import AdjustmentsVerticalIcon from "@heroicons/react/24/outline/AdjustmentsVert
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import {
   BasicForm,
-  SelectFieldV2,
+  MultiSelectFieldBase,
   MultiSelectField,
 } from "@gc-digital-talent/forms";
 
@@ -130,7 +130,7 @@ const UserTableFilterDialog = ({
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
-                <SelectFieldV2
+                <MultiSelectFieldBase
                   forceArrayFormValue
                   id="languageAbility"
                   name="languageAbility"
@@ -170,6 +170,7 @@ const UserTableFilterDialog = ({
                     id: "qhhPj5",
                   })}
                   options={optionsData.workRegion}
+                  doNotSort
                 />
               </div>
               {enableEducationType && (
@@ -186,7 +187,7 @@ const UserTableFilterDialog = ({
                 </div>
               )}
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-                <SelectFieldV2
+                <MultiSelectFieldBase
                   forceArrayFormValue
                   id="employmentDuration"
                   name="employmentDuration"
@@ -198,7 +199,7 @@ const UserTableFilterDialog = ({
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-                <SelectFieldV2
+                <MultiSelectFieldBase
                   forceArrayFormValue
                   id="profileComplete"
                   name="profileComplete"
@@ -222,7 +223,7 @@ const UserTableFilterDialog = ({
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
-                <SelectFieldV2
+                <MultiSelectFieldBase
                   forceArrayFormValue
                   id="govEmployee"
                   name="govEmployee"

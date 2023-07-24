@@ -727,6 +727,7 @@ type Pool {
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
   yourImpact: LocalizedString
+  whatToExpect: LocalizedString
   isRemote: Boolean
   location: LocalizedString
   securityClearance: SecurityStatus
@@ -848,7 +849,7 @@ enum PoolCandidateStatus {
   SCREENED_IN
   SCREENED_OUT_APPLICATION
   SCREENED_OUT_NOT_INTERESTED
-  SCREENED_OUT_NOT_RESPONDING
+  SCREENED_OUT_NOT_RESPONSIVE
   UNDER_ASSESSMENT
   SCREENED_OUT_ASSESSMENT
   QUALIFIED_AVAILABLE
@@ -1320,6 +1321,7 @@ input UpdatePoolInput {
   closingDate: DateTime
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
+  whatToExpect: LocalizedStringInput
   essentialSkills: SkillBelongsToMany
   nonessentialSkills: SkillBelongsToMany
   language: PoolLanguage
