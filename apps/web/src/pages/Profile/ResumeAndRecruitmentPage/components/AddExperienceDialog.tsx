@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
 import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
@@ -13,6 +13,7 @@ import { Dialog, Button, IconType, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";
+import { ExperienceType } from "~/types/experience";
 
 type AddExperienceDialogProps = {
   applicantId: Scalars["UUID"];
@@ -25,6 +26,7 @@ interface ExperienceSection {
   description: string;
   buttonText: string;
   buttonPath: string;
+  experienceType: ExperienceType;
 }
 
 const AddExperienceDialog = ({
@@ -34,6 +36,7 @@ const AddExperienceDialog = ({
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
+  const location = useLocation();
   const applicationId = searchParams.get("applicationId");
   const applicationParam = applicationId
     ? `?applicationId=${applicationId}`
@@ -59,6 +62,7 @@ const AddExperienceDialog = ({
         description: "Button text to add a work experience to the profile",
       }),
       buttonPath: `${paths.createWork(applicantId)}${applicationParam}`,
+      experienceType: "work",
     },
 
     {
@@ -81,6 +85,7 @@ const AddExperienceDialog = ({
           "Button text to add an education experience to the profile",
       }),
       buttonPath: `${paths.createEducation(applicantId)}${applicationParam}`,
+      experienceType: "education",
     },
 
     {
@@ -102,6 +107,7 @@ const AddExperienceDialog = ({
         description: "Button text to add a community experience to the profile",
       }),
       buttonPath: `${paths.createCommunity(applicantId)}${applicationParam}`,
+      experienceType: "community",
     },
 
     {
@@ -123,6 +129,7 @@ const AddExperienceDialog = ({
         description: "Button text to add a personal experience to the profile",
       }),
       buttonPath: `${paths.createPersonal(applicantId)}${applicationParam}`,
+      experienceType: "personal",
     },
 
     {
@@ -144,6 +151,7 @@ const AddExperienceDialog = ({
         description: "Button text to add an award to the profile",
       }),
       buttonPath: `${paths.createAward(applicantId)}${applicationParam}`,
+      experienceType: "award",
     },
   ];
 
@@ -223,6 +231,7 @@ const AddExperienceDialog = ({
                   <Link
                     mode="solid"
                     color="secondary"
+                    state={{ experienceType: section.experienceType }}
                     href={section.buttonPath}
                     block
                   >
