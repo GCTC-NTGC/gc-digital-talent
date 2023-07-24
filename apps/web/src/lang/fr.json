@@ -2629,6 +2629,10 @@
     "defaultMessage": "Autorisation de sécurité : {securityClearance}",
     "description": "Pool advertisement security clearance requirement"
   },
+  "GZXf3A": {
+    "defaultMessage": "Gérer le recrutement",
+    "description": "Link text to direct a user to the recruitment section on the career timeline page"
+  },
   "GZqEuI": {
     "defaultMessage": "Échec de l'ajout de l'utilisateur",
     "description": "Toast for failed add user to pool on view-user page"
@@ -3172,10 +3176,6 @@
   "KteuZ5": {
     "defaultMessage": "<strong>Tâches</strong>, <strong>responsabilités</strong> ou autre <strong>information clés facultatives</strong> qui, selon vous, sont essentielles à l’importance de cette expérience.",
     "description": "Help text for the experience additional details field"
-  },
-  "KuWOqz": {
-    "defaultMessage": "Gérer le recrutement de {title} sur votre CV",
-    "description": "Link text to direct a user to the recruitment section on the Résumé page"
   },
   "L1tQMY": {
     "defaultMessage": "La Directive sur les talents numériques apporte des précisions supplémentaires sur les exigences et la prise de décisions en matière d’établissement d’un bassin de talents pour soutenir l’élaboration et la prestation d’initiatives, de produits et de services numériques. Elle vise à fournir des étapes pratiques aux personnes qui participent aux décisions d’établissement d’un bassin de talents et à collecter des données qui seront ensuite utilisées pour améliorer en permanence la qualité, la rapidité et la disponibilité de la recherche de talents numériques.",
@@ -4055,6 +4055,10 @@
   "RggAL8": {
     "defaultMessage": "Modifiez vos options concernant la diversité, l’équité et l’inclusion",
     "description": "Link text to edit diversity, equity and inclusion information on profile."
+  },
+  "RizB60": {
+    "defaultMessage": "Gérer le recrutement {title} en fonction de votre plan de carrière ",
+    "description": "Link text to direct a user to the recruitment section on the career timeline page"
   },
   "Rl+0Er": {
     "defaultMessage": "Afficher les candidats",
@@ -6565,10 +6569,6 @@
   "ipSk4R": {
     "defaultMessage": "Maintenance de la plateforme",
     "description": "Heading for platform dashboard links"
-  },
-  "irWSe3": {
-    "defaultMessage": "Gérer le recrutement",
-    "description": "Link text to direct a user to the recruitment section on the Résumé page"
   },
   "iuve97": {
     "defaultMessage": "Modifier le statut",
