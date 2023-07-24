@@ -41,14 +41,14 @@ class DigitalContractingQuestionnaireTest extends TestCase
 
         $questionnaireTableFields = [
             "readPreamble" => true,
-            "departmentOther" => "department_other",
+            "departmentOther" => null,
             "branchOther" => "branch_other",
             "businessOwnerName" => "business_owner_name",
             "businessOwnerJobTitle" => "business_owner_job_title",
-            "businessOwnerEmail" => "business_owner_email",
+            "businessOwnerEmail" => "owner@example.org",
             "financialAuthorityName" => "financial_authority_name",
             "financialAuthorityJobTitle" => "financial_authority_job_title",
-            "financialAuthorityEmail" => "financial_authority_email",
+            "financialAuthorityEmail" => "authority@example.org",
             "authoritiesInvolved" => ["HR", "OTHER"],
             "authorityInvolvedOther" => "authority_involved_other",
             "contractBehalfOfGc" => "YES",
@@ -91,8 +91,8 @@ class DigitalContractingQuestionnaireTest extends TestCase
             "hasFutureImpactOnOtherDepartments" => "YES",
             "operationsConsiderations" => ["FINANCE_VEHICLE_NOT_USABLE", "OTHER"],
             "operationsConsiderationsOther" => "operations_considerations_other",
-            "contractingRationalePrimary" => "OTHER",
-            "contractingRationalePrimaryOther" => "contracting_rationale_primary_other",
+            "contractingRationalePrimary" => "SHORTAGE_OF_TALENT",
+            "contractingRationalePrimaryOther" => null,
             "contractingRationalesSecondary" => ["TIMING_REQUIREMENTS", "OTHER"],
             "contractingRationalesSecondaryOther" => "contracting_rationales_secondary_other",
             "ocioConfirmedTalentShortage" => "YES",
@@ -109,7 +109,7 @@ class DigitalContractingQuestionnaireTest extends TestCase
             "security" => "OTHER",
             "securityOther" => "security_other",
             "telework" => "FULL_TIME",
-            "quantity" => 10,
+            "quantity" => 1,
         ];
 
         $skillRequirementFields = [

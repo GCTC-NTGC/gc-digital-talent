@@ -266,7 +266,10 @@ input DigitalContractingPersonnelSkillBelongsTo {
   delete: [UUID!]
 }
 
-input CreateDigitalContractingPersonnelRequirementInput {
+input CreateDigitalContractingPersonnelRequirementInput
+  @validator(
+    class: "App\\GraphQL\\Validators\\DigitalContractingPersonnelRequirementInput"
+  ) {
   resourceType: String @rename(attribute: "resource_type")
   skillRequirements: DigitalContractingPersonnelSkillBelongsTo
   language: PersonnelLanguage
@@ -277,7 +280,10 @@ input CreateDigitalContractingPersonnelRequirementInput {
   quantity: Int
 }
 
-input UpdateDigitalContractingPersonnelRequirementInput {
+input UpdateDigitalContractingPersonnelRequirementInput
+  @validator(
+    class: "App\\GraphQL\\Validators\\DigitalContractingPersonnelRequirementInput"
+  ) {
   id: UUID!
   resourceType: String @rename(attribute: "resource_type")
   skillRequirements: DigitalContractingPersonnelSkillBelongsTo
@@ -295,7 +301,10 @@ input DigitalContractingPersonnelRequirementBelongsToMany {
   delete: [UUID!]
 }
 
-input DigitalContractingQuestionnaireInput {
+input DigitalContractingQuestionnaireInput
+  @validator(
+    class: "App\\GraphQL\\Validators\\DigitalContractingQuestionnaireInput"
+  ) {
   readPreamble: Boolean @rename(attribute: "read_preamble")
   department: DepartmentBelongsTo
   departmentOther: String @rename(attribute: "department_other")
