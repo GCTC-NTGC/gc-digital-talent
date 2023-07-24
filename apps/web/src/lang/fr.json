@@ -1227,7 +1227,7 @@
     "description": "Text for a link to the Pool Candidates table"
   },
   "6SfJEp": {
-    "defaultMessage": "You can sign in to your IT Apprenticeship Program for Indigenous Peoples profile using your existing GCKey, even if you've never used this platform before.",
+    "defaultMessage": "Vous pouvez vous connecter à votre profil de Programme d'apprentissage en TI pour les personnes autochtones à l'aide de votre CléGC actuelle, même si vous n'avez jamais utilisé cette plateforme auparavant.",
     "description": "Instructions on how to sign in with GCKey - IAP variant"
   },
   "6TKE1K": {
@@ -2617,6 +2617,10 @@
     "defaultMessage": "J'envisagerais d'accepter un emploi :",
     "description": "Legend Text for required work preferences options in work preferences form"
   },
+  "GQsJAi": {
+    "defaultMessage": "Lorsque vous vous connectez à votre compte, vous commencez par cette page. Vous pouvez utiliser l'outil <strong><a>pour suivre vos candidatures </a></strong> sur cette page afin de revoir votre demande au Programme d'apprentissage en TI pour les personnes autochtones et de suivre votre statut dans le Programme.",
+    "description": "Third paragraph for profile and applications notification welcoming an IAP user"
+  },
   "GQskY1": {
     "defaultMessage": "Mettre à jour une famille de compétences",
     "description": "Title displayed on the update a skillFamily form."
@@ -2777,6 +2781,10 @@
   "Hd0nHP": {
     "defaultMessage": "(À déterminer)",
     "description": "Message displayed when a pool has no expiry date yet"
+  },
+  "Hf3x3E": {
+    "defaultMessage": "Lorsque vous vous connectez à votre compte, vous commencez par cette page. Vous pouvez utiliser l'outil <strong><a>pour suivre vos candidatures </a></strong> sur cette page afin de revoir votre demande au Programme d'apprentissage en TI pour les personnes autochtones et de suivre votre statut dans le Programme.",
+    "description": "Third paragraph for profile and applications notification welcoming an IAP user"
   },
   "Hgd/PL": {
     "defaultMessage": "Retour à l'accueil",
@@ -3616,6 +3624,10 @@
   "OArzY6": {
     "defaultMessage": "<strong>Téléphone :</strong> <phoneLink>613-995-1151</phoneLink>",
     "description": "Phone contact info"
+  },
+  "OBRGkE": {
+    "defaultMessage": "Bienvenue sur la plateforme des talents numériques du GC. Vous pouvez désormais vous connecter à votre profil à l'aide du nom d'utilisateur et du mot de passe de CléGC.",
+    "description": "Message for successful sign in alert in create account page"
   },
   "OCmMDP": {
     "defaultMessage": "Modifier - classification",
