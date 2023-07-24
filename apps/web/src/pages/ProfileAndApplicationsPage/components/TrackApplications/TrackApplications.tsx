@@ -10,9 +10,9 @@ import {
   Heading,
   Link,
   Separator,
+  StandardAccordionHeader,
   Well,
 } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import { PoolCandidate, Scalars } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
