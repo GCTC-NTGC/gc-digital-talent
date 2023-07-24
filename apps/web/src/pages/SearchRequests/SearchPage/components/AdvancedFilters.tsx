@@ -53,13 +53,6 @@ const getFieldLabel = (
   );
 };
 
-type AdvancedFilter =
-  | "educationRequirement"
-  | "employmentDuration"
-  | "operationalRequirements";
-
-type AdvancedFilterOptions = Array<AdvancedFilter>;
-
 const AdvancedFilters = () => {
   const intl = useIntl();
   const { watch } = useFormContext();
