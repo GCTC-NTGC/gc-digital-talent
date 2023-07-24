@@ -38,16 +38,11 @@ const getRoutes = (lang: Locales) => {
       "edit",
     )}${applicationParam(applicationId)}`;
 
-  const createExperienceUrl = (
-    type: ExperienceType,
-    userId: string,
-    applicationId?: string,
-  ) =>
+  const createExperienceUrl = (userId: string, applicationId?: string) =>
     `${path.join(
       userUrl(userId),
       "profile",
       "resume-and-recruitment",
-      type,
       "create",
     )}${applicationParam(applicationId)}`;
 
@@ -270,20 +265,19 @@ const getRoutes = (lang: Locales) => {
         userUrl(userId),
         "profile",
         "resume-and-recruitment",
-        type,
         experienceId,
         "edit",
       ),
     createAward: (userId: string, applicationId?: string) =>
-      createExperienceUrl("award", userId, applicationId),
+      createExperienceUrl(userId, applicationId),
     createCommunity: (userId: string, applicationId?: string) =>
-      createExperienceUrl("community", userId, applicationId),
+      createExperienceUrl(userId, applicationId),
     createEducation: (userId: string, applicationId?: string) =>
-      createExperienceUrl("education", userId, applicationId),
+      createExperienceUrl(userId, applicationId),
     createPersonal: (userId: string, applicationId?: string) =>
-      createExperienceUrl("personal", userId, applicationId),
+      createExperienceUrl(userId, applicationId),
     createWork: (userId: string, applicationId?: string) =>
-      createExperienceUrl("work", userId, applicationId),
+      createExperienceUrl(userId, applicationId),
 
     // Profile and Applications
     profileAndApplications: (opts?: {

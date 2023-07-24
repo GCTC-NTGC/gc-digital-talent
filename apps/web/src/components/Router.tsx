@@ -928,34 +928,29 @@ const createRoute = (locale: Locales, loginPath: string) =>
                               ),
                             },
                             {
-                              path: ":experienceType",
+                              path: "create",
+                              element: (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.Applicant]}
+                                  loginPath={loginPath}
+                                >
+                                  <ExperienceFormPage />
+                                </RequireAuth>
+                              ),
+                            },
+                            {
+                              path: ":experienceId",
                               children: [
                                 {
-                                  path: "create",
+                                  path: "edit",
                                   element: (
                                     <RequireAuth
                                       roles={[ROLE_NAME.Applicant]}
                                       loginPath={loginPath}
                                     >
-                                      <ExperienceFormPage />
+                                      <ExperienceFormPage edit />
                                     </RequireAuth>
                                   ),
-                                },
-                                {
-                                  path: ":experienceId",
-                                  children: [
-                                    {
-                                      path: "edit",
-                                      element: (
-                                        <RequireAuth
-                                          roles={[ROLE_NAME.Applicant]}
-                                          loginPath={loginPath}
-                                        >
-                                          <ExperienceFormPage edit />
-                                        </RequireAuth>
-                                      ),
-                                    },
-                                  ],
                                 },
                               ],
                             },
