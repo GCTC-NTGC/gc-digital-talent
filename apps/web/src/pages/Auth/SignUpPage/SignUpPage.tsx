@@ -66,8 +66,8 @@ const SignUpPage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You can sign into your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
-                  id: "2G3YI3",
+                    "You can sign in to your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
+                  id: "9XSqNG",
                   description: "Instructions on how to sign in with GCKey",
                 })}
               </p>
@@ -112,8 +112,8 @@ const SignUpPage = () => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "GCKey is a service that allows you to sign into <a>many different government services</a> with a single username and password. The button below will take you to GCKey's website, where you'll be able to create an account if you don't already have one. Once you've signed up for GCKey, you'll be brought back here to complete your profile.",
-                    id: "B/xPdU",
+                      "GCKey is a service that allows you to sign in to <a>many different government services</a> with a single username and password. The button below will take you to GCKey's website, where you'll be able to create an account if you don't already have one. Once you've signed up for GCKey, you'll be brought back here to complete your profile.",
+                    id: "0OLsay",
                     description:
                       "Instructions on how to register with GCKey paragraph 2- IAP variant",
                   },

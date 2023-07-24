@@ -194,8 +194,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "When you sign into your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your position in the program.",
-                id: "wk0qSJ",
+                  "When you sign in to your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your position in the program.",
+                id: "GQsJAi",
                 description:
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },

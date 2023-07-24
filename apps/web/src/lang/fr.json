@@ -380,6 +380,10 @@
     "defaultMessage": "Veuillez sélectionner les options qui reflètent le mieux vos qualifications",
     "description": "Legend for the radio group in the application education page - IAP variant."
   },
+  "0OLsay": {
+    "defaultMessage": "CléGC est un service qui vous permet de vous connecter à <a> de nombreux services gouvernementaux différents</a> avec un seul nom d’utilisateur et un seul mot de passe. Le bouton ci-dessous vous mènera au site Web de CléGC, où vous pourrez créer un compte si vous n’en avez pas encore un. Une fois que vous vous serez inscrit(e) à CléGC, vous reviendrez ici pour compléter votre profil.",
+    "description": "Instructions on how to register with GCKey paragraph 2- IAP variant"
+  },
   "0Q89Cz": {
     "defaultMessage": "Trouvez une compétence dans notre bibliothèque en utilisant les filtres et la recherche par mot-clé.",
     "description": "Subtitle for the find a skill dialog"
@@ -614,10 +618,6 @@
   "2FBdeQ": {
     "defaultMessage": "Apprentissage en cours d’emploi",
     "description": "Experience requirement, On the job."
-  },
-  "2G3YI3": {
-    "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique du GC en utilisant votre CléGC, même si vous n’avez jamais utilisé cette plateforme auparavant.",
-    "description": "Instructions on how to sign in with GCKey"
   },
   "2JIgrl": {
     "defaultMessage": "Souhaitez-vous poursuivre?",
@@ -1674,6 +1674,10 @@
     "defaultMessage": "Compétences techniques requises",
     "description": "Title for required technical skills section of a pool advertisement"
   },
+  "9XSqNG": {
+    "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique du GC en utilisant votre CléGC, même si vous n’avez jamais utilisé cette plateforme auparavant.",
+    "description": "Instructions on how to sign in with GCKey"
+  },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
@@ -1873,10 +1877,6 @@
   "B/LE8S": {
     "defaultMessage": "Cette information est utilisée à des fins de gestion des comptes et de communication, elle n'a aucune incidence sur la correspondance des tâches ou les recommandations d'emploi.",
     "description": "Description text for the Profile Form wrapper in the About Me form"
-  },
-  "B/xPdU": {
-    "defaultMessage": "CléGC est un service qui vous permet de vous connecter à <a> de nombreux services gouvernementaux différents</a> avec un seul nom d’utilisateur et un seul mot de passe. Le bouton ci-dessous vous mènera au site Web de CléGC, où vous pourrez créer un compte si vous n’en avez pas encore un. Une fois que vous vous serez inscrit(e) à CléGC, vous reviendrez ici pour compléter votre profil.",
-    "description": "Instructions on how to register with GCKey paragraph 2- IAP variant"
   },
   "B6SqfX": {
     "defaultMessage": "Sauvegarder le changement d’état",

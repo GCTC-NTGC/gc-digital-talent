@@ -65,8 +65,8 @@ const SignInPage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You can sign into your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
-                  id: "2G3YI3",
+                    "You can sign in to your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
+                  id: "9XSqNG",
                   description: "Instructions on how to sign in with GCKey",
                 })}
               </p>
