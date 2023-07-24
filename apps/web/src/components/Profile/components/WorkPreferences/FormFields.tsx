@@ -5,7 +5,7 @@ import {
   Checklist,
   RadioGroup,
   TextArea,
-  enumToOptions,
+  enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
 import {
   OperationalRequirementV2,
@@ -13,8 +13,7 @@ import {
   getOperationalRequirement,
   getWorkRegionsDetailed,
 } from "@gc-digital-talent/i18n";
-
-import { WorkRegion } from "~/api/generated";
+import { WorkRegion } from "@gc-digital-talent/graphql";
 
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
@@ -77,7 +76,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
           legend={labels.locationPreferences}
           name="locationPreferences"
           id="locationPreferences"
-          items={enumToOptions(WorkRegion).map(({ value }) => ({
+          items={enumToOptionsWorkRegionSorted(WorkRegion).map(({ value }) => ({
             value,
             label: intl.formatMessage(getWorkRegionsDetailed(value)),
           }))}

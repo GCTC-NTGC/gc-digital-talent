@@ -46,7 +46,7 @@ import { StatusItem } from "~/components/StatusItem/StatusItem";
 import { HeroCard } from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
-import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import { PartialUser } from "../types";
 
 function buildLink(
@@ -138,16 +138,20 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       subtitle={intl.formatMessage(
         {
           defaultMessage:
-            // TODO: split résumé and skills into two separate links when the sections exist
-            "Manage your <a1>profile</a1>, <a2>résumé, skills</a2>, and <a3>track applications</a3>.",
-          id: "zJHMt9",
+            // TODO: split career timeline and skills into two separate links when the sections exist
+            "Manage your <a1>profile</a1>, <a2>career timeline, skills</a2>, and <a3>track applications</a3>.",
+          id: "dwspOv",
           description: "Subtitle for profile and applications hero",
         },
         {
           a1: (chunks: React.ReactNode) =>
             buildLink(paths.profile(user.id), chunks, "white"),
           a2: (chunks: React.ReactNode) =>
-            buildLink(paths.resumeAndRecruitment(user.id), chunks, "white"),
+            buildLink(
+              paths.careerTimelineAndRecruitment(user.id),
+              chunks,
+              "white",
+            ),
           a3: (chunks: React.ReactNode) =>
             buildScrollToLink("track-applications-section", chunks, "white"),
         },
@@ -374,11 +378,12 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         <HeroCard
           color="tertiary"
           title={intl.formatMessage({
-            defaultMessage: "Résumé and recruitments",
-            id: "FSViGC",
-            description: "Profile and applications card title for résumé card",
+            defaultMessage: "Career timeline and recruitments",
+            id: "BYxqL/",
+            description:
+              "Profile and applications card title for career timeline card",
           })}
-          href={paths.resumeAndRecruitment(user.id)}
+          href={paths.careerTimelineAndRecruitment(user.id)}
         >
           <StatusItem
             title={intl.formatMessage({
@@ -436,9 +441,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                 .length
             }
             icon={ShieldCheckIcon}
-            href={paths.resumeAndRecruitment(user.id, {
+            href={paths.careerTimelineAndRecruitment(user.id, {
               section:
-                RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
+                CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
             })}
           />
         </HeroCard>

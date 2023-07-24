@@ -264,6 +264,7 @@ type Pool {
     @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
+  whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
   isRemote: Boolean @rename(attribute: "is_remote")
   location: LocalizedString @rename(attribute: "advertisement_location")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -349,7 +350,7 @@ enum ApplicationStep {
   WELCOME
   SELF_DECLARATION
   REVIEW_YOUR_PROFILE
-  REVIEW_YOUR_RESUME
+  REVIEW_YOUR_RESUME # this is the career timeline.
   EDUCATION_REQUIREMENTS
   SKILL_REQUIREMENTS
   SCREENING_QUESTIONS
@@ -1515,6 +1516,8 @@ input UpdatePoolInput {
   yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
   # Work Tasks
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
+  # What to expect
+  whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
   # Essential skills and Asset skills
   essentialSkills: SkillBelongsToMany
   nonessentialSkills: SkillBelongsToMany
