@@ -265,9 +265,8 @@ const VisitCareerTimelineAction = ({
       data-h2-font-size="base(caption)"
       aria-label={intl.formatMessage(
         {
-          defaultMessage:
-            "Manage the {title} recruitment on your career timeline",
-          id: "RizB60",
+          defaultMessage: "Manage the {title} recruitment",
+          id: "utl6O/",
           description:
             "Link text to direct a user to the recruitment section on the career timeline page",
         },
