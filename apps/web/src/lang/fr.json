@@ -4076,10 +4076,6 @@
     "defaultMessage": "Modifiez vos options concernant la diversité, l’équité et l’inclusion",
     "description": "Link text to edit diversity, equity and inclusion information on profile."
   },
-  "utl6O/": {
-    "defaultMessage": "Gérer le recrutement {title}",
-    "description": "Link text to direct a user to the recruitment section on the career timeline page"
-  },
   "Rl+0Er": {
     "defaultMessage": "Afficher les candidats",
     "description": "Title for the edit pool page"
@@ -8201,6 +8197,10 @@
   "usb0gM": {
     "defaultMessage": "Bien que le libellé de ces catégories ait besoin d'être mis à jour, le gouvernement du Canada utilisera parfois ces catégories lors de l'embauche afin de s'assurer qu'il respecte les objectifs de l'équité en matière d'emploi.",
     "description": "Description of how the Government of Canada uses employment equity categories in hiring."
+  },
+  "utl6O/": {
+    "defaultMessage": "Gérer le recrutement {title}",
+    "description": "Link text to direct a user to the recruitment section on the career timeline page"
   },
   "uup5F2": {
     "defaultMessage": "Sélectionnez une langue",

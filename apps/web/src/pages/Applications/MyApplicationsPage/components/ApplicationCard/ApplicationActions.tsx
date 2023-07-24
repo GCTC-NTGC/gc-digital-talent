@@ -52,7 +52,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { pool } = application;
-  const title = getFullPoolTitleHtml(intl, pool) && "";
+  const title = getFullPoolTitleHtml(intl, pool);
   if (!show) {
     return null;
   }
@@ -141,7 +141,7 @@ export interface SupportActionProps extends ActionProps {
 const SupportAction = ({ show, application }: SupportActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
+  const jobTitle = getFullPoolTitleHtml(intl, application.pool);
   if (!show) {
     return null;
   }
@@ -246,7 +246,7 @@ const VisitCareerTimelineAction = ({
 }: VisitCareerTimelineActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
+  const jobTitle = getFullPoolTitleHtml(intl, application.pool);
 
   if (!show) {
     return null;
@@ -343,7 +343,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
     return null;
   }
 
-  const name = getFullPoolTitleHtml(intl, application.pool) && "";
+  const name = getFullPoolTitleHtml(intl, application.pool);
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
