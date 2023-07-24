@@ -1,6 +1,8 @@
 import React from "react";
-import type { StoryFn } from "@storybook/react";
+import type { StoryFn, Meta } from "@storybook/react";
 import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
+
+import { OverlayOrDialogDecorator } from "storybook-helpers";
 
 import Button from "../Button";
 
@@ -10,12 +12,13 @@ import DropdownMenu from "./DropdownMenu";
 export default {
   component: DropdownMenu.Root,
   title: "Components/Dropdown Menu",
+  decorators: [OverlayOrDialogDecorator],
   parameters: {
     docs: {
       page: DropdownMenuDocs,
     },
   },
-};
+} as Meta;
 
 const Check = () => (
   <DropdownMenu.ItemIndicator>
