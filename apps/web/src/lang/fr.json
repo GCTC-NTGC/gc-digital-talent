@@ -2338,10 +2338,6 @@
     "defaultMessage": "Accueil",
     "description": "Link text for the home link in breadcrumbs."
   },
-  "EDjz14": {
-    "defaultMessage": "Visiter le parcours professionnel",
-    "description": "Link text to direct a user to the Career timeline page"
-  },
   "EHh5pb": {
     "defaultMessage": "Groupe et classification actuels",
     "description": "Current group and classification label"
@@ -3409,10 +3405,6 @@
     "defaultMessage": "Avant de commencer à décrire votre expérience, nous aimerions d’abord savoir dans quelle catégorie elle se situe. Il y a cinq options parmi lesquelles choisir, vous pouvez ajouter autant d’expériences que vous le souhaitez dans chaque catégorie.",
     "description": "Instructions for the Add Experience dialog"
   },
-  "MqPn3A": {
-    "defaultMessage": "Visiter le recrutement de {titre} sur votre parcours professionnel",
-    "description": "Link text to direct a user to the Career timeline page"
-  },
   "MsFCeF": {
     "defaultMessage": "Bienvenue à Talents numériques du GC, veuillez vous connecter pour continuer.",
     "description": "Instructional text for the talent cloud pool manager portal home page."
@@ -4085,7 +4077,7 @@
     "description": "Link text to edit diversity, equity and inclusion information on profile."
   },
   "RizB60": {
-    "defaultMessage": "Gérer le recrutement {title} en fonction de votre plan de carrière ",
+    "defaultMessage": "Gérer le recrutement {title}",
     "description": "Link text to direct a user to the recruitment section on the career timeline page"
   },
   "Rl+0Er": {
