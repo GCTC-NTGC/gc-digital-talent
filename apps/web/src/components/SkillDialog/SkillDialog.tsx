@@ -54,13 +54,19 @@ const SkillDialog = ({
   });
 
   const {
-    handleSubmit,
+    getValues,
+    trigger: formTrigger,
     reset,
+    watch,
     formState: { isSubmitting },
   } = methods;
+  const watchSkill = watch("skill");
 
+  // Option 1: Move SkillDialog component outside of parent form (reactdom NOT browserdom?) and use css to move trigger with all event mutations props.
+  // Option 2: Change SkillDialog to not submit but instead run onSave function.
   const handleAddSkill = async (values: FormValues) => {
-    await onSave(values).then(() => setIsOpen(false));
+    const result = await formTrigger(["skill"]);
+    if (result) await onSave(values).then(() => setIsOpen(false));
   };
 
   const handleOpenChange = (newIsOpen: boolean) => {
@@ -85,16 +91,22 @@ const SkillDialog = ({
     icon: trigger?.icon || (context ? PlusCircleIcon : undefined),
   };
 
+  React.useEffect(() => {
+    if (watchSkill) {
+      formTrigger("skill");
+    }
+  }, [watchSkill, formTrigger]);
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
         <Button {...triggerProps} color="secondary" />
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content data-h2-position="base(absolute)">
         <Dialog.Header subtitle={subtitle}>{title}</Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(handleAddSkill)}>
+            <form>
               <SkillSelection
                 {...{ showCategory, skills }}
                 onSelectSkill={setSelectedSkill}
@@ -111,7 +123,11 @@ const SkillDialog = ({
               )}
               {selectedSkill && context === "library" && <SkillDetails />}
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
-                <Button type="submit" color="secondary">
+                <Button
+                  type="button"
+                  color="secondary"
+                  onClick={() => handleAddSkill(getValues())}
+                >
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
                     : submit}

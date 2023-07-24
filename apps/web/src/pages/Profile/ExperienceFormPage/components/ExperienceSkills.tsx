@@ -1,69 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { Separator } from "@gc-digital-talent/ui";
+import {
+  Accordion,
+  StandardAccordionHeader,
+  Well,
+} from "@gc-digital-talent/ui";
 
-import SkillPicker from "~/components/SkillPicker";
-import SkillBlock from "~/components/SkillPicker/SkillBlock";
-import { categorizeSkill } from "~/utils/skillUtils";
-import { Pool, Skill, SkillCategory } from "~/api/generated";
+import { Skill } from "~/api/generated";
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
 
-import type { FormSkill, FormSkills } from "~/types/experience";
+import type { ExperienceType, FormSkill, FormSkills } from "~/types/experience";
+import SkillDialog, {
+  FormValues as SkillDialogFormValues,
+} from "~/components/SkillDialog/SkillDialog";
 
+import { notEmpty } from "@gc-digital-talent/helpers";
+import NullExperienceType from "~/components/ExperienceFormFields/NullExperienceType";
+
+type AccordionStates = "learn-more" | "";
 export interface ExperienceSkillsProps {
   skills: Skill[];
-  pool?: Pool;
+  experienceType?: ExperienceType;
 }
 
-const ExperienceSkills = ({ skills, pool }: ExperienceSkillsProps) => {
+const ExperienceSkills = ({
+  skills,
+  experienceType,
+}: ExperienceSkillsProps) => {
   const intl = useIntl();
   const { control, watch } = useFormContext();
-  const [addedSkills, setAddedSkills] = React.useState<Skill[]>([]);
+  const type = watch("experienceType");
+  const derivedType = type ?? experienceType;
   const watchedSkills: FormSkills = watch("skills");
-  const { fields, remove, replace, append } = useFieldArray({
+  const { fields, remove, append } = useFieldArray({
     control,
     name: "skills",
   });
 
-  React.useEffect(() => {
-    const newSkills = notEmpty(watchedSkills)
-      ? watchedSkills
-          .map((watchedSkill: FormSkill) => {
-            const newSkill = skills.find((s) => s.id === watchedSkill.skillId);
-            return newSkill || undefined;
-          })
-          .filter(notEmpty)
-      : [];
-    setAddedSkills(notEmpty(newSkills) ? newSkills : []);
-  }, [watchedSkills, setAddedSkills, skills]);
+  const [accordionState, setAccordionState] = useState<AccordionStates>("");
 
-  const handleChange = (newSkills: Skill[]) => {
-    const massagedSkills = newSkills.map((newSkill) => {
-      const existing = watchedSkills.find(
-        (skill) => skill.skillId === newSkill.id,
-      );
+  const handleAddSkill = async (values: SkillDialogFormValues) => {
+    const skillId = values.skill;
+    const skill = skills.find(({ id }) => id === skillId);
 
-      return {
-        skillId: newSkill.id,
-        name: newSkill.name,
-        details: existing ? existing.details : "",
-      };
-    });
-
-    replace(massagedSkills);
-  };
-
-  const handleAddSkill = (id: string) => {
-    const skillToAdd = skills.find((skill) => skill.id === id);
-
-    if (skillToAdd) {
+    if (skill) {
       append(
         {
-          skillId: skillToAdd.id,
-          name: skillToAdd.name,
+          skillId: skill.id,
+          name: skill.name,
           details: "",
         },
         { shouldFocus: false },
@@ -80,139 +66,158 @@ const ExperienceSkills = ({ skills, pool }: ExperienceSkillsProps) => {
     }
   };
 
-  // Only grab technical skills (hard skills).
-  const technicalEssentialSkills = categorizeSkill(pool?.essentialSkills)[
-    SkillCategory.Technical
-  ];
-  const technicalNonessentialSkills = categorizeSkill(pool?.nonessentialSkills)[
-    SkillCategory.Technical
-  ];
-
   return (
-    <>
+    <section>
       <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x3, 0, x1, 0)">
         {intl.formatMessage({
-          defaultMessage: "2. Skills displayed during this experience",
-          id: "pYGf4h",
+          defaultMessage: "Link featured skills",
+          id: "/I7wrY",
           description: "Title for skills on Experience form",
         })}
       </h2>
       <p data-h2-margin="base(0, 0, x2, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "Select skills that match the abilities you displayed during this experience period. You will explain how you used them in the next step.",
-          id: "csD/wq",
+            "Featured skills allow you to highlight how you used or developed particularly important skillsets during your experience. When applying to an opportunity on the platform, you’ll be asked to link the essential skills required for that job to your experiences in the same way, allowing you to build a holistic picture of your skill development. Skills you link during an application will also appear here for later editing.",
+          id: "WY7q+L",
           description: "Description blurb for skills on Experience form",
         })}
       </p>
-      {pool ? (
-        <>
-          {technicalEssentialSkills && (
-            <div
-              data-h2-radius="base(rounded)"
-              data-h2-shadow="base(s)"
-              data-h2-padding="base(x.5, x1, x.5, x.5)"
-              data-h2-margin="base(x2, 0, x1, 0)"
-            >
-              <span data-h2-font-weight="base(700)">
-                {intl.formatMessage({
-                  defaultMessage: "Need-to-have skills",
-                  id: "PXlO7h",
+      <Accordion.Root
+        type="single"
+        mode="simple"
+        value={accordionState}
+        onValueChange={(value: AccordionStates) => setAccordionState(value)}
+        collapsible
+      >
+        <Accordion.Item value="learn-more">
+          <StandardAccordionHeader headingAs="h3">
+            {accordionState === "learn-more"
+              ? intl.formatMessage({
+                  defaultMessage:
+                    "Hide information on how to best describe your skill experience",
+                  id: "24NbNI",
                   description:
-                    "Title text for group of need-to-have skills for pool advertisement on experience forms",
-                })}
-              </span>
-              <Separator
-                data-h2-background-color="base(gray.50)"
-                data-h2-margin="base(x.5, 0)"
-                orientation="horizontal"
-                decorative
-              />
-              {technicalEssentialSkills.map((skill, index: number) => (
-                <div
-                  key={skill.id}
-                  role="list"
-                  data-h2-padding="base(x0, x0, x0, x.5)"
-                >
-                  <SkillBlock
-                    skill={skill}
-                    isAdded={
-                      !!addedSkills.find((selected) => selected.id === skill.id)
-                    }
-                    onAddSkill={handleAddSkill}
-                    onRemoveSkill={handleRemoveSkill}
-                  />
-                  {index + 1 !== technicalEssentialSkills?.length ? (
-                    <Separator
-                      data-h2-background-color="base(gray.50)"
-                      data-h2-margin="base(x.5, 0)"
-                      orientation="horizontal"
-                    />
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          )}
-          {technicalNonessentialSkills && (
-            <div
-              data-h2-radius="base(rounded)"
-              data-h2-shadow="base(s)"
-              data-h2-padding="base(x.5, x1, x.5, x.5)"
-            >
-              <span data-h2-font-weight="base(700)">
-                {intl.formatMessage({
-                  defaultMessage: "Nice-to-have skills",
-                  id: "xQ2Vfi",
+                    "Button text to close accordion describing skill experience",
+                })
+              : intl.formatMessage({
+                  defaultMessage:
+                    "Learn how to best describe your skill experience",
+                  id: "YCqTbH",
                   description:
-                    "Title text for group of nice-to-have skills for pool advertisement on experience forms",
+                    "Button text to open accordion describing skill experience",
                 })}
-              </span>
-              <Separator
-                data-h2-background-color="base(gray.50)"
-                data-h2-margin="base(x.5, 0)"
-                orientation="horizontal"
-                decorative
-              />
-              {technicalNonessentialSkills.map((skill, index: number) => (
-                <div
-                  key={skill.id}
-                  role="list"
-                  data-h2-padding="base(x0, x0, x0, x.5)"
-                >
-                  <SkillBlock
-                    skill={skill}
-                    isAdded={
-                      !!addedSkills.find((selected) => selected.id === skill.id)
-                    }
-                    onAddSkill={handleAddSkill}
-                    onRemoveSkill={handleRemoveSkill}
-                  />
-                  {index + 1 !== technicalNonessentialSkills?.length ? (
-                    <Separator
-                      data-h2-background-color="base(gray.50)"
-                      data-h2-margin="base(x.5, 0)"
-                      orientation="horizontal"
-                    />
-                  ) : null}
-                </div>
-              ))}
-            </div>
+          </StandardAccordionHeader>
+          <Accordion.Content>
+            <p data-h2-margin-top="base(x1)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "When linking an experience, try answering one or more of these questions:",
+                id: "B9dbbl",
+                description:
+                  "Lead-in text for the list of skill experience questions",
+              })}
+            </p>
+            <ul data-h2-margin="base:children[>li](x.5, 0, 0, 0)">
+              <li>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "What did you accomplish, create or deliver using this skill?",
+                  id: "aaFVT3",
+                  description:
+                    "Question list item in link featured skills section of experience form (accomplish).",
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "What tasks or activities did you do that relate to this skill?",
+                  id: "ibT7BK",
+                  description:
+                    "Question list item in link featured skills section of experience form (tasks).",
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Were there any special techniques or approaches that you used?",
+                  id: "x2xN5X",
+                  description:
+                    "Question list item in link featured skills section of experience form (techniques).",
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "How much responsibility did you have in this role?",
+                  id: "u/IV5p",
+                  description:
+                    "Question list item in link featured skills section of experience form (responsibilities).",
+                })}
+              </li>
+            </ul>
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>
+      {notEmpty(derivedType) ? (
+        <div
+          data-h2-display="base(flex)"
+          data-h2-gap="base(x1)"
+          data-h2-flex-direction="base(column)"
+          data-h2-flex-wrap="p-tablet(wrap)"
+          data-h2-margin-top="base(x1)"
+        >
+          <div data-h2-align-self="base(flex-end)">
+            <SkillDialog
+              trigger={{
+                label: intl.formatMessage({
+                  defaultMessage: "Add a skill",
+                  id: "Oeb04k",
+                  description:
+                    "Label for skill dialog trigger on experience skills section.",
+                }),
+              }}
+              context="experience"
+              skills={skills}
+              onSave={handleAddSkill}
+            />
+          </div>
+          {watchedSkills && watchedSkills.length > 0 ? (
+            <SkillsInDetail
+              skills={fields as FormSkills}
+              onDelete={handleRemoveSkill}
+            />
+          ) : (
+            <Well>
+              <p
+                data-h2-margin-bottom="base(x1)"
+                data-h2-text-align="base(center)"
+                data-h2-font-weight="base(bold)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "You haven’t featured any skills on this experience yet.",
+                  id: "fdAwEs",
+                  description:
+                    "Primary message to user when no skills have been attached to experience.",
+                })}
+              </p>
+              <p data-h2-text-align="base(center)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "You can use the “Add a skill” button provided to feature skills here.",
+                  id: "ScvzNz",
+                  description:
+                    "Secondary message to user when no skills have been attached to experience.",
+                })}
+              </p>
+            </Well>
           )}
-        </>
+        </div>
       ) : (
-        <SkillPicker
-          skills={skills || []}
-          onUpdateSelectedSkills={handleChange}
-          selectedSkills={addedSkills || []}
-          headingLevel="h3"
-        />
+        <NullExperienceType />
       )}
-      <SkillsInDetail
-        skills={fields as FormSkills}
-        required={!!pool}
-        onDelete={handleRemoveSkill}
-      />
-    </>
+    </section>
   );
 };
 

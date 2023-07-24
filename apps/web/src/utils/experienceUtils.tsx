@@ -533,6 +533,13 @@ export const queryResultToDefaultValues = (
   return {
     details: experience.details || "",
     ...unsharedValues,
+    skills: experience.skills
+      ? experience.skills.map(({ id, name, experienceSkillRecord }) => ({
+          skillId: id,
+          name,
+          details: experienceSkillRecord?.details || "",
+        }))
+      : undefined,
   };
 };
 
