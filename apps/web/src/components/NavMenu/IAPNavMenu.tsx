@@ -8,7 +8,7 @@ import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
 
 import NavMenu from "./NavMenu";
-import LogoutConfirmation from "../LogoutConfirmation";
+import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
 import LogoutButton from "../Layout/LogoutButton";
 
 interface IAPNavMenuProps {
@@ -32,9 +32,9 @@ const IAPNavMenu = ({ loggedIn, user }: IAPNavMenuProps) => {
 
   if (loggedIn && user) {
     authLinks = [
-      <LogoutConfirmation key="sign-out">
+      <SignOutConfirmation key="sign-out">
         <LogoutButton>{intl.formatMessage(authMessages.signOut)}</LogoutButton>
-      </LogoutConfirmation>,
+      </SignOutConfirmation>,
     ];
   }
 

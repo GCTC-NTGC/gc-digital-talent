@@ -8,10 +8,10 @@ import { useApiRoutes, useAuthentication } from "@gc-digital-talent/auth";
 import { ExternalSideMenuItem, SideMenuButton } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
-import LogoutConfirmation from "~/components/LogoutConfirmation";
+import SignOutConfirmation from "~/components/SignOutConfirmation/SignOutConfirmation";
 import authMessages from "~/messages/authMessages";
 
-const LoginOrLogout = () => {
+const SignInOrSignOut = () => {
   const intl = useIntl();
   const location = useLocation();
   const apiRoutes = useApiRoutes();
@@ -19,11 +19,11 @@ const LoginOrLogout = () => {
 
   if (loggedIn) {
     return (
-      <LogoutConfirmation>
+      <SignOutConfirmation>
         <SideMenuButton icon={ArrowLeftOnRectangleIcon}>
           {intl.formatMessage(authMessages.signOut)}
         </SideMenuButton>
-      </LogoutConfirmation>
+      </SignOutConfirmation>
     );
   }
 
@@ -37,4 +37,4 @@ const LoginOrLogout = () => {
   );
 };
 
-export default LoginOrLogout;
+export default SignInOrSignOut;

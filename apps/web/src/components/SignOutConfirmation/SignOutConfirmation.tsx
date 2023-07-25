@@ -6,11 +6,11 @@ import { useAuthentication } from "@gc-digital-talent/auth";
 
 import authMessages from "~/messages/authMessages";
 
-interface LogoutConfirmationProps {
+interface SignOutConfirmationProps {
   children: React.ReactNode;
 }
 
-const LogoutConfirmation = ({ children }: LogoutConfirmationProps) => {
+const SignOutConfirmation = ({ children }: SignOutConfirmationProps) => {
   const intl = useIntl();
   const { logout } = useAuthentication();
   return (
@@ -54,4 +54,4 @@ const LogoutConfirmation = ({ children }: LogoutConfirmationProps) => {
   );
 };
 
-export default LogoutConfirmation;
+export default SignOutConfirmation;

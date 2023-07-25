@@ -15,7 +15,7 @@ import SEO, { Favicon } from "~/components/SEO/SEO";
 import NavMenu from "~/components/NavMenu";
 import Header from "~/components/Header";
 import Footer from "~/components/Footer";
-import LogoutConfirmation from "~/components/LogoutConfirmation";
+import SignOutConfirmation from "~/components/SignOutConfirmation/SignOutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
@@ -115,9 +115,9 @@ const Layout = () => {
       ];
     }
     authLinks = [
-      <LogoutConfirmation key="sign-out">
+      <SignOutConfirmation key="sign-out">
         <LogoutButton>{intl.formatMessage(authMessages.signOut)}</LogoutButton>
-      </LogoutConfirmation>,
+      </SignOutConfirmation>,
     ];
 
     if (
