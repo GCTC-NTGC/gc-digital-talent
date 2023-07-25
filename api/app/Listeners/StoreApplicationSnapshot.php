@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\ApplicationSubmitted;
-use App\GraphQL\Util\GraphQLClient;
 use App\Models\User;
 use App\Models\Pool;
 use App\Http\Resources\UserResource;
@@ -64,6 +63,13 @@ class StoreApplicationSnapshot
         $essentialSkillIds = $pool->essentialSkills()->pluck('id')->toArray();
         $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('id')->toArray();
         $poolSkillIds = array_merge($essentialSkillIds, $nonessentialSkillIds);
+
+        // filter out any non-applicable PoolCandidate models attached to User
+        $poolCandidateCollection = $user->poolCandidates;
+        $filteredPoolCandidateCollection = $poolCandidateCollection->filter(function ($individualPoolCandidate) use ($poolCandidate) {
+            return $individualPoolCandidate->id === $poolCandidate->id;
+        });
+        $user->poolCandidates = $filteredPoolCandidateCollection;
 
         $profile = new UserResource($user);
         $profile = $profile->poolSkillIds($poolSkillIds);

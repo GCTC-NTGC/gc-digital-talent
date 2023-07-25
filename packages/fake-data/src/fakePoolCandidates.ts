@@ -9,7 +9,6 @@ import {
   PoolCandidate,
   Pool,
   User,
-  Applicant,
 } from "@gc-digital-talent/graphql";
 
 import fakePools from "./fakePools";
@@ -20,7 +19,7 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
   return {
     id: faker.datatype.uuid(),
     pool: faker.helpers.arrayElement(pools),
-    user: faker.helpers.arrayElement<User>(users) as Applicant,
+    user: faker.helpers.arrayElement<User>(users),
     cmoIdentifier: faker.helpers.slugify(
       faker.lorem.words(faker.datatype.number({ min: 1, max: 3 })),
     ),

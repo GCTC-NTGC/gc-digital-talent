@@ -15,6 +15,7 @@ import {
 import { BasicForm, TextArea } from "@gc-digital-talent/forms";
 import { removeFromSessionStorage } from "@gc-digital-talent/storage";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { categorizeSkill } from "~/utils/skillUtils";
@@ -89,7 +90,7 @@ export const ExperienceForm = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const returnPath = `${paths.skillsAndExperiences(userId)}${
+  const returnPath = `${paths.careerTimelineAndRecruitment(userId)}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 
@@ -116,11 +117,9 @@ export const ExperienceForm = ({
 
   let crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
-      label: intl.formatMessage({
-        defaultMessage: "Experience and Skills",
-        id: "P/Mm5G",
-        description: "Display text for My experience and skills Form Page Link",
-      }),
+      label: intl.formatMessage(
+        navigationMessages.careerTimelineAndRecruitment,
+      ),
       url: returnPath,
     },
     {
@@ -265,18 +264,18 @@ export const ExperienceForm = ({
         <ExperienceSkills skills={skills} pool={pool} />
         <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x3, 0, x1, 0)">
           {intl.formatMessage({
-            defaultMessage: "4. Additional information for this experience",
-            id: "Rgh/Qb",
+            defaultMessage: "4. Highlight additional details",
+            id: "E1BnhC",
             description: "Title for addition information on Experience form",
           })}
         </h2>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {intl.formatMessage({
             defaultMessage:
-              "Anything else about this experience you would like to share.",
-            id: "h1wsiL",
+              "Optionally describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important.",
+            id: "KteuZ5",
             description:
-              "Description blurb for additional information on Experience form",
+              "Help text for the experience additional details field",
           })}
         </p>
         <TextArea id="details" label={labels.details} name="details" />
@@ -375,7 +374,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const { userId, experienceType, experienceId } = useParams<RouteParams>();
   const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
-  const returnPath = `${paths.skillsAndExperiences(userId || "")}${
+  const returnPath = `${paths.careerTimelineAndRecruitment(userId || "")}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 

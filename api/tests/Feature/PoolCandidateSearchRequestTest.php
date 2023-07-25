@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
+use Database\Helpers\ApiEnums;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,6 +27,8 @@ class PoolCandidateSearchRequestTest extends TestCase
         'fullName' => 'Test',
         'email' => 'test@domain.com',
         'jobTitle' => 'Job Title',
+        'managerJobTitle' => 'Manager',
+        'positionType' => ApiEnums::POOL_CANDIDATE_SEARCH_POSITION_INDIVIDUAL_CONTRIBUTOR,
     ];
 
     protected function setUp(): void

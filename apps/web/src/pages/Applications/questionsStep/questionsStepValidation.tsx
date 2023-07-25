@@ -1,9 +1,9 @@
-import { Applicant, Pool, PoolCandidate } from "@gc-digital-talent/graphql";
+import { User, Pool, PoolCandidate } from "@gc-digital-talent/graphql";
 
 import { screeningQuestionsSectionHasMissingResponses } from "~/validators/profile";
 
 const stepHasError = (
-  _applicant: Applicant,
+  _user: User,
   pool: Pool,
   application: Omit<PoolCandidate, "pool">,
 ) => {

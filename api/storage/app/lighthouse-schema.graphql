@@ -1,58 +1,3 @@
-type Applicant {
-  id: ID!
-  firstName: String
-  lastName: String
-  email: Email
-  telephone: PhoneNumber
-  preferredLang: Language
-  preferredLanguageForInterview: Language
-  preferredLanguageForExam: Language
-  currentProvince: ProvinceOrTerritory
-  currentCity: String
-  citizenship: CitizenshipStatus
-  armedForcesStatus: ArmedForcesStatus
-  isGovEmployee: Boolean
-  govEmployeeType: GovEmployeeType
-  currentClassification: Classification
-  department: Department
-  hasPriorityEntitlement: Boolean
-  priorityNumber: String
-  languageAbility: LanguageAbility @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
-  lookingForEnglish: Boolean
-  lookingForFrench: Boolean
-  lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
-  comprehensionLevel: EvaluatedLanguageAbility
-  writtenLevel: EvaluatedLanguageAbility
-  verbalLevel: EvaluatedLanguageAbility
-  estimatedLanguageAbility: EstimatedLanguageAbility
-  isWoman: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean @deprecated(reason: "replaced by indigenousCommunities")
-  isVisibleMinority: Boolean
-  indigenousCommunities: [IndigenousCommunity]
-  indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
-  poolCandidates: [PoolCandidate]
-  hasDiploma: Boolean
-  locationPreferences: [WorkRegion]
-  locationExemptions: String
-  acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: [Classification]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
-  positionDuration: [PositionDuration]
-  experiences: [Experience]
-  awardExperiences: [AwardExperience]
-  communityExperiences: [CommunityExperience]
-  educationExperiences: [EducationExperience]
-  personalExperiences: [PersonalExperience]
-  workExperiences: [WorkExperience]
-  isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle]
-  priorityWeight: Int
-}
-
 type ApplicantFilter {
   id: ID!
   hasDiploma: Boolean
@@ -107,7 +52,7 @@ enum ArmedForcesStatus {
 
 type AwardExperience implements Experience {
   id: ID!
-  applicant: Applicant!
+  user: User!
   title: String
   issuedBy: String
   awardedDate: Date
@@ -204,7 +149,7 @@ input ClassificationFilterInput {
 
 type CommunityExperience implements Experience {
   id: ID!
-  applicant: Applicant!
+  user: User!
   title: String
   organization: String
   project: String
@@ -232,6 +177,73 @@ input CommunityExperienceInput {
 input ConnectExperienceSkills {
   id: ID!
   details: String
+}
+
+enum ContractAuthority {
+  HR
+  PROCUREMENT
+  FINANCE
+  LABOUR_RELATIONS
+  OTHER
+}
+
+enum ContractCommodity {
+  TELECOM_SERVICES
+  SUPPORT_SERVICES
+  OTHER
+}
+
+enum ContractInstrument {
+  SUPPLY_ARRANGEMENT
+  STANDING_OFFER
+  CONTRACT
+  AMENDMENT
+}
+
+enum ContractSolicitationProcedure {
+  ADVANCE_CONTRACT_AWARD_NOTICE
+  COMPETITIVE
+  NON_COMPETITIVE
+}
+
+enum ContractStartTimeframe {
+  FROM_0_TO_3M
+  FROM_3M_TO_6M
+  FROM_6M_TO_1Y
+  FROM_1Y_TO_2Y
+  UNKNOWN
+  VARIABLE
+}
+
+enum ContractSupplyMethod {
+  NOT_APPLICABLE
+  SOLUTIONS_BASED_INFORMATICS_PROFESSIONAL_SERVICES
+  TASK_BASED_INFORMATICS_PROFESSIONAL_SERVICES
+  TEMPORARY_HELP
+  OTHER
+}
+
+enum ContractValueRange {
+  FROM_0_TO_10K
+  FROM_10K_TO_25K
+  FROM_25K_TO_50K
+  FROM_50K_TO_1M
+  FROM_1M_TO_2500K
+  FROM_2500K_TO_5M
+  FROM_5M_TO_10M
+  FROM_10M_TO_15M
+  FROM_15M_TO_25M
+  GREATER_THAN_25M
+}
+
+enum ContractingRationale {
+  SHORTAGE_OF_TALENT
+  TIMING_REQUIREMENTS
+  HR_SITUATION
+  FINANCIAL_SITUATION
+  REQUIRES_INDEPENDENT
+  INTELLECTUAL_PROPERTY_FACTORS
+  OTHER
 }
 
 input CreateApplicantFilterInput {
@@ -263,6 +275,22 @@ input CreateDepartmentInput {
   name: LocalizedStringInput
 }
 
+input CreateDigitalContractingPersonnelRequirementInput {
+  resourceType: String
+  skillRequirements: DigitalContractingPersonnelSkillBelongsTo
+  language: PersonnelLanguage
+  languageOther: String
+  security: PersonnelScreeningLevel
+  securityOther: String
+  telework: PersonnelTeleworkOption
+  quantity: Int
+}
+
+input CreateDigitalContractingPersonnelSkillInput {
+  skill: SkillBelongsTo
+  level: PersonnelSkillExpertiseLevel
+}
+
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
@@ -280,6 +308,8 @@ input CreatePoolCandidateSearchRequestInput {
   additionalComments: String
   applicantFilter: ApplicantFilterBelongsTo!
   wasEmpty: Boolean
+  managerJobTitle: String!
+  positionType: PoolCandidateSearchPositionType!
 }
 
 input CreatePoolInput {
@@ -323,7 +353,6 @@ input CreateTeamInput {
 """When creating a User, name is required."""
 input CreateUserInput {
   sub: String
-  legacyRoles: [LegacyRole] = []
   firstName: String!
   lastName: String!
   email: Email
@@ -394,9 +423,172 @@ input DepartmentBelongsToMany {
   sync: [ID!]
 }
 
+type DigitalContractingPersonnelRequirement {
+  id: UUID!
+  resourceType: String
+  skillRequirements: [DigitalContractingPersonnelSkill!]
+  language: PersonnelLanguage
+  languageOther: String
+  security: PersonnelScreeningLevel
+  securityOther: String
+  telework: PersonnelTeleworkOption
+  quantity: Int
+}
+
+input DigitalContractingPersonnelRequirementBelongsToMany {
+  create: [CreateDigitalContractingPersonnelRequirementInput!]
+  update: [UpdateDigitalContractingPersonnelRequirementInput!]
+  delete: [UUID!]
+}
+
+type DigitalContractingPersonnelSkill {
+  id: UUID!
+  skill: Skill
+  level: PersonnelSkillExpertiseLevel
+}
+
+input DigitalContractingPersonnelSkillBelongsTo {
+  create: [CreateDigitalContractingPersonnelSkillInput!]
+  update: [UpdateDigitalContractingPersonnelSkillInput!]
+  delete: [UUID!]
+}
+
+type DigitalContractingQuestionnaire {
+  id: UUID!
+  readPreamble: Boolean
+  department: Department
+  departmentOther: String
+  branchOther: String
+  businessOwnerName: String
+  businessOwnerJobTitle: String
+  businessOwnerEmail: String
+  financialAuthorityName: String
+  financialAuthorityJobTitle: String
+  financialAuthorityEmail: String
+  authoritiesInvolved: [ContractAuthority!]
+  authorityInvolvedOther: String
+  contractBehalfOfGc: YesNoUnsure
+  contractServiceOfGc: YesNoUnsure
+  contractForDigitalInitiative: YesNoUnsure
+  digitalInitiativeName: String
+  digitalInitiativePlanSubmitted: YesNoUnsure
+  digitalInitiativePlanUpdated: YesNoUnsure
+  digitalInitiativePlanComplemented: YesNoUnsure
+  contractTitle: String
+  contractStartDate: Date
+  contractEndDate: Date
+  contractExtendable: YesNo
+  contractAmendable: YesNo
+  contractMultiyear: YesNo
+  contractValue: ContractValueRange
+  contractResourcesStartTimeframe: ContractStartTimeframe
+  commodityType: ContractCommodity
+  commodityTypeOther: String
+  instrumentType: ContractInstrument
+  methodOfSupply: ContractSupplyMethod
+  methodOfSupplyOther: String
+  solicitationProcedure: ContractSolicitationProcedure
+  subjectToTradeAgreement: YesNoUnsure
+  workRequirementDescription: String
+  qualificationRequirement: String
+  requirementAccessToSecure: YesNoUnsure
+  requirementScreeningLevels: [PersonnelScreeningLevel!]
+  requirementScreeningLevelOther: String
+  requirementWorkLanguages: [PersonnelLanguage!]
+  requirementWorkLanguageOther: String
+  requirementWorkLocations: [PersonnelWorkLocation!]
+  requirementWorkLocationSpecific: String
+  requirementOthers: [PersonnelOtherRequirement!]
+  requirementOtherOther: String
+  hasPersonnelRequirements: YesNo
+  personnelRequirements: [DigitalContractingPersonnelRequirement!]
+  isTechnologicalChange: YesNo
+  hasImpactOnYourDepartment: YesNo
+  hasImmediateImpactOnOtherDepartments: YesNo
+  hasFutureImpactOnOtherDepartments: YesNo
+  operationsConsiderations: [OperationsConsideration!]
+  operationsConsiderationsOther: String
+  contractingRationalePrimary: ContractingRationale
+  contractingRationalePrimaryOther: String
+  contractingRationalesSecondary: [ContractingRationale!]
+  contractingRationalesSecondaryOther: String
+  ocioConfirmedTalentShortage: YesNo
+  talentSearchTrackingNumber: String
+  ongoingNeedForKnowledge: YesNo
+  knowledgeTransferInContract: YesNo
+  employeesHaveAccessToKnowledge: YesNo
+  ocioEngagedForTraining: YesNo
+}
+
+input DigitalContractingQuestionnaireInput {
+  readPreamble: Boolean
+  department: DepartmentBelongsTo
+  departmentOther: String
+  branchOther: String
+  businessOwnerName: String
+  businessOwnerJobTitle: String
+  businessOwnerEmail: String
+  financialAuthorityName: String
+  financialAuthorityJobTitle: String
+  financialAuthorityEmail: String
+  authoritiesInvolved: [ContractAuthority!]
+  authorityInvolvedOther: String
+  contractBehalfOfGc: YesNoUnsure
+  contractServiceOfGc: YesNoUnsure
+  contractForDigitalInitiative: YesNoUnsure
+  digitalInitiativeName: String
+  digitalInitiativePlanSubmitted: YesNoUnsure
+  digitalInitiativePlanUpdated: YesNoUnsure
+  digitalInitiativePlanComplemented: YesNoUnsure
+  contractTitle: String
+  contractStartDate: Date
+  contractEndDate: Date
+  contractExtendable: YesNo
+  contractAmendable: YesNo
+  contractMultiyear: YesNo
+  contractValue: ContractValueRange
+  contractResourcesStartTimeframe: ContractStartTimeframe
+  commodityType: ContractCommodity
+  commodityTypeOther: String
+  instrumentType: ContractInstrument
+  methodOfSupply: ContractSupplyMethod
+  methodOfSupplyOther: String
+  solicitationProcedure: ContractSolicitationProcedure
+  subjectToTradeAgreement: YesNoUnsure
+  workRequirementDescription: String
+  qualificationRequirement: String
+  requirementAccessToSecure: YesNoUnsure
+  requirementScreeningLevels: [PersonnelScreeningLevel!]
+  requirementScreeningLevelOther: String
+  requirementWorkLanguages: [PersonnelLanguage!]
+  requirementWorkLanguageOther: String
+  requirementWorkLocations: [PersonnelWorkLocation!]
+  requirementWorkLocationSpecific: String
+  requirementOthers: [PersonnelOtherRequirement!]
+  requirementOtherOther: String
+  hasPersonnelRequirements: YesNo
+  personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
+  isTechnologicalChange: YesNo
+  hasImpactOnYourDepartment: YesNo
+  hasImmediateImpactOnOtherDepartments: YesNo
+  hasFutureImpactOnOtherDepartments: YesNo
+  operationsConsiderations: [OperationsConsideration!]
+  operationsConsiderationsOther: String
+  contractingRationalePrimary: ContractingRationale
+  contractingRationalePrimaryOther: String
+  contractingRationalesSecondary: [ContractingRationale!]
+  contractingRationalesSecondaryOther: String
+  ocioConfirmedTalentShortage: YesNo
+  talentSearchTrackingNumber: String
+  ongoingNeedForKnowledge: YesNo
+  knowledgeTransferInContract: YesNo
+  employeesHaveAccessToKnowledge: YesNo
+  ocioEngagedForTraining: YesNo
+}
+
 type EducationExperience implements Experience {
   id: ID!
-  applicant: Applicant!
+  user: User!
   institution: String
   areaOfStudy: String
   thesisTitle: String
@@ -483,7 +675,7 @@ enum EvaluatedLanguageAbility {
 
 interface Experience {
   id: ID!
-  applicant: Applicant!
+  user: User!
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
@@ -562,14 +754,6 @@ enum LanguageAbility {
   BILINGUAL
 }
 
-enum LegacyRole {
-  """A user who has administrator privileges"""
-  ADMIN
-
-  """A user who has a profile to apply to hiring pools"""
-  APPLICANT
-}
-
 type LocalizedString {
   en: String
   fr: String
@@ -588,7 +772,7 @@ dealing with really large numbers to be on the safe side.
 scalar Mixed
 
 type Mutation {
-  createUser(user: CreateUserInput!): User @deprecated(reason: "The ability of admins to create new users will soon be removed.")
+  createUser(user: CreateUserInput!): User
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
@@ -639,6 +823,17 @@ type Mutation {
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
+  markNotificationAsRead(id: UUID!): Notification
+  createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
+  updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
+  deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
+}
+
+interface Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -652,6 +847,16 @@ enum OperationalRequirement {
   OVERTIME_SHORT_NOTICE
   OVERTIME_OCCASIONAL
   OVERTIME_REGULAR
+}
+
+enum OperationsConsideration {
+  FINANCE_VEHICLE_NOT_USABLE
+  FUNDING_SECURED_COST_RECOVERY_BASIS
+  UNABLE_CREATE_NEW_INDETERMINATE
+  UNABLE_CREATE_NEW_TERM
+  UNABLE_CREATE_CLASSIFICATION_RESTRICTION
+  STAFFING_FREEZE
+  OTHER
 }
 
 """Allows ordering a list of records."""
@@ -747,7 +952,7 @@ type PaginatorInfo {
 
 type PersonalExperience implements Experience {
   id: ID!
-  applicant: Applicant!
+  user: User!
   title: String
   description: String
   startDate: Date
@@ -770,6 +975,49 @@ input PersonalExperienceInput {
   skills: UpdateExperienceSkills
 }
 
+enum PersonnelLanguage {
+  ENGLISH_ONLY
+  FRENCH_ONLY
+  BILINGUAL_INTERMEDIATE
+  BILINGUAL_ADVANCED
+  OTHER
+}
+
+enum PersonnelOtherRequirement {
+  SHIFT_WORK
+  ON_CALL_24_7
+  OVERTIME_SHORT_NOTICE
+  AS_NEEDED
+  OTHER
+}
+
+enum PersonnelScreeningLevel {
+  RELIABILITY
+  ENHANCED_RELIABILITY
+  SECRET
+  TOP_SECRET
+  OTHER
+}
+
+enum PersonnelSkillExpertiseLevel {
+  BEGINNER
+  INTERMEDIATE
+  EXPERT
+  LEAD
+}
+
+enum PersonnelTeleworkOption {
+  FULL_TIME
+  PART_TIME
+  NO
+}
+
+enum PersonnelWorkLocation {
+  GC_PREMISES
+  OFFSITE_SPECIFIC
+  OFFSITE_ANY
+}
+
 """A phone number string, accepts any string"""
 scalar PhoneNumber
 
@@ -778,12 +1026,12 @@ type Pool {
   owner: UserPublicProfile
   team: Team
   name: LocalizedString
-  key: KeyString
   classifications: [Classification]
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
   yourImpact: LocalizedString
+  whatToExpect: LocalizedString
   isRemote: Boolean
   location: LocalizedString
   securityClearance: SecurityStatus
@@ -812,7 +1060,7 @@ input PoolBelongsToMany {
 type PoolCandidate {
   id: ID!
   pool: Pool!
-  user: Applicant!
+  user: User!
   cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus
@@ -845,10 +1093,16 @@ input PoolCandidateSearchInput {
   email: String
   generalSearch: String
   name: String
+  notes: String
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
+}
+
+enum PoolCandidateSearchPositionType {
+  INDIVIDUAL_CONTRIBUTOR
+  TEAM_LEAD
 }
 
 type PoolCandidateSearchRequest {
@@ -860,15 +1114,26 @@ type PoolCandidateSearchRequest {
   additionalComments: String
   requestedDate: DateTime
   status: PoolCandidateSearchStatus
+  statusChangedAt: DateTime
   adminNotes: String
   poolCandidateFilter: PoolCandidateFilter
   applicantFilter: ApplicantFilter
-  doneDate: DateTime
   wasEmpty: Boolean
+  managerJobTitle: String
+  positionType: PoolCandidateSearchPositionType
 }
 
 input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus]
+  departments: [ID]
+  classifications: [ID]
+  streams: [PoolStream]
+  fullName: String
+  email: String
+  jobTitle: String
+  additionalComments: String
+  adminNotes: String
+  generalSearch: String
 }
 
 """A paginated list of PoolCandidateSearchRequest items."""
@@ -881,7 +1146,9 @@ type PoolCandidateSearchRequestPaginator {
 }
 
 enum PoolCandidateSearchStatus {
-  PENDING
+  NEW
+  IN_PROGRESS
+  WAITING
   DONE
 }
 
@@ -892,6 +1159,8 @@ enum PoolCandidateStatus {
   APPLICATION_REVIEW
   SCREENED_IN
   SCREENED_OUT_APPLICATION
+  SCREENED_OUT_NOT_INTERESTED
+  SCREENED_OUT_NOT_RESPONSIVE
   UNDER_ASSESSMENT
   SCREENED_OUT_ASSESSMENT
   QUALIFIED_AVAILABLE
@@ -902,6 +1171,17 @@ enum PoolCandidateStatus {
   PLACED_INDETERMINATE
   EXPIRED
   REMOVED
+}
+
+type PoolCandidateStatusChangedNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  oldStatus: PoolCandidateStatus
+  newStatus: PoolCandidateStatus
+  poolId: ID
+  poolName: LocalizedString
 }
 
 type PoolCandidateWithSkillCount {
@@ -983,8 +1263,8 @@ type Query {
   me: User
   user(id: UUID!): User
   users: [User]!
-  applicant(id: UUID!): Applicant
-  applicants(includeIds: [ID]!): [Applicant]!
+  applicant(id: UUID!): User @deprecated(reason: "Removing in favour of user query")
+  applicants(includeIds: [ID]!): [User]! @deprecated(reason: "Removing in favour of users query")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   pools: [Pool]!
@@ -1013,6 +1293,8 @@ type Query {
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
+  digitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
+  digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
@@ -1226,6 +1508,10 @@ type Skill {
   experienceSkillRecord: ExperienceSkillRecord
 }
 
+input SkillBelongsTo {
+  connect: ID!
+}
+
 input SkillBelongsToMany {
   sync: [ID!]
 }
@@ -1322,6 +1608,24 @@ input UpdateDepartmentInput {
   name: LocalizedStringInput
 }
 
+input UpdateDigitalContractingPersonnelRequirementInput {
+  id: UUID!
+  resourceType: String
+  skillRequirements: DigitalContractingPersonnelSkillBelongsTo
+  language: PersonnelLanguage
+  languageOther: String
+  security: PersonnelScreeningLevel
+  securityOther: String
+  telework: PersonnelTeleworkOption
+  quantity: Int
+}
+
+input UpdateDigitalContractingPersonnelSkillInput {
+  id: UUID!
+  skill: SkillBelongsTo
+  level: PersonnelSkillExpertiseLevel
+}
+
 input UpdateEducationExperiencesRequirementBelongsToMany {
   sync: [ID!]
 }
@@ -1352,6 +1656,7 @@ input UpdatePoolInput {
   closingDate: DateTime
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
+  whatToExpect: LocalizedStringInput
   essentialSkills: SkillBelongsToMany
   nonessentialSkills: SkillBelongsToMany
   language: PoolLanguage
@@ -1411,7 +1716,6 @@ input UpdateTeamInput {
 input UpdateUserAsAdminInput {
   id: ID
   sub: String
-  legacyRoles: [LegacyRole]
   email: Email
   firstName: String
   lastName: String
@@ -1510,7 +1814,6 @@ input UpdateUserAsUserInput {
 type User {
   id: ID!
   sub: String
-  legacyRoles: [LegacyRole]
   createdDate: DateTime
   updatedDate: DateTime
   firstName: String
@@ -1566,6 +1869,8 @@ type User {
   expectedGenericJobTitles: [GenericJobTitle]
   priorityWeight: Int
   roleAssignments: [RoleAssignment!]
+  unreadNotifications: [Notification!]
+  notifications: [Notification!]
 }
 
 input UserBelongsTo {
@@ -1647,7 +1952,7 @@ input WhereConditionsRelation {
 
 type WorkExperience implements Experience {
   id: ID!
-  applicant: Applicant!
+  user: User!
   role: String
   organization: String
   division: String
@@ -1681,4 +1986,15 @@ enum WorkRegion {
   PRAIRIE
   BRITISH_COLUMBIA
   NORTH
+}
+
+enum YesNo {
+  YES
+  NO
+}
+
+enum YesNoUnsure {
+  YES
+  NO
+  I_DONT_KNOW
 }

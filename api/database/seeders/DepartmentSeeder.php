@@ -39,8 +39,8 @@ class DepartmentSeeder extends Seeder
       [
         'department_number' => 5,
         'name' => [
-          'en' => 'Foreign Affairs, Trade and Development (Department of)',
-          'fr' => 'Affaires étrangères, du Commerce et du Développement (Ministère des)',
+          'en' => 'Global Affairs Canada',
+          'fr' => 'Affaires mondiales Canada',
         ],
       ],
       [

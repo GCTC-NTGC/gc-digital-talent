@@ -24,7 +24,6 @@ import {
   UpdatePoolInput,
 } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
-import Spacer from "~/components/Spacer/Spacer";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
@@ -119,7 +118,7 @@ const PoolNameSection = ({
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
-      <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
+      <TableOfContents.Heading data-h2-margin="base(0, 0, x1, 0)">
         {sectionMetadata.title}
       </TableOfContents.Heading>
       <p>
@@ -133,95 +132,84 @@ const PoolNameSection = ({
       </p>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleSave)}>
-          <div data-h2-display="base(flex)">
-            <Spacer style={{ flex: 1 }}>
-              <Select
-                id="classification"
-                label={intl.formatMessage({
-                  defaultMessage: "Classification",
-                  id: "w/qZsH",
-                  description:
-                    "Label displayed on the pool form classification field.",
-                })}
-                name="classification"
-                options={classificationOptions}
-                disabled={formDisabled}
-              />
-            </Spacer>
-            <Spacer style={{ flex: 1 }}>
-              <Select
-                id="stream"
-                label={intl.formatMessage({
-                  defaultMessage: "Streams/Job Titles",
-                  id: "PzijvH",
-                  description:
-                    "Label displayed on the pool form stream/job title field.",
-                })}
-                name="stream"
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a stream/job title",
-                  id: "fR6xVv",
-                  description:
-                    "Placeholder displayed on the pool form classification field.",
-                })}
-                options={streamOptions}
-                disabled={formDisabled}
-              />
-            </Spacer>
-          </div>
-          <div data-h2-display="base(flex)">
-            <Spacer style={{ flex: 1 }}>
-              <Input
-                id="specificTitleEn"
-                name="specificTitleEn"
-                type="text"
-                label={intl.formatMessage({
-                  defaultMessage: "Specific Title (English)",
-                  id: "fTwl6k",
-                  description:
-                    "Label for a pool advertisements specific English title",
-                })}
-                disabled={formDisabled}
-              />
-            </Spacer>
-
-            <Spacer style={{ flex: 1 }}>
-              <Input
-                id="specificTitleFr"
-                name="specificTitleFr"
-                type="text"
-                label={intl.formatMessage({
-                  defaultMessage: "Specific Title (French)",
-                  id: "MDjwSO",
-                  description:
-                    "Label for a pool advertisements specific French title",
-                })}
-                disabled={formDisabled}
-              />
-            </Spacer>
-          </div>
-          <div data-h2-display="base(flex)">
-            <Spacer style={{ flex: 1 }}>
-              <Input
-                id="processNumber"
-                name="processNumber"
-                type="text"
-                label={intl.formatMessage({
-                  defaultMessage: "Process Number",
-                  id: "1E0RiD",
-                  description: "Label for a pools process number",
-                })}
-                context={intl.formatMessage({
-                  defaultMessage:
-                    "This process number is obtained from your HR shop",
-                  id: "Ao/+Ba",
-                  description:
-                    "Additional context describing the pools process number.",
-                })}
-                disabled={formDisabled}
-              />
-            </Spacer>
-            <Spacer style={{ flex: 1 }} />
+          <div
+            data-h2-display="base(grid)"
+            data-h2-gap="base(x1)"
+            data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
+            data-h2-margin="base(x1 0)"
+          >
+            <Select
+              id="classification"
+              label={intl.formatMessage({
+                defaultMessage: "Classification",
+                id: "w/qZsH",
+                description:
+                  "Label displayed on the pool form classification field.",
+              })}
+              name="classification"
+              options={classificationOptions}
+              disabled={formDisabled}
+            />
+            <Select
+              id="stream"
+              label={intl.formatMessage({
+                defaultMessage: "Streams/Job Titles",
+                id: "PzijvH",
+                description:
+                  "Label displayed on the pool form stream/job title field.",
+              })}
+              name="stream"
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a stream/job title",
+                id: "fR6xVv",
+                description:
+                  "Placeholder displayed on the pool form classification field.",
+              })}
+              options={streamOptions}
+              disabled={formDisabled}
+            />
+            <Input
+              id="specificTitleEn"
+              name="specificTitleEn"
+              type="text"
+              label={intl.formatMessage({
+                defaultMessage: "Specific Title (English)",
+                id: "fTwl6k",
+                description:
+                  "Label for a pool advertisements specific English title",
+              })}
+              disabled={formDisabled}
+            />
+            <Input
+              id="specificTitleFr"
+              name="specificTitleFr"
+              type="text"
+              label={intl.formatMessage({
+                defaultMessage: "Specific Title (French)",
+                id: "MDjwSO",
+                description:
+                  "Label for a pool advertisements specific French title",
+              })}
+              disabled={formDisabled}
+            />
+            <Input
+              id="processNumber"
+              name="processNumber"
+              type="text"
+              label={intl.formatMessage({
+                defaultMessage: "Process Number",
+                id: "1E0RiD",
+                description: "Label for a pools process number",
+              })}
+              context={intl.formatMessage({
+                defaultMessage:
+                  "This process number is obtained from your HR shop",
+                id: "Ao/+Ba",
+                description:
+                  "Additional context describing the pools process number.",
+              })}
+              disabled={formDisabled}
+            />
           </div>
 
           {!formDisabled && (

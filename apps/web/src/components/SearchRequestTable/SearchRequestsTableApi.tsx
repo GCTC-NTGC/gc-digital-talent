@@ -1,8 +1,9 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
+import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pending } from "@gc-digital-talent/ui";
+import { Pending, Spoiler } from "@gc-digital-talent/ui";
 import {
   InputMaybe,
   Maybe,
@@ -13,9 +14,14 @@ import {
   SortOrder,
   useGetPoolCandidateSearchRequestsPaginatedQuery,
 } from "@gc-digital-talent/graphql";
+import {
+  getLocalizedName,
+  getPoolCandidateSearchStatus,
+  getPoolStream,
+} from "@gc-digital-talent/i18n";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { FromArray } from "~/types/utility";
-
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";
 import TableFooter from "~/components/Table/ApiManagedTable/TableFooter";
 import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
@@ -30,12 +36,47 @@ import useTableState from "~/components/Table/ApiManagedTable/useTableState";
 import { tableViewItemButtonAccessor } from "~/components/Table/ClientManagedTable/TableViewItemButton";
 import useRoutes from "~/hooks/useRoutes";
 import {
-  getLocalizedName,
-  getPoolCandidateSearchStatus,
-} from "@gc-digital-talent/i18n";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+  stringToEnumRequestStatus,
+  stringToEnumStream,
+} from "~/utils/requestUtils";
+import adminMessages from "~/messages/adminMessages";
+import { PoolCandidateSearchRequest } from "~/api/generated";
+
+import SearchRequestsTableFilter, {
+  FormValues,
+} from "./components/SearchRequestsTableFilterDialog";
+import tableClassificationPills from "../Table/ClientManagedTable/tableClassificationPills";
+import tableCommaList from "../Table/ClientManagedTable/tableCommaList";
 
 type Data = NonNullable<FromArray<PoolCandidateSearchRequestPaginator["data"]>>;
+
+// data massaging functions
+function transformFormValuesToSearchRequestFilterInput(
+  data: FormValues,
+): PoolCandidateSearchRequestInput {
+  return {
+    status: data.status.map(stringToEnumRequestStatus),
+    departments: data.departments,
+    classifications: data.classifications,
+    streams: data.streams.map(stringToEnumStream),
+  };
+}
+
+function transformSearchRequestFilterInputToFormValues(
+  input: PoolCandidateSearchRequestInput | undefined,
+): FormValues {
+  return {
+    status: input?.status?.filter(notEmpty) ?? [],
+    departments:
+      input?.departments?.filter(notEmpty).map((department) => department) ??
+      [],
+    classifications:
+      input?.classifications
+        ?.filter(notEmpty)
+        .map((classification) => classification) ?? [],
+    streams: input?.streams?.filter(notEmpty) ?? [],
+  };
+}
 
 // Accessors
 const statusAccessor = (
@@ -58,9 +99,30 @@ function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
   ) : null;
 }
 
+const notesAccessor = (
+  searchRequest: PoolCandidateSearchRequest,
+  intl: IntlShape,
+) =>
+  searchRequest?.adminNotes ? (
+    <Spoiler
+      text={searchRequest.adminNotes}
+      linkSuffix={intl.formatMessage(
+        {
+          defaultMessage: "notes for {name}",
+          id: "6eih3b",
+          description:
+            "Link text suffix to read more notes for a search request",
+        },
+        {
+          name: searchRequest.jobTitle,
+        },
+      )}
+    />
+  ) : null;
+
 const defaultState = {
   ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["id", "email"],
+  hiddenColumnIds: ["id", "manager", "email", "adminNotes"],
   filters: {},
 };
 
@@ -86,6 +148,11 @@ const SearchRequestsTableApi = ({
     [initialFilterInput],
   );
 
+  const initialFilters = useMemo(
+    () => transformSearchRequestFilterInputToFormValues(initialFilterInput),
+    [initialFilterInput],
+  );
+
   const [tableState, setTableState] = useTableState<
     Data,
     PoolCandidateSearchRequestInput
@@ -96,32 +163,69 @@ const SearchRequestsTableApi = ({
     sortBy: sortingRule,
     hiddenColumnIds,
     searchState,
+    filters: searchRequestsFilterInput,
   } = tableState;
 
-  // TODO: fill this in
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    const transformedData = transformFormValuesToSearchRequestFilterInput(data);
+
+    setTableState({
+      filters: transformedData,
+      currentPage: defaultState.currentPage,
+    });
+  };
+
   // merge search bar with filter dialog
   const combinedSearchRequestInput = (
-    // fancyFilterState: PoolCandidateSearchRequestInput | undefined, filter goes here when added
+    fancyFilterState: PoolCandidateSearchRequestInput | undefined,
     searchBarTerm: string | undefined,
     searchType: string | undefined,
   ): InputMaybe<PoolCandidateSearchRequestInput> => {
-    if (searchBarTerm === undefined && searchType === undefined) {
+    if (
+      fancyFilterState === undefined &&
+      searchBarTerm === undefined &&
+      searchType === undefined
+    ) {
       return null;
     }
 
-    // return {
-    // search bar
-    // manager, jobTitle...
-    // from fancy filter
-    // status, department...
-    // };
+    return {
+      // search bar
+      generalSearch: !!searchBarTerm && !searchType ? searchBarTerm : undefined,
+      fullName:
+        searchType === "fullName" && !!searchBarTerm
+          ? searchBarTerm
+          : undefined,
+      email:
+        searchType === "email" && !!searchBarTerm ? searchBarTerm : undefined,
+      jobTitle:
+        searchType === "jobTitle" && !!searchBarTerm
+          ? searchBarTerm
+          : undefined,
+      additionalComments:
+        searchType === "additionalComments" && !!searchBarTerm
+          ? searchBarTerm
+          : undefined,
+      adminNotes:
+        searchType === "adminNotes" && !!searchBarTerm
+          ? searchBarTerm
+          : undefined,
 
-    return null;
+      // from fancy filter
+      status: fancyFilterState?.status,
+      departments: fancyFilterState?.departments,
+      classifications: fancyFilterState?.classifications,
+      streams: fancyFilterState?.streams,
+    };
   };
 
   const [result] = useGetPoolCandidateSearchRequestsPaginatedQuery({
     variables: {
-      where: combinedSearchRequestInput(searchState?.term, searchState?.type),
+      where: combinedSearchRequestInput(
+        searchRequestsFilterInput,
+        searchState?.term,
+        searchState?.type,
+      ),
       page: currentPage,
       first: pageSize,
       orderBy: sortingRuleToOrderByClause(sortingRule) ?? [
@@ -141,26 +245,6 @@ const SearchRequestsTableApi = ({
     () => [
       {
         label: intl.formatMessage({
-          defaultMessage: "Action",
-          id: "TDTE1c",
-          description:
-            "Title displayed for the search request table edit column.",
-        }),
-        id: "action",
-        accessor: (d) =>
-          tableViewItemButtonAccessor(
-            paths.searchRequestView(d.id),
-            intl.formatMessage({
-              defaultMessage: "request",
-              id: "gLtTaW",
-              description:
-                "Text displayed after View text for Search Request table view action",
-            }),
-            d.fullName || "",
-          ),
-      },
-      {
-        label: intl.formatMessage({
           defaultMessage: "ID",
           id: "f24Z8p",
           description: "Title displayed on the search request table id column.",
@@ -171,25 +255,50 @@ const SearchRequestsTableApi = ({
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Date Received",
-          id: "r2gD/4",
+          defaultMessage: "Request job title",
+          id: "6AhLsc",
           description:
-            "Title displayed on the search request table requested date column.",
+            "Title displayed for the search request table request job title column.",
         }),
-        id: "requestedDate",
-        sortColumnName: "created_at",
-        accessor: (d) => dateCell(d.requestedDate, intl),
+        id: "job_title",
+        sortColumnName: "job_title",
+        accessor: (d) =>
+          tableViewItemButtonAccessor(
+            paths.searchRequestView(d.id),
+            d.jobTitle || "",
+            "",
+          ),
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Status",
-          id: "t3sEc+",
+          defaultMessage: "Group and level",
+          id: "y+r+ej",
           description:
-            "Title displayed on the search request table status column.",
+            "Title displayed on the search request table group and level column.",
         }),
-        id: "status",
-        sortColumnName: "done_at",
-        accessor: (d) => statusAccessor(d.status, intl),
+        id: "group_and_level",
+        accessor: (d) =>
+          tableClassificationPills({
+            classifications:
+              d.applicantFilter?.qualifiedClassifications?.filter(notEmpty),
+          }),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Stream",
+          id: "LoKxJe",
+          description:
+            "Title displayed on the search request table stream column.",
+        }),
+        id: "stream",
+        accessor: (d) =>
+          tableCommaList({
+            list:
+              d.applicantFilter?.qualifiedStreams
+                ?.filter(notEmpty)
+                .map((stream) => intl.formatMessage(getPoolStream(stream))) ??
+              [],
+          }),
       },
       {
         label: intl.formatMessage({
@@ -225,14 +334,30 @@ const SearchRequestsTableApi = ({
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Job Title",
-          id: "8hee5d",
+          defaultMessage: "Status",
+          id: "t3sEc+",
           description:
-            "Title displayed on the search request table job title column.",
+            "Title displayed on the search request table status column.",
         }),
-        id: "jobTitle",
-        sortColumnName: "job_title",
-        accessor: (d) => d.jobTitle,
+        id: "status",
+        sortColumnName: "request_status_weight",
+        accessor: (d) => statusAccessor(d.status, intl),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Date Received",
+          id: "r2gD/4",
+          description:
+            "Title displayed on the search request table requested date column.",
+        }),
+        id: "requestedDate",
+        sortColumnName: "created_at",
+        accessor: (d) => dateCell(d.requestedDate, intl),
+      },
+      {
+        label: intl.formatMessage(adminMessages.notes),
+        id: "adminNotes",
+        accessor: (d) => notesAccessor(d, intl),
       },
     ],
     [intl, paths],
@@ -294,8 +419,12 @@ const SearchRequestsTableApi = ({
       </h2>
       <TableHeader
         columns={columns}
-        filterComponent={<span />}
-        filter={false}
+        filterComponent={
+          <SearchRequestsTableFilter
+            onSubmit={handleFilterSubmit}
+            initialFilters={initialFilters}
+          />
+        }
         initialSearchState={searchState}
         onSearchChange={(
           term: string | undefined,
@@ -306,6 +435,28 @@ const SearchRequestsTableApi = ({
             type,
           });
         }}
+        searchBy={[
+          {
+            label: intl.formatMessage(adminMessages.manager),
+            value: "fullName",
+          },
+          {
+            label: intl.formatMessage(adminMessages.email),
+            value: "email",
+          },
+          {
+            label: intl.formatMessage(adminMessages.jobTitle),
+            value: "jobTitle",
+          },
+          {
+            label: intl.formatMessage(adminMessages.details),
+            value: "additionalComments",
+          },
+          {
+            label: intl.formatMessage(adminMessages.notes),
+            value: "adminNotes",
+          },
+        ]}
         onColumnHiddenChange={(event) => {
           handleColumnHiddenChange(
             allColumnIds,

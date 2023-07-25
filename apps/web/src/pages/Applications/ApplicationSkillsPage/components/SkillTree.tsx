@@ -8,6 +8,7 @@ import {
   TreeView,
   Well,
   HeadingLevel,
+  incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
@@ -39,13 +40,14 @@ interface SkillTreeProps {
 const SkillTree = ({
   skill,
   experiences,
-  headingAs,
+  headingAs = "h4",
   disclaimerMessage,
   hideConnectButton = false,
   hideEdit = false,
   showDisclaimer = false,
 }: SkillTreeProps) => {
   const intl = useIntl();
+  const contentHeadingLevel = incrementHeadingRank(headingAs);
   const [isFormOpen, setIsFormOpen] = React.useState<boolean>(false);
   const [currentExperience, setCurrentExperience] =
     React.useState<Experience | null>(null);
@@ -80,8 +82,8 @@ const SkillTree = ({
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "This required skill must have at least 1 résumé experience associated with it.",
-              id: "x8tCSM",
+                "This required skill must have at least 1 career timeline experience associated with it.",
+              id: "+lSoN3",
               description:
                 "Message that appears when a required skill has no experiences linked to it",
             })}
@@ -96,11 +98,7 @@ const SkillTree = ({
       <TreeView.Root data-h2-margin="base(x2, 0)">
         <TreeView.Head>
           <CardBasic>
-            <Heading
-              level={headingAs || "h4"}
-              size="h6"
-              data-h2-margin-top="base(0)"
-            >
+            <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
               {title}
             </Heading>
             {skill.description && (
@@ -114,7 +112,7 @@ const SkillTree = ({
               <TreeView.Item key={experience.id}>
                 <ExperienceCard
                   experience={filterExperienceSkills(experience, skill)}
-                  headingLevel="h5"
+                  headingLevel={contentHeadingLevel}
                   showEdit={!hideEdit}
                   showSkills={[skill]}
                   onEditClick={
@@ -140,8 +138,8 @@ const SkillTree = ({
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "Connect a résumé experience<hidden> to {skillName}</hidden>",
-                  id: "NgHjK8",
+                    "Connect a career timeline experience<hidden> to {skillName}</hidden>",
+                  id: "fRwqM9",
                   description:
                     "Button text to open form to connect an experience to a skill",
                 },

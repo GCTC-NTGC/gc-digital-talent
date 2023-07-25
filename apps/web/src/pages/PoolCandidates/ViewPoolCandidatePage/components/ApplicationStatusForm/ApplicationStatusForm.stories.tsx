@@ -34,13 +34,11 @@ const Template: Story = (args) => {
   };
 
   return (
-    <div style={{ maxWidth: "30rem" }}>
-      <ApplicationStatusForm
-        isSubmitting={isSubmitting}
-        application={application}
-        onSubmit={handleSubmit}
-      />
-    </div>
+    <ApplicationStatusForm
+      isSubmitting={isSubmitting}
+      application={application}
+      onSubmit={handleSubmit}
+    />
   );
 };
 

@@ -5,14 +5,14 @@ import { Link, LinkProps } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 interface ApplicationLinkProps {
   poolId: Scalars["ID"];
   applicationId?: Scalars["ID"];
   hasApplied?: boolean;
   canApply?: boolean;
-  linkProps?: Omit<LinkProps, "color" | "mode" | "ref">;
+  linkProps?: Omit<LinkProps, "mode" | "ref">;
+  linkText?: string;
 }
 
 const ApplicationLink = ({
@@ -21,10 +21,10 @@ const ApplicationLink = ({
   hasApplied,
   canApply,
   linkProps,
+  linkText,
 }: ApplicationLinkProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { applicationRevamp } = useFeatureFlags();
 
   // Application does not exist and user cannot apply.
   // So, do not show anything
@@ -32,35 +32,36 @@ const ApplicationLink = ({
     return null;
   }
 
-  let href = paths.createApplication(poolId);
-  if (applicationId) {
-    href = applicationRevamp
-      ? paths.application(applicationId)
-      : paths.reviewApplication(applicationId);
-  }
-
-  let linkText = intl.formatMessage({
-    defaultMessage: "Apply for this process",
-    id: "W2YIEA",
-    description: "Link text to apply for a pool advertisement",
-  });
-  if (applicationId) {
-    linkText = hasApplied
-      ? intl.formatMessage({
-          defaultMessage: "View my application",
-          id: "btCYxZ",
-          description: "Link text to view an existing, submitted application",
-        })
-      : intl.formatMessage({
-          defaultMessage: "Continue my application",
-          id: "g5JeNf",
-          description: "Link text to continue an existing, draft application",
-        });
+  const href = applicationId
+    ? paths.application(applicationId)
+    : paths.createApplication(poolId);
+  let linkTextLabel;
+  if (!linkText) {
+    linkTextLabel = intl.formatMessage({
+      defaultMessage: "Apply for this process",
+      id: "W2YIEA",
+      description: "Link text to apply for a pool advertisement",
+    });
+    if (applicationId) {
+      linkTextLabel = hasApplied
+        ? intl.formatMessage({
+            defaultMessage: "View my application",
+            id: "btCYxZ",
+            description: "Link text to view an existing, submitted application",
+          })
+        : intl.formatMessage({
+            defaultMessage: "Continue my application",
+            id: "g5JeNf",
+            description: "Link text to continue an existing, draft application",
+          });
+    }
+  } else {
+    linkTextLabel = linkText;
   }
 
   return (
     <Link mode="solid" href={href} {...linkProps}>
-      {linkText}
+      {linkTextLabel}
     </Link>
   );
 };

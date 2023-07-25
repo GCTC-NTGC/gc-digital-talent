@@ -40,8 +40,8 @@ const TalentRedirect = () => {
       if (pathname.includes("diversity-and-inclusion")) {
         profilePath = paths.diversityEquityInclusion(id);
       }
-      if (pathname.includes("skills-and-experiences")) {
-        profilePath = paths.skillsAndExperiences(id);
+      if (pathname.includes("career-timeline-and-recruitment")) {
+        profilePath = paths.careerTimelineAndRecruitment(id);
 
         if (pathname.includes("create")) {
           if (pathname.includes("award")) {

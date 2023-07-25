@@ -121,61 +121,67 @@ const EditTeamMemberDialog = ({
             <form onSubmit={handleSubmit(handleSave)}>
               {/** Note: Only one option since we are editing this user */}
               <input type="hidden" name="user" value={user.id} />
-              <Select
-                id="userDisplay"
-                name="userDisplay"
-                disabled
-                hideOptional
-                label={intl.formatMessage({
-                  defaultMessage: "Manager name",
-                  id: "1BEtoY",
-                  description:
-                    "Label for the user select field on team membership form",
-                })}
-                options={[
-                  {
-                    value: user.id,
-                    label: userName,
-                  },
-                ]}
-              />
-              {/** Note: Only one option since we are editing this team's users */}
-              <input type="hidden" name="team" value={team.id} />
-              <Select
-                id="teamDisplay"
-                name="teamDisplay"
-                disabled
-                hideOptional
-                label={intl.formatMessage({
-                  defaultMessage: "Team",
-                  id: "0AaeXe",
-                  description:
-                    "Label for the team select field on team membership form",
-                })}
-                options={[
-                  {
-                    value: team.id,
-                    label: getLocalizedName(team.displayName, intl),
-                  },
-                ]}
-              />
-              <MultiSelectField
-                id="roles"
-                name="roles"
-                label={intl.formatMessage({
-                  defaultMessage: "Membership roles",
-                  id: "cOJVBW",
-                  description:
-                    "Label for the input to add roles to a user's team membership",
-                })}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Select roles",
-                  id: "Cn73yN",
-                  description: "Placeholder text for role selection input",
-                })}
-                options={roleOptions}
-              />
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x1 0)"
+              >
+                <Select
+                  id="userDisplay"
+                  name="userDisplay"
+                  disabled
+                  label={intl.formatMessage({
+                    defaultMessage: "Manager name",
+                    id: "1BEtoY",
+                    description:
+                      "Label for the user select field on team membership form",
+                  })}
+                  options={[
+                    {
+                      value: user.id,
+                      label: userName,
+                    },
+                  ]}
+                />
+                {/** Note: Only one option since we are editing this team's users */}
+                <input type="hidden" name="team" value={team.id} />
+                <Select
+                  id="teamDisplay"
+                  name="teamDisplay"
+                  disabled
+                  label={intl.formatMessage({
+                    defaultMessage: "Team",
+                    id: "0AaeXe",
+                    description:
+                      "Label for the team select field on team membership form",
+                  })}
+                  options={[
+                    {
+                      value: team.id,
+                      label: getLocalizedName(team.displayName, intl),
+                    },
+                  ]}
+                />
+                <MultiSelectField
+                  id="roles"
+                  name="roles"
+                  label={intl.formatMessage({
+                    defaultMessage: "Membership roles",
+                    id: "cOJVBW",
+                    description:
+                      "Label for the input to add roles to a user's team membership",
+                  })}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  placeholder={intl.formatMessage({
+                    defaultMessage: "Select roles",
+                    id: "Cn73yN",
+                    description: "Placeholder text for role selection input",
+                  })}
+                  options={roleOptions}
+                />
+              </div>
               <Dialog.Footer>
                 <Dialog.Close>
                   <Button color="secondary">

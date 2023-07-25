@@ -40,15 +40,8 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
 import { ApplicationPageProps } from "../ApplicationApi";
-import LinkResume from "./LinkResume";
+import LinkCareerTimeline from "./LinkCareerTimeline";
 import { useApplicationContext } from "../ApplicationContext";
-
-const appliedWorkListMessages = [
-  applicationMessages.onTheJobLearning,
-  applicationMessages.nonConventionalTraining,
-  applicationMessages.formalEducation,
-  applicationMessages.otherExperience,
-];
 
 type EducationRequirementExperiences = {
   educationRequirementAwardExperiences: { sync: string[] };
@@ -130,9 +123,9 @@ const ApplicationEducation = ({
   });
   const nextStep =
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);
-  const previousStep = paths.applicationResume(application.id);
+  const previousStep = paths.applicationCareerTimeline(application.id);
   const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: isIAP })
+    ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
 
   const methods = useForm<FormValues>({
@@ -293,8 +286,8 @@ const ApplicationEducation = ({
       toast.error(
         intl.formatMessage({
           defaultMessage:
-            "It looks like you haven't added any education experiences to your résumé yet.",
-          id: "Td1lSw",
+            "It looks like you haven't added any education experiences to your career timeline yet.",
+          id: "UjxhSB",
           description:
             "Alert message informing user to add education experience in application education page.",
         }),
@@ -314,18 +307,35 @@ const ApplicationEducation = ({
     );
   };
 
+  const appliedWorkListMessages = [
+    applicationMessages.onTheJobLearning,
+    applicationMessages.nonConventionalTraining,
+    applicationMessages.formalEducation,
+    isIAP
+      ? applicationMessages.otherExperience
+      : applicationMessages.otherFieldExperience,
+  ];
+
   const educationRequirementOptions: Radio[] = [
     {
       value: EducationRequirementOption.AppliedWork,
-      label: intl.formatMessage({
-        defaultMessage:
-          "<strong>I meet the applied work experience option</strong>",
-        id: "SNwPLZ",
-        description:
-          "Radio group option for education requirement filter in application education form.",
-      }),
+      label: isIAP
+        ? intl.formatMessage({
+            defaultMessage:
+              "<strong>I meet the applied experience option</strong>",
+            id: "kukr/B",
+            description:
+              "Radio group option for education requirement filter in application education form - IAP variant.",
+          })
+        : intl.formatMessage({
+            defaultMessage:
+              "<strong>I meet the applied work experience option</strong>",
+            id: "SNwPLZ",
+            description:
+              "Radio group option for education requirement filter in application education form.",
+          }),
       contentBelow: (
-        <div data-h2-margin="base(x.5, 0, x.5, x1)">
+        <div data-h2-margin="base(x.15, 0, x.5, x1)">
           <p data-h2-margin="base(0, 0, x.5, 0)">
             {intl.formatMessage(applicationMessages.appliedWorkExperience)}
           </p>
@@ -343,10 +353,11 @@ const ApplicationEducation = ({
       value: EducationRequirementOption.Education,
       label: isIAP
         ? intl.formatMessage({
-            defaultMessage: "I have a high school diploma or GED equivalent",
-            id: "ybi6QM",
+            defaultMessage:
+              "<strong>I have a high school diploma or equivalent (e.g. GED)</strong>",
+            id: "8IIIER",
             description:
-              "Radio group option for education requirement filter in Indigenous apprenticeship application education form.",
+              "Radio group option for education requirement filter in IAP application education form.",
           })
         : intl.formatMessage({
             defaultMessage:
@@ -356,15 +367,15 @@ const ApplicationEducation = ({
               "Radio group option for education requirement filter in application education form.",
           }),
       contentBelow: (
-        <div data-h2-margin="base(x.5, 0, x.5, x1)">
+        <div data-h2-margin="base(x.15, 0, x.5, x1)">
           <p>
             {isIAP
               ? intl.formatMessage({
                   defaultMessage:
                     "Successful completion of a standard high school diploma or GED equivalent.",
-                  id: "tfzO5t",
+                  id: "nIJlba",
                   description:
-                    "Message under radio button in Indigenous apprenticeship application education page.",
+                    "Message under radio button in IAP application education page.",
                 })
               : intl.formatMessage(applicationMessages.postSecondaryEducation, {
                   link: qualityStandardsLink,
@@ -395,27 +406,37 @@ const ApplicationEducation = ({
           <p data-h2-margin="base(0, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "To help us understand how you meet the minimum experience or education criteria, please identify which of the options you meet, as well as which experiences in your résumé apply. If both apply to you, that’s great! Feel free to select the option that best reflects your qualifications.",
-              id: "qEYoGS",
+                "To help us understand how you meet the minimum experience or education criteria, please identify which of the options you meet, as well as which experiences in your career timeline apply. If both apply to you, that’s great! Feel free to select the option that best reflects your qualifications.",
+              id: "rxo7fM",
               description:
                 "Description for radio group section in application education page.",
             })}
           </p>
           <RadioGroup
             idPrefix="education_requirement"
-            legend={intl.formatMessage({
-              defaultMessage: "Select the option that applies to you",
-              id: "TBsQMo",
-              description:
-                "Legend for the radio group in the application education page.",
-            })}
+            legend={
+              isIAP
+                ? intl.formatMessage({
+                    defaultMessage:
+                      "Please select the option that best reflects your qualifications",
+                    id: "0IggSg",
+                    description:
+                      "Legend for the radio group in the application education page - IAP variant.",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Select the option that applies to you",
+                    id: "TBsQMo",
+                    description:
+                      "Legend for the radio group in the application education page.",
+                  })
+            }
             name="educationRequirement"
             items={educationRequirementOptions}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
           />
-          <LinkResume
+          <LinkCareerTimeline
             experiences={experiences}
             watchEducationRequirement={watchEducationRequirement}
             previousStepPath={previousStep}

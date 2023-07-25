@@ -56,7 +56,7 @@ type GetComputedSegmentValue = (args: GetComputedSegmentValueArgs) => string;
  * @returns string
  */
 const getComputedSegmentValue: GetComputedSegmentValue = ({ values, show }) => {
-  if (values.new) {
+  if (values.new !== null) {
     return values.new;
   }
 
@@ -72,7 +72,7 @@ type SetComputedValueArgs = {
   initialValue?: string;
   show: Array<DateSegment>;
   segment: DateSegment;
-  value: string;
+  value: string | null;
 };
 
 type SetComputedValueFunc = (args: SetComputedValueArgs) => string | undefined;
@@ -118,19 +118,11 @@ export const setComputedValue: SetComputedValueFunc = ({
     show: show.includes(DATE_SEGMENT.Day),
   });
 
-  return [newYear, newMonth, newDay].join("-");
-};
+  if (!newYear && !newMonth && !newDay) {
+    return "";
+  }
 
-// Shared styles for each component
-export const inputStyles = {
-  "data-h2-padding": "base(x.25, x.5)",
-  "data-h2-radius": "base(input)",
-  "data-h2-width": "base(100%)",
-  "data-h2-min-height": "base(40px)",
-  "data-h2-border":
-    "base(2px solid gray) base:focus-visible(2px solid secondary)",
-  "data-h2-background-color": "base(white)",
-  "data-h2-outline": "base(none)",
+  return [newYear, newMonth, newDay].join("-");
 };
 
 /**

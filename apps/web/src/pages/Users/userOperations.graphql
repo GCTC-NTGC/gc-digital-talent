@@ -22,7 +22,6 @@ query User($id: UUID!) {
     preferredLang
     preferredLanguageForInterview
     preferredLanguageForExam
-    legacyRoles
     roleAssignments {
       id
       role {
@@ -47,7 +46,7 @@ query User($id: UUID!) {
 }
 
 query UserName($userId: UUID!) {
-  applicant(id: $userId) {
+  user(id: $userId) {
     id
     firstName
     lastName
@@ -58,7 +57,6 @@ mutation CreateUser($user: CreateUserInput!) {
   createUser(user: $user) {
     id
     sub
-    legacyRoles
 
     firstName
     lastName
@@ -209,7 +207,6 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
   updateUserAsAdmin(id: $id, user: $user) {
     id
     sub
-    legacyRoles
 
     firstName
     lastName
@@ -282,7 +279,7 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
 }
 
 query GetViewUserData($id: UUID!) {
-  applicant(id: $id) {
+  user(id: $id) {
     id
     email
     firstName
@@ -324,6 +321,7 @@ query GetViewUserData($id: UUID!) {
       status
       expiryDate
       notes
+      suspendedAt
       user {
         id
       }
@@ -369,7 +367,7 @@ query GetViewUserData($id: UUID!) {
     experiences {
       id
       __typename
-      applicant {
+      user {
         id
         email
       }
@@ -543,7 +541,7 @@ query selectedUsers($ids: [ID]!) {
     experiences {
       id
       __typename
-      applicant {
+      user {
         id
         email
       }

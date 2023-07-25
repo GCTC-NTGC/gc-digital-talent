@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { TableOfContents } from "@gc-digital-talent/ui";
-import { Input, Submit } from "@gc-digital-talent/forms";
+import { DateInput, Submit } from "@gc-digital-talent/forms";
 import {
   convertDateTimeToDate,
   convertDateTimeZone,
@@ -12,7 +12,6 @@ import {
 import { useDeepCompareEffect } from "~/hooks/useDeepCompareEffect";
 import { PoolStatus, Pool, UpdatePoolInput } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
-import Spacer from "~/components/Spacer/Spacer";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
@@ -92,22 +91,18 @@ const ClosingDateSection = ({
       </p>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleSave)}>
-          <div data-h2-display="base(flex)">
-            <Spacer style={{ flex: 1 }}>
-              <Input
-                id="endDate"
-                label={intl.formatMessage({
-                  defaultMessage: "End Date",
-                  id: "80DOGy",
-                  description:
-                    "Label displayed on the pool candidate form end date field.",
-                })}
-                type="date"
-                name="endDate"
-                disabled={formDisabled}
-              />
-            </Spacer>
-            <Spacer style={{ flex: 1 }} />
+          <div data-h2-margin="base(x1 0)">
+            <DateInput
+              id="endDate"
+              legend={intl.formatMessage({
+                defaultMessage: "End Date",
+                id: "80DOGy",
+                description:
+                  "Label displayed on the pool candidate form end date field.",
+              })}
+              name="endDate"
+              disabled={formDisabled}
+            />
           </div>
 
           {!formDisabled && (

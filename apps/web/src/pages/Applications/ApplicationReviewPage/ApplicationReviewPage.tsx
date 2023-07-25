@@ -137,10 +137,10 @@ const ApplicationReview = ({
   };
 
   const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: isIAP })
+    ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
   const editPaths = {
-    resume: paths.applicationResume(application.id),
+    careerTimeline: paths.applicationCareerTimeline(application.id),
     education: paths.applicationEducation(application.id),
     skills: paths.applicationSkills(application.id),
     screeningQuestions: paths.applicationQuestions(application.id),
@@ -211,17 +211,17 @@ const ApplicationReview = ({
       </div>
       <ReviewSection
         title={intl.formatMessage({
-          defaultMessage: "Your résumé",
-          id: "2lOey6",
+          defaultMessage: "Your career timeline",
+          id: "0w59dG",
           description:
-            "Heading for resume section of the application review page.",
+            "Heading for career timeline section of the application review page.",
         })}
-        path={editPaths.resume}
+        path={editPaths.careerTimeline}
         editLinkAriaLabel={intl.formatMessage({
-          defaultMessage: "Edit your resume",
-          id: "v0QzOM",
+          defaultMessage: "Edit your career timeline",
+          id: "MdVah3",
           description:
-            "Edit link text for resume section of the application review page.",
+            "Edit link text for career timeline section of the application review page.",
         })}
       >
         <TreeView.Root>
@@ -230,10 +230,10 @@ const ApplicationReview = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "This section summarizes your résumé as it will be seen by hiring managers for these positions.",
-                  id: "O83lYZ",
+                    "This section summarizes your career timeline as it will be seen by hiring managers for these positions.",
+                  id: "eCkRlc",
                   description:
-                    "Blurb for resume section of the application review page.",
+                    "Blurb for career timeline section of the application review page.",
                 })}
               </p>
             </Card>
@@ -260,10 +260,10 @@ const ApplicationReview = ({
               <p data-h2-text-align="base(center)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "It looks like you haven't added any experiences to your résumé yet.",
-                  id: "x0Eob3",
+                    "It looks like you haven't added any experiences to your career timeline yet.",
+                  id: "yfzR+U",
                   description:
-                    "Null state message for resume section of the application review page.",
+                    "Null state message for career timeline section of the application review page.",
                 })}
               </p>
             </Well>
@@ -291,8 +291,8 @@ const ApplicationReview = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You've indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your résumé:",
-                  id: "SBNCsU",
+                    "You've indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your career timeline:",
+                  id: "rCpVpZ",
                   description:
                     "Message on education requirements card on the application review page.",
                 })}
@@ -323,8 +323,8 @@ const ApplicationReview = ({
                   <p data-h2-text-align="base(center)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "It looks like you haven't added any experiences to your résumé yet.",
-                      id: "h3Cr80",
+                        "It looks like you haven't added any experiences to your career timeline yet.",
+                      id: "4liNMy",
                       description:
                         "Null state message for experiences section of the application review page.",
                     })}
@@ -476,7 +476,7 @@ const ApplicationReview = ({
                   </p>
                 </li>
               </ul>
-              <div>
+              <div data-h2-margin="base(x1 0)">
                 <Input
                   id="signature"
                   label={intl.formatMessage({

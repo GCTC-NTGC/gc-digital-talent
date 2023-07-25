@@ -50,7 +50,7 @@ function BasicForm<TFieldValues extends FieldValues>({
   const [showUnsavedChanges, setShowUnsavedChanges] =
     React.useState<boolean>(false);
   const methods = useForm({
-    mode: "onChange",
+    mode: "onSubmit",
     shouldFocusError: false,
     ...options,
     defaultValues: options?.defaultValues,

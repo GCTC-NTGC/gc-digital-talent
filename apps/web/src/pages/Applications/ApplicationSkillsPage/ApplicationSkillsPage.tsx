@@ -1,10 +1,17 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
-import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  Link,
+  Pending,
+  Separator,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
@@ -18,14 +25,17 @@ import {
   SkillCategory,
   useUpdateApplicationMutation,
   ApplicationStep,
+  useGetMyExperiencesQuery,
+  useGetApplicationQuery,
 } from "~/api/generated";
+import { AnyExperience } from "~/types/experience";
 
 import SkillTree from "./components/SkillTree";
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { ApplicationPageProps } from "../ApplicationApi";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 import { useApplicationContext } from "../ApplicationContext";
 
-const resumeLink = (children: React.ReactNode, href: string) => (
+const careerTimelineLink = (children: React.ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
 );
 
@@ -67,7 +77,14 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
+export interface ApplicationSkillsProps extends ApplicationPageProps {
+  experiences: Array<AnyExperience>;
+}
+
+export const ApplicationSkills = ({
+  application,
+  experiences,
+}: ApplicationSkillsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -79,7 +96,6 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
     stepOrdinal: currentStepOrdinal,
   });
   const instructionsPath = paths.applicationSkillsIntro(application.id);
-  const experiences = application.user?.experiences?.filter(notEmpty) || [];
   const categorizedEssentialSkills = categorizeSkill(
     application.pool.essentialSkills,
   );
@@ -90,7 +106,7 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   const [, executeMutation] = useUpdateApplicationMutation();
   const { followingPageUrl, isIAP } = useApplicationContext();
   const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: isIAP })
+    ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
   const nextStep =
     followingPageUrl ?? paths.applicationQuestionsIntro(application.id);
@@ -170,14 +186,17 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
         {intl.formatMessage(
           {
             defaultMessage:
-              "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. Similarly to the minimum experience and education step, if you need to add or change a résumé experience, you can do so by returning to the <resumeLink>résumé step</resumeLink> in the application.",
-            id: "pHTwBd",
+              "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. Similarly to the minimum experience and education step, if you need to add or change a career timeline experience, you can do so by returning to the <careerTimelineLink>career timeline step</careerTimelineLink> in the application.",
+            id: "MUwxzr",
             description:
               "Lead in paragraph for adding experiences to a users skills",
           },
           {
-            resumeLink: (chunks: React.ReactNode) =>
-              resumeLink(chunks, paths.applicationResume(application.id)),
+            careerTimelineLink: (chunks: React.ReactNode) =>
+              careerTimelineLink(
+                chunks,
+                paths.applicationCareerTimeline(application.id),
+              ),
           },
         )}
       </p>
@@ -193,8 +212,8 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Please ensure that you provide <strong>at least 1 résumé experience</strong> for each required skill, along with a concise description of why that experience highlights your abilities in that skill.",
-              id: "TbqFOI",
+                "Please ensure that you provide <strong>at least 1 career timeline experience</strong> for each required skill, along with a concise description of why that experience highlights your abilities in that skill.",
+              id: "N5qMql",
               description: "Instructions on requiring information for skills",
             })}
           </p>
@@ -274,7 +293,6 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
             id="skillsMissingExperiences"
             name="skillsMissingExperiences"
             label=""
-            hideOptional
             type="number"
             hidden
             rules={{
@@ -282,8 +300,8 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
                 value: 0,
                 message: intl.formatMessage({
                   defaultMessage:
-                    "Please connect at least one résumé experience to each required technical skill.",
-                  id: "4YUt61",
+                    "Please connect at least one career timeline experience to each required technical skill.",
+                  id: "hi9+Mu",
                   description: "Error message if there are no experiences",
                 }),
               },
@@ -325,8 +343,45 @@ export const ApplicationSkills = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationSkillsPage = () => (
-  <ApplicationApi PageComponent={ApplicationSkills} />
-);
+const ApplicationSkillsPage = () => {
+  const { applicationId } = useParams();
+  const [
+    {
+      data: applicationData,
+      fetching: applicationFetching,
+      error: applicationError,
+    },
+  ] = useGetApplicationQuery({
+    variables: {
+      id: applicationId || "",
+    },
+    requestPolicy: "cache-first",
+  });
+  const [
+    {
+      data: experienceData,
+      fetching: experienceFetching,
+      error: experienceError,
+    },
+  ] = useGetMyExperiencesQuery();
 
+  const application = applicationData?.poolCandidate;
+  const experiences = experienceData?.me?.experiences as AnyExperience[];
+
+  return (
+    <Pending
+      fetching={applicationFetching || experienceFetching}
+      error={applicationError || experienceError}
+    >
+      {application ? (
+        <ApplicationSkills
+          application={application}
+          experiences={experiences}
+        />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 export default ApplicationSkillsPage;

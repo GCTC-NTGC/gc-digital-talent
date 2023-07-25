@@ -288,7 +288,6 @@ class ApplicantFilterTest extends TestCase
                             en
                             fr
                         }
-                        key
                     }
                     qualifiedStreams
                     qualifiedClassifications {
@@ -339,7 +338,6 @@ class ApplicantFilterTest extends TestCase
                             [
                                 'id' => $firstFilterModel->pools->first()->id,
                                 'name' => $firstFilterModel->pools->first()->name,
-                                'key' => $firstFilterModel->pools->first()->key,
                             ],
                         ],
                     ],
@@ -374,6 +372,10 @@ class ApplicantFilterTest extends TestCase
                     id
                     email
                     fullName
+                    jobTitle
+                    managerJobTitle
+                    positionType
+                    status
                     department {
                         id
                     }
@@ -388,6 +390,8 @@ class ApplicantFilterTest extends TestCase
                         'connect' => $request->department_id
                     ],
                     'jobTitle' => $request->job_title,
+                    'managerJobTitle' => $request->manager_job_title,
+                    'positionType' => $request->position_type,
                     'applicantFilter' => [
                         'create' => $this->filterToCreateInput($filter)
                     ]
@@ -399,6 +403,10 @@ class ApplicantFilterTest extends TestCase
                 'createPoolCandidateSearchRequest' => [
                     'email' => $request->email,
                     'fullName' => $request->full_name,
+                    'jobTitle' => $request->job_title,
+                    'managerJobTitle' => $request->manager_job_title,
+                    'positionType' => $request->position_type,
+                    'status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW,
                     'department' => [
                         'id' => $request->department_id
                     ],
@@ -518,6 +526,8 @@ class ApplicantFilterTest extends TestCase
                         'connect' => $request->department_id
                     ],
                     'jobTitle' => $request->job_title,
+                    'managerJobTitle' => $request->manager_job_title,
+                    'positionType' => $request->position_type,
                     'applicantFilter' => [
                         'create' => $this->filterToCreateInput($filter)
                     ]

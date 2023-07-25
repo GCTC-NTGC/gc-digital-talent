@@ -12,45 +12,37 @@ import { FieldError, useFormContext, Controller } from "react-hook-form";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
 
+import Field from "../Field";
+import { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
-import Fieldset from "../Fieldset";
-import ControlledInput from "./ControlledInput";
-import { DateRegisterOptions, DateSegment, DATE_SEGMENT } from "./types";
-import { splitSegments } from "./utils";
+import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
-export interface DateInputProps extends React.HTMLProps<HTMLFieldSetElement> {
-  /** Holds text for the legend associated with the RadioGroup fieldset. */
-  legend: React.ReactNode;
-  /** The name of this form control.
-   * The form's value at this key should be of type Array<string|number>. */
-  name: string;
-  /** Set of validation rules and error messages to impose on all input elements. */
-  rules?: DateRegisterOptions;
-  /** If a context string is provided, a small button will appear which, when toggled, shows the context string below the inputs. */
-  context?: string;
-  /** If true, all input elements in this fieldset will be disabled. */
-  disabled?: boolean;
-  /** If true, and this input is not required, 'Optional' will not be shown above the fieldset. */
-  hideOptional?: boolean;
-  /** If true, the legend will be hidden */
-  hideLegend?: boolean;
-  /** Determine if it should track unsaved changes and render it */
-  trackUnsaved?: boolean;
-  /** Select which segments are visible to the user */
-  show?: Array<DateSegment>;
-}
+import ControlledInput from "./ControlledInput";
+import { splitSegments } from "./utils";
+import { DateRegisterOptions, DateSegment, DATE_SEGMENT } from "./types";
+
+export type DateInputProps = Omit<CommonInputProps, "rules" | "label"> &
+  HTMLFieldsetProps & {
+    /** Holds text for the legend associated with the RadioGroup fieldset. */
+    legend: React.ReactNode;
+    /** If true, the legend will be hidden */
+    hideLegend?: boolean;
+    /** Set of validation rules and error messages to impose on all input elements. */
+    rules?: DateRegisterOptions;
+    /** Select which segments are visible to the user */
+    show?: Array<DateSegment>;
+  };
 
 /**
  * Must be part of a form controlled by react-hook-form.
  * The form will represent the data at `name` as an array, containing the values of the checked boxes.
  */
 const DateInput = ({
+  id,
   legend,
   name,
   rules = {},
   context,
-  disabled,
-  hideOptional,
   hideLegend,
   show = [DATE_SEGMENT.Year, DATE_SEGMENT.Month, DATE_SEGMENT.Day],
   trackUnsaved = true,
@@ -66,11 +58,19 @@ const DateInput = ({
   const required = !!rules.required;
   const fieldState = useFieldState(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
+  const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
+    id,
+    show: {
+      error,
+      unsaved: trackUnsaved && isUnsaved,
+      context,
+    },
+  });
 
   const isValidDate = (value: string) => {
     const { year, month, day } = splitSegments(value);
-    const isOptionalAndEmpty =
-      Boolean(rules.required) && !year && !month && !day;
+    const isOptionalAndEmpty = !rules.required && !year && !month && !day;
+
     return (
       isOptionalAndEmpty ||
       isValid(formDateStringToDate(value)) ||
@@ -80,6 +80,9 @@ const DateInput = ({
 
   const isAfterMin = (value: string) => {
     if (!rules.min) {
+      return true;
+    }
+    if (!value) {
       return true;
     }
 
@@ -92,6 +95,9 @@ const DateInput = ({
     if (!rules.max) {
       return true;
     }
+    if (!value) {
+      return true;
+    }
 
     const currentDate = formDateStringToDate(value);
     const maxDate = formDateStringToDate(rules.max.value);
@@ -99,34 +105,34 @@ const DateInput = ({
   };
 
   return (
-    <Fieldset
-      legend={legend}
-      name={name}
-      required={required}
-      error={error}
-      context={context}
-      disabled={disabled}
-      hideOptional={hideOptional}
-      hideLegend={hideLegend}
-      trackUnsaved={trackUnsaved}
-      isUnsaved={isUnsaved}
-      flat
-      {...rest}
-    >
-      <Controller
-        control={control}
-        name={name}
-        rules={{
-          ...omit(rules, "min", "max"),
-          validate: {
-            isValidDate,
-            isAfterMin,
-            isBeforeMax,
-          },
-        }}
-        render={(props) => <ControlledInput {...props} show={show} />}
-      />
-    </Fieldset>
+    <Field.Wrapper>
+      <Field.Fieldset aria-describedby={ariaDescribedBy} flat {...rest}>
+        <Field.Legend
+          required={required}
+          data-h2-font-size="base(copy)"
+          data-h2-font-weight="base(700)"
+          {...(hideLegend && {
+            "data-h2-visually-hidden": "base(invisible)",
+          })}
+        >
+          {legend}
+        </Field.Legend>
+        <Controller
+          control={control}
+          name={name}
+          rules={{
+            ...omit(rules, "min", "max"),
+            validate: {
+              isValidDate,
+              isAfterMin,
+              isBeforeMax,
+            },
+          }}
+          render={(props) => <ControlledInput {...props} show={show} />}
+        />
+      </Field.Fieldset>
+      <Field.Descriptions ids={descriptionIds} {...{ error, context }} />
+    </Field.Wrapper>
   );
 };
 

@@ -8,7 +8,6 @@ import Spinner from "~/components/Spinner/Spinner";
 const testId = (chunks: React.ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>
 );
-
 interface CandidateMessageProps {
   candidateCount: number;
 }
@@ -47,8 +46,8 @@ const CandidateMessage = ({ candidateCount }: CandidateMessageProps) => {
       </p>
       <p data-h2-font-weight="base(700)" data-h2-margin="base(x.5 0)">
         {intl.formatMessage({
-          defaultMessage: "We can still help!",
-          id: "5U+V2Y",
+          defaultMessage: "We may be able to help!",
+          id: "xAfVa9",
           description:
             "Heading for helping user if no candidates matched the filters chosen.",
         })}
@@ -103,7 +102,6 @@ const EstimatedCandidates = ({
           <div
             data-h2-padding="base(x1)"
             data-h2-radius="base(0, 0, s, s)"
-            aria-live="polite"
             data-h2-text-align="base(center)"
           >
             {updatePending ? (

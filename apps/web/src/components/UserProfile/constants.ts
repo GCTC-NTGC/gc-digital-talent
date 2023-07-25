@@ -7,7 +7,7 @@ export const PAGE_SECTION_ID = {
   WORK_LOCATION: "work-location-section",
   WORK_PREFERENCES: "work-preferences-section",
   ROLE_AND_SALARY: "role-and-salary-section",
-  SKILLS_AND_EXPERIENCE: "skills-and-experience-section",
+  CAREER_TIMELINE_AND_RECRUITMENT: "career-timeline-and-recruitment-section",
   ACCOUNT_AND_PRIVACY: "account-and-privacy-section",
 } as const;
 

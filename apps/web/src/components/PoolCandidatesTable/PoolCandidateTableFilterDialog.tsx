@@ -6,7 +6,7 @@ import AdjustmentsVerticalIcon from "@heroicons/react/24/outline/AdjustmentsVert
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import {
   BasicForm,
-  SelectFieldV2,
+  MultiSelectFieldBase,
   MultiSelectField,
 } from "@gc-digital-talent/forms";
 
@@ -122,15 +122,17 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
                   id="pools"
+                  name="pools"
                   label={formatMessage(adminMessages.pools)}
                   options={optionsData.pools}
                   isLoading={rawGraphqlResults.pools.fetching}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
-                <SelectFieldV2
+                <MultiSelectFieldBase
                   forceArrayFormValue
                   id="languageAbility"
+                  name="languageAbility"
                   label={formatMessage({
                     defaultMessage: "Languages",
                     id: "GsBRWL",
@@ -141,6 +143,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="classifications"
+                  name="classifications"
                   label={formatMessage(adminMessages.classifications)}
                   options={optionsData.classifications}
                   isLoading={rawGraphqlResults.classifications.fetching}
@@ -149,6 +152,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="stream"
+                  name="stream"
                   label={formatMessage({
                     defaultMessage: "Streams",
                     id: "GwbTAz",
@@ -159,6 +163,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="operationalRequirement"
+                  name="operationalRequirement"
                   label={formatMessage({
                     defaultMessage: "Work Preferences",
                     id: "1XyQqX",
@@ -169,17 +174,20 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="workRegion"
+                  name="workRegion"
                   label={formatMessage({
                     defaultMessage: "Work Locations",
                     id: "qhhPj5",
                   })}
                   options={optionsData.workRegion}
+                  doNotSort
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-                <SelectFieldV2
+                <MultiSelectFieldBase
                   forceArrayFormValue
                   id="hasDiploma"
+                  name="hasDiploma"
                   label={formatMessage({
                     defaultMessage: "Has Diploma",
                     id: "+tzO5t",
@@ -188,9 +196,10 @@ const PoolCandidateTableFilterDialog = ({
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-                <SelectFieldV2
+                <MultiSelectFieldBase
                   forceArrayFormValue
                   id="expiryStatus"
+                  name="expiryStatus"
                   label={formatMessage({
                     defaultMessage: "Expiry Status",
                     description: "Expiry status",
@@ -200,9 +209,10 @@ const PoolCandidateTableFilterDialog = ({
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-                <SelectFieldV2
+                <MultiSelectFieldBase
                   forceArrayFormValue
                   id="suspendedStatus"
+                  name="suspendedStatus"
                   label={formatMessage({
                     defaultMessage: "Candidacy Status",
                     description: "Candidacy status label",
@@ -214,6 +224,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="equity"
+                  name="equity"
                   label={formatMessage({
                     defaultMessage: "Employment Equity",
                     id: "Gr3BwB",
@@ -224,6 +235,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="poolCandidateStatus"
+                  name="poolCandidateStatus"
                   label={formatMessage({
                     defaultMessage: "Status",
                     id: "tzMNF3",
@@ -234,9 +246,12 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="priorityWeight"
+                  name="priorityWeight"
                   label={formatMessage({
-                    defaultMessage: "Priority",
-                    id: "8lCjAM",
+                    defaultMessage: "Category",
+                    id: "qrDCTV",
+                    description:
+                      "Title displayed for the Pool Candidates table Priority column.",
                   })}
                   options={optionsData.priorityWeight}
                 />
@@ -244,6 +259,7 @@ const PoolCandidateTableFilterDialog = ({
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
                   id="skills"
+                  name="skills"
                   label={formatMessage({
                     defaultMessage: "Skill Filter",
                     id: "GGaxMx",

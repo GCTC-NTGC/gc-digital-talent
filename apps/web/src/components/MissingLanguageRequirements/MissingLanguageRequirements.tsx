@@ -5,17 +5,17 @@ import ExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriang
 import {
   Chip,
   Chips,
-  PillColor,
+  Color,
   PillMode,
   Heading,
   HeadingRank,
 } from "@gc-digital-talent/ui";
 
-import { Applicant, Pool } from "~/api/generated";
+import { User, Pool } from "~/api/generated";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 interface MissingLanguageRequirementsBlockProps {
-  pillType: { color: PillColor; mode: PillMode };
+  pillType: { color: Color; mode: PillMode };
   /** Title for the block */
   title: React.ReactNode;
   /** Message displayed before language requirements that are missing from application */
@@ -76,20 +76,20 @@ const MissingLanguageRequirementsBlock = ({
 };
 
 export interface MissingLanguageRequirementsProps {
-  applicant?: Applicant;
+  user?: User;
   pool?: Pool | null;
   headingLevel?: HeadingRank;
 }
 
 const MissingLanguageRequirements = ({
-  applicant,
+  user,
   pool,
   headingLevel = "h2",
 }: MissingLanguageRequirementsProps) => {
   const intl = useIntl();
 
   const missingLanguageRequirements = getMissingLanguageRequirements(
-    applicant,
+    user,
     pool,
   ).map((messageDescriptor) => intl.formatMessage(messageDescriptor));
 

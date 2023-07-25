@@ -8,9 +8,9 @@ import {
   Checklist,
   RadioGroup,
   Select,
-  MultiSelectField,
   enumToOptions,
   unpackMaybes,
+  enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
 import {
   getLanguageAbility,
@@ -202,8 +202,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
         state?.selectedClassifications,
         pools,
       ),
-      mode: "onChange",
-      reValidateMode: "onChange",
+      mode: "onSubmit",
+      reValidateMode: "onSubmit",
     });
     const { watch, trigger } = methods;
 
@@ -401,8 +401,8 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             })}
             text={intl.formatMessage({
               defaultMessage:
-                "Select the working language ability the candidate needs for this position.",
-              id: "RGzfes",
+                "Select the working language ability the candidate needs for this position. The selected working language ability will be compared to the one chosen by candidates in their applications. To note, candidates who selected Bilingual may not have Government of Canada second language evaluation results.",
+              id: "+PLUZ8",
               description:
                 "Message describing the work language ability filter in the search form.",
             })}
@@ -502,13 +502,14 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
             })}
             text={intl.formatMessage({
               defaultMessage:
-                "If you have more detailed work location requirement, let us know in the comment section of the submission form.",
-              id: "v7sYE7",
+                "If you have more detailed work location requirement, let us know in the comment section of the submission form. You can select more than one region.",
+              id: "sM+4cP",
               description:
                 "Message describing the work location filter in the search form.",
             })}
           >
-            <MultiSelectField
+            <Checklist
+              idPrefix="locationPreferences"
               id="locationPreferences"
               name="locationPreferences"
               context={intl.formatMessage({
@@ -518,7 +519,7 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 description:
                   "Context for the work region/location preferences filter in the search form.",
               })}
-              label={intl.formatMessage({
+              legend={intl.formatMessage({
                 defaultMessage: "Region",
                 id: "F+WFWB",
                 description: "Label for work location filter in search form.",
@@ -529,10 +530,12 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
                 description:
                   "Placeholder for work location filter in search form.",
               })}
-              options={enumToOptions(WorkRegion).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getWorkRegion(value)),
-              }))}
+              items={enumToOptionsWorkRegionSorted(WorkRegion).map(
+                ({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getWorkRegion(value)),
+                }),
+              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}

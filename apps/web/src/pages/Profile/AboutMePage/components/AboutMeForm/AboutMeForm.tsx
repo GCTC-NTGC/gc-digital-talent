@@ -191,7 +191,7 @@ const AboutMeForm = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(applicationId ?? ""),
+          url: paths.application(applicationId ?? ""),
         },
         {
           label: intl.formatMessage(navigationMessages.aboutMe),
@@ -242,7 +242,6 @@ const AboutMeForm = ({
         cacheKey="about-me-form"
         onSubmit={handleSubmit}
         options={{
-          mode: "onChange",
           defaultValues: initialDataToFormValues(initialUser),
         }}
       >
@@ -268,7 +267,11 @@ const AboutMeForm = ({
           })}
         </p>
         <div data-h2-flex-item="base(1of1)" data-h2-padding="base(x1, 0, 0, 0)">
-          <div>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x1 0)"
+          >
             <Select
               id="preferredLang"
               label={labelMap.preferredLang}
@@ -405,7 +408,7 @@ const AboutMeForm = ({
               "Title for Account Details section of the About Me form",
           })}
         </h2>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {intl.formatMessage({
             defaultMessage:
               "This information is used to manage your account and to communicate.",
@@ -415,7 +418,11 @@ const AboutMeForm = ({
           })}
         </p>
         <div data-h2-flex-item="base(1of1)">
-          <div>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x1 0)"
+          >
             <Input
               id="firstName"
               name="firstName"

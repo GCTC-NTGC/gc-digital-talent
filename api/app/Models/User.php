@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class User
@@ -29,7 +29,6 @@ use Illuminate\Support\Facades\Log;
  * @property string $last_name
  * @property string $telephone
  * @property string $preferred_lang
- * @property array $legacy_roles
  * @property string $job_looking_status
  * @property string $current_province
  * @property string $current_city
@@ -75,11 +74,11 @@ class User extends Model implements Authenticatable, LaratrustUser
     use HasFactory;
     use SoftDeletes;
     use AuthenticatableTrait;
+    use Notifiable;
 
     protected $keyType = 'string';
 
     protected $casts = [
-        'legacy_roles' => 'array',
         'location_preferences' => 'array',
         'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
@@ -116,10 +115,12 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         return $this->belongsToMany(GenericJobTitle::class, 'generic_job_title_user')->withTimestamps();
     }
-
+    /**
+     * @deprecated
+     */
     public function isAdmin(): bool
     {
-        return is_array($this->legacy_roles) && in_array('ADMIN', $this->legacy_roles);
+        return $this->hasRole('platform_admin');
     }
     // All the relationships for experiences
     public function awardExperiences(): HasMany
@@ -264,10 +265,10 @@ class User extends Model implements Authenticatable, LaratrustUser
                             }
                             $query->where(function ($query) use ($filter) {
                                 if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
-                                    $query->whereDate('suspended_at', '>=', Carbon::now())
+                                    $query->where('suspended_at', '>=', Carbon::now())
                                         ->orWhereNull('suspended_at');
                                 } else if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
-                                    $query->whereDate('suspended_at', '<', Carbon::now());
+                                    $query->where('suspended_at', '<', Carbon::now());
                                 }
                             });
                             return $query;
@@ -835,5 +836,34 @@ RAWSQL2;
         if (array_key_exists('sync', $roleAssignmentHasMany)) {
             $this->callRolesFunction($roleAssignmentHasMany['sync'], 'syncRoles');
         }
+    }
+
+    // reattach all the extra fields from the JSON data column
+    public static function enrichNotification(object $notification)
+    {
+        $dataFields = $notification->data;
+        foreach ($dataFields as $key => $value) {
+            $notification->$key = $value;
+        }
+    }
+
+    // rename accessor to avoid hiding parent's notification function
+    public function getEnrichedNotificationsAttribute()
+    {
+        $notifications = $this->notifications()->get();
+        $notifications->each(function ($n) {
+            self::enrichNotification($n);
+        });
+        return $notifications;
+    }
+
+    // rename accessor to avoid hiding parent's notification function
+    public function getUnreadEnrichedNotificationsAttribute()
+    {
+        $notifications = $this->unreadNotifications()->get();
+        $notifications->each(function ($n) {
+            self::enrichNotification($n);
+        });
+        return $notifications;
     }
 }

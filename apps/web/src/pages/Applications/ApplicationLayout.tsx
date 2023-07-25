@@ -13,12 +13,13 @@ import { empty, notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
+import IapContactDialog from "~/components/Dialog/IapContactDialog";
 
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
+import { fullPoolTitle, isIAPPool } from "~/utils/poolUtils";
 import { useGetApplicationQuery } from "~/api/generated";
 import {
   applicationStepsToStepperArgs,
@@ -42,9 +43,9 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     application,
     experienceId,
   });
+  const title = fullPoolTitle(intl, application.pool);
+  const isIAP = isIAPPool(application.pool);
 
-  const poolNameHtml = getFullPoolTitleHtml(intl, application.pool);
-  const poolName = getFullPoolTitleLabel(intl, application.pool);
   const pageTitle = defineMessage({
     defaultMessage: "Apply to {poolName}",
     id: "K8CPir",
@@ -86,7 +87,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     },
     {
       url: paths.pool(application.pool.id),
-      label: getFullPoolTitleHtml(intl, application.pool),
+      label: title.html,
     },
     ...currentCrumbs,
   ]);
@@ -116,9 +117,9 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
       }
       currentStepOrdinal={currentStepIndex + 1}
     >
-      <SEO title={intl.formatMessage(pageTitle, { poolName })} />
+      <SEO title={intl.formatMessage(pageTitle, { poolName: title.label })} />
       <Hero
-        title={intl.formatMessage(pageTitle, { poolName: poolNameHtml })}
+        title={intl.formatMessage(pageTitle, { poolName: title.html })}
         crumbs={crumbs}
         subtitle={currentPage?.subtitle}
       />
@@ -137,6 +138,11 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
               currentIndex={currentStepIndex}
               steps={applicationStepsToStepperArgs(steps, application)}
             />
+            {isIAP && (
+              <div data-h2-margin="base(x1 0)">
+                <IapContactDialog />
+              </div>
+            )}
           </TableOfContents.Sidebar>
           <TableOfContents.Content>
             {userIsOnDisabledPage ? (

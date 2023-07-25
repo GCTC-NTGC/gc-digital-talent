@@ -2,8 +2,11 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { Accordion, HeadingRank } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
+import {
+  Accordion,
+  HeadingRank,
+  StandardAccordionHeader,
+} from "@gc-digital-talent/ui";
 import {
   getLocale,
   getAwardedScope,
@@ -196,9 +199,9 @@ const SkillAccordion = ({
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
           {intl.formatMessage({
-            defaultMessage: "Additional information:",
-            id: "+nS/ak",
-            description: "Additional information if provided (without details)",
+            defaultMessage: "Additional details:",
+            id: "QfOWr0",
+            description: "Additional details if provided (without details)",
           })}
         </p>
 
@@ -252,9 +255,9 @@ const SkillAccordion = ({
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
           {intl.formatMessage({
-            defaultMessage: "Additional information:",
-            id: "+nS/ak",
-            description: "Additional information if provided (without details)",
+            defaultMessage: "Additional details:",
+            id: "QfOWr0",
+            description: "Additional details if provided (without details)",
           })}
         </p>
         <p>{details}</p>
@@ -299,9 +302,9 @@ const SkillAccordion = ({
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
           {intl.formatMessage({
-            defaultMessage: "Additional information:",
-            id: "+nS/ak",
-            description: "Additional information if provided (without details)",
+            defaultMessage: "Additional details:",
+            id: "QfOWr0",
+            description: "Additional details if provided (without details)",
           })}
         </p>
         <p>{details}</p>

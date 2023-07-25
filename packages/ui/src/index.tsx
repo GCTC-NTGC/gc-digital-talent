@@ -7,7 +7,9 @@ import {
 } from "./types";
 
 import Accordion from "./components/Accordion";
-import StandardAccordionHeader from "./components/Accordion/StandardHeader";
+import StandardAccordionHeader, {
+  StandardHeaderProps as StandardAccordionHeaderProps,
+} from "./components/Accordion/StandardHeader";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
@@ -49,7 +51,6 @@ import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, { type PendingProps } from "./components/Pending";
 import Pill, {
   type PillProps,
-  type PillColor,
   type PillMode,
   type PillSize,
 } from "./components/Pill";
@@ -63,6 +64,7 @@ import SideMenu, {
   type SideMenuProps,
   type SideMenuItemProps,
 } from "./components/SideMenu";
+import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
 import { StepType } from "./components/Stepper/types";
 import Switch from "./components/Switch";
@@ -72,7 +74,6 @@ import TableOfContents, {
   TocSectionProps,
 } from "./components/TableOfContents";
 import Tabs from "./components/Tabs";
-import TileLink, { type TileLinkProps } from "./components/TileLink";
 import ToggleGroup from "./components/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
@@ -106,17 +107,17 @@ export type {
   LoadingProps,
   PendingProps,
   PillProps,
-  PillColor,
   PillMode,
   PillSize,
   SideMenuProps,
   SideMenuItemProps,
+  SpoilerProps,
+  StandardAccordionHeaderProps,
   StepperProps,
   StepType,
   TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
-  TileLinkProps,
   WellProps,
 };
 
@@ -158,11 +159,11 @@ export {
   SideMenuButton,
   SideMenuItem,
   SideMenuContentWrapper,
+  Spoiler,
   Stepper,
   Switch,
   TableOfContents,
   Tabs,
-  TileLink,
   ToggleGroup,
   ToggleSection,
   TreeView,

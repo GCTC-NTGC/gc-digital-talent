@@ -27,7 +27,7 @@ describe("Auth flows (development)", () => {
   });
 
   context("Anonymous visitor", () => {
-    it("redirects restricted pages to login", () => {
+    it("redirects restricted pages to sign in", () => {
       [
         "/en/admin/dashboard",
         "/en/admin/talent-requests",
@@ -74,15 +74,15 @@ describe("Auth flows (development)", () => {
 
     // TODO: write this
     // See: https://www.oauth.com/playground/oidc.html
-    it.skip("should fail if the state value is tampered with", () => {});
+    it.skip("should fail if the state value is tampered with", () => { });
 
     it("succeeds for an existing admin user", () => {
       cy.visit("/admin");
-      // Click login button.
-      // Limit to nav because two login buttons on main page.
+      // Click sign in button.
+      // Limit to nav because two sign in buttons on main page.
       cy.findByRole("navigation", { name: /Main Menu/i }).within(() => {
-        cy.findByRole("button", { name: "Logout" }).should("not.exist");
-        cy.findByRole("link", { name: "Login" })
+        cy.findByRole("button", { name: "Sign out" }).should("not.exist");
+        cy.findByRole("link", { name: "Sign in" })
           .should("exist")
           .and("be.visible")
           .click();
@@ -95,20 +95,20 @@ describe("Auth flows (development)", () => {
         "equal",
         Cypress.config().baseUrl + "/en/admin/dashboard",
       );
-      // Confirm login status via button state.
+      // Confirm sign in status via button state.
       cy.findByRole("navigation", { name: /Main Menu/i }).within(() => {
-        cy.findByRole("link", { name: "Login" }).should("not.exist");
-        cy.findByRole("button", { name: "Logout" })
+        cy.findByRole("link", { name: "Sign in" }).should("not.exist");
+        cy.findByRole("button", { name: "Sign out" })
           .should("exist")
           .and("be.visible");
       });
     });
 
-    it("redirects back to referring page after login", () => {
+    it("redirects back to referring page after sign in", () => {
       const initialPath = "/en/admin/users";
       cy.visit(initialPath);
       onLoginInfoPage();
-      cy.findByRole("link", { name: /Continue to GCKey and Login/i }).click();
+      cy.findByRole("link", { name: /Continue to GCKey and sign in/i }).click();
       onAuthLoginPage();
       loginViaUI("admin");
 
@@ -142,17 +142,17 @@ describe("Auth flows (development)", () => {
 
     it("performs logout and removes token data from local storage", () => {
       cy.visit("/admin");
-      cy.findByRole("button", { name: "Logout" }).as("logoutToggle");
+      cy.findByRole("button", { name: "Sign out" }).as("logoutToggle");
       cy.get("@logoutToggle")
         .should("exist")
         .and("be.visible")
         .click()
         .then(() => {
-          cy.findByRole("alertdialog", { name: "Logout" }).as("logoutModal");
+          cy.findByRole("alertdialog", { name: "Sign out" }).as("logoutModal");
           cy.get("@logoutModal")
             .should("exist")
             .and("be.visible")
-            .findByRole("button", { name: "Logout" })
+            .findByRole("button", { name: "Sign out" })
             .as("logoutBtn");
 
           cy.get("@logoutBtn")
@@ -167,7 +167,7 @@ describe("Auth flows (development)", () => {
         });
 
       cy.get("@logoutToggle").should("not.exist");
-      cy.findByRole("link", { name: "Login" })
+      cy.findByRole("link", { name: "Sign in" })
         .should("exist")
         .and("be.visible");
     });

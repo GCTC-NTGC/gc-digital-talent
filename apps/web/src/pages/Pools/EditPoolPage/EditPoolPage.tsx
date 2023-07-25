@@ -49,6 +49,9 @@ import AssetSkillsSection, {
 import ScreeningQuestions, {
   type ScreeningQuestionsSubmitData,
 } from "./components/ScreeningQuestions";
+import WhatToExpectSection, {
+  type WhatToExpectSubmitData,
+} from "./components/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
 import useMutations from "./hooks/useMutations";
 
@@ -60,6 +63,7 @@ export type PoolSubmitData =
   | PoolNameSubmitData
   | WorkTasksSubmitData
   | YourImpactSubmitData
+  | WhatToExpectSubmitData
   | ScreeningQuestionsSubmitData;
 
 export interface EditPoolFormProps {
@@ -155,6 +159,14 @@ export const EditPoolForm = ({
         description: "Subtitle for the pool screening questions",
       }),
     },
+    whatToExpect: {
+      id: "what-to-expect",
+      title: intl.formatMessage({
+        defaultMessage: "What to expect after you apply",
+        id: "QdSYpe",
+        description: "Sub title for the what to expect section",
+      }),
+    },
     status: {
       id: "status",
       title: intl.formatMessage({
@@ -177,37 +189,66 @@ export const EditPoolForm = ({
       <div data-h2-container="base(left, large, 0)">
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
-            <TableOfContents.AnchorLink id={sectionMetadata.poolName.id}>
-              {sectionMetadata.poolName.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sectionMetadata.closingDate.id}>
-              {sectionMetadata.closingDate.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sectionMetadata.yourImpact.id}>
-              {sectionMetadata.yourImpact.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sectionMetadata.workTasks.id}>
-              {sectionMetadata.workTasks.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sectionMetadata.essentialSkills.id}>
-              {sectionMetadata.essentialSkills.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sectionMetadata.assetSkills.id}>
-              {sectionMetadata.assetSkills.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink
-              id={sectionMetadata.otherRequirements.id}
-            >
-              {sectionMetadata.otherRequirements.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink
-              id={sectionMetadata.screeningQuestions.id}
-            >
-              {sectionMetadata.screeningQuestions.title}
-            </TableOfContents.AnchorLink>
-            <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
-              {sectionMetadata.status.title}
-            </TableOfContents.AnchorLink>
+            <TableOfContents.List>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sectionMetadata.poolName.id}>
+                  {sectionMetadata.poolName.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sectionMetadata.closingDate.id}>
+                  {sectionMetadata.closingDate.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sectionMetadata.yourImpact.id}>
+                  {sectionMetadata.yourImpact.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sectionMetadata.workTasks.id}>
+                  {sectionMetadata.workTasks.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={sectionMetadata.essentialSkills.id}
+                >
+                  {sectionMetadata.essentialSkills.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sectionMetadata.assetSkills.id}>
+                  {sectionMetadata.assetSkills.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={sectionMetadata.otherRequirements.id}
+                >
+                  {sectionMetadata.otherRequirements.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={sectionMetadata.screeningQuestions.id}
+                >
+                  {sectionMetadata.screeningQuestions.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={sectionMetadata.whatToExpect.id}
+                >
+                  {sectionMetadata.whatToExpect.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
+                  {sectionMetadata.status.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            </TableOfContents.List>
             <Link
               href={paths.poolView(pool.id)}
               color="secondary"
@@ -265,6 +306,11 @@ export const EditPoolForm = ({
             <ScreeningQuestions
               pool={pool}
               sectionMetadata={sectionMetadata.screeningQuestions}
+              onSave={onSave}
+            />
+            <WhatToExpectSection
+              pool={pool}
+              sectionMetadata={sectionMetadata.whatToExpect}
               onSave={onSave}
             />
             <StatusSection

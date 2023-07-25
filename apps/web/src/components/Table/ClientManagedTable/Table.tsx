@@ -17,7 +17,7 @@ import {
 } from "react-table";
 
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
-import { Fieldset } from "@gc-digital-talent/forms";
+import { Field } from "@gc-digital-talent/forms";
 
 import Pagination from "~/components/Pagination";
 
@@ -297,18 +297,20 @@ function Table<T extends Record<string, unknown>>({
                         </Dialog.Header>
                         <Dialog.Body>
                           <FormProvider {...methods}>
-                            <Fieldset
-                              name="visibleColumns"
-                              legend={intl.formatMessage({
-                                defaultMessage: "Visible columns",
-                                id: "H9rxOR",
-                                description:
-                                  "Legend for the column toggle in admin tables.",
-                              })}
-                            >
+                            <Field.Fieldset boundingBox>
+                              <Field.Legend>
+                                {intl.formatMessage({
+                                  defaultMessage: "Visible columns",
+                                  id: "H9rxOR",
+                                  description:
+                                    "Legend for the column toggle in admin tables.",
+                                })}
+                              </Field.Legend>
                               <div data-h2-margin="base(x.125, 0)">
                                 <IndeterminateCheckbox
-                                  {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                                  {...(getToggleHideAllColumnsProps({
+                                    title: undefined,
+                                  }) as React.ComponentProps<
                                     typeof IndeterminateCheckbox
                                   >)}
                                 />
@@ -318,17 +320,18 @@ function Table<T extends Record<string, unknown>>({
                                   key={column.id}
                                   data-h2-margin="base(x.125, 0)"
                                 >
-                                  <label htmlFor={column.Header?.toString()}>
+                                  <label>
                                     <input
-                                      id={column.Header?.toString()}
                                       type="checkbox"
-                                      {...column.getToggleHiddenProps()}
+                                      {...column.getToggleHiddenProps({
+                                        title: undefined,
+                                      })}
                                     />
                                     {` ${column.Header}`}
                                   </label>
                                 </div>
                               ))}
-                            </Fieldset>
+                            </Field.Fieldset>
                           </FormProvider>
                         </Dialog.Body>
                       </Dialog.Content>

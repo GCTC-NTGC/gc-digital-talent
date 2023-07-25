@@ -61,10 +61,18 @@ describe("SearchRequestsTable", () => {
     });
 
     // Assert table filled with values and the result of requests[0] is present
-    expect(screen.getAllByText(requestOne.fullName ?? "")).toBeTruthy();
-    expect(screen.getAllByText(requestOne.jobTitle ?? "")).toBeTruthy();
+    expect(
+      screen.getAllByText(`View ${requestOne.jobTitle ?? ""}`),
+    ).toBeTruthy();
     expect(
       screen.getAllByText(requestOne.department?.name.en ?? ""),
     ).toBeTruthy();
+
+    // Table header buttons exist
+    expect(
+      screen.getByRole("button", { name: /All columns/ }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Filters/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Columns/ })).toBeInTheDocument();
   });
 });

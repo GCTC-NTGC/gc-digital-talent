@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\PoolCandidateObserver;
 use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -75,6 +76,14 @@ class PoolCandidate extends Model
         'expiry_date',
         'pool_candidate_status',
     ];
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        PoolCandidate::observe(PoolCandidateObserver::class);
+    }
 
     public function user(): BelongsTo
     {
@@ -158,7 +167,7 @@ class PoolCandidate extends Model
         })
             ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
-                $query->whereDate('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
+                $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
             // Now scope for valid pools, according to streams
             ->whereHas('pool', function ($query) use ($streams) {
@@ -187,7 +196,7 @@ class PoolCandidate extends Model
         })
             ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
-                $query->whereDate('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
+                $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
             // Now ensure the PoolCandidate is in a pool with the right classification
             ->whereHas('pool', function ($query) use ($classifications) {
@@ -297,8 +306,12 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query->whereHas('user', function ($query) use ($search) {
-            User::scopeGeneralSearch($query, $search);
+        $query->where(function ($query) use ($search) {
+            $query->whereHas('user', function ($query) use ($search) {
+                User::scopeGeneralSearch($query, $search);
+            })->orWhere(function ($query) use ($search) {
+                self::scopeNotes($query, $search);
+            });
         });
 
         return $query;
@@ -330,6 +343,16 @@ class PoolCandidate extends Model
         return $query;
     }
 
+    public static function scopeNotes(Builder $query, ?string $notes): Builder
+    {
+
+        if (!empty($notes)) {
+            $query->where('notes', 'ilike', "%{$notes}%");
+        }
+
+        return $query;
+    }
+
 
     public function scopePoolCandidateStatuses(Builder $query, ?array $poolCandidateStatuses): Builder
     {
@@ -345,7 +368,7 @@ class PoolCandidate extends Model
     {
         $query->whereIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])
             ->where(function ($query) {
-                $query->whereDate('suspended_at', '>=', Carbon::now())
+                $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
             });
         return $query;
@@ -382,11 +405,11 @@ class PoolCandidate extends Model
         $suspendedStatus = isset($suspendedStatus) ? $suspendedStatus : ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE;
         if ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
             $query->where(function ($query) {
-                $query->whereDate('suspended_at', '>=', Carbon::now())
+                $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
             });
         } else if ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
-            $query->whereDate('suspended_at', '<', Carbon::now());
+            $query->where('suspended_at', '<', Carbon::now());
         }
         return $query;
     }
@@ -578,9 +601,11 @@ class PoolCandidate extends Model
                 if ($user->isAbleTo("view-team-submittedApplication")) {
                     $teamIds = $user->rolesTeams()->get()->pluck('id');
                     $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
-                        return $query->whereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
+                        return $query
+                            ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                            ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            });
                     });
                 }
 

@@ -51,9 +51,9 @@ const NavMenu = ({ mainItems, utilityItems }: NavMenuProps) => {
             <div data-h2-flex-item="base(1of1) p-tablet(1of3)">
               <nav
                 aria-label={intl.formatMessage({
-                  defaultMessage: "Utility",
-                  id: "HkzjEV",
-                  description: "Label for the utility link navigation",
+                  defaultMessage: "Account menu",
+                  id: "LIhwJ+",
+                  description: "Label for the user account navigation menu",
                 })}
               >
                 <ul

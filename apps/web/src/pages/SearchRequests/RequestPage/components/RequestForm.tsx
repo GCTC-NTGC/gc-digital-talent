@@ -4,6 +4,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import {
+  Checkbox,
   Input,
   Select,
   Submit,
@@ -38,7 +39,8 @@ import {
   Skill,
   ApplicantFilter,
   ApplicantFilterInput,
-} from "~/api/generated";
+  PoolCandidateSearchPositionType,
+} from "@gc-digital-talent/graphql";
 
 import { SimpleClassification } from "~/types/pool";
 import {
@@ -51,6 +53,8 @@ type FormValues = {
   fullName?: CreatePoolCandidateSearchRequestInput["fullName"];
   email?: CreatePoolCandidateSearchRequestInput["email"];
   jobTitle?: CreatePoolCandidateSearchRequestInput["jobTitle"];
+  managerJobTitle?: CreatePoolCandidateSearchRequestInput["managerJobTitle"];
+  positionType?: boolean;
   additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
   applicantFilter?: {
     qualifiedClassifications?: {
@@ -116,10 +120,18 @@ export const RequestForm = ({
   const formValuesToSubmitData = (
     values: FormValues,
   ): CreatePoolCandidateSearchRequestInput => {
+    // checkbox checked/true means position has supervising duties
+    const positionTypeMassaged: PoolCandidateSearchPositionType =
+      values?.positionType === true
+        ? PoolCandidateSearchPositionType.TeamLead
+        : PoolCandidateSearchPositionType.IndividualContributor;
+
     return {
       fullName: values.fullName ?? "",
       email: values.email ?? "",
       jobTitle: values.jobTitle ?? "",
+      managerJobTitle: values.managerJobTitle ?? "",
+      positionType: positionTypeMassaged,
       additionalComments: values.additionalComments,
       wasEmpty: candidateCount === 0,
       applicantFilter: {
@@ -243,12 +255,13 @@ export const RequestForm = ({
         data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage({
-          defaultMessage: "Request Form",
-          id: "LOYv+/",
-          description: "Heading for request form.",
+          defaultMessage: "Your contact information",
+          id: "T8J2Lp",
+          description:
+            "Form header for filling in contact information section.",
         })}
       </h2>
-      <p>
+      <p data-h2-margin-bottom="base(x1)">
         {intl.formatMessage({
           defaultMessage:
             "To submit a request, please provide the following information so we can contact you.",
@@ -258,7 +271,7 @@ export const RequestForm = ({
       </p>
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, 0)">
+          <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, x1)">
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 id="fullName"
@@ -314,13 +327,13 @@ export const RequestForm = ({
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
-                id="jobTitle"
+                id="managerJobTitle"
                 type="text"
-                name="jobTitle"
+                name="managerJobTitle"
                 label={intl.formatMessage({
-                  defaultMessage: "What is the job title for this position?",
-                  id: "7lCUIL",
-                  description: "Label for job title input in the request form",
+                  defaultMessage: "What is your job title?",
+                  id: "AgUBsQ",
+                  description: "Input label asking for the user's job title.",
                 })}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
@@ -329,6 +342,55 @@ export const RequestForm = ({
             </div>
           </div>
           <div>
+            <h2
+              data-h2-font-size="base(h4)"
+              data-h2-font-weight="base(700)"
+              data-h2-margin="base(x2, 0, x1, 0)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Details about the job opportunity",
+                id: "FNgThS",
+                description:
+                  "Form header for filling in job opportunity information section.",
+              })}
+            </h2>
+            <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, x1)">
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                <Checkbox
+                  id="positionType"
+                  name="positionType"
+                  boundingBox
+                  boundingBoxLabel={intl.formatMessage({
+                    defaultMessage: "Will this position be supervising others?",
+                    id: "tKyj1t",
+                    description:
+                      "Label for input asking whether a job opportunity will have supervising duties.",
+                  })}
+                  label={intl.formatMessage({
+                    defaultMessage: "Yes, this is a supervisory position",
+                    id: "mrMxsI",
+                    description:
+                      "Checkbox selection that confirms a job opportunity will have supervising duties. ",
+                  })}
+                />
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                <Input
+                  id="jobTitle"
+                  type="text"
+                  name="jobTitle"
+                  label={intl.formatMessage({
+                    defaultMessage: "What is the job title for this position?",
+                    id: "7lCUIL",
+                    description:
+                      "Label for job title input in the request form",
+                  })}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
+              </div>
+            </div>
             <p data-h2-margin="base(x2, 0, 0, 0)">
               {intl.formatMessage({
                 defaultMessage:
@@ -339,7 +401,7 @@ export const RequestForm = ({
               })}
             </p>
             {candidateCount === 0 ? (
-              <p data-h2-margin="base(x.5, 0, 0, 0)">
+              <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "If you are submitting a form that had zero estimated candidates, let us know more about this request in the comments.",

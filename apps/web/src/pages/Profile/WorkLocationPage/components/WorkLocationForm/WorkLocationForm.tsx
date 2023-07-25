@@ -7,7 +7,7 @@ import {
   BasicForm,
   Checklist,
   TextArea,
-  enumToOptions,
+  enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
 import {
   getWorkRegionsDetailed,
@@ -18,7 +18,6 @@ import { toast } from "@gc-digital-talent/toast";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
-  CreateUserInput,
   CreateWorkLocationMutation,
   WorkRegion,
   UpdateUserAsUserInput,
@@ -34,7 +33,7 @@ import ProfileFormWrapper, {
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
 export type FormValues = Pick<
-  CreateUserInput,
+  UpdateUserAsUserInput,
   "locationPreferences" | "locationExemptions"
 >;
 export interface WorkLocationFormProps {
@@ -64,10 +63,9 @@ const WorkLocationForm = ({
         "Legend for optional work preferences check list in work preferences form",
     }),
     locationExemptions: intl.formatMessage({
-      defaultMessage: "Location exemptions",
-      id: "0qNkIp",
-      description:
-        "Location Exemptions field label for work location preference form",
+      defaultMessage: "Work location exceptions",
+      id: "OpKC2i",
+      description: "Work location exceptions label",
     }),
   };
 
@@ -114,7 +112,7 @@ const WorkLocationForm = ({
         },
         {
           label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.reviewApplication(applicationId ?? ""),
+          url: paths.application(applicationId ?? ""),
         },
         {
           label: intl.formatMessage({
@@ -181,10 +179,12 @@ const WorkLocationForm = ({
                 legend={labels.locationPreferences}
                 name="locationPreferences"
                 id="locationPreferences"
-                items={enumToOptions(WorkRegion).map(({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getWorkRegionsDetailed(value)),
-                }))}
+                items={enumToOptionsWorkRegionSorted(WorkRegion).map(
+                  ({ value }) => ({
+                    value,
+                    label: intl.formatMessage(getWorkRegionsDetailed(value)),
+                  }),
+                )}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -200,18 +200,18 @@ const WorkLocationForm = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "Indicate if there is a city that you would like to exclude from a region.",
-                  id: "1CuGS6",
+                  id: "58x4fO",
                   description:
-                    "Explanation text for Location exemptions field in work location preference form",
+                    "Explanation text for Work location exceptions field in work location preference form",
                 })}
               </p>
               <p data-h2-color="base(gray.dark)">
                 {intl.formatMessage({
                   defaultMessage:
                     "E.g.: You want to be considered for the Quebec region, but not for Montréal.",
-                  id: "2K7dVp",
+                  id: "qnaIOA",
                   description:
-                    "Example for Location exemptions field in work location preference form",
+                    "Example for Work location exceptions field in work location preference form",
                 })}
               </p>
             </div>

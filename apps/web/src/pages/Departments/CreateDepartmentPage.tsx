@@ -72,56 +72,61 @@ export const CreateDepartmentForm = ({
           description: "Title displayed on the create a department form.",
         })}
       </Heading>
-      <div>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              id="departmentNumber"
-              name="departmentNumber"
-              label={intl.formatMessage({
-                defaultMessage: "Department #",
-                id: "/YiBdv",
-                description:
-                  "Label displayed on the create a department form department number field.",
-              })}
-              type="number"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              min="0"
-            />
-            <Input
-              id="name_en"
-              name="name.en"
-              label={intl.formatMessage({
-                defaultMessage: "Name (English)",
-                id: "4boO/6",
-                description:
-                  "Label displayed on the create a department form name (English) field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_fr"
-              name="name.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Name (French)",
-                id: "c0n+2j",
-                description:
-                  "Label displayed on the create a department form name (French) field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
+      <FormProvider {...methods}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x.5 0)"
+        >
+          <Input
+            id="departmentNumber"
+            name="departmentNumber"
+            label={intl.formatMessage({
+              defaultMessage: "Department #",
+              id: "/YiBdv",
+              description:
+                "Label displayed on the create a department form department number field.",
+            })}
+            type="number"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            min="0"
+          />
+          <Input
+            id="name_en"
+            name="name.en"
+            label={intl.formatMessage({
+              defaultMessage: "Name (English)",
+              id: "4boO/6",
+              description:
+                "Label displayed on the create a department form name (English) field.",
+            })}
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <Input
+            id="name_fr"
+            name="name.fr"
+            label={intl.formatMessage({
+              defaultMessage: "Name (French)",
+              id: "c0n+2j",
+              description:
+                "Label displayed on the create a department form name (French) field.",
+            })}
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <div data-h2-align-self="base(flex-start)">
             <Submit />
-          </form>
-        </FormProvider>
-      </div>
+          </div>
+        </form>
+      </FormProvider>
     </section>
   );
 };

@@ -75,8 +75,8 @@ const ApplicationSkillsIntroduction = ({
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "In the same way that you selected items from your résumé to confirm the experience and education requirements, we'll ask you to describe one or more experiences from your résumé where you actively used the required skill.",
-          id: "pKLIzg",
+            "In the same way that you selected items from your career timeline to confirm the experience and education requirements, we'll ask you to describe one or more experiences from your career timeline where you actively used the required skill.",
+          id: "0Ma07A",
           description:
             "Application step for skill requirements, introduction, description, paragraph two",
         })}
@@ -108,7 +108,7 @@ const ApplicationSkillsIntroduction = ({
         <Link
           href={
             applicantDashboard
-              ? paths.dashboard({ fromIapDraft: isIAP })
+              ? paths.profileAndApplications({ fromIapDraft: isIAP })
               : paths.myProfile()
           }
           mode="inline"

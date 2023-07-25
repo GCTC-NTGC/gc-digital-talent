@@ -8,17 +8,17 @@ import {
   commonMessages,
 } from "@gc-digital-talent/i18n";
 
-import { Applicant, BilingualEvaluation } from "~/api/generated";
+import { User, BilingualEvaluation } from "~/api/generated";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
 } from "~/validators/profile/languageInformation";
 
 const LanguageInformationSection = ({
-  applicant,
+  user,
   editPath,
 }: {
-  applicant: Applicant;
+  user: User;
   editPath?: string;
 }) => {
   const intl = useIntl();
@@ -32,7 +32,7 @@ const LanguageInformationSection = ({
     writtenLevel,
     comprehensionLevel,
     verbalLevel,
-  } = applicant;
+  } = user;
 
   return (
     <Well>
@@ -177,7 +177,7 @@ const LanguageInformationSection = ({
               </p>
             </div>
           )}
-        {hasAllEmptyFields(applicant) && editPath && (
+        {hasAllEmptyFields(user) && editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
@@ -188,7 +188,7 @@ const LanguageInformationSection = ({
             </p>
           </div>
         )}
-        {hasEmptyRequiredFields(applicant) && (
+        {hasEmptyRequiredFields(user) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {editPath && (

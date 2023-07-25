@@ -75,6 +75,71 @@ fragment poolCandidateTable on PoolCandidate {
       group
       level
     }
+    # Experiences
+    experiences {
+      id
+      __typename
+      user {
+        id
+        email
+      }
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
     positionDuration
     priorityWeight
   }
@@ -215,7 +280,7 @@ fragment selectedPoolCandidates on PoolCandidate {
     experiences {
       id
       __typename
-      applicant {
+      user {
         id
         email
       }
@@ -281,7 +346,7 @@ fragment selectedPoolCandidates on PoolCandidate {
   educationRequirementExperiences {
     id
     __typename
-    applicant {
+    user {
       id
       email
     }
@@ -502,7 +567,7 @@ query getCandidateProfile($id: UUID!) {
       experiences {
         id
         __typename
-        applicant {
+        user {
           id
           email
         }

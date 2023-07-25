@@ -1,30 +1,27 @@
 import Checkbox, { type CheckboxProps } from "./components/Checkbox";
 import CheckButton, { CheckButtonProps } from "./components/CheckButton";
-import Checklist, { type ChecklistProps } from "./components/Checklist";
+import Checklist, {
+  type ChecklistProps,
+  type CheckboxOption,
+} from "./components/Checklist";
 import Combobox, { ComboboxProps } from "./components/Combobox";
 import DateInput, { DateInputProps } from "./components/DateInput/DateInput";
-import Fieldset, { type FieldsetProps } from "./components/Fieldset";
+import { DateSegment, DATE_SEGMENT } from "./components/DateInput/types";
+import Field, {
+  ContextProps,
+  DescriptionsProps,
+  LabelProps,
+  LegendProps,
+  RequiredProps,
+  WrapperProps,
+} from "./components/Field";
 import Input, { type InputProps } from "./components/Input";
-import InputContext, {
-  type InputContextProps,
-} from "./components/InputContext";
-import InputError, {
-  type InputErrorProps,
-  type InputFieldError,
-} from "./components/InputError";
-import InputLabel, { type InputLabelProps } from "./components/InputLabel";
-import InputUnsaved, {
-  type InputUnsavedProps,
-} from "./components/InputUnsaved";
-import InputWrapper, {
-  type InputWrapperProps,
-} from "./components/InputWrapper";
 import MultiSelectField from "./components/MultiSelect/MultiSelectField";
 import RadioGroup, { type RadioGroupProps } from "./components/RadioGroup";
 import Repeater from "./components/Repeater/Repeater";
 import Select, {
-  SelectFieldV2,
-  type SelectFieldV2Props,
+  MultiSelectFieldBase,
+  type MultiSelectFieldBaseProps,
   type SelectProps,
   type Option,
 } from "./components/Select";
@@ -43,6 +40,7 @@ import {
   unpackMaybes,
   unpackIds,
   enumToOptions,
+  enumToOptionsWorkRegionSorted,
   getValues,
   escapeAString,
   matchStringCaseDiacriticInsensitive,
@@ -51,24 +49,22 @@ import {
   objectsToSortedOptions,
 } from "./utils";
 
+import useCommonInputStyles from "./hooks/useCommonInputStyles";
+
 export {
+  DATE_SEGMENT,
   DateInput,
   Checkbox,
   CheckButton,
   Checklist,
   Combobox,
-  Fieldset,
+  Field,
   Input,
-  InputContext,
-  InputError,
-  InputLabel,
-  InputUnsaved,
-  InputWrapper,
   MultiSelectField,
   Repeater,
   RadioGroup,
   Select,
-  SelectFieldV2,
+  MultiSelectFieldBase,
   Submit,
   TextArea,
   WordCounter,
@@ -79,37 +75,40 @@ export {
 
 export type {
   DateInputProps,
+  DateSegment,
   CheckboxProps,
+  CheckboxOption,
   CheckButtonProps,
   ChecklistProps,
   ComboboxProps,
-  FieldsetProps,
   InputProps,
-  InputContextProps,
-  InputErrorProps,
-  InputFieldError,
-  InputLabelProps,
-  InputUnsavedProps,
-  InputWrapperProps,
   RadioGroupProps,
   SelectProps,
-  SelectFieldV2Props,
+  MultiSelectFieldBaseProps,
   Option,
   SubmitProps,
   TextAreaProps,
   WordCounterProps,
   BasicFormProps,
   FieldLabels,
+  ContextProps,
+  DescriptionsProps,
+  LabelProps,
+  LegendProps,
+  RequiredProps,
+  WrapperProps,
 };
 
 export {
   unpackMaybes,
   unpackIds,
   enumToOptions,
+  enumToOptionsWorkRegionSorted,
   getValues,
   escapeAString,
   matchStringCaseDiacriticInsensitive,
   matchStringsCaseDiacriticInsensitive,
   countNumberOfWords,
   objectsToSortedOptions,
+  useCommonInputStyles,
 };

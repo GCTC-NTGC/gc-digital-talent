@@ -18,11 +18,11 @@ use Illuminate\Support\Facades\Auth;
  *
  * @property string $id
  * @property array $name
- * @property string $key
  * @property int $user_id
  * @property array $operational_requirements
  * @property array $key_tasks
  * @property array $your_impact
+ * @property array $what_to_expect
  * @property array $advertisement_location
  * @property string $security_clearance
  * @property string $advertisement_language
@@ -54,6 +54,7 @@ class Pool extends Model
         'key_tasks' => 'array',
         'advertisement_location' => 'array',
         'your_impact' => 'array',
+        'what_to_expect' => 'array',
         'closing_date' => 'datetime',
         'published_at' => 'datetime',
         'is_remote' => 'boolean'
@@ -69,12 +70,12 @@ class Pool extends Model
         'closing_date',
         'published_at',
         'name',
-        'key',
         'key_tasks',
         'stream',
         'security_clearance',
         'advertisement_language',
         'your_impact',
+        'what_to_expect',
         'advertisement_location',
         'publishing_group',
         'process_number',

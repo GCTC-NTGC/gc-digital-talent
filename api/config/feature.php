@@ -15,25 +15,25 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Revamp
+    | Skill library
     |--------------------------------------------------------------------------
     |
-    | AKA Application V6, AKA New Application Flow.  A wizard-style application
-    | process.
+    | A feature to allow users to build a library of skills associated with
+    | themselves with competency levels.
     |
     */
 
-    'application_revamp' => (bool) env('FEATURE_APPLICATION_REVAMP', false),
+    'skill_library' => (bool) env('FEATURE_SKILL_LIBRARY', false),
 
     /*
     |--------------------------------------------------------------------------
-    | PSAC Strike
+    | Status notifications
     |--------------------------------------------------------------------------
     |
-    | Enable a notification disclaimer about disrupted service due to the PSAC
-    | strike.
+    | A feature to provide users with notifications queued whenever one of
+    | their pool candidates changes status.
     |
     */
 
-    'psac_strike' => (bool) env('FEATURE_PSAC_STRIKE', false),
+    'status_notifications' => (bool) env('FEATURE_STATUS_NOTIFICATIONS', false),
 ];

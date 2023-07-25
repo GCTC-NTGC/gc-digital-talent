@@ -10,8 +10,8 @@ import {
   Heading,
   DropdownMenu,
   Button,
+  StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { getId, notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
@@ -125,9 +125,8 @@ const OngoingRecruitmentSection = ({
   const abbreviation = (text: React.ReactNode) => wrapAbbr(text, intl);
 
   // this great big object is all the data to populate the accordions
-  // this great big object is all the data to populate the accordions
   const streams: StreamViewModel[] = [
-    // IT business line advisory services bucket
+    // IT business line advisory services
     {
       key: PoolStream.BusinessAdvisoryServices,
       title: intl.formatMessage(messages.businessAdvisoryServicesTitle, {
@@ -947,7 +946,7 @@ const OngoingRecruitmentSection = ({
         level="h2"
         id="ongoingRecruitments"
         Icon={CpuChipIcon}
-        color="purple"
+        color="primary"
         data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage({
@@ -966,9 +965,9 @@ const OngoingRecruitmentSection = ({
       </p>
       <p>
         {intl.formatMessage({
-          id: "MyDw3F",
+          id: "ITLoHV",
           defaultMessage:
-            "We also offer passive recruitment process buckets that allow us to find talent fast when the demand arises. While there’s no guarantee a job will result from the opportunities below, it’s an easy way for your name and résumé to be found by managers when the time comes. Feel free to submit your name to any bucket that matches your skills.",
+            "We also offer passive recruitment processes that allow us to find talent fast when the demand arises. While there’s no guarantee a job will result from the opportunities below, it’s an easy way for your name and career timeline to be found by managers when the time comes. Feel free to submit your name to any stream that matches your skills.",
           description:
             "instructions for section with ongoing pool advertisements",
         })}
@@ -1038,7 +1037,6 @@ const OngoingRecruitmentSection = ({
           </DropdownMenu.Content>
         </DropdownMenu.Root>
       </div>
-
       <p aria-live="polite" data-h2-visually-hidden="base(invisible)">
         {quickFilterStream !== "ALL"
           ? intl.formatMessage(
@@ -1061,8 +1059,7 @@ const OngoingRecruitmentSection = ({
                 "Announcement that the job stream filter is not active.",
             })}
       </p>
-
-      <div>
+      {streamsToShow.length ? (
         <Accordion.Root type="multiple">
           {streamsToShow.map((stream) => (
             <Accordion.Item value={stream.key} key={stream.key}>
@@ -1071,7 +1068,7 @@ const OngoingRecruitmentSection = ({
                 headingAs="h3"
                 context={
                   streamIsRecommended(stream, mySkillIds) ? (
-                    <Pill color="green" mode="outline">
+                    <Pill color="success" mode="outline">
                       <span data-h2-color="base(black)">
                         {intl.formatMessage({
                           defaultMessage: "Recommended based on your skills",
@@ -1125,7 +1122,7 @@ const OngoingRecruitmentSection = ({
             </Accordion.Item>
           ))}
         </Accordion.Root>
-      </div>
+      ) : null}
     </>
   );
 };

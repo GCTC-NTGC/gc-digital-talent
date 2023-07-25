@@ -149,7 +149,12 @@ export const UpdateSkillForm = ({
       </Heading>
       <div>
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x1 0)"
+          >
             <Input
               id="name_en"
               name="name.en"
@@ -246,26 +251,26 @@ export const UpdateSkillForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <div data-h2-margin="base(x1, 0)">
-              <MultiSelectField
-                id="families"
-                name="families"
-                label={intl.formatMessage({
-                  defaultMessage: "Families",
-                  id: "JxVREd",
-                  description:
-                    "Label displayed on the skill form families field.",
-                })}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Select one or more families",
-                  id: "wORNl0",
-                  description:
-                    "Placeholder displayed on the skill form families field.",
-                })}
-                options={skillFamilyOptions}
-              />
+            <MultiSelectField
+              id="families"
+              name="families"
+              label={intl.formatMessage({
+                defaultMessage: "Families",
+                id: "JxVREd",
+                description:
+                  "Label displayed on the skill form families field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select one or more families",
+                id: "wORNl0",
+                description:
+                  "Placeholder displayed on the skill form families field.",
+              })}
+              options={skillFamilyOptions}
+            />
+            <div data-h2-align-self="base(flex-start)">
+              <Submit />
             </div>
-            <Submit />
           </form>
         </FormProvider>
       </div>

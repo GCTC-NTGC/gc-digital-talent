@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TeamSeeder::class);
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
+        $this->call(DigitalContractingQuestionnaireSeeder::class);
 
         // Seed random pools
         Pool::factory()->count(2)->draft()->create();
@@ -59,11 +60,9 @@ class DatabaseSeeder extends Seeder
         // Seed some expected values
         $this->seedPools();
 
-        $digitalTalentPool = Pool::where('key', "digital_careers")->sole();
+        $digitalTalentPool = Pool::where('name->en', 'CMO Digital Careers')->sole();
 
-        User::factory([
-            'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]
-        ])
+        User::factory()
             ->count(150)
             ->withExperiences()
             ->afterCreating(function (User $user) use ($faker, $digitalTalentPool) {

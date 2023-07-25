@@ -7,7 +7,7 @@ import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import UserProfile from "~/components/UserProfile";
-import { Applicant, Scalars, useGetViewUserDataQuery } from "~/api/generated";
+import { User, Scalars, useGetViewUserDataQuery } from "~/api/generated";
 import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAboutUserSection";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
@@ -17,7 +17,7 @@ import adminMessages from "~/messages/adminMessages";
 import UserProfilePrintButton from "./components/UserProfilePrintButton";
 
 interface AdminUserProfileProps {
-  user: Applicant;
+  user: User;
 }
 
 export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
@@ -29,7 +29,7 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
         data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-text-align="base(right)"
       >
-        <UserProfilePrintButton applicant={user}>
+        <UserProfilePrintButton user={user}>
           <span>
             <PrinterIcon style={{ width: "1rem" }} />{" "}
             {intl.formatMessage({
@@ -41,12 +41,12 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
         </UserProfilePrintButton>
       </div>
       <UserProfile
-        applicant={user}
+        user={user}
         headingLevel="h3"
         sections={{
           about: {
             isVisible: true,
-            override: <AdminAboutUserSection applicant={user} />,
+            override: <AdminAboutUserSection user={user} />,
           },
           language: { isVisible: true },
           government: { isVisible: true },
@@ -54,7 +54,7 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
           workPreferences: { isVisible: true },
           employmentEquity: { isVisible: true },
           roleSalary: { isVisible: true },
-          skillsExperience: { isVisible: true },
+          careerTimelineAndRecruitment: { isVisible: true },
         }}
       />
     </>
@@ -73,7 +73,7 @@ const AdminUserProfilePage = () => {
     variables: { id: userId || "" },
   });
 
-  const user = lookupData?.applicant;
+  const user = lookupData?.user;
 
   const navigationCrumbs = [
     {

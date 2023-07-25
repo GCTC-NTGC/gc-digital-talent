@@ -1,0 +1,378 @@
+{
+  "+JIfBy": {
+    "defaultMessage": "Tawnima li department keema la zhawnsree mawchikoushkounawawpiwak chi-atoushkayw?",
+    "description": "Learn more dialog question nine heading"
+  },
+  "+cn9MN": {
+    "defaultMessage": "Li moond kaw-va oofayr atoushkaywin avek lispass di itouchikawtayk akouta kaw-weekihk saprawn chi-ayahk aykwy-ikouhk internet kawschitinam chi- ashpayimouhk ouhpimaen kaw-atoushkayhk.",
+    "description": "IAP Requirement list item six"
+  },
+  "+do6jV": {
+    "defaultMessage": "Wawpasta Keekushklhtamawshoowin si li Praensipal",
+    "description": "Button text for program eligibility criteria"
+  },
+  "/5tYua": {
+    "defaultMessage": "Miyikihk Toon Weehstamakaywin",
+    "description": "How it works, step 2 heading"
+  },
+  "tBGvoD": {
+    "defaultMessage": "Marsee poor toon ninahihtamoowin didawn ooma Paminikaywin. Saprawn nipakoushaymoonawn chi-peekishkwayin!",
+    "description": "Third paragraph for apply now dialog"
+  },
+  "/ar49+": {
+    "defaultMessage": "Kiayawn itayimoowin chi-kishkayistamaen shawpou ooma ikouhk di paminikaywin, tou lee deu daw la job pi chi-pimitishahamin daw li computer kishshinahamakaywin paminikaywin",
+    "description": "IAP Requirement list item five"
+  },
+  "v9mTgX": {
+    "defaultMessage": "Weeput, daw li computer aplikasyoon paminikaywin chi-ihtakoun poor li moond chi-peekishkwatum soon ninahihtamoowin. Ashpeechi, kisheehkimitinawn chi-ichaha toon kochiwahpatahiwaywin pi ta kouvayr letr ishi: edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca",
+    "description": "Learn more dialog question eleven paragraph one"
+  },
+  "27FjxB": {
+    "defaultMessage": "Kiayawn miyeuwayhtamoowin poor pi ninahihtamoowin didawn li mashiniry weehstamakaywin (IT), avek aykwawnima miyeuwayhtamoowin pi ninahihtamoowin nookwun shawpou wiya ikou, ekeeweetoutamen, a lawntour, keema mamiyoowin pimatishiwin kishkayistamowin",
+    "description": "IAP Requirement list item four"
+  },
+  "436DA5": {
+    "defaultMessage": "Ahkiki",
+    "description": "Talent portal strategy item 2 heading"
+  },
+  "4p0QdF": {
+    "defaultMessage": "Kipahikaywin",
+    "description": "Button text used to close an open modal"
+  },
+  "6l9YH+": {
+    "defaultMessage": "Kaw-natoutahk awiyek saprawn si nissisayr chi-ayahk:",
+    "description": "Heading for the applicant requirements dialog"
+  },
+  "81iywD": {
+    "defaultMessage": "Kaw-awnkourazhee chi-kayshchinahoohk kiweehstamakaywin kaw-maenkiyin",
+    "description": "How it works, step 3 content sentence 1"
+  },
+  "84rSVg": {
+    "defaultMessage": "Pakitinishoowin poor ahkikiwin didawn atoushkaywin en seksyoon kaw- itayimoohk ishi kootak la job wahpaschikatewina didawn li tawn ki vyaen.",
+    "description": "Talent portal strategy item 2 content"
+  },
+  "8PhWBd": {
+    "defaultMessage": "Mawchista",
+    "description": "Talent portal strategy item 4 heading"
+  },
+  "BSSYnh": {
+    "defaultMessage": "Ninouhtay weestamawchitinawn ashpeechi aykwawnima, ooshkayi keestwawm takwashtawina oushchikawtaywa didawn ooma en plas aykwawnima kaw- pakitinikawshoowak Indigene li moond kaw-nouhtay ninahihtam chi-takoo didawn ooma IT Mawchi<softHyphen></softHyphen>koushkoun<softHyphen></softHyphen>awawpiwin Paminikaywin chi-natouta daw li computer.",
+    "description": "Second paragraph for apply now dialog"
+  },
+  "CY+493": {
+    "defaultMessage": "Kishkaysta Ayiwawk",
+    "description": "Button text to learn more about the program"
+  },
+  "CZGta2": {
+    "defaultMessage": "Ay-itakistayw chin chi-takoo didawn ooma paminikaywin?",
+    "description": "Learn more dialog question ten heading"
+  },
+  "hyJz3G": {
+    "defaultMessage": "Ooma Paminikaywin ouschi",
+    "description": "Program information section title"
+  },
+  "DBczOG": {
+    "defaultMessage": "Koonploon",
+    "description": "Heading for strategy for the indigenous talent portal"
+  },
+  "DgMIfz": {
+    "defaultMessage": "IT Mawchi<softHyphen></softHyphen>koushkoun<softHyphen></softHyphen>awawpiwin Paminikaywin chin nawut poor kiya?",
+    "description": "Application box heading part one"
+  },
+  "DvmNR7": {
+    "defaultMessage": "Natouta Shaymawnk",
+    "description": "Button text to apply for program"
+  },
+  "Dzyk1q": {
+    "defaultMessage": "Neeshouhkamakaywin avek IT Mawchi<softHyphen></softHyphen>koushkoun<softHyphen></softHyphen>awawpiwin Paminikaywin poor Indigene Li moond, Indigene Eshimamiyooyen La leeng chi-mawchistawn avek wawpahtamoowin didawn IT and li mashiniry eshimamiyooyen, tawnima chikeel:",
+    "description": "Description for strategy for the indigenous talent portal"
+  },
+  "iKpxPY": {
+    "defaultMessage": "Madoon ichaha toon kochiwahpatahiwaywin pi ta kouvayr letr ay-weestamakayin toon miyeuwayhtamoowin poor IT pi tawnayhki kaw-ninahihtamin chi-takoo ooma paminikaywin ishi: <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Aen chim mambr ka-peekishkwatik ishpee trwaw-saenk kaw-atoushkay lee zhournee",
+    "description": "First paragraph for apply now dialog"
+  },
+  "GnmmgR": {
+    "defaultMessage": "Ishpee kaw-ichahmaen, aen chim mambr ka-peekishkwatik ishpee trwaw-saenk kaw-atoushkay lee zhournee.",
+    "description": "How it works, step 3 content sentence 2"
+  },
+  "Ilot3b": {
+    "defaultMessage": "Kaykwuy ishpayin apray en parsonn poonistaw si vaen kaet en mwawn paminikaywin?",
+    "description": "Learn more dialog question three heading"
+  },
+  "KdXvmY": {
+    "defaultMessage": "Tawnsheeshi nikishkayistaen keeshpin ooma paminikaywin si nawut nahiyokouhk poor niya?",
+    "description": "Learn more dialog question seven heading"
+  },
+  "L9yjr3": {
+    "defaultMessage": "Kishkaysta Ayiwawk Ouschi Li Gouvarnimaw di Kenadaw IT Mawchi<softHyphen></softHyphen>koushkoun<softHyphen></softHyphen>awawpiwin Paminikaywin poor Indigene Li moond",
+    "description": "Heading for the Learn more dialog"
+  },
+  "LGSw+f": {
+    "defaultMessage": "Kahkiyuw mawchikoushkounawawpiwak kapamihiwak ouschi kaw-payhtik nawashoonawuk aen paray lee partineuz pi kakayeshkimiwaywak. Mawchikoushkounawawpiwak meena chinatoumawak chi-ouhtakoow aen Indigene Mawchi<softHyphen></softHyphen>koushkoun<softHyphen></softHyphen>awawpiwin aen System, akouta chi-ihtakoun la sawns chi-akimishou avek kootakak Indigene atoushkaywak didawn Li Gouvarnimaw di Kenadaw, pi avek kootak Indigene mawchikoushkounawawpiwak kaw-takoochik didawn ooma paminikaywin.",
+    "description": "Learn more dialog question two paragraph two"
+  },
+  "MgLLHd": {
+    "defaultMessage": "Mishtahi Dmawdee",
+    "description": "Talent portal strategy item 1 heading"
+  },
+  "NaF4Iu": {
+    "defaultMessage": "Natouta anoush!",
+    "description": "Application box heading part two"
+  },
+  "O0z6Ym": {
+    "defaultMessage": "Poor awina ooma paminikaywin?",
+    "description": "Heading for section about who the program is for"
+  },
+  "OcIvN1": {
+    "defaultMessage": "Ishpee kaw-kashkistawhk chi-poonistaw di paminikaywin, si baen na swetee aykwawnima mawchikoushkounawawpiwak chi-itayistam kaw-ayawhk avek Li Gouvarnimaw di Kenadaw.",
+    "description": "Learn more dialog question three paragraph one"
+  },
+  "PvH5lJ": {
+    "defaultMessage": "Kaykwuy Kaw-Baystamahk",
+    "description": "Heading for the quotes sections"
+  },
+  "QkZ7Oy": {
+    "defaultMessage": "Tawnsheeshi aen parsonn chi-natouta chi-mawchikoushkounawawpiw?",
+    "description": "Learn more dialog question eleven heading"
+  },
+  "Qt9Q8k": {
+    "defaultMessage": "Tawmayikoohk kinwaysh ooma paminikaywin?",
+    "description": "Learn more dialog question two heading"
+  },
+  "S/PXt/": {
+    "defaultMessage": "La sawns nawkwun didawn aen groo noombr li department pi lee zhawnsree lout bor Li Gouvarnimaw di Kenadaw. Ooma paminikaywin chi-kakway paray li mawchikoushkounawawpiwak avel la sawns aykwawnima pleu miyeur avek oninahihtamoowin.",
+    "description": "Learn more dialog question nine paragraph one"
+  },
+  "SnnuD+": {
+    "defaultMessage": "Kaw-weehkoumitinawn chi-oustahk aen diskripsyoon tawnima la soovee pi ichahikawtayw tapishkoot ay-tawpwayhk toon aplikasyoon.",
+    "description": "How it works, step 2 content sentence 2"
+  },
+  "U8bLT7": {
+    "defaultMessage": "Tawnsheeshi chi-atoushkaymakun",
+    "description": "heading for how the indigenous talent portal will work"
+  },
+  "UDHGGA": {
+    "defaultMessage": "Weeput, kaw-natoutahkik chikee natoutam chi-awpachistaw daw li computer, interactive awpachischikan chi-ihtakoun didawn ooma website. Kaykwuy ooma kaw-atoushkatamahk:",
+    "description": "Description of how the indigenous talent portal will work"
+  },
+  "UQlyXu": {
+    "defaultMessage": "Mawchikoushkounawawpiwak chi-kishkayistam kawtakwashtayk daw la job kishkaystamoowin pi daw li computer kishshinahamakaywin didawn payyek keema ayiwawk li mashiniry weehstamakaywin en seksyoon. Mawchikoushkounawawpiwak dawaymowak chi-wawpastahiwaychik oninahihtamoowin pi omiyeuwayhtamoowin poor li mashiniry kaw-ishi voulay pishkawpahtamowin, kishkayistamowin, pi va prochikee neu mamiyoowin aykwawnihi ouschipayiwin pawschi ooma paminikaywin. Akousheeshi mawna, mawchikoushkounawawpiw chi-toutam poor kaet d’zhournee aen smenn see-maen awpachistawin kishkaystamoowin, ashpeehchi saenchyem d’zhournee aen smenn aykwawnima chimiyishouw ishi wiya ikou pi kaw-shapookishkayistumwak ahkikiwin shawpou daw li computer kishshinahamakaywin pi shawpou kootak shapookishkayistumowin kishshinahamakaywin li sawns.",
+    "description": "Learn more dialog question eight paragraph one"
+  },
+  "WDRWcu": {
+    "defaultMessage": "Saprawn chin chi-awhchipichi ishi Ottawa keema ispray en plaes chi-takoo didawn ooma paminikaywin?",
+    "description": "Learn more dialog question six heading"
+  },
+  "XS21o1": {
+    "defaultMessage": "Kayschinawch! Ishi otatoushkaywak ouschi Li Gouvarnimaw di Kenadaw, kahkiyuw mawchikoushkounawawpiwak chi-kashkistamahow vakawsyoon shipwayhtaywin, awhkoushiw shipwayhtaywin, pi la famee ouschi shipwayhtaywin. Apray sis mwawn, mawchikoushkounawawpiwak meena chi-kawschitinam si boon la sawntee pi li dawnchee l'aenseurawns dipahikaywin poor wiyawow pi see famee, avek meena il a vneu aen mambr di li federal piblik pamihiwaywin pansyoon plawn.",
+    "description": "Learn more dialog question five paragraph one"
+  },
+  "Xhfkfg": {
+    "defaultMessage": "Chi-natakouhkawtayk Mishtahi dmawdee poor Indigene Eshimamiyooyen didawn IT.",
+    "description": "Talent portal strategy item 1 content"
+  },
+  "YGM/D5": {
+    "defaultMessage": "Ooma paminikaywin si vaen kaet en mwawn ishko, avek pamihiwaywin ihtakoun ishi mawchikoushkounawawpiwak maykwawt sa tawn kaw-ayawchik ooma paminikaywin.",
+    "description": "Learn more dialog question two paragraph one"
+  },
+  "b09U1u": {
+    "defaultMessage": "Ishpee li bout di vaen kaet en mwawn li tawn, mawchikoushkounawawpiwak chi-ayow zhawnvid pi weemashinahikayhaywin nishtawaymikawaywin pi mamiyoowin, akwa meena la koonfidawsyoon si nissisayr weechihiwaywin ishi en pawr di Kenadaw daw li computer la louvraezh, tou lee deu peehtayowin pi awn dahor li federal piblik pamihiwaywin.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "cNXORI": {
+    "defaultMessage": "Il a says awn ikou",
+    "description": "IAP Requirement list item three"
+  },
+  "cYq1Dp": {
+    "defaultMessage": "Mawchikoushkounawawpiwak kaw-takoochik didawn ooma paminikaywin itwaywuk si aykwawnima “kaw-pimatishihk en-shawnzhraw”, neepawistam “en shawns chi-miyeu pimatishihk shawpou li mashiniry”, pi aykawiya “namakaykwuy muwnayshkawkaywina kakashkistawhk didawn ooma paminikaywin”.",
+    "description": "Third paragraph about the program"
+  },
+  "ce892L": {
+    "defaultMessage": "Natouta Shaymawnk",
+    "description": "Heading for the apply now dialog"
+  },
+  "dDHy5d": {
+    "defaultMessage": "Mawchikoushkounawawpiwak pimitishahamwak vaen kaet en mwawn wayashtaywin paminikaywin ashtayw kawtakwashtayk daw la job ouschi kishkaystamoowin pi kaw-ishinakishkamoomahahk kishshinahamakaywin.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "dgG8md": {
+    "defaultMessage": "Kaykwuy kishshinahamakaywin si nissisayr chi-ayahk ihtakoun - nikinatoutaen chin keeshpin aykawiya koleej kishaywaatishiwin chikashkihtawhk aen papyee a li koleezh keema li papyee d’university?",
+    "description": "Learn more dialog question twelve heading"
+  },
+  "fF4Ex+": {
+    "defaultMessage": "Ooma Indigene Eshimamiyooyen La leeng kee-oushtaniwun poor Indigene a lawntour, ouschi Indigene a lawntour.",
+    "description": "Talent portal information sentence 1"
+  },
+  "fvsYkj": {
+    "defaultMessage": "Kaykwuy nakishkayistaen didawn ooma mawchi<softHyphen></softHyphen>koushkoun<softHyphen></softHyphen>awawpiwin?",
+    "description": "What applicants will learn sections heading"
+  },
+  "hSmKjD": {
+    "defaultMessage": "Kayschinawch! Toon tawn si ekishchaychikawtayk. Mawchikoushkounawawpiwak chi-dipahamawkawow pi oustistikouw krijee tapishkoot atoushkaywak ouschi Li Gouvarnimaw di Kenadaw. Mawchikoushkounawawpiwak chi-kushkihtamawshoow awnter $vaen naef.pyaes pi $trawnt trwaw.pyaes par daen nor kaw-mawchistahk, avek iyikouhk mitouni lee gazh chi-kishkayistakwahk ishpee kaw-mashinahikayhihk pi kishkayihchikatewin ouschi louvraez nagrimawn kaw-ashtayk didawn kaw-mashinahikayhk mamowitouwin.  Mawchikoushkounawawpiwak chi-atoushkaywak tuhkinay, poor tout trawnt set pwaent saenk daen nor di smenn.",
+    "description": "Learn more dialog question four paragraph one"
+  },
+  "hdBTPI": {
+    "defaultMessage": "Kahkiyuw kaw-dawayihchikawtayk li computer awpachischikana (laptop, mouse, monitor, aen foonn) pi kishshinahamakaywin awpachischikana chi-maenkawtayw pat tipahikaywin. Keeshpin en parsonn nawashoonam chi-atoushkayw weekiwahk, kaw-itakistayk internet kawschitinamoowin aykwawnima wiya mawchikoushkounawawpiw rispoonsabl.",
+    "description": "Learn more dialog question ten paragraph one"
+  },
+  "jA4kuU": {
+    "defaultMessage": "Mawchikoushkounawawpiwak chin dipahamawkuwow?",
+    "description": "Learn more dialog question four heading"
+  },
+  "lIHNov": {
+    "defaultMessage": "Examinee",
+    "description": "Talent portal strategy item 3 heading"
+  },
+  "loDwKe": {
+    "defaultMessage": "Indigene Eshimamiyooyen La leeng ouschi",
+    "description": "Talent Portal information heading"
+  },
+  "mfBsJY": {
+    "defaultMessage": "Kaykwuy enima mawchikoushkounawawpiwak chi-itoutahkik aen pawr di paminikaywin?",
+    "description": "Learn more dialog question eight heading"
+  },
+  "osGGIt": {
+    "defaultMessage": "IT Mawchi<softHyphen></softHyphen>koushkoun<softHyphen></softHyphen>awawpiwin Paminikaywin + Indigene Eshimamiyooyen La leeng",
+    "description": "heading for indigenous talent portal section"
+  },
+  "p19YJ2": {
+    "defaultMessage": "Natouta anoush chi-mawchistahk toon wayaezh ishi atoushkaywin didawn Li Mashiniry Weehstamakaywin.",
+    "description": "Application box content"
+  },
+  "p2sBh3": {
+    "defaultMessage": "Awina chikee natoutam chi-mawchikoushkounawawpiw ishi wayashtaywin ouschi Li Gouvarnimaw di Kenadaw IT Mawchi<softHyphen></softHyphen>koushkoun<softHyphen></softHyphen>awawpiwin Paminikaywin poor Indigene Li moond?",
+    "description": "Learn more dialog question one heading"
+  },
+  "pWoAv0": {
+    "defaultMessage": "Ooma IT Mawchi<softHyphen></softHyphen>koushkoun<softHyphen></softHyphen>awawpiwin Paminikaywin poor Indigene Li moond is a Li Gouvarnimaw di Kenadaw initiative specifically for Li Promyee Nawsyoon, aen Niskimoo, and aen Michif li moond. Aykwawnima aen shmaen ishi kaw-atoushkayhk didawn li federal piblik pamihiwaywin poor Indigene li moond kaw-ayawchik miyeuwayhtamoowin poor Li Mashiniry Weehstamakaywin (IT).",
+    "description": "First paragraph about the program"
+  },
+  "pkFLpT": {
+    "defaultMessage": "Keespshin kininahihtamoowin pi kimiyeuwayhtamoowin poor li mashiniry pi kinish<softHyphen></softHyphen>taway<softHyphen></softHyphen>nikashoon ishi Indigene, akoushi ooma paminikaywin poor kiya.",
+    "description": "Learn more dialog question seven paragraph one"
+  },
+  "q5FQbu": {
+    "defaultMessage": "Weeput Peenakwun!",
+    "description": "Heading for a coming soon section"
+  },
+  "rQ61eh": {
+    "defaultMessage": "Pakitinishoowin poor kaw-ouschikishkayistamoowin pi nashkoumiwaywin chikee kalektee pi ouhpawshkwahikawtayk poor zaenproovmawn ooma la service.",
+    "description": "Talent portal strategy item 3 content"
+  },
+  "rz21yp": {
+    "defaultMessage": "Mawchikoushkounawawpiwak chin kashkistamahow li krijee?",
+    "description": "Learn more dialog question five heading"
+  },
+  "sycoGU": {
+    "defaultMessage": "Si pa insisayr. Mischayt mawchi<softHyphen></softHyphen>koushkoun<softHyphen></softHyphen>awawpiwin la sawns chikee itouchikawtayw akouta kaw-weekihk, saprawn chi-ayahk li internet kawschitinikaywin. Awtist atoushkaywina si nissisayr chi-ayahk ispray en plaes. Nikischeetaynawn en bon di famee pi a lawntour, pi nisheehkimawnanik li moond chi-takoo di famee pat chi-nakatawt wiya sa famee, pi chi-takoo di a lawntour ashpeehchi kee-ayow wiya sa a lawntour. Peekshkwata kimashinahikayw ouschi ayishpayiwin/kinawashoonkaywin pi pleu miyeur nitoutaynawn chi-wichi-atoushkawtamahk chi-mishkama nawut nahiyokouhk pwatawimowin.",
+    "description": "Learn more dialog question six paragraph one"
+  },
+  "wHWE3M": {
+    "defaultMessage": "Si aykwawnima aen taytahoukanihk kaw-oushtawniwun chi-paminum atoushkaywin la sawns poor Indigene li moond kaw-ishi nishtawinikawtayk pi nookwuniyow see si rawr eshimamiyoowin, aen nidii, mamiyoowin pi miyeuwayhtamoowin.",
+    "description": "Talent portal information sentence 2"
+  },
+  "wgIThY": {
+    "defaultMessage": "Kiayawn grawn t'ikol li papyee keema paray (aen GED)",
+    "description": "IAP Requirement list item two"
+  },
+  "wNJSJ7": {
+    "defaultMessage": "Kaw-kischeetayistamihk pi kawawpahtamihk en parsonn sa sawsi poor a boun, ashpeeshchi kawpouyout sa nikol la level, ooma Paminikaywin ouhtinam lee groo muwnayshkawkaywina kaw-ashtaykihk ishi kaw-atoushkayhk didawn wawshakawmihk daw li computer. Ooma Paminikaywin kee-oushihchikawtayw ouschi, avek, pi poor Indigene li moond lout bot Kenadaw. Kaw-oushtawniwun kaykinikawtayw nawashoonikaywina pi saprawn chi-ayawhk kaykwuy di Indigene kaw-kishkayhtahkik ashpeehchi nishtawinum en bon di a lawntour.",
+    "description": "Second paragraph about the program"
+  },
+  "yZMQ6j": {
+    "defaultMessage": "Noohtay kishkayistaenawn kiya oushci pi toon ninahihtamoowin/miyeuwayhtamoowin didawn en seksyoon di IT!",
+    "description": "How it works, step 2 content sentence 1"
+  },
+  "zlYw3Z": {
+    "defaultMessage": "Ichaha Toon la Diskripsyoon tapishkoot Ay-tawpwayhk Toon Aplikasyoon",
+    "description": "How it works, step 3 heading"
+  },
+  "J9HjFN": {
+    "defaultMessage": "Ooma paminikaywin kee-oushtawniwun chi-ripoond ishi weechi wawhkoostouwin pi chi-oushtahk neu itahkomitiwin ouschipayiwin ouschi nishtawinumoowin lee drway, rispek, nihtaw miyeu weechihiwaywin pi en partineuz weechayhtoowin avek Indigene Li moond",
+    "description": "How it works, step 1 content paragraph 1"
+  },
+  "jyQi0m": {
+    "defaultMessage": "Keeshpin kiya Li Promyee Nawsyoon, aen Niskimoo, keema aen Michif, pi kiweekin didawn Kenadaw, kaw-kee-natoutayn chi-mawchikoushkounawawpiw didawn ooma paminikaywin.",
+    "description": "Learn more dialog question on paragraph one"
+  },
+  "nzcwrW": {
+    "defaultMessage": "Mawchikoushkounawawpiwak aen lee partineuz avek aen paray chi-weechihiwayk la job kishkayhtamouwin pi kawpishkaymiwayt atoushkaywin, pi nawashounikawshoow aen kakayeshkimiwayw aykwawna geemiyikiw kishkayistamowin kayeshkimaywin pi kishinahamawkayhk pawschi ooma paminikaywin.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "pPOGwF": {
+    "defaultMessage": "Wiya Li Promyee Nawsyoon (ayitapiwin keema pat ayitapiwin), aen Niskimoo, keema aen Michif",
+    "description": "IAP Requirement list item one"
+  },
+  "49UIne": {
+    "defaultMessage": "Li Gouvarnimaw di Kenadaw IT Mawchi<softHyphen></softHyphen>koushkoun<softHyphen></softHyphen>awawpiwin",
+    "description": "author of testimonial number one"
+  },
+  "74Sg+4": {
+    "defaultMessage": "Tawnima ikou kishshinahamakaywin si nissisayr chi-ayahk si GED keema grawn t'ikol li papyee. Aen koleej keema d’university kishshinahamakaywin si pat nissisayr.",
+    "description": "Learn more dialog question twelve paragraph one"
+  },
+  "f/yvXg": {
+    "defaultMessage": "Ooma Paminikaywin si poor Li Promyee Nawsyoon, aen Niskimoo, pi aen Michif li moond. Keeshpin kiya Li Promyee Nawsyoon, an aen Niskimoo, keema aen Michif, pi keeshpin kimiyeuwayhtamoowin poor li mashiniry, akoushi ooma Paminikaywin poor kiya!",
+    "description": "First paragraph about who the program is for"
+  },
+  "1pFMSH": {
+    "defaultMessage": "Poonista ooma Indigene Li moond Kinish<softHyphen></softHyphen>taway<softHyphen></softHyphen>nikashoon Ay-ishchikataywin",
+    "description": "How it works, step 1 heading"
+  },
+  "uJ1rk3": {
+    "defaultMessage": "Ihtakoun trwaw ispray la bonch di Indigene Li moond didawn aen Zhawn'd Kenadaw Constitution. Kakwaychimikawin chi-kayshchinahoohk tawnima Indigene la bonch(s) itouwuhk li moond kiya shawpou Indigene Li moond Kinish<softHyphen></softHyphen>taway<softHyphen></softHyphen>nikashoon Ay-ishchikataywin.",
+    "description": "How it works, step 1 content paragraph 2"
+  },
+  "0i34ZZ": {
+    "defaultMessage": "Itayimoowin chi-mawchistahk Paminikaywin weeput ishpee 2023.",
+    "description": "Talent portal strategy item 4 content"
+  },
+  "gj0bQO": {
+    "defaultMessage": "IT Nakachistowin Paminikaywin poor Indigene Li moond",
+    "description": "Homepage title for IT Apprenticeship Program for Indigenous Peoples"
+  },
+  "nn9B4R": {
+    "defaultMessage": "Natouta anoush chi-mawchistayin toon IT nouvrazh.",
+    "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
+  },
+  "pBJzgi": {
+    "defaultMessage": "Nimistawtaen, noo nimishkaenawn la paezh kaw-natounamaen.",
+    "description": "Heading for the message saying the page was not found."
+  },
+  "pgHTkX": {
+    "defaultMessage": " Nimistawtaen, noo nimishkaenawn la paezh kaw-natounamaen.",
+    "description": "Detailed message saying the page was not found."
+  },
+  "404R1N": {
+    "defaultMessage": "Ooma paminikaywin kwaysh<softHyphen></softHyphen>koochina<softHyphen></softHyphen>koohtaw nipimaw<softHyphen></softHyphen>tishiwin la shawns kaw-ayawyawn pi niwawpastaen <b>nawut pleu boon li tawn ki vyaen</b>.",
+    "description": "testimonial number one"
+  },
+  "Srs7a4": {
+    "defaultMessage": "Shawpouhtay ishi li promyee mawachistowina",
+    "description": "Assistive technology skip link"
+  },
+  "M1JKQs": {
+    "defaultMessage": "Keewee",
+    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
+  },
+  "gKyog2": {
+    "defaultMessage": "Yow, ayshinakwun etakoushineeyn daw la paezh namoo kipakitinikawin chi-wawpastmaen.",
+    "description": "Detailed message saying the page to view is not authorized."
+  },
+  "jPLaDk": {
+    "defaultMessage": "Nimistawtaen, namoo kipakitinikawin chi-wawpastmaen ooma la paezh.",
+    "description": "Heading for the message saying the page to view is not authorized."
+  },
+  "kspVvy": {
+    "defaultMessage": "Keeshpin namoo wiya ki-kayschinahoun ooma Paminikaywin nahiyokouhk poor kiya, madoon <mailLink>kawschitininawn</mailLink> pi aen chim mambr chi-miyeustam kaw-nakishkawish chi-nashkoumiwayt tee kesyoon kaw-ayawyin.",
+    "description": "Second paragraph about who the program is for"
+  },
+  "Z9W+O2": {
+    "defaultMessage": "Natouta shaymawnk chi-mawchistayin toon IT nouvrazh.",
+    "description": "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site"
+  },
+  "oMpO+C": {
+    "defaultMessage": "IT Nakachistowin Paminikaywin poor Indigene Li moond",
+    "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
+  }
+}

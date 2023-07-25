@@ -218,7 +218,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
       </div>
       {hasCompletedEvaluation ? (
         <div data-h2-padding="base(x.5, 0, 0, 0)">
-          <p>
+          <p data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage:
                 "Please indicate the language levels you acquired from your Government of Canada language evaluation.",
@@ -287,8 +287,8 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "You can find out find out your levels with a <selfAssessmentLink>language proficiency self-assessment</selfAssessmentLink>.",
-                id: "1F7at9",
+                  "You can find out your levels with a <selfAssessmentLink>language proficiency self-assessment</selfAssessmentLink>.",
+                id: "4faEVw",
                 description:
                   "Text including link to language proficiency evaluation in language information form",
               },

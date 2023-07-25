@@ -94,7 +94,7 @@ const RemoveIndividualRoleDialog = ({
             })}
           </p>
           <p data-h2-margin="base(x1, 0)">
-            <Pill mode="solid" color="blue">
+            <Pill mode="solid" color="secondary">
               {roleDisplayName}
             </Pill>
           </p>

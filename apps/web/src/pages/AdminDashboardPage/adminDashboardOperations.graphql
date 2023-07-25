@@ -20,6 +20,8 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
     }
   }
   jobTitle
+  managerJobTitle
+  positionType
   wasEmpty
   additionalComments
   poolCandidateFilter {
@@ -59,7 +61,7 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
   }
   requestedDate
   status
-  doneDate
+  statusChangedAt
   adminNotes
   applicantFilter {
     id

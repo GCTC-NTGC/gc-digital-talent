@@ -7,7 +7,7 @@ import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
 import {
   Chip,
   Chips,
-  PillColor,
+  Color,
   PillMode,
   Heading,
   HeadingRank,
@@ -22,7 +22,7 @@ import {
 import type { Maybe, Skill } from "~/api/generated";
 
 interface MissingSkillsBlockProps {
-  pillType: { color: PillColor; mode: PillMode };
+  pillType: { color: Color; mode: PillMode };
   /** Title for the block */
   title: React.ReactNode;
   /** Message displayed before skills that are missing from application */

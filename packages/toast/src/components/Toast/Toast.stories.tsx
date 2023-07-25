@@ -6,6 +6,8 @@ import Toast from "./Toast";
 import toast from "../../toast";
 import "./toast.css";
 
+import ToastDocs from "./Toast.docs.mdx";
+
 interface StoryArgs {
   text: string;
   longText: string;
@@ -20,6 +22,11 @@ export default {
     text: "Toast text",
     longText: faker.lorem.sentences(3),
   },
+  parameters: {
+    docs: {
+      page: ToastDocs,
+    },
+  },
 } as Meta;
 
 const Template: Story<StoryArgs> = (args) => {
@@ -31,7 +38,8 @@ const Template: Story<StoryArgs> = (args) => {
   toast.warning(text, { autoClose: false });
   toast.error(text, { autoClose: false });
 
-  return <Toast />;
+  // avoid animations with Chromatic snapshots
+  return <Toast disableTransition autoClose={false} />;
 };
 
 export const BasicToast = Template.bind({});

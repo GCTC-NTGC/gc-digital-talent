@@ -5,16 +5,16 @@ import zipWith from "lodash/zipWith";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Input, MultiSelectField } from "@gc-digital-talent/forms";
+import { DateInput, MultiSelectField } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 
 import { getFullPoolTitleLabel, getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import {
   PoolStatus,
-  Applicant,
+  User,
   CreatePoolCandidateAsAdminInput,
   Pool,
   PoolCandidate,
@@ -28,7 +28,7 @@ type FormValues = {
 };
 
 export interface AddToPoolDialogProps {
-  user: Applicant;
+  user: User;
   pools: Pool[];
 }
 
@@ -72,7 +72,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
         user: {
           connect: user.id,
         },
-        expiryDate: formValues.expiryDate,
+        expiryDate: formValues.expiryDate || emptyToNull(formValues.expiryDate),
       }).catch((err) => {
         throw err;
       });
@@ -221,18 +221,16 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
                 })}
               </p>
               <div data-h2-margin="base(x.5, 0, x.125, 0)">
-                <Input
+                <DateInput
                   id="addToPoolDialog-expiryDate"
-                  label={intl.formatMessage({
+                  legend={intl.formatMessage({
                     defaultMessage: "Expiry date",
                     id: "sICXeM",
                     description:
                       "Label displayed on the date field of the add user to pool dialog",
                   })}
-                  type="date"
                   name="expiryDate"
                   rules={{
-                    required: intl.formatMessage(errorMessages.required),
                     min: {
                       value: currentDate(),
                       message: intl.formatMessage(errorMessages.futureDate),

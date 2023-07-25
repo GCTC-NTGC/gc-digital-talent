@@ -3,43 +3,18 @@ import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
 
-import { wrapAbbr } from "~/utils/nameUtils";
+import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
+import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import useRoutes from "~/hooks/useRoutes";
 
 import glassesOnBooks from "~/assets/img/glasses-on-books.jpg";
 // import digitalAmbitionImg from "~/assets/img/check_it_out_digital_ambition.jpg";
 import iapManagerImg from "~/assets/img/check_it_out_IAP_manager_callout.jpg";
-import desktopGraphicsLight2 from "~/assets/img/Desktop_Graphics_light_2.png";
-import desktopGraphicsLight3 from "~/assets/img/Desktop_Graphics_light_3.png";
-import desktopGraphicsDark2 from "~/assets/img/Desktop_Graphics_dark_2.png";
-import desktopGraphicsDark3 from "~/assets/img/Desktop_Graphics_dark_3.png";
-
-import Block from "./Block";
+import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 
 const Featured = () => {
   const intl = useIntl();
   const paths = useRoutes();
-
-  const iapEmail = {
-    subject: encodeURIComponent(
-      intl.formatMessage({
-        defaultMessage:
-          "I'm interested in hiring Indigenous IT apprentices for my team",
-        id: "E4PMGL",
-        description:
-          "Subject of email for info on IT Apprenticeship Program for Indigenous Peoples",
-      }),
-    ),
-    body: encodeURIComponent(
-      intl.formatMessage({
-        defaultMessage:
-          "I discovered the IT Apprenticeship Program for Indigenous Peoples on talent.canada.ca and I'd like to learn more about how I can hire apprentices to my team.",
-        id: "02aheT",
-        description:
-          "Body of email for info on IT Apprenticeship Program for Indigenous Peoples",
-      }),
-    ),
-  };
 
   // TEMP: Removed in https://github.com/GCTC-NTGC/gc-digital-talent/pull/6143
   // const digitalAmbition = {
@@ -77,12 +52,17 @@ const Featured = () => {
         id: "xXwUGs",
         description: "Title for the digital talent directive page",
       }),
-      summary: intl.formatMessage({
-        defaultMessage:
-          "Learn more about the new Directive on Digital Talent. Connected to the Policy on Service and Digital, the Directive sets out new reporting and coordination requirements for departments related to digital talent sourcing, from early planning to hiring and contracting.",
-        id: "jO2uif",
-        description: "Summary of the directive on digital talent featured item",
-      }),
+      summary: (
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "Learn more about the new Directive on Digital Talent. Connected to the Policy on Service and Digital, the Directive sets out new reporting and coordination requirements for departments related to digital talent sourcing, from early planning to hiring and contracting.",
+            id: "jO2uif",
+            description:
+              "Summary of the directive on digital talent featured item",
+          })}
+        </p>
+      ),
 
       img: { path: glassesOnBooks, position: "bottom right" },
       link: {
@@ -97,116 +77,61 @@ const Featured = () => {
     {
       key: "hiring-indigenous-talent",
       title: intl.formatMessage({
-        defaultMessage: "Hiring Indigenous Tech Talent",
-        id: "nYA+Tj",
-        description: "Title for the Indigenous tech talent feature item",
+        defaultMessage: "IT Apprenticeship Program for Indigenous Peoples",
+        id: "4N/PxH",
+        description:
+          "Heading for the IT Apprenticeship Program for Indigenous Peoples on home page",
       }),
-      summary: intl.formatMessage(
-        {
-          defaultMessage:
-            "Are you looking for entry-level <abbreviation>IT</abbreviation> talent and want to support diversity, inclusion, and reconciliation? Connect with the <abbreviation>IT</abbreviation> Apprenticeship Program for Indigenous Peoples and start the process to hire Indigenous apprentices today!",
-          id: "Q0G/5L",
-          description:
-            "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage",
-        },
-        {
-          abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-        },
+      summary: (
+        <p data-h2-margin-bottom="base(x1)">
+          {intl.formatMessage({
+            defaultMessage:
+              "Designed by the Indigenous community for the Indigenous community, this program recruits entry-level applicants for learning and development IT opportunities across government.",
+            id: "TUi+jx",
+            description:
+              "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage",
+          })}
+        </p>
       ),
       img: { path: iapManagerImg },
       link: {
-        external: true,
-        path: `mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca?subject=${iapEmail.subject}&body=${iapEmail.body}`,
+        path: paths.iap(),
         label: intl.formatMessage({
-          defaultMessage: "Contact the Apprenticeship Program",
-          id: "71f/uH",
+          defaultMessage:
+            "Learn more<hidden> about the IT Apprenticeship Program for Indigenous Peoples</hidden>",
+          id: "6tqGpT",
           description:
-            "Link text to email about the IT Apprenticeship Program for Indigenous Peoples",
+            "Link text to the IT Apprenticeship Program for Indigenous Peoples",
         }),
       },
     },
   ];
 
   return (
-    <div data-h2-layer="base(2, relative)">
-      <div
-        data-h2-height="base(100%)"
-        data-h2-width="base(100%)"
-        data-h2-background-color="base(white) base:dark(black.light)"
-        data-h2-position="base(absolute)"
-        data-h2-transform="base(skewY(-3deg))"
-        data-h2-overflow="base(hidden)"
+    <FlourishContainer>
+      <Heading
+        level="h2"
+        data-h2-margin="base(0, 0, x0.5, 0)"
+        color="quinary"
+        Icon={MagnifyingGlassCircleIcon}
       >
-        <img
-          data-h2-display="base(block) base:dark(none)"
-          data-h2-position="base(absolute)"
-          data-h2-location="base(0, 0, auto, auto)"
-          data-h2-transform="base(skew(3deg))"
-          data-h2-height="base(auto) p-tablet(50%)"
-          data-h2-width="base(150%) p-tablet(auto)"
-          data-h2-max-width="base(initial)"
-          src={desktopGraphicsLight2}
-          alt=""
-        />
-        <img
-          data-h2-display="base(none) base:dark(block)"
-          data-h2-position="base(absolute)"
-          data-h2-location="base(0, 0, auto, auto)"
-          data-h2-transform="base(skew(3deg))"
-          data-h2-height="base(auto) p-tablet(50%)"
-          data-h2-width="base(150%) p-tablet(auto)"
-          data-h2-max-width="base(initial)"
-          src={desktopGraphicsDark2}
-          alt=""
-        />
-        <img
-          data-h2-display="base(block) base:dark(none)"
-          data-h2-position="base(absolute)"
-          data-h2-location="base(auto, auto, 0, 0)"
-          data-h2-transform="base(skew(3deg))"
-          data-h2-height="base(auto) desktop(90%)"
-          data-h2-width="base(150%) p-tablet(100%) desktop(auto)"
-          data-h2-max-width="base(initial)"
-          src={desktopGraphicsLight3}
-          alt=""
-        />
-        <img
-          data-h2-display="base(none) base:dark(block)"
-          data-h2-position="base(absolute)"
-          data-h2-location="base(auto, auto, 0, 0)"
-          data-h2-transform="base(skew(3deg))"
-          data-h2-height="base(auto) desktop(90%)"
-          data-h2-width="base(150%) p-tablet(100%) desktop(auto)"
-          data-h2-max-width="base(initial)"
-          src={desktopGraphicsDark3}
-          alt=""
-        />
-      </div>
+        {intl.formatMessage({
+          defaultMessage: "Check it out",
+          id: "1q/MmU",
+          description: "Heading for featured items on the homepage",
+        })}
+      </Heading>
       <div
-        data-h2-position="base(relative)"
-        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-display="base(grid)"
+        data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr)))"
+        data-h2-gap="base(x1) p-tablet(x2) laptop(x3)"
+        data-h2-padding="base(x2, 0, 0, 0)"
       >
-        <div data-h2-padding="base(x3, 0) p-tablet(x5, 0, x4, 0) l-tablet(x7, 0, x6, 0)">
-          <Heading level="h2" data-h2-margin="base(0, 0, x0.5, 0)">
-            {intl.formatMessage({
-              defaultMessage: "Check it out",
-              id: "1q/MmU",
-              description: "Heading for featured items on the homepage",
-            })}
-          </Heading>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr)))"
-            data-h2-gap="base(x1) p-tablet(x2) laptop(x3)"
-            data-h2-padding="base(x2, 0, 0, 0)"
-          >
-            {featured.map((item) => (
-              <Block key={item.key} content={item} />
-            ))}
-          </div>
-        </div>
+        {featured.map((item) => (
+          <FeatureBlock key={item.key} content={item} />
+        ))}
       </div>
-    </div>
+    </FlourishContainer>
   );
 };
 

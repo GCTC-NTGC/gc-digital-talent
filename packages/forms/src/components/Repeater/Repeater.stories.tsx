@@ -13,7 +13,7 @@ import TextArea from "../TextArea";
 import Repeater, { RepeaterFieldsetProps, RepeaterProps } from "./Repeater";
 
 type StoryProps = RepeaterProps &
-  Pick<RepeaterFieldsetProps, "hideLegend"> & {
+  Pick<RepeaterFieldsetProps, "hideLegend" | "hideIndex"> & {
     defaultValues: Array<LocalizedString>;
     name: string;
     maxItems?: number;
@@ -31,7 +31,7 @@ const defaultArgs = {
 };
 
 const Fields = (props: Omit<StoryProps, "defaultValues">) => {
-  const { name, hideLegend, maxItems, ...rootProps } = props;
+  const { name, hideLegend, hideIndex, maxItems, ...rootProps } = props;
   const { control } = useFormContext();
   const { remove, move, append, fields } = useFieldArray({
     control,
@@ -42,7 +42,9 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
   return (
     <Repeater.Root
       {...rootProps}
-      showAdd={canAdd}
+      addButtonProps={{
+        disabled: !canAdd,
+      }}
       onAdd={() => {
         const newValues = {
           en: "",
@@ -63,12 +65,12 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
               onRemove={remove}
               legend={`Screening Question ${index + 1}`}
               hideLegend={hideLegend}
+              hideIndex={hideIndex}
             >
               <div
                 data-h2-display="base(grid)"
                 data-h2-grid-template-columns="base(1fr 1fr)"
-                data-h2-gap="base(0, x.5)"
-                data-h2-margin="base(-x1, 0)"
+                data-h2-gap="base(x.5)"
               >
                 <TextArea
                   id={`${name}.${index}.en`}
@@ -84,7 +86,7 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
             </Repeater.Fieldset>
           ))
         ) : (
-          <Well>
+          <Well data-h2-text-align="base(center)">
             <p
               data-h2-font-weight="base(700)"
               data-h2-margin-bottom="base(x.5)"
@@ -95,7 +97,7 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
           </Well>
         )}
         {!canAdd && maxItems && (
-          <Well>
+          <Well data-h2-text-align="base(center)">
             <p
               data-h2-font-weight="base(700)"
               data-h2-margin-bottom="base(x.5)"
@@ -171,6 +173,18 @@ WithMaxItems.args = {
     {
       en: "Question 2 (EN)",
       fr: "Question 2 (FR)",
+    },
+  ],
+};
+
+export const HiddenIndex = Template.bind({});
+HiddenIndex.args = {
+  ...defaultArgs,
+  hideIndex: true,
+  defaultValues: [
+    {
+      en: "Question 1 (EN)",
+      fr: "Question 1 (FR)",
     },
   ],
 };

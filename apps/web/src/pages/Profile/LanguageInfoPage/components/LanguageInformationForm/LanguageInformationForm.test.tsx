@@ -63,6 +63,7 @@ describe("LanguageInformationForm", () => {
     });
     await axeTest(container);
   });
+
   it("Can't submit if no fields entered.", async () => {
     const mockSave = jest.fn();
     renderLanguageInfoForm({
@@ -74,6 +75,7 @@ describe("LanguageInformationForm", () => {
     });
     expect(mockSave).not.toHaveBeenCalled();
   });
+
   it("Can't submit if only some required fields entered.", async () => {
     const mockSave = jest.fn();
     renderLanguageInfoForm({
@@ -86,6 +88,7 @@ describe("LanguageInformationForm", () => {
     });
     expect(mockSave).not.toHaveBeenCalled();
   });
+
   it("Extra fields appear after selecting bilingual.", async () => {
     const mockSave = jest.fn();
     renderLanguageInfoForm({
@@ -100,8 +103,16 @@ describe("LanguageInformationForm", () => {
         })
         .click();
     });
-    expect(await screen.findAllByText(/bilingual evaluation/i)).toHaveLength(2);
+    expect(
+      await screen.findByRole("group", { name: /bilingual evaluation/i }),
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByRole("group", {
+        name: /second language proficiency/i,
+      }),
+    ).toBeInTheDocument();
   });
+
   it("should submit when bilingual fields are not required.", async () => {
     const mockSave = jest.fn((data) => Promise.resolve(data));
     renderLanguageInfoForm({
@@ -114,6 +125,7 @@ describe("LanguageInformationForm", () => {
     });
     expect(mockSave).toHaveBeenCalledTimes(1);
   });
+
   it("should submit data in correct shape", async () => {
     const mockSave = jest.fn((data) => Promise.resolve(data));
 

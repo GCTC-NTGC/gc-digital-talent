@@ -6,18 +6,11 @@ import { OperationContext } from "urql";
 import pick from "lodash/pick";
 
 import { toast } from "@gc-digital-talent/toast";
-import {
-  Select,
-  Submit,
-  Input,
-  enumToOptions,
-  MultiSelectField,
-} from "@gc-digital-talent/forms";
+import { Select, Submit, Input, enumToOptions } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   commonMessages,
   getLanguage,
-  getRole,
 } from "@gc-digital-talent/i18n";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
@@ -25,7 +18,6 @@ import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
 import {
   useListRolesQuery,
   Language,
-  LegacyRole,
   Scalars,
   UpdateUserAsAdminInput,
   UpdateUserAsAdminMutation,
@@ -48,7 +40,6 @@ type FormValues = Pick<
   | "email"
   | "firstName"
   | "lastName"
-  | "legacyRoles"
   | "preferredLang"
   | "preferredLanguageForInterview"
   | "preferredLanguageForExam"
@@ -116,7 +107,12 @@ export const UpdateUserForm = ({
   return (
     <section data-h2-container="base(left, s)">
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x1 0)"
+        >
           <Input
             id="email"
             label={intl.formatMessage({
@@ -243,41 +239,15 @@ export const UpdateUserForm = ({
             name="sub"
             context={intl.formatMessage({
               defaultMessage:
-                "The 'subject' is a string that uniquely identifies a user's login identity.",
-              id: "I8v/Uy",
+                "The 'subject' is a string that uniquely identifies a user's sign in identity.",
+              id: "WLcP98",
               description:
                 "Additional context describing the purpose of the users's 'subject' field.",
             })}
           />
-          <div data-h2-margin="base(x1, 0)">
-            <MultiSelectField
-              id="legacyRoles"
-              name="legacyRoles"
-              label={intl.formatMessage({
-                defaultMessage: "Roles",
-                id: "kwNyl6",
-                description: "Label displayed on the user form roles field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select zero or more roles",
-                id: "SQqD4j",
-                description:
-                  "Placeholder displayed on the user form roles field.",
-              })}
-              options={enumToOptions(LegacyRole).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getRole(value)),
-              }))}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "The roles grant additional functionality to a user's login.",
-                id: "Z6sh9j",
-                description:
-                  "Additional context describing the purpose of the users's 'role' field.",
-              })}
-            />
+          <div data-h2-align-self="base(flex-start)">
+            <Submit />
           </div>
-          <Submit />
         </form>
       </FormProvider>
     </section>
@@ -324,7 +294,6 @@ const UpdateUserPage = () => {
           "preferredLanguageForInterview",
           "preferredLanguageForExam",
           "sub",
-          "legacyRoles",
           "roleAssignmentsInput",
         ]),
       },
@@ -334,7 +303,6 @@ const UpdateUserPage = () => {
       }
       return Promise.reject(result.error);
     });
-
   const availableRoles = rolesData?.roles.filter(notEmpty);
 
   const navigationCrumbs = [
