@@ -12,6 +12,7 @@ type ApplicantFilter {
   qualifiedClassifications: [Classification]
   qualifiedStreams: [PoolStream]
   pools: [Pool]
+  publishingGroups: [PublishingGroup]
 }
 
 input ApplicantFilterBelongsTo {
