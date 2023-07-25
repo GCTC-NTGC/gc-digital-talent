@@ -7,7 +7,6 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import { act } from "react-dom/test-utils";
 import EmploymentEquityForm, {
   type EmploymentEquityFormProps,
 } from "./EmploymentEquityForm";
