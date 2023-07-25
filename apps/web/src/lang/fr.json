@@ -309,10 +309,6 @@
     "defaultMessage": "Votre numéro de confirmation est le suivant : <strong>{id}</strong>",
     "description": "An application confirmation number"
   },
-  "/vsOxF": {
-    "defaultMessage": "Mettre à jour mon profil",
-    "description": "Link text to direct users to the profile page when logged in"
-  },
   "/yOfhq": {
     "defaultMessage": "Durée de l’emploi ",
     "description": "Job duration label "
@@ -1665,6 +1661,10 @@
   "9QxHnD": {
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
+  },
+  "9SZDCq": {
+    "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
+    "description": "Text describing upcoming opportunities instructing users to update a profile when signed in"
   },
   "9UZ/eS": {
     "defaultMessage": "Organisation",
@@ -3041,10 +3041,6 @@
   "JjTGYe": {
     "defaultMessage": "Vous êtes sur le point de modifier la date d'expiration pour cet utilisateur :",
     "description": "First section of text on the change candidate expiry date dialog"
-  },
-  "Jorewd": {
-    "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
-    "description": "Text describing upcoming opportunities instructing users to update a profile when logged in"
   },
   "JxDtt+": {
     "defaultMessage": "Révisez votre candidature",
@@ -6733,6 +6729,10 @@
   "je6zFF": {
     "defaultMessage": "Présenter sa candidature pour les opportunités d’analystes<hidden> {name}</hidden>",
     "description": "Invitation to apply for the 'IT-02 Analyst' classification"
+  },
+  "jfCwes": {
+    "defaultMessage": "Mettre à jour mon profil",
+    "description": "Link text to direct users to the profile page when signed in"
   },
   "jfED66": {
     "defaultMessage": "Vous êtes sur le point de procéder à la mise à jour des rôles de l’utilisateur suivant : <strong>{userDisplayName}</strong>",
