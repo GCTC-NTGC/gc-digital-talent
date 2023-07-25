@@ -151,85 +151,83 @@ class DigitalContractingQuestionnaireTest extends TestCase
                 '
                 mutation CreateDigitalContractingQuestionnaire($questionnaire: DigitalContractingQuestionnaireInput!) {
                     createDigitalContractingQuestionnaire(
-                    digitalContractingQuestionnaire: $questionnaire
+                      digitalContractingQuestionnaire: $questionnaire
                     ) {
-                    authoritiesInvolved
-                    authorityInvolvedOther
-                    branchOther
-                    businessOwnerEmail
-                    businessOwnerJobTitle
-                    businessOwnerName
-                    commodityType
-                    commodityTypeOther
-                    contractAmendable
-                    contractBehalfOfGc
-                    contractEndDate
-                    contractExtendable
-                    contractForDigitalInitiative
-                    contractMultiyear
-                    contractResourcesStartTimeframe
-                    contractServiceOfGc
-                    contractStartDate
-                    contractTitle
-                    contractValue
-                    contractingRationalePrimary
-                    contractingRationalePrimaryOther
-                    contractingRationalesSecondary
-                    contractingRationalesSecondaryOther
-                    department { id }
-                    departmentOther
-                    digitalInitiativeName
-                    digitalInitiativePlanComplemented
-                    digitalInitiativePlanSubmitted
-                    digitalInitiativePlanUpdated
-                    employeesHaveAccessToKnowledge
-                    financialAuthorityEmail
-                    financialAuthorityJobTitle
-                    financialAuthorityName
-                    hasFutureImpactOnOtherDepartments
-                    hasImmediateImpactOnOtherDepartments
-                    hasImpactOnYourDepartment
-                    hasPersonnelRequirements
-                    instrumentType
-                    isTechnologicalChange
-                    knowledgeTransferInContract
-                    methodOfSupply
-                    methodOfSupplyOther
-                    ocioConfirmedTalentShortage
-                    ocioEngagedForTraining
-                    ongoingNeedForKnowledge
-                    operationsConsiderations
-                    operationsConsiderationsOther
-                    personnelRequirements {
-                        language
-                        languageOther
-                        quantity
-                        resourceType
-                        security
-                        securityOther
-                        skillRequirements {
-                        level
-                        skill {
-                            id
+                        authoritiesInvolved
+                        authorityInvolvedOther
+                        branchOther
+                        businessOwnerEmail
+                        businessOwnerJobTitle
+                        businessOwnerName
+                        commodityType
+                        commodityTypeOther
+                        contractAmendable
+                        contractBehalfOfGc
+                        contractEndDate
+                        contractExtendable
+                        contractForDigitalInitiative
+                        contractMultiyear
+                        contractResourcesStartTimeframe
+                        contractServiceOfGc
+                        contractStartDate
+                        contractTitle
+                        contractValue
+                        contractingRationalePrimary
+                        contractingRationalePrimaryOther
+                        contractingRationalesSecondary
+                        contractingRationalesSecondaryOther
+                        department { id }
+                        departmentOther
+                        digitalInitiativeName
+                        digitalInitiativePlanComplemented
+                        digitalInitiativePlanSubmitted
+                        digitalInitiativePlanUpdated
+                        employeesHaveAccessToKnowledge
+                        financialAuthorityEmail
+                        financialAuthorityJobTitle
+                        financialAuthorityName
+                        hasFutureImpactOnOtherDepartments
+                        hasImmediateImpactOnOtherDepartments
+                        hasImpactOnYourDepartment
+                        hasPersonnelRequirements
+                        instrumentType
+                        isTechnologicalChange
+                        knowledgeTransferInContract
+                        methodOfSupply
+                        methodOfSupplyOther
+                        ocioConfirmedTalentShortage
+                        ocioEngagedForTraining
+                        ongoingNeedForKnowledge
+                        operationsConsiderations
+                        operationsConsiderationsOther
+                        personnelRequirements {
+                            language
+                            languageOther
+                            quantity
+                            resourceType
+                            security
+                            securityOther
+                            skillRequirements {
+                                level
+                                skill { id }
+                            }
+                            telework
                         }
-                        }
-                        telework
-                    }
-                    qualificationRequirement
-                    readPreamble
-                    requirementAccessToSecure
-                    requirementOtherOther
-                    requirementOthers
-                    requirementScreeningLevelOther
-                    requirementScreeningLevels
-                    requirementWorkLanguageOther
-                    requirementWorkLanguages
-                    requirementWorkLocationSpecific
-                    requirementWorkLocations
-                    solicitationProcedure
-                    subjectToTradeAgreement
-                    talentSearchTrackingNumber
-                    workRequirementDescription
+                        qualificationRequirement
+                        readPreamble
+                        requirementAccessToSecure
+                        requirementOtherOther
+                        requirementOthers
+                        requirementScreeningLevelOther
+                        requirementScreeningLevels
+                        requirementWorkLanguageOther
+                        requirementWorkLanguages
+                        requirementWorkLocationSpecific
+                        requirementWorkLocations
+                        solicitationProcedure
+                        subjectToTradeAgreement
+                        talentSearchTrackingNumber
+                        workRequirementDescription
                     }
                 }
         ',

@@ -9,10 +9,10 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
- * This rule is for arrays that might contain an "OTHER" or "SPECIFIC" element that requires (or prohibits) a
+ * This rule is for values that might be "OTHER" or "SPECIFIC" that requires (or prohibits) a
  * free-form detail field being filled in.
  */
-class ArrayConsistentWithDetail implements DataAwareRule, ValidationRule
+class ScalarConsistentWithDetail implements DataAwareRule, ValidationRule
 {
     /**
      * Indicates whether the rule should be implicit.
@@ -52,28 +52,28 @@ class ArrayConsistentWithDetail implements DataAwareRule, ValidationRule
         }
 
         // if the primary field is missing make sure the detail field is also missing
-        if (!is_array($value) && Arr::has($this->data, $fullyQualifiedDetailFieldName)) {
-            $fail('The ' . $attribute . ' array is missing and requires that ' . $this->detailFieldName . ' also be missing.');
+        if (empty($value) && Arr::has($this->data, $fullyQualifiedDetailFieldName)) {
+            $fail('The ' . $attribute . ' value is missing and requires that ' . $this->detailFieldName . ' also be missing.');
         }
 
         // make sure the detail field is present
-        if (is_array($value) && !Arr::has($this->data, $fullyQualifiedDetailFieldName)) {
-            $fail('The ' . $attribute . ' array is present and requires that ' . $this->detailFieldName . ' also be present.');
+        if (!empty($value) && !Arr::has($this->data, $fullyQualifiedDetailFieldName)) {
+            $fail('The ' . $attribute . ' value is present and requires that ' . $this->detailFieldName . ' also be present.');
         }
 
-        // the array is present and contains the element that needs a detail field
-        if (is_array($value) && in_array($this->element, $value)) {
+        // the scalar matches the element that needs a detail field
+        if ($value == $this->element) {
             // check that detail field is not empty
             if (empty(Arr::get($this->data, $fullyQualifiedDetailFieldName))) {
-                $fail('The ' . $attribute . ' array contains ' . $this->element . ' so ' . $this->detailFieldName . ' must not be empty.');
+                $fail('The ' . $attribute . ' value is ' . $this->element . ' so ' . $this->detailFieldName . ' must not be empty.');
             }
         }
 
-        // the array is present but does not contain the element that needs a detail field
-        if (is_array($value) && !in_array($this->element, $value)) {
+        // the scalar is present but does not match the element that needs a detail field
+        if (!empty($value) && $value != $this->element) {
             // check that the detail field is empty
             if (!empty(Arr::get($this->data, $fullyQualifiedDetailFieldName))) {
-                $fail('The ' . $attribute . ' array does not contain ' . $this->element . ' so ' . $this->detailFieldName . ' must be empty.');
+                $fail('The ' . $attribute . ' value is ' . $this->element . ' so ' . $this->detailFieldName . ' must be empty.');
             }
         }
     }

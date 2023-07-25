@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Rules\ScalarConsistentWithDetail;
 use Database\Helpers\DirectiveFormsApiEnums;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -15,13 +16,11 @@ final class DigitalContractingPersonnelRequirementInput extends Validator
     public function rules(): array
     {
         return [
-            'languageOther' => [
-                'requiredIf:language,' . DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER,
-                'prohibited_unless:language,' . DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER,
+            'language' => [
+                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, 'languageOther')
             ],
-            'securityOther' => [
-                'requiredIf:security,' . DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER,
-                'prohibited_unless:security,' . DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER,
+            'security' => [
+                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, 'securityOther')
             ],
             'quantity' => [
                 'integer',
