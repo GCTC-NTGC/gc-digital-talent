@@ -2,7 +2,6 @@ query getMe {
   me {
     id
     sub
-    legacyRoles
     firstName
     lastName
     email
@@ -57,8 +56,6 @@ query getMe {
     isIndigenous
     indigenousCommunities
     indigenousDeclarationSignature
-    indigenousCommunities
-    indigenousDeclarationSignature
     isVisibleMinority
     jobLookingStatus
     hasDiploma
@@ -76,10 +73,21 @@ query getMe {
       level
     }
     positionDuration
+    userSkills {
+      id
+      skill {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
     experiences {
       id
       __typename
-      applicant {
+      user {
         id
         email
       }
@@ -141,5 +149,43 @@ query getMe {
       }
     }
     isProfileComplete
+    poolCandidates {
+      id
+      status
+      archivedAt
+      submittedAt
+      suspendedAt
+      user {
+        id
+      }
+      pool {
+        id
+        closingDate
+        name {
+          en
+          fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
+          name {
+            en
+            fr
+          }
+          genericJobTitles {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
+          minSalary
+          maxSalary
+        }
+      }
+    }
   }
 }

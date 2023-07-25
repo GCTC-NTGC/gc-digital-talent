@@ -8,14 +8,11 @@ export type Color =
   | "primary"
   | "primary.dark"
   | "secondary"
-  | "cta"
+  | "tertiary"
+  | "quaternary"
+  | "quinary"
   | "white"
-  | "black"
-  | "ia-primary"
-  | "ia-secondary"
-  | "yellow"
-  | "red"
-  | "blue";
+  | "black";
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
@@ -33,8 +30,18 @@ const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-color":
       "base:children[>*](black) base:dark:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](black)",
   },
-  cta: {
+  tertiary: {
     "data-h2-background-color": "base(tertiary)",
+    "data-h2-color":
+      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
+  },
+  quaternary: {
+    "data-h2-background-color": "base(quaternary)",
+    "data-h2-color":
+      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
+  },
+  quinary: {
+    "data-h2-background-color": "base(quinary)",
     "data-h2-color":
       "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
@@ -47,31 +54,6 @@ const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-background-color": "base(black) base:dark(black.lighter)",
     "data-h2-color":
       "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
-  },
-  "ia-primary": {
-    "data-h2-background-color": "base(primary)",
-    "data-h2-color":
-      "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
-  },
-  "ia-secondary": {
-    "data-h2-background-color": "base(secondary)",
-    "data-h2-color":
-      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](black)",
-  },
-  yellow: {
-    "data-h2-background-color": "base(quaternary)",
-    "data-h2-color":
-      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
-  },
-  red: {
-    "data-h2-background-color": "base(tertiary)",
-    "data-h2-color":
-      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
-  },
-  blue: {
-    "data-h2-background-color": "base(secondary)",
-    "data-h2-color":
-      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
   },
 };
 

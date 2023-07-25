@@ -63,8 +63,6 @@ class UserFactory extends Factory
             'preferred_lang' => $this->faker->randomElement(['en', 'fr']),
             'preferred_language_for_interview' => $this->faker->randomElement(['en', 'fr']),
             'preferred_language_for_exam' => $this->faker->randomElement(['en', 'fr']),
-
-            'legacy_roles' => [],
             'job_looking_status' => null,
             'current_province' => $this->faker->randomElement([
                 'BRITISH_COLUMBIA',
@@ -193,11 +191,11 @@ class UserFactory extends Factory
                 WorkExperience::factory()->create(['user_id' => $user->id]);
                 $user->refresh();
             }
-            // Tale $count random skills and assign each to a random experience of this user.
-            foreach (Skill::inRandomOrder()->take($count)->get() as $skill) {
-                $experience = $this->faker->randomElement($user->experiences);
-                $experience->skills()->save($skill);
-            }
+
+            // Take $count random skills and assign each to a random experience of this user.
+            $skills = Skill::inRandomOrder()->take($count)->get();
+            $experience = $this->faker->randomElement($user->experiences);
+            $experience->syncSkills($skills->only(['id']));
         });
     }
 

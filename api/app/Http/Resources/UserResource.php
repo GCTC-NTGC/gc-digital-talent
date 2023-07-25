@@ -55,7 +55,6 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'sub' => $this->sub,
-            'legacyRoles' => $this->legacy_roles,
             'firstName' => $this->first_name,
             'lastName' => $this->last_name,
             'email' => $this->email,
@@ -100,6 +99,7 @@ class UserResource extends JsonResource
             'experiences' => $collection,
             'priorityNumber' => $this->priority_number,
             'isProfileComplete' => $this->isProfileComplete,
+            'userSkills' => UserSkillResource::collection($this->whenLoaded('userSkills')),
         ];
     }
 }

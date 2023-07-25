@@ -46,12 +46,17 @@ class SnapshotTest extends TestCase
             ->asApplicant()
             ->create();
 
+        $pool1 = Pool::factory()->published()->create();
+        $pool2 = Pool::factory()->published()->create();
+
         $poolCandidate = PoolCandidate::factory()->create([
             "user_id" => $user->id,
+            "pool_id" => $pool1->id,
             "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
         ]);
         $poolCandidateUnrelated = PoolCandidate::factory()->create([
             "user_id" => $user->id,
+            "pool_id" => $pool2->id,
             "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
         ]);
 
@@ -80,11 +85,11 @@ class SnapshotTest extends TestCase
         $decodedActual = json_decode($actualSnapshot, true);
 
         // there are two pool candidates present, only one should appear in the snapshot, adjust expectedSnapshot to fit this
-        $filteredPoolCandidates = array_filter($expectedSnapshot['poolCandidates'], function ($individualPoolCandidate) use ($poolCandidate) {
-            return in_array($poolCandidate['id'], $individualPoolCandidate);
-        });
+        // array_values reindexes the array from zero https://stackoverflow.com/a/3401863
+        $filteredPoolCandidates = array_values(array_filter($expectedSnapshot['poolCandidates'], function ($individualPoolCandidate) use ($poolCandidate) {
+            return $poolCandidate['id'] === $individualPoolCandidate['id'];
+        }));
         $expectedSnapshot['poolCandidates'] = $filteredPoolCandidates;
-
         assertEquals($expectedSnapshot, $decodedActual);
     }
 
@@ -99,13 +104,10 @@ class SnapshotTest extends TestCase
                 ->count(2)
                 ->for($user)
                 ->afterCreating(function ($model) use ($faker) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                    $data = [
-                        $skills[0] => ['details' => $faker->text()],
-                        $skills[1] => ['details' => $faker->text()],
-                        $skills[2] => ['details' => $faker->text()],
-                    ];
-                    $model->skills()->sync($data);
+                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->map(function ($skill_id) use ($faker) {
+                        return ['id' => $skill_id, 'details' => $faker->text()];
+                    });
+                    $model->syncSkills($skills);
                 })->create();
         });
 

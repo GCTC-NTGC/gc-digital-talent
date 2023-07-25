@@ -601,9 +601,11 @@ class PoolCandidate extends Model
                 if ($user->isAbleTo("view-team-submittedApplication")) {
                     $teamIds = $user->rolesTeams()->get()->pluck('id');
                     $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
-                        return $query->whereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
+                        return $query
+                            ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                            ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            });
                     });
                 }
 
@@ -654,25 +656,10 @@ class PoolCandidate extends Model
         return $query->addSelect([
             'skill_count' => Skill::whereIn('skills.id', $skills)
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
-                ->select(DB::raw('count(*) as skills'))
-                ->where(function (Builder $query) {
-                    $query->orWhereHas('awardExperiences', function (Builder $query) {
-                        $query->whereColumn('user_id', 'users.id');
-                    })
-                        ->orWhereHas('educationExperiences', function (Builder $query) {
-                            $query->whereColumn('user_id', 'users.id');
-                        })
-                        ->orWhereHas('communityExperiences', function (Builder $query) {
-                            $query->whereColumn('user_id', 'users.id');
-                        })
-                        ->orWhereHas('personalExperiences', function (Builder $query) {
-                            $query->whereColumn('user_id', 'users.id');
-                        })
-                        ->orWhereHas('workExperiences', function (Builder $query) {
-                            $query->whereColumn('user_id', 'users.id');
-                        });
+                ->whereHas('userSkills', function (Builder $query) {
+                    $query->whereColumn('user_id', 'users.id');
                 })
-
+                ->select(DB::raw('count(*) as skills'))
         ]);
     }
 }

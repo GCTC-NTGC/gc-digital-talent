@@ -15,39 +15,54 @@ import {
   PoolCandidate,
   WorkRegion,
   SalaryRange,
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  WorkExperience,
   GovEmployeeType,
-  Applicant,
   Department,
   CitizenshipStatus,
   ArmedForcesStatus,
   GenericJobTitle,
   PositionDuration,
   IndigenousCommunity,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 
+import {
+  GeneratedAwardExperience,
+  GeneratedCommunityExperience,
+  GeneratedEducationExperience,
+  GeneratedPersonalExperience,
+  GeneratedWorkExperience,
+} from "./fakeExperiences";
 import fakeClassifications from "./fakeClassifications";
 import fakeDepartments from "./fakeDepartments";
 import fakeGenericJobTitles from "./fakeGenericJobTitles";
+
+type GeneratedUser = User & {
+  __typename: "User";
+  experiences: Maybe<
+    Maybe<
+      | GeneratedAwardExperience
+      | GeneratedCommunityExperience
+      | GeneratedEducationExperience
+      | GeneratedPersonalExperience
+      | GeneratedWorkExperience
+    >[]
+  >;
+};
 
 const generateUser = (
   departments: Department[],
   classifications: Classification[], // all classifications
   genericJobTitles: GenericJobTitle[], // all generic job titles
 
-  awardExperiences: AwardExperience[], // Experiences belonging to this user
-  communityExperiences: CommunityExperience[], // Experiences belonging to this user
-  educationExperiences: EducationExperience[], // Experiences belonging to this user
-  personalExperiences: PersonalExperience[], // Experiences belonging to this user
-  workExperiences: WorkExperience[], // Experiences belonging to this user
+  awardExperiences: GeneratedAwardExperience[], // Experiences belonging to this user
+  communityExperiences: GeneratedCommunityExperience[], // Experiences belonging to this user
+  educationExperiences: GeneratedEducationExperience[], // Experiences belonging to this user
+  personalExperiences: GeneratedPersonalExperience[], // Experiences belonging to this user
+  workExperiences: GeneratedWorkExperience[], // Experiences belonging to this user
 
   poolCandidates: PoolCandidate[] = [], // poolCandidates associating this user with a pool
   pools: Pool[] = [], // pools owned by this user
-): User => {
+): GeneratedUser => {
   faker.setLocale("en");
 
   return {
@@ -177,16 +192,16 @@ const generateUser = (
 };
 
 // Default generator will not include any experiences, poolCandidates or pools
-export const defaultGenerator = (numToGenerate = 20): User[] => {
+export const defaultGenerator = (numToGenerate = 20): GeneratedUser[] => {
   const departments = fakeDepartments();
   const classifications = fakeClassifications();
   const genericJobTitles = fakeGenericJobTitles();
 
-  const awardExperiences: AwardExperience[] = [];
-  const communityExperiences: CommunityExperience[] = [];
-  const educationExperiences: EducationExperience[] = [];
-  const personalExperiences: PersonalExperience[] = [];
-  const workExperiences: WorkExperience[] = [];
+  const awardExperiences: GeneratedAwardExperience[] = [];
+  const communityExperiences: GeneratedCommunityExperience[] = [];
+  const educationExperiences: GeneratedEducationExperience[] = [];
+  const personalExperiences: GeneratedPersonalExperience[] = [];
+  const workExperiences: GeneratedWorkExperience[] = [];
 
   faker.seed(0); // repeatable results
   return [...Array(numToGenerate)].map(() =>
@@ -203,13 +218,8 @@ export const defaultGenerator = (numToGenerate = 20): User[] => {
   );
 };
 
-export const fakeApplicants = (numToGenerate = 20): Applicant[] => {
-  return defaultGenerator(numToGenerate).map((user) => {
-    return {
-      ...user,
-      __typename: "Applicant",
-    };
-  });
+export const fakeApplicants = (numToGenerate = 20): GeneratedUser[] => {
+  return defaultGenerator(numToGenerate);
 };
 
 export default defaultGenerator;

@@ -59,7 +59,6 @@ Queueable
 recruitmentimit
 recruitments
 recrutementgiti
-résumé
 rolepermission
 skillset
 spinbutton
@@ -69,6 +68,7 @@ TALENTSEARCH
 TELEWORK
 testid
 textbox
+Timeframe
 toastify
 Typenames
 Unencrypted

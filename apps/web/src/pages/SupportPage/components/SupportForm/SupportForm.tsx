@@ -7,7 +7,7 @@ import {
   Input,
   Submit,
   TextArea,
-  SelectFieldV2,
+  MultiSelectFieldBase,
 } from "@gc-digital-talent/forms";
 import { errorMessages, apiMessages } from "@gc-digital-talent/i18n";
 import { Pending, Button, Link } from "@gc-digital-talent/ui";
@@ -170,7 +170,7 @@ const SupportForm = ({
               }}
               trackUnsaved={false}
             />
-            <SelectFieldV2
+            <MultiSelectFieldBase
               id="subject"
               name="subject"
               rules={{

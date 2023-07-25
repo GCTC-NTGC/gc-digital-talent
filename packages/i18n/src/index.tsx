@@ -17,6 +17,7 @@ import {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
+  withLocalizedQuotes,
 } from "./utils/localize";
 
 import {
@@ -50,8 +51,8 @@ import {
   getWorkRegion,
   getPoolCandidateStatus,
   getPoolCandidateSearchStatus,
+  getPoolCandidateSearchPositionType,
   getSkillCategory,
-  getRole,
   getGenericJobTitles,
   getGenericJobTitlesWithClassification,
   getAwardedTo,
@@ -94,6 +95,7 @@ export {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
+  withLocalizedQuotes,
   STORED_LOCALE,
   apiMessages,
   commonMessages,
@@ -130,8 +132,8 @@ export {
   getWorkRegion,
   getPoolCandidateStatus,
   getPoolCandidateSearchStatus,
+  getPoolCandidateSearchPositionType,
   getSkillCategory,
-  getRole,
   getGenericJobTitles,
   getGenericJobTitlesWithClassification,
   getAwardedTo,

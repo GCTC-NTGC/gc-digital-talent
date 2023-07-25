@@ -68,14 +68,14 @@ return [
         'poolClosingDate' => 'poolClosingDate',
         'application' => 'application',
         'submittedApplication' => 'submittedApplication',
-        'applicantProfile' => 'applicantProfile',
         'draftApplication' => 'draftApplication',
         'applicationStatus' => 'applicationStatus',
         'applicantCount' => 'applicantCount',
         'searchRequest' => 'searchRequest',
         'team' => 'team',
         'teamMembers' => 'teamMembers',
-        'role' => 'role'
+        'role' => 'role',
+        'directiveForm' => 'directiveForm'
     ],
 
     /*
@@ -135,7 +135,7 @@ return [
         ],
         'delete-any-genericJobTitle' => [
             'en' => 'Delete Any Generic Job Title',
-            'fr' => 'Supprimer tout titre générique de l\emploi'
+            'fr' => 'Supprimer tout titre générique de l\'emploi'
         ],
 
         'view-any-skill' => [
@@ -187,6 +187,10 @@ return [
         'view-own-user' => [
             'en' => 'View Own User',
             'fr' => 'Visionner son propre utilisateur'
+        ],
+        'view-team-user' => [
+            'en' => 'View Team User',
+            'fr' => 'Visionner l\'utilisateur de l\'équipe'
         ],
         'update-any-user' => [
             'en' => 'Update Any User',
@@ -249,18 +253,6 @@ return [
         'view-any-submittedApplication' => [
             'en' => 'View any submitted Applications',
             'fr' => 'Voir n\import quelle candidature soumises à n\'importe quel bassin.'
-        ],
-        'view-own-applicantProfile' => [
-            'en' => 'View own Applicant Profile.',
-            'fr' => 'Voir son propre profil de candidat.'
-        ],
-        'view-team-applicantProfile' => [
-            'en' => 'View the Profile of a users accepted to any of this Team\'s Pools',
-            'fr' => 'Voir le profil d\'un utilisateur accepté dans l\'un des bassins de cette équipe.'
-        ],
-        'view-any-applicantProfile' => [
-            'en' => 'View the Profile of any user accepted into any Pool',
-            'fr' => 'Voir le profil de n\'import quel utilisateur accepté dans n\'import quel bassin.'
         ],
         'create-own-draftApplication' => [
             'en' => 'Begin my own Application to any Pool',
@@ -378,6 +370,23 @@ return [
         'update-any-role' => [
             'en' => 'Update metadata associated with any Role',
             'fr' => 'Mettre à jour des métadonnées associées à tout rôle'
+        ],
+
+        'create-any-directiveForm' => [
+            'en' => 'Create any directive form',
+            'fr' => 'Créer tout formulaire de directive'
+        ],
+        'view-any-directiveForm' => [
+            'en' => 'View any directive form',
+            'fr' => 'Voir tout formulaire de directive'
+        ],
+        'update-any-directiveForm' => [
+            'en' => 'Update any directive form',
+            'fr' => 'Mise à jour de tout formulaire de directive'
+        ],
+        'delete-any-directiveForm' => [
+            'en' => 'Delete any directive form',
+            'fr' => 'Supprimer tout formulaire de directive'
         ],
     ],
 
@@ -562,9 +571,6 @@ return [
             'submittedApplication' => [
                 'own' => ['archive', 'suspend']
             ],
-            'applicantProfile' => [
-                'own' => ['view']
-            ],
         ],
 
         'pool_operator' => [
@@ -580,9 +586,6 @@ return [
             'submittedApplication' => [
                 'team' => ['view']
             ],
-            'applicantProfile' => [
-                'team' => ['view']
-            ],
             'applicationStatus' => [
                 'team' => ['update']
             ],
@@ -592,13 +595,13 @@ return [
             'role' => [
                 'any' => ['view'],
             ],
+            'user' => [
+                'team' => ['view']
+            ]
         ],
 
         'request_responder' => [
             'submittedApplication' => [
-                'any' => ['view'],
-            ],
-            'applicantProfile' => [
                 'any' => ['view'],
             ],
             'applicationStatus' => [
@@ -607,6 +610,9 @@ return [
             'searchRequest' => [
                 'any' => ['view', 'update', 'delete']
             ],
+            'user' => [
+                'any' => ['view']
+            ]
         ],
 
         'platform_admin' => [
@@ -624,9 +630,6 @@ return [
             ],
             'skillFamily' => [
                 'any' => ['create', 'update', 'delete']
-            ],
-            'applicantProfile' => [
-                'any' => ['view'],
             ],
             'user' => [
                 'any' => ['create', 'view', 'update', 'delete']
@@ -648,6 +651,9 @@ return [
             ],
             'role' => [
                 'any' => ['view', 'assign']
+            ],
+            'directiveForm' => [
+                'any' => ['create', 'view', 'update', 'delete']
             ]
         ]
     ]

@@ -1,7 +1,7 @@
-import { Applicant, ApplicationStep, Pool } from "@gc-digital-talent/graphql";
+import { ApplicationStep, Pool } from "@gc-digital-talent/graphql";
 import { IntlShape } from "react-intl";
 
-import { PoolCandidate, Scalars } from "~/api/generated";
+import { PoolCandidate, Scalars, User } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import { PageNavInfo } from "./pages";
@@ -29,7 +29,7 @@ export type ApplicationStepInfo = {
   prerequisites: Array<ApplicationStep>;
   // Is the applicant valid as far as this step is concerned?
   hasError?: (
-    applicant: Applicant,
+    user: User,
     pool: Pool,
     application: Omit<PoolCandidate, "pool">,
   ) => boolean;

@@ -122,6 +122,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
     <Table
       data={data}
       columns={columns}
+      hiddenCols={["id"]}
       addBtn={{
         path: paths.skillCreate(),
         label: intl.formatMessage({

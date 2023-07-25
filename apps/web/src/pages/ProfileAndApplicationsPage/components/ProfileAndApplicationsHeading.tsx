@@ -46,7 +46,7 @@ import { StatusItem } from "~/components/StatusItem/StatusItem";
 import { HeroCard } from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
-import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import { PartialUser } from "../types";
 
 function buildLink(
@@ -138,16 +138,20 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       subtitle={intl.formatMessage(
         {
           defaultMessage:
-            // TODO: split résumé and skills into two separate links when the sections exist
-            "Manage your <a1>profile</a1>, <a2>résumé, skills</a2>, and <a3>track applications</a3>.",
-          id: "zJHMt9",
+            // TODO: split career timeline and skills into two separate links when the sections exist
+            "Manage your <a1>profile</a1>, <a2>career timeline, skills</a2>, and <a3>track applications</a3>.",
+          id: "dwspOv",
           description: "Subtitle for profile and applications hero",
         },
         {
           a1: (chunks: React.ReactNode) =>
             buildLink(paths.profile(user.id), chunks, "white"),
           a2: (chunks: React.ReactNode) =>
-            buildLink(paths.resumeAndRecruitment(user.id), chunks, "white"),
+            buildLink(
+              paths.careerTimelineAndRecruitment(user.id),
+              chunks,
+              "white",
+            ),
           a3: (chunks: React.ReactNode) =>
             buildScrollToLink("track-applications-section", chunks, "white"),
         },
@@ -194,8 +198,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "When you log into your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your position in the program.",
-                id: "Z9wBwT",
+                  "When you sign in to your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your position in the program.",
+                id: "GQsJAi",
                 description:
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },
@@ -248,8 +252,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "When you log into your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your status in the program.",
-                id: "vYvmxq",
+                  "When you sign in to your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your status in the program.",
+                id: "Hf3x3E",
                 description:
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },
@@ -356,35 +360,30 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             }
             href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.LANGUAGE)}
           />
-          {
-            /* enable in #6772 */
-            false && (
-              <StatusItem
-                asListItem
-                title={intl.formatMessage({
-                  defaultMessage: "Account and privacy settings",
-                  id: "O+Lj1u",
-                  description:
-                    "Title of the Account and privacy settings link section",
-                })}
-                href={paths.profile(
-                  user.id,
-                  // this section doesn't exist yet
-                  PROFILE_PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY,
-                )}
-                icon={LockClosedIcon}
-              />
-            )
-          }
+          <StatusItem
+            asListItem
+            title={intl.formatMessage({
+              defaultMessage: "Account and privacy settings",
+              id: "O+Lj1u",
+              description:
+                "Title of the Account and privacy settings link section",
+            })}
+            href={paths.profile(
+              user.id,
+              PROFILE_PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY,
+            )}
+            icon={LockClosedIcon}
+          />
         </HeroCard>
         <HeroCard
           color="tertiary"
           title={intl.formatMessage({
-            defaultMessage: "Résumé and recruitments",
-            id: "FSViGC",
-            description: "Profile and applications card title for résumé card",
+            defaultMessage: "Career timeline and recruitments",
+            id: "BYxqL/",
+            description:
+              "Profile and applications card title for career timeline card",
           })}
-          href={paths.resumeAndRecruitment(user.id)}
+          href={paths.careerTimelineAndRecruitment(user.id)}
         >
           <StatusItem
             title={intl.formatMessage({
@@ -442,9 +441,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                 .length
             }
             icon={ShieldCheckIcon}
-            href={paths.resumeAndRecruitment(user.id, {
+            href={paths.careerTimelineAndRecruitment(user.id, {
               section:
-                RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
+                CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
             })}
           />
         </HeroCard>

@@ -2,6 +2,7 @@ import {
   hasAllEmptyFields as aboutSectionHasAllEmptyFields,
   hasEmptyOptionalFields as aboutSectionHasEmptyOptionalFields,
   hasEmptyRequiredFields as aboutSectionHasEmptyRequiredFields,
+  PartialUser as PartialUserAbout,
 } from "./about";
 
 import {
@@ -9,12 +10,14 @@ import {
   hasAllEmptyFields as diversityEquityInclusionSectionHasAllEmptyFields,
   hasEmptyOptionalFields as diversityEquityInclusionSectionHasEmptyOptionalFields,
   hasEmptyRequiredFields as diversityEquityInclusionSectionHasEmptyRequiredFields,
+  PartialUser as PartialUserDei,
 } from "./diversityEquityInclusion";
 
 import {
   hasAllEmptyFields as governmentInformationSectionHasAllEmptyFields,
   hasEmptyOptionalFields as governmentInformationSectionHasEmptyOptionalFields,
   hasEmptyRequiredFields as governmentInformationSectionHasEmptyRequiredFields,
+  PartialUser as PartialUserGovernment,
 } from "./governmentInformation";
 
 import {
@@ -22,6 +25,7 @@ import {
   hasEmptyOptionalFields as languageInformationSectionHasEmptyOptionalFields,
   hasEmptyRequiredFields as languageInformationSectionHasEmptyRequiredFields,
   hasUnsatisfiedRequirements as languageInformationSectionHasUnsatisfiedRequirements,
+  PartialUser as PartialUserLanguage,
 } from "./languageInformation";
 
 import {
@@ -29,6 +33,7 @@ import {
   hasAllEmptyFields as roleSalarySectionHasAllEmptyFields,
   hasEmptyOptionalFields as roleSalarySectionHasEmptyOptionalFields,
   hasEmptyRequiredFields as roleSalarySectionHasEmptyRequiredFields,
+  PartialUser as PartialUserRoleSalary,
 } from "./roleSalary";
 
 import {
@@ -36,15 +41,17 @@ import {
   hasAllEmptyFields as workLocationSectionHasAllEmptyFields,
   hasEmptyOptionalFields as workLocationSectionHasEmptyOptionalFields,
   hasEmptyRequiredFields as workLocationSectionHasEmptyRequiredFields,
+  PartialUser as PartialUserLocation,
 } from "./workLocation";
 
 import {
   hasAllEmptyFields as workPreferencesSectionHasAllEmptyFields,
   hasEmptyOptionalFields as workPreferencesSectionHasEmptyOptionalFields,
   hasEmptyRequiredFields as workPreferencesSectionHasEmptyRequiredFields,
+  PartialUser as PartialUserPreferences,
 } from "./workPreferences";
 
-import { isIncomplete as resumeIsIncomplete } from "./resume";
+import { isIncomplete as careerTimelineIsIncomplete } from "./careerTimeline";
 
 import { isIncomplete as skillRequirementsIsIncomplete } from "./skillRequirements";
 
@@ -76,7 +83,14 @@ export {
   workPreferencesSectionHasAllEmptyFields,
   workPreferencesSectionHasEmptyOptionalFields,
   workPreferencesSectionHasEmptyRequiredFields,
-  resumeIsIncomplete,
+  careerTimelineIsIncomplete,
   skillRequirementsIsIncomplete,
   screeningQuestionsSectionHasMissingResponses,
+  PartialUserAbout,
+  PartialUserDei,
+  PartialUserGovernment,
+  PartialUserLanguage,
+  PartialUserLocation,
+  PartialUserPreferences,
+  PartialUserRoleSalary,
 };

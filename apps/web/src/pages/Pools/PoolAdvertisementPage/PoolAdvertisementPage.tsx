@@ -16,8 +16,8 @@ import {
   Heading,
   Pill,
   Link,
+  StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import {
   getLocale,
   getLanguageRequirement,
@@ -51,7 +51,6 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import { TALENTSEARCH_RECRUITMENT_EMAIL } from "~/constants/talentSearchConstants";
 
 import ApplicationLink from "./components/ApplicationLink";
 import Text from "./components/Text";
@@ -66,8 +65,8 @@ type SectionContent = {
   title: string;
 };
 
-const anchorTag = (chunks: React.ReactNode) => (
-  <Link external href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}>
+const anchorTag = (chunks: React.ReactNode, email: string) => (
+  <Link external href={`mailto:${email}`}>
     {chunks}
   </Link>
 );
@@ -101,6 +100,7 @@ export const PoolPoster = ({
   const fullTitle = getFullPoolTitleLabel(intl, pool);
 
   const showImpactTasks = !!(pool.keyTasks || pool.yourImpact);
+  const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);
 
   const languageRequirement = pool.language
     ? intl.formatMessage(getLanguageRequirement(pool.language))
@@ -112,6 +112,8 @@ export const PoolPoster = ({
 
   const essentialSkills = categorizeSkill(pool.essentialSkills);
   const nonEssentialSkills = categorizeSkill(pool.nonessentialSkills);
+
+  const contactEmail = pool.team?.contactEmail;
 
   const canApply = !!(pool?.status === PoolStatus.Published);
 
@@ -189,13 +191,22 @@ export const PoolPoster = ({
           "Title for the contact and accommodation section of a pool advertisement",
       }),
     },
-    hiringPolicies: {
-      id: "hiring-policies-section",
+    whoCanApply: {
+      id: "who-can-apply-section",
       title: intl.formatMessage({
-        defaultMessage: "Hiring policies",
-        id: "2gMnSu",
+        defaultMessage: "Who can apply?",
+        id: "UwdpPS",
         description:
           "Title for the hiring policies section of a pool advertisement",
+      }),
+    },
+    whatToExpect: {
+      id: "what-to-expect-section",
+      title: intl.formatMessage({
+        defaultMessage: "What to expect after you apply",
+        id: "D2HsoO",
+        description:
+          "Title for the what to expect section of a pool advertisement",
       }),
     },
     apply: {
@@ -256,14 +267,23 @@ export const PoolPoster = ({
                   {sections.locationLangSecurity.title}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
+              {contactEmail && (
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.contact.id}>
+                    {sections.contact.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              )}
+              {showWhatToExpect && (
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.whatToExpect.id}>
+                    {sections.whatToExpect.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              )}
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sections.contact.id}>
-                  {sections.contact.title}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sections.hiringPolicies.id}>
-                  {sections.hiringPolicies.title}
+                <TableOfContents.AnchorLink id={sections.whoCanApply.id}>
+                  {sections.whoCanApply.title}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               {canApply && (
@@ -459,8 +479,8 @@ export const PoolPoster = ({
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    'All opportunities on this platform require you to use your application to demonstrate a handful of required "occupational" or "technical" skills. Some opportunities will also assess “behavioural” or "soft" skills independently of your application, though you\'re free to add them to your resume.',
-                  id: "6F4HY/",
+                    'All opportunities on this platform require you to use your application to demonstrate a handful of required "occupational" or "technical" skills. Some opportunities will also assess “behavioural” or "soft" skills independently of your application, though you\'re free to add them to your career timeline.',
+                  id: "SiF2cz",
                   description:
                     "Descriptive text about how skills are defined and used for pool advertisements and applications",
                 })}
@@ -598,8 +618,8 @@ export const PoolPoster = ({
                 value={
                   pool.isRemote
                     ? intl.formatMessage({
-                        defaultMessage: "Remote optional",
-                        id: "NKbfoW",
+                        defaultMessage: "Remote, hybrid or on-site",
+                        id: "swESO/",
                         description:
                           "Location requirement when a pool advertisement is remote",
                       })
@@ -664,52 +684,54 @@ export const PoolPoster = ({
                 }
               />
             </TableOfContents.Section>
-            <TableOfContents.Section id={sections.contact.id}>
+            {contactEmail && (
+              <TableOfContents.Section id={sections.contact.id}>
+                <TableOfContents.Heading>
+                  {sections.contact.title}
+                </TableOfContents.Heading>
+                <Text>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "Please contact the <a>{name} team</a> by email if you have <strong>any questions</strong> or <strong>require an accommodation</strong> during this process.",
+                      id: "rKUVdL",
+                      description:
+                        "Opening sentence asking if accommodations are needed",
+                    },
+                    {
+                      a: (chunks: React.ReactNode) =>
+                        anchorTag(chunks, contactEmail),
+                      name: getLocalizedName(pool.team?.displayName, intl),
+                    },
+                  )}
+                </Text>
+              </TableOfContents.Section>
+            )}
+            {showWhatToExpect && (
+              <TableOfContents.Section id={sections.whatToExpect.id}>
+                <TableOfContents.Heading>
+                  {sections.whatToExpect.title}
+                </TableOfContents.Heading>
+                <Text>{getLocalizedName(pool.whatToExpect, intl)}</Text>
+              </TableOfContents.Section>
+            )}
+            <TableOfContents.Section id={sections.whoCanApply.id}>
               <TableOfContents.Heading>
-                {sections.contact.title}
+                {sections.whoCanApply.title}
               </TableOfContents.Heading>
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Do you require accommodations, or do you have any questions about this process?",
-                  id: "2K8q04",
-                  description:
-                    "Opening sentence asking if accommodations are needed",
+                    "Persons residing in Canada, and Canadian citizens and permanent residents abroad.",
+                  id: "faWz84",
+                  description: "List of criteria needed in order to apply",
                 })}
               </Text>
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Please contact the Digital Community Management team if you require any accommodations during this application process.",
-                  id: "p3j/0q",
-                  description:
-                    "Description of what to do when accommodations are needed",
-                })}
-              </Text>
-              <Text>
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "<strong>Email</strong>: <anchorTag>{emailAddress}</anchorTag>",
-                    id: "Wnw+oz",
-                    description: "An email address to contact for help",
-                  },
-                  {
-                    anchorTag,
-                    emailAddress: TALENTSEARCH_RECRUITMENT_EMAIL,
-                  },
-                )}
-              </Text>
-            </TableOfContents.Section>
-            <TableOfContents.Section id={sections.hiringPolicies.id}>
-              <TableOfContents.Heading>
-                {sections.hiringPolicies.title}
-              </TableOfContents.Heading>
-              <Text>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Preference will be given to veterans, Canadian citizens and to permanent residents.",
-                  id: "IF1xj8",
+                    "Preference will be given to veterans, Canadian citizens, and to permanent residents.",
+                  id: "aCg/OZ",
                   description: "First hiring policy for pool advertisement",
                 })}
               </Text>

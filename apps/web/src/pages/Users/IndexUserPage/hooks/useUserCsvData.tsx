@@ -14,16 +14,17 @@ import {
   employeeTypeToString,
   flattenExperiencesToSkills,
   getExpectedClassifications,
+  getIndigenousCommunities,
   getLocationPreference,
   getLookingForLanguage,
   getOperationalRequirements,
   yesOrNo,
 } from "~/utils/csvUtils";
 
-import { Applicant, PositionDuration } from "~/api/generated";
+import { User, PositionDuration } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
 
-const useUserCsvData = (applicants: Applicant[]) => {
+const useUserCsvData = (users: User[]) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -197,7 +198,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
       }),
     },
     {
-      key: "isIndigenous",
+      key: "indigenousCommunities",
       label: intl.formatMessage({
         defaultMessage: "Indigenous",
         id: "83v9YH",
@@ -235,7 +236,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
   ];
 
   const data: DownloadCsvProps["data"] = React.useMemo(() => {
-    const flattenedApplicants: DownloadCsvProps["data"] = applicants.map(
+    const flattenedApplicants: DownloadCsvProps["data"] = users.map(
       ({
         firstName,
         lastName,
@@ -260,7 +261,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
         positionDuration,
         acceptedOperationalRequirements,
         isWoman,
-        isIndigenous,
+        indigenousCommunities,
         isVisibleMinority,
         hasDisability,
         expectedGenericJobTitles,
@@ -310,7 +311,10 @@ const useUserCsvData = (applicants: Applicant[]) => {
           intl,
         ),
         isWoman: yesOrNo(isWoman, intl),
-        isIndigenous: yesOrNo(isIndigenous, intl),
+        indigenousCommunities: getIndigenousCommunities(
+          indigenousCommunities,
+          intl,
+        ),
         isVisibleMinority: yesOrNo(isVisibleMinority, intl),
         hasDisability: yesOrNo(hasDisability, intl),
         expectedClassification: getExpectedClassifications(
@@ -322,7 +326,7 @@ const useUserCsvData = (applicants: Applicant[]) => {
     );
 
     return flattenedApplicants;
-  }, [applicants, intl, locale]);
+  }, [users, intl, locale]);
 
   return { headers, data };
 };

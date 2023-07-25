@@ -27,6 +27,14 @@ const HomePage = React.lazy(() =>
       ),
   ),
 );
+const ManagerHomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsManagerHomePage" */ "../pages/Home/ManagerHomePage/ManagerHomePage"
+      ),
+  ),
+);
 const ErrorPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -87,27 +95,27 @@ const RequestConfirmationPage = React.lazy(() =>
 );
 
 /** Auth */
-const RegisterPage = React.lazy(() =>
+const SignUpPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsRegisterPage" */ "../pages/Auth/RegisterPage/RegisterPage"
+        /* webpackChunkName: "tsSignUpPage" */ "../pages/Auth/SignUpPage/SignUpPage"
       ),
   ),
 );
-const LoggedOutPage = React.lazy(() =>
+const SignedOutPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsLoggedOutPage" */ "../pages/Auth/LoggedOutPage/LoggedOutPage"
+        /* webpackChunkName: "tsSignedOutPage" */ "../pages/Auth/SignedOutPage/SignedOutPage"
       ),
   ),
 );
-const LoginPage = React.lazy(() =>
+const SignInPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsLoginPage" */ "../pages/Auth/LoginPage/LoginPage"
+        /* webpackChunkName: "tsSignInPage" */ "../pages/Auth/SignInPage/SignInPage"
       ),
   ),
 );
@@ -201,11 +209,11 @@ const EmploymentEquityPage = React.lazy(() =>
       ),
   ),
 );
-const ResumeAndRecruitmentPage = React.lazy(() =>
+const CareerTimelineAndRecruitmentPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsResumeAndRecruitmentPage" */ "../pages/Profile/ResumeAndRecruitmentPage/ResumeAndRecruitmentPage"
+        /* webpackChunkName: "tsCareerTimelineAndRecruitmentPage" */ "../pages/Profile/CareerTimelineAndRecruitmentPage/CareerTimelineAndRecruitmentPage"
       ),
   ),
 );
@@ -275,35 +283,35 @@ const ApplicationProfilePage = React.lazy(() =>
       ),
   ),
 );
-const ApplicationResumeIntroductionPage = React.lazy(() =>
+const ApplicationCareerTimelineIntroductionPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationResumeIntroductionPage" */ "../pages/Applications/ApplicationResumeIntroductionPage/ApplicationResumeIntroductionPage"
+        /* webpackChunkName: "tsApplicationCareerTimelineIntroductionPage" */ "../pages/Applications/ApplicationCareerTimelineIntroductionPage/ApplicationCareerTimelineIntroductionPage"
       ),
   ),
 );
-const ApplicationResumePage = React.lazy(() =>
+const ApplicationCareerTimelinePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationResumePage" */ "../pages/Applications/ApplicationResumePage/ApplicationResumePage"
+        /* webpackChunkName: "tsApplicationCareerTimelinePage" */ "../pages/Applications/ApplicationCareerTimelinePage/ApplicationCareerTimelinePage"
       ),
   ),
 );
-const ApplicationResumeAddPage = React.lazy(() =>
+const ApplicationCareerTimelineAddPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationResumeAddPage" */ "../pages/Applications/ApplicationResumeAddPage/ApplicationResumeAddPage"
+        /* webpackChunkName: "tsApplicationCareerTimelineAddPage" */ "../pages/Applications/ApplicationCareerTimelineAddPage/ApplicationCareerTimelineAddPage"
       ),
   ),
 );
-const ApplicationResumeEditPage = React.lazy(() =>
+const ApplicationCareerTimelineEditPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationResumeEditPage" */ "../pages/Applications/ApplicationResumeEditPage/ApplicationResumeEditPage"
+        /* webpackChunkName: "tsApplicationCareerTimelineEditPage" */ "../pages/Applications/ApplicationCareerTimelineEditPage/ApplicationCareerTimelineEditPage"
       ),
   ),
 );
@@ -699,6 +707,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
               element: <HomePage />,
             },
             {
+              path: "manager",
+              element: <ManagerHomePage />,
+            },
+            {
               path: "support",
               element: <SupportPage />,
             },
@@ -734,7 +746,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
             },
             {
               path: "register-info",
-              element: <RegisterPage />,
+              element: <SignUpPage />,
             },
             {
               path: "logged-out",
@@ -752,11 +764,11 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 }
                 return null;
               },
-              element: <LoggedOutPage />,
+              element: <SignedOutPage />,
             },
             {
               path: "login-info",
-              element: <LoginPage />,
+              element: <SignInPage />,
             },
             {
               path: "create-account",
@@ -902,7 +914,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           ),
                         },
                         {
-                          path: "resume-and-recruitment",
+                          path: "career-timeline-and-recruitment",
                           children: [
                             {
                               index: true,
@@ -911,7 +923,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
-                                  <ResumeAndRecruitmentPage />
+                                  <CareerTimelineAndRecruitmentPage />
                                 </RequireAuth>
                               ),
                             },
@@ -1027,23 +1039,25 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       element: <ApplicationProfilePage />,
                     },
                     {
-                      path: "resume",
+                      path: "career-timeline",
                       children: [
                         {
                           index: true,
-                          element: <ApplicationResumePage />,
+                          element: <ApplicationCareerTimelinePage />,
                         },
                         {
                           path: "introduction",
-                          element: <ApplicationResumeIntroductionPage />,
+                          element: (
+                            <ApplicationCareerTimelineIntroductionPage />
+                          ),
                         },
                         {
                           path: "add",
-                          element: <ApplicationResumeAddPage />,
+                          element: <ApplicationCareerTimelineAddPage />,
                         },
                         {
                           path: ":experienceId",
-                          element: <ApplicationResumeEditPage />,
+                          element: <ApplicationCareerTimelineEditPage />,
                         },
                       ],
                     },

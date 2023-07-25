@@ -101,6 +101,7 @@ export const SkillFamilyTable = ({
     <Table
       data={data}
       columns={columns}
+      hiddenCols={["id"]}
       addBtn={{
         path: paths.skillFamilyCreate(),
         label: intl.formatMessage({

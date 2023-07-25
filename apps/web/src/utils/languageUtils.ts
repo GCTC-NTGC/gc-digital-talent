@@ -1,13 +1,15 @@
 import { MessageDescriptor } from "react-intl";
 
-import { Applicant, Pool, PoolLanguage } from "@gc-digital-talent/graphql";
+import { User, Pool, PoolLanguage } from "@gc-digital-talent/graphql";
+
+export type PartialUser = Pick<User, "lookingForBilingual">;
 
 // Is the user missing the "looking for bilingual" profile option for this bilingual pool?
 export const isMissingLookingForBilingual = (
-  applicant?: Applicant,
+  user?: PartialUser,
   pool?: Pool | null,
 ): boolean => {
-  const userLookingForBilingual = !!applicant?.lookingForBilingual;
+  const userLookingForBilingual = !!user?.lookingForBilingual;
   const poolNeedsBilingual =
     pool?.language === PoolLanguage.BilingualIntermediate ||
     pool?.language === PoolLanguage.BilingualAdvanced;
@@ -19,12 +21,12 @@ export const isMissingLookingForBilingual = (
 
 // Get a list of missing language requirement error message descriptors
 export const getMissingLanguageRequirements = (
-  applicant?: Applicant,
+  user?: PartialUser,
   pool?: Pool | null,
 ): Array<MessageDescriptor> => {
   const errorMessages: Array<MessageDescriptor> = [];
 
-  if (isMissingLookingForBilingual(applicant, pool))
+  if (isMissingLookingForBilingual(user, pool))
     errorMessages.push({
       defaultMessage: "Bilingual positions (English and French)",
       id: "Mu+1pI",

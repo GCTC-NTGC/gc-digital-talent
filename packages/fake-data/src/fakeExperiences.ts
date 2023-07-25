@@ -8,7 +8,7 @@ import {
   PersonalExperience,
   WorkExperience,
   // required imports to generate AnExperience to export
-  Applicant,
+  User,
   ExperienceSkillRecord,
   Skill,
   // imports required by specific experiences and are linked
@@ -19,9 +19,19 @@ import {
 } from "@gc-digital-talent/graphql";
 import { getStaticSkills } from "./fakeSkills";
 
+type WithTypename<T extends { __typename?: string }> = T & {
+  __typename: NonNullable<T["__typename"]>;
+};
+
+export type GeneratedAwardExperience = WithTypename<AwardExperience>;
+export type GeneratedCommunityExperience = WithTypename<CommunityExperience>;
+export type GeneratedEducationExperience = WithTypename<EducationExperience>;
+export type GeneratedPersonalExperience = WithTypename<PersonalExperience>;
+export type GeneratedWorkExperience = WithTypename<WorkExperience>;
+
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 // defining the skills here
-const sampleApp: Applicant = {
+const sampleApp: User = {
   email: faker.internet.email(),
   id: faker.datatype.uuid(),
 };
@@ -40,12 +50,12 @@ const staticDates = {
 
 // 5 generators to generate experiences of a certain type
 // actual generators start here
-const generateAward = (): AwardExperience => {
+const generateAward = (): GeneratedAwardExperience => {
   faker.setLocale("en");
 
   return {
     __typename: "AwardExperience",
-    applicant: sampleApp,
+    user: sampleApp,
     id: faker.datatype.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,
@@ -76,11 +86,11 @@ const generateAward = (): AwardExperience => {
   };
 };
 
-const generateCommunity = (): CommunityExperience => {
+const generateCommunity = (): GeneratedCommunityExperience => {
   faker.setLocale("en");
   return {
     __typename: "CommunityExperience",
-    applicant: sampleApp,
+    user: sampleApp,
     id: faker.datatype.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,
@@ -98,11 +108,11 @@ const generateCommunity = (): CommunityExperience => {
   };
 };
 
-const generateEducation = (): EducationExperience => {
+const generateEducation = (): GeneratedEducationExperience => {
   faker.setLocale("en");
   return {
     __typename: "EducationExperience",
-    applicant: sampleApp,
+    user: sampleApp,
     id: faker.datatype.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,
@@ -137,11 +147,11 @@ const generateEducation = (): EducationExperience => {
   };
 };
 
-const generatePersonal = (): PersonalExperience => {
+const generatePersonal = (): GeneratedPersonalExperience => {
   faker.setLocale("en");
   return {
     __typename: "PersonalExperience",
-    applicant: sampleApp,
+    user: sampleApp,
     id: faker.datatype.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,
@@ -158,11 +168,11 @@ const generatePersonal = (): PersonalExperience => {
   };
 };
 
-const generateWork = (): WorkExperience => {
+const generateWork = (): GeneratedWorkExperience => {
   faker.setLocale("en");
   return {
     __typename: "WorkExperience",
-    applicant: sampleApp,
+    user: sampleApp,
     id: faker.datatype.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,

@@ -23,7 +23,7 @@ query GetProfileFormOptions {
 fragment experienceFragment on Experience {
   id
   __typename
-  applicant {
+  user {
     id
     email
   }
@@ -165,7 +165,7 @@ query GetApplication($id: UUID!) {
       experiences {
         id
         __typename
-        applicant {
+        user {
           id
           email
         }

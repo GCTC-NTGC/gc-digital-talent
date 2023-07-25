@@ -37,7 +37,7 @@ describe("Talentsearch Profile Page", () => {
         "/en/users/test-no-role/profile/work-location/edit",
         "/en/users/test-no-role/profile/work-preferences/edit",
         "/en/users/test-no-role/profile/employment-equity/edit",
-        "/en/users/test-no-role/profile/resume-and-recruitment",
+        "/en/users/test-no-role/profile/career-timeline-and-recruitment",
       ].forEach((restrictedPath) => {
         cy.visit(restrictedPath);
         cy.contains("not authorized");
@@ -50,20 +50,20 @@ describe("Talentsearch Profile Page", () => {
 
     it("loads page successfully", () => {
       cy.visit("/en/users/test-applicant/profile");
-      cy.contains("About me");
-      cy.contains("Language information");
-      cy.contains("Government information");
-      cy.contains("Work location");
+      cy.contains("Personal and contact information");
       cy.contains("Work preferences");
-      cy.contains("Diversity, equity and inclusion");
+      cy.contains("Diversity, equity, and inclusion");
+      cy.contains("Government employee information");
+      cy.contains("Language profile");
+      cy.contains("Account and privacy settings");
 
       cy.visit("/en/talent/profile");
-      cy.contains("About me");
-      cy.contains("Language information");
-      cy.contains("Government information");
-      cy.contains("Work location");
+      cy.contains("Personal and contact information");
       cy.contains("Work preferences");
-      cy.contains("Diversity, equity and inclusion");
+      cy.contains("Diversity, equity, and inclusion");
+      cy.contains("Government employee information");
+      cy.contains("Language profile");
+      cy.contains("Account and privacy settings");
     });
   });
 });

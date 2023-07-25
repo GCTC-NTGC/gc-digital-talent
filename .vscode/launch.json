@@ -7,7 +7,10 @@
       "port": 9003,
       "pathMappings": {
         "/home/site/wwwroot/": "${workspaceFolder}"
-      }
+      },
+      "linux": {
+        "hostname": "localhost", // WSL-specific: This is necessary when connecting to a webserver running in a docker container from inside WSL. If on native linux, you may need to comment out this line.
+      },
       // For configuration, see the infrastructure/conf/xdebug.ini file.
     },
     {
@@ -49,7 +52,9 @@
         // Can't debug packages currently. 😢
       ],
       "reloadOnChange": {
-        "watch": ["${workspaceFolder}/apps/web/dist"]
+        "watch": [
+          "${workspaceFolder}/apps/web/dist"
+        ]
       }
     }
   ]

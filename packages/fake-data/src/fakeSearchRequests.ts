@@ -3,6 +3,7 @@ import { faker } from "@faker-js/faker";
 import {
   ApplicantFilter,
   Department,
+  PoolCandidateSearchPositionType,
   PoolCandidateSearchRequest,
   PoolCandidateSearchStatus,
 } from "@gc-digital-talent/graphql";
@@ -22,6 +23,10 @@ const generateSearchRequest = (
     email: faker.internet.email(),
     department: faker.helpers.arrayElement<Department>(departments),
     jobTitle: faker.name.jobTitle(),
+    managerJobTitle: faker.name.jobTitle(),
+    positionType: faker.helpers.arrayElement<PoolCandidateSearchPositionType>(
+      Object.values(PoolCandidateSearchPositionType),
+    ),
     additionalComments: faker.lorem.sentences(5),
     applicantFilter:
       faker.helpers.arrayElement<ApplicantFilter>(applicantFilters),

@@ -4,7 +4,6 @@ query getProfile($userId: UUID!) {
   user(id: $userId) {
     id
     sub
-    legacyRoles
     firstName
     lastName
     email
@@ -78,6 +77,17 @@ query getProfile($userId: UUID!) {
     positionDuration
     experiences {
       ...experience
+    }
+    userSkills {
+      id
+      skill {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
     }
     poolCandidates {
       status
