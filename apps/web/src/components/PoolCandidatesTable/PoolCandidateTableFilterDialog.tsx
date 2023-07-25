@@ -8,12 +8,15 @@ import {
   BasicForm,
   MultiSelectFieldBase,
   MultiSelectField,
+  enumToOptions,
 } from "@gc-digital-talent/forms";
 
 import useFilterOptions from "~/components/Table/ApiManagedTable/useFilterOptions";
 
 import "./PoolCandidateFilterDialog.css";
 import adminMessages from "~/messages/adminMessages";
+import { PublishingGroup } from "@gc-digital-talent/graphql";
+import { getPublishingGroup } from "~/../../../packages/i18n/src/messages/localizedConstants";
 
 type Option = { value: string; label: string };
 
@@ -80,7 +83,7 @@ const PoolCandidateTableFilterDialog = ({
   activeFilters,
   enableEducationType = false,
 }: PoolCandidateTableFilterDialogProps): JSX.Element => {
-  const { formatMessage } = useIntl();
+  const { formatMessage, locale } = useIntl();
   const { optionsData, rawGraphqlResults } =
     useFilterOptions(enableEducationType);
 
@@ -119,6 +122,21 @@ const PoolCandidateTableFilterDialog = ({
             }}
           >
             <div data-h2-flex-grid="base(flex-start, x1, x.5)">
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
+                <MultiSelectField
+                  id="publishingGroup"
+                  name="publishingGroup"
+                  label={formatMessage(adminMessages.publishingGroups)}
+                  options={enumToOptions(PublishingGroup).map(({ value }) => ({
+                    value,
+                    label: formatMessage(getPublishingGroup(value)),
+                    ariaLabel: formatMessage(getPublishingGroup(value)).replace(
+                      locale === "en" ? "IT" : "TI",
+                      locale === "en" ? "I T" : "T I",
+                    ),
+                  }))}
+                />
+              </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
                   id="pools"
