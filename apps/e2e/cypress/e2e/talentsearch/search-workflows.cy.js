@@ -170,6 +170,9 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     // education requirement, no negation possible
+    cy.findByRole("button", {
+      name: /education requirement for the job/i,
+    }).click();
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,
     }).click();
@@ -178,14 +181,14 @@ describe("Talent Search Workflow Tests", () => {
 
     // work location - fail
     cy.findByRole("checkbox", {
-      name: /Atlantic/i,
+      name: /Atlantic \(NB, NS, PE and NL\)/i,
     }).click();
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
     searchRejectsMySingleCandidate();
 
     // work location - pass
     cy.findByRole("checkbox", {
-      name: /Ontario/i,
+      name: /Ontario \(excluding Ottawa area\)/i,
     }).click();
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
     searchFindsMySingleCandidate();
@@ -223,6 +226,9 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     // conditions of employment, no negation possible
+    cy.findByRole("button", {
+      name: /conditions of employment/i,
+    }).click();
     cy.findByRole("checkbox", {
       name: /ability to work overtime \(Occasionally\)/i,
     }).click();
@@ -230,6 +236,9 @@ describe("Talent Search Workflow Tests", () => {
     searchFindsMySingleCandidate();
 
     // employment duration - fail
+    cy.findByRole("button", {
+      name: /employment duration/i,
+    }).click();
     cy.findByRole("radio", {
       name: /Term duration/i,
     }).click();
@@ -269,6 +278,10 @@ describe("Talent Search Workflow Tests", () => {
       "test@tbs-sct.gc.ca",
     );
 
+    cy.findByRole("textbox", { name: /What is your job title\?/i }).type(
+      "Manager",
+    );
+
     cy.findByRole("textbox", {
       name: /What is the job title for this position\?/i,
     }).type("Test Job Title");
@@ -294,7 +307,7 @@ describe("Talent Search Workflow Tests", () => {
     );
 
     // work location
-    cy.findAllByText("Ontario").should("exist");
+    cy.findAllByText("Ontario (excluding Ottawa area)").should("exist");
 
     // working language ability
     cy.findAllByText("English only").should("exist");

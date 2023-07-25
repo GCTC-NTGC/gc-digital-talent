@@ -24,5 +24,5 @@ export const SCREENED_OUT_STATUSES = [
   PoolCandidateStatus.ScreenedOutApplication,
   PoolCandidateStatus.ScreenedOutAssessment,
   PoolCandidateStatus.ScreenedOutNotInterested,
-  PoolCandidateStatus.ScreenedOutNotResponding,
+  PoolCandidateStatus.ScreenedOutNotResponsive,
 ];

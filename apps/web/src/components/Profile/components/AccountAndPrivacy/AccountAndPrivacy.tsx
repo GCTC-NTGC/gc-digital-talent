@@ -101,9 +101,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                     "Heading for opening the login and authentication accordion in account and privacy",
                 })}
           </StandardAccordionHeader>
-          <Accordion.AnimatedContent
-            isOpen={currentAccordionItems.includes("login_authentication")}
-          >
+          <Accordion.Content>
             <Separator
               orientation="horizontal"
               decorative
@@ -132,7 +130,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                 description: "Link text for visiting the GCKey website",
               })}
             </Link>
-          </Accordion.AnimatedContent>
+          </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="recruitment_availability">
           <StandardAccordionHeader
@@ -159,9 +157,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                     "Heading for opening the recruitment availability accordion in account and privacy",
                 })}
           </StandardAccordionHeader>
-          <Accordion.AnimatedContent
-            isOpen={currentAccordionItems.includes("recruitment_availability")}
-          >
+          <Accordion.Content>
             <Separator
               orientation="horizontal"
               decorative
@@ -186,8 +182,8 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "By applying to a talent pool on the platform, you agree to receive notifications about related potential employment opportunities. You can manage these notifications using the <strong>availability controls</strong>, or by reviewing the <link>current recruitment processes on your résumé</link>.",
-                  id: "DX/e8R",
+                    "By applying to a talent pool on the platform, you agree to receive notifications about related potential employment opportunities. You can manage these notifications using the <strong>availability controls</strong>, or by reviewing the <link>current recruitment processes on your career timeline</link>.",
+                  id: "nx5fZY",
                   description:
                     "Description for managing recruitment availability.",
                 },
@@ -215,7 +211,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                 })}
               </Well>
             )}
-          </Accordion.AnimatedContent>
+          </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
     </>

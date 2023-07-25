@@ -98,6 +98,7 @@ class PoolFactory extends Factory
                 'operational_requirements' => $this->faker->randomElements(ApiEnums::operationalRequirements(), 2),
                 'key_tasks' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
                 'your_impact' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
+                'what_to_expect' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
                 'security_clearance' => $this->faker->randomElement(ApiEnums::poolSecurity()),
                 'advertisement_language' => $this->faker->randomElement(ApiEnums::poolLanguages()),
                 'advertisement_location' => !$isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,

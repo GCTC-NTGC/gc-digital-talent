@@ -11,6 +11,8 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
     }
   }
   jobTitle
+  managerJobTitle
+  positionType
   wasEmpty
   additionalComments
   poolCandidateFilter {
@@ -155,6 +157,8 @@ query getPoolCandidateSearchRequestsPaginated(
       fullName
       id
       jobTitle
+      managerJobTitle
+      positionType
       requestedDate
       status
       statusChangedAt

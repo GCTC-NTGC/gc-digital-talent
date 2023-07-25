@@ -16,7 +16,7 @@ export const statusSortMap: Record<PoolCandidateStatus, number> = {
   [PoolCandidateStatus.PlacedIndeterminate]: 12,
   [PoolCandidateStatus.ScreenedOutApplication]: 13,
   [PoolCandidateStatus.ScreenedOutNotInterested]: 13.1,
-  [PoolCandidateStatus.ScreenedOutNotResponding]: 13.2,
+  [PoolCandidateStatus.ScreenedOutNotResponsive]: 13.2,
   [PoolCandidateStatus.ScreenedOutAssessment]: 14,
   [PoolCandidateStatus.Expired]: 15,
   [PoolCandidateStatus.Removed]: 16,
