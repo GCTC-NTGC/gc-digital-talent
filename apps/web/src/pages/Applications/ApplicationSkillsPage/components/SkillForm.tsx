@@ -104,7 +104,7 @@ const SkillForm = ({
   const { executeMutation, getMutationArgs, executing } =
     useExperienceMutations("update", experienceType);
 
-  const handleSubmit = (formValues: FormValues) => {
+  const handleSubmit = async (formValues: FormValues) => {
     const args = getMutationArgs(
       formValues.experience || "",
       formValues.skill
@@ -119,7 +119,7 @@ const SkillForm = ({
         : {},
     );
     if (executeMutation) {
-      executeMutation(args)
+      await executeMutation(args)
         .then((res) => {
           if (res.data) {
             toast.success(
