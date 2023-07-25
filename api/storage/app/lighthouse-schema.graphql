@@ -31,6 +31,7 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
   qualifiedStreams: [PoolStream]
+  publishingGroups: [PublishingGroup]
 }
 
 enum ApplicationStep {
