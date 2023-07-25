@@ -178,6 +178,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             ) or
             is_null($this->attributes['is_gov_employee']) or
             is_null($this->attributes['has_priority_entitlement']) or
+            ($this->attributes['has_priority_entitlement'] && is_null($this->attributes["priority_number"])) or
             is_null($this->attributes['location_preferences']) or
             empty($this->attributes['location_preferences']) or
             empty($this->attributes['position_duration'])  or
@@ -207,7 +208,13 @@ class User extends Model implements Authenticatable, LaratrustUser
                 $query->orWhereNotNull('looking_for_bilingual');
             });
             $query->whereNotNull('is_gov_employee');
-            $query->whereNotNull('has_priority_entitlement');
+            $query->where(function (Builder $query) {
+                $query->where('has_priority_entitlement', false)
+                    ->orWhere(function (Builder $query) {
+                        $query->where('has_priority_entitlement', true)
+                            ->whereNotNull('priority_number');
+                    });
+            });
             $query->whereNotNull('location_preferences');
             $query->whereJsonLength('location_preferences', '>', 0);
             $query->whereJsonLength('position_duration', '>', 0);

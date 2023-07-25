@@ -21,8 +21,13 @@ export function hasAllEmptyFields({
 export function hasEmptyRequiredFields({
   isGovEmployee,
   hasPriorityEntitlement,
+  priorityNumber,
 }: PartialUser): boolean {
-  return empty(isGovEmployee) || empty(hasPriorityEntitlement);
+  return (
+    empty(isGovEmployee) ||
+    empty(hasPriorityEntitlement) ||
+    (hasPriorityEntitlement && empty(priorityNumber))
+  );
 }
 
 export function hasEmptyOptionalFields({
