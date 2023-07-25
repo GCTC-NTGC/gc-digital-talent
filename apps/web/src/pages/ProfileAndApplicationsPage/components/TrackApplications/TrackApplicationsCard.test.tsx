@@ -73,7 +73,7 @@ describe("TrackApplicationsCard", () => {
     });
 
     const links = screen.queryAllByRole("link");
-    expect(links).toHaveLength(5);
+    expect(links).toHaveLength(4);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(mockApplication.id),
@@ -86,19 +86,14 @@ describe("TrackApplicationsCard", () => {
     );
     expect(links[1]).toHaveTextContent("Review job ad");
 
-    expect(links[2]).toHaveTextContent("Visit career timeline");
+    expect(links[2]).toHaveTextContent("Manage recruitment");
     expect(links[2]).toHaveAttribute(
       "href",
       expect.stringContaining(PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES),
     );
-    expect(links[3]).toHaveTextContent("Manage availability");
-    expect(links[3]).toHaveAttribute(
-      "href",
-      expect.stringContaining("profile"),
-    );
 
-    expect(links[4]).toHaveTextContent("Get support");
-    expect(links[4]).toHaveAttribute(
+    expect(links[3]).toHaveTextContent("Get support");
+    expect(links[3]).toHaveAttribute(
       "href",
       expect.stringContaining("support"),
     );

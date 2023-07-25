@@ -2338,10 +2338,6 @@
     "defaultMessage": "Accueil",
     "description": "Link text for the home link in breadcrumbs."
   },
-  "EDjz14": {
-    "defaultMessage": "Visiter le parcours professionnel",
-    "description": "Link text to direct a user to the Career timeline page"
-  },
   "EHh5pb": {
     "defaultMessage": "Groupe et classification actuels",
     "description": "Current group and classification label"
@@ -2632,6 +2628,10 @@
   "GYk6Nz": {
     "defaultMessage": "Autorisation de sécurité : {securityClearance}",
     "description": "Pool advertisement security clearance requirement"
+  },
+  "GZXf3A": {
+    "defaultMessage": "Gérer le recrutement",
+    "description": "Link text to direct a user to the recruitment section on the career timeline page"
   },
   "GZqEuI": {
     "defaultMessage": "Échec de l'ajout de l'utilisateur",
@@ -3404,10 +3404,6 @@
   "MhgtB6": {
     "defaultMessage": "Avant de commencer à décrire votre expérience, nous aimerions d’abord savoir dans quelle catégorie elle se situe. Il y a cinq options parmi lesquelles choisir, vous pouvez ajouter autant d’expériences que vous le souhaitez dans chaque catégorie.",
     "description": "Instructions for the Add Experience dialog"
-  },
-  "MqPn3A": {
-    "defaultMessage": "Visiter le recrutement de {titre} sur votre parcours professionnel",
-    "description": "Link text to direct a user to the Career timeline page"
   },
   "MsFCeF": {
     "defaultMessage": "Bienvenue à Talents numériques du GC, veuillez vous connecter pour continuer.",
@@ -8201,6 +8197,10 @@
   "usb0gM": {
     "defaultMessage": "Bien que le libellé de ces catégories ait besoin d'être mis à jour, le gouvernement du Canada utilisera parfois ces catégories lors de l'embauche afin de s'assurer qu'il respecte les objectifs de l'équité en matière d'emploi.",
     "description": "Description of how the Government of Canada uses employment equity categories in hiring."
+  },
+  "utl6O/": {
+    "defaultMessage": "Gérer le recrutement {title}",
+    "description": "Link text to direct a user to the recruitment section on the career timeline page"
   },
   "uup5F2": {
     "defaultMessage": "Sélectionnez une langue",
