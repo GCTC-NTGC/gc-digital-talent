@@ -147,11 +147,13 @@ describe("DiversityEquityInclusionForm", () => {
       }),
     );
 
-    const addWoman = await screen.findByRole("button", {
-      name: /add Woman to my profile/i,
+    waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /add Woman to my profile/i,
+        }),
+      );
     });
-
-    user.click(addWoman);
 
     waitFor(async () => {
       expect(
@@ -179,12 +181,12 @@ describe("DiversityEquityInclusionForm", () => {
       }),
     );
 
-    const addWoman = await screen.findByRole("button", {
-      name: /add Woman to my profile/i,
-    });
-
-    waitFor(() => {
-      user.click(addWoman);
+    waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /add Woman to my profile/i,
+        }),
+      );
     });
 
     waitFor(async () => {
