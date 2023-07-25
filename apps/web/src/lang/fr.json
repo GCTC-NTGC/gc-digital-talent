@@ -389,7 +389,7 @@
     "description": "Application step for skill requirements, introduction, description, paragraph two"
   },
   "0OLsay": {
-    "defaultMessage": "CléGC est un service qui vous permet de vous connecter à <a> de nombreux services gouvernementaux différents</a> avec un seul nom d’utilisateur et un seul mot de passe. Le bouton ci-dessous vous mènera au site Web de CléGC, où vous pourrez créer un compte si vous n’en avez pas encore un. Une fois que vous vous serez inscrit(e) à CléGC, vous reviendrez ici pour compléter votre profil.",
+    "defaultMessage": "CléGC est un service qui vous permet de vous connecter à <a>de nombreux services gouvernementaux différents</a> avec un seul nom d’utilisateur et un seul mot de passe. Le bouton ci-dessous vous mènera au site Web de CléGC, où vous pourrez créer un compte si vous n’en avez pas encore un. Une fois que vous vous serez inscrit(e) à CléGC, vous reviendrez ici pour compléter votre profil.",
     "description": "Instructions on how to register with GCKey paragraph 2- IAP variant"
   },
   "0PeEzR": {
@@ -2618,7 +2618,7 @@
     "description": "Legend Text for required work preferences options in work preferences form"
   },
   "GQsJAi": {
-    "defaultMessage": "Lorsque vous vous connectez à votre compte, vous commencez par cette page. Vous pouvez utiliser l'outil <strong><a>pour suivre vos candidatures </a></strong> sur cette page afin de revoir votre demande au Programme d'apprentissage en TI pour les personnes autochtones et de suivre votre statut dans le Programme.",
+    "defaultMessage": "Lorsque vous vous connectez à votre compte, vous commencez par cette page. Vous pouvez utiliser l'outil <strong><a>pour suivre vos candidatures</a></strong> sur cette page afin de revoir votre demande au Programme d'apprentissage en TI pour les personnes autochtones et de suivre votre statut dans le Programme.",
     "description": "Third paragraph for profile and applications notification welcoming an IAP user"
   },
   "GQskY1": {
@@ -2783,7 +2783,7 @@
     "description": "Message displayed when a pool has no expiry date yet"
   },
   "Hf3x3E": {
-    "defaultMessage": "Lorsque vous vous connectez à votre compte, vous commencez par cette page. Vous pouvez utiliser l'outil <strong><a>pour suivre vos candidatures </a></strong> sur cette page afin de revoir votre demande au Programme d'apprentissage en TI pour les personnes autochtones et de suivre votre statut dans le Programme.",
+    "defaultMessage": "Lorsque vous vous connectez à votre compte, vous commencez par cette page. Vous pouvez utiliser l'outil <strong><a>pour suivre vos candidatures</a></strong> sur cette page afin de revoir votre demande au Programme d'apprentissage en TI pour les personnes autochtones et de suivre votre statut dans le Programme.",
     "description": "Third paragraph for profile and applications notification welcoming an IAP user"
   },
   "Hgd/PL": {
