@@ -4,6 +4,7 @@ import {
   User,
   GovEmployeeType,
   Skill,
+  IndigenousCommunity,
   Maybe,
   Experience,
   ScreeningQuestionResponse,
@@ -33,7 +34,6 @@ import {
   getExperienceName,
 } from "~/utils/experienceUtils";
 import experienceMessages from "~/messages/experienceMessages";
-import { IndigenousCommunity } from "../api/generated";
 
 /**
  * Converts a possible boolean
