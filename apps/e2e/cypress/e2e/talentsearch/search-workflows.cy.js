@@ -170,6 +170,9 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     // education requirement, no negation possible
+    cy.findByRole("button", {
+      name: /education requirement for the job/i,
+    }).click();
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,
     }).click();
@@ -223,6 +226,9 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     // conditions of employment, no negation possible
+    cy.findByRole("button", {
+      name: /conditions of employment/i,
+    }).click();
     cy.findByRole("checkbox", {
       name: /ability to work overtime \(Occasionally\)/i,
     }).click();
@@ -230,6 +236,9 @@ describe("Talent Search Workflow Tests", () => {
     searchFindsMySingleCandidate();
 
     // employment duration - fail
+    cy.findByRole("button", {
+      name: /employment duration/i,
+    }).click();
     cy.findByRole("radio", {
       name: /Term duration/i,
     }).click();
@@ -267,6 +276,10 @@ describe("Talent Search Workflow Tests", () => {
 
     cy.findByRole("textbox", { name: /Government e-mail/i }).type(
       "test@tbs-sct.gc.ca",
+    );
+
+    cy.findByRole("textbox", { name: /What is your job title\?/i }).type(
+      "Manager",
     );
 
     cy.findByRole("textbox", {

@@ -68,6 +68,7 @@ TALENTSEARCH
 TELEWORK
 testid
 textbox
+Timeframe
 toastify
 Typenames
 Unencrypted

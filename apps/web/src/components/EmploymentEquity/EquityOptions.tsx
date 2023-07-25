@@ -245,9 +245,7 @@ const EquityOptions = ({
                   },
                 )}
           </StandardAccordionHeader>
-          <Accordion.AnimatedContent
-            isOpen={accordionOpen === "available_options"}
-          >
+          <Accordion.Content>
             <Separator
               orientation="horizontal"
               decorative
@@ -359,7 +357,7 @@ const EquityOptions = ({
                 </p>
               </Well>
             )}
-          </Accordion.AnimatedContent>
+          </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
     </>

@@ -30,6 +30,7 @@ import {
   CandidateSuspendedFilter,
   Maybe,
   EducationRequirementOption,
+  PoolCandidateSearchPositionType,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -633,7 +634,7 @@ export const poolCandidateStatuses = defineMessages({
     description:
       "The pool candidate's status is Screened Out because of no interest",
   },
-  [PoolCandidateStatus.ScreenedOutNotResponding]: {
+  [PoolCandidateStatus.ScreenedOutNotResponsive]: {
     defaultMessage: "Screened Out - Not Responsive",
     id: "QCcpJr",
     description:
@@ -785,6 +786,28 @@ export const getPoolCandidateSearchStatus = (
     poolCandidateSearchStatuses,
     poolCandidateSearchStatusId,
     `Invalid Pool Candidate Search Status '${poolCandidateSearchStatusId}'`,
+  );
+
+export const poolCandidateSearchPositionTypes = defineMessages({
+  [PoolCandidateSearchPositionType.IndividualContributor]: {
+    defaultMessage: "Individual contributor",
+    id: "Ij1cFC",
+    description: "The position type is an individual contributor.",
+  },
+  [PoolCandidateSearchPositionType.TeamLead]: {
+    defaultMessage: "Team lead",
+    id: "R0pQGQ",
+    description: "The position type is a team lead.",
+  },
+});
+
+export const getPoolCandidateSearchPositionType = (
+  poolCandidateSearchPositionTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    poolCandidateSearchPositionTypes,
+    poolCandidateSearchPositionTypeId,
+    `Invalid Pool Candidate Search Position Type '${poolCandidateSearchPositionTypeId}'`,
   );
 
 export const SkillCategories = defineMessages({
@@ -1914,7 +1937,7 @@ const statusLabelMap = new Map<PoolCandidateStatus, StatusLabelKey>([
   [PoolCandidateStatus.ScreenedOutApplication, "SCREENED_OUT"],
   [PoolCandidateStatus.ScreenedOutAssessment, "SCREENED_OUT"],
   [PoolCandidateStatus.ScreenedOutNotInterested, "SCREENED_OUT"],
-  [PoolCandidateStatus.ScreenedOutNotResponding, "SCREENED_OUT"],
+  [PoolCandidateStatus.ScreenedOutNotResponsive, "SCREENED_OUT"],
   [PoolCandidateStatus.QualifiedAvailable, "QUALIFIED"],
   [PoolCandidateStatus.QualifiedUnavailable, "QUALIFIED"],
   [PoolCandidateStatus.QualifiedWithdrew, "QUALIFIED"],

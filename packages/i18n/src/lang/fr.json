@@ -445,6 +445,10 @@
     "defaultMessage": "Parcours professionnel et recrutement",
     "description": "Name of Career timeline and recruitment page"
   },
+  "Ij1cFC": {
+    "defaultMessage": "Contributeur individuel",
+    "description": "The position type is an individual contributor."
+  },
   "IlPyP8": {
     "defaultMessage": "Vous devez remédier aux erreurs suivantes avant de soumettre le formulaire :",
     "description": "Message indicating which errors the form has"
@@ -627,6 +631,10 @@
   "QtzRCh": {
     "defaultMessage": "Statut",
     "description": "Title for status"
+  },
+  "R0pQGQ": {
+    "defaultMessage": "Chef d'équipe",
+    "description": "The position type is a team lead."
   },
   "RQGy+0": {
     "defaultMessage": "Publiée",

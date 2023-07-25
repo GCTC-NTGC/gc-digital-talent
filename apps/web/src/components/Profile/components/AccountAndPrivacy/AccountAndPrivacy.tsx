@@ -101,9 +101,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                     "Heading for opening the sign in and authentication accordion in account and privacy",
                 })}
           </StandardAccordionHeader>
-          <Accordion.AnimatedContent
-            isOpen={currentAccordionItems.includes("sign_in_authentication")}
-          >
+          <Accordion.Content>
             <Separator
               orientation="horizontal"
               decorative
@@ -132,7 +130,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                 description: "Link text for visiting the GCKey website",
               })}
             </Link>
-          </Accordion.AnimatedContent>
+          </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="recruitment_availability">
           <StandardAccordionHeader
@@ -159,9 +157,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                     "Heading for opening the recruitment availability accordion in account and privacy",
                 })}
           </StandardAccordionHeader>
-          <Accordion.AnimatedContent
-            isOpen={currentAccordionItems.includes("recruitment_availability")}
-          >
+          <Accordion.Content>
             <Separator
               orientation="horizontal"
               decorative
@@ -215,7 +211,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                 })}
               </Well>
             )}
-          </Accordion.AnimatedContent>
+          </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
     </>
