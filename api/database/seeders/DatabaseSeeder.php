@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TeamSeeder::class);
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
+        $this->call(DigitalContractingQuestionnaireSeeder::class);
 
         // Seed random pools
         Pool::factory()->count(2)->draft()->create();

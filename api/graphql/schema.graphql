@@ -1369,6 +1369,10 @@ input UpdatePoolCandidateSearchRequestInput {
 input SkillBelongsToMany {
   sync: [ID!]
 }
+input SkillBelongsTo {
+  connect: ID!
+}
+
 input CreateSkillFamilyInput {
   key: KeyString!
     @rules(
@@ -1811,3 +1815,5 @@ type Mutation {
   # Notifications
   markNotificationAsRead(id: UUID!): Notification
 }
+
+#import directiveForms.graphql

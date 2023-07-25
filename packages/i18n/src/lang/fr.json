@@ -797,7 +797,7 @@
     "description": "Text for submit button on edit forms"
   },
   "WL3bq/": {
-    "defaultMessage": "Étape {current} de {label}",
+    "defaultMessage": "Étape {current} de {total}",
     "description": "Title for a list of steps indicating the current step of the total number of step"
   },
   "WPJrmN": {
