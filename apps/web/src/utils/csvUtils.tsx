@@ -4,6 +4,7 @@ import {
   User,
   GovEmployeeType,
   Skill,
+  IndigenousCommunity,
   Maybe,
   Experience,
   ScreeningQuestionResponse,
@@ -11,6 +12,7 @@ import {
 import {
   Locales,
   getGenericJobTitles,
+  getIndigenousCommunity,
   getOperationalRequirement,
   getSimpleGovEmployeeType,
   getWorkRegion,
@@ -418,4 +420,25 @@ export const getScreeningQuestionResponses = (
   });
 
   return data;
+};
+
+/**
+ * Converts Indigenous communities to column data
+ *
+ * Note: Does not support legacy communities
+ *
+ * @param IndigenousCommunity[]
+ */
+export const getIndigenousCommunities = (
+  communities: Maybe<Maybe<IndigenousCommunity>[]>,
+  intl: IntlShape,
+) => {
+  const communityNames = communities
+    ?.filter(notEmpty)
+    ?.filter(
+      (community) => community !== IndigenousCommunity.LegacyIsIndigenous,
+    )
+    .map((community) => intl.formatMessage(getIndigenousCommunity(community)));
+
+  return communityNames?.join(", ") || "";
 };

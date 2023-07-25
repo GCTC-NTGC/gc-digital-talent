@@ -14,6 +14,7 @@ import {
   employeeTypeToString,
   flattenExperiencesToSkills,
   getExpectedClassifications,
+  getIndigenousCommunities,
   getLocationPreference,
   getLookingForLanguage,
   getOperationalRequirements,
@@ -197,7 +198,7 @@ const useUserCsvData = (users: User[]) => {
       }),
     },
     {
-      key: "isIndigenous",
+      key: "indigenousCommunities",
       label: intl.formatMessage({
         defaultMessage: "Indigenous",
         id: "83v9YH",
@@ -260,7 +261,7 @@ const useUserCsvData = (users: User[]) => {
         positionDuration,
         acceptedOperationalRequirements,
         isWoman,
-        isIndigenous,
+        indigenousCommunities,
         isVisibleMinority,
         hasDisability,
         expectedGenericJobTitles,
@@ -310,7 +311,10 @@ const useUserCsvData = (users: User[]) => {
           intl,
         ),
         isWoman: yesOrNo(isWoman, intl),
-        isIndigenous: yesOrNo(isIndigenous, intl),
+        indigenousCommunities: getIndigenousCommunities(
+          indigenousCommunities,
+          intl,
+        ),
         isVisibleMinority: yesOrNo(isVisibleMinority, intl),
         hasDisability: yesOrNo(hasDisability, intl),
         expectedClassification: getExpectedClassifications(
