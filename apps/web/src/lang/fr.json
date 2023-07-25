@@ -1682,13 +1682,13 @@
     "defaultMessage": "Compétences techniques requises",
     "description": "Title for required technical skills section of a pool advertisement"
   },
-  "9YuUR/": {
-    "defaultMessage": "Ajouter une expérience à votre parcours professionnel",
-    "description": "Page title for the application career timeline add experience page"
-  },
   "9Vzxgu": {
     "defaultMessage": "Services d’orientation",
     "description": "Button text to open section describing referrals services"
+  },
+  "9YuUR/": {
+    "defaultMessage": "Ajouter une expérience à votre parcours professionnel",
+    "description": "Page title for the application career timeline add experience page"
   },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
