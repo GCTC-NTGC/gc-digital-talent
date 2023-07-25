@@ -1,7 +1,6 @@
 /* eslint-disable import/no-duplicates */
 // known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
 import * as React from "react";
-import { motion } from "framer-motion";
 import { useIntl } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 
@@ -23,38 +22,6 @@ import TrackApplicationsCard from "./TrackApplicationsCard";
 function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
   return <Link href={href}>{chunks}</Link>;
 }
-
-interface AnimatedContentProps
-  extends React.ComponentPropsWithoutRef<typeof Accordion.Content> {
-  isOpen: boolean;
-}
-
-const animationVariants = {
-  open: {
-    height: "auto",
-    opacity: 1,
-  },
-  closed: {
-    height: 0,
-    opacity: 0,
-  },
-};
-
-const AnimatedContent = React.forwardRef<
-  React.ElementRef<typeof Accordion.Content>,
-  AnimatedContentProps
->(({ isOpen, children, ...rest }, forwardedRef) => (
-  <Accordion.Content asChild forceMount ref={forwardedRef} {...rest}>
-    <motion.div
-      className="Accordion__Content"
-      animate={isOpen ? "open" : "closed"}
-      variants={animationVariants}
-      transition={{ duration: 0.2, type: "tween" }}
-    >
-      {children}
-    </motion.div>
-  </Accordion.Content>
-));
 
 export type Application = Omit<PoolCandidate, "user">;
 
@@ -177,9 +144,7 @@ const TrackApplications = ({
                     },
                   )}
             </StandardAccordionHeader>
-            <AnimatedContent
-              isOpen={currentAccordionItems.includes("in_progress")}
-            >
+            <Accordion.Content>
               <Separator
                 orientation="horizontal"
                 decorative
@@ -219,7 +184,7 @@ const TrackApplications = ({
                   </Link>
                 </Well>
               )}
-            </AnimatedContent>
+            </Accordion.Content>
           </Accordion.Item>
           {/* past applications */}
           <Accordion.Item value="past">
@@ -259,7 +224,7 @@ const TrackApplications = ({
                     },
                   )}
             </StandardAccordionHeader>
-            <AnimatedContent isOpen={currentAccordionItems.includes("past")}>
+            <Accordion.Content>
               <Separator
                 orientation="horizontal"
                 decorative
@@ -299,7 +264,7 @@ const TrackApplications = ({
                   </p>
                 </Well>
               )}
-            </AnimatedContent>
+            </Accordion.Content>
           </Accordion.Item>
         </Accordion.Root>
       </div>
