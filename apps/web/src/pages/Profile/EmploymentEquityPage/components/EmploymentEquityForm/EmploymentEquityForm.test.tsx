@@ -183,16 +183,16 @@ describe("DiversityEquityInclusionForm", () => {
       name: /add Woman to my profile/i,
     });
 
-    act(() => {
+    waitFor(() => {
       user.click(addWoman);
     });
 
-    const saveBtn = await screen.findByRole("button", {
-      name: /save/i,
-    });
-
-    act(() => {
-      fireEvent.submit(saveBtn);
+    waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /save/i,
+        }),
+      );
     });
 
     await waitFor(() => {
