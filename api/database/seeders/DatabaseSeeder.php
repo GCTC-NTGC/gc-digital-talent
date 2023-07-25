@@ -57,6 +57,7 @@ class DatabaseSeeder extends Seeder
         Pool::factory()->count(2)->draft()->create();
         Pool::factory()->count(6)->published()->create();
         Pool::factory()->count(2)->closed()->create();
+        Pool::factory()->count(2)->archived()->create();
         // Seed some expected values
         $this->seedPools();
 

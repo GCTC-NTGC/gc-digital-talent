@@ -122,4 +122,18 @@ class PoolFactory extends Factory
             ];
         });
     }
+
+    /**
+     * Indicate that the pool is archived.
+     */
+    public function archived(): Factory
+    {
+        return $this->closed()->state(function (array $attributes) {
+            return [
+                'published_at' => $this->faker->dateTimeBetween('-12 months', '-6 months'),
+                'closing_date' => $this->faker->dateTimeBetween('-6 months', '-2 months'),
+                'archived_at' => $this->faker->dateTimeBetween('-1 month', '-1 day'),
+            ];
+        });
+    }
 }

@@ -814,6 +814,7 @@ type Mutation {
   changePoolClosingDate(id: ID!, newClosingDate: DateTime!): Pool
   closePool(id: ID!): Pool
   deletePool(id: ID!): Pool
+  archivePool(id: ID!): Pool
   archiveApplication(id: ID!): PoolCandidate
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
@@ -1047,6 +1048,7 @@ type Pool {
   screeningQuestions: [ScreeningQuestion]
   closingDate: DateTime
   publishedAt: DateTime
+  archivedAt: DateTime
 }
 
 input PoolBelongsTo {

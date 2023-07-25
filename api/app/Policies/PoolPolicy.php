@@ -192,4 +192,20 @@ class PoolPolicy
         }
         return $user->isAbleTo("delete-team-draftPool", $pool->team);
     }
+
+    /**
+     * Determine whether the user can archive the pool.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Pool  $pool
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function archive(User $user, Pool $pool)
+    {
+        if ($pool->getStatusAttribute() !== ApiEnums::POOL_IS_CLOSED) {
+            return Response::deny("You cannot archive a pool unless it is in the closed status.");
+        }
+        $pool->loadMissing('team');
+        return $user->isAbleTo("archive-team-pool", $pool->team);
+    }
 }

@@ -284,6 +284,7 @@ type Pool {
     @orderBy(column: "sort_order", direction: ASC)
   closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
+  archivedAt: DateTime @rename(attribute: "archived_at")
 }
 
 enum PoolStream {
@@ -1784,6 +1785,7 @@ type Mutation {
     @delete(model: "Pool", globalId: false)
     @guard
     @can(ability: "deleteDraft", find: "id")
+  archivePool(id: ID!): Pool @guard @can(ability: "archive", find: "id")
 
   # Application mutations
   archiveApplication(id: ID!): PoolCandidate

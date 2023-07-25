@@ -270,12 +270,14 @@ class ApiEnums
     const POOL_IS_DRAFT = 'DRAFT';
     const POOL_IS_PUBLISHED = 'PUBLISHED';
     const POOL_IS_CLOSED = 'CLOSED';
+    const POOL_IS_ARCHIVED = 'ARCHIVED';
     public static function poolStatuses(): array
     {
         return [
             self::POOL_IS_DRAFT,
             self::POOL_IS_PUBLISHED,
             self::POOL_IS_CLOSED,
+            self::POOL_IS_ARCHIVED,
         ];
     }
 
