@@ -87,9 +87,9 @@ const itemStyleProps = {
     fontSize: "0.85rem",
   },
   "data-h2-align-items": "base(center)",
-  "data-h2-background-color": "base(transparent) base:hover(secondary.15)",
-  "data-h2-color":
-    "base(black) base:selectors[[data-disabled]](black.lightest)",
+  "data-h2-background-color":
+    "base(transparent) base:hover(secondary.15) base:selectors[[data-disabled]]:hover(black.lightest.10)",
+  "data-h2-color": "base(black) base:selectors[[data-disabled]](black.light)",
   "data-h2-cursor": "base(pointer)",
   "data-h2-display": "base(flex)",
   "data-h2-padding": "base(x.25, x.5, x.25, x1)",
