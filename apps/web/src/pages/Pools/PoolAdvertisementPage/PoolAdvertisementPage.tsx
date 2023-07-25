@@ -16,8 +16,8 @@ import {
   Heading,
   Pill,
   Link,
+  StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import {
   getLocale,
   getLanguageRequirement,
@@ -479,8 +479,8 @@ export const PoolPoster = ({
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    'All opportunities on this platform require you to use your application to demonstrate a handful of required "occupational" or "technical" skills. Some opportunities will also assess “behavioural” or "soft" skills independently of your application, though you\'re free to add them to your resume.',
-                  id: "6F4HY/",
+                    'All opportunities on this platform require you to use your application to demonstrate a handful of required "occupational" or "technical" skills. Some opportunities will also assess “behavioural” or "soft" skills independently of your application, though you\'re free to add them to your career timeline.',
+                  id: "SiF2cz",
                   description:
                     "Descriptive text about how skills are defined and used for pool advertisements and applications",
                 })}

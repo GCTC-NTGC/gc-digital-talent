@@ -8,14 +8,16 @@ import {
 
 import { ExperienceForDate } from "~/types/experience";
 
-import { ApplicationResume } from "./ApplicationResumePage";
+import { ApplicationCareerTimeline } from "./ApplicationCareerTimelinePage";
 
 const fakePoolCandidate = fakePoolCandidates(1)[0];
 const fakeUser = fakePoolCandidate.user;
 
-type ApplicationResumeStory = ComponentStory<typeof ApplicationResume>;
+type ApplicationCareerTimelineStory = ComponentStory<
+  typeof ApplicationCareerTimeline
+>;
 
-const noExperiencesProps: ApplicationResumeStory["args"] = {
+const noExperiencesProps: ApplicationCareerTimelineStory["args"] = {
   application: {
     ...fakePoolCandidate,
     user: {
@@ -26,7 +28,7 @@ const noExperiencesProps: ApplicationResumeStory["args"] = {
   experiences: [],
 };
 
-const hasExperiencesProps: ApplicationResumeStory["args"] = {
+const hasExperiencesProps: ApplicationCareerTimelineStory["args"] = {
   application: {
     ...fakePoolCandidate,
     user: {
@@ -38,12 +40,12 @@ const hasExperiencesProps: ApplicationResumeStory["args"] = {
 };
 
 export default {
-  component: ApplicationResume,
-  title: "Pages/Application/Review Resume",
-} as ComponentMeta<typeof ApplicationResume>;
+  component: ApplicationCareerTimeline,
+  title: "Pages/Application/Review Career Timeline",
+} as ComponentMeta<typeof ApplicationCareerTimeline>;
 
-const Template: ApplicationResumeStory = (props) => (
-  <ApplicationResume {...props} />
+const Template: ApplicationCareerTimelineStory = (props) => (
+  <ApplicationCareerTimeline {...props} />
 );
 
 export const NoExperiences = Template.bind({});

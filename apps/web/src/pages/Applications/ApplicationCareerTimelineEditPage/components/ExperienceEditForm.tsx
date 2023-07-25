@@ -46,7 +46,7 @@ const EditExperienceForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnPath = paths.applicationResume(applicationId);
+  const returnPath = paths.applicationCareerTimeline(applicationId);
   const experienceType = deriveExperienceType(experience);
   const defaultValues = queryResultToDefaultValues(
     experienceType || "award",
@@ -150,7 +150,7 @@ const EditExperienceForm = ({
           <Link
             color="quaternary"
             mode="inline"
-            href={paths.applicationResume(applicationId)}
+            href={paths.applicationCareerTimeline(applicationId)}
           >
             {intl.formatMessage(formMessages.cancelGoBack)}
           </Link>

@@ -155,7 +155,7 @@ const statusAccessor = (
     status === PoolCandidateStatus.ScreenedIn ||
     status === PoolCandidateStatus.ScreenedOutApplication ||
     status === PoolCandidateStatus.ScreenedOutNotInterested ||
-    status === PoolCandidateStatus.ScreenedOutNotResponding ||
+    status === PoolCandidateStatus.ScreenedOutNotResponsive ||
     status === PoolCandidateStatus.UnderAssessment ||
     status === PoolCandidateStatus.ScreenedOutAssessment
   ) {
@@ -244,7 +244,7 @@ const viewAccessor = (
     candidate.status !== PoolCandidateStatus.ScreenedIn &&
     candidate.status !== PoolCandidateStatus.ScreenedOutApplication &&
     candidate.status !== PoolCandidateStatus.ScreenedOutNotInterested &&
-    candidate.status !== PoolCandidateStatus.ScreenedOutNotResponding &&
+    candidate.status !== PoolCandidateStatus.ScreenedOutNotResponsive &&
     candidate.status !== PoolCandidateStatus.UnderAssessment &&
     candidate.status !== PoolCandidateStatus.ScreenedOutAssessment;
   const candidateName = getFullNameLabel(

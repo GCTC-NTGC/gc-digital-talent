@@ -182,8 +182,8 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "By applying to a talent pool on the platform, you agree to receive notifications about related potential employment opportunities. You can manage these notifications using the <strong>availability controls</strong>, or by reviewing the <link>current recruitment processes on your résumé</link>.",
-                  id: "DX/e8R",
+                    "By applying to a talent pool on the platform, you agree to receive notifications about related potential employment opportunities. You can manage these notifications using the <strong>availability controls</strong>, or by reviewing the <link>current recruitment processes on your career timeline</link>.",
+                  id: "nx5fZY",
                   description:
                     "Description for managing recruitment availability.",
                 },

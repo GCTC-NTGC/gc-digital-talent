@@ -441,6 +441,14 @@
     "defaultMessage": "Aucun résultat n’a été trouvé.",
     "description": "Message displayed when combobox has no options available"
   },
+  "Icl1fF": {
+    "defaultMessage": "Parcours professionnel et recrutement",
+    "description": "Name of Career timeline and recruitment page"
+  },
+  "Ij1cFC": {
+    "defaultMessage": "Contributeur individuel",
+    "description": "The position type is an individual contributor."
+  },
   "IlPyP8": {
     "defaultMessage": "Vous devez remédier aux erreurs suivantes avant de soumettre le formulaire :",
     "description": "Message indicating which errors the form has"
@@ -623,6 +631,10 @@
   "QtzRCh": {
     "defaultMessage": "Statut",
     "description": "Title for status"
+  },
+  "R0pQGQ": {
+    "defaultMessage": "Chef d'équipe",
+    "description": "The position type is a team lead."
   },
   "RQGy+0": {
     "defaultMessage": "Publiée",
@@ -991,10 +1003,6 @@
   "g2X8Fx": {
     "defaultMessage": "Fermer la fenêtre de dialogue",
     "description": "Text for the button to close a modal dialog."
-  },
-  "gDBVKb": {
-    "defaultMessage": "CV et recrutement",
-    "description": "Name of Résumé and recruitment page"
   },
   "gM4WDL": {
     "defaultMessage": "Non",

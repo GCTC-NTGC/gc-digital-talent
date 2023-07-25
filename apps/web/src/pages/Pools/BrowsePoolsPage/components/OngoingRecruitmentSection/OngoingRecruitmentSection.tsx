@@ -10,8 +10,8 @@ import {
   Heading,
   DropdownMenu,
   Button,
+  StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { getId, notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
@@ -965,9 +965,9 @@ const OngoingRecruitmentSection = ({
       </p>
       <p>
         {intl.formatMessage({
-          id: "y5/tVk",
+          id: "ITLoHV",
           defaultMessage:
-            "We also offer passive recruitment processes that allow us to find talent fast when the demand arises. While there’s no guarantee a job will result from the opportunities below, it’s an easy way for your name and résumé to be found by managers when the time comes. Feel free to submit your name to any stream that matches your skills.",
+            "We also offer passive recruitment processes that allow us to find talent fast when the demand arises. While there’s no guarantee a job will result from the opportunities below, it’s an easy way for your name and career timeline to be found by managers when the time comes. Feel free to submit your name to any stream that matches your skills.",
           description:
             "instructions for section with ongoing pool advertisements",
         })}
@@ -1037,7 +1037,6 @@ const OngoingRecruitmentSection = ({
           </DropdownMenu.Content>
         </DropdownMenu.Root>
       </div>
-
       <p aria-live="polite" data-h2-visually-hidden="base(invisible)">
         {quickFilterStream !== "ALL"
           ? intl.formatMessage(
@@ -1060,8 +1059,7 @@ const OngoingRecruitmentSection = ({
                 "Announcement that the job stream filter is not active.",
             })}
       </p>
-
-      <div>
+      {streamsToShow.length ? (
         <Accordion.Root type="multiple">
           {streamsToShow.map((stream) => (
             <Accordion.Item value={stream.key} key={stream.key}>
@@ -1124,7 +1122,7 @@ const OngoingRecruitmentSection = ({
             </Accordion.Item>
           ))}
         </Accordion.Root>
-      </div>
+      ) : null}
     </>
   );
 };

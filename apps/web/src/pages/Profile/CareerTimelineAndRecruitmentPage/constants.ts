@@ -1,7 +1,7 @@
 import { defineMessages } from "react-intl";
 
 export const PAGE_SECTION_ID = {
-  MANAGE_YOUR_RESUME: "manage-your-resume",
+  MANAGE_YOUR_CAREER_TIMELINE: "manage-your-career-timeline",
   QUALIFIED_RECRUITMENT_PROCESSES: "qualified-recruitment-processes",
 } as const;
 
@@ -9,15 +9,15 @@ type ObjectValues<T> = T[keyof T];
 export type PageSectionId = ObjectValues<typeof PAGE_SECTION_ID>;
 
 export const titles = defineMessages({
-  resumeAndRecruitment: {
-    defaultMessage: "Résumé and recruitment",
-    id: "gDBVKb",
-    description: "Name of Résumé and recruitment page",
+  careerTimelineAndRecruitment: {
+    defaultMessage: "Career timeline and recruitment",
+    id: "Icl1fF",
+    description: "Name of Career timeline and recruitment page",
   },
-  manageYourResume: {
-    defaultMessage: "Manage your résumé",
-    id: "amibs2",
-    description: "Titles for a page section to manage your résumé",
+  manageYourCareerTimeline: {
+    defaultMessage: "Manage your career timeline",
+    id: "eZYP/W",
+    description: "Titles for a page section to manage your career timeline",
   },
   qualifiedRecruitmentProcesses: {
     defaultMessage: "Qualified recruitment processes",

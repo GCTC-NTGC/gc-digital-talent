@@ -44,7 +44,7 @@ import {
   hasEmptyRequiredFields as workPreferencesSectionHasEmptyRequiredFields,
 } from "./workPreferences";
 
-import { isIncomplete as resumeIsIncomplete } from "./resume";
+import { isIncomplete as careerTimelineIsIncomplete } from "./careerTimeline";
 
 import { isIncomplete as skillRequirementsIsIncomplete } from "./skillRequirements";
 
@@ -76,7 +76,7 @@ export {
   workPreferencesSectionHasAllEmptyFields,
   workPreferencesSectionHasEmptyOptionalFields,
   workPreferencesSectionHasEmptyRequiredFields,
-  resumeIsIncomplete,
+  careerTimelineIsIncomplete,
   skillRequirementsIsIncomplete,
   screeningQuestionsSectionHasMissingResponses,
 };

@@ -75,7 +75,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
               }),
             );
             if (formValues.action !== "add-another") {
-              navigate(paths.applicationResume(applicationId));
+              navigate(paths.applicationCareerTimeline(applicationId));
             }
           }
         })
@@ -191,7 +191,10 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
                 "Text for save button and add another button on experience form.",
             })}
           </Button>
-          <Link mode="inline" href={paths.applicationResume(applicationId)}>
+          <Link
+            mode="inline"
+            href={paths.applicationCareerTimeline(applicationId)}
+          >
             {intl.formatMessage({
               defaultMessage: "Cancel and go back",
               id: "fMcKtJ",

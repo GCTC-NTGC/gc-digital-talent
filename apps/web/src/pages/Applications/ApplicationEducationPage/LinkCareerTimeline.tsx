@@ -65,17 +65,17 @@ const ExperienceChecklist = ({ items }: { items: CheckboxOption[] }) => {
   );
 };
 
-interface LinkResumeProps {
+interface LinkCareerTimelineProps {
   experiences: Experience[];
   watchEducationRequirement: EducationRequirementOption;
   previousStepPath: string;
 }
 
-const LinkResume = ({
+const LinkCareerTimeline = ({
   experiences,
   watchEducationRequirement,
   previousStepPath,
-}: LinkResumeProps) => {
+}: LinkCareerTimelineProps) => {
   const intl = useIntl();
   const previousStepLink = (chunks: React.ReactNode) => (
     <Link href={previousStepPath}>{chunks}</Link>
@@ -195,8 +195,8 @@ const LinkResume = ({
                 >
                   {intl.formatMessage({
                     defaultMessage:
-                      "<strong>It looks like you haven't added any experiences to your résumé yet.</strong>",
-                    id: "lb2jFJ",
+                      "<strong>It looks like you haven't added any experiences to your career timeline yet.</strong>",
+                    id: "Q83U92",
                     description:
                       "Alert message informing user to add experience in application education page.",
                   })}
@@ -205,8 +205,8 @@ const LinkResume = ({
                   {intl.formatMessage(
                     {
                       defaultMessage:
-                        "You can add experiences when <link>creating a new résumé experience in the previous step.</link>",
-                      id: "d2s3n5",
+                        "You can add experiences when <link>creating a new career timeline experience in the previous step.</link>",
+                      id: "G1OWMo",
                       description:
                         "Secondary alert message informing user to add experience in application education page.",
                     },
@@ -233,8 +233,8 @@ const LinkResume = ({
                 >
                   {intl.formatMessage({
                     defaultMessage:
-                      "<strong>It looks like you haven't added any education experiences to your résumé yet.</strong>",
-                    id: "GXC9N4",
+                      "<strong>It looks like you haven't added any education experiences to your career timeline yet.</strong>",
+                    id: "QagkWo",
                     description:
                       "Alert message informing user to add education experience in application education page.",
                   })}
@@ -242,8 +242,8 @@ const LinkResume = ({
                 <p data-h2-text-align="base(center)">
                   {intl.formatMessage(
                     {
-                      defaultMessage: `You can add education-specific experiences by selecting the "Education and certificates" option when <link>creating a new résumé experience in the previous step.</link>`,
-                      id: "sHKNfX",
+                      defaultMessage: `You can add education-specific experiences by selecting the "Education and certificates" option when <link>creating a new career timeline experience in the previous step.</link>`,
+                      id: "81Bib7",
                       description:
                         "Secondary alert message informing user to add education experience in application education page.",
                     },
@@ -284,8 +284,8 @@ const LinkResume = ({
         data-h2-font-weight="base(800)"
       >
         {intl.formatMessage({
-          defaultMessage: "Link your résumé",
-          id: "WkjRzF",
+          defaultMessage: "Link your career timeline",
+          id: "K6Tzh1",
           description:
             "Heading for checklist section in application education page.",
         })}
@@ -293,8 +293,8 @@ const LinkResume = ({
       <p data-h2-margin="base(0, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "Once you’ve selected the criteria you meet, this section asks you to tell us which of the specific items in your résumé meet that option. If you need to add something to your résumé, you can do so by returning to the résumé step in the application.",
-          id: "Vs35dN",
+            "Once you’ve selected the criteria you meet, this section asks you to tell us which of the specific items in your career timeline meet that option. If you need to add something to your career timeline, you can do so by returning to the career timeline step in the application.",
+          id: "sQkwFY",
           description:
             "Description for checklist section in application education page.",
         })}
@@ -304,4 +304,4 @@ const LinkResume = ({
   );
 };
 
-export default LinkResume;
+export default LinkCareerTimeline;

@@ -52,17 +52,17 @@ export const getPageInfo: GetPageNavInfo = ({
   intl,
   stepOrdinal,
 }) => {
-  const path = paths.applicationResume(application.id);
+  const path = paths.applicationCareerTimeline(application.id);
   return {
     title: intl.formatMessage({
-      defaultMessage: "Review your résumé",
-      id: "sXjm+Z",
-      description: "Page title for the application résumé page",
+      defaultMessage: "Review your career timeline",
+      id: "w3BYPV",
+      description: "Page title for the application career timeline page",
     }),
     subtitle: intl.formatMessage({
-      defaultMessage: "Update and review your résumé information.",
-      id: "OkREUg",
-      description: "Subtitle for the application résumé page",
+      defaultMessage: "Update and review your career timeline information.",
+      id: "5dFzBc",
+      description: "Subtitle for the application career timeline page",
     }),
     icon: StarIcon,
     crumbs: [
@@ -161,14 +161,14 @@ function formatExperienceCount(
   }
 }
 
-interface ApplicationResumeProps extends ApplicationPageProps {
+interface ApplicationCareerTimelineProps extends ApplicationPageProps {
   experiences: Array<ExperienceForDate>;
 }
 
-export const ApplicationResume = ({
+export const ApplicationCareerTimeline = ({
   application,
   experiences,
-}: ApplicationResumeProps) => {
+}: ApplicationCareerTimelineProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -180,7 +180,7 @@ export const ApplicationResume = ({
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const instructionsPath = paths.applicationResumeIntro(application.id);
+  const instructionsPath = paths.applicationCareerTimelineIntro(application.id);
   const nextStep =
     followingPageUrl ?? paths.applicationEducation(application.id);
   const { applicantDashboard } = useFeatureFlags();
@@ -219,10 +219,10 @@ export const ApplicationResume = ({
         if (!res.error) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Successfully updated your résumé!",
-              id: "VJm1GR",
+              defaultMessage: "Successfully updated your career timeline!",
+              id: "dfkNm9",
               description:
-                "Message displayed to users when saving résumé is successful.",
+                "Message displayed to users when saving career timeline is successful.",
             }),
           );
           navigate(nextStep);
@@ -252,10 +252,10 @@ export const ApplicationResume = ({
           {hasSomeExperience
             ? pageInfo.title
             : intl.formatMessage({
-                defaultMessage: "Create your résumé",
-                id: "9zHQV0",
+                defaultMessage: "Create your career timeline",
+                id: "sLqKuH",
                 description:
-                  "Title for resume page when there are no experiences yet",
+                  "Title for career timeline page when there are no experiences yet",
               })}
         </Heading>
         <Link href={instructionsPath} mode="inline">
@@ -271,16 +271,16 @@ export const ApplicationResume = ({
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "This step allows you to edit any résumé information you’ve already added to your profile. Click on an item to expand it, revealing more details. If you haven’t added anything to your résumé yet, you can do so from this page by selecting the “<strong>Add a new experience</strong>” link.",
-              id: "YbH6ZO",
+                "This step allows you to edit any career timeline information you’ve already added to your profile. Click on an item to expand it, revealing more details. If you haven’t added anything to your career timeline yet, you can do so from this page by selecting the “<strong>Add a new experience</strong>” link.",
+              id: "0PeEzR",
               description:
-                "Application step to continue working on résumé, paragraph one",
+                "Application step to continue working on career timeline, paragraph one",
             })}
           </p>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
-              defaultMessage: "Your résumé currently includes:",
-              id: "Q3yncO",
+              defaultMessage: "Your career timeline currently includes:",
+              id: "ce3IeQ",
               description: "Title for list of experiences",
             })}
           </p>
@@ -303,19 +303,19 @@ export const ApplicationResume = ({
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "Creating your résumé is a little different on this platform. First and foremost, any work you do here will be saved to your profile so that you can reuse it on other applications down the road.",
-              id: "19hs6x",
+                "Creating your career timeline is a little different on this platform. First and foremost, any work you do here will be saved to your profile so that you can reuse it on other applications down the road.",
+              id: "ZqZc8Z",
               description:
-                "Application step to begin working on résumé, paragraph one",
+                "Application step to begin working on career timeline, paragraph one",
             })}
           </p>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "Building your résumé consists of describing <strong>work experiences</strong>, <strong>education</strong>, <strong>community participation</strong>, <strong>personal learning</strong>, and <strong>awards</strong> you’ve earned. In a later step, you’ll use these experiences to highlight your skills. You can start adding experiences to your résumé using the “<strong>Add a new experience</strong>” link.",
-              id: "9Fzy0s",
+                "Building your career timeline consists of describing <strong>work experiences</strong>, <strong>education</strong>, <strong>community participation</strong>, <strong>personal learning</strong>, and <strong>awards</strong> you’ve earned. In a later step, you’ll use these experiences to highlight your skills. You can start adding experiences to your career timeline using the “<strong>Add a new experience</strong>” link.",
+              id: "bDmp5T",
               description:
-                "Application step to begin working on résumé, paragraph two",
+                "Application step to begin working on career timeline, paragraph two",
             })}
           </p>
         </>
@@ -332,11 +332,15 @@ export const ApplicationResume = ({
         <div data-h2-flex-item="base(0of1) p-tablet(fill)">{/* spacer */}</div>
 
         <div data-h2-flex-item="base(1of1) p-tablet(content)">
-          <Link mode="inline" href={paths.applicationResumeAdd(application.id)}>
+          <Link
+            mode="inline"
+            href={paths.applicationCareerTimelineAdd(application.id)}
+          >
             {intl.formatMessage({
               defaultMessage: "Add a new experience",
-              id: "ON4+Yr",
-              description: "A link to add a new experience to your resume",
+              id: "ARFz8L",
+              description:
+                "A link to add a new experience to your career timeline",
             })}
           </Link>
         </div>
@@ -354,7 +358,7 @@ export const ApplicationResume = ({
                 experience={experience}
                 headingLevel="h3"
                 showSkills={false}
-                editPath={paths.applicationResumeEdit(
+                editPath={paths.applicationCareerTimelineEdit(
                   application.id,
                   experience.id,
                 )}
@@ -366,9 +370,10 @@ export const ApplicationResume = ({
         <Well>
           <p data-h2-text-align="base(center)">
             {intl.formatMessage({
-              defaultMessage: "You don’t have any résumé experiences yet.",
-              id: "K9vqwA",
-              description: "Null state messages for résumé list",
+              defaultMessage:
+                "You don’t have any career timeline experiences yet.",
+              id: "YqQuy8",
+              description: "Null state messages for career timeline list",
             })}
           </p>
         </Well>
@@ -426,7 +431,7 @@ export const ApplicationResume = ({
   );
 };
 
-const ApplicationResumePage = () => {
+const ApplicationCareerTimelinePage = () => {
   const { applicationId } = useParams();
   const [
     {
@@ -457,7 +462,7 @@ const ApplicationResumePage = () => {
       error={applicationError || experienceError}
     >
       {application ? (
-        <ApplicationResume
+        <ApplicationCareerTimeline
           application={application}
           experiences={experiences}
         />
@@ -468,4 +473,4 @@ const ApplicationResumePage = () => {
   );
 };
 
-export default ApplicationResumePage;
+export default ApplicationCareerTimelinePage;

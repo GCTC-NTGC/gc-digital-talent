@@ -3,11 +3,12 @@ import { IntlShape, useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
 
-import { Accordion, Heading } from "@gc-digital-talent/ui";
 import {
-  StandardHeader as StandardAccordionHeader,
-  StandardHeaderProps,
-} from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
+  Accordion,
+  StandardAccordionHeader,
+  Heading,
+  StandardAccordionHeaderProps,
+} from "@gc-digital-talent/ui";
 import { Checklist, RadioGroup } from "@gc-digital-talent/forms";
 import {
   getOperationalRequirement,
@@ -121,7 +122,7 @@ const AdvancedFilters = () => {
     }),
   );
 
-  const accordionTitleProps: StandardHeaderProps = {
+  const accordionTitleProps: StandardAccordionHeaderProps = {
     headingAs: "h4",
     titleProps: {
       "data-h2-font-size": "base(copy, 1)",
