@@ -91,7 +91,7 @@ describe("useFilterOptions", () => {
       expect(result.current.optionsData.operationalRequirement).toHaveLength(7);
       expect(result.current.optionsData.workRegion).toHaveLength(8);
       expect(result.current.optionsData.equity).toHaveLength(4);
-      expect(result.current.optionsData.poolCandidateStatus).toHaveLength(16);
+      expect(result.current.optionsData.poolCandidateStatus).toHaveLength(18);
       expect(result.current.optionsData.priorityWeight).toHaveLength(4);
       expect(result.current.optionsData.expiryStatus).toHaveLength(3);
       expect(result.current.optionsData.suspendedStatus).toHaveLength(3);

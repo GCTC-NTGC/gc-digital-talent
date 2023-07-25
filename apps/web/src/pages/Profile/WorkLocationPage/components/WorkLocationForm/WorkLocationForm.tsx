@@ -7,7 +7,7 @@ import {
   BasicForm,
   Checklist,
   TextArea,
-  enumToOptions,
+  enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
 import {
   getWorkRegionsDetailed,
@@ -179,10 +179,12 @@ const WorkLocationForm = ({
                 legend={labels.locationPreferences}
                 name="locationPreferences"
                 id="locationPreferences"
-                items={enumToOptions(WorkRegion).map(({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getWorkRegionsDetailed(value)),
-                }))}
+                items={enumToOptionsWorkRegionSorted(WorkRegion).map(
+                  ({ value }) => ({
+                    value,
+                    label: intl.formatMessage(getWorkRegionsDetailed(value)),
+                  }),
+                )}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}

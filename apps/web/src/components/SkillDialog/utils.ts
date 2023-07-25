@@ -56,8 +56,9 @@ export const getSkillDialogMessages: GetSkillDialogMessages = ({
         description: "Button text to open the skill dialog and add a skill",
       }),
       title: intl.formatMessage({
-        defaultMessage: "Find and link a skill to your résumé experience",
-        id: "yiNnwk",
+        defaultMessage:
+          "Find and link a skill to your career timeline experience",
+        id: "Q+7LUo",
         description: "Title for the find a skill dialog within an experience",
       }),
       subtitle: intl.formatMessage({

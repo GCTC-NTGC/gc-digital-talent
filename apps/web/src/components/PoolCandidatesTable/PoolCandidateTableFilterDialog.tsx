@@ -6,7 +6,7 @@ import AdjustmentsVerticalIcon from "@heroicons/react/24/outline/AdjustmentsVert
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import {
   BasicForm,
-  SelectFieldV2,
+  MultiSelectFieldBase,
   MultiSelectField,
 } from "@gc-digital-talent/forms";
 
@@ -132,7 +132,7 @@ const PoolCandidateTableFilterDialog = ({
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
-                <SelectFieldV2
+                <MultiSelectFieldBase
                   forceArrayFormValue
                   id="languageAbility"
                   name="languageAbility"
@@ -183,10 +183,11 @@ const PoolCandidateTableFilterDialog = ({
                     id: "qhhPj5",
                   })}
                   options={optionsData.workRegion}
+                  doNotSort
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-                <SelectFieldV2
+                <MultiSelectFieldBase
                   forceArrayFormValue
                   id="hasDiploma"
                   name="hasDiploma"
@@ -198,7 +199,7 @@ const PoolCandidateTableFilterDialog = ({
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-                <SelectFieldV2
+                <MultiSelectFieldBase
                   forceArrayFormValue
                   id="expiryStatus"
                   name="expiryStatus"
@@ -211,7 +212,7 @@ const PoolCandidateTableFilterDialog = ({
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
-                <SelectFieldV2
+                <MultiSelectFieldBase
                   forceArrayFormValue
                   id="suspendedStatus"
                   name="suspendedStatus"

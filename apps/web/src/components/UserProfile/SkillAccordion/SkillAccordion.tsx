@@ -2,8 +2,11 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { Accordion, HeadingRank } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
+import {
+  Accordion,
+  HeadingRank,
+  StandardAccordionHeader,
+} from "@gc-digital-talent/ui";
 import {
   getLocale,
   getAwardedScope,

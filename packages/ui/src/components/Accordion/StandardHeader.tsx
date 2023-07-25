@@ -1,4 +1,5 @@
 import React from "react";
+import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 import Accordion, { AccordionHeaderProps } from "./Accordion";
 import { IconType } from "../../types";
@@ -14,18 +15,16 @@ export interface StandardHeaderProps extends AccordionHeaderProps {
   subtitleProps?: TitleProps;
 }
 
-export const StandardHeader = ({
-  Icon,
-  context,
-  subtitle,
-  children,
-  titleProps,
-  subtitleProps,
-  ...rest
-}: StandardHeaderProps) => {
-  return (
+const StandardHeader = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Trigger>,
+  StandardHeaderProps
+>(
+  (
+    { Icon, context, subtitle, children, titleProps, subtitleProps, ...rest },
+    forwardedRef,
+  ) => (
     <Accordion.Header {...rest}>
-      <Accordion.Trigger>
+      <Accordion.Trigger ref={forwardedRef}>
         <div
           data-h2-flex-grow="base(1)"
           data-h2-display="base(flex)"
@@ -73,7 +72,7 @@ export const StandardHeader = ({
         </div>
       </Accordion.Trigger>
     </Accordion.Header>
-  );
-};
+  ),
+);
 
 export default StandardHeader;

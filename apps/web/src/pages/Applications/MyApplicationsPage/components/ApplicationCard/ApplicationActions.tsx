@@ -3,11 +3,11 @@ import { useIntl } from "react-intl";
 
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
 
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
-import { PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import type { Application } from "./ApplicationCard";
 
 export interface ActionProps {
@@ -52,7 +52,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { pool } = application;
-  const title = getFullPoolTitleHtml(intl, pool) && "";
+  const title = getFullPoolTitleLabel(intl, pool);
   if (!show) {
     return null;
   }
@@ -98,7 +98,7 @@ const SeeAdvertisementAction = ({
 }: SeeAdvertisementActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const jobTitle = getFullPoolTitleHtml(intl, advertisement) && "";
+  const jobTitle = getFullPoolTitleLabel(intl, advertisement);
 
   if (!show || !advertisement) {
     return null;
@@ -141,7 +141,7 @@ export interface SupportActionProps extends ActionProps {
 const SupportAction = ({ show, application }: SupportActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
+  const jobTitle = getFullPoolTitleLabel(intl, application.pool);
   if (!show) {
     return null;
   }
@@ -184,7 +184,7 @@ const CopyApplicationIdAction = ({
   if (!show) {
     return null;
   }
-  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
+  const jobTitle = getFullPoolTitleLabel(intl, application.pool);
   return (
     <Button
       mode="inline"
@@ -235,24 +235,24 @@ const CopyApplicationIdAction = ({
     </Button>
   );
 };
-export interface VisitResumeActionProps extends ActionProps {
+export interface VisitCareerTimelineActionProps extends ActionProps {
   userID: string;
   application: Application;
 }
-const VisitResumeAction = ({
+const VisitCareerTimelineAction = ({
   show,
   userID,
   application,
-}: VisitResumeActionProps) => {
+}: VisitCareerTimelineActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
+  const jobTitle = getFullPoolTitleLabel(intl, application.pool);
 
   if (!show) {
     return null;
   }
 
-  const recruitmentSectionUrl = paths.resumeAndRecruitment(userID, {
+  const recruitmentSectionUrl = paths.careerTimelineAndRecruitment(userID, {
     applicationId: application.id,
     section: PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
   });
@@ -265,9 +265,10 @@ const VisitResumeAction = ({
       data-h2-font-size="base(caption)"
       aria-label={intl.formatMessage(
         {
-          defaultMessage: "Visit the {title} recruitment on your résumé",
-          id: "pqsnpk",
-          description: "Link text to direct a user to the Résumé page",
+          defaultMessage: "Manage the {title} recruitment",
+          id: "utl6O/",
+          description:
+            "Link text to direct a user to the recruitment section on the career timeline page",
         },
         {
           title: jobTitle,
@@ -275,9 +276,10 @@ const VisitResumeAction = ({
       )}
     >
       {intl.formatMessage({
-        defaultMessage: "Visit résumé",
-        id: "Dq+GKf",
-        description: "Link text to direct a user to the Résumé page",
+        defaultMessage: "Manage recruitment",
+        id: "GZXf3A",
+        description:
+          "Link text to direct a user to the recruitment section on the career timeline page",
       })}
     </Link>
   );
@@ -294,7 +296,7 @@ const ManageAvailabilityAction = ({
 }: ManageAvailabilityActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const jobTitle = getFullPoolTitleHtml(intl, application.pool) && "";
+  const jobTitle = getFullPoolTitleLabel(intl, application.pool);
 
   if (!show) {
     return null;
@@ -341,7 +343,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
     return null;
   }
 
-  const name = getFullPoolTitleHtml(intl, application.pool) && "";
+  const name = getFullPoolTitleLabel(intl, application.pool);
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
@@ -515,6 +517,6 @@ export default {
   SupportAction,
   ViewAction,
   CopyApplicationIdAction,
-  VisitResumeAction,
+  VisitCareerTimelineAction,
   ManageAvailabilityAction,
 };

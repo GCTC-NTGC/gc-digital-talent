@@ -94,7 +94,7 @@ export const ExperienceForm = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const returnPath = `${paths.resumeAndRecruitment(userId)}${
+  const returnPath = `${paths.careerTimelineAndRecruitment(userId)}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 
@@ -121,7 +121,9 @@ export const ExperienceForm = ({
 
   let crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
-      label: intl.formatMessage(navigationMessages.resumeAndRecruitment),
+      label: intl.formatMessage(
+        navigationMessages.careerTimelineAndRecruitment,
+      ),
       url: returnPath,
     },
     {
@@ -377,7 +379,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const { userId, experienceType, experienceId } = useParams<RouteParams>();
   const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
-  const returnPath = `${paths.resumeAndRecruitment(userId || "")}${
+  const returnPath = `${paths.careerTimelineAndRecruitment(userId || "")}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 
