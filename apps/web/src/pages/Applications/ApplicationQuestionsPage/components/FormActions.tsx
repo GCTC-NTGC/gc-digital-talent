@@ -6,7 +6,11 @@ import { Button, Separator } from "@gc-digital-talent/ui";
 
 import applicationMessages from "~/messages/applicationMessages";
 
-const FormActions = () => {
+interface FormActionsProps {
+  disabled?: boolean;
+}
+
+const FormActions = ({ disabled = false }: FormActionsProps) => {
   const intl = useIntl();
   const {
     register,
@@ -34,7 +38,7 @@ const FormActions = () => {
           type="submit"
           mode="solid"
           value="continue"
-          disabled={isSubmitting}
+          disabled={disabled || isSubmitting}
           {...actionProps}
           onClick={() => setValue("action", "continue")}
         >
@@ -45,7 +49,7 @@ const FormActions = () => {
           mode="inline"
           color="secondary"
           value="cancel"
-          disabled={isSubmitting}
+          disabled={disabled || isSubmitting}
           {...actionProps}
           onClick={() => setValue("action", "cancel")}
         >

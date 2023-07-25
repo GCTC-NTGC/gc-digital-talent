@@ -184,7 +184,8 @@ export const ApplicationResume = ({
   const nextStep =
     followingPageUrl ?? paths.applicationEducation(application.id);
   const { applicantDashboard } = useFeatureFlags();
-  const [, executeMutation] = useUpdateApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] =
+    useUpdateApplicationMutation();
   const cancelPath = applicantDashboard
     ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
@@ -413,7 +414,7 @@ export const ApplicationResume = ({
               type="submit"
               mode="solid"
               value="continue"
-              disabled={isSubmitting}
+              disabled={mutating || isSubmitting}
               onClick={() => {
                 setValue("experienceCount", experiences.length);
               }}

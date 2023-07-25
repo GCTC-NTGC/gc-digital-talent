@@ -153,7 +153,8 @@ const ApplicationEducation = ({
   const watchEducationRequirement = watch("educationRequirement");
   const actionProps = register("action");
 
-  const [, executeMutation] = useUpdateApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] =
+    useUpdateApplicationMutation();
   const handleSubmit = (formValues: FormValues) => {
     const includesExperience = (id: string) =>
       formValues.educationRequirementExperiences.includes(id);
@@ -463,7 +464,7 @@ const ApplicationEducation = ({
               type="submit"
               mode="solid"
               value="continue"
-              disabled={isSubmitting}
+              disabled={mutating || isSubmitting}
               {...actionProps}
               onClick={() => {
                 setValue("action", "continue");

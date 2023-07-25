@@ -101,10 +101,8 @@ const SkillForm = ({
   const experienceType = selectedExperience
     ? deriveExperienceType(selectedExperience)
     : "";
-  const { executeMutation, getMutationArgs } = useExperienceMutations(
-    "update",
-    experienceType,
-  );
+  const { executeMutation, getMutationArgs, executing } =
+    useExperienceMutations("update", experienceType);
 
   const handleSubmit = (formValues: FormValues) => {
     const args = getMutationArgs(
@@ -296,7 +294,7 @@ const SkillForm = ({
               type="submit"
               mode="inline"
               color="error"
-              disabled={isSubmitting}
+              disabled={executing || isSubmitting}
               {...actionProps}
               onClick={() => setValue("action", "remove")}
             >

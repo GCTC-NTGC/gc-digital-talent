@@ -51,10 +51,8 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     reset,
   } = methods;
   const [type, action] = watch(["experienceType", "action"]);
-  const { executeMutation, getMutationArgs } = useExperienceMutations(
-    "create",
-    type,
-  );
+  const { executeMutation, getMutationArgs, executing } =
+    useExperienceMutations("create", type);
   const actionProps = register("action");
 
   const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = async (
@@ -169,7 +167,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
             type="submit"
             mode="solid"
             value="return"
-            disabled={isSubmitting}
+            disabled={executing || isSubmitting}
             {...actionProps}
             onClick={() => setValue("action", "return")}
           >
@@ -182,7 +180,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
           <Button
             type="submit"
             mode="inline"
-            disabled={isSubmitting}
+            disabled={executing || isSubmitting}
             {...actionProps}
             onClick={() => setValue("action", "add-another")}
           >

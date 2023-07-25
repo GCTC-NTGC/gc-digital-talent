@@ -104,7 +104,8 @@ const ApplicationReview = ({
   });
   const nextStep = followingPageUrl ?? paths.applicationSuccess(application.id);
 
-  const [, executeMutation] = useSubmitApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] =
+    useSubmitApplicationMutation();
   const methods = useForm<FormValues>();
   const {
     formState: { isSubmitting },
@@ -506,7 +507,7 @@ const ApplicationReview = ({
                   type="submit"
                   mode="solid"
                   value="continue"
-                  disabled={isSubmitting}
+                  disabled={mutating || isSubmitting}
                 >
                   {intl.formatMessage({
                     defaultMessage: "Submit my application",

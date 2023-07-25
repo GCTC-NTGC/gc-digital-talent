@@ -27,4 +27,5 @@ export interface IndigenousDialogProps {
   signature: string | undefined;
   onSave: (data: IndigenousUpdateProps) => void;
   children: React.ReactNode;
+  disabled?: boolean;
 }
