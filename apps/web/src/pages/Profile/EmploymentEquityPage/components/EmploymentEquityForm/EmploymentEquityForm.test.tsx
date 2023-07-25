@@ -7,6 +7,7 @@ import userEvent from "@testing-library/user-event";
 import React from "react";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { act } from "react-dom/test-utils";
 import EmploymentEquityForm, {
   type EmploymentEquityFormProps,
 } from "./EmploymentEquityForm";
@@ -52,13 +53,15 @@ describe("DiversityEquityInclusionForm", () => {
       isMutating: false,
     });
 
-    user.click(
-      await screen.findByRole("button", {
-        name: /show available equity options/i,
-      }),
-    );
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /show available equity options/i,
+        }),
+      );
+    });
 
-    waitFor(async () => {
+    await waitFor(async () => {
       expect(
         await screen.getByRole("button", {
           name: /hide available equity options/i,
@@ -73,7 +76,7 @@ describe("DiversityEquityInclusionForm", () => {
         }),
       ).toBeInTheDocument();
     } else {
-      waitFor(async () => {
+      await waitFor(async () => {
         expect(
           await screen.getByRole("button", {
             name: /add person with a disability to my profile/i,
@@ -89,7 +92,7 @@ describe("DiversityEquityInclusionForm", () => {
         }),
       ).toBeInTheDocument();
     } else {
-      waitFor(async () => {
+      await waitFor(async () => {
         expect(
           await screen.findByRole("button", {
             name: /add indigenous identity to my profile/i,
@@ -105,7 +108,7 @@ describe("DiversityEquityInclusionForm", () => {
         }),
       ).toBeInTheDocument();
     } else {
-      waitFor(async () => {
+      await waitFor(async () => {
         expect(
           await screen.findByRole("button", {
             name: /add visible minority to my profile/i,
@@ -120,7 +123,7 @@ describe("DiversityEquityInclusionForm", () => {
         }),
       ).toBeInTheDocument();
     } else {
-      waitFor(async () => {
+      await waitFor(async () => {
         expect(
           await screen.findByRole("button", {
             name: /add woman to my profile/i,
@@ -141,13 +144,15 @@ describe("DiversityEquityInclusionForm", () => {
       isMutating: false,
     });
 
-    user.click(
-      await screen.findByRole("button", {
-        name: /available equity options/i,
-      }),
-    );
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /available equity options/i,
+        }),
+      );
+    });
 
-    waitFor(async () => {
+    await waitFor(async () => {
       user.click(
         await screen.findByRole("button", {
           name: /add Woman to my profile/i,
@@ -155,7 +160,7 @@ describe("DiversityEquityInclusionForm", () => {
       );
     });
 
-    waitFor(async () => {
+    await waitFor(async () => {
       expect(
         await screen.queryByRole("dialog", { name: /woman/i }),
       ).toBeInTheDocument();
@@ -175,13 +180,15 @@ describe("DiversityEquityInclusionForm", () => {
       isMutating: false,
     });
 
-    user.click(
-      await screen.findByRole("button", {
-        name: /available equity options/i,
-      }),
-    );
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /available equity options/i,
+        }),
+      );
+    });
 
-    waitFor(async () => {
+    await waitFor(async () => {
       user.click(
         await screen.findByRole("button", {
           name: /add Woman to my profile/i,
@@ -189,7 +196,7 @@ describe("DiversityEquityInclusionForm", () => {
       );
     });
 
-    waitFor(async () => {
+    await waitFor(async () => {
       user.click(
         await screen.findByRole("button", {
           name: /save/i,
