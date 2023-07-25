@@ -4,7 +4,7 @@ import {
   User,
 } from "~/api/generated";
 
-export type FormValues = Pick<
+export type PartialUser = Pick<
   User,
   | "preferredLang"
   | "preferredLanguageForInterview"
@@ -18,6 +18,8 @@ export type FormValues = Pick<
   | "citizenship"
   | "armedForcesStatus"
 >;
+
+export type FormValues = PartialUser;
 
 export type AboutMeUpdateHandler = (
   id: string,

@@ -1,7 +1,7 @@
 import { User, BilingualEvaluation, Pool } from "@gc-digital-talent/graphql";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
-type PartialUser = Pick<
+export type PartialUser = Pick<
   User,
   | "lookingForEnglish"
   | "lookingForFrench"
@@ -57,7 +57,7 @@ export function hasEmptyOptionalFields({
 }
 
 export function hasUnsatisfiedRequirements(
-  user: User,
+  user: PartialUser,
   pool: Pool | null,
 ): boolean {
   return getMissingLanguageRequirements(user, pool).length > 0;

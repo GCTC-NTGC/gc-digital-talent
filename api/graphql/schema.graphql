@@ -121,6 +121,8 @@ type User {
   educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
   personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
+  # Skill Library
+  userSkills: [UserSkill!] @hasMany
   # Pool Manager info
   pools: [Pool]
     @hasMany
@@ -623,7 +625,13 @@ type Skill {
   workExperiences: [WorkExperience!] @hasMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Skill is nested in an Experience (eg. experience->skill->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+    @rename(attribute: "experience_skill")
+}
+
+type UserSkill {
+  id: ID!
+  user: User! @belongsTo @can(ability: "view", resolved: true)
+  skill: Skill! @belongsTo
 }
 
 type SkillKeywords {
@@ -672,7 +680,7 @@ interface Experience {
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+    @rename(attribute: "experience_skill")
 }
 
 type WorkExperience implements Experience {
@@ -687,7 +695,7 @@ type WorkExperience implements Experience {
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+    @rename(attribute: "experience_skill")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -700,7 +708,7 @@ type PersonalExperience implements Experience {
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+    @rename(attribute: "experience_skill")
 }
 type CommunityExperience implements Experience {
   id: ID!
@@ -714,7 +722,7 @@ type CommunityExperience implements Experience {
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
   experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+    @rename(attribute: "experience_skill")
 }
 type EducationExperience implements Experience {
   id: ID!
@@ -730,7 +738,7 @@ type EducationExperience implements Experience {
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+    @rename(attribute: "experience_skill")
 }
 type AwardExperience implements Experience {
   id: ID!
@@ -744,7 +752,7 @@ type AwardExperience implements Experience {
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+    @rename(attribute: "experience_skill")
 }
 
 type ExperienceSkillRecord {
@@ -1423,7 +1431,7 @@ input WorkExperienceInput {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 input PersonalExperienceInput {
   title: String
@@ -1431,7 +1439,7 @@ input PersonalExperienceInput {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 input CommunityExperienceInput {
   title: String
@@ -1440,7 +1448,7 @@ input CommunityExperienceInput {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 input EducationExperienceInput {
   institution: String
@@ -1451,7 +1459,7 @@ input EducationExperienceInput {
   type: EducationType
   status: EducationStatus
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 input AwardExperienceInput {
   title: String
@@ -1460,13 +1468,13 @@ input AwardExperienceInput {
   awardedTo: AwardedTo @rename(attribute: "awarded_to")
   awardedScope: AwardedScope @rename(attribute: "awarded_scope")
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 
 input UpdateExperienceSkills {
-  connect: [ConnectExperienceSkills!]
-  disconnect: [ID!]
-  sync: [ConnectExperienceSkills!]
+  connect: [ConnectExperienceSkills!] @resolveWith(method: "connectSkills")
+  disconnect: [ID!] @resolveWith(method: "disconnectSkills")
+  sync: [ConnectExperienceSkills!] @resolveWith(method: "syncSkills")
 }
 
 input ConnectExperienceSkills {

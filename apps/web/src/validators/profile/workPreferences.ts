@@ -2,7 +2,7 @@ import isEmpty from "lodash/isEmpty";
 
 import { User } from "@gc-digital-talent/graphql";
 
-type PartialUser = Pick<
+export type PartialUser = Pick<
   User,
   "acceptedOperationalRequirements" | "positionDuration"
 >;

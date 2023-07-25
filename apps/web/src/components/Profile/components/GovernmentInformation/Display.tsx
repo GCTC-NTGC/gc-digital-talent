@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { User } from "@gc-digital-talent/graphql";
 import { enumToOptions } from "@gc-digital-talent/forms";
 import {
   commonMessages,
@@ -14,9 +13,10 @@ import { GovEmployeeType } from "~/api/generated";
 
 import { empty } from "@gc-digital-talent/helpers";
 import FieldDisplay from "../FieldDisplay";
+import { PartialUser } from "./types";
 
 interface DisplayProps {
-  user: User;
+  user: PartialUser;
 }
 
 const Display = ({

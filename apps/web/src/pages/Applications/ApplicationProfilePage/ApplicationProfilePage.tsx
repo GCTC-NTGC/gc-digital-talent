@@ -13,13 +13,12 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import {
-  User,
   useGetApplicationQuery,
   useGetMeQuery,
   useUpdateUserAsUserMutation,
 } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
-import { SectionProps } from "~/components/Profile/types";
+import { ApplicantProfileUser, SectionProps } from "~/components/Profile/types";
 import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
 import StepNavigation from "~/components/Profile/components/StepNavigation";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
@@ -27,7 +26,6 @@ import WorkPreferences from "~/components/Profile/components/WorkPreferences/Wor
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
-
 import { ApplicationPageProps } from "../ApplicationApi";
 import stepHasError from "../profileStep/profileStepValidation";
 import { useApplicationContext } from "../ApplicationContext";
@@ -67,7 +65,7 @@ export const getPageInfo: GetPageNavInfo = ({
 };
 
 interface ApplicationProfileProps extends ApplicationPageProps {
-  user: User;
+  user: ApplicantProfileUser;
 }
 
 export const ApplicationProfile = ({
