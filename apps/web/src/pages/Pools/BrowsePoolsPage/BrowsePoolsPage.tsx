@@ -163,9 +163,9 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
                       ? intl.formatMessage({
                           defaultMessage:
                             "We're posting new opportunities all the time. By keeping your profile up to date, you'll be able to submit applications lightning fast when the time comes.",
-                          id: "Jorewd",
+                          id: "9SZDCq",
                           description:
-                            "Text describing upcoming opportunities instructing users to update a profile when logged in",
+                            "Text describing upcoming opportunities instructing users to update a profile when signed in",
                         })
                       : intl.formatMessage({
                           defaultMessage:
@@ -186,9 +186,9 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
                     {loggedIn
                       ? intl.formatMessage({
                           defaultMessage: "Update my profile",
-                          id: "/vsOxF",
+                          id: "jfCwes",
                           description:
-                            "Link text to direct users to the profile page when logged in",
+                            "Link text to direct users to the profile page when signed in",
                         })
                       : intl.formatMessage({
                           defaultMessage: "Create a profile",

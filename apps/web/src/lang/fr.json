@@ -309,10 +309,6 @@
     "defaultMessage": "Votre numéro de confirmation est le suivant : <strong>{id}</strong>",
     "description": "An application confirmation number"
   },
-  "/vsOxF": {
-    "defaultMessage": "Mettre à jour mon profil",
-    "description": "Link text to direct users to the profile page when logged in"
-  },
   "/yOfhq": {
     "defaultMessage": "Durée de l’emploi ",
     "description": "Job duration label "
@@ -387,6 +383,10 @@
   "0Ma07A": {
     "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre parcours professionnel pour confirmer les exigences en matière d’expérience et d’études, nous vous demanderons de décrire une ou plusieurs expériences de votre parcours professionnel au cours desquelles vous avez activement utilisé la compétence requise.",
     "description": "Application step for skill requirements, introduction, description, paragraph two"
+  },
+  "0OLsay": {
+    "defaultMessage": "CléGC est un service qui vous permet de vous connecter à <a>de nombreux services gouvernementaux différents</a> avec un seul nom d’utilisateur et un seul mot de passe. Le bouton ci-dessous vous mènera au site Web de CléGC, où vous pourrez créer un compte si vous n’en avez pas encore un. Une fois que vous vous serez inscrit(e) à CléGC, vous reviendrez ici pour compléter votre profil.",
+    "description": "Instructions on how to register with GCKey paragraph 2- IAP variant"
   },
   "0PeEzR": {
     "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour le développer et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
@@ -858,10 +858,6 @@
     "defaultMessage": "Nous publions constamment de nouvelles offres. En créant votre profil dès maintenant, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
     "description": "Text describing upcoming opportunities instructing users to create a profile when anonymous"
   },
-  "3vDhoc": {
-    "defaultMessage": "Déconnexion",
-    "description": "Étiquette affichée dans l'élément de menu du lien Déconnexion."
-  },
   "3vjhOA": {
     "defaultMessage": "Évaluation linguistique du gouvernement du Canada",
     "description": "Message on links to the language evaluation tests"
@@ -913,10 +909,6 @@
   "4EkI/1": {
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the update a skill form description (French) field."
-  },
-  "4FEV7d": {
-    "defaultMessage": "Vous vous êtes connecté avec succès",
-    "description": "Title for successful login alert in create account page."
   },
   "4I6WIU": {
     "defaultMessage": "Bienvenue",
@@ -994,6 +986,10 @@
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.",
     "description": "Null state message for experiences section of the application review page."
   },
+  "4ljE/r": {
+    "defaultMessage": "Se connecter",
+    "description": "Message displayed to users to sign in to the application"
+  },
   "4p0QdF": {
     "defaultMessage": "Fermer",
     "description": "Button text used to close an open modal"
@@ -1005,6 +1001,10 @@
   "4r4MJP": {
     "defaultMessage": "Lorsque vous postulez à un processus de recrutement et que vous réussissez l’évaluation, vous êtes admis(e) et vous pouvez commencer à être pris en considération pour les possibilités correspondantes. Cette section présente tous les processus actifs et expirés auxquels vous participez actuellement et vous permet de gérer le fait que vous apparaissiez ou non dans les recherches de talents.",
     "description": "Descriptive paragraph for the Qualified recruitment processes section of the career timeline and recruitment page."
+  },
+  "4sLCWZ": {
+    "defaultMessage": "Continuez vers CléGC et connectez-vous",
+    "description": "GCKey sign in link text on the sign in page"
   },
   "4uiPHx": {
     "defaultMessage": "Passer à la page suivante",
@@ -1226,6 +1226,14 @@
     "defaultMessage": "Voir les candidats<hidden> pour {label}</hidden>",
     "description": "Text for a link to the Pool Candidates table"
   },
+  "6SfJEp": {
+    "defaultMessage": "Vous pouvez vous connecter à votre profil de Programme d'apprentissage en TI pour les personnes autochtones à l'aide de votre CléGC actuelle, même si vous n'avez jamais utilisé cette plateforme auparavant.",
+    "description": "Instructions on how to sign in with GCKey - IAP variant"
+  },
+  "6TKE1K": {
+    "defaultMessage": "Pour commencer à établir votre profil dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones, vous devez <strong>devez d’abord vous inscrire à la plateforme en utilisant CléGC</strong>.",
+    "description": "Instructions on how to register with GCKey - IAP variant"
+  },
   "6UVZOY": {
     "defaultMessage": "Laissez notre équipe vous épargner du temps et de l’énergie en associant vos besoins à des professionnels des <abbreviation>TI</abbreviation> préalablement sélectionnés et possédant les compétences requises pour le poste. Tous les talents de nos bassins de dotation ont été sélectionnés à l’issue d’un processus concurrentiel. Vous pouvez donc passer directement à l’entrevue et décider s’ils conviennent à votre équipe.",
     "description": "Summary for to go to the search page on Browse IT jobs page"
@@ -1286,10 +1294,6 @@
     "defaultMessage": "Membres de l’équipe",
     "description": "Page title for the view team members page"
   },
-  "6rhyxk": {
-    "defaultMessage": "Déconnexion",
-    "description": "Link text to logout."
-  },
   "6tqGpT": {
     "defaultMessage": "En savoir plus<hidden> le Programme d’apprentissage en TI pour les populations autochtones</hidden>",
     "description": "Link text to the IT Apprenticeship Program for Indigenous Peoples"
@@ -1314,10 +1318,6 @@
     "defaultMessage": "Retirer de l'expérience",
     "description": "Message in skills in details section to remove skill from the experience."
   },
-  "71ID2W": {
-    "defaultMessage": "Connexion",
-    "description": "Label displayed on the Login menu item."
-  },
   "72pd2Z": {
     "defaultMessage": "<strong>gestion de l’information</strong>, ou",
     "description": "List item of experiences required in application education page."
@@ -1337,6 +1337,10 @@
   "79m9jN": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Page title for the application success page"
+  },
+  "7CtKdX": {
+    "defaultMessage": "<strong>Vous avez déjà un compte CléGC?</strong> <a>Connectez-vous plutôt</a>.",
+    "description": "Instruction on what to do if user already has a GCKey"
   },
   "7DUfu+": {
     "defaultMessage": "Statut de citoyenneté",
@@ -1530,6 +1534,10 @@
     "defaultMessage": "Téléphone",
     "description": "Label displayed on the user form telephone field."
   },
+  "8M/lmC": {
+    "defaultMessage": "N'oubliez pas que pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt!",
+    "description": "Message displayed to a user after signing out"
+  },
   "8M2Tbu": {
     "defaultMessage": "<strong>Service de relais vidéo :</strong>La CCDP accepte les appels utilisant le service de relais vidéo effectués par l’intermédiaire de <relayServiceLink>SRV Canada</relayServiceLink>.",
     "description": "VRS contact info"
@@ -1569,6 +1577,10 @@
   "8cRL8r": {
     "defaultMessage": "Durée permanente",
     "description": "Permanent duration only"
+  },
+  "8diKHR": {
+    "defaultMessage": "Si vous n’êtes pas sûr(e) d’avoir un compte CléGC existant, rendez-vous sur le site Web et essayez de vous connecter. Si vous ne vous souvenez pas de votre mot de passe, vous pouvez également le réinitialiser à cet endroit.",
+    "description": "Instructions on what to do if user doesn't know if they have a GCKey"
   },
   "8fQWTc": {
     "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
@@ -1650,6 +1662,10 @@
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
   },
+  "9SZDCq": {
+    "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
+    "description": "Text describing upcoming opportunities instructing users to update a profile when signed in"
+  },
   "9UZ/eS": {
     "defaultMessage": "Organisation",
     "description": "Label displayed on Work Experience form for organization input"
@@ -1661,6 +1677,10 @@
   "9V8bnL": {
     "defaultMessage": "Compétences techniques requises",
     "description": "Title for required technical skills section of a pool advertisement"
+  },
+  "9XSqNG": {
+    "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique du GC en utilisant votre CléGC, même si vous n’avez jamais utilisé cette plateforme auparavant.",
+    "description": "Instructions on how to sign in with GCKey"
   },
   "9YuUR/": {
     "defaultMessage": "Ajouter une expérience à votre parcours professionnel",
@@ -1705,10 +1725,6 @@
   "A2VzLX": {
     "defaultMessage": "Emplacement précis (anglais)",
     "description": "Label for a pool advertisements specific English Location"
-  },
-  "A6H4EY": {
-    "defaultMessage": "N'oubliez pas que, pour vous reconnecter, vous devez utiliser votre nom d'utilisateur et votre mot de passe de la CléGC. Nous espérons vous voir bientôt!",
-    "description": "Message displayed to a user after logging out"
   },
   "A9Urm+": {
     "defaultMessage": "Lorsque vous envoyez votre candidature, une copie de votre profil est automatiquement créée.",
@@ -2246,6 +2262,10 @@
     "defaultMessage": "Demande réussie",
     "description": "Page title for the request confirmation page."
   },
+  "DeGAS5": {
+    "defaultMessage": "Vous vous êtes connecté(e) avec succès",
+    "description": "Title for successful sign in alert in create account page."
+  },
   "DexZJJ": {
     "defaultMessage": "Créer une classification",
     "description": "Heading displayed above the Create Classification form."
@@ -2405,6 +2425,10 @@
   "F00OD4": {
     "defaultMessage": "Statut du candidat",
     "description": "Title of the 'Candidate status' section of the view-user page"
+  },
+  "F1OHq7": {
+    "defaultMessage": "Vous vous êtes déconnecté(e) de la plateforme avec succès",
+    "description": "Title for the alert displayed after a user signs out"
   },
   "F3/88e": {
     "defaultMessage": "Modifier les options de votre lieu de travail.",
@@ -2597,6 +2621,10 @@
     "defaultMessage": "J'envisagerais d'accepter un emploi :",
     "description": "Legend Text for required work preferences options in work preferences form"
   },
+  "GQsJAi": {
+    "defaultMessage": "Lorsque vous vous connectez à votre compte, vous commencez par cette page. Vous pouvez utiliser l'outil <strong><a>pour suivre vos candidatures</a></strong> sur cette page afin de revoir votre demande au Programme d'apprentissage en TI pour les personnes autochtones et de suivre votre statut dans le Programme.",
+    "description": "Third paragraph for profile and applications notification welcoming an IAP user"
+  },
   "GQskY1": {
     "defaultMessage": "Mettre à jour une famille de compétences",
     "description": "Title displayed on the update a skillFamily form."
@@ -2738,6 +2766,10 @@
     "defaultMessage": "Postuler à des emplois de gestionnaire",
     "description": "Title for the feature about finding manager jobs"
   },
+  "HNe+Yh": {
+    "defaultMessage": "Bienvenue sur le site du <abbreviation>Talent numérique</abbreviation> du GC, veuillez vous connecter pour continuer",
+    "description": "Instructional text for the talent cloud pool manager portal home page."
+  },
   "HPDqDV": {
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>.",
     "description": "Message for the completed english bilingual evaluation option"
@@ -2758,6 +2790,10 @@
     "defaultMessage": "(À déterminer)",
     "description": "Message displayed when a pool has no expiry date yet"
   },
+  "Hf3x3E": {
+    "defaultMessage": "Lorsque vous vous connectez à votre compte, vous commencez par cette page. Vous pouvez utiliser l'outil <strong><a>pour suivre vos candidatures</a></strong> sur cette page afin de revoir votre demande au Programme d'apprentissage en TI pour les personnes autochtones et de suivre votre statut dans le Programme.",
+    "description": "Third paragraph for profile and applications notification welcoming an IAP user"
+  },
   "Hgd/PL": {
     "defaultMessage": "Retour à l'accueil",
     "description": "Link text to return to the home page"
@@ -2769,10 +2805,6 @@
   "Hi7hnj": {
     "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
     "description": "Name of Western Ojibwe language"
-  },
-  "Hiv/2m": {
-    "defaultMessage": "Déconnexion",
-    "description": "Title for the modal that appears when an authenticated user lands on /logged-out."
   },
   "HocLRh": {
     "defaultMessage": "Nom du bassin",
@@ -2825,10 +2857,6 @@
   "I8jlr2": {
     "defaultMessage": "Date de clôture",
     "description": "Sub title for pool closing date"
-  },
-  "I8v/Uy": {
-    "defaultMessage": "Le sujet est une chaîne qui identifie uniquement l’identité de connexion d’un utilisateur.",
-    "description": "Additional context describing the purpose of the users's 'subject' field."
   },
   "IDNjBI": {
     "defaultMessage": "Statut de priorité",
@@ -3013,10 +3041,6 @@
   "JjTGYe": {
     "defaultMessage": "Vous êtes sur le point de modifier la date d'expiration pour cet utilisateur :",
     "description": "First section of text on the change candidate expiry date dialog"
-  },
-  "Jorewd": {
-    "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
-    "description": "Text describing upcoming opportunities instructing users to update a profile when logged in"
   },
   "JxDtt+": {
     "defaultMessage": "Révisez votre candidature",
@@ -3221,6 +3245,10 @@
     "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada",
     "description": "Heading for the Learn more dialog"
   },
+  "LBU5dT": {
+    "defaultMessage": "Se renseigner sur la CléGC et trouver des liens vers les renseignements sur le compte.",
+    "description": "Introductory text displayed in sign in and authentication accordion."
+  },
   "LEVK8x": {
     "defaultMessage": "Erreur : Échec de la mise à jour de la classification",
     "description": "Message displayed to user after classification fails to get updated."
@@ -3241,10 +3269,6 @@
     "defaultMessage": "Ma communauté ne figure pas dans la liste",
     "description": "Label for not represented community"
   },
-  "LMGaDQ": {
-    "defaultMessage": "S'inscrire",
-    "description": "Label displayed on the register link menu item."
-  },
   "LN0Wag": {
     "defaultMessage": "Modifier l'expérience communautaire",
     "description": "Page title for the community experience profile form"
@@ -3256,10 +3280,6 @@
   "LOmX3T": {
     "defaultMessage": "Expérience de travail",
     "description": "Title for work experience section"
-  },
-  "LVSun4": {
-    "defaultMessage": "Connexion à l'aide de la CléGC",
-    "description": "Page title for the login page for applicant profiles"
   },
   "LWtWs1": {
     "defaultMessage": "Scolarité",
@@ -3405,10 +3425,6 @@
     "defaultMessage": "Avant de commencer à décrire votre expérience, nous aimerions d’abord savoir dans quelle catégorie elle se situe. Il y a cinq options parmi lesquelles choisir, vous pouvez ajouter autant d’expériences que vous le souhaitez dans chaque catégorie.",
     "description": "Instructions for the Add Experience dialog"
   },
-  "MsFCeF": {
-    "defaultMessage": "Bienvenue à Talents numériques du GC, veuillez vous connecter pour continuer.",
-    "description": "Instructional text for the talent cloud pool manager portal home page."
-  },
   "MtONBT": {
     "defaultMessage": "Travaillez-vous actuellement pour le gouvernement du Canada?",
     "description": "Employee Status in Government Info Form"
@@ -3521,13 +3537,9 @@
     "defaultMessage": "Inscrivez-vous dès aujourd’hui!",
     "description": "Application box heading part two"
   },
-  "NamQ1+": {
-    "defaultMessage": "Vous avez réussi à vous déconnecter de la plateforme",
-    "description": "Title for the alert displayed after a user logs out"
-  },
-  "NcB+TT": {
-    "defaultMessage": "Vous pouvez vous connecter à votre profil de Talents numériques du GC à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
-    "description": "Instructions on how to login with GCKey"
+  "Nd1bIG": {
+    "defaultMessage": "Continuez vers CléGC et inscrivez-vous",
+    "description": "GCKey sign up link text on the sign up page"
   },
   "NdvdT2": {
     "defaultMessage": "la création des fonctionnalités et des outils accessibles, comme le mode sombre",
@@ -3573,10 +3585,6 @@
     "defaultMessage": "Modifier l'expérience",
     "description": "Display text for edit experience form in breadcrumbs"
   },
-  "NuGNEF": {
-    "defaultMessage": "Si vous n'êtes pas sûr(e) d'avoir un compte CléGC existant, continuez vers le site Web et essayez de vous connecter. Si vous ne pouvez pas vous souvenir de votre mot de passe, vous pouvez également le réinitialiser là.",
-    "description": "Instructions on what to do if user doesn't know if they have a GCKey"
-  },
   "NwpZNj": {
     "defaultMessage": "<heavyPrimary>Publiée</heavyPrimary>",
     "description": "Status name of a pool in PUBLISHED status"
@@ -3612,6 +3620,10 @@
   "OArzY6": {
     "defaultMessage": "<strong>Téléphone :</strong> <phoneLink>613-995-1151</phoneLink>",
     "description": "Phone contact info"
+  },
+  "OBRGkE": {
+    "defaultMessage": "Bienvenue sur la plateforme des talents numériques du GC. Vous pouvez désormais vous connecter à votre profil à l'aide du nom d'utilisateur et du mot de passe de CléGC.",
+    "description": "Message for successful sign in alert in create account page"
   },
   "OCmMDP": {
     "defaultMessage": "Modifier - classification",
@@ -3727,6 +3739,10 @@
   "OvL68O": {
     "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
     "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
+  },
+  "Ovlh3a": {
+    "defaultMessage": "Inscrivez-vous plutôt",
+    "description": "Sign in link text on the registration page."
   },
   "OxeGLu": {
     "defaultMessage": "Mesures",
@@ -4004,6 +4020,10 @@
     "defaultMessage": "Ces renseignements seront utilisés sous une forme anonyme à des fins statistiques.",
     "description": "Explanation on how employment equity information will be used, item three"
   },
+  "QsWizb": {
+    "defaultMessage": "<strong>Vous n’avez pas de compte CléGC?</strong> <a>Créez-en un</a>.",
+    "description": "Instruction on what to do if user does not have a GCKey"
+  },
   "Qt9Q8k": {
     "defaultMessage": "Le programme dure combien de temps?",
     "description": "Learn more dialog question two heading"
@@ -4099,6 +4119,10 @@
   "Rv5vo7": {
     "defaultMessage": "Passer à la page {pageNumber}",
     "description": "Aria label for each button in pagination nav"
+  },
+  "RwXPoj": {
+    "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
+    "description": "Question displayed when authenticated user attempts to sign out"
   },
   "Rz7WtH": {
     "defaultMessage": "Bénévolat et expérience communautaire",
@@ -4260,10 +4284,6 @@
     "defaultMessage": "Utilisez le formulaire ci-dessous pour nous aider à mieux comprendre vos préférences et vos capacités linguistiques",
     "description": "Description text for Profile Form wrapper in Language Information Form"
   },
-  "TGV2F7": {
-    "defaultMessage": "Déconnexion",
-    "description": "Label displayed on the Logout menu item."
-  },
   "TLl20s": {
     "defaultMessage": "Créer un nouveau bassin",
     "description": "Label displayed on submit button for new pool form."
@@ -4339,10 +4359,6 @@
   "TwSvmH": {
     "defaultMessage": "Je <strong>n'envisagerais pas</strong> d'accepter un emploi qui :",
     "description": "would not accept job line before a list"
-  },
-  "TxEV7S": {
-    "defaultMessage": "Connexion",
-    "description": "Text label for the login link to the talent cloud admin portal."
   },
   "TxVbLI": {
     "defaultMessage": "Filtre de classification",
@@ -4568,10 +4584,6 @@
     "defaultMessage": "Partagez vos diplômes, certificats, cours en ligne, stages, licences ou autres justificatifs ayant été reçus de la part d’établissements d’enseignement.",
     "description": "Description for education experience section"
   },
-  "VWU6bj": {
-    "defaultMessage": "Connexion à l'aide de la CléGC",
-    "description": "SEO title for the login page for applicant profiles."
-  },
   "VWz3+d": {
     "defaultMessage": "Date de clôture",
     "description": "Label for a pool advertisements expiry date"
@@ -4739,6 +4751,10 @@
   "WJSVBr": {
     "defaultMessage": "Copier l’identification de votre demande {title}",
     "description": "Button text to copy a specific application ID"
+  },
+  "WLcP98": {
+    "defaultMessage": "Le « sujet » est une chaîne de caractères qui établit de manière unique l’identité de connexion d’un utilisateur.",
+    "description": "Additional context describing the purpose of the users's 'subject' field."
   },
   "WP7NTc": {
     "defaultMessage": "Choisir une expérience",
@@ -4928,6 +4944,10 @@
     "defaultMessage": "Nous aimerions savoir ci-dessous si vous êtes déjà un(e) employé(e) du gouvernement du Canada. Nous recueillons ces renseignements parce qu'ils nous aident à comprendre, au niveau global, comment les compétences numériques sont réparties entre les ministères.",
     "description": "First message before is a government of canada radio group in create account form."
   },
+  "XlmRZH": {
+    "defaultMessage": "S'enregistrer",
+    "description": "Message displayed to users to sign up for an account"
+  },
   "Xmtw0V": {
     "defaultMessage": "<strong>Oui</strong>, j'ai un droit de priorité.",
     "description": "Label displayed does have priority entitlement option"
@@ -5079,6 +5099,10 @@
     "defaultMessage": "Toute langue (anglais ou français)",
     "description": "No preference for language ability - will accept English or French"
   },
+  "Z+gi2d": {
+    "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
+    "description": "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant"
+  },
   "Z0PCOW": {
     "defaultMessage": "Êtes-vous certain de vouloir archiver la candidature {name}?",
     "description": "Question displayed when user attempts to archive an application"
@@ -5098,10 +5122,6 @@
   "Z9W+O2": {
     "defaultMessage": "Postulez dès aujourd'hui pour entamer votre parcours de carrière en TI.",
     "description": "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site"
-  },
-  "Z9wBwT": {
-    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au Programme d’apprentissage en TI pour les personnes autochtones et faire le suivi de votre position dans le programme.",
-    "description": "Third paragraph for profile and applications notification welcoming an IAP user"
   },
   "Z9xByk": {
     "defaultMessage": "La Directive sur les talents numériques clarifie les exigences de la Politique sur les services et le numérique en ce qui concerne les nominations des DPI et la gestion des talents. L’objectif est de continuer à soutenir les parcours professionnels des cadres, en mettant l’accent sur la prestation de services publics numériques modernes.",
@@ -5214,10 +5234,6 @@
   "ZwGMwT": {
     "defaultMessage": "Cette compétence requise doit être associée à au moins une expérience de parcours professionnel.",
     "description": "Experience tree view error message"
-  },
-  "Zx3BVC": {
-    "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
-    "description": "Question displayed when authenticated user lands on /logged-out."
   },
   "Zzd/sJ": {
     "defaultMessage": "Dans ce champ, veuillez inclure tous les détails et qualifications supplémentaires que vous recherchez auprès des candidats, comme les langages de programmation, les certifications, les connaissances ou un lieu de travail particulier.",
@@ -5556,10 +5572,6 @@
     "defaultMessage": "Rôles des membres",
     "description": "Label for the input to add roles to a user's team membership"
   },
-  "cPgH94": {
-    "defaultMessage": "La CléGC est un service qui vous permet d’accéder à <a>plusieurs services gouvernementaux variés </a> à l’aide d’un seul nom d’utilisateur et mot de passe. Le bouton qui figure ci-dessous vous mènera au site Web CléGC, à partir duquel vous pourrez créer un compte si vous n’en avez toujours pas un. Une fois inscrit(e) à CléGC, vous reviendrez ici pour compléter votre profil.",
-    "description": "Instructions on how to register with GCKey paragraph 2- IAP variant"
-  },
   "cS73MC": {
     "defaultMessage": "Je consens à travailler dans",
     "description": "Start of sentence describing a users accepted work regions"
@@ -5624,10 +5636,6 @@
     "defaultMessage": "Planification et établissement de rapports",
     "description": "Heading for the directives planning and reporting component"
   },
-  "cmZ9cx": {
-    "defaultMessage": "Bienvenue sur la plateforme Talents numériques du GC. À l'avenir, vous pouvez vous connecter à votre profil en utilisant le même nom d'utilisateur et le même mot de passe que CléGC.",
-    "description": "Message for successful login alert in create account page"
-  },
   "co9aIV": {
     "defaultMessage": "Modifier cette section",
     "description": "Button text to start editing one of the profile sections."
@@ -5657,7 +5665,7 @@
     "description": "Question for user in skills in detail section of experience form."
   },
   "d3HIMV": {
-    "defaultMessage": "Se renseigner sur la CléGC et trouver des liens vers les renseignements sur le compte.",
+    "defaultMessage": "Renseignez-vous sur CléGC et trouvez des liens vers des renseignements sur les comptes.",
     "description": "Introductory text displayed in login and authentication accordion."
   },
   "d3oN4p": {
@@ -5852,6 +5860,10 @@
     "defaultMessage": "Trouvez des talents préqualifiés pour votre équipe ou planifiez votre prochaine évolution de carrière.",
     "description": "Paragraph one, description of the managers community"
   },
+  "e8SFXx": {
+    "defaultMessage": "Inscrivez-vous en utilisant CléGC",
+    "description": "Page title for the registration page for applicant profiles"
+  },
   "e9fSNq": {
     "defaultMessage": "Avez-vous utilisé certaines techniques ou approches spéciales?",
     "description": "Question 3 for clarifying skill details"
@@ -5900,10 +5912,6 @@
     "defaultMessage": "Afficher l’utilisateur",
     "description": "Title for the user information page"
   },
-  "ePbKEr": {
-    "defaultMessage": "En apprendre davantage sur l'ouverture de séance et l'authentification",
-    "description": "Heading for opening the login and authentication accordion in account and privacy"
-  },
   "eSyXWT": {
     "defaultMessage": "Erreur : échec de la mise à jour de la compétence",
     "description": "Message displayed to user after skill fails to get updated."
@@ -5919,10 +5927,6 @@
   "eWLKRt": {
     "defaultMessage": "Masquer les évaluations des compétences de {title}",
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
-  },
-  "eYcQ6h": {
-    "defaultMessage": "Continuer vers CléGC et se connecter",
-    "description": "GCKey login link text on the login page."
   },
   "eZHoNJ": {
     "defaultMessage": "Rôles fondés sur l’équipe",
@@ -5963,10 +5967,6 @@
   "eozWFc": {
     "defaultMessage": "Filtres avancés",
     "description": "Title for the additional filters"
-  },
-  "epqFro": {
-    "defaultMessage": "Afin d’entamer la réalisation de votre profil auprès du Programme d’apprentissage en TI pour les personnes autochtones, vous <strong>devez tout d’abord vous inscrire à la plateforme à l’aide de votre CléGC.</strong>.",
-    "description": "Instructions on how to register with GCKey - IAP variant"
   },
   "eqVWC6": {
     "defaultMessage": "Appliquée par : <strong><red>{closingDate}</red></strong>",
@@ -6618,10 +6618,6 @@
     "defaultMessage": "Modifier le statut",
     "description": "Confirmation button for change status dialog"
   },
-  "ivKwx0": {
-    "defaultMessage": "Déconnexion",
-    "description": "Title for the modal that appears when an authenticated user attempts to logout"
-  },
   "izt28e": {
     "defaultMessage": "Vous n’avez pas de question.",
     "description": "Message that appears when there are no screening messages for a pool"
@@ -6733,6 +6729,10 @@
   "je6zFF": {
     "defaultMessage": "Présenter sa candidature pour les opportunités d’analystes<hidden> {name}</hidden>",
     "description": "Invitation to apply for the 'IT-02 Analyst' classification"
+  },
+  "jfCwes": {
+    "defaultMessage": "Mettre à jour mon profil",
+    "description": "Link text to direct users to the profile page when signed in"
   },
   "jfED66": {
     "defaultMessage": "Vous êtes sur le point de procéder à la mise à jour des rôles de l’utilisateur suivant : <strong>{userDisplayName}</strong>",
@@ -7080,6 +7080,10 @@
     "defaultMessage": "Trouver une compétence",
     "description": "Title for the find a skill dialog"
   },
+  "mNNgEF": {
+    "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
+    "description": "Question displayed when authenticated user lands on /logged-out."
+  },
   "mOGNS3": {
     "defaultMessage": "Cette section comprendra les candidatures qui n’ont pas été présentées dans les délais impartis ainsi que les candidatures qui ont été évaluées avec succès.",
     "description": "Additional text displayed in past applications section when empty."
@@ -7135,10 +7139,6 @@
   "maibxu": {
     "defaultMessage": "Trouver une compétence",
     "description": "Button text to open the skill dialog"
-  },
-  "md7Klw": {
-    "defaultMessage": "Connexion",
-    "description": "Label displayed on the login link menu item."
   },
   "mevv+t": {
     "defaultMessage": "Disponibilité",
@@ -7280,6 +7280,10 @@
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
     "description": "Descriptive text explaining the work preferences section of the application profile"
   },
+  "nmImtK": {
+    "defaultMessage": "Se déconnecter",
+    "description": "Message displayed to users to sign out of the application"
+  },
   "nn9B4R": {
     "defaultMessage": "Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
     "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
@@ -7383,10 +7387,6 @@
   "oMpO+C": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
     "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
-  },
-  "oPUU6o": {
-    "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
-    "description": "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant"
   },
   "oQnVSn": {
     "defaultMessage": "Nom de famille",
@@ -7560,10 +7560,6 @@
     "defaultMessage": "Envisagerait d'accepter un emploi qui :",
     "description": "Label for what conditions a user will accept, followed by a colon"
   },
-  "q53yRm": {
-    "defaultMessage": "<strong>Vous n'avez pas de compte de CléGC?</strong> <a>Inscrivez-vous</a>.",
-    "description": "Instruction on what to do if user does not have a GCKey"
-  },
   "q5FQbu": {
     "defaultMessage": "À venir!",
     "description": "Heading for a coming soon section"
@@ -7727,10 +7723,6 @@
     "defaultMessage": "Langue préférée de l'examen écrit :",
     "description": "Preferred Language for exams label and colon"
   },
-  "rUFZwt": {
-    "defaultMessage": "Connectez-vous à la place",
-    "description": "Login link text on the registration page."
-  },
   "rVgBGi": {
     "defaultMessage": "La soumission de votre demande est réussie.",
     "description": "Subtitle for the request confirmation page."
@@ -7807,10 +7799,6 @@
     "defaultMessage": "Emplacement actuel :",
     "description": "Current Location label and colon"
   },
-  "s3FrzP": {
-    "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
-    "description": "Question displayed when authenticated user attempts to logout"
-  },
   "s5hTYo": {
     "defaultMessage": "Rôles des membres",
     "description": "Label for the input to select role of a team role"
@@ -7858,10 +7846,6 @@
   "sOmEaW": {
     "defaultMessage": "Sélectionnez votre langue préférée pour l'entretien oral",
     "description": "Legend text for required spoken interview language preference for interviews in About Me form"
-  },
-  "sPXW3j": {
-    "defaultMessage": "Cacher les renseignements sur l'ouverture de séance et l'authentification",
-    "description": "Heading for closing the login and authentication accordion in account and privacy"
   },
   "sQkwFY": {
     "defaultMessage": "Une fois que vous avez sélectionné les critères auxquels vous répondez, cette section vous demande de nous indiquer quels sont les éléments spécifiques de votre parcours professionnel qui répondent à cette option. Si vous devez ajouter quelque chose à votre parcours professionnel, vous pouvez le faire en retournant à l’étape du parcours professionnel dans le formulaire de candidature.",
@@ -8266,10 +8250,6 @@
     "defaultMessage": "Votre demande à un processus sera examinée par notre équipe et, si nous trouvons une concordance quelconque, on vous invitera à une évaluation. Une fois accepté(e), les gestionnaires pourront alors communiquer avec vous avec des offres d’emploi.",
     "description": "Description of how the application process works, paragraph two"
   },
-  "vNvh0G": {
-    "defaultMessage": "Continuer vers CléGC et s'inscrire",
-    "description": "GCKey registration link text on the registration page"
-  },
   "vRLrmc": {
     "defaultMessage": "Voulez-vous continuer?",
     "description": "Question posed to user before committing a destructive act"
@@ -8282,14 +8262,6 @@
     "defaultMessage": "Modifier",
     "description": "Generic link text to edit a miscellaneous item"
   },
-  "vYvmxq": {
-    "defaultMessage": "Désormais, lorsque vous vous connecterez à votre compte, vous vous retrouverez sur cette page. Vous pouvez utiliser la section <strong><a>Suivi de vos candidatures</a></strong> sur cette page pour examiner votre candidature au Programme d’apprentissage en TI pour les personnes autochtones et faire le suivi de votre statut dans le programme.",
-    "description": "Third paragraph for profile and applications notification welcoming an IAP user"
-  },
-  "vZntuH": {
-    "defaultMessage": "S'inscrire à l'aide de la CléGC",
-    "description": "Page title for the registration page for applicant profiles"
-  },
   "vbEXnp": {
     "defaultMessage": "Gestion de bases de données de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'database management' IT work stream"
@@ -8297,6 +8269,10 @@
   "vf7/Xq": {
     "defaultMessage": "Ajoutez une question filtre",
     "description": "Button text to add a new screening question"
+  },
+  "vkAhEM": {
+    "defaultMessage": "Se connecter à l’aide de CléGC",
+    "description": "Page title for the sign in page for applicant profiles"
   },
   "vlyq02": {
     "defaultMessage": "Réussite : Vous avez réussi à dupliquer ce bassin.",
@@ -8458,6 +8434,10 @@
     "defaultMessage": "Sécurité de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'security' IT work stream"
   },
+  "x+PMFn": {
+    "defaultMessage": "En apprendre davantage sur l'ouverture de séance et l'authentification",
+    "description": "Heading for opening the sign in and authentication accordion in account and privacy"
+  },
   "x0FRH/": {
     "defaultMessage": "Je n’ai pas de droit de priorité",
     "description": "affirm no entitlement"
@@ -8529,10 +8509,6 @@
   "xdojyj": {
     "defaultMessage": "Politique et rétroaction",
     "description": "Label for the policy, conditions and feedback navigation"
-  },
-  "xfYpNf": {
-    "defaultMessage": "<strong>Vous avez déjà un compte CléGC?</strong> <a>Accédez plutôt </a>.",
-    "description": "Instruction on what to do if user already has a GCKey"
   },
   "xff04x": {
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes en français.",
@@ -8650,10 +8626,6 @@
     "defaultMessage": "Choisissez le critère auquel vous répondez.",
     "description": "Heading for radio group section in application education page."
   },
-  "ySpJ2L": {
-    "defaultMessage": "Vous pouvez accéder à votre profil du Programme d’apprentissage en TI pour les personnes autochtones en vous servant de votre CléGC existante, même si vous n’avez jamais utilisé cette plateforme.",
-    "description": "Instructions on how to login with GCKey - IAP variant"
-  },
   "yXXj1D": {
     "defaultMessage": "Commencez <hidden> à remplir la section sur vos renseignements en tant que fonctionnaire </hidden>",
     "description": "Call to action to begin editing government information"
@@ -8693,10 +8665,6 @@
   "ywkgJx": {
     "defaultMessage": "Détails",
     "description": "Support form details field label"
-  },
-  "yxx7np": {
-    "defaultMessage": "S'inscrire à l'aide de la CléGC",
-    "description": "SEO title for the registration page for applicant profiles"
   },
   "yypk6/": {
     "defaultMessage": "Ajouter au nouveau bassin",

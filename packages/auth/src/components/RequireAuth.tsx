@@ -60,7 +60,7 @@ const RequireAuth = ({
   if (loggedIn && !isAuthorized) {
     logger.notice(
       JSON.stringify({
-        message: "Logged in but not authorized",
+        message: "Signed in but not authorized",
         pathname: location.pathname,
       }),
     );

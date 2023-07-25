@@ -3,15 +3,15 @@ import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
 import { Link } from "@gc-digital-talent/ui";
+import { getLocale, useLocale } from "@gc-digital-talent/i18n";
 import { useApiRoutes } from "@gc-digital-talent/auth";
-import { getLocale } from "@gc-digital-talent/i18n";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useTheme } from "@gc-digital-talent/theme";
 
-import Hero from "~/components/Hero/Hero";
-import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import SEO from "~/components/SEO/SEO";
+import Hero from "~/components/Hero/Hero";
 
 const buildExternalLink = (path: string, chunks: React.ReactNode) => (
   <Link external href={path}>
@@ -19,8 +19,9 @@ const buildExternalLink = (path: string, chunks: React.ReactNode) => (
   </Link>
 );
 
-const LoginPage = () => {
+const SignUpPage = () => {
   const intl = useIntl();
+  const localeState = useLocale();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
   const { applicantDashboard } = useFeatureFlags();
@@ -34,22 +35,16 @@ const LoginPage = () => {
     : paths.myProfile();
   const loginPath = apiPaths.login(fromPath ?? fallbackPath, getLocale(intl));
 
-  const seoTitle = intl.formatMessage({
-    defaultMessage: "Login using GCKey",
-    id: "VWU6bj",
-    description: "SEO title for the login page for applicant profiles.",
-  });
-
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Login using GCKey",
-    id: "LVSun4",
-    description: "Page title for the login page for applicant profiles",
+    defaultMessage: "Sign up using GCKey",
+    id: "e8SFXx",
+    description: "Page title for the registration page for applicant profiles",
   });
 
   const crumbs = useBreadcrumbs([
     {
       label: pageTitle,
-      url: paths.login(),
+      url: paths.register(),
     },
   ]);
 
@@ -61,7 +56,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <SEO title={seoTitle} />
+      <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={crumbs} />
       <div data-h2-padding="base(x3, 0)">
         <div data-h2-container="base(center, small, x1) p-tablet(center, small, x2)">
@@ -71,16 +66,16 @@ const LoginPage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You can log into your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
-                  id: "NcB+TT",
-                  description: "Instructions on how to login with GCKey",
+                    "You can sign in to your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
+                  id: "9XSqNG",
+                  description: "Instructions on how to sign in with GCKey",
                 })}
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "If you're unsure whether you have an existing GCKey account, continue to the website and try logging in. If you can't remember your password, you can also reset it there.",
-                  id: "NuGNEF",
+                    "If you're unsure whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
+                  id: "8diKHR",
                   description:
                     "Instructions on what to do if user doesn't know if they have a GCKey",
                 })}
@@ -89,8 +84,8 @@ const LoginPage = () => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "<strong>Don't have a GCKey account?</strong> <a>Register for one</a>.",
-                    id: "q53yRm",
+                      "<strong>Don't have a GCKey account?</strong> <a>Sign up for one</a>.",
+                    id: "QsWizb",
                     description:
                       "Instruction on what to do if user does not have a GCKey",
                   },
@@ -107,29 +102,40 @@ const LoginPage = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You can log into your IT Apprenticeship Program for Indigenous Peoples profile using your existing GCKey, even if you’ve never used this platform before.",
-                  id: "ySpJ2L",
+                    "In order to get started on your profile with the IT Apprenticeship Program for Indigenous Peoples, you <strong>first have to sign up for the platform using GCKey</strong>.",
+                  id: "6TKE1K",
                   description:
-                    "Instructions on how to login with GCKey - IAP variant",
-                })}
-              </p>
-              <p data-h2-margin="base(x.5, 0, 0, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "If you’re unsure of whether you have an existing GCKey account, continue to the website and try logging in. If you can’t remember your password, you can also reset it there.",
-                  id: "oPUU6o",
-                  description:
-                    "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant",
+                    "Instructions on how to register with GCKey - IAP variant",
                 })}
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "<strong>Don't have a GCKey account?</strong> <a>Register for one</a>.",
-                    id: "q53yRm",
+                      "GCKey is a service that allows you to sign in to <a>many different government services</a> with a single username and password. The button below will take you to GCKey's website, where you'll be able to create an account if you don't already have one. Once you've signed up for GCKey, you'll be brought back here to complete your profile.",
+                    id: "0OLsay",
                     description:
-                      "Instruction on what to do if user does not have a GCKey",
+                      "Instructions on how to register with GCKey paragraph 2- IAP variant",
+                  },
+                  {
+                    a: (chunks: React.ReactNode) =>
+                      buildExternalLink(
+                        localeState.locale === "en"
+                          ? "https://clegc-gckey.gc.ca/j/eng/ES-01?ReqID=s232921cb5fd612440c0bcab640d5432d02168eb26"
+                          : "https://clegc-gckey.gc.ca/j/fra/ES-01?ReqID=s232921cb5fd612440c0bcab640d5432d02168eb26",
+                        chunks,
+                      ),
+                  },
+                )}
+              </p>
+              <p data-h2-margin="base(x.5, 0, 0, 0)">
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "<strong>Already have a GCKey account?</strong> <a>Sign in instead</a>.",
+                    id: "7CtKdX",
+                    description:
+                      "Instruction on what to do if user already has a GCKey",
                   },
                   {
                     a: (chunks: React.ReactNode) =>
@@ -175,21 +181,20 @@ const LoginPage = () => {
             data-h2-justify-content="base(space-between)"
           >
             <p>
-              <Link href={!iapMode ? paths.home() : paths.iap()} mode="inline">
+              <Link href={loginPath} mode="inline" external>
                 {intl.formatMessage({
-                  defaultMessage: "Cancel",
-                  id: "OT0QP3",
-                  description:
-                    "Link text to cancel logging in and return to talent search home.",
+                  defaultMessage: "Sign in instead",
+                  id: "Ovlh3a",
+                  description: "Sign in link text on the registration page.",
                 })}
               </Link>
             </p>
             <p>
               <Link href={loginPath} mode="solid" color="primary" external>
                 {intl.formatMessage({
-                  defaultMessage: "Continue to GCKey and Login",
-                  id: "eYcQ6h",
-                  description: "GCKey login link text on the login page",
+                  defaultMessage: "Continue to GCKey and sign up",
+                  id: "Nd1bIG",
+                  description: "GCKey sign up link text on the sign up page",
                 })}
               </Link>
             </p>
@@ -200,4 +205,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;
