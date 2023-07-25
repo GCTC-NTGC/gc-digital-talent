@@ -78,7 +78,7 @@ export const ExperienceForm = ({
   const navigate = useNavigate();
   const paths = useRoutes();
   const { user } = useAuthorization();
-  const returnPath = paths.resumeAndRecruitment(userId);
+  const returnPath = paths.careerTimelineAndRecruitment(userId);
   const defaultValues =
     experienceId && experience
       ? queryResultToDefaultValues(experienceType || "award", experience)
@@ -194,7 +194,9 @@ export const ExperienceForm = ({
 
   const crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
-      label: intl.formatMessage(navigationMessages.resumeAndRecruitment),
+      label: intl.formatMessage(
+        navigationMessages.careerTimelineAndRecruitment,
+      ),
       url: returnPath,
     },
     {

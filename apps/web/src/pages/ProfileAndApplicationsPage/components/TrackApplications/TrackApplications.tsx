@@ -10,14 +10,14 @@ import {
   Heading,
   Link,
   Separator,
+  StandardAccordionHeader,
   Well,
 } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
 
 import { PoolCandidate, Scalars } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { isApplicationInProgress } from "~/utils/applicationUtils";
-import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import TrackApplicationsCard from "./TrackApplicationsCard";
 
 function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
@@ -112,17 +112,17 @@ const TrackApplications = ({
           {intl.formatMessage(
             {
               defaultMessage:
-                "After an application is successfully assessed, the <a>qualified recruitment will be added to your résumé</a> automatically so that managers can see your accomplishments.",
-              id: "3c9+uF",
+                "After an application is successfully assessed, the <a>qualified recruitment will be added to your career timeline</a> automatically so that managers can see your accomplishments.",
+              id: "ZQbSfP",
               description:
                 "Description for the track applications section on the applicant dashboard, paragraph two.",
             },
             {
               a: (chunks: React.ReactNode) =>
                 buildLink(
-                  paths.resumeAndRecruitment(userId, {
+                  paths.careerTimelineAndRecruitment(userId, {
                     section:
-                      RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
+                      CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
                   }),
                   chunks,
                 ),
