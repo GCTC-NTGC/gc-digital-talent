@@ -62,7 +62,7 @@ module.exports = {
     "consistent-return": "warn",
     "import/no-extraneous-dependencies": "off",
     "import/extensions": ["warn", "never", { json: "always" }],
-    "import/no-unused-modules": [1, { unusedExports: true, ignoreExports: ["src/index.{ts,tsx}", "src/**/*.stories.{ts,tsx}"] }],
+    "import/no-unused-modules": [1, { unusedExports: true, ignoreExports: ["src/index.{ts,tsx}"] }],
     "react/display-name": "off",
     "react/prop-types": "off",
     "react/jsx-filename-extension": [
