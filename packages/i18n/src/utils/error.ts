@@ -3,7 +3,7 @@
  * @param object
  * @param key
  */
-export function hasKey<T>(
+function hasKey<T>(
   object: { [key: string]: T },
   key: string | number,
 ): boolean {

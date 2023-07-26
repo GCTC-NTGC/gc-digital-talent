@@ -3,7 +3,7 @@ import React from "react";
 import { Locales } from "../types";
 import { isLocale, localeRedirect } from "../utils/localize";
 
-export const STORED_LOCALE = "stored_locale";
+const STORED_LOCALE = "stored_locale";
 
 function getPathLocale(pathname: string): Locales | null {
   const pathLocale = pathname.split("/")[1]; // Note: for an absolute path which starts with /, the first element is an empty string.
@@ -30,7 +30,7 @@ export interface LocaleState {
   setLocale: (locale: Locales) => void;
 }
 
-export const defaultLocaleState = {
+const defaultLocaleState = {
   locale: "en" as Locales,
   setLocale: () => {
     /** do nothing */
