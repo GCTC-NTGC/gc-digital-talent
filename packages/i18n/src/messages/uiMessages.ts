@@ -100,6 +100,11 @@ const uiMessages = defineMessages({
     id: "rnZULP",
     description: "Button text to truncate text to view fewer characters",
   },
+  nullSelectionOption: {
+    defaultMessage: "Select an option",
+    id: "fUF8rg",
+    description: "Null selection for select input",
+  },
 });
 
 export default uiMessages;

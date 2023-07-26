@@ -996,6 +996,10 @@
     "defaultMessage": "Annuler et revenir en arrière",
     "description": "Text to cancel changes to a form"
   },
+  "fUF8rg": {
+    "defaultMessage": "Sélectionnez une option",
+    "description": "Null selection for select input"
+  },
   "g08hvq": {
     "defaultMessage": "Étape 1",
     "description": "Breadcrumb back to review application page."
