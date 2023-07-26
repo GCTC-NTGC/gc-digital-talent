@@ -10,7 +10,6 @@ import {
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { useLogger } from "@gc-digital-talent/logger";
 
 import SEO from "~/components/SEO/SEO";
 import {
@@ -77,6 +76,7 @@ export interface EditPoolFormProps {
   onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
   onArchive: () => void;
   onDuplicate: () => void;
+  onUnarchive: () => void;
 }
 
 export const EditPoolForm = ({
@@ -90,6 +90,7 @@ export const EditPoolForm = ({
   onClose,
   onExtend,
   onArchive,
+  onUnarchive,
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -322,6 +323,7 @@ export const EditPoolForm = ({
               onExtend={onExtend}
               onArchive={onArchive}
               onDuplicate={onDuplicate}
+              onUnarchive={onUnarchive}
             />
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
@@ -337,7 +339,6 @@ type RouteParams = {
 export const EditPoolPage = () => {
   const intl = useIntl();
   const { poolId } = useParams<RouteParams>();
-  const logger = useLogger();
   const routes = useRoutes();
 
   const notFoundMessage = intl.formatMessage(
@@ -410,7 +411,8 @@ export const EditPoolPage = () => {
               }
               onClose={() => mutations.close(poolId)}
               onExtend={(closingDate) => mutations.extend(poolId, closingDate)}
-              onArchive={() => logger.warning("onArchive not yet implemented")}
+              onArchive={() => mutations.archive(poolId)}
+              onUnarchive={() => mutations.unarchive(poolId)}
             />
           </EditPoolContext.Provider>
         ) : (

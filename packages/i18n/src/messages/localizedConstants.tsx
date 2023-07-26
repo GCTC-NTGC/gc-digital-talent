@@ -1626,6 +1626,11 @@ export const poolStatus = defineMessages({
     id: "/UBSoB",
     description: "Closed pool advertisement status",
   },
+  [PoolStatus.Archived]: {
+    defaultMessage: "Archived",
+    id: "o7GBkR",
+    description: "Archived pool advertisement status",
+  },
 });
 
 export const getPoolStatus = (

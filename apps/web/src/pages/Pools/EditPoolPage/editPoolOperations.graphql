@@ -183,3 +183,15 @@ mutation duplicatePool($id: ID!, $teamId: ID!) {
     id
   }
 }
+
+mutation archivePool($id: ID!) {
+  archivePool(id: $id) {
+    id
+  }
+}
+
+mutation restorePool($id: ID!) {
+  restorePool(id: $id) {
+    id
+  }
+}

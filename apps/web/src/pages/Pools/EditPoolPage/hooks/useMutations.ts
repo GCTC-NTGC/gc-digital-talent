@@ -11,6 +11,8 @@ import {
   usePublishPoolMutation,
   useUpdatePoolMutation,
   useChangePoolClosingDateMutation,
+  useArchivePoolMutation,
+  useRestorePoolMutation,
   UpdatePoolInput,
   Scalars,
 } from "~/api/generated";
@@ -158,8 +160,8 @@ const useMutations = () => {
   const deletePool = (id: string) => {
     executeDeleteMutation({ id })
       .then((result) => {
-        navigateBack();
         if (result.data?.deletePool) {
+          navigateBack();
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool deleted successfully!",
@@ -172,6 +174,39 @@ const useMutations = () => {
         }
       })
       .catch(handleDeleteError);
+  };
+
+  const [{ fetching: archiveFetching }, executeArchiveMutation] =
+    useArchivePoolMutation();
+
+  const handleArchiveError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Error: archiving pool failed",
+        id: "zotZ6j",
+        description:
+          "Message displayed to user after pool fails to get archived.",
+      }),
+    );
+  };
+
+  const archivePool = (id: string) => {
+    executeArchiveMutation({ id })
+      .then((result) => {
+        if (result.data?.archivePool) {
+          navigateBack();
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Pool archived successfully!",
+              id: "jft3KM",
+              description: "Message displayed to user after pool is archived",
+            }),
+          );
+        } else {
+          handleArchiveError();
+        }
+      })
+      .catch(handleArchiveError);
   };
 
   const [{ fetching: duplicateFetching }, executeDuplicateMutation] =
@@ -192,7 +227,6 @@ const useMutations = () => {
   const duplicatePool = (id: string, teamId: string) => {
     executeDuplicateMutation({ id, teamId })
       .then((result) => {
-        navigateBack();
         if (result.data?.duplicatePool?.id) {
           toast.success(
             intl.formatMessage({
@@ -210,6 +244,39 @@ const useMutations = () => {
       .catch(handleDuplicateError);
   };
 
+  const [{ fetching: restoreFetching }, executeRestoreMutation] =
+    useRestorePoolMutation();
+
+  const handleUnarchiveError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Error: un-archiving pool failed",
+        id: "H9fzdi",
+        description:
+          "Message displayed to user after pool fails to get un-archived.",
+      }),
+    );
+  };
+
+  const unarchivePool = (id: string) => {
+    executeRestoreMutation({ id })
+      .then((result) => {
+        if (result.data?.restorePool) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Pool un-archived successfully!",
+              id: "5it7iX",
+              description:
+                "Message displayed to user after pool is un-archived",
+            }),
+          );
+        } else {
+          handleUnarchiveError();
+        }
+      })
+      .catch(handleUnarchiveError);
+  };
+
   return {
     isFetching:
       updateFetching ||
@@ -217,7 +284,9 @@ const useMutations = () => {
       publishFetching ||
       closeFetching ||
       deleteFetching ||
-      duplicateFetching,
+      duplicateFetching ||
+      archiveFetching ||
+      restoreFetching,
     mutations: {
       update,
       extend,
@@ -225,6 +294,8 @@ const useMutations = () => {
       close,
       delete: deletePool,
       duplicate: duplicatePool,
+      archive: archivePool,
+      unarchive: unarchivePool,
     },
   };
 };
