@@ -192,7 +192,7 @@ const generateUser = (
 };
 
 // Default generator will not include any experiences, poolCandidates or pools
-export const defaultGenerator = (numToGenerate = 20): GeneratedUser[] => {
+const defaultGenerator = (numToGenerate = 20): GeneratedUser[] => {
   const departments = fakeDepartments();
   const classifications = fakeClassifications();
   const genericJobTitles = fakeGenericJobTitles();
