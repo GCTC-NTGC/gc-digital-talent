@@ -22,15 +22,15 @@ import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 
-export type Option = { value: string | number; label: string };
-export type Group<T> = {
+type Option = { value: string | number; label: string };
+type Group<T> = {
   label: string;
   options: Array<T>;
 };
-export type Options = OptionsOrGroups<Option, Group<Option>>;
+type Options = OptionsOrGroups<Option, Group<Option>>;
 
 declare module "react-select/dist/declarations/src/Select" {
-  export interface Props<
+  interface Props<
     /* eslint-disable @typescript-eslint/no-shadow, @typescript-eslint/no-unused-vars */
     Option,
     IsMulti extends boolean,

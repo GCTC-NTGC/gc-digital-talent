@@ -4,7 +4,7 @@ import MultiSelectFieldBase, {
   type MultiSelectFieldBaseProps,
 } from "../Select/MultiSelectFieldBase";
 
-export type MultiSelectFieldProps = Omit<
+type MultiSelectFieldProps = Omit<
   MultiSelectFieldBaseProps,
   "isMulti" | "forceArrayFormValue"
 >;

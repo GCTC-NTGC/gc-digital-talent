@@ -16,7 +16,7 @@ export type SegmentObject = {
 };
 
 // We only want to allow passing a value + message
-export type DateMinMax = {
+type DateMinMax = {
   min: ValidationValueMessage<string>;
   max: ValidationValueMessage<string>;
 };

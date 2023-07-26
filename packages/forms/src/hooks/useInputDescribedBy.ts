@@ -3,12 +3,12 @@ import React from "react";
 import { InputFieldError } from "../types";
 
 /** Keys for the different types of descriptions we are using */
-export type InputDescription = "error" | "context" | "unsaved";
+type InputDescription = "error" | "context" | "unsaved";
 
 /** Contains the IDs used for each description element */
 export type DescriptionIds = Record<InputDescription, string>;
 
-export type UseInputDescribedByArgs = {
+type UseInputDescribedByArgs = {
   /** Unique identifier for the input */
   id: string;
   /** Existing description */
@@ -21,7 +21,7 @@ export type UseInputDescribedByArgs = {
   };
 };
 
-export type UseInputDescribedByReturn = [
+type UseInputDescribedByReturn = [
   /** The IDs that will be assigned to each description element */
   descriptionIds: DescriptionIds,
   /** A space separated string containing the IDs of each visible description element */
