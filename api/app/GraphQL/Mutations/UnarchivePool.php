@@ -6,7 +6,7 @@ use App\Models\Pool;
 use Database\Helpers\ApiEnums;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
-final class RestorePool
+final class UnarchivePool
 {
     /**
      * Closes the pool by setting the archived_at to now().
@@ -17,7 +17,7 @@ final class RestorePool
     {
         $pool = Pool::find($args['id']);
         if ($pool->getStatusAttribute() !== ApiEnums::POOL_IS_ARCHIVED) {
-            throw ValidationException::withMessages(["You cannot restore a pool unless it is in the archived status."]);
+            throw ValidationException::withMessages(["You cannot un-archive a pool unless it is in the archived status."]);
         }
         $pool->update(['archived_at' => null]);
         return $pool;

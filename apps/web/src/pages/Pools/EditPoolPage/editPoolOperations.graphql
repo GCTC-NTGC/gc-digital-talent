@@ -190,8 +190,8 @@ mutation archivePool($id: ID!) {
   }
 }
 
-mutation restorePool($id: ID!) {
-  restorePool(id: $id) {
+mutation unarchivePool($id: ID!) {
+  unarchivePool(id: $id) {
     id
   }
 }

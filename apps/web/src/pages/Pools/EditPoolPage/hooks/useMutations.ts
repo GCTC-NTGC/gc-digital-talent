@@ -12,7 +12,7 @@ import {
   useUpdatePoolMutation,
   useChangePoolClosingDateMutation,
   useArchivePoolMutation,
-  useRestorePoolMutation,
+  useUnarchivePoolMutation,
   UpdatePoolInput,
   Scalars,
 } from "~/api/generated";
@@ -244,8 +244,8 @@ const useMutations = () => {
       .catch(handleDuplicateError);
   };
 
-  const [{ fetching: restoreFetching }, executeRestoreMutation] =
-    useRestorePoolMutation();
+  const [{ fetching: unarchiveFetching }, executeUnarchiveMutation] =
+    useUnarchivePoolMutation();
 
   const handleUnarchiveError = () => {
     toast.error(
@@ -259,9 +259,9 @@ const useMutations = () => {
   };
 
   const unarchivePool = (id: string) => {
-    executeRestoreMutation({ id })
+    executeUnarchiveMutation({ id })
       .then((result) => {
-        if (result.data?.restorePool) {
+        if (result.data?.unarchivePool) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool un-archived successfully!",
@@ -286,7 +286,7 @@ const useMutations = () => {
       deleteFetching ||
       duplicateFetching ||
       archiveFetching ||
-      restoreFetching,
+      unarchiveFetching,
     mutations: {
       update,
       extend,
