@@ -1,6 +1,6 @@
 import { HasServerConfig } from "./types";
 
-export function isStringTrue(str: string | undefined): boolean {
+function isStringTrue(str: string | undefined): boolean {
   return str?.toLocaleUpperCase() === "TRUE";
 }
 
