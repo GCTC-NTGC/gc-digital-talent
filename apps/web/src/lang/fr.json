@@ -142,10 +142,6 @@
     "defaultMessage": "Vue {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
-  "+wdTbk": {
-    "defaultMessage": "Veuillez remplir tous les champs obligatoires de votre profil avant de définir votre statut comme actif.",
-    "description": "Message in My Status Form."
-  },
   ".ellipsis": {
     "defaultMessage": "... "
   },
@@ -156,10 +152,6 @@
   "/2Vhvl": {
     "defaultMessage": "Sécurité de la TI",
     "description": "Label for the 'security' IT work stream"
-  },
-  "/3sMii": {
-    "defaultMessage": "Cette section facultative vous demande si vous souhaitez vous identifier comme membre d’un groupe visé par l’équité en matière d’emploi. ",
-    "description": "Descriptive text explaining the diversity, equity, and inclusion section of the application profile"
   },
   "/5tYua": {
     "defaultMessage": "Fournissez vos renseignements",
@@ -841,10 +833,6 @@
   "3pox8N": {
     "defaultMessage": "Modifiez vos options d'informations gouvernementales.",
     "description": "Link text to edit government information on profile."
-  },
-  "3quMA8": {
-    "defaultMessage": "<strong>Pourquoi ne puis-je pas modifier mon statut?</strong>",
-    "description": "Message in My Status Form."
   },
   "3rbRfI": {
     "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
@@ -2081,10 +2069,6 @@
   "CPHTk9": {
     "defaultMessage": "Votre profil ne répond pas aux exigences linguistiques suivantes : {requirements}",
     "description": "Error message when a user does not meet a pools language requirements"
-  },
-  "CPRJ61": {
-    "defaultMessage": "ID :",
-    "description": "The ID and colon"
   },
   "CRXFbo": {
     "defaultMessage": "Dans cette section, vous devez indiquer si vous êtes actuellement un(e) employé(e) du gouvernement du Canada, et vous devez répondre à d’autres questions connexes",
@@ -3800,10 +3784,6 @@
     "defaultMessage": "Avez-vous utilisé des techniques ou des approches particulières?",
     "description": "Question for user in skills in detail section of experience form."
   },
-  "PIgh3U": {
-    "defaultMessage": "Faites-nous savoir si vous voulez être contacté(e) pour de nouveaux emplois. Veuillez mettre à jour ce statut si votre situation change.",
-    "description": "Description for My Status Form"
-  },
   "POvUB0": {
     "defaultMessage": "En plus du soutien prévu dans la directive elle-même, consultez les orientations sur la mise en place d’un soutien en ressources humaines pour les talents numériques.",
     "description": "Lead-in text for the directive guidance document"
@@ -4876,10 +4856,6 @@
     "defaultMessage": "Créer un ministère",
     "description": "Title displayed on the create a department form."
   },
-  "XBfLOu": {
-    "defaultMessage": "Mon statut",
-    "description": "Legend for my status option in my status form"
-  },
   "XCYYdk": {
     "defaultMessage": "Gérer la disponibilité pour le recrutement",
     "description": "Heading for opening the recruitment availability accordion in account and privacy"
@@ -5162,10 +5138,6 @@
   "ZQbSfP": {
     "defaultMessage": "Lorsqu’une candidature a été évaluée avec succès, le <a>recrutement qualifié sera ajouté à votre parcours professionnel</a> automatiquement afin que les gestionnaires puissent voir vos réalisations.",
     "description": "Description for the track applications section on the applicant dashboard, paragraph two."
-  },
-  "ZSAzrR": {
-    "defaultMessage": "Date d'expiration :",
-    "description": "The expiry date label and colon"
   },
   "ZTnze/": {
     "defaultMessage": "Soumettre une candidature au bassin de talent pour le recrutement.",
@@ -5651,10 +5623,6 @@
   "cy5aj8": {
     "defaultMessage": "État",
     "description": "Label for a pool advertisements status"
-  },
-  "cyAydm": {
-    "defaultMessage": "Mon statut a été mis à jour avec succès!",
-    "description": "Message displayed to user after user is updated successfully."
   },
   "d03yTk": {
     "defaultMessage": "Bienvenue à votre profil de talent numérique et à votre page de candidature",
@@ -6232,10 +6200,6 @@
     "defaultMessage": "Demande créée avec succès!",
     "description": "Message displayed to user after a pool candidate request is created successfully."
   },
-  "gWEfA9": {
-    "defaultMessage": "Vous n'avez pas encore été accepté(e) dans un bassin d'embauche.",
-    "description": "Message for if user not part of any hiring pools"
-  },
   "ge40rv": {
     "defaultMessage": "Afficher les détails de {experienceName}",
     "description": "Button text to show a specific experience's details"
@@ -6351,10 +6315,6 @@
   "hBVKqk": {
     "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder les talents numériques du GC comme une collectivité cohésive et évolutive.",
     "description": "The directives digital talent and development component"
-  },
-  "hDupu9": {
-    "defaultMessage": "Modifiez vos options de compétences et d'expérience.",
-    "description": "Link text for editing skills and experiences on profile."
   },
   "hEXXG0": {
     "defaultMessage": "Numéro d’identification : {id}",
@@ -7347,10 +7307,6 @@
   "o4PND7": {
     "defaultMessage": "A achevé une évaluation officielle du gouvernement du Canada",
     "description": "Completed a Government of Canada evaluation label"
-  },
-  "o5SbFT": {
-    "defaultMessage": "Commencez <hidden> à remplir la section sur la diversité, l’équité et l’inclusion </hidden> ",
-    "description": "Call to action to begin editing work preferences"
   },
   "o5pks7": {
     "defaultMessage": "Statut de citoyenneté",
