@@ -124,15 +124,16 @@ class Pool extends Model
     public function getStatusAttribute()
     {
         // given database is functioning in UTC, all backend should consistently enforce the same timezone
-        $isClosed = Carbon::now()->gte($this->closing_date);
-        $isPublished = Carbon::now()->gte($this->published_at);
-        $isArchived = Carbon::now()->gte($this->archived_at);
 
-        if ($isArchived)
+        // override if no publish date
+        if (is_null($this->published_at))
+            return ApiEnums::POOL_IS_DRAFT;
+
+        if (Carbon::now()->gte($this->archived_at))
             return ApiEnums::POOL_IS_ARCHIVED;
-        if ($isClosed)
+        if (Carbon::now()->gte($this->closing_date))
             return ApiEnums::POOL_IS_CLOSED;
-        if ($isPublished)
+        if (Carbon::now()->gte($this->published_at))
             return ApiEnums::POOL_IS_PUBLISHED;
 
         return ApiEnums::POOL_IS_DRAFT;

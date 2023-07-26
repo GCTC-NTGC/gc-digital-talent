@@ -3,9 +3,9 @@ import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Pool } from "@gc-digital-talent/graphql";
+import { uiMessages } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
-import { uiMessages } from "@gc-digital-talent/i18n";
 
 type UnarchiveDialogProps = {
   pool: Pool;
