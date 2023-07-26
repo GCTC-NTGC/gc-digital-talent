@@ -572,16 +572,16 @@ class CountPoolCandidatesByPoolTest extends TestCase
             })
             ->create();
 
-        $users[0]->awardExperiences()->sole()->skills()->sync([
-            $skills[0]->id,
+        $users[0]->awardExperiences()->sole()->syncSkills([
+            $skills[0],
         ]);
-        $users[1]->awardExperiences()->sole()->skills()->sync([
-            $skills[0]->id,
-            $skills[1]->id,
-            $skills[2]->id
+        $users[1]->awardExperiences()->sole()->syncSkills([
+            $skills[0],
+            $skills[1],
+            $skills[2]
         ]);
-        $users[2]->awardExperiences()->sole()->skills()->sync([
-            $skills[2]->id
+        $users[2]->awardExperiences()->sole()->syncSkills([
+            $skills[2]
         ]);
 
         // ensure 2 candidates returned despite two skills being passed in

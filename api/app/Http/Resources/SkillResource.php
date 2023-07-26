@@ -14,16 +14,19 @@ class SkillResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $array = [
             'id' => $this->id,
             'key' => $this->key,
             'name' => $this->name,
             'description' => $this->description,
             'keywords' => $this->keywords,
-            // Match how we access it through the API
-            'experienceSkillRecord' => [
-                'details' => $this->details
-            ]
         ];
+        if ($this->relationLoaded('experience_skill')) {
+            // Match how we access it through the API
+            $array['experienceSkillRecord'] = [
+                'details' => $this->experience_skill->details
+            ];
+        }
+        return $array;
     }
 }

@@ -32,6 +32,7 @@ const IndigenousDialog = ({
   signature,
   onSave,
   children,
+  disabled,
 }: IndigenousDialogProps) => {
   const intl = useIntl();
   const methods = useForm<FormValuesWithSignature>({
@@ -118,6 +119,7 @@ const IndigenousDialog = ({
               />
               <Dialog.Footer>
                 <DialogFooter
+                  disabled={disabled}
                   saveText={intl.formatMessage({
                     defaultMessage: "Sign and save changes",
                     id: "fgVziE",

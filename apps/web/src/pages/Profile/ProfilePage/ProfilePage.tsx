@@ -6,16 +6,11 @@ import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
-import {
-  useGetMeQuery,
-  User,
-  GetMeQuery,
-  useUpdateUserAsUserMutation,
-} from "~/api/generated";
+import { useGetMeQuery, useUpdateUserAsUserMutation } from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import SEO from "~/components/SEO/SEO";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
-import { SectionProps } from "~/components/Profile/types";
+import { ApplicantProfileUser, SectionProps } from "~/components/Profile/types";
 import { PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { getSectionTitle } from "~/components/Profile/utils";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
@@ -25,7 +20,7 @@ import DiversityEquityInclusion from "~/components/Profile/components/DiversityE
 import AccountAndPrivacy from "~/components/Profile/components/AccountAndPrivacy/AccountAndPrivacy";
 
 export interface ProfilePageProps {
-  user: User;
+  user: ApplicantProfileUser;
 }
 
 export const ProfileForm = ({ user }: ProfilePageProps) => {
@@ -56,7 +51,7 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
   const [{ fetching: isUpdating }, executeUpdateMutation] =
     useUpdateUserAsUserMutation();
 
-  const handleUpdate: SectionProps["onUpdate"] = (userId, userData) => {
+  const handleUpdate: SectionProps["onUpdate"] = async (userId, userData) => {
     return executeUpdateMutation({
       id: userId,
       user: userData,
@@ -169,16 +164,7 @@ const ProfilePage = () => {
   const [result] = useGetMeQuery();
   const { data, fetching, error } = result;
 
-  // type magic on data variable to make it end up as a valid User type
-  const dataToUser = (input: GetMeQuery): User | undefined => {
-    if (input) {
-      if (input.me) {
-        return input.me;
-      }
-    }
-    return undefined;
-  };
-  const userData = data ? dataToUser(data) : undefined;
+  const userData = data?.me;
 
   return (
     <Pending fetching={fetching} error={error}>

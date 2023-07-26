@@ -4,11 +4,13 @@ import { useIntl } from "react-intl";
 import { AlertDialog, Button } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
 
-interface LogoutConfirmationProps {
+import authMessages from "~/messages/authMessages";
+
+interface SignOutConfirmationProps {
   children: React.ReactNode;
 }
 
-const LogoutConfirmation = ({ children }: LogoutConfirmationProps) => {
+const SignOutConfirmation = ({ children }: SignOutConfirmationProps) => {
   const intl = useIntl();
   const { logout } = useAuthentication();
   return (
@@ -16,19 +18,14 @@ const LogoutConfirmation = ({ children }: LogoutConfirmationProps) => {
       <AlertDialog.Trigger>{children}</AlertDialog.Trigger>
       <AlertDialog.Content>
         <AlertDialog.Title>
-          {intl.formatMessage({
-            defaultMessage: "Logout",
-            id: "ivKwx0",
-            description:
-              "Title for the modal that appears when an authenticated user attempts to logout",
-          })}
+          {intl.formatMessage(authMessages.signOut)}
         </AlertDialog.Title>
         <AlertDialog.Description>
           {intl.formatMessage({
-            defaultMessage: "Are you sure you would like to logout?",
-            id: "s3FrzP",
+            defaultMessage: "Are you sure you would like to sign out?",
+            id: "RwXPoj",
             description:
-              "Question displayed when authenticated user attempts to logout",
+              "Question displayed when authenticated user attempts to sign out",
           })}
         </AlertDialog.Description>
         <AlertDialog.Footer>
@@ -48,11 +45,7 @@ const LogoutConfirmation = ({ children }: LogoutConfirmationProps) => {
               type="button"
               onClick={() => logout()}
             >
-              {intl.formatMessage({
-                defaultMessage: "Logout",
-                id: "6rhyxk",
-                description: "Link text to logout.",
-              })}
+              {intl.formatMessage(authMessages.signOut)}
             </Button>
           </AlertDialog.Action>
         </AlertDialog.Footer>
@@ -61,4 +54,4 @@ const LogoutConfirmation = ({ children }: LogoutConfirmationProps) => {
   );
 };
 
-export default LogoutConfirmation;
+export default SignOutConfirmation;

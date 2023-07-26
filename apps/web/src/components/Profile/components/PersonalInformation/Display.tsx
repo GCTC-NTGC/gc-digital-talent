@@ -1,8 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { User } from "@gc-digital-talent/graphql";
-
 import { empty } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
 import {
@@ -15,9 +13,10 @@ import {
 
 import FieldDisplay from "../FieldDisplay";
 import DisplayColumn from "../DisplayColumn";
+import { PartialUser } from "./types";
 
 interface DisplayProps {
-  user: User;
+  user: PartialUser;
 }
 
 const Display = ({

@@ -2,7 +2,8 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen, fireEvent, waitFor, act } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
@@ -28,6 +29,7 @@ const renderDiversityEquityInclusionForm = ({
   );
 
 describe("DiversityEquityInclusionForm", () => {
+  const user = userEvent.setup();
   it("should have no accessibility errors", async () => {
     const { container } = renderDiversityEquityInclusionForm({
       user: mockUser,
@@ -50,64 +52,83 @@ describe("DiversityEquityInclusionForm", () => {
       isMutating: false,
     });
 
-    const addDisability = screen.queryByRole("button", {
-      name: /add person with a disability to my profile/i,
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /show available equity options/i,
+        }),
+      );
     });
-    const removeDisability = screen.queryByRole("button", {
-      name: /edit this information for I identify as a person with a disability./i,
+
+    await waitFor(async () => {
+      expect(
+        await screen.getByRole("button", {
+          name: /hide available equity options/i,
+        }),
+      ).toBeInTheDocument();
     });
 
     if (mockUser.hasDisability) {
-      expect(addDisability).not.toBeInTheDocument();
-      expect(removeDisability).toBeInTheDocument();
+      expect(
+        await screen.getByRole("button", {
+          name: /edit this information for I identify as a person with a disability./i,
+        }),
+      ).toBeInTheDocument();
     } else {
-      expect(addDisability).toBeInTheDocument();
-      expect(removeDisability).not.toBeInTheDocument();
+      await waitFor(async () => {
+        expect(
+          await screen.getByRole("button", {
+            name: /add person with a disability to my profile/i,
+          }),
+        ).toBeInTheDocument();
+      });
     }
-
-    const addIndigenous = screen.queryByRole("button", {
-      name: /add indigenous identity to my profile/i,
-    });
-    const removeIndigenous = screen.queryByRole("button", {
-      name: /Edit this information for I affirm that I am First Nations/i,
-    });
 
     if (mockUser.indigenousCommunities?.length) {
-      expect(addIndigenous).not.toBeInTheDocument();
-      expect(removeIndigenous).toBeInTheDocument();
+      expect(
+        await screen.findByRole("button", {
+          name: /Edit this information for I affirm that I am First Nations/i,
+        }),
+      ).toBeInTheDocument();
     } else {
-      expect(addIndigenous).toBeInTheDocument();
-      expect(removeIndigenous).not.toBeInTheDocument();
+      await waitFor(async () => {
+        expect(
+          await screen.findByRole("button", {
+            name: /add indigenous identity to my profile/i,
+          }),
+        ).toBeInTheDocument();
+      });
     }
-
-    const addVisibleMinority = screen.queryByRole("button", {
-      name: /add visible minority to my profile/i,
-    });
-    const removeVisibleMinority = screen.queryByRole("button", {
-      name: /edit this information for I identify as a member of a visible minority./i,
-    });
 
     if (mockUser.isVisibleMinority) {
-      expect(addVisibleMinority).not.toBeInTheDocument();
-      expect(removeVisibleMinority).toBeInTheDocument();
+      expect(
+        await screen.findByRole("button", {
+          name: /edit this information for I identify as a member of a visible minority./i,
+        }),
+      ).toBeInTheDocument();
     } else {
-      expect(addVisibleMinority).toBeInTheDocument();
-      expect(removeVisibleMinority).not.toBeInTheDocument();
+      await waitFor(async () => {
+        expect(
+          await screen.findByRole("button", {
+            name: /add visible minority to my profile/i,
+          }),
+        ).toBeInTheDocument();
+      });
     }
-
-    const addWoman = screen.queryByRole("button", {
-      name: /add woman to my profile/i,
-    });
-    const removeWoman = screen.queryByRole("button", {
-      name: /edit this information for i identify as a woman./i,
-    });
-
     if (mockUser.isWoman) {
-      expect(addWoman).not.toBeInTheDocument();
-      expect(removeWoman).toBeInTheDocument();
+      expect(
+        await screen.findByRole("button", {
+          name: /edit this information for i identify as a woman./i,
+        }),
+      ).toBeInTheDocument();
     } else {
-      expect(addWoman).toBeInTheDocument();
-      expect(removeWoman).not.toBeInTheDocument();
+      await waitFor(async () => {
+        expect(
+          await screen.findByRole("button", {
+            name: /add woman to my profile/i,
+          }),
+        ).toBeInTheDocument();
+      });
     }
   });
 
@@ -122,15 +143,27 @@ describe("DiversityEquityInclusionForm", () => {
       isMutating: false,
     });
 
-    const addWoman = await screen.findByRole("button", {
-      name: /add Woman to my profile/i,
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /available equity options/i,
+        }),
+      );
     });
 
-    fireEvent.click(addWoman);
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /add Woman to my profile/i,
+        }),
+      );
+    });
 
-    expect(
-      await screen.queryByRole("dialog", { name: /woman/i }),
-    ).toBeInTheDocument();
+    await waitFor(async () => {
+      expect(
+        await screen.queryByRole("dialog", { name: /woman/i }),
+      ).toBeInTheDocument();
+    });
   });
 
   it("should update on save", async () => {
@@ -146,20 +179,28 @@ describe("DiversityEquityInclusionForm", () => {
       isMutating: false,
     });
 
-    const addWoman = await screen.findByRole("button", {
-      name: /add Woman to my profile/i,
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /available equity options/i,
+        }),
+      );
     });
 
-    act(() => {
-      fireEvent.click(addWoman);
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /add Woman to my profile/i,
+        }),
+      );
     });
 
-    const saveBtn = await screen.findByRole("button", {
-      name: /save/i,
-    });
-
-    act(() => {
-      fireEvent.submit(saveBtn);
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /save/i,
+        }),
+      );
     });
 
     await waitFor(() => {

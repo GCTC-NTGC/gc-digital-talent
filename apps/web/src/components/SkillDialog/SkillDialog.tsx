@@ -126,6 +126,7 @@ const SkillDialog = ({
                 <Button
                   type="button"
                   color="secondary"
+                  disabled={isSubmitting}
                   onClick={() => handleAddSkill(getValues())}
                 >
                   {isSubmitting

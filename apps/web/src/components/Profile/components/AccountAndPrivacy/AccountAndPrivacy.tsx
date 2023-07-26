@@ -20,7 +20,7 @@ import { SectionProps } from "../../types";
 import { getSectionTitle } from "../../utils";
 
 type AccordionItems = Array<
-  "login_authentication" | "recruitment_availability" | ""
+  "sign_in_authentication" | "recruitment_availability" | ""
 >;
 
 const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
@@ -75,7 +75,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
           setCurrentAccordionItems(value)
         }
       >
-        <Accordion.Item value="login_authentication">
+        <Accordion.Item value="sign_in_authentication">
           <StandardAccordionHeader
             headingAs="h3"
             subtitle={intl.formatMessage({
@@ -86,24 +86,22 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                 "Introductory text displayed in login and authentication accordion.",
             })}
           >
-            {currentAccordionItems.includes("login_authentication")
+            {currentAccordionItems.includes("sign_in_authentication")
               ? intl.formatMessage({
                   defaultMessage:
-                    "Hide information about login and authentication",
-                  id: "sPXW3j",
+                    "Hide information about sign in and authentication",
+                  id: "LBU5dT",
                   description:
-                    "Heading for closing the login and authentication accordion in account and privacy",
+                    "Heading for closing the sign in and authentication accordion in account and privacy",
                 })
               : intl.formatMessage({
-                  defaultMessage: "Learn more about login and authentication",
-                  id: "ePbKEr",
+                  defaultMessage: "Learn more about sign in and authentication",
+                  id: "x+PMFn",
                   description:
-                    "Heading for opening the login and authentication accordion in account and privacy",
+                    "Heading for opening the sign in and authentication accordion in account and privacy",
                 })}
           </StandardAccordionHeader>
-          <Accordion.AnimatedContent
-            isOpen={currentAccordionItems.includes("login_authentication")}
-          >
+          <Accordion.Content>
             <Separator
               orientation="horizontal"
               decorative
@@ -132,7 +130,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                 description: "Link text for visiting the GCKey website",
               })}
             </Link>
-          </Accordion.AnimatedContent>
+          </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="recruitment_availability">
           <StandardAccordionHeader
@@ -159,9 +157,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                     "Heading for opening the recruitment availability accordion in account and privacy",
                 })}
           </StandardAccordionHeader>
-          <Accordion.AnimatedContent
-            isOpen={currentAccordionItems.includes("recruitment_availability")}
-          >
+          <Accordion.Content>
             <Separator
               orientation="horizontal"
               decorative
@@ -215,7 +211,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                 })}
               </Well>
             )}
-          </Accordion.AnimatedContent>
+          </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
     </>

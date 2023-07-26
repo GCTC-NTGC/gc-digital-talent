@@ -21,6 +21,7 @@ interface EquityOptionProps {
   onSave: (data: IndigenousUpdateProps) => void;
   title: React.ReactNode;
   description?: React.ReactNode;
+  disabled?: boolean;
 }
 
 const dialogMap: Record<
@@ -37,6 +38,7 @@ const EquityOption = ({
   onSave,
   title,
   description,
+  disabled,
 }: EquityOptionProps) => {
   const intl = useIntl();
   const Dialog = dialogMap[option];
@@ -105,6 +107,7 @@ const EquityOption = ({
         indigenousCommunities={indigenousCommunities}
         signature={signature}
         onSave={onSave}
+        disabled={disabled}
       >
         <Button
           type="button"

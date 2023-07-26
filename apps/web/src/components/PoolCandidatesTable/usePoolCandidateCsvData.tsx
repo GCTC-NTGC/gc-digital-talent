@@ -27,6 +27,7 @@ import {
   skillKeyAndJustifications,
   getExperienceTitles,
   getScreeningQuestionResponses,
+  getIndigenousCommunities,
 } from "~/utils/csvUtils";
 import { Maybe, PoolCandidate, PositionDuration, Pool } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
@@ -353,7 +354,7 @@ const usePoolCandidateCsvData = (
       }),
     },
     {
-      key: "isIndigenous",
+      key: "indigenousCommunities",
       label: intl.formatMessage({
         defaultMessage: "Indigenous",
         id: "83v9YH",
@@ -512,7 +513,10 @@ const usePoolCandidateCsvData = (
             intl,
           ),
           isWoman: yesOrNo(user.isWoman, intl),
-          isIndigenous: yesOrNo(user.isIndigenous, intl),
+          indigenousCommunities: getIndigenousCommunities(
+            user.indigenousCommunities,
+            intl,
+          ),
           isVisibleMinority: yesOrNo(user.isVisibleMinority, intl),
           hasDisability: yesOrNo(user.hasDisability, intl),
           expectedClassification: getExpectedClassifications(

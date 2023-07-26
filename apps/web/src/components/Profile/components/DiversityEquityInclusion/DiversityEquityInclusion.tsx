@@ -103,7 +103,7 @@ const DiversityEquityInclusion = ({
                     "Heading for opening the accordion with information on employment equity",
                 })}
           </StandardAccordionHeader>
-          <Accordion.AnimatedContent isOpen={accordionOpen === "information"}>
+          <Accordion.Content>
             <Separator
               orientation="horizontal"
               decorative
@@ -177,11 +177,11 @@ const DiversityEquityInclusion = ({
                 })}
               </li>
             </ul>
-          </Accordion.AnimatedContent>
+          </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
       <EquityOptions
-        isDisabled={isUpdating || false}
+        isDisabled={isUpdating}
         inApplication={!!pool}
         indigenousCommunities={user.indigenousCommunities}
         indigenousDeclarationSignature={user.indigenousDeclarationSignature}

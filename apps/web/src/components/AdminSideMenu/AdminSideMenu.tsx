@@ -17,7 +17,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { checkRole } from "~/utils/teamUtils";
 import adminMessages from "~/messages/adminMessages";
 
-import LoginOrLogout from "./LoginOrLogout";
+import SignInOrSignOut from "./SignInOrSignOut";
 
 export interface AdminSideMenuProps {
   isOpen: boolean;
@@ -120,7 +120,7 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
       })}
       onOpenChange={onToggle}
       open={isOpen}
-      footer={<LoginOrLogout />}
+      footer={<SignInOrSignOut />}
     >
       {menuItems.map((item) => (
         <React.Fragment key={item.key}>

@@ -18,6 +18,9 @@ const CloseDialog = ({
 }: CloseDialogProps): JSX.Element => {
   const intl = useIntl();
   const methods = useForm();
+  const {
+    formState: { isSubmitting },
+  } = methods;
   const Footer = React.useMemo(
     () => (
       <>
@@ -35,6 +38,7 @@ const CloseDialog = ({
         <div>
           <Dialog.Close>
             <Button
+              disabled={isSubmitting}
               onClick={() => {
                 onClose();
               }}
@@ -52,7 +56,7 @@ const CloseDialog = ({
         </div>
       </>
     ),
-    [intl, onClose],
+    [intl, isSubmitting, onClose],
   );
   return (
     <Dialog.Root>
@@ -74,14 +78,14 @@ const CloseDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
-              defaultMessage: "This pool is set to automatically close on:",
-              id: "rkPb6M",
-              description: "First paragraph for the close pool dialog",
-            })}
-          </p>
           <FormProvider {...methods}>
+            <p data-h2-margin="base(x1, 0)">
+              {intl.formatMessage({
+                defaultMessage: "This pool is set to automatically close on:",
+                id: "rkPb6M",
+                description: "First paragraph for the close pool dialog",
+              })}
+            </p>
             <p>
               {intl.formatMessage({
                 defaultMessage: "Closing Date",
@@ -104,23 +108,23 @@ const CloseDialog = ({
                   })
                 : ""}
             </div>
+            <p data-h2-margin="base(x1, 0)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "You can choose to manually close it now, this will prevent users from submitting applications.",
+                id: "NljjDf",
+                description: "Second paragraph for the close pool dialog",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Are you sure you want to continue?",
+                id: "2++hVA",
+                description: "Third paragraph for Close pool dialog",
+              })}
+            </p>
+            <Dialog.Footer>{Footer}</Dialog.Footer>
           </FormProvider>
-          <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
-              defaultMessage:
-                "You can choose to manually close it now, this will prevent users from submitting applications.",
-              id: "NljjDf",
-              description: "Second paragraph for the close pool dialog",
-            })}
-          </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Are you sure you want to continue?",
-              id: "2++hVA",
-              description: "Third paragraph for Close pool dialog",
-            })}
-          </p>
-          <Dialog.Footer>{Footer}</Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>

@@ -14,6 +14,7 @@ import { EquityDialogProps } from "./types";
 type EquityGroup = "woman" | "minority" | "disability";
 
 interface EquityOptionProps {
+  disabled?: boolean;
   isAdded: boolean;
   option: EquityGroup;
   // Note: Just defining the func signature
@@ -37,6 +38,7 @@ const EquityOption = ({
   onSave,
   title,
   description,
+  disabled,
 }: EquityOptionProps) => {
   const intl = useIntl();
   const Dialog = dialogMap[option];
@@ -78,7 +80,7 @@ const EquityOption = ({
         {title}
       </p>
       {description && <p data-h2-padding-bottom="base(x1)">{description}</p>}
-      <Dialog isAdded={isAdded} onSave={onSave}>
+      <Dialog isAdded={isAdded} onSave={onSave} disabled={disabled}>
         <Button
           type="button"
           mode="inline"

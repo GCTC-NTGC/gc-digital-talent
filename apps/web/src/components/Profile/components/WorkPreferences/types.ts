@@ -1,4 +1,12 @@
-import { UpdateUserAsUserInput } from "~/api/generated";
+import { UpdateUserAsUserInput, User } from "~/api/generated";
+
+export type PartialUser = Pick<
+  User,
+  | "acceptedOperationalRequirements"
+  | "positionDuration"
+  | "locationPreferences"
+  | "locationExemptions"
+>;
 
 export type FormValues = Pick<
   UpdateUserAsUserInput,

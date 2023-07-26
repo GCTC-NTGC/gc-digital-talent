@@ -45,7 +45,7 @@ describe("Pools", () => {
     cy.visit("/en/admin/pools");
 
     cy.findByRole("heading", {
-      name: /Login using GCKey/i,
+      name: /Sign in using GCKey/i,
     })
       .should("exist")
       .and("be.visible");

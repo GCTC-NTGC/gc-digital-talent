@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { IntlShape, useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
@@ -55,49 +54,8 @@ const getFieldLabel = (
   );
 };
 
-const animationVariants = {
-  open: {
-    height: "auto",
-    opacity: 1,
-  },
-  closed: {
-    height: 0,
-    opacity: 0,
-  },
-};
-
-interface AnimatedContentProps
-  extends React.ComponentPropsWithoutRef<typeof Accordion.Content> {
-  isOpen: boolean;
-}
-
-const AnimatedContent = React.forwardRef<
-  React.ElementRef<typeof Accordion.Content>,
-  AnimatedContentProps
->(({ isOpen, children, ...rest }, forwardedRef) => (
-  <Accordion.Content asChild forceMount ref={forwardedRef} {...rest}>
-    <motion.div
-      className="Accordion__Content"
-      animate={isOpen ? "open" : "closed"}
-      variants={animationVariants}
-      transition={{ duration: 0.2, type: "tween" }}
-    >
-      {children}
-    </motion.div>
-  </Accordion.Content>
-));
-
-type AdvancedFilter =
-  | "educationRequirement"
-  | "employmentDuration"
-  | "operationalRequirements";
-
-type AdvancedFilterOptions = Array<AdvancedFilter>;
-
 const AdvancedFilters = () => {
   const intl = useIntl();
-  const [currentAdvancedFilters, setCurrentAdvancedFilters] =
-    React.useState<AdvancedFilterOptions>([]);
   const { watch } = useFormContext();
   const [educationRequirement, employmentDuration, operationalRequirements] =
     watch([
@@ -188,14 +146,7 @@ const AdvancedFilters = () => {
           description: "Title for the additional filters",
         })}
       </Heading>
-      <Accordion.Root
-        type="multiple"
-        mode="simple"
-        value={currentAdvancedFilters}
-        onValueChange={(newValue: AdvancedFilterOptions) => {
-          setCurrentAdvancedFilters(newValue);
-        }}
-      >
+      <Accordion.Root type="multiple" mode="simple">
         <Accordion.Item value="educationRequirement">
           <StandardAccordionHeader
             {...accordionTitleProps}
@@ -212,9 +163,7 @@ const AdvancedFilters = () => {
                 "Heading for education requirement filter of the search form.",
             })}
           </StandardAccordionHeader>
-          <AnimatedContent
-            isOpen={currentAdvancedFilters.includes("educationRequirement")}
-          >
+          <Accordion.Content>
             <FilterBlock
               id="educationRequirementFilter"
               text={intl.formatMessage({
@@ -238,7 +187,7 @@ const AdvancedFilters = () => {
                 trackUnsaved={false}
               />
             </FilterBlock>
-          </AnimatedContent>
+          </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="employmentDuration">
           <StandardAccordionHeader
@@ -256,9 +205,7 @@ const AdvancedFilters = () => {
                 "Heading for employment duration section of the search form.",
             })}
           </StandardAccordionHeader>
-          <AnimatedContent
-            isOpen={currentAdvancedFilters.includes("employmentDuration")}
-          >
+          <Accordion.Content>
             <FilterBlock
               id="employmentDurationFilter"
               text={intl.formatMessage({
@@ -277,7 +224,7 @@ const AdvancedFilters = () => {
                 trackUnsaved={false}
               />
             </FilterBlock>
-          </AnimatedContent>
+          </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="operationalRequirements">
           <StandardAccordionHeader
@@ -296,9 +243,7 @@ const AdvancedFilters = () => {
                 "Heading for operational requirements section of the search form.",
             })}
           </StandardAccordionHeader>
-          <AnimatedContent
-            isOpen={currentAdvancedFilters.includes("operationalRequirements")}
-          >
+          <Accordion.Content>
             <FilterBlock
               id="operationalRequirementFilter"
               text={intl.formatMessage({
@@ -322,7 +267,7 @@ const AdvancedFilters = () => {
                 trackUnsaved={false}
               />
             </FilterBlock>
-          </AnimatedContent>
+          </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
     </>

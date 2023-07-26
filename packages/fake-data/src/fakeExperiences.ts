@@ -19,6 +19,16 @@ import {
 } from "@gc-digital-talent/graphql";
 import { getStaticSkills } from "./fakeSkills";
 
+type WithTypename<T extends { __typename?: string }> = T & {
+  __typename: NonNullable<T["__typename"]>;
+};
+
+export type GeneratedAwardExperience = WithTypename<AwardExperience>;
+export type GeneratedCommunityExperience = WithTypename<CommunityExperience>;
+export type GeneratedEducationExperience = WithTypename<EducationExperience>;
+export type GeneratedPersonalExperience = WithTypename<PersonalExperience>;
+export type GeneratedWorkExperience = WithTypename<WorkExperience>;
+
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 // defining the skills here
 const sampleApp: User = {
@@ -40,7 +50,7 @@ const staticDates = {
 
 // 5 generators to generate experiences of a certain type
 // actual generators start here
-const generateAward = (): AwardExperience => {
+const generateAward = (): GeneratedAwardExperience => {
   faker.setLocale("en");
 
   return {
@@ -76,7 +86,7 @@ const generateAward = (): AwardExperience => {
   };
 };
 
-const generateCommunity = (): CommunityExperience => {
+const generateCommunity = (): GeneratedCommunityExperience => {
   faker.setLocale("en");
   return {
     __typename: "CommunityExperience",
@@ -98,7 +108,7 @@ const generateCommunity = (): CommunityExperience => {
   };
 };
 
-const generateEducation = (): EducationExperience => {
+const generateEducation = (): GeneratedEducationExperience => {
   faker.setLocale("en");
   return {
     __typename: "EducationExperience",
@@ -137,7 +147,7 @@ const generateEducation = (): EducationExperience => {
   };
 };
 
-const generatePersonal = (): PersonalExperience => {
+const generatePersonal = (): GeneratedPersonalExperience => {
   faker.setLocale("en");
   return {
     __typename: "PersonalExperience",
@@ -158,7 +168,7 @@ const generatePersonal = (): PersonalExperience => {
   };
 };
 
-const generateWork = (): WorkExperience => {
+const generateWork = (): GeneratedWorkExperience => {
   faker.setLocale("en");
   return {
     __typename: "WorkExperience",

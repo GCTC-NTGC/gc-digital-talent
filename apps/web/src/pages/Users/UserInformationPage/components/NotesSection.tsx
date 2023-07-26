@@ -2,9 +2,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
 
-import { Button, Well } from "@gc-digital-talent/ui";
+import { Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { BasicForm, TextArea } from "@gc-digital-talent/forms";
+import { BasicForm, TextArea, Submit } from "@gc-digital-talent/forms";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 
@@ -121,16 +121,16 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
             }
             return null;
           })}
-          <Button type="submit" mode="solid" color="secondary">
-            <span data-h2-text-decoration="base(underline)">
-              {intl.formatMessage({
-                defaultMessage: "Save notes",
-                id: "ZNne50",
-                description:
-                  "Button to save notes for a pool candidate on the view-user page",
-              })}
-            </span>
-          </Button>
+          <Submit
+            mode="solid"
+            color="secondary"
+            text={intl.formatMessage({
+              defaultMessage: "Save notes",
+              id: "ZNne50",
+              description:
+                "Button to save notes for a pool candidate on the view-user page",
+            })}
+          />
         </BasicForm>
       )}
     </>

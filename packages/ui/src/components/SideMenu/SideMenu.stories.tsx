@@ -43,7 +43,7 @@ const TemplateSideMenu: Story = (args) => {
         onOpenChange={setOpen}
         footer={
           <SideMenuButton icon={ArrowRightOnRectangleIcon}>
-            Login
+            Sign in
           </SideMenuButton>
         }
       >

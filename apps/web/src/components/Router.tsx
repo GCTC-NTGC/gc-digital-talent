@@ -95,27 +95,27 @@ const RequestConfirmationPage = React.lazy(() =>
 );
 
 /** Auth */
-const RegisterPage = React.lazy(() =>
+const SignUpPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsRegisterPage" */ "../pages/Auth/RegisterPage/RegisterPage"
+        /* webpackChunkName: "tsSignUpPage" */ "../pages/Auth/SignUpPage/SignUpPage"
       ),
   ),
 );
-const LoggedOutPage = React.lazy(() =>
+const SignedOutPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsLoggedOutPage" */ "../pages/Auth/LoggedOutPage/LoggedOutPage"
+        /* webpackChunkName: "tsSignedOutPage" */ "../pages/Auth/SignedOutPage/SignedOutPage"
       ),
   ),
 );
-const LoginPage = React.lazy(() =>
+const SignInPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsLoginPage" */ "../pages/Auth/LoginPage/LoginPage"
+        /* webpackChunkName: "tsSignInPage" */ "../pages/Auth/SignInPage/SignInPage"
       ),
   ),
 );
@@ -746,7 +746,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
             },
             {
               path: "register-info",
-              element: <RegisterPage />,
+              element: <SignUpPage />,
             },
             {
               path: "logged-out",
@@ -764,11 +764,11 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 }
                 return null;
               },
-              element: <LoggedOutPage />,
+              element: <SignedOutPage />,
             },
             {
               path: "login-info",
-              element: <LoginPage />,
+              element: <SignInPage />,
             },
             {
               path: "create-account",

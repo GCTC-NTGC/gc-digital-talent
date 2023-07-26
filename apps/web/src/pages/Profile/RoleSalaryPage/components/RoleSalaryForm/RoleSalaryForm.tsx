@@ -100,22 +100,21 @@ const RoleSalaryForm = ({
   const GenericJobTitles = unpackMaybes(initialData?.genericJobTitles);
 
   const handleSubmit = async (formValues: FormValues) => {
-    const userId = initialData.me?.id;
-    if (userId === undefined) {
-      return;
+    if (initialData.me?.id) {
+      return updateRoleSalary(
+        initialData.me.id,
+        formValuesToSubmitData(formValues, GenericJobTitles),
+      )
+        .then(() => {
+          navigate(returnRoute);
+          toast.success(intl.formatMessage(profileMessages.userUpdated));
+        })
+        .catch(() => {
+          toast.error(intl.formatMessage(profileMessages.updatingFailed));
+        });
     }
 
-    await updateRoleSalary(
-      userId,
-      formValuesToSubmitData(formValues, GenericJobTitles),
-    )
-      .then(() => {
-        navigate(returnRoute);
-        toast.success(intl.formatMessage(profileMessages.userUpdated));
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(profileMessages.updatingFailed));
-      });
+    return undefined;
   };
 
   // intl styling functions section
