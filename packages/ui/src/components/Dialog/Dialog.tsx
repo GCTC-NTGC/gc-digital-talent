@@ -128,7 +128,7 @@ const StyledDescription = React.forwardRef<
   />
 ));
 
-export interface DialogHeaderProps {
+interface DialogHeaderProps {
   subtitle?: React.ReactNode;
   children: React.ReactNode;
 }

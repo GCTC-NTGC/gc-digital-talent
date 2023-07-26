@@ -2,12 +2,7 @@ import React from "react";
 
 import { IconType } from "../../types";
 
-export type Color =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "quaternary"
-  | "quinary";
+type Color = "primary" | "secondary" | "tertiary" | "quaternary" | "quinary";
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
@@ -34,7 +29,7 @@ type GenericHTMLProps = React.DetailedHTMLProps<
   HTMLElement
 >;
 
-export interface ItemProps {
+interface ItemProps {
   title: React.ReactNode;
   Icon?: IconType;
   children: React.ReactNode;
@@ -82,9 +77,9 @@ const Item = ({
   );
 };
 
-export type ListItemElement = React.ReactElement<ItemProps>;
+type ListItemElement = React.ReactElement<ItemProps>;
 
-export interface RootProps
+interface RootProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDListElement>,
     HTMLDListElement

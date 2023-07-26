@@ -280,7 +280,7 @@ type BackgroundMode = Omit<ButtonLinkMode, "inline">;
  * @param color Color
  * @returns Record<string, string>
  */
-export const getBackground = (
+const getBackground = (
   mode: ButtonLinkMode,
   color: Color,
   disabled?: boolean,
@@ -495,7 +495,7 @@ export const getBackground = (
  * @param color Color
  * @returns Record<string, string>
  */
-export const getFontColor = (
+const getFontColor = (
   mode: ButtonLinkMode,
   color: Color,
   disabled?: boolean,

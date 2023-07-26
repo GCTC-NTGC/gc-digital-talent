@@ -44,7 +44,7 @@ const StepLink = ({
     </Link>
   );
 };
-export interface StepProps extends Omit<StepLinkProps, "children"> {
+interface StepProps extends Omit<StepLinkProps, "children"> {
   icon: IconType;
   last?: boolean;
   label: React.ReactNode;

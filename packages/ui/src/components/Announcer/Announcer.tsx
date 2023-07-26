@@ -4,7 +4,7 @@ type AnnouncerContextValue = {
   announce: (announcement: React.ReactNode) => void;
 };
 
-export const AnnouncerContext = React.createContext<AnnouncerContextValue>({
+const AnnouncerContext = React.createContext<AnnouncerContextValue>({
   announce: () => {
     // PASS: Default announcement
   },

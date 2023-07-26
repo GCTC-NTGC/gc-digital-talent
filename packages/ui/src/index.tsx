@@ -72,6 +72,9 @@ import TableOfContents, {
   type TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
+  TocListItemProps,
+  TocListProps,
+  TocSidebarProps,
 } from "./components/TableOfContents";
 import Tabs from "./components/Tabs";
 import ToggleGroup from "./components/ToggleGroup";
@@ -118,6 +121,9 @@ export type {
   TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
+  TocListItemProps,
+  TocListProps,
+  TocSidebarProps,
   WellProps,
 };
 

@@ -11,7 +11,7 @@ type UseControllableStateArgs<T> = {
   onChange?: (state: T) => void;
 };
 
-export type SetStateFunc<T> = (prevState?: T) => T;
+type SetStateFunc<T> = (prevState?: T) => T;
 
 const useUnControlledState = <T>({
   defaultValue,

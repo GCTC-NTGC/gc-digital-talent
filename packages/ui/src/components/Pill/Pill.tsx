@@ -17,7 +17,7 @@ export interface PillProps
   bold?: boolean;
 }
 
-export const h2ChipColors = {
+const h2ChipColors = {
   primary: {
     solid: {
       "data-h2-border":
