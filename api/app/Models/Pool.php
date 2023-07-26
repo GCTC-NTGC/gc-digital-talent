@@ -180,4 +180,13 @@ class Pool extends Model
 
         return $query;
     }
+
+    public function scopeNotArchived(Builder $query, ?array $args)
+    {
+        $query->where(function ($query) {
+            $query->whereNull('archived_at');
+            $query->orWhere('archived_at', '>', Carbon::now()->toDateTimeString());
+        });
+        return $query;
+    }
 }

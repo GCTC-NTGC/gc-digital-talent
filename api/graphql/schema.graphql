@@ -879,17 +879,16 @@ type Query {
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
   pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
-  pools: [Pool]! @all @can(ability: "viewAny", model: "Pool")
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
     publishingGroup: PublishingGroup
       @where(key: "publishing_group", operator: "=")
   ): [Pool!]!
-    @all(scopes: ["wasPublished"])
+    @all(scopes: ["wasPublished", "notArchived"])
     @can(ability: "viewAnyPublished", model: "Pool")
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
   pools: [Pool]!
-    @all(scopes: ["authorizedToView"])
+    @all(scopes: ["authorizedToView", "notArchived"])
     @can(ability: "view", resolved: true)
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
