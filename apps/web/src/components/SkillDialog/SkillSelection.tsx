@@ -10,7 +10,11 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { Combobox, Select } from "@gc-digital-talent/forms";
-import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  getLocalizedName,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 
 import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
 import { Skill, SkillCategory } from "~/api/generated";
@@ -43,7 +47,7 @@ const SkillSelection = ({
   const filteredFamilies = React.useMemo(() => {
     const invertedTree = invertSkillSkillFamilyTree(skills);
 
-    return category
+    return category && category !== "all"
       ? invertedTree.filter((currentFamily) => {
           return currentFamily.category === category;
         })
@@ -51,14 +55,14 @@ const SkillSelection = ({
   }, [skills, category]);
 
   const filteredSkills = React.useMemo(() => {
-    if (family) {
+    if (family && family !== "all") {
       // We only care about family if it is set
       // since we are filtering families by category
       return skills.filter((currentSkill) =>
         currentSkill.families?.some((skillFamily) => skillFamily.id === family),
       );
     }
-    if (category) {
+    if (category && category !== "all") {
       return skills.filter((currentSkill) =>
         currentSkill.families?.some(
           (skillFamily) => skillFamily.category === category,
@@ -108,6 +112,7 @@ const SkillSelection = ({
           <Select
             id="skill-category"
             name="category"
+            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
             trackUnsaved={false}
             label={intl.formatMessage({
               defaultMessage: "Filter skills by category",
@@ -116,7 +121,7 @@ const SkillSelection = ({
             })}
             options={[
               {
-                value: "",
+                value: "all",
                 label: intl.formatMessage({
                   defaultMessage: "All categories",
                   id: "ZtHmo1",
@@ -145,6 +150,7 @@ const SkillSelection = ({
         <Select
           id="skill-family"
           name="family"
+          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
           trackUnsaved={false}
           label={intl.formatMessage({
             defaultMessage: "Filter skills by skill family",
@@ -153,7 +159,7 @@ const SkillSelection = ({
           })}
           options={[
             {
-              value: "",
+              value: "all",
               label: intl.formatMessage({
                 defaultMessage: "All skill families",
                 id: "eLk4bq",

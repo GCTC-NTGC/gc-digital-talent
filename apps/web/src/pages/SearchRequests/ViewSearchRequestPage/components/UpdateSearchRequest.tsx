@@ -13,6 +13,7 @@ import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   getPoolCandidateSearchStatus,
+  uiMessages,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -199,6 +200,9 @@ export const UpdateSearchRequestForm = ({
               <Select
                 id="status"
                 name="status"
+                nullSelection={intl.formatMessage(
+                  uiMessages.nullSelectionOption,
+                )}
                 label={intl.formatMessage(commonMessages.status)}
                 options={enumToOptions(PoolCandidateSearchStatus, [
                   PoolCandidateSearchStatus.New,

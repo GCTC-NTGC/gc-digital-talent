@@ -11,6 +11,7 @@ import {
   errorMessages,
   formMessages,
   getLocalizedName,
+  uiMessages,
 } from "@gc-digital-talent/i18n";
 
 import { Role, Team, useUpdateUserAsAdminMutation } from "~/api/generated";
@@ -38,7 +39,9 @@ const EditTeamMemberDialog = ({
   const methods = useForm<TeamMemberFormValues>({
     defaultValues: {
       user: user.id,
+      userDisplay: user.id,
       team: team.id,
+      teamDisplay: team.id,
       roles: user.roles.map((role) => role.id),
     },
   });
@@ -129,6 +132,9 @@ const EditTeamMemberDialog = ({
                 <Select
                   id="userDisplay"
                   name="userDisplay"
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOption,
+                  )}
                   disabled
                   label={intl.formatMessage({
                     defaultMessage: "Manager name",
@@ -148,6 +154,9 @@ const EditTeamMemberDialog = ({
                 <Select
                   id="teamDisplay"
                   name="teamDisplay"
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOption,
+                  )}
                   disabled
                   label={intl.formatMessage({
                     defaultMessage: "Team",
