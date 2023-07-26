@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Pool;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -17,6 +18,8 @@ class PoolTest extends TestCase
     use MakesGraphQLRequests;
     use RefreshesSchemaCache;
 
+    protected $team;
+    protected $poolOperator;
     protected $adminUser;
     protected $guestUser;
     protected $baseUser;
@@ -27,6 +30,16 @@ class PoolTest extends TestCase
         $this->bootRefreshesSchemaCache();
 
         $this->seed(RolePermissionSeeder::class);
+
+        $this->team = Team::factory()->create([
+            'name' => "pool-application-test-team",
+        ]);
+
+        $this->poolOperator = User::factory()
+            ->asPoolOperator($this->team->name)
+            ->create([
+                'sub' => 'operator@test.com',
+            ]);
 
         $this->adminUser = User::factory()
             ->asAdmin()
@@ -64,6 +77,12 @@ class PoolTest extends TestCase
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
             'published_at' => null,
             'closing_date' => config('constants.past_date'),
+        ]);
+        $pool5 = Pool::factory()->create([
+            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
+            'published_at' => Carbon::create(config('constants.past_date'))->addDays(1),
+            'closing_date' => Carbon::create(config('constants.past_date'))->addDays(2),
+            'archived_at' => Carbon::create(config('constants.past_date'))->addDays(3),
         ]);
 
         // Assert query with pool 1 will return accessor as published
@@ -137,6 +156,24 @@ class PoolTest extends TestCase
                 ]
             ]
         ]);
+
+        // Assert query with pool 5 will return accessor as archived
+        $this->actingAs($this->adminUser, "api")->graphQL(
+            /** @lang GraphQL */
+            '
+        query pool {
+            pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15") {
+                status
+            }
+        }
+    '
+        )->assertJson([
+            "data" => [
+                "pool" => [
+                    "status" => ApiEnums::POOL_IS_ARCHIVED,
+                ]
+            ]
+        ]);
     }
 
     public function testPoolAccessorTime(): void
@@ -204,6 +241,8 @@ class PoolTest extends TestCase
         $draftPool = Pool::factory()->create([
             'published_at' => null,
         ]);
+        // this pool is archived so it should not be returned in the publishedPool query
+        $archivedPool = Pool::factory()->archived()->create();
 
         // Assert query will return only the published pool
         $this->graphQL(
@@ -235,6 +274,8 @@ class PoolTest extends TestCase
         $draftPool = Pool::factory()->create([
             'published_at' => null,
         ]);
+
+        $archivedPool = Pool::factory()->archived()->create();
 
         // Assert query will return only the published pool as anonymous user
         $this->graphQL(
@@ -375,5 +416,85 @@ class PoolTest extends TestCase
 
         $response2Count = count($response2->json('data.publishedPools'));
         assertSame(2, $response2Count);
+    }
+
+    public function testCanArchiveClosed(): void
+    {
+        $pool = Pool::factory()->closed()->create(['team_id' => $this->team->id]);
+
+        $this->actingAs($this->poolOperator, "api")->graphQL(
+            /** @lang GraphQL */
+            '
+                mutation ArchivePool($id: ID!) {
+                    archivePool(id: $id) {
+                        status
+                    }
+                }
+        ',
+            [
+                'id' => $pool->id
+            ]
+        )
+            ->assertJsonFragment(["status" => ApiEnums::POOL_IS_ARCHIVED]);
+    }
+
+    public function testCantArchiveActive(): void
+    {
+        $pool = Pool::factory()->published()->create(['team_id' => $this->team->id]);
+
+        $this->actingAs($this->poolOperator, "api")->graphQL(
+            /** @lang GraphQL */
+            '
+                mutation ArchivePool($id: ID!) {
+                    archivePool(id: $id) {
+                        status
+                    }
+                }
+        ',
+            [
+                'id' => $pool->id
+            ]
+        )
+            ->assertGraphQLErrorMessage('You cannot archive a pool unless it is in the closed status.');
+    }
+
+    public function testCanUnarchiveArchived(): void
+    {
+        $pool = Pool::factory()->archived()->create(['team_id' => $this->team->id]);
+
+        $this->actingAs($this->poolOperator, "api")->graphQL(
+            /** @lang GraphQL */
+            '
+                mutation UnarchivePool($id: ID!) {
+                    unarchivePool(id: $id) {
+                        status
+                    }
+                }
+        ',
+            [
+                'id' => $pool->id
+            ]
+        )
+            ->assertJsonFragment(["status" => ApiEnums::POOL_IS_CLOSED]);
+    }
+
+    public function testCantUnarchiveClosed(): void
+    {
+        $pool = Pool::factory()->closed()->create(['team_id' => $this->team->id]);
+
+        $this->actingAs($this->poolOperator, "api")->graphQL(
+            /** @lang GraphQL */
+            '
+                mutation UnarchivePool($id: ID!) {
+                    unarchivePool(id: $id) {
+                        status
+                    }
+                }
+        ',
+            [
+                'id' => $pool->id
+            ]
+        )
+            ->assertGraphQLErrorMessage('You cannot un-archive a pool unless it is in the archived status.');
     }
 }
