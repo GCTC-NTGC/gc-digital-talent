@@ -103,12 +103,6 @@ SelectDefault.args = {
   id: uniqueId(),
   label: "Departments",
   name: "departments",
-  nullSelection: "",
-};
-
-export const SelectWithNullSelection = Template.bind({});
-SelectWithNullSelection.args = {
-  ...SelectDefault.args,
   nullSelection: "Select an option",
 };
 
@@ -117,7 +111,6 @@ SelectWithGroups.args = {
   ...SelectDefault.args,
   label: "Groups",
   name: "groups",
-  nullSelection: "Select an option",
 };
 
 export const SelectRequired = Template.bind({});

@@ -36,8 +36,8 @@ export type SelectProps = CommonInputProps &
   > & {
     /** List of options and/or optgroups for the select element. */
     options: OptGroupOrOption[];
-    /** Null selection string provides a null value with instructions to user (eg. Select a department...) */
-    nullSelection?: string;
+    /** Null selection string provides a null value with instructions to user (e.g. Select a department) */
+    nullSelection: string;
     /** Determine if it should sort options in alphanumeric ascending order */
     doNotSort?: boolean;
   };
@@ -128,11 +128,9 @@ const Select = ({
         {...register(name, rules)}
         {...rest}
       >
-        {nullSelection && (
-          <option value="" disabled>
-            {nullSelection}
-          </option>
-        )}
+        <option value="" disabled>
+          {nullSelection}
+        </option>
         {optionsModified.map((option) =>
           Object.prototype.hasOwnProperty.call(option, "options") ? (
             <optgroup
