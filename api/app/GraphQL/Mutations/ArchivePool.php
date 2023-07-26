@@ -4,8 +4,8 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\Pool;
 use Database\Helpers\ApiEnums;
-use Error;
 use Illuminate\Support\Carbon;
+use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 final class ArchivePool
 {
@@ -18,7 +18,7 @@ final class ArchivePool
     {
         $pool = Pool::find($args['id']);
         if ($pool->getStatusAttribute() !== ApiEnums::POOL_IS_CLOSED) {
-            throw new Error("You cannot archive a pool unless it is in the closed status.");
+            throw ValidationException::withMessages(["You cannot archive a pool unless it is in the closed status."]);
         }
         $pool->update(['archived_at' => Carbon::now()]);
         return $pool;
