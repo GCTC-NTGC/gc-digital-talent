@@ -12,7 +12,7 @@ import {
   POST_LOGOUT_URI_KEY,
 } from "../const";
 
-interface AuthenticationState {
+export interface AuthenticationState {
   loggedIn: boolean;
   accessToken: string | null;
   refreshToken: string | null;

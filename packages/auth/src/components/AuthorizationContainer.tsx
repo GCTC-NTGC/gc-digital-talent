@@ -7,7 +7,7 @@ import {
   RoleAssignment,
 } from "@gc-digital-talent/graphql";
 
-interface AuthorizationState {
+export interface AuthorizationState {
   roleAssignments: Maybe<Array<RoleAssignment>>;
   email?: Maybe<Scalars["Email"]>;
   user?: Maybe<User>;

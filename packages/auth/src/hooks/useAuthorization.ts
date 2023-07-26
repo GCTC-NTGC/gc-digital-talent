@@ -1,8 +1,11 @@
 import { useContext } from "react";
 
-import { AuthorizationContext } from "../components/AuthorizationContainer";
+import {
+  AuthorizationContext,
+  AuthorizationState,
+} from "../components/AuthorizationContainer";
 
-const useAuthorization = () => {
+const useAuthorization = (): AuthorizationState => {
   const ctx = useContext(AuthorizationContext);
 
   return ctx;
