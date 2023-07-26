@@ -1,9 +1,5 @@
-import { ComponentType } from "react";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
-import {
-  ReactPlugin,
-  withAITracking,
-} from "@microsoft/applicationinsights-react-js";
+import { ReactPlugin } from "@microsoft/applicationinsights-react-js";
 
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 
@@ -29,6 +25,3 @@ if (aiConnectionString) {
 
 const { appInsights } = ai;
 export { reactPlugin, appInsights };
-
-export default (Component: ComponentType<unknown>) =>
-  withAITracking(reactPlugin, Component);
