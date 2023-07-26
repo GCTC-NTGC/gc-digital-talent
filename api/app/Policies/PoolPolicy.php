@@ -202,9 +202,6 @@ class PoolPolicy
      */
     public function archive(User $user, Pool $pool)
     {
-        if ($pool->getStatusAttribute() !== ApiEnums::POOL_IS_CLOSED) {
-            return Response::deny("You cannot archive a pool unless it is in the closed status.");
-        }
         $pool->loadMissing('team');
         return $user->isAbleTo("archive-team-pool", $pool->team);
     }

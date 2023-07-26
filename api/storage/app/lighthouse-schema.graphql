@@ -815,6 +815,7 @@ type Mutation {
   closePool(id: ID!): Pool
   deletePool(id: ID!): Pool
   archivePool(id: ID!): Pool
+  restorePool(id: ID!): Pool
   archiveApplication(id: ID!): PoolCandidate
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
