@@ -12,7 +12,7 @@ import {
   POST_LOGOUT_URI_KEY,
 } from "../const";
 
-export interface AuthenticationState {
+interface AuthenticationState {
   loggedIn: boolean;
   accessToken: string | null;
   refreshToken: string | null;
@@ -21,7 +21,7 @@ export interface AuthenticationState {
   refreshTokenSet: () => Promise<TokenSet | null>;
 }
 
-export const defaultAuthState = {
+const defaultAuthState = {
   loggedIn: false,
   accessToken: null,
   refreshToken: null,
