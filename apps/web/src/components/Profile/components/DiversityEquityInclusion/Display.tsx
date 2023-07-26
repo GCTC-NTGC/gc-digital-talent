@@ -11,8 +11,13 @@ import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import CommunityIcon from "./CommunityIcon";
 
+type PartialUser = Pick<
+  User,
+  "isWoman" | "hasDisability" | "isVisibleMinority" | "indigenousCommunities"
+>;
+
 interface DisplayProps {
-  user: User;
+  user: PartialUser;
 }
 
 const Display = ({

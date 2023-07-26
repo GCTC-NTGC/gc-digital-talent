@@ -111,7 +111,7 @@ const SkillDialog = ({
               )}
               {selectedSkill && context === "library" && <SkillDetails />}
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
-                <Button type="submit" color="secondary">
+                <Button type="submit" color="secondary" disabled={isSubmitting}>
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
                     : submit}

@@ -1,7 +1,10 @@
 import { User } from "@gc-digital-talent/graphql";
 import isEmpty from "lodash/isEmpty";
 
-type PartialUser = Pick<User, "locationPreferences" | "locationExemptions">;
+export type PartialUser = Pick<
+  User,
+  "locationPreferences" | "locationExemptions"
+>;
 
 export function anyCriteriaSelected(applicant: PartialUser): boolean {
   return !isEmpty(applicant.locationPreferences);

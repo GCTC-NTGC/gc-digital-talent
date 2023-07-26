@@ -2,13 +2,9 @@ import { IntlShape } from "react-intl";
 import omit from "lodash/omit";
 import compact from "lodash/compact";
 
-import {
-  BilingualEvaluation,
-  EstimatedLanguageAbility,
-  User,
-} from "~/api/generated";
+import { BilingualEvaluation, EstimatedLanguageAbility } from "~/api/generated";
 
-import { FormValues } from "./types";
+import { FormValues, PartialUser } from "./types";
 
 export const formValuesToSubmitData = (formValues: FormValues) => {
   const data = {
@@ -42,7 +38,7 @@ export const formValuesToSubmitData = (formValues: FormValues) => {
   return data;
 };
 
-export const dataToFormValues = (data: User): FormValues => {
+export const dataToFormValues = (data: PartialUser): FormValues => {
   return {
     consideredPositionLanguages: compact([
       data?.lookingForEnglish ? "lookingForEnglish" : "",

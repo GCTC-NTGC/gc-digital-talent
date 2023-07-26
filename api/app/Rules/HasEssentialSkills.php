@@ -66,32 +66,8 @@ class HasEssentialSkills implements Rule
     private function collectExperiencesSkillIds($userId)
     {
         $user = User::with([
-            'awardExperiences',
-            'awardExperiences.skills',
-            'communityExperiences',
-            'communityExperiences.skills',
-            'educationExperiences',
-            'educationExperiences.skills',
-            'personalExperiences',
-            'personalExperiences.skills',
-            'workExperiences',
-            'workExperiences.skills'
+            'userSkills'
         ])->findOrFail($userId);
-
-        $experiences = collect(
-            [
-                $user->awardExperiences,
-                $user->communityExperiences,
-                $user->educationExperiences,
-                $user->personalExperiences,
-                $user->workExperiences,
-            ]
-        )->flatten();
-
-        $userSkillIds = $experiences->flatMap(function ($e) {
-            return $e->skills->pluck('id');
-        });
-
-        return $userSkillIds;
+        return $user->userSkills()->pluck('skill_id');
     }
 }

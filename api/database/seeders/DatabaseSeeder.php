@@ -171,16 +171,15 @@ class DatabaseSeeder extends Seeder
     {
         // attach an award experience to a given user that has all the essential skills of a given pool
         $faker = Faker\Factory::create();
-        $essentialSkillIds = $pool->essentialSkills()->pluck('id')->toArray();
+        $essentialSkillIds = $pool->essentialSkills()->pluck('id');
 
-        if (isset($essentialSkillIds) && count($essentialSkillIds) > 0) {
-            $data = array_map(function () use ($faker) {
-                return ['details' => $faker->text()];
-            }, array_flip($essentialSkillIds)); // flip array from [index => 'id'], need id as keys
-
+        if ($essentialSkillIds->isNotEmpty()) {
+            $data = $essentialSkillIds->map(function ($id) use ($faker) {
+                return ['id' => $id, 'details' => $faker->text()];
+            });
             AwardExperience::factory()->for($user)
                 ->afterCreating(function ($model) use ($data) {
-                    $model->skills()->sync($data);
+                    $model->syncSkills($data);
                 })->create();
         }
     }

@@ -82,7 +82,7 @@ const WorkLocationForm = ({
   });
 
   const handleSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleWorkLocationPreference(
+    return handleWorkLocationPreference(
       initialData.id,
       formValuesToSubmitData(data),
     )

@@ -1,6 +1,6 @@
 import { User, Maybe, Pool, PublishingGroup } from "@gc-digital-talent/graphql";
 
-type PartialUser = Pick<
+export type PartialUser = Pick<
   User,
   "isWoman" | "hasDisability" | "isVisibleMinority" | "indigenousCommunities"
 >;

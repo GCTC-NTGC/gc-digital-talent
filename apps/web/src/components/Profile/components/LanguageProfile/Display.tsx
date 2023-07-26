@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { User } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getBilingualEvaluation,
@@ -11,9 +10,10 @@ import {
 import { BilingualEvaluation } from "~/api/generated";
 
 import FieldDisplay from "../FieldDisplay";
+import { PartialUser } from "./types";
 
 interface DisplayProps {
-  user: User;
+  user: PartialUser;
 }
 
 const Display = ({

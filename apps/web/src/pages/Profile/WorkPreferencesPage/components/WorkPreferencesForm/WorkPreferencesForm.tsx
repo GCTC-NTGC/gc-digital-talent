@@ -126,7 +126,7 @@ const WorkPreferencesForm = ({
   };
 
   const handleSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleWorkPreferences(initialData.id, formValuesToSubmitData(data))
+    return handleWorkPreferences(initialData.id, formValuesToSubmitData(data))
       .then(() => {
         navigate(returnRoute);
         toast.success(intl.formatMessage(profileMessages.userUpdated));

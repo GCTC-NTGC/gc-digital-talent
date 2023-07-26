@@ -1,7 +1,7 @@
 import { User } from "@gc-digital-talent/graphql";
 import isEmpty from "lodash/isEmpty";
 
-type PartialUser = Pick<User, "expectedGenericJobTitles">;
+export type PartialUser = Pick<User, "expectedGenericJobTitles">;
 
 export function anyCriteriaSelected({ expectedGenericJobTitles }: PartialUser) {
   return !isEmpty(expectedGenericJobTitles);

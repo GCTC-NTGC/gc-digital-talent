@@ -21,6 +21,9 @@ const PublishDialog = ({
 }: PublishDialogProps): JSX.Element => {
   const intl = useIntl();
   const methods = useForm();
+  const {
+    formState: { isSubmitting },
+  } = methods;
   const Footer = React.useMemo(
     () => (
       <>
@@ -42,6 +45,7 @@ const PublishDialog = ({
         <div>
           <Dialog.Close>
             <Button
+              disabled={isSubmitting}
               onClick={() => {
                 onPublish();
               }}
@@ -59,7 +63,7 @@ const PublishDialog = ({
         </div>
       </>
     ),
-    [intl, onPublish],
+    [intl, isSubmitting, onPublish],
   );
 
   let closingStringLocal;
@@ -160,8 +164,8 @@ const PublishDialog = ({
                   </div>
                 </>
               )}
+            <Dialog.Footer>{Footer}</Dialog.Footer>
           </FormProvider>
-          <Dialog.Footer>{Footer}</Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>

@@ -67,7 +67,8 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const [, executeMutation] = useUpdateApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] =
+    useUpdateApplicationMutation();
   const cancelPath = applicantDashboard
     ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
@@ -188,7 +189,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
             </p>
           </Well>
         )}
-        <FormActions />
+        <FormActions disabled={mutating} />
       </BasicForm>
     </>
   );

@@ -1864,6 +1864,7 @@ type User {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
+  userSkills: [UserSkill!]
   pools: [Pool] @deprecated(reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead.")
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
@@ -1910,6 +1911,12 @@ type UserPublicProfile {
   email: Email
   firstName: String
   lastName: String
+}
+
+type UserSkill {
+  id: ID!
+  user: User!
+  skill: Skill!
 }
 
 """Dynamic WHERE conditions for queries."""
