@@ -9,7 +9,7 @@ import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 
-type Radio = {
+export type Radio = {
   value: string | number;
   label: string | React.ReactNode;
   contentBelow?: React.ReactNode;
