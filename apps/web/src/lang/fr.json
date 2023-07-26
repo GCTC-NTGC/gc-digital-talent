@@ -161,6 +161,10 @@
     "defaultMessage": "Cette section facultative vous demande si vous souhaitez vous identifier comme membre d’un groupe visé par l’équité en matière d’emploi. ",
     "description": "Descriptive text explaining the diversity, equity, and inclusion section of the application profile"
   },
+  "/42EqQ": {
+    "defaultMessage": "Vous êtes sur le point de désarchiver ce bassin :",
+    "description": "First paragraph for un-archive pool dialog"
+  },
   "/5tYua": {
     "defaultMessage": "Fournissez vos renseignements",
     "description": "How it works, step 2 heading"
@@ -622,10 +626,6 @@
   "2FBdeQ": {
     "defaultMessage": "Apprentissage en cours d’emploi",
     "description": "Experience requirement, On the job."
-  },
-  "2JIgrl": {
-    "defaultMessage": "Souhaitez-vous poursuivre?",
-    "description": "Message displayed to users before removing a member from a team"
   },
   "2KM4iz": {
     "defaultMessage": "Parcours professionnel",
@@ -1130,6 +1130,10 @@
     "defaultMessage": "Candidature",
     "description": "Title displayed for the Pool Candidates table View Application link."
   },
+  "5it7iX": {
+    "defaultMessage": "Bassin désarchivé avec succès!",
+    "description": "Message displayed to user after pool is un-archived"
+  },
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
     "description": "Message displayed to user after classification fails to get created."
@@ -1409,6 +1413,10 @@
   "7fJqJP": {
     "defaultMessage": "Si vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi et que vous ne souhaitez pas vous auto-identifier sur cette plateforme, vous n'êtes pas dans l'obligation de le faire.",
     "description": "Third paragraph for employment equity information."
+  },
+  "7gOyU5": {
+    "defaultMessage": "Archiver ce bassin",
+    "description": "Heading for the archive pool dialog"
   },
   "7hUWc+": {
     "defaultMessage": "Créer un profil",
@@ -1970,6 +1978,10 @@
     "defaultMessage": "Candidature formulée le cv",
     "description": "Label for showing the submitted date of an application."
   },
+  "Bg1Pga": {
+    "defaultMessage": "Cela permettra de rendre ce bassin au public. Tous les utilisateurs associés à ce bassin pourront le voir dans les informations de leur profil.",
+    "description": "Second paragraph for un-archive pool dialog"
+  },
   "BhWVby": {
     "defaultMessage": "Proposez-vous pour passer quelques heures à participer à une équipe interministérielle qui évaluera des candidats et exécutera des processus d’emploi sur la plateforme Talents numériques du GC.",
     "description": "Paragraph two, summary on getting hiring experience"
@@ -2486,6 +2498,10 @@
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed for the Pool table Group and Level column."
   },
+  "FGedDI": {
+    "defaultMessage": "Cela va masquer ce bassin dans tous les tableaux concernés et dans les informations relatives au bassin d'un utilisateur.",
+    "description": "Second paragraph for archive pool dialog"
+  },
   "FNgThS": {
     "defaultMessage": "Détails sur l'offre d'emploi",
     "description": "Form header for filling in job opportunity information section."
@@ -2517,6 +2533,10 @@
   "Fbh/MK": {
     "defaultMessage": "Expérience minimale ou combinaison équivalente d’études",
     "description": "Title for the minimum experience or equivalent education snapshot section."
+  },
+  "FboyrB": {
+    "defaultMessage": "Vous êtes sur le point d'archiver ce bassin :",
+    "description": "First paragraph for archive pool dialog"
   },
   "Fc/i3e": {
     "defaultMessage": "Modification de la date : {modifiedDate}",
@@ -2742,6 +2762,10 @@
     "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'business line advisory services' IT work stream"
   },
+  "H9fzdi": {
+    "defaultMessage": "Erreur : Le désarchivage du bassin a échoué",
+    "description": "Message displayed to user after pool fails to get un-archived."
+  },
   "H9rxOR": {
     "defaultMessage": "Colonnes visibles",
     "description": "Legend for the column toggle in admin tables."
@@ -2810,10 +2834,6 @@
     "defaultMessage": "Nom du bassin",
     "description": "Title displayed for the Pool table pool name column."
   },
-  "Hqt/ej": {
-    "defaultMessage": "Archive",
-    "description": "Heading for the archive pool dialog"
-  },
   "HrRgTT": {
     "defaultMessage": "Veuillez sélectionner une compétence pour continuer.",
     "description": "Help text to tell users to select a skill before submitting"
@@ -2829,10 +2849,6 @@
   "HwPuG0": {
     "defaultMessage": "Date d'expiration mise à jour avec succès",
     "description": "Toast for successful expiry date update on view-user page"
-  },
-  "HxTuuy": {
-    "defaultMessage": "Ce bassin n'est plus annoncée.",
-    "description": "Status description of a pool in ARCHIVED status"
   },
   "Hy2UdW": {
     "defaultMessage": "Vous êtes sur le point de retirer un rôle de l’utilisateur suivant : <strong>{userName}</strong>",
@@ -3010,10 +3026,6 @@
     "defaultMessage": "Premières Nations non inscrites",
     "description": "The indigenous community for non-status First Nations"
   },
-  "Jc0lds": {
-    "defaultMessage": "Bassin archivé",
-    "description": "Button to archive the pool in the archive pool dialog"
-  },
   "Jdlnz6": {
     "defaultMessage": "ᓀᐦᐃᔭᐍᐏᐣ nēhiyawēwin (Cris des Plaines)",
     "description": "Name of Plains Cree language"
@@ -3041,6 +3053,10 @@
   "JjTGYe": {
     "defaultMessage": "Vous êtes sur le point de modifier la date d'expiration pour cet utilisateur :",
     "description": "First section of text on the change candidate expiry date dialog"
+  },
+  "Jp0Beg": {
+    "defaultMessage": "Archiver ce bassin ",
+    "description": "Button to archive the pool in the archive pool dialog"
   },
   "JxDtt+": {
     "defaultMessage": "Révisez votre candidature",
@@ -4116,6 +4132,10 @@
     "defaultMessage": "Il manque des données requises par le gouvernement",
     "description": "Error message displayed when a users government information is incomplete"
   },
+  "Rs50V0": {
+    "defaultMessage": "Désarchiver ce bassin",
+    "description": "Button to un-archive the pool in the un-archive pool dialog"
+  },
   "Rv5vo7": {
     "defaultMessage": "Passer à la page {pageNumber}",
     "description": "Aria label for each button in pagination nav"
@@ -4352,6 +4372,10 @@
     "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
     "description": "Description of how a user can contact someone for answers/information on their existing request"
   },
+  "TtX+o7": {
+    "defaultMessage": "Ce bassin n'est plus annoncé ni visible par le public.",
+    "description": "Status description of a pool in ARCHIVED status"
+  },
   "TvUVa0": {
     "defaultMessage": "Vous êtes sur le point d’ajouter un nouveau rôle à l’utilisateur suivant : <strong>{userName}</strong>",
     "description": "Lead in text for the add role to user form."
@@ -4379,6 +4403,10 @@
   "U/ji+A": {
     "defaultMessage": "Candidature créée",
     "description": "Application created successfully"
+  },
+  "U/zhJQ": {
+    "defaultMessage": "Désarchiver",
+    "description": "Text on a button to un-archive the pool"
   },
   "U0qb7j": {
     "defaultMessage": "Les candidatures qui ne sont plus actives s'affichent ici.",
@@ -6722,6 +6750,10 @@
     "defaultMessage": "Votre disponibilité",
     "description": "Label for available for opportunities radio group"
   },
+  "jdD/iA": {
+    "defaultMessage": "Désarchiver ce bassin",
+    "description": "Heading for the un-archive pool dialog"
+  },
   "jdoFE6": {
     "defaultMessage": "Nom du bassin et classification de la cible",
     "description": "Sub title for pool name and classification"
@@ -6737,6 +6769,10 @@
   "jfED66": {
     "defaultMessage": "Vous êtes sur le point de procéder à la mise à jour des rôles de l’utilisateur suivant : <strong>{userDisplayName}</strong>",
     "description": "Lead in text for the add role to user form."
+  },
+  "jft3KM": {
+    "defaultMessage": "Le bassin a été archivé avec succès!",
+    "description": "Message affiché à l'utilisateur après l'archivage du bassin"
   },
   "jhhCKX": {
     "defaultMessage": "Portée du prix",
@@ -8250,10 +8286,6 @@
     "defaultMessage": "Votre demande à un processus sera examinée par notre équipe et, si nous trouvons une concordance quelconque, on vous invitera à une évaluation. Une fois accepté(e), les gestionnaires pourront alors communiquer avec vous avec des offres d’emploi.",
     "description": "Description of how the application process works, paragraph two"
   },
-  "vRLrmc": {
-    "defaultMessage": "Voulez-vous continuer?",
-    "description": "Question posed to user before committing a destructive act"
-  },
   "vV0SDz": {
     "defaultMessage": "{title} à {organization}",
     "description": "Title at organization"
@@ -8757,6 +8789,10 @@
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
     "description": "How it works, step 3 heading"
+  },
+  "zotZ6j": {
+    "defaultMessage": "Erreur : l'archivage du bassin a échoué",
+    "description": "Message displayed to user after pool fails to get archived."
   },
   "zpwZSQ": {
     "defaultMessage": "Erreur : échec de la mise à jour de la famille de compétences",
