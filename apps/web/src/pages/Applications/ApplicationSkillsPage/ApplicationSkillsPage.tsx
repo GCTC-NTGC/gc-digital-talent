@@ -103,7 +103,8 @@ export const ApplicationSkills = ({
     application.pool.nonessentialSkills,
   );
   const { applicantDashboard } = useFeatureFlags();
-  const [, executeMutation] = useUpdateApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] =
+    useUpdateApplicationMutation();
   const { followingPageUrl, isIAP } = useApplicationContext();
   const cancelPath = applicantDashboard
     ? paths.profileAndApplications({ fromIapDraft: isIAP })
@@ -124,7 +125,10 @@ export const ApplicationSkills = ({
     .filter(notEmpty);
 
   const methods = useForm<FormValues>();
-  const { setValue } = methods;
+  const {
+    setValue,
+    formState: { isSubmitting },
+  } = methods;
 
   const optionalDisclaimer = intl.formatMessage({
     defaultMessage:
@@ -324,6 +328,7 @@ export const ApplicationSkills = ({
               type="submit"
               mode="solid"
               value="continue"
+              disabled={mutating || isSubmitting}
               onClick={() => {
                 setValue(
                   "skillsMissingExperiences",

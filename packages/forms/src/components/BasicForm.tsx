@@ -89,7 +89,7 @@ function BasicForm<TFieldValues extends FieldValues>({
     }
   }, [showErrorSummary, errorSummaryRef]);
 
-  const handleSubmit = (data: TFieldValues) => {
+  const handleSubmit = async (data: TFieldValues) => {
     // Reset form to clear dirty values
     reset(data, {
       keepDirty: false,
@@ -99,7 +99,7 @@ function BasicForm<TFieldValues extends FieldValues>({
       removeFromSessionStorage(cacheKey);
     }
     // Fire the submit we passed in
-    onSubmit(data);
+    return onSubmit(data);
   };
 
   React.useEffect(() => {

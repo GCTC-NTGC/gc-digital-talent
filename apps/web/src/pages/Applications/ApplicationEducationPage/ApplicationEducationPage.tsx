@@ -144,11 +144,17 @@ const ApplicationEducation = ({
       }),
     },
   });
-  const { register, setValue, watch } = methods;
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { isSubmitting },
+  } = methods;
   const watchEducationRequirement = watch("educationRequirement");
   const actionProps = register("action");
 
-  const [, executeMutation] = useUpdateApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] =
+    useUpdateApplicationMutation();
   const handleSubmit = (formValues: FormValues) => {
     const includesExperience = (id: string) =>
       formValues.educationRequirementExperiences.includes(id);
@@ -458,6 +464,7 @@ const ApplicationEducation = ({
               type="submit"
               mode="solid"
               value="continue"
+              disabled={mutating || isSubmitting}
               {...actionProps}
               onClick={() => {
                 setValue("action", "continue");
@@ -470,6 +477,7 @@ const ApplicationEducation = ({
               mode="inline"
               color="secondary"
               value="cancel"
+              disabled={isSubmitting}
               {...actionProps}
               onClick={() => {
                 setValue("action", "cancel");

@@ -164,7 +164,7 @@ const AboutMeForm = ({
   };
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    await onUpdateAboutMe(initialUser.id, formValuesToSubmitData(formValues))
+    return onUpdateAboutMe(initialUser.id, formValuesToSubmitData(formValues))
       .then(() => {
         navigate(returnRoute);
         toast.success(intl.formatMessage(profileMessages.userUpdated));

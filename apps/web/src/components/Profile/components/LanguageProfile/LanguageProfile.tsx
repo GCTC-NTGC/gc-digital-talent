@@ -48,7 +48,7 @@ const LanguageProfile = ({
   );
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    await onUpdate(user.id, formValuesToSubmitData(formValues))
+    return onUpdate(user.id, formValuesToSubmitData(formValues))
       .then(() => {
         toast.success(
           intl.formatMessage({

@@ -39,7 +39,10 @@ type FooterProps = Pick<
 >;
 const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
   const { formatMessage } = useIntl();
-  const { reset } = useFormContext();
+  const {
+    reset,
+    formState: { isSubmitting },
+  } = useFormContext();
   const { emptyFormValues } = useFilterOptions(enableEducationType);
   const handleClear = () => {
     reset(emptyFormValues);
@@ -54,7 +57,7 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
           id: "uC0YPE",
         })}
       </Button>
-      <Button type="submit" color="primary">
+      <Button type="submit" color="primary" disabled={isSubmitting}>
         {formatMessage({
           description: "Submit button within the search filter dialog",
           defaultMessage: "Show results",
@@ -302,9 +305,9 @@ const PoolCandidateTableFilters = ({
   const [isOpen, setIsOpen] = useState(isOpenDefault);
 
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
-    onSubmit(data);
     setActiveFilters(data);
     setIsOpen(false);
+    return onSubmit(data);
   };
 
   return (

@@ -43,7 +43,6 @@ const TemplateExperienceFormForm: Story<ExperienceFormStoryArgs> = ({
         }, 1000);
       });
       action("Update Experience")(data);
-      return "null";
     }}
     deleteExperience={() => {
       /* do nothing */

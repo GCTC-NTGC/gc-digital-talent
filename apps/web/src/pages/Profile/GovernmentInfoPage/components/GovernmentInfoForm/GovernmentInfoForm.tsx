@@ -525,7 +525,7 @@ const GovernmentInfoForm = ({
   const labels = getGovernmentInfoLabels(intl);
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    await submitHandler(formValuesToSubmitData(formValues, classifications))
+    return submitHandler(formValuesToSubmitData(formValues, classifications))
       .then(() => {
         navigate(returnRoute);
         toast.success(intl.formatMessage(profileMessages.userUpdated));

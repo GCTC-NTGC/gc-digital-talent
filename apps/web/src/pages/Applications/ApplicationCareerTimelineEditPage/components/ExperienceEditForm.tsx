@@ -56,6 +56,9 @@ const EditExperienceForm = ({
     defaultValues,
     shouldFocusError: false,
   });
+  const {
+    formState: { isSubmitting },
+  } = methods;
   const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
   const { executeMutation, getMutationArgs } = useExperienceMutations(
     "update",
@@ -144,7 +147,7 @@ const EditExperienceForm = ({
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-align-items="base(flex-start) l-tablet(center)"
         >
-          <Button type="submit">
+          <Button type="submit" disabled={isSubmitting}>
             {intl.formatMessage(formMessages.saveChanges)}
           </Button>
           <Link
@@ -197,6 +200,7 @@ const EditExperienceForm = ({
                     type="submit"
                     mode="solid"
                     color="primary"
+                    disabled={isSubmitting}
                     onClick={handleDeleteExperience}
                   >
                     {intl.formatMessage({

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen, fireEvent, waitFor, act } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
@@ -52,13 +52,15 @@ describe("DiversityEquityInclusionForm", () => {
       isMutating: false,
     });
 
-    user.click(
-      await screen.findByRole("button", {
-        name: /show available equity options/i,
-      }),
-    );
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /show available equity options/i,
+        }),
+      );
+    });
 
-    waitFor(async () => {
+    await waitFor(async () => {
       expect(
         await screen.getByRole("button", {
           name: /hide available equity options/i,
@@ -73,7 +75,7 @@ describe("DiversityEquityInclusionForm", () => {
         }),
       ).toBeInTheDocument();
     } else {
-      waitFor(async () => {
+      await waitFor(async () => {
         expect(
           await screen.getByRole("button", {
             name: /add person with a disability to my profile/i,
@@ -89,7 +91,7 @@ describe("DiversityEquityInclusionForm", () => {
         }),
       ).toBeInTheDocument();
     } else {
-      waitFor(async () => {
+      await waitFor(async () => {
         expect(
           await screen.findByRole("button", {
             name: /add indigenous identity to my profile/i,
@@ -105,7 +107,7 @@ describe("DiversityEquityInclusionForm", () => {
         }),
       ).toBeInTheDocument();
     } else {
-      waitFor(async () => {
+      await waitFor(async () => {
         expect(
           await screen.findByRole("button", {
             name: /add visible minority to my profile/i,
@@ -120,7 +122,7 @@ describe("DiversityEquityInclusionForm", () => {
         }),
       ).toBeInTheDocument();
     } else {
-      waitFor(async () => {
+      await waitFor(async () => {
         expect(
           await screen.findByRole("button", {
             name: /add woman to my profile/i,
@@ -141,19 +143,23 @@ describe("DiversityEquityInclusionForm", () => {
       isMutating: false,
     });
 
-    user.click(
-      await screen.findByRole("button", {
-        name: /available equity options/i,
-      }),
-    );
-
-    const addWoman = await screen.findByRole("button", {
-      name: /add Woman to my profile/i,
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /available equity options/i,
+        }),
+      );
     });
 
-    user.click(addWoman);
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /add Woman to my profile/i,
+        }),
+      );
+    });
 
-    waitFor(async () => {
+    await waitFor(async () => {
       expect(
         await screen.queryByRole("dialog", { name: /woman/i }),
       ).toBeInTheDocument();
@@ -173,26 +179,28 @@ describe("DiversityEquityInclusionForm", () => {
       isMutating: false,
     });
 
-    user.click(
-      await screen.findByRole("button", {
-        name: /available equity options/i,
-      }),
-    );
-
-    const addWoman = await screen.findByRole("button", {
-      name: /add Woman to my profile/i,
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /available equity options/i,
+        }),
+      );
     });
 
-    act(() => {
-      user.click(addWoman);
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /add Woman to my profile/i,
+        }),
+      );
     });
 
-    const saveBtn = await screen.findByRole("button", {
-      name: /save/i,
-    });
-
-    act(() => {
-      fireEvent.submit(saveBtn);
+    await waitFor(async () => {
+      user.click(
+        await screen.findByRole("button", {
+          name: /save/i,
+        }),
+      );
     });
 
     await waitFor(() => {
