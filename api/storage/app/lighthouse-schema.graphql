@@ -1888,6 +1888,7 @@ input UserFilterInput {
   email: String
   name: String
   generalSearch: String
+  roleAssignments: [ID]
 }
 
 """A paginated list of User items."""
