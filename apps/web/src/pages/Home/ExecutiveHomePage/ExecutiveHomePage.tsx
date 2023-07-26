@@ -336,17 +336,17 @@ export const HomePage = ({ pools }: HomePageProps) => {
         <p data-h2-margin="base(x1 0)">
           {intl.formatMessage({
             defaultMessage:
-              "Are you a leader looking to attract or promote high-potential talent within the digital (IM, IT or Data fields) community? Do you have talented employees to nominate at the EX minus one to the EX-03 group and level? Are you from the human resources community and interested in interdepartmental opportunities for your digital workforce?",
+              "Are you a leader looking to attract or promote high-potential talent within the digital (IM, IT or data fields) community? Do you have talented employees to nominate at the EX minus one to the EX-03 group and level? Are you from the human resources community and interested in interdepartmental opportunities for your digital workforce?",
             description: "Paragraph one, about who is eligible for exposition",
-            id: "psqrZz",
+            id: "hml0gm",
           })}
         </p>
         <p data-h2-margin="base(x1 0)">
           {intl.formatMessage({
             defaultMessage:
-              "If your answer is yes to one or several of the questions above, we have the solution you are looking for. Since 2019, we have built trust with hundreds of digital leaders from dozens of organizations across the GC to help talented employees optimize their skills, achieve their potential, develop new experiences, and engage in the succession planning process.",
+              "If your answer is yes to one or several of the previous questions, we have the solution you are looking for. Since 2019, we have built trust with hundreds of digital leaders from dozens of organizations across the Government of Canada to help talented employees optimize their skills, achieve their potential, develop new experiences, and engage in the succession planning process.",
             description: "Paragraph two, about who is eligible for exposition",
-            id: "oQR/Ac",
+            id: "80WTKY",
           })}
         </p>
         <Heading level="h3">
@@ -414,8 +414,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Over the years, hundreds of nominees at different groups and levels (EXposition focus on EX while EXtend EXposition focus on the non-EX groups and levels) have been brought forward and their nominations are compiled in the Digital Talent Management Repository. This talent management repository is the primary data source when organizations are required to obtain referrals throughout the year.",
-                  id: "0prZY7",
+                    "Over the years, hundreds of nominees at different groups and levels (EXposition focuses on EX while EXtend EXposition focuses on the non-EX groups and levels) have been brought forward and their nominations are compiled in the Digital Talent Management Repository. This talent management repository is the primary data source when organizations are required to obtain referrals throughout the year.",
+                  id: "s/BI/4",
                   description: "Description of identifying digital talents",
                 })}
               </p>
@@ -468,8 +468,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Launched the third cohort of the Digital Community Mentorship Program for members of a Employment Equity groups.",
-                  id: "VMXY2I",
+                    "Launched the third cohort of the Digital Community Mentorship Program for members of Employment Equity groups.",
+                  id: "3HKoKM",
                   description: "Description of the mentorship program",
                 })}
               </p>

@@ -460,10 +460,6 @@
     "defaultMessage": "Nom (français)",
     "description": "Label displayed on the create a skill family form name (French) field."
   },
-  "0prZY7": {
-    "defaultMessage": "Au fil des ans, des centaines de candidats de différents groupes et niveaux (le recrutement pour les cadres misent sur les cadres tandis que les postes externes misent sur les groupes et niveaux qui n’occupent pas un poste des cadres, qui ont été présentés et dont les nominations sont compilées dans le référentiel de gestion des talents numériques. Tout au long de l’année, le référentiel de gestion des talents constitue la principale source de données lorsque les organisations ont besoin d’obtenir des recommandations.",
-    "description": "Description of identifying digital talents"
-  },
   "0qKFaP": {
     "defaultMessage": "Ce bassin est actuellement en cours de publication et ouvert à la réception de nouvelles candidatures.",
     "description": "Status description of a pool in PUBLISHED status"
@@ -785,6 +781,10 @@
   "3HJ51b": {
     "defaultMessage": "Femme",
     "description": "Text on view-user page that the user is a woman"
+  },
+  "3HKoKM": {
+    "defaultMessage": "Lancement de la troisième cohorte du programme de mentorat de la collectivité du numérique destiné aux membres des groupes d’équité en matière d’emploi.",
+    "description": "Description of the mentorship program"
   },
   "3IZ3mN": {
     "defaultMessage": "Équipe",
@@ -4628,10 +4628,6 @@
     "defaultMessage": "Parcourir les offres d’emploi",
     "description": "Link text for executive jobs in government call to action"
   },
-  "VMXY2I": {
-    "defaultMessage": "Lancement de la troisième cohorte du programme de mentorat de la collectivité du numérique destiné aux membres des groupes d’équité en matière d’emploi.",
-    "description": "Description of the mentorship program"
-  },
   "VMhVyJ": {
     "defaultMessage": "Sélectionnez un statut",
     "description": "Placeholder text for the pool status field"
@@ -6550,6 +6546,10 @@
   "hmfQmT": {
     "defaultMessage": "Préférences de durée"
   },
+  "hml0gm": {
+    "defaultMessage": "Êtes-vous un(e) dirigeant(E) qui cherche à attirer ou à promouvoir des talents à fort potentiel au sein de la collectivité du numérique (domaines de la GI, de la TI ou des données)? Y a-t-il des employés talentueux que vous souhaitez nommer au niveau EX moins un vers le groupe et le niveau EX-03? Vous faites partie de la collectivité des ressources humaines et vous voulez créer des possibilités interministérielles pour votre main-d’œuvre numérique?",
+    "description": "Paragraph one, about who is eligible for exposition"
+  },
   "hqZfyb": {
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
@@ -7496,10 +7496,6 @@
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
     "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
   },
-  "oQR/Ac": {
-    "defaultMessage": "Si vous avez répondu par l’affirmative à une ou plusieurs des questions ci-dessus, nous avons la solution que vous recherchez. Depuis 2019, nous avons établi une relation de confiance avec des centaines de dirigeants numériques de dizaines d’organisations à travers le GC afin d’aider les employés talentueux à optimiser leurs capacités, à atteindre tout leur potentiel, à acquérir de nouvelles expériences et à participer dans le processus de planification de la relève.",
-    "description": "Paragraph two, about who is eligible for exposition"
-  },
   "oQnVSn": {
     "defaultMessage": "Nom de famille",
     "description": "Label displayed on the user form last name field."
@@ -7655,10 +7651,6 @@
   "pkFLpT": {
     "defaultMessage": "Si vous avez un intérêt et une passion pour la technologie et que vous vous identifiez comme Autochtone, ce programme est pour vous.",
     "description": "Learn more dialog question seven paragraph one"
-  },
-  "psqrZz": {
-    "defaultMessage": "Êtes-vous un(e) dirigeant(E) qui cherche à attirer ou à promouvoir des talents à fort potentiel au sein de la collectivité du numérique (domaines de la GI, de la TI ou des données)? Y a-t-il des employés talentueux que vous souhaitez nommer au niveau EX moins un vers le groupe et le niveau EX-03? Vous faites partie de la collectivité des ressources humaines et vous voulez créer des possibilités interministérielles pour votre main-d’œuvre numérique?",
-    "description": "Paragraph one, about who is eligible for exposition"
   },
   "pvQVVh": {
     "defaultMessage": "Veuillez soumettre cette demande « telle quelle », puis nous vous reviendrons.",
