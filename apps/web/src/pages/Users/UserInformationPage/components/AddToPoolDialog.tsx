@@ -27,7 +27,7 @@ type FormValues = {
   expiryDate: PoolCandidate["expiryDate"];
 };
 
-export interface AddToPoolDialogProps {
+interface AddToPoolDialogProps {
   user: User;
   pools: Pool[];
 }

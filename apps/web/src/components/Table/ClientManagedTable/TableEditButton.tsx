@@ -5,7 +5,7 @@ import { Link } from "@gc-digital-talent/ui";
 
 import { Maybe } from "~/api/generated";
 
-export interface TableEditButtonProps {
+interface TableEditButtonProps {
   /** Id of the object in the table. */
   id: string;
   /** The current url root. */
@@ -46,12 +46,12 @@ function TableEditButton({
   );
 }
 
-export default TableEditButton;
-
-export function tableEditButtonAccessor(
+function tableEditButtonAccessor(
   id: string,
   editUrlRoot: string,
   label?: Maybe<string>,
 ) {
   return <TableEditButton id={id} editUrlRoot={editUrlRoot} label={label} />;
 }
+
+export default tableEditButtonAccessor;

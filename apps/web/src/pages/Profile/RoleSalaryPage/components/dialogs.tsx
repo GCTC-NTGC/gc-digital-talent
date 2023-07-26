@@ -5,16 +5,11 @@ import { Dialog, Button } from "@gc-digital-talent/ui";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 
-export interface DialogLevelsProps {
+interface DialogLevelsProps {
   children: React.ReactNode;
 }
 
-export interface CloseDialogButtonProps {
-  close: () => void;
-  children?: React.ReactNode;
-}
-
-export const CloseDialogButton = React.forwardRef<
+const CloseDialogButton = React.forwardRef<
   React.ElementRef<typeof Button>,
   React.ComponentPropsWithoutRef<typeof Button>
 >((props, forwardedRef) => (

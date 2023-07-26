@@ -9,9 +9,7 @@ import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 
-import CancelButton from "./CancelButton";
 import ProfileFormFooter from "./ProfileFormFooter";
-import SaveButton from "./SaveButton";
 
 const Wrapper = ({
   leaveRoomForNavigation,
@@ -102,5 +100,5 @@ const ProfileFormWrapper = ({
   );
 };
 
-export { CancelButton, ProfileFormFooter, SaveButton };
+export { ProfileFormFooter };
 export default ProfileFormWrapper;

@@ -33,7 +33,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 
 import adminMessages from "~/messages/adminMessages";
 import UserRoleTable from "./components/IndividualRoleTable";
-import { TeamRoleTable } from "./components/TeamRoleTable";
+import TeamRoleTable from "./components/TeamRoleTable";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,

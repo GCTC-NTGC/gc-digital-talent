@@ -33,7 +33,7 @@ import {
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import ExperienceSection from "./ExperienceSection";
-import { StatusItem, Status } from "../StatusItem/StatusItem";
+import StatusItem, { Status } from "../StatusItem/StatusItem";
 import AboutSection from "./ProfileSections/AboutSection";
 import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
 import GovernmentInformationSection from "./ProfileSections/GovernmentInformationSection";
@@ -49,7 +49,7 @@ interface SectionControl {
   override?: React.ReactNode;
 }
 
-export interface UserProfileProps {
+interface UserProfileProps {
   user: User;
   sections: {
     about?: SectionControl;

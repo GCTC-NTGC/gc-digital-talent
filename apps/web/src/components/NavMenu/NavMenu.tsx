@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 
-export interface NavMenuProps {
+interface NavMenuProps {
   mainItems: ReactElement[];
   utilityItems?: ReactElement[];
 }

@@ -15,7 +15,7 @@ import Pagination from "~/components/Pagination";
 import { PaginatorInfo } from "~/api/generated";
 
 type Csv = Pick<DownloadCsvProps, "headers" | "data" | "fileName">;
-export interface TableFooterProps {
+interface TableFooterProps {
   paginatorInfo?: PaginatorInfo;
   onCurrentPageChange: (n: number) => void;
   onPageSizeChange: (n: number) => void;

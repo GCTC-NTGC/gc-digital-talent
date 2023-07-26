@@ -6,7 +6,7 @@ import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIc
 import { Link, IconType, ScrollToLink } from "@gc-digital-talent/ui";
 
 export type Status = "error" | "success";
-export type StatusColor = "default" | Status;
+type StatusColor = "default" | Status;
 
 const textColorMap: Record<StatusColor, Record<string, string>> = {
   default: {
@@ -60,7 +60,7 @@ const StatusItemTitle = ({
   return <span {...rest}>{children}</span>;
 };
 
-export interface StatusItemProps {
+interface StatusItemProps {
   title: string;
   titleColor?: StatusColor;
   status?: Status;
@@ -73,7 +73,7 @@ export interface StatusItemProps {
   itemCount?: number;
 }
 
-export const StatusItem = ({
+const StatusItem = ({
   title,
   titleColor = "default",
   status,

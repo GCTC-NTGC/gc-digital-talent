@@ -7,7 +7,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import SkillPicker from "~/components/SkillPicker";
 import { Skill } from "~/api/generated";
 
-export interface AddSkillsToFilterProps {
+interface AddSkillsToFilterProps {
   allSkills: Skill[];
   linkId: string;
 }

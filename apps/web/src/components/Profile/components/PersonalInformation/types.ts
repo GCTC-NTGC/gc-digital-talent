@@ -1,8 +1,4 @@
-import {
-  UpdateUserAboutMeMutation,
-  UpdateUserAsUserInput,
-  User,
-} from "~/api/generated";
+import { User } from "~/api/generated";
 
 export type PartialUser = Pick<
   User,
@@ -20,8 +16,3 @@ export type PartialUser = Pick<
 >;
 
 export type FormValues = PartialUser;
-
-export type AboutMeUpdateHandler = (
-  id: string,
-  data: UpdateUserAsUserInput,
-) => Promise<UpdateUserAboutMeMutation["updateUserAsUser"]>;

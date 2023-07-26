@@ -2,14 +2,9 @@ import * as React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 
-export type Color =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "quaternary"
-  | "quinary";
+type Color = "primary" | "secondary" | "tertiary" | "quaternary" | "quinary";
 
-export const colorMap: Record<Color, Record<string, string>> = {
+const colorMap: Record<Color, Record<string, string>> = {
   primary: {
     "data-h2-background-color":
       "base:all(primary.light) base:dark:iap(primary)",
@@ -37,7 +32,7 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
 };
 
-export interface HeroCardProps {
+interface HeroCardProps {
   color: Color;
   title: string;
   href: string;
@@ -45,13 +40,7 @@ export interface HeroCardProps {
   asNav?: boolean;
 }
 
-export const HeroCard = ({
-  color,
-  title,
-  href,
-  children,
-  asNav,
-}: HeroCardProps) => {
+const HeroCard = ({ color, title, href, children, asNav }: HeroCardProps) => {
   const Wrapper = asNav ? "nav" : "div";
   return (
     <Wrapper

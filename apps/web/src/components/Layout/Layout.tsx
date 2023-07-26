@@ -12,9 +12,9 @@ import {
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
-import NavMenu from "~/components/NavMenu";
-import Header from "~/components/Header";
-import Footer from "~/components/Footer";
+import NavMenu from "~/components/NavMenu/NavMenu";
+import Header from "~/components/Header/Header";
+import Footer from "~/components/Footer/Footer";
 import SignOutConfirmation from "~/components/SignOutConfirmation/SignOutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";

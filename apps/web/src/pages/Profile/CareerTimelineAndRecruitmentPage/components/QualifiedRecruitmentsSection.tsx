@@ -11,7 +11,7 @@ import {
   isApplicationQualifiedRecruitment,
 } from "~/utils/applicationUtils";
 
-export interface QualifiedRecruitmentsSectionProps {
+interface QualifiedRecruitmentsSectionProps {
   applications?: Application[];
   headingLevel?: HeadingRank;
 }

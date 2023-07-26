@@ -1,7 +1,6 @@
 import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
-  JobLookingStatus,
   LanguageAbility,
   OperationalRequirement,
   PoolCandidateStatus,
@@ -37,15 +36,6 @@ export function stringToEnumOperational(
     )
   ) {
     return selection as OperationalRequirement;
-  }
-  return undefined;
-}
-
-export function stringToEnumJobLooking(
-  selection: string,
-): JobLookingStatus | undefined {
-  if (Object.values(JobLookingStatus).includes(selection as JobLookingStatus)) {
-    return selection as JobLookingStatus;
   }
   return undefined;
 }

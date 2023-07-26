@@ -1,6 +1,6 @@
 import { Scalars } from "~/api/generated";
 
-export type QuestionResponse = {
+type QuestionResponse = {
   id: Scalars["ID"];
   questionId: Scalars["ID"];
   answer: string;

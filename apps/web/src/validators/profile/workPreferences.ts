@@ -16,9 +16,3 @@ export function hasEmptyRequiredFields({
 }: PartialUser): boolean {
   return isEmpty(positionDuration);
 }
-
-export function hasEmptyOptionalFields({
-  acceptedOperationalRequirements,
-}: PartialUser): boolean {
-  return isEmpty(acceptedOperationalRequirements);
-}

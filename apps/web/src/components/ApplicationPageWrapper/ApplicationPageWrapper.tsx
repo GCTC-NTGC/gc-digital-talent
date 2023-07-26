@@ -15,7 +15,7 @@ import ApplicationNavigation, {
   type ApplicationNavigationProps,
 } from "./ApplicationNavigation";
 
-export interface ApplicationPageWrapperProps {
+interface ApplicationPageWrapperProps {
   title: string;
   subtitle?: React.ReactNode;
   crumbs?: BreadcrumbsProps["crumbs"];

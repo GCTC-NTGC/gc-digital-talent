@@ -19,7 +19,7 @@ import SkillAccordion from "./SkillAccordion/SkillAccordion";
 import ExperienceByTypeListing from "./ExperienceByTypeListing";
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
-export interface ExperienceSectionProps {
+interface ExperienceSectionProps {
   experiences?: Experience[];
   editParam?: string;
   editPath?: string;

@@ -33,7 +33,7 @@ const paddingMap = new Map([
   ],
 ]);
 
-export interface HeroProps {
+interface HeroProps {
   imgPath?: string;
   title: React.ReactNode;
   subtitle?: React.ReactNode;

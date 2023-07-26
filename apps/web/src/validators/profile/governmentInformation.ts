@@ -29,10 +29,3 @@ export function hasEmptyRequiredFields({
     (hasPriorityEntitlement && empty(priorityNumber))
   );
 }
-
-export function hasEmptyOptionalFields({
-  hasPriorityEntitlement,
-  priorityNumber,
-}: PartialUser): boolean {
-  return !!(hasPriorityEntitlement && !priorityNumber);
-}

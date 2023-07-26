@@ -34,7 +34,7 @@ const defaultValues: FormValues = {
   query: "",
   skillFamily: "",
 };
-export interface SkillPickerProps {
+interface SkillPickerProps {
   skills: Skills;
   selectedSkills?: Skills;
   onUpdateSelectedSkills?: (newSkills: Skills) => void;

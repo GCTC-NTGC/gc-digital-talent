@@ -14,9 +14,3 @@ export function hasAllEmptyFields(applicant: PartialUser): boolean {
 export function hasEmptyRequiredFields(applicant: PartialUser): boolean {
   return !anyCriteriaSelected(applicant);
 }
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function hasEmptyOptionalFields(applicant: PartialUser): boolean {
-  // no optional fields
-  return false;
-}

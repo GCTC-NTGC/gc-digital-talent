@@ -211,5 +211,3 @@ export const getExperiencesSkillIds = (experiences: Experience[]): string[] => {
 
   return deDupedIdCollection;
 };
-
-export default { invertSkillSkillFamilyTree, invertSkillExperienceTree };

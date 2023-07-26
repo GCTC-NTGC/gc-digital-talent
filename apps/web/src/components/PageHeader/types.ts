@@ -12,5 +12,3 @@ export type PageNavInfo = {
   title: string;
   link: PageNavLink;
 };
-
-export type PageNavMap<K> = Map<K, PageNavInfo>;

@@ -71,12 +71,12 @@ export const flattenExperienceSkills = (
     .flatMap((skill) => skill);
 };
 
-export type FormValueDateRange = {
+type FormValueDateRange = {
   startDate: Scalars["Date"];
   endDate?: Scalars["Date"];
 };
 
-export type AwardFormValues = {
+type AwardFormValues = {
   awardTitle: string;
   awardedTo: AwardedTo;
   issuedBy: string;
@@ -84,7 +84,7 @@ export type AwardFormValues = {
   awardedDate: Scalars["Date"];
 };
 
-export type CommunityFormValues = FormValueDateRange & {
+type CommunityFormValues = FormValueDateRange & {
   title: string;
   organization: string;
   project: string;
@@ -93,7 +93,7 @@ export type CommunityFormValues = FormValueDateRange & {
   endDate?: Scalars["Date"];
 };
 
-export type EducationFormValues = FormValueDateRange & {
+type EducationFormValues = FormValueDateRange & {
   institution: string;
   areaOfStudy: string;
   thesisTitle?: string;
@@ -101,23 +101,16 @@ export type EducationFormValues = FormValueDateRange & {
   educationStatus: EducationStatus;
 };
 
-export type PersonalFormValues = FormValueDateRange & {
+type PersonalFormValues = FormValueDateRange & {
   experienceTitle: string;
   experienceDescription: string;
 };
 
-export type WorkFormValues = FormValueDateRange & {
+type WorkFormValues = FormValueDateRange & {
   role: string;
   organization: string;
   team?: string;
 };
-
-export type OptionalExperienceFormValues =
-  | AwardFormValues
-  | CommunityFormValues
-  | EducationFormValues
-  | PersonalFormValues
-  | WorkFormValues;
 
 export type AllExperienceFormValues = AwardFormValues &
   CommunityFormValues &
@@ -170,13 +163,13 @@ export type ExperienceDetailsSubmissionData = {
   };
 };
 
-export type ExperienceMutations = CreateAwardExperienceMutation &
+type ExperienceMutations = CreateAwardExperienceMutation &
   CreateCommunityExperienceMutation &
   CreateEducationExperienceMutation &
   CreatePersonalExperienceMutation &
   CreateWorkExperienceMutation;
 
-export type GenericExperienceMutationResponse<T> = OperationResult<
+type GenericExperienceMutationResponse<T> = OperationResult<
   T,
   Record<string, string | ExperienceDetailsSubmissionData>
 >;

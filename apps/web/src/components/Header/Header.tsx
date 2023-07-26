@@ -11,7 +11,7 @@ import {
 
 import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";
 
-export interface HeaderProps {
+interface HeaderProps {
   width?: string;
 }
 

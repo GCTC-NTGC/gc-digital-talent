@@ -46,16 +46,6 @@ export function hasEmptyRequiredFields({
   );
 }
 
-export function hasEmptyOptionalFields({
-  bilingualEvaluation,
-  estimatedLanguageAbility,
-}: PartialUser): boolean {
-  return (
-    bilingualEvaluation === BilingualEvaluation.NotCompleted &&
-    !estimatedLanguageAbility
-  );
-}
-
 export function hasUnsatisfiedRequirements(
   user: PartialUser,
   pool: Pool | null,

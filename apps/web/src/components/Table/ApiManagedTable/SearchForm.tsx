@@ -9,7 +9,7 @@ import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 import type { SearchColumn, SearchState } from "./helpers";
 import ResetButton from "../ResetButton";
 
-export interface SearchFormProps {
+interface SearchFormProps {
   onChange: (val: string | undefined, col: string | undefined) => void;
   searchBy?: Array<SearchColumn>;
   initialData?: SearchState;

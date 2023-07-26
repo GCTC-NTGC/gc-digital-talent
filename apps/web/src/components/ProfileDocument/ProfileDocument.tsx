@@ -38,7 +38,7 @@ import isEmpty from "lodash/isEmpty";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
 import { anyCriteriaSelected as anyCriteriaSelectedRoleSalarySection } from "~/validators/profile/roleSalary";
 
-export interface ProfileDocumentProps {
+interface ProfileDocumentProps {
   results: User[] | PoolCandidate[];
 }
 

@@ -28,7 +28,7 @@ export type FormValues = {
   filterBy: FilterOptions;
 };
 
-export interface ExperienceSortAndFilterProps {
+interface ExperienceSortAndFilterProps {
   initialFormValues: FormValues;
   onChange: (formValues: FormValues) => void;
 }

@@ -3,11 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 
-export const StepDisabledPage = ({
-  returnUrl,
-}: {
-  returnUrl: string | undefined;
-}) => {
+const StepDisabledPage = ({ returnUrl }: { returnUrl: string | undefined }) => {
   const intl = useIntl();
 
   return (

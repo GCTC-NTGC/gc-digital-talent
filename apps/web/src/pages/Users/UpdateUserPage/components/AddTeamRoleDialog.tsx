@@ -28,8 +28,6 @@ type FormValues = {
   team: string | null;
 };
 
-export type TeamRoleSubmitData = Partial<UpdateUserAsAdminInput>;
-
 interface AddTeamRoleDialogProps {
   user: User;
   availableRoles: Array<Role>;

@@ -3,7 +3,7 @@ import { useAsyncDebounce } from "react-table";
 
 import ResetButton from "../ResetButton";
 
-export interface SearchFormProps {
+interface SearchFormProps {
   onChange: (val: string | undefined) => void;
   value: string;
   inputId: string;

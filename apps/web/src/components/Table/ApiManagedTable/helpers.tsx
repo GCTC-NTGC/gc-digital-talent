@@ -77,7 +77,7 @@ export function rowSelectionColumn<T extends RecordWithId>(
 
 // row(s) are becoming selected or deselected
 // if row is null then toggle all rows on the page simultaneously
-export type RowSelectedEvent<T> = {
+type RowSelectedEvent<T> = {
   row?: T;
   setSelected: boolean;
 };
@@ -121,7 +121,7 @@ export interface SortingRule<T> {
   desc?: boolean | undefined;
 }
 
-export type StringKey<T> = Extract<keyof T, string>;
+type StringKey<T> = Extract<keyof T, string>;
 export type IdType<T> = StringKey<T> | string;
 
 // convert a sorting rule to the OrderByClause used by the API
@@ -172,62 +172,6 @@ export function handleColumnHiddenChange<T>(
 
   setHiddenColumnIds(newHiddenColumnIds);
   return newHiddenColumnIds;
-}
-
-export function useDebounce<T>(value: T, delay: number): T {
-  // State and setters for debounced value
-  const [debouncedValue, setDebouncedValue] = React.useState<T>(value);
-  React.useEffect(
-    () => {
-      // Update debounced value after delay
-      const handler = setTimeout(() => {
-        setDebouncedValue(value);
-      }, delay);
-      // Cancel the timeout if value changes (also on delay change or unmount)
-      // This is how we prevent debounced value from updating if value is changed ...
-      // .. within the delay period. Timeout gets cleared and restarted.
-      return () => {
-        clearTimeout(handler);
-      };
-    },
-    [value, delay], // Only re-call effect if value or delay changes
-  );
-  return debouncedValue;
-}
-
-interface CommonTableParams<T> {
-  currentPage?: number;
-  pageSize?: number;
-  hiddenColumnIds?: Array<string>;
-  sortBy?: SortingRule<T>;
-  searchState?: SearchState;
-}
-
-export function getCommonTableParams<T>(
-  searchParams: URLSearchParams,
-): CommonTableParams<T> {
-  const initialPage = searchParams.get("currentPage");
-  const initialPageSize = searchParams.get("pageSize");
-  const initialHiddenColumns = searchParams.get("hiddenColumnIds");
-  const initialSortByEncoded = searchParams.get("sortBy");
-  const initialSortByDecoded = initialSortByEncoded
-    ? JSON.parse(decodeURIComponent(initialSortByEncoded))
-    : undefined;
-  const initialSearchTerm = searchParams.get("searchTerm");
-  const initialSearchBy = searchParams.get("searchBy");
-
-  return {
-    currentPage: initialPage ? parseInt(initialPage, 10) : undefined,
-    pageSize: initialPageSize ? parseInt(initialPageSize, 10) : undefined,
-    hiddenColumnIds: initialHiddenColumns
-      ? initialHiddenColumns.split(",")
-      : undefined,
-    sortBy: initialSortByDecoded,
-    searchState: {
-      term: initialSearchTerm || "",
-      type: initialSearchBy || "",
-    },
-  };
 }
 
 export const TABLE_DEFAULTS = {

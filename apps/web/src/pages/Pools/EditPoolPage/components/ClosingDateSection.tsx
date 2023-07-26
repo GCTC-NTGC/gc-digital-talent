@@ -9,7 +9,7 @@ import {
   convertDateTimeZone,
 } from "@gc-digital-talent/date-helpers";
 
-import { useDeepCompareEffect } from "~/hooks/useDeepCompareEffect";
+import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 import { PoolStatus, Pool, UpdatePoolInput } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 

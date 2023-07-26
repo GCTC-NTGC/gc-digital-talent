@@ -1,7 +1,7 @@
 import { Breadcrumbs, BreadcrumbsProps } from "@gc-digital-talent/ui";
 import React from "react";
 
-export interface AdminContentWrapperProps {
+interface AdminContentWrapperProps {
   crumbs: BreadcrumbsProps["crumbs"];
   children: React.ReactNode;
 }

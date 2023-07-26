@@ -8,7 +8,7 @@ import { Button, Link, Dialog } from "@gc-digital-talent/ui";
 import { Field } from "@gc-digital-talent/forms";
 
 import SearchForm from "./SearchForm";
-import { IndeterminateCheckbox } from "../ClientManagedTable/tableComponents";
+import IndeterminateCheckbox from "../ClientManagedTable/tableComponents";
 import type {
   ColumnHiddenEvent,
   ColumnsOf,
@@ -17,7 +17,7 @@ import type {
   SearchState,
 } from "./helpers";
 
-export interface TableHeaderProps<T extends Record<string, unknown>> {
+interface TableHeaderProps<T extends Record<string, unknown>> {
   onSearchChange: (
     val: string | undefined,
     col: SearchColumn["value"] | undefined,

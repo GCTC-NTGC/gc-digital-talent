@@ -19,10 +19,3 @@ export const PLACED_STATUSES = [
   PoolCandidateStatus.PlacedTerm,
   PoolCandidateStatus.PlacedIndeterminate,
 ];
-
-export const SCREENED_OUT_STATUSES = [
-  PoolCandidateStatus.ScreenedOutApplication,
-  PoolCandidateStatus.ScreenedOutAssessment,
-  PoolCandidateStatus.ScreenedOutNotInterested,
-  PoolCandidateStatus.ScreenedOutNotResponsive,
-];

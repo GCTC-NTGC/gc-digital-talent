@@ -32,7 +32,7 @@ import {
   type PoolCandidate,
 } from "~/api/generated";
 
-export type FormValues = {
+type FormValues = {
   status?: PoolCandidate["status"];
   notes?: PoolCandidate["notes"];
   expiryDate?: PoolCandidate["expiryDate"];

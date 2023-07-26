@@ -7,9 +7,9 @@ import {
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
 import { PoolCandidate } from "@gc-digital-talent/graphql";
 
-export type Application = Omit<PoolCandidate, "user">;
+type Application = Omit<PoolCandidate, "user">;
 
-export const differenceInDays = (date1: Date, date2: Date): number => {
+const differenceInDays = (date1: Date, date2: Date): number => {
   // Calculate the time difference in milliseconds
   const timeDiff = date2.getTime() - date1.getTime();
 
@@ -19,17 +19,20 @@ export const differenceInDays = (date1: Date, date2: Date): number => {
   return daysDiff;
 };
 
-export const isClosingSoon = (date: Date): boolean => {
+const isClosingSoon = (date: Date): boolean => {
   const daysDiff = differenceInDays(new Date(), date);
 
   return daysDiff <= 3;
 };
-export type ApplicationDateInfo = {
+
+type ApplicationDateInfo = {
   message: string;
   color: string;
   date: string;
 };
 
+// Note: File will grow
+// eslint-disable-next-line import/prefer-default-export
 export const getApplicationDateInfo = (
   application: Application,
   intl: IntlShape,

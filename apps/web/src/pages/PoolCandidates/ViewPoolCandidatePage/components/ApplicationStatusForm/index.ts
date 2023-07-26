@@ -1,6 +1,3 @@
-import ApplicationStatusFormApi, {
-  type ApplicationStatusFormProps,
-} from "./ApplicationStatusForm";
+import ApplicationStatusFormApi from "./ApplicationStatusForm";
 
 export default ApplicationStatusFormApi;
-export type { ApplicationStatusFormProps };

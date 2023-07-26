@@ -1,4 +1,4 @@
-export type Row<T> = {
+type Row<T> = {
   original: T;
 };
 

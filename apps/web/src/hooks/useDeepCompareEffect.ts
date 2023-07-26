@@ -14,7 +14,7 @@ function useDeepCompareMemoize(value: unknown) {
  * @param callback
  * @param dependencies
  */
-export function useDeepCompareEffect(
+function useDeepCompareEffect(
   callback: EffectCallback,
   dependencies: DependencyList,
 ): void {

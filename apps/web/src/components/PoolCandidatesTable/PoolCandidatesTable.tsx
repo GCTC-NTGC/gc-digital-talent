@@ -71,7 +71,7 @@ import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import PoolCandidateTableFilterDialog, {
   FormValues,
 } from "./PoolCandidateTableFilterDialog";
-import { skillMatchDialogAccessor } from "./SkillMatchDialog";
+import skillMatchDialogAccessor from "./SkillMatchDialog";
 
 type Data = NonNullable<
   FromArray<PoolCandidateWithSkillCountPaginator["data"]>
