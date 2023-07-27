@@ -30,7 +30,7 @@ type ExperienceExperienceFormValues =
     experienceType: ExperienceType | "";
     action: FormAction | "";
   };
-export interface AddExperienceFormProps {
+interface AddExperienceFormProps {
   applicationId: Scalars["ID"];
 }
 

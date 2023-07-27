@@ -15,7 +15,6 @@ import type { ExperienceType, FormSkill, FormSkills } from "~/types/experience";
 import SkillDialog, {
   FormValues as SkillDialogFormValues,
 } from "~/components/SkillDialog/SkillDialog";
-
 import NullExperienceType from "~/components/ExperienceFormFields/NullExperienceType";
 
 type AccordionStates = "learn-more" | "";

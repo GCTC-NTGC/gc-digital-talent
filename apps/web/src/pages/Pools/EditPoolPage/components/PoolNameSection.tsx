@@ -4,7 +4,11 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import { TableOfContents } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import {
+  getLocalizedName,
+  getPoolStream,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import {
   Input,
   Select,
@@ -147,6 +151,7 @@ const PoolNameSection = ({
                   "Label displayed on the pool form classification field.",
               })}
               name="classification"
+              nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
               options={classificationOptions}
               disabled={formDisabled}
             />

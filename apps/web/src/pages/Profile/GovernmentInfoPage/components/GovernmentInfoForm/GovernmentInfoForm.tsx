@@ -224,7 +224,7 @@ export const getGovernmentInfoLabels = (intl: IntlShape) => ({
   }),
 });
 
-export interface GovernmentInfoFormFieldsProps {
+interface GovernmentInfoFormFieldsProps {
   departments: Department[];
   classifications: Classification[];
   labels: FieldLabels;

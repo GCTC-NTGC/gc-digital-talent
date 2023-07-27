@@ -20,7 +20,7 @@ import { useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getApplicationDateInfo } from "./utils";
 
-export type Application = Omit<PoolCandidate, "user">;
+type Application = Omit<PoolCandidate, "user">;
 
 export interface TrackApplicationsCardProps {
   application: Application;
@@ -210,5 +210,4 @@ const TrackApplicationsCardApi = ({
   );
 };
 
-export const TrackApplicationsCardComponent = TrackApplicationsCard;
 export default TrackApplicationsCardApi;

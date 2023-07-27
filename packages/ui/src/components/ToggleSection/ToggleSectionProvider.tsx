@@ -7,7 +7,7 @@ type ToggleSectionContextValue = {
   onOpenChange?: (newOpen: boolean) => void;
 };
 
-export const ToggleSectionContext = React.createContext<
+const ToggleSectionContext = React.createContext<
   ToggleSectionContextValue | undefined
 >(undefined);
 

@@ -60,7 +60,7 @@ export const getSectionIcon: GetSectionIconFn = ({
   };
 };
 
-export const sectionTitles = new Map<SectionKey, MessageDescriptor>([
+const sectionTitles = new Map<SectionKey, MessageDescriptor>([
   [
     "personal",
     defineMessage({

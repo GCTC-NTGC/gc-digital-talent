@@ -1,6 +1,6 @@
 import React from "react";
 
-export type Color =
+type Color =
   | "primary"
   | "secondary"
   | "tertiary"

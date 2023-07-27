@@ -1,8 +1,8 @@
 import { useContext } from "react";
 
-import { LocaleContext } from "../components/LocaleProvider";
+import { LocaleContext, LocaleState } from "../components/LocaleProvider";
 
-export default function useLocale() {
+export default function useLocale(): LocaleState {
   const ctx = useContext(LocaleContext);
 
   return ctx;

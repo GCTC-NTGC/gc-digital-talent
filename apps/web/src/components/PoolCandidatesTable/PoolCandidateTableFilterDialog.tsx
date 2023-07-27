@@ -282,7 +282,7 @@ const PoolCandidateTableFilterDialog = ({
   );
 };
 
-export type PoolCandidateTableFiltersProps = Pick<
+type PoolCandidateTableFiltersProps = Pick<
   PoolCandidateTableFilterDialogProps,
   "onSubmit" | "enableEducationType"
 > & {

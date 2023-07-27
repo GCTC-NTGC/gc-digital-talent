@@ -67,7 +67,7 @@ export const yesOrNo = (value: Maybe<boolean>, intl: IntlShape) => {
  * @param value string[] | undefined    Array of items to convert
  * @returns string                      Comma separated list or empty
  */
-export const listOrEmptyString = (value: string[] | undefined) => {
+const listOrEmptyString = (value: string[] | undefined) => {
   return value ? insertBetween(", ", value).join("") : "";
 };
 
@@ -78,7 +78,7 @@ export const listOrEmptyString = (value: string[] | undefined) => {
  * @param value string[] | undefined    Array of items to convert
  * @returns string                      Comma separated list or empty
  */
-export const sanitizeJustifications = (values: string[] | undefined) => {
+const sanitizeJustifications = (values: string[] | undefined) => {
   const sanitizedList = values
     ? values.map((v) => v.replace(/"/g, '""')) // escape double quotes
     : "";

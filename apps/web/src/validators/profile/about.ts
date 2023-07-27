@@ -66,9 +66,3 @@ export function hasEmptyRequiredFields({
     empty(armedForcesStatus)
   );
 }
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function hasEmptyOptionalFields(applicant: PartialUser): boolean {
-  // no optional fields
-  return false;
-}

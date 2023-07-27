@@ -80,7 +80,7 @@ type AvailabilityInfo = {
   showDialog: boolean;
 };
 
-export const getAvailabilityInfo = (
+const getAvailabilityInfo = (
   { status, suspendedAt }: Application,
   intl: IntlShape,
 ): AvailabilityInfo => {

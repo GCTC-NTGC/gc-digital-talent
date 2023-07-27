@@ -25,8 +25,6 @@ type FormValues = {
   roles: Array<string>;
 };
 
-export type IndividualRoleSubmitData = Partial<UpdateUserAsAdminInput>;
-
 interface AddIndividualRoleDialogProps {
   user: User;
   availableRoles: Array<Role>;
