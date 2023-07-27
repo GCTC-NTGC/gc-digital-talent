@@ -2,7 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { formMessages } from "@gc-digital-talent/i18n";
+import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { Select } from "@gc-digital-talent/forms";
 
 import experienceMessages from "~/messages/experienceMessages";
@@ -109,6 +109,7 @@ const ExperienceSortAndFilter = ({
             description: "Label for selector to choose experience sort options",
           })}
           name="sortBy"
+          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
           options={sortOptions}
           trackUnsaved={false}
         />
@@ -123,6 +124,7 @@ const ExperienceSortAndFilter = ({
               "Label for selector to choose experience filter options",
           })}
           name="filterBy"
+          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
           options={filterOptions}
           trackUnsaved={false}
         />

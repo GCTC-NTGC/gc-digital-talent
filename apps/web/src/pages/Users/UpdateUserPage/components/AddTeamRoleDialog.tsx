@@ -12,6 +12,7 @@ import {
   errorMessages,
   formMessages,
   getLocalizedName,
+  uiMessages,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -141,6 +142,9 @@ const AddTeamRoleDialog = ({
                 <Select
                   id="team"
                   name="team"
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOption,
+                  )}
                   label={intl.formatMessage({
                     defaultMessage: "Team",
                     id: "GaMSN8",
