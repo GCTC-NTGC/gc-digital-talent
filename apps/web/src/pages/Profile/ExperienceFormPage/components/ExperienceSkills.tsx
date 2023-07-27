@@ -18,7 +18,7 @@ import SkillDialog, {
 import NullExperienceType from "~/components/ExperienceFormFields/NullExperienceType";
 
 type AccordionStates = "learn-more" | "";
-export interface ExperienceSkillsProps {
+interface ExperienceSkillsProps {
   skills: Skill[];
   experienceType?: ExperienceType;
 }
