@@ -1494,6 +1494,10 @@
     "defaultMessage": "Date de fin",
     "description": "Label displayed on the pool candidate form end date field."
   },
+  "80WTKY": {
+    "defaultMessage": "Si vous avez répondu par l'affirmative à une ou plusieurs des questions précédentes, nous avons la solution dont vous avez besoin. Depuis 2019, nous avons établi une relation de confiance avec des centaines de dirigeants numériques de dizaines d'organisations à travers le gouvernement du Canada afin d'aider les employés talentueux à se perfectionner, à atteindre tout leur potentiel, à acquérir de nouvelles expériences et à participer au processus de planification de la relève.",
+    "description": "Paragraph two, about who is eligible for exposition"
+  },
   "81Bib7": {
     "defaultMessage": "Vous pouvez ajouter des expériences spécifiques en matière d’études en sélectionnant l’option « Études et certificats » lorsque vous <link>créez une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
     "description": "Secondary alert message informing user to add education experience in application education page."
@@ -7910,6 +7914,10 @@
   "s+ObMR": {
     "defaultMessage": "Question filtre {index}",
     "description": "Legend for screening question fieldset"
+  },
+  "s/BI/4": {
+    "defaultMessage": "Au fil des ans, des centaines de candidats de différents groupes et niveaux ont été nominés aux tables rondes en gestion des talents; EXposition ciblant les cadres supérieurs et Prolonger EXposition se concentrant sur les candidats de groupes et niveaux EX équivalents et EX moins un.  Les nominations sont compilées dans la base de données en gestion des talents numériques. Cette base de données constitue la source principale de données lorsque les organisations veulent d'obtenir des références tout au long de l'année.",
+    "description": "Description of identifying digital talents"
   },
   "s1h7Mc": {
     "defaultMessage": "Emplacement actuel :",
