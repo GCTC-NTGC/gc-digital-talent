@@ -4,10 +4,11 @@ import { useLocation } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLanguage } from "@gc-digital-talent/i18n";
+import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import { getLanguage, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Pending } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 import { FromArray } from "~/types/utility";
@@ -21,6 +22,7 @@ import {
   UserFilterInput,
   UserPaginator,
   useSelectedUsersQuery,
+  RoleAssignment,
 } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
@@ -47,6 +49,8 @@ import {
   stringToEnumOperational,
 } from "~/utils/userUtils";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+import adminMessages from "~/messages/adminMessages";
+import tableCommaList from "~/components/Table/ClientManagedTable/tableCommaList";
 
 import useUserCsvData from "../hooks/useUserCsvData";
 
@@ -139,6 +143,32 @@ const languageAccessor = (
   </span>
 );
 
+const rolesAccessor = (
+  roleAssignments: RoleAssignment[] | null | undefined,
+  intl: IntlShape,
+) => {
+  if (roleAssignments && roleAssignments.length > 0) {
+    const roles = roleAssignments.map((roleAssignment) => roleAssignment.role);
+    const rolesFiltered = roles.filter(notEmpty);
+    // custom selection of roles of note for table viewing, most likely kept in sync with options in the filter dialog
+    const rolesToDisplay = rolesFiltered
+      .filter(
+        (role) =>
+          role.name === ROLE_NAME.PlatformAdmin ||
+          role.name === ROLE_NAME.PoolOperator ||
+          role.name === ROLE_NAME.RequestResponder,
+      )
+      .map((role) => getLocalizedName(role.displayName, intl));
+    const uniqueRolesToDisplay = uniqueItems(rolesToDisplay);
+
+    return tableCommaList({
+      list: uniqueRolesToDisplay,
+    });
+  }
+
+  return null;
+};
+
 const phoneAccessor = (telephone: string | null | undefined) => {
   if (telephone) {
     return (
@@ -190,6 +220,7 @@ const defaultState = {
     "preferredLanguage",
     "createdDate",
     "updatedDate",
+    "rolesAndPermissions",
   ],
   sortBy: {
     column: {
@@ -332,6 +363,11 @@ const UserTable = ({ title }: { title: string }) => {
           emailLinkAccessor(user.email ? user.email : "", intl),
         id: "email",
         sortColumnName: "email",
+      },
+      {
+        label: intl.formatMessage(adminMessages.rolesAndPermissions),
+        accessor: (user) => rolesAccessor(user.roleAssignments, intl),
+        id: "rolesAndPermissions",
       },
       {
         label: intl.formatMessage({
