@@ -93,6 +93,8 @@ query getMe {
     poolCandidates {
       id
       status
+      expiryDate
+      signature
       archivedAt
       submittedAt
       suspendedAt
@@ -125,6 +127,22 @@ query getMe {
           }
           minSalary
           maxSalary
+        }
+      }
+      educationRequirementOption
+      educationRequirementExperiences {
+        ...experience
+      }
+      screeningQuestionResponses {
+        id
+        answer
+        screeningQuestion {
+          id
+          sortOrder
+          question {
+            en
+            fr
+          }
         }
       }
     }
