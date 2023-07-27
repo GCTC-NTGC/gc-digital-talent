@@ -1,3 +1,5 @@
+# Comes from apps/web/src/pages/Profile/ProfilePage/profileOperations.graphql
+# Should match the getMe query from that file to take accurate snapshots
 query getMe {
   me {
     id
