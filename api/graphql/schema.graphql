@@ -1616,8 +1616,8 @@ type Mutation {
     @update
     @guard
     @can(ability: "update", find: "id", injectArgs: true)
-  deleteUser(id: ID!): User
-    @delete(globalId: false)
+  deleteUser(id: ID! @whereKey): User
+    @delete
     @guard
     @can(ability: "delete", find: "id")
   createPoolCandidateAsAdmin(
@@ -1631,8 +1631,8 @@ type Mutation {
     id: ID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate @update @guard @can(ability: "updateAsAdmin", find: "id")
-  deletePoolCandidate(id: ID!): PoolCandidate
-    @delete(globalId: false)
+  deletePoolCandidate(id: ID! @whereKey): PoolCandidate
+    @delete
     @guard
     @can(ability: "delete", find: "id")
   createClassification(
@@ -1642,8 +1642,8 @@ type Mutation {
     id: ID!
     classification: UpdateClassificationInput! @spread
   ): Classification @update @guard @can(ability: "update", find: "id")
-  deleteClassification(id: ID!): Classification
-    @delete(globalId: false)
+  deleteClassification(id: ID! @whereKey): Classification
+    @delete
     @guard
     @can(ability: "delete", find: "id")
   createDepartment(department: CreateDepartmentInput! @spread): Department
@@ -1654,8 +1654,8 @@ type Mutation {
     id: ID!
     department: UpdateDepartmentInput! @spread
   ): Department @update @can(ability: "update", find: "id")
-  deleteDepartment(id: ID!): Department
-    @delete(globalId: false)
+  deleteDepartment(id: ID! @whereKey): Department
+    @delete
     @guard
     @can(ability: "delete", find: "id")
 
@@ -1670,8 +1670,10 @@ type Mutation {
     @update
     @guard
     @can(ability: "update", find: "id")
-  deletePoolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
-    @delete(globalId: false)
+  deletePoolCandidateSearchRequest(
+    id: ID! @whereKey
+  ): PoolCandidateSearchRequest
+    @delete
     @guard
     @can(ability: "delete", find: "id")
 
@@ -1731,24 +1733,24 @@ type Mutation {
     id: ID!
     awardExperience: AwardExperienceInput! @spread
   ): AwardExperience @update @guard @can(ability: "update", find: "id")
-  deleteWorkExperience(id: ID!): WorkExperience
-    @delete(globalId: false)
+  deleteWorkExperience(id: ID! @whereKey): WorkExperience
+    @delete
     @guard
     @can(ability: "delete", find: "id")
-  deletePersonalExperience(id: ID!): PersonalExperience
-    @delete(globalId: false)
+  deletePersonalExperience(id: ID! @whereKey): PersonalExperience
+    @delete
     @guard
     @can(ability: "delete", find: "id")
-  deleteCommunityExperience(id: ID!): CommunityExperience
-    @delete(globalId: false)
+  deleteCommunityExperience(id: ID! @whereKey): CommunityExperience
+    @delete
     @guard
     @can(ability: "delete", find: "id")
-  deleteEducationExperience(id: ID!): EducationExperience
-    @delete(globalId: false)
+  deleteEducationExperience(id: ID! @whereKey): EducationExperience
+    @delete
     @guard
     @can(ability: "delete", find: "id")
-  deleteAwardExperience(id: ID!): AwardExperience
-    @delete(globalId: false)
+  deleteAwardExperience(id: ID! @whereKey): AwardExperience
+    @delete
     @guard
     @can(ability: "delete", find: "id")
 
@@ -1776,12 +1778,12 @@ type Mutation {
       )
   ): Pool @guard @can(ability: "changePoolClosingDate", find: "id")
   closePool(id: ID!): Pool @guard @can(ability: "closePool", find: "id")
-  deletePool(id: ID!): Pool
-    @delete(globalId: false)
+  deletePool(id: ID! @whereKey): Pool
+    @delete
     @guard
     @can(ability: "deleteDraft", find: "id")
-  deletePool(id: ID!): Pool
-    @delete(model: "Pool", globalId: false)
+  deletePool(id: ID! @whereKey): Pool
+    @delete(model: "Pool")
     @guard
     @can(ability: "deleteDraft", find: "id")
 
@@ -1815,8 +1817,8 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
     @update
     @can(ability: "update")
-  deleteTeam(id: UUID!): Team
-    @delete(globalId: false)
+  deleteTeam(id: UUID! @whereKey): Team
+    @delete
     @guard
     @can(ability: "delete", find: "id")
 
