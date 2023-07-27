@@ -30,7 +30,7 @@ export type FormValues = {
   skills: Option["value"][];
   profileComplete: Option["value"][];
   govEmployee: Option["value"][];
-  roleAssignments: Option["value"][];
+  roles: Option["value"][];
 };
 
 type FooterProps = Pick<UserTableFilterDialogProps, "enableEducationType">;
@@ -240,10 +240,10 @@ const UserTableFilterDialog = ({
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
-                  id="roleAssignments"
-                  name="roleAssignments"
+                  id="roles"
+                  name="roles"
                   label={formatMessage(adminMessages.rolesAndPermissions)}
-                  options={optionsData.roleAssignments}
+                  options={optionsData.roles}
                   isLoading={rawGraphqlResults.roles.fetching}
                 />
               </div>

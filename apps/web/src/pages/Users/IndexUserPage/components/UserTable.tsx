@@ -95,7 +95,7 @@ function transformFormValuesToUserFilterInput(
       const poolString = pool;
       return { poolId: poolString };
     }),
-    roleAssignments: data.roleAssignments,
+    roleAssignments: data.roles,
   };
 }
 
@@ -129,7 +129,7 @@ function transformUserFilterInputToFormValues(
       input?.poolFilters
         ?.filter(notEmpty)
         .map((poolFilter) => poolFilter.poolId) ?? [],
-    roleAssignments: input?.roleAssignments?.filter(notEmpty) ?? [],
+    roles: input?.roleAssignments?.filter(notEmpty) ?? [],
   };
 }
 

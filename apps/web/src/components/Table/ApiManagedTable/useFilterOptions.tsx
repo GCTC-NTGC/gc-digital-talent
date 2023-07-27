@@ -141,7 +141,7 @@ export default function useFilterOptions(enableEducationType = false) {
         label: intl.formatMessage(getCandidateSuspendedFilterStatus(value)),
       }),
     ),
-    roleAssignments: filterRes.data?.roles
+    roles: filterRes.data?.roles
       ?.filter(notEmpty)
       // custom selection of what options are desired in the input
       .filter(
