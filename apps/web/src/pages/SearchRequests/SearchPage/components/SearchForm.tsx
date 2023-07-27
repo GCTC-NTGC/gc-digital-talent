@@ -104,7 +104,7 @@ function mapObjectsByKey<T>(
 const classificationToKey = (classification: SimpleClassification) =>
   `${classification.group}-0${classification.level}`;
 
-export interface SearchFormProps {
+interface SearchFormProps {
   classifications: SimpleClassification[];
   skills?: Skill[];
   pools?: SimplePool[];

@@ -35,7 +35,7 @@ const priorityEntitlementLink = (locale: string, chunks: React.ReactNode) => {
   );
 };
 
-export interface FormFieldsProps {
+interface FormFieldsProps {
   departments: Department[];
   classifications: Classification[];
   labels: FieldLabels;

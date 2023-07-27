@@ -10,7 +10,7 @@ import List, {
 } from "./List";
 import Navigation from "./Navigation";
 import Section, { type SectionProps as TocSectionProps } from "./Section";
-import Sidebar from "./Sidebar";
+import Sidebar, { type SidebarProps as TocSidebarProps } from "./Sidebar";
 import Wrapper from "./Wrapper";
 
 const TableOfContents = {
@@ -32,4 +32,5 @@ export type {
   TocSectionProps,
   TocListProps,
   TocListItemProps,
+  TocSidebarProps,
 };

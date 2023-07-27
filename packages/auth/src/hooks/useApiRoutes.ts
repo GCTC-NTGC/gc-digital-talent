@@ -1,6 +1,6 @@
 import path from "path-browserify";
 
-export interface ApiRoutes {
+interface ApiRoutes {
   login: (from?: string, locale?: string) => string;
   refreshAccessToken: () => string;
 }

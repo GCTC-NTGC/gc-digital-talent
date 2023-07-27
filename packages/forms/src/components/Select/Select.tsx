@@ -27,7 +27,7 @@ export type OptGroup = {
   /** Aria labels for alternate text that will be read by assistive technologies. */
   ariaLabel?: string;
 };
-export type OptGroupOrOption = OptGroup | Option;
+type OptGroupOrOption = OptGroup | Option;
 
 export type SelectProps = CommonInputProps &
   React.DetailedHTMLProps<

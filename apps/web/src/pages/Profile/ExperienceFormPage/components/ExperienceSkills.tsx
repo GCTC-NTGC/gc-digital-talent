@@ -13,7 +13,7 @@ import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
 
 import type { FormSkill, FormSkills } from "~/types/experience";
 
-export interface ExperienceSkillsProps {
+interface ExperienceSkillsProps {
   skills: Skill[];
   pool?: Pool;
 }

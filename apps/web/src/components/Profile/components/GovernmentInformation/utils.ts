@@ -22,7 +22,7 @@ import { FormValues, PartialUser } from "./types";
  * @param classifications
  * @returns
  */
-export const classificationFormToId = (
+const classificationFormToId = (
   group: string | undefined,
   level: string | undefined,
   classifications: Classification[],

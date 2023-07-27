@@ -26,7 +26,7 @@ const defaultFormValues: FormValues = {
   skill: "",
 };
 
-export interface SkillDialogProps {
+interface SkillDialogProps {
   skills: Skill[];
   context?: SkillDialogContext;
   showCategory?: boolean;

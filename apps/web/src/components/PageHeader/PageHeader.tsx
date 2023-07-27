@@ -6,7 +6,7 @@ import Navigation from "./Navigation";
 import PageTitle, { PageTitleProps } from "./PageTitle";
 import { PageNavInfo } from "./types";
 
-export interface PageHeaderProps<T> extends PageTitleProps {
+interface PageHeaderProps<T> extends PageTitleProps {
   navItems?: Map<T, PageNavInfo>;
 }
 

@@ -17,7 +17,3 @@ export function hasAllEmptyFields(applicant: PartialUser): boolean {
 export function hasEmptyRequiredFields(applicant: PartialUser): boolean {
   return !anyCriteriaSelected(applicant);
 }
-
-export function hasEmptyOptionalFields(applicant: PartialUser): boolean {
-  return !applicant.locationExemptions;
-}

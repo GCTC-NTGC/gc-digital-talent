@@ -85,7 +85,7 @@ interface TeamRoleTableProps {
   onUpdateUser: UpdateUserFunc;
 }
 
-export const TeamRoleTable = ({
+const TeamRoleTable = ({
   user,
   availableRoles,
   onUpdateUser,
