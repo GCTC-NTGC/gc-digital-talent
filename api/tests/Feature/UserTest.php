@@ -2877,7 +2877,7 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => ['roleAssignments' => null]
+                'where' => ['roles' => null]
             ]
         )->assertJson([
             'data' => [
@@ -2902,7 +2902,7 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => ['roleAssignments' => [$adminId]]
+                'where' => ['roles' => [$adminId]]
             ]
         )->assertJson([
             'data' => [
@@ -2927,7 +2927,7 @@ class UserTest extends TestCase
                     }
                 ',
             [
-                'where' => ['roleAssignments' => [$operatorId, $responderId]]
+                'where' => ['roles' => [$operatorId, $responderId]]
             ]
         )->assertJson([
             'data' => [
