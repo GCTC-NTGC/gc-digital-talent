@@ -27,14 +27,14 @@ import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
-export type FormValues = Pick<
+type FormValues = Pick<
   UpdateUserAsUserInput,
   "acceptedOperationalRequirements"
 > & {
   wouldAcceptTemporary?: string;
 };
 
-export interface WorkPreferencesFormProps {
+interface WorkPreferencesFormProps {
   initialData: User;
   application?: PoolCandidate;
   handleWorkPreferences: (

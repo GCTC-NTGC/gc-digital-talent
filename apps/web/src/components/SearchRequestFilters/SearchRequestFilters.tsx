@@ -25,7 +25,7 @@ import {
 } from "~/api/generated";
 import FilterBlock from "./FilterBlock";
 
-export type SimpleClassification = Pick<Classification, "group" | "level">;
+type SimpleClassification = Pick<Classification, "group" | "level">;
 
 const ApplicantFilters = ({
   applicantFilter,
@@ -310,7 +310,7 @@ const ApplicantFilters = ({
   );
 };
 
-export interface SearchRequestFiltersProps {
+interface SearchRequestFiltersProps {
   filters?: Maybe<ApplicantFilter | PoolCandidateFilter>;
   selectedClassifications?: Maybe<SimpleClassification>[];
 }
@@ -522,4 +522,3 @@ const SearchRequestFilters = ({
 };
 
 export default SearchRequestFilters;
-export { FilterBlock };

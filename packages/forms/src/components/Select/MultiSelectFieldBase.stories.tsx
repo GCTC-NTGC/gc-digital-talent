@@ -14,7 +14,7 @@ import {
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
-import MultiSelectFieldBase, { Option } from "./MultiSelectFieldBase";
+import MultiSelectFieldBase from "./MultiSelectFieldBase";
 
 export default {
   component: MultiSelectFieldBase,
@@ -40,7 +40,7 @@ export default {
 const Template: ComponentStory<typeof MultiSelectFieldBase> = (args) => {
   const intl = useIntl();
   const skillFamilies = fakeSkillFamilies(10, fakeSkills(2));
-  const fakeOptions: Option[] = skillFamilies.map(({ id, name }) => ({
+  const fakeOptions = skillFamilies.map(({ id, name }) => ({
     value: id,
     label: getLocalizedName(name, intl),
   }));

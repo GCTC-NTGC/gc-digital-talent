@@ -32,7 +32,7 @@ import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
-export type FormValues = Pick<
+type FormValues = Pick<
   UpdateUserAsUserInput,
   "locationPreferences" | "locationExemptions"
 >;

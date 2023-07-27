@@ -35,7 +35,7 @@ import {
   DialogLevelFourAdvisor,
 } from "../dialogs";
 
-export type FormValues = {
+type FormValues = {
   expectedGenericJobTitles: GenericJobTitleKey[];
 };
 
@@ -70,7 +70,7 @@ export type RoleSalaryUpdateHandler = (
   data: UpdateUserAsUserInput,
 ) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
 
-export interface RoleSalaryFormProps {
+interface RoleSalaryFormProps {
   initialData: GetRoleSalaryInfoQuery;
   application?: PoolCandidate;
   updateRoleSalary: RoleSalaryUpdateHandler;

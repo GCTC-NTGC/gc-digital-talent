@@ -6,7 +6,7 @@ import useLocale from "../hooks/useLocale";
 import useIntlLanguages from "../hooks/useIntlMessages";
 import { Messages } from "../types";
 
-export interface LanguageProviderProps {
+interface LanguageProviderProps {
   messages: Messages;
   children: React.ReactNode;
 }

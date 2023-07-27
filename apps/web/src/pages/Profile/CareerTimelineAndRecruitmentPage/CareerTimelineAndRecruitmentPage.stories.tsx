@@ -5,7 +5,7 @@ import { OverlayOrDialogDecorator } from "storybook-helpers";
 import { fakeSkills, fakeExperiences } from "@gc-digital-talent/fake-data";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { CareerTimelineAndRecruitment } from "./components/CareerTimelineAndRecruitment";
+import CareerTimelineAndRecruitment from "./components/CareerTimelineAndRecruitment";
 import AddExperienceDialog from "./components/AddExperienceDialog";
 
 export default {
