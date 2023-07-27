@@ -511,7 +511,7 @@ const HomePageApi = () => {
   });
 
   const filteredPools = data?.publishedPools.filter(
-    (pool) => typeof pool !== undefined && !!pool && isExecPool(pool),
+    (pool) => typeof pool !== `undefined` && !!pool && isExecPool(pool),
   ) as Pool[];
 
   return (
