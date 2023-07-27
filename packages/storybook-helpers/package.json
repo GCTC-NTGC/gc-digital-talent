@@ -24,7 +24,7 @@
     "storybook-addon-intl": "^3.2.0",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "urql": "3.0.4",
-    "wonka": "^6.3.2"
+    "wonka": "^6.3.3"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^7.1.0",
