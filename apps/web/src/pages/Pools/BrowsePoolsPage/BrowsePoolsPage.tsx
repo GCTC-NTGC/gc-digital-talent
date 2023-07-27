@@ -320,7 +320,7 @@ const BrowsePoolsApi = () => {
   });
 
   const filteredPools = data?.publishedPools.filter(
-    (pool) => typeof pool !== undefined && !!pool,
+    (pool) => typeof pool !== `undefined` && !!pool,
   ) as Pool[];
 
   return (

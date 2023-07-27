@@ -78,6 +78,7 @@ type TeamAssignment = {
   roles: Role[];
 };
 type TeamAssignmentCell = Cell<TeamAssignment>;
+type GetRoleTeamIdFunc = (arg: RoleTeamPair) => Scalars["ID"];
 
 interface TeamRoleTableProps {
   user: User;
@@ -169,7 +170,7 @@ export const TeamRoleTable = ({
     const pairsGroupedByTeam = groupBy<
       Scalars["ID"],
       RoleTeamPair,
-      (arg: RoleTeamPair) => Scalars["ID"]
+      GetRoleTeamIdFunc
     >(roleTeamPairs, (pair) => {
       return pair.team.id;
     });

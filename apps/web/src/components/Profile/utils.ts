@@ -123,7 +123,9 @@ export const getSectionTitle = (key: SectionKey): MessageDescriptor => {
   return title ?? commonMessages.notFound;
 };
 
-const labelAccessorMap = new Map<SectionKey, (intl: IntlShape) => FieldLabels>([
+type LabelAccessorFunc = (intl: IntlShape) => FieldLabels;
+
+const labelAccessorMap = new Map<SectionKey, LabelAccessorFunc>([
   ["personal", getPersonalLabels],
   ["work", getWorkLabels],
   ["government", getGovLabels],
