@@ -143,7 +143,7 @@ export const SearchRequestsTableFilterDialog = ({
   );
 };
 
-export type SearchRequestsTableFiltersProps = Pick<
+type SearchRequestsTableFiltersProps = Pick<
   SearchRequestsTableFilterDialogProps,
   "onSubmit"
 > & {

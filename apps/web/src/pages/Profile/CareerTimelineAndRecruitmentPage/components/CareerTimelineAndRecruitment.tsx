@@ -39,7 +39,7 @@ export type ExperienceForDate =
   | PersonalExperience
   | WorkExperience;
 
-export interface CareerTimelineAndRecruitmentProps {
+interface CareerTimelineAndRecruitmentProps {
   applicantId: string;
   experiences?: MergedExperiences;
   applications: Application[];
@@ -50,7 +50,7 @@ export interface CareerTimelineAndRecruitmentProps {
   };
 }
 
-export const CareerTimelineAndRecruitment = ({
+const CareerTimelineAndRecruitment = ({
   experiences,
   applications,
   missingSkills,

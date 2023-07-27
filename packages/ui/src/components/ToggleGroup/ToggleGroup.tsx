@@ -4,7 +4,7 @@
 import React from "react";
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group";
 
-export type Color =
+type Color =
   | "primary"
   | "primary.dark"
   | "secondary"

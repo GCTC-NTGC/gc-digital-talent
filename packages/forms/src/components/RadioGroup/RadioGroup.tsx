@@ -76,6 +76,7 @@ const RadioGroup = ({
   columns = 1,
   trackUnsaved = true,
   describedBy,
+  disabled,
   ...rest
 }: RadioGroupProps) => {
   const {
@@ -134,6 +135,7 @@ const RadioGroup = ({
                     {...register(name, rules)}
                     value={value}
                     type="radio"
+                    disabled={disabled}
                     defaultChecked={defaultSelected === value}
                     {...(contentBelow && {
                       "aria-describedby": `${id}-content-below`,

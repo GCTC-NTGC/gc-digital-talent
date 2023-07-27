@@ -24,10 +24,9 @@ interface EquityOptionProps {
   disabled?: boolean;
 }
 
-const dialogMap: Record<
-  EquityGroup,
-  (props: IndigenousDialogProps) => JSX.Element
-> = {
+type IndigenousDialogFunc = (props: IndigenousDialogProps) => JSX.Element;
+
+const dialogMap: Record<EquityGroup, IndigenousDialogFunc> = {
   indigenous: IndigenousDialog,
 };
 

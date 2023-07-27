@@ -1,6 +1,6 @@
 import React from "react";
 
-export interface NotFoundProps {
+interface NotFoundProps {
   headingMessage: string;
   children: React.ReactNode;
 }

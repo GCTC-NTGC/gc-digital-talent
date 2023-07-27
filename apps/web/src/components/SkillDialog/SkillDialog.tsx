@@ -14,19 +14,19 @@ import { getSkillDialogMessages } from "./utils";
 import { SkillDialogContext } from "./types";
 
 export interface FormValues {
-  category?: SkillCategory | "";
+  category?: SkillCategory | "all" | "";
   family?: Scalars["ID"];
   skill?: Scalars["ID"];
   details?: string;
 }
 
 const defaultFormValues: FormValues = {
-  category: "",
-  family: "",
+  category: "all",
+  family: "all",
   skill: "",
 };
 
-export interface SkillDialogProps {
+interface SkillDialogProps {
   skills: Skill[];
   context?: SkillDialogContext;
   showCategory?: boolean;

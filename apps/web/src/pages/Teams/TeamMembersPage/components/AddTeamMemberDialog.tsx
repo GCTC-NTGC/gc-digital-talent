@@ -10,6 +10,7 @@ import {
   commonMessages,
   errorMessages,
   getLocalizedName,
+  uiMessages,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -43,6 +44,7 @@ AddTeamMemberDialogProps) => {
     defaultValues: {
       user: "",
       team: team.id,
+      teamDisplay: team.id,
       roles: [],
     },
   });
@@ -130,6 +132,9 @@ AddTeamMemberDialogProps) => {
                 <Select
                   id="user"
                   name="user"
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOption,
+                  )}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
@@ -146,6 +151,9 @@ AddTeamMemberDialogProps) => {
                 <Select
                   id="teamDisplay"
                   name="teamDisplay"
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOption,
+                  )}
                   disabled
                   label={intl.formatMessage({
                     defaultMessage: "Team",

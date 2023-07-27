@@ -62,7 +62,7 @@ export const getApplicationSteps = ({
 };
 
 // Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
-export const missingPrerequisitesFromThisApplication = (
+const missingPrerequisitesFromThisApplication = (
   stepsInfosInApplication: Array<ApplicationStepInfo>,
   prerequisiteSteps: Maybe<Array<ApplicationStep>>,
   submittedSteps: Maybe<Array<ApplicationStep>>,
