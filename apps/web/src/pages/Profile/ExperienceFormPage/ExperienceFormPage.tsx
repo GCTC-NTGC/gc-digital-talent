@@ -69,7 +69,6 @@ export interface ExperienceFormProps {
     action: FormAction,
   ) => Promise<void> | undefined;
   deleteExperience: () => void;
-  executing?: boolean;
 }
 
 export const ExperienceForm = ({
@@ -81,7 +80,6 @@ export const ExperienceForm = ({
   userId,
   onUpdateExperience,
   deleteExperience,
-  executing,
 }: ExperienceFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -107,7 +105,7 @@ export const ExperienceForm = ({
     reset,
   } = methods;
 
-  const [type, action] = watch(["experienceType", "action"]);
+  const [, action] = watch(["experienceType", "action"]);
   const actionProps = register("action");
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
@@ -485,8 +483,10 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
     }
   };
 
-  const { executeMutation, getMutationArgs, executing } =
-    useExperienceMutations(experience ? "update" : "create", experienceType);
+  const { executeMutation, getMutationArgs } = useExperienceMutations(
+    experience ? "update" : "create",
+    experienceType,
+  );
 
   const handleUpdateExperience = (
     values: ExperienceDetailsSubmissionData,
@@ -544,7 +544,6 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           userId={userId || ""}
           onUpdateExperience={handleUpdateExperience}
           deleteExperience={handleDeleteExperience}
-          executing={executing}
         />
       ) : (
         <ThrowNotFound

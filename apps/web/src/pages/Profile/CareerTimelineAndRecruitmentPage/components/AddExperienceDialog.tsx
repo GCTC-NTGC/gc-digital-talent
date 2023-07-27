@@ -36,7 +36,6 @@ const AddExperienceDialog = ({
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
-  const location = useLocation();
   const applicationId = searchParams.get("applicationId");
   const applicationParam = applicationId
     ? `?applicationId=${applicationId}`

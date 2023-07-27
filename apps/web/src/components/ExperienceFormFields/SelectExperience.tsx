@@ -19,8 +19,6 @@ const SelectExperience = ({ experienceType }: ExperienceTypeProps) => {
   const type: ExperienceType = useWatch({ name: "experienceType" });
   const derivedType = type ?? experienceType;
 
-  console.log({ type, experienceType });
-
   return (
     <>
       <Heading level="h3">
