@@ -35,13 +35,14 @@ import type {
   AllExperienceFormValues,
   ExperienceFormValues,
   AnyExperience,
+  ExperienceDetailsSubmissionData,
+  ExperienceMutationResponse,
 } from "~/types/experience";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import AdditionalDetails from "~/components/ExperienceFormFields/AdditionalDetails";
 import SelectExperience from "~/components/ExperienceFormFields/SelectExperience";
 import ExperienceHeading from "~/components/ExperienceFormFields/ExperienceHeading";
-import { useAuthorization } from "@gc-digital-talent/auth";
 import {
   deriveExperienceType,
   formValuesToSubmitData,
@@ -51,11 +52,10 @@ import {
 import ExperienceSkills from "./components/ExperienceSkills";
 
 type FormAction = "return" | "add-another";
-type ExperienceExperienceFormValues =
-  ExperienceFormValues<AllExperienceFormValues> & {
-    experienceType: ExperienceType | "";
-    action: FormAction | "";
-  };
+type FormValues = ExperienceFormValues<AllExperienceFormValues> & {
+  experienceType: ExperienceType | "";
+  action: FormAction;
+};
 
 export interface ExperienceFormProps {
   edit?: boolean;
@@ -64,6 +64,12 @@ export interface ExperienceFormProps {
   experienceType: ExperienceType;
   skills: Skill[];
   userId: string;
+  onUpdateExperience: (
+    values: ExperienceDetailsSubmissionData,
+    action: FormAction,
+  ) => Promise<void> | undefined;
+  deleteExperience: () => void;
+  executing?: boolean;
 }
 
 export const ExperienceForm = ({
@@ -73,21 +79,25 @@ export const ExperienceForm = ({
   experienceType,
   skills,
   userId,
+  onUpdateExperience,
+  deleteExperience,
+  executing,
 }: ExperienceFormProps) => {
   const intl = useIntl();
-  const navigate = useNavigate();
   const paths = useRoutes();
-  const { user } = useAuthorization();
   const returnPath = paths.careerTimelineAndRecruitment(userId);
+
   const defaultValues =
     experienceId && experience
-      ? queryResultToDefaultValues(experienceType || "award", experience)
+      ? queryResultToDefaultValues(experienceType, experience)
       : {};
-  const methods = useForm<ExperienceExperienceFormValues>({
+
+  const methods = useForm<FormValues>({
     shouldFocusError: false,
     mode: "onSubmit",
     defaultValues,
   });
+
   const {
     watch,
     register,
@@ -96,92 +106,17 @@ export const ExperienceForm = ({
     formState: { isSubmitSuccessful },
     reset,
   } = methods;
-  const [type, action] = watch(["experienceType", "action"]);
-  const { executeMutation, getMutationArgs } = useExperienceMutations(
-    experienceId ? "update" : "create",
-    type,
-  );
-  const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
 
+  const [type, action] = watch(["experienceType", "action"]);
   const actionProps = register("action");
 
-  const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = async (
-    formValues,
-  ) => {
-    const submitData = formValuesToSubmitData(formValues, [], type);
-    const args = getMutationArgs(
-      experience ? experience.id : user?.id || "",
-      submitData,
+  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    const data = formValuesToSubmitData(
+      formValues,
+      [],
+      formValues.experienceType,
     );
-    if (executeMutation) {
-      executeMutation(args)
-        .then((res) => {
-          if (res.data) {
-            if (experienceId) {
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage: "Successfully updated experience!",
-                  id: "4438xW",
-                  description:
-                    "Success message displayed after updating an experience",
-                }),
-              );
-            } else {
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage: "Successfully added experience!",
-                  id: "DZ775N",
-                  description:
-                    "Success message displayed after adding experience to profile",
-                }),
-              );
-            }
-            if (formValues.action !== "add-another") {
-              navigate(returnPath);
-            }
-          }
-        })
-        .catch(() => {
-          toast.error(
-            intl.formatMessage({
-              defaultMessage: "Error: adding experience failed",
-              id: "moKAQP",
-              description:
-                "Message displayed to user after experience fails to be created.",
-            }),
-          );
-        });
-    }
-  };
-
-  const handleDeleteExperience = () => {
-    if (executeDeletionMutation && experience) {
-      executeDeletionMutation({
-        id: experience.id,
-      })
-        .then((result) => {
-          navigate(returnPath);
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Experience Deleted",
-              id: "/qN7tM",
-              description:
-                "Message displayed to user after experience deleted.",
-            }),
-          );
-          return result.data;
-        })
-        .catch(() => {
-          toast.error(
-            intl.formatMessage({
-              defaultMessage: "Error: deleting experience failed",
-              id: "YVhQ4t",
-              description:
-                "Message displayed to user after experience fails to be deleted.",
-            }),
-          );
-        });
-    }
+    return onUpdateExperience(data, formValues.action || "return");
   };
 
   React.useEffect(() => {
@@ -189,8 +124,9 @@ export const ExperienceForm = ({
       // Help users out by focusing the first input after scrolling
       setFocus("experienceType");
       reset();
+      setValue("experienceType", "");
     }
-  }, [isSubmitSuccessful, reset, action, setFocus]);
+  }, [isSubmitSuccessful, reset, action, setFocus, setValue]);
 
   const crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
@@ -263,7 +199,7 @@ export const ExperienceForm = ({
               </TableOfContents.ListItem>
             )}
             <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id="details">
+              <TableOfContents.AnchorLink id="additional-details">
                 {intl.formatMessage({
                   defaultMessage: "Provide a few details",
                   id: "GB3LDj",
@@ -306,7 +242,7 @@ export const ExperienceForm = ({
                 </TableOfContents.Section>
               )}
 
-              <TableOfContents.Section id="details">
+              <TableOfContents.Section id="additional-details">
                 <ExperienceDetails experienceType={experienceType} />
               </TableOfContents.Section>
 
@@ -326,7 +262,7 @@ export const ExperienceForm = ({
                 data-h2-background="base(black.light)"
                 data-h2-margin="base(x2, 0)"
               />
-              {experience ? (
+              {edit ? (
                 <div
                   data-h2-display="base(flex)"
                   data-h2-gap="base(x.25, x.5)"
@@ -388,7 +324,7 @@ export const ExperienceForm = ({
                             type="submit"
                             mode="solid"
                             color="primary"
-                            onClick={handleDeleteExperience}
+                            onClick={deleteExperience}
                           >
                             {intl.formatMessage({
                               defaultMessage: "Delete",
@@ -471,6 +407,9 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
   const { userId, experienceId } = useParams<RouteParams>();
   const { state } = useLocation();
+  const navigate = useNavigate();
+  const paths = useRoutes();
+  const returnPath = paths.careerTimelineAndRecruitment(userId || "");
 
   const [
     {
@@ -495,7 +434,100 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
 
   const experienceType = experience
     ? deriveExperienceType(experience)
-    : state?.experienceType;
+    : state?.experienceType || "";
+
+  const handleSuccess = (action: FormAction) => {
+    toast.success(
+      edit
+        ? intl.formatMessage({
+            defaultMessage: "Successfully updated experience!",
+            id: "4438xW",
+            description:
+              "Success message displayed after updating an experience",
+          })
+        : intl.formatMessage({
+            defaultMessage: "Successfully added experience!",
+            id: "DZ775N",
+            description:
+              "Success message displayed after adding experience to profile",
+          }),
+    );
+
+    if (action !== "add-another") {
+      navigate(returnPath);
+    }
+  };
+
+  const handleError = () => {
+    toast.error(
+      edit
+        ? intl.formatMessage({
+            defaultMessage: "Error: updating experience failed",
+            id: "WyKJsK",
+            description:
+              "Message displayed to user after experience fails to be updated.",
+          })
+        : intl.formatMessage({
+            defaultMessage: "Error: adding experience failed",
+            id: "moKAQP",
+            description:
+              "Message displayed to user after experience fails to be created.",
+          }),
+    );
+  };
+
+  const handleMutationResponse = (
+    res: ExperienceMutationResponse,
+    action: FormAction,
+  ) => {
+    if (res.data) {
+      handleSuccess(action);
+    }
+  };
+
+  const { executeMutation, getMutationArgs, executing } =
+    useExperienceMutations(experience ? "update" : "create", experienceType);
+
+  const handleUpdateExperience = (
+    values: ExperienceDetailsSubmissionData,
+    action: FormAction,
+  ) => {
+    const args = getMutationArgs(experienceId || userId || "", values);
+    if (executeMutation) {
+      const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
+      return res
+        .then((mutationResponse) => {
+          handleMutationResponse(mutationResponse, action);
+        })
+        .catch(handleError);
+    }
+
+    return undefined;
+  };
+
+  const experienceIdExact = experienceId || "";
+  const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
+
+  const handleDeleteExperience = () => {
+    if (executeDeletionMutation) {
+      executeDeletionMutation({
+        id: experienceIdExact,
+      })
+        .then((result) => {
+          navigate(returnPath);
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Experience Deleted",
+              id: "/qN7tM",
+              description:
+                "Message displayed to user after experience deleted.",
+            }),
+          );
+          return result.data;
+        })
+        .catch(handleError);
+    }
+  };
 
   return (
     <Pending
@@ -510,6 +542,9 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           experienceType={experienceType}
           skills={skillsData.skills as Skill[]} // Only grab technical skills (hard skills).
           userId={userId || ""}
+          onUpdateExperience={handleUpdateExperience}
+          deleteExperience={handleDeleteExperience}
+          executing={executing}
         />
       ) : (
         <ThrowNotFound

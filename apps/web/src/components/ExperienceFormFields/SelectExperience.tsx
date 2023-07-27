@@ -8,7 +8,7 @@ import { ExperienceType } from "~/types/experience";
 
 import { Select } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { experienceTypeTitles } from "~/pages/Applications/ApplicationResumeAddPage/messages";
+import { experienceTypeTitles } from "~/pages/Applications/ApplicationCareerTimelineAddPage/messages";
 
 interface ExperienceTypeProps {
   experienceType?: ExperienceType;
@@ -16,8 +16,10 @@ interface ExperienceTypeProps {
 
 const SelectExperience = ({ experienceType }: ExperienceTypeProps) => {
   const intl = useIntl();
-  const type = useWatch({ name: "experienceType" });
+  const type: ExperienceType = useWatch({ name: "experienceType" });
   const derivedType = type ?? experienceType;
+
+  console.log({ type, experienceType });
 
   return (
     <>
@@ -38,7 +40,7 @@ const SelectExperience = ({ experienceType }: ExperienceTypeProps) => {
         name="experienceType"
         id="experienceType"
         doNotSort
-        defaultValue={derivedType}
+        defaultValue={derivedType ?? ""}
         rules={{ required: intl.formatMessage(errorMessages.required) }}
         nullSelection={intl.formatMessage({
           defaultMessage: "Select a type",

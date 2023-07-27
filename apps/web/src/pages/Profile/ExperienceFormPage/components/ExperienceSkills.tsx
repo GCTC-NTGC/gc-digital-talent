@@ -16,7 +16,6 @@ import SkillDialog, {
   FormValues as SkillDialogFormValues,
 } from "~/components/SkillDialog/SkillDialog";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
 import NullExperienceType from "~/components/ExperienceFormFields/NullExperienceType";
 
 type AccordionStates = "learn-more" | "";
@@ -159,7 +158,7 @@ const ExperienceSkills = ({
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
-      {notEmpty(derivedType) ? (
+      {derivedType ? (
         <div
           data-h2-display="base(flex)"
           data-h2-gap="base(x1)"
