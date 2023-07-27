@@ -142,7 +142,7 @@ export default function useFilterOptions(enableEducationType = false) {
       }),
     ),
     roleAssignments: filterRes.data?.roles
-      .filter(notEmpty)
+      ?.filter(notEmpty)
       // custom selection of what options are desired in the input
       .filter(
         (role) =>
