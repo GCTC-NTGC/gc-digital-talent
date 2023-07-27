@@ -9,9 +9,9 @@ query getProfile($userId: UUID!) {
     email
     telephone
     preferredLang
-    currentProvince
     preferredLanguageForInterview
     preferredLanguageForExam
+    currentProvince
     currentCity
     citizenship
     armedForcesStatus
@@ -75,9 +75,6 @@ query getProfile($userId: UUID!) {
       level
     }
     positionDuration
-    experiences {
-      ...experience
-    }
     userSkills {
       id
       skill {
@@ -89,7 +86,12 @@ query getProfile($userId: UUID!) {
         }
       }
     }
+    experiences {
+      ...experience
+    }
+    isProfileComplete
     poolCandidates {
+      id
       status
       expiryDate
       signature
@@ -106,7 +108,6 @@ query getProfile($userId: UUID!) {
           level
         }
       }
-      id
       educationRequirementOption
       educationRequirementExperiences {
         ...experience
@@ -124,13 +125,12 @@ query getProfile($userId: UUID!) {
         }
       }
     }
-    isProfileComplete
   }
 }
 
 fragment experience on Experience {
-  __typename
   id
+  __typename
   details
   skills {
     id
