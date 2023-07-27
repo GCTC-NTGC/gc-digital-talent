@@ -181,7 +181,7 @@ class SnapshotTest extends TestCase
         $backendQueryNormalized = SnapshotTest::normalizeQueryLines($backendQuery);
         $frontendQueryNormalized = SnapshotTest::normalizeQueryLines($frontendQuery);
 
-        for ($i = 0; $i < min([count($backendQueryNormalized), count($frontendQueryNormalized)]) + 1; $i++) {
+        for ($i = 0; $i < min([count($backendQueryNormalized), count($frontendQueryNormalized)]); $i++) {
             $backendLine = $backendQueryNormalized[$i];
             $frontendLine = $frontendQueryNormalized[$i];
 
