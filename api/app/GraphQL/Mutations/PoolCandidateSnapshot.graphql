@@ -87,7 +87,7 @@ query getProfile($userId: UUID!) {
       }
     }
     experiences {
-      ...experience
+      ...profileExperience
     }
     isProfileComplete
     poolCandidates {
@@ -131,7 +131,7 @@ query getProfile($userId: UUID!) {
       }
       educationRequirementOption
       educationRequirementExperiences {
-        ...experience
+        ...profileExperience
       }
       screeningQuestionResponses {
         id
@@ -149,7 +149,7 @@ query getProfile($userId: UUID!) {
   }
 }
 
-fragment experience on Experience {
+fragment profileExperience on Experience {
   id
   __typename
   user {
