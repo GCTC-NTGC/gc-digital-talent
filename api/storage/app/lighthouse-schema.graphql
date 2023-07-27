@@ -1544,6 +1544,13 @@ input SkillKeywordsInput {
   fr: [String!]
 }
 
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  EXPERT
+  LEAD
+}
+
 """Directions for ordering a list of records."""
 enum SortOrder {
   """Sort records in ascending order."""
@@ -1917,6 +1924,13 @@ type UserSkill {
   id: ID!
   user: User!
   skill: Skill!
+  skillLevel: SkillLevel
+  whenSkillUsed: WhenSkillUsed
+}
+
+enum WhenSkillUsed {
+  CURRENT
+  PAST
 }
 
 """Dynamic WHERE conditions for queries."""
