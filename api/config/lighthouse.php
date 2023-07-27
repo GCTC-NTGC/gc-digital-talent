@@ -29,11 +29,11 @@ return [
          * make sure to return spec-compliant responses in case an error is thrown.
          */
         'middleware' => [
-            \Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson::class,
+            \Nuwave\Lighthouse\Http\Middleware\AcceptJson::class,
 
             // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
             // middleware, this delegates auth and permission checks to the field level.
-            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
+            \Nuwave\Lighthouse\Http\Middleware\AttemptAuthentication::class,
 
             // Logs every incoming GraphQL query.
             App\Http\Middleware\AuditQueryMiddleware::class,
@@ -60,7 +60,7 @@ return [
     |
     */
 
-    'guard' => 'api',
+    'guards' => ['api'],
 
     /*
     |--------------------------------------------------------------------------
@@ -351,13 +351,13 @@ return [
             ],
             'pusher' => [
                 'driver' => 'pusher',
-                'routes' => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@pusher',
+                'routes' => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class . '@pusher',
                 'connection' => 'pusher',
             ],
             'echo' => [
                 'driver' => 'echo',
                 'connection' => env('LIGHTHOUSE_SUBSCRIPTION_REDIS_CONNECTION', 'default'),
-                'routes' => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@echoRoutes',
+                'routes' => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class . '@echoRoutes',
             ],
         ],
 
@@ -365,7 +365,7 @@ return [
          * Controls the format of the extensions response.
          * Allowed values: 1, 2
          */
-        'version' => env('LIGHTHOUSE_SUBSCRIPTION_VERSION', 1),
+        'version' => env('LIGHTHOUSE_SUBSCRIPTION_VERSION', 2),
 
         /*
          * Should the subscriptions extension be excluded when the response has no subscription channel?
