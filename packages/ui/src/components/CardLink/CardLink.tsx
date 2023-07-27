@@ -18,7 +18,6 @@ export interface CardLinkProps {
   label: string;
   color?: Color;
   icon?: IconType;
-  className?: string;
   external?: boolean;
   children?: React.ReactNode;
 }

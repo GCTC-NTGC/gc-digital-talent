@@ -140,13 +140,11 @@ export const formattedPoolPosterTitle = ({
   return {
     html: (
       <>
-        {`${title ? `${title}` : ""}`} ({wrapAbbr(groupAndLevel, intl)}
+        {title || ""} ({wrapAbbr(groupAndLevel, intl)}
         {streamString ? ` ${streamString}` : ""})
       </>
     ),
-    label: `${title ? `${title}` : ""} ${
-      genericTitle ? `(${genericTitle})` : ""
-    }`.trim(),
+    label: `${title || ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
   };
 };
 

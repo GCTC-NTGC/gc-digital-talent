@@ -32,6 +32,7 @@ interface StreamViewModel {
   label: React.ReactNode;
   summary: React.ReactNode;
   classifications: {
+    key: string;
     title: React.ReactNode;
     description: React.ReactNode;
     pool: Pool | undefined;
@@ -138,6 +139,7 @@ const OngoingRecruitmentSection = ({
       }),
       classifications: [
         {
+          key: "ba-it01",
           title: intl.formatMessage(messages.it01Title, {
             abbreviation,
           }),
@@ -155,6 +157,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "ba-it02",
           title: intl.formatMessage(messages.it02Title, {
             abbreviation,
           }),
@@ -172,6 +175,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "ba-it03",
           title: intl.formatMessage(messages.it03Title, {
             abbreviation,
           }),
@@ -198,6 +202,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "ba-it04",
           title: intl.formatMessage(messages.it04Title, {
             abbreviation,
           }),
@@ -237,6 +242,7 @@ const OngoingRecruitmentSection = ({
       summary: intl.formatMessage(messages.databaseManagementSummary),
       classifications: [
         {
+          key: "dm-it01",
           title: intl.formatMessage(messages.it01Title, {
             abbreviation,
           }),
@@ -254,6 +260,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "dm-it02",
           title: intl.formatMessage(messages.it02Title, {
             abbreviation,
           }),
@@ -271,6 +278,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "dm-it03",
           title: intl.formatMessage(messages.it03Title, {
             abbreviation,
           }),
@@ -297,6 +305,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "dm-it04",
           title: intl.formatMessage(messages.it04Title, {
             abbreviation,
           }),
@@ -338,6 +347,7 @@ const OngoingRecruitmentSection = ({
       }),
       classifications: [
         {
+          key: "ea-it01",
           title: intl.formatMessage(messages.it01Title, {
             abbreviation,
           }),
@@ -355,6 +365,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "ea-it02",
           title: intl.formatMessage(messages.it02Title, {
             abbreviation,
           }),
@@ -372,6 +383,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "ea-it03",
           title: intl.formatMessage(messages.it03Title, {
             abbreviation,
           }),
@@ -398,6 +410,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "ea-it04",
           title: intl.formatMessage(messages.it04Title, {
             abbreviation,
           }),
@@ -439,6 +452,7 @@ const OngoingRecruitmentSection = ({
       }),
       classifications: [
         {
+          key: "io-it01",
           title: intl.formatMessage(messages.it01Title, {
             abbreviation,
           }),
@@ -456,6 +470,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "io-it02",
           title: intl.formatMessage(messages.it02Title, {
             abbreviation,
           }),
@@ -473,6 +488,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "io-it03",
           title: intl.formatMessage(messages.it03Title, {
             abbreviation,
           }),
@@ -499,6 +515,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "io-it04",
           title: intl.formatMessage(messages.it04Title, {
             abbreviation,
           }),
@@ -540,6 +557,7 @@ const OngoingRecruitmentSection = ({
       }),
       classifications: [
         {
+          key: "pr-it01",
           title: intl.formatMessage(messages.it01Title, {
             abbreviation,
           }),
@@ -557,6 +575,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "pr-it02",
           title: intl.formatMessage(messages.it02Title, {
             abbreviation,
           }),
@@ -574,6 +593,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "pr-it03",
           title: intl.formatMessage(messages.it03Title, {
             abbreviation,
           }),
@@ -600,6 +620,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "pr-it04",
           title: intl.formatMessage(messages.it04Title, {
             abbreviation,
           }),
@@ -641,6 +662,7 @@ const OngoingRecruitmentSection = ({
       }),
       classifications: [
         {
+          key: "ppm-it01",
           title: intl.formatMessage(messages.it01Title, {
             abbreviation,
           }),
@@ -658,6 +680,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "ppm-it02",
           title: intl.formatMessage(messages.it02Title, {
             abbreviation,
           }),
@@ -675,6 +698,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "ppm-it03",
           title: intl.formatMessage(messages.it03Title, {
             abbreviation,
           }),
@@ -701,6 +725,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "ppm-it04",
           title: intl.formatMessage(messages.it04Title, {
             abbreviation,
           }),
@@ -740,6 +765,7 @@ const OngoingRecruitmentSection = ({
       summary: intl.formatMessage(messages.securitySummary),
       classifications: [
         {
+          key: "s-it01",
           title: intl.formatMessage(messages.it01Title, {
             abbreviation,
           }),
@@ -752,6 +778,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "s-it02",
           title: intl.formatMessage(messages.it02Title, {
             abbreviation,
           }),
@@ -764,6 +791,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "s-it03",
           title: intl.formatMessage(messages.it03Title, {
             abbreviation,
           }),
@@ -785,6 +813,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "s-it04",
           title: intl.formatMessage(messages.it04Title, {
             abbreviation,
           }),
@@ -820,6 +849,7 @@ const OngoingRecruitmentSection = ({
       summary: intl.formatMessage(messages.softwareSolutionsSummary),
       classifications: [
         {
+          key: "ss-it01",
           title: intl.formatMessage(messages.it01Title, {
             abbreviation,
           }),
@@ -837,6 +867,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "ss-it02",
           title: intl.formatMessage(messages.it02Title, {
             abbreviation,
           }),
@@ -854,6 +885,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "ss-it03",
           title: intl.formatMessage(messages.it03Title, {
             abbreviation,
           }),
@@ -880,6 +912,7 @@ const OngoingRecruitmentSection = ({
           }),
         },
         {
+          key: "ss-it04",
           title: intl.formatMessage(messages.it04Title, {
             abbreviation,
           }),
@@ -1095,7 +1128,7 @@ const OngoingRecruitmentSection = ({
                       (classification) => classification.pool?.id,
                     )
                     .map((classification) => (
-                      <div key={`${classification.title}`}>
+                      <div key={classification.key}>
                         <h4
                           data-h2-font-size="base(copy)"
                           data-h2-font-weight="base(700)"
