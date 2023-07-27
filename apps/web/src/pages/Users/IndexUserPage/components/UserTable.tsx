@@ -95,7 +95,7 @@ function transformFormValuesToUserFilterInput(
       const poolString = pool;
       return { poolId: poolString };
     }),
-    roleAssignments: data.roles,
+    roles: data.roles,
   };
 }
 
@@ -129,7 +129,7 @@ function transformUserFilterInputToFormValues(
       input?.poolFilters
         ?.filter(notEmpty)
         .map((poolFilter) => poolFilter.poolId) ?? [],
-    roles: input?.roleAssignments?.filter(notEmpty) ?? [],
+    roles: input?.roles?.filter(notEmpty) ?? [],
   };
 }
 
@@ -289,7 +289,7 @@ const UserTable = ({ title }: { title: string }) => {
       isGovEmployee: fancyFilterState?.isGovEmployee,
       isProfileComplete: fancyFilterState?.isProfileComplete,
       poolFilters: fancyFilterState?.poolFilters,
-      roleAssignments: fancyFilterState?.roleAssignments,
+      roles: fancyFilterState?.roles,
     };
   };
 
