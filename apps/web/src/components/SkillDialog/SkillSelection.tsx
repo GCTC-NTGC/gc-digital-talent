@@ -223,6 +223,18 @@ const SkillSelection = ({
         </>
       )}
       {selectedSkill && <SkillDescription skill={selectedSkill} />}
+      {!selectedSkill && (
+        <Well>
+          <p data-h2-text-align="base(center)">
+            {intl.formatMessage({
+              id: "HrRgTT",
+              defaultMessage: "Please select a skill to continue.",
+              description:
+                "Help text to tell users to select a skill before submitting",
+            })}
+          </p>
+        </Well>
+      )}
       <Collapsible.Root
         open={isExpanded}
         onOpenChange={setIsExpanded}
@@ -298,18 +310,6 @@ const SkillSelection = ({
           </p>
         </Collapsible.Content>
       </Collapsible.Root>
-      {!selectedSkill && (
-        <Well>
-          <p data-h2-text-align="base(center)">
-            {intl.formatMessage({
-              id: "HrRgTT",
-              defaultMessage: "Please select a skill to continue.",
-              description:
-                "Help text to tell users to select a skill before submitting",
-            })}
-          </p>
-        </Well>
-      )}
     </>
   );
 };
