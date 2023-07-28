@@ -100,7 +100,11 @@ export function isIAPPool(pool: Maybe<Pool>): boolean {
   return pool?.publishingGroup === PublishingGroup.Iap;
 }
 
-export interface formatClassificationStringProps {
+export function isExecPool(pool: Maybe<Pool>): boolean {
+  return pool?.publishingGroup === PublishingGroup.ExecutiveJobs;
+}
+
+interface formatClassificationStringProps {
   group: string;
   level: number;
 }
@@ -140,7 +144,7 @@ export const formattedPoolPosterTitle = ({
   return {
     html: (
       <>
-        {`${title ? `${title}` : ""}`} ({wrapAbbr(groupAndLevel, intl)}
+        {title ? `${title}` : ""} ({wrapAbbr(groupAndLevel, intl)}
         {streamString ? ` ${streamString}` : ""})
       </>
     ),
