@@ -19,6 +19,7 @@ import {
 import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
 import { Skill, SkillCategory } from "~/api/generated";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import SkillDescription from "./SkillDescription";
 import useRoutes from "../../hooks/useRoutes";
 
@@ -173,32 +174,35 @@ const SkillSelection = ({
           ]}
         />
       </div>
-      <div data-h2-margin="base(x1, 0)">
-        <Combobox
-          id="skill"
-          name="skill"
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
-          trackUnsaved={false}
-          label={intl.formatMessage(
-            {
-              defaultMessage: `{count, plural,
-                  one {Select from 1 matching skill}
-                  other {Select from {count} matching skills}
-              }
-              `,
-              id: "7PEUi6",
-              description: "Label for the skill select field",
-            },
-            {
-              count: filteredSkills.length,
-            },
-          )}
-          options={filteredSkills.map((currentSkill) => ({
-            value: currentSkill.id,
-            label: getLocalizedName(currentSkill.name, intl),
-          }))}
-        />
-      </div>
+      {family && family !== "" && (
+        <div data-h2-margin="base(x1, 0)">
+          <Combobox
+            id="skill"
+            name="skill"
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            trackUnsaved={false}
+            label={intl.formatMessage(
+              {
+                defaultMessage: `{count, plural,
+                one {Select from 1 matching skill}
+                other {Select from {count} matching skills}
+            }
+            `,
+                id: "rtST/H",
+                description: "Label for the skill select field",
+              },
+              {
+                count: filteredSkills.length,
+              },
+            )}
+            options={filteredSkills.map((currentSkill) => ({
+              value: currentSkill.id,
+              label: getLocalizedName(currentSkill.name, intl),
+            }))}
+          />
+        </div>
+      )}
+
       {selectedSkill && <SkillDescription skill={selectedSkill} />}
       <Collapsible.Root
         open={isExpanded}

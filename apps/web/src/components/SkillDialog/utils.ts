@@ -134,8 +134,10 @@ export const getSkillDialogMessages: GetSkillDialogMessages = ({
   return defaults;
 };
 
-export const showDetails = (context: SkillDialogContext): boolean => {
+export const showDetails = (
+  context: SkillDialogContext | undefined,
+): boolean => {
   const detailContexts: SkillDialogContext[] = ["library", "showcase"];
 
-  return detailContexts.includes(context);
+  return context ? detailContexts.includes(context) : false;
 };

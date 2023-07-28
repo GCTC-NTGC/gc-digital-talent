@@ -21,8 +21,8 @@ export interface FormValues {
 }
 
 const defaultFormValues: FormValues = {
-  category: "all",
-  family: "all",
+  category: "",
+  family: "",
   skill: "",
 };
 
