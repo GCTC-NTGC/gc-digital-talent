@@ -1,6 +1,8 @@
 import React from "react";
 import { FieldError, useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
+import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
+import get from "lodash/get";
 
 import {
   Button,
@@ -18,10 +20,9 @@ import {
 
 import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
 import { Skill, SkillCategory } from "~/api/generated";
-import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
+import useRoutes from "~/hooks/useRoutes";
+
 import SkillDescription from "./SkillDescription";
-import useRoutes from "../../hooks/useRoutes";
-import get from "lodash/get";
 import { getSkillCategorySkillCount, getSkillFamilySkillCount } from "./utils";
 
 const suggestionLink = (chunks: React.ReactNode, href: string) => (
