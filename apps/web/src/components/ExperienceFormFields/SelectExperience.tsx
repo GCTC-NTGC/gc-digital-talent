@@ -20,8 +20,8 @@ const SelectExperience = ({ experienceType }: ExperienceTypeProps) => {
   const derivedType = type ?? experienceType;
 
   return (
-    <>
-      <Heading level="h3">
+    <section data-h2-margin="base(0, 0, x2, 0)">
+      <Heading level="h3" size="h5" data-h2-margin-bottom="base(x.5)">
         {intl.formatMessage({
           defaultMessage: "Select a type of experience",
           id: "jw6Umr",
@@ -68,7 +68,7 @@ const SelectExperience = ({ experienceType }: ExperienceTypeProps) => {
           },
         ]}
       />
-    </>
+    </section>
   );
 };
 

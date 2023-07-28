@@ -4,6 +4,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 
 import {
   Accordion,
+  Heading,
   StandardAccordionHeader,
   Well,
 } from "@gc-digital-talent/ui";
@@ -66,13 +67,13 @@ const ExperienceSkills = ({
 
   return (
     <section>
-      <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x3, 0, x1, 0)">
+      <Heading level="h3" size="h5">
         {intl.formatMessage({
           defaultMessage: "Link featured skills",
           id: "/I7wrY",
           description: "Title for skills on Experience form",
         })}
-      </h2>
+      </Heading>
       <p data-h2-margin="base(0, 0, x2, 0)">
         {intl.formatMessage({
           defaultMessage:
