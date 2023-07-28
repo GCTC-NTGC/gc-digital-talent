@@ -2681,6 +2681,10 @@
     "defaultMessage": "Ministère mis à jour avec succès!",
     "description": "Message displayed to user after department is updated successfully."
   },
+  "GVeb32": {
+    "defaultMessage": "Mi'kmaw",
+    "description": "Name of Mi'kmaw language"
+  },
   "GXmpsW": {
     "defaultMessage": "Avant de poursuivre, il est important que vous compreniez les remarques suivantes concernant votre candidature :",
     "description": "Starting message for the application review page."
@@ -7279,10 +7283,6 @@
   "n9YPWe": {
     "defaultMessage": "Statut du bassin",
     "description": "Label displayed on the status field of the change candidate status dialog"
-  },
-  "nAgrVL": {
-    "defaultMessage": "Mi'kmaq",
-    "description": "Name of Mi'kmaq language"
   },
   "nBoNqj": {
     "defaultMessage": "Profil et candidatures",
