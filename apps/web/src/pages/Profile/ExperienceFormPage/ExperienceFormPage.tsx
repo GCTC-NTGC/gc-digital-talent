@@ -197,7 +197,7 @@ export const ExperienceForm = ({
               </TableOfContents.ListItem>
             )}
             <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id="additional-details">
+              <TableOfContents.AnchorLink id="experience-details">
                 {intl.formatMessage({
                   defaultMessage: "Provide a few details",
                   id: "GB3LDj",
@@ -207,9 +207,9 @@ export const ExperienceForm = ({
               </TableOfContents.AnchorLink>
             </TableOfContents.ListItem>
             <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id="highlight">
+              <TableOfContents.AnchorLink id="additional-details">
                 {intl.formatMessage({
-                  defaultMessage: "Highlight additional information",
+                  defaultMessage: "Highlight additional details",
                   id: "sKi4eh",
                   description:
                     "Heading for the experience type section fo the experience form",
@@ -240,11 +240,11 @@ export const ExperienceForm = ({
                 </TableOfContents.Section>
               )}
 
-              <TableOfContents.Section id="additional-details">
+              <TableOfContents.Section id="experience-details">
                 <ExperienceDetails experienceType={experienceType} />
               </TableOfContents.Section>
 
-              <TableOfContents.Section id="highlight">
+              <TableOfContents.Section id="additional-details">
                 <AdditionalDetails experienceType={experienceType} />
               </TableOfContents.Section>
 
