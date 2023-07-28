@@ -1,4 +1,8 @@
 {
+  "+5tH6F": {
+    "defaultMessage": "90 000 $ - 99 000 $",
+    "description": "Salary category for between 90,000 and 99,000"
+  },
   "+6TuVe": {
     "defaultMessage": "Désélectionner {label}",
     "description": "Text to uncheck checkbox button"
@@ -289,6 +293,10 @@
     "defaultMessage": "Évaluation en cours",
     "description": "Status for an application that where applicant is being assessed"
   },
+  "9V/aG1": {
+    "defaultMessage": "80 000 $ - 89 000 $",
+    "description": "Salary category for between 80,000 and 89,000"
+  },
   "9ZyJZq": {
     "defaultMessage": "cela m'oblige à me déplacer.",
     "description": "The operational requirement described as travel as required."
@@ -332,6 +340,10 @@
   "AvBSV+": {
     "defaultMessage": "Oh non... ",
     "description": "Title displayed for a table error loading state."
+  },
+  "B33R8u": {
+    "defaultMessage": "70 000 $ - 79 000 $",
+    "description": "Salary category for between 70,000 and 79,000"
   },
   "BnnVAv": {
     "defaultMessage": "Permis de conduire",
@@ -392,6 +404,10 @@
   "FvV+QW": {
     "defaultMessage": "Renseignements gouvernementaux",
     "description": "Name of Government information page"
+  },
+  "GHgubE": {
+    "defaultMessage": "100 000 $ +",
+    "description": "Salary category for 100,000 or more"
   },
   "GIC6EK": {
     "defaultMessage": "Expiré",
@@ -603,6 +619,10 @@
   "PMwqcS": {
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
+  },
+  "PWGNQ2": {
+    "defaultMessage": "50 000 $ - 59 000 $",
+    "description": "Salary category for between 50,000 and 59,000"
   },
   "PxUSSH": {
     "defaultMessage": "Mon statut",
@@ -1151,6 +1171,10 @@
   "mDOWWQ": {
     "defaultMessage": "Soumission",
     "description": "Default text for submitting button."
+  },
+  "mHdQ1A": {
+    "defaultMessage": "60 000 $ - 69 000 $",
+    "description": "Salary category for between 60,000 and 69,000"
   },
   "mLwm2+": {
     "defaultMessage": "Yukon",

@@ -128,16 +128,40 @@ export const getLanguageProficiency = (
     `Invalid skill level '${languageProf}'`,
   );
 
-const salaryRanges = {
-  [SalaryRange["50_59K"]]: "$50,000 - $59,000",
-  [SalaryRange["60_69K"]]: "$60,000 - $69,000",
-  [SalaryRange["70_79K"]]: "$70,000 - $79,000",
-  [SalaryRange["80_89K"]]: "$80,000 - $89,000",
-  [SalaryRange["90_99K"]]: "$90,000 - $99,000",
-  [SalaryRange["100KPlus"]]: "$100,000 - plus",
-};
+const salaryRanges = defineMessages({
+  [SalaryRange["50_59K"]]: {
+    defaultMessage: "$50,000 - $59,000",
+    id: "PWGNQ2",
+    description: "Salary category for between 50,000 and 59,000",
+  },
+  [SalaryRange["60_69K"]]: {
+    defaultMessage: "$60,000 - $69,000",
+    id: "mHdQ1A",
+    description: "Salary category for between 60,000 and 69,000",
+  },
+  [SalaryRange["70_79K"]]: {
+    defaultMessage: "$70,000 - $79,000",
+    id: "B33R8u",
+    description: "Salary category for between 70,000 and 79,000",
+  },
+  [SalaryRange["80_89K"]]: {
+    defaultMessage: "$80,000 - $89,000",
+    id: "9V/aG1",
+    description: "Salary category for between 80,000 and 89,000",
+  },
+  [SalaryRange["90_99K"]]: {
+    defaultMessage: "$90,000 - $99,000",
+    id: "+5tH6F",
+    description: "Salary category for between 90,000 and 99,000",
+  },
+  [SalaryRange["100KPlus"]]: {
+    defaultMessage: "$100,000 +",
+    id: "GHgubE",
+    description: "Salary category for 100,000 or more",
+  },
+});
 
-export const getSalaryRange = (salaryId: string | number): string =>
+export const getSalaryRange = (salaryId: string | number): MessageDescriptor =>
   getOrThrowError(salaryRanges, salaryId, `Invalid Salary Range '${salaryId}'`);
 
 const languages = defineMessages({
