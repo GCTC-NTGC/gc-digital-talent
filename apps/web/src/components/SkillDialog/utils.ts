@@ -1,6 +1,7 @@
 import { IntlShape } from "react-intl";
 import React from "react";
 import { SkillDialogContext } from "./types";
+import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
 
 interface SkillDialogMessages {
   trigger: React.ReactNode;
@@ -140,4 +141,28 @@ export const showDetails = (
   const detailContexts: SkillDialogContext[] = ["library", "showcase"];
 
   return context ? detailContexts.includes(context) : false;
+};
+
+export const getSkillFamilySkillCount = (
+  skills: Skill[],
+  family: SkillFamily,
+): number => {
+  const skillsByFamily = skills.filter((skill) => {
+    return skill.families?.some((skillFamily) => skillFamily.id === family.id);
+  });
+
+  return skillsByFamily.length;
+};
+
+export const getSkillCategorySkillCount = (
+  skills: Skill[],
+  category: SkillCategory,
+): number => {
+  const skillsByCategory = skills.filter((skill) => {
+    return skill.families?.some(
+      (skillFamily) => skillFamily.category === category,
+    );
+  });
+
+  return skillsByCategory.length;
 };

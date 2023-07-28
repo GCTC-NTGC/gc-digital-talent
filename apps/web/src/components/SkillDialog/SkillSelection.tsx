@@ -22,6 +22,7 @@ import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
 import SkillDescription from "./SkillDescription";
 import useRoutes from "../../hooks/useRoutes";
 import get from "lodash/get";
+import { getSkillCategorySkillCount, getSkillFamilySkillCount } from "./utils";
 
 const suggestionLink = (chunks: React.ReactNode, href: string) => (
   <Link href={href}>{chunks}</Link>
@@ -129,27 +130,48 @@ const SkillSelection = ({
             options={[
               {
                 value: "all",
-                label: intl.formatMessage({
-                  defaultMessage: "All categories",
-                  id: "ZtHmo1",
-                  description: "Label for removing the skill category filter",
-                }),
+                label: intl.formatMessage(
+                  {
+                    defaultMessage: "All categories ({count})",
+                    id: "ZtHmo1",
+                    description: "Label for removing the skill category filter",
+                  },
+                  {
+                    count: skills.length,
+                  },
+                ),
               },
               {
                 value: SkillCategory.Behavioural,
-                label: intl.formatMessage({
-                  defaultMessage: "Behavioural skills",
-                  id: "LjkK5G",
-                  description: "Tab name for a list of behavioural skills",
-                }),
+                label: intl.formatMessage(
+                  {
+                    defaultMessage: "Behavioural skills ({count})",
+                    id: "LjkK5G",
+                    description: "Tab name for a list of behavioural skills",
+                  },
+                  {
+                    count: getSkillCategorySkillCount(
+                      skills,
+                      SkillCategory.Behavioural,
+                    ),
+                  },
+                ),
               },
               {
                 value: SkillCategory.Technical,
-                label: intl.formatMessage({
-                  defaultMessage: "Technical skills",
-                  id: "kxseH4",
-                  description: "Tab name for a list of technical skills",
-                }),
+                label: intl.formatMessage(
+                  {
+                    defaultMessage: "Technical skills ({count})",
+                    id: "kxseH4",
+                    description: "Tab name for a list of technical skills",
+                  },
+                  {
+                    count: getSkillCategorySkillCount(
+                      skills,
+                      SkillCategory.Technical,
+                    ),
+                  },
+                ),
               },
             ]}
           />
@@ -167,15 +189,25 @@ const SkillSelection = ({
           options={[
             {
               value: "all",
-              label: intl.formatMessage({
-                defaultMessage: "All skill families",
-                id: "eLk4bq",
-                description: "Label for removing the skill family filter",
-              }),
+              label: intl.formatMessage(
+                {
+                  defaultMessage: "All skill families ({count})",
+                  id: "eLk4bq",
+                  description: "Label for removing the skill family filter",
+                },
+                {
+                  count: category
+                    ? getSkillCategorySkillCount(skills, category)
+                    : skills.length,
+                },
+              ),
             },
             ...filteredFamilies.map((skillFamily) => ({
               value: skillFamily.id,
-              label: getLocalizedName(skillFamily.name, intl),
+              label: `${getLocalizedName(
+                skillFamily.name,
+                intl,
+              )} (${getSkillFamilySkillCount(skills, skillFamily)})`,
             })),
           ]}
         />
