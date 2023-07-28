@@ -42,3 +42,9 @@ LibraryContext.args = {
   context: "library",
   showCategory: false,
 };
+
+export const ShowcaseContext = Template.bind({});
+ShowcaseContext.args = {
+  context: "showcase",
+  showCategory: false,
+};

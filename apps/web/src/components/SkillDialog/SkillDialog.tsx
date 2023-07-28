@@ -10,7 +10,7 @@ import { Scalars, Skill, SkillCategory } from "~/api/generated";
 
 import SkillDetails from "./SkillDetails";
 import SkillSelection from "./SkillSelection";
-import { getSkillDialogMessages } from "./utils";
+import { getSkillDialogMessages, showDetails } from "./utils";
 import { SkillDialogContext } from "./types";
 
 export interface FormValues {
@@ -85,6 +85,8 @@ const SkillDialog = ({
     icon: trigger?.icon || (context ? PlusCircleIcon : undefined),
   };
 
+  const shouldShowDetails = showDetails(context);
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
@@ -99,17 +101,7 @@ const SkillDialog = ({
                 {...{ showCategory, skills }}
                 onSelectSkill={setSelectedSkill}
               />
-              {context === "library" && (
-                <p data-h2-margin="base(x1 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Once you've found a skill, we ask that you give an honest evaluation of your approximate experience level. This level will be provided to hiring managers alongside any official Government of Canada skill evaluations to help provide a more holistic understanding of your abilities.",
-                    id: "bMY93S",
-                    description: "Help text for providing a skill level",
-                  })}
-                </p>
-              )}
-              {selectedSkill && context === "library" && <SkillDetails />}
+              {selectedSkill && shouldShowDetails && <SkillDetails />}
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Button type="submit" color="secondary" disabled={isSubmitting}>
                   {isSubmitting

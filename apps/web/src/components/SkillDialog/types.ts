@@ -1,1 +1,1 @@
-export type SkillDialogContext = "experience" | "library";
+export type SkillDialogContext = "experience" | "library" | "showcase";
