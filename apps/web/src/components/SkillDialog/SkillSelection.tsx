@@ -1,5 +1,5 @@
 import React from "react";
-import { useFormContext } from "react-hook-form";
+import { FieldError, useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import {
@@ -9,7 +9,7 @@ import {
   Separator,
   Well,
 } from "@gc-digital-talent/ui";
-import { Combobox, Select } from "@gc-digital-talent/forms";
+import { Combobox, Field, Select } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   getLocalizedName,
@@ -19,9 +19,9 @@ import {
 import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
 import { Skill, SkillCategory } from "~/api/generated";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import SkillDescription from "./SkillDescription";
 import useRoutes from "../../hooks/useRoutes";
+import get from "lodash/get";
 
 const suggestionLink = (chunks: React.ReactNode, href: string) => (
   <Link href={href}>{chunks}</Link>
@@ -41,7 +41,13 @@ const SkillSelection = ({
   const intl = useIntl();
   const paths = useRoutes();
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
-  const { watch, resetField } = useFormContext();
+  const {
+    watch,
+    resetField,
+    register,
+    formState: { errors },
+  } = useFormContext();
+  const skillError = get(errors, "skill")?.message as FieldError;
 
   const [category, family, skill] = watch(["category", "family", "skill"]);
 
@@ -174,7 +180,7 @@ const SkillSelection = ({
           ]}
         />
       </div>
-      {family && family !== "" && (
+      {family && family !== "" ? (
         <div data-h2-margin="base(x1, 0)">
           <Combobox
             id="skill"
@@ -201,8 +207,21 @@ const SkillSelection = ({
             }))}
           />
         </div>
+      ) : (
+        <>
+          <input
+            type="hidden"
+            {...register("skill", {
+              required: intl.formatMessage({
+                defaultMessage: "Select a skill family and skill to continue.",
+                description:
+                  "Error message when a user attempts to add a skill before selecting one",
+              }),
+            })}
+          />
+          {skillError && <Field.Error>{skillError?.toString()}</Field.Error>}
+        </>
       )}
-
       {selectedSkill && <SkillDescription skill={selectedSkill} />}
       <Collapsible.Root
         open={isExpanded}

@@ -5,7 +5,8 @@ import { action } from "@storybook/addon-actions";
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "storybook-helpers";
 
-import SkillDialog, { FormValues } from "./SkillDialog";
+import SkillDialog from "./SkillDialog";
+import { FormValues } from "./types";
 
 const mockSkills = getStaticSkills();
 

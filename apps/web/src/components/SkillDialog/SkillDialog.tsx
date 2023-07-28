@@ -11,14 +11,7 @@ import { Scalars, Skill, SkillCategory } from "~/api/generated";
 import SkillDetails from "./SkillDetails";
 import SkillSelection from "./SkillSelection";
 import { getSkillDialogMessages, showDetails } from "./utils";
-import { SkillDialogContext } from "./types";
-
-export interface FormValues {
-  category?: SkillCategory | "all" | "";
-  family?: Scalars["ID"];
-  skill?: Scalars["ID"];
-  details?: string;
-}
+import { SkillDialogContext, FormValues } from "./types";
 
 const defaultFormValues: FormValues = {
   category: "",
