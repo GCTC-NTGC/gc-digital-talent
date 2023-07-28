@@ -1406,6 +1406,10 @@
     "defaultMessage": "Modifier le prix",
     "description": "Page title for the award profile form"
   },
+  "7b0U9u": {
+    "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occasions précises.",
+    "description": "Description of pool recruitment, paragraph two"
+  },
   "7d/ot8": {
     "defaultMessage": "Basculer tout",
     "description": "Label displayed on the Table Columns toggle fieldset."
@@ -3352,10 +3356,6 @@
   "LjkK5G": {
     "defaultMessage": "Compétences comportementales",
     "description": "Tab name for a list of behavioural skills"
-  },
-  "7b0U9u": {
-    "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occasions précises.",
-    "description": "Description of pool recruitment, paragraph two"
   },
   "LnISTX": {
     "defaultMessage": "{title} Les exigent un minimum d’expérience ou un diplôme pertinent.",
