@@ -19,6 +19,7 @@
     <server name="QUEUE_CONNECTION" value="sync"/>
     <server name="SESSION_DRIVER" value="array"/>
     <server name="TELESCOPE_ENABLED" value="false"/>
+    <server name="LIGHTHOUSE_SCHEMA_CACHE_ENABLE" value="false"/>
   </php>
   <source>
     <include>
