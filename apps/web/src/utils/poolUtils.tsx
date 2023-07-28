@@ -78,6 +78,10 @@ export function isIAPPool(pool: Maybe<Pool>): boolean {
   return pool?.publishingGroup === PublishingGroup.Iap;
 }
 
+export function isExecPool(pool: Maybe<Pool>): boolean {
+  return pool?.publishingGroup === PublishingGroup.ExecutiveJobs;
+}
+
 interface formatClassificationStringProps {
   group: string;
   level: number;

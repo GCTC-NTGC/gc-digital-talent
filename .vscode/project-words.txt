@@ -60,6 +60,7 @@ recruitmentimit
 recruitments
 recrutementgiti
 rolepermission
+roundtable
 skillset
 spinbutton
 subcomponents
