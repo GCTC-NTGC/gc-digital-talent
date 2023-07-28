@@ -122,7 +122,7 @@ const SkillSelection = ({
             nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
             trackUnsaved={false}
             label={intl.formatMessage({
-              defaultMessage: "Filter skills by category",
+              defaultMessage: "Skill category",
               id: "R9dzE0",
               description: "Label for the skill category filter field",
             })}
@@ -160,7 +160,7 @@ const SkillSelection = ({
           nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
           trackUnsaved={false}
           label={intl.formatMessage({
-            defaultMessage: "Filter skills by skill family",
+            defaultMessage: "Skill family",
             id: "wUlyLG",
             description: "Label for the skill family filter field",
           })}
@@ -187,20 +187,11 @@ const SkillSelection = ({
             name="skill"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
             trackUnsaved={false}
-            label={intl.formatMessage(
-              {
-                defaultMessage: `{count, plural,
-                one {Select from 1 matching skill}
-                other {Select from {count} matching skills}
-            }
-            `,
-                id: "rtST/H",
-                description: "Label for the skill select field",
-              },
-              {
-                count: filteredSkills.length,
-              },
-            )}
+            label={intl.formatMessage({
+              defaultMessage: "Skill",
+              id: "rtST/H",
+              description: "Label for the skill select field",
+            })}
             options={filteredSkills.map((currentSkill) => ({
               value: currentSkill.id,
               label: getLocalizedName(currentSkill.name, intl),
