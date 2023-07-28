@@ -543,4 +543,36 @@ class ApiEnums
             self::POOL_CANDIDATE_SEARCH_POSITION_TEAM_LEAD,
         ];
     }
+
+    /**
+     * Skill Level
+     */
+    const SKILL_LEVEL_BEGINNER = 'BEGINNER';
+    const SKILL_LEVEL_INTERMEDIATE = 'INTERMEDIATE';
+    const SKILL_LEVEL_EXPERT = 'EXPERT';
+    const SKILL_LEVEL_LEAD = 'LEAD';
+
+    public static function skillLevels(): array
+    {
+        return [
+            self::SKILL_LEVEL_BEGINNER,
+            self::SKILL_LEVEL_INTERMEDIATE,
+            self::SKILL_LEVEL_EXPERT,
+            self::SKILL_LEVEL_LEAD,
+        ];
+    }
+
+    /**
+     * When Skill Used
+     */
+    const WHEN_SKILL_USED_CURRENT = 'CURRENT';
+    const WHEN_SKILL_USED_PAST = 'PAST';
+
+    public static function whenSkillUsed(): array
+    {
+        return [
+            self::WHEN_SKILL_USED_CURRENT,
+            self::WHEN_SKILL_USED_PAST,
+        ];
+    }
 }
