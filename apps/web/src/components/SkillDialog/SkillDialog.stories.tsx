@@ -2,6 +2,7 @@ import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
+import Toast from "@gc-digital-talent/toast";
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "storybook-helpers";
 
@@ -27,7 +28,12 @@ const Template: StoryFn<typeof SkillDialog> = (args) => {
     });
   };
 
-  return <SkillDialog {...args} onSave={handleSave} />;
+  return (
+    <>
+      <SkillDialog {...args} onSave={handleSave} />
+      <Toast />
+    </>
+  );
 };
 
 export const Default = Template.bind({});
