@@ -22,6 +22,7 @@ import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
 import { Skill, SkillCategory } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
+import { notEmpty } from "@gc-digital-talent/helpers";
 import SkillDescription from "./SkillDescription";
 import { getSkillCategorySkillCount, getSkillFamilySkillCount } from "./utils";
 
@@ -31,6 +32,7 @@ const suggestionLink = (chunks: React.ReactNode, href: string) => (
 
 interface SkillSelectionProps {
   skills: Skill[];
+  inLibrary?: Skill[];
   onSelectSkill?: (skill: Skill | null) => void;
   showCategory?: boolean;
 }
@@ -38,6 +40,7 @@ interface SkillSelectionProps {
 const SkillSelection = ({
   skills,
   onSelectSkill,
+  inLibrary,
   showCategory = true,
 }: SkillSelectionProps) => {
   const intl = useIntl();
@@ -64,6 +67,15 @@ const SkillSelection = ({
   }, [skills, category]);
 
   const filteredSkills = React.useMemo(() => {
+    if (inLibrary && family && family === "library") {
+      // If `inLibrary` was passed and selected, filter by those instead of family
+      return skills.filter((currentSkill) =>
+        inLibrary?.find(
+          (skillInLibrary) => skillInLibrary.id === currentSkill.id,
+        ),
+      );
+    }
+
     if (family && family !== "all") {
       // We only care about family if it is set
       // since we are filtering families by category
@@ -81,7 +93,7 @@ const SkillSelection = ({
 
     // neither is set so return all skills
     return skills;
-  }, [category, family, skills]);
+  }, [category, family, inLibrary, skills]);
 
   const selectedSkill = React.useMemo(() => {
     return skill
@@ -102,6 +114,44 @@ const SkillSelection = ({
   React.useEffect(() => {
     resetField("family");
   }, [category, resetField]);
+
+  let familyOptions = [
+    {
+      value: "all",
+      label: intl.formatMessage(
+        {
+          defaultMessage: "All skill families ({count})",
+          id: "mzQAMK",
+          description: "Label for removing the skill family filter",
+        },
+        {
+          count: category
+            ? getSkillCategorySkillCount(skills, category)
+            : skills.length,
+        },
+      ),
+    },
+  ];
+
+  if (inLibrary) {
+    familyOptions = [
+      ...familyOptions,
+      {
+        value: "library",
+        label: intl.formatMessage(
+          {
+            defaultMessage: "My library ({count})",
+            id: "P5tK5j",
+            description:
+              "Label for filtering skills by ones already added to the users library",
+          },
+          {
+            count: inLibrary.length,
+          },
+        ),
+      },
+    ];
+  }
 
   return (
     <>
@@ -125,7 +175,7 @@ const SkillSelection = ({
             trackUnsaved={false}
             label={intl.formatMessage({
               defaultMessage: "Skill category",
-              id: "R9dzE0",
+              id: "piZjS+",
               description: "Label for the skill category filter field",
             })}
             options={[
@@ -134,7 +184,7 @@ const SkillSelection = ({
                 label: intl.formatMessage(
                   {
                     defaultMessage: "All categories ({count})",
-                    id: "ZtHmo1",
+                    id: "zS2PN+",
                     description: "Label for removing the skill category filter",
                   },
                   {
@@ -147,7 +197,7 @@ const SkillSelection = ({
                 label: intl.formatMessage(
                   {
                     defaultMessage: "Behavioural skills ({count})",
-                    id: "LjkK5G",
+                    id: "ElOtG0",
                     description: "Tab name for a list of behavioural skills",
                   },
                   {
@@ -163,7 +213,7 @@ const SkillSelection = ({
                 label: intl.formatMessage(
                   {
                     defaultMessage: "Technical skills ({count})",
-                    id: "kxseH4",
+                    id: "Z3+zWD",
                     description: "Tab name for a list of technical skills",
                   },
                   {
@@ -184,25 +234,11 @@ const SkillSelection = ({
           trackUnsaved={false}
           label={intl.formatMessage({
             defaultMessage: "Skill family",
-            id: "wUlyLG",
+            id: "6ofORn",
             description: "Label for the skill family filter field",
           })}
           options={[
-            {
-              value: "all",
-              label: intl.formatMessage(
-                {
-                  defaultMessage: "All skill families ({count})",
-                  id: "eLk4bq",
-                  description: "Label for removing the skill family filter",
-                },
-                {
-                  count: category
-                    ? getSkillCategorySkillCount(skills, category)
-                    : skills.length,
-                },
-              ),
-            },
+            ...familyOptions,
             ...filteredFamilies.map((skillFamily) => ({
               value: skillFamily.id,
               label: `${getLocalizedName(
@@ -222,7 +258,7 @@ const SkillSelection = ({
             trackUnsaved={false}
             label={intl.formatMessage({
               defaultMessage: "Skill",
-              id: "rtST/H",
+              id: "+K/smr",
               description: "Label for the skill select field",
             })}
             options={filteredSkills.map((currentSkill) => ({
@@ -238,6 +274,7 @@ const SkillSelection = ({
             {...register("skill", {
               required: intl.formatMessage({
                 defaultMessage: "Select a skill family and skill to continue.",
+                id: "jYPyWq",
                 description:
                   "Error message when a user attempts to add a skill before selecting one",
               }),

@@ -1,9 +1,11 @@
 import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { faker } from "@faker-js/faker";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "storybook-helpers";
+import { Skill } from "@gc-digital-talent/graphql";
 
 import SkillDialog from "./SkillDialog";
 import { FormValues } from "./types";
@@ -48,4 +50,11 @@ export const ShowcaseContext = Template.bind({});
 ShowcaseContext.args = {
   context: "showcase",
   showCategory: false,
+};
+
+export const ShowcaseShowMyLibraryContext = Template.bind({});
+ShowcaseShowMyLibraryContext.args = {
+  context: "showcase",
+  showCategory: false,
+  inLibrary: faker.helpers.arrayElements<Skill>(mockSkills, 15),
 };

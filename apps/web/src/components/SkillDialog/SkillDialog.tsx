@@ -20,14 +20,22 @@ const defaultFormValues: FormValues = {
 };
 
 interface SkillDialogProps {
+  // Al;l available skills
   skills: Skill[];
+  // The context in which the dialog is being used
   context?: SkillDialogContext;
+  // Determines if the category filter is shown or not
   showCategory?: boolean;
+  // Currently selected skills (only needed if you want to display them in the selection)
+  inLibrary?: Skill[];
+  // Should the dialog be open on page load?
   defaultOpen?: boolean;
+  // Customize the trigger text and icon
   trigger?: {
     label?: React.ReactNode;
     icon?: IconType;
   };
+  // Callback function when a skill is selected
   onSave: (values: FormValues) => Promise<void>;
 }
 
@@ -37,6 +45,7 @@ const SkillDialog = ({
   context,
   showCategory,
   trigger,
+  inLibrary,
   defaultOpen = false,
 }: SkillDialogProps) => {
   const intl = useIntl();
@@ -91,7 +100,7 @@ const SkillDialog = ({
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleAddSkill)}>
               <SkillSelection
-                {...{ showCategory, skills }}
+                {...{ showCategory, skills, inLibrary }}
                 onSelectSkill={setSelectedSkill}
               />
               {selectedSkill && shouldShowDetails && <SkillDetails />}
