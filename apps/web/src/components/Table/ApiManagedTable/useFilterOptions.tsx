@@ -36,10 +36,7 @@ import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
 } from "~/api/generated";
-import {
-  getPublishingGroup,
-  publishingGroups,
-} from "~/../../../packages/i18n/src/messages/localizedConstants";
+import { getPublishingGroup } from "~/../../../packages/i18n/src/messages/localizedConstants";
 import { PublishingGroup } from "@gc-digital-talent/graphql";
 
 const context: Partial<OperationContext> = {
