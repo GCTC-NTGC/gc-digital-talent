@@ -6,9 +6,9 @@ type Query {
   applicants(includeIds: [ID]!): [User]! @deprecated(reason: "Removing in favour of users query")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
-  pools: [Pool]!
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   poolByKey(key: String!): Pool
+  pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]): [PoolCandidate]!
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
@@ -109,6 +109,8 @@ type Mutation {
   changePoolClosingDate(id: ID!, newClosingDate: DateTime!): Pool
   closePool(id: ID!): Pool
   deletePool(id: ID!): Pool
+  archivePool(id: ID!): Pool
+  unarchivePool(id: ID!): Pool
   archiveApplication(id: ID!): PoolCandidate
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
@@ -353,6 +355,7 @@ type Pool {
   screeningQuestions: [ScreeningQuestion]
   closingDate: DateTime
   publishedAt: DateTime
+  archivedAt: DateTime
 }
 
 enum PoolStream {
