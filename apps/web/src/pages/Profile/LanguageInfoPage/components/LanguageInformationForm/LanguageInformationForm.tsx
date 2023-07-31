@@ -26,6 +26,7 @@ import ProfileFormWrapper, {
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 import MissingLanguageRequirements from "~/components/MissingLanguageRequirements";
+import { getLabels as getLanguageProfileLabels } from "~/components/Profile/components/LanguageProfile/utils";
 
 import ConsideredLanguages from "../ConsideredLanguages";
 
@@ -110,45 +111,7 @@ const LanguageInformationForm = ({
   const paths = useRoutes();
   const { id: applicationId, returnRoute } = useApplicationInfo(initialData.id);
 
-  const labels = {
-    consideredPositionLanguages: intl.formatMessage({
-      defaultMessage:
-        "Select the positions you would like to be considered for",
-      id: "ntUOoz",
-      description:
-        "Legend for considered position languages check list in language information form",
-    }),
-    bilingualEvaluation: intl.formatMessage({
-      defaultMessage: "Bilingual evaluation",
-      id: "X354at",
-      description:
-        "Legend bilingual evaluation status in language information form",
-    }),
-    comprehensionLevel: intl.formatMessage({
-      defaultMessage: "Comprehension",
-      id: "W4Svkd",
-      description:
-        "Label displayed on the language information form comprehension field.",
-    }),
-    writtenLevel: intl.formatMessage({
-      defaultMessage: "Written",
-      id: "x5C9Ab",
-      description:
-        "Label displayed on the language information form written field.",
-    }),
-    verbalLevel: intl.formatMessage({
-      defaultMessage: "Verbal",
-      id: "rywI3C",
-      description:
-        "Label displayed on the language information form verbal field.",
-    }),
-    estimatedLanguageAbility: intl.formatMessage({
-      defaultMessage: "Second language proficiency level",
-      id: "T1TKNL",
-      description:
-        "Legend for second language proficiency level in language information form",
-    }),
-  };
+  const labels = getLanguageProfileLabels(intl);
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return submitHandler(initialData.id, formValuesToSubmitData(formValues))
