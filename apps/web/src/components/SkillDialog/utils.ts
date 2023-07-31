@@ -50,7 +50,7 @@ export const getSkillDialogMessages: GetSkillDialogMessages = ({
       intl.formatMessage(
         {
           defaultMessage: "{skill} selected.",
-          id: "X8PLCr",
+          id: "Yc2A2Q",
           description: "Message displayed when a skill was selected",
         },
         {
