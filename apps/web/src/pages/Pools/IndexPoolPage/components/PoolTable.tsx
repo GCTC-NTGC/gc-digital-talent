@@ -30,6 +30,12 @@ import Table, {
   tableEditButtonAccessor,
   Cell,
 } from "~/components/Table/ClientManagedTable";
+import {
+  ROLE_NAME,
+  RoleName,
+  hasRole,
+  useAuthorization,
+} from "@gc-digital-talent/auth";
 
 type Data = Pool;
 type PoolCell = Cell<Pool>;
@@ -406,11 +412,26 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
 
 const PoolTableApi = ({ title }: { title: string }) => {
   const [{ data, fetching, error }] = useAllPoolsQuery();
-  const pools = unpackMaybes(data?.pools);
+  const { roleAssignments } = useAuthorization();
+  const pools = unpackMaybes(data?.pools).filter((pool) => {
+    if (
+      hasRole(ROLE_NAME.PlatformAdmin, roleAssignments) ||
+      hasRole(ROLE_NAME.RequestResponder, roleAssignments)
+    ) {
+      return true;
+    }
+
+    return (
+      pool.team &&
+      roleAssignments?.some(
+        (role) => role.team && role?.team?.id === pool?.team?.id,
+      )
+    );
+  });
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={pools} title={title} />
+      <PoolTable pools={pools ?? []} title={title} />
     </Pending>
   );
 };

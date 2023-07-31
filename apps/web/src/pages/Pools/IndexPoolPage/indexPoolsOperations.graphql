@@ -1,6 +1,10 @@
 query allPools {
   pools {
     id
+    team {
+      id
+      name
+    }
     owner {
       id
       email
