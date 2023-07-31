@@ -98,9 +98,6 @@ query getMe {
       archivedAt
       submittedAt
       suspendedAt
-      user {
-        id
-      }
       pool {
         id
         closingDate
@@ -152,10 +149,6 @@ query getMe {
 fragment profileExperience on Experience {
   id
   __typename
-  user {
-    id
-    email
-  }
   details
   skills {
     id

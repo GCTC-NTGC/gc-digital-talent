@@ -98,9 +98,6 @@ query getProfile($userId: UUID!) {
       archivedAt
       submittedAt
       suspendedAt
-      user {
-        id
-      }
       pool {
         id
         closingDate
@@ -152,10 +149,6 @@ query getProfile($userId: UUID!) {
 fragment profileExperience on Experience {
   id
   __typename
-  user {
-    id
-    email
-  }
   details
   skills {
     id
