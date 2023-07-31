@@ -294,7 +294,7 @@ class PoolTest extends TestCase
         ]);
     }
 
-    public function testListPoolsReturnsOnlyPublishedAsAnon(): void
+    public function testListPoolsDoesNotReturnDraftAsAnon(): void
     {
         $publishedPool = Pool::factory()->create([
             'published_at' => config('constants.past_date'),
@@ -302,6 +302,27 @@ class PoolTest extends TestCase
 
         $draftPool = Pool::factory()->create([
             'published_at' => null,
+        ]);
+
+        // Assert query will return only the published pool as anonymous user
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+        query browsePools {
+            pools {
+                id
+            }
+        }
+        '
+        )
+            ->assertJsonCount(1, "data.pools")
+            ->assertJsonFragment(["id" => $publishedPool->id]);
+    }
+
+    public function testListPoolsDoesNotReturnArchivedAsAnon(): void
+    {
+        $publishedPool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
         ]);
 
         $archivedPool = Pool::factory()->archived()->create();
