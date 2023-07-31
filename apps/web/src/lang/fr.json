@@ -4780,10 +4780,6 @@
     "defaultMessage": "Erreur : Échec de la création du bassin",
     "description": "Message displayed to pool after pool fails to get created."
   },
-  "g8Xd4a": {
-    "defaultMessage": "Lecture",
-    "description": "Label displayed on the language information form reading comprehension field."
-  },
   "W58QTT": {
     "defaultMessage": "Cet utilisateur n'est encore dans aucun bassin",
     "description": "Message on view-user page that the user is not in any pools"
@@ -6252,6 +6248,10 @@
     "defaultMessage": "Collectivité des gestionnaires.",
     "description": "Heading for the Managers community page"
   },
+  "g8Xd4a": {
+    "defaultMessage": "Lecture",
+    "description": "Label displayed on the language information form reading comprehension field."
+  },
   "gBAz/G": {
     "defaultMessage": "Identification de la demande copiée",
     "description": "Button text to indicate that a specific application’s ID has been copied"
@@ -7144,6 +7144,10 @@
     "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
     "description": "Button text to show help information about skills"
   },
+  "mBnz9m": {
+    "defaultMessage": "Écriture",
+    "description": "Label displayed on the language information form written field."
+  },
   "mDowK/": {
     "defaultMessage": "Représentée par les expériences suivantes :",
     "description": "Lead in text for experiences that represent the users skills"
@@ -7284,6 +7288,10 @@
     "defaultMessage": "Vous avez acquis de l’expérience en faisant partie d’une communauté ou en lui donnant en retour? Les gens acquièrent des compétences à partir d’un large éventail d’expériences, comme le bénévolat ou la participation à des organisations sans but lucratif, à des communautés autochtones ou à des collaborations virtuelles. Il peut s’agir d’aider lors d’événements et de cérémonies, de faire le disc-jockey au mariage d’un ami, de jouer et de faire de la diffusion en continu.",
     "description": "Description for community experience section"
   },
+  "mvYSmp": {
+    "defaultMessage": "Expression orale",
+    "description": "Label displayed on the language information form oral interaction field."
+  },
   "mxOuYK": {
     "defaultMessage": "Télécharger CSV",
     "description": "Text label for button to download a csv file of items in a table."
@@ -7399,10 +7407,6 @@
   "nsm/uC": {
     "defaultMessage": "{skillName} (Essentielles)",
     "description": "CSV Header, Essential skill column."
-  },
-  "ntUOoz": {
-    "defaultMessage": "Sélectionnez les postes pour lesquels vous souhaitez postuler",
-    "description": "Legend for considered position languages check list in language information form"
   },
   "nueuS8": {
     "defaultMessage": "Lieu de travail",
@@ -7878,10 +7882,6 @@
   "ry5NUs": {
     "defaultMessage": "Toutes les compétences suivantes sont facultativement avantageuses pour le poste, et le fait de les démontrer pourrait vous être utile lorsque vous êtes pris en considération.",
     "description": "Descriptive text about how optional technical skills are used in the application process"
-  },
-  "mvYSmp": {
-    "defaultMessage": "Expression orale",
-    "description": "Label displayed on the language information form oral interaction field."
   },
   "rz21yp": {
     "defaultMessage": "Les apprentis auront-ils droit à des prestations?",
@@ -8561,10 +8561,6 @@
   "x2/qvf": {
     "defaultMessage": "Afficher les évaluations des compétences de {title}",
     "description": "Button text to show a specific qualified recruitment cards's skill assessments"
-  },
-  "mBnz9m": {
-    "defaultMessage": "Écriture",
-    "description": "Label displayed on the language information form written field."
   },
   "x6saT3": {
     "defaultMessage": "Avant de vous amener à votre profil, nous devons recueillir les renseignements nécessaires pour compléter la configuration de votre compte.",
