@@ -3,8 +3,6 @@ import { useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   useWorkLocationQuery,
@@ -83,10 +81,8 @@ const WorkLocationPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
-  const featureFlags = useFeatureFlags();
 
   const [{ data: userData, fetching, error }] = useWorkLocationQuery();
-  const preProfileStatus = userData?.me?.isProfileComplete;
 
   const [, executeMutation] = useCreateWorkLocationMutation();
   const handleWorkLocation = (id: string, data: UpdateUserAsUserInput) =>
@@ -95,12 +91,6 @@ const WorkLocationPage = () => {
       user: data,
     }).then((result) => {
       if (result.data?.updateUserAsUser) {
-        const currentProfileStatus =
-          result.data?.updateUserAsUser?.isProfileComplete;
-        const message = intl.formatMessage(profileMessages.profileCompleted);
-        if (!preProfileStatus && currentProfileStatus) {
-          if (!featureFlags.applicantDashboard) toast.success(message);
-        }
         return result.data.updateUserAsUser;
       }
       return Promise.reject(result.error);
