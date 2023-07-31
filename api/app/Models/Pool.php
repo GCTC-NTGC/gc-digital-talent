@@ -123,8 +123,6 @@ class Pool extends Model
     /* accessor to obtain Status, depends on two variables regarding published and expiry */
     public function getStatusAttribute()
     {
-        // given database is functioning in UTC, all backend should consistently enforce the same timezone
-
         // override if no publish date
         if (is_null($this->published_at))
             return ApiEnums::POOL_IS_DRAFT;
