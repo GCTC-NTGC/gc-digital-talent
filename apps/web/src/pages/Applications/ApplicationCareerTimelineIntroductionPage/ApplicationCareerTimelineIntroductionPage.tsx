@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -60,7 +59,6 @@ const ApplicationCareerTimelineIntroduction = ({
     stepOrdinal: currentStepOrdinal,
   });
   const nextStep = paths.applicationCareerTimeline(application.id);
-  const { applicantDashboard } = useFeatureFlags();
 
   return (
     <>
@@ -114,11 +112,7 @@ const ApplicationCareerTimelineIntroduction = ({
         </Link>
         <Link
           mode="inline"
-          href={
-            applicantDashboard
-              ? paths.profileAndApplications({ fromIapDraft: isIAP })
-              : paths.myProfile()
-          }
+          href={paths.profileAndApplications({ fromIapDraft: isIAP })}
         >
           {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>
