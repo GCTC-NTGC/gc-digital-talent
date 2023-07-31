@@ -87,6 +87,18 @@ const messages = defineMessages({
     description:
       "Message displayed when a given field has no values to display, that no information is present.",
   },
+  showHideColumns: {
+    defaultMessage: "Show or hide columns",
+    id: "d4r7rO",
+    description:
+      "Button text to open the dialog for disabling or enabling column display",
+  },
+  showHideTableColumns: {
+    defaultMessage: "Show or hide table columns",
+    id: "IIKzsd",
+    description:
+      "Label for checkboxes used for disabling or enabling table column display",
+  },
 });
 
 export default messages;
