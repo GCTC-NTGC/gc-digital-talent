@@ -22,7 +22,6 @@ import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
 import { Skill, SkillCategory } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
 import SkillDescription from "./SkillDescription";
 import { getSkillCategorySkillCount, getSkillFamilySkillCount } from "./utils";
 

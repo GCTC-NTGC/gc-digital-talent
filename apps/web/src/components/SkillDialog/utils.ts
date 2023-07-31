@@ -1,7 +1,9 @@
 import { IntlShape } from "react-intl";
 import React from "react";
-import { SkillDialogContext } from "./types";
+
 import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
+
+import { SkillDialogContext } from "./types";
 
 interface SkillDialogMessages {
   trigger: React.ReactNode;

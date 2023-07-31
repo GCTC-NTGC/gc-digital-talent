@@ -6,7 +6,7 @@ import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import { Button, Dialog, IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import { Scalars, Skill, SkillCategory } from "~/api/generated";
+import { Skill } from "~/api/generated";
 
 import SkillDetails from "./SkillDetails";
 import SkillSelection from "./SkillSelection";
