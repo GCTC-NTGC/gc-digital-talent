@@ -3,7 +3,6 @@ import {
   Language,
   LanguageAbility,
   PoolCandidateStatus,
-  SalaryRange,
   WorkRegion,
   PoolCandidateSearchStatus,
   SkillCategory,
