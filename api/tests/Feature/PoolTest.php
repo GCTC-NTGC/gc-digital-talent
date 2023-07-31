@@ -230,8 +230,8 @@ class PoolTest extends TestCase
         ]);
     }
 
-    // The publishedPools query should only return pools that have been published
-    public function testPoolQueryReturnsOnlyPublished(): void
+    // The publishedPools query should only return pools that have been published, not draft
+    public function testPublishedPoolQueryDoesNotReturnDraft(): void
     {
         // this pool has been published so it should be returned in the publishedPool query
         $publishedPool = Pool::factory()->create([
@@ -241,8 +241,6 @@ class PoolTest extends TestCase
         $draftPool = Pool::factory()->create([
             'published_at' => null,
         ]);
-        // this pool is archived so it should not be returned in the publishedPool query
-        $archivedPool = Pool::factory()->archived()->create();
 
         // Assert query will return only the published pool
         $this->graphQL(
@@ -254,6 +252,37 @@ class PoolTest extends TestCase
             }
           }
     '
+        )->assertJson([
+            "data" => [
+                "publishedPools" => [
+                    [
+                        "id" => $publishedPool->id,
+                    ],
+                ]
+            ]
+        ]);
+    }
+
+    // The publishedPools query should only return pools that have been published, not archived
+    public function testPublishedPoolQueryDoesNotReturnArchived(): void
+    {
+        // this pool has been published so it should be returned in the publishedPool query
+        $publishedPool = Pool::factory()->create([
+            'published_at' => config('constants.past_date'),
+        ]);
+        // this pool is archived so it should not be returned in the publishedPool query
+        $archivedPool = Pool::factory()->archived()->create();
+
+        // Assert query will return only the published pool
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+           query browsePools {
+               publishedPools {
+                 id
+               }
+             }
+       '
         )->assertJson([
             "data" => [
                 "publishedPools" => [
