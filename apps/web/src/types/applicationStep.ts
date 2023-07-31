@@ -6,7 +6,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import { PageNavInfo } from "./pages";
 
-export type GetApplicationStepInfoArgs = {
+type GetApplicationStepInfoArgs = {
   application: Omit<PoolCandidate, "pool">;
   paths: ReturnType<typeof useRoutes>;
   resourceId?: Scalars["ID"];

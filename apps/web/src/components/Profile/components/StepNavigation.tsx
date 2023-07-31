@@ -13,11 +13,16 @@ import applicationMessages from "~/messages/applicationMessages";
 import {
   PoolCandidate,
   useUpdateApplicationMutation,
-  User,
   ApplicationStep,
 } from "~/api/generated";
-import { getMissingLanguageRequirements } from "~/utils/languageUtils";
-import { hasEmptyRequiredFields as hasEmptyDEIRequiredFields } from "~/validators/profile/diversityEquityInclusion";
+import {
+  getMissingLanguageRequirements,
+  PartialUser as LanguageUser,
+} from "~/utils/languageUtils";
+import {
+  hasEmptyRequiredFields as hasEmptyDEIRequiredFields,
+  PartialUser as DeiUser,
+} from "~/validators/profile/diversityEquityInclusion";
 import { useApplicationContext } from "~/pages/Applications/ApplicationContext";
 import { useProfileFormContext } from "./ProfileFormContext";
 
@@ -27,7 +32,7 @@ type ProfileActionFormValues = {
 
 interface StepNavigationProps {
   application: PoolCandidate;
-  user: User;
+  user: DeiUser & LanguageUser;
   isValid?: boolean;
 }
 

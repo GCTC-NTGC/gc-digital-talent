@@ -74,7 +74,8 @@ return [
         'searchRequest' => 'searchRequest',
         'team' => 'team',
         'teamMembers' => 'teamMembers',
-        'role' => 'role'
+        'role' => 'role',
+        'directiveForm' => 'directiveForm'
     ],
 
     /*
@@ -134,7 +135,7 @@ return [
         ],
         'delete-any-genericJobTitle' => [
             'en' => 'Delete Any Generic Job Title',
-            'fr' => 'Supprimer tout titre générique de l\emploi'
+            'fr' => 'Supprimer tout titre générique de l\'emploi'
         ],
 
         'view-any-skill' => [
@@ -369,6 +370,23 @@ return [
         'update-any-role' => [
             'en' => 'Update metadata associated with any Role',
             'fr' => 'Mettre à jour des métadonnées associées à tout rôle'
+        ],
+
+        'create-any-directiveForm' => [
+            'en' => 'Create any directive form',
+            'fr' => 'Créer tout formulaire de directive'
+        ],
+        'view-any-directiveForm' => [
+            'en' => 'View any directive form',
+            'fr' => 'Voir tout formulaire de directive'
+        ],
+        'update-any-directiveForm' => [
+            'en' => 'Update any directive form',
+            'fr' => 'Mise à jour de tout formulaire de directive'
+        ],
+        'delete-any-directiveForm' => [
+            'en' => 'Delete any directive form',
+            'fr' => 'Supprimer tout formulaire de directive'
         ],
     ],
 
@@ -633,6 +651,9 @@ return [
             ],
             'role' => [
                 'any' => ['view', 'assign']
+            ],
+            'directiveForm' => [
+                'any' => ['create', 'view', 'update', 'delete']
             ]
         ]
     ]

@@ -120,9 +120,7 @@ const SkillMatchDialog = ({
   );
 };
 
-export default SkillMatchDialog;
-
-export function skillMatchDialogAccessor(
+function skillMatchDialogAccessor(
   filteredSkills: Skill[],
   experiences: Experience[],
   skillCount: Maybe<number>,
@@ -137,3 +135,5 @@ export function skillMatchDialogAccessor(
     />
   );
 }
+
+export default skillMatchDialogAccessor;

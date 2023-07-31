@@ -4,8 +4,8 @@ import {
   Pool,
   UpdateUserAboutMeMutation,
   UpdateUserAsUserInput,
-  User,
 } from "@gc-digital-talent/graphql";
+import { GetMeQuery } from "~/api/generated";
 
 import { ApplicationPageProps } from "~/pages/Applications/ApplicationApi";
 
@@ -17,8 +17,10 @@ export type SectionKey =
   | "language"
   | "account";
 
+export type ApplicantProfileUser = NonNullable<GetMeQuery["me"]>;
+
 export interface SectionProps {
-  user: User;
+  user: ApplicantProfileUser;
   isUpdating?: boolean;
   application?: ApplicationPageProps["application"];
   onUpdate: (

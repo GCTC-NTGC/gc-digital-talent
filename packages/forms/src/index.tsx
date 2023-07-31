@@ -17,7 +17,10 @@ import Field, {
 } from "./components/Field";
 import Input, { type InputProps } from "./components/Input";
 import MultiSelectField from "./components/MultiSelect/MultiSelectField";
-import RadioGroup, { type RadioGroupProps } from "./components/RadioGroup";
+import RadioGroup, {
+  type RadioGroupProps,
+  type Radio,
+} from "./components/RadioGroup";
 import Repeater from "./components/Repeater/Repeater";
 import Select, {
   MultiSelectFieldBase,
@@ -82,6 +85,7 @@ export type {
   ChecklistProps,
   ComboboxProps,
   InputProps,
+  Radio,
   RadioGroupProps,
   SelectProps,
   MultiSelectFieldBaseProps,

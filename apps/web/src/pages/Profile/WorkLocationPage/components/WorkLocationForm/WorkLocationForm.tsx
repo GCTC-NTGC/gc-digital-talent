@@ -32,7 +32,7 @@ import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
-export type FormValues = Pick<
+type FormValues = Pick<
   UpdateUserAsUserInput,
   "locationPreferences" | "locationExemptions"
 >;
@@ -82,7 +82,7 @@ const WorkLocationForm = ({
   });
 
   const handleSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleWorkLocationPreference(
+    return handleWorkLocationPreference(
       initialData.id,
       formValuesToSubmitData(data),
     )

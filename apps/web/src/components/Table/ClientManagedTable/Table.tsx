@@ -28,7 +28,7 @@ import tableMessages from "../tableMessages";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
-export interface TableProps<
+interface TableProps<
   T extends Record<string, unknown> = Record<string, unknown>,
 > {
   columns: Array<Column<T>>;

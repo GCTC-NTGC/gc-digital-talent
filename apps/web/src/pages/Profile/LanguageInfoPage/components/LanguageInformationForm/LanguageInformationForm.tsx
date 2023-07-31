@@ -29,7 +29,7 @@ import MissingLanguageRequirements from "~/components/MissingLanguageRequirement
 
 import ConsideredLanguages from "../ConsideredLanguages";
 
-export type FormValues = Pick<
+type FormValues = Pick<
   User,
   | "bilingualEvaluation"
   | "comprehensionLevel"
@@ -151,7 +151,7 @@ const LanguageInformationForm = ({
   };
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    await submitHandler(initialData.id, formValuesToSubmitData(formValues))
+    return submitHandler(initialData.id, formValuesToSubmitData(formValues))
       .then(() => {
         navigate(returnRoute);
         toast.success(intl.formatMessage(profileMessages.userUpdated));

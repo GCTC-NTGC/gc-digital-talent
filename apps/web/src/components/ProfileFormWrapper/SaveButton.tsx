@@ -4,13 +4,18 @@ import { useIntl } from "react-intl";
 
 import { Submit } from "@gc-digital-talent/forms";
 
-const SaveButton = () => {
+interface SaveButtonProps {
+  disabled?: boolean;
+}
+
+const SaveButton = ({ disabled }: SaveButtonProps) => {
   const intl = useIntl();
   return (
     <Submit
       color="primary"
       mode="solid"
       icon={ArrowDownOnSquareIcon}
+      disabled={disabled}
       text={intl.formatMessage({
         defaultMessage: "Save and go back",
         id: "CuHYqt",

@@ -33,7 +33,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 
 import adminMessages from "~/messages/adminMessages";
 import UserRoleTable from "./components/IndividualRoleTable";
-import { TeamRoleTable } from "./components/TeamRoleTable";
+import TeamRoleTable from "./components/TeamRoleTable";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
@@ -239,8 +239,8 @@ export const UpdateUserForm = ({
             name="sub"
             context={intl.formatMessage({
               defaultMessage:
-                "The 'subject' is a string that uniquely identifies a user's login identity.",
-              id: "I8v/Uy",
+                "The 'subject' is a string that uniquely identifies a user's sign in identity.",
+              id: "WLcP98",
               description:
                 "Additional context describing the purpose of the users's 'subject' field.",
             })}

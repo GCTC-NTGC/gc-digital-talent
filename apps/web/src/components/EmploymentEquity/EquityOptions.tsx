@@ -34,7 +34,7 @@ interface EquityOptionsProps {
   indigenousDeclarationSignature?: Maybe<string>;
   isVisibleMinority?: Maybe<boolean>;
   isWoman?: Maybe<boolean>;
-  isDisabled: boolean;
+  isDisabled?: boolean;
   onAdd: (key: EquityKeys) => UserMutationPromise;
   onRemove: (key: EquityKeys) => UserMutationPromise;
   onUpdate: (data: UpdateUserAsUserInput) => UserMutationPromise;
@@ -148,6 +148,7 @@ const EquityOptions = ({
         <>
           {isIndigenous && (
             <IndigenousEquityOption
+              disabled={isDisabled}
               option="indigenous"
               indigenousCommunities={resolvedIndigenousCommunities}
               signature={indigenousDeclarationSignature ?? undefined}
@@ -161,6 +162,7 @@ const EquityOptions = ({
           )}
           {hasDisability && (
             <EquityOption
+              disabled={isDisabled}
               option="disability"
               isAdded={resolvedDisability}
               onSave={(newValue) => {
@@ -173,6 +175,7 @@ const EquityOptions = ({
           )}
           {isVisibleMinority && (
             <EquityOption
+              disabled={isDisabled}
               option="minority"
               isAdded={resolvedMinority}
               onSave={(newValue) => {
@@ -185,6 +188,7 @@ const EquityOptions = ({
           )}
           {isWoman && (
             <EquityOption
+              disabled={isDisabled}
               option="woman"
               isAdded={resolvedWoman}
               onSave={(newValue) => {
@@ -256,6 +260,7 @@ const EquityOptions = ({
               <>
                 {!isIndigenous ? (
                   <IndigenousEquityOption
+                    disabled={isDisabled}
                     option="indigenous"
                     indigenousCommunities={resolvedIndigenousCommunities}
                     signature={indigenousDeclarationSignature ?? undefined}
@@ -279,6 +284,7 @@ const EquityOptions = ({
                 ) : null}
                 {!resolvedDisability && (
                   <EquityOption
+                    disabled={isDisabled}
                     option="disability"
                     isAdded={resolvedDisability}
                     onSave={(newValue) => {
@@ -301,6 +307,7 @@ const EquityOptions = ({
                 )}
                 {!resolvedMinority && (
                   <EquityOption
+                    disabled={isDisabled}
                     option="minority"
                     isAdded={resolvedMinority}
                     onSave={(newValue) => {
@@ -323,6 +330,7 @@ const EquityOptions = ({
                 )}
                 {!resolvedWoman && (
                   <EquityOption
+                    disabled={isDisabled}
                     option="woman"
                     isAdded={resolvedWoman}
                     onSave={(newValue) => {

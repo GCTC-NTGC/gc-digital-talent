@@ -83,6 +83,22 @@ directive @pluck(
   key: String!
 ) on INPUT_FIELD_DEFINITION
 
+# Directive class: App\GraphQL\Directives\ResolveWithDirective
+"""
+Process an input field by passing it to a specific method. By default, looks for a method on the root object.
+Note that if your input field contains an array, it will be passed to the method as a single argument.
+"""
+directive @resolveWith(
+    """
+    The method name.
+    """
+    method: String!
+    """
+    If class is specified, this will look for a static method on that class. example: "App\\Models\\User"
+    """
+    class: String
+) on INPUT_FIELD_DEFINITION
+
 # Directive class: App\GraphQL\Directives\SelfDirective
 """
 The field will be resolved to the same value as its parent.

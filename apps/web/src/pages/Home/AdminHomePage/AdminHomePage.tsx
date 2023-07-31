@@ -11,6 +11,7 @@ import { useApiRoutes, useAuthentication } from "@gc-digital-talent/auth";
 import PageHeader from "~/components/PageHeader";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
+import authMessages from "~/messages/authMessages";
 
 const AdminHomePage = () => {
   const intl = useIntl();
@@ -47,8 +48,8 @@ const AdminHomePage = () => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Welcome to <abbreviation>GC</abbreviation> Digital Talent, please log in to continue.",
-                id: "MsFCeF",
+                  "Welcome to <abbreviation>GC</abbreviation> Digital Talent, please sign in to continue.",
+                id: "HNe+Yh",
                 description:
                   "Instructional text for the talent cloud pool manager portal home page.",
               },
@@ -63,12 +64,7 @@ const AdminHomePage = () => {
                 <CardLink
                   external
                   href={apiRoutes.login(location.pathname, getLocale(intl))}
-                  label={intl.formatMessage({
-                    defaultMessage: "Login",
-                    id: "TxEV7S",
-                    description:
-                      "Text label for the login link to the talent cloud admin portal.",
-                  })}
+                  label={intl.formatMessage(authMessages.signIn)}
                   icon={ArrowRightOnRectangleIcon}
                 >
                   {intl.formatMessage({

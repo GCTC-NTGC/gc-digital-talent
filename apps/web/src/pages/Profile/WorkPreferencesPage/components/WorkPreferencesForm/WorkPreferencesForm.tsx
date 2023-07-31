@@ -27,14 +27,14 @@ import ProfileFormWrapper, {
   ProfileFormFooter,
 } from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
-export type FormValues = Pick<
+type FormValues = Pick<
   UpdateUserAsUserInput,
   "acceptedOperationalRequirements"
 > & {
   wouldAcceptTemporary?: string;
 };
 
-export interface WorkPreferencesFormProps {
+interface WorkPreferencesFormProps {
   initialData: User;
   application?: PoolCandidate;
   handleWorkPreferences: (
@@ -126,7 +126,7 @@ const WorkPreferencesForm = ({
   };
 
   const handleSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleWorkPreferences(initialData.id, formValuesToSubmitData(data))
+    return handleWorkPreferences(initialData.id, formValuesToSubmitData(data))
       .then(() => {
         navigate(returnRoute);
         toast.success(intl.formatMessage(profileMessages.userUpdated));

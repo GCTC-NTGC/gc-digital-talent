@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Skill
@@ -49,60 +50,30 @@ class Skill extends Model
         return $this->belongsToMany(SkillFamily::class);
     }
 
+    public function userSkills(): HasMany
+    {
+        return $this->hasMany(UserSkill::class);
+    }
+
     public function awardExperiences()
     {
-        return $this->morphedByMany(
-            AwardExperience::class,
-            'experience',
-            'experience_skill'
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experienceSkillRecord');
+        return $this->hasManyThrough(AwardExperience::class, UserSkill::class);
     }
     public function communityExperiences()
     {
-        return $this->morphedByMany(
-            CommunityExperience::class,
-            'experience',
-            'experience_skill'
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experienceSkillRecord');
+        return $this->hasManyThrough(CommunityExperience::class, UserSkill::class);
     }
     public function educationExperiences()
     {
-        return $this->morphedByMany(
-            EducationExperience::class,
-            'experience',
-            'experience_skill'
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experience_skill');
+        return $this->hasManyThrough(EducationExperience::class, UserSkill::class);
     }
     public function personalExperiences()
     {
-        return $this->morphedByMany(
-            PersonalExperience::class,
-            'experience',
-            'experience_skill'
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experienceSkillRecord');
+        return $this->hasManyThrough(PersonalExperience::class, UserSkill::class);
     }
     public function workExperiences()
     {
-        return $this->morphedByMany(
-            WorkExperience::class,
-            'experience',
-            'experience_skill'
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experience_skill_pivot');
+        return $this->hasManyThrough(WorkExperience::class, UserSkill::class);
     }
     public function getExperiencesAttribute()
     {

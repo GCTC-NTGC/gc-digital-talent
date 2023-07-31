@@ -10,11 +10,11 @@ import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import type { Application } from "./ApplicationCard";
 
-export interface ActionProps {
+interface ActionProps {
   show: boolean;
 }
 
-export interface ContinueActionProps extends ActionProps {
+interface ContinueActionProps extends ActionProps {
   application: Application;
 }
 
@@ -44,7 +44,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
     </div>
   );
 };
-export interface ViewActionProps extends ActionProps {
+interface ViewActionProps extends ActionProps {
   application: Application;
 }
 
@@ -88,7 +88,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
   );
 };
 
-export interface SeeAdvertisementActionProps extends ActionProps {
+interface SeeAdvertisementActionProps extends ActionProps {
   advertisement: Application["pool"];
 }
 
@@ -134,7 +134,7 @@ const SeeAdvertisementAction = ({
     </Link>
   );
 };
-export interface SupportActionProps extends ActionProps {
+interface SupportActionProps extends ActionProps {
   application: Application;
 }
 
@@ -172,9 +172,10 @@ const SupportAction = ({ show, application }: SupportActionProps) => {
   );
 };
 
-export interface CopyApplicationIdActionProps extends ActionProps {
+interface CopyApplicationIdActionProps extends ActionProps {
   application: Application;
 }
+
 const CopyApplicationIdAction = ({
   show,
   application,
@@ -235,10 +236,11 @@ const CopyApplicationIdAction = ({
     </Button>
   );
 };
-export interface VisitCareerTimelineActionProps extends ActionProps {
+interface VisitCareerTimelineActionProps extends ActionProps {
   userID: string;
   application: Application;
 }
+
 const VisitCareerTimelineAction = ({
   show,
   userID,
@@ -284,11 +286,11 @@ const VisitCareerTimelineAction = ({
     </Link>
   );
 };
-
-export interface ManageAvailabilityActionProps extends ActionProps {
+interface ManageAvailabilityActionProps extends ActionProps {
   userID: string;
   application: Application;
 }
+
 const ManageAvailabilityAction = ({
   show,
   userID,

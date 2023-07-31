@@ -46,7 +46,7 @@ lightgray
 lightnavy
 lightpurple
 Métis
-Mi'kmaq
+Mi'kmaw
 Michif
 noninteractive
 nuage
@@ -60,6 +60,7 @@ recruitmentimit
 recruitments
 recrutementgiti
 rolepermission
+roundtable
 skillset
 spinbutton
 subcomponents
@@ -68,6 +69,7 @@ TALENTSEARCH
 TELEWORK
 testid
 textbox
+Timeframe
 toastify
 Typenames
 Unencrypted

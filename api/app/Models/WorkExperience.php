@@ -3,10 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * Class WorkExperience
@@ -23,12 +20,10 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property Illuminate\Support\Carbon $updated_at
  */
 
-class WorkExperience extends Model
+class WorkExperience extends Experience
 {
     use HasFactory;
     use SoftDeletes;
-
-    protected $keyType = 'string';
 
     /**
      * The attributes that should be cast.
@@ -39,17 +34,4 @@ class WorkExperience extends Model
         'start_date' => 'date',
         'end_date' => 'date',
     ];
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function skills(): MorphToMany
-    {
-        return $this->morphToMany(Skill::class, 'experience', 'experience_skill')
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experience_skill_pivot');
-    }
 }

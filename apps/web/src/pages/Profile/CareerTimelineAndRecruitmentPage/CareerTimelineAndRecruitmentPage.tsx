@@ -14,7 +14,7 @@ import {
 } from "~/api/generated";
 import profileMessages from "~/messages/profileMessages";
 import { Application } from "~/utils/applicationUtils";
-import { CareerTimelineAndRecruitment } from "./components/CareerTimelineAndRecruitment";
+import CareerTimelineAndRecruitment from "./components/CareerTimelineAndRecruitment";
 
 interface CareerTimelineAndRecruitmentApiProps {
   applicantId: string;

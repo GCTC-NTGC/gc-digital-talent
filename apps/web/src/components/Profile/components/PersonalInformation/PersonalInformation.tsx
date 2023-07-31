@@ -40,7 +40,7 @@ const PersonalInformation = ({
   });
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    await onUpdate(user.id, formValuesToSubmitData(formValues, user))
+    return onUpdate(user.id, formValuesToSubmitData(formValues, user))
       .then(() => {
         toast.success(
           intl.formatMessage({

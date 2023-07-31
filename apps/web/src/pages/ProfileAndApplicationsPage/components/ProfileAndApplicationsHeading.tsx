@@ -42,8 +42,8 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import { AwardExperience } from "~/api/generated";
-import { StatusItem } from "~/components/StatusItem/StatusItem";
-import { HeroCard } from "~/components/HeroCard/HeroCard";
+import StatusItem from "~/components/StatusItem/StatusItem";
+import HeroCard from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
@@ -71,7 +71,7 @@ function buildScrollToLink(
     </ScrollToLink>
   );
 }
-export interface DashboardHeadingProps {
+interface DashboardHeadingProps {
   user: PartialUser;
 }
 
@@ -198,8 +198,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "When you log into your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your position in the program.",
-                id: "Z9wBwT",
+                  "When you sign in to your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your position in the program.",
+                id: "GQsJAi",
                 description:
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },
@@ -252,8 +252,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "When you log into your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your status in the program.",
-                id: "vYvmxq",
+                  "When you sign in to your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your status in the program.",
+                id: "Hf3x3E",
                 description:
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },

@@ -184,13 +184,17 @@ export const ApplicationCareerTimeline = ({
   const nextStep =
     followingPageUrl ?? paths.applicationEducation(application.id);
   const { applicantDashboard } = useFeatureFlags();
-  const [, executeMutation] = useUpdateApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] =
+    useUpdateApplicationMutation();
   const cancelPath = applicantDashboard
     ? paths.profileAndApplications({ fromIapDraft: isIAP })
     : paths.myProfile();
 
   const methods = useForm<FormValues>();
-  const { setValue } = methods;
+  const {
+    setValue,
+    formState: { isSubmitting },
+  } = methods;
 
   const [sortAndFilterValues, setSortAndFilterValues] =
     React.useState<ExperienceSortAndFilterFormValues>({
@@ -415,6 +419,7 @@ export const ApplicationCareerTimeline = ({
               type="submit"
               mode="solid"
               value="continue"
+              disabled={mutating || isSubmitting}
               onClick={() => {
                 setValue("experienceCount", experiences.length);
               }}

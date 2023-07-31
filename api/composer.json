@@ -15,12 +15,13 @@
     "laravel/framework": "^10.0",
     "laravel/sanctum": "^3.2",
     "laravel/tinker": "^2.6",
-    "lcobucci/jwt": "^5.0.0",
     "lcobucci/clock": "^3.0.0",
+    "lcobucci/jwt": "^5.0.0",
     "mll-lab/graphql-php-scalars": "^5.1",
     "mll-lab/laravel-graphiql": "^3.0",
     "nuwave/lighthouse": "^5.8",
     "santigarcor/laratrust": "^8.0",
+    "staudenmeir/eloquent-has-many-deep": "^1.18",
     "web-token/jwt-core": "^3.1"
   },
   "require-dev": {

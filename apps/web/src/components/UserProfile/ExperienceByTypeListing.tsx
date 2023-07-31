@@ -62,7 +62,7 @@ const ExperienceByType = ({
     </div>
   );
 };
-export interface ExperienceSectionProps {
+interface ExperienceSectionProps {
   experiences?: Experience[];
   headingLevel?: HeadingRank;
   editParam?: string;

@@ -130,7 +130,12 @@ export const ApplicationSelfDeclaration = ({
       signature: initialSignature ?? undefined,
     },
   });
-  const { watch, register, setValue } = methods;
+  const {
+    watch,
+    register,
+    setValue,
+    formState: { isSubmitting },
+  } = methods;
   const actionProps = register("action");
   const [isIndigenousValue, communitiesValue] = watch([
     "isIndigenous",
@@ -225,6 +230,7 @@ export const ApplicationSelfDeclaration = ({
                     type="submit"
                     mode="solid"
                     value="continue"
+                    disabled={isSubmitting}
                     {...actionProps}
                     onClick={() => {
                       setValue("action", "continue");
@@ -242,6 +248,7 @@ export const ApplicationSelfDeclaration = ({
                     mode="inline"
                     color="secondary"
                     value="cancel"
+                    disabled={isSubmitting}
                     {...actionProps}
                     onClick={() => {
                       setValue("action", "cancel");
@@ -281,6 +288,7 @@ export const ApplicationSelfDeclaration = ({
                     type="submit"
                     mode="solid"
                     value="explore"
+                    disabled={isSubmitting}
                     {...actionProps}
                     onClick={() => {
                       setValue("action", "explore");

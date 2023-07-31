@@ -1,8 +1,8 @@
 import { IntlShape } from "react-intl";
 
-import { PositionDuration, UpdateUserAsUserInput, User } from "~/api/generated";
+import { PositionDuration, UpdateUserAsUserInput } from "~/api/generated";
 
-import { FormValues } from "./types";
+import { FormValues, PartialUser } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({
   wouldAcceptTemporary: intl.formatMessage({
@@ -31,7 +31,7 @@ export const getLabels = (intl: IntlShape) => ({
   }),
 });
 
-export const dataToFormValues = (data: User): FormValues => {
+export const dataToFormValues = (data: PartialUser): FormValues => {
   const boolToString = (boolVal: boolean | null | undefined): string => {
     return boolVal ? "true" : "false";
   };

@@ -33,6 +33,7 @@ class StoreApplicationSnapshot
             'currentClassification',
             'expectedClassifications',
             'expectedGenericJobTitles',
+            'userSkills.skill',
             'awardExperiences',
             'awardExperiences.skills',
             'communityExperiences',

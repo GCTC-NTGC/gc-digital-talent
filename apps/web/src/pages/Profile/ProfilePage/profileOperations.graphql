@@ -73,6 +73,17 @@ query getMe {
       level
     }
     positionDuration
+    userSkills {
+      id
+      skill {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
     experiences {
       id
       __typename

@@ -11,7 +11,7 @@ import React from "react";
  *
  * @param text text to wrap.
  */
-export const strong = (text: React.ReactNode) => (
+const strong = (text: React.ReactNode) => (
   <span data-h2-font-weight="base(700)">{text}</span>
 );
 
@@ -19,7 +19,7 @@ export const strong = (text: React.ReactNode) => (
  * Wraps text in span to make invisible to sighted users
  * @param text text to wrap.
  */
-export const hidden = (text: React.ReactNode) => (
+const hidden = (text: React.ReactNode) => (
   <span data-h2-visually-hidden="base(invisible)" style={{ whiteSpace: "pre" }}>
     {text}
   </span>
@@ -29,7 +29,7 @@ export const hidden = (text: React.ReactNode) => (
  * Wraps text in tags to make it the primary color with a heavy weight
  * @param text text to wrap.
  */
-export const heavyPrimary = (text: React.ReactNode) => (
+const heavyPrimary = (text: React.ReactNode) => (
   <span data-h2-color="base(primary.dark)" data-h2-font-weight="base(700)">
     {text}
   </span>
@@ -39,7 +39,7 @@ export const heavyPrimary = (text: React.ReactNode) => (
  * Wraps text in tags to make it the primary color
  * @param text text to wrap.
  */
-export const primary = (text: React.ReactNode) => (
+const primary = (text: React.ReactNode) => (
   <span data-h2-color="base(primary.darker)">{text}</span>
 );
 
@@ -47,7 +47,7 @@ export const primary = (text: React.ReactNode) => (
  * Wraps text in tags to make it red
  * @param text  text to wrap
  */
-export const red = (text: React.ReactNode) => (
+const red = (text: React.ReactNode) => (
   <span data-h2-color="base(error.dark)">{text}</span>
 );
 
@@ -55,7 +55,7 @@ export const red = (text: React.ReactNode) => (
  * Wraps text in tags to make it gray
  * @param text  text to wrap
  */
-export const gray = (text: React.ReactNode) => (
+const gray = (text: React.ReactNode) => (
   <span data-h2-color="base(gray.dark)">{text}</span>
 );
 
@@ -63,7 +63,7 @@ export const gray = (text: React.ReactNode) => (
  * Wraps text in tags to make it underlined
  * @param text  text to wrap
  */
-export const underline = (text: React.ReactNode) => (
+const underline = (text: React.ReactNode) => (
   <span data-h2-text-decoration="base(underline)">{text}</span>
 );
 
@@ -74,7 +74,7 @@ export const underline = (text: React.ReactNode) => (
  *
  * @param text text to wrap.
  */
-export const emphasize = (text: React.ReactNode) => (
+const emphasize = (text: React.ReactNode) => (
   <strong data-h2-font-weight="base(700)">{text}</strong>
 );
 
@@ -85,7 +85,7 @@ export const emphasize = (text: React.ReactNode) => (
  *
  *
  */
-export const softHyphen = () => <>&shy;</>;
+const softHyphen = () => <>&shy;</>;
 
 export default {
   strong,

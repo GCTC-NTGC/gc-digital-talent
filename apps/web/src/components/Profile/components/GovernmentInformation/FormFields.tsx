@@ -35,7 +35,7 @@ const priorityEntitlementLink = (locale: string, chunks: React.ReactNode) => {
   );
 };
 
-export interface FormFieldsProps {
+interface FormFieldsProps {
   departments: Department[];
   classifications: Classification[];
   labels: FieldLabels;
@@ -280,6 +280,7 @@ const FormFields = ({
           type="text"
           label={labels.priorityEntitlementNumber}
           name="priorityEntitlementNumber"
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
       )}
     </div>

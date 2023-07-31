@@ -14,19 +14,19 @@ import { getSkillDialogMessages } from "./utils";
 import { SkillDialogContext } from "./types";
 
 export interface FormValues {
-  category?: SkillCategory | "";
+  category?: SkillCategory | "all" | "";
   family?: Scalars["ID"];
   skill?: Scalars["ID"];
   details?: string;
 }
 
 const defaultFormValues: FormValues = {
-  category: "",
-  family: "",
+  category: "all",
+  family: "all",
   skill: "",
 };
 
-export interface SkillDialogProps {
+interface SkillDialogProps {
   skills: Skill[];
   context?: SkillDialogContext;
   showCategory?: boolean;
@@ -111,7 +111,7 @@ const SkillDialog = ({
               )}
               {selectedSkill && context === "library" && <SkillDetails />}
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
-                <Button type="submit" color="secondary">
+                <Button type="submit" color="secondary" disabled={isSubmitting}>
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
                     : submit}

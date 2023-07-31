@@ -822,12 +822,12 @@ class ApplicantTest extends TestCase
                 AwardExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill1) {
-                        $model->skills()->sync([$skill1['id']]);
+                        $model->syncSkills([$skill1->only('id')]);
                     })->create();
                 WorkExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill1) {
-                        $model->skills()->sync([$skill1['id']]);
+                        $model->syncSkills([$skill1->only('id')]);
                     })->create();
             })->create()
         ])->create();
@@ -840,12 +840,12 @@ class ApplicantTest extends TestCase
                 CommunityExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill1) {
-                        $model->skills()->sync([$skill1['id']]);
+                        $model->syncSkills([$skill1->only('id')]);
                     })->create();
                 PersonalExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill2) {
-                        $model->skills()->sync([$skill2['id']]);
+                        $model->syncSkills([$skill2->only('id')]);
                     })->create();
             })->create()
         ])->create();
@@ -992,7 +992,7 @@ class ApplicantTest extends TestCase
                 AwardExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill1) {
-                        $model->skills()->sync([$skill1['id']]);
+                        $model->syncSkills([$skill1->only('id')]);
                     })->create();
             })->create()
         ])->create();
@@ -1005,12 +1005,12 @@ class ApplicantTest extends TestCase
                 CommunityExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill1) {
-                        $model->skills()->sync([$skill1['id']]);
+                        $model->syncSkills([$skill1->only('id')]);
                     })->create();
                 PersonalExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill2) {
-                        $model->skills()->sync([$skill2['id']]);
+                        $model->syncSkills([$skill2->only('id')]);
                     })->create();
             })->create()
         ])->create();
