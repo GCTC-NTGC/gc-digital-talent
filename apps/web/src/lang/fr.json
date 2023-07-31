@@ -7412,6 +7412,10 @@
     "defaultMessage": "{skillName} (Essentielles)",
     "description": "CSV Header, Essential skill column."
   },
+  "ntUOoz": {
+    "defaultMessage": "Sélectionnez les postes pour lesquels vous souhaitez postuler",
+    "description": "Legend for considered position languages check list in language information form"
+  },
   "nueuS8": {
     "defaultMessage": "Lieu de travail",
     "description": "Legend for optional work preferences check list in work preferences form"

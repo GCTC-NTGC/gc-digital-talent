@@ -112,6 +112,13 @@ const LanguageInformationForm = ({
   const { id: applicationId, returnRoute } = useApplicationInfo(initialData.id);
 
   const labels = getLanguageProfileLabels(intl);
+  // of the group, one message is slightly different in this component's context
+  labels.consideredPositionLanguages = intl.formatMessage({
+    defaultMessage: "Select the positions you would like to be considered for",
+    id: "ntUOoz",
+    description:
+      "Legend for considered position languages check list in language information form",
+  });
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return submitHandler(initialData.id, formValuesToSubmitData(formValues))
