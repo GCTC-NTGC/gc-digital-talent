@@ -22,7 +22,7 @@ import {
 } from "@gc-digital-talent/storage";
 
 import SEO from "~/components/SEO/SEO";
-import { SearchRequestFilters } from "~/components/SearchRequestFilters";
+import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";
 import {
   EquitySelections,

@@ -34,7 +34,7 @@ type ExperienceExperienceFormValues =
     type: ExperienceType | "";
     action: FormAction | "";
   };
-export interface EditExperienceFormProps {
+interface EditExperienceFormProps {
   applicationId: Scalars["ID"];
   experience: AnyExperience;
 }

@@ -105,6 +105,11 @@ const uiMessages = defineMessages({
     id: "ijGl5r",
     description: "A request to confirm that the user wants to continue",
   },
+  nullSelectionOption: {
+    defaultMessage: "Select an option",
+    id: "fUF8rg",
+    description: "Null selection for select input",
+  },
 });
 
 export default uiMessages;

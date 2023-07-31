@@ -2,7 +2,7 @@ import React from "react";
 
 export type SVGProps = React.SVGProps<SVGSVGElement>;
 
-export interface SvgComponentProps extends SVGProps {
+interface SvgComponentProps extends SVGProps {
   children: React.ReactNode;
 }
 

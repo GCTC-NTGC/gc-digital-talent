@@ -34,7 +34,7 @@ type FormValues = {
   additionalPools?: Pool["id"][];
 };
 
-export interface ChangeStatusDialogProps {
+interface ChangeStatusDialogProps {
   selectedCandidate: PoolCandidate;
   user: User;
   pools: Pool[];

@@ -29,7 +29,7 @@ import {
 } from "~/utils/applicationUtils";
 
 import { ApplicationPageProps } from "./ApplicationApi";
-import { StepDisabledPage } from "./StepDisabledPage/StepDisabledPage";
+import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
 import ApplicationContextProvider from "./ApplicationContext";
 
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {

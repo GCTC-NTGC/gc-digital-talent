@@ -33,7 +33,7 @@ import {
   TABLE_DEFAULTS,
 } from "~/components/Table/ApiManagedTable/helpers";
 import useTableState from "~/components/Table/ApiManagedTable/useTableState";
-import { tableViewItemButtonAccessor } from "~/components/Table/ClientManagedTable/TableViewItemButton";
+import tableViewItemButtonAccessor from "~/components/Table/ClientManagedTable/TableViewItemButton";
 import useRoutes from "~/hooks/useRoutes";
 import {
   stringToEnumRequestStatus,

@@ -19,7 +19,7 @@ type AuthorizationExtension = {
 };
 
 // type guard to ensure the error extension looks like our ValidationExtension type
-export function isValidationExtension(
+function isValidationExtension(
   extension: GraphQLErrorExtensions,
 ): extension is ValidationExtension {
   return (
@@ -29,7 +29,7 @@ export function isValidationExtension(
 }
 
 // type guard to ensure the error extension looks like our RateLimitExtension type
-export function isRateLimitExtension(
+function isRateLimitExtension(
   extension: GraphQLErrorExtensions,
 ): extension is RateLimitExtension {
   return (
@@ -39,7 +39,7 @@ export function isRateLimitExtension(
 }
 
 // type guard to ensure the error extension looks like our AuthorizationExtension type
-export function isAuthorizationExtension(
+function isAuthorizationExtension(
   extension: GraphQLErrorExtensions,
 ): extension is AuthorizationExtension {
   return (

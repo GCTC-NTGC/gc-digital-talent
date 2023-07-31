@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { SubExperienceFormProps } from "~/types/experience";
 import WorkFields from "~/components/ExperienceFormFields/WorkFields";
 
-export const WorkExperienceForm = ({ labels }: SubExperienceFormProps) => {
+const WorkExperienceForm = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
 
   return (

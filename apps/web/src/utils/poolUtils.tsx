@@ -10,8 +10,6 @@ import {
   RoleAssignment,
   PoolStatus,
   Maybe,
-  PoolCandidate,
-  Scalars,
   PoolStream,
   Classification,
   Pool,
@@ -76,31 +74,15 @@ export const isAdvertisementVisible = (
   );
 };
 
-/**
- * See if the user has already applied
- * to this pool or not
- *
- * @param candidates
- * @param id
- * @returns
- */
-export const hasUserApplied = (
-  candidates: Maybe<PoolCandidate>[],
-  id: Maybe<Scalars["ID"]>,
-) => {
-  let hasApplied = false;
-  if (candidates && id) {
-    hasApplied = candidates.some((candidate) => candidate?.pool?.id === id);
-  }
-
-  return hasApplied;
-};
-
 export function isIAPPool(pool: Maybe<Pool>): boolean {
   return pool?.publishingGroup === PublishingGroup.Iap;
 }
 
-export interface formatClassificationStringProps {
+export function isExecPool(pool: Maybe<Pool>): boolean {
+  return pool?.publishingGroup === PublishingGroup.ExecutiveJobs;
+}
+
+interface formatClassificationStringProps {
   group: string;
   level: number;
 }
@@ -111,7 +93,7 @@ export const formatClassificationString = ({
 }: formatClassificationStringProps): string => {
   return `${group}-0${level}`;
 };
-export interface formattedPoolPosterTitleProps {
+interface formattedPoolPosterTitleProps {
   title: Maybe<string>;
   classification: Maybe<Classification>;
   stream: Maybe<PoolStream>;
@@ -140,13 +122,11 @@ export const formattedPoolPosterTitle = ({
   return {
     html: (
       <>
-        {`${title ? `${title}` : ""}`} ({wrapAbbr(groupAndLevel, intl)}
+        {title || ""} ({wrapAbbr(groupAndLevel, intl)}
         {streamString ? ` ${streamString}` : ""})
       </>
     ),
-    label: `${title ? `${title}` : ""} ${
-      genericTitle ? `(${genericTitle})` : ""
-    }`.trim(),
+    label: `${title || ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
   };
 };
 

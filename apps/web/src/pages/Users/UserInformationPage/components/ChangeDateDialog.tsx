@@ -22,7 +22,7 @@ type FormValues = {
   expiryDate: PoolCandidate["expiryDate"];
 };
 
-export interface ChangeDateDialogProps {
+interface ChangeDateDialogProps {
   selectedCandidate: PoolCandidate;
   user: User;
 }

@@ -913,7 +913,9 @@ const HomeApi = () => {
   });
 
   const pools = orderBy(
-    data?.publishedPools.filter((pool) => typeof pool !== undefined && !!pool),
+    data?.publishedPools.filter(
+      (pool) => typeof pool !== `undefined` && !!pool,
+    ),
     ["publishedAt"],
     ["desc"],
   ); // Order by date in desc order

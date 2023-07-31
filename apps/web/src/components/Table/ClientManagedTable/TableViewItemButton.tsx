@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Link, LinkProps } from "@gc-digital-talent/ui";
 
-export interface TableViewItemButtonProps extends LinkProps {
+interface TableViewItemButtonProps extends LinkProps {
   /** The destination url. */
   viewUrl: string;
   /** Name of the type of object */
@@ -33,9 +33,7 @@ function TableViewItemButton({
   );
 }
 
-export default TableViewItemButton;
-
-export function tableViewItemButtonAccessor(
+function tableViewItemButtonAccessor(
   viewUrl: string,
   name: string,
   hiddenLabel?: string,
@@ -50,3 +48,5 @@ export function tableViewItemButtonAccessor(
     />
   );
 }
+
+export default tableViewItemButtonAccessor;
