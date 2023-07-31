@@ -2,13 +2,12 @@ import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeUsers, fakeExperiences } from "@gc-digital-talent/fake-data";
-import { GetMeQuery } from "@gc-digital-talent/graphql";
 
 import { JobLookingStatus } from "~/api/generated";
 
 import ProfilePage, { ProfileForm, ProfilePageProps } from "./ProfilePage";
 
-const fakeUserData: ProfilePageProps["user"] = fakeUsers(1)[0];
+const fakeUserData = fakeUsers(1)[0];
 const fakeExperienceArray = fakeExperiences(3);
 
 export default {

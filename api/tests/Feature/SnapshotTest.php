@@ -154,7 +154,7 @@ class SnapshotTest extends TestCase
         assertEquals($intersectedArrayLength, 0);
     }
 
-    // a cleanup routine to make the lines of query easier to diff
+    // a cleanup routine to make the lines of a query easier to diff
     private static function normalizeQueryLines(array $lines)
     {
         foreach ($lines as &$line) {
@@ -172,7 +172,16 @@ class SnapshotTest extends TestCase
 
         return array_values($arrayWithoutEmptyLines);
     }
-
+    /**
+     * A test to ensure that that the query used in PHP to make profile snapshots matches the query
+     * used to display live snapshots.  The two queries need to stay in sync to ensure the snapshots
+     * remain accurate.
+     *
+     * It's unusual for a PHPUnit test to touch files outside of the project directory but I think
+     * it makes sense for this test.
+     *
+     * @return void
+     */
     public function testSnapshotQueryInSync()
     {
         $backendQuery = file(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), FILE_IGNORE_NEW_LINES);
