@@ -41,7 +41,10 @@ return [
             Nuwave\Lighthouse\Http\Middleware\AttemptAuthentication::class,
 
             // Logs every incoming GraphQL query.
-            Nuwave\Lighthouse\Http\Middleware\LogGraphQLQueries::class,
+            // Nuwave\Lighthouse\Http\Middleware\LogGraphQLQueries::class,
+
+            // Logs incoming GraphQL queries made by an admin
+            App\Http\Middleware\AuditQueryMiddleware::class,
 
             // Throttles based on RateLimiter in RouteServiceProvider.
             'throttle:graphql',
