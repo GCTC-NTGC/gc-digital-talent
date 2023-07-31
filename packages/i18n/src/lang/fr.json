@@ -285,6 +285,10 @@
     "defaultMessage": "réussite",
     "description": "Message for the success status"
   },
+  "9EnPf0": {
+    "defaultMessage": "Accès à l’information et protection des renseignements personnels",
+    "description": "Pool Stream described as Access to Information and Privacy."
+  },
   "9Pxjw5": {
     "defaultMessage": "Évaluation en cours",
     "description": "Status for an application that where applicant is being assessed"
