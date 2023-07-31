@@ -4780,9 +4780,9 @@
     "defaultMessage": "Erreur : Échec de la création du bassin",
     "description": "Message displayed to pool after pool fails to get created."
   },
-  "W4Svkd": {
-    "defaultMessage": "Compréhension",
-    "description": "Label displayed on the language information form comprehension field."
+  "g8Xd4a": {
+    "defaultMessage": "Lecture",
+    "description": "Label displayed on the language information form reading comprehension field."
   },
   "W58QTT": {
     "defaultMessage": "Cet utilisateur n'est encore dans aucun bassin",
@@ -7879,9 +7879,9 @@
     "defaultMessage": "Toutes les compétences suivantes sont facultativement avantageuses pour le poste, et le fait de les démontrer pourrait vous être utile lorsque vous êtes pris en considération.",
     "description": "Descriptive text about how optional technical skills are used in the application process"
   },
-  "rywI3C": {
-    "defaultMessage": "Verbal",
-    "description": "Label displayed on the language information form verbal field."
+  "mvYSmp": {
+    "defaultMessage": "Expression orale",
+    "description": "Label displayed on the language information form oral interaction field."
   },
   "rz21yp": {
     "defaultMessage": "Les apprentis auront-ils droit à des prestations?",
@@ -8563,7 +8563,7 @@
     "description": "Button text to show a specific qualified recruitment cards's skill assessments"
   },
   "x5C9Ab": {
-    "defaultMessage": "Écrit",
+    "defaultMessage": "Écriture",
     "description": "Label displayed on the language information form written field."
   },
   "x6saT3": {
