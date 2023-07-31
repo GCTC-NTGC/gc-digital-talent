@@ -3,6 +3,7 @@ import { IntlShape, useIntl } from "react-intl";
 
 import { Link, Pill, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { ROLE_NAME, hasRole, useAuthorization } from "@gc-digital-talent/auth";
 import {
   getPoolStatus,
   getPoolStream,
@@ -30,12 +31,6 @@ import Table, {
   tableEditButtonAccessor,
   Cell,
 } from "~/components/Table/ClientManagedTable";
-import {
-  ROLE_NAME,
-  RoleName,
-  hasRole,
-  useAuthorization,
-} from "@gc-digital-talent/auth";
 
 type Data = Pool;
 type PoolCell = Cell<Pool>;
