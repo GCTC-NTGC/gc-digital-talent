@@ -103,10 +103,6 @@
     "defaultMessage": "Prix",
     "description": "Title for award section"
   },
-  "+lKz3l": {
-    "defaultMessage": "Mon profil",
-    "description": "Breadcrumb from applicant profile wrapper."
-  },
   "+lSoN3": {
     "defaultMessage": "Cette compétence requise doit être associée à au moins une expérience au cours de votre parcours professionnel.",
     "description": "Message that appears when a required skill has no experiences linked to it"
@@ -1137,10 +1133,6 @@
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
     "description": "Message displayed to user after classification fails to get created."
-  },
-  "5lBIzg": {
-    "defaultMessage": "Mon profil",
-    "description": "Label displayed on the applicant profile menu item."
   },
   "5lHi37": {
     "defaultMessage": "Communiquez avec nous<hidden> au sujet de l’expérience d’embauche</hidden>",
@@ -6665,10 +6657,6 @@
   "inyUex": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} =1 {1 expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
     "description": "list a number of award experiences"
-  },
-  "ioghLh": {
-    "defaultMessage": "Mes candidatures",
-    "description": "Label displayed on the users pool applications menu item."
   },
   "ioqFVF": {
     "defaultMessage": "Statut",
