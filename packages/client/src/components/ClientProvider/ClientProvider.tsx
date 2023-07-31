@@ -21,12 +21,8 @@ import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 
 import {
-  buildRateLimitErrorMessageNode,
   buildValidationErrorMessageNode,
-  buildAuthorizationErrorMessageNode,
-  extractRateLimitErrorMessages,
-  extractValidationErrorMessages,
-  extractAuthorizationErrorMessages,
+  extractErrorMessages,
 } from "../../utils/errors";
 
 // generate nonce somewhere here?
@@ -165,33 +161,12 @@ const ClientProvider = ({
               error: CombinedError,
               operation: Operation<unknown, AnyVariables>,
             ) => {
-              const validationErrorMessages =
-                extractValidationErrorMessages(error);
-              const validationErrorMessageNode =
-                buildValidationErrorMessageNode(validationErrorMessages, intl);
-              if (validationErrorMessageNode)
-                toast.error(validationErrorMessageNode);
-
-              const rateLimitErrorMessages =
-                extractRateLimitErrorMessages(error);
-              const rateLimitErrorMessageNode = buildRateLimitErrorMessageNode(
-                rateLimitErrorMessages,
+              const errorMessages = extractErrorMessages(error);
+              const errorMessageNode = buildValidationErrorMessageNode(
+                errorMessages,
                 intl,
               );
-              if (rateLimitErrorMessageNode)
-                toast.error(rateLimitErrorMessageNode, {
-                  toastId: "rate-limit", // limits toasts for rate limit to one.
-                });
-
-              const authorizationErrorMessages =
-                extractAuthorizationErrorMessages(error);
-              const authorizationErrorMessageNode =
-                buildAuthorizationErrorMessageNode(
-                  authorizationErrorMessages,
-                  intl,
-                );
-              if (authorizationErrorMessageNode)
-                toast.error(authorizationErrorMessageNode);
+              if (errorMessageNode) toast.error(errorMessageNode);
 
               if (error.graphQLErrors || error.networkError) {
                 logger.error(
@@ -226,5 +201,5 @@ export default ClientProvider;
 // https://stackoverflow.com/questions/54116070/how-can-i-unit-test-non-exported-functions
 export const exportedForTesting = {
   willAuthError,
-  extractValidationErrorMessages,
+  extractErrorMessages,
 };

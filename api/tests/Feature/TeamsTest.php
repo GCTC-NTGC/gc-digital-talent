@@ -136,7 +136,7 @@ class TeamsTest extends TestCase
             ]
         )->assertJsonFragment(
             [
-                "message" => "Variable \"\$team\" got invalid value {\"name\":null}; Expected non-nullable type String! not to be null at value.name."
+                "message" => "Variable \"\$team\" got invalid value null at \"team.name\"; Expected non-nullable type \"String!\" not to be null."
             ]
         );
 

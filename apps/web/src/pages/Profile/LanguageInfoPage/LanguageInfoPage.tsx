@@ -3,8 +3,6 @@ import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   useGetLanguageInformationQuery,
@@ -78,23 +76,15 @@ const LanguageInformationFormPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
-  const featureFlags = useFeatureFlags();
 
   const [lookUpResult] = useGetLanguageInformationQuery();
   const { data: userData, fetching, error } = lookUpResult;
-  const preProfileStatus = userData?.me?.isProfileComplete;
 
   const [, executeMutation] = useUpdateLanguageInformationMutation();
 
   const onSubmit = async (id: string, data: UpdateUserAsUserInput) => {
     return executeMutation({ id, user: data }).then((res) => {
       if (res.data?.updateUserAsUser) {
-        const currentProfileStatus =
-          res.data?.updateUserAsUser?.isProfileComplete;
-        const message = intl.formatMessage(profileMessages.profileCompleted);
-        if (!preProfileStatus && currentProfileStatus) {
-          if (!featureFlags.applicantDashboard) toast.success(message);
-        }
         return res.data.updateUserAsUser;
       }
 

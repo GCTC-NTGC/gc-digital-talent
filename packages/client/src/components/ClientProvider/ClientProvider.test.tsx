@@ -7,7 +7,7 @@ import isEqual from "lodash/isEqual";
 
 import { exportedForTesting } from "./ClientProvider";
 
-const { willAuthError, extractValidationErrorMessages } = exportedForTesting;
+const { willAuthError, extractErrorMessages } = exportedForTesting;
 
 describe("LanguageRedirectContainer tests", () => {
   // some API requests do not require auth to succeed
@@ -84,7 +84,7 @@ describe("LanguageRedirectContainer tests", () => {
       ],
     };
 
-    const validationMessages = extractValidationErrorMessages(testError);
+    const validationMessages = extractErrorMessages(testError);
 
     expect(
       isEqual(validationMessages, [

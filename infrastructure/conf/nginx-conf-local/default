@@ -163,6 +163,11 @@ server {
         rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /apps/web/dist/index.html break;
     }
 
+    # rewrite possible lang prefix then "executive" to executive index.html
+    location ~ "^(?:/[a-z]{2})?/executive(/?.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/executive(/?.*|$)" /apps/web/dist/index.html break;
+    }
+
     # rewrite possible lang prefix then "manager" to manager index.html
     location ~ "^(?:/[a-z]{2})?/manager(/?.*|$)" {
         rewrite "^(?:/[a-z]{2})?/manager(/?.*|$)" /apps/web/dist/index.html break;

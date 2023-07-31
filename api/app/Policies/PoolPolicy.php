@@ -192,4 +192,17 @@ class PoolPolicy
         }
         return $user->isAbleTo("delete-team-draftPool", $pool->team);
     }
+
+    /**
+     * Determine whether the user can archive and un-archive the pool.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Pool  $pool
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function archiveAndUnarchive(User $user, Pool $pool)
+    {
+        $pool->loadMissing('team');
+        return $user->isAbleTo("archive-team-pool", $pool->team);
+    }
 }
