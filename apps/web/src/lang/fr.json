@@ -2226,10 +2226,6 @@
     "defaultMessage": "Modifier",
     "description": "Title displayed for the Classification table Edit column."
   },
-  "D7Qb41": {
-    "defaultMessage": "Niveau de la langue seconde (compréhension, écrite, verbale) :",
-    "description": "Evaluation results for second language, results in that order followed by a colon"
-  },
   "D8Pgbs": {
     "defaultMessage": "Créer une classification",
     "description": "Title displayed on the create a classification form."
@@ -3883,6 +3879,10 @@
   "PXlO7h": {
     "defaultMessage": "Compétences essentielles",
     "description": "Title text for group of need-to-have skills for pool advertisement on experience forms"
+  },
+  "PZCSiW": {
+    "defaultMessage": "Niveau de connaissance de la langue seconde (Lecture, Écriture, Expression orale)",
+    "description": "Second language level (Reading, Writing, Oral interaction) label"
   },
   "Pasf+O": {
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
@@ -5807,6 +5807,10 @@
   "dTMBj9": {
     "defaultMessage": "Après avoir ajouté quelques compétences, veuillez expliquer comment vous les avez utilisées, essayez de répondre à une ou plusieurs de ces questions :",
     "description": "Description for skills in detail section of experience form."
+  },
+  "dTOh1/": {
+    "defaultMessage": "Niveau de la langue seconde (Lecture, Écriture, Expression orale) :",
+    "description": "Evaluation results for second language, results in that order followed by a colon"
   },
   "dVc2uY": {
     "defaultMessage": "Les renseignements gouvernementaux ont été mis à jour avec succès!",
@@ -8829,10 +8833,6 @@
   "zEmPCS": {
     "defaultMessage": "Modifier les renseignements sur l’équipe",
     "description": "Page title for the edit team page"
-  },
-  "zF0F6w": {
-    "defaultMessage": "Niveau de connaissance de la langue seconde (compréhension, écrit, oral.)",
-    "description": "Second language level (Comprehension, Written, Verbal) label"
   },
   "zJKngJ": {
     "defaultMessage": "Gérer votre expérience et les processus de recrutement pour lesquels vous êtes qualifié(e).",

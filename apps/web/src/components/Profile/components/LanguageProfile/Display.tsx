@@ -103,10 +103,10 @@ const Display = ({
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage:
-              "Second language level (Comprehension, Written, Verbal)",
-            id: "zF0F6w",
+              "Second language level (Reading, Writing, Oral interaction)",
+            id: "PZCSiW",
             description:
-              "Second language level (Comprehension, Written, Verbal) label",
+              "Second language level (Reading, Writing, Oral interaction) label",
           })}
         >
           {comprehensionLevel || writtenLevel || verbalLevel
