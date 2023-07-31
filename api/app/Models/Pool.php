@@ -182,7 +182,7 @@ class Pool extends Model
         return $query;
     }
 
-    public function scopeNotArchived(Builder $query, ?array $args)
+    public function scopeNotArchived(Builder $query)
     {
         $query->where(function ($query) {
             $query->whereNull('archived_at');
