@@ -1,43 +1,3 @@
-query getMePools {
-  me {
-    roleAssignments {
-      id
-      team {
-        id
-        name
-        displayName {
-          en
-          fr
-        }
-        pools {
-          id
-          owner {
-            id
-            email
-            firstName
-            lastName
-          }
-          name {
-            en
-            fr
-          }
-          classifications {
-            id
-            group
-            level
-          }
-          status
-          stream
-          processNumber
-          publishingGroup
-          createdDate
-          updatedDate
-        }
-      }
-    }
-  }
-}
-
 query allPools {
   pools {
     id
@@ -62,13 +22,5 @@ query allPools {
     publishingGroup
     createdDate
     updatedDate
-    team {
-      id
-      name
-      displayName {
-        en
-        fr
-      }
-    }
   }
 }
