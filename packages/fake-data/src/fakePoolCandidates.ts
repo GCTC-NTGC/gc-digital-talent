@@ -10,9 +10,26 @@ import {
   Pool,
   User,
 } from "@gc-digital-talent/graphql";
-
+import {
+  GeneratedAwardExperience,
+  GeneratedCommunityExperience,
+  GeneratedEducationExperience,
+  GeneratedPersonalExperience,
+  GeneratedWorkExperience,
+} from "./fakeExperiences";
 import fakePools from "./fakePools";
 import fakeUsers from "./fakeUsers";
+
+export type GeneratedPoolCandidate = PoolCandidate & {
+  __typename: "PoolCandidate";
+  educationRequirementExperiences: Array<
+    | GeneratedAwardExperience
+    | GeneratedCommunityExperience
+    | GeneratedEducationExperience
+    | GeneratedPersonalExperience
+    | GeneratedWorkExperience
+  >;
+};
 
 const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
   faker.setLocale("en");
