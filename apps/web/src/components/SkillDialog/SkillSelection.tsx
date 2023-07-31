@@ -249,25 +249,49 @@ const SkillSelection = ({
         />
       </div>
       {family && family !== "" ? (
-        <div data-h2-margin="base(x1, 0)">
-          <Combobox
-            id="skill"
-            name="skill"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-            trackUnsaved={false}
-            label={intl.formatMessage({
-              defaultMessage: "Skill",
-              id: "+K/smr",
-              description: "Label for the skill select field",
-            })}
-            options={filteredSkills.map((currentSkill) => ({
-              value: currentSkill.id,
-              label: getLocalizedName(currentSkill.name, intl),
-            }))}
-          />
-        </div>
+        <>
+          <div data-h2-margin="base(x1, 0)">
+            <Combobox
+              id="skill"
+              name="skill"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              trackUnsaved={false}
+              label={intl.formatMessage({
+                defaultMessage: "Skill",
+                id: "+K/smr",
+                description: "Label for the skill select field",
+              })}
+              options={filteredSkills.map((currentSkill) => ({
+                value: currentSkill.id,
+                label: getLocalizedName(currentSkill.name, intl),
+              }))}
+            />
+          </div>
+          {!selectedSkill && (
+            <Well>
+              <p data-h2-text-align="base(center)">
+                {intl.formatMessage({
+                  id: "HrRgTT",
+                  defaultMessage: "Please select a skill to continue.",
+                  description:
+                    "Help text to tell users to select a skill before submitting",
+                })}
+              </p>
+            </Well>
+          )}
+        </>
       ) : (
         <>
+          <Well>
+            <p data-h2-text-align="base(center)">
+              {intl.formatMessage({
+                id: "5CIYu4",
+                defaultMessage: "Please select a skill family to continue.",
+                description:
+                  "Help text to tell users to select a skill before submitting",
+              })}
+            </p>
+          </Well>
           <input
             type="hidden"
             {...register("skill", {
@@ -283,18 +307,6 @@ const SkillSelection = ({
         </>
       )}
       {selectedSkill && <SkillDescription skill={selectedSkill} />}
-      {!selectedSkill && (
-        <Well>
-          <p data-h2-text-align="base(center)">
-            {intl.formatMessage({
-              id: "HrRgTT",
-              defaultMessage: "Please select a skill to continue.",
-              description:
-                "Help text to tell users to select a skill before submitting",
-            })}
-          </p>
-        </Well>
-      )}
       <Collapsible.Root
         open={isExpanded}
         onOpenChange={setIsExpanded}
