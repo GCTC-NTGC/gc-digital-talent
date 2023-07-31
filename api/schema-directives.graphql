@@ -8,17 +8,6 @@ Will be replaced by a generated type during schema manipulation.
 """
 scalar _
 
-# Directive class: App\GraphQL\Directives\CanAccessDirective
-"""
-Limit field access to users of a certain role.
-"""
-directive @canAccess(
-  """
-  The name of the role authorized users need to have.
-  """
-  requiredRoles: [String]!
-) on FIELD_DEFINITION
-
 # Directive class: App\GraphQL\Directives\CanOnParentDirective
 """
 Check a Laravel Policy to ensure the current user is authorized to access a field.
@@ -46,7 +35,7 @@ directive @canOnParent(
   args: CanArgs
 ) repeatable on FIELD_DEFINITION
 
-"""
+    """
 Any constant literal value: https://graphql.github.io/graphql-spec/draft/#sec-Input-Values
 """
 scalar CanOnParentArgs
@@ -77,10 +66,10 @@ If used on an array, this plucks a value from each object, returning a flattened
 If used on a single object, this returns the value at key.
 """
 directive @pluck(
-  """
-  The key to pluck from each object.
-  """
-  key: String!
+    """
+    The key to pluck from each object.
+    """
+    key: String!
 ) on INPUT_FIELD_DEFINITION
 
 # Directive class: App\GraphQL\Directives\ResolveWithDirective
@@ -109,657 +98,9 @@ type User {
 """
 directive @self on FIELD_DEFINITION
 
-# Directive class: Nuwave\Lighthouse\Testing\MockDirective
-"""
-Allows you to easily hook up a resolver for an endpoint.
-"""
-directive @mock(
-  """
-  Specify a unique key for the mock resolver.
-  """
-  key: String = "default"
-) on FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\Auth\AuthDirective
-"""
-Return the currently authenticated user as the result of a query.
-"""
-directive @auth(
-  """
-  Specify which guard to use, e.g. "api".
-  When not defined, the default from `lighthouse.php` is used.
-  """
-  guard: String
-) on FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\Auth\CanDirective
-"""
-Check a Laravel Policy to ensure the current user is authorized to access a field.
-
-When `injectArgs` and `args` are used together, the client given
-arguments will be passed before the static args.
-"""
-directive @can(
-  """
-  The ability to check permissions for.
-  """
-  ability: String!
-
-  """
-  Check the policy against the model instances returned by the field resolver.
-  Only use this if the field does not mutate data, it is run before checking.
-
-  Mutually exclusive with `query` and `find`.
-  """
-  resolved: Boolean! = false
-
-  """
-  Specify the class name of the model to use.
-  This is only needed when the default model detection does not work.
-  """
-  model: String
-
-  """
-  Pass along the client given input data as arguments to `Gate::check`.
-  """
-  injectArgs: Boolean! = false
-
-  """
-  Statically defined arguments that are passed to `Gate::check`.
-
-  You may pass arbitrary GraphQL literals,
-  e.g.: [1, 2, 3] or { foo: "bar" }
-  """
-  args: CanArgs
-
-  """
-  Query for specific model instances to check the policy against, using arguments
-  with directives that add constraints to the query builder, such as `@eq`.
-
-  Mutually exclusive with `resolved` and `find`.
-  """
-  query: Boolean! = false
-
-  """
-  Apply scopes to the underlying query.
-  """
-  scopes: [String!]
-
-  """
-  If your policy checks against specific model instances, specify
-  the name of the field argument that contains its primary key(s).
-
-  You may pass the string in dot notation to use nested inputs.
-
-  Mutually exclusive with `resolved` and `query`.
-  """
-  find: String
-) repeatable on FIELD_DEFINITION
-
-"""
-Any constant literal value: https://graphql.github.io/graphql-spec/draft/#sec-Input-Values
-"""
-scalar CanArgs
-
-# Directive class: Nuwave\Lighthouse\Auth\GuardDirective
-"""
-Run authentication through one or more guards.
-
-This is run per field and may allow unauthenticated
-users to still receive partial results.
-
-Used upon an object, it applies to all fields within.
-"""
-directive @guard(
-  """
-  Specify which guards to use, e.g. ["web"].
-  When not defined, the default from `lighthouse.php` is used.
-  """
-  with: [String!]
-) repeatable on FIELD_DEFINITION | OBJECT
-
-# Directive class: Nuwave\Lighthouse\Auth\WhereAuthDirective
-"""
-Filter a type to only return instances owned by the current user.
-"""
-directive @whereAuth(
-  """
-  Name of the relationship that links to the user model.
-  """
-  relation: String!
-
-  """
-  Specify which guard to use, e.g. "api".
-  When not defined, the default from `lighthouse.php` is used.
-  """
-  guard: String
-) on FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\Cache\CacheDirective
-"""
-Cache the result of a resolver.
-"""
-directive @cache(
-  """
-  Set the duration it takes for the cache to expire in seconds.
-  If not given, the result will be stored forever.
-  """
-  maxAge: Int
-
-  """
-  Limit access to cached data to the currently authenticated user.
-  When the field is accessible by guest users, this will not have
-  any effect, they will access a shared cache.
-  """
-  private: Boolean = false
-) on FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\Cache\CacheKeyDirective
-"""
-Specify the field to use as a key when creating a cache.
-"""
-directive @cacheKey on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\Cache\ClearCacheDirective
-"""
-Clear a resolver cache by tags.
-"""
-directive @clearCache(
-  """
-  Name of the parent type of the field to clear.
-  """
-  type: String!
-
-  """
-  Source of the parent ID to clear.
-  """
-  idSource: ClearCacheIdSource
-
-  """
-  Name of the field to clear.
-  """
-  field: String
-) repeatable on FIELD_DEFINITION
-
-"""
-Options for the `id` argument on `@clearCache`.
-
-Exactly one of the fields must be given.
-"""
-input ClearCacheIdSource {
-  """
-  Path of an argument the client passes to the field `@clearCache` is applied to.
-  """
-  argument: String
-
-  """
-  Path of a field in the result returned from the field `@clearCache` is applied to.
-  """
-  field: String
-}
-
-# Directive class: Nuwave\Lighthouse\GlobalId\GlobalIdDirective
-"""
-Converts between IDs/types and global IDs.
-
-When used upon a field, it encodes;
-when used upon an argument, it decodes.
-"""
-directive @globalId(
-  """
-  Decoding a global id produces a tuple of `$type` and `$id`.
-  This setting controls which of those is passed along.
-  """
-  decode: GlobalIdDecode = ARRAY
-) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION | ARGUMENT_DEFINITION
-
-"""
-Options for the `decode` argument of `@globalId`.
-"""
-enum GlobalIdDecode {
-  """
-  Return an array of `[$type, $id]`.
-  """
-  ARRAY
-
-  """
-  Return just `$type`.
-  """
-  TYPE
-
-  """
-  Return just `$id`.
-  """
-  ID
-}
-
-# Directive class: Nuwave\Lighthouse\GlobalId\NodeDirective
-"""
-Register a type for Relay's global object identification.
-
-When used without any arguments, Lighthouse will attempt
-to resolve the type through a model with the same name.
-"""
-directive @node(
-  """
-  Reference to a function that receives the decoded `id` and returns a result.
-  Consists of two parts: a class name and a method name, seperated by an `@` symbol.
-  If you pass only a class name, the method name defaults to `__invoke`.
-
-  Mutually exclusive with `model`.
-  """
-  resolver: String
-
-  """
-  Specify the class name of the model to use.
-  This is only needed when the default model detection does not work.
-
-  Mutually exclusive with `resolver`.
-  """
-  model: String
-) on OBJECT
-
-# Directive class: Nuwave\Lighthouse\OrderBy\OrderByDirective
-"""
-Sort a result list by one or more given columns.
-"""
-directive @orderBy(
-  """
-  Restrict the allowed column names to a well-defined list.
-  This improves introspection capabilities and security.
-  Mutually exclusive with `columnsEnum`.
-  Only used when the directive is added on an argument.
-  """
-  columns: [String!]
-
-  """
-  Use an existing enumeration type to restrict the allowed columns to a predefined list.
-  This allows you to re-use the same enum for multiple fields.
-  Mutually exclusive with `columns`.
-  Only used when the directive is added on an argument.
-  """
-  columnsEnum: String
-
-  """
-  Allow clients to sort by aggregates on relations.
-  Only used when the directive is added on an argument.
-  """
-  relations: [OrderByRelation!]
-
-  """
-  The database column for which the order by clause will be applied on.
-  Only used when the directive is added on a field.
-  """
-  column: String
-
-  """
-  The direction of the order by clause.
-  Only used when the directive is added on a field.
-  """
-  direction: OrderByDirection = ASC
-) on ARGUMENT_DEFINITION | FIELD_DEFINITION
-
-"""
-Options for the `direction` argument on `@orderBy`.
-"""
-enum OrderByDirection {
-  """
-  Sort in ascending order.
-  """
-  ASC
-
-  """
-  Sort in descending order.
-  """
-  DESC
-}
-
-"""
-Options for the `relations` argument on `@orderBy`.
-"""
-input OrderByRelation {
-  """
-  Name of the relation.
-  """
-  relation: String!
-
-  """
-  Restrict the allowed column names to a well-defined list.
-  This improves introspection capabilities and security.
-  Mutually exclusive with `columnsEnum`.
-  """
-  columns: [String!]
-
-  """
-  Use an existing enumeration type to restrict the allowed columns to a predefined list.
-  This allows you to re-use the same enum for multiple fields.
-  Mutually exclusive with `columns`.
-  """
-  columnsEnum: String
-}
-
-# Directive class: Nuwave\Lighthouse\Pagination\PaginateDirective
-"""
-Query multiple entries as a paginated list.
-"""
-directive @paginate(
-  """
-  Which pagination style should be used.
-  """
-  type: PaginateType = PAGINATOR
-
-  """
-  Specify the class name of the model to use.
-  This is only needed when the default model detection does not work.
-  Mutually exclusive with `builder` and `resolver`.
-  """
-  model: String
-
-  """
-  Point to a function that provides a Query Builder instance.
-  Consists of two parts: a class name and a method name, seperated by an `@` symbol.
-  If you pass only a class name, the method name defaults to `__invoke`.
-  Mutually exclusive with `model` and `resolver`.
-  """
-  builder: String
-
-  """
-  Reference a function that resolves the field by directly returning data in a Paginator instance.
-  Mutually exclusive with `builder` and `model`.
-  Not compatible with `scopes` and builder arguments such as `@eq`.
-  Consists of two parts: a class name and a method name, seperated by an `@` symbol.
-  If you pass only a class name, the method name defaults to `__invoke`.
-  """
-  resolver: String
-
-  """
-  Apply scopes to the underlying query.
-  """
-  scopes: [String!]
-
-  """
-  Allow clients to query paginated lists without specifying the amount of items.
-  Overrules the `pagination.default_count` setting from `lighthouse.php`.
-  Setting this to `null` means clients have to explicitly ask for the count.
-  """
-  defaultCount: Int
-
-  """
-  Limit the maximum amount of items that clients can request from paginated lists.
-  Overrules the `pagination.max_count` setting from `lighthouse.php`.
-  Setting this to `null` means the count is unrestricted.
-  """
-  maxCount: Int
-) on FIELD_DEFINITION
-
-"""
-Options for the `type` argument of `@paginate`.
-"""
-enum PaginateType {
-  """
-  Offset-based pagination, similar to the Laravel default.
-  """
-  PAGINATOR
-
-  """
-  Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-  """
-  SIMPLE
-
-  """
-  Cursor-based pagination, compatible with the Relay specification.
-  """
-  CONNECTION
-}
-
-# Directive class: Nuwave\Lighthouse\Scout\SearchDirective
-"""
-Perform a full-text search by the given input value.
-"""
-directive @search(
-  """
-  Specify a custom index to use for search.
-  """
-  within: String
-) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\SoftDeletes\ForceDeleteDirective
-"""
-Permanently remove one or more soft deleted models by their ID.
-The field must have a single non-null argument that may be a list.
-"""
-directive @forceDelete(
-  """
-  DEPRECATED use @globalId, will be removed in v6
-
-  Set to `true` to use global ids for finding the model.
-  If set to `false`, regular non-global ids are used.
-  """
-  globalId: Boolean = false
-
-  """
-  Specify the class name of the model to use.
-  This is only needed when the default model detection does not work.
-  """
-  model: String
-) on FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\SoftDeletes\RestoreDirective
-"""
-Un-delete one or more soft deleted models by their ID.
-The field must have a single non-null argument that may be a list.
-"""
-directive @restore(
-  """
-  DEPRECATED use @globalId, will be removed in v6
-
-  Set to `true` to use global ids for finding the model.
-  If set to `false`, regular non-global ids are used.
-  """
-  globalId: Boolean = false
-
-  """
-  Specify the class name of the model to use.
-  This is only needed when the default model detection does not work.
-  """
-  model: String
-) on FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\SoftDeletes\SoftDeletesDirective
-"""
-Allows to filter if trashed elements should be fetched.
-This manipulates the schema by adding the argument
-`trashed: Trashed @trashed` to the field.
-"""
-directive @softDeletes on FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\SoftDeletes\TrashedDirective
-"""
-Allows to filter if trashed elements should be fetched.
-"""
-directive @trashed on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\Validation\RulesDirective
-"""
-Validate an argument using [Laravel validation](https://laravel.com/docs/validation).
-"""
-directive @rules(
-  """
-  Specify the validation rules to apply to the field.
-  This can either be a reference to [Laravel's built-in validation rules](https://laravel.com/docs/validation#available-validation-rules),
-  or the fully qualified class name of a custom validation rule.
-
-  Rules that mutate the incoming arguments, such as `exclude_if`, are not supported
-  by Lighthouse. Use ArgTransformerDirectives or FieldMiddlewareDirectives instead.
-  """
-  apply: [String!]!
-
-  """
-  Specify a custom attribute name to use in your validation message.
-  """
-  attribute: String
-
-  """
-  Specify the messages to return if the validators fail.
-  """
-  messages: [RulesMessage!]
-) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
-
-"""
-Input for the `messages` argument of `@rules`.
-"""
-input RulesMessage {
-  """
-  Name of the rule, e.g. `"email"`.
-  """
-  rule: String!
-
-  """
-  Message to display if the rule fails, e.g. `"Must be a valid email"`.
-  """
-  message: String!
-}
-
-# Directive class: Nuwave\Lighthouse\Validation\RulesForArrayDirective
-"""
-Run validation on an array itself, using [Laravel built-in validation](https://laravel.com/docs/validation).
-"""
-directive @rulesForArray(
-  """
-  Specify the validation rules to apply to the field.
-  This can either be a reference to any of Laravel's built-in validation rules: https://laravel.com/docs/validation#available-validation-rules,
-  or the fully qualified class name of a custom validation rule.
-  """
-  apply: [String!]!
-
-  """
-  Specify a custom attribute name to use in your validation message.
-  """
-  attribute: String
-
-  """
-  Specify the messages to return if the validators fail.
-  """
-  messages: [RulesForArrayMessage!]
-) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
-
-"""
-Input for the `messages` argument of `@rulesForArray`.
-"""
-input RulesForArrayMessage {
-  """
-  Name of the rule, e.g. `"email"`.
-  """
-  rule: String!
-
-  """
-  Message to display if the rule fails, e.g. `"Must be a valid email"`.
-  """
-  message: String!
-}
-
-# Directive class: Nuwave\Lighthouse\Validation\ValidateDirective
-"""
-Run validation on a field.
-"""
-directive @validate on FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\Validation\ValidatorDirective
-"""
-Provide validation rules through a PHP class.
-"""
-directive @validator(
-  """
-  The name of the class to use.
-
-  If defined on an input, this defaults to a class called `{$inputName}Validator` in the
-  default validator namespace. For fields, it uses the namespace of the parent type
-  and the field name: `{$parent}\{$field}Validator`.
-  """
-  class: String
-) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION | INPUT_OBJECT
-
-# Directive class: Nuwave\Lighthouse\WhereConditions\WhereConditionsDirective
-"""
-Add a dynamically client-controlled WHERE condition to a fields query.
-"""
-directive @whereConditions(
-  """
-  Restrict the allowed column names to a well-defined list.
-  This improves introspection capabilities and security.
-  Mutually exclusive with `columnsEnum`.
-  """
-  columns: [String!]
-
-  """
-  Use an existing enumeration type to restrict the allowed columns to a predefined list.
-  This allows you to re-use the same enum for multiple fields.
-  Mutually exclusive with `columns`.
-  """
-  columnsEnum: String
-
-  """
-  Reference a method that applies the client given conditions to the query builder.
-
-  Expected signature: `(
-      \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $builder,
-      array<string, mixed> $whereConditions
-  ): void`
-
-  Consists of two parts: a class name and a method name, separated by an `@` symbol.
-  If you pass only a class name, the method name defaults to `__invoke`.
-  """
-  handler: String = "\\Nuwave\\Lighthouse\\WhereConditions\\WhereConditionsHandler"
-) on ARGUMENT_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\WhereConditions\WhereHasConditionsDirective
-"""
-Allows clients to filter a query based on the existence of a related model, using
-a dynamically controlled `WHERE` condition that applies to the relationship.
-"""
-directive @whereHasConditions(
-  """
-  The Eloquent relationship that the conditions will be applied to.
-
-  This argument can be omitted if the argument name follows the naming
-  convention `has{$RELATION}`. For example, if the Eloquent relationship
-  is named `posts`, the argument name must be `hasPosts`.
-  """
-  relation: String
-
-  """
-  Restrict the allowed column names to a well-defined list.
-  This improves introspection capabilities and security.
-  Mutually exclusive with `columnsEnum`.
-  """
-  columns: [String!]
-
-  """
-  Use an existing enumeration type to restrict the allowed columns to a predefined list.
-  This allows you to re-use the same enum for multiple fields.
-  Mutually exclusive with `columns`.
-  """
-  columnsEnum: String
-
-  """
-  Reference a method that applies the client given conditions to the query builder.
-
-  Expected signature: `(
-      \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $builder,
-      array<string, mixed> $whereConditions
-  ): void`
-
-  Consists of two parts: a class name and a method name, separated by an `@` symbol.
-  If you pass only a class name, the method name defaults to `__invoke`.
-  """
-  handler: String = "\\Nuwave\\Lighthouse\\WhereConditions\\WhereConditionsHandler"
-) on ARGUMENT_DEFINITION
-
 # Directive class: Nuwave\Lighthouse\Schema\Directives\AggregateDirective
 """
 Returns an aggregate of a column in a given relationship or model.
-
-Requires Laravel 8+.
 """
 directive @aggregate(
   """
@@ -913,20 +254,20 @@ directive @belongsToMany(
 Options for the `type` argument of `@belongsToMany`.
 """
 enum BelongsToManyType {
-  """
-  Offset-based pagination, similar to the Laravel default.
-  """
-  PAGINATOR
+    """
+    Offset-based pagination, similar to the Laravel default.
+    """
+    PAGINATOR
 
-  """
-  Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-  """
-  SIMPLE
+    """
+    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
+    """
+    SIMPLE
 
-  """
-  Cursor-based pagination, compatible with the Relay specification.
-  """
-  CONNECTION
+    """
+    Cursor-based pagination, compatible with the Relay specification.
+    """
+    CONNECTION
 }
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\BuilderDirective
@@ -963,7 +304,7 @@ directive @complexity(
   Consists of two parts: a class name and a method name, seperated by an `@` symbol.
   If you pass only a class name, the method name defaults to `__invoke`.
   """
-  resolver: String
+  resolver: String!
 ) on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\ConvertEmptyStringsToNullDirective
@@ -1027,18 +368,9 @@ directive @create(
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\DeleteDirective
 """
-Delete one or more models by their ID.
-The field must have a single non-null argument that may be a list.
+Delete one or more models.
 """
 directive @delete(
-  """
-  DEPRECATED use @globalId, will be removed in v6
-
-  Set to `true` to use global ids for finding the model.
-  If set to `false`, regular non-global ids are used.
-  """
-  globalId: Boolean = false
-
   """
   Specify the class name of the model to use.
   This is only needed when the default model detection does not work.
@@ -1051,6 +383,11 @@ directive @delete(
   resolver and if the name of the relation is not the arg name.
   """
   relation: String
+
+  """
+  Apply scopes to the underlying query.
+  """
+  scopes: [String!]
 ) on FIELD_DEFINITION | ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\DeprecatedDirective
@@ -1111,7 +448,7 @@ directive @eq(
 
   """
   Provide a value to compare against.
-  Only required when this directive is used on a field.
+  Exclusively required when this directive is used on a field.
   """
   value: EqValue
 ) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION
@@ -1146,11 +483,6 @@ directive @field(
   If you pass only a class name, the method name defaults to `__invoke`.
   """
   resolver: String!
-
-  """
-  Supply additional data to the resolver.
-  """
-  args: [String!]
 ) on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\FindDirective
@@ -1205,7 +537,6 @@ directive @hasMany(
 
   """
   Allows to resolve the relation as a paginated list.
-  Allowed values: `paginator`, `connection`.
   """
   type: HasManyType
 
@@ -1235,20 +566,20 @@ directive @hasMany(
 Options for the `type` argument of `@hasMany`.
 """
 enum HasManyType {
-  """
-  Offset-based pagination, similar to the Laravel default.
-  """
-  PAGINATOR
+    """
+    Offset-based pagination, similar to the Laravel default.
+    """
+    PAGINATOR
 
-  """
-  Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-  """
-  SIMPLE
+    """
+    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
+    """
+    SIMPLE
 
-  """
-  Cursor-based pagination, compatible with the Relay specification.
-  """
-  CONNECTION
+    """
+    Cursor-based pagination, compatible with the Relay specification.
+    """
+    CONNECTION
 }
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\HasManyThroughDirective
@@ -1269,7 +600,6 @@ directive @hasManyThrough(
 
   """
   Allows to resolve the relation as a paginated list.
-  Allowed values: `paginator`, `connection`.
   """
   type: HasManyThroughType
 
@@ -1297,20 +627,20 @@ directive @hasManyThrough(
 Options for the `type` argument of `@hasManyThrough`.
 """
 enum HasManyThroughType {
-  """
-  Offset-based pagination, similar to the Laravel default.
-  """
-  PAGINATOR
+    """
+    Offset-based pagination, similar to the Laravel default.
+    """
+    PAGINATOR
 
-  """
-  Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-  """
-  SIMPLE
+    """
+    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
+    """
+    SIMPLE
 
-  """
-  Cursor-based pagination, compatible with the Relay specification.
-  """
-  CONNECTION
+    """
+    Cursor-based pagination, compatible with the Relay specification.
+    """
+    CONNECTION
 }
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\HasOneDirective
@@ -1338,6 +668,17 @@ Useful for hashing passwords before inserting them into the database.
 This uses the default hashing driver defined in `config/hashing.php`.
 """
 directive @hash on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Schema\Directives\HideDirective
+"""
+Excludes the annotated element from the schema conditionally.
+"""
+directive @hide(
+  """
+  Specify which environments must not use this field, e.g. ["production"].
+  """
+  env: [String!]!
+) repeatable on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\InDirective
 """
@@ -1505,20 +846,20 @@ directive @morphMany(
 Options for the `type` argument of `@morphMany`.
 """
 enum MorphManyType {
-  """
-  Offset-based pagination, similar to the Laravel default.
-  """
-  PAGINATOR
+    """
+    Offset-based pagination, similar to the Laravel default.
+    """
+    PAGINATOR
 
-  """
-  Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-  """
-  SIMPLE
+    """
+    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
+    """
+    SIMPLE
 
-  """
-  Cursor-based pagination, compatible with the Relay specification.
-  """
-  CONNECTION
+    """
+    Cursor-based pagination, compatible with the Relay specification.
+    """
+    CONNECTION
 }
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\MorphOneDirective
@@ -1602,20 +943,20 @@ directive @morphToMany(
 Options for the `type` argument of `@morphToMany`.
 """
 enum MorphToManyType {
-  """
-  Offset-based pagination, similar to the Laravel default.
-  """
-  PAGINATOR
+    """
+    Offset-based pagination, similar to the Laravel default.
+    """
+    PAGINATOR
 
-  """
-  Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-  """
-  SIMPLE
+    """
+    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
+    """
+    SIMPLE
 
-  """
-  Cursor-based pagination, compatible with the Relay specification.
-  """
-  CONNECTION
+    """
+    Cursor-based pagination, compatible with the Relay specification.
+    """
+    CONNECTION
 }
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\NamespaceDirective
@@ -1627,7 +968,7 @@ directive @namespace repeatable on FIELD_DEFINITION | OBJECT
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\NeqDirective
 """
-Use the client given value to add an not-equal conditional to a database query.
+Use the client given value to add a not-equal conditional to a database query.
 """
 directive @neq(
   """
@@ -1697,14 +1038,26 @@ directive @scalar(
 Adds a scope to the query builder.
 
 The scope method will receive the client-given value of the argument as the second parameter.
+This also works with custom query builders, it simply calls its methods with the argument value.
 """
 directive @scope(
   """
-  The name of the scope.
-  Defaults to the name of the argument.
+  The name of the scope or method on the custom query builder.
+  Defaults to the name of the argument or input field.
   """
   name: String
 ) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Schema\Directives\ShowDirective
+"""
+Includes the annotated element from the schema conditionally.
+"""
+directive @show(
+  """
+  Specify which environments may use this field, e.g. ["testing"].
+  """
+  env: [String!]!
+) repeatable on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\SpreadDirective
 """
@@ -1718,25 +1071,25 @@ directive @spread on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 Sets rate limit to access the field. Does the same as ThrottleRequests Laravel Middleware.
 """
 directive @throttle(
-  """
-  Named preconfigured rate limiter. Requires Laravel 8.x or later.
-  """
-  name: String
+    """
+    Named preconfigured rate limiter.
+    """
+    name: String
 
-  """
-  Maximum number of attempts in a specified time interval.
-  """
-  maxAttempts: Int = 60
+    """
+    Maximum number of attempts in a specified time interval.
+    """
+    maxAttempts: Int = 60
 
-  """
-  Time in minutes to reset attempts.
-  """
-  decayMinutes: Float = 1.0
+    """
+    Time in minutes to reset attempts.
+    """
+    decayMinutes: Float = 1.0
 
-  """
-  Prefix to distinguish several field groups.
-  """
-  prefix: String
+    """
+    Prefix to distinguish several field groups.
+    """
+    prefix: String
 ) on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\TransformArgsDirective
@@ -1823,14 +1176,6 @@ directive @upsert(
   model: String
 
   """
-  DEPRECATED use @globalId, will be removed in v6
-
-  Set to `true` to use global ids for finding the model.
-  If set to `false`, regular non-global ids are used.
-  """
-  globalId: Boolean = false
-
-  """
   Specify the name of the relation on the parent model.
   This is only needed when using this directive as a nested arg
   resolver and if the name of the relation is not the arg name.
@@ -1874,7 +1219,18 @@ directive @where(
   This only works for clauses with the signature (string $column, string $operator, mixed $value).
   """
   clause: String
-) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+  """
+  Provide a value to compare against.
+  Exclusively required when this directive is used on a field.
+  """
+  value: WhereValue
+) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
+"""
+Any constant literal value: https://graphql.github.io/graphql-spec/draft/#sec-Input-Values
+"""
+scalar WhereValue
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\WhereJsonContainsDirective
 """
@@ -1888,9 +1244,26 @@ directive @whereJsonContains(
   key: String
 ) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 
+# Directive class: Nuwave\Lighthouse\Schema\Directives\WhereKeyDirective
+"""
+Add a where clause on the primary key to the Eloquent Model query.
+"""
+directive @whereKey(
+  """
+  Provide a value to compare against.
+  Exclusively required when this directive is used on a field.
+  """
+  value: WhereKeyValue
+) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
+"""
+Any constant literal value: https://graphql.github.io/graphql-spec/draft/#sec-Input-Values
+"""
+scalar WhereKeyValue
+
 # Directive class: Nuwave\Lighthouse\Schema\Directives\WhereNotBetweenDirective
 """
-Verify that a column's value lies outside of two values.
+Verify that a column's value lies outside two values.
 
 The type of the input value this is defined upon should be
 an `input` object with two fields.
@@ -1902,6 +1275,42 @@ directive @whereNotBetween(
   """
   key: String
 ) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Schema\Directives\WhereNotNullDirective
+"""
+Filter the value is not null.
+"""
+directive @whereNotNull(
+  """
+  Specify the database column to compare.
+  Only required if database column has a different name than the attribute in your schema.
+  """
+  key: String
+
+  """
+  Should the value not be null?
+  Exclusively required when this directive is used on a field.
+  """
+  value: Boolean
+) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Schema\Directives\WhereNullDirective
+"""
+Filter the value is null.
+"""
+directive @whereNull(
+  """
+  Specify the database column to compare.
+  Only required if database column has a different name than the attribute in your schema.
+  """
+  key: String
+
+  """
+  Should the value be null?
+  Exclusively required when this directive is used on a field.
+  """
+  value: Boolean
+) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\WithCountDirective
 """
@@ -1939,3 +1348,655 @@ directive @with(
   """
   scopes: [String!]
 ) repeatable on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Auth\AuthDirective
+"""
+Return the currently authenticated user as the result of a query.
+"""
+directive @auth(
+  """
+  Specify which guards to use, e.g. ["api"].
+  When not defined, the default from `lighthouse.php` is used.
+  """
+  guards: [String!]
+) on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Auth\CanDirective
+"""
+Check a Laravel Policy to ensure the current user is authorized to access a field.
+
+When `injectArgs` and `args` are used together, the client given
+arguments will be passed before the static args.
+"""
+directive @can(
+  """
+  The ability to check permissions for.
+  """
+  ability: String!
+
+  """
+  Check the policy against the model instances returned by the field resolver.
+  Only use this if the field does not mutate data, it is run before checking.
+
+  Mutually exclusive with `query` and `find`.
+  """
+  resolved: Boolean! = false
+
+  """
+  Specify the class name of the model to use.
+  This is only needed when the default model detection does not work.
+  """
+  model: String
+
+  """
+  Pass along the client given input data as arguments to `Gate::check`.
+  """
+  injectArgs: Boolean! = false
+
+  """
+  Statically defined arguments that are passed to `Gate::check`.
+
+  You may pass arbitrary GraphQL literals,
+  e.g.: [1, 2, 3] or { foo: "bar" }
+  """
+  args: CanArgs
+
+  """
+  Query for specific model instances to check the policy against, using arguments
+  with directives that add constraints to the query builder, such as `@eq`.
+
+  Mutually exclusive with `resolved` and `find`.
+  """
+  query: Boolean! = false
+
+  """
+  Apply scopes to the underlying query.
+  """
+  scopes: [String!]
+
+  """
+  If your policy checks against specific model instances, specify
+  the name of the field argument that contains its primary key(s).
+
+  You may pass the string in dot notation to use nested inputs.
+
+  Mutually exclusive with `resolved` and `query`.
+  """
+  find: String
+
+  """
+  Should the query fail when the models of `find` were not found?
+  """
+  findOrFail: Boolean! = true
+) repeatable on FIELD_DEFINITION
+
+"""
+Any constant literal value: https://graphql.github.io/graphql-spec/draft/#sec-Input-Values
+"""
+scalar CanArgs
+
+# Directive class: Nuwave\Lighthouse\Auth\GuardDirective
+"""
+Run authentication through one or more guards.
+
+This is run per field and may allow unauthenticated
+users to still receive partial results.
+
+Used upon an object, it applies to all fields within.
+"""
+directive @guard(
+  """
+  Specify which guards to use, e.g. ["web"].
+  When not defined, the default from `lighthouse.php` is used.
+  """
+  with: [String!]
+) repeatable on FIELD_DEFINITION | OBJECT
+
+# Directive class: Nuwave\Lighthouse\Auth\WhereAuthDirective
+"""
+Filter a type to only return instances owned by the current user.
+"""
+directive @whereAuth(
+  """
+  Name of the relationship that links to the user model.
+  """
+  relation: String!
+
+  """
+  Specify which guards to use, e.g. ["api"].
+  When not defined, the default from `lighthouse.php` is used.
+  """
+  guards: [String!]
+) on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Cache\CacheDirective
+"""
+Cache the result of a resolver.
+
+Place this after other field middleware to ensure it caches the correct transformed value.
+"""
+directive @cache(
+  """
+  Set the duration it takes for the cache to expire in seconds.
+  If not given, the result will be stored forever.
+  """
+  maxAge: Int
+
+  """
+  Limit access to cached data to the currently authenticated user.
+  When the field is accessible by guest users, this will not have
+  any effect, they will access a shared cache.
+  """
+  private: Boolean = false
+) on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Cache\CacheKeyDirective
+"""
+Specify the field to use as a key when creating a cache.
+"""
+directive @cacheKey on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Cache\ClearCacheDirective
+"""
+Clear a resolver cache by tags.
+"""
+directive @clearCache(
+  """
+  Name of the parent type of the field to clear.
+  """
+  type: String!
+
+  """
+  Source of the parent ID to clear.
+  """
+  idSource: ClearCacheIdSource
+
+  """
+  Name of the field to clear.
+  """
+  field: String
+) repeatable on FIELD_DEFINITION
+
+"""
+Options for the `id` argument on `@clearCache`.
+
+Exactly one of the fields must be given.
+"""
+input ClearCacheIdSource {
+  """
+  Path of an argument the client passes to the field `@clearCache` is applied to.
+  """
+  argument: String
+
+  """
+  Path of a field in the result returned from the field `@clearCache` is applied to.
+  """
+  field: String
+}
+
+# Directive class: Nuwave\Lighthouse\GlobalId\GlobalIdDirective
+"""
+Converts between IDs/types and global IDs.
+
+When used upon a field, it encodes;
+when used upon an argument, it decodes.
+"""
+directive @globalId(
+  """
+  Decoding a global id produces a tuple of `$type` and `$id`.
+  This setting controls which of those is passed along.
+  """
+  decode: GlobalIdDecode = ARRAY
+) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION | ARGUMENT_DEFINITION
+
+"""
+Options for the `decode` argument of `@globalId`.
+"""
+enum GlobalIdDecode {
+    """
+    Return an array of `[$type, $id]`.
+    """
+    ARRAY
+
+    """
+    Return just `$type`.
+    """
+    TYPE
+
+    """
+    Return just `$id`.
+    """
+    ID
+}
+
+# Directive class: Nuwave\Lighthouse\GlobalId\NodeDirective
+"""
+Register a type for Relay's global object identification.
+
+When used without any arguments, Lighthouse will attempt
+to resolve the type through a model with the same name.
+"""
+directive @node(
+  """
+  Reference to a function that receives the decoded `id` and returns a result.
+  Consists of two parts: a class name and a method name, seperated by an `@` symbol.
+  If you pass only a class name, the method name defaults to `__invoke`.
+
+  Mutually exclusive with `model`.
+  """
+  resolver: String
+
+  """
+  Specify the class name of the model to use.
+  This is only needed when the default model detection does not work.
+
+  Mutually exclusive with `resolver`.
+  """
+  model: String
+) on OBJECT
+
+# Directive class: Nuwave\Lighthouse\OrderBy\OrderByDirective
+"""
+Sort a result list by one or more given columns.
+"""
+directive @orderBy(
+    """
+    Restrict the allowed column names to a well-defined list.
+    This improves introspection capabilities and security.
+    Mutually exclusive with `columnsEnum`.
+    Only used when the directive is added on an argument.
+    """
+    columns: [String!]
+
+    """
+    Use an existing enumeration type to restrict the allowed columns to a predefined list.
+    This allows you to re-use the same enum for multiple fields.
+    Mutually exclusive with `columns`.
+    Only used when the directive is added on an argument.
+    """
+    columnsEnum: String
+
+    """
+    Allow clients to sort by aggregates on relations.
+    Only used when the directive is added on an argument.
+    """
+    relations: [OrderByRelation!]
+
+    """
+    The database column for which the order by clause will be applied on.
+    Only used when the directive is added on a field.
+    """
+    column: String
+
+    """
+    The direction of the order by clause.
+    Only used when the directive is added on a field.
+    """
+    direction: OrderByDirection = ASC
+) on ARGUMENT_DEFINITION | FIELD_DEFINITION
+
+"""
+Options for the `direction` argument on `@orderBy`.
+"""
+enum OrderByDirection {
+    """
+    Sort in ascending order.
+    """
+    ASC
+
+    """
+    Sort in descending order.
+    """
+    DESC
+}
+
+"""
+Options for the `relations` argument on `@orderBy`.
+"""
+input OrderByRelation {
+    """
+    Name of the relation.
+    """
+    relation: String!
+
+    """
+    Restrict the allowed column names to a well-defined list.
+    This improves introspection capabilities and security.
+    Mutually exclusive with `columnsEnum`.
+    """
+    columns: [String!]
+
+    """
+    Use an existing enumeration type to restrict the allowed columns to a predefined list.
+    This allows you to re-use the same enum for multiple fields.
+    Mutually exclusive with `columns`.
+    """
+    columnsEnum: String
+}
+
+# Directive class: Nuwave\Lighthouse\Pagination\PaginateDirective
+"""
+Query multiple entries as a paginated list.
+"""
+directive @paginate(
+  """
+  Which pagination style should be used.
+  """
+  type: PaginateType = PAGINATOR
+
+  """
+  Specify the class name of the model to use.
+  This is only needed when the default model detection does not work.
+  Mutually exclusive with `builder` and `resolver`.
+  """
+  model: String
+
+  """
+  Point to a function that provides a Query Builder instance.
+  Consists of two parts: a class name and a method name, seperated by an `@` symbol.
+  If you pass only a class name, the method name defaults to `__invoke`.
+  Mutually exclusive with `model` and `resolver`.
+  """
+  builder: String
+
+  """
+  Reference a function that resolves the field by directly returning data in a Paginator instance.
+  Mutually exclusive with `builder` and `model`.
+  Not compatible with `scopes` and builder arguments such as `@eq`.
+  Consists of two parts: a class name and a method name, seperated by an `@` symbol.
+  If you pass only a class name, the method name defaults to `__invoke`.
+  """
+  resolver: String
+
+  """
+  Apply scopes to the underlying query.
+  """
+  scopes: [String!]
+
+  """
+  Allow clients to query paginated lists without specifying the amount of items.
+  Overrules the `pagination.default_count` setting from `lighthouse.php`.
+  Setting this to `null` means clients have to explicitly ask for the count.
+  """
+  defaultCount: Int
+
+  """
+  Limit the maximum amount of items that clients can request from paginated lists.
+  Overrules the `pagination.max_count` setting from `lighthouse.php`.
+  Setting this to `null` means the count is unrestricted.
+  """
+  maxCount: Int
+
+  """
+  Reference a function to customize the complexity score calculation.
+  Consists of two parts: a class name and a method name, seperated by an `@` symbol.
+  If you pass only a class name, the method name defaults to `__invoke`.
+  """
+  complexityResolver: String
+) on FIELD_DEFINITION
+
+"""
+Options for the `type` argument of `@paginate`.
+"""
+enum PaginateType {
+  """
+  Offset-based pagination, similar to the Laravel default.
+  """
+  PAGINATOR
+
+  """
+  Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
+  """
+  SIMPLE
+
+  """
+  Cursor-based pagination, compatible with the Relay specification.
+  """
+  CONNECTION
+}
+
+# Directive class: Nuwave\Lighthouse\SoftDeletes\ForceDeleteDirective
+"""
+Permanently remove one or more soft deleted models.
+"""
+directive @forceDelete(
+  """
+  Specify the class name of the model to use.
+  This is only needed when the default model detection does not work.
+  """
+  model: String
+
+  """
+  Apply scopes to the underlying query.
+  """
+  scopes: [String!]
+) on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\SoftDeletes\RestoreDirective
+"""
+Un-delete one or more soft deleted models.
+"""
+directive @restore(
+  """
+  Specify the class name of the model to use.
+  This is only needed when the default model detection does not work.
+  """
+  model: String
+
+  """
+  Apply scopes to the underlying query.
+  """
+  scopes: [String!]
+) on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\SoftDeletes\SoftDeletesDirective
+"""
+Allows to filter if trashed elements should be fetched.
+This manipulates the schema by adding the argument
+`trashed: Trashed @trashed` to the field.
+"""
+directive @softDeletes on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\SoftDeletes\TrashedDirective
+"""
+Allows to filter if trashed elements should be fetched.
+"""
+directive @trashed on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Testing\MockDirective
+"""
+Allows you to easily hook up a resolver for an endpoint.
+"""
+directive @mock(
+    """
+    Specify a unique key for the mock resolver.
+    """
+    key: String = "default"
+) on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Validation\RulesDirective
+"""
+Validate an argument using [Laravel validation](https://laravel.com/docs/validation).
+"""
+directive @rules(
+  """
+  Specify the validation rules to apply to the field.
+  This can either be a reference to [Laravel's built-in validation rules](https://laravel.com/docs/validation#available-validation-rules),
+  or the fully qualified class name of a custom validation rule.
+
+  Rules that mutate the incoming arguments, such as `exclude_if`, are not supported
+  by Lighthouse. Use ArgTransformerDirectives or FieldMiddlewareDirectives instead.
+  """
+  apply: [String!]!
+
+  """
+  Specify a custom attribute name to use in your validation message.
+  """
+  attribute: String
+
+  """
+  Specify the messages to return if the validators fail.
+  """
+  messages: [RulesMessage!]
+) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+"""
+Input for the `messages` argument of `@rules`.
+"""
+input RulesMessage {
+    """
+    Name of the rule, e.g. `"email"`.
+    """
+    rule: String!
+
+    """
+    Message to display if the rule fails, e.g. `"Must be a valid email"`.
+    """
+    message: String!
+}
+
+# Directive class: Nuwave\Lighthouse\Validation\RulesForArrayDirective
+"""
+Run validation on an array itself, using [Laravel built-in validation](https://laravel.com/docs/validation).
+"""
+directive @rulesForArray(
+  """
+  Specify the validation rules to apply to the field.
+  This can either be a reference to any of Laravel's built-in validation rules: https://laravel.com/docs/validation#available-validation-rules,
+  or the fully qualified class name of a custom validation rule.
+  """
+  apply: [String!]!
+
+  """
+  Specify a custom attribute name to use in your validation message.
+  """
+  attribute: String
+
+  """
+  Specify the messages to return if the validators fail.
+  """
+  messages: [RulesForArrayMessage!]
+) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+"""
+Input for the `messages` argument of `@rulesForArray`.
+"""
+input RulesForArrayMessage {
+    """
+    Name of the rule, e.g. `"email"`.
+    """
+    rule: String!
+
+    """
+    Message to display if the rule fails, e.g. `"Must be a valid email"`.
+    """
+    message: String!
+}
+
+# Directive class: Nuwave\Lighthouse\Validation\ValidateDirective
+"""
+Run validation on a field.
+"""
+directive @validate on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Validation\ValidatorDirective
+"""
+Provide validation rules through a PHP class.
+"""
+directive @validator(
+  """
+  The name of the class to use.
+
+  If defined on an input, this defaults to a class called `{$inputName}Validator` in the
+  default validator namespace. For fields, it uses the namespace of the parent type
+  and the field name: `{$parent}\{$field}Validator`.
+  """
+  class: String
+) repeatable on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION | INPUT_OBJECT
+
+# Directive class: Nuwave\Lighthouse\Scout\SearchDirective
+"""
+Perform a full-text search by the given input value.
+"""
+directive @search(
+  """
+  Specify a custom index to use for search.
+  """
+  within: String
+) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\WhereConditions\WhereConditionsDirective
+"""
+Add a dynamically client-controlled WHERE condition to a fields query.
+"""
+directive @whereConditions(
+    """
+    Restrict the allowed column names to a well-defined list.
+    This improves introspection capabilities and security.
+    Mutually exclusive with `columnsEnum`.
+    """
+    columns: [String!]
+
+    """
+    Use an existing enumeration type to restrict the allowed columns to a predefined list.
+    This allows you to re-use the same enum for multiple fields.
+    Mutually exclusive with `columns`.
+    """
+    columnsEnum: String
+
+    """
+    Reference a method that applies the client given conditions to the query builder.
+
+    Expected signature: `(
+        \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $builder,
+        array<string, mixed> $whereConditions
+    ): void`
+
+    Consists of two parts: a class name and a method name, separated by an `@` symbol.
+    If you pass only a class name, the method name defaults to `__invoke`.
+    """
+    handler: String = "\\Nuwave\\Lighthouse\\WhereConditions\\WhereConditionsHandler"
+) on ARGUMENT_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\WhereConditions\WhereHasConditionsDirective
+"""
+Allows clients to filter a query based on the existence of a related model, using
+a dynamically controlled `WHERE` condition that applies to the relationship.
+"""
+directive @whereHasConditions(
+    """
+    The Eloquent relationship that the conditions will be applied to.
+
+    This argument can be omitted if the argument name follows the naming
+    convention `has{$RELATION}`. For example, if the Eloquent relationship
+    is named `posts`, the argument name must be `hasPosts`.
+    """
+    relation: String
+
+    """
+    Restrict the allowed column names to a well-defined list.
+    This improves introspection capabilities and security.
+    Mutually exclusive with `columnsEnum`.
+    """
+    columns: [String!]
+
+    """
+    Use an existing enumeration type to restrict the allowed columns to a predefined list.
+    This allows you to re-use the same enum for multiple fields.
+    Mutually exclusive with `columns`.
+    """
+    columnsEnum: String
+
+    """
+    Reference a method that applies the client given conditions to the query builder.
+
+    Expected signature: `(
+        \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $builder,
+        array<string, mixed> $whereConditions
+    ): void`
+
+    Consists of two parts: a class name and a method name, separated by an `@` symbol.
+    If you pass only a class name, the method name defaults to `__invoke`.
+    """
+    handler: String = "\\Nuwave\\Lighthouse\\WhereConditions\\WhereConditionsHandler"
+) on ARGUMENT_DEFINITION

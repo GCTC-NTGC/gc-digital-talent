@@ -14,7 +14,6 @@ import {
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
@@ -102,13 +101,10 @@ export const ApplicationSkills = ({
   const categorizedOptionalSkills = categorizeSkill(
     application.pool.nonessentialSkills,
   );
-  const { applicantDashboard } = useFeatureFlags();
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
   const { followingPageUrl, isIAP } = useApplicationContext();
-  const cancelPath = applicantDashboard
-    ? paths.profileAndApplications({ fromIapDraft: isIAP })
-    : paths.myProfile();
+  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
   const nextStep =
     followingPageUrl ?? paths.applicationQuestionsIntro(application.id);
 

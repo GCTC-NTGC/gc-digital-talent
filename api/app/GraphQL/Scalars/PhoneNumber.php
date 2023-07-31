@@ -14,7 +14,7 @@ class PhoneNumber extends Regex
      *
      * @var string
      */
-    public $description = <<<'DESCRIPTION'
+    public ?string $description = <<<'DESCRIPTION'
 A phone number which complies with E.164 international notation.
 Such a phone number is composed of a '+', a country code (1-3 digits), and then a subscriber number (1-12 digits).
 The number is not broken up by any spaces, dashes, parentheses, etc.
