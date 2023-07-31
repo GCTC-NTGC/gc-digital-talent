@@ -58,7 +58,8 @@ class Pool extends Model
         'what_to_expect' => 'array',
         'closing_date' => 'datetime',
         'published_at' => 'datetime',
-        'is_remote' => 'boolean'
+        'is_remote' => 'boolean',
+        'archived_at' => 'datetime',
     ];
 
     /**
