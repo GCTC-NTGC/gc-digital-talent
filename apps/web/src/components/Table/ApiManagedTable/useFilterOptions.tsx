@@ -36,6 +36,11 @@ import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
 } from "~/api/generated";
+import {
+  getPublishingGroup,
+  publishingGroups,
+} from "~/../../../packages/i18n/src/messages/localizedConstants";
+import { PublishingGroup } from "@gc-digital-talent/graphql";
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
@@ -64,6 +69,16 @@ export default function useFilterOptions(enableEducationType = false) {
   });
 
   const optionsData = {
+    publishingGroups: enumToOptions(PublishingGroup).map(({ value }) => ({
+      value,
+      label: intl.formatMessage(getPublishingGroup(value)),
+      ariaLabel: intl
+        .formatMessage(getPublishingGroup(value))
+        .replace(
+          intl.locale === "en" ? "IT" : "TI",
+          intl.locale === "en" ? "I T" : "T I",
+        ),
+    })),
     pools: filterRes.data?.pools.filter(notEmpty).map((pool) => ({
       value: pool.id,
       label: getFullPoolTitleLabel(intl, pool),
