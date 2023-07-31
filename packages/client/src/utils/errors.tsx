@@ -1,5 +1,5 @@
 import React from "react";
-import { GraphQLError, GraphQLErrorExtensions } from "graphql";
+import { GraphQLError } from "graphql";
 import { CombinedError } from "urql";
 import { IntlShape } from "react-intl";
 
@@ -34,48 +34,6 @@ export const buildValidationErrorMessageNode = (
 
   // if just 1, toast by itself
   if (localizedMessages.length === 1) {
-    return <span>{localizedMessages[0]}</span>;
-  }
-
-  // no messages, no returned node
-  return null;
-};
-
-export const buildRateLimitErrorMessageNode = (
-  errorMessages: Array<string>,
-  intl: IntlShape,
-): React.ReactNode => {
-  const localizedMessages = errorMessages.map((errorMessage) => {
-    const localizedMessageDescriptor = tryFindMessageDescriptor(errorMessage);
-    if (localizedMessageDescriptor) {
-      return intl.formatMessage(localizedMessageDescriptor);
-    }
-    return errorMessage;
-  });
-
-  // if 1 or more than 1, return one toast since message is the same for all.
-  if (localizedMessages.length >= 1) {
-    return <span>{localizedMessages[0]}</span>;
-  }
-
-  // no messages, no returned node
-  return null;
-};
-
-export const buildAuthorizationErrorMessageNode = (
-  errorMessages: Array<string>,
-  intl: IntlShape,
-): React.ReactNode => {
-  const localizedMessages = errorMessages.map((errorMessage) => {
-    const localizedMessageDescriptor = tryFindMessageDescriptor(errorMessage);
-    if (localizedMessageDescriptor) {
-      return intl.formatMessage(localizedMessageDescriptor);
-    }
-    return errorMessage;
-  });
-
-  // if 1 or more than 1, return one toast since message is the same for all.
-  if (localizedMessages.length >= 1) {
     return <span>{localizedMessages[0]}</span>;
   }
 
