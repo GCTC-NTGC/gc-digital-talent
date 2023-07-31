@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import { useFeatureFlags } from "@gc-digital-talent/env";
-
 export type ListItemProps = React.HTMLProps<HTMLLIElement>;
 
 export const ListItem = ({ children, ...rest }: ListItemProps) => (
