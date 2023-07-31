@@ -9,7 +9,7 @@ use Nuwave\Lighthouse\Exceptions\ValidationException;
 final class UnarchivePool
 {
     /**
-     * Closes the pool by setting the archived_at to now().
+     * Un-archives the pool by clearing the archived_at timestamp.
      * @param  null  $_
      * @param  array{}  $args
      */
