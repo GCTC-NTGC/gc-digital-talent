@@ -20,7 +20,7 @@ const defaultFormValues: FormValues = {
 };
 
 interface SkillDialogProps {
-  // Al;l available skills
+  // All available skills
   skills: Skill[];
   // The context in which the dialog is being used
   context?: SkillDialogContext;
