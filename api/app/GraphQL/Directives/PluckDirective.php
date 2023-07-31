@@ -31,7 +31,7 @@ directive @pluck(
 GRAPHQL;
     }
 
-    public function transform($argumentValue)
+    public function transform(mixed $argumentValue): mixed
     {
         $output = Utils::mapEach(
             function ($value) {
