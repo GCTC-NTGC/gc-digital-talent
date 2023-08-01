@@ -766,6 +766,20 @@ RAWSQL2;
         return $query;
     }
 
+    public static function scopeRoleAssignments(Builder $query, ?array $roleIds): Builder
+    {
+        if (empty($roleIds)) {
+            return $query;
+        }
+
+        $query->where(function ($query) use ($roleIds) {
+            $query->whereHas('roleAssignments', function ($query) use ($roleIds) {
+                $query->whereIn('role_id', $roleIds);
+            });
+        });
+        return $query;
+    }
+
     /* accessor to maintain functionality of deprecated wouldAcceptTemporary field */
     public function getWouldAcceptTemporaryAttribute()
     {

@@ -464,6 +464,17 @@ query AllUsersPaginated(
       jobLookingStatus
       createdDate
       updatedDate
+      roleAssignments {
+        id
+        role {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+        }
+      }
     }
     paginatorInfo {
       count
