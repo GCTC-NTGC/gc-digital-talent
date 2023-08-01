@@ -1052,6 +1052,10 @@
     "defaultMessage": "Architecture intégrée de la TI",
     "description": "Pool Stream described as Enterprise Architecture."
   },
+  "ijGl5r": {
+    "defaultMessage": "Souhaitez-vous poursuivre?",
+    "description": "A request to confirm that the user wants to continue"
+  },
   "iqD8qE": {
     "defaultMessage": "Erreur inconnue",
     "description": "Fallback text when an error message is not supplied"
@@ -1206,6 +1210,10 @@
   "o5J75O": {
     "defaultMessage": "IT-04 (conseiller principal)",
     "description": "The name of the Senior advisor classification with group and level."
+  },
+  "o7GBkR": {
+    "defaultMessage": "Archivé",
+    "description": "Archived pool advertisement status"
   },
   "oANrhM": {
     "defaultMessage": "Collectivité",

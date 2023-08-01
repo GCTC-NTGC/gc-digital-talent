@@ -39,6 +39,5 @@ export const checkFeatureFlag = (name: string): boolean => {
  * A convenience function which makes explicit all expected feature flags.
  */
 export const getFeatureFlags = () => ({
-  applicantDashboard: checkFeatureFlag("FEATURE_APPLICANT_DASHBOARD"),
   skillLibrary: checkFeatureFlag("FEATURE_SKILL_LIBRARY"),
 });

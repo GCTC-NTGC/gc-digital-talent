@@ -241,6 +241,10 @@ return [
             'en' => 'Delete draft Pools in this Team',
             'fr' => 'Supprimer les pools de brouillons dans cette équipe'
         ],
+        'archive-team-pool' => [
+            'en' => 'Archive the pools in this team',
+            'fr' => 'Archiver les pools de cette équipe'
+        ],
 
         'view-own-application' => [
             'en' => 'View Own Application',
@@ -575,7 +579,7 @@ return [
 
         'pool_operator' => [
             'pool' => [
-                'team' => ['view', 'create']
+                'team' => ['view', 'create', 'archive']
             ],
             'draftPool' => [
                 'team' => ['update', 'delete']
