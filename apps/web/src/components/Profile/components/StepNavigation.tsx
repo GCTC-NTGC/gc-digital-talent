@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Button } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
@@ -44,7 +43,6 @@ const StepNavigation = ({
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { applicantDashboard } = useFeatureFlags();
   const { dirtySections } = useProfileFormContext();
   const [{ fetching: submitting }, executeSubmitMutation] =
     useUpdateApplicationMutation();
@@ -95,11 +93,7 @@ const StepNavigation = ({
 
     if (!hasDirtySections) {
       if (values.action === "quit") {
-        navigate(
-          applicantDashboard
-            ? paths.profileAndApplications({ fromIapDraft: isIAP })
-            : paths.myProfile(),
-        );
+        navigate(paths.profileAndApplications({ fromIapDraft: isIAP }));
         return true;
       }
 

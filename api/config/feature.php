@@ -3,18 +3,6 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Applicant Dashboard
-    |--------------------------------------------------------------------------
-    |
-    | A new landing page for applicants after logging in showing their
-    | information at a glance.
-    |
-    */
-
-    'applicant_dashboard' => (bool) env('FEATURE_APPLICANT_DASHBOARD', false),
-
-    /*
-    |--------------------------------------------------------------------------
     | Skill library
     |--------------------------------------------------------------------------
     |

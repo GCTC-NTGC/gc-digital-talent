@@ -2,8 +2,6 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { BreadcrumbsProps } from "@gc-digital-talent/ui";
-import { useAuthorization } from "@gc-digital-talent/auth";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -53,25 +51,6 @@ const ProfileFormWrapper = ({
 }: ProfileFormWrapperProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { user } = useAuthorization();
-  const { applicantDashboard } = useFeatureFlags();
-  const profileCrumb = applicantDashboard
-    ? {
-        label: intl.formatMessage({
-          defaultMessage: "Profile and applications",
-          id: "wDc+F3",
-          description: "Breadcrumb for profile and applications page.",
-        }),
-        url: paths.profileAndApplications(),
-      }
-    : {
-        label: intl.formatMessage({
-          defaultMessage: "My profile",
-          id: "+lKz3l",
-          description: "Breadcrumb from applicant profile wrapper.",
-        }),
-        url: user?.id ? paths.profile(user.id) : paths.myProfile(),
-      };
 
   let links = [...crumbs];
   if (prefixBreadcrumbs) {
@@ -84,7 +63,14 @@ const ProfileFormWrapper = ({
         }),
         url: paths.home(),
       },
-      profileCrumb,
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Profile and applications",
+          id: "wDc+F3",
+          description: "Breadcrumb for profile and applications page.",
+        }),
+        url: paths.profileAndApplications(),
+      },
       ...links,
     ];
   }

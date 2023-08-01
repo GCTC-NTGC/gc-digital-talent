@@ -4,7 +4,6 @@ import { useSearchParams } from "react-router-dom";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   useGetRoleSalaryInfoQuery,
@@ -77,10 +76,8 @@ const RoleSalaryFormPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
-  const featureFlags = useFeatureFlags();
 
   const [{ data: initialData, fetching, error }] = useGetRoleSalaryInfoQuery();
-  const preProfileStatus = initialData?.me?.isProfileComplete;
 
   const [, executeMutation] = useUpdateRoleSalaryMutation();
   const handleRoleSalary = (id: string, data: UpdateUserAsUserInput) =>
@@ -89,14 +86,6 @@ const RoleSalaryFormPage = () => {
       user: data,
     }).then((result) => {
       if (result.data?.updateUserAsUser) {
-        if (result.data?.updateUserAsUser?.isProfileComplete) {
-          const currentProfileStatus =
-            result.data?.updateUserAsUser?.isProfileComplete;
-          const message = intl.formatMessage(profileMessages.profileCompleted);
-          if (!preProfileStatus && currentProfileStatus) {
-            if (!featureFlags.applicantDashboard) toast.success(message);
-          }
-        }
         return result.data.updateUserAsUser;
       }
       return Promise.reject(result.error);

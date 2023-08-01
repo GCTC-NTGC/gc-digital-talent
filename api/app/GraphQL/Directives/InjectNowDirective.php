@@ -3,9 +3,9 @@
 namespace App\GraphQL\Directives;
 
 use Carbon\Carbon;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Exceptions\DefinitionException;
-use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -34,7 +34,7 @@ GRAPHQL;
     /**
      * @throws \Nuwave\Lighthouse\Exceptions\DefinitionException
      */
-    public function handleField(FieldValue $fieldValue, \Closure $next): FieldValue
+    public function handleField(FieldValue $fieldValue): void
     {
         $argumentName = $this->directiveArgValue('name');
         if (!$argumentName) {
@@ -45,20 +45,15 @@ GRAPHQL;
 
         $dateNow = Carbon::now();
 
-        $previousResolver = $fieldValue->getResolver();
-
-        $fieldValue->setResolver(function ($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) use ($argumentName, $previousResolver, $dateNow) {
-
+        $fieldValue->wrapResolver(fn (callable $previousResolver) => function (mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) use ($previousResolver, $argumentName, $dateNow) {
             $resolveInfo->argumentSet->addValue($argumentName, $dateNow);
 
             return $previousResolver(
-                $rootValue,
+                $root,
                 $resolveInfo->argumentSet->toArray(),
                 $context,
                 $resolveInfo
             );
         });
-
-        return $next($fieldValue);
     }
 }
