@@ -1194,10 +1194,6 @@
     "defaultMessage": "Les techniciens en <abbreviation>TI</abbreviation> se retrouvent principalement dans trois filières de travail :",
     "description": "Preceding list description"
   },
-  "6AhLsc": {
-    "defaultMessage": "Demander le titre du poste",
-    "description": "Title displayed for the search request table request job title column."
-  },
   "6B7e8/": {
     "defaultMessage": "Archiver<hidden> la candidature{name}</hidden>",
     "description": "Link text to continue a specific application"
@@ -4888,6 +4884,10 @@
     "defaultMessage": "En apprendre davantage sur les cotes de sécurité",
     "description": "Link text for security clearance information"
   },
+  "Wm/eBb": {
+    "defaultMessage": "Voir la demande pour {groupLevel} {stream}",
+    "description": "Label for view request link, on the view column of search request table."
+  },
   "Wmuizf": {
     "defaultMessage": "Langue préférée pour l'entretien parlé :",
     "description": "Display text for the preferred spoken interview language field on users"
@@ -6956,6 +6956,10 @@
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
+  },
+  "kZGKwO": {
+    "defaultMessage": "Voir la demande",
+    "description": "Title displayed for the search request table view column."
   },
   "karCOz": {
     "defaultMessage": "Débutant",
