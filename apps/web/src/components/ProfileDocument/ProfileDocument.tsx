@@ -313,10 +313,10 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           <p>
                             {intl.formatMessage({
                               defaultMessage:
-                                "Second language level (Comprehension, Written, Verbal)",
-                              id: "M9x5zm",
+                                "Second language level (reading, writing, oral interaction)",
+                              id: "qOi2J0",
                               description:
-                                "Evaluation results for second language, results in that order",
+                                "Second language level (reading, writing, oral interaction) label",
                             })}
                             {intl.formatMessage(commonMessages.dividingColon)}
                             {insertBetween(", ", [
