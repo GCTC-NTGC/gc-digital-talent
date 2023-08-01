@@ -238,6 +238,25 @@ class PoolCandidate extends Model
         return $query;
     }
 
+    /**
+     * Scope Publishing Groups
+     *
+     * Restrict a query by specific publishing groups
+     *
+     * @param Eloquent\Builder $query The existing query being built
+     * @param ?array $publishingGroups The publishing groups to scope the query by
+     * @return Eloquent\Builder The resulting query
+     */
+    public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
+    {
+        // Early return if no publishing groups were supplied
+        if (!$publishingGroups) return $query;
+
+        return $query->whereHas('pool', function ($query) use ($publishingGroups) {
+            $query->whereIn('publishing_group', $publishingGroups);
+        });
+    }
+
     public function scopeOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
         if (empty($operationalRequirements)) {
