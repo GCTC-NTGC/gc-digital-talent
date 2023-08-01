@@ -31,14 +31,11 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
     <div>
       {edit ? (
         <>
-          <Heading data-h2-margin-top="base(0)" data-h2-display="base(flex)">
-            <PencilSquareIcon
-              data-h2-color="base(primary)"
-              data-h2-width="base(x1.5)"
-              data-h2-display="base(inline-block)"
-              data-h2-vertical-align="base(middle)"
-              data-h2-margin="base(0, x.25, 0, 0)"
-            />
+          <Heading
+            Icon={PencilSquareIcon}
+            data-h2-margin-top="base(0)"
+            data-h2-display="base(flex)"
+          >
             {intl.formatMessage({
               defaultMessage: "Edit an experience",
               id: "RzXSJ9",
@@ -58,14 +55,11 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
         </>
       ) : (
         <>
-          <Heading data-h2-margin-top="base(0)" data-h2-display="base(flex)">
-            <PlusCircleIcon
-              data-h2-color="base(primary)"
-              data-h2-width="base(x1.5)"
-              data-h2-display="base(inline-block)"
-              data-h2-vertical-align="base(middle)"
-              data-h2-margin="base(0, x.25, 0, 0)"
-            />
+          <Heading
+            Icon={PlusCircleIcon}
+            data-h2-margin-top="base(0)"
+            data-h2-display="base(flex)"
+          >
             {intl.formatMessage({
               defaultMessage: "Add a new experience",
               id: "bOAF9o",
