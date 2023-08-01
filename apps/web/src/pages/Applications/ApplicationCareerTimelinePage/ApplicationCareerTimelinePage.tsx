@@ -14,7 +14,6 @@ import {
   ThrowNotFound,
   Well,
 } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -183,12 +182,9 @@ export const ApplicationCareerTimeline = ({
   const instructionsPath = paths.applicationCareerTimelineIntro(application.id);
   const nextStep =
     followingPageUrl ?? paths.applicationEducation(application.id);
-  const { applicantDashboard } = useFeatureFlags();
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
-  const cancelPath = applicantDashboard
-    ? paths.profileAndApplications({ fromIapDraft: isIAP })
-    : paths.myProfile();
+  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
   const methods = useForm<FormValues>();
   const {

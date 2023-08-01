@@ -36,7 +36,6 @@ import { RadioGroup } from "@gc-digital-talent/forms";
 import { Radio } from "@gc-digital-talent/forms/src/components/RadioGroup";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
 import { ApplicationPageProps } from "../ApplicationApi";
@@ -112,7 +111,6 @@ const ApplicationEducation = ({
   const locale = getLocale(intl);
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { applicantDashboard } = useFeatureFlags(); // TODO: Remove once feature flag has been turned on.
   const { followingPageUrl, currentStepOrdinal, isIAP } =
     useApplicationContext();
   const pageInfo = getPageInfo({
@@ -124,9 +122,7 @@ const ApplicationEducation = ({
   const nextStep =
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);
   const previousStep = paths.applicationCareerTimeline(application.id);
-  const cancelPath = applicantDashboard
-    ? paths.profileAndApplications({ fromIapDraft: isIAP })
-    : paths.myProfile();
+  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
   const methods = useForm<FormValues>({
     defaultValues: {

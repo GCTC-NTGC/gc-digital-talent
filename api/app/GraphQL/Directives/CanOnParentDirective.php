@@ -53,12 +53,11 @@ GRAPHQL;
     /**
      * Ensure the user is authorized to access this field.
      */
-    public function handleField(FieldValue $fieldValue, \Closure $next): FieldValue
+    public function handleField(FieldValue $fieldValue): void
     {
-        $previousResolver = $fieldValue->getResolver();
         $ability = $this->directiveArgValue('ability');
 
-        $fieldValue->setResolver(function ($root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) use ($ability, $previousResolver) {
+        $fieldValue->wrapResolver(fn (callable $previousResolver) => function (mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) use ($previousResolver, $ability) {
             $gate = $this->gate->forUser($context->user());
             $checkArguments = $this->buildCheckArguments($args);
 
@@ -67,6 +66,5 @@ GRAPHQL;
 
             return $previousResolver($root, $args, $context, $resolveInfo);
         });
-        return $next($fieldValue);
     }
 }
