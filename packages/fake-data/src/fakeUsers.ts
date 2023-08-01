@@ -12,7 +12,6 @@ import {
   OperationalRequirement,
   JobLookingStatus,
   Pool,
-  PoolCandidate,
   WorkRegion,
   SalaryRange,
   GovEmployeeType,
@@ -35,7 +34,7 @@ import {
 import fakeClassifications from "./fakeClassifications";
 import fakeDepartments from "./fakeDepartments";
 import fakeGenericJobTitles from "./fakeGenericJobTitles";
-import { GeneratedPoolCandidate } from "./fakePoolCandidates";
+import { GeneratedPoolCandidate } from "./fakePoolCandidateTypes";
 
 type GeneratedUser = User & {
   __typename: "User";
