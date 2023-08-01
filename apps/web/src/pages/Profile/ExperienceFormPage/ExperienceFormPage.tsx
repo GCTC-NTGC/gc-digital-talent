@@ -151,19 +151,20 @@ export const ExperienceForm = ({
 
   const pageTitle: string = experience
     ? intl.formatMessage({
-        defaultMessage: "Edit a résumé experience",
+        defaultMessage: "Edit a career timeline experience",
         id: "UISX7F",
         description: "Display text for edit experience form in breadcrumbs",
       })
     : intl.formatMessage({
-        defaultMessage: "Add an experience to your résumé",
+        defaultMessage: "Add an experience to your career timeline",
         id: "s9hqAQ",
         description: "Display text for add experience form in breadcrumbs",
       });
 
   const pageSubtitle: string = experience
     ? intl.formatMessage({
-        defaultMessage: "Update or delete an experience on your résumé",
+        defaultMessage:
+          "Update or delete an experience on your career timeline",
         id: "MxbskW",
         description: "Display text for edit experience form in breadcrumbs",
       })
@@ -270,7 +271,7 @@ export const ExperienceForm = ({
                 >
                   <Button type="submit">
                     {intl.formatMessage({
-                      defaultMessage: "Save and return to my résumé",
+                      defaultMessage: "Save and return to my career timeline",
                       id: "frDbhX",
                       description:
                         "Label on button to save and return on the current experience",
@@ -351,7 +352,7 @@ export const ExperienceForm = ({
                     onClick={() => setValue("action", "return")}
                   >
                     {intl.formatMessage({
-                      defaultMessage: "Save and return to my résumé",
+                      defaultMessage: "Save and return to my career timeline",
                       id: "frDbhX",
                       description:
                         "Label on button to save and return on the current experience",

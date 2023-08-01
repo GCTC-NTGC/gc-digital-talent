@@ -49,10 +49,10 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "This form allows you to edit a specific experience, its details, and linked skills. Don’t forget, work experiences should focus on describing  your part-time, full-time, self-employment, fellowship, non-profit, or internship experiences.",
+                "This form allows you to edit a specific experience, its details, and linked skills. Don’t forget, work experiences should focus on describing your part-time, full-time, self-employment, fellowship, non-profit, or internship experiences.",
               id: "AxMJL1",
               description:
-                "Instructions on how to add an experience to your résumé",
+                "Instructions on how to add an experience to your career timeline",
             })}
           </p>
         </>
@@ -76,10 +76,10 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "This form allows you to add a new experience to your résumé. Get started by selecting the type of experience you’d like to add. If you need more information about what a certain type can include, expand the information below to see examples.",
+                "This form allows you to add a new experience to your career timeline. Get started by selecting the type of experience you’d like to add. If you need more information about what a certain type can include, expand the information below to see examples.",
               id: "F5KhNJ",
               description:
-                "Instructions on how to add an experience to your résumé",
+                "Instructions on how to add an experience to your career timeline",
             })}
           </p>
           <Accordion.Root
@@ -94,7 +94,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                 {accordionState === "learn-more"
                   ? intl.formatMessage({
                       defaultMessage:
-                        "Hide more information about the types of experience you can add to your résumé",
+                        "Hide more information about the types of experience you can add to your career timeline",
                       id: "4wzX3f",
                       description:
                         "Button text to close accordion describing skill experience",
@@ -112,7 +112,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                 <p data-h2-margin-top="base(x1)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "We all have a variety of accomplishments and experiences that shape both our careers and skills. Please only share what you would be comfortable sharing with a coworker. On this platform, you can add the following to your résumé:",
+                      "We all have a variety of accomplishments and experiences that shape both our careers and skills. Please only share what you would be comfortable sharing with a coworker. On this platform, you can add the following to your career timeline:",
                     id: "0jNQ/I",
                     description:
                       "Lead-in text for the list of experience type definitions",
@@ -172,7 +172,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                   >
                     {intl.formatMessage({
                       defaultMessage:
-                        "Share specific awards and recognition you've received for going above and beyond.",
+                        "Share specific awards and recognition that you've received for going above and beyond.",
                       id: "IWJ/Qi",
                       description: "Description for award experience section",
                     })}

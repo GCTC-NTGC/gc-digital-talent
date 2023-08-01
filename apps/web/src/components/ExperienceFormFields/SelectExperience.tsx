@@ -26,7 +26,7 @@ const SelectExperience = ({ experienceType }: ExperienceTypeProps) => {
           defaultMessage: "Select a type of experience",
           id: "jw6Umr",
           description:
-            "Heading for the experience type section fo the experience form",
+            "Heading for the experience type section for the experience form",
         })}
       </Heading>
       <Select
