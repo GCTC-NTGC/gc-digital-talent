@@ -99,6 +99,11 @@ const messages = defineMessages({
     description:
       "Label for checkboxes used for disabling or enabling table column display",
   },
+  rolesAndPermissions: {
+    defaultMessage: "Roles and permissions",
+    id: "m54J0C",
+    description: "Heading for updating a users roles and permissions",
+  },
 });
 
 export default messages;

@@ -3,7 +3,6 @@ import uniqueId from "lodash/uniqueId";
 import { useIntl } from "react-intl";
 
 import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Sidebar from "./Sidebar";
 
@@ -11,16 +10,11 @@ type NavigationProps = React.HTMLProps<HTMLDivElement>;
 
 const Navigation = ({ children, ...rest }: NavigationProps) => {
   const intl = useIntl();
-  const featureFlags = useFeatureFlags();
   const id = uniqueId();
 
-  const textAlignStyles = featureFlags.applicantDashboard
-    ? {
-        "data-h2-text-align": "base(left)",
-      }
-    : {
-        "data-h2-text-align": "base(left) l-tablet(right)",
-      };
+  const textAlignStyles = {
+    "data-h2-text-align": "base(left)",
+  };
 
   return (
     <Sidebar {...textAlignStyles} {...rest}>

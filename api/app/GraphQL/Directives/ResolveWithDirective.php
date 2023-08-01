@@ -12,7 +12,9 @@ final class ResolveWithDirective extends BaseDirective implements ArgDirective, 
 
     public static function definition(): string
     {
-        return /** @lang GraphQL */ <<<'GRAPHQL'
+        return
+        /** @lang GraphQL */
+        <<<'GRAPHQL'
 """
 Process an input field by passing it to a specific method. By default, looks for a method on the root object.
 Note that if your input field contains an array, it will be passed to the method as a single argument.
@@ -50,7 +52,7 @@ GRAPHQL;
      * @param  mixed|\Nuwave\Lighthouse\Execution\Arguments\ArgumentSet|array<\Nuwave\Lighthouse\Execution\Arguments\ArgumentSet>  $value  The slice of arguments that belongs to this nested resolver.
      * @return mixed
      */
-    public function __invoke($root, $value)
+    public function __invoke(mixed $root, mixed $value)
     {
         $plainValue = $this->toPlainValue($value);
         $method = $this->directiveArgValue('method');
