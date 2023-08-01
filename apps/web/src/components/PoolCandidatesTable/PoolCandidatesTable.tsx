@@ -37,6 +37,7 @@ import {
   PoolStream,
   PoolCandidateWithSkillCount,
   useGetSkillsQuery,
+  PublishingGroup,
 } from "~/api/generated";
 
 import printStyles from "~/styles/printStyles";
@@ -81,6 +82,8 @@ function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
   return {
+    publishingGroups:
+      input?.applicantFilter?.publishingGroups?.filter(notEmpty) ?? [],
     classifications:
       input?.applicantFilter?.qualifiedClassifications
         ?.filter(notEmpty)
@@ -340,6 +343,7 @@ const defaultState = {
   hiddenColumnIds: ["candidacyStatus", "notes"],
   filters: {
     applicantFilter: {
+      publishingGroups: [PublishingGroup.ItJobs, PublishingGroup.ItJobsOngoing],
       operationalRequirements: [],
       locationPreferences: [],
       equity: {},
@@ -492,6 +496,7 @@ const PoolCandidatesTable = ({
   const handlePoolCandidateFilterSubmit: SubmitHandler<FormValues> = (data) => {
     const transformedData = {
       applicantFilter: {
+        publishingGroups: data.publishingGroups,
         languageAbility: data.languageAbility[0]
           ? stringToEnumLanguage(data.languageAbility[0])
           : undefined,

@@ -32,6 +32,7 @@ export type FormValues = {
   skills: Option["value"][];
   expiryStatus: Option["value"][];
   suspendedStatus: Option["value"][];
+  publishingGroups: Option["value"][];
 };
 
 type FooterProps = Pick<
@@ -123,10 +124,19 @@ const PoolCandidateTableFilterDialog = ({
             }}
           >
             <div data-h2-flex-grid="base(flex-start, x1, x.5)">
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(5of5)">
+                <MultiSelectField
+                  id="pools"
+                  name="pools"
+                  label={formatMessage(adminMessages.pools)}
+                  options={optionsData.pools}
+                  isLoading={rawGraphqlResults.pools.fetching}
+                />
+              </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
                 <MultiSelectField
-                  id="publishingGroup"
-                  name="publishingGroup"
+                  id="publishingGroups"
+                  name="publishingGroups"
                   label={formatMessage(adminMessages.publishingGroups)}
                   options={enumToOptions(PublishingGroup).map(({ value }) => ({
                     value,
@@ -136,15 +146,6 @@ const PoolCandidateTableFilterDialog = ({
                       locale === "en" ? "I T" : "T I",
                     ),
                   }))}
-                />
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
-                <MultiSelectField
-                  id="pools"
-                  name="pools"
-                  label={formatMessage(adminMessages.pools)}
-                  options={optionsData.pools}
-                  isLoading={rawGraphqlResults.pools.fetching}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">

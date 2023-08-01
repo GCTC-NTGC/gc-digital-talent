@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
-import { Scalars, useGetPoolQuery } from "~/api/generated";
+import { PublishingGroup, Scalars, useGetPoolQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
