@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
@@ -35,14 +37,21 @@ abstract class Experience extends Model
     {
         return $this->morphToMany(UserSkill::class, 'experience', 'experience_skill')
         ->withTimestamps()
-        ->withPivot('details')
+        ->withPivot(['details', 'deleted_at'])
+        ->wherePivotNull('deleted_at')
         ->as('experience_skill');
     }
 
     public function skills(): HasManyThrough
     {
         return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill())
-            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details']);
+            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
+            ->whereNull('experience_skill.deleted_at');
+    }
+
+    public function experienceSkills(): MorphMany
+    {
+        return $this->morphMany(ExperienceSkill::class, 'experience');
     }
 
     /**
@@ -120,8 +129,12 @@ abstract class Experience extends Model
         }
         // Find the userSkills that correspond to these skills.
         $userSkillIds = $this->user->userSkills()->whereIn('skill_id', $skillIds)->pluck('id');
-        // Simply detach the required userSkills
-        $this->userSkills()->detach($userSkillIds);
+        // Soft-delete these experience-skills
+        foreach($userSkillIds as $userSkillId) {
+            $this->userSkills()->updateExistingPivot($userSkillId, [
+                'deleted_at' => Carbon::now()
+            ]);
+        }
         // If this experience instance continues to be used, ensure the in-memory instance is updated.
         $this->refresh();
     }
