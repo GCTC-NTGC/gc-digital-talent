@@ -3409,10 +3409,6 @@
     "defaultMessage": "Évaluation bilingue",
     "description": "CSV Header, Bilingual Evaluation column"
   },
-  "M9x5zm": {
-    "defaultMessage": "Niveau de la langue seconde (compréhension, écrite, verbale)",
-    "description": "Evaluation results for second language, results in that order"
-  },
   "MCFcrj": {
     "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
     "description": "Hero image alt text."
