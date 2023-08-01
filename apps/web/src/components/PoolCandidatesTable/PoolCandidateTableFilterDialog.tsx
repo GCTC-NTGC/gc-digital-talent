@@ -10,13 +10,11 @@ import {
   MultiSelectField,
   enumToOptions,
 } from "@gc-digital-talent/forms";
+import { getPublishingGroup } from "@gc-digital-talent/i18n";
+import { PublishingGroup } from "@gc-digital-talent/graphql";
 
 import useFilterOptions from "~/components/Table/ApiManagedTable/useFilterOptions";
-
-import "./PoolCandidateFilterDialog.css";
 import adminMessages from "~/messages/adminMessages";
-import { PublishingGroup } from "@gc-digital-talent/graphql";
-import { getPublishingGroup } from "~/../../../packages/i18n/src/messages/localizedConstants";
 
 type Option = { value: string; label: string };
 

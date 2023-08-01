@@ -18,6 +18,7 @@ import {
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
   getPoolStream,
+  getPublishingGroup,
 } from "@gc-digital-talent/i18n";
 import {
   enumToOptions,
@@ -28,6 +29,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import {
   PoolStream,
+  PublishingGroup,
   WorkRegion,
   EducationType,
   LanguageAbility,
@@ -36,8 +38,6 @@ import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
 } from "~/api/generated";
-import { getPublishingGroup } from "~/../../../packages/i18n/src/messages/localizedConstants";
-import { PublishingGroup } from "@gc-digital-talent/graphql";
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
