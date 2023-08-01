@@ -3,7 +3,7 @@ import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pending, Spoiler } from "@gc-digital-talent/ui";
+import { Link, Pending, Spoiler } from "@gc-digital-talent/ui";
 import {
   InputMaybe,
   Maybe,
@@ -33,14 +33,17 @@ import {
   TABLE_DEFAULTS,
 } from "~/components/Table/ApiManagedTable/helpers";
 import useTableState from "~/components/Table/ApiManagedTable/useTableState";
-import tableViewItemButtonAccessor from "~/components/Table/ClientManagedTable/TableViewItemButton";
 import useRoutes from "~/hooks/useRoutes";
 import {
   stringToEnumRequestStatus,
   stringToEnumStream,
 } from "~/utils/requestUtils";
 import adminMessages from "~/messages/adminMessages";
-import { PoolCandidateSearchRequest } from "~/api/generated";
+import {
+  Classification,
+  PoolCandidateSearchRequest,
+  PoolStream,
+} from "~/api/generated";
 
 import SearchRequestsTableFilter, {
   FormValues,
@@ -120,9 +123,38 @@ const notesAccessor = (
     />
   ) : null;
 
+const viewRequestAccessor = (
+  viewUrl: string,
+  classification: Classification | undefined,
+  stream: PoolStream | undefined,
+  intl: IntlShape,
+) => (
+  <Link href={viewUrl}>
+    {intl.formatMessage(
+      {
+        defaultMessage: "View {groupLevel} {stream} request",
+        id: "Wm/eBb",
+        description:
+          "Label for view request link, on the view column of search request table.",
+      },
+      {
+        groupLevel: `${classification?.group}-0${classification?.level}`,
+        stream: intl.formatMessage(getPoolStream(stream || "")),
+      },
+    )}
+  </Link>
+);
+
 const defaultState = {
   ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["id", "manager", "email", "adminNotes"],
+  hiddenColumnIds: [
+    "id",
+    "group_and_level",
+    "stream",
+    "manager",
+    "email",
+    "adminNotes",
+  ],
   filters: {},
 };
 
@@ -255,18 +287,19 @@ const SearchRequestsTableApi = ({
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Request job title",
-          id: "6AhLsc",
+          defaultMessage: "View Request",
+          id: "kZGKwO",
           description:
-            "Title displayed for the search request table request job title column.",
+            "Title displayed for the search request table view column.",
         }),
-        id: "job_title",
-        sortColumnName: "job_title",
+        id: "view_request",
+        sortColumnName: "view_request",
         accessor: (d) =>
-          tableViewItemButtonAccessor(
+          viewRequestAccessor(
             paths.searchRequestView(d.id),
-            d.jobTitle || "",
-            "",
+            d.applicantFilter?.qualifiedClassifications?.filter(notEmpty)[0], // TODO: What if there are more than one?
+            d.applicantFilter?.qualifiedStreams?.filter(notEmpty)[0], // TODO: What if there are more than one?
+            intl,
           ),
       },
       {
