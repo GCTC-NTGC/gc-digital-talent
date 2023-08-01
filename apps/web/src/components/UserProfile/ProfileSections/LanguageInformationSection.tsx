@@ -143,11 +143,12 @@ const LanguageInformationSection = ({
               <span data-h2-display="base(block)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Second language level (Reading, Writing, Oral interaction):",
-                  id: "dTOh1/",
+                    "Second language level (reading, writing, oral interaction)",
+                  id: "qOi2J0",
                   description:
-                    "Evaluation results for second language, results in that order followed by a colon",
+                    "Second language level (reading, writing, oral interaction) label",
                 })}
+                {intl.formatMessage(commonMessages.dividingColon)}
               </span>
               <span data-h2-font-weight="base(700)">
                 {comprehensionLevel}, {writtenLevel}, {verbalLevel}

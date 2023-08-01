@@ -3880,10 +3880,6 @@
     "defaultMessage": "Compétences essentielles",
     "description": "Title text for group of need-to-have skills for pool advertisement on experience forms"
   },
-  "qOi2J0": {
-    "defaultMessage": "Niveau de connaissance de la langue seconde (lecture, écriture, expression orale)",
-    "description": "Second language level (reading, writing, oral interaction) label"
-  },
   "Pasf+O": {
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
     "description": "List item note 2 for the application review page."
@@ -5808,10 +5804,6 @@
     "defaultMessage": "Après avoir ajouté quelques compétences, veuillez expliquer comment vous les avez utilisées, essayez de répondre à une ou plusieurs de ces questions :",
     "description": "Description for skills in detail section of experience form."
   },
-  "dTOh1/": {
-    "defaultMessage": "Niveau de la langue seconde (Lecture, Écriture, Expression orale) :",
-    "description": "Evaluation results for second language, results in that order followed by a colon"
-  },
   "dVc2uY": {
     "defaultMessage": "Les renseignements gouvernementaux ont été mis à jour avec succès!",
     "description": "Message displayed when a user successfully updates their government employee information."
@@ -7691,6 +7683,10 @@
   "qGyD4w": {
     "defaultMessage": "Questions de sélection",
     "description": "Heading for screening questions section of the application review page."
+  },
+  "qOi2J0": {
+    "defaultMessage": "Niveau de connaissance de la langue seconde (lecture, écriture, expression orale)",
+    "description": "Second language level (reading, writing, oral interaction) label"
   },
   "qPxrKm": {
     "defaultMessage": "Modifier ou retirer les permissions d’adhésion.",
