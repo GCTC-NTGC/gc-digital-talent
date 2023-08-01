@@ -9,9 +9,9 @@ query getProfile($userId: UUID!) {
     email
     telephone
     preferredLang
-    currentProvince
     preferredLanguageForInterview
     preferredLanguageForExam
+    currentProvince
     currentCity
     citizenship
     armedForcesStatus
@@ -75,9 +75,6 @@ query getProfile($userId: UUID!) {
       level
     }
     positionDuration
-    experiences {
-      ...experience
-    }
     userSkills {
       id
       skill {
@@ -89,12 +86,21 @@ query getProfile($userId: UUID!) {
         }
       }
     }
+    experiences {
+      ...profileExperience
+    }
+    isProfileComplete
     poolCandidates {
+      id
       status
       expiryDate
       signature
+      archivedAt
+      submittedAt
+      suspendedAt
       pool {
         id
+        closingDate
         name {
           en
           fr
@@ -104,12 +110,25 @@ query getProfile($userId: UUID!) {
           id
           group
           level
+          name {
+            en
+            fr
+          }
+          genericJobTitles {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
+          minSalary
+          maxSalary
         }
       }
-      id
       educationRequirementOption
       educationRequirementExperiences {
-        ...experience
+        ...profileExperience
       }
       screeningQuestionResponses {
         id
@@ -124,18 +143,25 @@ query getProfile($userId: UUID!) {
         }
       }
     }
-    isProfileComplete
   }
 }
 
-fragment experience on Experience {
-  __typename
+fragment profileExperience on Experience {
   id
+  __typename
   details
   skills {
     id
     key
     name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
       en
       fr
     }

@@ -1,3 +1,5 @@
+# Comes from apps/web/src/pages/Profile/ProfilePage/profileOperations.graphql
+# Should match the getMe query from that file to take accurate snapshots
 query getMe {
   me {
     id
@@ -85,79 +87,17 @@ query getMe {
       }
     }
     experiences {
-      id
-      __typename
-      user {
-        id
-        email
-      }
-      details
-      skills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        keywords {
-          en
-          fr
-        }
-        experienceSkillRecord {
-          details
-        }
-      }
-      ... on AwardExperience {
-        title
-        issuedBy
-        awardedDate
-        awardedTo
-        awardedScope
-      }
-      ... on CommunityExperience {
-        title
-        organization
-        project
-        startDate
-        endDate
-      }
-      ... on EducationExperience {
-        institution
-        areaOfStudy
-        thesisTitle
-        startDate
-        endDate
-        type
-        status
-      }
-      ... on PersonalExperience {
-        title
-        description
-        startDate
-        endDate
-      }
-      ... on WorkExperience {
-        role
-        organization
-        division
-        startDate
-        endDate
-      }
+      ...profileExperience
     }
     isProfileComplete
     poolCandidates {
       id
       status
+      expiryDate
+      signature
       archivedAt
       submittedAt
       suspendedAt
-      user {
-        id
-      }
       pool {
         id
         closingDate
@@ -186,6 +126,83 @@ query getMe {
           maxSalary
         }
       }
+      educationRequirementOption
+      educationRequirementExperiences {
+        ...profileExperience
+      }
+      screeningQuestionResponses {
+        id
+        answer
+        screeningQuestion {
+          id
+          sortOrder
+          question {
+            en
+            fr
+          }
+        }
+      }
     }
+  }
+}
+
+fragment profileExperience on Experience {
+  id
+  __typename
+  details
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    experienceSkillRecord {
+      details
+    }
+  }
+  ... on AwardExperience {
+    title
+    issuedBy
+    awardedDate
+    awardedTo
+    awardedScope
+  }
+  ... on CommunityExperience {
+    title
+    organization
+    project
+    startDate
+    endDate
+  }
+  ... on EducationExperience {
+    institution
+    areaOfStudy
+    thesisTitle
+    startDate
+    endDate
+    type
+    status
+  }
+  ... on PersonalExperience {
+    title
+    description
+    startDate
+    endDate
+  }
+  ... on WorkExperience {
+    role
+    organization
+    division
+    startDate
+    endDate
   }
 }

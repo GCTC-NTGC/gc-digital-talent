@@ -20,7 +20,10 @@ import { useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getApplicationDateInfo } from "./utils";
 
-type Application = Omit<PoolCandidate, "user">;
+type Application = Omit<
+  PoolCandidate,
+  "user" | "educationRequirementExperiences"
+>;
 
 export interface TrackApplicationsCardProps {
   application: Application;

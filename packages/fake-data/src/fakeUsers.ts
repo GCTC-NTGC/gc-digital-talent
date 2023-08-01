@@ -12,7 +12,6 @@ import {
   OperationalRequirement,
   JobLookingStatus,
   Pool,
-  PoolCandidate,
   WorkRegion,
   SalaryRange,
   GovEmployeeType,
@@ -35,6 +34,7 @@ import {
 import fakeClassifications from "./fakeClassifications";
 import fakeDepartments from "./fakeDepartments";
 import fakeGenericJobTitles from "./fakeGenericJobTitles";
+import { GeneratedPoolCandidate } from "./fakePoolCandidateTypes";
 
 type GeneratedUser = User & {
   __typename: "User";
@@ -47,6 +47,7 @@ type GeneratedUser = User & {
       | GeneratedWorkExperience
     >[]
   >;
+  poolCandidates?: Maybe<Array<Maybe<GeneratedPoolCandidate>>>;
 };
 
 const generateUser = (
@@ -60,7 +61,7 @@ const generateUser = (
   personalExperiences: GeneratedPersonalExperience[], // Experiences belonging to this user
   workExperiences: GeneratedWorkExperience[], // Experiences belonging to this user
 
-  poolCandidates: PoolCandidate[] = [], // poolCandidates associating this user with a pool
+  poolCandidates: GeneratedPoolCandidate[] = [], // poolCandidates associating this user with a pool
   pools: Pool[] = [], // pools owned by this user
 ): GeneratedUser => {
   faker.setLocale("en");

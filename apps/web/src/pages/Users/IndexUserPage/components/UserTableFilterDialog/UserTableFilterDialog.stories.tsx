@@ -1,5 +1,5 @@
 import React from "react";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import type { SubmitHandler } from "react-hook-form";
 import { OverlayOrDialogDecorator } from "storybook-helpers";
@@ -8,6 +8,7 @@ import {
   fakeSkills,
   fakePools,
   fakeClassifications,
+  fakeRoles,
 } from "@gc-digital-talent/fake-data";
 
 import UserTableFilterDialog from "./UserTableFilterDialog";
@@ -28,13 +29,14 @@ export default {
           classifications: fakeClassifications(),
           pools: fakePools(),
           skills: fakeSkills(30),
+          roles: fakeRoles(),
         },
       },
     },
   },
-} as ComponentMeta<typeof UserTableFilterDialog>;
+} as Meta<typeof UserTableFilterDialog>;
 
-const Template: ComponentStory<typeof UserTableFilterDialog> = (args) => {
+const Template: StoryFn<typeof UserTableFilterDialog> = (args) => {
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
     action("Update filter")(data);
   };
