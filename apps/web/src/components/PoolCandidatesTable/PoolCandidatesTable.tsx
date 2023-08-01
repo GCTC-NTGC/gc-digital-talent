@@ -496,7 +496,7 @@ const PoolCandidatesTable = ({
   const handlePoolCandidateFilterSubmit: SubmitHandler<FormValues> = (data) => {
     const transformedData = {
       applicantFilter: {
-        publishingGroups: data.publishingGroups,
+        publishingGroups: data.publishingGroups as PublishingGroup[],
         languageAbility: data.languageAbility[0]
           ? stringToEnumLanguage(data.languageAbility[0])
           : undefined,
