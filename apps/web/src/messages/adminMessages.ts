@@ -87,6 +87,11 @@ const messages = defineMessages({
     description:
       "Message displayed when a given field has no values to display, that no information is present.",
   },
+  rolesAndPermissions: {
+    defaultMessage: "Roles and permissions",
+    id: "m54J0C",
+    description: "Heading for updating a users roles and permissions",
+  },
 });
 
 export default messages;
