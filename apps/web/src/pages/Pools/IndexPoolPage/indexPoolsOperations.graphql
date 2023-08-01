@@ -4,6 +4,10 @@ query allPools {
     team {
       id
       name
+      displayName {
+        en
+        fr
+      }
     }
     owner {
       id
