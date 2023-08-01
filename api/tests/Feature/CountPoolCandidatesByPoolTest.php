@@ -750,4 +750,62 @@ class CountPoolCandidatesByPoolTest extends TestCase
             ]
         ]);
     }
+
+    public function testOnlyItJobsAppear()
+    {
+        $user = User::factory()->create([]);
+
+        $itPool = Pool::factory()->create([
+            ...$this->poolData(),
+            'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS
+        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($itPool, $user, true));
+
+        $itOngoingPool = Pool::factory()->create([
+            ...$this->poolData(),
+            'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING
+        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($itOngoingPool, $user, true));
+
+        // Note: Should not appear in results
+        $execPool = Pool::factory()->create([
+            ...$this->poolData(),
+            'publishing_group' => ApiEnums::PUBLISHING_GROUP_EXECUTIVE_JOBS
+        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($execPool, $user, true));
+
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+                query ($where: ApplicantFilterInput) {
+                    countPoolCandidatesByPool(where: $where) {
+                      pool { id }
+                      candidateCount
+                    }
+                  }
+                ',
+            [
+                'where' => [
+                    "pools" => [
+                        ["id" => $itPool->id],
+                        ["id" => $itOngoingPool->id],
+                        ["id" => $execPool->id], // Should not show up
+                    ]
+                ]
+            ]
+        )->assertSimilarJson([
+            'data' => [
+                'countPoolCandidatesByPool' => [
+                    [
+                        'pool' => ['id' => $itOngoingPool->id],
+                        'candidateCount' => 1
+                    ],
+                    [
+                        'pool' => ['id' => $itPool->id],
+                        'candidateCount' => 1
+                    ]
+                ]
+            ]
+        ]);
+    }
 }

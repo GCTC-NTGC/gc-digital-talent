@@ -1750,4 +1750,43 @@ class ApplicantTest extends TestCase
                 ]
             ]);
     }
+
+    public function testOnlyITJobsAppear()
+    {
+        $itPool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
+            'user_id' => $this->adminUser->id,
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool->id
+        ]);
+        $itOngoingPool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
+            'user_id' => $this->adminUser->id,
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itOngoingPool->id
+        ]);
+        $execPool = Pool::factory()->published()->create([
+            'user_id' => $this->adminUser->id,
+            'publishing_group' => ApiEnums::PUBLISHING_GROUP_EXECUTIVE_JOBS
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $execPool->id
+        ]);
+
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
+            'data' => [
+                'countApplicants' => 2
+            ]
+        ]);
+    }
 }
