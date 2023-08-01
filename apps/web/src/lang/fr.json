@@ -1082,10 +1082,6 @@
     "defaultMessage": "Sélectionnez un type",
     "description": "Default selection for the experience type field"
   },
-  "5R2iR2": {
-    "defaultMessage": "Niveau verbal",
-    "description": "CSV Header, Verbal Level column"
-  },
   "5SKmte": {
     "defaultMessage": "Modifier<hidden> le regroupement des compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
@@ -1145,6 +1141,10 @@
   "5nlauT": {
     "defaultMessage": "Question filtre {index} : {question}",
     "description": "CSV Header, Screening question column. "
+  },
+  "5nrkKw": {
+    "defaultMessage": "Niveau d’expression orale",
+    "description": "CSV Header, Oral interaction Level column"
   },
   "5pQfyv": {
     "defaultMessage": "Postes en français",
@@ -1597,6 +1597,10 @@
   "8diKHR": {
     "defaultMessage": "Si vous n’êtes pas sûr(e) d’avoir un compte CléGC existant, rendez-vous sur le site Web et essayez de vous connecter. Si vous ne vous souvenez pas de votre mot de passe, vous pouvez également le réinitialiser à cet endroit.",
     "description": "Instructions on what to do if user doesn't know if they have a GCKey"
+  },
+  "8ea9ne": {
+    "defaultMessage": "Niveau d’écriture",
+    "description": "CSV Header, Writing Level column"
   },
   "8fQWTc": {
     "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
@@ -2089,6 +2093,10 @@
   "CDV1Cw": {
     "defaultMessage": "Modifier {experienceName}",
     "description": "Link text to edit a specific experience"
+  },
+  "CEFnPm": {
+    "defaultMessage": "Niveau de lecture",
+    "description": "CSV Header, Reading (comprehension) Level column"
   },
   "CH6FQA": {
     "defaultMessage": "Supprimer la demande<hidden> ({name})</hidden>",
@@ -3975,10 +3983,6 @@
   "QHR5ay": {
     "defaultMessage": "Vous n'avez pas actuellement de bassins de talents dans votre profil.",
     "description": "Message displayed in recruitment availability when the user is not in any valid pools"
-  },
-  "QIh0q7": {
-    "defaultMessage": "Niveau de compréhension",
-    "description": "CSV Header, Comprehension Level column"
   },
   "QJ5uDV": {
     "defaultMessage": "Sélectionnez un volet",
@@ -8401,10 +8405,6 @@
   "w/qZsH": {
     "defaultMessage": "Classification",
     "description": "Label displayed on the pool form classification field."
-  },
-  "w/v77x": {
-    "defaultMessage": "Niveau d’écriture",
-    "description": "CSV Header, Written Level column"
   },
   "w1/0Cd": {
     "defaultMessage": "Diplôme exigé",
