@@ -47,11 +47,11 @@ class ApplicantTest extends TestCase
     {
         // Get the ID of the base admin user
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
-        $pool2 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -79,7 +79,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 8 // including base admin user
+                'countApplicants' => 7
             ]
         ]);
 
@@ -109,8 +109,8 @@ class ApplicantTest extends TestCase
     {
         // Get the ID of the base admin user
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -250,8 +250,8 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQueryLanguage(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(1)->create([
@@ -358,7 +358,7 @@ class ApplicantTest extends TestCase
     {
         // Recycling salary/classification tests //
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id'],
         ]);
 
@@ -457,8 +457,8 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQueryEducation(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -527,8 +527,8 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQueryLocation(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -597,8 +597,8 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQueryTemporary(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -698,8 +698,8 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQueryConditionsEmployment(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(1)->create([
@@ -800,8 +800,8 @@ class ApplicantTest extends TestCase
     {
         // recycle skills testing //
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
         $skill1 = Skill::factory()->create();
         $skill2 = Skill::factory()->create();
@@ -970,8 +970,8 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQuerySkillsAdditive(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
         $skill1 = Skill::factory()->create();
         $skill2 = Skill::factory()->create();
@@ -1114,8 +1114,8 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQuerySuspended(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
         PoolCandidate::factory()->count(5)->availableInSearch()->create([
             'pool_id' => $pool1,
@@ -1274,7 +1274,7 @@ class ApplicantTest extends TestCase
     public function testStatusWeight(): void
     {
         // test generated property that exists on type PoolCandidate from model PoolCandidate.php
-        $pool = Pool::factory()->create();
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
 
         $candidate = PoolCandidate::factory()->create([
             'pool_id' => $pool->id,
@@ -1539,8 +1539,8 @@ class ApplicantTest extends TestCase
     public function testSortingStatusThenPriority(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         // DRAFT, NOT PRESENT
@@ -1664,7 +1664,7 @@ class ApplicantTest extends TestCase
     public function testNullFilterEqualsUndefinedPoolCandidate()
     {
         // setup
-        $pool = Pool::factory()->create([
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $this->adminUser->id,
         ]);
         User::factory()

@@ -2278,10 +2278,10 @@ class UserTest extends TestCase
         $user = User::All()->first();
 
         // Create new pools and attach to new pool candidates.
-        $pool1 = Pool::factory()->create([
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id']
         ]);
-        $pool2 = Pool::factory()->create([
+        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id']
         ]);
 
