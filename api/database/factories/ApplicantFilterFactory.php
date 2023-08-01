@@ -81,9 +81,7 @@ class ApplicantFilterFactory extends Factory
             )->get();
             $filter->skills()->saveMany($skills);
 
-            $pools = Pool::whereNotNull("published_at")->inRandomOrder()->limit(
-                $this->faker->numberBetween($minCount, 1)
-            )->get();
+            $pools = Pool::whereNotNull("published_at")->inRandomOrder()->limit(1)->get();
             $filter->pools()->saveMany($pools);
             $filter->qualifiedClassifications()->saveMany($pools->flatMap(fn ($pool) => $pool->classifications));
             $stream = (empty($pools) || count($pools) === 0) ? $this->faker->randomElements(
