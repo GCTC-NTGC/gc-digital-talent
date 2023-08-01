@@ -17,7 +17,6 @@ import {
   Link,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import type { User } from "~/api/generated";
 
@@ -137,7 +136,6 @@ const UserProfile = ({
 }: UserProfileProps) => {
   const intl = useIntl();
   const { experiences } = user;
-  const featureFlags = useFeatureFlags();
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
 
   type SectionKeys = keyof UserProfileProps["sections"];
@@ -149,7 +147,6 @@ const UserProfile = ({
   const sectionStatus = (
     hasEmptyRequiredFields: (user: User) => boolean,
   ): Status | undefined => {
-    if (!featureFlags.applicantDashboard) return undefined;
     if (hasEmptyRequiredFields(user)) return "error";
 
     return "success";

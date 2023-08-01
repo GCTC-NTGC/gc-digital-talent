@@ -334,8 +334,8 @@ export const PoolPoster = ({
                         {intl.formatMessage(
                           {
                             defaultMessage:
-                              "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities in the area of application development.",
-                            id: "LlgRM8",
+                              "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities.",
+                            id: "7b0U9u",
                             description:
                               "Description of pool recruitment, paragraph two",
                           },

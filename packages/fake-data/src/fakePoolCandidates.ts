@@ -10,7 +10,6 @@ import {
   Pool,
   User,
 } from "@gc-digital-talent/graphql";
-
 import fakePools from "./fakePools";
 import fakeUsers from "./fakeUsers";
 

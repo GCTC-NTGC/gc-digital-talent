@@ -16,7 +16,6 @@ import {
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -95,7 +94,6 @@ const ApplicationReview = ({
   const navigate = useNavigate();
   const { currentStepOrdinal, followingPageUrl, isIAP } =
     useApplicationContext();
-  const { applicantDashboard } = useFeatureFlags();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -140,9 +138,7 @@ const ApplicationReview = ({
       });
   };
 
-  const cancelPath = applicantDashboard
-    ? paths.profileAndApplications({ fromIapDraft: isIAP })
-    : paths.myProfile();
+  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
   const editPaths = {
     careerTimeline: paths.applicationCareerTimeline(application.id),
     education: paths.applicationEducation(application.id),

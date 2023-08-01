@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import { Alert, Link } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useLocale } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -45,7 +44,6 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
 const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const { locale } = useLocale();
-  const { applicantDashboard } = useFeatureFlags();
   const paths = useRoutes();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
@@ -134,22 +132,20 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           </li>
         )}
       </ul>
-      {applicantDashboard && (
-        <p data-h2-margin="base(x.5, 0)">
-          <Link
-            href={paths.profileAndApplications({ fromIapSuccess: isIAP })}
-            mode="solid"
-            color="primary"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Visit your Profile and applications page",
-              id: "26Qj2A",
-              description:
-                "Link text to navigate to the profile and applications page",
-            })}
-          </Link>
-        </p>
-      )}
+      <p data-h2-margin="base(x.5, 0)">
+        <Link
+          href={paths.profileAndApplications({ fromIapSuccess: isIAP })}
+          mode="solid"
+          color="primary"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Visit your Profile and applications page",
+            id: "26Qj2A",
+            description:
+              "Link text to navigate to the profile and applications page",
+          })}
+        </Link>
+      </p>
       <p data-h2-font-size="base(caption)">
         {intl.formatMessage({
           defaultMessage:

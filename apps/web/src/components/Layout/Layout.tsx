@@ -9,7 +9,6 @@ import {
   ROLE_NAME,
   hasRole,
 } from "@gc-digital-talent/auth";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import NavMenu from "~/components/NavMenu/NavMenu";
@@ -27,7 +26,6 @@ import LogoutButton from "./LogoutButton";
 const Layout = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { applicantDashboard } = useFeatureFlags();
   useLayoutTheme("default");
 
   const { user } = useAuthorization();
@@ -73,27 +71,6 @@ const Layout = () => {
   if (loggedIn && user) {
     const userRoleNames = user?.roleAssignments?.map((a) => a.role?.name);
 
-    if (!applicantDashboard) {
-      menuItems = [
-        ...menuItems,
-        <MenuLink key="myApplications" to={paths.applications(user.id)}>
-          {intl.formatMessage({
-            defaultMessage: "My applications",
-            id: "ioghLh",
-            description:
-              "Label displayed on the users pool applications menu item.",
-          })}
-        </MenuLink>,
-        <MenuLink key="myProfile" to={paths.profile(user.id)}>
-          {intl.formatMessage({
-            defaultMessage: "My profile",
-            id: "5lBIzg",
-            description: "Label displayed on the applicant profile menu item.",
-          })}
-        </MenuLink>,
-      ];
-    }
-
     if (
       [
         ROLE_NAME.PoolOperator,
@@ -120,10 +97,7 @@ const Layout = () => {
       </SignOutConfirmation>,
     ];
 
-    if (
-      applicantDashboard &&
-      hasRole(ROLE_NAME.Applicant, user.roleAssignments)
-    ) {
+    if (hasRole(ROLE_NAME.Applicant, user.roleAssignments)) {
       authLinks = [
         <MenuLink
           key="profile-applications"

@@ -80,14 +80,14 @@ class PoolCandidateSearchRequestTest extends TestCase
     public function testMutationCreateFailsWithNoFilter()
     {
         $this->seed(DepartmentSeeder::class);
+        $departmentId = Department::inRandomOrder()->first()->id;
+        $errorMessage = "Variable \"\$input\" got invalid value {\"fullName\":\"Test\",\"email\":\"test@domain.com\",\"jobTitle\":\"Job Title\",\"managerJobTitle\":\"Manager\",\"positionType\":\"INDIVIDUAL_CONTRIBUTOR\",\"department\":{\"connect\":\"$departmentId\"}}; Field \"applicantFilter\" of required type \"ApplicantFilterBelongsTo!\" was not provided.";
 
         $this->runCreateMutation([
             'department' => [
-                'connect' => Department::inRandomOrder()->first()->id
+                'connect' => $departmentId
             ],
-        ])->assertSeeText(
-            'Field value.applicantFilter of required type ApplicantFilterBelongsTo! was not provided.'
-        );
+        ])->assertGraphQLErrorMessage($errorMessage);
     }
 
     /**

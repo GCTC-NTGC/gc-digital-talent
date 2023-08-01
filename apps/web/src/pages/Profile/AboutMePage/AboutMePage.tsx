@@ -4,8 +4,6 @@ import { useIntl } from "react-intl";
 import { OperationResult } from "urql";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   Exact,
@@ -78,11 +76,9 @@ const AboutMePage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
-  const featureFlags = useFeatureFlags();
 
   const [result] = useGetAboutMeQuery();
   const { data, fetching, error } = result;
-  const preProfileStatus = data?.me?.isProfileComplete;
 
   const [, executeMutation] = useUpdateUserAboutMeMutation();
 
@@ -95,12 +91,6 @@ const AboutMePage = () => {
         >,
       ) => {
         if (res.data?.updateUserAsUser) {
-          const currentProfileStatus =
-            res.data?.updateUserAsUser?.isProfileComplete;
-          const message = intl.formatMessage(profileMessages.profileCompleted);
-          if (!preProfileStatus && currentProfileStatus) {
-            if (!featureFlags.applicantDashboard) toast.success(message);
-          }
           return res.data.updateUserAsUser;
         }
 

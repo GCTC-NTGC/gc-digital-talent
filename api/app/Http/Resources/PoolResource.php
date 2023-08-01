@@ -18,7 +18,8 @@ class PoolResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'stream' => $this->stream,
-            'classifications' => ClassificationResource::collection($this->classifications)
+            'classifications' => ClassificationResource::collection($this->classifications),
+            'closingDate' => $this->closing_date,
         ];
     }
 }
