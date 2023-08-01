@@ -1,10 +1,12 @@
 <?php
 
 use App\Models\AwardExperience;
+use App\Models\ExperienceSkill;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -317,4 +319,29 @@ class ExperienceTest extends TestCase
         $this->assertCount(2, $this->platformAdmin->userSkills);
     }
 
+    public function testUserSkillRelationshipIgnoresSoftDeletedPivots(): void {
+        Skill::factory()->count(3)->create();
+        $experience = AwardExperience::factory()->withSkills(3)->create();
+        // sanity check
+        $this->assertCount(3, $experience->fresh()->userSkills);
+        // soft-delete one ExperienceSkill
+        $pivot = ExperienceSkill::first();
+        $pivot->deleted_at = Carbon::now();
+        $pivot->save();
+        // assert that the soft-deleted relationship is ignored
+        $this->assertCount(2, $experience->fresh()->userSkills);
+    }
+
+    public function tesSkillRelationshipIgnoresSoftDeletedPivots(): void {
+        Skill::factory()->count(3)->create();
+        $experience = AwardExperience::factory()->withSkills(3)->create();
+        // sanity check
+        $this->assertCount(3, $experience->fresh()->skills);
+        // soft-delete one ExperienceSkill
+        $pivot = ExperienceSkill::first();
+        $pivot->deleted_at = Carbon::now();
+        $pivot->save();
+        // assert that the soft-deleted relationship is ignored
+        $this->assertCount(2, $experience->fresh()->skills);
+    }
 }
