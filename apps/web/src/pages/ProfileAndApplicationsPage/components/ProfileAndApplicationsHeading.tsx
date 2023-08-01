@@ -10,7 +10,6 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
-import BeakerIcon from "@heroicons/react/20/solid/BeakerIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
