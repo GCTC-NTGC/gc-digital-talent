@@ -802,6 +802,7 @@ input UserFilterInput {
   email: String @scope
   name: String @scope
   generalSearch: String @scope
+  roles: [ID] @scope(name: "roleAssignments")
 }
 
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
