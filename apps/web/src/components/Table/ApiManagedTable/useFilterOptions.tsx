@@ -140,6 +140,7 @@ export default function useFilterOptions(enableEducationType = false) {
         label: intl.formatMessage(getCandidateSuspendedFilterStatus(value)),
       }),
     ),
+    trashed: [yesOption],
   };
 
   // Creates an object keyed with all fields, each with empty array.

@@ -21,6 +21,7 @@ import {
   UserFilterInput,
   UserPaginator,
   useSelectedUsersQuery,
+  Trashed,
 } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
@@ -91,6 +92,7 @@ function transformFormValuesToUserFilterInput(
       const poolString = pool;
       return { poolId: poolString };
     }),
+    trashed: data.trashed[0] ? Trashed.Only : undefined,
   };
 }
 
@@ -124,6 +126,7 @@ function transformUserFilterInputToFormValues(
       input?.poolFilters
         ?.filter(notEmpty)
         .map((poolFilter) => poolFilter.poolId) ?? [],
+    trashed: input?.trashed ? ["true"] : [],
   };
 }
 
@@ -256,6 +259,7 @@ const UserTable = ({ title }: { title: string }) => {
       isGovEmployee: fancyFilterState?.isGovEmployee,
       isProfileComplete: fancyFilterState?.isProfileComplete,
       poolFilters: fancyFilterState?.poolFilters,
+      trashed: fancyFilterState?.trashed,
     };
   };
 

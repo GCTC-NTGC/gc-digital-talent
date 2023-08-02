@@ -343,7 +343,7 @@ query GetViewUserData($id: UUID!) {
       expiryDate
       notes
       suspendedAt
-      user(trashed: WITH) {
+      user {
         id
       }
       pool {

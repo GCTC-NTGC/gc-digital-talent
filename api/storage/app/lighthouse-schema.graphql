@@ -1940,6 +1940,7 @@ input UserFilterInput {
   email: String
   name: String
   generalSearch: String
+  trashed: Trashed
 }
 
 """A paginated list of User items."""

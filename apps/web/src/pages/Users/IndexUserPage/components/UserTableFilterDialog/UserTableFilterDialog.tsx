@@ -30,6 +30,7 @@ export type FormValues = {
   skills: Option["value"][];
   profileComplete: Option["value"][];
   govEmployee: Option["value"][];
+  trashed: Option["value"][];
 };
 
 type FooterProps = Pick<UserTableFilterDialogProps, "enableEducationType">;
@@ -232,6 +233,18 @@ const UserTableFilterDialog = ({
                     id: "YojrdC",
                   })}
                   options={optionsData.govEmployee}
+                />
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
+                <MultiSelectFieldBase
+                  forceArrayFormValue
+                  id="trashed"
+                  name="trashed"
+                  label={formatMessage({
+                    defaultMessage: "Deleted",
+                    id: "KQvWvD",
+                  })}
+                  options={optionsData.trashed}
                 />
               </div>
             </div>
