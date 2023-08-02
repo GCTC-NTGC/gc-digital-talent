@@ -111,22 +111,17 @@ class DatabaseSeeder extends Seeder
         $pool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
         $this->seedPoolCandidate($applicant, $pool);
         $this->seedAwardExperienceForPool($applicant, $digitalTalentPool);
-        $applicantUserSkills = DB::table('user_skills')
-            ->where('user_id', $applicant->id)
-            ->get();
-        foreach ($applicantUserSkills as $userSkill) {
+        $applicantUserSkills = $applicant->userSkills;
+        foreach ($applicantUserSkills as $applicantUserSkill) {
             $isSkillLevelSet = $faker->boolean(75);
             $isWhenSkillUsedSet = $faker->boolean(75);
             if ($isSkillLevelSet) {
-                DB::table('user_skills')
-                    ->where('id', $userSkill->id)
-                    ->update(['skill_level' => $faker->randomElement(ApiEnums::skillLevels())]);
+                $applicantUserSkill->skill_level = $faker->randomElement(ApiEnums::skillLevels());
             }
             if ($isWhenSkillUsedSet) {
-                DB::table('user_skills')
-                    ->where('id', $userSkill->id)
-                    ->update(['when_skill_used' => $faker->randomElement(ApiEnums::whenSkillUsed())]);
+                $applicantUserSkill->when_skill_used = $faker->randomElement(ApiEnums::whenSkillUsed());
             }
+            $applicantUserSkill->save();
         }
 
         // attach either a work or education experience to a pool candidate to meet minimum criteria
