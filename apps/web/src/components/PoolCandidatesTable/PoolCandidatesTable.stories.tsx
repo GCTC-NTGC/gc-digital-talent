@@ -10,7 +10,7 @@ const poolCandidateData = fakePoolCandidates();
 
 const mockPoolCandidatesWithSkillCount = poolCandidateData.map(
   (poolCandidate) => {
-    const skillCount = faker.datatype.number({
+    const skillCount = faker.number.int({
       min: 0,
       max: 10,
     });

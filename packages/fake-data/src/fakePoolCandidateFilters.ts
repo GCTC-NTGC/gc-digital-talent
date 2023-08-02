@@ -18,7 +18,7 @@ const generatePoolCandidateFilters = (
   pools: Pool[],
 ): PoolCandidateFilter => {
   return {
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     pools: faker.helpers.arrayElements(pools),
     classifications: faker.helpers.arrayElements(classifications),
     equity: {

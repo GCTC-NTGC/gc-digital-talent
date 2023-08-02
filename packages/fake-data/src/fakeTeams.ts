@@ -6,14 +6,13 @@ import toLocalizedString from "./fakeLocalizedString";
 import fakeDepartments from "./fakeDepartments";
 
 const generateTeam = (departments: Department[]): Team => {
-  const index = faker.datatype.number({
+  const index = faker.number.int({
     min: 0,
     max: departments.length - 1,
-    precision: 1,
   });
   return {
-    id: faker.datatype.uuid(),
-    name: faker.datatype.string(),
+    id: faker.string.uuid(),
+    name: faker.string.sample(),
     contactEmail: faker.internet.email(),
     displayName: toLocalizedString(faker.company.name()),
     description: toLocalizedString(faker.lorem.paragraph()),

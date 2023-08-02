@@ -12,7 +12,7 @@ export default (): GenericJobTitle[] => {
 
   return [
     {
-      id: faker.datatype.uuid(),
+      id: faker.string.uuid(),
       key: GenericJobTitleKey.TechnicianIt01,
       name: {
         en: "Technician",
@@ -21,7 +21,7 @@ export default (): GenericJobTitle[] => {
       classification: fakeClassifications()[0],
     },
     {
-      id: faker.datatype.uuid(),
+      id: faker.string.uuid(),
       key: GenericJobTitleKey.AnalystIt02,
       name: {
         en: "Analyst",
@@ -30,7 +30,7 @@ export default (): GenericJobTitle[] => {
       classification: fakeClassifications()[1],
     },
     {
-      id: faker.datatype.uuid(),
+      id: faker.string.uuid(),
       key: GenericJobTitleKey.TeamLeaderIt03,
       name: {
         en: "Team Leader",
@@ -39,7 +39,7 @@ export default (): GenericJobTitle[] => {
       classification: fakeClassifications()[2],
     },
     {
-      id: faker.datatype.uuid(),
+      id: faker.string.uuid(),
       key: GenericJobTitleKey.TechnicalAdvisorIt03,
       name: {
         en: "Technical Advisor",
@@ -48,7 +48,7 @@ export default (): GenericJobTitle[] => {
       classification: fakeClassifications()[2],
     },
     {
-      id: faker.datatype.uuid(),
+      id: faker.string.uuid(),
       key: GenericJobTitleKey.SeniorAdvisorIt04,
       name: {
         en: "Senior Advisor",
@@ -57,7 +57,7 @@ export default (): GenericJobTitle[] => {
       classification: fakeClassifications()[3],
     },
     {
-      id: faker.datatype.uuid(),
+      id: faker.string.uuid(),
       key: GenericJobTitleKey.ManagerIt04,
       name: {
         en: "Manager",

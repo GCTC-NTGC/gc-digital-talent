@@ -5,12 +5,12 @@ import { Skill, SkillFamily } from "@gc-digital-talent/graphql";
 import staticSkills from "./skills.json";
 
 const generateSkill = (skillFamilies: SkillFamily[]) => {
-  const name = faker.random.word();
+  const name = faker.lorem.word();
   const keywords = faker.lorem.words(3).split(" ");
   const keywordsEN = keywords.map((skill) => `${skill} EN`);
   const keywordsFR = keywords.map((skill) => `${skill} FR`);
   return {
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     key: faker.helpers.slugify(name),
     name: {
       en: `EN ${name}`,
@@ -29,7 +29,7 @@ const generateSkill = (skillFamilies: SkillFamily[]) => {
       : ([] as SkillFamily[]),
     experienceSkills: [],
     experienceSkillRecord: {
-      details: `experienceSkillDetails ${faker.random.words()}`,
+      details: `experienceSkillDetails ${faker.lorem.words()}`,
     },
     experiences: [],
   };

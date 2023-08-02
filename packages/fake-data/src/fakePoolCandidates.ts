@@ -15,14 +15,14 @@ import fakeUsers from "./fakeUsers";
 
 const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
   return {
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     pool: faker.helpers.arrayElement(pools),
     user: faker.helpers.arrayElement<User>(users),
     cmoIdentifier: faker.helpers.slugify(
-      faker.lorem.words(faker.datatype.number({ min: 1, max: 3 })),
+      faker.lorem.words(faker.number.int({ min: 1, max: 3 })),
     ),
     expiryDate: faker.date
-      .between(FAR_PAST_DATE, FAR_FUTURE_DATE)
+      .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
       .toISOString()
       .substring(0, 10),
     status: faker.helpers.arrayElement<PoolCandidateStatus>(

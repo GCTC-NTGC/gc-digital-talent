@@ -5,7 +5,7 @@ export default (): Classification[] => {
   faker.seed(0); // repeatable results
   return [
     {
-      id: faker.datatype.uuid(),
+      id: faker.string.uuid(),
       name: {
         en: "Information Technology",
         fr: "Technologie de l'information",
@@ -16,7 +16,7 @@ export default (): Classification[] => {
       maxSalary: 80000,
     },
     {
-      id: faker.datatype.uuid(),
+      id: faker.string.uuid(),
       name: {
         en: "Information Technology",
         fr: "Technologie de l'information",
@@ -27,7 +27,7 @@ export default (): Classification[] => {
       maxSalary: 94000,
     },
     {
-      id: faker.datatype.uuid(),
+      id: faker.string.uuid(),
       name: {
         en: "Information Technology",
         fr: "Technologie de l'information",
@@ -38,7 +38,7 @@ export default (): Classification[] => {
       maxSalary: 113000,
     },
     {
-      id: faker.datatype.uuid(),
+      id: faker.string.uuid(),
       name: {
         en: "Information Technology",
         fr: "Technologie de l'information",

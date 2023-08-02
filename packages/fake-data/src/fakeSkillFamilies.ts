@@ -8,7 +8,7 @@ export const getStaticSkillFamilies = (): SkillFamily[] =>
   staticSkillFamilies.data.skillFamilies as SkillFamily[];
 
 const generateSkillFamily = (skills: Skill[]) => {
-  const name = faker.random.word();
+  const name = faker.lorem.word();
   return {
     __typename: undefined,
     category: faker.helpers.arrayElement<SkillCategory>([
@@ -19,7 +19,7 @@ const generateSkillFamily = (skills: Skill[]) => {
       en: `EN ${faker.lorem.sentences()}`,
       fr: `FR ${faker.lorem.sentences()}`,
     },
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     key: faker.helpers.slugify(name),
     name: {
       en: `EN ${name}`,
