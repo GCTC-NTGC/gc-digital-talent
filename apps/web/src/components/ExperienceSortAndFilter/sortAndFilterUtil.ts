@@ -1,7 +1,8 @@
 /* eslint-disable import/prefer-default-export */
+import { IntlShape } from "react-intl";
+
 import { Experience } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { ExperienceForDate } from "~/types/experience";
 import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import {
@@ -12,10 +13,9 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
-  useExperienceInfo,
 } from "~/utils/experienceUtils";
+import { ExperienceForDate } from "~/types/experience";
 
-import { IntlShape } from "react-intl";
 import { FormValues as SortAndFilterValues } from "./ExperienceSortAndFilter";
 
 export function sortAndFilterExperiences(
