@@ -12,12 +12,12 @@ const FieldDisplay = ({
   hasError,
   ...rest
 }: FieldDisplayProps) => (
-  <p {...(hasError && { "data-h2-color": "base(error)" })} {...rest}>
+  <div {...(hasError && { "data-h2-color": "base(error)" })} {...rest}>
     <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
       {label}
     </span>
     {children && <span>{children}</span>}
-  </p>
+  </div>
 );
 
 export default FieldDisplay;
