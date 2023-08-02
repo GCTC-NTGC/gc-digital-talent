@@ -154,7 +154,7 @@ export const ExperienceForm = ({
   );
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
-    const args = getMutationArgs(experienceId || userId || "", values, type);
+    const args = getMutationArgs(experienceId || userId || "", values);
     if (executeMutation) {
       const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
       return res
