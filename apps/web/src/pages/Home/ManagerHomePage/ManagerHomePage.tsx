@@ -144,7 +144,7 @@ const HomePage = () => {
             })}
             links={[
               {
-                href: `mailto:gctalent-talentgc@support-soutien.gc.ca?subject=${encodeURIComponent(
+                href: `mailto:recruitment-recruitementgiti@tbs-sct.gc.ca?subject=${encodeURIComponent(
                   intl.formatMessage({
                     defaultMessage:
                       "I'm interested in running a recruitment process",
@@ -306,7 +306,7 @@ const HomePage = () => {
               ),
               link: {
                 external: true,
-                path: `mailto:gctalent-talentgc@support-soutien.gc.ca?subject=${encodeURIComponent(
+                path: `mailto:recruitment-recruitementgiti@tbs-sct.gc.ca?subject=${encodeURIComponent(
                   intl.formatMessage({
                     defaultMessage:
                       "I'm interested in gaining hiring experience",
