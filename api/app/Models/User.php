@@ -304,11 +304,7 @@ class User extends Model implements Authenticatable, LaratrustUser
 
             // Remove the deleted-at text from the end of the email
             $newEmail = substr($user->email, 0, -22);
-            // try {
             $user->update(['email' => $newEmail]);
-            // } catch (Throwable $e) {
-            //     throw new Exception("Email would be duplicated");
-            // }
         });
     }
 

@@ -24,6 +24,7 @@ import {
   User,
   useUpdateUserAsAdminMutation,
   useUserQuery,
+  useDeleteUserMutation,
 } from "~/api/generated";
 
 import SEO from "~/components/SEO/SEO";
@@ -34,6 +35,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 import UserRoleTable from "./components/IndividualRoleTable";
 import { TeamRoleTable } from "./components/TeamRoleTable";
+import DeleteUserSection from "./components/DeleteUserSection";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
@@ -274,12 +276,12 @@ const UpdateUserPage = () => {
     context,
   });
 
-  const [, executeMutation] = useUpdateUserAsAdminMutation();
+  const [, executeUpdateMutation] = useUpdateUserAsAdminMutation();
   const handleUpdateUser = (id: string, data: UpdateUserAsAdminInput) =>
     /* We must pick only the fields belonging to UpdateUserInput, because its possible
        the data object contains other props at runtime, and this will cause the
        graphql operation to fail. */
-    executeMutation({
+    executeUpdateMutation({
       id,
       user: {
         id,
@@ -303,6 +305,21 @@ const UpdateUserPage = () => {
       }
       return Promise.reject(result.error);
     });
+
+  const [, executeDeleteMutation] = useDeleteUserMutation();
+  const handleDeleteUser = (id: string) =>
+    /* We must pick only the fields belonging to UpdateUserInput, because its possible
+       the data object contains other props at runtime, and this will cause the
+       graphql operation to fail. */
+    executeDeleteMutation({
+      id,
+    }).then((result) => {
+      if (result.data?.deleteUser) {
+        return result.data.deleteUser;
+      }
+      return Promise.reject(result.error);
+    });
+
   const availableRoles = rolesData?.roles.filter(notEmpty);
 
   const navigationCrumbs = [
@@ -377,6 +394,17 @@ const UpdateUserPage = () => {
               user={userData.user}
               availableRoles={availableRoles || []}
               onUpdateUser={handleUpdateUser}
+            />
+            <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
+              {intl.formatMessage({
+                defaultMessage: "Advanced tools",
+                id: "KoKXUw",
+                description: "Heading for making major changes to a user",
+              })}
+            </Heading>
+            <DeleteUserSection
+              user={userData.user}
+              onDeleteUser={handleDeleteUser}
             />
           </>
         ) : (

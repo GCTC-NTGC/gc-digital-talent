@@ -52,7 +52,10 @@ enum ArmedForcesStatus {
 
 type AwardExperience implements Experience {
   id: ID!
-  user: User!
+  user(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): User!
   title: String
   issuedBy: String
   awardedDate: Date
@@ -150,7 +153,10 @@ input ClassificationFilterInput {
 
 type CommunityExperience implements Experience {
   id: ID!
-  user: User!
+  user(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): User!
   title: String
   organization: String
   project: String
@@ -590,7 +596,10 @@ input DigitalContractingQuestionnaireInput {
 
 type EducationExperience implements Experience {
   id: ID!
-  user: User!
+  user(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): User!
   institution: String
   areaOfStudy: String
   thesisTitle: String
@@ -957,7 +966,10 @@ type PaginatorInfo {
 
 type PersonalExperience implements Experience {
   id: ID!
-  user: User!
+  user(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): User!
   title: String
   description: String
   startDate: Date
@@ -1066,7 +1078,10 @@ input PoolBelongsToMany {
 type PoolCandidate {
   id: ID!
   pool: Pool!
-  user: User!
+  user(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): User!
   cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus
@@ -1274,7 +1289,10 @@ type Query {
     """Allows to filter if trashed elements should be fetched."""
     trashed: Trashed
   ): User
-  users: [User]!
+  users(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): [User]!
   applicant(id: UUID!): User @deprecated(reason: "Removing in favour of user query")
   applicants(includeIds: [ID]!): [User]! @deprecated(reason: "Removing in favour of users query")
   countApplicants(where: ApplicantFilterInput): Int!
@@ -1993,7 +2011,10 @@ input WhereConditionsRelation {
 
 type WorkExperience implements Experience {
   id: ID!
-  user: User!
+  user(
+    """Allows to filter if trashed elements should be fetched."""
+    trashed: Trashed
+  ): User!
   role: String
   organization: String
   division: String
