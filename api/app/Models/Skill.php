@@ -59,31 +59,31 @@ class Skill extends Model
 
     public function awardExperiences()
     {
-        return $this->hasOneDeepFromRelations($this->userSkills(), (new UserSkill())->awardExperiences())
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->awardExperiences())
             ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
             ->whereNull('experience_skill.deleted_at');
     }
     public function communityExperiences()
     {
-        return $this->hasOneDeepFromRelations($this->userSkills(), (new UserSkill())->communityExperiences())
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->communityExperiences())
             ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
             ->whereNull('experience_skill.deleted_at');
     }
     public function educationExperiences()
     {
-        return $this->hasOneDeepFromRelations($this->userSkills(), (new UserSkill())->educationExperiences())
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->educationExperiences())
             ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
             ->whereNull('experience_skill.deleted_at');
     }
     public function personalExperiences()
     {
-        return $this->hasOneDeepFromRelations($this->userSkills(), (new UserSkill())->personalExperiences())
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->personalExperiences())
             ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
             ->whereNull('experience_skill.deleted_at');
     }
     public function workExperiences()
     {
-        return $this->hasOneDeepFromRelations($this->userSkills(), (new UserSkill())->workExperiences())
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->workExperiences())
             ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
             ->whereNull('experience_skill.deleted_at');
     }

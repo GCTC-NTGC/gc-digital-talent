@@ -319,7 +319,7 @@ class ExperienceTest extends TestCase
         $this->assertCount(2, $this->platformAdmin->userSkills);
     }
 
-    public function testUserSkillRelationshipIgnoresSoftDeletedPivots(): void {
+    public function testUserSkillRelationshipSkipsSoftDeletedPivots(): void {
         Skill::factory()->count(3)->create();
         $experience = AwardExperience::factory()->withSkills(3)->create();
         // sanity check
@@ -332,7 +332,7 @@ class ExperienceTest extends TestCase
         $this->assertCount(2, $experience->fresh()->userSkills);
     }
 
-    public function tesSkillRelationshipIgnoresSoftDeletedPivots(): void {
+    public function tesSkillRelationshipSkipsSoftDeletedPivots(): void {
         Skill::factory()->count(3)->create();
         $experience = AwardExperience::factory()->withSkills(3)->create();
         // sanity check
