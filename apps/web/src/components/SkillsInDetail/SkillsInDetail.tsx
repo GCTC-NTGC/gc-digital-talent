@@ -22,16 +22,14 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
   const { register } = useForm();
 
   return (
-    <section>
+    <div
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-gap="base(x1 0)"
+    >
       {skills.length > 0 &&
         skills.map(({ id, name, skillId }, index) => (
-          <Card
-            key={id}
-            title=""
-            color="white"
-            bold
-            data-h2-padding-bottom="base(x1)"
-          >
+          <Card key={id} title="" color="white" bold>
             <div
               data-h2-display="base(flex)"
               data-h2-justify-content="base(space-between)"
@@ -46,6 +44,12 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
                 onClick={() => {
                   onDelete(skillId);
                 }}
+                aria-label={intl.formatMessage({
+                  defaultMessage: "Remove skill {name} from experience",
+                  id: "/K8/eG",
+                  description:
+                    "Aria-label for remove skill button from experience",
+                })}
               >
                 <XCircleIcon
                   style={{ width: "1rem" }}
@@ -86,7 +90,7 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
             </div>
           </Card>
         ))}
-    </section>
+    </div>
   );
 };
 
