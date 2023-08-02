@@ -36,17 +36,6 @@ const TemplateExperienceFormForm: Story<ExperienceFormStoryArgs> = ({
     userId={userId}
     experienceType={experienceType}
     skills={skills}
-    onUpdateExperience={async (data: ExperienceDetailsSubmissionData) => {
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(data);
-        }, 1000);
-      });
-      action("Update Experience")(data);
-    }}
-    deleteExperience={() => {
-      /* do nothing */
-    }}
   />
 );
 
