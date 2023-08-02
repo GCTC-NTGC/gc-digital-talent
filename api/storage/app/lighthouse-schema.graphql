@@ -853,7 +853,6 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
   qualifiedStreams: [PoolStream]
-  publishingGroups: [PublishingGroup]
 }
 
 input PoolCandidateSearchInput {
@@ -866,6 +865,7 @@ input PoolCandidateSearchInput {
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
+  publishingGroups: [PublishingGroup]
 }
 
 input PoolCandidateSearchRequestInput {

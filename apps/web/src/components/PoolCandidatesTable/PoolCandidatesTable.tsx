@@ -82,8 +82,7 @@ function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
   return {
-    publishingGroups:
-      input?.applicantFilter?.publishingGroups?.filter(notEmpty) ?? [],
+    publishingGroups: input?.publishingGroups?.filter(notEmpty) ?? [],
     classifications:
       input?.applicantFilter?.qualifiedClassifications
         ?.filter(notEmpty)
@@ -343,7 +342,6 @@ const defaultState = {
   hiddenColumnIds: ["candidacyStatus", "notes"],
   filters: {
     applicantFilter: {
-      publishingGroups: [PublishingGroup.ItJobs, PublishingGroup.ItJobsOngoing],
       operationalRequirements: [],
       locationPreferences: [],
       equity: {},
@@ -354,6 +352,7 @@ const defaultState = {
     },
     poolCandidateStatus: [],
     priorityWeight: [],
+    publishingGroups: [PublishingGroup.ItJobs, PublishingGroup.ItJobsOngoing],
   },
 };
 
@@ -490,13 +489,13 @@ const PoolCandidatesTable = ({
       priorityWeight: fancyFilterState?.priorityWeight,
       expiryStatus: fancyFilterState?.expiryStatus,
       suspendedStatus: fancyFilterState?.suspendedStatus,
+      publishingGroups: fancyFilterState?.publishingGroups,
     };
   };
 
   const handlePoolCandidateFilterSubmit: SubmitHandler<FormValues> = (data) => {
     const transformedData = {
       applicantFilter: {
-        publishingGroups: data.publishingGroups as PublishingGroup[],
         languageAbility: data.languageAbility[0]
           ? stringToEnumLanguage(data.languageAbility[0])
           : undefined,
@@ -541,6 +540,7 @@ const PoolCandidatesTable = ({
       suspendedStatus: data.suspendedStatus[0]
         ? stringToEnumCandidateSuspended(data.suspendedStatus[0])
         : undefined,
+      publishingGroups: data.publishingGroups as PublishingGroup[],
     };
 
     setTableState({
