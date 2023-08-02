@@ -14,7 +14,6 @@ import fakePools from "./fakePools";
 import fakeUsers from "./fakeUsers";
 
 const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
-  faker.setLocale("en");
   return {
     id: faker.datatype.uuid(),
     pool: faker.helpers.arrayElement(pools),

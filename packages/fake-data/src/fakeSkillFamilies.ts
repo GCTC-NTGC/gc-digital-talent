@@ -33,7 +33,6 @@ const generateSkillFamily = (skills: Skill[]) => {
 
 export default (numToGenerate = 15, skills: Skill[] = []): SkillFamily[] => {
   faker.seed(0); // repeatable results
-  faker.setLocale("en");
 
   return [...Array(numToGenerate)].map(() => generateSkillFamily(skills));
 };

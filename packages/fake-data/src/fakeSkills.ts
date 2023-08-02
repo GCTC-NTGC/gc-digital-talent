@@ -43,7 +43,6 @@ export default (
   skillFamilies: SkillFamily[] = [],
 ): Skill[] => {
   faker.seed(0); // repeatable results
-  faker.setLocale("en");
 
   return [...Array(numToGenerate)].map(() => generateSkill(skillFamilies));
 };

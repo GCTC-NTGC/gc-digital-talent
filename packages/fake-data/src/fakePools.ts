@@ -33,8 +33,6 @@ const generatePool = (
   englishName = "",
   frenchName = "",
 ): Pool => {
-  faker.setLocale("en");
-
   const ownerUser: User = faker.helpers.arrayElement<User>(users);
   return {
     id: faker.datatype.uuid(),
@@ -89,7 +87,6 @@ export default (
 ): Pool[] => {
   const users = fakeUsers();
   faker.seed(0); // repeatable results
-  faker.setLocale("en");
 
   return [...Array(numToGenerate)].map((index) => {
     switch (index) {

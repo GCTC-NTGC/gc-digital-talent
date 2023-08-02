@@ -3,8 +3,6 @@ import { Classification } from "@gc-digital-talent/graphql";
 
 export default (): Classification[] => {
   faker.seed(0); // repeatable results
-  faker.setLocale("en");
-
   return [
     {
       id: faker.datatype.uuid(),

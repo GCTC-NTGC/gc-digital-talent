@@ -22,8 +22,6 @@ const generateApplicantFilters = (
   pools: Pool[],
   skills: Skill[],
 ): ApplicantFilter => {
-  faker.setLocale("en");
-
   return {
     __typename: "ApplicantFilter",
     id: faker.datatype.uuid(),

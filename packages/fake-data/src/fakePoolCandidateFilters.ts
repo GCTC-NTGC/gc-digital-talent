@@ -17,8 +17,6 @@ const generatePoolCandidateFilters = (
   operationalRequirements: OperationalRequirement[],
   pools: Pool[],
 ): PoolCandidateFilter => {
-  faker.setLocale("en");
-
   return {
     id: faker.datatype.uuid(),
     pools: faker.helpers.arrayElements(pools),

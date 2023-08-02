@@ -51,8 +51,6 @@ const staticDates = {
 // 5 generators to generate experiences of a certain type
 // actual generators start here
 const generateAward = (): GeneratedAwardExperience => {
-  faker.setLocale("en");
-
   return {
     __typename: "AwardExperience",
     user: sampleApp,
@@ -87,7 +85,6 @@ const generateAward = (): GeneratedAwardExperience => {
 };
 
 const generateCommunity = (): GeneratedCommunityExperience => {
-  faker.setLocale("en");
   return {
     __typename: "CommunityExperience",
     user: sampleApp,
@@ -109,7 +106,6 @@ const generateCommunity = (): GeneratedCommunityExperience => {
 };
 
 const generateEducation = (): GeneratedEducationExperience => {
-  faker.setLocale("en");
   return {
     __typename: "EducationExperience",
     user: sampleApp,
@@ -148,7 +144,6 @@ const generateEducation = (): GeneratedEducationExperience => {
 };
 
 const generatePersonal = (): GeneratedPersonalExperience => {
-  faker.setLocale("en");
   return {
     __typename: "PersonalExperience",
     user: sampleApp,
@@ -169,7 +164,6 @@ const generatePersonal = (): GeneratedPersonalExperience => {
 };
 
 const generateWork = (): GeneratedWorkExperience => {
-  faker.setLocale("en");
   return {
     __typename: "WorkExperience",
     user: sampleApp,

@@ -15,8 +15,6 @@ const generateSearchRequest = (
   departments: Department[],
   applicantFilters: ApplicantFilter[],
 ): PoolCandidateSearchRequest => {
-  faker.setLocale("en");
-
   return {
     id: faker.datatype.uuid(),
     fullName: `${faker.name.firstName()} ${faker.name.lastName()}`,

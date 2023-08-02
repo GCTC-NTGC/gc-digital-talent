@@ -9,7 +9,6 @@ import fakeClassifications from "./fakeClassifications";
 
 export default (): GenericJobTitle[] => {
   faker.seed(0); // repeatable results
-  faker.setLocale("en");
 
   return [
     {

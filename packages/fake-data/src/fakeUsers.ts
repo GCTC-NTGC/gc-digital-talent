@@ -64,8 +64,6 @@ const generateUser = (
   poolCandidates: GeneratedPoolCandidate[] = [], // poolCandidates associating this user with a pool
   pools: Pool[] = [], // pools owned by this user
 ): GeneratedUser => {
-  faker.setLocale("en");
-
   return {
     __typename: "User",
     id: faker.datatype.uuid(),

@@ -4,8 +4,6 @@ import { Department } from "@gc-digital-talent/graphql";
 
 export default (): Department[] => {
   faker.seed(0); // repeatable results
-  faker.setLocale("en");
-
   return [
     {
       id: faker.datatype.uuid(),
