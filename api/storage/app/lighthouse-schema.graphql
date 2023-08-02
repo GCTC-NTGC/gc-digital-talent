@@ -674,6 +674,20 @@ type UserSkill {
   id: ID!
   user: User!
   skill: Skill!
+  skillLevel: SkillLevel
+  whenSkillUsed: WhenSkillUsed
+}
+
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  EXPERT
+  LEAD
+}
+
+enum WhenSkillUsed {
+  CURRENT
+  PAST
 }
 
 type SkillKeywords {

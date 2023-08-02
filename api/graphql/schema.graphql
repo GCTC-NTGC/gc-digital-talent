@@ -634,6 +634,20 @@ type UserSkill {
   id: ID!
   user: User! @belongsTo @can(ability: "view", resolved: true)
   skill: Skill! @belongsTo
+  skillLevel: SkillLevel @rename(attribute: "skill_level")
+  whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
+}
+
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  EXPERT
+  LEAD
+}
+
+enum WhenSkillUsed {
+  CURRENT
+  PAST
 }
 
 type SkillKeywords {
