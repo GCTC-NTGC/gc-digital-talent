@@ -13,6 +13,7 @@ import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
 } from "~/validators/profile/languageInformation";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 const LanguageInformationSection = ({
   user,
@@ -121,12 +122,19 @@ const LanguageInformationSection = ({
           <div data-h2-flex-item="base(1of1)">
             <p>
               <span data-h2-display="base(block)">
-                {intl.formatMessage({
-                  defaultMessage: "Completed an official GoC evaluation:",
-                  id: "shPV27",
-                  description:
-                    "Completed a government of canada abbreviation evaluation label and colon",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Completed an official <abbreviation>GC</abbreviation> evaluation:",
+                    id: "3E5Xx0",
+                    description:
+                      "Completed a government of canada abbreviation evaluation label and colon",
+                  },
+                  {
+                    abbreviation: (text: React.ReactNode) =>
+                      wrapAbbr(text, intl),
+                  },
+                )}
               </span>
               <span data-h2-font-weight="base(700)">
                 {intl.formatMessage(

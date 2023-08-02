@@ -762,6 +762,10 @@
     "defaultMessage": "Création de la classification réussie!",
     "description": "Message displayed to user after classification is created successfully."
   },
+  "3E5Xx0": {
+    "defaultMessage": "A achevé une évaluation officielle du <abbreviation>GC</abbreviation> :",
+    "description": "Completed a government of canada abbreviation evaluation label and colon"
+  },
   "3GOVZI": {
     "defaultMessage": "Développez des connaissances sur les données",
     "description": "Heading for the direct on digital talent section"
@@ -8010,10 +8014,6 @@
   "sfyaOe": {
     "defaultMessage": "De nouvelles possibilités d’emploi sont publiées tout au long de l’année. En créant votre profil dès maintenant, vous serez mieux préparé pour présenter une candidature solide le moment venu.",
     "description": "Message displayed when there are no executive opportunities available"
-  },
-  "shPV27": {
-    "defaultMessage": "A achevé une évaluation officielle du <abbreviation>GC</abbreviation> :",
-    "description": "Completed a government of canada abbreviation evaluation label and colon"
   },
   "shwFSK": {
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>FRANÇAIS</strong>.",
