@@ -6,6 +6,7 @@ import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import {
   compareByDate,
+  getExperienceName,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
@@ -14,11 +15,13 @@ import {
   useExperienceInfo,
 } from "~/utils/experienceUtils";
 
+import { IntlShape } from "react-intl";
 import { FormValues as SortAndFilterValues } from "./ExperienceSortAndFilter";
 
 export function sortAndFilterExperiences(
   experiences: Experience[] | undefined,
   sortAndFilterValues: SortAndFilterValues,
+  intl: IntlShape,
 ): Experience[] {
   const experiencesNotNull = experiences?.filter(notEmpty) ?? [];
 
@@ -66,9 +69,9 @@ export function sortAndFilterExperiences(
   switch (sortAndFilterValues?.sortBy) {
     case "title_asc":
       experiencesSorted.sort((e1, e2) => {
-        const { title: t1 } = useExperienceInfo(e1);
-        const { title: t2 } = useExperienceInfo(e2);
-        return t1.localeCompare(t2);
+        const t1 = getExperienceName(e1, intl)?.toString();
+        const t2 = getExperienceName(e2, intl)?.toString();
+        return t1 && t2 ? t1?.localeCompare(t2) : 0;
       });
       break;
     case "date_desc":

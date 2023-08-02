@@ -24,6 +24,7 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
   const experienceList = sortAndFilterExperiences(
     nonEmptyExperiences,
     sortAndFilterValues,
+    intl,
   );
 
   const hasSomeExperience = !!experiences.length;
