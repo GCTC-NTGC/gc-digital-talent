@@ -547,7 +547,7 @@ class User extends Model implements Authenticatable, LaratrustUser
      * @param \Illuminate\Database\Eloquent\Builder $query The existing query being built
      * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
-    public static function scopeIsIT(Builder $query)
+    public static function scopeInITPublishingGroup(Builder $query)
     {
         $query = self::scopePublishingGroups($query, [
             ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,

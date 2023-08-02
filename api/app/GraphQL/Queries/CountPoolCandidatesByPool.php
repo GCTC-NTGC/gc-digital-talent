@@ -38,7 +38,7 @@ final class CountPoolCandidatesByPool
         PoolCandidate::scopeExpiryStatus($queryBuilder, ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE);
 
         // Only display IT candidates
-        PoolCandidate::scopeIsIT($queryBuilder);
+        PoolCandidate::scopeInITPublishingGroup($queryBuilder);
 
         $queryBuilder->whereHas('user', function (Builder $userQuery) use ($filters) {
             // user filters go here
