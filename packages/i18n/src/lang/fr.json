@@ -1223,6 +1223,10 @@
     "defaultMessage": "Collectivité",
     "description": "The scope of the award was within the community."
   },
+  "oCrAvX": {
+    "defaultMessage": "Un champ obligatoire est vide : Date de clôture",
+    "description": "Error message that the pool closing date is required."
+  },
   "oGXgxJ": {
     "defaultMessage": "Alerte de fermeture",
     "description": "Text for the close button on alerts"
