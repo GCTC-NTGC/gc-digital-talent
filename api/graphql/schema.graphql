@@ -1781,11 +1781,7 @@ type Mutation {
   ): Pool @guard @can(ability: "changePoolClosingDate", find: "id")
   closePool(id: ID!): Pool @guard @can(ability: "closePool", find: "id")
   deletePool(id: ID! @whereKey): Pool
-    @delete
-    @guard
-    @can(ability: "deleteDraft", find: "id")
-  deletePool(id: ID! @whereKey): Pool
-    @delete(model: "Pool")
+    @forceDelete(model: "Pool")
     @guard
     @can(ability: "deleteDraft", find: "id")
   archivePool(id: ID!): Pool
