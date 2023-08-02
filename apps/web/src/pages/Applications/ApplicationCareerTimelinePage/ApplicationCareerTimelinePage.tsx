@@ -452,7 +452,9 @@ const ApplicationCareerTimelinePage = () => {
       fetching: experienceFetching,
       error: experienceError,
     },
-  ] = useGetMyExperiencesQuery();
+  ] = useGetMyExperiencesQuery({
+    requestPolicy: "cache-first",
+  });
 
   const application = applicationData?.poolCandidate;
   const experiences = experienceData?.me?.experiences as ExperienceForDate[];

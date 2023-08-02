@@ -124,7 +124,9 @@ const ApplicationCareerTimelineEditPage = () => {
       fetching: experienceFetching,
       error: experienceError,
     },
-  ] = useGetMyExperiencesQuery();
+  ] = useGetMyExperiencesQuery({
+    requestPolicy: "cache-first",
+  });
 
   const application = applicationData?.poolCandidate;
   const experience = experienceData?.me?.experiences?.find(
