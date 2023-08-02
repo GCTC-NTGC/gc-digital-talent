@@ -762,6 +762,10 @@
     "defaultMessage": "Création de la classification réussie!",
     "description": "Message displayed to user after classification is created successfully."
   },
+  "3E5Xx0": {
+    "defaultMessage": "A achevé une évaluation officielle du <abbreviation>GC</abbreviation> :",
+    "description": "Completed a government of canada abbreviation evaluation label and colon"
+  },
   "3GOVZI": {
     "defaultMessage": "Développez des connaissances sur les données",
     "description": "Heading for the direct on digital talent section"
@@ -1082,10 +1086,6 @@
     "defaultMessage": "Sélectionnez un type",
     "description": "Default selection for the experience type field"
   },
-  "5R2iR2": {
-    "defaultMessage": "Niveau verbal",
-    "description": "CSV Header, Verbal Level column"
-  },
   "5SKmte": {
     "defaultMessage": "Modifier<hidden> le regroupement des compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
@@ -1145,6 +1145,10 @@
   "5nlauT": {
     "defaultMessage": "Question filtre {index} : {question}",
     "description": "CSV Header, Screening question column. "
+  },
+  "5nrkKw": {
+    "defaultMessage": "Niveau d’expression orale",
+    "description": "CSV Header, Oral interaction Level column"
   },
   "5pQfyv": {
     "defaultMessage": "Postes en français",
@@ -1597,6 +1601,10 @@
   "8diKHR": {
     "defaultMessage": "Si vous n’êtes pas sûr(e) d’avoir un compte CléGC existant, rendez-vous sur le site Web et essayez de vous connecter. Si vous ne vous souvenez pas de votre mot de passe, vous pouvez également le réinitialiser à cet endroit.",
     "description": "Instructions on what to do if user doesn't know if they have a GCKey"
+  },
+  "8ea9ne": {
+    "defaultMessage": "Niveau d’écriture",
+    "description": "CSV Header, Writing Level column"
   },
   "8fQWTc": {
     "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
@@ -2090,6 +2098,10 @@
     "defaultMessage": "Modifier {experienceName}",
     "description": "Link text to edit a specific experience"
   },
+  "CEFnPm": {
+    "defaultMessage": "Niveau de lecture",
+    "description": "CSV Header, Reading (comprehension) Level column"
+  },
   "CH6FQA": {
     "defaultMessage": "Supprimer la demande<hidden> ({name})</hidden>",
     "description": "Link text to delete a specific application"
@@ -2225,10 +2237,6 @@
   "D753gS": {
     "defaultMessage": "Modifier",
     "description": "Title displayed for the Classification table Edit column."
-  },
-  "D7Qb41": {
-    "defaultMessage": "Niveau de la langue seconde (compréhension, écrite, verbale) :",
-    "description": "Evaluation results for second language, results in that order followed by a colon"
   },
   "D8Pgbs": {
     "defaultMessage": "Créer une classification",
@@ -3413,10 +3421,6 @@
     "defaultMessage": "Évaluation bilingue",
     "description": "CSV Header, Bilingual Evaluation column"
   },
-  "M9x5zm": {
-    "defaultMessage": "Niveau de la langue seconde (compréhension, écrite, verbale)",
-    "description": "Evaluation results for second language, results in that order"
-  },
   "MCFcrj": {
     "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
     "description": "Hero image alt text."
@@ -3983,10 +3987,6 @@
   "QHR5ay": {
     "defaultMessage": "Vous n'avez pas actuellement de bassins de talents dans votre profil.",
     "description": "Message displayed in recruitment availability when the user is not in any valid pools"
-  },
-  "QIh0q7": {
-    "defaultMessage": "Niveau de compréhension",
-    "description": "CSV Header, Comprehension Level column"
   },
   "QJ5uDV": {
     "defaultMessage": "Sélectionnez un volet",
@@ -4779,10 +4779,6 @@
   "W2qRX5": {
     "defaultMessage": "Erreur : Échec de la création du bassin",
     "description": "Message displayed to pool after pool fails to get created."
-  },
-  "W4Svkd": {
-    "defaultMessage": "Compréhension",
-    "description": "Label displayed on the language information form comprehension field."
   },
   "W58QTT": {
     "defaultMessage": "Cet utilisateur n'est encore dans aucun bassin",
@@ -6252,6 +6248,10 @@
     "defaultMessage": "Collectivité des gestionnaires.",
     "description": "Heading for the Managers community page"
   },
+  "g8Xd4a": {
+    "defaultMessage": "Lecture",
+    "description": "Label displayed on the language information form reading comprehension field."
+  },
   "gBAz/G": {
     "defaultMessage": "Identification de la demande copiée",
     "description": "Button text to indicate that a specific application’s ID has been copied"
@@ -7144,6 +7144,10 @@
     "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
     "description": "Button text to show help information about skills"
   },
+  "mBnz9m": {
+    "defaultMessage": "Écriture",
+    "description": "Label displayed on the language information form written field."
+  },
   "mDowK/": {
     "defaultMessage": "Représentée par les expériences suivantes :",
     "description": "Lead in text for experiences that represent the users skills"
@@ -7283,6 +7287,10 @@
   "muduUA": {
     "defaultMessage": "Vous avez acquis de l’expérience en faisant partie d’une communauté ou en lui donnant en retour? Les gens acquièrent des compétences à partir d’un large éventail d’expériences, comme le bénévolat ou la participation à des organisations sans but lucratif, à des communautés autochtones ou à des collaborations virtuelles. Il peut s’agir d’aider lors d’événements et de cérémonies, de faire le disc-jockey au mariage d’un ami, de jouer et de faire de la diffusion en continu.",
     "description": "Description for community experience section"
+  },
+  "mvYSmp": {
+    "defaultMessage": "Expression orale",
+    "description": "Label displayed on the language information form oral interaction field."
   },
   "mxOuYK": {
     "defaultMessage": "Télécharger CSV",
@@ -7680,6 +7688,10 @@
     "defaultMessage": "Questions de sélection",
     "description": "Heading for screening questions section of the application review page."
   },
+  "qOi2J0": {
+    "defaultMessage": "Niveau de connaissance de la langue seconde (lecture, écriture, expression orale)",
+    "description": "Second language level (reading, writing, oral interaction) label"
+  },
   "qPxrKm": {
     "defaultMessage": "Modifier ou retirer les permissions d’adhésion.",
     "description": "Help text for the edit team membership form"
@@ -7879,10 +7891,6 @@
     "defaultMessage": "Toutes les compétences suivantes sont facultativement avantageuses pour le poste, et le fait de les démontrer pourrait vous être utile lorsque vous êtes pris en considération.",
     "description": "Descriptive text about how optional technical skills are used in the application process"
   },
-  "rywI3C": {
-    "defaultMessage": "Verbal",
-    "description": "Label displayed on the language information form verbal field."
-  },
   "rz21yp": {
     "defaultMessage": "Les apprentis auront-ils droit à des prestations?",
     "description": "Learn more dialog question five heading"
@@ -8006,10 +8014,6 @@
   "sfyaOe": {
     "defaultMessage": "De nouvelles possibilités d’emploi sont publiées tout au long de l’année. En créant votre profil dès maintenant, vous serez mieux préparé pour présenter une candidature solide le moment venu.",
     "description": "Message displayed when there are no executive opportunities available"
-  },
-  "shPV27": {
-    "defaultMessage": "A achevé une évaluation officielle du <abbreviation>GC</abbreviation> :",
-    "description": "Completed a government of canada abbreviation evaluation label and colon"
   },
   "shwFSK": {
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>FRANÇAIS</strong>.",
@@ -8402,10 +8406,6 @@
     "defaultMessage": "Classification",
     "description": "Label displayed on the pool form classification field."
   },
-  "w/v77x": {
-    "defaultMessage": "Niveau d’écriture",
-    "description": "CSV Header, Written Level column"
-  },
   "w1/0Cd": {
     "defaultMessage": "Diplôme exigé",
     "description": "Diploma required"
@@ -8561,10 +8561,6 @@
   "x2/qvf": {
     "defaultMessage": "Afficher les évaluations des compétences de {title}",
     "description": "Button text to show a specific qualified recruitment cards's skill assessments"
-  },
-  "x5C9Ab": {
-    "defaultMessage": "Écrit",
-    "description": "Label displayed on the language information form written field."
   },
   "x6saT3": {
     "defaultMessage": "Avant de vous amener à votre profil, nous devons recueillir les renseignements nécessaires pour compléter la configuration de votre compte.",
@@ -8833,10 +8829,6 @@
   "zEmPCS": {
     "defaultMessage": "Modifier les renseignements sur l’équipe",
     "description": "Page title for the edit team page"
-  },
-  "zF0F6w": {
-    "defaultMessage": "Niveau de connaissance de la langue seconde (compréhension, écrit, oral.)",
-    "description": "Second language level (Comprehension, Written, Verbal) label"
   },
   "zJKngJ": {
     "defaultMessage": "Gérer votre expérience et les processus de recrutement pour lesquels vous êtes qualifié(e).",

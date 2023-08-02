@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
-import uniqBy from "lodash/uniqBy";
 
 import { Link, Pill, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { ROLE_NAME, hasRole, useAuthorization } from "@gc-digital-talent/auth";
 import {
   getPoolStatus,
   getPoolStream,
@@ -23,11 +23,8 @@ import {
   Maybe,
   Pool,
   Scalars,
-  useGetMePoolsQuery,
-  RoleAssignment,
   LocalizedString,
   useAllPoolsQuery,
-  Team,
 } from "~/api/generated";
 import Table, {
   ColumnsOf,
@@ -144,30 +141,6 @@ const emailLinkAccessor = (value: Maybe<string>, intl: IntlShape) => {
       })}
     </span>
   );
-};
-
-interface PoolWithTeam extends Pool {
-  team: NonNullable<Pool["team"]>;
-}
-
-// roles assignments to teams to pools array
-const roleAssignmentsToPools = (
-  roleAssignmentArray: Maybe<RoleAssignment[]>,
-): PoolWithTeam[] => {
-  const flattenedTeams = roleAssignmentArray?.flatMap(
-    (roleAssign) => roleAssign.team,
-  );
-  const filteredFlattenedTeams = unpackMaybes(flattenedTeams);
-
-  const addTeamToPool =
-    (team: Team) =>
-    (pool: Pool): PoolWithTeam => ({ ...pool, team });
-
-  const flattenedPools = filteredFlattenedTeams.flatMap((team) => {
-    return unpackMaybes(team.pools).map(addTeamToPool(team));
-  });
-  const poolsArray = uniqBy(flattenedPools, "id");
-  return poolsArray;
 };
 
 interface PoolTableProps {
@@ -432,26 +405,30 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
   );
 };
 
-export const PoolOperatorTableApi = ({ title }: { title: string }) => {
-  const [result] = useGetMePoolsQuery();
-  const { data, fetching, error } = result;
-  const poolsArray = roleAssignmentsToPools(data?.me?.roleAssignments);
+const PoolTableApi = ({ title }: { title: string }) => {
+  const [{ data, fetching, error }] = useAllPoolsQuery();
+  const { roleAssignments } = useAuthorization();
+  const pools = unpackMaybes(data?.pools).filter((pool) => {
+    if (
+      hasRole(ROLE_NAME.PlatformAdmin, roleAssignments) ||
+      hasRole(ROLE_NAME.RequestResponder, roleAssignments)
+    ) {
+      return true;
+    }
+
+    return (
+      pool.team &&
+      roleAssignments?.some(
+        (role) => role.team && role?.team?.id === pool?.team?.id,
+      )
+    );
+  });
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={poolsArray ?? []} title={title} />
+      <PoolTable pools={pools ?? []} title={title} />
     </Pending>
   );
 };
 
-export const PoolAdminTableApi = ({ title }: { title: string }) => {
-  const [result] = useAllPoolsQuery();
-  const { data, fetching, error } = result;
-  const pools = unpackMaybes(data?.pools);
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      <PoolTable pools={pools} title={title} />
-    </Pending>
-  );
-};
+export default PoolTableApi;

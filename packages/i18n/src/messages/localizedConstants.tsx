@@ -1477,6 +1477,11 @@ export const getProvinceOrTerritory = (
   );
 
 const poolStream = defineMessages({
+  [PoolStream.AccessInformationPrivacy]: {
+    defaultMessage: "Access to Information and Privacy",
+    id: "9EnPf0",
+    description: "Pool Stream described as Access to Information and Privacy.",
+  },
   [PoolStream.BusinessAdvisoryServices]: {
     defaultMessage: "Business Line Advisory Services",
     id: "3m7hT5",
