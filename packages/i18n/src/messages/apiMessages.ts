@@ -1,5 +1,4 @@
 import { defineMessages, MessageDescriptor } from "react-intl";
-import errorMessages from "./errorMessages";
 
 // The messages in this object correspond to error messages emitted by the API.
 // Ideally, this could be automatically extracted from the schema but for now we do it manually.
@@ -7,7 +6,11 @@ import errorMessages from "./errorMessages";
 
 export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
   {
-    "Internal server error": errorMessages.unknown,
+    "Internal server error": {
+      defaultMessage: "Unknown error",
+      id: "iqD8qE",
+      description: "Fallback text when an error message is not supplied",
+    },
 
     // users validation
     SubInUse: {
