@@ -195,17 +195,16 @@ const ExperienceSkills = ({
               >
                 {intl.formatMessage({
                   defaultMessage:
-                    "You haven’t featured any skills on this experience yet.",
-                  id: "fdAwEs",
+                    "You haven't featured any skills on this experience yet.",
+                  id: "YJIOOh",
                   description:
                     "Primary message to user when no skills have been attached to experience.",
                 })}
               </p>
               <p data-h2-text-align="base(center)">
                 {intl.formatMessage({
-                  defaultMessage:
-                    "You can use the “Add a skill” button provided to feature skills here.",
-                  id: "ScvzNz",
+                  defaultMessage: `You can use the "Add a skill" button provided to feature skills here.`,
+                  id: "kUkyuI",
                   description:
                     "Secondary message to user when no skills have been attached to experience.",
                 })}
