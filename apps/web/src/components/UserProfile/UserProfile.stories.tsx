@@ -82,7 +82,6 @@ UserProfileNull.args = {
   isIndigenous: null,
   indigenousCommunities: null,
   isVisibleMinority: null,
-  jobLookingStatus: null,
   hasDiploma: null,
   locationPreferences: null,
   locationExemptions: null,

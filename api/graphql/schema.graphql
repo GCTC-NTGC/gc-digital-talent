@@ -90,9 +90,6 @@ type User {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  jobLookingStatus: JobLookingStatus
-    @rename(attribute: "job_looking_status")
-    @deprecated(reason: "Removing with applicantDashboard feature flag")
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
@@ -178,12 +175,6 @@ enum EstimatedLanguageAbility {
   BEGINNER
   INTERMEDIATE
   ADVANCED
-}
-
-enum JobLookingStatus {
-  ACTIVELY_LOOKING
-  OPEN_TO_OPPORTUNITIES
-  INACTIVE
 }
 
 enum GovEmployeeType {
@@ -796,7 +787,6 @@ input UserPoolFilterInput {
 input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
   poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
-  jobLookingStatus: [JobLookingStatus]
   isProfileComplete: Boolean @scope
   isGovEmployee: Boolean @scope
   telephone: String @scope
@@ -909,7 +899,6 @@ type Query {
             relation: "user"
             columns: [
               "priority_weight"
-              "job_looking_status"
               "first_name"
               "email"
               "preferred_lang"
@@ -1074,7 +1063,6 @@ input CreateUserInput {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
@@ -1146,8 +1134,6 @@ input UpdateUserAsAdminInput
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
-
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
@@ -1217,8 +1203,6 @@ input UpdateUserAsUserInput
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
-
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
