@@ -269,10 +269,6 @@
     "defaultMessage": "Avez-vous un droit de priorité?",
     "description": "Priority Entitlement Status in Government Info Form"
   },
-  "/kQQWi": {
-    "defaultMessage": "Vous pouvez autodéclarer votre appartenance à une ou plusieurs des communautés énumérées alphabétiquement ci-dessous.",
-    "description": "Text that appears before employment equity form options."
-  },
   "/mFrpj": {
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
     "description": "Education level message when candidate has a diploma found on the request page."
@@ -2141,6 +2137,10 @@
   "CU5XqI": {
     "defaultMessage": "Formulaire d’auto-déclaration des peuples autochtones",
     "description": "Page title for the self-declaration page"
+  },
+  "CWy2xr": {
+    "defaultMessage": "Vous pouvez autodéclarer votre appartenance à une ou plusieurs des communautés énumérées alphabétiquement ci-dessous.",
+    "description": "Text that appears before employment equity form options."
   },
   "CX/qKY": {
     "defaultMessage": "à {institution}",
