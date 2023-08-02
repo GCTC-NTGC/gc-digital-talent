@@ -1,30 +1,21 @@
 import React from "react";
-import { useWatch } from "react-hook-form";
+
 import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
-
-import { ExperienceType } from "~/types/experience";
-
 import { Select } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { experienceTypeTitles } from "~/pages/Applications/ApplicationCareerTimelineAddPage/messages";
 
-interface ExperienceTypeProps {
-  experienceType?: ExperienceType;
-}
-
-const SelectExperience = ({ experienceType }: ExperienceTypeProps) => {
+const SelectExperience = () => {
   const intl = useIntl();
-  const type: ExperienceType = useWatch({ name: "experienceType" });
-  const derivedType = type ?? experienceType;
 
   return (
     <section data-h2-margin="base(0, 0, x2, 0)">
       <Heading level="h3" size="h5" data-h2-margin-bottom="base(x.5)">
         {intl.formatMessage({
           defaultMessage: "Select a type of experience",
-          id: "jw6Umr",
+          id: "n0lR5F",
           description:
             "Heading for the experience type section for the experience form",
         })}
@@ -38,7 +29,6 @@ const SelectExperience = ({ experienceType }: ExperienceTypeProps) => {
         name="experienceType"
         id="experienceType"
         doNotSort
-        defaultValue={derivedType ?? ""}
         rules={{ required: intl.formatMessage(errorMessages.required) }}
         nullSelection={intl.formatMessage({
           defaultMessage: "Select a type",

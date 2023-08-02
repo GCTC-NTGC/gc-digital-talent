@@ -64,11 +64,6 @@ export interface ExperienceFormProps {
   experienceType: ExperienceType;
   skills: Skill[];
   userId: string;
-  onUpdateExperience: (
-    values: ExperienceDetailsSubmissionData,
-    action: FormAction,
-  ) => Promise<void> | undefined;
-  deleteExperience: () => void;
 }
 
 export const ExperienceForm = ({
@@ -78,17 +73,16 @@ export const ExperienceForm = ({
   experienceType,
   skills,
   userId,
-  onUpdateExperience,
-  deleteExperience,
 }: ExperienceFormProps) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const paths = useRoutes();
-  const returnPath = paths.careerTimelineAndRecruitment(userId);
+  const returnPath = paths.careerTimelineAndRecruitment(userId || "");
 
   const defaultValues =
     experienceId && experience
       ? queryResultToDefaultValues(experienceType, experience)
-      : {};
+      : { experienceType };
 
   const methods = useForm<FormValues>({
     shouldFocusError: false,
@@ -105,16 +99,103 @@ export const ExperienceForm = ({
     reset,
   } = methods;
 
-  const [, action] = watch(["experienceType", "action"]);
+  const [type, action] = watch(["experienceType", "action"]);
   const actionProps = register("action");
 
-  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    const data = formValuesToSubmitData(
-      formValues,
-      [],
-      formValues.experienceType,
+  const handleSuccess = () => {
+    toast.success(
+      edit
+        ? intl.formatMessage({
+            defaultMessage: "Successfully updated experience!",
+            id: "4438xW",
+            description:
+              "Success message displayed after updating an experience",
+          })
+        : intl.formatMessage({
+            defaultMessage: "Successfully added experience!",
+            id: "DZ775N",
+            description:
+              "Success message displayed after adding experience to profile",
+          }),
     );
-    return onUpdateExperience(data, formValues.action || "return");
+
+    if (action !== "add-another") {
+      navigate(returnPath);
+    }
+  };
+
+  const handleError = () => {
+    toast.error(
+      edit
+        ? intl.formatMessage({
+            defaultMessage: "Error: updating experience failed",
+            id: "WyKJsK",
+            description:
+              "Message displayed to user after experience fails to be updated.",
+          })
+        : intl.formatMessage({
+            defaultMessage: "Error: adding experience failed",
+            id: "moKAQP",
+            description:
+              "Message displayed to user after experience fails to be created.",
+          }),
+    );
+  };
+
+  const handleMutationResponse = (res: ExperienceMutationResponse) => {
+    if (res.data) {
+      handleSuccess();
+    }
+  };
+
+  const { executeMutation, getMutationArgs } = useExperienceMutations(
+    experience ? "update" : "create",
+    type,
+  );
+
+  const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
+    const args = getMutationArgs(experienceId || userId || "", values, type);
+    if (executeMutation) {
+      const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
+      return res
+        .then((mutationResponse) => {
+          handleMutationResponse(mutationResponse);
+        })
+        .catch(handleError);
+    }
+
+    return undefined;
+  };
+
+  const experienceIdExact = experienceId || "";
+  const executeDeletionMutation = useDeleteExperienceMutation(
+    type || undefined,
+  );
+
+  const handleDeleteExperience = () => {
+    if (executeDeletionMutation) {
+      executeDeletionMutation({
+        id: experienceIdExact,
+      })
+        .then((result) => {
+          navigate(returnPath);
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Experience Deleted",
+              id: "/qN7tM",
+              description:
+                "Message displayed to user after experience deleted.",
+            }),
+          );
+          return result.data;
+        })
+        .catch(handleError);
+    }
+  };
+
+  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    const data = formValuesToSubmitData(formValues, [], type);
+    return handleUpdateExperience(data);
   };
 
   React.useEffect(() => {
@@ -152,12 +233,12 @@ export const ExperienceForm = ({
   const pageTitle: string = experience
     ? intl.formatMessage({
         defaultMessage: "Edit a career timeline experience",
-        id: "UISX7F",
+        id: "1T+YAC",
         description: "Display text for edit experience form in breadcrumbs",
       })
     : intl.formatMessage({
         defaultMessage: "Add an experience to your career timeline",
-        id: "s9hqAQ",
+        id: "i9MPYn",
         description: "Display text for add experience form in breadcrumbs",
       });
 
@@ -165,7 +246,7 @@ export const ExperienceForm = ({
     ? intl.formatMessage({
         defaultMessage:
           "Update or delete an experience on your career timeline",
-        id: "MxbskW",
+        id: "A+4huJ",
         description: "Display text for edit experience form in breadcrumbs",
       })
     : intl.formatMessage({
@@ -211,7 +292,7 @@ export const ExperienceForm = ({
               <TableOfContents.AnchorLink id="additional-details">
                 {intl.formatMessage({
                   defaultMessage: "Highlight additional details",
-                  id: "sKi4eh",
+                  id: "E4YXS0",
                   description:
                     "Heading for the experience type section fo the experience form",
                 })}
@@ -237,7 +318,7 @@ export const ExperienceForm = ({
 
               {!edit && (
                 <TableOfContents.Section id="type-of-experience">
-                  <SelectExperience experienceType={experienceType} />
+                  <SelectExperience />
                 </TableOfContents.Section>
               )}
 
@@ -272,7 +353,7 @@ export const ExperienceForm = ({
                   <Button type="submit">
                     {intl.formatMessage({
                       defaultMessage: "Save and return to my career timeline",
-                      id: "frDbhX",
+                      id: "jZi53k",
                       description:
                         "Label on button to save and return on the current experience",
                     })}
@@ -323,7 +404,7 @@ export const ExperienceForm = ({
                             type="submit"
                             mode="solid"
                             color="primary"
-                            onClick={deleteExperience}
+                            onClick={handleDeleteExperience}
                           >
                             {intl.formatMessage({
                               defaultMessage: "Delete",
@@ -353,7 +434,7 @@ export const ExperienceForm = ({
                   >
                     {intl.formatMessage({
                       defaultMessage: "Save and return to my career timeline",
-                      id: "frDbhX",
+                      id: "jZi53k",
                       description:
                         "Label on button to save and return on the current experience",
                     })}
@@ -406,9 +487,6 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
   const { userId, experienceId } = useParams<RouteParams>();
   const { state } = useLocation();
-  const navigate = useNavigate();
-  const paths = useRoutes();
-  const returnPath = paths.careerTimelineAndRecruitment(userId || "");
 
   const [
     {
@@ -435,101 +513,6 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
     ? deriveExperienceType(experience)
     : state?.experienceType || "";
 
-  const handleSuccess = (action: FormAction) => {
-    toast.success(
-      edit
-        ? intl.formatMessage({
-            defaultMessage: "Successfully updated experience!",
-            id: "4438xW",
-            description:
-              "Success message displayed after updating an experience",
-          })
-        : intl.formatMessage({
-            defaultMessage: "Successfully added experience!",
-            id: "DZ775N",
-            description:
-              "Success message displayed after adding experience to profile",
-          }),
-    );
-
-    if (action !== "add-another") {
-      navigate(returnPath);
-    }
-  };
-
-  const handleError = () => {
-    toast.error(
-      edit
-        ? intl.formatMessage({
-            defaultMessage: "Error: updating experience failed",
-            id: "WyKJsK",
-            description:
-              "Message displayed to user after experience fails to be updated.",
-          })
-        : intl.formatMessage({
-            defaultMessage: "Error: adding experience failed",
-            id: "moKAQP",
-            description:
-              "Message displayed to user after experience fails to be created.",
-          }),
-    );
-  };
-
-  const handleMutationResponse = (
-    res: ExperienceMutationResponse,
-    action: FormAction,
-  ) => {
-    if (res.data) {
-      handleSuccess(action);
-    }
-  };
-
-  const { executeMutation, getMutationArgs } = useExperienceMutations(
-    experience ? "update" : "create",
-    experienceType,
-  );
-
-  const handleUpdateExperience = (
-    values: ExperienceDetailsSubmissionData,
-    action: FormAction,
-  ) => {
-    const args = getMutationArgs(experienceId || userId || "", values);
-    if (executeMutation) {
-      const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
-      return res
-        .then((mutationResponse) => {
-          handleMutationResponse(mutationResponse, action);
-        })
-        .catch(handleError);
-    }
-
-    return undefined;
-  };
-
-  const experienceIdExact = experienceId || "";
-  const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
-
-  const handleDeleteExperience = () => {
-    if (executeDeletionMutation) {
-      executeDeletionMutation({
-        id: experienceIdExact,
-      })
-        .then((result) => {
-          navigate(returnPath);
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Experience Deleted",
-              id: "/qN7tM",
-              description:
-                "Message displayed to user after experience deleted.",
-            }),
-          );
-          return result.data;
-        })
-        .catch(handleError);
-    }
-  };
-
   return (
     <Pending
       fetching={fetchingSkills || experienceFetching}
@@ -543,8 +526,6 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           experienceType={experienceType}
           skills={skillsData.skills as Skill[]} // Only grab technical skills (hard skills).
           userId={userId || ""}
-          onUpdateExperience={handleUpdateExperience}
-          deleteExperience={handleDeleteExperience}
         />
       ) : (
         <ThrowNotFound
