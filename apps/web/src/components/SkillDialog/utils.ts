@@ -10,6 +10,7 @@ interface SkillDialogMessages {
   title: React.ReactNode;
   subtitle: React.ReactNode;
   submit: React.ReactNode;
+  selected: (skillName: string) => React.ReactNode;
 }
 
 type GetSkillDialogMessagesArgs = {
@@ -48,6 +49,17 @@ export const getSkillDialogMessages: GetSkillDialogMessages = ({
       id: "xkJAuq",
       description: "Button text to select a specific skill in the skill dialog",
     }),
+    selected: (skill: string) =>
+      intl.formatMessage(
+        {
+          defaultMessage: "{skill} selected.",
+          id: "Yc2A2Q",
+          description: "Message displayed when a skill was selected",
+        },
+        {
+          skill,
+        },
+      ),
   };
 
   if (context === "experience") {
