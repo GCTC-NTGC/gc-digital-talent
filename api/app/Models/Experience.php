@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -69,19 +68,16 @@ abstract class Experience extends Model
         $skillIds = collect($skills)->pluck('id');
         // First ensure that UserSkills exist for each of these skills
         $this->user->addSkills($skillIds);
-        // Map skills to UserSkills, for syncing: https://laravel.com/docs/10.x/eloquent-relationships#syncing-associations
-        $userSkills = $this->user->userSkills;
-        $syncSkills = collect($skills)->flatMap(function ($skill) use ($userSkills) {
-            $skill = collect($skill);
-            $userSkillId = $userSkills->firstWhere('skill_id', $skill->get('id'))->id;
-            return $skill->has('details')
-                ? [$userSkillId => ['details' => $skill->get('details', null)]]
-                : [$userSkillId];
-        });
-        // Sync experience to userSkills
-        $this->userSkills()->sync($syncSkills);
-        // If this experience instance continues to be used, ensure the in-memory instance is updated.
-        $this->refresh();
+
+        // Soft-delete any existing ExperienceSkills left out of this sync operation
+        ExperienceSkill::where('experience_id', $this->id)
+            ->whereHas('userSkill', function ($query) use ($skillIds) {
+                $query->whereNotIn('skill_id', $skillIds);
+            })
+            ->delete();
+
+        // Now connect the skills which ARE in this sync operation
+        $this->connectSkills($skills);
     }
 
      /**
@@ -100,24 +96,65 @@ abstract class Experience extends Model
         $skillIds = collect($skills)->pluck('id');
         $this->user->addSkills($skillIds);
 
-        $skillsAlreadyAttachedToExperience = $this->userSkills()->pluck('skill_id');
+        $userSkills = UserSkill::where('user_id', $this->user_id); // Get this users UserSkills once, to avoid repeated db calls.
 
-        // I wanted to use syncWithoutDetaching, but it doesn't allow for updating pivot values like sync does.
+        // Restore soft-deleted experience-skills which need to be connected.
+         ExperienceSkill::onlyTrashed()
+            ->where('experience_id', $this->id)
+            ->whereHas('userSkill', function ($query) use ($skillIds) {
+                $query->whereIn('skill_id', $skillIds);
+            })
+            ->with('userSkill')
+            ->restore();
+
+        // Now get existing pivots (for updating details)
+        $existingExperienceSkills = ExperienceSkill::where('experience_id', $this->id)
+            ->whereHas('userSkill', function ($query) use ($skillIds) {
+                $query->whereIn('skill_id', $skillIds);
+            })
+            ->with('userSkill')
+            ->get();
+
+        // We can't use the userSkills()->sync() operation because it will hard-delete ExperienceSkills, so loop through manually.
         foreach($skills as $newSkill) {
             $newSkill = collect($newSkill);
-            $userSkillId = $this->user->userSkills->firstWhere('skill_id', $newSkill->get('id'))->id;
-            $detailsArray = $newSkill->only('details')->toArray();
-            // If experienceSkill already exists
-            if ($skillsAlreadyAttachedToExperience->contains($newSkill->get('id'))) {
-                // And details is defined, then update details
-                if ($newSkill->has('details')) {
-                    $this->userSkills()->updateExistingPivot($userSkillId, $detailsArray);
+            $existingPivot = $existingExperienceSkills->firstWhere('userSkill.skill_id', $newSkill->get('id'));
+            if ($existingPivot) { // If pivot already exists, update details
+                if ($newSkill->has('details')) { // Only update details if it was defined in the input args
+                    $existingPivot->details = $newSkill->get('details');
+                    $existingPivot->save();
                 }
-            // Otherwise experienceSkill doesn't exist, so add it now
-            } else {
+            } else { // If pivot doesn't exist yet, create it
+                $userSkillId = UserSkill::where('user_id', $this->user_id)->where('skill_id', $newSkill->get('id'))->first()->id;
+                $detailsArray = $newSkill->only('details')->toArray();
                 $this->userSkills()->attach($userSkillId, $detailsArray);
             }
         }
+
+        // ExperienceSkill::onlyTrashed()
+        //     ->where('experience_id', $this->id)
+        //     ->whereHas('userSkill', function ($query) use ($skillIds) {
+        //         $query->whereIn('skill_id', $skillIds);
+        //     })
+        //     ->restore();
+
+        // // I wanted to use syncWithoutDetaching, but it doesn't allow for updating pivot values like sync does.
+        // $skillsAlreadyAttachedToExperience = $this->userSkills()->pluck('skill_id');
+        // foreach($skills as $newSkill) {
+        //     $newSkill = collect($newSkill);
+        //     $userSkillId = $this->user->userSkills->firstWhere('skill_id', $newSkill->get('id'))->id;
+        //     $detailsArray = $newSkill->only('details')->toArray();
+        //     // If experienceSkill already exists
+        //     if ($skillsAlreadyAttachedToExperience->contains($newSkill->get('id'))) {
+        //         // And details is defined, then update details
+        //         if ($newSkill->has('details')) {
+        //             $this->userSkills()->updateExistingPivot($userSkillId, $detailsArray);
+        //         }
+        //     // Otherwise experienceSkill doesn't exist, so add it now
+        //     } else {
+        //         $this->userSkills()->attach($userSkillId, $detailsArray);
+        //     }
+        // }
         // If this experience instance continues to be used, ensure the in-memory instance is updated.
         $this->refresh();
     }
@@ -130,11 +167,9 @@ abstract class Experience extends Model
         // Find the userSkills that correspond to these skills.
         $userSkillIds = $this->user->userSkills()->whereIn('skill_id', $skillIds)->pluck('id');
         // Soft-delete these experience-skills
-        foreach($userSkillIds as $userSkillId) {
-            $this->userSkills()->updateExistingPivot($userSkillId, [
-                'deleted_at' => Carbon::now()
-            ]);
-        }
+        ExperienceSkill::where('experience_id', $this->id)
+            ->whereIn('user_skill_id', $userSkillIds)
+            ->delete();
         // If this experience instance continues to be used, ensure the in-memory instance is updated.
         $this->refresh();
     }
