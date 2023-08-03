@@ -6,7 +6,6 @@ import {
 } from "@gc-digital-talent/web/src/api/generated";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
-  JobLookingStatus,
   OperationalRequirement,
   PositionDuration,
 } from "@gc-digital-talent/web/src/api/generated";
@@ -31,7 +30,6 @@ export function createApplicant({
     isGovEmployee: false,
     isWoman: true,
     hasPriorityEntitlement: false,
-    jobLookingStatus: JobLookingStatus.ActivelyLooking,
     hasDiploma: true,
     locationPreferences: WorkRegion.Ontario,
     acceptedOperationalRequirements: [

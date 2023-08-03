@@ -194,7 +194,6 @@ type User {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus @deprecated(reason: "Removing with applicantDashboard feature flag")
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -255,12 +254,6 @@ enum EstimatedLanguageAbility {
   BEGINNER
   INTERMEDIATE
   ADVANCED
-}
-
-enum JobLookingStatus {
-  ACTIVELY_LOOKING
-  OPEN_TO_OPPORTUNITIES
-  INACTIVE
 }
 
 enum GovEmployeeType {
@@ -844,7 +837,6 @@ input UserPoolFilterInput {
 input UserFilterInput {
   applicantFilter: ApplicantFilterInput
   poolFilters: [UserPoolFilterInput]
-  jobLookingStatus: [JobLookingStatus]
   isProfileComplete: Boolean
   isGovEmployee: Boolean
   telephone: String
@@ -941,7 +933,6 @@ input CreateUserInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -991,7 +982,6 @@ input UpdateUserAsAdminInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -1040,7 +1030,6 @@ input UpdateUserAsUserInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -1788,7 +1777,6 @@ type PoolCandidateSearchRequestPaginator {
 "Allowed column names for Query.poolCandidatesPaginated.orderBy."
 enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   PRIORITY_WEIGHT
-  JOB_LOOKING_STATUS
   FIRST_NAME
   EMAIL
   PREFERRED_LANG

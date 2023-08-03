@@ -4,7 +4,8 @@ import { useForm, FormProvider } from "react-hook-form";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
 import { Button, Dialog, IconType } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import { Scalars, Skill, SkillCategory } from "~/api/generated";
 
@@ -54,13 +55,27 @@ const SkillDialog = ({
   });
 
   const {
+    title,
+    subtitle,
+    trigger: triggerMessage,
+    submit,
+    selected,
+  } = getSkillDialogMessages({
+    context,
+    intl,
+  });
+
+  const {
     handleSubmit,
     reset,
     formState: { isSubmitting },
   } = methods;
 
   const handleAddSkill = async (values: FormValues) => {
-    await onSave(values).then(() => setIsOpen(false));
+    await onSave(values).then(() => {
+      setIsOpen(false);
+      toast.success(selected(getLocalizedName(selectedSkill?.name, intl)));
+    });
   };
 
   const handleOpenChange = (newIsOpen: boolean) => {
@@ -69,16 +84,6 @@ const SkillDialog = ({
     }
     setIsOpen(newIsOpen);
   };
-
-  const {
-    title,
-    subtitle,
-    trigger: triggerMessage,
-    submit,
-  } = getSkillDialogMessages({
-    context,
-    intl,
-  });
 
   const triggerProps = {
     children: trigger?.label || triggerMessage,

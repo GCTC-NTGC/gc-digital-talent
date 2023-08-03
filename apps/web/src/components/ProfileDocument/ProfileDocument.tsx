@@ -52,6 +52,13 @@ const PageSection = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
+// If a section is too big, use this instead of PageSection to allow it to break
+const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
+  <div data-h2-margin-bottom="base(2rem)" data-h2-display="base(block)">
+    {children}
+  </div>
+);
+
 const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
   ({ results }, ref) => {
     const intl = useIntl();
@@ -680,7 +687,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           </div>
                         )}
                       </PageSection>
-                      <PageSection>
+                      <BreakingPageSection>
                         <Heading level="h3">
                           {intl.formatMessage(
                             navigationMessages.careerTimelineAndRecruitment,
@@ -689,7 +696,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         <PrintExperienceByType
                           experiences={result.experiences?.filter(notEmpty)}
                         />
-                      </PageSection>
+                      </BreakingPageSection>
                     </div>
                     {index + 1 !== results.length && (
                       <div style={{ breakAfter: "page" }} />

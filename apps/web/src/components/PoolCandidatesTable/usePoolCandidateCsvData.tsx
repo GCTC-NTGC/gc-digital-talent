@@ -6,7 +6,6 @@ import {
   getArmedForcesStatusesAdmin,
   getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
-  getJobLookingStatus,
   getLanguage,
   getLanguageProficiency,
   getPoolCandidatePriorities,
@@ -435,11 +434,6 @@ const usePoolCandidateCsvData = (
           priority: user.priorityWeight
             ? intl.formatMessage(
                 getPoolCandidatePriorities(user.priorityWeight),
-              )
-            : "",
-          availability: user.jobLookingStatus
-            ? intl.formatMessage(
-                getJobLookingStatus(user.jobLookingStatus as string, "short"),
               )
             : "",
           notes: notes || "",
