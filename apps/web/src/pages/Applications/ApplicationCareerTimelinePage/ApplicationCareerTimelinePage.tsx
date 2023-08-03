@@ -203,6 +203,7 @@ export const ApplicationCareerTimeline = ({
   const experienceList = sortAndFilterExperiences(
     nonEmptyExperiences,
     sortAndFilterValues,
+    intl,
   );
   const experiencesByType = groupBy(nonEmptyExperiences, (e) => {
     return deriveExperienceType(e);
