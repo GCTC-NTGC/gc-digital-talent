@@ -153,6 +153,14 @@ const ProfilePage = React.lazy(() =>
       ),
   ),
 );
+const ExperienceFormPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsEditExperiencePage" */ "../pages/Profile/ExperienceFormPage/ExperienceFormPage"
+      ),
+  ),
+);
 const CareerTimelineAndRecruitmentPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -797,6 +805,38 @@ const createRoute = (locale: Locales, loginPath: string) =>
                                   <CareerTimelineAndRecruitmentPage />
                                 </RequireAuth>
                               ),
+                            },
+                            {
+                              path: ":experienceType",
+                              children: [
+                                {
+                                  path: "create",
+                                  element: (
+                                    <RequireAuth
+                                      roles={[ROLE_NAME.Applicant]}
+                                      loginPath={loginPath}
+                                    >
+                                      <ExperienceFormPage />
+                                    </RequireAuth>
+                                  ),
+                                },
+                                {
+                                  path: ":experienceId",
+                                  children: [
+                                    {
+                                      path: "edit",
+                                      element: (
+                                        <RequireAuth
+                                          roles={[ROLE_NAME.Applicant]}
+                                          loginPath={loginPath}
+                                        >
+                                          <ExperienceFormPage edit />
+                                        </RequireAuth>
+                                      ),
+                                    },
+                                  ],
+                                },
+                              ],
                             },
                           ],
                         },
