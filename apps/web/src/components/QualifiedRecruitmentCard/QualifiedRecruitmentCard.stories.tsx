@@ -19,7 +19,6 @@ const mockTeams = fakeTeams(1, mockDepartments);
 const mockCandidates = fakePoolCandidates(1);
 const mockCandidate = {
   ...mockCandidates[0],
-  status: PoolCandidateStatus.QualifiedAvailable,
   pool: {
     ...mockCandidates[0].pool,
     team: mockTeams[0],
@@ -28,57 +27,43 @@ const mockCandidate = {
   },
 };
 
+const poolCandidateStatuses = Object.values(PoolCandidateStatus);
+type Availability = "Available" | "Unavailable";
+const availabilities: Availability[] = ["Available", "Unavailable"];
+
 export default {
   component: QualifiedRecruitmentCard,
   title: "Components/Qualified Recruitment Card",
-  args: {
-    headingLevel: "h2",
-  },
 };
 
-const Template: StoryFn<typeof QualifiedRecruitmentCard> = (args) => (
-  <QualifiedRecruitmentCard {...args} />
-);
-
-export const Available = Template.bind({});
-Available.args = {
-  candidate: {
-    ...mockCandidate,
-    suspendedAt: null,
-  },
+const Template: StoryFn<typeof QualifiedRecruitmentCard> = () => {
+  return (
+    <div data-h2-display="base(flex)">
+      <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+        {poolCandidateStatuses.map((poolCandidateStatus) =>
+          availabilities.map((availability) => (
+            <div
+              data-h2-margin="base(0, 0, x.5, 0)"
+              key={`${poolCandidateStatus} - ${availability}`}
+            >
+              <span>{`${poolCandidateStatus}  ${availability}`}</span>
+              <QualifiedRecruitmentCard
+                candidate={{
+                  ...mockCandidate,
+                  status: poolCandidateStatus,
+                  suspendedAt:
+                    availability === "Available"
+                      ? null
+                      : faker.date.past().toISOString(),
+                }}
+                headingLevel="h2"
+              />
+            </div>
+          )),
+        )}
+      </div>
+    </div>
+  );
 };
 
-export const Suspended = Template.bind({});
-Suspended.args = {
-  candidate: {
-    ...mockCandidate,
-    suspendedAt: faker.date.past().toISOString(),
-  },
-};
-
-export const Ongoing = Template.bind({});
-Ongoing.args = {
-  candidate: {
-    ...mockCandidate,
-    pool: {
-      ...mockCandidate.pool,
-      publishingGroup: PublishingGroup.ItJobsOngoing,
-    },
-  },
-};
-
-export const Expired = Template.bind({});
-Expired.args = {
-  candidate: {
-    ...mockCandidate,
-    status: PoolCandidateStatus.Expired,
-  },
-};
-
-export const Placed = Template.bind({});
-Placed.args = {
-  candidate: {
-    ...mockCandidate,
-    status: PoolCandidateStatus.PlacedCasual,
-  },
-};
+export const AllCards = Template.bind({});
