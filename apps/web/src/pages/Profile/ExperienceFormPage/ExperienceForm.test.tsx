@@ -5,7 +5,6 @@ import React from "react";
 import "@testing-library/jest-dom";
 import { Provider as GraphqlProvider } from "urql";
 import { screen, fireEvent, act, waitFor } from "@testing-library/react";
-import { fromValue } from "wonka";
 
 import { fakeSkills } from "@gc-digital-talent/fake-data";
 import {
@@ -18,8 +17,6 @@ import { ExperienceForm, ExperienceFormProps } from "./ExperienceFormPage";
 
 const mockUserId = "user-id";
 const mockSkills = fakeSkills(50);
-const mockCallback = jest.fn();
-
 const mockClient = {
   executeMutation: jest.fn(),
   // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
