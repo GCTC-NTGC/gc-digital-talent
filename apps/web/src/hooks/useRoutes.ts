@@ -318,6 +318,11 @@ const getRoutes = (lang: Locales) => {
       );
     },
 
+    skillLibrary: () =>
+      path.join(applicantUrl, "profile-and-applications", "skills"),
+    skillShowcase: () =>
+      path.join(applicantUrl, "profile-and-applications", "skills", "showcase"),
+
     /**
      * Deprecated
      *

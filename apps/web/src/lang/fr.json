@@ -607,6 +607,10 @@
     "defaultMessage": "Gestion d’un processus de recrutement",
     "description": "Heading for pool operator dashboard links"
   },
+  "2A1UT9": {
+    "defaultMessage": "Compétence à améliorer",
+    "description": "Title for skills to improve showcase section"
+  },
   "2Ckihd": {
     "defaultMessage": "Trouvé <primary>{skillCount}</primary> compétences.",
     "description": "The number of skills found within the skill picker."
@@ -777,10 +781,6 @@
   "3IZ3mN": {
     "defaultMessage": "Équipe",
     "description": "Title displayed for the role table display team column"
-  },
-  "3Ix4Rz": {
-    "defaultMessage": "Types de travail d’intérêt",
-    "description": "Title for types of work of interest section"
   },
   "3JL02L": {
     "defaultMessage": "Décerné à :",
@@ -3177,10 +3177,6 @@
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
-  },
-  "KSH0Di": {
-    "defaultMessage": "Justificatifs sur les compétences",
-    "description": "Title for skill credentials section"
   },
   "KSNNgE": {
     "defaultMessage": "Mettre à jour un ministère",
@@ -5844,6 +5840,10 @@
     "defaultMessage": "Annonce du bassin",
     "description": "Label for pool advertisement url field"
   },
+  "deiylo": {
+    "defaultMessage": "Meilleures compétences",
+    "description": "Title for top skills showcase section"
+  },
   "dfkNm9": {
     "defaultMessage": "Mise à jour réussie de votre parcours professionnel!",
     "description": "Message displayed to users when saving career timeline is successful."
@@ -7771,10 +7771,6 @@
     "defaultMessage": "Cadre de conformité et d’application de la loi proactives",
     "description": "Title for the compliance enforcement section."
   },
-  "qxRpIs": {
-    "defaultMessage": "Mise en valeur des compétences comportementales",
-    "description": "Title for behavioural skill showcase section"
-  },
   "r2gD/4": {
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the search request table requested date column."
@@ -8134,10 +8130,6 @@
   "taxkCS": {
     "defaultMessage": "Enregistrer et ajouter une compétence",
     "description": "Button text to save a specific skill to a users profile"
-  },
-  "tgG8VK": {
-    "defaultMessage": "Mise en valeur des compétences techniques",
-    "description": "Title for technical skill showcase section"
   },
   "tiF/jI": {
     "defaultMessage": "Annuler et revenir en arrière",
