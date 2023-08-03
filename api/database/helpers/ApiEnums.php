@@ -180,24 +180,6 @@ class ApiEnums
         ];
     }
 
-    const USER_STATUS_ACTIVELY_LOOKING = 'ACTIVELY_LOOKING';
-    const USER_STATUS_OPEN_TO_OPPORTUNITIES = 'OPEN_TO_OPPORTUNITIES';
-    const USER_STATUS_INACTIVE = 'INACTIVE';
-
-    /**
-     * A collection of enums for user statuses in factories and seeders
-     *
-     * @return string[]
-     */
-    public static function userStatuses(): array
-    {
-        return [
-            self::USER_STATUS_ACTIVELY_LOOKING,
-            self::USER_STATUS_OPEN_TO_OPPORTUNITIES,
-            self::USER_STATUS_INACTIVE
-        ];
-    }
-
     const POOL_STATUS_NOT_TAKING_APPLICATIONS = 'NOT_TAKING_APPLICATIONS';
     const POOL_STATUS_TAKING_APPLICATIONS = 'TAKING_APPLICATIONS';
 
