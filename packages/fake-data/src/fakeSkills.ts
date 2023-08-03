@@ -13,8 +13,11 @@ const generateSkill = (
   const keywords = faker.lorem.words(3).split(" ");
   const keywordsEN = keywords.map((skill) => `${skill} EN`);
   const keywordsFR = keywords.map((skill) => `${skill} FR`);
+  const uniqueId = uniqueEnforcerId.enforce(() => {
+    return faker.string.uuid();
+  });
   return {
-    id: uniqueEnforcerId.enforce(faker.string.uuid()),
+    id: uniqueId,
     key: faker.helpers.slugify(name),
     name: {
       en: `EN ${name}`,

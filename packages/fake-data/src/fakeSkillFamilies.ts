@@ -13,6 +13,9 @@ const generateSkillFamily = (
   uniqueEnforcerId: UniqueEnforcer,
 ) => {
   const name = faker.lorem.word();
+  const uniqueId = uniqueEnforcerId.enforce(() => {
+    return faker.string.uuid();
+  });
   return {
     __typename: undefined,
     category: faker.helpers.arrayElement<SkillCategory>([
@@ -23,7 +26,7 @@ const generateSkillFamily = (
       en: `EN ${faker.lorem.sentences()}`,
       fr: `FR ${faker.lorem.sentences()}`,
     },
-    id: uniqueEnforcerId.enforce(faker.string.uuid()),
+    id: uniqueId,
     key: faker.helpers.slugify(name),
     name: {
       en: `EN ${name}`,
