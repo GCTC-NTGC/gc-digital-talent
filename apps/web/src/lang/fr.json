@@ -5100,6 +5100,10 @@
     "defaultMessage": "Architecture intégrée de la TI",
     "description": "Label for the 'enterprise architecture' IT work stream"
   },
+  "Yc2A2Q": {
+    "defaultMessage": "{skill} sélectionnée.",
+    "description": "Message displayed when a skill was selected"
+  },
   "Yg2TIH": {
     "defaultMessage": "Rôles individuels",
     "description": "Heading for updating a users individual roles"
