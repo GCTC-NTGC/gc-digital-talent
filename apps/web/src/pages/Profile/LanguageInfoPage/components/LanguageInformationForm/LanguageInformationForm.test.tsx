@@ -17,6 +17,9 @@ import LanguageInformationForm, {
 
 const mockUser = {
   ...fakeUsers()[0],
+  lookingForEnglish: null,
+  lookingForFrench: null,
+  lookingForBilingual: null,
   id: "testUserId",
 };
 
@@ -57,11 +60,13 @@ describe("LanguageInformationForm", () => {
   });
 
   it("should have no accessibility errors", async () => {
-    const { container } = renderLanguageInfoForm({
-      initialData: mockUser,
-      submitHandler: jest.fn(),
+    await act(async () => {
+      const { container } = renderLanguageInfoForm({
+        initialData: mockUser,
+        submitHandler: jest.fn(),
+      });
+      await axeTest(container);
     });
-    await axeTest(container);
   });
 
   it("Can't submit if no fields entered.", async () => {
@@ -97,7 +102,7 @@ describe("LanguageInformationForm", () => {
     });
     expect(await screen.queryByText("Bilingual evaluation")).toBeNull();
     await act(async () => {
-      screen
+      await screen
         .getByRole("checkbox", {
           name: /bilingual/i,
         })
@@ -106,6 +111,13 @@ describe("LanguageInformationForm", () => {
     expect(
       await screen.findByRole("group", { name: /bilingual evaluation/i }),
     ).toBeInTheDocument();
+    await act(async () => {
+      await screen
+        .getByRole("radio", {
+          name: /I am bilingual .* and have NOT completed/i,
+        })
+        .click();
+    });
     expect(
       await screen.findByRole("group", {
         name: /second language proficiency/i,

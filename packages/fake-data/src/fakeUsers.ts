@@ -63,16 +63,14 @@ const generateUser = (
   poolCandidates: GeneratedPoolCandidate[] = [], // poolCandidates associating this user with a pool
   pools: Pool[] = [], // pools owned by this user
 ): GeneratedUser => {
-  faker.setLocale("en");
-
   return {
     __typename: "User",
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
 
     // Personal Info
     email: faker.internet.email(),
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
+    firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
     telephone: faker.helpers.replaceSymbols("+###########"),
     preferredLang: faker.helpers.arrayElement<Language>(
       Object.values(Language),
@@ -86,7 +84,7 @@ const generateUser = (
     currentProvince: faker.helpers.arrayElement<ProvinceOrTerritory>(
       Object.values(ProvinceOrTerritory),
     ),
-    currentCity: faker.address.city(),
+    currentCity: faker.location.city(),
     citizenship: faker.helpers.arrayElement<CitizenshipStatus>([
       CitizenshipStatus.Citizen,
       CitizenshipStatus.PermanentResident,
@@ -154,7 +152,7 @@ const generateUser = (
     locationPreferences: faker.helpers.arrayElements<WorkRegion>(
       Object.values(WorkRegion),
     ),
-    locationExemptions: faker.address.city(),
+    locationExemptions: faker.location.city(),
     acceptedOperationalRequirements:
       faker.helpers.arrayElements<OperationalRequirement>(
         Object.values(OperationalRequirement),
