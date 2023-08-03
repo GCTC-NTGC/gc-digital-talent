@@ -96,7 +96,7 @@ abstract class Experience extends Model
         $skillIds = collect($skills)->pluck('id');
         $this->user->addSkills($skillIds);
 
-        $userSkills = UserSkill::where('user_id', $this->user_id); // Get this users UserSkills once, to avoid repeated db calls.
+        $userSkills = UserSkill::where('user_id', $this->user_id)->get(); // Get this users UserSkills once, to avoid repeated db calls.
 
         // Restore soft-deleted experience-skills which need to be connected.
          ExperienceSkill::onlyTrashed()
@@ -125,7 +125,7 @@ abstract class Experience extends Model
                     $existingPivot->save();
                 }
             } else { // If pivot doesn't exist yet, create it
-                $userSkillId = UserSkill::where('user_id', $this->user_id)->where('skill_id', $newSkill->get('id'))->first()->id;
+                $userSkillId = $userSkills->where('skill_id', $newSkill->get('id'))->first()->id;
                 $detailsArray = $newSkill->only('details')->toArray();
                 $this->userSkills()->attach($userSkillId, $detailsArray);
             }
