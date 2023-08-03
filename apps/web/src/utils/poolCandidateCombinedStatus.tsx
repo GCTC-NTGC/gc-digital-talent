@@ -8,7 +8,7 @@ import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import getOrThrowError from "@gc-digital-talent/i18n/src/utils/error";
 
 // Custom status keys used to consolidate labels
-type StatusLabelKey =
+type CombinedStatus =
   | "DRAFT"
   | "RECEIVED"
   | "UNDER_REVIEW"
@@ -26,32 +26,35 @@ type StatusLabelKey =
   | "PAUSED"
   | "WITHDREW";
 
-const HIRED_STATUSES: StatusLabelKey[] = [
+const HIRED_STATUSES: CombinedStatus[] = [
   "HIRED_CASUAL",
   "HIRED_TERM",
   "HIRED_INDETERMINATE",
 ];
-export const isHiredStatus = (status: Maybe<StatusLabelKey>): boolean =>
+export const isHiredCombinedStatus = (status: Maybe<CombinedStatus>): boolean =>
   status ? HIRED_STATUSES.includes(status) : false;
-const READY_TO_HIRE_STATUSES: StatusLabelKey[] = ["READY_TO_HIRE"];
-export const isReadyToHireStatus = (status: Maybe<StatusLabelKey>): boolean =>
-  status ? READY_TO_HIRE_STATUSES.includes(status) : false;
-const EXPIRED_STATUSES: StatusLabelKey[] = ["EXPIRED"];
-export const isExpiredStatus = (status: Maybe<StatusLabelKey>): boolean =>
-  status ? EXPIRED_STATUSES.includes(status) : false;
-const INACTIVE_STATUSES: StatusLabelKey[] = [
+const READY_TO_HIRE_STATUSES: CombinedStatus[] = ["READY_TO_HIRE"];
+export const isReadyToHireCombinedStatus = (
+  status: Maybe<CombinedStatus>,
+): boolean => (status ? READY_TO_HIRE_STATUSES.includes(status) : false);
+const EXPIRED_STATUSES: CombinedStatus[] = ["EXPIRED"];
+export const isExpiredCombinedStatus = (
+  status: Maybe<CombinedStatus>,
+): boolean => (status ? EXPIRED_STATUSES.includes(status) : false);
+const INACTIVE_STATUSES: CombinedStatus[] = [
   "NOT_INTERESTED",
   "PAUSED",
   "WITHDREW",
 ];
-export const isInactiveStatus = (status: Maybe<StatusLabelKey>): boolean =>
-  status ? INACTIVE_STATUSES.includes(status) : false;
-const ERROR_STATUSES: StatusLabelKey[] = ["REMOVED"];
-export const isErrorStatus = (status: Maybe<StatusLabelKey>): boolean =>
+export const isInactiveCombinedStatus = (
+  status: Maybe<CombinedStatus>,
+): boolean => (status ? INACTIVE_STATUSES.includes(status) : false);
+const ERROR_STATUSES: CombinedStatus[] = ["REMOVED"];
+export const isErrorCombinedStatus = (status: Maybe<CombinedStatus>): boolean =>
   status ? ERROR_STATUSES.includes(status) : false;
 
-// Map new, consolidated keys to their labels
-const statusLabels = defineMessages<StatusLabelKey>({
+// Map combined statuses to their labels
+const combinedStatusLabels = defineMessages<CombinedStatus>({
   DRAFT: defineMessage({
     defaultMessage: "Continue draft",
     id: "pf3KKo",
@@ -143,8 +146,8 @@ const statusLabels = defineMessages<StatusLabelKey>({
   }),
 });
 
-// Map existing statuses to their new, consolidated keys
-const statusLabelMap = new Map<PoolCandidateStatus, StatusLabelKey>([
+// Map pool candidate statuses to their regular combined statuses
+const statusMap = new Map<PoolCandidateStatus, CombinedStatus>([
   [PoolCandidateStatus.Draft, "DRAFT"],
   [PoolCandidateStatus.NewApplication, "RECEIVED"],
   [PoolCandidateStatus.ApplicationReview, "UNDER_REVIEW"],
@@ -165,39 +168,39 @@ const statusLabelMap = new Map<PoolCandidateStatus, StatusLabelKey>([
   [PoolCandidateStatus.Removed, "REMOVED"],
 ]);
 
-// Map existing statuses to their new, consolidated keys when the status is suspended
-const suspendedStatusLabelMap = new Map<PoolCandidateStatus, StatusLabelKey>([
+// Map pool candidate statuses to their suspended combined statuses
+const suspendedStatusMap = new Map<PoolCandidateStatus, CombinedStatus>([
   [PoolCandidateStatus.PlacedCasual, "NOT_INTERESTED"],
   [PoolCandidateStatus.QualifiedAvailable, "NOT_INTERESTED"],
 ]);
 
 /**
- * Get the label for a status
+ * Derived a combined status from the pool candidate status and the suspendedAt timestamp
  *
- * @param status  Database status
+ * @param status  pool candidate status
  * @param suspendedAt  The timestamp for the user to suspend the pool candidate.  If suspended the label may be different.
- * @returns Maybe<MessageDescriptor>    Returns the message or null
+ * @returns Maybe<CombinedStatus>    Returns the combined status or null
  */
-export const deriveStatusLabelKey = (
+export const deriveCombinedStatus = (
   status: Maybe<PoolCandidateStatus>,
   suspendedAt: PoolCandidate["suspendedAt"],
-): StatusLabelKey | null | undefined => {
+): Maybe<CombinedStatus> => {
   if (!status) return null;
   const isSuspended = suspendedAt && new Date() > parseDateTimeUtc(suspendedAt);
 
-  const statusLabelKey =
-    isSuspended && suspendedStatusLabelMap.has(status)
-      ? suspendedStatusLabelMap.get(status) // special suspended label
-      : statusLabelMap.get(status); // regular label
+  const combinedStatus =
+    isSuspended && suspendedStatusMap.has(status)
+      ? suspendedStatusMap.get(status) // special suspended label
+      : statusMap.get(status); // regular label
 
-  return statusLabelKey;
+  return combinedStatus;
 };
 
-export const getStatusLabel = (
-  statusLabelKey: keyof typeof statusLabels,
+export const getCombinedStatusLabel = (
+  statusLabelKey: keyof typeof combinedStatusLabels,
 ): MessageDescriptor =>
   getOrThrowError(
-    statusLabels,
+    combinedStatusLabels,
     statusLabelKey,
     `Invalid statusLabelKey '${statusLabelKey}'`,
   );

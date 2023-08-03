@@ -6,9 +6,9 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
-  deriveStatusLabelKey as derivePoolCandidateStatusLabelKey,
-  getStatusLabel as getPoolCandidateStatusLabel,
-} from "~/utils/poolCandidateMessages";
+  deriveCombinedStatus,
+  getCombinedStatusLabel,
+} from "~/utils/poolCandidateCombinedStatus";
 import { type PoolCandidate } from "~/api/generated";
 
 import ApplicationActions from "./ApplicationActions";
@@ -57,12 +57,12 @@ const ApplicationCard = ({
   );
   const submittedAt = formatSubmittedAt(application.submittedAt, intl);
   const closingDate = formatClosingDate(application.pool.closingDate, intl);
-  const statusLabelKey = derivePoolCandidateStatusLabelKey(
+  const combinedStatus = deriveCombinedStatus(
     application.status,
     application.suspendedAt,
   );
-  const status = statusLabelKey
-    ? getPoolCandidateStatusLabel(statusLabelKey)
+  const combinedStatusLabel = combinedStatus
+    ? getCombinedStatusLabel(combinedStatus)
     : null;
 
   return (
@@ -160,9 +160,9 @@ const ApplicationCard = ({
           show={applicationIsDraft && !recruitmentIsExpired}
           application={application}
         />
-        {!applicationIsDraft && status ? (
+        {!applicationIsDraft && combinedStatusLabel ? (
           <Pill color="secondary" mode="outline">
-            {intl.formatMessage(status)}
+            {intl.formatMessage(combinedStatusLabel)}
           </Pill>
         ) : null}
       </div>

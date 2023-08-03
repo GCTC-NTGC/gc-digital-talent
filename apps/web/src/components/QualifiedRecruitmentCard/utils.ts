@@ -18,14 +18,14 @@ import {
 } from "~/utils/poolCandidate";
 import { Application } from "~/utils/applicationUtils";
 import {
-  deriveStatusLabelKey as derivePoolCandidateStatusLabelKey,
-  getStatusLabel as getPoolCandidateStatusLabel,
-  isHiredStatus,
-  isReadyToHireStatus,
-  isExpiredStatus,
-  isInactiveStatus,
-  isErrorStatus,
-} from "~/utils/poolCandidateMessages";
+  deriveCombinedStatus,
+  getCombinedStatusLabel,
+  isHiredCombinedStatus,
+  isReadyToHireCombinedStatus,
+  isExpiredCombinedStatus,
+  isInactiveCombinedStatus,
+  isErrorCombinedStatus,
+} from "~/utils/poolCandidateCombinedStatus";
 import { PoolCandidate } from "@gc-digital-talent/graphql";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
@@ -51,44 +51,49 @@ export const getStatusPillInfo = (
   suspendedAt: PoolCandidate["suspendedAt"],
   intl: IntlShape,
 ): StatusPillInfo => {
-  const labelKey = derivePoolCandidateStatusLabelKey(status, suspendedAt);
-  const label = labelKey ? getPoolCandidateStatusLabel(labelKey) : null;
+  const combinedStatus = deriveCombinedStatus(status, suspendedAt);
+  const combinedStatusLabel = combinedStatus
+    ? getCombinedStatusLabel(combinedStatus)
+    : null;
+  const text = combinedStatusLabel
+    ? intl.formatMessage(combinedStatusLabel)
+    : "";
 
-  if (isReadyToHireStatus(labelKey)) {
+  if (isReadyToHireCombinedStatus(combinedStatus)) {
     return {
       color: "success",
-      text: label ? intl.formatMessage(label) : "",
+      text,
       icon: ShieldCheckIcon,
     };
   }
-  if (isHiredStatus(labelKey)) {
+  if (isHiredCombinedStatus(combinedStatus)) {
     return {
       color: "secondary",
-      text: label ? intl.formatMessage(label) : "",
+      text,
     };
   }
-  if (isExpiredStatus(labelKey)) {
+  if (isExpiredCombinedStatus(combinedStatus)) {
     return {
       color: "black",
-      text: label ? intl.formatMessage(label) : "",
+      text,
     };
   }
-  if (isInactiveStatus(labelKey)) {
+  if (isInactiveCombinedStatus(combinedStatus)) {
     return {
       color: "warning",
-      text: label ? intl.formatMessage(label) : "",
+      text,
     };
   }
-  if (isErrorStatus(labelKey)) {
+  if (isErrorCombinedStatus(combinedStatus)) {
     return {
       color: "error",
-      text: label ? intl.formatMessage(label) : "",
+      text,
     };
   }
 
   return {
     color: "primary",
-    text: label ? intl.formatMessage(label) : "",
+    text,
   };
 };
 type AvailabilityInfo = {
