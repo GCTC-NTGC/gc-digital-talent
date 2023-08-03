@@ -574,7 +574,7 @@ class PoolApplicationTest extends TestCase
                 ]
             )->assertJson([
                 'errors' => [[
-                    'message' => ApiEnums::POOL_CANDIDATE_SIGNATURE_REQUIRED,
+                    'message' => 'Variable "$sig" of non-null type "String!" must not be null.',
                 ]]
             ]);
 

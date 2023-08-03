@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import { AlertDialog, Alert, Button, Link } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -18,7 +17,6 @@ const SignedOutPage = () => {
   const locale = getLocale(intl);
   const { loggedIn, logout } = useAuthentication();
   const paths = useRoutes();
-  const { applicantDashboard } = useFeatureFlags();
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "See you next time!",
@@ -126,11 +124,7 @@ const SignedOutPage = () => {
               <Link
                 color="primary"
                 mode="inline"
-                href={
-                  applicantDashboard
-                    ? paths.profileAndApplications()
-                    : paths.myProfile()
-                }
+                href={paths.profileAndApplications()}
               >
                 {intl.formatMessage({
                   defaultMessage: "Cancel",

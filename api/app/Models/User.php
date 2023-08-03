@@ -30,7 +30,6 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $last_name
  * @property string $telephone
  * @property string $preferred_lang
- * @property string $job_looking_status
  * @property string $current_province
  * @property string $current_city
  * @property boolean $looking_for_english
@@ -723,6 +722,20 @@ RAWSQL2;
         if ($isGovEmployee) {
             $query->where('is_gov_employee', true);
         }
+        return $query;
+    }
+
+    public static function scopeRoleAssignments(Builder $query, ?array $roleIds): Builder
+    {
+        if (empty($roleIds)) {
+            return $query;
+        }
+
+        $query->where(function ($query) use ($roleIds) {
+            $query->whereHas('roleAssignments', function ($query) use ($roleIds) {
+                $query->whereIn('role_id', $roleIds);
+            });
+        });
         return $query;
     }
 

@@ -15,6 +15,10 @@ import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Submit Application for IAP Workflow Tests", () => {
   beforeEach(() => {
+    cy.intercept("POST", "/graphql", function (req) {
+      aliasQuery(req, "getMyExperiences");
+    });
+
     cy.getSkills().then((allSkills) => {
       cy.wrap([allSkills[0].id]).as("testSkillIds"); // take the first ID for testing
     });
@@ -228,6 +232,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
     );
     cy.findByRole("button", { name: /Save and go back/i }).click();
     cy.expectToast(/Successfully added experience!/i);
+    cy.wait("@gqlgetMyExperiencesQuery");
     // returned to main career timeline review page
     cy.contains(/1 education and certificate experience/i)
       .should("exist")

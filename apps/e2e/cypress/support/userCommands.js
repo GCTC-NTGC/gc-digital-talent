@@ -41,7 +41,6 @@ const defaultUser = {
   hasDisability: undefined,
   isIndigenous: undefined,
   isVisibleMinority: undefined,
-  jobLookingStatus: undefined,
   hasDiploma: undefined,
   locationPreferences: undefined,
   locationExemptions: undefined,

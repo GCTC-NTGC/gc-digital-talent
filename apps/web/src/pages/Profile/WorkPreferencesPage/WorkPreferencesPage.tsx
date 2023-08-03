@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   User,
@@ -84,10 +83,8 @@ export const WorkPreferencesPage = () => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
-  const featureFlags = useFeatureFlags();
 
   const [{ data: initialData, fetching, error }] = useGetWorkPreferencesQuery();
-  const preProfileStatus = initialData?.me?.isProfileComplete;
 
   const [, executeMutation] = useUpdateWorkPreferencesMutation();
   const handleWorkPreferences = (id: string, data: UpdateUserAsUserInput) =>
@@ -95,16 +92,6 @@ export const WorkPreferencesPage = () => {
       id,
       user: data,
     }).then((result) => {
-      if (result.data?.updateUserAsUser) {
-        if (result.data?.updateUserAsUser?.isProfileComplete) {
-          const currentProfileStatus =
-            result.data?.updateUserAsUser?.isProfileComplete;
-          const message = intl.formatMessage(profileMessages.profileCompleted);
-          if (!preProfileStatus && currentProfileStatus) {
-            if (!featureFlags.applicantDashboard) toast.success(message);
-          }
-        }
-      }
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
       }

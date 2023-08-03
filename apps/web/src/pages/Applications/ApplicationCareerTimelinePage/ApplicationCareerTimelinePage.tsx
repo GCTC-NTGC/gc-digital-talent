@@ -14,7 +14,6 @@ import {
   ThrowNotFound,
   Well,
 } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -36,6 +35,7 @@ import ExperienceSortAndFilter, {
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
+import { OperationContext } from "urql";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
@@ -183,12 +183,9 @@ export const ApplicationCareerTimeline = ({
   const instructionsPath = paths.applicationCareerTimelineIntro(application.id);
   const nextStep =
     followingPageUrl ?? paths.applicationEducation(application.id);
-  const { applicantDashboard } = useFeatureFlags();
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
-  const cancelPath = applicantDashboard
-    ? paths.profileAndApplications({ fromIapDraft: isIAP })
-    : paths.myProfile();
+  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
   const methods = useForm<FormValues>();
   const {
@@ -206,6 +203,7 @@ export const ApplicationCareerTimeline = ({
   const experienceList = sortAndFilterExperiences(
     nonEmptyExperiences,
     sortAndFilterValues,
+    intl,
   );
   const experiencesByType = groupBy(nonEmptyExperiences, (e) => {
     return deriveExperienceType(e);
@@ -436,6 +434,17 @@ export const ApplicationCareerTimeline = ({
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: [
+    "AwardExperience",
+    "CommunityExperience",
+    "EducationExperience",
+    "PersonalExperience",
+    "WorkExperience",
+  ], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first",
+};
+
 const ApplicationCareerTimelinePage = () => {
   const { applicationId } = useParams();
   const [
@@ -456,7 +465,9 @@ const ApplicationCareerTimelinePage = () => {
       fetching: experienceFetching,
       error: experienceError,
     },
-  ] = useGetMyExperiencesQuery();
+  ] = useGetMyExperiencesQuery({
+    context,
+  });
 
   const application = applicationData?.poolCandidate;
   const experiences = experienceData?.me?.experiences as ExperienceForDate[];
