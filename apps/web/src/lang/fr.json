@@ -8886,13 +8886,13 @@
     "defaultMessage": "Présentez votre profil en tant que demande",
     "description": "How it works, step 3 heading"
   },
-  "zotZ6j": {
-    "defaultMessage": "Erreur : l'archivage du bassin a échoué",
-    "description": "Message displayed to user after pool fails to get archived."
-  },
   "znuDvD": {
     "defaultMessage": "Sélectionner des compétences dans votre bibliothèque ou en ajouter de toutes nouvelles.",
     "description": "Subtitle for the find a skill dialog within the skill showcase"
+  },
+  "zotZ6j": {
+    "defaultMessage": "Erreur : l'archivage du bassin a échoué",
+    "description": "Message displayed to user after pool fails to get archived."
   },
   "zpwZSQ": {
     "defaultMessage": "Erreur : échec de la mise à jour de la famille de compétences",
