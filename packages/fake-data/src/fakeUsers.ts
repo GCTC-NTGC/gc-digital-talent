@@ -10,7 +10,6 @@ import {
   EstimatedLanguageAbility,
   Classification,
   OperationalRequirement,
-  JobLookingStatus,
   Pool,
   WorkRegion,
   SalaryRange,
@@ -149,9 +148,6 @@ const generateUser = (
     ]),
 
     // Applicant info
-    jobLookingStatus: faker.helpers.arrayElement<JobLookingStatus>(
-      Object.values(JobLookingStatus),
-    ),
     hasDiploma: faker.datatype.boolean(),
     locationPreferences: faker.helpers.arrayElements<WorkRegion>(
       Object.values(WorkRegion),

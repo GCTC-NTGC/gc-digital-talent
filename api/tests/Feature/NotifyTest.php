@@ -27,12 +27,27 @@ class NotifyTest extends TestCase
     }
 
     /**
+     * Check key exists
+     *
+     * @return void
+     */
+    private function checkKey(string $key, string $skipMessage): void
+    {
+        $value = config($key);
+        if (!$value) {
+            $this->markTestSkipped($skipMessage);
+        }
+    }
+
+    /**
      * Test sending an Email
      *
      * @return void
      */
     public function test_email()
     {
+        $this->checkKey('notify.templates.test_email', 'Email template not found.');
+
         $response = Notify::sendEmail(
             'simulate-delivered@notification.canada.ca',
             $this->templates['test_email'],
@@ -49,6 +64,8 @@ class NotifyTest extends TestCase
      */
     public function test_sms()
     {
+        $this->checkKey('notify.templates.test_sms', 'Email template not found.');
+
         $response = Notify::sendSms(
             '+16132532222',
             $this->templates['test_sms'],
@@ -66,6 +83,8 @@ class NotifyTest extends TestCase
     public function test_bulk_sms()
     {
         $this->markTestSkipped("Prevent hitting the server.");
+
+        $this->checkKey('notify.templates.test_bulk_sms', 'Email template not found.');
 
         $response = Notify::sendBulkSms(
             $this->bulkName,
@@ -103,6 +122,8 @@ class NotifyTest extends TestCase
     public function test_bulk_email()
     {
         $this->markTestSkipped("Prevent hitting the server.");
+
+        $this->checkKey('notify.templates.test_bulk_email', 'Email template not found.');
 
         $response = Notify::sendBulkEmail(
             $this->bulkName,
