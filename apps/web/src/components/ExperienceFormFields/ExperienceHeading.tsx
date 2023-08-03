@@ -47,7 +47,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
             {intl.formatMessage({
               defaultMessage:
                 "This form allows you to edit a specific experience, its details, and linked skills. Don’t forget, work experiences should focus on describing your part-time, full-time, self-employment, fellowship, non-profit, or internship experiences.",
-              id: "AxMJL1",
+              id: "9Eh1nm",
               description:
                 "Instructions on how to add an experience to your career timeline",
             })}
@@ -71,7 +71,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
             {intl.formatMessage({
               defaultMessage:
                 "This form allows you to add a new experience to your career timeline. Get started by selecting the type of experience you’d like to add. If you need more information about what a certain type can include, expand the information below to see examples.",
-              id: "F5KhNJ",
+              id: "myEzIh",
               description:
                 "Instructions on how to add an experience to your career timeline",
             })}
@@ -89,7 +89,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                   ? intl.formatMessage({
                       defaultMessage:
                         "Hide more information about the types of experience you can add to your career timeline",
-                      id: "4wzX3f",
+                      id: "DxqFM1",
                       description:
                         "Button text to close accordion describing skill experience",
                     })
@@ -107,7 +107,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                   {intl.formatMessage({
                     defaultMessage:
                       "We all have a variety of accomplishments and experiences that shape both our careers and skills. Please only share what you would be comfortable sharing with a coworker. On this platform, you can add the following to your career timeline:",
-                    id: "0jNQ/I",
+                    id: "OYjVy4",
                     description:
                       "Lead-in text for the list of experience type definitions",
                   })}
@@ -167,7 +167,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                     {intl.formatMessage({
                       defaultMessage:
                         "Share specific awards and recognition that you've received for going above and beyond.",
-                      id: "IWJ/Qi",
+                      id: "5RCDqA",
                       description: "Description for award experience section",
                     })}
                   </DefinitionList.Item>
