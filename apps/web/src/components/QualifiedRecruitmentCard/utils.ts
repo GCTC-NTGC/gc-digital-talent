@@ -107,9 +107,7 @@ const getAvailabilityInfo = (
   if (isExpiredCombinedStatus(combinedStatus)) {
     return {
       icon: null,
-      color: {
-        "data-h2-color": "base(gray.darker)",
-      },
+      color: {},
       text: null,
       showDialog: false,
     };
@@ -118,9 +116,7 @@ const getAvailabilityInfo = (
   if (isHiredLongTermCombinedStatus(combinedStatus)) {
     return {
       icon: null,
-      color: {
-        "data-h2-color": "base(quaternary.dark)",
-      },
+      color: {},
       text: null,
       showDialog: false,
     };
@@ -140,9 +136,7 @@ const getAvailabilityInfo = (
   if (isInactiveCombinedStatus(combinedStatus)) {
     return {
       icon: null,
-      color: {
-        "data-h2-color": "base(quaternary.dark)",
-      },
+      color: {},
       text: null,
       showDialog: false,
     };
