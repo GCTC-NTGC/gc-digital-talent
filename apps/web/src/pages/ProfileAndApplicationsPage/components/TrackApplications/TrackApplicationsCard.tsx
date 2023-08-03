@@ -49,8 +49,12 @@ const TrackApplicationsCard = ({
 
   // We don't get DraftExpired status from the API, so we need to check if the draft is expired ourselves
   const statusPill = isDraftExpired
-    ? getStatusPillInfo(PoolCandidateStatus.DraftExpired, intl)
-    : getStatusPillInfo(application.status, intl);
+    ? getStatusPillInfo(
+        PoolCandidateStatus.DraftExpired,
+        application.suspendedAt,
+        intl,
+      )
+    : getStatusPillInfo(application.status, application.suspendedAt, intl);
 
   const applicationDateInfo = getApplicationDateInfo(application, intl);
   const { user } = useAuthorization();

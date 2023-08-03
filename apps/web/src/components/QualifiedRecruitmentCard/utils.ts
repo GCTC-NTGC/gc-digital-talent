@@ -6,21 +6,28 @@ import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Color, IconType } from "@gc-digital-talent/ui";
-import {
-  getLocalizedName,
-  getPoolCandidateStatusLabel,
-} from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { Department, Maybe, PoolCandidateStatus } from "~/api/generated";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { fullPoolTitle, isOngoingPublishingGroup } from "~/utils/poolUtils";
 import {
-  isExpiredStatus,
   isPlacedStatus,
   isQualifiedStatus,
-  isScreenedOutStatus,
+  isExpiredStatus as isExpiredPoolCandidateStatus,
 } from "~/utils/poolCandidate";
 import { Application } from "~/utils/applicationUtils";
+import {
+  deriveStatusLabelKey as derivePoolCandidateStatusLabelKey,
+  getStatusLabel as getPoolCandidateStatusLabel,
+  isHiredStatus,
+  isReadyToHireStatus,
+  isExpiredStatus,
+  isInactiveStatus,
+  isErrorStatus,
+} from "~/utils/poolCandidateMessages";
+import { PoolCandidate } from "@gc-digital-talent/graphql";
+import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
 export const joinDepartments = (
   departments: Maybe<Maybe<Department>[]>,
@@ -36,37 +43,48 @@ export const joinDepartments = (
 type StatusPillInfo = {
   color: Color;
   text: React.ReactNode;
+  icon?: IconType;
 };
 
 export const getStatusPillInfo = (
   status: Maybe<PoolCandidateStatus>,
+  suspendedAt: PoolCandidate["suspendedAt"],
   intl: IntlShape,
 ): StatusPillInfo => {
-  const label = getPoolCandidateStatusLabel(status);
+  const labelKey = derivePoolCandidateStatusLabelKey(status, suspendedAt);
+  const label = labelKey ? getPoolCandidateStatusLabel(labelKey) : null;
 
-  if (isQualifiedStatus(status)) {
+  if (isReadyToHireStatus(labelKey)) {
     return {
       color: "success",
-      text: intl.formatMessage(poolCandidateMessages.qualified),
-    };
-  }
-  if (isExpiredStatus(status)) {
-    return {
-      color: "error",
       text: label ? intl.formatMessage(label) : "",
+      icon: ShieldCheckIcon,
     };
   }
-  if (isScreenedOutStatus(status)) {
+  if (isHiredStatus(labelKey)) {
     return {
       color: "secondary",
       text: label ? intl.formatMessage(label) : "",
     };
   }
-  if (status === PoolCandidateStatus.Removed)
+  if (isExpiredStatus(labelKey)) {
+    return {
+      color: "black",
+      text: label ? intl.formatMessage(label) : "",
+    };
+  }
+  if (isInactiveStatus(labelKey)) {
+    return {
+      color: "warning",
+      text: label ? intl.formatMessage(label) : "",
+    };
+  }
+  if (isErrorStatus(labelKey)) {
     return {
       color: "error",
       text: label ? intl.formatMessage(label) : "",
     };
+  }
 
   return {
     color: "primary",
@@ -84,7 +102,7 @@ const getAvailabilityInfo = (
   { status, suspendedAt }: Application,
   intl: IntlShape,
 ): AvailabilityInfo => {
-  if (isExpiredStatus(status)) {
+  if (isExpiredPoolCandidateStatus(status)) {
     return {
       icon: LockClosedIcon,
       color: {
@@ -141,7 +159,11 @@ export const getQualifiedRecruitmentInfo = (
   intl: IntlShape,
 ): QualifiedRecruitmentInfo => {
   return {
-    statusPill: getStatusPillInfo(candidate.status, intl),
+    statusPill: getStatusPillInfo(
+      candidate.status,
+      candidate.suspendedAt,
+      intl,
+    ),
     availability: getAvailabilityInfo(candidate, intl),
     isQualified: isQualifiedStatus(candidate.status),
     isOngoing: isOngoingPublishingGroup(candidate.pool.publishingGroup),
