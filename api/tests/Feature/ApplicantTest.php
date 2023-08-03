@@ -5,7 +5,6 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Classification;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\PersonalExperience;
@@ -1107,47 +1106,6 @@ class ApplicantTest extends TestCase
         )->assertJson([
             'data' => [
                 'countApplicants' => 0
-            ]
-        ]);
-    }
-
-    public function testCountApplicantsQuerySuspended(): void
-    {
-        $user = User::All()->first();
-        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
-            'user_id' => $user['id'],
-        ]);
-        PoolCandidate::factory()->count(5)->availableInSearch()->create([
-            'pool_id' => $pool1,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
-        ]);
-        PoolCandidate::factory()->count(4)->suspended()->create([
-            'pool_id' => $pool1,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
-        ]);
-
-        // assert count applicants ignores the four suspended candidates
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
-            }
-        ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1['id']]
-                    ],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'countApplicants' => 5
             ]
         ]);
     }

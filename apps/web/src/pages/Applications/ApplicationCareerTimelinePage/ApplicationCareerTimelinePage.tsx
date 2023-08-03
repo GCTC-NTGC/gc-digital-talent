@@ -35,6 +35,7 @@ import ExperienceSortAndFilter, {
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
+import { OperationContext } from "urql";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
@@ -202,6 +203,7 @@ export const ApplicationCareerTimeline = ({
   const experienceList = sortAndFilterExperiences(
     nonEmptyExperiences,
     sortAndFilterValues,
+    intl,
   );
   const experiencesByType = groupBy(nonEmptyExperiences, (e) => {
     return deriveExperienceType(e);
@@ -432,6 +434,17 @@ export const ApplicationCareerTimeline = ({
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: [
+    "AwardExperience",
+    "CommunityExperience",
+    "EducationExperience",
+    "PersonalExperience",
+    "WorkExperience",
+  ], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first",
+};
+
 const ApplicationCareerTimelinePage = () => {
   const { applicationId } = useParams();
   const [
@@ -452,7 +465,9 @@ const ApplicationCareerTimelinePage = () => {
       fetching: experienceFetching,
       error: experienceError,
     },
-  ] = useGetMyExperiencesQuery();
+  ] = useGetMyExperiencesQuery({
+    context,
+  });
 
   const application = applicationData?.poolCandidate;
   const experiences = experienceData?.me?.experiences as ExperienceForDate[];

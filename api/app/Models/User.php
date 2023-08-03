@@ -30,7 +30,6 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $last_name
  * @property string $telephone
  * @property string $preferred_lang
- * @property string $job_looking_status
  * @property string $current_province
  * @property string $current_city
  * @property boolean $looking_for_english

@@ -59,7 +59,6 @@ query getMe {
     indigenousCommunities
     indigenousDeclarationSignature
     isVisibleMinority
-    jobLookingStatus
     hasDiploma
     locationPreferences
     locationExemptions

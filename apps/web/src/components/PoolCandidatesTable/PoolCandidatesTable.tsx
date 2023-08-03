@@ -423,7 +423,6 @@ const PoolCandidatesTable = ({
     if (
       sortingRule?.column.sortColumnName &&
       [
-        "JOB_LOOKING_STATUS",
         "FIRST_NAME",
         "EMAIL",
         "PREFERRED_LANG",

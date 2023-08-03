@@ -59,7 +59,6 @@ query getProfile($userId: UUID!) {
     indigenousCommunities
     indigenousDeclarationSignature
     isVisibleMinority
-    jobLookingStatus
     hasDiploma
     locationPreferences
     locationExemptions
