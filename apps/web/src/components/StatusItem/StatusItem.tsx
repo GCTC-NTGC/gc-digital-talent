@@ -141,6 +141,7 @@ const StatusItem = ({
         <StatusItemTitle
           href={href}
           scrollTo={scrollTo}
+          data-h2-text-align="base(left)"
           {...textColorMap[effectiveTitleColor]}
         >
           {combinedTitle}

@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -58,7 +57,6 @@ const ApplicationSkillsIntroduction = ({
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const { applicantDashboard } = useFeatureFlags();
 
   return (
     <>
@@ -106,11 +104,7 @@ const ApplicationSkillsIntroduction = ({
           })}
         </Link>
         <Link
-          href={
-            applicantDashboard
-              ? paths.profileAndApplications({ fromIapDraft: isIAP })
-              : paths.myProfile()
-          }
+          href={paths.profileAndApplications({ fromIapDraft: isIAP })}
           mode="inline"
         >
           {intl.formatMessage(applicationMessages.saveQuit)}

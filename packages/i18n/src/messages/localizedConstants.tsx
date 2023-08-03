@@ -3,7 +3,6 @@ import {
   Language,
   LanguageAbility,
   PoolCandidateStatus,
-  SalaryRange,
   WorkRegion,
   PoolCandidateSearchStatus,
   SkillCategory,
@@ -15,7 +14,6 @@ import {
   OperationalRequirement,
   ProvinceOrTerritory,
   EstimatedLanguageAbility,
-  JobLookingStatus,
   GovEmployeeType,
   PoolStatus,
   PoolLanguage,
@@ -127,18 +125,6 @@ export const getLanguageProficiency = (
     languageProf,
     `Invalid skill level '${languageProf}'`,
   );
-
-const salaryRanges = {
-  [SalaryRange["50_59K"]]: "$50,000 - $59,000",
-  [SalaryRange["60_69K"]]: "$60,000 - $69,000",
-  [SalaryRange["70_79K"]]: "$70,000 - $79,000",
-  [SalaryRange["80_89K"]]: "$80,000 - $89,000",
-  [SalaryRange["90_99K"]]: "$90,000 - $99,000",
-  [SalaryRange["100KPlus"]]: "$100,000 - plus",
-};
-
-export const getSalaryRange = (salaryId: string | number): string =>
-  getOrThrowError(salaryRanges, salaryId, `Invalid Salary Range '${salaryId}'`);
 
 const languages = defineMessages({
   [Language.En]: {
@@ -1425,61 +1411,6 @@ const provinceOrTerritory = defineMessages({
   },
 });
 
-const JobLookingStatusDescription = defineMessages({
-  [JobLookingStatus.ActivelyLooking]: {
-    defaultMessage:
-      "<strong>Actively looking</strong> - My profile is up to date, I want to be contacted for job opportunities",
-    id: "LuYmWd",
-    description: "Job Looking Status described as Actively looking.",
-  },
-  [JobLookingStatus.OpenToOpportunities]: {
-    defaultMessage:
-      "<strong>Open to opportunities</strong> - Not actively looking but I still want to be contacted for job opportunities",
-    id: "TR0Kxz",
-    description: "Job Looking Status described as Open to opportunities.",
-  },
-  [JobLookingStatus.Inactive]: {
-    defaultMessage:
-      "<strong>Inactive</strong> - I do not currently want to be contacted for job opportunities",
-    id: "nrWEuL",
-    description: "Job Looking Status described as Inactive.",
-  },
-});
-
-const JobLookingStatusShort = defineMessages({
-  [JobLookingStatus.ActivelyLooking]: {
-    defaultMessage: "Actively looking",
-    id: "XerShr",
-    description: "Job Looking Status described as Actively looking.",
-  },
-  [JobLookingStatus.OpenToOpportunities]: {
-    defaultMessage: "Open to opportunities",
-    id: "m4v2w3",
-    description: "Job Looking Status described as Actively looking.",
-  },
-  [JobLookingStatus.Inactive]: {
-    defaultMessage: "Inactive",
-    id: "M/6+SI",
-    description: "Job Looking Status described as Actively looking.",
-  },
-});
-
-export const getJobLookingStatus = (
-  jobLookingStatusDescriptionId: string | number,
-  format: "description" | "short" = "description",
-): MessageDescriptor => {
-  const messageDictionary = {
-    description: JobLookingStatusDescription,
-    short: JobLookingStatusShort,
-  };
-
-  return getOrThrowError(
-    messageDictionary[format],
-    jobLookingStatusDescriptionId,
-    `Invalid Job Looking Status '${jobLookingStatusDescriptionId}'`,
-  );
-};
-
 export const getProvinceOrTerritory = (
   provinceOrTerritoryId: string | number,
 ): MessageDescriptor =>
@@ -1490,6 +1421,11 @@ export const getProvinceOrTerritory = (
   );
 
 const poolStream = defineMessages({
+  [PoolStream.AccessInformationPrivacy]: {
+    defaultMessage: "Access to Information and Privacy",
+    id: "9EnPf0",
+    description: "Pool Stream described as Access to Information and Privacy.",
+  },
   [PoolStream.BusinessAdvisoryServices]: {
     defaultMessage: "Business Line Advisory Services",
     id: "3m7hT5",
@@ -1625,6 +1561,11 @@ const poolStatus = defineMessages({
     defaultMessage: "Closed",
     id: "/UBSoB",
     description: "Closed pool advertisement status",
+  },
+  [PoolStatus.Archived]: {
+    defaultMessage: "Archived",
+    id: "o7GBkR",
+    description: "Archived pool advertisement status",
   },
 });
 

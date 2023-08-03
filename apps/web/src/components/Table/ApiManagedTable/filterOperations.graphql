@@ -29,6 +29,14 @@ query getFilterData {
     }
     stream
   }
+  roles {
+    id
+    name
+    displayName {
+      en
+      fr
+    }
+  }
 }
 
 query getFilterDataForRequests {

@@ -69,22 +69,22 @@ export const getLabels = (intl: IntlShape) => ({
       "Legend bilingual evaluation status in language information form",
   }),
   comprehensionLevel: intl.formatMessage({
-    defaultMessage: "Comprehension",
-    id: "W4Svkd",
+    defaultMessage: "Reading",
+    id: "g8Xd4a",
     description:
-      "Label displayed on the language information form comprehension field.",
+      "Label displayed on the language information form reading comprehension field.",
   }),
   writtenLevel: intl.formatMessage({
-    defaultMessage: "Written",
-    id: "x5C9Ab",
+    defaultMessage: "Writing",
+    id: "mBnz9m",
     description:
       "Label displayed on the language information form written field.",
   }),
   verbalLevel: intl.formatMessage({
-    defaultMessage: "Verbal",
-    id: "rywI3C",
+    defaultMessage: "Oral interaction",
+    id: "mvYSmp",
     description:
-      "Label displayed on the language information form verbal field.",
+      "Label displayed on the language information form oral interaction field.",
   }),
   estimatedLanguageAbility: intl.formatMessage({
     defaultMessage: "Second language proficiency level",

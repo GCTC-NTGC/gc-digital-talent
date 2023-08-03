@@ -80,25 +80,25 @@ const useUserCsvData = (users: User[]) => {
     {
       key: "comprehensionLevel",
       label: intl.formatMessage({
-        defaultMessage: "Comprehension Level",
-        id: "QIh0q7",
-        description: "CSV Header, Comprehension Level column",
+        defaultMessage: "Reading level",
+        id: "CEFnPm",
+        description: "CSV Header, Reading (comprehension) Level column",
       }),
     },
     {
       key: "writtenLevel",
       label: intl.formatMessage({
-        defaultMessage: "Written Level",
-        id: "w/v77x",
-        description: "CSV Header, Written Level column",
+        defaultMessage: "Writing level",
+        id: "8ea9ne",
+        description: "CSV Header, Writing Level column",
       }),
     },
     {
       key: "verbalLevel",
       label: intl.formatMessage({
-        defaultMessage: "Verbal Level",
-        id: "5R2iR2",
-        description: "CSV Header, Verbal Level column",
+        defaultMessage: "Oral interaction level",
+        id: "5nrkKw",
+        description: "CSV Header, Oral interaction Level column",
       }),
     },
     {

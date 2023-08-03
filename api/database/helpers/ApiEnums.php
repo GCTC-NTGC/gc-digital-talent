@@ -180,24 +180,6 @@ class ApiEnums
         ];
     }
 
-    const USER_STATUS_ACTIVELY_LOOKING = 'ACTIVELY_LOOKING';
-    const USER_STATUS_OPEN_TO_OPPORTUNITIES = 'OPEN_TO_OPPORTUNITIES';
-    const USER_STATUS_INACTIVE = 'INACTIVE';
-
-    /**
-     * A collection of enums for user statuses in factories and seeders
-     *
-     * @return string[]
-     */
-    public static function userStatuses(): array
-    {
-        return [
-            self::USER_STATUS_ACTIVELY_LOOKING,
-            self::USER_STATUS_OPEN_TO_OPPORTUNITIES,
-            self::USER_STATUS_INACTIVE
-        ];
-    }
-
     const POOL_STATUS_NOT_TAKING_APPLICATIONS = 'NOT_TAKING_APPLICATIONS';
     const POOL_STATUS_TAKING_APPLICATIONS = 'TAKING_APPLICATIONS';
 
@@ -270,12 +252,14 @@ class ApiEnums
     const POOL_IS_DRAFT = 'DRAFT';
     const POOL_IS_PUBLISHED = 'PUBLISHED';
     const POOL_IS_CLOSED = 'CLOSED';
+    const POOL_IS_ARCHIVED = 'ARCHIVED';
     public static function poolStatuses(): array
     {
         return [
             self::POOL_IS_DRAFT,
             self::POOL_IS_PUBLISHED,
             self::POOL_IS_CLOSED,
+            self::POOL_IS_ARCHIVED,
         ];
     }
 
@@ -316,6 +300,7 @@ class ApiEnums
     /**
      * Pool streams
      */
+    const POOL_STREAM_ACCESS_INFORMATION_PRIVACY = 'ACCESS_INFORMATION_PRIVACY';
     const POOL_STREAM_BUSINESS_ADVISORY_SERVICES = 'BUSINESS_ADVISORY_SERVICES';
     const POOL_STREAM_DATABASE_MANAGEMENT = 'DATABASE_MANAGEMENT';
     const POOL_STREAM_ENTERPRISE_ARCHITECTURE = 'ENTERPRISE_ARCHITECTURE';
@@ -329,6 +314,7 @@ class ApiEnums
     public static function poolStreams(): array
     {
         return [
+            self::POOL_STREAM_ACCESS_INFORMATION_PRIVACY,
             self::POOL_STREAM_BUSINESS_ADVISORY_SERVICES,
             self::POOL_STREAM_DATABASE_MANAGEMENT,
             self::POOL_STREAM_ENTERPRISE_ARCHITECTURE,
@@ -541,6 +527,38 @@ class ApiEnums
         return [
             self::POOL_CANDIDATE_SEARCH_POSITION_INDIVIDUAL_CONTRIBUTOR,
             self::POOL_CANDIDATE_SEARCH_POSITION_TEAM_LEAD,
+        ];
+    }
+
+    /**
+     * Skill Level
+     */
+    const SKILL_LEVEL_BEGINNER = 'BEGINNER';
+    const SKILL_LEVEL_INTERMEDIATE = 'INTERMEDIATE';
+    const SKILL_LEVEL_EXPERT = 'EXPERT';
+    const SKILL_LEVEL_LEAD = 'LEAD';
+
+    public static function skillLevels(): array
+    {
+        return [
+            self::SKILL_LEVEL_BEGINNER,
+            self::SKILL_LEVEL_INTERMEDIATE,
+            self::SKILL_LEVEL_EXPERT,
+            self::SKILL_LEVEL_LEAD,
+        ];
+    }
+
+    /**
+     * When Skill Used
+     */
+    const WHEN_SKILL_USED_CURRENT = 'CURRENT';
+    const WHEN_SKILL_USED_PAST = 'PAST';
+
+    public static function whenSkillUsed(): array
+    {
+        return [
+            self::WHEN_SKILL_USED_CURRENT,
+            self::WHEN_SKILL_USED_PAST,
         ];
     }
 }
