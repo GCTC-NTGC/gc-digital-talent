@@ -32,7 +32,7 @@ import {
   formValuesToSubmitData,
   getGovernmentInfoLabels,
   GovernmentInfoFormFields,
-} from "~/pages/Profile/GovernmentInfoPage/components/GovernmentInfoForm/GovernmentInfoForm";
+} from "./components/GovernmentInfoForm/GovernmentInfoForm";
 
 type FormValues = Pick<
   UpdateUserAsUserInput,
