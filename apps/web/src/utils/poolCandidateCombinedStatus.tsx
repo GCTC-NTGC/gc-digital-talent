@@ -37,6 +37,10 @@ const READY_TO_HIRE_STATUSES: CombinedStatus[] = ["READY_TO_HIRE"];
 export const isReadyToHireCombinedStatus = (
   status: Maybe<CombinedStatus>,
 ): boolean => (status ? READY_TO_HIRE_STATUSES.includes(status) : false);
+const SUSPENDED_STATUSES: CombinedStatus[] = ["NOT_INTERESTED"];
+export const isSuspendedCombinedStatus = (
+  status: Maybe<CombinedStatus>,
+): boolean => (status ? SUSPENDED_STATUSES.includes(status) : false);
 const EXPIRED_STATUSES: CombinedStatus[] = ["EXPIRED"];
 export const isExpiredCombinedStatus = (
   status: Maybe<CombinedStatus>,
@@ -52,6 +56,13 @@ export const isInactiveCombinedStatus = (
 const ERROR_STATUSES: CombinedStatus[] = ["REMOVED"];
 export const isErrorCombinedStatus = (status: Maybe<CombinedStatus>): boolean =>
   status ? ERROR_STATUSES.includes(status) : false;
+const HIRED_LONGE_TERM_STATUSES: CombinedStatus[] = [
+  "HIRED_INDETERMINATE",
+  "HIRED_TERM",
+];
+export const isHiredLongTermCombinedStatus = (
+  status: Maybe<CombinedStatus>,
+): boolean => (status ? HIRED_LONGE_TERM_STATUSES.includes(status) : false);
 
 // Map combined statuses to their labels
 const combinedStatusLabels = defineMessages<CombinedStatus>({

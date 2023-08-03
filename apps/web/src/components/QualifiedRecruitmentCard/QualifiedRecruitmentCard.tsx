@@ -275,12 +275,14 @@ const QualifiedRecruitmentCard = ({
             data-h2-line-height="base(1)"
             data-h2-flex-grow="base(0)"
           >
-            <AvailabilityIcon
-              data-h2-height="base(auto)"
-              data-h2-width="base(1em)"
-              data-h2-flex-shrink="base(0)"
-              {...availability.color}
-            />
+            {AvailabilityIcon ? (
+              <AvailabilityIcon
+                data-h2-height="base(auto)"
+                data-h2-width="base(1em)"
+                data-h2-flex-shrink="base(0)"
+                {...availability.color}
+              />
+            ) : null}
             <span>{availability.text}</span>
           </p>
           {availability.showDialog && (
