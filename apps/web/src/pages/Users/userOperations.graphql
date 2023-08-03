@@ -107,8 +107,6 @@ mutation CreateUser($user: CreateUserInput!) {
     indigenousCommunities
     indigenousDeclarationSignature
 
-    jobLookingStatus
-
     hasDiploma
     locationPreferences
     locationExemptions
@@ -182,7 +180,6 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     indigenousCommunities
     indigenousDeclarationSignature
 
-    jobLookingStatus
     hasDiploma
     locationPreferences
     locationExemptions
@@ -256,8 +253,6 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
     indigenousCommunities
     indigenousDeclarationSignature
 
-    jobLookingStatus
-
     hasDiploma
     locationPreferences
     locationExemptions
@@ -292,7 +287,6 @@ query GetViewUserData($id: UUID!) {
     preferredLanguageForExam
     currentProvince
     currentCity
-    jobLookingStatus
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
@@ -461,7 +455,6 @@ query AllUsersPaginated(
       preferredLang
       preferredLanguageForInterview
       preferredLanguageForExam
-      jobLookingStatus
       createdDate
       updatedDate
       roleAssignments {

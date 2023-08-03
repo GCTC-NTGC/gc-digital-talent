@@ -513,10 +513,6 @@
     "defaultMessage": "Provincial",
     "description": "The scope of the award was provincial."
   },
-  "LuYmWd": {
-    "defaultMessage": "<strong>Recherche active</strong> - Mon profil est à jour, je souhaite être contacté pour des occasions d'emploi",
-    "description": "Job Looking Status described as Actively looking."
-  },
   "Lw0WrP": {
     "defaultMessage": "Travailler occasionnellement des heures supplémentaires",
     "description": "The operational requirement described as occasional overtime. (short-form for limited space)"
@@ -528,10 +524,6 @@
   "LzUgil": {
     "defaultMessage": "Secret ou plus élevée",
     "description": "Secret security clearance"
-  },
-  "M/6+SI": {
-    "defaultMessage": "Inactif",
-    "description": "Job Looking Status described as Actively looking."
   },
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
@@ -728,10 +720,6 @@
     "defaultMessage": "Femme",
     "description": "Group for when someone indicates they are a woman"
   },
-  "TR0Kxz": {
-    "defaultMessage": "<strong>Ouvert aux possibilités</strong> – Je ne cherche pas activement, mais je veux être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Open to opportunities."
-  },
   "TRDfnp": {
     "defaultMessage": "Je suis un membre actif des Forces armées canadiennes.",
     "description": "declare self to be a CAF member without bolding"
@@ -835,10 +823,6 @@
   "XTw9Me": {
     "defaultMessage": "Expiré",
     "description": "The pool candidate's status is Expired."
-  },
-  "XerShr": {
-    "defaultMessage": "Recherche active",
-    "description": "Job Looking Status described as Actively looking."
   },
   "XnvXtO": {
     "defaultMessage": "Tous",
@@ -1152,10 +1136,6 @@
     "defaultMessage": "Qualifié disponible",
     "description": "The pool candidate's status is Qualified Available"
   },
-  "m4v2w3": {
-    "defaultMessage": "Ouvert aux possibilités",
-    "description": "Job Looking Status described as Actively looking."
-  },
   "mDOWWQ": {
     "defaultMessage": "Soumission",
     "description": "Default text for submitting button."
@@ -1194,10 +1174,6 @@
   "nnMYWr": {
     "defaultMessage": "Préférences de travail",
     "description": "Name of Work preferences page"
-  },
-  "nrWEuL": {
-    "defaultMessage": "<strong>Inactif</strong> – Je ne veux pas être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Inactive."
   },
   "nu3Zyc": {
     "defaultMessage": "Niveau 4 : Gestionnaire",
