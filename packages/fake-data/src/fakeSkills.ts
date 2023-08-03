@@ -1,16 +1,23 @@
 import { faker } from "@faker-js/faker";
+import { UniqueEnforcer } from "enforce-unique";
 
 import { Skill, SkillFamily } from "@gc-digital-talent/graphql";
 
 import staticSkills from "./skills.json";
 
-const generateSkill = (skillFamilies: SkillFamily[]) => {
-  const name = faker.random.word();
+const generateSkill = (
+  skillFamilies: SkillFamily[],
+  uniqueEnforcerId: UniqueEnforcer,
+) => {
+  const name = faker.lorem.word();
   const keywords = faker.lorem.words(3).split(" ");
   const keywordsEN = keywords.map((skill) => `${skill} EN`);
   const keywordsFR = keywords.map((skill) => `${skill} FR`);
+  const uniqueId = uniqueEnforcerId.enforce(() => {
+    return faker.string.uuid();
+  });
   return {
-    id: faker.datatype.uuid(),
+    id: uniqueId,
     key: faker.helpers.slugify(name),
     name: {
       en: `EN ${name}`,
@@ -29,7 +36,7 @@ const generateSkill = (skillFamilies: SkillFamily[]) => {
       : ([] as SkillFamily[]),
     experienceSkills: [],
     experienceSkillRecord: {
-      details: `experienceSkillDetails ${faker.random.words()}`,
+      details: `experienceSkillDetails ${faker.lorem.words()}`,
     },
     experiences: [],
   };
@@ -43,7 +50,9 @@ export default (
   skillFamilies: SkillFamily[] = [],
 ): Skill[] => {
   faker.seed(0); // repeatable results
-  faker.setLocale("en");
+  const uniqueEnforcerId = new UniqueEnforcer(); // Ensure unique IDs
 
-  return [...Array(numToGenerate)].map(() => generateSkill(skillFamilies));
+  return [...Array(numToGenerate)].map(() =>
+    generateSkill(skillFamilies, uniqueEnforcerId),
+  );
 };

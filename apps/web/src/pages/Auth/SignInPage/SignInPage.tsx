@@ -5,7 +5,6 @@ import { useSearchParams } from "react-router-dom";
 import { Link } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useTheme } from "@gc-digital-talent/theme";
 
 import Hero from "~/components/Hero/Hero";
@@ -23,15 +22,12 @@ const SignInPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
-  const { applicantDashboard } = useFeatureFlags();
   const [searchParams] = useSearchParams();
   const { key: themeKey, setKey: setThemeKey } = useTheme();
   const fromPath = searchParams.get("from");
   const iapMode =
     fromPath === paths.iap() || searchParams.get("personality") === "iap";
-  const fallbackPath = applicantDashboard
-    ? paths.profileAndApplications()
-    : paths.myProfile();
+  const fallbackPath = paths.profileAndApplications();
   const loginPath = apiPaths.login(fromPath ?? fallbackPath, getLocale(intl));
 
   const pageTitle = intl.formatMessage({

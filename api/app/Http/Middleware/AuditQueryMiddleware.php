@@ -2,8 +2,6 @@
 
 namespace App\Http\Middleware;
 
-
-
 use Closure;
 use Illuminate\Http\Request;
 use Psr\Log\LoggerInterface;
@@ -30,9 +28,8 @@ class AuditQueryMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user = $request->user();
-        if (!is_null($user) && $user->hasRole('platform_admin'))
-        {
-            $message = 'GraphQL request from platform admin user ['.$user['email'].']';
+        if (!is_null($user) && $user->hasRole('platform_admin')) {
+            $message = 'GraphQL request from platform admin user [' . $user['email'] . ']';
             $this->logger->info(
                 $message,
                 $request->json()->all()

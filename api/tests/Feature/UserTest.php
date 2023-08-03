@@ -11,7 +11,9 @@ use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
 use App\Models\GenericJobTitle;
+use App\Models\Role;
 use App\Models\UserSkill;
+use App\Models\Team;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -48,12 +50,10 @@ class UserTest extends TestCase
                 'looking_for_french' => null,
                 'looking_for_bilingual' => null,
                 'expected_salary' => [],
-                'job_looking_status' => null,
                 'accepted_operational_requirements' => null,
                 'location_preferences' => [],
                 'has_diploma' => false,
                 'position_duration' => [],
-                'job_looking_status' => null,
                 'is_gov_employee' => false,
                 'telephone' => null,
                 'first_name' => null,
@@ -2782,7 +2782,6 @@ class UserTest extends TestCase
                         'pools' => null,
                     ],
                     'poolFilters' => null,
-                    'jobLookingStatus' => null,
                     'isProfileComplete' => null,
                     'isGovEmployee' => null,
                     'telephone' => null,
@@ -2846,5 +2845,95 @@ class UserTest extends TestCase
         $this->platformAdmin->addSkills($addSkills);
         // After adding, user should still only have 3 userSkills.
         $this->assertCount(3, $this->platformAdmin->userSkills);
+    }
+
+    public function testRoleAssignmentScope(): void
+    {
+        $adminId = Role::where('name', 'platform_admin')->value('id');
+        $responderId = Role::where('name', 'request_responder')->value('id');
+        $operatorId = Role::where('name', 'pool_operator')->value('id');
+        $testTeam = Team::factory()->create();
+
+        // Create users
+        User::factory(1)->asAdmin()->create();
+        User::factory(3)->asGuest()->create();
+        User::factory(5)->asPoolOperator($testTeam->name)->create();
+        User::factory(7)->asRequestResponder()->create();
+        User::factory(11)->asApplicant()->create();
+
+        // Assert that null roleAssignments returns all users, including the one from setUp()
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ',
+            [
+                'where' => ['roles' => null]
+            ]
+        )->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 28
+                    ]
+                ]
+            ]
+        ]);
+
+        // assert filtering for platform admin returns 2, including the one from setUp()
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ',
+            [
+                'where' => ['roles' => [$adminId]]
+            ]
+        )->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 2
+                    ]
+                ]
+            ]
+        ]);
+
+        // assert filtering for pool operator and request responder returns 12
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                    query getUsersPaginated($where: UserFilterInput) {
+                        usersPaginated(where: $where) {
+                            paginatorInfo {
+                                total
+                            }
+                        }
+                    }
+                ',
+            [
+                'where' => ['roles' => [$operatorId, $responderId]]
+            ]
+        )->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 12
+                    ]
+                ]
+            ]
+        ]);
     }
 }

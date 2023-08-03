@@ -20,7 +20,6 @@ import {
   useGetMeQuery,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -363,11 +362,8 @@ const ApplicationSelfDeclarationPage = () => {
 
   const navigate = useNavigate();
   const { followingPageUrl } = useApplicationContext();
-  const { applicantDashboard } = useFeatureFlags();
   const [, executeMutation] = useUpdateUserAndApplicationMutation();
-  const cancelPath = applicantDashboard
-    ? paths.profileAndApplications({ fromIapDraft: true })
-    : paths.myProfile();
+  const cancelPath = paths.profileAndApplications({ fromIapDraft: true });
   const nextStep = followingPageUrl ?? cancelPath;
 
   const application = applicationData?.poolCandidate;

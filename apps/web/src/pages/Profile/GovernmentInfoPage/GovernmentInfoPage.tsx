@@ -1,11 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   useGetApplicationQuery,
@@ -16,7 +15,6 @@ import {
   UpdateUserAsUserInput,
   User,
 } from "~/api/generated";
-import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
 
 import GovernmentInfoForm from "./components/GovernmentInfoForm/GovernmentInfoForm";
@@ -96,16 +94,12 @@ const GovernmentInfoFormPage = () => {
   // needed bits for react-intl, form submits functions, and routing post submission
   const { userId: meId } = useParams();
   const intl = useIntl();
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const applicationId = searchParams.get("applicationId");
-  const paths = useRoutes();
-  const featureFlags = useFeatureFlags();
 
   // Fetch departments and classifications from graphQL to pass into component to render and pull "Me" at the same time
   const [lookUpResult] = useGetGovInfoFormLookupDataQuery();
   const { data, fetching, error } = lookUpResult;
-  const preProfileStatus = data?.me?.isProfileComplete;
   const departments: Department[] | [] =
     data?.departments.filter(notEmpty) ?? [];
   const classifications: Classification[] | [] =
@@ -138,14 +132,6 @@ const GovernmentInfoFormPage = () => {
       return;
     }
     await handleUpdateUser(meId, updateDate).then((res) => {
-      if (res.isProfileComplete) {
-        const currentProfileStatus = res.isProfileComplete;
-        const message = intl.formatMessage(profileMessages.profileCompleted);
-        if (!preProfileStatus && currentProfileStatus) {
-          if (!featureFlags.applicantDashboard) toast.success(message);
-          navigate(paths.profile(meId));
-        }
-      }
       return res;
     });
   };

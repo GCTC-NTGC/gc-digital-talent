@@ -231,7 +231,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   }
 
   return (
-    <div>
+    <div data-h2-break-inside="base(avoid) base:print(avoid)">
       {title && <Heading level="h5">{title}</Heading>}
       {dateRange && <p>{dateRange}</p>}
       {content && content}

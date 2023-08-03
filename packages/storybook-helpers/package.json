@@ -9,12 +9,12 @@
   "dependencies": {
     "@gc-digital-talent/theme": "*",
     "@storybook/addon-actions": "^7.0.27",
-    "@storybook/addon-essentials": "^7.1.1",
-    "@storybook/addon-links": "^7.1.1",
+    "@storybook/addon-essentials": "^7.2.0",
+    "@storybook/addon-links": "^7.2.0",
     "@storybook/addon-viewport": "^7.0.27",
-    "@storybook/addons": "^7.1.0",
-    "@storybook/react": "^7.1.0",
-    "@storybook/react-webpack5": "^7.1.1",
+    "@storybook/addons": "^7.2.1",
+    "@storybook/react": "^7.2.1",
+    "@storybook/react-webpack5": "^7.2.0",
     "chromatic": "^6.20.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
@@ -27,7 +27,7 @@
     "wonka": "^6.3.3"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^7.1.1",
-    "storybook": "^7.1.1"
+    "@storybook/addon-a11y": "^7.2.0",
+    "storybook": "^7.2.1"
   }
 }
