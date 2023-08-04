@@ -35,6 +35,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
             Icon={PencilSquareIcon}
             data-h2-margin-top="base(0)"
             data-h2-display="base(flex)"
+            color="primary"
           >
             {intl.formatMessage({
               defaultMessage: "Edit an experience",
