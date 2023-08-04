@@ -1,5 +1,8 @@
 import { IntlShape } from "react-intl";
 import React from "react";
+
+import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
+
 import { SkillDialogContext } from "./types";
 
 interface SkillDialogMessages {
@@ -106,12 +109,74 @@ export const getSkillDialogMessages: GetSkillDialogMessages = ({
           "Subtitle for the find a skill dialog within the skill library",
       }),
       submit: intl.formatMessage({
-        defaultMessage: "Save and add skill",
-        id: "taxkCS",
+        defaultMessage: "Save and add this skill",
+        id: "4nP41q",
+        description: "Button text to save a specific skill to a users profile",
+      }),
+    };
+  }
+
+  if (context === "showcase") {
+    return {
+      ...defaults,
+      trigger: intl.formatMessage({
+        defaultMessage: "Add a new item",
+        id: "KdbrIC",
+        description:
+          "Button text to open the skill dialog and add a skill to the users library",
+      }),
+      title: intl.formatMessage({
+        defaultMessage: "Find and add a skill to your showcase",
+        id: "Q9c+Kg",
+        description:
+          "Title for the find a skill dialog within the skill showcase",
+      }),
+      subtitle: intl.formatMessage({
+        defaultMessage:
+          "Select from skills in your library or add brand new ones.",
+        id: "znuDvD",
+        description:
+          "Subtitle for the find a skill dialog within the skill showcase",
+      }),
+      submit: intl.formatMessage({
+        defaultMessage: "Save and add this skill",
+        id: "4nP41q",
         description: "Button text to save a specific skill to a users profile",
       }),
     };
   }
 
   return defaults;
+};
+
+export const showDetails = (
+  context: SkillDialogContext | undefined,
+): boolean => {
+  const detailContexts: SkillDialogContext[] = ["library", "showcase"];
+
+  return context ? detailContexts.includes(context) : false;
+};
+
+export const getSkillFamilySkillCount = (
+  skills: Skill[],
+  family: SkillFamily,
+): number => {
+  const skillsByFamily = skills.filter((skill) => {
+    return skill.families?.some((skillFamily) => skillFamily.id === family.id);
+  });
+
+  return skillsByFamily.length;
+};
+
+export const getSkillCategorySkillCount = (
+  skills: Skill[],
+  category: SkillCategory,
+): number => {
+  const skillsByCategory = skills.filter((skill) => {
+    return skill.families?.some(
+      (skillFamily) => skillFamily.category === category,
+    );
+  });
+
+  return skillsByCategory.length;
 };

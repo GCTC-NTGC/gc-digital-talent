@@ -840,6 +840,7 @@ input PoolCandidateSearchInput {
     @scope(name: "poolCandidateStatuses")
   expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
   suspendedStatus: CandidateSuspendedFilter @scope(name: "suspendedStatus")
+  publishingGroups: [PublishingGroup] @scope(name: "publishingGroups") # Filters applicants based on the publishing group of the pool
 }
 
 input PoolCandidateSearchRequestInput {
@@ -883,7 +884,8 @@ type Query {
     @can(ability: "viewAny", model: "User")
     @deprecated(reason: "Removing in favour of users query")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
-  countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
+  countApplicants(where: ApplicantFilterInput): Int!
+    @count(model: "User", scopes: ["inITPublishingGroup"])
   pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
