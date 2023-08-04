@@ -93,16 +93,19 @@ const messages = defineMessages({
   appliedWorkExpPMGroup: {
     defaultMessage:
       "An acceptable combination of education, training, and experience, or a satisfactory score on the Public Service Commission test approved as an alternative to a secondary school diploma.",
+    id: "nBBKe/",
     description:
       "Descriptive text explaining valid a applied work experience for the PM classification group.",
   },
   secondarySchoolHeading: {
     defaultMessage: "Secondary school diploma",
+    id: "zdeoxH",
     description:
       "Heading for the education requirement option secondary school diploma.",
   },
   secondarySchoolDescription: {
     defaultMessage: "A secondary school diploma.",
+    id: "9QZYMX",
     description:
       "Description for the education requirement option secondary school diploma.",
   },

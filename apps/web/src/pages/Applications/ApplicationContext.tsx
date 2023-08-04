@@ -31,7 +31,6 @@ interface ApplicationContextProviderProps {
   application: PoolCandidate;
   followingPageUrl?: string;
   currentStepOrdinal?: number;
-  classificationGroup?: string;
   children: React.ReactNode;
 }
 
@@ -39,7 +38,6 @@ const ApplicationContextProvider = ({
   application,
   followingPageUrl,
   currentStepOrdinal,
-  classificationGroup,
   children,
 }: ApplicationContextProviderProps) => {
   const { setKey } = useTheme();

@@ -408,7 +408,7 @@ const ApplicationEducation = ({
       label: intl.formatMessage({
         defaultMessage:
           "<strong>I meet the secondary school diploma option</strong>",
-        id: "j+jnML",
+        id: "qN9zOb",
         description:
           "Radio group option for education requirement filter in application education form.",
       }),
