@@ -26,17 +26,6 @@ const getRoutes = (lang: Locales) => {
   const userUrl = (userId: string) => path.join(baseUrl, "users", userId);
   const applicationParam = (applicationId?: string) =>
     applicationId ? `?applicationId=${applicationId}` : "";
-  const userEditUrl = (
-    section: string,
-    userId: string,
-    applicationId?: string,
-  ) =>
-    `${path.join(
-      userUrl(userId),
-      "profile",
-      section,
-      "edit",
-    )}${applicationParam(applicationId)}`;
 
   const createExperienceUrl = (
     type: ExperienceType,
@@ -248,20 +237,6 @@ const getRoutes = (lang: Locales) => {
       return path.join(userUrl(userId), "profile") + fragment;
     },
     myProfile: () => path.join(baseUrl, "users", "me"),
-    aboutMe: (userId: string, applicationId?: string) =>
-      userEditUrl("about-me", userId, applicationId),
-    languageInformation: (userId: string, applicationId?: string) =>
-      userEditUrl("language-info", userId, applicationId),
-    governmentInformation: (userId: string, applicationId?: string) =>
-      userEditUrl("government-info", userId, applicationId),
-    roleSalary: (userId: string, applicationId?: string) =>
-      userEditUrl("role-salary-expectations", userId, applicationId),
-    workLocation: (userId: string, applicationId?: string) =>
-      userEditUrl("work-location", userId, applicationId),
-    workPreferences: (userId: string, applicationId?: string) =>
-      userEditUrl("work-preferences", userId, applicationId),
-    diversityEquityInclusion: (userId: string, applicationId?: string) =>
-      userEditUrl("employment-equity", userId, applicationId),
 
     // Career timeline and recruitment Routes
     careerTimelineAndRecruitment: (
@@ -317,6 +292,11 @@ const getRoutes = (lang: Locales) => {
         createSearchQuery(searchParams)
       );
     },
+
+    skillLibrary: () =>
+      path.join(applicantUrl, "profile-and-applications", "skills"),
+    skillShowcase: () =>
+      path.join(applicantUrl, "profile-and-applications", "skills", "showcase"),
 
     /**
      * Deprecated

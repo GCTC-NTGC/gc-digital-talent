@@ -18,6 +18,7 @@ import {
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
   getPoolStream,
+  getPublishingGroup,
 } from "@gc-digital-talent/i18n";
 import {
   enumToOptions,
@@ -29,6 +30,7 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import {
   PoolStream,
+  PublishingGroup,
   WorkRegion,
   EducationType,
   LanguageAbility,
@@ -65,6 +67,16 @@ export default function useFilterOptions(enableEducationType = false) {
   });
 
   const optionsData = {
+    publishingGroups: enumToOptions(PublishingGroup).map(({ value }) => ({
+      value,
+      label: intl.formatMessage(getPublishingGroup(value)),
+      ariaLabel: intl
+        .formatMessage(getPublishingGroup(value))
+        .replace(
+          intl.locale === "en" ? "IT" : "TI",
+          intl.locale === "en" ? "I T" : "T I",
+        ),
+    })),
     pools: filterRes.data?.pools.filter(notEmpty).map((pool) => ({
       value: pool.id,
       label: getFullPoolTitleLabel(intl, pool),

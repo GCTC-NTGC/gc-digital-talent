@@ -21,6 +21,11 @@ const messages = defineMessages({
     id: "zfi91j",
     description: "Title for pool candidates",
   },
+  publishingGroups: {
+    defaultMessage: "Publishing groups",
+    id: "g+lQO/",
+    description: "Title for publishing groups",
+  },
   requests: {
     defaultMessage: "Requests",
     id: "EjhuA1",
@@ -86,6 +91,18 @@ const messages = defineMessages({
     id: "4bWCNR",
     description:
       "Message displayed when a given field has no values to display, that no information is present.",
+  },
+  showHideColumns: {
+    defaultMessage: "Show or hide columns",
+    id: "d4r7rO",
+    description:
+      "Button text to open the dialog for disabling or enabling column display",
+  },
+  showHideTableColumns: {
+    defaultMessage: "Show or hide table columns",
+    id: "IIKzsd",
+    description:
+      "Label for checkboxes used for disabling or enabling table column display",
   },
   rolesAndPermissions: {
     defaultMessage: "Roles and permissions",

@@ -4,37 +4,39 @@ import { useForm, FormProvider } from "react-hook-form";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
 import { Button, Dialog, IconType } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
-import { Scalars, Skill, SkillCategory } from "~/api/generated";
+import { Skill } from "~/api/generated";
 
 import SkillDetails from "./SkillDetails";
 import SkillSelection from "./SkillSelection";
-import { getSkillDialogMessages } from "./utils";
-import { SkillDialogContext } from "./types";
-
-export interface FormValues {
-  category?: SkillCategory | "all" | "";
-  family?: Scalars["ID"];
-  skill?: Scalars["ID"];
-  details?: string;
-}
+import { getSkillDialogMessages, showDetails } from "./utils";
+import { SkillDialogContext, FormValues } from "./types";
 
 const defaultFormValues: FormValues = {
-  category: "all",
-  family: "all",
+  category: "",
+  family: "",
   skill: "",
 };
 
 interface SkillDialogProps {
+  // All available skills
   skills: Skill[];
+  // The context in which the dialog is being used
   context?: SkillDialogContext;
+  // Determines if the category filter is shown or not
   showCategory?: boolean;
+  // Currently selected skills (only needed if you want to display them in the selection)
+  inLibrary?: Skill[];
+  // Should the dialog be open on page load?
   defaultOpen?: boolean;
+  // Customize the trigger text and icon
   trigger?: {
     label?: React.ReactNode;
     icon?: IconType;
   };
+  // Callback function when a skill is selected
   onSave: (values: FormValues) => Promise<void>;
 }
 
@@ -44,6 +46,7 @@ const SkillDialog = ({
   context,
   showCategory,
   trigger,
+  inLibrary,
   defaultOpen = false,
 }: SkillDialogProps) => {
   const intl = useIntl();
@@ -54,13 +57,27 @@ const SkillDialog = ({
   });
 
   const {
+    title,
+    subtitle,
+    trigger: triggerMessage,
+    submit,
+    selected,
+  } = getSkillDialogMessages({
+    context,
+    intl,
+  });
+
+  const {
     handleSubmit,
     reset,
     formState: { isSubmitting },
   } = methods;
 
   const handleAddSkill = async (values: FormValues) => {
-    await onSave(values).then(() => setIsOpen(false));
+    await onSave(values).then(() => {
+      setIsOpen(false);
+      toast.success(selected(getLocalizedName(selectedSkill?.name, intl)));
+    });
   };
 
   const handleOpenChange = (newIsOpen: boolean) => {
@@ -70,20 +87,12 @@ const SkillDialog = ({
     setIsOpen(newIsOpen);
   };
 
-  const {
-    title,
-    subtitle,
-    trigger: triggerMessage,
-    submit,
-  } = getSkillDialogMessages({
-    context,
-    intl,
-  });
-
   const triggerProps = {
     children: trigger?.label || triggerMessage,
     icon: trigger?.icon || (context ? PlusCircleIcon : undefined),
   };
+
+  const shouldShowDetails = showDetails(context);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
@@ -96,20 +105,10 @@ const SkillDialog = ({
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleAddSkill)}>
               <SkillSelection
-                {...{ showCategory, skills }}
+                {...{ showCategory, skills, inLibrary }}
                 onSelectSkill={setSelectedSkill}
               />
-              {context === "library" && (
-                <p data-h2-margin="base(x1 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Once you've found a skill, we ask that you give an honest evaluation of your approximate experience level. This level will be provided to hiring managers alongside any official Government of Canada skill evaluations to help provide a more holistic understanding of your abilities.",
-                    id: "bMY93S",
-                    description: "Help text for providing a skill level",
-                  })}
-                </p>
-              )}
-              {selectedSkill && context === "library" && <SkillDetails />}
+              {selectedSkill && shouldShowDetails && <SkillDetails />}
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Button type="submit" color="secondary" disabled={isSubmitting}>
                   {isSubmitting
