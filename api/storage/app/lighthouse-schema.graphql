@@ -871,6 +871,7 @@ input PoolCandidateSearchInput {
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
+  publishingGroups: [PublishingGroup]
 }
 
 input PoolCandidateSearchRequestInput {

@@ -21,6 +21,11 @@ const messages = defineMessages({
     id: "zfi91j",
     description: "Title for pool candidates",
   },
+  publishingGroups: {
+    defaultMessage: "Publishing groups",
+    id: "g+lQO/",
+    description: "Title for publishing groups",
+  },
   requests: {
     defaultMessage: "Requests",
     id: "EjhuA1",
