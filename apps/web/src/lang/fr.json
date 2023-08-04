@@ -218,6 +218,10 @@
     "defaultMessage": "Les analystes (<abbreviation>TI-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
   },
+  "/Sobod": {
+    "defaultMessage": "Embauché (Période indéterminée)",
+    "description": "Status for an application that has been hired with an indeterminate contract"
+  },
   "/UKT+/": {
     "defaultMessage": "Compétences",
     "description": "Title for skills"
@@ -404,6 +408,10 @@
   "0WIPpI": {
     "defaultMessage": "Modifier<hidden> l’utilisateur</hidden>",
     "description": "Edit user breadcrumb text"
+  },
+  "0YZeO0": {
+    "defaultMessage": "Embauché (Temporaire)",
+    "description": "Status for an application that has been hired with a casual contract"
   },
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
@@ -1679,6 +1687,10 @@
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
   },
+  "9gpVCX": {
+    "defaultMessage": "Prêt à être embauché",
+    "description": "Status for an application where user user is ready to hire"
+  },
   "9i2N/g": {
     "defaultMessage": "Modifier le compte utilisateur",
     "description": "Title for the user edit page"
@@ -2014,6 +2026,10 @@
   "BzaGwp": {
     "defaultMessage": "Texte anglais sur l’incidence",
     "description": "Title for English pool advertisement impact"
+  },
+  "C+hP/v": {
+    "defaultMessage": "Candidature retirée",
+    "description": "Status for an application that has been withdrawn"
   },
   "C03OK7": {
     "defaultMessage": "Établissement d’un bassin de talents numériques",
@@ -3102,6 +3118,10 @@
   "K9YLac": {
     "defaultMessage": "En savoir plus<hidden> sur la collectivité des cadres</hidden>",
     "description": "Link text to the executive community"
+  },
+  "KA/hfo": {
+    "defaultMessage": "Pause",
+    "description": "Status for an application to an advertisement that is unavailable"
   },
   "KD5H5s": {
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
@@ -4633,6 +4653,10 @@
     "defaultMessage": "Professionnel",
     "description": "Title for pool advertisement occupational skill list"
   },
+  "VplMpm": {
+    "defaultMessage": "Embauché (Période déterminée)",
+    "description": "Status for an application that has been hired with a term contract"
+  },
   "VqyL+/": {
     "defaultMessage": "Identifiant",
     "description": "Title displayed on the Classification table ID column."
@@ -5464,6 +5488,10 @@
   "bz6geU": {
     "defaultMessage": "Ce volet comprend des compétences spécialisées en matière de sécurité, axées sur la programmation, l’infrastructure, les applications commerciales et les données.",
     "description": "Title for the 'security' IT work stream"
+  },
+  "c+6rQB": {
+    "defaultMessage": "N’est pas intéressé",
+    "description": "Status for when the user has suspended an application"
   },
   "c+P41C": {
     "defaultMessage": "Programme de mentorat de la collectivité du numérique",
