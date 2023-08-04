@@ -13,9 +13,8 @@ import { Skill } from "~/api/generated";
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
 
 import type { ExperienceType, FormSkill, FormSkills } from "~/types/experience";
-import SkillDialog, {
-  FormValues as SkillDialogFormValues,
-} from "~/components/SkillDialog/SkillDialog";
+import SkillDialog from "~/components/SkillDialog/SkillDialog";
+import { FormValues as SkillDialogFormValues } from "~/components/SkillDialog/types";
 import NullExperienceType from "~/components/ExperienceFormFields/NullExperienceType";
 
 type AccordionStates = "learn-more" | "";
