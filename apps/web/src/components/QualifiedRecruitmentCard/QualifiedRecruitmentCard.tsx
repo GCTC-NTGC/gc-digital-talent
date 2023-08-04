@@ -25,7 +25,7 @@ import { Application } from "~/utils/applicationUtils";
 import { getQualifiedRecruitmentInfo, joinDepartments } from "./utils";
 import RecruitmentAvailabilityDialog from "../RecruitmentAvailabilityDialog/RecruitmentAvailabilityDialog";
 
-interface QualifiedRecruitmentCardProps {
+export interface QualifiedRecruitmentCardProps {
   candidate: Application;
   headingLevel?: HeadingRank;
 }
