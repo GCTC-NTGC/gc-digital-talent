@@ -86,5 +86,4 @@ const ProfileFormWrapper = ({
   );
 };
 
-export { ProfileFormFooter };
 export default ProfileFormWrapper;
