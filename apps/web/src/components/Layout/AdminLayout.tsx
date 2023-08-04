@@ -22,28 +22,24 @@ interface OpenMenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   show: boolean;
 }
 
-const OpenMenuButton = ({ show, onClick, children }: OpenMenuButtonProps) => (
-  <div
-    data-h2-visually-hidden="base(visible) l-tablet(hidden)"
-    data-h2-position="base(fixed)"
-    data-h2-location="base(auto, x.25, x.25, auto)"
-    style={{ zIndex: 9998, opacity: show ? 1 : 0 }}
-  >
+const OpenMenuButton = ({ show, onClick, children }: OpenMenuButtonProps) =>
+  show ? (
     <Button
-      mode="solid"
-      color="secondary"
-      data-h2-display="base(inline-flex)"
-      data-h2-align-items="base(center)"
-      data-h2-shadow="base(s)"
+      icon={Bars3Icon}
       onClick={onClick}
+      type="button"
+      color="secondary"
+      data-h2-text-align="base(left)"
+      data-h2-radius="base(0)"
+      data-h2-align-self="base(flex-start)"
+      data-h2-align-items="base(flex-start)"
+      data-h2-position="base(sticky)"
+      data-h2-top="base(0)"
+      data-h2-width="base(100%)"
     >
-      <Bars3Icon
-        style={{ width: "1rem", height: "1rem", marginRight: "0.5rem" }}
-      />
-      <span>{children}</span>
+      {children}
     </Button>
-  </div>
-);
+  ) : null;
 
 const AdminLayout = () => {
   const intl = useIntl();
@@ -87,6 +83,17 @@ const AdminLayout = () => {
             data-h2-flex-direction="base(column)"
           >
             <Header width="full" />
+            <OpenMenuButton
+              onClick={() => setMenuOpen(true)}
+              show={!isMenuOpen && isSmallScreen}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Open Menu",
+                id: "crzWxb",
+                description:
+                  "Text label for header button that opens side menu.",
+              })}
+            </OpenMenuButton>
             <main
               id="main"
               data-h2-flex-grow="base(1)"
@@ -100,13 +107,7 @@ const AdminLayout = () => {
           </div>
         </SideMenuContentWrapper>
       </div>
-      <OpenMenuButton onClick={() => setMenuOpen(true)} show={!isMenuOpen}>
-        {intl.formatMessage({
-          defaultMessage: "Open Menu",
-          id: "crzWxb",
-          description: "Text label for header button that opens side menu.",
-        })}
-      </OpenMenuButton>
+
       <ScrollRestoration
         getKey={(location) => {
           return location.pathname;
