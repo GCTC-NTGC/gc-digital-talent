@@ -102,7 +102,7 @@ const getAvailabilityInfo = (
         "data-h2-color": "base(quaternary.dark)",
       },
       text: intl.formatMessage(poolCandidateMessages.placedAvailability),
-      showDialog: status === PoolCandidateStatus.PlacedCasual ? true : false,
+      showDialog: status === PoolCandidateStatus.PlacedCasual,
     };
   }
 
