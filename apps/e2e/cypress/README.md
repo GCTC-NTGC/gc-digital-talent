@@ -1,7 +1,7 @@
 # GC Digital Talent: End-to-End Testing
 
 We use a framework called Cypress to run end-to-end tests against an actual
-version of the website running in the browser. (Chrome, Firefox, or Edge)
+version of the website running in the browser. (Electron, Chrome, Firefox, or Edge)
 
 :gear: Configuration: [`apps/e2e/cypress.config.ts`][]  
 :open_file_folder: Folder: [`apps/e2e/`][]  
@@ -101,7 +101,7 @@ TEST_FILTER=static-pages npm run e2e:run:all
 
 ### `npm run e2e:run:all`
 
-Runs all E2E tests on Chrome. Can be used with `TEST_FILTER` envvar.
+Runs all E2E tests on Electron. Can be used with `TEST_FILTER` envvar.
 
 Examples:
 
@@ -120,7 +120,7 @@ app and explore.
 It works best with `TEST_FILTER`, which defaults to "language-selection" if not set.
 
 For example, this will run the `cypress/e2e/talentsearch/static-pages.cy.js`
-test in the Chrome browser, and leave it open (success or failure):
+test in the Electron browser, and leave it open (success or failure):
 
 ```
 TEST_FILTER=static-pages npm run e2e:run:inspect
@@ -163,7 +163,7 @@ See: https://docs.cypress.io/guides/guides/web-security
   - general work-arounds
     - using `cy.request()` instead of `cy.visit()`
     - set `chromeWebSecurity:false` in `cypress.config.ts` (still has caveats, and
-      mitigation only works for Chrome browser)
+      mitigation only works for Chromium-based browsers)
       - with the above change, our Laravel API app will unfortunately become
         suspicious of Cypress, and its default security policies cause other
         issues with session cookies. To resolve, you'll want to set these
