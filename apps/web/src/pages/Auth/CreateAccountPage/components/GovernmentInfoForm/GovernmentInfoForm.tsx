@@ -71,7 +71,7 @@ const classificationFormToId = (
   )?.id;
 };
 
-const formValuesToSubmitData = (
+export const formValuesToSubmitData = (
   values: FormValues,
   classifications: Classification[],
 ): UpdateUserAsUserInput => {
@@ -178,7 +178,7 @@ const dataToFormValues = (
   };
 };
 
-const getGovernmentInfoLabels = (intl: IntlShape) => ({
+export const getGovernmentInfoLabels = (intl: IntlShape) => ({
   govEmployeeYesNo: intl.formatMessage({
     defaultMessage: "Do you currently work for the government of Canada?",
     id: "MtONBT",
@@ -224,7 +224,7 @@ interface GovernmentInfoFormFieldsProps {
 }
 
 // inner component
-const GovernmentInfoFormFields = ({
+export const GovernmentInfoFormFields = ({
   departments,
   classifications,
   labels,
@@ -495,7 +495,7 @@ const GovernmentInfoFormFields = ({
   );
 };
 
-interface GovernmentInfoFormProps {
+export interface GovernmentInfoFormProps {
   departments: Department[];
   classifications: Classification[];
   initialData: User;
