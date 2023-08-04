@@ -44,12 +44,15 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
                 onClick={() => {
                   onDelete(skillId);
                 }}
-                aria-label={intl.formatMessage({
-                  defaultMessage: "Remove skill {name} from experience",
-                  id: "/K8/eG",
-                  description:
-                    "Aria-label for remove skill button from experience",
-                })}
+                aria-label={intl.formatMessage(
+                  {
+                    defaultMessage: "Remove skill {name} from experience",
+                    id: "/K8/eG",
+                    description:
+                      "Aria-label for remove skill button from experience",
+                  },
+                  { name: name[locale] },
+                )}
               >
                 <XCircleIcon
                   style={{ width: "1rem" }}
