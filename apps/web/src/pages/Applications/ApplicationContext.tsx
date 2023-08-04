@@ -1,19 +1,21 @@
 import React from "react";
 import { useTheme } from "@gc-digital-talent/theme";
 
-import { isIAPPool } from "~/utils/poolUtils";
+import { isIAPPool, getClassificationGroup } from "~/utils/poolUtils";
 import { PoolCandidate } from "~/api/generated";
 
 interface ApplicationContextState {
   isIAP: boolean;
   followingPageUrl?: string;
   currentStepOrdinal?: number;
+  classificationGroup?: string;
 }
 
 const defaultContext: ApplicationContextState = {
   isIAP: false,
   followingPageUrl: undefined,
   currentStepOrdinal: undefined,
+  classificationGroup: undefined,
 };
 
 const ApplicationContext =
@@ -29,6 +31,7 @@ interface ApplicationContextProviderProps {
   application: PoolCandidate;
   followingPageUrl?: string;
   currentStepOrdinal?: number;
+  classificationGroup?: string;
   children: React.ReactNode;
 }
 
@@ -36,6 +39,7 @@ const ApplicationContextProvider = ({
   application,
   followingPageUrl,
   currentStepOrdinal,
+  classificationGroup,
   children,
 }: ApplicationContextProviderProps) => {
   const { setKey } = useTheme();
@@ -44,6 +48,7 @@ const ApplicationContextProvider = ({
       isIAP: isIAPPool(application.pool),
       followingPageUrl,
       currentStepOrdinal,
+      classificationGroup: getClassificationGroup(application.pool),
     }),
     [application, followingPageUrl, currentStepOrdinal],
   );
