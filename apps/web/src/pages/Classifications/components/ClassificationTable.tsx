@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { useLocale } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
 
 import {
@@ -33,7 +33,7 @@ export const ClassificationTable = ({
   title,
 }: ClassificationTableProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const paths = useRoutes();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [

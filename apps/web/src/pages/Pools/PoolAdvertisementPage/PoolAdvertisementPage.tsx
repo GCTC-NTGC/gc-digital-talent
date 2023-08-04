@@ -19,12 +19,12 @@ import {
   StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
 import {
-  getLocale,
   getLanguageRequirement,
   getSecurityClearance,
   localizeSalaryRange,
   commonMessages,
   getLocalizedName,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -83,7 +83,7 @@ export const PoolPoster = ({
   hasApplied,
 }: PoolAdvertisementProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const paths = useRoutes();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 

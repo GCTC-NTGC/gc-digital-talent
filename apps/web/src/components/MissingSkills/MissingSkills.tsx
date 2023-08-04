@@ -12,7 +12,7 @@ import {
   Heading,
   HeadingRank,
 } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 import {
   categorizeSkill,
@@ -50,9 +50,7 @@ const MissingSkillsBlock = ({
   headingLevel = "h2",
   ...rest
 }: MissingSkillsBlockProps) => {
-  const intl = useIntl();
-  const locale = getLocale(intl);
-
+  const { locale } = useLocale();
   /** Determine which skills are missing vs present but missing details */
   const [skills, details] = differentiateMissingSkills(
     missingSkills,
@@ -124,7 +122,7 @@ const MissingSkills = ({
   headingLevel = "h2",
 }: MissingSkillsProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
 
   const byLocalizedName = (a: Skill, b: Skill) => {
     const aName: Maybe<string> = a.name[locale];

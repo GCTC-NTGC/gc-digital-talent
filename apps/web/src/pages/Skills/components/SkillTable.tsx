@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
 
-import { getLocale } from "@gc-digital-talent/i18n";
+import { useLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pill, Pending } from "@gc-digital-talent/ui";
 
@@ -37,7 +37,7 @@ interface SkillTableProps {
 
 export const SkillTable = ({ skills, title }: SkillTableProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const paths = useRoutes();
   const columns = useMemo<ColumnsOf<Skill>>(
     () => [

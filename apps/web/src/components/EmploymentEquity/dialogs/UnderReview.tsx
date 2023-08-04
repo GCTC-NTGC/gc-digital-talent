@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Link } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 const actLink = (locale: string, chunks: React.ReactNode) => {
   const href =
@@ -29,7 +29,7 @@ const reviewLink = (locale: string, chunks: React.ReactNode) => {
 
 const UnderReview = () => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
 
   return (
     <p data-h2-margin="base(0, 0, x1, 0)" data-h2-font-weight="base(700)">

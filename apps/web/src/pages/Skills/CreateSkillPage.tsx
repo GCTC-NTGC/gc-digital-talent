@@ -11,7 +11,7 @@ import {
   Submit,
   MultiSelectField,
 } from "@gc-digital-talent/forms";
-import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, useLocale } from "@gc-digital-talent/i18n";
 import { notEmpty, keyStringRegex } from "@gc-digital-talent/helpers";
 import { Pending, Heading } from "@gc-digital-talent/ui";
 
@@ -58,7 +58,7 @@ export const CreateSkillForm = ({
   handleCreateSkill,
 }: CreateSkillFormProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const navigate = useNavigate();
   const paths = useRoutes();
   const methods = useForm<FormValues>();

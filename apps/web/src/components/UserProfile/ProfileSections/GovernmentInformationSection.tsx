@@ -6,7 +6,7 @@ import { enumToOptions } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   getGovEmployeeType,
-  getLocale,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -24,7 +24,7 @@ const GovernmentInformationSection = ({
   editPath?: string;
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const govEmployeeTypeId =
     enumToOptions(GovEmployeeType).find(
       (govEmployeeType) => govEmployeeType.value === user.govEmployeeType,

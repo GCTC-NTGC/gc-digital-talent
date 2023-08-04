@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 
-import { getLocale, getSkillCategory } from "@gc-digital-talent/i18n";
+import { getSkillCategory, useLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
 
@@ -35,7 +35,7 @@ export const SkillFamilyTable = ({
   title,
 }: SkillFamilyTableProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const paths = useRoutes();
   const columns = useMemo<ColumnsOf<SkillFamily>>(
     () => [

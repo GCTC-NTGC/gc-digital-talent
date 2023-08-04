@@ -8,7 +8,7 @@ import {
   ScrollLinkClickFunc,
   Link,
 } from "@gc-digital-talent/ui";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import { errorMessages, useLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import type { FieldLabels } from "./BasicForm";
@@ -30,7 +30,7 @@ const ErrorSummary = React.forwardRef<
 >(({ labels, show }, forwardedRef) => {
   const intl = useIntl();
 
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const { errors } = useFormState();
 
   // Don't show if the form is valid

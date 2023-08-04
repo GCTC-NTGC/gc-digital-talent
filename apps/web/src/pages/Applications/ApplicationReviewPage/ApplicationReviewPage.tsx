@@ -15,7 +15,7 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import { errorMessages, useLocale } from "@gc-digital-talent/i18n";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -89,7 +89,7 @@ const ApplicationReview = ({
   experiences,
 }: ApplicationReviewProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { currentStepOrdinal, followingPageUrl, isIAP } =

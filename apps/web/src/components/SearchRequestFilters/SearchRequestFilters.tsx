@@ -9,8 +9,8 @@ import {
   getLanguageAbility,
   getOperationalRequirement,
   getWorkRegion,
-  getLocale,
   getPoolStream,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
@@ -35,7 +35,7 @@ const ApplicantFilters = ({
   selectedClassifications?: Maybe<SimpleClassification>[];
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   // else set values if filters prop is of ApplicantFilterInput type
   const classificationsFromBrowserHistory = selectedClassifications?.map(
     (classification) =>

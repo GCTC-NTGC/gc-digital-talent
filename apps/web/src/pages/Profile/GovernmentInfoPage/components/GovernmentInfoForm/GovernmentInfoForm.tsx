@@ -8,7 +8,7 @@ import {
   errorMessages,
   navigationMessages,
   getGovEmployeeType,
-  getLocale,
+  useLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
@@ -237,7 +237,7 @@ export const GovernmentInfoFormFields = ({
   labels,
 }: GovernmentInfoFormFieldsProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const { watch, resetField } = useFormContext();
   // hooks to watch, needed for conditional rendering
   const [govEmployee, govEmployeeStatus, groupSelection, priorityEntitlement] =

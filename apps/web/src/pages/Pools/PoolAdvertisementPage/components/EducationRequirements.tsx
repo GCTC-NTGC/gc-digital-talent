@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import applicationMessages from "~/messages/applicationMessages";
 import { Link, Heading } from "@gc-digital-talent/ui";
 
-import { getLocale } from "@gc-digital-talent/i18n";
+import { useLocale } from "@gc-digital-talent/i18n";
 import Text from "./Text";
 
 const RequirementCard = (props: React.HTMLProps<HTMLDivElement>) => (
@@ -25,7 +25,7 @@ interface EducationRequirementsProps {
 
 const EducationRequirements = ({ isIAP }: EducationRequirementsProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
 
   const qualityStandardsLink = (chunks: React.ReactNode) => {
     const href =

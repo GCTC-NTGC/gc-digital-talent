@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { useLocale } from "@gc-digital-talent/i18n";
 import { Alert, Button, Card, TreeView } from "@gc-digital-talent/ui";
 
 import { Skill } from "~/api/generated";
@@ -15,7 +15,7 @@ interface ExperienceTreeViewProps {
 
 const ExperienceTreeView = ({ skill }: ExperienceTreeViewProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const experiences = skill.experiences
     ? skill.experiences.filter(notEmpty)
     : [];

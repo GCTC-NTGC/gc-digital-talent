@@ -17,11 +17,11 @@ import {
   getGenericJobTitles,
   getIndigenousCommunity,
   getLanguageProficiency,
-  getLocale,
   getOperationalRequirement,
   getSimpleGovEmployeeType,
   getWorkRegion,
   navigationMessages,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { enumToOptions, unpackMaybes } from "@gc-digital-talent/forms";
@@ -62,7 +62,7 @@ const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
 const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
   ({ results }, ref) => {
     const intl = useIntl();
-    const locale = getLocale(intl);
+    const { locale } = useLocale();
     return (
       <div style={{ display: "none" }}>
         <div data-h2 ref={ref}>

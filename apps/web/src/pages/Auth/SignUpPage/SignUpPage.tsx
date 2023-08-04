@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
 import { Link } from "@gc-digital-talent/ui";
-import { getLocale, useLocale } from "@gc-digital-talent/i18n";
+import { useLocale } from "@gc-digital-talent/i18n";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { useTheme } from "@gc-digital-talent/theme";
 
@@ -20,7 +20,7 @@ const buildExternalLink = (path: string, chunks: React.ReactNode) => (
 
 const SignUpPage = () => {
   const intl = useIntl();
-  const localeState = useLocale();
+  const { locale } = useLocale();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
   const [searchParams] = useSearchParams();
@@ -29,7 +29,7 @@ const SignUpPage = () => {
   const iapMode =
     fromPath === paths.iap() || searchParams.get("personality") === "iap";
   const fallbackPath = paths.profileAndApplications();
-  const loginPath = apiPaths.login(fromPath ?? fallbackPath, getLocale(intl));
+  const loginPath = apiPaths.login(fromPath ?? fallbackPath, locale);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Sign up using GCKey",
@@ -116,7 +116,7 @@ const SignUpPage = () => {
                   {
                     a: (chunks: React.ReactNode) =>
                       buildExternalLink(
-                        localeState.locale === "en"
+                        locale === "en"
                           ? "https://clegc-gckey.gc.ca/j/eng/ES-01?ReqID=s232921cb5fd612440c0bcab640d5432d02168eb26"
                           : "https://clegc-gckey.gc.ca/j/fra/ES-01?ReqID=s232921cb5fd612440c0bcab640d5432d02168eb26",
                         chunks,

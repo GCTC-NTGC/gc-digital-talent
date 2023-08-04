@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { Link } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { useLocale } from "@gc-digital-talent/i18n";
 import { useTheme } from "@gc-digital-talent/theme";
 
 import Hero from "~/components/Hero/Hero";
@@ -20,6 +20,7 @@ const buildExternalLink = (path: string, chunks: React.ReactNode) => (
 
 const SignInPage = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
   const [searchParams] = useSearchParams();
@@ -28,7 +29,7 @@ const SignInPage = () => {
   const iapMode =
     fromPath === paths.iap() || searchParams.get("personality") === "iap";
   const fallbackPath = paths.profileAndApplications();
-  const loginPath = apiPaths.login(fromPath ?? fallbackPath, getLocale(intl));
+  const loginPath = apiPaths.login(fromPath ?? fallbackPath, locale);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Sign in using GCKey",

@@ -7,10 +7,10 @@ import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
 import { Heading, HeadingRank, Link, Chip, Chips } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
-  getLocale,
   getLocalizedName,
   localizeSalaryRange,
   commonMessages,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -46,7 +46,7 @@ export interface PoolCardProps {
 
 const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const paths = useRoutes();
 
   const { classifications } = pool;

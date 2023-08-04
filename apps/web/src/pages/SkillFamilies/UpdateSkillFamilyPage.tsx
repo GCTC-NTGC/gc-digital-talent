@@ -17,10 +17,10 @@ import {
 } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
-  getLocale,
   errorMessages,
   commonMessages,
   getSkillCategory,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 
@@ -60,7 +60,7 @@ export const UpdateSkillFamilyForm = ({
   handleUpdateSkillFamily,
 }: UpdateSkillFamilyFormProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const navigate = useNavigate();
   const paths = useRoutes();
   const sortedSkills = sortBy(skills, (skill) => {

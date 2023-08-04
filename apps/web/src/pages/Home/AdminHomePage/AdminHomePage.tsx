@@ -5,7 +5,7 @@ import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import ArrowRightOnRectangleIcon from "@heroicons/react/24/outline/ArrowRightOnRectangleIcon";
 
 import { CardLink, Loading } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { useLocale } from "@gc-digital-talent/i18n";
 import { useApiRoutes, useAuthentication } from "@gc-digital-talent/auth";
 
 import PageHeader from "~/components/PageHeader";
@@ -15,6 +15,7 @@ import authMessages from "~/messages/authMessages";
 
 const AdminHomePage = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const adminRoutes = useRoutes();
   const apiRoutes = useApiRoutes();
   const location = useLocation();
@@ -63,7 +64,7 @@ const AdminHomePage = () => {
               <div data-h2-flex-item="base(1of3)">
                 <CardLink
                   external
-                  href={apiRoutes.login(location.pathname, getLocale(intl))}
+                  href={apiRoutes.login(location.pathname, locale)}
                   label={intl.formatMessage(authMessages.signIn)}
                   icon={ArrowRightOnRectangleIcon}
                 >

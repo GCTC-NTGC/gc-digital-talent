@@ -2,11 +2,11 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import {
-  getLocale,
   commonMessages,
   getPoolCandidateSearchStatus,
   getLocalizedName,
   getPoolCandidateSearchPositionType,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading, Link } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -30,7 +30,7 @@ const ManagerInfo = ({
   searchRequest: PoolCandidateSearchRequest;
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const {
     fullName,
     department,
@@ -205,7 +205,7 @@ export const ViewSearchRequest = ({
   searchRequest,
 }: SingleSearchRequestProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const {
     additionalComments,
     poolCandidateFilter,

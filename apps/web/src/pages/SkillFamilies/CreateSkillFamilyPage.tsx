@@ -14,9 +14,9 @@ import {
   MultiSelectField,
 } from "@gc-digital-talent/forms";
 import {
-  getLocale,
   errorMessages,
   getSkillCategory,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending, Heading } from "@gc-digital-talent/ui";
@@ -62,7 +62,7 @@ export const CreateSkillFamilyForm = ({
   handleCreateSkillFamily,
 }: CreateSkillFamilyFormProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const navigate = useNavigate();
   const paths = useRoutes();
   const methods = useForm<FormValues>();

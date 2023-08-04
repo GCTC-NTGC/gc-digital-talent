@@ -11,9 +11,9 @@ import {
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
   getProvinceOrTerritory,
-  getLocale,
   getEducationRequirementOption,
   getLocalizedName,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -39,7 +39,7 @@ const usePoolCandidateCsvData = (
   >,
 ) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
 
   const essentialSkillHeaders = pool?.essentialSkills
     ? pool.essentialSkills.map((skill) => {

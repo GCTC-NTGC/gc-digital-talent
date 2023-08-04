@@ -7,7 +7,7 @@ import {
   getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
   getLanguageProficiency,
-  getLocale,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -26,7 +26,7 @@ import adminMessages from "~/messages/adminMessages";
 
 const useUserCsvData = (users: User[]) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
 
   const headers: DownloadCsvProps["headers"] = [
     {

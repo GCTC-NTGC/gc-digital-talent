@@ -8,11 +8,11 @@ import {
   StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
 import {
-  getLocale,
   getAwardedScope,
   getAwardedTo,
   getEducationStatus,
   getEducationType,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -65,7 +65,7 @@ const SkillAccordion = ({
   headingLevel = "h2",
 }: SkillAccordionProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
 
   const { name, experiences } = skill;
 

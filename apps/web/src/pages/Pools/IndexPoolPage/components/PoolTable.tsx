@@ -7,10 +7,10 @@ import { ROLE_NAME, hasRole, useAuthorization } from "@gc-digital-talent/auth";
 import {
   getPoolStatus,
   getPoolStream,
-  getLocale,
   commonMessages,
   getLocalizedName,
   getPublishingGroup,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/forms";
@@ -150,7 +150,7 @@ interface PoolTableProps {
 
 export const PoolTable = ({ pools, title }: PoolTableProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const paths = useRoutes();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [

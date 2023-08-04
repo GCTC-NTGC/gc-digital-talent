@@ -2,7 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { Accordion, Tabs, HeadingRank, Link } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 import { invertSkillExperienceTree } from "~/utils/skillUtils";
 import {
@@ -33,7 +33,7 @@ const ExperienceSection = ({
   headingLevel = "h3",
 }: ExperienceSectionProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
 
   const awardExperiences = React.useMemo(
     () =>

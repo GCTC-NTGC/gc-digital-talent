@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
-import { getLocale, Locales } from "@gc-digital-talent/i18n";
+import { Locales, useLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -203,7 +203,7 @@ const tollFreeLink = (chunks: React.ReactNode) => (
 
 const AccessibilityStatementPage = () => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const paths = useRoutes();
 
   const pageTitle = intl.formatMessage({

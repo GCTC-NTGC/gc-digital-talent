@@ -5,7 +5,7 @@ import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { Button, Well } from "@gc-digital-talent/ui";
 import { TextArea } from "@gc-digital-talent/forms";
-import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, useLocale } from "@gc-digital-talent/i18n";
 
 import type { FormSkills } from "~/types/experience";
 
@@ -23,7 +23,7 @@ const SkillsInDetail = ({
   onDelete,
 }: SkillsInDetailProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const { register } = useForm();
 
   return (

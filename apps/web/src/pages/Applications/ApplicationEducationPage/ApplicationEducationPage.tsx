@@ -34,7 +34,7 @@ import applicationMessages from "~/messages/applicationMessages";
 
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { Radio } from "@gc-digital-talent/forms/src/components/RadioGroup";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import { errorMessages, useLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
@@ -108,7 +108,7 @@ const ApplicationEducation = ({
   experiences,
 }: ApplicationEducationProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
+  const { locale } = useLocale();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP } =

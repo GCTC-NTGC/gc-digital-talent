@@ -6,13 +6,14 @@ import ArrowRightOnRectangleIcon from "@heroicons/react/24/outline/ArrowRightOnR
 
 import { useApiRoutes, useAuthentication } from "@gc-digital-talent/auth";
 import { ExternalSideMenuItem, SideMenuButton } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 import SignOutConfirmation from "~/components/SignOutConfirmation/SignOutConfirmation";
 import authMessages from "~/messages/authMessages";
 
 const SignInOrSignOut = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const location = useLocation();
   const apiRoutes = useApiRoutes();
   const { loggedIn } = useAuthentication();
@@ -30,7 +31,7 @@ const SignInOrSignOut = () => {
   return (
     <ExternalSideMenuItem
       icon={ArrowRightOnRectangleIcon}
-      href={apiRoutes.login(location.pathname, getLocale(intl))}
+      href={apiRoutes.login(location.pathname, locale)}
     >
       {intl.formatMessage(authMessages.signIn)}
     </ExternalSideMenuItem>
