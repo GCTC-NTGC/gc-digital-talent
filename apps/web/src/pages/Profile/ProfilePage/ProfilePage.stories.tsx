@@ -3,8 +3,6 @@ import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeUsers, fakeExperiences } from "@gc-digital-talent/fake-data";
 
-import { JobLookingStatus } from "~/api/generated";
-
 import ProfilePage, { ProfileForm, ProfilePageProps } from "./ProfilePage";
 
 const fakeUserData = fakeUsers(1)[0];
@@ -20,7 +18,6 @@ export default {
         data: {
           me: {
             isProfileComplete: true,
-            jobLookingStatus: JobLookingStatus.OpenToOpportunities,
           },
         },
       },

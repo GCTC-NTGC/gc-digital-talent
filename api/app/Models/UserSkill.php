@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class User
+ * Class UserSkill
  *
  * @property string $id
  * @property string $user_id
  * @property string $skill_id
+ * @property string $skill_level
+ * @property string $when_skill_used
  */
 class UserSkill extends Model
 {

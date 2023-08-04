@@ -50,12 +50,10 @@ class UserTest extends TestCase
                 'looking_for_french' => null,
                 'looking_for_bilingual' => null,
                 'expected_salary' => [],
-                'job_looking_status' => null,
                 'accepted_operational_requirements' => null,
                 'location_preferences' => [],
                 'has_diploma' => false,
                 'position_duration' => [],
-                'job_looking_status' => null,
                 'is_gov_employee' => false,
                 'telephone' => null,
                 'first_name' => null,
@@ -2278,10 +2276,10 @@ class UserTest extends TestCase
         $user = User::All()->first();
 
         // Create new pools and attach to new pool candidates.
-        $pool1 = Pool::factory()->create([
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id']
         ]);
-        $pool2 = Pool::factory()->create([
+        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id']
         ]);
 
@@ -2784,7 +2782,6 @@ class UserTest extends TestCase
                         'pools' => null,
                     ],
                     'poolFilters' => null,
-                    'jobLookingStatus' => null,
                     'isProfileComplete' => null,
                     'isGovEmployee' => null,
                     'telephone' => null,

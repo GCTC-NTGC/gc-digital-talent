@@ -14,7 +14,6 @@ import {
   OperationalRequirement,
   ProvinceOrTerritory,
   EstimatedLanguageAbility,
-  JobLookingStatus,
   GovEmployeeType,
   PoolStatus,
   PoolLanguage,
@@ -1412,61 +1411,6 @@ const provinceOrTerritory = defineMessages({
   },
 });
 
-const JobLookingStatusDescription = defineMessages({
-  [JobLookingStatus.ActivelyLooking]: {
-    defaultMessage:
-      "<strong>Actively looking</strong> - My profile is up to date, I want to be contacted for job opportunities",
-    id: "LuYmWd",
-    description: "Job Looking Status described as Actively looking.",
-  },
-  [JobLookingStatus.OpenToOpportunities]: {
-    defaultMessage:
-      "<strong>Open to opportunities</strong> - Not actively looking but I still want to be contacted for job opportunities",
-    id: "TR0Kxz",
-    description: "Job Looking Status described as Open to opportunities.",
-  },
-  [JobLookingStatus.Inactive]: {
-    defaultMessage:
-      "<strong>Inactive</strong> - I do not currently want to be contacted for job opportunities",
-    id: "nrWEuL",
-    description: "Job Looking Status described as Inactive.",
-  },
-});
-
-const JobLookingStatusShort = defineMessages({
-  [JobLookingStatus.ActivelyLooking]: {
-    defaultMessage: "Actively looking",
-    id: "XerShr",
-    description: "Job Looking Status described as Actively looking.",
-  },
-  [JobLookingStatus.OpenToOpportunities]: {
-    defaultMessage: "Open to opportunities",
-    id: "m4v2w3",
-    description: "Job Looking Status described as Actively looking.",
-  },
-  [JobLookingStatus.Inactive]: {
-    defaultMessage: "Inactive",
-    id: "M/6+SI",
-    description: "Job Looking Status described as Actively looking.",
-  },
-});
-
-export const getJobLookingStatus = (
-  jobLookingStatusDescriptionId: string | number,
-  format: "description" | "short" = "description",
-): MessageDescriptor => {
-  const messageDictionary = {
-    description: JobLookingStatusDescription,
-    short: JobLookingStatusShort,
-  };
-
-  return getOrThrowError(
-    messageDictionary[format],
-    jobLookingStatusDescriptionId,
-    `Invalid Job Looking Status '${jobLookingStatusDescriptionId}'`,
-  );
-};
-
 export const getProvinceOrTerritory = (
   provinceOrTerritoryId: string | number,
 ): MessageDescriptor =>
@@ -1477,6 +1421,11 @@ export const getProvinceOrTerritory = (
   );
 
 const poolStream = defineMessages({
+  [PoolStream.AccessInformationPrivacy]: {
+    defaultMessage: "Access to Information and Privacy",
+    id: "9EnPf0",
+    description: "Pool Stream described as Access to Information and Privacy.",
+  },
   [PoolStream.BusinessAdvisoryServices]: {
     defaultMessage: "Business Line Advisory Services",
     id: "3m7hT5",

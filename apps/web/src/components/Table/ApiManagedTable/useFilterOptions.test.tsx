@@ -85,7 +85,7 @@ describe("useFilterOptions", () => {
   describe("simple fields", () => {
     it("returns static optionsData of appropriate length for non-async fields", () => {
       const result = renderHookWithProviders({});
-      const [countSimple, countAsync] = [13, 4];
+      const [countSimple, countAsync] = [14, 4];
       const countTotal = countSimple + countAsync;
       expect(Object.keys(result.current.optionsData)).toHaveLength(countTotal);
 

@@ -136,4 +136,23 @@ class PoolFactory extends Factory
             ];
         });
     }
+
+    /**
+     * Pool Candidates for this pool will appear in search results
+     *
+     * Note: That means only IT publishing groups
+     *
+     * @return void
+     */
+    public function candidatesAvailableInSearch()
+    {
+        return $this->state(function () {
+            return [
+                'publishing_group' => $this->faker->randomElement([
+                    ApiEnums::PUBLISHING_GROUP_IT_JOBS,
+                    ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
+                ])
+            ];
+        });
+    }
 }
