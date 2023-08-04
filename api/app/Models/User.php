@@ -516,6 +516,46 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         return $query;
     }
+
+    /**
+     * Scope Publishing Groups
+     *
+     * Restrict a query by specific publishing groups
+     *
+     * @param Eloquent\Builder $query The existing query being built
+     * @param ?array $publishingGroups The publishing groups to scope the query by
+     * @return Eloquent\Builder The resulting query
+     */
+    public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
+    {
+        // Early return if no publishing groups were supplied
+        if (empty($publishingGroups)) return $query;
+
+        $query = $query->whereHas('poolCandidates', function ($query) use ($publishingGroups) {
+            return PoolCandidate::scopePublishingGroups($query, $publishingGroups);
+        });
+
+        return $query;
+    }
+    /**
+     * Scope is IT
+     *
+     * Restrict a query by pool candidates that are for pools
+     * containing IT specific publishing groups
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query The existing query being built
+     * @return \Illuminate\Database\Eloquent\Builder The resulting query
+     */
+    public static function scopeInITPublishingGroup(Builder $query)
+    {
+        $query = self::scopePublishingGroups($query, [
+            ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
+            ApiEnums::PUBLISHING_GROUP_IT_JOBS
+        ]);
+
+        return $query;
+    }
+
     public static function filterByClassificationToGenericJobTitles(Builder $query, ?array $classifications): Builder
     {
         // if no filters provided then return query unchanged
