@@ -7,8 +7,6 @@ import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 
-import ProfileFormFooter from "./ProfileFormFooter";
-
 const Wrapper = ({
   leaveRoomForNavigation,
   children,
