@@ -6,13 +6,29 @@ import React from "react";
 import { within } from "@testing-library/react";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeSkillFamilies, fakeSkills } from "@gc-digital-talent/fake-data";
+import { SkillCategory } from "@gc-digital-talent/graphql";
 
 import MissingSkills, { type MissingSkillsProps } from "./MissingSkills";
 
-const skills = fakeSkills(10, fakeSkillFamilies(2));
+const fakedSkillFamilies = fakeSkillFamilies();
+const fakeBehaviouralFamily = fakedSkillFamilies[0];
+fakeBehaviouralFamily.category = SkillCategory.Behavioural;
+const fakeTechnicalFamily = fakedSkillFamilies[1];
+fakeTechnicalFamily.category = SkillCategory.Technical;
 
-const fakeRequiredSkills = skills.splice(0, skills.length / 2);
-const fakeOptionalSkills = skills.splice(skills.length / 2, skills.length);
+// the two below skills arrays will be identical except with different skill.families values, therefore select skills carefully
+const fakedBehaviouralSkills = fakeSkills(10, [fakeBehaviouralFamily]);
+const fakedTechnicalSkills = fakeSkills(10, [fakeTechnicalFamily]);
+
+// skills selected so as to ensure they are completely different and 2 of each category per skill grouping
+const fakeRequiredSkills = [
+  ...fakedBehaviouralSkills.splice(0, 2),
+  ...fakedTechnicalSkills.splice(2, 2),
+];
+const fakeOptionalSkills = [
+  ...fakedBehaviouralSkills.splice(4, 2),
+  ...fakedTechnicalSkills.splice(6, 2),
+];
 
 const defaultProps = {
   requiredSkills: fakeRequiredSkills,
@@ -105,7 +121,7 @@ describe("MissingSkills", () => {
 
   // broken with upgrade to Faker V8
   // Issue created - #7515
-  it.skip("should ignore added skills with empty experienceSkillRecords detail field", () => {
+  it("should ignore added skills with empty experienceSkillRecords detail field", () => {
     const element = renderMissingSkills({
       // Adding one from each array to added skills
       addedSkills: [

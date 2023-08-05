@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import { fakeSkillFamilies, fakeSkills } from "@gc-digital-talent/fake-data";
 
@@ -10,17 +10,32 @@ import MissingSkills from "./MissingSkills";
 
 type MissingSkillsComponent = typeof MissingSkills;
 
-const skills = fakeSkills(10, fakeSkillFamilies(2));
+const fakedSkillFamilies = fakeSkillFamilies();
+const fakeBehaviouralFamily = fakedSkillFamilies[0];
+fakeBehaviouralFamily.category = SkillCategory.Behavioural;
+const fakeTechnicalFamily = fakedSkillFamilies[1];
+fakeTechnicalFamily.category = SkillCategory.Technical;
 
-const fakeRequiredSkills = skills.splice(0, skills.length / 2);
-const fakeOptionalSkills = skills.splice(skills.length / 2, skills.length);
+// the two below skills arrays will be identical except with different skill.families values, therefore select skills carefully
+const fakedBehaviouralSkills = fakeSkills(10, [fakeBehaviouralFamily]);
+const fakedTechnicalSkills = fakeSkills(10, [fakeTechnicalFamily]);
+
+// skills selected so as to ensure they are completely different and 2 of each category per skill grouping
+const fakeRequiredSkills = [
+  ...fakedBehaviouralSkills.splice(0, 2),
+  ...fakedTechnicalSkills.splice(2, 2),
+];
+const fakeOptionalSkills = [
+  ...fakedBehaviouralSkills.splice(4, 2),
+  ...fakedTechnicalSkills.splice(6, 2),
+];
 
 export default {
   title: "Components/Missing Skills",
   component: MissingSkills,
-} as ComponentMeta<MissingSkillsComponent>;
+} as Meta<MissingSkillsComponent>;
 
-const Template: ComponentStory<MissingSkillsComponent> = (args) => {
+const Template: StoryFn<MissingSkillsComponent> = (args) => {
   return <MissingSkills {...args} />;
 };
 
