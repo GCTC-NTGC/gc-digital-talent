@@ -11,7 +11,7 @@ import {
 } from "./helpers";
 import tableMessages from "../tableMessages";
 
-export interface BasicTableProps<T extends RecordWithId = RecordWithId> {
+interface BasicTableProps<T extends RecordWithId = RecordWithId> {
   columns: ColumnsOf<T>;
   data: Array<T>;
   labelledBy?: string;

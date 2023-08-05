@@ -226,6 +226,32 @@ describe("DateInput", () => {
     });
   });
 
+  it("doesn't fail min validation on null", async () => {
+    const submitFn = jest.fn();
+
+    renderDateInput({
+      formProps: {
+        ...defaultProps.formProps,
+        onSubmit: submitFn,
+      },
+      inputProps: {
+        ...defaultProps.inputProps,
+        rules: {
+          min: {
+            value: "2023-02-01",
+            message: "must be after",
+          },
+        },
+      },
+    });
+
+    user.click(await screen.getByRole("button", { name: /submit/i }));
+
+    await waitFor(async () => {
+      expect(submitFn).toHaveBeenCalled();
+    });
+  });
+
   it("not submit after max range", async () => {
     const submitFn = jest.fn();
 
@@ -276,6 +302,32 @@ describe("DateInput", () => {
 
     await waitFor(async () => {
       expect(submitFn).not.toHaveBeenCalled();
+    });
+  });
+
+  it("doesn't fail max validation on null", async () => {
+    const submitFn = jest.fn();
+
+    renderDateInput({
+      formProps: {
+        ...defaultProps.formProps,
+        onSubmit: submitFn,
+      },
+      inputProps: {
+        ...defaultProps.inputProps,
+        rules: {
+          max: {
+            value: "2023-02-01",
+            message: "Must be before",
+          },
+        },
+      },
+    });
+
+    user.click(await screen.getByRole("button", { name: /submit/i }));
+
+    await waitFor(async () => {
+      expect(submitFn).toHaveBeenCalled();
     });
   });
 

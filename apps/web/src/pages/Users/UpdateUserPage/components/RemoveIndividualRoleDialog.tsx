@@ -3,7 +3,11 @@ import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 
 import { Dialog, Button, Pill } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import { Role, User } from "~/api/generated";
@@ -99,12 +103,7 @@ const RemoveIndividualRoleDialog = ({
             </Pill>
           </p>
           <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
-              defaultMessage: "Do you wish to continue?",
-              id: "vRLrmc",
-              description:
-                "Question posed to user before committing a destructive act",
-            })}
+            {intl.formatMessage(uiMessages.confirmContinue)}
           </p>
           <Dialog.Footer>
             <Dialog.Close>

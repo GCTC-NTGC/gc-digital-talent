@@ -4,21 +4,19 @@ import { useReactToPrint } from "react-to-print";
 
 import { Button } from "@gc-digital-talent/ui";
 
-import { Applicant } from "~/api/generated";
+import { User } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 
-export interface UserProfilePrintButtonProps {
-  applicant: Applicant;
+interface UserProfilePrintButtonProps {
+  user: User;
+  children?: React.ReactNode;
 }
 
 const UserProfilePrintButton = ({
-  applicant,
+  user,
   children,
-}: {
-  applicant: Applicant;
-  children?: React.ReactNode;
-}) => {
+}: UserProfilePrintButtonProps) => {
   const intl = useIntl();
 
   const componentRef = useRef(null);
@@ -37,7 +35,7 @@ const UserProfilePrintButton = ({
       <Button color="primary" type="button" onClick={handlePrint}>
         {children}
       </Button>
-      <ProfileDocument results={[applicant]} ref={componentRef} />
+      <ProfileDocument results={[user]} ref={componentRef} />
     </>
   );
 };

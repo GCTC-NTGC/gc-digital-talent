@@ -8,7 +8,7 @@ import {
   getIndigenousCommunity,
 } from "@gc-digital-talent/i18n";
 
-import { Applicant, IndigenousCommunity } from "~/api/generated";
+import { User, IndigenousCommunity } from "~/api/generated";
 
 import firstNationsIcon from "~/assets/img/first-nations-true.png";
 import inuitIcon from "~/assets/img/inuit-true.png";
@@ -17,16 +17,16 @@ import otherIcon from "~/assets/img/other-true.png";
 import { anyCriteriaSelected } from "~/validators/profile/diversityEquityInclusion";
 
 const DiversityEquityInclusionSection = ({
-  applicant,
+  user,
   editPath,
 }: {
-  applicant: Applicant;
+  user: User;
   editPath?: string;
 }) => {
   const intl = useIntl();
 
   const { isWoman, hasDisability, isVisibleMinority, indigenousCommunities } =
-    applicant;
+    user;
   const nonLegacyIndigenousCommunities =
     unpackMaybes(indigenousCommunities).filter(
       (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
@@ -39,7 +39,7 @@ const DiversityEquityInclusionSection = ({
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {!anyCriteriaSelected(applicant) && editPath && (
+        {!anyCriteriaSelected(user) && editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
@@ -63,7 +63,7 @@ const DiversityEquityInclusionSection = ({
             </p>
           </div>
         )}
-        {!anyCriteriaSelected(applicant) && !editPath && (
+        {!anyCriteriaSelected(user) && !editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({
@@ -76,7 +76,7 @@ const DiversityEquityInclusionSection = ({
             </p>
           </div>
         )}
-        {anyCriteriaSelected(applicant) && (
+        {anyCriteriaSelected(user) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({

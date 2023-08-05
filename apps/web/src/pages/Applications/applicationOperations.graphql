@@ -23,7 +23,7 @@ query GetProfileFormOptions {
 fragment experienceFragment on Experience {
   id
   __typename
-  applicant {
+  user {
     id
     email
   }
@@ -146,7 +146,6 @@ query GetApplication($id: UUID!) {
       indigenousCommunities
       indigenousDeclarationSignature
       isVisibleMinority
-      jobLookingStatus
       hasDiploma
       locationPreferences
       locationExemptions
@@ -165,7 +164,7 @@ query GetApplication($id: UUID!) {
       experiences {
         id
         __typename
-        applicant {
+        user {
           id
           email
         }

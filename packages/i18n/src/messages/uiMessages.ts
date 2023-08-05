@@ -90,6 +90,26 @@ const uiMessages = defineMessages({
     id: "0bcof1",
     description: "Prefix when a step is the currently active one.",
   },
+  readMore: {
+    defaultMessage: "Read more<hidden> {context}</hidden>",
+    id: "cCWdDX",
+    description: "Button text to expand truncated text to view all contents",
+  },
+  readLess: {
+    defaultMessage: "Read less<hidden> {context}</hidden>",
+    id: "rnZULP",
+    description: "Button text to truncate text to view fewer characters",
+  },
+  confirmContinue: {
+    defaultMessage: "Do you wish to continue?",
+    id: "ijGl5r",
+    description: "A request to confirm that the user wants to continue",
+  },
+  nullSelectionOption: {
+    defaultMessage: "Select an option",
+    id: "fUF8rg",
+    description: "Null selection for select input",
+  },
 });
 
 export default uiMessages;

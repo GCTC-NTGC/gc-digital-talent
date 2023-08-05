@@ -1,8 +1,9 @@
+# Comes from apps/web/src/pages/Profile/ProfilePage/profileOperations.graphql
+# Should match the getMe query from that file to take accurate snapshots
 query getMe {
   me {
     id
     sub
-    legacyRoles
     firstName
     lastName
     email
@@ -57,10 +58,7 @@ query getMe {
     isIndigenous
     indigenousCommunities
     indigenousDeclarationSignature
-    indigenousCommunities
-    indigenousDeclarationSignature
     isVisibleMinority
-    jobLookingStatus
     hasDiploma
     locationPreferences
     locationExemptions
@@ -76,70 +74,134 @@ query getMe {
       level
     }
     positionDuration
-    experiences {
+    userSkills {
       id
-      __typename
-      applicant {
-        id
-        email
-      }
-      details
-      skills {
+      skill {
         id
         key
         name {
           en
           fr
         }
-        description {
-          en
-          fr
-        }
-        keywords {
-          en
-          fr
-        }
-        experienceSkillRecord {
-          details
-        }
-      }
-      ... on AwardExperience {
-        title
-        issuedBy
-        awardedDate
-        awardedTo
-        awardedScope
-      }
-      ... on CommunityExperience {
-        title
-        organization
-        project
-        startDate
-        endDate
-      }
-      ... on EducationExperience {
-        institution
-        areaOfStudy
-        thesisTitle
-        startDate
-        endDate
-        type
-        status
-      }
-      ... on PersonalExperience {
-        title
-        description
-        startDate
-        endDate
-      }
-      ... on WorkExperience {
-        role
-        organization
-        division
-        startDate
-        endDate
       }
     }
+    experiences {
+      ...profileExperience
+    }
     isProfileComplete
+    poolCandidates {
+      id
+      status
+      expiryDate
+      signature
+      archivedAt
+      submittedAt
+      suspendedAt
+      pool {
+        id
+        closingDate
+        name {
+          en
+          fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
+          name {
+            en
+            fr
+          }
+          genericJobTitles {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
+          minSalary
+          maxSalary
+        }
+      }
+      educationRequirementOption
+      educationRequirementExperiences {
+        ...profileExperience
+      }
+      screeningQuestionResponses {
+        id
+        answer
+        screeningQuestion {
+          id
+          sortOrder
+          question {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment profileExperience on Experience {
+  id
+  __typename
+  details
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    experienceSkillRecord {
+      details
+    }
+  }
+  ... on AwardExperience {
+    title
+    issuedBy
+    awardedDate
+    awardedTo
+    awardedScope
+  }
+  ... on CommunityExperience {
+    title
+    organization
+    project
+    startDate
+    endDate
+  }
+  ... on EducationExperience {
+    institution
+    areaOfStudy
+    thesisTitle
+    startDate
+    endDate
+    type
+    status
+  }
+  ... on PersonalExperience {
+    title
+    description
+    startDate
+    endDate
+  }
+  ... on WorkExperience {
+    role
+    organization
+    division
+    startDate
+    endDate
   }
 }

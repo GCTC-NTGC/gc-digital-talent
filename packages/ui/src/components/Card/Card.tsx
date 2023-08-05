@@ -1,16 +1,12 @@
 import React from "react";
 
-export type Color =
+type Color =
   | "primary"
   | "secondary"
   | "tertiary"
   | "quaternary"
   | "quinary"
-  | "white"
-  | "ts-primary"
-  | "ia-primary"
-  | "ts-secondary"
-  | "ia-secondary";
+  | "white";
 
 export interface CardProps {
   title: string;
@@ -48,22 +44,6 @@ const colorMap = {
   white: {
     "data-h2-background-color": "base(white)",
     "data-h2-color": "base:all(black)",
-  },
-  "ts-primary": {
-    "data-h2-background-color": "base(primary)",
-    "data-h2-color": "base(white)",
-  },
-  "ts-secondary": {
-    "data-h2-background-color": "base(secondary)",
-    "data-h2-color": "base(white)",
-  },
-  "ia-primary": {
-    "data-h2-background-color": "base(primary)",
-    "data-h2-color": "base(white)",
-  },
-  "ia-secondary": {
-    "data-h2-background-color": "base(secondary)",
-    "data-h2-color": "base(white)",
   },
 };
 

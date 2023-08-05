@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import { Alert, Link } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useLocale } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -45,7 +44,6 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
 const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const { locale } = useLocale();
-  const { applicantDashboard } = useFeatureFlags();
   const paths = useRoutes();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
@@ -76,9 +74,9 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           ? intl.formatMessage({
               defaultMessage:
                 "Thank you for your interest in becoming an IT apprentice with the Government of Canada. Your lived experience, skills, passion and interests are warmly received and acknowledged. A member of the Office of Indigenous Initiatives team will contact you within the next three to five business days to discuss your application.",
-              id: "AnIVCJ",
+              id: "cTCdw5",
               description:
-                "Description of review process and next steps for the indigenous apprenticeship applicant.",
+                "Description of review process and next steps for the IAP applicant.",
             })
           : intl.formatMessage({
               defaultMessage:
@@ -134,28 +132,27 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           </li>
         )}
       </ul>
-      {applicantDashboard && (
-        <p data-h2-margin="base(x.5, 0)">
-          <Link
-            href={paths.dashboard({ fromIapSuccess: isIAP })}
-            mode="solid"
-            color="primary"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Go to my dashboard",
-              id: "pKY4PC",
-              description: "Link text to navigate to the applicant dashboard",
-            })}
-          </Link>
-        </p>
-      )}
+      <p data-h2-margin="base(x.5, 0)">
+        <Link
+          href={paths.profileAndApplications({ fromIapSuccess: isIAP })}
+          mode="solid"
+          color="primary"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Visit your Profile and applications page",
+            id: "26Qj2A",
+            description:
+              "Link text to navigate to the profile and applications page",
+          })}
+        </Link>
+      </p>
       <p data-h2-font-size="base(caption)">
         {intl.formatMessage({
           defaultMessage:
-            "* Note that your confirmation number can also be found on your dashboard.",
-          id: "PIzMYn",
+            "* Note that your confirmation number can also be found in the Track your applications section on your Profile and applications page.",
+          id: "lxDgNf",
           description:
-            "Note that the application confirmation number is available on the dashboard",
+            "Note that the application confirmation number is available on the profile and applications page",
         })}
       </p>
     </Alert.Root>

@@ -79,7 +79,7 @@ describe("SearchContainer", () => {
   it("should render different results container no candidates", async () => {
     renderSearchContainer({ poolCandidateResults: [], totalCandidateCount });
     await expect(
-      screen.queryByRole("heading", { name: /we can still help/i }),
+      screen.queryByRole("heading", { name: /We may be able to help/i }),
     ).toBeInTheDocument();
   });
 

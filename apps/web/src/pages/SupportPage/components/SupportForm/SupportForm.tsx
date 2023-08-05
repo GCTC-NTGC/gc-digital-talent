@@ -3,13 +3,12 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { toast } from "@gc-digital-talent/toast";
+import { Input, Submit, TextArea, Select } from "@gc-digital-talent/forms";
 import {
-  Input,
-  Submit,
-  TextArea,
-  SelectFieldV2,
-} from "@gc-digital-talent/forms";
-import { errorMessages, apiMessages } from "@gc-digital-talent/i18n";
+  errorMessages,
+  apiMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import { Pending, Button, Link } from "@gc-digital-talent/ui";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -170,9 +169,10 @@ const SupportForm = ({
               }}
               trackUnsaved={false}
             />
-            <SelectFieldV2
+            <Select
               id="subject"
               name="subject"
+              nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}

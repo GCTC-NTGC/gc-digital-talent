@@ -76,6 +76,7 @@ const RadioGroup = ({
   columns = 1,
   trackUnsaved = true,
   describedBy,
+  disabled,
   ...rest
 }: RadioGroupProps) => {
   const {
@@ -124,6 +125,7 @@ const RadioGroup = ({
               >
                 <Field.Label
                   key={value}
+                  data-h2-font-size="base(copy)"
                   data-h2-display="base(flex)"
                   data-h2-align-items="base(flex-start)"
                   data-h2-gap="base(0 x.25)"
@@ -133,6 +135,7 @@ const RadioGroup = ({
                     {...register(name, rules)}
                     value={value}
                     type="radio"
+                    disabled={disabled}
                     defaultChecked={defaultSelected === value}
                     {...(contentBelow && {
                       "aria-describedby": `${id}-content-below`,

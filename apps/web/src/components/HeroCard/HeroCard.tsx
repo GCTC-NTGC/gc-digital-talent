@@ -1,15 +1,10 @@
-import { Link } from "@gc-digital-talent/ui";
-import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 import * as React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 
-export type Color =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "quaternary"
-  | "quinary";
+type Color = "primary" | "secondary" | "tertiary" | "quaternary" | "quinary";
 
-export const colorMap: Record<Color, Record<string, string>> = {
+const colorMap: Record<Color, Record<string, string>> = {
   primary: {
     "data-h2-background-color":
       "base:all(primary.light) base:dark:iap(primary)",
@@ -28,7 +23,7 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
   quaternary: {
     "data-h2-background-color":
-      "base(quaternary) base:dark:iap(quaternary.light)",
+      "base(quaternary.light) base:dark:iap(quaternary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   quinary: {
@@ -37,7 +32,7 @@ export const colorMap: Record<Color, Record<string, string>> = {
   },
 };
 
-export interface HeroCardProps {
+interface HeroCardProps {
   color: Color;
   title: string;
   href: string;
@@ -45,13 +40,7 @@ export interface HeroCardProps {
   asNav?: boolean;
 }
 
-export const HeroCard = ({
-  color,
-  title,
-  href,
-  children,
-  asNav,
-}: HeroCardProps) => {
+const HeroCard = ({ color, title, href, children, asNav }: HeroCardProps) => {
   const Wrapper = asNav ? "nav" : "div";
   return (
     <Wrapper
@@ -63,17 +52,19 @@ export const HeroCard = ({
     >
       <div
         data-h2-display="base(block)"
-        data-h2-font-size="base(h6, 1) desktop(h5, 1)"
+        data-h2-font-size="base(h6, 1)"
         data-h2-font-weight="base(700)"
         data-h2-padding="base(x1)"
         data-h2-radius="base(s, s, 0px, 0px)"
         {...{ ...colorMap[color] }}
       >
-        <Link
-          href={href}
+        {/* The styles on the regular Link component don't allow for text with a right-aligned SVG */}
+        <RouterLink
+          to={href}
           data-h2-transform="base:hover:children[svg](translate(20%, 0))"
           data-h2-transition="base:children[svg](transform .2s ease)"
           data-h2-color="base(black) base:hover(black)"
+          data-h2-text-decoration="base(underline) base:hover(none)"
           data-h2-width="base(100%)"
         >
           <span
@@ -88,7 +79,7 @@ export const HeroCard = ({
               data-h2-width="base(x1)"
             />
           </span>
-        </Link>
+        </RouterLink>
       </div>
       <ul data-h2-padding="base(x1)" data-h2-list-style="base(none)">
         {children}

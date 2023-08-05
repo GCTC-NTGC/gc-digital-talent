@@ -36,11 +36,14 @@ export type ComboboxProps = Omit<HTMLInputProps, "ref"> &
     onSearch?: (term: string) => void;
     /** Optional: Control the options through external search (API, etc.) */
     isExternalSearch?: boolean;
+    /** Button text to clear the current text from the input (optional) */
+    clearLabel?: string;
   };
 
 const Combobox = ({
   id,
   label,
+  clearLabel,
   name,
   context,
   rules = {},
@@ -80,7 +83,6 @@ const Combobox = ({
     },
   });
 
-  // TODO: Make this filter much smarter, possibly fuse.js
   const filteredOptions = React.useMemo(() => {
     if (query === "" || isExternalSearch) {
       return options;
@@ -199,18 +201,19 @@ const Combobox = ({
             showClear={!!selectedOption || query !== ""}
             onClear={handleClear}
             fetching={fetching}
-            clearLabel={intl
-              .formatMessage(formMessages.resetCombobox, { label })
-              .toString()}
+            clearLabel={
+              clearLabel || intl.formatMessage(formMessages.resetCombobox)
+            }
           />
         </div>
         <ComboboxPrimitive.Options
           data-h2-background-color="base(white)"
           data-h2-shadow="base(l)"
-          data-h2-max-height="base(24rem)"
+          data-h2-max-height="base(18rem)"
           data-h2-position="base(absolute)"
           data-h2-location="base(100%, 0, auto, 0)"
           data-h2-overflow="base(visible auto)"
+          data-h2-z-index="base(99)"
           {...baseStyles}
           as={noOptions ? "div" : "ul"}
         >

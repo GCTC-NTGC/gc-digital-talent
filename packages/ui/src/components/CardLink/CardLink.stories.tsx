@@ -35,7 +35,7 @@ export default {
       },
     },
     color: {
-      options: ["ts-primary", "ia-primary", "ia-secondary"],
+      options: ["primary", "secondary", "tertiary", "quaternary", "quinary"],
     },
   },
 } as Meta;

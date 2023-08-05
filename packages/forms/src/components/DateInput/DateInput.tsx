@@ -82,6 +82,9 @@ const DateInput = ({
     if (!rules.min) {
       return true;
     }
+    if (!value) {
+      return true;
+    }
 
     const currentDate = formDateStringToDate(value);
     const minDate = formDateStringToDate(rules.min.value);
@@ -90,6 +93,9 @@ const DateInput = ({
 
   const isBeforeMax = (value: string) => {
     if (!rules.max) {
+      return true;
+    }
+    if (!value) {
       return true;
     }
 

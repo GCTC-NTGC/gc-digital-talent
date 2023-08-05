@@ -42,7 +42,7 @@ describe("Talent Search Workflow Tests", () => {
       cy.findByRole("article", {
         name: `Cypress Test Pool EN 1 ${uniqueTestId} (I T 1 Business Line Advisory Services)`,
       }).within(() => {
-        cy.contains("There is 1 matching candidate in this pool");
+        cy.contains("There is approximately 1 matching candidate in this pool");
 
         cy.findByRole("button", { name: /Request candidates/i })
           .should("exist")
@@ -170,26 +170,28 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     // education requirement, no negation possible
+    cy.findByRole("button", {
+      name: /education requirement for the job/i,
+    }).click();
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,
     }).click();
     cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
     searchFindsMySingleCandidate();
 
-    // work location combobox
-    cy.findByRole("combobox", { name: /Region/i }).then((combobox) => {
-      // fail
-      cy.wrap(combobox).type("Atlantic{enter}");
-      cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
-      searchRejectsMySingleCandidate();
-      // reset
-      cy.wrap(combobox).type("{backspace}");
-      searchFindsMySingleCandidate();
-      // pass
-      cy.wrap(combobox).type("Ontario{enter}");
-      cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
-      searchFindsMySingleCandidate();
-    });
+    // work location - fail
+    cy.findByRole("checkbox", {
+      name: /Atlantic \(NB, NS, PE and NL\)/i,
+    }).click();
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    searchRejectsMySingleCandidate();
+
+    // work location - pass
+    cy.findByRole("checkbox", {
+      name: /Ontario \(excluding Ottawa area\)/i,
+    }).click();
+    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    searchFindsMySingleCandidate();
 
     // working language ability - fail
     cy.findByRole("radio", {
@@ -224,6 +226,9 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     // conditions of employment, no negation possible
+    cy.findByRole("button", {
+      name: /conditions of employment/i,
+    }).click();
     cy.findByRole("checkbox", {
       name: /ability to work overtime \(Occasionally\)/i,
     }).click();
@@ -231,6 +236,9 @@ describe("Talent Search Workflow Tests", () => {
     searchFindsMySingleCandidate();
 
     // employment duration - fail
+    cy.findByRole("button", {
+      name: /employment duration/i,
+    }).click();
     cy.findByRole("radio", {
       name: /Term duration/i,
     }).click();
@@ -270,6 +278,10 @@ describe("Talent Search Workflow Tests", () => {
       "test@tbs-sct.gc.ca",
     );
 
+    cy.findByRole("textbox", { name: /What is your job title\?/i }).type(
+      "Manager",
+    );
+
     cy.findByRole("textbox", {
       name: /What is the job title for this position\?/i,
     }).type("Test Job Title");
@@ -295,7 +307,7 @@ describe("Talent Search Workflow Tests", () => {
     );
 
     // work location
-    cy.findAllByText("Ontario").should("exist");
+    cy.findAllByText("Ontario (excluding Ottawa area)").should("exist");
 
     // working language ability
     cy.findAllByText("English only").should("exist");

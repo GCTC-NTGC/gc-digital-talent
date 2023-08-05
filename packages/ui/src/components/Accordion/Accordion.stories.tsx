@@ -6,7 +6,7 @@ import { faker } from "@faker-js/faker";
 
 import AccordionDocs from "./Accordion.docs.mdx";
 import Accordion from "./Accordion";
-import { StandardHeader } from "./StandardHeader";
+import StandardHeader from "./StandardHeader";
 
 const { Item, Trigger, Content, Root } = Accordion;
 

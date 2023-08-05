@@ -6,8 +6,13 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 
-import { Heading, Link, Accordion, CardFlat } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
+import {
+  Heading,
+  Link,
+  Accordion,
+  CardFlat,
+  StandardAccordionHeader,
+} from "@gc-digital-talent/ui";
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";

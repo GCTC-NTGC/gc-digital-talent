@@ -39,7 +39,27 @@ const AllTemplate: StoryFn<typeof ToggleGroup.Root> = (args) => {
         <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
         <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
       </ToggleGroup.Root>
+      <ToggleGroup.Root {...args} color="primary.dark">
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
+        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
+      </ToggleGroup.Root>
       <ToggleGroup.Root {...args} color="secondary">
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
+        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
+      </ToggleGroup.Root>
+      <ToggleGroup.Root {...args} color="tertiary">
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
+        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
+      </ToggleGroup.Root>
+      <ToggleGroup.Root {...args} color="quaternary">
+        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
+        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
+        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
+      </ToggleGroup.Root>
+      <ToggleGroup.Root {...args} color="quinary">
         <ToggleGroup.Item value="one">One</ToggleGroup.Item>
         <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
         <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
@@ -50,31 +70,6 @@ const AllTemplate: StoryFn<typeof ToggleGroup.Root> = (args) => {
         <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
       </ToggleGroup.Root>
       <ToggleGroup.Root {...args} color="white">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="ia-primary">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="ia-secondary">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="yellow">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="blue">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="red">
         <ToggleGroup.Item value="one">One</ToggleGroup.Item>
         <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
         <ToggleGroup.Item value="three">Three</ToggleGroup.Item>

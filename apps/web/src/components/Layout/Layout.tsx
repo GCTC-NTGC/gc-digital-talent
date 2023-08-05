@@ -9,23 +9,23 @@ import {
   ROLE_NAME,
   hasRole,
 } from "@gc-digital-talent/auth";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
-import NavMenu from "~/components/NavMenu";
-import Header from "~/components/Header";
-import Footer from "~/components/Footer";
-import LogoutConfirmation from "~/components/LogoutConfirmation";
+import NavMenu from "~/components/NavMenu/NavMenu";
+import Header from "~/components/Header/Header";
+import Footer from "~/components/Footer/Footer";
+import SignOutConfirmation from "~/components/SignOutConfirmation/SignOutConfirmation";
 
 import useRoutes from "~/hooks/useRoutes";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
+import authMessages from "~/messages/authMessages";
+
 import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import LogoutButton from "./LogoutButton";
 
 const Layout = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { applicantDashboard } = useFeatureFlags();
   useLayoutTheme("default");
 
   const { user } = useAuthorization();
@@ -60,45 +60,16 @@ const Layout = () => {
   ];
 
   let authLinks = [
-    <MenuLink key="login-info" to={paths.login()}>
-      {intl.formatMessage({
-        defaultMessage: "Login",
-        id: "md7Klw",
-        description: "Label displayed on the login link menu item.",
-      })}
+    <MenuLink key="sign-in" to={paths.login()}>
+      {intl.formatMessage(authMessages.signIn)}
     </MenuLink>,
-    <MenuLink key="register" to={paths.register()}>
-      {intl.formatMessage({
-        defaultMessage: "Register",
-        id: "LMGaDQ",
-        description: "Label displayed on the register link menu item.",
-      })}
+    <MenuLink key="sign-up" to={paths.register()}>
+      {intl.formatMessage(authMessages.signUp)}
     </MenuLink>,
   ];
 
   if (loggedIn && user) {
     const userRoleNames = user?.roleAssignments?.map((a) => a.role?.name);
-
-    if (!applicantDashboard) {
-      menuItems = [
-        ...menuItems,
-        <MenuLink key="myApplications" to={paths.applications(user.id)}>
-          {intl.formatMessage({
-            defaultMessage: "My applications",
-            id: "ioghLh",
-            description:
-              "Label displayed on the users pool applications menu item.",
-          })}
-        </MenuLink>,
-        <MenuLink key="myProfile" to={paths.profile(user.id)}>
-          {intl.formatMessage({
-            defaultMessage: "My profile",
-            id: "5lBIzg",
-            description: "Label displayed on the applicant profile menu item.",
-          })}
-        </MenuLink>,
-      ];
-    }
 
     if (
       [
@@ -121,28 +92,22 @@ const Layout = () => {
       ];
     }
     authLinks = [
-      <LogoutConfirmation key="logout">
-        <LogoutButton>
-          {intl.formatMessage({
-            defaultMessage: "Logout",
-            id: "3vDhoc",
-            description: "Label displayed on the logout link menu item.",
-          })}
-        </LogoutButton>
-      </LogoutConfirmation>,
+      <SignOutConfirmation key="sign-out">
+        <LogoutButton>{intl.formatMessage(authMessages.signOut)}</LogoutButton>
+      </SignOutConfirmation>,
     ];
 
-    if (
-      applicantDashboard &&
-      hasRole(ROLE_NAME.Applicant, user.roleAssignments)
-    ) {
+    if (hasRole(ROLE_NAME.Applicant, user.roleAssignments)) {
       authLinks = [
-        <MenuLink key="dashboard" to={paths.dashboard()}>
+        <MenuLink
+          key="profile-applications"
+          to={paths.profileAndApplications()}
+        >
           {intl.formatMessage({
             defaultMessage: "Profile and applications",
-            id: "76KLtb",
+            id: "nBoNqj",
             description:
-              "Label displayed on the applicant dashboard menu item.",
+              "Label displayed on the profile and applications menu item.",
           })}
         </MenuLink>,
         ...authLinks,

@@ -92,41 +92,44 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
 
     public function testSearchRequestStatusFiltering(): void
     {
-        PoolCandidateSearchRequest::factory()->count(4)->create([
-            'done_at' => config('constants.past_date'),
+        PoolCandidateSearchRequest::factory()->count(2)->create([
+            'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW,
         ]);
-        PoolCandidateSearchRequest::factory()->count(6)->create([
-            'done_at' => null,
+        PoolCandidateSearchRequest::factory()->count(3)->create([
+            'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE
+        ]);
+        PoolCandidateSearchRequest::factory()->count(4)->create([
+            'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_WAITING
         ]);
 
-        // no variables results in 10 results
+        // no variables results in 9 results
         $this->actingAs($this->requestResponder, 'api')
             ->graphQL($this->searchRequestQuery)
-            ->assertJsonFragment(['count' => 10]);
+            ->assertJsonFragment(['count' => 9]);
 
-        // null where results in 10 results
+        // null where results in 9 results
         $this->actingAs($this->requestResponder, 'api')
             ->graphQL($this->searchRequestQuery, ['where' => null])
-            ->assertJsonFragment(['count' => 10]);
+            ->assertJsonFragment(['count' => 9]);
 
-        // status null results in 10 results
+        // status null results in 9 results
         $this->actingAs($this->requestResponder, 'api')
             ->graphQL($this->searchRequestQuery, ['where' => ['status' => null]])
-            ->assertJsonFragment(['count' => 10]);
+            ->assertJsonFragment(['count' => 9]);
 
-        // status pending results in 6 results, so done_at null
+        // status new returns 2 results
         $this->actingAs($this->requestResponder, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING]
+                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW]
                     ]
                 ]
             )
-            ->assertJsonFragment(['count' => 6]);
+            ->assertJsonFragment(['count' => 2]);
 
-        // status done results in 4 results, so done_at past date
+        // status done returns 3 results
         $this->actingAs($this->requestResponder, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
@@ -136,19 +139,19 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                     ]
                 ]
             )
-            ->assertJsonFragment(['count' => 4]);
+            ->assertJsonFragment(['count' => 3]);
 
-        // both statuses results in 10 results
+        // both statuses returns 5 results
         $this->actingAs($this->requestResponder, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE, ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_PENDING]
+                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE, ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW]
                     ]
                 ]
             )
-            ->assertJsonFragment(['count' => 10]);
+            ->assertJsonFragment(['count' => 5]);
     }
 
     public function testSearchRequestDepartmentsFiltering(): void

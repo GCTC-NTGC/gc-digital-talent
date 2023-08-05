@@ -10,6 +10,7 @@ import { IntlProvider } from "react-intl";
 
 import { selectFilterOption, submitFilters } from "~/utils/jestUtils";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import UserTableFilters from "./UserTableFilterDialog";
 import type { UserTableFiltersProps } from "./UserTableFilterDialog";
 
@@ -22,6 +23,13 @@ const mockClient = {
         classifications: [{ id: "IT_3", group: "IT", level: "3" }],
         pools: [{ id: "BAR", name: { en: "Bar Pool" } }],
         skills: [{ id: "BAZ", name: { en: "Baz Skill" } }],
+        roles: [
+          {
+            id: "id-123",
+            name: ROLE_NAME.PlatformAdmin, // options for roles has some filtering
+            displayName: { en: "Role EN", fr: "Role FR" },
+          },
+        ],
       },
     }),
 } as any; // eslint-disable-line
@@ -43,6 +51,8 @@ const emptyFormValues = {
   expiryStatus: [],
   suspendedStatus: [],
   stream: [],
+  roles: [],
+  publishingGroups: [],
 };
 
 interface ProvidersProps {
@@ -143,12 +153,13 @@ describe("UserTableFilterDialog", () => {
         await selectFilterOption(/classifications/i);
         await selectFilterOption(/pools/i);
         await selectFilterOption(/skill filter/i);
+        await selectFilterOption(/roles and permissions/i);
 
         await submitFilters();
         expect(mockSubmit).toHaveBeenCalledTimes(1);
 
         const activeFilter = mockSubmit.mock.lastCall[0];
-        expect(Object.keys(activeFilter)).toHaveLength(16);
+        expect(Object.keys(activeFilter)).toHaveLength(18);
         // Static filters.
         expect(activeFilter.workRegion).toHaveLength(1);
         expect(activeFilter.employmentDuration).toHaveLength(1);
@@ -161,6 +172,7 @@ describe("UserTableFilterDialog", () => {
         expect(activeFilter.classifications).toHaveLength(1);
         expect(activeFilter.skills).toHaveLength(1);
         expect(activeFilter.pools).toHaveLength(1);
+        expect(activeFilter.roles).toHaveLength(1);
       },
       extendedTimeout,
     );
@@ -169,34 +181,34 @@ describe("UserTableFilterDialog", () => {
   it("correctly selects work location filter", async () => {
     renderButton({ isOpenDefault: true });
 
-    expect(await screen.queryByText("Atlantic")).not.toBeInTheDocument();
-    await selectFilterOption(/work locations/i, "Atlantic");
-    expect(await screen.getByText("Atlantic")).toBeVisible();
+    expect(await screen.queryByText("Telework")).not.toBeInTheDocument();
+    await selectFilterOption(/work locations/i);
+    expect(await screen.getByText("Telework")).toBeVisible();
   });
 
   describe("data persistence", () => {
     it("doesn't persist form data changes when modal closed with X", async () => {
       renderButton({ isOpenDefault: true });
-      selectFilterOption(/work locations/i, "Atlantic");
+      selectFilterOption(/work locations/i);
       closeDialog();
 
       openDialog();
-      expect(screen.queryByText("Atlantic")).not.toBeInTheDocument();
+      expect(screen.queryByText("Telework")).not.toBeInTheDocument();
     });
 
     it("persists form data when modal submitted and re-opened", async () => {
       renderButton({ isOpenDefault: true });
-      await selectFilterOption(/work locations/i, "Atlantic");
+      await selectFilterOption(/work locations/i);
       await submitFilters();
       await openDialog();
-      expect(await screen.getByText("Atlantic")).toBeVisible();
+      expect(await screen.getByText("Telework")).toBeVisible();
     });
   });
 
   describe("prior state", () => {
     beforeEach(async () => {
       renderButton({ isOpenDefault: true });
-      await selectFilterOption(/work locations/i, "Atlantic");
+      await selectFilterOption(/work locations/i);
       await submitFilters();
     });
 
@@ -206,7 +218,7 @@ describe("UserTableFilterDialog", () => {
       await submitFilters();
 
       await openDialog();
-      const location = await screen.queryByText("Atlantic");
+      const location = await screen.queryByText("Telework");
       expect(location).not.toBeInTheDocument();
     });
 
@@ -216,14 +228,14 @@ describe("UserTableFilterDialog", () => {
       await closeDialog();
 
       await openDialog();
-      const location = await screen.queryByText("Atlantic");
+      const location = await screen.queryByText("Telework");
       expect(location).toBeInTheDocument();
     });
   });
 
   it("shows correct filters in modal", () => {
     renderButton({ isOpenDefault: true });
-    expect(screen.getAllByRole("combobox")).toHaveLength(9);
+    expect(screen.getAllByRole("combobox")).toHaveLength(10);
   });
 
   describe("enableEducationType prop", () => {
@@ -239,7 +251,7 @@ describe("UserTableFilterDialog", () => {
         isOpenDefault: true,
         enableEducationType: true,
       });
-      expect(screen.getAllByRole("combobox")).toHaveLength(10);
+      expect(screen.getAllByRole("combobox")).toHaveLength(11);
       expect(
         screen.getByRole("combobox", { name: /education/i }),
       ).toBeVisible();

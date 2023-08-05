@@ -38,7 +38,7 @@ const Providers = ({
   );
 };
 
-// In SelectFieldV2, we hardcode the classNamePrefix prop into react-select's
+// In MultiSelectFieldBase, we hardcode the classNamePrefix prop into react-select's
 // Select component to making styling/testing simpler.
 const CLASS_PREFIX = "react-select";
 const FIELD_NAME = "select-input";

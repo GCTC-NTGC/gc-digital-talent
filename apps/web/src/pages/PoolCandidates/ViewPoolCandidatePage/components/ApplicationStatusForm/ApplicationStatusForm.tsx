@@ -22,6 +22,7 @@ import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import adminMessages from "~/messages/adminMessages";
 import {
   PoolCandidateStatus,
   Scalars,
@@ -31,7 +32,7 @@ import {
   type PoolCandidate,
 } from "~/api/generated";
 
-export type FormValues = {
+type FormValues = {
   status?: PoolCandidate["status"];
   notes?: PoolCandidate["notes"];
   expiryDate?: PoolCandidate["expiryDate"];
@@ -179,14 +180,7 @@ export const ApplicationStatusForm = ({
                     data-h2-height="base(0.75em)"
                     data-h2-margin="base(0, x0.25, 0, 0)"
                   />
-                  <span>
-                    {intl.formatMessage({
-                      defaultMessage: "Notes",
-                      id: "npC3bT",
-                      description:
-                        "Title for admin editing a pool candidates notes",
-                    })}
-                  </span>
+                  <span>{intl.formatMessage(adminMessages.notes)}</span>
                 </Heading>
                 <p data-h2-margin="base(x0.25 0)">
                   {intl.formatMessage({

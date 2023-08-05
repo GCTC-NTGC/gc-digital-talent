@@ -58,7 +58,7 @@ describe("Create account tests", () => {
     cy.wait("@gqlCreateAccountMutation");
     // should go to the profile page
     cy.findByRole("heading", {
-      name: `Cypress ${uniqueTestId}'s profile`,
+      name: `Profile information`,
       level: 1,
     }).should("exist");
   });

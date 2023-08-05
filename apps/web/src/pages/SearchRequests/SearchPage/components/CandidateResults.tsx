@@ -42,8 +42,8 @@ const CandidateResults = ({
     >
       <Heading level="h4" size="h6" data-h2-margin="base(0)">
         {intl.formatMessage({
-          defaultMessage: "We can still help!",
-          id: "5U+V2Y",
+          defaultMessage: "We may be able to help!",
+          id: "xAfVa9",
           description:
             "Heading for helping user if no candidates matched the filters chosen.",
         })}
@@ -51,8 +51,8 @@ const CandidateResults = ({
       <p data-h2-margin="base(x.5 0)">
         {intl.formatMessage({
           defaultMessage:
-            "We have not found any automatic matching candidates but our team can still help.",
-          id: "ak4oel",
+            "We have not found any automatic matching candidates but our team may still be able to help.",
+          id: "bq1MMd",
           description:
             "Text telling users they can still be helped regardless of search results",
         })}

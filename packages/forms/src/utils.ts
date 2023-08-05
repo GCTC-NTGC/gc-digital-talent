@@ -1,6 +1,11 @@
 import { IntlShape } from "react-intl";
 
-import { LocalizedString, Maybe, Scalars } from "@gc-digital-talent/graphql";
+import {
+  LocalizedString,
+  Maybe,
+  Scalars,
+  WorkRegion,
+} from "@gc-digital-talent/graphql";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { getId, notEmpty } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
@@ -173,3 +178,21 @@ export const objectsToSortedOptions = (
       label: name[locale] ?? intl.formatMessage(commonMessages.notFound),
     }));
 };
+
+// Special Cases
+
+// enumToOptions special case, sort by specific WorkRegion by default, reusable function
+export function enumToOptionsWorkRegionSorted(
+  list: Record<string, string>,
+): { value: string; label: string }[] {
+  return enumToOptions(list, [
+    WorkRegion.Telework,
+    WorkRegion.NationalCapital,
+    WorkRegion.Atlantic,
+    WorkRegion.Quebec,
+    WorkRegion.Ontario,
+    WorkRegion.North,
+    WorkRegion.Prairie,
+    WorkRegion.BritishColumbia,
+  ]);
+}

@@ -5,6 +5,8 @@ namespace App\GraphQL\Directives;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
+use Nuwave\Lighthouse\Execution\ResolveInfo;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 final class SelfDirective extends BaseDirective implements FieldResolver
 {
@@ -19,7 +21,7 @@ final class SelfDirective extends BaseDirective implements FieldResolver
 The field will be resolved to the same value as its parent.
 For example, useful in the following situation:
 type User {
-    profile: Applicant @self
+    profile: User @self
 }
 """
 directive @self on FIELD_DEFINITION
@@ -35,12 +37,10 @@ GRAPHQL;
      * @param  \Nuwave\Lighthouse\Schema\Values\FieldValue  $fieldValue
      * @return \Nuwave\Lighthouse\Schema\Values\FieldValue
      */
-    public function resolveField(FieldValue $fieldValue)
+    public function resolveField(FieldValue $fieldValue): callable
     {
-        $fieldValue->setResolver(function ($root, array $args) {
+        return function (mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): mixed {
             return $root;
-        });
-
-        return $fieldValue;
+        };
     }
 }

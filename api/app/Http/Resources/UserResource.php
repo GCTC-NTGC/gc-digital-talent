@@ -55,7 +55,6 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'sub' => $this->sub,
-            'legacyRoles' => $this->legacy_roles,
             'firstName' => $this->first_name,
             'lastName' => $this->last_name,
             'email' => $this->email,
@@ -89,7 +88,6 @@ class UserResource extends JsonResource
             'isVisibleMinority' => $this->is_visible_minority,
             'indigenousCommunities' => $this->indigenous_communities,
             'indigenousDeclarationSignature' => $this->indigenous_declaration_signature,
-            'jobLookingStatus' => $this->job_looking_status,
             'hasDiploma' => $this->has_diploma,
             'locationPreferences' => $this->location_preferences,
             'locationExemptions' =>  $this->location_exemptions,
@@ -100,6 +98,7 @@ class UserResource extends JsonResource
             'experiences' => $collection,
             'priorityNumber' => $this->priority_number,
             'isProfileComplete' => $this->isProfileComplete,
+            'userSkills' => UserSkillResource::collection($this->whenLoaded('userSkills')),
         ];
     }
 }

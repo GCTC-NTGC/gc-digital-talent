@@ -2,6 +2,7 @@ import { FieldState } from "./types";
 
 const fieldStateStyles: Record<FieldState, Record<string, string>> = {
   unset: {
+    "data-h2-background-color": "base(foreground)",
     "data-h2-border-color": "base(gray) base:focus-visible(focus)",
   },
   invalid: {

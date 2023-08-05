@@ -63,8 +63,8 @@ const ApplyDialog = ({ btnProps }: BasicDialogProps) => {
           <p data-h2-margin="base(x1, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "Thank you for your interest in this Program. We look forward to hearing from you!",
-              id: "/7NWbF",
+                "Thank you for your interest in this program. We look forward to hearing from you!",
+              id: "tBGvoD",
               description: "Third paragraph for apply now dialog",
             })}
           </p>

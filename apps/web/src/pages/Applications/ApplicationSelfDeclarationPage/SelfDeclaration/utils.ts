@@ -6,14 +6,29 @@ export const getSelfDeclarationLabels = (intl: IntlShape) => ({
     id: "r6L5aI",
     description: "label for the Indigenous self-declaration input",
   }),
-  isStatusFirstNations: intl.formatMessage({
-    defaultMessage: "First Nations Status",
-    id: "+M8xoo",
-    description: "label for the First Nations status self-declaration input",
+  firstNations: intl.formatMessage({
+    id: "GSqmjE",
+    defaultMessage: "First Nations",
+    description: "Label for First Nations community",
+  }),
+  inuk: intl.formatMessage({
+    id: "kUHaE/",
+    defaultMessage: "Inuk",
+    description: "Label for Inuk community",
+  }),
+  metis: intl.formatMessage({
+    id: "KaisAC",
+    defaultMessage: "Métis",
+    description: "Label for Métis community",
+  }),
+  other: intl.formatMessage({
+    id: "LIpK1v",
+    defaultMessage: "My community isn't listed",
+    description: "Label for not represented community",
   }),
   signature: intl.formatMessage({
-    defaultMessage: "Signature",
-    id: "3oW16P",
+    defaultMessage: "Your signature",
+    id: "hhE2b6",
     description: "label for the signature input on the self-declaration form",
   }),
 });
@@ -36,11 +51,19 @@ export const hasCommunityAndOther = (selectedCommunities?: Array<string>) => {
 export const getCommunityLabels = (intl: IntlShape) =>
   new Map([
     [
-      "firstNations",
+      "status",
       intl.formatMessage({
-        id: "GSqmjE",
-        defaultMessage: "First Nations",
-        description: "Label for First Nations community",
+        defaultMessage: "Status First Nations",
+        id: "1Wbu+6",
+        description: "The indigenous community for status First Nations",
+      }),
+    ],
+    [
+      "nonStatus",
+      intl.formatMessage({
+        defaultMessage: "Non-status First Nations",
+        id: "JamdKo",
+        description: "The indigenous community for non-status First Nations",
       }),
     ],
     [

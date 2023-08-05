@@ -18,13 +18,19 @@ import {
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
   getPoolStream,
+  getPublishingGroup,
 } from "@gc-digital-talent/i18n";
-import { enumToOptions } from "@gc-digital-talent/forms";
+import {
+  enumToOptions,
+  enumToOptionsWorkRegionSorted,
+} from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import {
   PoolStream,
+  PublishingGroup,
   WorkRegion,
   EducationType,
   LanguageAbility,
@@ -61,6 +67,16 @@ export default function useFilterOptions(enableEducationType = false) {
   });
 
   const optionsData = {
+    publishingGroups: enumToOptions(PublishingGroup).map(({ value }) => ({
+      value,
+      label: intl.formatMessage(getPublishingGroup(value)),
+      ariaLabel: intl
+        .formatMessage(getPublishingGroup(value))
+        .replace(
+          intl.locale === "en" ? "IT" : "TI",
+          intl.locale === "en" ? "I T" : "T I",
+        ),
+    })),
     pools: filterRes.data?.pools.filter(notEmpty).map((pool) => ({
       value: pool.id,
       label: getFullPoolTitleLabel(intl, pool),
@@ -83,7 +99,7 @@ export default function useFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getOperationalRequirement(value, "short")),
     })),
-    workRegion: enumToOptions(WorkRegion).map(({ value }) => ({
+    workRegion: enumToOptionsWorkRegionSorted(WorkRegion).map(({ value }) => ({
       value,
       label: intl.formatMessage(getWorkRegion(value)),
     })),
@@ -137,6 +153,21 @@ export default function useFilterOptions(enableEducationType = false) {
         label: intl.formatMessage(getCandidateSuspendedFilterStatus(value)),
       }),
     ),
+    roles: filterRes.data?.roles
+      ?.filter(notEmpty)
+      // custom selection of what options are desired in the input
+      .filter(
+        (role) =>
+          role?.name === ROLE_NAME.PlatformAdmin ||
+          role?.name === ROLE_NAME.PoolOperator ||
+          role?.name === ROLE_NAME.RequestResponder,
+      )
+      .map((role) => ({
+        value: role.id,
+        label:
+          (role?.displayName && role.displayName[locale]) ??
+          intl.formatMessage(commonMessages.nameNotLoaded),
+      })),
   };
 
   // Creates an object keyed with all fields, each with empty array.
@@ -150,6 +181,7 @@ export default function useFilterOptions(enableEducationType = false) {
       skills: filterRes,
       classifications: filterRes,
       pools: filterRes,
+      roles: filterRes,
     },
   };
 }

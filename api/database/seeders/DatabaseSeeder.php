@@ -51,19 +51,19 @@ class DatabaseSeeder extends Seeder
         $this->call(TeamSeeder::class);
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
+        $this->call(DigitalContractingQuestionnaireSeeder::class);
 
         // Seed random pools
         Pool::factory()->count(2)->draft()->create();
         Pool::factory()->count(6)->published()->create();
         Pool::factory()->count(2)->closed()->create();
+        Pool::factory()->count(2)->archived()->create();
         // Seed some expected values
         $this->seedPools();
 
         $digitalTalentPool = Pool::where('name->en', 'CMO Digital Careers')->sole();
 
-        User::factory([
-            'legacy_roles' => [ApiEnums::LEGACY_ROLE_APPLICANT]
-        ])
+        User::factory()
             ->count(150)
             ->withExperiences()
             ->afterCreating(function (User $user) use ($faker, $digitalTalentPool) {
@@ -111,6 +111,18 @@ class DatabaseSeeder extends Seeder
         $pool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
         $this->seedPoolCandidate($applicant, $pool);
         $this->seedAwardExperienceForPool($applicant, $digitalTalentPool);
+        $applicantUserSkills = $applicant->userSkills;
+        foreach ($applicantUserSkills as $applicantUserSkill) {
+            $isSkillLevelSet = $faker->boolean(75);
+            $isWhenSkillUsedSet = $faker->boolean(75);
+            if ($isSkillLevelSet) {
+                $applicantUserSkill->skill_level = $faker->randomElement(ApiEnums::skillLevels());
+            }
+            if ($isWhenSkillUsedSet) {
+                $applicantUserSkill->when_skill_used = $faker->randomElement(ApiEnums::whenSkillUsed());
+            }
+            $applicantUserSkill->save();
+        }
 
         // attach either a work or education experience to a pool candidate to meet minimum criteria
         PoolCandidate::all()->load('user')->each(function ($poolCandidate) {
@@ -172,16 +184,15 @@ class DatabaseSeeder extends Seeder
     {
         // attach an award experience to a given user that has all the essential skills of a given pool
         $faker = Faker\Factory::create();
-        $essentialSkillIds = $pool->essentialSkills()->pluck('id')->toArray();
+        $essentialSkillIds = $pool->essentialSkills()->pluck('id');
 
-        if (isset($essentialSkillIds) && count($essentialSkillIds) > 0) {
-            $data = array_map(function () use ($faker) {
-                return ['details' => $faker->text()];
-            }, array_flip($essentialSkillIds)); // flip array from [index => 'id'], need id as keys
-
+        if ($essentialSkillIds->isNotEmpty()) {
+            $data = $essentialSkillIds->map(function ($id) use ($faker) {
+                return ['id' => $id, 'details' => $faker->text()];
+            });
             AwardExperience::factory()->for($user)
                 ->afterCreating(function ($model) use ($data) {
-                    $model->skills()->sync($data);
+                    $model->syncSkills($data);
                 })->create();
         }
     }

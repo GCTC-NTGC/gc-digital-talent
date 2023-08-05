@@ -6,7 +6,7 @@ import { SubmitHandler } from "react-hook-form";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pending } from "@gc-digital-talent/ui";
+import { Pending, Spoiler } from "@gc-digital-talent/ui";
 import {
   getCandidateSuspendedFilterStatus,
   getLanguage,
@@ -36,6 +36,8 @@ import {
   CandidateSuspendedFilter,
   PoolStream,
   PoolCandidateWithSkillCount,
+  useGetSkillsQuery,
+  PublishingGroup,
 } from "~/api/generated";
 
 import printStyles from "~/styles/printStyles";
@@ -61,13 +63,16 @@ import {
   stringToEnumOperational,
   stringToEnumPoolCandidateStatus,
 } from "~/utils/userUtils";
-
+import { getFullNameLabel } from "~/utils/nameUtils";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+import adminMessages from "~/messages/adminMessages";
+
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 
 import PoolCandidateTableFilterDialog, {
   FormValues,
 } from "./PoolCandidateTableFilterDialog";
+import skillMatchDialogAccessor from "./SkillMatchDialog";
 
 type Data = NonNullable<
   FromArray<PoolCandidateWithSkillCountPaginator["data"]>
@@ -77,6 +82,7 @@ function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
   return {
+    publishingGroups: input?.publishingGroups?.filter(notEmpty) ?? [],
     classifications:
       input?.applicantFilter?.qualifiedClassifications
         ?.filter(notEmpty)
@@ -150,6 +156,8 @@ const statusAccessor = (
     status === PoolCandidateStatus.ApplicationReview ||
     status === PoolCandidateStatus.ScreenedIn ||
     status === PoolCandidateStatus.ScreenedOutApplication ||
+    status === PoolCandidateStatus.ScreenedOutNotInterested ||
+    status === PoolCandidateStatus.ScreenedOutNotResponsive ||
     status === PoolCandidateStatus.UnderAssessment ||
     status === PoolCandidateStatus.ScreenedOutAssessment
   ) {
@@ -237,9 +245,15 @@ const viewAccessor = (
     candidate.status !== PoolCandidateStatus.ApplicationReview &&
     candidate.status !== PoolCandidateStatus.ScreenedIn &&
     candidate.status !== PoolCandidateStatus.ScreenedOutApplication &&
+    candidate.status !== PoolCandidateStatus.ScreenedOutNotInterested &&
+    candidate.status !== PoolCandidateStatus.ScreenedOutNotResponsive &&
     candidate.status !== PoolCandidateStatus.UnderAssessment &&
     candidate.status !== PoolCandidateStatus.ScreenedOutAssessment;
-
+  const candidateName = getFullNameLabel(
+    candidate.user.firstName,
+    candidate.user.lastName,
+    intl,
+  );
   if (isQualified) {
     return (
       <span data-h2-font-weight="base(700)">
@@ -251,6 +265,18 @@ const viewAccessor = (
             description:
               "Title displayed for the Pool Candidates table View Profile link.",
           }),
+          undefined,
+          intl.formatMessage(
+            {
+              defaultMessage: "View {name}'s profile",
+              id: "bWTzRy",
+              description:
+                "Link text to view a candidates profile for assistive technologies",
+            },
+            {
+              name: candidateName,
+            },
+          ),
         )}
       </span>
     );
@@ -265,6 +291,18 @@ const viewAccessor = (
           description:
             "Title displayed for the Pool Candidates table View Application link.",
         }),
+        undefined,
+        intl.formatMessage(
+          {
+            defaultMessage: "View {name}'s application",
+            id: "mzGMZC",
+            description:
+              "Link text to view a candidates application for assistive technologies",
+          },
+          {
+            name: candidateName,
+          },
+        ),
       )}
     </span>
   );
@@ -277,9 +315,31 @@ const provinceAccessor = (
     ? intl.formatMessage(getProvinceOrTerritory(province as string))
     : "";
 
+const notesAccessor = (candidate: PoolCandidate, intl: IntlShape) =>
+  candidate?.notes ? (
+    <Spoiler
+      text={candidate.notes}
+      linkSuffix={intl.formatMessage(
+        {
+          defaultMessage: "notes for {name}",
+          id: "CZbb7c",
+          description:
+            "Link text suffix to read more notes for a pool candidate",
+        },
+        {
+          name: getFullNameLabel(
+            candidate.user.firstName,
+            candidate.user.lastName,
+            intl,
+          ),
+        },
+      )}
+    />
+  ) : null;
+
 const defaultState = {
   ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["candidacyStatus"],
+  hiddenColumnIds: ["candidacyStatus", "notes"],
   filters: {
     applicantFilter: {
       operationalRequirements: [],
@@ -292,6 +352,7 @@ const defaultState = {
     },
     poolCandidateStatus: [],
     priorityWeight: [],
+    publishingGroups: [PublishingGroup.ItJobs, PublishingGroup.ItJobsOngoing],
   },
 };
 
@@ -362,7 +423,6 @@ const PoolCandidatesTable = ({
     if (
       sortingRule?.column.sortColumnName &&
       [
-        "JOB_LOOKING_STATUS",
         "FIRST_NAME",
         "EMAIL",
         "PREFERRED_LANG",
@@ -420,6 +480,7 @@ const PoolCandidatesTable = ({
       generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
       email: searchType === "email" ? searchBarTerm : undefined,
       name: searchType === "name" ? searchBarTerm : undefined,
+      notes: searchType === "notes" ? searchBarTerm : undefined,
 
       // from fancy filter
       applicantFilter: fancyFilterState?.applicantFilter,
@@ -427,6 +488,7 @@ const PoolCandidatesTable = ({
       priorityWeight: fancyFilterState?.priorityWeight,
       expiryStatus: fancyFilterState?.expiryStatus,
       suspendedStatus: fancyFilterState?.suspendedStatus,
+      publishingGroups: fancyFilterState?.publishingGroups,
     };
   };
 
@@ -477,6 +539,7 @@ const PoolCandidatesTable = ({
       suspendedStatus: data.suspendedStatus[0]
         ? stringToEnumCandidateSuspended(data.suspendedStatus[0])
         : undefined,
+      publishingGroups: data.publishingGroups as PublishingGroup[],
     };
 
     setTableState({
@@ -506,6 +569,14 @@ const PoolCandidatesTable = ({
 
   const candidateData = data?.poolCandidatesPaginated?.data ?? [];
   const filteredData = candidateData.filter(notEmpty);
+
+  const [
+    { data: allSkillsData, fetching: fetchingSkills, error: skillsError },
+  ] = useGetSkillsQuery();
+  const allSkills = allSkillsData?.skills.filter(notEmpty);
+  const filteredSkillIds = applicantFilterInput?.applicantFilter?.skills
+    ?.filter(notEmpty)
+    .map((skill) => skill.id);
 
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
@@ -550,16 +621,16 @@ const PoolCandidatesTable = ({
       },
       {
         label: intl.formatMessage({
-          defaultMessage: "Priority",
-          id: "EZQ9Dj",
+          defaultMessage: "Category",
+          id: "qrDCTV",
           description:
             "Title displayed for the Pool Candidates table Priority column.",
         }),
         header: (
           <span>
             {intl.formatMessage({
-              defaultMessage: "Priority",
-              id: "EZQ9Dj",
+              defaultMessage: "Category",
+              id: "qrDCTV",
               description:
                 "Title displayed for the Pool Candidates table Priority column.",
             })}
@@ -610,6 +681,11 @@ const PoolCandidatesTable = ({
         sortColumnName: "FIRST_NAME",
       },
       {
+        label: intl.formatMessage(adminMessages.notes),
+        id: "notes",
+        accessor: ({ poolCandidate }) => notesAccessor(poolCandidate, intl),
+      },
+      {
         label: intl.formatMessage({
           defaultMessage: "Preferred Communication Language",
           id: "eN8J/9",
@@ -629,7 +705,15 @@ const PoolCandidatesTable = ({
         }),
         id: "skillCount",
         sortColumnName: "SKILL_COUNT",
-        accessor: ({ skillCount }) => skillCount,
+        accessor: ({ poolCandidate: { user }, skillCount }) =>
+          skillMatchDialogAccessor(
+            allSkills?.filter((skill) =>
+              filteredSkillIds?.includes(skill.id),
+            ) ?? [],
+            user.experiences?.filter(notEmpty) ?? [],
+            skillCount,
+            `${user.firstName} ${user.lastName}`,
+          ),
       },
       {
         label: intl.formatMessage({
@@ -669,7 +753,7 @@ const PoolCandidatesTable = ({
         sortColumnName: "submitted_at",
       },
     ],
-    [intl, selectedRows, filteredData, paths],
+    [intl, selectedRows, filteredData, paths, allSkills, filteredSkillIds],
   );
 
   const allColumnIds = columns.map((c) => c.id);
@@ -794,6 +878,10 @@ const PoolCandidatesTable = ({
             }),
             value: "email",
           },
+          {
+            label: intl.formatMessage(adminMessages.notes),
+            value: "notes",
+          },
         ]}
         onColumnHiddenChange={(event) => {
           handleColumnHiddenChange(
@@ -806,7 +894,11 @@ const PoolCandidatesTable = ({
         hiddenColumnIds={hiddenColumnIds ?? []}
       />
       <div data-h2-radius="base(s)">
-        <Pending fetching={fetching} error={error} inline>
+        <Pending
+          fetching={fetching || fetchingSkills}
+          error={error || skillsError}
+          inline
+        >
           <BasicTable
             labelledBy="pool-candidate-table-heading"
             title={title}

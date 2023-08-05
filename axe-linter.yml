@@ -10,7 +10,6 @@ global-components:
   MenuLink: a
   ScrollToLink: a
   SkipLink: a
-  TileLink: a
   DefinitionList.Root: dl
   DefinitionList.Item: dt
   Heading: h*

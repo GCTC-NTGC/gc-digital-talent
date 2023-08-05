@@ -22,6 +22,7 @@ describe("Submit Application Workflow Tests", () => {
       aliasQuery(req, "GetApplication");
       aliasQuery(req, "getApplicationData");
       aliasQuery(req, "MyApplications");
+      aliasQuery(req, "getMyExperiences");
 
       aliasMutation(req, "createApplication");
       aliasMutation(req, "UpdateApplication");
@@ -51,7 +52,6 @@ describe("Submit Application Workflow Tests", () => {
       cy.createUser({
         email: `cypress.user.${uniqueTestId}@example.org`,
         sub: `cypress.sub.${uniqueTestId}`,
-        legacyRoles: ["APPLICANT"],
         currentProvince: ProvinceOrTerritory.Ontario,
         currentCity: "Test City",
         telephone: "+10123456789",
@@ -72,55 +72,51 @@ describe("Submit Application Workflow Tests", () => {
       addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
     });
 
-    // fetch the dcmId for its team from database, needed for pool creation
-    let dcmId;
-    cy.getDCM().then((dcm) => {
-      dcmId = dcm;
-    });
-
-    cy.getMe()
-      .its("id")
-      .then((adminUserId) => {
-        cy.get("@testClassificationId").then((testClassificationId) => {
-          cy.createPool(adminUserId, dcmId, [testClassificationId])
-            .its("id")
-            .as("testPoolId")
-            .then((testPoolId) => {
-              cy.get("@testSkillIds").then((testSkillIds) => {
-                cy.updatePool(testPoolId, {
-                  name: {
-                    en: "Cypress Test Pool EN",
-                    fr: "Cypress Test Pool FR",
-                  },
-                  stream: PoolStream.BusinessAdvisoryServices,
-                  closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
-                  yourImpact: { en: "test impact EN", fr: "test impact FR" },
-                  keyTasks: { en: "key task EN", fr: "key task FR" },
-                  essentialSkills: {
-                    sync: testSkillIds,
-                  },
-                  language: PoolLanguage.Various,
-                  securityClearance: SecurityStatus.Secret,
-                  location: {
-                    en: "test location EN",
-                    fr: "test location FR",
-                  },
-                  isRemote: true,
-                  publishingGroup: PublishingGroup.ItJobs,
-                  screeningQuestions: {
-                    create: [
-                      {
-                        question: { en: "Question EN", fr: "Question FR" },
-                        sortOrder: 1,
-                      },
-                    ],
-                  },
+    cy.getDCM().then((dcmId) => {
+      cy.getMe()
+        .its("id")
+        .then((adminUserId) => {
+          cy.get("@testClassificationId").then((testClassificationId) => {
+            cy.createPool(adminUserId, dcmId, [testClassificationId])
+              .its("id")
+              .as("testPoolId")
+              .then((testPoolId) => {
+                cy.get("@testSkillIds").then((testSkillIds) => {
+                  cy.updatePool(testPoolId, {
+                    name: {
+                      en: "Cypress Test Pool EN",
+                      fr: "Cypress Test Pool FR",
+                    },
+                    stream: PoolStream.BusinessAdvisoryServices,
+                    closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
+                    yourImpact: { en: "test impact EN", fr: "test impact FR" },
+                    keyTasks: { en: "key task EN", fr: "key task FR" },
+                    essentialSkills: {
+                      sync: testSkillIds,
+                    },
+                    language: PoolLanguage.Various,
+                    securityClearance: SecurityStatus.Secret,
+                    location: {
+                      en: "test location EN",
+                      fr: "test location FR",
+                    },
+                    isRemote: true,
+                    publishingGroup: PublishingGroup.ItJobs,
+                    screeningQuestions: {
+                      create: [
+                        {
+                          question: { en: "Question EN", fr: "Question FR" },
+                          sortOrder: 1,
+                        },
+                      ],
+                    },
+                  });
+                  cy.publishPool(testPoolId);
                 });
-                cy.publishPool(testPoolId);
               });
-            });
+          });
         });
-      });
+    });
 
     cy.get("@testUser").then((user) => {
       cy.loginBySubject(user.sub);
@@ -169,9 +165,11 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("button", { name: /Save and continue/i }).click();
     cy.wait("@gqlUpdateApplicationMutation");
 
-    // Review resume page - step three
+    // Review career timeline page - step three
     cy.wait("@gqlGetApplicationQuery");
-    cy.findByRole("heading", { name: /Great work! On to your résumé./i })
+    cy.findByRole("heading", {
+      name: /Great work! On to your career timeline./i,
+    })
       .should("exist")
       .and("be.visible");
     cy.findByRole("heading", { name: /Step 3 of 7/i })
@@ -180,10 +178,12 @@ describe("Submit Application Workflow Tests", () => {
 
     // Attempt skipping to review
     cy.url().then((url) => {
-      const reviewResumeIntroUrl = url;
-      cy.expect(reviewResumeIntroUrl).to.have.string("resume/introduction");
-      const hackedUrl = reviewResumeIntroUrl.replace(
-        "resume/introduction",
+      const reviewCareerTimelineIntroUrl = url;
+      cy.expect(reviewCareerTimelineIntroUrl).to.have.string(
+        "career-timeline/introduction",
+      );
+      const hackedUrl = reviewCareerTimelineIntroUrl.replace(
+        "career-timeline/introduction",
         "review",
       );
       cy.visit(hackedUrl);
@@ -196,18 +196,18 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("link", {
       name: /Return to the last step I was working on/i,
     }).click();
-    cy.findByRole("heading", { name: /Create your résumé/i }) // returned to resume step
+    cy.findByRole("heading", { name: /Create your career timeline/i }) // returned to career timeline step
       .should("exist")
       .and("be.visible");
     cy.findByRole("link", {
       name: /Review and submit/i,
     }).click();
-    cy.findByRole("heading", { name: /Create your résumé/i })
+    cy.findByRole("heading", { name: /Create your career timeline/i })
       .should("exist")
       .and("be.visible"); // can't skip with the stepper, still on the same page
 
     // Quit trying to skip and continue step three honestly
-    cy.contains(/You don’t have any résumé experiences yet./i)
+    cy.contains(/You don’t have any career timeline experiences yet./i)
       .should("exist")
       .and("be.visible");
     cy.findByRole("button", { name: /Save and continue/i }).click(); // will it let you continue?
@@ -215,9 +215,9 @@ describe("Submit Application Workflow Tests", () => {
       .should("exist")
       .and("be.visible");
     cy.findByRole("link", { name: /Add a new experience/i }).click();
-    cy.url().should("contain", "/resume/add");
-    // at adding experience to resume page now
-    cy.contains(/Add an experience to your résumé/i)
+    cy.url().should("contain", "/career-timeline/add");
+    // at adding experience to career timeline page now
+    cy.contains(/Add an experience to your career timeline/i)
       .should("exist")
       .and("be.visible");
     // fill in education experience
@@ -242,13 +242,14 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("combobox", { name: /Status/i }).select(
       "Successful Completion (Credential Awarded)",
     );
-    cy.findByRole("textbox", { name: /Your tasks and responsibilities/i }).type(
+    cy.findByRole("textbox", { name: /Additional details/i }).type(
       "Mastering Cypress",
     );
     cy.findByRole("button", { name: /Save and go back/i }).click();
     cy.wait("@gqlCreateEducationExperienceMutation");
     cy.expectToast(/Successfully added experience!/i);
-    // returned to main resume review page
+    // returned to main career timeline review page
+    cy.wait("@gqlgetMyExperiencesQuery");
     cy.contains(/1 education and certificate experience/i)
       .should("exist")
       .and("be.visible");
@@ -257,7 +258,7 @@ describe("Submit Application Workflow Tests", () => {
       .and("be.visible");
     cy.findByRole("button", { name: /Save and continue/i }).click();
     cy.wait("@gqlUpdateApplicationMutation");
-    cy.expectToast(/Successfully updated your résumé!/i);
+    cy.expectToast(/Successfully updated your career timeline!/i);
 
     // Education experience page - step four
     cy.wait("@gqlGetApplicationQuery");
@@ -297,17 +298,19 @@ describe("Submit Application Workflow Tests", () => {
       .should("exist")
       .and("be.visible");
     cy.contains(
-      /This required skill must have at least 1 résumé experience associated with it./i,
+      /This required skill must have at least 1 career timeline experience associated with it./i,
     )
       .should("exist")
       .and("be.visible");
     cy.findByRole("button", { name: /Save and continue/i }).click(); // will it let you skip without filling
     cy.contains(
-      /Please connect at least one résumé experience to each required technical skill./i,
+      /Please connect at least one career timeline experience to each required technical skill./i,
     )
       .should("exist")
       .and("be.visible");
-    cy.findByRole("button", { name: /Connect a résumé experience/i }).click();
+    cy.findByRole("button", {
+      name: /Connect a career timeline experience/i,
+    }).click();
     cy.contains(/Choose the experience you'd like to add/i) // modal appeared
       .should("exist")
       .and("be.visible");
@@ -322,7 +325,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.expectToast(/Successfully linked experience!/i);
     cy.contains(/Choose the experience you'd like to add/i).should("not.exist"); // modal gone
     cy.contains(
-      /Please connect at least one résumé experience to each required technical skill./i,
+      /Please connect at least one career timeline experience to each required technical skill./i,
     ).should("not.exist"); // Experience and skill linked
     cy.findByRole("button", { name: /Save and continue/i }).click();
     cy.wait("@gqlUpdateApplicationMutation");
@@ -370,7 +373,7 @@ describe("Submit Application Workflow Tests", () => {
       .and("be.visible");
     // assert no error/empty case messages appear
     cy.contains(
-      /It looks like you haven't added any experiences to your résumé yet./i,
+      /It looks like you haven't added any experiences to your career timeline yet./i,
     ).should("not.exist");
     cy.contains(
       /It looks like you haven't selected an education requirement yet./i,
@@ -391,6 +394,8 @@ describe("Submit Application Workflow Tests", () => {
     })
       .should("exist")
       .and("be.visible");
-    cy.findByRole("link", { name: /Go to my dashboard/i }).should("exist");
+    cy.findByRole("link", {
+      name: /visit your Profile and applications page/i,
+    }).should("exist");
   });
 });

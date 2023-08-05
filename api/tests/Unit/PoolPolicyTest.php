@@ -329,4 +329,21 @@ class PoolPolicyTest extends TestCase
         $this->assertFalse($this->requestResponderUser->can('deleteDraft', $this->teamPool));
         $this->assertFalse($this->adminUser->can('deleteDraft', $this->teamPool));
     }
+
+    /**
+     * Assert that only pool operators can archive and un-archive a pool
+     *
+     * @return void
+     */
+    public function testArchiveAndUnarchive()
+    {
+        $this->assertTrue($this->poolOperatorUser->can('archiveAndUnarchive', $this->teamPool));
+
+        $this->assertFalse($this->guestUser->can('archiveAndUnarchive', $this->teamPool));
+        $this->assertFalse($this->applicantUser->can('archiveAndUnarchive', $this->teamPool));
+        $this->assertFalse($this->requestResponderUser->can('archiveAndUnarchive', $this->teamPool));
+        $this->assertFalse($this->adminUser->can('archiveAndUnarchive', $this->teamPool));
+        // Pool operator cannot close other teams pools
+        $this->assertFalse($this->poolOperatorUser->can('archiveAndUnarchive', $this->unOwnedPool));
+    }
 }

@@ -9,7 +9,7 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import {
-  Applicant,
+  User,
   OperationalRequirement,
   PositionDuration,
 } from "~/api/generated";
@@ -19,14 +19,14 @@ import {
 } from "~/validators/profile/workPreferences";
 
 const WorkPreferencesSection = ({
-  applicant,
+  user,
   editPath,
 }: {
-  applicant: Applicant;
+  user: User;
   editPath?: string;
 }) => {
   const intl = useIntl();
-  const { acceptedOperationalRequirements, positionDuration } = applicant;
+  const { acceptedOperationalRequirements, positionDuration } = user;
 
   // generate array of accepted operational requirements
   const acceptedOperationalArray = acceptedOperationalRequirements
@@ -75,7 +75,7 @@ const WorkPreferencesSection = ({
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {hasEmptyRequiredFields(applicant) && (
+        {hasEmptyRequiredFields(user) && (
           <>
             <div data-h2-flex-item="base(1of1)">
               <p>
@@ -216,7 +216,7 @@ const WorkPreferencesSection = ({
           </div>
         )}
 
-        {hasAllEmptyFields(applicant) && !editPath && (
+        {hasAllEmptyFields(user) && !editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
               {intl.formatMessage({

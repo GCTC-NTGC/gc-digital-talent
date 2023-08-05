@@ -7,7 +7,6 @@ import { ApplicationStep, Maybe, PoolCandidate } from "~/api/generated";
 import { ApplicationStepInfo } from "~/types/applicationStep";
 import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
 import selfDeclarationStepInfo from "~/pages/Applications/selfDeclarationStep/selfDeclarationStepInfo";
-import resumeStepInfo from "~/pages/Applications/resumeStep/resumeStepInfo";
 import reviewStepInfo from "~/pages/Applications/reviewStep/reviewStepInfo";
 import questionsStepInfo from "~/pages/Applications/questionsStep/questionsStepInfo";
 import educationStepInfo from "~/pages/Applications/educationStep/educationStepInfo";
@@ -17,6 +16,9 @@ import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
 
 import { isIAPPool } from "~/utils/poolUtils";
 import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import isPast from "date-fns/isPast";
+import careerTimelineStepInfo from "~/pages/Applications/careerTimelineStep/careerTimelineStepInfo";
 
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
@@ -37,7 +39,7 @@ export const getApplicationSteps = ({
     welcomeStepInfo,
     ...(isIAPPool(application.pool) ? [selfDeclarationStepInfo] : []),
     profileStepInfo,
-    resumeStepInfo,
+    careerTimelineStepInfo,
     educationStepInfo,
     skillsStepInfo,
     ...(application.pool.screeningQuestions?.length ? [questionsStepInfo] : []),
@@ -60,7 +62,7 @@ export const getApplicationSteps = ({
 };
 
 // Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
-export const missingPrerequisitesFromThisApplication = (
+const missingPrerequisitesFromThisApplication = (
   stepsInfosInApplication: Array<ApplicationStepInfo>,
   prerequisiteSteps: Maybe<Array<ApplicationStep>>,
   submittedSteps: Maybe<Array<ApplicationStep>>,
@@ -157,11 +159,15 @@ export function applicationStepsToStepperArgs(
 export type Application = Omit<PoolCandidate, "user">;
 
 export function isApplicationInProgress(a: Application): boolean {
+  const isExpired = a.pool.closingDate
+    ? isPast(parseDateTimeUtc(a.pool.closingDate))
+    : false;
   return (
-    a.status === PoolCandidateStatus.Draft ||
+    (!isExpired && a.status === PoolCandidateStatus.Draft) ||
     a.status === PoolCandidateStatus.NewApplication ||
     a.status === PoolCandidateStatus.ApplicationReview ||
-    a.status === PoolCandidateStatus.UnderAssessment
+    a.status === PoolCandidateStatus.UnderAssessment ||
+    a.status === PoolCandidateStatus.ScreenedIn
   );
 }
 

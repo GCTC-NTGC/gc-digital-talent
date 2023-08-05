@@ -4,8 +4,8 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
-    "jest-axe": "^7.0.1",
-    "ts-jest": "^29.1.0"
+    "jest-axe": "^8.0.0",
+    "ts-jest": "^29.1.1"
   },
   "scripts": {
     "clean": "rm -rf node_modules"

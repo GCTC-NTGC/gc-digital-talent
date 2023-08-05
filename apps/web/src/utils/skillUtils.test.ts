@@ -220,7 +220,7 @@ describe("skill util tests", () => {
     const experiences: Experience[] = [
       {
         id: "1",
-        applicant: fakeApplicant,
+        user: fakeApplicant,
         skills: [
           {
             id: "1",
@@ -238,7 +238,7 @@ describe("skill util tests", () => {
         experiences: [
           {
             id: "1",
-            applicant: fakeApplicant,
+            user: fakeApplicant,
             skills: [
               {
                 id: "1",
@@ -257,7 +257,7 @@ describe("skill util tests", () => {
     const experiences: Experience[] = [
       {
         id: "1",
-        applicant: fakeApplicant,
+        user: fakeApplicant,
         skills: [
           {
             id: "1",
@@ -268,7 +268,7 @@ describe("skill util tests", () => {
       },
       {
         id: "2",
-        applicant: fakeApplicant,
+        user: fakeApplicant,
         skills: [
           {
             id: "1",
@@ -279,7 +279,7 @@ describe("skill util tests", () => {
       },
       {
         id: "3",
-        applicant: fakeApplicant,
+        user: fakeApplicant,
         skills: [
           {
             id: "1",
@@ -297,7 +297,7 @@ describe("skill util tests", () => {
         experiences: [
           {
             id: "1",
-            applicant: fakeApplicant,
+            user: fakeApplicant,
             skills: [
               {
                 id: "1",
@@ -308,7 +308,7 @@ describe("skill util tests", () => {
           },
           {
             id: "2",
-            applicant: fakeApplicant,
+            user: fakeApplicant,
             skills: [
               {
                 id: "1",
@@ -319,7 +319,7 @@ describe("skill util tests", () => {
           },
           {
             id: "3",
-            applicant: fakeApplicant,
+            user: fakeApplicant,
             skills: [
               {
                 id: "1",
@@ -338,7 +338,7 @@ describe("skill util tests", () => {
     const experiences: Experience[] = [
       {
         id: "1",
-        applicant: fakeApplicant,
+        user: fakeApplicant,
         skills: [
           {
             id: "1",
@@ -366,7 +366,7 @@ describe("skill util tests", () => {
         experiences: [
           {
             id: "1",
-            applicant: fakeApplicant,
+            user: fakeApplicant,
             skills: [
               {
                 id: "1",
@@ -394,7 +394,7 @@ describe("skill util tests", () => {
         experiences: [
           {
             id: "1",
-            applicant: fakeApplicant,
+            user: fakeApplicant,
             skills: [
               {
                 id: "1",
@@ -422,7 +422,7 @@ describe("skill util tests", () => {
         experiences: [
           {
             id: "1",
-            applicant: fakeApplicant,
+            user: fakeApplicant,
             skills: [
               {
                 id: "1",

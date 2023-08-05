@@ -3,30 +3,6 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Applicant Dashboard
-    |--------------------------------------------------------------------------
-    |
-    | A new landing page for applicants after logging in showing their
-    | information at a glance.
-    |
-    */
-
-    'applicant_dashboard' => (bool) env('FEATURE_APPLICANT_DASHBOARD', false),
-
-    /*
-    |--------------------------------------------------------------------------
-    | PSAC Strike
-    |--------------------------------------------------------------------------
-    |
-    | Enable a notification disclaimer about disrupted service due to the PSAC
-    | strike.
-    |
-    */
-
-    'psac_strike' => (bool) env('FEATURE_PSAC_STRIKE', false),
-
-    /*
-    |--------------------------------------------------------------------------
     | Skill library
     |--------------------------------------------------------------------------
     |
@@ -36,4 +12,16 @@ return [
     */
 
     'skill_library' => (bool) env('FEATURE_SKILL_LIBRARY', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Status notifications
+    |--------------------------------------------------------------------------
+    |
+    | A feature to provide users with notifications queued whenever one of
+    | their pool candidates changes status.
+    |
+    */
+
+    'status_notifications' => (bool) env('FEATURE_STATUS_NOTIFICATIONS', false),
 ];

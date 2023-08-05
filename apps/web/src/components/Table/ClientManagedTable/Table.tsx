@@ -20,6 +20,7 @@ import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { Field } from "@gc-digital-talent/forms";
 
 import Pagination from "~/components/Pagination";
+import adminMessages from "~/messages/adminMessages";
 
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
@@ -28,7 +29,7 @@ import tableMessages from "../tableMessages";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
-export interface TableProps<
+interface TableProps<
   T extends Record<string, unknown> = Record<string, unknown>,
 > {
   columns: Array<Column<T>>;
@@ -278,37 +279,26 @@ function Table<T extends Record<string, unknown>>({
                           color="secondary"
                           type="button"
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "Columns",
-                            id: "xcBl1q",
-                            description:
-                              "Label displayed on the Table Columns toggle button.",
-                          })}
+                          {intl.formatMessage(adminMessages.showHideColumns)}
                         </Button>
                       </Dialog.Trigger>
                       <Dialog.Content>
                         <Dialog.Header>
-                          {intl.formatMessage({
-                            defaultMessage: "Table columns",
-                            id: "YH6bFU",
-                            description:
-                              "Dialog title for the admin tables columns toggle.",
-                          })}
+                          {intl.formatMessage(adminMessages.showHideColumns)}
                         </Dialog.Header>
                         <Dialog.Body>
                           <FormProvider {...methods}>
                             <Field.Fieldset boundingBox>
                               <Field.Legend>
-                                {intl.formatMessage({
-                                  defaultMessage: "Visible columns",
-                                  id: "H9rxOR",
-                                  description:
-                                    "Legend for the column toggle in admin tables.",
-                                })}
+                                {intl.formatMessage(
+                                  adminMessages.showHideTableColumns,
+                                )}
                               </Field.Legend>
                               <div data-h2-margin="base(x.125, 0)">
                                 <IndeterminateCheckbox
-                                  {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                                  {...(getToggleHideAllColumnsProps({
+                                    title: undefined,
+                                  }) as React.ComponentProps<
                                     typeof IndeterminateCheckbox
                                   >)}
                                 />
@@ -318,11 +308,12 @@ function Table<T extends Record<string, unknown>>({
                                   key={column.id}
                                   data-h2-margin="base(x.125, 0)"
                                 >
-                                  <label htmlFor={column.Header?.toString()}>
+                                  <label>
                                     <input
-                                      id={column.Header?.toString()}
                                       type="checkbox"
-                                      {...column.getToggleHiddenProps()}
+                                      {...column.getToggleHiddenProps({
+                                        title: undefined,
+                                      })}
                                     />
                                     {` ${column.Header}`}
                                   </label>

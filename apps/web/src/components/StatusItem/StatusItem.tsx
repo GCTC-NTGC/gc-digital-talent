@@ -6,11 +6,11 @@ import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIc
 import { Link, IconType, ScrollToLink } from "@gc-digital-talent/ui";
 
 export type Status = "error" | "success";
-export type StatusColor = "default" | Status;
+type StatusColor = "default" | Status;
 
 const textColorMap: Record<StatusColor, Record<string, string>> = {
   default: {
-    "data-h2-color": "base(black) base:hover(primary)",
+    "data-h2-color": "base(black)",
   },
   error: {
     "data-h2-color": "base(error.darker) base:hover(error.darkest)",
@@ -22,7 +22,7 @@ const textColorMap: Record<StatusColor, Record<string, string>> = {
 
 const iconColorMap: Record<StatusColor, Record<string, string>> = {
   default: {
-    "data-h2-color": "base(black) base:hover(primary)",
+    "data-h2-color": "base(black.light) base:hover(primary)",
   },
   error: {
     "data-h2-color": "base(error)",
@@ -60,7 +60,7 @@ const StatusItemTitle = ({
   return <span {...rest}>{children}</span>;
 };
 
-export interface StatusItemProps {
+interface StatusItemProps {
   title: string;
   titleColor?: StatusColor;
   status?: Status;
@@ -73,7 +73,7 @@ export interface StatusItemProps {
   itemCount?: number;
 }
 
-export const StatusItem = ({
+const StatusItem = ({
   title,
   titleColor = "default",
   status,
@@ -141,6 +141,7 @@ export const StatusItem = ({
         <StatusItemTitle
           href={href}
           scrollTo={scrollTo}
+          data-h2-text-align="base(left)"
           {...textColorMap[effectiveTitleColor]}
         >
           {combinedTitle}

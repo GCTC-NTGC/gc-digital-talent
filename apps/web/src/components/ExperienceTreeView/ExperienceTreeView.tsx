@@ -34,8 +34,8 @@ const ExperienceTreeView = ({ skill }: ExperienceTreeViewProps) => {
             <Alert.Title>
               {intl.formatMessage({
                 defaultMessage:
-                  "This required skill must have at least 1 résumé experience associated with it.",
-                id: "7XSyhV",
+                  "This required skill must have at least 1 career timeline experience associated with it.",
+                id: "ZwGMwT",
                 description: "Experience tree view error message",
               })}
             </Alert.Title>
@@ -52,8 +52,8 @@ const ExperienceTreeView = ({ skill }: ExperienceTreeViewProps) => {
       <TreeView.Item>
         <Button color="secondary" mode="solid" type="button">
           {intl.formatMessage({
-            defaultMessage: "Connect a résumé experience",
-            id: "GE9NbK",
+            defaultMessage: "Connect a career timeline experience",
+            id: "URRpKO",
             description: "Experience tree view action button label",
           })}
         </Button>

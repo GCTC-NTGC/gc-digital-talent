@@ -6,11 +6,8 @@ import {
 } from "@gc-digital-talent/web/src/api/generated";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
-  JobLookingStatus,
-  LanguageAbility,
   OperationalRequirement,
   PositionDuration,
-  LegacyRole,
 } from "@gc-digital-talent/web/src/api/generated";
 
 export function createApplicant({
@@ -23,7 +20,6 @@ export function createApplicant({
   cy.createUser({
     email: email ? `cypress.user.${Date.now().valueOf()}@example.org` : null,
     sub: sub ? `cypress.sub.${Date.now().valueOf()}` : null,
-    legacyRoles: [LegacyRole.Applicant],
     currentProvince: ProvinceOrTerritory.Ontario,
     currentCity: "Test City",
     telephone: "+10123456789",
@@ -34,7 +30,6 @@ export function createApplicant({
     isGovEmployee: false,
     isWoman: true,
     hasPriorityEntitlement: false,
-    jobLookingStatus: JobLookingStatus.ActivelyLooking,
     hasDiploma: true,
     locationPreferences: WorkRegion.Ontario,
     acceptedOperationalRequirements: [
@@ -71,7 +66,6 @@ export function addRolesToUser(userId, roles = [], team = undefined) {
       .filter((role) => roles.includes(role.name))
       .map((role) => role.id);
     cy.updateUser(userId, {
-      legacyRoles: undefined,
       roleAssignmentsInput: {
         attach: {
           roles: roleIds,

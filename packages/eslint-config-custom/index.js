@@ -62,6 +62,8 @@ module.exports = {
     "consistent-return": "warn",
     "import/no-extraneous-dependencies": "off",
     "import/extensions": ["warn", "never", { json: "always" }],
+    // Note: Re-enable with #7453
+    //"import/no-unused-modules": [1, { unusedExports: true, ignoreExports: ["src/index.{ts,tsx}"] }],
     "react/display-name": "off",
     "react/prop-types": "off",
     "react/jsx-filename-extension": [
@@ -167,6 +169,14 @@ module.exports = {
       },
     ],
     "react/forbid-elements": [1, { forbid: ["a"] }],
+    "no-restricted-syntax": [
+      "error",
+      {
+        selector: "Literal[value=/Indigenous Apprenticeship Program/i]",
+        message:
+          "The name of the program is IT Apprenticeship Program for Indigenous Peoples.",
+      },
+    ],
   },
   settings: {
     "import/extensions": [".ts", ".tsx"],

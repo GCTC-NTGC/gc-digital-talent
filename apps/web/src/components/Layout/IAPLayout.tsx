@@ -10,15 +10,23 @@ import { getRuntimeVariable } from "@gc-digital-talent/env";
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
-import Header from "~/components/Header";
-import Footer from "~/components/Footer";
+import Header from "~/components/Header/Header";
+import Footer from "~/components/Footer/Footer";
 import IAPNavMenu from "~/components/NavMenu/IAPNavMenu";
 
 import useLayoutTheme from "~/hooks/useLayoutTheme";
 
+import * as crgMessages from "~/lang/crgCompiled.json";
+import * as crkMessages from "~/lang/crkCompiled.json";
+import * as ojwMessages from "~/lang/ojwCompiled.json";
 import * as micMessages from "~/lang/micCompiled.json";
 
-const messages: Map<string, Messages> = new Map([["mic", micMessages]]);
+const messages: Map<string, Messages> = new Map([
+  ["crg", crgMessages],
+  ["crk", crkMessages],
+  ["ojw", ojwMessages],
+  ["mic", micMessages],
+]);
 
 const IAPSeo = () => {
   const intl = useIntl();

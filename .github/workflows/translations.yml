@@ -62,15 +62,15 @@ jobs:
             exit 0;
           fi
 
-      - name: "Verify no orphaned strings: i18n"
+      - name: "Verify clean file: i18n"
         if: always()
         working-directory: packages/i18n/src/lang
         run: >
           if [[ "$(git status --porcelain)" == *packages/i18n/src/lang/fr.json* ]]; then
-            echo ":x: i18n has orphaned strings" | tee -a $GITHUB_STEP_SUMMARY;
+            echo ":x: i18n is dirty" | tee -a $GITHUB_STEP_SUMMARY;
             exit 1;
           else
-            echo ":heavy_check_mark: i18n is tidy" | tee -a $GITHUB_STEP_SUMMARY;
+            echo ":heavy_check_mark: i18n is clean" | tee -a $GITHUB_STEP_SUMMARY;
             exit 0;
           fi
 
@@ -86,15 +86,15 @@ jobs:
             exit 0;
           fi
 
-      - name: "Verify no orphaned strings: web"
+      - name: "Verify clean file: web"
         if: always()
         working-directory: apps/web/src/lang
         run: >
           if [[ "$(git status --porcelain)" == *apps/web/src/lang/fr.json* ]]; then
-            echo ":x: Web has orphaned strings" | tee -a $GITHUB_STEP_SUMMARY;
+            echo ":x: Web is dirty" | tee -a $GITHUB_STEP_SUMMARY;
             exit 1;
           else
-            echo ":heavy_check_mark: Web is tidy" | tee -a $GITHUB_STEP_SUMMARY;
+            echo ":heavy_check_mark: Web is clean" | tee -a $GITHUB_STEP_SUMMARY;
             exit 0;
           fi
 

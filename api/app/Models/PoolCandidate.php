@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\PoolCandidateObserver;
 use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -75,6 +76,14 @@ class PoolCandidate extends Model
         'expiry_date',
         'pool_candidate_status',
     ];
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        PoolCandidate::observe(PoolCandidateObserver::class);
+    }
 
     public function user(): BelongsTo
     {
@@ -229,6 +238,46 @@ class PoolCandidate extends Model
         return $query;
     }
 
+    /**
+     * Scope Publishing Groups
+     *
+     * Restrict a query by specific publishing groups
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query The existing query being built
+     * @param ?array $publishingGroups The publishing groups to scope the query by
+     * @return \Illuminate\Database\Eloquent\Builder The resulting query
+     */
+    public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
+    {
+        // Early return if no publishing groups were supplied
+        if (empty($publishingGroups)) return $query;
+
+        $query = $query->whereHas('pool', function ($query) use ($publishingGroups) {
+            $query->whereIn('publishing_group', $publishingGroups);
+        });
+
+        return $query;
+    }
+
+    /**
+     * Scope is IT
+     *
+     * Restrict a query by pool candidates that are for pools
+     * containing IT specific publishing groups
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query The existing query being built
+     * @return \Illuminate\Database\Eloquent\Builder The resulting query
+     */
+    public static function scopeInITPublishingGroup(Builder $query)
+    {
+        $query = self::scopePublishingGroups($query, [
+            ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
+            ApiEnums::PUBLISHING_GROUP_IT_JOBS
+        ]);
+
+        return $query;
+    }
+
     public function scopeOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
         if (empty($operationalRequirements)) {
@@ -297,8 +346,12 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query->whereHas('user', function ($query) use ($search) {
-            User::scopeGeneralSearch($query, $search);
+        $query->where(function ($query) use ($search) {
+            $query->whereHas('user', function ($query) use ($search) {
+                User::scopeGeneralSearch($query, $search);
+            })->orWhere(function ($query) use ($search) {
+                self::scopeNotes($query, $search);
+            });
         });
 
         return $query;
@@ -326,6 +379,16 @@ class PoolCandidate extends Model
         $query->whereHas('user', function ($query) use ($email) {
             User::scopeEmail($query, $email);
         });
+
+        return $query;
+    }
+
+    public static function scopeNotes(Builder $query, ?string $notes): Builder
+    {
+
+        if (!empty($notes)) {
+            $query->where('notes', 'ilike', "%{$notes}%");
+        }
 
         return $query;
     }
@@ -578,9 +641,11 @@ class PoolCandidate extends Model
                 if ($user->isAbleTo("view-team-submittedApplication")) {
                     $teamIds = $user->rolesTeams()->get()->pluck('id');
                     $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
-                        return $query->whereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
+                        return $query
+                            ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                            ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            });
                     });
                 }
 
@@ -631,25 +696,10 @@ class PoolCandidate extends Model
         return $query->addSelect([
             'skill_count' => Skill::whereIn('skills.id', $skills)
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
-                ->select(DB::raw('count(*) as skills'))
-                ->where(function (Builder $query) {
-                    $query->orWhereHas('awardExperiences', function (Builder $query) {
-                        $query->whereColumn('user_id', 'users.id');
-                    })
-                        ->orWhereHas('educationExperiences', function (Builder $query) {
-                            $query->whereColumn('user_id', 'users.id');
-                        })
-                        ->orWhereHas('communityExperiences', function (Builder $query) {
-                            $query->whereColumn('user_id', 'users.id');
-                        })
-                        ->orWhereHas('personalExperiences', function (Builder $query) {
-                            $query->whereColumn('user_id', 'users.id');
-                        })
-                        ->orWhereHas('workExperiences', function (Builder $query) {
-                            $query->whereColumn('user_id', 'users.id');
-                        });
+                ->whereHas('userSkills', function (Builder $query) {
+                    $query->whereColumn('user_id', 'users.id');
                 })
-
+                ->select(DB::raw('count(*) as skills'))
         ]);
     }
 }

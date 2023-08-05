@@ -2,6 +2,7 @@
  * Documentation: https://www.radix-ui.com/docs/primitives/components/accordion
  */
 import React from "react";
+import { motion } from "framer-motion";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
@@ -143,6 +144,37 @@ const Content = React.forwardRef<
   </AccordionPrimitive.Content>
 ));
 
+type AnimatedContentProps = React.ComponentPropsWithoutRef<typeof Content> & {
+  isOpen: boolean;
+};
+
+const animationVariants = {
+  open: {
+    height: "auto",
+    opacity: 1,
+  },
+  closed: {
+    height: 0,
+    opacity: 0,
+  },
+};
+
+const AnimatedContent = React.forwardRef<
+  React.ElementRef<typeof Content>,
+  AnimatedContentProps
+>(({ isOpen, children, ...rest }, forwardedRef) => (
+  <Content asChild forceMount ref={forwardedRef} {...rest}>
+    <motion.div
+      className="Accordion__Content"
+      animate={isOpen ? "open" : "closed"}
+      variants={animationVariants}
+      transition={{ duration: 0.2, type: "tween" }}
+    >
+      {children}
+    </motion.div>
+  </Content>
+));
+
 /**
  * @name Accordion
  * @desc A vertically stacked set of interactive headings that each reveal an associated section of content.
@@ -179,6 +211,11 @@ const Accordion = {
    * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#content)
    */
   Content,
+  /**
+   * @name AnimatedContent
+   * @description
+   */
+  AnimatedContent,
 };
 
 export default Accordion;

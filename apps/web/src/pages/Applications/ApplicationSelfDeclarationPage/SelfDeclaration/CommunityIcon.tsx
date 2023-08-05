@@ -32,13 +32,15 @@ const getCommunityIcon = (community: string): [string, string] => {
 
 interface CommunityIconProps {
   community: string;
-  value: string;
+  values: string[];
 }
 
-const CommunityIcon = ({ community, value }: CommunityIconProps) => {
+const CommunityIcon = ({ community, values }: CommunityIconProps) => {
   const { watch } = useFormContext();
   const communitiesValue = watch("communities");
-  const isOn = partOfCommunity(value as string, communitiesValue);
+  const isOn = values.some((value) =>
+    partOfCommunity(value as string, communitiesValue),
+  );
   const [iconOn, iconOff] = getCommunityIcon(community);
 
   const styles = {

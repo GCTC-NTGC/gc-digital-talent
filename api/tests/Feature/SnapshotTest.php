@@ -18,6 +18,9 @@ use Illuminate\Foundation\Testing\WithFaker;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertSame;
+use function PHPUnit\Framework\assertSameSize;
+
 use Faker;
 
 class SnapshotTest extends TestCase
@@ -46,8 +49,17 @@ class SnapshotTest extends TestCase
             ->asApplicant()
             ->create();
 
+        $pool1 = Pool::factory()->published()->create();
+        $pool2 = Pool::factory()->published()->create();
+
         $poolCandidate = PoolCandidate::factory()->create([
             "user_id" => $user->id,
+            "pool_id" => $pool1->id,
+            "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
+        ]);
+        $poolCandidateUnrelated = PoolCandidate::factory()->create([
+            "user_id" => $user->id,
+            "pool_id" => $pool2->id,
             "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
         ]);
 
@@ -75,6 +87,12 @@ class SnapshotTest extends TestCase
 
         $decodedActual = json_decode($actualSnapshot, true);
 
+        // there are two pool candidates present, only one should appear in the snapshot, adjust expectedSnapshot to fit this
+        // array_values reindexes the array from zero https://stackoverflow.com/a/3401863
+        $filteredPoolCandidates = array_values(array_filter($expectedSnapshot['poolCandidates'], function ($individualPoolCandidate) use ($poolCandidate) {
+            return $poolCandidate['id'] === $individualPoolCandidate['id'];
+        }));
+        $expectedSnapshot['poolCandidates'] = $filteredPoolCandidates;
         assertEquals($expectedSnapshot, $decodedActual);
     }
 
@@ -89,13 +107,10 @@ class SnapshotTest extends TestCase
                 ->count(2)
                 ->for($user)
                 ->afterCreating(function ($model) use ($faker) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                    $data = [
-                        $skills[0] => ['details' => $faker->text()],
-                        $skills[1] => ['details' => $faker->text()],
-                        $skills[2] => ['details' => $faker->text()],
-                    ];
-                    $model->skills()->sync($data);
+                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->map(function ($skill_id) use ($faker) {
+                        return ['id' => $skill_id, 'details' => $faker->text()];
+                    });
+                    $model->syncSkills($skills);
                 })->create();
         });
 
@@ -137,5 +152,57 @@ class SnapshotTest extends TestCase
         $intersectedArray = array_intersect($unusedSkillIds, $snapshotSkillIds);
         $intersectedArrayLength = count($intersectedArray);
         assertEquals($intersectedArrayLength, 0);
+    }
+
+    // a cleanup routine to make the lines of a query easier to diff
+    private static function normalizeQueryLines(array $lines)
+    {
+        foreach ($lines as &$line) {
+            // remove comments
+            $pos = strpos($line, '#');
+            if ($pos !== false) {
+                $line = substr($line, 0, $pos);
+            }
+            // trim whitespace
+            $line = trim($line);
+        }
+
+        // remove empty lines
+        $arrayWithoutEmptyLines = array_filter($lines, fn ($line) => !empty($line));
+
+        return array_values($arrayWithoutEmptyLines);
+    }
+    /**
+     * A test to ensure that that the query used in PHP to make profile snapshots matches the query
+     * used to display live snapshots.  The two queries need to stay in sync to ensure the snapshots
+     * remain accurate.
+     *
+     * It's unusual for a PHPUnit test to touch files outside of the project directory but I think
+     * it makes sense for this test.
+     *
+     * @return void
+     */
+    public function testSnapshotQueryInSync()
+    {
+        $backendQuery = file(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), FILE_IGNORE_NEW_LINES);
+        $frontendQuery = file(base_path('../apps/web/src/pages/Profile/ProfilePage/profileOperations.graphql'), FILE_IGNORE_NEW_LINES);
+
+        $backendQueryNormalized = SnapshotTest::normalizeQueryLines($backendQuery);
+        $frontendQueryNormalized = SnapshotTest::normalizeQueryLines($frontendQuery);
+
+        for ($i = 0; $i < min([count($backendQueryNormalized), count($frontendQueryNormalized)]); $i++) {
+            $backendLine = $backendQueryNormalized[$i];
+            $frontendLine = $frontendQueryNormalized[$i];
+
+            // some expected diffs
+            if ($i == 0 && $backendLine == 'query getProfile($userId: UUID!) {' && $frontendLine == 'query getMe {')
+                continue;
+            if ($i == 1 && $backendLine == 'user(id: $userId) {' && $frontendLine == 'me {')
+                continue;
+
+            assertSame($backendLine, $frontendLine, 'Mismatch on line ' . $i + 1 . '.');
+        }
+
+        assertSameSize($backendQueryNormalized, $frontendQueryNormalized, 'The queries should have the same number of lines.');
     }
 }

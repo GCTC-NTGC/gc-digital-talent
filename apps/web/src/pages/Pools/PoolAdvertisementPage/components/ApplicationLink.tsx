@@ -12,6 +12,7 @@ interface ApplicationLinkProps {
   hasApplied?: boolean;
   canApply?: boolean;
   linkProps?: Omit<LinkProps, "mode" | "ref">;
+  linkText?: string;
 }
 
 const ApplicationLink = ({
@@ -20,6 +21,7 @@ const ApplicationLink = ({
   hasApplied,
   canApply,
   linkProps,
+  linkText,
 }: ApplicationLinkProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -33,29 +35,33 @@ const ApplicationLink = ({
   const href = applicationId
     ? paths.application(applicationId)
     : paths.createApplication(poolId);
-
-  let linkText = intl.formatMessage({
-    defaultMessage: "Apply for this process",
-    id: "W2YIEA",
-    description: "Link text to apply for a pool advertisement",
-  });
-  if (applicationId) {
-    linkText = hasApplied
-      ? intl.formatMessage({
-          defaultMessage: "View my application",
-          id: "btCYxZ",
-          description: "Link text to view an existing, submitted application",
-        })
-      : intl.formatMessage({
-          defaultMessage: "Continue my application",
-          id: "g5JeNf",
-          description: "Link text to continue an existing, draft application",
-        });
+  let linkTextLabel;
+  if (!linkText) {
+    linkTextLabel = intl.formatMessage({
+      defaultMessage: "Apply for this process",
+      id: "W2YIEA",
+      description: "Link text to apply for a pool advertisement",
+    });
+    if (applicationId) {
+      linkTextLabel = hasApplied
+        ? intl.formatMessage({
+            defaultMessage: "View my application",
+            id: "btCYxZ",
+            description: "Link text to view an existing, submitted application",
+          })
+        : intl.formatMessage({
+            defaultMessage: "Continue my application",
+            id: "g5JeNf",
+            description: "Link text to continue an existing, draft application",
+          });
+    }
+  } else {
+    linkTextLabel = linkText;
   }
 
   return (
     <Link mode="solid" href={href} {...linkProps}>
-      {linkText}
+      {linkTextLabel}
     </Link>
   );
 };

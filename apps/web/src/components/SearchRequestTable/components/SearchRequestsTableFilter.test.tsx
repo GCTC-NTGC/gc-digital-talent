@@ -97,8 +97,8 @@ describe("SearchRequestsTableFilterDialog", () => {
     expect(mockSubmit).toHaveBeenCalledWith({
       classifications: [classifications[0].id],
       departments: [departments[0].id],
-      status: ["DONE"],
-      streams: [PoolStream.BusinessAdvisoryServices],
+      status: ["NEW"],
+      streams: [PoolStream.AccessInformationPrivacy],
     });
   });
 });

@@ -1,4 +1,4 @@
-import { Applicant, Pool } from "@gc-digital-talent/graphql";
+import { Pool } from "@gc-digital-talent/graphql";
 
 import {
   aboutSectionHasEmptyRequiredFields,
@@ -8,17 +8,32 @@ import {
   languageInformationSectionHasUnsatisfiedRequirements,
   workLocationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
+  PartialUserAbout,
+  PartialUserDei,
+  PartialUserGovernment,
+  PartialUserLanguage,
+  PartialUserLocation,
+  PartialUserPreferences,
+  PartialUserRoleSalary,
 } from "~/validators/profile";
 
-const stepHasError = (applicant: Applicant, pool: Pool) => {
+type PartialUser = PartialUserAbout &
+  PartialUserDei &
+  PartialUserGovernment &
+  PartialUserLanguage &
+  PartialUserLocation &
+  PartialUserPreferences &
+  PartialUserRoleSalary;
+
+const stepHasError = (user: PartialUser, pool: Pool) => {
   const hasEmptyRequiredFields =
-    aboutSectionHasEmptyRequiredFields(applicant) ||
-    workLocationSectionHasEmptyRequiredFields(applicant) ||
-    diversityEquityInclusionSectionHasEmptyRequiredFields(applicant, pool) ||
-    governmentInformationSectionHasEmptyRequiredFields(applicant) ||
-    languageInformationSectionHasEmptyRequiredFields(applicant) ||
-    workPreferencesSectionHasEmptyRequiredFields(applicant) ||
-    languageInformationSectionHasUnsatisfiedRequirements(applicant, pool);
+    aboutSectionHasEmptyRequiredFields(user) ||
+    workLocationSectionHasEmptyRequiredFields(user) ||
+    diversityEquityInclusionSectionHasEmptyRequiredFields(user, pool) ||
+    governmentInformationSectionHasEmptyRequiredFields(user) ||
+    languageInformationSectionHasEmptyRequiredFields(user) ||
+    workPreferencesSectionHasEmptyRequiredFields(user) ||
+    languageInformationSectionHasUnsatisfiedRequirements(user, pool);
   return hasEmptyRequiredFields;
 };
 

@@ -29,7 +29,7 @@ import {
   GovEmployeeType,
   OperationalRequirement,
   PositionDuration,
-  Applicant,
+  User,
   BilingualEvaluation,
   IndigenousCommunity,
   PoolCandidate,
@@ -38,8 +38,8 @@ import isEmpty from "lodash/isEmpty";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
 import { anyCriteriaSelected as anyCriteriaSelectedRoleSalarySection } from "~/validators/profile/roleSalary";
 
-export interface ProfileDocumentProps {
-  results: Applicant[] | PoolCandidate[];
+interface ProfileDocumentProps {
+  results: User[] | PoolCandidate[];
 }
 
 const PageSection = ({ children }: { children: React.ReactNode }) => (
@@ -48,6 +48,13 @@ const PageSection = ({ children }: { children: React.ReactNode }) => (
     data-h2-display="base(block)"
     data-h2-break-inside="base(avoid) base:print(avoid)"
   >
+    {children}
+  </div>
+);
+
+// If a section is too big, use this instead of PageSection to allow it to break
+const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
+  <div data-h2-margin-bottom="base(2rem)" data-h2-display="base(block)">
     {children}
   </div>
 );
@@ -85,7 +92,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
             )}
             {results &&
               results.map((initialResult, index) => {
-                const result: Applicant =
+                const result: User =
                   "user" in initialResult ? initialResult.user : initialResult;
 
                 const govEmployeeTypeId =
@@ -313,10 +320,10 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           <p>
                             {intl.formatMessage({
                               defaultMessage:
-                                "Second language level (Comprehension, Written, Verbal)",
-                              id: "M9x5zm",
+                                "Second language level (reading, writing, oral interaction)",
+                              id: "qOi2J0",
                               description:
-                                "Evaluation results for second language, results in that order",
+                                "Second language level (reading, writing, oral interaction) label",
                             })}
                             {intl.formatMessage(commonMessages.dividingColon)}
                             {insertBetween(", ", [
@@ -419,19 +426,20 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                             ? intl.formatMessage(commonMessages.yes)
                             : intl.formatMessage(commonMessages.no)}
                         </p>
-                        {result.hasPriorityEntitlement &&
-                          result.priorityNumber && (
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage: "Priority number",
-                                id: "mGGj/i",
-                                description:
-                                  "Label for applicant's priority number value",
-                              })}
-                              {intl.formatMessage(commonMessages.dividingColon)}
-                              {result.priorityNumber}
-                            </p>
-                          )}
+                        {result.hasPriorityEntitlement && (
+                          <p>
+                            {intl.formatMessage({
+                              defaultMessage: "Priority number",
+                              id: "mGGj/i",
+                              description:
+                                "Label for applicant's priority number value",
+                            })}
+                            {intl.formatMessage(commonMessages.dividingColon)}
+                            {result.priorityNumber
+                              ? result.priorityNumber
+                              : intl.formatMessage(commonMessages.notProvided)}
+                          </p>
+                        )}
                       </PageSection>
                       <PageSection>
                         <Heading level="h3">
@@ -451,9 +459,9 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         {!!result.locationExemptions && (
                           <p>
                             {intl.formatMessage({
-                              defaultMessage: "Location exemptions",
-                              id: "ruD4vK",
-                              description: "Location exemptions label",
+                              defaultMessage: "Work location exceptions",
+                              id: "OpKC2i",
+                              description: "Work location exceptions label",
                             })}
                             {intl.formatMessage(commonMessages.dividingColon)}
                             {result.locationExemptions}
@@ -679,16 +687,16 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           </div>
                         )}
                       </PageSection>
-                      <PageSection>
+                      <BreakingPageSection>
                         <Heading level="h3">
                           {intl.formatMessage(
-                            navigationMessages.resumeAndRecruitment,
+                            navigationMessages.careerTimelineAndRecruitment,
                           )}
                         </Heading>
                         <PrintExperienceByType
                           experiences={result.experiences?.filter(notEmpty)}
                         />
-                      </PageSection>
+                      </BreakingPageSection>
                     </div>
                     {index + 1 !== results.length && (
                       <div style={{ breakAfter: "page" }} />

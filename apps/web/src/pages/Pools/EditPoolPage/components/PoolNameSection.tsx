@@ -4,7 +4,11 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import { TableOfContents } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import {
+  getLocalizedName,
+  getPoolStream,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import {
   Input,
   Select,
@@ -118,7 +122,7 @@ const PoolNameSection = ({
 
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
-      <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
+      <TableOfContents.Heading data-h2-margin="base(0, 0, x1, 0)">
         {sectionMetadata.title}
       </TableOfContents.Heading>
       <p>
@@ -147,6 +151,7 @@ const PoolNameSection = ({
                   "Label displayed on the pool form classification field.",
               })}
               name="classification"
+              nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
               options={classificationOptions}
               disabled={formDisabled}
             />

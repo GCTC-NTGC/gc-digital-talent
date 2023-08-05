@@ -1,5 +1,5 @@
 import {
-  Applicant,
+  User,
   EducationRequirementOption,
   Pool,
   PoolCandidate,
@@ -8,7 +8,7 @@ import { ExperienceForDate } from "~/types/experience";
 import { isEducationExperience } from "~/utils/experienceUtils";
 
 const stepHasError = (
-  _applicant: Applicant,
+  _user: User,
   _pool: Pool,
   application: Omit<PoolCandidate, "pool">,
 ) => {

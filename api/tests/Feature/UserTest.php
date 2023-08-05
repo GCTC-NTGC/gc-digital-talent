@@ -11,6 +11,9 @@ use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
 use App\Models\GenericJobTitle;
+use App\Models\Role;
+use App\Models\UserSkill;
+use App\Models\Team;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -41,19 +44,16 @@ class UserTest extends TestCase
             ->create([
                 'email' => 'admin@test.com',
                 'sub' => 'admin@test.com',
-                'legacy_roles' => ['ADMIN'],
 
                 // The following properties make sure this user doesn't match certain test queries, skewing results.
                 'looking_for_english' => null,
                 'looking_for_french' => null,
                 'looking_for_bilingual' => null,
                 'expected_salary' => [],
-                'job_looking_status' => null,
                 'accepted_operational_requirements' => null,
                 'location_preferences' => [],
                 'has_diploma' => false,
                 'position_duration' => [],
-                'job_looking_status' => null,
                 'is_gov_employee' => false,
                 'telephone' => null,
                 'first_name' => null,
@@ -75,7 +75,6 @@ class UserTest extends TestCase
                     preferredLang
                     preferredLanguageForInterview
                     preferredLanguageForExam
-                    legacyRoles
                 }
             }
         ',
@@ -97,7 +96,6 @@ class UserTest extends TestCase
                     'preferredLang' => null,
                     'preferredLanguageForInterview' => null,
                     'preferredLanguageForExam' => null,
-                    'legacyRoles' => []
                 ]
             ]
         ]);
@@ -119,7 +117,6 @@ class UserTest extends TestCase
                     preferredLang
                     preferredLanguageForInterview
                     preferredLanguageForExam
-                    legacyRoles
                 }
             }
         ',
@@ -128,7 +125,6 @@ class UserTest extends TestCase
                     'firstName' => 'Jane',
                     'lastName' => 'Tester',
                     'email' => 'jane@test.com',
-                    'legacyRoles' => ['ADMIN']
                 ]
             ]
         )->assertJson([
@@ -141,74 +137,11 @@ class UserTest extends TestCase
                     'preferredLang' => null,
                     'preferredLanguageForInterview' => null,
                     'preferredLanguageForExam' => null,
-                    'legacyRoles' => ['ADMIN']
                 ]
             ]
         ]);
         // Ensure user was saved
         $this->assertDatabaseHas('users', ['email' => 'jane@test.com']);
-    }
-
-    public function testUpdateUserLegacyRole()
-    {
-        $user = User::factory()->create(['legacy_roles' => []]);
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            mutation UpdateUser($id: ID!, $user: UpdateUserAsAdminInput!) {
-                updateUserAsAdmin(id: $id, user: $user) {
-                    id
-                    legacyRoles
-                }
-            }
-        ',
-            [
-                'id' => $user->id,
-                'user' => [
-                    'legacyRoles' => ['ADMIN']
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'updateUserAsAdmin' => [
-                    'id' => strval($user->id),
-                    'legacyRoles' => ['ADMIN']
-                ]
-            ]
-        ]);
-        // Ensure change was saved
-        $this->assertContains('ADMIN', $user->fresh()->legacy_roles);
-    }
-
-    public function testUpdateUserRole()
-    {
-        $user = User::factory()->create(['legacy_roles' => []]);
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            mutation UpdateUser($id: ID!, $user: UpdateUserAsAdminInput!) {
-                updateUserAsAdmin(id: $id, user: $user) {
-                    id
-                    legacyRoles
-                }
-            }
-        ',
-            [
-                'id' => $user->id,
-                'user' => [
-                    'legacyRoles' => ['ADMIN']
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'updateUserAsAdmin' => [
-                    'id' => strval($user->id),
-                    'legacyRoles' => ['ADMIN']
-                ]
-            ]
-        ]);
-        // Ensure change was saved
-        $this->assertContains('ADMIN', $user->fresh()->legacy_roles);
     }
 
     public function testFilterByPoolCandidateStatuses(): void
@@ -1790,32 +1723,32 @@ class UserTest extends TestCase
             AwardExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                    $model->skills()->sync($skills);
+                    $skills = Skill::inRandomOrder()->limit(3)->get();
+                    $model->syncSkills($skills);
                 })->create();
             CommunityExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                    $model->skills()->sync($skills);
+                    $skills = Skill::inRandomOrder()->limit(3)->get();
+                    $model->syncSkills($skills);
                 })->create();
             EducationExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                    $model->skills()->sync($skills);
+                    $skills = Skill::inRandomOrder()->limit(3)->get();
+                    $model->syncSkills($skills);
                 })->create();
             PersonalExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                    $model->skills()->sync($skills);
+                    $skills = Skill::inRandomOrder()->limit(3)->get();
+                    $model->syncSkills($skills);
                 })->create();
             WorkExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) {
-                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                    $model->skills()->sync($skills);
+                    $skills = Skill::inRandomOrder()->limit(3)->get();
+                    $model->syncSkills($skills);
                 })->create();
         });
 
@@ -1827,24 +1760,24 @@ class UserTest extends TestCase
             AwardExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) use ($skill1) {
-                    $model->skills()->sync([$skill1['id']]);
+                    $model->syncSkills([$skill1]);
                 })->create();
             WorkExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) use ($skill1) {
-                    $model->skills()->sync([$skill1['id']]);
+                    $model->syncSkills([$skill1]);
                 })->create();
         })->create();
         User::factory()->afterCreating(function ($user) use ($skill1, $skill2) {
             CommunityExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) use ($skill1) {
-                    $model->skills()->sync([$skill1['id']]);
+                    $model->syncSkills([$skill1]);
                 })->create();
             PersonalExperience::factory()
                 ->for($user)
                 ->afterCreating(function ($model) use ($skill2) {
-                    $model->skills()->sync([$skill2['id']]);
+                    $model->syncSkills([$skill2]);
                 })->create();
         })->create();
 
@@ -2343,10 +2276,10 @@ class UserTest extends TestCase
         $user = User::All()->first();
 
         // Create new pools and attach to new pool candidates.
-        $pool1 = Pool::factory()->create([
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id']
         ]);
-        $pool2 = Pool::factory()->create([
+        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id']
         ]);
 
@@ -2849,7 +2782,6 @@ class UserTest extends TestCase
                         'pools' => null,
                     ],
                     'poolFilters' => null,
-                    'jobLookingStatus' => null,
                     'isProfileComplete' => null,
                     'isGovEmployee' => null,
                     'telephone' => null,
@@ -2863,6 +2795,142 @@ class UserTest extends TestCase
                 'usersPaginated' => [
                     'paginatorInfo' => [
                         'total' => 61
+                    ]
+                ]
+            ]
+        ]);
+    }
+
+    /** After running addSkills, the user should have a UserSkill for each added skill. */
+    public function testAddSkillsAddsUserSkills(): void
+    {
+        $skills = Skill::factory(3)->create();
+        $this->platformAdmin->addSkills($skills->pluck('id'));
+        $userSkillSkillIds = $this->platformAdmin->userSkills->pluck('skill_id');
+        $this->assertSameSize($skills, $userSkillSkillIds);
+        foreach ($skills as $skill) {
+            $this->assertContains($skill->id, $userSkillSkillIds);
+        }
+    }
+
+    public function testAddSkillsRestoresSoftDeletedUserSkills(): void
+    {
+        $userSkill = UserSkill::factory()->create([
+            'user_id' => $this->platformAdmin->id
+        ]);
+        $this->platformAdmin->userSkills->first()->delete();
+        // The user skill should be trashed (soft-deleted) and by default shouldn't appear in results.
+        $this->assertSoftDeleted($userSkill);
+        $this->assertEmpty($this->platformAdmin->refresh()->userSkills);
+        // Adding the same skill should restore the previous userSkill
+        $this->platformAdmin->addSkills([$userSkill->skill_id]);
+        $this->assertNotSoftDeleted($userSkill);
+        $this->assertContains($userSkill->id, $this->platformAdmin->refresh()->userSkills->pluck('id'));
+    }
+
+    public function testAddSkillsDoesNotAddDuplicates(): void
+    {
+        $skills = Skill::factory(3)->create();
+        // The user will already have the first skill.
+        $userSkill = UserSkill::factory()->create([
+            'user_id' => $this->platformAdmin->id,
+            'skill_id' => $skills[0]->id
+        ]);
+        $addSkills = [
+            $skills[0]->id, // This skill is already present
+            $skills[1]->id,
+            $skills[1]->id, // We will try to add this skill twice.
+            $skills[2]->id,
+        ];
+        $this->platformAdmin->addSkills($addSkills);
+        // After adding, user should still only have 3 userSkills.
+        $this->assertCount(3, $this->platformAdmin->userSkills);
+    }
+
+    public function testRoleAssignmentScope(): void
+    {
+        $adminId = Role::where('name', 'platform_admin')->value('id');
+        $responderId = Role::where('name', 'request_responder')->value('id');
+        $operatorId = Role::where('name', 'pool_operator')->value('id');
+        $testTeam = Team::factory()->create();
+
+        // Create users
+        User::factory(1)->asAdmin()->create();
+        User::factory(3)->asGuest()->create();
+        User::factory(5)->asPoolOperator($testTeam->name)->create();
+        User::factory(7)->asRequestResponder()->create();
+        User::factory(11)->asApplicant()->create();
+
+        // Assert that null roleAssignments returns all users, including the one from setUp()
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ',
+            [
+                'where' => ['roles' => null]
+            ]
+        )->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 28
+                    ]
+                ]
+            ]
+        ]);
+
+        // assert filtering for platform admin returns 2, including the one from setUp()
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ',
+            [
+                'where' => ['roles' => [$adminId]]
+            ]
+        )->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 2
+                    ]
+                ]
+            ]
+        ]);
+
+        // assert filtering for pool operator and request responder returns 12
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                    query getUsersPaginated($where: UserFilterInput) {
+                        usersPaginated(where: $where) {
+                            paginatorInfo {
+                                total
+                            }
+                        }
+                    }
+                ',
+            [
+                'where' => ['roles' => [$operatorId, $responderId]]
+            ]
+        )->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 12
                     ]
                 ]
             ]

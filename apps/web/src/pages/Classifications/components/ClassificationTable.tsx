@@ -120,7 +120,7 @@ export const ClassificationTable = ({
     <Table
       data={memoizedData}
       columns={columns}
-      hiddenCols={["minSalary", "maxSalary"]}
+      hiddenCols={["id", "minSalary", "maxSalary"]}
       addBtn={{
         path: paths.classificationCreate(),
         label: intl.formatMessage({

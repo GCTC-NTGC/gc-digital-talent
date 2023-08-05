@@ -104,7 +104,10 @@ const ApplicationQuestionsIntroduction = ({
             description: "An action button to proceed",
           })}
         </Link>
-        <Link color="secondary" href={paths.dashboard({ fromIapDraft: isIAP })}>
+        <Link
+          color="secondary"
+          href={paths.profileAndApplications({ fromIapDraft: isIAP })}
+        >
           {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>
       </div>

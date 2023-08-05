@@ -7,7 +7,9 @@ import {
 } from "./types";
 
 import Accordion from "./components/Accordion";
-import StandardAccordionHeader from "./components/Accordion/StandardHeader";
+import StandardAccordionHeader, {
+  StandardHeaderProps as StandardAccordionHeaderProps,
+} from "./components/Accordion/StandardHeader";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
@@ -62,6 +64,7 @@ import SideMenu, {
   type SideMenuProps,
   type SideMenuItemProps,
 } from "./components/SideMenu";
+import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
 import { StepType } from "./components/Stepper/types";
 import Switch from "./components/Switch";
@@ -69,9 +72,11 @@ import TableOfContents, {
   type TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
+  TocListItemProps,
+  TocListProps,
+  TocSidebarProps,
 } from "./components/TableOfContents";
 import Tabs from "./components/Tabs";
-import TileLink, { type TileLinkProps } from "./components/TileLink";
 import ToggleGroup from "./components/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
@@ -109,12 +114,16 @@ export type {
   PillSize,
   SideMenuProps,
   SideMenuItemProps,
+  SpoilerProps,
+  StandardAccordionHeaderProps,
   StepperProps,
   StepType,
   TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
-  TileLinkProps,
+  TocListItemProps,
+  TocListProps,
+  TocSidebarProps,
   WellProps,
 };
 
@@ -156,11 +165,11 @@ export {
   SideMenuButton,
   SideMenuItem,
   SideMenuContentWrapper,
+  Spoiler,
   Stepper,
   Switch,
   TableOfContents,
   Tabs,
-  TileLink,
   ToggleGroup,
   ToggleSection,
   TreeView,

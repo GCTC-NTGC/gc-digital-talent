@@ -86,7 +86,7 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->guest->can('viewAny', User::class));
         $this->assertFalse($this->applicant->can('viewAny', User::class));
         $this->assertFalse($this->poolOperator->can('viewAny', User::class));
-        $this->assertFalse($this->requestResponder->can('viewAny', User::class));
+        $this->assertTrue($this->requestResponder->can('viewAny', User::class));
         $this->assertTrue($this->platformAdmin->can('viewAny', User::class));
     }
 
@@ -101,7 +101,7 @@ class UserPolicyTest extends TestCase
         $this->assertTrue($this->applicant->can('view', $this->applicant));
         $this->assertFalse($this->otherApplicant->can('view', $this->applicant));
         $this->assertFalse($this->poolOperator->can('view', $this->applicant));
-        $this->assertFalse($this->requestResponder->can('view', $this->applicant));
+        $this->assertTrue($this->requestResponder->can('view', $this->applicant));
         $this->assertTrue($this->platformAdmin->can('view', $this->applicant));
     }
 
@@ -168,7 +168,7 @@ class UserPolicyTest extends TestCase
      * Pool Operators can view an applicant profile if they have applied to a pool in their team.
      *
      * @return void
-     */
+    */
     public function viewApplicant()
     {
         $pool = Pool::factory()->create([

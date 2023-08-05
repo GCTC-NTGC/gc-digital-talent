@@ -7,7 +7,7 @@ describe("User Profile Workflow Tests", () => {
 
     // make sure we end up on the profile page
     cy.wait("@gqlgetMeQuery");
-    cy.findByRole("heading", { name: /About me/i })
+    cy.findByRole("heading", { name: /Personal and contact information/i })
       .should("exist")
       .and("be.visible");
     cy.url().should("contain", "/profile");
@@ -16,32 +16,33 @@ describe("User Profile Workflow Tests", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "getMe");
-      aliasMutation(req, "UpdateUserAboutMe");
-      aliasMutation(req, "createWorkLocation");
+      aliasMutation(req, "UpdateUserAsUser");
     });
 
     loginAndGoToProfile();
   });
 
   it("Reviews a user profile and makes some edits", () => {
-    // about me
-    cy.findByRole("link", { name: /Edit About me/i }).click();
-    cy.findByRole("textbox", { name: /Current city/i })
-      .clear()
-      .type("Test City");
-    cy.findByRole("button", { name: /Save and go back/i }).click();
-    cy.wait("@gqlUpdateUserAboutMeMutation");
-    cy.expectToast(/User updated successfully/i);
+    // personal and contact information
+    cy.findByRole("button", { name: /Edit personal/i }).click();
+    cy.findByRole("textbox", { name: /Current city/i }).clear();
+    cy.findByRole("textbox", { name: /Current city/i }).type("Test City");
+    cy.findByRole("button", { name: /Save changes/i }).click();
+    cy.wait("@gqlUpdateUserAsUserMutation");
+    cy.expectToast(/information updated successfully/i);
     cy.url().should("contain", "/profile");
 
-    // work location
-    cy.findByRole("link", { name: /Edit Work location/i }).click();
-    cy.findByRole("textbox", { name: /Location exemptions/i })
-      .clear()
-      .type("Test Locations");
-    cy.findByRole("button", { name: /Save and go back/i }).click();
-    cy.wait("@gqlcreateWorkLocationMutation");
-    cy.expectToast(/User updated successfully/i);
+    // work preferences
+    cy.findByRole("button", { name: /Edit Work preferences/i }).click();
+    cy.findByRole("textbox", {
+      name: /please indicate if there is a city/i,
+    }).clear();
+    cy.findByRole("textbox", {
+      name: /please indicate if there is a city/i,
+    }).type("Test Locations");
+    cy.findByRole("button", { name: /Save changes/i }).click();
+    cy.wait("@gqlUpdateUserAsUserMutation");
+    cy.expectToast(/work preferences updated successfully/i);
     cy.url().should("contain", "/profile");
   });
 });

@@ -42,3 +42,14 @@ export const getRecruitmentType = (
   isOngoingPublishingGroup(publishingGroup)
     ? intl.formatMessage(poolCandidateMessages.ongoingRecruitment)
     : intl.formatMessage(poolCandidateMessages.targetedRecruitment);
+
+export const isScreenedOutStatus = (
+  status: Maybe<PoolCandidateStatus>,
+): boolean => {
+  return (
+    status === PoolCandidateStatus.ScreenedOutApplication ||
+    status === PoolCandidateStatus.ScreenedOutNotInterested ||
+    status === PoolCandidateStatus.ScreenedOutNotResponsive ||
+    status === PoolCandidateStatus.ScreenedOutAssessment
+  );
+};

@@ -43,6 +43,8 @@ export const canBeArchived = (
         PoolCandidateStatus.Expired,
         PoolCandidateStatus.ScreenedOutApplication,
         PoolCandidateStatus.ScreenedOutAssessment,
+        PoolCandidateStatus.ScreenedOutNotInterested,
+        PoolCandidateStatus.ScreenedOutNotResponsive,
       ].includes(status) && !archivedAt
     : false;
 };

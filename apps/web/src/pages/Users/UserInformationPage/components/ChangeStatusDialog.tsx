@@ -21,7 +21,7 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
 import {
   PoolStatus,
-  Applicant,
+  User,
   Pool,
   PoolCandidate,
   PoolCandidateStatus,
@@ -34,9 +34,9 @@ type FormValues = {
   additionalPools?: Pool["id"][];
 };
 
-export interface ChangeStatusDialogProps {
+interface ChangeStatusDialogProps {
   selectedCandidate: PoolCandidate;
-  user: Applicant;
+  user: User;
   pools: Pool[];
 }
 

@@ -7,18 +7,18 @@ import {
   getCitizenshipStatusesAdmin,
 } from "@gc-digital-talent/i18n";
 
-import { Applicant } from "~/api/generated";
+import { User } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 interface AdminAboutUserSectionProps {
-  applicant: Pick<
-    Applicant,
+  user: Pick<
+    User,
     "firstName" | "lastName" | "citizenship" | "armedForcesStatus"
   >;
 }
 
 const AdminAboutUserSection = ({
-  applicant: { firstName, lastName, citizenship, armedForcesStatus },
+  user: { firstName, lastName, citizenship, armedForcesStatus },
 }: AdminAboutUserSectionProps) => {
   const intl = useIntl();
 

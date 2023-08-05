@@ -6,7 +6,6 @@ import {
   getArmedForcesStatusesAdmin,
   getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
-  getJobLookingStatus,
   getLanguage,
   getLanguageProficiency,
   getPoolCandidatePriorities,
@@ -27,6 +26,7 @@ import {
   skillKeyAndJustifications,
   getExperienceTitles,
   getScreeningQuestionResponses,
+  getIndigenousCommunities,
 } from "~/utils/csvUtils";
 import { Maybe, PoolCandidate, PositionDuration, Pool } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
@@ -103,8 +103,8 @@ const usePoolCandidateCsvData = (
     {
       key: "priority",
       label: intl.formatMessage({
-        defaultMessage: "Priority",
-        id: "w9RqOI",
+        defaultMessage: "Category",
+        id: "o9B983",
         description: "CSV Header, Priority column",
       }),
     },
@@ -118,11 +118,7 @@ const usePoolCandidateCsvData = (
     },
     {
       key: "notes",
-      label: intl.formatMessage({
-        defaultMessage: "Notes",
-        id: "ev6HnY",
-        description: "CSV Header, Notes column",
-      }),
+      label: intl.formatMessage(adminMessages.notes),
     },
     {
       key: "currentProvince",
@@ -239,25 +235,25 @@ const usePoolCandidateCsvData = (
     {
       key: "comprehensionLevel",
       label: intl.formatMessage({
-        defaultMessage: "Comprehension Level",
-        id: "QIh0q7",
-        description: "CSV Header, Comprehension Level column",
+        defaultMessage: "Reading level",
+        id: "CEFnPm",
+        description: "CSV Header, Reading (comprehension) Level column",
       }),
     },
     {
       key: "writtenLevel",
       label: intl.formatMessage({
-        defaultMessage: "Written Level",
-        id: "w/v77x",
-        description: "CSV Header, Written Level column",
+        defaultMessage: "Writing level",
+        id: "8ea9ne",
+        description: "CSV Header, Writing Level column",
       }),
     },
     {
       key: "verbalLevel",
       label: intl.formatMessage({
-        defaultMessage: "Verbal Level",
-        id: "5R2iR2",
-        description: "CSV Header, Verbal Level column",
+        defaultMessage: "Oral interaction level",
+        id: "5nrkKw",
+        description: "CSV Header, Oral interaction Level column",
       }),
     },
     {
@@ -357,7 +353,7 @@ const usePoolCandidateCsvData = (
       }),
     },
     {
-      key: "isIndigenous",
+      key: "indigenousCommunities",
       label: intl.formatMessage({
         defaultMessage: "Indigenous",
         id: "83v9YH",
@@ -440,11 +436,6 @@ const usePoolCandidateCsvData = (
                 getPoolCandidatePriorities(user.priorityWeight),
               )
             : "",
-          availability: user.jobLookingStatus
-            ? intl.formatMessage(
-                getJobLookingStatus(user.jobLookingStatus as string, "short"),
-              )
-            : "",
           notes: notes || "",
           dateReceived: submittedAt || "",
           expiryDate: expiryDate || "",
@@ -516,7 +507,10 @@ const usePoolCandidateCsvData = (
             intl,
           ),
           isWoman: yesOrNo(user.isWoman, intl),
-          isIndigenous: yesOrNo(user.isIndigenous, intl),
+          indigenousCommunities: getIndigenousCommunities(
+            user.indigenousCommunities,
+            intl,
+          ),
           isVisibleMinority: yesOrNo(user.isVisibleMinority, intl),
           hasDisability: yesOrNo(user.hasDisability, intl),
           expectedClassification: getExpectedClassifications(

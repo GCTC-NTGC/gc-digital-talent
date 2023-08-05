@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\PersonalExperience;
+use App\Models\User;
 use App\Traits\ExperienceFactoryWithSkills;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -26,6 +27,7 @@ class PersonalExperienceFactory extends Factory
         $startDate = $this->faker->date();
 
         return [
+            'user_id' => User::factory(),
             'title' => $this->faker->jobTitle(),
             'description' => $this->faker->text(),
             'start_date' => $startDate,

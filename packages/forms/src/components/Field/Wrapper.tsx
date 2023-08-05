@@ -10,6 +10,7 @@ const Wrapper = (props: WrapperProps) => (
     data-h2-display="base(flex)"
     data-h2-flex-direction="base(column)"
     data-h2-gap="base(x.25 0)"
+    data-h2-max-width="base(100%)"
     {...props}
   />
 );

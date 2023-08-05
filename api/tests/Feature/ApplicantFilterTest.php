@@ -372,6 +372,10 @@ class ApplicantFilterTest extends TestCase
                     id
                     email
                     fullName
+                    jobTitle
+                    managerJobTitle
+                    positionType
+                    status
                     department {
                         id
                     }
@@ -386,6 +390,8 @@ class ApplicantFilterTest extends TestCase
                         'connect' => $request->department_id
                     ],
                     'jobTitle' => $request->job_title,
+                    'managerJobTitle' => $request->manager_job_title,
+                    'positionType' => $request->position_type,
                     'applicantFilter' => [
                         'create' => $this->filterToCreateInput($filter)
                     ]
@@ -397,6 +403,10 @@ class ApplicantFilterTest extends TestCase
                 'createPoolCandidateSearchRequest' => [
                     'email' => $request->email,
                     'fullName' => $request->full_name,
+                    'jobTitle' => $request->job_title,
+                    'managerJobTitle' => $request->manager_job_title,
+                    'positionType' => $request->position_type,
+                    'status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW,
                     'department' => [
                         'id' => $request->department_id
                     ],
@@ -418,13 +428,16 @@ class ApplicantFilterTest extends TestCase
         $this->seed(SkillSeeder::class);
         $this->seed(PoolSeeder::class);
 
-        $pool = Pool::factory()->published()->create([
-            'name' => [
-                'en' => 'Test Pool EN',
-                'fr' => 'Test Pool FR'
-            ],
-            'stream' => ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES
-        ]);
+        $pool = Pool::factory()
+            ->published()
+            ->candidatesAvailableInSearch()
+            ->create([
+                'name' => [
+                    'en' => 'Test Pool EN',
+                    'fr' => 'Test Pool FR'
+                ],
+                'stream' => ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES,
+            ]);
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([
             'pool_id' => $pool->id,
@@ -516,6 +529,8 @@ class ApplicantFilterTest extends TestCase
                         'connect' => $request->department_id
                     ],
                     'jobTitle' => $request->job_title,
+                    'managerJobTitle' => $request->manager_job_title,
+                    'positionType' => $request->position_type,
                     'applicantFilter' => [
                         'create' => $this->filterToCreateInput($filter)
                     ]

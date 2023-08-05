@@ -46,7 +46,7 @@ lightgray
 lightnavy
 lightpurple
 Métis
-Mi'kmaq
+Mi'kmaw
 Michif
 noninteractive
 nuage
@@ -55,13 +55,12 @@ OCIO
 Ojibway
 personalisation
 pgsql
-psac
 Queueable
 recruitmentimit
 recruitments
 recrutementgiti
-résumé
 rolepermission
+roundtable
 skillset
 spinbutton
 subcomponents
@@ -71,6 +70,7 @@ tanstack
 TELEWORK
 testid
 textbox
+Timeframe
 toastify
 Typenames
 Unencrypted

@@ -19,7 +19,7 @@ import SkillAccordion from "./SkillAccordion/SkillAccordion";
 import ExperienceByTypeListing from "./ExperienceByTypeListing";
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
-export interface ExperienceSectionProps {
+interface ExperienceSectionProps {
   experiences?: Experience[];
   editParam?: string;
   editPath?: string;
@@ -132,8 +132,8 @@ const ExperienceSection = ({
   return isExperience ? (
     <Tabs.Root defaultValue="0">
       <Tabs.List>
-        {tabs.map((tab, index) => (
-          <Tabs.Trigger key={tab} value={`${index}`}>
+        {tabs.map((tab) => (
+          <Tabs.Trigger key={tab} value={tab}>
             {tab}
           </Tabs.Trigger>
         ))}
@@ -162,15 +162,17 @@ const ExperienceSection = ({
         />
       </Tabs.Content>
       <Tabs.Content value="2">
-        <Accordion.Root type="multiple">
-          {sortedBySkills.map((skill) => (
-            <SkillAccordion
-              key={skill.id}
-              skill={skill}
-              headingLevel={headingLevel}
-            />
-          ))}
-        </Accordion.Root>
+        {sortedBySkills.length ? (
+          <Accordion.Root type="multiple">
+            {sortedBySkills.map((skill) => (
+              <SkillAccordion
+                key={skill.id}
+                skill={skill}
+                headingLevel={headingLevel}
+              />
+            ))}
+          </Accordion.Root>
+        ) : null}
       </Tabs.Content>
     </Tabs.Root>
   ) : (

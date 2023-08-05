@@ -711,6 +711,54 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
           ) : (
             <p>{notProvided}</p>
           )}
+          <div data-h2-flex-grid="base(flex-start, x1, x1)">
+            <div data-h2-flex-item="base(1of1)">
+              <h2
+                data-h2-margin="base(x2, 0, 0, 0)"
+                data-h2-font-size="base(h3)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "What to expect after you apply",
+                  id: "QdSYpe",
+                  description: "Sub title for the what to expect section",
+                })}
+              </h2>
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+              <p
+                data-h2-margin="base(x1, 0, 0, 0)"
+                data-h2-font-weight="base(700)"
+                data-h2-font-size="base(h6)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "English what to expect text",
+                  id: "b6MBKR",
+                  description:
+                    "Title for English pool advertisement what to expect",
+                })}
+              </p>
+              <p data-h2-margin="base(x.5, 0, 0, 0)">
+                {pool.whatToExpect?.en || notProvided}
+              </p>
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+              <p
+                data-h2-margin="base(x1, 0, 0, 0)"
+                data-h2-font-weight="base(700)"
+                data-h2-font-size="base(h6)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "French what to expect text",
+                  id: "b4lNeU",
+                  description:
+                    "Title for French pool advertisement what to expect",
+                })}
+              </p>
+              <p data-h2-margin="base(x.5, 0, 0, 0)">
+                {pool.whatToExpect?.fr || notProvided}
+              </p>
+            </div>
+          </div>
         </FormProvider>
         <p data-h2-margin="base(x2, 0, 0, 0)">
           <Link mode="solid" color="secondary" href={paths.poolTable()}>

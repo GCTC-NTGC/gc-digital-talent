@@ -9,6 +9,7 @@ const LogoutButton = React.forwardRef<HTMLButtonElement, LogoutButtonProps>(
       data-h2-color="base(black) base:hover(primary) base:iap(primary) base:iap:hover(primary.darker)"
       data-h2-font-size="base(normal)"
       data-h2-text-decoration="base(underline)"
+      data-h2-padding="base(0)"
       style={{
         background: "none",
       }}

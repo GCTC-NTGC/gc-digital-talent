@@ -4,7 +4,7 @@ import isEqual from "lodash/isEqual";
 
 import { SearchState, SortingRule } from "./helpers";
 
-export interface CommonTableState<T> {
+interface CommonTableState<T> {
   currentPage?: number;
   pageSize?: number;
   hiddenColumnIds?: Array<string>;

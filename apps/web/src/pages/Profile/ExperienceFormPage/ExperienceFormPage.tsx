@@ -68,8 +68,11 @@ export interface ExperienceFormProps {
   experience?: ExperienceQueryData;
   pool?: Pool;
   skills: Skill[];
-  onUpdateExperience: (values: ExperienceDetailsSubmissionData) => void;
+  onUpdateExperience: (
+    values: ExperienceDetailsSubmissionData,
+  ) => Promise<void> | undefined;
   deleteExperience: () => void;
+  executing?: boolean;
   cacheKey?: string;
   edit?: boolean;
 }
@@ -82,6 +85,7 @@ export const ExperienceForm = ({
   experienceType,
   onUpdateExperience,
   deleteExperience,
+  executing,
   skills,
   cacheKey,
   edit,
@@ -90,7 +94,7 @@ export const ExperienceForm = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const returnPath = `${paths.resumeAndRecruitment(userId)}${
+  const returnPath = `${paths.careerTimelineAndRecruitment(userId)}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 
@@ -117,7 +121,9 @@ export const ExperienceForm = ({
 
   let crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
-      label: intl.formatMessage(navigationMessages.resumeAndRecruitment),
+      label: intl.formatMessage(
+        navigationMessages.careerTimelineAndRecruitment,
+      ),
       url: returnPath,
     },
     {
@@ -192,7 +198,7 @@ export const ExperienceForm = ({
       formValues,
       irrelevantSkills,
     );
-    await onUpdateExperience(data);
+    return onUpdateExperience(data);
   };
 
   const labels = getExperienceFormLabels(intl, experienceType);
@@ -262,18 +268,18 @@ export const ExperienceForm = ({
         <ExperienceSkills skills={skills} pool={pool} />
         <h2 data-h2-font-size="base(h3, 1)" data-h2-margin="base(x3, 0, x1, 0)">
           {intl.formatMessage({
-            defaultMessage: "4. Additional information for this experience",
-            id: "Rgh/Qb",
+            defaultMessage: "4. Highlight additional details",
+            id: "E1BnhC",
             description: "Title for addition information on Experience form",
           })}
         </h2>
         <p data-h2-margin-bottom="base(x1)">
           {intl.formatMessage({
             defaultMessage:
-              "Anything else about this experience you would like to share.",
-            id: "h1wsiL",
+              "Optionally describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important.",
+            id: "KteuZ5",
             description:
-              "Description blurb for additional information on Experience form",
+              "Help text for the experience additional details field",
           })}
         </p>
         <TextArea id="details" label={labels.details} name="details" />
@@ -341,6 +347,7 @@ export const ExperienceForm = ({
           </AlertDialog.Root>
         )}
         <ProfileFormFooter
+          disabled={executing}
           mode="bothButtons"
           cancelLink={{
             href: returnPath,
@@ -372,7 +379,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const { userId, experienceType, experienceId } = useParams<RouteParams>();
   const paths = useRoutes();
   const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
-  const returnPath = `${paths.resumeAndRecruitment(userId || "")}${
+  const returnPath = `${paths.careerTimelineAndRecruitment(userId || "")}${
     applicationId ? `?applicationId=${applicationId}` : ``
   }`;
 
@@ -456,17 +463,17 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
     }) as ExperienceQueryData;
   }
 
-  const { executeMutation, getMutationArgs } = useExperienceMutations(
-    experience ? "update" : "create",
-    experienceType,
-  );
+  const { executeMutation, getMutationArgs, executing } =
+    useExperienceMutations(experience ? "update" : "create", experienceType);
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
     const args = getMutationArgs(experienceId || userId || "", values);
     if (executeMutation) {
       const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
-      res.then(handleMutationResponse).catch(handleError);
+      return res.then(handleMutationResponse).catch(handleError);
     }
+
+    return undefined;
   };
 
   // delete functionality //
@@ -520,6 +527,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           } // Only grab technical skills (hard skills).
           onUpdateExperience={handleUpdateExperience}
           deleteExperience={handleDeleteExperience}
+          executing={executing}
           cacheKey={cacheKey}
           edit={edit}
         />

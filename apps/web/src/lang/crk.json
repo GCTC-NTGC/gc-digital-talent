@@ -1,0 +1,378 @@
+{
+  "+JIfBy": {
+    "defaultMessage": "tānitē kēhcināc ka-atoskēt kiskinwahamākan?",
+    "description": "Learn more dialog question nine heading"
+  },
+  "+cn9MN": {
+    "defaultMessage": "aniki wīkiwāhk kawī-atoskēcik piko internet access ka-ayācik.",
+    "description": "IAP Requirement list item six"
+  },
+  "+do6jV": {
+    "defaultMessage": "kanawāpahta kā-nitawēyihtamihk ka-kiskinwahamāhk",
+    "description": "Button text for program eligibility criteria"
+  },
+  "/5tYua": {
+    "defaultMessage": "mīki wihtamākēwin",
+    "description": "How it works, step 2 heading"
+  },
+  "tBGvoD": {
+    "defaultMessage": "kinanāskomitinān ōma ē-nōhtē-otinaman ōma. ka=pēhitinān ka-pē-pīkiskwāsiyāhk!",
+    "description": "Third paragraph for apply now dialog"
+  },
+  "/ar49+": {
+    "defaultMessage": "ka-nōhtē-kiskēyihtahk ispīhk ka-pōnipayik ōma kisknwahamākēwin, ita ka-atoskahiht ēkwa online training mīna",
+    "description": "IAP Requirement list item five"
+  },
+  "v9mTgX": {
+    "defaultMessage": "wīpac online awiyak kākī-sākaskinahcikēw kā-nohtē-otinahk ōma kiskinwahamākēwin. mēkwāc ānōhc pē-itisaha kitatoskēwasinahikan ēkwa masinaha tānēhki kā-nohtē-otinaman kiskinwahamākēwin isi: edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca",
+    "description": "Learn more dialog question eleven paragraph one"
+  },
+  "27FjxB": {
+    "defaultMessage": "ka-nōhtē-kiskēyihtahk information technology (IT) ka-nōkohtāt ē-miywēyihtahk ita kā-atoskēt āhpō ita kā-wīkit",
+    "description": "IAP Requirement list item four"
+  },
+  "436DA5": {
+    "defaultMessage": "ohpikihtawin",
+    "description": "Talent portal strategy item 2 heading"
+  },
+  "4p0QdF": {
+    "defaultMessage": "Close",
+    "description": "Button text used to close an open modal"
+  },
+  "6l9YH+": {
+    "defaultMessage": "piko ka-ayāhk ōhi:",
+    "description": "Heading for the applicant requirements dialog"
+  },
+  "81iywD": {
+    "defaultMessage": "wihtamākawin mahēsa tāpwē kā-sākaskinahtāyan",
+    "description": "How it works, step 3 content sentence 1"
+  },
+  "84rSVg": {
+    "defaultMessage": "ka-ohpikihtāhk kotakak ayisiyiniwak ka-nitonāhcik ōtē nīkānōhk",
+    "description": "Talent portal strategy item 2 content"
+  },
+  "8PhWBd": {
+    "defaultMessage": "ka<softHyphen></softHyphen>sipwē<softHyphen></softHyphen>pitamihk",
+    "description": "Talent portal strategy item 4 heading"
+  },
+  "BSSYnh": {
+    "defaultMessage": "ē-nōhtē-wihtamātāhk, oski-ācimowin astēw anita site kā-itamihk ē-wihtamākēhk tānisi ta-isi-sākaskinahcikēcik kā-nōhte-otinahkik anima atoskē-kiskinwahamāsowin online ka-sākaskinahcikēcik.",
+    "description": "Second paragraph for apply now dialog"
+  },
+  "CY+493": {
+    "defaultMessage": "ayiwāk kiskēyihta",
+    "description": "Button text to learn more about the program"
+  },
+  "CZGta2": {
+    "defaultMessage": "ka-tipahikātēk cī ōma kiskinwahamākēwin?",
+    "description": "Learn more dialog question ten heading"
+  },
+  "hyJz3G": {
+    "defaultMessage": "wihtamākēwin anima ōhci kiskinwahamākēwin",
+    "description": "Program information section title"
+  },
+  "DBczOG": {
+    "defaultMessage": "tānisi kā-isi-itōtamihk",
+    "description": "Heading for strategy for the indigenous talent portal"
+  },
+  "DgMIfz": {
+    "defaultMessage": "kiya cī ōma ōhci kiya?",
+    "description": "Application box heading part one"
+  },
+  "DvmNR7": {
+    "defaultMessage": "sēmāk sākaskinahcikē",
+    "description": "Button text to apply for program"
+  },
+  "Dzyk1q": {
+    "defaultMessage": "ē-wīcihtāsocik IT Apprenticeship Program for Indigenous Peoples, Indigenous Talent Portal ka-māci-kanawāpahtamwak IT ēkwa aniki kā-nahīcik technology ēkosi ēkwa:",
+    "description": "Description for strategy for the indigenous talent portal"
+  },
+  "iKpxPY": {
+    "defaultMessage": "pētisaha atoskē-masinahikan ēkwa masinaha tānēhki ka-miywiyihtaman IT ēkwa tānēhki kā-nōhtē-otinaman ēkōma : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. awiyak ka-pē-pīkiskwātik 3-5 kīsikāwa ispayiki",
+    "description": "First paragraph for apply now dialog"
+  },
+  "GnmmgR": {
+    "defaultMessage": "Kīsihtāyani awiyak ka-pē-pīkiskwātik 3-5 kīsikāwa kā-atoskēhk",
+    "description": "How it works, step 3 content sentence 2"
+  },
+  "Ilot3b": {
+    "defaultMessage": "tānisi ka-ispayik awiyak kā-kīsihtāt anima 24 pīsimwān kiskinwahamākēwin?",
+    "description": "Learn more dialog question three heading"
+  },
+  "KdXvmY": {
+    "defaultMessage": "tānisi ta-isi-kiskēyihtamān mahti ōma kiskinwahamākēwin niya ōhci?",
+    "description": "Learn more dialog question seven heading"
+  },
+  "L9yjr3": {
+    "defaultMessage": "ayiwāk kiskēyihta Government of Canada IT Apprenticeship Program ōhci iyinito-aysiyiniwak",
+    "description": "Heading for the Learn more dialog"
+  },
+  "LGSw+f": {
+    "defaultMessage": "ka-wīcihāwak kiskinwahamākanak ē-nawasonihcik kwayask kiskinwahamākēwak. Ka-nitomāwak ka-wīcihowēcik Indigenous Apprenticeship Network, ēkota ka-nakiskawēwak koyaka iyinito-atoskahākanak kā-atoskēcik Government if Canada ēkwa kotaka kiskinwahamākanak kā-otinahkik ōma kiskinwahamākēwin.",
+    "description": "Learn more dialog question two paragraph two"
+  },
+  "MgLLHd": {
+    "defaultMessage": "kā<softHyphen></softHyphen>nitawēy<softHyphen></softHyphen>imihcik",
+    "description": "Talent portal strategy item 1 heading"
+  },
+  "NaF4Iu": {
+    "defaultMessage": "Sākaskinahcikē anōhc!",
+    "description": "Application box heading part two"
+  },
+  "O0z6Ym": {
+    "defaultMessage": "awina ōma ōhci ōma kiskinwahamākēwin?",
+    "description": "Heading for section about who the program is for"
+  },
+  "OcIvN1": {
+    "defaultMessage": "miyo-kīsihtāhki ōma kiskinwahamākēwin, pakosīmikawak ta-atoskātācik Government of Canada",
+    "description": "Learn more dialog question three paragraph one"
+  },
+  "PvH5lJ": {
+    "defaultMessage": "kīkway kā-pihtamāhk",
+    "description": "Heading for the quotes sections"
+  },
+  "QkZ7Oy": {
+    "defaultMessage": "tānisi ayisiyiniw kākī-itakow kiskikinwahmākan?",
+    "description": "Learn more dialog question eleven heading"
+  },
+  "Qt9Q8k": {
+    "defaultMessage": "tānispīhk ka-kīsihtāhk ōma kiskinwahamākēwin?",
+    "description": "Learn more dialog question two heading"
+  },
+  "S/PXt/": {
+    "defaultMessage": "mihcēt ita ka-atoskēt ayāwa Government of Canada. Ka-nitonikātēw tānite kiskinwahamākan ka-atoskēt ita ka-miywēyihtahk.",
+    "description": "Learn more dialog question nine paragraph one"
+  },
+  "SnnuD+": {
+    "defaultMessage": "ka-kakwēcimitinān profile ka-osihtāyan ēkoma sākaskinah<softHyphen></softHyphen>cikē<softHyphen></softHyphen>wasinahikan",
+    "description": "How it works, step 2 content sentence 2"
+  },
+  "U8bLT7": {
+    "defaultMessage": "tānisi ta-isi-ispayik",
+    "description": "heading for how the indigenous talent portal will work"
+  },
+  "UDHGGA": {
+    "defaultMessage": "wīpac ēkwa kākī-sākaskinahcikēw awiyak online ka-astēk ōta website. ēkohi ē-atoskātamāhk",
+    "description": "Description of how the indigenous talent portal will work"
+  },
+  "UQlyXu": {
+    "defaultMessage": "kiskinwahamākanak ka-kiskinwahamāwak ka-atoskēcik ēkwa online ka-otinamwak kīkwaya. Kiskinwahamākanak piko ka-nōkohtācik ē-miywēyihtahkik technology ka-kiskinawāpahtahkik ēkwa ka-kocihtācik kīkway ka-kiskinwahamāhcik. Nēwo kīsikāwa nāntaw ta-kocihtāt kīkway ēkwa pēyak kīsikāw ka-kiskinwahāmāsot online ēkwa kotaka kīkwaya ka-kiskinwahamāsot.",
+    "description": "Learn more dialog question eight paragraph one"
+  },
+  "WDRWcu": {
+    "defaultMessage": "Ottawa cī piko ta-ispiciyān āhpō kotakihk ka-otinamān ōma kiskinwahamākēwin?",
+    "description": "Learn more dialog question six heading"
+  },
+  "XS21o1": {
+    "defaultMessage": "tāpwē! ātoskahākanak ōhci Government of Canada, kahkiyaw kiskinwahamākanak ka-miyikawak, ayipīwē-kīsikāwa, ahkosi-kīsikāwa ēkwa kotaka kīsikāwa ōhci wītisāniwāwa. 6 pīsimwān ispayiki, kiskinwahamākanak ka-kahtinamwak",
+    "description": "Learn more dialog question five paragraph one"
+  },
+  "Xhfkfg": {
+    "defaultMessage": "ka-wāpahtamihk kā<softHyphen></softHyphen>nitawēy<softHyphen></softHyphen>imihcik iyinito-ayisiyiniwak IT",
+    "description": "Talent portal strategy item 1 content"
+  },
+  "YGM/D5": {
+    "defaultMessage": "24 pīsimwān ispihcāw ōma kiskinwahamākēwin ka-wīcihāwak kiskinwahamākanak ispihk kā-otinahkik ōma kiskinwahamākēwin.",
+    "description": "Learn more dialog question two paragraph one"
+  },
+  "b09U1u": {
+    "defaultMessage": "pōnipayiki ōma 24 pīsimwān kiskinwahamākēwin ka-miyikawak masinahikan ēkwa kiskēyihtamawin ka-nitawēyihcikātēk ēkwa ka-kiskēyihtamawak ka-atoskēcik kānata digital atoskēwak, pihcāyihk ēkwa wayawītimihk federal public service.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "cNXORI": {
+    "defaultMessage": "16 kā-itahopiponēt",
+    "description": "IAP Requirement list item three"
+  },
+  "cYq1Dp": {
+    "defaultMessage": "kiskinwahamākanak kā-otinahkik ōma itwēwak” ē-miyo-mīskocipayik pimātisiwin” , ē-miywāsik “ tānisi ta-isi-miyo-pimātisihk ka- apacihtāhk māmahtāwi-āpacihcikana ēkwa namōya kīkway astēw ka-nakinamāht ayisiyiniw ka-kīsihtāt ōma kiskinwahamākēwin”.",
+    "description": "Third paragraph about the program"
+  },
+  "ce892L": {
+    "defaultMessage": "Sākaskinahcikē sēmāk",
+    "description": "Heading for the apply now dialog"
+  },
+  "dDHy5d": {
+    "defaultMessage": "24 pīsimwān ispihcāw ōma kiskinwahamākēwin. ka-atoskēhk ēkwa ka-kiskinwahamāht awiyak ōma kāwī-otinahk.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "dgG8md": {
+    "defaultMessage": "astēw cī piko awiyak ka-ayāt kiskinwahamākēwin – nikākī-otinēn cī kīspin namōya nitāyān college diploma āhpō university degee?",
+    "description": "Learn more dialog question twelve heading"
+  },
+  "fF4Ex+": {
+    "defaultMessage": "Indigenous Talent Portal osihcikātēw iyinito-ayisiyiniwak ōhci, wiyawāw ē-osihtācik",
+    "description": "Talent portal information sentence 1"
+  },
+  "fvsYkj": {
+    "defaultMessage": "kīkway māka nika-kiskinwahamākawin?",
+    "description": "What applicants will learn sections heading"
+  },
+  "hSmKjD": {
+    "defaultMessage": "tāpwē! Mistakihtēw kikīsikām. Kiskinwahamākanak ka-tipahamākawak ēkwa kotaka kīkwaya ka-miyikawak kā-atoskēcil Government of Canada. Kiskinwahamākanak ka-miyikawak $29 āhpō $33 per hour ka-mācihtācik. Kihcināc tānīkohk ka-miyihcik ka-kiskēyihcikātēw tānispīhk kā-mācihtācik ēkwa tānisi ē-isi-wiyasowēcik aniki kā-ātoskahowēcik. 37.5 hours per week ka-atoskēwak kiskinwahamākanak",
+    "description": "Learn more dialog question four paragraph one"
+  },
+  "hdBTPI": {
+    "defaultMessage": "kahkiyaw māmahtawi-āpacihcikana (laptop, mouse, monitor, phone) ēkwa masinahikana namōya kahkatāc ka-tipahamihk. Kīspin wīkihk wī-atoskēw kiskinwahamākan piko wiya internet ka-ayāt ēkwa ka-tipahahk.",
+    "description": "Learn more dialog question ten paragraph one"
+  },
+  "jA4kuU": {
+    "defaultMessage": "ka-tipahamākawak cī kiskinwahamākanak",
+    "description": "Learn more dialog question four heading"
+  },
+  "lIHNov": {
+    "defaultMessage": "ka<softHyphen></softHyphen>kanawāp<softHyphen></softHyphen>ahtamihk",
+    "description": "Talent portal strategy item 3 heading"
+  },
+  "loDwKe": {
+    "defaultMessage": "ka-wihtamākēhk Indigenous Talent Portal",
+    "description": "Talent Portal information heading"
+  },
+  "mfBsJY": {
+    "defaultMessage": "tānisi māka kiskinwahamākanak ta-itōtahkik?",
+    "description": "Learn more dialog question eight heading"
+  },
+  "osGGIt": {
+    "defaultMessage": "IT Apprenticeship kiskin<softHyphen></softHyphen>waham<softHyphen></softHyphen>ākēwin + iyiniw atoskahākanak",
+    "description": "heading for indigenous talent portal section"
+  },
+  "p19YJ2": {
+    "defaultMessage": "anōhc sākaskinahcikē kā-māci-astoskēyan Information Technology.",
+    "description": "Application box content"
+  },
+  "p2sBh3": {
+    "defaultMessage": "awīna kahkī-otinam ōma kiskinwahamākēwin ayahk ōhci Government of Canada IT Apprenticeship Program for Indigenous People?",
+    "description": "Learn more dialog question one heading"
+  },
+  "pWoAv0": {
+    "defaultMessage": "IT Apprenticeship Program iyiniwak ōhci kī-osihtāwak Government of Canada kī-osihtāwak iyinito-ayisiyiniwak, ayaskipiwak ēkwa āpihto-kōsisānak ōhci. ēkoma tapiskōc mēskanaw ka-itohtēk ka-miskamihk atoskēwin iyinito-ayisiyiniwak federal public service kā-miywēyihtahkik Information Technology(IT).",
+    "description": "First paragraph about the program"
+  },
+  "pkFLpT": {
+    "defaultMessage": "kīspin kimiywēyihtēn technology ēkwa kiya iyinito-ayisiyiniw ēkōma kiskinwahamākēwin kiya ōhci.",
+    "description": "Learn more dialog question seven paragraph one"
+  },
+  "q5FQbu": {
+    "defaultMessage": "wīpac ka-ispayik!",
+    "description": "Heading for a coming soon section"
+  },
+  "rQ61eh": {
+    "defaultMessage": "ka<softHyphen></softHyphen>kanawāp<softHyphen></softHyphen>ahtamihk tānisi ayiwāk kwayask ta-isi-kiskinwahamākēhk",
+    "description": "Talent portal strategy item 3 content"
+  },
+  "rz21yp": {
+    "defaultMessage": "kotaka cī mīna ka-kahtinamwak kiskinwahamākanak?",
+    "description": "Learn more dialog question five heading"
+  },
+  "sycoGU": {
+    "defaultMessage": "nāmōya kahkatāc. mihcēt kiskinwahamākēwina kahkī-otinēn kīkihk māka piko internet ka-ayāyan. ātiht kiskinwahamākēwin piko nāntaw kēhcināc ka-otinamihk. nikiskēyihtēnān ē-mistēyihtākwahk ka-wītisānihk ēkwa nitawēyimānānik ayisiyiniwak ka-wītisāniyāhk. Kakwēcim ana kā-masinahikēhisk mahti tānitē ē-nōhtē-ayāyan ēkwa nika-kakwē-wīcihitinān.",
+    "description": "Learn more dialog question six paragraph one"
+  },
+  "wHWE3M": {
+    "defaultMessage": "ēkoma platform kī-osihcikātēw ka-atoskēcik iyinito-ayisiyiniwak ka-wāpahtamihk tānisi ē-isi-kaskihtācik",
+    "description": "Talent portal information sentence 2"
+  },
+  "wgIThY": {
+    "defaultMessage": "ka-ayāt high school diploma āhpō GED",
+    "description": "IAP Requirement list item two"
+  },
+  "wNJSJ7": {
+    "defaultMessage": "ē-kisteyihtamāhk ayisiyiniw ta-isi-kaskihtāt ispihci tānisi ē-isi-kaskihtāt kiskinwahamātowikamōhk, ēkoma atoskēwin otinikātēw kā-nakinikocik ayisiyiniwak kā-atoskēcik digital economy kā-itamihk. Ēkōma atoskēwin wīcihtāsowak ē-osihtācik wiyawāw ōhci iyinito-ayisiyiniwak misiwē kānata. Kā-isi-ōsihtāhk nawac miywāsin ōhci iyiniw kiskinwahamākanak ē-kistēyihtamihk ka-āsiyatihk.",
+    "description": "Second paragraph about the program"
+  },
+  "yZMQ6j": {
+    "defaultMessage": "kinōhtē-kiskēyimitinān kiya ēkwa tānēhki kā-miywēyihtaman IT!",
+    "description": "How it works, step 2 content sentence 1"
+  },
+  "zlYw3Z": {
+    "defaultMessage": "anima profile kā-osihtāyan ēkoma sākaskinah<softHyphen></softHyphen>cikē<softHyphen></softHyphen>wasinahikan",
+    "description": "How it works, step 3 heading"
+  },
+  "J9HjFN": {
+    "defaultMessage": "ōma kiskinwahamākēwin osihcikātēw ayiwāk ka-miyowīcihtōhk iyinito-ayisiyiniwak ka-kistēyihtamihk omīkowisowiniwāwa, manātisowin ēkwa ē-wīciwānihk iyinot-ayisiyiniwak",
+    "description": "How it works, step 1 content paragraph 1"
+  },
+  "jyQi0m": {
+    "defaultMessage": "kīspin kiya iyiniw, ayiskipow āhpō āpihta-kōsisān ēkwa kānata kiwīkin, kahki-sākaskinahcikān ta-kiskinwahamāyan.",
+    "description": "Learn more dialog question on paragraph one"
+  },
+  "nzcwrW": {
+    "defaultMessage": "kiskinwahamākanak ka-wīcihikowak kotaka kiskinwahamākana ka-wīcihikocik ka-atoskēcik ēkwa kiskinwahamākēwa misiwē kā-otinahkik ōma kiskinwahamakēwin.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "pPOGwF": {
+    "defaultMessage": "īyinito-ayisiyiniw (ē-akisot āhpō namōya ē-akisot) ayiskipōw āhpō apihta-kōsān",
+    "description": "IAP Requirement list item one"
+  },
+  "49UIne": {
+    "defaultMessage": "Government of Canada IT kiskinwahamākan",
+    "description": "author of testimonial number one"
+  },
+  "74Sg+4": {
+    "defaultMessage": "piko awiyak ka-ayāt GED āhpō high school diploma. Namōya kahkatāc awiyak ta-itōhtēt college āhpō university.",
+    "description": "Learn more dialog question twelve paragraph one"
+  },
+  "f/yvXg": {
+    "defaultMessage": "ōma kiskinwahamākēwin ōhci iyiniwak, ayaskipowak ēkwa apihtaw-kōsānak. Kīspin kiya iyiniw, ayaskipow āhpō apihtaw-kōsān ēkwa kimiywēyihtēn technology kiya ōma ōhci ōma!",
+    "description": "First paragraph about who the program is for"
+  },
+  "1pFMSH": {
+    "defaultMessage": "kīsihtā anima Indigenous Peoples Self-Declaration masinahikan",
+    "description": "How it works, step 1 heading"
+  },
+  "uJ1rk3": {
+    "defaultMessage": "nisto iyinito-ayisiniwak ayāwak itastēw Canadian Constitution. Kika-kakwēcimikawin awīna kiya anita Indigenous Peoples Self-Declaration Form",
+    "description": "How it works, step 1 content paragraph 2"
+  },
+  "0i34ZZ": {
+    "defaultMessage": "nantaw ka machihtawak wîpac ispayiki 2023.",
+    "description": "Talent portal strategy item 4 content"
+  },
+  "gj0bQO": {
+    "defaultMessage": "IT Kiskinwahamâkan Pimipayihtâwin kiki Nêhiyawak",
+    "description": "Homepage title for IT Apprenticeship Program for Indigenous Peoples"
+  },
+  "nn9B4R": {
+    "defaultMessage": "Natota anohc ta-mâcihtâyin IT atoskêwin.",
+    "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
+  },
+  "pBJzgi": {
+    "defaultMessage": "Nimihtâtên, namôy niki miskênân pâskinikêwin ka-natonamin.",
+    "description": "Heading for the message saying the page was not found."
+  },
+  "pgHTkX": {
+    "defaultMessage": "Nimihtâtên, namôy niki miskênân pâskinikêwin ka-natonamin.",
+    "description": "Detailed message saying the page was not found."
+  },
+  "404R1N": {
+    "defaultMessage": "Ôma pimipayihtâwin ê-nahipayik nikwêski-pimâtisihikon kiki niya mîna ni-wâpahtên <b>miyopayiwin ati-nîkânihk</b>.",
+    "description": "testimonial number one"
+  },
+  "Srs7a4": {
+    "defaultMessage": "Sâpohtê isi kihci mawacihcikêwin",
+    "description": "Assistive technology skip link"
+  },
+  "M1JKQs": {
+    "defaultMessage": "Kîwê",
+    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
+  },
+  "gKyog2": {
+    "defaultMessage": "Yâw, ki-takosinin isi pâskinikêwin êka pakitinikâtêw ta-wâpahtamin.",
+    "description": "Detailed message saying the page to view is not authorized."
+  },
+  "jPLaDk": {
+    "defaultMessage": "Nimihtâtên, êka pakitinikâtêw ta-wâpahtamin ôma pâskinikêwin.",
+    "description": "Heading for the message saying the page to view is not authorized."
+  },
+  "kspVvy": {
+    "defaultMessage": "Kîspin êka ki-kêhcinahon ôma Pimipayihtâwin nahiyikohk kiki kiya <mailLink>pê-kâhcitininân</mailLink> mîna nîsôhkamâkêw ta-miywêyihtam ta-nakiskâs mîna ta-naskomow ki-kakwêcihkêmona ka-ayâyin.",
+    "description": "Second paragraph about who the program is for"
+  },
+  "Z9W+O2": {
+    "defaultMessage": "Natota sêmâk ta-mâcihtâyin IT atoskêwin.",
+    "description": "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site"
+  },
+  "oMpO+C": {
+    "defaultMessage": "IT Kiskinwahamâkan Pimipayihtâwin kiki Nêhiyawak",
+    "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
+  }
+}

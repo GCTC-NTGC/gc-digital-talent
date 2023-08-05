@@ -1,6 +1,8 @@
 import React from "react";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { StoryFn, Meta } from "@storybook/react";
 import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
+
+import { OverlayOrDialogDecorator } from "storybook-helpers";
 
 import Button from "../Button";
 
@@ -10,12 +12,13 @@ import DropdownMenu from "./DropdownMenu";
 export default {
   component: DropdownMenu.Root,
   title: "Components/Dropdown Menu",
+  decorators: [OverlayOrDialogDecorator],
   parameters: {
     docs: {
       page: DropdownMenuDocs,
     },
   },
-} as ComponentMeta<typeof DropdownMenu.Root>;
+} as Meta;
 
 const Check = () => (
   <DropdownMenu.ItemIndicator>
@@ -23,10 +26,11 @@ const Check = () => (
   </DropdownMenu.ItemIndicator>
 );
 
-const Template: ComponentStory<typeof DropdownMenu.Root> = () => {
+const Template: StoryFn<typeof DropdownMenu.Root> = () => {
+  const [isOpen, setIsOpen] = React.useState<boolean>(true);
   const [value, setValue] = React.useState<string>("");
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenu.Trigger>
         <Button>Open Dropdown</Button>
       </DropdownMenu.Trigger>

@@ -251,7 +251,7 @@ describe("ExperienceForm", () => {
     ).toBeInTheDocument();
   });
 
-  it("should render additional information", async () => {
+  it("should render additional details", async () => {
     const mockSave = jest.fn();
     const mockDelete = jest.fn();
     renderExperienceForm({

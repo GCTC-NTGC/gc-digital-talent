@@ -6,7 +6,6 @@ import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import { Heading, Link, Well } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { toast } from "@gc-digital-talent/toast";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
 
@@ -59,7 +58,6 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { applicantDashboard } = useFeatureFlags();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
@@ -67,10 +65,9 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const [, executeMutation] = useUpdateApplicationMutation();
-  const cancelPath = applicantDashboard
-    ? paths.dashboard({ fromIapDraft: isIAP })
-    : paths.myProfile();
+  const [{ fetching: mutating }, executeMutation] =
+    useUpdateApplicationMutation();
+  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
   const screeningQuestions =
     application.pool.screeningQuestions?.filter(notEmpty) || [];
@@ -188,7 +185,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
             </p>
           </Well>
         )}
-        <FormActions />
+        <FormActions disabled={mutating} />
       </BasicForm>
     </>
   );

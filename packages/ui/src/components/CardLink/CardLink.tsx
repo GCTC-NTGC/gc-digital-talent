@@ -6,27 +6,18 @@ import { sanitizeUrl } from "@gc-digital-talent/helpers";
 import { IconType } from "../../types";
 import "./cardLink.css";
 
-export type Color =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "quaternary"
-  | "quinary"
-  | "ts-primary"
-  | "ia-primary"
-  | "ia-secondary";
+type Color = "primary" | "secondary" | "tertiary" | "quaternary" | "quinary";
 
 export interface CardLinkProps {
   href: string;
   label: string;
   color?: Color;
   icon?: IconType;
-  className?: string;
   external?: boolean;
   children?: React.ReactNode;
 }
 
-export const colorMap: Record<Color, Record<string, string>> = {
+const colorMap: Record<Color, Record<string, string>> = {
   primary: {
     "data-h2-background-color":
       "base:all(primary.light) base:dark:iap(primary)",
@@ -51,19 +42,6 @@ export const colorMap: Record<Color, Record<string, string>> = {
   quinary: {
     "data-h2-background-color": "base(quinary) base:dark:iap(quinary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
-  },
-  "ts-primary": {
-    "data-h2-background-color": "base(secondary) base:iap(primary)",
-    "data-h2-color": "base(white) base:all:iap(white)",
-  },
-  "ia-primary": {
-    "data-h2-background": "base(secondary) base:iap(primary)",
-    "data-h2-color": "base(white) base:all:iap(white)",
-  },
-  "ia-secondary": {
-    "data-h2-background":
-      "base(primary) base:iap(secondary) base:admin(tertiary)",
-    "data-h2-color": "base(white) base:admin(black)",
   },
 };
 
@@ -101,7 +79,7 @@ const Link = ({ href, external, children }: LinkProps) => {
 
 const CardLink = ({
   href,
-  color = "ts-primary",
+  color = "primary",
   external,
   icon,
   label,

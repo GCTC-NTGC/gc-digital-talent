@@ -1,11 +1,9 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeUsers, fakeExperiences } from "@gc-digital-talent/fake-data";
 
-import { JobLookingStatus, User } from "~/api/generated";
-
-import ProfilePage, { ProfileForm } from "./ProfilePage";
+import ProfilePage, { ProfileForm, ProfilePageProps } from "./ProfilePage";
 
 const fakeUserData = fakeUsers(1)[0];
 const fakeExperienceArray = fakeExperiences(3);
@@ -20,7 +18,6 @@ export default {
         data: {
           me: {
             isProfileComplete: true,
-            jobLookingStatus: JobLookingStatus.OpenToOpportunities,
           },
         },
       },
@@ -28,8 +25,8 @@ export default {
   },
 } as Meta;
 
-const Template: Story<User> = (args) => {
-  return <ProfileForm profileDataInput={args} />;
+const Template: StoryFn<ProfilePageProps["user"]> = (args) => {
+  return <ProfileForm user={args} />;
 };
 
 export const CompletedWithoutExperiences = Template.bind({});

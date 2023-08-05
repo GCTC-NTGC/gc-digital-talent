@@ -12,8 +12,8 @@ trait ExperienceFactoryWithSkills
     public function withSkills(Int $count = 3)
     {
         return $this->afterCreating(function ($model) use ($count) {
-            $skills = Skill::inRandomOrder()->limit($count)->pluck('id')->get();
-            $model->skills()->sync($skills);
+            $skills = Skill::inRandomOrder()->limit($count)->get();
+            $model->syncSkills($skills->only(['id']));
         });
     }
 }

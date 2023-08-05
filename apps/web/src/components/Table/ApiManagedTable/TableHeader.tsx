@@ -7,8 +7,10 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Button, Link, Dialog } from "@gc-digital-talent/ui";
 import { Field } from "@gc-digital-talent/forms";
 
+import adminMessages from "~/messages/adminMessages";
+
 import SearchForm from "./SearchForm";
-import { IndeterminateCheckbox } from "../ClientManagedTable/tableComponents";
+import IndeterminateCheckbox from "../ClientManagedTable/tableComponents";
 import type {
   ColumnHiddenEvent,
   ColumnsOf,
@@ -17,7 +19,7 @@ import type {
   SearchState,
 } from "./helpers";
 
-export interface TableHeaderProps<T extends Record<string, unknown>> {
+interface TableHeaderProps<T extends Record<string, unknown>> {
   onSearchChange: (
     val: string | undefined,
     col: SearchColumn["value"] | undefined,
@@ -98,33 +100,20 @@ function TableHeader<T extends Record<string, unknown>>({
                           type="button"
                           icon={TableCellsIcon}
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "Columns",
-                            id: "xcBl1q",
-                            description:
-                              "Label displayed on the Table Columns toggle button.",
-                          })}
+                          {intl.formatMessage(adminMessages.showHideColumns)}
                         </Button>
                       </Dialog.Trigger>
                       <Dialog.Content>
                         <Dialog.Header>
-                          {intl.formatMessage({
-                            defaultMessage: "Table columns",
-                            id: "YH6bFU",
-                            description:
-                              "Dialog title for the admin tables columns toggle.",
-                          })}
+                          {intl.formatMessage(adminMessages.showHideColumns)}
                         </Dialog.Header>
                         <Dialog.Body>
                           <FormProvider {...methods}>
                             <Field.Fieldset boundingBox>
                               <Field.Legend>
-                                {intl.formatMessage({
-                                  defaultMessage: "Visible columns",
-                                  id: "H9rxOR",
-                                  description:
-                                    "Legend for the column toggle in admin tables.",
-                                })}
+                                {intl.formatMessage(
+                                  adminMessages.showHideTableColumns,
+                                )}
                               </Field.Legend>
                               <div data-h2-margin="base(x.125, 0)">
                                 <IndeterminateCheckbox

@@ -249,7 +249,7 @@ const Close = React.forwardRef<HTMLElement, Omit<ToggleProps, "open">>(
 
 interface HeaderProps extends HeadingProps {
   /** The toggle for the component (appears on right side of header) */
-  toggle: React.ReactElement<typeof Toggle>;
+  toggle?: React.ReactElement<typeof Toggle>;
 }
 
 /**

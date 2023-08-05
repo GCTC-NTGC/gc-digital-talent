@@ -46,12 +46,14 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
       </span>
       <span
         {...(ctx?.open
-          ? { "data-h2-visually-hidden": "base(invisible)" }
-          : {
+          ? {
               "data-h2-position": "base(relative)",
               "data-h2-left": "base(auto)",
               "data-h2-right": "base(auto)",
               "data-h2-width": "base(auto)",
+            }
+          : {
+              "data-h2-visually-hidden": "base(invisible)",
             })}
       >
         <span

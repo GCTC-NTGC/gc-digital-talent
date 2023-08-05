@@ -62,8 +62,8 @@ const formMessages = defineMessages({
     description: "Text to check checkbox button",
   },
   resetCombobox: {
-    defaultMessage: "Reset {label}",
-    id: "b3ar1X",
+    defaultMessage: "Clear your selection",
+    id: "U/4a27",
     description: "Button text to reset the combobox input",
   },
   noResultsCombobox: {
