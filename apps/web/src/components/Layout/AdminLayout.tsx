@@ -18,13 +18,17 @@ import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 import AdminSideMenu from "../AdminSideMenu/AdminSideMenu";
 
-interface OpenMenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface OpenMenuButtonProps extends React.HTMLProps<HTMLButtonElement> {
   show: boolean;
 }
 
-const OpenMenuButton = ({ show, onClick, children }: OpenMenuButtonProps) =>
+const OpenMenuButton = React.forwardRef<
+  HTMLButtonElement,
+  Omit<OpenMenuButtonProps, "ref">
+>(({ children, onClick, show }, ref) =>
   show ? (
     <Button
+      ref={ref}
       icon={Bars3Icon}
       onClick={onClick}
       type="button"
@@ -36,14 +40,17 @@ const OpenMenuButton = ({ show, onClick, children }: OpenMenuButtonProps) =>
       data-h2-position="base(sticky)"
       data-h2-top="base(0)"
       data-h2-width="base(100%)"
+      data-h2-z-index="base(1)"
     >
       {children}
     </Button>
-  ) : null;
+  ) : null,
+);
 
 const AdminLayout = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();
+  const menuTrigger = React.useRef<HTMLButtonElement | null>(null);
   useLayoutTheme("admin");
 
   // retain menu preference in storage
@@ -84,8 +91,9 @@ const AdminLayout = () => {
           >
             <Header width="full" />
             <OpenMenuButton
+              ref={menuTrigger}
               onClick={() => setMenuOpen(true)}
-              show={!isMenuOpen && isSmallScreen}
+              show={isSmallScreen}
             >
               {intl.formatMessage({
                 defaultMessage: "Open Menu",

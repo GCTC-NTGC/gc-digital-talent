@@ -24,6 +24,7 @@ export interface SideMenuProps {
   header?: React.ReactNode;
   footer?: JSX.Element;
   children?: React.ReactNode;
+  trigger?: React.RefObject<HTMLButtonElement>;
 }
 
 const SideMenu = ({
@@ -34,6 +35,7 @@ const SideMenu = ({
   header,
   footer,
   children,
+  trigger,
 }: SideMenuProps) => {
   const intl = useIntl();
   const [open = false, setOpen] = useControllableState<boolean>({
@@ -58,6 +60,7 @@ const SideMenu = ({
   };
 
   const showMenu = !isSmallScreen || open;
+  const showOverlay = isSmallScreen && open;
 
   return (
     <SideMenuProvider
@@ -71,6 +74,7 @@ const SideMenu = ({
             data-h2-flex-item="base(content)"
             data-h2-position="base(fixed) p-tablet(static)"
             data-h2-location="base(0, auto, auto, auto) p-tablet(auto)"
+            data-h2-z-index="base(9999)"
             initial={{ transform: "translateX(-100%)" }}
             animate={{ transform: "translateX(0)" }}
             exit={{ transform: "translateX(-100%)" }}
@@ -83,10 +87,17 @@ const SideMenu = ({
               <FocusLock
                 autoFocus
                 returnFocus
-                disabled={!isSmallScreen}
+                disabled={!showMenu}
                 className={`side-menu${open ? ` side-menu--open` : ``}`}
                 lockProps={{
                   "data-h2-height": "base(100%)",
+                }}
+                onDeactivation={() => {
+                  window.setTimeout(() => {
+                    if (trigger?.current) {
+                      trigger.current.focus();
+                    }
+                  }, 0);
                 }}
               >
                 <RemoveScroll
@@ -131,6 +142,19 @@ const SideMenu = ({
             </div>
           </motion.div>
         ) : null}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showOverlay && (
+          <motion.div
+            data-h2-position="base(fixed)"
+            data-h2-location="base(0, 0, 0, 0)"
+            data-h2-background-color="base(black)"
+            data-h2-z-index="base(9998)"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.8 }}
+            exit={{ opacity: 0 }}
+          />
+        )}
       </AnimatePresence>
     </SideMenuProvider>
   );
