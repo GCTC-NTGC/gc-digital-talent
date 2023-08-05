@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { NavLink, NavLinkProps } from "react-router-dom";
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
@@ -30,10 +31,18 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
   const ctx = useSideMenuContext();
 
   return (
-    <span
+    <motion.span
       data-h2-display="base(grid)"
       data-h2-grid-template-columns="base(x1 1fr)"
-      data-h2-gap="base(x.5)"
+      animate={
+        ctx?.open
+          ? {
+              columnGap: "0.75rem",
+            }
+          : {
+              columnGap: "0rem",
+            }
+      }
     >
       <span>
         {Icon ? (
@@ -44,17 +53,18 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
           />
         ) : null}
       </span>
-      <span
-        {...(ctx?.open
-          ? {
-              "data-h2-position": "base(relative)",
-              "data-h2-left": "base(auto)",
-              "data-h2-right": "base(auto)",
-              "data-h2-width": "base(auto)",
-            }
-          : {
-              "data-h2-visually-hidden": "base(invisible)",
-            })}
+      <motion.span
+        animate={
+          ctx?.open
+            ? {
+                opacity: 1,
+                width: "auto",
+              }
+            : {
+                width: 0,
+                opacity: 0,
+              }
+        }
       >
         <span
           data-h2-display="base(inline-block)"
@@ -62,8 +72,8 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
         >
           {children}
         </span>
-      </span>
-    </span>
+      </motion.span>
+    </motion.span>
   );
 };
 

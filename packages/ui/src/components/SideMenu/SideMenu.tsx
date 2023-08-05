@@ -4,6 +4,7 @@ import FocusLock from "react-focus-lock";
 import { RemoveScroll } from "react-remove-scroll";
 import Bars3Icon from "@heroicons/react/24/outline/Bars3Icon";
 import { useIntl } from "react-intl";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
@@ -56,69 +57,81 @@ const SideMenu = ({
     }
   };
 
+  const showMenu = !isSmallScreen || open;
+
   return (
     <SideMenuProvider
       open={open}
       onOpenToggle={handleOpenToggle}
       onOpenChange={setOpen}
     >
-      {!isSmallScreen || open ? (
-        <div data-h2-flex-item="base(content)">
-          <div
-            data-h2-position="base(sticky)"
-            data-h2-location="base(0, auto, auto, auto)"
-            data-h2-height="base(100vh)"
+      <AnimatePresence>
+        {showMenu ? (
+          <motion.div
+            data-h2-flex-item="base(content)"
+            data-h2-position="base(fixed) p-tablet(static)"
+            data-h2-location="base(0, auto, auto, auto) p-tablet(auto)"
+            initial={{ transform: "translateX(-100%)" }}
+            animate={{ transform: "translateX(0)" }}
+            exit={{ transform: "translateX(-100%)" }}
           >
-            <FocusLock
-              autoFocus
-              returnFocus
-              disabled={!isSmallScreen}
-              className={`side-menu${open ? ` side-menu--open` : ``}`}
-              lockProps={{
-                "data-h2-height": "base(100%)",
-              }}
+            <div
+              data-h2-position="base(sticky) p-tablet(sticky)"
+              data-h2-location="base(0, auto, auto, auto)"
+              data-h2-height="base(100vh)"
             >
-              <RemoveScroll
-                enabled={isSmallScreen && open}
-                data-h2-background-color="base:all(black.9) base:all:admin(secondary.light) base:all:iap(secondary.light)"
-                data-h2-overflow="base(auto)"
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-height="base(100%)"
+              <FocusLock
+                autoFocus
+                returnFocus
+                disabled={!isSmallScreen}
+                className={`side-menu${open ? ` side-menu--open` : ``}`}
+                lockProps={{
+                  "data-h2-height": "base(100%)",
+                }}
               >
-                <div data-h2-margin="base(0, 0, x2, 0)">
-                  <SideMenuButton onClick={handleOpenToggle} icon={Bars3Icon}>
-                    {open
-                      ? intl.formatMessage(uiMessages.closeMenu)
-                      : intl.formatMessage(uiMessages.openMenu)}
-                  </SideMenuButton>
-                  {header}
-                </div>
-                <nav
-                  /**
-                   * Ignore `no-noninteractive-element-interactions` since
-                   * this is captured to close the element
-                   */
-                  onKeyDown={handleKeyDown}
-                  aria-label={label}
+                <RemoveScroll
+                  enabled={isSmallScreen && open}
+                  data-h2-background-color="base:all(black.9) base:all:admin(secondary.light) base:all:iap(secondary.light)"
+                  data-h2-overflow-y="base(auto)"
+                  data-h2-overflow-x="base(hidden)"
                   data-h2-display="base(flex)"
                   data-h2-flex-direction="base(column)"
-                  data-h2-flex-grow="base(1)"
+                  data-h2-height="base(100%)"
                 >
-                  <div
+                  <div data-h2-margin="base(0, 0, x2, 0)">
+                    <SideMenuButton onClick={handleOpenToggle} icon={Bars3Icon}>
+                      {open
+                        ? intl.formatMessage(uiMessages.closeMenu)
+                        : intl.formatMessage(uiMessages.openMenu)}
+                    </SideMenuButton>
+                    {header}
+                  </div>
+                  <nav
+                    /**
+                     * Ignore `no-noninteractive-element-interactions` since
+                     * this is captured to close the element
+                     */
+                    onKeyDown={handleKeyDown}
+                    aria-label={label}
                     data-h2-display="base(flex)"
                     data-h2-flex-direction="base(column)"
                     data-h2-flex-grow="base(1)"
                   >
-                    {children}
-                  </div>
-                  {footer && <div>{footer}</div>}
-                </nav>
-              </RemoveScroll>
-            </FocusLock>
-          </div>
-        </div>
-      ) : null}
+                    <div
+                      data-h2-display="base(flex)"
+                      data-h2-flex-direction="base(column)"
+                      data-h2-flex-grow="base(1)"
+                    >
+                      {children}
+                    </div>
+                    {footer && <div>{footer}</div>}
+                  </nav>
+                </RemoveScroll>
+              </FocusLock>
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </SideMenuProvider>
   );
 };
