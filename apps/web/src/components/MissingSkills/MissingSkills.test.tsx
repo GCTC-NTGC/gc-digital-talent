@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { within } from "@testing-library/react";
+import { within, screen } from "@testing-library/react";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeSkillFamilies, fakeSkills } from "@gc-digital-talent/fake-data";
 import { SkillCategory } from "@gc-digital-talent/graphql";
@@ -55,17 +55,20 @@ describe("MissingSkills", () => {
     const element = renderMissingSkills();
 
     const lists = element.getAllByRole("list");
-    expect(lists.length).toEqual(2);
+    expect(lists.length).toEqual(3);
 
-    const requiredListItems = within(lists[0]).queryAllByRole("listitem");
-    expect(requiredListItems.length).toEqual(
-      defaultProps.requiredSkills?.length,
+    const requiredApplicationSkillsListItems = within(lists[0]).queryAllByRole(
+      "listitem",
     );
+    expect(requiredApplicationSkillsListItems.length).toEqual(2);
 
-    const optionalListItems = within(lists[1]).queryAllByRole("listitem");
-    expect(optionalListItems.length).toEqual(
-      defaultProps.optionalSkills?.length,
+    const requiredTransferableSkillsListItems = within(lists[1]).queryAllByRole(
+      "listitem",
     );
+    expect(requiredTransferableSkillsListItems.length).toEqual(2);
+
+    const optionalListItems = within(lists[2]).queryAllByRole("listitem");
+    expect(optionalListItems.length).toEqual(4);
   });
 
   it("should only render required skills if not missing optional", () => {
@@ -74,12 +77,19 @@ describe("MissingSkills", () => {
     });
 
     const lists = element.getAllByRole("list");
-    expect(lists.length).toEqual(1);
+    expect(lists.length).toEqual(2);
 
-    const requiredListItems = within(lists[0]).queryAllByRole("listitem");
-    expect(requiredListItems.length).toEqual(
-      defaultProps.requiredSkills?.length,
+    const requiredApplicationSkillsListItems = within(lists[0]).queryAllByRole(
+      "listitem",
     );
+    expect(requiredApplicationSkillsListItems.length).toEqual(2);
+
+    const requiredTransferableSkillsListItems = within(lists[1]).queryAllByRole(
+      "listitem",
+    );
+    expect(requiredTransferableSkillsListItems.length).toEqual(2);
+
+    expect(screen.queryByText(/nice to have skills/i)).toBeFalsy();
   });
 
   it("should only render optional skills if not missing required", () => {
@@ -100,27 +110,30 @@ describe("MissingSkills", () => {
     const element = renderMissingSkills({
       // Adding one from each array to added skills
       addedSkills: [
-        ...defaultProps.requiredSkills.slice(0, 1),
-        ...defaultProps.optionalSkills.slice(0, 1),
+        ...defaultProps.requiredSkills.slice(0, 1), // behavioural
+        ...defaultProps.optionalSkills.slice(0, 1), // behavioural
       ],
     });
 
     const lists = element.getAllByRole("list");
-    expect(lists.length).toEqual(2);
+    expect(lists.length).toEqual(3);
 
-    const requiredListItems = within(lists[0]).queryAllByRole("listitem");
-    expect(requiredListItems.length).toEqual(
-      defaultProps.requiredSkills.length - 1, // Check that we are missing an item
+    const requiredApplicationSkillsListItems = within(lists[0]).queryAllByRole(
+      "listitem",
     );
+    expect(requiredApplicationSkillsListItems.length).toEqual(2);
 
-    const optionalListItems = within(lists[1]).queryAllByRole("listitem");
+    const requiredTransferableSkillsListItems = within(lists[1]).queryAllByRole(
+      "listitem",
+    );
+    expect(requiredTransferableSkillsListItems.length).toEqual(1); // Missing the added item
+
+    const optionalListItems = within(lists[2]).queryAllByRole("listitem");
     expect(optionalListItems.length).toEqual(
-      defaultProps.optionalSkills.length - 1, // Check that we are missing an item
+      3, // Missing the added item
     );
   });
 
-  // broken with upgrade to Faker V8
-  // Issue created - #7515
   it("should ignore added skills with empty experienceSkillRecords detail field", () => {
     const element = renderMissingSkills({
       // Adding one from each array to added skills
@@ -154,7 +167,7 @@ describe("MissingSkills", () => {
     expect(
       requiredSkillsListItems.length + requiredDetailsListItems.length,
     ).toEqual(
-      defaultProps.requiredSkills.length, // Check that we are not missing any items
+      4, // Check that we are not missing any items
     );
 
     const optionSkillsListItems = within(lists[2]).queryAllByRole("listitem");
@@ -162,7 +175,7 @@ describe("MissingSkills", () => {
     expect(
       optionSkillsListItems.length + optionDetailsListItems.length,
     ).toEqual(
-      defaultProps.optionalSkills.length, // Check that we are not missing any items
+      4, // Check that we are not missing any items
     );
   });
 });
