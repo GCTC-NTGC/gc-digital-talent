@@ -1,13 +1,11 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import type {
-  ColumnDef,
-  OnChangeFn,
-  RowSelectionState,
-} from "@tanstack/react-table";
+import omit from "lodash/omit";
+import type { ColumnDef, RowSelectionState } from "@tanstack/react-table";
 import {
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -19,8 +17,11 @@ import Cell from "./Cell";
 import CellHeader from "./CellHeader";
 import Row from "./Row";
 import Table from "./Table";
+import Search from "./Search";
+import { SearchState } from "./types";
+import Controls from "./Controls";
 
-export interface TableProps<TData> {
+interface TableProps<TData> {
   caption: React.ReactNode;
   data: TData[];
   columns: ColumnDef<TData>[];
@@ -30,6 +31,9 @@ export interface TableProps<TData> {
     title: React.ReactNode;
     description: React.ReactNode;
   };
+  search?: {
+    internal: boolean;
+  } & React.ComponentPropsWithoutRef<typeof Search>;
 }
 
 const ResponsiveTable = <TData extends object>({
@@ -39,12 +43,15 @@ const ResponsiveTable = <TData extends object>({
   isLoading,
   nullMessage,
   onRowSelection,
+  search,
 }: TableProps<TData>) => {
   const id = React.useId();
   const intl = useIntl();
   const memoizedData = React.useMemo(() => data, [data]);
   const memoizedColumns = React.useMemo(() => columns, [columns]);
+  const [searchTerm, setSearchTerm] = React.useState<string>("");
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
+  const isInternalSearch = search && search.internal;
 
   React.useEffect(() => {
     if (onRowSelection) {
@@ -63,11 +70,24 @@ const ResponsiveTable = <TData extends object>({
     columns: memoizedColumns,
     state: {
       rowSelection,
+      globalFilter: searchTerm,
     },
-    getCoreRowModel: getCoreRowModel(),
     enableRowSelection: true,
+    enableGlobalFilter: isInternalSearch,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     onRowSelectionChange: setRowSelection,
+    onGlobalFilterChange: setSearchTerm,
   });
+
+  const handleSearchChange = (newSearchState: SearchState) => {
+    if (search) {
+      setSearchTerm(newSearchState?.term || "");
+      if (search.onChange) {
+        search.onChange(newSearchState);
+      }
+    }
+  };
 
   const hasNoData = !isLoading && (!memoizedData || memoizedData.length === 0);
   const captionId = `${id}-caption`;
@@ -75,6 +95,11 @@ const ResponsiveTable = <TData extends object>({
   return !hasNoData ? (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
     <div role="region" aria-labelledby={captionId} tabIndex={0}>
+      <Controls>
+        {search && (
+          <Search onChange={handleSearchChange} {...omit(search, "onChange")} />
+        )}
+      </Controls>
       <Table>
         <caption id={captionId} data-h2-visually-hidden="base(invisible)">
           {caption}

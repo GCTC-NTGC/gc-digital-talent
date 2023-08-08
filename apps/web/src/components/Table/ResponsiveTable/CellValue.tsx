@@ -33,7 +33,7 @@ interface CellValueProps {
  * Note: This should be used in conjunction with
  * the cell attribute when defining columns in react-table
  */
-export const CellValue = ({ children, header }: CellValueProps) => {
+const CellValue = ({ children, header }: CellValueProps) => {
   const intl = useIntl();
   return (
     <>

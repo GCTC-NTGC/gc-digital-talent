@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryFn } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 
@@ -10,9 +10,18 @@ import { User } from "~/api/generated";
 import Table from "./ResponsiveTable";
 import Cell from "./CellValue";
 import Selection from "./RowSelection";
+import { SearchState } from "./types";
 
 const mockUsers = fakeUsers(10);
 const columnHelper = createColumnHelper<User>();
+const defaultSearchProps = {
+  id: "search",
+  label: "Search",
+  internal: true,
+  onChange: (newState: SearchState) => {
+    action("onSearchChange")(newState);
+  },
+};
 
 const columns = [
   columnHelper.accessor((row) => `${row.firstName} ${row.lastName}`, {
@@ -28,20 +37,28 @@ const columns = [
 
 export default {
   component: Table,
-  title: "Components/Table",
+  title: "Components/Tables/Responsive Table",
   args: {
     data: mockUsers,
     columns,
+    search: defaultSearchProps,
   },
-};
+} as Meta<typeof Table<User>>;
 
-const Template: StoryFn<typeof Table<User>> = (args) => {
-  return <Table {...args} />;
-};
+const Template: StoryFn<typeof Table<User>> = (args) => <Table {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   caption: "Default table",
+  search: {
+    ...defaultSearchProps,
+    searchBy: [
+      {
+        label: "Name",
+        value: "name",
+      },
+    ],
+  },
 };
 
 export const Empty = Template.bind({});
