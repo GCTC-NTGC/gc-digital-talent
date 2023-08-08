@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { Accordion, StandardAccordionHeader } from "@gc-digital-talent/ui";
 
 import { GenericJobTitle } from "~/api/generated";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 import ClassificationDefinition from "./ClassificationDefinition";
 
 interface GenericJobTitleAccordionProps {
@@ -16,6 +16,7 @@ const GenericJobTitleAccordion = ({
   classification,
 }: GenericJobTitleAccordionProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   return (
     <Accordion.Item value={genericJobTitle?.id}>
@@ -29,7 +30,7 @@ const GenericJobTitleAccordion = ({
           },
           {
             classification,
-            genericTitle: getLocalizedName(genericJobTitle.name, intl),
+            genericTitle: getLocalizedName(genericJobTitle.name, intl, locale),
           },
         )}
       </StandardAccordionHeader>

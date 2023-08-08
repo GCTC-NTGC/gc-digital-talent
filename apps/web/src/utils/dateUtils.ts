@@ -6,8 +6,9 @@ import {
   formDateStringToDate,
 } from "@gc-digital-talent/date-helpers";
 import { Maybe, Scalars } from "~/api/generated";
+import { Locales } from "@gc-digital-talent/i18n";
 
-export function formattedDate(date: Scalars["Date"], intl: IntlShape) {
+export function formattedDate(date: Scalars["Date"], locale: Locales) {
   let dateString = date;
 
   // fix what comes out of the snapshots
@@ -19,7 +20,7 @@ export function formattedDate(date: Scalars["Date"], intl: IntlShape) {
   return formatDate({
     date: parsedDate,
     formatString: "MMMM yyyy",
-    intl,
+    locale,
   });
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Dialog } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 import { Skill } from "@gc-digital-talent/graphql";
 
 import { Experience, Scalars } from "~/api/generated";
@@ -45,6 +45,7 @@ const SkillFormDialog = ({
   availableExperiences,
 }: SkillFormDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -56,7 +57,7 @@ const SkillFormDialog = ({
               id: "KnvA3d",
             },
             {
-              skillName: getLocalizedName(skill?.name, intl),
+              skillName: getLocalizedName(skill?.name, intl, locale),
             },
           )}
         </Dialog.Header>

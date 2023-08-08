@@ -1,7 +1,6 @@
 /* eslint-disable import/no-duplicates */
 // known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
 import React from "react";
-import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
@@ -16,6 +15,7 @@ import {
 import { Pool } from "@gc-digital-talent/graphql";
 import { Pending } from "@gc-digital-talent/ui";
 import { fakePools } from "@gc-digital-talent/fake-data";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 import DateInput, { DateInputProps } from "./DateInput";
 import Form from "../BasicForm";
@@ -184,7 +184,7 @@ type AsyncArgs = DateInputProps & {
 };
 
 const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
-  const intl = useIntl();
+  const { locale } = useLocale();
   const { mockQuery, ...rest } = args;
   const [fetching, setFetching] = React.useState<boolean>(false);
   const [pool, setPool] = React.useState<Pool | null>(null);
@@ -210,7 +210,7 @@ const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
               ? formatDate({
                   date: parseISO(pool?.closingDate),
                   formatString: DATE_FORMAT_STRING,
-                  intl,
+                  locale,
                 })
               : undefined,
           },

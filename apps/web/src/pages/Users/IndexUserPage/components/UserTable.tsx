@@ -5,7 +5,12 @@ import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-import { getLanguage, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  Locales,
+  getLanguage,
+  getLocalizedName,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { Link, Pending } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -146,6 +151,7 @@ const languageAccessor = (
 const rolesAccessor = (
   roleAssignments: RoleAssignment[] | null | undefined,
   intl: IntlShape,
+  locale: Locales,
 ) => {
   if (roleAssignments && roleAssignments.length > 0) {
     const roles = roleAssignments.map((roleAssignment) => roleAssignment.role);
@@ -158,7 +164,7 @@ const rolesAccessor = (
           role.name === ROLE_NAME.PoolOperator ||
           role.name === ROLE_NAME.RequestResponder,
       )
-      .map((role) => getLocalizedName(role.displayName, intl));
+      .map((role) => getLocalizedName(role.displayName, intl, locale));
     const uniqueRolesToDisplay = uniqueItems(rolesToDisplay);
 
     return tableCommaList({
@@ -247,6 +253,7 @@ const defaultState = {
 
 const UserTable = ({ title }: { title: string }) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
   const { pathname } = useLocation();
   const [tableState, setTableState] = useTableState<Data, UserFilterInput>(
@@ -366,7 +373,7 @@ const UserTable = ({ title }: { title: string }) => {
       },
       {
         label: intl.formatMessage(adminMessages.rolesAndPermissions),
-        accessor: (user) => rolesAccessor(user.roleAssignments, intl),
+        accessor: (user) => rolesAccessor(user.roleAssignments, intl, locale),
         id: "rolesAndPermissions",
       },
       {
@@ -429,7 +436,7 @@ const UserTable = ({ title }: { title: string }) => {
             ? formatDate({
                 date: parseDateTimeUtc(user.createdDate),
                 formatString: "PPP p",
-                intl,
+                locale,
               })
             : null,
         id: "createdDate",
@@ -446,14 +453,22 @@ const UserTable = ({ title }: { title: string }) => {
             ? formatDate({
                 date: parseDateTimeUtc(user.updatedDate),
                 formatString: "PPP p",
-                intl,
+                locale,
               })
             : null,
         id: "updatedDate",
         sortColumnName: "updated_at",
       },
     ],
-    [intl, selectedRows, setSelectedRows, filteredData, paths, pathname],
+    [
+      intl,
+      selectedRows,
+      setSelectedRows,
+      filteredData,
+      paths,
+      pathname,
+      locale,
+    ],
   );
 
   const allColumnIds = columns.map((c) => c.id);

@@ -3,7 +3,11 @@ import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 
 import { Pending, NotFound } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
@@ -23,6 +27,7 @@ import UpdateTeamForm from "./components/UpdateTeamForm";
 
 const EditTeamPage = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const { teamId } = useParams();
   const routes = useRoutes();
   const [{ data: teamData, fetching: teamFetching, error: teamError }] =
@@ -77,7 +82,7 @@ const EditTeamPage = () => {
     ...(teamId
       ? [
           {
-            label: getLocalizedName(teamData?.team?.displayName, intl),
+            label: getLocalizedName(teamData?.team?.displayName, intl, locale),
             url: routes.teamView(teamId),
           },
         ]

@@ -6,7 +6,7 @@ import {
   Scalars,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import { commonMessages, Locales } from "@gc-digital-talent/i18n";
 import { getId, notEmpty } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
@@ -161,8 +161,8 @@ export const objectsToSortedOptions = (
     name: LocalizedString;
   }[],
   intl: IntlShape,
+  locale: Locales,
 ): { value: string; label: string }[] => {
-  const locale = getLocale(intl);
   return objects
     .sort((a, b) => {
       const aName: Maybe<string> = a.name[locale];

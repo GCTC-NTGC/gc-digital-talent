@@ -6,7 +6,7 @@ import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import PageHeader from "~/components/PageHeader";
@@ -23,6 +23,7 @@ interface TeamHeaderProps {
 
 const TeamHeader = ({ team }: TeamHeaderProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
 
   const pages = new Map<PageNavKeys, PageNavInfo>([
@@ -75,7 +76,7 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
     ],
   ]);
 
-  const teamName = getLocalizedName(team.displayName, intl);
+  const teamName = getLocalizedName(team.displayName, intl, locale);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
 
   return (

@@ -2,7 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { Button, Link, Pill } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { SimpleClassification } from "~/types/pool";
@@ -32,6 +32,7 @@ const SearchResultCard = ({
   handleSubmit,
 }: SearchResultCardProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const selectedClassifications =
     pool.classifications as SimpleClassification[];
   const paths = useRoutes();
@@ -39,7 +40,7 @@ const SearchResultCard = ({
   const departmentsArray =
     team?.departments && team?.departments.length > 0
       ? team.departments.map((department) =>
-          getLocalizedName(department?.name, intl),
+          getLocalizedName(department?.name, intl, locale),
         )
       : null;
 
@@ -49,7 +50,7 @@ const SearchResultCard = ({
       aria-labelledby={`search_pool_${pool.id}`}
     >
       <p data-h2-font-weight="base(700)" id={`search_pool_${pool.id}`}>
-        {getFullPoolTitleHtml(intl, pool)}
+        {getFullPoolTitleHtml(intl, locale, pool)}
       </p>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage(
@@ -102,7 +103,7 @@ const SearchResultCard = ({
           ? pool.essentialSkills.map((skill) => (
               <span key={skill.id}>
                 <Pill key={skill.id} color="secondary" mode="outline">
-                  {getLocalizedName(skill?.name, intl)}
+                  {getLocalizedName(skill?.name, intl, locale)}
                 </Pill>
               </span>
             ))
@@ -117,7 +118,7 @@ const SearchResultCard = ({
           },
           {
             team: pool?.team
-              ? getLocalizedName(pool.team.displayName, intl)
+              ? getLocalizedName(pool.team.displayName, intl, locale)
               : intl.formatMessage({
                   defaultMessage: "Digital Community Management Team",
                   id: "S82O61",

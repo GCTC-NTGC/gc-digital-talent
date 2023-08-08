@@ -7,6 +7,7 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Color, IconType } from "@gc-digital-talent/ui";
 import {
+  Locales,
   getLocalizedName,
   getPoolCandidateStatusLabel,
 } from "@gc-digital-talent/i18n";
@@ -25,10 +26,11 @@ import { Application } from "~/utils/applicationUtils";
 export const joinDepartments = (
   departments: Maybe<Maybe<Department>[]>,
   intl: IntlShape,
+  locale: Locales,
 ) => {
   return (
     departments
-      ?.map((department) => getLocalizedName(department?.name, intl))
+      ?.map((department) => getLocalizedName(department?.name, intl, locale))
       ?.join(", ") ?? ""
   );
 };

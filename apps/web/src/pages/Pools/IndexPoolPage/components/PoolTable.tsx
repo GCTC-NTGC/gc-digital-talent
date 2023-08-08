@@ -11,6 +11,7 @@ import {
   getLocalizedName,
   getPublishingGroup,
   useLocale,
+  Locales,
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/forms";
@@ -67,6 +68,7 @@ function viewTeamLinkAccessor(
   url: Maybe<string>,
   displayName: Maybe<LocalizedString>,
   intl: IntlShape,
+  locale: Locales,
 ) {
   return url ? (
     <Link color="black" href={url}>
@@ -77,20 +79,20 @@ function viewTeamLinkAccessor(
           description: "Text for a link to the Team table",
         },
         {
-          teamName: getLocalizedName(displayName, intl),
+          teamName: getLocalizedName(displayName, intl, locale),
         },
       )}
     </Link>
   ) : null;
 }
 
-function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
+function dateCell(date: Maybe<Scalars["DateTime"]>, locale: Locales) {
   return date ? (
     <span>
       {formatDate({
         date: parseDateTimeUtc(date),
         formatString: "PPP p",
-        intl,
+        locale,
       })}
     </span>
   ) : null;
@@ -285,12 +287,13 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           id: "fCXZ4R",
           description: "Title displayed for the Pool table Team column",
         }),
-        accessor: (d) => getLocalizedName(d.team?.displayName, intl),
+        accessor: (d) => getLocalizedName(d.team?.displayName, intl, locale),
         Cell: ({ row }: PoolCell) =>
           viewTeamLinkAccessor(
             paths.teamView(row.original.team?.id ? row.original.team?.id : ""),
             row.original.team?.displayName,
             intl,
+            locale,
           ),
         id: "team",
       },
@@ -354,7 +357,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         accessor: ({ createdDate }) =>
           createdDate ? parseDateTimeUtc(createdDate).valueOf() : null,
         Cell: ({ row: { original: searchRequest } }: PoolCell) =>
-          dateCell(searchRequest.createdDate, intl),
+          dateCell(searchRequest.createdDate, locale),
       },
       {
         Header: intl.formatMessage({
@@ -366,7 +369,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         accessor: ({ updatedDate }) =>
           updatedDate ? parseDateTimeUtc(updatedDate).valueOf() : null,
         Cell: ({ row: { original: searchRequest } }: PoolCell) =>
-          dateCell(searchRequest.updatedDate, intl),
+          dateCell(searchRequest.updatedDate, locale),
       },
     ],
     [intl, paths, locale],

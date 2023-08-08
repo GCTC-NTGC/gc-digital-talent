@@ -12,6 +12,7 @@ import {
   formMessages,
   getLocalizedName,
   uiMessages,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import { Role, Team, useUpdateUserAsAdminMutation } from "~/api/generated";
@@ -33,6 +34,7 @@ const EditTeamMemberDialog = ({
   availableRoles,
 }: EditTeamMemberDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [, executeMutation] = useUpdateUserAsAdminMutation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
@@ -88,7 +90,7 @@ const EditTeamMemberDialog = ({
       });
   };
 
-  const roleOptions = getTeamBasedRoleOptions(availableRoles, intl);
+  const roleOptions = getTeamBasedRoleOptions(availableRoles, intl, locale);
 
   const userName = getFullNameLabel(user.firstName, user.lastName, intl);
 
@@ -167,7 +169,7 @@ const EditTeamMemberDialog = ({
                   options={[
                     {
                       value: team.id,
-                      label: getLocalizedName(team.displayName, intl),
+                      label: getLocalizedName(team.displayName, intl, locale),
                     },
                   ]}
                 />

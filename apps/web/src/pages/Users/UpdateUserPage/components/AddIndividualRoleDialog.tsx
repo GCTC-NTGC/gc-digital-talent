@@ -11,6 +11,7 @@ import {
   errorMessages,
   formMessages,
   getLocalizedName,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -39,6 +40,7 @@ const AddIndividualRoleDialog = ({
   onAddRoles,
 }: AddIndividualRoleDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const userName = getFullNameHtml(user.firstName, user.lastName, intl);
 
@@ -89,7 +91,7 @@ const AddIndividualRoleDialog = ({
       );
     })
     .map((role) => ({
-      label: getLocalizedName(role.displayName, intl),
+      label: getLocalizedName(role.displayName, intl, locale),
       value: role.id,
     }));
 

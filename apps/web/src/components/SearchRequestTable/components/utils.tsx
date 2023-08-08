@@ -6,6 +6,7 @@ import {
   getPoolStream,
   getLocalizedName,
   getPoolCandidateSearchStatus,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { enumToOptions } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -22,6 +23,7 @@ const context: Partial<OperationContext> = {
 
 export default function useFilterOptions() {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [filterRes] = useGetFilterDataForRequestsQuery({ context });
 
   const optionsData = {
@@ -38,7 +40,7 @@ export default function useFilterOptions() {
       ?.filter(notEmpty)
       .map((department) => ({
         value: department.id,
-        label: getLocalizedName(department.name, intl),
+        label: getLocalizedName(department.name, intl, locale),
       })),
     classifications: filterRes.data?.classifications
       ?.filter(notEmpty)

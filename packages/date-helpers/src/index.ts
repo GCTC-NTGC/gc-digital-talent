@@ -10,9 +10,8 @@ import formatInTimeZone from "date-fns-tz/formatInTimeZone";
 import toDate from "date-fns-tz/toDate";
 
 import { Scalars } from "@gc-digital-talent/graphql";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { dateMessages, Locales } from "@gc-digital-talent/i18n";
 
-import { dateMessages } from "@gc-digital-talent/i18n";
 import { FormatDateOptions } from "./types";
 import {
   DATETIME_FORMAT_STRING,
@@ -43,10 +42,9 @@ export const currentDate = (): string => new Date().toISOString().slice(0, 10);
 export const formatDate = ({
   date,
   formatString,
-  intl,
+  locale: strLocale,
   timeZone,
 }: FormatDateOptions): string => {
-  const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
 
   // A date formatting function that can use time zones optionally
@@ -62,6 +60,7 @@ export type relativeClosingDateOptions = {
   closingDate: Date;
   now?: Date;
   intl: IntlShape;
+  locale: Locales;
   timeZone?: string;
 };
 
@@ -73,6 +72,7 @@ export const relativeClosingDate = ({
   closingDate,
   now = new Date(),
   intl,
+  locale: strLocale,
   timeZone,
 }: relativeClosingDateOptions): string => {
   // A date formatting function that can use time zones optionally
@@ -82,7 +82,6 @@ export const relativeClosingDate = ({
     : (date: Date, formatPattern: string, options?: { locale?: Locale }) =>
         format(date, formatPattern, options);
 
-  const strLocale = getLocale(intl);
   const locale = strLocale === "fr" ? fr : undefined;
   const time = myFormatFunc(closingDate, `p`, {
     locale,

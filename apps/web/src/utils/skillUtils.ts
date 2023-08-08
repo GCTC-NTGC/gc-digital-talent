@@ -1,8 +1,6 @@
 import flatMap from "lodash/flatMap";
 import uniqBy from "lodash/uniqBy";
-import { IntlShape } from "react-intl";
 
-import { getLocale } from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 
@@ -13,6 +11,7 @@ import {
   SkillCategory,
   SkillFamily,
 } from "~/api/generated";
+import { Locales } from "@gc-digital-talent/i18n";
 
 /**
  * Transforms an array of skills with child skill families into a tree of skill families with child skills.
@@ -105,10 +104,8 @@ export function categorizeSkill(
 export function filterSkillsByNameOrKeywords(
   skills: Array<Skill>,
   searchQuery: string,
-  intl: IntlShape,
+  locale: Locales,
 ) {
-  const locale = getLocale(intl);
-
   const matchedSkills = skills
     .filter((skill) => {
       return (

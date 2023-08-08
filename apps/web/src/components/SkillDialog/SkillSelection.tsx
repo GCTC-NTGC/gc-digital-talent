@@ -16,6 +16,7 @@ import {
   errorMessages,
   getLocalizedName,
   uiMessages,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
@@ -43,6 +44,7 @@ const SkillSelection = ({
   showCategory = true,
 }: SkillSelectionProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
   const {
@@ -243,6 +245,7 @@ const SkillSelection = ({
               label: `${getLocalizedName(
                 skillFamily.name,
                 intl,
+                locale,
               )} (${getSkillFamilySkillCount(skills, skillFamily)})`,
             })),
           ]}
@@ -263,7 +266,7 @@ const SkillSelection = ({
               })}
               options={filteredSkills.map((currentSkill) => ({
                 value: currentSkill.id,
-                label: getLocalizedName(currentSkill.name, intl),
+                label: getLocalizedName(currentSkill.name, intl, locale),
               }))}
             />
           </div>

@@ -5,7 +5,7 @@ import uniqueId from "lodash/uniqueId";
 import { useIntl } from "react-intl";
 
 import { fakeDepartments, fakePools } from "@gc-digital-talent/fake-data";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 
 import Form from "../BasicForm";
 import Select, { OptGroup, Option } from "./Select";
@@ -26,10 +26,11 @@ export default {
 
 const Template: StoryFn<SelectProps> = (args) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const departments = fakeDepartments();
   const departmentOptions: Option[] = departments.map(({ id, name }) => ({
     value: id,
-    label: getLocalizedName(name, intl) || "",
+    label: getLocalizedName(name, intl, locale) || "",
   }));
   return (
     <Form
@@ -46,6 +47,7 @@ const Template: StoryFn<SelectProps> = (args) => {
 
 const TemplateGroups: StoryFn<SelectProps> = (args) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const departments = fakeDepartments();
   const pools = fakePools();
   const groups = [
@@ -65,7 +67,7 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
       },
       options: departments.map(({ id, name }) => ({
         value: id,
-        label: getLocalizedName(name, intl) || "",
+        label: getLocalizedName(name, intl, locale) || "",
       })),
     },
     {
@@ -76,12 +78,12 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
       },
       options: pools.map(({ id, name }) => ({
         value: id,
-        label: getLocalizedName(name, intl) || "",
+        label: getLocalizedName(name, intl, locale) || "",
       })),
     },
   ];
   const groupOptions: OptGroup[] = groups.map((group) => ({
-    label: getLocalizedName(group.label, intl),
+    label: getLocalizedName(group.label, intl, locale),
     options: group.options,
   }));
 

@@ -6,7 +6,11 @@ import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Select, Submit, unpackMaybes } from "@gc-digital-talent/forms";
-import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  getLocalizedName,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { Pending, Link } from "@gc-digital-talent/ui";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -50,6 +54,7 @@ export const CreatePoolForm = ({
   teamsArray,
 }: CreatePoolFormProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const navigate = useNavigate();
   const paths = useRoutes();
   const methods = useForm<FormValues>();
@@ -92,14 +97,14 @@ export const CreatePoolForm = ({
   const classificationOptions: Option<string>[] = classificationsArray
     .map(({ id, group, level, name }) => ({
       value: id,
-      label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
+      label: `${group}-0${level} (${getLocalizedName(name, intl, locale)})`,
     }))
     .sort((a, b) => (a.label >= b.label ? 1 : -1));
 
   const teamOptions: Option<string>[] = teamsArray
     .map(({ id, displayName }) => ({
       value: id,
-      label: getLocalizedName(displayName, intl),
+      label: getLocalizedName(displayName, intl, locale),
     }))
     .sort((a, b) => (a.label >= b.label ? 1 : -1));
 

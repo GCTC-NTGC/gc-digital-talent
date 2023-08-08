@@ -27,6 +27,7 @@ describe("relativeClosingDate tests", () => {
       closingDate: new Date("2021-12-31"),
       now: new Date("2022-01-01"),
       intl,
+      locale: "en",
     });
     expect(s).toBe("The deadline for submission has passed.");
   });
@@ -36,6 +37,7 @@ describe("relativeClosingDate tests", () => {
       closingDate: new Date("2021-12-31 23:59:59"),
       now: new Date("2021-12-31 23:00:00"),
       intl,
+      locale: "en",
     });
     expect(s).toBe("Closes today at 11:59 PM");
   });
@@ -46,6 +48,7 @@ describe("relativeClosingDate tests", () => {
       closingDate: new Date("2021-12-31 00:59:59"),
       now: new Date("2021-12-30 23:59:59"),
       intl,
+      locale: "en",
     });
     expect(s).toBe("Closes tomorrow at 12:59 AM");
   });
@@ -55,6 +58,7 @@ describe("relativeClosingDate tests", () => {
       closingDate: new Date("2021-12-31 00:59:59"),
       now: new Date("2021-12-01"),
       intl,
+      locale: "en",
     });
     expect(s).toBe("December 31st, 2021 12:59 AM");
   });
@@ -67,6 +71,7 @@ describe("relativeClosingDate tests", () => {
       }),
       now: toDate("2022-01-01 1:00:00", { timeZone: "Canada/Eastern" }),
       intl,
+      locale: "en",
       timeZone: "Canada/Pacific",
     });
     expect(s).toBe("Closes today at 11:59 PM");
@@ -80,6 +85,7 @@ describe("relativeClosingDate tests", () => {
       }),
       now: toDate("2021-12-31 00:00:00", { timeZone: "Canada/Eastern" }),
       intl,
+      locale: "en",
       timeZone: "Canada/Pacific",
     });
     expect(s).toBe("Closes tomorrow at 11:59 PM");
@@ -93,6 +99,7 @@ describe("relativeClosingDate tests", () => {
       }),
       now: toDate("2021-12-01", { timeZone: "Canada/Eastern" }),
       intl,
+      locale: "en",
       timeZone: "Canada/Pacific",
     });
     expect(s).toBe("December 31st, 2021 11:59 PM");

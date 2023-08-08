@@ -10,7 +10,7 @@ import {
   Pill,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Locales, getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
@@ -35,9 +35,9 @@ import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import EditTeamMemberDialog from "./components/EditTeamMemberDialog";
 import RemoveTeamMemberDialog from "./components/RemoveTeamMemberDialog";
 
-const orderRoles = (roles: Array<Role>, intl: IntlShape) => {
+const orderRoles = (roles: Array<Role>, intl: IntlShape, locale: Locales) => {
   return orderBy(roles, ({ displayName }) => {
-    const value = getLocalizedName(displayName, intl);
+    const value = getLocalizedName(displayName, intl, locale);
 
     return value
       ? value
@@ -79,12 +79,16 @@ const emailLinkCell = (email: Maybe<string>, intl: IntlShape) => {
   );
 };
 
-const roleCell = (roles: Maybe<Maybe<Role>[]>, intl: IntlShape) => {
+const roleCell = (
+  roles: Maybe<Maybe<Role>[]>,
+  intl: IntlShape,
+  locale: Locales,
+) => {
   const nonEmptyRoles = roles?.filter(notEmpty);
   const rolePills = nonEmptyRoles
-    ? orderRoles(nonEmptyRoles, intl).map((role) => (
+    ? orderRoles(nonEmptyRoles, intl, locale).map((role) => (
         <Pill color="black" mode="solid" key={role.id}>
-          {getLocalizedName(role.displayName, intl)}
+          {getLocalizedName(role.displayName, intl, locale)}
         </Pill>
       ))
     : null;
@@ -96,12 +100,16 @@ const roleCell = (roles: Maybe<Maybe<Role>[]>, intl: IntlShape) => {
   ) : null;
 };
 
-const roleAccessor = (roles: Maybe<Maybe<Role>[]>, intl: IntlShape) => {
+const roleAccessor = (
+  roles: Maybe<Maybe<Role>[]>,
+  intl: IntlShape,
+  locale: Locales,
+) => {
   const nonEmptyRoles = roles?.filter(notEmpty);
 
   return nonEmptyRoles
-    ? orderRoles(nonEmptyRoles, intl)
-        .map((role) => getLocalizedName(role.displayName, intl))
+    ? orderRoles(nonEmptyRoles, intl, locale)
+        .map((role) => getLocalizedName(role.displayName, intl, locale))
         .join(", ")
     : "";
 };
@@ -121,6 +129,7 @@ const TeamMembers = ({
   availableUsers,
 }: TeamMembersProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Team members",
@@ -167,12 +176,12 @@ const TeamMembers = ({
           description:
             "Title displayed for the team members table roles column.",
         }),
-        accessor: (d) => roleAccessor(d.roles, intl),
+        accessor: (d) => roleAccessor(d.roles, intl, locale),
         Cell: ({ row: { original: member } }: TeamMemberCell) =>
-          roleCell(member.roles, intl),
+          roleCell(member.roles, intl, locale),
       },
     ],
-    [intl, roles, team],
+    [intl, locale, roles, team],
   );
 
   const data = React.useMemo(() => members.filter(notEmpty), [members]);
@@ -203,6 +212,7 @@ type RouteParams = {
 
 const TeamMembersPage = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const routes = useRoutes();
   const { teamId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useGetTeamQuery({
@@ -238,7 +248,7 @@ const TeamMembersPage = () => {
     ...(teamId
       ? [
           {
-            label: getLocalizedName(data?.team?.displayName, intl),
+            label: getLocalizedName(data?.team?.displayName, intl, locale),
             url: routes.teamView(teamId),
           },
         ]

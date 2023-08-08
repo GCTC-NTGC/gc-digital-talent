@@ -18,6 +18,8 @@ import {
   getLocalizedName,
   getPoolCandidateSearchStatus,
   getPoolStream,
+  Locales,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
@@ -87,13 +89,13 @@ const statusAccessor = (
     ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
     : "";
 
-function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
+function dateCell(date: Maybe<Scalars["DateTime"]>, locale: Locales) {
   return date ? (
     <span>
       {formatDate({
         date: parseDateTimeUtc(date),
         formatString: "PPP p",
-        intl,
+        locale,
       })}
     </span>
   ) : null;
@@ -134,6 +136,7 @@ const SearchRequestsTableApi = ({
   title: string;
 }) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
 
   // Note: Need to memoize to prevent infinite update depth
@@ -330,7 +333,7 @@ const SearchRequestsTableApi = ({
             "Title displayed on the search request table department column.",
         }),
         id: "department",
-        accessor: (d) => getLocalizedName(d.department?.name, intl),
+        accessor: (d) => getLocalizedName(d.department?.name, intl, locale),
       },
       {
         label: intl.formatMessage({
@@ -352,7 +355,7 @@ const SearchRequestsTableApi = ({
         }),
         id: "requestedDate",
         sortColumnName: "created_at",
-        accessor: (d) => dateCell(d.requestedDate, intl),
+        accessor: (d) => dateCell(d.requestedDate, locale),
       },
       {
         label: intl.formatMessage(adminMessages.notes),
@@ -360,7 +363,7 @@ const SearchRequestsTableApi = ({
         accessor: (d) => notesAccessor(d, intl),
       },
     ],
-    [intl, paths],
+    [intl, paths, locale],
   );
 
   const allColumnIds = columns.map((c) => c.id);

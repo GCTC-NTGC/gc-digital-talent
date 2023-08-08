@@ -5,7 +5,7 @@ import { action } from "@storybook/addon-actions";
 import uniqueId from "lodash/uniqueId";
 
 import { fakeDepartments, fakePools } from "@gc-digital-talent/fake-data";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
@@ -34,6 +34,7 @@ export default {
 
 const Template: ComponentStory<typeof MultiSelectField> = (args) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const departments = fakeDepartments();
   const pools = fakePools();
   const groups = [
@@ -53,7 +54,7 @@ const Template: ComponentStory<typeof MultiSelectField> = (args) => {
       },
       options: departments.map(({ id, name }) => ({
         value: id,
-        label: getLocalizedName(name, intl) || "",
+        label: getLocalizedName(name, intl, locale) || "",
       })),
     },
     {
@@ -64,12 +65,12 @@ const Template: ComponentStory<typeof MultiSelectField> = (args) => {
       },
       options: pools.map(({ id, name }) => ({
         value: id,
-        label: getLocalizedName(name, intl) || "",
+        label: getLocalizedName(name, intl, locale) || "",
       })),
     },
   ];
   const groupOptions = groups.map((group) => ({
-    label: getLocalizedName(group.label, intl),
+    label: getLocalizedName(group.label, intl, locale),
     options: group.options,
   }));
 

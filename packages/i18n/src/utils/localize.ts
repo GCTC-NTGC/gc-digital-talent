@@ -10,14 +10,6 @@ export function isLocale(locale?: string): locale is Locales {
   return locale === "en" || locale === "fr";
 }
 
-export function getLocale(intl: IntlShape): Locales {
-  const { locale } = intl;
-  if (isLocale(locale)) {
-    return locale;
-  }
-  return "en";
-}
-
 export function oppositeLocale(locale: Locales): Locales {
   return locale === "fr" ? "en" : "fr";
 }
@@ -61,9 +53,8 @@ export function localeRedirect(locale: Locales) {
 export const getLocalizedName = (
   name: Maybe<LocalizedString>,
   intl: IntlShape,
+  locale: Locales,
 ): string => {
-  const locale = getLocale(intl);
-
   const notAvailable = intl.formatMessage({
     defaultMessage: "N/A",
     id: "UCGAzS",
@@ -115,8 +106,6 @@ export const localizeSalaryRange = (
   return salaryRange;
 };
 
-export const withLocalizedQuotes = (text: string, intl: IntlShape): string => {
-  const locale = getLocale(intl);
-
+export const withLocalizedQuotes = (text: string, locale: Locales): string => {
   return locale === "fr" ? `« ${text} »` : `"${text}"`;
 };

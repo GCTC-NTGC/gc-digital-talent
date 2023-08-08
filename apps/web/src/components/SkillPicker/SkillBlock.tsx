@@ -58,7 +58,7 @@ const SkillBlock = ({
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const definition = description ? description[locale] : null;
-  const skillName = getLocalizedName(name, intl);
+  const skillName = getLocalizedName(name, intl, locale);
 
   const Wrapper = definition ? Collapsible.Root : "div";
 

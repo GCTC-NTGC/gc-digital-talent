@@ -13,6 +13,7 @@ import {
   formMessages,
   getLocalizedName,
   uiMessages,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -43,6 +44,7 @@ const AddTeamRoleDialog = ({
   onAddRoles,
 }: AddTeamRoleDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const userName = getFullNameHtml(user.firstName, user.lastName, intl);
 
@@ -90,7 +92,7 @@ const AddTeamRoleDialog = ({
   const roleOptions = availableRoles
     .filter((role) => role.isTeamBased)
     .map((role) => ({
-      label: getLocalizedName(role.displayName, intl),
+      label: getLocalizedName(role.displayName, intl, locale),
       value: role.id,
     }));
 
@@ -107,7 +109,7 @@ const AddTeamRoleDialog = ({
   const [{ data: teamsData }] = useListTeamsQuery();
 
   const teamOptions = teamsData?.teams.filter(notEmpty).map((team) => ({
-    label: getLocalizedName(team.displayName, intl),
+    label: getLocalizedName(team.displayName, intl, locale),
     value: team.id,
   }));
 

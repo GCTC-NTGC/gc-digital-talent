@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Accordion, Well } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 
 import { Skill } from "~/api/generated";
 
@@ -13,6 +13,7 @@ interface SkillAccordionProps {
 
 const SkillAccordion = ({ skills, nullMessage }: SkillAccordionProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   if (!skills.length) {
     return (
       <Well>
@@ -31,11 +32,11 @@ const SkillAccordion = ({ skills, nullMessage }: SkillAccordionProps) => {
             data-h2-margin="base(0)"
           >
             <Accordion.Trigger data-h2-font-weight="base(700)">
-              {getLocalizedName(skill.name, intl)}
+              {getLocalizedName(skill.name, intl, locale)}
             </Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Content>
-            {getLocalizedName(skill.description, intl)}
+            {getLocalizedName(skill.description, intl, locale)}
           </Accordion.Content>
         </Accordion.Item>
       ))}

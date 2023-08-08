@@ -8,7 +8,11 @@ import {
   Link,
   TableOfContents,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
@@ -338,6 +342,7 @@ type RouteParams = {
 
 export const EditPoolPage = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const { poolId } = useParams<RouteParams>();
   const routes = useRoutes();
 
@@ -381,7 +386,7 @@ export const EditPoolPage = () => {
       url: routes.poolTable(),
     },
     {
-      label: getLocalizedName(data?.pool?.name, intl),
+      label: getLocalizedName(data?.pool?.name, intl, locale),
       url: routes.poolView(poolId),
     },
     {

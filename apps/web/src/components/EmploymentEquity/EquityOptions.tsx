@@ -12,6 +12,7 @@ import {
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
+  useLocale,
   withLocalizedQuotes,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -61,6 +62,7 @@ const EquityOptions = ({
   inApplication,
 }: EquityOptionsProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [accordionOpen, setAccordionOpen] = React.useState<AccordionItems>(""); // Start with accordion closed
 
   const resolvedDisability = resolveMaybe(hasDisability);
@@ -278,7 +280,7 @@ const EquityOptions = ({
                         description:
                           "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page.",
                       }),
-                      intl,
+                      locale,
                     )}
                   />
                 ) : null}
@@ -301,7 +303,7 @@ const EquityOptions = ({
                         description:
                           "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page.",
                       }),
-                      intl,
+                      locale,
                     )}
                   />
                 )}
@@ -324,7 +326,7 @@ const EquityOptions = ({
                         description:
                           "Definition of Visible minority from the StatsCan 'Visible minority of person' page.",
                       }),
-                      intl,
+                      locale,
                     )}
                   />
                 )}
@@ -347,7 +349,7 @@ const EquityOptions = ({
                         description:
                           "Definition of the Woman category from the StatsCan 'Classification of gender' page.",
                       }),
-                      intl,
+                      locale,
                     )}
                   />
                 )}

@@ -9,7 +9,6 @@ import useLocale from "./hooks/useLocale";
 
 import {
   isLocale,
-  getLocale,
   oppositeLocale,
   changeLocale,
   localizePath,
@@ -85,7 +84,6 @@ import type { Locales, Messages } from "./types";
 export {
   richTextElements,
   isLocale,
-  getLocale,
   oppositeLocale,
   changeLocale,
   localizePath,

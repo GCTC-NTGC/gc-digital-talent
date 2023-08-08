@@ -11,6 +11,7 @@ import {
   errorMessages,
   formMessages,
   getLocalizedName,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -45,9 +46,10 @@ const EditTeamRoleDialog = ({
   onEditRoles,
 }: EditTeamRoleDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const userDisplayName = getFullNameHtml(user.firstName, user.lastName, intl);
-  const teamDisplayName = getLocalizedName(team.displayName, intl);
+  const teamDisplayName = getLocalizedName(team.displayName, intl, locale);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -106,7 +108,7 @@ const EditTeamRoleDialog = ({
   const roleOptions = allRoles
     .filter((role) => role.isTeamBased)
     .map((role) => ({
-      label: getLocalizedName(role.displayName, intl),
+      label: getLocalizedName(role.displayName, intl, locale),
       value: role.id,
     }));
 

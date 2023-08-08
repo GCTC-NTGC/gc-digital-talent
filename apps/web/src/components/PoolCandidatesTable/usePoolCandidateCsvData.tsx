@@ -85,7 +85,11 @@ const usePoolCandidateCsvData = (
             },
             {
               index: screeningQuestion.sortOrder || index + 1,
-              question: getLocalizedName(screeningQuestion.question, intl),
+              question: getLocalizedName(
+                screeningQuestion.question,
+                intl,
+                locale,
+              ),
             },
           ),
         }))

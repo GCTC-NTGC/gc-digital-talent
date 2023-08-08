@@ -17,6 +17,7 @@ import {
   commonMessages,
   getEducationRequirementOption,
   getLocalizedName,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -70,6 +71,7 @@ export const ViewPoolCandidate = ({
   pools,
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
@@ -387,6 +389,7 @@ export const ViewPoolCandidate = ({
                   {getLocalizedName(
                     response?.screeningQuestion?.question,
                     intl,
+                    locale,
                   )}
                 </Heading>
                 <div
@@ -707,6 +710,7 @@ type RouteParams = {
 
 export const ViewPoolCandidatePage = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const routes = useRoutes();
   const { poolCandidateId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useGetPoolCandidateSnapshotQuery({
@@ -729,7 +733,7 @@ export const ViewPoolCandidatePage = () => {
     ...(data?.poolCandidate?.pool.id
       ? [
           {
-            label: getLocalizedName(data.poolCandidate.pool.name, intl),
+            label: getLocalizedName(data.poolCandidate.pool.name, intl, locale),
             url: routes.poolView(data.poolCandidate.pool.id),
           },
         ]

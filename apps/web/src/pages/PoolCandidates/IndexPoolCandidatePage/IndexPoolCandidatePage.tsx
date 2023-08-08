@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 
 import { Scalars, useGetPoolQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
@@ -18,6 +18,7 @@ type RouteParams = {
 
 export const IndexPoolCandidatePage = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const routes = useRoutes();
   const { poolId } = useParams<RouteParams>();
 
@@ -45,7 +46,7 @@ export const IndexPoolCandidatePage = () => {
     ...(poolId
       ? [
           {
-            label: getLocalizedName(data?.pool?.name, intl),
+            label: getLocalizedName(data?.pool?.name, intl, locale),
             url: routes.poolView(poolId),
           },
         ]

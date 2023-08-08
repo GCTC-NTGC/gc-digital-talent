@@ -12,7 +12,7 @@ import {
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import { Link, Pending } from "@gc-digital-talent/ui";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, useLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -104,6 +104,7 @@ export const RequestForm = ({
   handleCreatePoolCandidateSearchRequest,
 }: RequestFormProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
   const navigate = useNavigate();
   const cacheKey = "ts-createRequest";
@@ -303,7 +304,7 @@ export const RequestForm = ({
                   description:
                     "Null selection for department select input in the request form.",
                 })}
-                options={objectsToSortedOptions(departments, intl)}
+                options={objectsToSortedOptions(departments, intl, locale)}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}

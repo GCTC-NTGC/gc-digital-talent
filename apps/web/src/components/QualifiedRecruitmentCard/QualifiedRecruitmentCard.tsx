@@ -16,7 +16,11 @@ import {
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
+import {
+  getLocalizedName,
+  getSkillCategory,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 
 import { SkillCategory } from "~/api/generated";
 import { categorizeSkill } from "~/utils/skillUtils";
@@ -36,6 +40,7 @@ const QualifiedRecruitmentCard = ({
   headingLevel = "h2",
 }: QualifiedRecruitmentCardProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
@@ -49,6 +54,7 @@ const QualifiedRecruitmentCard = ({
   const departments = joinDepartments(
     candidate.pool?.team?.departments ?? [],
     intl,
+    locale,
   );
 
   // NOTE: Until we store assessed skills, we will just be displayed all essential skills
@@ -215,7 +221,9 @@ const QualifiedRecruitmentCard = ({
                 data-h2-gap="base(x.125 x.5)"
               >
                 {categorizedSkills[SkillCategory.Behavioural].map((skill) => (
-                  <li key={skill.id}>{getLocalizedName(skill.name, intl)}</li>
+                  <li key={skill.id}>
+                    {getLocalizedName(skill.name, intl, locale)}
+                  </li>
                 ))}
               </ul>
             </>
@@ -238,7 +246,9 @@ const QualifiedRecruitmentCard = ({
                 data-h2-gap="base(x.125 x.5)"
               >
                 {categorizedSkills[SkillCategory.Technical].map((skill) => (
-                  <li key={skill.id}>{getLocalizedName(skill.name, intl)}</li>
+                  <li key={skill.id}>
+                    {getLocalizedName(skill.name, intl, locale)}
+                  </li>
                 ))}
               </ul>
             </>

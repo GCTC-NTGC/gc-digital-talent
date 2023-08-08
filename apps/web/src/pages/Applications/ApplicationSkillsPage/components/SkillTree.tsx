@@ -10,7 +10,7 @@ import {
   HeadingLevel,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 
 import { Experience, Skill } from "~/api/generated";
 import { getExperienceSkills } from "~/utils/skillUtils";
@@ -47,12 +47,13 @@ const SkillTree = ({
   showDisclaimer = false,
 }: SkillTreeProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const contentHeadingLevel = incrementHeadingRank(headingAs);
   const [isFormOpen, setIsFormOpen] = React.useState<boolean>(false);
   const [currentExperience, setCurrentExperience] =
     React.useState<Experience | null>(null);
 
-  const title = getLocalizedName(skill.name, intl);
+  const title = getLocalizedName(skill.name, intl, locale);
   const skillExperiences = getExperienceSkills(experiences, skill);
   const availableExperiences = experiences.filter(
     (exp) =>
@@ -102,7 +103,7 @@ const SkillTree = ({
               {title}
             </Heading>
             {skill.description && (
-              <p>{getLocalizedName(skill.description, intl)}</p>
+              <p>{getLocalizedName(skill.description, intl, locale)}</p>
             )}
           </CardBasic>
         </TreeView.Head>

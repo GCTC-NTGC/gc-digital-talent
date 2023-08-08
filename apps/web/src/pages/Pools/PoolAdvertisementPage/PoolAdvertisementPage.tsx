@@ -388,6 +388,7 @@ export const PoolPoster = ({
                       ? relativeClosingDate({
                           closingDate: parseDateTimeUtc(pool.closingDate),
                           intl,
+                          locale,
                         })
                       : notAvailable
                   }
@@ -409,7 +410,7 @@ export const PoolPoster = ({
                       >
                         {pool.essentialSkills.map((skill) => (
                           <Pill color="secondary" mode="outline" key={skill.id}>
-                            {getLocalizedName(skill.name, intl)}
+                            {getLocalizedName(skill.name, intl, locale)}
                           </Pill>
                         ))}
                       </div>
@@ -623,7 +624,7 @@ export const PoolPoster = ({
                         description:
                           "Location requirement when a pool advertisement is remote",
                       })
-                    : getLocalizedName(pool.location, intl)
+                    : getLocalizedName(pool.location, intl, locale)
                 }
               />
               <DataRow
@@ -701,7 +702,11 @@ export const PoolPoster = ({
                     {
                       a: (chunks: React.ReactNode) =>
                         anchorTag(chunks, contactEmail),
-                      name: getLocalizedName(pool.team?.displayName, intl),
+                      name: getLocalizedName(
+                        pool.team?.displayName,
+                        intl,
+                        locale,
+                      ),
                     },
                   )}
                 </Text>
@@ -712,7 +717,7 @@ export const PoolPoster = ({
                 <TableOfContents.Heading>
                   {sections.whatToExpect.title}
                 </TableOfContents.Heading>
-                <Text>{getLocalizedName(pool.whatToExpect, intl)}</Text>
+                <Text>{getLocalizedName(pool.whatToExpect, intl, locale)}</Text>
               </TableOfContents.Section>
             )}
             <TableOfContents.Section id={sections.whoCanApply.id}>

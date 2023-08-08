@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, Pill } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import { Role, UpdateUserAsAdminInput, User } from "~/api/generated";
@@ -42,6 +42,7 @@ const IndividualRoleTable = ({
   onUpdateUser,
 }: IndividualRoleTableProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   const columns = useMemo<ColumnsOf<Role>>(
     () => [
@@ -62,12 +63,12 @@ const IndividualRoleTable = ({
           id: "uBmoxQ",
           description: "Title displayed for the role table display name column",
         }),
-        accessor: (role) => getLocalizedName(role.displayName, intl),
+        accessor: (role) => getLocalizedName(role.displayName, intl, locale),
         Cell: ({ row: { original: role } }: RoleCell) =>
-          roleCell(getLocalizedName(role.displayName, intl)),
+          roleCell(getLocalizedName(role.displayName, intl, locale)),
       },
     ],
-    [intl, onUpdateUser, user],
+    [intl, locale, onUpdateUser, user],
   );
 
   const data = useMemo(() => {

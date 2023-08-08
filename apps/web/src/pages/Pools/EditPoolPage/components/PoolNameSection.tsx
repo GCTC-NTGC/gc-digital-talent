@@ -8,6 +8,7 @@ import {
   getLocalizedName,
   getPoolStream,
   uiMessages,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import {
   Input,
@@ -68,6 +69,7 @@ const PoolNameSection = ({
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
@@ -106,7 +108,7 @@ const PoolNameSection = ({
     .filter(notEmpty)
     .map(({ id, group, level, name }) => ({
       value: id,
-      label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
+      label: `${group}-0${level} (${getLocalizedName(name, intl, locale)})`,
     }))
     .sort((a, b) => (a.label >= b.label ? 1 : -1));
 

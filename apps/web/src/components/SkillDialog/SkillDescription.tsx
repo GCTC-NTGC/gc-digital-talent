@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Well, Heading } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 
 import { Maybe, Skill } from "~/api/generated";
 
@@ -12,7 +12,8 @@ interface SkillDescriptionProps {
 
 const SkillDescription = ({ skill }: SkillDescriptionProps) => {
   const intl = useIntl();
-  const description = getLocalizedName(skill?.description, intl);
+  const { locale } = useLocale();
+  const description = getLocalizedName(skill?.description, intl, locale);
 
   if (!skill || !description) {
     return null;
@@ -34,7 +35,7 @@ const SkillDescription = ({ skill }: SkillDescriptionProps) => {
             description: "Heading for a specific skills definition",
           },
           {
-            skill: getLocalizedName(skill.name, intl),
+            skill: getLocalizedName(skill.name, intl, locale),
           },
         )}
       </Heading>

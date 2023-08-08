@@ -7,6 +7,7 @@ import {
   commonMessages,
   getLocalizedName,
   uiMessages,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -26,6 +27,7 @@ const RemoveIndividualRoleDialog = ({
   onUpdateUser,
 }: RemoveIndividualRoleDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [isDeleting, setIsDeleting] = React.useState<boolean>(false);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
@@ -53,7 +55,7 @@ const RemoveIndividualRoleDialog = ({
   };
 
   const userName = getFullNameHtml(user.firstName, user.lastName, intl);
-  const roleDisplayName = getLocalizedName(role.displayName, intl);
+  const roleDisplayName = getLocalizedName(role.displayName, intl, locale);
 
   const label = intl.formatMessage(
     {

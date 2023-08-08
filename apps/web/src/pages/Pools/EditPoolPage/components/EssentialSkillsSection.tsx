@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 
 import { TableOfContents, Chip, Chips } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 import { Submit } from "@gc-digital-talent/forms";
 
 import SkillPicker from "~/components/SkillPicker";
@@ -44,6 +44,7 @@ const EssentialSkillsSection = ({
   onSave,
 }: EssentialSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const { isSubmitting } = useEditPoolContext();
   const defaultSkills = pool.essentialSkills ? pool.essentialSkills : [];
   const methods = useForm<FormValues>({
@@ -138,7 +139,7 @@ const EssentialSkillsSection = ({
           {selectedSkills.map((skill) => (
             <Chip
               key={skill.id}
-              label={getLocalizedName(skill.name, intl)}
+              label={getLocalizedName(skill.name, intl, locale)}
               color="primary"
               mode="outline"
             />

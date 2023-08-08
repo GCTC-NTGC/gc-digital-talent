@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 
 import { Pending, Link, Pill } from "@gc-digital-talent/ui";
-import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
+import { Locales, getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
@@ -94,13 +94,14 @@ const myRolesAccessor = (
   teamId: string,
   myRoleTeams: MyRoleTeam[],
   intl: IntlShape,
+  locale: Locales,
 ) => {
   // pull out roles associated with the (row's) team id passed in for generating searchable string
   const teamFiltered = myRoleTeams.filter(
     (roleTeam) => roleTeam.teamId && roleTeam.teamId === teamId,
   );
   const accessorString = teamFiltered
-    .map((roleTeam) => getLocalizedName(roleTeam.roleName, intl))
+    .map((roleTeam) => getLocalizedName(roleTeam.roleName, intl, locale))
     .join(", ");
 
   return accessorString;
@@ -110,6 +111,7 @@ const myRolesCell = (
   teamId: string,
   myRoleTeams: MyRoleTeam[],
   intl: IntlShape,
+  locale: Locales,
 ) => {
   // pull out roles associated with the (row's) team id passed in for generating UI elements
   const teamFiltered = myRoleTeams.filter(
@@ -122,7 +124,7 @@ const myRolesCell = (
       mode="outline"
       key={`${teamId}-${roleTeam.roleName.en}`}
     >
-      {getLocalizedName(roleTeam.roleName, intl)}
+      {getLocalizedName(roleTeam.roleName, intl, locale)}
     </Pill>
   ));
 
@@ -171,9 +173,9 @@ export const TeamTable = ({
           description:
             "Label displayed for the table's My Roles column header.",
         }),
-        accessor: (d) => myRolesAccessor(d.id, myRolesAndTeams, intl),
+        accessor: (d) => myRolesAccessor(d.id, myRolesAndTeams, intl, locale),
         Cell: ({ row }: TeamCell) =>
-          myRolesCell(row.original.id, myRolesAndTeams, intl),
+          myRolesCell(row.original.id, myRolesAndTeams, intl, locale),
         id: "myRoles",
       },
       {

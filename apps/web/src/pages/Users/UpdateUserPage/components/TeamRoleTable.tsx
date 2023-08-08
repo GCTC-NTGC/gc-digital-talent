@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import { notEmpty, groupBy } from "@gc-digital-talent/helpers";
 import { Heading, Link, Pill } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import {
@@ -92,6 +92,7 @@ const TeamRoleTable = ({
   onUpdateUser,
 }: TeamRoleTableProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const routes = useRoutes();
 
   const handleEditRoles = useCallback(
@@ -121,14 +122,14 @@ const TeamRoleTable = ({
           description: "Title displayed for the role table display team column",
         }),
         accessor: (teamAssignment) =>
-          getLocalizedName(teamAssignment.team.displayName, intl),
+          getLocalizedName(teamAssignment.team.displayName, intl, locale),
         Cell: ({
           row: {
             original: { team },
           },
         }: TeamAssignmentCell) =>
           teamCell(
-            getLocalizedName(team?.displayName, intl),
+            getLocalizedName(team?.displayName, intl, locale),
             team ? routes.teamView(team.id) : "",
           ),
       },
@@ -141,18 +142,18 @@ const TeamRoleTable = ({
         }),
         accessor: (teamAssignment) =>
           teamAssignment.roles
-            .map((role) => getLocalizedName(role.displayName, intl))
+            .map((role) => getLocalizedName(role.displayName, intl, locale))
             .sort((a, b) => a.localeCompare(b))
             .join(),
         Cell: ({ row: { original: teamAssignment } }: TeamAssignmentCell) =>
           rolesCell(
             teamAssignment.roles
-              .map((role) => getLocalizedName(role.displayName, intl))
+              .map((role) => getLocalizedName(role.displayName, intl, locale))
               .sort((a, b) => a.localeCompare(b)),
           ),
       },
     ],
-    [availableRoles, handleEditRoles, intl, routes, user],
+    [availableRoles, handleEditRoles, intl, locale, routes, user],
   );
 
   const data = useMemo(() => {

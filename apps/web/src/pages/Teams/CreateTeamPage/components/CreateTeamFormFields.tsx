@@ -4,7 +4,11 @@ import { useFormContext } from "react-hook-form";
 import kebabCase from "lodash/kebabCase";
 
 import { Input, MultiSelectField } from "@gc-digital-talent/forms";
-import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  getLocalizedName,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { Maybe } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -17,11 +21,12 @@ interface CreateTeamFormFieldsProps {
 
 const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const { setValue, getValues } = useFormContext();
 
   const departmentOptions = departments?.filter(notEmpty).map((department) => ({
     value: department.id,
-    label: getLocalizedName(department.name, intl),
+    label: getLocalizedName(department.name, intl, locale),
   }));
 
   const handleDisplayBlur = (e: React.FocusEvent<HTMLInputElement>) => {

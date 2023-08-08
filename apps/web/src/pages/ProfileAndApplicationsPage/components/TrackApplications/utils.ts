@@ -6,6 +6,7 @@ import {
   isDraft,
 } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
 import { PoolCandidate } from "@gc-digital-talent/graphql";
+import { Locales } from "@gc-digital-talent/i18n";
 
 type Application = Omit<PoolCandidate, "user">;
 
@@ -36,6 +37,7 @@ type ApplicationDateInfo = {
 export const getApplicationDateInfo = (
   application: Application,
   intl: IntlShape,
+  locale: Locales,
 ): ApplicationDateInfo => {
   const ApplyBy = intl.formatMessage({
     defaultMessage: "Apply by",
@@ -57,7 +59,7 @@ export const getApplicationDateInfo = (
       : "base(black.light)";
 
   const date = isDraft(application.status)
-    ? formatClosingDate(application.pool.closingDate, intl) || ""
-    : formatSubmittedAt(application.submittedAt, intl);
+    ? formatClosingDate(application.pool.closingDate, intl, locale) || ""
+    : formatSubmittedAt(application.submittedAt, locale);
   return { message, color, date };
 };

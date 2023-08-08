@@ -11,7 +11,7 @@ import {
   ScrollArea,
 } from "@gc-digital-talent/ui";
 import { Field } from "@gc-digital-talent/forms";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 
 import { Scalars, Skill, SkillFamily } from "~/api/generated";
 import useAriaLive from "~/hooks/useAriaLive";
@@ -50,6 +50,7 @@ const SkillPicker = ({
   skillType,
 }: SkillPickerProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const Heading = headingLevel;
   const [validData, setValidData] = React.useState<FormValues>(defaultValues);
   const methods = useForm<FormValues>({
@@ -91,7 +92,7 @@ const SkillPicker = ({
   );
 
   const filteredSkills = React.useMemo(() => {
-    return filterSkillsByNameOrKeywords(skills, validData.query, intl).filter(
+    return filterSkillsByNameOrKeywords(skills, validData.query, locale).filter(
       (skill) => {
         if (validData.skillFamily) {
           return skill?.families?.some(
@@ -102,7 +103,7 @@ const SkillPicker = ({
         return true;
       },
     );
-  }, [validData, skills, intl]);
+  }, [validData, skills, locale]);
 
   const handleAddSkill = (id: Skill["id"]) => {
     const skillToAdd = skills.find((skill) => skill.id === id);
@@ -261,7 +262,7 @@ const SkillPicker = ({
           {selectedSkills.map((skill) => (
             <Chip
               key={skill.id}
-              label={getLocalizedName(skill.name, intl)}
+              label={getLocalizedName(skill.name, intl, locale)}
               color="primary"
               mode="outline"
               onDismiss={() => handleRemoveSkill(skill.id)}

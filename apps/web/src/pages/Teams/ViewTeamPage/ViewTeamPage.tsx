@@ -2,7 +2,11 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Link, Separator } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
@@ -46,6 +50,7 @@ export const ViewTeamContent = ({ team }: ViewTeamContentProps) => {
 
 const ViewTeamPage = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const routes = useRoutes();
 
   const { teamId } = useParams<RouteParams>();
@@ -69,7 +74,7 @@ const ViewTeamPage = () => {
     ...(teamId
       ? [
           {
-            label: getLocalizedName(data?.team?.displayName, intl),
+            label: getLocalizedName(data?.team?.displayName, intl, locale),
             url: routes.teamView(teamId),
           },
         ]

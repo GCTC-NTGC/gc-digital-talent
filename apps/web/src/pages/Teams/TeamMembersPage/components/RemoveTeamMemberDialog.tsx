@@ -7,6 +7,7 @@ import {
   commonMessages,
   getLocalizedName,
   uiMessages,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import { Team, useUpdateUserAsAdminMutation } from "~/api/generated";
@@ -24,6 +25,7 @@ const RemoveTeamMemberDialog = ({
   team,
 }: RemoveTeamMemberDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [{ fetching }, executeMutation] = useUpdateUserAsAdminMutation();
 
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -66,7 +68,7 @@ const RemoveTeamMemberDialog = ({
   };
 
   const userName = getFullNameLabel(user.firstName, user.lastName, intl);
-  const teamName = getLocalizedName(team.displayName, intl);
+  const teamName = getLocalizedName(team.displayName, intl, locale);
 
   const label = intl.formatMessage({
     defaultMessage: "Remove member",
@@ -119,7 +121,7 @@ const RemoveTeamMemberDialog = ({
                 {user.roles.map((role) => (
                   <li key={role.id}>
                     <Pill mode="solid" color="black">
-                      {getLocalizedName(role.displayName, intl)}
+                      {getLocalizedName(role.displayName, intl, locale)}
                     </Pill>
                   </li>
                 ))}

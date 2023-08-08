@@ -260,9 +260,11 @@ export const GovernmentInfoFormFields = ({
           id: "YA/7nb",
           description: "Error message if classification group is not defined.",
         }),
-      ariaLabel: `${getLocalizedName(classification.name, intl)} ${splitAndJoin(
-        classification.group,
-      )}`,
+      ariaLabel: `${getLocalizedName(
+        classification.name,
+        intl,
+        locale,
+      )} ${splitAndJoin(classification.group)}`,
     };
   });
   const noDupes = uniqBy(classGroupsWithDupes, "label");
@@ -376,7 +378,7 @@ export const GovernmentInfoFormFields = ({
               description:
                 "Null selection for department select input in the request form.",
             })}
-            options={objectsToSortedOptions(departments, intl)}
+            options={objectsToSortedOptions(departments, intl, locale)}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}

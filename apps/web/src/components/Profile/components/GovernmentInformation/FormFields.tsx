@@ -59,7 +59,7 @@ const FormFields = ({
       "priorityEntitlementYesNo",
     ]);
 
-  const groupOptions = getGroupOptions(classifications, intl);
+  const groupOptions = getGroupOptions(classifications, intl, locale);
   const levelOptions = getLevelOptions(classifications, groupSelection);
   const hasPriorityEntitlement = priorityEntitlement === "yes";
   const isGovEmployee = govEmployee === "yes";
@@ -151,7 +151,7 @@ const FormFields = ({
               description:
                 "Null selection for department select input in the request form.",
             })}
-            options={objectsToSortedOptions(departments, intl)}
+            options={objectsToSortedOptions(departments, intl, locale)}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}

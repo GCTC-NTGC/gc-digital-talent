@@ -137,7 +137,7 @@ const ManagerInfo = ({
                       ? formatDate({
                           date: parseDateTimeUtc(requestedDate),
                           formatString: "PPP p",
-                          intl,
+                          locale,
                         })
                       : null
                   }
@@ -179,7 +179,7 @@ const ManagerInfo = ({
                       ? formatDate({
                           date: parseDateTimeUtc(statusChangedAt),
                           formatString: "PPP p",
-                          intl,
+                          locale,
                         })
                       : intl.formatMessage({
                           defaultMessage: "(Not changed)",
@@ -337,6 +337,7 @@ const ViewSearchRequestApi = ({
   searchRequestId: string;
 }) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const routes = useRoutes();
   const [{ data: searchRequestData, fetching, error }] =
     useGetPoolCandidateSearchRequestQuery({
@@ -362,6 +363,7 @@ const ViewSearchRequestApi = ({
       } - ${getLocalizedName(
         searchRequestData?.poolCandidateSearchRequest?.department?.name,
         intl,
+        locale,
       )}`,
       url: routes.searchRequestView(searchRequestId),
     },

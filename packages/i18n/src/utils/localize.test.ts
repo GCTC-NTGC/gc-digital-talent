@@ -1,30 +1,16 @@
 /**
  * @jest-environment jsdom
  */
-
-import { IntlShape } from "react-intl";
-import { getLocale, localizePath, oppositeLocale } from "./localize";
+import { localizePath, oppositeLocale } from "./localize";
 import { Locales } from "../types";
 
 describe("localize helper tests", () => {
-  describe("getLocale", () => {
-    test("returns 'en' or 'fr' if that's the intl locale", () => {
-      expect(getLocale({ locale: "en" } as IntlShape)).toBe("en");
-      expect(getLocale({ locale: "fr" } as IntlShape)).toBe("fr");
-    });
-    test("always returns default of 'en' if intl.locale is undefined or an unknown string", () => {
-      expect(getLocale({ locale: undefined } as unknown as IntlShape)).toBe(
-        "en",
-      );
-      expect(getLocale({ locale: "unknown" } as IntlShape)).toBe("en");
-    });
-  });
   describe("oppositeLocale", () => {
     test("returns 'en' if passed 'fr' and vice versa", () => {
       expect(oppositeLocale("fr")).toBe("en");
       expect(oppositeLocale("en")).toBe("fr");
     });
-    test("returns 'fr' if passed any unexpected value (opposite to getLocale)", () => {
+    test("returns 'fr' if passed any unexpected value", () => {
       expect(oppositeLocale("unknown" as Locales)).toBe("fr");
       expect(oppositeLocale(undefined as unknown as Locales)).toBe("fr");
       expect(oppositeLocale({ hello: "world" } as unknown as Locales)).toBe(

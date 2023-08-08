@@ -4,7 +4,11 @@ import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocument
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 
-import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import {
+  Locales,
+  getLocalizedName,
+  getPoolStream,
+} from "@gc-digital-talent/i18n";
 import {
   PublishingGroup,
   RoleAssignment,
@@ -136,6 +140,7 @@ interface FullPoolTitleOptions {
 
 export const fullPoolTitle = (
   intl: IntlShape,
+  locale: Locales,
   pool: Maybe<Pool>,
   options?: FullPoolTitleOptions,
 ): { html: React.ReactNode; label: string } => {
@@ -154,7 +159,7 @@ export const fullPoolTitle = (
       label: fallbackTitle.toString(),
     };
 
-  const specificTitle = getLocalizedName(pool.name, intl);
+  const specificTitle = getLocalizedName(pool.name, intl, locale);
 
   if (isIAPPool(pool)) {
     return {
@@ -178,15 +183,17 @@ export const fullPoolTitle = (
 
 export const getFullPoolTitleHtml = (
   intl: IntlShape,
+  locale: Locales,
   pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
-): React.ReactNode => fullPoolTitle(intl, pool, options).html;
+): React.ReactNode => fullPoolTitle(intl, locale, pool, options).html;
 
 export const getFullPoolTitleLabel = (
   intl: IntlShape,
+  locale: Locales,
   pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
-): string => fullPoolTitle(intl, pool, options).label;
+): string => fullPoolTitle(intl, locale, pool, options).label;
 
 export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
   const paths = useRoutes();

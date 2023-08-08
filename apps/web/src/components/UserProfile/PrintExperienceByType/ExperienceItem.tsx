@@ -18,6 +18,7 @@ import {
   getAwardedTo,
   getEducationStatus,
   getLocalizedName,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { Skill } from "@gc-digital-talent/graphql";
 import { getDateRange } from "~/utils/dateUtils";
@@ -28,6 +29,7 @@ interface ExperienceItemProps {
 
 const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const { title } = useExperienceInfo(experience);
   const experienceLabels = getExperienceFormLabels(intl);
 
@@ -47,7 +49,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
       <ul>
         {skills?.map((skill) => (
           <li key={skill.id}>
-            {getLocalizedName(skill.name, intl)}
+            {getLocalizedName(skill.name, intl, locale)}
             {skill.experienceSkillRecord?.details
               ? ` - ${skill.experienceSkillRecord?.details}`
               : ""}

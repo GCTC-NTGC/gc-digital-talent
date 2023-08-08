@@ -159,7 +159,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
                       key={skill.id}
                       color="secondary"
                       mode="outline"
-                      label={getLocalizedName(skill.name, intl)}
+                      label={getLocalizedName(skill.name, intl, locale)}
                     />
                   ))}
                 </Chips>
@@ -186,7 +186,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
                 ? formatDate({
                     date: parseDateTimeUtc(pool.closingDate),
                     formatString: "PPP p",
-                    intl,
+                    locale,
                   })
                 : intl.formatMessage({
                     defaultMessage: "(To be determined)",

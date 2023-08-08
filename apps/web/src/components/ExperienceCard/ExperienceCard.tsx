@@ -12,7 +12,11 @@ import {
   Separator,
   Well,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 
 import { Skill } from "~/api/generated";
 import { AnyExperience } from "~/types/experience";
@@ -56,6 +60,7 @@ const ExperienceCard = ({
   showEdit = true,
 }: ExperienceCardProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const experienceLabels = getExperienceFormLabels(intl);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const { title, titleHtml, editPath, icon, typeMessage } =
@@ -307,7 +312,7 @@ const ExperienceCard = ({
                           data-h2-font-weight="base(700)"
                           data-h2-display="base(block)"
                         >
-                          {getLocalizedName(skill.name, intl)}
+                          {getLocalizedName(skill.name, intl, locale)}
                         </span>
                         <span>
                           {skill.experienceSkillRecord?.details ??

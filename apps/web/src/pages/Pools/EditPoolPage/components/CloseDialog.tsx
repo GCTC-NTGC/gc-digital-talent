@@ -6,6 +6,7 @@ import { Dialog, Button } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { Pool } from "~/api/generated";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 type CloseDialogProps = {
   closingDate: Pool["closingDate"];
@@ -17,6 +18,7 @@ const CloseDialog = ({
   onClose,
 }: CloseDialogProps): JSX.Element => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const methods = useForm();
   const {
     formState: { isSubmitting },
@@ -103,7 +105,7 @@ const CloseDialog = ({
                 ? formatDate({
                     date: parseDateTimeUtc(closingDate),
                     formatString: "PPP",
-                    intl,
+                    locale,
                     timeZone: "Canada/Pacific",
                   })
                 : ""}

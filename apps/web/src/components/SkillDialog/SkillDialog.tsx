@@ -4,7 +4,11 @@ import { useForm, FormProvider } from "react-hook-form";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
 import { Button, Dialog, IconType } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import { Skill } from "~/api/generated";
@@ -50,6 +54,7 @@ const SkillDialog = ({
   defaultOpen = false,
 }: SkillDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
   const [selectedSkill, setSelectedSkill] = React.useState<Skill | null>(null);
   const methods = useForm<FormValues>({
@@ -76,7 +81,9 @@ const SkillDialog = ({
   const handleAddSkill = async (values: FormValues) => {
     await onSave(values).then(() => {
       setIsOpen(false);
-      toast.success(selected(getLocalizedName(selectedSkill?.name, intl)));
+      toast.success(
+        selected(getLocalizedName(selectedSkill?.name, intl, locale)),
+      );
     });
   };
 

@@ -2,7 +2,7 @@ import { IntlShape } from "react-intl";
 import uniqBy from "lodash/uniqBy";
 
 import { empty } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Locales, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import {
   Classification,
@@ -183,6 +183,7 @@ export const getLabels = (intl: IntlShape) => ({
 export const getGroupOptions = (
   classifications: Classification[],
   intl: IntlShape,
+  locale: Locales,
 ) => {
   const classGroupsWithDupes: {
     label: string;
@@ -196,9 +197,11 @@ export const getGroupOptions = (
           id: "YA/7nb",
           description: "Error message if classification group is not defined.",
         }),
-      ariaLabel: `${getLocalizedName(classification.name, intl)} ${splitAndJoin(
-        classification.group,
-      )}`,
+      ariaLabel: `${getLocalizedName(
+        classification.name,
+        intl,
+        locale,
+      )} ${splitAndJoin(classification.group)}`,
     };
   });
   const noDupes = uniqBy(classGroupsWithDupes, "label");

@@ -2,7 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { TextArea } from "@gc-digital-talent/forms";
-import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  getLocalizedName,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 
 import { ScreeningQuestion } from "~/api/generated";
 
@@ -16,6 +20,7 @@ interface AnswerInputProps {
 
 const AnswerInput = ({ index, question }: AnswerInputProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const questionId = `answers.${index}.question`;
 
   return (
@@ -25,7 +30,7 @@ const AnswerInput = ({ index, question }: AnswerInputProps) => {
         data-h2-font-weight="base(700)"
         id={questionId}
       >
-        {getLocalizedName(question.question, intl)}
+        {getLocalizedName(question.question, intl, locale)}
       </p>
       <TextArea
         id={`answers.${index}.answer`}

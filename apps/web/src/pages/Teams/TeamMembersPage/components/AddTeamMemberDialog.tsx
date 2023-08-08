@@ -11,6 +11,7 @@ import {
   errorMessages,
   getLocalizedName,
   uiMessages,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -37,6 +38,7 @@ const AddTeamMemberDialog = ({
 }: // onSave,
 AddTeamMemberDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [, executeMutation] = useUpdateUserAsAdminMutation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
@@ -91,7 +93,7 @@ AddTeamMemberDialogProps) => {
       });
   };
 
-  const roleOptions = getTeamBasedRoleOptions(availableRoles, intl);
+  const roleOptions = getTeamBasedRoleOptions(availableRoles, intl, locale);
   const userOptions = availableUsers.map((user) => ({
     value: user.id,
     label: getFullNameLabel(user.firstName, user.lastName, intl),
@@ -164,7 +166,7 @@ AddTeamMemberDialogProps) => {
                   options={[
                     {
                       value: team.id,
-                      label: getLocalizedName(team.displayName, intl),
+                      label: getLocalizedName(team.displayName, intl, locale),
                     },
                   ]}
                 />

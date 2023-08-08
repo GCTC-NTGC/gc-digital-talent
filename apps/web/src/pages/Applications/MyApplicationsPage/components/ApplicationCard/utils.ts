@@ -8,6 +8,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 
 import { Maybe, PoolCandidateStatus } from "~/api/generated";
+import { Locales } from "@gc-digital-talent/i18n";
 
 export const isDraft = (status: Maybe<PoolCandidateStatus>): boolean => {
   return status === PoolCandidateStatus.Draft;
@@ -60,24 +61,26 @@ export const canBeDeleted = (status: Maybe<PoolCandidateStatus>): boolean => {
 export const formatClosingDate = (
   closingDate: Maybe<string>,
   intl: IntlShape,
+  locale: Locales,
 ): string => {
   return closingDate
     ? relativeClosingDate({
         closingDate: parseDateTimeUtc(closingDate),
         intl,
+        locale,
       })
     : "";
 };
 
 export const formatSubmittedAt = (
   submittedAt: Maybe<string>,
-  intl: IntlShape,
+  locale: Locales,
 ): string => {
   return submittedAt
     ? formatDate({
         date: parseDateTimeUtc(submittedAt),
         formatString: "PPP p",
-        intl,
+        locale,
       })
     : "";
 };

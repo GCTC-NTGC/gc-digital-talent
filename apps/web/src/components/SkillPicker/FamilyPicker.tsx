@@ -4,7 +4,7 @@ import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
 import { Button, DropdownMenu, ScrollArea } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 
 import { Scalars, SkillCategory, SkillFamily } from "~/api/generated";
 
@@ -15,6 +15,7 @@ interface FamilyPickerProps {
 
 const FamilyPicker = ({ families, onSelectFamily }: FamilyPickerProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [currentFamilyId, setCurrentFamilyId] =
     React.useState<Scalars["ID"]>("");
   const currentFamily = families.find(
@@ -40,7 +41,7 @@ const FamilyPicker = ({ families, onSelectFamily }: FamilyPickerProps) => {
           .filter((sf) => sf.category === SkillCategory.Technical)
           .map((family) => ({
             value: family.id,
-            label: getLocalizedName(family.name, intl),
+            label: getLocalizedName(family.name, intl, locale),
           })),
       },
       {
@@ -54,11 +55,11 @@ const FamilyPicker = ({ families, onSelectFamily }: FamilyPickerProps) => {
           .filter((sf) => sf.category === SkillCategory.Behavioural)
           .map((family) => ({
             value: family.id,
-            label: getLocalizedName(family.name, intl),
+            label: getLocalizedName(family.name, intl, locale),
           })),
       },
     ];
-  }, [families, intl]);
+  }, [families, intl, locale]);
 
   return (
     <DropdownMenu.Root>
@@ -69,7 +70,7 @@ const FamilyPicker = ({ families, onSelectFamily }: FamilyPickerProps) => {
           data-h2-radius="base(s 0 0 s)"
         >
           {currentFamily
-            ? getLocalizedName(currentFamily.name, intl)
+            ? getLocalizedName(currentFamily.name, intl, locale)
             : allSkillsLabel}
         </Button>
       </DropdownMenu.Trigger>

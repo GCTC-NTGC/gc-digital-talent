@@ -7,6 +7,7 @@ import {
   commonMessages,
   getLocalizedName,
   uiMessages,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -35,6 +36,7 @@ const RemoveTeamRoleDialog = ({
   onRemoveRoles,
 }: RemoveTeamRoleDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [isDeleting, setIsDeleting] = React.useState<boolean>(false);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
@@ -74,8 +76,8 @@ const RemoveTeamRoleDialog = ({
 
   const userName = getFullNameHtml(user.firstName, user.lastName, intl);
   const roleDisplayName = (role: Role) =>
-    getLocalizedName(role.displayName, intl);
-  const teamDisplayName = getLocalizedName(team.displayName, intl);
+    getLocalizedName(role.displayName, intl, locale);
+  const teamDisplayName = getLocalizedName(team.displayName, intl, locale);
 
   const label = intl.formatMessage(
     {

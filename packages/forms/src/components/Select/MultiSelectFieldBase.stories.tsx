@@ -4,7 +4,7 @@ import uniqueId from "lodash/uniqueId";
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 import {
   fakeDepartments,
   fakePools,
@@ -39,10 +39,11 @@ export default {
 
 const Template: ComponentStory<typeof MultiSelectFieldBase> = (args) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const skillFamilies = fakeSkillFamilies(10, fakeSkills(2));
   const fakeOptions = skillFamilies.map(({ id, name }) => ({
     value: id,
-    label: getLocalizedName(name, intl),
+    label: getLocalizedName(name, intl, locale),
   }));
 
   return <MultiSelectFieldBase {...args} options={fakeOptions} />;
@@ -69,7 +70,7 @@ const TemplateGroup: ComponentStory<typeof MultiSelectFieldBase> = (args) => {
       },
       options: departments.map(({ id, name }) => ({
         value: id,
-        label: getLocalizedName(name, intl) || "",
+        label: getLocalizedName(name, intl, locale) || "",
       })),
     },
     {
@@ -80,12 +81,12 @@ const TemplateGroup: ComponentStory<typeof MultiSelectFieldBase> = (args) => {
       },
       options: pools.map(({ id, name }) => ({
         value: id,
-        label: getLocalizedName(name, intl) || "",
+        label: getLocalizedName(name, intl, locale) || "",
       })),
     },
   ];
   const groupOptions = groups.map((group) => ({
-    label: getLocalizedName(group.label, intl),
+    label: getLocalizedName(group.label, intl, locale),
     options: group.options,
   }));
 

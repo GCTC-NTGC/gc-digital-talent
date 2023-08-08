@@ -6,6 +6,7 @@ import {
   commonMessages,
   getGovEmployeeType,
   getLocalizedName,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -30,6 +31,7 @@ const Display = ({
   },
 }: DisplayProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const govEmployeeTypeId =
     enumToOptions(GovEmployeeType).find(
       (type) => type.value === govEmployeeType,
@@ -82,7 +84,9 @@ const Display = ({
               description: "Department label",
             })}
           >
-            {department ? getLocalizedName(department.name, intl) : notProvided}
+            {department
+              ? getLocalizedName(department.name, intl, locale)
+              : notProvided}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({

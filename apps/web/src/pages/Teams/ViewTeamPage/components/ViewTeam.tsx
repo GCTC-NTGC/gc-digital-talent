@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { Team } from "~/api/generated";
 
 import { Pill } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 import adminMessages from "~/messages/adminMessages";
 
 interface ViewTeamProps {
@@ -12,13 +12,14 @@ interface ViewTeamProps {
 
 const ViewTeam = ({ team }: ViewTeamProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   const departmentsPillsArray =
     team?.departments && team.departments.length > 0
       ? team.departments.map((department) => {
           return (
             <Pill color="primary" mode="outline" key={department?.id}>
-              {getLocalizedName(department?.name, intl)}
+              {getLocalizedName(department?.name, intl, locale)}
             </Pill>
           );
         })

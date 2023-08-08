@@ -19,6 +19,7 @@ import {
   getLanguageRequirement,
   getPoolStream,
   getSecurityClearance,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { Input } from "@gc-digital-talent/forms";
 import {
@@ -39,6 +40,7 @@ interface ViewPoolProps {
 
 export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
   const form = useForm();
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
@@ -105,10 +107,12 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     closingStringLocal = relativeClosingDate({
       closingDate: closingDateObject,
       intl,
+      locale,
     });
     closingStringPacific = relativeClosingDate({
       closingDate: closingDateObject,
       intl,
+      locale,
       timeZone: "Canada/Pacific",
     });
   } else {
@@ -217,7 +221,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   readOnly
                   value={`${classification.group}-0${
                     classification.level
-                  }  (${getLocalizedName(classification.name, intl)})`}
+                  }  (${getLocalizedName(classification.name, intl, locale)})`}
                   label={intl.formatMessage({
                     defaultMessage: "Classification",
                     id: "w/qZsH",
@@ -454,7 +458,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   key={`occupationalSkill-${skill.id}`}
                   mode="outline"
                   color="primary"
-                  label={getLocalizedName(skill.name, intl)}
+                  label={getLocalizedName(skill.name, intl, locale)}
                 />
               ))}
             </Chips>
@@ -480,7 +484,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   key={`occupationalSkill-${skill.id}`}
                   mode="outline"
                   color="primary"
-                  label={getLocalizedName(skill.name, intl)}
+                  label={getLocalizedName(skill.name, intl, locale)}
                 />
               ))}
             </Chips>
@@ -513,7 +517,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   key={`occupationalSkill-${skill.id}`}
                   mode="outline"
                   color="primary"
-                  label={getLocalizedName(skill.name, intl)}
+                  label={getLocalizedName(skill.name, intl, locale)}
                 />
               ))}
             </Chips>
@@ -539,7 +543,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   key={`occupationalSkill-${skill.id}`}
                   mode="outline"
                   color="primary"
-                  label={getLocalizedName(skill.name, intl)}
+                  label={getLocalizedName(skill.name, intl, locale)}
                 />
               ))}
             </Chips>
@@ -781,6 +785,7 @@ type RouteParams = {
 
 const ViewPoolPage = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const routes = useRoutes();
   const { poolId } = useParams<RouteParams>();
   const [{ data, fetching, error }] = useGetPoolQuery({
@@ -803,7 +808,7 @@ const ViewPoolPage = () => {
     ...(poolId
       ? [
           {
-            label: getLocalizedName(data?.pool?.name, intl),
+            label: getLocalizedName(data?.pool?.name, intl, locale),
             url: routes.poolView(poolId),
           },
         ]
