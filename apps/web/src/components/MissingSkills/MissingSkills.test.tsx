@@ -151,22 +151,30 @@ describe("MissingSkills", () => {
           experienceSkillRecord: { details: null },
         },
         {
-          ...defaultProps.requiredSkills[0],
-          experienceSkillRecord: { details: "" },
+          ...defaultProps.requiredSkills[1],
+          experienceSkillRecord: { details: "details" },
+        },
+        {
+          ...defaultProps.requiredSkills[2],
+          experienceSkillRecord: { details: null },
         },
         {
           ...defaultProps.optionalSkills[0],
           experienceSkillRecord: { details: null },
         },
         {
-          ...defaultProps.optionalSkills[0],
-          experienceSkillRecord: { details: "" },
+          ...defaultProps.optionalSkills[1],
+          experienceSkillRecord: { details: "details" },
+        },
+        {
+          ...defaultProps.optionalSkills[2],
+          experienceSkillRecord: { details: null },
         },
       ],
     });
 
     const lists = element.getAllByRole("list");
-    expect(lists.length).toEqual(4);
+    expect(lists.length).toEqual(5);
 
     const requiredSkillsListItems = within(lists[0]).queryAllByRole("listitem");
     const requiredDetailsListItems = within(lists[1]).queryAllByRole(
@@ -175,15 +183,20 @@ describe("MissingSkills", () => {
     expect(
       requiredSkillsListItems.length + requiredDetailsListItems.length,
     ).toEqual(
-      4, // Check that we are not missing any items
+      2, // Check that we are not missing any items
     );
 
-    const optionSkillsListItems = within(lists[2]).queryAllByRole("listitem");
-    const optionDetailsListItems = within(lists[3]).queryAllByRole("listitem");
+    const requiredBehaviouralSkills = within(lists[2]).queryAllByRole(
+      "listitem",
+    );
+    expect(requiredBehaviouralSkills.length).toEqual(1);
+
+    const optionSkillsListItems = within(lists[3]).queryAllByRole("listitem");
+    const optionDetailsListItems = within(lists[4]).queryAllByRole("listitem");
     expect(
       optionSkillsListItems.length + optionDetailsListItems.length,
     ).toEqual(
-      4, // Check that we are not missing any items
+      3, // Check that we are not missing any items
     );
   });
 });
