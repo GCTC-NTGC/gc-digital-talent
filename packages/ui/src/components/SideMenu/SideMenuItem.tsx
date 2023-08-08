@@ -1,4 +1,4 @@
-import React, { ReactPropTypes } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { NavLink, NavLinkProps, useNavigate } from "react-router-dom";
 
