@@ -110,8 +110,8 @@ describe("MissingSkills", () => {
     const element = renderMissingSkills({
       // Adding one from each array to added skills
       addedSkills: [
-        ...defaultProps.requiredSkills.slice(0, 1), // behavioural
-        ...defaultProps.optionalSkills.slice(0, 1), // behavioural
+        defaultProps.requiredSkills[0], // behavioural
+        defaultProps.optionalSkills[0], // behavioural
       ],
     });
 
@@ -128,10 +128,18 @@ describe("MissingSkills", () => {
     );
     expect(requiredTransferableSkillsListItems.length).toEqual(1); // Missing the added item
 
+    const addedRequiredSkillName = defaultProps.requiredSkills[0].name.en ?? "";
+    const skillRegExpRequired = new RegExp(addedRequiredSkillName);
+    expect(screen.queryByText(skillRegExpRequired)).toBeFalsy(); // Check it is missing by name
+
     const optionalListItems = within(lists[2]).queryAllByRole("listitem");
     expect(optionalListItems.length).toEqual(
       3, // Missing the added item
     );
+
+    const addedOptionalSkillName = defaultProps.requiredSkills[0].name.en ?? "";
+    const skillRegExpOptional = new RegExp(addedOptionalSkillName);
+    expect(screen.queryByText(skillRegExpOptional)).toBeFalsy();
   });
 
   it("should ignore added skills with empty experienceSkillRecords detail field", () => {
