@@ -13,7 +13,6 @@ import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 import { Maybe, Skill } from "~/api/generated";
 import { getDateRange } from "~/utils/dateUtils";
 
-import { useLocale } from "@gc-digital-talent/i18n";
 import SkillAccordion from "./SkillAccordion";
 
 const skills = fakeSkills();
@@ -36,7 +35,6 @@ describe("SkillAccordion", () => {
     },
     cache,
   );
-  const { locale } = useLocale();
 
   const openAccordion = async (name: Maybe<string>) => {
     fireEvent.click(
@@ -97,7 +95,7 @@ describe("SkillAccordion", () => {
       endDate: experience.endDate,
       startDate: experience.startDate,
       intl,
-      locale,
+      locale: "en",
     });
     renderSkillAccordion(testSkill);
     await openAccordion(testSkill.name.en);
@@ -150,7 +148,7 @@ describe("SkillAccordion", () => {
       endDate: experience.endDate,
       startDate: experience.startDate,
       intl,
-      locale,
+      locale: "en",
     });
     renderSkillAccordion(testSkill);
 
@@ -177,7 +175,7 @@ describe("SkillAccordion", () => {
       endDate: experience.endDate,
       startDate: experience.startDate,
       intl,
-      locale,
+      locale: "en",
     });
     renderSkillAccordion(testSkill);
 
