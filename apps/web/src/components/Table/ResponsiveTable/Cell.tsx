@@ -10,7 +10,7 @@ type CellProps = React.HTMLAttributes<HTMLTableCellElement> & {
 const Cell = ({ children, isRowTitle, isRowSelect, ...rest }: CellProps) => (
   <td
     role="cell"
-    data-h2-vertical-align="base(text-top)"
+    data-h2-vertical-align="base(middle)"
     data-h2-max-width="base(100%) l-tablet(none)"
     {...(!isRowTitle && !isRowSelect
       ? {

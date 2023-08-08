@@ -12,6 +12,7 @@ import { fakeUsers } from "@gc-digital-talent/fake-data";
 
 import { User } from "~/api/generated";
 
+import { Language } from "@gc-digital-talent/graphql";
 import Table from "./ResponsiveTable";
 import Cell from "./CellValue";
 import Selection from "./RowSelection";
@@ -27,12 +28,14 @@ const defaultSearchProps = {
     action("onSearchChange")(newState);
   },
 };
+
 const rowSelectCell = ({ row }: CellContext<User, unknown>) => (
   <Selection.Cell
     row={row}
     label={`Select ${row.original.firstName} ${row.original.lastName}`}
   />
 );
+
 const mockApi = async <T,>(data: T): Promise<T> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -51,6 +54,16 @@ const columns = [
       </Cell>
     ),
   }),
+  columnHelper.accessor(
+    (row) => (row.preferredLang === Language.Fr ? "French" : "English"),
+    {
+      id: "preferredCommunication",
+      header: "Preferred Communication Language",
+      cell: (info) => (
+        <Cell header="Preferred Communication Language">{info.getValue()}</Cell>
+      ),
+    },
+  ),
   columnHelper.accessor("email", {
     header: "Email",
     cell: (info) => <Cell header="Email">{info.getValue()}</Cell>,
@@ -59,7 +72,7 @@ const columns = [
 
 export default {
   component: Table,
-  title: "Components/Tables/Responsive Table",
+  title: "Tables/Responsive Table",
   args: {
     data: mockUsers,
     columns,

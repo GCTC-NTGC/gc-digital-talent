@@ -11,7 +11,7 @@ const CellHeader = ({ children, ...rest }: CellHeaderProps) => (
     data-h2-color="base(white)"
     data-h2-display="base(none) l-tablet(table-cell)"
     data-h2-font-size="base(caption)"
-    data-h2-vertical-align="base(bottom)"
+    data-h2-vertical-align="base(middle)"
     {...styles.cell}
     {...rest}
   >

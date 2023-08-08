@@ -14,6 +14,7 @@ const CellLabel = ({ children, ...rest }: CellLabelProps) => (
   <span
     data-h2-display="base(block) l-tablet(none)"
     data-h2-font-weight="base(700)"
+    data-h2-word-break="base(break-word)"
     {...rest}
   >
     {children}
