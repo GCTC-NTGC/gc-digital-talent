@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from "react";
 import FocusLock from "react-focus-lock";
+import { useLocation } from "react-router-dom";
 import { RemoveScroll } from "react-remove-scroll";
 import Bars3Icon from "@heroicons/react/24/outline/Bars3Icon";
 import { useIntl } from "react-intl";
@@ -43,7 +44,6 @@ const SideMenu = ({
     defaultValue: defaultOpen,
     onChange: onOpenChange,
   });
-
   const isSmallScreen = useIsSmallScreen();
   const handleOpenToggle = React.useCallback(() => {
     setOpen((prevOpen) => {

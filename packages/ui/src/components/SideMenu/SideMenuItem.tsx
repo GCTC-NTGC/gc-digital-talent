@@ -1,8 +1,8 @@
-import React from "react";
+import React, { ReactPropTypes } from "react";
 import { motion } from "framer-motion";
-import { NavLink, NavLinkProps } from "react-router-dom";
+import { NavLink, NavLinkProps, useNavigate } from "react-router-dom";
 
-import { sanitizeUrl } from "@gc-digital-talent/helpers";
+import { sanitizeUrl, useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import { IconType } from "../../types";
 import { useSideMenuContext } from "./SideMenuProvider";
@@ -85,11 +85,23 @@ export interface SideMenuItemProps
 
 const SideMenuItem = ({ icon, children, href, ...rest }: SideMenuItemProps) => {
   const url = sanitizeUrl(href);
+  const navigate = useNavigate();
+  const ctx = useSideMenuContext();
+  const isSmallScreen = useIsSmallScreen();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    e.preventDefault();
+    if (isSmallScreen && ctx?.onOpenChange) {
+      ctx?.onOpenChange(false);
+    }
+    navigate(url || "");
+  };
 
   return (
     <NavLink
       to={url || "#"}
       className="side-menu__item"
+      onClick={handleClick}
       {...commonStyles}
       {...rest}
     >
