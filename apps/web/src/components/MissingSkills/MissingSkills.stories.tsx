@@ -73,15 +73,34 @@ MissingRequiredTechnicalSkillsWithDetails.args = {
   ),
 };
 
-export const MissingRequiredTechnicalSkillsWithoutDetails = Template.bind({});
-MissingRequiredTechnicalSkillsWithoutDetails.args = {
+export const MissingSkillsAndPartialDetails = Template.bind({});
+MissingSkillsAndPartialDetails.args = {
   requiredSkills: fakeRequiredSkills,
-  optionalSkills: [],
-  addedSkills: filterSkillsByCategory(
-    fakeRequiredSkills,
-    SkillCategory.Technical,
-  )?.map((skill) => ({
-    ...skill,
-    experienceSkillRecord: { details: "" },
-  })),
+  optionalSkills: fakeOptionalSkills,
+  addedSkills: [
+    {
+      ...fakeRequiredSkills[0],
+      experienceSkillRecord: { details: null },
+    },
+    {
+      ...fakeRequiredSkills[1],
+      experienceSkillRecord: { details: "details" },
+    },
+    {
+      ...fakeRequiredSkills[2],
+      experienceSkillRecord: { details: null },
+    },
+    {
+      ...fakeOptionalSkills[0],
+      experienceSkillRecord: { details: null },
+    },
+    {
+      ...fakeOptionalSkills[1],
+      experienceSkillRecord: { details: "details" },
+    },
+    {
+      ...fakeOptionalSkills[2],
+      experienceSkillRecord: { details: null },
+    },
+  ],
 };
