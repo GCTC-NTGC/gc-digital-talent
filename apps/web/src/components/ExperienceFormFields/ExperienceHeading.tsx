@@ -33,9 +33,9 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
         <>
           <Heading
             Icon={PencilSquareIcon}
+            color="primary"
             data-h2-margin-top="base(0)"
             data-h2-display="base(flex)"
-            color="primary"
           >
             {intl.formatMessage({
               defaultMessage: "Edit an experience",
@@ -58,6 +58,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
         <>
           <Heading
             Icon={PlusCircleIcon}
+            color="primary"
             data-h2-margin-top="base(0)"
             data-h2-display="base(flex)"
           >
