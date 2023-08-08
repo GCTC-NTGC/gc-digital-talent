@@ -28,15 +28,15 @@ abstract class Experience extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function userSkills(): MorphToMany
     {
         return $this->morphToMany(UserSkill::class, 'experience', 'experience_skill')
-        ->withTimestamps()
-        ->withPivot('details')
-        ->as('experience_skill');
+            ->withTimestamps()
+            ->withPivot('details')
+            ->as('experience_skill');
     }
 
     public function skills(): HasManyThrough
@@ -75,7 +75,7 @@ abstract class Experience extends Model
         $this->refresh();
     }
 
-     /**
+    /**
      * Connect means we will add missing skills and update the details of existing skills, but not remove any skills.
      *
      * @param [id => uuid, details => undefined|string] $skills - Skills must be an array of items, each of which must have an id, and optionally have a details string.
@@ -94,7 +94,7 @@ abstract class Experience extends Model
         $skillsAlreadyAttachedToExperience = $this->userSkills()->pluck('skill_id');
 
         // I wanted to use syncWithoutDetaching, but it doesn't allow for updating pivot values like sync does.
-        foreach($skills as $newSkill) {
+        foreach ($skills as $newSkill) {
             $newSkill = collect($newSkill);
             $userSkillId = $this->user->userSkills->firstWhere('skill_id', $newSkill->get('id'))->id;
             $detailsArray = $newSkill->only('details')->toArray();
@@ -104,7 +104,7 @@ abstract class Experience extends Model
                 if ($newSkill->has('details')) {
                     $this->userSkills()->updateExistingPivot($userSkillId, $detailsArray);
                 }
-            // Otherwise experienceSkill doesn't exist, so add it now
+                // Otherwise experienceSkill doesn't exist, so add it now
             } else {
                 $this->userSkills()->attach($userSkillId, $detailsArray);
             }

@@ -102,7 +102,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     }
     public function poolCandidates(): HasMany
     {
-        return $this->hasMany(PoolCandidate::class);
+        return $this->hasMany(PoolCandidate::class)->withTrashed();
     }
     public function department(): BelongsTo
     {
@@ -130,23 +130,23 @@ class User extends Model implements Authenticatable, LaratrustUser
     // All the relationships for experiences
     public function awardExperiences(): HasMany
     {
-        return $this->hasMany(AwardExperience::class);
+        return $this->hasMany(AwardExperience::class)->withTrashed();
     }
     public function communityExperiences(): HasMany
     {
-        return $this->hasMany(CommunityExperience::class);
+        return $this->hasMany(CommunityExperience::class)->withTrashed();
     }
     public function educationExperiences(): HasMany
     {
-        return $this->hasMany(EducationExperience::class);
+        return $this->hasMany(EducationExperience::class)->withTrashed();
     }
     public function personalExperiences(): HasMany
     {
-        return $this->hasMany(PersonalExperience::class);
+        return $this->hasMany(PersonalExperience::class)->withTrashed();
     }
     public function workExperiences(): HasMany
     {
-        return $this->hasMany(WorkExperience::class);
+        return $this->hasMany(WorkExperience::class)->withTrashed();
     }
 
     public function getExperiencesAttribute()
@@ -272,9 +272,6 @@ class User extends Model implements Authenticatable, LaratrustUser
             foreach ($user->poolCandidates as $candidate) {
                 $candidate->delete();
             }
-            foreach ($user->experiences as $experience) {
-                $experience->delete();
-            }
 
             // Modify the email to allow it to be used for another user
             $newEmail = $user->email . "-deleted-at-" . Carbon::now()->format('Y-m-d');
@@ -285,21 +282,6 @@ class User extends Model implements Authenticatable, LaratrustUser
             // Cascade restore to child models
             foreach ($user->poolCandidates()->withTrashed()->get() as $candidate) {
                 $candidate->restore();
-            }
-            foreach ($user->awardExperiences()->withTrashed()->get() as $experience) {
-                $experience->restore();
-            }
-            foreach ($user->communityExperiences()->withTrashed()->get() as $experience) {
-                $experience->restore();
-            }
-            foreach ($user->educationExperiences()->withTrashed()->get() as $experience) {
-                $experience->restore();
-            }
-            foreach ($user->personalExperiences()->withTrashed()->get() as $experience) {
-                $experience->restore();
-            }
-            foreach ($user->workExperiences()->withTrashed()->get() as $experience) {
-                $experience->restore();
             }
 
             // Remove the deleted-at text from the end of the email

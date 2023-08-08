@@ -337,7 +337,7 @@ query GetViewUserData($id: UUID!) {
     isVisibleMinority
     isWoman
     expectedSalary
-    poolCandidates(trashed: WITH) {
+    poolCandidates {
       id
       status
       expiryDate
@@ -385,7 +385,7 @@ query GetViewUserData($id: UUID!) {
         fr
       }
     }
-    experiences(trashed: WITH) {
+    experiences {
       id
       __typename
       user {

@@ -52,10 +52,7 @@ enum ArmedForcesStatus {
 
 type AwardExperience implements Experience {
   id: ID!
-  user(
-    """Allows to filter if trashed elements should be fetched."""
-    trashed: Trashed
-  ): User!
+  user: User!
   title: String
   issuedBy: String
   awardedDate: Date
@@ -153,10 +150,7 @@ input ClassificationFilterInput {
 
 type CommunityExperience implements Experience {
   id: ID!
-  user(
-    """Allows to filter if trashed elements should be fetched."""
-    trashed: Trashed
-  ): User!
+  user: User!
   title: String
   organization: String
   project: String
@@ -596,10 +590,7 @@ input DigitalContractingQuestionnaireInput {
 
 type EducationExperience implements Experience {
   id: ID!
-  user(
-    """Allows to filter if trashed elements should be fetched."""
-    trashed: Trashed
-  ): User!
+  user: User!
   institution: String
   areaOfStudy: String
   thesisTitle: String
@@ -966,10 +957,7 @@ type PaginatorInfo {
 
 type PersonalExperience implements Experience {
   id: ID!
-  user(
-    """Allows to filter if trashed elements should be fetched."""
-    trashed: Trashed
-  ): User!
+  user: User!
   title: String
   description: String
   startDate: Date
@@ -1078,10 +1066,7 @@ input PoolBelongsToMany {
 type PoolCandidate {
   id: ID!
   pool: Pool!
-  user(
-    """Allows to filter if trashed elements should be fetched."""
-    trashed: Trashed
-  ): User!
+  user: User!
   cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus
@@ -1888,34 +1873,13 @@ type User {
   expectedClassifications: [Classification]
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
-  poolCandidates(
-    """Allows to filter if trashed elements should be fetched."""
-    trashed: Trashed
-  ): [PoolCandidate]
-  experiences(
-    """Allows to filter if trashed elements should be fetched."""
-    trashed: Trashed
-  ): [Experience]
-  awardExperiences(
-    """Allows to filter if trashed elements should be fetched."""
-    trashed: Trashed
-  ): [AwardExperience]
-  communityExperiences(
-    """Allows to filter if trashed elements should be fetched."""
-    trashed: Trashed
-  ): [CommunityExperience]
-  educationExperiences(
-    """Allows to filter if trashed elements should be fetched."""
-    trashed: Trashed
-  ): [EducationExperience]
-  personalExperiences(
-    """Allows to filter if trashed elements should be fetched."""
-    trashed: Trashed
-  ): [PersonalExperience]
-  workExperiences(
-    """Allows to filter if trashed elements should be fetched."""
-    trashed: Trashed
-  ): [WorkExperience]
+  poolCandidates: [PoolCandidate]
+  experiences: [Experience]
+  awardExperiences: [AwardExperience]
+  communityExperiences: [CommunityExperience]
+  educationExperiences: [EducationExperience]
+  personalExperiences: [PersonalExperience]
+  workExperiences: [WorkExperience]
   userSkills: [UserSkill!]
   pools: [Pool] @deprecated(reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead.")
   isProfileComplete: Boolean
@@ -2012,10 +1976,7 @@ input WhereConditionsRelation {
 
 type WorkExperience implements Experience {
   id: ID!
-  user(
-    """Allows to filter if trashed elements should be fetched."""
-    trashed: Trashed
-  ): User!
+  user: User!
   role: String
   organization: String
   division: String
