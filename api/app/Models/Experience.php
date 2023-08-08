@@ -130,31 +130,6 @@ abstract class Experience extends Model
                 $this->userSkills()->attach($userSkillId, $detailsArray);
             }
         }
-
-        // ExperienceSkill::onlyTrashed()
-        //     ->where('experience_id', $this->id)
-        //     ->whereHas('userSkill', function ($query) use ($skillIds) {
-        //         $query->whereIn('skill_id', $skillIds);
-        //     })
-        //     ->restore();
-
-        // // I wanted to use syncWithoutDetaching, but it doesn't allow for updating pivot values like sync does.
-        // $skillsAlreadyAttachedToExperience = $this->userSkills()->pluck('skill_id');
-        // foreach($skills as $newSkill) {
-        //     $newSkill = collect($newSkill);
-        //     $userSkillId = $this->user->userSkills->firstWhere('skill_id', $newSkill->get('id'))->id;
-        //     $detailsArray = $newSkill->only('details')->toArray();
-        //     // If experienceSkill already exists
-        //     if ($skillsAlreadyAttachedToExperience->contains($newSkill->get('id'))) {
-        //         // And details is defined, then update details
-        //         if ($newSkill->has('details')) {
-        //             $this->userSkills()->updateExistingPivot($userSkillId, $detailsArray);
-        //         }
-        //     // Otherwise experienceSkill doesn't exist, so add it now
-        //     } else {
-        //         $this->userSkills()->attach($userSkillId, $detailsArray);
-        //     }
-        // }
         // If this experience instance continues to be used, ensure the in-memory instance is updated.
         $this->refresh();
     }
