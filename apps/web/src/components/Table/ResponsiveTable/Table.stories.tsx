@@ -1,8 +1,13 @@
 import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import {
+  ColumnDef,
+  createColumnHelper,
+  CellContext,
+} from "@tanstack/react-table";
 
+import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
 
 import { User } from "~/api/generated";
@@ -21,6 +26,19 @@ const defaultSearchProps = {
   onChange: (newState: SearchState) => {
     action("onSearchChange")(newState);
   },
+};
+const rowSelectCell = ({ row }: CellContext<User, unknown>) => (
+  <Selection.Cell
+    row={row}
+    label={`Select ${row.original.firstName} ${row.original.lastName}`}
+  />
+);
+const mockApi = async <T,>(data: T): Promise<T> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(data);
+    }, 1000);
+  });
 };
 
 const columns = [
@@ -69,20 +87,74 @@ Empty.args = {
 
 export const RowSelection = Template.bind({});
 RowSelection.args = {
-  columns: [
-    {
-      id: "rowSelection",
-      header: ({ table }) => (
-        <Selection.Header table={table} label="Select all" color="white" />
-      ),
-      cell: ({ row }) => (
-        <Selection.Cell
-          row={row}
-          label={`Select ${row.original.firstName} ${row.original.lastName}`}
-        />
-      ),
-    },
-    ...columns,
-  ],
-  onRowSelection: (rows) => action("onRowSelection")(rows),
+  rowSelect: {
+    onRowSelection: (rows) => action("onRowSelection")(rows),
+    cell: rowSelectCell,
+  },
 };
+
+const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
+  const [isLoading, setLoading] = React.useState<boolean>(false);
+  const [searchState, setSearchState] = React.useState<SearchState>({
+    term: "",
+    type: "",
+  });
+  const [, setRowSelection] = React.useState<User[]>([]);
+
+  const handleSearchChange = async (newSearchState: SearchState) => {
+    setLoading(true);
+    await mockApi(newSearchState)
+      .then((res) => {
+        setSearchState(res);
+      })
+      .finally(() => setLoading(false));
+  };
+
+  const handleRowSelection = async (rows: User[]) => {
+    action("onRowSelection")(rows);
+    setLoading(true);
+    await mockApi(rows)
+      .then((res) => {
+        setRowSelection(res);
+      })
+      .finally(() => setLoading(false));
+  };
+
+  const filteredData = mockUsers.filter((user) => {
+    if (!searchState.term) {
+      return mockUsers;
+    }
+
+    const key = searchState.type as keyof User;
+    const { firstName, lastName, email } = user;
+
+    if (searchState.type && user[key]) {
+      return match(searchState.term, String(user[key]));
+    }
+
+    return (
+      (firstName && match(searchState.term, firstName)) ||
+      (lastName && match(searchState.term, lastName)) ||
+      (email && match(searchState.term, email))
+    );
+  });
+
+  return (
+    <Table
+      {...args}
+      isLoading={isLoading}
+      data={filteredData}
+      rowSelect={{
+        onRowSelection: handleRowSelection,
+        cell: rowSelectCell,
+      }}
+      search={{
+        ...defaultSearchProps,
+        internal: false,
+        onChange: handleSearchChange,
+      }}
+    />
+  );
+};
+
+export const ServerSide = ServerSideTemplate.bind({});

@@ -9,8 +9,6 @@ import Loading, { LoadingProps } from "../Loading";
 
 import ErrorMessage from "./ErrorMessage";
 
-import "./pending.css";
-
 export interface PendingProps extends LoadingProps {
   fetching: boolean;
   error?: CombinedError;
