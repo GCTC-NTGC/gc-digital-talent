@@ -20,7 +20,7 @@
     "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx",
     "prettier": "prettier --write ./src/js",
     "production": "npm run build",
-    "build-storybook": "storybook build",
+    "build-storybook": "storybook build -o storybook-static",
     "storybook": "storybook dev -p 6006",
     "test": "jest --detectOpenHandles --forceExit",
     "test:watch": "jest --watch",
