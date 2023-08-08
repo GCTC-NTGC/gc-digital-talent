@@ -26,6 +26,7 @@ import { SearchState } from "./types";
 import Controls from "./Controls";
 import Footer from "./Footer";
 import { getRowSelectionColumn } from "./RowSelection";
+import { isCellRowTitle } from "./utils";
 
 interface TableProps<TData> {
   caption: React.ReactNode;
@@ -36,6 +37,7 @@ interface TableProps<TData> {
     title: React.ReactNode;
     description: React.ReactNode;
   };
+  rowTitle?: string;
   rowSelect?: {
     allLabel?: string;
     cell: ({ row }: CellContext<TData, unknown>) => JSX.Element;
@@ -52,6 +54,7 @@ const ResponsiveTable = <TData extends object>({
   columns,
   isLoading,
   nullMessage,
+  rowTitle,
   rowSelect,
   search,
 }: TableProps<TData>) => {
@@ -152,7 +155,11 @@ const ResponsiveTable = <TData extends object>({
                 {table.getRowModel().rows.map((row) => (
                   <Row key={row.id}>
                     {row.getVisibleCells().map((cell) => (
-                      <Cell key={cell.id}>
+                      <Cell
+                        key={cell.id}
+                        isRowTitle={isCellRowTitle(cell.column.id, rowTitle)}
+                        isRowSelect={cell.column.id === "rowSelect"}
+                      >
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext(),

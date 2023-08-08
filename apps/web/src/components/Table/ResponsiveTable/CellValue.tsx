@@ -22,7 +22,10 @@ const CellLabel = ({ children, ...rest }: CellLabelProps) => (
 
 interface CellValueProps {
   children: React.ReactNode;
+  // Label for the cell, should match `th`
   header?: React.ReactNode;
+  // Mark this as the cell header (should be first item that is not row selection)
+  isRowTitle?: boolean;
 }
 
 /**
@@ -33,17 +36,29 @@ interface CellValueProps {
  * Note: This should be used in conjunction with
  * the cell attribute when defining columns in react-table
  */
-const CellValue = ({ children, header }: CellValueProps) => {
+const CellValue = ({ children, header, isRowTitle }: CellValueProps) => {
   const intl = useIntl();
+  const showHeader = header && !isRowTitle;
   return (
     <>
-      {header && (
+      {showHeader && (
         <CellLabel>
           {header}
           {intl.formatMessage(commonMessages.dividingColon)}
         </CellLabel>
       )}
-      <span>{children}</span>
+      <span
+        data-h2-display="base(inline-block)"
+        data-h2-word-break="base(break-word)"
+        data-h2-max-width="base(100%)"
+        {...(isRowTitle && {
+          "data-h2-font-size": "base(h6) l-tablet(inherit)",
+          "data-h2-font-weight": "base(800) l-tablet(inherit)",
+          "data-h2-color": "base(secondary.darker) l-tablet(inherit)",
+        })}
+      >
+        {children}
+      </span>
     </>
   );
 };

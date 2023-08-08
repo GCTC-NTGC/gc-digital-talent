@@ -45,7 +45,11 @@ const columns = [
   columnHelper.accessor((row) => `${row.firstName} ${row.lastName}`, {
     id: "name",
     header: "Candidate name",
-    cell: (info) => <Cell header="Candidate name">{info.getValue()}</Cell>,
+    cell: (info) => (
+      <Cell header="Candidate name" isRowTitle>
+        {info.getValue()}
+      </Cell>
+    ),
   }),
   columnHelper.accessor("email", {
     header: "Email",
@@ -59,6 +63,7 @@ export default {
   args: {
     data: mockUsers,
     columns,
+    rowTitle: "name",
     search: defaultSearchProps,
   },
 } as Meta<typeof Table<User>>;

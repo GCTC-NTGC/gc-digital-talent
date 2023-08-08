@@ -40,7 +40,11 @@ const Footer = ({ isLoading, selection, start, end }: FooterProps) => {
         ) : (
           <>
             {selection && (
-              <>
+              <div
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
+                data-h2-gap="base(0 x.25)"
+              >
                 <div
                   data-h2-display="base(flex)"
                   data-h2-align-items="base(center)"
@@ -72,7 +76,7 @@ const Footer = ({ isLoading, selection, start, end }: FooterProps) => {
                     description: "Button text to deselect all table rows",
                   })}
                 </Button>
-              </>
+              </div>
             )}
             {start}
           </>

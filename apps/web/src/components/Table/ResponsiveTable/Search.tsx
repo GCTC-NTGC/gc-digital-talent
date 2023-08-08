@@ -89,7 +89,7 @@ const Search = ({
   });
 
   return (
-    <div data-h2-display="base(flex)">
+    <div data-h2-display="base(flex)" data-h2-width="base(100%) l-tablet(auto)">
       {showDropdown ? (
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
@@ -97,6 +97,7 @@ const Search = ({
               color="secondary"
               utilityIcon={ChevronDownIcon}
               data-h2-radius="base(s 0 0 s)"
+              data-h2-flex-shrink="base(0)"
             >
               {column ? column.label : allTableMsg}
             </Button>
@@ -121,7 +122,11 @@ const Search = ({
           </DropdownMenu.Content>
         </DropdownMenu.Root>
       ) : null}
-      <div data-h2-position="base(relative)" data-h2-display="base(flex)">
+      <div
+        data-h2-position="base(relative)"
+        data-h2-display="base(flex)"
+        data-h2-flex-grow="base(1)"
+      >
         <input
           name="search"
           id={id}
@@ -134,6 +139,7 @@ const Search = ({
           data-h2-background-color="base(foreground)"
           data-h2-border-color="base(gray) base:focus-visible(focus)"
           data-h2-margin-left="base(0)"
+          data-h2-width="base(100%) l-tablet(auto)"
           {...(showDropdown
             ? {
                 "data-h2-radius": "base(0, s, s, 0)",
