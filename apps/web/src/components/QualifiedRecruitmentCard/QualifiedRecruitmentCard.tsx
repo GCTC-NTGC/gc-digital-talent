@@ -49,7 +49,7 @@ const QualifiedRecruitmentCard = ({
     isQualified,
     statusPill,
     availability: { icon: AvailabilityIcon, ...availability },
-  } = getQualifiedRecruitmentInfo(candidate, intl);
+  } = getQualifiedRecruitmentInfo(candidate, intl, locale);
 
   const departments = joinDepartments(
     candidate.pool?.team?.departments ?? [],

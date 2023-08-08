@@ -10,6 +10,7 @@ import useCurrentPage from "~/hooks/useCurrentPage";
 import { Pool, useGetBasicPoolInfoQuery } from "~/api/generated";
 import { getFullPoolTitleLabel, useAdminPoolPages } from "~/utils/poolUtils";
 import { PageNavKeys } from "~/types/pool";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 interface PoolHeaderProps {
   pool: Pick<Pool, "id" | "classifications" | "stream" | "name">;
@@ -17,10 +18,11 @@ interface PoolHeaderProps {
 
 const PoolHeader = ({ pool }: PoolHeaderProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   const pages = useAdminPoolPages(intl, pool);
 
-  const poolTitle = getFullPoolTitleLabel(intl, pool);
+  const poolTitle = getFullPoolTitleLabel(intl, locale, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
 
   return (
