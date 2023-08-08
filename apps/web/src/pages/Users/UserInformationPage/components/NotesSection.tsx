@@ -13,10 +13,12 @@ import {
   useUpdatePoolCandidateMutation,
 } from "~/api/generated";
 
+import { useLocale } from "@gc-digital-talent/i18n";
 import { BasicUserInformationProps } from "../types";
 
 const NotesSection = ({ user }: BasicUserInformationProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   const [, executeMutation] = useUpdatePoolCandidateMutation();
 
@@ -48,7 +50,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                     "Toast notification for successful update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getFullPoolTitleHtml(intl, candidate.pool),
+                  poolName: getFullPoolTitleHtml(intl, locale, candidate.pool),
                 },
               ),
             );
@@ -64,7 +66,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                     "Toast notification for failed update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getFullPoolTitleHtml(intl, candidate.pool),
+                  poolName: getFullPoolTitleHtml(intl, locale, candidate.pool),
                 },
               ),
             );
@@ -110,7 +112,11 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                           "Label for the notes field for a specific pool",
                       },
                       {
-                        poolName: getFullPoolTitleHtml(intl, candidate.pool),
+                        poolName: getFullPoolTitleHtml(
+                          intl,
+                          locale,
+                          candidate.pool,
+                        ),
                       },
                     )}
                     defaultValue={candidate.notes ? candidate.notes : ""}

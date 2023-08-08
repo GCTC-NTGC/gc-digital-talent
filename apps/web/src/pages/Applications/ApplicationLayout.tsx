@@ -28,12 +28,14 @@ import {
   isOnDisabledPage,
 } from "~/utils/applicationUtils";
 
+import { useLocale } from "@gc-digital-talent/i18n";
 import { ApplicationPageProps } from "./ApplicationApi";
 import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
 import ApplicationContextProvider from "./ApplicationContext";
 
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { experienceId } = useParams();
@@ -43,7 +45,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     application,
     experienceId,
   });
-  const title = fullPoolTitle(intl, application.pool);
+  const title = fullPoolTitle(intl, locale, application.pool);
   const isIAP = isIAPPool(application.pool);
 
   const pageTitle = defineMessage({

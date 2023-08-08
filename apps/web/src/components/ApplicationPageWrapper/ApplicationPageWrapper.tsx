@@ -11,6 +11,7 @@ import { BreadcrumbsProps } from "@gc-digital-talent/ui";
 import Hero from "~/components/Hero/Hero";
 import { Pool } from "~/api/generated";
 
+import { useLocale } from "@gc-digital-talent/i18n";
 import ApplicationNavigation, {
   type ApplicationNavigationProps,
 } from "./ApplicationNavigation";
@@ -33,6 +34,7 @@ const ApplicationPageWrapper = ({
   children,
 }: ApplicationPageWrapperProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const showNav = !!(navigation && navigation.steps.length > 0);
 
   return (
@@ -81,6 +83,7 @@ const ApplicationPageWrapper = ({
                     ? relativeClosingDate({
                         closingDate: parseDateTimeUtc(closingDate),
                         intl,
+                        locale,
                       })
                     : ""}
                 </span>

@@ -8,6 +8,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
+import { useLocale } from "@gc-digital-talent/i18n";
 import type { Application } from "./ApplicationCard";
 
 interface ActionProps {
@@ -20,6 +21,7 @@ interface ContinueActionProps extends ActionProps {
 
 const ContinueAction = ({ show, application }: ContinueActionProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
   const { pool } = application;
 
@@ -37,7 +39,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
             description: "Link text to continue a specific application",
           },
           {
-            name: getFullPoolTitleHtml(intl, pool),
+            name: getFullPoolTitleHtml(intl, locale, pool),
           },
         )}
       </Link>
@@ -50,9 +52,10 @@ interface ViewActionProps extends ActionProps {
 
 const ViewAction = ({ show, application }: ViewActionProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
   const { pool } = application;
-  const title = getFullPoolTitleLabel(intl, pool);
+  const title = getFullPoolTitleLabel(intl, locale, pool);
   if (!show) {
     return null;
   }
@@ -97,8 +100,9 @@ const SeeAdvertisementAction = ({
   advertisement,
 }: SeeAdvertisementActionProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
-  const jobTitle = getFullPoolTitleLabel(intl, advertisement);
+  const jobTitle = getFullPoolTitleLabel(intl, locale, advertisement);
 
   if (!show || !advertisement) {
     return null;
@@ -140,8 +144,9 @@ interface SupportActionProps extends ActionProps {
 
 const SupportAction = ({ show, application }: SupportActionProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
-  const jobTitle = getFullPoolTitleLabel(intl, application.pool);
+  const jobTitle = getFullPoolTitleLabel(intl, locale, application.pool);
   if (!show) {
     return null;
   }
@@ -181,11 +186,12 @@ const CopyApplicationIdAction = ({
   application,
 }: CopyApplicationIdActionProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
   if (!show) {
     return null;
   }
-  const jobTitle = getFullPoolTitleLabel(intl, application.pool);
+  const jobTitle = getFullPoolTitleLabel(intl, locale, application.pool);
   return (
     <Button
       mode="inline"
@@ -247,8 +253,9 @@ const VisitCareerTimelineAction = ({
   application,
 }: VisitCareerTimelineActionProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
-  const jobTitle = getFullPoolTitleLabel(intl, application.pool);
+  const jobTitle = getFullPoolTitleLabel(intl, locale, application.pool);
 
   if (!show) {
     return null;
@@ -297,8 +304,9 @@ const ManageAvailabilityAction = ({
   application,
 }: ManageAvailabilityActionProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
-  const jobTitle = getFullPoolTitleLabel(intl, application.pool);
+  const jobTitle = getFullPoolTitleLabel(intl, locale, application.pool);
 
   if (!show) {
     return null;
@@ -340,12 +348,13 @@ export interface DeleteActionProps extends ActionProps {
 
 const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   if (!show) {
     return null;
   }
 
-  const name = getFullPoolTitleLabel(intl, application.pool);
+  const name = getFullPoolTitleLabel(intl, locale, application.pool);
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
@@ -437,12 +446,13 @@ const ArchiveAction = ({
   onArchive,
 }: ArchiveActionProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   if (!show) {
     return null;
   }
 
-  const name = getFullPoolTitleHtml(intl, application.pool);
+  const name = getFullPoolTitleHtml(intl, locale, application.pool);
 
   return (
     <AlertDialog.Root>

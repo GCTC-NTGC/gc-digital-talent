@@ -559,7 +559,7 @@ export const ViewPoolCandidate = ({
         icon={UserCircleIcon}
         subtitle={`${poolCandidate.user.firstName} ${
           poolCandidate.user.lastName
-        } / ${getFullPoolTitleLabel(intl, poolCandidate.pool)}`}
+        } / ${getFullPoolTitleLabel(intl, locale, poolCandidate.pool)}`}
         navItems={pages}
       >
         {intl.formatMessage({
@@ -580,7 +580,7 @@ export const ViewPoolCandidate = ({
           },
           {
             submittedAt: poolCandidate.submittedAt,
-            poolName: getFullPoolTitleHtml(intl, poolCandidate.pool),
+            poolName: getFullPoolTitleHtml(intl, locale, poolCandidate.pool),
           },
         )}
       </p>

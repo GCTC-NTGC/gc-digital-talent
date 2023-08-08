@@ -9,6 +9,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 
 import { Pool } from "~/api/generated";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 type PublishDialogProps = {
   closingDate: Pool["closingDate"];
@@ -20,6 +21,7 @@ const PublishDialog = ({
   onPublish,
 }: PublishDialogProps): JSX.Element => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const methods = useForm();
   const {
     formState: { isSubmitting },
@@ -73,10 +75,12 @@ const PublishDialog = ({
     closingStringLocal = relativeClosingDate({
       closingDate: closingDateObject,
       intl,
+      locale,
     });
     closingStringPacific = relativeClosingDate({
       closingDate: closingDateObject,
       intl,
+      locale,
       timeZone: "Canada/Pacific",
     });
   }

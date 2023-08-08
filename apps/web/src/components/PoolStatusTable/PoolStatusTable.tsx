@@ -4,7 +4,7 @@ import isEmpty from "lodash/isEmpty";
 import isPast from "date-fns/isPast";
 
 import { Link, Well } from "@gc-digital-talent/ui";
-import { getPoolCandidateStatus } from "@gc-digital-talent/i18n";
+import { getPoolCandidateStatus, useLocale } from "@gc-digital-talent/i18n";
 import { PoolCandidate } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
@@ -24,6 +24,7 @@ const isSuspended = (suspendedAt: PoolCandidate["suspendedAt"]): boolean => {
 
 const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
 
   if (isEmpty(user.poolCandidates)) {
@@ -92,7 +93,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
                       color="black"
                       href={paths.poolView(candidate.pool.id)}
                     >
-                      {getFullPoolTitleHtml(intl, candidate.pool)}
+                      {getFullPoolTitleHtml(intl, locale, candidate.pool)}
                     </Link>
                   ) : (
                     ""

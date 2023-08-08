@@ -17,7 +17,7 @@ import useMutations from "~/pages/Applications/MyApplicationsPage/components/App
 import { getRecruitmentType, isQualifiedStatus } from "~/utils/poolCandidate";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, useLocale } from "@gc-digital-talent/i18n";
 import { getApplicationDateInfo } from "./utils";
 
 type Application = Omit<
@@ -37,6 +37,7 @@ const TrackApplicationsCard = ({
   onDelete,
 }: TrackApplicationsCardProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   // Conditionals for card actions
   const applicationIsDraft = isDraft(application.status);
@@ -52,9 +53,9 @@ const TrackApplicationsCard = ({
     ? getStatusPillInfo(PoolCandidateStatus.DraftExpired, intl)
     : getStatusPillInfo(application.status, intl);
 
-  const applicationDateInfo = getApplicationDateInfo(application, intl);
+  const applicationDateInfo = getApplicationDateInfo(application, intl, locale);
   const { user } = useAuthorization();
-  const applicationTitle = getFullPoolTitleHtml(intl, application.pool);
+  const applicationTitle = getFullPoolTitleHtml(intl, locale, application.pool);
   return (
     <div
       data-h2-border-left="base(x.5 solid primary)"

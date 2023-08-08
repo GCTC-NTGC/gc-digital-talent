@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { PersonalExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/dateUtils";
 
+import { useLocale } from "@gc-digital-talent/i18n";
 import ContentSection from "./ContentSection";
 import { ContentProps } from "./types";
 
@@ -12,6 +13,7 @@ const PersonalContent = ({
   headingLevel,
 }: ContentProps<PersonalExperience>) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   return (
     <div
@@ -27,7 +29,7 @@ const PersonalContent = ({
           description: "Label for the start/end date for an experience",
         })}
       >
-        <p>{getDateRange({ endDate, startDate, intl })}</p>
+        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
       </ContentSection>
     </div>
   );

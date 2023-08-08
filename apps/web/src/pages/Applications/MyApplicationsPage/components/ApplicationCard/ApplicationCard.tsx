@@ -3,7 +3,10 @@ import { useIntl } from "react-intl";
 
 import { Heading, HeadingProps, Pill } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getPoolCandidateStatusLabel } from "@gc-digital-talent/i18n";
+import {
+  getPoolCandidateStatusLabel,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { type PoolCandidate } from "~/api/generated";
@@ -40,6 +43,7 @@ const ApplicationCard = ({
   headingLevel = "h2",
 }: ApplicationCardProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   const applicationIsDraft = isDraft(application.status);
   const applicationCanBeArchived = canBeArchived(
@@ -52,8 +56,12 @@ const ApplicationCard = ({
     application.status,
     application.pool.closingDate,
   );
-  const submittedAt = formatSubmittedAt(application.submittedAt, intl);
-  const closingDate = formatClosingDate(application.pool.closingDate, intl);
+  const submittedAt = formatSubmittedAt(application.submittedAt, locale);
+  const closingDate = formatClosingDate(
+    application.pool.closingDate,
+    intl,
+    locale,
+  );
   const status = getPoolCandidateStatusLabel(application.status);
 
   return (
@@ -75,7 +83,7 @@ const ApplicationCard = ({
           data-h2-margin="base(0)"
           data-h2-flex-grow="base(1)"
         >
-          {getFullPoolTitleHtml(intl, application.pool)}
+          {getFullPoolTitleHtml(intl, locale, application.pool)}
         </Heading>
         <p data-h2-font-size="base(0.8rem)" data-h2-text-align="base(right)">
           {intl.formatMessage(

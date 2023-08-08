@@ -6,7 +6,11 @@ import zipWith from "lodash/zipWith";
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { DateInput, MultiSelectField } from "@gc-digital-talent/forms";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 
@@ -34,6 +38,7 @@ interface AddToPoolDialogProps {
 
 const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [open, setOpen] = React.useState(false);
   const methods = useForm<FormValues>();
 
@@ -115,7 +120,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
               <ul>
                 {rejectedRequests.map((rejected) => (
                   <li key={rejected.pool.id}>
-                    {getFullPoolTitleHtml(intl, rejected.pool)}
+                    {getFullPoolTitleHtml(intl, locale, rejected.pool)}
                   </li>
                 ))}
               </ul>
@@ -146,7 +151,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
     .map((pool) => {
       return {
         value: pool.id,
-        label: getFullPoolTitleLabel(intl, pool),
+        label: getFullPoolTitleLabel(intl, locale, pool),
       };
     });
 

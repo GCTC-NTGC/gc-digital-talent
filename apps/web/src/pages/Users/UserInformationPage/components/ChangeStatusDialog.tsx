@@ -14,6 +14,7 @@ import {
   commonMessages,
   errorMessages,
   getPoolCandidateStatus,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -46,6 +47,7 @@ const ChangeStatusDialog = ({
   pools,
 }: ChangeStatusDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [open, setOpen] = React.useState(false);
   const methods = useForm<FormValues>();
 
@@ -141,7 +143,7 @@ const ChangeStatusDialog = ({
               <ul>
                 {rejectedRequests.map((r) => (
                   <li key={r.poolCandidate.id}>
-                    {getFullPoolTitleHtml(intl, r.poolCandidate.pool, {
+                    {getFullPoolTitleHtml(intl, locale, r.poolCandidate.pool, {
                       defaultTitle: r.poolCandidate.id,
                     })}
                   </li>
@@ -207,7 +209,7 @@ const ChangeStatusDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(700)">
-            - {getFullPoolTitleHtml(intl, selectedCandidate?.pool)}
+            - {getFullPoolTitleHtml(intl, locale, selectedCandidate?.pool)}
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
@@ -282,7 +284,7 @@ const ChangeStatusDialog = ({
                     .map((pool) => {
                       return {
                         value: pool.id,
-                        label: getFullPoolTitleLabel(intl, pool),
+                        label: getFullPoolTitleLabel(intl, locale, pool),
                       };
                     })}
                 />

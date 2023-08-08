@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, useLocale } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -61,6 +61,7 @@ export const getPageInfo: GetPageNavInfo = ({
 
 const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP } =
@@ -71,7 +72,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const poolName = getFullPoolTitleHtml(intl, application.pool);
+  const poolName = getFullPoolTitleHtml(intl, locale, application.pool);
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();
   const nextStepPath =
     followingPageUrl ?? paths.applicationProfile(application.id);

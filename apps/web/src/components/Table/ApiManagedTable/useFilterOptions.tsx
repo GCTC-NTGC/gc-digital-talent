@@ -79,7 +79,7 @@ export default function useFilterOptions(enableEducationType = false) {
     })),
     pools: filterRes.data?.pools.filter(notEmpty).map((pool) => ({
       value: pool.id,
-      label: getFullPoolTitleLabel(intl, pool),
+      label: getFullPoolTitleLabel(intl, locale, pool),
     })),
     languageAbility: enumToOptions(LanguageAbility).map(({ value }) => ({
       value,

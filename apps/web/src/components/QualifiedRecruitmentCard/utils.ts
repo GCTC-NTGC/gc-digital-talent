@@ -141,12 +141,13 @@ type QualifiedRecruitmentInfo = {
 export const getQualifiedRecruitmentInfo = (
   candidate: Application,
   intl: IntlShape,
+  locale: Locales,
 ): QualifiedRecruitmentInfo => {
   return {
     statusPill: getStatusPillInfo(candidate.status, intl),
     availability: getAvailabilityInfo(candidate, intl),
     isQualified: isQualifiedStatus(candidate.status),
     isOngoing: isOngoingPublishingGroup(candidate.pool.publishingGroup),
-    title: fullPoolTitle(intl, candidate.pool),
+    title: fullPoolTitle(intl, locale, candidate.pool),
   };
 };

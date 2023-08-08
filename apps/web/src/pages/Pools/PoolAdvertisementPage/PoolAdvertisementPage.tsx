@@ -97,7 +97,7 @@ export const PoolPoster = ({
       level: classification?.level,
     });
   }
-  const fullTitle = getFullPoolTitleLabel(intl, pool);
+  const fullTitle = getFullPoolTitleLabel(intl, locale, pool);
 
   const showImpactTasks = !!(pool.keyTasks || pool.yourImpact);
   const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);

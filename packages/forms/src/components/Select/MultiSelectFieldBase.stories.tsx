@@ -51,6 +51,7 @@ const Template: ComponentStory<typeof MultiSelectFieldBase> = (args) => {
 
 const TemplateGroup: ComponentStory<typeof MultiSelectFieldBase> = (args) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const departments = fakeDepartments();
   const pools = fakePools();
   const groups = [

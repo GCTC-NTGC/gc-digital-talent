@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, useLocale } from "@gc-digital-talent/i18n";
 
 import { CommunityExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/dateUtils";
@@ -14,6 +14,7 @@ const CommunityContent = ({
   headingLevel,
 }: ContentProps<CommunityExperience>) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   return (
     <div
@@ -31,7 +32,7 @@ const CommunityContent = ({
         data-h2-padding-right="p-tablet(x1)"
         data-h2-border-right="p-tablet(1px solid gray.lighter)"
       >
-        <p>{getDateRange({ endDate, startDate, intl })}</p>
+        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
       </ContentSection>
       <ContentSection
         title={intl.formatMessage({

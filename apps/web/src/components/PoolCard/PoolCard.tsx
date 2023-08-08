@@ -109,7 +109,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
             data-h2-margin="base(0, 0, x1, 0) p-tablet(0)"
             style={{ wordBreak: "break-word" }}
           >
-            {getFullPoolTitleHtml(intl, pool)}
+            {getFullPoolTitleHtml(intl, locale, pool)}
           </Heading>
           <div
             data-h2-flex-grow="p-tablet(1)"

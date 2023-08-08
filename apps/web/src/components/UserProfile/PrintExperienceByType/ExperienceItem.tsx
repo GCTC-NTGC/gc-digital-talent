@@ -41,6 +41,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
       startDate,
       endDate,
       intl,
+      locale,
     });
   };
 

@@ -9,6 +9,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { useChangeApplicationSuspendedAtMutation } from "~/api/generated";
 import { fullPoolTitle } from "~/utils/poolUtils";
 import { Application } from "~/utils/applicationUtils";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 interface RecruitmentAvailabilityDialogProps {
   candidate: Application;
@@ -22,10 +23,11 @@ const RecruitmentAvailabilityDialog = ({
   candidate,
 }: RecruitmentAvailabilityDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [, executeMutation] = useChangeApplicationSuspendedAtMutation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const isSuspended = !!candidate.suspendedAt;
-  const title = fullPoolTitle(intl, candidate.pool);
+  const title = fullPoolTitle(intl, locale, candidate.pool);
 
   const methods = useForm<FormValues>({
     defaultValues: { isSuspended: isSuspended ? "true" : "false" },

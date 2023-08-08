@@ -40,6 +40,7 @@ type PoolCell = Cell<Pool>;
 function poolCandidatesLinkAccessor(
   poolCandidatesTableUrl: string,
   intl: IntlShape,
+  locale: Locales,
   pool: Maybe<Pool>,
 ) {
   return (
@@ -50,16 +51,21 @@ function poolCandidatesLinkAccessor(
           id: "6R9N+h",
           description: "Text for a link to the Pool Candidates table",
         },
-        { label: getFullPoolTitleHtml(intl, pool) },
+        { label: getFullPoolTitleHtml(intl, locale, pool) },
       )}
     </Link>
   );
 }
 
-function viewLinkAccessor(url: string, pool: Pool, intl: IntlShape) {
+function viewLinkAccessor(
+  url: string,
+  pool: Pool,
+  intl: IntlShape,
+  locale: Locales,
+) {
   return (
     <Link color="black" href={url}>
-      {getFullPoolTitleHtml(intl, pool)}
+      {getFullPoolTitleHtml(intl, locale, pool)}
     </Link>
   );
 }
@@ -185,7 +191,12 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           return "";
         },
         Cell: ({ row }: PoolCell) =>
-          viewLinkAccessor(paths.poolView(row.original.id), row.original, intl),
+          viewLinkAccessor(
+            paths.poolView(row.original.id),
+            row.original,
+            intl,
+            locale,
+          ),
       },
       {
         Header: intl.formatMessage({
@@ -216,6 +227,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           poolCandidatesLinkAccessor(
             paths.poolCandidateTable(row.original.id),
             intl,
+            locale,
             row.original,
           ),
       },

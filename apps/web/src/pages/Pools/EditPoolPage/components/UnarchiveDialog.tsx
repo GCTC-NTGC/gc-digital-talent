@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Pool } from "@gc-digital-talent/graphql";
-import { uiMessages } from "@gc-digital-talent/i18n";
+import { uiMessages, useLocale } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 
@@ -17,6 +17,7 @@ const UnarchiveDialog = ({
   onUnarchive,
 }: UnarchiveDialogProps): JSX.Element => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const Footer = React.useMemo(
     () => (
       <>
@@ -78,7 +79,7 @@ const UnarchiveDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x0.5)">
-            {getFullPoolTitleLabel(intl, pool)}
+            {getFullPoolTitleLabel(intl, locale, pool)}
           </p>
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({

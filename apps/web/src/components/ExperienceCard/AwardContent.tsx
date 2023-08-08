@@ -5,6 +5,7 @@ import {
   commonMessages,
   getAwardedScope,
   getAwardedTo,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 
 import { AwardExperience } from "~/api/generated";
@@ -17,6 +18,7 @@ const AwardContent = ({
   headingLevel,
 }: ContentProps<AwardExperience>) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   return (
     <div
@@ -36,7 +38,7 @@ const AwardContent = ({
       >
         <p>
           {awardedDate
-            ? formattedDate(awardedDate, intl)
+            ? formattedDate(awardedDate, locale)
             : intl.formatMessage(commonMessages.notProvided)}
         </p>
       </ContentSection>

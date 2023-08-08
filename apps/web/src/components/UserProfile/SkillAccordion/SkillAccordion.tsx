@@ -79,7 +79,7 @@ const SkillAccordion = ({
       <>
         <p data-h2-color="base(primary.darker)">{title}</p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl })}
+          {getDateRange({ endDate, startDate, intl, locale })}
         </p>
         <p>{description}</p>
         <p>{justification}</p>
@@ -117,7 +117,7 @@ const SkillAccordion = ({
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl })}
+          {getDateRange({ endDate, startDate, intl, locale })}
         </p>
         <p>
           {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
@@ -172,7 +172,7 @@ const SkillAccordion = ({
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {awardedDate && formattedDate(awardedDate, intl)}
+          {awardedDate && formattedDate(awardedDate, locale)}
         </p>
         <p>
           {intl.formatMessage({
@@ -236,7 +236,7 @@ const SkillAccordion = ({
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl })}
+          {getDateRange({ endDate, startDate, intl, locale })}
         </p>
         <p>
           {intl.formatMessage(
@@ -292,7 +292,7 @@ const SkillAccordion = ({
           )}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl })}
+          {getDateRange({ endDate, startDate, intl, locale })}
         </p>
         <p>{division}</p>
         <p>{justification}</p>

@@ -5,7 +5,11 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { DateInput } from "@gc-digital-talent/forms";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 
@@ -32,6 +36,7 @@ const ChangeDateDialog = ({
   user,
 }: ChangeDateDialogProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const [open, setOpen] = React.useState(false);
   const methods = useForm<FormValues>();
 
@@ -124,7 +129,7 @@ const ChangeDateDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(800)">
-            - {getFullPoolTitleHtml(intl, selectedCandidate.pool)}
+            - {getFullPoolTitleHtml(intl, locale, selectedCandidate.pool)}
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>

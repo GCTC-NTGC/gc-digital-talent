@@ -8,6 +8,7 @@ import { Pool } from "~/api/generated";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { checkRole } from "~/utils/teamUtils";
 
+import { useLocale } from "@gc-digital-talent/i18n";
 import { useEditPoolContext } from "./EditPoolContext";
 
 type DuplicateDialogProps = {
@@ -20,6 +21,7 @@ const DuplicateDialog = ({ pool, onDuplicate }: DuplicateDialogProps) => {
   const { roleAssignments } = useAuthorization();
   const { isSubmitting } = useEditPoolContext();
   const intl = useIntl();
+  const { locale } = useLocale();
 
   // Only show this button to the roles that can create a pool
   if (!checkRole([ROLE_NAME.PoolOperator], roleAssignments)) {
@@ -31,7 +33,7 @@ const DuplicateDialog = ({ pool, onDuplicate }: DuplicateDialogProps) => {
     id: "DxvIPq",
     description: "Title to duplicate a job poster",
   });
-  const poolName = getFullPoolTitleHtml(intl, pool);
+  const poolName = getFullPoolTitleHtml(intl, locale, pool);
 
   return (
     <>

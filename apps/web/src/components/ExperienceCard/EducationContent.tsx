@@ -1,7 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { commonMessages, getEducationStatus } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getEducationStatus,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 
 import { EducationExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/dateUtils";
@@ -14,6 +18,7 @@ const EducationContent = ({
   headingLevel,
 }: ContentProps<EducationExperience>) => {
   const intl = useIntl();
+  const { locale } = useLocale();
 
   return (
     <div
@@ -31,7 +36,7 @@ const EducationContent = ({
         data-h2-padding-right="l-tablet(x1)"
         data-h2-border-right="l-tablet(1px solid gray.lighter)"
       >
-        <p>{getDateRange({ endDate, startDate, intl })}</p>
+        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
       </ContentSection>
       <ContentSection
         title={intl.formatMessage({

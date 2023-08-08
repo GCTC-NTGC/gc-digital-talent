@@ -17,6 +17,7 @@ import {
   getPoolCandidateStatus,
   commonMessages,
   formMessages,
+  useLocale,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
@@ -50,6 +51,7 @@ export const ApplicationStatusForm = ({
   isSubmitting,
 }: ApplicationStatusFormProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const methods = useForm<FormValues>({
     defaultValues: {
       status: application.status ?? undefined,
@@ -202,7 +204,11 @@ export const ApplicationStatusForm = ({
                         "Label for the notes field for a specific pool",
                     },
                     {
-                      poolName: getFullPoolTitleHtml(intl, application.pool),
+                      poolName: getFullPoolTitleHtml(
+                        intl,
+                        locale,
+                        application.pool,
+                      ),
                     },
                   )}
                 />
@@ -234,6 +240,7 @@ interface ApplicationStatusFormApiProps {
 
 const ApplicationStatusFormApi = ({ id }: ApplicationStatusFormApiProps) => {
   const intl = useIntl();
+
   const [{ data, fetching, error }] = useGetPoolCandidateStatusQuery({
     variables: { id },
   });

@@ -177,7 +177,7 @@ const ApplicantFilters = ({
             content={
               applicantFilter
                 ? applicantFilter?.pools?.map((pool) =>
-                    getFullPoolTitleHtml(intl, pool),
+                    getFullPoolTitleHtml(intl, locale, pool),
                   )
                 : null
             }
@@ -320,6 +320,7 @@ const SearchRequestFilters = ({
   selectedClassifications,
 }: SearchRequestFiltersProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   let poolCandidateFilter;
   // eslint-disable-next-line no-underscore-dangle
   if (filters?.__typename === "ApplicantFilter") {
@@ -442,7 +443,9 @@ const SearchRequestFilters = ({
               })}
               content={
                 pools
-                  ? pools.map((pool) => getFullPoolTitleHtml(intl, pool))
+                  ? pools.map((pool) =>
+                      getFullPoolTitleHtml(intl, locale, pool),
+                    )
                   : null
               }
             />

@@ -15,7 +15,7 @@ import {
 import { BasicForm, TextArea } from "@gc-digital-talent/forms";
 import { removeFromSessionStorage } from "@gc-digital-talent/storage";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { navigationMessages } from "@gc-digital-talent/i18n";
+import { navigationMessages, useLocale } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { categorizeSkill } from "~/utils/skillUtils";
@@ -92,6 +92,7 @@ export const ExperienceForm = ({
   pool,
 }: ExperienceFormProps) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
 
   const returnPath = `${paths.careerTimelineAndRecruitment(userId)}${
@@ -147,7 +148,7 @@ export const ExperienceForm = ({
   let irrelevantSkills: Maybe<Skill[]> = [];
 
   if (pool) {
-    const poolTitle = getFullPoolTitleHtml(intl, pool);
+    const poolTitle = getFullPoolTitleHtml(intl, locale, pool);
 
     crumbs = [
       {

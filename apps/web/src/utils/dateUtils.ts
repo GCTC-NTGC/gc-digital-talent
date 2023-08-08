@@ -28,14 +28,16 @@ export function getDateRange({
   endDate,
   startDate,
   intl,
+  locale,
 }: {
   endDate: Maybe<Scalars["Date"]>;
   startDate: Maybe<Scalars["Date"]>;
   intl: IntlShape;
+  locale: Locales;
 }): string {
   if (!startDate) return "";
 
-  const formattedStartDate = formattedDate(startDate, intl);
+  const formattedStartDate = formattedDate(startDate, locale);
   if (!endDate)
     return intl.formatMessage(
       {
@@ -45,6 +47,6 @@ export function getDateRange({
       },
       { date: formattedStartDate },
     );
-  const formattedEndDate = formattedDate(endDate, intl);
+  const formattedEndDate = formattedDate(endDate, locale);
   return `${formattedStartDate} - ${formattedEndDate}`;
 }
