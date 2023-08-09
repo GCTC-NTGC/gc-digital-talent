@@ -1,11 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import omit from "lodash/omit";
-import type {
-  ColumnDef,
-  RowSelectionState,
-  CellContext,
-} from "@tanstack/react-table";
+import type { ColumnDef, RowSelectionState } from "@tanstack/react-table";
 import {
   flexRender,
   getCoreRowModel,
@@ -22,7 +18,7 @@ import CellHeader from "./CellHeader";
 import Row from "./Row";
 import Table from "./Table";
 import Search from "./Search";
-import { SearchState } from "./types";
+import { NullMessage, RowSelect, SearchDef, SearchState } from "./types";
 import Controls from "./Controls";
 import Footer from "./Footer";
 import { getRowSelectionColumn } from "./RowSelection";
@@ -34,19 +30,10 @@ interface TableProps<TData> {
   data: TData[];
   columns: ColumnDef<TData>[];
   isLoading?: boolean;
-  nullMessage?: {
-    title: React.ReactNode;
-    description: React.ReactNode;
-  };
+  nullMessage?: NullMessage;
   rowTitle?: string;
-  rowSelect?: {
-    allLabel?: string;
-    cell: ({ row }: CellContext<TData, unknown>) => JSX.Element;
-    onRowSelection?: (rows: TData[]) => void;
-  };
-  search?: {
-    internal: boolean;
-  } & React.ComponentPropsWithoutRef<typeof Search>;
+  rowSelect?: RowSelect<TData>;
+  search?: SearchDef<typeof Search>;
 }
 
 const ResponsiveTable = <TData extends object>({

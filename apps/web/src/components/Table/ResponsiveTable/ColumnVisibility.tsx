@@ -51,20 +51,23 @@ const ColumnVisibility = <T extends object>({
                 })}
               </label>
             </div>
-            {table.getAllLeafColumns().map((column) => (
-              <div key={column.id} data-h2-margin="base(x.125, 0)">
-                <label>
-                  <input
-                    {...{
-                      type: "checkbox",
-                      checked: column.getIsVisible(),
-                      onChange: column.getToggleVisibilityHandler(),
-                    }}
-                  />{" "}
-                  {column.columnDef.header?.toString() || ""}
-                </label>
-              </div>
-            ))}
+            {table
+              .getAllLeafColumns()
+              .filter((c) => !c.columnDef.meta?.hideInColumnVisibility)
+              .map((column) => (
+                <div key={column.id} data-h2-margin="base(x.125, 0)">
+                  <label>
+                    <input
+                      {...{
+                        type: "checkbox",
+                        checked: column.getIsVisible(),
+                        onChange: column.getToggleVisibilityHandler(),
+                      }}
+                    />{" "}
+                    {column.columnDef.header?.toString() || ""}
+                  </label>
+                </div>
+              ))}
           </Field.Fieldset>
         </Dialog.Body>
       </Dialog.Content>

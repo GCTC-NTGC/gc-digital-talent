@@ -56,4 +56,7 @@ export const getRowSelectionColumn = <TData extends object>(
     <Header table={table} label="Select all" color="white" />
   ),
   cell,
+  meta: {
+    hideInColumnVisibility: true,
+  },
 });
