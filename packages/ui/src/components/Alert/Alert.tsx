@@ -79,7 +79,7 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
             data-h2-radius="base(rounded)"
             data-h2-shadow="base(larger)"
             data-h2-overflow="base(hidden)"
-            data-h2-margin="base(x1, 0)"
+            data-h2-margin="base(0, 0, x1, 0)"
             {...(live ? { role: "alert" } : {})}
             {...styleMap[type]}
             {...rest}
