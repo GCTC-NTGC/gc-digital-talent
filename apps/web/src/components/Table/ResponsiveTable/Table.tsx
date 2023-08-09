@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { flexRender } from "@tanstack/react-table";
 import type { Header, Cell } from "@tanstack/react-table";
-import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
+import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
 import { Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -183,17 +183,25 @@ const Controls = ({ children, addLink }: ControlsProps) => (
     data-h2-flex-direction="base(column) l-tablet(row)"
     data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
     data-h2-margin-bottom="base(x.25)"
+    data-h2-justify-content="base(space-between)"
   >
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column) l-tablet(row)"
       data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
+      data-h2-flex-grow="base(1)"
     >
       {children}
     </div>
     {addLink && (
-      <div>
-        <Link icon={PlusCircleIcon} color="secondary" href={addLink.href}>
+      <div data-h2-flex-shrink="base(1)">
+        <Link
+          icon={PlusCircleIcon}
+          color="secondary"
+          mode="solid"
+          href={addLink.href}
+          block
+        >
           {addLink.label}
         </Link>
       </div>

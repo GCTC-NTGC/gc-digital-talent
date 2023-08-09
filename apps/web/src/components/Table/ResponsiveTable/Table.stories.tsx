@@ -81,6 +81,10 @@ const Template: StoryFn<typeof Table<User>> = (args) => <Table {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   caption: "Default table",
+  add: {
+    label: "Add an item",
+    href: "#add",
+  },
   search: {
     ...defaultSearchProps,
     searchBy: [

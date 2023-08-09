@@ -1,8 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
-import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
-import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { useCommonInputStyles } from "@gc-digital-talent/forms";

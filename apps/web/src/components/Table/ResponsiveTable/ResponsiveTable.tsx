@@ -16,6 +16,7 @@ import NullMessage, { NullMessageProps } from "./NullMessage";
 import RowSelection, { getRowSelectionColumn } from "./RowSelection";
 
 import type {
+  AddLinkProps,
   DatasetDownload,
   DatasetPrint,
   RowSelect,
@@ -42,6 +43,8 @@ interface TableProps<TData> {
   print?: DatasetPrint;
   /** Enable downloading selected rows and/or all data (requires rowSelect) */
   download?: DatasetDownload;
+  /** Enable the "add item" button */
+  add?: AddLinkProps;
 }
 
 const ResponsiveTable = <TData extends object>({
@@ -54,6 +57,7 @@ const ResponsiveTable = <TData extends object>({
   search,
   download,
   print,
+  add,
 }: TableProps<TData>) => {
   const id = React.useId();
   const memoizedData = React.useMemo(() => data, [data]);
@@ -113,14 +117,17 @@ const ResponsiveTable = <TData extends object>({
 
   return (
     <>
-      <Table.Controls>
+      <Table.Controls addLink={add}>
         {search && (
           <SearchForm
             onChange={handleSearchChange}
             {...omit(search, "onChange")}
           />
         )}
-        <ColumnDialog table={table} />
+        {/** Note: `div` prevents button from taking up entire space on desktop */}
+        <div>
+          <ColumnDialog table={table} />
+        </div>
       </Table.Controls>
       {!hasNoData ? (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex

@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Table } from "@tanstack/react-table";
-import TableCellsIcon from "@heroicons/react/24/outline/TableCellsIcon";
+import TableCellsIcon from "@heroicons/react/20/solid/TableCellsIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Field } from "@gc-digital-talent/forms";
@@ -27,7 +27,7 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button icon={TableCellsIcon} color="quaternary" type="button">
+        <Button icon={TableCellsIcon} color="quaternary" type="button" block>
           {intl.formatMessage(adminMessages.showHideColumns)}
         </Button>
       </Dialog.Trigger>
