@@ -8,13 +8,20 @@ import { Field } from "@gc-digital-talent/forms";
 
 import adminMessages from "~/messages/adminMessages";
 
-interface ColumnVisibilityProps<TData> {
+interface ColumnDialogProps<TData> {
+  /** Instance of the `react-table` */
   table: Table<TData>;
 }
 
-const ColumnVisibility = <T extends object>({
-  table,
-}: ColumnVisibilityProps<T>) => {
+/**
+ * Column Dialog
+ *
+ * Controls the display of specific columns
+ *
+ * @param ColumnDialogProps
+ * @returns JSX.Element
+ */
+const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
   const intl = useIntl();
 
   return (
@@ -53,7 +60,7 @@ const ColumnVisibility = <T extends object>({
             </div>
             {table
               .getAllLeafColumns()
-              .filter((c) => !c.columnDef.meta?.hideInColumnVisibility)
+              .filter((c) => !c.columnDef.meta?.hideInColumnDialog)
               .map((column) => (
                 <div key={column.id} data-h2-margin="base(x.125, 0)">
                   <label>
@@ -75,4 +82,4 @@ const ColumnVisibility = <T extends object>({
   );
 };
 
-export default ColumnVisibility;
+export default ColumnDialog;

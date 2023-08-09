@@ -1,39 +1,47 @@
 import * as React from "react";
-import { useIntl } from "react-intl";
 import omit from "lodash/omit";
 import type { ColumnDef, RowSelectionState } from "@tanstack/react-table";
 import {
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
-import { Heading, Well } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import Body from "./Body";
-import Cell from "./Cell";
-import CellHeader from "./CellHeader";
-import Row from "./Row";
 import Table from "./Table";
-import Search from "./Search";
-import { NullMessage, RowSelect, SearchDef, SearchState } from "./types";
-import Controls from "./Controls";
-import Footer from "./Footer";
-import { getRowSelectionColumn } from "./RowSelection";
-import { isCellRowTitle } from "./utils";
-import ColumnVisibility from "./ColumnVisibility";
+import SearchForm from "./SearchForm";
+import ColumnDialog from "./ColumnDialog";
+import NullMessage, { NullMessageProps } from "./NullMessage";
+import RowSelection, { getRowSelectionColumn } from "./RowSelection";
+
+import type {
+  DatasetDownload,
+  DatasetPrint,
+  RowSelect,
+  SearchDef,
+  SearchState,
+} from "./types";
 
 interface TableProps<TData> {
+  /** Accessible name for the table */
   caption: React.ReactNode;
+  /** Data to be displayed within the table */
   data: TData[];
+  /** Column definitions for `react-table` */
   columns: ColumnDef<TData>[];
+  /** Determine if any aspect of the table is loading (server side) */
   isLoading?: boolean;
-  nullMessage?: NullMessage;
-  rowTitle?: string;
+  /** Override default null message with a custom one */
+  nullMessage?: NullMessageProps;
+  /** Enable row selection */
   rowSelect?: RowSelect<TData>;
-  search?: SearchDef<typeof Search>;
+  /** Enable the search form */
+  search?: SearchDef<typeof SearchForm>;
+  /** Enable printing selected rows (requires rowSelect) */
+  print?: DatasetPrint;
+  /** Enable downloading selected rows and/or all data (requires rowSelect) */
+  download?: DatasetDownload;
 }
 
 const ResponsiveTable = <TData extends object>({
@@ -42,12 +50,12 @@ const ResponsiveTable = <TData extends object>({
   columns,
   isLoading,
   nullMessage,
-  rowTitle,
   rowSelect,
   search,
+  download,
+  print,
 }: TableProps<TData>) => {
   const id = React.useId();
-  const intl = useIntl();
   const memoizedData = React.useMemo(() => data, [data]);
   const memoizedColumns = React.useMemo(() => {
     if (!rowSelect) return columns;
@@ -105,94 +113,53 @@ const ResponsiveTable = <TData extends object>({
 
   return (
     <>
-      <Controls>
+      <Table.Controls>
         {search && (
-          <Search onChange={handleSearchChange} {...omit(search, "onChange")} />
+          <SearchForm
+            onChange={handleSearchChange}
+            {...omit(search, "onChange")}
+          />
         )}
-        <ColumnVisibility table={table} />
-      </Controls>
+        <ColumnDialog table={table} />
+      </Table.Controls>
       {!hasNoData ? (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        <div role="region" aria-labelledby={captionId} tabIndex={0}>
-          <div
-            data-h2-overflow-x="base(auto)"
-            data-h2-overflow-y="base(hidden)"
-            data-h2-radius="base(s)"
-            data-h2-shadow="base(medium)"
-          >
-            <Table>
-              <caption id={captionId} data-h2-visually-hidden="base(invisible)">
-                {caption}
-              </caption>
-              <thead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr
-                    data-h2-display="base(none) l-tablet(table-row)"
-                    key={headerGroup.id}
-                  >
-                    {headerGroup.headers.map((header) => (
-                      <CellHeader key={header.id}>
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                      </CellHeader>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <Body>
-                {table.getRowModel().rows.map((row) => (
-                  <Row key={row.id}>
-                    {row.getVisibleCells().map((cell) => (
-                      <Cell
-                        key={cell.id}
-                        isRowTitle={isCellRowTitle(cell.column.id, rowTitle)}
-                        isRowSelect={cell.column.id === "rowSelect"}
-                      >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </Cell>
-                    ))}
-                  </Row>
-                ))}
-              </Body>
-            </Table>
-            <Footer
-              isLoading={isLoading}
-              {...(rowSelect && {
-                selection: {
-                  rowCount: Object.values(rowSelection).length,
-                  onClear: () => table.resetRowSelection(),
-                },
-              })}
+        <Table.Wrapper aria-labelledby={captionId} tabIndex={0}>
+          <Table.Table>
+            <Table.Caption id={captionId}>{caption}</Table.Caption>
+            <Table.Head>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <Table.HeadRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <Table.HeadCell key={header.id} header={header} />
+                  ))}
+                </Table.HeadRow>
+              ))}
+            </Table.Head>
+            <Table.Body>
+              {table.getRowModel().rows.map((row) => (
+                <Table.Row key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <Table.Cell key={cell.id} cell={cell} />
+                  ))}
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Table>
+          {rowSelect && (
+            <RowSelection.Actions
+              {...{
+                download,
+                print,
+                isLoading,
+                count: Object.values(rowSelection).length,
+                onClear: () => table.resetRowSelection(),
+              }}
             />
-          </div>
-        </div>
+          )}
+        </Table.Wrapper>
       ) : (
-        <Well data-h2-margin="base(x1 0)" data-h2-text-align="base(center)">
-          <Heading data-h2-margin-top="base(0)" data-h2-font-size="base(copy)">
-            {nullMessage?.title ||
-              intl.formatMessage({
-                defaultMessage: "There aren't any items here yet.",
-                id: "H5kSPB",
-                description: "Default message for an empty table",
-              })}
-          </Heading>
-          <p>
-            {nullMessage?.description ||
-              intl.formatMessage({
-                defaultMessage:
-                  "Get started by adding an item using the “Add a new item” button provided.",
-                id: "e6b8Me",
-                description: "Default description for an empty table",
-              })}
-          </p>
-        </Well>
+        <NullMessage {...(nullMessage ? { ...nullMessage } : {})} />
       )}
     </>
   );

@@ -10,23 +10,38 @@ import { useCommonInputStyles } from "@gc-digital-talent/forms";
 import { SearchState, SearchColumn } from "./types";
 import ResetButton from "../ResetButton";
 
-interface SearchProps {
+interface SearchFormProps {
+  /** Callback for when state changes */
   onChange: (newState: SearchState) => void;
+  /** Columns that can be searched on */
   searchBy?: SearchColumn[];
+  /** The initial state for the search form */
   state?: SearchState;
+  /** Accessible name for the search text input */
   label: React.AriaAttributes["aria-label"];
+  /** ID value for the search form */
   id: React.HTMLAttributes<HTMLInputElement>["id"];
+  /** Additional props forwarded to the search input */
   inputProps?: Omit<React.HTMLProps<HTMLInputElement>, "aria-label" | "id">;
 }
 
-const Search = ({
+/**
+ * Search form
+ *
+ * Search the table data either by a general search
+ * or by specific columns (searchBy)
+ *
+ * @param SearchFormProps
+ * @returns JSX.Element
+ */
+const SearchForm = ({
   onChange,
   searchBy,
   state,
   label,
   id,
   inputProps,
-}: SearchProps) => {
+}: SearchFormProps) => {
   const intl = useIntl();
   const searchRef = React.useRef<HTMLInputElement | null>(null);
   const styles = useCommonInputStyles();
@@ -165,4 +180,4 @@ const Search = ({
   );
 };
 
-export default Search;
+export default SearchForm;

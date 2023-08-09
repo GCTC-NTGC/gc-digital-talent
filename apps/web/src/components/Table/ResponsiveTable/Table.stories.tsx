@@ -9,12 +9,9 @@ import {
 
 import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
+import { Language, User } from "@gc-digital-talent/graphql";
 
-import { User } from "~/api/generated";
-
-import { Language } from "@gc-digital-talent/graphql";
 import Table from "./ResponsiveTable";
-import Cell from "./CellValue";
 import Selection from "./RowSelection";
 import { SearchState } from "./types";
 
@@ -48,25 +45,23 @@ const columns = [
   columnHelper.accessor((row) => `${row.firstName} ${row.lastName}`, {
     id: "name",
     header: "Candidate name",
-    cell: (info) => (
-      <Cell header="Candidate name" isRowTitle>
-        {info.getValue()}
-      </Cell>
-    ),
+    meta: {
+      isRowTitle: true,
+      mobileHeader: "Name",
+    },
   }),
   columnHelper.accessor(
     (row) => (row.preferredLang === Language.Fr ? "French" : "English"),
     {
       id: "preferredCommunication",
       header: "Preferred Communication Language",
-      cell: (info) => (
-        <Cell header="Preferred Communication Language">{info.getValue()}</Cell>
-      ),
+      meta: {
+        mobileHeader: "Preferred Communication",
+      },
     },
   ),
   columnHelper.accessor("email", {
     header: "Email",
-    cell: (info) => <Cell header="Email">{info.getValue()}</Cell>,
   }),
 ] as ColumnDef<User>[];
 

@@ -1,6 +1,37 @@
 import React from "react";
+import { useIntl } from "react-intl";
+import { flexRender } from "@tanstack/react-table";
+import type { Header, Cell } from "@tanstack/react-table";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 
-type TableProps = React.HTMLAttributes<HTMLTableElement>;
+import { Link } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
+
+import styles, { getCellStyles } from "./styles";
+import { AddLinkProps } from "./types";
+
+type WrapperProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>;
+
+const Wrapper = ({ children, ...rest }: WrapperProps) => (
+  <div role="region" {...rest}>
+    <div
+      data-h2-overflow-x="base(auto)"
+      data-h2-overflow-y="base(hidden)"
+      data-h2-radius="base(s)"
+      data-h2-shadow="base(medium)"
+    >
+      {children}
+    </div>
+  </div>
+);
+
+type TableProps = React.DetailedHTMLProps<
+  React.TableHTMLAttributes<HTMLTableElement>,
+  HTMLTableElement
+>;
 
 const Table = ({ children, ...rest }: TableProps) => (
   <table
@@ -14,4 +45,171 @@ const Table = ({ children, ...rest }: TableProps) => (
   </table>
 );
 
-export default Table;
+type CaptionProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLElement>,
+  HTMLElement
+>;
+
+const Caption = (props: CaptionProps) => (
+  <caption data-h2-visually-hidden="base(invisible)" {...props} />
+);
+
+type HeadProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLTableSectionElement>,
+  HTMLTableSectionElement
+>;
+
+const Head = (props: HeadProps) => <thead {...props} />;
+
+type BodyProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLTableSectionElement>,
+  HTMLTableSectionElement
+>;
+
+const Body = (props: BodyProps) => (
+  // Note: Need to specify role for mobile responsive styles
+  // eslint-disable-next-line jsx-a11y/no-redundant-roles
+  <tbody
+    role="rowgroup"
+    data-h2-width="base(100%)"
+    data-h2-display="base(block) l-tablet(table-row-group)"
+    {...props}
+  />
+);
+
+type RowProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLTableRowElement>,
+  HTMLTableRowElement
+>;
+
+const HeadRow = (props: RowProps) => (
+  <tr data-h2-display="base(none) l-tablet(table-row)" {...props} />
+);
+
+const Row = (props: RowProps) => (
+  <tr
+    role="row"
+    data-h2-display="base(flex) l-tablet(table-row)"
+    data-h2-padding="base(x.25 x.5) l-tablet(0)"
+    data-h2-background-color="base:selectors[*:nth-child(even)](black.lightest.60) base:selectors[*:nth-child(odd)](foreground)"
+    data-h2-border-bottom="base(1px solid gray.light)"
+    data-h2-flex-direction="base(row)"
+    data-h2-flex-wrap="base(wrap)"
+    data-h2-justify-content="base(space-between)"
+    data-h2-align-items="base(center)"
+    {...props}
+  />
+);
+
+type CellHTMLProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLTableCellElement>,
+  HTMLTableCellElement
+>;
+
+type HeadCellProps<T> = {
+  header: Header<T, unknown>;
+} & CellHTMLProps;
+
+const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => (
+  <th
+    role="columnheader"
+    data-h2-background-color="base(black)"
+    data-h2-color="base(white)"
+    data-h2-display="base(none) l-tablet(table-cell)"
+    data-h2-font-size="base(caption)"
+    data-h2-vertical-align="base(middle)"
+    {...styles.cell}
+    {...rest}
+  >
+    {header.isPlaceholder
+      ? null
+      : flexRender(header.column.columnDef.header, header.getContext())}
+  </th>
+);
+
+type CellProps<T> = {
+  cell: Cell<T, unknown>;
+} & CellHTMLProps;
+
+const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
+  const intl = useIntl();
+  const isRowTitle = cell.column.columnDef.meta?.isRowTitle;
+  const isRowSelect = cell.column.columnDef.meta?.isRowSelect;
+  const cellStyles = getCellStyles({
+    isRowTitle,
+    isRowSelect,
+  });
+  const header =
+    cell.column.columnDef.meta?.mobileHeader ||
+    cell.column.columnDef.header?.toString() ||
+    false;
+
+  // We don't want to show the "header" for row titles or selection cells
+  const showHeader = header && !isRowSelect && !isRowTitle;
+
+  return (
+    <td
+      role="cell"
+      data-h2-vertical-align="base(middle)"
+      data-h2-max-width="base(100%) l-tablet(none)"
+      {...cellStyles.td}
+      {...styles.cell}
+      {...rest}
+    >
+      {showHeader && (
+        <span
+          data-h2-display="base(inline) l-tablet(none)"
+          data-h2-font-weight="base(800)"
+        >
+          {header}
+          {intl.formatMessage(commonMessages.dividingColon)}{" "}
+        </span>
+      )}
+      <span {...cellStyles.value}>
+        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+      </span>
+    </td>
+  );
+};
+
+interface ControlsProps {
+  children: React.ReactNode;
+  addLink?: AddLinkProps;
+}
+
+const Controls = ({ children, addLink }: ControlsProps) => (
+  <div
+    data-h2-display="base(flex)"
+    data-h2-flex-direction="base(column) l-tablet(row)"
+    data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
+    data-h2-margin-bottom="base(x.25)"
+  >
+    <div
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column) l-tablet(row)"
+      data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
+    >
+      {children}
+    </div>
+    {addLink && (
+      <div>
+        <Link icon={PlusCircleIcon} color="secondary" href={addLink.href}>
+          {addLink.label}
+        </Link>
+      </div>
+    )}
+  </div>
+);
+
+export default {
+  Wrapper,
+  Table,
+  Caption,
+  Head,
+  HeadRow,
+  HeadCell,
+  Body,
+  Row,
+  Cell,
+  Controls,
+};
