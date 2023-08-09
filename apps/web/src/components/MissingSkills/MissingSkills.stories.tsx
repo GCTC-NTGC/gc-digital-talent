@@ -10,7 +10,7 @@ import MissingSkills from "./MissingSkills";
 
 type MissingSkillsComponent = typeof MissingSkills;
 
-const fakedSkillFamilies = fakeSkillFamilies();
+const fakedSkillFamilies = fakeSkillFamilies(2);
 const fakeBehaviouralFamily = fakedSkillFamilies[0];
 fakeBehaviouralFamily.category = SkillCategory.Behavioural;
 const fakeTechnicalFamily = fakedSkillFamilies[1];

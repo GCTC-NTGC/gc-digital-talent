@@ -10,7 +10,7 @@ import { SkillCategory } from "@gc-digital-talent/graphql";
 
 import MissingSkills, { type MissingSkillsProps } from "./MissingSkills";
 
-const fakedSkillFamilies = fakeSkillFamilies();
+const fakedSkillFamilies = fakeSkillFamilies(2);
 const fakeBehaviouralFamily = fakedSkillFamilies[0];
 fakeBehaviouralFamily.category = SkillCategory.Behavioural;
 const fakeTechnicalFamily = fakedSkillFamilies[1];
