@@ -27,6 +27,7 @@ import Controls from "./Controls";
 import Footer from "./Footer";
 import { getRowSelectionColumn } from "./RowSelection";
 import { isCellRowTitle } from "./utils";
+import ColumnVisibility from "./ColumnVisibility";
 
 interface TableProps<TData> {
   caption: React.ReactNode;
@@ -68,6 +69,7 @@ const ResponsiveTable = <TData extends object>({
   }, [columns, rowSelect]);
   const [searchTerm, setSearchTerm] = React.useState<string>("");
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
+  const [columnVisibility, setColumnVisibility] = React.useState({});
   const isInternalSearch = search && search.internal;
 
   React.useEffect(() => {
@@ -90,6 +92,7 @@ const ResponsiveTable = <TData extends object>({
     columns: memoizedColumns,
     state: {
       rowSelection,
+      columnVisibility,
       globalFilter: searchTerm,
     },
     enableRowSelection: !!rowSelect,
@@ -98,6 +101,7 @@ const ResponsiveTable = <TData extends object>({
     getFilteredRowModel: getFilteredRowModel(),
     onRowSelectionChange: setRowSelection, // Note: We should probably do the state sync here
     onGlobalFilterChange: setSearchTerm,
+    onColumnVisibilityChange: setColumnVisibility,
   });
 
   const handleSearchChange = (newSearchState: SearchState) => {
@@ -118,6 +122,7 @@ const ResponsiveTable = <TData extends object>({
         {search && (
           <Search onChange={handleSearchChange} {...omit(search, "onChange")} />
         )}
+        <ColumnVisibility table={table} />
       </Controls>
       {!hasNoData ? (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
