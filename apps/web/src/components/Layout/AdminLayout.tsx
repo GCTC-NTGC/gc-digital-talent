@@ -50,7 +50,6 @@ const OpenMenuButton = React.forwardRef<
 const AdminLayout = () => {
   const intl = useIntl();
   const isSmallScreen = useIsSmallScreen();
-  const menuTrigger = React.useRef<HTMLButtonElement | null>(null);
   useLayoutTheme("admin");
 
   // retain menu preference in storage
@@ -91,7 +90,6 @@ const AdminLayout = () => {
           >
             <Header width="full" />
             <OpenMenuButton
-              ref={menuTrigger}
               onClick={() => setMenuOpen(true)}
               show={isSmallScreen}
             >

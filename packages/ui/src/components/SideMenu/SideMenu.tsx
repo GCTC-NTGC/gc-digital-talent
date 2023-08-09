@@ -20,11 +20,16 @@ export interface SideMenuProps {
   open?: boolean;
   /** Callback when the section has been 'opened */
   onOpenChange?: (open: boolean) => void;
+  /** Accessible name for the navigation region */
   label: string;
+  /** Add items to the start of the menu */
   header?: React.ReactNode;
+  /** Add items to the end of the menu */
   footer?: JSX.Element;
+  /** Ref for the button that triggers the opening (for focus management)  */
+  triggerRef?: React.RefObject<HTMLButtonElement>;
+  /** Main menu items */
   children?: React.ReactNode;
-  trigger?: React.RefObject<HTMLButtonElement>;
 }
 
 const SideMenu = ({
@@ -35,7 +40,7 @@ const SideMenu = ({
   header,
   footer,
   children,
-  trigger,
+  triggerRef,
 }: SideMenuProps) => {
   const intl = useIntl();
   const [open = false, setOpen] = useControllableState<boolean>({
@@ -93,8 +98,8 @@ const SideMenu = ({
                 }}
                 onDeactivation={() => {
                   window.setTimeout(() => {
-                    if (trigger?.current) {
-                      trigger.current.focus();
+                    if (triggerRef?.current) {
+                      triggerRef.current.focus();
                     }
                   }, 0);
                 }}
