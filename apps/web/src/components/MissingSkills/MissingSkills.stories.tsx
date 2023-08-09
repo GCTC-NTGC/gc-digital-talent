@@ -16,18 +16,19 @@ fakeBehaviouralFamily.category = SkillCategory.Behavioural;
 const fakeTechnicalFamily = fakedSkillFamilies[1];
 fakeTechnicalFamily.category = SkillCategory.Technical;
 
-// the two below skills arrays will be identical except with different skill.families values, therefore select skills carefully
-const fakedBehaviouralSkills = fakeSkills(10, [fakeBehaviouralFamily]);
-const fakedTechnicalSkills = fakeSkills(10, [fakeTechnicalFamily]);
+// four skills for each category and all different
+const fakedBehaviouralSkills = fakeSkills(4, [fakeBehaviouralFamily]);
+const fakedTechnicalSkills = fakeSkills(8, [fakeTechnicalFamily]).slice(4);
 
-// skills selected so as to ensure they are completely different and 2 of each category per skill grouping
+// 2 technical and two behavioural skills for a total of 4 for both required and optional
+// behavioural preceding in the arrays
 const fakeRequiredSkills = [
-  ...fakedBehaviouralSkills.splice(0, 2),
-  ...fakedTechnicalSkills.splice(2, 2),
+  ...fakedBehaviouralSkills.slice(0, 2),
+  ...fakedTechnicalSkills.slice(0, 2),
 ];
 const fakeOptionalSkills = [
-  ...fakedBehaviouralSkills.splice(4, 2),
-  ...fakedTechnicalSkills.splice(6, 2),
+  ...fakedBehaviouralSkills.slice(2),
+  ...fakedTechnicalSkills.slice(2),
 ];
 
 export default {
