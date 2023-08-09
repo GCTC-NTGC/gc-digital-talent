@@ -1,10 +1,12 @@
 <?php
 
 use App\Models\AwardExperience;
+use App\Models\ExperienceSkill;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -214,6 +216,36 @@ class ExperienceTest extends TestCase
         $this->assertCount(2, $experience->skills);
         $this->assertCount(2, $experience2->skills);
     }
+    public function checkMethodRestoresSoftDeletedPivots($method): void {
+        $userSkill = UserSkill::factory()->create([
+            'user_id' => $this->platformAdmin->id
+        ]);
+        $experience = WorkExperience::factory()->create([
+            'user_id' => $this->platformAdmin->id
+        ]);
+        $experienceSkill = new ExperienceSkill();
+        $experienceSkill->experience_id = $experience->id;
+        $experienceSkill->experience_type = 'workExperience';
+        $experienceSkill->user_skill_id = $userSkill->id;
+        $experienceSkill->details = "some details";
+        $experienceSkill->save();
+
+        // sanity check
+        $this->assertCount(1, $experience->fresh()->userSkills);
+
+        // now manually soft-delete the experienceSkill
+        $experienceSkill->deleted_at = Carbon::now();
+        $experienceSkill->save();
+
+        // now connect the same skill again
+        $experience->refresh()->$method([
+            ['id' => $userSkill->skill_id]
+        ]);
+
+        // now check that the experienceSkill is no longer soft-deleted, and the pivot details is same as before.
+        $this->assertNull($experienceSkill->fresh()->deleted_at);
+        $this->assertEquals('some details', $experience->userSkills->first()->experience_skill->details);
+    }
 
     // syncSkills tests
 
@@ -265,6 +297,35 @@ class ExperienceTest extends TestCase
     public function testSyncSkillsUndefinedDetailsDoesNotUpdateDetails(): void {
         $this->checkUndefinedDetailsDoesNotUpdateDetails('syncSkills');
     }
+    public function testSyncSkillsOnlySoftDeletesPivots(): void {
+        $userSkills = UserSkill::factory(2)->create([
+            'user_id' => $this->platformAdmin->id
+        ]);
+        $experience = WorkExperience::factory()->create([
+            'user_id' => $this->platformAdmin->id
+        ]);
+        $experience->userSkills()->sync([
+            $userSkills[0]->id => ['details' => 'first skill'],
+            $userSkills[1]->id => ['details' => 'second skill'],
+        ]);
+        // Sanity check
+        $this->assertCount(2, ExperienceSkill::all());
+
+        $experience->syncSkills([
+            ['id' => $userSkills[0]->skill_id],
+        ]);
+        // After syncing with just one skill, the other experienceSkill should be soft-deleted but otherwise unchanged.
+        $experienceSkill = ExperienceSkill::withTrashed()
+            ->where('user_skill_id', $userSkills[1]->id)
+            ->where('experience_id', $experience->id)
+            ->first();
+        $this->assertNotNull($experienceSkill);
+        $this->assertTrue($experienceSkill->trashed());
+        $this->assertEquals('second skill', $experienceSkill->details);
+    }
+    public function testSyncSkillsRestoresSoftDeletedPivots(): void {
+        $this->checkMethodRestoresSoftDeletedPivots('syncSkills');
+    }
 
     // connectSkills tests
 
@@ -289,6 +350,9 @@ class ExperienceTest extends TestCase
     }
     public function testConnectSkillsUndefinedDetailsDoesNotUpdateDetails(): void {
         $this->checkUndefinedDetailsDoesNotUpdateDetails('connectSkills');
+    }
+    public function testConnectSkillsRestoresSoftDeletedPivots(): void {
+        $this->checkMethodRestoresSoftDeletedPivots('connectSkills');
     }
 
     // disconnectSkills tests
@@ -317,4 +381,57 @@ class ExperienceTest extends TestCase
         $this->assertCount(2, $this->platformAdmin->userSkills);
     }
 
+    public function testDisconnectSkillsOnlySoftDeletesPivots(): void {
+        $userSkill = UserSkill::factory()->create([
+            'user_id' => $this->platformAdmin->id
+        ]);
+        $experience = WorkExperience::factory()->create([
+            'user_id' => $this->platformAdmin->id
+        ]);
+        $experience->userSkills()->sync([
+            $userSkill->id => ['details' => 'some details'],
+        ]);
+        // sanity check
+        $experienceSkill = ExperienceSkill::where('user_skill_id', $userSkill->id)
+            ->where('experience_id', $experience->id)
+            ->first();
+        $this->assertNotNull($experienceSkill);
+
+        // After disconnecting, the ExperienceSkill should still exist but soft-deleted but otherwise unchanged.
+        $experience->disconnectSkills([
+            $userSkill->skill_id,
+        ]);
+        $freshExperienceSkill =  ExperienceSkill::withTrashed()
+            ->where('user_skill_id', $userSkill->id)
+            ->where('experience_id', $experience->id)
+            ->first();
+        $this->assertTrue($freshExperienceSkill->trashed());
+        $this->assertEquals('some details', $freshExperienceSkill->details);
+    }
+
+    public function testUserSkillRelationshipSkipsSoftDeletedPivots(): void {
+        Skill::factory()->count(3)->create();
+        $experience = AwardExperience::factory()->withSkills(3)->create();
+        // sanity check
+        $this->assertCount(3, $experience->fresh()->userSkills);
+        // soft-delete one ExperienceSkill
+        $pivot = ExperienceSkill::first();
+        $pivot->deleted_at = Carbon::now();
+        $pivot->save();
+        // assert that the soft-deleted relationship is ignored
+        $this->assertCount(2, $experience->fresh()->userSkills);
+    }
+
+    public function testSkillRelationshipSkipsSoftDeletedPivots(): void {
+        Skill::factory()->count(3)->create();
+        $experience = AwardExperience::factory()->withSkills(3)->create();
+        // sanity check
+        $this->assertCount(3, $experience->fresh()->skills);
+        // soft-delete one ExperienceSkill
+        $pivot = ExperienceSkill::first();
+        $pivot->deleted_at = Carbon::now();
+        $pivot->save();
+        // assert that the soft-deleted relationship is ignored
+        $this->assertCount(2, $experience->fresh()->skills);
+    }
 }
