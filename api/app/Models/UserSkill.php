@@ -23,6 +23,13 @@ class UserSkill extends Model
 
     protected $keyType = 'string';
 
+    protected $fillable = [
+        'user_id',
+        'skill_id',
+        'skill_level',
+        'when_skill_used',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
