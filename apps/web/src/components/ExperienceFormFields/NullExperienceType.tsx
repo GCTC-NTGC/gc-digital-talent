@@ -10,8 +10,8 @@ const NullExperienceType = () => {
     <Well>
       <p data-h2-text-align="base(center)">
         {intl.formatMessage({
-          defaultMessage: "Please, select a type to continue.",
-          id: "z+qxaE",
+          defaultMessage: "Please, select a type of experience to continue.",
+          id: "nQbfnB",
           description:
             "Test displayed on the experience form when a user has not selected an experience type.",
         })}

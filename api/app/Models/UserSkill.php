@@ -40,7 +40,8 @@ class UserSkill extends Model
             'experience_skill'
         )
             ->withTimestamps()
-            ->withPivot('details')
+            ->withPivot(['details', 'deleted_at'])
+            ->wherePivotNull('deleted_at')
             ->as('experience_skill');
     }
     public function communityExperiences()
@@ -51,7 +52,8 @@ class UserSkill extends Model
             'experience_skill'
         )
             ->withTimestamps()
-            ->withPivot('details')
+            ->withPivot(['details', 'deleted_at'])
+            ->wherePivotNull('deleted_at')
             ->as('experience_skill');
     }
     public function educationExperiences()
@@ -62,7 +64,8 @@ class UserSkill extends Model
             'experience_skill'
         )
             ->withTimestamps()
-            ->withPivot('details')
+            ->withPivot(['details', 'deleted_at'])
+            ->wherePivotNull('deleted_at')
             ->as('experience_skill');
     }
     public function personalExperiences()
@@ -73,7 +76,8 @@ class UserSkill extends Model
             'experience_skill'
         )
             ->withTimestamps()
-            ->withPivot('details')
+            ->withPivot(['details', 'deleted_at'])
+            ->wherePivotNull('deleted_at')
             ->as('experience_skill');
     }
     public function workExperiences()
@@ -84,7 +88,8 @@ class UserSkill extends Model
             'experience_skill'
         )
             ->withTimestamps()
-            ->withPivot('details')
+            ->withPivot(['details', 'deleted_at'])
+            ->wherePivotNull('deleted_at')
             ->as('experience_skill_pivot');
     }
 }
