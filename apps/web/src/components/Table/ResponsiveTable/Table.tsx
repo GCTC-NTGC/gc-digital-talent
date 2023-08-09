@@ -1,14 +1,17 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { flexRender } from "@tanstack/react-table";
-import type { Header, Cell } from "@tanstack/react-table";
+import type { Header, Cell, SortDirection } from "@tanstack/react-table";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
+import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";
+import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";
+import ArrowsUpDownIcon from "@heroicons/react/20/solid/ArrowsUpDownIcon";
 
-import { Link } from "@gc-digital-talent/ui";
+import { Button, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import styles, { getCellStyles } from "./styles";
-import { AddLinkProps } from "./types";
+import { AddLinkProps, ButtonClickEvent } from "./types";
 
 type WrapperProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -101,6 +104,60 @@ const Row = (props: RowProps) => (
   />
 );
 
+type SortButtonProps = {
+  canSort?: boolean;
+  sortDirection: boolean | SortDirection;
+  onSort?: ButtonClickEvent;
+  children: React.ReactNode;
+};
+
+const SortButton = ({
+  canSort,
+  sortDirection,
+  onSort,
+  children,
+}: SortButtonProps) => {
+  const intl = useIntl();
+  if (!canSort) {
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    return <>{children}</>;
+  }
+
+  return (
+    <Button
+      mode="inline"
+      color="white"
+      onClick={onSort}
+      {...(sortDirection
+        ? {
+            utilityIcon: sortDirection === "asc" ? ArrowUpIcon : ArrowDownIcon,
+          }
+        : {
+            utilityIcon: ArrowsUpDownIcon,
+          })}
+    >
+      {children}
+      {sortDirection && (
+        <span data-h2-visually-hidden="base(invisible)">
+          {sortDirection === "asc"
+            ? intl.formatMessage({
+                defaultMessage: " (Ascending)",
+                id: "90E1fF",
+                description:
+                  "Message added to indicate a table column is sorted in ascending order",
+              })
+            : intl.formatMessage({
+                defaultMessage: " (Descending)",
+                id: "uKD+km",
+                description:
+                  "Message added to indicate a table column is sorted in descending order",
+              })}
+        </span>
+      )}
+    </Button>
+  );
+};
+
 type CellHTMLProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLTableCellElement>,
   HTMLTableCellElement
@@ -121,9 +178,15 @@ const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => (
     {...styles.cell}
     {...rest}
   >
-    {header.isPlaceholder
-      ? null
-      : flexRender(header.column.columnDef.header, header.getContext())}
+    {header.isPlaceholder ? null : (
+      <SortButton
+        canSort={header.column.getCanSort()}
+        sortDirection={header.column.getIsSorted()}
+        onSort={header.column.getToggleSortingHandler()}
+      >
+        {flexRender(header.column.columnDef.header, header.getContext())}
+      </SortButton>
+    )}
   </th>
 );
 

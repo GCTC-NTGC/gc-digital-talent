@@ -1,9 +1,14 @@
 import * as React from "react";
 import omit from "lodash/omit";
-import type { ColumnDef, RowSelectionState } from "@tanstack/react-table";
+import type {
+  ColumnDef,
+  RowSelectionState,
+  SortingState,
+} from "@tanstack/react-table";
 import {
   getCoreRowModel,
   getFilteredRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -22,6 +27,7 @@ import type {
   RowSelect,
   SearchDef,
   SearchState,
+  SortDef,
 } from "./types";
 
 interface TableProps<TData> {
@@ -39,6 +45,8 @@ interface TableProps<TData> {
   rowSelect?: RowSelect<TData>;
   /** Enable the search form */
   search?: SearchDef<typeof SearchForm>;
+  /** Enable sorting */
+  sort?: SortDef;
   /** Enable printing selected rows (requires rowSelect) */
   print?: DatasetPrint;
   /** Enable downloading selected rows and/or all data (requires rowSelect) */
@@ -55,6 +63,7 @@ const ResponsiveTable = <TData extends object>({
   nullMessage,
   rowSelect,
   search,
+  sort,
   download,
   print,
   add,
@@ -63,12 +72,12 @@ const ResponsiveTable = <TData extends object>({
   const memoizedData = React.useMemo(() => data, [data]);
   const memoizedColumns = React.useMemo(() => {
     if (!rowSelect) return columns;
-
     return [getRowSelectionColumn(rowSelect.cell), ...columns];
   }, [columns, rowSelect]);
   const [searchTerm, setSearchTerm] = React.useState<string>("");
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
   const [columnVisibility, setColumnVisibility] = React.useState({});
+  const [sorting, setSorting] = React.useState<SortingState>([]);
   const isInternalSearch = search && search.internal;
 
   React.useEffect(() => {
@@ -92,15 +101,20 @@ const ResponsiveTable = <TData extends object>({
     state: {
       rowSelection,
       columnVisibility,
+      sorting,
       globalFilter: searchTerm,
     },
+    enableSorting: !!sort,
     enableRowSelection: !!rowSelect,
     enableGlobalFilter: isInternalSearch,
+    manualSorting: !sort?.internal,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     onRowSelectionChange: setRowSelection, // Note: We should probably do the state sync here
     onGlobalFilterChange: setSearchTerm,
     onColumnVisibilityChange: setColumnVisibility,
+    onSortingChange: setSorting,
   });
 
   const handleSearchChange = (newSearchState: SearchState) => {

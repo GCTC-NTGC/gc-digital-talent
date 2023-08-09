@@ -1,5 +1,5 @@
 import React from "react";
-import type { CellContext } from "@tanstack/react-table";
+import type { CellContext, SortingState } from "@tanstack/react-table";
 import { DownloadCsvProps } from "@gc-digital-talent/ui";
 
 export type SearchState = {
@@ -27,6 +27,13 @@ export type SearchDef<ComponentProps extends React.ElementType<any>> = {
   /** Allows the table to manage search */
   internal: boolean;
 } & React.ComponentPropsWithoutRef<ComponentProps>;
+
+export type SortDef = {
+  /** Allows the table to manage search */
+  internal: boolean;
+  /** Callback when sorting rule changes */
+  onSortChange: (sortState: SortingState) => void;
+};
 
 export type AddLinkProps = {
   label: React.ReactNode;

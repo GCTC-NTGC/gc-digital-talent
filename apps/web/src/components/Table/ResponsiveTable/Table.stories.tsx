@@ -5,6 +5,7 @@ import {
   ColumnDef,
   createColumnHelper,
   CellContext,
+  SortingState,
 } from "@tanstack/react-table";
 
 import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
@@ -23,6 +24,12 @@ const defaultSearchProps = {
   internal: true,
   onChange: (newState: SearchState) => {
     action("onSearchChange")(newState);
+  },
+};
+const defaultSortProps = {
+  internal: true,
+  onSortChange: (newSort: SortingState) => {
+    action("onSortChange")(newSort);
   },
 };
 
@@ -73,6 +80,7 @@ export default {
     columns,
     rowTitle: "name",
     search: defaultSearchProps,
+    sort: defaultSortProps,
   },
 } as Meta<typeof Table<User>>;
 

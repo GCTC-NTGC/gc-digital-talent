@@ -272,6 +272,7 @@ export const getRowSelectionColumn = <TData extends object>(
   cell: ColumnDefTemplate<CellContext<TData, unknown>>,
 ): ColumnDef<TData> => ({
   id: "rowSelect",
+  enableSorting: false,
   header: ({ table }) => (
     <Header table={table} label="Select all" color="white" />
   ),
