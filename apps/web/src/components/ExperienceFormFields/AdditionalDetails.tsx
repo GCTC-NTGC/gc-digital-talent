@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { TextArea } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 
 import { ExperienceType } from "~/types/experience";
@@ -36,7 +35,7 @@ const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
         })}
       </Heading>
       <div data-h2-margin="base(0, 0, x2, 0)">
-        {notEmpty(derivedType) ? (
+        {derivedType ? (
           <>
             <p data-h2-margin-bottom="base(x.5)">
               {intl.formatMessage({

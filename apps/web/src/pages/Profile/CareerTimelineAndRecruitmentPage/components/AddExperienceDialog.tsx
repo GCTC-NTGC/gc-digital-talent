@@ -13,6 +13,7 @@ import { Dialog, Button, IconType, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";
+import { ExperienceType } from "~/types/experience";
 
 type AddExperienceDialogProps = {
   applicantId: Scalars["UUID"];
@@ -25,6 +26,7 @@ interface ExperienceSection {
   description: string;
   buttonText: string;
   buttonPath: string;
+  experienceType: ExperienceType;
 }
 
 const AddExperienceDialog = ({
@@ -59,6 +61,7 @@ const AddExperienceDialog = ({
         description: "Button text to add a work experience to the profile",
       }),
       buttonPath: `${paths.createWork(applicantId)}${applicationParam}`,
+      experienceType: "work",
     },
 
     {
@@ -81,6 +84,7 @@ const AddExperienceDialog = ({
           "Button text to add an education experience to the profile",
       }),
       buttonPath: `${paths.createEducation(applicantId)}${applicationParam}`,
+      experienceType: "education",
     },
 
     {
@@ -102,6 +106,7 @@ const AddExperienceDialog = ({
         description: "Button text to add a community experience to the profile",
       }),
       buttonPath: `${paths.createCommunity(applicantId)}${applicationParam}`,
+      experienceType: "community",
     },
 
     {
@@ -123,6 +128,7 @@ const AddExperienceDialog = ({
         description: "Button text to add a personal experience to the profile",
       }),
       buttonPath: `${paths.createPersonal(applicantId)}${applicationParam}`,
+      experienceType: "personal",
     },
 
     {
@@ -144,6 +150,7 @@ const AddExperienceDialog = ({
         description: "Button text to add an award to the profile",
       }),
       buttonPath: `${paths.createAward(applicantId)}${applicationParam}`,
+      experienceType: "award",
     },
   ];
 
@@ -223,6 +230,7 @@ const AddExperienceDialog = ({
                   <Link
                     mode="solid"
                     color="secondary"
+                    state={{ experienceType: section.experienceType }}
                     href={section.buttonPath}
                     block
                   >
