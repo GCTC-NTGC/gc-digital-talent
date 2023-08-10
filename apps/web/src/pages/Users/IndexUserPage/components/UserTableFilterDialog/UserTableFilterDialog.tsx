@@ -20,7 +20,6 @@ type Option = { value: string; label: string };
 export type FormValues = {
   pools: Option["value"][];
   languageAbility: Option["value"][];
-  classifications: Option["value"][];
   operationalRequirement: Option["value"][];
   workRegion: Option["value"][];
   // TODO: Make mandatory once data model settles.
