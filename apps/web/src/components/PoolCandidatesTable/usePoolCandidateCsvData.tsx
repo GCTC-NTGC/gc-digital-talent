@@ -21,7 +21,6 @@ import {
   employeeTypeToString,
   getLocationPreference,
   getOperationalRequirements,
-  getExpectedClassifications,
   flattenExperiencesToSkills,
   skillKeyAndJustifications,
   getExperienceTitles,
@@ -377,14 +376,6 @@ const usePoolCandidateCsvData = (
       }),
     },
     {
-      key: "expectedClassification",
-      label: intl.formatMessage({
-        defaultMessage: "Role/Salary Expectation",
-        id: "iIZS1K",
-        description: "CSV Header, Role/Salary Expectation column",
-      }),
-    },
-    {
       key: "educationRequirementOption",
       label: intl.formatMessage({
         defaultMessage: "Education Requirement",
@@ -513,10 +504,6 @@ const usePoolCandidateCsvData = (
           ),
           isVisibleMinority: yesOrNo(user.isVisibleMinority, intl),
           hasDisability: yesOrNo(user.hasDisability, intl),
-          expectedClassification: getExpectedClassifications(
-            user.expectedGenericJobTitles,
-            intl,
-          ),
           educationRequirementOption: educationRequirementOption
             ? intl.formatMessage(
                 getEducationRequirementOption(educationRequirementOption),

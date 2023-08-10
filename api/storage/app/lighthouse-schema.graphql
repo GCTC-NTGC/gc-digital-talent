@@ -198,8 +198,8 @@ type User {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: [Classification]
+  expectedSalary: [SalaryRange] @deprecated(reason: "Expected role and salary removed")
+  expectedClassifications: [Classification] @deprecated(reason: "Expected role and salary removed")
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
   poolCandidates: [PoolCandidate]
@@ -212,7 +212,7 @@ type User {
   userSkills: [UserSkill!]
   pools: [Pool] @deprecated(reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead.")
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle]
+  expectedGenericJobTitles: [GenericJobTitle] @deprecated(reason: "Expected role and salary removed")
   priorityWeight: Int
   roleAssignments: [RoleAssignment!]
   unreadNotifications: [Notification!]
@@ -608,7 +608,6 @@ type ApplicantFilter {
   locationPreferences: [WorkRegion]
   wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration]
-  expectedClassifications: [Classification]
   skills: [Skill]
   qualifiedClassifications: [Classification]
   qualifiedStreams: [PoolStream]
@@ -848,7 +847,6 @@ input UserFilterInput {
 
 input ApplicantFilterInput {
   equity: EquitySelectionsInput
-  expectedClassifications: [ClassificationFilterInput]
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
@@ -938,9 +936,6 @@ input CreateUserInput {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: ClassificationBelongsToMany
-  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration]
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
@@ -987,9 +982,6 @@ input UpdateUserAsAdminInput {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: ClassificationBelongsToMany
-  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration]
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
@@ -1035,9 +1027,6 @@ input UpdateUserAsUserInput {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange]
-  expectedClassifications: ClassificationBelongsToMany
-  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration]
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
@@ -1144,7 +1133,6 @@ input CreateApplicantFilterInput {
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
   positionDuration: [PositionDuration]
-  expectedClassifications: ClassificationBelongsToMany
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus

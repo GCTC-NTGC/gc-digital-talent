@@ -1927,10 +1927,6 @@
     "defaultMessage": "Nom",
     "description": "Title displayed for the skill table Name column."
   },
-  "BPiMTY": {
-    "defaultMessage": "Modifiez les options de votre rôle et de vos attentes salariales",
-    "description": "Link text to edit role and salary expectations on profile."
-  },
   "BQsJSG": {
     "defaultMessage": "Saisissez une nouvelle date de clôture :",
     "description": "First paragraph for extend pool closing date dialog"
@@ -5781,10 +5777,6 @@
     "defaultMessage": "Rôles et structures numériques des cadres",
     "description": "Heading for the directives digital executive roles and structures component"
   },
-  "e2Rfn/": {
-    "defaultMessage": "J'aimerais être référé à des emplois aux niveaux suivants :",
-    "description": "Label for Role and salary expectations sections"
-  },
   "e2qUId": {
     "defaultMessage": "Processus exécuté par {team} à {departments}",
     "description": "Team and department of pool"
@@ -6459,10 +6451,6 @@
     "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
     "description": "Signature list item on sign and submit page."
   },
-  "iIZS1K": {
-    "defaultMessage": "Attente en matière de poste/salaire",
-    "description": "CSV Header, Role/Salary Expectation column"
-  },
   "iKWOl+": {
     "defaultMessage": "Cette section vous permet d'indiquer les groupes visés par l'équité en matière d'emploi qui s'appliquent à vous. Remplissez cette section si vous remplissez ces deux conditions :",
     "description": "Introduction text for selecting employment equity groups"
@@ -6825,10 +6813,6 @@
   "kiH9nz": {
     "defaultMessage": "Sélectionnez<hidden> une langue autochtone </hidden>",
     "description": "Button text displayed for Indigenous languages dropdown"
-  },
-  "kjX7mF": {
-    "defaultMessage": "Aucune information n'a été fournie.",
-    "description": "Message on Admin side when user not filled RoleSalary section."
   },
   "knmaAL": {
     "defaultMessage": "Les personnes ne se résument pas à leur formation et à leur expérience professionnelle. Nous voulons vous permettre de faire part de ce que vous avez appris à partir d’autres expériences. Pour protéger votre vie privée, veuillez ne pas indiquer de renseignements sensibles sur vous-même ou sur d’autres personnes.",
@@ -7815,10 +7799,6 @@
   "sUx3ZS": {
     "defaultMessage": "Statut",
     "description": "Title of the 'Status' column for the table on view-user page"
-  },
-  "sYuMO8": {
-    "defaultMessage": "Aimerait être référé à des emplois aux niveaux suivants :",
-    "description": "Label for Role and salary expectations sections"
   },
   "sZHcsV": {
     "defaultMessage": "Courriel",
