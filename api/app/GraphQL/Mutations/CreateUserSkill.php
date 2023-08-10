@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Models\ExperienceSkill;
 use App\Models\UserSkill;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
@@ -23,6 +24,7 @@ final class CreateUserSkill
         if ($existingModel !== null) {
             if (($existingModel->deleted_at !== null)) {
                 $existingModel->restore();
+                ExperienceSkill::where('user_skill_id', $existingModel->id)->restore(); // restore records on experience_skill
                 return $existingModel;
             }
             throw ValidationException::withMessages(["DuplicateUserSkill"]);
