@@ -110,6 +110,7 @@ const Pagination = ({
       data-h2-align-items="base(center)"
       data-h2-justify-content="base(space-between)"
       data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
+      data-h2-font-size="base(caption)"
       {...(spacing === "start" && {
         "data-h2-justify-content": "base(flex-start)",
       })}

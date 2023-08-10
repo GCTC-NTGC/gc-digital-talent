@@ -59,11 +59,21 @@ export const getCellStyles: GetCellStyles = ({ isRowTitle, isRowSelect }) => {
   };
 };
 
+const row = {
+  "data-h2-padding": `
+    base(x.25 x.5) l-tablet(0 x.5)
+    base:selectors[>*](x.25 0)
+    l-tablet:selectors[>*](x.5)
+    l-tablet:selectors[>*:first-child](x.5 x.5 x.5 x1)
+    l-tablet:selectors[>*:last-child](x.5 x1 x.5 x.5)
+  `,
+};
+
 const cell = {
-  "data-h2-padding": "base(x.25 0) l-tablet(x.5 x.75)",
   "data-h2-text-align": "base(left)",
 };
 
 export default {
   cell,
+  row,
 };
