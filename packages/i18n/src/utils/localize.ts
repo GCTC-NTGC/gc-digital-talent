@@ -114,9 +114,3 @@ export const localizeSalaryRange = (
 
   return salaryRange;
 };
-
-export const withLocalizedQuotes = (text: string, intl: IntlShape): string => {
-  const locale = getLocale(intl);
-
-  return locale === "fr" ? `« ${text} »` : `"${text}"`;
-};
