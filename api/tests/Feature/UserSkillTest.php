@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Experience;
 use App\Models\ExperienceSkill;
 use App\Models\Skill;
 use App\Models\WorkExperience;
@@ -8,9 +9,13 @@ use App\Models\UserSkill;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
+
+use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertNull;
 
 class UserSkillTest extends TestCase
 {
@@ -67,6 +72,16 @@ class UserSkillTest extends TestCase
                 id
                 skillLevel
                 whenSkillUsed
+            }
+        }
+    ';
+
+    protected $deleteUserSkill =
+    /** @lang GraphQL */
+    '
+        mutation deleteUserSkill($id: ID!){
+            deleteUserSkill(id :$id) {
+                id
             }
         }
     ';
@@ -258,5 +273,83 @@ class UserSkillTest extends TestCase
                 'skillLevel' => ApiEnums::SKILL_LEVEL_EXPERT,
                 'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
             ]);
+    }
+
+    public function testUserSkillDeleting(): void
+    {
+        $skill = Skill::factory()->create();
+        $userSkillModel = UserSkill::factory()->create([
+            'user_id' => $this->user->id,
+            'skill_id' => $skill->id,
+        ]);
+
+        // check deleted at is null
+        assertNull($userSkillModel->deleted_at);
+
+        // assert policy blocks differentUser from messing around with user
+        $this->actingAs($this->differentUser, 'api')
+            ->graphQL(
+                $this->deleteUserSkill,
+                [
+                    'id' => $userSkillModel->id,
+                ]
+            )
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        // assert user soft deletes the model by checking that deleted at is no longer null
+        $this->actingAs($this->user, 'api')
+            ->graphQL(
+                $this->deleteUserSkill,
+                [
+                    'id' => $userSkillModel->id,
+                ]
+            );
+        $userSkillModel->refresh();
+        assertNotNull($userSkillModel->deleted_at);
+    }
+
+    public function testUserSkillAndExperienceSkillDeleting(): void
+    {
+        $skill = Skill::factory()->create();
+        $userSkillModel = UserSkill::factory()->create([
+            'user_id' => $this->user->id,
+            'skill_id' => $skill->id,
+        ]);
+        $workExperienceModel = WorkExperience::factory()->create([
+            'user_id' => $this->user->id,
+        ]);
+        DB::table('experience_skill')->insert([
+            'experience_id' => $workExperienceModel->id,
+            'experience_type' => 'workExperience',
+            'user_skill_id' => $userSkillModel->id,
+        ]);
+        $experienceSkillModel = ExperienceSkill::first();
+
+        // assert user soft deleting the model soft deletes records in two tables by checking deleted at
+        $this->actingAs($this->user, 'api')
+            ->graphQL(
+                $this->deleteUserSkill,
+                [
+                    'id' => $userSkillModel->id,
+                ]
+            );
+        $userSkillModel->refresh();
+        $experienceSkillModel->refresh();
+        assertNotNull($userSkillModel->deleted_at);
+        assertNotNull($experienceSkillModel->deleted_at);
+
+        // assert user restores records by checking deleted at
+        $this->actingAs($this->user, 'api')
+            ->graphQL(
+                $this->createUserSkill,
+                [
+                    'userId' => $this->user->id,
+                    'skillId' => $skill->id,
+                ]
+            );
+        $userSkillModel->refresh();
+        $experienceSkillModel->refresh();
+        assertNull($userSkillModel->deleted_at);
+        assertNull($experienceSkillModel->deleted_at);
     }
 }
