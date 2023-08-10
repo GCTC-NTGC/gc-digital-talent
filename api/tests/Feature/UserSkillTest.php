@@ -59,6 +59,18 @@ class UserSkillTest extends TestCase
         }
     ';
 
+    protected $updateUserSkill =
+    /** @lang GraphQL */
+    '
+        mutation updateUserSkill($id: ID!, $userSkill: UpdateUserSkillInput){
+            updateUserSkill(id :$id, userSkill: $userSkill) {
+                id
+                skillLevel
+                whenSkillUsed
+            }
+        }
+    ';
+
     public function testExperienceRelationshipSkipsSoftDeletedPivots(): void
     {
         Skill::factory()->count(3)->create();
@@ -203,6 +215,47 @@ class UserSkillTest extends TestCase
                     'id' => $skill->id,
                 ],
                 'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
+                'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+            ]);
+    }
+
+    public function testUserSkillUpdating(): void
+    {
+        $skill = Skill::factory()->create();
+        $userSkillModel = UserSkill::factory()->create([
+            'user_id' => $this->user->id,
+            'skill_id' => $skill->id,
+        ]);
+
+        // assert policy blocks differentUser from messing around with user
+        $this->actingAs($this->differentUser, 'api')
+            ->graphQL(
+                $this->updateUserSkill,
+                [
+                    'id' => $userSkillModel->id,
+                    'userSkill' => [
+                        'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
+                        'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_PAST,
+                    ],
+                ]
+            )
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        // assert user successfully updates their UserSkill
+        $this->actingAs($this->user, 'api')
+            ->graphQL(
+                $this->updateUserSkill,
+                [
+                    'id' => $userSkillModel->id,
+                    'userSkill' => [
+                        'skillLevel' => ApiEnums::SKILL_LEVEL_EXPERT,
+                        'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+                    ],
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $userSkillModel->id,
+                'skillLevel' => ApiEnums::SKILL_LEVEL_EXPERT,
                 'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
             ]);
     }
