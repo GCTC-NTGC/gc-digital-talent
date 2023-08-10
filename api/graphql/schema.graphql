@@ -1489,6 +1489,11 @@ input CreateUserSkillInput {
   whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
 }
 
+input UpdateUserSkillInput {
+  skillLevel: SkillLevel @rename(attribute: "skill_level")
+  whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
+}
+
 input WorkExperienceHasMany {
   create: [WorkExperienceInput!]
 }
@@ -1840,6 +1845,9 @@ type Mutation {
     skillId: ID! @rename(attribute: "skill_id")
     userSkill: CreateUserSkillInput @spread
   ): UserSkill @can(ability: "create", injectArgs: true)
+  updateUserSkill(id: ID!, userSkill: UpdateUserSkillInput @spread): UserSkill
+    @update
+    @can(ability: "update", find: "id")
 }
 
 #import directiveForms.graphql

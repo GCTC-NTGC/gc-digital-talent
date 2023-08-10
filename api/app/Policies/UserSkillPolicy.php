@@ -22,4 +22,16 @@ class UserSkillPolicy
         $userModel = User::find($request['user_id']);
         return $user->can('update', $userModel);
     }
+
+    /**
+     * The ability to update UserSkill models is the ability to update the User.
+     *
+     * @param  \App\Models\User  $user     *
+     * @param  \App\Models\UserSkill  $model
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function update(User $user, $model)
+    {
+        return $user->can('update', $model->user);
+    }
 }
