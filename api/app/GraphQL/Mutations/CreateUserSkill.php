@@ -31,8 +31,8 @@ final class CreateUserSkill
         $createdModel = UserSkill::create([
             'user_id' => $args['user_id'],
             'skill_id' => $args['skill_id'],
-            'skill_level' => $args['skill_level'],
-            'when_skill_used' => $args['when_skill_used'],
+            'skill_level' => isset($args['skill_level']) ? $args['skill_level'] : null,
+            'when_skill_used' => isset($args['when_skill_used']) ? $args['when_skill_used'] : null,
         ]);
 
         return $createdModel;
