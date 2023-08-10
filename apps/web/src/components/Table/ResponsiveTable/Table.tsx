@@ -208,7 +208,11 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
     false;
 
   // We don't want to show the "header" for row titles or selection cells
-  const showHeader = header && !isRowSelect && !isRowTitle;
+  const showHeader =
+    header &&
+    !isRowSelect &&
+    !isRowTitle &&
+    !cell.column.columnDef.meta?.hideMobileHeader;
 
   return (
     <td

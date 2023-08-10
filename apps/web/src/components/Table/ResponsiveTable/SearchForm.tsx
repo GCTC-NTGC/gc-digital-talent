@@ -7,23 +7,8 @@ import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { useCommonInputStyles } from "@gc-digital-talent/forms";
 
-import { SearchState, SearchColumn } from "./types";
+import { SearchFormProps, SearchColumn } from "./types";
 import ResetButton from "../ResetButton";
-
-interface SearchFormProps {
-  /** Callback for when state changes */
-  onChange: (newState: SearchState) => void;
-  /** Columns that can be searched on */
-  searchBy?: SearchColumn[];
-  /** The initial state for the search form */
-  state?: SearchState;
-  /** Accessible name for the search text input */
-  label: React.AriaAttributes["aria-label"];
-  /** ID value for the search form */
-  id: React.HTMLAttributes<HTMLInputElement>["id"];
-  /** Additional props forwarded to the search input */
-  inputProps?: Omit<React.HTMLProps<HTMLInputElement>, "aria-label" | "id">;
-}
 
 /**
  * Search form

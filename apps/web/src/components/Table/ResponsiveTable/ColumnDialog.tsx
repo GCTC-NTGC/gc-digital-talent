@@ -23,6 +23,15 @@ interface ColumnDialogProps<TData> {
  */
 const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
   const intl = useIntl();
+  const allColumnsRef = React.useRef<HTMLInputElement>(null);
+  const indeterminate =
+    table.getIsSomeColumnsVisible() && !table.getIsAllColumnsVisible();
+
+  React.useEffect(() => {
+    if (allColumnsRef.current) {
+      allColumnsRef.current.indeterminate = indeterminate;
+    }
+  }, [indeterminate, allColumnsRef]);
 
   return (
     <Dialog.Root>
@@ -43,11 +52,11 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
             <div data-h2-margin="base(x.125, 0)">
               <label>
                 <input
+                  ref={allColumnsRef}
                   {...{
                     type: "checkbox",
                     checked: table.getIsAllColumnsVisible(),
                     onChange: table.getToggleAllColumnsVisibilityHandler(),
-                    indeterminate: table.getIsSomeColumnsVisible(),
                   }}
                 />{" "}
                 {intl.formatMessage({

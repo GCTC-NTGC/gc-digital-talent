@@ -8,5 +8,6 @@ declare module "@tanstack/table-core" {
     isRowTitle?: boolean;
     isRowSelect?: boolean;
     mobileHeader?: React.ReactNode;
+    hideMobileHeader?: boolean;
   }
 }

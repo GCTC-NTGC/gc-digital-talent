@@ -27,17 +27,35 @@ export type RowSelect<T> = {
   onRowSelection?: (rows: T[]) => void;
 };
 
-export type SearchDef<ComponentProps extends React.ElementType<any>> = {
+export interface SearchFormProps {
+  /** Callback for when state changes */
+  onChange: (newState: SearchState) => void;
+  /** Columns that can be searched on */
+  searchBy?: SearchColumn[];
+  /** The initial state for the search form */
+  state?: SearchState;
+  /** Accessible name for the search text input */
+  label: React.AriaAttributes["aria-label"];
+  /** ID value for the search form */
+  id: React.HTMLAttributes<HTMLInputElement>["id"];
+  /** Additional props forwarded to the search input */
+  inputProps?: Omit<React.HTMLProps<HTMLInputElement>, "aria-label" | "id">;
+}
+
+type SearchDefFormProps = Omit<SearchFormProps, "id" | "onChange">;
+
+export type SearchDef = {
   /** Allows the table to manage search */
   internal: boolean;
   initialState?: SearchState;
-} & React.ComponentPropsWithoutRef<ComponentProps>;
+  onChange?: (newState: SearchState) => void;
+} & SearchDefFormProps;
 
 export type SortDef = {
   /** Allows the table to manage search */
   internal: boolean;
   /** Callback when sorting rule changes */
-  onSortChange: (sortState: SortingState) => void;
+  onSortChange?: (sortState: SortingState) => void;
 };
 
 export type AddLinkProps = {
@@ -82,7 +100,7 @@ export type PaginationDef = {
   /** Initial pagination state */
   initialState?: PaginationState;
   /** Total number of pages */
-  total: number;
+  total?: number;
   /** Available page sizes */
   pageSizes?: number[];
 };

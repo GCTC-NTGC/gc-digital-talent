@@ -5,6 +5,7 @@ import type {
   RowSelectionState,
   SortingState,
   PaginationState,
+  VisibilityState,
 } from "@tanstack/react-table";
 import {
   getCoreRowModel,
@@ -42,6 +43,8 @@ interface TableProps<TData> {
   data: TData[];
   /** Column definitions for `react-table` */
   columns: ColumnDef<TData>[];
+  /** Column definitions for `react-table` */
+  hiddenCols: string[];
   /** Determine if any aspect of the table is loading (server side) */
   isLoading?: boolean;
   /** Override default null message with a custom one */
@@ -49,7 +52,7 @@ interface TableProps<TData> {
   /** Enable row selection */
   rowSelect?: RowSelect<TData>;
   /** Enable the search form */
-  search?: SearchDef<typeof SearchForm>;
+  search?: SearchDef;
   /** Enable sorting */
   sort?: SortDef;
   /** Enable pagination */
@@ -66,6 +69,7 @@ const ResponsiveTable = <TData extends object>({
   caption,
   data,
   columns,
+  hiddenCols,
   isLoading,
   nullMessage,
   rowSelect,
@@ -83,6 +87,11 @@ const ResponsiveTable = <TData extends object>({
     if (!rowSelect) return columns;
     return [getRowSelectionColumn(rowSelect.cell), ...columns];
   }, [columns, rowSelect]);
+  const initialColumnVisibility: VisibilityState = {};
+  hiddenCols.forEach((column) => {
+    Object.assign(initialColumnVisibility, { [column]: false });
+  });
+
   const [searchTerm, setSearchTerm] = React.useState<string>(
     search?.initialState?.term ?? "",
   );
@@ -90,7 +99,8 @@ const ResponsiveTable = <TData extends object>({
     search?.initialState?.type ?? "",
   );
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
-  const [columnVisibility, setColumnVisibility] = React.useState({});
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>(initialColumnVisibility);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [{ pageIndex, pageSize }, setPagination] =
     React.useState<PaginationState>({
@@ -200,6 +210,7 @@ const ResponsiveTable = <TData extends object>({
       <Table.Controls addLink={add}>
         {search && (
           <SearchForm
+            id={`${id}-search`}
             onChange={handleSearchChange}
             {...omit(
               {
