@@ -118,6 +118,28 @@ RowSelection.args = {
   },
 };
 
+export const InitialState = Template.bind({});
+InitialState.args = {
+  caption: "Default table",
+  add: {
+    label: "Add an item",
+    href: "#add",
+  },
+  search: {
+    ...defaultSearchProps,
+    initialState: {
+      term: "Sa",
+      type: "name",
+    },
+    searchBy: [
+      {
+        label: "Name",
+        value: "name",
+      },
+    ],
+  },
+};
+
 const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
   const [isLoading, setLoading] = React.useState<boolean>(false);
   const [searchState, setSearchState] = React.useState<SearchState>({

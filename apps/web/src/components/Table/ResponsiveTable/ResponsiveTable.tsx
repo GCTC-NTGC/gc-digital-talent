@@ -74,7 +74,12 @@ const ResponsiveTable = <TData extends object>({
     if (!rowSelect) return columns;
     return [getRowSelectionColumn(rowSelect.cell), ...columns];
   }, [columns, rowSelect]);
-  const [searchTerm, setSearchTerm] = React.useState<string>("");
+  const [searchTerm, setSearchTerm] = React.useState<string>(
+    search?.initialState?.term ?? "",
+  );
+  const [searchBy, setSearchBy] = React.useState<string>(
+    search?.initialState?.type ?? "",
+  );
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
   const [columnVisibility, setColumnVisibility] = React.useState({});
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -120,6 +125,7 @@ const ResponsiveTable = <TData extends object>({
   const handleSearchChange = (newSearchState: SearchState) => {
     if (search) {
       setSearchTerm(newSearchState?.term || "");
+      setSearchBy(newSearchState?.type || "");
       if (search.onChange) {
         search.onChange(newSearchState);
       }
@@ -135,7 +141,16 @@ const ResponsiveTable = <TData extends object>({
         {search && (
           <SearchForm
             onChange={handleSearchChange}
-            {...omit(search, "onChange")}
+            {...omit(
+              {
+                ...search,
+                state: {
+                  term: searchTerm,
+                  type: searchBy,
+                },
+              },
+              "onChange",
+            )}
           />
         )}
         {/** Note: `div` prevents button from taking up entire space on desktop */}

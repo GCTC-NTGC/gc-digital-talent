@@ -26,6 +26,7 @@ export type RowSelect<T> = {
 export type SearchDef<ComponentProps extends React.ElementType<any>> = {
   /** Allows the table to manage search */
   internal: boolean;
+  initialState?: SearchState;
 } & React.ComponentPropsWithoutRef<ComponentProps>;
 
 export type SortDef = {
