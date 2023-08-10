@@ -34,4 +34,16 @@ class UserSkillPolicy
     {
         return $user->can('update', $model->user);
     }
+
+    /**
+     * The ability to delete UserSkill models is the ability to update the User.
+     *
+     * @param  \App\Models\User  $user     *
+     * @param  \App\Models\UserSkill  $model
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function delete(User $user, $model)
+    {
+        return $user->can('update', $model->user);
+    }
 }

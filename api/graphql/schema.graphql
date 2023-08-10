@@ -1848,6 +1848,7 @@ type Mutation {
   updateUserSkill(id: ID!, userSkill: UpdateUserSkillInput @spread): UserSkill
     @update
     @can(ability: "update", find: "id")
+  deleteUserSkill(id: ID!): UserSkill @can(ability: "delete", find: "id")
 }
 
 #import directiveForms.graphql

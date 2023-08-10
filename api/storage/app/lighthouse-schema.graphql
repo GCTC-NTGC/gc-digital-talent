@@ -123,6 +123,7 @@ type Mutation {
   markNotificationAsRead(id: UUID!): Notification
   createUserSkill(userId: ID!, skillId: ID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: ID!, userSkill: UpdateUserSkillInput): UserSkill
+  deleteUserSkill(id: ID!): UserSkill
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
