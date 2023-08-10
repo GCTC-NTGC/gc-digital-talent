@@ -11,6 +11,21 @@ const range = (start: number, end: number): number[] => {
   return Array.from({ length }, (_, idx) => idx + start);
 };
 
+type UsePaginationReturn = (number | typeof DOTS)[];
+
+type UsePaginationArgs = {
+  /** The current page  */
+  currentPage: number;
+  /** Total available pages */
+  totalPages: number;
+  /** Number of elements  on left/right of the current page, defaults to 1 */
+  siblings?: number;
+  /** Amount of elements visible on left/right edges, defaults to 1  */
+  boundaries?: number;
+};
+
+type UsePagination = (args: UsePaginationArgs) => UsePaginationReturn;
+
 /**
  * A pagination hook that returns the range of numbers to be displayed in out Pagination component as an array.
  * @see https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/
@@ -20,91 +35,59 @@ const range = (start: number, end: number): number[] => {
  * @param currentPage
  * @returns (number | string)[]
  */
-export const usePagination = ({
-  totalCount,
-  pageSize,
-  siblingCount = 1,
+export const usePagination: UsePagination = ({
   currentPage,
-}: {
-  totalCount: number;
-  pageSize: number;
-  siblingCount?: number;
-  currentPage: number;
-}): (number | string)[] => {
-  const paginationRange: (number | string)[] | undefined = useMemo(() => {
-    if (totalCount < 0 || pageSize < 0 || siblingCount < 0 || currentPage < 0) {
-      throw new Error(
-        "Ensure all usePagination parameters are non-negative numbers",
-      );
+  totalPages,
+  siblings = 1,
+  boundaries = 1,
+}) => {
+  const total = Math.max(Math.trunc(totalPages ?? 0), 0);
+
+  const pageRange = useMemo((): UsePaginationReturn => {
+    const totalPageNumbers = siblings * 2 + 3 + boundaries * 2;
+
+    if (totalPageNumbers >= total) {
+      return range(1, total);
     }
 
-    const totalPageCount = Math.ceil(totalCount / pageSize);
-
-    // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
-    const totalPageNumbers = siblingCount + 5;
-
-    /*
-      Case 1:
-      If the number of pages is less than the page numbers we want to show in our
-      paginationComponent, we return the range [1..totalPageCount]
-    */
-    if (totalPageNumbers >= totalPageCount) {
-      return range(1, totalPageCount);
-    }
-
-    /*
-    	Calculate left and right sibling index and make sure they are within range 1 and totalPageCount
-    */
-    const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
+    const leftSiblingIndex = Math.max(currentPage - siblings, boundaries);
     const rightSiblingIndex = Math.min(
-      currentPage + siblingCount,
-      totalPageCount,
+      currentPage + siblings,
+      total - boundaries,
     );
 
-    /*
-      We do not show dots just when there is just one page number to be inserted between the extremes of sibling and the page limits i.e 1 and totalPageCount. Hence we are using leftSiblingIndex > 2 and rightSiblingIndex < totalPageCount - 2
-    */
-    const shouldShowLeftDots = leftSiblingIndex > 2;
-    const shouldShowRightDots = rightSiblingIndex < totalPageCount - 2;
+    const shouldShowLeftDots = leftSiblingIndex > boundaries + 2;
+    const shouldShowRightDots = rightSiblingIndex < total - (boundaries + 1);
 
-    const firstPageIndex = 1;
-    const lastPageIndex = totalPageCount;
-
-    /*
-    	Case 2: No left dots to show, but rights dots to be shown
-    */
     if (!shouldShowLeftDots && shouldShowRightDots) {
-      const leftItemCount = 3 + 2 * siblingCount;
-      const leftRange = range(1, leftItemCount);
-
-      return [...leftRange, DOTS, totalPageCount];
+      const leftItemCount = siblings * 2 + boundaries + 2;
+      return [
+        ...range(1, leftItemCount),
+        DOTS,
+        ...range(total - (boundaries - 1), total),
+      ];
     }
 
-    /*
-    	Case 3: No right dots to show, but left dots to be shown
-    */
     if (shouldShowLeftDots && !shouldShowRightDots) {
-      const rightItemCount = 3 + 2 * siblingCount;
-      const rightRange = range(
-        totalPageCount - rightItemCount + 1,
-        totalPageCount,
-      );
-      return [firstPageIndex, DOTS, ...rightRange];
+      const rightItemCount = boundaries + 1 + 2 * siblings;
+
+      return [
+        ...range(1, boundaries),
+        DOTS,
+        ...range(total - rightItemCount, total),
+      ];
     }
 
-    /*
-    	Case 4: Both left and right dots to be shown
-    */
-    if (shouldShowLeftDots && shouldShowRightDots) {
-      const middleRange = range(leftSiblingIndex, rightSiblingIndex);
-      return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
-    }
+    return [
+      ...range(1, boundaries),
+      DOTS,
+      ...range(leftSiblingIndex, rightSiblingIndex),
+      DOTS,
+      ...range(total - boundaries + 1, total),
+    ];
+  }, [boundaries, currentPage, siblings, total]);
 
-    // If none of the above cases are hit then throw an Error
-    throw new Error("usePagination hook failed.");
-  }, [totalCount, pageSize, siblingCount, currentPage]);
-
-  return paginationRange || range(1, Math.ceil(totalCount / pageSize));
+  return pageRange;
 };
 
 /**

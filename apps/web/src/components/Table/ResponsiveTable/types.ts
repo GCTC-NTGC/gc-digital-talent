@@ -1,5 +1,9 @@
 import React from "react";
-import type { CellContext, SortingState } from "@tanstack/react-table";
+import type {
+  CellContext,
+  PaginationState,
+  SortingState,
+} from "@tanstack/react-table";
 import { DownloadCsvProps } from "@gc-digital-talent/ui";
 
 export type SearchState = {
@@ -68,4 +72,17 @@ export type DatasetDownload = {
 export type DatasetPrint = {
   onPrint: ButtonClickEvent;
   label?: React.ReactNode;
+};
+
+export type PaginationDef = {
+  /** Allows the table to manage search */
+  internal: boolean;
+  /** Callback for when the pagination changes */
+  onPaginationChange?: (newPagination: PaginationState) => void;
+  /** Initial pagination state */
+  initialState?: PaginationState;
+  /** Total number of pages */
+  total: number;
+  /** Available page sizes */
+  pageSizes?: number[];
 };

@@ -127,13 +127,13 @@ function TableFooter({
               pageSize={paginatorInfo.perPage}
               pageSizes={[10, 20, 50, 100, 500]}
               totalCount={paginatorInfo.total}
+              totalPages={paginatorInfo.total / paginatorInfo.perPage}
+              color="white"
+              activeColor="quaternary"
               ariaLabel={intl.formatMessage({
                 defaultMessage: "Table results",
                 id: "hlcd+5",
               })}
-              color="black"
-              fontColor="white"
-              activeColor="primary"
             />
           </div>
         </div>

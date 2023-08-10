@@ -6,6 +6,7 @@ import {
   createColumnHelper,
   CellContext,
   SortingState,
+  PaginationState,
 } from "@tanstack/react-table";
 
 import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
@@ -16,7 +17,7 @@ import Table from "./ResponsiveTable";
 import Selection from "./RowSelection";
 import { SearchState } from "./types";
 
-const mockUsers = fakeUsers(10);
+const mockUsers = fakeUsers(100);
 const columnHelper = createColumnHelper<User>();
 const defaultSearchProps = {
   id: "search",
@@ -30,6 +31,14 @@ const defaultSortProps = {
   internal: true,
   onSortChange: (newSort: SortingState) => {
     action("onSortChange")(newSort);
+  },
+};
+const defaultPaginationProps = {
+  internal: true,
+  total: mockUsers.length,
+  pageSizes: [10, 20, 50, 100],
+  onPaginationChange: (newPagination: PaginationState) => {
+    action("onPaginationChange")(newPagination);
   },
 };
 
@@ -81,6 +90,7 @@ export default {
     rowTitle: "name",
     search: defaultSearchProps,
     sort: defaultSortProps,
+    pagination: defaultPaginationProps,
   },
 } as Meta<typeof Table<User>>;
 
@@ -124,6 +134,13 @@ InitialState.args = {
   add: {
     label: "Add an item",
     href: "#add",
+  },
+  pagination: {
+    ...defaultPaginationProps,
+    initialState: {
+      pageIndex: 1,
+      pageSize: 10,
+    },
   },
   search: {
     ...defaultSearchProps,
