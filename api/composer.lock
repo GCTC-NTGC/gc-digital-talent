@@ -3063,16 +3063,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v6.15.0",
+            "version": "v6.16.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "37e64ec8c23e0bac53310b36eb2e26aa2ba1c6e6"
+                "reference": "834bc82cb79f993008da00d7edf348e159d6bd56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/37e64ec8c23e0bac53310b36eb2e26aa2ba1c6e6",
-                "reference": "37e64ec8c23e0bac53310b36eb2e26aa2ba1c6e6",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/834bc82cb79f993008da00d7edf348e159d6bd56",
+                "reference": "834bc82cb79f993008da00d7edf348e159d6bd56",
                 "shasum": ""
             },
             "require": {
@@ -3107,7 +3107,7 @@
                 "mll-lab/php-cs-fixer-config": "^5",
                 "mockery/mockery": "^1.5",
                 "nesbot/carbon": "^2.62.1",
-                "nunomaduro/larastan": "^2.4.1",
+                "nunomaduro/larastan": "^2.6.1",
                 "orchestra/testbench": "^7.7 || ^8.8",
                 "phpbench/phpbench": "^1.2.6",
                 "phpstan/extension-installer": "^1",
@@ -3189,7 +3189,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-07-20T12:07:35+00:00"
+            "time": "2023-08-04T14:03:26+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -7175,16 +7175,16 @@
         },
         {
             "name": "webonyx/graphql-php",
-            "version": "v15.5.3",
+            "version": "v15.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webonyx/graphql-php.git",
-                "reference": "736bbe858f8f2d30805d2c34d7d0241198d077ac"
+                "reference": "0a917058620a197530b357c46d8d5943a054a37e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/736bbe858f8f2d30805d2c34d7d0241198d077ac",
-                "reference": "736bbe858f8f2d30805d2c34d7d0241198d077ac",
+                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/0a917058620a197530b357c46d8d5943a054a37e",
+                "reference": "0a917058620a197530b357c46d8d5943a054a37e",
                 "shasum": ""
             },
             "require": {
@@ -7201,7 +7201,7 @@
                 "nyholm/psr7": "^1.5",
                 "phpbench/phpbench": "^1.2",
                 "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan": "1.10.26",
+                "phpstan/phpstan": "1.10.28",
                 "phpstan/phpstan-phpunit": "1.3.13",
                 "phpstan/phpstan-strict-rules": "1.5.1",
                 "phpunit/phpunit": "^9.5 || ^10",
@@ -7236,7 +7236,7 @@
             ],
             "support": {
                 "issues": "https://github.com/webonyx/graphql-php/issues",
-                "source": "https://github.com/webonyx/graphql-php/tree/v15.5.3"
+                "source": "https://github.com/webonyx/graphql-php/tree/v15.6.2"
             },
             "funding": [
                 {
@@ -7244,7 +7244,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-07-24T13:25:25+00:00"
+            "time": "2023-08-08T17:15:12+00:00"
         }
     ],
     "packages-dev": [
