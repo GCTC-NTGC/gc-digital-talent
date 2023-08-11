@@ -6933,6 +6933,10 @@
     "defaultMessage": "Nous avons reçu votre demande et la réviserons le plus tôt possible.",
     "description": "Paragraph one, message to user the request was received"
   },
+  "lB/SWR": {
+    "defaultMessage": "Vous apparaissez de nouveau dans les résultats de recherche.",
+    "description": "Alert displayed to the user when they updated something to appear in search results again."
+  },
   "lCHx90": {
     "defaultMessage": "Gestion de portefeuilles de projets de la TI",
     "description": "Label for the 'project portfolio management' IT work stream"
