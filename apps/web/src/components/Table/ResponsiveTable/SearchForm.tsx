@@ -49,14 +49,15 @@ const SearchForm = <T,>({
     (newState: SearchState) => {
       onChange(newState);
       if (newState.type && newState.type !== "") {
-        // This doesn't seem to want to work
-        // table.setColumnFilters([
-        //   {
-        //     id: newState.type,
-        //     value: newState.term,
-        //   },
-        // ]);
+        table.setGlobalFilter("");
+        table.setColumnFilters([
+          {
+            id: newState.type,
+            value: newState.term,
+          },
+        ]);
       } else {
+        table.setColumnFilters([]);
         table.setGlobalFilter(newState.term);
       }
     },

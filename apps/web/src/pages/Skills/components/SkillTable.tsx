@@ -131,6 +131,16 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
           id: "cWqtEU",
           description: "Label for the skills table search input",
         }),
+        searchBy: [
+          {
+            label: "Name",
+            value: "name",
+          },
+          {
+            label: "Description",
+            value: "description",
+          },
+        ],
       }}
       pagination={{
         internal: true,

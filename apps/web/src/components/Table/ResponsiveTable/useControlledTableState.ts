@@ -86,7 +86,7 @@ type UseControlledTableStateReturn = {
   updaters: {
     onColumnVisibilityChange: OnChangeFn<VisibilityState>;
     onGlobalFilterChange: OnChangeFn<string>;
-    // onColumnFiltersChange: OnChangeFn<ColumnFiltersState>;
+    onColumnFiltersChange: OnChangeFn<ColumnFiltersState>;
   };
 };
 
@@ -118,18 +118,18 @@ const useControlledTableState: UseControlledTableState = ({
     initialState,
   );
 
-  const [, setGlobalFilter] = useState<string>(
+  const [globalFilter, setGlobalFilter] = useState<string>(
     tableState.searchState?.term ??
       initialState.searchState?.term ??
       INITIAL_STATE.searchState.term ??
       "",
   );
 
-  const [, setColumnFilters] = useState<ColumnFiltersState>(
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
     getColumnFilters(initialState.searchState) ?? [],
   );
 
-  const [, setColumnVisibility] = useState<VisibilityState>(
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
     getColumnVisibility(
       columnIds,
       tableState.hiddenColumnIds ?? initialState.hiddenColumnIds,
@@ -176,24 +176,21 @@ const useControlledTableState: UseControlledTableState = ({
       });
     });
 
-  const stateFromParams: Partial<TableState> = useMemo(
+  const memoizedState: Partial<TableState> = useMemo(
     () => ({
-      columnVisibility: getColumnVisibility(
-        columnIds,
-        tableState.hiddenColumnIds,
-      ),
-      globalFilter: getGlobalFilter(tableState.searchState),
-      // columnFilters: getColumnFilters(tableState.searchState),
+      columnVisibility,
+      globalFilter,
+      columnFilters,
     }),
-    [columnIds, tableState.hiddenColumnIds, tableState.searchState],
+    [columnVisibility, globalFilter, columnFilters],
   );
 
   return {
-    state: stateFromParams,
+    state: memoizedState,
     updaters: {
       onGlobalFilterChange: handleGlobalFilterChange,
       onColumnVisibilityChange: handleVisibilityChange,
-      // onColumnFiltersChange: handleColumnFiltersChange,
+      onColumnFiltersChange: handleColumnFiltersChange,
     },
   };
 };
