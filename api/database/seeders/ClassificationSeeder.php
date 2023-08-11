@@ -22,6 +22,10 @@ class ClassificationSeeder extends Seeder
             'group' => 'AS',
             'name' => ['en' => 'Administrative Services', 'fr' => 'Services administratifs']
         ];
+        $pmGroup = [
+            'group' => 'PM',
+            'name' => ['en' => 'Programme Administration', 'fr' => 'Administration des programmes']
+        ];
 
         $classifications = [
             // IT classifications 01-05.
