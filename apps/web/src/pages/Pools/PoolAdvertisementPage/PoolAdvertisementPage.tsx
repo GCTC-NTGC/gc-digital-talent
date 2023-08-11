@@ -43,6 +43,7 @@ import {
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
   formatClassificationString,
+  getClassificationGroup,
   getFullPoolTitleLabel,
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
@@ -219,6 +220,8 @@ export const PoolPoster = ({
       }),
     },
   };
+
+  const classificationGroup = getClassificationGroup(pool);
 
   return (
     <>
@@ -467,6 +470,7 @@ export const PoolPoster = ({
               </Text>
               <EducationRequirements
                 isIAP={pool.publishingGroup === PublishingGroup.Iap}
+                classificationGroup={classificationGroup}
               />
               <Heading level="h3" size="h4">
                 {intl.formatMessage({
