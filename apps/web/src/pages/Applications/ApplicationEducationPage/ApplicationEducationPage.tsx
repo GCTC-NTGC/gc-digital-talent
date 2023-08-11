@@ -111,7 +111,7 @@ const ApplicationEducation = ({
   const locale = getLocale(intl);
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { followingPageUrl, currentStepOrdinal, isIAP } =
+  const { followingPageUrl, currentStepOrdinal, isIAP, classificationGroup } =
     useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
@@ -338,9 +338,7 @@ const ApplicationEducation = ({
           }),
       contentBelow: (
         <div data-h2-margin="base(x.15, 0, x.5, x1)">
-          <p data-h2-margin="base(0, 0, x.5, 0)">
-            {intl.formatMessage(applicationMessages.appliedWorkExperience)}
-          </p>
+          <p>{intl.formatMessage(applicationMessages.appliedWorkExperience)}</p>
           <ul>
             {Object.values(appliedWorkListMessages).map((value) => (
               <li key={uniqueId()} data-h2-margin="base(0, 0, x.25, 0)">
@@ -369,7 +367,7 @@ const ApplicationEducation = ({
               "Radio group option for education requirement filter in application education form.",
           }),
       contentBelow: (
-        <div data-h2-margin="base(x.15, 0, x.5, x1)">
+        <div data-h2-margin="base(x.15, 0, x.15, x1)">
           <p>
             {isIAP
               ? intl.formatMessage({
@@ -382,6 +380,42 @@ const ApplicationEducation = ({
               : intl.formatMessage(applicationMessages.postSecondaryEducation, {
                   link: qualityStandardsLink,
                 })}
+          </p>
+        </div>
+      ),
+    },
+  ];
+
+  // TODO: Think of a better name
+  const educationRequirementOptionsPM: Radio[] = [
+    {
+      value: EducationRequirementOption.AppliedWork,
+      label: intl.formatMessage({
+        defaultMessage:
+          "<strong>I meet the applied work experience option</strong>",
+        id: "SNwPLZ",
+        description:
+          "Radio group option for education requirement filter in application education form.",
+      }),
+      contentBelow: (
+        <div data-h2-margin="base(x.15, 0, x.5, x1)">
+          <p>{intl.formatMessage(applicationMessages.appliedWorkExpPMGroup)}</p>
+        </div>
+      ),
+    },
+    {
+      value: EducationRequirementOption.Education,
+      label: intl.formatMessage({
+        defaultMessage:
+          "<strong>I meet the secondary school diploma option</strong>",
+        id: "qN9zOb",
+        description:
+          "Radio group option for education requirement filter in application education form.",
+      }),
+      contentBelow: (
+        <div data-h2-margin="base(x.15, 0, x.15, x1)">
+          <p>
+            {intl.formatMessage(applicationMessages.secondarySchoolDescription)}
           </p>
         </div>
       ),
@@ -433,7 +467,11 @@ const ApplicationEducation = ({
                   })
             }
             name="educationRequirement"
-            items={educationRequirementOptions}
+            items={
+              classificationGroup === "PM"
+                ? educationRequirementOptionsPM
+                : educationRequirementOptions
+            }
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
