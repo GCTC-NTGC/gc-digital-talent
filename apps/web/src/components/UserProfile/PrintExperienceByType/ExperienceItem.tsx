@@ -211,12 +211,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
     content = (
       <>
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Team, group, or division",
-            id: "qn77WI",
-            description:
-              "Label displayed on Work Experience form for team/group/division input",
-          })}
+          {experienceLabels.team}
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.division}
         </p>

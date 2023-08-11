@@ -193,8 +193,8 @@ export const getExperienceFormLabels = (
         "Label displayed on Personal Experience form for disclaimer bounded box",
     }),
     team: intl.formatMessage({
-      defaultMessage: "Team, Group, or Division",
-      id: "xJulQ4",
+      defaultMessage: "Team, group, or division",
+      id: "qn77WI",
       description:
         "Label displayed on Work Experience form for team/group/division input",
     }),

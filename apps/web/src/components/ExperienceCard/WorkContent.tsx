@@ -5,6 +5,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { WorkExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/dateUtils";
+import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "./ContentSection";
 import { ContentProps } from "./types";
@@ -14,6 +15,7 @@ const WorkContent = ({
   headingLevel,
 }: ContentProps<WorkExperience>) => {
   const intl = useIntl();
+  const { team } = getExperienceFormLabels(intl);
 
   return (
     <div
@@ -34,12 +36,7 @@ const WorkContent = ({
         <p>{getDateRange({ endDate, startDate, intl })}</p>
       </ContentSection>
       <ContentSection
-        title={intl.formatMessage({
-          defaultMessage: "Team, group, or division",
-          id: "qn77WI",
-          description:
-            "Label displayed on Work Experience form for team/group/division input",
-        })}
+        title={team}
         headingLevel={headingLevel}
         data-h2-padding="p-tablet(0 0 x1 0)"
       >
