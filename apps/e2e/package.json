@@ -5,8 +5,8 @@
     "e2e": "npm run e2e:open",
     "e2e:open": "cypress open --e2e",
     "e2e:run": "npm run e2e:run:all",
-    "e2e:run:all": "cypress run --browser=chrome --spec \"cypress/e2e/**/*${TEST_FILTER:-}*.cy.js\"",
-    "e2e:run:inspect": "cypress run --browser=chrome --spec \"cypress/e2e/**/*${TEST_FILTER:-language-selection}*.cy.js\" --no-exit --headed"
+    "e2e:run:all": "cypress run --browser=electron --spec \"cypress/e2e/**/*${TEST_FILTER:-}*.cy.js\"",
+    "e2e:run:inspect": "cypress run --browser=electron --spec \"cypress/e2e/**/*${TEST_FILTER:-language-selection}*.cy.js\" --no-exit --headed"
   },
   "dependencies": {
     "@gc-digital-talent/date-helpers": "*",
@@ -20,7 +20,7 @@
     "cypress-axe": "^1.4.0",
     "cypress-multi-reporters": "^1.6.3",
     "cypress-terminal-report": "^5.3.2",
-    "eslint-plugin-cypress": "^2.13.3",
+    "eslint-plugin-cypress": "^2.14.0",
     "prettier": "^2.8.8",
     "tsconfig": "*",
     "typescript": "4.9.5"

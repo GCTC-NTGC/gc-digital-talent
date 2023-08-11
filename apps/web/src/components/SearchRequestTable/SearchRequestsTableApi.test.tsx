@@ -73,6 +73,8 @@ describe("SearchRequestsTable", () => {
       screen.getByRole("button", { name: /All columns/ }),
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Filters/ })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Columns/ })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /show or hide columns/i }),
+    ).toBeInTheDocument();
   });
 });

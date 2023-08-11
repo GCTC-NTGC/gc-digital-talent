@@ -6,7 +6,6 @@ import uniqBy from "lodash/uniqBy";
 
 import {
   errorMessages,
-  navigationMessages,
   getGovEmployeeType,
   getLocale,
   getLocalizedName,
@@ -25,22 +24,16 @@ import { toast } from "@gc-digital-talent/toast";
 import { Link } from "@gc-digital-talent/ui";
 
 import { splitAndJoin } from "~/utils/nameUtils";
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import {
   Classification,
   UpdateUserAsUserInput,
   GetGovInfoFormLookupDataQuery,
   GovEmployeeType,
   Department,
-  PoolCandidate,
   User,
 } from "~/api/generated";
-import useRoutes from "~/hooks/useRoutes";
 import useApplicationInfo from "~/hooks/useApplicationInfo";
 import profileMessages from "~/messages/profileMessages";
-import ProfileFormWrapper, {
-  ProfileFormFooter,
-} from "~/components/ProfileFormWrapper/ProfileFormWrapper";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
@@ -506,7 +499,6 @@ export interface GovernmentInfoFormProps {
   departments: Department[];
   classifications: Classification[];
   initialData: User;
-  application?: PoolCandidate;
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
@@ -514,13 +506,11 @@ const GovernmentInfoForm = ({
   departments,
   classifications,
   initialData,
-  application,
   submitHandler,
 }: GovernmentInfoFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
-  const paths = useRoutes();
-  const { id: applicationId, returnRoute } = useApplicationInfo(initialData.id);
+  const { returnRoute } = useApplicationInfo(initialData.id);
 
   const labels = getGovernmentInfoLabels(intl);
 
@@ -535,78 +525,22 @@ const GovernmentInfoForm = ({
       });
   };
 
-  const applicationBreadcrumbs = application
-    ? [
-        {
-          label: intl.formatMessage({
-            defaultMessage: "My applications",
-            id: "bdDvMZ",
-            description:
-              "My applications breadcrumb from applicant profile wrapper.",
-          }),
-          url: paths.applications(application.user.id),
-        },
-        {
-          label: getFullPoolTitleHtml(intl, application.pool),
-          url: paths.pool(application.pool.id),
-        },
-        {
-          label: intl.formatMessage(navigationMessages.stepOne),
-          url: paths.application(applicationId ?? ""),
-        },
-        {
-          label: intl.formatMessage(navigationMessages.governmentInformation),
-          url: `${paths.governmentInformation(initialData.id)}${
-            applicationId ? `?applicationId=${applicationId}` : ``
-          }`,
-        },
-      ]
-    : [];
-
   return (
-    <ProfileFormWrapper
-      description={intl.formatMessage({
-        defaultMessage:
-          "Please indicate if you are currently an employee in the Government of Canada.",
-        id: "6vsgLY",
-        description:
-          "Description blurb for Profile Form Wrapper in the Government Information Form",
-      })}
-      title={intl.formatMessage(navigationMessages.governmentInformation)}
-      crumbs={
-        applicationBreadcrumbs?.length
-          ? applicationBreadcrumbs
-          : [
-              {
-                label: intl.formatMessage(
-                  navigationMessages.governmentInformation,
-                ),
-                url: paths.governmentInformation(initialData.id),
-              },
-            ]
-      }
-      prefixBreadcrumbs={!application}
+    <BasicForm
+      labels={labels}
+      cacheKey="gov-info-form"
+      onSubmit={handleSubmit}
+      options={{
+        mode: "onBlur",
+        defaultValues: dataToFormValues(initialData),
+      }}
     >
-      <BasicForm
+      <GovernmentInfoFormFields
         labels={labels}
-        cacheKey="gov-info-form"
-        onSubmit={handleSubmit}
-        options={{
-          mode: "onBlur",
-          defaultValues: dataToFormValues(initialData),
-        }}
-      >
-        <GovernmentInfoFormFields
-          labels={labels}
-          departments={departments}
-          classifications={classifications}
-        />
-        <ProfileFormFooter
-          mode="saveButton"
-          cancelLink={{ href: returnRoute }}
-        />
-      </BasicForm>
-    </ProfileFormWrapper>
+        departments={departments}
+        classifications={classifications}
+      />
+    </BasicForm>
   );
 };
 

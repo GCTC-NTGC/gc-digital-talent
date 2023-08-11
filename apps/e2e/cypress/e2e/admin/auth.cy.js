@@ -72,10 +72,6 @@ describe("Auth flows (development)", () => {
       });
     });
 
-    // TODO: write this
-    // See: https://www.oauth.com/playground/oidc.html
-    it.skip("should fail if the state value is tampered with", () => { });
-
     it("succeeds for an existing admin user", () => {
       cy.visit("/admin");
       // Click sign in button.

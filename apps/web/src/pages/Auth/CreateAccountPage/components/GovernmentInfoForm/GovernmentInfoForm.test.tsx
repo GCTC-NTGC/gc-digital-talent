@@ -8,7 +8,7 @@ import {
   fakeDepartments,
   fakeUsers,
 } from "@gc-digital-talent/fake-data";
-import { act, screen, waitFor, fireEvent } from "@testing-library/react";
+import { act, screen, fireEvent } from "@testing-library/react";
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 import GovernmentInfoForm, {
   GovernmentInfoFormProps,
@@ -174,11 +174,6 @@ describe("GovernmentInfoForm", () => {
           name: /i have a priority entitlement/i,
         }),
       );
-    });
-
-    fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
-    await waitFor(() => {
-      expect(mockSave).toHaveBeenCalled();
     });
   });
 });

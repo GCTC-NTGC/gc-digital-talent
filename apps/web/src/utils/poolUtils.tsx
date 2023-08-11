@@ -246,3 +246,8 @@ export const isOngoingPublishingGroup = (
   publishingGroup: Maybe<PublishingGroup>,
 ): boolean =>
   publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;
+
+export function getClassificationGroup(pool: Maybe<Pool>): string {
+  const classification = pool?.classifications ? pool.classifications[0] : null;
+  return classification?.group ? classification.group : "";
+}

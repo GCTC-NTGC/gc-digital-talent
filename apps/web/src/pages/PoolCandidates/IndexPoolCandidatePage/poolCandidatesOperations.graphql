@@ -249,7 +249,6 @@ fragment selectedPoolCandidates on PoolCandidate {
     citizenship
     armedForcesStatus
     expectedSalary
-    jobLookingStatus
     currentCity
     currentProvince
     expectedGenericJobTitles {

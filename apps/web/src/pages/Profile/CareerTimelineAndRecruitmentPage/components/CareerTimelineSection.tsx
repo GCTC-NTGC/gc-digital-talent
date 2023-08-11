@@ -35,6 +35,7 @@ const CareerTimelineSection = ({
   const experienceList = sortAndFilterExperiences(
     experiences,
     sortAndFilterValues,
+    intl,
   );
 
   const hasExperiences = experiences && experiences.length >= 1;

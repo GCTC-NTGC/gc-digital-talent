@@ -2,7 +2,6 @@ import React from "react";
 import { useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
@@ -22,26 +21,26 @@ interface ExperienceDetailsProps {
 const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
   const intl = useIntl();
   const type = useWatch({ name: "experienceType" });
-  const derivedType = type ?? experienceType;
+  const derivedType: ExperienceType = type ?? experienceType;
   const labels = getExperienceFormLabels(intl, derivedType);
 
   return (
     <>
       <Heading level="h3" size="h5">
         {intl.formatMessage({
-          defaultMessage: "Experience Details",
-          id: "PyAtIt",
+          defaultMessage: "Provide a few details",
+          id: "jIMP76",
           description: "Heading for the details section of the experience form",
         })}
       </Heading>
       <div data-h2-margin="base(0, 0, x2, 0)">
-        {notEmpty(derivedType) ? (
+        {derivedType ? (
           <>
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Please provide related details about the experience.",
-                id: "CB2LXg",
+                  "Provide a few standardized details about your experience to help managers better understand how it’s played a role in your career journey.",
+                id: "czThVC",
                 description: "Help text for the experience details section",
               })}
             </p>

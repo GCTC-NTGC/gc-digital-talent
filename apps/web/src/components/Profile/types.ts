@@ -1,11 +1,11 @@
 import { FieldLabels } from "@gc-digital-talent/forms";
 import {
+  GetMeQuery,
   Maybe,
   Pool,
   UpdateUserAboutMeMutation,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
-import { GetMeQuery } from "~/api/generated";
 
 import { ApplicationPageProps } from "~/pages/Applications/ApplicationApi";
 

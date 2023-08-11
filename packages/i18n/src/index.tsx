@@ -17,7 +17,6 @@ import {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
-  withLocalizedQuotes,
 } from "./utils/localize";
 
 import {
@@ -59,7 +58,6 @@ import {
   getEducationStatus,
   getEducationType,
   getOperationalRequirement,
-  getJobLookingStatus,
   getProvinceOrTerritory,
   getPoolStream,
   getGovEmployeeType,
@@ -94,7 +92,6 @@ export {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
-  withLocalizedQuotes,
   STORED_LOCALE,
   apiMessages,
   commonMessages,
@@ -139,7 +136,6 @@ export {
   getEducationStatus,
   getEducationType,
   getOperationalRequirement,
-  getJobLookingStatus,
   getProvinceOrTerritory,
   getPoolStream,
   getGovEmployeeType,
