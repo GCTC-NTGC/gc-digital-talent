@@ -158,7 +158,8 @@ const TrackApplicationsCard = ({
       >
         <div
           data-h2-display="base(flex)"
-          data-h2-justify-content="base(center) p-tablet(flex-start)"
+          data-h2-flex-direction="base(column) p-tablet(row)"
+          data-h2-justify-content="base(flex-start)"
           data-h2-gap="base(x1)"
         >
           <ApplicationActions.ViewAction
@@ -184,7 +185,7 @@ const TrackApplicationsCard = ({
         </div>
         <div
           data-h2-flex-grow="p-tablet(1)"
-          data-h2-text-align="base(center) p-tablet(right)"
+          data-h2-text-align="base(left) p-tablet(right)"
         >
           <ApplicationActions.CopyApplicationIdAction
             show
