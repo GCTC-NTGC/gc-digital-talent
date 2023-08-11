@@ -2,7 +2,9 @@ import React from "react";
 import type {
   CellContext,
   PaginationState,
+  RowData,
   SortingState,
+  Table,
 } from "@tanstack/react-table";
 import { DownloadCsvProps } from "@gc-digital-talent/ui";
 
@@ -27,7 +29,9 @@ export type RowSelect<T> = {
   onRowSelection?: (rows: T[]) => void;
 };
 
-export interface SearchFormProps {
+export interface SearchFormProps<TData extends RowData> {
+  /** Instance of the table */
+  table: Table<TData>;
   /** Callback for when state changes */
   onChange: (newState: SearchState) => void;
   /** Columns that can be searched on */
@@ -42,14 +46,17 @@ export interface SearchFormProps {
   inputProps?: Omit<React.HTMLProps<HTMLInputElement>, "aria-label" | "id">;
 }
 
-type SearchDefFormProps = Omit<SearchFormProps, "id" | "onChange">;
+type SearchDefFormProps<T> = Omit<
+  SearchFormProps<T>,
+  "id" | "onChange" | "table"
+>;
 
-export type SearchDef = {
+export type SearchDef<T> = {
   /** Allows the table to manage search */
   internal: boolean;
   initialState?: SearchState;
   onChange?: (newState: SearchState) => void;
-} & SearchDefFormProps;
+} & Omit<SearchDefFormProps<T>, "onChange">;
 
 export type SortDef = {
   /** Allows the table to manage search */

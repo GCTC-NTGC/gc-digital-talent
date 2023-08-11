@@ -7,7 +7,7 @@ import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { useCommonInputStyles } from "@gc-digital-talent/forms";
 
-import { SearchFormProps, SearchColumn } from "./types";
+import { SearchFormProps, SearchColumn, SearchState } from "./types";
 import ResetButton from "../ResetButton";
 
 /**
@@ -19,14 +19,15 @@ import ResetButton from "../ResetButton";
  * @param SearchFormProps
  * @returns JSX.Element
  */
-const SearchForm = ({
+const SearchForm = <T,>({
+  table,
   onChange,
   searchBy,
   state,
   label,
   id,
   inputProps,
-}: SearchFormProps) => {
+}: SearchFormProps<T>) => {
   const intl = useIntl();
   const searchRef = React.useRef<HTMLInputElement | null>(null);
   const styles = useCommonInputStyles();
@@ -44,21 +45,39 @@ const SearchForm = ({
   );
   const showDropdown = searchBy && searchBy.length;
 
+  const updateTable = React.useCallback(
+    (newState: SearchState) => {
+      onChange(newState);
+      if (newState.type && newState.type !== "") {
+        // This doesn't seem to want to work
+        // table.setColumnFilters([
+        //   {
+        //     id: newState.type,
+        //     value: newState.term,
+        //   },
+        // ]);
+      } else {
+        table.setGlobalFilter(newState.term);
+      }
+    },
+    [onChange, table],
+  );
+
   const handleChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault();
       setSearchTerm(e.target.value);
-      onChange({
+      updateTable({
         term: e.target.value,
         type: column?.value,
       });
     },
-    [column, onChange],
+    [column, updateTable],
   );
 
   const handleReset = () => {
     setSearchTerm("");
-    onChange({
+    updateTable({
       term: "",
       type: column?.value,
     });
@@ -75,7 +94,7 @@ const SearchForm = ({
 
   const handleColumnChange = (col: string) => {
     setColumn(searchBy?.find((item) => item.value === col));
-    onChange({
+    updateTable({
       term: searchTerm,
       type: col,
     });

@@ -1,11 +1,11 @@
 import * as React from "react";
+import { useIntl } from "react-intl";
 import omit from "lodash/omit";
 import type {
   ColumnDef,
   RowSelectionState,
   SortingState,
   PaginationState,
-  VisibilityState,
 } from "@tanstack/react-table";
 import {
   getCoreRowModel,
@@ -17,12 +17,14 @@ import {
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { useIntl } from "react-intl";
 import Table from "./Table";
 import SearchForm from "./SearchForm";
 import ColumnDialog from "./ColumnDialog";
 import NullMessage, { NullMessageProps } from "./NullMessage";
 import RowSelection, { getRowSelectionColumn } from "./RowSelection";
+import Pagination from "../../Pagination";
+
+import useControlledTableState from "./useControlledTableState";
 
 import type {
   AddLinkProps,
@@ -34,7 +36,6 @@ import type {
   SearchState,
   SortDef,
 } from "./types";
-import Pagination from "../../Pagination";
 
 interface TableProps<TData> {
   /** Accessible name for the table */
@@ -44,7 +45,7 @@ interface TableProps<TData> {
   /** Column definitions for `react-table` */
   columns: ColumnDef<TData>[];
   /** Column definitions for `react-table` */
-  hiddenCols: string[];
+  hiddenColumnIds: string[];
   /** Determine if any aspect of the table is loading (server side) */
   isLoading?: boolean;
   /** Override default null message with a custom one */
@@ -52,7 +53,7 @@ interface TableProps<TData> {
   /** Enable row selection */
   rowSelect?: RowSelect<TData>;
   /** Enable the search form */
-  search?: SearchDef;
+  search?: SearchDef<TData>;
   /** Enable sorting */
   sort?: SortDef;
   /** Enable pagination */
@@ -69,7 +70,7 @@ const ResponsiveTable = <TData extends object>({
   caption,
   data,
   columns,
-  hiddenCols,
+  hiddenColumnIds,
   isLoading,
   nullMessage,
   rowSelect,
@@ -87,20 +88,15 @@ const ResponsiveTable = <TData extends object>({
     if (!rowSelect) return columns;
     return [getRowSelectionColumn(rowSelect.cell), ...columns];
   }, [columns, rowSelect]);
-  const initialColumnVisibility: VisibilityState = {};
-  hiddenCols.forEach((column) => {
-    Object.assign(initialColumnVisibility, { [column]: false });
+  const { state, updaters } = useControlledTableState({
+    columnIds: memoizedColumns.map((column) => column.id).filter(notEmpty),
+    initialState: {
+      hiddenColumnIds,
+      searchState: search?.initialState,
+    },
   });
 
-  const [searchTerm, setSearchTerm] = React.useState<string>(
-    search?.initialState?.term ?? "",
-  );
-  const [searchBy, setSearchBy] = React.useState<string>(
-    search?.initialState?.type ?? "",
-  );
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>(initialColumnVisibility);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [{ pageIndex, pageSize }, setPagination] =
     React.useState<PaginationState>({
@@ -132,11 +128,10 @@ const ResponsiveTable = <TData extends object>({
     data: memoizedData,
     columns: memoizedColumns,
     state: {
+      ...state,
       rowSelection,
-      columnVisibility,
       sorting,
       pagination: paginationState,
-      globalFilter: searchTerm,
     },
     enableSorting: !!sort,
     enableRowSelection: !!rowSelect,
@@ -148,27 +143,13 @@ const ResponsiveTable = <TData extends object>({
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onRowSelectionChange: setRowSelection, // Note: We should probably do the state sync here
-    onGlobalFilterChange: setSearchTerm,
-    onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
-    onPaginationChange: setPagination,
+    ...updaters,
   });
 
   const handleSearchChange = (newSearchState: SearchState) => {
-    if (search) {
-      setSearchTerm(newSearchState?.term || "");
-      setSearchBy(newSearchState?.type || "");
-      if (search.onChange) {
-        search.onChange(newSearchState);
-      }
-      if (pagination) {
-        setPagination(
-          pagination?.initialState ?? {
-            pageIndex: 0,
-            pageSize: 10,
-          },
-        );
-      }
+    if (search?.onChange) {
+      search.onChange(newSearchState);
     }
   };
 
@@ -212,16 +193,9 @@ const ResponsiveTable = <TData extends object>({
           <SearchForm
             id={`${id}-search`}
             onChange={handleSearchChange}
-            {...omit(
-              {
-                ...search,
-                state: {
-                  term: searchTerm,
-                  type: searchBy,
-                },
-              },
-              "onChange",
-            )}
+            table={table}
+            state={search.initialState}
+            {...search}
           />
         )}
         {/** Note: `div` prevents button from taking up entire space on desktop */}

@@ -32,7 +32,7 @@ import {
   sortingRuleToOrderByClause,
   TABLE_DEFAULTS,
 } from "~/components/Table/ApiManagedTable/helpers";
-import useTableState from "~/components/Table/ApiManagedTable/useTableState";
+import useTableState from "~/hooks/useTableState";
 import tableViewItemButtonAccessor from "~/components/Table/ClientManagedTable/TableViewItemButton";
 import useRoutes from "~/hooks/useRoutes";
 import {
