@@ -314,7 +314,7 @@ const HomePage = () => {
                     id: "2OTKDd",
                     description: "Subject for email to gain hiring experience",
                   }),
-                )}}`,
+                )}`,
                 label: intl.formatMessage({
                   defaultMessage:
                     "Contact us<hidden> about hiring experience</hidden>",
