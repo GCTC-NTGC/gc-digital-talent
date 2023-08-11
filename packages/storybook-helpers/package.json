@@ -9,25 +9,25 @@
   "dependencies": {
     "@gc-digital-talent/theme": "*",
     "@storybook/addon-actions": "^7.0.27",
-    "@storybook/addon-essentials": "^7.2.0",
-    "@storybook/addon-links": "^7.2.0",
+    "@storybook/addon-essentials": "^7.2.2",
+    "@storybook/addon-links": "^7.2.2",
     "@storybook/addon-viewport": "^7.0.27",
-    "@storybook/addons": "^7.2.1",
-    "@storybook/react": "^7.2.1",
+    "@storybook/addons": "^7.2.2",
+    "@storybook/react": "^7.2.2",
     "@storybook/react-webpack5": "^7.2.0",
-    "chromatic": "^6.20.0",
+    "chromatic": "^6.21.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
-    "react-router-dom": "^6.14.2",
+    "react-router-dom": "^6.15.0",
     "storybook-addon-intl": "^3.2.0",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "urql": "3.0.4",
-    "wonka": "^6.3.3"
+    "wonka": "^6.3.4"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^7.2.0",
+    "@storybook/addon-a11y": "^7.2.2",
     "storybook": "^7.2.1"
   }
 }
