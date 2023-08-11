@@ -1,7 +1,8 @@
 import React from "react";
-import { NavLink, NavLinkProps } from "react-router-dom";
+import { motion } from "framer-motion";
+import { NavLink, NavLinkProps, useNavigate } from "react-router-dom";
 
-import { sanitizeUrl } from "@gc-digital-talent/helpers";
+import { sanitizeUrl, useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import { IconType } from "../../types";
 import { useSideMenuContext } from "./SideMenuProvider";
@@ -30,10 +31,18 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
   const ctx = useSideMenuContext();
 
   return (
-    <span
+    <motion.span
       data-h2-display="base(grid)"
       data-h2-grid-template-columns="base(x1 1fr)"
-      data-h2-gap="base(x.5)"
+      animate={
+        ctx?.open
+          ? {
+              columnGap: "0.75rem",
+            }
+          : {
+              columnGap: "0rem",
+            }
+      }
     >
       <span>
         {Icon ? (
@@ -44,17 +53,18 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
           />
         ) : null}
       </span>
-      <span
-        {...(ctx?.open
-          ? {
-              "data-h2-position": "base(relative)",
-              "data-h2-left": "base(auto)",
-              "data-h2-right": "base(auto)",
-              "data-h2-width": "base(auto)",
-            }
-          : {
-              "data-h2-visually-hidden": "base(invisible)",
-            })}
+      <motion.span
+        animate={
+          ctx?.open
+            ? {
+                opacity: 1,
+                width: "auto",
+              }
+            : {
+                width: 0,
+                opacity: 0,
+              }
+        }
       >
         <span
           data-h2-display="base(inline-block)"
@@ -62,8 +72,8 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
         >
           {children}
         </span>
-      </span>
-    </span>
+      </motion.span>
+    </motion.span>
   );
 };
 
@@ -75,11 +85,23 @@ export interface SideMenuItemProps
 
 const SideMenuItem = ({ icon, children, href, ...rest }: SideMenuItemProps) => {
   const url = sanitizeUrl(href);
+  const navigate = useNavigate();
+  const ctx = useSideMenuContext();
+  const isSmallScreen = useIsSmallScreen();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    e.preventDefault();
+    if (isSmallScreen && ctx?.onOpenChange) {
+      ctx?.onOpenChange(false);
+    }
+    navigate(url || "");
+  };
 
   return (
     <NavLink
       to={url || "#"}
       className="side-menu__item"
+      onClick={handleClick}
       {...commonStyles}
       {...rest}
     >

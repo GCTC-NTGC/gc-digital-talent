@@ -17,7 +17,6 @@ import {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
-  withLocalizedQuotes,
 } from "./utils/localize";
 
 import {
@@ -93,7 +92,6 @@ export {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
-  withLocalizedQuotes,
   STORED_LOCALE,
   apiMessages,
   commonMessages,
