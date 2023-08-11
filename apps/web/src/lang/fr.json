@@ -1643,6 +1643,10 @@
     "defaultMessage": "{date} - Aujourd’hui",
     "description": "A date range that goes to the present day"
   },
+  "9QZYMX": {
+    "defaultMessage": "Un diplôme d’études secondaires.",
+    "description": "Description for the education requirement option secondary school diploma."
+  },
   "9QxHnD": {
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
@@ -7181,6 +7185,10 @@
     "defaultMessage": "Statut du bassin",
     "description": "Label displayed on the status field of the change candidate status dialog"
   },
+  "nBBKe/": {
+    "defaultMessage": "Une combinaison acceptable d’études, de formation et d’expérience, ou une note satisfaisante à l’examen de la Commission de la fonction publique qui est approuvé comme équivalence d’un diplôme d’études secondaires.",
+    "description": "Descriptive text explaining valid a applied work experience for the PM classification group."
+  },
   "nBoNqj": {
     "defaultMessage": "Profil et candidatures",
     "description": "Label displayed on the profile and applications menu item."
@@ -7536,6 +7544,10 @@
   "qGyD4w": {
     "defaultMessage": "Questions de sélection",
     "description": "Heading for screening questions section of the application review page."
+  },
+  "qN9zOb": {
+    "defaultMessage": "<strong>J’ai un diplôme d’études secondaires</strong>",
+    "description": "Radio group option for education requirement filter in application education form."
   },
   "qOi2J0": {
     "defaultMessage": "Niveau de connaissance de la langue seconde (lecture, écriture, expression orale)",
@@ -8650,6 +8662,10 @@
   "zd/ve4": {
     "defaultMessage": "Renseignements du profil",
     "description": "Profile and applications card title for profile card"
+  },
+  "zdeoxH": {
+    "defaultMessage": "Diplôme d’études secondaires",
+    "description": "Heading for the education requirement option secondary school diploma."
   },
   "zfi91j": {
     "defaultMessage": "Candidats du bassin",
