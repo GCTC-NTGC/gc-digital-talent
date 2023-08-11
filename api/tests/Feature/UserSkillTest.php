@@ -339,6 +339,7 @@ class UserSkillTest extends TestCase
         assertNotNull($experienceSkillModel->deleted_at);
 
         // assert user restores records by checking deleted at
+        // only reverse the soft deletion for UserSkill, experience_skill not reversed
         $this->actingAs($this->user, 'api')
             ->graphQL(
                 $this->createUserSkill,
@@ -350,6 +351,6 @@ class UserSkillTest extends TestCase
         $userSkillModel->refresh();
         $experienceSkillModel->refresh();
         assertNull($userSkillModel->deleted_at);
-        assertNull($experienceSkillModel->deleted_at);
+        assertNotNull($experienceSkillModel->deleted_at);
     }
 }
