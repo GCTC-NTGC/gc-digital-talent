@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 /**
  * Class UserSkill
@@ -39,12 +38,7 @@ class UserSkill extends Model
         static::deleting(
             function (UserSkill $userSkill) {
                 // soft delete all experience_skill records containing the model
-                $existingModel = UserSkill::find($userSkill->attributes['id']);
-
-                if ($existingModel === null) {
-                    throw ValidationException::withMessages(["UserSkillNotFound"]);
-                }
-                ExperienceSkill::where('user_skill_id', $existingModel->id)->delete();
+                ExperienceSkill::where('user_skill_id', $userSkill->attributes['id'])->delete();
             }
         );
     }
