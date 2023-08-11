@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Experience;
 use App\Models\ExperienceSkill;
 use App\Models\Skill;
 use App\Models\WorkExperience;
@@ -101,12 +100,15 @@ class UserSkillTest extends TestCase
         $this->assertCount(0, $userSkill->fresh()->workExperiences);
     }
 
-    public function testUserSkillCreation(): void
+    public function testUserSkillPolicy(): void
     {
         $skill = Skill::factory()->create();
-        $skill2 = Skill::factory()->create();
+        $userSkillModel = UserSkill::factory()->create([
+            'user_id' => $this->user->id,
+            'skill_id' => $skill->id,
+        ]);
 
-        // assert policy blocks differentUser from acting on user
+        // assert policy blocks differentUser from doing anything to user
         $this->actingAs($this->differentUser, 'api')
             ->graphQL(
                 $this->createUserSkill,
@@ -117,6 +119,33 @@ class UserSkillTest extends TestCase
                 ]
             )
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->actingAs($this->differentUser, 'api')
+            ->graphQL(
+                $this->updateUserSkill,
+                [
+                    'id' => $userSkillModel->id,
+                    'userSkill' => [
+                        'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
+                        'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_PAST,
+                    ],
+                ]
+            )
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->actingAs($this->differentUser, 'api')
+            ->graphQL(
+                $this->deleteUserSkill,
+                [
+                    'id' => $userSkillModel->id,
+                ]
+            )
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testUserSkillCreationNoOptional(): void
+    {
+        $skill = Skill::factory()->create();
 
         // assert user can successfully create with optional fields null
         $this->actingAs($this->user, 'api')
@@ -138,6 +167,11 @@ class UserSkillTest extends TestCase
                 'skillLevel' => null,
                 'whenSkillUsed' => null,
             ]);
+    }
+
+    public function testUserSkillCreationWithOptional(): void
+    {
+        $skill = Skill::factory()->create();
 
         // assert user can successfully create with optional fields set
         $this->actingAs($this->user, 'api')
@@ -145,7 +179,7 @@ class UserSkillTest extends TestCase
                 $this->createUserSkill,
                 [
                     'userId' => $this->user->id,
-                    'skillId' => $skill2->id,
+                    'skillId' => $skill->id,
                     'userSkill' => [
                         'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
                         'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
@@ -157,7 +191,7 @@ class UserSkillTest extends TestCase
                     'id' => $this->user->id,
                 ],
                 'skill' => [
-                    'id' => $skill2->id,
+                    'id' => $skill->id,
                 ],
                 'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
                 'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
@@ -169,7 +203,7 @@ class UserSkillTest extends TestCase
                 $this->createUserSkill,
                 [
                     'userId' => $this->user->id,
-                    'skillId' => $skill2->id,
+                    'skillId' => $skill->id,
                     'userSkill' => [
                         'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
                         'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
@@ -242,20 +276,6 @@ class UserSkillTest extends TestCase
             'skill_id' => $skill->id,
         ]);
 
-        // assert policy blocks differentUser from messing around with user
-        $this->actingAs($this->differentUser, 'api')
-            ->graphQL(
-                $this->updateUserSkill,
-                [
-                    'id' => $userSkillModel->id,
-                    'userSkill' => [
-                        'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
-                        'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_PAST,
-                    ],
-                ]
-            )
-            ->assertGraphQLErrorMessage('This action is unauthorized.');
-
         // assert user successfully updates their UserSkill
         $this->actingAs($this->user, 'api')
             ->graphQL(
@@ -285,16 +305,6 @@ class UserSkillTest extends TestCase
 
         // check deleted at is null
         assertNull($userSkillModel->deleted_at);
-
-        // assert policy blocks differentUser from messing around with user
-        $this->actingAs($this->differentUser, 'api')
-            ->graphQL(
-                $this->deleteUserSkill,
-                [
-                    'id' => $userSkillModel->id,
-                ]
-            )
-            ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         // assert user soft deletes the model by checking that deleted at is no longer null
         $this->actingAs($this->user, 'api')
