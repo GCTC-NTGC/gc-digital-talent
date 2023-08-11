@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import omit from "lodash/omit";
 import type {
   ColumnDef,
   RowSelectionState,
@@ -83,11 +82,15 @@ const ResponsiveTable = <TData extends object>({
 }: TableProps<TData>) => {
   const intl = useIntl();
   const id = React.useId();
+  const isInternalSearch = search && search.internal;
   const memoizedData = React.useMemo(() => data, [data]);
   const memoizedColumns = React.useMemo(() => {
     if (!rowSelect) return columns;
+    // Inject the selection column if it is enabled
     return [getRowSelectionColumn(rowSelect.cell), ...columns];
   }, [columns, rowSelect]);
+
+  const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
   const { state, updaters } = useControlledTableState({
     columnIds: memoizedColumns.map((column) => column.id).filter(notEmpty),
     initialState: {
@@ -96,7 +99,7 @@ const ResponsiveTable = <TData extends object>({
     },
   });
 
-  const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
+  // TO DO: Move these to the `useControlledState` hook
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [{ pageIndex, pageSize }, setPagination] =
     React.useState<PaginationState>({
@@ -107,7 +110,6 @@ const ResponsiveTable = <TData extends object>({
     () => ({ pageIndex, pageSize }),
     [pageIndex, pageSize],
   );
-  const isInternalSearch = search && search.internal;
 
   React.useEffect(() => {
     if (rowSelect?.onRowSelection) {
