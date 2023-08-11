@@ -3,10 +3,10 @@ import { useIntl } from "react-intl";
 
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
 
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
-import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import type { Application } from "./ApplicationCard";
 
@@ -191,6 +191,7 @@ const CopyApplicationIdAction = ({
       mode="inline"
       data-h2-color="base(black.light)"
       data-h2-font-size="base(caption)"
+      data-h2-vertical-align="base(top)"
       icon={linkCopied ? CheckIcon : undefined}
       onClick={() => {
         navigator.clipboard.writeText(application.id);
