@@ -22,6 +22,7 @@ import managerProfileHero from "~/assets/img/manager-profile-hero.jpg";
 import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.jpg";
 import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.jpg";
 import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.jpg";
+import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 
 const HomePage = () => {
   const intl = useIntl();
@@ -144,7 +145,7 @@ const HomePage = () => {
             })}
             links={[
               {
-                href: `mailto:recruitment-recruitementgiti@tbs-sct.gc.ca?subject=${encodeURIComponent(
+                href: `mailto:${TALENTSEARCH_SUPPORT_EMAIL}?subject=${encodeURIComponent(
                   intl.formatMessage({
                     defaultMessage:
                       "I'm interested in running a recruitment process",
@@ -306,14 +307,14 @@ const HomePage = () => {
               ),
               link: {
                 external: true,
-                path: `mailto:recruitment-recruitementgiti@tbs-sct.gc.ca?subject=${encodeURIComponent(
+                path: `mailto:${TALENTSEARCH_SUPPORT_EMAIL}?subject=${encodeURIComponent(
                   intl.formatMessage({
                     defaultMessage:
                       "I'm interested in gaining hiring experience",
                     id: "2OTKDd",
                     description: "Subject for email to gain hiring experience",
                   }),
-                )}}`,
+                )}`,
                 label: intl.formatMessage({
                   defaultMessage:
                     "Contact us<hidden> about hiring experience</hidden>",
