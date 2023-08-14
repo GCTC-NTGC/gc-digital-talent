@@ -23,6 +23,7 @@ import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetai
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 
 import { experienceTypeTitles } from "../messages";
+import { isSuccessfulCreate } from "./addExperienceUtils";
 
 type FormAction = "return" | "add-another";
 type ExperienceExperienceFormValues =
@@ -63,6 +64,17 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     if (executeMutation) {
       executeMutation(args)
         .then((res) => {
+          if (!isSuccessfulCreate(res)) {
+            toast.error(
+              intl.formatMessage({
+                defaultMessage: "Error: adding experience failed",
+                id: "moKAQP",
+                description:
+                  "Message displayed to user after experience fails to be created.",
+              }),
+            );
+            return;
+          }
           if (res.data) {
             toast.success(
               intl.formatMessage({
