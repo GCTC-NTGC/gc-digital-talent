@@ -24,4 +24,16 @@ return [
     */
 
     'status_notifications' => (bool) env('FEATURE_STATUS_NOTIFICATIONS', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Directive forms
+    |--------------------------------------------------------------------------
+    |
+    | A feature to provide users with the ability to view and use the directive
+    | forms in the site.
+    |
+    */
+
+    'status_notifications' => (bool) env('FEATURE_DIRECTIVE_FORMS', false),
 ];

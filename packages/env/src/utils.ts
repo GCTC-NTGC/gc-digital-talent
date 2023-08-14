@@ -40,4 +40,5 @@ export const checkFeatureFlag = (name: string): boolean => {
  */
 export const getFeatureFlags = () => ({
   skillLibrary: checkFeatureFlag("FEATURE_SKILL_LIBRARY"),
+  directiveForms: checkFeatureFlag("FEATURE_DIRECTIVE_FORMS"),
 });
