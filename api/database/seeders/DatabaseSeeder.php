@@ -34,7 +34,6 @@ class DatabaseSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-
         $this->truncateTables();
 
         // seed a test team and random teams
@@ -62,8 +61,9 @@ class DatabaseSeeder extends Seeder
         $digitalTalentPool = Pool::where('name->en', 'CMO Digital Careers')->sole();
 
         User::factory()
-            ->count(150)
+            ->count(75)
             ->withExperiences()
+            ->asGovEmployee()
             ->afterCreating(function (User $user) use ($faker, $digitalTalentPool) {
 
                 // pick a published pool in which to place this user
@@ -71,16 +71,6 @@ class DatabaseSeeder extends Seeder
                 // digital careers is always published and strictly defined in PoolSeeder
                 $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
                 $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
-
-                // are they a government user?
-                if (rand(0, 1)) {
-                    // government users have a current classification
-                    $user->save();
-                } else {
-                    // non-government users have no current classification
-                    $user->current_classification = null;
-                    $user->save();
-                }
 
                 // create a pool candidate in the pool - are they suspended?
                 if (rand(0, 4) == 4) {
@@ -108,6 +98,27 @@ class DatabaseSeeder extends Seeder
             }
             $applicantUserSkill->save();
         }
+
+        User::factory()
+            ->count(75)
+            ->withExperiences()
+            ->asGovEmployee(false)
+            ->afterCreating(function (User $user) use ($faker, $digitalTalentPool) {
+
+                // pick a published pool in which to place this user
+                // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
+                // digital careers is always published and strictly defined in PoolSeeder
+                $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
+                $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
+
+                // create a pool candidate in the pool - are they suspended?
+                if (rand(0, 4) == 4) {
+                    $this->seedSuspendedCandidate($user, $pool);
+                } else {
+                    $this->seedPoolCandidate($user, $pool);
+                }
+            })
+            ->create();
 
         // attach either a work or education experience to a pool candidate to meet minimum criteria
         PoolCandidate::all()->load('user')->each(function ($poolCandidate) {

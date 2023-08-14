@@ -103,7 +103,7 @@ class UserFactory extends Factory
             ]),
             'is_gov_employee' => $isGovEmployee,
             'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
-            'current_classification' => $randomClassification ? $randomClassification->id : null,
+            'current_classification' => $isGovEmployee && $randomClassification ? $randomClassification->id : null,
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
             'is_visible_minority' => $this->faker->boolean(),
@@ -126,7 +126,7 @@ class UserFactory extends Factory
                 [ApiEnums::POSITION_DURATION_PERMANENT, ApiEnums::POSITION_DURATION_TEMPORARY]
                 : [ApiEnums::POSITION_DURATION_PERMANENT], // always accepting PERMANENT
             'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
-            'gov_employee_type' => $this->faker->randomElement(ApiEnums::govEmployeeTypes()),
+            'gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(ApiEnums::govEmployeeTypes()) : null,
             'citizenship' => $this->faker->randomElement(ApiEnums::citizenshipStatuses()),
             'armed_forces_status' => $this->faker->randomElement(ApiEnums::armedForcesStatuses()),
             'has_priority_entitlement' => $hasPriorityEntitlement,
@@ -172,6 +172,33 @@ class UserFactory extends Factory
             $skills = Skill::inRandomOrder()->take($count)->get();
             $experience = $this->faker->randomElement($user->experiences);
             $experience->syncSkills($skills);
+        });
+    }
+
+    /**
+     * Is government employee.
+     */
+    public function asGovEmployee($isGovEmployee = true)
+    {
+        return $this->state(function () use ($isGovEmployee) {
+            if (!$isGovEmployee) {
+                return [
+                    'is_gov_employee' => false,
+                    'current_classification' => null,
+                    'gov_employee_type' => null,
+                    'department' => null,
+
+                ];
+            }
+            $randomClassification = Classification::inRandomOrder()->first();
+            $randomDepartment = Department::inRandomOrder()->first();
+            return [
+                'is_gov_employee' => true,
+                'current_classification' => $randomClassification ? $randomClassification->id : null,
+                'gov_employee_type' => $this->faker->randomElement(ApiEnums::govEmployeeTypes()),
+                'department' => $randomDepartment ? $randomDepartment->id : null,
+
+            ];
         });
     }
 
