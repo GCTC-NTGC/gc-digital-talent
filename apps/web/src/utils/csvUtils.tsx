@@ -11,7 +11,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import {
   Locales,
-  getGenericJobTitles,
   getIndigenousCommunity,
   getOperationalRequirement,
   getSimpleGovEmployeeType,
@@ -207,31 +206,6 @@ export const getOperationalRequirements = (
   }
 
   return listOrEmptyString(accepted.filter(notEmpty));
-};
-
-/**
- * Converts a possible array of generic job titles
- * to a comma separated list or empty string
- *
- * @param genericTitles Maybe<Maybe<GenericJobTitle>[]>
- * @param intl react-intl object
- * @returns string
- */
-export const getExpectedClassifications = (
-  genericTitles: User["expectedGenericJobTitles"],
-  intl: IntlShape,
-) => {
-  const expected = genericTitles
-    ?.map((title) =>
-      title ? intl.formatMessage(getGenericJobTitles(title.key)) : undefined,
-    )
-    .filter(notEmpty);
-
-  if (!expected) {
-    return "";
-  }
-
-  return listOrEmptyString(expected.filter(notEmpty));
 };
 
 /**

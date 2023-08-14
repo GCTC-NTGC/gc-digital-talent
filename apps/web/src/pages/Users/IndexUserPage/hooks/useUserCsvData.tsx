@@ -13,7 +13,6 @@ import {
 import {
   employeeTypeToString,
   flattenExperiencesToSkills,
-  getExpectedClassifications,
   getIndigenousCommunities,
   getLocationPreference,
   getLookingForLanguage,
@@ -222,14 +221,6 @@ const useUserCsvData = (users: User[]) => {
       }),
     },
     {
-      key: "expectedClassification",
-      label: intl.formatMessage({
-        defaultMessage: "Role/Salary Expectation",
-        id: "iIZS1K",
-        description: "CSV Header, Role/Salary Expectation column",
-      }),
-    },
-    {
       key: "skills",
       label: intl.formatMessage(adminMessages.skills),
     },
@@ -264,7 +255,6 @@ const useUserCsvData = (users: User[]) => {
         indigenousCommunities,
         isVisibleMinority,
         hasDisability,
-        expectedGenericJobTitles,
         experiences,
       }) => ({
         firstName: firstName || "",
@@ -317,10 +307,6 @@ const useUserCsvData = (users: User[]) => {
         ),
         isVisibleMinority: yesOrNo(isVisibleMinority, intl),
         hasDisability: yesOrNo(hasDisability, intl),
-        expectedClassification: getExpectedClassifications(
-          expectedGenericJobTitles,
-          intl,
-        ),
         skills: flattenExperiencesToSkills(experiences, locale),
       }),
     );

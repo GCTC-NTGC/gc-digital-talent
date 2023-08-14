@@ -26,7 +26,6 @@ const generateApplicantFilters = (
     __typename: "ApplicantFilter",
     id: faker.string.uuid(),
     pools: faker.helpers.arrayElements(pools),
-    expectedClassifications: faker.helpers.arrayElements(classifications),
     equity: {
       isIndigenous: faker.datatype.boolean(),
       isVisibleMinority: faker.datatype.boolean(),
