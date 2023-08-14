@@ -91,7 +91,7 @@ fragment poolSkills on Skill {
   }
 }
 
-fragment application on PoolCandidate {
+fragment applicationTimelineAndRecruitment on PoolCandidate {
   id
   status
   archivedAt
@@ -125,6 +125,21 @@ fragment application on PoolCandidate {
       minSalary
       maxSalary
     }
+    essentialSkills {
+      ...poolSkills
+    }
+    team {
+      id
+      name
+      departments {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+    }
   }
 }
 
@@ -132,7 +147,7 @@ query getAllApplicantExperiences($id: UUID!) {
   applicant(id: $id) {
     ...applicantExperiences
     poolCandidates {
-      ...application
+      ...applicationTimelineAndRecruitment
     }
   }
 }

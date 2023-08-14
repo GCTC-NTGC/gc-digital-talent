@@ -1,4 +1,4 @@
-import { defineMessage, defineMessages, MessageDescriptor } from "react-intl";
+import { defineMessages, MessageDescriptor } from "react-intl";
 import {
   Language,
   LanguageAbility,
@@ -26,7 +26,6 @@ import {
   IndigenousCommunity,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
-  Maybe,
   EducationRequirementOption,
   PoolCandidateSearchPositionType,
 } from "@gc-digital-talent/graphql";
@@ -1764,144 +1763,3 @@ export const getIndigenousCommunity = (
     indigenousCommunity,
     `Invalid indigenous community '${indigenousCommunity}'`,
   );
-
-// Custom status keys used to consolidate labels
-type StatusLabelKey =
-  | "DRAFT"
-  | "RECEIVED"
-  | "UNDER_REVIEW"
-  | "PENDING_SKILLS"
-  | "ASSESSMENT"
-  | "DATE_PASSED"
-  | "SCREENED_OUT"
-  | "QUALIFIED"
-  | "EXPIRED"
-  | "REMOVED";
-
-// Map new, consolidated keys to their labels
-const statusLabels = new Map<StatusLabelKey, MessageDescriptor | null>([
-  [
-    "DRAFT",
-    defineMessage({
-      defaultMessage: "Continue draft",
-      id: "pf3KKo",
-      description: "Link text to continue a application draft",
-    }),
-  ],
-  [
-    "RECEIVED",
-    defineMessage({
-      defaultMessage: "Application received",
-      id: "4TmwRU",
-      description: "Status for an application that has been submitted",
-    }),
-  ],
-  [
-    "UNDER_REVIEW",
-    defineMessage({
-      defaultMessage: "Application under review",
-      id: "aagbij",
-      description: "Status for an application that is being reviewed",
-    }),
-  ],
-  [
-    "PENDING_SKILLS",
-    defineMessage({
-      defaultMessage: "Application pending assessment",
-      id: "UZWLKn",
-      description: "Status for an application that is having skills reviewed",
-    }),
-  ],
-  [
-    "ASSESSMENT",
-    defineMessage({
-      defaultMessage: "Application pending assessment",
-      id: "9Pxjw5",
-      description:
-        "Status for an application that where applicant is being assessed",
-    }),
-  ],
-  [
-    "DATE_PASSED",
-    defineMessage({
-      defaultMessage: "Submission date passed",
-      id: "13fSK+",
-      description:
-        "Status for an application that where the recruitment has expired",
-    }),
-  ],
-  [
-    "SCREENED_OUT",
-    defineMessage({
-      defaultMessage: "Screened out",
-      id: "njJCTd",
-      description:
-        "Status for an application that has been screened out of eligibility",
-    }),
-  ],
-  [
-    "QUALIFIED",
-    defineMessage({
-      defaultMessage: "Qualified",
-      id: "UayO6H",
-      description:
-        "Status for an application where the applicant has qualified",
-    }),
-  ],
-  [
-    "EXPIRED",
-    defineMessage({
-      defaultMessage: "Expired",
-      id: "GIC6EK",
-      description: "Expired status",
-    }),
-  ],
-  [
-    "REMOVED",
-    defineMessage({
-      defaultMessage: "Removed",
-      id: "vTyr7O",
-      description:
-        "Status for an application that has been removed from the recruitment",
-    }),
-  ],
-]);
-
-// Map existing statuses to their new, consolidated keys
-const statusLabelMap = new Map<PoolCandidateStatus, StatusLabelKey>([
-  [PoolCandidateStatus.Draft, "DRAFT"],
-  [PoolCandidateStatus.NewApplication, "RECEIVED"],
-  [PoolCandidateStatus.ApplicationReview, "UNDER_REVIEW"],
-  [PoolCandidateStatus.ScreenedIn, "PENDING_SKILLS"],
-  [PoolCandidateStatus.UnderAssessment, "ASSESSMENT"],
-  [PoolCandidateStatus.DraftExpired, "DATE_PASSED"],
-  [PoolCandidateStatus.ScreenedOutApplication, "SCREENED_OUT"],
-  [PoolCandidateStatus.ScreenedOutAssessment, "SCREENED_OUT"],
-  [PoolCandidateStatus.ScreenedOutNotInterested, "SCREENED_OUT"],
-  [PoolCandidateStatus.ScreenedOutNotResponsive, "SCREENED_OUT"],
-  [PoolCandidateStatus.QualifiedAvailable, "QUALIFIED"],
-  [PoolCandidateStatus.QualifiedUnavailable, "QUALIFIED"],
-  [PoolCandidateStatus.QualifiedWithdrew, "QUALIFIED"],
-  [PoolCandidateStatus.PlacedCasual, "QUALIFIED"],
-  [PoolCandidateStatus.PlacedTerm, "QUALIFIED"],
-  [PoolCandidateStatus.PlacedIndeterminate, "QUALIFIED"],
-  [PoolCandidateStatus.Expired, "EXPIRED"],
-  [PoolCandidateStatus.Removed, "REMOVED"],
-]);
-
-/**
- * Get the label for a status
- *
- * Note: This is different than other helpers
- * in this file since it is mapping old statuses
- * that do not match the database ENUM
- *
- * @param status  Database status
- * @returns Maybe<MessageDescriptor>    Returns the message or null
- */
-export const getPoolCandidateStatusLabel = (
-  status: Maybe<PoolCandidateStatus>,
-) => {
-  const key = status ? statusLabelMap.get(status) : null;
-  return key ? statusLabels.get(key) : null;
-};

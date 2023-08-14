@@ -67,10 +67,6 @@
     "defaultMessage": "Fils d’Ariane",
     "description": "Label for the links to page ancestors"
   },
-  "13fSK+": {
-    "defaultMessage": "La date de soumission est dépassée",
-    "description": "Status for an application that where the recruitment has expired"
-  },
   "14Cv7d": {
     "defaultMessage": "Retrait en cours...",
     "description": "Submitting text for delete button."
@@ -162,10 +158,6 @@
   "4S30lt": {
     "defaultMessage": "Expérience de travail appliquée",
     "description": "Option for education requirement, applied work experience"
-  },
-  "4TmwRU": {
-    "defaultMessage": "Candidature reçue",
-    "description": "Status for an application that has been submitted"
   },
   "4dD2mf": {
     "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires habituelles.</strong>",
@@ -288,10 +280,6 @@
   "9EnPf0": {
     "defaultMessage": "Accès à l’information et protection des renseignements personnels",
     "description": "Pool Stream described as Access to Information and Privacy."
-  },
-  "9Pxjw5": {
-    "defaultMessage": "Évaluation en cours",
-    "description": "Status for an application that where applicant is being assessed"
   },
   "9ZyJZq": {
     "defaultMessage": "cela m'oblige à me déplacer.",
@@ -752,14 +740,6 @@
     "defaultMessage": "S.O.",
     "description": "displayed when localized string not available"
   },
-  "UZWLKn": {
-    "defaultMessage": "En attente d’évaluation des compétences",
-    "description": "Status for an application that ie having skills reviewed"
-  },
-  "UayO6H": {
-    "defaultMessage": "Qualifié",
-    "description": "Status for an application where the applicant has qualified"
-  },
   "Uk0WG0": {
     "defaultMessage": "Organisationnel",
     "description": "The scope of the award was organizational."
@@ -891,10 +871,6 @@
   "aMkZ80": {
     "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
     "description": "Error message that advertisement locations must be filled in English and French."
-  },
-  "aagbij": {
-    "defaultMessage": "En cours de révision",
-    "description": "Status for an application that is being reviewed"
   },
   "ad4CnG": {
     "defaultMessage": "Ébauche expirée",
@@ -1167,10 +1143,6 @@
     "defaultMessage": "Un champ obligatoire est vide : Groupe des publications",
     "description": "Error message that the pool advertisement must have publishing group filled."
   },
-  "njJCTd": {
-    "defaultMessage": "Sélectionné",
-    "description": "Status for an application that has been screened out of eligibility"
-  },
   "nnMYWr": {
     "defaultMessage": "Préférences de travail",
     "description": "Name of Work preferences page"
@@ -1234,10 +1206,6 @@
   "pPPm5b": {
     "defaultMessage": "Moi",
     "description": "The award was given to me."
-  },
-  "pf3KKo": {
-    "defaultMessage": "Poursuivre l’ébauche",
-    "description": "Link text to continue a application draft"
   },
   "plwOsC": {
     "defaultMessage": "Sélectionnez",
@@ -1405,10 +1373,6 @@
   "vPDtGU": {
     "defaultMessage": "e ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
-  },
-  "vTyr7O": {
-    "defaultMessage": "Retiré",
-    "description": "Status for an application that has been removed from the recruitment"
   },
   "vgxxk0": {
     "defaultMessage": "Vétéran",
