@@ -38,7 +38,7 @@ class UserSkill extends Model
         static::deleting(
             function (UserSkill $userSkill) {
                 // soft delete all experience_skill records containing the model
-                ExperienceSkill::where('user_skill_id', $userSkill->attributes['id'])->delete();
+                ExperienceSkill::where('user_skill_id', $userSkill->id)->delete();
             }
         );
     }
