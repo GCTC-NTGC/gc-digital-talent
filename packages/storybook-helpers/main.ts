@@ -16,6 +16,7 @@ const reactIntlTransformRule = {
         before: [
           transform({
             overrideIdFn: "[sha512:contenthash:base64:6]",
+            preserveWhitespace: true,
           }),
         ],
       };
