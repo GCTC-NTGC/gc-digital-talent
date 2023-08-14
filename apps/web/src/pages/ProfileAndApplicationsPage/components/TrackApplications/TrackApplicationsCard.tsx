@@ -155,7 +155,7 @@ const TrackApplicationsCard = ({
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column) p-tablet(row)"
         data-h2-justify-content="base(flex-start)"
-        data-h2-gap="base(x.5 0) l-tablet(0 x1)"
+        data-h2-gap="base(x.5 0) p-tablet(0 x1)"
       >
         <ApplicationActions.ViewAction
           show={!applicationIsDraft}
