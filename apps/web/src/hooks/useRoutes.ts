@@ -285,6 +285,10 @@ const getRoutes = (lang: Locales) => {
     skillShowcase: () =>
       path.join(applicantUrl, "profile-and-applications", "skills", "showcase"),
 
+    // Directive forms
+    digitalServicesContractingQuestionnaire: () =>
+      path.join("directive-forms", "digital-services-contracting"),
+
     /**
      * Deprecated
      *

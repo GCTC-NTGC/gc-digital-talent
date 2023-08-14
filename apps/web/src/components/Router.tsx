@@ -68,14 +68,6 @@ const AccessibilityPage = React.lazy(() =>
       ),
   ),
 );
-const DirectivePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsDirectivePage" */ "../pages/DirectivePage/DirectivePage"
-      ),
-  ),
-);
 
 /** Search */
 const SearchPage = React.lazy(() =>
@@ -644,6 +636,24 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
+/** Directive on Digital Talent */
+const DirectivePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsDirectivePage" */ "../pages/DirectivePage/DirectivePage"
+      ),
+  ),
+);
+const DigitalServicesContractingQuestionnaire = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsDirectiveDigitalServicesContractingQuestionnaire" */ "../pages/DirectiveForms/DigitalServicesContractingQuestionnaire/DigitalServicesContractingQuestionnairePage"
+      ),
+  ),
+);
+
 const createRoute = (locale: Locales, loginPath: string) =>
   createBrowserRouter([
     {
@@ -681,7 +691,16 @@ const createRoute = (locale: Locales, loginPath: string) =>
             },
             {
               path: "directive-on-digital-talent",
-              element: <DirectivePage />,
+              children: [
+                {
+                  index: true,
+                  element: <DirectivePage />,
+                },
+                {
+                  path: "digital-services-contracting-questionnaire",
+                  element: <DigitalServicesContractingQuestionnaire />,
+                },
+              ],
             },
             {
               path: "search",
