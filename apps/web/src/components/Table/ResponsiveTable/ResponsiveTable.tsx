@@ -96,11 +96,11 @@ const ResponsiveTable = <TData extends object>({
     initialState: {
       hiddenColumnIds,
       searchState: search?.initialState,
+      sortState: sort?.initialState,
     },
   });
 
   // TO DO: Move these to the `useControlledState` hook
-  const [sorting, setSorting] = React.useState<SortingState>([]);
   const [{ pageIndex, pageSize }, setPagination] =
     React.useState<PaginationState>({
       pageIndex: pagination?.initialState?.pageIndex ?? 0,
@@ -132,7 +132,6 @@ const ResponsiveTable = <TData extends object>({
     state: {
       ...state,
       rowSelection,
-      sorting,
       pagination: paginationState,
     },
     enableSorting: !!sort,
@@ -145,7 +144,6 @@ const ResponsiveTable = <TData extends object>({
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onRowSelectionChange: setRowSelection, // Note: We should probably do the state sync here
-    onSortingChange: setSorting,
     ...updaters,
   });
 

@@ -1,10 +1,11 @@
 import { useState, SetStateAction, Dispatch, useMemo } from "react";
 import {
   OnChangeFn,
-  VisibilityState,
-  Updater,
-  TableState,
   ColumnFiltersState,
+  SortingState,
+  TableState,
+  Updater,
+  VisibilityState,
 } from "@tanstack/react-table";
 
 import useTableState from "~/hooks/useTableState";
@@ -65,10 +66,12 @@ const getColumnFilters = (
 type InitialState = {
   hiddenColumnIds: string[];
   searchState: SearchState;
+  sortState: SortingState;
 };
 
 const INITIAL_STATE: InitialState = {
   hiddenColumnIds: [],
+  sortState: [],
   searchState: {
     term: "",
     type: "",
@@ -78,9 +81,10 @@ const INITIAL_STATE: InitialState = {
 type UseControlledTableStateReturn = {
   state: Partial<TableState>;
   updaters: {
-    onColumnVisibilityChange: OnChangeFn<VisibilityState>;
-    onGlobalFilterChange: OnChangeFn<string>;
-    onColumnFiltersChange: OnChangeFn<ColumnFiltersState>;
+    onColumnVisibilityChange?: OnChangeFn<VisibilityState>;
+    onGlobalFilterChange?: OnChangeFn<string>;
+    onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>;
+    onSortingChange?: OnChangeFn<SortingState>;
   };
 };
 
@@ -130,6 +134,10 @@ const useControlledTableState: UseControlledTableState = ({
     ),
   );
 
+  const [sorting, setSorting] = useState<SortingState>(
+    INITIAL_STATE.sortState ?? [],
+  );
+
   const handleGlobalFilterChange = (updater: Updater<string>) =>
     updateState(setGlobalFilter, updater, (newTerm) => {
       setTableState({
@@ -140,8 +148,6 @@ const useControlledTableState: UseControlledTableState = ({
       });
     });
 
-  // NOTE: Having trouble with this at the moment with the single input
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleColumnFiltersChange = (updater: Updater<ColumnFiltersState>) =>
     updateState(setColumnFilters, updater, (newFilters) => {
       const newFilter = newFilters ? newFilters[0] : null;
@@ -170,13 +176,29 @@ const useControlledTableState: UseControlledTableState = ({
       });
     });
 
+  const handleSortingChange = (updater: Updater<SortingState>) =>
+    updateState(setSorting, updater, (newSorting) => {
+      // TO DO: Refactor to match `react-table` `SortingState`
+      setTableState({
+        sortBy: newSorting
+          ? {
+              desc: newSorting[0].desc,
+              column: {
+                id: newSorting[0].id,
+              },
+            }
+          : undefined,
+      });
+    });
+
   const memoizedState: Partial<TableState> = useMemo(
     () => ({
       columnVisibility,
       globalFilter,
       columnFilters,
+      sorting,
     }),
-    [columnVisibility, globalFilter, columnFilters],
+    [columnVisibility, globalFilter, columnFilters, sorting],
   );
 
   return {
@@ -185,6 +207,7 @@ const useControlledTableState: UseControlledTableState = ({
       onGlobalFilterChange: handleGlobalFilterChange,
       onColumnVisibilityChange: handleVisibilityChange,
       onColumnFiltersChange: handleColumnFiltersChange,
+      onSortingChange: handleSortingChange,
     },
   };
 };

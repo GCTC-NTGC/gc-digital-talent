@@ -61,6 +61,7 @@ export type SearchDef<T> = {
 export type SortDef = {
   /** Allows the table to manage search */
   internal: boolean;
+  initialState?: SortingState;
   /** Callback when sorting rule changes */
   onSortChange?: (sortState: SortingState) => void;
 };
