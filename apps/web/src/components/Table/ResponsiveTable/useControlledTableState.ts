@@ -2,6 +2,7 @@ import { useState, SetStateAction, Dispatch, useMemo } from "react";
 import {
   OnChangeFn,
   ColumnFiltersState,
+  PaginationState,
   SortingState,
   TableState,
   Updater,
@@ -65,12 +66,17 @@ const getColumnFilters = (
 
 type InitialState = {
   hiddenColumnIds: string[];
+  paginationState: PaginationState;
   searchState: SearchState;
   sortState: SortingState;
 };
 
 const INITIAL_STATE: InitialState = {
   hiddenColumnIds: [],
+  paginationState: {
+    pageIndex: 0,
+    pageSize: 10,
+  },
   sortState: [],
   searchState: {
     term: "",
@@ -81,9 +87,10 @@ const INITIAL_STATE: InitialState = {
 type UseControlledTableStateReturn = {
   state: Partial<TableState>;
   updaters: {
+    onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>;
     onColumnVisibilityChange?: OnChangeFn<VisibilityState>;
     onGlobalFilterChange?: OnChangeFn<string>;
-    onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>;
+    onPaginationChange?: OnChangeFn<PaginationState>;
     onSortingChange?: OnChangeFn<SortingState>;
   };
 };
@@ -102,8 +109,6 @@ type UseControlledTableState = (
  *
  * This controls the state for the table using the `updateState`
  * wrapper which allows for a callback to run side effects.
- *
- * TO DO: Create side effects to store state changes in searchParams
  *
  * @param initialState  Initial state of the table
  * @returns UseControlledTableStateReturn Contains the state and updaters
@@ -136,6 +141,10 @@ const useControlledTableState: UseControlledTableState = ({
 
   const [sorting, setSorting] = useState<SortingState>(
     INITIAL_STATE.sortState ?? [],
+  );
+
+  const [pagination, setPagination] = useState<PaginationState>(
+    INITIAL_STATE.paginationState,
   );
 
   const handleGlobalFilterChange = (updater: Updater<string>) =>
@@ -191,22 +200,35 @@ const useControlledTableState: UseControlledTableState = ({
       });
     });
 
+  const handlePaginationChange = (updater: Updater<PaginationState>) =>
+    updateState(setPagination, updater, (newPagination) => {
+      setTableState({
+        pageSize:
+          newPagination?.pageSize ?? INITIAL_STATE.paginationState.pageSize,
+        currentPage:
+          (newPagination?.pageIndex ??
+            INITIAL_STATE.paginationState.pageIndex) + 1,
+      });
+    });
+
   const memoizedState: Partial<TableState> = useMemo(
     () => ({
+      columnFilters,
       columnVisibility,
       globalFilter,
-      columnFilters,
+      pagination,
       sorting,
     }),
-    [columnVisibility, globalFilter, columnFilters, sorting],
+    [columnFilters, columnVisibility, globalFilter, pagination, sorting],
   );
 
   return {
     state: memoizedState,
     updaters: {
-      onGlobalFilterChange: handleGlobalFilterChange,
-      onColumnVisibilityChange: handleVisibilityChange,
       onColumnFiltersChange: handleColumnFiltersChange,
+      onColumnVisibilityChange: handleVisibilityChange,
+      onPaginationChange: handlePaginationChange,
+      onGlobalFilterChange: handleGlobalFilterChange,
       onSortingChange: handleSortingChange,
     },
   };

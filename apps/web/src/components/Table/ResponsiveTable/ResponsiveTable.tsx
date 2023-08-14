@@ -1,11 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import type {
-  ColumnDef,
-  RowSelectionState,
-  SortingState,
-  PaginationState,
-} from "@tanstack/react-table";
+import type { ColumnDef, RowSelectionState } from "@tanstack/react-table";
 import {
   getCoreRowModel,
   getFilteredRowModel,
@@ -97,19 +92,9 @@ const ResponsiveTable = <TData extends object>({
       hiddenColumnIds,
       searchState: search?.initialState,
       sortState: sort?.initialState,
+      paginationState: pagination?.initialState,
     },
   });
-
-  // TO DO: Move these to the `useControlledState` hook
-  const [{ pageIndex, pageSize }, setPagination] =
-    React.useState<PaginationState>({
-      pageIndex: pagination?.initialState?.pageIndex ?? 0,
-      pageSize: pagination?.initialState?.pageSize ?? 10,
-    });
-  const paginationState = React.useMemo(
-    () => ({ pageIndex, pageSize }),
-    [pageIndex, pageSize],
-  );
 
   React.useEffect(() => {
     if (rowSelect?.onRowSelection) {
@@ -132,11 +117,10 @@ const ResponsiveTable = <TData extends object>({
     state: {
       ...state,
       rowSelection,
-      pagination: paginationState,
     },
-    enableSorting: !!sort,
-    enableRowSelection: !!rowSelect,
     enableGlobalFilter: isInternalSearch,
+    enableRowSelection: !!rowSelect,
+    enableSorting: !!sort,
     manualSorting: !sort?.internal,
     manualPagination: !pagination?.internal,
     getCoreRowModel: getCoreRowModel(),
@@ -155,14 +139,11 @@ const ResponsiveTable = <TData extends object>({
 
   const handlePageSizeChange = (newPageSize: number) => {
     if (pagination) {
-      setPagination((previous) => ({
-        ...previous,
-        pageSize: newPageSize,
-      }));
+      table.setPageSize(newPageSize);
       if (pagination.onPaginationChange) {
         pagination.onPaginationChange({
-          pageIndex,
-          pageSize,
+          pageIndex: table.getState().pagination.pageIndex,
+          pageSize: newPageSize,
         });
       }
     }
@@ -170,14 +151,11 @@ const ResponsiveTable = <TData extends object>({
 
   const handlePageChange = (newPageIndex: number) => {
     if (pagination) {
-      setPagination((previous) => ({
-        ...previous,
-        pageIndex: newPageIndex - 1,
-      }));
+      table.setPageIndex(newPageIndex - 1);
       if (pagination.onPaginationChange) {
         pagination.onPaginationChange({
-          pageIndex,
-          pageSize,
+          pageIndex: newPageIndex - 1,
+          pageSize: table.getState().pagination.pageSize,
         });
       }
     }
@@ -249,8 +227,8 @@ const ResponsiveTable = <TData extends object>({
                 id: "N3sUUc",
               })}
               color="black"
-              currentPage={pageIndex + 1}
-              pageSize={pageSize}
+              currentPage={table.getState().pagination.pageIndex + 1}
+              pageSize={table.getState().pagination.pageSize}
               pageSizes={pagination.pageSizes}
               totalCount={pagination.total}
               totalPages={table.getPageCount() ?? 0}
