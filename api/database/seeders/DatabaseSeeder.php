@@ -60,6 +60,7 @@ class DatabaseSeeder extends Seeder
 
         $digitalTalentPool = Pool::where('name->en', 'CMO Digital Careers')->sole();
 
+        // Government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
             ->count(75)
             ->withExperiences()
@@ -99,6 +100,7 @@ class DatabaseSeeder extends Seeder
             $applicantUserSkill->save();
         }
 
+        // Not government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
             ->count(75)
             ->withExperiences()
