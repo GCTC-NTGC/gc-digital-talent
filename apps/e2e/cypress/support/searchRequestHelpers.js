@@ -18,9 +18,6 @@ export function createSearchRequest({
       create: {
         hasDiploma: true,
         locationPreferences: [WorkRegion.Ontario],
-        expectedClassifications: {
-          sync: [classificationId],
-        },
         pools: {
           sync: [poolId],
         },

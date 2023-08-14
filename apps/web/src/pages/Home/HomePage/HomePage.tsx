@@ -8,6 +8,7 @@ import type { HeroProps } from "./components/Hero/Hero";
 
 const HomePage = ({ defaultImage }: HeroProps) => {
   const intl = useIntl();
+
   return (
     <>
       <SEO

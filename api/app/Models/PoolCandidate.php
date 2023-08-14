@@ -215,30 +215,6 @@ class PoolCandidate extends Model
     }
 
     /**
-     * scopeExpectedClassifications
-     *
-     * Scopes the query to only include applicants who have expressed interest in any of $classifications.
-     *
-     * @param Builder $query
-     * @param array|null $classifications
-     * @return Builder
-     */
-    public function scopeExpectedClassifications(Builder $query, ?array $classifications): Builder
-    {
-        // if no filters provided then return query unchanged
-        if (empty($classifications)) {
-            return $query;
-        }
-
-        // pointing to the classification scope on the User model
-        // that scope also contains filterByClassificationToSalary and filterByClassificationToGenericJobTitles
-        $query->whereHas('user', function ($query) use ($classifications) {
-            User::scopeExpectedClassifications($query, $classifications);
-        });
-        return $query;
-    }
-
-    /**
      * Scope Publishing Groups
      *
      * Restrict a query by specific publishing groups
@@ -502,8 +478,6 @@ class PoolCandidate extends Model
         $user = User::with([
             'department',
             'currentClassification',
-            'expectedClassifications',
-            'expectedGenericJobTitles',
             'awardExperiences',
             'awardExperiences.skills',
             'communityExperiences',

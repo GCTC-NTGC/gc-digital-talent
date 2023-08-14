@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
 import GlobeAmericasIcon from "@heroicons/react/20/solid/GlobeAmericasIcon";
 import CpuChipIcon from "@heroicons/react/20/solid/CpuChipIcon";
@@ -26,7 +25,7 @@ import { Application } from "~/utils/applicationUtils";
 import { getQualifiedRecruitmentInfo, joinDepartments } from "./utils";
 import RecruitmentAvailabilityDialog from "../RecruitmentAvailabilityDialog/RecruitmentAvailabilityDialog";
 
-interface QualifiedRecruitmentCardProps {
+export interface QualifiedRecruitmentCardProps {
   candidate: Application;
   headingLevel?: HeadingRank;
 }
@@ -41,7 +40,6 @@ const QualifiedRecruitmentCard = ({
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
   const {
     title,
-    isQualified,
     statusPill,
     availability: { icon: AvailabilityIcon, ...availability },
   } = getQualifiedRecruitmentInfo(candidate, intl);
@@ -65,6 +63,8 @@ const QualifiedRecruitmentCard = ({
     }
   }, [linkCopied, setLinkCopied]);
 
+  const PillIcon = statusPill.icon;
+
   return (
     <div
       data-h2-border-left="base(x.5 solid secondary)"
@@ -83,13 +83,13 @@ const QualifiedRecruitmentCard = ({
           {title.html}
         </Heading>
         <Pill bold mode="outline" color={statusPill.color}>
-          {isQualified ? (
+          {PillIcon ? (
             <span
               data-h2-display="base(flex)"
               data-h2-align-items="base(center)"
               data-h2-gap="base(0 x.25)"
             >
-              <ShieldCheckIcon
+              <PillIcon
                 data-h2-width="base(1rem)"
                 data-h2-height="base(auto)"
               />
@@ -214,7 +214,7 @@ const QualifiedRecruitmentCard = ({
                 data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
                 data-h2-gap="base(x.125 x.5)"
               >
-                {categorizedSkills[SkillCategory.Behavioural].map((skill) => (
+                {categorizedSkills[SkillCategory.Behavioural]?.map((skill) => (
                   <li key={skill.id}>{getLocalizedName(skill.name, intl)}</li>
                 ))}
               </ul>
@@ -237,7 +237,7 @@ const QualifiedRecruitmentCard = ({
                 data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
                 data-h2-gap="base(x.125 x.5)"
               >
-                {categorizedSkills[SkillCategory.Technical].map((skill) => (
+                {categorizedSkills[SkillCategory.Technical]?.map((skill) => (
                   <li key={skill.id}>{getLocalizedName(skill.name, intl)}</li>
                 ))}
               </ul>
@@ -275,12 +275,14 @@ const QualifiedRecruitmentCard = ({
             data-h2-line-height="base(1)"
             data-h2-flex-grow="base(0)"
           >
-            <AvailabilityIcon
-              data-h2-height="base(auto)"
-              data-h2-width="base(1em)"
-              data-h2-flex-shrink="base(0)"
-              {...availability.color}
-            />
+            {AvailabilityIcon ? (
+              <AvailabilityIcon
+                data-h2-height="base(auto)"
+                data-h2-width="base(1em)"
+                data-h2-flex-shrink="base(0)"
+                {...availability.color}
+              />
+            ) : null}
             <span>{availability.text}</span>
           </p>
           {availability.showDialog && (

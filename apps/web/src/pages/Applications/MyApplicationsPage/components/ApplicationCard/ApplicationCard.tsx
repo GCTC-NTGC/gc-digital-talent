@@ -3,9 +3,12 @@ import { useIntl } from "react-intl";
 
 import { Heading, HeadingProps, Pill } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getPoolCandidateStatusLabel } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import {
+  deriveCombinedStatus,
+  getCombinedStatusLabel,
+} from "~/utils/poolCandidateCombinedStatus";
 import { type PoolCandidate } from "~/api/generated";
 
 import ApplicationActions from "./ApplicationActions";
@@ -54,7 +57,13 @@ const ApplicationCard = ({
   );
   const submittedAt = formatSubmittedAt(application.submittedAt, intl);
   const closingDate = formatClosingDate(application.pool.closingDate, intl);
-  const status = getPoolCandidateStatusLabel(application.status);
+  const combinedStatus = deriveCombinedStatus(
+    application.status,
+    application.suspendedAt,
+  );
+  const combinedStatusLabel = combinedStatus
+    ? getCombinedStatusLabel(combinedStatus)
+    : null;
 
   return (
     <div
@@ -151,9 +160,9 @@ const ApplicationCard = ({
           show={applicationIsDraft && !recruitmentIsExpired}
           application={application}
         />
-        {!applicationIsDraft && status ? (
+        {!applicationIsDraft && combinedStatusLabel ? (
           <Pill color="secondary" mode="outline">
-            {intl.formatMessage(status)}
+            {intl.formatMessage(combinedStatusLabel)}
           </Pill>
         ) : null}
       </div>

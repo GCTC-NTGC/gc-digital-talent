@@ -95,8 +95,12 @@ type User {
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-  expectedClassifications: [Classification] @belongsToMany
+  expectedSalary: [SalaryRange]
+    @rename(attribute: "expected_salary")
+    @deprecated(reason: "Expected role and salary removed")
+  expectedClassifications: [Classification]
+    @belongsToMany
+    @deprecated(reason: "Expected role and salary removed")
   wouldAcceptTemporary: Boolean
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
@@ -129,7 +133,9 @@ type User {
     ) # Pools a user owns
   # Profile Status
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
+  expectedGenericJobTitles: [GenericJobTitle]
+    @belongsToMany
+    @deprecated(reason: "Expected role and salary removed")
   priorityWeight: Int @rename(attribute: "priority_weight")
   # teams and roles
   roleAssignments: [RoleAssignment!] @hasMany
@@ -559,8 +565,6 @@ type ApplicantFilter {
     @rename(attribute: "would_accept_temporary")
     @deprecated(reason: "replaced with positionDuration")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  expectedClassifications: [Classification]  # Filters applicants based on the classifications they've expressed interest in.
-    @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
@@ -813,8 +817,6 @@ input UserFilterInput {
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
-  expectedClassifications: [ClassificationFilterInput]  # Filters applicants based on the classifications they've expressed interest in.
-    @scope(name: "expectedClassifications")
   hasDiploma: Boolean @scope
   languageAbility: LanguageAbility @scope
   locationPreferences: [WorkRegion] @scope
@@ -1084,9 +1086,6 @@ input CreateUserInput {
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-  expectedClassifications: ClassificationBelongsToMany
-  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Experiences
@@ -1155,9 +1154,6 @@ input UpdateUserAsAdminInput
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-  expectedClassifications: ClassificationBelongsToMany
-  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Experiences
@@ -1224,9 +1220,6 @@ input UpdateUserAsUserInput
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-  expectedClassifications: ClassificationBelongsToMany
-  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Experiences
@@ -1342,8 +1335,6 @@ input CreateApplicantFilterInput {
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  expectedClassifications: ClassificationBelongsToMany
-    @rename(attribute: "classifications")
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
