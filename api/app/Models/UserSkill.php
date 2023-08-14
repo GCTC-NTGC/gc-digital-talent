@@ -23,6 +23,26 @@ class UserSkill extends Model
 
     protected $keyType = 'string';
 
+    protected $fillable = [
+        'user_id',
+        'skill_id',
+        'skill_level',
+        'when_skill_used',
+    ];
+
+    /**
+     * model lifecycle methods
+     */
+    protected static function booted(): void
+    {
+        static::deleting(
+            function (UserSkill $userSkill) {
+                // soft delete all experience_skill records containing the model
+                ExperienceSkill::where('user_skill_id', $userSkill->id)->delete();
+            }
+        );
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

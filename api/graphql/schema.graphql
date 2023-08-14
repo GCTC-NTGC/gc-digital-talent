@@ -1475,6 +1475,16 @@ input ConnectExperienceSkills {
   details: String
 }
 
+input CreateUserSkillInput {
+  skillLevel: SkillLevel @rename(attribute: "skill_level")
+  whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
+}
+
+input UpdateUserSkillInput {
+  skillLevel: SkillLevel @rename(attribute: "skill_level")
+  whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
+}
+
 input WorkExperienceHasMany {
   create: [WorkExperienceInput!]
 }
@@ -1819,6 +1829,19 @@ type Mutation {
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification
+
+  # UserSkill mutations
+  createUserSkill(
+    userId: ID! @rename(attribute: "user_id")
+    skillId: ID! @rename(attribute: "skill_id")
+    userSkill: CreateUserSkillInput @spread
+  ): UserSkill @can(ability: "create", injectArgs: true)
+  updateUserSkill(id: ID!, userSkill: UpdateUserSkillInput @spread): UserSkill
+    @update
+    @can(ability: "update", find: "id")
+  deleteUserSkill(id: ID! @whereKey): UserSkill
+    @can(ability: "delete", find: "id")
+    @delete
 }
 
 #import directiveForms.graphql
