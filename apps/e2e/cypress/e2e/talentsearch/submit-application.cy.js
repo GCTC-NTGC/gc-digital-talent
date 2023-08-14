@@ -22,6 +22,7 @@ describe("Submit Application Workflow Tests", () => {
       aliasQuery(req, "GetApplication");
       aliasQuery(req, "getApplicationData");
       aliasQuery(req, "MyApplications");
+      aliasQuery(req, "getMyExperiences");
 
       aliasMutation(req, "createApplication");
       aliasMutation(req, "UpdateApplication");
@@ -61,9 +62,6 @@ describe("Submit Application Workflow Tests", () => {
         hasPriorityEntitlement: false,
         locationPreferences: WorkRegion.Ontario,
         positionDuration: PositionDuration.Permanent,
-        expectedGenericJobTitles: {
-          sync: testGenericJobTitleIds,
-        },
       }).as("testUser");
     });
 
@@ -248,6 +246,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.wait("@gqlCreateEducationExperienceMutation");
     cy.expectToast(/Successfully added experience!/i);
     // returned to main career timeline review page
+    cy.wait("@gqlgetMyExperiencesQuery");
     cy.contains(/1 education and certificate experience/i)
       .should("exist")
       .and("be.visible");

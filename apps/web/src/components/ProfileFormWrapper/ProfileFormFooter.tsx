@@ -7,12 +7,14 @@ export interface ProfileFormFooterProps {
   mode: "cancelButton" | "saveButton" | "bothButtons";
   children?: React.ReactNode;
   cancelLink?: CancelButtonProps;
+  disabled?: boolean;
 }
 
 const ProfileFormFooter = ({
   mode,
   children,
   cancelLink,
+  disabled,
 }: ProfileFormFooterProps) => {
   const bottomButtons = () => {
     switch (mode) {
@@ -29,14 +31,14 @@ const ProfileFormFooter = ({
               data-h2-display="base(inline-block)"
               data-h2-margin="base(0, x1, 0, 0)"
             >
-              <SaveButton />
+              <SaveButton disabled={disabled} />
             </span>
           </div>
         );
       case "cancelButton":
         return <CancelButton {...cancelLink} />;
       case "saveButton":
-        return <SaveButton />;
+        return <SaveButton disabled={disabled} />;
       default:
         return null;
     }

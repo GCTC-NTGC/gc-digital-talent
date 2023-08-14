@@ -11,7 +11,9 @@ import {
   fakeSkills,
   fakePools,
   fakeClassifications,
+  fakeRoles,
 } from "@gc-digital-talent/fake-data";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import useFilterOptions from "./useFilterOptions";
 
 describe("useFilterOptions", () => {
@@ -70,19 +72,20 @@ describe("useFilterOptions", () => {
   describe("rawGraphqlResults", () => {
     it("shows as fetching before response arrives", () => {
       const result = renderHookWithProviders({ msDelay: 100 });
-      expect(Object.keys(result.current.rawGraphqlResults)).toHaveLength(3);
+      expect(Object.keys(result.current.rawGraphqlResults)).toHaveLength(4);
       expect(result.current.rawGraphqlResults.pools.fetching).toBe(true);
       expect(result.current.rawGraphqlResults.classifications.fetching).toBe(
         true,
       );
       expect(result.current.rawGraphqlResults.skills.fetching).toBe(true);
+      expect(result.current.rawGraphqlResults.roles.fetching).toBe(true);
     });
   });
 
   describe("simple fields", () => {
     it("returns static optionsData of appropriate length for non-async fields", () => {
       const result = renderHookWithProviders({});
-      const [countSimple, countAsync] = [13, 3];
+      const [countSimple, countAsync] = [14, 4];
       const countTotal = countSimple + countAsync;
       expect(Object.keys(result.current.optionsData)).toHaveLength(countTotal);
 
@@ -119,6 +122,7 @@ describe("useFilterOptions", () => {
             pools: [],
             skills: [],
             classifications: fakeClassifications(),
+            roles: [],
           },
         },
       });
@@ -135,6 +139,7 @@ describe("useFilterOptions", () => {
             pools: fakePools(),
             skills: [],
             classifications: [],
+            roles: [],
           },
         },
       });
@@ -151,6 +156,7 @@ describe("useFilterOptions", () => {
             pools: [],
             skills: fakeSkills(10),
             classifications: [],
+            roles: [],
           },
         },
       });
@@ -158,6 +164,29 @@ describe("useFilterOptions", () => {
         expect(result.current.optionsData.skills).not.toBeUndefined(),
       );
       expect(result.current.optionsData.skills).toHaveLength(10);
+    });
+
+    it("generates appropriate number of options after response: roles", async () => {
+      const result = renderHookWithProviders({
+        responseData: {
+          data: {
+            pools: [],
+            skills: [],
+            classifications: [],
+            roles: [
+              ...fakeRoles(),
+              {
+                id: "platform-admin",
+                name: ROLE_NAME.PlatformAdmin, // filtering roles done in useFilterOptions
+              },
+            ],
+          },
+        },
+      });
+      await waitFor(() =>
+        expect(result.current.optionsData.roles).not.toBeUndefined(),
+      );
+      expect(result.current.optionsData.roles).toHaveLength(1); // only platform admin option kept
     });
   });
 });

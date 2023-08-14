@@ -2,7 +2,7 @@ import React from "react";
 
 import NavItem, { NavItemProps } from "./NavItem";
 
-export interface NavigationProps {
+interface NavigationProps {
   items: Array<NavItemProps>;
 }
 

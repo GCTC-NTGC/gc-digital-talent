@@ -16,7 +16,6 @@ import {
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -95,7 +94,6 @@ const ApplicationReview = ({
   const navigate = useNavigate();
   const { currentStepOrdinal, followingPageUrl, isIAP } =
     useApplicationContext();
-  const { applicantDashboard } = useFeatureFlags();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -104,8 +102,12 @@ const ApplicationReview = ({
   });
   const nextStep = followingPageUrl ?? paths.applicationSuccess(application.id);
 
-  const [, executeMutation] = useSubmitApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] =
+    useSubmitApplicationMutation();
   const methods = useForm<FormValues>();
+  const {
+    formState: { isSubmitting },
+  } = methods;
   const handleSubmit = (formValues: FormValues) => {
     executeMutation({
       id: application.id,
@@ -136,9 +138,7 @@ const ApplicationReview = ({
       });
   };
 
-  const cancelPath = applicantDashboard
-    ? paths.profileAndApplications({ fromIapDraft: isIAP })
-    : paths.myProfile();
+  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
   const editPaths = {
     careerTimeline: paths.applicationCareerTimeline(application.id),
     education: paths.applicationEducation(application.id),
@@ -499,7 +499,12 @@ const ApplicationReview = ({
                 data-h2-flex-direction="base(column) l-tablet(row)"
                 data-h2-align-items="base(flex-start) l-tablet(center)"
               >
-                <Button type="submit" mode="solid" value="continue">
+                <Button
+                  type="submit"
+                  mode="solid"
+                  value="continue"
+                  disabled={mutating || isSubmitting}
+                >
                   {intl.formatMessage({
                     defaultMessage: "Submit my application",
                     id: "bO9PB4",

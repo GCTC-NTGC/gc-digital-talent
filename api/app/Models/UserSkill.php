@@ -8,11 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class User
+ * Class UserSkill
  *
  * @property string $id
  * @property string $user_id
  * @property string $skill_id
+ * @property string $skill_level
+ * @property string $when_skill_used
  */
 class UserSkill extends Model
 {
@@ -20,6 +22,26 @@ class UserSkill extends Model
     use HasFactory;
 
     protected $keyType = 'string';
+
+    protected $fillable = [
+        'user_id',
+        'skill_id',
+        'skill_level',
+        'when_skill_used',
+    ];
+
+    /**
+     * model lifecycle methods
+     */
+    protected static function booted(): void
+    {
+        static::deleting(
+            function (UserSkill $userSkill) {
+                // soft delete all experience_skill records containing the model
+                ExperienceSkill::where('user_skill_id', $userSkill->id)->delete();
+            }
+        );
+    }
 
     public function user(): BelongsTo
     {
@@ -38,7 +60,8 @@ class UserSkill extends Model
             'experience_skill'
         )
             ->withTimestamps()
-            ->withPivot('details')
+            ->withPivot(['details', 'deleted_at'])
+            ->wherePivotNull('deleted_at')
             ->as('experience_skill');
     }
     public function communityExperiences()
@@ -49,7 +72,8 @@ class UserSkill extends Model
             'experience_skill'
         )
             ->withTimestamps()
-            ->withPivot('details')
+            ->withPivot(['details', 'deleted_at'])
+            ->wherePivotNull('deleted_at')
             ->as('experience_skill');
     }
     public function educationExperiences()
@@ -60,7 +84,8 @@ class UserSkill extends Model
             'experience_skill'
         )
             ->withTimestamps()
-            ->withPivot('details')
+            ->withPivot(['details', 'deleted_at'])
+            ->wherePivotNull('deleted_at')
             ->as('experience_skill');
     }
     public function personalExperiences()
@@ -71,7 +96,8 @@ class UserSkill extends Model
             'experience_skill'
         )
             ->withTimestamps()
-            ->withPivot('details')
+            ->withPivot(['details', 'deleted_at'])
+            ->wherePivotNull('deleted_at')
             ->as('experience_skill');
     }
     public function workExperiences()
@@ -82,7 +108,8 @@ class UserSkill extends Model
             'experience_skill'
         )
             ->withTimestamps()
-            ->withPivot('details')
+            ->withPivot(['details', 'deleted_at'])
+            ->wherePivotNull('deleted_at')
             ->as('experience_skill_pivot');
     }
 }

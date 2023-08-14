@@ -53,7 +53,6 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
           workLocation: { isVisible: true },
           workPreferences: { isVisible: true },
           employmentEquity: { isVisible: true },
-          roleSalary: { isVisible: true },
           careerTimelineAndRecruitment: { isVisible: true },
         }}
       />

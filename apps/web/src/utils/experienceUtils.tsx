@@ -512,7 +512,7 @@ const getWorkExperienceDefaultValues = (experience: WorkExperience) => {
 export const queryResultToDefaultValues = (
   experienceType: ExperienceType,
   experience: AnyExperience,
-): ExperienceDetailsDefaultValues => {
+): ExperienceDetailsDefaultValues & { experienceType: ExperienceType } => {
   let unsharedValues = {};
   if (isAwardExperience(experience)) {
     unsharedValues = getAwardExperienceDefaultValues(experience);
@@ -533,6 +533,14 @@ export const queryResultToDefaultValues = (
   return {
     details: experience.details || "",
     ...unsharedValues,
+    skills: experience.skills
+      ? experience.skills.map(({ id, name, experienceSkillRecord }) => ({
+          skillId: id,
+          name,
+          details: experienceSkillRecord?.details || "",
+        }))
+      : undefined,
+    experienceType,
   };
 };
 

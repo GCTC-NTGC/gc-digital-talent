@@ -43,14 +43,27 @@ const RecruitmentAvailabilityDialog = ({
       .then((res) => {
         if (!res.error) {
           setIsOpen(false);
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "You have been removed from the search results.",
-              id: "PoFTwr",
-              description:
-                "Alert displayed to the user when application card dialog submits successfully.",
-            }),
-          );
+          if (values.isSuspended === "true") {
+            toast.success(
+              intl.formatMessage({
+                defaultMessage:
+                  "You have been removed from the search results.",
+                id: "PoFTwr",
+                description:
+                  "Alert displayed to the user when application card dialog submits successfully.",
+              }),
+            );
+          } else {
+            toast.success(
+              intl.formatMessage({
+                defaultMessage:
+                  "You have been added back into the search results.",
+                id: "lB/SWR",
+                description:
+                  "Alert displayed to the user when they updated something to appear in search results again.",
+              }),
+            );
+          }
         }
       })
       .catch(() => {

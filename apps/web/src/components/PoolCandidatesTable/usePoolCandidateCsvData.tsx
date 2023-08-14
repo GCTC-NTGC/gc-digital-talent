@@ -6,7 +6,6 @@ import {
   getArmedForcesStatusesAdmin,
   getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
-  getJobLookingStatus,
   getLanguage,
   getLanguageProficiency,
   getPoolCandidatePriorities,
@@ -22,7 +21,6 @@ import {
   employeeTypeToString,
   getLocationPreference,
   getOperationalRequirements,
-  getExpectedClassifications,
   flattenExperiencesToSkills,
   skillKeyAndJustifications,
   getExperienceTitles,
@@ -236,25 +234,25 @@ const usePoolCandidateCsvData = (
     {
       key: "comprehensionLevel",
       label: intl.formatMessage({
-        defaultMessage: "Comprehension Level",
-        id: "QIh0q7",
-        description: "CSV Header, Comprehension Level column",
+        defaultMessage: "Reading level",
+        id: "CEFnPm",
+        description: "CSV Header, Reading (comprehension) Level column",
       }),
     },
     {
       key: "writtenLevel",
       label: intl.formatMessage({
-        defaultMessage: "Written Level",
-        id: "w/v77x",
-        description: "CSV Header, Written Level column",
+        defaultMessage: "Writing level",
+        id: "8ea9ne",
+        description: "CSV Header, Writing Level column",
       }),
     },
     {
       key: "verbalLevel",
       label: intl.formatMessage({
-        defaultMessage: "Verbal Level",
-        id: "5R2iR2",
-        description: "CSV Header, Verbal Level column",
+        defaultMessage: "Oral interaction level",
+        id: "5nrkKw",
+        description: "CSV Header, Oral interaction Level column",
       }),
     },
     {
@@ -378,14 +376,6 @@ const usePoolCandidateCsvData = (
       }),
     },
     {
-      key: "expectedClassification",
-      label: intl.formatMessage({
-        defaultMessage: "Role/Salary Expectation",
-        id: "iIZS1K",
-        description: "CSV Header, Role/Salary Expectation column",
-      }),
-    },
-    {
       key: "educationRequirementOption",
       label: intl.formatMessage({
         defaultMessage: "Education Requirement",
@@ -435,11 +425,6 @@ const usePoolCandidateCsvData = (
           priority: user.priorityWeight
             ? intl.formatMessage(
                 getPoolCandidatePriorities(user.priorityWeight),
-              )
-            : "",
-          availability: user.jobLookingStatus
-            ? intl.formatMessage(
-                getJobLookingStatus(user.jobLookingStatus as string, "short"),
               )
             : "",
           notes: notes || "",
@@ -519,10 +504,6 @@ const usePoolCandidateCsvData = (
           ),
           isVisibleMinority: yesOrNo(user.isVisibleMinority, intl),
           hasDisability: yesOrNo(user.hasDisability, intl),
-          expectedClassification: getExpectedClassifications(
-            user.expectedGenericJobTitles,
-            intl,
-          ),
           educationRequirementOption: educationRequirementOption
             ? intl.formatMessage(
                 getEducationRequirementOption(educationRequirementOption),

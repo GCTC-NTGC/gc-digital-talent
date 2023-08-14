@@ -62,6 +62,8 @@ module.exports = {
     "consistent-return": "warn",
     "import/no-extraneous-dependencies": "off",
     "import/extensions": ["warn", "never", { json: "always" }],
+    // Note: Re-enable with #7453
+    //"import/no-unused-modules": [1, { unusedExports: true, ignoreExports: ["src/index.{ts,tsx}"] }],
     "react/display-name": "off",
     "react/prop-types": "off",
     "react/jsx-filename-extension": [

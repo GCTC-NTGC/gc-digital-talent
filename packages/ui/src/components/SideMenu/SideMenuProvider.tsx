@@ -6,9 +6,9 @@ type SideMenuContextValue = {
   onOpenChange?: (newOpen: boolean) => void;
 };
 
-export const SideMenuContext = React.createContext<
-  SideMenuContextValue | undefined
->(undefined);
+const SideMenuContext = React.createContext<SideMenuContextValue | undefined>(
+  undefined,
+);
 
 type SideMenuProviderProps = {
   children: React.ReactNode;

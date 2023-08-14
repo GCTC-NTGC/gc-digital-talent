@@ -5,7 +5,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import RequestConfirmationPage from "./RequestConfirmationPage";
 
 faker.seed(0);
-const mockId = faker.datatype.uuid();
+const mockId = faker.string.uuid();
 
 export default {
   component: RequestConfirmationPage,

@@ -63,7 +63,6 @@ class UserFactory extends Factory
             'preferred_lang' => $this->faker->randomElement(['en', 'fr']),
             'preferred_language_for_interview' => $this->faker->randomElement(['en', 'fr']),
             'preferred_language_for_exam' => $this->faker->randomElement(['en', 'fr']),
-            'job_looking_status' => null,
             'current_province' => $this->faker->randomElement([
                 'BRITISH_COLUMBIA',
                 'ALBERTA',
@@ -104,7 +103,7 @@ class UserFactory extends Factory
             ]),
             'is_gov_employee' => $isGovEmployee,
             'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
-            'current_classification' => $randomClassification ? $randomClassification->id : null,
+            'current_classification' => $isGovEmployee && $randomClassification ? $randomClassification->id : null,
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
             'is_visible_minority' => $this->faker->boolean(),
@@ -123,22 +122,11 @@ class UserFactory extends Factory
                 3
             ),
             'location_exemptions' => "{$this->faker->city()}, {$this->faker->city()}, {$this->faker->city()}",
-            'expected_salary' => $this->faker->randomElements(
-                [
-                    '_50_59K',
-                    '_60_69K',
-                    '_70_79K',
-                    '_80_89K',
-                    '_90_99K',
-                    '_100K_PLUS',
-                ],
-                3
-            ),
             'position_duration' => $this->faker->boolean() ?
                 [ApiEnums::POSITION_DURATION_PERMANENT, ApiEnums::POSITION_DURATION_TEMPORARY]
                 : [ApiEnums::POSITION_DURATION_PERMANENT], // always accepting PERMANENT
             'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
-            'gov_employee_type' => $this->faker->randomElement(ApiEnums::govEmployeeTypes()),
+            'gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(ApiEnums::govEmployeeTypes()) : null,
             'citizenship' => $this->faker->randomElement(ApiEnums::citizenshipStatuses()),
             'armed_forces_status' => $this->faker->randomElement(ApiEnums::armedForcesStatuses()),
             'has_priority_entitlement' => $hasPriorityEntitlement,
@@ -147,18 +135,6 @@ class UserFactory extends Factory
             'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(ApiEnums::indigenousCommunities())] : [],
             // mirroring migration where isIndigenous = false maps to []
         ];
-    }
-
-    /**
-     * GenericJobTitleSeeder must have already been run.
-     */
-    public function withExpectedGenericJobTitles()
-    {
-        return $this->afterCreating(function (User $user) {
-            $user->expectedGenericJobTitles()->saveMany(
-                GenericJobTitle::inRandomOrder()->take(3)->get()
-            );
-        });
     }
 
     public function withExperiences($count = 10)
@@ -195,7 +171,34 @@ class UserFactory extends Factory
             // Take $count random skills and assign each to a random experience of this user.
             $skills = Skill::inRandomOrder()->take($count)->get();
             $experience = $this->faker->randomElement($user->experiences);
-            $experience->syncSkills($skills->only(['id']));
+            $experience->syncSkills($skills);
+        });
+    }
+
+    /**
+     * Is government employee.
+     */
+    public function asGovEmployee($isGovEmployee = true)
+    {
+        return $this->state(function () use ($isGovEmployee) {
+            if (!$isGovEmployee) {
+                return [
+                    'is_gov_employee' => false,
+                    'current_classification' => null,
+                    'gov_employee_type' => null,
+                    'department' => null,
+
+                ];
+            }
+            $randomClassification = Classification::inRandomOrder()->first();
+            $randomDepartment = Department::inRandomOrder()->first();
+            return [
+                'is_gov_employee' => true,
+                'current_classification' => $randomClassification ? $randomClassification->id : null,
+                'gov_employee_type' => $this->faker->randomElement(ApiEnums::govEmployeeTypes()),
+                'department' => $randomDepartment ? $randomDepartment->id : null,
+
+            ];
         });
     }
 
@@ -203,9 +206,6 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user) {
             $user->addRole('base_user');
-            $user->expectedGenericJobTitles()->saveMany(
-                GenericJobTitle::inRandomOrder()->take(1)->get()
-            );
         });
     }
 

@@ -11,7 +11,7 @@ import ExperienceSortAndFilter, {
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
-export interface CareerTimelineSectionProps {
+interface CareerTimelineSectionProps {
   experiences?: Experience[];
   editParam?: string;
   headingLevel?: HeadingRank;
@@ -35,6 +35,7 @@ const CareerTimelineSection = ({
   const experienceList = sortAndFilterExperiences(
     experiences,
     sortAndFilterValues,
+    intl,
   );
 
   const hasExperiences = experiences && experiences.length >= 1;

@@ -10,7 +10,6 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
-import BeakerIcon from "@heroicons/react/20/solid/BeakerIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
@@ -42,8 +41,8 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import { AwardExperience } from "~/api/generated";
-import { StatusItem } from "~/components/StatusItem/StatusItem";
-import { HeroCard } from "~/components/HeroCard/HeroCard";
+import StatusItem from "~/components/StatusItem/StatusItem";
+import HeroCard from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
@@ -71,7 +70,7 @@ function buildScrollToLink(
     </ScrollToLink>
   );
 }
-export interface DashboardHeadingProps {
+interface DashboardHeadingProps {
   user: PartialUser;
 }
 
@@ -101,25 +100,18 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
     notEmptyExperiences?.filter(isPersonalExperience) || [];
   const workExperiences = notEmptyExperiences?.filter(isWorkExperience) || [];
 
-  // TODO - complete these
-  const skillShowcaseUrl = "#";
-  const behaviouralSkillLibraryUrl = "#"; // Behavioural skill library links to the page_with_curl Create the "Skill library" page #6936 and scrolls the user to the relevant page section title
-  const technicalSkillLibraryUrl = "#"; // Technical skill library links to the page_with_curl Create the "Skill library" page #6936 and scrolls the user to the relevant page section title
-  const behaviouralSkillShowcaseUrl = "#"; // Behavioural skill showcase links to the eventual Skill showcase page and scrolls the user to the relevant page section title
-  const technicalSkillShowcaseUrl = "#"; // Technical skill showcase links to the eventual Skill showcase page and scrolls the user to the relevant page section title
-  const typesOfWorkInterestUrl = "#"; // Types of work of interest links to the eventual Skill showcase page and scrolls the user to the relevant page section title
-  const skillCredentialsUrl = "#"; // Skill credentials links to the eventual Skill showcase page and scrolls the user to the relevant page section title
+  const skillShowcaseUrl = paths.skillShowcase();
+  const skillLibraryUrl = paths.skillLibrary();
+
   const behaviouralSkillLibraryCount = 0;
   const technicalSkillLibraryCount = 0;
-  const typesOfWorkInterestCount = 0;
-  const skillCredentialsCount = 0;
   // The completion states are determined by the following rules:
   //   The skill library items need to have at least 1 skill
   //   The showcase items need to have at least 1 skill added to each of the 4 showcases
   const behaviouralSkillLibraryStatus = "success";
   const technicalSkillLibraryStatus = "success";
-  const behaviouralSkillShowcaseStatus = "success";
-  const technicalSkillShowcaseStatus = "success";
+  const topSkillsStatus = "success";
+  const skillsToImproveStatus = "success";
 
   return (
     <Hero
@@ -465,7 +457,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               })}
               itemCount={behaviouralSkillLibraryCount}
               status={behaviouralSkillLibraryStatus}
-              href={behaviouralSkillLibraryUrl}
+              href={`${skillLibraryUrl}#behavioural`}
             />
             <StatusItem
               title={intl.formatMessage({
@@ -475,45 +467,25 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               })}
               itemCount={technicalSkillLibraryCount}
               status={technicalSkillLibraryStatus}
-              href={technicalSkillLibraryUrl}
+              href={`${skillLibraryUrl}#technical`}
             />
             <StatusItem
               title={intl.formatMessage({
-                defaultMessage: "Behavioural skill showcase",
-                id: "qxRpIs",
-                description: "Title for behavioural skill showcase section",
+                defaultMessage: "Top skills",
+                id: "deiylo",
+                description: "Title for top skills showcase section",
               })}
-              status={behaviouralSkillShowcaseStatus}
-              href={behaviouralSkillShowcaseUrl}
+              status={topSkillsStatus}
+              href={`${skillShowcaseUrl}#top-skills`}
             />
             <StatusItem
               title={intl.formatMessage({
-                defaultMessage: "Technical skill showcase",
-                id: "tgG8VK",
-                description: "Title for technical skill showcase section",
+                defaultMessage: "Skill to improve",
+                id: "2A1UT9",
+                description: "Title for skills to improve showcase section",
               })}
-              status={technicalSkillShowcaseStatus}
-              href={technicalSkillShowcaseUrl}
-            />
-            <StatusItem
-              title={intl.formatMessage({
-                defaultMessage: "Types of work of interest",
-                id: "3Ix4Rz",
-                description: "Title for types of work of interest section",
-              })}
-              itemCount={typesOfWorkInterestCount}
-              icon={BeakerIcon}
-              href={typesOfWorkInterestUrl}
-            />
-            <StatusItem
-              title={intl.formatMessage({
-                defaultMessage: "Skill credentials",
-                id: "KSH0Di",
-                description: "Title for skill credentials section",
-              })}
-              itemCount={skillCredentialsCount}
-              icon={ShieldCheckIcon}
-              href={skillCredentialsUrl}
+              status={skillsToImproveStatus}
+              href={`${skillShowcaseUrl}#skills-to-improve`}
             />
           </HeroCard>
         ) : null}

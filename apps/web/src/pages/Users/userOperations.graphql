@@ -108,24 +108,10 @@ mutation CreateUser($user: CreateUserInput!) {
     indigenousCommunities
     indigenousDeclarationSignature
 
-    jobLookingStatus
-
     hasDiploma
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-      minSalary
-      maxSalary
-    }
     positionDuration
   }
 }
@@ -183,23 +169,10 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     indigenousCommunities
     indigenousDeclarationSignature
 
-    jobLookingStatus
     hasDiploma
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-      minSalary
-      maxSalary
-    }
     positionDuration
   }
 }
@@ -257,24 +230,10 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
     indigenousCommunities
     indigenousDeclarationSignature
 
-    jobLookingStatus
-
     hasDiploma
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-      minSalary
-      maxSalary
-    }
     positionDuration
   }
 }
@@ -313,7 +272,6 @@ query GetViewUserData($id: UUID!) {
     preferredLanguageForExam
     currentProvince
     currentCity
-    jobLookingStatus
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
@@ -336,7 +294,6 @@ query GetViewUserData($id: UUID!) {
     hasDisability
     isVisibleMinority
     isWoman
-    expectedSalary
     poolCandidates {
       id
       status
@@ -358,14 +315,6 @@ query GetViewUserData($id: UUID!) {
           level
         }
         stream
-      }
-    }
-    expectedGenericJobTitles {
-      id
-      key
-      name {
-        en
-        fr
       }
     }
     department {
@@ -482,9 +431,19 @@ query AllUsersPaginated(
       preferredLang
       preferredLanguageForInterview
       preferredLanguageForExam
-      jobLookingStatus
       createdDate
       updatedDate
+      roleAssignments {
+        id
+        role {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+        }
+      }
     }
     paginatorInfo {
       count
@@ -533,15 +492,6 @@ query selectedUsers($ids: [ID]!) {
     hasDisability
     citizenship
     armedForcesStatus
-    expectedSalary
-    expectedGenericJobTitles {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
     department {
       id
       departmentNumber

@@ -12,10 +12,8 @@ import {
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
@@ -30,6 +28,7 @@ import {
 } from "~/api/generated";
 import { AnyExperience } from "~/types/experience";
 
+import { isIncomplete } from "~/validators/profile/skillRequirements";
 import SkillTree from "./components/SkillTree";
 import { ApplicationPageProps } from "../ApplicationApi";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
@@ -102,29 +101,23 @@ export const ApplicationSkills = ({
   const categorizedOptionalSkills = categorizeSkill(
     application.pool.nonessentialSkills,
   );
-  const { applicantDashboard } = useFeatureFlags();
-  const [, executeMutation] = useUpdateApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] =
+    useUpdateApplicationMutation();
   const { followingPageUrl, isIAP } = useApplicationContext();
-  const cancelPath = applicantDashboard
-    ? paths.profileAndApplications({ fromIapDraft: isIAP })
-    : paths.myProfile();
+  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
   const nextStep =
     followingPageUrl ?? paths.applicationQuestionsIntro(application.id);
 
-  const skillsMissingExperiences = categorizedEssentialSkills[
-    SkillCategory.Technical
-  ]
-    ?.filter((essentialSkill) => {
-      return !application.user.experiences?.some((experience) => {
-        return experience?.skills?.some(
-          (skill) => skill.id === essentialSkill.id,
-        );
-      });
-    })
-    .filter(notEmpty);
+  const isSkillsExperiencesIncomplete = isIncomplete(
+    application.user,
+    application.pool,
+  );
 
   const methods = useForm<FormValues>();
-  const { setValue } = methods;
+  const {
+    setValue,
+    formState: { isSubmitting },
+  } = methods;
 
   const optionalDisclaimer = intl.formatMessage({
     defaultMessage:
@@ -324,10 +317,11 @@ export const ApplicationSkills = ({
               type="submit"
               mode="solid"
               value="continue"
+              disabled={mutating || isSubmitting}
               onClick={() => {
                 setValue(
                   "skillsMissingExperiences",
-                  skillsMissingExperiences?.length || 0,
+                  isSkillsExperiencesIncomplete ? 1 : 0,
                 );
               }}
             >

@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
-import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
@@ -17,7 +16,6 @@ import {
   Link,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import type { User } from "~/api/generated";
 
@@ -26,19 +24,17 @@ import {
   diversityEquityInclusionSectionHasEmptyRequiredFields,
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
-  roleSalarySectionHasEmptyRequiredFields,
   workLocationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import ExperienceSection from "./ExperienceSection";
-import { StatusItem, Status } from "../StatusItem/StatusItem";
+import StatusItem, { Status } from "../StatusItem/StatusItem";
 import AboutSection from "./ProfileSections/AboutSection";
 import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
 import GovernmentInformationSection from "./ProfileSections/GovernmentInformationSection";
 import LanguageInformationSection from "./ProfileSections/LanguageInformationSection";
-import RoleSalarySection from "./ProfileSections/RoleSalarySection";
 import WorkLocationSection from "./ProfileSections/WorkLocationSection";
 import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
 import { PAGE_SECTION_ID } from "./constants";
@@ -49,7 +45,7 @@ interface SectionControl {
   override?: React.ReactNode;
 }
 
-export interface UserProfileProps {
+interface UserProfileProps {
   user: User;
   sections: {
     about?: SectionControl;
@@ -58,7 +54,6 @@ export interface UserProfileProps {
     hiringPools?: SectionControl;
     language?: SectionControl;
     myStatus?: SectionControl;
-    roleSalary?: SectionControl;
     careerTimelineAndRecruitment?: SectionControl;
     workLocation?: SectionControl;
     workPreferences?: SectionControl;
@@ -137,7 +132,6 @@ const UserProfile = ({
 }: UserProfileProps) => {
   const intl = useIntl();
   const { experiences } = user;
-  const featureFlags = useFeatureFlags();
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
 
   type SectionKeys = keyof UserProfileProps["sections"];
@@ -149,7 +143,6 @@ const UserProfile = ({
   const sectionStatus = (
     hasEmptyRequiredFields: (user: User) => boolean,
   ): Status | undefined => {
-    if (!featureFlags.applicantDashboard) return undefined;
     if (hasEmptyRequiredFields(user)) return "error";
 
     return "success";
@@ -248,23 +241,6 @@ const UserProfile = ({
                     )}
                     status={sectionStatus(
                       workPreferencesSectionHasEmptyRequiredFields,
-                    )}
-                  />
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-            )}
-            {showSection("roleSalary") && (
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={PAGE_SECTION_ID.ROLE_AND_SALARY}
-                >
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(
-                      navigationMessages.roleSalaryExpectations,
-                    )}
-                    status={sectionStatus(
-                      roleSalarySectionHasEmptyRequiredFields,
                     )}
                   />
                 </TableOfContents.AnchorLink>
@@ -573,50 +549,6 @@ const UserProfile = ({
               <WorkPreferencesSection
                 user={user}
                 editPath={sections.workPreferences?.editUrl}
-              />
-            )}
-          </TableOfContents.Section>
-        )}
-        {showSection("roleSalary") && (
-          <TableOfContents.Section id={PAGE_SECTION_ID.ROLE_AND_SALARY}>
-            <HeadingWrapper show={!!sections.roleSalary?.editUrl}>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
-              >
-                <TableOfContents.Heading
-                  as={headingLevel}
-                  icon={CurrencyDollarIcon}
-                >
-                  {intl.formatMessage(
-                    navigationMessages.roleSalaryExpectations,
-                  )}
-                </TableOfContents.Heading>
-              </div>
-              {sections.roleSalary?.editUrl && (
-                <EditUrlLink
-                  link={sections.roleSalary.editUrl}
-                  text={intl.formatMessage(
-                    {
-                      defaultMessage: "Edit {title}",
-                      id: "3R3jKp",
-                      description: "Link to edit object",
-                    },
-                    {
-                      title: intl.formatMessage(
-                        navigationMessages.roleSalaryExpectations,
-                      ),
-                    },
-                  )}
-                />
-              )}
-            </HeadingWrapper>
-            {sections.roleSalary?.override ? (
-              sections.roleSalary.override
-            ) : (
-              <RoleSalarySection
-                user={user}
-                editPath={sections.roleSalary?.editUrl}
               />
             )}
           </TableOfContents.Section>

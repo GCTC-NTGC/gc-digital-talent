@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class Skill
@@ -24,6 +25,7 @@ class Skill extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use HasRelationships;
 
     protected $keyType = 'string';
 
@@ -57,23 +59,33 @@ class Skill extends Model
 
     public function awardExperiences()
     {
-        return $this->hasManyThrough(AwardExperience::class, UserSkill::class);
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->awardExperiences())
+            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
+            ->whereNull('experience_skill.deleted_at');
     }
     public function communityExperiences()
     {
-        return $this->hasManyThrough(CommunityExperience::class, UserSkill::class);
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->communityExperiences())
+            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
+            ->whereNull('experience_skill.deleted_at');
     }
     public function educationExperiences()
     {
-        return $this->hasManyThrough(EducationExperience::class, UserSkill::class);
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->educationExperiences())
+            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
+            ->whereNull('experience_skill.deleted_at');
     }
     public function personalExperiences()
     {
-        return $this->hasManyThrough(PersonalExperience::class, UserSkill::class);
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->personalExperiences())
+            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
+            ->whereNull('experience_skill.deleted_at');
     }
     public function workExperiences()
     {
-        return $this->hasManyThrough(WorkExperience::class, UserSkill::class);
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->workExperiences())
+            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
+            ->whereNull('experience_skill.deleted_at');
     }
     public function getExperiencesAttribute()
     {

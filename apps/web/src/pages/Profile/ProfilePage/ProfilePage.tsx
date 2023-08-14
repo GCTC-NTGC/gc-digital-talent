@@ -51,7 +51,7 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
   const [{ fetching: isUpdating }, executeUpdateMutation] =
     useUpdateUserAsUserMutation();
 
-  const handleUpdate: SectionProps["onUpdate"] = (userId, userData) => {
+  const handleUpdate: SectionProps["onUpdate"] = async (userId, userData) => {
     return executeUpdateMutation({
       id: userId,
       user: userData,

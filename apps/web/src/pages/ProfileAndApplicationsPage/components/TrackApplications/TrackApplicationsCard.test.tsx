@@ -97,9 +97,8 @@ describe("TrackApplicationsCard", () => {
       "href",
       expect.stringContaining("support"),
     );
-    const qualifiedLabel = screen.queryByText("Qualified");
-
-    expect(qualifiedLabel).toBeInTheDocument();
+    const hiredCasualLabel = screen.queryByText("Hired (Casual)");
+    expect(hiredCasualLabel).toBeInTheDocument();
   });
 
   it("should have proper label if the application is draft but the pool is expired", async () => {

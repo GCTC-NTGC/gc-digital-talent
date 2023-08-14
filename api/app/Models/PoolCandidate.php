@@ -215,26 +215,42 @@ class PoolCandidate extends Model
     }
 
     /**
-     * scopeExpectedClassifications
+     * Scope Publishing Groups
      *
-     * Scopes the query to only include applicants who have expressed interest in any of $classifications.
+     * Restrict a query by specific publishing groups
      *
-     * @param Builder $query
-     * @param array|null $classifications
-     * @return Builder
+     * @param \Illuminate\Database\Eloquent\Builder $query The existing query being built
+     * @param ?array $publishingGroups The publishing groups to scope the query by
+     * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
-    public function scopeExpectedClassifications(Builder $query, ?array $classifications): Builder
+    public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
     {
-        // if no filters provided then return query unchanged
-        if (empty($classifications)) {
-            return $query;
-        }
+        // Early return if no publishing groups were supplied
+        if (empty($publishingGroups)) return $query;
 
-        // pointing to the classification scope on the User model
-        // that scope also contains filterByClassificationToSalary and filterByClassificationToGenericJobTitles
-        $query->whereHas('user', function ($query) use ($classifications) {
-            User::scopeExpectedClassifications($query, $classifications);
+        $query = $query->whereHas('pool', function ($query) use ($publishingGroups) {
+            $query->whereIn('publishing_group', $publishingGroups);
         });
+
+        return $query;
+    }
+
+    /**
+     * Scope is IT
+     *
+     * Restrict a query by pool candidates that are for pools
+     * containing IT specific publishing groups
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query The existing query being built
+     * @return \Illuminate\Database\Eloquent\Builder The resulting query
+     */
+    public static function scopeInITPublishingGroup(Builder $query)
+    {
+        $query = self::scopePublishingGroups($query, [
+            ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
+            ApiEnums::PUBLISHING_GROUP_IT_JOBS
+        ]);
+
         return $query;
     }
 
@@ -462,8 +478,6 @@ class PoolCandidate extends Model
         $user = User::with([
             'department',
             'currentClassification',
-            'expectedClassifications',
-            'expectedGenericJobTitles',
             'awardExperiences',
             'awardExperiences.skills',
             'communityExperiences',

@@ -23,6 +23,7 @@ import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetai
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 
 import { experienceTypeTitles } from "../messages";
+import { isSuccessfulCreate } from "./addExperienceUtils";
 
 type FormAction = "return" | "add-another";
 type ExperienceExperienceFormValues =
@@ -30,7 +31,7 @@ type ExperienceExperienceFormValues =
     experienceType: ExperienceType | "";
     action: FormAction | "";
   };
-export interface AddExperienceFormProps {
+interface AddExperienceFormProps {
   applicationId: Scalars["ID"];
 }
 
@@ -47,14 +48,12 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     register,
     setValue,
     setFocus,
-    formState: { isSubmitSuccessful },
+    formState: { isSubmitSuccessful, isSubmitting },
     reset,
   } = methods;
   const [type, action] = watch(["experienceType", "action"]);
-  const { executeMutation, getMutationArgs } = useExperienceMutations(
-    "create",
-    type,
-  );
+  const { executeMutation, getMutationArgs, executing } =
+    useExperienceMutations("create", type);
   const actionProps = register("action");
 
   const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = async (
@@ -65,6 +64,17 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     if (executeMutation) {
       executeMutation(args)
         .then((res) => {
+          if (!isSuccessfulCreate(res)) {
+            toast.error(
+              intl.formatMessage({
+                defaultMessage: "Error: adding experience failed",
+                id: "moKAQP",
+                description:
+                  "Message displayed to user after experience fails to be created.",
+              }),
+            );
+            return;
+          }
           if (res.data) {
             toast.success(
               intl.formatMessage({
@@ -169,6 +179,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
             type="submit"
             mode="solid"
             value="return"
+            disabled={executing || isSubmitting}
             {...actionProps}
             onClick={() => setValue("action", "return")}
           >
@@ -181,6 +192,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
           <Button
             type="submit"
             mode="inline"
+            disabled={executing || isSubmitting}
             {...actionProps}
             onClick={() => setValue("action", "add-another")}
           >

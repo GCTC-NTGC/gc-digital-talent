@@ -57,9 +57,6 @@ const applicantFilterToQueryArgs = (
       where: {
         ...filter,
         equity: { ...filter?.equity },
-        expectedClassifications: filter?.expectedClassifications
-          ? pickMap(filter.expectedClassifications, ["group", "level"])
-          : undefined,
         qualifiedClassifications: filter?.qualifiedClassifications
           ? pickMap(filter.qualifiedClassifications, ["group", "level"])
           : undefined,

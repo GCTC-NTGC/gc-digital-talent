@@ -17,7 +17,6 @@ import {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
-  withLocalizedQuotes,
 } from "./utils/localize";
 
 import {
@@ -35,7 +34,6 @@ import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
   getLanguageProficiency,
-  getSalaryRange,
   getLanguage,
   getCitizenshipStatusesProfile,
   getCitizenshipStatusesAdmin,
@@ -60,7 +58,6 @@ import {
   getEducationStatus,
   getEducationType,
   getOperationalRequirement,
-  getJobLookingStatus,
   getProvinceOrTerritory,
   getPoolStream,
   getGovEmployeeType,
@@ -78,7 +75,6 @@ import {
   poolCandidatePriorities,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
-  getPoolCandidateStatusLabel,
 } from "./messages/localizedConstants";
 
 import { STORED_LOCALE } from "./const";
@@ -95,7 +91,6 @@ export {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
-  withLocalizedQuotes,
   STORED_LOCALE,
   apiMessages,
   commonMessages,
@@ -116,7 +111,6 @@ export {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
   getLanguageProficiency,
-  getSalaryRange,
   getLanguage,
   getCitizenshipStatusesProfile,
   getCitizenshipStatusesAdmin,
@@ -141,7 +135,6 @@ export {
   getEducationStatus,
   getEducationType,
   getOperationalRequirement,
-  getJobLookingStatus,
   getProvinceOrTerritory,
   getPoolStream,
   getGovEmployeeType,
@@ -159,7 +152,6 @@ export {
   getAbbreviations,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
-  getPoolCandidateStatusLabel,
 };
 
 export type { Locales, Messages };

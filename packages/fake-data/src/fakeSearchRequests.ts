@@ -15,22 +15,22 @@ const generateSearchRequest = (
   departments: Department[],
   applicantFilters: ApplicantFilter[],
 ): PoolCandidateSearchRequest => {
-  faker.setLocale("en");
-
   return {
-    id: faker.datatype.uuid(),
-    fullName: `${faker.name.firstName()} ${faker.name.lastName()}`,
+    id: faker.string.uuid(),
+    fullName: `${faker.person.firstName()} ${faker.person.lastName()}`,
     email: faker.internet.email(),
     department: faker.helpers.arrayElement<Department>(departments),
-    jobTitle: faker.name.jobTitle(),
-    managerJobTitle: faker.name.jobTitle(),
+    jobTitle: faker.person.jobTitle(),
+    managerJobTitle: faker.person.jobTitle(),
     positionType: faker.helpers.arrayElement<PoolCandidateSearchPositionType>(
       Object.values(PoolCandidateSearchPositionType),
     ),
     additionalComments: faker.lorem.sentences(5),
     applicantFilter:
       faker.helpers.arrayElement<ApplicantFilter>(applicantFilters),
-    requestedDate: faker.date.between("2000-01-01", "2020-12-31").toISOString(),
+    requestedDate: faker.date
+      .between({ from: "2000-01-01", to: "2020-12-31" })
+      .toISOString(),
     status: faker.helpers.arrayElement<PoolCandidateSearchStatus>(
       Object.values(PoolCandidateSearchStatus),
     ),

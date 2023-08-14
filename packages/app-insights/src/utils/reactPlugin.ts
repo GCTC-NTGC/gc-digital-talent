@@ -1,9 +1,5 @@
-import { ComponentType } from "react";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
-import {
-  ReactPlugin,
-  withAITracking,
-} from "@microsoft/applicationinsights-react-js";
+import { ReactPlugin } from "@microsoft/applicationinsights-react-js";
 
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 
@@ -15,7 +11,8 @@ const reactPlugin = new ReactPlugin();
 
 const ai = new ApplicationInsights({
   config: {
-    extensions: [reactPlugin],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    extensions: [reactPlugin as any], // https://github.com/microsoft/applicationinsights-react-js/issues/32#issuecomment-1641631226
     enableAutoRouteTracking: true,
     autoTrackPageVisitTime: true,
     disableFetchTracking: false,
@@ -29,6 +26,3 @@ if (aiConnectionString) {
 
 const { appInsights } = ai;
 export { reactPlugin, appInsights };
-
-export default (Component: ComponentType<unknown>) =>
-  withAITracking(reactPlugin, Component);

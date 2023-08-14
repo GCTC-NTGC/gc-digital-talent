@@ -14,7 +14,6 @@ import {
   getCitizenshipStatusesAdmin,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
-  getGenericJobTitles,
   getIndigenousCommunity,
   getLanguageProficiency,
   getLocale,
@@ -36,9 +35,8 @@ import {
 } from "@gc-digital-talent/graphql";
 import isEmpty from "lodash/isEmpty";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
-import { anyCriteriaSelected as anyCriteriaSelectedRoleSalarySection } from "~/validators/profile/roleSalary";
 
-export interface ProfileDocumentProps {
+interface ProfileDocumentProps {
   results: User[] | PoolCandidate[];
 }
 
@@ -48,6 +46,13 @@ const PageSection = ({ children }: { children: React.ReactNode }) => (
     data-h2-display="base(block)"
     data-h2-break-inside="base(avoid) base:print(avoid)"
   >
+    {children}
+  </div>
+);
+
+// If a section is too big, use this instead of PageSection to allow it to break
+const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
+  <div data-h2-margin-bottom="base(2rem)" data-h2-display="base(block)">
     {children}
   </div>
 );
@@ -154,17 +159,6 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                   unpackMaybes(result.indigenousCommunities).filter(
                     (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
                   ) || [];
-
-                const expectedClassificationArray =
-                  result.expectedGenericJobTitles
-                    ? result.expectedGenericJobTitles.map((es) => (
-                        <li key={es?.key}>
-                          {es
-                            ? intl.formatMessage(getGenericJobTitles(es.key))
-                            : ""}
-                        </li>
-                      ))
-                    : null;
 
                 return (
                   <React.Fragment key={result.id}>
@@ -313,10 +307,10 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           <p>
                             {intl.formatMessage({
                               defaultMessage:
-                                "Second language level (Comprehension, Written, Verbal)",
-                              id: "M9x5zm",
+                                "Second language level (reading, writing, oral interaction)",
+                              id: "qOi2J0",
                               description:
-                                "Evaluation results for second language, results in that order",
+                                "Second language level (reading, writing, oral interaction) label",
                             })}
                             {intl.formatMessage(commonMessages.dividingColon)}
                             {insertBetween(", ", [
@@ -659,28 +653,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           </>
                         )}
                       </PageSection>
-                      <PageSection>
-                        <Heading level="h3">
-                          {intl.formatMessage(
-                            navigationMessages.roleSalaryExpectations,
-                          )}
-                        </Heading>
-                        {anyCriteriaSelectedRoleSalarySection(result) && (
-                          <div>
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "Would like to be referred for jobs at the following levels:",
-                                id: "sYuMO8",
-                                description:
-                                  "Label for Role and salary expectations sections",
-                              })}
-                            </p>
-                            <ul>{expectedClassificationArray}</ul>
-                          </div>
-                        )}
-                      </PageSection>
-                      <PageSection>
+                      <BreakingPageSection>
                         <Heading level="h3">
                           {intl.formatMessage(
                             navigationMessages.careerTimelineAndRecruitment,
@@ -689,7 +662,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         <PrintExperienceByType
                           experiences={result.experiences?.filter(notEmpty)}
                         />
-                      </PageSection>
+                      </BreakingPageSection>
                     </div>
                     {index + 1 !== results.length && (
                       <div style={{ breakAfter: "page" }} />

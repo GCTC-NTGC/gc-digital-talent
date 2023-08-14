@@ -8,11 +8,12 @@ import {
   BasicForm,
   MultiSelectFieldBase,
   MultiSelectField,
+  enumToOptions,
 } from "@gc-digital-talent/forms";
+import { getPublishingGroup } from "@gc-digital-talent/i18n";
+import { PublishingGroup } from "@gc-digital-talent/graphql";
 
 import useFilterOptions from "~/components/Table/ApiManagedTable/useFilterOptions";
-
-import "./PoolCandidateFilterDialog.css";
 import adminMessages from "~/messages/adminMessages";
 
 type Option = { value: string; label: string };
@@ -31,6 +32,7 @@ export type FormValues = {
   skills: Option["value"][];
   expiryStatus: Option["value"][];
   suspendedStatus: Option["value"][];
+  publishingGroups: Option["value"][];
 };
 
 type FooterProps = Pick<
@@ -39,7 +41,10 @@ type FooterProps = Pick<
 >;
 const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
   const { formatMessage } = useIntl();
-  const { reset } = useFormContext();
+  const {
+    reset,
+    formState: { isSubmitting },
+  } = useFormContext();
   const { emptyFormValues } = useFilterOptions(enableEducationType);
   const handleClear = () => {
     reset(emptyFormValues);
@@ -54,7 +59,7 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
           id: "uC0YPE",
         })}
       </Button>
-      <Button type="submit" color="primary">
+      <Button type="submit" color="primary" disabled={isSubmitting}>
         {formatMessage({
           description: "Submit button within the search filter dialog",
           defaultMessage: "Show results",
@@ -80,7 +85,7 @@ const PoolCandidateTableFilterDialog = ({
   activeFilters,
   enableEducationType = false,
 }: PoolCandidateTableFilterDialogProps): JSX.Element => {
-  const { formatMessage } = useIntl();
+  const { formatMessage, locale } = useIntl();
   const { optionsData, rawGraphqlResults } =
     useFilterOptions(enableEducationType);
 
@@ -119,13 +124,28 @@ const PoolCandidateTableFilterDialog = ({
             }}
           >
             <div data-h2-flex-grid="base(flex-start, x1, x.5)">
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(5of5)">
                 <MultiSelectField
                   id="pools"
                   name="pools"
                   label={formatMessage(adminMessages.pools)}
                   options={optionsData.pools}
                   isLoading={rawGraphqlResults.pools.fetching}
+                />
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
+                <MultiSelectField
+                  id="publishingGroups"
+                  name="publishingGroups"
+                  label={formatMessage(adminMessages.publishingGroups)}
+                  options={enumToOptions(PublishingGroup).map(({ value }) => ({
+                    value,
+                    label: formatMessage(getPublishingGroup(value)),
+                    ariaLabel: formatMessage(getPublishingGroup(value)).replace(
+                      locale === "en" ? "IT" : "TI",
+                      locale === "en" ? "I T" : "T I",
+                    ),
+                  }))}
                 />
               </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
@@ -279,7 +299,7 @@ const PoolCandidateTableFilterDialog = ({
   );
 };
 
-export type PoolCandidateTableFiltersProps = Pick<
+type PoolCandidateTableFiltersProps = Pick<
   PoolCandidateTableFilterDialogProps,
   "onSubmit" | "enableEducationType"
 > & {
@@ -302,9 +322,9 @@ const PoolCandidateTableFilters = ({
   const [isOpen, setIsOpen] = useState(isOpenDefault);
 
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
-    onSubmit(data);
     setActiveFilters(data);
     setIsOpen(false);
+    return onSubmit(data);
   };
 
   return (

@@ -20,7 +20,6 @@ type Option = { value: string; label: string };
 export type FormValues = {
   pools: Option["value"][];
   languageAbility: Option["value"][];
-  classifications: Option["value"][];
   operationalRequirement: Option["value"][];
   workRegion: Option["value"][];
   // TODO: Make mandatory once data model settles.
@@ -30,13 +29,17 @@ export type FormValues = {
   skills: Option["value"][];
   profileComplete: Option["value"][];
   govEmployee: Option["value"][];
+  roles: Option["value"][];
   trashed: Option["value"][];
 };
 
 type FooterProps = Pick<UserTableFilterDialogProps, "enableEducationType">;
 const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
   const { formatMessage } = useIntl();
-  const { reset } = useFormContext();
+  const {
+    reset,
+    formState: { isSubmitting },
+  } = useFormContext();
   const { emptyFormValues } = useFilterOptions(enableEducationType);
   const handleClear = () => {
     reset(emptyFormValues);
@@ -56,7 +59,7 @@ const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
           id: "uC0YPE",
         })}
       </Button>
-      <Button type="submit" color="primary">
+      <Button type="submit" color="primary" disabled={isSubmitting}>
         {formatMessage({
           description: "Submit button within the search filter dialog",
           defaultMessage: "Show results",
@@ -235,6 +238,15 @@ const UserTableFilterDialog = ({
                   options={optionsData.govEmployee}
                 />
               </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
+                <MultiSelectField
+                  id="roles"
+                  name="roles"
+                  label={formatMessage(adminMessages.rolesAndPermissions)}
+                  options={optionsData.roles}
+                  isLoading={rawGraphqlResults.roles.fetching}
+                />
+              </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
                 <MultiSelectFieldBase
                   forceArrayFormValue
@@ -281,9 +293,9 @@ const UserTableFilters = ({
   );
 
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
-    onSubmit(data);
     setActiveFilters(data);
     setOpen(false);
+    return onSubmit(data);
   };
 
   return (

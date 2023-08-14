@@ -36,7 +36,6 @@ import { RadioGroup } from "@gc-digital-talent/forms";
 import { Radio } from "@gc-digital-talent/forms/src/components/RadioGroup";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
 import { ApplicationPageProps } from "../ApplicationApi";
@@ -112,8 +111,7 @@ const ApplicationEducation = ({
   const locale = getLocale(intl);
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { applicantDashboard } = useFeatureFlags(); // TODO: Remove once feature flag has been turned on.
-  const { followingPageUrl, currentStepOrdinal, isIAP } =
+  const { followingPageUrl, currentStepOrdinal, isIAP, classificationGroup } =
     useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
@@ -124,9 +122,7 @@ const ApplicationEducation = ({
   const nextStep =
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);
   const previousStep = paths.applicationCareerTimeline(application.id);
-  const cancelPath = applicantDashboard
-    ? paths.profileAndApplications({ fromIapDraft: isIAP })
-    : paths.myProfile();
+  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -144,11 +140,17 @@ const ApplicationEducation = ({
       }),
     },
   });
-  const { register, setValue, watch } = methods;
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { isSubmitting },
+  } = methods;
   const watchEducationRequirement = watch("educationRequirement");
   const actionProps = register("action");
 
-  const [, executeMutation] = useUpdateApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] =
+    useUpdateApplicationMutation();
   const handleSubmit = (formValues: FormValues) => {
     const includesExperience = (id: string) =>
       formValues.educationRequirementExperiences.includes(id);
@@ -336,9 +338,7 @@ const ApplicationEducation = ({
           }),
       contentBelow: (
         <div data-h2-margin="base(x.15, 0, x.5, x1)">
-          <p data-h2-margin="base(0, 0, x.5, 0)">
-            {intl.formatMessage(applicationMessages.appliedWorkExperience)}
-          </p>
+          <p>{intl.formatMessage(applicationMessages.appliedWorkExperience)}</p>
           <ul>
             {Object.values(appliedWorkListMessages).map((value) => (
               <li key={uniqueId()} data-h2-margin="base(0, 0, x.25, 0)">
@@ -367,7 +367,7 @@ const ApplicationEducation = ({
               "Radio group option for education requirement filter in application education form.",
           }),
       contentBelow: (
-        <div data-h2-margin="base(x.15, 0, x.5, x1)">
+        <div data-h2-margin="base(x.15, 0, x.15, x1)">
           <p>
             {isIAP
               ? intl.formatMessage({
@@ -380,6 +380,42 @@ const ApplicationEducation = ({
               : intl.formatMessage(applicationMessages.postSecondaryEducation, {
                   link: qualityStandardsLink,
                 })}
+          </p>
+        </div>
+      ),
+    },
+  ];
+
+  // TODO: Think of a better name
+  const educationRequirementOptionsPM: Radio[] = [
+    {
+      value: EducationRequirementOption.AppliedWork,
+      label: intl.formatMessage({
+        defaultMessage:
+          "<strong>I meet the applied work experience option</strong>",
+        id: "SNwPLZ",
+        description:
+          "Radio group option for education requirement filter in application education form.",
+      }),
+      contentBelow: (
+        <div data-h2-margin="base(x.15, 0, x.5, x1)">
+          <p>{intl.formatMessage(applicationMessages.appliedWorkExpPMGroup)}</p>
+        </div>
+      ),
+    },
+    {
+      value: EducationRequirementOption.Education,
+      label: intl.formatMessage({
+        defaultMessage:
+          "<strong>I meet the secondary school diploma option</strong>",
+        id: "qN9zOb",
+        description:
+          "Radio group option for education requirement filter in application education form.",
+      }),
+      contentBelow: (
+        <div data-h2-margin="base(x.15, 0, x.15, x1)">
+          <p>
+            {intl.formatMessage(applicationMessages.secondarySchoolDescription)}
           </p>
         </div>
       ),
@@ -431,7 +467,11 @@ const ApplicationEducation = ({
                   })
             }
             name="educationRequirement"
-            items={educationRequirementOptions}
+            items={
+              classificationGroup === "PM"
+                ? educationRequirementOptionsPM
+                : educationRequirementOptions
+            }
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
@@ -458,6 +498,7 @@ const ApplicationEducation = ({
               type="submit"
               mode="solid"
               value="continue"
+              disabled={mutating || isSubmitting}
               {...actionProps}
               onClick={() => {
                 setValue("action", "continue");
@@ -470,6 +511,7 @@ const ApplicationEducation = ({
               mode="inline"
               color="secondary"
               value="cancel"
+              disabled={isSubmitting}
               {...actionProps}
               onClick={() => {
                 setValue("action", "cancel");

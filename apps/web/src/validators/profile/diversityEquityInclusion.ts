@@ -31,11 +31,3 @@ export function hasEmptyRequiredFields(
     applicant.indigenousCommunities.length > 0
   );
 }
-
-export function hasEmptyOptionalFields(applicant: PartialUser): boolean {
-  return !anyCriteriaSelected(applicant);
-}
-
-export function hasAllEmptyFields(applicant: PartialUser): boolean {
-  return !anyCriteriaSelected(applicant);
-}

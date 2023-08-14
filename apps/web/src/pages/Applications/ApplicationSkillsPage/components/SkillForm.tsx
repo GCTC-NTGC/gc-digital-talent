@@ -88,7 +88,11 @@ const SkillForm = ({
   const methods = useForm<FormValues>({
     defaultValues,
   });
-  const { register, setValue } = methods;
+  const {
+    register,
+    setValue,
+    formState: { isSubmitting },
+  } = methods;
   const actionProps = register("action");
   const selectedExperienceId = methods.watch("experience");
   const selectedExperience = experiences.find(
@@ -97,12 +101,10 @@ const SkillForm = ({
   const experienceType = selectedExperience
     ? deriveExperienceType(selectedExperience)
     : "";
-  const { executeMutation, getMutationArgs } = useExperienceMutations(
-    "update",
-    experienceType,
-  );
+  const { executeMutation, getMutationArgs, executing } =
+    useExperienceMutations("update", experienceType);
 
-  const handleSubmit = (formValues: FormValues) => {
+  const handleSubmit = async (formValues: FormValues) => {
     const args = getMutationArgs(
       formValues.experience || "",
       formValues.skill
@@ -117,7 +119,7 @@ const SkillForm = ({
         : {},
     );
     if (executeMutation) {
-      executeMutation(args)
+      await executeMutation(args)
         .then((res) => {
           if (res.data) {
             toast.success(
@@ -292,6 +294,7 @@ const SkillForm = ({
               type="submit"
               mode="inline"
               color="error"
+              disabled={executing || isSubmitting}
               {...actionProps}
               onClick={() => setValue("action", "remove")}
             >
@@ -307,6 +310,7 @@ const SkillForm = ({
             type="submit"
             mode="solid"
             color="primary"
+            disabled={isSubmitting}
             {...actionProps}
             onClick={() => setValue("action", "connect")}
           >

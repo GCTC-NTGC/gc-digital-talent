@@ -26,28 +26,12 @@ const getRoutes = (lang: Locales) => {
   const userUrl = (userId: string) => path.join(baseUrl, "users", userId);
   const applicationParam = (applicationId?: string) =>
     applicationId ? `?applicationId=${applicationId}` : "";
-  const userEditUrl = (
-    section: string,
-    userId: string,
-    applicationId?: string,
-  ) =>
-    `${path.join(
-      userUrl(userId),
-      "profile",
-      section,
-      "edit",
-    )}${applicationParam(applicationId)}`;
 
-  const createExperienceUrl = (
-    type: ExperienceType,
-    userId: string,
-    applicationId?: string,
-  ) =>
+  const createExperienceUrl = (userId: string, applicationId?: string) =>
     `${path.join(
       userUrl(userId),
       "profile",
       "career-timeline-and-recruitment",
-      type,
       "create",
     )}${applicationParam(applicationId)}`;
 
@@ -249,20 +233,6 @@ const getRoutes = (lang: Locales) => {
       return path.join(userUrl(userId), "profile") + fragment;
     },
     myProfile: () => path.join(baseUrl, "users", "me"),
-    aboutMe: (userId: string, applicationId?: string) =>
-      userEditUrl("about-me", userId, applicationId),
-    languageInformation: (userId: string, applicationId?: string) =>
-      userEditUrl("language-info", userId, applicationId),
-    governmentInformation: (userId: string, applicationId?: string) =>
-      userEditUrl("government-info", userId, applicationId),
-    roleSalary: (userId: string, applicationId?: string) =>
-      userEditUrl("role-salary-expectations", userId, applicationId),
-    workLocation: (userId: string, applicationId?: string) =>
-      userEditUrl("work-location", userId, applicationId),
-    workPreferences: (userId: string, applicationId?: string) =>
-      userEditUrl("work-preferences", userId, applicationId),
-    diversityEquityInclusion: (userId: string, applicationId?: string) =>
-      userEditUrl("employment-equity", userId, applicationId),
 
     // Career timeline and recruitment Routes
     careerTimelineAndRecruitment: (
@@ -288,20 +258,19 @@ const getRoutes = (lang: Locales) => {
         userUrl(userId),
         "profile",
         "career-timeline-and-recruitment",
-        type,
         experienceId,
         "edit",
       ),
     createAward: (userId: string, applicationId?: string) =>
-      createExperienceUrl("award", userId, applicationId),
+      createExperienceUrl(userId, applicationId),
     createCommunity: (userId: string, applicationId?: string) =>
-      createExperienceUrl("community", userId, applicationId),
+      createExperienceUrl(userId, applicationId),
     createEducation: (userId: string, applicationId?: string) =>
-      createExperienceUrl("education", userId, applicationId),
+      createExperienceUrl(userId, applicationId),
     createPersonal: (userId: string, applicationId?: string) =>
-      createExperienceUrl("personal", userId, applicationId),
+      createExperienceUrl(userId, applicationId),
     createWork: (userId: string, applicationId?: string) =>
-      createExperienceUrl("work", userId, applicationId),
+      createExperienceUrl(userId, applicationId),
 
     // Profile and Applications
     profileAndApplications: (opts?: {
@@ -318,6 +287,11 @@ const getRoutes = (lang: Locales) => {
         createSearchQuery(searchParams)
       );
     },
+
+    skillLibrary: () =>
+      path.join(applicantUrl, "profile-and-applications", "skills"),
+    skillShowcase: () =>
+      path.join(applicantUrl, "profile-and-applications", "skills", "showcase"),
 
     /**
      * Deprecated

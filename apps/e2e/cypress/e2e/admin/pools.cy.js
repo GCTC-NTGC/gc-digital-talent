@@ -31,7 +31,6 @@ describe("Pools", () => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "getEditPoolData");
       aliasQuery(req, "getMePoolCreation");
-      aliasQuery(req, "getMePools");
       aliasQuery(req, "allPools");
       aliasMutation(req, "createPool");
       aliasMutation(req, "updatePool");
@@ -76,7 +75,7 @@ describe("Pools", () => {
   it("Should show teams pools if user has pool operator role", () => {
     loginAndGoToPoolsPage("pool_operator");
 
-    cy.wait("@gqlgetMePoolsQuery");
+    cy.wait("@gqlallPoolsQuery");
 
     cy.findByRole("heading", { name: /pools/i }).should("exist");
     cy.findByRole("table").should("exist");

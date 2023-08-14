@@ -37,6 +37,7 @@ import {
   PoolStream,
   PoolCandidateWithSkillCount,
   useGetSkillsQuery,
+  PublishingGroup,
 } from "~/api/generated";
 
 import printStyles from "~/styles/printStyles";
@@ -71,7 +72,7 @@ import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import PoolCandidateTableFilterDialog, {
   FormValues,
 } from "./PoolCandidateTableFilterDialog";
-import { skillMatchDialogAccessor } from "./SkillMatchDialog";
+import skillMatchDialogAccessor from "./SkillMatchDialog";
 
 type Data = NonNullable<
   FromArray<PoolCandidateWithSkillCountPaginator["data"]>
@@ -81,6 +82,7 @@ function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
   return {
+    publishingGroups: input?.publishingGroups?.filter(notEmpty) ?? [],
     classifications:
       input?.applicantFilter?.qualifiedClassifications
         ?.filter(notEmpty)
@@ -350,6 +352,7 @@ const defaultState = {
     },
     poolCandidateStatus: [],
     priorityWeight: [],
+    publishingGroups: [PublishingGroup.ItJobs, PublishingGroup.ItJobsOngoing],
   },
 };
 
@@ -420,7 +423,6 @@ const PoolCandidatesTable = ({
     if (
       sortingRule?.column.sortColumnName &&
       [
-        "JOB_LOOKING_STATUS",
         "FIRST_NAME",
         "EMAIL",
         "PREFERRED_LANG",
@@ -486,6 +488,7 @@ const PoolCandidatesTable = ({
       priorityWeight: fancyFilterState?.priorityWeight,
       expiryStatus: fancyFilterState?.expiryStatus,
       suspendedStatus: fancyFilterState?.suspendedStatus,
+      publishingGroups: fancyFilterState?.publishingGroups,
     };
   };
 
@@ -536,6 +539,7 @@ const PoolCandidatesTable = ({
       suspendedStatus: data.suspendedStatus[0]
         ? stringToEnumCandidateSuspended(data.suspendedStatus[0])
         : undefined,
+      publishingGroups: data.publishingGroups as PublishingGroup[],
     };
 
     setTableState({

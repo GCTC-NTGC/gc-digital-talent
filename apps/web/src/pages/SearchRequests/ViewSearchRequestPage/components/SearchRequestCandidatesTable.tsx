@@ -18,9 +18,9 @@ import {
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import adminMessages from "~/messages/adminMessages";
 
-export type AbstractFilter = PoolCandidateFilter | ApplicantFilter;
+type AbstractFilter = PoolCandidateFilter | ApplicantFilter;
 
-export function isPoolCandidateFilter(
+function isPoolCandidateFilter(
   filter: AbstractFilter,
 ): filter is PoolCandidateFilter {
   // eslint-disable-next-line no-underscore-dangle
@@ -59,8 +59,6 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
   const mapping: MappingType = {
     equity: omitIdAndTypename,
     qualifiedClassifications: (classifications) =>
-      classifications?.filter(notEmpty).map(classificationToInput),
-    expectedClassifications: (classifications) =>
       classifications?.filter(notEmpty).map(classificationToInput),
     hasDiploma: identity,
     languageAbility: identity,

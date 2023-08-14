@@ -34,7 +34,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 
 import adminMessages from "~/messages/adminMessages";
 import UserRoleTable from "./components/IndividualRoleTable";
-import { TeamRoleTable } from "./components/TeamRoleTable";
+import TeamRoleTable from "./components/TeamRoleTable";
 import DeleteUserSection from "./components/DeleteUserSection";
 
 type FormValues = Pick<
@@ -378,12 +378,7 @@ const UpdateUserPage = () => {
               handleUpdateUser={handleUpdateUser}
             />
             <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
-              {intl.formatMessage({
-                defaultMessage: "Roles and permissions",
-                id: "m54J0C",
-                description:
-                  "Heading for updating a users roles and permissions",
-              })}
+              {intl.formatMessage(adminMessages.rolesAndPermissions)}
             </Heading>
             <UserRoleTable
               user={userData.user}

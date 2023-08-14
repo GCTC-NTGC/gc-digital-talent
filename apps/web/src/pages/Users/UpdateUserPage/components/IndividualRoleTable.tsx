@@ -36,7 +36,7 @@ interface IndividualRoleTableProps {
   onUpdateUser: UpdateUserFunc;
 }
 
-export const IndividualRoleTable = ({
+const IndividualRoleTable = ({
   user,
   availableRoles,
   onUpdateUser,

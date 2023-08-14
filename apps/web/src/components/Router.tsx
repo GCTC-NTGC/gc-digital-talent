@@ -28,6 +28,14 @@ const HomePage = React.lazy(() =>
       ),
   ),
 );
+const ExecutiveHomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsExecutiveHomePage" */ "../pages/Home/ExecutiveHomePage/ExecutiveHomePage"
+      ),
+  ),
+);
 const ManagerHomePage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -154,67 +162,11 @@ const ProfilePage = React.lazy(() =>
       ),
   ),
 );
-const GovernmentInfoPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsGovInfoPage" */ "../pages/Profile/GovernmentInfoPage/GovernmentInfoPage"
-      ),
-  ),
-);
-const LanguageInfoPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsLangInfoPage" */ "../pages/Profile/LanguageInfoPage/LanguageInfoPage"
-      ),
-  ),
-);
-const WorkLocationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsWorkLocationPage" */ "../pages/Profile/WorkLocationPage/WorkLocationPage"
-      ),
-  ),
-);
 const ExperienceFormPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
         /* webpackChunkName: "tsEditExperiencePage" */ "../pages/Profile/ExperienceFormPage/ExperienceFormPage"
-      ),
-  ),
-);
-const WorkPreferencesPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsWorkPrefPage" */ "../pages/Profile/WorkPreferencesPage/WorkPreferencesPage"
-      ),
-  ),
-);
-const AboutMePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsAboutMePage" */ "../pages/Profile/AboutMePage/AboutMePage"
-      ),
-  ),
-);
-const RoleSalaryPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsRoleSalaryPage" */ "../pages/Profile/RoleSalaryPage/RoleSalaryPage"
-      ),
-  ),
-);
-const EmploymentEquityPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsEquityPage" */ "../pages/Profile/EmploymentEquityPage/EmploymentEquityPage"
       ),
   ),
 );
@@ -720,6 +672,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
               element: <HomePage />,
             },
             {
+              path: "executive",
+              element: <ExecutiveHomePage />,
+            },
+            {
               path: "manager",
               element: <ManagerHomePage />,
             },
@@ -854,83 +810,6 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           ),
                         },
                         {
-                          path: "about-me/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <AboutMePage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "government-info/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <GovernmentInfoPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "language-info/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <LanguageInfoPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "work-location/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <WorkLocationPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "work-preferences/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <WorkPreferencesPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "employment-equity/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <EmploymentEquityPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "role-salary-expectations/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <RoleSalaryPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
                           path: "career-timeline-and-recruitment",
                           children: [
                             {
@@ -945,34 +824,29 @@ const createRoute = (locale: Locales, loginPath: string) =>
                               ),
                             },
                             {
-                              path: ":experienceType",
+                              path: "create",
+                              element: (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.Applicant]}
+                                  loginPath={loginPath}
+                                >
+                                  <ExperienceFormPage />
+                                </RequireAuth>
+                              ),
+                            },
+                            {
+                              path: ":experienceId",
                               children: [
                                 {
-                                  path: "create",
+                                  path: "edit",
                                   element: (
                                     <RequireAuth
                                       roles={[ROLE_NAME.Applicant]}
                                       loginPath={loginPath}
                                     >
-                                      <ExperienceFormPage />
+                                      <ExperienceFormPage edit />
                                     </RequireAuth>
                                   ),
-                                },
-                                {
-                                  path: ":experienceId",
-                                  children: [
-                                    {
-                                      path: "edit",
-                                      element: (
-                                        <RequireAuth
-                                          roles={[ROLE_NAME.Applicant]}
-                                          loginPath={loginPath}
-                                        >
-                                          <ExperienceFormPage edit />
-                                        </RequireAuth>
-                                      ),
-                                    },
-                                  ],
                                 },
                               ],
                             },

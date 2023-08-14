@@ -6,10 +6,7 @@ import {
 } from "~/api/generated";
 
 export type SimpleClassification = Pick<Classification, "group" | "level">;
-export type SimpleOwner = Pick<
-  UserPublicProfile,
-  "email" | "firstName" | "lastName"
->;
+type SimpleOwner = Pick<UserPublicProfile, "email" | "firstName" | "lastName">;
 
 export type SimplePool = Pick<
   Pool,

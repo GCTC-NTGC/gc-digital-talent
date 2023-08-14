@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-export const IndeterminateCheckbox = ({
+const IndeterminateCheckbox = ({
   indeterminate,
   labelText,
   ...rest
@@ -36,8 +36,4 @@ export const IndeterminateCheckbox = ({
   );
 };
 
-export const Spacer = ({ children }: { children?: React.ReactNode }) => (
-  <div data-h2-margin="base(0, 0, 0, x.5)" style={{ flexShrink: 0 }}>
-    {children}
-  </div>
-);
+export default IndeterminateCheckbox;

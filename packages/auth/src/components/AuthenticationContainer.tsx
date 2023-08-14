@@ -21,7 +21,7 @@ export interface AuthenticationState {
   refreshTokenSet: () => Promise<TokenSet | null>;
 }
 
-export const defaultAuthState = {
+const defaultAuthState = {
   loggedIn: false,
   accessToken: null,
   refreshToken: null,

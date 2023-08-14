@@ -37,6 +37,8 @@ final class CountPoolCandidatesByPool
         // expiry status filter (filter active pool candidates)
         PoolCandidate::scopeExpiryStatus($queryBuilder, ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE);
 
+        // Only display IT candidates
+        PoolCandidate::scopeInITPublishingGroup($queryBuilder);
 
         $queryBuilder->whereHas('user', function (Builder $userQuery) use ($filters) {
             // user filters go here
@@ -69,11 +71,6 @@ final class CountPoolCandidatesByPool
             // positionDuration
             if (array_key_exists('positionDuration', $filters)) {
                 User::scopePositionDuration($userQuery, $filters['positionDuration']);
-            }
-
-            // expectedClassifications
-            if (array_key_exists('expectedClassifications', $filters)) {
-                User::scopeExpectedClassifications($userQuery, $filters['expectedClassifications']);
             }
 
             // skills

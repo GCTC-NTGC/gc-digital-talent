@@ -67,10 +67,6 @@
     "defaultMessage": "Fils d’Ariane",
     "description": "Label for the links to page ancestors"
   },
-  "13fSK+": {
-    "defaultMessage": "La date de soumission est dépassée",
-    "description": "Status for an application that where the recruitment has expired"
-  },
   "14Cv7d": {
     "defaultMessage": "Retrait en cours...",
     "description": "Submitting text for delete button."
@@ -162,10 +158,6 @@
   "4S30lt": {
     "defaultMessage": "Expérience de travail appliquée",
     "description": "Option for education requirement, applied work experience"
-  },
-  "4TmwRU": {
-    "defaultMessage": "Candidature reçue",
-    "description": "Status for an application that has been submitted"
   },
   "4dD2mf": {
     "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires habituelles.</strong>",
@@ -285,9 +277,9 @@
     "defaultMessage": "réussite",
     "description": "Message for the success status"
   },
-  "9Pxjw5": {
-    "defaultMessage": "Évaluation en cours",
-    "description": "Status for an application that where applicant is being assessed"
+  "9EnPf0": {
+    "defaultMessage": "Accès à l’information et protection des renseignements personnels",
+    "description": "Pool Stream described as Access to Information and Privacy."
   },
   "9ZyJZq": {
     "defaultMessage": "cela m'oblige à me déplacer.",
@@ -509,10 +501,6 @@
     "defaultMessage": "Provincial",
     "description": "The scope of the award was provincial."
   },
-  "LuYmWd": {
-    "defaultMessage": "<strong>Recherche active</strong> - Mon profil est à jour, je souhaite être contacté pour des occasions d'emploi",
-    "description": "Job Looking Status described as Actively looking."
-  },
   "Lw0WrP": {
     "defaultMessage": "Travailler occasionnellement des heures supplémentaires",
     "description": "The operational requirement described as occasional overtime. (short-form for limited space)"
@@ -524,10 +512,6 @@
   "LzUgil": {
     "defaultMessage": "Secret ou plus élevée",
     "description": "Secret security clearance"
-  },
-  "M/6+SI": {
-    "defaultMessage": "Inactif",
-    "description": "Job Looking Status described as Actively looking."
   },
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
@@ -724,10 +708,6 @@
     "defaultMessage": "Femme",
     "description": "Group for when someone indicates they are a woman"
   },
-  "TR0Kxz": {
-    "defaultMessage": "<strong>Ouvert aux possibilités</strong> – Je ne cherche pas activement, mais je veux être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Open to opportunities."
-  },
   "TRDfnp": {
     "defaultMessage": "Je suis un membre actif des Forces armées canadiennes.",
     "description": "declare self to be a CAF member without bolding"
@@ -759,14 +739,6 @@
   "UCGAzS": {
     "defaultMessage": "S.O.",
     "description": "displayed when localized string not available"
-  },
-  "UZWLKn": {
-    "defaultMessage": "En attente d’évaluation des compétences",
-    "description": "Status for an application that ie having skills reviewed"
-  },
-  "UayO6H": {
-    "defaultMessage": "Qualifié",
-    "description": "Status for an application where the applicant has qualified"
   },
   "Uk0WG0": {
     "defaultMessage": "Organisationnel",
@@ -831,10 +803,6 @@
   "XTw9Me": {
     "defaultMessage": "Expiré",
     "description": "The pool candidate's status is Expired."
-  },
-  "XerShr": {
-    "defaultMessage": "Recherche active",
-    "description": "Job Looking Status described as Actively looking."
   },
   "XnvXtO": {
     "defaultMessage": "Tous",
@@ -903,10 +871,6 @@
   "aMkZ80": {
     "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
     "description": "Error message that advertisement locations must be filled in English and French."
-  },
-  "aagbij": {
-    "defaultMessage": "En cours de révision",
-    "description": "Status for an application that is being reviewed"
   },
   "ad4CnG": {
     "defaultMessage": "Ébauche expirée",
@@ -996,6 +960,10 @@
     "defaultMessage": "Annuler et revenir en arrière",
     "description": "Text to cancel changes to a form"
   },
+  "fUF8rg": {
+    "defaultMessage": "Sélectionnez une option",
+    "description": "Null selection for select input"
+  },
   "g08hvq": {
     "defaultMessage": "Étape 1",
     "description": "Breadcrumb back to review application page."
@@ -1047,6 +1015,10 @@
   "iYot5P": {
     "defaultMessage": "Architecture intégrée de la TI",
     "description": "Pool Stream described as Enterprise Architecture."
+  },
+  "ijGl5r": {
+    "defaultMessage": "Souhaitez-vous poursuivre?",
+    "description": "A request to confirm that the user wants to continue"
   },
   "iqD8qE": {
     "defaultMessage": "Erreur inconnue",
@@ -1124,10 +1096,6 @@
     "defaultMessage": "Août",
     "description": "Name of the eighth month"
   },
-  "lp/ZEr": {
-    "defaultMessage": "Rôle et salaire escomptés",
-    "description": "Name of Role and salary expectations page"
-  },
   "lr2+2R": {
     "defaultMessage": "Autre",
     "description": "declaring one to be neither a citizen or permanent resident of Canada"
@@ -1139,10 +1107,6 @@
   "lx9NFI": {
     "defaultMessage": "Qualifié disponible",
     "description": "The pool candidate's status is Qualified Available"
-  },
-  "m4v2w3": {
-    "defaultMessage": "Ouvert aux possibilités",
-    "description": "Job Looking Status described as Actively looking."
   },
   "mDOWWQ": {
     "defaultMessage": "Soumission",
@@ -1175,17 +1139,9 @@
     "defaultMessage": "Un champ obligatoire est vide : Groupe des publications",
     "description": "Error message that the pool advertisement must have publishing group filled."
   },
-  "njJCTd": {
-    "defaultMessage": "Sélectionné",
-    "description": "Status for an application that has been screened out of eligibility"
-  },
   "nnMYWr": {
     "defaultMessage": "Préférences de travail",
     "description": "Name of Work preferences page"
-  },
-  "nrWEuL": {
-    "defaultMessage": "<strong>Inactif</strong> – Je ne veux pas être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Inactive."
   },
   "nu3Zyc": {
     "defaultMessage": "Niveau 4 : Gestionnaire",
@@ -1203,9 +1159,17 @@
     "defaultMessage": "IT-04 (conseiller principal)",
     "description": "The name of the Senior advisor classification with group and level."
   },
+  "o7GBkR": {
+    "defaultMessage": "Archivé",
+    "description": "Archived pool advertisement status"
+  },
   "oANrhM": {
     "defaultMessage": "Collectivité",
     "description": "The scope of the award was within the community."
+  },
+  "oCrAvX": {
+    "defaultMessage": "Un champ obligatoire est vide : Date de clôture",
+    "description": "Error message that the pool closing date is required."
   },
   "oGXgxJ": {
     "defaultMessage": "Alerte de fermeture",
@@ -1238,10 +1202,6 @@
   "pPPm5b": {
     "defaultMessage": "Moi",
     "description": "The award was given to me."
-  },
-  "pf3KKo": {
-    "defaultMessage": "Poursuivre l’ébauche",
-    "description": "Link text to continue a application draft"
   },
   "plwOsC": {
     "defaultMessage": "Sélectionnez",
@@ -1409,10 +1369,6 @@
   "vPDtGU": {
     "defaultMessage": "e ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
-  },
-  "vTyr7O": {
-    "defaultMessage": "Retiré",
-    "description": "Status for an application that has been removed from the recruitment"
   },
   "vgxxk0": {
     "defaultMessage": "Vétéran",

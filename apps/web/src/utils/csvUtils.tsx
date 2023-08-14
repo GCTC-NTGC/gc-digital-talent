@@ -11,7 +11,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import {
   Locales,
-  getGenericJobTitles,
   getIndigenousCommunity,
   getOperationalRequirement,
   getSimpleGovEmployeeType,
@@ -67,7 +66,7 @@ export const yesOrNo = (value: Maybe<boolean>, intl: IntlShape) => {
  * @param value string[] | undefined    Array of items to convert
  * @returns string                      Comma separated list or empty
  */
-export const listOrEmptyString = (value: string[] | undefined) => {
+const listOrEmptyString = (value: string[] | undefined) => {
   return value ? insertBetween(", ", value).join("") : "";
 };
 
@@ -78,7 +77,7 @@ export const listOrEmptyString = (value: string[] | undefined) => {
  * @param value string[] | undefined    Array of items to convert
  * @returns string                      Comma separated list or empty
  */
-export const sanitizeJustifications = (values: string[] | undefined) => {
+const sanitizeJustifications = (values: string[] | undefined) => {
   const sanitizedList = values
     ? values.map((v) => v.replace(/"/g, '""')) // escape double quotes
     : "";
@@ -207,31 +206,6 @@ export const getOperationalRequirements = (
   }
 
   return listOrEmptyString(accepted.filter(notEmpty));
-};
-
-/**
- * Converts a possible array of generic job titles
- * to a comma separated list or empty string
- *
- * @param genericTitles Maybe<Maybe<GenericJobTitle>[]>
- * @param intl react-intl object
- * @returns string
- */
-export const getExpectedClassifications = (
-  genericTitles: User["expectedGenericJobTitles"],
-  intl: IntlShape,
-) => {
-  const expected = genericTitles
-    ?.map((title) =>
-      title ? intl.formatMessage(getGenericJobTitles(title.key)) : undefined,
-    )
-    .filter(notEmpty);
-
-  if (!expected) {
-    return "";
-  }
-
-  return listOrEmptyString(expected.filter(notEmpty));
 };
 
 /**
