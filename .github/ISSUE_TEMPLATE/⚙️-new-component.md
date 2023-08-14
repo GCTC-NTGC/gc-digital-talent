@@ -6,15 +6,16 @@ labels: design, updates in progress
 assignees: ""
 ---
 
-# ⚙️ Summary
+## ⚙️ Summary
 
 ### [Visit the Figma file]()
 
-[PURPOSE AND DESCRIPTION]
+Purpose and description.
 
-**For all layout and spacing guidance, including how this component should respond on smaller devices, please see the Figma file.**
+> [!NOTE]  
+> For all layout and spacing guidance, including how this component should respond on smaller devices, please see the Figma file.
 
-## ✅ Design checklist
+### ✅ Design checklist
 
 - [ ] Default component
 - [ ] Dark mode component
@@ -29,7 +30,7 @@ assignees: ""
 - [ ] Focus states (if applicable)
 - [ ] Dark mode focus states (if applicable)
 
-## ✅ Accessibility checklist
+### ✅ Accessibility checklist
 
 - [ ] Tap targets are adequate on smaller screens
 - [ ] Color contrast for all modes and states has been checked and cleared
@@ -37,32 +38,44 @@ assignees: ""
 - [ ] `alt` text has been identified and labelled
 - [ ] Non-standard states or interactions have been described and provided accessible design context
 
-# 🛠️ Properties
+## 🛠️ Properties
 
-## [PROPERTY NAME]
+### Property name
 
-[PROPERTY DESCRIPTION]
+#### Description
 
-[PROPERTY SCREENSHOT(S)]
+Property description.
 
-# 💡 Interaction states
+#### Screenshot
 
-[SUMMARY CONTENT]
+Property screenshot(s).
 
-## Hover
+## 💡 Interaction states
 
-[HOVER DESCRIPTION]
+Summary of interaction states.
 
-[HOVER SCREENSHOT]
+### Hover
 
-## Focus
+#### Description
 
-[FOCUS DESCRIPTION]
+Hover state description.
 
-[FOCUS SCREENSHOT]
+#### Screenshot
 
-# 🥰 Accessibility
+Hover state screenshot.
 
-## [ACCESSIBILITY FEATURE]
+### Focus
 
-[FEATURE DESCRIPTION]
+#### Description
+
+Focus state description.
+
+### Screenshot
+
+Focus state screenshot.
+
+## 🥰 Accessibility
+
+### Accessibility feature name
+
+Feature description.
