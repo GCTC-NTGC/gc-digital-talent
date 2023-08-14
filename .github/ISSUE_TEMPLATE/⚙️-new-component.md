@@ -8,9 +8,15 @@ assignees: ""
 
 ## ⚙️ Summary
 
-### [Visit the Figma file]()
-
 Purpose and description.
+
+## 🎨 Design File
+
+Include a link to the design file (if it exists).
+
+### 🧑‍🎨 Designer
+
+Include the author of the linked design file's name (or even better, their `@githubUsername`) for future reference.
 
 > [!NOTE]  
 > For all layout and spacing guidance, including how this component should respond on smaller devices, please see the Figma file.
