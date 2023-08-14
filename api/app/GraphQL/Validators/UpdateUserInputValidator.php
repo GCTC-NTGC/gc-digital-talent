@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Rules\IsStatusOrNonStatus;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -33,7 +34,8 @@ final class UpdateUserInputValidator extends Validator
                 'sometimes',
                 'nullable',
                 Rule::unique('users', 'sub')->ignore($this->arg('id'), 'id'),
-            ]
+            ],
+            'indigenousCommunities' => [new IsStatusOrNonStatus],
         ];
     }
 
@@ -45,6 +47,7 @@ final class UpdateUserInputValidator extends Validator
         return [
             'email.unique' => 'EmailAddressInUse',
             'sub.unique' => 'SubInUse',
+            'indigenousCommunities' => 'BothStatusNonStatus',
         ];
     }
 }
