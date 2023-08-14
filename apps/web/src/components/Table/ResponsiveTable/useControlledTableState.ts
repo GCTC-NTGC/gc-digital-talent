@@ -47,12 +47,6 @@ const getColumnVisibility = (
   return initialColumnVisibility;
 };
 
-const getGlobalFilter = (searchState?: SearchState): string | undefined => {
-  const isColumnFilter = searchState?.type && searchState.type !== "";
-
-  return isColumnFilter ? undefined : searchState?.term;
-};
-
 const getColumnFilters = (
   searchState?: SearchState,
 ): ColumnFiltersState | undefined => {
