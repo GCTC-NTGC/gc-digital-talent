@@ -63,6 +63,7 @@ const getRoutes = (lang: Locales) => {
     register: () => path.join(baseUrl, "register-info"),
     login: () => path.join(baseUrl, "login-info"),
     loggedOut: () => path.join(baseUrl, "logged-out"),
+    userDeleted: () => path.join(baseUrl, "user-deleted"),
     createAccount: () => path.join(baseUrl, "create-account"),
     accessibility: () => path.join(baseUrl, "accessibility-statement"),
     directive: () => path.join(baseUrl, "directive-on-digital-talent"),

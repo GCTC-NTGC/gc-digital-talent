@@ -10,6 +10,7 @@ import {
 export interface AuthorizationState {
   roleAssignments: Maybe<Array<RoleAssignment>>;
   email?: Maybe<Scalars["Email"]>;
+  deletedDate?: Maybe<Scalars["DateTime"]>;
   user?: Maybe<User>;
   isLoaded: boolean;
 }
@@ -17,6 +18,7 @@ export interface AuthorizationState {
 export const AuthorizationContext = React.createContext<AuthorizationState>({
   roleAssignments: null,
   email: null,
+  deletedDate: null,
   user: null,
   isLoaded: false,
 });
@@ -24,6 +26,7 @@ export const AuthorizationContext = React.createContext<AuthorizationState>({
 interface AuthorizationContainerProps {
   roleAssignments?: Maybe<Array<RoleAssignment>>;
   email?: Maybe<Scalars["Email"]>;
+  deletedDate?: Maybe<Scalars["DateTime"]>;
   user?: Maybe<User>;
   isLoaded: boolean;
   children?: React.ReactNode;
@@ -32,6 +35,7 @@ interface AuthorizationContainerProps {
 const AuthorizationContainer = ({
   roleAssignments,
   email,
+  deletedDate,
   user,
   isLoaded,
   children,
@@ -40,10 +44,11 @@ const AuthorizationContainer = ({
     return {
       roleAssignments,
       email,
+      deletedDate,
       user,
       isLoaded,
     };
-  }, [roleAssignments, email, user, isLoaded]);
+  }, [roleAssignments, email, deletedDate, user, isLoaded]);
 
   return (
     <AuthorizationContext.Provider value={state}>

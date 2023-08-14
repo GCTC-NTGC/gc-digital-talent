@@ -17,6 +17,7 @@ const AuthorizationProvider = ({ children }: AuthorizationProviderProps) => {
     <AuthorizationContainer
       roleAssignments={data?.me?.roleAssignments}
       email={data?.me?.email}
+      deletedDate={data?.me?.deletedDate}
       user={data?.me}
       isLoaded={isLoaded}
     >
