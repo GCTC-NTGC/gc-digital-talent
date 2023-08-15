@@ -35,8 +35,8 @@ const NullMessage = ({ title, description }: NullMessageProps) => {
         {description ||
           intl.formatMessage({
             defaultMessage:
-              "Get started by adding an item using the “Add a new item” button provided.",
-            id: "e6b8Me",
+              'Get started by adding an item using the "Add a new item" button provided.',
+            id: "/GIL9l",
             description: "Default description for an empty table",
           })}
       </p>

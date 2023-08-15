@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import {
   Row,
   Table,
@@ -270,12 +270,21 @@ export default {
  */
 export const getRowSelectionColumn = <TData extends object>(
   cell: ColumnDefTemplate<CellContext<TData, unknown>>,
+  intl: IntlShape,
 ): ColumnDef<TData> => ({
   id: "rowSelect",
   enableSorting: false,
   enableHiding: false,
   header: ({ table }) => (
-    <Header table={table} label="Select all" color="white" />
+    <Header
+      table={table}
+      color="white"
+      label={intl.formatMessage({
+        defaultMessage: "Select all",
+        id: "Lu5ppY",
+        description: "Label for the checkbox to select all rows in a table",
+      })}
+    />
   ),
   cell,
   meta: {

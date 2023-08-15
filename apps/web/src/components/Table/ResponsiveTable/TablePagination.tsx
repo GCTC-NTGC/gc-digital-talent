@@ -25,7 +25,7 @@ const TablePagination = <T,>({
       table.setPageSize(newPageSize);
 
       setSearchParams((previous) => {
-        let newParams = new URLSearchParams(previous);
+        const newParams = new URLSearchParams(previous);
         if (newPageSize === pagination.initialState?.pageSize) {
           newParams.delete(SEARCH_PARAM_KEY.PAGE_SIZE);
         } else {
@@ -49,7 +49,7 @@ const TablePagination = <T,>({
       table.setPageIndex(newPageIndex);
 
       setSearchParams((previous) => {
-        let newParams = new URLSearchParams(previous);
+        const newParams = new URLSearchParams(previous);
         if (newPageIndex === pagination.initialState?.pageIndex) {
           newParams.delete(SEARCH_PARAM_KEY.PAGE);
         } else {

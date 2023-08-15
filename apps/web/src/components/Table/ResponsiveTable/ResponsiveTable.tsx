@@ -12,6 +12,7 @@ import {
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import { useIntl } from "react-intl";
 import Table from "./Table";
 import SearchForm from "./SearchForm";
 import ColumnDialog from "./ColumnDialog";
@@ -77,14 +78,15 @@ const ResponsiveTable = <TData extends object>({
   pagination,
 }: TableProps<TData>) => {
   const id = React.useId();
+  const intl = useIntl();
   const [, setSearchParams] = useSearchParams();
   const isInternalSearch = search && search.internal;
   const memoizedData = React.useMemo(() => data, [data]);
   const memoizedColumns = React.useMemo(() => {
     if (!rowSelect) return columns;
     // Inject the selection column if it is enabled
-    return [getRowSelectionColumn(rowSelect.cell), ...columns];
-  }, [columns, rowSelect]);
+    return [getRowSelectionColumn(rowSelect.cell, intl), ...columns];
+  }, [columns, intl, rowSelect]);
   const columnIds = memoizedColumns.map((column) => column.id).filter(notEmpty);
 
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
@@ -136,7 +138,7 @@ const ResponsiveTable = <TData extends object>({
   const sortRule = table.getState().sorting;
   React.useEffect(() => {
     setSearchParams((previous) => {
-      let newParams = new URLSearchParams(previous);
+      const newParams = new URLSearchParams(previous);
 
       if (isEqual(sortRule, sort?.initialState)) {
         newParams.delete(SEARCH_PARAM_KEY.SORT_RULE);
@@ -146,7 +148,7 @@ const ResponsiveTable = <TData extends object>({
 
       return newParams;
     });
-  }, [sortRule]);
+  }, [setSearchParams, sort?.initialState, sortRule]);
 
   const handleSearchChange = (newSearchState: SearchState) => {
     if (search?.onChange) {
@@ -171,11 +173,7 @@ const ResponsiveTable = <TData extends object>({
         )}
         {/** Note: `div` prevents button from taking up entire space on desktop */}
         <div>
-          <ColumnDialog
-            table={table}
-            columnIds={columnIds}
-            initialState={hiddenColumnIds}
-          />
+          <ColumnDialog table={table} initialState={hiddenColumnIds} />
         </div>
       </Table.Controls>
       {!hasNoData ? (

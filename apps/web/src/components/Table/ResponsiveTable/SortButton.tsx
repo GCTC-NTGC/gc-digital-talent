@@ -21,6 +21,10 @@ const SortButton = <T,>({ column, children }: SortButtonProps<T>) => {
   }
 
   const sortDirection = column.getIsSorted();
+  let icon = ArrowsUpDownIcon;
+  if (sortDirection) {
+    icon = sortDirection === "asc" ? ArrowUpIcon : ArrowDownIcon;
+  }
 
   return (
     <Button
@@ -28,13 +32,7 @@ const SortButton = <T,>({ column, children }: SortButtonProps<T>) => {
       color="white"
       onClick={column.getToggleSortingHandler()}
       data-h2-font-size="base(caption)"
-      {...(sortDirection
-        ? {
-            utilityIcon: sortDirection === "asc" ? ArrowUpIcon : ArrowDownIcon,
-          }
-        : {
-            utilityIcon: ArrowsUpDownIcon,
-          })}
+      utilityIcon={icon}
     >
       {children}
       {sortDirection && (

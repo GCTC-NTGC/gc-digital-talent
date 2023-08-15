@@ -67,7 +67,7 @@ const SearchForm = <T,>({
       }
 
       setSearchParams((previous) => {
-        let newParams = new URLSearchParams(previous);
+        const newParams = new URLSearchParams(previous);
 
         if (newState.type) {
           newParams.set(SEARCH_PARAM_KEY.SEARCH_COLUMN, newState.type);
@@ -85,7 +85,7 @@ const SearchForm = <T,>({
         return newParams;
       });
     },
-    [onChange, table],
+    [onChange, setSearchParams, table],
   );
 
   const handleChange = React.useCallback(
@@ -127,7 +127,7 @@ const SearchForm = <T,>({
 
   const allTableMsg = intl.formatMessage({
     defaultMessage: "Entire table",
-    id: "BBH/2J",
+    id: "5r8Ka2",
     description:
       "Text in table search form column dropdown when no column is selected.",
   });
@@ -157,6 +157,7 @@ const SearchForm = <T,>({
                 {intl.formatMessage(
                   {
                     defaultMessage: "Search {column}",
+                    id: "R1BcTP",
                     description:
                       "Button text to search specific columns in table",
                   },
@@ -218,7 +219,6 @@ const SearchForm = <T,>({
             ref={searchRef}
             onChange={debouncedChangeHandler}
             defaultValue={state?.term}
-            aria-label={label}
             {...styles}
             data-h2-background-color="base(foreground)"
             data-h2-border-color="base(gray) base:focus-visible(focus)"

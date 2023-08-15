@@ -17,7 +17,6 @@ interface ColumnDialogProps<TData> {
   /** Instance of the `react-table` */
   table: Table<TData>;
   initialState?: string[];
-  columnIds: string[];
 }
 
 /**
@@ -37,7 +36,7 @@ const ColumnDialog = <T extends object>({
   const allColumnsRef = React.useRef<HTMLInputElement>(null);
   const indeterminate =
     table.getIsSomeColumnsVisible() && !table.getIsAllColumnsVisible();
-  const columnVisibility = table.getState().columnVisibility;
+  const { columnVisibility } = table.getState();
 
   React.useEffect(() => {
     if (allColumnsRef.current) {
@@ -51,7 +50,7 @@ const ColumnDialog = <T extends object>({
       .filter(notEmpty);
 
     setSearchParams((previous) => {
-      let newParams = new URLSearchParams(previous);
+      const newParams = new URLSearchParams(previous);
 
       if (isEqual(initialState, newHiddenIds)) {
         newParams.delete(SEARCH_PARAM_KEY.HIDDEN_COLUMNS);
@@ -61,7 +60,7 @@ const ColumnDialog = <T extends object>({
 
       return newParams;
     });
-  }, [columnVisibility]);
+  }, [columnVisibility, initialState, setSearchParams]);
 
   return (
     <Dialog.Root>
@@ -89,12 +88,7 @@ const ColumnDialog = <T extends object>({
                     onChange: table.getToggleAllColumnsVisibilityHandler(),
                   }}
                 />{" "}
-                {intl.formatMessage({
-                  defaultMessage: "Toggle All",
-                  id: "7d/ot8",
-                  description:
-                    "Label displayed on the Table Columns toggle fieldset.",
-                })}
+                {intl.formatMessage(adminMessages.toggleAll)}
               </label>
             </div>
             {table
