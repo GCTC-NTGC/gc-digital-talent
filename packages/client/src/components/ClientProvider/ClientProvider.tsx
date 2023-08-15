@@ -23,6 +23,7 @@ import { toast } from "@gc-digital-talent/toast";
 import {
   buildValidationErrorMessageNode,
   extractErrorMessages,
+  extractValidationMessageKeys,
 } from "../../utils/errors";
 
 // generate nonce somewhere here?
@@ -161,7 +162,13 @@ const ClientProvider = ({
               error: CombinedError,
               operation: Operation<unknown, AnyVariables>,
             ) => {
-              const errorMessages = extractErrorMessages(error);
+              let errorMessages = extractErrorMessages(error);
+
+              const validationMessageKeys = extractValidationMessageKeys(error);
+              if (validationMessageKeys) {
+                errorMessages = validationMessageKeys;
+              }
+
               const errorMessageNode = buildValidationErrorMessageNode(
                 errorMessages,
                 intl,

@@ -8,6 +8,21 @@ import { tryFindMessageDescriptor } from "@gc-digital-talent/i18n";
 export const extractErrorMessages = (combinedError: CombinedError) =>
   combinedError.graphQLErrors.flatMap((error) => error.message);
 
+// grab the validation error enums to map them to messages
+export const extractValidationMessageKeys = (
+  combinedError: CombinedError,
+): string[] | null => {
+  const validationArray = combinedError.graphQLErrors[0].extensions
+    .validation as object;
+  const arrayOfValuesFlattened = Object.values(
+    validationArray,
+  ).flat() as string[];
+  if (arrayOfValuesFlattened && arrayOfValuesFlattened.length > 0) {
+    return arrayOfValuesFlattened;
+  }
+  return null;
+};
+
 // Accepts a list of error messages, localizes them, and returns a formatted ReactNode for toasting
 export const buildValidationErrorMessageNode = (
   errorMessages: Array<string>,
