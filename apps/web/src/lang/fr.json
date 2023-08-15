@@ -2367,10 +2367,6 @@
     "defaultMessage": "Créer<hidden> une classification</hidden>",
     "description": "Breadcrumb title for the create classification page link."
   },
-  "E9I34y": {
-    "defaultMessage": "Titre de la thèse",
-    "description": "Label displayed on education form for thesis title input"
-  },
   "E9S4B8": {
     "defaultMessage": "Lien copié!",
     "description": "Button text to be displayed after link was copied"
@@ -4985,14 +4981,6 @@
     "defaultMessage": "Vous n’avez pas encore mis en vedette une compétence pour cette expérience.",
     "description": "Primary message to user when no skills have been attached to experience."
   },
-  "YJS2CB": {
-    "defaultMessage": "Décerné à",
-    "description": "The award was given to"
-  },
-  "YJdsMY": {
-    "defaultMessage": "Organisation ou institution émettrice",
-    "description": "Label displayed on award form for issuing organization input"
-  },
   "YKqt+1": {
     "defaultMessage": "Niveau d’études",
     "description": "Title for education level on summary of filters section"
@@ -6137,10 +6125,6 @@
     "defaultMessage": "Parcourez les emplois",
     "description": "Breadcrumb title for the browse pools page."
   },
-  "gEBoM0": {
-    "defaultMessage": "Projet/produit",
-    "description": "Label displayed on Community Experience form for Project / product section"
-  },
   "gHMj31": {
     "defaultMessage": "Aucune expérience trouvée",
     "description": "Null state messages for career timeline list when no experiences are found."
@@ -6695,10 +6679,6 @@
     "defaultMessage": "Le bassin a été archivé avec succès!",
     "description": "Message affiché à l'utilisateur après l'archivage du bassin"
   },
-  "jhhCKX": {
-    "defaultMessage": "Portée du prix",
-    "description": "Label displayed on award form for scope section"
-  },
   "jiJ8qo": {
     "defaultMessage": "Poursuivre l’ébauche",
     "description": "Link text to continue a specific application that is in draft state."
@@ -6829,14 +6809,6 @@
   "kiH9nz": {
     "defaultMessage": "Sélectionnez<hidden> une langue autochtone </hidden>",
     "description": "Button text displayed for Indigenous languages dropdown"
-  },
-  "kjX7mF": {
-    "defaultMessage": "Aucune information n'a été fournie.",
-    "description": "Message on Admin side when user not filled RoleSalary section."
-  },
-  "knmaAL": {
-    "defaultMessage": "Les personnes ne se résument pas à leur formation et à leur expérience professionnelle. Nous voulons vous permettre de faire part de ce que vous avez appris à partir d’autres expériences. Pour protéger votre vie privée, veuillez ne pas indiquer de renseignements sensibles sur vous-même ou sur d’autres personnes.",
-    "description": "Description blurb for Personal Experience Details form"
   },
   "ksMybU": {
     "defaultMessage": "Erreur : échec de la création de la compétence",
@@ -7172,10 +7144,6 @@
   "mzQAMK": {
     "defaultMessage": "Toutes les familles de compétences ({count})",
     "description": "Label for removing the skill family filter"
-  },
-  "n0lR5F": {
-    "defaultMessage": "Sélectionner un type d’expérience",
-    "description": "Heading for the experience type section for the experience form"
   },
   "n4pt+y": {
     "defaultMessage": "Nom de l’équipe (Anglais)",
@@ -7611,10 +7579,6 @@
   "qrDCTV": {
     "defaultMessage": "Catégorie",
     "description": "Title displayed for the Pool Candidates table Priority column."
-  },
-  "qrdJ13": {
-    "defaultMessage": "Date de la remise du prix",
-    "description": "Label for the date an award was given"
   },
   "qs/dFw": {
     "defaultMessage": "Exigences de fonctionnement acceptées",
