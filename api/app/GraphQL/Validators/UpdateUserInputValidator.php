@@ -47,7 +47,6 @@ final class UpdateUserInputValidator extends Validator
         return [
             'email.unique' => 'EmailAddressInUse',
             'sub.unique' => 'SubInUse',
-            'indigenousCommunities' => 'BothStatusNonStatus',
         ];
     }
 }
