@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
@@ -49,20 +49,20 @@ const contactLink = (chunks: React.ReactNode) => (
   </Link>
 );
 
+export const pageTitle = defineMessage({
+  defaultMessage: "Directive on Digital Talent",
+  id: "xXwUGs",
+  description: "Title for the digital talent directive page",
+});
+
 const DirectivePage = () => {
   const intl = useIntl();
   const { locale } = useLocale();
   const paths = useRoutes();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Directive on Digital Talent",
-    id: "xXwUGs",
-    description: "Title for the digital talent directive page",
-  });
-
   const crumbs = useBreadcrumbs([
     {
-      label: pageTitle,
+      label: intl.formatMessage(pageTitle),
       url: paths.directive(),
     },
   ]);
@@ -140,7 +140,7 @@ const DirectivePage = () => {
   return (
     <>
       <Hero
-        title={pageTitle}
+        title={intl.formatMessage(pageTitle)}
         subtitle={intl.formatMessage({
           defaultMessage:
             "Learn more about how the Government of Canada is strengthening the talent base of the GC digital community.",
