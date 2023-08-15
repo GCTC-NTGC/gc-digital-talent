@@ -4,12 +4,7 @@ export type ListItemProps = React.HTMLProps<HTMLLIElement>;
 
 export const ListItem = ({ children, ...rest }: ListItemProps) => (
   <li data-h2-margin-bottom="base(x.25)" {...rest}>
-    <span
-      data-h2-display="base(inline-flex)"
-      data-h2-align-items="base(flex-start)"
-    >
-      {children}
-    </span>
+    {children}
   </li>
 );
 

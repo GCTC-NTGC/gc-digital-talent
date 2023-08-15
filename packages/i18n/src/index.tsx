@@ -75,7 +75,6 @@ import {
   poolCandidatePriorities,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
-  getPoolCandidateStatusLabel,
 } from "./messages/localizedConstants";
 
 import { STORED_LOCALE } from "./const";
@@ -153,7 +152,6 @@ export {
   getAbbreviations,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
-  getPoolCandidateStatusLabel,
 };
 
 export type { Locales, Messages };

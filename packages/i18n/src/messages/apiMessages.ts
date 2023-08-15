@@ -6,6 +6,12 @@ import { defineMessages, MessageDescriptor } from "react-intl";
 
 export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
   {
+    "Internal server error": {
+      defaultMessage: "Unknown error",
+      id: "iqD8qE",
+      description: "Fallback text when an error message is not supplied",
+    },
+
     // users validation
     SubInUse: {
       defaultMessage:

@@ -11,20 +11,6 @@ const messages = defineMessages({
     id: "LYCaEd",
     description: "Simplified status label for expired recruitments",
   },
-  placedAvailability: {
-    defaultMessage:
-      "Congrats! As you were hired from this recruitment, you will no longer receive opportunities related to it.",
-    id: "cVWREE",
-    description:
-      "Message displayed when an applicant has been placed as a result of a recruitment",
-  },
-  expiredAvailability: {
-    defaultMessage:
-      "This recruitment has expired and it is no longer available for hiring opportunities.",
-    id: "kekvz1",
-    description:
-      "Message displayed when an applicant application to a recruitment has expired and no longer available",
-  },
   suspendedAvailability: {
     defaultMessage:
       "You are not receiving opportunities from this recruitment.",

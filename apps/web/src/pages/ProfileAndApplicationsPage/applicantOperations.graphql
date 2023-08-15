@@ -80,14 +80,6 @@ query ApplicantInformation {
         fr
       }
     }
-    expectedGenericJobTitles {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
     isWoman
     hasDisability
     isIndigenous
@@ -100,16 +92,6 @@ query ApplicantInformation {
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
-    expectedSalary
-    expectedClassifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-    }
     positionDuration
     isProfileComplete
     experiences {
