@@ -58,9 +58,9 @@ const DigitalServicesContractingQuestionnaire = () => {
         subtitle={intl.formatMessage({
           defaultMessage:
             "Complete this form as a part of your role in the Directive on Digital Talent.",
-          id: "9zxAKG",
+          id: "RNGz7i",
           description:
-            "Subtitle for the digital services contracting questionnaire page",
+            "Subtitle for the _digital services contracting questionnaire_ page",
         })}
         crumbs={crumbs}
       />
@@ -218,9 +218,9 @@ const DigitalServicesContractingQuestionnaire = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "Complete and submit this questionnaire at the time when a contract for digital services is submitted to departmental procurement authorities for processing.",
-                  id: "sBVNgZ",
+                  id: "SgkkWp",
                   description:
-                    "Paragraph one of the instructions section of the digital services contracting questionnaire",
+                    "Paragraph one of the _instructions_ section of the _digital services contracting questionnaire_",
                 })}
               </p>
               <p data-h2-margin-top="base(x.5)">
@@ -228,9 +228,9 @@ const DigitalServicesContractingQuestionnaire = () => {
                   {
                     defaultMessage:
                       "All questions in this questionnaire are marked as required (<red>*</red>) unless otherwise specified. A copy of your submission will be emailed to you upon completion. Please note that you can also optionally download a blank copy of this form and submit it to the <link>GC Digital Talent mailbox</link> through email.",
-                    id: "V1fEzm",
+                    id: "kj2Qkb",
                     description:
-                      "Paragraph two of the instructions section of the digital services contracting questionnaire",
+                      "Paragraph two of the _instructions_ section of the _digital services contracting questionnaire_",
                   },
                   {
                     link: (text: React.ReactNode) =>
@@ -246,9 +246,9 @@ const DigitalServicesContractingQuestionnaire = () => {
                   {
                     defaultMessage:
                       "For any questions or concerns regarding the questionnaire, contact <link>GC Digital Talent</link> for more information.",
-                    id: "JTarzr",
+                    id: "Vjf463",
                     description:
-                      "Paragraph three of the instructions section of the digital services contracting questionnaire",
+                      "Paragraph three of the _instructions_ section of the _digital services contracting questionnaire_",
                   },
                   {
                     link: (text: React.ReactNode) =>
@@ -281,9 +281,9 @@ const DigitalServicesContractingQuestionnaire = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "OCIO of the Treasury Board of Canada Secretariat (TBS) is responsible for the sustainability and development in the GC Digital Community, including:",
-                  id: "wGjHIZ",
+                  id: "ihJUtJ",
                   description:
-                    "Introduction to the role of the cio section of the digital services contracting questionnaire",
+                    "Introduction to the _role of the cio_ section of the _digital services contracting questionnaire_",
                 })}
               </p>
               <ul data-h2-margin-top="base(x.5)">
@@ -292,9 +292,9 @@ const DigitalServicesContractingQuestionnaire = () => {
                     {
                       defaultMessage:
                         "Developing <link>generic suite of HR products</link> (accessible on GC network only), such as standardized job descriptions, for the digital community",
-                      id: "eEoeVf",
+                      id: "F2F3dY",
                       description:
-                        "An OCIO role in the role of the cio section of the digital services contracting questionnaire",
+                        "An OCIO role in the _role of the cio_ section of the _digital services contracting questionnaire_",
                     },
                     {
                       link: (text: React.ReactNode) =>
@@ -309,45 +309,45 @@ const DigitalServicesContractingQuestionnaire = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "Running government-wide recruitment processes for digital talent",
-                    id: "AvNfPf",
+                    id: "CrqCDE",
                     description:
-                      "An OCIO role in the role of the cio section of the digital services contracting questionnaire",
+                      "An OCIO role in the _role of the cio_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "Implementing and supporting initiatives to advance diversity, equity and inclusion in the digital community",
-                    id: "Vmb9rg",
+                    id: "+5twwC",
                     description:
-                      "An OCIO role in the role of the cio section of the digital services contracting questionnaire",
+                      "An OCIO role in the _role of the cio_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "Maintaining pools of digital talent accessible by all departments",
-                    id: "EFfUhx",
+                    id: "yp6OCO",
                     description:
-                      "An OCIO role in the role of the cio section of the digital services contracting questionnaire",
+                      "An OCIO role in the _role of the cio_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "Developing career pathways for digital talent",
-                    id: "z+oA5r",
+                    id: "VlQ7r/",
                     description:
-                      "An OCIO role in the role of the cio section of the digital services contracting questionnaire",
+                      "An OCIO role in the _role of the cio_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "Identifying and coordinating government-wide training and upskilling opportunities",
-                    id: "13qDnO",
+                    id: "RiF2sQ",
                     description:
-                      "An OCIO role in the role of the cio section of the digital services contracting questionnaire",
+                      "An OCIO role in the _role of the cio_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
               </ul>
@@ -365,18 +365,18 @@ const DigitalServicesContractingQuestionnaire = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "This data collection enables business intelligence on the GC digital talent ecosystem. The information helps to identify emerging digital skills requirements and potential gaps in the GC digital community.",
-                  id: "Q0bIwJ",
+                  id: "iasn5H",
                   description:
-                    "Paragraph one of the introduction to the _why collect this data_ section of the digital services contracting questionnaire",
+                    "Paragraph one of the introduction to the _why collect this data_ section of the _digital services contracting questionnaire_",
                 })}
               </p>
               <p data-h2-margin-top="base(x.5)">
                 {intl.formatMessage({
                   defaultMessage:
                     "Informed by this data, OCIO can work with departments and agencies on government-wide strategies and initiatives to develop the GC digital community, including:",
-                  id: "JIVMrq",
+                  id: "KCzZr9",
                   description:
-                    "Paragraph two of the introduction to the _why collect this data_ section of the digital services contracting questionnaire",
+                    "Paragraph two of the introduction to the _why collect this data_ section of the _digital services contracting questionnaire_",
                 })}
               </p>
               <ul data-h2-margin-top="base(x.5)">
@@ -384,36 +384,36 @@ const DigitalServicesContractingQuestionnaire = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "Creating GC-wide pool of prequalified digital talent, informed by departmental needs",
-                    id: "ZwDw0q",
+                    id: "TUz/Cm",
                     description:
-                      "A reason to collect this data in the _why collect this data_ section of the digital services contracting questionnaire",
+                      "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "Advancing the coordination of training and upskilling opportunities for the GC digital community",
-                    id: "baR2Fp",
+                    id: "7MMfLQ",
                     description:
-                      "A reason to collect this data in the _why collect this data_ section of the digital services contracting questionnaire",
+                      "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "Identifying potential systemic challenges and barriers in sourcing digital talent",
-                    id: "W3mCZr",
+                    id: "/8qCuC",
                     description:
-                      "A reason to collect this data in the _why collect this data_ section of the digital services contracting questionnaire",
+                      "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "Working with mandate authorities across the GC to identify solutions and best practices",
-                    id: "K2krf9",
+                    id: "mpt068",
                     description:
-                      "A reason to collect this data in the _why collect this data_ section of the digital services contracting questionnaire",
+                      "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
               </ul>
@@ -431,36 +431,36 @@ const DigitalServicesContractingQuestionnaire = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "As set out in the Mandatory Procedures for Digital Talent, the business owner is responsible for completing and submitting the Digital Services Contracting Questionnaire if they are procuring digital services.",
-                  id: "vCh4ZD",
+                  id: "kc730N",
                   description:
-                    "Paragraph one of the _requirements_ section of the digital services contracting questionnaire",
+                    "Paragraph one of the _requirements_ section of the _digital services contracting questionnaire_",
                 })}
               </p>
               <p data-h2-margin-top="base(x.5)">
                 {intl.formatMessage({
                   defaultMessage:
                     "Prior to concluding that a shortage of available or qualified digital talent is the primary rationale for procurement, the business owner must confirm with OCIO that there is no available pre-qualified talent in an OCIO-coordinated talent pool that could meet the need in the timeframe provided.",
-                  id: "T1BZ3s",
+                  id: "58vxwx",
                   description:
-                    "Paragraph two of the _requirements_ section of the digital services contracting questionnaire",
+                    "Paragraph two of the _requirements_ section of the _digital services contracting questionnaire_",
                 })}
               </p>
               <p data-h2-margin-top="base(x.5)">
                 {intl.formatMessage({
                   defaultMessage:
                     "The completed questionnaire needs to be submitted at the time when a contract for digital services (including call-up of an established contracting vehicle) is submitted to departmental procurement authorities for processing.",
-                  id: "s5XJ6/",
+                  id: "tgGPyx",
                   description:
-                    "Paragraph three of the _requirements_ section of the digital services contracting questionnaire",
+                    "Paragraph three of the _requirements_ section of the _digital services contracting questionnaire_",
                 })}
               </p>
               <p data-h2-margin-top="base(x.5)">
                 {intl.formatMessage({
                   defaultMessage:
                     "This is a reporting requirement only and does not impose any additional approval steps by OCIO. In other words, no OCIO approval is required to initiate a procurement process for digital services.",
-                  id: "GIw21W",
+                  id: "a8S36W",
                   description:
-                    "Paragraph four of the _requirements_ section of the digital services contracting questionnaire",
+                    "Paragraph four of the _requirements_ section of the _digital services contracting questionnaire_",
                 })}
               </p>
               <p data-h2-margin-top="base(x.5)">
@@ -468,9 +468,9 @@ const DigitalServicesContractingQuestionnaire = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       'Click here for examples of "contracts for digital services" where this requirement applies.',
-                    id: "XRFrVu",
+                    id: "I8y5Fz",
                     description:
-                      "Paragraph five of the _requirements_ section of the digital services contracting questionnaire",
+                      "Paragraph five of the _requirements_ section of the _digital services contracting questionnaire_",
                   })}
                 </AnchorLink>
               </p>
@@ -564,61 +564,61 @@ const DigitalServicesContractingQuestionnaire = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "For the purpose of this requirement, contracts for digital services include any contract, regardless of procurement type or solicitation procedure, that supports the development or delivery of GC digital initiatives, products or services, such as contracts that are for:",
-                  id: "f1GUQY",
+                  id: "tXw1VV",
                   description:
-                    "Paragraph one of the _examples of contracts_ section of the digital services contracting questionnaire",
+                    "Paragraph one of the _examples of contracts_ section of the _digital services contracting questionnaire_",
                 })}
               </p>
               <ul data-h2-margin-top="base(x.5)">
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "information technology",
-                    id: "4v2BSj",
+                    id: "wUujPy",
                     description:
-                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                      "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage: "information management",
-                    id: "X3sUew",
+                    id: "G0OY3I",
                     description:
-                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                      "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage: "cybersecurity",
-                    id: "kKd4C5",
+                    id: "6cEYtp",
                     description:
-                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                      "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "data management for the development or delivery of a GC digital initiative, service or product",
-                    id: "gKm/bu",
+                    id: "T5QT/C",
                     description:
-                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                      "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "data science and analytics for the development or delivery of a GC digital initiative, service or product",
-                    id: "003roD",
+                    id: "wUdfC1",
                     description:
-                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                      "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "user-experience research or service design for the development or delivery of a GC digital initiative, service or product",
-                    id: "HEdorr",
+                    id: "4bEY3Y",
                     description:
-                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                      "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
               </ul>
@@ -626,9 +626,9 @@ const DigitalServicesContractingQuestionnaire = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "Examples of these contracts may include, but are not limited to:",
-                  id: "i3H6cU",
+                  id: "4UYBKD",
                   description:
-                    "Paragraph two of the _examples of contracts_ section of the digital services contracting questionnaire",
+                    "Paragraph two of the _examples of contracts_ section of the _digital services contracting questionnaire_",
                 })}
               </p>
               <ul data-h2-margin-top="base(x.5)">
@@ -636,54 +636,54 @@ const DigitalServicesContractingQuestionnaire = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "professional services contract for cyber security assessment",
-                    id: "xLNLIR",
+                    id: "Vbl9/L",
                     description:
-                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                      "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "a sole source contract for a consulting firm to conduct user research on a digital product",
-                    id: "NKHWGT",
+                    id: "hl4QA9",
                     description:
-                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                      "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "a supply arrangement for a supplier to build a digital application",
-                    id: "N296L/",
+                    id: "qQjLqa",
                     description:
-                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                      "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "a contract bringing in consultants to conduct service design for a digital service",
-                    id: "ND9YNG",
+                    id: "ONrdDg",
                     description:
-                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                      "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "a competitive contract to bring in multiple software developers for surge capacity",
-                    id: "f6rxwf",
+                    id: "KsRa41",
                     description:
-                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                      "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "an amendment or extension to a contract for software testing",
-                    id: "rQsqQR",
+                    id: "Ds7ONS",
                     description:
-                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                      "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
               </ul>
@@ -692,9 +692,9 @@ const DigitalServicesContractingQuestionnaire = () => {
                   {
                     defaultMessage:
                       "If there is uncertainty on whether this questionnaire is required for a specific type of contract, contact <link>GCTalentGC@tbs-sct.gc.ca</link> for more information.",
-                    id: "cXFy97",
+                    id: "zXzQhc",
                     description:
-                      "Paragraph three of the _examples of contracts_ section of the digital services contracting questionnaire",
+                      "Paragraph three of the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   },
                   {
                     link: (text: React.ReactNode) =>
@@ -709,9 +709,9 @@ const DigitalServicesContractingQuestionnaire = () => {
                 <AnchorLink id={PAGE_SECTION_ID.REQUIREMENTS}>
                   {intl.formatMessage({
                     defaultMessage: "Return to requirement.",
-                    id: "iMA0lR",
+                    id: "K21f0k",
                     description:
-                      "A link to return to the _requirements_ section in the digital services contracting questionnaire",
+                      "A link to return to the _requirements_ section in the _digital services contracting questionnaire_",
                   })}
                 </AnchorLink>
               </p>
