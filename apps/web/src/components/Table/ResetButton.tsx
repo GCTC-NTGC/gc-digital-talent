@@ -8,8 +8,8 @@ const ResetButton = (
   const intl = useIntl();
   return (
     <button
-      data-h2-background-color="base(transparent) base:hover(gray.lightest)"
-      data-h2-border="base(2px solid transparent) base:focus-visible(2px solid secondary)"
+      data-h2-background-color="base(transparent) base:hover(gray.lightest) base:focus-visible(focus)"
+      data-h2-color="base(gray) base:hover(black) base:focus-visible(black)"
       data-h2-radius="base(input)"
       data-h2-cursor="base(pointer)"
       data-h2-outline="base(none)"
@@ -25,11 +25,7 @@ const ResetButton = (
       {...props}
       type="button"
     >
-      <XMarkIcon
-        data-h2-height="base(1em)"
-        data-h2-width="base(1em)"
-        data-h2-color="base(gray)"
-      />
+      <XMarkIcon data-h2-height="base(1rem)" data-h2-width="base(1rem)" />
     </button>
   );
 };

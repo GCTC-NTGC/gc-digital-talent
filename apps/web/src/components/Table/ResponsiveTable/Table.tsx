@@ -97,7 +97,7 @@ const Row = (props: RowProps) => (
   <tr
     role="row"
     data-h2-display="base(flex) l-tablet(table-row)"
-    data-h2-background-color="base:selectors[*:nth-child(even)](black.lightest.60) base:selectors[*:nth-child(odd)](foreground)"
+    data-h2-background-color="base:selectors[*:nth-child(even)](black.lightest.10) base:selectors[*:nth-child(odd)](foreground)"
     data-h2-border-bottom="base(1px solid gray.light)"
     data-h2-flex-direction="base(row)"
     data-h2-flex-wrap="base(wrap)"
@@ -252,6 +252,7 @@ interface ControlsProps {
 const Controls = ({ children, addLink }: ControlsProps) => (
   <div
     data-h2-display="base(flex)"
+    data-h2-align-items="base(flex-end)"
     data-h2-flex-direction="base(column) l-tablet(row)"
     data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
     data-h2-margin-bottom="base(x.25)"
@@ -260,6 +261,7 @@ const Controls = ({ children, addLink }: ControlsProps) => (
   >
     <div
       data-h2-display="base(flex)"
+      data-h2-align-items="base(flex-end)"
       data-h2-flex-direction="base(column) l-tablet(row)"
       data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
       data-h2-flex-grow="base(1)"
