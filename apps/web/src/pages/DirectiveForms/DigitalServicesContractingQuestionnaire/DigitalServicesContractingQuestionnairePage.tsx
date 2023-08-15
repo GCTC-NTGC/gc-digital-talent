@@ -5,6 +5,7 @@ import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import ListBulletIcon from "@heroicons/react/24/outline/ListBulletIcon";
 
 import { Heading, Link, TableOfContents } from "@gc-digital-talent/ui";
+import AnchorLink from "@gc-digital-talent/ui/src/components/TableOfContents/AnchorLink";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -22,10 +23,6 @@ export const pageTitle = defineMessage({
   description:
     "Title for the Digital services contracting questionnaire form page",
 });
-
-function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
-  return <Link href={href}>{chunks}</Link>;
-}
 
 function buildExternalLink(
   href: string,
@@ -84,7 +81,7 @@ const DigitalServicesContractingQuestionnaire = () => {
                     getSectionTitle(PAGE_SECTION_ID.PREAMBLE),
                   )}
                 </TableOfContents.AnchorLink>
-                <TableOfContents.List>
+                <TableOfContents.List space="sm">
                   <TableOfContents.ListItem>
                     <TableOfContents.AnchorLink
                       id={PAGE_SECTION_ID.ROLE_OF_THE_CIO}
@@ -114,11 +111,79 @@ const DigitalServicesContractingQuestionnaire = () => {
                   </TableOfContents.ListItem>
                 </TableOfContents.List>
               </TableOfContents.ListItem>
-
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.QUESTIONNAIRE}>
                   {intl.formatMessage(
                     getSectionTitle(PAGE_SECTION_ID.QUESTIONNAIRE),
+                  )}
+                </TableOfContents.AnchorLink>
+                <TableOfContents.List space="sm">
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.GENERAL_INFORMATION}
+                    >
+                      {intl.formatMessage(
+                        getSectionTitle(PAGE_SECTION_ID.GENERAL_INFORMATION),
+                      )}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.SCOPE_OF_CONTRACT}
+                    >
+                      {intl.formatMessage(
+                        getSectionTitle(PAGE_SECTION_ID.SCOPE_OF_CONTRACT),
+                      )}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.CONTRACT_REQUIREMENTS}
+                    >
+                      {intl.formatMessage(
+                        getSectionTitle(PAGE_SECTION_ID.CONTRACT_REQUIREMENTS),
+                      )}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE}
+                    >
+                      {intl.formatMessage(
+                        getSectionTitle(PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE),
+                      )}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS}
+                    >
+                      {intl.formatMessage(
+                        getSectionTitle(
+                          PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS,
+                        ),
+                      )}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.TALENT_SOURCING_DECISION}
+                    >
+                      {intl.formatMessage(
+                        getSectionTitle(
+                          PAGE_SECTION_ID.TALENT_SOURCING_DECISION,
+                        ),
+                      )}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                </TableOfContents.List>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={PAGE_SECTION_ID.EXAMPLES_OF_CONTRACTS}
+                >
+                  {intl.formatMessage(
+                    getSectionTitle(PAGE_SECTION_ID.EXAMPLES_OF_CONTRACTS),
                   )}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
@@ -205,7 +270,7 @@ const DigitalServicesContractingQuestionnaire = () => {
             </TableOfContents.Section>
             <TableOfContents.Section
               id={PAGE_SECTION_ID.ROLE_OF_THE_CIO}
-              data-h2-padding-top="base(x2)"
+              data-h2-padding-top="base(x1)"
             >
               <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
                 {intl.formatMessage(
@@ -399,35 +464,257 @@ const DigitalServicesContractingQuestionnaire = () => {
                 })}
               </p>
               <p data-h2-margin-top="base(x.5)">
-                {intl.formatMessage(
-                  {
+                <AnchorLink id={PAGE_SECTION_ID.EXAMPLES_OF_CONTRACTS}>
+                  {intl.formatMessage({
                     defaultMessage:
-                      '<link>Click here for examples of "contracts for digital services" where this requirement applies.</link>',
-                    id: "2ItcXN",
+                      'Click here for examples of "contracts for digital services" where this requirement applies.',
+                    id: "XRFrVu",
                     description:
                       "Paragraph five of the _requirements_ section of the digital services contracting questionnaire",
-                  },
-                  {
-                    link: (text: React.ReactNode) => buildLink("#", text),
-                  },
-                )}
+                  })}
+                </AnchorLink>
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section
               id={PAGE_SECTION_ID.QUESTIONNAIRE}
               data-h2-padding-top="base(x2)"
             >
-              <Heading
-                Icon={ListBulletIcon}
-                size="h3"
-                color="tertiary"
-                data-h2-margin="base(0, 0, x1, 0)"
-              >
+              <Heading Icon={ListBulletIcon} size="h3" color="tertiary">
                 {intl.formatMessage(
                   getSectionTitle(PAGE_SECTION_ID.QUESTIONNAIRE),
                 )}
               </Heading>
-              Hello, QUESTIONNAIRE
+              <TableOfContents.Section
+                id={PAGE_SECTION_ID.GENERAL_INFORMATION}
+                data-h2-padding-top="base(x1)"
+              >
+                <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                  {intl.formatMessage(
+                    getSectionTitle(PAGE_SECTION_ID.GENERAL_INFORMATION),
+                  )}
+                </Heading>
+                TODO: GENERAL_INFORMATION
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={PAGE_SECTION_ID.SCOPE_OF_CONTRACT}
+                data-h2-padding-top="base(x2)"
+              >
+                <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                  {intl.formatMessage(
+                    getSectionTitle(PAGE_SECTION_ID.SCOPE_OF_CONTRACT),
+                  )}
+                </Heading>
+                TODO: SCOPE_OF_CONTRACT
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={PAGE_SECTION_ID.CONTRACT_REQUIREMENTS}
+                data-h2-padding-top="base(x2)"
+              >
+                <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                  {intl.formatMessage(
+                    getSectionTitle(PAGE_SECTION_ID.CONTRACT_REQUIREMENTS),
+                  )}
+                </Heading>
+                TODO: CONTRACT_REQUIREMENTS
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE}
+                data-h2-padding-top="base(x2)"
+              >
+                <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                  {intl.formatMessage(
+                    getSectionTitle(PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE),
+                  )}
+                </Heading>
+                TODO: TECHNOLOGICAL_CHANGE
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS}
+                data-h2-padding-top="base(x2)"
+              >
+                <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                  {intl.formatMessage(
+                    getSectionTitle(PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS),
+                  )}
+                </Heading>
+                TODO: OPERATIONS_CONSIDERATIONS
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={PAGE_SECTION_ID.TALENT_SOURCING_DECISION}
+                data-h2-padding-top="base(x2)"
+              >
+                <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                  {intl.formatMessage(
+                    getSectionTitle(PAGE_SECTION_ID.TALENT_SOURCING_DECISION),
+                  )}
+                </Heading>
+                TODO: TALENT_SOURCING_DECISION
+              </TableOfContents.Section>
+            </TableOfContents.Section>
+            <TableOfContents.Section
+              id={PAGE_SECTION_ID.EXAMPLES_OF_CONTRACTS}
+              data-h2-padding-top="base(x2)"
+            >
+              <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                {intl.formatMessage(
+                  getSectionTitle(PAGE_SECTION_ID.EXAMPLES_OF_CONTRACTS),
+                )}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "For the purpose of this requirement, contracts for digital services include any contract, regardless of procurement type or solicitation procedure, that supports the development or delivery of GC digital initiatives, products or services, such as contracts that are for:",
+                  id: "f1GUQY",
+                  description:
+                    "Paragraph one of the _examples of contracts_ section of the digital services contracting questionnaire",
+                })}
+              </p>
+              <ul data-h2-margin-top="base(x.5)">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage: "information technology",
+                    id: "4v2BSj",
+                    description:
+                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                  })}
+                </li>
+                <li data-h2-margin-top="base(x.25)">
+                  {intl.formatMessage({
+                    defaultMessage: "information management",
+                    id: "X3sUew",
+                    description:
+                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                  })}
+                </li>
+                <li data-h2-margin-top="base(x.25)">
+                  {intl.formatMessage({
+                    defaultMessage: "cybersecurity",
+                    id: "kKd4C5",
+                    description:
+                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                  })}
+                </li>
+                <li data-h2-margin-top="base(x.25)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "data management for the development or delivery of a GC digital initiative, service or product",
+                    id: "gKm/bu",
+                    description:
+                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                  })}
+                </li>
+                <li data-h2-margin-top="base(x.25)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "data science and analytics for the development or delivery of a GC digital initiative, service or product",
+                    id: "003roD",
+                    description:
+                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                  })}
+                </li>
+                <li data-h2-margin-top="base(x.25)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "user-experience research or service design for the development or delivery of a GC digital initiative, service or product",
+                    id: "HEdorr",
+                    description:
+                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                  })}
+                </li>
+              </ul>
+              <p data-h2-margin-top="base(x.5)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Examples of these contracts may include, but are not limited to:",
+                  id: "i3H6cU",
+                  description:
+                    "Paragraph two of the _examples of contracts_ section of the digital services contracting questionnaire",
+                })}
+              </p>
+              <ul data-h2-margin-top="base(x.5)">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "professional services contract for cyber security assessment",
+                    id: "xLNLIR",
+                    description:
+                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                  })}
+                </li>
+                <li data-h2-margin-top="base(x.25)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "a sole source contract for a consulting firm to conduct user research on a digital product",
+                    id: "NKHWGT",
+                    description:
+                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                  })}
+                </li>
+                <li data-h2-margin-top="base(x.25)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "a supply arrangement for a supplier to build a digital application",
+                    id: "N296L/",
+                    description:
+                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                  })}
+                </li>
+                <li data-h2-margin-top="base(x.25)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "a contract bringing in consultants to conduct service design for a digital service",
+                    id: "ND9YNG",
+                    description:
+                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                  })}
+                </li>
+                <li data-h2-margin-top="base(x.25)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "a competitive contract to bring in multiple software developers for surge capacity",
+                    id: "f6rxwf",
+                    description:
+                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                  })}
+                </li>
+                <li data-h2-margin-top="base(x.25)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "an amendment or extension to a contract for software testing",
+                    id: "rQsqQR",
+                    description:
+                      "An example in the _examples of contracts_ section of the digital services contracting questionnaire",
+                  })}
+                </li>
+              </ul>
+              <p data-h2-margin-top="base(x.5)">
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "If there is uncertainty on whether this questionnaire is required for a specific type of contract, contact <link>GCTalentGC@tbs-sct.gc.ca</link> for more information.",
+                    id: "cXFy97",
+                    description:
+                      "Paragraph three of the _examples of contracts_ section of the digital services contracting questionnaire",
+                  },
+                  {
+                    link: (text: React.ReactNode) =>
+                      buildExternalLink(
+                        "mailto:GCTalentGC@tbs-sct.gc.ca",
+                        text,
+                      ),
+                  },
+                )}
+              </p>
+              <p data-h2-margin-top="base(x.5)">
+                <AnchorLink id={PAGE_SECTION_ID.REQUIREMENTS}>
+                  {intl.formatMessage({
+                    defaultMessage: "Return to requirement.",
+                    id: "iMA0lR",
+                    description:
+                      "A link to return to the _requirements_ section in the digital services contracting questionnaire",
+                  })}
+                </AnchorLink>
+              </p>
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>

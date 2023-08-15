@@ -48,7 +48,6 @@ const getRoutes = (lang: Locales) => {
     userDeleted: () => path.join(baseUrl, "user-deleted"),
     createAccount: () => path.join(baseUrl, "create-account"),
     accessibility: () => path.join(baseUrl, "accessibility-statement"),
-    directive: () => path.join(baseUrl, "directive-on-digital-talent"),
     manager: () => path.join(baseUrl, "manager"),
     executive: () => path.join(baseUrl, "executive"),
 
@@ -285,9 +284,14 @@ const getRoutes = (lang: Locales) => {
     skillShowcase: () =>
       path.join(applicantUrl, "profile-and-applications", "skills", "showcase"),
 
-    // Directive forms
+    // Directive on digital talent
+    directive: () => path.join(baseUrl, "directive-on-digital-talent"),
     digitalServicesContractingQuestionnaire: () =>
-      path.join("directive-forms", "digital-services-contracting"),
+      path.join(
+        baseUrl,
+        "directive-on-digital-talent",
+        "digital-services-contracting-questionnaire",
+      ),
 
     /**
      * Deprecated
