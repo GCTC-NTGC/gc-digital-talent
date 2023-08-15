@@ -46,6 +46,7 @@ import ExperienceHeading from "~/components/ExperienceFormFields/ExperienceHeadi
 import {
   deriveExperienceType,
   formValuesToSubmitData,
+  getExperienceFormLabels,
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
 
@@ -75,6 +76,7 @@ export const ExperienceForm = ({
   userId,
 }: ExperienceFormProps) => {
   const intl = useIntl();
+  const experienceFormLabels = getExperienceFormLabels(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
   const returnPath = paths.careerTimelineAndRecruitment(userId || "");
@@ -269,12 +271,7 @@ export const ExperienceForm = ({
             {!edit && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id="type-of-experience">
-                  {intl.formatMessage({
-                    defaultMessage: "Select a type of experience",
-                    id: "jw6Umr",
-                    description:
-                      "Heading for the experience type section fo the experience form",
-                  })}
+                  {experienceFormLabels.selectType}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}

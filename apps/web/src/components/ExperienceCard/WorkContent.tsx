@@ -15,7 +15,7 @@ const WorkContent = ({
   headingLevel,
 }: ContentProps<WorkExperience>) => {
   const intl = useIntl();
-  const { team } = getExperienceFormLabels(intl);
+  const experienceFormLabels = getExperienceFormLabels(intl);
 
   return (
     <div
@@ -25,18 +25,14 @@ const WorkContent = ({
     >
       <ContentSection
         headingLevel={headingLevel}
-        title={intl.formatMessage({
-          defaultMessage: "Start/end date",
-          id: "PVzyQl",
-          description: "Label for the start/end date for an experience",
-        })}
+        title={experienceFormLabels.dateRange}
         data-h2-padding-right="p-tablet(x1)"
         data-h2-border-right="p-tablet(1px solid gray.lighter)"
       >
         <p>{getDateRange({ endDate, startDate, intl })}</p>
       </ContentSection>
       <ContentSection
-        title={team}
+        title={experienceFormLabels.team}
         headingLevel={headingLevel}
         data-h2-padding="p-tablet(0 0 x1 0)"
       >

@@ -13,6 +13,7 @@ import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 import { PoolStatus, Pool, UpdatePoolInput } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 
+import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { useEditPoolContext } from "./EditPoolContext";
 
 type FormValues = {
@@ -32,6 +33,7 @@ const ClosingDateSection = ({
   onSave,
 }: ClosingDateSectionProps): JSX.Element => {
   const intl = useIntl();
+  const experienceFormLabels = getExperienceFormLabels(intl);
   const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: Pool): FormValues => {
@@ -94,12 +96,7 @@ const ClosingDateSection = ({
           <div data-h2-margin="base(x1 0)">
             <DateInput
               id="endDate"
-              legend={intl.formatMessage({
-                defaultMessage: "End Date",
-                id: "80DOGy",
-                description:
-                  "Label displayed on the pool candidate form end date field.",
-              })}
+              legend={experienceFormLabels.endDate}
               name="endDate"
               disabled={formDisabled}
             />

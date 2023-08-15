@@ -100,6 +100,17 @@ export const getExperienceFormLabels = (
       id: "chnoRd",
       description: "Label for the type of experience a user is creating",
     }),
+    typeNullSelection: intl.formatMessage({
+      defaultMessage: "Select a type",
+      id: "5PUycY",
+      description: "Default selection for the experience type field",
+    }),
+    selectType: intl.formatMessage({
+      defaultMessage: "Select a type of experience",
+      id: "jw6Umr",
+      description:
+        "Heading for the experience type section fo the experience form",
+    }),
     awardTitle: intl.formatMessage({
       defaultMessage: "Award Title",
       id: "qeD2p/",
@@ -116,10 +127,9 @@ export const getExperienceFormLabels = (
       description: "Label displayed on Award form for awarded to input",
     }),
     issuedBy: intl.formatMessage({
-      defaultMessage: "Issuing Organization or Institution",
-      id: "YJdsMY",
-      description:
-        "Label displayed on award form for issuing organization input",
+      defaultMessage: "Issuing organization",
+      id: "NGEgVN",
+      description: "Label displayed on award form for organization section",
     }),
     awardedScope: intl.formatMessage({
       defaultMessage: "Award Scope",
@@ -148,6 +158,11 @@ export const getExperienceFormLabels = (
       defaultMessage: "End Date",
       id: "X8JZSG",
       description: "Label displayed on an Experience form for end date input",
+    }),
+    dateRange: intl.formatMessage({
+      defaultMessage: "Start/end date",
+      id: "PVzyQl",
+      description: "Label for the start/end date for an experience",
     }),
     educationType: intl.formatMessage({
       defaultMessage: "Type of Education",
