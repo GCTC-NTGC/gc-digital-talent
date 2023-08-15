@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use Closure;
 use Database\Helpers\ApiEnums;
+use Database\Helpers\ApiErrorEnums;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class IsStatusOrNonStatus implements ValidationRule
@@ -18,7 +19,7 @@ class IsStatusOrNonStatus implements ValidationRule
                 in_array(ApiEnums::INDIGENOUS_STATUS_FIRST_NATIONS, $value) &&
                 in_array(ApiEnums::INDIGENOUS_NON_STATUS_FIRST_NATIONS, $value)
             ) {
-                $fail('BothStatusNonStatus');
+                $fail(ApiErrorEnums::UPDATE_USER_BOTH_STATUS_NON_STATUS);
             }
         }
     }
