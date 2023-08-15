@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
+import { useSearchParams } from "react-router-dom";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
@@ -8,8 +9,10 @@ import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { useCommonInputStyles, Field } from "@gc-digital-talent/forms";
 
-import { SearchFormProps, SearchColumn, SearchState } from "./types";
 import ResetButton from "../ResetButton";
+
+import { SearchFormProps, SearchColumn, SearchState } from "./types";
+import { SEARCH_PARAM_KEY } from "./constants";
 
 /**
  * Search form
@@ -32,7 +35,7 @@ const SearchForm = <T,>({
   const intl = useIntl();
   const searchRef = React.useRef<HTMLInputElement | null>(null);
   const styles = useCommonInputStyles();
-
+  const [, setSearchParams] = useSearchParams();
   const initialColumn =
     state?.type && searchBy
       ? searchBy.find((column) => column.value === state?.type)
@@ -62,6 +65,25 @@ const SearchForm = <T,>({
         table.setColumnFilters([]);
         table.setGlobalFilter(newState.term);
       }
+
+      setSearchParams((previous) => {
+        let newParams = new URLSearchParams(previous);
+
+        if (newState.type) {
+          newParams.set(SEARCH_PARAM_KEY.SEARCH_COLUMN, newState.type);
+        } else {
+          newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
+        }
+
+        if (newState.term) {
+          newParams.set(SEARCH_PARAM_KEY.SEARCH_TERM, newState.term);
+        } else {
+          newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
+        }
+
+        newParams.delete(SEARCH_PARAM_KEY.PAGE);
+        return newParams;
+      });
     },
     [onChange, table],
   );
@@ -176,11 +198,18 @@ const SearchForm = <T,>({
             data-h2-display="base(flex)"
             data-h2-align-items="base(center)"
           >
-            <MagnifyingGlassIcon
-              data-h2-height="base(1rem)"
-              data-h2-width="base(1rem)"
-              data-h2-color="base(gray)"
-            />
+            <span
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(center)"
+              data-h2-flex-shrink="base(0)"
+              data-h2-padding="base(x.25)"
+            >
+              <MagnifyingGlassIcon
+                data-h2-height="base(1rem)"
+                data-h2-width="base(1rem)"
+                data-h2-color="base(gray)"
+              />
+            </span>
           </div>
           <input
             name="search"
@@ -194,7 +223,7 @@ const SearchForm = <T,>({
             data-h2-background-color="base(foreground)"
             data-h2-border-color="base(gray) base:focus-visible(focus)"
             data-h2-margin-left="base(0)"
-            data-h2-padding="base(x.5 x1.65 x.5 x1.25)"
+            data-h2-padding="base(x.5 x1.5)"
             data-h2-width="base(100%) l-tablet(auto)"
             {...(showDropdown
               ? {

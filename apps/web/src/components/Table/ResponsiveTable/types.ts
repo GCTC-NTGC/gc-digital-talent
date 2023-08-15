@@ -6,6 +6,7 @@ import type {
   SortingState,
   Table,
 } from "@tanstack/react-table";
+
 import { DownloadCsvProps } from "@gc-digital-talent/ui";
 
 export type SearchState = {
@@ -111,4 +112,11 @@ export type PaginationDef = {
   total?: number;
   /** Available page sizes */
   pageSizes?: number[];
+};
+
+export type InitialState = {
+  hiddenColumnIds: string[];
+  paginationState: PaginationState;
+  searchState: SearchState;
+  sortState: SortingState;
 };

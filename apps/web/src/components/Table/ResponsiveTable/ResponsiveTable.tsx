@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useIntl } from "react-intl";
+import { useSearchParams } from "react-router-dom";
+import isEqual from "lodash/isEqual";
 import type { ColumnDef, RowSelectionState } from "@tanstack/react-table";
 import {
   getCoreRowModel,
@@ -16,9 +17,9 @@ import SearchForm from "./SearchForm";
 import ColumnDialog from "./ColumnDialog";
 import NullMessage, { NullMessageProps } from "./NullMessage";
 import RowSelection, { getRowSelectionColumn } from "./RowSelection";
-import Pagination from "../../Pagination";
-
 import useControlledTableState from "./useControlledTableState";
+import TablePagination from "./TablePagination";
+import { SEARCH_PARAM_KEY } from "./constants";
 
 import type {
   AddLinkProps,
@@ -75,8 +76,8 @@ const ResponsiveTable = <TData extends object>({
   add,
   pagination,
 }: TableProps<TData>) => {
-  const intl = useIntl();
   const id = React.useId();
+  const [, setSearchParams] = useSearchParams();
   const isInternalSearch = search && search.internal;
   const memoizedData = React.useMemo(() => data, [data]);
   const memoizedColumns = React.useMemo(() => {
@@ -84,10 +85,11 @@ const ResponsiveTable = <TData extends object>({
     // Inject the selection column if it is enabled
     return [getRowSelectionColumn(rowSelect.cell), ...columns];
   }, [columns, rowSelect]);
+  const columnIds = memoizedColumns.map((column) => column.id).filter(notEmpty);
 
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
-  const { state, updaters } = useControlledTableState({
-    columnIds: memoizedColumns.map((column) => column.id).filter(notEmpty),
+  const { state, initialState, updaters } = useControlledTableState({
+    columnIds,
     initialState: {
       hiddenColumnIds,
       searchState: search?.initialState,
@@ -131,33 +133,24 @@ const ResponsiveTable = <TData extends object>({
     ...updaters,
   });
 
+  const sortRule = table.getState().sorting;
+  React.useEffect(() => {
+    setSearchParams((previous) => {
+      let newParams = new URLSearchParams(previous);
+
+      if (isEqual(sortRule, sort?.initialState)) {
+        newParams.delete(SEARCH_PARAM_KEY.SORT_RULE);
+      } else {
+        newParams.set(SEARCH_PARAM_KEY.SORT_RULE, JSON.stringify(sortRule));
+      }
+
+      return newParams;
+    });
+  }, [sortRule]);
+
   const handleSearchChange = (newSearchState: SearchState) => {
     if (search?.onChange) {
       search.onChange(newSearchState);
-    }
-  };
-
-  const handlePageSizeChange = (newPageSize: number) => {
-    if (pagination) {
-      table.setPageSize(newPageSize);
-      if (pagination.onPaginationChange) {
-        pagination.onPaginationChange({
-          pageIndex: table.getState().pagination.pageIndex,
-          pageSize: newPageSize,
-        });
-      }
-    }
-  };
-
-  const handlePageChange = (newPageIndex: number) => {
-    if (pagination) {
-      table.setPageIndex(newPageIndex - 1);
-      if (pagination.onPaginationChange) {
-        pagination.onPaginationChange({
-          pageIndex: newPageIndex - 1,
-          pageSize: table.getState().pagination.pageSize,
-        });
-      }
     }
   };
 
@@ -172,18 +165,21 @@ const ResponsiveTable = <TData extends object>({
             id={`${id}-search`}
             onChange={handleSearchChange}
             table={table}
-            state={search.initialState}
+            state={initialState.searchState}
             {...search}
           />
         )}
         {/** Note: `div` prevents button from taking up entire space on desktop */}
         <div>
-          <ColumnDialog table={table} />
+          <ColumnDialog
+            table={table}
+            columnIds={columnIds}
+            initialState={hiddenColumnIds}
+          />
         </div>
       </Table.Controls>
       {!hasNoData ? (
-        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        <div aria-labelledby={captionId} tabIndex={0}>
+        <div aria-labelledby={captionId}>
           <Table.Wrapper>
             <Table.Table>
               <Table.Caption id={captionId}>{caption}</Table.Caption>
@@ -219,22 +215,7 @@ const ResponsiveTable = <TData extends object>({
             )}
           </Table.Wrapper>
           {pagination && (
-            <Pagination
-              data-h2-margin-top="base(x.5)"
-              ariaLabel={intl.formatMessage({
-                defaultMessage: "Page navigation",
-                description: "Label for the table pagination",
-                id: "N3sUUc",
-              })}
-              color="black"
-              currentPage={table.getState().pagination.pageIndex + 1}
-              pageSize={table.getState().pagination.pageSize}
-              pageSizes={pagination.pageSizes}
-              totalCount={pagination.total}
-              totalPages={table.getPageCount() ?? 0}
-              onPageSizeChange={handlePageSizeChange}
-              onCurrentPageChange={handlePageChange}
-            />
+            <TablePagination table={table} pagination={pagination} />
           )}
         </div>
       ) : (

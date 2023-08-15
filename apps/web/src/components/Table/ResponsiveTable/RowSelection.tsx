@@ -273,12 +273,12 @@ export const getRowSelectionColumn = <TData extends object>(
 ): ColumnDef<TData> => ({
   id: "rowSelect",
   enableSorting: false,
+  enableHiding: false,
   header: ({ table }) => (
     <Header table={table} label="Select all" color="white" />
   ),
   cell,
   meta: {
-    hideInColumnDialog: true,
     isRowSelect: true,
   },
 });

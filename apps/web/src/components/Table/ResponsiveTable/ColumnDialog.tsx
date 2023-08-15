@@ -1,16 +1,23 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import isEqual from "lodash/isEqual";
+import { useSearchParams } from "react-router-dom";
 import { Table } from "@tanstack/react-table";
 import TableCellsIcon from "@heroicons/react/20/solid/TableCellsIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Field } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import adminMessages from "~/messages/adminMessages";
+
+import { SEARCH_PARAM_KEY } from "./constants";
 
 interface ColumnDialogProps<TData> {
   /** Instance of the `react-table` */
   table: Table<TData>;
+  initialState?: string[];
+  columnIds: string[];
 }
 
 /**
@@ -21,17 +28,40 @@ interface ColumnDialogProps<TData> {
  * @param ColumnDialogProps
  * @returns JSX.Element
  */
-const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
+const ColumnDialog = <T extends object>({
+  table,
+  initialState = [],
+}: ColumnDialogProps<T>) => {
   const intl = useIntl();
+  const [, setSearchParams] = useSearchParams();
   const allColumnsRef = React.useRef<HTMLInputElement>(null);
   const indeterminate =
     table.getIsSomeColumnsVisible() && !table.getIsAllColumnsVisible();
+  const columnVisibility = table.getState().columnVisibility;
 
   React.useEffect(() => {
     if (allColumnsRef.current) {
       allColumnsRef.current.indeterminate = indeterminate;
     }
   }, [indeterminate, allColumnsRef]);
+
+  React.useEffect(() => {
+    const newHiddenIds = Object.keys(columnVisibility)
+      .map((id) => (columnVisibility[id] ? undefined : id))
+      .filter(notEmpty);
+
+    setSearchParams((previous) => {
+      let newParams = new URLSearchParams(previous);
+
+      if (isEqual(initialState, newHiddenIds)) {
+        newParams.delete(SEARCH_PARAM_KEY.HIDDEN_COLUMNS);
+      } else {
+        newParams.set(SEARCH_PARAM_KEY.HIDDEN_COLUMNS, newHiddenIds.join(","));
+      }
+
+      return newParams;
+    });
+  }, [columnVisibility]);
 
   return (
     <Dialog.Root>
@@ -69,7 +99,7 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
             </div>
             {table
               .getAllLeafColumns()
-              .filter((c) => !c.columnDef.meta?.hideInColumnDialog)
+              .filter((c) => c.getCanHide())
               .map((column) => (
                 <div key={column.id} data-h2-margin="base(x.125, 0)">
                   <label>

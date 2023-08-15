@@ -102,8 +102,8 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
         id: "X4nVv/",
         description: "Title displayed for the skill table Edit column.",
       }),
+      enableHiding: false,
       meta: {
-        hideInColumnDialog: true,
         hideMobileHeader: true,
       },
       cell: ({ row }) =>

@@ -1,4 +1,4 @@
-import { useState, SetStateAction, Dispatch, useMemo } from "react";
+import { useState, SetStateAction, Dispatch, useMemo, useRef } from "react";
 import {
   OnChangeFn,
   ColumnFiltersState,
@@ -9,8 +9,9 @@ import {
   VisibilityState,
 } from "@tanstack/react-table";
 
-import useTableState from "~/hooks/useTableState";
-import { SearchState } from "./types";
+import { InitialState } from "./types";
+import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
+import { getColumnVisibility, getColumnFilters } from "./utils";
 
 type UpdateStateCallback<State> = (newState: State | null) => void;
 
@@ -32,59 +33,83 @@ const updateState = <State>(
   }
 };
 
-const getColumnVisibility = (
-  allColumnsIds: string[],
-  hiddenColumnIds?: string[],
-): VisibilityState => {
-  const initialColumnVisibility: VisibilityState = {};
-  hiddenColumnIds?.forEach((column) => {
-    Object.assign(initialColumnVisibility, { [column]: false });
-  });
-  allColumnsIds
-    .filter((columnId) => !hiddenColumnIds?.includes(columnId))
-    .forEach((column) => {
-      Object.assign(initialColumnVisibility, { [column]: true });
-    });
+const useTableSateFromSearchParams = (
+  initialState?: Partial<InitialState>,
+): Partial<InitialState> => {
+  const params = new URLSearchParams(window.location.search);
+  let state: Partial<InitialState> = initialState ?? {};
 
-  return initialColumnVisibility;
-};
+  const columnVisibilityParam = params.get(SEARCH_PARAM_KEY.HIDDEN_COLUMNS);
+  if (columnVisibilityParam) {
+    state = {
+      ...state,
+      hiddenColumnIds: columnVisibilityParam?.split(","),
+    };
+  }
 
-const getColumnFilters = (
-  searchState?: SearchState,
-): ColumnFiltersState | undefined => {
-  const isColumnFilter = searchState?.type && searchState.type !== "";
+  const searchTermParam = params.get(SEARCH_PARAM_KEY.SEARCH_TERM);
+  if (searchTermParam) {
+    state = {
+      ...state,
+      searchState: {
+        ...state.searchState,
+        term: searchTermParam,
+      },
+    };
+  }
 
-  return isColumnFilter && searchState.type && searchState.term
-    ? [
-        {
-          id: searchState.type,
-          value: searchState.term,
-        },
-      ]
-    : undefined;
-};
+  const searchColumnParam = params.get(SEARCH_PARAM_KEY.SEARCH_COLUMN);
+  if (searchColumnParam) {
+    state = {
+      ...state,
+      searchState: {
+        ...state.searchState,
+        type: searchColumnParam,
+      },
+    };
+  }
 
-type InitialState = {
-  hiddenColumnIds: string[];
-  paginationState: PaginationState;
-  searchState: SearchState;
-  sortState: SortingState;
-};
+  const sortRuleParam = params.get(SEARCH_PARAM_KEY.SORT_RULE);
+  if (sortRuleParam) {
+    state = {
+      ...state,
+      sortState: JSON.parse(sortRuleParam),
+    };
+  }
 
-const INITIAL_STATE: InitialState = {
-  hiddenColumnIds: [],
-  paginationState: {
-    pageIndex: 0,
-    pageSize: 10,
-  },
-  sortState: [],
-  searchState: {
-    term: "",
-    type: "",
-  },
+  const pageSizeParam = params.get(SEARCH_PARAM_KEY.PAGE_SIZE);
+  if (pageSizeParam) {
+    state = {
+      ...state,
+      paginationState: {
+        pageIndex:
+          state.paginationState?.pageIndex ??
+          initialState?.paginationState?.pageIndex ??
+          INITIAL_STATE.paginationState.pageSize,
+        pageSize: Number(pageSizeParam),
+      },
+    };
+  }
+
+  const pageIndexParam = params.get(SEARCH_PARAM_KEY.PAGE);
+  if (pageIndexParam) {
+    state = {
+      ...state,
+      paginationState: {
+        pageSize:
+          state.paginationState?.pageSize ??
+          initialState?.paginationState?.pageSize ??
+          INITIAL_STATE.paginationState.pageSize,
+        pageIndex: Number(pageIndexParam) - 1,
+      },
+    };
+  }
+
+  return state;
 };
 
 type UseControlledTableStateReturn = {
+  initialState: Partial<InitialState>;
   state: Partial<TableState>;
   updaters: {
     onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>;
@@ -117,99 +142,50 @@ const useControlledTableState: UseControlledTableState = ({
   initialState,
   columnIds,
 }) => {
-  const [tableState, setTableState] = useTableState<InitialState, unknown>(
-    initialState,
+  const initialStateFromParams = useTableSateFromSearchParams(initialState);
+  const stableInitialState = useRef<Partial<InitialState>>(
+    initialStateFromParams,
   );
 
   const [globalFilter, setGlobalFilter] = useState<string>(
-    tableState.searchState?.term ??
-      initialState.searchState?.term ??
-      INITIAL_STATE.searchState.term ??
-      "",
+    stableInitialState.current.searchState?.term ?? "",
   );
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-    getColumnFilters(initialState.searchState) ?? [],
+    getColumnFilters(stableInitialState.current.searchState) ?? [],
   );
 
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
-    getColumnVisibility(
-      columnIds,
-      tableState.hiddenColumnIds ?? initialState.hiddenColumnIds,
-    ),
+    getColumnVisibility(columnIds, stableInitialState.current.hiddenColumnIds),
   );
 
   const [sorting, setSorting] = useState<SortingState>(
-    INITIAL_STATE.sortState ?? [],
+    stableInitialState.current.sortState ?? INITIAL_STATE.sortState,
   );
 
-  const [pagination, setPagination] = useState<PaginationState>(
-    INITIAL_STATE.paginationState,
-  );
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex:
+      stableInitialState.current.paginationState?.pageIndex ??
+      INITIAL_STATE.paginationState.pageIndex,
+    pageSize:
+      stableInitialState.current.paginationState?.pageSize ??
+      INITIAL_STATE.paginationState.pageSize,
+  });
 
   const handleGlobalFilterChange = (updater: Updater<string>) =>
-    updateState(setGlobalFilter, updater, (newTerm) => {
-      setTableState({
-        searchState: {
-          term: newTerm === null ? INITIAL_STATE.searchState.term : newTerm,
-          type: "",
-        },
-      });
-    });
+    updateState(setGlobalFilter, updater);
 
   const handleColumnFiltersChange = (updater: Updater<ColumnFiltersState>) =>
-    updateState(setColumnFilters, updater, (newFilters) => {
-      const newFilter = newFilters ? newFilters[0] : null;
-
-      const term = newFilter
-        ? String(newFilter.value)
-        : INITIAL_STATE.searchState.term;
-
-      setTableState({
-        searchState: {
-          type: newFilter ? newFilter.id : INITIAL_STATE.searchState.type,
-          term: term ?? "",
-        },
-      });
-    });
+    updateState(setColumnFilters, updater);
 
   const handleVisibilityChange = (updater: Updater<VisibilityState>) =>
-    updateState(setColumnVisibility, updater, (newVisibility) => {
-      setTableState({
-        hiddenColumnIds:
-          newVisibility === null
-            ? []
-            : Object.keys(newVisibility ?? {}).filter(
-                (key) => !newVisibility[key],
-              ),
-      });
-    });
+    updateState(setColumnVisibility, updater);
 
   const handleSortingChange = (updater: Updater<SortingState>) =>
-    updateState(setSorting, updater, (newSorting) => {
-      // TO DO: Refactor to match `react-table` `SortingState`
-      setTableState({
-        sortBy: newSorting
-          ? {
-              desc: newSorting[0].desc,
-              column: {
-                id: newSorting[0].id,
-              },
-            }
-          : undefined,
-      });
-    });
+    updateState(setSorting, updater);
 
   const handlePaginationChange = (updater: Updater<PaginationState>) =>
-    updateState(setPagination, updater, (newPagination) => {
-      setTableState({
-        pageSize:
-          newPagination?.pageSize ?? INITIAL_STATE.paginationState.pageSize,
-        currentPage:
-          (newPagination?.pageIndex ??
-            INITIAL_STATE.paginationState.pageIndex) + 1,
-      });
-    });
+    updateState(setPagination, updater);
 
   const memoizedState: Partial<TableState> = useMemo(
     () => ({
@@ -223,6 +199,7 @@ const useControlledTableState: UseControlledTableState = ({
   );
 
   return {
+    initialState: stableInitialState.current,
     state: memoizedState,
     updaters: {
       onColumnFiltersChange: handleColumnFiltersChange,
