@@ -8,17 +8,19 @@ import { tryFindMessageDescriptor } from "@gc-digital-talent/i18n";
 export const extractErrorMessages = (combinedError: CombinedError) =>
   combinedError.graphQLErrors.flatMap((error) => error.message);
 
-// grab the validation error enums to map them to messages
+// grab the validation error enums to map them to messages, guarding against possible missing fields
 export const extractValidationMessageKeys = (
   combinedError: CombinedError,
 ): string[] | null => {
-  const validationArray = combinedError.graphQLErrors[0].extensions
-    .validation as object;
-  const arrayOfValuesFlattened = Object.values(
-    validationArray,
-  ).flat() as string[];
-  if (arrayOfValuesFlattened && arrayOfValuesFlattened.length > 0) {
-    return arrayOfValuesFlattened;
+  const { extensions } = combinedError.graphQLErrors[0];
+  if (extensions && extensions.validation) {
+    const validationObject = extensions.validation as object;
+    const arrayOfValuesFlattened = Object.values(
+      validationObject,
+    ).flat() as string[];
+    if (arrayOfValuesFlattened && arrayOfValuesFlattened.length > 0) {
+      return arrayOfValuesFlattened;
+    }
   }
   return null;
 };
