@@ -1,26 +1,28 @@
 import React from "react";
 import { IntlShape } from "react-intl";
-import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import NoSymbolIcon from "@heroicons/react/20/solid/NoSymbolIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
-import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Color, IconType } from "@gc-digital-talent/ui";
-import {
-  getLocalizedName,
-  getPoolCandidateStatusLabel,
-} from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { Department, Maybe, PoolCandidateStatus } from "~/api/generated";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
-import { fullPoolTitle, isOngoingPublishingGroup } from "~/utils/poolUtils";
-import {
-  isExpiredStatus,
-  isPlacedStatus,
-  isQualifiedStatus,
-  isScreenedOutStatus,
-} from "~/utils/poolCandidate";
+import { fullPoolTitle } from "~/utils/poolUtils";
 import { Application } from "~/utils/applicationUtils";
+import {
+  deriveCombinedStatus,
+  getCombinedStatusLabel,
+  isHiredCombinedStatus,
+  isReadyToHireCombinedStatus,
+  isExpiredCombinedStatus,
+  isInactiveCombinedStatus,
+  isErrorCombinedStatus,
+  isHiredLongTermCombinedStatus,
+  isSuspendedCombinedStatus,
+} from "~/utils/poolCandidateCombinedStatus";
+import { PoolCandidate } from "@gc-digital-talent/graphql";
+import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
 export const joinDepartments = (
   departments: Maybe<Maybe<Department>[]>,
@@ -36,45 +38,61 @@ export const joinDepartments = (
 type StatusPillInfo = {
   color: Color;
   text: React.ReactNode;
+  icon?: IconType;
 };
 
 export const getStatusPillInfo = (
   status: Maybe<PoolCandidateStatus>,
+  suspendedAt: PoolCandidate["suspendedAt"],
   intl: IntlShape,
 ): StatusPillInfo => {
-  const label = getPoolCandidateStatusLabel(status);
+  const combinedStatus = deriveCombinedStatus(status, suspendedAt);
+  const combinedStatusLabel = combinedStatus
+    ? getCombinedStatusLabel(combinedStatus)
+    : null;
+  const text = combinedStatusLabel
+    ? intl.formatMessage(combinedStatusLabel)
+    : "";
 
-  if (isQualifiedStatus(status)) {
+  if (isReadyToHireCombinedStatus(combinedStatus)) {
     return {
       color: "success",
-      text: intl.formatMessage(poolCandidateMessages.qualified),
+      text,
+      icon: ShieldCheckIcon,
     };
   }
-  if (isExpiredStatus(status)) {
-    return {
-      color: "error",
-      text: label ? intl.formatMessage(label) : "",
-    };
-  }
-  if (isScreenedOutStatus(status)) {
+  if (isHiredCombinedStatus(combinedStatus)) {
     return {
       color: "secondary",
-      text: label ? intl.formatMessage(label) : "",
+      text,
     };
   }
-  if (status === PoolCandidateStatus.Removed)
+  if (isExpiredCombinedStatus(combinedStatus)) {
+    return {
+      color: "black",
+      text,
+    };
+  }
+  if (isInactiveCombinedStatus(combinedStatus)) {
+    return {
+      color: "warning",
+      text,
+    };
+  }
+  if (isErrorCombinedStatus(combinedStatus)) {
     return {
       color: "error",
-      text: label ? intl.formatMessage(label) : "",
+      text,
     };
+  }
 
   return {
     color: "primary",
-    text: label ? intl.formatMessage(label) : "",
+    text,
   };
 };
 type AvailabilityInfo = {
-  icon: IconType;
+  icon: IconType | null;
   color: Record<string, string>;
   text: React.ReactNode;
   showDialog: boolean;
@@ -84,52 +102,59 @@ const getAvailabilityInfo = (
   { status, suspendedAt }: Application,
   intl: IntlShape,
 ): AvailabilityInfo => {
-  if (isExpiredStatus(status)) {
+  const combinedStatus = deriveCombinedStatus(status, suspendedAt);
+
+  if (isExpiredCombinedStatus(combinedStatus)) {
     return {
-      icon: LockClosedIcon,
-      color: {
-        "data-h2-color": "base(gray.darker)",
-      },
-      text: intl.formatMessage(poolCandidateMessages.expiredAvailability),
+      icon: null,
+      color: {},
+      text: null,
       showDialog: false,
     };
   }
 
-  if (isPlacedStatus(status)) {
+  if (isHiredLongTermCombinedStatus(combinedStatus)) {
     return {
-      icon: StarIcon,
-      color: {
-        "data-h2-color": "base(quaternary.dark)",
-      },
-      text: intl.formatMessage(poolCandidateMessages.placedAvailability),
-      showDialog: status === PoolCandidateStatus.PlacedCasual,
+      icon: null,
+      color: {},
+      text: null,
+      showDialog: false,
     };
   }
 
-  return suspendedAt
-    ? {
-        icon: NoSymbolIcon,
-        color: {
-          "data-h2-color": "base(error)",
-        },
-        text: intl.formatMessage(poolCandidateMessages.suspendedAvailability),
-        showDialog: true,
-      }
-    : {
-        icon: CheckCircleIcon,
-        color: {
-          "data-h2-color": "base(success)",
-        },
-        text: intl.formatMessage(poolCandidateMessages.openAvailability),
-        showDialog: true,
-      };
+  if (isSuspendedCombinedStatus(combinedStatus)) {
+    return {
+      icon: NoSymbolIcon,
+      color: {
+        "data-h2-color": "base(error)",
+      },
+      text: intl.formatMessage(poolCandidateMessages.suspendedAvailability),
+      showDialog: true,
+    };
+  }
+
+  if (isInactiveCombinedStatus(combinedStatus)) {
+    return {
+      icon: null,
+      color: {},
+      text: null,
+      showDialog: false,
+    };
+  }
+
+  return {
+    icon: CheckCircleIcon,
+    color: {
+      "data-h2-color": "base(success)",
+    },
+    text: intl.formatMessage(poolCandidateMessages.openAvailability),
+    showDialog: true,
+  };
 };
 
 type QualifiedRecruitmentInfo = {
   statusPill: StatusPillInfo;
   availability: AvailabilityInfo;
-  isQualified: boolean;
-  isOngoing: boolean;
   title: {
     html: React.ReactNode;
     label: string;
@@ -141,10 +166,12 @@ export const getQualifiedRecruitmentInfo = (
   intl: IntlShape,
 ): QualifiedRecruitmentInfo => {
   return {
-    statusPill: getStatusPillInfo(candidate.status, intl),
+    statusPill: getStatusPillInfo(
+      candidate.status,
+      candidate.suspendedAt,
+      intl,
+    ),
     availability: getAvailabilityInfo(candidate, intl),
-    isQualified: isQualifiedStatus(candidate.status),
-    isOngoing: isOngoingPublishingGroup(candidate.pool.publishingGroup),
     title: fullPoolTitle(intl, candidate.pool),
   };
 };

@@ -20,11 +20,6 @@ import {
 } from "./languageInformation";
 
 import {
-  hasEmptyRequiredFields as roleSalarySectionHasEmptyRequiredFields,
-  PartialUser as PartialUserRoleSalary,
-} from "./roleSalary";
-
-import {
   hasEmptyRequiredFields as workLocationSectionHasEmptyRequiredFields,
   PartialUser as PartialUserLocation,
 } from "./workLocation";
@@ -46,7 +41,6 @@ export {
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasUnsatisfiedRequirements,
-  roleSalarySectionHasEmptyRequiredFields,
   workLocationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
   careerTimelineIsIncomplete,
@@ -58,5 +52,4 @@ export {
   PartialUserLanguage,
   PartialUserLocation,
   PartialUserPreferences,
-  PartialUserRoleSalary,
 };

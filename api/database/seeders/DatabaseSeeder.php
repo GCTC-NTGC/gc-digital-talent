@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
-use App\Models\GenericJobTitle;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
 use Faker;
@@ -35,7 +34,6 @@ class DatabaseSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-
         $this->truncateTables();
 
         // seed a test team and random teams
@@ -44,7 +42,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RolePermissionSeeder::class);
         $this->call(ClassificationSeeder::class);
         $this->call(DepartmentSeeder::class);
-        $this->call(GenericJobTitleSeeder::class);
         $this->call(SkillFamilySeeder::class);
         $this->call(SkillSeeder::class);
         $this->call(TeamSeederLocal::class);
@@ -63,39 +60,18 @@ class DatabaseSeeder extends Seeder
 
         $digitalTalentPool = Pool::where('name->en', 'CMO Digital Careers')->sole();
 
+        // Government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
-            ->count(150)
+            ->count(75)
             ->withExperiences()
+            ->asGovEmployee()
             ->afterCreating(function (User $user) use ($faker, $digitalTalentPool) {
-
-                $genericJobTitles = GenericJobTitle::inRandomOrder()->limit(2)->pluck('id')->toArray();
-                $user->expectedGenericJobTitles()->sync($genericJobTitles);
 
                 // pick a published pool in which to place this user
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
                 // digital careers is always published and strictly defined in PoolSeeder
                 $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
                 $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
-
-                // are they a government user?
-                if (rand(0, 1)) {
-                    // government users have a current classification and expected classifications but no salary
-                    $classification = Classification::inRandomOrder()->limit(1)->pluck('id')->toArray();
-                    $user->expectedClassifications()->sync($classification);
-                    $user->expected_salary = [];
-                    $user->save();
-
-                    $user->expectedClassifications()->sync(
-                        $pool->classifications()->pluck('classifications.id')->toArray()
-                    );
-                } else {
-                    // non-government users have no current classification or expected classifications but have salary
-                    $user->current_classification = null;
-                    $user->expected_salary = $faker->randomElements(ApiEnums::salaryRanges(), 2);
-                    $user->save();
-
-                    $user->expectedClassifications()->sync([]);
-                }
 
                 // create a pool candidate in the pool - are they suspended?
                 if (rand(0, 4) == 4) {
@@ -123,6 +99,28 @@ class DatabaseSeeder extends Seeder
             }
             $applicantUserSkill->save();
         }
+
+        // Not government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
+        User::factory()
+            ->count(75)
+            ->withExperiences()
+            ->asGovEmployee(false)
+            ->afterCreating(function (User $user) use ($faker, $digitalTalentPool) {
+
+                // pick a published pool in which to place this user
+                // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
+                // digital careers is always published and strictly defined in PoolSeeder
+                $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
+                $pool = $faker->boolean(25) ? $digitalTalentPool : $randomPool;
+
+                // create a pool candidate in the pool - are they suspended?
+                if (rand(0, 4) == 4) {
+                    $this->seedSuspendedCandidate($user, $pool);
+                } else {
+                    $this->seedPoolCandidate($user, $pool);
+                }
+            })
+            ->create();
 
         // attach either a work or education experience to a pool candidate to meet minimum criteria
         PoolCandidate::all()->load('user')->each(function ($poolCandidate) {

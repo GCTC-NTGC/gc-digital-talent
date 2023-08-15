@@ -226,6 +226,10 @@
     "defaultMessage": "Les analystes (<abbreviation>TI-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
   },
+  "/Sobod": {
+    "defaultMessage": "Embauché (Période indéterminée)",
+    "description": "Status for an application that has been hired with an indeterminate contract"
+  },
   "/UKT+/": {
     "defaultMessage": "Compétences",
     "description": "Title for skills"
@@ -413,6 +417,10 @@
     "defaultMessage": "Modifier<hidden> l’utilisateur</hidden>",
     "description": "Edit user breadcrumb text"
   },
+  "0YZeO0": {
+    "defaultMessage": "Embauché (Temporaire)",
+    "description": "Status for an application that has been hired with a casual contract"
+  },
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
@@ -468,6 +476,10 @@
   "114gjj": {
     "defaultMessage": "Préférences de lieux",
     "description": "CSV Header, Location Preferences column"
+  },
+  "13fSK+": {
+    "defaultMessage": "La date de soumission est dépassée",
+    "description": "Status for an application that where the recruitment has expired"
   },
   "159+n7": {
     "defaultMessage": "Compétences sélectionnées ({numOfSkills})",
@@ -930,6 +942,10 @@
   "4SNVtn": {
     "defaultMessage": "{poolCandidateName} possède 0 des 0 compétences",
     "description": "Aria-label for the title displayed on the candidate skill count column."
+  },
+  "4TmwRU": {
+    "defaultMessage": "Candidature reçue",
+    "description": "Status for an application that has been submitted"
   },
   "4V/DsD": {
     "defaultMessage": "En savoir plus<hidden> à propos de la collectivité des gestionnaires</hidden>",
@@ -1635,6 +1651,14 @@
     "defaultMessage": "{date} - Aujourd’hui",
     "description": "A date range that goes to the present day"
   },
+  "9Pxjw5": {
+    "defaultMessage": "En attente d’évaluation des compétences",
+    "description": "Status for an application that where applicant is being assessed"
+  },
+  "9QZYMX": {
+    "defaultMessage": "Un diplôme d’études secondaires.",
+    "description": "Description for the education requirement option secondary school diploma."
+  },
   "9QxHnD": {
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
@@ -1670,6 +1694,10 @@
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
+  },
+  "9gpVCX": {
+    "defaultMessage": "Prêt à être embauché",
+    "description": "Status for an application where user user is ready to hire"
   },
   "9i2N/g": {
     "defaultMessage": "Modifier le compte utilisateur",
@@ -1919,10 +1947,6 @@
     "defaultMessage": "Nom",
     "description": "Title displayed for the skill table Name column."
   },
-  "BPiMTY": {
-    "defaultMessage": "Modifiez les options de votre rôle et de vos attentes salariales",
-    "description": "Link text to edit role and salary expectations on profile."
-  },
   "BQsJSG": {
     "defaultMessage": "Saisissez une nouvelle date de clôture :",
     "description": "First paragraph for extend pool closing date dialog"
@@ -2014,6 +2038,10 @@
   "BzaGwp": {
     "defaultMessage": "Texte anglais sur l’incidence",
     "description": "Title for English pool advertisement impact"
+  },
+  "C+hP/v": {
+    "defaultMessage": "Candidature retirée",
+    "description": "Status for an application that has been withdrawn"
   },
   "C03OK7": {
     "defaultMessage": "Établissement d’un bassin de talents numériques",
@@ -2606,6 +2634,10 @@
     "defaultMessage": "Pour soumettre une demande, veuillez fournir les renseignements suivants afin que nous puissions communiquer avec vous.",
     "description": "Explanation message for request form."
   },
+  "GIC6EK": {
+    "defaultMessage": "Expiré",
+    "description": "Expired status"
+  },
   "GIN69n": {
     "defaultMessage": "Date de clôture :",
     "description": "Label for a pool advertisements closing date on the application"
@@ -3090,6 +3122,10 @@
   "K9YLac": {
     "defaultMessage": "En savoir plus<hidden> sur la collectivité des cadres</hidden>",
     "description": "Link text to the executive community"
+  },
+  "KA/hfo": {
+    "defaultMessage": "Pause",
+    "description": "Status for an application to an advertisement that is unavailable"
   },
   "KD5H5s": {
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
@@ -4405,6 +4441,10 @@
     "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’un ou plusieurs</strong> des groupes d’équité en matière d’emploi ayant été sélectionnés",
     "description": "Context for employment equity filter in search form."
   },
+  "UZWLKn": {
+    "defaultMessage": "En attente d’évaluation des compétences",
+    "description": "Status for an application that is having skills reviewed"
+  },
   "Ua/X9Q": {
     "defaultMessage": "Flux",
     "description": "Title for stream on summary of filters section"
@@ -4604,6 +4644,10 @@
   "Vpk+nl": {
     "defaultMessage": "Professionnel",
     "description": "Title for pool advertisement occupational skill list"
+  },
+  "VplMpm": {
+    "defaultMessage": "Embauché (Période déterminée)",
+    "description": "Status for an application that has been hired with a term contract"
   },
   "VqyL+/": {
     "defaultMessage": "Identifiant",
@@ -5262,6 +5306,10 @@
     "defaultMessage": "Qu’avez-vous accompli, créé ou réalisé en utilisant cette compétence?",
     "description": "Question list item in link featured skills section of experience form (accomplish)."
   },
+  "aagbij": {
+    "defaultMessage": "En cours de révision",
+    "description": "Status for an application that is being reviewed"
+  },
   "adM1fA": {
     "defaultMessage": "Si vous soumettez un formulaire qui n’avait aucun candidat d’évalué, veuillez nous en parler davantage dans les commentaires.",
     "description": "Instructions to provide additional details when submitting a request with no candidates"
@@ -5437,6 +5485,10 @@
     "defaultMessage": "Ce volet comprend des compétences spécialisées en matière de sécurité, axées sur la programmation, l’infrastructure, les applications commerciales et les données.",
     "description": "Title for the 'security' IT work stream"
   },
+  "c+6rQB": {
+    "defaultMessage": "N’est pas intéressé",
+    "description": "Status for when the user has suspended an application"
+  },
   "c+P41C": {
     "defaultMessage": "Programme de mentorat de la collectivité du numérique",
     "description": "Button text to open section describing mentorship program"
@@ -5504,10 +5556,6 @@
   "cTCdw5": {
     "defaultMessage": "Nous tenons à vous remercier de votre intérêt à devenir un(e) apprenti(e) de la TI au sein du gouvernement du Canada. Votre expérience vécue, votre passion et vos intérêts sont chaleureusement accueillis et reconnus. Un membre de l’équipe du Bureau des initiatives autochtones communiquera avec vous au cours des trois à cinq prochains jours ouvrables pour discuter votre demande.",
     "description": "Description of review process and next steps for the IAP applicant."
-  },
-  "cVWREE": {
-    "defaultMessage": "Félicitations! Étant donné que l’on vous a embauché à la suite de ce recrutement, vous ne recevrez plus de possibilités qui y sont liées.",
-    "description": "Message displayed when an applicant has been placed as a result of a recruitment"
   },
   "cVszq/": {
     "defaultMessage": "En apposant votre signature (en tapant votre nom au complet), vous contribuez à un espace honnête et sûr où les personnes autochtones peuvent accéder à ces possibilités.",
@@ -5752,10 +5800,6 @@
   "e/nr9L": {
     "defaultMessage": "Rôles et structures numériques des cadres",
     "description": "Heading for the directives digital executive roles and structures component"
-  },
-  "e2Rfn/": {
-    "defaultMessage": "J'aimerais être référé à des emplois aux niveaux suivants :",
-    "description": "Label for Role and salary expectations sections"
   },
   "e2qUId": {
     "defaultMessage": "Processus exécuté par {team} à {departments}",
@@ -6427,10 +6471,6 @@
     "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
     "description": "Signature list item on sign and submit page."
   },
-  "iIZS1K": {
-    "defaultMessage": "Attente en matière de poste/salaire",
-    "description": "CSV Header, Role/Salary Expectation column"
-  },
   "iKWOl+": {
     "defaultMessage": "Cette section vous permet d'indiquer les groupes visés par l'équité en matière d'emploi qui s'appliquent à vous. Remplissez cette section si vous remplissez ces deux conditions :",
     "description": "Introduction text for selecting employment equity groups"
@@ -6778,10 +6818,6 @@
     "defaultMessage": "Débutant",
     "description": "Label for the beginner skill level"
   },
-  "kekvz1": {
-    "defaultMessage": "Ce recrutement a expiré et n’est plus disponible pour des possibilités d’embauche.",
-    "description": "Message displayed when an applicant application to a recruitment has expired and no longer available"
-  },
   "kf5Td+": {
     "defaultMessage": "Assurez-vous de sauvegarder ou de fermer tout formulaire ouvert avant de continuer.",
     "description": "Message displayed to users when they attempt to quit the profile form with unsaved changes"
@@ -6797,6 +6833,10 @@
   "kjX7mF": {
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled RoleSalary section."
+  },
+  "knmaAL": {
+    "defaultMessage": "Les personnes ne se résument pas à leur formation et à leur expérience professionnelle. Nous voulons vous permettre de faire part de ce que vous avez appris à partir d’autres expériences. Pour protéger votre vie privée, veuillez ne pas indiquer de renseignements sensibles sur vous-même ou sur d’autres personnes.",
+    "description": "Description blurb for Personal Experience Details form"
   },
   "ksMybU": {
     "defaultMessage": "Erreur : échec de la création de la compétence",
@@ -6852,6 +6892,10 @@
   "lA+c8E": {
     "defaultMessage": "Nous avons reçu votre demande et la réviserons le plus tôt possible.",
     "description": "Paragraph one, message to user the request was received"
+  },
+  "lB/SWR": {
+    "defaultMessage": "Vous apparaissez de nouveau dans les résultats de recherche.",
+    "description": "Alert displayed to the user when they updated something to appear in search results again."
   },
   "lCHx90": {
     "defaultMessage": "Gestion de portefeuilles de projets de la TI",
@@ -7145,6 +7189,10 @@
     "defaultMessage": "Statut du bassin",
     "description": "Label displayed on the status field of the change candidate status dialog"
   },
+  "nBBKe/": {
+    "defaultMessage": "Une combinaison acceptable d’études, de formation et d’expérience, ou une note satisfaisante à l’examen de la Commission de la fonction publique qui est approuvé comme équivalence d’un diplôme d’études secondaires.",
+    "description": "Descriptive text explaining valid a applied work experience for the PM classification group."
+  },
   "nBoNqj": {
     "defaultMessage": "Profil et candidatures",
     "description": "Label displayed on the profile and applications menu item."
@@ -7212,6 +7260,10 @@
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
     "description": "Descriptive text explaining the work preferences section of the application profile"
+  },
+  "njJCTd": {
+    "defaultMessage": "Sélectionné",
+    "description": "Status for an application that has been screened out of eligibility"
   },
   "nmImtK": {
     "defaultMessage": "Se déconnecter",
@@ -7445,6 +7497,10 @@
     "defaultMessage": "Notes sur cette demande",
     "description": "Heading for the notes about this request section of the single search request view."
   },
+  "pf3KKo": {
+    "defaultMessage": "Poursuivre l’ébauche",
+    "description": "Link text to continue a application draft"
+  },
   "pg1S01": {
     "defaultMessage": "Sauter la liste des compétences.",
     "description": "Link text to skip the list of add skill links"
@@ -7500,6 +7556,10 @@
   "qGyD4w": {
     "defaultMessage": "Questions de sélection",
     "description": "Heading for screening questions section of the application review page."
+  },
+  "qN9zOb": {
+    "defaultMessage": "<strong>J’ai un diplôme d’études secondaires</strong>",
+    "description": "Radio group option for education requirement filter in application education form."
   },
   "qOi2J0": {
     "defaultMessage": "Niveau de connaissance de la langue seconde (lecture, écriture, expression orale)",
@@ -7775,10 +7835,6 @@
   "sUx3ZS": {
     "defaultMessage": "Statut",
     "description": "Title of the 'Status' column for the table on view-user page"
-  },
-  "sYuMO8": {
-    "defaultMessage": "Aimerait être référé à des emplois aux niveaux suivants :",
-    "description": "Label for Role and salary expectations sections"
   },
   "sZHcsV": {
     "defaultMessage": "Courriel",
@@ -8146,6 +8202,10 @@
   "vPPz4w": {
     "defaultMessage": "EXposition",
     "description": "Subject line for contact email for EXposition"
+  },
+  "vTyr7O": {
+    "defaultMessage": "Retiré",
+    "description": "Status for an application that has been removed from the recruitment"
   },
   "vV0SDz": {
     "defaultMessage": "{title} à {organization}",
@@ -8606,6 +8666,10 @@
   "zd/ve4": {
     "defaultMessage": "Renseignements du profil",
     "description": "Profile and applications card title for profile card"
+  },
+  "zdeoxH": {
+    "defaultMessage": "Diplôme d’études secondaires",
+    "description": "Heading for the education requirement option secondary school diploma."
   },
   "zfi91j": {
     "defaultMessage": "Candidats du bassin",

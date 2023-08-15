@@ -132,14 +132,6 @@ query GetApplication($id: UUID!) {
           fr
         }
       }
-      expectedGenericJobTitles {
-        id
-        key
-        name {
-          en
-          fr
-        }
-      }
       isWoman
       hasDisability
       isIndigenous
@@ -150,16 +142,6 @@ query GetApplication($id: UUID!) {
       locationPreferences
       locationExemptions
       acceptedOperationalRequirements
-      expectedSalary
-      expectedClassifications {
-        id
-        name {
-          en
-          fr
-        }
-        group
-        level
-      }
       positionDuration
       experiences {
         id
