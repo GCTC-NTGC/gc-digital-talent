@@ -266,7 +266,7 @@ const Pagination = ({
             <PageButton
               disabled={isRightArrowDisabled || lessThanTwoItems}
               color={color}
-              onClick={() => onCurrentPageChange(totalPages - 1)}
+              onClick={() => onCurrentPageChange(totalPages)}
               aria-label={intl.formatMessage({
                 defaultMessage: "Goto last page",
                 id: "vNcmiU",
