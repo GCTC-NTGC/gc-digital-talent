@@ -2646,10 +2646,6 @@
     "defaultMessage": "Expiré",
     "description": "Expired status"
   },
-  "GIN69n": {
-    "defaultMessage": "Date de clôture :",
-    "description": "Label for a pool advertisements closing date on the application"
-  },
   "GKo3Df": {
     "defaultMessage": "Mettre à jour un ministère",
     "description": "Page title for the department edit page"
