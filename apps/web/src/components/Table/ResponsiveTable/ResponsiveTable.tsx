@@ -20,7 +20,7 @@ import NullMessage, { NullMessageProps } from "./NullMessage";
 import RowSelection, { getRowSelectionColumn } from "./RowSelection";
 import useControlledTableState from "./useControlledTableState";
 import TablePagination from "./TablePagination";
-import { SEARCH_PARAM_KEY } from "./constants";
+import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
 
 import type {
   AddLinkProps,
@@ -114,6 +114,14 @@ const ResponsiveTable = <TData extends object>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rowSelection]);
 
+  const manualPageSize = !pagination?.internal
+    ? Math.ceil(
+        (pagination?.total ?? 0) /
+          (state.pagination?.pageSize ??
+            INITIAL_STATE.paginationState.pageSize),
+      )
+    : undefined;
+
   const table = useReactTable({
     data: memoizedData,
     columns: memoizedColumns,
@@ -126,6 +134,7 @@ const ResponsiveTable = <TData extends object>({
     enableSorting: !!sort,
     manualSorting: !sort?.internal,
     manualPagination: !pagination?.internal,
+    pageCount: manualPageSize,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),

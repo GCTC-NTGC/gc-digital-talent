@@ -67,6 +67,8 @@ const TablePagination = <T,>({
     }
   };
 
+  const tablePaginationState = table.getState().pagination;
+
   return (
     <Pagination
       data-h2-margin-top="base(x.5)"
@@ -76,11 +78,14 @@ const TablePagination = <T,>({
         description: "Label for the table pagination",
         id: "N3sUUc",
       })}
-      currentPage={table.getState().pagination.pageIndex + 1}
-      pageSize={table.getState().pagination.pageSize}
+      currentPage={tablePaginationState.pageIndex + 1}
+      pageSize={tablePaginationState.pageSize}
       pageSizes={pagination.pageSizes}
       totalCount={pagination.total}
-      totalPages={table.getPageCount() ?? 0}
+      totalPages={
+        table.getPageCount() ??
+        Math.ceil(pagination?.total ?? 0 / tablePaginationState.pageSize)
+      }
       onPageSizeChange={handlePageSizeChange}
       onCurrentPageChange={handlePageChange}
     />
