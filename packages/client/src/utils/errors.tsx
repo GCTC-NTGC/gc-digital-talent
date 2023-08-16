@@ -4,7 +4,6 @@ import { CombinedError } from "urql";
 import { IntlShape } from "react-intl";
 
 import { tryFindMessageDescriptor } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 export const extractErrorMessages = (combinedError: CombinedError) =>
   combinedError.graphQLErrors.flatMap((error) => error.message);
