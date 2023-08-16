@@ -43,10 +43,16 @@ class Kernel extends ConsoleKernel
                 foreach ($user->workExperiences()->withTrashed()->get() as $experience) {
                     $experience->forceDelete();
                 }
+                foreach ($user->roleAssignments()->get() as $role) {
+                    $role->forceDelete();
+                }
+                foreach ($user->userSkills()->withTrashed()->get() as $skill) {
+                    $skill->forceDelete();
+                }
 
                 $user->forceDelete();
             }
-        })->daily();
+        })->everyMinute();
     }
 
     /**
