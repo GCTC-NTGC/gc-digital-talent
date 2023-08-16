@@ -12,17 +12,6 @@ export default {
   component: ProfilePage,
   title: "Pages/Profile Page",
   args: {},
-  parameters: {
-    apiResponses: {
-      getMyStatus: {
-        data: {
-          me: {
-            isProfileComplete: true,
-          },
-        },
-      },
-    },
-  },
 } as Meta;
 
 const Template: StoryFn<ProfilePageProps["user"]> = (args) => {
@@ -38,14 +27,7 @@ CompletedWithExperiences.args = {
   ...fakeUserData,
   experiences: fakeExperienceArray,
 };
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const nullUserData: any = {};
-Object.keys(fakeUserData).forEach((key) => {
-  nullUserData[key] = null;
-});
 EmptyAllNull.args = {
-  ...nullUserData,
   id: "test ID", // this page can only be loaded by a logged in user
   email: undefined,
 };
