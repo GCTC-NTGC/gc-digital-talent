@@ -4,6 +4,7 @@ import { CombinedError } from "urql";
 import { IntlShape } from "react-intl";
 
 import { tryFindMessageDescriptor } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 export const extractErrorMessages = (combinedError: CombinedError) =>
   combinedError.graphQLErrors.flatMap((error) => error.message);
@@ -12,15 +13,27 @@ export const extractErrorMessages = (combinedError: CombinedError) =>
 export const extractValidationMessageKeys = (
   combinedError: CombinedError,
 ): string[] | null => {
-  const { extensions } = combinedError.graphQLErrors[0];
-  if (extensions && extensions.validation) {
-    const validationObject = extensions.validation as object;
-    const arrayOfValuesFlattened = Object.values(
-      validationObject,
-    ).flat() as string[];
-    if (arrayOfValuesFlattened && arrayOfValuesFlattened.length > 0) {
-      return arrayOfValuesFlattened;
-    }
+  if (combinedError.graphQLErrors.length === 0) {
+    return null;
+  }
+  // comb through all graphQLErrors objects to build array of messages flattened
+  const validationMessagesFlatMappedWithUndefined =
+    combinedError.graphQLErrors.flatMap((errorObject) => {
+      const { extensions } = errorObject;
+      if (extensions?.validation) {
+        const validationObject = extensions.validation as object;
+        const arrayOfValuesFlattened = Object.values(
+          validationObject,
+        ).flat() as string[];
+        return arrayOfValuesFlattened;
+      }
+      return undefined;
+    });
+  // filter out undefined which was placed when graphQLErrors[index].extensions.validation isn't present
+  const validationMessagesFlatMapped =
+    validationMessagesFlatMappedWithUndefined.filter(notEmpty);
+  if (validationMessagesFlatMapped && validationMessagesFlatMapped.length > 0) {
+    return validationMessagesFlatMapped;
   }
   return null;
 };
