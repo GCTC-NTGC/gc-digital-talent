@@ -222,7 +222,6 @@ export const RequestForm = ({
     __typename: "ApplicantFilter",
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
-    expectedClassifications: undefined,
     qualifiedClassifications:
       applicantFilter?.qualifiedClassifications?.map(
         (qualifiedClassification) => {

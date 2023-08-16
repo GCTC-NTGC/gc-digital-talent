@@ -14,7 +14,6 @@ import {
   PartialUserLanguage,
   PartialUserLocation,
   PartialUserPreferences,
-  PartialUserRoleSalary,
 } from "~/validators/profile";
 
 type PartialUser = PartialUserAbout &
@@ -22,8 +21,7 @@ type PartialUser = PartialUserAbout &
   PartialUserGovernment &
   PartialUserLanguage &
   PartialUserLocation &
-  PartialUserPreferences &
-  PartialUserRoleSalary;
+  PartialUserPreferences;
 
 const stepHasError = (user: PartialUser, pool: Pool) => {
   const hasEmptyRequiredFields =

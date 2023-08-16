@@ -45,8 +45,6 @@ const defaultUser = {
   locationPreferences: undefined,
   locationExemptions: undefined,
   acceptedOperationalRequirements: undefined,
-  expectedSalary: undefined,
-  expectedClassifications: [],
   positionDuration: undefined,
 };
 

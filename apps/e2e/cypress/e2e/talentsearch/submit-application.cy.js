@@ -62,9 +62,6 @@ describe("Submit Application Workflow Tests", () => {
         hasPriorityEntitlement: false,
         locationPreferences: WorkRegion.Ontario,
         positionDuration: PositionDuration.Permanent,
-        expectedGenericJobTitles: {
-          sync: testGenericJobTitleIds,
-        },
       }).as("testUser");
     });
 
