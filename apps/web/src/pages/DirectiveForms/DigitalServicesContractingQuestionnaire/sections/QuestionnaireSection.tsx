@@ -1,0 +1,105 @@
+import React from "react";
+import { useIntl } from "react-intl";
+
+import ListBulletIcon from "@heroicons/react/24/outline/ListBulletIcon";
+
+import { Button, Heading, TableOfContents } from "@gc-digital-talent/ui";
+import { formMessages } from "@gc-digital-talent/i18n";
+
+import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
+import GeneralInformationSection from "./GeneralInformationSection";
+import { IdNamePair } from "../types";
+
+type QuestionnaireSectionProps = {
+  departments: Array<IdNamePair>;
+};
+
+const QuestionnaireSection = ({ departments }: QuestionnaireSectionProps) => {
+  const intl = useIntl();
+  return (
+    <TableOfContents.Section
+      id={PAGE_SECTION_ID.QUESTIONNAIRE}
+      data-h2-padding-top="base(x2)"
+    >
+      <Heading Icon={ListBulletIcon} level="h2" color="tertiary">
+        {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.QUESTIONNAIRE))}
+      </Heading>
+      <TableOfContents.Section
+        id={PAGE_SECTION_ID.GENERAL_INFORMATION}
+        data-h2-padding-top="base(x1)"
+      >
+        <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+          {intl.formatMessage(
+            getSectionTitle(PAGE_SECTION_ID.GENERAL_INFORMATION),
+          )}
+        </Heading>
+        <GeneralInformationSection departments={departments} />
+      </TableOfContents.Section>
+      <TableOfContents.Section
+        id={PAGE_SECTION_ID.SCOPE_OF_CONTRACT}
+        data-h2-padding-top="base(x2)"
+      >
+        <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+          {intl.formatMessage(
+            getSectionTitle(PAGE_SECTION_ID.SCOPE_OF_CONTRACT),
+          )}
+        </Heading>
+        TODO: SCOPE_OF_CONTRACT
+      </TableOfContents.Section>
+      <TableOfContents.Section
+        id={PAGE_SECTION_ID.CONTRACT_REQUIREMENTS}
+        data-h2-padding-top="base(x2)"
+      >
+        <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+          {intl.formatMessage(
+            getSectionTitle(PAGE_SECTION_ID.CONTRACT_REQUIREMENTS),
+          )}
+        </Heading>
+        TODO: CONTRACT_REQUIREMENTS
+      </TableOfContents.Section>
+      <TableOfContents.Section
+        id={PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE}
+        data-h2-padding-top="base(x2)"
+      >
+        <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+          {intl.formatMessage(
+            getSectionTitle(PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE),
+          )}
+        </Heading>
+        TODO: TECHNOLOGICAL_CHANGE
+      </TableOfContents.Section>
+      <TableOfContents.Section
+        id={PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS}
+        data-h2-padding-top="base(x2)"
+      >
+        <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+          {intl.formatMessage(
+            getSectionTitle(PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS),
+          )}
+        </Heading>
+        TODO: OPERATIONS_CONSIDERATIONS
+      </TableOfContents.Section>
+      <TableOfContents.Section
+        id={PAGE_SECTION_ID.TALENT_SOURCING_DECISION}
+        data-h2-padding-top="base(x2)"
+      >
+        <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+          {intl.formatMessage(
+            getSectionTitle(PAGE_SECTION_ID.TALENT_SOURCING_DECISION),
+          )}
+        </Heading>
+        TODO: TALENT_SOURCING_DECISION
+      </TableOfContents.Section>
+      <Button
+        type="submit"
+        color="secondary"
+        mode="solid"
+        // disabled={isUpdating}
+      >
+        {intl.formatMessage(formMessages.submit)}
+      </Button>
+    </TableOfContents.Section>
+  );
+};
+
+export default QuestionnaireSection;

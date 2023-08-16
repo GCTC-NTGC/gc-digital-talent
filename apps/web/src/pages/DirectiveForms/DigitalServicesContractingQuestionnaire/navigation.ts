@@ -81,7 +81,7 @@ const sectionTitles = new Map<PageSectionId, MessageDescriptor>([
     PAGE_SECTION_ID.GENERAL_INFORMATION,
     defineMessage({
       defaultMessage: "General information",
-      id: "Raho+z",
+      id: "D2v0V5",
       description:
         "Heading for the General information section on the digital services contracting questionnaire",
     }),
@@ -90,7 +90,7 @@ const sectionTitles = new Map<PageSectionId, MessageDescriptor>([
     PAGE_SECTION_ID.QUESTIONS_DIGITAL_INITIATIVE,
     defineMessage({
       defaultMessage: "Questions about the digital initiative",
-      id: "Raho+z",
+      id: "zl6H2p",
       description:
         "Heading for the Questions about the digital initiative section on the digital services contracting questionnaire",
     }),
@@ -99,7 +99,7 @@ const sectionTitles = new Map<PageSectionId, MessageDescriptor>([
     PAGE_SECTION_ID.SCOPE_OF_CONTRACT,
     defineMessage({
       defaultMessage: "Scope of the contract",
-      id: "Raho+z",
+      id: "N631me",
       description:
         "Heading for the Scope of the contract section on the digital services contracting questionnaire",
     }),
@@ -108,7 +108,7 @@ const sectionTitles = new Map<PageSectionId, MessageDescriptor>([
     PAGE_SECTION_ID.CONTRACT_REQUIREMENTS,
     defineMessage({
       defaultMessage: "Requirements",
-      id: "Raho+z",
+      id: "IllbQ5",
       description:
         "Heading for the requirements section on the digital services contracting questionnaire",
     }),
@@ -117,7 +117,7 @@ const sectionTitles = new Map<PageSectionId, MessageDescriptor>([
     PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE,
     defineMessage({
       defaultMessage: "Technological change",
-      id: "Raho+z",
+      id: "hL3EY7",
       description:
         "Heading for the Technological change section on the digital services contracting questionnaire",
     }),
@@ -126,7 +126,7 @@ const sectionTitles = new Map<PageSectionId, MessageDescriptor>([
     PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS,
     defineMessage({
       defaultMessage: "Operations considerations",
-      id: "Raho+z",
+      id: "ZIDY0W",
       description:
         "Heading for the Operations considerations section on the digital services contracting questionnaire",
     }),
@@ -135,7 +135,7 @@ const sectionTitles = new Map<PageSectionId, MessageDescriptor>([
     PAGE_SECTION_ID.TALENT_SOURCING_DECISION,
     defineMessage({
       defaultMessage: "Talent sourcing decision",
-      id: "Raho+z",
+      id: "qmKVmr",
       description:
         "Heading for the Talent sourcing decision section on the digital services contracting questionnaire",
     }),
@@ -144,7 +144,7 @@ const sectionTitles = new Map<PageSectionId, MessageDescriptor>([
     PAGE_SECTION_ID.EXAMPLES_OF_CONTRACTS,
     defineMessage({
       defaultMessage: "Examples of contracts for digital services",
-      id: "Raho+z",
+      id: "E6G68c",
       description:
         "Heading for the Examples of contracts for digital services section on the digital services contracting questionnaire",
     }),

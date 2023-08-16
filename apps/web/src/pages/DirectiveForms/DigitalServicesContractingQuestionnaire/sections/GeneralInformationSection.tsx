@@ -18,11 +18,13 @@ import { IdNamePair } from "../types";
 // placeholder ID for fake option "other"
 const OTHER_ID = "OTHER";
 
-type GeneralInformationProps = {
+type GeneralInformationSectionProps = {
   departments: Array<IdNamePair>;
 };
 
-const GeneralInformation = ({ departments }: GeneralInformationProps) => {
+const GeneralInformationSection = ({
+  departments,
+}: GeneralInformationSectionProps) => {
   const intl = useIntl();
   const { watch, resetField } = useFormContext();
 
@@ -513,4 +515,4 @@ const GeneralInformation = ({ departments }: GeneralInformationProps) => {
   );
 };
 
-export default GeneralInformation;
+export default GeneralInformationSection;
