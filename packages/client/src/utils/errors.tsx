@@ -9,33 +9,48 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 export const extractErrorMessages = (combinedError: CombinedError) =>
   combinedError.graphQLErrors.flatMap((error) => error.message);
 
-// grab the validation error enums to map them to messages, guarding against possible missing fields
+// type guard for non-nullable object
+const isNotNullObject = (value: unknown): value is NonNullable<object> => {
+  return value !== null && value !== undefined && typeof value === "object";
+};
+
+// expected shape of validation extension, returned as type unknown
+interface ExtensionWithValidation {
+  validation: Array<{ [attributeName: string]: Array<string> }>;
+}
+
+// custom type guard for expected validation extension shape
+const isExtensionWithValidation = (
+  value: unknown,
+): value is ExtensionWithValidation => {
+  if (isNotNullObject(value) && "validation" in value) {
+    const value2 = value as { validation: unknown }; // type narrow for tested property
+    return (
+      isNotNullObject(value2.validation) &&
+      Object.values(value2.validation).every(
+        (property) =>
+          Array.isArray(property) &&
+          property.every((message) => typeof message === "string"),
+      )
+    );
+  }
+  return false;
+};
+
+// grab the validation extension error messages out of the combined error
 export const extractValidationMessageKeys = (
   combinedError: CombinedError,
-): string[] | null => {
-  if (combinedError.graphQLErrors.length === 0) {
-    return null;
-  }
-  // comb through all graphQLErrors objects to build array of messages flattened
-  const validationMessagesFlatMappedWithUndefined =
-    combinedError.graphQLErrors.flatMap((errorObject) => {
-      const { extensions } = errorObject;
-      if (extensions?.validation) {
-        const validationObject = extensions.validation as object;
-        const arrayOfValuesFlattened = Object.values(
-          validationObject,
-        ).flat() as string[];
-        return arrayOfValuesFlattened;
-      }
-      return undefined;
-    });
-  // filter out undefined which was placed when graphQLErrors[index].extensions.validation isn't present
-  const validationMessagesFlatMapped =
-    validationMessagesFlatMappedWithUndefined.filter(notEmpty);
-  if (validationMessagesFlatMapped && validationMessagesFlatMapped.length > 0) {
-    return validationMessagesFlatMapped;
-  }
-  return null;
+): string[] => {
+  const errorExtensions = combinedError.graphQLErrors.flatMap(
+    (error) => error.extensions,
+  );
+  const validationMessages = errorExtensions
+    .filter(isExtensionWithValidation)
+    .flatMap((validationExtension) => validationExtension.validation)
+    .flatMap((validationObject) => Object.values(validationObject))
+    .flat();
+
+  return validationMessages;
 };
 
 // Accepts a list of error messages, localizes them, and returns a formatted ReactNode for toasting
