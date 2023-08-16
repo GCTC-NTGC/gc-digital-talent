@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useSearchParams } from "react-router-dom";
+import { useIntl } from "react-intl";
 import isEqual from "lodash/isEqual";
 import type { ColumnDef, RowSelectionState } from "@tanstack/react-table";
 import {
@@ -12,7 +13,6 @@ import {
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { useIntl } from "react-intl";
 import Table from "./Table";
 import SearchForm from "./SearchForm";
 import ColumnDialog from "./ColumnDialog";
@@ -27,9 +27,8 @@ import type {
   DatasetDownload,
   DatasetPrint,
   PaginationDef,
-  RowSelect,
+  RowSelectDef,
   SearchDef,
-  SearchState,
   SortDef,
 } from "./types";
 
@@ -47,7 +46,7 @@ interface TableProps<TData> {
   /** Override default null message with a custom one */
   nullMessage?: NullMessageProps;
   /** Enable row selection */
-  rowSelect?: RowSelect<TData>;
+  rowSelect?: RowSelectDef<TData>;
   /** Enable the search form */
   search?: SearchDef<TData>;
   /** Enable sorting */
@@ -150,12 +149,6 @@ const ResponsiveTable = <TData extends object>({
     });
   }, [setSearchParams, sort?.initialState, sortRule]);
 
-  const handleSearchChange = (newSearchState: SearchState) => {
-    if (search?.onChange) {
-      search.onChange(newSearchState);
-    }
-  };
-
   const hasNoData = !isLoading && (!memoizedData || memoizedData.length === 0);
   const captionId = `${id}-caption`;
 
@@ -165,7 +158,6 @@ const ResponsiveTable = <TData extends object>({
         {search && (
           <SearchForm
             id={`${id}-search`}
-            onChange={handleSearchChange}
             table={table}
             state={initialState.searchState}
             {...search}

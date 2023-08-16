@@ -21,7 +21,7 @@ export type SearchColumn = {
   value: string;
 };
 
-export type RowSelect<T> = {
+export type RowSelectDef<T> = {
   /** Label for the "select all" checkbox in the header */
   allLabel?: string;
   /** Render method for the table cell (`td`) */
@@ -34,7 +34,7 @@ export interface SearchFormProps<TData extends RowData> {
   /** Instance of the table */
   table: Table<TData>;
   /** Callback for when state changes */
-  onChange: (newState: SearchState) => void;
+  onChange?: (newState: SearchState) => void;
   /** Columns that can be searched on */
   searchBy?: SearchColumn[];
   /** The initial state for the search form */
