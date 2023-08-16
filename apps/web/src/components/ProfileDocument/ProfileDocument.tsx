@@ -175,7 +175,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                       </PageSection>
                       <PageSection>
                         <Heading level="h3">
-                          {intl.formatMessage(navigationMessages.myStatus)}
+                          {intl.formatMessage(commonMessages.status)}
                         </Heading>
                         {result.armedForcesStatus !== null &&
                           result.armedForcesStatus !== undefined && (
