@@ -3,9 +3,19 @@ import { defineMessage, useIntl } from "react-intl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import ListBulletIcon from "@heroicons/react/24/outline/ListBulletIcon";
+import { SubmitHandler } from "react-hook-form";
 
-import { Heading, Link, TableOfContents } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  Link,
+  Pending,
+  TableOfContents,
+} from "@gc-digital-talent/ui";
 import AnchorLink from "@gc-digital-talent/ui/src/components/TableOfContents/AnchorLink";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { BasicForm } from "@gc-digital-talent/forms";
+import { formMessages, useLocale } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -13,9 +23,11 @@ import Hero from "~/components/Hero";
 import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_EN.docx";
 import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
 
-import { useLocale } from "@gc-digital-talent/i18n";
+import { useDigitalServicesContractingQuestionnairePageDataQuery } from "~/api/generated";
 import { pageTitle as directiveHomePageTitle } from "../../DirectivePage/DirectivePage";
 import { getSectionTitle, PAGE_SECTION_ID } from "./navigation";
+import { IdNamePair, FormValues } from "./types";
+import GeneralInformation from "./sections/GeneralInformation";
 
 export const pageTitle = defineMessage({
   defaultMessage: "Digital Services Contracting Questionnaire",
@@ -35,10 +47,18 @@ function buildExternalLink(
   );
 }
 
-const DigitalServicesContractingQuestionnaire = () => {
+type DigitalServicesContractingQuestionnaireProps = {
+  departments: Array<IdNamePair>;
+  onSubmit: SubmitHandler<FormValues>;
+};
+
+const DigitalServicesContractingQuestionnaire = ({
+  departments,
+  onSubmit,
+}: DigitalServicesContractingQuestionnaireProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
   const localeState = useLocale();
+  const paths = useRoutes();
 
   const crumbs = useBreadcrumbs([
     {
@@ -479,77 +499,94 @@ const DigitalServicesContractingQuestionnaire = () => {
               id={PAGE_SECTION_ID.QUESTIONNAIRE}
               data-h2-padding-top="base(x2)"
             >
-              <Heading Icon={ListBulletIcon} size="h3" color="tertiary">
-                {intl.formatMessage(
-                  getSectionTitle(PAGE_SECTION_ID.QUESTIONNAIRE),
-                )}
-              </Heading>
-              <TableOfContents.Section
-                id={PAGE_SECTION_ID.GENERAL_INFORMATION}
-                data-h2-padding-top="base(x1)"
+              <BasicForm
+                onSubmit={onSubmit}
+                // options={{
+                //   defaultValues: dataToFormValues(user),
+                // }}
               >
-                <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                <Heading Icon={ListBulletIcon} size="h3" color="tertiary">
                   {intl.formatMessage(
-                    getSectionTitle(PAGE_SECTION_ID.GENERAL_INFORMATION),
+                    getSectionTitle(PAGE_SECTION_ID.QUESTIONNAIRE),
                   )}
                 </Heading>
-                TODO: GENERAL_INFORMATION
-              </TableOfContents.Section>
-              <TableOfContents.Section
-                id={PAGE_SECTION_ID.SCOPE_OF_CONTRACT}
-                data-h2-padding-top="base(x2)"
-              >
-                <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
-                  {intl.formatMessage(
-                    getSectionTitle(PAGE_SECTION_ID.SCOPE_OF_CONTRACT),
-                  )}
-                </Heading>
-                TODO: SCOPE_OF_CONTRACT
-              </TableOfContents.Section>
-              <TableOfContents.Section
-                id={PAGE_SECTION_ID.CONTRACT_REQUIREMENTS}
-                data-h2-padding-top="base(x2)"
-              >
-                <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
-                  {intl.formatMessage(
-                    getSectionTitle(PAGE_SECTION_ID.CONTRACT_REQUIREMENTS),
-                  )}
-                </Heading>
-                TODO: CONTRACT_REQUIREMENTS
-              </TableOfContents.Section>
-              <TableOfContents.Section
-                id={PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE}
-                data-h2-padding-top="base(x2)"
-              >
-                <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
-                  {intl.formatMessage(
-                    getSectionTitle(PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE),
-                  )}
-                </Heading>
-                TODO: TECHNOLOGICAL_CHANGE
-              </TableOfContents.Section>
-              <TableOfContents.Section
-                id={PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS}
-                data-h2-padding-top="base(x2)"
-              >
-                <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
-                  {intl.formatMessage(
-                    getSectionTitle(PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS),
-                  )}
-                </Heading>
-                TODO: OPERATIONS_CONSIDERATIONS
-              </TableOfContents.Section>
-              <TableOfContents.Section
-                id={PAGE_SECTION_ID.TALENT_SOURCING_DECISION}
-                data-h2-padding-top="base(x2)"
-              >
-                <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
-                  {intl.formatMessage(
-                    getSectionTitle(PAGE_SECTION_ID.TALENT_SOURCING_DECISION),
-                  )}
-                </Heading>
-                TODO: TALENT_SOURCING_DECISION
-              </TableOfContents.Section>
+                <TableOfContents.Section
+                  id={PAGE_SECTION_ID.GENERAL_INFORMATION}
+                  data-h2-padding-top="base(x1)"
+                >
+                  <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                    {intl.formatMessage(
+                      getSectionTitle(PAGE_SECTION_ID.GENERAL_INFORMATION),
+                    )}
+                  </Heading>
+                  <GeneralInformation departments={departments} />
+                </TableOfContents.Section>
+                <TableOfContents.Section
+                  id={PAGE_SECTION_ID.SCOPE_OF_CONTRACT}
+                  data-h2-padding-top="base(x2)"
+                >
+                  <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                    {intl.formatMessage(
+                      getSectionTitle(PAGE_SECTION_ID.SCOPE_OF_CONTRACT),
+                    )}
+                  </Heading>
+                  TODO: SCOPE_OF_CONTRACT
+                </TableOfContents.Section>
+                <TableOfContents.Section
+                  id={PAGE_SECTION_ID.CONTRACT_REQUIREMENTS}
+                  data-h2-padding-top="base(x2)"
+                >
+                  <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                    {intl.formatMessage(
+                      getSectionTitle(PAGE_SECTION_ID.CONTRACT_REQUIREMENTS),
+                    )}
+                  </Heading>
+                  TODO: CONTRACT_REQUIREMENTS
+                </TableOfContents.Section>
+                <TableOfContents.Section
+                  id={PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE}
+                  data-h2-padding-top="base(x2)"
+                >
+                  <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                    {intl.formatMessage(
+                      getSectionTitle(PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE),
+                    )}
+                  </Heading>
+                  TODO: TECHNOLOGICAL_CHANGE
+                </TableOfContents.Section>
+                <TableOfContents.Section
+                  id={PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS}
+                  data-h2-padding-top="base(x2)"
+                >
+                  <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                    {intl.formatMessage(
+                      getSectionTitle(
+                        PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS,
+                      ),
+                    )}
+                  </Heading>
+                  TODO: OPERATIONS_CONSIDERATIONS
+                </TableOfContents.Section>
+                <TableOfContents.Section
+                  id={PAGE_SECTION_ID.TALENT_SOURCING_DECISION}
+                  data-h2-padding-top="base(x2)"
+                >
+                  <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+                    {intl.formatMessage(
+                      getSectionTitle(PAGE_SECTION_ID.TALENT_SOURCING_DECISION),
+                    )}
+                  </Heading>
+                  TODO: TALENT_SOURCING_DECISION
+                </TableOfContents.Section>
+                <Button
+                  type="submit"
+                  color="secondary"
+                  mode="solid"
+                  // disabled={isUpdating}
+                >
+                  {intl.formatMessage(formMessages.submit)}
+                </Button>
+              </BasicForm>
             </TableOfContents.Section>
             <TableOfContents.Section
               id={PAGE_SECTION_ID.EXAMPLES_OF_CONTRACTS}
@@ -724,7 +761,18 @@ const DigitalServicesContractingQuestionnaire = () => {
 };
 
 const DigitalServicesContractingQuestionnairePage = () => {
-  return <DigitalServicesContractingQuestionnaire />;
+  const [{ data, fetching, error }] =
+    useDigitalServicesContractingQuestionnairePageDataQuery();
+  return (
+    <Pending fetching={fetching} error={error}>
+      <DigitalServicesContractingQuestionnaire
+        departments={data?.departments?.filter(notEmpty) ?? []}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+      />
+    </Pending>
+  );
 };
 
 export default DigitalServicesContractingQuestionnairePage;

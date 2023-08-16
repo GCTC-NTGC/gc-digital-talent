@@ -146,6 +146,32 @@ const formMessages = defineMessages({
     id: "spoY2L",
     description: "Select the option to sort or filter by all types",
   },
+  specifyOther: {
+    defaultMessage: "Please specify",
+    id: "x7fYPu",
+    description: "A field for the user to specify another option",
+  },
+  other: {
+    defaultMessage: "Other",
+    id: "E6JTyY",
+    description:
+      "The selection to choose when the expected option is not available",
+  },
+  yes: {
+    defaultMessage: "Yes",
+    id: "IKkBm7",
+    description: "The affirmative option to answer a question",
+  },
+  no: {
+    defaultMessage: "No",
+    id: "LTmcVS",
+    description: "The negative option to answer a question",
+  },
+  iDontKnow: {
+    defaultMessage: "I don’t know",
+    id: "mcZbcM",
+    description: "The unsure option to answer a question",
+  },
 });
 
 export default formMessages;

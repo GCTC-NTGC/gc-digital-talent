@@ -1,0 +1,9 @@
+query digitalServicesContractingQuestionnairePageData {
+  departments {
+    id
+    name {
+      en
+      fr
+    }
+  }
+}
