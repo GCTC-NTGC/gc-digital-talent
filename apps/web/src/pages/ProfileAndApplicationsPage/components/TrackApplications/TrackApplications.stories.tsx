@@ -38,6 +38,7 @@ export default {
   title: "Pages/Profile and Applications/Track Applications",
   args: {
     applications: [...activeRecruitments, ...expiredRecruitments],
+    userId: mockApplications[0].id,
   },
 } as Meta;
 
