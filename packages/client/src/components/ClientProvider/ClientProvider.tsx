@@ -162,7 +162,7 @@ const ClientProvider = ({
               let errorMessages = extractErrorMessages(error);
 
               const validationMessageKeys = extractValidationMessageKeys(error);
-              if (validationMessageKeys) {
+              if (validationMessageKeys.length > 0) {
                 errorMessages = validationMessageKeys;
               }
 
