@@ -1,11 +1,13 @@
 import { IntlShape } from "react-intl";
+
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { PoolCandidate } from "@gc-digital-talent/graphql";
+
 import {
   formatClosingDate,
   formatSubmittedAt,
   isDraft,
-} from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
+} from "~/utils/poolCandidate";
 
 type Application = Omit<PoolCandidate, "user">;
 

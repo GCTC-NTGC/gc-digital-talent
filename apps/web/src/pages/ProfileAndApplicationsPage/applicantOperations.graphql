@@ -163,3 +163,43 @@ query ApplicantInformation {
     }
   }
 }
+
+query MyApplications {
+  me {
+    id
+    poolCandidates {
+      id
+      status
+      archivedAt
+      submittedAt
+      pool {
+        id
+        closingDate
+        name {
+          en
+          fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
+          name {
+            en
+            fr
+          }
+          genericJobTitles {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
+          minSalary
+          maxSalary
+        }
+      }
+    }
+  }
+}

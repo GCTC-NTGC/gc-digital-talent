@@ -1,14 +1,16 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
+import { PoolCandidate } from "@gc-digital-talent/graphql";
 
-import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
-import type { Application } from "./ApplicationCard";
+
+type Application = Omit<PoolCandidate, "user">;
 
 interface ActionProps {
   show: boolean;
@@ -427,7 +429,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
   );
 };
 
-export interface ArchiveActionProps extends ActionProps {
+interface ArchiveActionProps extends ActionProps {
   application: Application;
   onArchive: () => void;
 }
