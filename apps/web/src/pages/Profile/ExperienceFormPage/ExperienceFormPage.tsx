@@ -24,8 +24,6 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
-import ProfileFormWrapper from "~/components/ProfileFormWrapper/ProfileFormWrapper";
-
 import {
   useDeleteExperienceMutation,
   useExperienceMutations,
@@ -38,6 +36,8 @@ import type {
   ExperienceDetailsSubmissionData,
   ExperienceMutationResponse,
 } from "~/types/experience";
+import SEO from "~/components/SEO/SEO";
+import Hero from "~/components/Hero/Hero";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import AdditionalDetails from "~/components/ExperienceFormFields/AdditionalDetails";
@@ -209,6 +209,22 @@ export const ExperienceForm = ({
 
   const crumbs: { label: string | React.ReactNode; url: string }[] = [
     {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: paths.home(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Profile and applications",
+        id: "wDc+F3",
+        description: "Breadcrumb for profile and applications page.",
+      }),
+      url: paths.profileAndApplications(),
+    },
+    {
       label: intl.formatMessage(
         navigationMessages.careerTimelineAndRecruitment,
       ),
@@ -226,7 +242,7 @@ export const ExperienceForm = ({
             id: "mJ1HE4",
             description: "Display text for add experience form in breadcrumbs",
           }),
-      url: "#",
+      url: window.location.pathname,
     },
   ];
 
@@ -257,215 +273,214 @@ export const ExperienceForm = ({
       });
 
   return (
-    <ProfileFormWrapper
-      title={pageTitle}
-      description={pageSubtitle}
-      prefixBreadcrumbs
-      crumbs={crumbs}
-    >
-      <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
-        <TableOfContents.Navigation>
-          <TableOfContents.List>
-            {!edit && (
+    <>
+      <SEO title={pageTitle} />
+      <Hero title={pageTitle} subtitle={pageSubtitle} crumbs={crumbs} />
+      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+        <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+          <TableOfContents.Navigation>
+            <TableOfContents.List>
+              {!edit && (
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id="type-of-experience">
+                    {intl.formatMessage({
+                      defaultMessage: "Select a type of experience",
+                      id: "jw6Umr",
+                      description:
+                        "Heading for the experience type section fo the experience form",
+                    })}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              )}
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id="type-of-experience">
+                <TableOfContents.AnchorLink id="experience-details">
                   {intl.formatMessage({
-                    defaultMessage: "Select a type of experience",
-                    id: "jw6Umr",
+                    defaultMessage: "Provide a few details",
+                    id: "GB3LDj",
                     description:
                       "Heading for the experience type section fo the experience form",
                   })}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
-            )}
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id="experience-details">
-                {intl.formatMessage({
-                  defaultMessage: "Provide a few details",
-                  id: "GB3LDj",
-                  description:
-                    "Heading for the experience type section fo the experience form",
-                })}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id="additional-details">
-                {intl.formatMessage({
-                  defaultMessage: "Highlight additional details",
-                  id: "E4YXS0",
-                  description:
-                    "Heading for the experience type section fo the experience form",
-                })}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id="skills">
-                {intl.formatMessage({
-                  defaultMessage: "List featured skills",
-                  id: "rxDfeN",
-                  description:
-                    "Heading for the experience type section fo the experience form",
-                })}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-          </TableOfContents.List>
-        </TableOfContents.Navigation>
-        <TableOfContents.Content>
-          <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(handleSubmit)}>
-              <ErrorSummary experienceType={experienceType} />
-              <ExperienceHeading edit={!!experienceId} />
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id="additional-details">
+                  {intl.formatMessage({
+                    defaultMessage: "Highlight additional details",
+                    id: "E4YXS0",
+                    description:
+                      "Heading for the experience type section fo the experience form",
+                  })}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id="skills">
+                  {intl.formatMessage({
+                    defaultMessage: "List featured skills",
+                    id: "rxDfeN",
+                    description:
+                      "Heading for the experience type section fo the experience form",
+                  })}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            </TableOfContents.List>
+          </TableOfContents.Navigation>
+          <TableOfContents.Content>
+            <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(handleSubmit)}>
+                <ErrorSummary experienceType={experienceType} />
+                <ExperienceHeading edit={!!experienceId} />
 
-              {!edit && (
-                <TableOfContents.Section id="type-of-experience">
-                  <SelectExperience />
+                {!edit && (
+                  <TableOfContents.Section id="type-of-experience">
+                    <SelectExperience />
+                  </TableOfContents.Section>
+                )}
+
+                <TableOfContents.Section id="experience-details">
+                  <ExperienceDetails experienceType={experienceType} />
                 </TableOfContents.Section>
-              )}
 
-              <TableOfContents.Section id="experience-details">
-                <ExperienceDetails experienceType={experienceType} />
-              </TableOfContents.Section>
+                <TableOfContents.Section id="additional-details">
+                  <AdditionalDetails experienceType={experienceType} />
+                </TableOfContents.Section>
 
-              <TableOfContents.Section id="additional-details">
-                <AdditionalDetails experienceType={experienceType} />
-              </TableOfContents.Section>
-
-              <TableOfContents.Section id="skills">
-                <ExperienceSkills
-                  experienceType={experienceType}
-                  skills={skills}
+                <TableOfContents.Section id="skills">
+                  <ExperienceSkills
+                    experienceType={experienceType}
+                    skills={skills}
+                  />
+                </TableOfContents.Section>
+                <Separator
+                  orientation="horizontal"
+                  decorative
+                  data-h2-background="base(black.light)"
+                  data-h2-margin="base(x2, 0)"
                 />
-              </TableOfContents.Section>
-              <Separator
-                orientation="horizontal"
-                decorative
-                data-h2-background="base(black.light)"
-                data-h2-margin="base(x2, 0)"
-              />
-              {edit ? (
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(x.25, x.5)"
-                  data-h2-flex-wrap="base(wrap)"
-                  data-h2-flex-direction="base(column) l-tablet(row)"
-                  data-h2-align-items="base(flex-start) l-tablet(center)"
-                >
-                  <Button type="submit">
-                    {intl.formatMessage({
-                      defaultMessage: "Save and return to my career timeline",
-                      id: "jZi53k",
-                      description:
-                        "Label on button to save and return on the current experience",
-                    })}
-                  </Button>
-                  <Link color="quaternary" mode="inline" href={returnPath}>
-                    {intl.formatMessage(formMessages.cancelGoBack)}
-                  </Link>
-                  <AlertDialog.Root>
-                    <AlertDialog.Trigger>
-                      <Button type="button" mode="inline" color="error">
-                        {intl.formatMessage({
-                          defaultMessage: "Delete this experience",
-                          id: "5DfpAy",
-                          description:
-                            "Label on button to delete the current experience",
-                        })}
-                      </Button>
-                    </AlertDialog.Trigger>
-                    <AlertDialog.Content>
-                      <AlertDialog.Title>
-                        {intl.formatMessage({
-                          defaultMessage: "Are you sure?",
-                          id: "AcsOrg",
-                          description: "Delete confirmation",
-                        })}
-                      </AlertDialog.Title>
-                      <AlertDialog.Description>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "Are you sure you would like to delete this experience from your profile? This action cannot be undone.",
-                          id: "IhXvCe",
-                          description:
-                            "Question displayed when a user attempts to delete an experience from their profile",
-                        })}
-                      </AlertDialog.Description>
-                      <AlertDialog.Footer>
-                        <AlertDialog.Cancel>
-                          <Button type="button" color="secondary">
-                            {intl.formatMessage({
-                              defaultMessage: "Cancel",
-                              id: "KnE2Rk",
-                              description: "Cancel confirmation",
-                            })}
-                          </Button>
-                        </AlertDialog.Cancel>
-                        <AlertDialog.Action>
-                          <Button
-                            type="submit"
-                            mode="solid"
-                            color="primary"
-                            onClick={handleDeleteExperience}
-                          >
-                            {intl.formatMessage({
-                              defaultMessage: "Delete",
-                              id: "sBksyQ",
-                              description: "Delete confirmation",
-                            })}
-                          </Button>
-                        </AlertDialog.Action>
-                      </AlertDialog.Footer>
-                    </AlertDialog.Content>
-                  </AlertDialog.Root>
-                </div>
-              ) : (
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(x.25, x.5)"
-                  data-h2-flex-wrap="base(wrap)"
-                  data-h2-flex-direction="base(column) l-tablet(row)"
-                  data-h2-align-items="base(flex-start) l-tablet(center)"
-                >
-                  <Button
-                    type="submit"
-                    mode="solid"
-                    value="return"
-                    {...actionProps}
-                    onClick={() => setValue("action", "return")}
+                {edit ? (
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-gap="base(x.25, x.5)"
+                    data-h2-flex-wrap="base(wrap)"
+                    data-h2-flex-direction="base(column) l-tablet(row)"
+                    data-h2-align-items="base(flex-start) l-tablet(center)"
                   >
-                    {intl.formatMessage({
-                      defaultMessage: "Save and return to my career timeline",
-                      id: "jZi53k",
-                      description:
-                        "Label on button to save and return on the current experience",
-                    })}
-                  </Button>
-                  <Button
-                    type="submit"
-                    mode="inline"
-                    {...actionProps}
-                    onClick={() => setValue("action", "add-another")}
+                    <Button type="submit">
+                      {intl.formatMessage({
+                        defaultMessage: "Save and return to my career timeline",
+                        id: "jZi53k",
+                        description:
+                          "Label on button to save and return on the current experience",
+                      })}
+                    </Button>
+                    <Link color="quaternary" mode="inline" href={returnPath}>
+                      {intl.formatMessage(formMessages.cancelGoBack)}
+                    </Link>
+                    <AlertDialog.Root>
+                      <AlertDialog.Trigger>
+                        <Button type="button" mode="inline" color="error">
+                          {intl.formatMessage({
+                            defaultMessage: "Delete this experience",
+                            id: "5DfpAy",
+                            description:
+                              "Label on button to delete the current experience",
+                          })}
+                        </Button>
+                      </AlertDialog.Trigger>
+                      <AlertDialog.Content>
+                        <AlertDialog.Title>
+                          {intl.formatMessage({
+                            defaultMessage: "Are you sure?",
+                            id: "AcsOrg",
+                            description: "Delete confirmation",
+                          })}
+                        </AlertDialog.Title>
+                        <AlertDialog.Description>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "Are you sure you would like to delete this experience from your profile? This action cannot be undone.",
+                            id: "IhXvCe",
+                            description:
+                              "Question displayed when a user attempts to delete an experience from their profile",
+                          })}
+                        </AlertDialog.Description>
+                        <AlertDialog.Footer>
+                          <AlertDialog.Cancel>
+                            <Button type="button" color="secondary">
+                              {intl.formatMessage({
+                                defaultMessage: "Cancel",
+                                id: "KnE2Rk",
+                                description: "Cancel confirmation",
+                              })}
+                            </Button>
+                          </AlertDialog.Cancel>
+                          <AlertDialog.Action>
+                            <Button
+                              type="submit"
+                              mode="solid"
+                              color="primary"
+                              onClick={handleDeleteExperience}
+                            >
+                              {intl.formatMessage({
+                                defaultMessage: "Delete",
+                                id: "sBksyQ",
+                                description: "Delete confirmation",
+                              })}
+                            </Button>
+                          </AlertDialog.Action>
+                        </AlertDialog.Footer>
+                      </AlertDialog.Content>
+                    </AlertDialog.Root>
+                  </div>
+                ) : (
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-gap="base(x.25, x.5)"
+                    data-h2-flex-wrap="base(wrap)"
+                    data-h2-flex-direction="base(column) l-tablet(row)"
+                    data-h2-align-items="base(flex-start) l-tablet(center)"
                   >
-                    {intl.formatMessage({
-                      defaultMessage: "Save and add another",
-                      id: "+7v9Dq",
-                      description:
-                        "Text for save button and add another button on experience form.",
-                    })}
-                  </Button>
-                  <Link mode="inline" href={returnPath}>
-                    {intl.formatMessage({
-                      defaultMessage: "Cancel and go back",
-                      id: "fMcKtJ",
-                      description: "Text to cancel changes to a form",
-                    })}
-                  </Link>
-                </div>
-              )}
-            </form>
-          </FormProvider>
-        </TableOfContents.Content>
-      </TableOfContents.Wrapper>
-    </ProfileFormWrapper>
+                    <Button
+                      type="submit"
+                      mode="solid"
+                      value="return"
+                      {...actionProps}
+                      onClick={() => setValue("action", "return")}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Save and return to my career timeline",
+                        id: "jZi53k",
+                        description:
+                          "Label on button to save and return on the current experience",
+                      })}
+                    </Button>
+                    <Button
+                      type="submit"
+                      mode="inline"
+                      {...actionProps}
+                      onClick={() => setValue("action", "add-another")}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Save and add another",
+                        id: "+7v9Dq",
+                        description:
+                          "Text for save button and add another button on experience form.",
+                      })}
+                    </Button>
+                    <Link mode="inline" href={returnPath}>
+                      {intl.formatMessage({
+                        defaultMessage: "Cancel and go back",
+                        id: "fMcKtJ",
+                        description: "Text to cancel changes to a form",
+                      })}
+                    </Link>
+                  </div>
+                )}
+              </form>
+            </FormProvider>
+          </TableOfContents.Content>
+        </TableOfContents.Wrapper>
+      </div>
+    </>
   );
 };
 
