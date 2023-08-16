@@ -26,9 +26,6 @@ import {
   extractValidationMessageKeys,
 } from "../../utils/errors";
 
-// generate nonce somewhere here?
-// const nonce = ...
-
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
 interface AuthState {
