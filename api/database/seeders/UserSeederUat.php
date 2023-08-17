@@ -28,6 +28,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -41,6 +42,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -54,6 +56,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -67,6 +70,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -80,6 +84,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -93,6 +98,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -106,6 +112,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -119,6 +126,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -132,6 +140,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -145,6 +154,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -158,6 +168,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -171,6 +182,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -184,6 +196,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -197,6 +210,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -210,6 +224,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -223,6 +238,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -236,6 +252,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -249,6 +266,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -262,6 +280,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
@@ -275,6 +294,7 @@ class UserSeederUat extends Seeder
             ]
         )->syncRoles([
             "guest",
+            "applicant",
             "base_user",
             "request_responder",
             "platform_admin",
