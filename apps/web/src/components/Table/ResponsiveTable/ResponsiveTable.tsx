@@ -2,11 +2,7 @@ import * as React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import isEqual from "lodash/isEqual";
-import type {
-  ColumnDef,
-  RowSelectionState,
-  Updater,
-} from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import {
   getCoreRowModel,
   getFilteredRowModel,
