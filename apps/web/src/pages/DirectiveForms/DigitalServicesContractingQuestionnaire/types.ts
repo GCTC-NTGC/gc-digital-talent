@@ -18,5 +18,13 @@ export type FormValues = {
   financialAuthorityName: string;
   financialAuthorityJobTitle: string;
   financialAuthorityEmail: string;
-  authoritiesInvolved: string;
+  authoritiesInvolved: Array<string>;
+  authorityInvolvedOther: string;
+  contractBehalfOfGc: string;
+  contractServiceOfGc: string;
+  contractForDigitalInitiative: string;
+  digitalInitiativeName: string;
+  digitalInitiativePlanSubmitted: string;
+  digitalInitiativePlanUpdated: string;
+  digitalInitiativePlanComplemented: string;
 };

@@ -2,8 +2,14 @@
 import React from "react";
 
 import { Link } from "@gc-digital-talent/ui";
-import { DigitalContractingQuestionnaireInput } from "@gc-digital-talent/graphql";
-import { emptyToNull } from "@gc-digital-talent/helpers";
+import {
+  ContractAuthority,
+  DigitalContractingQuestionnaireInput,
+  YesNoUnsure,
+} from "@gc-digital-talent/graphql";
+import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
+import { defaultLogger } from "@gc-digital-talent/logger";
+
 import { FormValues } from "./types";
 
 export function buildExternalLink(
@@ -17,8 +23,34 @@ export function buildExternalLink(
   );
 }
 
+// Assert type on anonymous objects
+// https://stackoverflow.com/a/73236294
+export function typeCheck<T>(obj: T) {
+  return obj;
+}
+
 // placeholder ID for fake option "other"
 export const OTHER_ID = "OTHER";
+
+// custom type guard for enum value
+function isEnumValue<T extends object>(
+  typeObject: T,
+  value: unknown,
+): value is T[keyof T] {
+  return Object.values(typeObject).includes(value as T[keyof T]);
+}
+
+// helper function to validate enum value at runtime
+function stringToEnumOrNull<T extends object>(
+  typeObject: T,
+  value: string,
+): T[keyof T] | null {
+  if (value === null) return null;
+  if (value === undefined) return null;
+  if (isEnumValue(typeObject, value)) return value;
+  defaultLogger.warning(`Unable to convert value "${value}" to enum`);
+  return null;
+}
 
 export function convertFormValuesToApiInput(
   formValues: FormValues,
@@ -39,10 +71,14 @@ export function convertFormValuesToApiInput(
     financialAuthorityName: emptyToNull(formValues.financialAuthorityName),
     financialAuthorityJobTitle: emptyToNull(formValues.financialAuthorityName),
     financialAuthorityEmail: emptyToNull(formValues.financialAuthorityEmail),
-    // authoritiesInvolved: [ContractAuthority!]
-    //   @rename(attribute: "authorities_involved")
-    // authorityInvolvedOther: String @rename(attribute: "authority_involved_other")
-    // contractBehalfOfGc: YesNoUnsure @rename(attribute: "contract_behalf_of_gc")
+    authoritiesInvolved: formValues.authoritiesInvolved
+      .map((a) => stringToEnumOrNull(ContractAuthority, a))
+      .filter(notEmpty),
+    authorityInvolvedOther: emptyToNull(formValues.authorityInvolvedOther),
+    contractBehalfOfGc: stringToEnumOrNull(
+      YesNoUnsure,
+      formValues.contractBehalfOfGc,
+    ),
     // contractServiceOfGc: YesNoUnsure @rename(attribute: "contract_service_of_gc")
     // contractForDigitalInitiative: YesNoUnsure
     //   @rename(attribute: "contract_for_digital_initiative")

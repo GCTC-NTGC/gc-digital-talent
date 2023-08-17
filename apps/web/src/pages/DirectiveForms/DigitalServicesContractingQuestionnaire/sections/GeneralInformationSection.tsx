@@ -14,7 +14,7 @@ import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { ContractAuthority, YesNoUnsure } from "@gc-digital-talent/graphql";
 
 import { IdNamePair } from "../types";
-import { OTHER_ID } from "../util";
+import { OTHER_ID, typeCheck } from "../util";
 
 type GeneralInformationSectionProps = {
   departments: Array<IdNamePair>;
@@ -261,7 +261,7 @@ const GeneralInformationSection = ({
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
-        items={[
+        items={typeCheck<Array<{ value: ContractAuthority; label: string }>>([
           {
             value: ContractAuthority.Hr,
             label: intl.formatMessage({
@@ -302,7 +302,7 @@ const GeneralInformationSection = ({
             value: ContractAuthority.Other,
             label: intl.formatMessage(formMessages.other),
           },
-        ]}
+        ])}
       />
       {doesAuthorityInvolvedIncludeOther ? (
         <Input
@@ -329,7 +329,7 @@ const GeneralInformationSection = ({
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
-        items={[
+        items={typeCheck<Array<{ value: YesNoUnsure; label: string }>>([
           {
             label: intl.formatMessage(formMessages.yes),
             value: YesNoUnsure.Yes,
@@ -342,7 +342,7 @@ const GeneralInformationSection = ({
             label: intl.formatMessage(formMessages.iDontKnow),
             value: YesNoUnsure.IDontKnow,
           },
-        ]}
+        ])}
       />
       <RadioGroup
         legend={intl.formatMessage({
@@ -358,7 +358,7 @@ const GeneralInformationSection = ({
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
-        items={[
+        items={typeCheck<Array<{ value: YesNoUnsure; label: string }>>([
           {
             label: intl.formatMessage(formMessages.yes),
             value: YesNoUnsure.Yes,
@@ -371,7 +371,7 @@ const GeneralInformationSection = ({
             label: intl.formatMessage(formMessages.iDontKnow),
             value: YesNoUnsure.IDontKnow,
           },
-        ]}
+        ])}
       />
       <RadioGroup
         legend={intl.formatMessage({
@@ -387,7 +387,7 @@ const GeneralInformationSection = ({
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
-        items={[
+        items={typeCheck<Array<{ value: YesNoUnsure; label: string }>>([
           {
             label: intl.formatMessage(formMessages.yes),
             value: YesNoUnsure.Yes,
@@ -400,7 +400,7 @@ const GeneralInformationSection = ({
             label: intl.formatMessage(formMessages.iDontKnow),
             value: YesNoUnsure.IDontKnow,
           },
-        ]}
+        ])}
       />
       {isContractForSpecificInitiative ? (
         <>
@@ -432,7 +432,7 @@ const GeneralInformationSection = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            items={[
+            items={typeCheck<Array<{ value: YesNoUnsure; label: string }>>([
               {
                 label: intl.formatMessage(formMessages.yes),
                 value: YesNoUnsure.Yes,
@@ -445,7 +445,7 @@ const GeneralInformationSection = ({
                 label: intl.formatMessage(formMessages.iDontKnow),
                 value: YesNoUnsure.IDontKnow,
               },
-            ]}
+            ])}
           />
           {isPlanSubmitted ? (
             <RadioGroup
@@ -462,7 +462,7 @@ const GeneralInformationSection = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              items={[
+              items={typeCheck<Array<{ value: YesNoUnsure; label: string }>>([
                 {
                   label: intl.formatMessage(formMessages.yes),
                   value: YesNoUnsure.Yes,
@@ -475,7 +475,7 @@ const GeneralInformationSection = ({
                   label: intl.formatMessage(formMessages.iDontKnow),
                   value: YesNoUnsure.IDontKnow,
                 },
-              ]}
+              ])}
             />
           ) : null}
           <RadioGroup
@@ -492,7 +492,7 @@ const GeneralInformationSection = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            items={[
+            items={typeCheck<Array<{ value: YesNoUnsure; label: string }>>([
               {
                 label: intl.formatMessage(formMessages.yes),
                 value: YesNoUnsure.Yes,
@@ -505,7 +505,7 @@ const GeneralInformationSection = ({
                 label: intl.formatMessage(formMessages.iDontKnow),
                 value: YesNoUnsure.IDontKnow,
               },
-            ]}
+            ])}
           />
         </>
       ) : null}
