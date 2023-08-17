@@ -12,6 +12,7 @@ import { toast } from "@gc-digital-talent/toast";
 
 import { Role, User } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
+
 import { UpdateUserFunc } from "../types";
 
 interface RemoveIndividualRoleDialogProps {

@@ -1,6 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+
 import {
   fakeSkillFamilies,
   fakeClassifications,
@@ -13,6 +14,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 
 import { PoolStatus } from "~/api/generated";
+
 import { EditPoolForm, EditPoolFormProps } from "./EditPoolPage";
 
 const classifications = fakeClassifications();

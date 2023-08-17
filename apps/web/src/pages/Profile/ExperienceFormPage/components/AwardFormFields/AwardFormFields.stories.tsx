@@ -5,8 +5,8 @@ import { Meta, Story } from "@storybook/react";
 
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
 
-import AwardFormFields from "./AwardFormFields";
 import getExperienceFormLabels from "../../labels";
+import AwardFormFields from "./AwardFormFields";
 
 export default {
   component: AwardFormFields,

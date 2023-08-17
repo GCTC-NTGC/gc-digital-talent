@@ -7,6 +7,7 @@ import {
   type BreadcrumbsProps,
   Flourish,
 } from "@gc-digital-talent/ui";
+
 import BackgroundGraphic from "./BackgroundPattern";
 
 import "./hero.css";

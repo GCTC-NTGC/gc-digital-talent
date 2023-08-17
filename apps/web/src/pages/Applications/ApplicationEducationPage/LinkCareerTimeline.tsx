@@ -3,19 +3,20 @@ import uniqueId from "lodash/uniqueId";
 import { defineMessages, useIntl } from "react-intl";
 
 import {
-  isAwardExperience,
-  isCommunityExperience,
-  isEducationExperience,
-  isPersonalExperience,
-  isWorkExperience,
-} from "~/utils/experienceUtils";
-import {
   EducationRequirementOption,
   Experience,
 } from "@gc-digital-talent/graphql";
 import { Checklist, CheckboxOption } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Heading, Link, Well } from "@gc-digital-talent/ui";
+
+import {
+  isAwardExperience,
+  isCommunityExperience,
+  isEducationExperience,
+  isPersonalExperience,
+  isWorkExperience,
+} from "~/utils/experienceUtils";
 
 const essentialExperienceMessages = defineMessages({
   computerScience: {

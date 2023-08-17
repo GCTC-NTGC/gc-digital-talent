@@ -1,5 +1,6 @@
-import { Breadcrumbs, BreadcrumbsProps } from "@gc-digital-talent/ui";
 import React from "react";
+
+import { Breadcrumbs, BreadcrumbsProps } from "@gc-digital-talent/ui";
 
 interface AdminContentWrapperProps {
   crumbs: BreadcrumbsProps["crumbs"];

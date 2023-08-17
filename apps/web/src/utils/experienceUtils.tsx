@@ -5,6 +5,12 @@ import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
+import React from "react";
+import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
+
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { useAuthorization } from "@gc-digital-talent/auth";
+import { IconType } from "@gc-digital-talent/ui";
 
 import {
   AllExperienceFormValues,
@@ -15,11 +21,7 @@ import {
   ExperienceFormValues,
   ExperienceType,
 } from "~/types/experience";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import React from "react";
-import { useAuthorization } from "@gc-digital-talent/auth";
-import { IconType } from "@gc-digital-talent/ui";
-import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
+
 import {
   AwardExperience,
   CommunityExperience,

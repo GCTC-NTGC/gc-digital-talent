@@ -6,8 +6,8 @@ import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
-
 import adminMessages from "~/messages/adminMessages";
+
 import DepartmentTableApi from "./components/DepartmentTable";
 
 export const DepartmentPage = () => {

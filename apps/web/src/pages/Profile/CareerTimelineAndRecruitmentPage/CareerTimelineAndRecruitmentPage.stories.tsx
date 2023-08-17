@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-
 import { OverlayOrDialogDecorator } from "storybook-helpers";
+
 import { fakeSkills, fakeExperiences } from "@gc-digital-talent/fake-data";
 import { notEmpty } from "@gc-digital-talent/helpers";
 

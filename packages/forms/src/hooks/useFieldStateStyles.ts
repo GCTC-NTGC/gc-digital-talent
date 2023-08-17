@@ -1,5 +1,5 @@
-import useFieldState from "./useFieldState";
 import fieldStateStyles from "../styles";
+import useFieldState from "./useFieldState";
 
 /**
  * Gets hydrogen styles for a form input

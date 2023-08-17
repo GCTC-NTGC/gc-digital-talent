@@ -4,8 +4,10 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import React from "react";
+
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeTeams } from "@gc-digital-talent/fake-data";
+
 import { RoleAssignment } from "~/api/generated";
 
 import {

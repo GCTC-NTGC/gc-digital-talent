@@ -23,6 +23,7 @@ import {
   PoolCandidateFilter,
   PositionDuration,
 } from "~/api/generated";
+
 import FilterBlock from "./FilterBlock";
 
 type SimpleClassification = Pick<Classification, "group" | "level">;

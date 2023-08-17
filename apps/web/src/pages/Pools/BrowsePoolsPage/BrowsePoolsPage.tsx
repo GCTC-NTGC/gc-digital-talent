@@ -23,7 +23,6 @@ import {
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
-
 import browseHeroImg from "~/assets/img/browse_header.jpg";
 import flourishTopLight from "~/assets/img/browse_top_light.png";
 import flourishBottomLight from "~/assets/img/browse_bottom_light.png";

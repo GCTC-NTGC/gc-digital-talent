@@ -5,7 +5,6 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import Heading from "../Heading";
 import CloseButton from "./CloseButton";
-
 import { BasicDialogProps } from "./types";
 
 const LearnDialog = ({ btnProps }: BasicDialogProps) => {

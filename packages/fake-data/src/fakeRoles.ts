@@ -1,4 +1,5 @@
 import { Role } from "@gc-digital-talent/graphql";
+
 import toLocalizedString from "./fakeLocalizedString";
 
 export default (): Role[] => {

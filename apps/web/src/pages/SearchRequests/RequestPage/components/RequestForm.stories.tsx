@@ -1,6 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+
 import {
   fakeApplicantFilters,
   fakeClassifications,
@@ -8,7 +9,9 @@ import {
   fakePools,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
+
 import { CreatePoolCandidateSearchRequestInput } from "~/api/generated";
+
 import { RequestForm, RequestFormProps } from "./RequestForm";
 
 const classifications = fakeClassifications();

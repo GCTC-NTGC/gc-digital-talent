@@ -17,11 +17,11 @@ import { Pool } from "@gc-digital-talent/graphql";
 import { Pending } from "@gc-digital-talent/ui";
 import { fakePools } from "@gc-digital-talent/fake-data";
 
-import DateInput, { DateInputProps } from "./DateInput";
 import Form from "../BasicForm";
 import Submit from "../Submit";
-import { DATE_SEGMENT } from "./types";
 import Input from "../Input/Input";
+import { DATE_SEGMENT } from "./types";
+import DateInput, { DateInputProps } from "./DateInput";
 
 export default {
   component: DateInput,

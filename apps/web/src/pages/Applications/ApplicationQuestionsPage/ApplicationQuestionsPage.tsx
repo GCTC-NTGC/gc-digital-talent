@@ -15,11 +15,11 @@ import { useUpdateApplicationMutation } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { useApplicationContext } from "../ApplicationContext";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import { FormValues } from "./types";
 import AnswerInput from "./components/AnswerInput";
 import FormActions from "./components/FormActions";
-import { useApplicationContext } from "../ApplicationContext";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,

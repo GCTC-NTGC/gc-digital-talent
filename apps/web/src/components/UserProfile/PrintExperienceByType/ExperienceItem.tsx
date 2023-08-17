@@ -1,16 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import {
-  getExperienceFormLabels,
-  isAwardExperience,
-  isCommunityExperience,
-  isEducationExperience,
-  isPersonalExperience,
-  isWorkExperience,
-  useExperienceInfo,
-} from "~/utils/experienceUtils";
-import { Experience, Maybe } from "~/api/generated";
 import { Heading } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -20,6 +10,17 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Skill } from "@gc-digital-talent/graphql";
+
+import { Experience, Maybe } from "~/api/generated";
+import {
+  getExperienceFormLabels,
+  isAwardExperience,
+  isCommunityExperience,
+  isEducationExperience,
+  isPersonalExperience,
+  isWorkExperience,
+  useExperienceInfo,
+} from "~/utils/experienceUtils";
 import { getDateRange } from "~/utils/dateUtils";
 
 interface ExperienceItemProps {

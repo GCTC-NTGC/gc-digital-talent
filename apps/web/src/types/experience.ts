@@ -1,7 +1,10 @@
 // Note: __typename comes from the API so can be ignored here
 /* eslint-disable no-underscore-dangle */
+import { OperationResult } from "urql";
+
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { FieldLabels } from "@gc-digital-talent/forms";
+
 import {
   AwardExperience,
   AwardExperienceInput,
@@ -28,7 +31,6 @@ import {
   Skill,
   WorkExperience,
 } from "~/api/generated";
-import { OperationResult } from "urql";
 
 export type ExperienceType =
   | "award"

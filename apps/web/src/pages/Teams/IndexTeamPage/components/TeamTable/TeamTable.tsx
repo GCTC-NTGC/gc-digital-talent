@@ -4,6 +4,7 @@ import { IntlShape, useIntl } from "react-intl";
 import { Pending, Link, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName, useLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { RoleAssignment } from "@gc-digital-talent/graphql";
 
 import {
   LocalizedString,
@@ -18,7 +19,6 @@ import Table, {
   tableActionsAccessor,
   Cell,
 } from "~/components/Table/ClientManagedTable";
-import { RoleAssignment } from "@gc-digital-talent/graphql";
 
 export interface TeamTableProps {
   teams: Array<Team>;

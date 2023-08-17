@@ -7,7 +7,6 @@ import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, TextArea, Submit } from "@gc-digital-talent/forms";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
-
 import {
   UpdatePoolCandidateAsAdminInput,
   useUpdatePoolCandidateMutation,

@@ -1,4 +1,5 @@
 import { defineMessage, defineMessages, MessageDescriptor } from "react-intl";
+
 import {
   PoolCandidateStatus,
   Maybe,
