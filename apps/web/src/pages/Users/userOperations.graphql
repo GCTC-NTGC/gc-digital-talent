@@ -51,6 +51,7 @@ query UserName($userId: UUID!) {
     id
     firstName
     lastName
+    deletedDate
   }
 }
 
