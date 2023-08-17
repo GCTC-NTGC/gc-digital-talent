@@ -64,6 +64,23 @@ module.exports = {
     "import/extensions": ["warn", "never", { json: "always" }],
     // Note: Re-enable with #7453
     //"import/no-unused-modules": [1, { unusedExports: true, ignoreExports: ["src/index.{ts,tsx}"] }],
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        groups: ["builtin", "external", "internal", ["parent", "sibling"], "index"],
+        pathGroups: [
+          {
+            "pattern": "@gc-digital-talent/**",
+            "group": "external"
+          },
+          {
+            "pattern": "~/**",
+            "group": "internal"
+          }
+        ]
+      }
+    ],
     "react/display-name": "off",
     "react/prop-types": "off",
     "react/jsx-filename-extension": [
