@@ -22,9 +22,6 @@ export type FormValues = {
   languageAbility: Option["value"][];
   operationalRequirement: Option["value"][];
   workRegion: Option["value"][];
-  // TODO: Make mandatory once data model settles.
-  // See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
-  educationType?: Option["value"][];
   employmentDuration: Option["value"][];
   skills: Option["value"][];
   profileComplete: Option["value"][];
@@ -32,14 +29,13 @@ export type FormValues = {
   roles: Option["value"][];
 };
 
-type FooterProps = Pick<UserTableFilterDialogProps, "enableEducationType">;
-const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
+const Footer = () => {
   const { formatMessage } = useIntl();
   const {
     reset,
     formState: { isSubmitting },
   } = useFormContext();
-  const { emptyFormValues } = useFilterOptions(enableEducationType);
+  const { emptyFormValues } = useFilterOptions();
   const handleClear = () => {
     reset(emptyFormValues);
   };
@@ -74,7 +70,6 @@ interface UserTableFilterDialogProps {
   onOpenChange: (open: boolean) => void;
   onSubmit: SubmitHandler<FormValues>;
   activeFilters: FormValues;
-  enableEducationType?: boolean;
 }
 
 const UserTableFilterDialog = ({
@@ -82,11 +77,9 @@ const UserTableFilterDialog = ({
   activeFilters,
   isOpen,
   onOpenChange,
-  enableEducationType = false,
 }: UserTableFilterDialogProps): JSX.Element => {
   const { formatMessage } = useIntl();
-  const { optionsData, rawGraphqlResults } =
-    useFilterOptions(enableEducationType);
+  const { optionsData, rawGraphqlResults } = useFilterOptions();
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
@@ -176,19 +169,6 @@ const UserTableFilterDialog = ({
                   doNotSort
                 />
               </div>
-              {enableEducationType && (
-                <div data-h2-flex-item="base(1of1)">
-                  <MultiSelectField
-                    id="educationType"
-                    name="educationType"
-                    label={formatMessage({
-                      defaultMessage: "Education",
-                      id: "jtygmI",
-                    })}
-                    options={optionsData.educationType}
-                  />
-                </div>
-              )}
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <MultiSelectFieldBase
                   forceArrayFormValue
@@ -259,7 +239,7 @@ const UserTableFilterDialog = ({
 
 export type UserTableFiltersProps = Pick<
   UserTableFilterDialogProps,
-  "onSubmit" | "enableEducationType"
+  "onSubmit"
 > & {
   isOpenDefault?: boolean;
   initialFilters?: FormValues;
@@ -268,12 +248,11 @@ export type UserTableFiltersProps = Pick<
 const UserTableFilters = ({
   onSubmit,
   isOpenDefault = false,
-  enableEducationType,
   initialFilters,
   ...rest
 }: UserTableFiltersProps) => {
   const [isOpen, setOpen] = React.useState<boolean>(isOpenDefault);
-  const { emptyFormValues } = useFilterOptions(enableEducationType);
+  const { emptyFormValues } = useFilterOptions();
   const initialStateActiveFilters = initialFilters ?? emptyFormValues;
   const [activeFilters, setActiveFilters] = useState<FormValues>(
     initialStateActiveFilters,
@@ -287,7 +266,7 @@ const UserTableFilters = ({
 
   return (
     <UserTableFilterDialog
-      {...{ activeFilters, isOpenDefault, enableEducationType, isOpen }}
+      {...{ activeFilters, isOpenDefault, isOpen }}
       {...rest}
       onOpenChange={setOpen}
       onSubmit={handleSubmit}
