@@ -26,6 +26,11 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message that the given email address is already in use when updating.",
     },
+    BothStatusNonStatus: {
+      // TODO replace with proper message
+      defaultMessage: "BothStatusNonStatus",
+      id: "ybzpGb",
+    },
 
     // skill validation
     SkillFamilyKeyStringInUse: {

@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon";
-import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import HandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
@@ -53,7 +52,6 @@ interface UserProfileProps {
     government?: SectionControl;
     hiringPools?: SectionControl;
     language?: SectionControl;
-    myStatus?: SectionControl;
     careerTimelineAndRecruitment?: SectionControl;
     workLocation?: SectionControl;
     workPreferences?: SectionControl;
@@ -153,13 +151,6 @@ const UserProfile = ({
       {isNavigationVisible && (
         <TableOfContents.Navigation>
           <TableOfContents.List>
-            {showSection("myStatus") && (
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.STATUS}>
-                  {intl.formatMessage(navigationMessages.myStatus)}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-            )}
             {showSection("about") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ABOUT}>
@@ -276,36 +267,6 @@ const UserProfile = ({
       )}
       <TableOfContents.Content>
         {subTitle}
-        {showSection("myStatus") && (
-          <TableOfContents.Section id={PAGE_SECTION_ID.STATUS}>
-            <HeadingWrapper show={!!sections.myStatus?.editUrl}>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
-              >
-                <TableOfContents.Heading as={headingLevel} icon={LightBulbIcon}>
-                  {intl.formatMessage(navigationMessages.myStatus)}
-                </TableOfContents.Heading>
-              </div>
-              {sections.myStatus?.editUrl && (
-                <EditUrlLink
-                  link={sections.myStatus.editUrl}
-                  text={intl.formatMessage(
-                    {
-                      defaultMessage: "Edit {title}",
-                      id: "3R3jKp",
-                      description: "Link to edit object",
-                    },
-                    {
-                      title: intl.formatMessage(navigationMessages.myStatus),
-                    },
-                  )}
-                />
-              )}
-            </HeadingWrapper>
-            {sections.myStatus?.override ? sections.myStatus.override : null}
-          </TableOfContents.Section>
-        )}
         {showSection("about") && (
           <TableOfContents.Section id={PAGE_SECTION_ID.ABOUT}>
             <HeadingWrapper show={!!sections.about?.editUrl}>

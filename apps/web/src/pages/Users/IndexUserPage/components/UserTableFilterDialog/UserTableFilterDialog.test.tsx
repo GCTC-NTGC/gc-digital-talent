@@ -240,49 +240,4 @@ describe("UserTableFilterDialog", () => {
     renderButton({ isOpenDefault: true });
     expect(screen.getAllByRole("combobox")).toHaveLength(11);
   });
-
-  describe("enableEducationType prop", () => {
-    it("hides education filter when not enabled", () => {
-      renderButton({ isOpenDefault: true });
-      expect(
-        screen.queryByRole("combobox", { name: /education/i }),
-      ).not.toBeInTheDocument();
-    });
-
-    it("shows education filter when enabled", () => {
-      renderButton({
-        isOpenDefault: true,
-        enableEducationType: true,
-      });
-      expect(screen.getAllByRole("combobox")).toHaveLength(12);
-      expect(
-        screen.getByRole("combobox", { name: /education/i }),
-      ).toBeVisible();
-    });
-
-    it("submits empty education data when empty", async () => {
-      renderButton({
-        isOpenDefault: true,
-        enableEducationType: true,
-      });
-      await submitFilters();
-
-      const activeFilter = mockSubmit.mock.lastCall[0];
-      expect(activeFilter.educationType).toBeDefined();
-      expect(activeFilter.educationType).toHaveLength(0);
-    });
-
-    it("submits education data when populated", async () => {
-      renderButton({
-        isOpenDefault: true,
-        enableEducationType: true,
-      });
-      await selectFilterOption(/education/i);
-      await selectFilterOption(/education/i);
-      await submitFilters();
-
-      const activeFilter = mockSubmit.mock.lastCall[0];
-      expect(activeFilter.educationType).toHaveLength(2);
-    });
-  });
 });

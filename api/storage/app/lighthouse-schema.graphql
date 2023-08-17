@@ -1,36 +1,56 @@
 type Query {
   me: User
-  user(
-    id: UUID!
-
-    "Allows to filter if trashed elements should be fetched."
-    trashed: Trashed
-  ): User
-  users(
-    "Allows to filter if trashed elements should be fetched."
-    trashed: Trashed
-  ): [User]!
-  applicant(id: UUID!): User @deprecated(reason: "Removing in favour of user query")
-  applicants(includeIds: [ID]!): [User]! @deprecated(reason: "Removing in favour of users query")
+  user(id: UUID!): User
+  users: [User]!
+  applicant(id: UUID!): User
+    @deprecated(reason: "Removing in favour of user query")
+  applicants(includeIds: [ID]!): [User]!
+    @deprecated(reason: "Removing in favour of users query")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
-  publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
+  publishedPools(
+    closingAfter: DateTime
+    publishingGroup: PublishingGroup
+  ): [Pool!]!
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]): [PoolCandidate]!
-  countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
+    @deprecated(
+      reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead."
+    )
+  countPoolCandidatesByPool(
+    where: ApplicantFilterInput
+  ): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
   classifications: [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
-  poolCandidateFilter(id: UUID!): PoolCandidateFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
-  poolCandidateFilters: [PoolCandidateFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
-  applicantFilter(id: ID!): ApplicantFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
-  applicantFilters: [ApplicantFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
+  poolCandidateFilter(id: UUID!): PoolCandidateFilter
+    @deprecated(
+      reason: "poolCandidateFilter is deprecated. Use positionDuration instead. Use PoolCandidateSearchRequest.poolCandidateFilter instead."
+    )
+  poolCandidateFilters: [PoolCandidateFilter]!
+    @deprecated(
+      reason: "poolCandidateFilters is deprecated. Use PoolCandidateSearchRequest.poolCandidateFilter instead."
+    )
+  applicantFilter(id: ID!): ApplicantFilter
+    @deprecated(
+      reason: "applicantFilter is deprecated. Use PoolCandidateSearchRequest.applicantFilter instead."
+    )
+  applicantFilters: [ApplicantFilter]!
+    @deprecated(
+      reason: "applicantFilters is deprecated. Use PoolCandidateSearchRequest.applicantFilter instead."
+    )
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
-  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")
+    @deprecated(
+      reason: "poolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead."
+    )
+  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
+    @deprecated(
+      reason: "latestPoolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead."
+    )
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
@@ -80,32 +100,77 @@ type Mutation {
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
-  createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
-  updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
+  createPoolCandidateAsAdmin(
+    poolCandidate: CreatePoolCandidateAsAdminInput!
+  ): PoolCandidate
+  updatePoolCandidateAsAdmin(
+    id: ID!
+    poolCandidate: UpdatePoolCandidateAsAdminInput!
+  ): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
-  createClassification(classification: CreateClassificationInput!): Classification
-  updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
+  createClassification(
+    classification: CreateClassificationInput!
+  ): Classification
+  updateClassification(
+    id: ID!
+    classification: UpdateClassificationInput!
+  ): Classification
   deleteClassification(id: ID!): Classification
   createDepartment(department: CreateDepartmentInput!): Department
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
   deleteDepartment(id: ID!): Department
-  createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
-  updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  createPoolCandidateSearchRequest(
+    poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!
+  ): PoolCandidateSearchRequest
+  updatePoolCandidateSearchRequest(
+    id: ID!
+    poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!
+  ): PoolCandidateSearchRequest
   deletePoolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
   updateSkill(id: ID!, skill: UpdateSkillInput!): Skill
-  createWorkExperience(userId: ID!, workExperience: WorkExperienceInput!): WorkExperience
-  createPersonalExperience(userId: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
-  createCommunityExperience(userId: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
-  createEducationExperience(userId: ID!, educationExperience: EducationExperienceInput!): EducationExperience
-  createAwardExperience(userId: ID!, awardExperience: AwardExperienceInput!): AwardExperience
-  updateWorkExperience(id: ID!, workExperience: WorkExperienceInput!): WorkExperience
-  updatePersonalExperience(id: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
-  updateCommunityExperience(id: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
-  updateEducationExperience(id: ID!, educationExperience: EducationExperienceInput!): EducationExperience
-  updateAwardExperience(id: ID!, awardExperience: AwardExperienceInput!): AwardExperience
+  createWorkExperience(
+    userId: ID!
+    workExperience: WorkExperienceInput!
+  ): WorkExperience
+  createPersonalExperience(
+    userId: ID!
+    personalExperience: PersonalExperienceInput!
+  ): PersonalExperience
+  createCommunityExperience(
+    userId: ID!
+    communityExperience: CommunityExperienceInput!
+  ): CommunityExperience
+  createEducationExperience(
+    userId: ID!
+    educationExperience: EducationExperienceInput!
+  ): EducationExperience
+  createAwardExperience(
+    userId: ID!
+    awardExperience: AwardExperienceInput!
+  ): AwardExperience
+  updateWorkExperience(
+    id: ID!
+    workExperience: WorkExperienceInput!
+  ): WorkExperience
+  updatePersonalExperience(
+    id: ID!
+    personalExperience: PersonalExperienceInput!
+  ): PersonalExperience
+  updateCommunityExperience(
+    id: ID!
+    communityExperience: CommunityExperienceInput!
+  ): CommunityExperience
+  updateEducationExperience(
+    id: ID!
+    educationExperience: EducationExperienceInput!
+  ): EducationExperience
+  updateAwardExperience(
+    id: ID!
+    awardExperience: AwardExperienceInput!
+  ): AwardExperience
   deleteWorkExperience(id: ID!): WorkExperience
   deletePersonalExperience(id: ID!): PersonalExperience
   deleteCommunityExperience(id: ID!): CommunityExperience
@@ -125,17 +190,31 @@ type Mutation {
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): Boolean
   submitApplication(id: ID!, signature: String!): PoolCandidate
-  updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
+  updateApplication(
+    id: ID!
+    application: UpdateApplicationInput!
+  ): PoolCandidate
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
   markNotificationAsRead(id: UUID!): Notification
-  createUserSkill(userId: ID!, skillId: ID!, userSkill: CreateUserSkillInput): UserSkill
+  createUserSkill(
+    userId: ID!
+    skillId: ID!
+    userSkill: CreateUserSkillInput
+  ): UserSkill
   updateUserSkill(id: ID!, userSkill: UpdateUserSkillInput): UserSkill
   deleteUserSkill(id: ID!): UserSkill
-  createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
-  updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
-  deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
+  createDigitalContractingQuestionnaire(
+    digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!
+  ): DigitalContractingQuestionnaire
+  updateDigitalContractingQuestionnaire(
+    id: UUID!
+    digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!
+  ): DigitalContractingQuestionnaire
+  deleteDigitalContractingQuestionnaire(
+    id: UUID!
+  ): DigitalContractingQuestionnaire
 }
 
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
@@ -153,7 +232,7 @@ scalar PhoneNumber
 "A human readable ID"
 scalar KeyString
 
-"Arbitrary data encoded in JavaScript Object Notation. See https:\/\/www.json.org."
+"Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org."
 scalar JSON
 
 "128 bit universally unique identifier (UUID)"
@@ -186,7 +265,10 @@ type User {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
+  languageAbility: LanguageAbility
+    @deprecated(
+      reason: "languageAbility is deprecated. Use lookingFor<Language> instead."
+    )
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -203,7 +285,10 @@ type User {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean @deprecated(reason: "replaced by indigenousCommunities")
+  isIndigenous: Boolean
+    @deprecated(
+      reason: "isIndigenous is deprecated. Use indigenousCommunities instead."
+    )
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
@@ -211,9 +296,18 @@ type User {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange] @deprecated(reason: "Expected role and salary removed")
-  expectedClassifications: [Classification] @deprecated(reason: "Expected role and salary removed")
-  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
+  expectedSalary: [SalaryRange]
+    @deprecated(
+      reason: "expectedSalary is deprecated. Remove as part of #6226."
+    )
+  expectedClassifications: [Classification]
+    @deprecated(
+      reason: "expectedClassifications is deprecated. Remove as part of #6226."
+    )
+  wouldAcceptTemporary: Boolean
+    @deprecated(
+      reason: "expectedSalary is deprecated. use positionDuration instead."
+    )
   positionDuration: [PositionDuration]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
@@ -223,9 +317,13 @@ type User {
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
   userSkills: [UserSkill!]
-  pools: [Pool] @deprecated(reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead.")
+  pools: [Pool]
+    @deprecated(reason: "pools is deprecated. User.roles.team.pools instead.")
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle] @deprecated(reason: "Expected role and salary removed")
+  expectedGenericJobTitles: [GenericJobTitle]
+    @deprecated(
+      reason: "expectedGenericJobTitles is deprecated. Remove in #7645"
+    )
   priorityWeight: Int
   roleAssignments: [RoleAssignment!]
   unreadNotifications: [Notification!]
@@ -620,7 +718,10 @@ type ApplicantFilter {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
+  wouldAcceptTemporary: Boolean
+    @deprecated(
+      reason: "wouldAcceptTemporary is deprecated. Use positionDuration instead."
+    )
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedClassifications: [Classification]
