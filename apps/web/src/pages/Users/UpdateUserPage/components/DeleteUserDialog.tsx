@@ -6,11 +6,7 @@ import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { User, DeleteUserMutation } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
@@ -151,13 +147,17 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
                 </Dialog.Close>
                 <Button
                   mode="solid"
-                  color="secondary"
+                  color="error"
                   type="submit"
                   disabled={isSubmitting}
                 >
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
-                    : intl.formatMessage(formMessages.saveChanges)}
+                    : intl.formatMessage({
+                        defaultMessage: "Delete user",
+                        id: "5l+q/p",
+                        description: "Submit button in delete user dialog",
+                      })}
                 </Button>
               </Dialog.Footer>
             </form>
