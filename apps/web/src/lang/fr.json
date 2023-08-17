@@ -6751,9 +6751,6 @@
     "defaultMessage": "Sauvegarder la date de clôture",
     "description": "Text on a button to save the pool closing date"
   },
-  "jtygmI": {
-    "defaultMessage": "Éducation"
-  },
   "jw6Umr": {
     "defaultMessage": "Veuillez sélectionner un type d’expérience",
     "description": "Heading for the experience type section fo the experience form"

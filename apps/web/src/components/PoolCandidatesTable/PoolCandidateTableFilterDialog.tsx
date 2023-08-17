@@ -35,17 +35,13 @@ export type FormValues = {
   publishingGroups: Option["value"][];
 };
 
-type FooterProps = Pick<
-  PoolCandidateTableFilterDialogProps,
-  "enableEducationType"
->;
-const Footer = ({ enableEducationType }: FooterProps): JSX.Element => {
+const Footer = () => {
   const { formatMessage } = useIntl();
   const {
     reset,
     formState: { isSubmitting },
   } = useFormContext();
-  const { emptyFormValues } = useFilterOptions(enableEducationType);
+  const { emptyFormValues } = useFilterOptions();
   const handleClear = () => {
     reset(emptyFormValues);
   };
@@ -75,7 +71,6 @@ interface PoolCandidateTableFilterDialogProps {
   onOpenChange: (open: boolean) => void;
   onSubmit: SubmitHandler<FormValues>;
   activeFilters: FormValues;
-  enableEducationType?: boolean;
 }
 
 const PoolCandidateTableFilterDialog = ({
@@ -83,11 +78,9 @@ const PoolCandidateTableFilterDialog = ({
   onOpenChange,
   onSubmit,
   activeFilters,
-  enableEducationType = false,
 }: PoolCandidateTableFilterDialogProps): JSX.Element => {
   const { formatMessage, locale } = useIntl();
-  const { optionsData, rawGraphqlResults } =
-    useFilterOptions(enableEducationType);
+  const { optionsData, rawGraphqlResults } = useFilterOptions();
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
@@ -301,7 +294,7 @@ const PoolCandidateTableFilterDialog = ({
 
 type PoolCandidateTableFiltersProps = Pick<
   PoolCandidateTableFilterDialogProps,
-  "onSubmit" | "enableEducationType"
+  "onSubmit"
 > & {
   isOpenDefault?: boolean;
   initialFilters?: FormValues;
@@ -310,11 +303,10 @@ type PoolCandidateTableFiltersProps = Pick<
 const PoolCandidateTableFilters = ({
   onSubmit,
   isOpenDefault = false,
-  enableEducationType,
   initialFilters,
   ...rest
 }: PoolCandidateTableFiltersProps) => {
-  const { emptyFormValues } = useFilterOptions(enableEducationType);
+  const { emptyFormValues } = useFilterOptions();
   const initialStateActiveFilters = initialFilters ?? emptyFormValues;
   const [activeFilters, setActiveFilters] = useState<FormValues>(
     initialStateActiveFilters,
@@ -329,7 +321,7 @@ const PoolCandidateTableFilters = ({
 
   return (
     <PoolCandidateTableFilterDialog
-      {...{ isOpen, isOpenDefault, activeFilters, enableEducationType }}
+      {...{ isOpen, isOpenDefault, activeFilters }}
       {...rest}
       onOpenChange={setIsOpen}
       onSubmit={handleSubmit}
