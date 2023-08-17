@@ -866,7 +866,11 @@ type CandidateSearchPoolResult {
 type Query {
   me: User @auth
   user(id: UUID! @eq): User @find @guard @can(ability: "view", query: true)
-  users: [User]! @all @guard @can(ability: "viewAny")
+  users: [User]!
+    @all
+    @guard
+    @can(ability: "viewAny")
+    @deprecated(reason: "Removing in favour of usersPaginated query")
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -908,6 +912,7 @@ type Query {
     @all(scopes: ["notDraft"])
     @guard
     @can(ability: "view", resolved: true)
+    @deprecated(reason: "Removing in favour of poolCandidatesPaginated query")
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderBy: _
@@ -984,6 +989,9 @@ type Query {
     @guard
     @can(ability: "viewAny")
     @orderBy(column: "created_at", direction: DESC)
+    @deprecated(
+      reason: "Removing in favour of poolCandidateSearchRequestsPaginated query"
+    )
   latestPoolCandidateSearchRequests(
     limit: Int @limit
   ): [PoolCandidateSearchRequest]!

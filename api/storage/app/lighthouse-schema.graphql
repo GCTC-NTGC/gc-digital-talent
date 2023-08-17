@@ -1,7 +1,7 @@
 type Query {
   me: User
   user(id: UUID!): User
-  users: [User]!
+  users: [User]! @deprecated(reason: "Removing in favour of usersPaginated query")
   applicant(id: UUID!): User @deprecated(reason: "Removing in favour of user query")
   applicants(includeIds: [ID]!): [User]! @deprecated(reason: "Removing in favour of users query")
   countApplicants(where: ApplicantFilterInput): Int!
@@ -10,7 +10,7 @@ type Query {
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
-  poolCandidates(includeIds: [ID]): [PoolCandidate]!
+  poolCandidates(includeIds: [ID]): [PoolCandidate]! @deprecated(reason: "Removing in favour of poolCandidatesPaginated query")
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
   classifications: [Classification]!
@@ -21,7 +21,7 @@ type Query {
   applicantFilter(id: ID!): ApplicantFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
   applicantFilters: [ApplicantFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
-  poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
+  poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Removing in favour of poolCandidateSearchRequestsPaginated query")
   latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
