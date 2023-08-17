@@ -80,7 +80,6 @@ const ResponsiveTable = <TData extends object>({
   const intl = useIntl();
   const [, setSearchParams] = useSearchParams();
   const isInternalSearch = search && search.internal;
-  const memoizedData = React.useMemo(() => data, [data]);
   const memoizedColumns = React.useMemo(() => {
     if (!rowSelect) return columns;
     // Inject the selection column if it is enabled
@@ -103,7 +102,7 @@ const ResponsiveTable = <TData extends object>({
     if (rowSelect?.onRowSelection) {
       const selectedRows = Object.values(rowSelection)
         .map((value, index) => {
-          return value ? memoizedData[index] : undefined;
+          return value ? data[index] : undefined;
         })
         .filter(notEmpty);
 
@@ -123,7 +122,7 @@ const ResponsiveTable = <TData extends object>({
     : undefined;
 
   const table = useReactTable({
-    data: memoizedData,
+    data,
     columns: memoizedColumns,
     state: {
       ...state,
@@ -158,7 +157,7 @@ const ResponsiveTable = <TData extends object>({
     });
   }, [setSearchParams, sort?.initialState, sortRule]);
 
-  const hasNoData = !isLoading && (!memoizedData || memoizedData.length === 0);
+  const hasNoData = !isLoading && (!data || data.length === 0);
   const captionId = `${id}-caption`;
 
   return (
