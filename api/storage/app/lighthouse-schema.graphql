@@ -1,9 +1,9 @@
 type Query {
   me: User
   user(id: UUID!): User
-  users: [User]! @deprecated(reason: "users is deprecated. Use usersPaginated instead.")
-  applicant(id: UUID!): User @deprecated(reason: "applicant is deprecated. Use user instead.")
-  applicants(includeIds: [ID]!): [User]! @deprecated(reason: "applicants is deprecated. Use usersPaginated instead.")
+  users: [User]! @deprecated(reason: "users is deprecated. UsersPaginated instead.")
+  applicant(id: UUID!): User @deprecated(reason: "applicant is deprecated. User instead.")
+  applicants(includeIds: [ID]!): [User]! @deprecated(reason: "applicants is deprecated. UsersPaginated instead.")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -16,13 +16,13 @@ type Query {
   classifications: [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
-  poolCandidateFilter(id: UUID!): PoolCandidateFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
-  poolCandidateFilters: [PoolCandidateFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
-  applicantFilter(id: ID!): ApplicantFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
-  applicantFilters: [ApplicantFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
+  poolCandidateFilter(id: UUID!): PoolCandidateFilter @deprecated(reason: "poolCandidateFilter is deprecated. Use positionDuration instead. Use PoolCandidateSearchRequest.poolCandidateFilter instead.")
+  poolCandidateFilters: [PoolCandidateFilter]! @deprecated(reason: "poolCandidateFilters is deprecated. Use PoolCandidateSearchRequest.poolCandidateFilter instead.")
+  applicantFilter(id: ID!): ApplicantFilter @deprecated(reason: "applicantFilter is deprecated. Use PoolCandidateSearchRequest.applicantFilter instead.")
+  applicantFilters: [ApplicantFilter]! @deprecated(reason: "applicantFilters is deprecated. Use PoolCandidateSearchRequest.applicantFilter instead.")
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "poolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead.")
-  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")
+  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "latestPoolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead.")
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
@@ -176,7 +176,7 @@ type User {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility @deprecated(reason: "deprecated in favour of relying on lookingFor<Language>")
+  languageAbility: LanguageAbility @deprecated(reason: "languageAbility is deprecated. Use lookingFor<Language> instead.")
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -193,7 +193,7 @@ type User {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean @deprecated(reason: "replaced by indigenousCommunities")
+  isIndigenous: Boolean @deprecated(reason: "isIndigenous is deprecated. Use indigenousCommunities instead.")
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
@@ -201,9 +201,9 @@ type User {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange] @deprecated(reason: "Expected role and salary removed")
-  expectedClassifications: [Classification] @deprecated(reason: "Expected role and salary removed")
-  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
+  expectedSalary: [SalaryRange] @deprecated(reason: "expectedSalary is deprecated. Remove as part of #6226.")
+  expectedClassifications: [Classification] @deprecated(reason: "expectedClassifications is deprecated. Remove as part of #6226.")
+  wouldAcceptTemporary: Boolean @deprecated(reason: "expectedSalary is deprecated. use positionDuration instead.")
   positionDuration: [PositionDuration]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
@@ -213,9 +213,9 @@ type User {
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
   userSkills: [UserSkill!]
-  pools: [Pool] @deprecated(reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead.")
+  pools: [Pool] @deprecated(reason: "pools is deprecated. User.roles.team.pools instead.")
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle] @deprecated(reason: "Expected role and salary removed")
+  expectedGenericJobTitles: [GenericJobTitle] @deprecated(reason: "expectedGenericJobTitles is deprecated. Remove in #7645")
   priorityWeight: Int
   roleAssignments: [RoleAssignment!]
   unreadNotifications: [Notification!]
@@ -609,7 +609,7 @@ type ApplicantFilter {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "replaced with positionDuration")
+  wouldAcceptTemporary: Boolean @deprecated(reason: "wouldAcceptTemporary is deprecated. Use positionDuration instead.")
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedClassifications: [Classification]
