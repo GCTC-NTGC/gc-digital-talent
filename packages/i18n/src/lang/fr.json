@@ -1462,6 +1462,9 @@
     "defaultMessage": "Retrait qualifié",
     "description": "The pool candidate's status is Qualified Withdrew."
   },
+  "ybzpGb": {
+    "defaultMessage": "BothStatusNonStatus"
+  },
   "ylHC90": {
     "defaultMessage": "Chargement...",
     "description": "Message shown in options dropdown when Select field is loading options."
