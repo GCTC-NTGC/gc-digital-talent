@@ -2,7 +2,11 @@ import * as React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import isEqual from "lodash/isEqual";
-import type { ColumnDef, RowSelectionState } from "@tanstack/react-table";
+import type {
+  ColumnDef,
+  RowSelectionState,
+  Updater,
+} from "@tanstack/react-table";
 import {
   getCoreRowModel,
   getFilteredRowModel,
@@ -31,6 +35,7 @@ import type {
   SearchDef,
   SortDef,
 } from "./types";
+import useRowSelection from "./useRowSelection";
 
 interface TableProps<TData> {
   /** Accessible name for the table */
@@ -87,7 +92,10 @@ const ResponsiveTable = <TData extends object>({
   }, [columns, intl, rowSelect]);
   const columnIds = memoizedColumns.map((column) => column.id).filter(notEmpty);
 
-  const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
+  const [rowSelection, setRowSelection] = useRowSelection<TData>(
+    data,
+    rowSelect,
+  );
   const { state, initialState, updaters } = useControlledTableState({
     columnIds,
     initialState: {
@@ -97,21 +105,6 @@ const ResponsiveTable = <TData extends object>({
       paginationState: pagination?.initialState,
     },
   });
-
-  React.useEffect(() => {
-    if (rowSelect?.onRowSelection) {
-      const selectedRows = Object.values(rowSelection)
-        .map((value, index) => {
-          return value ? data[index] : undefined;
-        })
-        .filter(notEmpty);
-
-      rowSelect.onRowSelection(selectedRows);
-    }
-    // Note: This is probably due to mis-use of useEffect but
-    // adding exhaustive deps causes this to run infinitely
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rowSelection]);
 
   const manualPageSize = !pagination?.internal
     ? Math.ceil(
