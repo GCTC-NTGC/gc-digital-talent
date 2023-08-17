@@ -304,7 +304,7 @@ export const ApplicationSkills = ({
             orientation="horizontal"
             decorative
             data-h2-background="base(black.light)"
-            data-h2-margin="base(x2, 0, x2, 0)"
+            data-h2-margin="base(x2, 0)"
           />
           <div
             data-h2-display="base(flex)"
