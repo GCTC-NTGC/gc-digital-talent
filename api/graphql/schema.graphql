@@ -870,7 +870,7 @@ type Query {
     @all
     @guard
     @can(ability: "viewAny")
-    @deprecated(reason: "Removing in favour of usersPaginated query")
+    @deprecated(reason: "users is deprecated. Use usersPaginated instead.")
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -883,12 +883,12 @@ type Query {
     @find(model: "User")
     @guard
     @can(ability: "view", query: true, model: "User")
-    @deprecated(reason: "Removing in favour of user query")
+    @deprecated(reason: "applicant is deprecated. Use user instead.")
   applicants(includeIds: [ID]! @in(key: "id")): [User]!
     @all(model: "User")
     @guard
     @can(ability: "viewAny", model: "User")
-    @deprecated(reason: "Removing in favour of users query")
+    @deprecated(reason: "applicants is deprecated. Use usersPaginated instead.")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["inITPublishingGroup"])
@@ -912,7 +912,9 @@ type Query {
     @all(scopes: ["notDraft"])
     @guard
     @can(ability: "view", resolved: true)
-    @deprecated(reason: "Removing in favour of poolCandidatesPaginated query")
+    @deprecated(
+      reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead."
+    )
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderBy: _
@@ -990,7 +992,7 @@ type Query {
     @can(ability: "viewAny")
     @orderBy(column: "created_at", direction: DESC)
     @deprecated(
-      reason: "Removing in favour of poolCandidateSearchRequestsPaginated query"
+      reason: "poolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead."
     )
   latestPoolCandidateSearchRequests(
     limit: Int @limit

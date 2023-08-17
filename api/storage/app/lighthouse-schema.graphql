@@ -1,16 +1,16 @@
 type Query {
   me: User
   user(id: UUID!): User
-  users: [User]! @deprecated(reason: "Removing in favour of usersPaginated query")
-  applicant(id: UUID!): User @deprecated(reason: "Removing in favour of user query")
-  applicants(includeIds: [ID]!): [User]! @deprecated(reason: "Removing in favour of users query")
+  users: [User]! @deprecated(reason: "users is deprecated. Use usersPaginated instead.")
+  applicant(id: UUID!): User @deprecated(reason: "applicant is deprecated. Use user instead.")
+  applicants(includeIds: [ID]!): [User]! @deprecated(reason: "applicants is deprecated. Use usersPaginated instead.")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
-  poolCandidates(includeIds: [ID]): [PoolCandidate]! @deprecated(reason: "Removing in favour of poolCandidatesPaginated query")
+  poolCandidates(includeIds: [ID]): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead.")
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
   classifications: [Classification]!
@@ -21,7 +21,7 @@ type Query {
   applicantFilter(id: ID!): ApplicantFilter @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
   applicantFilters: [ApplicantFilter]! @deprecated(reason: "This should only be queried as part of a PoolCandidateSearchRequest.")
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
-  poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Removing in favour of poolCandidateSearchRequestsPaginated query")
+  poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "poolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead.")
   latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "Use poolCandidateSearchRequests instead, with a specified limit")
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
