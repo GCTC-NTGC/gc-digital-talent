@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon";
-import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import HandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
