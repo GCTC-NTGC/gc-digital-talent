@@ -1,5 +1,4 @@
 export const PAGE_SECTION_ID = {
-  STATUS: "status-section",
   ABOUT: "about-section",
   DEI: "diversity-equity-inclusion-section",
   LANGUAGE: "language-section",

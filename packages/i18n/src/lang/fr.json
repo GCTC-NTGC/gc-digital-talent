@@ -588,10 +588,6 @@
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
   },
-  "PxUSSH": {
-    "defaultMessage": "Mon statut",
-    "description": "Name of My status page"
-  },
   "QCcpJr": {
     "defaultMessage": "Éliminé à la présélection – non réactif",
     "description": "The pool candidate's status is Screened Out because no longer responding"
@@ -1465,6 +1461,9 @@
   "yRxy3a": {
     "defaultMessage": "Retrait qualifié",
     "description": "The pool candidate's status is Qualified Withdrew."
+  },
+  "ybzpGb": {
+    "defaultMessage": "BothStatusNonStatus"
   },
   "ylHC90": {
     "defaultMessage": "Chargement...",

@@ -313,12 +313,14 @@ const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
         })),
       [classifications, getClassificationLabel],
     );
-    const streamOptions: Option<PoolStream>[] = enumToOptions(PoolStream).map(
-      ({ value }) => ({
+    const streamOptions: Option<PoolStream>[] = enumToOptions(PoolStream)
+      .map(({ value }) => ({
         value: value as PoolStream,
         label: intl.formatMessage(getPoolStream(value)),
-      }),
-    );
+      }))
+      // Avoid showing the ATIP stream as an option, since we don't have pools with candidates yet.
+      // TODO: remove this when ATIP pools are ready. See ticket https://github.com/GCTC-NTGC/gc-digital-talent/issues/7601
+      .filter(({ value }) => value !== PoolStream.AccessInformationPrivacy);
 
     return (
       <FormProvider {...methods}>
