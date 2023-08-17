@@ -1327,10 +1327,6 @@
     "defaultMessage": "Peut accepter une combinaison d’expérience de travail et d’études",
     "description": "Radio group option for education requirement filter in search form."
   },
-  "78ITuW": {
-    "defaultMessage": "Candidature non trouvée.",
-    "description": "Text displayed when a user application does not exist."
-  },
   "79m9jN": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Page title for the application success page"
