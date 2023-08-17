@@ -4,6 +4,7 @@ import {
   Pool,
   PoolCandidate,
 } from "@gc-digital-talent/graphql";
+
 import { ExperienceForDate } from "~/types/experience";
 import { isEducationExperience } from "~/utils/experienceUtils";
 

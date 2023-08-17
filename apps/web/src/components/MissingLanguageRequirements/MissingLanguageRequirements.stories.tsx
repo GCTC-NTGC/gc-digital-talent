@@ -1,8 +1,10 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
+
 import { fakePools, fakeUsers } from "@gc-digital-talent/fake-data";
 
 import { User, Pool, PoolLanguage } from "~/api/generated";
+
 import MissingLanguageRequirements from "./MissingLanguageRequirements";
 
 type MissingLanguageRequirementsComponent = typeof MissingLanguageRequirements;

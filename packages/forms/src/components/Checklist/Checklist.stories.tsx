@@ -2,9 +2,9 @@ import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import Checklist from "./Checklist";
 import Form from "../BasicForm";
 import Submit from "../Submit";
+import Checklist from "./Checklist";
 
 export default {
   component: Checklist,

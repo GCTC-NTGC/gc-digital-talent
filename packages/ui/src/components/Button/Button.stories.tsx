@@ -3,9 +3,9 @@ import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 
+import { Color } from "../../types";
 import Button from "./Button";
 import type { ButtonProps } from "./Button";
-import { Color } from "../../types";
 
 type Story = StoryFn<Omit<ButtonProps, "color" | "ref"> & { label: string }>;
 

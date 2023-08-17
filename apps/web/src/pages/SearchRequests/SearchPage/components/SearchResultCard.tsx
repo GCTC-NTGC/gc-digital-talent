@@ -3,11 +3,11 @@ import { useIntl } from "react-intl";
 
 import { Button, Link, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Pool } from "@gc-digital-talent/graphql";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { SimpleClassification } from "~/types/pool";
 import useRoutes from "~/hooks/useRoutes";
-import { Pool } from "@gc-digital-talent/graphql";
 
 const testId = (text: React.ReactNode) => (
   <span data-testid="candidateCount">{text}</span>

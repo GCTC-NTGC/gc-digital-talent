@@ -5,8 +5,8 @@ import { Meta, Story } from "@storybook/react";
 
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
 
-import CommunityFormFields from "./CommunityFormFields";
 import getExperienceFormLabels from "../../labels";
+import CommunityFormFields from "./CommunityFormFields";
 
 export default {
   component: CommunityFormFields,

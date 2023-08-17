@@ -8,9 +8,10 @@ import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { IntlProvider } from "react-intl";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+
 import { selectFilterOption, submitFilters } from "~/utils/jestUtils";
 
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import UserTableFilters from "./UserTableFilterDialog";
 import type { UserTableFiltersProps } from "./UserTableFilterDialog";
 

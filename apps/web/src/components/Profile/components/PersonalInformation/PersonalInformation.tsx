@@ -13,15 +13,15 @@ import {
   hasEmptyRequiredFields,
 } from "~/validators/profile/about";
 
-import { formValuesToSubmitData, dataToFormValues } from "./utils";
-import { FormValues } from "./types";
 import { SectionProps } from "../../types";
 import SectionTrigger from "../SectionTrigger";
 import FormActions from "../FormActions";
+import useSectionInfo from "../../hooks/useSectionInfo";
+import { formValuesToSubmitData, dataToFormValues } from "./utils";
+import { FormValues } from "./types";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
 import FormFields from "./FormFields";
-import useSectionInfo from "../../hooks/useSectionInfo";
 
 const PersonalInformation = ({
   user,

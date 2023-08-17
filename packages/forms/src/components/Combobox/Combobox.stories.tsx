@@ -6,7 +6,6 @@ import { getStaticSkills } from "@gc-digital-talent/fake-data";
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
-
 import Combobox, { Option, ComboboxProps } from "./Combobox";
 
 const skills = getStaticSkills().map((skill) => ({

@@ -6,8 +6,8 @@ import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import PageHeader from "~/components/PageHeader/PageHeader";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-
 import adminMessages from "~/messages/adminMessages";
+
 import TeamTableApi from "./components/TeamTable/TeamTable";
 
 const IndexTeamPage = () => {

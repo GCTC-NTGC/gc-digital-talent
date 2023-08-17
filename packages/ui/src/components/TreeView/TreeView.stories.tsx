@@ -1,12 +1,13 @@
 import React from "react";
 import { Meta, ComponentStory } from "@storybook/react";
 import { faker } from "@faker-js/faker";
-import TreeView from "./TreeView";
+
 import Button from "../Button";
 import Accordion from "../Accordion";
 import Card from "../Card";
 import Alert from "../Alert";
 import StandardHeader from "../Accordion/StandardHeader";
+import TreeView from "./TreeView";
 
 faker.seed(0);
 

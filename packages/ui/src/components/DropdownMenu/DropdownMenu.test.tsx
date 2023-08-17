@@ -7,8 +7,9 @@ import React from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
-import DropdownMenu from ".";
 import Button from "../Button";
+
+import DropdownMenu from ".";
 
 type DropdownMenuRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
   typeof DropdownMenu.Root

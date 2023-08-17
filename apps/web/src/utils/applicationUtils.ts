@@ -1,6 +1,9 @@
 import { IntlShape } from "react-intl";
+import isPast from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { ApplicationStep, Maybe, PoolCandidate } from "~/api/generated";
@@ -13,11 +16,7 @@ import educationStepInfo from "~/pages/Applications/educationStep/educationStepI
 import profileStepInfo from "~/pages/Applications/profileStep/profileStepInfo";
 import successPageInfo from "~/pages/Applications/successStep/successStepInfo";
 import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
-
 import { isIAPPool } from "~/utils/poolUtils";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import isPast from "date-fns/isPast";
 import careerTimelineStepInfo from "~/pages/Applications/careerTimelineStep/careerTimelineStepInfo";
 
 type GetApplicationPagesArgs = {

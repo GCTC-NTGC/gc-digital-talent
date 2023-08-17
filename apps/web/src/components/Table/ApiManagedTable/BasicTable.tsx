@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 
 import SortIcon from "../ClientManagedTable/SortIcon";
+import tableMessages from "../tableMessages";
 import {
   Column,
   ColumnsOf,
@@ -9,7 +10,6 @@ import {
   RecordWithId,
   SortingRule,
 } from "./helpers";
-import tableMessages from "../tableMessages";
 
 interface BasicTableProps<T extends RecordWithId = RecordWithId> {
   columns: ColumnsOf<T>;

@@ -6,11 +6,13 @@ import { screen } from "@testing-library/react";
 import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
+
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { PoolCandidateStatus } from "~/api/generated";
+
 import ApplicationCard, { type ApplicationCardProps } from "./ApplicationCard";
 
 const mockApplication = fakePoolCandidates()[0];

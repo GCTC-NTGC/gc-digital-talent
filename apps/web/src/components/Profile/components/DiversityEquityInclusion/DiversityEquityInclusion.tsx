@@ -14,8 +14,8 @@ import { UpdateUserAsUserInput } from "@gc-digital-talent/graphql";
 import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
 import { EquityKeys } from "~/components/EmploymentEquity/types";
 import { hasEmptyRequiredFields } from "~/validators/profile/diversityEquityInclusion";
-
 import applicationMessages from "~/messages/applicationMessages";
+
 import { SectionProps } from "../../types";
 import { getSectionTitle } from "../../utils";
 

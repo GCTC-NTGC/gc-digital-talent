@@ -2,9 +2,9 @@ import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import RadioGroup from "./RadioGroup";
 import Form from "../BasicForm";
 import Submit from "../Submit";
+import RadioGroup from "./RadioGroup";
 
 export default {
   component: RadioGroup,

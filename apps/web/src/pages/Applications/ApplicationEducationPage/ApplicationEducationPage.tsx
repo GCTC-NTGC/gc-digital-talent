@@ -22,7 +22,12 @@ import {
   useUpdateApplicationMutation,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import useRoutes from "~/hooks/useRoutes";
+import { RadioGroup } from "@gc-digital-talent/forms";
+import { Radio } from "@gc-digital-talent/forms/src/components/RadioGroup";
+import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
+import applicationMessages from "~/messages/applicationMessages";
 import {
   isAwardExperience,
   isCommunityExperience,
@@ -30,17 +35,13 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
-import applicationMessages from "~/messages/applicationMessages";
-
-import { RadioGroup } from "@gc-digital-talent/forms";
-import { Radio } from "@gc-digital-talent/forms/src/components/RadioGroup";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
+
 import { ApplicationPageProps } from "../ApplicationApi";
-import LinkCareerTimeline from "./LinkCareerTimeline";
 import { useApplicationContext } from "../ApplicationContext";
+import LinkCareerTimeline from "./LinkCareerTimeline";
 
 type EducationRequirementExperiences = {
   educationRequirementAwardExperiences: { sync: string[] };

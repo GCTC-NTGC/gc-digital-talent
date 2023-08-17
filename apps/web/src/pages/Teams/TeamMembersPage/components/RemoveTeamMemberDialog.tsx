@@ -8,11 +8,11 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import { Team, useUpdateUserAsAdminMutation } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
-import { toast } from "@gc-digital-talent/toast";
 
 interface RemoveTeamMemberDialogProps {
   user: TeamMember;

@@ -7,6 +7,7 @@ import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FormProvider, useForm } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
+
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
 import DateInput, { DateInputProps } from "./DateInput";

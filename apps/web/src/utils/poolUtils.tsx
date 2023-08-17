@@ -5,6 +5,9 @@ import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   PublishingGroup,
   RoleAssignment,
@@ -17,9 +20,6 @@ import {
 import { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
 import { ONGOING_PUBLISHING_GROUPS } from "~/constants/pool";
-import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
-
 import { PageNavKeys, SimpleClassification, SimplePool } from "~/types/pool";
 
 import { wrapAbbr } from "./nameUtils";

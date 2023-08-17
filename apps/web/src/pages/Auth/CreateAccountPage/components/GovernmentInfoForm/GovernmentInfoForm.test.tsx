@@ -3,13 +3,15 @@
  */
 import "@testing-library/jest-dom";
 import React from "react";
+import { act, screen, fireEvent } from "@testing-library/react";
+
 import {
   fakeClassifications,
   fakeDepartments,
   fakeUsers,
 } from "@gc-digital-talent/fake-data";
-import { act, screen, fireEvent } from "@testing-library/react";
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
+
 import GovernmentInfoForm, {
   GovernmentInfoFormProps,
 } from "./GovernmentInfoForm";

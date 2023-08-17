@@ -3,11 +3,11 @@
  */
 
 import React from "react";
+
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { fakeUsers, fakePools } from "@gc-digital-talent/fake-data";
 
 import { Pool, PoolLanguage, User } from "~/api/generated";
-
-import { fakeUsers, fakePools } from "@gc-digital-talent/fake-data";
 
 import MissingLanguageRequirements, {
   type MissingLanguageRequirementsProps,

@@ -4,12 +4,14 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import React from "react";
+
 import {
   fakeClassifications,
   fakePools,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+
 import { SearchContainerComponent } from "./SearchContainer";
 import type { SearchContainerProps } from "./SearchContainer";
 

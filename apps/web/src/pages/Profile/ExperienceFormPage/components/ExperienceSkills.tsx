@@ -11,7 +11,6 @@ import {
 
 import { Skill } from "~/api/generated";
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
-
 import type { ExperienceType, FormSkill, FormSkills } from "~/types/experience";
 import SkillDialog from "~/components/SkillDialog/SkillDialog";
 import { FormValues as SkillDialogFormValues } from "~/components/SkillDialog/types";
