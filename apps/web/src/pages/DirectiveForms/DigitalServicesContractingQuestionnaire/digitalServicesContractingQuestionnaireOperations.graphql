@@ -7,3 +7,13 @@ query digitalServicesContractingQuestionnairePageData {
     }
   }
 }
+
+mutation createDigitalContractingQuestionnaire(
+  $questionnaire: DigitalContractingQuestionnaireInput!
+) {
+  createDigitalContractingQuestionnaire(
+    digitalContractingQuestionnaire: $questionnaire
+  ) {
+    id
+  }
+}

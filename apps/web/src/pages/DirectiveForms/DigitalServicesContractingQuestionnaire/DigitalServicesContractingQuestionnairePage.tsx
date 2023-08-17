@@ -1,20 +1,25 @@
 import React from "react";
 import { defineMessage, useIntl } from "react-intl";
-
 import { SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import { Link, Pending, TableOfContents } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { useLocale } from "@gc-digital-talent/i18n";
+import {
+  DigitalContractingQuestionnaireInput,
+  useCreateDigitalContractingQuestionnaireMutation,
+} from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import Hero from "~/components/Hero";
 import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_EN.docx";
 import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
-
 import { useDigitalServicesContractingQuestionnairePageDataQuery } from "~/api/generated";
+
 import { pageTitle as directiveHomePageTitle } from "../../DirectivePage/DirectivePage";
 import { getSectionTitle, PAGE_SECTION_ID } from "./navigation";
 import { IdNamePair, FormValues } from "./types";
@@ -22,6 +27,7 @@ import ExamplesOfContractsSection from "./sections/ExamplesOfContractsSection";
 import InstructionsSection from "./sections/InstructionsSection";
 import PreambleSection from "./sections/PreambleSection";
 import QuestionnaireSection from "./sections/QuestionnaireSection";
+import { convertFormValuesToApiInput } from "./util";
 
 export const pageTitle = defineMessage({
   defaultMessage: "Digital Services Contracting Questionnaire",
@@ -32,11 +38,13 @@ export const pageTitle = defineMessage({
 
 type DigitalServicesContractingQuestionnaireProps = {
   departments: Array<IdNamePair>;
+  isSubmitting: boolean;
   onSubmit: SubmitHandler<FormValues>;
 };
 
 const DigitalServicesContractingQuestionnaire = ({
   departments,
+  isSubmitting,
   onSubmit,
 }: DigitalServicesContractingQuestionnaireProps) => {
   const intl = useIntl();
@@ -209,7 +217,10 @@ const DigitalServicesContractingQuestionnaire = ({
             <BasicForm onSubmit={onSubmit}>
               <InstructionsSection />
               <PreambleSection />
-              <QuestionnaireSection departments={departments} />
+              <QuestionnaireSection
+                departments={departments}
+                isSubmitting={isSubmitting}
+              />
               <ExamplesOfContractsSection />
             </BasicForm>
           </TableOfContents.Content>
@@ -220,15 +231,57 @@ const DigitalServicesContractingQuestionnaire = ({
 };
 
 const DigitalServicesContractingQuestionnairePage = () => {
-  const [{ data, fetching, error }] =
-    useDigitalServicesContractingQuestionnairePageDataQuery();
+  const intl = useIntl();
+  const paths = useRoutes();
+  const navigate = useNavigate();
+  const [
+    { data: initialData, fetching: initialFetching, error: initialError },
+  ] = useDigitalServicesContractingQuestionnairePageDataQuery();
+  const [{ fetching: isSubmitting }, executeMutation] =
+    useCreateDigitalContractingQuestionnaireMutation();
+
+  const toastError = () =>
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Failed to save the questionnaire.",
+        id: "zCKX6h",
+        description:
+          "Message displayed to user if account fails to get updated.",
+      }),
+    );
+
+  const handleCreateQuestionnaire = async (
+    questionnaire: DigitalContractingQuestionnaireInput,
+  ) => {
+    await executeMutation({ questionnaire })
+      .then((result) => {
+        if (result.data?.createDigitalContractingQuestionnaire?.id) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Questionnaire successfully saved.",
+              id: "S2if5C",
+              description:
+                "Message displayed to user if the questionnaire was saved successfully.",
+            }),
+          );
+          navigate(paths.directive());
+        } else {
+          toastError();
+        }
+      })
+      .catch(() => {
+        toastError();
+      });
+  };
+
   return (
-    <Pending fetching={fetching} error={error}>
+    <Pending fetching={initialFetching} error={initialError}>
       <DigitalServicesContractingQuestionnaire
-        departments={data?.departments?.filter(notEmpty) ?? []}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        departments={initialData?.departments?.filter(notEmpty) ?? []}
+        isSubmitting={isSubmitting}
+        onSubmit={(formValues) =>
+          handleCreateQuestionnaire(convertFormValuesToApiInput(formValues))
+        }
       />
     </Pending>
   );

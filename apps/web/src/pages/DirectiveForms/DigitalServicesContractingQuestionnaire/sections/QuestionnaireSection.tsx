@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 
 import ListBulletIcon from "@heroicons/react/24/outline/ListBulletIcon";
 
-import { Button, Heading, TableOfContents } from "@gc-digital-talent/ui";
-import { formMessages } from "@gc-digital-talent/i18n";
+import { Heading, TableOfContents } from "@gc-digital-talent/ui";
+import { Submit } from "@gc-digital-talent/forms";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import GeneralInformationSection from "./GeneralInformationSection";
@@ -12,9 +12,13 @@ import { IdNamePair } from "../types";
 
 type QuestionnaireSectionProps = {
   departments: Array<IdNamePair>;
+  isSubmitting: boolean;
 };
 
-const QuestionnaireSection = ({ departments }: QuestionnaireSectionProps) => {
+const QuestionnaireSection = ({
+  departments,
+  isSubmitting,
+}: QuestionnaireSectionProps) => {
   const intl = useIntl();
   return (
     <TableOfContents.Section
@@ -90,14 +94,7 @@ const QuestionnaireSection = ({ departments }: QuestionnaireSectionProps) => {
         </Heading>
         TODO: TALENT_SOURCING_DECISION
       </TableOfContents.Section>
-      <Button
-        type="submit"
-        color="secondary"
-        mode="solid"
-        // disabled={isUpdating}
-      >
-        {intl.formatMessage(formMessages.submit)}
-      </Button>
+      <Submit isSubmitting={isSubmitting} />
     </TableOfContents.Section>
   );
 };

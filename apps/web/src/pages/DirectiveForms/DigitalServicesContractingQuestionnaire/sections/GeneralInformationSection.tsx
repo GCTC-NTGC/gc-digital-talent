@@ -14,9 +14,7 @@ import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { ContractAuthority, YesNoUnsure } from "@gc-digital-talent/graphql";
 
 import { IdNamePair } from "../types";
-
-// placeholder ID for fake option "other"
-const OTHER_ID = "OTHER";
+import { OTHER_ID } from "../util";
 
 type GeneralInformationSectionProps = {
   departments: Array<IdNamePair>;

@@ -698,7 +698,14 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
                 {
                   path: "digital-services-contracting-questionnaire",
-                  element: <DigitalServicesContractingQuestionnaire />,
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.PlatformAdmin]}
+                      loginPath={loginPath}
+                    >
+                      <DigitalServicesContractingQuestionnaire />
+                    </RequireAuth>
+                  ),
                 },
               ],
             },
