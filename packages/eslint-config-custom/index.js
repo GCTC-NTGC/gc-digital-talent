@@ -68,17 +68,19 @@ module.exports = {
       "error",
       {
         "newlines-between": "always",
-        groups: ["builtin", "external", "internal", ["parent", "sibling"], "index"],
+        "distinctGroup": false,
+        groups: ["builtin", "external", "unknown", "internal", ["parent", "sibling"], "index"],
         pathGroups: [
           {
             "pattern": "@gc-digital-talent/**",
-            "group": "external"
+            "group": "unknown",
           },
           {
             "pattern": "~/**",
             "group": "internal"
           }
-        ]
+        ],
+        pathGroupsExcludedImportTypes: ["@gc-digital-talent/**"]
       }
     ],
     "react/display-name": "off",
