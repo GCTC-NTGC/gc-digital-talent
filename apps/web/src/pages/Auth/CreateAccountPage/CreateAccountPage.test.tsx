@@ -100,7 +100,7 @@ describe("Create Account Form tests", () => {
     ).toBeInTheDocument();
     expect(
       await screen.getByRole("option", {
-        name: /Select a department/i,
+        name: /select a department/i,
       }),
     ).toBeInTheDocument();
 
@@ -114,13 +114,22 @@ describe("Create Account Form tests", () => {
     });
 
     expect(
-      screen.getByRole("option", {
-        name: /Select a group/i,
+      screen.getByRole("combobox", {
+        name: /current classification group/i,
       }),
     ).toBeInTheDocument();
+
+    const group = screen.getByRole("combobox", {
+      name: /current classification group/i,
+    }) as HTMLSelectElement;
+    const options = Array.from(
+      group.querySelectorAll("option"),
+    ) as HTMLOptionElement[];
+    fireEvent.change(group, { target: { value: options[1].value } }); // Set to second value after null selection.
+
     expect(
-      screen.getByRole("option", {
-        name: /Select a level/i,
+      screen.getByRole("combobox", {
+        name: /current classification level/i,
       }),
     ).toBeInTheDocument();
 
