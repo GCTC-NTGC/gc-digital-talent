@@ -44,6 +44,8 @@ export const usePagination: UsePagination = ({
   const total = Math.max(Math.trunc(totalPages ?? 0), 0);
 
   const pageRange = useMemo((): UsePaginationReturn => {
+    // Double siblings + boundaries for each side of page numbers
+    // 3 represents the page numbers in the middle
     const totalPageNumbers = siblings * 2 + 3 + boundaries * 2;
 
     if (totalPageNumbers >= total) {
