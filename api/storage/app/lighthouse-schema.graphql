@@ -2,7 +2,7 @@ type Query {
   me: User
   user(id: UUID!): User
   users: [User]! @deprecated(reason: "users is deprecated. Use usersPaginated instead. Remove in #7660.")
-  applicant(id: UUID!): User @deprecated(reason: "applicant is deprecated. Use User instead. Remove in #7651.")
+  applicant(id: UUID!): User @deprecated(reason: "applicant is deprecated. Use user instead. Remove in #7651.")
   applicants(includeIds: [ID]!): [User]! @deprecated(reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652.")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
@@ -213,7 +213,7 @@ type User {
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
   userSkills: [UserSkill!]
-  pools: [Pool] @deprecated(reason: "pools is deprecated. User.roles.team.pools instead. Remove in #7664.")
+  pools: [Pool] @deprecated(reason: "pools is deprecated. user.roles.team.pools instead. Remove in #7664.")
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle] @deprecated(reason: "expectedGenericJobTitles is deprecated. Remove in #7645.")
   priorityWeight: Int

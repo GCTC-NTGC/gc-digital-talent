@@ -135,7 +135,7 @@ type User {
     @hasMany
     @can(ability: "view", resolved: true)
     @deprecated(
-      reason: "pools is deprecated. User.roles.team.pools instead. Remove in #7664."
+      reason: "pools is deprecated. user.roles.team.pools instead. Remove in #7664."
     ) # Pools a user owns
   # Profile Status
   isProfileComplete: Boolean
@@ -896,7 +896,7 @@ type Query {
     @guard
     @can(ability: "view", query: true, model: "User")
     @deprecated(
-      reason: "applicant is deprecated. Use User instead. Remove in #7651."
+      reason: "applicant is deprecated. Use user instead. Remove in #7651."
     )
   applicants(includeIds: [ID]! @in(key: "id")): [User]!
     @all(model: "User")
