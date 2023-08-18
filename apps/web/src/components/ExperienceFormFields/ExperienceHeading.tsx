@@ -1,12 +1,5 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import {
-  Accordion,
-  DefinitionList,
-  Heading,
-  StandardAccordionHeader,
-} from "@gc-digital-talent/ui";
-
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
@@ -14,6 +7,14 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import PlusCircleIcon from "@heroicons/react/24/outline/PlusCircleIcon";
+
+import {
+  Accordion,
+  DefinitionList,
+  Heading,
+  StandardAccordionHeader,
+} from "@gc-digital-talent/ui";
+
 import { experienceTypeTitles } from "~/pages/Applications/ApplicationCareerTimelineAddPage/messages";
 
 type AccordionStates = "learn-more" | "";

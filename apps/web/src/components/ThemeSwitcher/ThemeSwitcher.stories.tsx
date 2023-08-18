@@ -1,6 +1,5 @@
 import React from "react";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
-
 import { OverlayOrDialogDecorator } from "storybook-helpers";
 
 import ThemeSwitcher from "./ThemeSwitcher";

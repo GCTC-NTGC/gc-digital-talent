@@ -5,7 +5,6 @@ import {
   CloseButtonProps,
   ToastContainerProps,
 } from "react-toastify";
-
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 
 import closeButtonStyles from "./styles";

@@ -1,9 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
+
 import { Accordion, StandardAccordionHeader } from "@gc-digital-talent/ui";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { GenericJobTitle } from "~/api/generated";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+
 import ClassificationDefinition from "./ClassificationDefinition";
 
 interface GenericJobTitleAccordionProps {

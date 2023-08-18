@@ -16,7 +16,6 @@ import Field from "../Field";
 import { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-
 import ControlledInput from "./ControlledInput";
 import { splitSegments } from "./utils";
 import { DateRegisterOptions, DateSegment, DATE_SEGMENT } from "./types";

@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { Button, Heading, Separator } from "@gc-digital-talent/ui";
 
 import { SimpleClassification } from "~/types/pool";
+
 import SearchResultCard, {
   type SearchResultCardProps,
 } from "./SearchResultCard";

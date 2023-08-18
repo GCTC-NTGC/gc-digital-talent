@@ -42,11 +42,11 @@ import {
 import adminMessages from "~/messages/adminMessages";
 import { PoolCandidateSearchRequest } from "~/api/generated";
 
+import tableClassificationPills from "../Table/ClientManagedTable/tableClassificationPills";
+import tableCommaList from "../Table/ClientManagedTable/tableCommaList";
 import SearchRequestsTableFilter, {
   FormValues,
 } from "./components/SearchRequestsTableFilterDialog";
-import tableClassificationPills from "../Table/ClientManagedTable/tableClassificationPills";
-import tableCommaList from "../Table/ClientManagedTable/tableCommaList";
 
 type Data = NonNullable<FromArray<PoolCandidateSearchRequestPaginator["data"]>>;
 

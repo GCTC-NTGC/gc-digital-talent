@@ -22,8 +22,8 @@ import { categorizeSkill } from "~/utils/skillUtils";
 import { getRecruitmentType } from "~/utils/poolCandidate";
 import { Application } from "~/utils/applicationUtils";
 
-import { getQualifiedRecruitmentInfo, joinDepartments } from "./utils";
 import RecruitmentAvailabilityDialog from "../RecruitmentAvailabilityDialog/RecruitmentAvailabilityDialog";
+import { getQualifiedRecruitmentInfo, joinDepartments } from "./utils";
 
 export interface QualifiedRecruitmentCardProps {
   candidate: Application;

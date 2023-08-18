@@ -1,6 +1,8 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
+
 import { fakePools } from "@gc-digital-talent/fake-data";
+
 import { PoolPoster } from "./PoolAdvertisementPage";
 
 const fakePool = fakePools(1)[0];

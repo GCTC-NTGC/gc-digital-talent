@@ -4,12 +4,13 @@ import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 import { widthOf, heightOf } from "storybook-helpers";
 
 import NestedLanguageProvider from "@gc-digital-talent/i18n/src/components/NestedLanguageProvider";
-
 import { Messages } from "@gc-digital-talent/i18n";
+
 import * as micMessages from "~/lang/micCompiled.json";
 import * as crgMessages from "~/lang/crgCompiled.json";
 import * as crkMessages from "~/lang/crkCompiled.json";
 import * as ojwMessages from "~/lang/ojwCompiled.json";
+
 import { Home } from "./Home";
 
 const messages: Map<string, Messages> = new Map([

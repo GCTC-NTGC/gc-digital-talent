@@ -5,8 +5,8 @@ import { Meta, Story } from "@storybook/react";
 
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
 
-import WorkFormFields from "./WorkFormFields";
 import getExperienceFormLabels from "../../labels";
+import WorkFormFields from "./WorkFormFields";
 
 export default {
   component: WorkFormFields,

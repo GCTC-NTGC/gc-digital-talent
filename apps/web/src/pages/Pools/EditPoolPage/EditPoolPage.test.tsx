@@ -4,10 +4,12 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import { act, fireEvent, screen, within } from "@testing-library/react";
+
 import {
   renderWithProviders,
   updateDate,
 } from "@gc-digital-talent/jest-helpers";
+
 import { EditPoolForm, EditPoolFormProps } from "./EditPoolPage";
 import EditPoolStory, {
   DraftPool,

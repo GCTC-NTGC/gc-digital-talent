@@ -9,6 +9,7 @@ import { useIntl } from "react-intl";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 
+import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 import { DateSegment, DATE_SEGMENT } from "./types";
 import {
   getMonthOptions,
@@ -16,8 +17,6 @@ import {
   setComputedValue,
   splitSegments,
 } from "./utils";
-
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;

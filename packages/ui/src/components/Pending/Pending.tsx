@@ -6,7 +6,6 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { isUuidError } from "@gc-digital-talent/helpers";
 
 import Loading, { LoadingProps } from "../Loading";
-
 import ErrorMessage from "./ErrorMessage";
 
 export interface PendingProps extends LoadingProps {

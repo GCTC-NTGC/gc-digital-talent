@@ -3,11 +3,13 @@ import { Meta, Story } from "@storybook/react";
 import React from "react";
 
 import { fakeSkills } from "@gc-digital-talent/fake-data";
+
 import { Skill } from "~/api/generated";
 
-import { usePaginationVars } from ".";
 import Pagination from "./Pagination";
 import type { PaginationProps } from "./Pagination";
+
+import { usePaginationVars } from ".";
 
 export default {
   component: Pagination,

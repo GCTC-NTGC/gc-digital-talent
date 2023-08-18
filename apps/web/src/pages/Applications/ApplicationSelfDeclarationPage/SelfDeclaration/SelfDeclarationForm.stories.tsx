@@ -2,10 +2,10 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
+import { widthOf, heightOf } from "storybook-helpers";
+
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { IndigenousCommunity } from "@gc-digital-talent/graphql";
-
-import { widthOf, heightOf } from "storybook-helpers";
 
 import { ApplicationSelfDeclaration } from "../ApplicationSelfDeclarationPage";
 

@@ -3,6 +3,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakeUsers } from "@gc-digital-talent/fake-data";
+
 import { FormValues, SupportFormComponent } from "./SupportForm";
 
 export default {

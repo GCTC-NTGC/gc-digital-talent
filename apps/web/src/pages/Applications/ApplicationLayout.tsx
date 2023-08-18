@@ -14,11 +14,9 @@ import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import IapContactDialog from "~/components/Dialog/IapContactDialog";
-
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-
 import { fullPoolTitle, isIAPPool } from "~/utils/poolUtils";
 import { useGetApplicationQuery } from "~/api/generated";
 import {

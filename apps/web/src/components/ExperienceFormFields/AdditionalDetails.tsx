@@ -7,8 +7,8 @@ import { TextArea } from "@gc-digital-talent/forms";
 import { Heading } from "@gc-digital-talent/ui";
 
 import { ExperienceType } from "~/types/experience";
-
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
+
 import NullExperienceType from "./NullExperienceType";
 
 const TEXT_AREA_ROWS = 3;

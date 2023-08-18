@@ -6,7 +6,6 @@ import {
   FAR_PAST_DATE,
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-
 import {
   PoolStatus,
   Classification,

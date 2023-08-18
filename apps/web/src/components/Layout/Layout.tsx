@@ -15,7 +15,6 @@ import NavMenu from "~/components/NavMenu/NavMenu";
 import Header from "~/components/Header/Header";
 import Footer from "~/components/Footer/Footer";
 import SignOutConfirmation from "~/components/SignOutConfirmation/SignOutConfirmation";
-
 import useRoutes from "~/hooks/useRoutes";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
 import authMessages from "~/messages/authMessages";

@@ -3,6 +3,7 @@
  */
 import { compareByDate } from "~/utils/experienceUtils";
 import { User, Experience } from "~/api/generated";
+
 import { ExperienceForDate } from "./components/CareerTimelineAndRecruitment";
 
 const user: User = { email: "blank", id: "blank" };

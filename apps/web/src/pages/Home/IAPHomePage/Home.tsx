@@ -7,7 +7,6 @@ import { Link, Pending } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import useQuote from "~/hooks/useQuote";
-
 import iapHeroImg from "~/assets/img/iap-hero.jpg";
 import logoImg from "~/assets/img/iap-logo.svg";
 import womanSmiling from "~/assets/img/indigenous-woman-smiling.jpg";
@@ -21,7 +20,6 @@ import sash from "~/assets/img/sash.jpg";
 import lowerBack from "~/assets/img/lower-back.jpg";
 import iconWatermark from "~/assets/img/icon-watermark.svg";
 import indigenousWoman from "~/assets/img/indigenous-woman.png";
-
 import {
   useIapPublishedPoolsQuery,
   PublishingGroup,
@@ -37,7 +35,6 @@ import LanguageSelector from "./components/LanguageSelector";
 import Step from "./components/Step";
 import Quote from "./components/Quote";
 import ApplyLink from "./components/ApplyLink";
-
 import {
   BarChart,
   Calendar,
