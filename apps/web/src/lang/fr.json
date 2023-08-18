@@ -1255,10 +1255,6 @@
     "defaultMessage": "Ajouter l’expérience en matière d’éducation",
     "description": "Button text to add an education experience to the profile"
   },
-  "6XVNkV": {
-    "defaultMessage": "Les gens acquièrent des compétences à partir d’une vaste gamme d’expériences, comme le bénévolat ou le fait de faire partie d’un organisme à but non-lucratif, de communautés autochtones ou de collaborations virtuelles. Il pourrait s’agir de n’importe quoi dont, notamment : le fait d’aider dans le cadre d’événements ou de cérémonies, faire le troc, servir de DJ aux noces d’un ami, jouer des jeux et diffuser en temps réel.",
-    "description": "Description blurb for Community Experience form"
-  },
   "6Y6hy9": {
     "defaultMessage": "L’ajout des utilisateurs aux bassins suivants a échoué :",
     "description": "Error message displayed when an attempt to add users to known pools"
@@ -1402,10 +1398,6 @@
   "7hUWc+": {
     "defaultMessage": "Créer un profil",
     "description": "Link text for users to create a profile"
-  },
-  "7inIW/": {
-    "defaultMessage": "Vous avez des titres de compétences? Partagez votre grade, vos certificats, vos cours en ligne, votre programme d’apprentissage du métier, vos licences ou d’autres titres de compétences. Si vous avez eu un apprentissage dans un établissement scolaire reconnu, faites part de votre expérience ici.",
-    "description": "Description blurb for Education Details Form"
   },
   "7k27sT": {
     "defaultMessage": "Clôture manuellement",
@@ -1586,10 +1578,6 @@
   "8kMPLB": {
     "defaultMessage": "Décrire la façon dont cette compétence a été mise en valeur dans ce rôle",
     "description": "Label for the textarea in the skills in detail section."
-  },
-  "8lBXWU": {
-    "defaultMessage": "Récipiendaire(s) du prix",
-    "description": "Label for the person or group that received an award"
   },
   "8mt/5/": {
     "defaultMessage": "Exemptions de lieux",
@@ -2366,10 +2354,6 @@
   "E8BMJW": {
     "defaultMessage": "Créer<hidden> une classification</hidden>",
     "description": "Breadcrumb title for the create classification page link."
-  },
-  "E9I34y": {
-    "defaultMessage": "Titre de la thèse",
-    "description": "Label displayed on education form for thesis title input"
   },
   "E9S4B8": {
     "defaultMessage": "Lien copié!",
@@ -3653,10 +3637,6 @@
     "defaultMessage": "Annuler",
     "description": "Link text to cancel logging in and return to talent search home."
   },
-  "OUKOBH": {
-    "defaultMessage": "1. Détails de l’expérience communautaire",
-    "description": "Title for Community Experience form"
-  },
   "OUXmYd": {
     "defaultMessage": "Vos réponses seront évaluées dans le cadre de votre candidature, alors assurez-vous de donner à chaque question le temps et la réflexion nécessaires pour une réponse qui vous représente vraiment, vous et votre expérience.",
     "description": "Application step for screening questions, introduction description, paragraph two"
@@ -4373,10 +4353,6 @@
     "defaultMessage": "Apprentissage personnel",
     "description": "Title for personal experience section"
   },
-  "UDpZ1q": {
-    "defaultMessage": "1. Détails de l’expérience personnelle",
-    "description": "Title for Personal Experience Details form"
-  },
   "UEsexn": {
     "defaultMessage": "Renseignements sur le gestionnaire",
     "description": "Heading for the manager info section of the single search request view."
@@ -4693,10 +4669,6 @@
     "defaultMessage": "Retirer cette compétence<hidden> : {skillName}</hidden>",
     "description": "Button label to remove the adjacent skill on skill result block."
   },
-  "W7LpsW": {
-    "defaultMessage": "1. Détails des études",
-    "description": "Title for Education Details Form"
-  },
   "W9DTVh": {
     "defaultMessage": "Nom au complet",
     "description": "Title for the full name block in the manager info section of the single search request view."
@@ -4981,14 +4953,6 @@
     "defaultMessage": "Vous n’avez pas encore mis en vedette une compétence pour cette expérience.",
     "description": "Primary message to user when no skills have been attached to experience."
   },
-  "YJS2CB": {
-    "defaultMessage": "Décerné à",
-    "description": "The award was given to"
-  },
-  "YJdsMY": {
-    "defaultMessage": "Organisation ou institution émettrice",
-    "description": "Label displayed on award form for issuing organization input"
-  },
   "YKqt+1": {
     "defaultMessage": "Niveau d’études",
     "description": "Title for education level on summary of filters section"
@@ -5238,10 +5202,6 @@
   "a6FJwN": {
     "defaultMessage": "Vous n'avez pas ajouté d'options d'équité à votre profil.",
     "description": "Message when user has not selected as being in any employment equity groups."
-  },
-  "a6c/ce": {
-    "defaultMessage": "Avez-vous été reconnu pour vous être surpassé? Il existe de nombreuses façons d’être reconnu, les prix en sont une parmi d’autres.",
-    "description": "Description blurb for Award Details Form"
   },
   "a8wd8c": {
     "defaultMessage": "Compétences mises en évidence",
@@ -5592,10 +5552,6 @@
   "chnoRd": {
     "defaultMessage": "Type d’expérience",
     "description": "Label for the type of experience a user is creating"
-  },
-  "ciWrxr": {
-    "defaultMessage": "1. Détails de l’expérience de travail",
-    "description": "Title for Work Experience form"
   },
   "cktAfD": {
     "defaultMessage": "Planification et établissement de rapports",
@@ -6133,10 +6089,6 @@
     "defaultMessage": "Parcourez les emplois",
     "description": "Breadcrumb title for the browse pools page."
   },
-  "gEBoM0": {
-    "defaultMessage": "Projet/produit",
-    "description": "Label displayed on Community Experience form for Project / product section"
-  },
   "gHMj31": {
     "defaultMessage": "Aucune expérience trouvée",
     "description": "Null state messages for career timeline list when no experiences are found."
@@ -6431,10 +6383,6 @@
     "defaultMessage": "Voici un tableau des équipes, de même que de leurs détails pertinents. Vous pouvez également créer une nouvelle équipe ou en modifier une qui existe déjà.",
     "description": "Descriptive text about the list of teams in the admin portal."
   },
-  "i55f5L": {
-    "defaultMessage": "1. Détails du prix",
-    "description": "Title for Award Details Form"
-  },
   "i8DgUB": {
     "defaultMessage": "Opérations d’infrastructure de la TI",
     "description": "Label for the 'infrastructure operations' IT work stream"
@@ -6691,10 +6639,6 @@
     "defaultMessage": "Le bassin a été archivé avec succès!",
     "description": "Message affiché à l'utilisateur après l'archivage du bassin"
   },
-  "jhhCKX": {
-    "defaultMessage": "Portée du prix",
-    "description": "Label displayed on award form for scope section"
-  },
   "jiJ8qo": {
     "defaultMessage": "Poursuivre l’ébauche",
     "description": "Link text to continue a specific application that is in draft state."
@@ -6818,10 +6762,6 @@
   "kiH9nz": {
     "defaultMessage": "Sélectionnez<hidden> une langue autochtone </hidden>",
     "description": "Button text displayed for Indigenous languages dropdown"
-  },
-  "knmaAL": {
-    "defaultMessage": "Les personnes ne se résument pas à leur formation et à leur expérience professionnelle. Nous voulons vous permettre de faire part de ce que vous avez appris à partir d’autres expériences. Pour protéger votre vie privée, veuillez ne pas indiquer de renseignements sensibles sur vous-même ou sur d’autres personnes.",
-    "description": "Description blurb for Personal Experience Details form"
   },
   "ksMybU": {
     "defaultMessage": "Erreur : échec de la création de la compétence",
@@ -7153,10 +7093,6 @@
   "mzQAMK": {
     "defaultMessage": "Toutes les familles de compétences ({count})",
     "description": "Label for removing the skill family filter"
-  },
-  "n0lR5F": {
-    "defaultMessage": "Sélectionner un type d’expérience",
-    "description": "Heading for the experience type section for the experience form"
   },
   "n4pt+y": {
     "defaultMessage": "Nom de l’équipe (Anglais)",
@@ -7581,10 +7517,6 @@
   "qhhPj5": {
     "defaultMessage": "Lieux de travail"
   },
-  "qjMTk9": {
-    "defaultMessage": "Partagez les expériences que vous avez acquises dans des postes à temps plein, à temps partiel, du travail autonome, des bourses de recherche, et des stages. Vous n’avez pas nécessairement besoin de tout partager. Misez plutôt sur les expériences qui ont trait à la possibilité qui vous intéresse.",
-    "description": "Description blurb for Work Experience form"
-  },
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
@@ -7596,10 +7528,6 @@
   "qrDCTV": {
     "defaultMessage": "Catégorie",
     "description": "Title displayed for the Pool Candidates table Priority column."
-  },
-  "qrdJ13": {
-    "defaultMessage": "Date de la remise du prix",
-    "description": "Label for the date an award was given"
   },
   "qs/dFw": {
     "defaultMessage": "Exigences de fonctionnement acceptées",
@@ -8387,10 +8315,6 @@
   "xHjgXz": {
     "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu!",
     "description": "Text displayed when there are no pool advertisements to display"
-  },
-  "xJulQ4": {
-    "defaultMessage": "Équipe, groupe ou division",
-    "description": "Label displayed on Work Experience form for team/group/division input"
   },
   "xLIImd": {
     "defaultMessage": "Les compétences suivantes ont été liées à cette expérience par l’entremise des compétences que vous avez démontrées ou dans le cadre de vos demandes d’emploi. Vous pouvez lier vos compétences en modifier cette expérience ou en ajouter la compétence à votre bibliothèque dans la présente mise en évidence. ",
