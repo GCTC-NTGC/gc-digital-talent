@@ -2,7 +2,8 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { fireEvent, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import { faker } from "@faker-js/faker";
@@ -43,6 +44,8 @@ const renderDialog = ({
 };
 
 describe("Dialog", () => {
+  const user = userEvent.setup();
+
   it("should not have accessibility errors when closed", async () => {
     const { container } = renderDialog({
       children: <DefaultChildren />,
@@ -73,10 +76,10 @@ describe("Dialog", () => {
       children: <DefaultChildren />,
     });
 
-    fireEvent.click(await screen.getByRole("button", { name: /open dialog/i }));
+    await user.click(screen.getByRole("button", { name: /open dialog/i }));
 
     expect(
-      screen.queryByRole("dialog", { name: /dialog title/i }),
+      screen.getByRole("dialog", { name: /dialog title/i }),
     ).toBeInTheDocument();
   });
 
@@ -86,9 +89,7 @@ describe("Dialog", () => {
       defaultOpen: true,
     });
 
-    fireEvent.click(
-      await screen.getByRole("button", { name: /close action/i }),
-    );
+    await user.click(screen.getByRole("button", { name: /close action/i }));
 
     expect(
       screen.queryByRole("dialog", { name: /dialog title/i }),
@@ -117,10 +118,10 @@ describe("Dialog", () => {
       ),
     });
 
-    fireEvent.click(await screen.getByRole("button", { name: /open dialog/i }));
+    await user.click(screen.getByRole("button", { name: /open dialog/i }));
 
     expect(
-      screen.queryByRole("dialog", { name: /dialog title/i }),
+      screen.getByRole("dialog", { name: /dialog title/i }),
     ).toBeInTheDocument();
   });
 });

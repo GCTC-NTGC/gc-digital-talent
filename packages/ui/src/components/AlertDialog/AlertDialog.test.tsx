@@ -2,7 +2,8 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { fireEvent, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
@@ -45,6 +46,8 @@ const renderAlertDialog = ({
 };
 
 describe("AlertDialog", () => {
+  const user = userEvent.setup();
+
   it("should not have accessibility errors when closed", async () => {
     const { container } = renderAlertDialog({
       children: <DefaultChildren />,
@@ -75,12 +78,12 @@ describe("AlertDialog", () => {
       children: <DefaultChildren />,
     });
 
-    fireEvent.click(
-      await screen.getByRole("button", { name: /open alert dialog/i }),
+    await user.click(
+      screen.getByRole("button", { name: /open alert dialog/i }),
     );
 
     expect(
-      screen.queryByRole("alertdialog", { name: /title/i }),
+      screen.getByRole("alertdialog", { name: /title/i }),
     ).toBeInTheDocument();
   });
 
@@ -90,7 +93,7 @@ describe("AlertDialog", () => {
       defaultOpen: true,
     });
 
-    fireEvent.click(await screen.getByRole("button", { name: /action/i }));
+    await user.click(screen.getByRole("button", { name: /action/i }));
 
     expect(
       screen.queryByRole("alertdialog", { name: /title/i }),
@@ -103,7 +106,7 @@ describe("AlertDialog", () => {
       defaultOpen: true,
     });
 
-    fireEvent.click(await screen.getByRole("button", { name: /cancel/i }));
+    await user.click(screen.getByRole("button", { name: /cancel/i }));
 
     expect(
       screen.queryByRole("alertdialog", { name: /title/i }),

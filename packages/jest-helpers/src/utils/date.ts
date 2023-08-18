@@ -1,6 +1,6 @@
 import { fireEvent, within } from "@testing-library/react";
 
-const changeDate = (
+const changeDate = async (
   container: HTMLElement,
   update: {
     year?: string;
@@ -10,17 +10,17 @@ const changeDate = (
 ) => {
   if (update.year) {
     const year = within(container).getByRole("spinbutton", { name: /year/i });
-    fireEvent.change(year, { target: { value: update.year } });
+    await fireEvent.change(year, { target: { value: update.year } });
   }
 
   if (update.month) {
     const month = within(container).getByRole("combobox", { name: /month/i });
-    fireEvent.change(month, { target: { value: update.month } });
+    await fireEvent.change(month, { target: { value: update.month } });
   }
 
   if (update.day) {
     const day = within(container).getByRole("spinbutton", { name: /day/i });
-    fireEvent.change(day, { target: { value: update.day } });
+    await fireEvent.change(day, { target: { value: update.day } });
   }
 };
 

@@ -95,6 +95,7 @@ const stackLogger: Logger = {
   warning: (message: string) => childLoggers.forEach((l) => l.warning(message)),
   notice: (message: string) => childLoggers.forEach((l) => l.notice(message)),
   info: (message: string) => childLoggers.forEach((l) => l.info(message)),
+  // eslint-disable-next-line testing-library/no-debugging-utils
   debug: (message: string) => childLoggers.forEach((l) => l.debug(message)),
 };
 export { stackLogger as defaultLogger };
