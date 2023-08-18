@@ -55,7 +55,7 @@ type User {
   languageAbility: LanguageAbility
     @rename(attribute: "language_ability")
     @deprecated(
-      reason: "languageAbility is deprecated. Use lookingFor<Language> instead."
+      reason: "languageAbility is deprecated. Use lookingFor<Language> instead. Remove in #7661."
     )
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
@@ -83,7 +83,7 @@ type User {
   isIndigenous: Boolean
     @rename(attribute: "is_indigenous")
     @deprecated(
-      reason: "isIndigenous is deprecated. Use indigenousCommunities instead."
+      reason: "isIndigenous is deprecated. Use indigenousCommunities instead. Remove in #7662."
     )
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
   indigenousCommunities: [IndigenousCommunity]
@@ -99,18 +99,16 @@ type User {
     @rename(attribute: "accepted_operational_requirements")
   expectedSalary: [SalaryRange]
     @rename(attribute: "expected_salary")
-    @deprecated(
-      reason: "expectedSalary is deprecated. Remove as part of #6226."
-    )
+    @deprecated(reason: "expectedSalary is deprecated. Remove in #6226.")
   expectedClassifications: [Classification]
     @belongsToMany
     @deprecated(
-      reason: "expectedClassifications is deprecated. Remove as part of #6226."
+      reason: "expectedClassifications is deprecated. Remove in #6226."
     )
   wouldAcceptTemporary: Boolean
     @rename(attribute: "would_accept_temporary")
     @deprecated(
-      reason: "expectedSalary is deprecated. use positionDuration instead."
+      reason: "wouldAcceptTemporary is deprecated. use positionDuration instead. Remove in #7663."
     )
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
@@ -136,13 +134,15 @@ type User {
   pools: [Pool]
     @hasMany
     @can(ability: "view", resolved: true)
-    @deprecated(reason: "pools is deprecated. User.roles.team.pools instead.") # Pools a user owns
+    @deprecated(
+      reason: "pools is deprecated. User.roles.team.pools instead. Remove in #7664."
+    ) # Pools a user owns
   # Profile Status
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle]
     @belongsToMany
     @deprecated(
-      reason: "expectedGenericJobTitles is deprecated. Remove in #7645"
+      reason: "expectedGenericJobTitles is deprecated. Remove in #7645."
     )
   priorityWeight: Int @rename(attribute: "priority_weight")
   # teams and roles
@@ -572,7 +572,7 @@ type ApplicantFilter {
   wouldAcceptTemporary: Boolean
     @rename(attribute: "would_accept_temporary")
     @deprecated(
-      reason: "wouldAcceptTemporary is deprecated. Use positionDuration instead."
+      reason: "wouldAcceptTemporary is deprecated. Use positionDuration instead. Remove in #7665."
     )
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   skills: [Skill] @belongsToMany
@@ -880,7 +880,9 @@ type Query {
     @all
     @guard
     @can(ability: "viewAny")
-    @deprecated(reason: "users is deprecated. UsersPaginated instead.")
+    @deprecated(
+      reason: "users is deprecated. Use usersPaginated instead. Remove in #7660."
+    )
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -893,12 +895,16 @@ type Query {
     @find(model: "User")
     @guard
     @can(ability: "view", query: true, model: "User")
-    @deprecated(reason: "applicant is deprecated. User instead.")
+    @deprecated(
+      reason: "applicant is deprecated. Use User instead. Remove in #7651."
+    )
   applicants(includeIds: [ID]! @in(key: "id")): [User]!
     @all(model: "User")
     @guard
     @can(ability: "viewAny", model: "User")
-    @deprecated(reason: "applicants is deprecated. UsersPaginated instead.")
+    @deprecated(
+      reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652."
+    )
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["inITPublishingGroup"])
@@ -923,7 +929,7 @@ type Query {
     @guard
     @can(ability: "view", resolved: true)
     @deprecated(
-      reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead."
+      reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656."
     )
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
@@ -967,7 +973,7 @@ type Query {
     @guard
     @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @deprecated(
-      reason: "poolCandidateFilter is deprecated. Use positionDuration instead. Use PoolCandidateSearchRequest.poolCandidateFilter instead."
+      reason: "poolCandidateFilter is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7657."
     )
   poolCandidateFilters: [PoolCandidateFilter]!
     @all
@@ -975,14 +981,14 @@ type Query {
     @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @throttle(name: "graphql")
     @deprecated(
-      reason: "poolCandidateFilters is deprecated. Use PoolCandidateSearchRequest.poolCandidateFilter instead."
+      reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658."
     )
   applicantFilter(id: ID! @eq): ApplicantFilter
     @find
     @guard
     @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @deprecated(
-      reason: "applicantFilter is deprecated. Use PoolCandidateSearchRequest.applicantFilter instead."
+      reason: "applicantFilter is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7653."
     )
   applicantFilters: [ApplicantFilter]!
     @all
@@ -990,7 +996,7 @@ type Query {
     @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @throttle(name: "graphql")
     @deprecated(
-      reason: "applicantFilters is deprecated. Use PoolCandidateSearchRequest.applicantFilter instead."
+      reason: "applicantFilters is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7654."
     )
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
@@ -1002,7 +1008,7 @@ type Query {
     @can(ability: "viewAny")
     @orderBy(column: "created_at", direction: DESC)
     @deprecated(
-      reason: "poolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead."
+      reason: "poolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead. Remove in #7659."
     )
   latestPoolCandidateSearchRequests(
     limit: Int @limit
@@ -1012,7 +1018,7 @@ type Query {
     @guard
     @can(ability: "viewAny")
     @deprecated(
-      reason: "latestPoolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead."
+      reason: "latestPoolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead. Remove in #7655."
     )
   poolCandidateSearchRequestsPaginated(
     where: PoolCandidateSearchRequestInput
