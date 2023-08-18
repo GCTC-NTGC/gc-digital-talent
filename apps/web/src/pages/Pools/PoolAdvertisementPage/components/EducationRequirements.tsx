@@ -1,10 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import applicationMessages from "~/messages/applicationMessages";
 import { Link, Heading } from "@gc-digital-talent/ui";
-
 import { getLocale } from "@gc-digital-talent/i18n";
+
+import applicationMessages from "~/messages/applicationMessages";
+
 import Text from "./Text";
 
 const RequirementCard = (props: React.HTMLProps<HTMLDivElement>) => (

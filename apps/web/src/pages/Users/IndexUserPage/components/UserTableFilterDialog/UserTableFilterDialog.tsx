@@ -11,9 +11,9 @@ import {
 } from "@gc-digital-talent/forms";
 
 import useFilterOptions from "~/components/Table/ApiManagedTable/useFilterOptions";
+import adminMessages from "~/messages/adminMessages";
 
 import "./UserTableFilterDialog.css";
-import adminMessages from "~/messages/adminMessages";
 
 type Option = { value: string; label: string };
 

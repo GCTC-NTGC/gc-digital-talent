@@ -6,7 +6,6 @@ import { Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
-
 import profileHeroImg from "~/assets/img/hero-profile.jpg";
 
 const Profile = () => {

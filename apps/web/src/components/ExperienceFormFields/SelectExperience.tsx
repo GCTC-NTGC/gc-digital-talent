@@ -1,10 +1,10 @@
 import React from "react";
-
 import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { Select } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
+
 import { experienceTypeTitles } from "~/pages/Applications/ApplicationCareerTimelineAddPage/messages";
 
 const SelectExperience = () => {

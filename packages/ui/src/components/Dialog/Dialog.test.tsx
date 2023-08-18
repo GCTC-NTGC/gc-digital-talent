@@ -9,8 +9,9 @@ import { faker } from "@faker-js/faker";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
-import Dialog from ".";
 import Button from "../Button";
+
+import Dialog from ".";
 
 type DialogRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
   typeof Dialog.Root

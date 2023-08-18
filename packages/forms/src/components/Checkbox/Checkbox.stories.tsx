@@ -1,11 +1,12 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Checkbox from ".";
-import type { CheckboxProps } from ".";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
+
+import Checkbox from ".";
+import type { CheckboxProps } from ".";
 
 export default {
   component: Checkbox,

@@ -17,6 +17,7 @@ import {
   EducationType,
   EducationStatus,
 } from "@gc-digital-talent/graphql";
+
 import { getStaticSkills } from "./fakeSkills";
 
 type WithTypename<T extends { __typename?: string }> = T & {

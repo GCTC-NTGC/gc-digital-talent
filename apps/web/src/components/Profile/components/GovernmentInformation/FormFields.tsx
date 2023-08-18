@@ -20,8 +20,8 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { Classification, Department, GovEmployeeType } from "~/api/generated";
 
-import { getGroupOptions, getLevelOptions } from "./utils";
 import useDirtyFields from "../../hooks/useDirtyFields";
+import { getGroupOptions, getLevelOptions } from "./utils";
 
 const priorityEntitlementLink = (locale: string, chunks: React.ReactNode) => {
   const href =

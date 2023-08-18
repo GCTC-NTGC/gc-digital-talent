@@ -19,8 +19,8 @@ import {
 import { Language, ProvinceOrTerritory } from "~/api/generated";
 
 import { FormFieldProps } from "../../types";
-import { armedForcesStatusOrdered, citizenshipStatusesOrdered } from "./utils";
 import useDirtyFields from "../../hooks/useDirtyFields";
+import { armedForcesStatusOrdered, citizenshipStatusesOrdered } from "./utils";
 
 const FormFields = ({ labels }: FormFieldProps) => {
   const intl = useIntl();

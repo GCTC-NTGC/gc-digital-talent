@@ -15,9 +15,9 @@ import {
 } from "~/utils/experienceUtils";
 import { AwardExperience, Experience } from "~/api/generated";
 
+import ExperienceCard from "../ExperienceCard/ExperienceCard";
 import SkillAccordion from "./SkillAccordion/SkillAccordion";
 import ExperienceByTypeListing from "./ExperienceByTypeListing";
-import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
 interface ExperienceSectionProps {
   experiences?: Experience[];

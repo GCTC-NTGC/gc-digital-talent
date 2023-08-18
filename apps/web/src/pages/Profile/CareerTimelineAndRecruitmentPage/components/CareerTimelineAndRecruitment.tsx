@@ -21,8 +21,8 @@ import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { Application } from "~/utils/applicationUtils";
 
-import CareerTimelineSection from "./CareerTimelineSection";
 import { PAGE_SECTION_ID, titles } from "../constants";
+import CareerTimelineSection from "./CareerTimelineSection";
 import QualifiedRecruitmentsSection from "./QualifiedRecruitmentsSection";
 
 type MergedExperiences = Array<

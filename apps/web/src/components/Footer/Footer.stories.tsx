@@ -1,5 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
+
 import FooterComponent from "./Footer";
 
 export default {

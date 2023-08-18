@@ -1,8 +1,9 @@
 import React from "react";
 
+import { Heading } from "@gc-digital-talent/ui";
+
 import { Experience } from "~/api/generated";
 
-import { Heading } from "@gc-digital-talent/ui";
 import ExperienceItem from "./ExperienceItem";
 
 interface ExperienceTypeProps {

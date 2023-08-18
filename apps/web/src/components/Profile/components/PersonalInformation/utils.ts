@@ -8,6 +8,7 @@ import {
   UpdateUserAsUserInput,
   User,
 } from "~/api/generated";
+
 import { FormValues, PartialUser } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({

@@ -1,4 +1,5 @@
 import { MessageDescriptor, defineMessages } from "react-intl";
+
 import { ExperienceType } from "~/types/experience";
 
 // Note: Expect this file to grow

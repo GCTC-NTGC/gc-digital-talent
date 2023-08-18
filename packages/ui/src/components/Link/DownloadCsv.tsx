@@ -1,8 +1,8 @@
 import React from "react";
 import { CSVLink } from "react-csv";
 
-import type { LinkProps } from "./Link";
 import useCommonButtonLinkStyles from "../../hooks/useCommonButtonLinkStyles";
+import type { LinkProps } from "./Link";
 
 interface CsvHeader {
   key: string;

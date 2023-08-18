@@ -7,8 +7,8 @@ import React from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
-import AlertDialog from "./AlertDialog";
 import Button from "../Button";
+import AlertDialog from "./AlertDialog";
 
 type AlertDialogRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
   typeof AlertDialog.Root

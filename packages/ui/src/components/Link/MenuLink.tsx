@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink, NavLinkProps } from "react-router-dom";
+
 import { LinkProps } from "./Link";
 
 export type MenuLinkProps = Omit<LinkProps, "href"> & NavLinkProps;

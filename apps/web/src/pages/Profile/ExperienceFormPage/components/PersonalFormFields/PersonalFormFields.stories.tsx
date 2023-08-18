@@ -5,8 +5,8 @@ import { Meta, Story } from "@storybook/react";
 
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
 
-import PersonalFormFields from "./PersonalFormFields";
 import getExperienceFormLabels from "../../labels";
+import PersonalFormFields from "./PersonalFormFields";
 
 export default {
   component: PersonalFormFields,

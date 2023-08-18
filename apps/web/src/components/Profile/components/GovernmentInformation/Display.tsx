@@ -7,11 +7,11 @@ import {
   getGovEmployeeType,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import { empty } from "@gc-digital-talent/helpers";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import { GovEmployeeType } from "~/api/generated";
 
-import { empty } from "@gc-digital-talent/helpers";
 import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";
 

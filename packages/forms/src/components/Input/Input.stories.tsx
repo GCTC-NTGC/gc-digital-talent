@@ -1,10 +1,12 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Input from ".";
-import type { InputProps } from ".";
+
 import Form from "../BasicForm";
 import Submit from "../Submit";
+
+import Input from ".";
+import type { InputProps } from ".";
 
 export default {
   component: Input,

@@ -3,13 +3,10 @@ import { AuthorizationContext } from "./components/AuthorizationContainer";
 import RequireAuth from "./components/RequireAuth";
 import AuthenticationProvider from "./components/AuthenticationProvider";
 import AuthorizationProvider from "./components/AuthorizationProvider";
-
 import useAuthentication from "./hooks/useAuthentication";
 import useAuthorization from "./hooks/useAuthorization";
 import apiRoutes, { useApiRoutes } from "./hooks/useApiRoutes";
-
 import hasRole from "./utils/hasRole";
-
 import {
   ACCESS_TOKEN,
   REFRESH_TOKEN,

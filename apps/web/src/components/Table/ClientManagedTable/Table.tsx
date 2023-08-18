@@ -22,10 +22,10 @@ import { Field } from "@gc-digital-talent/forms";
 import Pagination from "~/components/Pagination";
 import adminMessages from "~/messages/adminMessages";
 
+import tableMessages from "../tableMessages";
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
 import useInitialTableState from "./useInitialTableState";
-import tableMessages from "../tableMessages";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 

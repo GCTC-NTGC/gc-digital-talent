@@ -3,7 +3,6 @@
  */
 import "@testing-library/jest-dom";
 import React from "react";
-
 import { screen } from "@testing-library/react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";

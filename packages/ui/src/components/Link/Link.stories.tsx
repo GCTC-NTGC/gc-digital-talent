@@ -2,9 +2,9 @@ import React from "react";
 import { StoryFn } from "@storybook/react";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 
+import { Color } from "../../types";
 import Link from "./Link";
 import type { LinkProps } from "./Link";
-import { Color } from "../../types";
 
 export default {
   component: Link,
