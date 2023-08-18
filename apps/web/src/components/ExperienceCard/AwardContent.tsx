@@ -19,7 +19,7 @@ const AwardContent = ({
   headingLevel,
 }: ContentProps<AwardExperience>) => {
   const intl = useIntl();
-  const experienceLabels = getExperienceFormLabels(intl);
+  const experienceFormLabels = getExperienceFormLabels(intl);
   return (
     <div
       data-h2-display="base(grid)"
@@ -30,7 +30,7 @@ const AwardContent = ({
         headingLevel={headingLevel}
         data-h2-padding-right="p-tablet(x1)"
         data-h2-border-right="p-tablet(1px solid gray.lighter)"
-        title={experienceLabels.awardedDate}
+        title={experienceFormLabels.awardedDate}
       >
         <p>
           {awardedDate
@@ -39,11 +39,7 @@ const AwardContent = ({
         </p>
       </ContentSection>
       <ContentSection
-        title={intl.formatMessage({
-          defaultMessage: "Award recipient(s)",
-          id: "8lBXWU",
-          description: "Label for the person or group that received an award",
-        })}
+        title={experienceFormLabels.awardedTo}
         headingLevel={headingLevel}
         data-h2-padding="p-tablet(0 0 x1 0) l-tablet(0 x1)"
         data-h2-border-right="l-tablet(1px solid gray.lighter)"
@@ -53,7 +49,7 @@ const AwardContent = ({
         )}
       </ContentSection>
       <ContentSection
-        title={experienceLabels.issuedBy}
+        title={experienceFormLabels.issuedBy}
         headingLevel={headingLevel}
         data-h2-padding="p-tablet(0 0 x1 0) l-tablet(0 x1)"
         data-h2-border-right="p-tablet(1px solid gray.lighter)"
@@ -61,7 +57,7 @@ const AwardContent = ({
         {issuedBy ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
       <ContentSection
-        title={experienceLabels.awardedScope}
+        title={experienceFormLabels.awardedScope}
         headingLevel={headingLevel}
         data-h2-padding="p-tablet(0 0 x1 0)"
       >
