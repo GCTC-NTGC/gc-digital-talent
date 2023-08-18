@@ -52,7 +52,7 @@ class Kernel extends ConsoleKernel
 
                 $user->forceDelete();
             }
-        })->daily();
+        })->dailyAt('08:00');
     }
 
     /**
