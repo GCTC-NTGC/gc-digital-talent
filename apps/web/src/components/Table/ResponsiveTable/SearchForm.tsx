@@ -10,7 +10,6 @@ import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { useCommonInputStyles, Field } from "@gc-digital-talent/forms";
 
 import ResetButton from "../ResetButton";
-
 import { SearchFormProps, SearchColumn, SearchState } from "./types";
 import { SEARCH_PARAM_KEY } from "./constants";
 
@@ -51,9 +50,6 @@ const SearchForm = <T,>({
 
   const updateTable = React.useCallback(
     (newState: SearchState) => {
-      if (onChange) {
-        onChange(newState);
-      }
       table.resetPageIndex(); // Go to first page when searching
       if (newState.type && newState.type !== "") {
         table.setGlobalFilter("");
@@ -86,6 +82,10 @@ const SearchForm = <T,>({
         newParams.delete(SEARCH_PARAM_KEY.PAGE);
         return newParams;
       });
+
+      if (onChange) {
+        onChange(newState);
+      }
     },
     [onChange, setSearchParams, table],
   );

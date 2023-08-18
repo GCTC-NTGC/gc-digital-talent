@@ -10,6 +10,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import SortButton from "./SortButton";
 import styles, { getCellStyles } from "./styles";
 import { AddLinkProps } from "./types";
+import { getColumnHeader } from "./utils";
 
 type WrapperProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -146,10 +147,7 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
     isRowTitle,
     isRowSelect,
   });
-  const header =
-    cell.column.columnDef.meta?.mobileHeader ||
-    cell.column.columnDef.header?.toString() ||
-    false;
+  const header = getColumnHeader(cell.column, "mobileHeader");
 
   // We don't want to show the "header" for row titles or selection cells
   const showHeader =

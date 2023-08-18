@@ -49,7 +49,7 @@ export interface SearchFormProps<TData extends RowData> {
 
 type SearchDefFormProps<T> = Omit<
   SearchFormProps<T>,
-  "id" | "onChange" | "table"
+  "id" | "onChange" | "table" | "searchBy"
 >;
 
 export type SearchDef<T> = {

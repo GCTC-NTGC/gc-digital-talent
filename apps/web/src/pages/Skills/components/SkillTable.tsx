@@ -55,6 +55,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
   const columns = [
     columnHelper.accessor("id", {
       id: "id",
+      enableColumnFilter: false,
       header: intl.formatMessage({
         defaultMessage: "ID",
         id: "Z6o8ym",
@@ -103,6 +104,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
         description: "Title displayed for the skill table Edit column.",
       }),
       enableHiding: false,
+      enableColumnFilter: false,
       meta: {
         hideMobileHeader: true,
       },
@@ -131,16 +133,6 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
           id: "cWqtEU",
           description: "Label for the skills table search input",
         }),
-        searchBy: [
-          {
-            label: "Name",
-            value: "name",
-          },
-          {
-            label: "Description",
-            value: "description",
-          },
-        ],
       }}
       pagination={{
         internal: true,

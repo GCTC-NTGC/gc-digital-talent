@@ -105,12 +105,6 @@ Default.args = {
   },
   search: {
     ...defaultSearchProps,
-    searchBy: [
-      {
-        label: "Name",
-        value: "name",
-      },
-    ],
   },
 };
 
@@ -148,12 +142,6 @@ InitialState.args = {
       term: "Sa",
       type: "name",
     },
-    searchBy: [
-      {
-        label: "Name",
-        value: "name",
-      },
-    ],
   },
 };
 

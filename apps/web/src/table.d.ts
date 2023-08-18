@@ -12,5 +12,7 @@ declare module "@tanstack/table-core" {
     mobileHeader?: React.ReactNode;
     /** Hides the header for this column on the mobile */
     hideMobileHeader?: boolean;
+    /** Header for the search column dropdown */
+    searchHeader?: React.ReactNode;
   }
 }

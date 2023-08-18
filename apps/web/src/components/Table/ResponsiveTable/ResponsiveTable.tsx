@@ -21,7 +21,6 @@ import RowSelection, { getRowSelectionColumn } from "./RowSelection";
 import useControlledTableState from "./useControlledTableState";
 import TablePagination from "./TablePagination";
 import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
-
 import type {
   AddLinkProps,
   DatasetDownload,
@@ -32,6 +31,7 @@ import type {
   SortDef,
 } from "./types";
 import useRowSelection from "./useRowSelection";
+import { getColumnHeader } from "./utils";
 
 interface TableProps<TData> {
   /** Accessible name for the table */
@@ -131,6 +131,14 @@ const ResponsiveTable = <TData extends object>({
     ...updaters,
   });
 
+  const searchColumns = table
+    .getAllLeafColumns()
+    .filter((column) => column.getCanFilter())
+    .map((column) => ({
+      label: getColumnHeader(column, "searchHeader"),
+      value: column.id,
+    }));
+
   const sortRule = table.getState().sorting;
   React.useEffect(() => {
     setSearchParams((previous) => {
@@ -157,6 +165,7 @@ const ResponsiveTable = <TData extends object>({
             id={`${id}-search`}
             table={table}
             state={initialState.searchState}
+            searchBy={searchColumns}
             {...search}
           />
         )}

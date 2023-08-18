@@ -1,4 +1,10 @@
-import { VisibilityState, ColumnFiltersState } from "@tanstack/react-table";
+import {
+  VisibilityState,
+  ColumnFiltersState,
+  Column,
+  ColumnMeta,
+} from "@tanstack/react-table";
+import React from "react";
 
 import { SearchState } from "./types";
 
@@ -32,4 +38,18 @@ export const getColumnFilters = (
         },
       ]
     : undefined;
+};
+
+export const getColumnHeader = <T>(
+  column: Column<T>,
+  metaKey?: keyof ColumnMeta<T, string>,
+): string => {
+  const header = column.columnDef.header?.toString() || "";
+  if (metaKey) {
+    const { meta } = column.columnDef;
+    const metaHeader = (meta && metaKey in meta ? meta[metaKey] : header) || "";
+    return metaHeader.toString();
+  }
+
+  return header;
 };
