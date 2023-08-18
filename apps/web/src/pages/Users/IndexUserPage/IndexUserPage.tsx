@@ -8,7 +8,8 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 
-import UserTable from "./components/UserTable";
+// import UserTable from "./components/UserTable";
+import ResponsiveUserTable from "./components/ResponsiveUserTable";
 
 export const IndexUserPage = () => {
   const intl = useIntl();
@@ -44,7 +45,7 @@ export const IndexUserPage = () => {
             "Descriptive text about the list of users in the admin portal.",
         })}
       </p>
-      <UserTable title={pageTitle} />
+      <ResponsiveUserTable title={pageTitle} />
     </AdminContentWrapper>
   );
 };
