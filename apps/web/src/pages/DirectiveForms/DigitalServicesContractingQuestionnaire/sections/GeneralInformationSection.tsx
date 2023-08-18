@@ -12,9 +12,12 @@ import {
 } from "@gc-digital-talent/forms";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { ContractAuthority, YesNoUnsure } from "@gc-digital-talent/graphql";
+import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 
 import { IdNamePair } from "../types";
-import { OTHER_ID, typeCheck } from "../util";
+import { enumToOptions, OTHER_ID } from "../util";
+import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
+import { getContractAuthorities, getYesNoUnsure } from "../localizedConstants";
 
 type GeneralInformationSectionProps = {
   departments: Array<IdNamePair>;
@@ -81,435 +84,391 @@ const GeneralInformationSection = ({
   ]);
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x.5)"
+    <TableOfContents.Section
+      id={PAGE_SECTION_ID.GENERAL_INFORMATION}
+      data-h2-padding-top="base(x1)"
     >
-      <Select
-        id="department"
-        name="department"
-        label={intl.formatMessage({
-          defaultMessage: "Department / agency",
-          id: "uDwGwb",
-          description:
-            "Label for _department / agency_ field in the _digital services contracting questionnaire_",
-        })}
-        nullSelection={intl.formatMessage({
-          defaultMessage: "Select a department",
-          id: "y827h2",
-          description:
-            "Null selection for department select input in the request form.",
-        })}
-        options={[
-          ...objectsToSortedOptions(departments, intl),
-          {
-            value: OTHER_ID,
-            label: intl.formatMessage(formMessages.other),
-          },
-        ]}
-        rules={{
-          required: intl.formatMessage(errorMessages.required),
-        }}
-        doNotSort
-      />
-      {isDepartmentOther ? (
+      <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+        {intl.formatMessage(
+          getSectionTitle(PAGE_SECTION_ID.GENERAL_INFORMATION),
+        )}
+      </Heading>
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x.5)"
+      >
+        <Select
+          id="department"
+          name="department"
+          label={intl.formatMessage({
+            defaultMessage: "Department / agency",
+            id: "uDwGwb",
+            description:
+              "Label for _department / agency_ field in the _digital services contracting questionnaire_",
+          })}
+          nullSelection={intl.formatMessage({
+            defaultMessage: "Select a department",
+            id: "y827h2",
+            description:
+              "Null selection for department select input in the request form.",
+          })}
+          options={[
+            ...objectsToSortedOptions(departments, intl),
+            {
+              value: OTHER_ID,
+              label: intl.formatMessage(formMessages.other),
+            },
+          ]}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          doNotSort
+        />
+        {isDepartmentOther ? (
+          <Input
+            id="departmentOther"
+            name="departmentOther"
+            type="text"
+            label={intl.formatMessage(formMessages.specifyOther)}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+        ) : null}
         <Input
-          id="departmentOther"
-          name="departmentOther"
+          id="branchOther"
+          name="branchOther"
           type="text"
-          label={intl.formatMessage(formMessages.specifyOther)}
+          label={intl.formatMessage({
+            defaultMessage: "Branch",
+            id: "FXJMDV",
+            description:
+              "Label for _branch_ field in the _digital services contracting questionnaire_",
+          })}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
         />
-      ) : null}
-      <Input
-        id="branchOther"
-        name="branchOther"
-        type="text"
-        label={intl.formatMessage({
-          defaultMessage: "Branch",
-          id: "FXJMDV",
-          description:
-            "Label for _branch_ field in the _digital services contracting questionnaire_",
-        })}
-        rules={{
-          required: intl.formatMessage(errorMessages.required),
-        }}
-      />
-      <Field.Wrapper>
-        <Field.Fieldset>
-          <Field.Legend>
-            {intl.formatMessage({
-              defaultMessage: "Business owner",
-              id: "B75J3Q",
-              description:
-                "Label for _business owner_ fieldset in the _digital services contracting questionnaire_",
-            })}
-          </Field.Legend>
-          <Input
-            id="businessOwnerName"
-            name="businessOwnerName"
-            type="text"
-            label={intl.formatMessage({
-              defaultMessage: "Name",
-              id: "AkuIfT",
-              description:
-                "Label for _business owner name_ field in the _digital services contracting questionnaire_",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <Input
-            id="businessOwnerJobTitle"
-            name="businessOwnerJobTitle"
-            type="text"
-            label={intl.formatMessage({
-              defaultMessage: "Job title",
-              id: "wRhcac",
-              description:
-                "Label for _business owner job title_ field in the _digital services contracting questionnaire_",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <Input
-            id="businessOwnerEmail"
-            name="businessOwnerEmail"
-            type="email"
-            label={intl.formatMessage({
-              defaultMessage: "Email",
-              id: "sg9olk",
-              description:
-                "Label for _business owner email_ field in the _digital services contracting questionnaire_",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-        </Field.Fieldset>
-      </Field.Wrapper>
-      <Field.Wrapper>
-        <Field.Fieldset>
-          <Field.Legend>
-            {intl.formatMessage({
-              defaultMessage:
-                "Delegated financial authority (section 32) for the contract",
-              id: "ppJF9L",
-              description:
-                "Label for _financial authority_ fieldset in the _digital services contracting questionnaire_",
-            })}
-          </Field.Legend>
-          <Input
-            id="financialAuthorityName"
-            name="financialAuthorityName"
-            type="text"
-            label={intl.formatMessage({
-              defaultMessage: "Name",
-              id: "ttIQ0Q",
-              description:
-                "Label for _financial authority name_ field in the _digital services contracting questionnaire_",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <Input
-            id="financialAuthorityJobTitle"
-            name="financialAuthorityJobTitle"
-            type="text"
-            label={intl.formatMessage({
-              defaultMessage: "Job title",
-              id: "dgVAPq",
-              description:
-                "Label for _financial authority job title_ field in the _digital services contracting questionnaire_",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <Input
-            id="financialAuthorityEmail"
-            name="financialAuthorityEmail"
-            type="email"
-            label={intl.formatMessage({
-              defaultMessage: "Email",
-              id: "51Hc86",
-              description:
-                "Label for _financial authority email_ field in the _digital services contracting questionnaire_",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-        </Field.Fieldset>
-      </Field.Wrapper>
-      <Checklist
-        idPrefix="authoritiesInvolved"
-        id="authoritiesInvolved"
-        name="authoritiesInvolved"
-        legend={intl.formatMessage({
-          defaultMessage:
-            "Other authorities involved / engaged on this contract",
-          id: "nfcDvX",
-          description:
-            "Label for _authorities involved_ fieldset in the _digital services contracting questionnaire_",
-        })}
-        rules={{
-          required: intl.formatMessage(errorMessages.required),
-        }}
-        items={typeCheck<Array<{ value: ContractAuthority; label: string }>>([
-          {
-            value: ContractAuthority.Hr,
-            label: intl.formatMessage({
-              defaultMessage: "HR",
-              id: "mSUVuL",
-              description:
-                "Label for _hr_ option in _authorities involved_ fieldset in the _digital services contracting questionnaire_",
-            }),
-          },
-          {
-            value: ContractAuthority.Procurement,
-            label: intl.formatMessage({
-              defaultMessage: "Procurement",
-              id: "WdBt7s",
-              description:
-                "Label for _procurement_ option in _authorities involved_ fieldset in the _digital services contracting questionnaire_",
-            }),
-          },
-          {
-            value: ContractAuthority.Finance,
-            label: intl.formatMessage({
-              defaultMessage: "Finance",
-              id: "XXzVNT",
-              description:
-                "Label for _finance_ option in _authorities involved_ fieldset in the _digital services contracting questionnaire_",
-            }),
-          },
-          {
-            value: ContractAuthority.LabourRelations,
-            label: intl.formatMessage({
-              defaultMessage: "Labour relations",
-              id: "RvB1GT",
-              description:
-                "Label for _labour relations_ option in _authorities involved_ fieldset in the _digital services contracting questionnaire_",
-            }),
-          },
-          {
-            value: ContractAuthority.Other,
-            label: intl.formatMessage(formMessages.other),
-          },
-        ])}
-      />
-      {doesAuthorityInvolvedIncludeOther ? (
-        <Input
-          id="authorityInvolvedOther"
-          name="authorityInvolvedOther"
-          type="text"
-          label={intl.formatMessage(formMessages.specifyOther)}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
-      ) : null}
-      <RadioGroup
-        legend={intl.formatMessage({
-          defaultMessage:
-            "Is this contract being put in place on behalf of another Government of Canada department or agency",
-          id: "YjSMDc",
-          description:
-            "Label for _contract on behalf of gc_ fieldset in the _digital services contracting questionnaire_",
-        })}
-        id="contractBehalfOfGc"
-        name="contractBehalfOfGc"
-        idPrefix="contractBehalfOfGc"
-        rules={{
-          required: intl.formatMessage(errorMessages.required),
-        }}
-        items={typeCheck<Array<{ value: YesNoUnsure; label: string }>>([
-          {
-            label: intl.formatMessage(formMessages.yes),
-            value: YesNoUnsure.Yes,
-          },
-          {
-            label: intl.formatMessage(formMessages.no),
-            value: YesNoUnsure.No,
-          },
-          {
-            label: intl.formatMessage(formMessages.iDontKnow),
-            value: YesNoUnsure.IDontKnow,
-          },
-        ])}
-      />
-      <RadioGroup
-        legend={intl.formatMessage({
-          defaultMessage:
-            "Is this contract being put in place for the purpose of service provision to another Government of Canada department or agency",
-          id: "zBafhL",
-          description:
-            "Label for _contract of service to gc_ fieldset in the _digital services contracting questionnaire_",
-        })}
-        id="contractServiceOfGc"
-        name="contractServiceOfGc"
-        idPrefix="contractServiceOfGc"
-        rules={{
-          required: intl.formatMessage(errorMessages.required),
-        }}
-        items={typeCheck<Array<{ value: YesNoUnsure; label: string }>>([
-          {
-            label: intl.formatMessage(formMessages.yes),
-            value: YesNoUnsure.Yes,
-          },
-          {
-            label: intl.formatMessage(formMessages.no),
-            value: YesNoUnsure.No,
-          },
-          {
-            label: intl.formatMessage(formMessages.iDontKnow),
-            value: YesNoUnsure.IDontKnow,
-          },
-        ])}
-      />
-      <RadioGroup
-        legend={intl.formatMessage({
-          defaultMessage:
-            "Is this contract related to a specific digital initiative",
-          id: "Xafphs",
-          description:
-            "Label for _contract for digital initiative_ fieldset in the _digital services contracting questionnaire_",
-        })}
-        id="contractForDigitalInitiative"
-        name="contractForDigitalInitiative"
-        idPrefix="contractForDigitalInitiative"
-        rules={{
-          required: intl.formatMessage(errorMessages.required),
-        }}
-        items={typeCheck<Array<{ value: YesNoUnsure; label: string }>>([
-          {
-            label: intl.formatMessage(formMessages.yes),
-            value: YesNoUnsure.Yes,
-          },
-          {
-            label: intl.formatMessage(formMessages.no),
-            value: YesNoUnsure.No,
-          },
-          {
-            label: intl.formatMessage(formMessages.iDontKnow),
-            value: YesNoUnsure.IDontKnow,
-          },
-        ])}
-      />
-      {isContractForSpecificInitiative ? (
-        <>
-          <Input
-            id="digitalInitiativeName"
-            name="digitalInitiativeName"
-            type="text"
-            label={intl.formatMessage({
-              defaultMessage: "Name of the digital initiative",
-              id: "6ntAxU",
-              description:
-                "Label for _name of digital initiative_ field in _authorities involved_ fieldset in the _digital services contracting questionnaire_",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <RadioGroup
-            legend={intl.formatMessage({
-              defaultMessage:
-                'Has a digital initiative "Forward Talent Plan" been submitted previously for the initiative?',
-              id: "kpQom6",
-              description:
-                "Label for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_",
-            })}
-            id="digitalInitiativePlanSubmitted"
-            name="digitalInitiativePlanSubmitted"
-            idPrefix="digitalInitiativePlanSubmitted"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            items={typeCheck<Array<{ value: YesNoUnsure; label: string }>>([
-              {
-                label: intl.formatMessage(formMessages.yes),
-                value: YesNoUnsure.Yes,
-              },
-              {
-                label: intl.formatMessage(formMessages.no),
-                value: YesNoUnsure.No,
-              },
-              {
-                label: intl.formatMessage(formMessages.iDontKnow),
-                value: YesNoUnsure.IDontKnow,
-              },
-            ])}
-          />
-          {isPlanSubmitted ? (
-            <RadioGroup
-              legend={intl.formatMessage({
-                defaultMessage:
-                  "Has the plan been updated when the contract is initiated?",
-                id: "siF4qC",
+        <Field.Wrapper>
+          <Field.Fieldset>
+            <Field.Legend>
+              {intl.formatMessage({
+                defaultMessage: "Business owner",
+                id: "B75J3Q",
                 description:
-                  "Label for _digital initiative plan updated_ fieldset in the _digital services contracting questionnaire_",
+                  "Label for _business owner_ fieldset in the _digital services contracting questionnaire_",
               })}
-              id="digitalInitiativePlanUpdated"
-              name="digitalInitiativePlanUpdated"
-              idPrefix="digitalInitiativePlanUpdated"
+            </Field.Legend>
+            <Input
+              id="businessOwnerName"
+              name="businessOwnerName"
+              type="text"
+              label={intl.formatMessage({
+                defaultMessage: "Name",
+                id: "AkuIfT",
+                description:
+                  "Label for _business owner name_ field in the _digital services contracting questionnaire_",
+              })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              items={typeCheck<Array<{ value: YesNoUnsure; label: string }>>([
-                {
-                  label: intl.formatMessage(formMessages.yes),
-                  value: YesNoUnsure.Yes,
-                },
-                {
-                  label: intl.formatMessage(formMessages.no),
-                  value: YesNoUnsure.No,
-                },
-                {
-                  label: intl.formatMessage(formMessages.iDontKnow),
-                  value: YesNoUnsure.IDontKnow,
-                },
-              ])}
             />
-          ) : null}
-          <RadioGroup
-            legend={intl.formatMessage({
-              defaultMessage:
-                "Does this procurement complement other talent sourcing activities (e.g. staffing, training) for this initiative?",
-              id: "qRPPY2",
-              description:
-                "Label for _digital initiative plan complemented_ fieldset in the _digital services contracting questionnaire_",
-            })}
-            id="digitalInitiativePlanComplemented"
-            name="digitalInitiativePlanComplemented"
-            idPrefix="digitalInitiativePlanComplemented"
+            <Input
+              id="businessOwnerJobTitle"
+              name="businessOwnerJobTitle"
+              type="text"
+              label={intl.formatMessage({
+                defaultMessage: "Job title",
+                id: "wRhcac",
+                description:
+                  "Label for _business owner job title_ field in the _digital services contracting questionnaire_",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="businessOwnerEmail"
+              name="businessOwnerEmail"
+              type="email"
+              label={intl.formatMessage({
+                defaultMessage: "Email",
+                id: "sg9olk",
+                description:
+                  "Label for _business owner email_ field in the _digital services contracting questionnaire_",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+          </Field.Fieldset>
+        </Field.Wrapper>
+        <Field.Wrapper>
+          <Field.Fieldset>
+            <Field.Legend>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Delegated financial authority (section 32) for the contract",
+                id: "ppJF9L",
+                description:
+                  "Label for _financial authority_ fieldset in the _digital services contracting questionnaire_",
+              })}
+            </Field.Legend>
+            <Input
+              id="financialAuthorityName"
+              name="financialAuthorityName"
+              type="text"
+              label={intl.formatMessage({
+                defaultMessage: "Name",
+                id: "ttIQ0Q",
+                description:
+                  "Label for _financial authority name_ field in the _digital services contracting questionnaire_",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="financialAuthorityJobTitle"
+              name="financialAuthorityJobTitle"
+              type="text"
+              label={intl.formatMessage({
+                defaultMessage: "Job title",
+                id: "dgVAPq",
+                description:
+                  "Label for _financial authority job title_ field in the _digital services contracting questionnaire_",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="financialAuthorityEmail"
+              name="financialAuthorityEmail"
+              type="email"
+              label={intl.formatMessage({
+                defaultMessage: "Email",
+                id: "51Hc86",
+                description:
+                  "Label for _financial authority email_ field in the _digital services contracting questionnaire_",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+          </Field.Fieldset>
+        </Field.Wrapper>
+        <Checklist
+          idPrefix="authoritiesInvolved"
+          id="authoritiesInvolved"
+          name="authoritiesInvolved"
+          legend={intl.formatMessage({
+            defaultMessage:
+              "Other authorities involved / engaged on this contract",
+            id: "nfcDvX",
+            description:
+              "Label for _authorities involved_ fieldset in the _digital services contracting questionnaire_",
+          })}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={enumToOptions(ContractAuthority, [
+            ContractAuthority.Hr,
+            ContractAuthority.Procurement,
+            ContractAuthority.Finance,
+            ContractAuthority.LabourRelations,
+            ContractAuthority.Other,
+          ]).map((option) => {
+            return {
+              value: option.value as string,
+              label: intl.formatMessage(getContractAuthorities(option.value)),
+            };
+          })}
+        />
+        {doesAuthorityInvolvedIncludeOther ? (
+          <Input
+            id="authorityInvolvedOther"
+            name="authorityInvolvedOther"
+            type="text"
+            label={intl.formatMessage(formMessages.specifyOther)}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            items={typeCheck<Array<{ value: YesNoUnsure; label: string }>>([
-              {
-                label: intl.formatMessage(formMessages.yes),
-                value: YesNoUnsure.Yes,
-              },
-              {
-                label: intl.formatMessage(formMessages.no),
-                value: YesNoUnsure.No,
-              },
-              {
-                label: intl.formatMessage(formMessages.iDontKnow),
-                value: YesNoUnsure.IDontKnow,
-              },
-            ])}
           />
-        </>
-      ) : null}
-    </div>
+        ) : null}
+        <RadioGroup
+          legend={intl.formatMessage({
+            defaultMessage:
+              "Is this contract being put in place on behalf of another Government of Canada department or agency",
+            id: "YjSMDc",
+            description:
+              "Label for _contract on behalf of gc_ fieldset in the _digital services contracting questionnaire_",
+          })}
+          id="contractBehalfOfGc"
+          name="contractBehalfOfGc"
+          idPrefix="contractBehalfOfGc"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={enumToOptions(YesNoUnsure, [
+            YesNoUnsure.Yes,
+            YesNoUnsure.No,
+            YesNoUnsure.IDontKnow,
+          ]).map((option) => {
+            return {
+              value: option.value as string,
+              label: intl.formatMessage(getYesNoUnsure(option.value)),
+            };
+          })}
+        />
+        <RadioGroup
+          legend={intl.formatMessage({
+            defaultMessage:
+              "Is this contract being put in place for the purpose of service provision to another Government of Canada department or agency",
+            id: "zBafhL",
+            description:
+              "Label for _contract of service to gc_ fieldset in the _digital services contracting questionnaire_",
+          })}
+          id="contractServiceOfGc"
+          name="contractServiceOfGc"
+          idPrefix="contractServiceOfGc"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={enumToOptions(YesNoUnsure, [
+            YesNoUnsure.Yes,
+            YesNoUnsure.No,
+            YesNoUnsure.IDontKnow,
+          ]).map((option) => {
+            return {
+              value: option.value as string,
+              label: intl.formatMessage(getYesNoUnsure(option.value)),
+            };
+          })}
+        />
+        <RadioGroup
+          legend={intl.formatMessage({
+            defaultMessage:
+              "Is this contract related to a specific digital initiative",
+            id: "Xafphs",
+            description:
+              "Label for _contract for digital initiative_ fieldset in the _digital services contracting questionnaire_",
+          })}
+          id="contractForDigitalInitiative"
+          name="contractForDigitalInitiative"
+          idPrefix="contractForDigitalInitiative"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={enumToOptions(YesNoUnsure, [
+            YesNoUnsure.Yes,
+            YesNoUnsure.No,
+            YesNoUnsure.IDontKnow,
+          ]).map((option) => {
+            return {
+              value: option.value as string,
+              label: intl.formatMessage(getYesNoUnsure(option.value)),
+            };
+          })}
+        />
+        {isContractForSpecificInitiative ? (
+          <>
+            <Input
+              id="digitalInitiativeName"
+              name="digitalInitiativeName"
+              type="text"
+              label={intl.formatMessage({
+                defaultMessage: "Name of the digital initiative",
+                id: "6ntAxU",
+                description:
+                  "Label for _name of digital initiative_ field in _authorities involved_ fieldset in the _digital services contracting questionnaire_",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <RadioGroup
+              legend={intl.formatMessage({
+                defaultMessage:
+                  'Has a digital initiative "Forward Talent Plan" been submitted previously for the initiative?',
+                id: "kpQom6",
+                description:
+                  "Label for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_",
+              })}
+              id="digitalInitiativePlanSubmitted"
+              name="digitalInitiativePlanSubmitted"
+              idPrefix="digitalInitiativePlanSubmitted"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(YesNoUnsure, [
+                YesNoUnsure.Yes,
+                YesNoUnsure.No,
+                YesNoUnsure.IDontKnow,
+              ]).map((option) => {
+                return {
+                  value: option.value as string,
+                  label: intl.formatMessage(getYesNoUnsure(option.value)),
+                };
+              })}
+            />
+            {isPlanSubmitted ? (
+              <RadioGroup
+                legend={intl.formatMessage({
+                  defaultMessage:
+                    "Has the plan been updated when the contract is initiated?",
+                  id: "siF4qC",
+                  description:
+                    "Label for _digital initiative plan updated_ fieldset in the _digital services contracting questionnaire_",
+                })}
+                id="digitalInitiativePlanUpdated"
+                name="digitalInitiativePlanUpdated"
+                idPrefix="digitalInitiativePlanUpdated"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                items={enumToOptions(YesNoUnsure, [
+                  YesNoUnsure.Yes,
+                  YesNoUnsure.No,
+                  YesNoUnsure.IDontKnow,
+                ]).map((option) => {
+                  return {
+                    value: option.value as string,
+                    label: intl.formatMessage(getYesNoUnsure(option.value)),
+                  };
+                })}
+              />
+            ) : null}
+            <RadioGroup
+              legend={intl.formatMessage({
+                defaultMessage:
+                  "Does this procurement complement other talent sourcing activities (e.g. staffing, training) for this initiative?",
+                id: "qRPPY2",
+                description:
+                  "Label for _digital initiative plan complemented_ fieldset in the _digital services contracting questionnaire_",
+              })}
+              id="digitalInitiativePlanComplemented"
+              name="digitalInitiativePlanComplemented"
+              idPrefix="digitalInitiativePlanComplemented"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(YesNoUnsure, [
+                YesNoUnsure.Yes,
+                YesNoUnsure.No,
+                YesNoUnsure.IDontKnow,
+              ]).map((option) => {
+                return {
+                  value: option.value as string,
+                  label: intl.formatMessage(getYesNoUnsure(option.value)),
+                };
+              })}
+            />
+          </>
+        ) : null}
+      </div>
+    </TableOfContents.Section>
   );
 };
 

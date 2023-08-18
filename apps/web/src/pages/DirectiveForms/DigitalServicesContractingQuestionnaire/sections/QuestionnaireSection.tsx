@@ -7,8 +7,9 @@ import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
-import GeneralInformationSection from "./GeneralInformationSection";
 import { IdNamePair } from "../types";
+import GeneralInformationSection from "./GeneralInformationSection";
+import ScopeOfContractSection from "./ScopeOfContractSection";
 
 type QuestionnaireSectionProps = {
   departments: Array<IdNamePair>;
@@ -28,28 +29,10 @@ const QuestionnaireSection = ({
       <Heading Icon={ListBulletIcon} level="h2" color="tertiary">
         {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.QUESTIONNAIRE))}
       </Heading>
-      <TableOfContents.Section
-        id={PAGE_SECTION_ID.GENERAL_INFORMATION}
-        data-h2-padding-top="base(x1)"
-      >
-        <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
-          {intl.formatMessage(
-            getSectionTitle(PAGE_SECTION_ID.GENERAL_INFORMATION),
-          )}
-        </Heading>
-        <GeneralInformationSection departments={departments} />
-      </TableOfContents.Section>
-      <TableOfContents.Section
-        id={PAGE_SECTION_ID.SCOPE_OF_CONTRACT}
-        data-h2-padding-top="base(x2)"
-      >
-        <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
-          {intl.formatMessage(
-            getSectionTitle(PAGE_SECTION_ID.SCOPE_OF_CONTRACT),
-          )}
-        </Heading>
-        TODO: SCOPE_OF_CONTRACT
-      </TableOfContents.Section>
+
+      <GeneralInformationSection departments={departments} />
+      <ScopeOfContractSection />
+
       <TableOfContents.Section
         id={PAGE_SECTION_ID.CONTRACT_REQUIREMENTS}
         data-h2-padding-top="base(x2)"

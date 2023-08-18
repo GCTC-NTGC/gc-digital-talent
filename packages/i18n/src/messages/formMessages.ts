@@ -157,21 +157,6 @@ const formMessages = defineMessages({
     description:
       "The selection to choose when the expected option is not available",
   },
-  yes: {
-    defaultMessage: "Yes",
-    id: "IKkBm7",
-    description: "The affirmative option to answer a question",
-  },
-  no: {
-    defaultMessage: "No",
-    id: "LTmcVS",
-    description: "The negative option to answer a question",
-  },
-  iDontKnow: {
-    defaultMessage: "I don’t know",
-    id: "mcZbcM",
-    description: "The unsure option to answer a question",
-  },
 });
 
 export default formMessages;

@@ -8,7 +8,10 @@ export type IdNamePair = {
 
 // backing object for questionnaire form
 export type FormValues = {
+  // preamble section
   readPreamble: boolean | null | undefined;
+
+  // general information section
   department: string;
   departmentOther: string;
   branchOther: string;
@@ -27,4 +30,14 @@ export type FormValues = {
   digitalInitiativePlanSubmitted: string;
   digitalInitiativePlanUpdated: string;
   digitalInitiativePlanComplemented: string;
+
+  // scope of contract section
+  contractTitle: string;
+  contractStartDate: string;
+  contractEndDate: string;
+  contractExtendable: string;
+  contractAmendable: string;
+  contractMultiyear: string;
+  contractValue: string;
+  contractResourcesStartTimeframe: string;
 };
