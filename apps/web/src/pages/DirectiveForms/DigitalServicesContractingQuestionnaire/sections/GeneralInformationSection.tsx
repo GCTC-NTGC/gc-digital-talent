@@ -15,9 +15,12 @@ import { ContractAuthority, YesNoUnsure } from "@gc-digital-talent/graphql";
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 
 import { IdNamePair } from "../types";
-import { enumToOptions, OTHER_ID } from "../util";
+import { enumToOptions, OTHER_ID } from "../../util";
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
-import { getContractAuthorities, getYesNoUnsure } from "../localizedConstants";
+import {
+  getContractAuthorities,
+  getYesNoUnsure,
+} from "../../localizedConstants";
 
 type GeneralInformationSectionProps = {
   departments: Array<IdNamePair>;

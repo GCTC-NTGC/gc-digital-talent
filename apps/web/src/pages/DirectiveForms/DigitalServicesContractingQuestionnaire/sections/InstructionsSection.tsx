@@ -5,7 +5,7 @@ import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
-import { buildExternalLink } from "../util";
+import { buildExternalLink } from "../../util";
 
 const InstructionsSection = () => {
   const intl = useIntl();

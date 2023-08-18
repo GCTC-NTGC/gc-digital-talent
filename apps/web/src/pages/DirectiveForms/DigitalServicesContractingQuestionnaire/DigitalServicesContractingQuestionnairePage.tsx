@@ -22,12 +22,12 @@ import { useDigitalServicesContractingQuestionnairePageDataQuery } from "~/api/g
 
 import { pageTitle as directiveHomePageTitle } from "../../DirectivePage/DirectivePage";
 import { getSectionTitle, PAGE_SECTION_ID } from "./navigation";
-import { IdNamePair, FormValues } from "./types";
+import { IdNamePair } from "./types";
 import ExamplesOfContractsSection from "./sections/ExamplesOfContractsSection";
 import InstructionsSection from "./sections/InstructionsSection";
 import PreambleSection from "./sections/PreambleSection";
 import QuestionnaireSection from "./sections/QuestionnaireSection";
-import { convertFormValuesToApiInput } from "./util";
+import { convertFormValuesToApiInput, FormValues } from "./formValues";
 
 export const pageTitle = defineMessage({
   defaultMessage: "Digital Services Contracting Questionnaire",

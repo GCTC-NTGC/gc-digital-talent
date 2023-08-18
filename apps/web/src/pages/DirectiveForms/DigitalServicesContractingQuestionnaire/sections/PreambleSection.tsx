@@ -7,7 +7,7 @@ import { Heading, ScrollToLink, TableOfContents } from "@gc-digital-talent/ui";
 import { Checkbox } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
-import { buildExternalLink } from "../util";
+import { buildExternalLink } from "../../util";
 
 const PreambleSection = () => {
   const intl = useIntl();

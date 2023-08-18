@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { Heading, ScrollToLink, TableOfContents } from "@gc-digital-talent/ui";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
-import { buildExternalLink } from "../util";
+import { buildExternalLink } from "../../util";
 
 const ExamplesOfContractsSection = () => {
   const intl = useIntl();

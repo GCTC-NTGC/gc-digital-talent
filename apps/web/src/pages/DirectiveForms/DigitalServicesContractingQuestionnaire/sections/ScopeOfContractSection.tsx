@@ -11,12 +11,12 @@ import {
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
-import { enumToOptions } from "../util";
+import { enumToOptions } from "../../util";
 import {
   getContractStartTimeframe,
   getContractValueRange,
   getYesNo,
-} from "../localizedConstants";
+} from "../../localizedConstants";
 
 const ScopeOfContractSection = () => {
   const intl = useIntl();

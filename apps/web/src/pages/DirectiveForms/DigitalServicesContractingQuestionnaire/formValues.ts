@@ -1,7 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-import React from "react";
-
-import { Link } from "@gc-digital-talent/ui";
 import {
   ContractAuthority,
   ContractStartTimeframe,
@@ -11,47 +7,43 @@ import {
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
-import { defaultLogger } from "@gc-digital-talent/logger";
+import { OTHER_ID, stringToEnumOrNull } from "../util";
 
-import { FormValues } from "./types";
+// backing object for questionnaire form
+export type FormValues = {
+  // preamble section
+  readPreamble: boolean | null | undefined;
 
-export function buildExternalLink(
-  href: string,
-  chunks: React.ReactNode,
-): React.ReactElement {
-  return (
-    <Link href={href} external>
-      {chunks}
-    </Link>
-  );
-}
+  // general information section
+  department: string;
+  departmentOther: string;
+  branchOther: string;
+  businessOwnerName: string;
+  businessOwnerJobTitle: string;
+  businessOwnerEmail: string;
+  financialAuthorityName: string;
+  financialAuthorityJobTitle: string;
+  financialAuthorityEmail: string;
+  authoritiesInvolved: Array<string>;
+  authorityInvolvedOther: string;
+  contractBehalfOfGc: string;
+  contractServiceOfGc: string;
+  contractForDigitalInitiative: string;
+  digitalInitiativeName: string;
+  digitalInitiativePlanSubmitted: string;
+  digitalInitiativePlanUpdated: string;
+  digitalInitiativePlanComplemented: string;
 
-// placeholder ID for fake option "other"
-export const OTHER_ID = "OTHER";
-
-// custom type guard for enum value
-function isEnumValue<T extends object>(
-  typeObject: T,
-  value: unknown,
-): value is T[keyof T] {
-  return Object.values(typeObject).includes(value as T[keyof T]);
-}
-
-// helper function to validate enum value at runtime
-function stringToEnumOrNull<T extends object>(
-  typeObject: T,
-  value: string,
-): T[keyof T] | null {
-  if (value === null) return null;
-  if (value === undefined) return null;
-  if (isEnumValue(typeObject, value)) return value;
-  defaultLogger.error(
-    `Unable to convert value "${value}" to enum of ${Object.values(
-      typeObject,
-    ).join(", ")}`,
-  );
-  return null;
-}
+  // scope of contract section
+  contractTitle: string;
+  contractStartDate: string;
+  contractEndDate: string;
+  contractExtendable: string;
+  contractAmendable: string;
+  contractMultiyear: string;
+  contractValue: string;
+  contractResourcesStartTimeframe: string;
+};
 
 export function convertFormValuesToApiInput(
   formValues: FormValues,
@@ -188,38 +180,4 @@ export function convertFormValuesToApiInput(
     //   @rename(attribute: "employees_have_access_to_knowledge")
     // ocioEngagedForTraining: YesNo @rename(attribute: "ocio_engaged_for_training");
   };
-}
-
-export function enumToOptions<T extends object>(
-  typeObject: T,
-  sortOrder?: Array<T[keyof T]>,
-): { value: T[keyof T]; label: string }[] {
-  const entries = Object.entries(typeObject);
-  if (sortOrder) {
-    entries.sort((a, b) => {
-      const aPosition = sortOrder.indexOf(a[1]);
-      const bPosition = sortOrder.indexOf(b[1]);
-      if (aPosition >= 0 && bPosition >= 0)
-        // both are in sort list => sort by by that order
-        return sortOrder.indexOf(a[1]) - sortOrder.indexOf(b[1]);
-      if (aPosition >= 0 && bPosition < 0)
-        // only a is in sort list => sort a before b
-        return -1;
-      if (aPosition < 0 && bPosition >= 0)
-        // only b is in sort list => sort b before a
-        return 1;
-      // neither is in sort list => keep original order
-      return 0;
-    });
-  }
-  const options: { value: T[keyof T]; label: string }[] = entries.reduce(
-    (accumulator: { value: T[keyof T]; label: string }[], currentValue) => {
-      return [
-        ...accumulator,
-        { value: currentValue[1], label: currentValue[0] },
-      ];
-    },
-    [],
-  );
-  return options;
 }
