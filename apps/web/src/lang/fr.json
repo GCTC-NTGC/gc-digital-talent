@@ -1583,10 +1583,6 @@
     "defaultMessage": "Décrire la façon dont cette compétence a été mise en valeur dans ce rôle",
     "description": "Label for the textarea in the skills in detail section."
   },
-  "8lBXWU": {
-    "defaultMessage": "Récipiendaire(s) du prix",
-    "description": "Label for the person or group that received an award"
-  },
   "8mt/5/": {
     "defaultMessage": "Exemptions de lieux",
     "description": "CSV Header, Location Exemptions column"
