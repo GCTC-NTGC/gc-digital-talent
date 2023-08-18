@@ -1,6 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+// This test is odd, not what is going on here but we cannot deconstruct the return value
+/* eslint-disable testing-library/render-result-naming-convention */
 import React from "react";
 import "@testing-library/jest-dom";
 import { IntlProvider } from "react-intl";
