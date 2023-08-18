@@ -1,4 +1,5 @@
 import { PoolCandidate } from "@gc-digital-talent/graphql";
+
 import {
   GeneratedAwardExperience,
   GeneratedCommunityExperience,

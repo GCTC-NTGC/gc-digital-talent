@@ -1,11 +1,13 @@
 import * as React from "react";
+import { useIntl } from "react-intl";
+import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, HeadingProps, Pill, Separator } from "@gc-digital-talent/ui";
-import { useIntl } from "react-intl";
 import { PoolCandidate, PoolCandidateStatus } from "@gc-digital-talent/graphql";
-import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
+
 import {
   isDraft,
   isExpired,

@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 
 import { Button } from "@gc-digital-talent/ui";
 import { getIndigenousCommunity } from "@gc-digital-talent/i18n";
@@ -7,7 +8,6 @@ import { getIndigenousCommunity } from "@gc-digital-talent/i18n";
 import { IndigenousCommunity } from "~/api/generated";
 import CommunityIcon from "~/components/Profile/components/DiversityEquityInclusion/CommunityIcon";
 
-import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import { IndigenousDialog } from "./dialogs";
 import { IndigenousDialogProps, IndigenousUpdateProps } from "./types";
 

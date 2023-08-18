@@ -6,9 +6,9 @@ import "@testing-library/jest-dom";
 import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
+import { act, screen } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import { act, screen } from "@testing-library/react";
 import {
   fakeClassifications,
   fakeDepartments,

@@ -1,13 +1,13 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useForm } from "react-hook-form";
+import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 
 import { Button, Card } from "@gc-digital-talent/ui";
 import { TextArea } from "@gc-digital-talent/forms";
 import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
 
 import type { FormSkills } from "~/types/experience";
-import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 
 export interface SkillsInDetailProps {
   skills: FormSkills;

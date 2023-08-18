@@ -44,14 +44,14 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 
-import ApplicationStatusForm from "./components/ApplicationStatusForm";
-import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import SkillTree from "../../Applications/ApplicationSkillsPage/components/SkillTree";
 import PersonalInformationDisplay from "../../../components/Profile/components/PersonalInformation/Display";
 import DiversityEquityInclusionDisplay from "../../../components/Profile/components/DiversityEquityInclusion/Display";
 import GovernmentInformationDisplay from "../../../components/Profile/components/GovernmentInformation/Display";
 import LanguageProfileDisplay from "../../../components/Profile/components/LanguageProfile/Display";
 import WorkPreferencesDisplay from "../../../components/Profile/components/WorkPreferences/Display";
+import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
+import ApplicationStatusForm from "./components/ApplicationStatusForm";
 import AssetSkillsFiltered from "./components/ApplicationStatusForm/AssetSkillsFiltered";
 
 export interface ViewPoolCandidateProps {

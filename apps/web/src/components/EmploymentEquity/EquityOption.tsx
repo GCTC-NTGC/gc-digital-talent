@@ -1,9 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 
 import { Button } from "@gc-digital-talent/ui";
 
-import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import {
   DisabilityDialog,
   VisibleMinorityDialog,

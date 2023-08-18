@@ -2,12 +2,13 @@ import React from "react";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
-
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
+
 import { PoolCandidateStatus } from "~/api/generated";
+
 import TrackApplications, { Application } from "./TrackApplications";
 
 type Story = ComponentStory<typeof TrackApplications>;

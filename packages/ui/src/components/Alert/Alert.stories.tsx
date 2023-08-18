@@ -4,9 +4,9 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker";
 
+import Link from "../Link";
 import Alert from "./Alert";
 import { AlertType } from "./types";
-import Link from "../Link";
 
 const types: Array<AlertType> = ["info", "success", "warning", "error"];
 

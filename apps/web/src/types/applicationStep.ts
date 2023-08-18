@@ -1,5 +1,6 @@
-import { ApplicationStep, Pool } from "@gc-digital-talent/graphql";
 import { IntlShape } from "react-intl";
+
+import { ApplicationStep, Pool } from "@gc-digital-talent/graphql";
 
 import { PoolCandidate, Scalars, User } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";

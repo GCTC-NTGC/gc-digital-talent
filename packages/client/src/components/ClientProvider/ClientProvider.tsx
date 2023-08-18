@@ -23,10 +23,8 @@ import { toast } from "@gc-digital-talent/toast";
 import {
   buildValidationErrorMessageNode,
   extractErrorMessages,
+  extractValidationMessageKeys,
 } from "../../utils/errors";
-
-// generate nonce somewhere here?
-// const nonce = ...
 
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
@@ -161,7 +159,13 @@ const ClientProvider = ({
               error: CombinedError,
               operation: Operation<unknown, AnyVariables>,
             ) => {
-              const errorMessages = extractErrorMessages(error);
+              let errorMessages = extractErrorMessages(error);
+
+              const validationMessageKeys = extractValidationMessageKeys(error);
+              if (validationMessageKeys.length > 0) {
+                errorMessages = validationMessageKeys;
+              }
+
               const errorMessageNode = buildValidationErrorMessageNode(
                 errorMessages,
                 intl,

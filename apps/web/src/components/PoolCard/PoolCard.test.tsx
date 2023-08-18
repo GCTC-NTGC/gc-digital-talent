@@ -4,8 +4,10 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import React from "react";
+
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakePools } from "@gc-digital-talent/fake-data";
+
 import PoolCard, { PoolCardProps } from "./PoolCard";
 
 const fakedPool = fakePools(1)[0];

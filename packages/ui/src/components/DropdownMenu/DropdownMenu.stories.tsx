@@ -1,11 +1,9 @@
 import React from "react";
 import type { StoryFn, Meta } from "@storybook/react";
 import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
-
 import { OverlayOrDialogDecorator } from "storybook-helpers";
 
 import Button from "../Button";
-
 import DropdownMenuDocs from "./DropdownMenu.docs.mdx";
 import DropdownMenu from "./DropdownMenu";
 

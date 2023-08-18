@@ -17,7 +17,6 @@ import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
-
 import {
   Language,
   GovEmployeeType,
@@ -28,6 +27,7 @@ import {
   Department,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+
 import {
   formValuesToSubmitData,
   getGovernmentInfoLabels,

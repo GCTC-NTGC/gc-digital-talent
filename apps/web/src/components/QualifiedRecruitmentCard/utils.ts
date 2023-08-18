@@ -2,9 +2,11 @@ import React from "react";
 import { IntlShape } from "react-intl";
 import NoSymbolIcon from "@heroicons/react/20/solid/NoSymbolIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
 import { Color, IconType } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { PoolCandidate } from "@gc-digital-talent/graphql";
 
 import { Department, Maybe, PoolCandidateStatus } from "~/api/generated";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -21,8 +23,6 @@ import {
   isHiredLongTermCombinedStatus,
   isSuspendedCombinedStatus,
 } from "~/utils/poolCandidateCombinedStatus";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
-import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
 export const joinDepartments = (
   departments: Maybe<Maybe<Department>[]>,

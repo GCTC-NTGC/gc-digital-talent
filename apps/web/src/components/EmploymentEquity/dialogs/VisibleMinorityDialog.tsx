@@ -10,7 +10,6 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import type { EquityDialogProps } from "../types";
-
 import Definition from "./Definition";
 import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";

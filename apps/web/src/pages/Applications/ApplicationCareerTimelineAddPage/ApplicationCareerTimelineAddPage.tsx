@@ -18,9 +18,9 @@ import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import { useApplicationContext } from "../ApplicationContext";
 import AddExperienceForm from "./components/AddExperienceForm";
 import { experienceTypeTitles } from "./messages";
-import { useApplicationContext } from "../ApplicationContext";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,

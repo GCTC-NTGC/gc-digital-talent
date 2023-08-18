@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
+
 import {
   Pending,
   Chip,
@@ -25,12 +26,12 @@ import {
   parseDateTimeUtc,
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars, SkillCategory, useGetPoolQuery, Pool } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import adminMessages from "~/messages/adminMessages";
 
 interface ViewPoolProps {

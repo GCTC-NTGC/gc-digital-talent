@@ -2362,4 +2362,54 @@ class UserTest extends TestCase
             ]
         ]);
     }
+
+    public function testUpdateUserIsStatusOrNonStatusRule(): void
+    {
+        $applicant = User::factory()->asApplicant()->create();
+
+        $updateUserAsUser =
+            /** @lang GraphQL */
+            '
+            mutation updateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!){
+                updateUserAsUser(id: $id, user: $user) {
+                    indigenousCommunities
+                }
+            }
+        ';
+
+        // assert user can set STATUS or NON_STATUS but not both
+        $this->actingAs($applicant, 'api')
+            ->graphQL(
+                $updateUserAsUser,
+                [
+                    'id' => $applicant->id,
+                    'user' => [
+                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_STATUS_FIRST_NATIONS]
+                    ],
+                ]
+            )
+            ->assertJsonFragment(['indigenousCommunities' => [ApiEnums::INDIGENOUS_STATUS_FIRST_NATIONS]]);
+        $this->actingAs($applicant, 'api')
+            ->graphQL(
+                $updateUserAsUser,
+                [
+                    'id' => $applicant->id,
+                    'user' => [
+                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_NON_STATUS_FIRST_NATIONS]
+                    ],
+                ]
+            )
+            ->assertJsonFragment(['indigenousCommunities' => [ApiEnums::INDIGENOUS_NON_STATUS_FIRST_NATIONS]]);
+        $this->actingAs($applicant, 'api')
+            ->graphQL(
+                $updateUserAsUser,
+                [
+                    'id' => $applicant->id,
+                    'user' => [
+                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_STATUS_FIRST_NATIONS, ApiEnums::INDIGENOUS_NON_STATUS_FIRST_NATIONS]
+                    ],
+                ]
+            )
+            ->assertGraphQLValidationError('user.indigenousCommunities', 'BothStatusNonStatus');
+    }
 }

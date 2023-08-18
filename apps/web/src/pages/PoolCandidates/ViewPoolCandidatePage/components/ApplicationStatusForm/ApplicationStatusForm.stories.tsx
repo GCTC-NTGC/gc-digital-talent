@@ -5,6 +5,7 @@ import { action } from "@storybook/addon-actions";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 
 import { UpdatePoolCandidateAsAdminInput } from "~/api/generated";
+
 import { ApplicationStatusForm } from "./ApplicationStatusForm";
 
 type Meta = ComponentMeta<typeof ApplicationStatusForm>;

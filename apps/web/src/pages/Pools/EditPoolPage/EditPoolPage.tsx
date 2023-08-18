@@ -20,9 +20,9 @@ import {
   Skill,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+
 import PoolNameSection, {
   type PoolNameSubmitData,
 } from "./components/PoolNameSection";

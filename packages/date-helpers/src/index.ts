@@ -11,8 +11,8 @@ import toDate from "date-fns-tz/toDate";
 
 import { Scalars } from "@gc-digital-talent/graphql";
 import { getLocale } from "@gc-digital-talent/i18n";
-
 import { dateMessages } from "@gc-digital-talent/i18n";
+
 import { FormatDateOptions } from "./types";
 import {
   DATETIME_FORMAT_STRING,

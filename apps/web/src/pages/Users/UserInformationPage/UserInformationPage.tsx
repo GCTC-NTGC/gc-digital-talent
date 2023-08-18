@@ -14,8 +14,8 @@ import { Scalars, useGetViewUserDataQuery } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
-
 import adminMessages from "~/messages/adminMessages";
+
 import AboutSection from "./components/AboutSection";
 import { UserInformationProps } from "./types";
 import CandidateStatusSection from "./components/CandidateStatusSection";

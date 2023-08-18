@@ -1,5 +1,6 @@
 import React, { ReactElement } from "react";
 import isArray from "lodash/isArray";
+
 import { ChipProps } from "./Chip";
 
 interface ChipsProps {

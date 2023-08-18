@@ -2,8 +2,8 @@ import React from "react";
 import { IntlProvider, useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
-import defaultRichTextElements from "./richTextElements";
 import { Messages } from "../types";
+import defaultRichTextElements from "./richTextElements";
 
 interface NestedLanguageProvider {
   messages: Map<string, Messages>;

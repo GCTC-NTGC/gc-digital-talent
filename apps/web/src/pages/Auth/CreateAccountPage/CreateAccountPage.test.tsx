@@ -10,6 +10,7 @@ import {
   fakeDepartments,
 } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+
 import { CreateAccountForm, CreateAccountFormProps } from "./CreateAccountPage";
 
 const mockDepartments = fakeDepartments();

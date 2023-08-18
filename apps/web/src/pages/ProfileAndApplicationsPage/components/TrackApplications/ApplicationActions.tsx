@@ -7,7 +7,6 @@ import { PoolCandidate } from "@gc-digital-talent/graphql";
 
 import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
-
 import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 
 type Application = Omit<PoolCandidate, "user">;

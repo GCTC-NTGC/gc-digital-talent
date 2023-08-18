@@ -2638,10 +2638,6 @@
     "defaultMessage": "Expiré",
     "description": "Expired status"
   },
-  "GIN69n": {
-    "defaultMessage": "Date de clôture :",
-    "description": "Label for a pool advertisements closing date on the application"
-  },
   "GKo3Df": {
     "defaultMessage": "Mettre à jour un ministère",
     "description": "Page title for the department edit page"
@@ -4280,10 +4276,6 @@
   "TUi+jx": {
     "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats au niveau débutant pour des occasions d’apprentissage et de perfectionnement en matière de TI au sein du gouvernement.",
     "description": "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage"
-  },
-  "TV4UWm": {
-    "defaultMessage": "Enregistré",
-    "description": "Submitted text for save button on profile form."
   },
   "TVoXiS": {
     "defaultMessage": "<strong>Non</strong>, ce n’est pas une compétence que j’ai déjà utilisée",
@@ -6731,9 +6723,6 @@
     "defaultMessage": "Sauvegarder la date de clôture",
     "description": "Text on a button to save the pool closing date"
   },
-  "jtygmI": {
-    "defaultMessage": "Éducation"
-  },
   "jw6Umr": {
     "defaultMessage": "Veuillez sélectionner un type d’expérience",
     "description": "Heading for the experience type section fo the experience form"
@@ -6932,10 +6921,6 @@
   "laGCzG": {
     "defaultMessage": "Conditions d’emploi/Exigences opérationnelles",
     "description": "Heading for operational requirements section of the search form."
-  },
-  "lai6E5": {
-    "defaultMessage": "Enregistrement...",
-    "description": "Submitting text for save button on profile form."
   },
   "lb7SoP": {
     "defaultMessage": "Anglais - Votre travail",
