@@ -7,7 +7,7 @@ import {
   formatClosingDate,
   formatSubmittedAt,
   isDraft,
-} from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
+} from "~/utils/poolCandidate";
 
 type Application = Omit<PoolCandidate, "user">;
 
