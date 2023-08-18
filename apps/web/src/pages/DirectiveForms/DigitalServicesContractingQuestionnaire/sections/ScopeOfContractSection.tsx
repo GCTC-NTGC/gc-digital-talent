@@ -1,25 +1,61 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useFormContext } from "react-hook-form";
 
 import { Input, RadioGroup, DateInput } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
+  ContractCommodity,
+  ContractInstrument,
+  ContractSolicitationProcedure,
   ContractStartTimeframe,
+  ContractSupplyMethod,
   ContractValueRange,
   YesNo,
+  YesNoUnsure,
 } from "@gc-digital-talent/graphql";
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import { enumToOptions } from "../../util";
 import {
+  getContractCommodity,
+  getContractInstrument,
+  getContractSolicitationProcedure,
   getContractStartTimeframe,
+  getContractSupplyMethod,
   getContractValueRange,
   getYesNo,
+  getYesNoUnsure,
 } from "../../localizedConstants";
 
 const ScopeOfContractSection = () => {
   const intl = useIntl();
+  const { watch, resetField } = useFormContext();
+
+  // hooks to watch, needed for conditional rendering
+  const [selectedCommodityType, selectedMethodOfSupply] = watch([
+    "commodityType",
+    "methodOfSupply",
+  ]);
+  const isCommodityTypeOther =
+    selectedCommodityType === ContractCommodity.Other;
+  const isMethodOfSupplyOther =
+    selectedMethodOfSupply === ContractSupplyMethod.Other;
+
+  React.useEffect(() => {
+    const resetDirtyField = (name: string) => {
+      resetField(name, { keepDirty: false });
+    };
+
+    // Reset all optional fields
+    if (!isCommodityTypeOther) {
+      resetDirtyField("commodityTypeOther");
+    }
+    if (!isMethodOfSupplyOther) {
+      resetDirtyField("methodOfSupplyOther");
+    }
+  }, [resetField, isCommodityTypeOther, isMethodOfSupplyOther]);
 
   return (
     <TableOfContents.Section
@@ -195,6 +231,153 @@ const ScopeOfContractSection = () => {
               label: intl.formatMessage(
                 getContractStartTimeframe(option.value),
               ),
+            };
+          })}
+        />
+        <RadioGroup
+          legend={intl.formatMessage({
+            defaultMessage: "Commodity type",
+            id: "lDRl7g",
+            description:
+              "Label for _commodity type_ fieldset in the _digital services contracting questionnaire_",
+          })}
+          id="commodityType"
+          name="commodityType"
+          idPrefix="commodityType"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={enumToOptions(ContractCommodity, [
+            ContractCommodity.TelecomServices,
+            ContractCommodity.SupportServices,
+            ContractCommodity.Other,
+          ]).map((option) => {
+            return {
+              value: option.value as string,
+              label: intl.formatMessage(getContractCommodity(option.value)),
+            };
+          })}
+        />
+        {isCommodityTypeOther ? (
+          <Input
+            id="commodityTypeOther"
+            name="commodityTypeOther"
+            type="text"
+            label={intl.formatMessage(formMessages.specifyOther)}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+        ) : null}
+        <RadioGroup
+          legend={intl.formatMessage({
+            defaultMessage: "Instrument type",
+            id: "5pyCTN",
+            description:
+              "Label for _instrument type_ fieldset in the _digital services contracting questionnaire_",
+          })}
+          id="instrumentType"
+          name="instrumentType"
+          idPrefix="instrumentType"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={enumToOptions(ContractInstrument, [
+            ContractInstrument.SupplyArrangement,
+            ContractInstrument.StandingOffer,
+            ContractInstrument.Contract,
+            ContractInstrument.Amendment,
+          ]).map((option) => {
+            return {
+              value: option.value as string,
+              label: intl.formatMessage(getContractInstrument(option.value)),
+            };
+          })}
+        />
+        <RadioGroup
+          legend={intl.formatMessage({
+            defaultMessage: "Method of supply",
+            id: "YRZ5Cx",
+            description:
+              "Label for _method of supply_ fieldset in the _digital services contracting questionnaire_",
+          })}
+          id="methodOfSupply"
+          name="methodOfSupply"
+          idPrefix="methodOfSupply"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={enumToOptions(ContractSupplyMethod, [
+            ContractSupplyMethod.NotApplicable,
+            ContractSupplyMethod.SolutionsBasedInformaticsProfessionalServices,
+            ContractSupplyMethod.TaskBasedInformaticsProfessionalServices,
+            ContractSupplyMethod.TemporaryHelp,
+            ContractSupplyMethod.Other,
+          ]).map((option) => {
+            return {
+              value: option.value as string,
+              label: intl.formatMessage(getContractSupplyMethod(option.value)),
+            };
+          })}
+        />
+        {isMethodOfSupplyOther ? (
+          <Input
+            id="methodOfSupplyOther"
+            name="methodOfSupplyOther"
+            type="text"
+            label={intl.formatMessage(formMessages.specifyOther)}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+        ) : null}
+        <RadioGroup
+          legend={intl.formatMessage({
+            defaultMessage: "Solicitation procedure",
+            id: "GsHDxH",
+            description:
+              "Label for _solicitation procedure_ fieldset in the _digital services contracting questionnaire_",
+          })}
+          id="solicitationProcedure"
+          name="solicitationProcedure"
+          idPrefix="solicitationProcedure"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={enumToOptions(ContractSolicitationProcedure, [
+            ContractSolicitationProcedure.AdvanceContractAwardNotice,
+            ContractSolicitationProcedure.Competitive,
+            ContractSolicitationProcedure.NonCompetitive,
+          ]).map((option) => {
+            return {
+              value: option.value as string,
+              label: intl.formatMessage(
+                getContractSolicitationProcedure(option.value),
+              ),
+            };
+          })}
+        />
+        <RadioGroup
+          legend={intl.formatMessage({
+            defaultMessage: "This contract is subject to trade agreement",
+            id: "wbLfq4",
+            description:
+              "Label for _trade agreement_ fieldset in the _digital services contracting questionnaire_",
+          })}
+          id="subjectToTradeAgreement"
+          name="subjectToTradeAgreement"
+          idPrefix="subjectToTradeAgreement"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={enumToOptions(YesNoUnsure, [
+            YesNoUnsure.Yes,
+            YesNoUnsure.No,
+            YesNoUnsure.IDontKnow,
+          ]).map((option) => {
+            return {
+              value: option.value as string,
+              label: intl.formatMessage(getYesNoUnsure(option.value)),
             };
           })}
         />

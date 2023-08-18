@@ -1,6 +1,10 @@
 import {
   ContractAuthority,
+  ContractCommodity,
+  ContractInstrument,
+  ContractSolicitationProcedure,
   ContractStartTimeframe,
+  ContractSupplyMethod,
   ContractValueRange,
   DigitalContractingQuestionnaireInput,
   YesNo,
@@ -15,24 +19,24 @@ export type FormValues = {
   readPreamble: boolean | null | undefined;
 
   // general information section
-  department: string;
-  departmentOther: string;
-  branchOther: string;
-  businessOwnerName: string;
-  businessOwnerJobTitle: string;
-  businessOwnerEmail: string;
-  financialAuthorityName: string;
-  financialAuthorityJobTitle: string;
-  financialAuthorityEmail: string;
-  authoritiesInvolved: Array<string>;
-  authorityInvolvedOther: string;
-  contractBehalfOfGc: string;
-  contractServiceOfGc: string;
-  contractForDigitalInitiative: string;
-  digitalInitiativeName: string;
-  digitalInitiativePlanSubmitted: string;
-  digitalInitiativePlanUpdated: string;
-  digitalInitiativePlanComplemented: string;
+  // department: string;
+  // departmentOther: string;
+  // branchOther: string;
+  // businessOwnerName: string;
+  // businessOwnerJobTitle: string;
+  // businessOwnerEmail: string;
+  // financialAuthorityName: string;
+  // financialAuthorityJobTitle: string;
+  // financialAuthorityEmail: string;
+  // authoritiesInvolved: Array<string>;
+  // authorityInvolvedOther: string;
+  // contractBehalfOfGc: string;
+  // contractServiceOfGc: string;
+  // contractForDigitalInitiative: string;
+  // digitalInitiativeName: string;
+  // digitalInitiativePlanSubmitted: string;
+  // digitalInitiativePlanUpdated: string;
+  // digitalInitiativePlanComplemented: string;
 
   // scope of contract section
   contractTitle: string;
@@ -43,6 +47,13 @@ export type FormValues = {
   contractMultiyear: string;
   contractValue: string;
   contractResourcesStartTimeframe: string;
+  commodityType: string;
+  commodityTypeOther: string;
+  instrumentType: string;
+  methodOfSupply: string;
+  methodOfSupplyOther: string;
+  solicitationProcedure: string;
+  subjectToTradeAgreement: string;
 };
 
 export function convertFormValuesToApiInput(
@@ -53,49 +64,49 @@ export function convertFormValuesToApiInput(
     readPreamble: !!formValues.readPreamble,
 
     // general information
-    department:
-      formValues.department !== OTHER_ID
-        ? {
-            connect: formValues.department,
-          }
-        : null,
-    departmentOther: emptyToNull(formValues.departmentOther),
-    branchOther: emptyToNull(formValues.branchOther),
-    businessOwnerName: emptyToNull(formValues.businessOwnerName),
-    businessOwnerJobTitle: emptyToNull(formValues.businessOwnerJobTitle),
-    businessOwnerEmail: emptyToNull(formValues.businessOwnerEmail),
-    financialAuthorityName: emptyToNull(formValues.financialAuthorityName),
-    financialAuthorityJobTitle: emptyToNull(formValues.financialAuthorityName),
-    financialAuthorityEmail: emptyToNull(formValues.financialAuthorityEmail),
-    authoritiesInvolved: formValues.authoritiesInvolved
-      ?.map((a) => stringToEnumOrNull(ContractAuthority, a))
-      .filter(notEmpty),
-    authorityInvolvedOther: emptyToNull(formValues.authorityInvolvedOther),
-    contractBehalfOfGc: stringToEnumOrNull(
-      YesNoUnsure,
-      formValues.contractBehalfOfGc,
-    ),
-    contractServiceOfGc: stringToEnumOrNull(
-      YesNoUnsure,
-      formValues.contractServiceOfGc,
-    ),
-    contractForDigitalInitiative: stringToEnumOrNull(
-      YesNoUnsure,
-      formValues.contractForDigitalInitiative,
-    ),
-    digitalInitiativeName: emptyToNull(formValues.digitalInitiativeName),
-    digitalInitiativePlanSubmitted: stringToEnumOrNull(
-      YesNoUnsure,
-      formValues.digitalInitiativePlanSubmitted,
-    ),
-    digitalInitiativePlanUpdated: stringToEnumOrNull(
-      YesNoUnsure,
-      formValues.digitalInitiativePlanUpdated,
-    ),
-    digitalInitiativePlanComplemented: stringToEnumOrNull(
-      YesNoUnsure,
-      formValues.digitalInitiativePlanComplemented,
-    ),
+    // department:
+    //   formValues.department !== OTHER_ID
+    //     ? {
+    //         connect: formValues.department,
+    //       }
+    //     : null,
+    // departmentOther: emptyToNull(formValues.departmentOther),
+    // branchOther: emptyToNull(formValues.branchOther),
+    // businessOwnerName: emptyToNull(formValues.businessOwnerName),
+    // businessOwnerJobTitle: emptyToNull(formValues.businessOwnerJobTitle),
+    // businessOwnerEmail: emptyToNull(formValues.businessOwnerEmail),
+    // financialAuthorityName: emptyToNull(formValues.financialAuthorityName),
+    // financialAuthorityJobTitle: emptyToNull(formValues.financialAuthorityName),
+    // financialAuthorityEmail: emptyToNull(formValues.financialAuthorityEmail),
+    // authoritiesInvolved: formValues.authoritiesInvolved
+    //   ?.map((a) => stringToEnumOrNull(ContractAuthority, a))
+    //   .filter(notEmpty),
+    // authorityInvolvedOther: emptyToNull(formValues.authorityInvolvedOther),
+    // contractBehalfOfGc: stringToEnumOrNull(
+    //   YesNoUnsure,
+    //   formValues.contractBehalfOfGc,
+    // ),
+    // contractServiceOfGc: stringToEnumOrNull(
+    //   YesNoUnsure,
+    //   formValues.contractServiceOfGc,
+    // ),
+    // contractForDigitalInitiative: stringToEnumOrNull(
+    //   YesNoUnsure,
+    //   formValues.contractForDigitalInitiative,
+    // ),
+    // digitalInitiativeName: emptyToNull(formValues.digitalInitiativeName),
+    // digitalInitiativePlanSubmitted: stringToEnumOrNull(
+    //   YesNoUnsure,
+    //   formValues.digitalInitiativePlanSubmitted,
+    // ),
+    // digitalInitiativePlanUpdated: stringToEnumOrNull(
+    //   YesNoUnsure,
+    //   formValues.digitalInitiativePlanUpdated,
+    // ),
+    // digitalInitiativePlanComplemented: stringToEnumOrNull(
+    //   YesNoUnsure,
+    //   formValues.digitalInitiativePlanComplemented,
+    // ),
 
     // scope of contract
     contractTitle: emptyToNull(formValues.contractTitle),
@@ -115,16 +126,28 @@ export function convertFormValuesToApiInput(
       ContractStartTimeframe,
       formValues.contractResourcesStartTimeframe,
     ),
-
-    // commodityType: ContractCommodity @rename(attribute: "commodity_type")
-    // commodityTypeOther: String @rename(attribute: "commodity_type_other")
-    // instrumentType: ContractInstrument @rename(attribute: "instrument_type")
-    // methodOfSupply: ContractSupplyMethod @rename(attribute: "method_of_supply")
-    // methodOfSupplyOther: String @rename(attribute: "method_of_supply_other")
-    // solicitationProcedure: ContractSolicitationProcedure
-    //   @rename(attribute: "solicitation_procedure")
-    // subjectToTradeAgreement: YesNoUnsure
-    //   @rename(attribute: "subject_to_trade_agreement")
+    commodityType: stringToEnumOrNull(
+      ContractCommodity,
+      formValues.commodityType,
+    ),
+    commodityTypeOther: emptyToNull(formValues.commodityTypeOther),
+    instrumentType: stringToEnumOrNull(
+      ContractInstrument,
+      formValues.instrumentType,
+    ),
+    methodOfSupply: stringToEnumOrNull(
+      ContractSupplyMethod,
+      formValues.methodOfSupply,
+    ),
+    methodOfSupplyOther: emptyToNull(formValues.methodOfSupplyOther),
+    solicitationProcedure: stringToEnumOrNull(
+      ContractSolicitationProcedure,
+      formValues.solicitationProcedure,
+    ),
+    subjectToTradeAgreement: stringToEnumOrNull(
+      YesNoUnsure,
+      formValues.subjectToTradeAgreement,
+    ),
     // workRequirementDescription: String
     //   @rename(attribute: "work_requirement_description")
     // qualificationRequirement: String

@@ -30,7 +30,7 @@ const QuestionnaireSection = ({
         {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.QUESTIONNAIRE))}
       </Heading>
 
-      <GeneralInformationSection departments={departments} />
+      {/* <GeneralInformationSection departments={departments} /> */}
       <ScopeOfContractSection />
 
       <TableOfContents.Section

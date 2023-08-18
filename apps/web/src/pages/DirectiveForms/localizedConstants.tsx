@@ -1,7 +1,11 @@
 import { defineMessages, MessageDescriptor } from "react-intl";
 import {
   ContractAuthority,
+  ContractCommodity,
+  ContractInstrument,
+  ContractSolicitationProcedure,
   ContractStartTimeframe,
+  ContractSupplyMethod,
   ContractValueRange,
   YesNo,
   YesNoUnsure,
@@ -199,4 +203,124 @@ export const getContractStartTimeframe = (
     contractStartTimeframes,
     enumKey,
     `Invalid contract start timeframe '${enumKey}'`,
+  );
+
+const contractCommodities = defineMessages({
+  [ContractCommodity.TelecomServices]: {
+    defaultMessage: "Information processing and related telecom services",
+    id: "TO/Q6I",
+    description: "Telecom services contract commodity",
+  },
+  [ContractCommodity.SupportServices]: {
+    defaultMessage:
+      "Professional, administrative, and management support services",
+    id: "TO/Q6I",
+    description: "Support services contract commodity",
+  },
+  [ContractCommodity.Other]: formMessages.other,
+} as const);
+
+export const getContractCommodity = (
+  enumKey: keyof typeof contractCommodities,
+): MessageDescriptor =>
+  getOrThrowError(
+    contractCommodities,
+    enumKey,
+    `Invalid contract commodity '${enumKey}'`,
+  );
+
+const contractInstruments = defineMessages({
+  [ContractInstrument.SupplyArrangement]: {
+    defaultMessage: "Supply arrangement",
+    id: "TO/Q6I",
+    description: "Supply arrangement contract instrument",
+  },
+  [ContractInstrument.StandingOffer]: {
+    defaultMessage: "Standing offer",
+    id: "TO/Q6I",
+    description: "Standing offer contract instrument",
+  },
+  [ContractInstrument.Contract]: {
+    defaultMessage: "Contract",
+    id: "TO/Q6I",
+    description: "Contract contract instrument",
+  },
+  [ContractInstrument.Amendment]: {
+    defaultMessage: "Amendment",
+    id: "TO/Q6I",
+    description: "Amendment contract instrument",
+  },
+} as const);
+
+export const getContractInstrument = (
+  enumKey: keyof typeof contractInstruments,
+): MessageDescriptor =>
+  getOrThrowError(
+    contractInstruments,
+    enumKey,
+    `Invalid contract instrument '${enumKey}'`,
+  );
+
+const contractSupplyMethods = defineMessages({
+  [ContractSupplyMethod.NotApplicable]: {
+    defaultMessage: "Not applicable (N/A)",
+    id: "TO/Q6I",
+    description: "Not applicable contract supply method",
+  },
+  [ContractSupplyMethod.SolutionsBasedInformaticsProfessionalServices]: {
+    defaultMessage: "Solutions based informatics professional services (SBIPS)",
+    id: "TO/Q6I",
+    description:
+      "Solutions based informatics professional services contract supply method",
+  },
+  [ContractSupplyMethod.TaskBasedInformaticsProfessionalServices]: {
+    defaultMessage: "Task based informatics professional services (TBIPS)",
+    id: "TO/Q6I",
+    description:
+      "Task based informatics professional services contract supply method",
+  },
+  [ContractSupplyMethod.TemporaryHelp]: {
+    defaultMessage: "Temporary help services",
+    id: "TO/Q6I",
+    description: "Temporary help services contract supply method",
+  },
+  [ContractSupplyMethod.Other]: formMessages.other,
+} as const);
+
+export const getContractSupplyMethod = (
+  enumKey: keyof typeof contractSupplyMethods,
+): MessageDescriptor =>
+  getOrThrowError(
+    contractSupplyMethods,
+    enumKey,
+    `Invalid contract supply method '${enumKey}'`,
+  );
+
+const contractSolicitationProcedures = defineMessages({
+  [ContractSolicitationProcedure.AdvanceContractAwardNotice]: {
+    defaultMessage: "Advance contract award notice",
+    id: "TO/Q6I",
+    description:
+      "Advance contract award notice contract solicitation procedure",
+  },
+  [ContractSolicitationProcedure.Competitive]: {
+    defaultMessage:
+      "Competitive (open bidding / selective tendering / traditional)",
+    id: "TO/Q6I",
+    description: "Competitive contract solicitation procedure",
+  },
+  [ContractSolicitationProcedure.NonCompetitive]: {
+    defaultMessage: "Non-competitive (sole source)",
+    id: "TO/Q6I",
+    description: "Non-competitive contract solicitation procedure",
+  },
+} as const);
+
+export const getContractSolicitationProcedure = (
+  enumKey: keyof typeof contractSolicitationProcedures,
+): MessageDescriptor =>
+  getOrThrowError(
+    contractSolicitationProcedures,
+    enumKey,
+    `Invalid contract solicitation procedure '${enumKey}'`,
   );
