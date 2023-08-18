@@ -4,7 +4,6 @@ import {
   Column,
   ColumnMeta,
 } from "@tanstack/react-table";
-import React from "react";
 
 import { SearchState } from "./types";
 
