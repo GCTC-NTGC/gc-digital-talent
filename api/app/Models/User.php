@@ -747,4 +747,92 @@ class User extends Model implements Authenticatable, LaratrustUser
         });
         return $notifications;
     }
+
+    protected function getTopTechnicalSkillsRankingAttribute()
+    {
+        $technicalUserSkills = $this->userSkills()
+            ->whereNotNull('top_skills_rank')
+            ->whereHas('skill', function ($query) {
+                $query->whereNotNull('id');
+            })
+            ->get();
+        $sortedTechnicalUserSkills = $technicalUserSkills->sortBy('top_skills_rank', SORT_NUMERIC);
+        return $sortedTechnicalUserSkills;
+
+        // PENDING
+        // $technicalUserSkills = $this->userSkills()
+        //     ->whereNotNull('top_skills_rank')
+        //     ->whereHas('skill', function ($query) {
+        //         $query->where('category', 'TECHNICAL');
+        //     })
+        //     ->get();
+        // $sortedTechnicalUserSkills = $technicalUserSkills->sortBy('top_skills_rank', SORT_NUMERIC);
+        // return $sortedTechnicalUserSkills;
+    }
+
+    protected function getTopBehaviouralSkillsRankingAttribute()
+    {
+        $behaviouralUserSkills = $this->userSkills()
+            ->whereNotNull('top_skills_rank')
+            ->whereHas('skill', function ($query) {
+                $query->whereNotNull('id');
+            })
+            ->get();
+        $sortedBehaviouralUserSkills = $behaviouralUserSkills->sortBy('top_skills_rank', SORT_NUMERIC);
+        return $sortedBehaviouralUserSkills;
+
+        // PENDING
+        // $behaviouralUserSkills = $this->userSkills()
+        //     ->whereNotNull('top_skills_rank')
+        //     ->whereHas('skill', function ($query) {
+        //         $query->where('category', 'BEHAVIOURAL');
+        //     })
+        //     ->get();
+        // $sortedBehaviouralUserSkills = $behaviouralUserSkills->sortBy('top_skills_rank', SORT_NUMERIC);
+        // return $sortedBehaviouralUserSkills;
+    }
+
+    protected function getImproveTechnicalSkillsRankingAttribute()
+    {
+        $technicalUserSkills = $this->userSkills()
+            ->whereNotNull('improve_skills_rank')
+            ->whereHas('skill', function ($query) {
+                $query->whereNotNull('id');
+            })
+            ->get();
+        $sortedTechnicalUserSkills = $technicalUserSkills->sortBy('improve_skills_rank', SORT_NUMERIC);
+        return $sortedTechnicalUserSkills;
+
+        // PENDING
+        // $technicalUserSkills = $this->userSkills()
+        //     ->whereNotNull('improve_skills_rank')
+        //     ->whereHas('skill', function ($query) {
+        //         $query->where('category', 'TECHNICAL');
+        //     })
+        //     ->get();
+        // $sortedTechnicalUserSkills = $technicalUserSkills->sortBy('improve_skills_rank', SORT_NUMERIC);
+        // return $sortedTechnicalUserSkills;
+    }
+
+    protected function getImproveBehaviouralSkillsRankingAttribute()
+    {
+        $behaviouralUserSkills = $this->userSkills()
+            ->whereNotNull('improve_skills_rank')
+            ->whereHas('skill', function ($query) {
+                $query->whereNotNull('id');
+            })
+            ->get();
+        $sortedBehaviouralUserSkills = $behaviouralUserSkills->sortBy('improve_skills_rank', SORT_NUMERIC);
+        return $sortedBehaviouralUserSkills;
+
+        // PENDING
+        // $behaviouralUserSkills = $this->userSkills()
+        //     ->whereNotNull('improve_skills_rank')
+        //     ->whereHas('skill', function ($query) {
+        //         $query->where('category', 'BEHAVIOURAL');
+        //     })
+        //     ->get();
+        // $sortedBehaviouralUserSkills = $behaviouralUserSkills->sortBy('improve_skills_rank', SORT_NUMERIC);
+        // return $sortedBehaviouralUserSkills;
+    }
 }

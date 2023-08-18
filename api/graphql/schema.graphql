@@ -130,6 +130,10 @@ type User {
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Skill Library
   userSkills: [UserSkill!] @hasMany
+  topTechnicalSkillsRanking: [UserSkill]
+  topBehaviouralSkillsRanking: [UserSkill]
+  improveTechnicalSkillsRanking: [UserSkill]
+  improveBehaviouralSkillsRanking: [UserSkill]
   # Pool Manager info
   pools: [Pool]
     @hasMany
@@ -641,6 +645,8 @@ type UserSkill {
   skill: Skill! @belongsTo
   skillLevel: SkillLevel @rename(attribute: "skill_level")
   whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
+  topSkillsRank: Int @rename(attribute: "top_skills_rank")
+  improveSkillsRank: Int @rename(attribute: "improve_skills_rank")
 }
 
 enum SkillLevel {
