@@ -803,10 +803,6 @@
     "defaultMessage": "Emplacement : Option à distance",
     "description": "Label for a pool advertisement that has remote option."
   },
-  "3Q8D5y": {
-    "defaultMessage": "Appliquée le : <strong>{submittedAt}</strong>",
-    "description": "Text notifying user of the date they submitted an application"
-  },
   "3QkRNc": {
     "defaultMessage": "Gérer votre disponibilité pour le recrutement {title}",
     "description": "Link text to direct a user to change the availability of the specific recruitment process"
@@ -2210,10 +2206,6 @@
   "CzrCfC": {
     "defaultMessage": "Compétences techniques facultatives",
     "description": "Title for optional technical skills section of a pool advertisement"
-  },
-  "D0bpvq": {
-    "defaultMessage": "Candidatures archivées",
-    "description": "Title for a users archived applications"
   },
   "D2HsoO": {
     "defaultMessage": "Que se passe-t-il après avoir répondu à l’offre d’emploi?",
@@ -3905,10 +3897,6 @@
     "defaultMessage": "<strong>Heures d’ouverture :</strong> Du lundi au vendredi, de 8 h à 20 h (heure de l’Est)",
     "description": "Hours of operation info"
   },
-  "Q7yh4j": {
-    "defaultMessage": "Erreur, les candidatures ne peuvent pas être chargées",
-    "description": "My applications error message, placeholder"
-  },
   "Q83U92": {
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.</strong>",
     "description": "Alert message informing user to add experience in application education page."
@@ -4620,10 +4608,6 @@
   "Vf+lsG": {
     "defaultMessage": "Nom de l’équipe (Français)",
     "description": "Label for the French team display name input"
-  },
-  "Vfxtz/": {
-    "defaultMessage": "Vous n’avez actuellement aucune candidature archivée.",
-    "description": "Messaged displayed when a user has no archived applications."
   },
   "VhBuJ/": {
     "defaultMessage": "Affichage",
@@ -5713,10 +5697,6 @@
     "defaultMessage": "Erreur : la fermeture du bassin a échoué",
     "description": "Message displayed to user after pool fails to get closed."
   },
-  "da8nDk": {
-    "defaultMessage": "Afficher les candidatures archivées",
-    "description": "Button text to show a users archived applications."
-  },
   "dc5TeX": {
     "defaultMessage": "Modifier - bassin",
     "description": "Page title for the edit pool page"
@@ -5936,10 +5916,6 @@
   "eozWFc": {
     "defaultMessage": "Filtres avancés",
     "description": "Title for the additional filters"
-  },
-  "eqVWC6": {
-    "defaultMessage": "Appliquée par : <strong><red>{closingDate}</red></strong>",
-    "description": "Text notifying user of closing date for an application"
   },
   "evxvnW": {
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
@@ -6316,10 +6292,6 @@
   "hBVKqk": {
     "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder les talents numériques du GC comme une collectivité cohésive et évolutive.",
     "description": "The directives digital talent and development component"
-  },
-  "hEXXG0": {
-    "defaultMessage": "Numéro d’identification : {id}",
-    "description": "Label for application ID"
   },
   "hEa14D": {
     "defaultMessage": "Nous l’avons à partir d’ici!",
@@ -6782,10 +6754,6 @@
   "k4xm25": {
     "defaultMessage": "Téléchargement a échoué : Aucune rangée n’a été sélectionnée",
     "description": "Alert message displayed when a user attempts to print without selecting items first"
-  },
-  "k8+BDV": {
-    "defaultMessage": "Mes candidatures",
-    "description": "Title for page that displays current users applications."
   },
   "k9nAP5": {
     "defaultMessage": "Ces informations permettent aux candidats de connaître le type de travail qu'ils seront amenés à effectuer. Parlez des tâches et des attentes liées à ce travail.",
@@ -7741,10 +7709,6 @@
     "defaultMessage": "Copier l’identification de la demande",
     "description": "Button text to copy a specific application ID"
   },
-  "rw05Jq": {
-    "defaultMessage": "Vous n’avez actuellement aucune candidature.",
-    "description": "Messaged displayed when a user has no applications."
-  },
   "rxDfeN": {
     "defaultMessage": "Énumérer les compétences en vedette",
     "description": "Heading for the experience type section fo the experience form"
@@ -7820,10 +7784,6 @@
   "sM+4cP": {
     "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission. Vous pouvez sélectionner plus d’une région.",
     "description": "Message describing the work location filter in the search form."
-  },
-  "sOmB9g": {
-    "defaultMessage": "Masquer les candidatures archivées",
-    "description": "Button text to hide a users archived applications."
   },
   "sQkwFY": {
     "defaultMessage": "Une fois que vous avez sélectionné les critères auxquels vous répondez, cette section vous demande de nous indiquer quels sont les éléments spécifiques de votre parcours professionnel qui répondent à cette option. Si vous devez ajouter quelque chose à votre parcours professionnel, vous pouvez le faire en retournant à l’étape du parcours professionnel dans le formulaire de candidature.",
