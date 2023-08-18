@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 
 import { PersonalExperience } from "~/api/generated";
 import { getDateRange } from "~/utils/dateUtils";
-
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
+
 import ContentSection from "./ContentSection";
 import { ContentProps } from "./types";
 

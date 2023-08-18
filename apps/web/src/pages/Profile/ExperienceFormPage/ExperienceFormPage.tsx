@@ -45,7 +45,6 @@ import ExperienceHeading from "~/components/ExperienceFormFields/ExperienceHeadi
 import {
   deriveExperienceType,
   formValuesToSubmitData,
-  getExperienceFormLabels,
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
 
@@ -75,7 +74,6 @@ export const ExperienceForm = ({
   userId,
 }: ExperienceFormProps) => {
   const intl = useIntl();
-  const experienceFormLabels = getExperienceFormLabels(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
   const returnPath = paths.careerTimelineAndRecruitment(userId || "");
