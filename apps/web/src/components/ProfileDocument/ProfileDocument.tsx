@@ -1,12 +1,9 @@
 import React from "react";
-
 import { useIntl } from "react-intl";
+import isEmpty from "lodash/isEmpty";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { insertBetween, notEmpty } from "@gc-digital-talent/helpers";
-
-import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
-
 import {
   commonMessages,
   getArmedForcesStatusesAdmin,
@@ -22,7 +19,6 @@ import {
   getWorkRegion,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { getFullNameLabel } from "~/utils/nameUtils";
 import { enumToOptions, unpackMaybes } from "@gc-digital-talent/forms";
 import {
   GovEmployeeType,
@@ -33,7 +29,9 @@ import {
   IndigenousCommunity,
   PoolCandidate,
 } from "@gc-digital-talent/graphql";
-import isEmpty from "lodash/isEmpty";
+
+import { getFullNameLabel } from "~/utils/nameUtils";
+import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
 
 interface ProfileDocumentProps {
@@ -175,7 +173,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                       </PageSection>
                       <PageSection>
                         <Heading level="h3">
-                          {intl.formatMessage(navigationMessages.myStatus)}
+                          {intl.formatMessage(commonMessages.status)}
                         </Heading>
                         {result.armedForcesStatus !== null &&
                           result.armedForcesStatus !== undefined && (

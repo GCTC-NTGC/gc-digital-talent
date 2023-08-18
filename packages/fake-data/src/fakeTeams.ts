@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
 
 import { Department, Team } from "@gc-digital-talent/graphql";
-import toLocalizedString from "./fakeLocalizedString";
 
+import toLocalizedString from "./fakeLocalizedString";
 import fakeDepartments from "./fakeDepartments";
 
 const generateTeam = (departments: Department[]): Team => {

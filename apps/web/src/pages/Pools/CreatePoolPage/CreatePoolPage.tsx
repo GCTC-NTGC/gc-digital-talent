@@ -8,6 +8,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { Select, Submit, unpackMaybes } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending, Link } from "@gc-digital-talent/ui";
+import { RoleAssignment } from "@gc-digital-talent/graphql";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PageHeader from "~/components/PageHeader/PageHeader";
@@ -22,7 +23,6 @@ import {
   Maybe,
   Team,
 } from "~/api/generated";
-import { RoleAssignment } from "@gc-digital-talent/graphql";
 import adminMessages from "~/messages/adminMessages";
 
 type Option<V> = { value: V; label: string };

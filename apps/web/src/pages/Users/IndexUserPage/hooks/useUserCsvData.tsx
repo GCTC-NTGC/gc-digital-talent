@@ -19,7 +19,6 @@ import {
   getOperationalRequirements,
   yesOrNo,
 } from "~/utils/csvUtils";
-
 import { User, PositionDuration } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
 

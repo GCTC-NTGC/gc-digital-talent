@@ -5,7 +5,6 @@ import { useIntl } from "react-intl";
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import Separator from "../Separator";
-
 import {
   styleMap,
   iconStyleMap,
@@ -13,7 +12,6 @@ import {
   dismissStyleMap,
   getAlertLevelTitle,
 } from "./utils";
-
 import { AlertHeadingLevel, AlertType } from "./types";
 
 import "./alert.css";

@@ -1,5 +1,6 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 
 import { ApplicationProfile } from "./ApplicationProfilePage";

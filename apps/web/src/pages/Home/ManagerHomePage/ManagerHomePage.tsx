@@ -16,7 +16,6 @@ import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
-
 import managerHero from "~/assets/img/manager-hero.jpg";
 import managerProfileHero from "~/assets/img/manager-profile-hero.jpg";
 import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.jpg";

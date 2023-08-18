@@ -1,8 +1,8 @@
 import React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
-import Accordion, { AccordionHeaderProps } from "./Accordion";
 import { IconType } from "../../types";
+import Accordion, { AccordionHeaderProps } from "./Accordion";
 
 type TitleProps = React.HTMLAttributes<HTMLSpanElement> & {
   [data: string]: string;

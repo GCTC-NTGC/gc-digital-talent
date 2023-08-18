@@ -4,6 +4,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { Button, Color } from "@gc-digital-talent/ui";
+
 import { DOTS, usePagination } from "./usePagination";
 
 export interface PaginationProps {

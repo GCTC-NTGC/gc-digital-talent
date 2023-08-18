@@ -1,7 +1,9 @@
 import * as React from "react";
+import { useIntl } from "react-intl";
+
 import { Experience, Maybe, Skill } from "@gc-digital-talent/graphql";
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { useIntl } from "react-intl";
+
 import SkillTree from "~/pages/Applications/ApplicationSkillsPage/components/SkillTree";
 
 interface SkillMatchDialogProps {

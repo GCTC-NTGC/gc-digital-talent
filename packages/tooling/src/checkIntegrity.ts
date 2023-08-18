@@ -3,7 +3,9 @@
 /* eslint-disable no-console */
 
 const fs = require("fs");
+
 const yargs = require("yargs");
+
 const { countInvalidIntegrityValues } = require("./utils");
 
 const { argv } = yargs(process.argv.slice(2))

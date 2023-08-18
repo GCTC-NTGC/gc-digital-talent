@@ -1,7 +1,9 @@
 import React from "react";
+
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pill } from "@gc-digital-talent/ui";
 import { Maybe } from "@gc-digital-talent/graphql";
+
 import { Classification } from "~/api/generated";
 
 interface TableClassificationPillsProps {

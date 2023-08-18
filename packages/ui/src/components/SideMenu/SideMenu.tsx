@@ -9,9 +9,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { uiMessages } from "@gc-digital-talent/i18n";
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
+import useControllableState from "../../hooks/useControllableState";
 import { SideMenuButton } from "./SideMenuItem";
 import { SideMenuProvider } from "./SideMenuProvider";
-import useControllableState from "../../hooks/useControllableState";
 
 export interface SideMenuProps {
   /** Sets the section to be 'open' by default */

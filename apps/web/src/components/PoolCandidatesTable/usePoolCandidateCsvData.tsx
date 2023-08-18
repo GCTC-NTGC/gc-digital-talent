@@ -15,6 +15,7 @@ import {
   getEducationRequirementOption,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   yesOrNo,
@@ -29,7 +30,6 @@ import {
 } from "~/utils/csvUtils";
 import { Maybe, PoolCandidate, PositionDuration, Pool } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 const usePoolCandidateCsvData = (
   candidates: PoolCandidate[],

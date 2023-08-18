@@ -20,10 +20,6 @@ import {
   removeFromSessionStorage,
   setInSessionStorage,
 } from "@gc-digital-talent/storage";
-
-import SEO from "~/components/SEO/SEO";
-import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
-import useRoutes from "~/hooks/useRoutes";
 import {
   EquitySelections,
   Department,
@@ -42,6 +38,9 @@ import {
   PoolCandidateSearchPositionType,
 } from "@gc-digital-talent/graphql";
 
+import SEO from "~/components/SEO/SEO";
+import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
+import useRoutes from "~/hooks/useRoutes";
 import { SimpleClassification } from "~/types/pool";
 import {
   BrowserHistoryState,

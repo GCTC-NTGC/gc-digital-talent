@@ -12,10 +12,11 @@ import {
   useFormContext,
 } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
+
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
-import Repeater, { RepeaterProps, RepeaterFieldsetProps } from "./Repeater";
 import Input, { InputProps } from "../Input";
+import Repeater, { RepeaterProps, RepeaterFieldsetProps } from "./Repeater";
 
 interface RenderRepeaterProps {
   formProps: Omit<FormProps, "children">;

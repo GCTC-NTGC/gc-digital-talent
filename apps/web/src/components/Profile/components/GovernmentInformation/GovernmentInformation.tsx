@@ -17,13 +17,13 @@ import {
 
 import { SectionProps } from "../../types";
 import SectionTrigger from "../SectionTrigger";
+import FormActions from "../FormActions";
+import useSectionInfo from "../../hooks/useSectionInfo";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import { FormValues } from "./types";
-import FormActions from "../FormActions";
 import FormFields from "./FormFields";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
-import useSectionInfo from "../../hooks/useSectionInfo";
 
 const GovernmentInformation = ({
   user,

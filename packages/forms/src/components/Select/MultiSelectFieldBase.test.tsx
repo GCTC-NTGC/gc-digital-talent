@@ -14,6 +14,7 @@ import {
 import { FormProvider, useForm, RegisterOptions } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
 import IntlProvider from "react-intl/src/components/provider";
+
 import MultiSelectFieldBase, {
   useRulesWithDefaultMessages,
 } from "./MultiSelectFieldBase";

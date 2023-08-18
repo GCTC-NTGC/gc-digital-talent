@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+
 import { Classification } from "@gc-digital-talent/graphql";
 
 export default (): Classification[] => {

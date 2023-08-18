@@ -1,4 +1,5 @@
 import React from "react";
+
 import { ButtonLinkMode, IconType } from "../../types";
 
 interface IconWrapperProps {

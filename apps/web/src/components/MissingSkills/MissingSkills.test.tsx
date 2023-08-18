@@ -4,6 +4,7 @@
 
 import React from "react";
 import { within, screen } from "@testing-library/react";
+
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeSkillFamilies, fakeSkills } from "@gc-digital-talent/fake-data";
 import { SkillCategory } from "@gc-digital-talent/graphql";

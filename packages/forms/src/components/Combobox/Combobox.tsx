@@ -13,11 +13,10 @@ import { CommonInputProps, HTMLInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import Actions from "./Actions";
 import NoOptions from "./NoOptions";
-
 import "./combobox.css";
-import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
 export interface Option {
   /** The data used on form submission  */

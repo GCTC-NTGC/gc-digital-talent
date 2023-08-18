@@ -6,8 +6,8 @@ import SEO from "~/components/SEO/SEO";
 import PageHeader from "~/components/PageHeader";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
-
 import adminMessages from "~/messages/adminMessages";
+
 import UserTable from "./components/UserTable";
 
 export const IndexUserPage = () => {

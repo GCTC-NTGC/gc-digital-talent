@@ -2,6 +2,7 @@ import React from "react";
 import { IntlShape } from "react-intl";
 
 import { CheckButton } from "@gc-digital-talent/forms";
+
 import { Scalars, InputMaybe, OrderByClause, SortOrder } from "~/api/generated";
 
 export interface RecordWithId extends Record<string, unknown> {

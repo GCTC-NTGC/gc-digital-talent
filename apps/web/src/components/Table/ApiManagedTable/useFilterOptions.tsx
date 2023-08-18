@@ -7,7 +7,6 @@ import {
   getEmploymentDuration,
   getLanguageAbility,
   getOperationalRequirement,
-  getEducationType,
   EmploymentDuration,
   OperationalRequirementV2,
   getEmploymentEquityGroup,
@@ -32,7 +31,6 @@ import {
   PoolStream,
   PublishingGroup,
   WorkRegion,
-  EducationType,
   LanguageAbility,
   PoolCandidateStatus,
   useGetFilterDataQuery,
@@ -45,9 +43,7 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-// TODO: Remove this toggle after data model settles.
-// See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
-export default function useFilterOptions(enableEducationType = false) {
+export default function useFilterOptions() {
   const intl = useIntl();
   const { locale } = useLocale();
   const [filterRes] = useGetFilterDataQuery({
@@ -103,14 +99,6 @@ export default function useFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getWorkRegion(value)),
     })),
-    ...(enableEducationType
-      ? {
-          educationType: enumToOptions(EducationType).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getEducationType(value)),
-          })),
-        }
-      : {}),
     // Not really an enum, but works fine.
     employmentDuration: enumToOptions(EmploymentDuration).map(({ value }) => ({
       value,

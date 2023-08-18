@@ -11,7 +11,6 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 
 import Pagination from "~/components/Pagination";
-
 import { PaginatorInfo } from "~/api/generated";
 
 type Csv = Pick<DownloadCsvProps, "headers" | "data" | "fileName">;

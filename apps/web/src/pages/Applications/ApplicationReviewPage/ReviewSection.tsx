@@ -1,6 +1,7 @@
 import React from "react";
-import { Heading, Link } from "@gc-digital-talent/ui";
 import { useIntl } from "react-intl";
+
+import { Heading, Link } from "@gc-digital-talent/ui";
 
 interface ReviewSectionProps {
   title: string;

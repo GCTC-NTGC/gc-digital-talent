@@ -6,7 +6,6 @@ import { useTheme } from "@gc-digital-talent/theme";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-
 import flourishTopLight from "~/assets/img/support_top_light.png";
 import flourishTopDark from "~/assets/img/support_top_dark.png";
 import supportHeroImg from "~/assets/img/support_header.png";
