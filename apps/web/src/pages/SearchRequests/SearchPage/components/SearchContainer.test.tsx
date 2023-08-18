@@ -81,21 +81,21 @@ describe("SearchContainer", () => {
   it("should render different results container no candidates", async () => {
     renderSearchContainer({ poolCandidateResults: [], totalCandidateCount });
     await expect(
-      screen.queryByRole("heading", { name: /We may be able to help/i }),
+      screen.getByRole("heading", { name: /We may be able to help/i }),
     ).toBeInTheDocument();
   });
 
-  it("should render number of candidates", async () => {
+  it("should render number of candidates", () => {
     renderSearchContainer({ poolCandidateResults, totalCandidateCount });
 
-    const candidateCounts = await screen.queryAllByTestId("candidateCount");
+    const candidateCounts = screen.queryAllByTestId("candidateCount");
     expect(candidateCounts.length).toEqual(4);
   });
 
-  it("should render proper value for candidates", async () => {
+  it("should render proper value for candidates", () => {
     renderSearchContainer({ poolCandidateResults, totalCandidateCount });
 
-    const candidateCounts = await screen.queryAllByTestId("candidateCount");
+    const candidateCounts = screen.queryAllByTestId("candidateCount");
 
     const testCandidateCountText = (text: string | null, pattern: RegExp) => {
       expect(text).toBeTruthy();
