@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,10 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Notifications\Notifiable;
-use Nuwave\Lighthouse\Exceptions\ValidationException;
-use Throwable;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -267,13 +263,19 @@ class User extends Model implements Authenticatable, LaratrustUser
         });
 
         static::restoring(function (User $user) {
+            // Cancel the operation if the users email would be duplicated
+            $newEmail = substr($user->email, 0, -22);
+            $duplicateEmail = DB::table('users')->where('email', $newEmail)->count() !== 0;
+            if ($duplicateEmail) {
+                return false;
+            }
+
             // Cascade restore to child models
             foreach ($user->poolCandidates()->withTrashed()->get() as $candidate) {
                 $candidate->restore();
             }
 
             // Remove the deleted-at text from the end of the email
-            $newEmail = substr($user->email, 0, -22);
             $user->update(['email' => $newEmail]);
         });
     }

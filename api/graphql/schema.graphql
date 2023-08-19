@@ -1657,7 +1657,7 @@ type Mutation {
     @delete
     @guard
     @can(ability: "delete", find: "id")
-  restoreUser(id: ID!): User
+  restoreUser(id: ID! @whereKey): User
     @restore
     @guard
     @can(ability: "restore", find: "id")
