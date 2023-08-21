@@ -27,12 +27,12 @@ import {
   useGetApplicationQuery,
 } from "~/api/generated";
 import { AnyExperience } from "~/types/experience";
-
 import { isIncomplete } from "~/validators/profile/skillRequirements";
-import SkillTree from "./components/SkillTree";
+
 import { ApplicationPageProps } from "../ApplicationApi";
-import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 import { useApplicationContext } from "../ApplicationContext";
+import SkillTree from "./components/SkillTree";
+import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 
 const careerTimelineLink = (children: React.ReactNode, href: string) => (
   <Link href={href}>{children}</Link>

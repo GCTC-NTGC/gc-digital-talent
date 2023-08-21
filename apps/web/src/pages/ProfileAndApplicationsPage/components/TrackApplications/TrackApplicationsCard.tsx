@@ -1,23 +1,25 @@
 import * as React from "react";
+import { useIntl } from "react-intl";
+import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, HeadingProps, Pill, Separator } from "@gc-digital-talent/ui";
-import { useIntl } from "react-intl";
 import { PoolCandidate, PoolCandidateStatus } from "@gc-digital-talent/graphql";
-import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import ApplicationActions, {
-  DeleteActionProps,
-} from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/ApplicationActions";
+
 import {
   isDraft,
   isExpired,
-} from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
+  getRecruitmentType,
+  isQualifiedStatus,
+} from "~/utils/poolCandidate";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
-import useMutations from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/useMutations";
-import { getRecruitmentType, isQualifiedStatus } from "~/utils/poolCandidate";
+
+import ApplicationActions, { DeleteActionProps } from "./ApplicationActions";
+import useMutations from "./useMutations";
 import { getApplicationDateInfo } from "./utils";
 
 type Application = Omit<

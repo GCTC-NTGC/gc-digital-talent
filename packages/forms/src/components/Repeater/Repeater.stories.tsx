@@ -9,7 +9,6 @@ import { Announcer, Well } from "@gc-digital-talent/ui";
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
 import TextArea from "../TextArea";
-
 import Repeater, { RepeaterFieldsetProps, RepeaterProps } from "./Repeater";
 
 type StoryProps = RepeaterProps &

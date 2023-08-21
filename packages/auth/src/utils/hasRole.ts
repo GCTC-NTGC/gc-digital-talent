@@ -1,5 +1,6 @@
 import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
+
 import { RoleName } from "../const";
 
 const hasRole = (

@@ -26,13 +26,12 @@ import {
   useUserQuery,
   useDeleteUserMutation,
 } from "~/api/generated";
-
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { getFullNameLabel } from "~/utils/nameUtils";
-
 import adminMessages from "~/messages/adminMessages";
+
 import UserRoleTable from "./components/IndividualRoleTable";
 import TeamRoleTable from "./components/TeamRoleTable";
 import DeleteUserSection from "./components/DeleteUserSection";

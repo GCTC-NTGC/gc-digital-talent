@@ -3,7 +3,6 @@ import {
   levelIncludes,
   getLoggingLevel,
 } from "./utils/logger";
-
 import useLogger, { defaultLogger } from "./hooks/useLogger";
 
 export {

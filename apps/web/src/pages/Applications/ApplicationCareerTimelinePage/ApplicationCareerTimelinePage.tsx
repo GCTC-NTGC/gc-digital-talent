@@ -4,6 +4,7 @@ import { IntlShape, useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
+import { OperationContext } from "urql";
 
 import {
   Button,
@@ -35,7 +36,6 @@ import ExperienceSortAndFilter, {
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
-import { OperationContext } from "urql";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 

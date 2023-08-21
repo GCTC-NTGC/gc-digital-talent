@@ -3,8 +3,9 @@ import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker";
 
-import TableOfContents from ".";
 import Button from "../Button";
+
+import TableOfContents from ".";
 
 export default {
   component: TableOfContents.Wrapper,

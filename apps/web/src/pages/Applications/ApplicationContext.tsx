@@ -1,4 +1,5 @@
 import React from "react";
+
 import { useTheme } from "@gc-digital-talent/theme";
 
 import { isIAPPool, getClassificationGroup } from "~/utils/poolUtils";

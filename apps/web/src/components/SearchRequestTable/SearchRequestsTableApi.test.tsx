@@ -6,9 +6,9 @@ import "@testing-library/jest-dom";
 import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
+import { screen } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import { act, screen } from "@testing-library/react";
 import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
 
 import SearchRequestsTable from "./SearchRequestsTableApi";
@@ -49,16 +49,12 @@ const renderSearchRequestsTable = () =>
 
 describe("SearchRequestsTable", () => {
   it("should have no accessibility errors", async () => {
-    await act(async () => {
-      const { container } = renderSearchRequestsTable();
-      await axeTest(container);
-    });
+    const { container } = renderSearchRequestsTable();
+    await axeTest(container);
   });
 
   it("Should render the table", async () => {
-    await act(async () => {
-      renderSearchRequestsTable();
-    });
+    renderSearchRequestsTable();
 
     // Assert table filled with values and the result of requests[0] is present
     expect(

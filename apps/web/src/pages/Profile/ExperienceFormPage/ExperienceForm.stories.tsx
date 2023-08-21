@@ -1,8 +1,11 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
+
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
+
 import type { Skill } from "~/api/generated";
 import type { ExperienceType } from "~/types/experience";
+
 import { ExperienceForm } from "./ExperienceFormPage";
 
 const skillData = getStaticSkills();

@@ -8,9 +8,10 @@ import { fakeDepartments, fakePools } from "@gc-digital-talent/fake-data";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import Form from "../BasicForm";
-import Select, { OptGroup, Option } from "./Select";
-import type { SelectProps } from ".";
 import Submit from "../Submit";
+import Select, { OptGroup, Option } from "./Select";
+
+import type { SelectProps } from ".";
 
 export default {
   component: Select,

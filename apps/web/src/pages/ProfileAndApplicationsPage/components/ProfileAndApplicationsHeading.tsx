@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
-
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import UsersIcon from "@heroicons/react/20/solid/UsersIcon";
@@ -46,6 +45,7 @@ import HeroCard from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
+
 import { PartialUser } from "../types";
 
 function buildLink(

@@ -18,7 +18,6 @@ import {
 } from "~/utils/indigenousDeclaration";
 
 import { IndigenousDialogProps } from "../types";
-
 import Definition from "./Definition";
 import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";

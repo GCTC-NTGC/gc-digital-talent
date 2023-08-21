@@ -204,14 +204,6 @@ const CreateApplicationPage = React.lazy(() =>
       ),
   ),
 );
-const MyApplicationsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsMyApplicationsPage" */ "../pages/Applications/MyApplicationsPage/MyApplicationsPage"
-      ),
-  ),
-);
 const ApplicationLayout = React.lazy(() =>
   lazyRetry(
     () =>
@@ -853,17 +845,6 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           ],
                         },
                       ],
-                    },
-                    {
-                      path: "applications",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.Applicant]}
-                          loginPath={loginPath}
-                        >
-                          <MyApplicationsPage />
-                        </RequireAuth>
-                      ),
                     },
                   ],
                 },

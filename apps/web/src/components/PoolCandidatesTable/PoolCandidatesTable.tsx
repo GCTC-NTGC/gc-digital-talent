@@ -16,7 +16,6 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import { FromArray } from "~/types/utility";
-
 import {
   PoolCandidateSearchInput,
   InputMaybe,
@@ -39,7 +38,6 @@ import {
   useGetSkillsQuery,
   PublishingGroup,
 } from "~/api/generated";
-
 import printStyles from "~/styles/printStyles";
 import useRoutes from "~/hooks/useRoutes";
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";
@@ -68,7 +66,6 @@ import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 import adminMessages from "~/messages/adminMessages";
 
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
-
 import PoolCandidateTableFilterDialog, {
   FormValues,
 } from "./PoolCandidateTableFilterDialog";

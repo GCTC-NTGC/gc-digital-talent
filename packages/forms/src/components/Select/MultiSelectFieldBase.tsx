@@ -155,6 +155,7 @@ const Input = ({
   return (
     <components.Input
       {...rest}
+      data-testid="react-select-field"
       selectProps={selectProps}
       aria-describedby={ariaDescription || rest["aria-describedby"]}
     />

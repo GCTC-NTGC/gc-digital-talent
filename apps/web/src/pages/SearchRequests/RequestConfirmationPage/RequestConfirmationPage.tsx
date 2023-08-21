@@ -6,10 +6,8 @@ import { Heading, ThrowNotFound, Button, Link } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
-
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-
 import { Scalars } from "~/api/generated";
 
 type RequestConfirmationParams = {

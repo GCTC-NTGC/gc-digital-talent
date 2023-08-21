@@ -3,10 +3,9 @@ import { Story, Meta } from "@storybook/react";
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import ArrowRightOnRectangleIcon from "@heroicons/react/24/solid/ArrowRightOnRectangleIcon";
 
+import Button from "../Button";
 import SideMenuComponent from "./SideMenu";
 import { SideMenuButton } from "./SideMenuItem";
-
-import Button from "../Button";
 import SideMenuContentWrapper from "./SideMenuContentWrapper";
 
 export default {

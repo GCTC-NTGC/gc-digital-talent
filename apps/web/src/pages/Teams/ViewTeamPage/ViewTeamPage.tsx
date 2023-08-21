@@ -9,8 +9,8 @@ import SEO from "~/components/SEO/SEO";
 import { Scalars, Team, useViewTeamQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-
 import adminMessages from "~/messages/adminMessages";
+
 import ViewTeam from "./components/ViewTeam";
 
 type RouteParams = {

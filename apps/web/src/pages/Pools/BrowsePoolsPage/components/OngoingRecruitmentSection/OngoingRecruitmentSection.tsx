@@ -2,6 +2,8 @@ import React from "react";
 import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
 import {
   Accordion,
@@ -21,8 +23,6 @@ import { PoolStream, Skill, Pool, useMySkillsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 
-import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
-import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import messages from "../../messages";
 
 // the shape of the data model to populate this component

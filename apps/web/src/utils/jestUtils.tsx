@@ -13,14 +13,11 @@ export const selectFilterOption = async (
   fieldLabel: string | RegExp,
   optionLabel?: string,
 ) => {
-  fireEvent.mouseDown(
-    await screen.getByRole("combobox", { name: fieldLabel }),
-    {
-      button: 0,
-    },
-  );
+  fireEvent.mouseDown(screen.getByRole("combobox", { name: fieldLabel }), {
+    button: 0,
+  });
   const elem = optionLabel
-    ? await screen.getByText(optionLabel)
+    ? screen.getByText(optionLabel)
     : document.body.querySelector(".react-select__menu");
   if (elem)
     fireEvent.keyDown(elem, {

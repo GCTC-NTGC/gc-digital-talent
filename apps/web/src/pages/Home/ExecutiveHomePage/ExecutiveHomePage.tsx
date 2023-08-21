@@ -27,7 +27,6 @@ import PoolCard from "~/components/PoolCard/PoolCard";
 import { Pool, useBrowsePoolsQuery } from "~/api/generated";
 import { isExecPool } from "~/utils/poolUtils";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
-
 import executiveHero from "~/assets/img/people-sitting-in-line-shaking-hands.jpg";
 import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-at-laptop.jpg";
 

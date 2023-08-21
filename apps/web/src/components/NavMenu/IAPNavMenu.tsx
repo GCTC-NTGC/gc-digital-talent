@@ -7,9 +7,9 @@ import { Maybe, User } from "@gc-digital-talent/graphql";
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
 
-import NavMenu from "./NavMenu";
 import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
 import LogoutButton from "../Layout/LogoutButton";
+import NavMenu from "./NavMenu";
 
 interface IAPNavMenuProps {
   loggedIn?: boolean;

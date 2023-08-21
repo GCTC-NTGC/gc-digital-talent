@@ -3,7 +3,8 @@
  */
 import "@testing-library/jest-dom";
 import React from "react";
-import { screen, fireEvent } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
@@ -23,6 +24,8 @@ const renderToggleGroup = (
 };
 
 describe("ToggleGroup", () => {
+  const user = userEvent.setup();
+
   it("should have no accessibility errors when single", async () => {
     const { container } = renderToggleGroup({
       type: "single",
@@ -44,15 +47,15 @@ describe("ToggleGroup", () => {
       onValueChange: mockChange,
     });
 
-    fireEvent.click(await screen.getByRole("radio", { name: /one/i }));
+    await user.click(screen.getByRole("radio", { name: /one/i }));
 
     expect(mockChange).toHaveBeenCalledWith("one");
 
-    fireEvent.click(await screen.getByRole("radio", { name: /two/i }));
+    await user.click(screen.getByRole("radio", { name: /two/i }));
 
     expect(mockChange).toHaveBeenCalledWith("two");
 
-    fireEvent.click(await screen.getByRole("radio", { name: /three/i }));
+    await user.click(screen.getByRole("radio", { name: /three/i }));
 
     expect(mockChange).toHaveBeenCalledWith("three");
   });
@@ -64,15 +67,15 @@ describe("ToggleGroup", () => {
       onValueChange: mockChange,
     });
 
-    fireEvent.click(await screen.getByRole("button", { name: /one/i }));
+    await user.click(screen.getByRole("button", { name: /one/i }));
 
     expect(mockChange).toHaveBeenCalledWith(["one"]);
 
-    fireEvent.click(await screen.getByRole("button", { name: /two/i }));
+    await user.click(screen.getByRole("button", { name: /two/i }));
 
     expect(mockChange).toHaveBeenCalledWith(["one", "two"]);
 
-    fireEvent.click(await screen.getByRole("button", { name: /three/i }));
+    await user.click(screen.getByRole("button", { name: /three/i }));
 
     expect(mockChange).toHaveBeenCalledWith(["one", "two", "three"]);
   });
