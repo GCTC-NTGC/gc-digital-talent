@@ -1517,6 +1517,13 @@ input UpdateUserSkillInput {
   whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
 }
 
+input UpdateUserSkillRankingsInput {
+  topTechnicalSkillsRanked: [ID]
+  topBehaviouralSkillsRanked: [ID]
+  improveTechnicalSkillsRanked: [ID]
+  improveBehaviouralSkillsRanked: [ID]
+}
+
 input WorkExperienceHasMany {
   create: [WorkExperienceInput!]
 }
@@ -1871,6 +1878,10 @@ type Mutation {
   updateUserSkill(id: ID!, userSkill: UpdateUserSkillInput @spread): UserSkill
     @update
     @can(ability: "update", find: "id")
+  updateUserSkillRankings(
+    userId: ID!
+    userSkillRanking: UpdateUserSkillRankingsInput!
+  ): User @can(ability: "update", find: "userId")
   deleteUserSkill(id: ID! @whereKey): UserSkill
     @can(ability: "delete", find: "id")
     @delete

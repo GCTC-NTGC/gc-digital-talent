@@ -123,6 +123,7 @@ type Mutation {
   markNotificationAsRead(id: UUID!): Notification
   createUserSkill(userId: ID!, skillId: ID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: ID!, userSkill: UpdateUserSkillInput): UserSkill
+  updateUserSkillRankings(userId: ID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
   deleteUserSkill(id: ID!): UserSkill
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
@@ -1288,6 +1289,13 @@ input CreateUserSkillInput {
 input UpdateUserSkillInput {
   skillLevel: SkillLevel
   whenSkillUsed: WhenSkillUsed
+}
+
+input UpdateUserSkillRankingsInput {
+  topTechnicalSkillsRanked: [ID]
+  topBehaviouralSkillsRanked: [ID]
+  improveTechnicalSkillsRanked: [ID]
+  improveBehaviouralSkillsRanked: [ID]
 }
 
 input WorkExperienceHasMany {
