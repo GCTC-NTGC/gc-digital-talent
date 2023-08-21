@@ -16,17 +16,20 @@ const useRowSelection = <T>(
 ): UseRowSelectionReturn => {
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
 
-  const rowSelectionCallback = (newRowSelection: RowSelectionState) => {
-    if (rowSelect?.onRowSelection) {
-      const selectedRows = Object.values(newRowSelection)
-        .map((value, index) => {
-          return value ? data[index] : undefined;
-        })
-        .filter(notEmpty);
+  const rowSelectionCallback = React.useCallback(
+    (newRowSelection: RowSelectionState) => {
+      if (rowSelect?.onRowSelection) {
+        const selectedRows = Object.values(newRowSelection)
+          .map((value, index) => {
+            return value ? data[index] : undefined;
+          })
+          .filter(notEmpty);
 
-      rowSelect.onRowSelection(selectedRows);
-    }
-  };
+        rowSelect.onRowSelection(selectedRows);
+      }
+    },
+    [rowSelect?.onRowSelection],
+  );
 
   const handleRowSelection = (
     setter: React.Dispatch<React.SetStateAction<RowSelectionState>>,
@@ -34,9 +37,7 @@ const useRowSelection = <T>(
   ) => {
     if (updater instanceof Function) {
       setter((previous) => {
-        const newRowSelection = updater(previous);
-        rowSelectionCallback(newRowSelection);
-        return newRowSelection;
+        return updater(previous);
       });
     } else {
       setter(updater);
@@ -45,6 +46,10 @@ const useRowSelection = <T>(
 
   const setter = (updater: Updater<RowSelectionState>) =>
     handleRowSelection(setRowSelection, updater);
+
+  React.useEffect(() => {
+    rowSelectionCallback(rowSelection);
+  }, [rowSelection]);
 
   return [rowSelection, setter];
 };

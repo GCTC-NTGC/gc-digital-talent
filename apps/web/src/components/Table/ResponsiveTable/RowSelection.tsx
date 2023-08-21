@@ -291,3 +291,21 @@ export const getRowSelectionColumn = <TData extends object>(
     isRowSelect: true,
   },
 });
+
+type RowSelectCellArgs<T> = {
+  /** The specific row definition */
+  row: Row<T>;
+  /** Label for the button to select the item */
+  label: string;
+};
+
+/**
+ * Generate the cell for row selection
+ *
+ * @param param0
+ * @returns
+ */
+export const rowSelectCell = <T extends object>({
+  row,
+  label,
+}: RowSelectCellArgs<T>) => <Cell row={row} label={label} />;
