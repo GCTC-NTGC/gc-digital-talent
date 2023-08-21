@@ -22,15 +22,16 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { Button } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
-import ResponsiveTable from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import ResponsiveTable, {
+  rowSelectCell,
+  sortingStateToOrderByClause,
+  useTableStateFromSearchParams,
+} from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
-import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import { FromArray } from "~/types/utility";
 import { getFullNameHtml } from "~/utils/nameUtils";
-import { sortingStateToOrderByClause } from "~/components/Table/ResponsiveTable/utils";
 import printStyles from "~/styles/printStyles";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
-import { useTableStateFromSearchParams } from "~/components/Table/ResponsiveTable/useControlledTableState";
 
 import useUserCsvData from "../hooks/useUserCsvData";
 

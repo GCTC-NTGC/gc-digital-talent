@@ -12,13 +12,20 @@ import {
 } from "@tanstack/react-table";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Loading } from "@gc-digital-talent/ui";
 
 import Table from "./Table";
 import SearchForm from "./SearchForm";
 import ColumnDialog from "./ColumnDialog";
 import NullMessage, { NullMessageProps } from "./NullMessage";
-import RowSelection, { getRowSelectionColumn } from "./RowSelection";
-import useControlledTableState from "./useControlledTableState";
+import RowSelection, {
+  getRowSelectionColumn,
+  useRowSelection,
+  rowSelectCell,
+} from "./RowSelection";
+import useControlledTableState, {
+  useTableStateFromSearchParams,
+} from "./useControlledTableState";
 import TablePagination from "./TablePagination";
 import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
 import type {
@@ -31,8 +38,7 @@ import type {
   SearchState,
   SortDef,
 } from "./types";
-import useRowSelection from "./useRowSelection";
-import { getColumnHeader } from "./utils";
+import { getColumnHeader, sortingStateToOrderByClause } from "./utils";
 
 interface TableProps<TData> {
   /** Accessible name for the table */
@@ -268,7 +274,7 @@ const ResponsiveTable = <TData extends object>({
       </Table.Controls>
       {!hasNoData ? (
         <div aria-labelledby={captionId}>
-          <Table.Wrapper>
+          <Table.Wrapper data-h2-position="base(relative)">
             <Table.Table>
               <Table.Caption id={captionId}>{caption}</Table.Caption>
               <Table.Head>
@@ -301,6 +307,14 @@ const ResponsiveTable = <TData extends object>({
                 }}
               />
             )}
+            {isLoading && (
+              <Loading
+                data-h2-radius="base(s)"
+                data-h2-position="base(absolute)"
+                data-h2-margin="base(0)"
+                data-h2-location="base(0, 0, 0, 0)"
+              />
+            )}
           </Table.Wrapper>
           {pagination && (
             <TablePagination table={table} pagination={pagination} />
@@ -314,3 +328,8 @@ const ResponsiveTable = <TData extends object>({
 };
 
 export default ResponsiveTable;
+export {
+  useTableStateFromSearchParams,
+  rowSelectCell,
+  sortingStateToOrderByClause,
+};

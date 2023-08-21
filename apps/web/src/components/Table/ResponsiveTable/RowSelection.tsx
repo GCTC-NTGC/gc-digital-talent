@@ -6,6 +6,9 @@ import {
   ColumnDef,
   CellContext,
   ColumnDefTemplate,
+  RowSelectionState,
+  OnChangeFn,
+  Updater,
 } from "@tanstack/react-table";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 
@@ -16,8 +19,14 @@ import {
   DownloadCsv,
   Loading,
 } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { ButtonClickEvent, DatasetDownload, DatasetPrint } from "./types";
+import {
+  ButtonClickEvent,
+  DatasetDownload,
+  DatasetPrint,
+  RowSelectDef,
+} from "./types";
 
 type BaseProps = Omit<
   CheckButtonProps,
@@ -309,3 +318,53 @@ export const rowSelectCell = <T extends object>({
   row,
   label,
 }: RowSelectCellArgs<T>) => <Cell row={row} label={label} />;
+
+type UseRowSelectionReturn = [
+  value: RowSelectionState,
+  setter: OnChangeFn<RowSelectionState>,
+];
+
+export const useRowSelection = <T,>(
+  data: T[],
+  rowSelect?: RowSelectDef<T>,
+): UseRowSelectionReturn => {
+  const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
+
+  const rowSelectionCallback = React.useCallback(
+    (newRowSelection: RowSelectionState) => {
+      if (rowSelect?.onRowSelection) {
+        const selectedRows = Object.values(newRowSelection)
+          .map((value, index) => {
+            return value ? data[index] : undefined;
+          })
+          .filter(notEmpty);
+
+        rowSelect.onRowSelection(selectedRows);
+      }
+    },
+    [data, rowSelect],
+  );
+
+  const handleRowSelection = (
+    setter: React.Dispatch<React.SetStateAction<RowSelectionState>>,
+    updater: Updater<RowSelectionState>,
+  ) => {
+    if (updater instanceof Function) {
+      setter((previous) => {
+        return updater(previous);
+      });
+    } else {
+      setter(updater);
+    }
+  };
+
+  const setter = (updater: Updater<RowSelectionState>) =>
+    handleRowSelection(setRowSelection, updater);
+
+  React.useEffect(() => {
+    rowSelectionCallback(rowSelection);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rowSelection]);
+
+  return [rowSelection, setter];
+};
