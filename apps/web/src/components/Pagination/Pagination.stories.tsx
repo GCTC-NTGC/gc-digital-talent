@@ -45,6 +45,7 @@ Default.args = {
 
 NoDots.args = {
   ...Default.args,
+  totalPages: 5,
   totalCount: 50,
 };
 
