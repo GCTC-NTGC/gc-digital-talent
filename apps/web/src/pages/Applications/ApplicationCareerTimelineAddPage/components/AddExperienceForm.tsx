@@ -12,7 +12,10 @@ import { useAuthorization } from "@gc-digital-talent/auth";
 import useRoutes from "~/hooks/useRoutes";
 import { useExperienceMutations } from "~/hooks/useExperienceMutations";
 import { Scalars } from "~/api/generated";
-import { formValuesToSubmitData } from "~/utils/experienceUtils";
+import {
+  formValuesToSubmitData,
+  getExperienceFormLabels,
+} from "~/utils/experienceUtils";
 import {
   ExperienceFormValues,
   AllExperienceFormValues,
@@ -37,6 +40,7 @@ interface AddExperienceFormProps {
 
 const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
   const intl = useIntl();
+  const experienceFormLabels = getExperienceFormLabels(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
   const { user } = useAuthorization();
@@ -114,29 +118,14 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <ErrorSummary experienceType={type} />
-        <Heading level="h3">
-          {intl.formatMessage({
-            defaultMessage: "Select a type of experience",
-            id: "jw6Umr",
-            description:
-              "Heading for the experience type section fo the experience form",
-          })}
-        </Heading>
+        <Heading level="h3">{experienceFormLabels.selectType}</Heading>
         <Select
-          label={intl.formatMessage({
-            defaultMessage: "Experience type",
-            id: "chnoRd",
-            description: "Label for the type of experience a user is creating",
-          })}
+          label={experienceFormLabels.type}
           name="experienceType"
           id="experienceType"
           doNotSort
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          nullSelection={intl.formatMessage({
-            defaultMessage: "Select a type",
-            id: "5PUycY",
-            description: "Default selection for the experience type field",
-          })}
+          nullSelection={experienceFormLabels.typeNullSelection}
           options={[
             {
               value: "work",

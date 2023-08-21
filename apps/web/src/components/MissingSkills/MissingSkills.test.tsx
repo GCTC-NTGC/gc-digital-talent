@@ -54,9 +54,9 @@ describe("MissingSkills", () => {
   });
 
   it("should render all skills when none added", () => {
-    const element = renderMissingSkills();
+    renderMissingSkills();
 
-    const lists = element.getAllByRole("list");
+    const lists = screen.getAllByRole("list");
     expect(lists.length).toEqual(3);
 
     const requiredApplicationSkillsListItems = within(lists[0]).queryAllByRole(
@@ -74,11 +74,11 @@ describe("MissingSkills", () => {
   });
 
   it("should only render required skills if not missing optional", () => {
-    const element = renderMissingSkills({
+    renderMissingSkills({
       addedSkills: defaultProps.optionalSkills,
     });
 
-    const lists = element.getAllByRole("list");
+    const lists = screen.getAllByRole("list");
     expect(lists.length).toEqual(2);
 
     const requiredApplicationSkillsListItems = within(lists[0]).queryAllByRole(
@@ -95,11 +95,11 @@ describe("MissingSkills", () => {
   });
 
   it("should only render optional skills if not missing required", () => {
-    const element = renderMissingSkills({
+    renderMissingSkills({
       addedSkills: defaultProps.requiredSkills,
     });
 
-    const lists = element.getAllByRole("list");
+    const lists = screen.getAllByRole("list");
     expect(lists.length).toEqual(1);
 
     const optionalListItems = within(lists[0]).queryAllByRole("listitem");
@@ -109,7 +109,7 @@ describe("MissingSkills", () => {
   });
 
   it("should not render added skills", () => {
-    const element = renderMissingSkills({
+    renderMissingSkills({
       // Adding one from each array to added skills
       addedSkills: [
         defaultProps.requiredSkills[0], // behavioural
@@ -117,7 +117,7 @@ describe("MissingSkills", () => {
       ],
     });
 
-    const lists = element.getAllByRole("list");
+    const lists = screen.getAllByRole("list");
     expect(lists.length).toEqual(3);
 
     const requiredApplicationSkillsListItems = within(lists[0]).queryAllByRole(
@@ -145,7 +145,7 @@ describe("MissingSkills", () => {
   });
 
   it("should ignore added skills with empty experienceSkillRecords detail field", () => {
-    const element = renderMissingSkills({
+    renderMissingSkills({
       // Adding one from each array to added skills
       addedSkills: [
         {
@@ -175,7 +175,7 @@ describe("MissingSkills", () => {
       ],
     });
 
-    const lists = element.getAllByRole("list");
+    const lists = screen.getAllByRole("list");
     expect(lists.length).toEqual(5);
 
     const requiredSkillsListItems = within(lists[0]).queryAllByRole("listitem");

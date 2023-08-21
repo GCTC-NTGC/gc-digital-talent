@@ -112,10 +112,11 @@ describe("Create Account Form tests", () => {
     const department = screen.getByRole("combobox", {
       name: /which department do you work for/i,
     }) as HTMLSelectElement;
-    const options = Array.from(
-      department.querySelectorAll("option"),
-    ) as HTMLOptionElement[];
-    fireEvent.change(department, { target: { value: options[1].value } }); // Set to second value after null selection.
+
+    const option = screen.getByRole("option", {
+      name: /treasury board secretariat/i,
+    }) as HTMLOptionElement;
+    fireEvent.change(department, { target: { value: option.value } }); // Set to second value after null selection.
 
     const isStudent = screen.getByRole("radio", {
       name: /i am a student/i,

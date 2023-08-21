@@ -3,3 +3,13 @@ mutation changeApplicationSuspendedAt($id: ID!, $isSuspended: Boolean!) {
     id
   }
 }
+
+mutation DeleteApplication($id: ID!) {
+  deleteApplication(id: $id)
+}
+
+mutation ArchiveApplication($id: ID!) {
+  archiveApplication(id: $id) {
+    id
+  }
+}

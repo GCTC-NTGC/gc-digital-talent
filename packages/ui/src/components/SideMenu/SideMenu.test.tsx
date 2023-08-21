@@ -19,7 +19,6 @@ const defaultProps = {
 };
 
 const icon = MagnifyingGlassIcon;
-const openClass = "side-menu--open";
 
 const renderSideMenu = (props: SideMenuProps) => {
   return renderWithProviders(
@@ -38,20 +37,20 @@ describe("SideMenu", () => {
       open: false,
     });
 
-    const container = await screen.getByRole("navigation", {
+    const nav = screen.getByRole("navigation", {
       name: /main menu/i,
-    }).parentElement?.parentElement;
+    });
 
-    expect(container).not.toHaveClass(openClass);
+    expect(nav).toHaveAttribute("data-state", "closed");
   });
 
   it("Should be open if isOpen true", async () => {
     renderSideMenu(defaultProps);
 
-    const container = await screen.getByRole("navigation", {
+    const nav = screen.getByRole("navigation", {
       name: /main menu/i,
-    }).parentElement?.parentElement;
+    });
 
-    expect(container).toHaveClass(openClass);
+    expect(nav).toHaveAttribute("data-state", "open");
   });
 });
