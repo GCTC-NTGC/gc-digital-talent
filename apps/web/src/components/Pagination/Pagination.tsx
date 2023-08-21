@@ -192,8 +192,8 @@ const Pagination = ({
               color={color}
               disabled={isLeftArrowDisabled || lessThanTwoItems}
               aria-label={intl.formatMessage({
-                defaultMessage: "Goto first page",
-                id: "+Y3v3/",
+                defaultMessage: "Go to first page",
+                id: "n+tkit",
                 description: "Label for first page button in pagination nav",
               })}
               onClick={() => onCurrentPageChange(1)}
@@ -207,8 +207,8 @@ const Pagination = ({
               onClick={previousPage}
               color={color}
               aria-label={intl.formatMessage({
-                defaultMessage: "Goto previous page",
-                id: "drr0f7",
+                defaultMessage: "Go to previous page",
+                id: "yGy+to",
                 description:
                   "Aria label for previous page button in pagination nav",
               })}
@@ -236,8 +236,8 @@ const Pagination = ({
                   })}
                   aria-label={intl.formatMessage(
                     {
-                      defaultMessage: "Goto Page {pageNumber}",
-                      id: "Rv5vo7",
+                      defaultMessage: "Go to page {pageNumber}",
+                      id: "rLd5cC",
                       description:
                         "Aria label for each button in pagination nav",
                     },
@@ -256,8 +256,8 @@ const Pagination = ({
               onClick={nextPage}
               color={color}
               aria-label={intl.formatMessage({
-                defaultMessage: "Goto next page",
-                id: "4uiPHx",
+                defaultMessage: "Go to next page",
+                id: "O5dDCM",
                 description:
                   "Aria label for next page button in pagination nav",
               })}
@@ -271,8 +271,8 @@ const Pagination = ({
               color={color}
               onClick={() => onCurrentPageChange(totalPages)}
               aria-label={intl.formatMessage({
-                defaultMessage: "Goto last page",
-                id: "vNcmiU",
+                defaultMessage: "Go to last page",
+                id: "qtCt+G",
                 description: "Label for last page button in pagination nav",
               })}
             >
