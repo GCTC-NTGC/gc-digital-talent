@@ -112,7 +112,7 @@ describe("TrackApplicationsCard", () => {
         expiryDate: FAR_PAST_DATE,
       },
     });
-    const links = await screen.queryAllByRole("link");
+    const links = screen.queryAllByRole("link");
     expect(links).toHaveLength(3);
     const qualifiedLabel = screen.queryByText("Submission date passed");
 

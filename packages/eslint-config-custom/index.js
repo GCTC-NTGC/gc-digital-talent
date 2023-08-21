@@ -49,6 +49,12 @@ module.exports = {
     "jsx-a11y",
     "turbo",
   ],
+  overrides: [
+    {
+      files: ["**/?(*.)+(test).[jt]s?(x)"],
+      extends: ["plugin:testing-library/react"],
+    },
+  ],
   rules: {
     "formatjs/no-id": "off",
     "formatjs/enforce-id": [
