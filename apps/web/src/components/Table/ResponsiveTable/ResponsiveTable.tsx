@@ -188,7 +188,11 @@ const ResponsiveTable = <TData extends object>({
         );
       }
 
-      if (paginationState.pageIndex === pagination?.initialState?.pageIndex) {
+      if (
+        paginationState.pageIndex === pagination?.initialState?.pageIndex
+          ? pagination.initialState.pageIndex + 1
+          : 0
+      ) {
         newParams.delete(SEARCH_PARAM_KEY.PAGE);
       } else {
         newParams.set(

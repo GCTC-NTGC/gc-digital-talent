@@ -28,7 +28,7 @@ const useRowSelection = <T>(
         rowSelect.onRowSelection(selectedRows);
       }
     },
-    [rowSelect?.onRowSelection],
+    [data, rowSelect],
   );
 
   const handleRowSelection = (
@@ -49,7 +49,7 @@ const useRowSelection = <T>(
 
   React.useEffect(() => {
     rowSelectionCallback(rowSelection);
-  }, [rowSelection]);
+  }, [rowSelection, rowSelectionCallback]);
 
   return [rowSelection, setter];
 };

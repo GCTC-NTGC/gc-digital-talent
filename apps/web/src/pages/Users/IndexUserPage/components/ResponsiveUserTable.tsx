@@ -1,11 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useReactToPrint } from "react-to-print";
 import FunnelIcon from "@heroicons/react/24/solid/FunnelIcon";
 import {
   PaginationState,
   createColumnHelper,
   ColumnDef,
   SortingState,
+  CellContext,
 } from "@tanstack/react-table";
 
 import {
@@ -14,6 +16,7 @@ import {
   UserFilterInput,
   UserPaginator,
   useAllUsersPaginatedQuery,
+  useSelectedUsersQuery,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Button } from "@gc-digital-talent/ui";
@@ -21,9 +24,15 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import ResponsiveTable from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import { FromArray } from "~/types/utility";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { sortingStateToOrderByClause } from "~/components/Table/ResponsiveTable/utils";
+import printStyles from "~/styles/printStyles";
+import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+import { useTableStateFromSearchParams } from "~/components/Table/ResponsiveTable/useControlledTableState";
+
+import useUserCsvData from "../hooks/useUserCsvData";
 
 type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
@@ -46,12 +55,12 @@ const getFilterInput = ({
 const columnHelper = createColumnHelper<User>();
 
 const DEFAULT_STATE = {
-  search: {},
-  pagination: {
-    pageIndex: 1,
+  searchState: {},
+  paginationState: {
+    pageIndex: 0,
     pageSize: 10,
   },
-  sort: [
+  sortState: [
     {
       id: "created_at",
       desc: true,
@@ -63,12 +72,16 @@ const sortColumnMap = new Map([["name", "first_name"]]);
 
 const ResponsiveUserTable = ({ title }: { title: string }) => {
   const intl = useIntl();
-  const [search, setSearch] = React.useState<SearchState>(DEFAULT_STATE.search);
+  const initialState = useTableStateFromSearchParams(DEFAULT_STATE);
+  const [selected, setSelected] = React.useState<User[]>([]);
+  const [search, setSearch] = React.useState<SearchState>(
+    initialState.searchState ?? DEFAULT_STATE.searchState,
+  );
   const [pagination, setPagination] = React.useState<PaginationState>(
-    DEFAULT_STATE.pagination,
+    initialState.paginationState ?? DEFAULT_STATE.paginationState,
   );
   const [sortRule, setSortRule] = React.useState<SortingState>(
-    DEFAULT_STATE.sort,
+    initialState.sortState ?? DEFAULT_STATE.sortState,
   );
 
   const [{ data, fetching }] = useAllUsersPaginatedQuery({
@@ -138,40 +151,96 @@ const ResponsiveUserTable = ({ title }: { title: string }) => {
     ),
   ] as ColumnDef<User>[];
 
+  const handleRowSelection = (newRowSelect: User[]) => {
+    setSelected(newRowSelect);
+  };
+
+  const selectedApplicantIds = selected.map((user) => user.id);
+  const [{ data: selectedUsersData, fetching: selectedUsersFetching }] =
+    useSelectedUsersQuery({
+      variables: {
+        ids: selectedApplicantIds,
+      },
+    });
+
+  const componentRef = React.useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    pageStyle: printStyles,
+    documentTitle: intl.formatMessage({
+      defaultMessage: "Candidate profiles",
+      id: "scef3o",
+      description: "Document title for printing User table results",
+    }),
+  });
+  const selectedApplicants =
+    selectedUsersData?.applicants.filter(notEmpty) ?? [];
+
+  const csv = useUserCsvData(selectedApplicants);
+
   return (
-    <ResponsiveTable
-      caption={title}
-      data={filteredData}
-      columns={columns}
-      hiddenColumnIds={["telephone"]}
-      isLoading={fetching}
-      filterComponent={
-        <Button icon={FunnelIcon} block>
-          Filters
-        </Button>
-      }
-      search={{
-        label: intl.formatMessage({
-          defaultMessage: "Search users",
-          id: "HqPORj",
-          description: "Label for the search input on the users table",
-        }),
-        internal: false,
-        onChange: setSearch,
-      }}
-      sort={{
-        internal: false,
-        initialState: DEFAULT_STATE.sort,
-        onSortChange: setSortRule,
-      }}
-      pagination={{
-        internal: false,
-        onPaginationChange: setPagination,
-        pageSizes: [10, 20, 50, 100],
-        total: pages,
-        initialState: DEFAULT_STATE.pagination,
-      }}
-    />
+    <>
+      <ResponsiveTable
+        caption={title}
+        data={filteredData}
+        columns={columns}
+        hiddenColumnIds={["telephone"]}
+        isLoading={fetching || selectedUsersFetching}
+        filterComponent={
+          <Button icon={FunnelIcon} block>
+            Filters
+          </Button>
+        }
+        search={{
+          label: intl.formatMessage({
+            defaultMessage: "Search users",
+            id: "HqPORj",
+            description: "Label for the search input on the users table",
+          }),
+          initialState: DEFAULT_STATE.searchState,
+          internal: false,
+          onChange: setSearch,
+        }}
+        sort={{
+          internal: false,
+          initialState: DEFAULT_STATE.sortState,
+          onSortChange: setSortRule,
+        }}
+        pagination={{
+          internal: false,
+          onPaginationChange: setPagination,
+          pageSizes: [10, 20, 50, 100],
+          total: pages,
+          initialState: DEFAULT_STATE.paginationState,
+        }}
+        rowSelect={{
+          cell: ({ row }: CellContext<User, unknown>) =>
+            rowSelectCell({ row, label: `${row.original.firstName}` }),
+          onRowSelection: handleRowSelection,
+        }}
+        print={{
+          onPrint: handlePrint,
+        }}
+        download={{
+          selection: {
+            csv: {
+              ...csv,
+              fileName: intl.formatMessage(
+                {
+                  defaultMessage: "users_{date}.csv",
+                  id: "mYuXWF",
+                  description: "Filename for user CSV file download",
+                },
+                {
+                  date: new Date().toISOString(),
+                },
+              ),
+            },
+          },
+        }}
+      />
+      <ProfileDocument results={selectedApplicants} ref={componentRef} />
+    </>
   );
 };
 

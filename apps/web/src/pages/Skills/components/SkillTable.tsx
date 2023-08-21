@@ -137,6 +137,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
       pagination={{
         internal: true,
         total: data.length,
+        pageSizes: [10, 20, 50],
       }}
       add={{
         href: paths.skillCreate(),

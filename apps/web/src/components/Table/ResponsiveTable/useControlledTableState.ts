@@ -1,4 +1,4 @@
-import { useState, SetStateAction, Dispatch, useMemo, useRef } from "react";
+import { useState, SetStateAction, Dispatch, useMemo } from "react";
 import {
   OnChangeFn,
   ColumnFiltersState,
@@ -33,7 +33,7 @@ const updateState = <State>(
   }
 };
 
-const useTableStateFromSearchParams = (
+export const useTableStateFromSearchParams = (
   initialState?: Partial<InitialState>,
 ): Partial<InitialState> => {
   const params = new URLSearchParams(window.location.search);
@@ -78,29 +78,19 @@ const useTableStateFromSearchParams = (
   }
 
   const pageSizeParam = params.get(SEARCH_PARAM_KEY.PAGE_SIZE);
-  if (pageSizeParam) {
-    state = {
-      ...state,
-      paginationState: {
-        pageIndex:
-          state.paginationState?.pageIndex ??
-          initialState?.paginationState?.pageIndex ??
-          INITIAL_STATE.paginationState.pageSize,
-        pageSize: Number(pageSizeParam),
-      },
-    };
-  }
-
   const pageIndexParam = params.get(SEARCH_PARAM_KEY.PAGE);
-  if (pageIndexParam) {
+  if (pageSizeParam || pageIndexParam) {
     state = {
       ...state,
       paginationState: {
-        pageSize:
-          state.paginationState?.pageSize ??
-          initialState?.paginationState?.pageSize ??
-          INITIAL_STATE.paginationState.pageSize,
-        pageIndex: Number(pageIndexParam) - 1,
+        pageIndex: pageIndexParam
+          ? Number(pageIndexParam) - 1
+          : initialState?.paginationState?.pageIndex ??
+            INITIAL_STATE.paginationState.pageIndex,
+        pageSize: pageSizeParam
+          ? Number(pageSizeParam)
+          : initialState?.paginationState?.pageSize ??
+            INITIAL_STATE.paginationState.pageSize,
       },
     };
   }
@@ -143,32 +133,29 @@ const useControlledTableState: UseControlledTableState = ({
   columnIds,
 }) => {
   const initialStateFromParams = useTableStateFromSearchParams(initialState);
-  const stableInitialState = useRef<Partial<InitialState>>(
-    initialStateFromParams,
-  );
 
   const [globalFilter, setGlobalFilter] = useState<string>(
-    stableInitialState.current.searchState?.term ?? "",
+    initialStateFromParams.searchState?.term ?? "",
   );
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-    getColumnFilters(stableInitialState.current.searchState) ?? [],
+    getColumnFilters(initialStateFromParams.searchState) ?? [],
   );
 
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
-    getColumnVisibility(columnIds, stableInitialState.current.hiddenColumnIds),
+    getColumnVisibility(columnIds, initialStateFromParams.hiddenColumnIds),
   );
 
   const [sorting, setSorting] = useState<SortingState>(
-    stableInitialState.current.sortState ?? INITIAL_STATE.sortState,
+    initialStateFromParams.sortState ?? INITIAL_STATE.sortState,
   );
 
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex:
-      stableInitialState.current.paginationState?.pageIndex ??
+      initialStateFromParams.paginationState?.pageIndex ??
       INITIAL_STATE.paginationState.pageIndex,
     pageSize:
-      stableInitialState.current.paginationState?.pageSize ??
+      initialStateFromParams.paginationState?.pageSize ??
       INITIAL_STATE.paginationState.pageSize,
   });
 
@@ -199,7 +186,7 @@ const useControlledTableState: UseControlledTableState = ({
   );
 
   return {
-    initialState: stableInitialState.current,
+    initialState: initialStateFromParams,
     state: memoizedState,
     updaters: {
       onColumnFiltersChange: handleColumnFiltersChange,
