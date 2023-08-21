@@ -33,7 +33,7 @@ const updateState = <State>(
   }
 };
 
-const useTableSateFromSearchParams = (
+const useTableStateFromSearchParams = (
   initialState?: Partial<InitialState>,
 ): Partial<InitialState> => {
   const params = new URLSearchParams(window.location.search);
@@ -142,7 +142,7 @@ const useControlledTableState: UseControlledTableState = ({
   initialState,
   columnIds,
 }) => {
-  const initialStateFromParams = useTableSateFromSearchParams(initialState);
+  const initialStateFromParams = useTableStateFromSearchParams(initialState);
   const stableInitialState = useRef<Partial<InitialState>>(
     initialStateFromParams,
   );
