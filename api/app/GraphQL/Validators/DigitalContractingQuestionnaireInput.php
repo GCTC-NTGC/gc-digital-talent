@@ -42,7 +42,8 @@ final class DigitalContractingQuestionnaireInput extends Validator
                 new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, 'requirementWorkLanguageOther'),
             ],
             'requirementWorkLocations' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_OFFSITE_SPECIFIC, 'requirementWorkLocationSpecific'),
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_GC_PREMISES, 'requirementWorkLocationGcSpecific'),
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_OFFSITE_SPECIFIC, 'requirementWorkLocationOffsiteSpecific'),
             ],
             'requirementOthers' => [
                 new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_OTHER_REQUIREMENT_OTHER, 'requirementOtherOther'),

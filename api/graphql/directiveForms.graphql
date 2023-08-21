@@ -197,7 +197,7 @@ type DigitalContractingQuestionnaire {
     @rename(attribute: "work_requirement_description")
   qualificationRequirement: String
     @rename(attribute: "qualification_requirement")
-  requirementAccessToSecure: YesNoUnsure
+  requirementAccessToSecure: YesNo
     @rename(attribute: "requirement_access_to_secure")
   requirementScreeningLevels: [PersonnelScreeningLevel!]
     @rename(attribute: "requirement_screening_levels")
@@ -209,8 +209,10 @@ type DigitalContractingQuestionnaire {
     @rename(attribute: "requirement_work_language_other")
   requirementWorkLocations: [PersonnelWorkLocation!]
     @rename(attribute: "requirement_work_locations")
-  requirementWorkLocationSpecific: String
-    @rename(attribute: "requirement_work_location_specific")
+  requirementWorkLocationGcSpecific: String
+    @rename(attribute: "requirement_work_location_gc_specific")
+  requirementWorkLocationOffsiteSpecific: String
+    @rename(attribute: "requirement_work_location_offsite_specific")
   requirementOthers: [PersonnelOtherRequirement!]
     @rename(attribute: "requirement_others")
   requirementOtherOther: String @rename(attribute: "requirement_other_other")
@@ -353,7 +355,7 @@ input DigitalContractingQuestionnaireInput
     @rename(attribute: "work_requirement_description")
   qualificationRequirement: String
     @rename(attribute: "qualification_requirement")
-  requirementAccessToSecure: YesNoUnsure
+  requirementAccessToSecure: YesNo
     @rename(attribute: "requirement_access_to_secure")
   requirementScreeningLevels: [PersonnelScreeningLevel!]
     @rename(attribute: "requirement_screening_levels")
@@ -365,8 +367,10 @@ input DigitalContractingQuestionnaireInput
     @rename(attribute: "requirement_work_language_other")
   requirementWorkLocations: [PersonnelWorkLocation!]
     @rename(attribute: "requirement_work_locations")
-  requirementWorkLocationSpecific: String
-    @rename(attribute: "requirement_work_location_specific")
+  requirementWorkLocationGcSpecific: String
+    @rename(attribute: "requirement_work_location_gc_specific")
+  requirementWorkLocationOffsiteSpecific: String
+    @rename(attribute: "requirement_work_location_offsite_specific")
   requirementOthers: [PersonnelOtherRequirement!]
     @rename(attribute: "requirement_others")
   requirementOtherOther: String @rename(attribute: "requirement_other_other")

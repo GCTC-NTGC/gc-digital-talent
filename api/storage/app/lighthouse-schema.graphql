@@ -1599,13 +1599,14 @@ type DigitalContractingQuestionnaire {
   subjectToTradeAgreement: YesNoUnsure
   workRequirementDescription: String
   qualificationRequirement: String
-  requirementAccessToSecure: YesNoUnsure
+  requirementAccessToSecure: YesNo
   requirementScreeningLevels: [PersonnelScreeningLevel!]
   requirementScreeningLevelOther: String
   requirementWorkLanguages: [PersonnelLanguage!]
   requirementWorkLanguageOther: String
   requirementWorkLocations: [PersonnelWorkLocation!]
-  requirementWorkLocationSpecific: String
+  requirementWorkLocationGcSpecific: String
+  requirementWorkLocationOffsiteSpecific: String
   requirementOthers: [PersonnelOtherRequirement!]
   requirementOtherOther: String
   hasPersonnelRequirements: YesNo
@@ -1711,13 +1712,14 @@ input DigitalContractingQuestionnaireInput {
   subjectToTradeAgreement: YesNoUnsure
   workRequirementDescription: String
   qualificationRequirement: String
-  requirementAccessToSecure: YesNoUnsure
+  requirementAccessToSecure: YesNo
   requirementScreeningLevels: [PersonnelScreeningLevel!]
   requirementScreeningLevelOther: String
   requirementWorkLanguages: [PersonnelLanguage!]
   requirementWorkLanguageOther: String
   requirementWorkLocations: [PersonnelWorkLocation!]
-  requirementWorkLocationSpecific: String
+  requirementWorkLocationGcSpecific: String
+  requirementWorkLocationOffsiteSpecific: String
   requirementOthers: [PersonnelOtherRequirement!]
   requirementOtherOther: String
   hasPersonnelRequirements: YesNo

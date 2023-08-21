@@ -52,7 +52,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property array requirement_work_languages
  * @property string requirement_work_language_other
  * @property array requirement_work_locations
- * @property string requirement_work_location_specific
+ * @property string requirement_work_location_gc_specific
+ * @property string requirement_work_location_offsite_specific
  * @property array requirement_others
  * @property string requirement_other_other
  * @property string has_personnel_requirements
