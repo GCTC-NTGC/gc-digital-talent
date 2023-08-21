@@ -231,6 +231,9 @@ const Pagination = ({
                   aria-current={current}
                   onClick={() => onCurrentPageChange(Number(pageNumber))}
                   color={current ? activeColor : color}
+                  {...(!current && {
+                    "data-h2-font-weight": "base(400)",
+                  })}
                   aria-label={intl.formatMessage(
                     {
                       defaultMessage: "Goto Page {pageNumber}",
