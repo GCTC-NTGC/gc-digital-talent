@@ -7,10 +7,15 @@ import {
   ContractSupplyMethod,
   ContractValueRange,
   DigitalContractingQuestionnaireInput,
+  PersonnelLanguage,
+  PersonnelOtherRequirement,
+  PersonnelScreeningLevel,
+  PersonnelWorkLocation,
   YesNo,
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
+
 import { OTHER_ID, stringToEnumOrNull } from "../util";
 
 // backing object for questionnaire form
@@ -39,21 +44,35 @@ export type FormValues = {
   // digitalInitiativePlanComplemented: string;
 
   // scope of contract section
-  contractTitle: string;
-  contractStartDate: string;
-  contractEndDate: string;
-  contractExtendable: string;
-  contractAmendable: string;
-  contractMultiyear: string;
-  contractValue: string;
-  contractResourcesStartTimeframe: string;
-  commodityType: string;
-  commodityTypeOther: string;
-  instrumentType: string;
-  methodOfSupply: string;
-  methodOfSupplyOther: string;
-  solicitationProcedure: string;
-  subjectToTradeAgreement: string;
+  // contractTitle: string;
+  // contractStartDate: string;
+  // contractEndDate: string;
+  // contractExtendable: string;
+  // contractAmendable: string;
+  // contractMultiyear: string;
+  // contractValue: string;
+  // contractResourcesStartTimeframe: string;
+  // commodityType: string;
+  // commodityTypeOther: string;
+  // instrumentType: string;
+  // methodOfSupply: string;
+  // methodOfSupplyOther: string;
+  // solicitationProcedure: string;
+  // subjectToTradeAgreement: string;
+
+  // requirements section
+  workRequirementDescription: string;
+  qualificationRequirement: string;
+  requirementAccessToSecure: string;
+  requirementScreeningLevels: Array<string>;
+  requirementScreeningLevelOther: string;
+  requirementWorkLanguages: Array<string>;
+  requirementWorkLanguageOther: string;
+  requirementWorkLocations: Array<string>;
+  requirementWorkLocationGcSpecific: string;
+  requirementWorkLocationOffsiteSpecific: string;
+  requirementOthers: Array<string>;
+  requirementOtherOther: string;
 };
 
 export function convertFormValuesToApiInput(
@@ -109,66 +128,81 @@ export function convertFormValuesToApiInput(
     // ),
 
     // scope of contract
-    contractTitle: emptyToNull(formValues.contractTitle),
-    contractStartDate: emptyToNull(formValues.contractStartDate),
-    contractEndDate: emptyToNull(formValues.contractEndDate),
-    contractExtendable: stringToEnumOrNull(
+    // contractTitle: emptyToNull(formValues.contractTitle),
+    // contractStartDate: emptyToNull(formValues.contractStartDate),
+    // contractEndDate: emptyToNull(formValues.contractEndDate),
+    // contractExtendable: stringToEnumOrNull(
+    //   YesNo,
+    //   formValues.contractExtendable,
+    // ),
+    // contractAmendable: stringToEnumOrNull(YesNo, formValues.contractAmendable),
+    // contractMultiyear: stringToEnumOrNull(YesNo, formValues.contractMultiyear),
+    // contractValue: stringToEnumOrNull(
+    //   ContractValueRange,
+    //   formValues.contractValue,
+    // ),
+    // contractResourcesStartTimeframe: stringToEnumOrNull(
+    //   ContractStartTimeframe,
+    //   formValues.contractResourcesStartTimeframe,
+    // ),
+    // commodityType: stringToEnumOrNull(
+    //   ContractCommodity,
+    //   formValues.commodityType,
+    // ),
+    // commodityTypeOther: emptyToNull(formValues.commodityTypeOther),
+    // instrumentType: stringToEnumOrNull(
+    //   ContractInstrument,
+    //   formValues.instrumentType,
+    // ),
+    // methodOfSupply: stringToEnumOrNull(
+    //   ContractSupplyMethod,
+    //   formValues.methodOfSupply,
+    // ),
+    // methodOfSupplyOther: emptyToNull(formValues.methodOfSupplyOther),
+    // solicitationProcedure: stringToEnumOrNull(
+    //   ContractSolicitationProcedure,
+    //   formValues.solicitationProcedure,
+    // ),
+    // subjectToTradeAgreement: stringToEnumOrNull(
+    //   YesNoUnsure,
+    //   formValues.subjectToTradeAgreement,
+    // ),
+
+    // Requirements section
+    workRequirementDescription: emptyToNull(
+      formValues.workRequirementDescription,
+    ),
+    qualificationRequirement: emptyToNull(formValues.qualificationRequirement),
+    requirementAccessToSecure: stringToEnumOrNull(
       YesNo,
-      formValues.contractExtendable,
+      formValues.requirementAccessToSecure,
     ),
-    contractAmendable: stringToEnumOrNull(YesNo, formValues.contractAmendable),
-    contractMultiyear: stringToEnumOrNull(YesNo, formValues.contractMultiyear),
-    contractValue: stringToEnumOrNull(
-      ContractValueRange,
-      formValues.contractValue,
+    requirementScreeningLevels: formValues.requirementScreeningLevels
+      ?.map((a) => stringToEnumOrNull(PersonnelScreeningLevel, a))
+      .filter(notEmpty),
+    requirementScreeningLevelOther: emptyToNull(
+      formValues.requirementScreeningLevelOther,
     ),
-    contractResourcesStartTimeframe: stringToEnumOrNull(
-      ContractStartTimeframe,
-      formValues.contractResourcesStartTimeframe,
+    requirementWorkLanguages: formValues.requirementWorkLanguages
+      ?.map((a) => stringToEnumOrNull(PersonnelLanguage, a))
+      .filter(notEmpty),
+    requirementWorkLanguageOther: emptyToNull(
+      formValues.requirementWorkLanguageOther,
     ),
-    commodityType: stringToEnumOrNull(
-      ContractCommodity,
-      formValues.commodityType,
+    requirementWorkLocations: formValues.requirementWorkLocations
+      ?.map((a) => stringToEnumOrNull(PersonnelWorkLocation, a))
+      .filter(notEmpty),
+    requirementWorkLocationGcSpecific: emptyToNull(
+      formValues.requirementWorkLocationGcSpecific,
     ),
-    commodityTypeOther: emptyToNull(formValues.commodityTypeOther),
-    instrumentType: stringToEnumOrNull(
-      ContractInstrument,
-      formValues.instrumentType,
+    requirementWorkLocationOffsiteSpecific: emptyToNull(
+      formValues.requirementWorkLocationOffsiteSpecific,
     ),
-    methodOfSupply: stringToEnumOrNull(
-      ContractSupplyMethod,
-      formValues.methodOfSupply,
-    ),
-    methodOfSupplyOther: emptyToNull(formValues.methodOfSupplyOther),
-    solicitationProcedure: stringToEnumOrNull(
-      ContractSolicitationProcedure,
-      formValues.solicitationProcedure,
-    ),
-    subjectToTradeAgreement: stringToEnumOrNull(
-      YesNoUnsure,
-      formValues.subjectToTradeAgreement,
-    ),
-    // workRequirementDescription: String
-    //   @rename(attribute: "work_requirement_description")
-    // qualificationRequirement: String
-    //   @rename(attribute: "qualification_requirement")
-    // requirementAccessToSecure: YesNoUnsure
-    //   @rename(attribute: "requirement_access_to_secure")
-    // requirementScreeningLevels: [PersonnelScreeningLevel!]
-    //   @rename(attribute: "requirement_screening_levels")
-    // requirementScreeningLevelOther: String
-    //   @rename(attribute: "requirement_screening_level_other")
-    // requirementWorkLanguages: [PersonnelLanguage!]
-    //   @rename(attribute: "requirement_work_languages")
-    // requirementWorkLanguageOther: String
-    //   @rename(attribute: "requirement_work_language_other")
-    // requirementWorkLocations: [PersonnelWorkLocation!]
-    //   @rename(attribute: "requirement_work_locations")
-    // requirementWorkLocationSpecific: String
-    //   @rename(attribute: "requirement_work_location_specific")
-    // requirementOthers: [PersonnelOtherRequirement!]
-    //   @rename(attribute: "requirement_others")
-    // requirementOtherOther: String @rename(attribute: "requirement_other_other")
+    requirementOthers: formValues.requirementOthers
+      ?.map((a) => stringToEnumOrNull(PersonnelOtherRequirement, a))
+      .filter(notEmpty),
+    requirementOtherOther: emptyToNull(formValues.requirementOtherOther),
+
     // hasPersonnelRequirements: YesNo
     //   @rename(attribute: "has_personnel_requirements")
     // personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany

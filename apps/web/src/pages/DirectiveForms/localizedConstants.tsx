@@ -1,4 +1,5 @@
 import { defineMessages, MessageDescriptor } from "react-intl";
+
 import {
   ContractAuthority,
   ContractCommodity,
@@ -7,10 +8,13 @@ import {
   ContractStartTimeframe,
   ContractSupplyMethod,
   ContractValueRange,
+  PersonnelLanguage,
+  PersonnelOtherRequirement,
+  PersonnelScreeningLevel,
+  PersonnelWorkLocation,
   YesNo,
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
-
 import { getOrThrowError } from "@gc-digital-talent/helpers";
 import { formMessages } from "@gc-digital-talent/i18n";
 
@@ -323,4 +327,130 @@ export const getContractSolicitationProcedure = (
     contractSolicitationProcedures,
     enumKey,
     `Invalid contract solicitation procedure '${enumKey}'`,
+  );
+
+const personnelScreeningLevels = defineMessages({
+  [PersonnelScreeningLevel.Reliability]: {
+    defaultMessage: "Reliability",
+    id: "TO/Q6I",
+    description: "Reliability screening level",
+  },
+  [PersonnelScreeningLevel.EnhancedReliability]: {
+    defaultMessage: "Enhanced reliability",
+    id: "TO/Q6I",
+    description: "Enhanced reliability screening level",
+  },
+  [PersonnelScreeningLevel.Secret]: {
+    defaultMessage: "Secret",
+    id: "TO/Q6I",
+    description: "Secret screening level",
+  },
+  [PersonnelScreeningLevel.TopSecret]: {
+    defaultMessage: "Top secret",
+    id: "TO/Q6I",
+    description: "Top secret screening level",
+  },
+  [PersonnelScreeningLevel.Other]: formMessages.other,
+} as const);
+
+export const getPersonnelScreeningLevel = (
+  enumKey: keyof typeof personnelScreeningLevels,
+): MessageDescriptor =>
+  getOrThrowError(
+    personnelScreeningLevels,
+    enumKey,
+    `Invalid personnel screening level '${enumKey}'`,
+  );
+
+const personnelLanguages = defineMessages({
+  [PersonnelLanguage.EnglishOnly]: {
+    defaultMessage: "English only",
+    id: "TO/Q6I",
+    description: "English only personnel language",
+  },
+  [PersonnelLanguage.FrenchOnly]: {
+    defaultMessage: "French only",
+    id: "TO/Q6I",
+    description: "French only personnel language",
+  },
+  [PersonnelLanguage.BilingualIntermediate]: {
+    defaultMessage: "Bilingual (Intermediate - BBB/BBB)",
+    id: "TO/Q6I",
+    description: "Bilingual intermediate personnel language",
+  },
+  [PersonnelLanguage.BilingualAdvanced]: {
+    defaultMessage: "Bilingual (Advanced - CBC/CBC)",
+    id: "TO/Q6I",
+    description: "Bilingual advanced personnel language",
+  },
+  [PersonnelLanguage.Other]: formMessages.other,
+} as const);
+
+export const getPersonnelLanguage = (
+  enumKey: keyof typeof personnelLanguages,
+): MessageDescriptor =>
+  getOrThrowError(
+    personnelLanguages,
+    enumKey,
+    `Invalid personnel language '${enumKey}'`,
+  );
+
+const personnelWorkLocations = defineMessages({
+  [PersonnelWorkLocation.GcPremises]: {
+    defaultMessage: "GC premises",
+    id: "TO/Q6I",
+    description: "GC premises personnel work location",
+  },
+  [PersonnelWorkLocation.OffsiteSpecific]: {
+    defaultMessage: "Offsite, specific location",
+    id: "TO/Q6I",
+    description: "Specific offsite personnel work location",
+  },
+  [PersonnelWorkLocation.OffsiteAny]: {
+    defaultMessage: "Offsite, any location",
+    id: "TO/Q6I",
+    description: "Any offsite personnel work location",
+  },
+} as const);
+
+export const getPersonnelWorkLocation = (
+  enumKey: keyof typeof personnelWorkLocations,
+): MessageDescriptor =>
+  getOrThrowError(
+    personnelWorkLocations,
+    enumKey,
+    `Invalid personnel work location '${enumKey}'`,
+  );
+
+const personnelOtherRequirements = defineMessages({
+  [PersonnelOtherRequirement.ShiftWork]: {
+    defaultMessage: "Shift work",
+    id: "TO/Q6I",
+    description: "Shift work personnel other requirement",
+  },
+  [PersonnelOtherRequirement.OnCall_24_7]: {
+    defaultMessage: "On-call 24/7",
+    id: "TO/Q6I",
+    description: "On-call 24/7 personnel other requirement",
+  },
+  [PersonnelOtherRequirement.OvertimeShortNotice]: {
+    defaultMessage: "Overtime on short notice",
+    id: "TO/Q6I",
+    description: "Overtime on short notice personnel other requirement",
+  },
+  [PersonnelOtherRequirement.AsNeeded]: {
+    defaultMessage: "As and when needed",
+    id: "TO/Q6I",
+    description: "As and when needed personnel other requirement",
+  },
+  [PersonnelOtherRequirement.Other]: formMessages.other,
+} as const);
+
+export const getPersonnelOtherRequirement = (
+  enumKey: keyof typeof personnelOtherRequirements,
+): MessageDescriptor =>
+  getOrThrowError(
+    personnelOtherRequirements,
+    enumKey,
+    `Invalid personnel other requirement '${enumKey}'`,
   );
