@@ -94,7 +94,7 @@ beforeEach(() => {
   mockSubmit.mockClear();
 });
 
-describe("UserTableFilterDialog", async () => {
+describe("UserTableFilterDialog", () => {
   describe("UserTableFilterDialog.Button", () => {
     it("modal is hidden by default", async () => {
       renderButton({});
@@ -193,9 +193,9 @@ describe("UserTableFilterDialog", async () => {
     it("doesn't persist form data changes when modal closed with X", async () => {
       renderButton({ isOpenDefault: true });
       selectFilterOption(/work locations/i);
-      closeDialog();
+      await closeDialog();
 
-      openDialog();
+      await openDialog();
       expect(screen.queryByText("Telework")).not.toBeInTheDocument();
     });
 
@@ -209,13 +209,11 @@ describe("UserTableFilterDialog", async () => {
   });
 
   describe("prior state", () => {
-    beforeEach(async () => {
-      await selectFilterOption(/work locations/i);
-      await submitFilters();
-    });
-
     it("clears prior state when cleared and submitted", async () => {
       renderButton({ isOpenDefault: true });
+      await selectFilterOption(/work locations/i);
+      await submitFilters();
+
       await openDialog();
       await clearFilters();
       await submitFilters();
@@ -227,6 +225,9 @@ describe("UserTableFilterDialog", async () => {
 
     it("keeps prior state when cleared but not submitted", async () => {
       renderButton({ isOpenDefault: true });
+      await selectFilterOption(/work locations/i);
+      await submitFilters();
+
       await openDialog();
       await clearFilters();
       await closeDialog();

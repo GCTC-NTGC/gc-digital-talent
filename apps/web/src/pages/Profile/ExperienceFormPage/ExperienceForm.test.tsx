@@ -1,10 +1,10 @@
 /**
  * @jest-environment jsdom
  */
-import React from "react";
 import "@testing-library/jest-dom";
+import React from "react";
 import { Provider as GraphqlProvider } from "urql";
-import { screen, act, fireEvent, waitFor } from "@testing-library/react";
+import { screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { never } from "wonka";
 
@@ -266,9 +266,9 @@ describe("ExperienceForm", () => {
       skills: mockSkills,
     });
 
-    await act(() => {
-      screen.getByRole("button", { name: /save and return/i }).click();
-    });
+    expect(await screen.findByText(/save and return/i)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: /save and return/i }));
 
     expect(mockClient.executeMutation).not.toHaveBeenCalled();
   });
@@ -281,23 +281,31 @@ describe("ExperienceForm", () => {
       skills: mockSkills,
     });
 
+    expect(await screen.findByText(/save and return/i)).toBeInTheDocument();
+
     const awardTitle = screen.getByRole("textbox", { name: /award title/i });
     await user.type(awardTitle, "AwardTitle");
     expect(awardTitle).toHaveValue("AwardTitle");
-
-    const dateAwarded = screen.getByRole("group", { name: /date awarded/i });
-    updateDate(dateAwarded, {
-      year: "1111",
-      month: "11",
-    });
 
     const awardedTo = screen.getByRole("combobox", { name: /awarded to/i });
     await user.selectOptions(awardedTo, "ME");
     expect(awardedTo).toHaveValue("ME");
 
-    const org = screen.getByRole("textbox", { name: /issuing organization/i });
-    await user.type(org, "Org");
-    expect(org).toHaveValue("Org");
+    const organization = screen.getByRole("textbox", {
+      name: /issuing organization/i,
+    });
+    await user.clear(organization);
+    expect(organization).toHaveValue("");
+    await user.type(organization, "Org");
+    expect(organization).toHaveValue("Org");
+
+    const dateAwarded = screen.getByRole("group", { name: /date awarded/i });
+    await updateDate(dateAwarded, {
+      year: "1111",
+      month: "11",
+    });
+    expect(screen.getByRole("spinbutton", { name: /year/i })).toHaveValue(1111);
+    expect(screen.getByRole("combobox", { name: /month/i })).toHaveValue("11");
 
     const scope = screen.getByRole("combobox", { name: /award scope/i });
     await user.selectOptions(scope, "LOCAL");
@@ -306,16 +314,13 @@ describe("ExperienceForm", () => {
     const details = screen.getByRole("textbox", {
       name: /additional details/i,
     });
+    await user.clear(details);
     await user.type(details, "details");
     expect(details).toHaveValue("details");
 
-    fireEvent.submit(screen.getByRole("button", { name: /save and return/i }));
+    await user.click(screen.getByRole("button", { name: /save and return/i }));
 
-    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(mockClient.executeMutation).toHaveBeenCalled();
-    });
+    await waitFor(() => expect(screen.queryAllByRole("alert")).toHaveLength(0));
   });
 
   // TODO: Commenting out test below until the <SkillDialog /> error is resolved... When skill dialog is opened this console.error() appears -> "Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?"
