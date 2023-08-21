@@ -4,7 +4,7 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import { Provider as GraphqlProvider } from "urql";
-import { screen, fireEvent, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { never } from "wonka";
 
