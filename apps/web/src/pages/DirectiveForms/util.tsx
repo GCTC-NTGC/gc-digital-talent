@@ -2,7 +2,6 @@
 import React from "react";
 
 import { Link } from "@gc-digital-talent/ui";
-import { defaultLogger } from "@gc-digital-talent/logger";
 
 // build an external link to use with a formatjs message
 export function buildExternalLink(
@@ -28,19 +27,16 @@ function isEnumValue<T extends object>(
 }
 
 // typed helper function to validate enum value at runtime
-export function stringToEnumOrNull<T extends object>(
+export function stringToEnum<T extends object>(
   typeObject: T,
   value: string,
-): T[keyof T] | null {
-  if (value === null) return null;
-  if (value === undefined) return null;
+): T[keyof T] {
   if (isEnumValue(typeObject, value)) return value;
-  defaultLogger.error(
+  throw new Error(
     `Unable to convert value "${value}" to enum of ${Object.values(
       typeObject,
     ).join(", ")}`,
   );
-  return null;
 }
 
 // typed helper function to turn an enum into an array of options

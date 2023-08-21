@@ -10,13 +10,14 @@ import {
   PersonnelLanguage,
   PersonnelOtherRequirement,
   PersonnelScreeningLevel,
+  PersonnelTeleworkOption,
   PersonnelWorkLocation,
   YesNo,
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 
-import { OTHER_ID, stringToEnumOrNull } from "../util";
+import { OTHER_ID, stringToEnum } from "../util";
 
 // backing object for questionnaire form
 export type FormValues = {
@@ -73,6 +74,19 @@ export type FormValues = {
   requirementWorkLocationOffsiteSpecific: string;
   requirementOthers: Array<string>;
   requirementOtherOther: string;
+
+  // personnel requirements section
+  hasPersonnelRequirements: string;
+  personnelRequirements: Array<{
+    resourceType: string;
+    // skillRequirements
+    language: string;
+    languageOther: string;
+    security: string;
+    securityOther: string;
+    telework: string;
+    quantity: string;
+  }>;
 };
 
 export function convertFormValuesToApiInput(
@@ -98,31 +112,31 @@ export function convertFormValuesToApiInput(
     // financialAuthorityJobTitle: emptyToNull(formValues.financialAuthorityName),
     // financialAuthorityEmail: emptyToNull(formValues.financialAuthorityEmail),
     // authoritiesInvolved: formValues.authoritiesInvolved
-    //   ?.map((a) => stringToEnumOrNull(ContractAuthority, a))
-    //   .filter(notEmpty),
+    //   ?.map((a) => stringToEnum(ContractAuthority, a))
+    //   ,
     // authorityInvolvedOther: emptyToNull(formValues.authorityInvolvedOther),
-    // contractBehalfOfGc: stringToEnumOrNull(
+    // contractBehalfOfGc: stringToEnum(
     //   YesNoUnsure,
     //   formValues.contractBehalfOfGc,
     // ),
-    // contractServiceOfGc: stringToEnumOrNull(
+    // contractServiceOfGc: stringToEnum(
     //   YesNoUnsure,
     //   formValues.contractServiceOfGc,
     // ),
-    // contractForDigitalInitiative: stringToEnumOrNull(
+    // contractForDigitalInitiative: stringToEnum(
     //   YesNoUnsure,
     //   formValues.contractForDigitalInitiative,
     // ),
     // digitalInitiativeName: emptyToNull(formValues.digitalInitiativeName),
-    // digitalInitiativePlanSubmitted: stringToEnumOrNull(
+    // digitalInitiativePlanSubmitted: stringToEnum(
     //   YesNoUnsure,
     //   formValues.digitalInitiativePlanSubmitted,
     // ),
-    // digitalInitiativePlanUpdated: stringToEnumOrNull(
+    // digitalInitiativePlanUpdated: stringToEnum(
     //   YesNoUnsure,
     //   formValues.digitalInitiativePlanUpdated,
     // ),
-    // digitalInitiativePlanComplemented: stringToEnumOrNull(
+    // digitalInitiativePlanComplemented: stringToEnum(
     //   YesNoUnsure,
     //   formValues.digitalInitiativePlanComplemented,
     // ),
@@ -131,39 +145,39 @@ export function convertFormValuesToApiInput(
     // contractTitle: emptyToNull(formValues.contractTitle),
     // contractStartDate: emptyToNull(formValues.contractStartDate),
     // contractEndDate: emptyToNull(formValues.contractEndDate),
-    // contractExtendable: stringToEnumOrNull(
+    // contractExtendable: stringToEnum(
     //   YesNo,
     //   formValues.contractExtendable,
     // ),
-    // contractAmendable: stringToEnumOrNull(YesNo, formValues.contractAmendable),
-    // contractMultiyear: stringToEnumOrNull(YesNo, formValues.contractMultiyear),
-    // contractValue: stringToEnumOrNull(
+    // contractAmendable: stringToEnum(YesNo, formValues.contractAmendable),
+    // contractMultiyear: stringToEnum(YesNo, formValues.contractMultiyear),
+    // contractValue: stringToEnum(
     //   ContractValueRange,
     //   formValues.contractValue,
     // ),
-    // contractResourcesStartTimeframe: stringToEnumOrNull(
+    // contractResourcesStartTimeframe: stringToEnum(
     //   ContractStartTimeframe,
     //   formValues.contractResourcesStartTimeframe,
     // ),
-    // commodityType: stringToEnumOrNull(
+    // commodityType: stringToEnum(
     //   ContractCommodity,
     //   formValues.commodityType,
     // ),
     // commodityTypeOther: emptyToNull(formValues.commodityTypeOther),
-    // instrumentType: stringToEnumOrNull(
+    // instrumentType: stringToEnum(
     //   ContractInstrument,
     //   formValues.instrumentType,
     // ),
-    // methodOfSupply: stringToEnumOrNull(
+    // methodOfSupply: stringToEnum(
     //   ContractSupplyMethod,
     //   formValues.methodOfSupply,
     // ),
     // methodOfSupplyOther: emptyToNull(formValues.methodOfSupplyOther),
-    // solicitationProcedure: stringToEnumOrNull(
+    // solicitationProcedure: stringToEnum(
     //   ContractSolicitationProcedure,
     //   formValues.solicitationProcedure,
     // ),
-    // subjectToTradeAgreement: stringToEnumOrNull(
+    // subjectToTradeAgreement: stringToEnum(
     //   YesNoUnsure,
     //   formValues.subjectToTradeAgreement,
     // ),
@@ -173,39 +187,54 @@ export function convertFormValuesToApiInput(
       formValues.workRequirementDescription,
     ),
     qualificationRequirement: emptyToNull(formValues.qualificationRequirement),
-    requirementAccessToSecure: stringToEnumOrNull(
+    requirementAccessToSecure: stringToEnum(
       YesNo,
       formValues.requirementAccessToSecure,
     ),
-    requirementScreeningLevels: formValues.requirementScreeningLevels
-      ?.map((a) => stringToEnumOrNull(PersonnelScreeningLevel, a))
-      .filter(notEmpty),
+    requirementScreeningLevels: formValues.requirementScreeningLevels?.map(
+      (a) => stringToEnum(PersonnelScreeningLevel, a),
+    ),
     requirementScreeningLevelOther: emptyToNull(
       formValues.requirementScreeningLevelOther,
     ),
-    requirementWorkLanguages: formValues.requirementWorkLanguages
-      ?.map((a) => stringToEnumOrNull(PersonnelLanguage, a))
-      .filter(notEmpty),
+    requirementWorkLanguages: formValues.requirementWorkLanguages?.map((a) =>
+      stringToEnum(PersonnelLanguage, a),
+    ),
     requirementWorkLanguageOther: emptyToNull(
       formValues.requirementWorkLanguageOther,
     ),
-    requirementWorkLocations: formValues.requirementWorkLocations
-      ?.map((a) => stringToEnumOrNull(PersonnelWorkLocation, a))
-      .filter(notEmpty),
+    requirementWorkLocations: formValues.requirementWorkLocations?.map((a) =>
+      stringToEnum(PersonnelWorkLocation, a),
+    ),
     requirementWorkLocationGcSpecific: emptyToNull(
       formValues.requirementWorkLocationGcSpecific,
     ),
     requirementWorkLocationOffsiteSpecific: emptyToNull(
       formValues.requirementWorkLocationOffsiteSpecific,
     ),
-    requirementOthers: formValues.requirementOthers
-      ?.map((a) => stringToEnumOrNull(PersonnelOtherRequirement, a))
-      .filter(notEmpty),
+    requirementOthers: formValues.requirementOthers?.map((a) =>
+      stringToEnum(PersonnelOtherRequirement, a),
+    ),
     requirementOtherOther: emptyToNull(formValues.requirementOtherOther),
 
-    // hasPersonnelRequirements: YesNo
-    //   @rename(attribute: "has_personnel_requirements")
-    // personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
+    // Personnel requirements section
+    hasPersonnelRequirements: stringToEnum(
+      YesNo,
+      formValues.hasPersonnelRequirements,
+    ),
+    personnelRequirements: {
+      create: formValues.personnelRequirements.map((requirement) => {
+        return {
+          resourceType: requirement.resourceType,
+          language: stringToEnum(PersonnelLanguage, requirement.language),
+          languageOther: emptyToNull(requirement.languageOther),
+          security: stringToEnum(PersonnelScreeningLevel, requirement.security),
+          securityOther: emptyToNull(requirement.securityOther),
+          telework: stringToEnum(PersonnelTeleworkOption, requirement.telework),
+          quantity: parseInt(requirement.quantity, 10) ?? null,
+        };
+      }),
+    },
     // isTechnologicalChange: YesNo @rename(attribute: "is_technological_change")
     // hasImpactOnYourDepartment: YesNo
     //   @rename(attribute: "has_impact_on_your_department")

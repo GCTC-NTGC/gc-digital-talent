@@ -1,5 +1,6 @@
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { defineMessage, MessageDescriptor } from "react-intl";
+
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 export const PAGE_SECTION_ID = {
   INSTRUCTIONS: "instructions",
@@ -12,6 +13,7 @@ export const PAGE_SECTION_ID = {
   QUESTIONS_DIGITAL_INITIATIVE: "questions-digital-initiative",
   SCOPE_OF_CONTRACT: "scope-of-contract",
   CONTRACT_REQUIREMENTS: "contract-requirements",
+  PERSONNEL_REQUIREMENTS: "personnel-requirements",
   TECHNOLOGICAL_CHANGE: "technological-change",
   OPERATIONS_CONSIDERATIONS: "operations-considerations",
   TALENT_SOURCING_DECISION: "talent-sourcing_decision",
@@ -108,9 +110,18 @@ const sectionTitles = new Map<PageSectionId, MessageDescriptor>([
     PAGE_SECTION_ID.CONTRACT_REQUIREMENTS,
     defineMessage({
       defaultMessage: "Requirements",
-      id: "IllbQ5",
+      id: "TYOzfT",
       description:
-        "Heading for the requirements section on the digital services contracting questionnaire",
+        "Heading for the contract requirements section on the digital services contracting questionnaire",
+    }),
+  ],
+  [
+    PAGE_SECTION_ID.PERSONNEL_REQUIREMENTS,
+    defineMessage({
+      defaultMessage: "Personnel requirements",
+      id: "srZlRP",
+      description:
+        "Heading for the personnel requirements section on the digital services contracting questionnaire",
     }),
   ],
   [

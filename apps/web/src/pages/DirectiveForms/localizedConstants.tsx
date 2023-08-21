@@ -11,6 +11,7 @@ import {
   PersonnelLanguage,
   PersonnelOtherRequirement,
   PersonnelScreeningLevel,
+  PersonnelTeleworkOption,
   PersonnelWorkLocation,
   YesNo,
   YesNoUnsure,
@@ -453,4 +454,31 @@ export const getPersonnelOtherRequirement = (
     personnelOtherRequirements,
     enumKey,
     `Invalid personnel other requirement '${enumKey}'`,
+  );
+
+const personnelTeleworkOptions = defineMessages({
+  [PersonnelTeleworkOption.FullTime]: {
+    defaultMessage: "Yes, full-time",
+    id: "TO/Q6I",
+    description: "Full-time personnel telework option",
+  },
+  [PersonnelTeleworkOption.PartTime]: {
+    defaultMessage: "Yes, part-time",
+    id: "TO/Q6I",
+    description: "Part-time personnel telework option",
+  },
+  [PersonnelTeleworkOption.No]: {
+    defaultMessage: "No",
+    id: "TO/Q6I",
+    description: "No personnel telework option",
+  },
+} as const);
+
+export const getPersonnelTeleworkOption = (
+  enumKey: keyof typeof personnelTeleworkOptions,
+): MessageDescriptor =>
+  getOrThrowError(
+    personnelTeleworkOptions,
+    enumKey,
+    `Invalid personnel telework option '${enumKey}'`,
   );

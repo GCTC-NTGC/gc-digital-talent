@@ -27,6 +27,7 @@ import {
   getPersonnelWorkLocation,
   getYesNo,
 } from "../../localizedConstants";
+import PersonnelRequirementsSection from "./PersonnelRequirementsSection";
 
 const RequirementsSection = () => {
   const intl = useIntl();
@@ -38,11 +39,13 @@ const RequirementsSection = () => {
     selectedRequirementWorkLanguages,
     selectedRequirementWorkLocations,
     selectedRequirementOthers,
+    selectedHasPersonnelRequirements,
   ] = watch([
     "requirementScreeningLevels",
     "requirementWorkLanguages",
     "requirementWorkLocations",
     "requirementOthers",
+    "hasPersonnelRequirements",
   ]);
 
   const doesRequirementScreeningLevelsIncludeOther =
@@ -66,6 +69,9 @@ const RequirementsSection = () => {
   const doesPersonnelOtherRequirementIncludeOther =
     Array.isArray(selectedRequirementOthers) &&
     selectedRequirementOthers.includes(PersonnelOtherRequirement.Other);
+
+  const isHasPersonnelRequirementsYes =
+    selectedHasPersonnelRequirements === YesNo.Yes;
 
   /**
    * Reset un-rendered fields
@@ -91,6 +97,10 @@ const RequirementsSection = () => {
     if (!doesPersonnelOtherRequirementIncludeOther) {
       resetDirtyField("requirementOtherOther");
     }
+
+    if (!isHasPersonnelRequirementsYes) {
+      resetDirtyField("personnelRequirements");
+    }
   }, [
     resetField,
     doesRequirementScreeningLevelsIncludeOther,
@@ -98,6 +108,7 @@ const RequirementsSection = () => {
     doesRequirementWorkLocationsIncludeGc,
     doesRequirementWorkLocationsIncludeOffsiteSpecific,
     doesPersonnelOtherRequirementIncludeOther,
+    isHasPersonnelRequirementsYes,
   ]);
 
   return (
@@ -109,7 +120,7 @@ const RequirementsSection = () => {
         {intl.formatMessage(
           getSectionTitle(PAGE_SECTION_ID.CONTRACT_REQUIREMENTS),
         )}
-      </Heading>{" "}
+      </Heading>
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
@@ -321,6 +332,30 @@ const RequirementsSection = () => {
             }}
           />
         ) : null}
+        <RadioGroup
+          legend={intl.formatMessage({
+            defaultMessage:
+              "Does the contract have specific personnel requirements",
+            id: "dg1Ga3",
+            description:
+              "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_",
+          })}
+          id="hasPersonnelRequirements"
+          name="hasPersonnelRequirements"
+          idPrefix="hasPersonnelRequirements"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={enumToOptions(YesNo, [YesNo.Yes, YesNo.No]).map((option) => {
+            return {
+              value: option.value as string,
+              label: intl.formatMessage(getYesNo(option.value)),
+            };
+          })}
+        />
+        {/* {isHasPersonnelRequirementsYes ? ( */}
+        <PersonnelRequirementsSection />
+        {/* ) : null} */}
       </div>
     </TableOfContents.Section>
   );
