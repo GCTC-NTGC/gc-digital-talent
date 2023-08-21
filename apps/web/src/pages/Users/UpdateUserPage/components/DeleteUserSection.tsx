@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { User } from "@gc-digital-talent/graphql";
+
 import DeleteUserDialog from "./DeleteUserDialog";
 import { DeleteUserFunc } from "../types";
 

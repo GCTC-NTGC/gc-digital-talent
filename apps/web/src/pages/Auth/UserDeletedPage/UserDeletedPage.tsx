@@ -6,7 +6,6 @@ import { getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
-
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
