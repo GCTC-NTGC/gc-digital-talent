@@ -5,17 +5,11 @@ use App\Console\Commands\HardDeleteOldUsers;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 
 class HardDeleteOldUsersTest extends TestCase
 {
     use RefreshDatabase;
-    use MakesGraphQLRequests;
-    use RefreshesSchemaCache;
-
-    protected $adminUser;
 
     protected function setUp(): void
     {
