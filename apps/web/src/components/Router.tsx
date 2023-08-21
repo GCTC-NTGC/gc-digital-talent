@@ -124,7 +124,7 @@ const UserDeletedPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsSignedOutPage" */ "../pages/Auth/UserDeletedPage/UserDeletedPage"
+        /* webpackChunkName: "tsUserDeletedPage" */ "../pages/Auth/UserDeletedPage/UserDeletedPage"
       ),
   ),
 );
