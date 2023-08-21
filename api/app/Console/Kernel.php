@@ -24,32 +24,6 @@ class Kernel extends ConsoleKernel
             $users = User::onlyTrashed()->whereDate('deleted_at', '<=', $deleteDate)->get();
 
             foreach ($users as $user) {
-                // Cascade delete to child models
-                foreach ($user->poolCandidates()->withTrashed()->get() as $candidate) {
-                    $candidate->forceDelete();
-                }
-                foreach ($user->awardExperiences()->withTrashed()->get() as $experience) {
-                    $experience->forceDelete();
-                }
-                foreach ($user->communityExperiences()->withTrashed()->get() as $experience) {
-                    $experience->forceDelete();
-                }
-                foreach ($user->educationExperiences()->withTrashed()->get() as $experience) {
-                    $experience->forceDelete();
-                }
-                foreach ($user->personalExperiences()->withTrashed()->get() as $experience) {
-                    $experience->forceDelete();
-                }
-                foreach ($user->workExperiences()->withTrashed()->get() as $experience) {
-                    $experience->forceDelete();
-                }
-                foreach ($user->roleAssignments()->get() as $role) {
-                    $role->forceDelete();
-                }
-                foreach ($user->userSkills()->withTrashed()->get() as $skill) {
-                    $skill->forceDelete();
-                }
-
                 $user->forceDelete();
             }
         })->dailyAt('08:00');
