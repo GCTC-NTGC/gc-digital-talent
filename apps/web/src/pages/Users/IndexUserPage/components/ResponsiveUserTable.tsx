@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import FunnelIcon from "@heroicons/react/24/solid/FunnelIcon";
 import {
   PaginationState,
   createColumnHelper,
@@ -14,6 +15,7 @@ import {
   useAllUsersPaginatedQuery,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Button } from "@gc-digital-talent/ui";
 
 import ResponsiveTable from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
@@ -103,6 +105,11 @@ const ResponsiveUserTable = ({ title }: { title: string }) => {
       columns={columns}
       hiddenColumnIds={[]}
       isLoading={fetching}
+      filterComponent={
+        <Button icon={FunnelIcon} block>
+          Filters
+        </Button>
+      }
       search={{
         label: intl.formatMessage({
           defaultMessage: "Search users",

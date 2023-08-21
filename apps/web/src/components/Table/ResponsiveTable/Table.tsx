@@ -181,6 +181,15 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
   );
 };
 
+type ControlProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>;
+
+const Control = (props: ControlProps) => (
+  <div data-h2-width="base(100%) l-tablet(auto)" {...props} />
+);
+
 interface ControlsProps {
   children: React.ReactNode;
   addLink?: AddLinkProps;
@@ -206,7 +215,7 @@ const Controls = ({ children, addLink }: ControlsProps) => (
       {children}
     </div>
     {addLink && (
-      <div data-h2-flex-shrink="base(1)">
+      <Control data-h2-flex-shrink="base(1)">
         <Link
           icon={PlusCircleIcon}
           color="secondary"
@@ -216,7 +225,7 @@ const Controls = ({ children, addLink }: ControlsProps) => (
         >
           {addLink.label}
         </Link>
-      </div>
+      </Control>
     )}
   </div>
 );
@@ -232,4 +241,5 @@ export default {
   Row,
   Cell,
   Controls,
+  Control,
 };

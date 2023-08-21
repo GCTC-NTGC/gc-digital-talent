@@ -61,6 +61,8 @@ interface TableProps<TData> {
   download?: DatasetDownload;
   /** Enable the "add item" button */
   add?: AddLinkProps;
+  /** Filter component */
+  filterComponent?: React.ReactNode;
 }
 
 const ResponsiveTable = <TData extends object>({
@@ -77,6 +79,7 @@ const ResponsiveTable = <TData extends object>({
   print,
   add,
   pagination,
+  filterComponent,
 }: TableProps<TData>) => {
   const id = React.useId();
   const intl = useIntl();
@@ -230,6 +233,9 @@ const ResponsiveTable = <TData extends object>({
 
   const hasNoData = !isLoading && (!data || data.length === 0);
   const captionId = `${id}-caption`;
+  const hidableColumns = table
+    .getAllLeafColumns()
+    .filter((c) => c.getCanHide());
 
   return (
     <>
@@ -243,10 +249,12 @@ const ResponsiveTable = <TData extends object>({
             {...search}
           />
         )}
-        {/** Note: `div` prevents button from taking up entire space on desktop */}
-        <div>
-          <ColumnDialog table={table} />
-        </div>
+        {filterComponent && <Table.Control>{filterComponent}</Table.Control>}
+        {hidableColumns.length > 0 ? (
+          <Table.Control>
+            <ColumnDialog table={table} />
+          </Table.Control>
+        ) : null}
       </Table.Controls>
       {!hasNoData ? (
         <div aria-labelledby={captionId}>
