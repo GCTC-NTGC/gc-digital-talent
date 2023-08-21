@@ -1,12 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Table } from "@tanstack/react-table";
-import { useSearchParams } from "react-router-dom";
 
 import Pagination from "~/components/Pagination";
 
 import { PaginationDef } from "./types";
-import { SEARCH_PARAM_KEY } from "./constants";
 
 interface TablePaginationProps<T> {
   pagination: PaginationDef;
@@ -18,25 +16,13 @@ const TablePagination = <T,>({
   table,
 }: TablePaginationProps<T>) => {
   const intl = useIntl();
-  const [, setSearchParams] = useSearchParams();
 
   const handlePageSizeChange = (newPageSize: number) => {
     if (pagination) {
       table.setPageSize(newPageSize);
-
-      setSearchParams((previous) => {
-        const newParams = new URLSearchParams(previous);
-        if (newPageSize === pagination.initialState?.pageSize) {
-          newParams.delete(SEARCH_PARAM_KEY.PAGE_SIZE);
-        } else {
-          newParams.set(SEARCH_PARAM_KEY.PAGE_SIZE, String(newPageSize));
-        }
-        return newParams;
-      });
-
       if (pagination.onPaginationChange) {
         pagination.onPaginationChange({
-          pageIndex: table.getState().pagination.pageIndex,
+          pageIndex: table.getState().pagination.pageIndex + 1,
           pageSize: newPageSize,
         });
       }
@@ -48,19 +34,9 @@ const TablePagination = <T,>({
       const newPageIndex = newPage - 1;
       table.setPageIndex(newPageIndex);
 
-      setSearchParams((previous) => {
-        const newParams = new URLSearchParams(previous);
-        if (newPageIndex === pagination.initialState?.pageIndex) {
-          newParams.delete(SEARCH_PARAM_KEY.PAGE);
-        } else {
-          newParams.set(SEARCH_PARAM_KEY.PAGE, String(newPage));
-        }
-        return newParams;
-      });
-
       if (pagination.onPaginationChange) {
         pagination.onPaginationChange({
-          pageIndex: newPageIndex,
+          pageIndex: newPageIndex + 1,
           pageSize: table.getState().pagination.pageSize,
         });
       }

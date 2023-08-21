@@ -28,6 +28,7 @@ import type {
   PaginationDef,
   RowSelectDef,
   SearchDef,
+  SearchState,
   SortDef,
 } from "./types";
 import useRowSelection from "./useRowSelection";
@@ -141,18 +142,119 @@ const ResponsiveTable = <TData extends object>({
 
   const sortRule = table.getState().sorting;
   React.useEffect(() => {
-    setSearchParams((previous) => {
-      const newParams = new URLSearchParams(previous);
+    setSearchParams(
+      (previous) => {
+        const newParams = new URLSearchParams(previous);
 
-      if (isEqual(sortRule, sort?.initialState)) {
-        newParams.delete(SEARCH_PARAM_KEY.SORT_RULE);
-      } else {
-        newParams.set(SEARCH_PARAM_KEY.SORT_RULE, JSON.stringify(sortRule));
-      }
+        if (isEqual(sortRule, sort?.initialState)) {
+          newParams.delete(SEARCH_PARAM_KEY.SORT_RULE);
+        } else {
+          newParams.set(SEARCH_PARAM_KEY.SORT_RULE, JSON.stringify(sortRule));
+        }
 
-      return newParams;
-    });
+        return newParams;
+      },
+      { replace: true },
+    );
   }, [setSearchParams, sort?.initialState, sortRule]);
+
+  const columnSearch = table.getState().columnFilters;
+  const searchTerm = table.getState().globalFilter;
+  React.useEffect(() => {
+    let searchState: SearchState = {
+      term: String(searchTerm),
+    };
+    if (columnSearch.length) {
+      searchState = {
+        term: String(columnSearch[0].value),
+        type: columnSearch[0].id,
+      };
+    }
+
+    setSearchParams(
+      (previous) => {
+        const newParams = new URLSearchParams(previous);
+
+        if (isEqual(search?.initialState, searchState)) {
+          newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
+          newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
+          return newParams;
+        }
+
+        if (columnSearch.length > 0) {
+          newParams.set(SEARCH_PARAM_KEY.SEARCH_COLUMN, columnSearch[0].id);
+          newParams.set(
+            SEARCH_PARAM_KEY.SEARCH_TERM,
+            String(columnSearch[0].value),
+          );
+        } else {
+          newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
+          if (searchTerm) {
+            newParams.set(SEARCH_PARAM_KEY.SEARCH_TERM, searchTerm);
+          } else {
+            newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
+          }
+        }
+
+        return newParams;
+      },
+      { replace: true },
+    );
+  }, [columnSearch, searchTerm, setSearchParams, search?.initialState, search]);
+
+  const columnsDisplayed = table.getState().columnVisibility;
+  React.useEffect(() => {
+    const newHiddenIds = Object.keys(columnsDisplayed)
+      .map((colId) => (columnsDisplayed[colId] ? undefined : colId))
+      .filter(notEmpty);
+
+    setSearchParams(
+      (previous) => {
+        const newParams = new URLSearchParams(previous);
+
+        if (isEqual(hiddenColumnIds, newHiddenIds)) {
+          newParams.delete(SEARCH_PARAM_KEY.HIDDEN_COLUMNS);
+        } else {
+          newParams.set(
+            SEARCH_PARAM_KEY.HIDDEN_COLUMNS,
+            newHiddenIds.join(","),
+          );
+        }
+
+        return newParams;
+      },
+      { replace: true },
+    );
+  }, [columnsDisplayed, hiddenColumnIds, setSearchParams]);
+
+  const paginationState = table.getState().pagination;
+  React.useEffect(() => {
+    setSearchParams(
+      (previous) => {
+        const newParams = new URLSearchParams(previous);
+        if (paginationState.pageSize === pagination?.initialState?.pageSize) {
+          newParams.delete(SEARCH_PARAM_KEY.PAGE_SIZE);
+        } else {
+          newParams.set(
+            SEARCH_PARAM_KEY.PAGE_SIZE,
+            String(paginationState.pageSize),
+          );
+        }
+
+        if (paginationState.pageIndex === pagination?.initialState?.pageIndex) {
+          newParams.delete(SEARCH_PARAM_KEY.PAGE);
+        } else {
+          newParams.set(
+            SEARCH_PARAM_KEY.PAGE,
+            String(paginationState.pageIndex + 1),
+          );
+        }
+
+        return newParams;
+      },
+      { replace: true },
+    );
+  }, [paginationState, pagination?.initialState, setSearchParams]);
 
   const hasNoData = !isLoading && (!data || data.length === 0);
   const captionId = `${id}-caption`;
@@ -171,7 +273,7 @@ const ResponsiveTable = <TData extends object>({
         )}
         {/** Note: `div` prevents button from taking up entire space on desktop */}
         <div>
-          <ColumnDialog table={table} initialState={hiddenColumnIds} />
+          <ColumnDialog table={table} />
         </div>
       </Table.Controls>
       {!hasNoData ? (

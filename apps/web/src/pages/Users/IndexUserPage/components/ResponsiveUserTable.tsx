@@ -44,7 +44,7 @@ const ResponsiveUserTable = ({ title }: { title: string }) => {
   const intl = useIntl();
   const [search, setSearch] = React.useState<SearchState>({});
   const [pagination, setPagination] = React.useState<PaginationState>({
-    pageIndex: 0,
+    pageIndex: 1,
     pageSize: 10,
   });
 

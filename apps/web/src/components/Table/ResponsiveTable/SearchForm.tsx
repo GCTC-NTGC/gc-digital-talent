@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
-import { useSearchParams } from "react-router-dom";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
@@ -11,7 +10,6 @@ import { useCommonInputStyles, Field } from "@gc-digital-talent/forms";
 
 import ResetButton from "../ResetButton";
 import { SearchFormProps, SearchColumn, SearchState } from "./types";
-import { SEARCH_PARAM_KEY } from "./constants";
 
 /**
  * Search form
@@ -34,7 +32,6 @@ const SearchForm = <T,>({
   const intl = useIntl();
   const searchRef = React.useRef<HTMLInputElement | null>(null);
   const styles = useCommonInputStyles();
-  const [, setSearchParams] = useSearchParams();
   const initialColumn =
     state?.type && searchBy
       ? searchBy.find((column) => column.value === state?.type)
@@ -64,30 +61,11 @@ const SearchForm = <T,>({
         table.setGlobalFilter(newState.term);
       }
 
-      setSearchParams((previous) => {
-        const newParams = new URLSearchParams(previous);
-
-        if (newState.type) {
-          newParams.set(SEARCH_PARAM_KEY.SEARCH_COLUMN, newState.type);
-        } else {
-          newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
-        }
-
-        if (newState.term) {
-          newParams.set(SEARCH_PARAM_KEY.SEARCH_TERM, newState.term);
-        } else {
-          newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
-        }
-
-        newParams.delete(SEARCH_PARAM_KEY.PAGE);
-        return newParams;
-      });
-
       if (onChange) {
         onChange(newState);
       }
     },
-    [onChange, setSearchParams, table],
+    [onChange, table],
   );
 
   const handleChange = React.useCallback(
