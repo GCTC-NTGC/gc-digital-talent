@@ -18,8 +18,10 @@ import { IdNamePair } from "../types";
 import { enumToOptions, OTHER_ID } from "../../util";
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import {
+  contractAuthoritySortOrder,
   getContractAuthorities,
   getYesNoUnsure,
+  yesNoUnsureSortOrder,
 } from "../../localizedConstants";
 
 type GeneralInformationSectionProps = {
@@ -276,13 +278,10 @@ const GeneralInformationSection = ({
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(ContractAuthority, [
-            ContractAuthority.Hr,
-            ContractAuthority.Procurement,
-            ContractAuthority.Finance,
-            ContractAuthority.LabourRelations,
-            ContractAuthority.Other,
-          ]).map((option) => {
+          items={enumToOptions(
+            ContractAuthority,
+            contractAuthoritySortOrder,
+          ).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(getContractAuthorities(option.value)),
@@ -314,16 +313,14 @@ const GeneralInformationSection = ({
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(YesNoUnsure, [
-            YesNoUnsure.Yes,
-            YesNoUnsure.No,
-            YesNoUnsure.IDontKnow,
-          ]).map((option) => {
-            return {
-              value: option.value as string,
-              label: intl.formatMessage(getYesNoUnsure(option.value)),
-            };
-          })}
+          items={enumToOptions(YesNoUnsure, yesNoUnsureSortOrder).map(
+            (option) => {
+              return {
+                value: option.value as string,
+                label: intl.formatMessage(getYesNoUnsure(option.value)),
+              };
+            },
+          )}
         />
         <RadioGroup
           legend={intl.formatMessage({
@@ -339,16 +336,14 @@ const GeneralInformationSection = ({
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(YesNoUnsure, [
-            YesNoUnsure.Yes,
-            YesNoUnsure.No,
-            YesNoUnsure.IDontKnow,
-          ]).map((option) => {
-            return {
-              value: option.value as string,
-              label: intl.formatMessage(getYesNoUnsure(option.value)),
-            };
-          })}
+          items={enumToOptions(YesNoUnsure, yesNoUnsureSortOrder).map(
+            (option) => {
+              return {
+                value: option.value as string,
+                label: intl.formatMessage(getYesNoUnsure(option.value)),
+              };
+            },
+          )}
         />
         <RadioGroup
           legend={intl.formatMessage({
@@ -364,16 +359,14 @@ const GeneralInformationSection = ({
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(YesNoUnsure, [
-            YesNoUnsure.Yes,
-            YesNoUnsure.No,
-            YesNoUnsure.IDontKnow,
-          ]).map((option) => {
-            return {
-              value: option.value as string,
-              label: intl.formatMessage(getYesNoUnsure(option.value)),
-            };
-          })}
+          items={enumToOptions(YesNoUnsure, yesNoUnsureSortOrder).map(
+            (option) => {
+              return {
+                value: option.value as string,
+                label: intl.formatMessage(getYesNoUnsure(option.value)),
+              };
+            },
+          )}
         />
         {isContractForSpecificInitiative ? (
           <>
@@ -405,16 +398,14 @@ const GeneralInformationSection = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              items={enumToOptions(YesNoUnsure, [
-                YesNoUnsure.Yes,
-                YesNoUnsure.No,
-                YesNoUnsure.IDontKnow,
-              ]).map((option) => {
-                return {
-                  value: option.value as string,
-                  label: intl.formatMessage(getYesNoUnsure(option.value)),
-                };
-              })}
+              items={enumToOptions(YesNoUnsure, yesNoUnsureSortOrder).map(
+                (option) => {
+                  return {
+                    value: option.value as string,
+                    label: intl.formatMessage(getYesNoUnsure(option.value)),
+                  };
+                },
+              )}
             />
             {isPlanSubmitted ? (
               <RadioGroup
@@ -431,16 +422,14 @@ const GeneralInformationSection = ({
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
-                items={enumToOptions(YesNoUnsure, [
-                  YesNoUnsure.Yes,
-                  YesNoUnsure.No,
-                  YesNoUnsure.IDontKnow,
-                ]).map((option) => {
-                  return {
-                    value: option.value as string,
-                    label: intl.formatMessage(getYesNoUnsure(option.value)),
-                  };
-                })}
+                items={enumToOptions(YesNoUnsure, yesNoUnsureSortOrder).map(
+                  (option) => {
+                    return {
+                      value: option.value as string,
+                      label: intl.formatMessage(getYesNoUnsure(option.value)),
+                    };
+                  },
+                )}
               />
             ) : null}
             <RadioGroup
@@ -457,16 +446,14 @@ const GeneralInformationSection = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              items={enumToOptions(YesNoUnsure, [
-                YesNoUnsure.Yes,
-                YesNoUnsure.No,
-                YesNoUnsure.IDontKnow,
-              ]).map((option) => {
-                return {
-                  value: option.value as string,
-                  label: intl.formatMessage(getYesNoUnsure(option.value)),
-                };
-              })}
+              items={enumToOptions(YesNoUnsure, yesNoUnsureSortOrder).map(
+                (option) => {
+                  return {
+                    value: option.value as string,
+                    label: intl.formatMessage(getYesNoUnsure(option.value)),
+                  };
+                },
+              )}
             />
           </>
         ) : null}

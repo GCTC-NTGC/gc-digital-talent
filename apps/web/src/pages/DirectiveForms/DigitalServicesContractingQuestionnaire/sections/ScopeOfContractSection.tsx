@@ -19,7 +19,13 @@ import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import { enumToOptions } from "../../util";
 import {
+  contractInstrumentSortOrder,
+  contractSolicitationProcedureSortOrder,
+  contractStartTimeframeSortOrder,
+  contractSupplyMethodSortOrder,
+  contractValueRangeSortOrder,
   getContractCommodity,
+  getContractCommoditySortOrder,
   getContractInstrument,
   getContractSolicitationProcedure,
   getContractStartTimeframe,
@@ -27,6 +33,8 @@ import {
   getContractValueRange,
   getYesNo,
   getYesNoUnsure,
+  yesNoSortOrder,
+  yesNoUnsureSortOrder,
 } from "../../localizedConstants";
 
 const ScopeOfContractSection = () => {
@@ -126,7 +134,7 @@ const ScopeOfContractSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(YesNo, [YesNo.Yes, YesNo.No]).map((option) => {
+          items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(getYesNo(option.value)),
@@ -147,7 +155,7 @@ const ScopeOfContractSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(YesNo, [YesNo.Yes, YesNo.No]).map((option) => {
+          items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(getYesNo(option.value)),
@@ -167,7 +175,7 @@ const ScopeOfContractSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(YesNo, [YesNo.Yes, YesNo.No]).map((option) => {
+          items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(getYesNo(option.value)),
@@ -187,18 +195,10 @@ const ScopeOfContractSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(ContractValueRange, [
-            ContractValueRange.From_0To_10K,
-            ContractValueRange.From_10KTo_25K,
-            ContractValueRange.From_25KTo_50K,
-            ContractValueRange.From_50KTo_1M,
-            ContractValueRange.From_1MTo_2500K,
-            ContractValueRange.From_2500KTo_5M,
-            ContractValueRange.From_5MTo_10M,
-            ContractValueRange.From_10MTo_15M,
-            ContractValueRange.From_15MTo_25M,
-            ContractValueRange.GreaterThan_25M,
-          ]).map((option) => {
+          items={enumToOptions(
+            ContractValueRange,
+            contractValueRangeSortOrder,
+          ).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(getContractValueRange(option.value)),
@@ -218,14 +218,10 @@ const ScopeOfContractSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(ContractStartTimeframe, [
-            ContractStartTimeframe.From_0To_3M,
-            ContractStartTimeframe.From_3MTo_6M,
-            ContractStartTimeframe.From_6MTo_1Y,
-            ContractStartTimeframe.From_1YTo_2Y,
-            ContractStartTimeframe.Unknown,
-            ContractStartTimeframe.Variable,
-          ]).map((option) => {
+          items={enumToOptions(
+            ContractStartTimeframe,
+            contractStartTimeframeSortOrder,
+          ).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(
@@ -247,11 +243,10 @@ const ScopeOfContractSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(ContractCommodity, [
-            ContractCommodity.TelecomServices,
-            ContractCommodity.SupportServices,
-            ContractCommodity.Other,
-          ]).map((option) => {
+          items={enumToOptions(
+            ContractCommodity,
+            getContractCommoditySortOrder,
+          ).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(getContractCommodity(option.value)),
@@ -282,12 +277,10 @@ const ScopeOfContractSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(ContractInstrument, [
-            ContractInstrument.SupplyArrangement,
-            ContractInstrument.StandingOffer,
-            ContractInstrument.Contract,
-            ContractInstrument.Amendment,
-          ]).map((option) => {
+          items={enumToOptions(
+            ContractInstrument,
+            contractInstrumentSortOrder,
+          ).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(getContractInstrument(option.value)),
@@ -307,13 +300,10 @@ const ScopeOfContractSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(ContractSupplyMethod, [
-            ContractSupplyMethod.NotApplicable,
-            ContractSupplyMethod.SolutionsBasedInformaticsProfessionalServices,
-            ContractSupplyMethod.TaskBasedInformaticsProfessionalServices,
-            ContractSupplyMethod.TemporaryHelp,
-            ContractSupplyMethod.Other,
-          ]).map((option) => {
+          items={enumToOptions(
+            ContractSupplyMethod,
+            contractSupplyMethodSortOrder,
+          ).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(getContractSupplyMethod(option.value)),
@@ -344,11 +334,10 @@ const ScopeOfContractSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(ContractSolicitationProcedure, [
-            ContractSolicitationProcedure.AdvanceContractAwardNotice,
-            ContractSolicitationProcedure.Competitive,
-            ContractSolicitationProcedure.NonCompetitive,
-          ]).map((option) => {
+          items={enumToOptions(
+            ContractSolicitationProcedure,
+            contractSolicitationProcedureSortOrder,
+          ).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(
@@ -370,16 +359,14 @@ const ScopeOfContractSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(YesNoUnsure, [
-            YesNoUnsure.Yes,
-            YesNoUnsure.No,
-            YesNoUnsure.IDontKnow,
-          ]).map((option) => {
-            return {
-              value: option.value as string,
-              label: intl.formatMessage(getYesNoUnsure(option.value)),
-            };
-          })}
+          items={enumToOptions(YesNoUnsure, yesNoUnsureSortOrder).map(
+            (option) => {
+              return {
+                value: option.value as string,
+                label: intl.formatMessage(getYesNoUnsure(option.value)),
+              };
+            },
+          )}
         />
       </div>
     </TableOfContents.Section>

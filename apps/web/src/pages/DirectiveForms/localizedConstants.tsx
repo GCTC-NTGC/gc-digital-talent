@@ -46,6 +46,12 @@ export const getYesNoUnsure = (
     `Invalid yesNoUnsure '${enumKey}'`,
   );
 
+export const yesNoUnsureSortOrder = [
+  YesNoUnsure.Yes,
+  YesNoUnsure.No,
+  YesNoUnsure.IDontKnow,
+];
+
 const yesNoValues = defineMessages({
   [YesNo.Yes]: {
     defaultMessage: "Yes",
@@ -58,6 +64,8 @@ const yesNoValues = defineMessages({
     description: "The negative option to answer a question",
   },
 });
+
+export const yesNoSortOrder = [YesNo.Yes, YesNo.No];
 
 export const getYesNo = (
   enumKey: keyof typeof yesNoValues,
@@ -100,6 +108,14 @@ export const getContractAuthorities = (
     enumKey,
     `Invalid contract authority '${enumKey}'`,
   );
+
+export const contractAuthoritySortOrder = [
+  ContractAuthority.Hr,
+  ContractAuthority.Procurement,
+  ContractAuthority.Finance,
+  ContractAuthority.LabourRelations,
+  ContractAuthority.Other,
+];
 
 const contractValueRanges = defineMessages({
   [ContractValueRange.From_0To_10K]: {
@@ -168,6 +184,19 @@ export const getContractValueRange = (
     `Invalid contract value range '${enumKey}'`,
   );
 
+export const contractValueRangeSortOrder = [
+  ContractValueRange.From_0To_10K,
+  ContractValueRange.From_10KTo_25K,
+  ContractValueRange.From_25KTo_50K,
+  ContractValueRange.From_50KTo_1M,
+  ContractValueRange.From_1MTo_2500K,
+  ContractValueRange.From_2500KTo_5M,
+  ContractValueRange.From_5MTo_10M,
+  ContractValueRange.From_10MTo_15M,
+  ContractValueRange.From_15MTo_25M,
+  ContractValueRange.GreaterThan_25M,
+];
+
 const contractStartTimeframes = defineMessages({
   [ContractStartTimeframe.From_0To_3M]: {
     defaultMessage: "0 to 3 months",
@@ -210,6 +239,15 @@ export const getContractStartTimeframe = (
     `Invalid contract start timeframe '${enumKey}'`,
   );
 
+export const contractStartTimeframeSortOrder = [
+  ContractStartTimeframe.From_0To_3M,
+  ContractStartTimeframe.From_3MTo_6M,
+  ContractStartTimeframe.From_6MTo_1Y,
+  ContractStartTimeframe.From_1YTo_2Y,
+  ContractStartTimeframe.Unknown,
+  ContractStartTimeframe.Variable,
+];
+
 const contractCommodities = defineMessages({
   [ContractCommodity.TelecomServices]: {
     defaultMessage: "Information processing and related telecom services",
@@ -233,6 +271,12 @@ export const getContractCommodity = (
     enumKey,
     `Invalid contract commodity '${enumKey}'`,
   );
+
+export const getContractCommoditySortOrder = [
+  ContractCommodity.TelecomServices,
+  ContractCommodity.SupportServices,
+  ContractCommodity.Other,
+];
 
 const contractInstruments = defineMessages({
   [ContractInstrument.SupplyArrangement]: {
@@ -265,6 +309,13 @@ export const getContractInstrument = (
     enumKey,
     `Invalid contract instrument '${enumKey}'`,
   );
+
+export const contractInstrumentSortOrder = [
+  ContractInstrument.SupplyArrangement,
+  ContractInstrument.StandingOffer,
+  ContractInstrument.Contract,
+  ContractInstrument.Amendment,
+];
 
 const contractSupplyMethods = defineMessages({
   [ContractSupplyMethod.NotApplicable]: {
@@ -301,6 +352,14 @@ export const getContractSupplyMethod = (
     `Invalid contract supply method '${enumKey}'`,
   );
 
+export const contractSupplyMethodSortOrder = [
+  ContractSupplyMethod.NotApplicable,
+  ContractSupplyMethod.SolutionsBasedInformaticsProfessionalServices,
+  ContractSupplyMethod.TaskBasedInformaticsProfessionalServices,
+  ContractSupplyMethod.TemporaryHelp,
+  ContractSupplyMethod.Other,
+];
+
 const contractSolicitationProcedures = defineMessages({
   [ContractSolicitationProcedure.AdvanceContractAwardNotice]: {
     defaultMessage: "Advance contract award notice",
@@ -329,6 +388,12 @@ export const getContractSolicitationProcedure = (
     enumKey,
     `Invalid contract solicitation procedure '${enumKey}'`,
   );
+
+export const contractSolicitationProcedureSortOrder = [
+  ContractSolicitationProcedure.AdvanceContractAwardNotice,
+  ContractSolicitationProcedure.Competitive,
+  ContractSolicitationProcedure.NonCompetitive,
+];
 
 const personnelScreeningLevels = defineMessages({
   [PersonnelScreeningLevel.Reliability]: {
@@ -363,6 +428,14 @@ export const getPersonnelScreeningLevel = (
     `Invalid personnel screening level '${enumKey}'`,
   );
 
+export const personnelScreeningLevelSortOrder = [
+  PersonnelScreeningLevel.Reliability,
+  PersonnelScreeningLevel.EnhancedReliability,
+  PersonnelScreeningLevel.Secret,
+  PersonnelScreeningLevel.TopSecret,
+  PersonnelScreeningLevel.Other,
+];
+
 const personnelLanguages = defineMessages({
   [PersonnelLanguage.EnglishOnly]: {
     defaultMessage: "English only",
@@ -396,6 +469,14 @@ export const getPersonnelLanguage = (
     `Invalid personnel language '${enumKey}'`,
   );
 
+export const personnelLanguageSortOrder = [
+  PersonnelLanguage.EnglishOnly,
+  PersonnelLanguage.FrenchOnly,
+  PersonnelLanguage.BilingualIntermediate,
+  PersonnelLanguage.BilingualAdvanced,
+  PersonnelLanguage.Other,
+];
+
 const personnelWorkLocations = defineMessages({
   [PersonnelWorkLocation.GcPremises]: {
     defaultMessage: "GC premises",
@@ -422,6 +503,12 @@ export const getPersonnelWorkLocation = (
     enumKey,
     `Invalid personnel work location '${enumKey}'`,
   );
+
+export const personnelWorkLocationSortOrder = [
+  PersonnelWorkLocation.GcPremises,
+  PersonnelWorkLocation.OffsiteSpecific,
+  PersonnelWorkLocation.OffsiteAny,
+];
 
 const personnelOtherRequirements = defineMessages({
   [PersonnelOtherRequirement.ShiftWork]: {
@@ -456,6 +543,14 @@ export const getPersonnelOtherRequirement = (
     `Invalid personnel other requirement '${enumKey}'`,
   );
 
+export const personnelOtherRequirementSortOrder = [
+  PersonnelOtherRequirement.ShiftWork,
+  PersonnelOtherRequirement.OnCall_24_7,
+  PersonnelOtherRequirement.OvertimeShortNotice,
+  PersonnelOtherRequirement.AsNeeded,
+  PersonnelOtherRequirement.Other,
+];
+
 const personnelTeleworkOptions = defineMessages({
   [PersonnelTeleworkOption.FullTime]: {
     defaultMessage: "Yes, full-time",
@@ -482,3 +577,9 @@ export const getPersonnelTeleworkOption = (
     enumKey,
     `Invalid personnel telework option '${enumKey}'`,
   );
+
+export const personnelTeleworkOptionSortOrder = [
+  PersonnelTeleworkOption.FullTime,
+  PersonnelTeleworkOption.PartTime,
+  PersonnelTeleworkOption.No,
+];

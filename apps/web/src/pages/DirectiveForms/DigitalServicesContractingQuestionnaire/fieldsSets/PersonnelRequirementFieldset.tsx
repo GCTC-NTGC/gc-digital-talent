@@ -14,6 +14,9 @@ import {
   getPersonnelLanguage,
   getPersonnelScreeningLevel,
   getPersonnelTeleworkOption,
+  personnelLanguageSortOrder,
+  personnelScreeningLevelSortOrder,
+  personnelTeleworkOptionSortOrder,
 } from "../../localizedConstants";
 import { enumToOptions } from "../../util";
 
@@ -86,13 +89,10 @@ const PersonnelRequirementFieldset = ({
           required: intl.formatMessage(errorMessages.required),
         }}
         doNotSort
-        options={enumToOptions(PersonnelLanguage, [
-          PersonnelLanguage.EnglishOnly,
-          PersonnelLanguage.FrenchOnly,
-          PersonnelLanguage.BilingualIntermediate,
-          PersonnelLanguage.BilingualAdvanced,
-          PersonnelLanguage.Other,
-        ]).map((option) => {
+        options={enumToOptions(
+          PersonnelLanguage,
+          personnelLanguageSortOrder,
+        ).map((option) => {
           return {
             value: option.value as string,
             label: intl.formatMessage(getPersonnelLanguage(option.value)),
@@ -124,13 +124,10 @@ const PersonnelRequirementFieldset = ({
           required: intl.formatMessage(errorMessages.required),
         }}
         doNotSort
-        options={enumToOptions(PersonnelScreeningLevel, [
-          PersonnelScreeningLevel.Reliability,
-          PersonnelScreeningLevel.EnhancedReliability,
-          PersonnelScreeningLevel.Secret,
-          PersonnelScreeningLevel.TopSecret,
-          PersonnelScreeningLevel.Other,
-        ]).map((option) => {
+        options={enumToOptions(
+          PersonnelScreeningLevel,
+          personnelScreeningLevelSortOrder,
+        ).map((option) => {
           return {
             value: option.value as string,
             label: intl.formatMessage(getPersonnelScreeningLevel(option.value)),
@@ -162,11 +159,10 @@ const PersonnelRequirementFieldset = ({
           required: intl.formatMessage(errorMessages.required),
         }}
         doNotSort
-        options={enumToOptions(PersonnelTeleworkOption, [
-          PersonnelTeleworkOption.FullTime,
-          PersonnelTeleworkOption.PartTime,
-          PersonnelTeleworkOption.No,
-        ]).map((option) => {
+        options={enumToOptions(
+          PersonnelTeleworkOption,
+          personnelTeleworkOptionSortOrder,
+        ).map((option) => {
           return {
             value: option.value as string,
             label: intl.formatMessage(getPersonnelTeleworkOption(option.value)),

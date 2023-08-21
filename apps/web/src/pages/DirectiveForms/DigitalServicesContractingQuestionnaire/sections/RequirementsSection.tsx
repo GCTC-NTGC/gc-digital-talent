@@ -26,6 +26,11 @@ import {
   getPersonnelScreeningLevel,
   getPersonnelWorkLocation,
   getYesNo,
+  personnelLanguageSortOrder,
+  personnelOtherRequirementSortOrder,
+  personnelScreeningLevelSortOrder,
+  personnelWorkLocationSortOrder,
+  yesNoSortOrder,
 } from "../../localizedConstants";
 import PersonnelRequirementsSection from "./PersonnelRequirementsSection";
 
@@ -163,7 +168,7 @@ const RequirementsSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(YesNo, [YesNo.Yes, YesNo.No]).map((option) => {
+          items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(getYesNo(option.value)),
@@ -184,13 +189,10 @@ const RequirementsSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(PersonnelScreeningLevel, [
-            PersonnelScreeningLevel.Reliability,
-            PersonnelScreeningLevel.EnhancedReliability,
-            PersonnelScreeningLevel.Secret,
-            PersonnelScreeningLevel.TopSecret,
-            PersonnelScreeningLevel.Other,
-          ]).map((option) => {
+          items={enumToOptions(
+            PersonnelScreeningLevel,
+            personnelScreeningLevelSortOrder,
+          ).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(
@@ -223,13 +225,10 @@ const RequirementsSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(PersonnelLanguage, [
-            PersonnelLanguage.EnglishOnly,
-            PersonnelLanguage.FrenchOnly,
-            PersonnelLanguage.BilingualIntermediate,
-            PersonnelLanguage.BilingualAdvanced,
-            PersonnelLanguage.Other,
-          ]).map((option) => {
+          items={enumToOptions(
+            PersonnelLanguage,
+            personnelLanguageSortOrder,
+          ).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(getPersonnelLanguage(option.value)),
@@ -260,11 +259,10 @@ const RequirementsSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(PersonnelWorkLocation, [
-            PersonnelWorkLocation.GcPremises,
-            PersonnelWorkLocation.OffsiteSpecific,
-            PersonnelWorkLocation.OffsiteAny,
-          ]).map((option) => {
+          items={enumToOptions(
+            PersonnelWorkLocation,
+            personnelWorkLocationSortOrder,
+          ).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(getPersonnelWorkLocation(option.value)),
@@ -306,13 +304,10 @@ const RequirementsSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(PersonnelOtherRequirement, [
-            PersonnelOtherRequirement.ShiftWork,
-            PersonnelOtherRequirement.OnCall_24_7,
-            PersonnelOtherRequirement.OvertimeShortNotice,
-            PersonnelOtherRequirement.AsNeeded,
-            PersonnelOtherRequirement.Other,
-          ]).map((option) => {
+          items={enumToOptions(
+            PersonnelOtherRequirement,
+            personnelOtherRequirementSortOrder,
+          ).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(
@@ -346,7 +341,7 @@ const RequirementsSection = () => {
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(YesNo, [YesNo.Yes, YesNo.No]).map((option) => {
+          items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
             return {
               value: option.value as string,
               label: intl.formatMessage(getYesNo(option.value)),
