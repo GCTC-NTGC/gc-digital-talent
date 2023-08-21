@@ -8,6 +8,7 @@ use App\Models\UserSkill;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Illuminate\Support\Facades\DB;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -85,6 +86,32 @@ class UserSkillTest extends TestCase
         }
     ';
 
+    protected $updateUserSkillRankings =
+    /** @lang GraphQL */
+    '
+        mutation updateUserSkillRankings($userId: ID!, $userSkillRanking: UpdateUserSkillRankingsInput!){
+            updateUserSkillRankings(userId :$userId, userSkillRanking:$userSkillRanking) {
+                id
+                topTechnicalSkillsRanking {
+                    id
+                    topSkillsRank
+                }
+                topBehaviouralSkillsRanking {
+                    id
+                    topSkillsRank
+                }
+                improveTechnicalSkillsRanking {
+                    id
+                    improveSkillsRank
+                }
+                improveBehaviouralSkillsRanking {
+                    id
+                    improveSkillsRank
+                }
+            }
+        }
+    ';
+
     public function testExperienceRelationshipSkipsSoftDeletedPivots(): void
     {
         Skill::factory()->count(3)->create();
@@ -138,6 +165,21 @@ class UserSkillTest extends TestCase
                 $this->deleteUserSkill,
                 [
                     'id' => $userSkillModel->id,
+                ]
+            )
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->actingAs($this->differentUser, 'api')
+            ->graphQL(
+                $this->updateUserSkillRankings,
+                [
+                    'userId' => $this->user->id,
+                    'userSkillRanking' => [
+                        'topTechnicalSkillsRanked' => [],
+                        'topBehaviouralSkillsRanked' => [],
+                        'improveTechnicalSkillsRanked' => [],
+                        'improveBehaviouralSkillsRanked' => [],
+                    ]
                 ]
             )
             ->assertGraphQLErrorMessage('This action is unauthorized.');
@@ -363,4 +405,129 @@ class UserSkillTest extends TestCase
         assertNull($userSkillModel->deleted_at);
         assertNotNull($experienceSkillModel->deleted_at);
     }
+
+    public function testUserSkillRankingChangesNullEmptyInput(): void
+    {
+        // $skill1 = Skill::factory()->create(//category technical)
+        // $skill2 = Skill::factory()->create(//category technical)
+        $userSkillTechnicalTop = UserSkill::factory()->create([
+            'user_id' => $this->user->id,
+            'top_skills_rank' => 1,
+        ]);
+        $userSkillTechnicalImprove = UserSkill::factory()->create([
+            'user_id' => $this->user->id,
+            'improve_skills_rank' => 1,
+        ]);
+
+        // assert a null input value changes nothing, while an empty array functions like a clear
+        $this->actingAs($this->user, 'api')
+            ->graphQL(
+                $this->updateUserSkillRankings,
+                [
+                    'userId' => $this->user->id,
+                    'userSkillRanking' => [
+                        'topTechnicalSkillsRanked' => [],
+                        'improveTechnicalSkillsRanked' => null,
+                    ]
+                ]
+            )
+            ->assertJsonFragment([
+                'topTechnicalSkillsRanking' => [],
+                'improveTechnicalSkillsRanking' => [
+                    [
+                        'id' => $userSkillTechnicalImprove->id,
+                        'improveSkillsRank' => $userSkillTechnicalImprove->improve_skills_rank,
+                    ]
+                ]
+            ]);
+    }
+
+    public function testUserSkillTopTechnicalSkillsRanking(): void
+    {
+        // ADD TECHNICAL SKILLS CATEGORY
+        $userSkillTechnicalTop1 = UserSkill::factory()->create([
+            'user_id' => $this->user->id,
+            'top_skills_rank' => 1,
+        ]);
+        $userSkillTechnicalTop2 = UserSkill::factory()->create([
+            'user_id' => $this->user->id,
+            'top_skills_rank' => 5,
+        ]);
+        $userSkillTechnicalTop3 = UserSkill::factory()->create([
+            'user_id' => $this->user->id,
+            'top_skills_rank' => 2,
+        ]);
+        $userSkillTechnicalTop4 = UserSkill::factory()->create([
+            'user_id' => $this->user->id,
+            'top_skills_rank' => 4,
+        ]);
+
+        // pass in new order of skill 2 then 1 then 4
+        $this->actingAs($this->user, 'api')
+            ->graphQL(
+                $this->updateUserSkillRankings,
+                [
+                    'userId' => $this->user->id,
+                    'userSkillRanking' => [
+                        'topTechnicalSkillsRanked' => [$userSkillTechnicalTop2->id, $userSkillTechnicalTop1->id, $userSkillTechnicalTop4->id],
+                    ]
+                ]
+            );
+
+        // assert topTechnicalSkillsRanking is an array of three, sorted with skill 2 then 1 then 4, checks numbers too
+        $response = $this->actingAs($this->user, "api")
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+            query user($id: UUID!) {
+                user(id: $id) {
+                    id
+                    topTechnicalSkillsRanking {
+                        id
+                        topSkillsRank
+                    }
+                }
+            }
+            ',
+                [
+                    'id' => $this->user->id,
+                ]
+            )->assertJson(
+                fn (AssertableJson $json) =>
+                $json->has('data.user.topTechnicalSkillsRanking', 3)
+                    ->has(
+                        'data.user.topTechnicalSkillsRanking.0',
+                        fn (AssertableJson $json) =>
+                        $json->where('id', $userSkillTechnicalTop2->id)
+                            ->where('topSkillsRank', 1)
+                    )
+                    ->has(
+                        'data.user.topTechnicalSkillsRanking.1',
+                        fn (AssertableJson $json) =>
+                        $json->where('id', $userSkillTechnicalTop1->id)
+                            ->where('topSkillsRank', 2)
+                    )
+                    ->has(
+                        'data.user.topTechnicalSkillsRanking.2',
+                        fn (AssertableJson $json) =>
+                        $json->where('id', $userSkillTechnicalTop4->id)
+                            ->where('topSkillsRank', 3)
+                    )
+            );
+    }
+
+    // public function testUserSkillTopBehaviouralSkillsRanking(): void
+    // {
+    //     //
+    // }
+
+    // public function testUserSkillImproveTechnicalSkillsRanking(): void
+    // {
+    //     //
+    // }
+
+    // public function testUserSkillImproveBehaviouralSkillsRanking(): void
+    // {
+    //     //
+    // }
 }
