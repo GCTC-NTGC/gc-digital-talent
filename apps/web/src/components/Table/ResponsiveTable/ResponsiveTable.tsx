@@ -231,6 +231,12 @@ const ResponsiveTable = <TData extends object>({
     pagination?.initialState?.pageIndex,
   ]);
 
+  React.useEffect(() => {
+    if (sort?.onSortChange) {
+      sort.onSortChange(sortingState);
+    }
+  }, [sortingState, sort?.onSortChange, sort]);
+
   const hasNoData = !isLoading && (!data || data.length === 0);
   const captionId = `${id}-caption`;
   const hidableColumns = table

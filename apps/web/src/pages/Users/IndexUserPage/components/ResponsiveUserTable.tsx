@@ -5,6 +5,7 @@ import {
   PaginationState,
   createColumnHelper,
   ColumnDef,
+  SortingState,
 } from "@tanstack/react-table";
 
 import {
@@ -16,11 +17,13 @@ import {
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Button } from "@gc-digital-talent/ui";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import ResponsiveTable from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
 import { FromArray } from "~/types/utility";
 import { getFullNameHtml } from "~/utils/nameUtils";
+import { sortingStateToOrderByClause } from "~/components/Table/ResponsiveTable/utils";
 
 type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
@@ -42,19 +45,38 @@ const getFilterInput = ({
 
 const columnHelper = createColumnHelper<User>();
 
-const ResponsiveUserTable = ({ title }: { title: string }) => {
-  const intl = useIntl();
-  const [search, setSearch] = React.useState<SearchState>({});
-  const [pagination, setPagination] = React.useState<PaginationState>({
+const DEFAULT_STATE = {
+  search: {},
+  pagination: {
     pageIndex: 1,
     pageSize: 10,
-  });
+  },
+  sort: [
+    {
+      id: "created_at",
+      desc: true,
+    },
+  ],
+};
+
+const sortColumnMap = new Map([["name", "first_name"]]);
+
+const ResponsiveUserTable = ({ title }: { title: string }) => {
+  const intl = useIntl();
+  const [search, setSearch] = React.useState<SearchState>(DEFAULT_STATE.search);
+  const [pagination, setPagination] = React.useState<PaginationState>(
+    DEFAULT_STATE.pagination,
+  );
+  const [sortRule, setSortRule] = React.useState<SortingState>(
+    DEFAULT_STATE.sort,
+  );
 
   const [{ data, fetching }] = useAllUsersPaginatedQuery({
     variables: {
       where: getFilterInput(search),
       page: pagination.pageIndex,
       first: pagination.pageSize,
+      orderBy: sortingStateToOrderByClause(sortRule, sortColumnMap),
     },
   });
 
@@ -96,6 +118,24 @@ const ResponsiveUserTable = ({ title }: { title: string }) => {
         description: "Title displayed for the User table Telephone column.",
       }),
     }),
+    columnHelper.accessor(
+      (user) =>
+        user.createdDate
+          ? formatDate({
+              date: parseDateTimeUtc(user.createdDate),
+              formatString: "PPP p",
+              intl,
+            })
+          : null,
+      {
+        id: "created_at",
+        header: intl.formatMessage({
+          defaultMessage: "Created",
+          id: "+pgXHm",
+          description: "Title displayed for the User table Date Created column",
+        }),
+      },
+    ),
   ] as ColumnDef<User>[];
 
   return (
@@ -103,7 +143,7 @@ const ResponsiveUserTable = ({ title }: { title: string }) => {
       caption={title}
       data={filteredData}
       columns={columns}
-      hiddenColumnIds={[]}
+      hiddenColumnIds={["telephone"]}
       isLoading={fetching}
       filterComponent={
         <Button icon={FunnelIcon} block>
@@ -119,15 +159,17 @@ const ResponsiveUserTable = ({ title }: { title: string }) => {
         internal: false,
         onChange: setSearch,
       }}
+      sort={{
+        internal: false,
+        initialState: DEFAULT_STATE.sort,
+        onSortChange: setSortRule,
+      }}
       pagination={{
         internal: false,
         onPaginationChange: setPagination,
         pageSizes: [10, 20, 50, 100],
         total: pages,
-        initialState: {
-          pageIndex: 0,
-          pageSize: 10,
-        },
+        initialState: DEFAULT_STATE.pagination,
       }}
     />
   );

@@ -3,7 +3,14 @@ import {
   ColumnFiltersState,
   Column,
   ColumnMeta,
+  SortingState,
 } from "@tanstack/react-table";
+
+import {
+  InputMaybe,
+  OrderByClause,
+  SortOrder,
+} from "@gc-digital-talent/graphql";
 
 import { SearchState } from "./types";
 
@@ -51,4 +58,20 @@ export const getColumnHeader = <T>(
   }
 
   return header;
+};
+
+/**
+ * Convert the table sorting state to a
+ * graphql OrderBy clause
+ */
+export const sortingStateToOrderByClause = (
+  sortingState: SortingState,
+  columnMap?: Map<string, string>,
+): InputMaybe<OrderByClause | OrderByClause[]> => {
+  if (!sortingState) return undefined;
+
+  return sortingState.map((rule) => ({
+    column: columnMap?.get(rule.id) ?? rule.id,
+    order: rule.desc ? SortOrder.Desc : SortOrder.Asc,
+  }));
 };
