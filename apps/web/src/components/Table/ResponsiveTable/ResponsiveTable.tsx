@@ -149,11 +149,13 @@ const ResponsiveTable = <TData extends object>({
       value: column.id,
     }));
 
-  const sortingState = table.getState().sorting;
-  const columnFilterState = table.getState().columnFilters;
-  const globalFilterState = table.getState().globalFilter;
-  const columnVisibilityState = table.getState().columnVisibility;
-  const paginationState = table.getState().pagination;
+  const {
+    sorting: sortingState,
+    columnFilters: columnFilterState,
+    globalFilter: globalFilterState,
+    columnVisibility: columnVisibilityState,
+    pagination: paginationState,
+  } = table.getState();
 
   React.useEffect(() => {
     let searchState: SearchState = {
