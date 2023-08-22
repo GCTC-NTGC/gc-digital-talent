@@ -467,7 +467,7 @@ function Table<T extends Record<string, unknown>>({
                     totalCount={rows.length}
                     totalPages={pageCount}
                     color="white"
-                    activeColor="quaternary"
+                    activeColor="secondary"
                     ariaLabel={intl.formatMessage({
                       defaultMessage: "Table results",
                       id: "hlcd+5",

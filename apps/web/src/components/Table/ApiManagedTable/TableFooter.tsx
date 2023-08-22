@@ -128,7 +128,7 @@ function TableFooter({
               totalCount={paginatorInfo.total}
               totalPages={paginatorInfo.total / paginatorInfo.perPage}
               color="white"
-              activeColor="quaternary"
+              activeColor="secondary"
               ariaLabel={intl.formatMessage({
                 defaultMessage: "Table results",
                 id: "hlcd+5",
