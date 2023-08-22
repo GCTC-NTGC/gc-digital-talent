@@ -114,6 +114,9 @@ const ResponsiveUserTable = ({ title }: { title: string }) => {
           description:
             "Title displayed on the User table Candidate Name column.",
         }),
+        meta: {
+          isRowTitle: true,
+        },
       },
     ),
     columnHelper.accessor("email", {
