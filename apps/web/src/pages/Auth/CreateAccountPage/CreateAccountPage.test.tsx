@@ -3,7 +3,8 @@
  */
 import "@testing-library/jest-dom";
 import React from "react";
-import { act, fireEvent, screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import {
   fakeClassifications,
@@ -31,6 +32,8 @@ const renderCreateAccountForm = ({
   );
 
 describe("Create Account Form tests", () => {
+  const user = userEvent.setup();
+
   it("should have no accessibility errors", async () => {
     const { container } = renderCreateAccountForm({
       departments: mockDepartments,
@@ -86,33 +89,30 @@ describe("Create Account Form tests", () => {
     ).not.toBeInTheDocument();
 
     // Open second round of form elements
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("radio", {
-          name: /i am a government of canada employee/i,
-        }),
-      );
-    });
+    await user.click(
+      screen.getByRole("radio", {
+        name: /i am a government of canada employee/i,
+      }),
+    );
 
     expect(
-      await screen.getByRole("radio", {
+      screen.getByRole("radio", {
         name: /i am a student/i,
       }),
     ).toBeInTheDocument();
+
     expect(
-      await screen.getByRole("option", {
+      screen.getByRole("option", {
         name: /select a department/i,
       }),
     ).toBeInTheDocument();
 
     // Open the last round of form elements
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("radio", {
-          name: /i have a term position/i,
-        }),
-      );
-    });
+    await user.click(
+      screen.getByRole("radio", {
+        name: /i have a term position/i,
+      }),
+    );
 
     expect(
       screen.getByRole("combobox", {
@@ -120,13 +120,12 @@ describe("Create Account Form tests", () => {
       }),
     ).toBeInTheDocument();
 
-    const group = screen.getByRole("combobox", {
-      name: /current classification group/i,
-    }) as HTMLSelectElement;
-    const options = Array.from(
-      group.querySelectorAll("option"),
-    ) as HTMLOptionElement[];
-    fireEvent.change(group, { target: { value: options[1].value } }); // Set to second value after null selection.
+    await user.selectOptions(
+      screen.getByRole("combobox", {
+        name: /current classification group/i,
+      }),
+      "IT",
+    );
 
     expect(
       screen.getByRole("combobox", {
@@ -135,16 +134,14 @@ describe("Create Account Form tests", () => {
     ).toBeInTheDocument();
 
     // open priority number
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("radio", {
-          name: /i have a priority entitlement/i,
-        }),
-      );
-    });
+    await user.click(
+      screen.getByRole("radio", {
+        name: /i have a priority entitlement/i,
+      }),
+    );
 
     expect(
-      screen.queryByRole("textbox", {
+      screen.getByRole("textbox", {
         name: /priority number/i,
       }),
     ).toBeInTheDocument();
