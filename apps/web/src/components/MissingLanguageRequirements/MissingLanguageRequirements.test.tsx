@@ -1,8 +1,9 @@
 /**
  * @jest-environment jsdom
  */
-
+import "@testing-library/jest-dom";
 import React from "react";
+import { screen } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeUsers, fakePools } from "@gc-digital-talent/fake-data";
@@ -41,7 +42,7 @@ const bilingualAdvancedPool: Pool = {
   language: PoolLanguage.BilingualAdvanced,
 };
 
-const errorMessage = "There is a missing language requirement";
+const errorMessage = /there is a missing language requirement/i;
 
 // This should always make the component visible
 const defaultProps: MissingLanguageRequirementsProps = {
@@ -62,57 +63,60 @@ const renderMissingLanguageRequirements = (
 describe("MissingLanguageRequirements", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderMissingLanguageRequirements();
-
     await axeTest(container);
   });
 
   it("should show error message if a unilingual applicant applies to a bilingual intermediate pool", () => {
-    const element = renderMissingLanguageRequirements({
+    renderMissingLanguageRequirements({
       user: unilingualApplicant,
       pool: bilingualIntermediatePool,
     });
 
-    const heading = element.getByRole("heading");
-    expect(heading.textContent).toMatch(errorMessage);
+    expect(
+      screen.getByRole("heading", { name: errorMessage }),
+    ).toBeInTheDocument();
   });
 
   it("should show error message if a unilingual applicant applies to a bilingual advanced pool", () => {
-    const element = renderMissingLanguageRequirements({
+    renderMissingLanguageRequirements({
       user: unilingualApplicant,
       pool: bilingualAdvancedPool,
     });
 
-    const heading = element.getByRole("heading");
-    expect(heading.textContent).toMatch(errorMessage);
+    expect(
+      screen.getByRole("heading", { name: errorMessage }),
+    ).toBeInTheDocument();
   });
 
   it("should show nothing if a unilingual applicant applies to a unilingual pool", () => {
-    const element = renderMissingLanguageRequirements({
+    renderMissingLanguageRequirements({
       user: unilingualApplicant,
       pool: unilingualPool,
     });
 
-    const headings = element.queryByRole("heading");
-    expect(headings).toBeNull();
+    expect(
+      screen.queryByRole("heading", { name: errorMessage }),
+    ).not.toBeInTheDocument();
   });
 
   it("should show nothing if a bilingual applicant applies to a bilingual pool", () => {
-    const element = renderMissingLanguageRequirements({
+    renderMissingLanguageRequirements({
       user: bilingualApplicant,
       pool: bilingualAdvancedPool,
     });
 
-    const headings = element.queryByRole("heading");
+    const headings = screen.queryByRole("heading");
     expect(headings).toBeNull();
   });
 
   it("should show nothing if a bilingual applicant applies to a unilingual pool", () => {
-    const element = renderMissingLanguageRequirements({
+    renderMissingLanguageRequirements({
       user: bilingualApplicant,
       pool: unilingualPool,
     });
 
-    const headings = element.queryByRole("heading");
-    expect(headings).toBeNull();
+    expect(
+      screen.queryByRole("heading", { name: errorMessage }),
+    ).not.toBeInTheDocument();
   });
 });

@@ -9,6 +9,7 @@ import {
 
 import { AwardExperience } from "~/api/generated";
 import { formattedDate } from "~/utils/dateUtils";
+import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "./ContentSection";
 import { ContentProps } from "./types";
@@ -18,7 +19,7 @@ const AwardContent = ({
   headingLevel,
 }: ContentProps<AwardExperience>) => {
   const intl = useIntl();
-
+  const experienceFormLabels = getExperienceFormLabels(intl);
   return (
     <div
       data-h2-display="base(grid)"
@@ -29,11 +30,7 @@ const AwardContent = ({
         headingLevel={headingLevel}
         data-h2-padding-right="p-tablet(x1)"
         data-h2-border-right="p-tablet(1px solid gray.lighter)"
-        title={intl.formatMessage({
-          defaultMessage: "Date awarded",
-          id: "qrdJ13",
-          description: "Label for the date an award was given",
-        })}
+        title={experienceFormLabels.awardedDate}
       >
         <p>
           {awardedDate
@@ -42,11 +39,7 @@ const AwardContent = ({
         </p>
       </ContentSection>
       <ContentSection
-        title={intl.formatMessage({
-          defaultMessage: "Award recipient(s)",
-          id: "8lBXWU",
-          description: "Label for the person or group that received an award",
-        })}
+        title={experienceFormLabels.awardedTo}
         headingLevel={headingLevel}
         data-h2-padding="p-tablet(0 0 x1 0) l-tablet(0 x1)"
         data-h2-border-right="l-tablet(1px solid gray.lighter)"
@@ -56,11 +49,7 @@ const AwardContent = ({
         )}
       </ContentSection>
       <ContentSection
-        title={intl.formatMessage({
-          defaultMessage: "Issuing organization",
-          id: "NGEgVN",
-          description: "Label displayed on award form for organization section",
-        })}
+        title={experienceFormLabels.issuedBy}
         headingLevel={headingLevel}
         data-h2-padding="p-tablet(0 0 x1 0) l-tablet(0 x1)"
         data-h2-border-right="p-tablet(1px solid gray.lighter)"
@@ -68,11 +57,7 @@ const AwardContent = ({
         {issuedBy ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
       <ContentSection
-        title={intl.formatMessage({
-          defaultMessage: "Award scope",
-          id: "jhhCKX",
-          description: "Label displayed on award form for scope section",
-        })}
+        title={experienceFormLabels.awardedScope}
         headingLevel={headingLevel}
         data-h2-padding="p-tablet(0 0 x1 0)"
       >

@@ -6,35 +6,24 @@ import { Select } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import { experienceTypeTitles } from "~/pages/Applications/ApplicationCareerTimelineAddPage/messages";
+import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 const SelectExperience = () => {
   const intl = useIntl();
+  const experienceFormLabels = getExperienceFormLabels(intl);
 
   return (
     <section data-h2-margin="base(0, 0, x2, 0)">
       <Heading level="h3" size="h5" data-h2-margin-bottom="base(x.5)">
-        {intl.formatMessage({
-          defaultMessage: "Select a type of experience",
-          id: "n0lR5F",
-          description:
-            "Heading for the experience type section for the experience form",
-        })}
+        {experienceFormLabels.selectType}
       </Heading>
       <Select
-        label={intl.formatMessage({
-          defaultMessage: "Experience type",
-          id: "chnoRd",
-          description: "Label for the type of experience a user is creating",
-        })}
+        label={experienceFormLabels.type}
         name="experienceType"
         id="experienceType"
         doNotSort
         rules={{ required: intl.formatMessage(errorMessages.required) }}
-        nullSelection={intl.formatMessage({
-          defaultMessage: "Select a type",
-          id: "5PUycY",
-          description: "Default selection for the experience type field",
-        })}
+        nullSelection={experienceFormLabels.typeNullSelection}
         options={[
           {
             value: "work",

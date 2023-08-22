@@ -1,6 +1,10 @@
 /**
  * @jest-environment jsdom
  */
+// This component cannot be properly tested since it is not accessible
+/* eslint-disable testing-library/no-unnecessary-act */
+/* eslint-disable testing-library/render-result-naming-convention */
+/* eslint-disable testing-library/no-node-access */
 import React from "react";
 import "@testing-library/jest-dom";
 import {

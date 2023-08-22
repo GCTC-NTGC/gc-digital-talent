@@ -2,13 +2,7 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import {
-  screen,
-  fireEvent,
-  waitFor,
-  act,
-  within,
-} from "@testing-library/react";
+import { screen, fireEvent, waitFor, within } from "@testing-library/react";
 import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
@@ -42,52 +36,38 @@ const renderSelfDeclarationForm = () =>
 
 describe("SelfDeclarationForm", () => {
   it("should have no accessibility errors", async () => {
-    await act(async () => {
-      const { container } = renderSelfDeclarationForm();
-      await axeTest(container);
-    });
+    const { container } = renderSelfDeclarationForm();
+    await axeTest(container);
   });
 
   it("should not display communities if not Indigenous", async () => {
-    await act(async () => {
-      renderSelfDeclarationForm();
-    });
+    renderSelfDeclarationForm();
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("radio", { name: /i am not a member/i }),
-      );
-    });
+    fireEvent.click(screen.getByRole("radio", { name: /i am not a member/i }));
 
     expect(
-      await screen.queryByRole("checkbox", { name: /i am first nations/i }),
+      screen.queryByRole("checkbox", { name: /i am first nations/i }),
     ).not.toBeInTheDocument();
 
     expect(
-      await screen.queryByRole("checkbox", { name: /i am inuk/i }),
+      screen.queryByRole("checkbox", { name: /i am inuk/i }),
     ).not.toBeInTheDocument();
 
     expect(
-      await screen.queryByRole("checkbox", { name: /i am métis/i }),
+      screen.queryByRole("checkbox", { name: /i am métis/i }),
     ).not.toBeInTheDocument();
 
     expect(
-      await screen.queryByRole("checkbox", {
+      screen.queryByRole("checkbox", {
         name: /i don't see my community/i,
       }),
     ).not.toBeInTheDocument();
   });
 
   it("should display communities if Indigenous", async () => {
-    await act(async () => {
-      renderSelfDeclarationForm();
-    });
+    renderSelfDeclarationForm();
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("radio", { name: /i affirm that/i }),
-      );
-    });
+    fireEvent.click(screen.getByRole("radio", { name: /i affirm that/i }));
 
     expect(
       await screen.findByRole("checkbox", {
@@ -116,13 +96,9 @@ describe("SelfDeclarationForm", () => {
   });
 
   it("should display alert if community selected with other", async () => {
-    await act(async () => {
-      renderSelfDeclarationForm();
-    });
+    renderSelfDeclarationForm();
 
-    fireEvent.click(
-      await screen.getByRole("radio", { name: /i affirm that/i }),
-    );
+    fireEvent.click(screen.getByRole("radio", { name: /i affirm that/i }));
 
     fireEvent.click(
       await screen.findByRole("checkbox", {
@@ -145,13 +121,9 @@ describe("SelfDeclarationForm", () => {
 
   it("should submit with all required fields", async () => {
     mockCallback.mockReset();
-    await act(async () => {
-      renderSelfDeclarationForm();
-    });
+    renderSelfDeclarationForm();
 
-    fireEvent.click(
-      await screen.getByRole("radio", { name: /i affirm that/i }),
-    );
+    fireEvent.click(screen.getByRole("radio", { name: /i affirm that/i }));
 
     fireEvent.click(
       await screen.findByRole("checkbox", {

@@ -154,12 +154,15 @@ describe("Repeater", () => {
       },
     });
 
-    user.click(await screen.getByRole("button", { name: /add item/i }));
+    await user.click(screen.getByRole("button", { name: /add item/i }));
 
     await waitFor(async () => {
       expect(
-        await screen.getByRole("group", { name: /test repeater/i }),
+        screen.getByRole("group", { name: /test repeater/i }),
       ).toBeInTheDocument();
+    });
+
+    await waitFor(async () => {
       expect(addFn).toHaveBeenCalled();
     });
   });
@@ -183,16 +186,19 @@ describe("Repeater", () => {
 
     await waitFor(async () => {
       expect(
-        await screen.getAllByRole("group", { name: /test repeater/i }),
+        screen.getAllByRole("group", { name: /test repeater/i }),
       ).toHaveLength(2);
     });
 
-    user.click(await screen.getByRole("button", { name: /remove item 1/i }));
+    await user.click(screen.getByRole("button", { name: /remove item 1/i }));
 
     await waitFor(async () => {
       expect(
-        await screen.getAllByRole("group", { name: /test repeater/i }),
+        screen.getAllByRole("group", { name: /test repeater/i }),
       ).toHaveLength(1);
+    });
+
+    await waitFor(async () => {
       expect(removeFn).toHaveBeenCalledWith(0);
     });
   });
@@ -214,20 +220,20 @@ describe("Repeater", () => {
       },
     });
 
-    user.click(
-      await screen.getByRole("button", { name: /change order from 1 to 2/i }),
+    await user.click(
+      screen.getByRole("button", { name: /change order from 1 to 2/i }),
     );
 
-    await waitFor(async () => {
-      const items = await screen.getAllByRole("group", {
-        name: /test repeater/i,
-      });
-      expect(
-        await within(items[0]).getByRole("textbox", { name: "Value" }),
-      ).toHaveValue("Two");
-      expect(
-        await within(items[1]).getByRole("textbox", { name: "Value" }),
-      ).toHaveValue("One");
+    const items = screen.getAllByRole("group", {
+      name: /test repeater/i,
     });
+
+    expect(
+      within(items[0]).getByRole("textbox", { name: "Value" }),
+    ).toHaveValue("Two");
+
+    expect(
+      within(items[1]).getByRole("textbox", { name: "Value" }),
+    ).toHaveValue("One");
   });
 });
