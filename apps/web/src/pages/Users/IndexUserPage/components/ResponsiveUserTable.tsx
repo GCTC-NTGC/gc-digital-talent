@@ -165,6 +165,7 @@ const ResponsiveUserTable = ({ title }: { title: string }) => {
       variables: {
         ids: selectedApplicantIds,
       },
+      pause: !selectedApplicantIds.length,
     });
 
   const componentRef = React.useRef(null);
