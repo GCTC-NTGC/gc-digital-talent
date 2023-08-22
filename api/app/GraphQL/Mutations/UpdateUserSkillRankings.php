@@ -27,7 +27,7 @@ final class UpdateUserSkillRankings
                 ->each->update(['top_skills_rank' => null]);
 
             // PENDING
-            // $toWipe = $userSkillsCollection->where('skill.category', 'TECHNICAL')
+            // $userSkillsCollection->where('skill.category', 'TECHNICAL')
             //     ->each
             //     ->update(['top_skills_rank' => null]);
 
@@ -48,7 +48,7 @@ final class UpdateUserSkillRankings
                 ->each->update(['top_skills_rank' => null]);
 
             // PENDING
-            // $toWipe = $userSkillsCollection->where('skill.category', 'BEHAVIOURAL')
+            // $userSkillsCollection->where('skill.category', 'BEHAVIOURAL')
             //     ->each
             //     ->update(['top_skills_rank' => null]);
 
@@ -62,13 +62,13 @@ final class UpdateUserSkillRankings
 
         if (isset($userSkillRankingInput["improveTechnicalSkillsRanked"])) {
 
-            // wipe existing technical improve skills
+            // wipe existing technical improve skills ranking
             $arrayUserSkillId = $userSkillRankingInput["improveTechnicalSkillsRanked"];
             $userSkillsCollection->whereNotNull('skill.id')
                 ->each->update(['improve_skills_rank' => null]);
 
             // PENDING
-            // $toWipe = $userSkillsCollection->where('skill.category', 'TECHNICAL')
+            // $userSkillsCollection->where('skill.category', 'TECHNICAL')
             //     ->each
             //     ->update(['improve_skills_rank' => null]);
 
@@ -82,13 +82,13 @@ final class UpdateUserSkillRankings
 
         if (isset($userSkillRankingInput["improveBehaviouralSkillsRanked"])) {
 
-            // wipe existing behavioural improve skills
+            // wipe existing behavioural improve skills ranking
             $arrayUserSkillId = $userSkillRankingInput["improveBehaviouralSkillsRanked"];
             $userSkillsCollection->whereNotNull('skill.id')
                 ->each->update(['improve_skills_rank' => null]);
 
             // PENDING
-            // $toWipe = $userSkillsCollection->where('skill.category', 'BEHAVIOURAL')
+            // $userSkillsCollection->where('skill.category', 'BEHAVIOURAL')
             //     ->each
             //     ->update(['improve_skills_rank' => null]);
 
