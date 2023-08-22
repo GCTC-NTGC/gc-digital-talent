@@ -385,7 +385,7 @@ function Table<T extends Record<string, unknown>>({
                     <th
                       {...column.getHeaderProps()}
                       key={column.id}
-                      data-h2-background-color="base(black.9)"
+                      data-h2-background-color="base(black)"
                       data-h2-padding="base(x.5, x1)"
                       title={undefined}
                       aria-sort={getSortAttr(
@@ -443,7 +443,7 @@ function Table<T extends Record<string, unknown>>({
         </div>
         {/* Table footer */}
         <div
-          data-h2-background-color="base(black.9)"
+          data-h2-background-color="base(black)"
           data-h2-radius="base(0px, 0px, rounded, rounded)"
         >
           {/* <p>
