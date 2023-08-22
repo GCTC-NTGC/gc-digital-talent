@@ -113,7 +113,7 @@ const SearchForm = <T,>({
   });
 
   return (
-    <div>
+    <div data-h2-width="base(100%) l-tablet(auto)">
       <Field.Label
         htmlFor={id}
         data-h2-display="base(inline-block)"
