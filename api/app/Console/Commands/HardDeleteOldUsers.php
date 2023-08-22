@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Console\Command;
 
 class HardDeleteOldUsers extends Command
@@ -30,8 +31,25 @@ class HardDeleteOldUsers extends Command
         $deleteDate = Carbon::now()->subYears(5);
         $users = User::onlyTrashed()->whereDate('deleted_at', '<=', $deleteDate)->get();
 
+        $successCount = 0;
+        $failCount = 0;
+
         foreach ($users as $user) {
-            $user->forceDelete();
+            $trashDate = $user->deleted_at->toFormattedDateString();
+            try {
+                $user->forceDelete();
+                $this->info("User {$user->id} ({$user->first_name} {$user->last_name}, trashed on {$trashDate}) hard deleted");
+                ++$successCount;
+            } catch (Exception $e) {
+                $this->error("Failed to delete user: {$user->id} ({$user->first_name} {$user->last_name}, trashed on {$trashDate})");
+                $this->error($e->getMessage());
+                ++$failCount;
+            }
+        }
+        $this->info("Command complete");
+        $this->info("{$successCount} users hard deleted");
+        if ($failCount > 0) {
+            $this->error("{$failCount} users failed to delete");
         }
     }
 }
