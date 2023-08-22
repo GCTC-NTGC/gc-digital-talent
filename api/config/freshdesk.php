@@ -64,7 +64,7 @@ return [
         | Freshdesk
         |--------------------------------------------------------------------------
         |
-        | This can be likely be left empty unless the Freshdesk account.
+        | This can be left empty.
         | If the product_id is given and email_config_id is not given,
         | the product's primary email_config_id will be set.
         |
