@@ -29,6 +29,7 @@ import {
   CandidateSuspendedFilter,
   EducationRequirementOption,
   PoolCandidateSearchPositionType,
+  SkillLevel,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -1763,4 +1764,36 @@ export const getIndigenousCommunity = (
     indigenousCommunities,
     indigenousCommunity,
     `Invalid indigenous community '${indigenousCommunity}'`,
+  );
+
+const technicalSkillLevels = defineMessages({
+  [SkillLevel.Beginner]: {
+    defaultMessage: "Beginner",
+    id: "wS7hx7",
+    description: "The technical skill level for beginner",
+  },
+  [SkillLevel.Intermediate]: {
+    defaultMessage: "Intermediate",
+    id: "rt4mVU",
+    description: "The technical skill level for intermediate",
+  },
+  [SkillLevel.Expert]: {
+    defaultMessage: "Expert",
+    id: "ouZ7ji",
+    description: "The technical skill level for expert",
+  },
+  [SkillLevel.Lead]: {
+    defaultMessage: "Expert",
+    id: "HmltAk",
+    description: "The technical skill level for lead",
+  },
+});
+
+export const getTechnicalSkillLevel = (
+  skillLevel: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    technicalSkillLevels,
+    skillLevel,
+    `Invalid technical skill level '${skillLevel}'`,
   );
