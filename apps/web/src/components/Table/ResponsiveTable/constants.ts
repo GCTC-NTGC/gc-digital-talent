@@ -16,7 +16,7 @@ export const INITIAL_STATE: InitialState = {
 export const SEARCH_PARAM_KEY = {
   SEARCH_TERM: "st",
   SEARCH_COLUMN: "sc",
-  HIDDEN_COLUMNS: "cv",
+  HIDDEN_COLUMNS: "cv", // Note: Stands for "Column visibility"
   SORT_RULE: "sr",
   PAGE_SIZE: "ps",
   PAGE: "p",
