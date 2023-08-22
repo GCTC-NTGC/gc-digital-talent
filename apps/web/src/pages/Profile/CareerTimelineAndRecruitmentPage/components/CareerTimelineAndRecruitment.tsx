@@ -14,7 +14,6 @@ import {
   CommunityExperience,
   EducationExperience,
   PersonalExperience,
-  Pool,
   Skill,
   WorkExperience,
 } from "~/api/generated";
@@ -45,7 +44,6 @@ interface CareerTimelineAndRecruitmentProps {
   applicantId: string;
   experiences?: MergedExperiences;
   applications: Application[];
-  pool?: Pool;
   missingSkills?: {
     requiredSkills: Skill[];
     optionalSkills: Skill[];
@@ -57,39 +55,33 @@ const CareerTimelineAndRecruitment = ({
   applications,
   missingSkills,
   applicantId,
-  pool,
 }: CareerTimelineAndRecruitmentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const hasCareerTimelineItems = !!experiences?.length;
 
-  let crumbs = [
+  const crumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: paths.home(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Profile and applications",
+        id: "wDc+F3",
+        description: "Breadcrumb for profile and applications page.",
+      }),
+      url: paths.profileAndApplications(),
+    },
     {
       label: intl.formatMessage(titles.careerTimelineAndRecruitment),
       url: paths.careerTimelineAndRecruitment(applicantId),
     },
   ];
-  if (!pool) {
-    crumbs = [
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Home",
-          id: "EBmWyo",
-          description: "Link text for the home link in breadcrumbs.",
-        }),
-        url: paths.home(),
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Profile and applications",
-          id: "wDc+F3",
-          description: "Breadcrumb for profile and applications page.",
-        }),
-        url: paths.profileAndApplications(),
-      },
-      ...crumbs,
-    ];
-  }
 
   const pageTitle = intl.formatMessage(titles.careerTimelineAndRecruitment);
 

@@ -4,6 +4,7 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import {
   fakeClassifications,
@@ -31,6 +32,8 @@ const renderCreateAccountForm = ({
   );
 
 describe("Create Account Form tests", () => {
+  const user = userEvent.setup();
+
   it("should have no accessibility errors", async () => {
     const { container } = renderCreateAccountForm({
       departments: mockDepartments,
@@ -41,7 +44,7 @@ describe("Create Account Form tests", () => {
     await axeTest(container);
   });
 
-  it("should render fields", () => {
+  it("should render fields", async () => {
     renderCreateAccountForm({
       departments: mockDepartments,
       classifications: mockClassifications,
@@ -68,7 +71,80 @@ describe("Create Account Form tests", () => {
       }),
     ).toBeInTheDocument();
 
-    // Government info fields conditional rendering is tested in GovernmentInfoForm.test.tsx
+    // Ensure conditional form elements don't exist yet.
+    expect(
+      screen.queryByRole("combobox", {
+        name: /which department do you work for/i,
+      }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("group", {
+        name: /employment status/i,
+      }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", {
+        name: /priority number/i,
+      }),
+    ).not.toBeInTheDocument();
+
+    // Open second round of form elements
+    await user.click(
+      screen.getByRole("radio", {
+        name: /i am a government of canada employee/i,
+      }),
+    );
+
+    expect(
+      screen.getByRole("radio", {
+        name: /i am a student/i,
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole("option", {
+        name: /select a department/i,
+      }),
+    ).toBeInTheDocument();
+
+    // Open the last round of form elements
+    await user.click(
+      screen.getByRole("radio", {
+        name: /i have a term position/i,
+      }),
+    );
+
+    expect(
+      screen.getByRole("combobox", {
+        name: /current classification group/i,
+      }),
+    ).toBeInTheDocument();
+
+    await user.selectOptions(
+      screen.getByRole("combobox", {
+        name: /current classification group/i,
+      }),
+      "IT",
+    );
+
+    expect(
+      screen.getByRole("combobox", {
+        name: /current classification level/i,
+      }),
+    ).toBeInTheDocument();
+
+    // open priority number
+    await user.click(
+      screen.getByRole("radio", {
+        name: /i have a priority entitlement/i,
+      }),
+    );
+
+    expect(
+      screen.getByRole("textbox", {
+        name: /priority number/i,
+      }),
+    ).toBeInTheDocument();
   });
 
   it("should not render with empty fields.", async () => {
