@@ -146,6 +146,7 @@ fragment profileExperience on Experience {
       en
       fr
     }
+    category
     experienceSkillRecord {
       details
     }
