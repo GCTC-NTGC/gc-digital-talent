@@ -211,7 +211,7 @@ const Controls = ({ children, addLink }: ControlsProps) => (
       data-h2-flex-direction="base(column) l-tablet(row)"
       data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
       data-h2-flex-grow="base(1)"
-      data-h2-width="base(100%)"
+      data-h2-width="base(100%) l-tablet(auto)"
     >
       {children}
     </div>
