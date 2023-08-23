@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(HardDeleteOldUsers::class)->dailyAt('08:00');
+        // $schedule->command(HardDeleteOldUsers::class)->dailyAt('08:00');
     }
 
     /**
