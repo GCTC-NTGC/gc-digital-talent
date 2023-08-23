@@ -91,22 +91,28 @@ export type FormValues = {
   // subjectToTradeAgreement: string;
 
   // requirements section
-  workRequirementDescription: string;
-  qualificationRequirement: string;
-  requirementAccessToSecure: string;
-  requirementScreeningLevels: Array<string>;
-  requirementScreeningLevelOther: string;
-  requirementWorkLanguages: Array<string>;
-  requirementWorkLanguageOther: string;
-  requirementWorkLocations: Array<string>;
-  requirementWorkLocationGcSpecific: string;
-  requirementWorkLocationOffsiteSpecific: string;
-  requirementOthers: Array<string>;
-  requirementOtherOther: string;
+  // workRequirementDescription: string;
+  // qualificationRequirement: string;
+  // requirementAccessToSecure: string;
+  // requirementScreeningLevels: Array<string>;
+  // requirementScreeningLevelOther: string;
+  // requirementWorkLanguages: Array<string>;
+  // requirementWorkLanguageOther: string;
+  // requirementWorkLocations: Array<string>;
+  // requirementWorkLocationGcSpecific: string;
+  // requirementWorkLocationOffsiteSpecific: string;
+  // requirementOthers: Array<string>;
+  // requirementOtherOther: string;
 
   // personnel requirements section
-  hasPersonnelRequirements: string;
-  personnelRequirements: Array<PersonnelRequirementFormValues>;
+  // hasPersonnelRequirements: string;
+  // personnelRequirements: Array<PersonnelRequirementFormValues>;
+
+  // technological change section
+  isTechnologicalChange: string;
+  hasImpactOnYourDepartment: string;
+  hasImmediateImpactOnOtherDepartments: string;
+  hasFutureImpactOnOtherDepartments: string;
 };
 
 export function convertFormValuesToApiInput(
@@ -203,86 +209,98 @@ export function convertFormValuesToApiInput(
     // ),
 
     // Requirements section
-    workRequirementDescription: emptyToNull(
-      formValues.workRequirementDescription,
-    ),
-    qualificationRequirement: emptyToNull(formValues.qualificationRequirement),
-    requirementAccessToSecure: stringToEnum(
-      YesNo,
-      formValues.requirementAccessToSecure,
-    ),
-    requirementScreeningLevels: formValues.requirementScreeningLevels?.map(
-      (a) => stringToEnum(PersonnelScreeningLevel, a),
-    ),
-    requirementScreeningLevelOther: emptyToNull(
-      formValues.requirementScreeningLevelOther,
-    ),
-    requirementWorkLanguages: formValues.requirementWorkLanguages?.map((a) =>
-      stringToEnum(PersonnelLanguage, a),
-    ),
-    requirementWorkLanguageOther: emptyToNull(
-      formValues.requirementWorkLanguageOther,
-    ),
-    requirementWorkLocations: formValues.requirementWorkLocations?.map((a) =>
-      stringToEnum(PersonnelWorkLocation, a),
-    ),
-    requirementWorkLocationGcSpecific: emptyToNull(
-      formValues.requirementWorkLocationGcSpecific,
-    ),
-    requirementWorkLocationOffsiteSpecific: emptyToNull(
-      formValues.requirementWorkLocationOffsiteSpecific,
-    ),
-    requirementOthers: formValues.requirementOthers?.map((a) =>
-      stringToEnum(PersonnelOtherRequirement, a),
-    ),
-    requirementOtherOther: emptyToNull(formValues.requirementOtherOther),
+    // workRequirementDescription: emptyToNull(
+    //   formValues.workRequirementDescription,
+    // ),
+    // qualificationRequirement: emptyToNull(formValues.qualificationRequirement),
+    // requirementAccessToSecure: stringToEnum(
+    //   YesNo,
+    //   formValues.requirementAccessToSecure,
+    // ),
+    // requirementScreeningLevels: formValues.requirementScreeningLevels?.map(
+    //   (a) => stringToEnum(PersonnelScreeningLevel, a),
+    // ),
+    // requirementScreeningLevelOther: emptyToNull(
+    //   formValues.requirementScreeningLevelOther,
+    // ),
+    // requirementWorkLanguages: formValues.requirementWorkLanguages?.map((a) =>
+    //   stringToEnum(PersonnelLanguage, a),
+    // ),
+    // requirementWorkLanguageOther: emptyToNull(
+    //   formValues.requirementWorkLanguageOther,
+    // ),
+    // requirementWorkLocations: formValues.requirementWorkLocations?.map((a) =>
+    //   stringToEnum(PersonnelWorkLocation, a),
+    // ),
+    // requirementWorkLocationGcSpecific: emptyToNull(
+    //   formValues.requirementWorkLocationGcSpecific,
+    // ),
+    // requirementWorkLocationOffsiteSpecific: emptyToNull(
+    //   formValues.requirementWorkLocationOffsiteSpecific,
+    // ),
+    // requirementOthers: formValues.requirementOthers?.map((a) =>
+    //   stringToEnum(PersonnelOtherRequirement, a),
+    // ),
+    // requirementOtherOther: emptyToNull(formValues.requirementOtherOther),
 
     // Personnel requirements section
-    hasPersonnelRequirements: stringToEnum(
+    // hasPersonnelRequirements: stringToEnum(
+    //   YesNo,
+    //   formValues.hasPersonnelRequirements,
+    // ),
+    // personnelRequirements: {
+    //   create: formValues.personnelRequirements.map((personnelRequirement) => {
+    //     return {
+    //       resourceType: personnelRequirement.resourceType,
+    //       skillRequirements: {
+    //         create: personnelRequirement.skillRequirements.map(
+    //           (skillRequirement) => {
+    //             return {
+    //               skill: {
+    //                 connect: skillRequirement.skillId,
+    //               },
+    //               level: stringToEnum(SkillLevel, skillRequirement.level),
+    //             };
+    //           },
+    //         ),
+    //       },
+    //       language: stringToEnum(
+    //         PersonnelLanguage,
+    //         personnelRequirement.language,
+    //       ),
+    //       languageOther: emptyToNull(personnelRequirement.languageOther),
+    //       security: stringToEnum(
+    //         PersonnelScreeningLevel,
+    //         personnelRequirement.security,
+    //       ),
+    //       securityOther: emptyToNull(personnelRequirement.securityOther),
+    //       telework: stringToEnum(
+    //         PersonnelTeleworkOption,
+    //         personnelRequirement.telework,
+    //       ),
+    //       quantity: parseInt(personnelRequirement.quantity, 10) ?? null,
+    //     };
+    //   }),
+    // },
+
+    // Technological change section
+    isTechnologicalChange: stringToEnum(
       YesNo,
-      formValues.hasPersonnelRequirements,
+      formValues.isTechnologicalChange,
     ),
-    personnelRequirements: {
-      create: formValues.personnelRequirements.map((personnelRequirement) => {
-        return {
-          resourceType: personnelRequirement.resourceType,
-          skillRequirements: {
-            create: personnelRequirement.skillRequirements.map(
-              (skillRequirement) => {
-                return {
-                  skill: {
-                    connect: skillRequirement.skillId,
-                  },
-                  level: stringToEnum(SkillLevel, skillRequirement.level),
-                };
-              },
-            ),
-          },
-          language: stringToEnum(
-            PersonnelLanguage,
-            personnelRequirement.language,
-          ),
-          languageOther: emptyToNull(personnelRequirement.languageOther),
-          security: stringToEnum(
-            PersonnelScreeningLevel,
-            personnelRequirement.security,
-          ),
-          securityOther: emptyToNull(personnelRequirement.securityOther),
-          telework: stringToEnum(
-            PersonnelTeleworkOption,
-            personnelRequirement.telework,
-          ),
-          quantity: parseInt(personnelRequirement.quantity, 10) ?? null,
-        };
-      }),
-    },
-    // isTechnologicalChange: YesNo @rename(attribute: "is_technological_change")
-    // hasImpactOnYourDepartment: YesNo
-    //   @rename(attribute: "has_impact_on_your_department")
-    // hasImmediateImpactOnOtherDepartments: YesNo
-    //   @rename(attribute: "has_immediate_impact_on_other_departments")
-    // hasFutureImpactOnOtherDepartments: YesNo
-    //   @rename(attribute: "has_immediate_impact_on_other_departments")
+    hasImpactOnYourDepartment: stringToEnum(
+      YesNo,
+      formValues.hasImpactOnYourDepartment,
+    ),
+    hasImmediateImpactOnOtherDepartments: stringToEnum(
+      YesNo,
+      formValues.hasImmediateImpactOnOtherDepartments,
+    ),
+    hasFutureImpactOnOtherDepartments: stringToEnum(
+      YesNo,
+      formValues.hasFutureImpactOnOtherDepartments,
+    ),
+
     // operationsConsiderations: [OperationsConsideration!]
     //   @rename(attribute: "operations_considerations")
     // operationsConsiderationsOther: String
