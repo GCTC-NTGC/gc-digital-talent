@@ -222,7 +222,8 @@ describe("Pools", () => {
     cy.wait("@gqlallPoolsQuery");
 
     // Navigate to edit pool page
-    cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
+    cy.findByRole("button", { name: /page size/i }).click();
+    cy.findByRole("menuitemradio", { name: /50/i }).click();
 
     cy.findAllByRole("link", { name: /edit test pool en/i })
       .first()
@@ -257,7 +258,8 @@ describe("Pools", () => {
     cy.wait("@gqlallPoolsQuery");
 
     // Navigate to edit pool page
-    cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
+    cy.findByRole("button", { name: /page size/i }).click();
+    cy.findByRole("menuitemradio", { name: /50/i }).click();
 
     cy.findAllByRole("link", { name: /edit test pool en/i })
       .first()
