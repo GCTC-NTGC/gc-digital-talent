@@ -1,7 +1,7 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
+import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
@@ -66,9 +66,9 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button
-          color="primary"
+          color="error"
           mode="solid"
-          icon={PlusIcon}
+          icon={TrashIcon}
           disabled={!!user.deletedDate}
         >
           {label}
