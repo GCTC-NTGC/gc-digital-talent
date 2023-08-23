@@ -204,7 +204,13 @@ const ResponsiveUserTable = ({ title }: { title: string }) => {
           }),
           initialState: DEFAULT_STATE.searchState,
           internal: false,
-          onChange: setSearch,
+          onChange: (newSearch) => {
+            setPagination((previous) => ({
+              pageIndex: 0,
+              pageSize: previous.pageSize,
+            }));
+            setSearch(newSearch);
+          },
         }}
         sort={{
           internal: false,
