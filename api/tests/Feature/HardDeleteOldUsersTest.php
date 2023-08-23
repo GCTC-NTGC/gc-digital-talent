@@ -1,6 +1,9 @@
 <?php
 
 use App\Models\User;
+use App\Models\PoolCandidate;
+use App\Models\UserSkill;
+use App\Models\WorkExperience;
 use App\Console\Commands\HardDeleteOldUsers;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
@@ -49,5 +52,22 @@ class HardDeleteOldUsersTest extends TestCase
         Artisan::call(HardDeleteOldUsers::class);
 
         $this->assertEquals(0, User::withTrashed()->count());
+    }
+
+    public function testDeleteCascadesProperly(): void
+    {
+        $deletedDate = Carbon::now()->subYears(5);
+        User::factory()
+            ->asApplicant()
+            ->has(PoolCandidate::factory())
+            ->has(WorkExperience::factory())
+            ->has(UserSkill::factory())
+            ->create([
+                'deleted_at' => $deletedDate
+            ]);
+
+        Artisan::call(HardDeleteOldUsers::class);
+
+        $this->assertEquals(0, User::onlyTrashed()->count());
     }
 }

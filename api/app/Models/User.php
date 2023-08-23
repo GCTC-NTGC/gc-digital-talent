@@ -252,14 +252,17 @@ class User extends Model implements Authenticatable, LaratrustUser
         parent::boot();
 
         static::deleting(function (User $user) {
-            // Cascade delete to child models
-            foreach ($user->poolCandidates as $candidate) {
-                $candidate->delete();
-            }
+            // We only need to run this if the user is being soft deleted
+            if (!$user->isForceDeleting()) {
+                // Cascade delete to child models
+                foreach ($user->poolCandidates() as $candidate) {
+                    $candidate->delete();
+                }
 
-            // Modify the email to allow it to be used for another user
-            $newEmail = $user->email . "-deleted-at-" . Carbon::now()->format('Y-m-d');
-            $user->update(['email' => $newEmail]);
+                // Modify the email to allow it to be used for another user
+                $newEmail = $user->email . "-deleted-at-" . Carbon::now()->format('Y-m-d');
+                $user->update(['email' => $newEmail]);
+            }
         });
 
         static::restoring(function (User $user) {
