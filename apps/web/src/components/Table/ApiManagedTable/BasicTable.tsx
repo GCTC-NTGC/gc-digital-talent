@@ -113,7 +113,7 @@ function BasicTable<T extends RecordWithId>({
                 return (
                   <th
                     key={column.id}
-                    data-h2-background-color="base(black.9)"
+                    data-h2-background-color="base(black)"
                     data-h2-padding="base(x.5, x1, x.5, x.5)"
                     role="columnheader"
                     {...calculateTableHeaderProps(column)}
