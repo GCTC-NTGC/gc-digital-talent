@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
@@ -19,6 +19,9 @@ import {
   SkillLevel,
   UserSkill,
   WhenSkillUsed,
+  useCreateUserSkillMutation,
+  useDeleteUserSkillMutation,
+  useUpdateUserSkillMutation,
   useUserSkillQuery,
 } from "@gc-digital-talent/graphql";
 import {
@@ -29,11 +32,12 @@ import {
 } from "@gc-digital-talent/i18n";
 import { BasicForm, RadioGroup } from "@gc-digital-talent/forms";
 import { getTechnicalSkillLevel } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 type PageSection = {
   id: string;
@@ -47,26 +51,98 @@ type FormValues = {
 };
 
 interface UpdateUserSkillFormProps {
+  userId: Scalars["UUID"];
   skill: Skill;
   userSkill?: Maybe<UserSkill>;
 }
 
 const UpdateUserSkillForm = ({
+  userId,
   skill,
   userSkill,
 }: UpdateUserSkillFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const navigate = useNavigate();
   const skillName = getLocalizedName(skill.name, intl);
   const skillDescription = getLocalizedName(skill.description, intl);
   const hasUserSkill = notEmpty(userSkill);
 
+  const [{ fetching: creating }, executeCreateMutation] =
+    useCreateUserSkillMutation();
+  const [{ fetching: updating }, executeUpdateMutation] =
+    useUpdateUserSkillMutation();
+  const [{ fetching: deleting }, executeDeleteMutation] =
+    useDeleteUserSkillMutation();
+  const mutating = creating || updating || deleting;
+
+  const handleSuccess = (msg?: React.ReactNode) => {
+    toast.success(
+      msg ||
+        intl.formatMessage({
+          defaultMessage: "Successfully updated skill!",
+          id: "Vfa3Ek",
+          description: "Message displayed when a user updates a skill",
+        }),
+    );
+    navigate(paths.skillLibrary());
+  };
+
+  const handleError = (msg?: React.ReactNode) => {
+    toast.error(
+      msg ||
+        intl.formatMessage({
+          defaultMessage: "Error: updating skill failed",
+          id: "CUxHd8",
+          description:
+            "Message displayed to user after skill fails to be updated.",
+        }),
+    );
+  };
+
   const handleSubmit = (values: FormValues) => {
-    console.log(values);
+    if (hasUserSkill) {
+      executeUpdateMutation({
+        id: userSkill.id,
+        userSkill: values,
+      })
+        .then(() => handleSuccess())
+        .catch(() => handleError());
+    } else {
+      executeCreateMutation({
+        userId,
+        skillId: skill.id,
+        userSkill: values,
+      })
+        .then(() => handleSuccess())
+        .catch(() => handleError());
+    }
   };
 
   const handleDelete = () => {
-    console.log("delete");
+    executeDeleteMutation({
+      id: userSkill?.id,
+    })
+      .then(() =>
+        handleSuccess(
+          intl.formatMessage({
+            defaultMessage: "Successfully removed from profile.",
+            id: "O98p6J",
+            description:
+              "Message displayed to user when removing a skill from their profile",
+          }),
+        ),
+      )
+      .catch(() =>
+        handleError(
+          intl.formatMessage({
+            defaultMessage: "Error: removing skill failed",
+            id: "0NbdGD",
+            description:
+              "Message displayed to user after skill fails to be deleted.",
+          }),
+        ),
+      );
   };
 
   const crumbs = [
@@ -291,125 +367,139 @@ const UpdateUserSkillForm = ({
                     data-h2-flex-wrap="base(wrap)"
                     data-h2-gap="base(x1)"
                   >
-                    <Button type="submit" color="secondary">
+                    <Button type="submit" color="secondary" disabled={mutating}>
                       {intl.formatMessage(formMessages.saveChanges)}
                     </Button>
-                    <Dialog.Root>
-                      <Dialog.Trigger>
-                        <Button mode="inline" color="error">
-                          {intl.formatMessage({
-                            defaultMessage: "Delete this skill",
-                            id: "fK+EvE",
-                            description:
-                              "Button text to remove a skill from a users profile",
-                          })}
-                        </Button>
-                      </Dialog.Trigger>
-                      <Dialog.Content>
-                        <Dialog.Header
-                          subtitle={intl.formatMessage({
-                            defaultMessage:
-                              "Before deleting the skill, please read the following carefully.",
-                            id: "pYXeXV",
-                            description:
-                              "Subtitle for confirmation to delete a skill",
-                          })}
-                        >
-                          {intl.formatMessage(
-                            {
-                              defaultMessage:
-                                'Delete "{skillName}" from your profile',
-                              id: "M1Q9CE",
-                              description:
-                                "Title for the confirmation alert to delete a skill",
-                            },
-                            { skillName },
-                          )}
-                        </Dialog.Header>
-                        <Dialog.Body>
-                          <p>
+                    {hasUserSkill && (
+                      <Dialog.Root>
+                        <Dialog.Trigger>
+                          <Button
+                            mode="inline"
+                            color="error"
+                            disabled={mutating}
+                          >
                             {intl.formatMessage({
-                              defaultMessage:
-                                "Please note that by deleting a skill from your profile:",
-                              id: "Awtr05",
+                              defaultMessage: "Delete this skill",
+                              id: "fK+EvE",
                               description:
-                                "Lead-in text to points of concern when deleting a skill and what will happen",
+                                "Button text to remove a skill from a users profile",
                             })}
-                          </p>
-                          <ul data-h2-margin="base(x.25 0 x1 0)">
-                            <li>
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "If applicable, this skill <strong>will be removed from all of your skill showcases</strong>",
-                                id: "epqtpM",
-                                description:
-                                  "Notice that deleting a skill removes it from a users skill showcase",
-                              })}
-                            </li>
-                            <li>
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "This skill <strong>will be removed from all linked experiences</strong>",
-                                id: "Sm9Ml5",
-                                description:
-                                  "Notice that deleting a skill removes it from any linked experiences",
-                              })}
-                            </li>
-                          </ul>
-                          <p>
-                            {intl.formatMessage({
+                          </Button>
+                        </Dialog.Trigger>
+                        <Dialog.Content>
+                          <Dialog.Header
+                            subtitle={intl.formatMessage({
                               defaultMessage:
-                                "If you decide to re-add this skill to your profile at a later time:",
-                              id: "YW3A7H",
+                                "Before deleting the skill, please read the following carefully.",
+                              id: "pYXeXV",
                               description:
-                                "Lead-in text to points of concern when deleting a skill on how to re-add it",
+                                "Subtitle for confirmation to delete a skill",
                             })}
-                          </p>
-                          <ul data-h2-margin="base(x.25 0 x1 0)">
-                            <li>
+                          >
+                            {intl.formatMessage(
+                              {
+                                defaultMessage:
+                                  'Delete "{skillName}" from your profile',
+                                id: "M1Q9CE",
+                                description:
+                                  "Title for the confirmation alert to delete a skill",
+                              },
+                              { skillName },
+                            )}
+                          </Dialog.Header>
+                          <Dialog.Body>
+                            <p>
                               {intl.formatMessage({
                                 defaultMessage:
-                                  "The skill <strong>will not be re-added to your skill showcases</strong>",
-                                id: "xYJi2Y",
+                                  "Please note that by deleting a skill from your profile:",
+                                id: "Awtr05",
                                 description:
-                                  "Notice that re-adding a skill will not add it back to a users skill showcase",
+                                  "Lead-in text to points of concern when deleting a skill and what will happen",
                               })}
-                            </li>
-                            <li>
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "The skill <strong>will be linked to the experiences it was previously linked to</strong>",
-                                id: "DPfJ30",
-                                description:
-                                  "Notice that re-adding a skill will re-add it to any linked experiences",
-                              })}
-                            </li>
-                          </ul>
-                          <Dialog.Footer data-h2-justify-content="base(flex-start)">
-                            <Button color="error" onClick={handleDelete}>
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "I understand, delete this skill",
-                                id: "jb7PvU",
-                                description:
-                                  "Button text to confirm deleting a skill",
-                              })}
-                            </Button>
-                            <Dialog.Close>
-                              <Button mode="inline" color="secondary">
+                            </p>
+                            <ul data-h2-margin="base(x.25 0 x1 0)">
+                              <li>
                                 {intl.formatMessage({
                                   defaultMessage:
-                                    "Keep this skill on my profile",
-                                  id: "WvKRKa",
+                                    "If applicable, this skill <strong>will be removed from all of your skill showcases</strong>",
+                                  id: "epqtpM",
                                   description:
-                                    "Button text to cancel deleting a skill",
+                                    "Notice that deleting a skill removes it from a users skill showcase",
+                                })}
+                              </li>
+                              <li>
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    "This skill <strong>will be removed from all linked experiences</strong>",
+                                  id: "Sm9Ml5",
+                                  description:
+                                    "Notice that deleting a skill removes it from any linked experiences",
+                                })}
+                              </li>
+                            </ul>
+                            <p>
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  "If you decide to re-add this skill to your profile at a later time:",
+                                id: "YW3A7H",
+                                description:
+                                  "Lead-in text to points of concern when deleting a skill on how to re-add it",
+                              })}
+                            </p>
+                            <ul data-h2-margin="base(x.25 0 x1 0)">
+                              <li>
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    "The skill <strong>will not be re-added to your skill showcases</strong>",
+                                  id: "xYJi2Y",
+                                  description:
+                                    "Notice that re-adding a skill will not add it back to a users skill showcase",
+                                })}
+                              </li>
+                              <li>
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    "The skill <strong>will be linked to the experiences it was previously linked to</strong>",
+                                  id: "DPfJ30",
+                                  description:
+                                    "Notice that re-adding a skill will re-add it to any linked experiences",
+                                })}
+                              </li>
+                            </ul>
+                            <Dialog.Footer data-h2-justify-content="base(flex-start)">
+                              <Button
+                                color="error"
+                                onClick={handleDelete}
+                                disabled={updating || creating}
+                              >
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    "I understand, delete this skill",
+                                  id: "jb7PvU",
+                                  description:
+                                    "Button text to confirm deleting a skill",
                                 })}
                               </Button>
-                            </Dialog.Close>
-                          </Dialog.Footer>
-                        </Dialog.Body>
-                      </Dialog.Content>
-                    </Dialog.Root>
+                              <Dialog.Close>
+                                <Button
+                                  mode="inline"
+                                  color="secondary"
+                                  disabled={updating || creating}
+                                >
+                                  {intl.formatMessage({
+                                    defaultMessage:
+                                      "Keep this skill on my profile",
+                                    id: "WvKRKa",
+                                    description:
+                                      "Button text to cancel deleting a skill",
+                                  })}
+                                </Button>
+                              </Dialog.Close>
+                            </Dialog.Footer>
+                          </Dialog.Body>
+                        </Dialog.Content>
+                      </Dialog.Root>
+                    )}
                   </div>
                 </div>
               </BasicForm>
@@ -457,7 +547,11 @@ const SkillEvaluationPage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.skill ? (
-        <UpdateUserSkillForm skill={data.skill} userSkill={userSkill} />
+        <UpdateUserSkillForm
+          userId={data.me?.id}
+          skill={data.skill}
+          userSkill={userSkill}
+        />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage({

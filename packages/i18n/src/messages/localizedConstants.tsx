@@ -1783,8 +1783,8 @@ const technicalSkillLevels = defineMessages({
     description: "The technical skill level for expert",
   },
   [SkillLevel.Lead]: {
-    defaultMessage: "Expert",
-    id: "HmltAk",
+    defaultMessage: "Lead",
+    id: "Glb1Te",
     description: "The technical skill level for lead",
   },
 });

@@ -133,6 +133,7 @@ query GetUpdateSkillData($id: UUID!) {
 
 query UserSkill($skillId: UUID!) {
   me {
+    id
     userSkills(includeSkillIds: [$skillId]) {
       id
       whenSkillUsed
@@ -190,5 +191,27 @@ mutation CreateSkill($skill: CreateSkillInput!) {
       en
       fr
     }
+  }
+}
+
+mutation CreateUserSkill(
+  $userId: UUID!
+  $skillId: UUID!
+  $userSkill: CreateUserSkillInput
+) {
+  createUserSkill(userId: $userId, skillId: $skillId, userSkill: $userSkill) {
+    id
+  }
+}
+
+mutation UpdateUserSkill($id: UUID!, $userSkill: UpdateUserSkillInput) {
+  updateUserSkill(id: $id, userSkill: $userSkill) {
+    id
+  }
+}
+
+mutation DeleteUserSkill($id: UUID!) {
+  deleteUserSkill(id: $id) {
+    id
   }
 }
