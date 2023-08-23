@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 
 import {
   ThrowNotFound,
@@ -13,6 +14,7 @@ import {
   Dialog,
 } from "@gc-digital-talent/ui";
 import {
+  Experience,
   Maybe,
   Scalars,
   Skill,
@@ -37,6 +39,8 @@ import { toast } from "@gc-digital-talent/toast";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
+import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+import SkillFormDialog from "~/components/SkillFormDialog/SkillFormDialog";
 import useRoutes from "~/hooks/useRoutes";
 
 type PageSection = {
@@ -53,20 +57,38 @@ type FormValues = {
 interface UpdateUserSkillFormProps {
   userId: Scalars["UUID"];
   skill: Skill;
+  experiences: Experience[];
   userSkill?: Maybe<UserSkill>;
 }
 
 const UpdateUserSkillForm = ({
   userId,
+  experiences,
   skill,
   userSkill,
 }: UpdateUserSkillFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
+  const [isFormDialogOpen, setFormDialogOpen] = React.useState<boolean>(false);
+  const [currentExperience, setCurrentExperience] =
+    React.useState<Experience | null>(null);
   const skillName = getLocalizedName(skill.name, intl);
   const skillDescription = getLocalizedName(skill.description, intl);
   const hasUserSkill = notEmpty(userSkill);
+  const linkedExperiences = userSkill?.skill?.experiences
+    ?.filter(notEmpty)
+    // Note: Temp filter out unowned experiences
+    .filter((experience) =>
+      experiences.some((exp) => exp.id === experience.id),
+    );
+
+  const availableExperiences = experiences.filter(
+    (exp) =>
+      !linkedExperiences?.find(
+        (existingExperience) => existingExperience.id === exp.id,
+      ),
+  );
 
   const [{ fetching: creating }, executeCreateMutation] =
     useCreateUserSkillMutation();
@@ -143,6 +165,14 @@ const UpdateUserSkillForm = ({
           }),
         ),
       );
+  };
+
+  const handleFormOpenChange = (newIsFormOpen: boolean) => {
+    setFormDialogOpen(newIsFormOpen);
+    // reset current experience when we close the form
+    if (!newIsFormOpen) {
+      setCurrentExperience(null);
+    }
   };
 
   const crumbs = [
@@ -256,7 +286,7 @@ const UpdateUserSkillForm = ({
                 <Well data-h2-margin="base(x1 0)">
                   <p
                     data-h2-font-weight="base(800)"
-                    data-h2-margin-bottom="base(x1)"
+                    data-h2-margin-bottom="base(x.5)"
                   >
                     {intl.formatMessage(
                       {
@@ -520,10 +550,72 @@ const UpdateUserSkillForm = ({
                     "Lead-in text describing how to link experiences to a skill",
                 })}
               </p>
+              {availableExperiences.length ? (
+                <div
+                  data-h2-display="base(flex)"
+                  data-h2-justify-content="base(flex-end)"
+                  data-h2-margin="base(x1 0)"
+                >
+                  <Button
+                    color="secondary"
+                    icon={PlusCircleIcon}
+                    onClick={() => setFormDialogOpen(true)}
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Link an experience",
+                      id: "Y2ULHN",
+                      description:
+                        "Button text to open the form allowing a user to link an experience to a skill",
+                    })}
+                  </Button>
+                </div>
+              ) : null}
+              {linkedExperiences?.length ? (
+                <div
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column)"
+                  data-h2-gap="base(x1 0)"
+                >
+                  {linkedExperiences.map((experience) => (
+                    <ExperienceCard
+                      key={experience.id}
+                      experience={experience}
+                      headingLevel="h3"
+                      showEdit
+                      showSkills={false}
+                      onEditClick={() => {
+                        setCurrentExperience(experience);
+                        setFormDialogOpen(true);
+                      }}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <Well>
+                  <p data-h2-text-align="base(center)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Link experiences from your career timeline to this skill to see them here.",
+                      id: "HRiS0K",
+                      description:
+                        "Message displayed when no experiences have been linked to a skill",
+                    })}
+                  </p>
+                </Well>
+              )}
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
+      <SkillFormDialog
+        open={isFormDialogOpen}
+        onOpenChange={handleFormOpenChange}
+        skill={skill}
+        availableExperiences={
+          currentExperience ? [currentExperience] : availableExperiences
+        }
+        experience={currentExperience || undefined}
+      />
     </>
   );
 };
@@ -543,6 +635,7 @@ const SkillEvaluationPage = () => {
   });
 
   const userSkill = data?.me?.userSkills?.find((s) => s?.skill.id === skillId);
+  const userExperiences = data?.me?.experiences?.filter(notEmpty);
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -551,6 +644,7 @@ const SkillEvaluationPage = () => {
           userId={data.me?.id}
           skill={data.skill}
           userSkill={userSkill}
+          experiences={userExperiences ?? []}
         />
       ) : (
         <ThrowNotFound

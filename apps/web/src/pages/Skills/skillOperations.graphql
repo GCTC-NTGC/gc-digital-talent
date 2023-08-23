@@ -148,14 +148,29 @@ query UserSkill($skillId: UUID!) {
           en
           fr
         }
+        experiences {
+          ...userSkillExperienceFragment
+          skills {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            experienceSkillRecord {
+              details
+            }
+          }
+        }
       }
+    }
+    experiences {
+      id
+      ...userSkillExperienceFragment
     }
   }
   skill(id: $skillId) {
     ...skillFragment
-    experiences {
-      ...userSkillExperienceFragment
-    }
   }
 }
 
