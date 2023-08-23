@@ -190,8 +190,8 @@ const Actions = ({
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "{count, plural, =0 {0 items} =1 {1 item} other {# items}} selected",
-                    id: "84v1nY",
+                      "{count, plural, =0 {0 items selected} =1 {1 item selected} other {# items selected}",
+                    id: "NlX7Wq",
                     description:
                       "Message displayed for the number of rows selected in a table",
                   },
