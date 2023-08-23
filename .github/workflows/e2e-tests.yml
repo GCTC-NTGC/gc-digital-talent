@@ -11,7 +11,8 @@ on:
   pull_request:
     paths-ignore:
       - "**.md"
-
+  merge_group:
+    branches: [main]
 # Concurrency is used to cancel other currently-running jobs, to preserve
 # compute resources and cumulative build hours. (ie. If you push twice in a
 # row, this will cancel the previous run.)
