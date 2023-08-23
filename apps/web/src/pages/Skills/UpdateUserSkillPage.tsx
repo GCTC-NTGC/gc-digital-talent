@@ -109,7 +109,9 @@ const UpdateUserSkillForm = ({
     value: option.value,
     label: <strong>{intl.formatMessage(levelGetter(option.value))}</strong>,
     contentBelow: (
-      <p>{intl.formatMessage(levelDefinitionGetter(option.value))}</p>
+      <p data-h2-margin="base(x.15, 0, x.5, x1)">
+        {intl.formatMessage(levelDefinitionGetter(option.value))}
+      </p>
     ),
   }));
 
@@ -293,7 +295,7 @@ const UpdateUserSkillForm = ({
               <TableOfContents.Heading
                 icon={LightBulbIcon}
                 color="primary"
-                data-h2-margin-top="base(0)"
+                data-h2-margin="base(0 0 x1 0)"
               >
                 {sections.skillLevel.title}
               </TableOfContents.Heading>
@@ -536,6 +538,7 @@ const UpdateUserSkillForm = ({
               <TableOfContents.Heading
                 icon={BookmarkSquareIcon}
                 color="tertiary"
+                data-h2-margin-bottom="base(x1)"
               >
                 {sections.featuredExperiences.title}
               </TableOfContents.Heading>
