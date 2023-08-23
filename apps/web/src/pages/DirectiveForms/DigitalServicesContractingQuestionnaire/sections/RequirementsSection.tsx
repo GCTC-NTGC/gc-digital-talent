@@ -15,6 +15,7 @@ import {
   PersonnelOtherRequirement,
   PersonnelScreeningLevel,
   PersonnelWorkLocation,
+  Skill,
   YesNo,
 } from "@gc-digital-talent/graphql";
 
@@ -34,7 +35,11 @@ import {
 } from "../../localizedConstants";
 import PersonnelRequirementsSection from "./PersonnelRequirementsSection";
 
-const RequirementsSection = () => {
+type RequirementsSectionProps = {
+  skills: Array<Skill>;
+};
+
+const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
   const intl = useIntl();
   const { watch, resetField } = useFormContext();
 
@@ -349,7 +354,7 @@ const RequirementsSection = () => {
           })}
         />
         {/* {isHasPersonnelRequirementsYes ? ( */}
-        <PersonnelRequirementsSection />
+        <PersonnelRequirementsSection skills={skills} />
         {/* ) : null} */}
       </div>
     </TableOfContents.Section>

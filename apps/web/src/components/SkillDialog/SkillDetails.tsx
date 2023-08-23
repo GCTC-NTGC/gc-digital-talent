@@ -2,11 +2,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { RadioGroup } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, getSkillLevel } from "@gc-digital-talent/i18n";
+import { SkillLevel } from "@gc-digital-talent/graphql";
 
-/**
- * NOTE: Names and values are TBD, waiting on API
- */
 const SkillDetails = () => {
   const intl = useIntl();
 
@@ -37,36 +35,20 @@ const SkillDetails = () => {
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           items={[
             {
-              value: "beginner",
-              label: intl.formatMessage({
-                defaultMessage: "Beginner",
-                id: "karCOz",
-                description: "Label for the beginner skill level",
-              }),
+              value: SkillLevel.Beginner,
+              label: intl.formatMessage(getSkillLevel(SkillLevel.Beginner)),
             },
             {
-              value: "intermediate",
-              label: intl.formatMessage({
-                defaultMessage: "Intermediate",
-                id: "JzK3m/",
-                description: "Label for the intermediate skill level",
-              }),
+              value: SkillLevel.Intermediate,
+              label: intl.formatMessage(getSkillLevel(SkillLevel.Intermediate)),
             },
             {
-              value: "advanced",
-              label: intl.formatMessage({
-                defaultMessage: "Advanced",
-                id: "oZvIAg",
-                description: "Label for the advanced skill level",
-              }),
+              value: SkillLevel.Expert,
+              label: intl.formatMessage(getSkillLevel(SkillLevel.Expert)),
             },
             {
-              value: "lead",
-              label: intl.formatMessage({
-                defaultMessage: "Lead",
-                id: "9LwRRx",
-                description: "Label for the lead skill level",
-              }),
+              value: SkillLevel.Lead,
+              label: intl.formatMessage(getSkillLevel(SkillLevel.Lead)),
             },
           ]}
         />

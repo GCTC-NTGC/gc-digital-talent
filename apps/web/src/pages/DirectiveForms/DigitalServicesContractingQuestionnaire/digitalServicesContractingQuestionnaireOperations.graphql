@@ -6,6 +6,35 @@ query digitalServicesContractingQuestionnairePageData {
       fr
     }
   }
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    families {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
 }
 
 mutation createDigitalContractingQuestionnaire(

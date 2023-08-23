@@ -4,11 +4,18 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { Heading, TableOfContents, Well } from "@gc-digital-talent/ui";
 import { Repeater } from "@gc-digital-talent/forms";
+import { Skill } from "@gc-digital-talent/graphql";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import PersonnelRequirementFieldset from "../fieldsSets/PersonnelRequirementFieldset";
 
-const PersonnelRequirementsSection = () => {
+type PersonnelRequirementsSectionProps = {
+  skills: Array<Skill>;
+};
+
+const PersonnelRequirementsSection = ({
+  skills,
+}: PersonnelRequirementsSectionProps) => {
   const intl = useIntl();
   const { control } = useFormContext();
 
@@ -59,6 +66,7 @@ const PersonnelRequirementsSection = () => {
             >
               <PersonnelRequirementFieldset
                 fieldsetName={`personnelRequirements.${index}`}
+                skills={skills}
               />
             </Repeater.Fieldset>
           ))

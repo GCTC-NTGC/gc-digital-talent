@@ -1,15 +1,27 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
+import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
 
-import { Input, Select } from "@gc-digital-talent/forms";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import { Field, Input, Select } from "@gc-digital-talent/forms";
+import {
+  errorMessages,
+  formMessages,
+  getLocalizedName,
+  getSkillLevel,
+} from "@gc-digital-talent/i18n";
 import {
   PersonnelLanguage,
   PersonnelScreeningLevel,
   PersonnelTeleworkOption,
+  Skill,
 } from "@gc-digital-talent/graphql";
+import { Button } from "@gc-digital-talent/ui";
 
+import SkillDialog from "~/components/SkillDialog/SkillDialog";
+import { FormValues as SkillDialogFormValues } from "~/components/SkillDialog/types";
+
+import { enumToOptions } from "../../util";
 import {
   getPersonnelLanguage,
   getPersonnelScreeningLevel,
@@ -18,23 +30,39 @@ import {
   personnelScreeningLevelSortOrder,
   personnelTeleworkOptionSortOrder,
 } from "../../localizedConstants";
-import { enumToOptions } from "../../util";
+import {
+  isSkillRequirementFormValues,
+  SkillRequirementFormValues,
+} from "../formValues";
 
 type PersonnelRequirementFieldsetProps = {
   fieldsetName: string;
+  skills: Array<Skill>;
 };
 
 const PersonnelRequirementFieldset = ({
   fieldsetName,
+  skills,
 }: PersonnelRequirementFieldsetProps) => {
   const intl = useIntl();
-  const { watch, resetField } = useFormContext();
+  const { watch, resetField, register, setValue } = useFormContext();
+  register(`${fieldsetName}.skillRequirements`);
 
   // hooks to watch, needed for conditional rendering
-  const [selectedLanguage, selectedSecurity] = watch([
-    `${fieldsetName}.language`,
-    `${fieldsetName}.security`,
-  ]);
+  const [selectedSkillRequirementsUntyped, selectedLanguage, selectedSecurity] =
+    watch([
+      `${fieldsetName}.skillRequirements`,
+      `${fieldsetName}.language`,
+      `${fieldsetName}.security`,
+    ]);
+
+  const selectedSkillRequirements: Array<SkillRequirementFormValues> =
+    Array.isArray(selectedSkillRequirementsUntyped) &&
+    selectedSkillRequirementsUntyped.every((e) =>
+      isSkillRequirementFormValues(e),
+    )
+      ? selectedSkillRequirementsUntyped
+      : [];
 
   const isLanguageOther = selectedLanguage === PersonnelLanguage.Other;
   const isSecurityOther = selectedSecurity === PersonnelScreeningLevel.Other;
@@ -54,6 +82,29 @@ const PersonnelRequirementFieldset = ({
       resetDirtyField(`${fieldsetName}.securityOther`);
     }
   }, [resetField, isLanguageOther, fieldsetName, isSecurityOther]);
+
+  const handleSkillDialogSave = (
+    values: SkillDialogFormValues,
+  ): Promise<void> => {
+    if (values.skill && values.level) {
+      const newEntry: SkillRequirementFormValues = {
+        skillId: values.skill,
+        level: values.level,
+      };
+      setValue(`${fieldsetName}.skillRequirements`, [
+        ...(selectedSkillRequirements ?? []),
+        newEntry,
+      ]);
+    }
+    return Promise.resolve();
+  };
+
+  const removeSkill = (skillId: string) => {
+    const newList = (selectedSkillRequirements ?? []).filter(
+      (entry) => entry.skillId !== skillId,
+    );
+    setValue(`${fieldsetName}.skillRequirements`, newList);
+  };
 
   return (
     <div
@@ -75,6 +126,57 @@ const PersonnelRequirementFieldset = ({
           required: intl.formatMessage(errorMessages.required),
         }}
       />
+      <Field.Wrapper>
+        <Field.Fieldset>
+          <Field.Legend>
+            {intl.formatMessage({
+              defaultMessage: "Qualification and level of expertise",
+              id: "0X2Rd2",
+              description:
+                "Label for _skills_ fieldset in the _digital services contracting questionnaire_",
+            })}
+          </Field.Legend>
+          {selectedSkillRequirements.map((requirement) => {
+            const skillName = skills.find((s) => s.id === requirement.skillId);
+            const levelName = getSkillLevel(requirement.level);
+            return (
+              <div
+                key={requirement.skillId}
+                data-h2-display="base(flex)"
+                data-h2-justify-content="base(space-between)"
+              >
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "{skillName} at {skillLevel}",
+                    id: "TPHO1i",
+                    description:
+                      "Display of skill requirement in the _digital services contracting questionnaire_",
+                  },
+                  {
+                    skillName: getLocalizedName(skillName?.name, intl),
+                    skillLevel: intl.formatMessage(levelName),
+                  },
+                )}
+                <Button
+                  onClick={() => removeSkill(requirement.skillId)}
+                  icon={XMarkIcon}
+                  color="error"
+                  aria-label={intl.formatMessage({
+                    defaultMessage: "Delete",
+                    id: "IUQGA0",
+                    description: "Link text to delete.",
+                  })}
+                />
+              </div>
+            );
+          })}
+          <SkillDialog
+            skills={skills}
+            context="library"
+            onSave={handleSkillDialogSave}
+          />
+        </Field.Fieldset>
+      </Field.Wrapper>
       <Select
         id={`${fieldsetName}.language`}
         name={`${fieldsetName}.language`}

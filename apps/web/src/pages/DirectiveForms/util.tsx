@@ -19,7 +19,7 @@ export function buildExternalLink(
 export const OTHER_ID = "OTHER";
 
 // custom type guard for enum value
-function isEnumValue<T extends object>(
+export function isEnumValue<T extends object>(
   typeObject: T,
   value: unknown,
 ): value is T[keyof T] {

@@ -9,6 +9,7 @@ import { BasicForm } from "@gc-digital-talent/forms";
 import { useLocale } from "@gc-digital-talent/i18n";
 import {
   DigitalContractingQuestionnaireInput,
+  Skill,
   useCreateDigitalContractingQuestionnaireMutation,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -38,12 +39,14 @@ export const pageTitle = defineMessage({
 
 type DigitalServicesContractingQuestionnaireProps = {
   departments: Array<IdNamePair>;
+  skills: Array<Skill>;
   isSubmitting: boolean;
   onSubmit: SubmitHandler<FormValues>;
 };
 
 const DigitalServicesContractingQuestionnaire = ({
   departments,
+  skills,
   isSubmitting,
   onSubmit,
 }: DigitalServicesContractingQuestionnaireProps) => {
@@ -219,6 +222,7 @@ const DigitalServicesContractingQuestionnaire = ({
               <PreambleSection />
               <QuestionnaireSection
                 departments={departments}
+                skills={skills}
                 isSubmitting={isSubmitting}
               />
               <ExamplesOfContractsSection />
@@ -278,6 +282,7 @@ const DigitalServicesContractingQuestionnairePage = () => {
     <Pending fetching={initialFetching} error={initialError}>
       <DigitalServicesContractingQuestionnaire
         departments={initialData?.departments?.filter(notEmpty) ?? []}
+        skills={initialData?.skills?.filter(notEmpty) ?? []}
         isSubmitting={isSubmitting}
         onSubmit={(formValues) =>
           handleCreateQuestionnaire(convertFormValuesToApiInput(formValues))

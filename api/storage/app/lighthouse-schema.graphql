@@ -1510,13 +1510,6 @@ enum PersonnelOtherRequirement {
   OTHER
 }
 
-enum PersonnelSkillExpertiseLevel {
-  BEGINNER
-  INTERMEDIATE
-  EXPERT
-  LEAD
-}
-
 enum PersonnelTeleworkOption {
   FULL_TIME
   PART_TIME
@@ -1546,7 +1539,7 @@ enum ContractingRationale {
 type DigitalContractingPersonnelSkill {
   id: UUID!
   skill: Skill
-  level: PersonnelSkillExpertiseLevel
+  level: SkillLevel
 }
 
 type DigitalContractingPersonnelRequirement {
@@ -1631,13 +1624,13 @@ type DigitalContractingQuestionnaire {
 
 input CreateDigitalContractingPersonnelSkillInput {
   skill: SkillBelongsTo
-  level: PersonnelSkillExpertiseLevel
+  level: SkillLevel
 }
 
 input UpdateDigitalContractingPersonnelSkillInput {
   id: UUID!
   skill: SkillBelongsTo
-  level: PersonnelSkillExpertiseLevel
+  level: SkillLevel
 }
 
 input DigitalContractingPersonnelSkillBelongsTo {

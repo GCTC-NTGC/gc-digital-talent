@@ -12,12 +12,41 @@ import {
   PersonnelScreeningLevel,
   PersonnelTeleworkOption,
   PersonnelWorkLocation,
+  SkillLevel,
   YesNo,
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 
-import { OTHER_ID, stringToEnum } from "../util";
+import { isEnumValue, OTHER_ID, stringToEnum } from "../util";
+
+export type SkillRequirementFormValues = {
+  skillId: string;
+  level: string;
+};
+
+export function isSkillRequirementFormValues(
+  value: unknown,
+): value is SkillRequirementFormValues {
+  const castedValue = value as SkillRequirementFormValues;
+  return (
+    castedValue.skillId !== undefined &&
+    typeof castedValue.skillId === "string" &&
+    castedValue.level !== undefined &&
+    typeof castedValue.level === "string"
+  );
+}
+
+export type PersonnelRequirementFormValues = {
+  resourceType: string;
+  skillRequirements: Array<SkillRequirementFormValues>;
+  language: string;
+  languageOther: string;
+  security: string;
+  securityOther: string;
+  telework: string;
+  quantity: string;
+};
 
 // backing object for questionnaire form
 export type FormValues = {
@@ -77,16 +106,7 @@ export type FormValues = {
 
   // personnel requirements section
   hasPersonnelRequirements: string;
-  personnelRequirements: Array<{
-    resourceType: string;
-    // skillRequirements
-    language: string;
-    languageOther: string;
-    security: string;
-    securityOther: string;
-    telework: string;
-    quantity: string;
-  }>;
+  personnelRequirements: Array<PersonnelRequirementFormValues>;
 };
 
 export function convertFormValuesToApiInput(
@@ -223,15 +243,36 @@ export function convertFormValuesToApiInput(
       formValues.hasPersonnelRequirements,
     ),
     personnelRequirements: {
-      create: formValues.personnelRequirements.map((requirement) => {
+      create: formValues.personnelRequirements.map((personnelRequirement) => {
         return {
-          resourceType: requirement.resourceType,
-          language: stringToEnum(PersonnelLanguage, requirement.language),
-          languageOther: emptyToNull(requirement.languageOther),
-          security: stringToEnum(PersonnelScreeningLevel, requirement.security),
-          securityOther: emptyToNull(requirement.securityOther),
-          telework: stringToEnum(PersonnelTeleworkOption, requirement.telework),
-          quantity: parseInt(requirement.quantity, 10) ?? null,
+          resourceType: personnelRequirement.resourceType,
+          skillRequirements: {
+            create: personnelRequirement.skillRequirements.map(
+              (skillRequirement) => {
+                return {
+                  skill: {
+                    connect: skillRequirement.skillId,
+                  },
+                  level: stringToEnum(SkillLevel, skillRequirement.level),
+                };
+              },
+            ),
+          },
+          language: stringToEnum(
+            PersonnelLanguage,
+            personnelRequirement.language,
+          ),
+          languageOther: emptyToNull(personnelRequirement.languageOther),
+          security: stringToEnum(
+            PersonnelScreeningLevel,
+            personnelRequirement.security,
+          ),
+          securityOther: emptyToNull(personnelRequirement.securityOther),
+          telework: stringToEnum(
+            PersonnelTeleworkOption,
+            personnelRequirement.telework,
+          ),
+          quantity: parseInt(personnelRequirement.quantity, 10) ?? null,
         };
       }),
     },

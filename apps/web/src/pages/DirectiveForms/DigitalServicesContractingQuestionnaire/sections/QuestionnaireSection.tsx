@@ -4,6 +4,7 @@ import ListBulletIcon from "@heroicons/react/24/outline/ListBulletIcon";
 
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
+import { Skill } from "@gc-digital-talent/graphql";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import { IdNamePair } from "../types";
@@ -13,11 +14,13 @@ import RequirementsSection from "./RequirementsSection";
 
 type QuestionnaireSectionProps = {
   departments: Array<IdNamePair>;
+  skills: Array<Skill>;
   isSubmitting: boolean;
 };
 
 const QuestionnaireSection = ({
   departments,
+  skills,
   isSubmitting,
 }: QuestionnaireSectionProps) => {
   const intl = useIntl();
@@ -32,7 +35,7 @@ const QuestionnaireSection = ({
 
       {/* <GeneralInformationSection departments={departments} /> */}
       {/* <ScopeOfContractSection /> */}
-      <RequirementsSection />
+      <RequirementsSection skills={skills} />
 
       <TableOfContents.Section
         id={PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE}
