@@ -19,6 +19,7 @@ import {
   Scalars,
   Skill,
   SkillLevel,
+  SkillCategory,
   UserSkill,
   WhenSkillUsed,
   useCreateUserSkillMutation,
@@ -32,8 +33,13 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { BasicForm, RadioGroup } from "@gc-digital-talent/forms";
-import { getTechnicalSkillLevel } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+import { BasicForm, RadioGroup, enumToOptions } from "@gc-digital-talent/forms";
+import {
+  getTechnicalSkillLevel,
+  getBehaviouralSkillLevel,
+  getTechnicalSkillLevelDefinition,
+  getBehaviouralSkillLevelDefinition,
+} from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -89,6 +95,23 @@ const UpdateUserSkillForm = ({
         (existingExperience) => existingExperience.id === exp.id,
       ),
   );
+
+  const isTechnical = skill.families?.some(
+    (family) => family.category === SkillCategory.Technical,
+  );
+  const levelGetter = isTechnical
+    ? getTechnicalSkillLevel
+    : getBehaviouralSkillLevel;
+  const levelDefinitionGetter = isTechnical
+    ? getTechnicalSkillLevelDefinition
+    : getBehaviouralSkillLevelDefinition;
+  const levelOptions = enumToOptions(SkillLevel).map((option) => ({
+    value: option.value,
+    label: <strong>{intl.formatMessage(levelGetter(option.value))}</strong>,
+    contentBelow: (
+      <p>{intl.formatMessage(levelDefinitionGetter(option.value))}</p>
+    ),
+  }));
 
   const [{ fetching: creating }, executeCreateMutation] =
     useCreateUserSkillMutation();
@@ -330,32 +353,7 @@ const UpdateUserSkillForm = ({
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
-                    items={[
-                      {
-                        value: SkillLevel.Beginner,
-                        label: intl.formatMessage(
-                          getTechnicalSkillLevel(SkillLevel.Beginner),
-                        ),
-                      },
-                      {
-                        value: SkillLevel.Intermediate,
-                        label: intl.formatMessage(
-                          getTechnicalSkillLevel(SkillLevel.Intermediate),
-                        ),
-                      },
-                      {
-                        value: SkillLevel.Expert,
-                        label: intl.formatMessage(
-                          getTechnicalSkillLevel(SkillLevel.Expert),
-                        ),
-                      },
-                      {
-                        value: SkillLevel.Lead,
-                        label: intl.formatMessage(
-                          getTechnicalSkillLevel(SkillLevel.Lead),
-                        ),
-                      },
-                    ]}
+                    items={levelOptions}
                   />
                   <RadioGroup
                     idPrefix="whenSkillUsed"
