@@ -212,7 +212,7 @@ type User {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
-  userSkills: [UserSkill!]
+  userSkills(includeSkillIds: [UUID]): [UserSkill]
   pools: [Pool] @deprecated(reason: "pools is deprecated. user.roles.team.pools instead. Remove in #7664.")
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle] @deprecated(reason: "expectedGenericJobTitles is deprecated. Remove in #7645.")

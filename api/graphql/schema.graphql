@@ -129,7 +129,7 @@ type User {
   personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Skill Library
-  userSkills: [UserSkill!] @hasMany
+  userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
   # Pool Manager info
   pools: [Pool]
     @hasMany
@@ -1858,14 +1858,15 @@ type Mutation {
 
   # UserSkill mutations
   createUserSkill(
-    userId: ID! @rename(attribute: "user_id")
-    skillId: ID! @rename(attribute: "skill_id")
+    userId: UUID! @rename(attribute: "user_id")
+    skillId: UUID! @rename(attribute: "skill_id")
     userSkill: CreateUserSkillInput @spread
   ): UserSkill @can(ability: "create", injectArgs: true)
-  updateUserSkill(id: ID!, userSkill: UpdateUserSkillInput @spread): UserSkill
-    @update
-    @can(ability: "update", find: "id")
-  deleteUserSkill(id: ID! @whereKey): UserSkill
+  updateUserSkill(
+    id: UUID!
+    userSkill: UpdateUserSkillInput @spread
+  ): UserSkill @update @can(ability: "update", find: "id")
+  deleteUserSkill(id: UUID! @whereKey): UserSkill
     @can(ability: "delete", find: "id")
     @delete
 }

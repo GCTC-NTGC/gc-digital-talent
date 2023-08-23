@@ -1,7 +1,22 @@
-query AllSkills {
-  skills {
+fragment skillFragment on Skill {
+  id
+  key
+  name {
+    en
+    fr
+  }
+  description {
+    en
+    fr
+  }
+  keywords {
+    en
+    fr
+  }
+  families {
     id
     key
+    category
     name {
       en
       fr
@@ -10,51 +25,63 @@ query AllSkills {
       en
       fr
     }
-    keywords {
-      en
-      fr
-    }
-    families {
-      id
-      key
-      category
-      name {
-        en
-        fr
-      }
-    }
+  }
+}
+
+fragment userSkillExperienceFragment on Experience {
+  id
+  __typename
+  details
+  user {
+    id
+  }
+  ... on AwardExperience {
+    title
+    issuedBy
+    awardedDate
+    awardedTo
+    awardedScope
+  }
+  ... on CommunityExperience {
+    title
+    organization
+    project
+    startDate
+    endDate
+  }
+  ... on EducationExperience {
+    institution
+    areaOfStudy
+    thesisTitle
+    startDate
+    endDate
+    type
+    status
+  }
+  ... on PersonalExperience {
+    title
+    description
+    startDate
+    endDate
+  }
+  ... on WorkExperience {
+    role
+    organization
+    division
+    startDate
+    endDate
+  }
+}
+
+query AllSkills {
+  skills {
+    ...skillFragment
   }
 }
 
 query Skill($id: UUID!) {
   skill(id: $id) {
-    id
-    key
-    name {
-      en
-      fr
-    }
-    description {
-      en
-      fr
-    }
-    keywords {
-      en
-      fr
-    }
-    families {
-      id
-      key
-      category
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-    }
+    ...skillFragment
   }
 }
 
@@ -100,6 +127,33 @@ query GetUpdateSkillData($id: UUID!) {
         en
         fr
       }
+    }
+  }
+}
+
+query UserSkill($skillId: UUID!) {
+  me {
+    userSkills(includeSkillIds: [$skillId]) {
+      id
+      whenSkillUsed
+      skillLevel
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+  }
+  skill(id: $skillId) {
+    ...skillFragment
+    experiences {
+      ...userSkillExperienceFragment
     }
   }
 }

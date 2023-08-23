@@ -13,10 +13,13 @@ import {
   Dialog,
 } from "@gc-digital-talent/ui";
 import {
+  Maybe,
   Scalars,
   Skill,
   SkillLevel,
+  UserSkill,
   WhenSkillUsed,
+  useUserSkillQuery,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -24,15 +27,13 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { fakeSkills } from "@gc-digital-talent/fake-data";
 import { BasicForm, RadioGroup } from "@gc-digital-talent/forms";
 import { getTechnicalSkillLevel } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
-
-const mockSkills = fakeSkills();
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 type PageSection = {
   id: string;
@@ -42,17 +43,23 @@ type PageSections = Record<string, PageSection>;
 
 type FormValues = {
   skillLevel: SkillLevel;
-  whenUsed: WhenSkillUsed;
+  whenSkillUsed: WhenSkillUsed;
 };
 
 interface UpdateUserSkillFormProps {
   skill: Skill;
+  userSkill?: Maybe<UserSkill>;
 }
 
-const UpdateUserSkillForm = ({ skill }: UpdateUserSkillFormProps) => {
+const UpdateUserSkillForm = ({
+  skill,
+  userSkill,
+}: UpdateUserSkillFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const skillName = getLocalizedName(skill.name, intl);
+  const skillDescription = getLocalizedName(skill.description, intl);
+  const hasUserSkill = notEmpty(userSkill);
 
   const handleSubmit = (values: FormValues) => {
     console.log(values);
@@ -169,7 +176,7 @@ const UpdateUserSkillForm = ({ skill }: UpdateUserSkillFormProps) => {
                   description: "Help text for updating a skill level",
                 })}
               </p>
-              {skill.description && (
+              {skillDescription && (
                 <Well data-h2-margin="base(x1 0)">
                   <p
                     data-h2-font-weight="base(800)"
@@ -185,10 +192,20 @@ const UpdateUserSkillForm = ({ skill }: UpdateUserSkillFormProps) => {
                     )}
                     {intl.formatMessage(commonMessages.dividingColon)}
                   </p>
-                  <p>{getLocalizedName(skill.description, intl)}</p>
+                  <p>{skillDescription}</p>
                 </Well>
               )}
-              <BasicForm onSubmit={handleSubmit}>
+              <BasicForm
+                onSubmit={handleSubmit}
+                options={{
+                  defaultValues: hasUserSkill
+                    ? {
+                        skillLevel: userSkill.skillLevel ?? undefined,
+                        whenSkillUsed: userSkill.whenSkillUsed ?? undefined,
+                      }
+                    : undefined,
+                }}
+              >
                 <div
                   data-h2-display="base(flex)"
                   data-h2-flex-direction="base(column)"
@@ -235,8 +252,8 @@ const UpdateUserSkillForm = ({ skill }: UpdateUserSkillFormProps) => {
                     ]}
                   />
                   <RadioGroup
-                    idPrefix="isCurrent"
-                    name="isCurrent"
+                    idPrefix="whenSkillUsed"
+                    name="whenSkillUsed"
                     legend={intl.formatMessage({
                       defaultMessage: "Do you currently use this skill?",
                       id: "PmDeul",
@@ -427,14 +444,20 @@ type RouteParams = {
 
 const SkillEvaluationPage = () => {
   const intl = useIntl();
-  // const { skillId } = useParams<RouteParams>();
+  const { skillId } = useParams<RouteParams>();
 
-  const fetching = false;
+  const [{ data, fetching, error }] = useUserSkillQuery({
+    variables: {
+      skillId: skillId ?? "",
+    },
+  });
+
+  const userSkill = data?.me?.userSkills?.find((s) => s?.skill.id === skillId);
 
   return (
-    <Pending fetching={fetching}>
-      {mockSkills[0] ? (
-        <UpdateUserSkillForm skill={mockSkills[0]} />
+    <Pending fetching={fetching} error={error}>
+      {data?.skill ? (
+        <UpdateUserSkillForm skill={data.skill} userSkill={userSkill} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage({
