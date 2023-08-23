@@ -12,12 +12,15 @@ import {
   TextArea,
   unpackIds,
   MultiSelectField,
+  Select,
+  enumToOptions,
 } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   getLocale,
   errorMessages,
   commonMessages,
+  getSkillCategory,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 
@@ -30,6 +33,7 @@ import {
   useUpdateSkillMutation,
   useGetUpdateSkillDataQuery,
   Scalars,
+  SkillCategory,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -38,6 +42,7 @@ import adminMessages from "~/messages/adminMessages";
 type Option<V> = { value: V; label: string };
 
 type FormValues = Pick<Skill, "name" | "description"> & {
+  category: SkillCategory;
   families: string[];
   keywords: {
     en: string;
@@ -99,6 +104,7 @@ export const UpdateSkillForm = ({
       en: values.description?.en,
       fr: values.description?.fr,
     },
+    category: values.category,
   });
 
   const methods = useForm<FormValues>({
@@ -250,6 +256,29 @@ export const UpdateSkillForm = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+            />
+            <Select
+              id="category"
+              name="category"
+              label={intl.formatMessage({
+                defaultMessage: "Category",
+                id: "KZR3ad",
+                description:
+                  "Label displayed on the skill family form category field.",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a category",
+                id: "+hRCVl",
+                description:
+                  "Placeholder displayed on the skill family form category field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              options={enumToOptions(SkillCategory).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getSkillCategory(value)),
+              }))}
             />
             <MultiSelectField
               id="families"

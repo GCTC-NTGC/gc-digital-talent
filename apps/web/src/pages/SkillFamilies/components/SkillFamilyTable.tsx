@@ -1,27 +1,17 @@
 import React, { useMemo } from "react";
-import { IntlShape, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
-import { getLocale, getSkillCategory } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import {
-  SkillCategory,
-  SkillFamily,
-  useAllSkillFamiliesQuery,
-} from "~/api/generated";
+import { SkillFamily, useAllSkillFamiliesQuery } from "~/api/generated";
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,
   Cell,
 } from "~/components/Table/ClientManagedTable";
-
-// callbacks extracted to separate function to stabilize memoized component
-const categoryAccessor = (
-  category: SkillCategory | null | undefined,
-  intl: IntlShape,
-) => (category ? intl.formatMessage(getSkillCategory(category as string)) : "");
 
 type SkillFamilyCell = Cell<SkillFamily>;
 
@@ -64,15 +54,6 @@ export const SkillFamilyTable = ({
             "Title displayed for the Skill Family table Description column.",
         }),
         accessor: (sf) => sf.description?.[locale],
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Category",
-          id: "m5RwGF",
-          description:
-            "Title displayed for the Skill Family table Category column.",
-        }),
-        accessor: ({ category }) => categoryAccessor(category, intl),
       },
       {
         Header: intl.formatMessage({

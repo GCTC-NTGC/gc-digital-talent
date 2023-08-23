@@ -10,8 +10,14 @@ import {
   TextArea,
   Submit,
   MultiSelectField,
+  enumToOptions,
+  Select,
 } from "@gc-digital-talent/forms";
-import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  getLocale,
+  errorMessages,
+  getSkillCategory,
+} from "@gc-digital-talent/i18n";
 import { notEmpty, keyStringRegex } from "@gc-digital-talent/helpers";
 import { Pending, Heading } from "@gc-digital-talent/ui";
 
@@ -24,6 +30,7 @@ import {
   CreateSkillMutation,
   useCreateSkillMutation,
   useAllSkillFamiliesQuery,
+  SkillCategory,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
@@ -44,6 +51,7 @@ type FormValues = Pick<Skill, "description"> & {
     en: string;
     fr: string;
   };
+  category: SkillCategory;
   families: string[] | undefined;
 };
 interface CreateSkillFormProps {
@@ -258,6 +266,29 @@ export const CreateSkillForm = ({
               }}
             />
             <div data-h2-margin="base(x1, 0)">
+              <Select
+                id="category"
+                name="category"
+                label={intl.formatMessage({
+                  defaultMessage: "Category",
+                  id: "KZR3ad",
+                  description:
+                    "Label displayed on the skill family form category field.",
+                })}
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a category",
+                  id: "+hRCVl",
+                  description:
+                    "Placeholder displayed on the skill family form category field.",
+                })}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                options={enumToOptions(SkillCategory).map(({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getSkillCategory(value)),
+                }))}
+              />
               <MultiSelectField
                 id="families"
                 name="families"

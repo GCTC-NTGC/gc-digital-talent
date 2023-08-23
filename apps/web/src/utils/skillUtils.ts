@@ -81,9 +81,7 @@ export function filterSkillsByCategory(
   category: SkillCategory,
 ) {
   return skills
-    ?.filter((skill) => {
-      return skill.families?.some((family) => family.category === category);
-    })
+    ?.filter((skill) => skill.category === category)
     .filter(notEmpty);
 }
 

@@ -172,11 +172,8 @@ export const getSkillCategorySkillCount = (
   skills: Skill[],
   category: SkillCategory,
 ): number => {
-  const skillsByCategory = skills.filter((skill) => {
-    return skill.families?.some(
-      (skillFamily) => skillFamily.category === category,
-    );
-  });
-
+  const skillsByCategory = skills.filter(
+    (skill) => skill.category === category,
+  );
   return skillsByCategory.length;
 };
