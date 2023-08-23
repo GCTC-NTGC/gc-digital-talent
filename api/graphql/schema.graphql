@@ -612,7 +612,6 @@ type SkillFamily {
   name: LocalizedString
   description: LocalizedString
   skills: [Skill!] @belongsToMany
-  category: SkillCategory!
 }
 
 type Skill {
@@ -621,6 +620,7 @@ type Skill {
   name: LocalizedString!
   description: LocalizedString
   keywords: SkillKeywords
+  category: SkillCategory!
   families: [SkillFamily!] @belongsToMany
 
   # Experiences
@@ -1409,14 +1409,12 @@ input CreateSkillFamilyInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   skills: SkillBelongsToMany
-  category: SkillCategory!
 }
 
 input UpdateSkillFamilyInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   skills: SkillBelongsToMany
-  category: SkillCategory
 }
 
 input SkillFamilyBelongsToMany {
@@ -1434,6 +1432,7 @@ input CreateSkillInput {
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
   keywords: SkillKeywordsInput
+  category: SkillCategory!
 }
 
 input UpdateSkillInput {
@@ -1441,6 +1440,7 @@ input UpdateSkillInput {
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
   keywords: SkillKeywordsInput
+  category: SkillCategory
 }
 
 input WorkExperienceInput {
