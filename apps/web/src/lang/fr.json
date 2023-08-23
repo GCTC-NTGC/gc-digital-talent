@@ -887,6 +887,10 @@
     "defaultMessage": "Expérience mise à jour avec succès!",
     "description": "Success message displayed after updating an experience"
   },
+  "450itb": {
+    "defaultMessage": "{count, plural, =0 {0 éléments sélectionnés} =1 {1 élément sélectionné} other {# éléments sélectionnés}}",
+    "description": "Message displayed for the number of rows selected in a table"
+  },
   "45BhQw": {
     "defaultMessage": "Vous êtes sur le point de PUBLIER ce bassin.",
     "description": "First paragraph for publish pool dialog"
@@ -3585,10 +3589,6 @@
   "NkZeS1": {
     "defaultMessage": "Talents numériques du GC s'associe au service de justificatifs du gouvernement du Canada, CléGC, pour vous donner accès à votre compte à l'aide d'une seule combinaison de nom d'utilisateur et de mot de passe. Vous pouvez gérer les données connexes sur le site Web de CléGC, et elles s'afficheront automatiquement ici lorsque vous accéderez à votre compte.",
     "description": "Description of how we use GCKey for authentication."
-  },
-  "NlX7Wq": {
-    "defaultMessage": "{count, plural, =0 {0 éléments sélectionnés} =1 {1 élément sélectionné} other {# éléments sélectionnés}",
-    "description": "Message displayed for the number of rows selected in a table"
   },
   "NljjDf": {
     "defaultMessage": "Vous pouvez choisir de le fermer manuellement maintenant, cela empêchera les utilisateurs de soumettre des candidatures.",
