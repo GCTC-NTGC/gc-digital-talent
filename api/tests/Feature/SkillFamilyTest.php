@@ -141,7 +141,6 @@ class SkillFamilyTest extends TestCase
         $variables = [
             'skillFamily' => [
                 'key' => 'key',
-                'category' => ApiEnums::SKILL_CATEGORY_BEHAVIOURAL,
                 'name' => [
                     'en' => 'New Name (EN)',
                     'fr' => 'New Name (FR)'
