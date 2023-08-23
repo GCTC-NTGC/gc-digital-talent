@@ -8,6 +8,7 @@ import {
   ContractStartTimeframe,
   ContractSupplyMethod,
   ContractValueRange,
+  OperationsConsideration,
   PersonnelLanguage,
   PersonnelOtherRequirement,
   PersonnelScreeningLevel,
@@ -582,4 +583,64 @@ export const personnelTeleworkOptionSortOrder = [
   PersonnelTeleworkOption.FullTime,
   PersonnelTeleworkOption.PartTime,
   PersonnelTeleworkOption.No,
+];
+
+const operationsConsiderations = defineMessages({
+  [OperationsConsideration.FinanceVehicleNotUsable]: {
+    defaultMessage:
+      "The finance vehicle available cannot be used for staffing (unable to use available funding for staffing)",
+    id: "TO/Q6I",
+    description: "Finance vehicle not usable operations consideration",
+  },
+  [OperationsConsideration.FundingSecuredCostRecoveryBasis]: {
+    defaultMessage: "The funding has been secured on a cost-recovery basis",
+    id: "TO/Q6I",
+    description:
+      "Funding secured on a cost-recovery basis operations consideration",
+  },
+  [OperationsConsideration.UnableCreateNewIndeterminate]: {
+    defaultMessage:
+      "Unable to create new indeterminate positions in the required timeframe",
+    id: "TO/Q6I",
+    description:
+      "Unable to create new indeterminate positions operations consideration",
+  },
+  [OperationsConsideration.UnableCreateNewTerm]: {
+    defaultMessage:
+      "Unable to create new term positions in the required timeframe",
+    id: "TO/Q6I",
+    description: "Unable to create new term positions operations consideration",
+  },
+  [OperationsConsideration.UnableCreateClassificationRestriction]: {
+    defaultMessage:
+      "Unable to create the position in the required group due to a classification restriction",
+    id: "TO/Q6I",
+    description:
+      "Unable to create new positions in classification operations consideration",
+  },
+  [OperationsConsideration.StaffingFreeze]: {
+    defaultMessage: "Staffing freeze in place",
+    id: "TO/Q6I",
+    description: "Staffing freeze operations consideration",
+  },
+  [OperationsConsideration.Other]: formMessages.other,
+} as const);
+
+export const getOperationsConsideration = (
+  enumKey: keyof typeof operationsConsiderations,
+): MessageDescriptor =>
+  getOrThrowError(
+    operationsConsiderations,
+    enumKey,
+    `Invalid operations consideration '${enumKey}'`,
+  );
+
+export const operationsConsiderationsSortOrder = [
+  OperationsConsideration.FinanceVehicleNotUsable,
+  OperationsConsideration.FundingSecuredCostRecoveryBasis,
+  OperationsConsideration.UnableCreateNewIndeterminate,
+  OperationsConsideration.UnableCreateNewTerm,
+  OperationsConsideration.UnableCreateClassificationRestriction,
+  OperationsConsideration.StaffingFreeze,
+  OperationsConsideration.Other,
 ];

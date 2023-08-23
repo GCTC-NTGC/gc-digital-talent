@@ -7,6 +7,7 @@ import {
   ContractSupplyMethod,
   ContractValueRange,
   DigitalContractingQuestionnaireInput,
+  OperationsConsideration,
   PersonnelLanguage,
   PersonnelOtherRequirement,
   PersonnelScreeningLevel,
@@ -109,10 +110,14 @@ export type FormValues = {
   // personnelRequirements: Array<PersonnelRequirementFormValues>;
 
   // technological change section
-  isTechnologicalChange: string;
-  hasImpactOnYourDepartment: string;
-  hasImmediateImpactOnOtherDepartments: string;
-  hasFutureImpactOnOtherDepartments: string;
+  // isTechnologicalChange: string;
+  // hasImpactOnYourDepartment: string;
+  // hasImmediateImpactOnOtherDepartments: string;
+  // hasFutureImpactOnOtherDepartments: string;
+
+  // operations considerations section
+  operationsConsiderations: Array<string>;
+  operationsConsiderationsOther: string;
 };
 
 export function convertFormValuesToApiInput(
@@ -284,27 +289,31 @@ export function convertFormValuesToApiInput(
     // },
 
     // Technological change section
-    isTechnologicalChange: stringToEnum(
-      YesNo,
-      formValues.isTechnologicalChange,
+    // isTechnologicalChange: stringToEnum(
+    //   YesNo,
+    //   formValues.isTechnologicalChange,
+    // ),
+    // hasImpactOnYourDepartment: stringToEnum(
+    //   YesNo,
+    //   formValues.hasImpactOnYourDepartment,
+    // ),
+    // hasImmediateImpactOnOtherDepartments: stringToEnum(
+    //   YesNo,
+    //   formValues.hasImmediateImpactOnOtherDepartments,
+    // ),
+    // hasFutureImpactOnOtherDepartments: stringToEnum(
+    //   YesNo,
+    //   formValues.hasFutureImpactOnOtherDepartments,
+    // ),
+
+    // Operations considerations section
+    operationsConsiderations: formValues.operationsConsiderations?.map((a) =>
+      stringToEnum(OperationsConsideration, a),
     ),
-    hasImpactOnYourDepartment: stringToEnum(
-      YesNo,
-      formValues.hasImpactOnYourDepartment,
-    ),
-    hasImmediateImpactOnOtherDepartments: stringToEnum(
-      YesNo,
-      formValues.hasImmediateImpactOnOtherDepartments,
-    ),
-    hasFutureImpactOnOtherDepartments: stringToEnum(
-      YesNo,
-      formValues.hasFutureImpactOnOtherDepartments,
+    operationsConsiderationsOther: emptyToNull(
+      formValues.operationsConsiderationsOther,
     ),
 
-    // operationsConsiderations: [OperationsConsideration!]
-    //   @rename(attribute: "operations_considerations")
-    // operationsConsiderationsOther: String
-    //   @rename(attribute: "operations_considerations_other")
     // contractingRationalePrimary: ContractingRationale
     //   @rename(attribute: "contracting_rationale_primary")
     // contractingRationalePrimaryOther: String

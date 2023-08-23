@@ -12,6 +12,7 @@ import GeneralInformationSection from "./GeneralInformationSection";
 import ScopeOfContractSection from "./ScopeOfContractSection";
 import RequirementsSection from "./RequirementsSection";
 import TechnologicalChangeSection from "./TechnologicalChangeSection";
+import OperationsConsiderationsSection from "./OperationsConsiderationsSection";
 
 type QuestionnaireSectionProps = {
   departments: Array<IdNamePair>;
@@ -37,19 +38,9 @@ const QuestionnaireSection = ({
       {/* <GeneralInformationSection departments={departments} /> */}
       {/* <ScopeOfContractSection /> */}
       {/* <RequirementsSection skills={skills} /> */}
-      <TechnologicalChangeSection />
+      {/* <TechnologicalChangeSection /> */}
+      <OperationsConsiderationsSection />
 
-      <TableOfContents.Section
-        id={PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS}
-        data-h2-padding-top="base(x2)"
-      >
-        <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
-          {intl.formatMessage(
-            getSectionTitle(PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS),
-          )}
-        </Heading>
-        TODO: OPERATIONS_CONSIDERATIONS
-      </TableOfContents.Section>
       <TableOfContents.Section
         id={PAGE_SECTION_ID.TALENT_SOURCING_DECISION}
         data-h2-padding-top="base(x2)"
