@@ -92,7 +92,9 @@ type User {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  hasDiploma: Boolean @rename(attribute: "has_diploma")
+  hasDiploma: Boolean
+    @rename(attribute: "has_diploma")
+    @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -551,7 +553,9 @@ input EquitySelectionsInput {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification] @belongsToMany
-  hasDiploma: Boolean @rename(attribute: "has_diploma")
+  hasDiploma: Boolean
+    @rename(attribute: "has_diploma")
+    @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelections
   languageAbility: LanguageAbility @rename(attribute: "language_ability")
   operationalRequirements: [OperationalRequirement]
@@ -563,7 +567,9 @@ type PoolCandidateFilter {
 # ApplicantFilter only includes the fields which Talent Seekers can use to search for candidates.
 type ApplicantFilter {
   id: ID!
-  hasDiploma: Boolean @rename(attribute: "has_diploma")
+  hasDiploma: Boolean
+    @rename(attribute: "has_diploma")
+    @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelections
   languageAbility: LanguageAbility @rename(attribute: "language_ability")
   operationalRequirements: [OperationalRequirement]
@@ -827,7 +833,7 @@ input UserFilterInput {
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
-  hasDiploma: Boolean @scope
+  hasDiploma: Boolean @scope @deprecated(reason: "hasDiploma to be replaced")
   languageAbility: LanguageAbility @scope
   locationPreferences: [WorkRegion] @scope
   operationalRequirements: [OperationalRequirement] @scope
@@ -1107,7 +1113,9 @@ input CreateUserInput {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  hasDiploma: Boolean @rename(attribute: "has_diploma")
+  hasDiploma: Boolean
+    @rename(attribute: "has_diploma")
+    @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1175,7 +1183,9 @@ input UpdateUserAsAdminInput
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  hasDiploma: Boolean @rename(attribute: "has_diploma")
+  hasDiploma: Boolean
+    @rename(attribute: "has_diploma")
+    @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1241,7 +1251,9 @@ input UpdateUserAsUserInput
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  hasDiploma: Boolean @rename(attribute: "has_diploma")
+  hasDiploma: Boolean
+    @rename(attribute: "has_diploma")
+    @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1354,7 +1366,9 @@ input UpdateTeamInput {
 }
 
 input CreateApplicantFilterInput {
-  hasDiploma: Boolean @rename(attribute: "has_diploma")
+  hasDiploma: Boolean
+    @rename(attribute: "has_diploma")
+    @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelectionsInput @spread
   languageAbility: LanguageAbility @rename(attribute: "language_ability")
   operationalRequirements: [OperationalRequirement]
