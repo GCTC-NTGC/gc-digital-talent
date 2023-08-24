@@ -1,7 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
-import { SubmitHandler, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import uniqBy from "lodash/uniqBy";
 
 import {
@@ -11,7 +10,6 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
-  BasicForm,
   Input,
   RadioGroup,
   Select,
@@ -20,20 +18,15 @@ import {
   FieldLabels,
 } from "@gc-digital-talent/forms";
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
 import { Link } from "@gc-digital-talent/ui";
 
 import { splitAndJoin } from "~/utils/nameUtils";
 import {
   Classification,
   UpdateUserAsUserInput,
-  GetGovInfoFormLookupDataQuery,
   GovEmployeeType,
   Department,
-  User,
 } from "~/api/generated";
-import useApplicationInfo from "~/hooks/useApplicationInfo";
-import profileMessages from "~/messages/profileMessages";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
@@ -148,33 +141,6 @@ export const formValuesToSubmitData = (
       values.priorityEntitlementNumber
         ? values.priorityEntitlementNumber
         : null,
-  };
-};
-
-const dataToFormValues = (
-  data: GetGovInfoFormLookupDataQuery["me"],
-): FormValues => {
-  const boolToYesNo = (
-    bool: boolean | null | undefined,
-  ): "yes" | "no" | undefined => {
-    if (empty(bool)) {
-      return undefined;
-    }
-    return bool ? "yes" : "no";
-  };
-  return {
-    govEmployeeYesNo: boolToYesNo(data?.isGovEmployee),
-    priorityEntitlementYesNo: boolToYesNo(data?.hasPriorityEntitlement),
-    priorityEntitlementNumber: data?.priorityNumber
-      ? data.priorityNumber
-      : undefined,
-    govEmployeeType: data?.govEmployeeType,
-    lateralDeployBool: undefined,
-    department: data?.department?.id,
-    currentClassificationGroup: data?.currentClassification?.group,
-    currentClassificationLevel: data?.currentClassification?.level
-      ? String(data.currentClassification.level)
-      : undefined,
   };
 };
 
@@ -494,54 +460,3 @@ export const GovernmentInfoFormFields = ({
     </div>
   );
 };
-
-export interface GovernmentInfoFormProps {
-  departments: Department[];
-  classifications: Classification[];
-  initialData: User;
-  submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
-}
-
-const GovernmentInfoForm = ({
-  departments,
-  classifications,
-  initialData,
-  submitHandler,
-}: GovernmentInfoFormProps) => {
-  const intl = useIntl();
-  const navigate = useNavigate();
-  const { returnRoute } = useApplicationInfo(initialData.id);
-
-  const labels = getGovernmentInfoLabels(intl);
-
-  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    return submitHandler(formValuesToSubmitData(formValues, classifications))
-      .then(() => {
-        navigate(returnRoute);
-        toast.success(intl.formatMessage(profileMessages.userUpdated));
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(profileMessages.updatingFailed));
-      });
-  };
-
-  return (
-    <BasicForm
-      labels={labels}
-      cacheKey="gov-info-form"
-      onSubmit={handleSubmit}
-      options={{
-        mode: "onBlur",
-        defaultValues: dataToFormValues(initialData),
-      }}
-    >
-      <GovernmentInfoFormFields
-        labels={labels}
-        departments={departments}
-        classifications={classifications}
-      />
-    </BasicForm>
-  );
-};
-
-export default GovernmentInfoForm;

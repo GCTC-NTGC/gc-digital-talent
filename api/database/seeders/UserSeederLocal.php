@@ -4,9 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Role;
-use App\Models\Team;
 use Illuminate\Database\Seeder;
-use Database\Helpers\ApiEnums;
 
 class UserSeederLocal extends Seeder
 {
@@ -20,23 +18,6 @@ class UserSeederLocal extends Seeder
     {
         // collect roles and teams for assignment
         $roles = Role::all();
-        $baseUserRole = $roles->sole(function ($r) {
-            return $r->name == "base_user";
-        });
-        $applicantRole = $roles->sole(function ($r) {
-            return $r->name == "applicant";
-        });
-        $poolOperatorRole = $roles->sole(function ($r) {
-            return $r->name == "pool_operator";
-        });
-        $platformAdminRole = $roles->sole(function ($r) {
-            return $r->name == "platform_admin";
-        });
-        $requestResponderRole = $roles->sole(function ($r) {
-            return $r->name == "request_responder";
-        });
-        $dcmTeam = Team::where('name', 'digital-community-management')->sole();
-        $testTeam = Team::where('name', 'test-team')->sole();
 
         // shared auth users for testing
         User::factory()

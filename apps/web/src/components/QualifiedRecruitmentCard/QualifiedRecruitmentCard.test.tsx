@@ -50,15 +50,13 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/hired \(casual\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/hired \(casual\)/i)).toBeInTheDocument();
     expect(
-      screen.queryByText(
-        /you are open to opportunities from this recruitment/i,
-      ),
+      screen.getByText(/you are open to opportunities from this recruitment/i),
     ).toBeInTheDocument();
-    expect(screen.queryByText(/change your availability/i)).toBeInTheDocument();
+    expect(screen.getByText(/change your availability/i)).toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(3);
@@ -74,15 +72,15 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/not interested/i)).toBeInTheDocument();
+    expect(screen.getByText(/not interested/i)).toBeInTheDocument();
     expect(
-      screen.queryByText(
+      screen.getByText(
         /you are not receiving opportunities from this recruitment/i,
       ),
     ).toBeInTheDocument();
-    expect(screen.queryByText(/change your availability/i)).toBeInTheDocument();
+    expect(screen.getByText(/change your availability/i)).toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(3);
@@ -98,7 +96,7 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/hired \(indeterminate\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/hired \(indeterminate\)/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -113,7 +111,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -129,7 +127,7 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/hired \(indeterminate\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/hired \(indeterminate\)/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -144,7 +142,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -160,7 +158,7 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/hired \(term\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/hired \(term\)/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -175,7 +173,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -191,7 +189,7 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/hired \(term\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/hired \(term\)/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -206,7 +204,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -222,15 +220,13 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/ready to hire/i)).toBeInTheDocument();
+    expect(screen.getByText(/ready to hire/i)).toBeInTheDocument();
     expect(
-      screen.queryByText(
-        /you are open to opportunities from this recruitment/i,
-      ),
+      screen.getByText(/you are open to opportunities from this recruitment/i),
     ).toBeInTheDocument();
-    expect(screen.queryByText(/change your availability/i)).toBeInTheDocument();
+    expect(screen.getByText(/change your availability/i)).toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(3);
@@ -246,15 +242,15 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/not interested/i)).toBeInTheDocument();
+    expect(screen.getByText(/not interested/i)).toBeInTheDocument();
     expect(
-      screen.queryByText(
+      screen.getByText(
         /you are not receiving opportunities from this recruitment/i,
       ),
     ).toBeInTheDocument();
-    expect(screen.queryByText(/change your availability/i)).toBeInTheDocument();
+    expect(screen.getByText(/change your availability/i)).toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(3);
@@ -270,7 +266,7 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/paused/i)).toBeInTheDocument();
+    expect(screen.getByText(/paused/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -285,7 +281,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -301,7 +297,7 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/paused/i)).toBeInTheDocument();
+    expect(screen.getByText(/paused/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -316,7 +312,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -332,7 +328,7 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/withdrew/i)).toBeInTheDocument();
+    expect(screen.getByText(/withdrew/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -347,7 +343,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -363,7 +359,7 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/withdrew/i)).toBeInTheDocument();
+    expect(screen.getByText(/withdrew/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -378,7 +374,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -394,7 +390,7 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/expired/i)).toBeInTheDocument();
+    expect(screen.getByText(/expired/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -409,7 +405,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -425,7 +421,7 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.queryByText(/expired/i)).toBeInTheDocument();
+    expect(screen.getByText(/expired/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -440,7 +436,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);

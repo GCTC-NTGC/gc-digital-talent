@@ -4,7 +4,8 @@
 
 import React from "react";
 import { faker } from "@faker-js/faker";
-import { screen, fireEvent } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
@@ -43,6 +44,8 @@ const DefaultChildren = () => (
 );
 
 describe("Accordion", () => {
+  const user = userEvent.setup();
+
   it("should not have accessibility errors when single", async () => {
     const { container } = renderAccordion({
       type: "single",
@@ -65,19 +68,13 @@ describe("Accordion", () => {
       children: <DefaultChildren />,
     });
 
-    expect(
-      await screen.getAllByRole("button", { expanded: false }),
-    ).toHaveLength(2);
+    expect(screen.getAllByRole("button", { expanded: false })).toHaveLength(2);
 
-    fireEvent.click(await screen.getByRole("button", { name: /one/i }));
-    fireEvent.click(await screen.getByRole("button", { name: /two/i }));
+    await user.click(screen.getByRole("button", { name: /one/i }));
+    await user.click(screen.getByRole("button", { name: /two/i }));
 
-    expect(
-      await screen.getAllByRole("button", { expanded: false }),
-    ).toHaveLength(1);
-    expect(
-      await screen.getAllByRole("button", { expanded: true }),
-    ).toHaveLength(1);
+    expect(screen.getAllByRole("button", { expanded: false })).toHaveLength(1);
+    expect(screen.getAllByRole("button", { expanded: true })).toHaveLength(1);
   });
 
   it("should should open two when multiple", async () => {
@@ -86,15 +83,11 @@ describe("Accordion", () => {
       children: <DefaultChildren />,
     });
 
-    expect(
-      await screen.getAllByRole("button", { expanded: false }),
-    ).toHaveLength(2);
+    expect(screen.getAllByRole("button", { expanded: false })).toHaveLength(2);
 
-    fireEvent.click(await screen.getByRole("button", { name: /one/i }));
-    fireEvent.click(await screen.getByRole("button", { name: /two/i }));
+    await user.click(screen.getByRole("button", { name: /one/i }));
+    await user.click(screen.getByRole("button", { name: /two/i }));
 
-    expect(
-      await screen.getAllByRole("button", { expanded: true }),
-    ).toHaveLength(2);
+    expect(screen.getAllByRole("button", { expanded: true })).toHaveLength(2);
   });
 });

@@ -3,7 +3,7 @@
  */
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
-import { act, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import React from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
@@ -55,11 +55,11 @@ describe("Tabs", () => {
       defaultValue: "one",
     });
 
-    const tabOne = await screen.queryByRole("tabpanel", { name: /One/i });
-    const tabTwo = await screen.queryByRole("tabpanel", {
+    const tabOne = screen.queryByRole("tabpanel", { name: /One/i });
+    const tabTwo = screen.queryByRole("tabpanel", {
       name: /Two/i,
     });
-    const tabThree = await screen.queryByRole("tabpanel", {
+    const tabThree = screen.queryByRole("tabpanel", {
       name: /Three/i,
     });
 
@@ -70,28 +70,20 @@ describe("Tabs", () => {
   });
 
   it("should change panel when tab clicked", async () => {
-    await act(async () => {
-      renderTabs({
-        defaultValue: "one",
-      });
+    renderTabs({
+      defaultValue: "one",
     });
 
+    expect(screen.getByRole("tabpanel", { name: /one/i })).toBeInTheDocument();
     expect(
-      await screen.queryByRole("tabpanel", { name: /one/i }),
-    ).toBeInTheDocument();
-    expect(
-      await screen.queryByRole("tabpanel", { name: /two/i }),
+      screen.queryByRole("tabpanel", { name: /two/i }),
     ).not.toBeInTheDocument();
 
-    await act(async () => {
-      await user.click(screen.getByRole("tab", { name: /two/i }));
-    });
+    await user.click(screen.getByRole("tab", { name: /two/i }));
 
+    expect(screen.getByRole("tabpanel", { name: /two/i })).toBeInTheDocument();
     expect(
-      await screen.queryByRole("tabpanel", { name: /two/i }),
-    ).toBeInTheDocument();
-    expect(
-      await screen.queryByRole("tabpanel", { name: /one/i }),
+      screen.queryByRole("tabpanel", { name: /one/i }),
     ).not.toBeInTheDocument();
   });
 });

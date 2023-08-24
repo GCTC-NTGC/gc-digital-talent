@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
 import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
 import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
@@ -35,11 +34,6 @@ const AddExperienceDialog = ({
 }: AddExperienceDialogProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
-  const [searchParams] = useSearchParams();
-  const applicationId = searchParams.get("applicationId");
-  const applicationParam = applicationId
-    ? `?applicationId=${applicationId}`
-    : ``;
 
   const experienceSections: ExperienceSection[] = [
     {
@@ -60,7 +54,7 @@ const AddExperienceDialog = ({
         id: "WkD8tV",
         description: "Button text to add a work experience to the profile",
       }),
-      buttonPath: `${paths.createWork(applicantId)}${applicationParam}`,
+      buttonPath: paths.createWork(applicantId),
       experienceType: "work",
     },
 
@@ -83,7 +77,7 @@ const AddExperienceDialog = ({
         description:
           "Button text to add an education experience to the profile",
       }),
-      buttonPath: `${paths.createEducation(applicantId)}${applicationParam}`,
+      buttonPath: paths.createEducation(applicantId),
       experienceType: "education",
     },
 
@@ -105,7 +99,7 @@ const AddExperienceDialog = ({
         id: "AKRd34",
         description: "Button text to add a community experience to the profile",
       }),
-      buttonPath: `${paths.createCommunity(applicantId)}${applicationParam}`,
+      buttonPath: paths.createCommunity(applicantId),
       experienceType: "community",
     },
 
@@ -127,7 +121,7 @@ const AddExperienceDialog = ({
         id: "L6UnSl",
         description: "Button text to add a personal experience to the profile",
       }),
-      buttonPath: `${paths.createPersonal(applicantId)}${applicationParam}`,
+      buttonPath: paths.createPersonal(applicantId),
       experienceType: "personal",
     },
 
@@ -149,7 +143,7 @@ const AddExperienceDialog = ({
         id: "CSg8cH",
         description: "Button text to add an award to the profile",
       }),
-      buttonPath: `${paths.createAward(applicantId)}${applicationParam}`,
+      buttonPath: paths.createAward(applicantId),
       experienceType: "award",
     },
   ];

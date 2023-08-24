@@ -3,7 +3,7 @@
  */
 import "@testing-library/jest-dom";
 import React from "react";
-import { act, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 import { ThemeProvider } from "@gc-digital-talent/theme";
@@ -24,16 +24,14 @@ describe("ThemeSwitcher", () => {
   Object.setPrototypeOf(window.localStorage.setItem, jest.fn());
 
   it("should have no accessibility errors", async () => {
-    await act(async () => {
-      const { container } = renderThemeSwitcher();
-      await axeTest(container);
-    });
+    const { container } = renderThemeSwitcher();
+    await axeTest(container);
   });
 
   it("should change theme to light mode", async () => {
     renderThemeSwitcher();
     fireEvent.click(
-      await screen.getByRole("radio", { name: /activate light mode/i }),
+      screen.getByRole("radio", { name: /activate light mode/i }),
     );
 
     expect(window.localStorage.setItem).toHaveBeenCalledWith(
@@ -45,15 +43,13 @@ describe("ThemeSwitcher", () => {
     );
 
     expect(
-      await screen.getByRole("radio", { name: /activate light mode/i }),
+      screen.getByRole("radio", { name: /activate light mode/i }),
     ).toHaveAttribute("data-state", "on");
   });
 
   it("should change theme to dark mode", async () => {
     renderThemeSwitcher();
-    fireEvent.click(
-      await screen.getByRole("radio", { name: /activate dark mode/i }),
-    );
+    fireEvent.click(screen.getByRole("radio", { name: /activate dark mode/i }));
 
     expect(window.localStorage.setItem).toHaveBeenCalledWith(
       "theme",
@@ -64,20 +60,20 @@ describe("ThemeSwitcher", () => {
     );
 
     expect(
-      await screen.getByRole("radio", { name: /activate dark mode/i }),
+      screen.getByRole("radio", { name: /activate dark mode/i }),
     ).toHaveAttribute("data-state", "on");
   });
 
   it("should change theme to pref mode", async () => {
     renderThemeSwitcher();
     fireEvent.click(
-      await screen.getByRole("radio", {
+      screen.getByRole("radio", {
         name: /allow your browser preferences to dictate/i,
       }),
     );
 
     expect(
-      await screen.getByRole("radio", {
+      screen.getByRole("radio", {
         name: /allow your browser preferences to dictate/i,
       }),
     ).toHaveAttribute("data-state", "on");
