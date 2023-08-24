@@ -648,8 +648,7 @@ export const operationsConsiderationsSortOrder = [
 
 const contractingRationales = defineMessages({
   [ContractingRationale.ShortageOfTalent]: {
-    defaultMessage:
-      "The finance vehicle available cannot be used for staffing (unable to use available funding for staffing)",
+    defaultMessage: "Shortage of available or qualified talent",
     id: "TO/Q6I",
     description: "Shortage of talent contracting rationale",
   },
