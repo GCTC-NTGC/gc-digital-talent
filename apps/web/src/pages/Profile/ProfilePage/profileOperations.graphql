@@ -65,6 +65,7 @@ query getMe {
           en
           fr
         }
+        category
       }
     }
     experiences {

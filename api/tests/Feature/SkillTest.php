@@ -147,6 +147,7 @@ class SkillTest extends TestCase
                     'en' => 'New Name (EN)',
                     'fr' => 'New Name (FR)'
                 ],
+                'category' => 'TECHNICAL'
             ]
         ];
 
@@ -160,6 +161,7 @@ class SkillTest extends TestCase
                         en
                         fr
                     }
+                    category
                 }
             }
         ';
@@ -173,7 +175,8 @@ class SkillTest extends TestCase
             ->assertJsonFragment(['name' => $variables['skill']['name']]);
     }
 
-    public function testExperienceRelationshipsSkipSoftDeletedPivots(): void {
+    public function testExperienceRelationshipsSkipSoftDeletedPivots(): void
+    {
         Skill::factory()->count(1)->create();
         $experience = CommunityExperience::factory()->withSkills(1)->create();
         $skill = $experience->skills->first();
