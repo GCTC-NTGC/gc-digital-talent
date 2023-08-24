@@ -104,6 +104,58 @@ query GetUpdateSkillData($id: UUID!) {
   }
 }
 
+query UserSkills {
+  me {
+    id
+    userSkills {
+      id
+      whenSkillUsed
+      skillLevel
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        families {
+          id
+          key
+          category
+        }
+      }
+    }
+  }
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    families {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+    }
+  }
+}
+
 mutation UpdateSkill($id: ID!, $skill: UpdateSkillInput!) {
   updateSkill(id: $id, skill: $skill) {
     name {

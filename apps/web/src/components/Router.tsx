@@ -616,6 +616,14 @@ const UpdateSkillPage = React.lazy(() =>
       ),
   ),
 );
+const SkillLibraryPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsSkillLibraryPage" */ "../pages/Skills/SkillLibraryPage"
+      ),
+  ),
+);
 
 /** Search Requests */
 const IndexSearchRequestPage = React.lazy(() =>
@@ -746,7 +754,16 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
                 {
                   path: "profile-and-applications",
-                  element: <ProfileAndApplicationsPage />,
+                  children: [
+                    {
+                      index: true,
+                      element: <ProfileAndApplicationsPage />,
+                    },
+                    {
+                      path: "skills",
+                      element: <SkillLibraryPage />,
+                    },
+                  ],
                 },
               ],
             },

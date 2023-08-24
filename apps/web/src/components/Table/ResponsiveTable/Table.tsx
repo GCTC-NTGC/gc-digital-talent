@@ -9,7 +9,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SortButton from "./SortButton";
 import styles, { getCellStyles } from "./styles";
-import { AddLinkProps } from "./types";
+import { AddDef, AddLinkProps } from "./types";
 import { getColumnHeader } from "./utils";
 
 type WrapperProps = React.DetailedHTMLProps<
@@ -190,12 +190,35 @@ const Control = (props: ControlProps) => (
   <div data-h2-width="base(100%) l-tablet(auto)" {...props} />
 );
 
-interface ControlsProps {
-  children: React.ReactNode;
-  addLink?: AddLinkProps;
+interface AddActionProps {
+  add: AddDef;
 }
 
-const Controls = ({ children, addLink }: ControlsProps) => (
+const AddAction = ({ add }: AddActionProps) => (
+  <>
+    {add.linkProps && (
+      <Control data-h2-flex-shrink="base(1)">
+        <Link
+          icon={PlusCircleIcon}
+          color="secondary"
+          mode="solid"
+          href={add.linkProps.href}
+          block
+        >
+          {add.linkProps.label}
+        </Link>
+      </Control>
+    )}
+    {add.component && <Control>{add.component}</Control>}
+  </>
+);
+
+interface ControlsProps {
+  children: React.ReactNode;
+  add?: AddDef;
+}
+
+const Controls = ({ children, add }: ControlsProps) => (
   <div
     data-h2-display="base(flex)"
     data-h2-align-items="base(flex-end)"
@@ -215,19 +238,7 @@ const Controls = ({ children, addLink }: ControlsProps) => (
     >
       {children}
     </div>
-    {addLink && (
-      <Control data-h2-flex-shrink="base(1)">
-        <Link
-          icon={PlusCircleIcon}
-          color="secondary"
-          mode="solid"
-          href={addLink.href}
-          block
-        >
-          {addLink.label}
-        </Link>
-      </Control>
-    )}
+    {add && <AddAction add={add} />}
   </div>
 );
 

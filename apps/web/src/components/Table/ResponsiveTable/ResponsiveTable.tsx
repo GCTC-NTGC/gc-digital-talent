@@ -29,6 +29,7 @@ import useControlledTableState, {
 import TablePagination from "./TablePagination";
 import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
 import type {
+  AddDef,
   AddLinkProps,
   DatasetDownload,
   DatasetPrint,
@@ -48,7 +49,7 @@ interface TableProps<TData> {
   /** Column definitions for `react-table` */
   columns: ColumnDef<TData>[];
   /** Column definitions for `react-table` */
-  hiddenColumnIds: string[];
+  hiddenColumnIds?: string[];
   /** Determine if any aspect of the table is loading (server side) */
   isLoading?: boolean;
   /** Override default null message with a custom one */
@@ -66,7 +67,7 @@ interface TableProps<TData> {
   /** Enable downloading selected rows and/or all data (requires rowSelect) */
   download?: DatasetDownload;
   /** Enable the "add item" button */
-  add?: AddLinkProps;
+  add?: AddDef;
   /** Filter component */
   filterComponent?: React.ReactNode;
 }
@@ -257,7 +258,7 @@ const ResponsiveTable = <TData extends object>({
 
   return (
     <>
-      <Table.Controls addLink={add}>
+      <Table.Controls add={add}>
         {search && (
           <SearchForm
             id={`${id}-search`}

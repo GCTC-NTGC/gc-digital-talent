@@ -5,6 +5,7 @@ import { IntlShape } from "react-intl";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import { UserSkill } from "@gc-digital-talent/graphql";
 
 import {
   Experience,
@@ -87,6 +88,19 @@ export function filterSkillsByCategory(
     .filter(notEmpty);
 }
 
+export function filterUserSkillsByCategory(
+  userSkills: Maybe<Array<UserSkill>>,
+  category: SkillCategory,
+) {
+  return userSkills
+    ?.filter((userSkill) => {
+      return userSkill.skill.families?.some(
+        (family) => family.category === category,
+      );
+    })
+    .filter(notEmpty);
+}
+
 export function categorizeSkill(
   skills: Maybe<Array<Skill>>,
 ): Record<SkillCategory, Maybe<Array<Skill>>> {
@@ -97,6 +111,21 @@ export function categorizeSkill(
     ),
     [SkillCategory.Behavioural]: filterSkillsByCategory(
       skills,
+      SkillCategory.Behavioural,
+    ),
+  };
+}
+
+export function categorizeUserSkill(
+  userSkills: Maybe<Array<UserSkill>>,
+): Record<SkillCategory, Maybe<Array<UserSkill>>> {
+  return {
+    [SkillCategory.Technical]: filterUserSkillsByCategory(
+      userSkills,
+      SkillCategory.Technical,
+    ),
+    [SkillCategory.Behavioural]: filterUserSkillsByCategory(
+      userSkills,
       SkillCategory.Behavioural,
     ),
   };
