@@ -10,6 +10,7 @@ import {
 import { Loading } from "@gc-digital-talent/ui";
 import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
+import { useFeatureFlags, FeatureFlags } from "@gc-digital-talent/env";
 
 import Layout from "~/components/Layout/Layout";
 import AdminLayout from "~/components/Layout/AdminLayout";
@@ -643,7 +644,11 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
-const createRoute = (locale: Locales, loginPath: string) =>
+const createRoute = (
+  locale: Locales,
+  loginPath: string,
+  featureFlags: FeatureFlags,
+) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -764,7 +769,9 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       children: [
                         {
                           path: ":skillId",
-                          element: <UpdateUserSkillPage />,
+                          element: featureFlags.skillLibrary ? (
+                            <UpdateUserSkillPage />
+                          ) : null,
                         },
                       ],
                     },
@@ -1557,7 +1564,8 @@ const createRoute = (locale: Locales, loginPath: string) =>
 const Router = () => {
   const { locale } = useLocale();
   const routes = useRoutes();
-  const router = createRoute(locale, routes.login());
+  const featureFlags = useFeatureFlags();
+  const router = createRoute(locale, routes.login(), featureFlags);
   return (
     <RouterProvider
       router={router}
