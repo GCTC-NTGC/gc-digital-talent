@@ -162,8 +162,8 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
         <RadioGroup
           legend={intl.formatMessage({
             defaultMessage:
-              "Will the supplier and its employees require access to Protected and/or Classified information or assets",
-            id: "TwY4aC",
+              "Will the supplier and its employees require access to protected and/or classified information or assets?",
+            id: "glDA2j",
             description:
               "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_",
           })}
@@ -335,8 +335,8 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
         <RadioGroup
           legend={intl.formatMessage({
             defaultMessage:
-              "Does the contract have specific personnel requirements",
-            id: "dg1Ga3",
+              "Does the contract have specific personnel requirements?",
+            id: "uK+4La",
             description:
               "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_",
           })}

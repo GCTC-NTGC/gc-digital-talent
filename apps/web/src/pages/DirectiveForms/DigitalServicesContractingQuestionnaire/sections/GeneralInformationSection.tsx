@@ -302,8 +302,8 @@ const GeneralInformationSection = ({
         <RadioGroup
           legend={intl.formatMessage({
             defaultMessage:
-              "Is this contract being put in place on behalf of another Government of Canada department or agency",
-            id: "YjSMDc",
+              "Is this contract being put in place on behalf of another Government of Canada department or agency?",
+            id: "KifUVY",
             description:
               "Label for _contract on behalf of gc_ fieldset in the _digital services contracting questionnaire_",
           })}
@@ -325,8 +325,8 @@ const GeneralInformationSection = ({
         <RadioGroup
           legend={intl.formatMessage({
             defaultMessage:
-              "Is this contract being put in place for the purpose of service provision to another Government of Canada department or agency",
-            id: "zBafhL",
+              "Is this contract being put in place for the purpose of service provision to another Government of Canada department or agency?",
+            id: "u42Yks",
             description:
               "Label for _contract of service to gc_ fieldset in the _digital services contracting questionnaire_",
           })}
@@ -348,8 +348,8 @@ const GeneralInformationSection = ({
         <RadioGroup
           legend={intl.formatMessage({
             defaultMessage:
-              "Is this contract related to a specific digital initiative",
-            id: "Xafphs",
+              "Is this contract related to a specific digital initiative?",
+            id: "ci72ST",
             description:
               "Label for _contract for digital initiative_ fieldset in the _digital services contracting questionnaire_",
           })}

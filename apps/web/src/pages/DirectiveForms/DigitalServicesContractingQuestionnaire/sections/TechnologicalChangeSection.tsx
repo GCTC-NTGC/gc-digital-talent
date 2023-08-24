@@ -51,8 +51,8 @@ const TechnologicalChangeSection = () => {
         <RadioGroup
           legend={intl.formatMessage({
             defaultMessage:
-              "Do you expect this contract to have immediate impacts on your department in terms of staffing level or skill sets required",
-            id: "vT5RuW",
+              "Do you expect this contract to have immediate impacts on your department in terms of staffing level or skill sets required?",
+            id: "kMpqRq",
             description:
               "Label for _has impact on your department_ fieldset in the _digital services contracting questionnaire_",
           })}
@@ -72,8 +72,8 @@ const TechnologicalChangeSection = () => {
         <RadioGroup
           legend={intl.formatMessage({
             defaultMessage:
-              "Do you expect any potential immediate carry-forward / ripple effect on other departments in terms of staffing levels or skill sets required",
-            id: "3sweBr",
+              "Do you expect any potential immediate carry-forward / ripple effect on other departments in terms of staffing levels or skill sets required?",
+            id: "gsaza3",
             description:
               "Label for _has immediate impact on other departments_ fieldset in the _digital services contracting questionnaire_",
           })}
@@ -93,8 +93,8 @@ const TechnologicalChangeSection = () => {
         <RadioGroup
           legend={intl.formatMessage({
             defaultMessage:
-              "Do you expect any potential long-term carry-forward / ripple effect on other departments in terms of staffing levels or skill sets required",
-            id: "sCrXmA",
+              "Do you expect any potential long-term carry-forward / ripple effect on other departments in terms of staffing levels or skill sets required?",
+            id: "0aU6BD",
             description:
               "Label for _has future impact on other departments_ fieldset in the _digital services contracting questionnaire_",
           })}

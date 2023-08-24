@@ -46,8 +46,8 @@ const sectionTitles = new Map<PageSectionId, MessageDescriptor>([
     PAGE_SECTION_ID.ROLE_OF_THE_CIO,
     defineMessage({
       defaultMessage:
-        "Role of the Chief Information Officer of Canada (OCIO) in Digital Talent",
-      id: "hrqNod",
+        "Role of the Office of the Chief Information Officer (OCIO) of Canada in digital talent",
+      id: "yQaS6x",
       description:
         "Heading for the Role of the CIO section on the digital services contracting questionnaire",
     }),

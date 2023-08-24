@@ -3,9 +3,9 @@ import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 
 import { Heading, ScrollToLink, TableOfContents } from "@gc-digital-talent/ui";
-
 import { Checkbox } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
+
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import { buildExternalLink } from "../../util";
 
@@ -42,8 +42,8 @@ const PreambleSection = () => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Developing <link>generic suite of HR products</link> (accessible on GC network only), such as standardized job descriptions, for the digital community",
-                id: "F2F3dY",
+                  "Developing <link>generic suite of HR products</link> (accessible on the GC network only), such as standardized job descriptions, for the digital community",
+                id: "brgSNx",
                 description:
                   "An OCIO role in the _role of the cio_ section of the _digital services contracting questionnaire_",
               },
@@ -112,8 +112,8 @@ const PreambleSection = () => {
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "This data collection enables business intelligence on the GC digital talent ecosystem. The information helps to identify emerging digital skills requirements and potential gaps in the GC digital community.",
-            id: "iasn5H",
+              "This data collection enables business intelligence on the GC Digital Talent ecosystem. The information helps to identify emerging digital skills requirements and potential gaps in the GC digital community.",
+            id: "RZDprq",
             description:
               "Paragraph one of the introduction to the _why collect this data_ section of the _digital services contracting questionnaire_",
           })}
@@ -131,8 +131,8 @@ const PreambleSection = () => {
           <li>
             {intl.formatMessage({
               defaultMessage:
-                "Creating GC-wide pool of prequalified digital talent, informed by departmental needs",
-              id: "TUz/Cm",
+                "Creating GC-wide pool of pre-qualified digital talent, informed by departmental needs",
+              id: "vnvdFR",
               description:
                 "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_",
             })}
@@ -231,8 +231,8 @@ const PreambleSection = () => {
             })}
             id="readPreamble"
             label={intl.formatMessage({
-              defaultMessage: "I have read the Preamble.",
-              id: "AERHjn",
+              defaultMessage: "I have read the preamble.",
+              id: "xj7X6V",
               description:
                 "Preamble confirmation statement of the _digital services contracting questionnaire_",
             })}
