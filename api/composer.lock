@@ -1469,16 +1469,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.19.0",
+            "version": "v10.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "b8557e4a708a1bd2bc8229bd53feecfa2ac1c6fb"
+                "reference": "a655dca3fbe83897e22adff652b1878ba352d041"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/b8557e4a708a1bd2bc8229bd53feecfa2ac1c6fb",
-                "reference": "b8557e4a708a1bd2bc8229bd53feecfa2ac1c6fb",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a655dca3fbe83897e22adff652b1878ba352d041",
+                "reference": "a655dca3fbe83897e22adff652b1878ba352d041",
                 "shasum": ""
             },
             "require": {
@@ -1665,20 +1665,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-08-15T13:42:57+00:00"
+            "time": "2023-08-22T13:37:09+00:00"
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.1.5",
+            "version": "v0.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "d880a909df144a4bf5760ebd09aba114f79d9adc"
+                "reference": "b514c5620e1b3b61221b0024dc88def26d9654f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/d880a909df144a4bf5760ebd09aba114f79d9adc",
-                "reference": "d880a909df144a4bf5760ebd09aba114f79d9adc",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/b514c5620e1b3b61221b0024dc88def26d9654f4",
+                "reference": "b514c5620e1b3b61221b0024dc88def26d9654f4",
                 "shasum": ""
             },
             "require": {
@@ -1711,9 +1711,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.1.5"
+                "source": "https://github.com/laravel/prompts/tree/v0.1.6"
             },
-            "time": "2023-08-15T14:29:44+00:00"
+            "time": "2023-08-18T13:32:23+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -4349,16 +4349,16 @@
         },
         {
             "name": "staudenmeir/eloquent-has-many-deep",
-            "version": "v1.18.1",
+            "version": "v1.18.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/staudenmeir/eloquent-has-many-deep.git",
-                "reference": "b3421d637de05d2cc62166c5decb9727a029185c"
+                "reference": "04cdf25eac68bd02c3aa382ddbf437585bd76708"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/staudenmeir/eloquent-has-many-deep/zipball/b3421d637de05d2cc62166c5decb9727a029185c",
-                "reference": "b3421d637de05d2cc62166c5decb9727a029185c",
+                "url": "https://api.github.com/repos/staudenmeir/eloquent-has-many-deep/zipball/04cdf25eac68bd02c3aa382ddbf437585bd76708",
+                "reference": "04cdf25eac68bd02c3aa382ddbf437585bd76708",
                 "shasum": ""
             },
             "require": {
@@ -4368,12 +4368,15 @@
             },
             "require-dev": {
                 "awobaz/compoships": "^2.2",
+                "barryvdh/laravel-ide-helper": "^2.13",
                 "illuminate/pagination": "^10.0",
                 "korridor/laravel-has-many-merged": "^1.0",
+                "mockery/mockery": "^1.6",
+                "phpstan/phpstan": "^1.10",
                 "phpunit/phpunit": "^10.1",
                 "staudenmeir/eloquent-eager-limit": "^1.8",
-                "staudenmeir/eloquent-json-relations": "^1.8",
-                "staudenmeir/laravel-adjacency-list": "^1.13"
+                "staudenmeir/eloquent-json-relations": "^1.8.2",
+                "staudenmeir/laravel-adjacency-list": "^1.13.7"
             },
             "type": "library",
             "autoload": {
@@ -4394,7 +4397,7 @@
             "description": "Laravel Eloquent HasManyThrough relationships with unlimited levels",
             "support": {
                 "issues": "https://github.com/staudenmeir/eloquent-has-many-deep/issues",
-                "source": "https://github.com/staudenmeir/eloquent-has-many-deep/tree/v1.18.1"
+                "source": "https://github.com/staudenmeir/eloquent-has-many-deep/tree/v1.18.3"
             },
             "funding": [
                 {
@@ -4402,7 +4405,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-06-20T18:09:39+00:00"
+            "time": "2023-08-20T17:00:39+00:00"
         },
         {
             "name": "staudenmeir/eloquent-has-many-deep-contracts",
