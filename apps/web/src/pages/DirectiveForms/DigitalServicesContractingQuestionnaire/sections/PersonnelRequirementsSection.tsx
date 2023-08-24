@@ -77,8 +77,8 @@ const PersonnelRequirementsSection = ({
               data-h2-margin-bottom="base(x.5)"
             >
               {intl.formatMessage({
-                defaultMessage: "You have no questions.",
-                id: "izt28e",
+                defaultMessage: "You have no personnel requirements.",
+                id: "+C20lR",
                 description:
                   "Message that appears when there are no screening messages for a pool",
               })}
@@ -86,8 +86,8 @@ const PersonnelRequirementsSection = ({
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Start adding some questions using the following button.",
-                id: "vDqzWG",
+                  "Start adding some requirements using the following button.",
+                id: "QRnkPO",
                 description:
                   "Instructions on how to add a question when there are none",
               })}

@@ -36,11 +36,11 @@ const QuestionnaireSection = ({
         {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.QUESTIONNAIRE))}
       </Heading>
 
-      {/* <GeneralInformationSection departments={departments} /> */}
-      {/* <ScopeOfContractSection /> */}
-      {/* <RequirementsSection skills={skills} /> */}
-      {/* <TechnologicalChangeSection /> */}
-      {/* <OperationsConsiderationsSection /> */}
+      <GeneralInformationSection departments={departments} />
+      <ScopeOfContractSection />
+      <RequirementsSection skills={skills} />
+      <TechnologicalChangeSection />
+      <OperationsConsiderationsSection />
       <TalentSourcingDecisionSection />
 
       <Submit data-h2-margin-top="base(x2)" isSubmitting={isSubmitting} />

@@ -353,9 +353,9 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
             };
           })}
         />
-        {/* {isHasPersonnelRequirementsYes ? ( */}
-        <PersonnelRequirementsSection skills={skills} />
-        {/* ) : null} */}
+        {isHasPersonnelRequirementsYes ? (
+          <PersonnelRequirementsSection skills={skills} />
+        ) : null}
       </div>
     </TableOfContents.Section>
   );
