@@ -61,6 +61,7 @@ const applicantFilterToQueryArgs = (
           ? pickMap(filter.qualifiedClassifications, ["group", "level"])
           : undefined,
         skills: filter?.skills ? pickMap(filter.skills, "id") : undefined,
+        hasDiploma: null, // disconnect education selection for useCountApplicantsAndCountPoolCandidatesByPoolQuery
 
         // Override the filter's pool if one is provided separately.
         pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
