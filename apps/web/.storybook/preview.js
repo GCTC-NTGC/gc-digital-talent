@@ -9,7 +9,7 @@ import {
   ThemeDecorator,
   themeKey,
   themeMode,
-} from "storybook-helpers";
+} from "@gc-digital-talent/storybook-helpers";
 import { richTextElements as defaultRichTextElements } from "@gc-digital-talent/i18n";
 import frCommonCompiled from "@gc-digital-talent/i18n/src/lang/frCompiled.json";
 

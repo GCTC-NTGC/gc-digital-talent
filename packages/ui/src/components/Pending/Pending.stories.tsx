@@ -1,7 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import type { CombinedError } from "urql";
-import { OverlayOrDialogDecorator } from "storybook-helpers";
+
+import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import NotFound from "../NotFound";
 import Pending from "./Pending";

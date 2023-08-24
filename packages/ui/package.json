@@ -54,6 +54,7 @@
     "@faker-js/faker": "^8.0.2",
     "@gc-digital-talent/fake-data": "*",
     "@gc-digital-talent/jest-helpers": "*",
+    "@gc-digital-talent/storybook-helpers": "*",
     "@mdx-js/react": "^2.3.0",
     "@storybook/addon-actions": "^7.3.1",
     "@storybook/react": "^7.3.1",
@@ -76,7 +77,6 @@
     "react-intl": "^6.4.4",
     "react-router-dom": "^6.15.0",
     "rimraf": "^5.0.1",
-    "storybook-helpers": "*",
     "tsconfig": "*",
     "tsup": "^7.2.0",
     "typescript": "^5.1.3"
