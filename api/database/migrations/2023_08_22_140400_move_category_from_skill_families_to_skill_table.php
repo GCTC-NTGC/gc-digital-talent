@@ -26,8 +26,7 @@ return new class extends Migration
         foreach ($skills as $skill) {
             $category = $skill
                 ->families()
-                ->firstWhere('category', '=', ApiEnums::SKILL_CATEGORY_TECHNICAL)
-                ->category;
+                ->firstWhere('category', '=', ApiEnums::SKILL_CATEGORY_TECHNICAL)?->category;
             DB::table('skills')
                 ->where('id', $skill->id)
                 ->update(['category' => $category ? $category : ApiEnums::SKILL_CATEGORY_BEHAVIOURAL]);
