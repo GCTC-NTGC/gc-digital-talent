@@ -4350,16 +4350,16 @@
         },
         {
             "name": "staudenmeir/eloquent-has-many-deep",
-            "version": "v1.18.1",
+            "version": "v1.18.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/staudenmeir/eloquent-has-many-deep.git",
-                "reference": "b3421d637de05d2cc62166c5decb9727a029185c"
+                "reference": "04cdf25eac68bd02c3aa382ddbf437585bd76708"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/staudenmeir/eloquent-has-many-deep/zipball/b3421d637de05d2cc62166c5decb9727a029185c",
-                "reference": "b3421d637de05d2cc62166c5decb9727a029185c",
+                "url": "https://api.github.com/repos/staudenmeir/eloquent-has-many-deep/zipball/04cdf25eac68bd02c3aa382ddbf437585bd76708",
+                "reference": "04cdf25eac68bd02c3aa382ddbf437585bd76708",
                 "shasum": ""
             },
             "require": {
@@ -4369,12 +4369,15 @@
             },
             "require-dev": {
                 "awobaz/compoships": "^2.2",
+                "barryvdh/laravel-ide-helper": "^2.13",
                 "illuminate/pagination": "^10.0",
                 "korridor/laravel-has-many-merged": "^1.0",
+                "mockery/mockery": "^1.6",
+                "phpstan/phpstan": "^1.10",
                 "phpunit/phpunit": "^10.1",
                 "staudenmeir/eloquent-eager-limit": "^1.8",
-                "staudenmeir/eloquent-json-relations": "^1.8",
-                "staudenmeir/laravel-adjacency-list": "^1.13"
+                "staudenmeir/eloquent-json-relations": "^1.8.2",
+                "staudenmeir/laravel-adjacency-list": "^1.13.7"
             },
             "type": "library",
             "autoload": {
@@ -4395,7 +4398,7 @@
             "description": "Laravel Eloquent HasManyThrough relationships with unlimited levels",
             "support": {
                 "issues": "https://github.com/staudenmeir/eloquent-has-many-deep/issues",
-                "source": "https://github.com/staudenmeir/eloquent-has-many-deep/tree/v1.18.1"
+                "source": "https://github.com/staudenmeir/eloquent-has-many-deep/tree/v1.18.3"
             },
             "funding": [
                 {
@@ -4403,7 +4406,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-06-20T18:09:39+00:00"
+            "time": "2023-08-20T17:00:39+00:00"
         },
         {
             "name": "staudenmeir/eloquent-has-many-deep-contracts",
