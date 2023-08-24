@@ -3,6 +3,7 @@ import { defineMessages, MessageDescriptor } from "react-intl";
 import {
   ContractAuthority,
   ContractCommodity,
+  ContractingRationale,
   ContractInstrument,
   ContractSolicitationProcedure,
   ContractStartTimeframe,
@@ -643,4 +644,60 @@ export const operationsConsiderationsSortOrder = [
   OperationsConsideration.UnableCreateClassificationRestriction,
   OperationsConsideration.StaffingFreeze,
   OperationsConsideration.Other,
+];
+
+const contractingRationales = defineMessages({
+  [ContractingRationale.ShortageOfTalent]: {
+    defaultMessage:
+      "The finance vehicle available cannot be used for staffing (unable to use available funding for staffing)",
+    id: "TO/Q6I",
+    description: "Shortage of talent contracting rationale",
+  },
+  [ContractingRationale.TimingRequirements]: {
+    defaultMessage: "Timing requirements",
+    id: "TO/Q6I",
+    description: "Timing requirements contracting rationale",
+  },
+  [ContractingRationale.HrSituation]: {
+    defaultMessage: "HR situation - available staffing solutions not viable",
+    id: "TO/Q6I",
+    description: "HR situation contracting rationale",
+  },
+  [ContractingRationale.FinancialSituation]: {
+    defaultMessage: "Financial situation - restriction on funding use",
+    id: "TO/Q6I",
+    description: "Financial situation contracting rationale",
+  },
+  [ContractingRationale.RequiresIndependent]: {
+    defaultMessage:
+      "Independent, non-GC authority required (e.g., independent service review)",
+    id: "TO/Q6I",
+    description: "Requires independent contracting rationale",
+  },
+  [ContractingRationale.IntellectualPropertyFactors]: {
+    defaultMessage:
+      "Intellectual property factors (e.g., proprietary software)",
+    id: "TO/Q6I",
+    description: "Intellectual property factors contracting rationale",
+  },
+  [ContractingRationale.Other]: formMessages.other,
+} as const);
+
+export const getContractingRationale = (
+  enumKey: keyof typeof contractingRationales,
+): MessageDescriptor =>
+  getOrThrowError(
+    contractingRationales,
+    enumKey,
+    `Invalid contracting rationale '${enumKey}'`,
+  );
+
+export const contractingRationaleSortOrder = [
+  ContractingRationale.ShortageOfTalent,
+  ContractingRationale.TimingRequirements,
+  ContractingRationale.HrSituation,
+  ContractingRationale.FinancialSituation,
+  ContractingRationale.RequiresIndependent,
+  ContractingRationale.IntellectualPropertyFactors,
+  ContractingRationale.Other,
 ];

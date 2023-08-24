@@ -1,6 +1,7 @@
 import {
   ContractAuthority,
   ContractCommodity,
+  ContractingRationale,
   ContractInstrument,
   ContractSolicitationProcedure,
   ContractStartTimeframe,
@@ -116,8 +117,20 @@ export type FormValues = {
   // hasFutureImpactOnOtherDepartments: string;
 
   // operations considerations section
-  operationsConsiderations: Array<string>;
-  operationsConsiderationsOther: string;
+  // operationsConsiderations: Array<string>;
+  // operationsConsiderationsOther: string;
+
+  // Talent sourcing decision section
+  contractingRationalePrimary: string;
+  contractingRationalePrimaryOther: string;
+  contractingRationalesSecondary: Array<string>;
+  contractingRationalesSecondaryOther: string;
+  ocioConfirmedTalentShortage: string;
+  talentSearchTrackingNumber: string;
+  ongoingNeedForKnowledge: string;
+  knowledgeTransferInContract: string;
+  employeesHaveAccessToKnowledge: string;
+  ocioEngagedForTraining: string;
 };
 
 export function convertFormValuesToApiInput(
@@ -307,31 +320,50 @@ export function convertFormValuesToApiInput(
     // ),
 
     // Operations considerations section
-    operationsConsiderations: formValues.operationsConsiderations?.map((a) =>
-      stringToEnum(OperationsConsideration, a),
-    ),
-    operationsConsiderationsOther: emptyToNull(
-      formValues.operationsConsiderationsOther,
-    ),
+    // operationsConsiderations: formValues.operationsConsiderations?.map((a) =>
+    //   stringToEnum(OperationsConsideration, a),
+    // ),
+    // operationsConsiderationsOther: emptyToNull(
+    //   formValues.operationsConsiderationsOther,
+    // ),
 
-    // contractingRationalePrimary: ContractingRationale
-    //   @rename(attribute: "contracting_rationale_primary")
-    // contractingRationalePrimaryOther: String
-    //   @rename(attribute: "contracting_rationale_primary_other")
-    // contractingRationalesSecondary: [ContractingRationale!]
-    //   @rename(attribute: "contracting_rationales_secondary")
-    // contractingRationalesSecondaryOther: String
-    //   @rename(attribute: "contracting_rationales_secondary_other")
-    // ocioConfirmedTalentShortage: YesNo
-    //   @rename(attribute: "ocio_confirmed_talent_shortage")
-    // talentSearchTrackingNumber: String
-    //   @rename(attribute: "talent_search_tracking_number")
-    // ongoingNeedForKnowledge: YesNo
-    //   @rename(attribute: "ongoing_need_for_knowledge")
-    // knowledgeTransferInContract: YesNo
-    //   @rename(attribute: "knowledge_transfer_in_contract")
-    // employeesHaveAccessToKnowledge: YesNo
-    //   @rename(attribute: "employees_have_access_to_knowledge")
-    // ocioEngagedForTraining: YesNo @rename(attribute: "ocio_engaged_for_training");
+    // Talent sourcing decision section
+    contractingRationalePrimary: stringToEnum(
+      ContractingRationale,
+      formValues.contractingRationalePrimary,
+    ),
+    contractingRationalePrimaryOther: emptyToNull(
+      formValues.contractingRationalePrimaryOther,
+    ),
+    contractingRationalesSecondary:
+      formValues.contractingRationalesSecondary?.map((a) =>
+        stringToEnum(ContractingRationale, a),
+      ),
+    contractingRationalesSecondaryOther: emptyToNull(
+      formValues.contractingRationalesSecondaryOther,
+    ),
+    ocioConfirmedTalentShortage: stringToEnum(
+      YesNo,
+      formValues.ocioConfirmedTalentShortage,
+    ),
+    talentSearchTrackingNumber: emptyToNull(
+      formValues.talentSearchTrackingNumber,
+    ),
+    ongoingNeedForKnowledge: stringToEnum(
+      YesNo,
+      formValues.ongoingNeedForKnowledge,
+    ),
+    knowledgeTransferInContract: stringToEnum(
+      YesNo,
+      formValues.knowledgeTransferInContract,
+    ),
+    employeesHaveAccessToKnowledge: stringToEnum(
+      YesNo,
+      formValues.employeesHaveAccessToKnowledge,
+    ),
+    ocioEngagedForTraining: stringToEnum(
+      YesNo,
+      formValues.ocioEngagedForTraining,
+    ),
   };
 }

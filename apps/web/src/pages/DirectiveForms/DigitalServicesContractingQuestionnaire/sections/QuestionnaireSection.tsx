@@ -13,6 +13,7 @@ import ScopeOfContractSection from "./ScopeOfContractSection";
 import RequirementsSection from "./RequirementsSection";
 import TechnologicalChangeSection from "./TechnologicalChangeSection";
 import OperationsConsiderationsSection from "./OperationsConsiderationsSection";
+import TalentSourcingDecisionSection from "./TalentSourcingDecisionSection";
 
 type QuestionnaireSectionProps = {
   departments: Array<IdNamePair>;
@@ -39,20 +40,10 @@ const QuestionnaireSection = ({
       {/* <ScopeOfContractSection /> */}
       {/* <RequirementsSection skills={skills} /> */}
       {/* <TechnologicalChangeSection /> */}
-      <OperationsConsiderationsSection />
+      {/* <OperationsConsiderationsSection /> */}
+      <TalentSourcingDecisionSection />
 
-      <TableOfContents.Section
-        id={PAGE_SECTION_ID.TALENT_SOURCING_DECISION}
-        data-h2-padding-top="base(x2)"
-      >
-        <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
-          {intl.formatMessage(
-            getSectionTitle(PAGE_SECTION_ID.TALENT_SOURCING_DECISION),
-          )}
-        </Heading>
-        TODO: TALENT_SOURCING_DECISION
-      </TableOfContents.Section>
-      <Submit isSubmitting={isSubmitting} />
+      <Submit data-h2-margin-top="base(x2)" isSubmitting={isSubmitting} />
     </TableOfContents.Section>
   );
 };
