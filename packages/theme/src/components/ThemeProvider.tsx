@@ -89,7 +89,9 @@ const ThemeProvider = ({
   );
 
   React.useEffect(() => {
-    const hydrogen = document.querySelectorAll(themeSelector || "[data-h2]");
+    const hydrogen = document.querySelectorAll(
+      themeSelector || "body[data-h2]",
+    );
     let themeString: string | undefined = "";
     // TO DO: Add mode back once dark mode is done
     if (mode && key) {
