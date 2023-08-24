@@ -9,8 +9,8 @@ import { Field } from "@gc-digital-talent/forms";
 
 import adminMessages from "~/messages/adminMessages";
 
-import SearchForm from "./SearchForm";
 import IndeterminateCheckbox from "../ClientManagedTable/tableComponents";
+import SearchForm from "./SearchForm";
 import type {
   ColumnHiddenEvent,
   ColumnsOf,

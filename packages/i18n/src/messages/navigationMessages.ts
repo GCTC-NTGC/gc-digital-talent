@@ -26,11 +26,6 @@ const navigationMessages = defineMessages({
     id: "Gx8qCK",
     description: "Name of About me page",
   },
-  myStatus: {
-    defaultMessage: "My status",
-    id: "PxUSSH",
-    description: "Name of My status page",
-  },
   diversityEquityInclusion: {
     defaultMessage: "Diversity, equity and inclusion",
     id: "ad4mTC",
@@ -55,11 +50,6 @@ const navigationMessages = defineMessages({
     defaultMessage: "Work preferences",
     id: "nnMYWr",
     description: "Name of Work preferences page",
-  },
-  roleSalaryExpectations: {
-    defaultMessage: "Role and salary expectations",
-    id: "lp/ZEr",
-    description: "Name of Role and salary expectations page",
   },
   careerTimelineAndRecruitment: {
     defaultMessage: "Career timeline and recruitment",

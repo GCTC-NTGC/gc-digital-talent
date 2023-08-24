@@ -10,13 +10,12 @@ import {
   useDepartmentsQuery,
   useCreateTeamMutation,
 } from "~/api/generated";
-
 import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-
 import adminMessages from "~/messages/adminMessages";
+
 import CreateTeamForm from "./components/CreateTeamForm";
 
 const CreateTeamPage = () => {

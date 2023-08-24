@@ -11,7 +11,6 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 
 import Pagination from "~/components/Pagination";
-
 import { PaginatorInfo } from "~/api/generated";
 
 type Csv = Pick<DownloadCsvProps, "headers" | "data" | "fileName">;
@@ -66,7 +65,7 @@ function TableFooter({
 
   return (
     <div
-      data-h2-background-color="base(black.9)"
+      data-h2-background-color="base(black)"
       data-h2-radius="base(0px, 0px, rounded, rounded)"
     >
       <div data-h2-padding="base(x1, x1)">
@@ -127,13 +126,13 @@ function TableFooter({
               pageSize={paginatorInfo.perPage}
               pageSizes={[10, 20, 50, 100, 500]}
               totalCount={paginatorInfo.total}
+              totalPages={paginatorInfo.total / paginatorInfo.perPage}
+              color="white"
+              activeColor="quaternary"
               ariaLabel={intl.formatMessage({
                 defaultMessage: "Table results",
                 id: "hlcd+5",
               })}
-              color="black"
-              fontColor="white"
-              activeColor="primary"
             />
           </div>
         </div>

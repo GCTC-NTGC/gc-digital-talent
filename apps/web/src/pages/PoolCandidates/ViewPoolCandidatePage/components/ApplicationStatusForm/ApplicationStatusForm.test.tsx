@@ -3,12 +3,13 @@
  */
 import "@testing-library/jest-dom";
 import React from "react";
-import { act, fireEvent, screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
 import { PoolCandidateStatus } from "~/api/generated";
+
 import {
   ApplicationStatusForm,
   type ApplicationStatusFormProps,
@@ -29,17 +30,12 @@ const renderApplicationStatusForm = (props: ApplicationStatusFormProps) =>
 
 describe("ApplicationStatusForm", () => {
   it("should have no accessibility errors", async () => {
-    await act(async () => {
-      const { container } = renderApplicationStatusForm(defaultProps);
-
-      await axeTest(container);
-    });
+    const { container } = renderApplicationStatusForm(defaultProps);
+    await axeTest(container);
   });
 
   it("should render fields", async () => {
-    await act(async () => {
-      renderApplicationStatusForm(defaultProps);
-    });
+    renderApplicationStatusForm(defaultProps);
 
     expect(
       screen.getByRole("combobox", { name: /candidate pool status/i }),
@@ -58,15 +54,13 @@ describe("ApplicationStatusForm", () => {
 
   it("should submit with data", async () => {
     const mockSubmit = jest.fn();
-    await act(async () => {
-      renderApplicationStatusForm({
-        ...defaultProps,
-        application: {
-          ...mockApplication,
-          status: PoolCandidateStatus.QualifiedAvailable, // The Draft, DraftExpired, and Expired statuses are not valid options
-        },
-        onSubmit: mockSubmit,
-      });
+    renderApplicationStatusForm({
+      ...defaultProps,
+      application: {
+        ...mockApplication,
+        status: PoolCandidateStatus.QualifiedAvailable, // The Draft, DraftExpired, and Expired statuses are not valid options
+      },
+      onSubmit: mockSubmit,
     });
 
     const submitBtn = screen.getByRole("button", { name: /save changes/i });
@@ -79,15 +73,13 @@ describe("ApplicationStatusForm", () => {
 
   it("should not submit without required data", async () => {
     const mockNoSubmit = jest.fn();
-    await act(async () => {
-      renderApplicationStatusForm({
-        ...defaultProps,
-        onSubmit: mockNoSubmit,
-        application: {
-          ...mockApplication,
-          status: undefined,
-        },
-      });
+    renderApplicationStatusForm({
+      ...defaultProps,
+      onSubmit: mockNoSubmit,
+      application: {
+        ...mockApplication,
+        status: undefined,
+      },
     });
 
     const submitBtn = screen.getByRole("button", { name: /save changes/i });
@@ -96,11 +88,9 @@ describe("ApplicationStatusForm", () => {
   });
 
   it("should have disabled submit with submitting", async () => {
-    await act(async () => {
-      renderApplicationStatusForm({
-        ...defaultProps,
-        isSubmitting: true,
-      });
+    renderApplicationStatusForm({
+      ...defaultProps,
+      isSubmitting: true,
     });
 
     expect(screen.getByRole("button", { name: /saving.../i })).toBeDisabled();

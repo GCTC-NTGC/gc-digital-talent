@@ -8,9 +8,9 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import { Role, UpdateUserAsAdminInput, User } from "~/api/generated";
 
+import { UpdateUserFunc } from "../types";
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
 import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
-import { UpdateUserFunc } from "../types";
 
 const roleCell = (displayName: string) => {
   return (

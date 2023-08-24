@@ -26,6 +26,7 @@ import WorkPreferences from "~/components/Profile/components/WorkPreferences/Wor
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
+
 import { ApplicationPageProps } from "../ApplicationApi";
 import stepHasError from "../profileStep/profileStepValidation";
 import { useApplicationContext } from "../ApplicationContext";

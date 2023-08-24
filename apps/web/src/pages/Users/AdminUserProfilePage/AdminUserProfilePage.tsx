@@ -12,8 +12,8 @@ import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAbout
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
-
 import adminMessages from "~/messages/adminMessages";
+
 import UserProfilePrintButton from "./components/UserProfilePrintButton";
 
 interface AdminUserProfileProps {
@@ -53,7 +53,6 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
           workLocation: { isVisible: true },
           workPreferences: { isVisible: true },
           employmentEquity: { isVisible: true },
-          roleSalary: { isVisible: true },
           careerTimelineAndRecruitment: { isVisible: true },
         }}
       />

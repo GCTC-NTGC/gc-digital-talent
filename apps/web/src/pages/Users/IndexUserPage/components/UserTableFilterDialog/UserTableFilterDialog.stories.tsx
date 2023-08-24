@@ -56,8 +56,3 @@ RandomLatency.parameters = {
   },
   chromatic: { disableSnapshot: true },
 };
-
-export const WithEducationSelect = Template.bind({});
-WithEducationSelect.args = {
-  enableEducationType: true,
-};

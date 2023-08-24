@@ -4,9 +4,9 @@ import { useIntl } from "react-intl";
 import { Checklist, FieldLabels } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
+import useDirtyFields from "../../hooks/useDirtyFields";
 import ConsideredLanguages from "./ConsideredLanguages";
 import { getConsideredLangItems } from "./utils";
-import useDirtyFields from "../../hooks/useDirtyFields";
 
 interface FormFieldProps {
   labels: FieldLabels;

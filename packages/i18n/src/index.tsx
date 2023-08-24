@@ -3,10 +3,8 @@ import richTextElements from "./components/richTextElements";
 import LanguageProvider from "./components/LanguageProvider";
 import LocaleProvider from "./components/LocaleProvider";
 import NestedLanguageProvider from "./components/NestedLanguageProvider";
-
 import useIntlLanguages from "./hooks/useIntlMessages";
 import useLocale from "./hooks/useLocale";
-
 import {
   isLocale,
   getLocale,
@@ -18,7 +16,6 @@ import {
   localizeCurrency,
   localizeSalaryRange,
 } from "./utils/localize";
-
 import {
   apiMessages,
   commonMessages,
@@ -29,7 +26,6 @@ import {
   uiMessages,
   formMessages,
 } from "./messages";
-
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
@@ -75,9 +71,7 @@ import {
   poolCandidatePriorities,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
-  getPoolCandidateStatusLabel,
 } from "./messages/localizedConstants";
-
 import { STORED_LOCALE } from "./const";
 import type { Locales, Messages } from "./types";
 
@@ -153,7 +147,6 @@ export {
   getAbbreviations,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
-  getPoolCandidateStatusLabel,
 };
 
 export type { Locales, Messages };

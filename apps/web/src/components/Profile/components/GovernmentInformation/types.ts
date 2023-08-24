@@ -1,4 +1,5 @@
 import { User } from "@gc-digital-talent/graphql";
+
 import { Classification, GovEmployeeType, Maybe } from "~/api/generated";
 
 type PartialClassification = Pick<Classification, "group" | "level">;

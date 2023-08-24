@@ -4,8 +4,10 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import React from "react";
+
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakePools } from "@gc-digital-talent/fake-data";
+
 import PoolCard, { PoolCardProps } from "./PoolCard";
 
 const fakedPool = fakePools(1)[0];
@@ -52,13 +54,15 @@ describe("PoolCard", () => {
     renderPoolCard({ pool: nullPool });
 
     expect(
+      // Only way this works
+      // eslint-disable-next-line testing-library/no-node-access
       await screen.getByText(/Salary range/i).closest("p"),
     ).toHaveTextContent(/salary range:n\/a/i);
     expect(screen.getByText(/(No skills required)/i)).toBeInTheDocument();
     expect(screen.getByText(/(To be determined)/i)).toBeInTheDocument();
 
     expect(
-      await screen.queryByRole("link", {
+      screen.queryByRole("link", {
         name: /apply to this recruitment/i,
       }),
     ).not.toBeInTheDocument();

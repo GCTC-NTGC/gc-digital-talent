@@ -28,7 +28,7 @@ import printStyles from "~/styles/printStyles";
 import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
 import TableFooter from "~/components/Table/ApiManagedTable/TableFooter";
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";
-import useTableState from "~/components/Table/ApiManagedTable/useTableState";
+import useTableState from "~/hooks/useTableState";
 import {
   ColumnsOf,
   SortingRule,
@@ -53,7 +53,6 @@ import adminMessages from "~/messages/adminMessages";
 import tableCommaList from "~/components/Table/ClientManagedTable/tableCommaList";
 
 import useUserCsvData from "../hooks/useUserCsvData";
-
 import UserTableFilterDialog, {
   FormValues,
 } from "./UserTableFilterDialog/UserTableFilterDialog";
@@ -65,10 +64,6 @@ function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
-      expectedClassifications: data.classifications.map((classification) => {
-        const splitString = classification.split("-");
-        return { group: splitString[0], level: Number(splitString[1]) };
-      }),
       languageAbility: data.languageAbility[0]
         ? stringToEnumLanguage(data.languageAbility[0])
         : undefined,
@@ -103,10 +98,6 @@ function transformUserFilterInputToFormValues(
   input: UserFilterInput | undefined,
 ): FormValues {
   return {
-    classifications:
-      input?.applicantFilter?.expectedClassifications
-        ?.filter(notEmpty)
-        .map((c) => `${c.group}-${c.level}`) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility
       ? [input?.applicantFilter?.languageAbility]
       : [],

@@ -1,6 +1,10 @@
 /**
  * @jest-environment jsdom
  */
+// This component cannot be properly tested since it is not accessible
+/* eslint-disable testing-library/no-unnecessary-act */
+/* eslint-disable testing-library/render-result-naming-convention */
+/* eslint-disable testing-library/no-node-access */
 import React from "react";
 import "@testing-library/jest-dom";
 import {
@@ -14,6 +18,7 @@ import {
 import { FormProvider, useForm, RegisterOptions } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
 import IntlProvider from "react-intl/src/components/provider";
+
 import MultiSelectFieldBase, {
   useRulesWithDefaultMessages,
 } from "./MultiSelectFieldBase";

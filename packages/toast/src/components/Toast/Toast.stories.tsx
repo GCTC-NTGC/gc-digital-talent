@@ -2,10 +2,9 @@ import React from "react";
 import type { Story, Meta } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
-import Toast from "./Toast";
 import toast from "../../toast";
+import Toast from "./Toast";
 import "./toast.css";
-
 import ToastDocs from "./Toast.docs.mdx";
 
 interface StoryArgs {

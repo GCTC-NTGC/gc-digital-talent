@@ -18,6 +18,10 @@ Add any additional details that could assist with the development of the new fea
 
 Include a link to the design file (if it exists).
 
+### 🧑‍🎨 Designer
+
+Include the author of the linked design file's name (or even better, their `@githubUsername`) for future reference.
+
 ## 📸 Screenshot
 
 Add a screenshot of the new feature (if possible).

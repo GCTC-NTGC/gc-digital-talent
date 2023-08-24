@@ -1,5 +1,6 @@
 import { RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   Maybe,
   Role,

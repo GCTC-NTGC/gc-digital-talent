@@ -3,14 +3,16 @@
  */
 import React from "react";
 import "@testing-library/jest-dom";
-import { render, fireEvent, act, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { IntlProvider } from "react-intl";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+
 import { selectFilterOption, submitFilters } from "~/utils/jestUtils";
 
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import UserTableFilters from "./UserTableFilterDialog";
 import type { UserTableFiltersProps } from "./UserTableFilterDialog";
 
@@ -74,17 +76,18 @@ function renderButton(props: Partial<UserTableFiltersProps>) {
 }
 
 const openDialog = async () => {
-  fireEvent.click(await screen.getByRole("button", { name: /filter/i }));
+  const user = userEvent.setup();
+  await user.click(screen.getByRole("button", { name: /filter/i }));
 };
 
 const closeDialog = async () => {
-  fireEvent.click(await screen.getByRole("button", { name: /close dialog/i }));
+  const user = userEvent.setup();
+  await user.click(screen.getByRole("button", { name: /close dialog/i }));
 };
 
 const clearFilters = async () => {
-  await act(async () => {
-    fireEvent.click(await screen.getByRole("button", { name: /clear/i }));
-  });
+  const user = userEvent.setup();
+  await user.click(screen.getByRole("button", { name: /clear/i }));
 };
 
 beforeEach(() => {
@@ -95,24 +98,24 @@ describe("UserTableFilterDialog", () => {
   describe("UserTableFilterDialog.Button", () => {
     it("modal is hidden by default", async () => {
       renderButton({});
-      expect(await screen.queryByRole("dialog")).not.toBeInTheDocument();
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
     it("opens modal when clicked", async () => {
       renderButton({});
       await openDialog();
-      expect(await screen.getByRole("dialog")).toBeVisible();
+      expect(screen.getByRole("dialog")).toBeVisible();
     });
 
     it("can be set to start with modal open", async () => {
       renderButton({ isOpenDefault: true });
-      expect(await screen.getByRole("dialog")).toBeVisible();
+      expect(screen.getByRole("dialog")).toBeVisible();
     });
 
     it("can be closed via X button", async () => {
       renderButton({ isOpenDefault: true });
       await closeDialog();
-      expect(await screen.queryByRole("dialog")).not.toBeInTheDocument();
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
   });
 
@@ -133,7 +136,7 @@ describe("UserTableFilterDialog", () => {
     it("closes the dialog on submission", async () => {
       renderButton({ isOpenDefault: true });
       await submitFilters();
-      expect(await screen.queryByRole("dialog")).not.toBeInTheDocument();
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 
     // This test is prone to going beyond the 5s default timeout.
@@ -181,18 +184,18 @@ describe("UserTableFilterDialog", () => {
   it("correctly selects work location filter", async () => {
     renderButton({ isOpenDefault: true });
 
-    expect(await screen.queryByText("Telework")).not.toBeInTheDocument();
+    expect(screen.queryByText("Telework")).not.toBeInTheDocument();
     await selectFilterOption(/work locations/i);
-    expect(await screen.getByText("Telework")).toBeVisible();
+    expect(screen.getByText("Telework")).toBeVisible();
   });
 
   describe("data persistence", () => {
     it("doesn't persist form data changes when modal closed with X", async () => {
       renderButton({ isOpenDefault: true });
       selectFilterOption(/work locations/i);
-      closeDialog();
+      await closeDialog();
 
-      openDialog();
+      await openDialog();
       expect(screen.queryByText("Telework")).not.toBeInTheDocument();
     });
 
@@ -201,34 +204,36 @@ describe("UserTableFilterDialog", () => {
       await selectFilterOption(/work locations/i);
       await submitFilters();
       await openDialog();
-      expect(await screen.getByText("Telework")).toBeVisible();
+      expect(screen.getByText("Telework")).toBeVisible();
     });
   });
 
   describe("prior state", () => {
-    beforeEach(async () => {
+    it("clears prior state when cleared and submitted", async () => {
       renderButton({ isOpenDefault: true });
       await selectFilterOption(/work locations/i);
       await submitFilters();
-    });
 
-    it("clears prior state when cleared and submitted", async () => {
       await openDialog();
       await clearFilters();
       await submitFilters();
 
       await openDialog();
-      const location = await screen.queryByText("Telework");
+      const location = screen.queryByText("Telework");
       expect(location).not.toBeInTheDocument();
     });
 
     it("keeps prior state when cleared but not submitted", async () => {
+      renderButton({ isOpenDefault: true });
+      await selectFilterOption(/work locations/i);
+      await submitFilters();
+
       await openDialog();
       await clearFilters();
       await closeDialog();
 
       await openDialog();
-      const location = await screen.queryByText("Telework");
+      const location = screen.queryByText("Telework");
       expect(location).toBeInTheDocument();
     });
   });
@@ -236,50 +241,5 @@ describe("UserTableFilterDialog", () => {
   it("shows correct filters in modal", () => {
     renderButton({ isOpenDefault: true });
     expect(screen.getAllByRole("combobox")).toHaveLength(10);
-  });
-
-  describe("enableEducationType prop", () => {
-    it("hides education filter when not enabled", () => {
-      renderButton({ isOpenDefault: true });
-      expect(
-        screen.queryByRole("combobox", { name: /education/i }),
-      ).not.toBeInTheDocument();
-    });
-
-    it("shows education filter when enabled", () => {
-      renderButton({
-        isOpenDefault: true,
-        enableEducationType: true,
-      });
-      expect(screen.getAllByRole("combobox")).toHaveLength(11);
-      expect(
-        screen.getByRole("combobox", { name: /education/i }),
-      ).toBeVisible();
-    });
-
-    it("submits empty education data when empty", async () => {
-      renderButton({
-        isOpenDefault: true,
-        enableEducationType: true,
-      });
-      await submitFilters();
-
-      const activeFilter = mockSubmit.mock.lastCall[0];
-      expect(activeFilter.educationType).toBeDefined();
-      expect(activeFilter.educationType).toHaveLength(0);
-    });
-
-    it("submits education data when populated", async () => {
-      renderButton({
-        isOpenDefault: true,
-        enableEducationType: true,
-      });
-      await selectFilterOption(/education/i);
-      await selectFilterOption(/education/i);
-      await submitFilters();
-
-      const activeFilter = mockSubmit.mock.lastCall[0];
-      expect(activeFilter.educationType).toHaveLength(2);
-    });
   });
 });

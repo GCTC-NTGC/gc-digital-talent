@@ -6,8 +6,8 @@ import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 
-import type { SearchColumn, SearchState } from "./helpers";
 import ResetButton from "../ResetButton";
+import type { SearchColumn, SearchState } from "./helpers";
 
 interface SearchFormProps {
   onChange: (val: string | undefined, col: string | undefined) => void;

@@ -18,7 +18,6 @@ import { Locales, useLocale } from "@gc-digital-talent/i18n";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-
 import talentPlanEn from "~/assets/documents/Forward_Talent_Plan_EN.docx";
 import talentPlanFr from "~/assets/documents/Plan_prospectif_sur_les_talents_FR.docx";
 import recruitmentEn from "~/assets/documents/Digital_Recruitment_Template_EN.docx";

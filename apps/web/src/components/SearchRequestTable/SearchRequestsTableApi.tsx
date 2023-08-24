@@ -32,7 +32,7 @@ import {
   sortingRuleToOrderByClause,
   TABLE_DEFAULTS,
 } from "~/components/Table/ApiManagedTable/helpers";
-import useTableState from "~/components/Table/ApiManagedTable/useTableState";
+import useTableState from "~/hooks/useTableState";
 import tableViewItemButtonAccessor from "~/components/Table/ClientManagedTable/TableViewItemButton";
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -42,11 +42,11 @@ import {
 import adminMessages from "~/messages/adminMessages";
 import { PoolCandidateSearchRequest } from "~/api/generated";
 
+import tableClassificationPills from "../Table/ClientManagedTable/tableClassificationPills";
+import tableCommaList from "../Table/ClientManagedTable/tableCommaList";
 import SearchRequestsTableFilter, {
   FormValues,
 } from "./components/SearchRequestsTableFilterDialog";
-import tableClassificationPills from "../Table/ClientManagedTable/tableClassificationPills";
-import tableCommaList from "../Table/ClientManagedTable/tableCommaList";
 
 type Data = NonNullable<FromArray<PoolCandidateSearchRequestPaginator["data"]>>;
 

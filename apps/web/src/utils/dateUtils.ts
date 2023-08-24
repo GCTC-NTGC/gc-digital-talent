@@ -5,6 +5,7 @@ import {
   formatDate,
   formDateStringToDate,
 } from "@gc-digital-talent/date-helpers";
+
 import { Maybe, Scalars } from "~/api/generated";
 
 export function formattedDate(date: Scalars["Date"], intl: IntlShape) {

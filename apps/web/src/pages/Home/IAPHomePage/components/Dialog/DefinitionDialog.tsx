@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import CloseButton from "./CloseButton";
-
 import type { BasicDialogProps } from "./types";
 
 const DefinitionDialog = ({ children, btnProps }: BasicDialogProps) => {

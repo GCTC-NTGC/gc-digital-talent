@@ -9,9 +9,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { uiMessages } from "@gc-digital-talent/i18n";
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
+import useControllableState from "../../hooks/useControllableState";
 import { SideMenuButton } from "./SideMenuItem";
 import { SideMenuProvider } from "./SideMenuProvider";
-import useControllableState from "../../hooks/useControllableState";
 
 export interface SideMenuProps {
   /** Sets the section to be 'open' by default */
@@ -131,6 +131,7 @@ const SideMenu = ({
                     data-h2-display="base(flex)"
                     data-h2-flex-direction="base(column)"
                     data-h2-flex-grow="base(1)"
+                    data-state={open ? "open" : "closed"}
                   >
                     <div
                       data-h2-display="base(flex)"

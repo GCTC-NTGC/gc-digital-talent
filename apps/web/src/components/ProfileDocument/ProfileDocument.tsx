@@ -1,12 +1,9 @@
 import React from "react";
-
 import { useIntl } from "react-intl";
+import isEmpty from "lodash/isEmpty";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { insertBetween, notEmpty } from "@gc-digital-talent/helpers";
-
-import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
-
 import {
   commonMessages,
   getArmedForcesStatusesAdmin,
@@ -14,7 +11,6 @@ import {
   getCitizenshipStatusesAdmin,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
-  getGenericJobTitles,
   getIndigenousCommunity,
   getLanguageProficiency,
   getLocale,
@@ -23,7 +19,6 @@ import {
   getWorkRegion,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { getFullNameLabel } from "~/utils/nameUtils";
 import { enumToOptions, unpackMaybes } from "@gc-digital-talent/forms";
 import {
   GovEmployeeType,
@@ -34,9 +29,10 @@ import {
   IndigenousCommunity,
   PoolCandidate,
 } from "@gc-digital-talent/graphql";
-import isEmpty from "lodash/isEmpty";
+
+import { getFullNameLabel } from "~/utils/nameUtils";
+import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
-import { anyCriteriaSelected as anyCriteriaSelectedRoleSalarySection } from "~/validators/profile/roleSalary";
 
 interface ProfileDocumentProps {
   results: User[] | PoolCandidate[];
@@ -162,17 +158,6 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                     (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
                   ) || [];
 
-                const expectedClassificationArray =
-                  result.expectedGenericJobTitles
-                    ? result.expectedGenericJobTitles.map((es) => (
-                        <li key={es?.key}>
-                          {es
-                            ? intl.formatMessage(getGenericJobTitles(es.key))
-                            : ""}
-                        </li>
-                      ))
-                    : null;
-
                 return (
                   <React.Fragment key={result.id}>
                     <div>
@@ -188,7 +173,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                       </PageSection>
                       <PageSection>
                         <Heading level="h3">
-                          {intl.formatMessage(navigationMessages.myStatus)}
+                          {intl.formatMessage(commonMessages.status)}
                         </Heading>
                         {result.armedForcesStatus !== null &&
                           result.armedForcesStatus !== undefined && (
@@ -664,27 +649,6 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                               </ul>
                             )}
                           </>
-                        )}
-                      </PageSection>
-                      <PageSection>
-                        <Heading level="h3">
-                          {intl.formatMessage(
-                            navigationMessages.roleSalaryExpectations,
-                          )}
-                        </Heading>
-                        {anyCriteriaSelectedRoleSalarySection(result) && (
-                          <div>
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "Would like to be referred for jobs at the following levels:",
-                                id: "sYuMO8",
-                                description:
-                                  "Label for Role and salary expectations sections",
-                              })}
-                            </p>
-                            <ul>{expectedClassificationArray}</ul>
-                          </div>
                         )}
                       </PageSection>
                       <BreakingPageSection>

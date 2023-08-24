@@ -9,7 +9,6 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import { User, IndigenousCommunity } from "~/api/generated";
-
 import firstNationsIcon from "~/assets/img/first-nations-true.png";
 import inuitIcon from "~/assets/img/inuit-true.png";
 import metisIcon from "~/assets/img/metis-true.png";

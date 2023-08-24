@@ -126,8 +126,6 @@ class PoolApplicationTest extends TestCase
                 'email' => 'applicant-user@test.com',
                 'sub' => 'applicant-user@test.com',
             ]);
-        // Add generic job title for submission
-        $this->applicantUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
 
         $this->responderUser = User::factory()
             ->asApplicant()

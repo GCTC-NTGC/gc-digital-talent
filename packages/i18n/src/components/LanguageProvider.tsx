@@ -1,10 +1,10 @@
 import React from "react";
 import { IntlProvider } from "react-intl";
 
-import defaultRichTextElements from "./richTextElements";
 import useLocale from "../hooks/useLocale";
 import useIntlLanguages from "../hooks/useIntlMessages";
 import { Messages } from "../types";
+import defaultRichTextElements from "./richTextElements";
 
 interface LanguageProviderProps {
   messages: Messages;

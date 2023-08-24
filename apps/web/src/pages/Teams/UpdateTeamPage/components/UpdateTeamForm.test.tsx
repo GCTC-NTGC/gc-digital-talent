@@ -2,10 +2,12 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen, act, fireEvent, waitFor } from "@testing-library/react";
+import { screen, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
+
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeTeams } from "@gc-digital-talent/fake-data";
+
 import UpdateTeamForm, { UpdateTeamFormProps } from "./UpdateTeamForm";
 
 // adjust mockTeam to enable testing expected values
@@ -24,11 +26,9 @@ describe("UpdateTeamForm", () => {
   it("should submit correctly", async () => {
     const mockSave = jest.fn(() => Promise.resolve(mockTeam));
 
-    act(() => {
-      renderUpdateTeamForm({
-        team: mockTeam,
-        onSubmit: mockSave,
-      });
+    renderUpdateTeamForm({
+      team: mockTeam,
+      onSubmit: mockSave,
     });
 
     const contactEmail = screen.getByRole("textbox", {

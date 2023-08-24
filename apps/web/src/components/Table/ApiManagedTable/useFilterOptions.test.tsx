@@ -1,12 +1,15 @@
 /**
  * @jest-environment jsdom
  */
+// This test is odd, not what is going on here but we cannot deconstruct the return value
+/* eslint-disable testing-library/render-result-naming-convention */
 import React from "react";
 import "@testing-library/jest-dom";
 import { IntlProvider } from "react-intl";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { waitFor, renderHook } from "@testing-library/react";
+
 import {
   fakeSkills,
   fakePools,
@@ -14,15 +17,14 @@ import {
   fakeRoles,
 } from "@gc-digital-talent/fake-data";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+
 import useFilterOptions from "./useFilterOptions";
 
 describe("useFilterOptions", () => {
   function renderHookWithProviders({
-    enableEducationSelect,
     msDelay = 0,
     responseData = {},
   }: {
-    enableEducationSelect?: boolean;
     msDelay?: number;
     responseData?: object;
   }) {
@@ -40,34 +42,12 @@ describe("useFilterOptions", () => {
         <GraphqlProvider value={mockClient}>{children}</GraphqlProvider>
       </IntlProvider>
     );
-    const { result } = renderHook(
-      () => useFilterOptions(enableEducationSelect),
-      {
-        wrapper,
-      },
-    );
+    const { result } = renderHook(() => useFilterOptions(), {
+      wrapper,
+    });
 
     return result;
   }
-  describe("enableEducationSelect toggle", () => {
-    it("has key educationType when enabled and appropriate number of options", () => {
-      const result = renderHookWithProviders({ enableEducationSelect: true });
-      expect(result.current.emptyFormValues.educationType).toStrictEqual([]);
-      expect(result.current.optionsData.educationType).toHaveLength(8);
-    });
-
-    it("does not have key educationType when disabled", () => {
-      const result = renderHookWithProviders({ enableEducationSelect: false });
-      expect(result.current.emptyFormValues.educationType).toBeUndefined();
-      expect(result.current.optionsData.educationType).toBeUndefined();
-    });
-
-    it("does not have key educationType when unset", () => {
-      const result = renderHookWithProviders({});
-      expect(result.current.emptyFormValues.educationType).toBeUndefined();
-      expect(result.current.optionsData.educationType).toBeUndefined();
-    });
-  });
 
   describe("rawGraphqlResults", () => {
     it("shows as fetching before response arrives", () => {

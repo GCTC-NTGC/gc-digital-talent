@@ -4,7 +4,6 @@ import * as TogglePrimitive from "@radix-ui/react-toggle";
 
 import Heading, { HeadingProps } from "../Heading";
 import useControllableState from "../../hooks/useControllableState";
-
 import {
   ToggleSectionProvider,
   useToggleSectionContext,

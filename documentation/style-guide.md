@@ -96,7 +96,7 @@ The primary component handles most of the interaction with the user. It will oft
 
 ### Wrappers
 
-Wrapper components could be added at multiple levels, sometimes within a Form/Table component, sometimes in a Page component. Wrappers components are reusable wrappers which provide consistent UI or functionality to multiple pages or components. They are named with the **Wrapper** suffix, like `ProfileFormWrapper`.
+Wrapper components could be added at multiple levels, sometimes within a Form/Table component, sometimes in a Page component. Wrappers components are reusable wrappers which provide consistent UI or functionality to multiple pages or components. They are named with the **Wrapper** suffix, like `AdminContentWrapper`.
 
 ### Sections
 

@@ -1,7 +1,10 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
+
 import { fakePools } from "@gc-digital-talent/fake-data";
+
 import { Pool } from "~/api/generated";
+
 import PoolCard from "./PoolCard";
 
 const fakedPools = fakePools();

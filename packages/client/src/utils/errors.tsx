@@ -8,6 +8,50 @@ import { tryFindMessageDescriptor } from "@gc-digital-talent/i18n";
 export const extractErrorMessages = (combinedError: CombinedError) =>
   combinedError.graphQLErrors.flatMap((error) => error.message);
 
+// type guard for non-nullable object
+const isNotNullObject = (value: unknown): value is NonNullable<object> => {
+  return value !== null && value !== undefined && typeof value === "object";
+};
+
+// expected shape of validation extension, returned as type unknown
+interface ExtensionWithValidation {
+  validation: Array<{ [attributeName: string]: Array<string> }>;
+}
+
+// custom type guard for expected validation extension shape
+const isExtensionWithValidation = (
+  value: unknown,
+): value is ExtensionWithValidation => {
+  if (isNotNullObject(value) && "validation" in value) {
+    const value2 = value as { validation: unknown }; // type narrow for tested property
+    return (
+      isNotNullObject(value2.validation) &&
+      Object.values(value2.validation).every(
+        (property) =>
+          Array.isArray(property) &&
+          property.every((message) => typeof message === "string"),
+      )
+    );
+  }
+  return false;
+};
+
+// grab the validation extension error messages out of the combined error
+export const extractValidationMessageKeys = (
+  combinedError: CombinedError,
+): string[] => {
+  const errorExtensions = combinedError.graphQLErrors.flatMap(
+    (error) => error.extensions,
+  );
+  const validationMessages = errorExtensions
+    .filter(isExtensionWithValidation)
+    .flatMap((validationExtension) => validationExtension.validation)
+    .flatMap((validationObject) => Object.values(validationObject))
+    .flat();
+
+  return validationMessages;
+};
+
 // Accepts a list of error messages, localizes them, and returns a formatted ReactNode for toasting
 export const buildValidationErrorMessageNode = (
   errorMessages: Array<string>,

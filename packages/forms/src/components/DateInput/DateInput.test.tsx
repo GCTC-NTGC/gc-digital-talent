@@ -7,6 +7,7 @@ import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FormProvider, useForm } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
+
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
 import DateInput, { DateInputProps } from "./DateInput";
@@ -69,21 +70,15 @@ describe("DateInput", () => {
   it("should render subfields", async () => {
     const { rerender } = renderDateInput(defaultProps);
 
-    expect(
-      await screen.getByRole("group", { name: "Date" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Date" })).toBeInTheDocument();
 
     expect(
-      await screen.getByRole("spinbutton", { name: "Year" }),
+      screen.getByRole("spinbutton", { name: "Year" }),
     ).toBeInTheDocument();
 
-    expect(
-      await screen.getByRole("combobox", { name: "Month" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("combobox", { name: "Month" })).toBeInTheDocument();
 
-    expect(
-      await screen.getByRole("spinbutton", { name: "Day" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("spinbutton", { name: "Day" })).toBeInTheDocument();
 
     // Re-render with no day field and confirm it is no longer
     // in the document
@@ -97,15 +92,15 @@ describe("DateInput", () => {
     );
 
     expect(
-      await screen.getByRole("spinbutton", { name: /year/i }),
+      screen.getByRole("spinbutton", { name: /year/i }),
     ).toBeInTheDocument();
 
     expect(
-      await screen.getByRole("combobox", { name: /month/i }),
+      screen.getByRole("combobox", { name: /month/i }),
     ).toBeInTheDocument();
 
     expect(
-      await screen.queryByRole("spinbutton", { name: /day/i }),
+      screen.queryByRole("spinbutton", { name: /day/i }),
     ).not.toBeInTheDocument();
   });
 
@@ -125,10 +120,10 @@ describe("DateInput", () => {
       },
     });
 
-    user.click(await screen.getByRole("button", { name: /submit/i }));
+    await user.click(screen.getByRole("button", { name: /submit/i }));
 
     await waitFor(async () => {
-      const alert = await screen.getByRole("alert");
+      const alert = screen.getByRole("alert");
       expect(alert).toBeInTheDocument();
     });
   });
@@ -144,27 +139,27 @@ describe("DateInput", () => {
       inputProps: defaultProps.inputProps,
     });
 
-    const year = await screen.getByRole("spinbutton", {
+    const year = screen.getByRole("spinbutton", {
       name: /year/i,
     });
 
-    user.type(year, "2023");
+    await user.type(year, "2023");
     await waitFor(() => expect(year).toHaveValue(2023));
 
-    const january = await screen.getByRole("option", { name: /january/i });
-    const month = await screen.getByRole("combobox", { name: /month/i });
+    const january = screen.getByRole("option", { name: /january/i });
+    const month = screen.getByRole("combobox", { name: /month/i });
 
-    user.selectOptions(month, january);
+    await user.selectOptions(month, january);
     await waitFor(() => expect(month).toHaveValue("01"));
 
-    const day = await screen.getByRole("spinbutton", {
+    const day = screen.getByRole("spinbutton", {
       name: /day/i,
     });
 
-    user.type(day, "1");
+    await user.type(day, "1");
     await waitFor(() => expect(day).toHaveValue(1));
 
-    user.click(await screen.getByRole("button", { name: /submit/i }));
+    await user.click(screen.getByRole("button", { name: /submit/i }));
 
     await waitFor(async () => {
       expect(submitFn).toHaveBeenCalledWith({
@@ -192,33 +187,31 @@ describe("DateInput", () => {
       },
     });
 
-    const year = await screen.getByRole("spinbutton", {
+    const year = screen.getByRole("spinbutton", {
       name: /year/i,
     });
 
-    user.type(year, "2023");
+    await user.type(year, "2023");
     await waitFor(() => expect(year).toHaveValue(2023));
 
-    const january = await screen.getByRole("option", { name: /january/i });
-    const month = await screen.getByRole("combobox", { name: /month/i });
+    const january = screen.getByRole("option", { name: /january/i });
+    const month = screen.getByRole("combobox", { name: /month/i });
 
-    user.selectOptions(month, january);
+    await user.selectOptions(month, january);
     await waitFor(() => expect(month).toHaveValue("01"));
 
-    const day = await screen.getByRole("spinbutton", {
+    const day = screen.getByRole("spinbutton", {
       name: /day/i,
     });
 
-    user.type(day, "31");
+    await user.type(day, "31");
     await waitFor(() => expect(day).toHaveValue(31));
 
-    user.click(await screen.getByRole("button", { name: /submit/i }));
+    await user.click(screen.getByRole("button", { name: /submit/i }));
 
     await waitFor(async () => {
-      const alert = await screen.getByRole("alert");
-      expect(alert).toBeInTheDocument();
-
-      expect(await within(alert).getByText(/after/i)).toBeInTheDocument();
+      const alert = screen.getByRole("alert");
+      expect(within(alert).getByText(/after/i)).toBeInTheDocument();
     });
 
     await waitFor(async () => {
@@ -245,7 +238,7 @@ describe("DateInput", () => {
       },
     });
 
-    user.click(await screen.getByRole("button", { name: /submit/i }));
+    await user.click(screen.getByRole("button", { name: /submit/i }));
 
     await waitFor(async () => {
       expect(submitFn).toHaveBeenCalled();
@@ -271,33 +264,32 @@ describe("DateInput", () => {
       },
     });
 
-    const year = await screen.getByRole("spinbutton", {
+    const year = screen.getByRole("spinbutton", {
       name: /year/i,
     });
 
-    user.type(year, "2023");
+    await user.type(year, "2023");
     await waitFor(() => expect(year).toHaveValue(2023));
 
-    const february = await screen.getByRole("option", { name: /february/i });
-    const month = await screen.getByRole("combobox", { name: /month/i });
+    const february = screen.getByRole("option", { name: /february/i });
+    const month = screen.getByRole("combobox", { name: /month/i });
 
-    user.selectOptions(month, february);
+    await user.selectOptions(month, february);
     await waitFor(() => expect(month).toHaveValue("02"));
 
-    const day = await screen.getByRole("spinbutton", {
+    const day = screen.getByRole("spinbutton", {
       name: /day/i,
     });
 
-    user.type(day, "2");
+    await user.type(day, "2");
     await waitFor(() => expect(day).toHaveValue(2));
 
-    user.click(await screen.getByRole("button", { name: /submit/i }));
+    await user.click(screen.getByRole("button", { name: /submit/i }));
 
     await waitFor(async () => {
-      const alert = await screen.getByRole("alert");
-      expect(alert).toBeInTheDocument();
+      const alert = screen.getByRole("alert");
 
-      expect(await within(alert).getByText(/before/i)).toBeInTheDocument();
+      expect(within(alert).getByText(/before/i)).toBeInTheDocument();
     });
 
     await waitFor(async () => {
@@ -324,7 +316,7 @@ describe("DateInput", () => {
       },
     });
 
-    user.click(await screen.getByRole("button", { name: /submit/i }));
+    await user.click(screen.getByRole("button", { name: /submit/i }));
 
     await waitFor(async () => {
       expect(submitFn).toHaveBeenCalled();
@@ -342,30 +334,28 @@ describe("DateInput", () => {
       inputProps: defaultProps.inputProps,
     });
 
-    const year = await screen.getByRole("spinbutton", {
+    const year = screen.getByRole("spinbutton", {
       name: /year/i,
     });
 
-    user.type(year, "2023");
+    await user.type(year, "2023");
 
-    const february = await screen.getByRole("option", { name: /february/i });
-    const month = await screen.getByRole("combobox", { name: /month/i });
+    const february = screen.getByRole("option", { name: /february/i });
+    const month = screen.getByRole("combobox", { name: /month/i });
 
-    user.selectOptions(month, february);
+    await user.selectOptions(month, february);
 
-    const day = await screen.getByRole("spinbutton", {
+    const day = screen.getByRole("spinbutton", {
       name: /day/i,
     });
 
-    user.type(day, "30");
-    user.click(await screen.getByRole("button", { name: /submit/i }));
+    await user.type(day, "30");
+    await user.click(screen.getByRole("button", { name: /submit/i }));
 
     await waitFor(async () => {
-      const alert = await screen.getByRole("alert");
-      expect(alert).toBeInTheDocument();
-
+      const alert = screen.getByRole("alert");
       expect(
-        await within(alert).getByText(/please enter a valid date/i),
+        within(alert).getByText(/please enter a valid date/i),
       ).toBeInTheDocument();
     });
 

@@ -49,6 +49,12 @@ module.exports = {
     "jsx-a11y",
     "turbo",
   ],
+  overrides: [
+    {
+      files: ["**/?(*.)+(test).[jt]s?(x)"],
+      extends: ["plugin:testing-library/react"],
+    },
+  ],
   rules: {
     "formatjs/no-id": "off",
     "formatjs/enforce-id": [
@@ -64,6 +70,25 @@ module.exports = {
     "import/extensions": ["warn", "never", { json: "always" }],
     // Note: Re-enable with #7453
     //"import/no-unused-modules": [1, { unusedExports: true, ignoreExports: ["src/index.{ts,tsx}"] }],
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "distinctGroup": false,
+        groups: ["builtin", "external", "unknown", "internal", ["parent", "sibling"], "index"],
+        pathGroups: [
+          {
+            "pattern": "@gc-digital-talent/**",
+            "group": "unknown",
+          },
+          {
+            "pattern": "~/**",
+            "group": "internal"
+          }
+        ],
+        pathGroupsExcludedImportTypes: ["@gc-digital-talent/**"]
+      }
+    ],
     "react/display-name": "off",
     "react/prop-types": "off",
     "react/jsx-filename-extension": [

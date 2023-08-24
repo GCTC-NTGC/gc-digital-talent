@@ -1,4 +1,5 @@
 import React from "react";
+
 import { HeadingRank } from "@gc-digital-talent/ui";
 
 interface ContentSectionProps extends React.HTMLProps<HTMLDivElement> {

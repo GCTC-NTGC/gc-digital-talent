@@ -15,13 +15,13 @@ import {
   getEducationRequirementOption,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   yesOrNo,
   employeeTypeToString,
   getLocationPreference,
   getOperationalRequirements,
-  getExpectedClassifications,
   flattenExperiencesToSkills,
   skillKeyAndJustifications,
   getExperienceTitles,
@@ -30,7 +30,6 @@ import {
 } from "~/utils/csvUtils";
 import { Maybe, PoolCandidate, PositionDuration, Pool } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 const usePoolCandidateCsvData = (
   candidates: PoolCandidate[],
@@ -377,14 +376,6 @@ const usePoolCandidateCsvData = (
       }),
     },
     {
-      key: "expectedClassification",
-      label: intl.formatMessage({
-        defaultMessage: "Role/Salary Expectation",
-        id: "iIZS1K",
-        description: "CSV Header, Role/Salary Expectation column",
-      }),
-    },
-    {
       key: "educationRequirementOption",
       label: intl.formatMessage({
         defaultMessage: "Education Requirement",
@@ -513,10 +504,6 @@ const usePoolCandidateCsvData = (
           ),
           isVisibleMinority: yesOrNo(user.isVisibleMinority, intl),
           hasDisability: yesOrNo(user.hasDisability, intl),
-          expectedClassification: getExpectedClassifications(
-            user.expectedGenericJobTitles,
-            intl,
-          ),
           educationRequirementOption: educationRequirementOption
             ? intl.formatMessage(
                 getEducationRequirementOption(educationRequirementOption),

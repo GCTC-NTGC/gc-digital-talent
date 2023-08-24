@@ -12,7 +12,6 @@ import {
   OperationalRequirement,
   Pool,
   WorkRegion,
-  SalaryRange,
   GovEmployeeType,
   Department,
   CitizenshipStatus,
@@ -157,16 +156,9 @@ const generateUser = (
       faker.helpers.arrayElements<OperationalRequirement>(
         Object.values(OperationalRequirement),
       ),
-    expectedSalary: faker.helpers.arrayElements<SalaryRange>(
-      Object.values(SalaryRange),
-    ),
-    expectedClassifications:
-      faker.helpers.arrayElements<Classification>(classifications),
     positionDuration: faker.datatype.boolean()
       ? [PositionDuration.Permanent]
       : [PositionDuration.Permanent, PositionDuration.Temporary],
-    expectedGenericJobTitles:
-      faker.helpers.arrayElements<GenericJobTitle>(genericJobTitles),
     poolCandidates,
 
     experiences: [

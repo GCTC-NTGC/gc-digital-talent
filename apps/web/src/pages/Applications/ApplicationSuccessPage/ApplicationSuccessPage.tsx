@@ -7,6 +7,7 @@ import { useLocale } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
+
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
@@ -97,6 +98,9 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
                   ? "https://www.tbs-sct.canada.ca/tbsf-fsct/330-60-eng.asp"
                   : "https://www.tbs-sct.canada.ca/tbsf-fsct/330-60-fra.asp"
               }
+              data-h2-display="base(inline-block)"
+              data-h2-text-align="base(left)"
+              data-h2-vertical-align="base(top)"
             >
               {intl.formatMessage({
                 defaultMessage: "Find and complete security clearance forms.",
@@ -108,7 +112,12 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           </li>
         )}
         <li data-h2-margin-bottom="base(x.25)">
-          <Link href={paths.myProfile()}>
+          <Link
+            href={paths.myProfile()}
+            data-h2-display="base(inline-block)"
+            data-h2-text-align="base(left)"
+            data-h2-vertical-align="base(top)"
+          >
             {intl.formatMessage({
               defaultMessage:
                 "Update profile and contact information to ensure you receive notifications.",
@@ -120,7 +129,12 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
         </li>
         {!isIAP && (
           <li data-h2-margin-bottom="base(x.25)">
-            <Link href={`${paths.browsePools()}#ongoingRecruitments`}>
+            <Link
+              href={`${paths.browsePools()}#ongoingRecruitments`}
+              data-h2-display="base(inline-block)"
+              data-h2-text-align="base(left)"
+              data-h2-vertical-align="base(top)"
+            >
               {intl.formatMessage({
                 defaultMessage:
                   "Submit an application to ongoing recruitment talent pools.",
