@@ -84,7 +84,7 @@
     "@mdx-js/react": "^2.3.0",
     "@storybook/addon-actions": "^7.3.1",
     "@storybook/addon-essentials": "^7.3.1",
-    "@storybook/addon-links": "^7.3.1",
+    "@storybook/addon-links": "^7.3.2",
     "@storybook/addon-viewport": "^7.3.1",
     "@storybook/react": "^7.3.1",
     "@storybook/react-webpack5": "^7.3.1",
