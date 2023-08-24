@@ -4,6 +4,7 @@ import { UniqueEnforcer } from "enforce-unique";
 import {
   Skill,
   SkillLevel,
+  User,
   UserSkill,
   WhenSkillUsed,
 } from "@gc-digital-talent/graphql";
@@ -18,6 +19,7 @@ const mockUser = fakeUsers(1)[0];
 
 const generateUserSkill = (
   skill: Skill,
+  user: User,
   experiences: AnyGeneratedExperience[],
   uniqueEnforcerId: UniqueEnforcer,
 ) => {
@@ -25,10 +27,10 @@ const generateUserSkill = (
     return faker.string.uuid();
   });
   return {
-    __typename: undefined,
+    __typename: "UserSkill" as UserSkill["__typename"],
     id: uniqueId,
     skill,
-    user: mockUser,
+    user,
     skillLevel: faker.helpers.arrayElement<SkillLevel | undefined>([
       SkillLevel.Beginner,
       SkillLevel.Expert,
@@ -50,12 +52,13 @@ const generateUserSkill = (
 export default (
   numToGenerate = 15,
   skill: Skill = randomSkill,
+  user = mockUser,
   experiences: AnyGeneratedExperience[] = [],
 ): UserSkill[] => {
   faker.seed(0); // repeatable results
   const uniqueEnforcerId = new UniqueEnforcer(); // Ensure unique IDs
 
   return [...Array(numToGenerate)].map(() =>
-    generateUserSkill(skill, experiences, uniqueEnforcerId),
+    generateUserSkill(skill, user, experiences, uniqueEnforcerId),
   );
 };
