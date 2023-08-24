@@ -56,13 +56,13 @@ const Template: StoryFn<TemplateProps> = (args) => {
 export const LoggedOutAndClosed = Template.bind({});
 LoggedOutAndClosed.args = {
   isOpen: false,
-  isLoggedIn: true,
+  isLoggedIn: false,
 };
 
 export const LoggedOutAndOpen = Template.bind({});
 LoggedOutAndOpen.args = {
   isOpen: true,
-  isLoggedIn: true,
+  isLoggedIn: false,
 };
 
 export const LoggedInAndClosed = Template.bind({});
