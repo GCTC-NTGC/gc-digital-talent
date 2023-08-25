@@ -266,19 +266,12 @@ class User extends Model implements Authenticatable, LaratrustUser
         });
 
         static::restoring(function (User $user) {
-            // Cancel the operation if the users email would be duplicated
-            $newEmail = substr($user->email, 0, -22);
-            $duplicateEmail = DB::table('users')->where('email', $newEmail)->count() !== 0;
-            if ($duplicateEmail) {
-                return false;
-            }
-
             // Cascade restore to child models
             foreach ($user->poolCandidates()->withTrashed()->get() as $candidate) {
                 $candidate->restore();
             }
 
-            // Remove the deleted-at text from the end of the email
+            $newEmail = $user->email . "-restored-at-" . Carbon::now()->format('Y-m-d');
             $user->update(['email' => $newEmail]);
         });
     }
