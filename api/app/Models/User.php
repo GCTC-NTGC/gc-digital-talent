@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Notifications\Notifiable;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
@@ -731,7 +732,10 @@ class User extends Model implements Authenticatable, LaratrustUser
     // rename accessor to avoid hiding parent's notification function
     public function getEnrichedNotificationsAttribute()
     {
-        $notifications = $this->notifications()->get();
+        $user = Auth::user();
+        $notifications = $this->notifications()
+            ->where('notifiable_id', $user->id)
+            ->get();
         $notifications->each(function ($n) {
             self::enrichNotification($n);
         });
@@ -741,7 +745,10 @@ class User extends Model implements Authenticatable, LaratrustUser
     // rename accessor to avoid hiding parent's notification function
     public function getUnreadEnrichedNotificationsAttribute()
     {
-        $notifications = $this->unreadNotifications()->get();
+        $user = Auth::user();
+        $notifications = $this->unreadNotifications()
+            ->where('notifiable_id', $user->id)
+            ->get();
         $notifications->each(function ($n) {
             self::enrichNotification($n);
         });
