@@ -87,6 +87,7 @@ type Mutation {
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
   updateSkill(id: ID!, skill: UpdateSkillInput!): Skill
+  deleteSkill(id: UUID!): Skill
   createWorkExperience(userId: ID!, workExperience: WorkExperienceInput!): WorkExperience
   createPersonalExperience(userId: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
   createCommunityExperience(userId: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
