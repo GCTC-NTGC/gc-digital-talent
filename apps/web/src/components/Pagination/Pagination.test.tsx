@@ -2,126 +2,177 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen, renderHook } from "@testing-library/react";
 import React from "react";
-import { IntlProvider, MessageFormatElement } from "react-intl";
+import { screen, renderHook } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-import { PaginationProps } from "./Pagination";
-import { BothDots, LeftDots, NoDots, RightDots } from "./Pagination.stories";
+import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
+
+import Pagination, { PaginationProps } from "./Pagination";
 import { DOTS, usePagination } from "./usePagination";
 
-const renderWithReactIntl = (
-  component: React.ReactNode,
-  locale?: "en" | "fr",
-  messages?: Record<string, string> | Record<string, MessageFormatElement[]>,
-) => {
-  return render(
-    <IntlProvider locale={locale || "en"} messages={messages}>
-      {component}
-    </IntlProvider>,
-  );
+const onCurrentPageChange = jest.fn();
+const onPageSizeChange = jest.fn();
+
+const defaultProps: PaginationProps = {
+  currentPage: 1,
+  totalCount: 100,
+  totalPages: 10,
+  pageSize: 10,
+  color: "black",
+  ariaLabel: "Pagination",
+  onCurrentPageChange,
+  onPageSizeChange,
+};
+
+const renderPagination = (props: Partial<PaginationProps>) =>
+  renderWithProviders(<Pagination {...defaultProps} {...props} />);
+
+/**
+ * Get expected page count
+ *
+ * Adds 4 to the expected page count
+ * representing first, last, next and previous buttons.
+ *
+ * @param initialPageCount
+ * @returns number
+ */
+const getExpectedPageCount = (initialPageCount: number): number => {
+  return initialPageCount + 4;
+};
+
+/**
+ * Get DOTS
+ *
+ * Retrieves all list items with DOTS
+ */
+const assertDotCount = (count: number) => {
+  const dots = screen
+    .queryAllByRole("listitem")
+    .filter((item) => item.textContent === "…");
+
+  expect(dots).toHaveLength(count);
 };
 
 describe("Pagination tests", () => {
-  test("If the total page count is less then page pills show range from 1 to totalPageCount", () => {
-    const props = NoDots.args as PaginationProps;
-    renderWithReactIntl(<NoDots {...props} />);
+  const user = userEvent.setup();
+
+  it("If the total page count is less then page pills show range from 1 to totalPageCount", async () => {
+    const props: PaginationProps = {
+      ...defaultProps,
+      totalCount: 50,
+      totalPages: 5,
+    };
+    renderPagination(props);
     const { result } = renderHook(() => usePagination(props)); // should return an ordered array of the pagination pages.
     const paginationRange = [1, 2, 3, 4, 5];
     expect(result.current).toStrictEqual(paginationRange); // test if paginationRange matches the result from hook.
 
-    const pages = screen.getAllByTestId("pagination");
-    const dots = screen.queryAllByTestId("dots");
-    expect(pages).toHaveLength(5);
-    expect(dots).toHaveLength(0);
-    pages.forEach((page, index) => {
-      const text = page.textContent;
-      expect(text).toBe(String(index + 1)); // the text should be in the same order as the index + 1
-    });
+    const pages = screen.getAllByRole("listitem");
+
+    expect(pages).toHaveLength(getExpectedPageCount(paginationRange.length));
+    assertDotCount(0);
+
+    expect(screen.getByRole("button", { name: /1/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /2/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /3/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /4/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /5/ })).toBeInTheDocument();
   });
 
-  test("Should show DOTS on right side when total page count is greater then page pills", () => {
-    const props = RightDots.args as PaginationProps;
-    renderWithReactIntl(<RightDots {...props} />);
-    const { result } = renderHook(() => usePagination(props)); // should return an ordered array of the pagination pages (including the DOTS).
+  it("Should show DOTS on right side when total page count is greater then page pills", () => {
+    renderPagination({});
+    const { result } = renderHook(() => usePagination(defaultProps)); // should return an ordered array of the pagination pages (including the DOTS).
     const paginationRange = [1, 2, 3, 4, 5, DOTS, 10];
     expect(result.current).toStrictEqual(paginationRange); // test if page range matches result from hook.
 
-    const pages = screen.getAllByTestId("pagination");
-    const dots = screen.getAllByTestId("dots");
-    expect(pages).toHaveLength(6);
-    expect(dots).toHaveLength(1);
+    expect(screen.getAllByRole("listitem")).toHaveLength(
+      getExpectedPageCount(paginationRange.length),
+    );
+    assertDotCount(1);
   });
 
-  test("Should show DOTS on left side when total page count is greater then page pills", () => {
-    const props = LeftDots.args as PaginationProps;
-    renderWithReactIntl(<LeftDots {...props} />);
+  it("Should show DOTS on left side when total page count is greater then page pills", () => {
+    const props = { ...defaultProps, currentPage: 9 };
+    renderPagination(props);
     const { result } = renderHook(() => usePagination(props)); // should return an ordered array of the pagination pages (including the DOTS).
     const paginationRange = [1, DOTS, 6, 7, 8, 9, 10]; // test if page range matches result from hook.
+
     expect(result.current).toStrictEqual(paginationRange);
-    const pages = screen.getAllByTestId("pagination");
-    const dots = screen.getAllByTestId("dots");
-    expect(pages).toHaveLength(6);
-    expect(dots).toHaveLength(1);
+
+    expect(screen.getAllByRole("listitem")).toHaveLength(
+      getExpectedPageCount(paginationRange.length),
+    );
+
+    assertDotCount(1);
   });
 
-  test("Should show DOTS on left and right side when total page count is greater then page pills", () => {
-    const props = BothDots.args as PaginationProps;
-    renderWithReactIntl(<BothDots {...props} />);
+  it("Should show DOTS on left and right side when total page count is greater then page pills", () => {
+    const props = {
+      ...defaultProps,
+      currentPage: 5,
+    };
+    renderPagination(props);
     const { result } = renderHook(() => usePagination(props)); // should return an ordered array of the pagination pages (including the DOTS).
     const paginationRange = [1, DOTS, 4, 5, 6, DOTS, 10]; // test if page range matches result from hook.
+
     expect(result.current).toStrictEqual(paginationRange);
-    const pages = screen.getAllByTestId("pagination");
-    const dots = screen.getAllByTestId("dots");
-    expect(pages).toHaveLength(5);
-    expect(dots).toHaveLength(2);
+
+    expect(screen.getAllByRole("listitem")).toHaveLength(
+      getExpectedPageCount(paginationRange.length),
+    );
+
+    assertDotCount(2);
   });
 
-  test("Should handle clicks on right (next) arrow buttons correctly", () => {
-    const props = NoDots.args as PaginationProps;
+  it("Should handle clicks on right (next) arrow buttons correctly", async () => {
     const handlePageChange = jest.fn();
-    renderWithReactIntl(
-      <NoDots {...props} onCurrentPageChange={handlePageChange} />,
-    );
-    const leftArrowButton = screen.getByTestId("leftArrowButton");
-    const rightArrowButton = screen.getByTestId("rightArrowButton");
-    expect(leftArrowButton).toBeDisabled(); // The button should be disabled since current page is the first page
-    fireEvent.click(rightArrowButton);
+    const props = { ...defaultProps, onCurrentPageChange: handlePageChange };
+    renderPagination(props);
+
+    expect(screen.getByRole("button", { name: /prev/i })).toBeDisabled();
+
+    await user.click(screen.getByRole("button", { name: /next/i }));
+
     expect(handlePageChange).toHaveBeenCalledWith(props.currentPage + 1);
   });
 
-  test("Should handle clicks on left (previous) arrow buttons correctly", () => {
-    const props = NoDots.args as PaginationProps;
+  it("Should handle clicks on left (previous) arrow buttons correctly", async () => {
     const handlePageChange = jest.fn();
     const lastPage = 5;
-    renderWithReactIntl(
-      <NoDots
-        {...props}
-        currentPage={lastPage}
-        onCurrentPageChange={handlePageChange}
-      />,
-    );
-    const leftArrowButton = screen.getByTestId("leftArrowButton");
-    const rightArrowButton = screen.getByTestId("rightArrowButton");
-    expect(rightArrowButton).toBeDisabled(); // The button should be disabled since last page is the current page
-    fireEvent.click(leftArrowButton);
-    expect(handlePageChange).toHaveBeenCalledWith(lastPage - 1);
+    const props = {
+      ...defaultProps,
+      totalPages: 5,
+      totalCount: 50,
+      onCurrentPageChange: handlePageChange,
+      currentPage: lastPage,
+    };
+    renderPagination(props);
+
+    expect(screen.getByRole("button", { name: /next/i })).toBeDisabled();
+
+    await user.click(screen.getByRole("button", { name: /prev/i }));
+
+    expect(handlePageChange).toHaveBeenCalledWith(props.currentPage - 1);
   });
 
-  test("Should handle clicks on page buttons correctly", () => {
-    const props = NoDots.args as PaginationProps;
+  it("Should handle clicks on page buttons correctly", async () => {
     const handlePageChange = jest.fn();
-    renderWithReactIntl(
-      <NoDots {...props} onCurrentPageChange={handlePageChange} />,
-    );
-    const pageThreeButton = screen.getByText("3");
-    fireEvent.click(pageThreeButton);
+    const props = {
+      ...defaultProps,
+      totalPages: 5,
+      totalCount: 50,
+      onCurrentPageChange: handlePageChange,
+    };
+    renderPagination(props);
+
+    await user.click(screen.getByRole("button", { name: /page 3/i }));
     expect(handlePageChange).toHaveBeenCalledWith(3);
-    const pageFiveButton = screen.getByText("5");
-    fireEvent.click(pageFiveButton);
+
+    await user.click(screen.getByRole("button", { name: /page 5/i }));
     expect(handlePageChange).toHaveBeenCalledWith(5);
-    const pageTwoButton = screen.getByText("2");
-    fireEvent.click(pageTwoButton);
+
+    await user.click(screen.getByRole("button", { name: /page 2/i }));
     expect(handlePageChange).toHaveBeenCalledWith(2);
   });
 });

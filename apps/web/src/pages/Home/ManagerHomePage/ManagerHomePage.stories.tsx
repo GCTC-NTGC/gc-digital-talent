@@ -1,7 +1,8 @@
 import React from "react";
 import { StoryFn } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
-import { widthOf, heightOf } from "storybook-helpers";
+
+import { widthOf, heightOf } from "@gc-digital-talent/storybook-helpers";
 
 import ManagerHomePage from "./ManagerHomePage";
 
