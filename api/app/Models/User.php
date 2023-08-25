@@ -754,4 +754,33 @@ class User extends Model implements Authenticatable, LaratrustUser
         });
         return $notifications;
     }
+
+
+    public function scopeAuthorizedToView(Builder $query)
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return $query->where('id', null);
+        }
+
+        if (!$user->isAbleTo('view-any-user')) {
+            $query->where(function (Builder $query) use ($user) {
+                if ($user->isAbleTo("view-team-user")) {
+                    $query->whereHas('poolCandidates', function (Builder $query) use ($user) {
+                        $teamIds = $user->rolesTeams()->get()->pluck('id');
+                        $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
+                            return $query
+                                ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                                ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                });
+                        });
+                    });
+                }
+            });
+        }
+
+        return $query;
+    }
 }
