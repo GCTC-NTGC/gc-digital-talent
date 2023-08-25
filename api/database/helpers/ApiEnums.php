@@ -535,7 +535,7 @@ class ApiEnums
      */
     const SKILL_LEVEL_BEGINNER = 'BEGINNER';
     const SKILL_LEVEL_INTERMEDIATE = 'INTERMEDIATE';
-    const SKILL_LEVEL_EXPERT = 'EXPERT';
+    const SKILL_LEVEL_ADVANCED = 'ADVANCED';
     const SKILL_LEVEL_LEAD = 'LEAD';
 
     public static function skillLevels(): array
@@ -543,7 +543,7 @@ class ApiEnums
         return [
             self::SKILL_LEVEL_BEGINNER,
             self::SKILL_LEVEL_INTERMEDIATE,
-            self::SKILL_LEVEL_EXPERT,
+            self::SKILL_LEVEL_ADVANCED,
             self::SKILL_LEVEL_LEAD,
         ];
     }

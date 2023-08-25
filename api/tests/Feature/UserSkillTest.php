@@ -283,14 +283,14 @@ class UserSkillTest extends TestCase
                 [
                     'id' => $userSkillModel->id,
                     'userSkill' => [
-                        'skillLevel' => ApiEnums::SKILL_LEVEL_EXPERT,
+                        'skillLevel' => ApiEnums::SKILL_LEVEL_ADVANCED,
                         'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
                     ],
                 ]
             )
             ->assertJsonFragment([
                 'id' => $userSkillModel->id,
-                'skillLevel' => ApiEnums::SKILL_LEVEL_EXPERT,
+                'skillLevel' => ApiEnums::SKILL_LEVEL_ADVANCED,
                 'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
             ]);
     }
