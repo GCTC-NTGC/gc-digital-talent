@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext, useWatch } from "react-hook-form";
-import { isEqual } from "lodash";
+import isEqual from "lodash/isEqual";
 
 import {
   Checkbox,
