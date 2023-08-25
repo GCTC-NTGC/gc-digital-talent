@@ -83,6 +83,8 @@ export const ExperienceForm = ({
       ? queryResultToDefaultValues(experienceType, experience)
       : { experienceType };
 
+  console.log(defaultValues);
+
   const methods = useForm<FormValues>({
     shouldFocusError: false,
     mode: "onSubmit",

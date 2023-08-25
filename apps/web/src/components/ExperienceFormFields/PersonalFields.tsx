@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useWatch } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
+import { isEqual } from "lodash";
 
 import {
   Checkbox,
@@ -17,10 +18,31 @@ import { SubExperienceFormProps } from "~/types/experience";
 const PersonalFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
   const todayDate = new Date();
+  const {
+    setValue,
+    watch,
+    formState: { defaultValues },
+  } = useFormContext();
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
   const watchStartDate = useWatch({ name: "startDate" });
+
+  // Callback version of watch.  It's your responsibility to unsubscribe when done.
+  React.useEffect(() => {
+    const subscription = watch((values, { name }) => {
+      if (
+        // Skills are not really part of the overall form
+        !["disclaimer", "skills"].includes(name ?? "") &&
+        !isEqual(values, defaultValues)
+      ) {
+        setValue("disclaimer", false);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watch]);
 
   return (
     <div
