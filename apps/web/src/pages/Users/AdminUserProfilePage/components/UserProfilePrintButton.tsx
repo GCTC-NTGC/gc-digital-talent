@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
+import PrinterIcon from "@heroicons/react/24/outline/PrinterIcon";
 
 import { Button } from "@gc-digital-talent/ui";
 
@@ -32,7 +33,12 @@ const UserProfilePrintButton = ({
 
   return (
     <>
-      <Button color="primary" type="button" onClick={handlePrint}>
+      <Button
+        color="primary"
+        type="button"
+        onClick={handlePrint}
+        icon={PrinterIcon}
+      >
         {children}
       </Button>
       <ProfileDocument results={[user]} ref={componentRef} />

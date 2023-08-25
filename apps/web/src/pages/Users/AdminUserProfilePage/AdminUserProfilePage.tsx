@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
-import PrinterIcon from "@heroicons/react/24/outline/PrinterIcon";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
@@ -30,14 +29,11 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
         data-h2-text-align="base(right)"
       >
         <UserProfilePrintButton user={user}>
-          <span>
-            <PrinterIcon style={{ width: "1rem" }} />{" "}
-            {intl.formatMessage({
-              defaultMessage: "Print Profile",
-              id: "R+Zm3X",
-              description: "Text for button to print a user profile",
-            })}
-          </span>
+          {intl.formatMessage({
+            defaultMessage: "Print Profile",
+            id: "R+Zm3X",
+            description: "Text for button to print a user profile",
+          })}
         </UserProfilePrintButton>
       </div>
       <UserProfile
