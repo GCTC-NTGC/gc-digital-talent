@@ -96,7 +96,7 @@ class AuthServiceProvider extends ServiceProvider
             if ($userMatch) {
                 if ($userMatch->deleted_at != null) {
                     Log::notice('Login as deleted user: ' . $userMatch->sub);
-                    // return abort(401, 'User has been deleted.');
+                    return abort(401, 'User has been deleted.');
                 }
                 return $userMatch;
             } else {

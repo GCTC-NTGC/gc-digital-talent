@@ -16,7 +16,7 @@ interface RequireUserNotDeletedProps {
  */
 const RequireUserNotDeleted = ({ children }: RequireUserNotDeletedProps) => {
   const { loggedIn, logout } = useAuthentication();
-  const { deletedDate, isLoaded: authorizationLoaded } = useAuthorization();
+  const { deleted, isLoaded: authorizationLoaded } = useAuthorization();
   const paths = useRoutes();
   const deletedPage = paths.userDeleted();
 
@@ -27,10 +27,10 @@ const RequireUserNotDeleted = ({ children }: RequireUserNotDeletedProps) => {
      *  - Authorization query is not loading
      *  - User has been deleted
      */
-    if (loggedIn && authorizationLoaded && !!deletedDate) {
+    if (loggedIn && authorizationLoaded && deleted) {
       logout(deletedPage);
     }
-  }, [loggedIn, authorizationLoaded, deletedDate, logout, deletedPage]);
+  }, [loggedIn, authorizationLoaded, deleted, logout, deletedPage]);
 
   /**
    * Show the loading spinner

@@ -10,14 +10,19 @@ interface AuthorizationProviderProps {
 }
 
 const AuthorizationProvider = ({ children }: AuthorizationProviderProps) => {
-  const [{ data, fetching, stale }] = useGetCurrentAuthorizedUserQuery();
+  const [{ data, fetching, stale, error }] = useGetCurrentAuthorizedUserQuery();
   const isLoaded = !fetching && !stale;
+  let deleted = false;
+
+  if (error) {
+    deleted = true;
+  }
 
   return (
     <AuthorizationContainer
       roleAssignments={data?.me?.roleAssignments}
       email={data?.me?.email}
-      deletedDate={data?.me?.deletedDate}
+      deleted={deleted}
       user={data?.me}
       isLoaded={isLoaded}
     >
