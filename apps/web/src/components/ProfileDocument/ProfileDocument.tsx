@@ -44,6 +44,7 @@ const PageSection = ({ children }: { children: React.ReactNode }) => (
     data-h2-margin-bottom="base(2rem)"
     data-h2-display="base(block)"
     data-h2-break-inside="base(avoid) base:print(avoid)"
+    data-h2-break-after="base(avoid) base:print(avoid)"
   >
     {children}
   </div>
@@ -67,11 +68,12 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
           <div
             data-h2-font-family="base(sans) base:print(sans)"
             data-h2-padding-bottom="base(2rem) base:print(2rem)"
+            data-h2-padding-top="base(2rem) base:print(2rem)"
             data-h2-border-bottom="base(2px dashed black) base:print(2px dashed black)"
           >
             {results && (
               <div>
-                <Heading level="h1" style={{ fontWeight: "700" }}>
+                <Heading level="h1" data-h2-font-weight="base(700)">
                   {intl.formatMessage(
                     {
                       defaultMessage: `{resultCount, plural,
@@ -164,17 +166,37 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                   <React.Fragment key={result.id}>
                     <div>
                       <PageSection>
-                        <Heading level="h2">
-                          {(!!result.firstName || !!result.lastName) &&
-                            getFullNameLabel(
-                              result.firstName,
-                              result.lastName,
-                              intl,
-                            )}
+                        <Heading level="h2" data-h2-font-weight="base(700)">
+                          {anonymous ? (
+                            <>
+                              {getFullNameLabel(
+                                result.firstName,
+                                `${result.lastName?.slice(0, 1)}.`,
+                                intl,
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              {getFullNameLabel(
+                                result.firstName,
+                                result.lastName,
+                                intl,
+                              )}
+                            </>
+                          )}
                         </Heading>
                       </PageSection>
                       <PageSection>
-                        <Heading level="h3">
+                        <Heading level="h3" data-h2-font-weight="base(700)">
+                          {intl.formatMessage({
+                            defaultMessage: "General Information",
+                            id: "thZbEN",
+                            description: "Title for general info",
+                          })}
+                        </Heading>
+                      </PageSection>
+                      <PageSection>
+                        <Heading level="h4" data-h2-font-weight="base(700)">
                           {intl.formatMessage(commonMessages.status)}
                         </Heading>
                         {result.armedForcesStatus !== null &&
@@ -210,7 +232,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         )}
                       </PageSection>
                       <PageSection>
-                        <Heading level="h3">
+                        <Heading level="h4" data-h2-font-weight="base(700)">
                           {intl.formatMessage(
                             navigationMessages.languageInformation,
                           )}
@@ -342,7 +364,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           )}
                       </PageSection>
                       <PageSection>
-                        <Heading level="h3">
+                        <Heading level="h4" data-h2-font-weight="base(700)">
                           {intl.formatMessage(
                             navigationMessages.governmentInformation,
                           )}
@@ -429,7 +451,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         )}
                       </PageSection>
                       <PageSection>
-                        <Heading level="h3">
+                        <Heading level="h4" data-h2-font-weight="base(700)">
                           {intl.formatMessage(navigationMessages.workLocation)}
                         </Heading>
                         {!isEmpty(result.locationPreferences) && (
@@ -456,7 +478,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         )}
                       </PageSection>
                       <PageSection>
-                        <Heading level="h3">
+                        <Heading level="h4" data-h2-font-weight="base(700)">
                           {intl.formatMessage(
                             navigationMessages.workPreferences,
                           )}
@@ -574,7 +596,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         )}
                       </PageSection>
                       <PageSection>
-                        <Heading level="h3">
+                        <Heading level="h4" data-h2-font-weight="base(700)">
                           {intl.formatMessage(
                             navigationMessages.diversityEquityInclusion,
                           )}
@@ -654,7 +676,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         )}
                       </PageSection>
                       <BreakingPageSection>
-                        <Heading level="h3">
+                        <Heading level="h3" data-h2-font-weight="base(700)">
                           {intl.formatMessage(
                             navigationMessages.careerTimelineAndRecruitment,
                           )}
