@@ -107,10 +107,10 @@ function TableFooter({
                       onClick={handlePrint}
                     >
                       {intl.formatMessage({
-                        defaultMessage: "Download Profiles",
-                        id: "UsFTGT",
+                        defaultMessage: "Print profiles",
+                        id: "QIjKF4",
                         description:
-                          "Text label for button to download items in a table.",
+                          "Text label for button to print items in a table",
                       })}
                     </Button>
                   </div>

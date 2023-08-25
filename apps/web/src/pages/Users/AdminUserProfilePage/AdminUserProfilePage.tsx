@@ -30,8 +30,8 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
       >
         <UserProfilePrintButton user={user}>
           {intl.formatMessage({
-            defaultMessage: "Print Profile",
-            id: "R+Zm3X",
+            defaultMessage: "Print profile",
+            id: "zjnLS8",
             description: "Text for button to print a user profile",
           })}
         </UserProfilePrintButton>
