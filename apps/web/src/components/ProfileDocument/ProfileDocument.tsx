@@ -36,6 +36,7 @@ import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } fr
 
 interface ProfileDocumentProps {
   results: User[] | PoolCandidate[];
+  anonymous?: boolean;
 }
 
 const PageSection = ({ children }: { children: React.ReactNode }) => (
@@ -56,9 +57,10 @@ const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
 );
 
 const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
-  ({ results }, ref) => {
+  ({ results, anonymous }, ref) => {
     const intl = useIntl();
     const locale = getLocale(intl);
+
     return (
       <div style={{ display: "none" }}>
         <div data-h2 ref={ref}>
