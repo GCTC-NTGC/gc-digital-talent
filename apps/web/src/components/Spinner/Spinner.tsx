@@ -1,18 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { Loading } from "@gc-digital-talent/ui";
+
 const Spinner = () => {
   const intl = useIntl();
   return (
-    <span className="lds-dual-ring">
-      <span data-h2-visually-hidden="base(invisible)">
-        {intl.formatMessage({
-          defaultMessage: "Searching...",
-          id: "w6vHXf",
-          description: "Message to display when a search is in progress.",
-        })}
-      </span>
-    </span>
+    <Loading inline>
+      {intl.formatMessage({
+        defaultMessage: "Searching...",
+        id: "w6vHXf",
+        description: "Message to display when a search is in progress.",
+      })}
+    </Loading>
   );
 };
 

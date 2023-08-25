@@ -105,9 +105,7 @@ const EstimatedCandidates = ({
             data-h2-text-align="base(center)"
           >
             {updatePending ? (
-              <div>
-                <Spinner />
-              </div>
+              <Spinner />
             ) : (
               <CandidateMessage candidateCount={candidateCount} />
             )}
