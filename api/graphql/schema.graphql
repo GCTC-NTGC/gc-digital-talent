@@ -1523,10 +1523,10 @@ input UpdateUserSkillInput {
 }
 
 input UpdateUserSkillRankingsInput {
-  topTechnicalSkillsRanked: [ID]
-  topBehaviouralSkillsRanked: [ID]
-  improveTechnicalSkillsRanked: [ID]
-  improveBehaviouralSkillsRanked: [ID]
+  topTechnicalSkillsRanked: [UUID]
+  topBehaviouralSkillsRanked: [UUID]
+  improveTechnicalSkillsRanked: [UUID]
+  improveBehaviouralSkillsRanked: [UUID]
 }
 
 input WorkExperienceHasMany {
@@ -1884,7 +1884,7 @@ type Mutation {
     @update
     @can(ability: "update", find: "id")
   updateUserSkillRankings(
-    userId: ID!
+    userId: UUID!
     userSkillRanking: UpdateUserSkillRankingsInput!
   ): User @can(ability: "update", find: "userId")
   deleteUserSkill(id: ID! @whereKey): UserSkill

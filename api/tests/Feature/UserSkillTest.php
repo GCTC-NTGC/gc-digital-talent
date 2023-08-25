@@ -89,7 +89,7 @@ class UserSkillTest extends TestCase
     protected $updateUserSkillRankings =
     /** @lang GraphQL */
     '
-        mutation updateUserSkillRankings($userId: ID!, $userSkillRanking: UpdateUserSkillRankingsInput!){
+        mutation updateUserSkillRankings($userId: UUID!, $userSkillRanking: UpdateUserSkillRankingsInput!){
             updateUserSkillRankings(userId :$userId, userSkillRanking:$userSkillRanking) {
                 id
                 topTechnicalSkillsRanking {
