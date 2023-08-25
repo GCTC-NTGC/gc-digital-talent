@@ -4433,10 +4433,6 @@
     "defaultMessage": "Les apprentis feront l’expérience d’un apprentissage au travail et pendant la formation en ligne dans un ou plusieurs domaines de la technologie de l’information. On s’attend à ce que les apprentis démontrent leur intérêt et leur passion pour la technologie en étant prêts à observer, à apprendre et à pratiquer de nouvelles compétences qui sont développées au cours du programme. En moyenne, un apprenti passera quatre jours par semaine en apprentissage pratique, tandis que le cinquième jour de la semaine sera consacré au perfectionnement personnel et professionnel par la formation en ligne et par d’autres possibilités de formation et de perfectionnement.",
     "description": "Learn more dialog question eight paragraph one"
   },
-  "URRpKO": {
-    "defaultMessage": "Relier une expérience de parcours professionnel",
-    "description": "Experience tree view action button label"
-  },
   "UTFKyy": {
     "defaultMessage": "La compétence a été mise à jour avec succès!",
     "description": "Message displayed to user after skill is updated successfully."
@@ -5207,10 +5203,6 @@
   "ZuyuPO": {
     "defaultMessage": "IT-01: Technicien(ne) (60 000 $ à 78 000 $)",
     "description": "IT-01 classification label including titles and salaries"
-  },
-  "ZwGMwT": {
-    "defaultMessage": "Cette compétence requise doit être associée à au moins une expérience de parcours professionnel.",
-    "description": "Experience tree view error message"
   },
   "Zzd/sJ": {
     "defaultMessage": "Dans ce champ, veuillez inclure tous les détails et qualifications supplémentaires que vous recherchez auprès des candidats, comme les langages de programmation, les certifications, les connaissances ou un lieu de travail particulier.",

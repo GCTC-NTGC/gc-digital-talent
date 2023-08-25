@@ -112,4 +112,15 @@ class UserSkill extends Model
             ->wherePivotNull('deleted_at')
             ->as('experience_skill_pivot');
     }
+
+    public function getExperiencesAttribute()
+    {
+        $collection = collect();
+        $collection = $collection->merge($this->awardExperiences);
+        $collection = $collection->merge($this->communityExperiences);
+        $collection = $collection->merge($this->educationExperiences);
+        $collection = $collection->merge($this->personalExperiences);
+        $collection = $collection->merge($this->workExperiences);
+        return $collection;
+    }
 }
