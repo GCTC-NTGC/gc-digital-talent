@@ -328,7 +328,13 @@ export const UpdateSkill = () => {
        graphql operation to fail. */
     executeMutation({
       id,
-      skill: pick(formData, ["name", "description", "keywords", "families"]),
+      skill: pick(formData, [
+        "name",
+        "description",
+        "keywords",
+        "category",
+        "families",
+      ]),
     }).then((result) => {
       if (result.data?.updateSkill) {
         return result.data?.updateSkill;

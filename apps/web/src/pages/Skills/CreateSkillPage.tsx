@@ -265,48 +265,46 @@ export const CreateSkillForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <div data-h2-margin="base(x1, 0)">
-              <Select
-                id="category"
-                name="category"
-                label={intl.formatMessage({
-                  defaultMessage: "Category",
-                  id: "KZR3ad",
-                  description:
-                    "Label displayed on the skill family form category field.",
-                })}
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a category",
-                  id: "+hRCVl",
-                  description:
-                    "Placeholder displayed on the skill family form category field.",
-                })}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                options={enumToOptions(SkillCategory).map(({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getSkillCategory(value)),
-                }))}
-              />
-              <MultiSelectField
-                id="families"
-                name="families"
-                label={intl.formatMessage({
-                  defaultMessage: "Families",
-                  id: "xx8yaE",
-                  description:
-                    "Label displayed on the skill form skill families field.",
-                })}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Select one or more skill families",
-                  id: "GNhFh2",
-                  description:
-                    "Placeholder displayed on the skill form skill families field.",
-                })}
-                options={skillFamilyOptions}
-              />
-            </div>
+            <Select
+              id="category"
+              name="category"
+              label={intl.formatMessage({
+                defaultMessage: "Category",
+                id: "KZR3ad",
+                description:
+                  "Label displayed on the skill family form category field.",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a category",
+                id: "+hRCVl",
+                description:
+                  "Placeholder displayed on the skill family form category field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              options={enumToOptions(SkillCategory).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getSkillCategory(value)),
+              }))}
+            />
+            <MultiSelectField
+              id="families"
+              name="families"
+              label={intl.formatMessage({
+                defaultMessage: "Families",
+                id: "xx8yaE",
+                description:
+                  "Label displayed on the skill form skill families field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select one or more skill families",
+                id: "GNhFh2",
+                description:
+                  "Placeholder displayed on the skill form skill families field.",
+              })}
+              options={skillFamilyOptions}
+            />
             <div data-h2-align-self="base(flex-start)">
               <Submit />
             </div>

@@ -242,12 +242,7 @@ const UpdateSkillFamilyPage = () => {
        graphql operation to fail. */
     executeMutation({
       id,
-      skillFamily: pick(formData, [
-        "category",
-        "description",
-        "name",
-        "skills",
-      ]),
+      skillFamily: pick(formData, ["description", "name", "skills"]),
     }).then((result) => {
       if (result.data?.updateSkillFamily) {
         return result.data?.updateSkillFamily;
