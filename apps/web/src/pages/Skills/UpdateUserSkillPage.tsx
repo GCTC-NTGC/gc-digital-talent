@@ -47,6 +47,7 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import SkillFormDialog from "~/components/SkillFormDialog/SkillFormDialog";
+import { getSortedSkillLevels } from "~/utils/skillUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 type PageSection = {
@@ -100,12 +101,12 @@ const UpdateUserSkillForm = ({
   const levelDefinitionGetter = isTechnical
     ? getTechnicalSkillLevelDefinition
     : getBehaviouralSkillLevelDefinition;
-  const levelOptions = enumToOptions(SkillLevel).map((option) => ({
-    value: option.value,
-    label: <strong>{intl.formatMessage(levelGetter(option.value))}</strong>,
+  const levelOptions = getSortedSkillLevels().map((skillLevel) => ({
+    value: skillLevel,
+    label: <strong>{intl.formatMessage(levelGetter(skillLevel))}</strong>,
     contentBelow: (
       <p data-h2-margin="base(x.15, 0, x.5, x1)">
-        {intl.formatMessage(levelDefinitionGetter(option.value))}
+        {intl.formatMessage(levelDefinitionGetter(skillLevel))}
       </p>
     ),
   }));

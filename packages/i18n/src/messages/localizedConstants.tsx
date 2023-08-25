@@ -1777,7 +1777,7 @@ const technicalSkillLevels = defineMessages({
     id: "rt4mVU",
     description: "The technical skill level for intermediate",
   },
-  [SkillLevel.Expert]: {
+  [SkillLevel.Advanced]: {
     defaultMessage: "Advanced",
     id: "5/C1lJ",
     description: "The technical skill level for expert",
@@ -1811,7 +1811,7 @@ const technicalSkillLevelDefinitions = defineMessages({
     id: "/62GQm",
     description: "The technical skill level definition for intermediate",
   },
-  [SkillLevel.Expert]: {
+  [SkillLevel.Advanced]: {
     defaultMessage:
       "Demonstrated ability to scope, undertake, and deliver on tasks of moderate to high complexity under minimal levels of supervision. Demonstrated ability to mentor others in lower levels of skill development, either through direct supervision or by setting examples and providing explanations. Usually associated with senior technical advisor or entry-level supervisory roles.",
     id: "EPEKU2",
@@ -1845,7 +1845,7 @@ const behaviouralSkillLevels = defineMessages({
     id: "clDpR4",
     description: "The behavioural skill level for intermediate",
   },
-  [SkillLevel.Expert]: {
+  [SkillLevel.Advanced]: {
     defaultMessage: "Strongly developed",
     id: "zdxy8s",
     description: "The behavioural skill level for expert",
@@ -1879,7 +1879,7 @@ const behaviouralSkillLevelDefinitions = defineMessages({
     id: "lYtXQJ",
     description: "The behavioural skill level definition for intermediate",
   },
-  [SkillLevel.Expert]: {
+  [SkillLevel.Advanced]: {
     defaultMessage:
       "Consistently demonstrated as well-developed in daily conditions with all audiences, frequently demonstrated in situations of stress and in moderately challenging situations with most audiences, and intermittently demonstrated under conditions of significant stress and in challenging situations.",
     id: "Ko0JX/",

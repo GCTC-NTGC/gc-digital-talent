@@ -652,7 +652,7 @@ type UserSkill {
 enum SkillLevel {
   BEGINNER
   INTERMEDIATE
-  EXPERT
+  ADVANCED
   LEAD
 }
 

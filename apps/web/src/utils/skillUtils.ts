@@ -13,6 +13,7 @@ import {
   SkillCategory,
   SkillFamily,
 } from "~/api/generated";
+import { SkillLevel } from "@gc-digital-talent/graphql";
 
 /**
  * Transforms an array of skills with child skill families into a tree of skill families with child skills.
@@ -215,4 +216,21 @@ export const getExperiencesSkillIds = (experiences: Experience[]): string[] => {
   const deDupedIdCollection = uniqueItems(idCollection);
 
   return deDupedIdCollection;
+};
+
+/**
+ * Get sorted skill levels
+ *
+ * Note: Codegen is sorting the enum alphabetically
+ * We use this to sort them back into the proper oder
+ *
+ * @returns SkillLevel[]
+ */
+export const getSortedSkillLevels = (): SkillLevel[] => {
+  return [
+    SkillLevel.Beginner,
+    SkillLevel.Intermediate,
+    SkillLevel.Advanced,
+    SkillLevel.Lead,
+  ];
 };
