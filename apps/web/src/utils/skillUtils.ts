@@ -5,6 +5,7 @@ import { IntlShape } from "react-intl";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import { SkillLevel } from "@gc-digital-talent/graphql";
 
 import {
   Experience,
@@ -13,7 +14,6 @@ import {
   SkillCategory,
   SkillFamily,
 } from "~/api/generated";
-import { SkillLevel } from "@gc-digital-talent/graphql";
 
 /**
  * Transforms an array of skills with child skill families into a tree of skill families with child skills.

@@ -33,7 +33,7 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { BasicForm, RadioGroup, enumToOptions } from "@gc-digital-talent/forms";
+import { BasicForm, RadioGroup } from "@gc-digital-talent/forms";
 import {
   getTechnicalSkillLevel,
   getBehaviouralSkillLevel,
