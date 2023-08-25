@@ -1,8 +1,8 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
-import { widthOf, heightOf } from "storybook-helpers";
 
+import { widthOf, heightOf } from "@gc-digital-talent/storybook-helpers";
 import NestedLanguageProvider from "@gc-digital-talent/i18n/src/components/NestedLanguageProvider";
 import { Messages } from "@gc-digital-talent/i18n";
 
