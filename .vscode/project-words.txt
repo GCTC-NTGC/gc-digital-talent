@@ -66,6 +66,7 @@ spinbutton
 subcomponents
 subquery
 TALENTSEARCH
+tanstack
 TELEWORK
 testid
 textbox

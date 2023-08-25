@@ -627,13 +627,6 @@ type Skill {
   keywords: SkillKeywords
   families: [SkillFamily!] @belongsToMany
 
-  # Experiences
-  experiences: [Experience!]
-  awardExperiences: [AwardExperience!] @hasMany
-  communityExperiences: [CommunityExperience!] @hasMany
-  educationExperiences: [EducationExperience!] @hasMany
-  personalExperiences: [PersonalExperience!] @hasMany
-  workExperiences: [WorkExperience!] @hasMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Skill is nested in an Experience (eg. experience->skill->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -647,6 +640,18 @@ type UserSkill {
   whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
   topSkillsRank: Int @rename(attribute: "top_skills_rank")
   improveSkillsRank: Int @rename(attribute: "improve_skills_rank")
+  # Experiences
+  experiences: [Experience!]
+    @with(relation: "awardExperiences")
+    @with(relation: "communityExperiences")
+    @with(relation: "educationExperiences")
+    @with(relation: "personalExperiences")
+    @with(relation: "workExperiences") # All experiences that a user owns
+  awardExperiences: [AwardExperience!] @hasMany
+  communityExperiences: [CommunityExperience!] @hasMany
+  educationExperiences: [EducationExperience!] @hasMany
+  personalExperiences: [PersonalExperience!] @hasMany
+  workExperiences: [WorkExperience!] @hasMany
 }
 
 enum SkillLevel {

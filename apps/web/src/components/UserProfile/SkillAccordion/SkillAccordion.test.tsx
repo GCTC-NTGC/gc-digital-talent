@@ -10,14 +10,15 @@ import { Accordion } from "@gc-digital-talent/ui";
 import { fakeSkills, experienceGenerators } from "@gc-digital-talent/fake-data";
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
-import { Maybe, Skill } from "~/api/generated";
+import { Maybe } from "~/api/generated";
 import { getDateRange } from "~/utils/dateUtils";
+import { InvertedSkillExperience } from "~/utils/skillUtils";
 
 import SkillAccordion from "./SkillAccordion";
 
 const skills = fakeSkills();
-const testSkill = skills[0];
-function renderSkillAccordion(skill: Skill) {
+const testSkill = skills[0] as InvertedSkillExperience;
+function renderSkillAccordion(skill: InvertedSkillExperience) {
   return renderWithProviders(
     <Accordion.Root type="single">
       <SkillAccordion skill={skill} />
@@ -38,7 +39,7 @@ describe("SkillAccordion", () => {
 
   const openAccordion = async (name: Maybe<string>) => {
     fireEvent.click(
-      await screen.getByRole("button", {
+      screen.getByRole("button", {
         name: new RegExp(name || "", "i"),
       }),
     );
@@ -53,7 +54,7 @@ describe("SkillAccordion", () => {
   it("renders Skill Accordion without any issues", async () => {
     renderSkillAccordion(testSkill);
     expect(
-      await screen.getByRole("button", {
+      screen.getByRole("button", {
         name: new RegExp(testSkill.name.en || "", "i"),
       }),
     ).toBeInTheDocument();
@@ -65,7 +66,7 @@ describe("SkillAccordion", () => {
     await openAccordion(testSkill.name.en);
 
     expect(
-      await screen.getByRole("region", {
+      screen.getByRole("region", {
         name: new RegExp(testSkill.name.en || "", "i"),
       }),
     ).toContainHTML(
@@ -80,9 +81,9 @@ describe("SkillAccordion", () => {
 
     await openAccordion(testSkill.name.en);
 
-    expect(await screen.getByText("1 Experience")).toBeInTheDocument();
+    expect(screen.getByText("1 Experience")).toBeInTheDocument();
     expect(
-      await screen.getByRole("region", {
+      screen.getByRole("region", {
         name: new RegExp(testSkill.name.en || "", "i"),
       }),
     ).toBeInTheDocument();
@@ -99,9 +100,9 @@ describe("SkillAccordion", () => {
     renderSkillAccordion(testSkill);
     await openAccordion(testSkill.name.en);
 
-    expect(await screen.getByText("1 Experience")).toBeInTheDocument();
+    expect(screen.getByText("1 Experience")).toBeInTheDocument();
 
-    const detail = await screen.getByRole("region", {
+    const detail = screen.getByRole("region", {
       name: new RegExp(testSkill.name.en || "", "i"),
     });
 
@@ -126,9 +127,9 @@ describe("SkillAccordion", () => {
 
     await openAccordion(testSkill.name.en);
 
-    expect(await screen.getByText("1 Experience")).toBeInTheDocument();
+    expect(screen.getByText("1 Experience")).toBeInTheDocument();
 
-    const detail = await screen.getByRole("region", {
+    const detail = screen.getByRole("region", {
       name: new RegExp(testSkill.name.en || "", "i"),
     });
 
@@ -152,9 +153,9 @@ describe("SkillAccordion", () => {
 
     await openAccordion(testSkill.name.en);
 
-    expect(await screen.getByText("1 Experience")).toBeInTheDocument();
+    expect(screen.getByText("1 Experience")).toBeInTheDocument();
 
-    const detail = await screen.getByRole("region", {
+    const detail = screen.getByRole("region", {
       name: new RegExp(testSkill.name.en || "", "i"),
     });
 
@@ -178,9 +179,9 @@ describe("SkillAccordion", () => {
 
     await openAccordion(testSkill.name.en);
 
-    expect(await screen.getByText("1 Experience")).toBeInTheDocument();
+    expect(screen.getByText("1 Experience")).toBeInTheDocument();
 
-    const detail = await screen.getByRole("region", {
+    const detail = screen.getByRole("region", {
       name: new RegExp(testSkill.name.en || "", "i"),
     });
 
@@ -200,9 +201,9 @@ describe("SkillAccordion", () => {
 
     await openAccordion(testSkill.name.en);
 
-    expect(await screen.getByText("2 Experiences")).toBeInTheDocument();
+    expect(screen.getByText("2 Experiences")).toBeInTheDocument();
 
-    const detail = await screen.getByRole("region", {
+    const detail = screen.getByRole("region", {
       name: new RegExp(testSkill.name.en || "", "i"),
     });
 

@@ -173,17 +173,18 @@ class SkillTest extends TestCase
             ->assertJsonFragment(['name' => $variables['skill']['name']]);
     }
 
-    public function testExperienceRelationshipsSkipSoftDeletedPivots(): void {
+    public function testExperienceRelationshipsSkipSoftDeletedPivots(): void
+    {
         Skill::factory()->count(1)->create();
         $experience = CommunityExperience::factory()->withSkills(1)->create();
         $skill = $experience->skills->first();
         // sanity check
-        $this->assertCount(1, $skill->fresh()->communityExperiences);
+        $this->assertCount(1, $skill->fresh()->userSkills->first()->communityExperiences);
         // soft-delete one ExperienceSkill
         $pivot = ExperienceSkill::first();
         $pivot->deleted_at = Carbon::now();
         $pivot->save();
         // assert that the soft-deleted relationship is ignored
-        $this->assertCount(0, $skill->fresh()->communityExperiences);
+        $this->assertCount(0, $skill->fresh()->userSkills->first()->communityExperiences);
     }
 }

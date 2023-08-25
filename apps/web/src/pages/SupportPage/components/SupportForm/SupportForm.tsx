@@ -19,6 +19,7 @@ import {
 } from "~/constants/talentSearchConstants";
 
 export type FormValues = {
+  user_id: string;
   name: string;
   email: string;
   description: string;
@@ -29,7 +30,7 @@ interface SupportFormProps {
   showSupportForm: boolean;
   onFormToggle: (show: boolean) => void;
   handleCreateTicket: (data: FormValues) => Promise<number | null | void>;
-  currentUser?: Pick<User, "firstName" | "lastName" | "email"> | null;
+  currentUser?: Pick<User, "id" | "firstName" | "lastName" | "email"> | null;
 }
 
 interface SupportFormSuccessProps {
@@ -103,6 +104,7 @@ const SupportForm = ({
   const intl = useIntl();
   const methods = useForm<FormValues>({
     defaultValues: {
+      user_id: currentUser?.id || "",
       name: currentUser
         ? getFullNameLabel(currentUser.firstName, currentUser.lastName, intl)
         : "",

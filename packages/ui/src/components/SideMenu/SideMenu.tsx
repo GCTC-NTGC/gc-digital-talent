@@ -131,6 +131,7 @@ const SideMenu = ({
                     data-h2-display="base(flex)"
                     data-h2-flex-direction="base(column)"
                     data-h2-flex-grow="base(1)"
+                    data-state={open ? "open" : "closed"}
                   >
                     <div
                       data-h2-display="base(flex)"

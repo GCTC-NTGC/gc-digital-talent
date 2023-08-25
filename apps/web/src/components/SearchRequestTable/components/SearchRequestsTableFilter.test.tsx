@@ -6,7 +6,7 @@ import "@testing-library/jest-dom";
 import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
-import { act, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import {
@@ -55,16 +55,12 @@ const renderSearchRequestsTableFilterDialog = () =>
 
 describe("SearchRequestsTableFilterDialog", () => {
   it("should have no accessibility errors", async () => {
-    await act(async () => {
-      const { container } = renderSearchRequestsTableFilterDialog();
-      await axeTest(container);
-    });
+    const { container } = renderSearchRequestsTableFilterDialog();
+    await axeTest(container);
   });
 
   it("Should render the filter", async () => {
-    await act(async () => {
-      renderSearchRequestsTableFilterDialog();
-    });
+    renderSearchRequestsTableFilterDialog();
 
     // assert filter has everything present
     expect(

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen, act } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
@@ -63,12 +63,10 @@ describe("BrowsePoolsPage", () => {
     );
   }
   it("should have no accessibility errors", async () => {
-    await act(async () => {
-      const { container } = renderBrowsePoolsPage({
-        pools: [publishedItJobsPool],
-      });
-      await axeTest(container);
+    const { container } = renderBrowsePoolsPage({
+      pools: [publishedItJobsPool],
     });
+    await axeTest(container);
   });
 
   it("should only show published jobs", async () => {
@@ -81,7 +79,7 @@ describe("BrowsePoolsPage", () => {
       ],
     });
 
-    const links = await screen.queryAllByRole("link", {
+    const links = screen.queryAllByRole("link", {
       name: /Apply to this recruitment/i,
     });
 
@@ -105,7 +103,7 @@ describe("BrowsePoolsPage", () => {
       pools: [publishedItJobsPool, publishedExecJobsPool],
     });
 
-    const links = await screen.queryAllByRole("link", {
+    const links = screen.queryAllByRole("link", {
       name: /Apply to this recruitment/i,
     });
 
