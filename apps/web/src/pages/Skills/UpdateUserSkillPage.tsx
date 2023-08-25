@@ -82,12 +82,7 @@ const UpdateUserSkillForm = ({
   const skillName = getLocalizedName(skill.name, intl);
   const skillDescription = getLocalizedName(skill.description, intl);
   const hasUserSkill = notEmpty(userSkill);
-  const linkedExperiences = userSkill?.skill?.experiences
-    ?.filter(notEmpty)
-    // Note: Temp filter out unowned experiences
-    .filter((experience) =>
-      experiences.some((exp) => exp.id === experience.id),
-    );
+  const linkedExperiences = userSkill?.experiences?.filter(notEmpty);
 
   const availableExperiences = experiences.filter(
     (exp) =>
