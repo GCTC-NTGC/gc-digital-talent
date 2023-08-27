@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+import { useReactToPrint } from "react-to-print";
 
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Button,
+  DropdownMenu,
+  Pending,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import UserProfile from "~/components/UserProfile";
@@ -12,8 +19,8 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
-
-import UserProfilePrintButton from "./components/UserProfilePrintButton";
+import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+import printStyles from "~/styles/printStyles";
 
 interface AdminUserProfileProps {
   user: User;
@@ -21,6 +28,23 @@ interface AdminUserProfileProps {
 
 export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
   const intl = useIntl();
+  const [
+    documentWithIdentifyingInformation,
+    setDocumentWithIdentifyingInformation,
+  ] = useState(true);
+  const componentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    pageStyle: printStyles,
+    documentTitle: intl.formatMessage({
+      defaultMessage: "Candidate profile",
+      id: "mVmrEn",
+      description: "Document title for printing User profile",
+    }),
+  });
+  useEffect(() => {
+    handlePrint();
+  }, [documentWithIdentifyingInformation, handlePrint]);
 
   return (
     <>
@@ -28,13 +52,33 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
         data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-text-align="base(right)"
       >
-        <UserProfilePrintButton user={user}>
-          {intl.formatMessage({
-            defaultMessage: "Print profile",
-            id: "zjnLS8",
-            description: "Text for button to print a user profile",
-          })}
-        </UserProfilePrintButton>
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger>
+            <Button utilityIcon={ChevronDownIcon}>
+              {intl.formatMessage({
+                defaultMessage: "Print profile",
+                id: "Yr0nVZ",
+                description: "Text label for button to print items in a table",
+              })}
+            </Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content align="end" collisionPadding={2}>
+            <DropdownMenu.Item
+              onSelect={() => {
+                setDocumentWithIdentifyingInformation(true);
+              }}
+            >
+              Profile includes identifying information
+            </DropdownMenu.Item>
+            <DropdownMenu.Item
+              onSelect={() => {
+                setDocumentWithIdentifyingInformation(false);
+              }}
+            >
+              Profile does not include identifying information
+            </DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
       </div>
       <UserProfile
         user={user}
@@ -51,6 +95,11 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
           employmentEquity: { isVisible: true },
           careerTimelineAndRecruitment: { isVisible: true },
         }}
+      />
+      <ProfileDocument
+        documentWithIdentifyingInformation={documentWithIdentifyingInformation}
+        results={[user]}
+        ref={componentRef}
       />
     </>
   );

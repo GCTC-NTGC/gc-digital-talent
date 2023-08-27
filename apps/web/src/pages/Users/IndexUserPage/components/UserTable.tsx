@@ -625,7 +625,11 @@ const UserTable = ({ title }: { title: string }) => {
             !selectedUsersData?.applicants.length
           }
         />
-        <ProfileDocument results={selectedApplicants} ref={componentRef} />
+        <ProfileDocument
+          documentWithIdentifyingInformation
+          results={selectedApplicants}
+          ref={componentRef}
+        />
       </div>
     </div>
   );

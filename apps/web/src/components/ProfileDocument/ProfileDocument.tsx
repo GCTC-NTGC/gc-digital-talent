@@ -36,6 +36,7 @@ import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } fr
 
 interface ProfileDocumentProps {
   results: User[] | PoolCandidate[];
+  documentWithIdentifyingInformation: boolean;
 }
 
 const PageSection = ({ children }: { children: React.ReactNode }) => (
@@ -56,7 +57,7 @@ const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
 );
 
 const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
-  ({ results }, ref) => {
+  ({ results, documentWithIdentifyingInformation }, ref) => {
     const intl = useIntl();
     const locale = getLocale(intl);
     return (
@@ -207,6 +208,18 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           intl.formatMessage(commonMessages.notProvided)
                         )}
                       </PageSection>
+                      {documentWithIdentifyingInformation ?? (
+                        <PageSection>
+                          <Heading level="h3">
+                            {intl.formatMessage({
+                              defaultMessage: "Contact information",
+                              id: "XqF3wS",
+                              description:
+                                "Profile section title for contact information",
+                            })}
+                          </Heading>
+                        </PageSection>
+                      )}
                       <PageSection>
                         <Heading level="h3">
                           {intl.formatMessage(

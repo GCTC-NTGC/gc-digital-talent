@@ -1,12 +1,15 @@
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 import { CombinedError } from "urql";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import {
   Pending,
   Button,
   DownloadCsv,
   type DownloadCsvProps,
+  DropdownMenu,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -99,20 +102,47 @@ function TableFooter({
                     </div>
                   )}
                   <div data-h2-flex-item="base(content)">
-                    <Button
-                      type="button"
-                      mode="inline"
-                      color="white"
-                      data-h2-font-weight="base(400)"
-                      onClick={handlePrint}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "Print profiles",
-                        id: "QIjKF4",
-                        description:
-                          "Text label for button to print items in a table",
-                      })}
-                    </Button>
+                    <DropdownMenu.Root>
+                      <DropdownMenu.Trigger>
+                        <Button
+                          mode="inline"
+                          color="white"
+                          utilityIcon={ChevronDownIcon}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Print profiles",
+                            id: "QIjKF4",
+                            description:
+                              "Text label for button to print items in a table",
+                          })}
+                        </Button>
+                      </DropdownMenu.Trigger>
+                      <DropdownMenu.Content>
+                        <DropdownMenu.RadioGroup
+                          value="1"
+                          onValueChange={() => {}}
+                        >
+                          <DropdownMenu.RadioItem
+                            key="identifying"
+                            value="identifying"
+                          >
+                            <DropdownMenu.ItemIndicator>
+                              <CheckIcon />
+                            </DropdownMenu.ItemIndicator>
+                            Profiles include identifying information
+                          </DropdownMenu.RadioItem>
+                          <DropdownMenu.RadioItem
+                            key="no-identifying"
+                            value="no-identifying"
+                          >
+                            <DropdownMenu.ItemIndicator>
+                              <CheckIcon />
+                            </DropdownMenu.ItemIndicator>
+                            Profiles do not include identifying information
+                          </DropdownMenu.RadioItem>
+                        </DropdownMenu.RadioGroup>
+                      </DropdownMenu.Content>
+                    </DropdownMenu.Root>
                   </div>
                 </Pending>
               </div>

@@ -933,7 +933,11 @@ const PoolCandidatesTable = ({
             ),
           }}
         />
-        <ProfileDocument results={selectedCandidates} ref={componentRef} />
+        <ProfileDocument
+          documentWithIdentifyingInformation
+          results={selectedCandidates}
+          ref={componentRef}
+        />
       </div>
     </div>
   );
