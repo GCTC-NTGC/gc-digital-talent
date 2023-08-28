@@ -35,17 +35,18 @@ abstract class Experience extends Model
     public function userSkills(): MorphToMany
     {
         return $this->morphToMany(UserSkill::class, 'experience', 'experience_skill')
-        ->withTimestamps()
-        ->withPivot(['details', 'deleted_at'])
-        ->wherePivotNull('deleted_at')
-        ->as('experience_skill');
+            ->withTimestamps()
+            ->withPivot(['details', 'deleted_at'])
+            ->wherePivotNull('deleted_at')
+            ->as('experience_skill');
     }
 
     public function skills(): HasManyThrough
     {
         return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill())
             ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
-            ->whereNull('experience_skill.deleted_at');
+            ->whereNull('experience_skill.deleted_at')
+            ->withTrashed(); // from the deep relation $this->userSkills->skills fetch soft deleted skills but not userSkills
     }
 
     public function experienceSkills(): MorphMany
@@ -80,7 +81,7 @@ abstract class Experience extends Model
         $this->connectSkills($skills);
     }
 
-     /**
+    /**
      * Connect means we will add missing skills and update the details of existing skills, but not remove any skills.
      *
      * @param [id => uuid, details => undefined|string] $skills - Skills must be an array of items, each of which must have an id, and optionally have a details string.
@@ -99,7 +100,7 @@ abstract class Experience extends Model
         $userSkills = UserSkill::where('user_id', $this->user_id)->get(); // Get this users UserSkills once, to avoid repeated db calls.
 
         // Restore soft-deleted experience-skills which need to be connected.
-         ExperienceSkill::onlyTrashed()
+        ExperienceSkill::onlyTrashed()
             ->where('experience_id', $this->id)
             ->whereHas('userSkill', function ($query) use ($skillIds) {
                 $query->whereIn('skill_id', $skillIds);
@@ -116,7 +117,7 @@ abstract class Experience extends Model
             ->get();
 
         // We can't use the userSkills()->sync() operation because it will hard-delete ExperienceSkills, so loop through manually.
-        foreach($skills as $newSkill) {
+        foreach ($skills as $newSkill) {
             $newSkill = collect($newSkill);
             $existingPivot = $existingExperienceSkills->firstWhere('userSkill.skill_id', $newSkill->get('id'));
             if ($existingPivot) { // If pivot already exists, update details
