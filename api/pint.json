@@ -1,0 +1,4 @@
+{
+  "preset": "laravel",
+  "exclude": ["_lighthouse_ide_helper.php"]
+}
