@@ -35,7 +35,8 @@ export const BothDots = TemplatePagination.bind({});
 
 Default.args = {
   totalCount: 100,
-  siblingCount: 1,
+  totalPages: 10,
+  siblings: 1,
   currentPage: 1,
   pageSize: 10,
   color: "black",
@@ -44,6 +45,7 @@ Default.args = {
 
 NoDots.args = {
   ...Default.args,
+  totalPages: 5,
   totalCount: 50,
 };
 
@@ -79,8 +81,9 @@ const TemplatePaginationWithData: Story<PaginationProps> = () => {
         onPageSizeChange={setPageSize}
         currentPage={currentPage}
         pageSize={pageSize}
-        siblingCount={1}
+        siblings={1}
         totalCount={skills.length}
+        totalPages={10}
         onCurrentPageChange={(page) => setCurrentPage(page)}
       />
     </div>

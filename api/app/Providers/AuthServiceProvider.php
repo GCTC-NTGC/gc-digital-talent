@@ -98,7 +98,6 @@ class AuthServiceProvider extends ServiceProvider
             } else {
                 // No user found for given subscriber - lets auto-register them
                 $newUser = new User;
-                $newUser->first_name = $sub;  // displayed on the landing page so should help us find the user
                 $newUser->sub = $sub;
                 $newUser->save();
                 $newUser->syncRoles([  // every new user is automatically an base_user and an applicant

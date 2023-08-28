@@ -1,9 +1,8 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { ScrollToLink } from "@gc-digital-talent/ui";
-
-import Spinner from "~/components/Spinner/Spinner";
+import { Loading, ScrollToLink } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 const testId = (chunks: React.ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>
@@ -105,9 +104,9 @@ const EstimatedCandidates = ({
             data-h2-text-align="base(center)"
           >
             {updatePending ? (
-              <div>
-                <Spinner />
-              </div>
+              <Loading inline>
+                {intl.formatMessage(commonMessages.searching)}
+              </Loading>
             ) : (
               <CandidateMessage candidateCount={candidateCount} />
             )}

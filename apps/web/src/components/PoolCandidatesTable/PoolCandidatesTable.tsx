@@ -52,7 +52,7 @@ import {
   SortingRule,
   TABLE_DEFAULTS,
 } from "~/components/Table/ApiManagedTable/helpers";
-import useTableState from "~/components/Table/ApiManagedTable/useTableState";
+import useTableState from "~/hooks/useTableState";
 import {
   stringToEnumCandidateExpiry,
   stringToEnumCandidateSuspended,

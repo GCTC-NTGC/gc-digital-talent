@@ -132,8 +132,8 @@ const ExperienceSection = ({
   return isExperience ? (
     <Tabs.Root defaultValue="0">
       <Tabs.List>
-        {tabs.map((tab) => (
-          <Tabs.Trigger key={tab} value={tab}>
+        {tabs.map((tab, index) => (
+          <Tabs.Trigger key={tab} value={`${index}`}>
             {tab}
           </Tabs.Trigger>
         ))}

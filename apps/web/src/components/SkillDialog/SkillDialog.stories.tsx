@@ -2,8 +2,8 @@ import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker";
-import { OverlayOrDialogDecorator } from "storybook-helpers";
 
+import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import Toast from "@gc-digital-talent/toast";
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 import { Skill } from "@gc-digital-talent/graphql";

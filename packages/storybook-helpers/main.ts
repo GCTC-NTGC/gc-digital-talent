@@ -1,5 +1,6 @@
 import type { StorybookConfig } from "@storybook/react-webpack5";
 const path = require("path");
+const HydrogenPlugin = require("hydrogen-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const transform = TsTransformer.transform;
@@ -24,6 +25,7 @@ const reactIntlTransformRule = {
   },
   exclude: /node_modules/,
 };
+
 const staticDocumentsRule = {
   test: /\.(pdf|doc|docx)$/i,
   type: "asset/resource",
@@ -31,6 +33,7 @@ const staticDocumentsRule = {
     filename: "documents/[name][ext]",
   },
 };
+
 const config: StorybookConfig = {
   stories: [
     "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
@@ -55,57 +58,32 @@ const config: StorybookConfig = {
     // You can change the configuration based on that.
     // 'PRODUCTION' is used when building the static version of storybook.
 
-    config.resolve.extensions = [
-      ...config.resolve.extensions,
-      ".tsx",
-      ".ts",
-      ".js",
-    ];
-    config.module.rules = [
-      ...config.module.rules,
-      reactIntlTransformRule,
-      staticDocumentsRule,
-    ];
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      "~": path.resolve(__dirname, "../../apps/web/src/"),
-    };
-    config.resolve.plugins = [
-      ...(config.resolve.plugins || []),
+    config.resolve?.extensions?.push(".tsx", ".ts");
+    config.module?.rules?.push(reactIntlTransformRule, staticDocumentsRule);
+    if (config.resolve?.alias) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        "~": path.resolve(__dirname, "../../apps/web/src/"),
+      };
+    }
+
+    config.resolve?.plugins?.push(
       new TsconfigPathsPlugin({
         extensions: config.resolve.extensions,
       }),
-    ];
+    );
 
-    // Run Hydrogen on Webpack's compiler hooks
-    config.plugins.push({
-      apply: (compiler) => {
-        // Build Hydrogen
-        // Run on the environment hook to catch the initial compile and non-watch compiles
-        compiler.hooks.environment.tap("environment", () => {
-          shell.cd("..");
-          shell.exec(
-            "node ../node_modules/@hydrogen-css/hydrogen/bin/build.js",
-          );
-        });
-        // Build Hydrogen and manipulate it's modified time
-        // Run on the invalid hook so that the file time is updated before the next compile
-        compiler.hooks.invalid.tap("invalid", (fileName, changeTime) => {
-          shell.exec(
-            "node ../node_modules/@hydrogen-css/hydrogen/bin/build.js",
-          );
-          var f = path.resolve("../apps/web/src/assets/css/hydrogen.css");
-          var now = Date.now() / 1000;
-          var then = now - 100;
-          if (f) {
-            fs.utimes(f, then, then, function (err) {
-              if (err) throw err;
-            });
-          }
-        });
-      },
-    });
+    config.plugins?.push(
+      new HydrogenPlugin({
+        outputFile: path.resolve(
+          __dirname,
+          "../../apps/web/src/assets/css/hydrogen.css",
+        ),
+      }),
+    );
+
     return config;
   },
 };
+
 export default config;

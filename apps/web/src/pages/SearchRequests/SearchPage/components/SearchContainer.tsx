@@ -9,9 +9,11 @@ import {
   Separator,
   Pending,
   useAnnouncer,
+  Loading,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import {
   CountApplicantsQueryVariables,
@@ -25,7 +27,6 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { SimpleClassification, SimplePool } from "~/types/pool";
-import Spinner from "~/components/Spinner/Spinner";
 import nonExecutiveITClassifications from "~/constants/nonExecutiveITClassifications";
 import { LocationState } from "~/types/searchRequest";
 
@@ -91,7 +92,9 @@ const ResultsDisplay = ({
   const intl = useIntl();
 
   if (pending) {
-    return <Spinner />;
+    return (
+      <Loading inline>{intl.formatMessage(commonMessages.searching)}</Loading>
+    );
   }
 
   return results && results.length ? (

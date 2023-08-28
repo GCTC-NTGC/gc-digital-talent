@@ -656,12 +656,6 @@ type Skill {
   description: LocalizedString
   keywords: SkillKeywords
   families: [SkillFamily!]
-  experiences: [Experience!]
-  awardExperiences: [AwardExperience!]
-  communityExperiences: [CommunityExperience!]
-  educationExperiences: [EducationExperience!]
-  personalExperiences: [PersonalExperience!]
-  workExperiences: [WorkExperience!]
   experienceSkillRecord: ExperienceSkillRecord
 }
 
@@ -671,6 +665,12 @@ type UserSkill {
   skill: Skill!
   skillLevel: SkillLevel
   whenSkillUsed: WhenSkillUsed
+  experiences: [Experience!]
+  awardExperiences: [AwardExperience!]
+  communityExperiences: [CommunityExperience!]
+  educationExperiences: [EducationExperience!]
+  personalExperiences: [PersonalExperience!]
+  workExperiences: [WorkExperience!]
 }
 
 enum SkillLevel {
