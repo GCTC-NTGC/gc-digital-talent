@@ -4,8 +4,10 @@ namespace Tests\Feature;
 
 use App\Models\CommunityExperience;
 use App\Models\ExperienceSkill;
+use App\Models\Pool;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
@@ -186,5 +188,85 @@ class SkillTest extends TestCase
         $pivot->save();
         // assert that the soft-deleted relationship is ignored
         $this->assertCount(0, $skill->fresh()->userSkills->first()->communityExperiences);
+    }
+
+    public function testDeletingUsedPoolSkill(): void
+    {
+        $skill1 = Skill::factory()->create();
+        $skill2 = Skill::factory()->create();
+        $pool = Pool::factory()->create([
+            'published_at' => config('constants.past_datetime'),
+            'closing_date' => config('constants.far_future_datetime'),
+        ]);
+        $pool->essentialSkills()->sync([$skill1->id, $skill2->id]);
+        $mutation =
+            /** @lang GraphQL */
+            '
+            mutation deleteSkill($id: UUID!) {
+                deleteSkill(id: $id) {
+                    id
+                }
+            }
+        ';
+
+        // assert you can't delete skill if active poster is using it
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($mutation, ['id' => $skill1->id])
+            ->assertGraphQLErrorMessage('SkillUsedByActivePoster');
+
+        $pool->update(['closing_date' => config('constants.past_datetime')]);
+
+        // assert once poster is closed, you can delete the skill
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($mutation, ['id' => $skill1->id])
+            ->assertJsonFragment(['id' => $skill1->id]);
+    }
+
+    public function testSkillsQueryIgnoresDeleted(): void
+    {
+        Skill::truncate();
+        $skill1 = Skill::factory()->create();
+        $skill2 = Skill::factory()->create();
+        $query =
+            /** @lang GraphQL */
+            '
+            query skills {
+                skills {
+                    id
+              }
+            }
+        ';
+        $mutation =
+            /** @lang GraphQL */
+            '
+            mutation deleteSkill($id: UUID!) {
+                deleteSkill(id: $id) {
+                    id
+                }
+            }
+        ';
+
+        // assert querying for all skills does not fetch soft deleted
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query)
+            ->assertJson(
+                fn (AssertableJson $json) =>
+                $json->has(
+                    'data.skills',
+                    2
+                )
+            );
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($mutation, ['id' => $skill1->id])
+            ->assertSuccessful();
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query)
+            ->assertJson(
+                fn (AssertableJson $json) =>
+                $json->has(
+                    'data.skills',
+                    1
+                )
+            );
     }
 }
