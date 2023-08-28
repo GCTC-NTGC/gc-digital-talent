@@ -7,6 +7,7 @@ import {
   type BreadcrumbsProps,
   Flourish,
 } from "@gc-digital-talent/ui";
+
 import BackgroundGraphic from "./BackgroundPattern";
 
 import "./hero.css";
@@ -33,7 +34,7 @@ const paddingMap = new Map([
   ],
 ]);
 
-export interface HeroProps {
+interface HeroProps {
   imgPath?: string;
   title: React.ReactNode;
   subtitle?: React.ReactNode;

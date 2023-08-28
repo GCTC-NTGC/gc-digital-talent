@@ -8,7 +8,6 @@ import { Heading, Link } from "@gc-digital-talent/ui";
 import HomeHero from "~/components/Hero/HomeHero";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
-
 import hero1Landscape from "~/assets/img/hero-1-landscape.jpg";
 import hero2Landscape from "~/assets/img/hero-2-landscape.jpg";
 import hero3Landscape from "~/assets/img/hero-3-landscape.jpg";
@@ -88,8 +87,8 @@ const Hero = ({ defaultImage }: HeroProps) => {
         {intl.formatMessage(
           {
             defaultMessage:
-              "Whether you're thinking about joining government or already an employee, hoping to hire or considering an executive role, this is the place to come to be part of the <abbreviation>GC</abbreviation> digital community.",
-            id: "58Z5Ld",
+              "Whether you're thinking about joining government or already an employee, hoping to hire or considering a new role, this is the place to come to be part of the GC digital community.",
+            id: "DzCUmx",
             description: "Description of the application on the homepage",
           },
           {

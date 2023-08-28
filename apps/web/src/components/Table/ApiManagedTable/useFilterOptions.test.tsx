@@ -1,26 +1,30 @@
 /**
  * @jest-environment jsdom
  */
+// This test is odd, not what is going on here but we cannot deconstruct the return value
+/* eslint-disable testing-library/render-result-naming-convention */
 import React from "react";
 import "@testing-library/jest-dom";
 import { IntlProvider } from "react-intl";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { waitFor, renderHook } from "@testing-library/react";
+
 import {
   fakeSkills,
   fakePools,
   fakeClassifications,
+  fakeRoles,
 } from "@gc-digital-talent/fake-data";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+
 import useFilterOptions from "./useFilterOptions";
 
 describe("useFilterOptions", () => {
   function renderHookWithProviders({
-    enableEducationSelect,
     msDelay = 0,
     responseData = {},
   }: {
-    enableEducationSelect?: boolean;
     msDelay?: number;
     responseData?: object;
   }) {
@@ -38,51 +42,30 @@ describe("useFilterOptions", () => {
         <GraphqlProvider value={mockClient}>{children}</GraphqlProvider>
       </IntlProvider>
     );
-    const { result } = renderHook(
-      () => useFilterOptions(enableEducationSelect),
-      {
-        wrapper,
-      },
-    );
+    const { result } = renderHook(() => useFilterOptions(), {
+      wrapper,
+    });
 
     return result;
   }
-  describe("enableEducationSelect toggle", () => {
-    it("has key educationType when enabled and appropriate number of options", () => {
-      const result = renderHookWithProviders({ enableEducationSelect: true });
-      expect(result.current.emptyFormValues.educationType).toStrictEqual([]);
-      expect(result.current.optionsData.educationType).toHaveLength(8);
-    });
-
-    it("does not have key educationType when disabled", () => {
-      const result = renderHookWithProviders({ enableEducationSelect: false });
-      expect(result.current.emptyFormValues.educationType).toBeUndefined();
-      expect(result.current.optionsData.educationType).toBeUndefined();
-    });
-
-    it("does not have key educationType when unset", () => {
-      const result = renderHookWithProviders({});
-      expect(result.current.emptyFormValues.educationType).toBeUndefined();
-      expect(result.current.optionsData.educationType).toBeUndefined();
-    });
-  });
 
   describe("rawGraphqlResults", () => {
     it("shows as fetching before response arrives", () => {
       const result = renderHookWithProviders({ msDelay: 100 });
-      expect(Object.keys(result.current.rawGraphqlResults)).toHaveLength(3);
+      expect(Object.keys(result.current.rawGraphqlResults)).toHaveLength(4);
       expect(result.current.rawGraphqlResults.pools.fetching).toBe(true);
       expect(result.current.rawGraphqlResults.classifications.fetching).toBe(
         true,
       );
       expect(result.current.rawGraphqlResults.skills.fetching).toBe(true);
+      expect(result.current.rawGraphqlResults.roles.fetching).toBe(true);
     });
   });
 
   describe("simple fields", () => {
     it("returns static optionsData of appropriate length for non-async fields", () => {
       const result = renderHookWithProviders({});
-      const [countSimple, countAsync] = [13, 3];
+      const [countSimple, countAsync] = [14, 4];
       const countTotal = countSimple + countAsync;
       expect(Object.keys(result.current.optionsData)).toHaveLength(countTotal);
 
@@ -91,7 +74,7 @@ describe("useFilterOptions", () => {
       expect(result.current.optionsData.operationalRequirement).toHaveLength(7);
       expect(result.current.optionsData.workRegion).toHaveLength(8);
       expect(result.current.optionsData.equity).toHaveLength(4);
-      expect(result.current.optionsData.poolCandidateStatus).toHaveLength(16);
+      expect(result.current.optionsData.poolCandidateStatus).toHaveLength(18);
       expect(result.current.optionsData.priorityWeight).toHaveLength(4);
       expect(result.current.optionsData.expiryStatus).toHaveLength(3);
       expect(result.current.optionsData.suspendedStatus).toHaveLength(3);
@@ -119,6 +102,7 @@ describe("useFilterOptions", () => {
             pools: [],
             skills: [],
             classifications: fakeClassifications(),
+            roles: [],
           },
         },
       });
@@ -135,6 +119,7 @@ describe("useFilterOptions", () => {
             pools: fakePools(),
             skills: [],
             classifications: [],
+            roles: [],
           },
         },
       });
@@ -151,6 +136,7 @@ describe("useFilterOptions", () => {
             pools: [],
             skills: fakeSkills(10),
             classifications: [],
+            roles: [],
           },
         },
       });
@@ -158,6 +144,29 @@ describe("useFilterOptions", () => {
         expect(result.current.optionsData.skills).not.toBeUndefined(),
       );
       expect(result.current.optionsData.skills).toHaveLength(10);
+    });
+
+    it("generates appropriate number of options after response: roles", async () => {
+      const result = renderHookWithProviders({
+        responseData: {
+          data: {
+            pools: [],
+            skills: [],
+            classifications: [],
+            roles: [
+              ...fakeRoles(),
+              {
+                id: "platform-admin",
+                name: ROLE_NAME.PlatformAdmin, // filtering roles done in useFilterOptions
+              },
+            ],
+          },
+        },
+      });
+      await waitFor(() =>
+        expect(result.current.optionsData.roles).not.toBeUndefined(),
+      );
+      expect(result.current.optionsData.roles).toHaveLength(1); // only platform admin option kept
     });
   });
 });

@@ -1,5 +1,6 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import Hero from "./Hero";
 
 export default {

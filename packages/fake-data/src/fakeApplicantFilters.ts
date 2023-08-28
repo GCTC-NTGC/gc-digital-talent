@@ -22,13 +22,10 @@ const generateApplicantFilters = (
   pools: Pool[],
   skills: Skill[],
 ): ApplicantFilter => {
-  faker.setLocale("en");
-
   return {
     __typename: "ApplicantFilter",
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     pools: faker.helpers.arrayElements(pools),
-    expectedClassifications: faker.helpers.arrayElements(classifications),
     equity: {
       isIndigenous: faker.datatype.boolean(),
       isVisibleMinority: faker.datatype.boolean(),

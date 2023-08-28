@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import { fakeSkillFamilies, fakeSkills } from "@gc-digital-talent/fake-data";
 
@@ -10,17 +10,33 @@ import MissingSkills from "./MissingSkills";
 
 type MissingSkillsComponent = typeof MissingSkills;
 
-const skills = fakeSkills(10, fakeSkillFamilies(2));
+const fakedSkillFamilies = fakeSkillFamilies(2);
+const fakeBehaviouralFamily = fakedSkillFamilies[0];
+fakeBehaviouralFamily.category = SkillCategory.Behavioural;
+const fakeTechnicalFamily = fakedSkillFamilies[1];
+fakeTechnicalFamily.category = SkillCategory.Technical;
 
-const fakeRequiredSkills = skills.splice(0, skills.length / 2);
-const fakeOptionalSkills = skills.splice(skills.length / 2, skills.length);
+// four skills for each category and all different
+const fakedBehaviouralSkills = fakeSkills(4, [fakeBehaviouralFamily]);
+const fakedTechnicalSkills = fakeSkills(8, [fakeTechnicalFamily]).slice(4);
+
+// 2 technical and two behavioural skills for a total of 4 for both required and optional
+// behavioural preceding in the arrays
+const fakeRequiredSkills = [
+  ...fakedBehaviouralSkills.slice(0, 2),
+  ...fakedTechnicalSkills.slice(0, 2),
+];
+const fakeOptionalSkills = [
+  ...fakedBehaviouralSkills.slice(2),
+  ...fakedTechnicalSkills.slice(2),
+];
 
 export default {
   title: "Components/Missing Skills",
   component: MissingSkills,
-} as ComponentMeta<MissingSkillsComponent>;
+} as Meta<MissingSkillsComponent>;
 
-const Template: ComponentStory<MissingSkillsComponent> = (args) => {
+const Template: StoryFn<MissingSkillsComponent> = (args) => {
   return <MissingSkills {...args} />;
 };
 
@@ -58,15 +74,34 @@ MissingRequiredTechnicalSkillsWithDetails.args = {
   ),
 };
 
-export const MissingRequiredTechnicalSkillsWithoutDetails = Template.bind({});
-MissingRequiredTechnicalSkillsWithoutDetails.args = {
+export const MissingSkillsAndPartialDetails = Template.bind({});
+MissingSkillsAndPartialDetails.args = {
   requiredSkills: fakeRequiredSkills,
-  optionalSkills: [],
-  addedSkills: filterSkillsByCategory(
-    fakeRequiredSkills,
-    SkillCategory.Technical,
-  )?.map((skill) => ({
-    ...skill,
-    experienceSkillRecord: { details: "" },
-  })),
+  optionalSkills: fakeOptionalSkills,
+  addedSkills: [
+    {
+      ...fakeRequiredSkills[0],
+      experienceSkillRecord: { details: null },
+    },
+    {
+      ...fakeRequiredSkills[1],
+      experienceSkillRecord: { details: "details" },
+    },
+    {
+      ...fakeRequiredSkills[2],
+      experienceSkillRecord: { details: null },
+    },
+    {
+      ...fakeOptionalSkills[0],
+      experienceSkillRecord: { details: null },
+    },
+    {
+      ...fakeOptionalSkills[1],
+      experienceSkillRecord: { details: "details" },
+    },
+    {
+      ...fakeOptionalSkills[2],
+      experienceSkillRecord: { details: null },
+    },
+  ],
 };

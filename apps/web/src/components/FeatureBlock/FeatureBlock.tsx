@@ -2,7 +2,7 @@ import React from "react";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 
-export interface FeatureBlockProps {
+interface FeatureBlockProps {
   content: {
     title: string;
     summary: React.ReactNode;

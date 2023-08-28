@@ -10,7 +10,6 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import type { EquityDialogProps } from "../types";
-
 import Definition from "./Definition";
 import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
@@ -23,6 +22,7 @@ const VisibleMinorityDialog = ({
   isAdded,
   onSave,
   children,
+  disabled,
 }: EquityDialogProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
@@ -95,7 +95,7 @@ const VisibleMinorityDialog = ({
                 />
               </div>
               <Dialog.Footer>
-                <DialogFooter />
+                <DialogFooter disabled={disabled} />
               </Dialog.Footer>
             </form>
           </FormProvider>

@@ -7,9 +7,9 @@
     "defaultMessage": "Je m'identifie en tant que femme.",
     "description": "Statement for when someone indicates they are a woman"
   },
-  "+EQZK5": {
-    "defaultMessage": "Québec",
-    "description": "The work region of Canada described as Quebec."
+  "+J9x7H": {
+    "defaultMessage": "Éliminé à la présélection – candidature",
+    "description": "The pool candidate's status is Screened Out Application"
   },
   "+U4KU4": {
     "defaultMessage": "Cela m'oblige à faire les heures supplémentaires prévues.",
@@ -34,10 +34,6 @@
   "/UBSoB": {
     "defaultMessage": "Fermée",
     "description": "Closed pool advertisement status"
-  },
-  "/a8X4d": {
-    "defaultMessage": "Ontario",
-    "description": "The work region of Canada described as Ontario."
   },
   "/hsnPJ": {
     "defaultMessage": "Travailler des heures supplémentaires régulièrement",
@@ -70,10 +66,6 @@
   "0p1W7Q": {
     "defaultMessage": "Fils d’Ariane",
     "description": "Label for the links to page ancestors"
-  },
-  "13fSK+": {
-    "defaultMessage": "La date de soumission est dépassée",
-    "description": "Status for an application that where the recruitment has expired"
   },
   "14Cv7d": {
     "defaultMessage": "Retrait en cours...",
@@ -166,10 +158,6 @@
   "4S30lt": {
     "defaultMessage": "Expérience de travail appliquée",
     "description": "Option for education requirement, applied work experience"
-  },
-  "4TmwRU": {
-    "defaultMessage": "Candidature reçue",
-    "description": "Status for an application that has been submitted"
   },
   "4dD2mf": {
     "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires habituelles.</strong>",
@@ -289,9 +277,9 @@
     "defaultMessage": "réussite",
     "description": "Message for the success status"
   },
-  "9Pxjw5": {
-    "defaultMessage": "Évaluation en cours",
-    "description": "Status for an application that where applicant is being assessed"
+  "9EnPf0": {
+    "defaultMessage": "Accès à l’information et protection des renseignements personnels",
+    "description": "Pool Stream described as Access to Information and Privacy."
   },
   "9ZyJZq": {
     "defaultMessage": "cela m'oblige à me déplacer.",
@@ -300,10 +288,6 @@
   "9ays+c": {
     "defaultMessage": "J'ai un <strong>contrat</strong> d'employé occasionnel.",
     "description": "Casual selection for government employee type."
-  },
-  "9ayzJI": {
-    "defaultMessage": "Région de l’Atlantique",
-    "description": "The work region of Canada described as Atlantic."
   },
   "9hjEsr": {
     "defaultMessage": "Vous avez des modifications non sauvegardées",
@@ -352,6 +336,10 @@
   "C/tnCE": {
     "defaultMessage": "Le profil est incomplet",
     "description": "Message displayed when user attempts to apply to a pool with an incomplete profile"
+  },
+  "C2RURL": {
+    "defaultMessage": "Éliminé à la présélection – évaluation",
+    "description": "The pool candidate's status is Screened Out Assessment."
   },
   "C7cFDV": {
     "defaultMessage": "Débutant",
@@ -445,6 +433,14 @@
     "defaultMessage": "Aucun résultat n’a été trouvé.",
     "description": "Message displayed when combobox has no options available"
   },
+  "Icl1fF": {
+    "defaultMessage": "Parcours professionnel et recrutement",
+    "description": "Name of Career timeline and recruitment page"
+  },
+  "Ij1cFC": {
+    "defaultMessage": "Contributeur individuel",
+    "description": "The position type is an individual contributor."
+  },
   "IlPyP8": {
     "defaultMessage": "Vous devez remédier aux erreurs suivantes avant de soumettre le formulaire :",
     "description": "Message indicating which errors the form has"
@@ -489,10 +485,6 @@
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for button that opens side menu."
   },
-  "KoUKWc": {
-    "defaultMessage": "Capitale nationale",
-    "description": "The work region of Canada described as National Capital."
-  },
   "KzhnAz": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement).",
     "description": "The operational requirement described as occasional overtime."
@@ -501,10 +493,6 @@
     "defaultMessage": "Mois",
     "description": "Label for a month input field"
   },
-  "LBNX0O": {
-    "defaultMessage": "Administrateur",
-    "description": "The name of the Administrator user role."
-  },
   "LBqw5w": {
     "defaultMessage": "Vous devez répondre à toutes les questions filtres",
     "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
@@ -512,10 +500,6 @@
   "LJpdaI": {
     "defaultMessage": "Provincial",
     "description": "The scope of the award was provincial."
-  },
-  "LuYmWd": {
-    "defaultMessage": "<strong>Recherche active</strong> - Mon profil est à jour, je souhaite être contacté pour des occasions d'emploi",
-    "description": "Job Looking Status described as Actively looking."
   },
   "Lw0WrP": {
     "defaultMessage": "Travailler occasionnellement des heures supplémentaires",
@@ -528,14 +512,6 @@
   "LzUgil": {
     "defaultMessage": "Secret ou plus élevée",
     "description": "Secret security clearance"
-  },
-  "M/6+SI": {
-    "defaultMessage": "Inactif",
-    "description": "Job Looking Status described as Actively looking."
-  },
-  "MGqCaE": {
-    "defaultMessage": "Demandeur",
-    "description": "The name of the Applicant user role."
   },
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
@@ -560,10 +536,6 @@
   "NNFXCN": {
     "defaultMessage": "Retiré",
     "description": "The pool candidate's status is Removed."
-  },
-  "NNMJXo": {
-    "defaultMessage": "Nord",
-    "description": "The work region of Canada described as North."
   },
   "NVMKe5": {
     "defaultMessage": "Modifier la séquence de {from} à {to}",
@@ -616,9 +588,9 @@
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
   },
-  "PxUSSH": {
-    "defaultMessage": "Mon statut",
-    "description": "Name of My status page"
+  "QCcpJr": {
+    "defaultMessage": "Éliminé à la présélection – non réactif",
+    "description": "The pool candidate's status is Screened Out because no longer responding"
   },
   "QVdubF": {
     "defaultMessage": "Membre",
@@ -640,9 +612,9 @@
     "defaultMessage": "Statut",
     "description": "Title for status"
   },
-  "R2BWry": {
-    "defaultMessage": "Candidature rejetée",
-    "description": "The pool candidate's status is Screened Out Application"
+  "R0pQGQ": {
+    "defaultMessage": "Chef d'équipe",
+    "description": "The position type is a team lead."
   },
   "RQGy+0": {
     "defaultMessage": "Publiée",
@@ -720,6 +692,10 @@
     "defaultMessage": "Lieu de travail",
     "description": "Name of Work location page"
   },
+  "TN8HIH": {
+    "defaultMessage": "Éliminé à la présélection – pas d’intérêt",
+    "description": "The pool candidate's status is Screened Out because of no interest"
+  },
   "TNmGTd": {
     "defaultMessage": "Local",
     "description": "The scope of the award was local."
@@ -727,10 +703,6 @@
   "TO/Q6I": {
     "defaultMessage": "Femme",
     "description": "Group for when someone indicates they are a woman"
-  },
-  "TR0Kxz": {
-    "defaultMessage": "<strong>Ouvert aux possibilités</strong> – Je ne cherche pas activement, mais je veux être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Open to opportunities."
   },
   "TRDfnp": {
     "defaultMessage": "Je suis un membre actif des Forces armées canadiennes.",
@@ -756,17 +728,13 @@
     "defaultMessage": "Effacer votre sélection",
     "description": "Button text to reset the combobox input"
   },
+  "U4Gfow": {
+    "defaultMessage": "Prairies (Alb., Sask., Man.)",
+    "description": "The work region of Canada described as Prairies."
+  },
   "UCGAzS": {
     "defaultMessage": "S.O.",
     "description": "displayed when localized string not available"
-  },
-  "UZWLKn": {
-    "defaultMessage": "En attente d’évaluation des compétences",
-    "description": "Status for an application that ie having skills reviewed"
-  },
-  "UayO6H": {
-    "defaultMessage": "Qualifié",
-    "description": "Status for an application where the applicant has qualified"
   },
   "Uk0WG0": {
     "defaultMessage": "Organisationnel",
@@ -797,7 +765,7 @@
     "description": "Text for submit button on edit forms"
   },
   "WL3bq/": {
-    "defaultMessage": "Étape {current} de {label}",
+    "defaultMessage": "Étape {current} de {total}",
     "description": "Title for a list of steps indicating the current step of the total number of step"
   },
   "WPJrmN": {
@@ -831,10 +799,6 @@
   "XTw9Me": {
     "defaultMessage": "Expiré",
     "description": "The pool candidate's status is Expired."
-  },
-  "XerShr": {
-    "defaultMessage": "Recherche active",
-    "description": "Job Looking Status described as Actively looking."
   },
   "XnvXtO": {
     "defaultMessage": "Tous",
@@ -904,10 +868,6 @@
     "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
     "description": "Error message that advertisement locations must be filled in English and French."
   },
-  "aagbij": {
-    "defaultMessage": "En cours de révision",
-    "description": "Status for an application that is being reviewed"
-  },
   "ad4CnG": {
     "defaultMessage": "Ébauche expirée",
     "description": "The pool candidate's status is Expired Draft."
@@ -935,6 +895,10 @@
   "baPSLH": {
     "defaultMessage": "Terminé avec succès (aucun titre de compétence)",
     "description": "Successful Completion with no credentials for education status input"
+  },
+  "c/o/E4": {
+    "defaultMessage": "Région de la capitale nationale (Ottawa/Gatineau)",
+    "description": "The work region of Canada described as National Capital."
   },
   "cCWdDX": {
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
@@ -992,6 +956,10 @@
     "defaultMessage": "Annuler et revenir en arrière",
     "description": "Text to cancel changes to a form"
   },
+  "fUF8rg": {
+    "defaultMessage": "Sélectionnez une option",
+    "description": "Null selection for select input"
+  },
   "g08hvq": {
     "defaultMessage": "Étape 1",
     "description": "Breadcrumb back to review application page."
@@ -999,10 +967,6 @@
   "g2X8Fx": {
     "defaultMessage": "Fermer la fenêtre de dialogue",
     "description": "Text for the button to close a modal dialog."
-  },
-  "gDBVKb": {
-    "defaultMessage": "CV et recrutement",
-    "description": "Name of Résumé and recruitment page"
   },
   "gM4WDL": {
     "defaultMessage": "Non",
@@ -1036,6 +1000,10 @@
     "defaultMessage": "Année",
     "description": "Label for a year input field"
   },
+  "iUCkxX": {
+    "defaultMessage": "Ontario (à l'exclusion de la région d'Ottawa)",
+    "description": "The work region of Canada described as Ontario, excluding Ottawa."
+  },
   "iYNLo1": {
     "defaultMessage": "e suis un <strong>membre actif </strong> des Forces armées canadiennes.",
     "description": "declare self to be a CAF member"
@@ -1043,6 +1011,10 @@
   "iYot5P": {
     "defaultMessage": "Architecture intégrée de la TI",
     "description": "Pool Stream described as Enterprise Architecture."
+  },
+  "ijGl5r": {
+    "defaultMessage": "Souhaitez-vous poursuivre?",
+    "description": "A request to confirm that the user wants to continue"
   },
   "iqD8qE": {
     "defaultMessage": "Erreur inconnue",
@@ -1063,10 +1035,6 @@
   "jHa7VO": {
     "defaultMessage": "Opérations d’infrastructure de la TI",
     "description": "Pool Stream described as Infrastructure Operations."
-  },
-  "jNo5Zk": {
-    "defaultMessage": "Région des Prairies",
-    "description": "The work region of Canada described as Prairie."
   },
   "jS69se": {
     "defaultMessage": "Certification",
@@ -1124,10 +1092,6 @@
     "defaultMessage": "Août",
     "description": "Name of the eighth month"
   },
-  "lp/ZEr": {
-    "defaultMessage": "Rôle et salaire escomptés",
-    "description": "Name of Role and salary expectations page"
-  },
   "lr2+2R": {
     "defaultMessage": "Autre",
     "description": "declaring one to be neither a citizen or permanent resident of Canada"
@@ -1139,10 +1103,6 @@
   "lx9NFI": {
     "defaultMessage": "Qualifié disponible",
     "description": "The pool candidate's status is Qualified Available"
-  },
-  "m4v2w3": {
-    "defaultMessage": "Ouvert aux possibilités",
-    "description": "Job Looking Status described as Actively looking."
   },
   "mDOWWQ": {
     "defaultMessage": "Soumission",
@@ -1175,17 +1135,9 @@
     "defaultMessage": "Un champ obligatoire est vide : Groupe des publications",
     "description": "Error message that the pool advertisement must have publishing group filled."
   },
-  "njJCTd": {
-    "defaultMessage": "Sélectionné",
-    "description": "Status for an application that has been screened out of eligibility"
-  },
   "nnMYWr": {
     "defaultMessage": "Préférences de travail",
     "description": "Name of Work preferences page"
-  },
-  "nrWEuL": {
-    "defaultMessage": "<strong>Inactif</strong> – Je ne veux pas être contacté pour trouver des possibilités d'emploi",
-    "description": "Job Looking Status described as Inactive."
   },
   "nu3Zyc": {
     "defaultMessage": "Niveau 4 : Gestionnaire",
@@ -1203,9 +1155,17 @@
     "defaultMessage": "IT-04 (conseiller principal)",
     "description": "The name of the Senior advisor classification with group and level."
   },
+  "o7GBkR": {
+    "defaultMessage": "Archivé",
+    "description": "Archived pool advertisement status"
+  },
   "oANrhM": {
     "defaultMessage": "Collectivité",
     "description": "The scope of the award was within the community."
+  },
+  "oCrAvX": {
+    "defaultMessage": "Un champ obligatoire est vide : Date de clôture",
+    "description": "Error message that the pool closing date is required."
   },
   "oGXgxJ": {
     "defaultMessage": "Alerte de fermeture",
@@ -1235,17 +1195,9 @@
     "defaultMessage": "Transport de matériel jusqu'à 20 kg",
     "description": "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)"
   },
-  "pLlu65": {
-    "defaultMessage": "Évaluation rejetée",
-    "description": "The pool candidate's status is Screened Out Assessment."
-  },
   "pPPm5b": {
     "defaultMessage": "Moi",
     "description": "The award was given to me."
-  },
-  "pf3KKo": {
-    "defaultMessage": "Poursuivre l’ébauche",
-    "description": "Link text to continue a application draft"
   },
   "plwOsC": {
     "defaultMessage": "Sélectionnez",
@@ -1402,6 +1354,10 @@
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler sur appel 24/7.",
     "description": "The operational requirement described as 24/7 on-call."
   },
+  "vDulgp": {
+    "defaultMessage": "Québec (à l'exclusion de la région de Gatineau)",
+    "description": "The work region of Canada described as Quebec, excluding Gatineau."
+  },
   "vGENdP": {
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
@@ -1409,10 +1365,6 @@
   "vPDtGU": {
     "defaultMessage": "e ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
-  },
-  "vTyr7O": {
-    "defaultMessage": "Retiré",
-    "description": "Status for an application that has been removed from the recruitment"
   },
   "vgxxk0": {
     "defaultMessage": "Vétéran",
@@ -1429,6 +1381,14 @@
   "w2tWfH": {
     "defaultMessage": "Un champ obligatoire est vide : Titres des volets/emplois",
     "description": "Error message that the pool advertisement must have a stream."
+  },
+  "w4vHfG": {
+    "defaultMessage": "Nord (Nu., T.N.-O., Yn)",
+    "description": "The work region of Canada described as North."
+  },
+  "w6vHXf": {
+    "defaultMessage": "Recherche...",
+    "description": "Message to display when a search is in progress."
   },
   "wCft6M": {
     "defaultMessage": "Colombie Britannique",
@@ -1490,6 +1450,10 @@
     "defaultMessage": "En cours d’évaluation",
     "description": "The pool candidate's status is Under Assessment."
   },
+  "yBi2pM": {
+    "defaultMessage": "Atlantique (N.-B., N.-É., Î.-P.-É. et T.-N.-L)",
+    "description": "The work region of Canada described as Atlantic."
+  },
   "yHeFkO": {
     "defaultMessage": "Janvier",
     "description": "Name of the first month"
@@ -1501,6 +1465,9 @@
   "yRxy3a": {
     "defaultMessage": "Retrait qualifié",
     "description": "The pool candidate's status is Qualified Withdrew."
+  },
+  "ybzpGb": {
+    "defaultMessage": "BothStatusNonStatus"
   },
   "ylHC90": {
     "defaultMessage": "Chargement...",

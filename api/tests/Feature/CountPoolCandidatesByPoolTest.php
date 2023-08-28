@@ -77,7 +77,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a single candidate and expects it to be returned
     public function testThatEmptyReturnsACandidate()
     {
-        $pool = Pool::factory()->create($this->poolData());
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user = User::factory()->create([]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
 
@@ -110,7 +110,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a single candidate and expects it to be returned with the pool properties
     public function testThatPoolPropertiesCanBeReturned()
     {
-        $pool = Pool::factory()->published()->create([
+        $pool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
             'name' => [
                 'en' => 'Test Pool EN',
                 'fr' => 'Test Pool FR'
@@ -157,8 +157,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates one users with two candidates and expects both candidates to be returned
     public function testThatEmptyReturnsTwoCandidatesForOneUser()
     {
-        $pool1 = Pool::factory()->create($this->poolData());
-        $pool2 = Pool::factory()->create($this->poolData());
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
+        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user = User::factory()->create([]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool1, $user));
         PoolCandidate::factory()->create($this->poolCandidateData($pool2, $user));
@@ -196,7 +196,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates three users with/without/null diploma and expects only one to come back
     public function testHasDiploma()
     {
-        $pool = Pool::factory()->create($this->poolData());
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
             'has_diploma' => true
         ]);
@@ -241,7 +241,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates three users with/without/null isWoman and expects only one to come back
     public function testEquityIsWoman()
     {
-        $pool = Pool::factory()->create($this->poolData());
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
             'is_woman' => true
         ]);
@@ -290,7 +290,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a user for bilingual, english, and french then filter for english and expect two to come back
     public function testLanguageAbility()
     {
-        $pool = Pool::factory()->create($this->poolData());
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
             'looking_for_english' => false,
             'looking_for_french' => false,
@@ -341,7 +341,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a three users with different op reqs, filter for a combination that two users have, expect to get 2 candidates
     public function testOperationalRequirements()
     {
-        $pool = Pool::factory()->create($this->poolData());
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
             'accepted_operational_requirements' => [
                 ApiEnums::OPERATIONAL_REQUIREMENT_DRIVERS_LICENSE,
@@ -398,7 +398,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a three users with different location preferences, filter for a combination that two users have, expect to get 2 candidates
     public function testLocationPreferences()
     {
-        $pool = Pool::factory()->create($this->poolData());
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
             'location_preferences' => [
                 ApiEnums::WORK_REGION_ATLANTIC,
@@ -455,7 +455,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates a three users with/without/null would accept temporary and expects only one to come back
     public function testWouldAcceptTemporary()
     {
-        $pool = Pool::factory()->create($this->poolData());
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
             'position_duration' => [ApiEnums::POSITION_DURATION_TEMPORARY, ApiEnums::POSITION_DURATION_PERMANENT],
         ]);
@@ -496,74 +496,12 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
     }
 
-    // test classifications
-    // creates a three users various expected classifications and filter for the classifications on two of them
-    public function testClassifications()
-    {
-        $pool = Pool::factory()->create($this->poolData());
-        $classifications = Classification::factory(3)
-            ->create(
-                ['min_salary' => 0,  'max_salary' => 0] // avoid classification/salary cross-matching
-            );
-        $users = User::factory(3)
-            ->afterCreating(function ($user) use ($pool) {
-                PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
-            })
-            ->create([]);
-        $users[0]->expectedClassifications()->sync([
-            $classifications[0]->id,
-            $classifications[1]->id
-        ]);
-        $users[1]->expectedClassifications()->sync([
-            $classifications[1]->id,
-            $classifications[2]->id
-        ]);
-        $users[2]->expectedClassifications()->sync([
-            $classifications[2]->id
-        ]);
-
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-                query ($where: ApplicantFilterInput) {
-                    countPoolCandidatesByPool(where: $where) {
-                      pool { id }
-                      candidateCount
-                    }
-                  }
-                ',
-            [
-                'where' => [
-                    'expectedClassifications' => [
-                        [
-                            'group' => $classifications[0]->group,
-                            'level' => $classifications[0]->level,
-                        ],
-                        [
-                            'group' => $classifications[1]->group,
-                            'level' => $classifications[1]->level,
-                        ]
-                    ]
-                ]
-            ]
-        )->assertSimilarJson([
-            'data' => [
-                'countPoolCandidatesByPool' => [
-                    [
-                        'pool' => ['id' => $pool->id],
-                        'candidateCount' => 2
-                    ]
-                ]
-            ]
-        ]);
-    }
-
     // test skills
     // creates a three users various skills and filter for the skills on two of them
     // filtering is OR using User::scopeSkillsAdditive
     public function testSkills()
     {
-        $pool = Pool::factory()->create($this->poolData());
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $skills = Skill::factory(3)->create();
         $users = User::factory(3)
             ->afterCreating(function ($user) use ($pool) {
@@ -572,16 +510,16 @@ class CountPoolCandidatesByPoolTest extends TestCase
             })
             ->create();
 
-        $users[0]->awardExperiences()->sole()->skills()->sync([
-            $skills[0]->id,
+        $users[0]->awardExperiences()->sole()->syncSkills([
+            $skills[0],
         ]);
-        $users[1]->awardExperiences()->sole()->skills()->sync([
-            $skills[0]->id,
-            $skills[1]->id,
-            $skills[2]->id
+        $users[1]->awardExperiences()->sole()->syncSkills([
+            $skills[0],
+            $skills[1],
+            $skills[2]
         ]);
-        $users[2]->awardExperiences()->sole()->skills()->sync([
-            $skills[2]->id
+        $users[2]->awardExperiences()->sole()->syncSkills([
+            $skills[2]
         ]);
 
         // ensure 2 candidates returned despite two skills being passed in
@@ -619,9 +557,9 @@ class CountPoolCandidatesByPoolTest extends TestCase
     // creates three pools but filters on only 1 and 2
     public function testPoolFilter()
     {
-        $pool1 = Pool::factory()->create($this->poolData());
-        $pool2 = Pool::factory()->create($this->poolData());
-        $pool3 = Pool::factory()->create($this->poolData());
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
+        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
+        $pool3 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user = User::factory()->create([]);
 
         PoolCandidate::factory()->create($this->poolCandidateData($pool1, $user));
@@ -664,7 +602,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     public function testAvailableScope()
     {
-        $pool = Pool::factory()->create($this->poolData());
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         foreach (ApiEnums::candidateStatuses() as $status) {
             $user = User::factory()->create([]);
             PoolCandidate::factory()->create([
@@ -719,8 +657,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
     public function testExpiryFilter()
     {
-        $pool1 = Pool::factory()->create($this->poolData());
-        $pool2 = Pool::factory()->create($this->poolData());
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
+        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user = User::factory()->create([]);
 
         PoolCandidate::factory()->create($this->poolCandidateData($pool1, $user, true, true)); // future expiry date
@@ -744,6 +682,64 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool1->id],
+                        'candidateCount' => 1
+                    ]
+                ]
+            ]
+        ]);
+    }
+
+    public function testOnlyItJobsAppear()
+    {
+        $user = User::factory()->create([]);
+
+        $itPool = Pool::factory()->create([
+            ...$this->poolData(),
+            'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS
+        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($itPool, $user, true));
+
+        $itOngoingPool = Pool::factory()->create([
+            ...$this->poolData(),
+            'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING
+        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($itOngoingPool, $user, true));
+
+        // Note: Should not appear in results
+        $execPool = Pool::factory()->create([
+            ...$this->poolData(),
+            'publishing_group' => ApiEnums::PUBLISHING_GROUP_EXECUTIVE_JOBS
+        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($execPool, $user, true));
+
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+                query ($where: ApplicantFilterInput) {
+                    countPoolCandidatesByPool(where: $where) {
+                      pool { id }
+                      candidateCount
+                    }
+                  }
+                ',
+            [
+                'where' => [
+                    "pools" => [
+                        ["id" => $itPool->id],
+                        ["id" => $itOngoingPool->id],
+                        ["id" => $execPool->id], // Should not show up
+                    ]
+                ]
+            ]
+        )->assertSimilarJson([
+            'data' => [
+                'countPoolCandidatesByPool' => [
+                    [
+                        'pool' => ['id' => $itOngoingPool->id],
+                        'candidateCount' => 1
+                    ],
+                    [
+                        'pool' => ['id' => $itPool->id],
                         'candidateCount' => 1
                     ]
                 ]

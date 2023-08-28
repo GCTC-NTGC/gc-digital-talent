@@ -18,6 +18,7 @@ use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class User
@@ -29,8 +30,6 @@ use Illuminate\Notifications\Notifiable;
  * @property string $last_name
  * @property string $telephone
  * @property string $preferred_lang
- * @property array $legacy_roles
- * @property string $job_looking_status
  * @property string $current_province
  * @property string $current_city
  * @property boolean $looking_for_english
@@ -54,7 +53,6 @@ use Illuminate\Notifications\Notifiable;
  * @property boolean $has_diploma
  * @property array $location_preferences
  * @property string $location_exemptions
- * @property array $expected_salary
  * @property array $position_duration
  * @property array $accepted_operational_requirements
  * @property string $gov_employee_type
@@ -76,13 +74,12 @@ class User extends Model implements Authenticatable, LaratrustUser
     use SoftDeletes;
     use AuthenticatableTrait;
     use Notifiable;
+    use HasRelationships;
 
     protected $keyType = 'string';
 
     protected $casts = [
-        'legacy_roles' => 'array',
         'location_preferences' => 'array',
-        'expected_salary' => 'array',
         'accepted_operational_requirements' => 'array',
         'position_duration' => 'array',
         'indigenous_communities' => 'array',
@@ -108,14 +105,6 @@ class User extends Model implements Authenticatable, LaratrustUser
     public function currentClassification(): BelongsTo
     {
         return $this->belongsTo(Classification::class, "current_classification");
-    }
-    public function expectedClassifications(): BelongsToMany
-    {
-        return $this->belongsToMany(Classification::class, 'classification_user')->withTimestamps();
-    }
-    public function expectedGenericJobTitles(): BelongsToMany
-    {
-        return $this->belongsToMany(GenericJobTitle::class, 'generic_job_title_user')->withTimestamps();
     }
     /**
      * @deprecated
@@ -145,11 +134,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         return $this->hasMany(WorkExperience::class);
     }
-    // A relationship to the custom roleAssignments pivot model
-    public function roleAssignments(): HasMany
-    {
-        return $this->hasMany(RoleAssignment::class);
-    }
+
     public function getExperiencesAttribute()
     {
         $collection = collect();
@@ -160,6 +145,38 @@ class User extends Model implements Authenticatable, LaratrustUser
         $collection = $collection->merge($this->workExperiences);
         return $collection;
     }
+
+    // A relationship to the custom roleAssignments pivot model
+    public function roleAssignments(): HasMany
+    {
+        return $this->hasMany(RoleAssignment::class);
+    }
+
+    public function userSkills(): HasMany
+    {
+        return $this->hasMany(UserSkill::class, 'user_id');
+    }
+    public function skills()
+    {
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill());
+    }
+    // This method will add the specified skills to UserSkills if they don't exist yet.
+    public function addSkills($skill_ids)
+    {
+        // If any of the skills already exist but are soft-deleted, restore them
+        $this->userSkills()->withTrashed()->whereIn('skill_id', $skill_ids)->restore();
+        // Create a basic UserSkill for any skills not yet related to this user.
+        $existingSkillIds = $this->userSkills()->withTrashed()->pluck('skill_id');
+        $newSkillIds = collect($skill_ids)->diff($existingSkillIds)->unique();
+        foreach ($newSkillIds as $skillId) {
+            $userSkill = new UserSkill();
+            $userSkill->skill_id = $skillId;
+            $this->userSkills()->save($userSkill);
+        }
+        // If this User instance continues to be used, ensure the in-memory instance has the updated skills.
+        $this->refresh();
+    }
+
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
     public function getIsProfileCompleteAttribute(): bool
@@ -180,6 +197,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             ) or
             is_null($this->attributes['is_gov_employee']) or
             is_null($this->attributes['has_priority_entitlement']) or
+            ($this->attributes['has_priority_entitlement'] && is_null($this->attributes["priority_number"])) or
             is_null($this->attributes['location_preferences']) or
             empty($this->attributes['location_preferences']) or
             empty($this->attributes['position_duration'])  or
@@ -209,11 +227,16 @@ class User extends Model implements Authenticatable, LaratrustUser
                 $query->orWhereNotNull('looking_for_bilingual');
             });
             $query->whereNotNull('is_gov_employee');
-            $query->whereNotNull('has_priority_entitlement');
+            $query->where(function (Builder $query) {
+                $query->where('has_priority_entitlement', false)
+                    ->orWhere(function (Builder $query) {
+                        $query->where('has_priority_entitlement', true)
+                            ->whereNotNull('priority_number');
+                    });
+            });
             $query->whereNotNull('location_preferences');
             $query->whereJsonLength('location_preferences', '>', 0);
             $query->whereJsonLength('position_duration', '>', 0);
-            $query->has('expectedGenericJobTitles');
             $query->whereNotNull('citizenship');
             $query->whereNotNull('armed_forces_status');
         }
@@ -365,89 +388,35 @@ class User extends Model implements Authenticatable, LaratrustUser
     /**
      * Skills filtering
      */
-    public static function scopeSkillsIntersectional(Builder $query, ?array $skills): Builder
+    public static function scopeSkillsIntersectional(Builder $query, ?array $skill_ids): Builder
     {
-        if (empty($skills)) {
+        if (empty($skill_ids)) {
             return $query;
         }
 
         // skills AND filtering. The query should only return candidates with ALL of the skills.
-        $query->whereExists(function ($query) use ($skills) {
-            $query->select(DB::raw('null'))
-                ->from(function ($query) {
-                    $query->selectRaw('experiences.user_id, jsonb_agg(experience_skill.skill_id) as user_skills_grouped')
-                        ->from('experience_skill')
-                        ->joinSub(function ($query) {
-                            $query->select('award_experiences.id as experience_id', 'award_experiences.user_id')
-                                ->from('award_experiences')
-                                ->unionAll(function ($query) {
-                                    $query->select('community_experiences.id as experience_id', 'community_experiences.user_id')
-                                        ->from('community_experiences');
-                                })
-                                ->unionAll(function ($query) {
-                                    $query->select('education_experiences.id as experience_id', 'education_experiences.user_id')
-                                        ->from('education_experiences');
-                                })
-                                ->unionAll(function ($query) {
-                                    $query->select('personal_experiences.id as experience_id', 'personal_experiences.user_id')
-                                        ->from('personal_experiences');
-                                })
-                                ->unionAll(function ($query) {
-                                    $query->select('work_experiences.id as experience_id', 'work_experiences.user_id')
-                                        ->from('work_experiences');
-                                });
-                        }, 'experiences', function ($join) {
-                            $join->on('experience_skill.experience_id', '=', 'experiences.experience_id');
-                        })
-                        ->groupBy('experiences.user_id');
-                }, "aggregate_experiences")
-                ->whereJsonContains('aggregate_experiences.user_skills_grouped', $skills)
-                ->whereColumn('aggregate_experiences.user_id', 'users.id');
-        });
+        foreach ($skill_ids as $skill_id) {
+            $query->whereExists(function ($query) use ($skill_id) {
+                $query->select(DB::raw('null'))
+                    ->from('user_skills')
+                    ->whereColumn('user_skills.user_id', 'users.id')
+                    ->where('user_skills.skill_id', $skill_id);
+            });
+        }
         return $query;
     }
-    public static function scopeSkillsAdditive(Builder $query, ?array $skills): Builder
+    public static function scopeSkillsAdditive(Builder $query, ?array $skill_ids): Builder
     {
-        if (empty($skills)) {
+        if (empty($skill_ids)) {
             return $query;
         }
 
         // skills OR filtering. The query should return candidates with ANY of the skills.
-        $query->whereExists(function ($query) use ($skills) {
+        $query->whereExists(function ($query) use ($skill_ids) {
             $query->select(DB::raw('null'))
-                ->from(function ($query) {
-                    $query->selectRaw('experiences.user_id, jsonb_agg(experience_skill.skill_id) as user_skills_grouped')
-                        ->from('experience_skill')
-                        ->joinSub(function ($query) {
-                            $query->select('award_experiences.id as experience_id', 'award_experiences.user_id')
-                                ->from('award_experiences')
-                                ->unionAll(function ($query) {
-                                    $query->select('community_experiences.id as experience_id', 'community_experiences.user_id')
-                                        ->from('community_experiences');
-                                })
-                                ->unionAll(function ($query) {
-                                    $query->select('education_experiences.id as experience_id', 'education_experiences.user_id')
-                                        ->from('education_experiences');
-                                })
-                                ->unionAll(function ($query) {
-                                    $query->select('personal_experiences.id as experience_id', 'personal_experiences.user_id')
-                                        ->from('personal_experiences');
-                                })
-                                ->unionAll(function ($query) {
-                                    $query->select('work_experiences.id as experience_id', 'work_experiences.user_id')
-                                        ->from('work_experiences');
-                                });
-                        }, 'experiences', function ($join) {
-                            $join->on('experience_skill.experience_id', '=', 'experiences.experience_id');
-                        })
-                        ->groupBy('experiences.user_id');
-                }, "aggregate_experiences")
-                ->where(function ($query) use ($skills) {
-                    foreach ($skills as $key => $value) {
-                        $query->orWhereJsonContains('aggregate_experiences.user_skills_grouped', $value);
-                    }
-                })
-                ->whereColumn('aggregate_experiences.user_id', 'users.id');
+                ->from('user_skills')
+                ->whereColumn('user_skills.user_id', 'users.id')
+                ->whereIn('user_skills.skill_id', $skill_ids);
         });
         return $query;
     }
@@ -492,146 +461,42 @@ class User extends Model implements Authenticatable, LaratrustUser
     }
 
     /**
-     * scopeExpectedClassifications
+     * Scope Publishing Groups
      *
-     * Scopes the query to only return applicants who have expressed interest in any of $classifications.
-     * Applicants have been able to record this interest in various ways, so this scope may consider three fields on
-     * the user: expectedClassifications, expectedSalary, and expectedGenericJobTitles.
+     * Restrict a query by specific publishing groups
      *
-     * @param Builder $query
-     * @param array|null $classifications Each classification is an object with a group and a level field.
-     * @return Builder
+     * @param Eloquent\Builder $query The existing query being built
+     * @param ?array $publishingGroups The publishing groups to scope the query by
+     * @return Eloquent\Builder The resulting query
      */
-    public static function scopeExpectedClassifications(Builder $query, ?array $classifications): Builder
+    public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
     {
-        // if no filters provided then return query unchanged
-        if (empty($classifications)) {
-            return $query;
-        }
+        // Early return if no publishing groups were supplied
+        if (empty($publishingGroups)) return $query;
 
-        // Classifications act as an OR filter. The query should return candidates with any of the classifications.
-        // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
-        $query->where(function ($query) use ($classifications) {
-            $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
-                foreach ($classifications as $index => $classification) {
-                    if ($index === 0) {
-                        // First iteration must use where instead of orWhere
-                        $query->where(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
-                    } else {
-                        $query->orWhere(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
-                    }
-                }
-            });
-            $query->orWhere(function ($query) use ($classifications) {
-                self::filterByClassificationToSalary($query, $classifications);
-            });
-            $query->orWhere(function ($query) use ($classifications) {
-                self::filterByClassificationToGenericJobTitles($query, $classifications);
-            });
+        $query = $query->whereHas('poolCandidates', function ($query) use ($publishingGroups) {
+            return PoolCandidate::scopePublishingGroups($query, $publishingGroups);
         });
 
         return $query;
     }
-    public static function filterByClassificationToGenericJobTitles(Builder $query, ?array $classifications): Builder
+    /**
+     * Scope is IT
+     *
+     * Restrict a query by pool candidates that are for pools
+     * containing IT specific publishing groups
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query The existing query being built
+     * @return \Illuminate\Database\Eloquent\Builder The resulting query
+     */
+    public static function scopeInITPublishingGroup(Builder $query)
     {
-        // if no filters provided then return query unchanged
-        if (empty($classifications)) {
-            return $query;
-        }
-        // Classifications act as an OR filter. The query should return candidates with any of the classifications.
-        // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
-
-        // group these in a subquery to properly handle "OR" condition
-        $query->whereHas('expectedGenericJobTitles', function ($query) use ($classifications) {
-            $query->whereHas('classification', function ($query) use ($classifications) {
-                foreach ($classifications as $index => $classification) {
-                    if ($index === 0) {
-                        // First iteration must use where instead of orWhere
-                        $query->where(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
-                    } else {
-                        $query->orWhere(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
-                    }
-                }
-            });
-        });
+        $query = self::scopePublishingGroups($query, [
+            ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
+            ApiEnums::PUBLISHING_GROUP_IT_JOBS
+        ]);
 
         return $query;
-    }
-    private static function filterByClassificationToSalary(Builder $query, ?array $classifications): Builder
-    {
-        // When managers search for a classification, also return any users whose expected salary
-        // ranges overlap with the min/max salaries of any of those classifications.
-        // Since salary ranges are text enums a custom SQL subquery is used to convert them to
-        // numeric values and compare them to specified classifications
-
-        // This subquery only works for a non-zero number of filter classifications.
-        // If passed zero classifications then return same query builder unchanged.
-        if (empty($classifications)) {
-            return $query;
-        }
-
-        $parameters = [];
-        $sql = <<<RAWSQL1
-
-SELECT NULL    -- find all candidates where a salary/group combination matches a classification filter
-  FROM (
-    SELECT    -- convert salary ranges to numeric min/max values
-      t.user_id,
-      CASE t.salary_range_id
-        WHEN '_50_59K' THEN 50000
-        WHEN '_60_69K' THEN 60000
-        WHEN '_70_79K' THEN 70000
-        WHEN '_80_89K' THEN 80000
-        WHEN '_90_99K' THEN 90000
-        WHEN '_100K_PLUS' THEN 100000
-      END min_salary,
-      CASE t.salary_range_id
-        WHEN '_50_59K' THEN 59999
-        WHEN '_60_69K' THEN 69999
-        WHEN '_70_79K' THEN 79999
-        WHEN '_80_89K' THEN 89999
-        WHEN '_90_99K' THEN 99999
-        WHEN '_100K_PLUS' THEN 2147483647
-      END max_salary
-    FROM (
-      SELECT    -- find all salary ranges for each candidate
-        users.id user_id,
-        JSONB_ARRAY_ELEMENTS_TEXT(users.expected_salary) salary_range_id
-      FROM users
-    ) t
-  ) u
-  JOIN classifications c ON
-    c.max_salary >= u.min_salary
-    AND c.min_salary <= u.max_salary
-  WHERE (
-
-RAWSQL1;
-
-        foreach ($classifications as $index => $classification) {
-            if ($index === 0) {
-                // First iteration must use where instead of orWhere
-                $sql .= '(c.group = ? AND c.level = ?)';
-            } else {
-                $sql .= ' OR (c.group = ? AND c.level = ?)';
-            }
-            array_push($parameters, [$classification['group'], $classification['level']]);
-        }
-
-        $sql .= <<<RAWSQL2
-  )
-  AND u.user_id = "users".id
-
-RAWSQL2;
-
-        return $query->whereRaw('EXISTS (' . $sql . ')', $parameters);
     }
 
     public static function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
@@ -742,6 +607,20 @@ RAWSQL2;
         if ($isGovEmployee) {
             $query->where('is_gov_employee', true);
         }
+        return $query;
+    }
+
+    public static function scopeRoleAssignments(Builder $query, ?array $roleIds): Builder
+    {
+        if (empty($roleIds)) {
+            return $query;
+        }
+
+        $query->where(function ($query) use ($roleIds) {
+            $query->whereHas('roleAssignments', function ($query) use ($roleIds) {
+                $query->whereIn('role_id', $roleIds);
+            });
+        });
         return $query;
     }
 

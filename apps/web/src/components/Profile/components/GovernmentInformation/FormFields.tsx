@@ -20,8 +20,8 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { Classification, Department, GovEmployeeType } from "~/api/generated";
 
-import { getGroupOptions, getLevelOptions } from "./utils";
 import useDirtyFields from "../../hooks/useDirtyFields";
+import { getGroupOptions, getLevelOptions } from "./utils";
 
 const priorityEntitlementLink = (locale: string, chunks: React.ReactNode) => {
   const href =
@@ -35,7 +35,7 @@ const priorityEntitlementLink = (locale: string, chunks: React.ReactNode) => {
   );
 };
 
-export interface FormFieldsProps {
+interface FormFieldsProps {
   departments: Department[];
   classifications: Classification[];
   labels: FieldLabels;
@@ -280,6 +280,7 @@ const FormFields = ({
           type="text"
           label={labels.priorityEntitlementNumber}
           name="priorityEntitlementNumber"
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
       )}
     </div>

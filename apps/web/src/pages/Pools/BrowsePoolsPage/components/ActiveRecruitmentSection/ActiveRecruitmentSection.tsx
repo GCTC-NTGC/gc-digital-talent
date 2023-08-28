@@ -5,8 +5,7 @@ import { useIntl } from "react-intl";
 import { Heading } from "@gc-digital-talent/ui";
 
 import { Pool } from "~/api/generated";
-
-import PoolCard from "../PoolCard/PoolCard";
+import PoolCard from "~/components/PoolCard/PoolCard";
 
 export interface ActiveRecruitmentSectionProps {
   pools: Pool[];

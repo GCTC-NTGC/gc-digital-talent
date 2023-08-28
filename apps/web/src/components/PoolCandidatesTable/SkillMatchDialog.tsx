@@ -1,7 +1,9 @@
 import * as React from "react";
+import { useIntl } from "react-intl";
+
 import { Experience, Maybe, Skill } from "@gc-digital-talent/graphql";
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { useIntl } from "react-intl";
+
 import SkillTree from "~/pages/Applications/ApplicationSkillsPage/components/SkillTree";
 
 interface SkillMatchDialogProps {
@@ -120,9 +122,7 @@ const SkillMatchDialog = ({
   );
 };
 
-export default SkillMatchDialog;
-
-export function skillMatchDialogAccessor(
+function skillMatchDialogAccessor(
   filteredSkills: Skill[],
   experiences: Experience[],
   skillCount: Maybe<number>,
@@ -137,3 +137,5 @@ export function skillMatchDialogAccessor(
     />
   );
 }
+
+export default skillMatchDialogAccessor;

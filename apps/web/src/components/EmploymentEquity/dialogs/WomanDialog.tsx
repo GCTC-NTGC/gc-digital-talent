@@ -10,7 +10,6 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import type { EquityDialogProps } from "../types";
-
 import Definition from "./Definition";
 import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
@@ -19,7 +18,12 @@ interface FormValues {
   isWoman: boolean;
 }
 
-const WomanDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
+const WomanDialog = ({
+  isAdded,
+  onSave,
+  children,
+  disabled,
+}: EquityDialogProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -91,7 +95,7 @@ const WomanDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
                 />
               </div>
               <Dialog.Footer>
-                <DialogFooter />
+                <DialogFooter disabled={disabled} />
               </Dialog.Footer>
             </form>
           </FormProvider>

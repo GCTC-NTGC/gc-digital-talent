@@ -8,11 +8,10 @@ import {
   Classification,
   GovEmployeeType,
   UpdateUserAsUserInput,
-  User,
 } from "~/api/generated";
 import { splitAndJoin } from "~/utils/nameUtils";
 
-import { FormValues } from "./types";
+import { FormValues, PartialUser } from "./types";
 
 /**
  * Take classification group + level from data, return the matching classification from API
@@ -23,7 +22,7 @@ import { FormValues } from "./types";
  * @param classifications
  * @returns
  */
-export const classificationFormToId = (
+const classificationFormToId = (
   group: string | undefined,
   level: string | undefined,
   classifications: Classification[],
@@ -114,7 +113,7 @@ export const formValuesToSubmitData = (
   };
 };
 
-export const dataToFormValues = (data: User): FormValues => {
+export const dataToFormValues = (data: PartialUser): FormValues => {
   const boolToYesNo = (
     bool: boolean | null | undefined,
   ): "yes" | "no" | undefined => {

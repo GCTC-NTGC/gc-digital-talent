@@ -21,7 +21,6 @@ const defaultUser = {
   // optional
   telephone: undefined,
   email: undefined,
-  legacyRoles: [],
   currentProvince: undefined,
   currentCity: undefined,
   languageAbility: undefined,
@@ -42,13 +41,10 @@ const defaultUser = {
   hasDisability: undefined,
   isIndigenous: undefined,
   isVisibleMinority: undefined,
-  jobLookingStatus: undefined,
   hasDiploma: undefined,
   locationPreferences: undefined,
   locationExemptions: undefined,
   acceptedOperationalRequirements: undefined,
-  expectedSalary: undefined,
-  expectedClassifications: [],
   positionDuration: undefined,
 };
 

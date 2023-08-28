@@ -20,7 +20,6 @@ import {
   useGetMeQuery,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -130,7 +129,12 @@ export const ApplicationSelfDeclaration = ({
       signature: initialSignature ?? undefined,
     },
   });
-  const { watch, register, setValue } = methods;
+  const {
+    watch,
+    register,
+    setValue,
+    formState: { isSubmitting },
+  } = methods;
   const actionProps = register("action");
   const [isIndigenousValue, communitiesValue] = watch([
     "isIndigenous",
@@ -225,6 +229,7 @@ export const ApplicationSelfDeclaration = ({
                     type="submit"
                     mode="solid"
                     value="continue"
+                    disabled={isSubmitting}
                     {...actionProps}
                     onClick={() => {
                       setValue("action", "continue");
@@ -242,6 +247,7 @@ export const ApplicationSelfDeclaration = ({
                     mode="inline"
                     color="secondary"
                     value="cancel"
+                    disabled={isSubmitting}
                     {...actionProps}
                     onClick={() => {
                       setValue("action", "cancel");
@@ -281,6 +287,7 @@ export const ApplicationSelfDeclaration = ({
                     type="submit"
                     mode="solid"
                     value="explore"
+                    disabled={isSubmitting}
                     {...actionProps}
                     onClick={() => {
                       setValue("action", "explore");
@@ -355,11 +362,8 @@ const ApplicationSelfDeclarationPage = () => {
 
   const navigate = useNavigate();
   const { followingPageUrl } = useApplicationContext();
-  const { applicantDashboard } = useFeatureFlags();
   const [, executeMutation] = useUpdateUserAndApplicationMutation();
-  const cancelPath = applicantDashboard
-    ? paths.profileAndApplications({ fromIapDraft: true })
-    : paths.myProfile();
+  const cancelPath = paths.profileAndApplications({ fromIapDraft: true });
   const nextStep = followingPageUrl ?? cancelPath;
 
   const application = applicationData?.poolCandidate;

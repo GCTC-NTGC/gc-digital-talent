@@ -6,15 +6,17 @@ import { screen } from "@testing-library/react";
 import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
+
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import { PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
 
+import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import { PoolCandidateStatus } from "~/api/generated";
+
 import TrackApplicationsCard, {
   TrackApplicationsCardProps,
 } from "./TrackApplicationsCard";
@@ -73,7 +75,7 @@ describe("TrackApplicationsCard", () => {
     });
 
     const links = screen.queryAllByRole("link");
-    expect(links).toHaveLength(5);
+    expect(links).toHaveLength(4);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(mockApplication.id),
@@ -86,25 +88,19 @@ describe("TrackApplicationsCard", () => {
     );
     expect(links[1]).toHaveTextContent("Review job ad");
 
-    expect(links[2]).toHaveTextContent("Visit résumé");
+    expect(links[2]).toHaveTextContent("Manage recruitment");
     expect(links[2]).toHaveAttribute(
       "href",
       expect.stringContaining(PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES),
     );
-    expect(links[3]).toHaveTextContent("Manage availability");
-    expect(links[3]).toHaveAttribute(
-      "href",
-      expect.stringContaining("profile"),
-    );
 
-    expect(links[4]).toHaveTextContent("Get support");
-    expect(links[4]).toHaveAttribute(
+    expect(links[3]).toHaveTextContent("Get support");
+    expect(links[3]).toHaveAttribute(
       "href",
       expect.stringContaining("support"),
     );
-    const qualifiedLabel = screen.queryByText("Qualified");
-
-    expect(qualifiedLabel).toBeInTheDocument();
+    const hiredCasualLabel = screen.queryByText("Hired (Casual)");
+    expect(hiredCasualLabel).toBeInTheDocument();
   });
 
   it("should have proper label if the application is draft but the pool is expired", async () => {
@@ -116,7 +112,7 @@ describe("TrackApplicationsCard", () => {
         expiryDate: FAR_PAST_DATE,
       },
     });
-    const links = await screen.queryAllByRole("link");
+    const links = screen.queryAllByRole("link");
     expect(links).toHaveLength(3);
     const qualifiedLabel = screen.queryByText("Submission date passed");
 

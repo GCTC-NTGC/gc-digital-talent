@@ -4,10 +4,11 @@ import { useLocation } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLanguage } from "@gc-digital-talent/i18n";
+import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import { getLanguage, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Pending } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 import { FromArray } from "~/types/utility";
@@ -21,12 +22,13 @@ import {
   UserFilterInput,
   UserPaginator,
   useSelectedUsersQuery,
+  RoleAssignment,
 } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
 import TableFooter from "~/components/Table/ApiManagedTable/TableFooter";
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";
-import useTableState from "~/components/Table/ApiManagedTable/useTableState";
+import useTableState from "~/hooks/useTableState";
 import {
   ColumnsOf,
   SortingRule,
@@ -47,9 +49,10 @@ import {
   stringToEnumOperational,
 } from "~/utils/userUtils";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+import adminMessages from "~/messages/adminMessages";
+import tableCommaList from "~/components/Table/ClientManagedTable/tableCommaList";
 
 import useUserCsvData from "../hooks/useUserCsvData";
-
 import UserTableFilterDialog, {
   FormValues,
 } from "./UserTableFilterDialog/UserTableFilterDialog";
@@ -61,10 +64,6 @@ function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
-      expectedClassifications: data.classifications.map((classification) => {
-        const splitString = classification.split("-");
-        return { group: splitString[0], level: Number(splitString[1]) };
-      }),
       languageAbility: data.languageAbility[0]
         ? stringToEnumLanguage(data.languageAbility[0])
         : undefined,
@@ -91,6 +90,7 @@ function transformFormValuesToUserFilterInput(
       const poolString = pool;
       return { poolId: poolString };
     }),
+    roles: data.roles,
   };
 }
 
@@ -98,10 +98,6 @@ function transformUserFilterInputToFormValues(
   input: UserFilterInput | undefined,
 ): FormValues {
   return {
-    classifications:
-      input?.applicantFilter?.expectedClassifications
-        ?.filter(notEmpty)
-        .map((c) => `${c.group}-${c.level}`) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility
       ? [input?.applicantFilter?.languageAbility]
       : [],
@@ -124,6 +120,7 @@ function transformUserFilterInputToFormValues(
       input?.poolFilters
         ?.filter(notEmpty)
         .map((poolFilter) => poolFilter.poolId) ?? [],
+    roles: input?.roles?.filter(notEmpty) ?? [],
   };
 }
 
@@ -136,6 +133,32 @@ const languageAccessor = (
     {language ? intl.formatMessage(getLanguage(language as string)) : ""}
   </span>
 );
+
+const rolesAccessor = (
+  roleAssignments: RoleAssignment[] | null | undefined,
+  intl: IntlShape,
+) => {
+  if (roleAssignments && roleAssignments.length > 0) {
+    const roles = roleAssignments.map((roleAssignment) => roleAssignment.role);
+    const rolesFiltered = roles.filter(notEmpty);
+    // custom selection of roles of note for table viewing, most likely kept in sync with options in the filter dialog
+    const rolesToDisplay = rolesFiltered
+      .filter(
+        (role) =>
+          role.name === ROLE_NAME.PlatformAdmin ||
+          role.name === ROLE_NAME.PoolOperator ||
+          role.name === ROLE_NAME.RequestResponder,
+      )
+      .map((role) => getLocalizedName(role.displayName, intl));
+    const uniqueRolesToDisplay = uniqueItems(rolesToDisplay);
+
+    return tableCommaList({
+      list: uniqueRolesToDisplay,
+    });
+  }
+
+  return null;
+};
 
 const phoneAccessor = (telephone: string | null | undefined) => {
   if (telephone) {
@@ -188,6 +211,7 @@ const defaultState = {
     "preferredLanguage",
     "createdDate",
     "updatedDate",
+    "rolesAndPermissions",
   ],
   sortBy: {
     column: {
@@ -256,6 +280,7 @@ const UserTable = ({ title }: { title: string }) => {
       isGovEmployee: fancyFilterState?.isGovEmployee,
       isProfileComplete: fancyFilterState?.isProfileComplete,
       poolFilters: fancyFilterState?.poolFilters,
+      roles: fancyFilterState?.roles,
     };
   };
 
@@ -329,6 +354,11 @@ const UserTable = ({ title }: { title: string }) => {
           emailLinkAccessor(user.email ? user.email : "", intl),
         id: "email",
         sortColumnName: "email",
+      },
+      {
+        label: intl.formatMessage(adminMessages.rolesAndPermissions),
+        accessor: (user) => rolesAccessor(user.roleAssignments, intl),
+        id: "rolesAndPermissions",
       },
       {
         label: intl.formatMessage({

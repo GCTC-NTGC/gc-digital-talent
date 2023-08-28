@@ -3,11 +3,11 @@ import { useIntl } from "react-intl";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import { Alert, Link } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useLocale } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
+
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
@@ -45,7 +45,6 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
 const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const { locale } = useLocale();
-  const { applicantDashboard } = useFeatureFlags();
   const paths = useRoutes();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
@@ -99,6 +98,9 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
                   ? "https://www.tbs-sct.canada.ca/tbsf-fsct/330-60-eng.asp"
                   : "https://www.tbs-sct.canada.ca/tbsf-fsct/330-60-fra.asp"
               }
+              data-h2-display="base(inline-block)"
+              data-h2-text-align="base(left)"
+              data-h2-vertical-align="base(top)"
             >
               {intl.formatMessage({
                 defaultMessage: "Find and complete security clearance forms.",
@@ -110,7 +112,12 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           </li>
         )}
         <li data-h2-margin-bottom="base(x.25)">
-          <Link href={paths.myProfile()}>
+          <Link
+            href={paths.myProfile()}
+            data-h2-display="base(inline-block)"
+            data-h2-text-align="base(left)"
+            data-h2-vertical-align="base(top)"
+          >
             {intl.formatMessage({
               defaultMessage:
                 "Update profile and contact information to ensure you receive notifications.",
@@ -122,7 +129,12 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
         </li>
         {!isIAP && (
           <li data-h2-margin-bottom="base(x.25)">
-            <Link href={`${paths.browsePools()}#ongoingRecruitments`}>
+            <Link
+              href={`${paths.browsePools()}#ongoingRecruitments`}
+              data-h2-display="base(inline-block)"
+              data-h2-text-align="base(left)"
+              data-h2-vertical-align="base(top)"
+            >
               {intl.formatMessage({
                 defaultMessage:
                   "Submit an application to ongoing recruitment talent pools.",
@@ -134,22 +146,20 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           </li>
         )}
       </ul>
-      {applicantDashboard && (
-        <p data-h2-margin="base(x.5, 0)">
-          <Link
-            href={paths.profileAndApplications({ fromIapSuccess: isIAP })}
-            mode="solid"
-            color="primary"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Visit your Profile and applications page",
-              id: "26Qj2A",
-              description:
-                "Link text to navigate to the profile and applications page",
-            })}
-          </Link>
-        </p>
-      )}
+      <p data-h2-margin="base(x.5, 0)">
+        <Link
+          href={paths.profileAndApplications({ fromIapSuccess: isIAP })}
+          mode="solid"
+          color="primary"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Visit your Profile and applications page",
+            id: "26Qj2A",
+            description:
+              "Link text to navigate to the profile and applications page",
+          })}
+        </Link>
+      </p>
       <p data-h2-font-size="base(caption)">
         {intl.formatMessage({
           defaultMessage:

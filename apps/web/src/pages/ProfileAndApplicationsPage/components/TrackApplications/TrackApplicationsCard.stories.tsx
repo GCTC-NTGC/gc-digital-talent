@@ -5,8 +5,8 @@ import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { PoolCandidateStatus } from "~/api/generated";
+import { isExpired } from "~/utils/poolCandidate";
 
-import { isExpired } from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
 import TrackApplicationsCard from "./TrackApplicationsCard";
 
 type Story = ComponentStory<typeof TrackApplicationsCard>;

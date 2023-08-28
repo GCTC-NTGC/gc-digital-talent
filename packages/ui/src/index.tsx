@@ -5,9 +5,10 @@ import {
   IconProps,
   ButtonLinkMode,
 } from "./types";
-
 import Accordion from "./components/Accordion";
-import StandardAccordionHeader from "./components/Accordion/StandardHeader";
+import StandardAccordionHeader, {
+  StandardHeaderProps as StandardAccordionHeaderProps,
+} from "./components/Accordion/StandardHeader";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
@@ -70,13 +71,15 @@ import TableOfContents, {
   type TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
+  TocListItemProps,
+  TocListProps,
+  TocSidebarProps,
 } from "./components/TableOfContents";
 import Tabs from "./components/Tabs";
 import ToggleGroup from "./components/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
-
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 
 export type {
@@ -110,11 +113,15 @@ export type {
   SideMenuProps,
   SideMenuItemProps,
   SpoilerProps,
+  StandardAccordionHeaderProps,
   StepperProps,
   StepType,
   TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
+  TocListItemProps,
+  TocListProps,
+  TocSidebarProps,
   WellProps,
 };
 

@@ -11,8 +11,11 @@ import {
   HeadingRank,
 } from "@gc-digital-talent/ui";
 
-import { User, Pool } from "~/api/generated";
-import { getMissingLanguageRequirements } from "~/utils/languageUtils";
+import { Pool } from "~/api/generated";
+import {
+  getMissingLanguageRequirements,
+  PartialUser,
+} from "~/utils/languageUtils";
 
 interface MissingLanguageRequirementsBlockProps {
   pillType: { color: Color; mode: PillMode };
@@ -76,7 +79,7 @@ const MissingLanguageRequirementsBlock = ({
 };
 
 export interface MissingLanguageRequirementsProps {
-  user?: User;
+  user?: PartialUser;
   pool?: Pool | null;
   headingLevel?: HeadingRank;
 }

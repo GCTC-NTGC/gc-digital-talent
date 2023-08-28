@@ -6,6 +6,12 @@ import { defineMessages, MessageDescriptor } from "react-intl";
 
 export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
   {
+    "Internal server error": {
+      defaultMessage: "Unknown error",
+      id: "iqD8qE",
+      description: "Fallback text when an error message is not supplied",
+    },
+
     // users validation
     SubInUse: {
       defaultMessage:
@@ -19,6 +25,11 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "VqrVpT",
       description:
         "Error message that the given email address is already in use when updating.",
+    },
+    BothStatusNonStatus: {
+      // TODO replace with proper message
+      defaultMessage: "BothStatusNonStatus",
+      id: "ybzpGb",
     },
 
     // skill validation
@@ -63,6 +74,11 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description: "Error message that the application cannot be deleted.",
     },
 
+    ClosingDateRequired: {
+      defaultMessage: "You are missing a required field: Closing date",
+      id: "oCrAvX",
+      description: "Error message that the pool closing date is required.",
+    },
     "validator:closing_date.after": {
       defaultMessage: "Closing date must be after today.",
       id: "csLjMi",

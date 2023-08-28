@@ -1,7 +1,9 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
-import { widthOf, heightOf } from "storybook-helpers";
+
+import { widthOf, heightOf } from "@gc-digital-talent/storybook-helpers";
+
 import Error404 from "./ErrorPage";
 
 type Meta = ComponentMeta<typeof Error404>;

@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 
 import { Button } from "@gc-digital-talent/ui";
 import { getIndigenousCommunity } from "@gc-digital-talent/i18n";
@@ -7,7 +8,6 @@ import { getIndigenousCommunity } from "@gc-digital-talent/i18n";
 import { IndigenousCommunity } from "~/api/generated";
 import CommunityIcon from "~/components/Profile/components/DiversityEquityInclusion/CommunityIcon";
 
-import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import { IndigenousDialog } from "./dialogs";
 import { IndigenousDialogProps, IndigenousUpdateProps } from "./types";
 
@@ -21,12 +21,12 @@ interface EquityOptionProps {
   onSave: (data: IndigenousUpdateProps) => void;
   title: React.ReactNode;
   description?: React.ReactNode;
+  disabled?: boolean;
 }
 
-const dialogMap: Record<
-  EquityGroup,
-  (props: IndigenousDialogProps) => JSX.Element
-> = {
+type IndigenousDialogFunc = (props: IndigenousDialogProps) => JSX.Element;
+
+const dialogMap: Record<EquityGroup, IndigenousDialogFunc> = {
   indigenous: IndigenousDialog,
 };
 
@@ -37,6 +37,7 @@ const EquityOption = ({
   onSave,
   title,
   description,
+  disabled,
 }: EquityOptionProps) => {
   const intl = useIntl();
   const Dialog = dialogMap[option];
@@ -105,6 +106,7 @@ const EquityOption = ({
         indigenousCommunities={indigenousCommunities}
         signature={signature}
         onSave={onSave}
+        disabled={disabled}
       >
         <Button
           type="button"

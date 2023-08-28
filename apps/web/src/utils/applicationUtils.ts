@@ -1,24 +1,23 @@
 import { IntlShape } from "react-intl";
+import isPast from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { ApplicationStep, Maybe, PoolCandidate } from "~/api/generated";
 import { ApplicationStepInfo } from "~/types/applicationStep";
 import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
 import selfDeclarationStepInfo from "~/pages/Applications/selfDeclarationStep/selfDeclarationStepInfo";
-import resumeStepInfo from "~/pages/Applications/resumeStep/resumeStepInfo";
 import reviewStepInfo from "~/pages/Applications/reviewStep/reviewStepInfo";
 import questionsStepInfo from "~/pages/Applications/questionsStep/questionsStepInfo";
 import educationStepInfo from "~/pages/Applications/educationStep/educationStepInfo";
 import profileStepInfo from "~/pages/Applications/profileStep/profileStepInfo";
 import successPageInfo from "~/pages/Applications/successStep/successStepInfo";
 import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
-
 import { isIAPPool } from "~/utils/poolUtils";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import isPast from "date-fns/isPast";
+import careerTimelineStepInfo from "~/pages/Applications/careerTimelineStep/careerTimelineStepInfo";
 
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
@@ -39,7 +38,7 @@ export const getApplicationSteps = ({
     welcomeStepInfo,
     ...(isIAPPool(application.pool) ? [selfDeclarationStepInfo] : []),
     profileStepInfo,
-    resumeStepInfo,
+    careerTimelineStepInfo,
     educationStepInfo,
     skillsStepInfo,
     ...(application.pool.screeningQuestions?.length ? [questionsStepInfo] : []),
@@ -62,7 +61,7 @@ export const getApplicationSteps = ({
 };
 
 // Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
-export const missingPrerequisitesFromThisApplication = (
+const missingPrerequisitesFromThisApplication = (
   stepsInfosInApplication: Array<ApplicationStepInfo>,
   prerequisiteSteps: Maybe<Array<ApplicationStep>>,
   submittedSteps: Maybe<Array<ApplicationStep>>,

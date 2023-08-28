@@ -16,12 +16,12 @@ import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
-
 import managerHero from "~/assets/img/manager-hero.jpg";
 import managerProfileHero from "~/assets/img/manager-profile-hero.jpg";
 import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.jpg";
 import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.jpg";
 import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.jpg";
+import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 
 const HomePage = () => {
   const intl = useIntl();
@@ -144,7 +144,7 @@ const HomePage = () => {
             })}
             links={[
               {
-                href: `mailto:gctalent-talentgc@support-soutien.gc.ca?subject=${encodeURIComponent(
+                href: `mailto:${TALENTSEARCH_SUPPORT_EMAIL}?subject=${encodeURIComponent(
                   intl.formatMessage({
                     defaultMessage:
                       "I'm interested in running a recruitment process",
@@ -230,9 +230,9 @@ const HomePage = () => {
           {intl.formatMessage({
             defaultMessage:
               "Your profile is at the heart of the platform. Tell your story, show how you developed your skills, and use your profile to apply for jobs. Whether you’re hunting for a job now or just thinking about the future, a strong profile is your path to new opportunities.",
-            id: "aIgx1t",
+            id: "TJ+5Xn",
             description:
-              "Description of how application profiles work for managers.",
+              "Description of how application profiles works for managers/executives.",
           })}
         </p>
         <div
@@ -306,14 +306,14 @@ const HomePage = () => {
               ),
               link: {
                 external: true,
-                path: `mailto:gctalent-talentgc@support-soutien.gc.ca?subject=${encodeURIComponent(
+                path: `mailto:${TALENTSEARCH_SUPPORT_EMAIL}?subject=${encodeURIComponent(
                   intl.formatMessage({
                     defaultMessage:
                       "I'm interested in gaining hiring experience",
                     id: "2OTKDd",
                     description: "Subject for email to gain hiring experience",
                   }),
-                )}}`,
+                )}`,
                 label: intl.formatMessage({
                   defaultMessage:
                     "Contact us<hidden> about hiring experience</hidden>",
@@ -375,7 +375,7 @@ const HomePage = () => {
                 </p>
               ),
               link: {
-                path: "#", // TO DO: Update once we have a path for the executive home page (#6312)
+                path: paths.executive(),
                 label: intl.formatMessage({
                   defaultMessage:
                     "Learn more<hidden> about executive jobs</hidden>",

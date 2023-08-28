@@ -2,8 +2,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-console */
 const fs = require("fs");
-const yargs = require("yargs");
 const path = require("path");
+
+const yargs = require("yargs");
 const yaml = require("js-yaml");
 const stringify = require("json-stable-stringify"); // provides sorted output
 

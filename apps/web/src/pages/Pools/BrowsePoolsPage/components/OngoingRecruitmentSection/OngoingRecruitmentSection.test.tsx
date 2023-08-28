@@ -5,9 +5,12 @@ import React from "react";
 import "@testing-library/jest-dom";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
-import { screen, act, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
+
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+
 import { PoolStatus, Pool, PoolStream, PublishingGroup } from "~/api/generated";
+
 import OngoingRecruitmentSection, {
   OngoingRecruitmentSectionProps,
 } from "./OngoingRecruitmentSection";
@@ -39,12 +42,10 @@ const renderBrowsePoolsPage = ({ pools }: OngoingRecruitmentSectionProps) => {
 
 describe("BrowsePoolsPage", () => {
   it("should have no accessibility errors", async () => {
-    await act(async () => {
-      const { container } = renderBrowsePoolsPage({
-        pools: [publishedPool],
-      });
-      await axeTest(container);
+    const { container } = renderBrowsePoolsPage({
+      pools: [publishedPool],
     });
+    await axeTest(container);
   });
 
   // sort logic: by expiry date whichever one expires first should appear first on the list
@@ -70,13 +71,13 @@ describe("BrowsePoolsPage", () => {
     });
 
     fireEvent.click(
-      await screen.getByRole("button", {
+      screen.getByRole("button", {
         name: /business line advisory services/i,
       }),
     );
 
     // find the rendered links
-    const links = await screen.queryAllByRole("link", {
+    const links = screen.queryAllByRole("link", {
       name: /apply for technician opportunities/i,
     });
 

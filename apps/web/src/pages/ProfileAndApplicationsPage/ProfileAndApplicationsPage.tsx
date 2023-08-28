@@ -10,7 +10,6 @@ import profileMessages from "~/messages/profileMessages";
 
 import ProfileAndApplicationsHeading from "./components/ProfileAndApplicationsHeading";
 import TrackApplications from "./components/TrackApplications/TrackApplications";
-
 import { PartialUser } from "./types";
 
 interface ProfileAndApplicationsProps {

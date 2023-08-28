@@ -44,14 +44,14 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 
-import ApplicationStatusForm from "./components/ApplicationStatusForm";
-import ResumeSection from "./components/ResumeSection/ResumeSection";
 import SkillTree from "../../Applications/ApplicationSkillsPage/components/SkillTree";
 import PersonalInformationDisplay from "../../../components/Profile/components/PersonalInformation/Display";
 import DiversityEquityInclusionDisplay from "../../../components/Profile/components/DiversityEquityInclusion/Display";
 import GovernmentInformationDisplay from "../../../components/Profile/components/GovernmentInformation/Display";
 import LanguageProfileDisplay from "../../../components/Profile/components/LanguageProfile/Display";
 import WorkPreferencesDisplay from "../../../components/Profile/components/WorkPreferences/Display";
+import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
+import ApplicationStatusForm from "./components/ApplicationStatusForm";
 import AssetSkillsFiltered from "./components/ApplicationStatusForm/AssetSkillsFiltered";
 
 export interface ViewPoolCandidateProps {
@@ -138,12 +138,12 @@ export const ViewPoolCandidate = ({
         description: "Title for the screening questions snapshot section",
       }),
     },
-    resume: {
-      id: "resume",
+    careerTimeline: {
+      id: "career-timeline",
       title: intl.formatMessage({
-        defaultMessage: "Résumé",
-        id: "OxlRKl",
-        description: "Title for the résumé snapshot section",
+        defaultMessage: "Career timeline",
+        id: "2KM4iz",
+        description: "Title for the career timeline snapshot section",
       }),
     },
     personal: {
@@ -401,22 +401,24 @@ export const ViewPoolCandidate = ({
               </React.Fragment>
             ))}
         </TableOfContents.Section>
-        <TableOfContents.Section id={sections.resume.id}>
+        <TableOfContents.Section id={sections.careerTimeline.id}>
           <TableOfContents.Heading
             as="h4"
             size="h5"
             data-h2-margin="base(x2 0 x.5 0)"
           >
-            {sections.resume.title}
+            {sections.careerTimeline.title}
           </TableOfContents.Heading>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
-              defaultMessage: "The following is the applicant's résumé:",
-              id: "Nk/79O",
-              description: "Lead-in text for the snapshot résumé section",
+              defaultMessage:
+                "The following is the applicant's career timeline:",
+              id: "ghcC8V",
+              description:
+                "Lead-in text for the snapshot career timeline section",
             })}
           </p>
-          <ResumeSection experiences={nonEmptyExperiences ?? []} />
+          <CareerTimelineSection experiences={nonEmptyExperiences ?? []} />
         </TableOfContents.Section>
         <TableOfContents.Section id={sections.personal.id}>
           <TableOfContents.Heading
@@ -624,8 +626,8 @@ export const ViewPoolCandidate = ({
                   </TableOfContents.AnchorLink>
                 </TableOfContents.ListItem>
                 <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.resume.id}>
-                    {sections.resume.title}
+                  <TableOfContents.AnchorLink id={sections.careerTimeline.id}>
+                    {sections.careerTimeline.title}
                   </TableOfContents.AnchorLink>
                 </TableOfContents.ListItem>
                 <TableOfContents.ListItem>

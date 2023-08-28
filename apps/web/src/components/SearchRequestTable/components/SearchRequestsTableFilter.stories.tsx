@@ -1,7 +1,7 @@
 import React from "react";
-
 import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+
 import {
   fakeClassifications,
   fakeDepartments,

@@ -7,7 +7,6 @@ import {
   getEmploymentDuration,
   getLanguageAbility,
   getOperationalRequirement,
-  getEducationType,
   EmploymentDuration,
   OperationalRequirementV2,
   getEmploymentEquityGroup,
@@ -18,15 +17,20 @@ import {
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
   getPoolStream,
+  getPublishingGroup,
 } from "@gc-digital-talent/i18n";
-import { enumToOptions } from "@gc-digital-talent/forms";
+import {
+  enumToOptions,
+  enumToOptionsWorkRegionSorted,
+} from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import {
   PoolStream,
+  PublishingGroup,
   WorkRegion,
-  EducationType,
   LanguageAbility,
   PoolCandidateStatus,
   useGetFilterDataQuery,
@@ -39,9 +43,7 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-// TODO: Remove this toggle after data model settles.
-// See: https://www.figma.com/proto/XS4Ag6GWcgdq2dBlLzBkay?node-id=1064:5862#224617157
-export default function useFilterOptions(enableEducationType = false) {
+export default function useFilterOptions() {
   const intl = useIntl();
   const { locale } = useLocale();
   const [filterRes] = useGetFilterDataQuery({
@@ -61,6 +63,16 @@ export default function useFilterOptions(enableEducationType = false) {
   });
 
   const optionsData = {
+    publishingGroups: enumToOptions(PublishingGroup).map(({ value }) => ({
+      value,
+      label: intl.formatMessage(getPublishingGroup(value)),
+      ariaLabel: intl
+        .formatMessage(getPublishingGroup(value))
+        .replace(
+          intl.locale === "en" ? "IT" : "TI",
+          intl.locale === "en" ? "I T" : "T I",
+        ),
+    })),
     pools: filterRes.data?.pools.filter(notEmpty).map((pool) => ({
       value: pool.id,
       label: getFullPoolTitleLabel(intl, pool),
@@ -83,18 +95,10 @@ export default function useFilterOptions(enableEducationType = false) {
       value,
       label: intl.formatMessage(getOperationalRequirement(value, "short")),
     })),
-    workRegion: enumToOptions(WorkRegion).map(({ value }) => ({
+    workRegion: enumToOptionsWorkRegionSorted(WorkRegion).map(({ value }) => ({
       value,
       label: intl.formatMessage(getWorkRegion(value)),
     })),
-    ...(enableEducationType
-      ? {
-          educationType: enumToOptions(EducationType).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getEducationType(value)),
-          })),
-        }
-      : {}),
     // Not really an enum, but works fine.
     employmentDuration: enumToOptions(EmploymentDuration).map(({ value }) => ({
       value,
@@ -137,6 +141,21 @@ export default function useFilterOptions(enableEducationType = false) {
         label: intl.formatMessage(getCandidateSuspendedFilterStatus(value)),
       }),
     ),
+    roles: filterRes.data?.roles
+      ?.filter(notEmpty)
+      // custom selection of what options are desired in the input
+      .filter(
+        (role) =>
+          role?.name === ROLE_NAME.PlatformAdmin ||
+          role?.name === ROLE_NAME.PoolOperator ||
+          role?.name === ROLE_NAME.RequestResponder,
+      )
+      .map((role) => ({
+        value: role.id,
+        label:
+          (role?.displayName && role.displayName[locale]) ??
+          intl.formatMessage(commonMessages.nameNotLoaded),
+      })),
   };
 
   // Creates an object keyed with all fields, each with empty array.
@@ -150,6 +169,7 @@ export default function useFilterOptions(enableEducationType = false) {
       skills: filterRes,
       classifications: filterRes,
       pools: filterRes,
+      roles: filterRes,
     },
   };
 }

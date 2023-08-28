@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class Skill
@@ -23,6 +25,7 @@ class Skill extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use HasRelationships;
 
     protected $keyType = 'string';
 
@@ -49,70 +52,9 @@ class Skill extends Model
         return $this->belongsToMany(SkillFamily::class);
     }
 
-    public function awardExperiences()
+    public function userSkills(): HasMany
     {
-        return $this->morphedByMany(
-            AwardExperience::class,
-            'experience',
-            'experience_skill'
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experienceSkillRecord');
-    }
-    public function communityExperiences()
-    {
-        return $this->morphedByMany(
-            CommunityExperience::class,
-            'experience',
-            'experience_skill'
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experienceSkillRecord');
-    }
-    public function educationExperiences()
-    {
-        return $this->morphedByMany(
-            EducationExperience::class,
-            'experience',
-            'experience_skill'
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experience_skill');
-    }
-    public function personalExperiences()
-    {
-        return $this->morphedByMany(
-            PersonalExperience::class,
-            'experience',
-            'experience_skill'
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experienceSkillRecord');
-    }
-    public function workExperiences()
-    {
-        return $this->morphedByMany(
-            WorkExperience::class,
-            'experience',
-            'experience_skill'
-        )
-            ->withTimestamps()
-            ->withPivot('details')
-            ->as('experience_skill_pivot');
-    }
-    public function getExperiencesAttribute()
-    {
-        $collection = collect();
-        $collection = $collection->merge($this->awardExperiences);
-        $collection = $collection->merge($this->communityExperiences);
-        $collection = $collection->merge($this->educationExperiences);
-        $collection = $collection->merge($this->personalExperiences);
-        $collection = $collection->merge($this->workExperiences);
-        return $collection;
+        return $this->hasMany(UserSkill::class);
     }
 
     public function poolsEssentialSkills(): BelongsToMany

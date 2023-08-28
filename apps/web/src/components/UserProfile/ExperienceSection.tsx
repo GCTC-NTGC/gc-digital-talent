@@ -15,11 +15,11 @@ import {
 } from "~/utils/experienceUtils";
 import { AwardExperience, Experience } from "~/api/generated";
 
+import ExperienceCard from "../ExperienceCard/ExperienceCard";
 import SkillAccordion from "./SkillAccordion/SkillAccordion";
 import ExperienceByTypeListing from "./ExperienceByTypeListing";
-import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
-export interface ExperienceSectionProps {
+interface ExperienceSectionProps {
   experiences?: Experience[];
   editParam?: string;
   editPath?: string;
@@ -162,15 +162,17 @@ const ExperienceSection = ({
         />
       </Tabs.Content>
       <Tabs.Content value="2">
-        <Accordion.Root type="multiple">
-          {sortedBySkills.map((skill) => (
-            <SkillAccordion
-              key={skill.id}
-              skill={skill}
-              headingLevel={headingLevel}
-            />
-          ))}
-        </Accordion.Root>
+        {sortedBySkills.length ? (
+          <Accordion.Root type="multiple">
+            {sortedBySkills.map((skill) => (
+              <SkillAccordion
+                key={skill.id}
+                skill={skill}
+                headingLevel={headingLevel}
+              />
+            ))}
+          </Accordion.Root>
+        ) : null}
       </Tabs.Content>
     </Tabs.Root>
   ) : (

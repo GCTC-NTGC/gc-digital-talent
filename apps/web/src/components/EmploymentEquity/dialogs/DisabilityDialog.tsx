@@ -4,14 +4,12 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 
 import { Dialog } from "@gc-digital-talent/ui";
 import { Checklist } from "@gc-digital-talent/forms";
-
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
 } from "@gc-digital-talent/i18n";
 
 import type { EquityDialogProps } from "../types";
-
 import Definition from "./Definition";
 import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
@@ -20,7 +18,12 @@ interface FormValues {
   hasDisability: boolean;
 }
 
-const DisabilityDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
+const DisabilityDialog = ({
+  isAdded,
+  onSave,
+  children,
+  disabled,
+}: EquityDialogProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -92,7 +95,7 @@ const DisabilityDialog = ({ isAdded, onSave, children }: EquityDialogProps) => {
                 />
               </div>
               <Dialog.Footer>
-                <DialogFooter />
+                <DialogFooter disabled={disabled} />
               </Dialog.Footer>
             </form>
           </FormProvider>

@@ -3,10 +3,8 @@ import richTextElements from "./components/richTextElements";
 import LanguageProvider from "./components/LanguageProvider";
 import LocaleProvider from "./components/LocaleProvider";
 import NestedLanguageProvider from "./components/NestedLanguageProvider";
-
 import useIntlLanguages from "./hooks/useIntlMessages";
 import useLocale from "./hooks/useLocale";
-
 import {
   isLocale,
   getLocale,
@@ -17,9 +15,7 @@ import {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
-  withLocalizedQuotes,
 } from "./utils/localize";
-
 import {
   apiMessages,
   commonMessages,
@@ -30,12 +26,10 @@ import {
   uiMessages,
   formMessages,
 } from "./messages";
-
 import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
   getLanguageProficiency,
-  getSalaryRange,
   getLanguage,
   getCitizenshipStatusesProfile,
   getCitizenshipStatusesAdmin,
@@ -51,8 +45,8 @@ import {
   getWorkRegion,
   getPoolCandidateStatus,
   getPoolCandidateSearchStatus,
+  getPoolCandidateSearchPositionType,
   getSkillCategory,
-  getRole,
   getGenericJobTitles,
   getGenericJobTitlesWithClassification,
   getAwardedTo,
@@ -60,7 +54,6 @@ import {
   getEducationStatus,
   getEducationType,
   getOperationalRequirement,
-  getJobLookingStatus,
   getProvinceOrTerritory,
   getPoolStream,
   getGovEmployeeType,
@@ -78,9 +71,7 @@ import {
   poolCandidatePriorities,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
-  getPoolCandidateStatusLabel,
 } from "./messages/localizedConstants";
-
 import { STORED_LOCALE } from "./const";
 import type { Locales, Messages } from "./types";
 
@@ -95,7 +86,6 @@ export {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
-  withLocalizedQuotes,
   STORED_LOCALE,
   apiMessages,
   commonMessages,
@@ -116,7 +106,6 @@ export {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
   getLanguageProficiency,
-  getSalaryRange,
   getLanguage,
   getCitizenshipStatusesProfile,
   getCitizenshipStatusesAdmin,
@@ -132,8 +121,8 @@ export {
   getWorkRegion,
   getPoolCandidateStatus,
   getPoolCandidateSearchStatus,
+  getPoolCandidateSearchPositionType,
   getSkillCategory,
-  getRole,
   getGenericJobTitles,
   getGenericJobTitlesWithClassification,
   getAwardedTo,
@@ -141,7 +130,6 @@ export {
   getEducationStatus,
   getEducationType,
   getOperationalRequirement,
-  getJobLookingStatus,
   getProvinceOrTerritory,
   getPoolStream,
   getGovEmployeeType,
@@ -159,7 +147,6 @@ export {
   getAbbreviations,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
-  getPoolCandidateStatusLabel,
 };
 
 export type { Locales, Messages };

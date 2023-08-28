@@ -16,32 +16,11 @@ const TalentRedirect = () => {
     if (user) {
       const { id } = user;
       let profilePath = paths.profile(id);
-      if (pathname.includes("about-me")) {
-        profilePath = paths.aboutMe(id);
-      }
       if (pathname.includes("create-account")) {
         profilePath = paths.createAccount();
       }
-      if (pathname.includes("language-information")) {
-        profilePath = paths.languageInformation(id);
-      }
-      if (pathname.includes("government-information")) {
-        profilePath = paths.governmentInformation(id);
-      }
-      if (pathname.includes("role-salary")) {
-        profilePath = paths.roleSalary(id);
-      }
-      if (pathname.includes("work-location")) {
-        profilePath = paths.workLocation(id);
-      }
-      if (pathname.includes("work-preferences")) {
-        profilePath = paths.workPreferences(id);
-      }
-      if (pathname.includes("diversity-and-inclusion")) {
-        profilePath = paths.diversityEquityInclusion(id);
-      }
-      if (pathname.includes("resume-and-recruitment")) {
-        profilePath = paths.resumeAndRecruitment(id);
+      if (pathname.includes("career-timeline-and-recruitment")) {
+        profilePath = paths.careerTimelineAndRecruitment(id);
 
         if (pathname.includes("create")) {
           if (pathname.includes("award")) {

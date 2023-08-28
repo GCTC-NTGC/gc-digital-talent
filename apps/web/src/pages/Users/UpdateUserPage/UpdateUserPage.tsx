@@ -6,18 +6,11 @@ import { OperationContext } from "urql";
 import pick from "lodash/pick";
 
 import { toast } from "@gc-digital-talent/toast";
-import {
-  Select,
-  Submit,
-  Input,
-  enumToOptions,
-  MultiSelectField,
-} from "@gc-digital-talent/forms";
+import { Select, Submit, Input, enumToOptions } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   commonMessages,
   getLanguage,
-  getRole,
 } from "@gc-digital-talent/i18n";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
@@ -25,7 +18,6 @@ import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
 import {
   useListRolesQuery,
   Language,
-  LegacyRole,
   Scalars,
   UpdateUserAsAdminInput,
   UpdateUserAsAdminMutation,
@@ -33,22 +25,20 @@ import {
   useUpdateUserAsAdminMutation,
   useUserQuery,
 } from "~/api/generated";
-
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { getFullNameLabel } from "~/utils/nameUtils";
-
 import adminMessages from "~/messages/adminMessages";
+
 import UserRoleTable from "./components/IndividualRoleTable";
-import { TeamRoleTable } from "./components/TeamRoleTable";
+import TeamRoleTable from "./components/TeamRoleTable";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
   | "email"
   | "firstName"
   | "lastName"
-  | "legacyRoles"
   | "preferredLang"
   | "preferredLanguageForInterview"
   | "preferredLanguageForExam"
@@ -248,36 +238,10 @@ export const UpdateUserForm = ({
             name="sub"
             context={intl.formatMessage({
               defaultMessage:
-                "The 'subject' is a string that uniquely identifies a user's login identity.",
-              id: "I8v/Uy",
+                "The 'subject' is a string that uniquely identifies a user's sign in identity.",
+              id: "WLcP98",
               description:
                 "Additional context describing the purpose of the users's 'subject' field.",
-            })}
-          />
-          <MultiSelectField
-            id="legacyRoles"
-            name="legacyRoles"
-            label={intl.formatMessage({
-              defaultMessage: "Roles",
-              id: "kwNyl6",
-              description: "Label displayed on the user form roles field.",
-            })}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Select zero or more roles",
-              id: "SQqD4j",
-              description:
-                "Placeholder displayed on the user form roles field.",
-            })}
-            options={enumToOptions(LegacyRole).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getRole(value)),
-            }))}
-            context={intl.formatMessage({
-              defaultMessage:
-                "The roles grant additional functionality to a user's login.",
-              id: "Z6sh9j",
-              description:
-                "Additional context describing the purpose of the users's 'role' field.",
             })}
           />
           <div data-h2-align-self="base(flex-start)">
@@ -329,7 +293,6 @@ const UpdateUserPage = () => {
           "preferredLanguageForInterview",
           "preferredLanguageForExam",
           "sub",
-          "legacyRoles",
           "roleAssignmentsInput",
         ]),
       },
@@ -339,7 +302,6 @@ const UpdateUserPage = () => {
       }
       return Promise.reject(result.error);
     });
-
   const availableRoles = rolesData?.roles.filter(notEmpty);
 
   const navigationCrumbs = [
@@ -398,12 +360,7 @@ const UpdateUserPage = () => {
               handleUpdateUser={handleUpdateUser}
             />
             <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
-              {intl.formatMessage({
-                defaultMessage: "Roles and permissions",
-                id: "m54J0C",
-                description:
-                  "Heading for updating a users roles and permissions",
-              })}
+              {intl.formatMessage(adminMessages.rolesAndPermissions)}
             </Heading>
             <UserRoleTable
               user={userData.user}

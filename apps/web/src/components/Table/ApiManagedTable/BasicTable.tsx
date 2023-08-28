@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 
 import SortIcon from "../ClientManagedTable/SortIcon";
+import tableMessages from "../tableMessages";
 import {
   Column,
   ColumnsOf,
@@ -9,9 +10,8 @@ import {
   RecordWithId,
   SortingRule,
 } from "./helpers";
-import tableMessages from "../tableMessages";
 
-export interface BasicTableProps<T extends RecordWithId = RecordWithId> {
+interface BasicTableProps<T extends RecordWithId = RecordWithId> {
   columns: ColumnsOf<T>;
   data: Array<T>;
   labelledBy?: string;
@@ -113,7 +113,7 @@ function BasicTable<T extends RecordWithId>({
                 return (
                   <th
                     key={column.id}
-                    data-h2-background-color="base(black.9)"
+                    data-h2-background-color="base(black)"
                     data-h2-padding="base(x.5, x1, x.5, x.5)"
                     role="columnheader"
                     {...calculateTableHeaderProps(column)}

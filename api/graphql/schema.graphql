@@ -30,17 +30,9 @@ enum Language {
   FR @enum(value: "fr")
 }
 
-enum LegacyRole {
-  "A user who has administrator privileges"
-  ADMIN
-  "A user who has a profile to apply to hiring pools"
-  APPLICANT
-}
-
 type User {
   id: ID!
   sub: String
-  legacyRoles: [LegacyRole] @rename(attribute: "legacy_roles")
   createdDate: DateTime @rename(attribute: "created_at")
   updatedDate: DateTime @rename(attribute: "updated_at")
 
@@ -63,7 +55,7 @@ type User {
   languageAbility: LanguageAbility
     @rename(attribute: "language_ability")
     @deprecated(
-      reason: "deprecated in favour of relying on lookingFor<Language>"
+      reason: "languageAbility is deprecated. Use lookingFor<Language> instead. Remove in #7661."
     )
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
@@ -90,7 +82,9 @@ type User {
   hasDisability: Boolean @rename(attribute: "has_disability")
   isIndigenous: Boolean
     @rename(attribute: "is_indigenous")
-    @deprecated(reason: "replaced by indigenousCommunities")
+    @deprecated(
+      reason: "isIndigenous is deprecated. Use indigenousCommunities instead. Remove in #7662."
+    )
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
   indigenousCommunities: [IndigenousCommunity]
     @rename(attribute: "indigenous_communities")
@@ -98,19 +92,24 @@ type User {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  jobLookingStatus: JobLookingStatus
-    @rename(attribute: "job_looking_status")
-    @deprecated(reason: "Removing with applicantDashboard feature flag")
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-  expectedClassifications: [Classification] @belongsToMany
+  expectedSalary: [SalaryRange]
+    @rename(attribute: "expected_salary")
+    @deprecated(reason: "expectedSalary is deprecated. Remove in #6226.")
+  expectedClassifications: [Classification]
+    @belongsToMany
+    @deprecated(
+      reason: "expectedClassifications is deprecated. Remove in #6226."
+    )
   wouldAcceptTemporary: Boolean
     @rename(attribute: "would_accept_temporary")
-    @deprecated(reason: "replaced with positionDuration")
+    @deprecated(
+      reason: "wouldAcceptTemporary is deprecated. use positionDuration instead. Remove in #7663."
+    )
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Pool info
@@ -129,16 +128,22 @@ type User {
   educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
   personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
+  # Skill Library
+  userSkills: [UserSkill!] @hasMany
   # Pool Manager info
   pools: [Pool]
     @hasMany
     @can(ability: "view", resolved: true)
     @deprecated(
-      reason: "Pools are now associated with a Team more than a single User. Use User.roles.team.pools instead."
+      reason: "pools is deprecated. user.roles.team.pools instead. Remove in #7664."
     ) # Pools a user owns
   # Profile Status
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
+  expectedGenericJobTitles: [GenericJobTitle]
+    @belongsToMany
+    @deprecated(
+      reason: "expectedGenericJobTitles is deprecated. Remove in #7645."
+    )
   priorityWeight: Int @rename(attribute: "priority_weight")
   # teams and roles
   roleAssignments: [RoleAssignment!] @hasMany
@@ -184,12 +189,6 @@ enum EstimatedLanguageAbility {
   BEGINNER
   INTERMEDIATE
   ADVANCED
-}
-
-enum JobLookingStatus {
-  ACTIVELY_LOOKING
-  OPEN_TO_OPPORTUNITIES
-  INACTIVE
 }
 
 enum GovEmployeeType {
@@ -272,6 +271,7 @@ type Pool {
     @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
+  whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
   isRemote: Boolean @rename(attribute: "is_remote")
   location: LocalizedString @rename(attribute: "advertisement_location")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -289,9 +289,11 @@ type Pool {
     @orderBy(column: "sort_order", direction: ASC)
   closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
+  archivedAt: DateTime @rename(attribute: "archived_at")
 }
 
 enum PoolStream {
+  ACCESS_INFORMATION_PRIVACY
   BUSINESS_ADVISORY_SERVICES
   DATABASE_MANAGEMENT
   ENTERPRISE_ARCHITECTURE
@@ -317,6 +319,8 @@ enum PoolCandidateStatus {
   APPLICATION_REVIEW
   SCREENED_IN
   SCREENED_OUT_APPLICATION
+  SCREENED_OUT_NOT_INTERESTED
+  SCREENED_OUT_NOT_RESPONSIVE
   UNDER_ASSESSMENT
   SCREENED_OUT_ASSESSMENT
   QUALIFIED_AVAILABLE
@@ -355,7 +359,7 @@ enum ApplicationStep {
   WELCOME
   SELF_DECLARATION
   REVIEW_YOUR_PROFILE
-  REVIEW_YOUR_RESUME
+  REVIEW_YOUR_RESUME # this is the career timeline.
   EDUCATION_REQUIREMENTS
   SKILL_REQUIREMENTS
   SCREENING_QUESTIONS
@@ -524,6 +528,11 @@ enum PoolCandidateSearchStatus {
   DONE
 }
 
+enum PoolCandidateSearchPositionType {
+  INDIVIDUAL_CONTRIBUTOR
+  TEAM_LEAD
+}
+
 # equity selections goes with the pool/applicant filters and not user model
 type EquitySelections {
   isWoman: Boolean @rename(attribute: "is_woman")
@@ -562,10 +571,10 @@ type ApplicantFilter {
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   wouldAcceptTemporary: Boolean
     @rename(attribute: "would_accept_temporary")
-    @deprecated(reason: "replaced with positionDuration")
+    @deprecated(
+      reason: "wouldAcceptTemporary is deprecated. Use positionDuration instead. Remove in #7665."
+    )
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  expectedClassifications: [Classification]  # Filters applicants based on the classifications they've expressed interest in.
-    @belongsToMany(relation: "classifications")
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
@@ -587,6 +596,9 @@ type PoolCandidateSearchRequest {
   poolCandidateFilter: PoolCandidateFilter @belongsTo
   applicantFilter: ApplicantFilter @belongsTo
   wasEmpty: Boolean @rename(attribute: "was_empty")
+  managerJobTitle: String @rename(attribute: "manager_job_title")
+  positionType: PoolCandidateSearchPositionType
+    @rename(attribute: "position_type")
 }
 
 enum SkillCategory {
@@ -611,16 +623,42 @@ type Skill {
   keywords: SkillKeywords
   families: [SkillFamily!] @belongsToMany
 
+  # ExperienceSkillRecord is the pivot data and may only be queried when Skill is nested in an Experience (eg. experience->skill->experienceSkillRecord). Querying for it otherwise will just return null.
+  experienceSkillRecord: ExperienceSkillRecord
+    @rename(attribute: "experience_skill")
+}
+
+type UserSkill {
+  id: ID!
+  user: User! @belongsTo @can(ability: "view", resolved: true)
+  skill: Skill! @belongsTo
+  skillLevel: SkillLevel @rename(attribute: "skill_level")
+  whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
+
   # Experiences
   experiences: [Experience!]
+    @with(relation: "awardExperiences")
+    @with(relation: "communityExperiences")
+    @with(relation: "educationExperiences")
+    @with(relation: "personalExperiences")
+    @with(relation: "workExperiences") # All experiences that a user owns
   awardExperiences: [AwardExperience!] @hasMany
   communityExperiences: [CommunityExperience!] @hasMany
   educationExperiences: [EducationExperience!] @hasMany
   personalExperiences: [PersonalExperience!] @hasMany
   workExperiences: [WorkExperience!] @hasMany
-  # ExperienceSkillRecord is the pivot data and may only be queried when Skill is nested in an Experience (eg. experience->skill->experienceSkillRecord). Querying for it otherwise will just return null.
-  experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+}
+
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  EXPERT
+  LEAD
+}
+
+enum WhenSkillUsed {
+  CURRENT
+  PAST
 }
 
 type SkillKeywords {
@@ -669,7 +707,7 @@ interface Experience {
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+    @rename(attribute: "experience_skill")
 }
 
 type WorkExperience implements Experience {
@@ -684,7 +722,7 @@ type WorkExperience implements Experience {
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+    @rename(attribute: "experience_skill")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -697,7 +735,7 @@ type PersonalExperience implements Experience {
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+    @rename(attribute: "experience_skill")
 }
 type CommunityExperience implements Experience {
   id: ID!
@@ -711,7 +749,7 @@ type CommunityExperience implements Experience {
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
   experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+    @rename(attribute: "experience_skill")
 }
 type EducationExperience implements Experience {
   id: ID!
@@ -727,7 +765,7 @@ type EducationExperience implements Experience {
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+    @rename(attribute: "experience_skill")
 }
 type AwardExperience implements Experience {
   id: ID!
@@ -741,7 +779,7 @@ type AwardExperience implements Experience {
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
-    @rename(attribute: "experience_skill_pivot")
+    @rename(attribute: "experience_skill")
 }
 
 type ExperienceSkillRecord {
@@ -783,20 +821,18 @@ input UserPoolFilterInput {
 input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
   poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
-  jobLookingStatus: [JobLookingStatus]
   isProfileComplete: Boolean @scope
   isGovEmployee: Boolean @scope
   telephone: String @scope
   email: String @scope
   name: String @scope
   generalSearch: String @scope
+  roles: [ID] @scope(name: "roleAssignments")
 }
 
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
-  expectedClassifications: [ClassificationFilterInput]  # Filters applicants based on the classifications they've expressed interest in.
-    @scope(name: "expectedClassifications")
   hasDiploma: Boolean @scope
   languageAbility: LanguageAbility @scope
   locationPreferences: [WorkRegion] @scope
@@ -822,6 +858,7 @@ input PoolCandidateSearchInput {
     @scope(name: "poolCandidateStatuses")
   expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
   suspendedStatus: CandidateSuspendedFilter @scope(name: "suspendedStatus")
+  publishingGroups: [PublishingGroup] @scope(name: "publishingGroups") # Filters applicants based on the publishing group of the pool
 }
 
 input PoolCandidateSearchRequestInput {
@@ -845,7 +882,13 @@ type CandidateSearchPoolResult {
 type Query {
   me: User @auth
   user(id: UUID! @eq): User @find @guard @can(ability: "view", query: true)
-  users: [User]! @all @guard @can(ability: "viewAny")
+  users: [User]!
+    @all
+    @guard
+    @can(ability: "viewAny")
+    @deprecated(
+      reason: "users is deprecated. Use usersPaginated instead. Remove in #7660."
+    )
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -858,26 +901,30 @@ type Query {
     @find(model: "User")
     @guard
     @can(ability: "view", query: true, model: "User")
-    @deprecated(reason: "Removing in favour of user query")
+    @deprecated(
+      reason: "applicant is deprecated. Use user instead. Remove in #7651."
+    )
   applicants(includeIds: [ID]! @in(key: "id")): [User]!
     @all(model: "User")
     @guard
     @can(ability: "viewAny", model: "User")
-    @deprecated(reason: "Removing in favour of users query")
+    @deprecated(
+      reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652."
+    )
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
-  countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
+  countApplicants(where: ApplicantFilterInput): Int!
+    @count(model: "User", scopes: ["inITPublishingGroup"])
   pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
-  pools: [Pool]! @all @can(ability: "viewAny", model: "Pool")
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
     publishingGroup: PublishingGroup
       @where(key: "publishing_group", operator: "=")
   ): [Pool!]!
-    @all(scopes: ["wasPublished"])
+    @all(scopes: ["wasPublished", "notArchived"])
     @can(ability: "viewAnyPublished", model: "Pool")
   poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
   pools: [Pool]!
-    @all(scopes: ["authorizedToView"])
+    @all(scopes: ["authorizedToView", "notArchived"])
     @can(ability: "view", resolved: true)
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
@@ -887,6 +934,9 @@ type Query {
     @all(scopes: ["notDraft"])
     @guard
     @can(ability: "view", resolved: true)
+    @deprecated(
+      reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656."
+    )
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderBy: _
@@ -896,7 +946,6 @@ type Query {
             relation: "user"
             columns: [
               "priority_weight"
-              "job_looking_status"
               "first_name"
               "email"
               "preferred_lang"
@@ -930,7 +979,7 @@ type Query {
     @guard
     @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @deprecated(
-      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+      reason: "poolCandidateFilter is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7657."
     )
   poolCandidateFilters: [PoolCandidateFilter]!
     @all
@@ -938,14 +987,14 @@ type Query {
     @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @throttle(name: "graphql")
     @deprecated(
-      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+      reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658."
     )
   applicantFilter(id: ID! @eq): ApplicantFilter
     @find
     @guard
     @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @deprecated(
-      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+      reason: "applicantFilter is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7653."
     )
   applicantFilters: [ApplicantFilter]!
     @all
@@ -953,7 +1002,7 @@ type Query {
     @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
     @throttle(name: "graphql")
     @deprecated(
-      reason: "This should only be queried as part of a PoolCandidateSearchRequest."
+      reason: "applicantFilters is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7654."
     )
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
@@ -964,6 +1013,9 @@ type Query {
     @guard
     @can(ability: "viewAny")
     @orderBy(column: "created_at", direction: DESC)
+    @deprecated(
+      reason: "poolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead. Remove in #7659."
+    )
   latestPoolCandidateSearchRequests(
     limit: Int @limit
   ): [PoolCandidateSearchRequest]!
@@ -972,7 +1024,7 @@ type Query {
     @guard
     @can(ability: "viewAny")
     @deprecated(
-      reason: "Use poolCandidateSearchRequests instead, with a specified limit"
+      reason: "latestPoolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead. Remove in #7655."
     )
   poolCandidateSearchRequestsPaginated(
     where: PoolCandidateSearchRequestInput
@@ -1009,7 +1061,6 @@ input CreateUserInput {
       apply: ["sometimes", "unique:users,sub"]
       messages: [{ rule: "unique", message: "CreateUserSubInUse" }]
     )
-  legacyRoles: [LegacyRole] = [] @rename(attribute: "legacy_roles")
 
   # Personal info
   firstName: String! @rename(attribute: "first_name")
@@ -1062,15 +1113,11 @@ input CreateUserInput {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-  expectedClassifications: ClassificationBelongsToMany
-  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Experiences
@@ -1087,7 +1134,6 @@ input UpdateUserAsAdminInput
   @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
   id: ID
   sub: String
-  legacyRoles: [LegacyRole] @rename(attribute: "legacy_roles")
 
   # Personal info
   email: Email @lowerCase
@@ -1135,16 +1181,11 @@ input UpdateUserAsAdminInput
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
-
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-  expectedClassifications: ClassificationBelongsToMany
-  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Experiences
@@ -1206,16 +1247,11 @@ input UpdateUserAsUserInput
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
-
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-  expectedClassifications: ClassificationBelongsToMany
-  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Experiences
@@ -1331,8 +1367,6 @@ input CreateApplicantFilterInput {
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  expectedClassifications: ClassificationBelongsToMany
-    @rename(attribute: "classifications")
   skills: SkillBelongsToMany
   pools: PoolBelongsToMany
   citizenship: CitizenshipStatus
@@ -1352,19 +1386,26 @@ input CreatePoolCandidateSearchRequestInput {
   jobTitle: String! @rename(attribute: "job_title")
   additionalComments: String @rename(attribute: "additional_comments")
   applicantFilter: ApplicantFilterBelongsTo!
-  # requestedDate will be set to current date in Eloquent model.
-  # status will be set to PENDING in Eloquent model.
+  # status will be set to NEW by default in Postgres
   wasEmpty: Boolean @rename(attribute: "was_empty")
+  managerJobTitle: String! @rename(attribute: "manager_job_title")
+  positionType: PoolCandidateSearchPositionType!
+    @rename(attribute: "position_type")
 }
 
 input UpdatePoolCandidateSearchRequestInput {
   adminNotes: String @rename(attribute: "admin_notes")
   status: PoolCandidateSearchStatus
+  # statusChangedAt updated in the Eloquent model
 }
 
 input SkillBelongsToMany {
   sync: [ID!]
 }
+input SkillBelongsTo {
+  connect: ID!
+}
+
 input CreateSkillFamilyInput {
   key: KeyString!
     @rules(
@@ -1415,7 +1456,7 @@ input WorkExperienceInput {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 input PersonalExperienceInput {
   title: String
@@ -1423,7 +1464,7 @@ input PersonalExperienceInput {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 input CommunityExperienceInput {
   title: String
@@ -1432,7 +1473,7 @@ input CommunityExperienceInput {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 input EducationExperienceInput {
   institution: String
@@ -1443,7 +1484,7 @@ input EducationExperienceInput {
   type: EducationType
   status: EducationStatus
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 input AwardExperienceInput {
   title: String
@@ -1452,18 +1493,28 @@ input AwardExperienceInput {
   awardedTo: AwardedTo @rename(attribute: "awarded_to")
   awardedScope: AwardedScope @rename(attribute: "awarded_scope")
   details: String
-  skills: UpdateExperienceSkills
+  skills: UpdateExperienceSkills @spread
 }
 
 input UpdateExperienceSkills {
-  connect: [ConnectExperienceSkills!]
-  disconnect: [ID!]
-  sync: [ConnectExperienceSkills!]
+  connect: [ConnectExperienceSkills!] @resolveWith(method: "connectSkills")
+  disconnect: [ID!] @resolveWith(method: "disconnectSkills")
+  sync: [ConnectExperienceSkills!] @resolveWith(method: "syncSkills")
 }
 
 input ConnectExperienceSkills {
   id: ID!
   details: String
+}
+
+input CreateUserSkillInput {
+  skillLevel: SkillLevel @rename(attribute: "skill_level")
+  whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
+}
+
+input UpdateUserSkillInput {
+  skillLevel: SkillLevel @rename(attribute: "skill_level")
+  whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
 }
 
 input WorkExperienceHasMany {
@@ -1523,6 +1574,8 @@ input UpdatePoolInput {
   yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
   # Work Tasks
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
+  # What to expect
+  whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
   # Essential skills and Asset skills
   essentialSkills: SkillBelongsToMany
   nonessentialSkills: SkillBelongsToMany
@@ -1598,8 +1651,8 @@ type Mutation {
     @update
     @guard
     @can(ability: "update", find: "id", injectArgs: true)
-  deleteUser(id: ID!): User
-    @delete(globalId: false)
+  deleteUser(id: ID! @whereKey): User
+    @delete
     @guard
     @can(ability: "delete", find: "id")
   createPoolCandidateAsAdmin(
@@ -1613,8 +1666,8 @@ type Mutation {
     id: ID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate @update @guard @can(ability: "updateAsAdmin", find: "id")
-  deletePoolCandidate(id: ID!): PoolCandidate
-    @delete(globalId: false)
+  deletePoolCandidate(id: ID! @whereKey): PoolCandidate
+    @delete
     @guard
     @can(ability: "delete", find: "id")
   createClassification(
@@ -1624,8 +1677,8 @@ type Mutation {
     id: ID!
     classification: UpdateClassificationInput! @spread
   ): Classification @update @guard @can(ability: "update", find: "id")
-  deleteClassification(id: ID!): Classification
-    @delete(globalId: false)
+  deleteClassification(id: ID! @whereKey): Classification
+    @delete
     @guard
     @can(ability: "delete", find: "id")
   createDepartment(department: CreateDepartmentInput! @spread): Department
@@ -1636,8 +1689,8 @@ type Mutation {
     id: ID!
     department: UpdateDepartmentInput! @spread
   ): Department @update @can(ability: "update", find: "id")
-  deleteDepartment(id: ID!): Department
-    @delete(globalId: false)
+  deleteDepartment(id: ID! @whereKey): Department
+    @delete
     @guard
     @can(ability: "delete", find: "id")
 
@@ -1652,8 +1705,10 @@ type Mutation {
     @update
     @guard
     @can(ability: "update", find: "id")
-  deletePoolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
-    @delete(globalId: false)
+  deletePoolCandidateSearchRequest(
+    id: ID! @whereKey
+  ): PoolCandidateSearchRequest
+    @delete
     @guard
     @can(ability: "delete", find: "id")
 
@@ -1713,24 +1768,24 @@ type Mutation {
     id: ID!
     awardExperience: AwardExperienceInput! @spread
   ): AwardExperience @update @guard @can(ability: "update", find: "id")
-  deleteWorkExperience(id: ID!): WorkExperience
-    @delete(globalId: false)
+  deleteWorkExperience(id: ID! @whereKey): WorkExperience
+    @delete
     @guard
     @can(ability: "delete", find: "id")
-  deletePersonalExperience(id: ID!): PersonalExperience
-    @delete(globalId: false)
+  deletePersonalExperience(id: ID! @whereKey): PersonalExperience
+    @delete
     @guard
     @can(ability: "delete", find: "id")
-  deleteCommunityExperience(id: ID!): CommunityExperience
-    @delete(globalId: false)
+  deleteCommunityExperience(id: ID! @whereKey): CommunityExperience
+    @delete
     @guard
     @can(ability: "delete", find: "id")
-  deleteEducationExperience(id: ID!): EducationExperience
-    @delete(globalId: false)
+  deleteEducationExperience(id: ID! @whereKey): EducationExperience
+    @delete
     @guard
     @can(ability: "delete", find: "id")
-  deleteAwardExperience(id: ID!): AwardExperience
-    @delete(globalId: false)
+  deleteAwardExperience(id: ID! @whereKey): AwardExperience
+    @delete
     @guard
     @can(ability: "delete", find: "id")
 
@@ -1758,14 +1813,16 @@ type Mutation {
       )
   ): Pool @guard @can(ability: "changePoolClosingDate", find: "id")
   closePool(id: ID!): Pool @guard @can(ability: "closePool", find: "id")
-  deletePool(id: ID!): Pool
-    @delete(globalId: false)
+  deletePool(id: ID! @whereKey): Pool
+    @forceDelete(model: "Pool")
     @guard
     @can(ability: "deleteDraft", find: "id")
-  deletePool(id: ID!): Pool
-    @delete(model: "Pool", globalId: false)
+  archivePool(id: ID!): Pool
     @guard
-    @can(ability: "deleteDraft", find: "id")
+    @can(ability: "archiveAndUnarchive", find: "id")
+  unarchivePool(id: ID!): Pool
+    @guard
+    @can(ability: "archiveAndUnarchive", find: "id")
 
   # Application mutations
   archiveApplication(id: ID!): PoolCandidate
@@ -1797,11 +1854,26 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
     @update
     @can(ability: "update")
-  deleteTeam(id: UUID!): Team
-    @delete(globalId: false)
+  deleteTeam(id: UUID! @whereKey): Team
+    @delete
     @guard
     @can(ability: "delete", find: "id")
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification
+
+  # UserSkill mutations
+  createUserSkill(
+    userId: ID! @rename(attribute: "user_id")
+    skillId: ID! @rename(attribute: "skill_id")
+    userSkill: CreateUserSkillInput @spread
+  ): UserSkill @can(ability: "create", injectArgs: true)
+  updateUserSkill(id: ID!, userSkill: UpdateUserSkillInput @spread): UserSkill
+    @update
+    @can(ability: "update", find: "id")
+  deleteUserSkill(id: ID! @whereKey): UserSkill
+    @can(ability: "delete", find: "id")
+    @delete
 }
+
+#import directiveForms.graphql

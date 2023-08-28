@@ -227,19 +227,19 @@ class PoolCandidateTest extends TestCase
         $award = AwardExperience::factory()->create([
             'user_id' => $users[0]->id,
         ]);
-        $award->skills()->sync([$skills[0]->id]);
+        $award->syncSkills([$skills[0]]);
         $users[0]->awardExperiences()->save($award);
 
         $education = EducationExperience::factory()->create([
             'user_id' => $users[0]->id,
         ]);
-        $education->skills()->sync([$skills[1]->id]);
+        $education->syncSkills([$skills[1]]);
         $users[0]->educationExperiences()->save($education);
 
         $personal = PersonalExperience::factory()->create([
             'user_id' => $users[1]->id,
         ]);
-        $personal->skills()->sync([$skills[2]->id]);
+        $personal->syncSkills([$skills[2]]);
         $users[1]->personalExperiences()->save($personal);
 
         $userOneCandidate = PoolCandidate::factory()->create([

@@ -47,6 +47,10 @@ query getPool($id: UUID!) {
       en
       fr
     }
+    whatToExpect {
+      en
+      fr
+    }
     essentialSkills {
       id
       key
@@ -116,6 +120,10 @@ query getPool($id: UUID!) {
       id
       name
       contactEmail
+      displayName {
+        en
+        fr
+      }
     }
   }
 }

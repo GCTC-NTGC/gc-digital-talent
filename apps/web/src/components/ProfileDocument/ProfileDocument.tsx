@@ -1,12 +1,9 @@
 import React from "react";
-
 import { useIntl } from "react-intl";
+import isEmpty from "lodash/isEmpty";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { insertBetween, notEmpty } from "@gc-digital-talent/helpers";
-
-import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
-
 import {
   commonMessages,
   getArmedForcesStatusesAdmin,
@@ -14,7 +11,6 @@ import {
   getCitizenshipStatusesAdmin,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
-  getGenericJobTitles,
   getIndigenousCommunity,
   getLanguageProficiency,
   getLocale,
@@ -23,7 +19,6 @@ import {
   getWorkRegion,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { getFullNameLabel } from "~/utils/nameUtils";
 import { enumToOptions, unpackMaybes } from "@gc-digital-talent/forms";
 import {
   GovEmployeeType,
@@ -34,11 +29,12 @@ import {
   IndigenousCommunity,
   PoolCandidate,
 } from "@gc-digital-talent/graphql";
-import isEmpty from "lodash/isEmpty";
-import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
-import { anyCriteriaSelected as anyCriteriaSelectedRoleSalarySection } from "~/validators/profile/roleSalary";
 
-export interface ProfileDocumentProps {
+import { getFullNameLabel } from "~/utils/nameUtils";
+import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
+import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
+
+interface ProfileDocumentProps {
   results: User[] | PoolCandidate[];
 }
 
@@ -48,6 +44,13 @@ const PageSection = ({ children }: { children: React.ReactNode }) => (
     data-h2-display="base(block)"
     data-h2-break-inside="base(avoid) base:print(avoid)"
   >
+    {children}
+  </div>
+);
+
+// If a section is too big, use this instead of PageSection to allow it to break
+const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
+  <div data-h2-margin-bottom="base(2rem)" data-h2-display="base(block)">
     {children}
   </div>
 );
@@ -155,17 +158,6 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                     (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
                   ) || [];
 
-                const expectedClassificationArray =
-                  result.expectedGenericJobTitles
-                    ? result.expectedGenericJobTitles.map((es) => (
-                        <li key={es?.key}>
-                          {es
-                            ? intl.formatMessage(getGenericJobTitles(es.key))
-                            : ""}
-                        </li>
-                      ))
-                    : null;
-
                 return (
                   <React.Fragment key={result.id}>
                     <div>
@@ -181,7 +173,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                       </PageSection>
                       <PageSection>
                         <Heading level="h3">
-                          {intl.formatMessage(navigationMessages.myStatus)}
+                          {intl.formatMessage(commonMessages.status)}
                         </Heading>
                         {result.armedForcesStatus !== null &&
                           result.armedForcesStatus !== undefined && (
@@ -313,10 +305,10 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           <p>
                             {intl.formatMessage({
                               defaultMessage:
-                                "Second language level (Comprehension, Written, Verbal)",
-                              id: "M9x5zm",
+                                "Second language level (reading, writing, oral interaction)",
+                              id: "qOi2J0",
                               description:
-                                "Evaluation results for second language, results in that order",
+                                "Second language level (reading, writing, oral interaction) label",
                             })}
                             {intl.formatMessage(commonMessages.dividingColon)}
                             {insertBetween(", ", [
@@ -659,37 +651,16 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           </>
                         )}
                       </PageSection>
-                      <PageSection>
+                      <BreakingPageSection>
                         <Heading level="h3">
                           {intl.formatMessage(
-                            navigationMessages.roleSalaryExpectations,
-                          )}
-                        </Heading>
-                        {anyCriteriaSelectedRoleSalarySection(result) && (
-                          <div>
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "Would like to be referred for jobs at the following levels:",
-                                id: "sYuMO8",
-                                description:
-                                  "Label for Role and salary expectations sections",
-                              })}
-                            </p>
-                            <ul>{expectedClassificationArray}</ul>
-                          </div>
-                        )}
-                      </PageSection>
-                      <PageSection>
-                        <Heading level="h3">
-                          {intl.formatMessage(
-                            navigationMessages.resumeAndRecruitment,
+                            navigationMessages.careerTimelineAndRecruitment,
                           )}
                         </Heading>
                         <PrintExperienceByType
                           experiences={result.experiences?.filter(notEmpty)}
                         />
-                      </PageSection>
+                      </BreakingPageSection>
                     </div>
                     {index + 1 !== results.length && (
                       <div style={{ breakAfter: "page" }} />

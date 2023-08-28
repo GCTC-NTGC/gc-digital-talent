@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { User } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getBilingualEvaluation,
@@ -11,9 +10,10 @@ import {
 import { BilingualEvaluation } from "~/api/generated";
 
 import FieldDisplay from "../FieldDisplay";
+import { PartialUser } from "./types";
 
 interface DisplayProps {
-  user: User;
+  user: PartialUser;
 }
 
 const Display = ({
@@ -103,10 +103,10 @@ const Display = ({
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage:
-              "Second language level (Comprehension, Written, Verbal)",
-            id: "zF0F6w",
+              "Second language level (reading, writing, oral interaction)",
+            id: "qOi2J0",
             description:
-              "Second language level (Comprehension, Written, Verbal) label",
+              "Second language level (reading, writing, oral interaction) label",
           })}
         >
           {comprehensionLevel || writtenLevel || verbalLevel

@@ -1,5 +1,4 @@
 export const PAGE_SECTION_ID = {
-  STATUS: "status-section",
   ABOUT: "about-section",
   DEI: "diversity-equity-inclusion-section",
   LANGUAGE: "language-section",
@@ -7,7 +6,7 @@ export const PAGE_SECTION_ID = {
   WORK_LOCATION: "work-location-section",
   WORK_PREFERENCES: "work-preferences-section",
   ROLE_AND_SALARY: "role-and-salary-section",
-  RESUME_AND_RECRUITMENT: "resume-and-recruitment-section",
+  CAREER_TIMELINE_AND_RECRUITMENT: "career-timeline-and-recruitment-section",
   ACCOUNT_AND_PRIVACY: "account-and-privacy-section",
 } as const;
 

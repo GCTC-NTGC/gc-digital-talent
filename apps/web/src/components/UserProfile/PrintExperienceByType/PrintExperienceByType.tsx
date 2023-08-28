@@ -10,6 +10,7 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
+
 import ExperienceType from "./ExperienceType";
 
 interface PrintExperienceByTypeProps {

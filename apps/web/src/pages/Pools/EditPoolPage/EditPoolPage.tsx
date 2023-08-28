@@ -10,7 +10,6 @@ import {
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { useLogger } from "@gc-digital-talent/logger";
 
 import SEO from "~/components/SEO/SEO";
 import {
@@ -21,9 +20,9 @@ import {
   Skill,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+
 import PoolNameSection, {
   type PoolNameSubmitData,
 } from "./components/PoolNameSection";
@@ -49,6 +48,9 @@ import AssetSkillsSection, {
 import ScreeningQuestions, {
   type ScreeningQuestionsSubmitData,
 } from "./components/ScreeningQuestions";
+import WhatToExpectSection, {
+  type WhatToExpectSubmitData,
+} from "./components/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
 import useMutations from "./hooks/useMutations";
 
@@ -60,6 +62,7 @@ export type PoolSubmitData =
   | PoolNameSubmitData
   | WorkTasksSubmitData
   | YourImpactSubmitData
+  | WhatToExpectSubmitData
   | ScreeningQuestionsSubmitData;
 
 export interface EditPoolFormProps {
@@ -73,6 +76,7 @@ export interface EditPoolFormProps {
   onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
   onArchive: () => void;
   onDuplicate: () => void;
+  onUnarchive: () => void;
 }
 
 export const EditPoolForm = ({
@@ -86,6 +90,7 @@ export const EditPoolForm = ({
   onClose,
   onExtend,
   onArchive,
+  onUnarchive,
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -153,6 +158,14 @@ export const EditPoolForm = ({
         defaultMessage: "Screening questions",
         id: "c+QwbR",
         description: "Subtitle for the pool screening questions",
+      }),
+    },
+    whatToExpect: {
+      id: "what-to-expect",
+      title: intl.formatMessage({
+        defaultMessage: "What to expect after you apply",
+        id: "QdSYpe",
+        description: "Sub title for the what to expect section",
       }),
     },
     status: {
@@ -225,6 +238,13 @@ export const EditPoolForm = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={sectionMetadata.whatToExpect.id}
+                >
+                  {sectionMetadata.whatToExpect.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
                   {sectionMetadata.status.title}
                 </TableOfContents.AnchorLink>
@@ -289,6 +309,11 @@ export const EditPoolForm = ({
               sectionMetadata={sectionMetadata.screeningQuestions}
               onSave={onSave}
             />
+            <WhatToExpectSection
+              pool={pool}
+              sectionMetadata={sectionMetadata.whatToExpect}
+              onSave={onSave}
+            />
             <StatusSection
               pool={pool}
               sectionMetadata={sectionMetadata.status}
@@ -298,6 +323,7 @@ export const EditPoolForm = ({
               onExtend={onExtend}
               onArchive={onArchive}
               onDuplicate={onDuplicate}
+              onUnarchive={onUnarchive}
             />
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
@@ -313,7 +339,6 @@ type RouteParams = {
 export const EditPoolPage = () => {
   const intl = useIntl();
   const { poolId } = useParams<RouteParams>();
-  const logger = useLogger();
   const routes = useRoutes();
 
   const notFoundMessage = intl.formatMessage(
@@ -386,7 +411,8 @@ export const EditPoolPage = () => {
               }
               onClose={() => mutations.close(poolId)}
               onExtend={(closingDate) => mutations.extend(poolId, closingDate)}
-              onArchive={() => logger.warning("onArchive not yet implemented")}
+              onArchive={() => mutations.archive(poolId)}
+              onUnarchive={() => mutations.unarchive(poolId)}
             />
           </EditPoolContext.Provider>
         ) : (

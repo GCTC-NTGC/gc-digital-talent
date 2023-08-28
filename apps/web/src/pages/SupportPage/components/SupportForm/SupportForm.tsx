@@ -3,13 +3,12 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { toast } from "@gc-digital-talent/toast";
+import { Input, Submit, TextArea, Select } from "@gc-digital-talent/forms";
 import {
-  Input,
-  Submit,
-  TextArea,
-  SelectFieldV2,
-} from "@gc-digital-talent/forms";
-import { errorMessages, apiMessages } from "@gc-digital-talent/i18n";
+  errorMessages,
+  apiMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import { Pending, Button, Link } from "@gc-digital-talent/ui";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -20,6 +19,7 @@ import {
 } from "~/constants/talentSearchConstants";
 
 export type FormValues = {
+  user_id: string;
   name: string;
   email: string;
   description: string;
@@ -30,7 +30,7 @@ interface SupportFormProps {
   showSupportForm: boolean;
   onFormToggle: (show: boolean) => void;
   handleCreateTicket: (data: FormValues) => Promise<number | null | void>;
-  currentUser?: Pick<User, "firstName" | "lastName" | "email"> | null;
+  currentUser?: Pick<User, "id" | "firstName" | "lastName" | "email"> | null;
 }
 
 interface SupportFormSuccessProps {
@@ -104,6 +104,7 @@ const SupportForm = ({
   const intl = useIntl();
   const methods = useForm<FormValues>({
     defaultValues: {
+      user_id: currentUser?.id || "",
       name: currentUser
         ? getFullNameLabel(currentUser.firstName, currentUser.lastName, intl)
         : "",
@@ -170,9 +171,10 @@ const SupportForm = ({
               }}
               trackUnsaved={false}
             />
-            <SelectFieldV2
+            <Select
               id="subject"
               name="subject"
+              nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}

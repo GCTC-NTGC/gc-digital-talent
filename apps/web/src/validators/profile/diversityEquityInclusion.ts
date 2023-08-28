@@ -1,6 +1,6 @@
 import { User, Maybe, Pool, PublishingGroup } from "@gc-digital-talent/graphql";
 
-type PartialUser = Pick<
+export type PartialUser = Pick<
   User,
   "isWoman" | "hasDisability" | "isVisibleMinority" | "indigenousCommunities"
 >;
@@ -30,12 +30,4 @@ export function hasEmptyRequiredFields(
     applicant.indigenousCommunities &&
     applicant.indigenousCommunities.length > 0
   );
-}
-
-export function hasEmptyOptionalFields(applicant: PartialUser): boolean {
-  return !anyCriteriaSelected(applicant);
-}
-
-export function hasAllEmptyFields(applicant: PartialUser): boolean {
-  return !anyCriteriaSelected(applicant);
 }

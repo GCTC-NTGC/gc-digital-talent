@@ -98,6 +98,7 @@ class PoolFactory extends Factory
                 'operational_requirements' => $this->faker->randomElements(ApiEnums::operationalRequirements(), 2),
                 'key_tasks' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
                 'your_impact' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
+                'what_to_expect' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
                 'security_clearance' => $this->faker->randomElement(ApiEnums::poolSecurity()),
                 'advertisement_language' => $this->faker->randomElement(ApiEnums::poolLanguages()),
                 'advertisement_location' => !$isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
@@ -118,6 +119,39 @@ class PoolFactory extends Factory
             return [
                 'published_at' => $this->faker->dateTimeBetween('-6 months', '-2 months'),
                 'closing_date' => $this->faker->dateTimeBetween('-1 months', '-1 day'),
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the pool is archived.
+     */
+    public function archived(): Factory
+    {
+        return $this->closed()->state(function (array $attributes) {
+            return [
+                'published_at' => $this->faker->dateTimeBetween('-12 months', '-6 months'),
+                'closing_date' => $this->faker->dateTimeBetween('-6 months', '-2 months'),
+                'archived_at' => $this->faker->dateTimeBetween('-1 month', '-1 day'),
+            ];
+        });
+    }
+
+    /**
+     * Pool Candidates for this pool will appear in search results
+     *
+     * Note: That means only IT publishing groups
+     *
+     * @return void
+     */
+    public function candidatesAvailableInSearch()
+    {
+        return $this->state(function () {
+            return [
+                'publishing_group' => $this->faker->randomElement([
+                    ApiEnums::PUBLISHING_GROUP_IT_JOBS,
+                    ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
+                ])
             ];
         });
     }

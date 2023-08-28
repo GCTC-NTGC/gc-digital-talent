@@ -15,6 +15,10 @@ const SkillDescriptionAccordion = ({
 }: SkillDescriptionAccordionProps) => {
   const intl = useIntl();
 
+  if (!skills.length) {
+    return null;
+  }
+
   return (
     <Accordion.Root type="single" mode="simple" collapsible>
       {skills.map((skill) => (

@@ -5,7 +5,6 @@ import { uiMessages } from "@gc-digital-talent/i18n";
 import { Maybe } from "@gc-digital-talent/graphql";
 
 import Heading, { HeadingLevel } from "../Heading";
-
 import Step from "./Step";
 import { StepState, StepType } from "./types";
 

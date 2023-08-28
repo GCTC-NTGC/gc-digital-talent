@@ -7,7 +7,7 @@ import Well from "@gc-digital-talent/ui/src/components/Well";
 import SkillTree from "~/pages/Applications/ApplicationSkillsPage/components/SkillTree";
 import { getExperiencesSkillIds } from "~/utils/skillUtils";
 
-export interface AssetSkillsFilteredProps {
+interface AssetSkillsFilteredProps {
   poolAssetSkills: Skill[];
   experiences: Experience[];
 }

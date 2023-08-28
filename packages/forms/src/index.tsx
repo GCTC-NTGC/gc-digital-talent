@@ -17,29 +17,31 @@ import Field, {
 } from "./components/Field";
 import Input, { type InputProps } from "./components/Input";
 import MultiSelectField from "./components/MultiSelect/MultiSelectField";
-import RadioGroup, { type RadioGroupProps } from "./components/RadioGroup";
+import RadioGroup, {
+  type RadioGroupProps,
+  type Radio,
+} from "./components/RadioGroup";
 import Repeater from "./components/Repeater/Repeater";
 import Select, {
-  SelectFieldV2,
-  type SelectFieldV2Props,
+  MultiSelectFieldBase,
+  type MultiSelectFieldBaseProps,
   type SelectProps,
   type Option,
 } from "./components/Select";
 import Submit, { type SubmitProps } from "./components/Submit";
 import TextArea, { type TextAreaProps } from "./components/TextArea";
 import WordCounter, { type WordCounterProps } from "./components/WordCounter";
-
 import BasicForm, {
   type BasicFormProps,
   type FieldLabels,
 } from "./components/BasicForm";
 import ErrorSummary from "./components/ErrorSummary";
 import UnsavedChanges from "./components/UnsavedChanges";
-
 import {
   unpackMaybes,
   unpackIds,
   enumToOptions,
+  enumToOptionsWorkRegionSorted,
   getValues,
   escapeAString,
   matchStringCaseDiacriticInsensitive,
@@ -47,7 +49,6 @@ import {
   countNumberOfWords,
   objectsToSortedOptions,
 } from "./utils";
-
 import useCommonInputStyles from "./hooks/useCommonInputStyles";
 
 export {
@@ -63,7 +64,7 @@ export {
   Repeater,
   RadioGroup,
   Select,
-  SelectFieldV2,
+  MultiSelectFieldBase,
   Submit,
   TextArea,
   WordCounter,
@@ -81,9 +82,10 @@ export type {
   ChecklistProps,
   ComboboxProps,
   InputProps,
+  Radio,
   RadioGroupProps,
   SelectProps,
-  SelectFieldV2Props,
+  MultiSelectFieldBaseProps,
   Option,
   SubmitProps,
   TextAreaProps,
@@ -102,6 +104,7 @@ export {
   unpackMaybes,
   unpackIds,
   enumToOptions,
+  enumToOptionsWorkRegionSorted,
   getValues,
   escapeAString,
   matchStringCaseDiacriticInsensitive,

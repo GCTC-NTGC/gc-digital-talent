@@ -1,17 +1,28 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 import type { CombinedError } from "urql";
+import isChromatic from "chromatic/isChromatic";
 
-import { OverlayOrDialogDecorator } from "storybook-helpers";
+import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
+
 import NotFound from "../NotFound";
+import Pending, { PendingProps } from "./Pending";
 
-import Pending from "./Pending";
+type PendingArgs = Omit<PendingProps, "error"> & {
+  wait?: number;
+  error?: boolean | PendingProps["error"];
+  notFound?: string;
+};
 
 export default {
   component: Pending,
   title: "Components/Pending",
   decorators: [OverlayOrDialogDecorator],
   argTypes: {
+    pause: {
+      name: "pause",
+      type: { name: "boolean", required: false },
+    },
     wait: {
       name: "wait",
       type: { name: "number", required: false },
@@ -27,10 +38,10 @@ export default {
   },
 } as Meta;
 
-const TemplatePending: Story = (args) => {
+const TemplatePending: StoryFn<PendingArgs> = (args) => {
   const [isLoading, setLoading] = React.useState<boolean>(true);
 
-  const { wait, error, notFound } = args;
+  const { wait, error, notFound, pause } = args;
 
   const combinedError = error
     ? ({
@@ -49,7 +60,7 @@ const TemplatePending: Story = (args) => {
   }, [wait, setLoading]);
 
   return (
-    <Pending fetching={isLoading} error={combinedError}>
+    <Pending fetching={isLoading} error={combinedError} pause={pause}>
       {notFound ? (
         <NotFound headingMessage="Not Found">{notFound}</NotFound>
       ) : (
@@ -64,7 +75,9 @@ export const PendingError = TemplatePending.bind({});
 export const PendingNotFound = TemplatePending.bind({});
 export const PendingSuccess = TemplatePending.bind({});
 
-PendingFetching.args = {};
+PendingFetching.args = {
+  pause: isChromatic(),
+};
 
 PendingError.args = {
   wait: 1000,

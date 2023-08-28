@@ -12,10 +12,8 @@ import {
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
@@ -29,13 +27,14 @@ import {
   useGetApplicationQuery,
 } from "~/api/generated";
 import { AnyExperience } from "~/types/experience";
+import { isIncomplete } from "~/validators/profile/skillRequirements";
 
-import SkillTree from "./components/SkillTree";
 import { ApplicationPageProps } from "../ApplicationApi";
-import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 import { useApplicationContext } from "../ApplicationContext";
+import SkillTree from "./components/SkillTree";
+import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 
-const resumeLink = (children: React.ReactNode, href: string) => (
+const careerTimelineLink = (children: React.ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
 );
 
@@ -102,29 +101,23 @@ export const ApplicationSkills = ({
   const categorizedOptionalSkills = categorizeSkill(
     application.pool.nonessentialSkills,
   );
-  const { applicantDashboard } = useFeatureFlags();
-  const [, executeMutation] = useUpdateApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] =
+    useUpdateApplicationMutation();
   const { followingPageUrl, isIAP } = useApplicationContext();
-  const cancelPath = applicantDashboard
-    ? paths.profileAndApplications({ fromIapDraft: isIAP })
-    : paths.myProfile();
+  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
   const nextStep =
     followingPageUrl ?? paths.applicationQuestionsIntro(application.id);
 
-  const skillsMissingExperiences = categorizedEssentialSkills[
-    SkillCategory.Technical
-  ]
-    ?.filter((essentialSkill) => {
-      return !application.user.experiences?.some((experience) => {
-        return experience?.skills?.some(
-          (skill) => skill.id === essentialSkill.id,
-        );
-      });
-    })
-    .filter(notEmpty);
+  const isSkillsExperiencesIncomplete = isIncomplete(
+    application.user,
+    application.pool,
+  );
 
   const methods = useForm<FormValues>();
-  const { setValue } = methods;
+  const {
+    setValue,
+    formState: { isSubmitting },
+  } = methods;
 
   const optionalDisclaimer = intl.formatMessage({
     defaultMessage:
@@ -186,14 +179,17 @@ export const ApplicationSkills = ({
         {intl.formatMessage(
           {
             defaultMessage:
-              "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. Similarly to the minimum experience and education step, if you need to add or change a résumé experience, you can do so by returning to the <resumeLink>résumé step</resumeLink> in the application.",
-            id: "pHTwBd",
+              "Now let's link your experiences to the skills that are critical for this role. This is the most important step in the application process. Similarly to the minimum experience and education step, if you need to add or change a career timeline experience, you can do so by returning to the <careerTimelineLink>career timeline step</careerTimelineLink> in the application.",
+            id: "MUwxzr",
             description:
               "Lead in paragraph for adding experiences to a users skills",
           },
           {
-            resumeLink: (chunks: React.ReactNode) =>
-              resumeLink(chunks, paths.applicationResume(application.id)),
+            careerTimelineLink: (chunks: React.ReactNode) =>
+              careerTimelineLink(
+                chunks,
+                paths.applicationCareerTimeline(application.id),
+              ),
           },
         )}
       </p>
@@ -209,8 +205,8 @@ export const ApplicationSkills = ({
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Please ensure that you provide <strong>at least 1 résumé experience</strong> for each required skill, along with a concise description of why that experience highlights your abilities in that skill.",
-              id: "TbqFOI",
+                "Please ensure that you provide <strong>at least 1 career timeline experience</strong> for each required skill, along with a concise description of why that experience highlights your abilities in that skill.",
+              id: "N5qMql",
               description: "Instructions on requiring information for skills",
             })}
           </p>
@@ -297,8 +293,8 @@ export const ApplicationSkills = ({
                 value: 0,
                 message: intl.formatMessage({
                   defaultMessage:
-                    "Please connect at least one résumé experience to each required technical skill.",
-                  id: "4YUt61",
+                    "Please connect at least one career timeline experience to each required technical skill.",
+                  id: "hi9+Mu",
                   description: "Error message if there are no experiences",
                 }),
               },
@@ -308,7 +304,7 @@ export const ApplicationSkills = ({
             orientation="horizontal"
             decorative
             data-h2-background="base(black.light)"
-            data-h2-margin="base(0, 0, x2, 0)"
+            data-h2-margin="base(x2, 0)"
           />
           <div
             data-h2-display="base(flex)"
@@ -321,10 +317,11 @@ export const ApplicationSkills = ({
               type="submit"
               mode="solid"
               value="continue"
+              disabled={mutating || isSubmitting}
               onClick={() => {
                 setValue(
                   "skillsMissingExperiences",
-                  skillsMissingExperiences?.length || 0,
+                  isSkillsExperiencesIncomplete ? 1 : 0,
                 );
               }}
             >

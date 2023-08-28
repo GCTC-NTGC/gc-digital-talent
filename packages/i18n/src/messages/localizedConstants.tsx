@@ -1,13 +1,12 @@
-import { defineMessage, defineMessages, MessageDescriptor } from "react-intl";
+import { defineMessages, MessageDescriptor } from "react-intl";
+
 import {
   Language,
   LanguageAbility,
   PoolCandidateStatus,
-  SalaryRange,
   WorkRegion,
   PoolCandidateSearchStatus,
   SkillCategory,
-  LegacyRole,
   GenericJobTitleKey,
   AwardedTo,
   AwardedScope,
@@ -16,7 +15,6 @@ import {
   OperationalRequirement,
   ProvinceOrTerritory,
   EstimatedLanguageAbility,
-  JobLookingStatus,
   GovEmployeeType,
   PoolStatus,
   PoolLanguage,
@@ -29,13 +27,13 @@ import {
   IndigenousCommunity,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
-  Maybe,
   EducationRequirementOption,
+  PoolCandidateSearchPositionType,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
 
-export const employmentEquityGroups = defineMessages({
+const employmentEquityGroups = defineMessages({
   woman: {
     defaultMessage: "Woman",
     id: "TO/Q6I",
@@ -67,7 +65,7 @@ export const getEmploymentEquityGroup = (
     `Invalid equity group '${equityGroup}'`,
   );
 
-export const employmentEquityStatements = defineMessages({
+const employmentEquityStatements = defineMessages({
   woman: {
     defaultMessage: "I identify as a woman.",
     id: "+9VBmQ",
@@ -101,7 +99,7 @@ export const getEmploymentEquityStatement = (
     `Invalid equity statement '${equityStatement}'`,
   );
 
-export const languageProficiency = defineMessages({
+const languageProficiency = defineMessages({
   [EstimatedLanguageAbility.Beginner]: {
     defaultMessage: "Beginner",
     id: "C7cFDV",
@@ -128,19 +126,7 @@ export const getLanguageProficiency = (
     `Invalid skill level '${languageProf}'`,
   );
 
-export const salaryRanges = {
-  [SalaryRange["50_59K"]]: "$50,000 - $59,000",
-  [SalaryRange["60_69K"]]: "$60,000 - $69,000",
-  [SalaryRange["70_79K"]]: "$70,000 - $79,000",
-  [SalaryRange["80_89K"]]: "$80,000 - $89,000",
-  [SalaryRange["90_99K"]]: "$90,000 - $99,000",
-  [SalaryRange["100KPlus"]]: "$100,000 - plus",
-};
-
-export const getSalaryRange = (salaryId: string | number): string =>
-  getOrThrowError(salaryRanges, salaryId, `Invalid Salary Range '${salaryId}'`);
-
-export const languages = defineMessages({
+const languages = defineMessages({
   [Language.En]: {
     defaultMessage: "English",
     id: "RaypPP",
@@ -156,7 +142,7 @@ export const languages = defineMessages({
 export const getLanguage = (languageId: string | number): MessageDescriptor =>
   getOrThrowError(languages, languageId, `Invalid Language '${languageId}'`);
 
-export const citizenshipStatusesProfile = defineMessages({
+const citizenshipStatusesProfile = defineMessages({
   [CitizenshipStatus.Citizen]: {
     defaultMessage: "I am a Canadian citizen.",
     id: "l4wLn9",
@@ -184,7 +170,7 @@ export const getCitizenshipStatusesProfile = (
     `Invalid Language '${citizenshipId}'`,
   );
 
-export const citizenshipStatusesAdmin = defineMessages({
+const citizenshipStatusesAdmin = defineMessages({
   [CitizenshipStatus.Citizen]: {
     defaultMessage: "Canadian Citizen",
     id: "swTjNd",
@@ -211,7 +197,7 @@ export const getCitizenshipStatusesAdmin = (
     `Invalid Language '${citizenshipId}'`,
   );
 
-export const armedForcesStatusesAdmin = defineMessages({
+const armedForcesStatusesAdmin = defineMessages({
   [ArmedForcesStatus.Veteran]: {
     defaultMessage: "Veteran",
     id: "vgxxk0",
@@ -238,7 +224,7 @@ export const getArmedForcesStatusesAdmin = (
     `Invalid status '${armedForcesId}'`,
   );
 
-export const armedForcesStatusesProfile = defineMessages({
+const armedForcesStatusesProfile = defineMessages({
   [ArmedForcesStatus.Veteran]: {
     defaultMessage:
       "I am a <strong>veteran</strong> of the Canadian Armed Forces.",
@@ -259,7 +245,7 @@ export const armedForcesStatusesProfile = defineMessages({
   },
 });
 
-export const armedForcesStatusesProfileNoBold = defineMessages({
+const armedForcesStatusesProfileNoBold = defineMessages({
   [ArmedForcesStatus.Veteran]: {
     defaultMessage: "I am a veteran of the Canadian Armed Forces.",
     id: "jqyjFm",
@@ -287,7 +273,7 @@ export const getArmedForcesStatusesProfile = (
     `Invalid status '${armedForcesId}'`,
   );
 
-export const educationRequirements = defineMessages({
+const educationRequirements = defineMessages({
   hasDiploma: {
     defaultMessage: "Required diploma from post-secondary institution",
     id: "OujTbA",
@@ -307,7 +293,7 @@ export const getEducationRequirement = (
     `Invalid Education Requirement '${educationRequirementId}'`,
   );
 
-export const educationRequirementOptions = defineMessages({
+const educationRequirementOptions = defineMessages({
   [EducationRequirementOption.AppliedWork]: {
     defaultMessage: "Applied work experience",
     description: "Option for education requirement, applied work experience",
@@ -333,7 +319,7 @@ export const EmploymentDuration = {
   Term: "TERM",
   Indeterminate: "INDETERMINATE",
 };
-export const employmentDurationShort = defineMessages({
+const employmentDurationShort = defineMessages({
   [EmploymentDuration.Term]: {
     defaultMessage: "Term",
     id: "jwPlv1",
@@ -347,7 +333,7 @@ export const employmentDurationShort = defineMessages({
   },
 });
 
-export const employmentDurationLong = defineMessages({
+const employmentDurationLong = defineMessages({
   [EmploymentDuration.Term]: {
     defaultMessage: "Term duration (short term, long term)",
     id: "S9BRBL",
@@ -376,7 +362,7 @@ export const getEmploymentDuration = (
   );
 };
 
-export const languageAbilities = defineMessages({
+const languageAbilities = defineMessages({
   [LanguageAbility.English]: {
     defaultMessage: "English only",
     id: "WcXADs",
@@ -403,7 +389,7 @@ export const getLanguageAbility = (
     `Invalid Language Ability '${languageAbilityId}'`,
   );
 
-export const languageRequirements = defineMessages({
+const languageRequirements = defineMessages({
   [PoolLanguage.BilingualAdvanced]: {
     defaultMessage: "Bilingual advanced",
     id: "kKdcZT",
@@ -440,10 +426,10 @@ export const getLanguageRequirement = (
     `Invalid Language Requirement '${languageRequirementId}'`,
   );
 
-export const workRegions = defineMessages({
+const workRegions = defineMessages({
   [WorkRegion.Atlantic]: {
-    defaultMessage: "Atlantic",
-    id: "9ayzJI",
+    defaultMessage: "Atlantic (NB, NS, PE and NL)",
+    id: "yBi2pM",
     description: "The work region of Canada described as Atlantic.",
   },
   [WorkRegion.BritishColumbia]: {
@@ -452,29 +438,31 @@ export const workRegions = defineMessages({
     description: "The work region of Canada described as British Columbia.",
   },
   [WorkRegion.NationalCapital]: {
-    defaultMessage: "National Capital",
-    id: "KoUKWc",
+    defaultMessage: "National Capital Region (Ottawa/Gatineau)",
+    id: "c/o/E4",
     description: "The work region of Canada described as National Capital.",
   },
   [WorkRegion.North]: {
-    defaultMessage: "North",
-    id: "NNMJXo",
+    defaultMessage: "Northern (NU, NT, YT)",
+    id: "w4vHfG",
     description: "The work region of Canada described as North.",
   },
   [WorkRegion.Ontario]: {
-    defaultMessage: "Ontario",
-    id: "/a8X4d",
-    description: "The work region of Canada described as Ontario.",
+    defaultMessage: "Ontario (excluding Ottawa area)",
+    id: "iUCkxX",
+    description:
+      "The work region of Canada described as Ontario, excluding Ottawa.",
   },
   [WorkRegion.Prairie]: {
-    defaultMessage: "Prairie",
-    id: "jNo5Zk",
-    description: "The work region of Canada described as Prairie.",
+    defaultMessage: "Prairies (AB, SK, MB)",
+    id: "U4Gfow",
+    description: "The work region of Canada described as Prairies.",
   },
   [WorkRegion.Quebec]: {
-    defaultMessage: "Quebec",
-    id: "+EQZK5",
-    description: "The work region of Canada described as Quebec.",
+    defaultMessage: "Quebec (excluding Gatineau area)",
+    id: "vDulgp",
+    description:
+      "The work region of Canada described as Quebec, excluding Gatineau.",
   },
   [WorkRegion.Telework]: {
     defaultMessage: "Telework",
@@ -483,7 +471,7 @@ export const workRegions = defineMessages({
   },
 });
 
-export const workRegionsDetailed = defineMessages({
+const workRegionsDetailed = defineMessages({
   [WorkRegion.Telework]: {
     defaultMessage:
       "<strong>Virtual</strong> (work from home, anywhere in Canada)",
@@ -531,7 +519,7 @@ export const workRegionsDetailed = defineMessages({
   },
 });
 
-export const workRegionsDetailedNoBold = defineMessages({
+const workRegionsDetailedNoBold = defineMessages({
   [WorkRegion.Telework]: {
     defaultMessage: "Virtual (work from home, anywhere in Canada)",
     id: "x8v6Qp",
@@ -595,7 +583,7 @@ export const getWorkRegion = (
     `Invalid Work Region '${workRegionId}'`,
   );
 
-export const poolCandidateStatuses = defineMessages({
+const poolCandidateStatuses = defineMessages({
   [PoolCandidateStatus.Draft]: {
     defaultMessage: "Draft",
     id: "FEfWEH",
@@ -622,9 +610,21 @@ export const poolCandidateStatuses = defineMessages({
     description: "The pool candidate's status is Screened In.",
   },
   [PoolCandidateStatus.ScreenedOutApplication]: {
-    defaultMessage: "Screened Out Application",
-    id: "R2BWry",
+    defaultMessage: "Screened Out - Application",
+    id: "+J9x7H",
     description: "The pool candidate's status is Screened Out Application",
+  },
+  [PoolCandidateStatus.ScreenedOutNotInterested]: {
+    defaultMessage: "Screened Out - No Longer Interested",
+    id: "TN8HIH",
+    description:
+      "The pool candidate's status is Screened Out because of no interest",
+  },
+  [PoolCandidateStatus.ScreenedOutNotResponsive]: {
+    defaultMessage: "Screened Out - Not Responsive",
+    id: "QCcpJr",
+    description:
+      "The pool candidate's status is Screened Out because no longer responding",
   },
   [PoolCandidateStatus.UnderAssessment]: {
     defaultMessage: "Under Assessment",
@@ -632,8 +632,8 @@ export const poolCandidateStatuses = defineMessages({
     description: "The pool candidate's status is Under Assessment.",
   },
   [PoolCandidateStatus.ScreenedOutAssessment]: {
-    defaultMessage: "Screened Out Assessment",
-    id: "pLlu65",
+    defaultMessage: "Screened Out - Assessment",
+    id: "C2RURL",
     description: "The pool candidate's status is Screened Out Assessment.",
   },
   [PoolCandidateStatus.QualifiedAvailable]: {
@@ -687,7 +687,7 @@ export const getPoolCandidateStatus = (
     `Invalid Pool Candidate Status '${poolCandidateStatusId}'`,
   );
 
-export const candidateExpiryFilterStatuses = defineMessages({
+const candidateExpiryFilterStatuses = defineMessages({
   [CandidateExpiryFilter.Active]: {
     defaultMessage: "Active",
     id: "SuKmqa",
@@ -714,7 +714,7 @@ export const getCandidateExpiryFilterStatus = (
     `Invalid Pool Candidate Status '${candidateExpiryFilterStatusId}'`,
   );
 
-export const candidateSuspendedFilterStatuses = defineMessages({
+const candidateSuspendedFilterStatuses = defineMessages({
   [CandidateSuspendedFilter.Active]: {
     defaultMessage: "Active",
     id: "SuKmqa",
@@ -741,7 +741,7 @@ export const getCandidateSuspendedFilterStatus = (
     `Invalid Pool Candidate Status '${candidateSuspendedFilterStatusId}'`,
   );
 
-export const poolCandidateSearchStatuses = defineMessages({
+const poolCandidateSearchStatuses = defineMessages({
   [PoolCandidateSearchStatus.New]: {
     defaultMessage: "New",
     id: "25reyq",
@@ -774,7 +774,29 @@ export const getPoolCandidateSearchStatus = (
     `Invalid Pool Candidate Search Status '${poolCandidateSearchStatusId}'`,
   );
 
-export const SkillCategories = defineMessages({
+const poolCandidateSearchPositionTypes = defineMessages({
+  [PoolCandidateSearchPositionType.IndividualContributor]: {
+    defaultMessage: "Individual contributor",
+    id: "Ij1cFC",
+    description: "The position type is an individual contributor.",
+  },
+  [PoolCandidateSearchPositionType.TeamLead]: {
+    defaultMessage: "Team lead",
+    id: "R0pQGQ",
+    description: "The position type is a team lead.",
+  },
+});
+
+export const getPoolCandidateSearchPositionType = (
+  poolCandidateSearchPositionTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    poolCandidateSearchPositionTypes,
+    poolCandidateSearchPositionTypeId,
+    `Invalid Pool Candidate Search Position Type '${poolCandidateSearchPositionTypeId}'`,
+  );
+
+const SkillCategories = defineMessages({
   [SkillCategory.Behavioural]: {
     defaultMessage: "Behavioural Skills",
     id: "5jynud",
@@ -796,23 +818,7 @@ export const getSkillCategory = (
     `Invalid Skill Category '${skillCategoryId}'`,
   );
 
-export const Roles = defineMessages({
-  [LegacyRole.Admin]: {
-    defaultMessage: "Administrator",
-    id: "LBNX0O",
-    description: "The name of the Administrator user role.",
-  },
-  [LegacyRole.Applicant]: {
-    defaultMessage: "Applicant",
-    id: "MGqCaE",
-    description: "The name of the Applicant user role.",
-  },
-});
-
-export const getRole = (roleId: string | number): MessageDescriptor =>
-  getOrThrowError(Roles, roleId, `Invalid role '${roleId}'`);
-
-export const GenericJobTitles = defineMessages({
+const GenericJobTitles = defineMessages({
   [GenericJobTitleKey.TechnicianIt01]: {
     defaultMessage: "Level 1: Technician",
     id: "mMw73T",
@@ -854,7 +860,7 @@ export const getGenericJobTitles = (
     `Invalid role '${GenericJobTitleId}'`,
   );
 
-export const GenericJobTitlesWithClassification = defineMessages({
+const GenericJobTitlesWithClassification = defineMessages({
   [GenericJobTitleKey.TechnicianIt01]: {
     defaultMessage: "IT-01 (Technician)",
     id: "zVm0jL",
@@ -902,7 +908,7 @@ export const getGenericJobTitlesWithClassification = (
     `Invalid role '${GenericJobTitleWithClassificationId}'`,
   );
 
-export const awardedToMessages = defineMessages({
+const awardedToMessages = defineMessages({
   [AwardedTo.Me]: {
     defaultMessage: "Me",
     id: "pPPm5b",
@@ -932,7 +938,7 @@ export const getAwardedTo = (awardedToId: string | number): MessageDescriptor =>
     `Invalid awardedTo ${awardedToId}`,
   );
 
-export const awardedScopeMessages = defineMessages({
+const awardedScopeMessages = defineMessages({
   [AwardedScope.International]: {
     defaultMessage: "International",
     id: "4vQtRT",
@@ -979,7 +985,7 @@ export const getAwardedScope = (
     `Invalid awardedTo ${awardedScopeId}`,
   );
 
-export const educationStatusMessages = defineMessages({
+const educationStatusMessages = defineMessages({
   [EducationStatus.SuccessCredential]: {
     defaultMessage: "Successful Completion (Credential Awarded)",
     id: "2eBm5y",
@@ -1018,7 +1024,7 @@ export const getEducationStatus = (
     `Invalid educationStatus ${educationStatusId}`,
   );
 
-export const educationTypeMessages = defineMessages({
+const educationTypeMessages = defineMessages({
   [EducationType.Diploma]: {
     defaultMessage: "Diploma",
     id: "jfwk14",
@@ -1070,7 +1076,7 @@ export const getEducationType = (
     `Invalid educationType ${educationTypeId}`,
   );
 
-export const operationalRequirementLabelFirstPerson = defineMessages({
+const operationalRequirementLabelFirstPerson = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "has <strong>shift-work</strong>.",
     id: "9rn/MG",
@@ -1123,7 +1129,7 @@ export const operationalRequirementLabelFirstPerson = defineMessages({
   },
 });
 
-export const operationalRequirementLabelFirstPersonNoBold = defineMessages({
+const operationalRequirementLabelFirstPersonNoBold = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "has shift-work.",
     id: "jHYaw8",
@@ -1200,7 +1206,7 @@ export const GenericJobTitlesSorted = [
   GenericJobTitleKey.ManagerIt04,
 ];
 
-export const operationalRequirementLabelFull = defineMessages({
+const operationalRequirementLabelFull = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "Availability, willingness and ability to work shift-work.",
     id: "Gc9PeN",
@@ -1259,7 +1265,7 @@ export const operationalRequirementLabelFull = defineMessages({
   },
 });
 
-export const operationalRequirementLabelShort = defineMessages({
+const operationalRequirementLabelShort = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "Shift-work",
     id: "RRSGnD",
@@ -1334,7 +1340,7 @@ export const getOperationalRequirement = (
   );
 };
 
-export const provinceOrTerritory = defineMessages({
+const provinceOrTerritory = defineMessages({
   [ProvinceOrTerritory.Alberta]: {
     defaultMessage: "Alberta",
     id: "SvcqPG",
@@ -1405,61 +1411,6 @@ export const provinceOrTerritory = defineMessages({
   },
 });
 
-export const JobLookingStatusDescription = defineMessages({
-  [JobLookingStatus.ActivelyLooking]: {
-    defaultMessage:
-      "<strong>Actively looking</strong> - My profile is up to date, I want to be contacted for job opportunities",
-    id: "LuYmWd",
-    description: "Job Looking Status described as Actively looking.",
-  },
-  [JobLookingStatus.OpenToOpportunities]: {
-    defaultMessage:
-      "<strong>Open to opportunities</strong> - Not actively looking but I still want to be contacted for job opportunities",
-    id: "TR0Kxz",
-    description: "Job Looking Status described as Open to opportunities.",
-  },
-  [JobLookingStatus.Inactive]: {
-    defaultMessage:
-      "<strong>Inactive</strong> - I do not currently want to be contacted for job opportunities",
-    id: "nrWEuL",
-    description: "Job Looking Status described as Inactive.",
-  },
-});
-
-export const JobLookingStatusShort = defineMessages({
-  [JobLookingStatus.ActivelyLooking]: {
-    defaultMessage: "Actively looking",
-    id: "XerShr",
-    description: "Job Looking Status described as Actively looking.",
-  },
-  [JobLookingStatus.OpenToOpportunities]: {
-    defaultMessage: "Open to opportunities",
-    id: "m4v2w3",
-    description: "Job Looking Status described as Actively looking.",
-  },
-  [JobLookingStatus.Inactive]: {
-    defaultMessage: "Inactive",
-    id: "M/6+SI",
-    description: "Job Looking Status described as Actively looking.",
-  },
-});
-
-export const getJobLookingStatus = (
-  jobLookingStatusDescriptionId: string | number,
-  format: "description" | "short" = "description",
-): MessageDescriptor => {
-  const messageDictionary = {
-    description: JobLookingStatusDescription,
-    short: JobLookingStatusShort,
-  };
-
-  return getOrThrowError(
-    messageDictionary[format],
-    jobLookingStatusDescriptionId,
-    `Invalid Job Looking Status '${jobLookingStatusDescriptionId}'`,
-  );
-};
-
 export const getProvinceOrTerritory = (
   provinceOrTerritoryId: string | number,
 ): MessageDescriptor =>
@@ -1469,7 +1420,12 @@ export const getProvinceOrTerritory = (
     `Invalid province or territory '${provinceOrTerritoryId}'`,
   );
 
-export const poolStream = defineMessages({
+const poolStream = defineMessages({
+  [PoolStream.AccessInformationPrivacy]: {
+    defaultMessage: "Access to Information and Privacy",
+    id: "9EnPf0",
+    description: "Pool Stream described as Access to Information and Privacy.",
+  },
   [PoolStream.BusinessAdvisoryServices]: {
     defaultMessage: "Business Line Advisory Services",
     id: "3m7hT5",
@@ -1526,7 +1482,7 @@ export const getPoolStream = (
     `Invalid Pool Stream '${poolStreamId}'`,
   );
 
-export const govEmployeeType = defineMessages({
+const govEmployeeType = defineMessages({
   [GovEmployeeType.Student]: {
     defaultMessage: "I am a <strong>student</strong>.",
     id: "zhzuZu",
@@ -1558,7 +1514,7 @@ export const getGovEmployeeType = (
     `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
   );
 
-export const simpleGovEmployeeType = defineMessages({
+const simpleGovEmployeeType = defineMessages({
   [GovEmployeeType.Student]: {
     defaultMessage: "Student",
     id: "w2Jpt8",
@@ -1590,7 +1546,7 @@ export const getSimpleGovEmployeeType = (
     `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
   );
 
-export const poolStatus = defineMessages({
+const poolStatus = defineMessages({
   [PoolStatus.Draft]: {
     defaultMessage: "Draft",
     id: "yrLV+n",
@@ -1606,6 +1562,11 @@ export const poolStatus = defineMessages({
     id: "/UBSoB",
     description: "Closed pool advertisement status",
   },
+  [PoolStatus.Archived]: {
+    defaultMessage: "Archived",
+    id: "o7GBkR",
+    description: "Archived pool advertisement status",
+  },
 });
 
 export const getPoolStatus = (
@@ -1617,7 +1578,7 @@ export const getPoolStatus = (
     `Invalid Pool Status '${poolStatusId}'`,
   );
 
-export const securityClearances = defineMessages({
+const securityClearances = defineMessages({
   [SecurityStatus.Reliability]: {
     defaultMessage: "Reliability or higher",
     id: "RnSbKI",
@@ -1644,7 +1605,7 @@ export const getSecurityClearance = (
     `Invalid Security Clearance '${securityClearanceId}'`,
   );
 
-export const bilingualEvaluations = defineMessages({
+const bilingualEvaluations = defineMessages({
   [BilingualEvaluation.CompletedEnglish]: {
     defaultMessage: "Yes, completed English evaluation",
     id: "2ohWuK",
@@ -1703,7 +1664,7 @@ export const getPoolCandidatePriorities = (
     `Invalid Candidate Priority Weight '${priorityWeight}'`,
   );
 
-export const publishingGroups = defineMessages({
+const publishingGroups = defineMessages({
   [PublishingGroup.ExecutiveJobs]: {
     defaultMessage: "Executive Jobs",
     id: "Mixlw/",
@@ -1741,7 +1702,7 @@ export const getPublishingGroup = (
     `Invalid publishing group '${publishingGroup}'`,
   );
 
-export const abbreviations = defineMessages({
+const abbreviations = defineMessages({
   AS: {
     defaultMessage: "Administrative Services",
     id: "6svHxg",
@@ -1765,7 +1726,7 @@ export const getAbbreviations = (
     `Invalid abbreviation '${abbreviation}'`,
   );
 
-export const indigenousCommunities = defineMessages({
+const indigenousCommunities = defineMessages({
   [IndigenousCommunity.StatusFirstNations]: {
     defaultMessage: "Status First Nations",
     id: "1Wbu+6",
@@ -1803,142 +1764,3 @@ export const getIndigenousCommunity = (
     indigenousCommunity,
     `Invalid indigenous community '${indigenousCommunity}'`,
   );
-
-// Custom status keys used to consolidate labels
-type StatusLabelKey =
-  | "DRAFT"
-  | "RECEIVED"
-  | "UNDER_REVIEW"
-  | "PENDING_SKILLS"
-  | "ASSESSMENT"
-  | "DATE_PASSED"
-  | "SCREENED_OUT"
-  | "QUALIFIED"
-  | "EXPIRED"
-  | "REMOVED";
-
-// Map new, consolidated keys to their labels
-const statusLabels = new Map<StatusLabelKey, MessageDescriptor | null>([
-  [
-    "DRAFT",
-    defineMessage({
-      defaultMessage: "Continue draft",
-      id: "pf3KKo",
-      description: "Link text to continue a application draft",
-    }),
-  ],
-  [
-    "RECEIVED",
-    defineMessage({
-      defaultMessage: "Application received",
-      id: "4TmwRU",
-      description: "Status for an application that has been submitted",
-    }),
-  ],
-  [
-    "UNDER_REVIEW",
-    defineMessage({
-      defaultMessage: "Application under review",
-      id: "aagbij",
-      description: "Status for an application that is being reviewed",
-    }),
-  ],
-  [
-    "PENDING_SKILLS",
-    defineMessage({
-      defaultMessage: "Application pending assessment",
-      id: "UZWLKn",
-      description: "Status for an application that is having skills reviewed",
-    }),
-  ],
-  [
-    "ASSESSMENT",
-    defineMessage({
-      defaultMessage: "Application pending assessment",
-      id: "9Pxjw5",
-      description:
-        "Status for an application that where applicant is being assessed",
-    }),
-  ],
-  [
-    "DATE_PASSED",
-    defineMessage({
-      defaultMessage: "Submission date passed",
-      id: "13fSK+",
-      description:
-        "Status for an application that where the recruitment has expired",
-    }),
-  ],
-  [
-    "SCREENED_OUT",
-    defineMessage({
-      defaultMessage: "Screened out",
-      id: "njJCTd",
-      description:
-        "Status for an application that has been screened out of eligibility",
-    }),
-  ],
-  [
-    "QUALIFIED",
-    defineMessage({
-      defaultMessage: "Qualified",
-      id: "UayO6H",
-      description:
-        "Status for an application where the applicant has qualified",
-    }),
-  ],
-  [
-    "EXPIRED",
-    defineMessage({
-      defaultMessage: "Expired",
-      id: "GIC6EK",
-      description: "Expired status",
-    }),
-  ],
-  [
-    "REMOVED",
-    defineMessage({
-      defaultMessage: "Removed",
-      id: "vTyr7O",
-      description:
-        "Status for an application that has been removed from the recruitment",
-    }),
-  ],
-]);
-
-// Map existing statuses to their new, consolidated keys
-const statusLabelMap = new Map<PoolCandidateStatus, StatusLabelKey>([
-  [PoolCandidateStatus.Draft, "DRAFT"],
-  [PoolCandidateStatus.NewApplication, "RECEIVED"],
-  [PoolCandidateStatus.ApplicationReview, "UNDER_REVIEW"],
-  [PoolCandidateStatus.ScreenedIn, "PENDING_SKILLS"],
-  [PoolCandidateStatus.UnderAssessment, "ASSESSMENT"],
-  [PoolCandidateStatus.DraftExpired, "DATE_PASSED"],
-  [PoolCandidateStatus.ScreenedOutApplication, "SCREENED_OUT"],
-  [PoolCandidateStatus.ScreenedOutAssessment, "SCREENED_OUT"],
-  [PoolCandidateStatus.QualifiedAvailable, "QUALIFIED"],
-  [PoolCandidateStatus.QualifiedUnavailable, "QUALIFIED"],
-  [PoolCandidateStatus.QualifiedWithdrew, "QUALIFIED"],
-  [PoolCandidateStatus.PlacedCasual, "QUALIFIED"],
-  [PoolCandidateStatus.PlacedTerm, "QUALIFIED"],
-  [PoolCandidateStatus.PlacedIndeterminate, "QUALIFIED"],
-  [PoolCandidateStatus.Expired, "EXPIRED"],
-  [PoolCandidateStatus.Removed, "REMOVED"],
-]);
-
-/**
- * Get the label for a status
- *
- * Note: This is different than other helpers
- * in this file since it is mapping old statuses
- * that do not match the database ENUM
- *
- * @param status  Database status
- * @returns Maybe<MessageDescriptor>    Returns the message or null
- */
-export const getPoolCandidateStatusLabel = (
-  status: Maybe<PoolCandidateStatus>,
-) => {
-  const key = status ? statusLabelMap.get(status) : null;
-  return key ? statusLabels.get(key) : null;
-};

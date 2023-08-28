@@ -1,7 +1,6 @@
 import { getFeatureFlags } from "./utils";
 
 export type FeatureFlags = {
-  applicantDashboard: boolean;
   skillLibrary: boolean;
 };
 

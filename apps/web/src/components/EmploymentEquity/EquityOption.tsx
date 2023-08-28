@@ -1,9 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 
 import { Button } from "@gc-digital-talent/ui";
 
-import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import {
   DisabilityDialog,
   VisibleMinorityDialog,
@@ -14,6 +14,7 @@ import { EquityDialogProps } from "./types";
 type EquityGroup = "woman" | "minority" | "disability";
 
 interface EquityOptionProps {
+  disabled?: boolean;
   isAdded: boolean;
   option: EquityGroup;
   // Note: Just defining the func signature
@@ -22,10 +23,9 @@ interface EquityOptionProps {
   description?: React.ReactNode;
 }
 
-const dialogMap: Record<
-  EquityGroup,
-  (props: EquityDialogProps) => JSX.Element
-> = {
+type EquityDialogFunc = (props: EquityDialogProps) => JSX.Element;
+
+const dialogMap: Record<EquityGroup, EquityDialogFunc> = {
   disability: DisabilityDialog,
   minority: VisibleMinorityDialog,
   woman: WomanDialog,
@@ -37,6 +37,7 @@ const EquityOption = ({
   onSave,
   title,
   description,
+  disabled,
 }: EquityOptionProps) => {
   const intl = useIntl();
   const Dialog = dialogMap[option];
@@ -78,7 +79,7 @@ const EquityOption = ({
         {title}
       </p>
       {description && <p data-h2-padding-bottom="base(x1)">{description}</p>}
-      <Dialog isAdded={isAdded} onSave={onSave}>
+      <Dialog isAdded={isAdded} onSave={onSave} disabled={disabled}>
         <Button
           type="button"
           mode="inline"

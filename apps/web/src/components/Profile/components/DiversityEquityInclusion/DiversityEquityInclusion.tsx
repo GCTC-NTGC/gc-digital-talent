@@ -14,8 +14,8 @@ import { UpdateUserAsUserInput } from "@gc-digital-talent/graphql";
 import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
 import { EquityKeys } from "~/components/EmploymentEquity/types";
 import { hasEmptyRequiredFields } from "~/validators/profile/diversityEquityInclusion";
-
 import applicationMessages from "~/messages/applicationMessages";
+
 import { SectionProps } from "../../types";
 import { getSectionTitle } from "../../utils";
 
@@ -103,7 +103,7 @@ const DiversityEquityInclusion = ({
                     "Heading for opening the accordion with information on employment equity",
                 })}
           </StandardAccordionHeader>
-          <Accordion.AnimatedContent isOpen={accordionOpen === "information"}>
+          <Accordion.Content>
             <Separator
               orientation="horizontal"
               decorative
@@ -177,11 +177,11 @@ const DiversityEquityInclusion = ({
                 })}
               </li>
             </ul>
-          </Accordion.AnimatedContent>
+          </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
       <EquityOptions
-        isDisabled={isUpdating || false}
+        isDisabled={isUpdating}
         inApplication={!!pool}
         indigenousCommunities={user.indigenousCommunities}
         indigenousDeclarationSignature={user.indigenousDeclarationSignature}

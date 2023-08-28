@@ -1,10 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import applicationMessages from "~/messages/applicationMessages";
 import { Link, Heading } from "@gc-digital-talent/ui";
-
 import { getLocale } from "@gc-digital-talent/i18n";
+
+import applicationMessages from "~/messages/applicationMessages";
+
 import Text from "./Text";
 
 const RequirementCard = (props: React.HTMLProps<HTMLDivElement>) => (
@@ -21,9 +22,13 @@ const RequirementCard = (props: React.HTMLProps<HTMLDivElement>) => (
 
 interface EducationRequirementsProps {
   isIAP: boolean;
+  classificationGroup: string;
 }
 
-const EducationRequirements = ({ isIAP }: EducationRequirementsProps) => {
+const EducationRequirements = ({
+  isIAP,
+  classificationGroup,
+}: EducationRequirementsProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -54,17 +59,29 @@ const EducationRequirements = ({ isIAP }: EducationRequirementsProps) => {
             description: "Title for the applied work experience requirements",
           })}
         </Heading>
-        <Text>
-          {intl.formatMessage(applicationMessages.appliedWorkExperience)}
-        </Text>
-        <ul>
-          <li>{intl.formatMessage(applicationMessages.onTheJobLearning)}</li>
-          <li>
-            {intl.formatMessage(applicationMessages.nonConventionalTraining)}
-          </li>
-          <li>{intl.formatMessage(applicationMessages.formalEducation)}</li>
-          <li>{intl.formatMessage(applicationMessages.otherExperience)}</li>
-        </ul>
+        {classificationGroup === "PM" ? (
+          <Text>
+            {intl.formatMessage(applicationMessages.appliedWorkExpPMGroup)}
+          </Text>
+        ) : (
+          <>
+            <Text>
+              {intl.formatMessage(applicationMessages.appliedWorkExperience)}
+            </Text>
+            <ul>
+              <li>
+                {intl.formatMessage(applicationMessages.onTheJobLearning)}
+              </li>
+              <li>
+                {intl.formatMessage(
+                  applicationMessages.nonConventionalTraining,
+                )}
+              </li>
+              <li>{intl.formatMessage(applicationMessages.formalEducation)}</li>
+              <li>{intl.formatMessage(applicationMessages.otherExperience)}</li>
+            </ul>
+          </>
+        )}
       </RequirementCard>
       <span
         aria-hidden="true"
@@ -94,33 +111,51 @@ const EducationRequirements = ({ isIAP }: EducationRequirementsProps) => {
         })}
       </span>
       <RequirementCard>
-        <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
-          {isIAP
-            ? intl.formatMessage({
-                defaultMessage: "High school diploma or GED",
-                id: "CnPVJe",
-                description:
-                  "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)",
-              })
-            : intl.formatMessage({
-                defaultMessage: "2-year post-secondary",
-                id: "ZIwaDE",
-                description: "Title for the education requirements",
-              })}
-        </Heading>
-        <Text>
-          {isIAP
-            ? intl.formatMessage({
-                defaultMessage:
-                  "Successful completion of a standard high school diploma or GED equivalent.",
-                id: "nWZiWr",
-                description:
-                  "Education requirement (IT Apprenticeship Program for Indigenous Peoples)",
-              })
-            : intl.formatMessage(applicationMessages.postSecondaryEducation, {
-                link: qualityStandardsLink,
-              })}
-        </Text>
+        {classificationGroup === "PM" ? (
+          <>
+            <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
+              {intl.formatMessage(applicationMessages.secondarySchoolHeading)}
+            </Heading>
+            <Text>
+              {intl.formatMessage(
+                applicationMessages.secondarySchoolDescription,
+              )}
+            </Text>
+          </>
+        ) : (
+          <>
+            <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
+              {isIAP
+                ? intl.formatMessage({
+                    defaultMessage: "High school diploma or GED",
+                    id: "CnPVJe",
+                    description:
+                      "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "2-year post-secondary",
+                    id: "ZIwaDE",
+                    description: "Title for the education requirements",
+                  })}
+            </Heading>
+            <Text>
+              {isIAP
+                ? intl.formatMessage({
+                    defaultMessage:
+                      "Successful completion of a standard high school diploma or GED equivalent.",
+                    id: "nWZiWr",
+                    description:
+                      "Education requirement (IT Apprenticeship Program for Indigenous Peoples)",
+                  })
+                : intl.formatMessage(
+                    applicationMessages.postSecondaryEducation,
+                    {
+                      link: qualityStandardsLink,
+                    },
+                  )}
+            </Text>
+          </>
+        )}
       </RequirementCard>
     </div>
   );

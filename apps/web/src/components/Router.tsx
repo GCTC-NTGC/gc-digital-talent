@@ -27,6 +27,14 @@ const HomePage = React.lazy(() =>
       ),
   ),
 );
+const ExecutiveHomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsExecutiveHomePage" */ "../pages/Home/ExecutiveHomePage/ExecutiveHomePage"
+      ),
+  ),
+);
 const ManagerHomePage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -95,27 +103,27 @@ const RequestConfirmationPage = React.lazy(() =>
 );
 
 /** Auth */
-const RegisterPage = React.lazy(() =>
+const SignUpPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsRegisterPage" */ "../pages/Auth/RegisterPage/RegisterPage"
+        /* webpackChunkName: "tsSignUpPage" */ "../pages/Auth/SignUpPage/SignUpPage"
       ),
   ),
 );
-const LoggedOutPage = React.lazy(() =>
+const SignedOutPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsLoggedOutPage" */ "../pages/Auth/LoggedOutPage/LoggedOutPage"
+        /* webpackChunkName: "tsSignedOutPage" */ "../pages/Auth/SignedOutPage/SignedOutPage"
       ),
   ),
 );
-const LoginPage = React.lazy(() =>
+const SignInPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsLoginPage" */ "../pages/Auth/LoginPage/LoginPage"
+        /* webpackChunkName: "tsSignInPage" */ "../pages/Auth/SignInPage/SignInPage"
       ),
   ),
 );
@@ -145,30 +153,6 @@ const ProfilePage = React.lazy(() =>
       ),
   ),
 );
-const GovernmentInfoPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsGovInfoPage" */ "../pages/Profile/GovernmentInfoPage/GovernmentInfoPage"
-      ),
-  ),
-);
-const LanguageInfoPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsLangInfoPage" */ "../pages/Profile/LanguageInfoPage/LanguageInfoPage"
-      ),
-  ),
-);
-const WorkLocationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsWorkLocationPage" */ "../pages/Profile/WorkLocationPage/WorkLocationPage"
-      ),
-  ),
-);
 const ExperienceFormPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -177,43 +161,11 @@ const ExperienceFormPage = React.lazy(() =>
       ),
   ),
 );
-const WorkPreferencesPage = React.lazy(() =>
+const CareerTimelineAndRecruitmentPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsWorkPrefPage" */ "../pages/Profile/WorkPreferencesPage/WorkPreferencesPage"
-      ),
-  ),
-);
-const AboutMePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsAboutMePage" */ "../pages/Profile/AboutMePage/AboutMePage"
-      ),
-  ),
-);
-const RoleSalaryPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsRoleSalaryPage" */ "../pages/Profile/RoleSalaryPage/RoleSalaryPage"
-      ),
-  ),
-);
-const EmploymentEquityPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsEquityPage" */ "../pages/Profile/EmploymentEquityPage/EmploymentEquityPage"
-      ),
-  ),
-);
-const ResumeAndRecruitmentPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsResumeAndRecruitmentPage" */ "../pages/Profile/ResumeAndRecruitmentPage/ResumeAndRecruitmentPage"
+        /* webpackChunkName: "tsCareerTimelineAndRecruitmentPage" */ "../pages/Profile/CareerTimelineAndRecruitmentPage/CareerTimelineAndRecruitmentPage"
       ),
   ),
 );
@@ -240,14 +192,6 @@ const CreateApplicationPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "tsCreateApplicationPage" */ "../pages/CreateApplicationPage/CreateApplicationPage"
-      ),
-  ),
-);
-const MyApplicationsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsMyApplicationsPage" */ "../pages/Applications/MyApplicationsPage/MyApplicationsPage"
       ),
   ),
 );
@@ -283,35 +227,35 @@ const ApplicationProfilePage = React.lazy(() =>
       ),
   ),
 );
-const ApplicationResumeIntroductionPage = React.lazy(() =>
+const ApplicationCareerTimelineIntroductionPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationResumeIntroductionPage" */ "../pages/Applications/ApplicationResumeIntroductionPage/ApplicationResumeIntroductionPage"
+        /* webpackChunkName: "tsApplicationCareerTimelineIntroductionPage" */ "../pages/Applications/ApplicationCareerTimelineIntroductionPage/ApplicationCareerTimelineIntroductionPage"
       ),
   ),
 );
-const ApplicationResumePage = React.lazy(() =>
+const ApplicationCareerTimelinePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationResumePage" */ "../pages/Applications/ApplicationResumePage/ApplicationResumePage"
+        /* webpackChunkName: "tsApplicationCareerTimelinePage" */ "../pages/Applications/ApplicationCareerTimelinePage/ApplicationCareerTimelinePage"
       ),
   ),
 );
-const ApplicationResumeAddPage = React.lazy(() =>
+const ApplicationCareerTimelineAddPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationResumeAddPage" */ "../pages/Applications/ApplicationResumeAddPage/ApplicationResumeAddPage"
+        /* webpackChunkName: "tsApplicationCareerTimelineAddPage" */ "../pages/Applications/ApplicationCareerTimelineAddPage/ApplicationCareerTimelineAddPage"
       ),
   ),
 );
-const ApplicationResumeEditPage = React.lazy(() =>
+const ApplicationCareerTimelineEditPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationResumeEditPage" */ "../pages/Applications/ApplicationResumeEditPage/ApplicationResumeEditPage"
+        /* webpackChunkName: "tsApplicationCareerTimelineEditPage" */ "../pages/Applications/ApplicationCareerTimelineEditPage/ApplicationCareerTimelineEditPage"
       ),
   ),
 );
@@ -707,6 +651,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
               element: <HomePage />,
             },
             {
+              path: "executive",
+              element: <ExecutiveHomePage />,
+            },
+            {
               path: "manager",
               element: <ManagerHomePage />,
             },
@@ -746,7 +694,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
             },
             {
               path: "register-info",
-              element: <RegisterPage />,
+              element: <SignUpPage />,
             },
             {
               path: "logged-out",
@@ -764,11 +712,11 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 }
                 return null;
               },
-              element: <LoggedOutPage />,
+              element: <SignedOutPage />,
             },
             {
               path: "login-info",
-              element: <LoginPage />,
+              element: <SignInPage />,
             },
             {
               path: "create-account",
@@ -837,84 +785,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
                           ),
                         },
                         {
-                          path: "about-me/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <AboutMePage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "government-info/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <GovernmentInfoPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "language-info/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <LanguageInfoPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "work-location/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <WorkLocationPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "work-preferences/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <WorkPreferencesPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "employment-equity/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <EmploymentEquityPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "role-salary-expectations/edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <RoleSalaryPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "resume-and-recruitment",
+                          path: "career-timeline-and-recruitment",
                           children: [
                             {
                               index: true,
@@ -923,56 +794,40 @@ const createRoute = (locale: Locales, loginPath: string) =>
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
-                                  <ResumeAndRecruitmentPage />
+                                  <CareerTimelineAndRecruitmentPage />
                                 </RequireAuth>
                               ),
                             },
                             {
-                              path: ":experienceType",
+                              path: "create",
+                              element: (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.Applicant]}
+                                  loginPath={loginPath}
+                                >
+                                  <ExperienceFormPage />
+                                </RequireAuth>
+                              ),
+                            },
+                            {
+                              path: ":experienceId",
                               children: [
                                 {
-                                  path: "create",
+                                  path: "edit",
                                   element: (
                                     <RequireAuth
                                       roles={[ROLE_NAME.Applicant]}
                                       loginPath={loginPath}
                                     >
-                                      <ExperienceFormPage />
+                                      <ExperienceFormPage edit />
                                     </RequireAuth>
                                   ),
-                                },
-                                {
-                                  path: ":experienceId",
-                                  children: [
-                                    {
-                                      path: "edit",
-                                      element: (
-                                        <RequireAuth
-                                          roles={[ROLE_NAME.Applicant]}
-                                          loginPath={loginPath}
-                                        >
-                                          <ExperienceFormPage edit />
-                                        </RequireAuth>
-                                      ),
-                                    },
-                                  ],
                                 },
                               ],
                             },
                           ],
                         },
                       ],
-                    },
-                    {
-                      path: "applications",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.Applicant]}
-                          loginPath={loginPath}
-                        >
-                          <MyApplicationsPage />
-                        </RequireAuth>
-                      ),
                     },
                   ],
                 },
@@ -1039,23 +894,25 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       element: <ApplicationProfilePage />,
                     },
                     {
-                      path: "resume",
+                      path: "career-timeline",
                       children: [
                         {
                           index: true,
-                          element: <ApplicationResumePage />,
+                          element: <ApplicationCareerTimelinePage />,
                         },
                         {
                           path: "introduction",
-                          element: <ApplicationResumeIntroductionPage />,
+                          element: (
+                            <ApplicationCareerTimelineIntroductionPage />
+                          ),
                         },
                         {
                           path: "add",
-                          element: <ApplicationResumeAddPage />,
+                          element: <ApplicationCareerTimelineAddPage />,
                         },
                         {
                           path: ":experienceId",
-                          element: <ApplicationResumeEditPage />,
+                          element: <ApplicationCareerTimelineEditPage />,
                         },
                       ],
                     },

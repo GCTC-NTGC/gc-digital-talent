@@ -17,13 +17,13 @@ import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 import { SectionProps } from "../../types";
 import SectionTrigger from "../SectionTrigger";
-import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import FormActions from "../FormActions";
+import useSectionInfo from "../../hooks/useSectionInfo";
+import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import { FormValues } from "./types";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
 import FormFields from "./FormFields";
-import useSectionInfo from "../../hooks/useSectionInfo";
 
 const LanguageProfile = ({
   user,
@@ -48,7 +48,7 @@ const LanguageProfile = ({
   );
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    await onUpdate(user.id, formValuesToSubmitData(formValues))
+    return onUpdate(user.id, formValuesToSubmitData(formValues))
       .then(() => {
         toast.success(
           intl.formatMessage({

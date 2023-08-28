@@ -8,17 +8,15 @@ import { User } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 
-export interface UserProfilePrintButtonProps {
+interface UserProfilePrintButtonProps {
   user: User;
+  children?: React.ReactNode;
 }
 
 const UserProfilePrintButton = ({
   user,
   children,
-}: {
-  user: User;
-  children?: React.ReactNode;
-}) => {
+}: UserProfilePrintButtonProps) => {
   const intl = useIntl();
 
   const componentRef = useRef(null);

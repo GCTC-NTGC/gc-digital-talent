@@ -3,7 +3,7 @@ import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import type { SubmitHandler } from "react-hook-form";
 
-import { OverlayOrDialogDecorator } from "storybook-helpers";
+import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
   fakeSkills,
   fakePools,

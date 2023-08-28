@@ -1,12 +1,11 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
+
 import type { Skill } from "~/api/generated";
-import type {
-  ExperienceDetailsSubmissionData,
-  ExperienceType,
-} from "~/types/experience";
+import type { ExperienceType } from "~/types/experience";
+
 import { ExperienceForm } from "./ExperienceFormPage";
 
 const skillData = getStaticSkills();
@@ -36,18 +35,6 @@ const TemplateExperienceFormForm: Story<ExperienceFormStoryArgs> = ({
     userId={userId}
     experienceType={experienceType}
     skills={skills}
-    onUpdateExperience={async (data: ExperienceDetailsSubmissionData) => {
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(data);
-        }, 1000);
-      });
-      action("Update Experience")(data);
-      return "null";
-    }}
-    deleteExperience={() => {
-      /* do nothing */
-    }}
   />
 );
 

@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 
 import CloseButton from "./CloseButton";
-
 import { BasicDialogProps } from "./types";
 
 const mailAccessor = (chunks: React.ReactNode) => (

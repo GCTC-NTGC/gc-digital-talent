@@ -5,7 +5,6 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Classification;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\PersonalExperience;
@@ -47,11 +46,11 @@ class ApplicantTest extends TestCase
     {
         // Get the ID of the base admin user
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
-        $pool2 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -79,7 +78,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 8 // including base admin user
+                'countApplicants' => 7
             ]
         ]);
 
@@ -109,8 +108,8 @@ class ApplicantTest extends TestCase
     {
         // Get the ID of the base admin user
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -250,8 +249,8 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQueryLanguage(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(1)->create([
@@ -354,111 +353,11 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testCountApplicantsQuerySalaryClassifications(): void
-    {
-        // Recycling salary/classification tests //
-        $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id'],
-        ]);
-
-        PoolCandidate::factory()->count(1)->create([
-            'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'user_id' => User::factory([
-                'expected_salary' => [],
-            ])
-        ]);
-
-        PoolCandidate::factory()->count(2)->sequence(fn () => [
-            'pool_id' => $pool1->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'user_id' => User::factory([
-                'expected_salary' => ['_50_59K', '_70_79K'],
-            ])
-        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
-            $classificationLvl1 = Classification::factory()->create([
-                'group' => 'ZZ',
-                'level' => 1,
-                'min_salary' => 50000,
-                'max_salary' => 69000,
-            ]);
-            $candidate->user->expectedClassifications()->sync($classificationLvl1);
-        })->create();
-
-        PoolCandidate::factory()->count(4)->sequence(fn () => [
-            'pool_id' => $pool1->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'user_id' => User::factory([
-                'expected_salary' => ['_60_69K', '_80_89K'],
-            ])
-        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
-            $candidate->user->expectedClassifications()->delete();
-        })->create();
-
-        PoolCandidate::factory()->count(11)->sequence(fn () => [
-            'pool_id' => $pool1->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            'user_id' => User::factory([
-                'expected_salary' => ['_90_99K', '_100K_PLUS']
-            ])
-        ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
-            $candidate->user->expectedClassifications()->delete();
-        })->create();
-
-        // Assert query with just pool filter
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
-            }
-        ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1['id']]
-                    ],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'countApplicants' => 18
-            ]
-        ]);
-
-        // Assert query to test classification-salary
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
-            }
-        ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1['id']]
-                    ],
-                    'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'countApplicants' => 6
-            ]
-        ]);
-    }
-
     public function testCountApplicantsQueryEducation(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -527,8 +426,8 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQueryLocation(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -597,8 +496,8 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQueryTemporary(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -698,8 +597,8 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQueryConditionsEmployment(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(1)->create([
@@ -800,8 +699,8 @@ class ApplicantTest extends TestCase
     {
         // recycle skills testing //
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
         $skill1 = Skill::factory()->create();
         $skill2 = Skill::factory()->create();
@@ -822,12 +721,12 @@ class ApplicantTest extends TestCase
                 AwardExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill1) {
-                        $model->skills()->sync([$skill1['id']]);
+                        $model->syncSkills([$skill1->only('id')]);
                     })->create();
                 WorkExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill1) {
-                        $model->skills()->sync([$skill1['id']]);
+                        $model->syncSkills([$skill1->only('id')]);
                     })->create();
             })->create()
         ])->create();
@@ -840,12 +739,12 @@ class ApplicantTest extends TestCase
                 CommunityExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill1) {
-                        $model->skills()->sync([$skill1['id']]);
+                        $model->syncSkills([$skill1->only('id')]);
                     })->create();
                 PersonalExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill2) {
-                        $model->skills()->sync([$skill2['id']]);
+                        $model->syncSkills([$skill2->only('id')]);
                     })->create();
             })->create()
         ])->create();
@@ -970,8 +869,8 @@ class ApplicantTest extends TestCase
     public function testCountApplicantsQuerySkillsAdditive(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
         $skill1 = Skill::factory()->create();
         $skill2 = Skill::factory()->create();
@@ -992,7 +891,7 @@ class ApplicantTest extends TestCase
                 AwardExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill1) {
-                        $model->skills()->sync([$skill1['id']]);
+                        $model->syncSkills([$skill1->only('id')]);
                     })->create();
             })->create()
         ])->create();
@@ -1005,12 +904,12 @@ class ApplicantTest extends TestCase
                 CommunityExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill1) {
-                        $model->skills()->sync([$skill1['id']]);
+                        $model->syncSkills([$skill1->only('id')]);
                     })->create();
                 PersonalExperience::factory()
                     ->for($user)
                     ->afterCreating(function ($model) use ($skill2) {
-                        $model->skills()->sync([$skill2['id']]);
+                        $model->syncSkills([$skill2->only('id')]);
                     })->create();
             })->create()
         ])->create();
@@ -1107,47 +1006,6 @@ class ApplicantTest extends TestCase
         )->assertJson([
             'data' => [
                 'countApplicants' => 0
-            ]
-        ]);
-    }
-
-    public function testCountApplicantsQuerySuspended(): void
-    {
-        $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
-        ]);
-        PoolCandidate::factory()->count(5)->availableInSearch()->create([
-            'pool_id' => $pool1,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
-        ]);
-        PoolCandidate::factory()->count(4)->suspended()->create([
-            'pool_id' => $pool1,
-            'user_id' => User::factory([
-                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING,
-            ])
-        ]);
-
-        // assert count applicants ignores the four suspended candidates
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
-            }
-        ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1['id']]
-                    ],
-                ]
-            ]
-        )->assertJson([
-            'data' => [
-                'countApplicants' => 5
             ]
         ]);
     }
@@ -1274,7 +1132,7 @@ class ApplicantTest extends TestCase
     public function testStatusWeight(): void
     {
         // test generated property that exists on type PoolCandidate from model PoolCandidate.php
-        $pool = Pool::factory()->create();
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
 
         $candidate = PoolCandidate::factory()->create([
             'pool_id' => $pool->id,
@@ -1539,8 +1397,8 @@ class ApplicantTest extends TestCase
     public function testSortingStatusThenPriority(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
         ]);
 
         // DRAFT, NOT PRESENT
@@ -1664,7 +1522,7 @@ class ApplicantTest extends TestCase
     public function testNullFilterEqualsUndefinedPoolCandidate()
     {
         // setup
-        $pool = Pool::factory()->create([
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $this->adminUser->id,
         ]);
         User::factory()
@@ -1723,7 +1581,6 @@ class ApplicantTest extends TestCase
                     'where' => [
                         'applicantFilter' => [
                             'equity' => null,
-                            'expectedClassifications' => null,
                             'hasDiploma' => null,
                             'languageAbility' => null,
                             'locationPreferences' => null,
@@ -1749,5 +1606,44 @@ class ApplicantTest extends TestCase
                     ]
                 ]
             ]);
+    }
+
+    public function testOnlyITJobsAppear()
+    {
+        $itPool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
+            'user_id' => $this->adminUser->id,
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool->id
+        ]);
+        $itOngoingPool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
+            'user_id' => $this->adminUser->id,
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itOngoingPool->id
+        ]);
+        $execPool = Pool::factory()->published()->create([
+            'user_id' => $this->adminUser->id,
+            'publishing_group' => ApiEnums::PUBLISHING_GROUP_EXECUTIVE_JOBS
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $execPool->id
+        ]);
+
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ',
+            [
+                'where' => []
+            ]
+        )->assertJson([
+            'data' => [
+                'countApplicants' => 2
+            ]
+        ]);
     }
 }

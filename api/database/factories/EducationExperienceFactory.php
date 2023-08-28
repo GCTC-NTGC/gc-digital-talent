@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\EducationExperience;
+use App\Models\User;
 use App\Traits\ExperienceFactoryWithSkills;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -26,6 +27,7 @@ class EducationExperienceFactory extends Factory
         $startDate = $this->faker->date();
 
         return [
+            'user_id' => User::factory(),
             'institution' => $this->faker->company(),
             'area_of_study' => $this->faker->jobTitle(),
             'thesis_title' => $this->faker->bs(),

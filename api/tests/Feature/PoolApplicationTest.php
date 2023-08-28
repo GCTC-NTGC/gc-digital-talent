@@ -126,8 +126,6 @@ class PoolApplicationTest extends TestCase
                 'email' => 'applicant-user@test.com',
                 'sub' => 'applicant-user@test.com',
             ]);
-        // Add generic job title for submission
-        $this->applicantUser->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
 
         $this->responderUser = User::factory()
             ->asApplicant()
@@ -574,7 +572,7 @@ class PoolApplicationTest extends TestCase
                 ]
             )->assertJson([
                 'errors' => [[
-                    'message' => ApiEnums::POOL_CANDIDATE_SIGNATURE_REQUIRED,
+                    'message' => 'Variable "$sig" of non-null type "String!" must not be null.',
                 ]]
             ]);
 
@@ -658,7 +656,7 @@ class PoolApplicationTest extends TestCase
         $secondExperience = AwardExperience::factory()->create([
             'user_id' => $this->applicantUser->id,
         ]);
-        $secondExperience->skills()->sync($essentialSkills);
+        $secondExperience->syncSkills($essentialSkills);
 
         // assert user can now submit application as the essential skill is present
         $this->actingAs($this->applicantUser, "api")

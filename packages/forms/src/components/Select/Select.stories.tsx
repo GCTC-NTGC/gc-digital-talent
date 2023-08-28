@@ -8,9 +8,10 @@ import { fakeDepartments, fakePools } from "@gc-digital-talent/fake-data";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import Form from "../BasicForm";
-import Select, { OptGroup, Option } from "./Select";
-import type { SelectProps } from ".";
 import Submit from "../Submit";
+import Select, { OptGroup, Option } from "./Select";
+
+import type { SelectProps } from ".";
 
 export default {
   component: Select,
@@ -103,12 +104,6 @@ SelectDefault.args = {
   id: uniqueId(),
   label: "Departments",
   name: "departments",
-  nullSelection: "",
-};
-
-export const SelectWithNullSelection = Template.bind({});
-SelectWithNullSelection.args = {
-  ...SelectDefault.args,
   nullSelection: "Select an option",
 };
 
@@ -117,7 +112,6 @@ SelectWithGroups.args = {
   ...SelectDefault.args,
   label: "Groups",
   name: "groups",
-  nullSelection: "Select an option",
 };
 
 export const SelectRequired = Template.bind({});

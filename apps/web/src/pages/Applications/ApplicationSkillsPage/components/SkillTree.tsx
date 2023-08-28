@@ -82,8 +82,8 @@ const SkillTree = ({
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "This required skill must have at least 1 résumé experience associated with it.",
-              id: "x8tCSM",
+                "This required skill must have at least 1 career timeline experience associated with it.",
+              id: "+lSoN3",
               description:
                 "Message that appears when a required skill has no experiences linked to it",
             })}
@@ -138,8 +138,8 @@ const SkillTree = ({
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "Connect a résumé experience<hidden> to {skillName}</hidden>",
-                  id: "NgHjK8",
+                    "Connect a career timeline experience<hidden> to {skillName}</hidden>",
+                  id: "fRwqM9",
                   description:
                     "Button text to open form to connect an experience to a skill",
                 },

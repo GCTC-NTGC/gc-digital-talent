@@ -5,13 +5,14 @@ import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   PublishingGroup,
   RoleAssignment,
   PoolStatus,
   Maybe,
-  PoolCandidate,
-  Scalars,
   PoolStream,
   Classification,
   Pool,
@@ -19,9 +20,6 @@ import {
 import { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
 import { ONGOING_PUBLISHING_GROUPS } from "~/constants/pool";
-import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
-
 import { PageNavKeys, SimpleClassification, SimplePool } from "~/types/pool";
 
 import { wrapAbbr } from "./nameUtils";
@@ -76,31 +74,15 @@ export const isAdvertisementVisible = (
   );
 };
 
-/**
- * See if the user has already applied
- * to this pool or not
- *
- * @param candidates
- * @param id
- * @returns
- */
-export const hasUserApplied = (
-  candidates: Maybe<PoolCandidate>[],
-  id: Maybe<Scalars["ID"]>,
-) => {
-  let hasApplied = false;
-  if (candidates && id) {
-    hasApplied = candidates.some((candidate) => candidate?.pool?.id === id);
-  }
-
-  return hasApplied;
-};
-
 export function isIAPPool(pool: Maybe<Pool>): boolean {
   return pool?.publishingGroup === PublishingGroup.Iap;
 }
 
-export interface formatClassificationStringProps {
+export function isExecPool(pool: Maybe<Pool>): boolean {
+  return pool?.publishingGroup === PublishingGroup.ExecutiveJobs;
+}
+
+interface formatClassificationStringProps {
   group: string;
   level: number;
 }
@@ -111,7 +93,7 @@ export const formatClassificationString = ({
 }: formatClassificationStringProps): string => {
   return `${group}-0${level}`;
 };
-export interface formattedPoolPosterTitleProps {
+interface formattedPoolPosterTitleProps {
   title: Maybe<string>;
   classification: Maybe<Classification>;
   stream: Maybe<PoolStream>;
@@ -140,13 +122,11 @@ export const formattedPoolPosterTitle = ({
   return {
     html: (
       <>
-        {`${title ? `${title}` : ""}`} ({wrapAbbr(groupAndLevel, intl)}
+        {title || ""} ({wrapAbbr(groupAndLevel, intl)}
         {streamString ? ` ${streamString}` : ""})
       </>
     ),
-    label: `${title ? `${title}` : ""} ${
-      genericTitle ? `(${genericTitle})` : ""
-    }`.trim(),
+    label: `${title || ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
   };
 };
 
@@ -266,3 +246,8 @@ export const isOngoingPublishingGroup = (
   publishingGroup: Maybe<PublishingGroup>,
 ): boolean =>
   publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;
+
+export function getClassificationGroup(pool: Maybe<Pool>): string {
+  const classification = pool?.classifications ? pool.classifications[0] : null;
+  return classification?.group ? classification.group : "";
+}

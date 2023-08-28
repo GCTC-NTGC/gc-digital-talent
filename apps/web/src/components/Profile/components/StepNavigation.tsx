@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Button } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
@@ -13,12 +12,18 @@ import applicationMessages from "~/messages/applicationMessages";
 import {
   PoolCandidate,
   useUpdateApplicationMutation,
-  User,
   ApplicationStep,
 } from "~/api/generated";
-import { getMissingLanguageRequirements } from "~/utils/languageUtils";
-import { hasEmptyRequiredFields as hasEmptyDEIRequiredFields } from "~/validators/profile/diversityEquityInclusion";
+import {
+  getMissingLanguageRequirements,
+  PartialUser as LanguageUser,
+} from "~/utils/languageUtils";
+import {
+  hasEmptyRequiredFields as hasEmptyDEIRequiredFields,
+  PartialUser as DeiUser,
+} from "~/validators/profile/diversityEquityInclusion";
 import { useApplicationContext } from "~/pages/Applications/ApplicationContext";
+
 import { useProfileFormContext } from "./ProfileFormContext";
 
 type ProfileActionFormValues = {
@@ -27,7 +32,7 @@ type ProfileActionFormValues = {
 
 interface StepNavigationProps {
   application: PoolCandidate;
-  user: User;
+  user: DeiUser & LanguageUser;
   isValid?: boolean;
 }
 
@@ -39,13 +44,12 @@ const StepNavigation = ({
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { applicantDashboard } = useFeatureFlags();
   const { dirtySections } = useProfileFormContext();
   const [{ fetching: submitting }, executeSubmitMutation] =
     useUpdateApplicationMutation();
   const { followingPageUrl, isIAP } = useApplicationContext();
   const nextStepPath =
-    followingPageUrl ?? paths.applicationResumeIntro(application.id);
+    followingPageUrl ?? paths.applicationCareerTimelineIntro(application.id);
   const methods = useForm<ProfileActionFormValues>({
     defaultValues: {
       action: "continue",
@@ -90,11 +94,7 @@ const StepNavigation = ({
 
     if (!hasDirtySections) {
       if (values.action === "quit") {
-        navigate(
-          applicantDashboard
-            ? paths.profileAndApplications({ fromIapDraft: isIAP })
-            : paths.myProfile(),
-        );
+        navigate(paths.profileAndApplications({ fromIapDraft: isIAP }));
         return true;
       }
 

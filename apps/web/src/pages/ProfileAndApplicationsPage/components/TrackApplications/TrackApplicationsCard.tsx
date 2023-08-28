@@ -1,26 +1,31 @@
 import * as React from "react";
+import { useIntl } from "react-intl";
+import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, HeadingProps, Pill, Separator } from "@gc-digital-talent/ui";
-import { useIntl } from "react-intl";
 import { PoolCandidate, PoolCandidateStatus } from "@gc-digital-talent/graphql";
-import ApplicationActions, {
-  DeleteActionProps,
-} from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/ApplicationActions";
+import { useAuthorization } from "@gc-digital-talent/auth";
+import { commonMessages } from "@gc-digital-talent/i18n";
+
 import {
   isDraft,
   isExpired,
-} from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/utils";
+  getRecruitmentType,
+  isQualifiedStatus,
+} from "~/utils/poolCandidate";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
-import useMutations from "~/pages/Applications/MyApplicationsPage/components/ApplicationCard/useMutations";
-import { getRecruitmentType, isQualifiedStatus } from "~/utils/poolCandidate";
-import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
-import { useAuthorization } from "@gc-digital-talent/auth";
-import { commonMessages } from "@gc-digital-talent/i18n";
+
+import ApplicationActions, { DeleteActionProps } from "./ApplicationActions";
+import useMutations from "./useMutations";
 import { getApplicationDateInfo } from "./utils";
 
-export type Application = Omit<PoolCandidate, "user">;
+type Application = Omit<
+  PoolCandidate,
+  "user" | "educationRequirementExperiences"
+>;
 
 export interface TrackApplicationsCardProps {
   application: Application;
@@ -46,8 +51,12 @@ const TrackApplicationsCard = ({
 
   // We don't get DraftExpired status from the API, so we need to check if the draft is expired ourselves
   const statusPill = isDraftExpired
-    ? getStatusPillInfo(PoolCandidateStatus.DraftExpired, intl)
-    : getStatusPillInfo(application.status, intl);
+    ? getStatusPillInfo(
+        PoolCandidateStatus.DraftExpired,
+        application.suspendedAt,
+        intl,
+      )
+    : getStatusPillInfo(application.status, application.suspendedAt, intl);
 
   const applicationDateInfo = getApplicationDateInfo(application, intl);
   const { user } = useAuthorization();
@@ -151,43 +160,30 @@ const TrackApplicationsCard = ({
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-gap="base(x.5) p-tablet(x1)"
+        data-h2-justify-content="base(flex-start)"
+        data-h2-gap="base(x.5 0) p-tablet(0 x1)"
       >
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(center) p-tablet(flex-start)"
-          data-h2-gap="base(x1)"
-        >
-          <ApplicationActions.ViewAction
-            show={!applicationIsDraft}
-            application={application}
-          />
-          <ApplicationActions.SeeAdvertisementAction
-            show={notEmpty(application.pool)}
-            advertisement={application.pool}
-          />
+        <ApplicationActions.ViewAction
+          show={!applicationIsDraft}
+          application={application}
+        />
+        <ApplicationActions.SeeAdvertisementAction
+          show={notEmpty(application.pool)}
+          advertisement={application.pool}
+        />
 
-          <ApplicationActions.VisitResumeAction
-            show={isApplicantQualified}
-            userID={user?.id ?? ""}
-            application={application}
-          />
-          <ApplicationActions.ManageAvailabilityAction
-            show={isApplicantQualified}
-            userID={user?.id ?? ""}
-            application={application}
-          />
-          <ApplicationActions.SupportAction show application={application} />
-          <ApplicationActions.DeleteAction
-            show={applicationIsDraft}
-            application={application}
-            onDelete={onDelete}
-          />
-        </div>
-        <div
-          data-h2-flex-grow="p-tablet(1)"
-          data-h2-text-align="base(center) p-tablet(right)"
-        >
+        <ApplicationActions.VisitCareerTimelineAction
+          show={isApplicantQualified}
+          userID={user?.id ?? ""}
+          application={application}
+        />
+        <ApplicationActions.SupportAction show application={application} />
+        <ApplicationActions.DeleteAction
+          show={applicationIsDraft}
+          application={application}
+          onDelete={onDelete}
+        />
+        <div data-h2-margin-left="base(0) p-tablet(auto)">
           <ApplicationActions.CopyApplicationIdAction
             show
             application={application}
@@ -215,5 +211,4 @@ const TrackApplicationsCardApi = ({
   );
 };
 
-export const TrackApplicationsCardComponent = TrackApplicationsCard;
 export default TrackApplicationsCardApi;

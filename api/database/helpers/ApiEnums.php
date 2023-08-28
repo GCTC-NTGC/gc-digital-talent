@@ -103,21 +103,6 @@ class ApiEnums
         ];
     }
 
-    const LEGACY_ROLE_ADMIN = 'ADMIN';
-    const LEGACY_ROLE_APPLICANT = 'APPLICANT';
-    /**
-     * A collection of enums for Legacy Role in factories and seeders
-     *
-     * @return string[]
-     */
-    public static function legacyRoles(): array
-    {
-        return [
-            self::LEGACY_ROLE_ADMIN,
-            self::LEGACY_ROLE_APPLICANT,
-        ];
-    }
-
     // IMPORTANT
     // THE FOLLOWING ENUMS ARE DISTINCT FROM TEAMS ROLES AND EXIST TO MAINTAIN MIGRATION REVERSAL
     // THEY ARE NOT TO BE USED GOING FORWARD, SUPPLANTED BY LEGACY ROLES
@@ -158,6 +143,8 @@ class ApiEnums
     const CANDIDATE_STATUS_APPLICATION_REVIEW = 'APPLICATION_REVIEW';
     const CANDIDATE_STATUS_SCREENED_IN = 'SCREENED_IN';
     const CANDIDATE_STATUS_SCREENED_OUT_APPLICATION = 'SCREENED_OUT_APPLICATION';
+    const CANDIDATE_STATUS_SCREENED_OUT_NOT_INTERESTED = 'SCREENED_OUT_NOT_INTERESTED';
+    const CANDIDATE_STATUS_SCREENED_OUT_NOT_RESPONSIVE = 'SCREENED_OUT_NOT_RESPONSIVE';
     const CANDIDATE_STATUS_UNDER_ASSESSMENT = 'UNDER_ASSESSMENT';
     const CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT = 'SCREENED_OUT_ASSESSMENT';
     const CANDIDATE_STATUS_QUALIFIED_AVAILABLE = 'QUALIFIED_AVAILABLE';
@@ -178,6 +165,8 @@ class ApiEnums
             self::CANDIDATE_STATUS_APPLICATION_REVIEW,
             self::CANDIDATE_STATUS_SCREENED_IN,
             self::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
+            self::CANDIDATE_STATUS_SCREENED_OUT_NOT_INTERESTED,
+            self::CANDIDATE_STATUS_SCREENED_OUT_NOT_RESPONSIVE,
             self::CANDIDATE_STATUS_UNDER_ASSESSMENT,
             self::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
             self::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
@@ -188,24 +177,6 @@ class ApiEnums
             self::CANDIDATE_STATUS_PLACED_INDETERMINATE,
             self::CANDIDATE_STATUS_EXPIRED,
             self::CANDIDATE_STATUS_REMOVED,
-        ];
-    }
-
-    const USER_STATUS_ACTIVELY_LOOKING = 'ACTIVELY_LOOKING';
-    const USER_STATUS_OPEN_TO_OPPORTUNITIES = 'OPEN_TO_OPPORTUNITIES';
-    const USER_STATUS_INACTIVE = 'INACTIVE';
-
-    /**
-     * A collection of enums for user statuses in factories and seeders
-     *
-     * @return string[]
-     */
-    public static function userStatuses(): array
-    {
-        return [
-            self::USER_STATUS_ACTIVELY_LOOKING,
-            self::USER_STATUS_OPEN_TO_OPPORTUNITIES,
-            self::USER_STATUS_INACTIVE
         ];
     }
 
@@ -281,12 +252,14 @@ class ApiEnums
     const POOL_IS_DRAFT = 'DRAFT';
     const POOL_IS_PUBLISHED = 'PUBLISHED';
     const POOL_IS_CLOSED = 'CLOSED';
+    const POOL_IS_ARCHIVED = 'ARCHIVED';
     public static function poolStatuses(): array
     {
         return [
             self::POOL_IS_DRAFT,
             self::POOL_IS_PUBLISHED,
             self::POOL_IS_CLOSED,
+            self::POOL_IS_ARCHIVED,
         ];
     }
 
@@ -327,6 +300,7 @@ class ApiEnums
     /**
      * Pool streams
      */
+    const POOL_STREAM_ACCESS_INFORMATION_PRIVACY = 'ACCESS_INFORMATION_PRIVACY';
     const POOL_STREAM_BUSINESS_ADVISORY_SERVICES = 'BUSINESS_ADVISORY_SERVICES';
     const POOL_STREAM_DATABASE_MANAGEMENT = 'DATABASE_MANAGEMENT';
     const POOL_STREAM_ENTERPRISE_ARCHITECTURE = 'ENTERPRISE_ARCHITECTURE';
@@ -340,6 +314,7 @@ class ApiEnums
     public static function poolStreams(): array
     {
         return [
+            self::POOL_STREAM_ACCESS_INFORMATION_PRIVACY,
             self::POOL_STREAM_BUSINESS_ADVISORY_SERVICES,
             self::POOL_STREAM_DATABASE_MANAGEMENT,
             self::POOL_STREAM_ENTERPRISE_ARCHITECTURE,
@@ -505,7 +480,7 @@ class ApiEnums
     const APPLICATION_STEP_WELCOME = 'WELCOME';
     const APPLICATION_STEP_SELF_DECLARATION = 'SELF_DECLARATION';
     const APPLICATION_STEP_REVIEW_YOUR_PROFILE = 'REVIEW_YOUR_PROFILE';
-    const APPLICATION_STEP_REVIEW_YOUR_RESUME = 'REVIEW_YOUR_RESUME';
+    const APPLICATION_STEP_REVIEW_YOUR_CAREER_TIMELINE = 'REVIEW_YOUR_RESUME';
     const APPLICATION_STEP_EDUCATION_REQUIREMENTS = 'EDUCATION_REQUIREMENTS';
     const APPLICATION_STEP_SKILL_REQUIREMENTS = 'SKILL_REQUIREMENTS';
     const APPLICATION_STEP_SCREENING_QUESTIONS = 'SCREENING_QUESTIONS';
@@ -517,7 +492,7 @@ class ApiEnums
             self::APPLICATION_STEP_WELCOME,
             self::APPLICATION_STEP_SELF_DECLARATION,
             self::APPLICATION_STEP_REVIEW_YOUR_PROFILE,
-            self::APPLICATION_STEP_REVIEW_YOUR_RESUME,
+            self::APPLICATION_STEP_REVIEW_YOUR_CAREER_TIMELINE,
             self::APPLICATION_STEP_EDUCATION_REQUIREMENTS,
             self::APPLICATION_STEP_SKILL_REQUIREMENTS,
             self::APPLICATION_STEP_SCREENING_QUESTIONS,
@@ -538,6 +513,52 @@ class ApiEnums
         return [
             self::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK,
             self::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
+        ];
+    }
+
+    /**
+     * PoolCandidate Search Position Types
+     */
+    const POOL_CANDIDATE_SEARCH_POSITION_INDIVIDUAL_CONTRIBUTOR = 'INDIVIDUAL_CONTRIBUTOR';
+    const POOL_CANDIDATE_SEARCH_POSITION_TEAM_LEAD = 'TEAM_LEAD';
+
+    public static function poolCandidateSearchPositionTypes(): array
+    {
+        return [
+            self::POOL_CANDIDATE_SEARCH_POSITION_INDIVIDUAL_CONTRIBUTOR,
+            self::POOL_CANDIDATE_SEARCH_POSITION_TEAM_LEAD,
+        ];
+    }
+
+    /**
+     * Skill Level
+     */
+    const SKILL_LEVEL_BEGINNER = 'BEGINNER';
+    const SKILL_LEVEL_INTERMEDIATE = 'INTERMEDIATE';
+    const SKILL_LEVEL_EXPERT = 'EXPERT';
+    const SKILL_LEVEL_LEAD = 'LEAD';
+
+    public static function skillLevels(): array
+    {
+        return [
+            self::SKILL_LEVEL_BEGINNER,
+            self::SKILL_LEVEL_INTERMEDIATE,
+            self::SKILL_LEVEL_EXPERT,
+            self::SKILL_LEVEL_LEAD,
+        ];
+    }
+
+    /**
+     * When Skill Used
+     */
+    const WHEN_SKILL_USED_CURRENT = 'CURRENT';
+    const WHEN_SKILL_USED_PAST = 'PAST';
+
+    public static function whenSkillUsed(): array
+    {
+        return [
+            self::WHEN_SKILL_USED_CURRENT,
+            self::WHEN_SKILL_USED_PAST,
         ];
     }
 }

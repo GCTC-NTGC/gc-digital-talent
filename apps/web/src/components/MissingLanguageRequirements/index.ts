@@ -1,6 +1,3 @@
-import MissingLanguageRequirements, {
-  type MissingLanguageRequirementsProps,
-} from "./MissingLanguageRequirements";
+import MissingLanguageRequirements from "./MissingLanguageRequirements";
 
-export type { MissingLanguageRequirementsProps };
 export default MissingLanguageRequirements;

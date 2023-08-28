@@ -21,7 +21,7 @@ export interface ThemeState {
   setTheme: SetThemeFunc;
 }
 
-export const defaultThemeState = {
+const defaultThemeState = {
   mode: "pref" as ThemeMode,
   key: "default" as ThemeKey,
   isPref: true,
@@ -48,7 +48,7 @@ const getDefaultTheme = (override?: ThemeOverride): Theme => ({
   key: override?.key || defaultTheme.key,
 });
 
-export interface ThemeProviderProps {
+interface ThemeProviderProps {
   children: React.ReactNode;
   override?: {
     key?: ThemeKey;

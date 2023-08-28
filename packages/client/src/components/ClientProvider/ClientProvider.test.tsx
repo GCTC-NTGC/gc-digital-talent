@@ -7,7 +7,7 @@ import isEqual from "lodash/isEqual";
 
 import { exportedForTesting } from "./ClientProvider";
 
-const { willAuthError, extractValidationErrorMessages } = exportedForTesting;
+const { willAuthError, extractErrorMessages } = exportedForTesting;
 
 describe("ClientProvider tests", () => {
   // some API requests do not require auth to succeed
@@ -80,7 +80,7 @@ describe("ClientProvider tests", () => {
       ],
     };
 
-    const validationMessages = extractValidationErrorMessages(testError);
+    const validationMessages = extractErrorMessages(testError);
 
     expect(
       isEqual(validationMessages, [

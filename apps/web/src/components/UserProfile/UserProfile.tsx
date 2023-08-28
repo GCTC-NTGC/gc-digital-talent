@@ -1,9 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
-import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon";
-import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import HandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
@@ -17,28 +15,24 @@ import {
   Link,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import type { User } from "~/api/generated";
-
 import {
   aboutSectionHasEmptyRequiredFields,
   diversityEquityInclusionSectionHasEmptyRequiredFields,
   governmentInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
-  roleSalarySectionHasEmptyRequiredFields,
   workLocationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
 
-import { navigationMessages } from "@gc-digital-talent/i18n";
+import StatusItem, { Status } from "../StatusItem/StatusItem";
 import ExperienceSection from "./ExperienceSection";
-import { StatusItem, Status } from "../StatusItem/StatusItem";
 import AboutSection from "./ProfileSections/AboutSection";
 import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
 import GovernmentInformationSection from "./ProfileSections/GovernmentInformationSection";
 import LanguageInformationSection from "./ProfileSections/LanguageInformationSection";
-import RoleSalarySection from "./ProfileSections/RoleSalarySection";
 import WorkLocationSection from "./ProfileSections/WorkLocationSection";
 import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
 import { PAGE_SECTION_ID } from "./constants";
@@ -49,7 +43,7 @@ interface SectionControl {
   override?: React.ReactNode;
 }
 
-export interface UserProfileProps {
+interface UserProfileProps {
   user: User;
   sections: {
     about?: SectionControl;
@@ -57,9 +51,7 @@ export interface UserProfileProps {
     government?: SectionControl;
     hiringPools?: SectionControl;
     language?: SectionControl;
-    myStatus?: SectionControl;
-    roleSalary?: SectionControl;
-    resumeAndRecruitment?: SectionControl;
+    careerTimelineAndRecruitment?: SectionControl;
     workLocation?: SectionControl;
     workPreferences?: SectionControl;
   };
@@ -137,7 +129,6 @@ const UserProfile = ({
 }: UserProfileProps) => {
   const intl = useIntl();
   const { experiences } = user;
-  const featureFlags = useFeatureFlags();
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
 
   type SectionKeys = keyof UserProfileProps["sections"];
@@ -149,7 +140,6 @@ const UserProfile = ({
   const sectionStatus = (
     hasEmptyRequiredFields: (user: User) => boolean,
   ): Status | undefined => {
-    if (!featureFlags.applicantDashboard) return undefined;
     if (hasEmptyRequiredFields(user)) return "error";
 
     return "success";
@@ -160,13 +150,6 @@ const UserProfile = ({
       {isNavigationVisible && (
         <TableOfContents.Navigation>
           <TableOfContents.List>
-            {showSection("myStatus") && (
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.STATUS}>
-                  {intl.formatMessage(navigationMessages.myStatus)}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-            )}
             {showSection("about") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ABOUT}>
@@ -253,29 +236,14 @@ const UserProfile = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
-            {showSection("roleSalary") && (
+            {showSection("careerTimelineAndRecruitment") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink
-                  id={PAGE_SECTION_ID.ROLE_AND_SALARY}
+                  id={PAGE_SECTION_ID.CAREER_TIMELINE_AND_RECRUITMENT}
                 >
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(
-                      navigationMessages.roleSalaryExpectations,
-                    )}
-                    status={sectionStatus(
-                      roleSalarySectionHasEmptyRequiredFields,
-                    )}
-                  />
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-            )}
-            {showSection("resumeAndRecruitment") && (
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={PAGE_SECTION_ID.RESUME_AND_RECRUITMENT}
-                >
-                  {intl.formatMessage(navigationMessages.resumeAndRecruitment)}
+                  {intl.formatMessage(
+                    navigationMessages.careerTimelineAndRecruitment,
+                  )}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
@@ -298,36 +266,6 @@ const UserProfile = ({
       )}
       <TableOfContents.Content>
         {subTitle}
-        {showSection("myStatus") && (
-          <TableOfContents.Section id={PAGE_SECTION_ID.STATUS}>
-            <HeadingWrapper show={!!sections.myStatus?.editUrl}>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
-              >
-                <TableOfContents.Heading as={headingLevel} icon={LightBulbIcon}>
-                  {intl.formatMessage(navigationMessages.myStatus)}
-                </TableOfContents.Heading>
-              </div>
-              {sections.myStatus?.editUrl && (
-                <EditUrlLink
-                  link={sections.myStatus.editUrl}
-                  text={intl.formatMessage(
-                    {
-                      defaultMessage: "Edit {title}",
-                      id: "3R3jKp",
-                      description: "Link to edit object",
-                    },
-                    {
-                      title: intl.formatMessage(navigationMessages.myStatus),
-                    },
-                  )}
-                />
-              )}
-            </HeadingWrapper>
-            {sections.myStatus?.override ? sections.myStatus.override : null}
-          </TableOfContents.Section>
-        )}
         {showSection("about") && (
           <TableOfContents.Section id={PAGE_SECTION_ID.ABOUT}>
             <HeadingWrapper show={!!sections.about?.editUrl}>
@@ -575,64 +513,26 @@ const UserProfile = ({
             )}
           </TableOfContents.Section>
         )}
-        {showSection("roleSalary") && (
-          <TableOfContents.Section id={PAGE_SECTION_ID.ROLE_AND_SALARY}>
-            <HeadingWrapper show={!!sections.roleSalary?.editUrl}>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
-              >
-                <TableOfContents.Heading
-                  as={headingLevel}
-                  icon={CurrencyDollarIcon}
-                >
-                  {intl.formatMessage(
-                    navigationMessages.roleSalaryExpectations,
-                  )}
-                </TableOfContents.Heading>
-              </div>
-              {sections.roleSalary?.editUrl && (
-                <EditUrlLink
-                  link={sections.roleSalary.editUrl}
-                  text={intl.formatMessage(
-                    {
-                      defaultMessage: "Edit {title}",
-                      id: "3R3jKp",
-                      description: "Link to edit object",
-                    },
-                    {
-                      title: intl.formatMessage(
-                        navigationMessages.roleSalaryExpectations,
-                      ),
-                    },
-                  )}
-                />
-              )}
-            </HeadingWrapper>
-            {sections.roleSalary?.override ? (
-              sections.roleSalary.override
-            ) : (
-              <RoleSalarySection
-                user={user}
-                editPath={sections.roleSalary?.editUrl}
-              />
-            )}
-          </TableOfContents.Section>
-        )}
-        {showSection("resumeAndRecruitment") && (
-          <TableOfContents.Section id={PAGE_SECTION_ID.RESUME_AND_RECRUITMENT}>
-            <HeadingWrapper show={!!sections.resumeAndRecruitment?.editUrl}>
+        {showSection("careerTimelineAndRecruitment") && (
+          <TableOfContents.Section
+            id={PAGE_SECTION_ID.CAREER_TIMELINE_AND_RECRUITMENT}
+          >
+            <HeadingWrapper
+              show={!!sections.careerTimelineAndRecruitment?.editUrl}
+            >
               <div
                 data-h2-flex-item="base(1of1) p-tablet(fill)"
                 data-h2-text-align="base(center) p-tablet(left)"
               >
                 <TableOfContents.Heading as={headingLevel} icon={BoltIcon}>
-                  {intl.formatMessage(navigationMessages.resumeAndRecruitment)}
+                  {intl.formatMessage(
+                    navigationMessages.careerTimelineAndRecruitment,
+                  )}
                 </TableOfContents.Heading>
               </div>
-              {sections.resumeAndRecruitment?.editUrl && (
+              {sections.careerTimelineAndRecruitment?.editUrl && (
                 <EditUrlLink
-                  link={sections.resumeAndRecruitment.editUrl}
+                  link={sections.careerTimelineAndRecruitment.editUrl}
                   text={intl.formatMessage(
                     {
                       defaultMessage: "Edit {title}",
@@ -641,15 +541,15 @@ const UserProfile = ({
                     },
                     {
                       title: intl.formatMessage(
-                        navigationMessages.resumeAndRecruitment,
+                        navigationMessages.careerTimelineAndRecruitment,
                       ),
                     },
                   )}
                 />
               )}
             </HeadingWrapper>
-            {sections.resumeAndRecruitment?.override ? (
-              sections.resumeAndRecruitment.override
+            {sections.careerTimelineAndRecruitment?.override ? (
+              sections.careerTimelineAndRecruitment.override
             ) : (
               <ExperienceSection
                 headingLevel={contentHeadingLevel}

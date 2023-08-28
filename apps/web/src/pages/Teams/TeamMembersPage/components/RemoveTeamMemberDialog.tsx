@@ -3,12 +3,16 @@ import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 
 import { Dialog, Button, Pill } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import { Team, useUpdateUserAsAdminMutation } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
-import { toast } from "@gc-digital-talent/toast";
 
 interface RemoveTeamMemberDialogProps {
   user: TeamMember;
@@ -123,12 +127,7 @@ const RemoveTeamMemberDialog = ({
             </>
           ) : null}
           <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
-              defaultMessage: "Do you wish to continue?",
-              id: "2JIgrl",
-              description:
-                "Message displayed to users before removing a member from a team",
-            })}
+            {intl.formatMessage(uiMessages.confirmContinue)}
           </p>
           <Dialog.Footer>
             <Dialog.Close>

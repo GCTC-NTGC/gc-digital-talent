@@ -12,7 +12,8 @@ on:
       - .github/workflows/*jest*.yml
       - apps/**
       - packages/**
-
+  merge_group:
+    branches: [main]
 jobs:
   build:
     name: Unit tests

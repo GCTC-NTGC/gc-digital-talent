@@ -20,15 +20,16 @@ import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { Field } from "@gc-digital-talent/forms";
 
 import Pagination from "~/components/Pagination";
+import adminMessages from "~/messages/adminMessages";
 
+import tableMessages from "../tableMessages";
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
 import useInitialTableState from "./useInitialTableState";
-import tableMessages from "../tableMessages";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
-export interface TableProps<
+interface TableProps<
   T extends Record<string, unknown> = Record<string, unknown>,
 > {
   columns: Array<Column<T>>;
@@ -156,6 +157,7 @@ function Table<T extends Record<string, unknown>>({
     state: { pageIndex, pageSize, hiddenColumns, sortBy, globalFilter },
     gotoPage,
     setPageSize,
+    pageCount,
     page,
   } = useTable<T>(
     {
@@ -278,33 +280,20 @@ function Table<T extends Record<string, unknown>>({
                           color="secondary"
                           type="button"
                         >
-                          {intl.formatMessage({
-                            defaultMessage: "Columns",
-                            id: "xcBl1q",
-                            description:
-                              "Label displayed on the Table Columns toggle button.",
-                          })}
+                          {intl.formatMessage(adminMessages.showHideColumns)}
                         </Button>
                       </Dialog.Trigger>
                       <Dialog.Content>
                         <Dialog.Header>
-                          {intl.formatMessage({
-                            defaultMessage: "Table columns",
-                            id: "YH6bFU",
-                            description:
-                              "Dialog title for the admin tables columns toggle.",
-                          })}
+                          {intl.formatMessage(adminMessages.showHideColumns)}
                         </Dialog.Header>
                         <Dialog.Body>
                           <FormProvider {...methods}>
                             <Field.Fieldset boundingBox>
                               <Field.Legend>
-                                {intl.formatMessage({
-                                  defaultMessage: "Visible columns",
-                                  id: "H9rxOR",
-                                  description:
-                                    "Legend for the column toggle in admin tables.",
-                                })}
+                                {intl.formatMessage(
+                                  adminMessages.showHideTableColumns,
+                                )}
                               </Field.Legend>
                               <div data-h2-margin="base(x.125, 0)">
                                 <IndeterminateCheckbox
@@ -396,7 +385,7 @@ function Table<T extends Record<string, unknown>>({
                     <th
                       {...column.getHeaderProps()}
                       key={column.id}
-                      data-h2-background-color="base(black.9)"
+                      data-h2-background-color="base(black)"
                       data-h2-padding="base(x.5, x1)"
                       title={undefined}
                       aria-sort={getSortAttr(
@@ -454,7 +443,7 @@ function Table<T extends Record<string, unknown>>({
         </div>
         {/* Table footer */}
         <div
-          data-h2-background-color="base(black.9)"
+          data-h2-background-color="base(black)"
           data-h2-radius="base(0px, 0px, rounded, rounded)"
         >
           {/* <p>
@@ -476,13 +465,13 @@ function Table<T extends Record<string, unknown>>({
                     pageSize={pageSize}
                     pageSizes={[10, 20, 50, 100, 500]}
                     totalCount={rows.length}
+                    totalPages={pageCount}
+                    color="white"
+                    activeColor="quaternary"
                     ariaLabel={intl.formatMessage({
                       defaultMessage: "Table results",
                       id: "hlcd+5",
                     })}
-                    color="black"
-                    fontColor="white"
-                    activeColor="primary"
                   />
                 )}
               </div>

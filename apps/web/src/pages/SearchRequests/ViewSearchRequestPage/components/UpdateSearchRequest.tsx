@@ -13,6 +13,7 @@ import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   getPoolCandidateSearchStatus,
+  uiMessages,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -134,20 +135,29 @@ export const UpdateSearchRequestForm = ({
           <form onSubmit={handleSubmit(handleSaveNotes)}>
             <Heading level="h2" size="h4">
               {intl.formatMessage({
-                defaultMessage: "Personal Notes",
-                id: "l05aVF",
+                defaultMessage: "Notes about this request",
+                id: "peTSHR",
                 description:
-                  "Heading for the personal notes section of the single search request view.",
+                  "Heading for the notes about this request section of the single search request view.",
               })}
             </Heading>
+            <p data-h2-padding="base(x.5, 0, x.5, 0)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "These notes are available to all managers of this pool, but not to candidates.",
+                id: "VkBcGJ",
+                description:
+                  "Description for the notes about this request section of the single search request view.",
+              })}
+            </p>
             <TextArea
               id="adminNotes"
               name="adminNotes"
               label={intl.formatMessage({
-                defaultMessage: "Personal Notes",
-                id: "p7D5i5",
+                defaultMessage: "Request notes",
+                id: "Pe1kas",
                 description:
-                  "Label displayed on the search request form personal notes field.",
+                  "Label displayed on the search request form request notes field.",
               })}
               rows={8}
             />
@@ -157,14 +167,14 @@ export const UpdateSearchRequestForm = ({
                 disabled={isSaving}
                 isSubmitting={isSaving}
                 text={intl.formatMessage({
-                  defaultMessage: "Save Notes",
-                  id: "DRsBYY",
+                  defaultMessage: "Save notes",
+                  id: "fzuAHN",
                   description:
                     "Button label displayed on the search request form which saves the users personal notes.",
                 })}
                 submittedText={intl.formatMessage({
-                  defaultMessage: "Save Notes",
-                  id: "DRsBYY",
+                  defaultMessage: "Save notes",
+                  id: "fzuAHN",
                   description:
                     "Button label displayed on the search request form which saves the users personal notes.",
                 })}
@@ -190,6 +200,9 @@ export const UpdateSearchRequestForm = ({
               <Select
                 id="status"
                 name="status"
+                nullSelection={intl.formatMessage(
+                  uiMessages.nullSelectionOption,
+                )}
                 label={intl.formatMessage(commonMessages.status)}
                 options={enumToOptions(PoolCandidateSearchStatus, [
                   PoolCandidateSearchStatus.New,

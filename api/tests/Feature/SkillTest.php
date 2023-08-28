@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\CommunityExperience;
+use App\Models\ExperienceSkill;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -9,6 +11,7 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use App\Models\Skill;
 use App\Models\User;
+use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\RolePermissionSeeder;
 
@@ -97,7 +100,6 @@ class SkillTest extends TestCase
      */
     public function test_update_skill()
     {
-
         $variables = [
             'id' => $this->uuid,
             'skill' => [
@@ -169,5 +171,20 @@ class SkillTest extends TestCase
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertJsonFragment(['name' => $variables['skill']['name']]);
+    }
+
+    public function testExperienceRelationshipsSkipSoftDeletedPivots(): void
+    {
+        Skill::factory()->count(1)->create();
+        $experience = CommunityExperience::factory()->withSkills(1)->create();
+        $skill = $experience->skills->first();
+        // sanity check
+        $this->assertCount(1, $skill->fresh()->userSkills->first()->communityExperiences);
+        // soft-delete one ExperienceSkill
+        $pivot = ExperienceSkill::first();
+        $pivot->deleted_at = Carbon::now();
+        $pivot->save();
+        // assert that the soft-deleted relationship is ignored
+        $this->assertCount(0, $skill->fresh()->userSkills->first()->communityExperiences);
     }
 }

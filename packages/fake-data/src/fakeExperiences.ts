@@ -17,13 +17,31 @@ import {
   EducationType,
   EducationStatus,
 } from "@gc-digital-talent/graphql";
+
 import { getStaticSkills } from "./fakeSkills";
+
+type WithTypename<T extends { __typename?: string }> = T & {
+  __typename: NonNullable<T["__typename"]>;
+};
+
+export type GeneratedAwardExperience = WithTypename<AwardExperience>;
+export type GeneratedCommunityExperience = WithTypename<CommunityExperience>;
+export type GeneratedEducationExperience = WithTypename<EducationExperience>;
+export type GeneratedPersonalExperience = WithTypename<PersonalExperience>;
+export type GeneratedWorkExperience = WithTypename<WorkExperience>;
+
+export type AnyGeneratedExperience =
+  | GeneratedAwardExperience
+  | GeneratedCommunityExperience
+  | GeneratedEducationExperience
+  | GeneratedPersonalExperience
+  | GeneratedWorkExperience;
 
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 // defining the skills here
 const sampleApp: User = {
   email: faker.internet.email(),
-  id: faker.datatype.uuid(),
+  id: faker.string.uuid(),
 };
 
 // skills in detail comes from `skills.experienceSkillRecords.details`
@@ -40,18 +58,16 @@ const staticDates = {
 
 // 5 generators to generate experiences of a certain type
 // actual generators start here
-const generateAward = (): AwardExperience => {
-  faker.setLocale("en");
-
+const generateAward = (): GeneratedAwardExperience => {
   return {
     __typename: "AwardExperience",
     user: sampleApp,
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,
       experienceSkillRecord: theExperienceSkillRecord,
     })),
-    details: `experience details ${faker.random.words()}`,
+    details: `experience details ${faker.lorem.words()}`,
     title: `experience title ${faker.lorem.word()}`,
     awardedTo: faker.helpers.arrayElement<AwardedTo>([
       AwardedTo.Me,
@@ -71,44 +87,42 @@ const generateAward = (): AwardExperience => {
     awardedDate: staticDates.start,
     issuedBy: faker.company.name(),
     experienceSkillRecord: {
-      details: `experience.experienceSkillRecord ${faker.random.words()}`,
+      details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
   };
 };
 
-const generateCommunity = (): CommunityExperience => {
-  faker.setLocale("en");
+const generateCommunity = (): GeneratedCommunityExperience => {
   return {
     __typename: "CommunityExperience",
     user: sampleApp,
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,
       experienceSkillRecord: theExperienceSkillRecord,
     })),
-    details: `experience details ${faker.random.words()}`,
+    details: `experience details ${faker.lorem.words()}`,
     title: `experience title ${faker.lorem.word()}`,
     organization: faker.company.name(),
     project: faker.lorem.word(),
     startDate: staticDates.start,
     endDate: staticDates.end,
     experienceSkillRecord: {
-      details: `experience.experienceSkillRecord ${faker.random.words()}`,
+      details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
   };
 };
 
-const generateEducation = (): EducationExperience => {
-  faker.setLocale("en");
+const generateEducation = (): GeneratedEducationExperience => {
   return {
     __typename: "EducationExperience",
     user: sampleApp,
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,
       experienceSkillRecord: theExperienceSkillRecord,
     })),
-    details: `experience details ${faker.random.words()}`,
+    details: `experience details ${faker.lorem.words()}`,
     areaOfStudy: faker.music.genre(),
     type: faker.helpers.arrayElement<EducationType>([
       EducationType.BachelorsDegree,
@@ -120,7 +134,7 @@ const generateEducation = (): EducationExperience => {
       EducationType.Phd,
       EducationType.PostDoctoralFellowship,
     ]),
-    institution: faker.name.lastName(),
+    institution: faker.person.lastName(),
     status: faker.helpers.arrayElement<EducationStatus>([
       EducationStatus.Audited,
       EducationStatus.DidNotComplete,
@@ -130,52 +144,50 @@ const generateEducation = (): EducationExperience => {
     ]),
     startDate: staticDates.start,
     endDate: staticDates.end,
-    thesisTitle: faker.random.words(),
+    thesisTitle: faker.lorem.words(),
     experienceSkillRecord: {
-      details: `experience.experienceSkillRecord ${faker.random.words()}`,
+      details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
   };
 };
 
-const generatePersonal = (): PersonalExperience => {
-  faker.setLocale("en");
+const generatePersonal = (): GeneratedPersonalExperience => {
   return {
     __typename: "PersonalExperience",
     user: sampleApp,
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,
       experienceSkillRecord: theExperienceSkillRecord,
     })),
-    details: `experience details ${faker.random.words()}`,
-    title: faker.name.jobTitle(),
+    details: `experience details ${faker.lorem.words()}`,
+    title: faker.person.jobTitle(),
     startDate: staticDates.start,
     endDate: staticDates.end,
     description: `experience description ${faker.lorem.paragraph()}`,
     experienceSkillRecord: {
-      details: `experience.experienceSkillRecord ${faker.random.words()}`,
+      details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
   };
 };
 
-const generateWork = (): WorkExperience => {
-  faker.setLocale("en");
+const generateWork = (): GeneratedWorkExperience => {
   return {
     __typename: "WorkExperience",
     user: sampleApp,
-    id: faker.datatype.uuid(),
+    id: faker.string.uuid(),
     skills: faker.helpers.arrayElements<Skill>(skills, 3).map((skill) => ({
       ...skill,
       experienceSkillRecord: theExperienceSkillRecord,
     })),
-    details: `experience details ${faker.random.words()}`,
+    details: `experience details ${faker.lorem.words()}`,
     organization: faker.company.name(),
-    role: faker.name.jobTitle(),
+    role: faker.person.jobTitle(),
     division: faker.animal.bird(),
     startDate: staticDates.start,
     endDate: staticDates.end,
     experienceSkillRecord: {
-      details: `experience.experienceSkillRecord ${faker.random.words()}`,
+      details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
   };
 };

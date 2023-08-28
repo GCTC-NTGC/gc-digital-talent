@@ -31,7 +31,6 @@ describe("Pools", () => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "getEditPoolData");
       aliasQuery(req, "getMePoolCreation");
-      aliasQuery(req, "getMePools");
       aliasQuery(req, "allPools");
       aliasMutation(req, "createPool");
       aliasMutation(req, "updatePool");
@@ -45,7 +44,7 @@ describe("Pools", () => {
     cy.visit("/en/admin/pools");
 
     cy.findByRole("heading", {
-      name: /Login using GCKey/i,
+      name: /Sign in using GCKey/i,
     })
       .should("exist")
       .and("be.visible");
@@ -76,7 +75,7 @@ describe("Pools", () => {
   it("Should show teams pools if user has pool operator role", () => {
     loginAndGoToPoolsPage("pool_operator");
 
-    cy.wait("@gqlgetMePoolsQuery");
+    cy.wait("@gqlallPoolsQuery");
 
     cy.findByRole("heading", { name: /pools/i }).should("exist");
     cy.findByRole("table").should("exist");
@@ -223,7 +222,8 @@ describe("Pools", () => {
     cy.wait("@gqlallPoolsQuery");
 
     // Navigate to edit pool page
-    cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
+    cy.findByRole("button", { name: /show 10/i }).click();
+    cy.get("[role=menuitemradio]").contains(/50/i).click();
 
     cy.findAllByRole("link", { name: /edit test pool en/i })
       .first()
@@ -258,7 +258,8 @@ describe("Pools", () => {
     cy.wait("@gqlallPoolsQuery");
 
     // Navigate to edit pool page
-    cy.findByRole("combobox", { name: /page size/i }).select("Show 50");
+    cy.findByRole("button", { name: /show 10/i }).click();
+    cy.get("[role=menuitemradio]").contains(/50/i).click();
 
     cy.findAllByRole("link", { name: /edit test pool en/i })
       .first()

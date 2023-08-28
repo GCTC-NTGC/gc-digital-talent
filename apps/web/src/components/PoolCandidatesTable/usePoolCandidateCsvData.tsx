@@ -6,7 +6,6 @@ import {
   getArmedForcesStatusesAdmin,
   getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
-  getJobLookingStatus,
   getLanguage,
   getLanguageProficiency,
   getPoolCandidatePriorities,
@@ -16,21 +15,21 @@ import {
   getEducationRequirementOption,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   yesOrNo,
   employeeTypeToString,
   getLocationPreference,
   getOperationalRequirements,
-  getExpectedClassifications,
   flattenExperiencesToSkills,
   skillKeyAndJustifications,
   getExperienceTitles,
   getScreeningQuestionResponses,
+  getIndigenousCommunities,
 } from "~/utils/csvUtils";
 import { Maybe, PoolCandidate, PositionDuration, Pool } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 const usePoolCandidateCsvData = (
   candidates: PoolCandidate[],
@@ -235,25 +234,25 @@ const usePoolCandidateCsvData = (
     {
       key: "comprehensionLevel",
       label: intl.formatMessage({
-        defaultMessage: "Comprehension Level",
-        id: "QIh0q7",
-        description: "CSV Header, Comprehension Level column",
+        defaultMessage: "Reading level",
+        id: "CEFnPm",
+        description: "CSV Header, Reading (comprehension) Level column",
       }),
     },
     {
       key: "writtenLevel",
       label: intl.formatMessage({
-        defaultMessage: "Written Level",
-        id: "w/v77x",
-        description: "CSV Header, Written Level column",
+        defaultMessage: "Writing level",
+        id: "8ea9ne",
+        description: "CSV Header, Writing Level column",
       }),
     },
     {
       key: "verbalLevel",
       label: intl.formatMessage({
-        defaultMessage: "Verbal Level",
-        id: "5R2iR2",
-        description: "CSV Header, Verbal Level column",
+        defaultMessage: "Oral interaction level",
+        id: "5nrkKw",
+        description: "CSV Header, Oral interaction Level column",
       }),
     },
     {
@@ -353,7 +352,7 @@ const usePoolCandidateCsvData = (
       }),
     },
     {
-      key: "isIndigenous",
+      key: "indigenousCommunities",
       label: intl.formatMessage({
         defaultMessage: "Indigenous",
         id: "83v9YH",
@@ -374,14 +373,6 @@ const usePoolCandidateCsvData = (
         defaultMessage: "Disabled",
         id: "AijsNM",
         description: "CSV Header, Disabled column",
-      }),
-    },
-    {
-      key: "expectedClassification",
-      label: intl.formatMessage({
-        defaultMessage: "Role/Salary Expectation",
-        id: "iIZS1K",
-        description: "CSV Header, Role/Salary Expectation column",
       }),
     },
     {
@@ -434,11 +425,6 @@ const usePoolCandidateCsvData = (
           priority: user.priorityWeight
             ? intl.formatMessage(
                 getPoolCandidatePriorities(user.priorityWeight),
-              )
-            : "",
-          availability: user.jobLookingStatus
-            ? intl.formatMessage(
-                getJobLookingStatus(user.jobLookingStatus as string, "short"),
               )
             : "",
           notes: notes || "",
@@ -512,13 +498,12 @@ const usePoolCandidateCsvData = (
             intl,
           ),
           isWoman: yesOrNo(user.isWoman, intl),
-          isIndigenous: yesOrNo(user.isIndigenous, intl),
-          isVisibleMinority: yesOrNo(user.isVisibleMinority, intl),
-          hasDisability: yesOrNo(user.hasDisability, intl),
-          expectedClassification: getExpectedClassifications(
-            user.expectedGenericJobTitles,
+          indigenousCommunities: getIndigenousCommunities(
+            user.indigenousCommunities,
             intl,
           ),
+          isVisibleMinority: yesOrNo(user.isVisibleMinority, intl),
+          hasDisability: yesOrNo(user.hasDisability, intl),
           educationRequirementOption: educationRequirementOption
             ? intl.formatMessage(
                 getEducationRequirementOption(educationRequirementOption),

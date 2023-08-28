@@ -3,11 +3,14 @@
  */
 import "@testing-library/jest-dom";
 import React from "react";
-import { act, fireEvent, screen, within } from "@testing-library/react";
+import { act, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+
 import {
   renderWithProviders,
   updateDate,
 } from "@gc-digital-talent/jest-helpers";
+
 import { EditPoolForm, EditPoolFormProps } from "./EditPoolPage";
 import EditPoolStory, {
   DraftPool,
@@ -18,6 +21,8 @@ import EditPoolStory, {
 jest.setTimeout(500 * 1000);
 
 describe("Edit Pool tests", () => {
+  const user = userEvent.setup();
+
   it("should have save buttons that emit a save event when the status is draft", async () => {
     const handleSave = jest.fn();
     const props = {
@@ -26,51 +31,31 @@ describe("Edit Pool tests", () => {
       onSave: handleSave,
     } as EditPoolFormProps;
 
-    await act(async () => {
-      renderWithProviders(<EditPoolForm {...props} />);
-    });
+    renderWithProviders(<EditPoolForm {...props} />);
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("button", { name: /save pool name/i }),
-      );
-    });
+    await user.click(screen.getByRole("button", { name: /save pool name/i }));
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("button", { name: /save closing date/i }),
-      );
-    });
+    await user.click(
+      screen.getByRole("button", { name: /save closing date/i }),
+    );
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("button", { name: /save introduction/i }),
-      );
-    });
+    await user.click(
+      screen.getByRole("button", { name: /save introduction/i }),
+    );
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("button", { name: /save work tasks/i }),
-      );
-    });
+    await user.click(screen.getByRole("button", { name: /save work tasks/i }));
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("button", { name: /save essential skills/i }),
-      );
-    });
+    await user.click(
+      screen.getByRole("button", { name: /save essential skills/i }),
+    );
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("button", { name: /save asset skills/i }),
-      );
-    });
+    await user.click(
+      screen.getByRole("button", { name: /save asset skills/i }),
+    );
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("button", { name: /save other requirements/i }),
-      );
-    });
+    await user.click(
+      screen.getByRole("button", { name: /save other requirements/i }),
+    );
 
     expect(handleSave).toHaveBeenCalledTimes(7);
   });
@@ -84,23 +69,17 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     // render story and click the button to open the modal
-    await act(async () => {
-      renderWithProviders(<DraftPool {...props} />);
-    });
+    renderWithProviders(<DraftPool {...props} />);
 
-    await act(async () => {
-      fireEvent.click(await screen.getByRole("button", { name: /publish/i }));
-    });
+    await user.click(screen.getByRole("button", { name: /publish/i }));
 
     // find the modal
     const dialog = screen.getByRole("dialog");
 
     // interact with the modal
-    await act(async () => {
-      fireEvent.click(
-        within(dialog).getByRole("button", { name: /publish pool/i }),
-      );
-    });
+    await user.click(
+      within(dialog).getByRole("button", { name: /publish pool/i }),
+    );
 
     // modal is gone and event was fired
     expect(dialog).not.toBeInTheDocument();
@@ -117,23 +96,17 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     // render story and click the button to open the modal
-    await act(async () => {
-      renderWithProviders(<DraftPool {...props} />);
-    });
+    renderWithProviders(<DraftPool {...props} />);
 
-    await act(async () => {
-      fireEvent.click(await screen.getByRole("button", { name: /publish/i }));
-    });
+    await user.click(screen.getByRole("button", { name: /publish/i }));
 
     // find the modal
     const dialog = screen.getByRole("dialog");
 
     // interact with the modal
-    await act(async () => {
-      fireEvent.click(
-        within(dialog).getByRole("button", { name: /publish pool/i }),
-      );
-    });
+    await user.click(
+      within(dialog).getByRole("button", { name: /publish pool/i }),
+    );
 
     // modal is gone and event was fired
     expect(dialog).not.toBeInTheDocument();
@@ -150,21 +123,15 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     // render story and click the button to open the modal
-    await act(async () => {
-      renderWithProviders(<DraftPool {...props} />);
-    });
+    renderWithProviders(<DraftPool {...props} />);
 
-    await act(async () => {
-      fireEvent.click(await screen.getByRole("button", { name: /delete/i }));
-    });
+    await user.click(screen.getByRole("button", { name: /delete/i }));
 
     // find the modal
     const dialog = screen.getByRole("dialog");
 
     // interact with the modal
-    await act(async () => {
-      fireEvent.click(within(dialog).getByRole("button", { name: /delete/i }));
-    });
+    await user.click(within(dialog).getByRole("button", { name: /delete/i }));
 
     // modal is gone and event was fired
     expect(dialog).not.toBeInTheDocument();
@@ -177,6 +144,8 @@ describe("Edit Pool tests", () => {
       ...DraftPool.args,
     } as EditPoolFormProps;
 
+    // render story and click the button to open the modal
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       renderWithProviders(<DraftPool {...props} />);
     });
@@ -201,23 +170,17 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     // render story and click the button to open the modal
-    await act(async () => {
-      renderWithProviders(<PublishedPool {...props} />);
-    });
+    renderWithProviders(<PublishedPool {...props} />);
 
-    await act(async () => {
-      fireEvent.click(await screen.getByRole("button", { name: /close/i }));
-    });
+    await user.click(screen.getByRole("button", { name: /close/i }));
 
     // find the modal
     const dialog = screen.getByRole("dialog");
 
     // interact with the modal
-    await act(async () => {
-      fireEvent.click(
-        within(dialog).getByRole("button", { name: /close pool now/i }),
-      );
-    });
+    await user.click(
+      within(dialog).getByRole("button", { name: /close pool now/i }),
+    );
 
     // modal is gone and event was fired
     expect(dialog).not.toBeInTheDocument();
@@ -233,25 +196,17 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     // render story and click the button to open the modal
-    await act(async () => {
-      renderWithProviders(<PublishedPool {...props} />);
-    });
+    renderWithProviders(<PublishedPool {...props} />);
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("button", { name: /extend the date/i }),
-      );
-    });
+    await user.click(screen.getByRole("button", { name: /extend the date/i }));
 
     // find the modal
     const dialog = screen.getByRole("dialog");
 
     // interact with the modal
-    await act(async () => {
-      fireEvent.click(
-        within(dialog).getByRole("button", { name: /extend closing date/i }),
-      );
-    });
+    await user.click(
+      within(dialog).getByRole("button", { name: /extend closing date/i }),
+    );
 
     // modal is gone and event was fired
     expect(dialog).not.toBeInTheDocument();
@@ -264,9 +219,7 @@ describe("Edit Pool tests", () => {
       ...PublishedPool.args,
     } as EditPoolFormProps;
 
-    await act(async () => {
-      renderWithProviders(<PublishedPool {...props} />);
-    });
+    renderWithProviders(<PublishedPool {...props} />);
 
     expect(
       screen.queryByRole("button", { name: /publish/i }),
@@ -288,40 +241,35 @@ describe("Edit Pool tests", () => {
     } as EditPoolFormProps;
 
     // render story and click the button to open the modal
-    await act(async () => {
-      renderWithProviders(<ExpiredPool {...props} />);
-    });
+    renderWithProviders(<PublishedPool {...props} />);
 
-    await act(async () => {
-      fireEvent.click(
-        await screen.getByRole("button", { name: /extend the date/i }),
-      );
-    });
+    await user.click(screen.getByRole("button", { name: /extend the date/i }));
 
     // find the modal
-    const dialog = await screen.getByRole("dialog", {
+    const dialog = screen.getByRole("dialog", {
       name: /extend closing date/i,
     });
 
     // interact with the modal
+    const dateInput = within(dialog).getByRole("group", {
+      name: /end date/i,
+    });
     await act(async () => {
-      const dateInput = within(dialog).getByRole("group", {
-        name: /end date/i,
-      });
-      updateDate(dateInput, {
+      await updateDate(dateInput, {
         day: "01",
         month: "01",
         year: "3000",
       });
-
-      fireEvent.click(
-        within(dialog).getByRole("button", {
-          name: /extend closing date/i,
-        }),
-      );
     });
 
-    // modal is gone and event was fired
+    await user.click(
+      within(dialog).getByRole("button", {
+        name: /extend closing date/i,
+      }),
+    );
+
+    // modal is gone and event was fired and no errors
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     expect(dialog).not.toBeInTheDocument();
     expect(handleEvent).toHaveBeenCalledTimes(1);
   });
@@ -332,9 +280,7 @@ describe("Edit Pool tests", () => {
       ...ExpiredPool.args,
     } as EditPoolFormProps;
 
-    await act(async () => {
-      renderWithProviders(<ExpiredPool {...props} />);
-    });
+    renderWithProviders(<ExpiredPool {...props} />);
 
     expect(
       screen.queryByRole("button", { name: /publish/i }),

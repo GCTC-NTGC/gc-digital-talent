@@ -16,7 +16,6 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import { FromArray } from "~/types/utility";
-
 import {
   PoolCandidateSearchInput,
   InputMaybe,
@@ -37,8 +36,8 @@ import {
   PoolStream,
   PoolCandidateWithSkillCount,
   useGetSkillsQuery,
+  PublishingGroup,
 } from "~/api/generated";
-
 import printStyles from "~/styles/printStyles";
 import useRoutes from "~/hooks/useRoutes";
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";
@@ -53,7 +52,7 @@ import {
   SortingRule,
   TABLE_DEFAULTS,
 } from "~/components/Table/ApiManagedTable/helpers";
-import useTableState from "~/components/Table/ApiManagedTable/useTableState";
+import useTableState from "~/hooks/useTableState";
 import {
   stringToEnumCandidateExpiry,
   stringToEnumCandidateSuspended,
@@ -67,11 +66,10 @@ import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 import adminMessages from "~/messages/adminMessages";
 
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
-
 import PoolCandidateTableFilterDialog, {
   FormValues,
 } from "./PoolCandidateTableFilterDialog";
-import { skillMatchDialogAccessor } from "./SkillMatchDialog";
+import skillMatchDialogAccessor from "./SkillMatchDialog";
 
 type Data = NonNullable<
   FromArray<PoolCandidateWithSkillCountPaginator["data"]>
@@ -81,6 +79,7 @@ function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
   return {
+    publishingGroups: input?.publishingGroups?.filter(notEmpty) ?? [],
     classifications:
       input?.applicantFilter?.qualifiedClassifications
         ?.filter(notEmpty)
@@ -154,6 +153,8 @@ const statusAccessor = (
     status === PoolCandidateStatus.ApplicationReview ||
     status === PoolCandidateStatus.ScreenedIn ||
     status === PoolCandidateStatus.ScreenedOutApplication ||
+    status === PoolCandidateStatus.ScreenedOutNotInterested ||
+    status === PoolCandidateStatus.ScreenedOutNotResponsive ||
     status === PoolCandidateStatus.UnderAssessment ||
     status === PoolCandidateStatus.ScreenedOutAssessment
   ) {
@@ -241,6 +242,8 @@ const viewAccessor = (
     candidate.status !== PoolCandidateStatus.ApplicationReview &&
     candidate.status !== PoolCandidateStatus.ScreenedIn &&
     candidate.status !== PoolCandidateStatus.ScreenedOutApplication &&
+    candidate.status !== PoolCandidateStatus.ScreenedOutNotInterested &&
+    candidate.status !== PoolCandidateStatus.ScreenedOutNotResponsive &&
     candidate.status !== PoolCandidateStatus.UnderAssessment &&
     candidate.status !== PoolCandidateStatus.ScreenedOutAssessment;
   const candidateName = getFullNameLabel(
@@ -346,6 +349,7 @@ const defaultState = {
     },
     poolCandidateStatus: [],
     priorityWeight: [],
+    publishingGroups: [PublishingGroup.ItJobs, PublishingGroup.ItJobsOngoing],
   },
 };
 
@@ -416,7 +420,6 @@ const PoolCandidatesTable = ({
     if (
       sortingRule?.column.sortColumnName &&
       [
-        "JOB_LOOKING_STATUS",
         "FIRST_NAME",
         "EMAIL",
         "PREFERRED_LANG",
@@ -482,6 +485,7 @@ const PoolCandidatesTable = ({
       priorityWeight: fancyFilterState?.priorityWeight,
       expiryStatus: fancyFilterState?.expiryStatus,
       suspendedStatus: fancyFilterState?.suspendedStatus,
+      publishingGroups: fancyFilterState?.publishingGroups,
     };
   };
 
@@ -532,6 +536,7 @@ const PoolCandidatesTable = ({
       suspendedStatus: data.suspendedStatus[0]
         ? stringToEnumCandidateSuspended(data.suspendedStatus[0])
         : undefined,
+      publishingGroups: data.publishingGroups as PublishingGroup[],
     };
 
     setTableState({

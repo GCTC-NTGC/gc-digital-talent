@@ -16,6 +16,11 @@ const commonMessages = defineMessages({
     id: "14Cv7d",
     description: "Submitting text for delete button.",
   },
+  searching: {
+    defaultMessage: "Searching...",
+    id: "w6vHXf",
+    description: "Message to display when a search is in progress.",
+  },
   loadingError: {
     defaultMessage: "Oh no...",
     id: "AvBSV+",

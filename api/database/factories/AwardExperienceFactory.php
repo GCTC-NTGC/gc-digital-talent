@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\AwardExperience;
+use App\Models\User;
 use App\Traits\ExperienceFactoryWithSkills;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,6 +25,7 @@ class AwardExperienceFactory extends Factory
     public function definition()
     {
         return [
+            'user_id' => User::factory(),
             'title' => $this->faker->jobTitle(),
             'issued_by' => $this->faker->company(),
             'awarded_date' => $this->faker->date(),

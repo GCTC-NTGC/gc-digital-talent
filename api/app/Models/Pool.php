@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
  * @property array $operational_requirements
  * @property array $key_tasks
  * @property array $your_impact
+ * @property array $what_to_expect
  * @property array $advertisement_location
  * @property string $security_clearance
  * @property string $advertisement_language
@@ -33,6 +34,7 @@ use Illuminate\Support\Facades\Auth;
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $closing_date
  * @property Illuminate\Support\Carbon $published_at
+ * @property Illuminate\Support\Carbon $archived_at
  */
 
 class Pool extends Model
@@ -53,9 +55,11 @@ class Pool extends Model
         'key_tasks' => 'array',
         'advertisement_location' => 'array',
         'your_impact' => 'array',
+        'what_to_expect' => 'array',
         'closing_date' => 'datetime',
         'published_at' => 'datetime',
-        'is_remote' => 'boolean'
+        'is_remote' => 'boolean',
+        'archived_at' => 'datetime',
     ];
 
     /**
@@ -73,10 +77,12 @@ class Pool extends Model
         'security_clearance',
         'advertisement_language',
         'your_impact',
+        'what_to_expect',
         'advertisement_location',
         'publishing_group',
         'process_number',
         'operational_requirements',
+        'archived_at',
     ];
 
     public function user(): BelongsTo
@@ -118,30 +124,18 @@ class Pool extends Model
     /* accessor to obtain Status, depends on two variables regarding published and expiry */
     public function getStatusAttribute()
     {
-        // given database is functioning in UTC, all backend should consistently enforce the same timezone
-        $publishedDate = $this->published_at;
-        $closedDate = $this->closing_date;
-        $currentTime = date("Y-m-d H:i:s");
-        if ($closedDate != null) {
-            $isClosed = $currentTime >= $closedDate ? true : false;
-        } else {
-            $isClosed = false;
-        }
-        if ($publishedDate != null) {
-            $isPublished = $currentTime >= $publishedDate ? true : false;
-        } else {
-            $isPublished = false;
-        }
-
-        if (!$isPublished) {
+        // override if no publish date
+        if (is_null($this->published_at))
             return ApiEnums::POOL_IS_DRAFT;
-        } elseif ($isPublished && !$isClosed) {
-            return ApiEnums::POOL_IS_PUBLISHED;
-        } elseif ($isPublished && $isClosed) {
+
+        if (Carbon::now()->gte($this->archived_at))
+            return ApiEnums::POOL_IS_ARCHIVED;
+        if (Carbon::now()->gte($this->closing_date))
             return ApiEnums::POOL_IS_CLOSED;
-        } else {
-            return null;
-        }
+        if (Carbon::now()->gte($this->published_at))
+            return ApiEnums::POOL_IS_PUBLISHED;
+
+        return ApiEnums::POOL_IS_DRAFT;
     }
 
     public function scopeWasPublished(Builder $query, ?array $args)
@@ -184,6 +178,15 @@ class Pool extends Model
             });
         }
 
+        return $query;
+    }
+
+    public function scopeNotArchived(Builder $query)
+    {
+        $query->where(function ($query) {
+            $query->whereNull('archived_at');
+            $query->orWhere('archived_at', '>', Carbon::now()->toDateTimeString());
+        });
         return $query;
     }
 }

@@ -14,11 +14,9 @@ import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { errorMessages, getLanguage } from "@gc-digital-talent/i18n";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
-
 import {
   Language,
   GovEmployeeType,
@@ -29,11 +27,12 @@ import {
   Department,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+
 import {
   formValuesToSubmitData,
   getGovernmentInfoLabels,
   GovernmentInfoFormFields,
-} from "~/pages/Profile/GovernmentInfoPage/components/GovernmentInfoForm/GovernmentInfoForm";
+} from "./components/GovernmentInfoForm";
 
 type FormValues = Pick<
   UpdateUserAsUserInput,
@@ -132,19 +131,19 @@ export const CreateAccountForm = ({
           >
             <Alert.Title>
               {intl.formatMessage({
-                defaultMessage: "You’ve successfully logged in",
-                id: "4FEV7d",
+                defaultMessage: "You've successfully signed in",
+                id: "DeGAS5",
                 description:
-                  "Title for successful login alert in create account page.",
+                  "Title for successful sign in alert in create account page.",
               })}
             </Alert.Title>
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Welcome to the GC Digital Talent platform. Moving forward, you can log into your profile using the same GCKey username and password.",
-                id: "cmZ9cx",
+                  "Welcome to the GC Digital Talent platform. Moving forward, you can sign in to your profile using the same GCKey username and password.",
+                id: "OBRGkE",
                 description:
-                  "Message for successful login alert in create account page",
+                  "Message for successful sign in alert in create account page",
               })}
             </p>
           </Alert.Root>
@@ -273,7 +272,6 @@ const CreateAccount = () => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const { applicantDashboard } = useFeatureFlags();
   const [searchParams] = useSearchParams();
   const from = searchParams.get("from");
   const authContext = useAuthorization();
@@ -339,9 +337,7 @@ const CreateAccount = () => {
 
   // OK to navigate to profile once we have a user ID and an email
   const shouldNavigate = meId && authContext.email;
-  const fallbackTarget = applicantDashboard
-    ? paths.profileAndApplications()
-    : paths.profile(meId ?? "");
+  const fallbackTarget = paths.profileAndApplications();
   const navigationTarget = from || fallbackTarget;
   React.useEffect(() => {
     if (shouldNavigate) {

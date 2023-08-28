@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
-
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import UsersIcon from "@heroicons/react/20/solid/UsersIcon";
@@ -10,7 +9,6 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
-import BeakerIcon from "@heroicons/react/20/solid/BeakerIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
@@ -42,11 +40,12 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import { AwardExperience } from "~/api/generated";
-import { StatusItem } from "~/components/StatusItem/StatusItem";
-import { HeroCard } from "~/components/HeroCard/HeroCard";
+import StatusItem from "~/components/StatusItem/StatusItem";
+import HeroCard from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
-import { PAGE_SECTION_ID as RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/ResumeAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
+
 import { PartialUser } from "../types";
 
 function buildLink(
@@ -71,7 +70,7 @@ function buildScrollToLink(
     </ScrollToLink>
   );
 }
-export interface DashboardHeadingProps {
+interface DashboardHeadingProps {
   user: PartialUser;
 }
 
@@ -101,25 +100,18 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
     notEmptyExperiences?.filter(isPersonalExperience) || [];
   const workExperiences = notEmptyExperiences?.filter(isWorkExperience) || [];
 
-  // TODO - complete these
-  const skillShowcaseUrl = "#";
-  const behaviouralSkillLibraryUrl = "#"; // Behavioural skill library links to the page_with_curl Create the "Skill library" page #6936 and scrolls the user to the relevant page section title
-  const technicalSkillLibraryUrl = "#"; // Technical skill library links to the page_with_curl Create the "Skill library" page #6936 and scrolls the user to the relevant page section title
-  const behaviouralSkillShowcaseUrl = "#"; // Behavioural skill showcase links to the eventual Skill showcase page and scrolls the user to the relevant page section title
-  const technicalSkillShowcaseUrl = "#"; // Technical skill showcase links to the eventual Skill showcase page and scrolls the user to the relevant page section title
-  const typesOfWorkInterestUrl = "#"; // Types of work of interest links to the eventual Skill showcase page and scrolls the user to the relevant page section title
-  const skillCredentialsUrl = "#"; // Skill credentials links to the eventual Skill showcase page and scrolls the user to the relevant page section title
+  const skillShowcaseUrl = paths.skillShowcase();
+  const skillLibraryUrl = paths.skillLibrary();
+
   const behaviouralSkillLibraryCount = 0;
   const technicalSkillLibraryCount = 0;
-  const typesOfWorkInterestCount = 0;
-  const skillCredentialsCount = 0;
   // The completion states are determined by the following rules:
   //   The skill library items need to have at least 1 skill
   //   The showcase items need to have at least 1 skill added to each of the 4 showcases
   const behaviouralSkillLibraryStatus = "success";
   const technicalSkillLibraryStatus = "success";
-  const behaviouralSkillShowcaseStatus = "success";
-  const technicalSkillShowcaseStatus = "success";
+  const topSkillsStatus = "success";
+  const skillsToImproveStatus = "success";
 
   return (
     <Hero
@@ -138,16 +130,20 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       subtitle={intl.formatMessage(
         {
           defaultMessage:
-            // TODO: split résumé and skills into two separate links when the sections exist
-            "Manage your <a1>profile</a1>, <a2>résumé, skills</a2>, and <a3>track applications</a3>.",
-          id: "zJHMt9",
+            // TODO: split career timeline and skills into two separate links when the sections exist
+            "Manage your <a1>profile</a1>, <a2>career timeline, skills</a2>, and <a3>track applications</a3>.",
+          id: "dwspOv",
           description: "Subtitle for profile and applications hero",
         },
         {
           a1: (chunks: React.ReactNode) =>
             buildLink(paths.profile(user.id), chunks, "white"),
           a2: (chunks: React.ReactNode) =>
-            buildLink(paths.resumeAndRecruitment(user.id), chunks, "white"),
+            buildLink(
+              paths.careerTimelineAndRecruitment(user.id),
+              chunks,
+              "white",
+            ),
           a3: (chunks: React.ReactNode) =>
             buildScrollToLink("track-applications-section", chunks, "white"),
         },
@@ -194,8 +190,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "When you log into your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your position in the program.",
-                id: "Z9wBwT",
+                  "When you sign in to your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your position in the program.",
+                id: "GQsJAi",
                 description:
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },
@@ -248,8 +244,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "When you log into your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your status in the program.",
-                id: "vYvmxq",
+                  "When you sign in to your account, you'll start on this page from now on. You can use the <strong><a>Track your applications</a></strong> section on this page to review your application to the IT Apprenticeship Program for Indigenous Peoples and track your status in the program.",
+                id: "Hf3x3E",
                 description:
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },
@@ -374,11 +370,12 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         <HeroCard
           color="tertiary"
           title={intl.formatMessage({
-            defaultMessage: "Résumé and recruitments",
-            id: "FSViGC",
-            description: "Profile and applications card title for résumé card",
+            defaultMessage: "Career timeline and recruitments",
+            id: "BYxqL/",
+            description:
+              "Profile and applications card title for career timeline card",
           })}
-          href={paths.resumeAndRecruitment(user.id)}
+          href={paths.careerTimelineAndRecruitment(user.id)}
         >
           <StatusItem
             title={intl.formatMessage({
@@ -436,9 +433,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                 .length
             }
             icon={ShieldCheckIcon}
-            href={paths.resumeAndRecruitment(user.id, {
+            href={paths.careerTimelineAndRecruitment(user.id, {
               section:
-                RESUME_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
+                CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
             })}
           />
         </HeroCard>
@@ -460,7 +457,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               })}
               itemCount={behaviouralSkillLibraryCount}
               status={behaviouralSkillLibraryStatus}
-              href={behaviouralSkillLibraryUrl}
+              href={`${skillLibraryUrl}#behavioural`}
             />
             <StatusItem
               title={intl.formatMessage({
@@ -470,45 +467,25 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               })}
               itemCount={technicalSkillLibraryCount}
               status={technicalSkillLibraryStatus}
-              href={technicalSkillLibraryUrl}
+              href={`${skillLibraryUrl}#technical`}
             />
             <StatusItem
               title={intl.formatMessage({
-                defaultMessage: "Behavioural skill showcase",
-                id: "qxRpIs",
-                description: "Title for behavioural skill showcase section",
+                defaultMessage: "Top skills",
+                id: "deiylo",
+                description: "Title for top skills showcase section",
               })}
-              status={behaviouralSkillShowcaseStatus}
-              href={behaviouralSkillShowcaseUrl}
+              status={topSkillsStatus}
+              href={`${skillShowcaseUrl}#top-skills`}
             />
             <StatusItem
               title={intl.formatMessage({
-                defaultMessage: "Technical skill showcase",
-                id: "tgG8VK",
-                description: "Title for technical skill showcase section",
+                defaultMessage: "Skill to improve",
+                id: "2A1UT9",
+                description: "Title for skills to improve showcase section",
               })}
-              status={technicalSkillShowcaseStatus}
-              href={technicalSkillShowcaseUrl}
-            />
-            <StatusItem
-              title={intl.formatMessage({
-                defaultMessage: "Types of work of interest",
-                id: "3Ix4Rz",
-                description: "Title for types of work of interest section",
-              })}
-              itemCount={typesOfWorkInterestCount}
-              icon={BeakerIcon}
-              href={typesOfWorkInterestUrl}
-            />
-            <StatusItem
-              title={intl.formatMessage({
-                defaultMessage: "Skill credentials",
-                id: "KSH0Di",
-                description: "Title for skill credentials section",
-              })}
-              itemCount={skillCredentialsCount}
-              icon={ShieldCheckIcon}
-              href={skillCredentialsUrl}
+              status={skillsToImproveStatus}
+              href={`${skillShowcaseUrl}#skills-to-improve`}
             />
           </HeroCard>
         ) : null}

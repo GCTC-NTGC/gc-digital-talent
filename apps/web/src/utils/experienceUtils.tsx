@@ -5,6 +5,12 @@ import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
+import React from "react";
+import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
+
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { useAuthorization } from "@gc-digital-talent/auth";
+import { IconType } from "@gc-digital-talent/ui";
 
 import {
   AllExperienceFormValues,
@@ -15,11 +21,7 @@ import {
   ExperienceFormValues,
   ExperienceType,
 } from "~/types/experience";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import React from "react";
-import { useAuthorization } from "@gc-digital-talent/auth";
-import { IconType } from "@gc-digital-talent/ui";
-import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
+
 import {
   AwardExperience,
   CommunityExperience,
@@ -100,6 +102,17 @@ export const getExperienceFormLabels = (
       id: "chnoRd",
       description: "Label for the type of experience a user is creating",
     }),
+    typeNullSelection: intl.formatMessage({
+      defaultMessage: "Select a type",
+      id: "5PUycY",
+      description: "Default selection for the experience type field",
+    }),
+    selectType: intl.formatMessage({
+      defaultMessage: "Select a type of experience",
+      id: "jw6Umr",
+      description:
+        "Heading for the experience type section fo the experience form",
+    }),
     awardTitle: intl.formatMessage({
       defaultMessage: "Award Title",
       id: "qeD2p/",
@@ -116,10 +129,9 @@ export const getExperienceFormLabels = (
       description: "Label displayed on Award form for awarded to input",
     }),
     issuedBy: intl.formatMessage({
-      defaultMessage: "Issuing Organization or Institution",
-      id: "YJdsMY",
-      description:
-        "Label displayed on award form for issuing organization input",
+      defaultMessage: "Issuing organization",
+      id: "NGEgVN",
+      description: "Label displayed on award form for organization section",
     }),
     awardedScope: intl.formatMessage({
       defaultMessage: "Award Scope",
@@ -148,6 +160,11 @@ export const getExperienceFormLabels = (
       defaultMessage: "End Date",
       id: "X8JZSG",
       description: "Label displayed on an Experience form for end date input",
+    }),
+    dateRange: intl.formatMessage({
+      defaultMessage: "Start/end date",
+      id: "PVzyQl",
+      description: "Label for the start/end date for an experience",
     }),
     educationType: intl.formatMessage({
       defaultMessage: "Type of Education",
@@ -193,8 +210,8 @@ export const getExperienceFormLabels = (
         "Label displayed on Personal Experience form for disclaimer bounded box",
     }),
     team: intl.formatMessage({
-      defaultMessage: "Team, Group, or Division",
-      id: "xJulQ4",
+      defaultMessage: "Team, group, or division",
+      id: "qn77WI",
       description:
         "Label displayed on Work Experience form for team/group/division input",
     }),
@@ -512,7 +529,7 @@ const getWorkExperienceDefaultValues = (experience: WorkExperience) => {
 export const queryResultToDefaultValues = (
   experienceType: ExperienceType,
   experience: AnyExperience,
-): ExperienceDetailsDefaultValues => {
+): ExperienceDetailsDefaultValues & { experienceType: ExperienceType } => {
   let unsharedValues = {};
   if (isAwardExperience(experience)) {
     unsharedValues = getAwardExperienceDefaultValues(experience);
@@ -533,6 +550,14 @@ export const queryResultToDefaultValues = (
   return {
     details: experience.details || "",
     ...unsharedValues,
+    skills: experience.skills
+      ? experience.skills.map(({ id, name, experienceSkillRecord }) => ({
+          skillId: id,
+          name,
+          details: experienceSkillRecord?.details || "",
+        }))
+      : undefined,
+    experienceType,
   };
 };
 

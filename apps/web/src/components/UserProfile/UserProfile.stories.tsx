@@ -26,8 +26,7 @@ const TemplateUserProfile: Story<User> = (args) => {
         workLocation: { isVisible: true },
         workPreferences: { isVisible: true },
         employmentEquity: { isVisible: true },
-        roleSalary: { isVisible: true },
-        resumeAndRecruitment: { isVisible: true },
+        careerTimelineAndRecruitment: { isVisible: true },
       }}
     />
   );
@@ -82,13 +81,10 @@ UserProfileNull.args = {
   isIndigenous: null,
   indigenousCommunities: null,
   isVisibleMinority: null,
-  jobLookingStatus: null,
   hasDiploma: null,
   locationPreferences: null,
   locationExemptions: null,
   acceptedOperationalRequirements: null,
-  expectedSalary: null,
-  expectedClassifications: null,
   positionDuration: null,
   armedForcesStatus: null,
   citizenship: null,

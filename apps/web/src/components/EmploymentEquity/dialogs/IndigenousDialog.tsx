@@ -18,7 +18,6 @@ import {
 } from "~/utils/indigenousDeclaration";
 
 import { IndigenousDialogProps } from "../types";
-
 import Definition from "./Definition";
 import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
@@ -32,6 +31,7 @@ const IndigenousDialog = ({
   signature,
   onSave,
   children,
+  disabled,
 }: IndigenousDialogProps) => {
   const intl = useIntl();
   const methods = useForm<FormValuesWithSignature>({
@@ -91,8 +91,8 @@ const IndigenousDialog = ({
               <p data-h2-margin="base(x1, 0, x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "You can Self-Declare with one or more of the communities listed alphabetically below.",
-                  id: "/kQQWi",
+                    "You can self-declare with one or more of the communities listed alphabetically below.",
+                  id: "CWy2xr",
                   description:
                     "Text that appears before employment equity form options.",
                 })}
@@ -118,6 +118,7 @@ const IndigenousDialog = ({
               />
               <Dialog.Footer>
                 <DialogFooter
+                  disabled={disabled}
                   saveText={intl.formatMessage({
                     defaultMessage: "Sign and save changes",
                     id: "fgVziE",

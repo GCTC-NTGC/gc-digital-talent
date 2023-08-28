@@ -6,14 +6,18 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 
-import { Heading, Link, Accordion, CardFlat } from "@gc-digital-talent/ui";
-import { StandardHeader as StandardAccordionHeader } from "@gc-digital-talent/ui/src/components/Accordion/StandardHeader";
+import {
+  Heading,
+  Link,
+  Accordion,
+  CardFlat,
+  StandardAccordionHeader,
+} from "@gc-digital-talent/ui";
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-
 import talentPlanEn from "~/assets/documents/Forward_Talent_Plan_EN.docx";
 import talentPlanFr from "~/assets/documents/Plan_prospectif_sur_les_talents_FR.docx";
 import recruitmentEn from "~/assets/documents/Digital_Recruitment_Template_EN.docx";

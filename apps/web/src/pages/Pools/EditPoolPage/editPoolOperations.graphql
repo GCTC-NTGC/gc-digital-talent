@@ -36,6 +36,10 @@ query getEditPoolData($poolId: UUID!) {
       en
       fr
     }
+    whatToExpect {
+      en
+      fr
+    }
     essentialSkills {
       id
       key
@@ -176,6 +180,18 @@ mutation deletePool($id: ID!) {
 
 mutation duplicatePool($id: ID!, $teamId: ID!) {
   duplicatePool(id: $id, teamId: $teamId) {
+    id
+  }
+}
+
+mutation archivePool($id: ID!) {
+  archivePool(id: $id) {
+    id
+  }
+}
+
+mutation unarchivePool($id: ID!) {
+  unarchivePool(id: $id) {
     id
   }
 }

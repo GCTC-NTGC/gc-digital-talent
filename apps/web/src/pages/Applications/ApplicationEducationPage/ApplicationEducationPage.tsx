@@ -22,7 +22,12 @@ import {
   useUpdateApplicationMutation,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import useRoutes from "~/hooks/useRoutes";
+import { RadioGroup } from "@gc-digital-talent/forms";
+import { Radio } from "@gc-digital-talent/forms/src/components/RadioGroup";
+import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
+import applicationMessages from "~/messages/applicationMessages";
 import {
   isAwardExperience,
   isCommunityExperience,
@@ -30,18 +35,13 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
-import applicationMessages from "~/messages/applicationMessages";
-
-import { RadioGroup } from "@gc-digital-talent/forms";
-import { Radio } from "@gc-digital-talent/forms/src/components/RadioGroup";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
+import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
+
 import { ApplicationPageProps } from "../ApplicationApi";
-import LinkResume from "./LinkResume";
 import { useApplicationContext } from "../ApplicationContext";
+import LinkCareerTimeline from "./LinkCareerTimeline";
 
 type EducationRequirementExperiences = {
   educationRequirementAwardExperiences: { sync: string[] };
@@ -112,8 +112,7 @@ const ApplicationEducation = ({
   const locale = getLocale(intl);
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { applicantDashboard } = useFeatureFlags(); // TODO: Remove once feature flag has been turned on.
-  const { followingPageUrl, currentStepOrdinal, isIAP } =
+  const { followingPageUrl, currentStepOrdinal, isIAP, classificationGroup } =
     useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
@@ -123,10 +122,8 @@ const ApplicationEducation = ({
   });
   const nextStep =
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);
-  const previousStep = paths.applicationResume(application.id);
-  const cancelPath = applicantDashboard
-    ? paths.profileAndApplications({ fromIapDraft: isIAP })
-    : paths.myProfile();
+  const previousStep = paths.applicationCareerTimeline(application.id);
+  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -144,11 +141,17 @@ const ApplicationEducation = ({
       }),
     },
   });
-  const { register, setValue, watch } = methods;
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { isSubmitting },
+  } = methods;
   const watchEducationRequirement = watch("educationRequirement");
   const actionProps = register("action");
 
-  const [, executeMutation] = useUpdateApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] =
+    useUpdateApplicationMutation();
   const handleSubmit = (formValues: FormValues) => {
     const includesExperience = (id: string) =>
       formValues.educationRequirementExperiences.includes(id);
@@ -286,8 +289,8 @@ const ApplicationEducation = ({
       toast.error(
         intl.formatMessage({
           defaultMessage:
-            "It looks like you haven't added any education experiences to your résumé yet.",
-          id: "Td1lSw",
+            "It looks like you haven't added any education experiences to your career timeline yet.",
+          id: "UjxhSB",
           description:
             "Alert message informing user to add education experience in application education page.",
         }),
@@ -336,9 +339,7 @@ const ApplicationEducation = ({
           }),
       contentBelow: (
         <div data-h2-margin="base(x.15, 0, x.5, x1)">
-          <p data-h2-margin="base(0, 0, x.5, 0)">
-            {intl.formatMessage(applicationMessages.appliedWorkExperience)}
-          </p>
+          <p>{intl.formatMessage(applicationMessages.appliedWorkExperience)}</p>
           <ul>
             {Object.values(appliedWorkListMessages).map((value) => (
               <li key={uniqueId()} data-h2-margin="base(0, 0, x.25, 0)">
@@ -367,7 +368,7 @@ const ApplicationEducation = ({
               "Radio group option for education requirement filter in application education form.",
           }),
       contentBelow: (
-        <div data-h2-margin="base(x.15, 0, x.5, x1)">
+        <div data-h2-margin="base(x.15, 0, x.15, x1)">
           <p>
             {isIAP
               ? intl.formatMessage({
@@ -380,6 +381,42 @@ const ApplicationEducation = ({
               : intl.formatMessage(applicationMessages.postSecondaryEducation, {
                   link: qualityStandardsLink,
                 })}
+          </p>
+        </div>
+      ),
+    },
+  ];
+
+  // TODO: Think of a better name
+  const educationRequirementOptionsPM: Radio[] = [
+    {
+      value: EducationRequirementOption.AppliedWork,
+      label: intl.formatMessage({
+        defaultMessage:
+          "<strong>I meet the applied work experience option</strong>",
+        id: "SNwPLZ",
+        description:
+          "Radio group option for education requirement filter in application education form.",
+      }),
+      contentBelow: (
+        <div data-h2-margin="base(x.15, 0, x.5, x1)">
+          <p>{intl.formatMessage(applicationMessages.appliedWorkExpPMGroup)}</p>
+        </div>
+      ),
+    },
+    {
+      value: EducationRequirementOption.Education,
+      label: intl.formatMessage({
+        defaultMessage:
+          "<strong>I meet the secondary school diploma option</strong>",
+        id: "qN9zOb",
+        description:
+          "Radio group option for education requirement filter in application education form.",
+      }),
+      contentBelow: (
+        <div data-h2-margin="base(x.15, 0, x.15, x1)">
+          <p>
+            {intl.formatMessage(applicationMessages.secondarySchoolDescription)}
           </p>
         </div>
       ),
@@ -406,8 +443,8 @@ const ApplicationEducation = ({
           <p data-h2-margin="base(0, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage:
-                "To help us understand how you meet the minimum experience or education criteria, please identify which of the options you meet, as well as which experiences in your résumé apply. If both apply to you, that’s great! Feel free to select the option that best reflects your qualifications.",
-              id: "qEYoGS",
+                "To help us understand how you meet the minimum experience or education criteria, please identify which of the options you meet, as well as which experiences in your career timeline apply. If both apply to you, that’s great! Feel free to select the option that best reflects your qualifications.",
+              id: "rxo7fM",
               description:
                 "Description for radio group section in application education page.",
             })}
@@ -431,12 +468,16 @@ const ApplicationEducation = ({
                   })
             }
             name="educationRequirement"
-            items={educationRequirementOptions}
+            items={
+              classificationGroup === "PM"
+                ? educationRequirementOptionsPM
+                : educationRequirementOptions
+            }
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
           />
-          <LinkResume
+          <LinkCareerTimeline
             experiences={experiences}
             watchEducationRequirement={watchEducationRequirement}
             previousStepPath={previousStep}
@@ -458,6 +499,7 @@ const ApplicationEducation = ({
               type="submit"
               mode="solid"
               value="continue"
+              disabled={mutating || isSubmitting}
               {...actionProps}
               onClick={() => {
                 setValue("action", "continue");
@@ -470,6 +512,7 @@ const ApplicationEducation = ({
               mode="inline"
               color="secondary"
               value="cancel"
+              disabled={isSubmitting}
               {...actionProps}
               onClick={() => {
                 setValue("action", "cancel");

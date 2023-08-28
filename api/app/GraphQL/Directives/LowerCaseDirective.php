@@ -28,7 +28,7 @@ GRAPHQL;
      *
      * @return mixed the sanitized value
      */
-    public function sanitize($argumentValue)
+    public function sanitize(mixed $argumentValue): mixed
     {
         if (is_string($argumentValue)) {
             return strtolower($argumentValue);

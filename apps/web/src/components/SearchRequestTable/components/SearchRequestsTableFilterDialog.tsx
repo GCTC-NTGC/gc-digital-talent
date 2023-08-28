@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext, SubmitHandler } from "react-hook-form";
-
 import AdjustmentsVerticalIcon from "@heroicons/react/24/outline/AdjustmentsVerticalIcon";
+
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { BasicForm, MultiSelectField } from "@gc-digital-talent/forms";
 
@@ -21,7 +21,10 @@ export type FormValues = {
 
 const Footer = (): JSX.Element => {
   const { formatMessage } = useIntl();
-  const { reset } = useFormContext();
+  const {
+    reset,
+    formState: { isSubmitting },
+  } = useFormContext();
   const { emptyFormValues } = useFilterOptions();
   const handleClear = () => {
     reset(emptyFormValues);
@@ -36,7 +39,7 @@ const Footer = (): JSX.Element => {
           id: "uC0YPE",
         })}
       </Button>
-      <Button type="submit" color="primary">
+      <Button type="submit" color="primary" disabled={isSubmitting}>
         {formatMessage({
           description: "Submit button within the search filter dialog",
           defaultMessage: "Show results",
@@ -140,7 +143,7 @@ export const SearchRequestsTableFilterDialog = ({
   );
 };
 
-export type SearchRequestsTableFiltersProps = Pick<
+type SearchRequestsTableFiltersProps = Pick<
   SearchRequestsTableFilterDialogProps,
   "onSubmit"
 > & {
@@ -162,9 +165,9 @@ const SearchRequestsTableFilters = ({
   );
 
   const handleSubmit: SubmitHandler<FormValues> = (data) => {
-    onSubmit(data);
     setActiveFilters(data);
     setOpen(false);
+    return onSubmit(data);
   };
 
   return (

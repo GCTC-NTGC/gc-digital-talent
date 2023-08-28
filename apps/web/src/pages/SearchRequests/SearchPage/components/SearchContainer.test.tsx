@@ -4,12 +4,14 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import React from "react";
+
 import {
   fakeClassifications,
   fakePools,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+
 import { SearchContainerComponent } from "./SearchContainer";
 import type { SearchContainerProps } from "./SearchContainer";
 
@@ -79,21 +81,21 @@ describe("SearchContainer", () => {
   it("should render different results container no candidates", async () => {
     renderSearchContainer({ poolCandidateResults: [], totalCandidateCount });
     await expect(
-      screen.queryByRole("heading", { name: /we can still help/i }),
+      screen.getByRole("heading", { name: /We may be able to help/i }),
     ).toBeInTheDocument();
   });
 
-  it("should render number of candidates", async () => {
+  it("should render number of candidates", () => {
     renderSearchContainer({ poolCandidateResults, totalCandidateCount });
 
-    const candidateCounts = await screen.queryAllByTestId("candidateCount");
+    const candidateCounts = screen.queryAllByTestId("candidateCount");
     expect(candidateCounts.length).toEqual(4);
   });
 
-  it("should render proper value for candidates", async () => {
+  it("should render proper value for candidates", () => {
     renderSearchContainer({ poolCandidateResults, totalCandidateCount });
 
-    const candidateCounts = await screen.queryAllByTestId("candidateCount");
+    const candidateCounts = screen.queryAllByTestId("candidateCount");
 
     const testCandidateCountText = (text: string | null, pattern: RegExp) => {
       expect(text).toBeTruthy();

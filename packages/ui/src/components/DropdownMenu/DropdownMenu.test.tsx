@@ -2,13 +2,15 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { act, fireEvent, screen } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
-import DropdownMenu from ".";
 import Button from "../Button";
+
+import DropdownMenu from ".";
 
 type DropdownMenuRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
   typeof DropdownMenu.Root
@@ -69,6 +71,8 @@ const renderDropdownMenu = (
 };
 
 describe("DropdownMenu", () => {
+  const user = userEvent.setup();
+
   window.ResizeObserver =
     window.ResizeObserver ||
     jest.fn().mockImplementation(() => ({
@@ -78,25 +82,22 @@ describe("DropdownMenu", () => {
     }));
 
   it("should not have accessibility errors when closed", async () => {
-    await act(async () => {
-      const { container } = renderDropdownMenu({});
-      await axeTest(container);
-    });
+    const { container } = renderDropdownMenu({});
+
+    await axeTest(container);
   });
 
   it("should not have accessibility errors when open", async () => {
+    const { container } = renderDropdownMenu({});
     await act(async () => {
-      const { container } = renderDropdownMenu({
-        defaultOpen: true,
-      });
-      await axeTest(container);
+      await user.click(screen.getByRole("button", { name: /dropdown menu/i }));
     });
+
+    await axeTest(container);
   });
 
   it("should not render when closed", async () => {
-    await act(() => {
-      renderDropdownMenu({});
-    });
+    renderDropdownMenu({});
 
     expect(
       screen.queryByRole("menu", { name: /dropdown menu/i }),
@@ -104,29 +105,29 @@ describe("DropdownMenu", () => {
   });
 
   it("should render when opened", async () => {
-    await act(() => {
-      renderDropdownMenu({
-        defaultOpen: true,
-      });
+    renderDropdownMenu({});
+
+    await act(async () => {
+      await user.click(screen.getByRole("button", { name: /dropdown menu/i }));
     });
 
     expect(
-      screen.queryByRole("menu", { name: /dropdown menu/i }),
+      screen.getByRole("menu", { name: /dropdown menu/i }),
     ).toBeInTheDocument();
   });
 
   it("change value when selected", async () => {
-    await act(() => {
-      renderDropdownMenu({
-        defaultOpen: true,
-      });
+    renderDropdownMenu({});
+
+    await act(async () => {
+      await user.click(screen.getByRole("button", { name: /dropdown menu/i }));
     });
 
     const radioItemTwo = await screen.findByRole("menuitemradio", {
       name: /two/i,
     });
 
-    fireEvent.click(radioItemTwo);
+    await user.click(radioItemTwo);
 
     expect(radioItemTwo).toHaveAttribute("data-state", "checked");
   });

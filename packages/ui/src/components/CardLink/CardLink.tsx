@@ -6,24 +6,18 @@ import { sanitizeUrl } from "@gc-digital-talent/helpers";
 import { IconType } from "../../types";
 import "./cardLink.css";
 
-export type Color =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "quaternary"
-  | "quinary";
+type Color = "primary" | "secondary" | "tertiary" | "quaternary" | "quinary";
 
 export interface CardLinkProps {
   href: string;
   label: string;
   color?: Color;
   icon?: IconType;
-  className?: string;
   external?: boolean;
   children?: React.ReactNode;
 }
 
-export const colorMap: Record<Color, Record<string, string>> = {
+const colorMap: Record<Color, Record<string, string>> = {
   primary: {
     "data-h2-background-color":
       "base:all(primary.light) base:dark:iap(primary)",

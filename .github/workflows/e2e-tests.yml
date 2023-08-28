@@ -11,7 +11,8 @@ on:
   pull_request:
     paths-ignore:
       - "**.md"
-
+  merge_group:
+    branches: [main]
 # Concurrency is used to cancel other currently-running jobs, to preserve
 # compute resources and cumulative build hours. (ie. If you push twice in a
 # row, this will cancel the previous run.)
@@ -62,10 +63,10 @@ jobs:
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
       - name: "Run Cypress tests: all"
-        uses: cypress-io/github-action@v5.8.3
+        uses: cypress-io/github-action@v6.0.1
         with:
           spec: "**/*.cy.js"
-          browser: chrome
+          browser: electron
           config-file: cypress.config.ts
           project: ./apps/e2e
           # See: https://github.com/cypress-io/github-action/issues/489#issuecomment-1021379037

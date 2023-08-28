@@ -5,8 +5,8 @@ import {
   fakePoolCandidates,
   fakeExperiences,
 } from "@gc-digital-talent/fake-data";
-
 import { notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   ApplicationSkills,
   ApplicationSkillsProps,
