@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Department;
-use App\Models\DigitalContractingQuestionnaire;
 use App\Models\DigitalContractingPersonnelRequirement;
+use App\Models\DigitalContractingQuestionnaire;
 use Database\Helpers\DirectiveFormsApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
@@ -25,9 +25,9 @@ class DigitalContractingQuestionnaireFactory extends Factory
             'read_preamble' => $this->faker->boolean(),
             'department_id' => $this->faker->boolean(75)
                 ? Department::inRandomOrder()
-                ->limit(1)
-                ->pluck('id')
-                ->first()
+                    ->limit(1)
+                    ->pluck('id')
+                    ->first()
                 : null,
             'department_other' => function (array $attributes) {
                 return $attributes['department_id'] ? null : $this->faker->company();

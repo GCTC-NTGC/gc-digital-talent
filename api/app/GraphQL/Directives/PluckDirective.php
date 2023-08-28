@@ -10,7 +10,6 @@ use Nuwave\Lighthouse\Support\Utils;
 
 final class PluckDirective extends BaseDirective implements ArgDirectiveForArray, ArgTransformerDirective
 {
-
     public static function definition(): string
     {
         return
@@ -39,6 +38,7 @@ GRAPHQL;
             },
             $argumentValue
         );
+
         return $output;
     }
 
@@ -48,6 +48,7 @@ GRAPHQL;
             return $argumentSet;
         }
         $key = $this->directiveArgValue('key');
+
         return $argumentSet->arguments[$key]->value;
     }
 }

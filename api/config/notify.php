@@ -24,10 +24,10 @@ return [
     |
     */
     'templates' => [
-        'test_email' =>  env('GCNOTIFY_TEMPLATE_TEST_EMAIL'),
-        'test_sms' =>  env('GCNOTIFY_TEMPLATE_TEST_SMS'),
-        'test_bulk_email' =>  env('GCNOTIFY_TEMPLATE_TEST_BULK_EMAIL'),
-        'test_bulk_sms' =>  env('GCNOTIFY_TEMPLATE_TEST_BULK_SMS'),
+        'test_email' => env('GCNOTIFY_TEMPLATE_TEST_EMAIL'),
+        'test_sms' => env('GCNOTIFY_TEMPLATE_TEST_SMS'),
+        'test_bulk_email' => env('GCNOTIFY_TEMPLATE_TEST_BULK_EMAIL'),
+        'test_bulk_sms' => env('GCNOTIFY_TEMPLATE_TEST_BULK_SMS'),
     ],
 
     /*
@@ -39,5 +39,5 @@ return [
     | more human readable config
     |
     */
-    'replyTo' => []
+    'replyTo' => [],
 ];
