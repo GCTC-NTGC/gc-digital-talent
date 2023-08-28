@@ -14,7 +14,7 @@ import {
 } from "urql";
 import { useIntl } from "react-intl";
 
-import { useAuthentication } from "@gc-digital-talent/auth";
+import { useAuthentication, ACCESS_TOKEN } from "@gc-digital-talent/auth";
 import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -52,7 +52,7 @@ const ClientProvider = ({
   children?: React.ReactNode;
 }) => {
   const intl = useIntl();
-  const { accessToken, refreshToken, logout, refreshTokenSet, idToken } =
+  const { accessToken, refreshToken, logout, refreshTokenSet } =
     useAuthentication();
   const logger = useLogger();
 
@@ -69,19 +69,15 @@ const ClientProvider = ({
 
     // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
     // let's try to use a refresh token to get new tokens
+    let refreshedAuthState;
     if (refreshToken) {
-      const refreshedAuthState = await refreshTokenSet();
-      if (refreshedAuthState) {
-        return;
-      }
+      refreshedAuthState = await refreshTokenSet();
     }
 
-    logoutNullState();
+    if (!refreshedAuthState) {
+      logoutNullState();
+    }
   }, [refreshToken, logout, refreshTokenSet]);
-
-  const willAuthErrorStable = React.useCallback(() => {
-    return willAuthError({ accessToken, refreshToken, idToken });
-  }, [accessToken, idToken, refreshToken]);
 
   const internalClient = useMemo(() => {
     return (
@@ -130,7 +126,19 @@ const ClientProvider = ({
                 }
                 return operation;
               },
-              willAuthError: willAuthErrorStable,
+              willAuthError() {
+                const token = localStorage.getItem(ACCESS_TOKEN);
+                let tokenIsKnownToBeExpired = false;
+                if (token) {
+                  const decoded = jwtDecode<JwtPayload>(token);
+                  if (decoded.exp)
+                    tokenIsKnownToBeExpired = Date.now() > decoded.exp * 1000; // JWT expiry date in seconds, not milliseconds
+                }
+
+                if (tokenIsKnownToBeExpired) return true;
+
+                return false;
+              },
               didAuthError(error) {
                 return error && error.response
                   ? error.response.status === 401 ||
@@ -146,7 +154,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [client, intl, logger, willAuthErrorStable, refreshAuth, accessToken]);
+  }, [client, intl, logger, refreshAuth, accessToken]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };
