@@ -8,15 +8,16 @@ import {
   Accordion,
   StandardAccordionHeader,
   Separator,
+  Loading,
 } from "@gc-digital-talent/ui";
 import {
+  commonMessages,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import profileMessages from "~/messages/profileMessages";
-import Spinner from "~/components/Spinner/Spinner";
 import {
   IndigenousCommunity,
   Maybe,
@@ -139,7 +140,9 @@ const EquityOptions = ({
           data-h2-location="base(x2, -x1, -x1, -x1)"
           data-h2-z-index="base(2)"
         >
-          <Spinner />
+          <Loading inline>
+            {intl.formatMessage(commonMessages.searching)}
+          </Loading>
         </div>
       )}
       {hasItems ? (
