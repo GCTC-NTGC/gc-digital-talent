@@ -808,6 +808,9 @@ class User extends Model implements Authenticatable, LaratrustUser
                         });
                     });
                 }
+                if ($user->isAbleTo('view-own-user')) {
+                    $query->orWhere('id', $user->id);
+                }
             });
         }
 
