@@ -26,9 +26,9 @@ class ChangeExpiryDateToDatetime extends Migration
      */
     public function down()
     {
-        DB::statement("
+        DB::statement('
             ALTER TABLE pools
             ALTER COLUMN expiry_date TYPE timestamptz(0)
-        ");
+        ');
     }
 }

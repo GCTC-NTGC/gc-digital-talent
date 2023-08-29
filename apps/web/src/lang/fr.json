@@ -186,6 +186,10 @@
     "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de...",
     "description": "Legend Text for required work preferences options in work preferences form"
   },
+  "/GIL9l": {
+    "defaultMessage": "Ajoutez un élément pour commencer en cliquant sur le bouton afficher « Ajouter un nouvel élément ».",
+    "description": "Default description for an empty table"
+  },
   "/I7wrY": {
     "defaultMessage": "Lier des compétences en vedette",
     "description": "Title for skills on Experience form"
@@ -887,6 +891,10 @@
     "defaultMessage": "Expérience mise à jour avec succès!",
     "description": "Success message displayed after updating an experience"
   },
+  "450itb": {
+    "defaultMessage": "{count, plural, =0 {0 éléments sélectionnés} =1 {1 élément sélectionné} other {# éléments sélectionnés}}",
+    "description": "Message displayed for the number of rows selected in a table"
+  },
   "45BhQw": {
     "defaultMessage": "Vous êtes sur le point de PUBLIER ce bassin.",
     "description": "First paragraph for publish pool dialog"
@@ -1022,10 +1030,6 @@
   "4sLCWZ": {
     "defaultMessage": "Continuez vers CléGC et connectez-vous",
     "description": "GCKey sign in link text on the sign in page"
-  },
-  "4uiPHx": {
-    "defaultMessage": "Passer à la page suivante",
-    "description": "Aria label for next page button in pagination nav"
   },
   "4v9y7U": {
     "defaultMessage": "Statut de citoyenneté",
@@ -1191,6 +1195,10 @@
     "defaultMessage": "Veuillez vérifier votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
   },
+  "5r8Ka2": {
+    "defaultMessage": "Tout le tableau",
+    "description": "Text in table search form column dropdown when no column is selected."
+  },
   "5yYtE6": {
     "defaultMessage": "À venir à l’automne 2023",
     "description": "Text displayed for soon to come data talent data portal"
@@ -1335,10 +1343,6 @@
     "defaultMessage": "Peut accepter une combinaison d’expérience de travail et d’études",
     "description": "Radio group option for education requirement filter in search form."
   },
-  "78ITuW": {
-    "defaultMessage": "Candidature non trouvée.",
-    "description": "Text displayed when a user application does not exist."
-  },
   "79m9jN": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Page title for the application success page"
@@ -1386,6 +1390,10 @@
   "7OQHcx": {
     "defaultMessage": "Date de clôture",
     "description": "Closing Date field label for close pool dialog"
+  },
+  "7Rllrl": {
+    "defaultMessage": "Activer tout",
+    "description": "Label for checkbox to toggle visibility of all columns"
   },
   "7STO48": {
     "defaultMessage": "« J’affirme que je suis un membre des Premières Nations, un Inuk (Inuit) ou un Métis »",
@@ -1602,6 +1610,10 @@
   "8yB2Bm": {
     "defaultMessage": "Conditions favorables",
     "description": "Heading for the directives digital enabling conditions component"
+  },
+  "90E1fF": {
+    "defaultMessage": "(Ordre croissant)",
+    "description": "Message added to indicate a table column is sorted in ascending order"
   },
   "92hwzj": {
     "defaultMessage": "Statut de citoyenneté :",
@@ -1914,6 +1926,10 @@
   "B6SqfX": {
     "defaultMessage": "Sauvegarder le changement d’état",
     "description": "Button label displayed that saves the users status selection."
+  },
+  "B6XXtf": {
+    "defaultMessage": "Télécharger le jeu de données intégral",
+    "description": "Text label for button to download a csv file of all items in a table."
   },
   "B89Ihf": {
     "defaultMessage": "Compétences requises pour la demande",
@@ -2771,6 +2787,10 @@
     "defaultMessage": "Enregistrer et aller sur mon profil",
     "description": "Button label for submit button on create account form."
   },
+  "H5kSPB": {
+    "defaultMessage": "On ne trouve aucun élément jusqu’à présent.",
+    "description": "Default message for an empty table"
+  },
   "H7M6Yv": {
     "defaultMessage": "Localisation :",
     "description": "Label for pool advertisement location requirement"
@@ -3055,6 +3075,10 @@
     "defaultMessage": "Par compétences",
     "description": "Tab title for experiences sorted by skills in applicant profile."
   },
+  "JgdijS": {
+    "defaultMessage": "Afficher {pageSize}",
+    "description": "Button text to change the number of items that show up on each page"
+  },
   "JgwpTg": {
     "defaultMessage": "Vous êtes sur le point de supprimer ce membre : <strong>{userName}</strong>",
     "description": "Lead in text for the remove role from user dialog"
@@ -3233,6 +3257,10 @@
     "defaultMessage": "Poursuivre l’ébauche de votre demande pour le poste {applicationTitle}",
     "description": "Link text to apply for a pool advertisement"
   },
+  "KrrW7D": {
+    "defaultMessage": "Imprimer la sélection",
+    "description": "Text label for button to print items in a table."
+  },
   "KsS1Py": {
     "defaultMessage": "Profil linguistique",
     "description": "Title for the language profile snapshot section"
@@ -3361,6 +3389,10 @@
     "defaultMessage": "Commencez <hidden> à entrer vos renseignements personnels et vos coordonnées </hidden>",
     "description": "Call to action to begin editing personal and contact information"
   },
+  "Lu5ppY": {
+    "defaultMessage": "Tout sélectionner",
+    "description": "Label for the checkbox to select all rows in a table"
+  },
   "LvHCvn": {
     "defaultMessage": "Langue de communication préférée :",
     "description": "Display text for the preferred communication language field on users"
@@ -3484,6 +3516,10 @@
   "N0ySd0": {
     "defaultMessage": "Compétences utiles (compétences souhaitables)",
     "description": "Sub title for the pool essential skills"
+  },
+  "N3sUUc": {
+    "defaultMessage": "Navigation dans la page",
+    "description": "Label for the table pagination"
   },
   "N3uD4m": {
     "defaultMessage": "Mes équipes",
@@ -3612,6 +3648,10 @@
   "O0z6Ym": {
     "defaultMessage": "À qui ce programme est-il destiné?",
     "description": "Heading for section about who the program is for"
+  },
+  "O5dDCM": {
+    "defaultMessage": "Aller à la page suivante ",
+    "description": "Aria label for next page button in pagination nav"
   },
   "O8U5Sz": {
     "defaultMessage": "Utilisateur ajouté avec succès",
@@ -3972,10 +4012,6 @@
     "defaultMessage": "Que se passe-t-il après avoir répondu à l’offre d’emploi?",
     "description": "Sub title for the what to expect section"
   },
-  "QdXUwo": {
-    "defaultMessage": "Aller à la page :",
-    "description": "Label for pagination input in admin table."
-  },
   "QfOWr0": {
     "defaultMessage": "Détails additionnels :",
     "description": "Additional details if provided (without details)"
@@ -4023,6 +4059,10 @@
   "R+Zm3X": {
     "defaultMessage": "Imprimer le profil",
     "description": "Text for button to print a user profile"
+  },
+  "R1BcTP": {
+    "defaultMessage": "Rechercher{column}",
+    "description": "Button text to search specific columns in table"
   },
   "R1yINv": {
     "defaultMessage": "Si vous ne savez pas comment décrire au mieux votre utilisation de la compétence, essayez de répondre à certaines des questions fournies ci-dessous.",
@@ -4103,10 +4143,6 @@
   "Rs50V0": {
     "defaultMessage": "Désarchiver ce bassin",
     "description": "Button to un-archive the pool in the un-archive pool dialog"
-  },
-  "Rv5vo7": {
-    "defaultMessage": "Passer à la page {pageNumber}",
-    "description": "Aria label for each button in pagination nav"
   },
   "RwXPoj": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
@@ -4436,10 +4472,6 @@
     "defaultMessage": "Les apprentis feront l’expérience d’un apprentissage au travail et pendant la formation en ligne dans un ou plusieurs domaines de la technologie de l’information. On s’attend à ce que les apprentis démontrent leur intérêt et leur passion pour la technologie en étant prêts à observer, à apprendre et à pratiquer de nouvelles compétences qui sont développées au cours du programme. En moyenne, un apprenti passera quatre jours par semaine en apprentissage pratique, tandis que le cinquième jour de la semaine sera consacré au perfectionnement personnel et professionnel par la formation en ligne et par d’autres possibilités de formation et de perfectionnement.",
     "description": "Learn more dialog question eight paragraph one"
   },
-  "URRpKO": {
-    "defaultMessage": "Relier une expérience de parcours professionnel",
-    "description": "Experience tree view action button label"
-  },
   "UTFKyy": {
     "defaultMessage": "La compétence a été mise à jour avec succès!",
     "description": "Message displayed to user after skill is updated successfully."
@@ -4551,6 +4583,10 @@
   "VCl+IZ": {
     "defaultMessage": "<heavyPrimary>Fermée</heavyPrimary>",
     "description": "Status name of a pool in CLOSED status"
+  },
+  "VHG9Gm": {
+    "defaultMessage": "Désélectionner <hidden> rangées sélectionnées</hidden>",
+    "description": "Button text to deselect all table rows"
   },
   "VHhOb/": {
     "defaultMessage": "Le programme est une initiative du gouvernement du Canada, qui est conçue spécifiquement pour les Premières Nations, les Inuits et les Métis. Il s’agit d’un chemin vers l’emploi au sein de la fonction publique fédérale pour les Autochtones qui sont passionnés de technologies de l’information (TI). Nous misons sur cette passion ainsi que sur votre potentiel pour grandir et réussir dans ce domaine.",
@@ -5215,10 +5251,6 @@
     "defaultMessage": "IT-01: Technicien(ne) (60 000 $ à 78 000 $)",
     "description": "IT-01 classification label including titles and salaries"
   },
-  "ZwGMwT": {
-    "defaultMessage": "Cette compétence requise doit être associée à au moins une expérience de parcours professionnel.",
-    "description": "Experience tree view error message"
-  },
   "Zzd/sJ": {
     "defaultMessage": "Dans ce champ, veuillez inclure tous les détails et qualifications supplémentaires que vous recherchez auprès des candidats, comme les langages de programmation, les certifications, les connaissances ou un lieu de travail particulier.",
     "description": "Blurb before additional comments textarea in the request form."
@@ -5776,10 +5808,6 @@
     "defaultMessage": "Parcourez les offres dans le domaine des <abbreviation>TI</abbreviation> pour la communauté autochtone",
     "description": "Title for Indigenous community job opportunities on Browse IT jobs page"
   },
-  "drr0f7": {
-    "defaultMessage": "Passer à la page précédente",
-    "description": "Aria label for previous page button in pagination nav"
-  },
   "drwKS5": {
     "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce bassin. Utilisez le bouton de révision pour gérer un candidat.",
     "description": "Descriptive text about the list of pool candidates in the admin portal."
@@ -6008,10 +6036,6 @@
     "defaultMessage": "Relier une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
     "description": "Button text to open form to connect an experience to a skill"
   },
-  "fSBslq": {
-    "defaultMessage": "Taille de la page",
-    "description": "Label for the number of items to display on each page."
-  },
   "fTwl6k": {
     "defaultMessage": "Titre précis (anglais)",
     "description": "Label for a pool advertisements specific English title"
@@ -6163,6 +6187,10 @@
   "gLHr9Y": {
     "defaultMessage": "La clôture automatique de ce bassin est programmés pour le :",
     "description": "Third paragraph for publish pool dialog"
+  },
+  "gMWuvj": {
+    "defaultMessage": "Afficher les résultats {pageSize} de {total}",
+    "description": "Description of how many items are being displayed out of the total value"
   },
   "gN5gy5": {
     "defaultMessage": "Groupe et niveau de départ",
@@ -7153,6 +7181,10 @@
     "defaultMessage": "Toutes les familles de compétences ({count})",
     "description": "Label for removing the skill family filter"
   },
+  "n+tkit": {
+    "defaultMessage": "Aller à la première page ",
+    "description": "Label for first page button in pagination nav"
+  },
   "n4pt+y": {
     "defaultMessage": "Nom de l’équipe (Anglais)",
     "description": "Label for the English team display name input"
@@ -7461,10 +7493,6 @@
     "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",
     "description": "Message for the advanced language ability option"
   },
-  "pbXAOp": {
-    "defaultMessage": "Afficher {numOfRows}",
-    "description": "Options for how many rows to show on admin table"
-  },
   "pe5WkF": {
     "defaultMessage": "Courriel du propriétaire",
     "description": "Title displayed for the Pool table Owner Email column"
@@ -7596,6 +7624,10 @@
     "defaultMessage": "Vous avez atteint le nombre maximum (3) de questions filtres par poste annoncé.",
     "description": "Message displayed when a user adds the maximum number of questions"
   },
+  "qtCt+G": {
+    "defaultMessage": "Aller à la dernière page ",
+    "description": "Label for last page button in pagination nav"
+  },
   "quxa4Q": {
     "defaultMessage": "Cadre de conformité et d’application de la loi proactives",
     "description": "Title for the compliance enforcement section."
@@ -7643,6 +7675,10 @@
   "rKUVdL": {
     "defaultMessage": "Veuillez communiquer avec l’équipe <a>{name} </a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation </strong> tout au long de ce processus.",
     "description": "Opening sentence asking if accommodations are needed"
+  },
+  "rLd5cC": {
+    "defaultMessage": "Aller à la page {pageNumber}",
+    "description": "Aria label for each button in pagination nav"
   },
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
@@ -8051,6 +8087,10 @@
     "defaultMessage": "Recrutement particulier à un ministère",
     "description": "Short name for Department-Specific Recruitment Form"
   },
+  "uKD+km": {
+    "defaultMessage": "(Ordre décroissant)",
+    "description": "Message added to indicate a table column is sorted in descending order"
+  },
   "uP+q43": {
     "defaultMessage": "Lieu de travail",
     "description": "Heading for work location section of the search form."
@@ -8242,10 +8282,6 @@
   "w6jDaJ": {
     "defaultMessage": "Il manque des renseignements à ces compétences nécessaires :",
     "description": "Text that appears when a user is missing required skills on their profile."
-  },
-  "w6vHXf": {
-    "defaultMessage": "Recherche...",
-    "description": "Message to display when a search is in progress."
   },
   "w7E0He": {
     "defaultMessage": "Compétences essentielles",
@@ -8506,6 +8542,10 @@
   "yGlG9e": {
     "defaultMessage": "Création du ministère réussie!",
     "description": "Message displayed to user after department is created successfully."
+  },
+  "yGy+to": {
+    "defaultMessage": "Aller à la page précédente ",
+    "description": "Aria label for previous page button in pagination nav"
   },
   "yITGeG": {
     "defaultMessage": "En acceptant d'utiliser la plateforme Talents numériques du GC, vous consentez à ce que vos données soient anonymisées et utilisées à des fins statistiques. Vous pouvez en apprendre davantage sur la façon dont nous traitons vos renseignements confidentiels dans la <link>politique de confidentialité de notre plateforme</link>.",

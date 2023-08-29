@@ -19,10 +19,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
-
 class Classification extends Model
 {
-
     use HasFactory;
     use SoftDeletes;
 

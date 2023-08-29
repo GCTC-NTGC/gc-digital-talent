@@ -207,7 +207,7 @@ type User {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -605,7 +605,7 @@ input EquitySelectionsInput {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification]
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelections
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
@@ -615,7 +615,7 @@ type PoolCandidateFilter {
 
 type ApplicantFilter {
   id: ID!
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelections
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
@@ -667,12 +667,6 @@ type Skill {
   description: LocalizedString
   keywords: SkillKeywords
   families: [SkillFamily!]
-  experiences: [Experience!]
-  awardExperiences: [AwardExperience!]
-  communityExperiences: [CommunityExperience!]
-  educationExperiences: [EducationExperience!]
-  personalExperiences: [PersonalExperience!]
-  workExperiences: [WorkExperience!]
   experienceSkillRecord: ExperienceSkillRecord
 }
 
@@ -682,6 +676,12 @@ type UserSkill {
   skill: Skill!
   skillLevel: SkillLevel
   whenSkillUsed: WhenSkillUsed
+  experiences: [Experience!]
+  awardExperiences: [AwardExperience!]
+  communityExperiences: [CommunityExperience!]
+  educationExperiences: [EducationExperience!]
+  personalExperiences: [PersonalExperience!]
+  workExperiences: [WorkExperience!]
 }
 
 enum SkillLevel {

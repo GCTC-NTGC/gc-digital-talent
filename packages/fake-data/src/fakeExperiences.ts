@@ -30,6 +30,13 @@ export type GeneratedEducationExperience = WithTypename<EducationExperience>;
 export type GeneratedPersonalExperience = WithTypename<PersonalExperience>;
 export type GeneratedWorkExperience = WithTypename<WorkExperience>;
 
+export type AnyGeneratedExperience =
+  | GeneratedAwardExperience
+  | GeneratedCommunityExperience
+  | GeneratedEducationExperience
+  | GeneratedPersonalExperience
+  | GeneratedWorkExperience;
+
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 // defining the skills here
 const sampleApp: User = {

@@ -7,6 +7,7 @@ import { fakeApplicants } from "@gc-digital-talent/fake-data";
 import { Experience, Skill, SkillCategory, SkillFamily } from "~/api/generated";
 
 import {
+  InvertedSkillExperience,
   invertSkillExperienceTree,
   invertSkillSkillFamilyTree,
 } from "./skillUtils";
@@ -230,7 +231,7 @@ describe("skill util tests", () => {
         ],
       },
     ];
-    const expected: Skill[] = [
+    const expected: InvertedSkillExperience[] = [
       {
         id: "1",
         key: "skill_one",
@@ -289,7 +290,7 @@ describe("skill util tests", () => {
         ],
       },
     ];
-    const expected: Skill[] = [
+    const expected: InvertedSkillExperience[] = [
       {
         id: "1",
         key: "skill_one",
@@ -358,7 +359,7 @@ describe("skill util tests", () => {
         ],
       },
     ];
-    const expected: Skill[] = [
+    const expected: InvertedSkillExperience[] = [
       {
         id: "1",
         key: "skill_one",

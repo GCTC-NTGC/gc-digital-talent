@@ -21,47 +21,47 @@ final class DigitalContractingQuestionnaireInput extends Validator
             'readPreamble' => ['accepted'],
             'departmentOther' => [
                 'required_without:department',
-                Rule::prohibitedIf(!empty($this->arg('department')))
+                Rule::prohibitedIf(! empty($this->arg('department'))),
             ],
             'businessOwnerEmail' => ['email'],
             'financialAuthorityEmail' => ['email'],
             'authoritiesInvolved' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_AUTHORITY_OTHER, 'authorityInvolvedOther')
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_AUTHORITY_OTHER, 'authorityInvolvedOther'),
             ],
             'contractEndDate' => ['after_or_equal:contractStartDate'],
             'commodityType' => [
-                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_COMMODITY_OTHER, 'commodityTypeOther')
+                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_COMMODITY_OTHER, 'commodityTypeOther'),
             ],
             'methodOfSupply' => [
-                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_SUPPLY_METHOD_OTHER, 'methodOfSupplyOther')
+                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_SUPPLY_METHOD_OTHER, 'methodOfSupplyOther'),
             ],
             'requirementScreeningLevels' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, 'requirementScreeningLevelOther')
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, 'requirementScreeningLevelOther'),
             ],
             'requirementWorkLanguages' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, 'requirementWorkLanguageOther')
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, 'requirementWorkLanguageOther'),
             ],
             'requirementWorkLocations' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_OFFSITE_SPECIFIC, 'requirementWorkLocationSpecific')
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_OFFSITE_SPECIFIC, 'requirementWorkLocationSpecific'),
             ],
             'requirementOthers' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_OTHER_REQUIREMENT_OTHER, 'requirementOtherOther')
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_OTHER_REQUIREMENT_OTHER, 'requirementOtherOther'),
             ],
             'personnelRequirements' => [
-                'requiredIf:hasPersonnelRequirements,' . DirectiveFormsApiEnums::YESNOUNSURE_YES,
-                'prohibited_unless:hasPersonnelRequirements,' . DirectiveFormsApiEnums::YESNOUNSURE_YES,
+                'requiredIf:hasPersonnelRequirements,'.DirectiveFormsApiEnums::YESNOUNSURE_YES,
+                'prohibited_unless:hasPersonnelRequirements,'.DirectiveFormsApiEnums::YESNOUNSURE_YES,
             ],
             'operationsConsiderations' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::OPERATIONS_CONSIDERATION_OTHER, 'operationsConsiderationsOther')
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::OPERATIONS_CONSIDERATION_OTHER, 'operationsConsiderationsOther'),
             ],
             'contractingRationalePrimary' => [
                 Rule::notIn($this->arg('contractingRationalesSecondary')),
-                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, 'contractingRationalePrimaryOther')
+                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, 'contractingRationalePrimaryOther'),
             ],
             'contractingRationalesSecondary' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, 'contractingRationalesSecondaryOther')
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, 'contractingRationalesSecondaryOther'),
             ],
-            'talentSearchTrackingNumber' => ['requiredIf:ocioConfirmedTalentShortage,' . DirectiveFormsApiEnums::YESNOUNSURE_YES],
+            'talentSearchTrackingNumber' => ['requiredIf:ocioConfirmedTalentShortage,'.DirectiveFormsApiEnums::YESNOUNSURE_YES],
         ];
     }
 

@@ -24,16 +24,14 @@ const getRoutes = (lang: Locales) => {
   const adminUrl = path.join(baseUrl, "admin");
   const applicantUrl = path.join(baseUrl, "applicant");
   const userUrl = (userId: string) => path.join(baseUrl, "users", userId);
-  const applicationParam = (applicationId?: string) =>
-    applicationId ? `?applicationId=${applicationId}` : "";
 
-  const createExperienceUrl = (userId: string, applicationId?: string) =>
+  const createExperienceUrl = (userId: string) =>
     `${path.join(
       userUrl(userId),
       "profile",
       "career-timeline-and-recruitment",
       "create",
-    )}${applicationParam(applicationId)}`;
+    )}`;
 
   return {
     // Main Routes
@@ -238,7 +236,6 @@ const getRoutes = (lang: Locales) => {
     careerTimelineAndRecruitment: (
       userId: string,
       opts?: {
-        applicationId?: string;
         section?: CareerTimelineAndRecruitmentPageSectionId;
       },
     ) => {
@@ -247,7 +244,7 @@ const getRoutes = (lang: Locales) => {
         userUrl(userId),
         "profile",
         "career-timeline-and-recruitment",
-      )}${applicationParam(opts?.applicationId)}${fragment}`;
+      )}${fragment}`;
     },
     editExperience: (
       userId: string,
@@ -261,16 +258,11 @@ const getRoutes = (lang: Locales) => {
         experienceId,
         "edit",
       ),
-    createAward: (userId: string, applicationId?: string) =>
-      createExperienceUrl(userId, applicationId),
-    createCommunity: (userId: string, applicationId?: string) =>
-      createExperienceUrl(userId, applicationId),
-    createEducation: (userId: string, applicationId?: string) =>
-      createExperienceUrl(userId, applicationId),
-    createPersonal: (userId: string, applicationId?: string) =>
-      createExperienceUrl(userId, applicationId),
-    createWork: (userId: string, applicationId?: string) =>
-      createExperienceUrl(userId, applicationId),
+    createAward: (userId: string) => createExperienceUrl(userId),
+    createCommunity: (userId: string) => createExperienceUrl(userId),
+    createEducation: (userId: string) => createExperienceUrl(userId),
+    createPersonal: (userId: string) => createExperienceUrl(userId),
+    createWork: (userId: string) => createExperienceUrl(userId),
 
     // Profile and Applications
     profileAndApplications: (opts?: {

@@ -70,9 +70,12 @@
     "/\"[A-Za-z0-9+\\/]{6}\\\": {/g"
   ],
   "[php]": {
-    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    "editor.defaultFormatter": "open-southeners.laravel-pint"
   },
   "files.associations": {
     "**/public/config.ejs": "plaintext"
-  }
+  },
+  "laravel-pint.enable": true,
+  "laravel-pint.configPath": "api/pint.json",
+  "laravel-pint.executablePath": "api/vendor/bin/pint"
 }

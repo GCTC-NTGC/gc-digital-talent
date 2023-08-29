@@ -14,6 +14,6 @@ class NotFutureDateException extends Exception
      */
     public function report()
     {
-        Log::debug("The send date must be in the future.");
+        Log::debug('The send date must be in the future.');
     }
 }

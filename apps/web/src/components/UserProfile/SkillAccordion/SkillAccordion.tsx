@@ -30,10 +30,11 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
+import { InvertedSkillExperience } from "~/utils/skillUtils";
 import { getDateRange, formattedDate } from "~/utils/dateUtils";
 
 export interface SkillAccordionProps {
-  skill: Skill;
+  skill: InvertedSkillExperience;
   headingLevel?: HeadingRank;
 }
 

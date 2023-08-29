@@ -17,7 +17,6 @@ class GraphQLClient
      * @param  array<string, mixed>  $variables  The variables to include in the query
      * @param  array<string, mixed>  $extraParams  Extra parameters to add to the JSON payload
      * @param  array<string, mixed>  $headers  HTTP headers to pass to the POST request
-     *
      * @return \Illuminate\Testing\TestResponse
      */
     public static function graphQL(
@@ -45,12 +44,12 @@ class GraphQLClient
      *
      * @param  array<mixed, mixed>  $data  JSON-serializable payload
      * @param  array<string, string>  $headers  HTTP headers to pass to the POST request
-     *
      * @return \Illuminate\Testing\TestResponse
      */
     public static function postGraphQL(array $data, array $headers = [])
     {
         $response = Http::withHeaders($headers)->post(GraphQLClient::graphQLEndpointUrl(), $data);
+
         return $response->json('data');
     }
 

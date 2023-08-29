@@ -104,6 +104,11 @@ const messages = defineMessages({
     description:
       "Label for checkboxes used for disabling or enabling table column display",
   },
+  toggleAll: {
+    defaultMessage: "Toggle all",
+    id: "7Rllrl",
+    description: "Label for checkbox to toggle visibility of all columns",
+  },
   rolesAndPermissions: {
     defaultMessage: "Roles and permissions",
     id: "m54J0C",

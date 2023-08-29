@@ -1,10 +1,10 @@
 <?php
 
+use Database\Helpers\ApiEnums;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -16,7 +16,7 @@ return new class extends Migration
     public function up()
     {
         $users = DB::table('users')->get();
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $languageAbility = $user->language_ability;
             $userId = $user->id;
             // before dropping the field language_ability, execute a data change provided it is non-null
@@ -63,19 +63,19 @@ return new class extends Migration
 
         $users = DB::table('users')->get();
         // conditionally assign the best fitting enum to the re-added field to reverse the migration as best as possible
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $lookingForEnglish = $user->looking_for_english;
             $lookingForFrench = $user->looking_for_french;
             $lookingForBilingual = $user->looking_for_bilingual;
             $userId = $user->id;
 
             // only english case
-            if ($lookingForEnglish && !$lookingForFrench && !$lookingForBilingual) {
+            if ($lookingForEnglish && ! $lookingForFrench && ! $lookingForBilingual) {
                 DB::table('users')->where('id', $userId)->update(['language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH]);
             }
 
             // only french case
-            if (!$lookingForEnglish && $lookingForFrench && !$lookingForBilingual) {
+            if (! $lookingForEnglish && $lookingForFrench && ! $lookingForBilingual) {
                 DB::table('users')->where('id', $userId)->update(['language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH]);
             }
 

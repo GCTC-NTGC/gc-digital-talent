@@ -1,8 +1,11 @@
 import React from "react";
+import { motion } from "framer-motion";
 
-export interface LoadingProps {
+export interface LoadingProps extends React.HTMLProps<HTMLDivElement> {
   inline?: boolean;
   children?: React.ReactNode;
+  /** Pause the animation */
+  pause?: boolean;
   /**
    * Determine if the loading state should
    * be announced to users
@@ -20,13 +23,18 @@ export interface LoadingProps {
 
 const Loading = ({
   inline = false,
+  pause = false,
   live,
   children,
+  ...rest
 }: LoadingProps): JSX.Element => {
   const inlineWrapper = {
     inline: {
       "data-h2-background-color": "base(white)",
       "data-h2-padding": "base(x.25)",
+      "data-h2-position": "base(relative)",
+      "data-h2-height": "base(x1.5)",
+      "data-h2-width": "base(x1.5)",
       "data-h2-radius": "base(100%)",
     },
     none: {},
@@ -34,8 +42,7 @@ const Loading = ({
   const typeMap = {
     inline: {
       "data-h2-position": "base(relative)",
-      "data-h2-location": "base(0, x1)",
-      "data-h2-margin": "base(x1, 0)",
+      "data-h2-margin": "base(x1)",
     },
     full: {
       "data-h2-position": "base(fixed)",
@@ -55,10 +62,31 @@ const Loading = ({
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
       data-h2-justify-content="base(center)"
+      {...rest}
     >
       <div {...inlineWrapper[inline === true ? "inline" : "none"]}>
-        <span className="lds-dual-ring">
+        <span data-h2-display="base(inline-block)">
           <span data-h2-visually-hidden="base(invisible)">{children}</span>
+          <motion.span
+            data-h2-display="base(block)"
+            data-h2-height="base(x1)"
+            data-h2-width="base(x1)"
+            data-h2-radius="base(50%)"
+            data-h2-border-width="base(6px)"
+            data-h2-border-style="base(solid)"
+            data-h2-border-color="base(primary transparent primary transparent)"
+            {...(!pause && {
+              animate: {
+                rotate: [0, 360],
+              },
+              transition: {
+                ease: "linear",
+                duration: 1,
+                repeat: Infinity,
+                repeatDelay: 0,
+              },
+            })}
+          />
         </span>
       </div>
     </div>

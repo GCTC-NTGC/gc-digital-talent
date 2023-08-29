@@ -4,16 +4,15 @@ namespace Tests\Feature;
 
 use App\Models\CommunityExperience;
 use App\Models\ExperienceSkill;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
-use Tests\TestCase;
 use App\Models\Skill;
 use App\Models\User;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Database\Seeders\RolePermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Tests\TestCase;
 
 class SkillTest extends TestCase
 {
@@ -23,7 +22,9 @@ class SkillTest extends TestCase
     use WithFaker;
 
     protected $baseUser;
+
     protected $adminUser;
+
     protected $uuid;
 
     protected function setUp(): void
@@ -39,22 +40,22 @@ class SkillTest extends TestCase
             'sub' => 'base-user@test.com',
         ]);
         $this->baseUser->syncRoles([
-            "guest",
-            "base_user",
-            "pool_operator",
-            "request_responder"
+            'guest',
+            'base_user',
+            'pool_operator',
+            'request_responder',
         ]);
 
         $this->adminUser = User::create([
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
         ]);
-        $this->adminUser->addRole("platform_admin");
+        $this->adminUser->addRole('platform_admin');
 
         $this->uuid = $this->faker->UUID();
 
         Skill::factory()->create([
-            'id' => $this->uuid
+            'id' => $this->uuid,
         ]);
     }
 
@@ -105,9 +106,9 @@ class SkillTest extends TestCase
             'skill' => [
                 'name' => [
                     'en' => 'New Name (EN)',
-                    'fr' => 'New Name (FR)'
-                ]
-            ]
+                    'fr' => 'New Name (FR)',
+                ],
+            ],
         ];
 
         $mutation =
@@ -145,9 +146,9 @@ class SkillTest extends TestCase
                 'key' => 'key',
                 'name' => [
                     'en' => 'New Name (EN)',
-                    'fr' => 'New Name (FR)'
+                    'fr' => 'New Name (FR)',
                 ],
-            ]
+            ],
         ];
 
         $mutation =
@@ -173,17 +174,18 @@ class SkillTest extends TestCase
             ->assertJsonFragment(['name' => $variables['skill']['name']]);
     }
 
-    public function testExperienceRelationshipsSkipSoftDeletedPivots(): void {
+    public function testExperienceRelationshipsSkipSoftDeletedPivots(): void
+    {
         Skill::factory()->count(1)->create();
         $experience = CommunityExperience::factory()->withSkills(1)->create();
         $skill = $experience->skills->first();
         // sanity check
-        $this->assertCount(1, $skill->fresh()->communityExperiences);
+        $this->assertCount(1, $skill->fresh()->userSkills->first()->communityExperiences);
         // soft-delete one ExperienceSkill
         $pivot = ExperienceSkill::first();
         $pivot->deleted_at = Carbon::now();
         $pivot->save();
         // assert that the soft-deleted relationship is ignored
-        $this->assertCount(0, $skill->fresh()->communityExperiences);
+        $this->assertCount(0, $skill->fresh()->userSkills->first()->communityExperiences);
     }
 }

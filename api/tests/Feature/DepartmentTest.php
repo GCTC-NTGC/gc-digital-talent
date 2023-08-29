@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
-use Tests\TestCase;
 use App\Models\Department;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Tests\TestCase;
 
 class DepartmentTest extends TestCase
 {
@@ -19,8 +19,11 @@ class DepartmentTest extends TestCase
     use WithFaker;
 
     protected $baseUser;
+
     protected $adminUser;
+
     protected $department;
+
     protected $toBeDeleted;
 
     protected function setUp(): void
@@ -36,17 +39,17 @@ class DepartmentTest extends TestCase
             'sub' => 'base-user@test.com',
         ]);
         $this->baseUser->syncRoles([
-            "guest",
-            "base_user",
-            "pool_operator",
-            "request_responder"
+            'guest',
+            'base_user',
+            'pool_operator',
+            'request_responder',
         ]);
 
         $this->adminUser = User::create([
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
         ]);
-        $this->adminUser->addRole("platform_admin");
+        $this->adminUser->addRole('platform_admin');
 
         $this->department = Department::factory()->create();
         $this->toBeDeleted = Department::factory()->create();
@@ -102,9 +105,9 @@ class DepartmentTest extends TestCase
             'department' => [
                 'name' => [
                     'en' => 'New Name (EN)',
-                    'fr' => 'New Name (FR)'
-                ]
-            ]
+                    'fr' => 'New Name (FR)',
+                ],
+            ],
         ];
 
         $mutation =
@@ -142,9 +145,9 @@ class DepartmentTest extends TestCase
                 'departmentNumber' => 1,
                 'name' => [
                     'en' => 'New Name (EN)',
-                    'fr' => 'New Name (FR)'
+                    'fr' => 'New Name (FR)',
                 ],
-            ]
+            ],
         ];
 
         $mutation =

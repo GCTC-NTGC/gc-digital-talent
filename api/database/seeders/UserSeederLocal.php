@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Role;
-use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Database\Helpers\ApiEnums;
 
 class UserSeederLocal extends Seeder
 {
@@ -20,23 +18,6 @@ class UserSeederLocal extends Seeder
     {
         // collect roles and teams for assignment
         $roles = Role::all();
-        $baseUserRole = $roles->sole(function ($r) {
-            return $r->name == "base_user";
-        });
-        $applicantRole = $roles->sole(function ($r) {
-            return $r->name == "applicant";
-        });
-        $poolOperatorRole = $roles->sole(function ($r) {
-            return $r->name == "pool_operator";
-        });
-        $platformAdminRole = $roles->sole(function ($r) {
-            return $r->name == "platform_admin";
-        });
-        $requestResponderRole = $roles->sole(function ($r) {
-            return $r->name == "request_responder";
-        });
-        $dcmTeam = Team::where('name', 'digital-community-management')->sole();
-        $testTeam = Team::where('name', 'test-team')->sole();
 
         // shared auth users for testing
         User::factory()
@@ -115,7 +96,7 @@ class UserSeederLocal extends Seeder
             ->asAdmin()
             ->asGovEmployee()
             ->create([
-                'email' => 'petertgiles' . $fakeEmailDomain,
+                'email' => 'petertgiles'.$fakeEmailDomain,
                 'sub' => '4810df0d-fcb6-4353-af93-b25c0a5a9c3e',
             ]);
         User::factory()
@@ -123,7 +104,7 @@ class UserSeederLocal extends Seeder
             ->asAdmin()
             ->asGovEmployee()
             ->create([
-                'email' => 'yonikid15' . $fakeEmailDomain,
+                'email' => 'yonikid15'.$fakeEmailDomain,
                 'sub' => 'c65dd054-db44-4bf6-af39-37eedb39305d',
             ]);
         User::factory()
@@ -131,7 +112,7 @@ class UserSeederLocal extends Seeder
             ->asAdmin()
             ->asGovEmployee()
             ->create([
-                'email' => 'JamesHuf' . $fakeEmailDomain,
+                'email' => 'JamesHuf'.$fakeEmailDomain,
                 'sub' => 'e64b8057-0eaf-4a19-a14a-4a93fa2e8a04',
             ]);
         User::factory()
@@ -139,7 +120,7 @@ class UserSeederLocal extends Seeder
             ->asAdmin()
             ->asGovEmployee()
             ->create([
-                'email' => 'brindasasi' . $fakeEmailDomain,
+                'email' => 'brindasasi'.$fakeEmailDomain,
                 'sub' => '2e72b97b-017a-4ed3-a803-a8773c2e1b14',
             ]);
         User::factory()
@@ -147,7 +128,7 @@ class UserSeederLocal extends Seeder
             ->asAdmin()
             ->asGovEmployee()
             ->create([
-                'email' => 'tristan-orourke' . $fakeEmailDomain,
+                'email' => 'tristan-orourke'.$fakeEmailDomain,
                 'sub' => 'd9f27aca-b2ea-4c4a-9459-25bb7a7b77f6',
             ]);
         User::factory()
@@ -155,7 +136,7 @@ class UserSeederLocal extends Seeder
             ->asAdmin()
             ->asGovEmployee()
             ->create([
-                'email' => 'vd1992' . $fakeEmailDomain,
+                'email' => 'vd1992'.$fakeEmailDomain,
                 'sub' => '2f3ee3fb-91ab-478e-a675-c56fdc043dc6',
             ]);
         User::factory()
@@ -163,7 +144,7 @@ class UserSeederLocal extends Seeder
             ->asAdmin()
             ->asGovEmployee()
             ->create([
-                'email' => 'mnigh' . $fakeEmailDomain,
+                'email' => 'mnigh'.$fakeEmailDomain,
                 'sub' => 'c736bdff-c1f2-4538-b648-43a9743481a3',
             ]);
         User::factory()
@@ -171,7 +152,7 @@ class UserSeederLocal extends Seeder
             ->asAdmin()
             ->asGovEmployee()
             ->create([
-                'email' => 'patcon' . $fakeEmailDomain,
+                'email' => 'patcon'.$fakeEmailDomain,
                 'sub' => '88f7d707-01df-4f56-8eed-a823d16c232c',
             ]);
     }

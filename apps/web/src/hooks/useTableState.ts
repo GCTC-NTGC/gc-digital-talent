@@ -2,7 +2,21 @@ import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import isEqual from "lodash/isEqual";
 
-import { SearchState, SortingRule } from "./helpers";
+type StringKey<T> = Extract<keyof T, string>;
+type IdType<T> = StringKey<T> | string;
+
+interface SearchState {
+  term?: string;
+  type?: string;
+}
+
+interface SortingRule<T> {
+  column: {
+    id: IdType<T>;
+    sortColumnName?: string;
+  };
+  desc?: boolean | undefined;
+}
 
 interface CommonTableState<T> {
   currentPage?: number;
