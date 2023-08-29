@@ -146,13 +146,45 @@ export const getSkillDialogMessages: GetSkillDialogMessages = ({
     };
   }
 
+  if (context === "directive_forms") {
+    return {
+      ...defaults,
+      trigger: intl.formatMessage({
+        defaultMessage: "Add another skill",
+        id: "CUKaRd",
+        description:
+          "Button text to open the skill dialog and add a skill to the users library",
+      }),
+      title: intl.formatMessage({
+        defaultMessage: "Find a skill",
+        id: "mLmPpf",
+        description: "Title for the find a skill dialog",
+      }),
+      subtitle: intl.formatMessage({
+        defaultMessage:
+          "Find a skill from our library using filters and keyword search.",
+        id: "0Q89Cz",
+        description: "Subtitle for the find a skill dialog",
+      }),
+      submit: intl.formatMessage({
+        defaultMessage: "Save and add this skill",
+        id: "4nP41q",
+        description: "Button text to save a specific skill to a users profile",
+      }),
+    };
+  }
+
   return defaults;
 };
 
 export const showDetails = (
   context: SkillDialogContext | undefined,
 ): boolean => {
-  const detailContexts: SkillDialogContext[] = ["library", "showcase"];
+  const detailContexts: SkillDialogContext[] = [
+    "library",
+    "showcase",
+    "directive_forms",
+  ];
 
   return context ? detailContexts.includes(context) : false;
 };

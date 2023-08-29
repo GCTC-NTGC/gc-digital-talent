@@ -122,57 +122,57 @@ export const contractAuthoritySortOrder = [
 const contractValueRanges = defineMessages({
   [ContractValueRange.From_0To_10K]: {
     defaultMessage: "$0 to <$10,000",
-    id: "TO/Q6I",
+    id: "",
     description: "Contract value range between zero and ten-thousand",
   },
   [ContractValueRange.From_10KTo_25K]: {
     defaultMessage: "$10,000 to <$25,000",
-    id: "ghhKNZ",
+    id: "",
     description:
       "Contract value range between ten-thousand and twenty-five-thousand",
   },
   [ContractValueRange.From_25KTo_50K]: {
     defaultMessage: "$25,000 to <$50,000",
-    id: "ghhKNZ",
+    id: "",
     description:
       "Contract value range between twenty-five-thousand and fifty-thousand",
   },
   [ContractValueRange.From_50KTo_1M]: {
     defaultMessage: "$50,000 to <$1 million",
-    id: "ghhKNZ",
+    id: "",
     description: "Contract value range between fifty-thousand and one-million",
   },
   [ContractValueRange.From_1MTo_2500K]: {
     defaultMessage: "$1 million to <$2.5 million",
-    id: "ghhKNZ",
+    id: "",
     description:
       "Contract value range between one-million and two-point-five-million",
   },
   [ContractValueRange.From_2500KTo_5M]: {
     defaultMessage: "$2.5 million to <$5 million",
-    id: "ghhKNZ",
+    id: "",
     description:
       "Contract value range between two-point-five-million and five-million",
   },
   [ContractValueRange.From_5MTo_10M]: {
     defaultMessage: "$5 million to <$10 million",
-    id: "ghhKNZ",
+    id: "",
     description: "Contract value range between five-million and ten-million",
   },
   [ContractValueRange.From_10MTo_15M]: {
     defaultMessage: "$10 million to <$15 million",
-    id: "ghhKNZ",
+    id: "",
     description: "Contract value range between ten-million and fifteen-million",
   },
   [ContractValueRange.From_15MTo_25M]: {
     defaultMessage: "$15 million to <$25 million",
-    id: "ghhKNZ",
+    id: "",
     description:
       "Contract value range between fifteen-million and twenty-five-million",
   },
   [ContractValueRange.GreaterThan_25M]: {
     defaultMessage: ">$25 million",
-    id: "ghhKNZ",
+    id: "",
     description: "Contract value range greater than twenty-five-million",
   },
 } as const);
@@ -202,32 +202,32 @@ export const contractValueRangeSortOrder = [
 const contractStartTimeframes = defineMessages({
   [ContractStartTimeframe.From_0To_3M]: {
     defaultMessage: "0 to 3 months",
-    id: "TO/Q6I",
+    id: "",
     description: "Contract start timeframe of zero to three months",
   },
   [ContractStartTimeframe.From_3MTo_6M]: {
     defaultMessage: "3 to 6 months",
-    id: "TO/Q6I",
+    id: "",
     description: "Contract start timeframe of three to six months",
   },
   [ContractStartTimeframe.From_6MTo_1Y]: {
     defaultMessage: "6 to 12 months",
-    id: "TO/Q6I",
+    id: "",
     description: "Contract start timeframe of six to twelve months",
   },
   [ContractStartTimeframe.From_1YTo_2Y]: {
     defaultMessage: "1 to 2 years",
-    id: "TO/Q6I",
+    id: "",
     description: "Contract start timeframe of one to two years",
   },
   [ContractStartTimeframe.Unknown]: {
     defaultMessage: "Unknown",
-    id: "TO/Q6I",
+    id: "",
     description: "Contract start timeframe is unknown",
   },
   [ContractStartTimeframe.Variable]: {
     defaultMessage: "Variable",
-    id: "TO/Q6I",
+    id: "",
     description: "Contract start timeframe is variable",
   },
 } as const);
@@ -253,13 +253,13 @@ export const contractStartTimeframeSortOrder = [
 const contractCommodities = defineMessages({
   [ContractCommodity.TelecomServices]: {
     defaultMessage: "Information processing and related telecom services",
-    id: "TO/Q6I",
+    id: "",
     description: "Telecom services contract commodity",
   },
   [ContractCommodity.SupportServices]: {
     defaultMessage:
       "Professional, administrative, and management support services",
-    id: "TO/Q6I",
+    id: "",
     description: "Support services contract commodity",
   },
   [ContractCommodity.Other]: formMessages.other,
@@ -283,22 +283,22 @@ export const getContractCommoditySortOrder = [
 const contractInstruments = defineMessages({
   [ContractInstrument.SupplyArrangement]: {
     defaultMessage: "Supply arrangement",
-    id: "TO/Q6I",
+    id: "",
     description: "Supply arrangement contract instrument",
   },
   [ContractInstrument.StandingOffer]: {
     defaultMessage: "Standing offer",
-    id: "TO/Q6I",
+    id: "",
     description: "Standing offer contract instrument",
   },
   [ContractInstrument.Contract]: {
     defaultMessage: "Contract",
-    id: "TO/Q6I",
+    id: "",
     description: "Contract contract instrument",
   },
   [ContractInstrument.Amendment]: {
     defaultMessage: "Amendment",
-    id: "TO/Q6I",
+    id: "",
     description: "Amendment contract instrument",
   },
 } as const);
@@ -322,24 +322,24 @@ export const contractInstrumentSortOrder = [
 const contractSupplyMethods = defineMessages({
   [ContractSupplyMethod.NotApplicable]: {
     defaultMessage: "Not applicable (N/A)",
-    id: "TO/Q6I",
+    id: "",
     description: "Not applicable contract supply method",
   },
   [ContractSupplyMethod.SolutionsBasedInformaticsProfessionalServices]: {
     defaultMessage: "Solutions based informatics professional services (SBIPS)",
-    id: "TO/Q6I",
+    id: "",
     description:
       "Solutions based informatics professional services contract supply method",
   },
   [ContractSupplyMethod.TaskBasedInformaticsProfessionalServices]: {
     defaultMessage: "Task based informatics professional services (TBIPS)",
-    id: "TO/Q6I",
+    id: "",
     description:
       "Task based informatics professional services contract supply method",
   },
   [ContractSupplyMethod.TemporaryHelp]: {
     defaultMessage: "Temporary help services",
-    id: "TO/Q6I",
+    id: "",
     description: "Temporary help services contract supply method",
   },
   [ContractSupplyMethod.Other]: formMessages.other,
@@ -365,19 +365,19 @@ export const contractSupplyMethodSortOrder = [
 const contractSolicitationProcedures = defineMessages({
   [ContractSolicitationProcedure.AdvanceContractAwardNotice]: {
     defaultMessage: "Advance contract award notice",
-    id: "TO/Q6I",
+    id: "",
     description:
       "Advance contract award notice contract solicitation procedure",
   },
   [ContractSolicitationProcedure.Competitive]: {
     defaultMessage:
       "Competitive (open bidding / selective tendering / traditional)",
-    id: "TO/Q6I",
+    id: "",
     description: "Competitive contract solicitation procedure",
   },
   [ContractSolicitationProcedure.NonCompetitive]: {
     defaultMessage: "Non-competitive (sole source)",
-    id: "TO/Q6I",
+    id: "",
     description: "Non-competitive contract solicitation procedure",
   },
 } as const);
@@ -400,22 +400,22 @@ export const contractSolicitationProcedureSortOrder = [
 const personnelScreeningLevels = defineMessages({
   [PersonnelScreeningLevel.Reliability]: {
     defaultMessage: "Reliability",
-    id: "TO/Q6I",
+    id: "",
     description: "Reliability screening level",
   },
   [PersonnelScreeningLevel.EnhancedReliability]: {
     defaultMessage: "Enhanced reliability",
-    id: "TO/Q6I",
+    id: "",
     description: "Enhanced reliability screening level",
   },
   [PersonnelScreeningLevel.Secret]: {
     defaultMessage: "Secret",
-    id: "TO/Q6I",
+    id: "",
     description: "Secret screening level",
   },
   [PersonnelScreeningLevel.TopSecret]: {
     defaultMessage: "Top secret",
-    id: "TO/Q6I",
+    id: "",
     description: "Top secret screening level",
   },
   [PersonnelScreeningLevel.Other]: formMessages.other,
@@ -441,22 +441,22 @@ export const personnelScreeningLevelSortOrder = [
 const personnelLanguages = defineMessages({
   [PersonnelLanguage.EnglishOnly]: {
     defaultMessage: "English only",
-    id: "TO/Q6I",
+    id: "",
     description: "English only personnel language",
   },
   [PersonnelLanguage.FrenchOnly]: {
     defaultMessage: "French only",
-    id: "TO/Q6I",
+    id: "",
     description: "French only personnel language",
   },
   [PersonnelLanguage.BilingualIntermediate]: {
     defaultMessage: "Bilingual (Intermediate - BBB/BBB)",
-    id: "TO/Q6I",
+    id: "",
     description: "Bilingual intermediate personnel language",
   },
   [PersonnelLanguage.BilingualAdvanced]: {
     defaultMessage: "Bilingual (Advanced - CBC/CBC)",
-    id: "TO/Q6I",
+    id: "",
     description: "Bilingual advanced personnel language",
   },
   [PersonnelLanguage.Other]: formMessages.other,
@@ -482,17 +482,17 @@ export const personnelLanguageSortOrder = [
 const personnelWorkLocations = defineMessages({
   [PersonnelWorkLocation.GcPremises]: {
     defaultMessage: "GC premises",
-    id: "TO/Q6I",
+    id: "",
     description: "GC premises personnel work location",
   },
   [PersonnelWorkLocation.OffsiteSpecific]: {
     defaultMessage: "Offsite, specific location",
-    id: "TO/Q6I",
+    id: "",
     description: "Specific offsite personnel work location",
   },
   [PersonnelWorkLocation.OffsiteAny]: {
     defaultMessage: "Offsite, any location",
-    id: "TO/Q6I",
+    id: "",
     description: "Any offsite personnel work location",
   },
 } as const);
@@ -515,22 +515,22 @@ export const personnelWorkLocationSortOrder = [
 const personnelOtherRequirements = defineMessages({
   [PersonnelOtherRequirement.ShiftWork]: {
     defaultMessage: "Shift work",
-    id: "TO/Q6I",
+    id: "",
     description: "Shift work personnel other requirement",
   },
   [PersonnelOtherRequirement.OnCall_24_7]: {
     defaultMessage: "On-call 24/7",
-    id: "TO/Q6I",
+    id: "",
     description: "On-call 24/7 personnel other requirement",
   },
   [PersonnelOtherRequirement.OvertimeShortNotice]: {
     defaultMessage: "Overtime on short notice",
-    id: "TO/Q6I",
+    id: "",
     description: "Overtime on short notice personnel other requirement",
   },
   [PersonnelOtherRequirement.AsNeeded]: {
     defaultMessage: "As and when needed",
-    id: "TO/Q6I",
+    id: "",
     description: "As and when needed personnel other requirement",
   },
   [PersonnelOtherRequirement.Other]: formMessages.other,
@@ -556,17 +556,17 @@ export const personnelOtherRequirementSortOrder = [
 const personnelTeleworkOptions = defineMessages({
   [PersonnelTeleworkOption.FullTime]: {
     defaultMessage: "Yes, full-time",
-    id: "TO/Q6I",
+    id: "",
     description: "Full-time personnel telework option",
   },
   [PersonnelTeleworkOption.PartTime]: {
     defaultMessage: "Yes, part-time",
-    id: "TO/Q6I",
+    id: "",
     description: "Part-time personnel telework option",
   },
   [PersonnelTeleworkOption.No]: {
     defaultMessage: "No",
-    id: "TO/Q6I",
+    id: "",
     description: "No personnel telework option",
   },
 } as const);
@@ -590,38 +590,38 @@ const operationsConsiderations = defineMessages({
   [OperationsConsideration.FinanceVehicleNotUsable]: {
     defaultMessage:
       "The finance vehicle available cannot be used for staffing (unable to use available funding for staffing)",
-    id: "TO/Q6I",
+    id: "",
     description: "Finance vehicle not usable operations consideration",
   },
   [OperationsConsideration.FundingSecuredCostRecoveryBasis]: {
     defaultMessage: "The funding has been secured on a cost-recovery basis",
-    id: "TO/Q6I",
+    id: "",
     description:
       "Funding secured on a cost-recovery basis operations consideration",
   },
   [OperationsConsideration.UnableCreateNewIndeterminate]: {
     defaultMessage:
       "Unable to create new indeterminate positions in the required timeframe",
-    id: "TO/Q6I",
+    id: "",
     description:
       "Unable to create new indeterminate positions operations consideration",
   },
   [OperationsConsideration.UnableCreateNewTerm]: {
     defaultMessage:
       "Unable to create new term positions in the required timeframe",
-    id: "TO/Q6I",
+    id: "",
     description: "Unable to create new term positions operations consideration",
   },
   [OperationsConsideration.UnableCreateClassificationRestriction]: {
     defaultMessage:
       "Unable to create the position in the required group due to a classification restriction",
-    id: "TO/Q6I",
+    id: "",
     description:
       "Unable to create new positions in classification operations consideration",
   },
   [OperationsConsideration.StaffingFreeze]: {
     defaultMessage: "Staffing freeze in place",
-    id: "TO/Q6I",
+    id: "",
     description: "Staffing freeze operations consideration",
   },
   [OperationsConsideration.Other]: formMessages.other,
@@ -649,34 +649,34 @@ export const operationsConsiderationsSortOrder = [
 const contractingRationales = defineMessages({
   [ContractingRationale.ShortageOfTalent]: {
     defaultMessage: "Shortage of available or qualified talent",
-    id: "TO/Q6I",
+    id: "",
     description: "Shortage of talent contracting rationale",
   },
   [ContractingRationale.TimingRequirements]: {
     defaultMessage: "Timing requirements",
-    id: "TO/Q6I",
+    id: "",
     description: "Timing requirements contracting rationale",
   },
   [ContractingRationale.HrSituation]: {
     defaultMessage: "HR situation - available staffing solutions not viable",
-    id: "TO/Q6I",
+    id: "",
     description: "HR situation contracting rationale",
   },
   [ContractingRationale.FinancialSituation]: {
     defaultMessage: "Financial situation - restriction on funding use",
-    id: "TO/Q6I",
+    id: "",
     description: "Financial situation contracting rationale",
   },
   [ContractingRationale.RequiresIndependent]: {
     defaultMessage:
       "Independent, non-GC authority required (e.g., independent service review)",
-    id: "TO/Q6I",
+    id: "",
     description: "Requires independent contracting rationale",
   },
   [ContractingRationale.IntellectualPropertyFactors]: {
     defaultMessage:
       "Intellectual property factors (e.g., proprietary software)",
-    id: "TO/Q6I",
+    id: "",
     description: "Intellectual property factors contracting rationale",
   },
   [ContractingRationale.Other]: formMessages.other,

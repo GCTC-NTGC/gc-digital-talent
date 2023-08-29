@@ -35,7 +35,7 @@ import {
   SkillRequirementFormValues,
 } from "../formValues";
 
-type PersonnelRequirementFieldsetProps = {
+export type PersonnelRequirementFieldsetProps = {
   fieldsetName: string;
   skills: Array<Skill>;
 };
@@ -95,8 +95,9 @@ const PersonnelRequirementFieldset = ({
         ...(selectedSkillRequirements ?? []),
         newEntry,
       ]);
+      return Promise.resolve();
     }
-    return Promise.resolve();
+    return Promise.reject();
   };
 
   const removeSkill = (skillId: string) => {
@@ -160,6 +161,7 @@ const PersonnelRequirementFieldset = ({
                 <Button
                   onClick={() => removeSkill(requirement.skillId)}
                   icon={XMarkIcon}
+                  mode="inline"
                   color="error"
                   aria-label={intl.formatMessage({
                     defaultMessage: "Delete",
@@ -172,8 +174,9 @@ const PersonnelRequirementFieldset = ({
           })}
           <SkillDialog
             skills={skills}
-            context="library"
+            context="directive_forms"
             onSave={handleSkillDialogSave}
+            trigger={{ block: true }}
           />
         </Field.Fieldset>
       </Field.Wrapper>

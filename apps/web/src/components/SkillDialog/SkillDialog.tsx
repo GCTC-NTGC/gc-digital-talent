@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useForm, FormProvider } from "react-hook-form";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
-import { Button, Dialog, IconType } from "@gc-digital-talent/ui";
+import { Button, ButtonProps, Dialog, IconType } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -35,6 +35,7 @@ interface SkillDialogProps {
   trigger?: {
     label?: React.ReactNode;
     icon?: IconType;
+    block?: ButtonProps["block"];
   };
   // Callback function when a skill is selected
   onSave: (values: FormValues) => Promise<void>;
@@ -97,6 +98,7 @@ const SkillDialog = ({
   const triggerProps = {
     children: trigger?.label || triggerMessage,
     icon: trigger?.icon || (context ? PlusCircleIcon : undefined),
+    block: trigger?.block || false,
   };
 
   React.useEffect(() => {
@@ -121,7 +123,9 @@ const SkillDialog = ({
                 {...{ showCategory, skills, inLibrary }}
                 onSelectSkill={setSelectedSkill}
               />
-              {selectedSkill && shouldShowDetails && <SkillDetails />}
+              {selectedSkill && shouldShowDetails && (
+                <SkillDetails context={context} />
+              )}
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Button
                   type="button"

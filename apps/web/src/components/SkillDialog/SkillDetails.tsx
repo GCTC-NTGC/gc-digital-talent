@@ -5,19 +5,35 @@ import { RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages, getSkillLevel } from "@gc-digital-talent/i18n";
 import { SkillLevel } from "@gc-digital-talent/graphql";
 
-const SkillDetails = () => {
+import { SkillDialogContext } from "./types";
+
+// this section looks a little different when part of the profile vs part of the directive forms
+const isProfileContext = (context: SkillDialogContext | undefined): boolean => {
+  const profileContexts: SkillDialogContext[] = ["library", "showcase"];
+
+  return context ? profileContexts.includes(context) : false;
+};
+
+interface SkillDetailsProps {
+  // The context in which the dialog is being used
+  context?: SkillDialogContext;
+}
+
+const SkillDetails = ({ context }: SkillDetailsProps) => {
   const intl = useIntl();
 
   return (
     <>
-      <p data-h2-margin="base(x1 0)">
-        {intl.formatMessage({
-          defaultMessage:
-            "Once you've found a skill, we ask that you give an honest evaluation of your approximate experience level. This level will be provided to hiring managers alongside any official Government of Canada skill evaluations to help provide a more holistic understanding of your abilities.",
-          id: "bMY93S",
-          description: "Help text for providing a skill level",
-        })}
-      </p>
+      {isProfileContext(context) && (
+        <p data-h2-margin="base(x1 0)">
+          {intl.formatMessage({
+            defaultMessage:
+              "Once you've found a skill, we ask that you give an honest evaluation of your approximate experience level. This level will be provided to hiring managers alongside any official Government of Canada skill evaluations to help provide a more holistic understanding of your abilities.",
+            id: "bMY93S",
+            description: "Help text for providing a skill level",
+          })}
+        </p>
+      )}
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
@@ -27,11 +43,19 @@ const SkillDetails = () => {
           name="level"
           id="level"
           idPrefix="level"
-          legend={intl.formatMessage({
-            defaultMessage: "Select your experience in this skill",
-            id: "+clYLj",
-            description: "Description for the skill level radio group",
-          })}
+          legend={intl.formatMessage(
+            isProfileContext(context)
+              ? {
+                  defaultMessage: "Select your experience in this skill",
+                  id: "+clYLj",
+                  description: "Description for the skill level radio group",
+                }
+              : {
+                  defaultMessage: "Select the skill level",
+                  id: "+clYLj",
+                  description: "Description for the skill level radio group",
+                },
+          )}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           items={[
             {
@@ -52,37 +76,39 @@ const SkillDetails = () => {
             },
           ]}
         />
-        <RadioGroup
-          name="current"
-          id="current"
-          idPrefix="current"
-          legend={intl.formatMessage({
-            defaultMessage: "Do you currently use this skill?",
-            id: "DYpwKZ",
-            description: "Description for the current skill radio group",
-          })}
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
-          items={[
-            {
-              value: "yes",
-              label: intl.formatMessage({
-                defaultMessage:
-                  "<strong>Yes</strong>, I use this skill in my current role",
-                id: "QU2NLF",
-                description: "Label for the current skill yes option",
-              }),
-            },
-            {
-              value: "no",
-              label: intl.formatMessage({
-                defaultMessage:
-                  "<strong>No</strong>, this is a skill I have used in the past",
-                id: "TVoXiS",
-                description: "Label for the current skill no option",
-              }),
-            },
-          ]}
-        />
+        {isProfileContext(context) && (
+          <RadioGroup
+            name="current"
+            id="current"
+            idPrefix="current"
+            legend={intl.formatMessage({
+              defaultMessage: "Do you currently use this skill?",
+              id: "DYpwKZ",
+              description: "Description for the current skill radio group",
+            })}
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            items={[
+              {
+                value: "yes",
+                label: intl.formatMessage({
+                  defaultMessage:
+                    "<strong>Yes</strong>, I use this skill in my current role",
+                  id: "QU2NLF",
+                  description: "Label for the current skill yes option",
+                }),
+              },
+              {
+                value: "no",
+                label: intl.formatMessage({
+                  defaultMessage:
+                    "<strong>No</strong>, this is a skill I have used in the past",
+                  id: "TVoXiS",
+                  description: "Label for the current skill no option",
+                }),
+              },
+            ]}
+          />
+        )}
       </div>
     </>
   );
