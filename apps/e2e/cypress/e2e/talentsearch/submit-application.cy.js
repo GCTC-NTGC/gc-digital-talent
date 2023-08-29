@@ -12,6 +12,7 @@ import {
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import { addRolesToUser } from "../../support/userHelpers";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
+import { SkillCategory } from "@gc-digital-talent/graphql";
 
 describe("Submit Application Workflow Tests", () => {
   beforeEach(() => {
@@ -32,7 +33,11 @@ describe("Submit Application Workflow Tests", () => {
     });
 
     cy.getSkills().then((allSkills) => {
-      cy.wrap([allSkills[0].id]).as("testSkillIds"); // take the first ID for testing
+      cy.wrap([
+        [...allSkills].find(
+          (skill) => skill.category === SkillCategory.Technical,
+        ).id,
+      ]).as("testSkillIds"); // take the first ID for testing
     });
     cy.getGenericJobTitles().then((allGenericJobTitles) => {
       cy.wrap([allGenericJobTitles[0].id]).as("testGenericJobTitleIds"); // take the first ID for testing
