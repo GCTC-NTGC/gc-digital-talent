@@ -2,12 +2,11 @@
 
 namespace App\Notify;
 
-use Illuminate\Support\Facades\Http;
 use App\Exceptions\ApiKeyNotFoundException;
 use App\Exceptions\EmailAttachmentException;
 use App\Exceptions\InvalidBulkRowDataException;
 use App\Exceptions\NotFutureDateException;
-
+use Illuminate\Support\Facades\Http;
 
 /**
  * GC Notify Client
@@ -22,7 +21,6 @@ class Client
      * API Key
      *
      * @property string $apiKey API Key for auth
-     * @access  private
      */
     private $apiKey;
 
@@ -31,16 +29,18 @@ class Client
      *
      * @const string GC Notify Base URL
      */
-    const BASE_URL = "https://api.notification.canada.ca";
+    const BASE_URL = 'https://api.notification.canada.ca';
 
     /**
      * Endpoints
      *
      * @const string    Paths for API Endpoints
      */
-    const ENDPOINT_NOTIFICATION_EMAIL = "/v2/notifications/email";
-    const ENDPOINT_NOTIFICATION_SMS = "/v2/notifications/sms";
-    const ENDPOINT_NOTIFICATION_BULK = "/v2/notifications/bulk";
+    const ENDPOINT_NOTIFICATION_EMAIL = '/v2/notifications/email';
+
+    const ENDPOINT_NOTIFICATION_SMS = '/v2/notifications/sms';
+
+    const ENDPOINT_NOTIFICATION_BULK = '/v2/notifications/bulk';
 
     /**
      * Instantiate the class
@@ -49,8 +49,8 @@ class Client
     {
         $config = config('notify.client');
 
-        if (!$config['apiKey']) {
-            throw new ApiKeyNotFoundException("GC Notify API key not found in config.");
+        if (! $config['apiKey']) {
+            throw new ApiKeyNotFoundException('GC Notify API key not found in config.');
         }
 
         $this->apiKey = $config['apiKey'];
@@ -61,11 +61,11 @@ class Client
      *
      * Send a single email with GC Notify
      *
-     * @param string $to Email address to send message to
-     * @param string $template ID of the template to use
-     * @param array<mixed> $personalisation (optional) Array of key => value pairs to be replaced in template
-     * @param string $reference (optional) Add a reference key to identify the message
-     * @param string $replyTo (optional) ID for a reply to email address
+     * @param  string  $to Email address to send message to
+     * @param  string  $template ID of the template to use
+     * @param  array<mixed>  $personalisation (optional) Array of key => value pairs to be replaced in template
+     * @param  string  $reference (optional) Add a reference key to identify the message
+     * @param  string  $replyTo (optional) ID for a reply to email address
      */
     public function sendEmail($to, $template, $personalisation = [], $reference = null, $replyTo = null, $attachment = null)
     {
@@ -80,11 +80,11 @@ class Client
      *
      * Send a single SMS with GC Notify
      *
-     * @param string $to Phone number to send message to
-     * @param string $template ID of the template to use
-     * @param array<mixed> $personalisation (optional) Array of key => value pairs to be replaced in template
-     * @param string $reference (optional) Add a reference key to identify the message
-     * @param string $sender (optional) ID for a sender number
+     * @param  string  $to Phone number to send message to
+     * @param  string  $template ID of the template to use
+     * @param  array<mixed>  $personalisation (optional) Array of key => value pairs to be replaced in template
+     * @param  string  $reference (optional) Add a reference key to identify the message
+     * @param  string  $sender (optional) ID for a sender number
      */
     public function sendSms($to, $template, $personalisation = [], $reference = null, $sender = null)
     {
@@ -99,8 +99,8 @@ class Client
      *
      * Send bulk email with GC Notify
      *
-     * @param string $name Used to identify this bulk of notifications later on.
-     * @param array<mixed> $rows Array of arrays for messages to send
+     * @param  string  $name Used to identify this bulk of notifications later on.
+     * @param  array<mixed>  $rows Array of arrays for messages to send
      * $rows = [
      *      [
      *          'email' => (string)  Email address of recipient
@@ -109,9 +109,9 @@ class Client
      *          ]
      *      ]
      * ]
-     * @param string $template ID of the template to use
-     * @param Carbon\Carbon $scheduleFor (optional)
-     * @param string $replyTo (optional) ID for a reply to email address
+     * @param  string  $template ID of the template to use
+     * @param  Carbon\Carbon  $scheduleFor (optional)
+     * @param  string  $replyTo (optional) ID for a reply to email address
      */
     public function sendBulkEmail($name, $rows, $template, $scheduleFor = null, $replyTo = null)
     {
@@ -126,8 +126,8 @@ class Client
      *
      * Send bulk SMS with GC Notify
      *
-     * @param string $name Used to identify this bulk of notifications later on.
-     * @param array<mixed> $rows Array of arrays for messages to send
+     * @param  string  $name Used to identify this bulk of notifications later on.
+     * @param  array<mixed>  $rows Array of arrays for messages to send
      *  $rows = [
      *      [
      *          'phone_number' => (string)  Phone number of recipient
@@ -136,9 +136,9 @@ class Client
      *          ]
      *      ]
      * ]
-     * @param string $template ID of the template to use
-     * @param Carbon\Carbon $scheduleFor (optional)
-     * @param string $replyTo (optional) ID for a reply to email address
+     * @param  string  $template ID of the template to use
+     * @param  Carbon\Carbon  $scheduleFor (optional)
+     * @param  string  $replyTo (optional) ID for a reply to email address
      */
     public function sendBulkSms($name, $rows, $template, $scheduleFor = null, $replyTo = null)
     {
@@ -153,21 +153,20 @@ class Client
      *
      * Creates the payload for a request
      *
-     * @access private
-     * @param string $type  The type of payload to build
-     * @param string $to The recipient of the notification
-     * @param string $template Template of the notification
-     * @param array<mixed> $personalisation (optional) Array of key => value pairs to be replaced in template
-     * @param string $reference (optional) Add a reference key to identify the message
+     * @param  string  $type  The type of payload to build
+     * @param  string  $to The recipient of the notification
+     * @param  string  $template Template of the notification
+     * @param  array<mixed>  $personalisation (optional) Array of key => value pairs to be replaced in template
+     * @param  string  $reference (optional) Add a reference key to identify the message
      * @return array<mixed> The partial payload
      */
     private function buildPayload($type, $to, $template, $personalisation = [], $reference = null)
     {
         $payload = ['template_id' => $template];
 
-        if ($type === "email") {
+        if ($type === 'email') {
             $payload['email_address'] = $to;
-        } else if ($type === "sms") {
+        } elseif ($type === 'sms') {
             $payload['phone_number'] = $to;
         }
 
@@ -175,7 +174,7 @@ class Client
             $payload['personalisation'] = $personalisation;
         }
 
-        if (!is_null($reference) && $reference !== '') {
+        if (! is_null($reference) && $reference !== '') {
             $payload['reference'] = $reference;
         }
 
@@ -185,23 +184,23 @@ class Client
     /**
      * Build Email Payload
      *
-     * @param string $to Email address to send message to
-     * @param string $template ID of the template to use
-     * @param array<mixed> $personalisation (optional) Array of key => value pairs to be replaced in template
-     * @param string $reference (optional) Add a reference key to identify the message
-     * @param string $replyTo (optional) ID for a reply to email address
-     * @param array<mixed> $attachment (optional) Array of key => value pairs to be replaced in template
+     * @param  string  $to Email address to send message to
+     * @param  string  $template ID of the template to use
+     * @param  array<mixed>  $personalisation (optional) Array of key => value pairs to be replaced in template
+     * @param  string  $reference (optional) Add a reference key to identify the message
+     * @param  string  $replyTo (optional) ID for a reply to email address
+     * @param  array<mixed>  $attachment (optional) Array of key => value pairs to be replaced in template
      */
     private function buildEmailPayload($to, $template, $personalisation = [], $reference = null, $replyTo = null, $attachment = null)
     {
 
         $payload = $this->buildPayload('email', $to, $template, $personalisation, $reference);
 
-        if (!is_null($replyTo) && $replyTo !== '') {
+        if (! is_null($replyTo) && $replyTo !== '') {
             $payload['email_reply_to_id'] = $replyTo;
         }
 
-        if (!is_null($attachment)) {
+        if (! is_null($attachment)) {
             $payload['personalisation']['attachment'] = $this->buildEmailAttachmentFile($attachment);
         }
 
@@ -211,17 +210,17 @@ class Client
     /**
      * Build SMS Payload
      *
-     * @param string $to Phone number to send message to
-     * @param string $template ID of the template to use
-     * @param array<mixed> $personalisation (optional) Array of key => value pairs to be replaced in template
-     * @param string $reference (optional) Add a reference key to identify the message
-     * @param string $sender (optional) ID for a sender number
+     * @param  string  $to Phone number to send message to
+     * @param  string  $template ID of the template to use
+     * @param  array<mixed>  $personalisation (optional) Array of key => value pairs to be replaced in template
+     * @param  string  $reference (optional) Add a reference key to identify the message
+     * @param  string  $sender (optional) ID for a sender number
      */
     private function buildSmsPayload($to, $template, $personalisation = [], $reference = null, $sender = null)
     {
         $payload = $this->buildPayload('sms', $to, $template, $personalisation, $reference);
 
-        if (!is_null($sender) && $sender !== '') {
+        if (! is_null($sender) && $sender !== '') {
             $payload['sms_sender_id'] = $sender;
         }
 
@@ -231,11 +230,11 @@ class Client
     /**
      * Build Bulk Payload
      *
-     * @param string $name Used to identify this bulk of notifications later on.
-     * @param array<string> $rows The recipient of the notification
-     * @param string $template Template of the notification
-     * @param Carbon\Carbon $scheduleFor (optional)
-     * @param string $replyTo (optional) ID for a reply to email address
+     * @param  string  $name Used to identify this bulk of notifications later on.
+     * @param  array<string>  $rows The recipient of the notification
+     * @param  string  $template Template of the notification
+     * @param  Carbon\Carbon  $scheduleFor (optional)
+     * @param  string  $replyTo (optional) ID for a reply to email address
      * @return array<mixed> The partial payload
      */
     private function buildBulkPayload($name, $rows, $template, $scheduleFor = null, $replyTo = null)
@@ -246,14 +245,14 @@ class Client
             'rows' => $rows,
         ];
 
-        if (!is_null($scheduleFor)) {
-            if (!$scheduleFor->isFuture()) {
-                throw new NotFutureDateException("Schedule for date must be a date in the future.");
+        if (! is_null($scheduleFor)) {
+            if (! $scheduleFor->isFuture()) {
+                throw new NotFutureDateException('Schedule for date must be a date in the future.');
             }
             $payload['schedule_for'] = $scheduleFor->toIso8601String();
         }
 
-        if (!is_null($replyTo) && $replyTo !== '') {
+        if (! is_null($replyTo) && $replyTo !== '') {
             $payload['reply_to_id'] = $replyTo;
         }
 
@@ -263,11 +262,11 @@ class Client
     /**
      * Build Bulk Email Payload
      *
-     * @param string $name Used to identify this bulk of notifications later on.
-     * @param array<string> $rows The recipient of the notification
-     * @param string $template Template of the notification
-     * @param Carbon\Carbon $scheduleFor (optional)
-     * @param string $replyTo (optional) ID for a reply to email address
+     * @param  string  $name Used to identify this bulk of notifications later on.
+     * @param  array<string>  $rows The recipient of the notification
+     * @param  string  $template Template of the notification
+     * @param  Carbon\Carbon  $scheduleFor (optional)
+     * @param  string  $replyTo (optional) ID for a reply to email address
      * @return array<mixed> The partial payload
      */
     private function buildBulkEmailPayload($name, $rows, $template, $scheduleFor = null, $replyTo = null)
@@ -282,8 +281,9 @@ class Client
         $errors = [];
 
         foreach ($rows as $index => $row) {
-            if (!isset($row['email'])) {
+            if (! isset($row['email'])) {
                 $errors[] = $index + 1;
+
                 continue;
             }
 
@@ -293,8 +293,8 @@ class Client
             );
         }
 
-        if (!empty($errors)) {
-            $errorString = implode(", ", $errors);
+        if (! empty($errors)) {
+            $errorString = implode(', ', $errors);
             throw new InvalidBulkRowDataException("Key 'email' not found in row(s) $errorString.");
         }
 
@@ -304,11 +304,11 @@ class Client
     /**
      * Build Bulk SMS Payload
      *
-     * @param string $name Used to identify this bulk of notifications later on.
-     * @param array<string> $rows The recipient of the notification
-     * @param string $template Template of the notification
-     * @param Carbon\Carbon $scheduleFor (optional)
-     * @param string $replyTo (optional) ID for a reply to email address
+     * @param  string  $name Used to identify this bulk of notifications later on.
+     * @param  array<string>  $rows The recipient of the notification
+     * @param  string  $template Template of the notification
+     * @param  Carbon\Carbon  $scheduleFor (optional)
+     * @param  string  $replyTo (optional) ID for a reply to email address
      * @return array<mixed> The partial payload
      */
     private function buildBulkSmsPayload($name, $rows, $template, $scheduleFor = null, $replyTo = null)
@@ -323,8 +323,9 @@ class Client
         $errors = [];
 
         foreach ($rows as $index => $row) {
-            if (!isset($row['phone_number'])) {
+            if (! isset($row['phone_number'])) {
                 $errors[] = $index + 1;
+
                 continue;
             }
 
@@ -334,8 +335,8 @@ class Client
             );
         }
 
-        if (!empty($errors)) {
-            $errorString = implode(", ", $errors);
+        if (! empty($errors)) {
+            $errorString = implode(', ', $errors);
             throw new InvalidBulkRowDataException("Key 'phone_number' not found in row(s) $errorString.");
         }
 
@@ -345,7 +346,7 @@ class Client
     /**
      * Build Bulk Personalisation Headers
      *
-     * @param array<array<string>> $rows The recipient of the notification
+     * @param  array<array<string>>  $rows The recipient of the notification
      * @return array<string>
      */
     private function buildBulkPersonalisationHeaders($personalisation)
@@ -353,7 +354,7 @@ class Client
         $personalisationHeaders = [];
 
         if (empty($personalisation)) {
-            throw new InvalidBulkRowDataException("No data found in personalisation key.");
+            throw new InvalidBulkRowDataException('No data found in personalisation key.');
         }
 
         foreach ($personalisation as $header => $value) {
@@ -366,7 +367,7 @@ class Client
     /**
      * Build Bulk Personalisation Row Data
      *
-     * @param array<array<string>> $rows The recipient of the notification
+     * @param  array<array<string>>  $rows The recipient of the notification
      * @return array<string>
      */
     private function buildBulkPersonalisationRowData($personalisation)
@@ -387,13 +388,13 @@ class Client
      * Build headers for the request including
      * the authorization and content types by default
      *
-     * @param array<mixed> $additionalHeaders (optional) Additional headers to add
+     * @param  array<mixed>  $additionalHeaders (optional) Additional headers to add
      * @return array<mixed>
      */
     private function buildHeaders($additionalHeaders = [])
     {
         $headers = [
-            'Authorization' => 'ApiKey-v1 ' . $this->apiKey,
+            'Authorization' => 'ApiKey-v1 '.$this->apiKey,
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ];
@@ -410,17 +411,17 @@ class Client
      *
      * Add an attachment file to an email payload
      *
-     * @param array<mixed> $attachment The attachment file array [file => string, filename => string]
+     * @param  array<mixed>  $attachment The attachment file array [file => string, filename => string]
      * @return array<mixed> The new payload
      */
     private function buildEmailAttachmentFile($attachment)
     {
-        if (!isset($attachment['filename']) || !isset($attachment['file'])) {
-            throw new EmailAttachmentException("Missing attachment filename or file.");
+        if (! isset($attachment['filename']) || ! isset($attachment['file'])) {
+            throw new EmailAttachmentException('Missing attachment filename or file.');
         }
 
         if (base64_decode($attachment['file'], true) === false) {
-            throw new EmailAttachmentException("Attachment file must be base64 encoded.");
+            throw new EmailAttachmentException('Attachment file must be base64 encoded.');
         }
 
         $attachment['sending_method'] = 'attach';
@@ -433,17 +434,17 @@ class Client
      *
      * Make a POST request to the GC Notify API
      *
-     * @access private
-     * @param string $endpoint URL to make request to
-     * @param array<mixed> $payload Parameters passed to request
-     * @param array<mixed> $headers (optional) Headers to add to request
-     * @throws
+     * @param  string  $endpoint URL to make request to
+     * @param  array<mixed>  $payload Parameters passed to request
+     * @param  array<mixed>  $headers (optional) Headers to add to request
      * @return  \Illuminate\Http\Client\Response,
+     *
+     * @throws
      */
     private function post($endpoint, $payload, $headers = [])
     {
         return Http::withHeaders($this->buildHeaders($headers))
-            ->post(self::BASE_URL . $endpoint, $payload);
+            ->post(self::BASE_URL.$endpoint, $payload);
     }
 
     /**
@@ -451,16 +452,16 @@ class Client
      *
      * Make a GET request to the GC Notify API
      *
-     * @access private
-     * @param string $endpoint URL to make request to
-     * @param array<mixed> $payload Parameters passed to request
-     * @param array<mixed> $headers (optional) Headers to add to request
-     * @throws
+     * @param  string  $endpoint URL to make request to
+     * @param  array<mixed>  $payload Parameters passed to request
+     * @param  array<mixed>  $headers (optional) Headers to add to request
      * @return  \Illuminate\Http\Client\Response,
+     *
+     * @throws
      */
     private function get($endpoint, $payload, $headers = [])
     {
         return Http::withHeaders($this->buildHeaders($headers))
-            ->get(self::BASE_URL . $endpoint, $payload);
+            ->get(self::BASE_URL.$endpoint, $payload);
     }
 }

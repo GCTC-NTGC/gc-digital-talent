@@ -41,12 +41,13 @@ final class UUID extends ScalarType
      *
      * @param  \GraphQL\Language\AST\Node  $valueNode
      * @param  array<string, mixed>|null  $variables
-     * @throws \GraphQL\Error\Error
      * @return string valid uuid
+     *
+     * @throws \GraphQL\Error\Error
      */
-    public function parseLiteral($valueNode, ?array $variables = null)
+    public function parseLiteral($valueNode, array $variables = null)
     {
-        if (!$valueNode instanceof StringValueNode) {
+        if (! $valueNode instanceof StringValueNode) {
             throw new Error(
                 "Query error: Can only parse strings, got {$valueNode->kind}",
                 $valueNode
@@ -59,13 +60,14 @@ final class UUID extends ScalarType
     /**
      * Check if the string is a UUID
      *
-     * @param mixed $value  A value that may be a UUID
+     * @param  mixed  $value  A value that may be a UUID
      * @return  string A valid UUID
+     *
      * @throws \GraphQL\Error\InvariantViolation|\GraphQL\Error\Error
      */
     private function isValidUuid($value, string $exceptionClass)
     {
-        if (!Str::isUuid($value)) {
+        if (! Str::isUuid($value)) {
             throw new $exceptionClass(
                 Utils::printSafeJson('validation.uuid')
             );

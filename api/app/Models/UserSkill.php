@@ -47,6 +47,7 @@ class UserSkill extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
     public function skill(): BelongsTo
     {
         return $this->belongsTo(Skill::class, 'skill_id');
@@ -64,6 +65,7 @@ class UserSkill extends Model
             ->wherePivotNull('deleted_at')
             ->as('experience_skill');
     }
+
     public function communityExperiences()
     {
         return $this->morphedByMany(
@@ -76,6 +78,7 @@ class UserSkill extends Model
             ->wherePivotNull('deleted_at')
             ->as('experience_skill');
     }
+
     public function educationExperiences()
     {
         return $this->morphedByMany(
@@ -88,6 +91,7 @@ class UserSkill extends Model
             ->wherePivotNull('deleted_at')
             ->as('experience_skill');
     }
+
     public function personalExperiences()
     {
         return $this->morphedByMany(
@@ -100,6 +104,7 @@ class UserSkill extends Model
             ->wherePivotNull('deleted_at')
             ->as('experience_skill');
     }
+
     public function workExperiences()
     {
         return $this->morphedByMany(
@@ -111,5 +116,17 @@ class UserSkill extends Model
             ->withPivot(['details', 'deleted_at'])
             ->wherePivotNull('deleted_at')
             ->as('experience_skill_pivot');
+    }
+
+    public function getExperiencesAttribute()
+    {
+        $collection = collect();
+        $collection = $collection->merge($this->awardExperiences);
+        $collection = $collection->merge($this->communityExperiences);
+        $collection = $collection->merge($this->educationExperiences);
+        $collection = $collection->merge($this->personalExperiences);
+        $collection = $collection->merge($this->workExperiences);
+
+        return $collection;
     }
 }

@@ -10,14 +10,15 @@ import { Accordion } from "@gc-digital-talent/ui";
 import { fakeSkills, experienceGenerators } from "@gc-digital-talent/fake-data";
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
-import { Maybe, Skill } from "~/api/generated";
+import { Maybe } from "~/api/generated";
 import { getDateRange } from "~/utils/dateUtils";
+import { InvertedSkillExperience } from "~/utils/skillUtils";
 
 import SkillAccordion from "./SkillAccordion";
 
 const skills = fakeSkills();
-const testSkill = skills[0];
-function renderSkillAccordion(skill: Skill) {
+const testSkill = skills[0] as InvertedSkillExperience;
+function renderSkillAccordion(skill: InvertedSkillExperience) {
   return renderWithProviders(
     <Accordion.Root type="single">
       <SkillAccordion skill={skill} />

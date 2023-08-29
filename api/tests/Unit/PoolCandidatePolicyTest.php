@@ -17,15 +17,25 @@ class PoolCandidatePolicyTest extends TestCase
     use WithFaker;
 
     protected $guestUser;
+
     protected $applicantUser;
+
     protected $candidateUser;
+
     protected $poolOperatorUser;
+
     protected $requestResponderUser;
+
     protected $adminUser;
+
     protected $team;
+
     protected $basePool;
+
     protected $teamPool;
+
     protected $poolCandidate;
+
     protected $unOwnedPoolCandidate;
 
     protected function setUp(): void
@@ -33,7 +43,6 @@ class PoolCandidatePolicyTest extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-
 
         $this->guestUser = User::factory()
             ->asGuest()
@@ -64,7 +73,6 @@ class PoolCandidatePolicyTest extends TestCase
                 'sub' => 'request-responder-user@test.com',
             ]);
 
-
         $this->adminUser = User::factory()
             ->asAdmin()
             ->create([
@@ -86,7 +94,7 @@ class PoolCandidatePolicyTest extends TestCase
 
         $this->poolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->candidateUser->id,
-            'pool_id' => $this->teamPool->id
+            'pool_id' => $this->teamPool->id,
         ]);
 
         $noTeamUser = User::factory()->create();
@@ -99,7 +107,6 @@ class PoolCandidatePolicyTest extends TestCase
             'submitted_at' => config('constants.past_date'),
         ]);
     }
-
 
     /**
      * Assert that no user may view any pool candidate

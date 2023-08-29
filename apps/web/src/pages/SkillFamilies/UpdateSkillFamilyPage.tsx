@@ -7,20 +7,17 @@ import sortBy from "lodash/sortBy";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
-  Select,
   Submit,
   Input,
   MultiSelectField,
   TextArea,
   unpackIds,
-  enumToOptions,
 } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   getLocale,
   errorMessages,
   commonMessages,
-  getSkillCategory,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 
@@ -29,7 +26,6 @@ import useRoutes from "~/hooks/useRoutes";
 import {
   Skill,
   SkillFamily,
-  SkillCategory,
   UpdateSkillFamilyInput,
   UpdateSkillFamilyMutation,
   useUpdateSkillFamilyMutation,
@@ -198,29 +194,6 @@ export const UpdateSkillFamilyForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <Select
-              id="category"
-              name="category"
-              label={intl.formatMessage({
-                defaultMessage: "Category",
-                id: "KZR3ad",
-                description:
-                  "Label displayed on the skill family form category field.",
-              })}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a category",
-                id: "+hRCVl",
-                description:
-                  "Placeholder displayed on the skill family form category field.",
-              })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              options={enumToOptions(SkillCategory).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getSkillCategory(value)),
-              }))}
-            />
             <div data-h2-margin="base(x1, 0)">
               <MultiSelectField
                 id="skills"
@@ -269,12 +242,7 @@ const UpdateSkillFamilyPage = () => {
        graphql operation to fail. */
     executeMutation({
       id,
-      skillFamily: pick(formData, [
-        "category",
-        "description",
-        "name",
-        "skills",
-      ]),
+      skillFamily: pick(formData, ["description", "name", "skills"]),
     }).then((result) => {
       if (result.data?.updateSkillFamily) {
         return result.data?.updateSkillFamily;

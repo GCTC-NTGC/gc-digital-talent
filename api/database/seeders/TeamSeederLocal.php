@@ -22,13 +22,13 @@ class TeamSeederLocal extends Seeder
                     'en' => 'Test Team',
                     'fr' => 'Équipe de test',
                 ],
-                'contact_email' => 'test.team@test.test'
+                'contact_email' => 'test.team@test.test',
             ],
         ];
 
         $teamDepartments = [
             'test-team' => [
-                ['department_number' => 56] // Treasury Board Secretariat
+                ['department_number' => 56], // Treasury Board Secretariat
             ],
         ];
 

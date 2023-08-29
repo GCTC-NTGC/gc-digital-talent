@@ -11,6 +11,7 @@ import fakeSkillFamilies, { getStaticSkillFamilies } from "./fakeSkillFamilies";
 import fakeSkills, { getStaticSkills } from "./fakeSkills";
 import fakeTeams from "./fakeTeams";
 import fakeUsers, { fakeApplicants } from "./fakeUsers";
+import fakeUserSkills from "./fakeUserSkills";
 
 // Faker Generated Data
 export {
@@ -28,6 +29,7 @@ export {
   fakeSkills,
   fakeTeams,
   fakeUsers,
+  fakeUserSkills,
 };
 
 // Static Data

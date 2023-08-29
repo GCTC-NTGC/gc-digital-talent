@@ -20,7 +20,7 @@ class DigitalContractingPersonnelSkillFactory extends Factory
     public function definition(): array
     {
         return [
-            'level' => $this->faker->randomElement(DirectiveFormsApiEnums::personnelSkillExpertiseLevels())
+            'level' => $this->faker->randomElement(DirectiveFormsApiEnums::personnelSkillExpertiseLevels()),
         ];
     }
 
@@ -29,7 +29,7 @@ class DigitalContractingPersonnelSkillFactory extends Factory
         return $this->afterMaking(function (DigitalContractingPersonnelSkill $personnelSkill) {
             if (is_null($personnelSkill->skill_id)) {
                 // https://laravel.com/docs/10.x/eloquent-factories#belongs-to-relationships
-                throw new ErrorException("skill_id must be set to use this factory.  Try calling this factory with the `for` method to specify the parent skill.");
+                throw new ErrorException('skill_id must be set to use this factory.  Try calling this factory with the `for` method to specify the parent skill.');
             }
         });
     }

@@ -3,17 +3,16 @@
 namespace Database\Factories;
 
 use App\Models\AwardExperience;
-use App\Models\User;
 use App\Models\Classification;
 use App\Models\CommunityExperience;
 use App\Models\Department;
 use App\Models\EducationExperience;
-use App\Models\GenericJobTitle;
 use App\Models\PersonalExperience;
 use App\Models\Skill;
+use App\Models\User;
 use App\Models\WorkExperience;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\ApiEnums;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
 {
@@ -50,7 +49,7 @@ class UserFactory extends Factory
         $lookingEnglish = $this->faker->boolean();
         $lookingFrench = $this->faker->boolean();
         $lookingBilingual = $this->faker->boolean();
-        if (!$lookingEnglish && !$lookingFrench && !$lookingBilingual) {
+        if (! $lookingEnglish && ! $lookingFrench && ! $lookingBilingual) {
             $lookingEnglish = true;
         }
 
@@ -99,7 +98,7 @@ class UserFactory extends Factory
             'estimated_language_ability' => $hasBeenEvaluated ? null : $this->faker->randomElement([
                 'BEGINNER',
                 'INTERMEDIATE',
-                'ADVANCED'
+                'ADVANCED',
             ]),
             'is_gov_employee' => $isGovEmployee,
             'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
@@ -146,6 +145,7 @@ class UserFactory extends Factory
             PersonalExperience::factory(),
             WorkExperience::factory(),
         ];
+
         return $this->withSkills()->afterCreating(function (User $user) use ($types, $count) {
             for ($i = 0; $i < $count; $i++) {
                 $type = $this->faker->randomElement($types);
@@ -163,7 +163,7 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user) use ($count) {
             // If user has no experiences yet, create one.
-            if (!$user->experiences->count()) {
+            if (! $user->experiences->count()) {
                 WorkExperience::factory()->create(['user_id' => $user->id]);
                 $user->refresh();
             }
@@ -181,7 +181,7 @@ class UserFactory extends Factory
     public function asGovEmployee($isGovEmployee = true)
     {
         return $this->state(function () use ($isGovEmployee) {
-            if (!$isGovEmployee) {
+            if (! $isGovEmployee) {
                 return [
                     'is_gov_employee' => false,
                     'current_classification' => null,
@@ -192,6 +192,7 @@ class UserFactory extends Factory
             }
             $randomClassification = Classification::inRandomOrder()->first();
             $randomDepartment = Department::inRandomOrder()->first();
+
             return [
                 'is_gov_employee' => true,
                 'current_classification' => $randomClassification ? $randomClassification->id : null,
@@ -248,8 +249,7 @@ class UserFactory extends Factory
     /**
      * Attach the pool operator role to a user after creation.
      *
-     * @param   string  $team   Name of the team to attach the role to
-     *
+     * @param  string  $team   Name of the team to attach the role to
      * @return $this
      */
     public function asPoolOperator(string|array $team)
@@ -257,10 +257,10 @@ class UserFactory extends Factory
         return $this->afterCreating(function (User $user) use ($team) {
             if (is_array($team)) {
                 foreach ($team as $singleTeam) {
-                    $user->addRole("pool_operator", $singleTeam);
+                    $user->addRole('pool_operator', $singleTeam);
                 }
             } else {
-                $user->addRole("pool_operator", $team);
+                $user->addRole('pool_operator', $team);
             }
         });
     }

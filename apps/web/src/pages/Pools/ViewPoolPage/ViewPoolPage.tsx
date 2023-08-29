@@ -57,30 +57,22 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
   const classification = pool.classifications ? pool.classifications[0] : null;
 
   const essentialOccupationalSkills = pool.essentialSkills?.filter((skill) => {
-    return skill.families?.some(
-      (family) => family.category === SkillCategory.Technical,
-    );
+    return skill.category === SkillCategory.Technical;
   });
 
   const essentialTransferableSkills = pool.essentialSkills?.filter((skill) => {
-    return skill.families?.some(
-      (family) => family.category === SkillCategory.Behavioural,
-    );
+    return skill.category === SkillCategory.Behavioural;
   });
 
   const nonEssentialOccupationalSkills = pool.nonessentialSkills?.filter(
     (skill) => {
-      return skill.families?.some(
-        (family) => family.category === SkillCategory.Technical,
-      );
+      return skill.category === SkillCategory.Technical;
     },
   );
 
   const nonEssentialTransferableSkills = pool.nonessentialSkills?.filter(
     (skill) => {
-      return skill.families?.some(
-        (family) => family.category === SkillCategory.Behavioural,
-      );
+      return skill.category === SkillCategory.Behavioural;
     },
   );
 

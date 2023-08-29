@@ -52,12 +52,17 @@ export function invertSkillSkillFamilyTree(skills: Skill[]): SkillFamily[] {
   return skillFamiliesWithSkills;
 }
 
+export type InvertedSkillExperience = Skill & {
+  experiences: Experience[];
+};
 /**
  * Transforms an array of experiences with child skills into a tree of skills with child experiences.
  * @param { Experience[] } experiences - The collection of experiences with child skills to invert
  * @returns { Skill[] } - The new collection of skills with child experiences
  */
-export function invertSkillExperienceTree(experiences: Experience[]): Skill[] {
+export function invertSkillExperienceTree(
+  experiences: Experience[],
+): InvertedSkillExperience[] {
   const allChildSkills = flatMap(experiences, (s) => s.skills).filter(notEmpty);
   const uniqueSkills = uniqBy(allChildSkills, "id");
   const skillsWithExperiences = uniqueSkills
@@ -82,9 +87,7 @@ export function filterSkillsByCategory(
   category: SkillCategory,
 ) {
   return skills
-    ?.filter((skill) => {
-      return skill.families?.some((family) => family.category === category);
-    })
+    ?.filter((skill) => skill.category === category)
     .filter(notEmpty);
 }
 

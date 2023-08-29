@@ -7,6 +7,7 @@ import { fakeApplicants } from "@gc-digital-talent/fake-data";
 import { Experience, Skill, SkillCategory, SkillFamily } from "~/api/generated";
 
 import {
+  InvertedSkillExperience,
   invertSkillExperienceTree,
   invertSkillSkillFamilyTree,
 } from "./skillUtils";
@@ -20,12 +21,12 @@ describe("skill util tests", () => {
         id: "1",
         key: "skill_one",
         name: {},
+        category: SkillCategory.Behavioural,
         families: [
           {
             id: "1",
             key: "family_one",
             name: {},
-            category: SkillCategory.Behavioural,
             description: {},
             skills: [],
           },
@@ -37,13 +38,13 @@ describe("skill util tests", () => {
         id: "1",
         key: "family_one",
         name: {},
-        category: SkillCategory.Behavioural,
         description: {},
         skills: [
           {
             id: "1",
             key: "skill_one",
             name: {},
+            category: SkillCategory.Behavioural,
             families: [],
           },
         ],
@@ -58,12 +59,12 @@ describe("skill util tests", () => {
         id: "1",
         key: "skill_one",
         name: {},
+        category: SkillCategory.Behavioural,
         families: [
           {
             id: "1",
             key: "family_one",
             name: {},
-            category: SkillCategory.Behavioural,
             description: {},
             skills: [],
           },
@@ -73,12 +74,12 @@ describe("skill util tests", () => {
         id: "2",
         key: "skill_two",
         name: {},
+        category: SkillCategory.Behavioural,
         families: [
           {
             id: "1",
             key: "family_one",
             name: {},
-            category: SkillCategory.Behavioural,
             description: {},
             skills: [],
           },
@@ -88,12 +89,12 @@ describe("skill util tests", () => {
         id: "3",
         key: "skill_three",
         name: {},
+        category: SkillCategory.Behavioural,
         families: [
           {
             id: "1",
             key: "family_one",
             name: {},
-            category: SkillCategory.Behavioural,
             description: {},
             skills: [],
           },
@@ -105,25 +106,27 @@ describe("skill util tests", () => {
         id: "1",
         key: "family_one",
         name: {},
-        category: SkillCategory.Behavioural,
         description: {},
         skills: [
           {
             id: "1",
             key: "skill_one",
             name: {},
+            category: SkillCategory.Behavioural,
             families: [],
           },
           {
             id: "2",
             key: "skill_two",
             name: {},
+            category: SkillCategory.Behavioural,
             families: [],
           },
           {
             id: "3",
             key: "skill_three",
             name: {},
+            category: SkillCategory.Behavioural,
             families: [],
           },
         ],
@@ -138,12 +141,12 @@ describe("skill util tests", () => {
         id: "1",
         key: "skill_one",
         name: {},
+        category: SkillCategory.Behavioural,
         families: [
           {
             id: "1",
             key: "family_one",
             name: {},
-            category: SkillCategory.Behavioural,
             description: {},
             skills: [],
           },
@@ -151,7 +154,7 @@ describe("skill util tests", () => {
             id: "2",
             key: "family_two",
             name: {},
-            category: SkillCategory.Behavioural,
+
             description: {},
             skills: [],
           },
@@ -159,7 +162,7 @@ describe("skill util tests", () => {
             id: "3",
             key: "family_three",
             name: {},
-            category: SkillCategory.Behavioural,
+
             description: {},
             skills: [],
           },
@@ -171,12 +174,12 @@ describe("skill util tests", () => {
         id: "1",
         key: "family_one",
         name: {},
-        category: SkillCategory.Behavioural,
         description: {},
         skills: [
           {
             id: "1",
             key: "skill_one",
+            category: SkillCategory.Behavioural,
             name: {},
             families: [],
           },
@@ -186,13 +189,13 @@ describe("skill util tests", () => {
         id: "2",
         key: "family_two",
         name: {},
-        category: SkillCategory.Behavioural,
         description: {},
         skills: [
           {
             id: "1",
             key: "skill_one",
             name: {},
+            category: SkillCategory.Behavioural,
             families: [],
           },
         ],
@@ -201,13 +204,13 @@ describe("skill util tests", () => {
         id: "3",
         key: "family_three",
         name: {},
-        category: SkillCategory.Behavioural,
         description: {},
         skills: [
           {
             id: "1",
             key: "skill_one",
             name: {},
+            category: SkillCategory.Behavioural,
             families: [],
           },
         ],
@@ -226,15 +229,17 @@ describe("skill util tests", () => {
             id: "1",
             key: "skill_one",
             name: {},
+            category: SkillCategory.Behavioural,
           },
         ],
       },
     ];
-    const expected: Skill[] = [
+    const expected: InvertedSkillExperience[] = [
       {
         id: "1",
         key: "skill_one",
         name: {},
+        category: SkillCategory.Behavioural,
         experiences: [
           {
             id: "1",
@@ -244,6 +249,7 @@ describe("skill util tests", () => {
                 id: "1",
                 key: "skill_one",
                 name: {},
+                category: SkillCategory.Behavioural,
               },
             ],
           },
@@ -263,6 +269,7 @@ describe("skill util tests", () => {
             id: "1",
             key: "skill_one",
             name: {},
+            category: SkillCategory.Behavioural,
           },
         ],
       },
@@ -274,6 +281,7 @@ describe("skill util tests", () => {
             id: "1",
             key: "skill_one",
             name: {},
+            category: SkillCategory.Behavioural,
           },
         ],
       },
@@ -285,15 +293,17 @@ describe("skill util tests", () => {
             id: "1",
             key: "skill_one",
             name: {},
+            category: SkillCategory.Behavioural,
           },
         ],
       },
     ];
-    const expected: Skill[] = [
+    const expected: InvertedSkillExperience[] = [
       {
         id: "1",
         key: "skill_one",
         name: {},
+        category: SkillCategory.Behavioural,
         experiences: [
           {
             id: "1",
@@ -303,6 +313,7 @@ describe("skill util tests", () => {
                 id: "1",
                 key: "skill_one",
                 name: {},
+                category: SkillCategory.Behavioural,
               },
             ],
           },
@@ -314,6 +325,7 @@ describe("skill util tests", () => {
                 id: "1",
                 key: "skill_one",
                 name: {},
+                category: SkillCategory.Behavioural,
               },
             ],
           },
@@ -325,6 +337,7 @@ describe("skill util tests", () => {
                 id: "1",
                 key: "skill_one",
                 name: {},
+                category: SkillCategory.Behavioural,
               },
             ],
           },
@@ -344,25 +357,29 @@ describe("skill util tests", () => {
             id: "1",
             key: "skill_one",
             name: {},
+            category: SkillCategory.Behavioural,
           },
           {
             id: "2",
             key: "skill_two",
             name: {},
+            category: SkillCategory.Behavioural,
           },
           {
             id: "3",
             key: "skill_three",
             name: {},
+            category: SkillCategory.Behavioural,
           },
         ],
       },
     ];
-    const expected: Skill[] = [
+    const expected: InvertedSkillExperience[] = [
       {
         id: "1",
         key: "skill_one",
         name: {},
+        category: SkillCategory.Behavioural,
         experiences: [
           {
             id: "1",
@@ -372,16 +389,19 @@ describe("skill util tests", () => {
                 id: "1",
                 key: "skill_one",
                 name: {},
+                category: SkillCategory.Behavioural,
               },
               {
                 id: "2",
                 key: "skill_two",
                 name: {},
+                category: SkillCategory.Behavioural,
               },
               {
                 id: "3",
                 key: "skill_three",
                 name: {},
+                category: SkillCategory.Behavioural,
               },
             ],
           },
@@ -391,6 +411,7 @@ describe("skill util tests", () => {
         id: "2",
         key: "skill_two",
         name: {},
+        category: SkillCategory.Behavioural,
         experiences: [
           {
             id: "1",
@@ -400,16 +421,19 @@ describe("skill util tests", () => {
                 id: "1",
                 key: "skill_one",
                 name: {},
+                category: SkillCategory.Behavioural,
               },
               {
                 id: "2",
                 key: "skill_two",
                 name: {},
+                category: SkillCategory.Behavioural,
               },
               {
                 id: "3",
                 key: "skill_three",
                 name: {},
+                category: SkillCategory.Behavioural,
               },
             ],
           },
@@ -419,6 +443,7 @@ describe("skill util tests", () => {
         id: "3",
         key: "skill_three",
         name: {},
+        category: SkillCategory.Behavioural,
         experiences: [
           {
             id: "1",
@@ -428,16 +453,19 @@ describe("skill util tests", () => {
                 id: "1",
                 key: "skill_one",
                 name: {},
+                category: SkillCategory.Behavioural,
               },
               {
                 id: "2",
                 key: "skill_two",
                 name: {},
+                category: SkillCategory.Behavioural,
               },
               {
                 id: "3",
                 key: "skill_three",
                 name: {},
+                category: SkillCategory.Behavioural,
               },
             ],
           },

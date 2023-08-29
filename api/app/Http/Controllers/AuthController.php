@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\OpenIdBearerTokenService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\UnencryptedToken;
-use App\Services\OpenIdBearerTokenService;
 
 class AuthController extends Controller
 {
@@ -33,12 +33,13 @@ class AuthController extends Controller
         );
 
         $requestedLocale = $request->input('locale');
-        if (strcasecmp($requestedLocale, 'en') == 0)
+        if (strcasecmp($requestedLocale, 'en') == 0) {
             $ui_locales = 'en-CA en';
-        else if (strcasecmp($requestedLocale, 'fr') == 0)
+        } elseif (strcasecmp($requestedLocale, 'fr') == 0) {
             $ui_locales = 'fr-CA fr';
-        else
+        } else {
             $ui_locales = $requestedLocale;
+        }
 
         $scope = 'openid offline_access';
 
@@ -53,7 +54,7 @@ class AuthController extends Controller
             'ui_locales' => $ui_locales,
         ]);
 
-        return redirect(config('oauth.authorize_uri') . '?' . $query);
+        return redirect(config('oauth.authorize_uri').'?'.$query);
     }
 
     public function authCallback(Request $request)
@@ -64,7 +65,7 @@ class AuthController extends Controller
 
         throw_unless(
             strlen($state) > 0 && $state === $request->state,
-            new InvalidArgumentException("Invalid session state")
+            new InvalidArgumentException('Invalid session state')
         );
 
         $response = Http::asForm()->post(config('oauth.token_uri'), [
@@ -77,7 +78,7 @@ class AuthController extends Controller
 
         // decode id_token stage
         // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
-        $idToken = $response->json("id_token");
+        $idToken = $response->json('id_token');
 
         $config = $this->fastSigner;
 
@@ -89,20 +90,23 @@ class AuthController extends Controller
         $tokenNonce = $token->claims()->get('nonce');
         throw_unless(
             strlen($tokenNonce) > 0 && $tokenNonce === $nonce,
-            new InvalidArgumentException("Invalid session nonce")
+            new InvalidArgumentException('Invalid session nonce')
         );
 
         $query = http_build_query($response->json());
 
         $from = $request->session()->pull('from');
 
-        if ($from != filter_var($from, FILTER_SANITIZE_URL))
-            $from = null; // Contains unsanitary characters. Throw it away.
-        if (substr($from, 0, 1) != '/')
-            $from = null; // Does not start with / so it's not a relative url. Don't want an open redirect vulnerability. Throw it away.
+        if ($from != filter_var($from, FILTER_SANITIZE_URL)) {
+            $from = null;
+        } // Contains unsanitary characters. Throw it away.
+        if (substr($from, 0, 1) != '/') {
+            $from = null;
+        } // Does not start with / so it's not a relative url. Don't want an open redirect vulnerability. Throw it away.
 
-        $navigateToUri = strlen($from) > 0 ? config('app.url') . $from : config('oauth.post_login_redirect');
-        return redirect($navigateToUri . '?' . $query);
+        $navigateToUri = strlen($from) > 0 ? config('app.url').$from : config('oauth.post_login_redirect');
+
+        return redirect($navigateToUri.'?'.$query);
     }
 
     public function refresh(Request $request)
@@ -115,6 +119,7 @@ class AuthController extends Controller
                 'client_secret' => config('oauth.client_secret'),
                 'refresh_token' => $refreshToken,
             ]);
+
         return response($response);
     }
 }

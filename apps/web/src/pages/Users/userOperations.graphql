@@ -336,6 +336,7 @@ query GetViewUserData($id: UUID!) {
           en
           fr
         }
+        category
         experienceSkillRecord {
           details
         }
@@ -511,6 +512,7 @@ query selectedUsers($ids: [ID]!) {
           en
           fr
         }
+        category
         experienceSkillRecord {
           details
         }

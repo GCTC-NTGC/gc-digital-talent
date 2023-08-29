@@ -19,10 +19,10 @@ query getSkills {
       en
       fr
     }
+    category
     families {
       id
       key
-      category
       name {
         en
         fr
@@ -51,6 +51,7 @@ query getMyExperiences {
           en
           fr
         }
+        category
         experienceSkillRecord {
           details
         }

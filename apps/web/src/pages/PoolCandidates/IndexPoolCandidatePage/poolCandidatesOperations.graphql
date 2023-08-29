@@ -89,6 +89,7 @@ fragment poolCandidateTable on PoolCandidate {
           en
           fr
         }
+        category
         experienceSkillRecord {
           details
         }
@@ -194,6 +195,7 @@ fragment selectedPoolCandidates on PoolCandidate {
         en
         fr
       }
+      category
     }
     nonessentialSkills {
       id
@@ -202,6 +204,7 @@ fragment selectedPoolCandidates on PoolCandidate {
         en
         fr
       }
+      category
     }
   }
   user {
@@ -280,6 +283,7 @@ fragment selectedPoolCandidates on PoolCandidate {
           en
           fr
         }
+        category
         experienceSkillRecord {
           details
         }
@@ -346,6 +350,7 @@ fragment selectedPoolCandidates on PoolCandidate {
         en
         fr
       }
+      category
       experienceSkillRecord {
         details
       }
@@ -566,6 +571,7 @@ query getCandidateProfile($id: UUID!) {
             en
             fr
           }
+          category
           experienceSkillRecord {
             details
           }

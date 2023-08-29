@@ -8,18 +8,18 @@ use Illuminate\Database\Migrations\Migration;
 
 class ConvertOvertimeEnum extends Migration
 {
-
     protected function convertOperationalEnumValue($oldValue, $newValue)
     {
-        $convertEnumValue = function($item) use ($oldValue, $newValue) {
-            if($item === $oldValue) {
+        $convertEnumValue = function ($item) use ($oldValue, $newValue) {
+            if ($item === $oldValue) {
                 return $newValue;
             }
+
             return $item;
         };
 
         $users = User::whereJsonContains('accepted_operational_requirements', $oldValue)->get();
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $user->accepted_operational_requirements = collect($user->accepted_operational_requirements)
                 ->map($convertEnumValue)->toArray();
             $user->save();
@@ -37,7 +37,7 @@ class ConvertOvertimeEnum extends Migration
             $pool->save();
         }
         $poolCandidateFilters = PoolCandidateFilter::whereJsonContains('operational_requirements', $oldValue)->get();
-        foreach($poolCandidateFilters as $poolCandidateFilter) {
+        foreach ($poolCandidateFilters as $poolCandidateFilter) {
             $poolCandidateFilter->operational_requirements = collect($poolCandidateFilter->operational_requirements)
                 ->map($convertEnumValue)->toArray();
             $poolCandidateFilter->save();
@@ -51,7 +51,7 @@ class ConvertOvertimeEnum extends Migration
      */
     public function up()
     {
-        $this->convertOperationalEnumValue("OVERTIME", "OVERTIME_SCHEDULED");
+        $this->convertOperationalEnumValue('OVERTIME', 'OVERTIME_SCHEDULED');
     }
 
     /**
@@ -61,6 +61,6 @@ class ConvertOvertimeEnum extends Migration
      */
     public function down()
     {
-        $this->convertOperationalEnumValue("OVERTIME_SCHEDULED", "OVERTIME");
+        $this->convertOperationalEnumValue('OVERTIME_SCHEDULED', 'OVERTIME');
     }
 }

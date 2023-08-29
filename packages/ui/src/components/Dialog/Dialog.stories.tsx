@@ -1,7 +1,8 @@
 import React from "react";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
 import { faker } from "@faker-js/faker";
-import { OverlayOrDialogDecorator } from "storybook-helpers";
+
+import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import Button from "../Button";
 import DialogDocs from "./Dialog.docs.mdx";

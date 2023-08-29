@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Database\Helpers\ApiEnums;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -17,10 +19,10 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property array $name
  * @property array $description
  * @property array $keywords
+ * @property string $category
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
-
 class Skill extends Model
 {
     use HasFactory;
@@ -57,47 +59,6 @@ class Skill extends Model
         return $this->hasMany(UserSkill::class);
     }
 
-    public function awardExperiences()
-    {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->awardExperiences())
-            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
-            ->whereNull('experience_skill.deleted_at');
-    }
-    public function communityExperiences()
-    {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->communityExperiences())
-            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
-            ->whereNull('experience_skill.deleted_at');
-    }
-    public function educationExperiences()
-    {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->educationExperiences())
-            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
-            ->whereNull('experience_skill.deleted_at');
-    }
-    public function personalExperiences()
-    {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->personalExperiences())
-            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
-            ->whereNull('experience_skill.deleted_at');
-    }
-    public function workExperiences()
-    {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->workExperiences())
-            ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
-            ->whereNull('experience_skill.deleted_at');
-    }
-    public function getExperiencesAttribute()
-    {
-        $collection = collect();
-        $collection = $collection->merge($this->awardExperiences);
-        $collection = $collection->merge($this->communityExperiences);
-        $collection = $collection->merge($this->educationExperiences);
-        $collection = $collection->merge($this->personalExperiences);
-        $collection = $collection->merge($this->workExperiences);
-        return $collection;
-    }
-
     public function poolsEssentialSkills(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pools_essential_skills');
@@ -110,6 +71,16 @@ class Skill extends Model
 
     public function getDetailsAttribute()
     {
-        return isset($this->experience_skill_pivot) ? $this->experience_skill_pivot->details : "";
+        return isset($this->experience_skill_pivot) ? $this->experience_skill_pivot->details : '';
+    }
+
+    public static function scopeTechnical(Builder $query)
+    {
+        return $query->where('category', '=', ApiEnums::SKILL_CATEGORY_TECHNICAL);
+    }
+
+    public static function scopeBehavioural(Builder $query)
+    {
+        return $query->where('category', '=', ApiEnums::SKILL_CATEGORY_BEHAVIOURAL);
     }
 }

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-
     /**
      * Ensure that a single UserSkill record exists for each unique User->Experience->Skill relation for a given experience type.
      *
@@ -67,7 +66,7 @@ return new class extends Migration
             'community_experiences',
             'education_experiences',
             'personal_experiences',
-            'work_experiences'
+            'work_experiences',
         ];
 
         foreach ($experienceTables as $experienceTable) {
@@ -101,10 +100,10 @@ return new class extends Migration
         });
 
         // Restore skill_id value
-        DB::statement("UPDATE experience_skill
+        DB::statement('UPDATE experience_skill
             SET skill_id = user_skills.skill_id
             FROM user_skills
-            WHERE experience_skill.user_skill_id = user_skills.id");
+            WHERE experience_skill.user_skill_id = user_skills.id');
 
         // Now clean up table
         Schema::table('experience_skill', function (Blueprint $table) {
