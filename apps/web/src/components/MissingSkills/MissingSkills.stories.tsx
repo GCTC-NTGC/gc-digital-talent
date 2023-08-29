@@ -11,14 +11,18 @@ import MissingSkills from "./MissingSkills";
 type MissingSkillsComponent = typeof MissingSkills;
 
 const fakedSkillFamilies = fakeSkillFamilies(2);
-const fakeBehaviouralFamily = fakedSkillFamilies[0];
-fakeBehaviouralFamily.category = SkillCategory.Behavioural;
-const fakeTechnicalFamily = fakedSkillFamilies[1];
-fakeTechnicalFamily.category = SkillCategory.Technical;
 
 // four skills for each category and all different
-const fakedBehaviouralSkills = fakeSkills(4, [fakeBehaviouralFamily]);
-const fakedTechnicalSkills = fakeSkills(8, [fakeTechnicalFamily]).slice(4);
+const fakedBehaviouralSkills = fakeSkills(
+  4,
+  [fakedSkillFamilies[0]],
+  SkillCategory.Behavioural,
+);
+const fakedTechnicalSkills = fakeSkills(
+  8,
+  [fakedSkillFamilies[1]],
+  SkillCategory.Technical,
+).slice(4);
 
 // 2 technical and two behavioural skills for a total of 4 for both required and optional
 // behavioural preceding in the arrays

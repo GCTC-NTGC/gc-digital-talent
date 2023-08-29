@@ -148,6 +148,7 @@ class SkillTest extends TestCase
                     'en' => 'New Name (EN)',
                     'fr' => 'New Name (FR)',
                 ],
+                'category' => 'TECHNICAL',
             ],
         ];
 
@@ -161,6 +162,7 @@ class SkillTest extends TestCase
                         en
                         fr
                     }
+                    category
                 }
             }
         ';

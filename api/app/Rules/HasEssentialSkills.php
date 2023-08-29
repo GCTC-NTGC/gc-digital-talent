@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use App\Models\Pool;
-use App\Models\SkillFamily;
+use App\Models\Skill;
 use App\Models\User;
 use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\Rule;
@@ -33,9 +33,8 @@ class HasEssentialSkills implements Rule
     {
 
         $poolEssentialSkillIds = $this->pool
-            ->essentialSkills()
-            ->whereHas('families', function ($query) {
-                SkillFamily::scopeTechnical($query);
+            ->essentialSkills()->where(function ($query) {
+                Skill::scopeTechnical($query);
             })->get()->pluck('id');
 
         if ($poolEssentialSkillIds->isEmpty()) {

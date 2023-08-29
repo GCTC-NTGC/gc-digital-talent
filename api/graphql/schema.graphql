@@ -618,7 +618,6 @@ type SkillFamily {
   name: LocalizedString
   description: LocalizedString
   skills: [Skill!] @belongsToMany
-  category: SkillCategory!
 }
 
 type Skill {
@@ -627,6 +626,7 @@ type Skill {
   name: LocalizedString!
   description: LocalizedString
   keywords: SkillKeywords
+  category: SkillCategory!
   families: [SkillFamily!] @belongsToMany
 
   # ExperienceSkillRecord is the pivot data and may only be queried when Skill is nested in an Experience (eg. experience->skill->experienceSkillRecord). Querying for it otherwise will just return null.
@@ -1429,14 +1429,12 @@ input CreateSkillFamilyInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   skills: SkillBelongsToMany
-  category: SkillCategory!
 }
 
 input UpdateSkillFamilyInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   skills: SkillBelongsToMany
-  category: SkillCategory
 }
 
 input SkillFamilyBelongsToMany {
@@ -1454,6 +1452,7 @@ input CreateSkillInput {
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
   keywords: SkillKeywordsInput
+  category: SkillCategory!
 }
 
 input UpdateSkillInput {
@@ -1461,6 +1460,7 @@ input UpdateSkillInput {
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
   keywords: SkillKeywordsInput
+  category: SkillCategory
 }
 
 input WorkExperienceInput {

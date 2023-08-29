@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Skill;
+use Database\Helpers\ApiEnums;
 use Database\Helpers\KeyStringHelpers;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -37,6 +38,7 @@ class SkillFactory extends Factory
             'key' => KeyStringHelpers::toKeyString($name),
             'description' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
             'keywords' => ['en' => $keywordsEN, 'fr' => $keywordsFR],
+            'category' => $this->faker->randomElement(ApiEnums::skillCategories()),
         ];
     }
 

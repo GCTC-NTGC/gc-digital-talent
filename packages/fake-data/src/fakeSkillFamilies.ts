@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { UniqueEnforcer } from "enforce-unique";
 
-import { SkillCategory, SkillFamily, Skill } from "@gc-digital-talent/graphql";
+import { SkillFamily, Skill } from "@gc-digital-talent/graphql";
 
 import staticSkillFamilies from "./skillFamilies.json";
 
@@ -18,10 +18,6 @@ const generateSkillFamily = (
   });
   return {
     __typename: undefined,
-    category: faker.helpers.arrayElement<SkillCategory>([
-      SkillCategory.Behavioural,
-      SkillCategory.Technical,
-    ]),
     description: {
       en: `EN ${faker.lorem.sentences()}`,
       fr: `FR ${faker.lorem.sentences()}`,
