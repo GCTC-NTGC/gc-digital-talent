@@ -97,9 +97,7 @@ export function filterUserSkillsByCategory(
 ) {
   return userSkills
     ?.filter((userSkill) => {
-      return userSkill.skill.families?.some(
-        (family) => family.category === category,
-      );
+      return userSkill.skill.category === category;
     })
     .filter(notEmpty);
 }

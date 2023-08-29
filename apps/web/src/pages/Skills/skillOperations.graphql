@@ -30,6 +30,7 @@ query Skill($id: UUID!) {
   skill(id: $id) {
     id
     key
+    category
     name {
       en
       fr
@@ -115,6 +116,7 @@ query UserSkills {
       skill {
         id
         key
+        category
         name {
           en
           fr
@@ -122,7 +124,6 @@ query UserSkills {
         families {
           id
           key
-          category
         }
       }
     }
@@ -130,6 +131,7 @@ query UserSkills {
   skills {
     id
     key
+    category
     name {
       en
       fr
@@ -145,7 +147,6 @@ query UserSkills {
     families {
       id
       key
-      category
       name {
         en
         fr
