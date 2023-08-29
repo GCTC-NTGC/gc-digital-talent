@@ -2,11 +2,11 @@
 
 namespace App\Rules;
 
-use Closure;
-use Illuminate\Contracts\Validation\ValidationRule;
 use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestion;
+use Closure;
 use Database\Helpers\ApiEnums;
+use Illuminate\Contracts\Validation\ValidationRule;
 
 class QuestionsAnswered implements ValidationRule
 {

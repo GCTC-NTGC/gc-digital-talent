@@ -2,14 +2,15 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use App\Models\Pool;
 use App\Models\User;
 use Database\Helpers\ApiEnums;
+use Illuminate\Contracts\Validation\Rule;
 
 class HasLanguageRequirements implements Rule
 {
     private $pool;
+
     /**
      * Create a new rule instance.
      *
@@ -33,7 +34,7 @@ class HasLanguageRequirements implements Rule
         $userLookingForBilingual = $thisUser->looking_for_bilingual;
         $poolNeedsBilingual = $this->pool->advertisement_language == ApiEnums::POOL_BILINGUAL_INTERMEDIATE || $this->pool->advertisement_language == ApiEnums::POOL_BILINGUAL_ADVANCED;
 
-        $passes = !$poolNeedsBilingual || ($poolNeedsBilingual && $userLookingForBilingual);
+        $passes = ! $poolNeedsBilingual || ($poolNeedsBilingual && $userLookingForBilingual);
 
         return $passes;
     }

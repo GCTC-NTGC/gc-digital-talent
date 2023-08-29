@@ -18,8 +18,8 @@ final class DuplicatePool
 
         $newPool = $pool->replicate()->fill([
             'name' => [
-                'en' => $pool->name['en'] . ' (copy)',
-                'fr' => $pool->name['fr'] . ' (copie)',
+                'en' => $pool->name['en'].' (copy)',
+                'fr' => $pool->name['fr'].' (copie)',
             ],
             'closing_date' => null,
             'published_at' => null,

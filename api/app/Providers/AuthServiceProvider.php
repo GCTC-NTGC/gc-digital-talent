@@ -2,31 +2,29 @@
 
 namespace App\Providers;
 
+use App\Models\AwardExperience;
 use App\Models\Classification;
+use App\Models\CommunityExperience;
 use App\Models\Department;
-use App\Models\PoolCandidate;
+use App\Models\EducationExperience;
+use App\Models\PersonalExperience;
 use App\Models\Pool;
+use App\Models\PoolCandidate;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\WorkExperience;
-use App\Models\PersonalExperience;
-use App\Models\CommunityExperience;
-use App\Models\EducationExperience;
-use App\Models\AwardExperience;
-use App\Models\Role;
-
 use App\Policies\ClassificationPolicy;
 use App\Policies\DepartmentPolicy;
+use App\Policies\ExperiencePolicy;
 use App\Policies\PoolCandidatePolicy;
 use App\Policies\PoolPolicy;
 use App\Policies\UserPolicy;
-use App\Policies\ExperiencePolicy;
 use App\Services\OpenIdBearerTokenService;
-use Throwable;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\ServiceProvider;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
-use Database\Helpers\ApiEnums;
+use Throwable;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -70,7 +68,6 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Get the associated user model for a request or abort if something goes wrong with the lookup
-     *
      */
     public function resolveUserOrAbort($bearerToken, $tokenService): ?User
     {
@@ -84,9 +81,11 @@ class AuthServiceProvider extends ServiceProvider
                     array_push($violations, $violationError->getMessage());
                 }
                 Log::notice('Authorization token not valid: ', $violations);
+
                 return abort(401, 'Authorization token not valid.');
             } catch (Throwable $e) {
-                Log::notice('Error while validating authorization token: ' . $e->getMessage());
+                Log::notice('Error while validating authorization token: '.$e->getMessage());
+
                 return abort(401, 'Error while validating authorization token.');
             }
 
@@ -102,8 +101,9 @@ class AuthServiceProvider extends ServiceProvider
                 $newUser->save();
                 $newUser->syncRoles([  // every new user is automatically an base_user and an applicant
                     Role::where('name', 'base_user')->sole(),
-                    Role::where('name', 'applicant')->sole()
+                    Role::where('name', 'applicant')->sole(),
                 ], null);
+
                 return $newUser;
             }
         }

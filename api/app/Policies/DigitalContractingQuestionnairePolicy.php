@@ -12,7 +12,7 @@ class DigitalContractingQuestionnairePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->isAbleTo("view-any-directiveForm");
+        return $user->isAbleTo('view-any-directiveForm');
     }
 
     /**
@@ -21,7 +21,7 @@ class DigitalContractingQuestionnairePolicy
     public function view(User $user, DigitalContractingQuestionnaire $digitalContractingQuestionnaire): bool
     {
         // users aren't able to own questionnaires yet
-        return $user->isAbleTo("view-any-directiveForm");
+        return $user->isAbleTo('view-any-directiveForm');
     }
 
     /**
@@ -29,7 +29,7 @@ class DigitalContractingQuestionnairePolicy
      */
     public function create(User $user): bool
     {
-        return $user->isAbleTo("create-any-directiveForm");
+        return $user->isAbleTo('create-any-directiveForm');
     }
 
     /**
@@ -37,7 +37,7 @@ class DigitalContractingQuestionnairePolicy
      */
     public function update(User $user, DigitalContractingQuestionnaire $digitalContractingQuestionnaire): bool
     {
-        return $user->isAbleTo("update-any-directiveForm");
+        return $user->isAbleTo('update-any-directiveForm');
     }
 
     /**
@@ -45,7 +45,7 @@ class DigitalContractingQuestionnairePolicy
      */
     public function delete(User $user, DigitalContractingQuestionnaire $digitalContractingQuestionnaire): bool
     {
-        return $user->isAbleTo("delete-any-directiveForm");
+        return $user->isAbleTo('delete-any-directiveForm');
     }
 
     /**
@@ -53,7 +53,7 @@ class DigitalContractingQuestionnairePolicy
      */
     public function restore(User $user, DigitalContractingQuestionnaire $digitalContractingQuestionnaire): bool
     {
-        return $user->isAbleTo("delete-any-directiveForm");
+        return $user->isAbleTo('delete-any-directiveForm');
     }
 
     /**
@@ -61,6 +61,6 @@ class DigitalContractingQuestionnairePolicy
      */
     public function forceDelete(User $user, DigitalContractingQuestionnaire $digitalContractingQuestionnaire): bool
     {
-        return $user->isAbleTo("delete-any-directiveForm");
+        return $user->isAbleTo('delete-any-directiveForm');
     }
 }

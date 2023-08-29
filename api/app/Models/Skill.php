@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -20,7 +20,6 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
-
 class Skill extends Model
 {
     use HasFactory;
@@ -69,6 +68,6 @@ class Skill extends Model
 
     public function getDetailsAttribute()
     {
-        return isset($this->experience_skill_pivot) ? $this->experience_skill_pivot->details : "";
+        return isset($this->experience_skill_pivot) ? $this->experience_skill_pivot->details : '';
     }
 }

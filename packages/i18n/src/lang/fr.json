@@ -1446,6 +1446,10 @@
     "defaultMessage": "Nord (Nu., T.N.-O., Yn)",
     "description": "The work region of Canada described as North."
   },
+  "w6vHXf": {
+    "defaultMessage": "Recherche...",
+    "description": "Message to display when a search is in progress."
+  },
   "wCft6M": {
     "defaultMessage": "Colombie Britannique",
     "description": "The work region of Canada described as British Columbia."

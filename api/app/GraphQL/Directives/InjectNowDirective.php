@@ -3,9 +3,9 @@
 namespace App\GraphQL\Directives;
 
 use Carbon\Carbon;
+use Nuwave\Lighthouse\Exceptions\DefinitionException;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
-use Nuwave\Lighthouse\Exceptions\DefinitionException;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -37,7 +37,7 @@ GRAPHQL;
     public function handleField(FieldValue $fieldValue): void
     {
         $argumentName = $this->directiveArgValue('name');
-        if (!$argumentName) {
+        if (! $argumentName) {
             throw new DefinitionException(
                 "The `inject` directive on {$fieldValue->getParentName()} [{$fieldValue->getFieldName()}] must have a `name` argument"
             );

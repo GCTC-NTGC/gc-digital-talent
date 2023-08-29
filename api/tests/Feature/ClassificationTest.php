@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
-use Tests\TestCase;
 use App\Models\Classification;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Tests\TestCase;
 
 class ClassificationTest extends TestCase
 {
@@ -19,8 +19,11 @@ class ClassificationTest extends TestCase
     use WithFaker;
 
     protected $baseUser;
+
     protected $adminUser;
+
     protected $uuid;
+
     protected $toBeDeletedUUID;
 
     protected function setUp(): void
@@ -36,27 +39,27 @@ class ClassificationTest extends TestCase
             'sub' => 'base-user@test.com',
         ]);
         $this->baseUser->syncRoles([
-            "guest",
-            "base_user",
-            "pool_operator",
-            "request_responder"
+            'guest',
+            'base_user',
+            'pool_operator',
+            'request_responder',
         ]);
 
         $this->adminUser = User::create([
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
         ]);
-        $this->adminUser->addRole("platform_admin");
+        $this->adminUser->addRole('platform_admin');
 
         $this->uuid = $this->faker->UUID();
         $this->toBeDeletedUUID = $this->faker->UUID();
 
         Classification::factory()->create([
-            'id' => $this->uuid
+            'id' => $this->uuid,
         ]);
 
         Classification::factory()->create([
-            'id' => $this->toBeDeletedUUID
+            'id' => $this->toBeDeletedUUID,
         ]);
     }
 
@@ -110,9 +113,9 @@ class ClassificationTest extends TestCase
             'classification' => [
                 'name' => [
                     'en' => 'New Name (EN)',
-                    'fr' => 'New Name (FR)'
-                ]
-            ]
+                    'fr' => 'New Name (FR)',
+                ],
+            ],
         ];
 
         $mutation =
@@ -149,11 +152,11 @@ class ClassificationTest extends TestCase
             'classification' => [
                 'name' => [
                     'en' => 'New Name (EN)',
-                    'fr' => 'New Name (FR)'
+                    'fr' => 'New Name (FR)',
                 ],
                 'group' => 'IT',
                 'level' => 1,
-            ]
+            ],
         ];
 
         $mutation =

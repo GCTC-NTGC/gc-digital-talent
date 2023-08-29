@@ -23,6 +23,7 @@ We do several types of testing: (internal documentation linked when available)
 
 - code style checks (aka _linting_)
   - **ESLint** feat. **Prettier** (JavaScript)
+  - **Pint** (PHP)
 - _unit_ testing
   - **Jest** (ReactJS)
   - **PHPUnit** (PHP)

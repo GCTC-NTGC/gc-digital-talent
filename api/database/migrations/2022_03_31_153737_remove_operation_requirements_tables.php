@@ -53,7 +53,6 @@ class RemoveOperationRequirementsTables extends Migration
             $table->dropColumn('accepted_operational_requirements');
         });
 
-
         // 2021_05_27_182844_create_operational_requirements_table.php
         Schema::create('operational_requirements', function (Blueprint $table) {
             $table->uuid('id')->primary('id');

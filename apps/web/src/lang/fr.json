@@ -8328,10 +8328,6 @@
     "defaultMessage": "Il manque des renseignements à ces compétences nécessaires :",
     "description": "Text that appears when a user is missing required skills on their profile."
   },
-  "w6vHXf": {
-    "defaultMessage": "Recherche...",
-    "description": "Message to display when a search is in progress."
-  },
   "w7E0He": {
     "defaultMessage": "Compétences essentielles",
     "description": "Title for the required skills snapshot section"

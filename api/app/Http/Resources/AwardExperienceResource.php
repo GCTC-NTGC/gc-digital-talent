@@ -23,7 +23,7 @@ class AwardExperienceResource extends JsonResource
             'awardedTo' => $this->awarded_to,
             'awardedScope' => $this->awarded_scope,
             'details' => $this->details,
-            'skills' => SkillResource::collection($this->skills)
+            'skills' => SkillResource::collection($this->skills),
         ];
     }
 }

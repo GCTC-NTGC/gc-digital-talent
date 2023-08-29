@@ -6,8 +6,8 @@ use App\Models\ApplicantFilter;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Skill;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\ApiEnums;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicantFilterFactory extends Factory
 {
@@ -58,6 +58,7 @@ class ApplicantFilterFactory extends Factory
                     $sparseAttributes[$key] = $value;
                 }
             }
+
             return $sparseAttributes;
         });
     }
@@ -81,7 +82,7 @@ class ApplicantFilterFactory extends Factory
             )->get();
             $filter->skills()->saveMany($skills);
 
-            $pools = Pool::whereNotNull("published_at")->inRandomOrder()->limit(
+            $pools = Pool::whereNotNull('published_at')->inRandomOrder()->limit(
                 $this->faker->numberBetween($minCount, 1)
             )->get();
             $filter->pools()->saveMany($pools);

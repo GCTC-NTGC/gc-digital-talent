@@ -1,8 +1,9 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class LaratrustSetupTeams extends Migration
 {
@@ -43,7 +44,7 @@ class LaratrustSetupTeams extends Migration
         });
 
         Schema::table('permission_user', function (Blueprint $table) {
-           // Drop permission foreign key and primary key
+            // Drop permission foreign key and primary key
             $table->dropForeign(['permission_id']);
             $table->dropPrimary(['permission_id', 'user_id', 'user_type']);
 

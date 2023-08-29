@@ -23,11 +23,12 @@ class SkillFamilyFactory extends Factory
     public function definition()
     {
         $name = $this->faker->unique()->catchPhrase();
+
         return [
             'key' => KeyStringHelpers::toKeyString($name),
-            'name' => ['en' => $name . ' EN', 'fr' => $name . ' FR'],
-            'description' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
-            'category' => $this->faker->randomElement(['TECHNICAL', 'BEHAVIOURAL'])
+            'name' => ['en' => $name.' EN', 'fr' => $name.' FR'],
+            'description' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
+            'category' => $this->faker->randomElement(['TECHNICAL', 'BEHAVIOURAL']),
         ];
     }
 
