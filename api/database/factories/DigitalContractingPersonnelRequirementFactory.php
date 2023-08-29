@@ -42,7 +42,7 @@ class DigitalContractingPersonnelRequirementFactory extends Factory
             ->afterMaking(function (DigitalContractingPersonnelRequirement $personnelRequirement) {
                 if (is_null($personnelRequirement->digital_contracting_questionnaire_id)) {
                     // https://laravel.com/docs/10.x/eloquent-factories#belongs-to-relationships
-                    throw new ErrorException("digital_contracting_questionnaire_id must be set to use this factory.  Try calling this factory with the `for` method to specify the parent questionnaire.");
+                    throw new ErrorException('digital_contracting_questionnaire_id must be set to use this factory.  Try calling this factory with the `for` method to specify the parent questionnaire.');
                 }
             })
             ->afterCreating(function (DigitalContractingPersonnelRequirement $personnelRequirement) {

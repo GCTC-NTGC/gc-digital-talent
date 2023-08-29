@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class AddExtraConstraints extends Migration
 {
@@ -18,7 +18,6 @@ class AddExtraConstraints extends Migration
          * The first field in the index is the one that would typically be searchable
          * try to make partial indexing possible.
          * **/
-
 
         // a pool may not have duplicate CMO assets assigned to it
         Schema::table('asset_cmo_asset_pool', function (Blueprint $table) {

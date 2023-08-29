@@ -2,9 +2,9 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use App\Models\PoolCandidate;
 use Database\Helpers\ApiEnums;
+use Illuminate\Contracts\Validation\Rule;
 
 class HasEducationRequirement implements Rule
 {
@@ -21,17 +21,18 @@ class HasEducationRequirement implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string $attribute
-     * @param  mixed $value
+     * @param  string  $attribute
+     * @param  mixed  $value
      * @return bool
      */
     public function passes($attribute, $value)
     {
         $poolCandidate = PoolCandidate::findOrFail($value);
-        if (!$poolCandidate->education_requirement_option) {
+        if (! $poolCandidate->education_requirement_option) {
             return false;
         }
         $experiences = $poolCandidate->getEducationRequirementExperiencesAttribute();
+
         return isset($experiences) && (count($experiences) >= 1);
     }
 

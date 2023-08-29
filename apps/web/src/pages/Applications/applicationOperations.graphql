@@ -43,6 +43,7 @@ fragment experienceFragment on Experience {
       en
       fr
     }
+    category
     experienceSkillRecord {
       details
     }
@@ -166,6 +167,7 @@ query GetApplication($id: UUID!) {
             en
             fr
           }
+          category
           experienceSkillRecord {
             details
           }
@@ -245,6 +247,7 @@ fragment poolSkills on Skill {
     en
     fr
   }
+  category
   families {
     id
     key
@@ -256,7 +259,6 @@ fragment poolSkills on Skill {
       en
       fr
     }
-    category
   }
 }
 

@@ -1,13 +1,12 @@
 <?php
 
-use App\Models\User;
 use App\Models\Role;
 use App\Models\Team;
-use Database\Helpers\ApiEnums;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
 class UserRoleTest extends TestCase
@@ -17,6 +16,7 @@ class UserRoleTest extends TestCase
     use RefreshesSchemaCache;
 
     protected $adminUser;
+
     protected $baseUser;
 
     protected function setUp(): void
@@ -48,7 +48,7 @@ class UserRoleTest extends TestCase
         $role = Role::factory()->create(['is_team_based' => false]);
         $user = User::create()->syncRoles([$role]);
 
-        $this->actingAs($this->adminUser, "api")->graphQL(
+        $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
             query user($id: UUID!) {
@@ -67,11 +67,11 @@ class UserRoleTest extends TestCase
                         [
                             'role' => [
                                 'name' => $role->name,
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -87,7 +87,7 @@ class UserRoleTest extends TestCase
             })
             ->create();
 
-        $this->actingAs($this->adminUser, "api")->graphQL(
+        $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
             query teams {
@@ -102,11 +102,10 @@ class UserRoleTest extends TestCase
         )->assertJsonFragment(
             [
                 'id' => $team->id,
-                'roleAssignments' =>
-                $users->map(function ($u) {
+                'roleAssignments' => $users->map(function ($u) {
                     return [
                         'user' => [
-                            'id' => $u->id
+                            'id' => $u->id,
                         ],
                     ];
                 })->toArray(),
@@ -121,7 +120,7 @@ class UserRoleTest extends TestCase
         $baseRole = Role::where('name', 'base_user')->sole();
         $roleCount = Role::count();
 
-        $this->actingAs($this->adminUser, "api")->graphQL(
+        $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
             query roles {
@@ -134,14 +133,13 @@ class UserRoleTest extends TestCase
               }
         '
         )->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has('data.roles', $roleCount) // Returns all the roles
+            fn (AssertableJson $json) => $json->has('data.roles', $roleCount) // Returns all the roles
         )->assertJsonFragment(
             [
                 'id' => $platformAdminRole->id, // Check that platform_admin role has one user
                 'roleAssignments' => [[
                     'user' => [
-                        'id' => $this->adminUser->id
+                        'id' => $this->adminUser->id,
                     ],
                 ]],
             ],
@@ -150,10 +148,10 @@ class UserRoleTest extends TestCase
                 'id' => $baseRole->id, // Check that base_role has two users.
                 'roleAssignments' => [[
                     'user' => [
-                        'id' => $this->baseUser->id
+                        'id' => $this->baseUser->id,
                     ],
                     'user' => [
-                        'id' => $this->adminUser->id
+                        'id' => $this->adminUser->id,
                     ],
                 ]],
             ]
@@ -171,7 +169,7 @@ class UserRoleTest extends TestCase
             $user->syncRoles([$role], $team);
         });
 
-        $this->actingAs($this->adminUser, "api")->graphQL(
+        $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
             query user($id: UUID!) {
@@ -188,7 +186,7 @@ class UserRoleTest extends TestCase
             return [
                 'team' => [
                     'id' => $team->id,
-                ]
+                ],
             ];
         })->toArray());
     }
@@ -200,7 +198,7 @@ class UserRoleTest extends TestCase
         $newRole = Role::factory()->create(['is_team_based' => false]);
         $user = User::factory()->create()->syncRoles([$oldRole]);
 
-        $this->actingAs($this->adminUser, "api")->graphQL(
+        $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
             mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
@@ -215,25 +213,25 @@ class UserRoleTest extends TestCase
                 'id' => $user->id,
                 'user' => [
                     'roleAssignmentsInput' => [
-                        'attach' =>  [
+                        'attach' => [
                             'roles' => [$newRole->id],
                         ],
                         'detach' => [
-                            'roles' => [$oldRole->id]
-                        ]
-                    ]
-                ]
+                            'roles' => [$oldRole->id],
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'updateUserAsAdmin' => [
                     'roleAssignments' => [
                         [
-                            'role' =>  ['id' => $newRole->id]
-                        ]
-                    ]
-                ]
-            ]
+                            'role' => ['id' => $newRole->id],
+                        ],
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -246,7 +244,7 @@ class UserRoleTest extends TestCase
         $newTeam = Team::factory()->create();
         $user = User::factory()->create()->syncRoles([$oldRole], $oldTeam);
 
-        $this->actingAs($this->adminUser, "api")->graphQL(
+        $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
@@ -262,22 +260,22 @@ class UserRoleTest extends TestCase
                 'id' => $user->id,
                 'user' => [
                     'roleAssignmentsInput' => [
-                        'attach' =>  [
+                        'attach' => [
                             'roles' => [$newRole->id],
-                            'team' => $newTeam->id
+                            'team' => $newTeam->id,
                         ],
                         'detach' => [
                             'roles' => [$oldRole->id],
-                            'team' => $oldTeam->id
-                        ]
-                    ]
-                ]
+                            'team' => $oldTeam->id,
+                        ],
+                    ],
+                ],
             ]
         )->assertJsonFragment([
             [
-                'role' =>  ['id' => $newRole->id],
-                'team' => ['id' => $newTeam->id]
-            ]
+                'role' => ['id' => $newRole->id],
+                'team' => ['id' => $newTeam->id],
+            ],
         ]);
     }
 
@@ -288,7 +286,7 @@ class UserRoleTest extends TestCase
         $team = Team::factory()->create();
         $user = User::factory()->create();
 
-        $this->actingAs($this->adminUser, "api")->graphQL(
+        $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
                  mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
@@ -304,17 +302,17 @@ class UserRoleTest extends TestCase
                 'id' => $user->id,
                 'user' => [
                     'roleAssignmentsInput' => [
-                        'attach' =>  [
+                        'attach' => [
                             'roles' => [$role->id],
-                            'team' => $team->id
-                        ]
-                    ]
-                ]
+                            'team' => $team->id,
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
-            'errors' =>  [
-                ['message' => "Validation failed for the field [updateUserAsAdmin]."]
-            ]
+            'errors' => [
+                ['message' => 'Validation failed for the field [updateUserAsAdmin].'],
+            ],
         ]);
     }
 
@@ -324,7 +322,7 @@ class UserRoleTest extends TestCase
         $role = Role::factory()->create(['is_team_based' => true]);
         $user = User::factory()->create();
 
-        $this->actingAs($this->adminUser, "api")->graphQL(
+        $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
                     mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
@@ -340,16 +338,16 @@ class UserRoleTest extends TestCase
                 'id' => $user->id,
                 'user' => [
                     'roleAssignmentsInput' => [
-                        'attach' =>  [
-                            'roles' => [$role->id]
-                        ]
-                    ]
-                ]
+                        'attach' => [
+                            'roles' => [$role->id],
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
-            'errors' =>  [
-                ['message' => "Validation failed for the field [updateUserAsAdmin]."]
-            ]
+            'errors' => [
+                ['message' => 'Validation failed for the field [updateUserAsAdmin].'],
+            ],
         ]);
     }
 
@@ -371,9 +369,9 @@ class UserRoleTest extends TestCase
             ',
             ['id' => $users[1]->id]
         )->assertJson([
-            'errors' =>  [
-                ['message' => "This action is unauthorized."]
-            ]
+            'errors' => [
+                ['message' => 'This action is unauthorized.'],
+            ],
         ]);
     }
 
@@ -391,7 +389,7 @@ class UserRoleTest extends TestCase
                  }
            '
         )->assertJsonFragment([
-            ["id" => $role->id]
+            ['id' => $role->id],
         ]);
     }
 
@@ -447,16 +445,16 @@ class UserRoleTest extends TestCase
                 'id' => $otherUser->id,
                 'user' => [
                     'roleAssignmentsInput' => [
-                        'attach' =>  [
+                        'attach' => [
                             'roles' => [$newRole->id],
-                            'team' => $newTeam->id
+                            'team' => $newTeam->id,
                         ],
                         'detach' => [
                             'roles' => [$oldRole->id],
-                            'team' => $oldTeam->id
-                        ]
-                    ]
-                ]
+                            'team' => $oldTeam->id,
+                        ],
+                    ],
+                ],
             ]
         )->assertGraphQLErrorMessage('This action is unauthorized.');
     }

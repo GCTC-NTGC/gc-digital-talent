@@ -1,14 +1,14 @@
 <?php
 
-use App\Models\User;
 use App\Models\Role;
+use App\Models\User;
 use App\Providers\AuthServiceProvider;
 use App\Services\OpenIdBearerTokenService;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lcobucci\JWT\Token\DataSet;
-use Tests\TestCase;
 use Mockery\MockInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class AuthServiceProviderTest extends TestCase
 {
@@ -134,7 +134,7 @@ class AuthServiceProviderTest extends TestCase
     public function testUserIsNotAutoCreatedWhenAlreadyExisting()
     {
         $testSub = 'test-sub';
-        $testRoles = ["TEST"];
+        $testRoles = ['TEST'];
 
         $mockClaims = Mockery::mock(new DataSet(['sub' => $testSub], ''));
 

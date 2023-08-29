@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -16,15 +16,15 @@ return new class extends Migration
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
             $table->dropColumn([
-                "is_woman",
-                "has_disability",
-                "is_indigenous",
-                "is_visible_minority",
-                "has_diploma",
-                "language_ability",
-                "location_preferences",
-                "accepted_operational_requirements",
-                "expected_salary",
+                'is_woman',
+                'has_disability',
+                'is_indigenous',
+                'is_visible_minority',
+                'has_diploma',
+                'language_ability',
+                'location_preferences',
+                'accepted_operational_requirements',
+                'expected_salary',
             ]);
         });
 

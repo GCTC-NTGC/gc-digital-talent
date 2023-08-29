@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Query\Expression;
 
 return new class extends Migration
 {
@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->boolean('read_preamble')->nullable();
             $table->uuid('department_id')->nullable();
-            $table->foreign('department_id')->references("id")->on("departments");
+            $table->foreign('department_id')->references('id')->on('departments');
             $table->string('department_other')->nullable();
             $table->string('branch_other')->nullable();
             $table->string('business_owner_name')->nullable();

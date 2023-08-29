@@ -15,7 +15,6 @@ class ApplicationSubmitted
      * The pool candidate being submitted
      *
      * @var PoolCandidate
-     *
      */
     public $poolCandidate;
 

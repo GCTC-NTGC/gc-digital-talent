@@ -12,7 +12,8 @@ on:
       - .github/workflows/translations.yml
       - apps/**
       - packages/**
-
+  merge_group:
+    branches: [main]
 jobs:
   run-linters:
     name: Check translations

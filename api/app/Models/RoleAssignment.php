@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  *
  * @property string $id
  */
-
 class RoleAssignment extends Model
 {
     /**
@@ -22,8 +21,6 @@ class RoleAssignment extends Model
     protected $table = 'role_user';
 
     protected $keyType = 'string';
-
-
 
     public function role(): BelongsTo
     {

@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up()
     {
-        DB::statement("ALTER TABLE pool_candidates DROP COLUMN status_weight;");
+        DB::statement('ALTER TABLE pool_candidates DROP COLUMN status_weight;');
         DB::statement("ALTER TABLE pool_candidates ADD COLUMN status_weight INT
         GENERATED ALWAYS AS
         (case
@@ -47,7 +47,7 @@ return new class extends Migration
     public function down()
     {
 
-        DB::statement("ALTER TABLE pool_candidates DROP COLUMN status_weight;");
+        DB::statement('ALTER TABLE pool_candidates DROP COLUMN status_weight;');
         DB::statement("ALTER TABLE pool_candidates ADD COLUMN status_weight INT
         GENERATED ALWAYS AS
         (case

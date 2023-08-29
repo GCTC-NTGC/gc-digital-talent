@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $deleted_at
  */
-
 class ScreeningQuestionResponse extends Model
 {
     protected $keyType = 'string';
