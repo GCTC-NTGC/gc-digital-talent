@@ -20,7 +20,11 @@ describe("Submit Application for IAP Workflow Tests", () => {
     });
 
     cy.getSkills().then((allSkills) => {
-      cy.wrap([allSkills[0].id]).as("testSkillIds"); // take the first ID for testing
+      cy.wrap([
+        [...allSkills].find(
+          (skill) => skill.category === SkillCategory.Technical,
+        ).id,
+      ]).as("testSkillIds"); // take the first ID for testing
     });
     cy.getGenericJobTitles().then((allGenericJobTitles) => {
       cy.wrap([allGenericJobTitles[0].id]).as("testGenericJobTitleIds"); // take the first ID for testing
