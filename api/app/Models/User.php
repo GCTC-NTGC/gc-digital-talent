@@ -797,9 +797,9 @@ class User extends Model implements Authenticatable, LaratrustUser
         if (! $user->isAbleTo('view-any-user')) {
             $query->where(function (Builder $query) use ($user) {
                 if ($user->isAbleTo('view-team-user')) {
-                    $query->whereHas('poolCandidates', function (Builder $query) use ($user) {
+                    $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
                         $teamIds = $user->rolesTeams()->get()->pluck('id');
-                        $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
+                        $query->whereHas('pool', function (Builder $query) use ($teamIds) {
                             return $query
                                 ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
                                 ->whereHas('team', function (Builder $query) use ($teamIds) {
@@ -807,6 +807,9 @@ class User extends Model implements Authenticatable, LaratrustUser
                                 });
                         });
                     });
+                }
+                if ($user->isAbleTo('view-own-user')) {
+                    $query->orWhere('id', $user->id);
                 }
             });
         }
