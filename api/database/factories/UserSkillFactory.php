@@ -29,6 +29,8 @@ class UserSkillFactory extends Factory
             'skill_id' => Skill::factory(),
             'skill_level' => $this->faker->randomElement(ApiEnums::skillLevels()),
             'when_skill_used' => $this->faker->randomElement(ApiEnums::whenSkillUsed()),
+            'top_skills_rank' => $this->faker->boolean(25) ? $this->faker->randomDigitNotZero() : null,
+            'improve_skills_rank' => $this->faker->boolean(25) ? $this->faker->randomDigitNotZero() : null,
         ];
     }
 

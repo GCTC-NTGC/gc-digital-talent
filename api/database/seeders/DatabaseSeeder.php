@@ -87,15 +87,59 @@ class DatabaseSeeder extends Seeder
         $pool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
         $this->seedPoolCandidate($applicant, $pool);
         $this->seedAwardExperienceForPool($applicant, $digitalTalentPool);
-        $applicantUserSkills = $applicant->userSkills;
+        $applicantUserSkills = $applicant->userSkills->load(['skill']);
+        $applicantUserSkillTechnicalIndex = 0;
+        $applicantUserSkillBehaviouralIndex = 0;
         foreach ($applicantUserSkills as $applicantUserSkill) {
-            $isSkillLevelSet = $faker->boolean(75);
-            $isWhenSkillUsedSet = $faker->boolean(75);
-            if ($isSkillLevelSet) {
+            if ($faker->boolean(75)) {
                 $applicantUserSkill->skill_level = $faker->randomElement(ApiEnums::skillLevels());
             }
-            if ($isWhenSkillUsedSet) {
+            if ($faker->boolean(75)) {
                 $applicantUserSkill->when_skill_used = $faker->randomElement(ApiEnums::whenSkillUsed());
+            }
+            // consistent seeding of applicant's skill rankings that matches what is expected
+            // four types independent of each other, starting from 1, with no duplicates or gaps
+            if ($applicantUserSkill->skill->category === 'TECHNICAL') {
+                switch ($applicantUserSkillTechnicalIndex) {
+                    case 0:
+                        $applicantUserSkill->top_skills_rank = 1;
+                        break;
+                    case 1:
+                        $applicantUserSkill->improve_skills_rank = 1;
+                        break;
+                    case 2:
+                        $applicantUserSkill->top_skills_rank = 2;
+                        break;
+                    case 3:
+                        $applicantUserSkill->top_skills_rank = 3;
+                        $applicantUserSkill->improve_skills_rank = 2;
+                        break;
+                    case 4:
+                        $applicantUserSkill->top_skills_rank = 4;
+                        break;
+                }
+                $applicantUserSkillTechnicalIndex++;
+            }
+            if ($applicantUserSkill->skill->category === 'BEHAVIOURAL') {
+                switch ($applicantUserSkillBehaviouralIndex) {
+                    case 0:
+                        $applicantUserSkill->improve_skills_rank = 1;
+                        break;
+                    case 1:
+                        $applicantUserSkill->top_skills_rank = 1;
+                        break;
+                    case 2:
+                        $applicantUserSkill->improve_skills_rank = 2;
+                        break;
+                    case 3:
+                        $applicantUserSkill->improve_skills_rank = 3;
+                        $applicantUserSkill->top_skills_rank = 2;
+                        break;
+                    case 4:
+                        $applicantUserSkill->improve_skills_rank = 4;
+                        break;
+                }
+                $applicantUserSkillBehaviouralIndex++;
             }
             $applicantUserSkill->save();
         }
