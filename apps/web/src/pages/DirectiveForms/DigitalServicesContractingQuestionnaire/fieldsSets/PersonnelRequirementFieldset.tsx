@@ -15,13 +15,14 @@ import {
   PersonnelScreeningLevel,
   PersonnelTeleworkOption,
   Skill,
+  SkillLevel,
 } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
 
 import SkillDialog from "~/components/SkillDialog/SkillDialog";
 import { FormValues as SkillDialogFormValues } from "~/components/SkillDialog/types";
 
-import { enumToOptions } from "../../util";
+import { enumToOptions, stringToEnum } from "../../util";
 import {
   getPersonnelLanguage,
   getPersonnelScreeningLevel,
@@ -138,26 +139,59 @@ const PersonnelRequirementFieldset = ({
             })}
           </Field.Legend>
           {selectedSkillRequirements.map((requirement) => {
-            const skillName = skills.find((s) => s.id === requirement.skillId);
+            const selectedSkillModel = skills.find(
+              (s) => s.id === requirement.skillId,
+            );
+            const selectedSkillFamilyModel = selectedSkillModel?.families
+              ?.length
+              ? selectedSkillModel?.families[0]
+              : null;
             const levelName = getSkillLevel(requirement.level);
             return (
               <div
                 key={requirement.skillId}
                 data-h2-display="base(flex)"
-                data-h2-justify-content="base(space-between)"
+                data-h2-justify-content="base(flex-end)"
+                data-h2-gap="base(x0.5)"
               >
-                {intl.formatMessage(
-                  {
-                    defaultMessage: "{skillName} at {skillLevel}",
-                    id: "TPHO1i",
-                    description:
-                      "Display of skill requirement in the _digital services contracting questionnaire_",
-                  },
-                  {
-                    skillName: getLocalizedName(skillName?.name, intl),
-                    skillLevel: intl.formatMessage(levelName),
-                  },
-                )}
+                <span data-h2-flex-grow="base(2)">
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: "{skillName} at {skillLevel}",
+                      id: "TPHO1i",
+                      description:
+                        "Display of skill requirement in the _digital services contracting questionnaire_",
+                    },
+                    {
+                      skillName: getLocalizedName(
+                        selectedSkillModel?.name,
+                        intl,
+                      ),
+                      skillLevel: intl.formatMessage(levelName),
+                    },
+                  )}
+                </span>
+                <SkillDialog
+                  skills={skills}
+                  context="directive_forms"
+                  onSave={handleSkillDialogSave}
+                  trigger={{
+                    label: intl.formatMessage({
+                      defaultMessage: "Edit",
+                      id: "vXwT4K",
+                      description:
+                        "Generic link text to edit a miscellaneous item",
+                    }),
+                    icon: null,
+                    mode: "text",
+                  }}
+                  initialState={{
+                    skill: requirement.skillId,
+                    level: stringToEnum(SkillLevel, requirement.level),
+                    category: selectedSkillFamilyModel?.category,
+                    family: selectedSkillFamilyModel?.id,
+                  }}
+                />
                 <Button
                   onClick={() => removeSkill(requirement.skillId)}
                   icon={XMarkIcon}
