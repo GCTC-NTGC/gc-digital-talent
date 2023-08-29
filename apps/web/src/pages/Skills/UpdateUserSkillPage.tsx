@@ -92,9 +92,7 @@ const UpdateUserSkillForm = ({
       ),
   );
 
-  const isTechnical = skill.families?.some(
-    (family) => family.category === SkillCategory.Technical,
-  );
+  const isTechnical = skill.category === SkillCategory.Technical;
   const levelGetter = isTechnical
     ? getTechnicalSkillLevel
     : getBehaviouralSkillLevel;
