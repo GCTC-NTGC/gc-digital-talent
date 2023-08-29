@@ -197,7 +197,7 @@ type User {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -594,7 +594,7 @@ input EquitySelectionsInput {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification]
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelections
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
@@ -604,7 +604,7 @@ type PoolCandidateFilter {
 
 type ApplicantFilter {
   id: ID!
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelections
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
@@ -646,7 +646,6 @@ type SkillFamily {
   name: LocalizedString
   description: LocalizedString
   skills: [Skill!]
-  category: SkillCategory!
 }
 
 type Skill {
@@ -655,6 +654,7 @@ type Skill {
   name: LocalizedString!
   description: LocalizedString
   keywords: SkillKeywords
+  category: SkillCategory!
   families: [SkillFamily!]
   experienceSkillRecord: ExperienceSkillRecord
 }
@@ -1178,14 +1178,12 @@ input CreateSkillFamilyInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   skills: SkillBelongsToMany
-  category: SkillCategory!
 }
 
 input UpdateSkillFamilyInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   skills: SkillBelongsToMany
-  category: SkillCategory
 }
 
 input SkillFamilyBelongsToMany {
@@ -1203,6 +1201,7 @@ input CreateSkillInput {
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
   keywords: SkillKeywordsInput
+  category: SkillCategory!
 }
 
 input UpdateSkillInput {
@@ -1210,6 +1209,7 @@ input UpdateSkillInput {
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
   keywords: SkillKeywordsInput
+  category: SkillCategory
 }
 
 input WorkExperienceInput {

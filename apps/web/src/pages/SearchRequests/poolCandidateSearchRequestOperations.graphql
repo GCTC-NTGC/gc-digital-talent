@@ -74,6 +74,7 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
         en
         fr
       }
+      category
     }
     pools {
       id
