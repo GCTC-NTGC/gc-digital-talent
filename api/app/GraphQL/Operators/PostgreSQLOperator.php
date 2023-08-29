@@ -2,12 +2,11 @@
 
 namespace App\GraphQL\Operators;
 
-use \Nuwave\Lighthouse\WhereConditions\Operator;
-use \Nuwave\Lighthouse\WhereConditions\SQLOperator;
+use Nuwave\Lighthouse\WhereConditions\Operator;
+use Nuwave\Lighthouse\WhereConditions\SQLOperator;
 
 class PostgreSQLOperator extends SQLOperator implements Operator
 {
-
     public function enumDefinition(): string
     {
         return

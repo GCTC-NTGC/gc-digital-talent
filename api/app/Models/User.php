@@ -2,23 +2,22 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
+use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Notifications\Notifiable;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -33,25 +32,25 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $preferred_lang
  * @property string $current_province
  * @property string $current_city
- * @property boolean $looking_for_english
- * @property boolean $looking_for_french
- * @property boolean $looking_for_bilingual
+ * @property bool $looking_for_english
+ * @property bool $looking_for_french
+ * @property bool $looking_for_bilingual
  * @property string $bilingual_evaluation
  * @property string $comprehension_level
  * @property string $written_level
  * @property string $verbal_level
  * @property string $estimated_language_ability
  * @property string $is_gov_employee
- * @property boolean $has_priority_entitlement
+ * @property bool $has_priority_entitlement
  * @property string $priority_number
  * @property string $department
  * @property string $current_classification
  * @property string $citizenship
  * @property string $armed_forces_status
- * @property boolean $is_woman
- * @property boolean $has_disability
- * @property boolean $is_visible_minority
- * @property boolean $has_diploma
+ * @property bool $is_woman
+ * @property bool $has_disability
+ * @property bool $is_visible_minority
+ * @property bool $has_diploma
  * @property array $location_preferences
  * @property string $location_exemptions
  * @property array $position_duration
@@ -65,10 +64,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $preferred_language_for_interview
  * @property string $preferred_language_for_exam
  */
-
 class User extends Model implements Authenticatable, LaratrustUser
 {
-
     use Authorizable;
     use HasRolesAndPermissions;
     use HasFactory;
@@ -88,25 +85,29 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     protected $fillable = [
         'email',
-        'sub'
+        'sub',
     ];
 
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
     }
+
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class);
     }
+
     public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class, "department");
+        return $this->belongsTo(Department::class, 'department');
     }
+
     public function currentClassification(): BelongsTo
     {
-        return $this->belongsTo(Classification::class, "current_classification");
+        return $this->belongsTo(Classification::class, 'current_classification');
     }
+
     /**
      * @deprecated
      */
@@ -114,23 +115,28 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         return $this->hasRole('platform_admin');
     }
+
     // All the relationships for experiences
     public function awardExperiences(): HasMany
     {
         return $this->hasMany(AwardExperience::class);
     }
+
     public function communityExperiences(): HasMany
     {
         return $this->hasMany(CommunityExperience::class);
     }
+
     public function educationExperiences(): HasMany
     {
         return $this->hasMany(EducationExperience::class);
     }
+
     public function personalExperiences(): HasMany
     {
         return $this->hasMany(PersonalExperience::class);
     }
+
     public function workExperiences(): HasMany
     {
         return $this->hasMany(WorkExperience::class);
@@ -144,6 +150,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         $collection = $collection->merge($this->educationExperiences);
         $collection = $collection->merge($this->personalExperiences);
         $collection = $collection->merge($this->workExperiences);
+
         return $collection;
     }
 
@@ -157,10 +164,12 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         return $this->hasMany(UserSkill::class, 'user_id');
     }
+
     public function skills()
     {
         return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill());
     }
+
     // This method will add the specified skills to UserSkills if they don't exist yet.
     public function addSkills($skill_ids)
     {
@@ -177,7 +186,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         // If this User instance continues to be used, ensure the in-memory instance has the updated skills.
         $this->refresh();
     }
-
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
     public function getIsProfileCompleteAttribute(): bool
@@ -198,10 +206,10 @@ class User extends Model implements Authenticatable, LaratrustUser
             ) or
             is_null($this->attributes['is_gov_employee']) or
             is_null($this->attributes['has_priority_entitlement']) or
-            ($this->attributes['has_priority_entitlement'] && is_null($this->attributes["priority_number"])) or
+            ($this->attributes['has_priority_entitlement'] && is_null($this->attributes['priority_number'])) or
             is_null($this->attributes['location_preferences']) or
             empty($this->attributes['location_preferences']) or
-            empty($this->attributes['position_duration'])  or
+            empty($this->attributes['position_duration']) or
             is_null($this->attributes['citizenship']) or
             is_null($this->attributes['armed_forces_status'])
         ) {
@@ -210,6 +218,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             return true;
         }
     }
+
     public static function scopeIsProfileComplete(Builder $query, ?bool $isProfileComplete): Builder
     {
         if ($isProfileComplete) {
@@ -241,6 +250,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             $query->whereNotNull('citizenship');
             $query->whereNotNull('armed_forces_status');
         }
+
         return $query;
     }
 
@@ -259,9 +269,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     /**
      * Filters users by the Pools they are in.
      *
-     * @param Builder $query
-     * @param array $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus, statuses, and suspendedStatus fields
-     * @return Builder
+     * @param  array  $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus, statuses, and suspendedStatus fields
      */
     public static function scopePoolFilters(Builder $query, ?array $poolFilters): Builder
     {
@@ -280,23 +288,24 @@ class User extends Model implements Authenticatable, LaratrustUser
                             $query->where('pool_candidates.pool_id', $filter['poolId']);
                             $query->where(function ($query) use ($filter) {
                                 if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
-                                    $query->whereDate('expiry_date', '>=', date("Y-m-d"))
+                                    $query->whereDate('expiry_date', '>=', date('Y-m-d'))
                                         ->orWhereNull('expiry_date');
-                                } else if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
-                                    $query->whereDate('expiry_date', '<', date("Y-m-d"));
+                                } elseif (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+                                    $query->whereDate('expiry_date', '<', date('Y-m-d'));
                                 }
                             });
-                            if (array_key_exists('statuses', $filter) && !empty($filter['statuses'])) {
+                            if (array_key_exists('statuses', $filter) && ! empty($filter['statuses'])) {
                                 $query->whereIn('pool_candidates.pool_candidate_status', $filter['statuses']);
                             }
                             $query->where(function ($query) use ($filter) {
                                 if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
                                     $query->where('suspended_at', '>=', Carbon::now())
                                         ->orWhereNull('suspended_at');
-                                } else if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
+                                } elseif (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
                                     $query->where('suspended_at', '<', Carbon::now());
                                 }
                             });
+
                             return $query;
                         };
                     };
@@ -307,19 +316,20 @@ class User extends Model implements Authenticatable, LaratrustUser
                             $query->orWhere($makePoolFilterClause($filter));
                         }
                     }
+
                     return $query;
                 });
         });
+
         return $query;
     }
+
     /**
      * Return applicants with PoolCandidates in any of the given pools.
      * Only consider pool candidates who are available,
      * ie not expired, with the AVAILABLE status, and the application is not suspended
      *
-     * @param Builder $query
-     * @param array $poolIds
-     * @return Builder
+     * @param  array  $poolIds
      */
     public static function scopeAvailableInPools(Builder $query, ?array $poolIds): Builder
     {
@@ -335,8 +345,10 @@ class User extends Model implements Authenticatable, LaratrustUser
                 'suspendedStatus' => ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE,
             ];
         }
+
         return self::scopePoolFilters($query, $poolFilters);
     }
+
     public static function scopeLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         if (empty($languageAbility)) {
@@ -354,8 +366,10 @@ class User extends Model implements Authenticatable, LaratrustUser
         if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL) {
             $query->where('looking_for_bilingual', true);
         }
+
         return $query;
     }
+
     public static function scopeOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
         // if no filters provided then return query unchanged
@@ -365,8 +379,10 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         // OperationalRequirements act as an AND filter. The query should only return candidates willing to accept ALL of the requirements.
         $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
+
         return $query;
     }
+
     public static function scopeLocationPreferences(Builder $query, ?array $workRegions): Builder
     {
         if (empty($workRegions)) {
@@ -383,6 +399,7 @@ class User extends Model implements Authenticatable, LaratrustUser
                 }
             }
         });
+
         return $query;
     }
 
@@ -404,8 +421,10 @@ class User extends Model implements Authenticatable, LaratrustUser
                     ->where('user_skills.skill_id', $skill_id);
             });
         }
+
         return $query;
     }
+
     public static function scopeSkillsAdditive(Builder $query, ?array $skill_ids): Builder
     {
         if (empty($skill_ids)) {
@@ -419,6 +438,7 @@ class User extends Model implements Authenticatable, LaratrustUser
                 ->whereColumn('user_skills.user_id', 'users.id')
                 ->whereIn('user_skills.skill_id', $skill_ids);
         });
+
         return $query;
     }
 
@@ -426,9 +446,7 @@ class User extends Model implements Authenticatable, LaratrustUser
      * Scopes the query to only return users who are available in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
-     * @param Builder $query
-     * @param array|null $classifications Each classification is an object with a group and a level field.
-     * @return Builder
+     * @param  array|null  $classifications Each classification is an object with a group and a level field.
      */
     public static function scopeQualifiedClassifications(Builder $query, ?array $classifications): Builder
     {
@@ -438,16 +456,13 @@ class User extends Model implements Authenticatable, LaratrustUser
         $query->whereHas('poolCandidates', function ($query) use ($classifications) {
             PoolCandidate::scopeQualifiedClassifications($query, $classifications);
         });
+
         return $query;
     }
 
     /**
      * Scopes the query to only return users who are available in a pool with one of the specified streams.
      * If $streams is empty, this scope will be ignored.
-     *
-     * @param Builder $query
-     * @param array|null $streams
-     * @return Builder
      */
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
     {
@@ -458,6 +473,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         $query->whereHas('poolCandidates', function ($query) use ($streams) {
             PoolCandidate::scopeQualifiedStreams($query, $streams);
         });
+
         return $query;
     }
 
@@ -466,14 +482,16 @@ class User extends Model implements Authenticatable, LaratrustUser
      *
      * Restrict a query by specific publishing groups
      *
-     * @param Eloquent\Builder $query The existing query being built
-     * @param ?array $publishingGroups The publishing groups to scope the query by
+     * @param  Eloquent\Builder  $query The existing query being built
+     * @param  ?array  $publishingGroups The publishing groups to scope the query by
      * @return Eloquent\Builder The resulting query
      */
     public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
     {
         // Early return if no publishing groups were supplied
-        if (empty($publishingGroups)) return $query;
+        if (empty($publishingGroups)) {
+            return $query;
+        }
 
         $query = $query->whereHas('poolCandidates', function ($query) use ($publishingGroups) {
             return PoolCandidate::scopePublishingGroups($query, $publishingGroups);
@@ -481,20 +499,21 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         return $query;
     }
+
     /**
      * Scope is IT
      *
      * Restrict a query by pool candidates that are for pools
      * containing IT specific publishing groups
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query The existing query being built
+     * @param  \Illuminate\Database\Eloquent\Builder  $query The existing query being built
      * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
     public static function scopeInITPublishingGroup(Builder $query)
     {
         $query = self::scopePublishingGroups($query, [
             ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS
+            ApiEnums::PUBLISHING_GROUP_IT_JOBS,
         ]);
 
         return $query;
@@ -505,6 +524,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         if ($hasDiploma) {
             $query->where('has_diploma', true);
         }
+
         return $query;
     }
 
@@ -519,6 +539,7 @@ class User extends Model implements Authenticatable, LaratrustUser
                 $query->orWhereJsonContains('position_duration', $duration);
             }
         });
+
         return $query;
     }
 
@@ -531,29 +552,30 @@ class User extends Model implements Authenticatable, LaratrustUser
         // OR filter - first find out how many booleans are true, create array of all true equity bools
         // equity object has 4 keys with associated bools
         $equityVars = [];
-        if (array_key_exists("is_woman", $equity) && $equity["is_woman"]) {
-            array_push($equityVars, "is_woman");
-        };
-        if (array_key_exists("has_disability", $equity) && $equity["has_disability"]) {
-            array_push($equityVars, "has_disability");
-        };
-        if (array_key_exists("is_indigenous", $equity) && $equity["is_indigenous"]) {
-            array_push($equityVars, "is_indigenous");
-        };
-        if (array_key_exists("is_visible_minority", $equity) && $equity["is_visible_minority"]) {
-            array_push($equityVars, "is_visible_minority");
-        };
+        if (array_key_exists('is_woman', $equity) && $equity['is_woman']) {
+            array_push($equityVars, 'is_woman');
+        }
+        if (array_key_exists('has_disability', $equity) && $equity['has_disability']) {
+            array_push($equityVars, 'has_disability');
+        }
+        if (array_key_exists('is_indigenous', $equity) && $equity['is_indigenous']) {
+            array_push($equityVars, 'is_indigenous');
+        }
+        if (array_key_exists('is_visible_minority', $equity) && $equity['is_visible_minority']) {
+            array_push($equityVars, 'is_visible_minority');
+        }
 
         // 3 fields are booleans, one is a jsonb field, isIndigenous = LEGACY_IS_INDIGENOUS
         $query->where(function ($query) use ($equityVars) {
             foreach ($equityVars as $index => $equityInstance) {
-                if ($equityInstance === "is_indigenous") {
+                if ($equityInstance === 'is_indigenous') {
                     $query->orWhereJsonContains('indigenous_communities', ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS);
                 } else {
                     $query->orWhere($equityVars[$index], true);
                 }
             }
         });
+
         return $query;
     }
 
@@ -570,20 +592,22 @@ class User extends Model implements Authenticatable, LaratrustUser
                 });
             });
         }
+
         return $query;
     }
 
     public static function scopeName(Builder $query, ?string $name): Builder
     {
         if ($name) {
-            $splitName = explode(" ", $name);
+            $splitName = explode(' ', $name);
             $query->where(function ($query) use ($splitName) {
                 foreach ($splitName as $index => $value) {
-                    $query->where('first_name', "ilike", "%{$value}%")
-                        ->orWhere('last_name', "ilike", "%{$value}%");
+                    $query->where('first_name', 'ilike', "%{$value}%")
+                        ->orWhere('last_name', 'ilike', "%{$value}%");
                 }
             });
         }
+
         return $query;
     }
 
@@ -592,6 +616,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         if ($telephone) {
             $query->where('telephone', 'ilike', "%{$telephone}%");
         }
+
         return $query;
     }
 
@@ -600,6 +625,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         if ($email) {
             $query->where('email', 'ilike', "%{$email}%");
         }
+
         return $query;
     }
 
@@ -608,6 +634,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         if ($isGovEmployee) {
             $query->where('is_gov_employee', true);
         }
+
         return $query;
     }
 
@@ -622,6 +649,7 @@ class User extends Model implements Authenticatable, LaratrustUser
                 $query->whereIn('role_id', $roleIds);
             });
         });
+
         return $query;
     }
 
@@ -650,7 +678,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             return true;
         }
 
-        if (gettype($indigenousCommunities) == "array") {
+        if (gettype($indigenousCommunities) == 'array') {
             return false; // case for when the array exists but lacks the legacy value which would reverse to is_indigenous = false, or is empty
         }
 
@@ -670,12 +698,12 @@ class User extends Model implements Authenticatable, LaratrustUser
         $lookingForBilingual = $this->looking_for_bilingual;
 
         // only english case
-        if ($lookingForEnglish && !$lookingForFrench && !$lookingForBilingual) {
+        if ($lookingForEnglish && ! $lookingForFrench && ! $lookingForBilingual) {
             return ApiEnums::LANGUAGE_ABILITY_ENGLISH;
         }
 
         // only french case
-        if (!$lookingForEnglish && $lookingForFrench && !$lookingForBilingual) {
+        if (! $lookingForEnglish && $lookingForFrench && ! $lookingForBilingual) {
             return ApiEnums::LANGUAGE_ABILITY_FRENCH;
         }
 
@@ -697,10 +725,11 @@ class User extends Model implements Authenticatable, LaratrustUser
         }, $rolesInput['roles']);
 
         // Laratrust doesn't recognize a string as an ID.  Therefore, we must convert the ID to a key-value pair where the key is 'id'.
-        if (array_key_exists('team', $rolesInput))
+        if (array_key_exists('team', $rolesInput)) {
             $teamIdObject = ['id' => $rolesInput['team']];
-        else
+        } else {
             $teamIdObject = null;
+        }
 
         return $this->$functionName($roleIdObjects, $teamIdObject);
     }
@@ -739,6 +768,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         $notifications->each(function ($n) {
             self::enrichNotification($n);
         });
+
         return $notifications;
     }
 
@@ -752,21 +782,21 @@ class User extends Model implements Authenticatable, LaratrustUser
         $notifications->each(function ($n) {
             self::enrichNotification($n);
         });
+
         return $notifications;
     }
-
 
     public function scopeAuthorizedToView(Builder $query)
     {
         $user = Auth::user();
 
-        if (!$user) {
+        if (! $user) {
             return $query->where('id', null);
         }
 
-        if (!$user->isAbleTo('view-any-user')) {
+        if (! $user->isAbleTo('view-any-user')) {
             $query->where(function (Builder $query) use ($user) {
-                if ($user->isAbleTo("view-team-user")) {
+                if ($user->isAbleTo('view-team-user')) {
                     $query->whereHas('poolCandidates', function (Builder $query) use ($user) {
                         $teamIds = $user->rolesTeams()->get()->pluck('id');
                         $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {

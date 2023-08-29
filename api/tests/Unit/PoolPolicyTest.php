@@ -16,13 +16,21 @@ class PoolPolicyTest extends TestCase
     use WithFaker;
 
     protected $guestUser;
+
     protected $applicantUser;
+
     protected $poolOperatorUser;
+
     protected $requestResponderUser;
+
     protected $adminUser;
+
     protected $team;
+
     protected $otherTeam;
+
     protected $teamPool;
+
     protected $unOwnedPool;
 
     protected function setUp(): void
@@ -79,7 +87,6 @@ class PoolPolicyTest extends TestCase
 
         $this->unOwnedPool = Pool::factory(['team_id' => $this->otherTeam->id])->create();
     }
-
 
     /**
      * Assert that only platform admins may view any pool

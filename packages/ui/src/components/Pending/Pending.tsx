@@ -11,6 +11,7 @@ import ErrorMessage from "./ErrorMessage";
 export interface PendingProps extends LoadingProps {
   fetching: boolean;
   error?: CombinedError;
+  pause?: boolean;
   children: React.ReactNode;
 }
 
@@ -19,12 +20,13 @@ const Pending = ({
   error,
   live = "polite",
   inline = false,
+  pause = false,
   children,
 }: PendingProps): JSX.Element => {
   const intl = useIntl();
   if (fetching) {
     return (
-      <Loading inline={inline} live={live}>
+      <Loading inline={inline} live={live} pause={pause}>
         {intl.formatMessage(commonMessages.loadingTitle)}
       </Loading>
     );
@@ -44,7 +46,7 @@ const Pending = ({
   return (
     <React.Suspense
       fallback={
-        <Loading inline={inline} live={live}>
+        <Loading inline={inline} live={live} pause={pause}>
           {intl.formatMessage(commonMessages.loadingTitle)}
         </Loading>
       }

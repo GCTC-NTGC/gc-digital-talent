@@ -25,7 +25,6 @@ GRAPHQL;
      * Sanitize the value of an argument given to a field.
      *
      * @param  mixed  $argumentValue  The value given by the client
-     *
      * @return mixed the sanitized value
      */
     public function sanitize(mixed $argumentValue): mixed
@@ -33,6 +32,7 @@ GRAPHQL;
         if (is_string($argumentValue)) {
             return strtolower($argumentValue);
         }
+
         return $argumentValue;
     }
 }

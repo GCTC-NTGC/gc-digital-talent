@@ -9,6 +9,7 @@ final class CreateUserSkill
 {
     /**
      * Create a UserSkill model or restore it
+     *
      * @param  null  $_
      * @param  array{}  $args
      * @return UserSkill
@@ -23,9 +24,10 @@ final class CreateUserSkill
         if ($existingModel !== null) {
             if (($existingModel->deleted_at !== null)) {
                 $existingModel->restore();
+
                 return $existingModel;
             }
-            throw ValidationException::withMessages(["DuplicateUserSkill"]);
+            throw ValidationException::withMessages(['DuplicateUserSkill']);
         }
 
         $createdModel = UserSkill::create([

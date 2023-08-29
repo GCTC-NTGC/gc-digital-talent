@@ -24,9 +24,10 @@ class SkillResource extends JsonResource
         if ($this->relationLoaded('experience_skill')) {
             // Match how we access it through the API
             $array['experienceSkillRecord'] = [
-                'details' => $this->experience_skill->details
+                'details' => $this->experience_skill->details,
             ];
         }
+
         return $array;
     }
 }

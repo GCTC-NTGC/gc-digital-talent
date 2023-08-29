@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\EducationExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestionResponse;
 use App\Models\User;
-use App\Models\EducationExperience;
 use App\Models\WorkExperience;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\ApiEnums;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 
 class PoolCandidateFactory extends Factory
@@ -32,7 +32,7 @@ class PoolCandidateFactory extends Factory
             'cmo_identifier' => $this->faker->word(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
             'pool_candidate_status' => $this->faker->boolean() ?
-                $this->faker->randomElement([ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])  :
+                $this->faker->randomElement([ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) :
                 ApiEnums::candidateStatuses()[array_rand((ApiEnums::candidateStatuses()))],
             'user_id' => User::factory(),
             'pool_id' => Pool::factory()->published(),
@@ -82,13 +82,13 @@ class PoolCandidateFactory extends Factory
             if ($poolCandidate->education_requirement_option === ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION) {
                 //Ensure user has at least one education experience
                 $experience = EducationExperience::factory()->create([
-                    'user_id' => $poolCandidate->user_id
+                    'user_id' => $poolCandidate->user_id,
                 ]);
                 $poolCandidate->educationRequirementEducationExperiences()->sync([$experience->id]);
-            } else if ($poolCandidate->education_requirement_option === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
+            } elseif ($poolCandidate->education_requirement_option === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
                 //Ensure user has at least one work experience
                 $experience = WorkExperience::factory()->create([
-                    'user_id' => $poolCandidate->user_id
+                    'user_id' => $poolCandidate->user_id,
                 ]);
                 $poolCandidate->educationRequirementWorkExperiences()->sync([$experience->id]);
             }

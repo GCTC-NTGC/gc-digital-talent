@@ -1,9 +1,9 @@
 <?php
 
+use Database\Helpers\ApiEnums;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Database\Helpers\ApiEnums;
 
 class UpdatePoolsTableWithKeyTasksAndStatus extends Migration
 {

@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use Carbon\Carbon;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Policies\UserPolicy;
+use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -15,8 +15,8 @@ use Nuwave\Lighthouse\Testing\MocksResolvers;
 use Nuwave\Lighthouse\Testing\UsesTestSchema;
 use Tests\TestCase;
 
-use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertSame;
 
 class DirectivesTest extends TestCase
 {
@@ -70,15 +70,15 @@ class DirectivesTest extends TestCase
                 't' => [
                     'list' => [
                         [
-                            'id' => "1",
-                            'key' => "key-one"
+                            'id' => '1',
+                            'key' => 'key-one',
                         ],
                         [
-                            'id' => "2",
-                            'key' => "key-two"
-                        ]
-                    ]
-                ]
+                            'id' => '2',
+                            'key' => 'key-two',
+                        ],
+                    ],
+                ],
             ]
         );
         // List should have been transformed by pluck before being returned by mockResolver.
@@ -128,16 +128,16 @@ class DirectivesTest extends TestCase
             [
                 't' => [
                     'obj' => [
-                        'id' => "1",
-                        'key' => "key-one"
-                    ]
-                ]
+                        'id' => '1',
+                        'key' => 'key-one',
+                    ],
+                ],
             ]
         );
         // List should have been transformed by pluck before being returned by mockResolver.
         $response->assertJson([
             'data' => [
-                'test' => '1'
+                'test' => '1',
             ],
         ]);
     }
@@ -221,12 +221,10 @@ class DirectivesTest extends TestCase
             ->andReturn(true);
         $adminResponse = $this->actingAs($admin, 'api')->graphQL($query);
         $adminResponse->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has('data.user.poolCandidates', 3)
+            fn (AssertableJson $json) => $json->has('data.user.poolCandidates', 3)
                 ->missing('errors')
                 ->etc()
         );
-
 
         // Applicant should be able to view its own user, and therefor all its candidates.
         $mock->shouldReceive('view')
@@ -234,8 +232,7 @@ class DirectivesTest extends TestCase
             ->andReturn(true);
         $applicantResponse = $this->actingAs($applicant, 'api')->graphQL($query);
         $applicantResponse->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has('data.user.poolCandidates', 3)
+            fn (AssertableJson $json) => $json->has('data.user.poolCandidates', 3)
                 ->missing('errors')
                 ->etc()
         );
@@ -246,8 +243,7 @@ class DirectivesTest extends TestCase
             ->andReturn(false);
         $otherResponse = $this->actingAs($otherApplicant, 'api')->graphQL($query);
         $otherResponse->assertJson(
-            fn (AssertableJson $json) =>
-            $json->where('data.user.poolCandidates', null)
+            fn (AssertableJson $json) => $json->where('data.user.poolCandidates', null)
                 ->where('errors.0.message', 'This action is unauthorized.')
                 ->etc()
         );
@@ -257,7 +253,7 @@ class DirectivesTest extends TestCase
     {
 
         $this->mockResolver(function ($root, array $args) {
-            return $args["date"];
+            return $args['date'];
         });
 
         $this->schema =
@@ -287,7 +283,7 @@ class DirectivesTest extends TestCase
             [
                 't' => [
                     'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-                ]
+                ],
             ]
         );
 
