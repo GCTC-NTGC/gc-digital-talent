@@ -8,10 +8,11 @@ import {
   PublishingGroup,
   SecurityStatus,
   WorkRegion,
+  SkillCategory,
 } from "@gc-digital-talent/web/src/api/generated";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import { addRolesToUser } from "../../support/userHelpers";
-import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
+import { aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Submit Application for IAP Workflow Tests", () => {
   beforeEach(() => {
