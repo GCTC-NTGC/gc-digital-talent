@@ -480,7 +480,10 @@ const PoolCandidatesTable = ({
       notes: searchType === "notes" ? searchBarTerm : undefined,
 
       // from fancy filter
-      applicantFilter: fancyFilterState?.applicantFilter,
+      applicantFilter: {
+        ...fancyFilterState?.applicantFilter,
+        hasDiploma: null, // disconnect education selection for useGetPoolCandidatesPaginatedQuery
+      },
       poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
       priorityWeight: fancyFilterState?.priorityWeight,
       expiryStatus: fancyFilterState?.expiryStatus,
