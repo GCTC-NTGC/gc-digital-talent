@@ -1,13 +1,13 @@
 <?php
 
-use App\Models\User;
+use App\Console\Commands\HardDeleteOldUsers;
 use App\Models\PoolCandidate;
+use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
-use App\Console\Commands\HardDeleteOldUsers;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class HardDeleteOldUsersTest extends TestCase
@@ -34,7 +34,7 @@ class HardDeleteOldUsersTest extends TestCase
     {
         $deletedDate = Carbon::now()->subYears(4);
         User::factory()->create([
-            'deleted_at' => $deletedDate
+            'deleted_at' => $deletedDate,
         ]);
 
         Artisan::call(HardDeleteOldUsers::class);
@@ -46,7 +46,7 @@ class HardDeleteOldUsersTest extends TestCase
     {
         $deletedDate = Carbon::now()->subYears(5);
         User::factory()->create([
-            'deleted_at' => $deletedDate
+            'deleted_at' => $deletedDate,
         ]);
 
         Artisan::call(HardDeleteOldUsers::class);
@@ -63,7 +63,7 @@ class HardDeleteOldUsersTest extends TestCase
             ->has(WorkExperience::factory())
             ->has(UserSkill::factory())
             ->create([
-                'deleted_at' => $deletedDate
+                'deleted_at' => $deletedDate,
             ]);
 
         Artisan::call(HardDeleteOldUsers::class);

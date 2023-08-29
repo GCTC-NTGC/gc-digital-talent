@@ -94,9 +94,11 @@ class AuthServiceProvider extends ServiceProvider
             $userMatch = User::where('sub', $sub)->withTrashed()->first(); // 3. match "sub" claim to user 'sub' field.
             if ($userMatch) {
                 if ($userMatch->deleted_at != null) {
-                    Log::notice('Login as deleted user: ' . $userMatch->sub);
+                    Log::notice('Login as deleted user: '.$userMatch->sub);
+
                     return abort(401, 'User has been deleted.');
                 }
+
                 return $userMatch;
             } else {
                 // No user found for given subscriber - lets auto-register them

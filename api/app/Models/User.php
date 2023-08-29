@@ -265,14 +265,14 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         static::deleting(function (User $user) {
             // We only need to run this if the user is being soft deleted
-            if (!$user->isForceDeleting()) {
+            if (! $user->isForceDeleting()) {
                 // Cascade delete to child models
                 foreach ($user->poolCandidates() as $candidate) {
                     $candidate->delete();
                 }
 
                 // Modify the email to allow it to be used for another user
-                $newEmail = $user->email . "-deleted-at-" . Carbon::now()->format('Y-m-d');
+                $newEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
                 $user->update(['email' => $newEmail]);
             }
         });
@@ -283,7 +283,7 @@ class User extends Model implements Authenticatable, LaratrustUser
                 $candidate->restore();
             }
 
-            $newEmail = $user->email . "-restored-at-" . Carbon::now()->format('Y-m-d');
+            $newEmail = $user->email.'-restored-at-'.Carbon::now()->format('Y-m-d');
             $user->update(['email' => $newEmail]);
         });
     }

@@ -39,14 +39,14 @@ class HardDeleteOldUsers extends Command
             try {
                 $user->forceDelete();
                 $this->info("User {$user->id} ({$user->first_name} {$user->last_name}, trashed on {$trashDate}) hard deleted");
-                ++$successCount;
+                $successCount++;
             } catch (Exception $e) {
                 $this->error("Failed to delete user: {$user->id} ({$user->first_name} {$user->last_name}, trashed on {$trashDate})");
                 $this->error($e->getMessage());
-                ++$failCount;
+                $failCount++;
             }
         }
-        $this->info("Command complete");
+        $this->info('Command complete');
         $this->info("{$successCount} users hard deleted");
         if ($failCount > 0) {
             $this->error("{$failCount} users failed to delete");
