@@ -12,12 +12,12 @@ use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
 use Database\Seeders\PoolSeeder;
+use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
-use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
 class ApplicantFilterTest extends TestCase
@@ -55,6 +55,7 @@ class ApplicantFilterTest extends TestCase
         $onlyId = function ($item) {
             return ['id' => $item->id];
         };
+
         return [
             'hasDiploma' => $filter->has_diploma,
             'equity' => [
@@ -83,14 +84,15 @@ class ApplicantFilterTest extends TestCase
     {
         $input = $this->filterToInput($filter);
         $input['skills'] = [
-            'sync' => $filter->skills->pluck('id')->toArray()
+            'sync' => $filter->skills->pluck('id')->toArray(),
         ];
         $input['pools'] = [
-            'sync' => $filter->pools->pluck('id')->toArray()
+            'sync' => $filter->pools->pluck('id')->toArray(),
         ];
         $input['qualifiedClassifications'] = [
-            'sync' => $filter->qualifiedClassifications->pluck('id')->toArray()
+            'sync' => $filter->qualifiedClassifications->pluck('id')->toArray(),
         ];
+
         return $input;
     }
 
@@ -103,7 +105,7 @@ class ApplicantFilterTest extends TestCase
     {
         $filters = ApplicantFilter::factory()->count(2)->create();
 
-        $response = $this->actingAs($this->adminUser, "api")->graphQL(
+        $response = $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
             query {
@@ -134,7 +136,7 @@ class ApplicantFilterTest extends TestCase
                             'isWoman' => $filters[0]->is_woman,
                             'hasDisability' => $filters[0]->has_disability,
                             'isIndigenous' => $filters[0]->is_indigenous,
-                            'isVisibleMinority' => $filters[0]->is_visible_minority
+                            'isVisibleMinority' => $filters[0]->is_visible_minority,
                         ],
                         'languageAbility' => $filters[0]->language_ability,
                         'operationalRequirements' => $filters[0]->operational_requirements,
@@ -149,7 +151,7 @@ class ApplicantFilterTest extends TestCase
                             'isWoman' => $filters[1]->is_woman,
                             'hasDisability' => $filters[1]->has_disability,
                             'isIndigenous' => $filters[1]->is_indigenous,
-                            'isVisibleMinority' => $filters[1]->is_visible_minority
+                            'isVisibleMinority' => $filters[1]->is_visible_minority,
                         ],
                         'languageAbility' => $filters[1]->language_ability,
                         'operationalRequirements' => $filters[1]->operational_requirements,
@@ -170,7 +172,7 @@ class ApplicantFilterTest extends TestCase
     {
         $filters = ApplicantFilter::factory()->count(3)->create();
 
-        $response = $this->actingAs($this->adminUser, "api")->graphQL(
+        $response = $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
             query ($id: ID!) {
@@ -203,7 +205,7 @@ class ApplicantFilterTest extends TestCase
                         'isWoman' => $filters[1]->is_woman,
                         'hasDisability' => $filters[1]->has_disability,
                         'isIndigenous' => $filters[1]->is_indigenous,
-                        'isVisibleMinority' => $filters[1]->is_visible_minority
+                        'isVisibleMinority' => $filters[1]->is_visible_minority,
                     ],
                     'languageAbility' => $filters[1]->language_ability,
                     'operationalRequirements' => $filters[1]->operational_requirements,
@@ -253,7 +255,7 @@ class ApplicantFilterTest extends TestCase
         $this->seed(PoolSeeder::class);
 
         $filters = ApplicantFilter::factory()->withRelationships()->count(10)->create();
-        $response = $this->actingAs($this->adminUser, "api")->graphQL(
+        $response = $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
             query {
@@ -364,15 +366,15 @@ class ApplicantFilterTest extends TestCase
                     'fullName' => $request->full_name,
                     'email' => $request->email,
                     'department' => [
-                        'connect' => $request->department_id
+                        'connect' => $request->department_id,
                     ],
                     'jobTitle' => $request->job_title,
                     'managerJobTitle' => $request->manager_job_title,
                     'positionType' => $request->position_type,
                     'applicantFilter' => [
-                        'create' => $this->filterToCreateInput($filter)
-                    ]
-                ]
+                        'create' => $this->filterToCreateInput($filter),
+                    ],
+                ],
             ]
         );
         $response->assertJson([
@@ -385,7 +387,7 @@ class ApplicantFilterTest extends TestCase
                     'positionType' => $request->position_type,
                     'status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW,
                     'department' => [
-                        'id' => $request->department_id
+                        'id' => $request->department_id,
                     ],
                 ],
             ],
@@ -411,14 +413,14 @@ class ApplicantFilterTest extends TestCase
             ->create([
                 'name' => [
                     'en' => 'Test Pool EN',
-                    'fr' => 'Test Pool FR'
+                    'fr' => 'Test Pool FR',
                 ],
                 'stream' => ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES,
             ]);
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([
             'pool_id' => $pool->id,
-            'user_id' => User::factory()->withSkills(10)
+            'user_id' => User::factory()->withSkills(10),
         ]);
 
         // Generate a filter that matches at least one candidate
@@ -472,7 +474,7 @@ class ApplicantFilterTest extends TestCase
             }
         ',
             [
-                'where' => $this->filterToInput($filter)
+                'where' => $this->filterToInput($filter),
             ]
         );
         // Sanity check - we should have at least one candidate in the filter.
@@ -500,19 +502,19 @@ class ApplicantFilterTest extends TestCase
                     'fullName' => $request->full_name,
                     'email' => $request->email,
                     'department' => [
-                        'connect' => $request->department_id
+                        'connect' => $request->department_id,
                     ],
                     'jobTitle' => $request->job_title,
                     'managerJobTitle' => $request->manager_job_title,
                     'positionType' => $request->position_type,
                     'applicantFilter' => [
-                        'create' => $this->filterToCreateInput($filter)
-                    ]
-                ]
+                        'create' => $this->filterToCreateInput($filter),
+                    ],
+                ],
             ]
         );
         $requestId = $response->json('data.createPoolCandidateSearchRequest.id');
-        $response = $this->actingAs($this->adminUser, "api")->graphQL(
+        $response = $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
             query poolCandidateSearchRequest($id: ID!) {
@@ -545,7 +547,7 @@ class ApplicantFilterTest extends TestCase
             }
         ',
             [
-                'id' => $requestId
+                'id' => $requestId,
             ]
         );
         $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');

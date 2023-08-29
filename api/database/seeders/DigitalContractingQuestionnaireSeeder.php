@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\DigitalContractingQuestionnaire;
+use Illuminate\Database\Seeder;
 
 class DigitalContractingQuestionnaireSeeder extends Seeder
 {

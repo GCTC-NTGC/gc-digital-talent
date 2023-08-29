@@ -1,8 +1,9 @@
 <?php
+
 namespace App\Services;
 
-use Exception;
 use DateInterval;
+use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\UnauthorizedException;
@@ -15,21 +16,25 @@ use Jose\Component\Core\Util\RSAKey;
 use Lcobucci\Clock\Clock;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
-use Lcobucci\JWT\UnencryptedToken;
 use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\UnencryptedToken;
 use Lcobucci\JWT\Validation\Constraint\IssuedBy;
-use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
+use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 
 class OpenIdBearerTokenService
 {
     private Configuration $unsecuredConfig;
+
     private Clock $clock;
+
     private string $configUri;
+
     private DateInterval $allowableClockSkew;
 
-    public function fastSigner(): Configuration {
+    public function fastSigner(): Configuration
+    {
         // replace implementations of signers with no algorithm, forUnsecuredSigner(), and dropping None
         // due to being dropped by Lcobucci, this is the recommended fast replacement
         // https://lcobucci-jwt.readthedocs.io/en/latest/upgrading/#v4x-to-v5x
@@ -37,7 +42,7 @@ class OpenIdBearerTokenService
         return Configuration::forSymmetricSigner(
             new Signer\Blake2b(),
             InMemory::base64Encoded('MpQd6dDPiqnzFSWmpUfLy4+Rdls90Ca4C8e0QD0IxqY=')
-            );
+        );
     }
 
     public function __construct(string $configUri, Clock $clock, DateInterval $allowableClockSkew)
@@ -51,26 +56,28 @@ class OpenIdBearerTokenService
     // get a configuration property from the openid configuration json document
     private function getConfigProperty(string $propertyName): string
     {
-        $jsonString = Cache::remember('openid_config_json_string', 60, function() { // only get content every minute
+        $jsonString = Cache::remember('openid_config_json_string', 60, function () { // only get content every minute
             return Http::get($this->configUri)->body();
         });
 
-        $obj = json_decode($jsonString);;
+        $obj = json_decode($jsonString);
         $uri = data_get($obj, $propertyName);
-        if(!$uri)
-            throw new Exception('No ' . $propertyName . ' property found in OpenID configuration');
+        if (! $uri) {
+            throw new Exception('No '.$propertyName.' property found in OpenID configuration');
+        }
+
         return $uri;
     }
 
     // get a Lcobucci\JWT\Configuration object for a given key ID
-    private function getConfiguration(string $keyId) : ?Configuration
+    private function getConfiguration(string $keyId): ?Configuration
     {
-        if(!$keyId)
+        if (! $keyId) {
             throw new Exception('No key ID provided');
+        }
 
         $jwks_uri = $this->getConfigProperty('jwks_uri');
-        $jsonString = Cache::remember('jwks_json_string', 60, function() use($jwks_uri) // only get jwks content every minute
-        {
+        $jsonString = Cache::remember('jwks_json_string', 60, function () use ($jwks_uri) { // only get jwks content every minute
             return Http::get($jwks_uri)->body();
         });
 
@@ -112,7 +119,7 @@ class OpenIdBearerTokenService
     // call the introspection endpoint to check if the OP considers the access token still valid
     public function verifyJwtWithIntrospection(string $accessToken)
     {
-        $cacheKey = 'introspection_token_' . $accessToken;
+        $cacheKey = 'introspection_token_'.$accessToken;
 
         if (Cache::has($cacheKey)) {
             // use cached access token status if available
@@ -127,12 +134,12 @@ class OpenIdBearerTokenService
                 ]);
 
             $isTokenActive = boolval($introspectionResponse->json('active'));
-            if($isTokenActive) {
+            if ($isTokenActive) {
                 Cache::put($cacheKey, $isTokenActive, 3); // cache for a few seconds in case of multiple API calls for a page load
             }
         }
 
-        if (!$isTokenActive) {
+        if (! $isTokenActive) {
             throw new UnauthorizedException('Access token is not active', 401);
         }
     }

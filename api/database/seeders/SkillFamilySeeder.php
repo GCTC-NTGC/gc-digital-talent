@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Exception;
 use App\Models\SkillFamily;
 use Database\Helpers\KeyStringHelpers;
+use Exception;
 use Illuminate\Database\Seeder;
 
 class SkillFamilySeeder extends Seeder
@@ -99,11 +99,11 @@ class SkillFamilySeeder extends Seeder
                     'key' => KeyStringHelpers::toKeyString(trim($record['name_en']), '_'), // no key provided so making our own slug
                     'name' => [
                         'en' => trim($record['name_en']),
-                        'fr' => trim($record['name_fr'])
+                        'fr' => trim($record['name_fr']),
                     ],
                     'description' => [ // no descriptions provided so reusing name
                         'en' => trim($record['name_en']),
-                        'fr' => trim($record['name_fr'])
+                        'fr' => trim($record['name_fr']),
                     ],
                 ];
 
@@ -114,7 +114,7 @@ class SkillFamilySeeder extends Seeder
 
                 return [
                     'model' => $model,
-                    'identifier' => $identifier
+                    'identifier' => $identifier,
                 ];
             },
             $providedData
@@ -127,8 +127,9 @@ class SkillFamilySeeder extends Seeder
             },
             $reshapedData
         );
-        if (count(array_unique($keys)) != count($reshapedData))
+        if (count(array_unique($keys)) != count($reshapedData)) {
             throw new Exception('The keys are not unique');
+        }
 
         // Check for duplicate English names (used for skill lookup)
         $englishNames = array_map(
@@ -138,8 +139,9 @@ class SkillFamilySeeder extends Seeder
             $reshapedData
         );
         assert((count(array_unique($englishNames)) == count($reshapedData)));
-        if (count(array_unique($englishNames)) != count($reshapedData))
+        if (count(array_unique($englishNames)) != count($reshapedData)) {
             throw new Exception('The English names are not unique');
+        }
 
         // Iterate the reshaped data to load it
         foreach ($reshapedData as [

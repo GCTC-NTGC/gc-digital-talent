@@ -72,5 +72,5 @@ return [
         |
         */
         'email_config_id' => env('FRESHDESK_API_EMAIL_CONFIG_ID', ''),
-    ]
+    ],
 ];

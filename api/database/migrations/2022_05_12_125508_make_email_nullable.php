@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class MakeEmailNullable extends Migration
 {
@@ -20,9 +20,9 @@ class MakeEmailNullable extends Migration
         });
 
         // set null for any emails that were stuffed with ID
-        DB::statement(" update users
+        DB::statement(' update users
                         set email = null
-                        where email = id::text");
+                        where email = id::text');
 
         // make sub nullable
         Schema::table('users', function (Blueprint $table) {
@@ -30,9 +30,9 @@ class MakeEmailNullable extends Migration
         });
 
         // set null for any subs that were stuffed with ID
-        DB::statement(" update users
+        DB::statement(' update users
                         set sub = null
-                        where sub = id::text");
+                        where sub = id::text');
     }
 
     /**
@@ -43,9 +43,9 @@ class MakeEmailNullable extends Migration
     public function down()
     {
         // stuff null emails with ID before making column non-nullable
-        DB::statement(" update users
+        DB::statement(' update users
                         set email = id
-                        where email is null");
+                        where email is null');
 
         // make email non-nullable
         Schema::table('users', function (Blueprint $table) {
@@ -53,9 +53,9 @@ class MakeEmailNullable extends Migration
         });
 
         // stuff null subs with ID before making column non-nullable
-        DB::statement(" update users
+        DB::statement(' update users
                         set sub = id
-                        where sub is null");
+                        where sub is null');
 
         // make sub non-nullable
         Schema::table('users', function (Blueprint $table) {

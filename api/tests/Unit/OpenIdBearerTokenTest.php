@@ -1,8 +1,8 @@
 <?php
 
 use App\Services\OpenIdBearerTokenService;
-use Lcobucci\Clock\FrozenClock;
 use Illuminate\Support\Facades\Http;
+use Lcobucci\Clock\FrozenClock;
 use Tests\TestCase;
 
 class OpenIdBearerTokenTest extends TestCase
@@ -11,23 +11,28 @@ class OpenIdBearerTokenTest extends TestCase
      * @var OpenIdBearerTokenService
      */
     protected $service_provider;
+
     protected DateTimeImmutable $now;
+
     protected DateInterval $allowableClockSkew;
 
     const fakeRootUrl = 'http://test.com';
-    const fakeConfigUrl = self::fakeRootUrl . '/config';
-    const fakeJwksUrl = self::fakeRootUrl . '/jwks';
-    const fakeIntrospectionUrl = self::fakeRootUrl . '/introspection';
+
+    const fakeConfigUrl = self::fakeRootUrl.'/config';
+
+    const fakeJwksUrl = self::fakeRootUrl.'/jwks';
+
+    const fakeIntrospectionUrl = self::fakeRootUrl.'/introspection';
 
     protected function setUp(): void
     {
         parent::setUp(); // initializes Http facade
 
         Http::fake([
-            self::fakeConfigUrl => Http::response('{ ' .
-                '"issuer" : "' . self::fakeRootUrl . '", ' .
-                '"jwks_uri" : "' . self::fakeJwksUrl . '",' .
-                '"introspection_endpoint" : "' . self::fakeIntrospectionUrl . '"' .
+            self::fakeConfigUrl => Http::response('{ '.
+                '"issuer" : "'.self::fakeRootUrl.'", '.
+                '"jwks_uri" : "'.self::fakeJwksUrl.'",'.
+                '"introspection_endpoint" : "'.self::fakeIntrospectionUrl.'"'.
                 '}'),
             self::fakeJwksUrl => Http::response(file_get_contents('tests/Unit/resources/jwks.json')),
         ]);
@@ -47,7 +52,7 @@ class OpenIdBearerTokenTest extends TestCase
     protected function setIntrospectionResponse(bool $isActive)
     {
         Http::fake([
-            self::fakeIntrospectionUrl => Http::response('{ "active": ' . ($isActive ? 'true' : 'false') . ' } '),
+            self::fakeIntrospectionUrl => Http::response('{ "active": '.($isActive ? 'true' : 'false').' } '),
         ]);
     }
 
@@ -73,8 +78,9 @@ class OpenIdBearerTokenTest extends TestCase
          */
         $this->setIntrospectionResponse(true);
         $claims = $this->service_provider->validateAndGetClaims($token);
-        $this->assertEquals("1234567890", $claims->get('sub'));
+        $this->assertEquals('1234567890', $claims->get('sub'));
     }
+
     /**
      * @test
      * An empty string is proved and should be rejected.
@@ -85,6 +91,7 @@ class OpenIdBearerTokenTest extends TestCase
         $token = '';
         $this->service_provider->validateAndGetClaims($token);
     }
+
     /**
      * @test
      * An nonsense string is provided and should be rejected.
@@ -95,6 +102,7 @@ class OpenIdBearerTokenTest extends TestCase
         $token = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
         $this->service_provider->validateAndGetClaims($token);
     }
+
     /**
      * @test
      * A token is provided but has the wrong issuer and should be rejected.
@@ -118,6 +126,7 @@ class OpenIdBearerTokenTest extends TestCase
          */
         $this->service_provider->validateAndGetClaims($token);
     }
+
     /**
      * @test
      * A token is provided but has expired and should be rejected.
@@ -141,6 +150,7 @@ class OpenIdBearerTokenTest extends TestCase
          */
         $this->service_provider->validateAndGetClaims($token);
     }
+
     /**
      * @test
      * A token is provided but the issuing datetime is in the future and should be rejected.
@@ -164,6 +174,7 @@ class OpenIdBearerTokenTest extends TestCase
          */
         $this->service_provider->validateAndGetClaims($token);
     }
+
     /**
      * @test
      * This is a good and valid token but was not signed by the expected key so it should be rejected
@@ -188,6 +199,7 @@ class OpenIdBearerTokenTest extends TestCase
          */
         $this->service_provider->validateAndGetClaims($token);
     }
+
     /**
      * @test
      * A token is provided but has expired within allowable clock skew and should be accepted.
@@ -215,6 +227,7 @@ class OpenIdBearerTokenTest extends TestCase
         $this->assertTrue($this->now > $claims->get('exp'), 'test value for now was not after strict expiry date');
         $this->assertTrue($this->now < $claims->get('exp')->add($this->allowableClockSkew), 'test value for now was not within the expiry date plus allowed skew');
     }
+
     /**
      * @test
      * A valid token is provided and validated.  The test checks that the right sub value is returned.
@@ -235,7 +248,6 @@ class OpenIdBearerTokenTest extends TestCase
         "iat": 0                     -- issued at beginning of time
         }
          */
-
         $this->setIntrospectionResponse(false);
         $this->expectException(Exception::class);
         $claims = $this->service_provider->validateAndGetClaims($token);

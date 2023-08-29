@@ -23,6 +23,7 @@ class SkillFamilyFactory extends Factory
     public function definition()
     {
         $name = $this->faker->unique()->catchPhrase();
+
         return [
             'key' => KeyStringHelpers::toKeyString($name),
             'name' => ['en' => $name . ' EN', 'fr' => $name . ' FR'],

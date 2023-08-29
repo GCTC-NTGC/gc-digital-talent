@@ -2,8 +2,8 @@
 
 namespace Database\Helpers;
 
-use Exception;
 use App\GraphQL\Scalars\KeyString;
+use Exception;
 
 class KeyStringHelpers
 {
@@ -25,10 +25,8 @@ class KeyStringHelpers
 
     /**
      * Transforms a string to be compliant with the GraphQL KeyString scalar type
-     *
-     * @return string
      */
-    public static function toKeyString(string $originalString) : string
+    public static function toKeyString(string $originalString): string
     {
         $substitutedString = str_replace(
             array_keys(KeyStringHelpers::$substitutions),
@@ -39,8 +37,9 @@ class KeyStringHelpers
         $newKeyString = preg_replace('/[^a-z_]/', '_', strtolower($substitutedString));
 
         // double check if this result is compliant
-        if(!preg_match(KeyString::regex(), $newKeyString))
-            throw new Exception ("Failed to convert string ".$newKeyString." to KeyString");
+        if (! preg_match(KeyString::regex(), $newKeyString)) {
+            throw new Exception('Failed to convert string '.$newKeyString.' to KeyString');
+        }
 
         return $newKeyString;
     }

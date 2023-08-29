@@ -28,21 +28,21 @@ class AddConstraints extends Migration
             $table->foreign('user_id')->references('id')->on('users');
         });
 
-        #start of pool_candidate_search_requests.department_id type migration
+        //start of pool_candidate_search_requests.department_id type migration
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
-            $table->uuid("department_id_as_uuid")->nullable(true)->after('department_id');
+            $table->uuid('department_id_as_uuid')->nullable(true)->after('department_id');
         });
         DB::statement('UPDATE pool_candidate_search_requests SET department_id_as_uuid = uuid(department_id)');
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
-            $table->uuid("department_id_as_uuid")->nullable(false)->change();
+            $table->uuid('department_id_as_uuid')->nullable(false)->change();
             $table->dropColumn('department_id');
             $table->renameColumn('department_id_as_uuid', 'department_id');
         });
-        #end of pool_candidate_search_requests.department_id type migration
+        //end of pool_candidate_search_requests.department_id type migration
 
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
             $table->foreign('pool_candidate_filter_id')->references('id')->on('pool_candidate_filters');
-            $table->foreign("department_id")->references('id')->on('departments');
+            $table->foreign('department_id')->references('id')->on('departments');
         });
         Schema::table('operational_requirements', function (Blueprint $table) {
             $table->unique('key');
@@ -119,17 +119,17 @@ class AddConstraints extends Migration
             $table->dropForeign('pool_candidate_search_requests_department_id_foreign');
         });
 
-        #start of pool_candidate_search_requests.department_id type migration
+        //start of pool_candidate_search_requests.department_id type migration
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
             $table->string('department_id_as_string')->nullable(true)->after('department_id');
         });
         DB::statement('UPDATE pool_candidate_search_requests SET department_id_as_string = department_id');
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
-            $table->string("department_id_as_string")->nullable(false)->change();
+            $table->string('department_id_as_string')->nullable(false)->change();
             $table->dropColumn('department_id');
             $table->renameColumn('department_id_as_string', 'department_id');
         });
-        #end of pool_candidate_search_requests.department_id type migration
+        //end of pool_candidate_search_requests.department_id type migration
 
         Schema::table('operational_requirements', function (Blueprint $table) {
             $table->dropUnique('operational_requirements_key_unique');
@@ -179,4 +179,3 @@ class AddConstraints extends Migration
         });
     }
 }
-

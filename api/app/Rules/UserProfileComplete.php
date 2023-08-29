@@ -2,9 +2,9 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use App\Models\User;
 use Database\Helpers\ApiEnums;
+use Illuminate\Contracts\Validation\Rule;
 
 class UserProfileComplete implements Rule
 {

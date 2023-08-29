@@ -8,7 +8,6 @@ use Nuwave\Lighthouse\Validation\Validator;
 
 final class CreateApplicationValidator extends Validator
 {
-
     public function __construct($poolId, $userId)
     {
         $this->poolId = $poolId;
@@ -24,12 +23,12 @@ final class CreateApplicationValidator extends Validator
     {
         return [
             'userId' => [new NotAlreadyApplied($this->poolId)],
-            'poolId' => [new PoolPublished]
+            'poolId' => [new PoolPublished],
         ];
     }
 
     public function messages(): array
     {
-        return  [];
+        return [];
     }
 }

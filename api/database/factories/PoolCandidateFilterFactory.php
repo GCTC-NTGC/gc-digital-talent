@@ -5,8 +5,8 @@ namespace Database\Factories;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\PoolCandidateFilter;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\ApiEnums;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PoolCandidateFilterFactory extends Factory
 {
@@ -52,7 +52,7 @@ class PoolCandidateFilterFactory extends Factory
     {
         return $this->afterCreating(function (PoolCandidateFilter $filter) {
             $classifications = Classification::inRandomOrder()->limit(3)->get();
-            $pools = Pool::whereNotNull("published_at")->inRandomOrder()->limit(1)->get();
+            $pools = Pool::whereNotNull('published_at')->inRandomOrder()->limit(1)->get();
             $filter->classifications()->saveMany($classifications);
             $filter->pools()->saveMany($pools);
         });

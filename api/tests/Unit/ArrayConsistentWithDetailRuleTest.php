@@ -23,6 +23,7 @@ class ArrayConsistentWithDetailRuleTest extends TestCase
                 $isValid = false;
             }
         );
+
         return $isValid;
     }
 
@@ -36,6 +37,7 @@ class ArrayConsistentWithDetailRuleTest extends TestCase
         $isValid = $this->runTestOnRule($rule, $data, 'primaryField');
         assertTrue($isValid, 'Expected rule to pass but it didn\'t');
     }
+
     public function testRulePassesWithDetail()
     {
         $data = [
@@ -46,6 +48,7 @@ class ArrayConsistentWithDetailRuleTest extends TestCase
         $isValid = $this->runTestOnRule($rule, $data, 'primaryField');
         assertTrue($isValid, 'Expected rule to pass but it didn\'t');
     }
+
     public function testRuleFailsWithMissingDetail()
     {
         $data = [
@@ -55,6 +58,7 @@ class ArrayConsistentWithDetailRuleTest extends TestCase
         $isValid = $this->runTestOnRule($rule, $data, 'primaryField');
         assertFalse($isValid, 'Expected rule to fail but it didn\'t');
     }
+
     public function testRuleFailsWithEmptyDetail()
     {
         $data = [
@@ -65,6 +69,7 @@ class ArrayConsistentWithDetailRuleTest extends TestCase
         $isValid = $this->runTestOnRule($rule, $data, 'primaryField');
         assertFalse($isValid, 'Expected rule to fail but it didn\'t');
     }
+
     public function testRuleFailsWithSuperfluousDetail()
     {
         $data = [
@@ -75,6 +80,7 @@ class ArrayConsistentWithDetailRuleTest extends TestCase
         $isValid = $this->runTestOnRule($rule, $data, 'primaryField');
         assertFalse($isValid, 'Expected rule to fail but it didn\'t');
     }
+
     public function testRuleFailsWithMissingPrimary()
     {
         $data = [
@@ -84,25 +90,27 @@ class ArrayConsistentWithDetailRuleTest extends TestCase
         $isValid = $this->runTestOnRule($rule, $data, 'primaryField');
         assertFalse($isValid, 'Expected rule to fail but it didn\'t');
     }
+
     public function testRulePassesWithoutDetailNested()
     {
         $data = [
             'deep' => [
                 'primaryField' => ['VAL1'],
                 'otherField' => null,
-            ]
+            ],
         ];
         $rule = new ArrayConsistentWithDetail('OTHER', 'otherField');
         $isValid = $this->runTestOnRule($rule, $data, 'deep.primaryField');
         assertTrue($isValid, 'Expected rule to pass but it didn\'t');
     }
+
     public function testRulePassesWithDetailNested()
     {
         $data = [
             'deep' => [
                 'primaryField' => ['VAL1', 'OTHER'],
                 'otherField' => 'other value',
-            ]
+            ],
         ];
         $rule = new ArrayConsistentWithDetail('OTHER', 'otherField');
         $isValid = $this->runTestOnRule($rule, $data, 'deep.primaryField');

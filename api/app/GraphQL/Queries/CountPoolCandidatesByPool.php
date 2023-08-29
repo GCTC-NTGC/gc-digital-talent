@@ -4,8 +4,8 @@ namespace App\GraphQL\Queries;
 
 use App\Models\PoolCandidate;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
 use Database\Helpers\ApiEnums;
+use Illuminate\Database\Eloquent\Builder;
 
 final class CountPoolCandidatesByPool
 {
@@ -15,7 +15,7 @@ final class CountPoolCandidatesByPool
      */
     public function __invoke($_, array $args)
     {
-        $filters = $args["where"];
+        $filters = $args['where'];
 
         // query counts pool candidate rows, so start on that model
         $queryBuilder = PoolCandidate::query();
