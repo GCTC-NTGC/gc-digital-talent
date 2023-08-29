@@ -412,15 +412,18 @@ class UserSkillTest extends TestCase
         $userSkillTechnicalTop = UserSkill::factory()->create([
             'user_id' => $this->user->id,
             'top_skills_rank' => 1,
+            'improve_skills_rank' => null,
             'skill_id' => Skill::factory(['category' => 'TECHNICAL']),
         ]);
         $userSkillTechnicalImprove = UserSkill::factory()->create([
             'user_id' => $this->user->id,
-            'improve_skills_rank' => 1,
+            'top_skills_rank' => null,
+            'improve_skills_rank' => 2,
             'skill_id' => Skill::factory(['category' => 'TECHNICAL']),
         ]);
 
-        // assert a null input value changes nothing, while an empty array functions like a clear
+        // user has one technical top skill and one technical improve skill
+        // clear the top skill with an empty array, pass in null for the improve skill
         $this->actingAs($this->user, 'api')
             ->graphQL(
                 $this->updateUserSkillRankings,
@@ -431,16 +434,39 @@ class UserSkillTest extends TestCase
                         'improveTechnicalSkillsRanked' => null,
                     ],
                 ]
-            )
-            ->assertJsonFragment([
-                'topTechnicalSkillsRanking' => [],
-                'improveTechnicalSkillsRanking' => [
-                    [
-                        'id' => $userSkillTechnicalImprove->id,
-                        'improveSkillsRank' => $userSkillTechnicalImprove->improve_skills_rank,
-                    ],
-                ],
-            ]);
+            )->assertSuccessful();
+
+        // assert top skills is now an empty array while improve skill is the same as above with a rank of 2
+        $response = $this->actingAs($this->user, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+            query user($id: UUID!) {
+                user(id: $id) {
+                    id
+                    topTechnicalSkillsRanking {
+                        id
+                        topSkillsRank
+                    }
+                    improveTechnicalSkillsRanking {
+                        id
+                        improveSkillsRank
+                    }
+                }
+            }
+            ',
+                [
+                    'id' => $this->user->id,
+                ]
+            )->assertJson(
+                fn (AssertableJson $json) => $json->has('data.user.topTechnicalSkillsRanking', 0)
+                    ->has('data.user.improveTechnicalSkillsRanking', 1)
+                    ->has(
+                        'data.user.improveTechnicalSkillsRanking.0',
+                        fn (AssertableJson $json) => $json->where('id', $userSkillTechnicalImprove->id)
+                            ->where('improveSkillsRank', 2)
+                    )
+            );
     }
 
     public function testUserSkillTopTechnicalSkillsRanking(): void
