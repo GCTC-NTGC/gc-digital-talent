@@ -9,10 +9,13 @@ use App\Models\WorkExperience;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
+
+use function PHPUnit\Framework\assertEquals;
 
 class ExperienceTest extends TestCase
 {
@@ -473,5 +476,46 @@ class ExperienceTest extends TestCase
         $pivot->save();
         // assert that the soft-deleted relationship is ignored
         $this->assertCount(2, $experience->fresh()->skills);
+    }
+
+    public function testExperiencesFetchSoftDeletedSkills(): void
+    {
+        // create experience with three skills, then soft delete a skill
+        Skill::factory()->count(3)->create();
+        $experience = AwardExperience::factory()->withSkills(3)->create([
+            'user_id' => $this->platformAdmin->id,
+        ]);
+        $randomDeletedSkill = Skill::first();
+        DB::table('skills')
+            ->where('id', $randomDeletedSkill->id)
+            ->update([
+                'deleted_at' => config('constants.past_datetime'),
+            ]);
+
+        // query a user's experience/skills
+        $response = $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+        query user($id: UUID!) {
+            user(id: $id) {
+                id
+                experiences {
+                    skills {
+                     id
+                    }
+                }
+            }
+        }
+        ',
+                [
+                    'id' => $this->platformAdmin->id,
+                ]
+            )->assertSuccessful();
+
+        // grab the skills for the experience, should be array of one experience
+        $skills = $response['data']['user']['experiences'][0]['skills'];
+        // assert 3 skills grabbed, therefore soft deleted skill still reached
+        assertEquals(count($skills), 3);
     }
 }
