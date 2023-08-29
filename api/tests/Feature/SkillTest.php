@@ -148,8 +148,8 @@ class SkillTest extends TestCase
                     'en' => 'New Name (EN)',
                     'fr' => 'New Name (FR)',
                 ],
-                'category' => 'TECHNICAL'
-            ]
+                'category' => 'TECHNICAL',
+            ],
         ];
 
         $mutation =

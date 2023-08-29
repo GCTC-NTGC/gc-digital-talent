@@ -26,8 +26,14 @@ class SkillFamilyFactory extends Factory
 
         return [
             'key' => KeyStringHelpers::toKeyString($name),
-            'name' => ['en' => $name . ' EN', 'fr' => $name . ' FR'],
-            'description' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
+            'name' => [
+                'en' => $name.' EN',
+                'fr' => $name.' FR',
+            ],
+            'description' => [
+                'en' => $this->faker->paragraph().' EN',
+                'fr' => $this->faker->paragraph().' FR',
+            ],
         ];
     }
 
