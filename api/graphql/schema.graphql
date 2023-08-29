@@ -383,8 +383,7 @@ type ScreeningQuestionResponse {
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @can(ability: "view", resolved: true)
-  user: User! @belongsTo(relation: "user", scopes: ["authorizedToView"])
-
+  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   # Expiry date for this candidate being in the pool.
