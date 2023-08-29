@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class ReplacePoolPublishWithTime extends Migration
 {
@@ -41,14 +41,14 @@ class ReplacePoolPublishWithTime extends Migration
         Schema::table('pools', function (Blueprint $table) {
             $table->boolean('is_published')->nullable();
         });
-        DB::statement("
+        DB::statement('
         update pools
             set is_published =
                 case when published_at
                     is null then false
                     else true
                 end
-        ");
+        ');
         Schema::table('pools', function (Blueprint $table) {
             $table->dropColumn('published_at');
         });

@@ -44,7 +44,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('AUTH_APP_URL') . '/storage',
+            'url' => env('AUTH_APP_URL').'/storage',
             'visibility' => 'public',
         ],
 

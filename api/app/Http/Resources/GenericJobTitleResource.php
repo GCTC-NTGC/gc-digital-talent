@@ -17,7 +17,7 @@ class GenericJobTitleResource extends JsonResource
         return [
             'id' => $this->id,
             'key' => $this->key,
-            'name' => $this->name
+            'name' => $this->name,
         ];
     }
 }

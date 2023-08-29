@@ -14,7 +14,6 @@ use Laratrust\Models\Permission as LaratrustPermission;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
-
 class Permission extends LaratrustPermission
 {
     protected $keyType = 'string';
@@ -26,7 +25,7 @@ class Permission extends LaratrustPermission
 
     protected $fillable = [
         'name',
-        'display_name'
+        'display_name',
     ];
 
     public $guarded = [];

@@ -2,17 +2,18 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Models\PoolCandidate;
-use App\Models\Pool;
-use Database\Helpers\ApiEnums;
-use Nuwave\Lighthouse\Exceptions\ValidationException;
 use App\GraphQL\Validators\Mutation\CreateApplicationValidator;
+use App\Models\Pool;
+use App\Models\PoolCandidate;
+use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Validator;
+use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 final class CreateApplication
 {
     /**
      * Create an application
+     *
      * @param  null  $_
      * @param  array{}  $args
      */
