@@ -24,13 +24,9 @@ final class UpdateUserSkillRankings
 
             // wipe existing technical top skills ranking
             $arrayUserSkillId = $userSkillRankingInput['topTechnicalSkillsRanked'];
-            $userSkillsCollection->whereNotNull('skill.id')
-                ->each->update(['top_skills_rank' => null]);
-
-            // PENDING
-            // $userSkillsCollection->where('skill.category', 'TECHNICAL')
-            //     ->each
-            //     ->update(['top_skills_rank' => null]);
+            $userSkillsCollection->where('skill.category', 'TECHNICAL')
+                ->each
+                ->update(['top_skills_rank' => null]);
 
             // set the rankings using the input array of UserSkill ids
             $rankIterator = 1;
@@ -45,13 +41,9 @@ final class UpdateUserSkillRankings
 
             // wipe existing behavioural top skills ranking
             $arrayUserSkillId = $userSkillRankingInput['topBehaviouralSkillsRanked'];
-            $userSkillsCollection->whereNotNull('skill.id')
-                ->each->update(['top_skills_rank' => null]);
-
-            // PENDING
-            // $userSkillsCollection->where('skill.category', 'BEHAVIOURAL')
-            //     ->each
-            //     ->update(['top_skills_rank' => null]);
+            $userSkillsCollection->where('skill.category', 'BEHAVIOURAL')
+                ->each
+                ->update(['top_skills_rank' => null]);
 
             $rankIterator = 1;
             foreach ($arrayUserSkillId as $userSkillId) {
@@ -65,13 +57,9 @@ final class UpdateUserSkillRankings
 
             // wipe existing technical improve skills ranking
             $arrayUserSkillId = $userSkillRankingInput['improveTechnicalSkillsRanked'];
-            $userSkillsCollection->whereNotNull('skill.id')
-                ->each->update(['improve_skills_rank' => null]);
-
-            // PENDING
-            // $userSkillsCollection->where('skill.category', 'TECHNICAL')
-            //     ->each
-            //     ->update(['improve_skills_rank' => null]);
+            $userSkillsCollection->where('skill.category', 'TECHNICAL')
+                ->each
+                ->update(['improve_skills_rank' => null]);
 
             $rankIterator = 1;
             foreach ($arrayUserSkillId as $userSkillId) {
@@ -85,13 +73,9 @@ final class UpdateUserSkillRankings
 
             // wipe existing behavioural improve skills ranking
             $arrayUserSkillId = $userSkillRankingInput['improveBehaviouralSkillsRanked'];
-            $userSkillsCollection->whereNotNull('skill.id')
-                ->each->update(['improve_skills_rank' => null]);
-
-            // PENDING
-            // $userSkillsCollection->where('skill.category', 'BEHAVIOURAL')
-            //     ->each
-            //     ->update(['improve_skills_rank' => null]);
+            $userSkillsCollection->where('skill.category', 'BEHAVIOURAL')
+                ->each
+                ->update(['improve_skills_rank' => null]);
 
             $rankIterator = 1;
             foreach ($arrayUserSkillId as $userSkillId) {
