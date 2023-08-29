@@ -87,6 +87,16 @@ class UserPolicy
         return $user->isAbleTo('delete-any-user') && $user->id !== $model->id; // Do not allow user to delete their own model.
     }
 
+    /**
+     * Determine whether the user can restore the model.
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restore(User $user, User $model)
+    {
+        return $user->isAbleTo('delete-any-user') && $user->id !== $model->id; // Do not allow user to restore their own model.
+    }
+
     /*******************  APPLICANT QUERIES  *******************/
 
     protected function applicantHasAppliedToPoolInTeams(User $applicant, $teamIds)

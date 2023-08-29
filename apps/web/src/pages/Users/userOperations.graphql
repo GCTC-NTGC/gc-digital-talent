@@ -12,10 +12,11 @@ query AllUsers {
 }
 
 query User($id: UUID!) {
-  user(id: $id) {
+  user(id: $id, trashed: WITH) {
     id
     email
     sub
+    deletedDate
     firstName
     lastName
     telephone
@@ -46,10 +47,11 @@ query User($id: UUID!) {
 }
 
 query UserName($userId: UUID!) {
-  user(id: $userId) {
+  user(id: $userId, trashed: WITH) {
     id
     firstName
     lastName
+    deletedDate
   }
 }
 
@@ -237,8 +239,28 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
   }
 }
 
+mutation DeleteUser($id: ID!) {
+  deleteUser(id: $id) {
+    id
+    deletedDate
+    sub
+    email
+    poolCandidates {
+      id
+      deletedDate
+      pool {
+        id
+      }
+    }
+    experiences {
+      id
+      deletedDate
+    }
+  }
+}
+
 query GetViewUserData($id: UUID!) {
-  user(id: $id) {
+  user(id: $id, trashed: WITH) {
     id
     email
     firstName
