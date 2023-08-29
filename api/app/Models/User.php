@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
@@ -760,7 +761,10 @@ class User extends Model implements Authenticatable, LaratrustUser
     // rename accessor to avoid hiding parent's notification function
     public function getEnrichedNotificationsAttribute()
     {
-        $notifications = $this->notifications()->get();
+        $user = Auth::user();
+        $notifications = $this->notifications()
+            ->where('notifiable_id', $user->id)
+            ->get();
         $notifications->each(function ($n) {
             self::enrichNotification($n);
         });
@@ -771,11 +775,42 @@ class User extends Model implements Authenticatable, LaratrustUser
     // rename accessor to avoid hiding parent's notification function
     public function getUnreadEnrichedNotificationsAttribute()
     {
-        $notifications = $this->unreadNotifications()->get();
+        $user = Auth::user();
+        $notifications = $this->unreadNotifications()
+            ->where('notifiable_id', $user->id)
+            ->get();
         $notifications->each(function ($n) {
             self::enrichNotification($n);
         });
 
         return $notifications;
+    }
+
+    public function scopeAuthorizedToView(Builder $query)
+    {
+        $user = Auth::user();
+
+        if (! $user) {
+            return $query->where('id', null);
+        }
+
+        if (! $user->isAbleTo('view-any-user')) {
+            $query->where(function (Builder $query) use ($user) {
+                if ($user->isAbleTo('view-team-user')) {
+                    $query->whereHas('poolCandidates', function (Builder $query) use ($user) {
+                        $teamIds = $user->rolesTeams()->get()->pluck('id');
+                        $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
+                            return $query
+                                ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                                ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                });
+                        });
+                    });
+                }
+            });
+        }
+
+        return $query;
     }
 }
