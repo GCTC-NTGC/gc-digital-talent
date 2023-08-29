@@ -11,6 +11,7 @@ final class ChangePoolClosingDate
 {
     /**
      * Extends the pools closing date.
+     *
      * @param  null  $_
      * @param  array{}  $args
      */
@@ -22,7 +23,7 @@ final class ChangePoolClosingDate
             },
             'nonessentialSkills' => function ($query) {
                 $query->withTrashed();
-            }
+            },
         ]);
         $newClosingDate = $args['new_closing_date'];
         $now = Carbon::now();
@@ -42,6 +43,7 @@ final class ChangePoolClosingDate
         }
 
         $pool->update(['closing_date' => $newClosingDate]);
+
         return $pool;
     }
 }

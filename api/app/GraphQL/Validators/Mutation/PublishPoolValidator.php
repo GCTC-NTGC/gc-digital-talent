@@ -29,7 +29,7 @@ final class PublishPoolValidator extends Validator
             'stream' => ['required', 'string'],
 
             // Closing date
-            'closing_date' => ['required', /*'date_format:Y-m-d H:i:s',*/ 'after:' . $endOfDay],
+            'closing_date' => ['required', /*'date_format:Y-m-d H:i:s',*/ 'after:'.$endOfDay],
 
             // Your Impact and Work tasks
             'your_impact.en' => ['required', 'string'],
@@ -39,20 +39,20 @@ final class PublishPoolValidator extends Validator
 
             // Essential skills and Asset skills
             'essential_skills' => ['required', 'array', 'min:1'],
-            'essential_skills.*.id' => Rule::forEach(function (string|null $value, string $attribute) use ($deletedSkillsIds) {
+            'essential_skills.*.id' => Rule::forEach(function (?string $value, string $attribute) use ($deletedSkillsIds) {
                 return [
                     'required',
                     'uuid',
                     'exists:skills,id',
-                    Rule::notIn($deletedSkillsIds)
+                    Rule::notIn($deletedSkillsIds),
                 ];
             }),
             'nonessential_skills' => ['array'],
-            'nonessential_skills.*.id' => Rule::forEach(function (string|null $value, string $attribute) use ($deletedSkillsIds) {
+            'nonessential_skills.*.id' => Rule::forEach(function (?string $value, string $attribute) use ($deletedSkillsIds) {
                 return [
                     'uuid',
                     'exists:skills,id',
-                    Rule::notIn($deletedSkillsIds)
+                    Rule::notIn($deletedSkillsIds),
                 ];
             }),
             // Other requirements
@@ -67,7 +67,7 @@ final class PublishPoolValidator extends Validator
 
     public function messages(): array
     {
-        return  [
+        return [
             'required' => ':attribute required',
             'exists' => ':attribute does not exist.',
             'closing_date.required' => 'ClosingDateRequired',

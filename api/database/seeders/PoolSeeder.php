@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Pool;
-use App\Models\User;
 use App\Models\Classification;
+use App\Models\Pool;
 use App\Models\Team;
+use App\Models\User;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Seeder;
 
@@ -22,7 +22,7 @@ class PoolSeeder extends Seeder
             [
                 'name' => [
                     'en' => 'CMO Digital Careers',
-                    'fr' => 'CMO Carrières Numériques'
+                    'fr' => 'CMO Carrières Numériques',
                 ],
                 'user_id' => User::where('email', 'admin@test.com')->first()->id,
                 'team_id' => Team::where('name', 'digital-community-management')->first()->id,
@@ -33,7 +33,7 @@ class PoolSeeder extends Seeder
             [
                 'name' => [
                     'en' => 'IT Apprenticeship Program for Indigenous Peoples',
-                    'fr' => 'Programme d’apprentissage en TI pour les personnes autochtones'
+                    'fr' => 'Programme d’apprentissage en TI pour les personnes autochtones',
                 ],
                 'user_id' => User::where('email', 'admin@test.com')->first()->id,
                 'team_id' => Team::where('name', 'digital-community-management')->first()->id,
@@ -48,7 +48,7 @@ class PoolSeeder extends Seeder
                 'name->en' => $poolData['name']['en'],
             ];
             $poolModel = Pool::where($identifier)->first();
-            if (!$poolModel) {
+            if (! $poolModel) {
                 $createdPool = Pool::factory()->published()->create($poolData);
                 // constrain CMO Digital Careers pool to predictable values
                 if ($identifier['name->en'] == 'CMO Digital Careers') {

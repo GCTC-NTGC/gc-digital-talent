@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Laratrust\Models\Team as LaratrustTeam;
 
 /**
@@ -19,10 +18,10 @@ use Laratrust\Models\Team as LaratrustTeam;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
-
 class Team extends LaratrustTeam
 {
     use HasFactory;
+
     protected $keyType = 'string';
 
     protected $casts = [
@@ -32,7 +31,7 @@ class Team extends LaratrustTeam
 
     protected $fillable = [
         'name',
-        'display_name'
+        'display_name',
     ];
 
     public $guarded = [];

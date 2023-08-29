@@ -1,7 +1,15 @@
 type Query {
   me: User
-  user(id: UUID!): User
-  users: [User]! @deprecated(reason: "users is deprecated. Use usersPaginated instead. Remove in #7660.")
+  user(
+    id: UUID!
+
+    "Allows to filter if trashed elements should be fetched."
+    trashed: Trashed
+  ): User
+  users(
+    "Allows to filter if trashed elements should be fetched."
+    trashed: Trashed
+  ): [User]! @deprecated(reason: "users is deprecated. Use usersPaginated instead. Remove in #7660.")
   applicant(id: UUID!): User @deprecated(reason: "applicant is deprecated. Use user instead. Remove in #7651.")
   applicants(includeIds: [ID]!): [User]! @deprecated(reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652.")
   countApplicants(where: ApplicantFilterInput): Int!
@@ -71,6 +79,7 @@ type Mutation {
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
+  restoreUser(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
@@ -166,6 +175,7 @@ type User {
   sub: String
   createdDate: DateTime
   updatedDate: DateTime
+  deletedDate: DateTime
   firstName: String
   lastName: String
   email: Email
@@ -198,7 +208,7 @@ type User {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -453,6 +463,7 @@ type PoolCandidate {
   archivedAt: DateTime
   submittedAt: DateTime
   suspendedAt: DateTime
+  deletedDate: DateTime
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
@@ -595,7 +606,7 @@ input EquitySelectionsInput {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification]
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelections
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
@@ -605,7 +616,7 @@ type PoolCandidateFilter {
 
 type ApplicantFilter {
   id: ID!
-  hasDiploma: Boolean
+  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelections
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
@@ -647,7 +658,6 @@ type SkillFamily {
   name: LocalizedString
   description: LocalizedString
   skills: [Skill!]
-  category: SkillCategory!
 }
 
 type Skill {
@@ -656,6 +666,7 @@ type Skill {
   name: LocalizedString!
   description: LocalizedString
   keywords: SkillKeywords
+  category: SkillCategory!
   families: [SkillFamily!]
   experienceSkillRecord: ExperienceSkillRecord
 }
@@ -733,6 +744,7 @@ interface Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 type WorkExperience implements Experience {
@@ -746,6 +758,7 @@ type WorkExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 type PersonalExperience implements Experience {
@@ -758,6 +771,7 @@ type PersonalExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 type CommunityExperience implements Experience {
@@ -771,6 +785,7 @@ type CommunityExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 type EducationExperience implements Experience {
@@ -786,6 +801,7 @@ type EducationExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 type AwardExperience implements Experience {
@@ -799,6 +815,7 @@ type AwardExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 type ExperienceSkillRecord {
@@ -847,6 +864,7 @@ input UserFilterInput {
   name: String
   generalSearch: String
   roles: [ID]
+  trashed: Trashed
 }
 
 input ApplicantFilterInput {
@@ -1179,14 +1197,12 @@ input CreateSkillFamilyInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   skills: SkillBelongsToMany
-  category: SkillCategory!
 }
 
 input UpdateSkillFamilyInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   skills: SkillBelongsToMany
-  category: SkillCategory
 }
 
 input SkillFamilyBelongsToMany {
@@ -1204,6 +1220,7 @@ input CreateSkillInput {
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
   keywords: SkillKeywordsInput
+  category: SkillCategory!
 }
 
 input UpdateSkillInput {
@@ -1211,6 +1228,7 @@ input UpdateSkillInput {
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
   keywords: SkillKeywordsInput
+  category: SkillCategory
 }
 
 input WorkExperienceInput {

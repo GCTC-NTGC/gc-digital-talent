@@ -7,6 +7,7 @@
     "xdebug.php-debug",
     "bmewburn.vscode-intelephense-client",
     "ms-azuretools.vscode-docker",
-    "deque-systems.vscode-axe-linter"
+    "deque-systems.vscode-axe-linter",
+    "open-southeners.laravel-pint"
   ]
 }

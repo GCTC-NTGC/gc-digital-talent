@@ -3,9 +3,9 @@
 namespace App\Listeners;
 
 use App\Events\ApplicationSubmitted;
-use App\Models\User;
-use App\Models\Pool;
 use App\Http\Resources\UserResource;
+use App\Models\Pool;
+use App\Models\User;
 
 class StoreApplicationSnapshot
 {
@@ -22,7 +22,6 @@ class StoreApplicationSnapshot
     /**
      * Handle the event.
      *
-     * @param  \App\Events\ApplicationSubmitted  $event
      * @return void
      */
     public function handle(ApplicationSubmitted $event)
@@ -57,7 +56,7 @@ class StoreApplicationSnapshot
         // collect skills attached to the Pool to pass into resource collection
         $pool = Pool::with([
             'essentialSkills',
-            'nonessentialSkills'
+            'nonessentialSkills',
         ])->findOrFail($poolCandidate->pool_id);
         $essentialSkillIds = $pool->essentialSkills()->pluck('id')->toArray();
         $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('id')->toArray();

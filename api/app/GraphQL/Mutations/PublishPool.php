@@ -4,14 +4,15 @@ namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Validators\Mutation\PublishPoolValidator;
 use App\Models\Pool;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
-use Carbon\Carbon;
 
 final class PublishPool
 {
     /**
      * Publishes the pool.
+     *
      * @param  null  $_
      * @param  array{}  $args
      */
@@ -25,7 +26,7 @@ final class PublishPool
                 },
                 'nonessentialSkills' => function ($query) {
                     $query->withTrashed();
-                }
+                },
             ]);
         $poolValidation = new PublishPoolValidator;
         $validator = Validator::make($pool->toArray(), $poolValidation->rules(), $poolValidation->messages()); // First validate pool before updating.
@@ -34,6 +35,7 @@ final class PublishPool
         }
         $dateNow = Carbon::now();
         $pool->update(['published_at' => $dateNow]);
+
         return $pool;
     }
 }

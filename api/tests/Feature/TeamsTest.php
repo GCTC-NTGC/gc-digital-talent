@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Department;
-use App\Models\User;
 use App\Models\Team;
+use App\Models\User;
 use Database\Seeders\DepartmentSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Illuminate\Foundation\Testing\WithFaker;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
@@ -20,12 +20,19 @@ class TeamsTest extends TestCase
     use WithFaker;
 
     protected $admin;
+
     protected $poolOperator1;
+
     protected $poolOperator2;
+
     protected $poolOperator3;
+
     protected $team1;
+
     protected $team2;
+
     protected $team3;
+
     protected $toBeDeletedUUID;
 
     protected function setUp(): void
@@ -81,7 +88,7 @@ class TeamsTest extends TestCase
     public function testAllTeamsQuery(): void
     {
         // Assert all teams query contains expected results
-        $query = $this->actingAs($this->admin, "api")
+        $query = $this->actingAs($this->admin, 'api')
             ->graphQL(
                 /** @lang GraphQL */
                 '
@@ -120,7 +127,7 @@ class TeamsTest extends TestCase
         $departmentId = Department::inRandomOrder()->first()->id;
 
         // Assert null name causes failure
-        $this->actingAs($this->admin, "api")->graphQL(
+        $this->actingAs($this->admin, 'api')->graphQL(
             /** @lang GraphQL */
             '
       mutation createTeam($team: CreateTeamInput!) {
@@ -132,16 +139,16 @@ class TeamsTest extends TestCase
             [
                 'team' => [
                     'name' => null,
-                ]
+                ],
             ]
         )->assertJsonFragment(
             [
-                "message" => "Variable \"\$team\" got invalid value null at \"team.name\"; Expected non-nullable type \"String!\" not to be null."
+                'message' => 'Variable "$team" got invalid value null at "team.name"; Expected non-nullable type "String!" not to be null.',
             ]
         );
 
         // Assert team creation successful across all input fields
-        $this->actingAs($this->admin, "api")->graphQL(
+        $this->actingAs($this->admin, 'api')->graphQL(
             /** @lang GraphQL */
             '
       mutation createTeam($team: CreateTeamInput!) {
@@ -175,9 +182,9 @@ class TeamsTest extends TestCase
                     ],
                     'contactEmail' => 'test@test.com',
                     'departments' => [
-                        "sync" => [$departmentId],
+                        'sync' => [$departmentId],
                     ],
-                ]
+                ],
             ]
         )->assertJson(
             [
@@ -196,15 +203,15 @@ class TeamsTest extends TestCase
                         'departments' => [
                             [
                                 'id' => $departmentId,
-                            ]
+                            ],
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ]
         );
 
         // Assert creating a second team with the same name fails
-        $this->actingAs($this->admin, "api")->graphQL(
+        $this->actingAs($this->admin, 'api')->graphQL(
             /** @lang GraphQL */
             '
       mutation createTeam($team: CreateTeamInput!) {
@@ -216,11 +223,11 @@ class TeamsTest extends TestCase
             [
                 'team' => [
                     'name' => 'team one',
-                ]
+                ],
             ]
         )->assertJsonFragment(
             [
-                "createTeam" => null,
+                'createTeam' => null,
             ]
         );
     }
@@ -231,7 +238,7 @@ class TeamsTest extends TestCase
         $departmentId = Department::inRandomOrder()->first()->id;
 
         // Assert team update successful across all input fields
-        $this->actingAs($this->admin, "api")->graphQL(
+        $this->actingAs($this->admin, 'api')->graphQL(
             /** @lang GraphQL */
             '
       mutation updateTeam($id: UUID!, $team: UpdateTeamInput!) {
@@ -268,7 +275,7 @@ class TeamsTest extends TestCase
                     'departments' => [
                         'sync' => [$departmentId],
                     ],
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
@@ -286,8 +293,8 @@ class TeamsTest extends TestCase
                     'departments' => [
                         ['id' => $departmentId],
                     ],
-                ]
-            ]
+                ],
+            ],
         ]);
     }
 
@@ -297,7 +304,7 @@ class TeamsTest extends TestCase
         $this->team3->departments()->detach();
 
         // Assert team update successful across all input fields
-        $this->actingAs($this->admin, "api")->graphQL(
+        $this->actingAs($this->admin, 'api')->graphQL(
             /** @lang GraphQL */
             '
       mutation deleteTeam($id: UUID!) {
@@ -306,21 +313,21 @@ class TeamsTest extends TestCase
           }
       }
       ',
-            ['id' => $this->toBeDeletedUUID,]
+            ['id' => $this->toBeDeletedUUID]
         )->assertJson([
             'data' => [
                 'deleteTeam' => [
                     'id' => $this->toBeDeletedUUID,
                 ],
-            ]
+            ],
         ]);
     }
 
     public function testViewTeamMembers(): void
     {
-        $this->poolOperator1->addRole("pool_operator", $this->team1);
-        $this->poolOperator2->addRole("pool_operator", $this->team1);
-        $this->poolOperator3->addRole("pool_operator", $this->team2);
+        $this->poolOperator1->addRole('pool_operator', $this->team1);
+        $this->poolOperator2->addRole('pool_operator', $this->team1);
+        $this->poolOperator3->addRole('pool_operator', $this->team2);
         $viewAnyTeamMembers =
             /** @lang GraphQL */
             '
@@ -340,11 +347,11 @@ class TeamsTest extends TestCase
         $variables = ['id' => $this->team1->id];
 
         // Assert user with role admin can query any team members, regardless of being on the team.
-        $query = $this->actingAs($this->admin, "api")
+        $query = $this->actingAs($this->admin, 'api')
             ->graphQL($viewAnyTeamMembers, $variables)
             ->assertJsonFragment([
                 'id' => $this->poolOperator1->id,
-                'id' => $this->poolOperator2->id
+                'id' => $this->poolOperator2->id,
             ]);
 
         // assert pool operator three is not present in the response
@@ -356,7 +363,7 @@ class TeamsTest extends TestCase
         assertEquals($teamMembersCount, 2);
 
         // Assert pool operator can view team members of their team
-        $query = $this->actingAs($this->poolOperator1, "api")
+        $query = $this->actingAs($this->poolOperator1, 'api')
             ->graphQL($viewAnyTeamMembers, $variables)
             ->assertJsonFragment([
                 'id' => $this->poolOperator1->id,
@@ -372,7 +379,7 @@ class TeamsTest extends TestCase
         assertEquals($teamMembersCount, 2);
 
         // Assert pool operator cannot view team members of a team they're not attached too.
-        $query = $this->actingAs($this->poolOperator3, "api")
+        $query = $this->actingAs($this->poolOperator3, 'api')
             ->graphQL($viewAnyTeamMembers, $variables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }

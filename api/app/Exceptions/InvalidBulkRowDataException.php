@@ -14,6 +14,6 @@ class InvalidBulkRowDataException extends Exception
      */
     public function report()
     {
-        Log::debug("Bulk \$rows data is invalid.");
+        Log::debug('Bulk $rows data is invalid.');
     }
 }

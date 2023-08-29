@@ -51,7 +51,6 @@ return [
     |
     */
 
-
     'url' => env('APP_URL', 'http://localhost:8000'),
     'app_dir' => env('API_APP_DIR', null),
     'asset_url' => env('API_ASSET_URL', null),
@@ -187,7 +186,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-
         // Additional Providers
         \Nuwave\Lighthouse\LighthouseServiceProvider::class,
         \Nuwave\Lighthouse\Auth\AuthServiceProvider::class,
@@ -262,7 +260,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         // Custom aliases
-        'Notify'   =>  App\Facades\Notify::class
+        'Notify' => App\Facades\Notify::class,
 
     ],
 

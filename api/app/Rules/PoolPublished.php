@@ -2,9 +2,9 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use App\Models\Pool;
 use Database\Helpers\ApiEnums;
+use Illuminate\Contracts\Validation\Rule;
 
 class PoolPublished implements Rule
 {
@@ -29,9 +29,9 @@ class PoolPublished implements Rule
     {
         $pool = Pool::find($value);
 
-        return !in_array($pool->status, [
+        return ! in_array($pool->status, [
             ApiEnums::POOL_IS_DRAFT,
-            ApiEnums::POOL_IS_CLOSED
+            ApiEnums::POOL_IS_CLOSED,
         ]);
     }
 

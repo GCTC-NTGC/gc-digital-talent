@@ -4,8 +4,8 @@ namespace App\GraphQL\Validators;
 
 use App\Models\Pool;
 use Carbon\Carbon;
-use Nuwave\Lighthouse\Validation\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
+use Nuwave\Lighthouse\Validation\Validator;
 
 final class DeleteSkillValidator extends Validator
 {

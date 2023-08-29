@@ -5,17 +5,16 @@ namespace Tests\Feature;
 use App\Models\CommunityExperience;
 use App\Models\ExperienceSkill;
 use App\Models\Pool;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Testing\Fluent\AssertableJson;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
-use Tests\TestCase;
 use App\Models\Skill;
 use App\Models\User;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Database\Seeders\RolePermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Testing\Fluent\AssertableJson;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Tests\TestCase;
 
 class SkillTest extends TestCase
 {
@@ -25,7 +24,9 @@ class SkillTest extends TestCase
     use WithFaker;
 
     protected $baseUser;
+
     protected $adminUser;
+
     protected $uuid;
 
     protected function setUp(): void
@@ -41,22 +42,22 @@ class SkillTest extends TestCase
             'sub' => 'base-user@test.com',
         ]);
         $this->baseUser->syncRoles([
-            "guest",
-            "base_user",
-            "pool_operator",
-            "request_responder"
+            'guest',
+            'base_user',
+            'pool_operator',
+            'request_responder',
         ]);
 
         $this->adminUser = User::create([
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
         ]);
-        $this->adminUser->addRole("platform_admin");
+        $this->adminUser->addRole('platform_admin');
 
         $this->uuid = $this->faker->UUID();
 
         Skill::factory()->create([
-            'id' => $this->uuid
+            'id' => $this->uuid,
         ]);
     }
 
@@ -107,9 +108,9 @@ class SkillTest extends TestCase
             'skill' => [
                 'name' => [
                     'en' => 'New Name (EN)',
-                    'fr' => 'New Name (FR)'
-                ]
-            ]
+                    'fr' => 'New Name (FR)',
+                ],
+            ],
         ];
 
         $mutation =
@@ -147,9 +148,10 @@ class SkillTest extends TestCase
                 'key' => 'key',
                 'name' => [
                     'en' => 'New Name (EN)',
-                    'fr' => 'New Name (FR)'
+                    'fr' => 'New Name (FR)',
                 ],
-            ]
+                'category' => 'TECHNICAL',
+            ],
         ];
 
         $mutation =
@@ -162,6 +164,7 @@ class SkillTest extends TestCase
                         en
                         fr
                     }
+                    category
                 }
             }
         ';
@@ -250,8 +253,7 @@ class SkillTest extends TestCase
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query)
             ->assertJson(
-                fn (AssertableJson $json) =>
-                $json->has(
+                fn (AssertableJson $json) => $json->has(
                     'data.skills',
                     2
                 )
@@ -262,8 +264,7 @@ class SkillTest extends TestCase
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query)
             ->assertJson(
-                fn (AssertableJson $json) =>
-                $json->has(
+                fn (AssertableJson $json) => $json->has(
                     'data.skills',
                     1
                 )

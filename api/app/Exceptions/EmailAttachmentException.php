@@ -14,6 +14,6 @@ class EmailAttachmentException extends Exception
      */
     public function report()
     {
-        Log::debug("Error with the attachment file.");
+        Log::debug('Error with the attachment file.');
     }
 }

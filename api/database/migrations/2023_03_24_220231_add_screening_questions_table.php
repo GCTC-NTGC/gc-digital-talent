@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('screening_questions', function (Blueprint $table) {
             $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->uuid('pool_id');
-            $table->foreign("pool_id")->references("id")->on("pools");
+            $table->foreign('pool_id')->references('id')->on('pools');
             $table->integer('sort_order')->nullable()->default(null);
             $table->jsonb('question');
             $table->softDeletes();

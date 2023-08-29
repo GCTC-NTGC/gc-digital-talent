@@ -26,8 +26,8 @@ class ScreeningQuestionFactory extends Factory
 
         return [
             'pool_id' => Pool::factory(),
-            'question' => ['en' => $question . ' EN?', 'fr' => $question . ' FR?'],
-            'sort_order' => $this->faker->optional->numberBetween(1,10),
+            'question' => ['en' => $question.' EN?', 'fr' => $question.' FR?'],
+            'sort_order' => $this->faker->optional->numberBetween(1, 10),
         ];
     }
 }

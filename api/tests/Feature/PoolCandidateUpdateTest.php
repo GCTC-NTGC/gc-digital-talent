@@ -1,12 +1,12 @@
 <?php
 
-use App\Models\Pool;
-use App\Models\PoolCandidate;
-use App\Models\Team;
-use App\Models\User;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
+use App\Models\Pool;
+use App\Models\PoolCandidate;
 use App\Models\Skill;
+use App\Models\Team;
+use App\Models\User;
 use App\Notifications\PoolCandidateStatusChanged;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -25,13 +25,21 @@ class PoolCandidateUpdateTest extends TestCase
     use WithFaker;
 
     protected $guestUser;
+
     protected $applicantUser;
+
     protected $candidateUser;
+
     protected $poolOperatorUser;
+
     protected $requestResponderUser;
+
     protected $adminUser;
+
     protected $team;
+
     protected $teamPool;
+
     protected $poolCandidate;
 
     protected function setUp(): void
@@ -40,7 +48,7 @@ class PoolCandidateUpdateTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $baseRoles = ["guest", "base_user", "applicant"];
+        $baseRoles = ['guest', 'base_user', 'applicant'];
 
         $this->guestUser = User::factory()
             ->asGuest()
@@ -92,7 +100,7 @@ class PoolCandidateUpdateTest extends TestCase
 
         $this->poolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->candidateUser->id,
-            'pool_id' => $this->teamPool->id
+            'pool_id' => $this->teamPool->id,
         ]);
     }
 
@@ -123,59 +131,59 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->save();
 
         // candidate owner can add a step
-        $this->actingAs($this->candidateUser, "api")
+        $this->actingAs($this->candidateUser, 'api')
             ->graphQL($mut, ['id' => $this->poolCandidate->id])
             ->assertJson([
-                "data" => [
-                    "updateApplication" => [
-                        "submittedSteps" => ["WELCOME"],
-                    ]
-                ]
+                'data' => [
+                    'updateApplication' => [
+                        'submittedSteps' => ['WELCOME'],
+                    ],
+                ],
             ]);
 
         // guest can't add a step
-        $this->actingAs($this->guestUser, "api")
+        $this->actingAs($this->guestUser, 'api')
             ->graphQL($mut, ['id' => $this->poolCandidate->id])
             ->assertJson([
-                'errors' =>  [
-                    ['message' => "This action is unauthorized."]
-                ]
+                'errors' => [
+                    ['message' => 'This action is unauthorized.'],
+                ],
             ]);
 
         // other applicant can't add a step
-        $this->actingAs($this->applicantUser, "api")
+        $this->actingAs($this->applicantUser, 'api')
             ->graphQL($mut, ['id' => $this->poolCandidate->id])
             ->assertJson([
-                'errors' =>  [
-                    ['message' => "This action is unauthorized."]
-                ]
+                'errors' => [
+                    ['message' => 'This action is unauthorized.'],
+                ],
             ]);
 
         // pool operator can't add a step
-        $this->actingAs($this->poolOperatorUser, "api")
+        $this->actingAs($this->poolOperatorUser, 'api')
             ->graphQL($mut, ['id' => $this->poolCandidate->id])
             ->assertJson([
-                'errors' =>  [
-                    ['message' => "This action is unauthorized."]
-                ]
+                'errors' => [
+                    ['message' => 'This action is unauthorized.'],
+                ],
             ]);
 
         // pool operator can't add a step
-        $this->actingAs($this->requestResponderUser, "api")
+        $this->actingAs($this->requestResponderUser, 'api')
             ->graphQL($mut, ['id' => $this->poolCandidate->id])
             ->assertJson([
-                'errors' =>  [
-                    ['message' => "This action is unauthorized."]
-                ]
+                'errors' => [
+                    ['message' => 'This action is unauthorized.'],
+                ],
             ]);
 
         // admin can't add a step
-        $this->actingAs($this->adminUser, "api")
+        $this->actingAs($this->adminUser, 'api')
             ->graphQL($mut, ['id' => $this->poolCandidate->id])
             ->assertJson([
-                'errors' =>  [
-                    ['message' => "This action is unauthorized."]
-                ]
+                'errors' => [
+                    ['message' => 'This action is unauthorized.'],
+                ],
             ]);
     }
 
@@ -205,22 +213,22 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->save();
 
         // assert educationRequirementOption updated and that an education experience is successfully connected
-        $response = $this->actingAs($this->candidateUser, "api")->graphQL($updateApplication, [
+        $response = $this->actingAs($this->candidateUser, 'api')->graphQL($updateApplication, [
             'id' => $this->poolCandidate->id,
             'application' => [
                 'educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
                 'educationRequirementEducationExperiences' => [
                     'sync' => [$educationExperienceIds[0]],
                 ],
-            ]
+            ],
         ]);
         $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION]);
         $response->assertJsonFragment([
-            ['id' => $educationExperienceIds[0]]
+            ['id' => $educationExperienceIds[0]],
         ]);
 
         // assert educationRequirementOption updated again, education experience was disconnected, and 3 community experiences synced
-        $response = $this->actingAs($this->candidateUser, "api")->graphQL($updateApplication, [
+        $response = $this->actingAs($this->candidateUser, 'api')->graphQL($updateApplication, [
             'id' => $this->poolCandidate->id,
             'application' => [
                 'educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK,
@@ -228,14 +236,14 @@ class PoolCandidateUpdateTest extends TestCase
                     'sync' => $communityExperienceIds,
                 ],
                 'educationRequirementAwardExperiences' => ['sync' => []],
-                'educationRequirementEducationExperiences' => ['sync' => [],],
-                'educationRequirementPersonalExperiences' => ['sync' => [],],
-                'educationRequirementWorkExperiences' => ['sync' => [],],
-            ]
+                'educationRequirementEducationExperiences' => ['sync' => []],
+                'educationRequirementPersonalExperiences' => ['sync' => []],
+                'educationRequirementWorkExperiences' => ['sync' => []],
+            ],
         ]);
         $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK]);
         $response->assertJsonMissing([
-            ['id' => $educationExperienceIds[0]]
+            ['id' => $educationExperienceIds[0]],
         ]);
         $response->assertJsonFragment(['id' => $communityExperienceIds[0]]);
         $response->assertJsonFragment(['id' => $communityExperienceIds[1]]);
@@ -251,8 +259,8 @@ class PoolCandidateUpdateTest extends TestCase
      */
     public function testStatusChangeCausesNotifications()
     {
-        if (!config('feature.status_notifications')) {
-            $this->markTestSkipped("This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.");
+        if (! config('feature.status_notifications')) {
+            $this->markTestSkipped('This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.');
         }
 
         Notification::fake(); // initialize notification facade
@@ -276,8 +284,8 @@ class PoolCandidateUpdateTest extends TestCase
      */
     public function testCanQueryForNotifications()
     {
-        if (!config('feature.status_notifications')) {
-            $this->markTestSkipped("This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.");
+        if (! config('feature.status_notifications')) {
+            $this->markTestSkipped('This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.');
         }
 
         $screenInTime = config('constants.far_past_datetime');
@@ -296,7 +304,7 @@ class PoolCandidateUpdateTest extends TestCase
         $notificationId = $this->candidateUser->notifications()->sole()->id;
 
         // check for a notification
-        $this->actingAs($this->candidateUser, "api")
+        $this->actingAs($this->candidateUser, 'api')
             ->graphQL(
                 /** @lang GraphQL */
                 '
@@ -322,7 +330,7 @@ class PoolCandidateUpdateTest extends TestCase
             '
             )
             ->assertJson([
-                'data' =>  [
+                'data' => [
                     'me' => [
                         'notifications' => [
                             [
@@ -334,13 +342,13 @@ class PoolCandidateUpdateTest extends TestCase
                                 'newStatus' => $this->poolCandidate->pool_candidate_status,
                                 'poolId' => $this->poolCandidate->pool->id,
                                 'poolName' => [
-                                    'en' => $this->poolCandidate->pool->name["en"],
-                                    'fr' => $this->poolCandidate->pool->name["fr"]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
+                                    'en' => $this->poolCandidate->pool->name['en'],
+                                    'fr' => $this->poolCandidate->pool->name['fr'],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ]);
     }
 
@@ -351,8 +359,8 @@ class PoolCandidateUpdateTest extends TestCase
      */
     public function testCanDismissNotifications()
     {
-        if (!config('feature.status_notifications')) {
-            $this->markTestSkipped("This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.");
+        if (! config('feature.status_notifications')) {
+            $this->markTestSkipped('This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.');
         }
 
         $screenInTime = config('constants.far_past_datetime');
@@ -373,7 +381,7 @@ class PoolCandidateUpdateTest extends TestCase
         Carbon::setTestNow($dismissNotificationTime);
 
         // dismiss notification
-        $this->actingAs($this->candidateUser, "api")
+        $this->actingAs($this->candidateUser, 'api')
             ->graphQL(
                 /** @lang GraphQL */
                 '
@@ -382,12 +390,12 @@ class PoolCandidateUpdateTest extends TestCase
                   }
                 ',
                 [
-                    'id' => $notificationId
+                    'id' => $notificationId,
                 ]
             );
 
         // check for notifications
-        $this->actingAs($this->candidateUser, "api")
+        $this->actingAs($this->candidateUser, 'api')
             ->graphQL(
                 /** @lang GraphQL */
                 '
@@ -400,17 +408,17 @@ class PoolCandidateUpdateTest extends TestCase
             '
             )
             ->assertJson([
-                'data' =>  [
+                'data' => [
                     'me' => [
                         'notifications' => [
                             [
                                 'id' => $notificationId,
-                                'readAt' => $dismissNotificationTime
-                            ]
+                                'readAt' => $dismissNotificationTime,
+                            ],
                         ],
-                        'unreadNotifications' => []
-                    ]
-                ]
+                        'unreadNotifications' => [],
+                    ],
+                ],
             ]);
     }
 }

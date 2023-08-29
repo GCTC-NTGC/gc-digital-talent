@@ -2,21 +2,21 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
-
 use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class RolePermissionTest extends TestCase
 {
     use RefreshDatabase;
 
     private $user;
+
     private $ownedTeam;
+
     private $unownedTeam;
 
     protected function setUp(): void
@@ -31,11 +31,11 @@ class RolePermissionTest extends TestCase
         ]);
 
         $this->ownedTeam = Team::create([
-            'name' => 'owned-team'
+            'name' => 'owned-team',
         ]);
 
         $this->unownedTeam = Team::create([
-            'name' => 'unowned-team'
+            'name' => 'unowned-team',
         ]);
     }
 
@@ -147,10 +147,10 @@ class RolePermissionTest extends TestCase
             'view-team-teamMembers',
         ];
 
-        $this->assertTrue($this->user->hasRole('pool_operator',  $this->ownedTeam));
+        $this->assertTrue($this->user->hasRole('pool_operator', $this->ownedTeam));
         $this->assertTrue($this->user->isAbleTo($permissionsToCheck, $this->ownedTeam, true));
 
-        $this->assertFalse($this->user->hasRole('pool_operator',  $this->unownedTeam));
+        $this->assertFalse($this->user->hasRole('pool_operator', $this->unownedTeam));
         $this->assertFalse($this->user->isAbleTo($permissionsToCheck, $this->unownedTeam));
 
         $this->cleanup();

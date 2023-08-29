@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\PoolCandidate;
-use Illuminate\Console\Command;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
+use Illuminate\Console\Command;
 
 class SubmittedAtApplicationDates extends Command
 {

@@ -4,8 +4,8 @@ namespace App\GraphQL\Handlers;
 
 use Closure;
 use GraphQL\Error\Error;
-use Nuwave\Lighthouse\Execution\ErrorHandler;
 use Illuminate\Support\Facades\Log;
+use Nuwave\Lighthouse\Execution\ErrorHandler;
 
 class LoggingErrorHandler implements ErrorHandler
 {
@@ -17,7 +17,7 @@ class LoggingErrorHandler implements ErrorHandler
         }
 
         // Log the error
-        Log::info('GraphQL Error: ' . $error->getMessage());
+        Log::info('GraphQL Error: '.$error->getMessage());
 
         // Keep the pipeline going, last step formats the error into an array
         return $next($error);

@@ -2,6 +2,7 @@ User-agent: *
 Disallow: /login$
 Disallow: */admin
 Disallow: */logged-out
+Disallow: */user-deleted
 Disallow: */create-application
 Disallow: */applications/*/submit
 Disallow: */applications/*/apply

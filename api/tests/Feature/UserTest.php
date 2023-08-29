@@ -1,26 +1,24 @@
 <?php
 
-use App\Models\User;
-use App\Models\Pool;
-use App\Models\PoolCandidate;
-use App\Models\Classification;
-use App\Models\Skill;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
-use App\Models\WorkExperience;
-use App\Models\GenericJobTitle;
+use App\Models\Pool;
+use App\Models\PoolCandidate;
 use App\Models\Role;
-use App\Models\UserSkill;
+use App\Models\Skill;
 use App\Models\Team;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
-use Tests\TestCase;
+use App\Models\User;
+use App\Models\UserSkill;
+use App\Models\WorkExperience;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Tests\TestCase;
 
 class UserTest extends TestCase
 {
@@ -83,7 +81,7 @@ class UserTest extends TestCase
                     'lastName' => 'Tester',
                     'email' => 'jane@test.com',
                     // If roles is not set, it should come back as empty array.
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
@@ -95,8 +93,8 @@ class UserTest extends TestCase
                     'preferredLang' => null,
                     'preferredLanguageForInterview' => null,
                     'preferredLanguageForExam' => null,
-                ]
-            ]
+                ],
+            ],
         ]);
         // Ensure user was saved
         $this->assertDatabaseHas('users', ['email' => 'jane@test.com']);
@@ -124,7 +122,7 @@ class UserTest extends TestCase
                     'firstName' => 'Jane',
                     'lastName' => 'Tester',
                     'email' => 'jane@test.com',
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
@@ -136,8 +134,8 @@ class UserTest extends TestCase
                     'preferredLang' => null,
                     'preferredLanguageForInterview' => null,
                     'preferredLanguageForExam' => null,
-                ]
-            ]
+                ],
+            ],
         ]);
         // Ensure user was saved
         $this->assertDatabaseHas('users', ['email' => 'jane@test.com']);
@@ -150,10 +148,10 @@ class UserTest extends TestCase
 
         // Create new pools and attach to new pool candidates.
         $pool1 = Pool::factory()->create([
-            'user_id' => $user['id']
+            'user_id' => $user['id'],
         ]);
         $pool2 = Pool::factory()->create([
-            'user_id' => $user['id']
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(5)->create([
@@ -195,16 +193,16 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 16
-                    ]
-                ]
-            ]
+                        'total' => 16,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with pool filter but no statuses filter
@@ -224,18 +222,18 @@ class UserTest extends TestCase
                     'poolFilters' => [
                         [
                             'poolId' => $pool1['id'],
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 13
-                    ]
-                ]
-            ]
+                        'total' => 13,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with pool filter, only expired status
@@ -256,18 +254,18 @@ class UserTest extends TestCase
                         [
                             'poolId' => $pool1['id'],
                             'statuses' => [ApiEnums::CANDIDATE_STATUS_EXPIRED],
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 4
-                    ]
-                ]
-            ]
+                        'total' => 4,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with pool filter, only removed status
@@ -288,18 +286,18 @@ class UserTest extends TestCase
                         [
                             'poolId' => $pool1['id'],
                             'statuses' => [ApiEnums::CANDIDATE_STATUS_REMOVED],
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 1
-                    ]
-                ]
-            ]
+                        'total' => 1,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with pool filter, expired + removed + available statuses
@@ -320,18 +318,18 @@ class UserTest extends TestCase
                         [
                             'poolId' => $pool1['id'],
                             'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_EXPIRED, ApiEnums::CANDIDATE_STATUS_REMOVED],
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 10
-                    ]
-                ]
-            ]
+                        'total' => 10,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with pool filter, empty array of statuses will return all candidates in pool.
@@ -352,18 +350,18 @@ class UserTest extends TestCase
                         [
                             'poolId' => $pool1['id'],
                             'statuses' => [],
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 13
-                    ]
-                ]
-            ]
+                        'total' => 13,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with unknown pool filter will return zero
@@ -384,18 +382,18 @@ class UserTest extends TestCase
                         [
                             'poolId' => '00000000-0000-0000-0000-000000000000',
                             'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE],
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 0
-                    ]
-                ]
-            ]
+                        'total' => 0,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -414,7 +412,7 @@ class UserTest extends TestCase
         ]);
         // A candidate which expires today is not expired YET.
         PoolCandidate::factory()->create([
-            'expiry_date' => date("Y-m-d"),
+            'expiry_date' => date('Y-m-d'),
             'pool_id' => $myPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
         ]);
@@ -438,7 +436,7 @@ class UserTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
         ]);
         PoolCandidate::factory()->create([
-            'expiry_date' => date("Y-m-d"),
+            'expiry_date' => date('Y-m-d'),
             'pool_id' => $otherPool->id,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
         ]);
@@ -470,10 +468,10 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 21 // 1 user from the pool factories + 20 from the pool candidate factories
-                    ]
-                ]
-            ]
+                        'total' => 21, // 1 user from the pool factories + 20 from the pool candidate factories
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with pool and expiryStatus ACTIVE returns correct users
@@ -495,19 +493,19 @@ class UserTest extends TestCase
                             'poolId' => $myPool->id,
                             'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
                             'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE],
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         );
         $response->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 8
-                    ]
-                ]
-            ]
+                        'total' => 8,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query for pool without setting expiryStatus returns ACTIVE users
@@ -528,18 +526,18 @@ class UserTest extends TestCase
                         [
                             'poolId' => $myPool->id,
                             'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE],
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 8
-                    ]
-                ]
-            ]
+                        'total' => 8,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with pool and expiryStatus EXPIRED returns correct users
@@ -562,18 +560,18 @@ class UserTest extends TestCase
                             'poolId' => $myPool->id,
                             'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
                             'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE],
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
-                    ]
-                ]
-            ]
+                        'total' => 2,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with pool and expiryStatus ALL returns all users in pool
@@ -595,18 +593,18 @@ class UserTest extends TestCase
                             'poolId' => $myPool->id,
                             'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
                             'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE],
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 10
-                    ]
-                ]
-            ]
+                        'total' => 10,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -653,16 +651,16 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 9
-                    ]
-                ]
-            ]
+                        'total' => 9,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with ENGLISH filter will return correct user count
@@ -680,18 +678,18 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'languageAbility' => "ENGLISH"
-                    ]
-                ]
+                        'languageAbility' => 'ENGLISH',
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 1
-                    ]
-                ]
-            ]
+                        'total' => 1,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with FRENCH filter will return correct user count
@@ -709,18 +707,18 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'languageAbility' => "FRENCH"
-                    ]
-                ]
+                        'languageAbility' => 'FRENCH',
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 1
-                    ]
-                ]
-            ]
+                        'total' => 1,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with BILINGUAL filter will return correct user count
@@ -738,18 +736,18 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'languageAbility' => "BILINGUAL"
-                    ]
-                ]
+                        'languageAbility' => 'BILINGUAL',
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 1
-                    ]
-                ]
-            ]
+                        'total' => 1,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -786,16 +784,16 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 10
-                    ]
-                ]
-            ]
+                        'total' => 10,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with empty operationalRequirements filter will return all users
@@ -813,18 +811,18 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'operationalRequirements' => []
-                    ]
-                ]
+                        'operationalRequirements' => [],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 10
-                    ]
-                ]
-            ]
+                        'total' => 10,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with one operationalRequirement filter will return correct user count
@@ -843,17 +841,17 @@ class UserTest extends TestCase
                 'where' => [
                     'applicantFilter' => [
                         'operationalRequirements' => [$operationalRequirement1],
-                    ]
-                ]
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 4
-                    ]
-                ]
-            ]
+                        'total' => 4,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with two operationalRequirement filters will return correct user count
@@ -872,17 +870,17 @@ class UserTest extends TestCase
                 'where' => [
                     'applicantFilter' => [
                         'operationalRequirements' => [$operationalRequirement1, $operationalRequirement2],
-                    ]
-                ]
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
-                    ]
-                ]
-            ]
+                        'total' => 2,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with an unused operationalRequirement filter will return zero
@@ -901,17 +899,17 @@ class UserTest extends TestCase
                 'where' => [
                     'applicantFilter' => [
                         'operationalRequirements' => [$operationalRequirement3],
-                    ]
-                ]
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 0
-                    ]
-                ]
-            ]
+                        'total' => 0,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -919,12 +917,12 @@ class UserTest extends TestCase
     {
         // Create 5 new users with a ONTARIO location preference.
         User::factory()->count(5)->create([
-            'location_preferences' => ["ONTARIO"],
+            'location_preferences' => ['ONTARIO'],
         ]);
 
         // Create 2 new users with a TELEWORK location preference.
         User::factory()->count(2)->create([
-            'location_preferences' => ["TELEWORK"],
+            'location_preferences' => ['TELEWORK'],
         ]);
 
         // Assert query with no locationPreferences filter will return all users
@@ -940,16 +938,16 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 8
-                    ]
-                ]
-            ]
+                        'total' => 8,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with locationPreferences filter will return correct user count
@@ -967,18 +965,18 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'locationPreferences' => ["TELEWORK"],
-                    ]
-                ]
+                        'locationPreferences' => ['TELEWORK'],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
-                    ]
-                ]
-            ]
+                        'total' => 2,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with empty locationPreferences filter will return all users
@@ -997,17 +995,17 @@ class UserTest extends TestCase
                 'where' => [
                     'applicantFilter' => [
                         'locationPreferences' => [],
-                    ]
-                ]
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 8
-                    ]
-                ]
-            ]
+                        'total' => 8,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -1036,16 +1034,16 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 8
-                    ]
-                ]
-            ]
+                        'total' => 8,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with hasDiploma filter set to true will return correct user count
@@ -1064,17 +1062,17 @@ class UserTest extends TestCase
                 'where' => [
                     'applicantFilter' => [
                         'hasDiploma' => true,
-                    ]
-                ]
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
-                    ]
-                ]
-            ]
+                        'total' => 2,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with hasDiploma filter set to false will return all users
@@ -1093,17 +1091,17 @@ class UserTest extends TestCase
                 'where' => [
                     'applicantFilter' => [
                         'hasDiploma' => false,
-                    ]
-                ]
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 8
-                    ]
-                ]
-            ]
+                        'total' => 8,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -1132,16 +1130,16 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 8
-                    ]
-                ]
-            ]
+                        'total' => 8,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with position duration filter set to temporary will return correct user count
@@ -1160,17 +1158,17 @@ class UserTest extends TestCase
                 'where' => [
                     'applicantFilter' => [
                         'positionDuration' => [ApiEnums::POSITION_DURATION_TEMPORARY],
-                    ]
-                ]
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
-                    ]
-                ]
-            ]
+                        'total' => 2,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with position duration filter set to null will return all users
@@ -1189,17 +1187,17 @@ class UserTest extends TestCase
                 'where' => [
                     'applicantFilter' => [
                         'positionDuration' => null,
-                    ]
-                ]
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 8
-                    ]
-                ]
-            ]
+                        'total' => 8,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -1264,16 +1262,16 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 14
-                    ]
-                ]
-            ]
+                        'total' => 14,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with isProfileComplete filter set to true will return correct user count
@@ -1291,16 +1289,16 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'isProfileComplete' => true,
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 3
-                    ]
-                ]
-            ]
+                        'total' => 3,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with isProfileComplete filter set to false will return all users
@@ -1318,16 +1316,16 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'isProfileComplete' => false,
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 14
-                    ]
-                ]
-            ]
+                        'total' => 14,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -1410,16 +1408,16 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 8
-                    ]
-                ]
-            ]
+                        'total' => 8,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query empty skills filter array will return all users
@@ -1437,18 +1435,18 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'skills' => []
-                    ]
-                ]
+                        'skills' => [],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 8
-                    ]
-                ]
-            ]
+                        'total' => 8,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with one skills filter will return correct user count
@@ -1467,19 +1465,19 @@ class UserTest extends TestCase
                 'where' => [
                     'applicantFilter' => [
                         'skillsIntersectional' => [
-                            ['id' => $skill1['id']]
-                        ]
-                    ]
-                ]
+                            ['id' => $skill1['id']],
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
-                    ]
-                ]
-            ]
+                        'total' => 2,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with two skills will return correct user count
@@ -1499,19 +1497,19 @@ class UserTest extends TestCase
                     'applicantFilter' => [
                         'skillsIntersectional' => [
                             ['id' => $skill1['id']],
-                            ['id' => $skill2['id']]
-                        ]
-                    ]
-                ]
+                            ['id' => $skill2['id']],
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 1
-                    ]
-                ]
-            ]
+                        'total' => 1,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with unused skill will return correct user count
@@ -1530,19 +1528,19 @@ class UserTest extends TestCase
                 'where' => [
                     'applicantFilter' => [
                         'skillsIntersectional' => [
-                            ['id' => $skill3['id']]
-                        ]
-                    ]
-                ]
+                            ['id' => $skill3['id']],
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 0
-                    ]
-                ]
-            ]
+                        'total' => 0,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -1571,16 +1569,16 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 8
-                    ]
-                ]
-            ]
+                        'total' => 8,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with isGovEmployee filter set to true will return correct user count
@@ -1598,16 +1596,16 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'isGovEmployee' => true,
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
-                    ]
-                ]
-            ]
+                        'total' => 2,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert query with isGovEmployee filter set to false will return all users
@@ -1625,16 +1623,16 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'isGovEmployee' => false,
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 8
-                    ]
-                ]
-            ]
+                        'total' => 8,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -1658,14 +1656,14 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
-                    'data' => $usersByCreated
-                ]
-            ]
+                    'data' => $usersByCreated,
+                ],
+            ],
         ]);
 
         // Assert query orders by given attribute
@@ -1684,16 +1682,16 @@ class UserTest extends TestCase
                 'orderBy' => [
                     [
                         'column' => 'first_name',
-                        'order' => 'ASC'
-                    ]
-                ]
+                        'order' => 'ASC',
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
-                    'data' => $usersByName
-                ]
-            ]
+                    'data' => $usersByName,
+                ],
+            ],
         ]);
     }
 
@@ -1704,10 +1702,10 @@ class UserTest extends TestCase
 
         // Create new pools and attach to new pool candidates.
         $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
-            'user_id' => $user['id']
+            'user_id' => $user['id'],
         ]);
         $pool2 = Pool::factory()->candidatesAvailableInSearch()->create([
-            'user_id' => $user['id']
+            'user_id' => $user['id'],
         ]);
 
         PoolCandidate::factory()->count(8)->create([
@@ -1718,7 +1716,7 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-            ])
+            ]),
         ]);
         PoolCandidate::factory()->count(5)->create([
             'pool_id' => $pool1['id'],
@@ -1728,7 +1726,7 @@ class UserTest extends TestCase
                 'looking_for_english' => false,
                 'looking_for_french' => true,
                 'looking_for_bilingual' => false,
-            ])
+            ]),
         ]);
         // Should appear in searches, but in pool 2.
         PoolCandidate::factory()->create([
@@ -1739,7 +1737,7 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-            ])
+            ]),
         ]);
         // Expired in pool - should not appear in searches
         PoolCandidate::factory()->create([
@@ -1750,7 +1748,7 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-            ])
+            ]),
         ]);
         // Already placed - should not appear in searches
         PoolCandidate::factory()->create([
@@ -1761,7 +1759,7 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-            ])
+            ]),
         ]);
         // User status inactive - should not appear in searches
         PoolCandidate::factory()->create([
@@ -1772,7 +1770,7 @@ class UserTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
-            ])
+            ]),
         ]);
 
         // Query specifying just a pool will return all non-expired, available-status candidates whose Users are looking for or open to opportunities.
@@ -1787,14 +1785,14 @@ class UserTest extends TestCase
                 'where' => [
                     'pools' => [
                         ['id' => $pool1['id']],
-                    ]
-                ]
+                    ],
+                ],
             ]
         );
         $response->assertJson([
             'data' => [
-                'countApplicants' => 14 // including base admin user
-            ]
+                'countApplicants' => 14, // including base admin user
+            ],
         ]);
 
         // Assert query with another filter will return proper count
@@ -1810,13 +1808,13 @@ class UserTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']],
                     ],
-                    'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
-                ]
+                    'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                ],
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 9 //including base admin user
-            ]
+                'countApplicants' => 9, //including base admin user
+            ],
         ]);
     }
 
@@ -1826,32 +1824,32 @@ class UserTest extends TestCase
         User::factory()->create([
             'first_name' => 'bob',
             'last_name' => 'rob',
-            'email' => "bob@user.com",
-            'telephone' => "12345",
+            'email' => 'bob@user.com',
+            'telephone' => '12345',
         ]);
         User::factory()->create([
             'first_name' => 'sam',
             'last_name' => 'ram',
-            'email' => "sam@user.com",
-            'telephone' => "67890",
+            'email' => 'sam@user.com',
+            'telephone' => '67890',
         ]);
         User::factory()->create([
             'first_name' => 'dan',
             'last_name' => 'man',
-            'email' => "dan@user.com",
-            'telephone' => "99999",
+            'email' => 'dan@user.com',
+            'telephone' => '99999',
         ]);
         User::factory()->create([
             'first_name' => 'sir',
             'last_name' => 'whir',
-            'email' => "sir@user.com",
-            'telephone' => "22222",
+            'email' => 'sir@user.com',
+            'telephone' => '22222',
         ]);
         User::factory()->create([
             'first_name' => 'zak',
             'last_name' => 'pak',
-            'email' => "zak@admin.com",
-            'telephone' => "333333",
+            'email' => 'zak@admin.com',
+            'telephone' => '333333',
         ]);
 
         // Remember the admin user exists:
@@ -1871,16 +1869,16 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 6
-                    ]
-                ]
-            ]
+                        'total' => 6,
+                    ],
+                ],
+            ],
         ]);
 
         // Name filtering  //
@@ -1899,16 +1897,16 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'name' => 'sAm',
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 1
-                    ]
-                ]
-            ]
+                        'total' => 1,
+                    ],
+                ],
+            ],
         ]);
         // ensure single letter returns all relevant results
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
@@ -1925,16 +1923,16 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'name' => 'r',
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 3
-                    ]
-                ]
-            ]
+                        'total' => 3,
+                    ],
+                ],
+            ],
         ]);
         // test a full name
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
@@ -1951,16 +1949,16 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'name' => 'BoB rOb',
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 1
-                    ]
-                ]
-            ]
+                        'total' => 1,
+                    ],
+                ],
+            ],
         ]);
         // test name segments
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
@@ -1977,16 +1975,16 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'name' => 'bo ro',
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 1
-                    ]
-                ]
-            ]
+                        'total' => 1,
+                    ],
+                ],
+            ],
         ]);
         // test name segments but in reverse
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
@@ -2003,16 +2001,16 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'name' => 'ro bo',
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 1
-                    ]
-                ]
-            ]
+                        'total' => 1,
+                    ],
+                ],
+            ],
         ]);
 
         // ensure queries with multiple filter variables apply separately as AND operations (builds off assertion above)
@@ -2030,17 +2028,17 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'name' => 'r',
-                    'telephone' => "12345",
-                ]
+                    'telephone' => '12345',
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 1
-                    ]
-                ]
-            ]
+                        'total' => 1,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert email filter with partial email returns correct count
@@ -2058,16 +2056,16 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'email' => 'user.com',
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 4
-                    ]
-                ]
-            ]
+                        'total' => 4,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert filtering for phone digit in general search returns correct count
@@ -2085,16 +2083,16 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'generalSearch' => '9',
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
-                    ]
-                ]
-            ]
+                        'total' => 2,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert filtering for last name in general search returns correct count
@@ -2112,16 +2110,16 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'generalSearch' => 'man',
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 1
-                    ]
-                ]
-            ]
+                        'total' => 1,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert filtering general search and name search (both subqueries) filter as AND
@@ -2140,16 +2138,16 @@ class UserTest extends TestCase
                 'where' => [
                     'generalSearch' => '@user.com',
                     'name' => 'zak',
-                ]
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 0
-                    ]
-                ]
-            ]
+                        'total' => 0,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -2171,16 +2169,16 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 61
-                    ]
-                ]
-            ]
+                        'total' => 61,
+                    ],
+                ],
+            ],
         ]);
 
         // Assert that setting every value to null also returns all users
@@ -2213,17 +2211,17 @@ class UserTest extends TestCase
                     'telephone' => null,
                     'email' => null,
                     'name' => null,
-                    'generalSearch' => null
-                ]
+                    'generalSearch' => null,
+                ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 61
-                    ]
-                ]
-            ]
+                        'total' => 61,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -2242,7 +2240,7 @@ class UserTest extends TestCase
     public function testAddSkillsRestoresSoftDeletedUserSkills(): void
     {
         $userSkill = UserSkill::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $this->platformAdmin->userSkills->first()->delete();
         // The user skill should be trashed (soft-deleted) and by default shouldn't appear in results.
@@ -2260,7 +2258,7 @@ class UserTest extends TestCase
         // The user will already have the first skill.
         $userSkill = UserSkill::factory()->create([
             'user_id' => $this->platformAdmin->id,
-            'skill_id' => $skills[0]->id
+            'skill_id' => $skills[0]->id,
         ]);
         $addSkills = [
             $skills[0]->id, // This skill is already present
@@ -2300,16 +2298,16 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => ['roles' => null]
+                'where' => ['roles' => null],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 28
-                    ]
-                ]
-            ]
+                        'total' => 28,
+                    ],
+                ],
+            ],
         ]);
 
         // assert filtering for platform admin returns 2, including the one from setUp()
@@ -2325,16 +2323,16 @@ class UserTest extends TestCase
             }
         ',
             [
-                'where' => ['roles' => [$adminId]]
+                'where' => ['roles' => [$adminId]],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
-                    ]
-                ]
-            ]
+                        'total' => 2,
+                    ],
+                ],
+            ],
         ]);
 
         // assert filtering for pool operator and request responder returns 12
@@ -2350,16 +2348,16 @@ class UserTest extends TestCase
                     }
                 ',
             [
-                'where' => ['roles' => [$operatorId, $responderId]]
+                'where' => ['roles' => [$operatorId, $responderId]],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 12
-                    ]
-                ]
-            ]
+                        'total' => 12,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -2384,7 +2382,7 @@ class UserTest extends TestCase
                 [
                     'id' => $applicant->id,
                     'user' => [
-                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_STATUS_FIRST_NATIONS]
+                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_STATUS_FIRST_NATIONS],
                     ],
                 ]
             )
@@ -2395,7 +2393,7 @@ class UserTest extends TestCase
                 [
                     'id' => $applicant->id,
                     'user' => [
-                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_NON_STATUS_FIRST_NATIONS]
+                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_NON_STATUS_FIRST_NATIONS],
                     ],
                 ]
             )
@@ -2406,7 +2404,7 @@ class UserTest extends TestCase
                 [
                     'id' => $applicant->id,
                     'user' => [
-                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_STATUS_FIRST_NATIONS, ApiEnums::INDIGENOUS_NON_STATUS_FIRST_NATIONS]
+                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_STATUS_FIRST_NATIONS, ApiEnums::INDIGENOUS_NON_STATUS_FIRST_NATIONS],
                     ],
                 ]
             )

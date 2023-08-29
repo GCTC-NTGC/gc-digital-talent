@@ -3,9 +3,9 @@
 namespace App\GraphQL\Directives;
 
 use GraphQL\Type\Definition\ResolveInfo;
+use Nuwave\Lighthouse\Auth\CanDirective as CanDirectiveOriginal;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use Nuwave\Lighthouse\Auth\CanDirective as CanDirectiveOriginal;
 
 /**
  * This directive adds the `onParent` argument to the Lighthouse Can directive.
