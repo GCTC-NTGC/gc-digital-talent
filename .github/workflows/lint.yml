@@ -76,4 +76,5 @@ jobs:
           composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Run Pint
-        run: api/vendor/bin/pint --test
+        working-directory: api
+        run: vendor/bin/pint --test

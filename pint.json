@@ -1,4 +1,0 @@
-{
-  "preset": "laravel",
-  "notPath": ["api/_lighthouse_ide_helper.php"]
-}
