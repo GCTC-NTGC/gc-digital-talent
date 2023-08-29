@@ -32,9 +32,12 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
   React.useEffect(() => {
     const subscription = watch((values, { name }) => {
       if (
-        // Skills are not really part of the overall form
-        !["disclaimer", "skills"].includes(name ?? "") &&
-        !isEqual(values, defaultValues)
+        // Only uncheck when the description changes
+        name === "experienceDescription" &&
+        !isEqual(
+          values?.experienceDescription,
+          defaultValues?.experienceDescription,
+        )
       ) {
         setValue("disclaimer", false);
       }
