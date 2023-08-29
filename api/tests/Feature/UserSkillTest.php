@@ -8,8 +8,8 @@ use App\Models\WorkExperience;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Testing\Fluent\AssertableJson;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -180,7 +180,7 @@ class UserSkillTest extends TestCase
                         'topBehaviouralSkillsRanked' => [],
                         'improveTechnicalSkillsRanked' => [],
                         'improveBehaviouralSkillsRanked' => [],
-                    ]
+                    ],
                 ]
             )
             ->assertGraphQLErrorMessage('This action is unauthorized.');
@@ -429,7 +429,7 @@ class UserSkillTest extends TestCase
                     'userSkillRanking' => [
                         'topTechnicalSkillsRanked' => [],
                         'improveTechnicalSkillsRanked' => null,
-                    ]
+                    ],
                 ]
             )
             ->assertJsonFragment([
@@ -438,8 +438,8 @@ class UserSkillTest extends TestCase
                     [
                         'id' => $userSkillTechnicalImprove->id,
                         'improveSkillsRank' => $userSkillTechnicalImprove->improve_skills_rank,
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -474,12 +474,12 @@ class UserSkillTest extends TestCase
                     'userId' => $this->user->id,
                     'userSkillRanking' => [
                         'topTechnicalSkillsRanked' => [$userSkillTechnicalTop2->id, $userSkillTechnicalTop1->id, $userSkillTechnicalTop4->id],
-                    ]
+                    ],
                 ]
             );
 
         // assert topTechnicalSkillsRanking is an array of three, sorted with skill 2 then 1 then 4, checks numbers too
-        $response = $this->actingAs($this->user, "api")
+        $response = $this->actingAs($this->user, 'api')
             ->graphQL(
                 /** @lang GraphQL */
                 '
@@ -497,24 +497,20 @@ class UserSkillTest extends TestCase
                     'id' => $this->user->id,
                 ]
             )->assertJson(
-                fn (AssertableJson $json) =>
-                $json->has('data.user.topTechnicalSkillsRanking', 3)
+                fn (AssertableJson $json) => $json->has('data.user.topTechnicalSkillsRanking', 3)
                     ->has(
                         'data.user.topTechnicalSkillsRanking.0',
-                        fn (AssertableJson $json) =>
-                        $json->where('id', $userSkillTechnicalTop2->id)
+                        fn (AssertableJson $json) => $json->where('id', $userSkillTechnicalTop2->id)
                             ->where('topSkillsRank', 1)
                     )
                     ->has(
                         'data.user.topTechnicalSkillsRanking.1',
-                        fn (AssertableJson $json) =>
-                        $json->where('id', $userSkillTechnicalTop1->id)
+                        fn (AssertableJson $json) => $json->where('id', $userSkillTechnicalTop1->id)
                             ->where('topSkillsRank', 2)
                     )
                     ->has(
                         'data.user.topTechnicalSkillsRanking.2',
-                        fn (AssertableJson $json) =>
-                        $json->where('id', $userSkillTechnicalTop4->id)
+                        fn (AssertableJson $json) => $json->where('id', $userSkillTechnicalTop4->id)
                             ->where('topSkillsRank', 3)
                     )
             );
@@ -571,12 +567,12 @@ class UserSkillTest extends TestCase
                     'userSkillRanking' => [
                         'topTechnicalSkillsRanked' => [$userSkillTechnicalTop2->id, $userSkillTechnicalTop1->id],
                         'improveTechnicalSkillsRanked' => [$userSkillTechnicalTop1->id, $userSkillTechnicalTop2->id],
-                    ]
+                    ],
                 ]
             );
 
         // assert updating technical user skills does not impact behavioural skills (rank values of 1 and 3 with 2 missing)
-        $response = $this->actingAs($this->user, "api")
+        $response = $this->actingAs($this->user, 'api')
             ->graphQL(
                 /** @lang GraphQL */
                 '
@@ -606,18 +602,15 @@ class UserSkillTest extends TestCase
                     'id' => $this->user->id,
                 ]
             )->assertJson(
-                fn (AssertableJson $json) =>
-                $json->has('data.user.topTechnicalSkillsRanking', 2)
+                fn (AssertableJson $json) => $json->has('data.user.topTechnicalSkillsRanking', 2)
                     ->has(
                         'data.user.topTechnicalSkillsRanking.0',
-                        fn (AssertableJson $json) =>
-                        $json->where('id', $userSkillTechnicalTop2->id)
+                        fn (AssertableJson $json) => $json->where('id', $userSkillTechnicalTop2->id)
                             ->where('topSkillsRank', 1)
                     )
                     ->has(
                         'data.user.topTechnicalSkillsRanking.1',
-                        fn (AssertableJson $json) =>
-                        $json->where('id', $userSkillTechnicalTop1->id)
+                        fn (AssertableJson $json) => $json->where('id', $userSkillTechnicalTop1->id)
                             ->where('topSkillsRank', 2)
                     )
                     ->has('data.user.topBehaviouralSkillsRanking', 2)
@@ -636,14 +629,12 @@ class UserSkillTest extends TestCase
                     ->has('data.user.improveTechnicalSkillsRanking', 2)
                     ->has(
                         'data.user.improveTechnicalSkillsRanking.0',
-                        fn (AssertableJson $json) =>
-                        $json->where('id', $userSkillTechnicalTop1->id)
+                        fn (AssertableJson $json) => $json->where('id', $userSkillTechnicalTop1->id)
                             ->where('improveSkillsRank', 1)
                     )
                     ->has(
                         'data.user.improveTechnicalSkillsRanking.1',
-                        fn (AssertableJson $json) =>
-                        $json->where('id', $userSkillTechnicalTop2->id)
+                        fn (AssertableJson $json) => $json->where('id', $userSkillTechnicalTop2->id)
                             ->where('improveSkillsRank', 2)
                     )
                     ->has('data.user.improveBehaviouralSkillsRanking', 2)

@@ -795,6 +795,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             })
             ->get();
         $sortedTechnicalUserSkills = $technicalUserSkills->sortBy('top_skills_rank', SORT_NUMERIC);
+
         return $sortedTechnicalUserSkills;
 
         // PENDING
@@ -817,6 +818,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             })
             ->get();
         $sortedBehaviouralUserSkills = $behaviouralUserSkills->sortBy('top_skills_rank', SORT_NUMERIC);
+
         return $sortedBehaviouralUserSkills;
 
         // PENDING
@@ -839,6 +841,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             })
             ->get();
         $sortedTechnicalUserSkills = $technicalUserSkills->sortBy('improve_skills_rank', SORT_NUMERIC);
+
         return $sortedTechnicalUserSkills;
 
         // PENDING
@@ -861,6 +864,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             })
             ->get();
         $sortedBehaviouralUserSkills = $behaviouralUserSkills->sortBy('improve_skills_rank', SORT_NUMERIC);
+
         return $sortedBehaviouralUserSkills;
 
         // PENDING
