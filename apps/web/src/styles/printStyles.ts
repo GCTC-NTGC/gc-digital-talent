@@ -5,26 +5,34 @@ export default `
 }
 
 h1, h2, h3, h4, h5 {
-  page-break-after: avoid;
+  page-break-after: avoid !important;
 }
 
 h1 {
-  font-size: 22px;
+  font-size: 1.8331rem !important;
 }
 
 h2 {
-  font-size: 18px;
+  font-size: 1.5rem !important;
 }
 
 h3 {
-  font-size: 15px;
+  font-size: 1.25rem !important;
 }
 
 h4 {
-  font-size: 13px;
+  font-size: 1.0831rem !important;
+}
+
+h5 {
+  font-size: 0.9169rem !important;
+}
+
+h6 {
+  font-size: 0.8331rem !important;
 }
 
 p {
-  font-size: 9px;
+  font-size: 0.75rem !important;
 }
 `;
