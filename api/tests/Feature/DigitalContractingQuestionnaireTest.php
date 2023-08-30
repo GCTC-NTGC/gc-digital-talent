@@ -95,7 +95,8 @@ class DigitalContractingQuestionnaireTest extends TestCase
             'requirementWorkLanguages' => ['ENGLISH_ONLY', 'OTHER'],
             'requirementWorkLanguageOther' => 'requirement_work_language_other',
             'requirementWorkLocations' => ['GC_PREMISES', 'OFFSITE_SPECIFIC'],
-            'requirementWorkLocationSpecific' => 'requirement_work_location_specific',
+            'requirementWorkLocationGcSpecific' => 'requirement_work_location_gc_specific',
+            'requirementWorkLocationOffsiteSpecific' => 'requirement_work_location_offsite_specific',
             'requirementOthers' => ['SHIFT_WORK', 'OTHER'],
             'requirementOtherOther' => 'requirement_other_other',
             'hasPersonnelRequirements' => 'YES',
@@ -222,7 +223,8 @@ class DigitalContractingQuestionnaireTest extends TestCase
                         requirementScreeningLevels
                         requirementWorkLanguageOther
                         requirementWorkLanguages
-                        requirementWorkLocationSpecific
+                        requirementWorkLocationGcSpecific
+                        requirementWorkLocationOffsiteSpecific
                         requirementWorkLocations
                         solicitationProcedure
                         subjectToTradeAgreement
