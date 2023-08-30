@@ -191,8 +191,8 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                       <PageSection>
                         <Heading level="h3" data-h2-font-weight="base(700)">
                           {intl.formatMessage({
-                            defaultMessage: "General Information",
-                            id: "thZbEN",
+                            defaultMessage: "General information",
+                            id: "OHRL9N",
                             description: "Title for general info",
                           })}
                         </Heading>
