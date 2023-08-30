@@ -2,9 +2,10 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
-use App\Models\Skill;
+use App\Rules\SkillNotDeleted;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
+use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -18,7 +19,6 @@ final class PublishPoolValidator extends Validator
     public function rules(): array
     {
         $endOfDay = Carbon::now()->endOfDay();
-        $deletedSkillsIds = Skill::onlyTrashed()->get()->pluck('id')->toArray(); // find all soft deleted skills
 
         return [
             // Pool name and classification
@@ -39,22 +39,17 @@ final class PublishPoolValidator extends Validator
 
             // Essential skills and Asset skills
             'essential_skills' => ['required', 'array', 'min:1'],
-            'essential_skills.*.id' => Rule::forEach(function (?string $value, string $attribute) use ($deletedSkillsIds) {
-                return [
-                    'required',
-                    'uuid',
-                    'exists:skills,id',
-                    Rule::notIn($deletedSkillsIds),
-                ];
-            }),
+            'essential_skills.*.id' => [
+                'required',
+                'uuid',
+                'exists:skills,id',
+                new SkillNotDeleted,
+            ],
             'nonessential_skills' => ['array'],
-            'nonessential_skills.*.id' => Rule::forEach(function (?string $value, string $attribute) use ($deletedSkillsIds) {
-                return [
-                    'uuid',
-                    'exists:skills,id',
-                    Rule::notIn($deletedSkillsIds),
-                ];
-            }),
+            'nonessential_skills.*.id' => ['uuid',
+                'exists:skills,id',
+                new SkillNotDeleted,
+            ],
             // Other requirements
             'advertisement_language' => ['required', Rule::in(ApiEnums::poolLanguages())],
             'security_clearance' => ['required', Rule::in(ApiEnums::poolSecurity())],
@@ -76,8 +71,8 @@ final class PublishPoolValidator extends Validator
             'advertisement_location.*.required_with' => 'You must enter both french and english fields for the advertisement_location',
             'in' => ':attribute does not contain a valid value.',
             'essential_skills.required' => 'EssentialSkillRequired',
-            'essential_skills.*.id.not_in' => 'EssentialSkillsContainsDeleted',
-            'nonessential_skills.*.id.not_in' => 'NonEssentialSkillsContainsDeleted',
+            'essential_skills.*.id.'.SkillNotDeleted::class => ApiErrorEnums::ESSENTIAL_SKILLS_CONTAINS_DELETED,
+            'nonessential_skills.*.id.'.SkillNotDeleted::class => ApiErrorEnums::NONESSENTIAL_SKILLS_CONTAINS_DELETED,
             'key_tasks.en.required' => 'EnglishWorkTasksRequired',
             'key_tasks.fr.required' => 'FrenchWorkTasksRequired',
             'your_impact.en.required' => 'EnglishYourImpactRequired',
