@@ -6,4 +6,6 @@ class ApiErrorEnums
 {
     // UpdateUserInputValidator messages
     const UPDATE_USER_BOTH_STATUS_NON_STATUS = 'BothStatusNonStatus';
+
+    const SKILL_USED_ACTIVE_POSTER = 'SkillUsedByActivePoster';
 }
