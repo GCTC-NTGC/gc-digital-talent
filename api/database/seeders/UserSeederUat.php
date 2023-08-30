@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UserSeederUat extends Seeder
@@ -27,12 +27,12 @@ class UserSeederUat extends Seeder
                 'email' => 'usertester923@gmail.com',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => 'b4c734a1-dcf3-4fb8-a860-c642700cb0b8'],
             [
@@ -41,12 +41,12 @@ class UserSeederUat extends Seeder
                 'email' => "tristan.o'rourke@tbs-sct.gc.ca",
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => '5d0ce9a8-8164-46a5-9fe1-b7a2b42d61fc'],
             [
@@ -55,12 +55,12 @@ class UserSeederUat extends Seeder
                 'email' => 'peter.giles@tbs-sct.gc.ca',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => 'fcd5d233-66d9-4ac6-81e0-fabf379b0a70'],
             [
@@ -69,12 +69,12 @@ class UserSeederUat extends Seeder
                 'email' => 'biruntha.sasikumar@tbs-sct.gc.ca',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => 'b9305997-b221-43f7-9c25-bc0d460b6464'],
             [
@@ -83,12 +83,12 @@ class UserSeederUat extends Seeder
                 'email' => 'testing@gmail.com',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => 'a5bf84fe-7003-44df-bbdd-ce2d35cac2fb'],
             [
@@ -97,12 +97,12 @@ class UserSeederUat extends Seeder
                 'email' => 'Yonathan.Kidanemariam@tbs-sct.gc.ca',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => 'ecbf3c81-9bc0-4d9e-bb88-8a4554b651ea'],
             [
@@ -111,12 +111,12 @@ class UserSeederUat extends Seeder
                 'email' => 'julie.harrison@tbs-sct.gc.ca',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => '43a2b0f0-218b-447b-9208-9254b487ebab'],
             [
@@ -125,12 +125,12 @@ class UserSeederUat extends Seeder
                 'email' => 'corinne.fraser@tbs-sct.gc.ca',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => 'ebd3e68a-0369-4d3f-92f0-46532638a54c'],
             [
@@ -139,12 +139,12 @@ class UserSeederUat extends Seeder
                 'email' => 'eric.sizer@tbs-sct.gc.ca',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => '5c3315f2-2802-4a0a-9954-815544344cc4'],
             [
@@ -153,12 +153,12 @@ class UserSeederUat extends Seeder
                 'email' => 'ts@test.com',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => 'cfab235d-192c-42c8-930e-6e8ee2707068'],
             [
@@ -167,12 +167,12 @@ class UserSeederUat extends Seeder
                 'email' => 'jamie.estey@tbs-sct.gc.ca',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => '8fc3674f-4ae9-4ad2-a62d-378717211677'],
             [
@@ -181,12 +181,12 @@ class UserSeederUat extends Seeder
                 'email' => 'ad@test.com',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => '3451d853-6531-4923-94ae-4b5eaea8a4b2'],
             [
@@ -195,12 +195,12 @@ class UserSeederUat extends Seeder
                 'email' => 'madeleine.daigle@tbs-sct.gc.ca',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => '345e5bc5-3906-495e-9900-986e5e7747d2'],
             [
@@ -209,12 +209,12 @@ class UserSeederUat extends Seeder
                 'email' => 'maddy.daigle@gmail.com',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => 'c7301a8b-4c62-4767-b131-69920ff39e72'],
             [
@@ -223,12 +223,12 @@ class UserSeederUat extends Seeder
                 'email' => 'jerryescandon@gmail.com',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => 'c04defba-8470-4118-a5d8-1b3c1e4d800d'],
             [
@@ -237,12 +237,12 @@ class UserSeederUat extends Seeder
                 'email' => 'rosalie.mcgrath@tbs-sct.gc.ca',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => 'b1e156d1-a1ff-4c3d-a86e-c875922394ca'],
             [
@@ -251,12 +251,12 @@ class UserSeederUat extends Seeder
                 'email' => 'gray.obyrne@tbs-sct.gc.ca',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => '49baaa3f-ff93-4cf7-9d0c-a389a40ac290'],
             [
@@ -265,12 +265,12 @@ class UserSeederUat extends Seeder
                 'email' => 'daria.petrova@tbs-sct.gc.ca',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => '2ccb3e5e-6b5f-49eb-95e1-e1b4628fb492'],
             [
@@ -279,12 +279,12 @@ class UserSeederUat extends Seeder
                 'email' => 'secuity@test.test',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
         User::updateOrCreate(
             ['sub' => 'fddd293e-0882-49fa-94bb-30854f06f0cd'],
             [
@@ -293,11 +293,11 @@ class UserSeederUat extends Seeder
                 'email' => 'Jamie.estey@tbs-sct.gc.ca',
             ]
         )->syncRoles([
-            "guest",
-            "applicant",
-            "base_user",
-            "request_responder",
-            "platform_admin",
-        ])->addRoles(["pool_operator"], $dcmTeam);
+            'guest',
+            'applicant',
+            'base_user',
+            'request_responder',
+            'platform_admin',
+        ])->addRoles(['pool_operator'], $dcmTeam);
     }
 }

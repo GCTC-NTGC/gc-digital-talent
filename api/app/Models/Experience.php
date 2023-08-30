@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -18,27 +18,25 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
-
 abstract class Experience extends Model
 {
     use SoftDeletes;
     use HasRelationships;
 
-
     protected $keyType = 'string';
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function userSkills(): MorphToMany
     {
         return $this->morphToMany(UserSkill::class, 'experience', 'experience_skill')
-        ->withTimestamps()
-        ->withPivot(['details', 'deleted_at'])
-        ->wherePivotNull('deleted_at')
-        ->as('experience_skill');
+            ->withTimestamps()
+            ->withPivot(['details', 'deleted_at'])
+            ->wherePivotNull('deleted_at')
+            ->as('experience_skill');
     }
 
     public function skills(): HasManyThrough
@@ -80,7 +78,7 @@ abstract class Experience extends Model
         $this->connectSkills($skills);
     }
 
-     /**
+    /**
      * Connect means we will add missing skills and update the details of existing skills, but not remove any skills.
      *
      * @param [id => uuid, details => undefined|string] $skills - Skills must be an array of items, each of which must have an id, and optionally have a details string.
@@ -99,7 +97,7 @@ abstract class Experience extends Model
         $userSkills = UserSkill::where('user_id', $this->user_id)->get(); // Get this users UserSkills once, to avoid repeated db calls.
 
         // Restore soft-deleted experience-skills which need to be connected.
-         ExperienceSkill::onlyTrashed()
+        ExperienceSkill::onlyTrashed()
             ->where('experience_id', $this->id)
             ->whereHas('userSkill', function ($query) use ($skillIds) {
                 $query->whereIn('skill_id', $skillIds);
@@ -116,7 +114,7 @@ abstract class Experience extends Model
             ->get();
 
         // We can't use the userSkills()->sync() operation because it will hard-delete ExperienceSkills, so loop through manually.
-        foreach($skills as $newSkill) {
+        foreach ($skills as $newSkill) {
             $newSkill = collect($newSkill);
             $existingPivot = $existingExperienceSkills->firstWhere('userSkill.skill_id', $newSkill->get('id'));
             if ($existingPivot) { // If pivot already exists, update details

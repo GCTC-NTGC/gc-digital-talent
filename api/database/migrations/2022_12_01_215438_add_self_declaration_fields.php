@@ -3,8 +3,8 @@
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -21,7 +21,7 @@ return new class extends Migration
         });
 
         DB::statement(
-            <<<SQL
+            <<<'SQL'
                 UPDATE users
                     SET indigenous_communities =
                         case is_indigenous
@@ -35,7 +35,7 @@ return new class extends Migration
         );
 
         DB::statement(
-            <<<SQL
+            <<<'SQL'
                 UPDATE users
                     SET indigenous_declaration_signature =
                         case is_indigenous
@@ -64,7 +64,7 @@ return new class extends Migration
         });
 
         DB::statement(
-            <<<SQL
+            <<<'SQL'
                 UPDATE users
                     SET is_indigenous =
                         case

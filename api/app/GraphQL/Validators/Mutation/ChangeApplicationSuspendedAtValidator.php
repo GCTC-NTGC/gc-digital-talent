@@ -1,8 +1,9 @@
 <?php
 
 namespace App\GraphQL\Validators\Mutation;
-use Nuwave\Lighthouse\Validation\Validator;
+
 use Carbon\Carbon;
+use Nuwave\Lighthouse\Validation\Validator;
 
 final class ChangeApplicationSuspendedAtValidator extends Validator
 {
@@ -14,13 +15,13 @@ final class ChangeApplicationSuspendedAtValidator extends Validator
     public function rules(): array
     {
         return [
-            'submitted_at' => ['required', 'before:' . Carbon::now()],
+            'submitted_at' => ['required', 'before:'.Carbon::now()],
         ];
     }
 
     public function messages(): array
     {
-        return  [
+        return [
             'submitted_at' => 'The application must be submitted.',
         ];
     }

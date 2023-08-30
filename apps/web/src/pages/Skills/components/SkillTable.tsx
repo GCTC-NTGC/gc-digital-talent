@@ -1,19 +1,31 @@
 import React, { useMemo } from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import { OperationContext } from "urql";
 
-import { getLocale } from "@gc-digital-talent/i18n";
+import { getLocale, getSkillCategory } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pill, Pending } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import { Maybe, Skill, SkillFamily, useAllSkillsQuery } from "~/api/generated";
+import {
+  Maybe,
+  Skill,
+  SkillCategory,
+  SkillFamily,
+  useAllSkillsQuery,
+} from "~/api/generated";
 import Table, {
   ColumnsOf,
   tableEditButtonAccessor,
   Cell,
 } from "~/components/Table/ClientManagedTable";
 import adminMessages from "~/messages/adminMessages";
+
+// callbacks extracted to separate function to stabilize memoized component
+const categoryAccessor = (
+  category: SkillCategory | null | undefined,
+  intl: IntlShape,
+) => (category ? intl.formatMessage(getSkillCategory(category as string)) : "");
 
 const skillFamiliesCell = (
   skillFamilies: Maybe<Maybe<SkillFamily>[]>,
@@ -95,6 +107,15 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
             .filter(notEmpty)
             .sort()
             .join(", "),
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Category",
+          id: "m5RwGF",
+          description:
+            "Title displayed for the Skill Family table Category column.",
+        }),
+        accessor: ({ category }) => categoryAccessor(category, intl),
       },
       {
         Header: intl.formatMessage({

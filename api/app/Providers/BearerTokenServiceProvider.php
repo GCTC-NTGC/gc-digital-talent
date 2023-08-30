@@ -2,17 +2,15 @@
 
 namespace App\Providers;
 
+use App\Services\OpenIdBearerTokenService;
 use DateTimeZone;
 use Illuminate\Support\ServiceProvider;
-use App\Services\OpenIdBearerTokenService;
 use Lcobucci\Clock\SystemClock;
 
 class BearerTokenServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register(): void
     {

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
@@ -28,7 +27,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('role_user', function (Blueprint $table) {
-           $table->dropColumn('id');
+            $table->dropColumn('id');
         });
     }
 };

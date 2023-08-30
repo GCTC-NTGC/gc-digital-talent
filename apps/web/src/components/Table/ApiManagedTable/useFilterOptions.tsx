@@ -156,6 +156,7 @@ export default function useFilterOptions() {
           (role?.displayName && role.displayName[locale]) ??
           intl.formatMessage(commonMessages.nameNotLoaded),
       })),
+    trashed: [yesOption],
   };
 
   // Creates an object keyed with all fields, each with empty array.

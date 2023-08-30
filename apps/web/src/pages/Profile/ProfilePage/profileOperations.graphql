@@ -65,6 +65,7 @@ query getMe {
           en
           fr
         }
+        category
       }
     }
     experiences {
@@ -146,6 +147,7 @@ fragment profileExperience on Experience {
       en
       fr
     }
+    category
     experienceSkillRecord {
       details
     }

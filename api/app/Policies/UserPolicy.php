@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\PoolCandidate;
 use App\Models\User;
-use App\Models\Team;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
@@ -14,7 +13,6 @@ class UserPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewAny(User $user)
@@ -25,8 +23,6 @@ class UserPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(User $user, User $model)
@@ -43,7 +39,6 @@ class UserPolicy
     /**
      * Determine whether the user can view a more limited version of the User model.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewBasicInfo(User $user)
@@ -54,29 +49,26 @@ class UserPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user)
     {
-        return $user->isAbleTo("create-any-user");
+        return $user->isAbleTo('create-any-user');
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, User $model, ?array $injected = null)
+    public function update(User $user, User $model, array $injected = null)
     {
         /**
          * If a user is assigning a role here, check all actions
          * and fail early
          */
-        if ($injected && isset($injected["roles"])) {
-            if (!$user->isAbleTo("assign-any-role")) {
+        if ($injected && isset($injected['roles'])) {
+            if (! $user->isAbleTo('assign-any-role')) {
                 return false;
             }
         }
@@ -88,13 +80,21 @@ class UserPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(User $user, User $model)
     {
         return $user->isAbleTo('delete-any-user') && $user->id !== $model->id; // Do not allow user to delete their own model.
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restore(User $user, User $model)
+    {
+        return $user->isAbleTo('delete-any-user') && $user->id !== $model->id; // Do not allow user to restore their own model.
     }
 
     /*******************  APPLICANT QUERIES  *******************/

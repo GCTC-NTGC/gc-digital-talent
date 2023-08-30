@@ -21,9 +21,9 @@ class CreateGenericJobTitlesTable extends Migration
             $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->uuid('classification_id')->references('id')->on('classifications');
         });
-       DB::statement('ALTER TABLE generic_job_titles ALTER COLUMN id SET DEFAULT gen_random_uuid();');
+        DB::statement('ALTER TABLE generic_job_titles ALTER COLUMN id SET DEFAULT gen_random_uuid();');
 
-       Schema::create( 'generic_job_title_user', function (Blueprint $table) {
+        Schema::create('generic_job_title_user', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
             $table->softDeletes();
@@ -31,7 +31,7 @@ class CreateGenericJobTitlesTable extends Migration
             $table->uuid('user_id')->references('id')->on('users')->nullable(false);
             $table->unique(['generic_job_title_id', 'user_id'], 'generic_job_title_user_unique');
         });
-       DB::statement('ALTER TABLE generic_job_title_user ALTER COLUMN id SET DEFAULT gen_random_uuid();');
+        DB::statement('ALTER TABLE generic_job_title_user ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
 
     /**

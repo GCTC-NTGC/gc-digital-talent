@@ -55,6 +55,7 @@ const emptyFormValues = {
   stream: [],
   roles: [],
   publishingGroups: [],
+  trashed: [],
 };
 
 interface ProvidersProps {
@@ -157,12 +158,13 @@ describe("UserTableFilterDialog", () => {
         await selectFilterOption(/pools/i);
         await selectFilterOption(/skill filter/i);
         await selectFilterOption(/roles and permissions/i);
+        await selectFilterOption(/deleted/i);
 
         await submitFilters();
         expect(mockSubmit).toHaveBeenCalledTimes(1);
 
         const activeFilter = mockSubmit.mock.lastCall[0];
-        expect(Object.keys(activeFilter)).toHaveLength(18);
+        expect(Object.keys(activeFilter)).toHaveLength(19);
         // Static filters.
         expect(activeFilter.workRegion).toHaveLength(1);
         expect(activeFilter.employmentDuration).toHaveLength(1);
@@ -170,6 +172,7 @@ describe("UserTableFilterDialog", () => {
         expect(activeFilter.operationalRequirement).toHaveLength(1);
         expect(activeFilter.govEmployee).toHaveLength(1);
         expect(activeFilter.profileComplete).toHaveLength(1);
+        expect(activeFilter.trashed).toHaveLength(1);
 
         // Async filters.
         expect(activeFilter.classifications).toHaveLength(1);
@@ -240,6 +243,6 @@ describe("UserTableFilterDialog", () => {
 
   it("shows correct filters in modal", () => {
     renderButton({ isOpenDefault: true });
-    expect(screen.getAllByRole("combobox")).toHaveLength(10);
+    expect(screen.getAllByRole("combobox")).toHaveLength(11);
   });
 });

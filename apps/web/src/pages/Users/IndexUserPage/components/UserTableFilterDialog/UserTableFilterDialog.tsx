@@ -27,6 +27,7 @@ export type FormValues = {
   profileComplete: Option["value"][];
   govEmployee: Option["value"][];
   roles: Option["value"][];
+  trashed: Option["value"][];
 };
 
 const Footer = () => {
@@ -224,6 +225,18 @@ const UserTableFilterDialog = ({
                   label={formatMessage(adminMessages.rolesAndPermissions)}
                   options={optionsData.roles}
                   isLoading={rawGraphqlResults.roles.fetching}
+                />
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(2of5)">
+                <MultiSelectFieldBase
+                  forceArrayFormValue
+                  id="trashed"
+                  name="trashed"
+                  label={formatMessage({
+                    defaultMessage: "Deleted",
+                    id: "KQvWvD",
+                  })}
+                  options={optionsData.trashed}
                 />
               </div>
             </div>

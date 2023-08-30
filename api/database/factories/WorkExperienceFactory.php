@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class WorkExperienceFactory extends Factory
 {
     use ExperienceFactoryWithSkills;
+
     /**
      * The name of the factory's corresponding model.
      *

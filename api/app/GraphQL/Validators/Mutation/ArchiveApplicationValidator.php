@@ -31,7 +31,7 @@ final class ArchiveApplicationValidator extends Validator
 
     public function messages(): array
     {
-        return  [
+        return [
             'in' => ':attribute InvalidValueArchival',
             'archived_at.prohibited' => 'AlreadyArchived',
         ];

@@ -25,6 +25,7 @@ class GenericJobTitleFactory extends Factory
     {
         $name = $this->faker->unique()->company();
         $randomClassification = Classification::inRandomOrder()->first();
+
         return [
             'key' => KeyStringHelpers::toKeyString($name),
             'name' => ['en' => $this->faker->name, 'fr' => $this->faker->name],

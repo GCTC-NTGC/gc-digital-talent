@@ -2,15 +2,16 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\GraphQL\Validators\Mutation\DeleteApplicationValidator;
 use App\Models\PoolCandidate;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
-use App\GraphQL\Validators\Mutation\DeleteApplicationValidator;
 
 final class DeleteApplication
 {
     /**
      * Delete an application
+     *
      * @param  null  $_
      * @param  array{}  $args
      */

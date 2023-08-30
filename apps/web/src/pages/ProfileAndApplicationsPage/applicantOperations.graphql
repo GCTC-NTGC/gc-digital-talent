@@ -117,6 +117,7 @@ query ApplicantInformation {
           en
           fr
         }
+        category
         experienceSkillRecord {
           details
         }

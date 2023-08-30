@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Skill;
+use Database\Helpers\ApiEnums;
 use Database\Helpers\KeyStringHelpers;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,20 +23,22 @@ class SkillFactory extends Factory
      */
     public function definition()
     {
-        $keywords =  $this->faker->words($nb = 3, $asText = false);
+        $keywords = $this->faker->words($nb = 3, $asText = false);
         $keywordsEN = [];
         $keywordsFR = [];
         foreach ($keywords as $index => $value) {
-            $keywordsEN[$index] = $value . ' EN';
-            $keywordsFR[$index] = $value . ' FR';
+            $keywordsEN[$index] = $value.' EN';
+            $keywordsFR[$index] = $value.' FR';
         }
 
         $name = $this->faker->unique()->jobTitle();
+
         return [
-            'name' => ['en' => $name . ' EN', 'fr' => $name . ' FR'],
+            'name' => ['en' => $name.' EN', 'fr' => $name.' FR'],
             'key' => KeyStringHelpers::toKeyString($name),
-            'description' => ['en' => $this->faker->paragraph() . ' EN', 'fr' => $this->faker->paragraph() . ' FR'],
+            'description' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
             'keywords' => ['en' => $keywordsEN, 'fr' => $keywordsFR],
+            'category' => $this->faker->randomElement(ApiEnums::skillCategories()),
         ];
     }
 
