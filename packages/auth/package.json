@@ -21,13 +21,11 @@
     "preset": "jest-presets/jest/node"
   },
   "dependencies": {
-    "@gc-digital-talent/auth": "*",
     "@gc-digital-talent/env": "*",
     "@gc-digital-talent/graphql": "*",
     "@gc-digital-talent/helpers": "*",
     "@gc-digital-talent/i18n": "*",
     "@gc-digital-talent/logger": "*",
-    "@gc-digital-talent/toast": "*",
     "@gc-digital-talent/ui": "*",
     "jwt-decode": "^3.1.2",
     "path-browserify": "^1.0.1",
