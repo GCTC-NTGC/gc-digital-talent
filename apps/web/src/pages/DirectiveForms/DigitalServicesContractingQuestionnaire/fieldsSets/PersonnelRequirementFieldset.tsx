@@ -72,7 +72,7 @@ const PersonnelRequirementFieldset = ({
    */
   React.useEffect(() => {
     const resetDirtyField = (name: string) => {
-      resetField(name, { keepDirty: false });
+      resetField(name, { keepDirty: false, defaultValue: null });
     };
 
     // Reset all optional fields
@@ -188,7 +188,7 @@ const PersonnelRequirementFieldset = ({
                   initialState={{
                     skill: requirement.skillId,
                     level: stringToEnum(SkillLevel, requirement.level),
-                    category: selectedSkillFamilyModel?.category,
+                    category: selectedSkillModel?.category,
                     family: selectedSkillFamilyModel?.id,
                   }}
                 />

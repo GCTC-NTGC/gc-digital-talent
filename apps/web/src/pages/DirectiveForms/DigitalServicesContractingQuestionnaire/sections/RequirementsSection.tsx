@@ -88,7 +88,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
    */
   React.useEffect(() => {
     const resetDirtyField = (name: string) => {
-      resetField(name, { keepDirty: false });
+      resetField(name, { keepDirty: false, defaultValue: null });
     };
 
     // Reset all optional fields

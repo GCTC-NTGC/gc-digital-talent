@@ -37,18 +37,20 @@ export const pageTitle = defineMessage({
     "Title for the Digital services contracting questionnaire form page",
 });
 
-type DigitalServicesContractingQuestionnaireProps = {
+export type DigitalServicesContractingQuestionnaireProps = {
   departments: Array<IdNamePair>;
   skills: Array<Skill>;
   isSubmitting: boolean;
   onSubmit: SubmitHandler<FormValues>;
+  defaultValues?: Partial<FormValues>;
 };
 
-const DigitalServicesContractingQuestionnaire = ({
+export const DigitalServicesContractingQuestionnaire = ({
   departments,
   skills,
   isSubmitting,
   onSubmit,
+  defaultValues,
 }: DigitalServicesContractingQuestionnaireProps) => {
   const intl = useIntl();
   const localeState = useLocale();
@@ -217,7 +219,12 @@ const DigitalServicesContractingQuestionnaire = ({
             </Link>
           </TableOfContents.Navigation>
           <TableOfContents.Content data-h2-padding-top="base(x3)">
-            <BasicForm onSubmit={onSubmit}>
+            <BasicForm
+              onSubmit={onSubmit}
+              options={{
+                defaultValues,
+              }}
+            >
               <InstructionsSection />
               <PreambleSection />
               <QuestionnaireSection
