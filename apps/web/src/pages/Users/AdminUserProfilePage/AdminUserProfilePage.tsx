@@ -31,8 +31,8 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
       >
         {/* leaving anonymous for testing */}
         <UserProfilePrintButton user={user} anonymous>
-          <span>
-            <PrinterIcon style={{ width: "1rem" }} />{" "}
+          <span data-h2-display="base(flex)">
+            <PrinterIcon style={{ width: "1rem", marginRight: "0.5rem" }} />{" "}
             {intl.formatMessage({
               defaultMessage: "Print Profile",
               id: "R+Zm3X",

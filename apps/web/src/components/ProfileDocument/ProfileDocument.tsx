@@ -67,8 +67,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
         <div data-h2 ref={ref}>
           <div
             data-h2-font-family="base(sans) base:print(sans)"
-            data-h2-padding-bottom="base(2rem) base:print(2rem)"
-            data-h2-padding-top="base(2rem) base:print(2rem)"
+            data-h2-padding-bottom="base(1rem)"
             data-h2-border-bottom="base(2px dashed black) base:print(2px dashed black)"
           >
             {results && (
