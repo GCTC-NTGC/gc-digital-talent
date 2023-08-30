@@ -14,6 +14,7 @@ import {
   StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -59,6 +60,7 @@ const DirectivePage = () => {
   const intl = useIntl();
   const { locale } = useLocale();
   const paths = useRoutes();
+  const { directiveForms: directiveFormsFlag } = useFeatureFlags();
 
   const crumbs = useBreadcrumbs([
     {
@@ -91,18 +93,42 @@ const DirectivePage = () => {
     }),
   });
 
-  const contractingFormLinks = getFormLinks({
-    intl,
-    files: {
-      en: contractingEn,
-      fr: contractingFr,
-    },
-    formName: intl.formatMessage({
-      defaultMessage: "Digital Services Contracting",
-      id: "X3bPom",
-      description: "Short name for Digital Services Contracting Form",
-    }),
-  });
+  const contractingFormLinks = directiveFormsFlag
+    ? [
+        {
+          label: intl.formatMessage(
+            {
+              defaultMessage: "Complete the <hidden>{formName} </hidden>form",
+              id: "V7ld7D",
+              description: "Link text for a form page",
+            },
+            {
+              formName: intl.formatMessage({
+                defaultMessage: "Digital Services Contracting",
+                id: "X3bPom",
+                description: "Short name for Digital Services Contracting Form",
+              }),
+            },
+          ),
+          href: paths.digitalServicesContractingQuestionnaire(),
+          mode: "solid",
+          "data-h2-padding": "base(x.5, x1)",
+          download: false,
+          external: false,
+        } as const,
+      ]
+    : getFormLinks({
+        intl,
+        files: {
+          en: contractingEn,
+          fr: contractingFr,
+        },
+        formName: intl.formatMessage({
+          defaultMessage: "Digital Services Contracting",
+          id: "X3bPom",
+          description: "Short name for Digital Services Contracting Form",
+        }),
+      });
 
   const talentPlanFormLinks = getFormLinks({
     intl,
