@@ -225,7 +225,7 @@ export const parseKeywords = (
 ): string[] | null => {
   return value?.trim()
     ? value
-        .split(".")
+        .split(",")
         .map((word) => word.trim())
         .filter((word) => word !== "")
     : null;
