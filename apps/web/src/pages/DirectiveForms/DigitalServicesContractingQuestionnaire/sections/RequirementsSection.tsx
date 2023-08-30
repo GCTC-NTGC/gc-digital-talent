@@ -147,6 +147,13 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
               "Label for _work requirement description_ textbox in the _digital services contracting questionnaire_",
           })}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
+          context={intl.formatMessage({
+            defaultMessage:
+              "List the tasks that the contractor is expected to perform within the contract.",
+            id: "+TSGAR",
+            description:
+              "Context for _work requirement description_ textbox in the _digital services contracting questionnaire_",
+          })}
         />
         <TextArea
           id="qualificationRequirement"
@@ -158,6 +165,13 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
               "Label for _qualification requirement_ textbox in the _digital services contracting questionnaire_",
           })}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
+          context={intl.formatMessage({
+            defaultMessage:
+              "List the specific skill, education, or experience that are required to perform the tasks listed above.",
+            id: "46Qrea",
+            description:
+              "Context for _qualification requirement_ textbox in the _digital services contracting questionnaire_",
+          })}
         />
         <RadioGroup
           legend={intl.formatMessage({
@@ -239,6 +253,13 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
               label: intl.formatMessage(getPersonnelLanguage(option.value)),
             };
           })}
+          context={intl.formatMessage({
+            defaultMessage:
+              "The language in which the work will be performed and delivered in. Select all that apply.",
+            id: "fB+7R0",
+            description:
+              "Context for _required work languages_ fieldset in the _digital services contracting questionnaire_",
+          })}
         />
         {doesRequirementWorkLanguagesIncludeOther ? (
           <Input
@@ -273,13 +294,25 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
               label: intl.formatMessage(getPersonnelWorkLocation(option.value)),
             };
           })}
+          context={intl.formatMessage({
+            defaultMessage:
+              "Geographic location of where the work is to be performed. Select all that apply.",
+            id: "+8QZQ+",
+            description:
+              "Context for _required work locations_ fieldset in the _digital services contracting questionnaire_",
+          })}
         />
         {doesRequirementWorkLocationsIncludeGc ? (
           <Input
             id="requirementWorkLocationGcSpecific"
             name="requirementWorkLocationGcSpecific"
             type="text"
-            label={intl.formatMessage(formMessages.specifyOther)}
+            label={intl.formatMessage({
+              defaultMessage: "Please specify GC premises",
+              id: "WHkMFr",
+              description:
+                "Label for _gc specific work locations_ fieldset in the _digital services contracting questionnaire_",
+            })}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
@@ -290,7 +323,12 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
             id="requirementWorkLocationOffsiteSpecific"
             name="requirementWorkLocationOffsiteSpecific"
             type="text"
-            label={intl.formatMessage(formMessages.specifyOther)}
+            label={intl.formatMessage({
+              defaultMessage: "Please specify offsite locations",
+              id: "X+IHFX",
+              description:
+                "Label for _offsite specific work locations_ fieldset in the _digital services contracting questionnaire_",
+            })}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
@@ -319,6 +357,12 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
                 getPersonnelOtherRequirement(option.value),
               ),
             };
+          })}
+          context={intl.formatMessage({
+            defaultMessage: "Select all that apply.",
+            id: "q+Xcc+",
+            description:
+              "Context for _other requirements_ fieldset in the _digital services contracting questionnaire_",
           })}
         />
         {doesPersonnelOtherRequirementIncludeOther ? (

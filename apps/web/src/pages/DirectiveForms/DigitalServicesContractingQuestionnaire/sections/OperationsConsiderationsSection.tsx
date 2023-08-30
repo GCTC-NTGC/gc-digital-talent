@@ -51,40 +51,64 @@ const OperationsConsiderationsSection = () => {
           getSectionTitle(PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS),
         )}
       </Heading>
-      <Checklist
-        idPrefix="operationsConsiderations"
-        id="operationsConsiderations"
-        name="operationsConsiderations"
-        legend={intl.formatMessage({
-          defaultMessage: "Influencing factors",
-          id: "1J3/aR",
-          description:
-            "Label for _influencing factors_ fieldset in the _digital services contracting questionnaire_",
-        })}
-        rules={{
-          required: intl.formatMessage(errorMessages.required),
-        }}
-        items={enumToOptions(
-          OperationsConsideration,
-          operationsConsiderationsSortOrder,
-        ).map((option) => {
-          return {
-            value: option.value as string,
-            label: intl.formatMessage(getOperationsConsideration(option.value)),
-          };
-        })}
-      />
-      {doesOperationsConsiderationsIncludeOther ? (
-        <Input
-          id="operationsConsiderationsOther"
-          name="operationsConsiderationsOther"
-          type="text"
-          label={intl.formatMessage(formMessages.specifyOther)}
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x.5)"
+      >
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "This data is aggregated and used for identification of trends across departments. It is not used for analysis of any individual contracting decision.",
+            id: "fEYR33",
+            description:
+              "Context for _operations considerations_ section in the _digital services contracting questionnaire_",
+          })}
+        </p>
+        <Checklist
+          idPrefix="operationsConsiderations"
+          id="operationsConsiderations"
+          name="operationsConsiderations"
+          legend={intl.formatMessage({
+            defaultMessage: "Influencing factors",
+            id: "1J3/aR",
+            description:
+              "Label for _influencing factors_ fieldset in the _digital services contracting questionnaire_",
+          })}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
+          items={enumToOptions(
+            OperationsConsideration,
+            operationsConsiderationsSortOrder,
+          ).map((option) => {
+            return {
+              value: option.value as string,
+              label: intl.formatMessage(
+                getOperationsConsideration(option.value),
+              ),
+            };
+          })}
+          context={intl.formatMessage({
+            defaultMessage:
+              "If any of the following factors have influenced the decision to contract, select all that apply.",
+            id: "fug6/h",
+            description:
+              "Context for _influencing factors_ fieldset in the _digital services contracting questionnaire_",
+          })}
         />
-      ) : null}
+        {doesOperationsConsiderationsIncludeOther ? (
+          <Input
+            id="operationsConsiderationsOther"
+            name="operationsConsiderationsOther"
+            type="text"
+            label={intl.formatMessage(formMessages.specifyOther)}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+        ) : null}
+      </div>
     </TableOfContents.Section>
   );
 };

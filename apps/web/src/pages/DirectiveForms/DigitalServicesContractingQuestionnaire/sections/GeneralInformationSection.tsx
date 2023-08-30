@@ -406,6 +406,13 @@ const GeneralInformationSection = ({
                   };
                 },
               )}
+              context={intl.formatMessage({
+                defaultMessage:
+                  "For more information on the digital initiative forward talent plan, refer to requirement A.2.4 of the <italic>Mandatory Procedures on Digital Talent</italic>.",
+                id: "trLrTy",
+                description:
+                  "Context for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_",
+              })}
             />
             {isPlanSubmitted ? (
               <RadioGroup

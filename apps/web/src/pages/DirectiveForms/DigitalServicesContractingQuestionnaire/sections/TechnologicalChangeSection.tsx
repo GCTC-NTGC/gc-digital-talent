@@ -27,11 +27,60 @@ const TechnologicalChangeSection = () => {
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x.5)"
       >
+        <div>
+          <p data-h2-margin-bottom="base(x.5)">
+            {intl.formatMessage({
+              defaultMessage:
+                "Is the work being contracted out because it involves the introduction of:",
+              id: "SycVSd",
+              description:
+                "Context for _technological change_ section, paragraph 1, in the _digital services contracting questionnaire_",
+            })}
+          </p>
+          <ul>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "equipment or material of a substantially different nature than that previously utilized",
+                id: "/6+2X4",
+                description:
+                  "List item for _technological change_ section in the _digital services contracting questionnaire_",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "a major change in your department’s operation directly related to the introduction of that equipment or material",
+                id: "TgHKdu",
+                description:
+                  "List item for _technological change_ section in the _digital services contracting questionnaire_",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "a new technological system, software or hardware of a substantially different nature than that previously utilized",
+                id: "YCtHn2",
+                description:
+                  "List item for _technological change_ section in the _digital services contracting questionnaire_",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "a technological change to a system, software or hardware of a substantially different nature than that previously utilized",
+                id: "9V1mVx",
+                description:
+                  "List item for _technological change_ section in the _digital services contracting questionnaire_",
+              })}
+            </li>
+          </ul>
+        </div>
         <RadioGroup
           legend={intl.formatMessage({
             defaultMessage:
-              "Is the work being contracted out because it involves the introduction of...",
-            id: "U9ziir",
+              "If applicable, please indicate whether the work is being contracted out for the following reasons.",
+            id: "jF4Ukw",
             description:
               "Label for _is technological change_ fieldset in the _digital services contracting questionnaire_",
           })}

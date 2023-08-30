@@ -204,6 +204,13 @@ const ScopeOfContractSection = () => {
               label: intl.formatMessage(getContractValueRange(option.value)),
             };
           })}
+          context={intl.formatMessage({
+            defaultMessage:
+              "If there has been an amendment to the contract, select the total value after the amendment.",
+            id: "Ux5Nzd",
+            description:
+              "Context for _contract value_ fieldset in the _digital services contracting questionnaire_",
+          })}
         />
         <RadioGroup
           legend={intl.formatMessage({
@@ -367,6 +374,13 @@ const ScopeOfContractSection = () => {
               };
             },
           )}
+          context={intl.formatMessage({
+            defaultMessage:
+              "For example, North American Free Trade Agreement (NAFTA) or U.S. – Mexico – Canada Agreement (USMCA).",
+            id: "t9Gb89",
+            description:
+              "Context for _trade agreement_ fieldset in the _digital services contracting questionnaire_",
+          })}
         />
       </div>
     </TableOfContents.Section>

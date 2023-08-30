@@ -34,6 +34,14 @@ const PersonnelRequirementsSection = ({
           getSectionTitle(PAGE_SECTION_ID.PERSONNEL_REQUIREMENTS),
         )}
       </Heading>
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "Provide information on each type of personnel required under the contract. Add more rows as needed.",
+          id: "wPOfsS",
+          description: "Context for the personnel requirements section",
+        })}
+      </p>
       <Repeater.Root
         data-h2-margin-bottom="base(1rem)"
         onAdd={() => {
