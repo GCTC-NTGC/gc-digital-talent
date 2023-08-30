@@ -11,6 +11,7 @@ import {
   Provider,
   Operation,
   AnyVariables,
+  mapExchange,
 } from "urql";
 import { useIntl } from "react-intl";
 
@@ -101,10 +102,18 @@ const ClientProvider = ({
             },
           }),
           cacheExchange,
+          mapExchange({
+            onError(error) {
+              const isAuthError = error.response.status === 401;
+              if (isAuthError) {
+                authRef.current.logout(window.location.pathname);
+              }
+            },
+          }),
           authExchange(async (utils) => {
             return {
               addAuthToOperation: (operation) => {
-                const { accessToken } = authRef.current;
+                const accessToken = localStorage.getItem(ACCESS_TOKEN);
                 if (accessToken) {
                   return utils.appendHeaders(operation, {
                     Authorization: `Bearer ${accessToken}`,
