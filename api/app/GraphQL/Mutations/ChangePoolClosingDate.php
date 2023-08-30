@@ -2,9 +2,10 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\GraphQL\Validators\Mutation\ChangePoolClosingDateValidator;
 use App\Models\Pool;
-use App\Models\Skill;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 final class ChangePoolClosingDate
@@ -28,17 +29,12 @@ final class ChangePoolClosingDate
         $newClosingDate = $args['new_closing_date'];
         $now = Carbon::now();
 
-        // check for deleted skills if attempting to re-open a closed pool
+        // execute if attempting to reopen a pool
         if ($pool->closing_date <= $now) {
-
-            $deletedSkillsIds = Skill::onlyTrashed()->get()->pluck('id')->toArray();
-            $essentialSkillsIds = $pool->essentialSkills->pluck('id')->toArray();
-            $nonessentialSkillsIds = $pool->nonessentialSkills->pluck('id')->toArray();
-            $poolSkillsIds = array_merge($essentialSkillsIds, $nonessentialSkillsIds);
-            $expiredPoolSkills = array_intersect($poolSkillsIds, $deletedSkillsIds);
-
-            if (count($expiredPoolSkills) > 0) {
-                throw ValidationException::withMessages(['CannotReopenUsingDeletedSkill']);
+            $changePoolClosingDateValidator = new ChangePoolClosingDateValidator;
+            $validator = Validator::make($pool->toArray(), $changePoolClosingDateValidator->rules(), $changePoolClosingDateValidator->messages());
+            if ($validator->fails()) {
+                throw new ValidationException($validator->errors()->first(), $validator);
             }
         }
 

@@ -8,4 +8,8 @@ class ApiErrorEnums
     const UPDATE_USER_BOTH_STATUS_NON_STATUS = 'BothStatusNonStatus';
 
     const SKILL_USED_ACTIVE_POSTER = 'SkillUsedByActivePoster';
+
+    const FAILED_DUE_SKILL_DELETED = 'FailedDueToSkillBeingDeleted';
+
+    const CANNOT_REOPEN_DELETED_SKILL = 'CannotReopenUsingDeletedSkill';
 }
