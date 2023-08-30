@@ -153,7 +153,9 @@ export function convertFormValuesToApiInput(
     businessOwnerJobTitle: emptyToNull(formValues.businessOwnerJobTitle),
     businessOwnerEmail: emptyToNull(formValues.businessOwnerEmail),
     financialAuthorityName: emptyToNull(formValues.financialAuthorityName),
-    financialAuthorityJobTitle: emptyToNull(formValues.financialAuthorityName),
+    financialAuthorityJobTitle: emptyToNull(
+      formValues.financialAuthorityJobTitle,
+    ),
     financialAuthorityEmail: emptyToNull(formValues.financialAuthorityEmail),
     authoritiesInvolved: formValues.authoritiesInvolved?.map((a) =>
       stringToEnum(ContractAuthority, a),
@@ -330,10 +332,9 @@ export function convertFormValuesToApiInput(
     contractingRationalesSecondaryOther: emptyToNull(
       formValues.contractingRationalesSecondaryOther,
     ),
-    ocioConfirmedTalentShortage: stringToEnum(
-      YesNo,
-      formValues.ocioConfirmedTalentShortage,
-    ),
+    ocioConfirmedTalentShortage: formValues.ocioConfirmedTalentShortage
+      ? stringToEnum(YesNo, formValues.ocioConfirmedTalentShortage)
+      : null,
     // talentSearchTrackingNumber: emptyToNull(
     //   formValues.talentSearchTrackingNumber,
     // ),

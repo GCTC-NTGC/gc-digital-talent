@@ -56,13 +56,12 @@ final class DigitalContractingQuestionnaireInput extends Validator
                 new ArrayConsistentWithDetail(DirectiveFormsApiEnums::OPERATIONS_CONSIDERATION_OTHER, 'operationsConsiderationsOther'),
             ],
             'contractingRationalePrimary' => [
-                Rule::notIn($this->arg('contractingRationalesSecondary')),
                 new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, 'contractingRationalePrimaryOther'),
             ],
             'contractingRationalesSecondary' => [
                 new ArrayConsistentWithDetail(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, 'contractingRationalesSecondaryOther'),
             ],
-            'talentSearchTrackingNumber' => ['requiredIf:ocioConfirmedTalentShortage,'.DirectiveFormsApiEnums::YESNOUNSURE_YES],
+            // 'talentSearchTrackingNumber' => ['requiredIf:ocioConfirmedTalentShortage,'.DirectiveFormsApiEnums::YESNOUNSURE_YES],
         ];
     }
 

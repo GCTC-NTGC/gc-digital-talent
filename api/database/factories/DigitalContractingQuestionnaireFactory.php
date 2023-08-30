@@ -95,7 +95,10 @@ class DigitalContractingQuestionnaireFactory extends Factory
                 DirectiveFormsApiEnums::personnelWorkLocations(),
                 $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::personnelWorkLocations()))
             ),
-            'requirement_work_location_specific' => function (array $attributes) {
+            'requirement_work_location_gc_specific' => function (array $attributes) {
+                return in_array(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_GC_PREMISES, $attributes['requirement_work_locations']) ? $this->faker->word() : null;
+            },
+            'requirement_work_location_offsite_specific' => function (array $attributes) {
                 return in_array(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_OFFSITE_SPECIFIC, $attributes['requirement_work_locations']) ? $this->faker->word() : null;
             },
             'requirement_others' => $this->faker->randomElements(

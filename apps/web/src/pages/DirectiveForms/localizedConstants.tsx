@@ -100,7 +100,7 @@ const contractAuthorities = defineMessages({
       "Label for _labour relations_ option in _authorities involved_ fieldset in the _digital services contracting questionnaire_",
   },
   [ContractAuthority.Other]: formMessages.other,
-} as const);
+});
 
 export const getContractAuthorities = (
   enumKey: keyof typeof contractAuthorities,
@@ -122,60 +122,60 @@ export const contractAuthoritySortOrder = [
 const contractValueRanges = defineMessages({
   [ContractValueRange.From_0To_10K]: {
     defaultMessage: "$0 to <$10,000",
-    id: "",
+    id: "yUhMJK",
     description: "Contract value range between zero and ten-thousand",
   },
   [ContractValueRange.From_10KTo_25K]: {
     defaultMessage: "$10,000 to <$25,000",
-    id: "",
+    id: "MhcVn4",
     description:
       "Contract value range between ten-thousand and twenty-five-thousand",
   },
   [ContractValueRange.From_25KTo_50K]: {
     defaultMessage: "$25,000 to <$50,000",
-    id: "",
+    id: "Q9Qj+S",
     description:
       "Contract value range between twenty-five-thousand and fifty-thousand",
   },
   [ContractValueRange.From_50KTo_1M]: {
     defaultMessage: "$50,000 to <$1 million",
-    id: "",
+    id: "TDJtET",
     description: "Contract value range between fifty-thousand and one-million",
   },
   [ContractValueRange.From_1MTo_2500K]: {
     defaultMessage: "$1 million to <$2.5 million",
-    id: "",
+    id: "Ofb9fJ",
     description:
       "Contract value range between one-million and two-point-five-million",
   },
   [ContractValueRange.From_2500KTo_5M]: {
     defaultMessage: "$2.5 million to <$5 million",
-    id: "",
+    id: "chjmn3",
     description:
       "Contract value range between two-point-five-million and five-million",
   },
   [ContractValueRange.From_5MTo_10M]: {
     defaultMessage: "$5 million to <$10 million",
-    id: "",
+    id: "QpMJYu",
     description: "Contract value range between five-million and ten-million",
   },
   [ContractValueRange.From_10MTo_15M]: {
     defaultMessage: "$10 million to <$15 million",
-    id: "",
+    id: "xJ7VCn",
     description: "Contract value range between ten-million and fifteen-million",
   },
   [ContractValueRange.From_15MTo_25M]: {
     defaultMessage: "$15 million to <$25 million",
-    id: "",
+    id: "34geEU",
     description:
       "Contract value range between fifteen-million and twenty-five-million",
   },
   [ContractValueRange.GreaterThan_25M]: {
     defaultMessage: ">$25 million",
-    id: "",
+    id: "RA+c+a",
     description: "Contract value range greater than twenty-five-million",
   },
-} as const);
+});
 
 export const getContractValueRange = (
   enumKey: keyof typeof contractValueRanges,
@@ -202,35 +202,35 @@ export const contractValueRangeSortOrder = [
 const contractStartTimeframes = defineMessages({
   [ContractStartTimeframe.From_0To_3M]: {
     defaultMessage: "0 to 3 months",
-    id: "",
+    id: "qUkJSG",
     description: "Contract start timeframe of zero to three months",
   },
   [ContractStartTimeframe.From_3MTo_6M]: {
     defaultMessage: "3 to 6 months",
-    id: "",
+    id: "UNLuiP",
     description: "Contract start timeframe of three to six months",
   },
   [ContractStartTimeframe.From_6MTo_1Y]: {
     defaultMessage: "6 to 12 months",
-    id: "",
+    id: "oOPwam",
     description: "Contract start timeframe of six to twelve months",
   },
   [ContractStartTimeframe.From_1YTo_2Y]: {
     defaultMessage: "1 to 2 years",
-    id: "",
+    id: "JqP2TC",
     description: "Contract start timeframe of one to two years",
   },
   [ContractStartTimeframe.Unknown]: {
     defaultMessage: "Unknown",
-    id: "",
+    id: "Mxu+IY",
     description: "Contract start timeframe is unknown",
   },
   [ContractStartTimeframe.Variable]: {
     defaultMessage: "Variable",
-    id: "",
+    id: "a5FZSP",
     description: "Contract start timeframe is variable",
   },
-} as const);
+});
 
 export const getContractStartTimeframe = (
   enumKey: keyof typeof contractStartTimeframes,
@@ -253,17 +253,17 @@ export const contractStartTimeframeSortOrder = [
 const contractCommodities = defineMessages({
   [ContractCommodity.TelecomServices]: {
     defaultMessage: "Information processing and related telecom services",
-    id: "",
+    id: "hNq2Lk",
     description: "Telecom services contract commodity",
   },
   [ContractCommodity.SupportServices]: {
     defaultMessage:
       "Professional, administrative, and management support services",
-    id: "",
+    id: "s7Uy7q",
     description: "Support services contract commodity",
   },
   [ContractCommodity.Other]: formMessages.other,
-} as const);
+});
 
 export const getContractCommodity = (
   enumKey: keyof typeof contractCommodities,
@@ -283,25 +283,25 @@ export const getContractCommoditySortOrder = [
 const contractInstruments = defineMessages({
   [ContractInstrument.SupplyArrangement]: {
     defaultMessage: "Supply arrangement",
-    id: "",
+    id: "3jfmAz",
     description: "Supply arrangement contract instrument",
   },
   [ContractInstrument.StandingOffer]: {
     defaultMessage: "Standing offer",
-    id: "",
+    id: "4Gh12/",
     description: "Standing offer contract instrument",
   },
   [ContractInstrument.Contract]: {
     defaultMessage: "Contract",
-    id: "",
+    id: "mR9A3a",
     description: "Contract contract instrument",
   },
   [ContractInstrument.Amendment]: {
     defaultMessage: "Amendment",
-    id: "",
+    id: "mieIXc",
     description: "Amendment contract instrument",
   },
-} as const);
+});
 
 export const getContractInstrument = (
   enumKey: keyof typeof contractInstruments,
@@ -322,28 +322,28 @@ export const contractInstrumentSortOrder = [
 const contractSupplyMethods = defineMessages({
   [ContractSupplyMethod.NotApplicable]: {
     defaultMessage: "Not applicable (N/A)",
-    id: "",
+    id: "xM6U6U",
     description: "Not applicable contract supply method",
   },
   [ContractSupplyMethod.SolutionsBasedInformaticsProfessionalServices]: {
     defaultMessage: "Solutions based informatics professional services (SBIPS)",
-    id: "",
+    id: "NeY5Ac",
     description:
       "Solutions based informatics professional services contract supply method",
   },
   [ContractSupplyMethod.TaskBasedInformaticsProfessionalServices]: {
     defaultMessage: "Task based informatics professional services (TBIPS)",
-    id: "",
+    id: "ha+vp4",
     description:
       "Task based informatics professional services contract supply method",
   },
   [ContractSupplyMethod.TemporaryHelp]: {
     defaultMessage: "Temporary help services",
-    id: "",
+    id: "RogeBe",
     description: "Temporary help services contract supply method",
   },
   [ContractSupplyMethod.Other]: formMessages.other,
-} as const);
+});
 
 export const getContractSupplyMethod = (
   enumKey: keyof typeof contractSupplyMethods,
@@ -365,22 +365,22 @@ export const contractSupplyMethodSortOrder = [
 const contractSolicitationProcedures = defineMessages({
   [ContractSolicitationProcedure.AdvanceContractAwardNotice]: {
     defaultMessage: "Advance contract award notice",
-    id: "",
+    id: "VmMnkU",
     description:
       "Advance contract award notice contract solicitation procedure",
   },
   [ContractSolicitationProcedure.Competitive]: {
     defaultMessage:
       "Competitive (open bidding / selective tendering / traditional)",
-    id: "",
+    id: "oTs24h",
     description: "Competitive contract solicitation procedure",
   },
   [ContractSolicitationProcedure.NonCompetitive]: {
     defaultMessage: "Non-competitive (sole source)",
-    id: "",
+    id: "4SNM1S",
     description: "Non-competitive contract solicitation procedure",
   },
-} as const);
+});
 
 export const getContractSolicitationProcedure = (
   enumKey: keyof typeof contractSolicitationProcedures,
@@ -400,26 +400,26 @@ export const contractSolicitationProcedureSortOrder = [
 const personnelScreeningLevels = defineMessages({
   [PersonnelScreeningLevel.Reliability]: {
     defaultMessage: "Reliability",
-    id: "",
+    id: "KKXJFE",
     description: "Reliability screening level",
   },
   [PersonnelScreeningLevel.EnhancedReliability]: {
     defaultMessage: "Enhanced reliability",
-    id: "",
+    id: "X28mdy",
     description: "Enhanced reliability screening level",
   },
   [PersonnelScreeningLevel.Secret]: {
     defaultMessage: "Secret",
-    id: "",
+    id: "HX/Tj+",
     description: "Secret screening level",
   },
   [PersonnelScreeningLevel.TopSecret]: {
     defaultMessage: "Top secret",
-    id: "",
+    id: "hnrC2A",
     description: "Top secret screening level",
   },
   [PersonnelScreeningLevel.Other]: formMessages.other,
-} as const);
+});
 
 export const getPersonnelScreeningLevel = (
   enumKey: keyof typeof personnelScreeningLevels,
@@ -441,26 +441,26 @@ export const personnelScreeningLevelSortOrder = [
 const personnelLanguages = defineMessages({
   [PersonnelLanguage.EnglishOnly]: {
     defaultMessage: "English only",
-    id: "",
+    id: "BuXxS9",
     description: "English only personnel language",
   },
   [PersonnelLanguage.FrenchOnly]: {
     defaultMessage: "French only",
-    id: "",
+    id: "19wJhE",
     description: "French only personnel language",
   },
   [PersonnelLanguage.BilingualIntermediate]: {
     defaultMessage: "Bilingual (Intermediate - BBB/BBB)",
-    id: "",
+    id: "yCHFQo",
     description: "Bilingual intermediate personnel language",
   },
   [PersonnelLanguage.BilingualAdvanced]: {
     defaultMessage: "Bilingual (Advanced - CBC/CBC)",
-    id: "",
+    id: "KeMgYF",
     description: "Bilingual advanced personnel language",
   },
   [PersonnelLanguage.Other]: formMessages.other,
-} as const);
+});
 
 export const getPersonnelLanguage = (
   enumKey: keyof typeof personnelLanguages,
@@ -482,20 +482,20 @@ export const personnelLanguageSortOrder = [
 const personnelWorkLocations = defineMessages({
   [PersonnelWorkLocation.GcPremises]: {
     defaultMessage: "GC premises",
-    id: "",
+    id: "kMoUof",
     description: "GC premises personnel work location",
   },
   [PersonnelWorkLocation.OffsiteSpecific]: {
     defaultMessage: "Offsite, specific location",
-    id: "",
+    id: "NT0U2K",
     description: "Specific offsite personnel work location",
   },
   [PersonnelWorkLocation.OffsiteAny]: {
     defaultMessage: "Offsite, any location",
-    id: "",
+    id: "9o9XhC",
     description: "Any offsite personnel work location",
   },
-} as const);
+});
 
 export const getPersonnelWorkLocation = (
   enumKey: keyof typeof personnelWorkLocations,
@@ -515,26 +515,26 @@ export const personnelWorkLocationSortOrder = [
 const personnelOtherRequirements = defineMessages({
   [PersonnelOtherRequirement.ShiftWork]: {
     defaultMessage: "Shift work",
-    id: "",
+    id: "AbU5rL",
     description: "Shift work personnel other requirement",
   },
   [PersonnelOtherRequirement.OnCall_24_7]: {
     defaultMessage: "On-call 24/7",
-    id: "",
+    id: "QaLQPG",
     description: "On-call 24/7 personnel other requirement",
   },
   [PersonnelOtherRequirement.OvertimeShortNotice]: {
     defaultMessage: "Overtime on short notice",
-    id: "",
+    id: "s9unRt",
     description: "Overtime on short notice personnel other requirement",
   },
   [PersonnelOtherRequirement.AsNeeded]: {
     defaultMessage: "As and when needed",
-    id: "",
+    id: "/rmunL",
     description: "As and when needed personnel other requirement",
   },
   [PersonnelOtherRequirement.Other]: formMessages.other,
-} as const);
+});
 
 export const getPersonnelOtherRequirement = (
   enumKey: keyof typeof personnelOtherRequirements,
@@ -556,20 +556,20 @@ export const personnelOtherRequirementSortOrder = [
 const personnelTeleworkOptions = defineMessages({
   [PersonnelTeleworkOption.FullTime]: {
     defaultMessage: "Yes, full-time",
-    id: "",
+    id: "sQxZhr",
     description: "Full-time personnel telework option",
   },
   [PersonnelTeleworkOption.PartTime]: {
     defaultMessage: "Yes, part-time",
-    id: "",
+    id: "hP2Dxo",
     description: "Part-time personnel telework option",
   },
   [PersonnelTeleworkOption.No]: {
     defaultMessage: "No",
-    id: "",
+    id: "hVLtXr",
     description: "No personnel telework option",
   },
-} as const);
+});
 
 export const getPersonnelTeleworkOption = (
   enumKey: keyof typeof personnelTeleworkOptions,
@@ -590,42 +590,42 @@ const operationsConsiderations = defineMessages({
   [OperationsConsideration.FinanceVehicleNotUsable]: {
     defaultMessage:
       "The finance vehicle available cannot be used for staffing (unable to use available funding for staffing)",
-    id: "",
+    id: "t28EG0",
     description: "Finance vehicle not usable operations consideration",
   },
   [OperationsConsideration.FundingSecuredCostRecoveryBasis]: {
     defaultMessage: "The funding has been secured on a cost-recovery basis",
-    id: "",
+    id: "YhPG+C",
     description:
       "Funding secured on a cost-recovery basis operations consideration",
   },
   [OperationsConsideration.UnableCreateNewIndeterminate]: {
     defaultMessage:
       "Unable to create new indeterminate positions in the required timeframe",
-    id: "",
+    id: "6sjsDa",
     description:
       "Unable to create new indeterminate positions operations consideration",
   },
   [OperationsConsideration.UnableCreateNewTerm]: {
     defaultMessage:
       "Unable to create new term positions in the required timeframe",
-    id: "",
+    id: "I6TA7y",
     description: "Unable to create new term positions operations consideration",
   },
   [OperationsConsideration.UnableCreateClassificationRestriction]: {
     defaultMessage:
       "Unable to create the position in the required group due to a classification restriction",
-    id: "",
+    id: "zACLaV",
     description:
       "Unable to create new positions in classification operations consideration",
   },
   [OperationsConsideration.StaffingFreeze]: {
     defaultMessage: "Staffing freeze in place",
-    id: "",
+    id: "DdTqTh",
     description: "Staffing freeze operations consideration",
   },
   [OperationsConsideration.Other]: formMessages.other,
-} as const);
+});
 
 export const getOperationsConsideration = (
   enumKey: keyof typeof operationsConsiderations,
@@ -649,38 +649,38 @@ export const operationsConsiderationsSortOrder = [
 const contractingRationales = defineMessages({
   [ContractingRationale.ShortageOfTalent]: {
     defaultMessage: "Shortage of available or qualified talent",
-    id: "",
+    id: "xp1dWY",
     description: "Shortage of talent contracting rationale",
   },
   [ContractingRationale.TimingRequirements]: {
     defaultMessage: "Timing requirements",
-    id: "",
+    id: "m+411R",
     description: "Timing requirements contracting rationale",
   },
   [ContractingRationale.HrSituation]: {
     defaultMessage: "HR situation - available staffing solutions not viable",
-    id: "",
+    id: "sa8LdD",
     description: "HR situation contracting rationale",
   },
   [ContractingRationale.FinancialSituation]: {
     defaultMessage: "Financial situation - restriction on funding use",
-    id: "",
+    id: "QCuAwH",
     description: "Financial situation contracting rationale",
   },
   [ContractingRationale.RequiresIndependent]: {
     defaultMessage:
       "Independent, non-GC authority required (e.g., independent service review)",
-    id: "",
+    id: "n7RwgC",
     description: "Requires independent contracting rationale",
   },
   [ContractingRationale.IntellectualPropertyFactors]: {
     defaultMessage:
       "Intellectual property factors (e.g., proprietary software)",
-    id: "",
+    id: "LAW/ov",
     description: "Intellectual property factors contracting rationale",
   },
   [ContractingRationale.Other]: formMessages.other,
-} as const);
+});
 
 export const getContractingRationale = (
   enumKey: keyof typeof contractingRationales,

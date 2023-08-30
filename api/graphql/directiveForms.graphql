@@ -218,7 +218,7 @@ type DigitalContractingQuestionnaire {
   hasImmediateImpactOnOtherDepartments: YesNo
     @rename(attribute: "has_immediate_impact_on_other_departments")
   hasFutureImpactOnOtherDepartments: YesNo
-    @rename(attribute: "has_immediate_impact_on_other_departments")
+    @rename(attribute: "has_future_impact_on_other_departments")
   operationsConsiderations: [OperationsConsideration!]
     @rename(attribute: "operations_considerations")
   operationsConsiderationsOther: String
@@ -376,7 +376,7 @@ input DigitalContractingQuestionnaireInput
   hasImmediateImpactOnOtherDepartments: YesNo
     @rename(attribute: "has_immediate_impact_on_other_departments")
   hasFutureImpactOnOtherDepartments: YesNo
-    @rename(attribute: "has_immediate_impact_on_other_departments")
+    @rename(attribute: "has_future_impact_on_other_departments")
   operationsConsiderations: [OperationsConsideration!]
     @rename(attribute: "operations_considerations")
   operationsConsiderationsOther: String

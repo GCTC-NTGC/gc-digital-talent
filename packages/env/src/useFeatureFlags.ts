@@ -2,6 +2,7 @@ import { getFeatureFlags } from "./utils";
 
 export type FeatureFlags = {
   skillLibrary: boolean;
+  directiveForms: boolean;
 };
 
 const useFeatureFlags = (): FeatureFlags => {
