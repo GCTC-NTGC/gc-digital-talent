@@ -171,7 +171,9 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                             <>
                               {getFullNameLabel(
                                 result.firstName,
-                                `${result.lastName?.slice(0, 1)}.`,
+                                result.lastName
+                                  ? `${result.lastName?.slice(0, 1)}.`
+                                  : null,
                                 intl,
                               )}
                             </>
