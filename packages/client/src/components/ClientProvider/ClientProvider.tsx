@@ -14,7 +14,11 @@ import {
 } from "urql";
 import { useIntl } from "react-intl";
 
-import { useAuthentication, ACCESS_TOKEN } from "@gc-digital-talent/auth";
+import {
+  ACCESS_TOKEN,
+  REFRESH_TOKEN,
+  useAuthentication,
+} from "@gc-digital-talent/auth";
 import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -52,32 +56,13 @@ const ClientProvider = ({
   children?: React.ReactNode;
 }) => {
   const intl = useIntl();
-  const { accessToken, refreshToken, logout, refreshTokenSet } =
-    useAuthentication();
+  const authCtx = useAuthentication();
   const logger = useLogger();
+  const authRef = React.useRef(authCtx);
 
-  const refreshAuth = React.useCallback(async () => {
-    /**
-     * Logout the user and return null AuthState
-     *
-     * @returns null
-     */
-    const logoutNullState = () => {
-      const currentLocation = window.location.pathname; // Can't use react-router hooks because we may not be inside the Router context.
-      logout(currentLocation); // After logging out, try to return to the page the user was on.
-    };
-
-    // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
-    // let's try to use a refresh token to get new tokens
-    let refreshedAuthState;
-    if (refreshToken) {
-      refreshedAuthState = await refreshTokenSet();
-    }
-
-    if (!refreshedAuthState) {
-      logoutNullState();
-    }
-  }, [refreshToken, logout, refreshTokenSet]);
+  React.useEffect(() => {
+    authRef.current = authCtx;
+  }, [authCtx]);
 
   const internalClient = useMemo(() => {
     return (
@@ -119,6 +104,7 @@ const ClientProvider = ({
           authExchange(async (utils) => {
             return {
               addAuthToOperation: (operation) => {
+                const { accessToken } = authRef.current;
                 if (accessToken) {
                   return utils.appendHeaders(operation, {
                     Authorization: `Bearer ${accessToken}`,
@@ -127,10 +113,10 @@ const ClientProvider = ({
                 return operation;
               },
               willAuthError() {
-                const token = localStorage.getItem(ACCESS_TOKEN);
+                const accessToken = localStorage.getItem(ACCESS_TOKEN);
                 let tokenIsKnownToBeExpired = false;
-                if (token) {
-                  const decoded = jwtDecode<JwtPayload>(token);
+                if (accessToken) {
+                  const decoded = jwtDecode<JwtPayload>(accessToken);
                   if (decoded.exp)
                     tokenIsKnownToBeExpired = Date.now() > decoded.exp * 1000; // JWT expiry date in seconds, not milliseconds
                 }
@@ -140,21 +126,36 @@ const ClientProvider = ({
                 return false;
               },
               didAuthError(error) {
-                return error && error.response
-                  ? error.response.status === 401 ||
+                const didError =
+                  error && error.response
+                    ? error.response.status === 401 ||
                       error.graphQLErrors.some(
                         (e) => e.extensions?.category === "authentication",
                       )
-                  : false;
+                    : false;
+
+                return didError;
               },
-              refreshAuth,
+              async refreshAuth() {
+                // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
+                // let's try to use a refresh token to get new tokens
+                let refreshedAuthState;
+                const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+                if (refreshToken) {
+                  refreshedAuthState = await authRef.current.refreshTokenSet();
+                }
+
+                if (!refreshedAuthState) {
+                  authRef.current.logout(window.location.pathname);
+                }
+              },
             };
           }),
           fetchExchange,
         ],
       })
     );
-  }, [client, intl, logger, refreshAuth, accessToken]);
+  }, [client, intl, logger]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };
