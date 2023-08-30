@@ -9,7 +9,6 @@ use App\Models\WorkExperience;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -486,11 +485,7 @@ class ExperienceTest extends TestCase
             'user_id' => $this->platformAdmin->id,
         ]);
         $randomDeletedSkill = Skill::first();
-        DB::table('skills')
-            ->where('id', $randomDeletedSkill->id)
-            ->update([
-                'deleted_at' => config('constants.past_datetime'),
-            ]);
+        $randomDeletedSkill->delete();
 
         // query a user's experience/skills
         $response = $this->actingAs($this->platformAdmin, 'api')
