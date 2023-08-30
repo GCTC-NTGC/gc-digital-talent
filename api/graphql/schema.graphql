@@ -1764,7 +1764,7 @@ type Mutation {
   deleteSkill(id: UUID! @whereKey): Skill
     @delete
     @validator(class: "App\\GraphQL\\Validators\\DeleteSkillValidator")
-    @can(ability: "delete", find: "id")
+    @can(ability: "delete")
 
   createWorkExperience(
     userId: ID! @rename(attribute: "user_id")
