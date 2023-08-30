@@ -498,6 +498,7 @@ const getPersonalExperienceDefaultValues = (experience: PersonalExperience) => {
     startDate,
     currentRole: endDate === null,
     endDate,
+    disclaimer: true,
   };
 };
 
