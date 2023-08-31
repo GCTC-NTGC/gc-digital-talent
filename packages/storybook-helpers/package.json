@@ -13,7 +13,7 @@
     "@storybook/addon-links": "^7.3.2",
     "@storybook/addon-viewport": "^7.3.2",
     "@storybook/addons": "^7.3.2",
-    "@storybook/react": "^7.3.2",
+    "@storybook/react": "^7.4.0",
     "@storybook/react-webpack5": "^7.3.2",
     "chromatic": "^6.22.0",
     "hydrogen-webpack-plugin": "*",
