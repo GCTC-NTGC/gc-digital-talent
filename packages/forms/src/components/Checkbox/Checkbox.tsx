@@ -56,20 +56,13 @@ const Checkbox = ({
 
   return (
     <Field.Wrapper>
-      <Wrapper
-        {...(asFieldset
-          ? {
-              ...baseStyles,
-              ...stateStyles,
-            }
-          : {})}
-      >
+      <Wrapper>
         {asFieldset && (
           <Field.Legend required={!!rules.required}>
             {boundingBoxLabel}
           </Field.Legend>
         )}
-        <BoundingBox>
+        <BoundingBox {...(asFieldset ? stateStyles : {})}>
           <Field.Label
             data-h2-display="base(flex)"
             data-h2-align-items="base(flex-start)"
