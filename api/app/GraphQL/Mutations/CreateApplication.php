@@ -14,7 +14,6 @@ final class CreateApplication
     /**
      * Create an application
      *
-     * @param  null  $_
      * @param  array{}  $args
      */
     public function __invoke($_, array $args)

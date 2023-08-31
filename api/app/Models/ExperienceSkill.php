@@ -22,8 +22,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  */
 class ExperienceSkill extends Model
 {
-    use SoftDeletes;
     use HasRelationships;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 

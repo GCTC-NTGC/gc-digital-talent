@@ -13,7 +13,6 @@ final class PublishPool
     /**
      * Publishes the pool.
      *
-     * @param  null  $_
      * @param  array{}  $args
      */
     public function __invoke($_, array $args)

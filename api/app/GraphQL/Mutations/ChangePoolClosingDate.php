@@ -9,7 +9,6 @@ final class ChangePoolClosingDate
     /**
      * Extends the pools closing date.
      *
-     * @param  null  $_
      * @param  array{}  $args
      */
     public function __invoke($_, array $args)

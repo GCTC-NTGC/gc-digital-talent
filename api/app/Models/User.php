@@ -66,13 +66,13 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  */
 class User extends Model implements Authenticatable, LaratrustUser
 {
-    use Authorizable;
-    use HasRolesAndPermissions;
-    use HasFactory;
-    use SoftDeletes;
     use AuthenticatableTrait;
-    use Notifiable;
+    use Authorizable;
+    use HasFactory;
     use HasRelationships;
+    use HasRolesAndPermissions;
+    use Notifiable;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 

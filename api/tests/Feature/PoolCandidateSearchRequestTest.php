@@ -16,8 +16,8 @@ use Tests\TestCase;
 
 class PoolCandidateSearchRequestTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     /**
