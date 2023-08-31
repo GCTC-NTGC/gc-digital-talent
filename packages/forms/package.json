@@ -32,7 +32,7 @@
     "@gc-digital-talent/ui": "*",
     "@heroicons/react": "2.0.18",
     "date-fns": "^2.30.0",
-    "framer-motion": "^10.16.1",
+    "framer-motion": "^10.16.2",
     "lodash": "4.17.21",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
