@@ -20,10 +20,10 @@ use function PHPUnit\Framework\assertSame;
 
 class DirectivesTest extends TestCase
 {
-    use UsesTestSchema;
-    use MocksResolvers;
     use MakesGraphQLRequests;
+    use MocksResolvers;
     use RefreshDatabase;
+    use UsesTestSchema;
 
     protected function setUp(): void
     {

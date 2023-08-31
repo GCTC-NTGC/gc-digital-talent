@@ -14,8 +14,8 @@ use function PHPUnit\Framework\assertEquals;
 
 class TeamsTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
     use WithFaker;
 
