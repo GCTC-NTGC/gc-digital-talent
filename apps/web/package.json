@@ -109,7 +109,7 @@
     "jest-axe": "^8.0.0",
     "jest-environment-jsdom": "^29.6.4",
     "postcss": "^8.4.29",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.3",
     "storybook-addon-intl": "^3.2.0",
     "ts-jest": "^29.1.1",
     "tsconfig": "*",
