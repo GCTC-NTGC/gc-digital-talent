@@ -135,10 +135,10 @@ const Fieldset = ({
         duration: 0.4,
       }}
     >
+      <Field.Legend data-h2-visually-hidden="base(invisible)">
+        {legend}
+      </Field.Legend>
       <Field.BoundingBox flat>
-        <Field.Legend data-h2-visually-hidden="base(invisible)">
-          {legend}
-        </Field.Legend>
         <div
           data-h2-display="base(flex)"
           data-h2-align-items="base(flex-start)"
