@@ -6,7 +6,6 @@ import Field from "../Field";
 import type { CommonInputProps, HTMLInputProps } from "../../types";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 
 export type CheckboxProps = HTMLInputProps &
   CommonInputProps & {
@@ -37,7 +36,6 @@ const Checkbox = ({
     register,
     formState: { errors },
   } = useFormContext();
-  const baseStyles = useCommonInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
