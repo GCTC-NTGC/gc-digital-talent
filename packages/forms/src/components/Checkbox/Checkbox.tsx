@@ -52,6 +52,7 @@ const Checkbox = ({
 
   const asFieldset = boundingBox && boundingBoxLabel;
   const Wrapper = asFieldset ? Field.Fieldset : React.Fragment;
+  const BoundingBox = asFieldset ? Field.BoundingBox : React.Fragment;
 
   return (
     <Field.Wrapper>
@@ -68,25 +69,27 @@ const Checkbox = ({
             {boundingBoxLabel}
           </Field.Legend>
         )}
-        <Field.Label
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(flex-start)"
-          data-h2-gap="base(0 x.25)"
-        >
-          <input
-            id={id}
-            type="checkbox"
-            aria-describedby={ariaDescribedBy}
-            aria-required={!!rules.required && !inCheckList}
-            aria-invalid={!!error}
-            {...register(name, rules)}
-            {...rest}
-          />
-          <span data-h2-margin-top="base(-x.125)">{label}</span>
-          {!asFieldset && !inCheckList && (
-            <Field.Required required={!!rules.required} />
-          )}
-        </Field.Label>
+        <BoundingBox>
+          <Field.Label
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(flex-start)"
+            data-h2-gap="base(0 x.25)"
+          >
+            <input
+              id={id}
+              type="checkbox"
+              aria-describedby={ariaDescribedBy}
+              aria-required={!!rules.required && !inCheckList}
+              aria-invalid={!!error}
+              {...register(name, rules)}
+              {...rest}
+            />
+            <span data-h2-margin-top="base(-x.125)">{label}</span>
+            {!asFieldset && !inCheckList && (
+              <Field.Required required={!!rules.required} />
+            )}
+          </Field.Label>
+        </BoundingBox>
       </Wrapper>
       {!inCheckList && (
         <Field.Descriptions

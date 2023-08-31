@@ -10,13 +10,7 @@ export type LegendProps = React.DetailedHTMLProps<
 };
 
 const Legend = ({ required, children, ...props }: LegendProps) => (
-  <legend
-    data-h2-position="base(absolute)"
-    data-h2-left="base(0)"
-    data-h2-top="base(-x1.25)"
-    data-h2-font-size="base(caption)"
-    {...props}
-  >
+  <legend data-h2-font-size="base(caption)" {...props}>
     {children}
     <Required required={required} />
   </legend>

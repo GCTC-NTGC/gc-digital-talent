@@ -128,7 +128,6 @@ const Fieldset = ({
 
   return (
     <MotionFieldset
-      flat
       layout
       transition={{
         type: "tween",
@@ -136,99 +135,101 @@ const Fieldset = ({
         duration: 0.4,
       }}
     >
-      <Field.Legend data-h2-visually-hidden="base(invisible)">
-        {legend}
-      </Field.Legend>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(flex-start)"
-        data-h2-gap="base(0, x.25)"
-      >
+      <Field.BoundingBox flat>
+        <Field.Legend data-h2-visually-hidden="base(invisible)">
+          {legend}
+        </Field.Legend>
         <div
-          data-h2-flex-grow="base(1)"
-          data-h2-padding="base(x1)"
-          data-h2-shadow="base(medium)"
-          data-h2-radius="base(s)"
-          data-h2-order="base(2)"
-        >
-          {
-            /** If hideLegend is true, legend will not be shown (but still exists in the legend tag above). */
-            !hideLegend && (
-              <p
-                aria-hidden="true"
-                role="presentation"
-                data-h2-margin="base(0, 0, x.5, 0)"
-                data-h2-color="base(inherit)"
-                data-h2-font-weight="base(800)"
-              >
-                {legend}
-              </p>
-            )
-          }
-          {children}
-        </div>
-        <div
-          data-h2-flex-shrink="base(0)"
           data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.25, 0)"
-          data-h2-order="base(1)"
+          data-h2-align-items="base(flex-start)"
+          data-h2-gap="base(0, x.25)"
         >
           <div
-            data-h2-display="base(flex)"
-            data-h2-radius="base(s)"
+            data-h2-flex-grow="base(1)"
+            data-h2-padding="base(x1)"
             data-h2-shadow="base(medium)"
-            data-h2-flex-direction="base(column)"
-            data-h2-align-items="base(center)"
-            data-h2-overflow="base(hidden)"
+            data-h2-radius="base(s)"
+            data-h2-order="base(2)"
           >
-            <ActionButton
-              disabled={disabled || index <= 0}
-              onClick={decrement}
-              decrement
-              aria-label={intl.formatMessage(formMessages.repeaterMove, {
-                from: position,
-                to: position - 1,
-              })}
+            {
+              /** If hideLegend is true, legend will not be shown (but still exists in the legend tag above). */
+              !hideLegend && (
+                <p
+                  aria-hidden="true"
+                  role="presentation"
+                  data-h2-margin="base(0, 0, x.5, 0)"
+                  data-h2-color="base(inherit)"
+                  data-h2-font-weight="base(800)"
+                >
+                  {legend}
+                </p>
+              )
+            }
+            {children}
+          </div>
+          <div
+            data-h2-flex-shrink="base(0)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x.25, 0)"
+            data-h2-order="base(1)"
+          >
+            <div
+              data-h2-display="base(flex)"
+              data-h2-radius="base(s)"
+              data-h2-shadow="base(medium)"
+              data-h2-flex-direction="base(column)"
+              data-h2-align-items="base(center)"
+              data-h2-overflow="base(hidden)"
             >
-              <ChevronUpIcon data-h2-width="base(x1)" />
-            </ActionButton>
-            {!hideIndex && (
-              <span
-                aria-hidden="true"
-                data-h2-text-align="base(center)"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x.25, 0)"
+              <ActionButton
+                disabled={disabled || index <= 0}
+                onClick={decrement}
+                decrement
+                aria-label={intl.formatMessage(formMessages.repeaterMove, {
+                  from: position,
+                  to: position - 1,
+                })}
               >
-                {index + 1}
-              </span>
-            )}
+                <ChevronUpIcon data-h2-width="base(x1)" />
+              </ActionButton>
+              {!hideIndex && (
+                <span
+                  aria-hidden="true"
+                  data-h2-text-align="base(center)"
+                  data-h2-font-weight="base(700)"
+                  data-h2-margin="base(x.25, 0)"
+                >
+                  {index + 1}
+                </span>
+              )}
+              <ActionButton
+                disabled={disabled || index === total - 1}
+                onClick={increment}
+                aria-label={intl.formatMessage(formMessages.repeaterMove, {
+                  from: position,
+                  to: position + 1,
+                })}
+              >
+                <ChevronDownIcon data-h2-width="base(x1)" />
+              </ActionButton>
+            </div>
             <ActionButton
-              disabled={disabled || index === total - 1}
-              onClick={increment}
-              aria-label={intl.formatMessage(formMessages.repeaterMove, {
-                from: position,
-                to: position + 1,
+              disabled={disabled}
+              animate={false}
+              onClick={handleRemove}
+              data-h2-shadow="base(medium)"
+              data-h2-radius="base(s)"
+              data-h2-color="base(error) base:focus(black) base:selectors[:disabled](error.3)"
+              aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+                index: position,
               })}
             >
-              <ChevronDownIcon data-h2-width="base(x1)" />
+              <TrashIcon data-h2-width="base(x1)" />
             </ActionButton>
           </div>
-          <ActionButton
-            disabled={disabled}
-            animate={false}
-            onClick={handleRemove}
-            data-h2-shadow="base(medium)"
-            data-h2-radius="base(s)"
-            data-h2-color="base(error) base:focus(black) base:selectors[:disabled](error.3)"
-            aria-label={intl.formatMessage(formMessages.repeaterRemove, {
-              index: position,
-            })}
-          >
-            <TrashIcon data-h2-width="base(x1)" />
-          </ActionButton>
         </div>
-      </div>
+      </Field.BoundingBox>
     </MotionFieldset>
   );
 };

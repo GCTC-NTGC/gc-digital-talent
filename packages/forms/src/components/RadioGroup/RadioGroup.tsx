@@ -106,50 +106,51 @@ const RadioGroup = ({
       <Field.Fieldset
         id={idPrefix}
         aria-describedby={ariaDescribedBy}
-        {...{ ...baseStyles, ...stateStyles }}
         {...rest}
       >
         <Field.Legend required={!!rules.required}>{legend}</Field.Legend>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-gap="base(x.25)"
-          {...columnStyles}
-        >
-          {items.map(({ value, label, contentBelow }) => {
-            const id = `${idPrefix}-${value}`;
-            return (
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                key={value}
-              >
-                <Field.Label
-                  key={value}
-                  data-h2-font-size="base(copy)"
+        <Field.BoundingBox {...{ ...baseStyles, ...stateStyles }}>
+          <div
+            data-h2-display="base(grid)"
+            data-h2-gap="base(x.25)"
+            {...columnStyles}
+          >
+            {items.map(({ value, label, contentBelow }) => {
+              const id = `${idPrefix}-${value}`;
+              return (
+                <div
                   data-h2-display="base(flex)"
-                  data-h2-align-items="base(flex-start)"
-                  data-h2-gap="base(0 x.25)"
+                  data-h2-flex-direction="base(column)"
+                  key={value}
                 >
-                  <input
-                    id={id}
-                    {...register(name, rules)}
-                    value={value}
-                    type="radio"
-                    disabled={disabled}
-                    defaultChecked={defaultSelected === value}
-                    {...(contentBelow && {
-                      "aria-describedby": `${id}-content-below`,
-                    })}
-                  />
-                  <span data-h2-margin-top="base(-x.125)">{label}</span>
-                </Field.Label>
-                {contentBelow && (
-                  <div id={`${id}-content-below`}>{contentBelow}</div>
-                )}
-              </div>
-            );
-          })}
-        </div>
+                  <Field.Label
+                    key={value}
+                    data-h2-font-size="base(copy)"
+                    data-h2-display="base(flex)"
+                    data-h2-align-items="base(flex-start)"
+                    data-h2-gap="base(0 x.25)"
+                  >
+                    <input
+                      id={id}
+                      {...register(name, rules)}
+                      value={value}
+                      type="radio"
+                      disabled={disabled}
+                      defaultChecked={defaultSelected === value}
+                      {...(contentBelow && {
+                        "aria-describedby": `${id}-content-below`,
+                      })}
+                    />
+                    <span data-h2-margin-top="base(-x.125)">{label}</span>
+                  </Field.Label>
+                  {contentBelow && (
+                    <div id={`${id}-content-below`}>{contentBelow}</div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </Field.BoundingBox>
       </Field.Fieldset>
       <Field.Descriptions ids={descriptionIds} {...{ error, context }} />
     </Field.Wrapper>
