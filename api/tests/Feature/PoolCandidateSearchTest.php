@@ -13,8 +13,8 @@ use Tests\TestCase;
 
 class PoolCandidateSearchTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     protected $teamUser;

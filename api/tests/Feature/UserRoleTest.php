@@ -11,8 +11,8 @@ use Tests\TestCase;
 
 class UserRoleTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     protected $adminUser;
