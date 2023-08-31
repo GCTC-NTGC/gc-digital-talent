@@ -3,18 +3,18 @@
 namespace App\GraphQL\Mutations;
 
 use App\Events\ApplicationSubmitted;
+use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
 use App\Models\PoolCandidate;
 use Carbon\Carbon;
+use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
-use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
-use Database\Helpers\ApiEnums;
 
 final class SubmitApplication
 {
     /**
      * Submit an application
-     * @param  null  $_
+     *
      * @param  array{}  $args
      */
     public function __invoke($_, array $args)

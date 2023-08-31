@@ -5,7 +5,6 @@
         "__typename": "SkillFamily",
         "id": "ec3a6829-3186-46a6-b7d4-9f9058b81d08",
         "key": "programming_languages_and_tools",
-        "category": "TECHNICAL",
         "name": {
           "en": "Programming Languages and Tools",
           "fr": "Langages et outils de programmation"
@@ -709,7 +708,6 @@
         "__typename": "SkillFamily",
         "id": "117a2c50-49d1-4201-81a5-08e944d6b777",
         "key": "development_and_programming",
-        "category": "TECHNICAL",
         "name": {
           "en": "Development and Programming",
           "fr": "Développement et programmation"
@@ -885,7 +883,6 @@
         "__typename": "SkillFamily",
         "id": "5bba7424-d97b-4b3f-a834-31a22e03649e",
         "key": "database_design___data_administration",
-        "category": "TECHNICAL",
         "name": {
           "en": "Database Design & Data Administration",
           "fr": "Conception de bases de données et administration des données"
@@ -1029,7 +1026,6 @@
         "__typename": "SkillFamily",
         "id": "b18be7fd-463f-4650-80ae-00983ff029fe",
         "key": "it_architecture",
-        "category": "TECHNICAL",
         "name": {
           "en": "IT Architecture",
           "fr": "Architecture informatique"
@@ -1221,7 +1217,6 @@
         "__typename": "SkillFamily",
         "id": "7a1a90fd-eb7c-436f-b400-423906225b23",
         "key": "it_project_management",
-        "category": "TECHNICAL",
         "name": {
           "en": "IT Project Management",
           "fr": "Gestion des projets informatiques"
@@ -1365,7 +1360,6 @@
         "__typename": "SkillFamily",
         "id": "3de6b240-2b40-4f31-b340-f941a6c9e2cc",
         "key": "technical_advising",
-        "category": "TECHNICAL",
         "name": {
           "en": "Technical Advising",
           "fr": "Conseil technique"
@@ -1445,7 +1439,6 @@
         "__typename": "SkillFamily",
         "id": "2b357f02-09fc-41b0-86ee-05cfa5e67aba",
         "key": "user_experience_and_interface_design",
-        "category": "TECHNICAL",
         "name": {
           "en": "User Experience and Interface Design",
           "fr": "Expérience utilisateur et conception d’interfaces"
@@ -1589,7 +1582,6 @@
         "__typename": "SkillFamily",
         "id": "85a410e8-a27e-4914-a18d-cd556fe161e9",
         "key": "it_security",
-        "category": "TECHNICAL",
         "name": {
           "en": "IT Security",
           "fr": "Sécurité informatique"
@@ -1781,7 +1773,6 @@
         "__typename": "SkillFamily",
         "id": "c6ca697e-2af7-4e90-a6e5-c41e79491ee3",
         "key": "infrastructure_operations",
-        "category": "TECHNICAL",
         "name": {
           "en": "Infrastructure/Operations",
           "fr": "Infrastructure/Opérations"
@@ -1925,7 +1916,6 @@
         "__typename": "SkillFamily",
         "id": "40adc75b-45f9-4414-a79c-5fc0a58255db",
         "key": "cyber_security",
-        "category": "TECHNICAL",
         "name": {
           "en": "Cyber Security",
           "fr": "Cybersécurité"
@@ -2053,7 +2043,6 @@
         "__typename": "SkillFamily",
         "id": "874fd5e8-87ca-4aab-a83a-e5a26e5dfef3",
         "key": "it_management",
-        "category": "TECHNICAL",
         "name": {
           "en": "IT Management",
           "fr": "Gestion informatique"
@@ -2133,7 +2122,6 @@
         "__typename": "SkillFamily",
         "id": "c95e64f7-9029-458c-800a-a425af6a1df9",
         "key": "information_management",
-        "category": "TECHNICAL",
         "name": {
           "en": "Information Management",
           "fr": "Gestion de l’information"
@@ -2213,7 +2201,6 @@
         "__typename": "SkillFamily",
         "id": "b608cab5-147d-458b-bbe5-57a5bc7d98f5",
         "key": "personal",
-        "category": "BEHAVIOURAL",
         "name": {
           "en": "Personal",
           "fr": "Personnel"
@@ -2646,7 +2633,6 @@
         "__typename": "SkillFamily",
         "id": "d2905bef-ac0b-41d5-a941-6646185f2b0d",
         "key": "interpersonal",
-        "category": "BEHAVIOURAL",
         "name": {
           "en": "Interpersonal",
           "fr": "Interpersonnel"
@@ -2872,7 +2858,6 @@
         "__typename": "SkillFamily",
         "id": "7d1461f4-4409-439f-ad76-98026a487960",
         "key": "leadership",
-        "category": "BEHAVIOURAL",
         "name": {
           "en": "Leadership",
           "fr": "Leadership"
@@ -3133,7 +3118,6 @@
         "__typename": "SkillFamily",
         "id": "5a28c58a-b272-4258-9b9b-b599aa3ef629",
         "key": "communication",
-        "category": "BEHAVIOURAL",
         "name": {
           "en": "Communication",
           "fr": "Communication"
@@ -3225,7 +3209,6 @@
         "__typename": "SkillFamily",
         "id": "b5cb1047-b406-47d4-9015-d874f87da38c",
         "key": "thinking",
-        "category": "BEHAVIOURAL",
         "name": {
           "en": "Thinking",
           "fr": "Réfléchir"
@@ -3597,7 +3580,6 @@
         "__typename": "SkillFamily",
         "id": "64362acf-776f-4ff4-88d4-48efe60ba53e",
         "key": "working_in_government",
-        "category": "BEHAVIOURAL",
         "name": {
           "en": "Working in Government",
           "fr": "Travailler au sein du gouvernement"

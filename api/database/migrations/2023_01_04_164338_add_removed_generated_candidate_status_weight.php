@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -13,7 +11,7 @@ return new class extends Migration
      */
     public function up()
     {
-        DB::statement("ALTER TABLE pool_candidates DROP COLUMN status_weight;");
+        DB::statement('ALTER TABLE pool_candidates DROP COLUMN status_weight;');
         DB::statement("ALTER TABLE pool_candidates ADD COLUMN status_weight INT
         GENERATED ALWAYS AS
         (case
@@ -45,7 +43,7 @@ return new class extends Migration
      */
     public function down()
     {
-        DB::statement("ALTER TABLE pool_candidates DROP COLUMN status_weight;");
+        DB::statement('ALTER TABLE pool_candidates DROP COLUMN status_weight;');
         DB::statement("ALTER TABLE pool_candidates ADD COLUMN status_weight INT
         GENERATED ALWAYS AS
         (case

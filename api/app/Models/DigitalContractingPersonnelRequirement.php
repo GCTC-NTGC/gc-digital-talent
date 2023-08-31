@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class DigitalContractingPersonnelRequirement
+ *
  * @property string id
  * @property string resource_type
  * @property string language
@@ -16,9 +17,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string security
  * @property string security_other
  * @property string telework
- * @property integer quantity
+ * @property int quantity
  */
-
 class DigitalContractingPersonnelRequirement extends Model
 {
     use HasFactory;

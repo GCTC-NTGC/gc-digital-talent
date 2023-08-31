@@ -105,7 +105,6 @@ return [
             ],
         ],
 
-
         'syslog' => [
             'driver' => 'syslog',
             'level' => env('LOG_LEVEL', 'debug'),

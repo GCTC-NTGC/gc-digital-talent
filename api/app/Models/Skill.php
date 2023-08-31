@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Database\Helpers\ApiEnums;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -17,15 +19,15 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property array $name
  * @property array $description
  * @property array $keywords
+ * @property string $category
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
-
 class Skill extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     use HasRelationships;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 
@@ -69,6 +71,16 @@ class Skill extends Model
 
     public function getDetailsAttribute()
     {
-        return isset($this->experience_skill_pivot) ? $this->experience_skill_pivot->details : "";
+        return isset($this->experience_skill_pivot) ? $this->experience_skill_pivot->details : '';
+    }
+
+    public static function scopeTechnical(Builder $query)
+    {
+        return $query->where('category', '=', ApiEnums::SKILL_CATEGORY_TECHNICAL);
+    }
+
+    public static function scopeBehavioural(Builder $query)
+    {
+        return $query->where('category', '=', ApiEnums::SKILL_CATEGORY_BEHAVIOURAL);
     }
 }

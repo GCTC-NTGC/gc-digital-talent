@@ -2,17 +2,17 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\GraphQL\Validators\Mutation\ChangeApplicationSuspendedAtValidator;
 use App\Models\PoolCandidate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
-use App\GraphQL\Validators\Mutation\ChangeApplicationSuspendedAtValidator;
 
 final class ChangeApplicationSuspendedAt
 {
     /**
      * Suspends/un-suspends the application.
-     * @param  null  $_
+     *
      * @param  array{}  $args
      */
     public function __invoke($_, array $args)
@@ -29,12 +29,13 @@ final class ChangeApplicationSuspendedAt
         $dateNow = Carbon::now();
 
         // Don't replace the suspension date if already set
-        if ($isSuspended && !is_null($application->suspended_at)) {
+        if ($isSuspended && ! is_null($application->suspended_at)) {
             return $application;
         }
 
         $newSuspendedAt = $isSuspended ? $dateNow : null;
         $application->update(['suspended_at' => $newSuspendedAt]);
+
         return $application;
     }
 }

@@ -2,25 +2,29 @@
 
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\ScreeningQuestionResponse;
 use App\Models\Team;
 use App\Models\User;
-use App\Models\ScreeningQuestionResponse;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
 class ScreeningQuestionResponsesTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     protected $teamUser;
+
     protected $team;
-    protected $teamName = "application-test-team";
+
+    protected $teamName = 'application-test-team';
+
     protected $pool;
+
     protected $questionId;
 
     protected $updateApplication =
@@ -69,41 +73,39 @@ class ScreeningQuestionResponsesTest extends TestCase
         ScreeningQuestionResponse::all()->each->delete();
 
         // assert response is successfully created
-        $this->actingAs($this->teamUser, "api")->graphQL($this->updateApplication, [
+        $this->actingAs($this->teamUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'screeningQuestionResponses' => [
-                    'create' =>
-                    [
+                    'create' => [
                         [
                             'screeningQuestion' => [
                                 'connect' => $this->questionId,
                             ],
                             'answer' => 'the answer',
                         ],
-                    ]
+                    ],
                 ],
-            ]
+            ],
         ])->assertJsonFragment([
             'answer' => 'the answer',
         ]);
 
         // assert attempting to create another response to the same question fails
-        $this->actingAs($this->teamUser, "api")->graphQL($this->updateApplication, [
+        $this->actingAs($this->teamUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'screeningQuestionResponses' => [
-                    'create' =>
-                    [
+                    'create' => [
                         [
                             'screeningQuestion' => [
                                 'connect' => $this->questionId,
                             ],
                             'answer' => 'the answer 2',
                         ],
-                    ]
+                    ],
                 ],
-            ]
+            ],
         ])->assertJsonFragment([
             'updateApplication' => null,
         ]);
@@ -117,21 +119,20 @@ class ScreeningQuestionResponsesTest extends TestCase
         ]);
         ScreeningQuestionResponse::all()->each->delete();
 
-        $this->actingAs($this->teamUser, "api")->graphQL($this->updateApplication, [
+        $this->actingAs($this->teamUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'screeningQuestionResponses' => [
-                    'create' =>
-                    [
+                    'create' => [
                         [
                             'screeningQuestion' => [
                                 'connect' => $this->questionId,
                             ],
                             'answer' => 'the answer',
                         ],
-                    ]
+                    ],
                 ],
-            ]
+            ],
         ])->assertJsonFragment([
             'answer' => 'the answer',
         ]);
@@ -139,19 +140,18 @@ class ScreeningQuestionResponsesTest extends TestCase
         $createdResponseId = ScreeningQuestionResponse::sole()['id'];
 
         // assert updating works
-        $this->actingAs($this->teamUser, "api")->graphQL($this->updateApplication, [
+        $this->actingAs($this->teamUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'screeningQuestionResponses' => [
-                    'update' =>
-                    [
+                    'update' => [
                         [
                             'id' => $createdResponseId,
                             'answer' => 'the new answer',
                         ],
-                    ]
+                    ],
                 ],
-            ]
+            ],
         ])->assertJsonFragment([
             'answer' => 'the new answer',
         ]);
@@ -165,21 +165,20 @@ class ScreeningQuestionResponsesTest extends TestCase
         ]);
         ScreeningQuestionResponse::all()->each->delete();
 
-        $this->actingAs($this->teamUser, "api")->graphQL($this->updateApplication, [
+        $this->actingAs($this->teamUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'screeningQuestionResponses' => [
-                    'create' =>
-                    [
+                    'create' => [
                         [
                             'screeningQuestion' => [
                                 'connect' => $this->questionId,
                             ],
                             'answer' => 'the answer',
                         ],
-                    ]
+                    ],
                 ],
-            ]
+            ],
         ])->assertJsonFragment([
             'answer' => 'the answer',
         ]);
@@ -187,16 +186,15 @@ class ScreeningQuestionResponsesTest extends TestCase
         $createdResponseId = ScreeningQuestionResponse::sole()['id'];
 
         // assert deleting works
-        $this->actingAs($this->teamUser, "api")->graphQL($this->updateApplication, [
+        $this->actingAs($this->teamUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'screeningQuestionResponses' => [
-                    'delete' =>
-                    [
+                    'delete' => [
                         $createdResponseId,
-                    ]
+                    ],
                 ],
-            ]
+            ],
         ])->assertJsonMissing([
             'answer' => 'the answer',
         ]);

@@ -10,8 +10,14 @@ import {
   TextArea,
   Submit,
   MultiSelectField,
+  enumToOptions,
+  Select,
 } from "@gc-digital-talent/forms";
-import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  getLocale,
+  errorMessages,
+  getSkillCategory,
+} from "@gc-digital-talent/i18n";
 import { notEmpty, keyStringRegex } from "@gc-digital-talent/helpers";
 import { Pending, Heading } from "@gc-digital-talent/ui";
 
@@ -24,9 +30,11 @@ import {
   CreateSkillMutation,
   useCreateSkillMutation,
   useAllSkillFamiliesQuery,
+  SkillCategory,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import { parseKeywords } from "~/utils/skillUtils";
 
 type Option<V> = { value: V; label: string };
 
@@ -44,6 +52,7 @@ type FormValues = Pick<Skill, "description"> & {
     en: string;
     fr: string;
   };
+  category: SkillCategory;
   families: string[] | undefined;
 };
 interface CreateSkillFormProps {
@@ -70,14 +79,8 @@ export const CreateSkillForm = ({
   const formValuesToSubmitData = (values: FormValues): CreateSkillInput => ({
     ...values,
     keywords: {
-      en: values.keywords.en
-        .split(",")
-        .map((key) => key.trim())
-        .filter((key) => key !== ""),
-      fr: values.keywords.fr
-        .split(",")
-        .map((key) => key.trim())
-        .filter((key) => key !== ""),
+      en: parseKeywords(values.keywords.en),
+      fr: parseKeywords(values.keywords.fr),
     },
     families: {
       sync: values.families,
@@ -232,9 +235,6 @@ export const CreateSkillForm = ({
                   "Additional context describing the purpose of the skills 'keyword' field.",
               })}
               type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Input
               id="keywords_fr"
@@ -253,29 +253,47 @@ export const CreateSkillForm = ({
                   "Additional context describing the purpose of the skills 'keyword' field.",
               })}
               type="text"
+            />
+            <Select
+              id="category"
+              name="category"
+              label={intl.formatMessage({
+                defaultMessage: "Category",
+                id: "KZR3ad",
+                description:
+                  "Label displayed on the skill family form category field.",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a category",
+                id: "+hRCVl",
+                description:
+                  "Placeholder displayed on the skill family form category field.",
+              })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              options={enumToOptions(SkillCategory).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getSkillCategory(value)),
+              }))}
             />
-            <div data-h2-margin="base(x1, 0)">
-              <MultiSelectField
-                id="families"
-                name="families"
-                label={intl.formatMessage({
-                  defaultMessage: "Families",
-                  id: "xx8yaE",
-                  description:
-                    "Label displayed on the skill form skill families field.",
-                })}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Select one or more skill families",
-                  id: "GNhFh2",
-                  description:
-                    "Placeholder displayed on the skill form skill families field.",
-                })}
-                options={skillFamilyOptions}
-              />
-            </div>
+            <MultiSelectField
+              id="families"
+              name="families"
+              label={intl.formatMessage({
+                defaultMessage: "Families",
+                id: "xx8yaE",
+                description:
+                  "Label displayed on the skill form skill families field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select one or more skill families",
+                id: "GNhFh2",
+                description:
+                  "Placeholder displayed on the skill form skill families field.",
+              })}
+              options={skillFamilyOptions}
+            />
             <div data-h2-align-self="base(flex-start)">
               <Submit />
             </div>

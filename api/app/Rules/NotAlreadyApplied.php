@@ -27,7 +27,7 @@ class NotAlreadyApplied implements Rule
      */
     public function passes($attribute, $value)
     {
-        return !PoolCandidate::where('user_id', $value)
+        return ! PoolCandidate::where('user_id', $value)
             ->where('pool_id', $this->poolId)
             ->exists();
     }

@@ -27,6 +27,7 @@ query CountApplicantsAndCountPoolCandidatesByPool(
           en
           fr
         }
+        category
       }
       team {
         id
@@ -75,6 +76,7 @@ query getSearchFormDataAcrossAllPools {
       en
       fr
     }
+    category
     description {
       en
       fr
@@ -86,7 +88,6 @@ query getSearchFormDataAcrossAllPools {
     families {
       id
       key
-      category
       name {
         en
         fr

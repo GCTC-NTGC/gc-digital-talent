@@ -31,16 +31,16 @@ class TeamSeeder extends Seeder
                     'fr' => 'Bureau initiatives autochtones',
                 ],
                 'contact_email' => 'oit@test.test',
-            ]
+            ],
         ];
 
         $teamDepartments = [
             'digital-community-management' => [
-                ['department_number' => 56] // Treasury Board Secretariat
+                ['department_number' => 56], // Treasury Board Secretariat
             ],
             'office-of-indigenous-initiatives' => [
-                ['department_number' => 14] // Employment and Social Development (Department of)
-            ]
+                ['department_number' => 14], // Employment and Social Development (Department of)
+            ],
         ];
 
         foreach ($teams as $team) {

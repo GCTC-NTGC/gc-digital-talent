@@ -22,6 +22,7 @@ class ClassificationFactory extends Factory
     public function definition()
     {
         $faker = $this->faker;
+
         return [
             'group' => $faker->name,
             'name' => ['en' => $faker->name, 'fr' => $faker->name],

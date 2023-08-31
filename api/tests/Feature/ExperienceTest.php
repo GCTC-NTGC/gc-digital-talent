@@ -10,16 +10,16 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
 class ExperienceTest extends TestCase
 {
-    use RefreshDatabase;
-    use MakesGraphQLRequests;
-    use RefreshesSchemaCache;
     use InteractsWithExceptionHandling;
+    use MakesGraphQLRequests;
+    use RefreshDatabase;
+    use RefreshesSchemaCache;
 
     protected $platformAdmin;
 
@@ -46,7 +46,7 @@ class ExperienceTest extends TestCase
         $userSkills = UserSkill::factory()->count(3)
             ->create(['user_id' => $this->platformAdmin->id]);
         $experience = WorkExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         // Sync userSkills with details
         $experience->userSkills()->sync([
@@ -73,19 +73,16 @@ class ExperienceTest extends TestCase
             }
         ',
             [
-                'id' => $this->platformAdmin->id
+                'id' => $this->platformAdmin->id,
             ]
         );
         // Assert that the experience  from query with all three skills, and that the pivot details work correctly.
-        $response->assertJson(fn (AssertableJson $json) =>
-            $json->has('data.user.workExperiences.0', fn (AssertableJson $json) =>
-                $json->where('id', $experience->id)
-                    ->has('skills', 3)
-                    ->has('skills.0', fn (AssertableJson $json) =>
-                        $json->where('id', $userSkills[0]->skill_id)
-                            ->where('experienceSkillRecord.details', 'first skill')
-                    )
+        $response->assertJson(fn (AssertableJson $json) => $json->has('data.user.workExperiences.0', fn (AssertableJson $json) => $json->where('id', $experience->id)
+            ->has('skills', 3)
+            ->has('skills.0', fn (AssertableJson $json) => $json->where('id', $userSkills[0]->skill_id)
+                ->where('experienceSkillRecord.details', 'first skill')
             )
+        )
         );
     }
 
@@ -93,10 +90,10 @@ class ExperienceTest extends TestCase
     {
         $skill = Skill::factory()->create();
         $experience = WorkExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience->$method([
-            ['id' => $skill->id]
+            ['id' => $skill->id],
         ]);
         $this->assertTrue(
             UserSkill::where('user_id', $this->platformAdmin->id)->where('skill_id', $skill->id)->exists()
@@ -106,14 +103,14 @@ class ExperienceTest extends TestCase
     protected function checkRestoresSoftDeletedUserSkills($method): void
     {
         $userSkill = UserSkill::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $userSkill->delete();
         $experience = WorkExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience->$method([
-            ['id' => $userSkill->skill_id]
+            ['id' => $userSkill->skill_id],
         ]);
         $this->assertNotSoftDeleted($userSkill);
     }
@@ -122,7 +119,7 @@ class ExperienceTest extends TestCase
     {
         $skill = Skill::factory()->create();
         $experience = WorkExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $details = 'These are the details of my experience.';
         $experience->$method([
@@ -137,16 +134,16 @@ class ExperienceTest extends TestCase
     protected function checkUpdatesDetails($method): void
     {
         $userSkills = UserSkill::factory(2)->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience = WorkExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience->userSkills()->sync([
             $userSkills[0]->id => ['details' => 'first skill'],
             $userSkills[1]->id => ['details' => 'second skill'],
         ]);
-        $newDetails1 = "first skill updated";
+        $newDetails1 = 'first skill updated';
         $newDetails2 = null;
         $experience->$method([
             ['id' => $userSkills[0]->skill_id, 'details' => $newDetails1],
@@ -162,12 +159,13 @@ class ExperienceTest extends TestCase
         );
     }
 
-    protected function checkNullDetailsNullifiesDetails($method): void {
+    protected function checkNullDetailsNullifiesDetails($method): void
+    {
         $userSkill = UserSkill::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience = WorkExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $details = 'These are the details of my experience.';
         $experience->userSkills()->sync([
@@ -181,12 +179,14 @@ class ExperienceTest extends TestCase
             $experience->skills->first()->experience_skill->details
         );
     }
-    protected function checkUndefinedDetailsDoesNotUpdateDetails($method): void {
+
+    protected function checkUndefinedDetailsDoesNotUpdateDetails($method): void
+    {
         $userSkill = UserSkill::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience = WorkExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $details = 'These are the details of my experience.';
         $experience->userSkills()->sync([
@@ -200,13 +200,15 @@ class ExperienceTest extends TestCase
             $experience->skills->first()->experience_skill->details
         );
     }
-    protected function checkMethodWorksWithArrayOrSkillCollectionArgs($method): void {
+
+    protected function checkMethodWorksWithArrayOrSkillCollectionArgs($method): void
+    {
         $skills = Skill::factory(2)->create();
         $experience = WorkExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience2 = AwardExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience->$method([
             ['id' => $skills[0]->id],
@@ -216,18 +218,20 @@ class ExperienceTest extends TestCase
         $this->assertCount(2, $experience->skills);
         $this->assertCount(2, $experience2->skills);
     }
-    public function checkMethodRestoresSoftDeletedPivots($method): void {
+
+    public function checkMethodRestoresSoftDeletedPivots($method): void
+    {
         $userSkill = UserSkill::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience = WorkExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experienceSkill = new ExperienceSkill();
         $experienceSkill->experience_id = $experience->id;
         $experienceSkill->experience_type = 'workExperience';
         $experienceSkill->user_skill_id = $userSkill->id;
-        $experienceSkill->details = "some details";
+        $experienceSkill->details = 'some details';
         $experienceSkill->save();
 
         // sanity check
@@ -239,7 +243,7 @@ class ExperienceTest extends TestCase
 
         // now connect the same skill again
         $experience->refresh()->$method([
-            ['id' => $userSkill->skill_id]
+            ['id' => $userSkill->skill_id],
         ]);
 
         // now check that the experienceSkill is no longer soft-deleted, and the pivot details is same as before.
@@ -253,21 +257,29 @@ class ExperienceTest extends TestCase
     {
         $this->checkCreatesUserSkills('syncSkills');
     }
-    public function testSyncSkillsRestoresSoftDeletedUserSkills(): void {
+
+    public function testSyncSkillsRestoresSoftDeletedUserSkills(): void
+    {
         $this->checkRestoresSoftDeletedUserSkills('syncSkills');
     }
-    public function testSyncSkillsAddsDetails(): void {
+
+    public function testSyncSkillsAddsDetails(): void
+    {
         $this->checkAddsDetails('syncSkills');
     }
-    public function testSyncSkillsUpdatesDetails(): void {
+
+    public function testSyncSkillsUpdatesDetails(): void
+    {
         $this->checkUpdatesDetails('syncSkills');
     }
-    public function testSyncSkillsRemovesExperienceSkillsWithoutAffectingUserSkills(): void {
+
+    public function testSyncSkillsRemovesExperienceSkillsWithoutAffectingUserSkills(): void
+    {
         $userSkills = UserSkill::factory(2)->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience = WorkExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience->userSkills()->sync([
             $userSkills[0]->id => ['details' => 'first skill'],
@@ -288,21 +300,29 @@ class ExperienceTest extends TestCase
         // But both userSkills should still exist
         $this->assertCount(2, $this->platformAdmin->userSkills);
     }
-    public function testSyncSkillsWorksWithArrayOrSkillCollectionArgs(): void {
+
+    public function testSyncSkillsWorksWithArrayOrSkillCollectionArgs(): void
+    {
         $this->checkMethodWorksWithArrayOrSkillCollectionArgs('syncSkills');
     }
-    public function testSyncSkillsNullDetailsNullifiesDetails(): void {
+
+    public function testSyncSkillsNullDetailsNullifiesDetails(): void
+    {
         $this->checkNullDetailsNullifiesDetails('syncSkills');
     }
-    public function testSyncSkillsUndefinedDetailsDoesNotUpdateDetails(): void {
+
+    public function testSyncSkillsUndefinedDetailsDoesNotUpdateDetails(): void
+    {
         $this->checkUndefinedDetailsDoesNotUpdateDetails('syncSkills');
     }
-    public function testSyncSkillsOnlySoftDeletesPivots(): void {
+
+    public function testSyncSkillsOnlySoftDeletesPivots(): void
+    {
         $userSkills = UserSkill::factory(2)->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience = WorkExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience->userSkills()->sync([
             $userSkills[0]->id => ['details' => 'first skill'],
@@ -323,7 +343,9 @@ class ExperienceTest extends TestCase
         $this->assertTrue($experienceSkill->trashed());
         $this->assertEquals('second skill', $experienceSkill->details);
     }
-    public function testSyncSkillsRestoresSoftDeletedPivots(): void {
+
+    public function testSyncSkillsRestoresSoftDeletedPivots(): void
+    {
         $this->checkMethodRestoresSoftDeletedPivots('syncSkills');
     }
 
@@ -333,36 +355,51 @@ class ExperienceTest extends TestCase
     {
         $this->checkCreatesUserSkills('connectSkills');
     }
-    public function testConnectSkillsRestoresSoftDeletedUserSkills(): void {
+
+    public function testConnectSkillsRestoresSoftDeletedUserSkills(): void
+    {
         $this->checkRestoresSoftDeletedUserSkills('connectSkills');
     }
-    public function testConnectSkillsAddsDetails(): void {
+
+    public function testConnectSkillsAddsDetails(): void
+    {
         $this->checkAddsDetails('connectSkills');
     }
-    public function testConnectSkillsUpdatesDetails(): void {
+
+    public function testConnectSkillsUpdatesDetails(): void
+    {
         $this->checkUpdatesDetails('connectSkills');
     }
-    public function testConnectSkillsWorksWithArrayOrSkillCollectionArgs(): void {
+
+    public function testConnectSkillsWorksWithArrayOrSkillCollectionArgs(): void
+    {
         $this->checkMethodWorksWithArrayOrSkillCollectionArgs('connectSkills');
     }
-    public function testConnectSkillsNullDetailsNullifiesDetails(): void {
+
+    public function testConnectSkillsNullDetailsNullifiesDetails(): void
+    {
         $this->checkNullDetailsNullifiesDetails('connectSkills');
     }
-    public function testConnectSkillsUndefinedDetailsDoesNotUpdateDetails(): void {
+
+    public function testConnectSkillsUndefinedDetailsDoesNotUpdateDetails(): void
+    {
         $this->checkUndefinedDetailsDoesNotUpdateDetails('connectSkills');
     }
-    public function testConnectSkillsRestoresSoftDeletedPivots(): void {
+
+    public function testConnectSkillsRestoresSoftDeletedPivots(): void
+    {
         $this->checkMethodRestoresSoftDeletedPivots('connectSkills');
     }
 
     // disconnectSkills tests
 
-    public function testDisconnectSkillsRemovesExperienceSkillsWithoutAffectingUserSkills(): void {
+    public function testDisconnectSkillsRemovesExperienceSkillsWithoutAffectingUserSkills(): void
+    {
         $userSkills = UserSkill::factory(2)->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience = WorkExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience->userSkills()->sync([
             $userSkills[0]->id => ['details' => 'first skill'],
@@ -381,12 +418,13 @@ class ExperienceTest extends TestCase
         $this->assertCount(2, $this->platformAdmin->userSkills);
     }
 
-    public function testDisconnectSkillsOnlySoftDeletesPivots(): void {
+    public function testDisconnectSkillsOnlySoftDeletesPivots(): void
+    {
         $userSkill = UserSkill::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience = WorkExperience::factory()->create([
-            'user_id' => $this->platformAdmin->id
+            'user_id' => $this->platformAdmin->id,
         ]);
         $experience->userSkills()->sync([
             $userSkill->id => ['details' => 'some details'],
@@ -401,7 +439,7 @@ class ExperienceTest extends TestCase
         $experience->disconnectSkills([
             $userSkill->skill_id,
         ]);
-        $freshExperienceSkill =  ExperienceSkill::withTrashed()
+        $freshExperienceSkill = ExperienceSkill::withTrashed()
             ->where('user_skill_id', $userSkill->id)
             ->where('experience_id', $experience->id)
             ->first();
@@ -409,7 +447,8 @@ class ExperienceTest extends TestCase
         $this->assertEquals('some details', $freshExperienceSkill->details);
     }
 
-    public function testUserSkillRelationshipSkipsSoftDeletedPivots(): void {
+    public function testUserSkillRelationshipSkipsSoftDeletedPivots(): void
+    {
         Skill::factory()->count(3)->create();
         $experience = AwardExperience::factory()->withSkills(3)->create();
         // sanity check
@@ -422,7 +461,8 @@ class ExperienceTest extends TestCase
         $this->assertCount(2, $experience->fresh()->userSkills);
     }
 
-    public function testSkillRelationshipSkipsSoftDeletedPivots(): void {
+    public function testSkillRelationshipSkipsSoftDeletedPivots(): void
+    {
         Skill::factory()->count(3)->create();
         $experience = AwardExperience::factory()->withSkills(3)->create();
         // sanity check

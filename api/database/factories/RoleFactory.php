@@ -23,10 +23,11 @@ class RoleFactory extends Factory
     {
         $name = $this->faker->company();
         $description = $this->faker->sentence();
+
         return [
             'name' => $this->faker->unique()->word(),
-            'display_name' => ['en' => $name . ' EN', 'fr' => $name . ' FR'],
-            'description' => ['en' => $description . ' EN', 'fr' => $description . ' FR'],
+            'display_name' => ['en' => $name.' EN', 'fr' => $name.' FR'],
+            'description' => ['en' => $description.' EN', 'fr' => $description.' FR'],
             'is_team_based' => $this->faker->boolean(),
         ];
     }

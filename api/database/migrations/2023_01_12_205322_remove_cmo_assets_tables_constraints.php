@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -40,7 +40,7 @@ return new class extends Migration
             $table->dropForeign('asset_cmo_asset_pool_pool_id_foreign');
         });
 
-         // remove tables
+        // remove tables
         Schema::dropIfExists('asset_cmo_asset_pool');
         Schema::dropIfExists('essential_cmo_asset_pool');
         Schema::dropIfExists('cmo_asset_pool_candidate_filter');

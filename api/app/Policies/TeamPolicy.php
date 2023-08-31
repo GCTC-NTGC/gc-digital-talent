@@ -13,6 +13,7 @@ class TeamPolicy
     /**
      * Determine whether the user can view any models.
      * Everyone is allowed to view the team including guests
+     *
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewAny(?User $user)
@@ -24,6 +25,7 @@ class TeamPolicy
      * Determine whether the user can view a specific model.
      * To be sketched in later with roles and permissions work
      * Everyone is allowed to view the team including guests
+     *
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(?User $user, Team $team = null)
@@ -34,47 +36,43 @@ class TeamPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user)
     {
-        return $user->isAbleTo("create-any-team");
+        return $user->isAbleTo('create-any-team');
     }
 
     /**
      * Determine whether the user can update models.
      * Likely to be updated later to allow the team admin to update their own team
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update(User $user)
     {
-        return $user->isAbleTo("update-any-team");
+        return $user->isAbleTo('update-any-team');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(User $user)
     {
-        return $user->isAbleTo("delete-any-team");
+        return $user->isAbleTo('delete-any-team');
     }
 
     /**
      * Determine whether the user can view a specific teams, team members.
      * Likely to be updated later to allow the team admin and teammates to view their own team
      *
-     * @param  \App\Models\User  $user
      * @param  \App\Models\Team/null $team
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewTeamMembers(User $user, Team $team)
     {
-        return $user->isAbleTo("view-any-teamMembers") || $user->isAbleTo("view-team-teamMembers", $team);
+        return $user->isAbleTo('view-any-teamMembers') || $user->isAbleTo('view-team-teamMembers', $team);
     }
 }

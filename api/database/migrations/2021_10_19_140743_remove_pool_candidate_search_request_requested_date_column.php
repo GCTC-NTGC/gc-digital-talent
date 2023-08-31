@@ -26,7 +26,7 @@ class RemovePoolCandidateSearchRequestRequestedDateColumn extends Migration
     public function down()
     {
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
-            $table->dateTime("requested_date");
+            $table->dateTime('requested_date');
         });
     }
 }

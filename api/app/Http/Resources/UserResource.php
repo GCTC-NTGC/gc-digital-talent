@@ -2,11 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Database\Eloquent\Collection;
-
 use App\Models\Department;
-use GraphQL\Experimental\Executor\Collector;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
@@ -15,6 +12,7 @@ class UserResource extends JsonResource
     public function poolSkillIds($value)
     {
         $this->poolSkillIds = $value;
+
         return $this;
     }
 
@@ -42,7 +40,7 @@ class UserResource extends JsonResource
         $collection = $collection->merge($workExperiences);
 
         // if poolSkillIds is valid, filter out skills that are not in the id array by stepping through each item in $collection
-        if (!empty($poolSkillIds)) {
+        if (! empty($poolSkillIds)) {
             $collection->each(function ($experience) use ($poolSkillIds) {
                 $skills = $experience->skills;
                 $skillsFiltered = $skills->filter(function ($skill) use ($poolSkillIds) {
@@ -88,7 +86,7 @@ class UserResource extends JsonResource
             'indigenousDeclarationSignature' => $this->indigenous_declaration_signature,
             'hasDiploma' => $this->has_diploma,
             'locationPreferences' => $this->location_preferences,
-            'locationExemptions' =>  $this->location_exemptions,
+            'locationExemptions' => $this->location_exemptions,
             'acceptedOperationalRequirements' => $this->accepted_operational_requirements,
             'positionDuration' => $this->position_duration,
             'poolCandidates' => PoolCandidateResource::collection($this->poolCandidates),

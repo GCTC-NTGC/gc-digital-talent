@@ -62,6 +62,7 @@ query getPool($id: UUID!) {
         en
         fr
       }
+      category
       families {
         id
         key
@@ -73,7 +74,6 @@ query getPool($id: UUID!) {
           en
           fr
         }
-        category
       }
     }
     nonessentialSkills {
@@ -87,6 +87,7 @@ query getPool($id: UUID!) {
         en
         fr
       }
+      category
       families {
         id
         key
@@ -98,7 +99,6 @@ query getPool($id: UUID!) {
           en
           fr
         }
-        category
       }
     }
     isRemote
