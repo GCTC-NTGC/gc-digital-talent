@@ -9,7 +9,7 @@
   "dependencies": {
     "@gc-digital-talent/theme": "*",
     "@storybook/addon-actions": "^7.3.2",
-    "@storybook/addon-essentials": "^7.3.2",
+    "@storybook/addon-essentials": "^7.4.0",
     "@storybook/addon-links": "^7.3.2",
     "@storybook/addon-viewport": "^7.3.2",
     "@storybook/addons": "^7.3.2",
