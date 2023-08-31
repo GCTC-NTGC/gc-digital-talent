@@ -17,7 +17,6 @@ export const PAGE_SECTION_ID = {
   TECHNOLOGICAL_CHANGE: "technological-change",
   OPERATIONS_CONSIDERATIONS: "operations-considerations",
   TALENT_SOURCING_DECISION: "talent-sourcing_decision",
-  EXAMPLES_OF_CONTRACTS: "examples-of-contracts",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -149,15 +148,6 @@ const sectionTitles = new Map<PageSectionId, MessageDescriptor>([
       id: "qmKVmr",
       description:
         "Heading for the Talent sourcing decision section on the digital services contracting questionnaire",
-    }),
-  ],
-  [
-    PAGE_SECTION_ID.EXAMPLES_OF_CONTRACTS,
-    defineMessage({
-      defaultMessage: "Examples of contracts for digital services",
-      id: "E6G68c",
-      description:
-        "Heading for the Examples of contracts for digital services section on the digital services contracting questionnaire",
     }),
   ],
 ]);

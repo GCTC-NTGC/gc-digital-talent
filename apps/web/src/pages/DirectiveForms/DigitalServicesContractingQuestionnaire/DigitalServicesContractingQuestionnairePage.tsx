@@ -24,7 +24,6 @@ import { useDigitalServicesContractingQuestionnairePageDataQuery } from "~/api/g
 import { pageTitle as directiveHomePageTitle } from "../../DirectivePage/DirectivePage";
 import { getSectionTitle, PAGE_SECTION_ID } from "./navigation";
 import { IdNamePair } from "./types";
-import ExamplesOfContractsSection from "./sections/ExamplesOfContractsSection";
 import InstructionsSection from "./sections/InstructionsSection";
 import PreambleSection from "./sections/PreambleSection";
 import QuestionnaireSection from "./sections/QuestionnaireSection";
@@ -197,15 +196,6 @@ export const DigitalServicesContractingQuestionnaire = ({
                   </TableOfContents.ListItem>
                 </TableOfContents.List>
               </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={PAGE_SECTION_ID.EXAMPLES_OF_CONTRACTS}
-                >
-                  {intl.formatMessage(
-                    getSectionTitle(PAGE_SECTION_ID.EXAMPLES_OF_CONTRACTS),
-                  )}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
             </TableOfContents.List>
             <Link
               mode="solid"
@@ -236,7 +226,6 @@ export const DigitalServicesContractingQuestionnaire = ({
                 skills={skills}
                 isSubmitting={isSubmitting}
               />
-              <ExamplesOfContractsSection />
             </BasicForm>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
