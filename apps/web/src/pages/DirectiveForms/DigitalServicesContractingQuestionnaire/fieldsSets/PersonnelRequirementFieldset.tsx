@@ -35,6 +35,7 @@ import {
   isSkillRequirementFormValues,
   SkillRequirementFormValues,
 } from "../formValues";
+import getLabels from "../labels";
 
 export type PersonnelRequirementFieldsetProps = {
   fieldsetName: string;
@@ -48,6 +49,7 @@ const PersonnelRequirementFieldset = ({
   const intl = useIntl();
   const { watch, resetField, register, setValue } = useFormContext();
   register(`${fieldsetName}.skillRequirements`);
+  const labels = getLabels(intl);
 
   // hooks to watch, needed for conditional rendering
   const [selectedSkillRequirementsUntyped, selectedLanguage, selectedSecurity] =
@@ -118,12 +120,7 @@ const PersonnelRequirementFieldset = ({
         id={`${fieldsetName}.resourceType`}
         name={`${fieldsetName}.resourceType`}
         type="text"
-        label={intl.formatMessage({
-          defaultMessage: "Type of resource",
-          id: "UW3Z2a",
-          description:
-            "Label for _type of resource_ fieldset in the _digital services contracting questionnaire_",
-        })}
+        label={labels.resourceType}
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
@@ -217,12 +214,7 @@ const PersonnelRequirementFieldset = ({
       <Select
         id={`${fieldsetName}.language`}
         name={`${fieldsetName}.language`}
-        label={intl.formatMessage({
-          defaultMessage: "Official language requirement",
-          id: "gZKJeF",
-          description:
-            "Label for _official language requirement_ fieldset in the _digital services contracting questionnaire_",
-        })}
+        label={labels.language}
         nullSelection={intl.formatMessage(formMessages.defaultPlaceholder)}
         rules={{
           required: intl.formatMessage(errorMessages.required),
@@ -243,7 +235,7 @@ const PersonnelRequirementFieldset = ({
           id={`${fieldsetName}.languageOther`}
           name={`${fieldsetName}.languageOther`}
           type="text"
-          label={intl.formatMessage(formMessages.specifyOther)}
+          label={labels.languageOther}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -252,12 +244,7 @@ const PersonnelRequirementFieldset = ({
       <Select
         id={`${fieldsetName}.security`}
         name={`${fieldsetName}.security`}
-        label={intl.formatMessage({
-          defaultMessage: "Security level",
-          id: "zemp3H",
-          description:
-            "Label for _security level_ fieldset in the _digital services contracting questionnaire_",
-        })}
+        label={labels.security}
         nullSelection={intl.formatMessage(formMessages.defaultPlaceholder)}
         rules={{
           required: intl.formatMessage(errorMessages.required),
@@ -278,7 +265,7 @@ const PersonnelRequirementFieldset = ({
           id={`${fieldsetName}.securityOther`}
           name={`${fieldsetName}.securityOther`}
           type="text"
-          label={intl.formatMessage(formMessages.specifyOther)}
+          label={labels.securityOther}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -287,12 +274,7 @@ const PersonnelRequirementFieldset = ({
       <Select
         id={`${fieldsetName}.telework`}
         name={`${fieldsetName}.telework`}
-        label={intl.formatMessage({
-          defaultMessage: "Telework allowed",
-          id: "DeQTkE",
-          description:
-            "Label for _telework option_ fieldset in the _digital services contracting questionnaire_",
-        })}
+        label={labels.telework}
         nullSelection={intl.formatMessage(formMessages.defaultPlaceholder)}
         rules={{
           required: intl.formatMessage(errorMessages.required),
@@ -312,12 +294,7 @@ const PersonnelRequirementFieldset = ({
         id={`${fieldsetName}.quantity`}
         name={`${fieldsetName}.quantity`}
         type="number"
-        label={intl.formatMessage({
-          defaultMessage: "Quantity",
-          id: "5yv4Ko",
-          description:
-            "Label for _quantity of personnel_ field in the _digital services contracting questionnaire_",
-        })}
+        label={labels.quantity}
         rules={{
           required: intl.formatMessage(errorMessages.required),
           min: {

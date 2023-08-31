@@ -9,9 +9,12 @@ import { YesNo } from "@gc-digital-talent/graphql";
 import { enumToOptions } from "../../util";
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import { getYesNo, yesNoSortOrder } from "../../localizedConstants";
+import getLabels from "../labels";
 
 const TechnologicalChangeSection = () => {
   const intl = useIntl();
+  const labels = getLabels(intl);
+
   return (
     <TableOfContents.Section
       id={PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE}
@@ -77,13 +80,7 @@ const TechnologicalChangeSection = () => {
           </ul>
         </div>
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage:
-              "If applicable, please indicate whether the work is being contracted out for the following reasons.",
-            id: "jF4Ukw",
-            description:
-              "Label for _is technological change_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.isTechnologicalChange}
           id="isTechnologicalChange"
           name="isTechnologicalChange"
           idPrefix="isTechnologicalChange"
@@ -98,13 +95,7 @@ const TechnologicalChangeSection = () => {
           })}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage:
-              "Do you expect this contract to have immediate impacts on your department in terms of staffing level or skill sets required?",
-            id: "kMpqRq",
-            description:
-              "Label for _has impact on your department_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.hasImpactOnYourDepartment}
           id="hasImpactOnYourDepartment"
           name="hasImpactOnYourDepartment"
           idPrefix="hasImpactOnYourDepartment"
@@ -119,13 +110,7 @@ const TechnologicalChangeSection = () => {
           })}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage:
-              "Do you expect any potential immediate carry-forward / ripple effect on other departments in terms of staffing levels or skill sets required?",
-            id: "gsaza3",
-            description:
-              "Label for _has immediate impact on other departments_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.hasImmediateImpactOnOtherDepartments}
           id="hasImmediateImpactOnOtherDepartments"
           name="hasImmediateImpactOnOtherDepartments"
           idPrefix="hasImmediateImpactOnOtherDepartments"
@@ -140,13 +125,7 @@ const TechnologicalChangeSection = () => {
           })}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage:
-              "Do you expect any potential long-term carry-forward / ripple effect on other departments in terms of staffing levels or skill sets required?",
-            id: "0aU6BD",
-            description:
-              "Label for _has future impact on other departments_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.hasFutureImpactOnOtherDepartments}
           id="hasFutureImpactOnOtherDepartments"
           name="hasFutureImpactOnOtherDepartments"
           idPrefix="hasFutureImpactOnOtherDepartments"

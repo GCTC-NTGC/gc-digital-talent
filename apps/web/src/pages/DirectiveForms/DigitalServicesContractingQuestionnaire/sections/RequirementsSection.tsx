@@ -9,7 +9,7 @@ import {
   RadioGroup,
   TextArea,
 } from "@gc-digital-talent/forms";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import { errorMessages } from "@gc-digital-talent/i18n";
 import {
   PersonnelLanguage,
   PersonnelOtherRequirement,
@@ -34,6 +34,7 @@ import {
   yesNoSortOrder,
 } from "../../localizedConstants";
 import PersonnelRequirementsSection from "./PersonnelRequirementsSection";
+import getLabels from "../labels";
 
 type RequirementsSectionProps = {
   skills: Array<Skill>;
@@ -42,6 +43,7 @@ type RequirementsSectionProps = {
 const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
   const intl = useIntl();
   const { watch, resetField } = useFormContext();
+  const labels = getLabels(intl);
 
   // hooks to watch, needed for conditional rendering
   const [
@@ -140,12 +142,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
           id="workRequirementDescription"
           name="workRequirementDescription"
           wordLimit={200}
-          label={intl.formatMessage({
-            defaultMessage: "Description of work required",
-            id: "I5kjUN",
-            description:
-              "Label for _work requirement description_ textbox in the _digital services contracting questionnaire_",
-          })}
+          label={labels.workRequirementDescription}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           context={intl.formatMessage({
             defaultMessage:
@@ -158,12 +155,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
         <TextArea
           id="qualificationRequirement"
           name="qualificationRequirement"
-          label={intl.formatMessage({
-            defaultMessage: "Qualification requirement",
-            id: "8v/v3u",
-            description:
-              "Label for _qualification requirement_ textbox in the _digital services contracting questionnaire_",
-          })}
+          label={labels.qualificationRequirement}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           context={intl.formatMessage({
             defaultMessage:
@@ -174,13 +166,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
           })}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage:
-              "Will the supplier and its employees require access to protected and/or classified information or assets?",
-            id: "glDA2j",
-            description:
-              "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.requirementAccessToSecure}
           id="requirementAccessToSecure"
           name="requirementAccessToSecure"
           idPrefix="requirementAccessToSecure"
@@ -198,13 +184,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
           idPrefix="requirementScreeningLevels"
           id="requirementScreeningLevels"
           name="requirementScreeningLevels"
-          legend={intl.formatMessage({
-            defaultMessage:
-              "Personnel security screening level required for the contractor",
-            id: "1Trz2/",
-            description:
-              "Label for _contractor screening levels_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.requirementScreeningLevels}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -225,7 +205,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
             id="requirementScreeningLevelOther"
             name="requirementScreeningLevelOther"
             type="text"
-            label={intl.formatMessage(formMessages.specifyOther)}
+            label={labels.requirementScreeningLevelOther}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
@@ -235,12 +215,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
           idPrefix="requirementWorkLanguages"
           id="requirementWorkLanguages"
           name="requirementWorkLanguages"
-          legend={intl.formatMessage({
-            defaultMessage: "Language of work",
-            id: "6Zf2AE",
-            description:
-              "Label for _required work languages_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.requirementWorkLanguages}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -266,7 +241,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
             id="requirementWorkLanguageOther"
             name="requirementWorkLanguageOther"
             type="text"
-            label={intl.formatMessage(formMessages.specifyOther)}
+            label={labels.requirementWorkLanguageOther}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
@@ -276,12 +251,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
           idPrefix="requirementWorkLocations"
           id="requirementWorkLocations"
           name="requirementWorkLocations"
-          legend={intl.formatMessage({
-            defaultMessage: "Location of work",
-            id: "sK7D+S",
-            description:
-              "Label for _required work locations_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.requirementWorkLocations}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -307,12 +277,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
             id="requirementWorkLocationGcSpecific"
             name="requirementWorkLocationGcSpecific"
             type="text"
-            label={intl.formatMessage({
-              defaultMessage: "Please specify GC premises",
-              id: "WHkMFr",
-              description:
-                "Label for _gc specific work locations_ fieldset in the _digital services contracting questionnaire_",
-            })}
+            label={labels.requirementWorkLocationGcSpecific}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
@@ -323,12 +288,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
             id="requirementWorkLocationOffsiteSpecific"
             name="requirementWorkLocationOffsiteSpecific"
             type="text"
-            label={intl.formatMessage({
-              defaultMessage: "Please specify offsite locations",
-              id: "X+IHFX",
-              description:
-                "Label for _offsite specific work locations_ fieldset in the _digital services contracting questionnaire_",
-            })}
+            label={labels.requirementWorkLocationOffsiteSpecific}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
@@ -338,12 +298,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
           idPrefix="requirementOthers"
           id="requirementOthers"
           name="requirementOthers"
-          legend={intl.formatMessage({
-            defaultMessage: "Other requirements",
-            id: "RSmwUx",
-            description:
-              "Label for _other requirements_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.requirementOthers}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -370,20 +325,14 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
             id="requirementOtherOther"
             name="requirementOtherOther"
             type="text"
-            label={intl.formatMessage(formMessages.specifyOther)}
+            label={labels.requirementOtherOther}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
           />
         ) : null}
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage:
-              "Does the contract have specific personnel requirements?",
-            id: "uK+4La",
-            description:
-              "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.hasPersonnelRequirements}
           id="hasPersonnelRequirements"
           name="hasPersonnelRequirements"
           idPrefix="hasPersonnelRequirements"

@@ -29,6 +29,7 @@ import InstructionsSection from "./sections/InstructionsSection";
 import PreambleSection from "./sections/PreambleSection";
 import QuestionnaireSection from "./sections/QuestionnaireSection";
 import { convertFormValuesToApiInput, FormValues } from "./formValues";
+import getLabels from "./labels";
 
 export const pageTitle = defineMessage({
   defaultMessage: "Digital Services Contracting Questionnaire",
@@ -66,6 +67,8 @@ export const DigitalServicesContractingQuestionnaire = ({
       url: paths.digitalServicesContractingQuestionnaire(),
     },
   ]);
+
+  const labels = getLabels(intl);
 
   return (
     <>
@@ -224,6 +227,7 @@ export const DigitalServicesContractingQuestionnaire = ({
               options={{
                 defaultValues,
               }}
+              labels={labels}
             >
               <InstructionsSection />
               <PreambleSection />

@@ -23,6 +23,7 @@ import {
   getYesNoUnsure,
   yesNoUnsureSortOrder,
 } from "../../localizedConstants";
+import getLabels from "../labels";
 
 type GeneralInformationSectionProps = {
   departments: Array<IdNamePair>;
@@ -33,6 +34,7 @@ const GeneralInformationSection = ({
 }: GeneralInformationSectionProps) => {
   const intl = useIntl();
   const { watch, resetField } = useFormContext();
+  const labels = getLabels(intl);
 
   // hooks to watch, needed for conditional rendering
   const [
@@ -106,12 +108,7 @@ const GeneralInformationSection = ({
         <Select
           id="department"
           name="department"
-          label={intl.formatMessage({
-            defaultMessage: "Department / agency",
-            id: "uDwGwb",
-            description:
-              "Label for _department / agency_ field in the _digital services contracting questionnaire_",
-          })}
+          label={labels.department}
           nullSelection={intl.formatMessage({
             defaultMessage: "Select a department",
             id: "y827h2",
@@ -135,7 +132,7 @@ const GeneralInformationSection = ({
             id="departmentOther"
             name="departmentOther"
             type="text"
-            label={intl.formatMessage(formMessages.specifyOther)}
+            label={labels.departmentOther}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
@@ -145,12 +142,7 @@ const GeneralInformationSection = ({
           id="branchOther"
           name="branchOther"
           type="text"
-          label={intl.formatMessage({
-            defaultMessage: "Branch",
-            id: "FXJMDV",
-            description:
-              "Label for _branch_ field in the _digital services contracting questionnaire_",
-          })}
+          label={labels.branchOther}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -169,12 +161,7 @@ const GeneralInformationSection = ({
               id="businessOwnerName"
               name="businessOwnerName"
               type="text"
-              label={intl.formatMessage({
-                defaultMessage: "Name",
-                id: "AkuIfT",
-                description:
-                  "Label for _business owner name_ field in the _digital services contracting questionnaire_",
-              })}
+              label={labels.businessOwnerName}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -183,12 +170,7 @@ const GeneralInformationSection = ({
               id="businessOwnerJobTitle"
               name="businessOwnerJobTitle"
               type="text"
-              label={intl.formatMessage({
-                defaultMessage: "Job title",
-                id: "wRhcac",
-                description:
-                  "Label for _business owner job title_ field in the _digital services contracting questionnaire_",
-              })}
+              label={labels.businessOwnerJobTitle}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -197,12 +179,7 @@ const GeneralInformationSection = ({
               id="businessOwnerEmail"
               name="businessOwnerEmail"
               type="email"
-              label={intl.formatMessage({
-                defaultMessage: "Email",
-                id: "sg9olk",
-                description:
-                  "Label for _business owner email_ field in the _digital services contracting questionnaire_",
-              })}
+              label={labels.businessOwnerEmail}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -224,12 +201,7 @@ const GeneralInformationSection = ({
               id="financialAuthorityName"
               name="financialAuthorityName"
               type="text"
-              label={intl.formatMessage({
-                defaultMessage: "Name",
-                id: "ttIQ0Q",
-                description:
-                  "Label for _financial authority name_ field in the _digital services contracting questionnaire_",
-              })}
+              label={labels.financialAuthorityName}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -238,12 +210,7 @@ const GeneralInformationSection = ({
               id="financialAuthorityJobTitle"
               name="financialAuthorityJobTitle"
               type="text"
-              label={intl.formatMessage({
-                defaultMessage: "Job title",
-                id: "dgVAPq",
-                description:
-                  "Label for _financial authority job title_ field in the _digital services contracting questionnaire_",
-              })}
+              label={labels.financialAuthorityJobTitle}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -252,12 +219,7 @@ const GeneralInformationSection = ({
               id="financialAuthorityEmail"
               name="financialAuthorityEmail"
               type="email"
-              label={intl.formatMessage({
-                defaultMessage: "Email",
-                id: "51Hc86",
-                description:
-                  "Label for _financial authority email_ field in the _digital services contracting questionnaire_",
-              })}
+              label={labels.financialAuthorityEmail}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -268,13 +230,7 @@ const GeneralInformationSection = ({
           idPrefix="authoritiesInvolved"
           id="authoritiesInvolved"
           name="authoritiesInvolved"
-          legend={intl.formatMessage({
-            defaultMessage:
-              "Other authorities involved / engaged on this contract",
-            id: "nfcDvX",
-            description:
-              "Label for _authorities involved_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.authoritiesInvolved}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -293,20 +249,14 @@ const GeneralInformationSection = ({
             id="authorityInvolvedOther"
             name="authorityInvolvedOther"
             type="text"
-            label={intl.formatMessage(formMessages.specifyOther)}
+            label={labels.authorityInvolvedOther}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
           />
         ) : null}
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage:
-              "Is this contract being put in place on behalf of another Government of Canada department or agency?",
-            id: "KifUVY",
-            description:
-              "Label for _contract on behalf of gc_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.contractBehalfOfGc}
           id="contractBehalfOfGc"
           name="contractBehalfOfGc"
           idPrefix="contractBehalfOfGc"
@@ -323,13 +273,7 @@ const GeneralInformationSection = ({
           )}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage:
-              "Is this contract being put in place for the purpose of service provision to another Government of Canada department or agency?",
-            id: "u42Yks",
-            description:
-              "Label for _contract of service to gc_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.contractServiceOfGc}
           id="contractServiceOfGc"
           name="contractServiceOfGc"
           idPrefix="contractServiceOfGc"
@@ -346,13 +290,7 @@ const GeneralInformationSection = ({
           )}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage:
-              "Is this contract related to a specific digital initiative?",
-            id: "ci72ST",
-            description:
-              "Label for _contract for digital initiative_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.contractForDigitalInitiative}
           id="contractForDigitalInitiative"
           name="contractForDigitalInitiative"
           idPrefix="contractForDigitalInitiative"
@@ -374,24 +312,13 @@ const GeneralInformationSection = ({
               id="digitalInitiativeName"
               name="digitalInitiativeName"
               type="text"
-              label={intl.formatMessage({
-                defaultMessage: "Name of the digital initiative",
-                id: "6ntAxU",
-                description:
-                  "Label for _name of digital initiative_ field in _authorities involved_ fieldset in the _digital services contracting questionnaire_",
-              })}
+              label={labels.digitalInitiativeName}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
             <RadioGroup
-              legend={intl.formatMessage({
-                defaultMessage:
-                  'Has a digital initiative "Forward Talent Plan" been submitted previously for the initiative?',
-                id: "kpQom6",
-                description:
-                  "Label for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_",
-              })}
+              legend={labels.digitalInitiativePlanSubmitted}
               id="digitalInitiativePlanSubmitted"
               name="digitalInitiativePlanSubmitted"
               idPrefix="digitalInitiativePlanSubmitted"
@@ -416,13 +343,7 @@ const GeneralInformationSection = ({
             />
             {isPlanSubmitted ? (
               <RadioGroup
-                legend={intl.formatMessage({
-                  defaultMessage:
-                    "Has the plan been updated when the contract is initiated?",
-                  id: "siF4qC",
-                  description:
-                    "Label for _digital initiative plan updated_ fieldset in the _digital services contracting questionnaire_",
-                })}
+                legend={labels.digitalInitiativePlanUpdated}
                 id="digitalInitiativePlanUpdated"
                 name="digitalInitiativePlanUpdated"
                 idPrefix="digitalInitiativePlanUpdated"
@@ -440,13 +361,7 @@ const GeneralInformationSection = ({
               />
             ) : null}
             <RadioGroup
-              legend={intl.formatMessage({
-                defaultMessage:
-                  "Does this procurement complement other talent sourcing activities (e.g. staffing, training) for this initiative?",
-                id: "qRPPY2",
-                description:
-                  "Label for _digital initiative plan complemented_ fieldset in the _digital services contracting questionnaire_",
-              })}
+              legend={labels.digitalInitiativePlanComplemented}
               id="digitalInitiativePlanComplemented"
               name="digitalInitiativePlanComplemented"
               idPrefix="digitalInitiativePlanComplemented"

@@ -8,9 +8,11 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import { buildExternalLink } from "../../util";
+import getLabels from "../labels";
 
 const PreambleSection = () => {
   const intl = useIntl();
+  const labels = getLabels(intl);
   return (
     <>
       <TableOfContents.Section
@@ -31,8 +33,8 @@ const PreambleSection = () => {
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "OCIO of the Treasury Board of Canada Secretariat (TBS) is responsible for the sustainability and development in the GC Digital Community, including:",
-            id: "ihJUtJ",
+              "OCIO of the Treasury Board of Canada Secretariat (TBS) is responsible for the sustainability and development in the GC digital community, including:",
+            id: "LiB2FV",
             description:
               "Introduction to the _role of the cio_ section of the _digital services contracting questionnaire_",
           })}
@@ -131,8 +133,8 @@ const PreambleSection = () => {
           <li>
             {intl.formatMessage({
               defaultMessage:
-                "Creating GC-wide pool of pre-qualified digital talent, informed by departmental needs",
-              id: "vnvdFR",
+                "Creating a GC-wide pool of pre-qualified digital talent, informed by departmental needs",
+              id: "kOpORd",
               description:
                 "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_",
             })}
@@ -230,13 +232,8 @@ const PreambleSection = () => {
                 "Preamble confirmation label of the _digital services contracting questionnaire_",
             })}
             id="readPreamble"
-            label={intl.formatMessage({
-              defaultMessage: "I have read the preamble.",
-              id: "xj7X6V",
-              description:
-                "Preamble confirmation statement of the _digital services contracting questionnaire_",
-            })}
             name="readPreamble"
+            label={labels.readPreamble}
             rules={{ required: intl.formatMessage(errorMessages.required) }}
           />
         </div>

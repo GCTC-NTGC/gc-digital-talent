@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 import { OperationsConsideration } from "@gc-digital-talent/graphql";
 import { Checklist, Input } from "@gc-digital-talent/forms";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import { enumToOptions } from "../../util";
@@ -13,10 +13,12 @@ import {
   getOperationsConsideration,
   operationsConsiderationsSortOrder,
 } from "../../localizedConstants";
+import getLabels from "../labels";
 
 const OperationsConsiderationsSection = () => {
   const intl = useIntl();
   const { watch, resetField } = useFormContext();
+  const labels = getLabels(intl);
 
   // hooks to watch, needed for conditional rendering
   const [selectedOperationsConsiderations] = watch([
@@ -69,12 +71,7 @@ const OperationsConsiderationsSection = () => {
           idPrefix="operationsConsiderations"
           id="operationsConsiderations"
           name="operationsConsiderations"
-          legend={intl.formatMessage({
-            defaultMessage: "Influencing factors",
-            id: "1J3/aR",
-            description:
-              "Label for _influencing factors_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.operationsConsiderations}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -102,7 +99,7 @@ const OperationsConsiderationsSection = () => {
             id="operationsConsiderationsOther"
             name="operationsConsiderationsOther"
             type="text"
-            label={intl.formatMessage(formMessages.specifyOther)}
+            label={labels.operationsConsiderationsOther}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}

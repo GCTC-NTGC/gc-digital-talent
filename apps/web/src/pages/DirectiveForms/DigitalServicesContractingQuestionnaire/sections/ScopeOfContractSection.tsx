@@ -36,10 +36,12 @@ import {
   yesNoSortOrder,
   yesNoUnsureSortOrder,
 } from "../../localizedConstants";
+import getLabels from "../labels";
 
 const ScopeOfContractSection = () => {
   const intl = useIntl();
   const { watch, resetField } = useFormContext();
+  const labels = getLabels(intl);
 
   // hooks to watch, needed for conditional rendering
   const [selectedCommodityType, selectedMethodOfSupply] = watch([
@@ -82,12 +84,7 @@ const ScopeOfContractSection = () => {
           id="contractTitle"
           name="contractTitle"
           type="text"
-          label={intl.formatMessage({
-            defaultMessage: "Contract title",
-            id: "Cl3GCt",
-            description:
-              "Label for _contract title_ field in the _digital services contracting questionnaire_",
-          })}
+          label={labels.contractTitle}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -95,12 +92,7 @@ const ScopeOfContractSection = () => {
         <DateInput
           name="contractStartDate"
           id="contractStartDate"
-          legend={intl.formatMessage({
-            defaultMessage: "Expected start date of the contract",
-            id: "/Oq5UR",
-            description:
-              "Label for _contract start date_ field in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.contractStartDate}
           show={["YEAR", "MONTH"]}
           rules={{
             required: intl.formatMessage(errorMessages.required),
@@ -109,25 +101,14 @@ const ScopeOfContractSection = () => {
         <DateInput
           name="contractEndDate"
           id="contractEndDate"
-          legend={intl.formatMessage({
-            defaultMessage: "Expected end date of the contract",
-            id: "bIdalW",
-            description:
-              "Label for _contract end date_ field in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.contractEndDate}
           show={["YEAR", "MONTH"]}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage:
-              "Is the option to extend the contract currently scoped in?",
-            id: "Kss450",
-            description:
-              "Label for _contract extendable_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.contractExtendable}
           id="contractExtendable"
           name="contractExtendable"
           idPrefix="contractExtendable"
@@ -142,13 +123,7 @@ const ScopeOfContractSection = () => {
           })}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage:
-              "Is the option to amend the contract currently scoped in?",
-            id: "pjTZQr",
-            description:
-              "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.contractAmendable}
           id="contractAmendable"
           name="contractAmendable"
           idPrefix="contractAmendable"
@@ -163,12 +138,7 @@ const ScopeOfContractSection = () => {
           })}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage: "Is this a multi-year contract?",
-            id: "by9soK",
-            description:
-              "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.contractMultiyear}
           id="contractMultiyear"
           name="contractMultiyear"
           idPrefix="contractMultiyear"
@@ -183,12 +153,7 @@ const ScopeOfContractSection = () => {
           })}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage: "Total contract value",
-            id: "B82PZJ",
-            description:
-              "Label for _contract value_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.contractValue}
           id="contractValue"
           name="contractValue"
           idPrefix="contractValue"
@@ -213,12 +178,7 @@ const ScopeOfContractSection = () => {
           })}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage: "Contract resources expected to start work in",
-            id: "5GUCh4",
-            description:
-              "Label for _contract start timeframe_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.contractResourcesStartTimeframe}
           id="contractResourcesStartTimeframe"
           name="contractResourcesStartTimeframe"
           idPrefix="contractResourcesStartTimeframe"
@@ -238,12 +198,7 @@ const ScopeOfContractSection = () => {
           })}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage: "Commodity type",
-            id: "lDRl7g",
-            description:
-              "Label for _commodity type_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.commodityType}
           id="commodityType"
           name="commodityType"
           idPrefix="commodityType"
@@ -265,19 +220,14 @@ const ScopeOfContractSection = () => {
             id="commodityTypeOther"
             name="commodityTypeOther"
             type="text"
-            label={intl.formatMessage(formMessages.specifyOther)}
+            label={labels.commodityTypeOther}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
           />
         ) : null}
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage: "Instrument type",
-            id: "5pyCTN",
-            description:
-              "Label for _instrument type_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.instrumentType}
           id="instrumentType"
           name="instrumentType"
           idPrefix="instrumentType"
@@ -295,12 +245,7 @@ const ScopeOfContractSection = () => {
           })}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage: "Method of supply",
-            id: "YRZ5Cx",
-            description:
-              "Label for _method of supply_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.methodOfSupply}
           id="methodOfSupply"
           name="methodOfSupply"
           idPrefix="methodOfSupply"
@@ -322,19 +267,14 @@ const ScopeOfContractSection = () => {
             id="methodOfSupplyOther"
             name="methodOfSupplyOther"
             type="text"
-            label={intl.formatMessage(formMessages.specifyOther)}
+            label={labels.methodOfSupplyOther}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
           />
         ) : null}
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage: "Solicitation procedure",
-            id: "GsHDxH",
-            description:
-              "Label for _solicitation procedure_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.solicitationProcedure}
           id="solicitationProcedure"
           name="solicitationProcedure"
           idPrefix="solicitationProcedure"
@@ -354,12 +294,7 @@ const ScopeOfContractSection = () => {
           })}
         />
         <RadioGroup
-          legend={intl.formatMessage({
-            defaultMessage: "This contract is subject to trade agreement",
-            id: "wbLfq4",
-            description:
-              "Label for _trade agreement_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          legend={labels.subjectToTradeAgreement}
           id="subjectToTradeAgreement"
           name="subjectToTradeAgreement"
           idPrefix="subjectToTradeAgreement"
