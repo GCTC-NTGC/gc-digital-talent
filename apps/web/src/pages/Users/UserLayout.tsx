@@ -5,7 +5,7 @@ import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 
-import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
+import { ThrowNotFound, Pending, Alert } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import PageHeader from "~/components/PageHeader";
@@ -18,7 +18,7 @@ import { PageNavInfo } from "~/types/pages";
 type PageNavKeys = "profile" | "info" | "edit";
 
 interface UserHeaderProps {
-  user: Pick<User, "id" | "firstName" | "lastName">;
+  user: Pick<User, "id" | "firstName" | "lastName" | "deletedDate">;
 }
 
 const UserHeader = ({ user }: UserHeaderProps) => {
@@ -76,6 +76,7 @@ const UserHeader = ({ user }: UserHeaderProps) => {
   ]);
 
   const userName = getFullNameHtml(user.firstName, user.lastName, intl);
+  const userDeleted = !!user.deletedDate;
   const currentPage = useCurrentPage<PageNavKeys>(pages);
 
   return (
@@ -84,6 +85,21 @@ const UserHeader = ({ user }: UserHeaderProps) => {
       <PageHeader subtitle={userName} icon={currentPage?.icon} navItems={pages}>
         {currentPage?.title}
       </PageHeader>
+      {userDeleted ? (
+        <Alert.Root
+          type="warning"
+          live={false}
+          data-h2-margin="base(0, 0, x2, 0)"
+        >
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "This user has been deleted.",
+              id: "aiYTNf",
+              description: "Message displayed when admin views a deleted user.",
+            })}
+          </p>
+        </Alert.Root>
+      ) : null}
     </>
   );
 };

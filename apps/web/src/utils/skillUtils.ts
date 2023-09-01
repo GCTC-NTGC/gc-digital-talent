@@ -86,9 +86,7 @@ export function filterSkillsByCategory(
   category: SkillCategory,
 ) {
   return skills
-    ?.filter((skill) => {
-      return skill.families?.some((family) => family.category === category);
-    })
+    ?.filter((skill) => skill.category === category)
     .filter(notEmpty);
 }
 
@@ -215,4 +213,20 @@ export const getExperiencesSkillIds = (experiences: Experience[]): string[] => {
   const deDupedIdCollection = uniqueItems(idCollection);
 
   return deDupedIdCollection;
+};
+
+/**
+ * Parse a comma-separated list into an array of strings
+ * @param {string | null | undefined} value A single string, representing a comma-separated list. Or, may be an empty list or undefined.
+ * @returns {string[] | null}
+ */
+export const parseKeywords = (
+  value: string | null | undefined,
+): string[] | null => {
+  return value?.trim()
+    ? value
+        .split(",")
+        .map((word) => word.trim())
+        .filter((word) => word !== "")
+    : null;
 };

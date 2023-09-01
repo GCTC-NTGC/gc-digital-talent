@@ -14,10 +14,10 @@ query AllSkills {
       en
       fr
     }
+    category
     families {
       id
       key
-      category
       name {
         en
         fr
@@ -45,7 +45,6 @@ query Skill($id: UUID!) {
     families {
       id
       key
-      category
       name {
         en
         fr
@@ -62,7 +61,6 @@ query GetUpdateSkillData($id: UUID!) {
   skillFamilies {
     id
     key
-    category
     name {
       en
       fr
@@ -88,10 +86,10 @@ query GetUpdateSkillData($id: UUID!) {
       en
       fr
     }
+    category
     families {
       id
       key
-      category
       name {
         en
         fr

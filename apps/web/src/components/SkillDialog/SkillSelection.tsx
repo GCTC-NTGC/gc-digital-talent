@@ -60,7 +60,7 @@ const SkillSelection = ({
 
     return category && category !== "all"
       ? invertedTree.filter((currentFamily) => {
-          return currentFamily.category === category;
+          return currentFamily.skills?.filter((s) => s.category === category);
         })
       : invertedTree;
   }, [skills, category]);
@@ -83,10 +83,8 @@ const SkillSelection = ({
       );
     }
     if (category && category !== "all") {
-      return skills.filter((currentSkill) =>
-        currentSkill.families?.some(
-          (skillFamily) => skillFamily.category === category,
-        ),
+      return skills.filter(
+        (currentSkill) => currentSkill.category === category,
       );
     }
 

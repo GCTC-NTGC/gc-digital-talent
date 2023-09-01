@@ -2,39 +2,38 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Facades\Notify;
-use Illuminate\Support\Facades\Http;
+use Tests\TestCase;
 
 class NotifyTest extends TestCase
 {
     private $templates;
+
     private $username;
+
     private $bulkName;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->username = "Test Name";
-        $this->bulkName = "Bulk Test";
+        $this->username = 'Test Name';
+        $this->bulkName = 'Bulk Test';
         $this->templates = config('notify.templates');
 
         $apiKey = config('notify.client.apiKey');
-        if (!$apiKey) {
-            $this->markTestSkipped("API key not found");
+        if (! $apiKey) {
+            $this->markTestSkipped('API key not found');
         }
     }
 
     /**
      * Check key exists
-     *
-     * @return void
      */
     private function checkKey(string $key, string $skipMessage): void
     {
         $value = config($key);
-        if (!$value) {
+        if (! $value) {
             $this->markTestSkipped($skipMessage);
         }
     }
@@ -82,7 +81,7 @@ class NotifyTest extends TestCase
      */
     public function test_bulk_sms()
     {
-        $this->markTestSkipped("Prevent hitting the server.");
+        $this->markTestSkipped('Prevent hitting the server.');
 
         $this->checkKey('notify.templates.test_bulk_sms', 'Email template not found.');
 
@@ -92,19 +91,19 @@ class NotifyTest extends TestCase
                 [
                     'phone_number' => '+16132532222',
                     'personalisation' => [
-                        'name' => $this->username . ' 1'
+                        'name' => $this->username.' 1',
                     ],
                 ],
                 [
                     'phone_number' => '+16132532223',
                     'personalisation' => [
-                        'name' => $this->username . ' 2'
+                        'name' => $this->username.' 2',
                     ],
                 ],
                 [
                     'phone_number' => '+16132532224',
                     'personalisation' => [
-                        'name' => $this->username . ' 3'
+                        'name' => $this->username.' 3',
                     ],
                 ],
 
@@ -114,6 +113,7 @@ class NotifyTest extends TestCase
 
         $this->assertBulkResponseSuccess($response);
     }
+
     /**
      * Test sending Bulk Email
      *
@@ -121,7 +121,7 @@ class NotifyTest extends TestCase
      */
     public function test_bulk_email()
     {
-        $this->markTestSkipped("Prevent hitting the server.");
+        $this->markTestSkipped('Prevent hitting the server.');
 
         $this->checkKey('notify.templates.test_bulk_email', 'Email template not found.');
 
@@ -131,19 +131,19 @@ class NotifyTest extends TestCase
                 [
                     'email' => 'simulate-delivered@notification.canada.ca',
                     'personalisation' => [
-                        'name' => $this->username . ' 1'
+                        'name' => $this->username.' 1',
                     ],
                 ],
                 [
                     'email' => 'simulate-delivered-2@notification.canada.ca',
                     'personalisation' => [
-                        'name' => $this->username . ' 2'
+                        'name' => $this->username.' 2',
                     ],
                 ],
                 [
                     'email' => 'simulate-delivered-3@notification.canada.ca',
                     'personalisation' => [
-                        'name' => $this->username . ' 3'
+                        'name' => $this->username.' 3',
                     ],
                 ],
 

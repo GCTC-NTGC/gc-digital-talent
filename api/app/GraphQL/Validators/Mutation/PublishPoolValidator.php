@@ -17,6 +17,7 @@ final class PublishPoolValidator extends Validator
     public function rules(): array
     {
         $endOfDay = Carbon::now()->endOfDay();
+
         return [
             // Pool name and classification
             'name.en' => ['string'],
@@ -26,7 +27,7 @@ final class PublishPoolValidator extends Validator
             'stream' => ['required', 'string'],
 
             // Closing date
-            'closing_date' => ['required', /*'date_format:Y-m-d H:i:s',*/ 'after:' . $endOfDay],
+            'closing_date' => ['required', /*'date_format:Y-m-d H:i:s',*/ 'after:'.$endOfDay],
 
             // Your Impact and Work tasks
             'your_impact.en' => ['required', 'string'],
@@ -52,7 +53,7 @@ final class PublishPoolValidator extends Validator
 
     public function messages(): array
     {
-        return  [
+        return [
             'required' => ':attribute required',
             'exists' => ':attribute does not exist.',
             'closing_date.required' => 'ClosingDateRequired',

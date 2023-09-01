@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
+use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
+use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Builder;
-use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 /**
@@ -37,7 +37,6 @@ use Illuminate\Support\Str;
  * @property array $submitted_steps
  * @property string $education_requirement_option
  */
-
 class PoolCandidate extends Model
 {
     use HasFactory;
@@ -50,7 +49,6 @@ class PoolCandidate extends Model
      *
      * @var array
      */
-
     protected $casts = [
         'expiry_date' => 'date',
         'archived_at' => 'datetime',
@@ -87,12 +85,14 @@ class PoolCandidate extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
+
     public function pool(): BelongsTo
     {
-        return $this->belongsTo(Pool::class);
+        return $this->belongsTo(Pool::class)->withTrashed();
     }
+
     public function screeningQuestionResponses(): HasMany
     {
         return $this->hasMany(ScreeningQuestionResponse::class);
@@ -108,6 +108,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
+
     public function educationRequirementCommunityExperiences(): BelongsToMany
     {
         return $this->morphedByMany(
@@ -117,6 +118,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
+
     public function educationRequirementEducationExperiences(): BelongsToMany
     {
         return $this->morphedByMany(
@@ -126,6 +128,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
+
     public function educationRequirementPersonalExperiences(): BelongsToMany
     {
         return $this->morphedByMany(
@@ -135,6 +138,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
+
     public function educationRequirementWorkExperiences(): BelongsToMany
     {
         return $this->morphedByMany(
@@ -144,6 +148,7 @@ class PoolCandidate extends Model
         )
             ->withTimestamps();
     }
+
     public function getEducationRequirementExperiencesAttribute()
     {
         $collection = collect();
@@ -152,6 +157,7 @@ class PoolCandidate extends Model
         $collection = $collection->merge($this->educationRequirementEducationExperiences);
         $collection = $collection->merge($this->educationRequirementPersonalExperiences);
         $collection = $collection->merge($this->educationRequirementWorkExperiences);
+
         return $collection;
     }
 
@@ -173,6 +179,7 @@ class PoolCandidate extends Model
             ->whereHas('pool', function ($query) use ($streams) {
                 $query->whereIn('stream', $streams);
             });
+
         return $query;
     }
 
@@ -180,9 +187,7 @@ class PoolCandidate extends Model
      * Scopes the query to only return PoolCandidates who are available in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
-     * @param Builder $query
-     * @param array|null $classifications Each classification is an object with a group and a level field.
-     * @return Builder
+     * @param  array|null  $classifications Each classification is an object with a group and a level field.
      */
     public static function scopeQualifiedClassifications(Builder $query, ?array $classifications): Builder
     {
@@ -219,14 +224,16 @@ class PoolCandidate extends Model
      *
      * Restrict a query by specific publishing groups
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query The existing query being built
-     * @param ?array $publishingGroups The publishing groups to scope the query by
+     * @param  \Illuminate\Database\Eloquent\Builder  $query The existing query being built
+     * @param  ?array  $publishingGroups The publishing groups to scope the query by
      * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
     public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
     {
         // Early return if no publishing groups were supplied
-        if (empty($publishingGroups)) return $query;
+        if (empty($publishingGroups)) {
+            return $query;
+        }
 
         $query = $query->whereHas('pool', function ($query) use ($publishingGroups) {
             $query->whereIn('publishing_group', $publishingGroups);
@@ -241,14 +248,14 @@ class PoolCandidate extends Model
      * Restrict a query by pool candidates that are for pools
      * containing IT specific publishing groups
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query The existing query being built
+     * @param  \Illuminate\Database\Eloquent\Builder  $query The existing query being built
      * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
     public static function scopeInITPublishingGroup(Builder $query)
     {
         $query = self::scopePublishingGroups($query, [
             ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS
+            ApiEnums::PUBLISHING_GROUP_IT_JOBS,
         ]);
 
         return $query;
@@ -267,6 +274,7 @@ class PoolCandidate extends Model
 
         return $query;
     }
+
     public function scopeLocationPreferences(Builder $query, ?array $workRegions): Builder
     {
         if (empty($workRegions)) {
@@ -280,6 +288,7 @@ class PoolCandidate extends Model
 
         return $query;
     }
+
     public function scopeLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         if (empty($languageAbility)) {
@@ -293,6 +302,7 @@ class PoolCandidate extends Model
 
         return $query;
     }
+
     public static function scopeAvailableInPools(Builder $query, ?array $poolIds): Builder
     {
         if (empty($poolIds)) {
@@ -300,6 +310,7 @@ class PoolCandidate extends Model
         }
 
         $query->whereIn('pool_id', $poolIds);
+
         return $query;
     }
 
@@ -362,13 +373,12 @@ class PoolCandidate extends Model
     public static function scopeNotes(Builder $query, ?string $notes): Builder
     {
 
-        if (!empty($notes)) {
+        if (! empty($notes)) {
             $query->where('notes', 'ilike', "%{$notes}%");
         }
 
         return $query;
     }
-
 
     public function scopePoolCandidateStatuses(Builder $query, ?array $poolCandidateStatuses): Builder
     {
@@ -377,6 +387,7 @@ class PoolCandidate extends Model
         }
 
         $query->whereIn('pool_candidate_status', $poolCandidateStatuses);
+
         return $query;
     }
 
@@ -387,6 +398,7 @@ class PoolCandidate extends Model
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
             });
+
         return $query;
     }
 
@@ -399,6 +411,7 @@ class PoolCandidate extends Model
         $query->whereHas('user', function ($query) use ($hasDiploma) {
             User::scopeHasDiploma($query, $hasDiploma);
         });
+
         return $query;
     }
 
@@ -407,12 +420,13 @@ class PoolCandidate extends Model
         $expiryStatus = isset($expiryStatus) ? $expiryStatus : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
         if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
             $query->where(function ($query) {
-                $query->whereDate('expiry_date', '>=', date("Y-m-d"))
+                $query->whereDate('expiry_date', '>=', date('Y-m-d'))
                     ->orWhereNull('expiry_date');
             });
-        } else if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
-            $query->whereDate('expiry_date', '<', date("Y-m-d"));
+        } elseif ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+            $query->whereDate('expiry_date', '<', date('Y-m-d'));
         }
+
         return $query;
     }
 
@@ -424,16 +438,17 @@ class PoolCandidate extends Model
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
             });
-        } else if ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
+        } elseif ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
             $query->where('suspended_at', '<', Carbon::now());
         }
+
         return $query;
     }
 
     public function scopeNotDraft(Builder $query): Builder
     {
 
-        $query->whereNotNull("submitted_at")
+        $query->whereNotNull('submitted_at')
             ->where('submitted_at', '<=', now());
 
         return $query;
@@ -446,7 +461,7 @@ class PoolCandidate extends Model
         // pull info
         $submittedAt = $this->submitted_at;
         $expiryDate = $this->expiry_date;
-        $currentTime = date("Y-m-d H:i:s");
+        $currentTime = date('Y-m-d H:i:s');
         $isExpired = $currentTime > $expiryDate ? true : false;
 
         // // ensure null submitted_at returns either draft or expired draft
@@ -504,7 +519,7 @@ class PoolCandidate extends Model
         // collect skills attached to the Pool to pass into resource collection
         $pool = Pool::with([
             'essentialSkills',
-            'nonessentialSkills'
+            'nonessentialSkills',
         ])->findOrFail($this->pool_id);
         $essentialSkillIds = $pool->essentialSkills()->pluck('id')->toArray();
         $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('id')->toArray();
@@ -531,13 +546,14 @@ class PoolCandidate extends Model
                     foreach ($priorityWeights as $index => $priorityWeight) {
                         if ($index === 0) {
                             // First iteration must use where instead of orWhere, as seen in filterWorkRegions
-                            $query->where("priority_weight", $priorityWeight);
+                            $query->where('priority_weight', $priorityWeight);
                         } else {
-                            $query->orWhere("priority_weight", $priorityWeight);
+                            $query->orWhere('priority_weight', $priorityWeight);
                         }
                     }
                 });
         });
+
         return $query;
     }
 
@@ -606,13 +622,13 @@ class PoolCandidate extends Model
     {
         $userId = Auth::user()->id;
         $user = User::find($userId);
-        if (!$user->isAbleTo("view-any-application")) {
+        if (! $user->isAbleTo('view-any-application')) {
             $query->where(function (Builder $query) use ($user) {
-                if ($user->isAbleTo("view-any-submittedApplication")) {
+                if ($user->isAbleTo('view-any-submittedApplication')) {
                     $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());
                 }
 
-                if ($user->isAbleTo("view-team-submittedApplication")) {
+                if ($user->isAbleTo('view-team-submittedApplication')) {
                     $teamIds = $user->rolesTeams()->get()->pluck('id');
                     $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
                         return $query
@@ -623,7 +639,7 @@ class PoolCandidate extends Model
                     });
                 }
 
-                if ($user->isAbleTo("view-own-application")) {
+                if ($user->isAbleTo('view-own-application')) {
                     $query->orWhere('user_id', $user->id);
                 }
             });
@@ -660,8 +676,8 @@ class PoolCandidate extends Model
         }
 
         return $query->addSelect([
-            "skill_count" =>  Skill::whereIn('skills.id', [])
-                ->select(DB::raw('null as skill_count'))
+            'skill_count' => Skill::whereIn('skills.id', [])
+                ->select(DB::raw('null as skill_count')),
         ]);
     }
 
@@ -673,7 +689,7 @@ class PoolCandidate extends Model
                 ->whereHas('userSkills', function (Builder $query) {
                     $query->whereColumn('user_id', 'users.id');
                 })
-                ->select(DB::raw('count(*) as skills'))
+                ->select(DB::raw('count(*) as skills')),
         ]);
     }
 }

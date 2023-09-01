@@ -4,26 +4,28 @@ namespace Tests\Feature;
 
 use App\Models\ApplicantFilter;
 use App\Models\Classification;
+use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
-use App\Models\Department;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
 class PoolCandidateSearchRequestPaginatedTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     protected $adminUser;
+
     protected $requestResponder;
+
     protected $applicant;
 
     protected function setUp(): void
@@ -96,10 +98,10 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW,
         ]);
         PoolCandidateSearchRequest::factory()->count(3)->create([
-            'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE
+            'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE,
         ]);
         PoolCandidateSearchRequest::factory()->count(4)->create([
-            'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_WAITING
+            'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_WAITING,
         ]);
 
         // no variables results in 9 results
@@ -123,8 +125,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW]
-                    ]
+                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 2]);
@@ -135,8 +137,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE]
-                    ]
+                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 3]);
@@ -147,8 +149,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE, ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW]
-                    ]
+                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE, ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 5]);
@@ -175,8 +177,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'departments' => [$departmentsSeeded[3]]
-                    ]
+                        'departments' => [$departmentsSeeded[3]],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 0]);
@@ -187,8 +189,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'departments' => [$departmentsSeeded[0]]
-                    ]
+                        'departments' => [$departmentsSeeded[0]],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 1]);
@@ -199,8 +201,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'departments' => [$departmentsSeeded[0], $departmentsSeeded[1]]
-                    ]
+                        'departments' => [$departmentsSeeded[0], $departmentsSeeded[1]],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 1]);
@@ -211,8 +213,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'departments' => [$departmentsSeeded[0], $departmentsSeeded[5]]
-                    ]
+                        'departments' => [$departmentsSeeded[0], $departmentsSeeded[5]],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 3]);
@@ -246,8 +248,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'classifications' => [$classificationsSeeded[1]]
-                    ]
+                        'classifications' => [$classificationsSeeded[1]],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 0]);
@@ -258,8 +260,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'classifications' => [$classificationsSeeded[0]]
-                    ]
+                        'classifications' => [$classificationsSeeded[0]],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 1]);
@@ -270,8 +272,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'classifications' => [$classificationsSeeded[0], $classificationsSeeded[1]]
-                    ]
+                        'classifications' => [$classificationsSeeded[0], $classificationsSeeded[1]],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 1]);
@@ -282,8 +284,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'classifications' => [$classificationsSeeded[0], $classificationsSeeded[2]]
-                    ]
+                        'classifications' => [$classificationsSeeded[0], $classificationsSeeded[2]],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 3]);
@@ -317,8 +319,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [ApiEnums::POOL_STREAM_INFRASTRUCTURE_OPERATIONS]
-                    ]
+                        'streams' => [ApiEnums::POOL_STREAM_INFRASTRUCTURE_OPERATIONS],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 0]);
@@ -329,8 +331,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [ApiEnums::POOL_STREAM_SECURITY]
-                    ]
+                        'streams' => [ApiEnums::POOL_STREAM_SECURITY],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 1]);
@@ -341,8 +343,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [ApiEnums::POOL_STREAM_SECURITY, ApiEnums::POOL_STREAM_INFRASTRUCTURE_OPERATIONS]
-                    ]
+                        'streams' => [ApiEnums::POOL_STREAM_SECURITY, ApiEnums::POOL_STREAM_INFRASTRUCTURE_OPERATIONS],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 1]);
@@ -353,8 +355,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [ApiEnums::POOL_STREAM_SECURITY, ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES]
-                    ]
+                        'streams' => [ApiEnums::POOL_STREAM_SECURITY, ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES],
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 3]);
@@ -380,8 +382,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'fullName' => 'DmIn'
-                    ]
+                        'fullName' => 'DmIn',
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 1]);
@@ -407,8 +409,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'email' => '@GOVERNment'
-                    ]
+                        'email' => '@GOVERNment',
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 1]);
@@ -434,8 +436,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'jobTitle' => 'DmIn'
-                    ]
+                        'jobTitle' => 'DmIn',
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 1]);
@@ -461,8 +463,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'additionalComments' => 'DESTin'
-                    ]
+                        'additionalComments' => 'DESTin',
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 1]);
@@ -488,8 +490,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'adminNotes' => 'DmIn'
-                    ]
+                        'adminNotes' => 'DmIn',
+                    ],
                 ]
             )
             ->assertJsonFragment(['count' => 1]);

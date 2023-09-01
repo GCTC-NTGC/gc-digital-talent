@@ -289,21 +289,23 @@ function Table<T extends Record<string, unknown>>({
                         </Dialog.Header>
                         <Dialog.Body>
                           <FormProvider {...methods}>
-                            <Field.Fieldset boundingBox>
+                            <Field.Fieldset>
                               <Field.Legend>
                                 {intl.formatMessage(
                                   adminMessages.showHideTableColumns,
                                 )}
                               </Field.Legend>
-                              <div data-h2-margin="base(x.125, 0)">
-                                <IndeterminateCheckbox
-                                  {...(getToggleHideAllColumnsProps({
-                                    title: undefined,
-                                  }) as React.ComponentProps<
-                                    typeof IndeterminateCheckbox
-                                  >)}
-                                />
-                              </div>
+                              <Field.BoundingBox>
+                                <div data-h2-margin="base(x.125, 0)">
+                                  <IndeterminateCheckbox
+                                    {...(getToggleHideAllColumnsProps({
+                                      title: undefined,
+                                    }) as React.ComponentProps<
+                                      typeof IndeterminateCheckbox
+                                    >)}
+                                  />
+                                </div>
+                              </Field.BoundingBox>
                               {allColumns.map((column) => (
                                 <div
                                   key={column.id}

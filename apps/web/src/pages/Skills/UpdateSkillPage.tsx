@@ -12,12 +12,15 @@ import {
   TextArea,
   unpackIds,
   MultiSelectField,
+  Select,
+  enumToOptions,
 } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   getLocale,
   errorMessages,
   commonMessages,
+  getSkillCategory,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 
@@ -30,14 +33,17 @@ import {
   useUpdateSkillMutation,
   useGetUpdateSkillDataQuery,
   Scalars,
+  SkillCategory,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import { parseKeywords } from "~/utils/skillUtils";
 
 type Option<V> = { value: V; label: string };
 
 type FormValues = Pick<Skill, "name" | "description"> & {
+  category: SkillCategory;
   families: string[];
   keywords: {
     en: string;
@@ -79,14 +85,8 @@ export const UpdateSkillForm = ({
   const formValuesToSubmitData = (values: FormValues): UpdateSkillInput => ({
     ...values,
     keywords: {
-      en: values.keywords.en
-        .split(",")
-        .map((key) => key.trim())
-        .filter((key) => key !== ""),
-      fr: values.keywords.fr
-        .split(",")
-        .map((key) => key.trim())
-        .filter((key) => key !== ""),
+      en: parseKeywords(values.keywords.en),
+      fr: parseKeywords(values.keywords.fr),
     },
     families: {
       sync: values.families,
@@ -99,6 +99,7 @@ export const UpdateSkillForm = ({
       en: values.description?.en,
       fr: values.description?.fr,
     },
+    category: values.category,
   });
 
   const methods = useForm<FormValues>({
@@ -226,9 +227,6 @@ export const UpdateSkillForm = ({
                   "Additional context describing the purpose of the skills 'keyword' field.",
               })}
               type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Input
               id="keywords_fr"
@@ -247,9 +245,29 @@ export const UpdateSkillForm = ({
                   "Additional context describing the purpose of the skills 'keyword' field.",
               })}
               type="text"
+            />
+            <Select
+              id="category"
+              name="category"
+              label={intl.formatMessage({
+                defaultMessage: "Category",
+                id: "KZR3ad",
+                description:
+                  "Label displayed on the skill family form category field.",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a category",
+                id: "+hRCVl",
+                description:
+                  "Placeholder displayed on the skill family form category field.",
+              })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              options={enumToOptions(SkillCategory).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getSkillCategory(value)),
+              }))}
             />
             <MultiSelectField
               id="families"
@@ -299,7 +317,13 @@ export const UpdateSkill = () => {
        graphql operation to fail. */
     executeMutation({
       id,
-      skill: pick(formData, ["name", "description", "keywords", "families"]),
+      skill: pick(formData, [
+        "name",
+        "description",
+        "keywords",
+        "category",
+        "families",
+      ]),
     }).then((result) => {
       if (result.data?.updateSkill) {
         return result.data?.updateSkill;

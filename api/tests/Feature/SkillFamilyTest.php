@@ -2,25 +2,26 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
-use Tests\TestCase;
 use App\Models\SkillFamily;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
 use Database\Seeders\RolePermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Tests\TestCase;
 
 class SkillFamilyTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
     use WithFaker;
 
     protected $baseUser;
+
     protected $adminUser;
+
     protected $uuid;
 
     protected function setUp(): void
@@ -36,22 +37,22 @@ class SkillFamilyTest extends TestCase
             'sub' => 'base-user@test.com',
         ]);
         $this->baseUser->syncRoles([
-            "guest",
-            "base_user",
-            "pool_operator",
-            "request_responder"
+            'guest',
+            'base_user',
+            'pool_operator',
+            'request_responder',
         ]);
 
         $this->adminUser = User::create([
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
         ]);
-        $this->adminUser->addRole("platform_admin");
+        $this->adminUser->addRole('platform_admin');
 
         $this->uuid = $this->faker->UUID();
 
         SkillFamily::factory()->create([
-            'id' => $this->uuid
+            'id' => $this->uuid,
         ]);
     }
 
@@ -103,9 +104,9 @@ class SkillFamilyTest extends TestCase
             'skillFamily' => [
                 'name' => [
                     'en' => 'New Name (EN)',
-                    'fr' => 'New Name (FR)'
-                ]
-            ]
+                    'fr' => 'New Name (FR)',
+                ],
+            ],
         ];
 
         $mutation =
@@ -141,12 +142,11 @@ class SkillFamilyTest extends TestCase
         $variables = [
             'skillFamily' => [
                 'key' => 'key',
-                'category' => ApiEnums::SKILL_CATEGORY_BEHAVIOURAL,
                 'name' => [
                     'en' => 'New Name (EN)',
-                    'fr' => 'New Name (FR)'
+                    'fr' => 'New Name (FR)',
                 ],
-            ]
+            ],
         ];
 
         $mutation =

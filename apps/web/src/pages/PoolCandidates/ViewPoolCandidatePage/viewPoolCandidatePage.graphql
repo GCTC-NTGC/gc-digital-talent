@@ -54,10 +54,10 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
           en
           fr
         }
+        category
         families {
           id
           key
-          category
           name {
             en
             fr
@@ -75,10 +75,10 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
           en
           fr
         }
+        category
         families {
           id
           key
-          category
           name {
             en
             fr

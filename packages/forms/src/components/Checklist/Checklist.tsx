@@ -66,25 +66,26 @@ const Checklist = ({
       <Field.Fieldset
         id={idPrefix}
         aria-describedby={ariaDescribedBy}
-        {...{ ...baseStyles, ...stateStyles }}
         {...rest}
       >
         <Field.Legend required={!!rules.required}>{legend}</Field.Legend>
-        {items.map(({ value, label }) => {
-          const id = `${idPrefix}-${value}`;
-          return (
-            <Checkbox
-              key={id}
-              id={id}
-              name={name}
-              rules={rules}
-              label={label}
-              disabled={disabled}
-              value={value}
-              inCheckList
-            />
-          );
-        })}
+        <Field.BoundingBox {...{ ...baseStyles, ...stateStyles }}>
+          {items.map(({ value, label }) => {
+            const id = `${idPrefix}-${value}`;
+            return (
+              <Checkbox
+                key={id}
+                id={id}
+                name={name}
+                rules={rules}
+                label={label}
+                disabled={disabled}
+                value={value}
+                inCheckList
+              />
+            );
+          })}
+        </Field.BoundingBox>
       </Field.Fieldset>
       <Field.Descriptions ids={descriptionIds} {...{ error, context }} />
     </Field.Wrapper>

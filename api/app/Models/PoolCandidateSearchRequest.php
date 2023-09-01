@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class PoolCandidateSearchRequest
@@ -19,7 +19,7 @@ use Carbon\CarbonImmutable;
  * @property string $job_title
  * @property string $additional_comments
  * @property string $pool_candidate_filter_id
- * @property boolean $was_empty
+ * @property bool $was_empty
  * @property string $admin_notes
  * @property string $request_status
  * @property int $request_status_weight
@@ -30,11 +30,10 @@ use Carbon\CarbonImmutable;
  * @property Illuminate\Support\Carbon $deleted_at
  * @property Illuminate\Support\Carbon $request_status_changed_at
  */
-
 class PoolCandidateSearchRequest extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 
@@ -43,7 +42,6 @@ class PoolCandidateSearchRequest extends Model
      *
      * @var array
      */
-
     protected $casts = [
         'request_status_changed_at' => 'datetime',
     ];
@@ -76,6 +74,7 @@ class PoolCandidateSearchRequest extends Model
         }
 
         $query->whereIn('request_status', $searchRequestStatuses);
+
         return $query;
     }
 
@@ -93,6 +92,7 @@ class PoolCandidateSearchRequest extends Model
                 }
             });
         });
+
         return $query;
     }
 
@@ -105,6 +105,7 @@ class PoolCandidateSearchRequest extends Model
         $query->whereHas('department', function ($query) use ($departmentIds) {
             Department::scopeDepartmentsByIds($query, $departmentIds);
         });
+
         return $query;
     }
 
@@ -119,6 +120,7 @@ class PoolCandidateSearchRequest extends Model
                 $query->whereIn('classifications.id', $classificationIds);
             });
         });
+
         return $query;
     }
 
@@ -127,6 +129,7 @@ class PoolCandidateSearchRequest extends Model
         if ($fullName) {
             $query->where('full_name', 'ilike', "%{$fullName}%");
         }
+
         return $query;
     }
 
@@ -135,6 +138,7 @@ class PoolCandidateSearchRequest extends Model
         if ($email) {
             $query->where('email', 'ilike', "%{$email}%");
         }
+
         return $query;
     }
 
@@ -143,6 +147,7 @@ class PoolCandidateSearchRequest extends Model
         if ($jobTitle) {
             $query->where('job_title', 'ilike', "%{$jobTitle}%");
         }
+
         return $query;
     }
 
@@ -151,6 +156,7 @@ class PoolCandidateSearchRequest extends Model
         if ($additionalComments) {
             $query->where('additional_comments', 'ilike', "%{$additionalComments}%");
         }
+
         return $query;
     }
 
@@ -159,6 +165,7 @@ class PoolCandidateSearchRequest extends Model
         if ($adminNotes) {
             $query->where('admin_notes', 'ilike', "%{$adminNotes}%");
         }
+
         return $query;
     }
 
@@ -181,13 +188,13 @@ class PoolCandidateSearchRequest extends Model
                 });
             });
         }
+
         return $query;
     }
 
     /**
      * Getters/Mutators
      */
-
     public function setStatusAttribute($statusInput): void
     {
         $this->request_status = $statusInput;

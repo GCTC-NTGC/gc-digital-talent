@@ -1,3 +1,4 @@
+import BoundingBox from "./BoundingBox";
 import Context, { ContextProps } from "./Context";
 import Descriptions, { DescriptionsProps } from "./Descriptions";
 import Error from "./Error";
@@ -8,6 +9,7 @@ import Required, { RequiredProps } from "./Required";
 import Wrapper, { WrapperProps } from "./Wrapper";
 
 export default {
+  BoundingBox,
   Context,
   Descriptions,
   Error,

@@ -3,27 +3,28 @@
 namespace Tests\Feature;
 
 use App\Models\GenericJobTitle;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
-use Tests\TestCase;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
-use Database\Seeders\GenericJobTitleSeeder;
 use Database\Seeders\RolePermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Tests\TestCase;
 
 class GenericJobTitleTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
     use WithFaker;
 
     protected $baseUser;
+
     protected $adminUser;
+
     protected $genericJobTitle;
+
     protected $toBeDeleted;
 
     protected function setUp(): void
@@ -40,17 +41,17 @@ class GenericJobTitleTest extends TestCase
             'sub' => 'base-user@test.com',
         ]);
         $this->baseUser->syncRoles([
-            "guest",
-            "base_user",
-            "pool_operator",
-            "request_responder"
+            'guest',
+            'base_user',
+            'pool_operator',
+            'request_responder',
         ]);
 
         $this->adminUser = User::create([
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
         ]);
-        $this->adminUser->addRole("platform_admin");
+        $this->adminUser->addRole('platform_admin');
 
         $this->genericJobTitle = GenericJobTitle::factory()->create();
     }

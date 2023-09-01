@@ -82,7 +82,7 @@ return [
         | Determines the time in SECONDS to store Laratrust's roles and permissions in the cache.
         |
         */
-        'expiration_time' => 3600,
+        'expiration_time' => 60,
     ],
 
     /*
@@ -210,7 +210,7 @@ return [
              */
             'abort' => [
                 'code' => 403,
-                'message' => 'User does not have any of the necessary access rights.'
+                'message' => 'User does not have any of the necessary access rights.',
             ],
 
             /**
@@ -223,10 +223,10 @@ return [
                 'url' => '/home',
                 'message' => [
                     'key' => 'error',
-                    'content' => ''
-                ]
-            ]
-        ]
+                    'content' => '',
+                ],
+            ],
+        ],
     ],
 
     'teams' => [
@@ -376,5 +376,5 @@ return [
             // The user won't be able to delete the role.
             'not_deletable' => [],
         ],
-    ]
+    ],
 ];

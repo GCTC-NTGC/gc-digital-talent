@@ -10,6 +10,8 @@ on:
     paths:
       - .github/workflows/*lighthouse*.yml
       - api/**
+  merge_group:
+    branches: [main]
 
 jobs:
   runner:

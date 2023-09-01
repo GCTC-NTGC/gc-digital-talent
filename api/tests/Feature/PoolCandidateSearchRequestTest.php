@@ -9,15 +9,15 @@ use Database\Helpers\ApiEnums;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
-use Tests\TestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Tests\TestCase;
 
 class PoolCandidateSearchRequestTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     /**
@@ -67,7 +67,7 @@ class PoolCandidateSearchRequestTest extends TestCase
             }
             ',
             [
-                'input' => $this->getInput($input)
+                'input' => $this->getInput($input),
             ]
         );
     }
@@ -85,7 +85,7 @@ class PoolCandidateSearchRequestTest extends TestCase
 
         $this->runCreateMutation([
             'department' => [
-                'connect' => $departmentId
+                'connect' => $departmentId,
             ],
         ])->assertGraphQLErrorMessage($errorMessage);
     }
@@ -102,13 +102,13 @@ class PoolCandidateSearchRequestTest extends TestCase
 
         $this->runCreateMutation([
             'department' => [
-                'connect' => Department::inRandomOrder()->first()->id
+                'connect' => Department::inRandomOrder()->first()->id,
             ],
             'applicantFilter' => [
                 'create' => [
-                    'hasDiploma' => true
-                ]
-            ]
+                    'hasDiploma' => true,
+                ],
+            ],
         ])->assertJson(function (AssertableJson $json) {
             $json->has('data.createPoolCandidateSearchRequest.id');
         });
@@ -129,17 +129,17 @@ class PoolCandidateSearchRequestTest extends TestCase
             'sub' => 'base-user@test.com',
         ]);
         $baseUser->syncRoles([
-            "guest",
-            "base_user",
+            'guest',
+            'base_user',
         ]);
         $requestResponder = User::create([
             'email' => 'responder-user@test.com',
             'sub' => 'responder-user@test.com',
         ]);
         $requestResponder->syncRoles([
-            "guest",
-            "base_user",
-            "request_responder",
+            'guest',
+            'base_user',
+            'request_responder',
         ]);
 
         $searchRequest1 = PoolCandidateSearchRequest::factory()->create();
@@ -177,7 +177,7 @@ class PoolCandidateSearchRequestTest extends TestCase
             'id' => $searchRequest1->id,
             'poolCandidateSearchRequest' => [
                 'adminNotes' => 'hardcoded message here',
-            ]
+            ],
         ];
 
         // test viewing a specific search request
