@@ -106,6 +106,7 @@ type EducationFormValues = FormValueDateRange & {
 type PersonalFormValues = FormValueDateRange & {
   experienceTitle: string;
   experienceDescription: string;
+  disclaimer: boolean;
 };
 
 type WorkFormValues = FormValueDateRange & {

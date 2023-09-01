@@ -66,13 +66,13 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  */
 class User extends Model implements Authenticatable, LaratrustUser
 {
-    use Authorizable;
-    use HasRolesAndPermissions;
-    use HasFactory;
-    use SoftDeletes;
     use AuthenticatableTrait;
-    use Notifiable;
+    use Authorizable;
+    use HasFactory;
     use HasRelationships;
+    use HasRolesAndPermissions;
+    use Notifiable;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 
@@ -95,7 +95,7 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function poolCandidates(): HasMany
     {
-        return $this->hasMany(PoolCandidate::class);
+        return $this->hasMany(PoolCandidate::class)->withTrashed();
     }
 
     public function department(): BelongsTo
@@ -119,27 +119,27 @@ class User extends Model implements Authenticatable, LaratrustUser
     // All the relationships for experiences
     public function awardExperiences(): HasMany
     {
-        return $this->hasMany(AwardExperience::class);
+        return $this->hasMany(AwardExperience::class)->withTrashed();
     }
 
     public function communityExperiences(): HasMany
     {
-        return $this->hasMany(CommunityExperience::class);
+        return $this->hasMany(CommunityExperience::class)->withTrashed();
     }
 
     public function educationExperiences(): HasMany
     {
-        return $this->hasMany(EducationExperience::class);
+        return $this->hasMany(EducationExperience::class)->withTrashed();
     }
 
     public function personalExperiences(): HasMany
     {
-        return $this->hasMany(PersonalExperience::class);
+        return $this->hasMany(PersonalExperience::class)->withTrashed();
     }
 
     public function workExperiences(): HasMany
     {
-        return $this->hasMany(WorkExperience::class);
+        return $this->hasMany(WorkExperience::class)->withTrashed();
     }
 
     public function getExperiencesAttribute()
@@ -262,6 +262,30 @@ class User extends Model implements Authenticatable, LaratrustUser
     protected static function boot()
     {
         parent::boot();
+
+        static::deleting(function (User $user) {
+            // We only need to run this if the user is being soft deleted
+            if (! $user->isForceDeleting()) {
+                // Cascade delete to child models
+                foreach ($user->poolCandidates() as $candidate) {
+                    $candidate->delete();
+                }
+
+                // Modify the email to allow it to be used for another user
+                $newEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
+                $user->update(['email' => $newEmail]);
+            }
+        });
+
+        static::restoring(function (User $user) {
+            // Cascade restore to child models
+            foreach ($user->poolCandidates()->withTrashed()->get() as $candidate) {
+                $candidate->restore();
+            }
+
+            $newEmail = $user->email.'-restored-at-'.Carbon::now()->format('Y-m-d');
+            $user->update(['email' => $newEmail]);
+        });
     }
 
     // Search filters
@@ -797,9 +821,9 @@ class User extends Model implements Authenticatable, LaratrustUser
         if (! $user->isAbleTo('view-any-user')) {
             $query->where(function (Builder $query) use ($user) {
                 if ($user->isAbleTo('view-team-user')) {
-                    $query->whereHas('poolCandidates', function (Builder $query) use ($user) {
+                    $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
                         $teamIds = $user->rolesTeams()->get()->pluck('id');
-                        $query->orWhereHas('pool', function (Builder $query) use ($teamIds) {
+                        $query->whereHas('pool', function (Builder $query) use ($teamIds) {
                             return $query
                                 ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
                                 ->whereHas('team', function (Builder $query) use ($teamIds) {
@@ -807,6 +831,9 @@ class User extends Model implements Authenticatable, LaratrustUser
                                 });
                         });
                     });
+                }
+                if ($user->isAbleTo('view-own-user')) {
+                    $query->orWhere('id', $user->id);
                 }
             });
         }

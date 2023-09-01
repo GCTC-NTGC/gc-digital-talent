@@ -82,3 +82,10 @@ ChecklistOfLabelElements.args = {
     },
   ],
 };
+
+export const LongLegendChecklist = TemplateChecklist.bind({});
+LongLegendChecklist.args = {
+  ...BasicChecklist.args,
+  legend:
+    "This is a super, super long title which will wrap around to a second line at some point. Fusce lacinia sollicitudin nulla, sit amet semper metus mattis id. Suspendisse nisl enim, bibendum sed sem eget, porttitor ultrices metus.",
+};

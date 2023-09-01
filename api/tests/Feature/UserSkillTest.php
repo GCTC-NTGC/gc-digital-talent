@@ -18,8 +18,8 @@ use function PHPUnit\Framework\assertNull;
 
 class UserSkillTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     protected $user;

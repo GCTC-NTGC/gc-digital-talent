@@ -18,6 +18,7 @@ import IAPLayout from "~/components/Layout/IAPLayout";
 import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
 import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
 import useRoutes from "~/hooks/useRoutes";
+import RequireUserNotDeleted from "~/pages/Auth/UserDeletedPage/RequireUserNotDeleted";
 
 /** Home */
 const HomePage = React.lazy(() =>
@@ -117,6 +118,14 @@ const SignedOutPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "tsSignedOutPage" */ "../pages/Auth/SignedOutPage/SignedOutPage"
+      ),
+  ),
+);
+const UserDeletedPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsUserDeletedPage" */ "../pages/Auth/UserDeletedPage/UserDeletedPage"
       ),
   ),
 );
@@ -652,7 +661,11 @@ const createRoute = (
   createBrowserRouter([
     {
       path: `/`,
-      element: <Layout />,
+      element: (
+        <RequireUserNotDeleted>
+          <Layout />
+        </RequireUserNotDeleted>
+      ),
       errorElement: <ErrorPage />,
       children: [
         {
@@ -726,6 +739,10 @@ const createRoute = (
                 return null;
               },
               element: <SignedOutPage />,
+            },
+            {
+              path: "user-deleted",
+              element: <UserDeletedPage />,
             },
             {
               path: "login-info",
@@ -1028,7 +1045,11 @@ const createRoute = (
     },
     {
       path: `${locale}/admin`,
-      element: <AdminLayout />,
+      element: (
+        <RequireUserNotDeleted>
+          <AdminLayout />
+        </RequireUserNotDeleted>
+      ),
       errorElement: <AdminErrorPage />,
       children: [
         {
@@ -1556,7 +1577,11 @@ const createRoute = (
     },
     {
       path: `${locale}/indigenous-it-apprentice`,
-      element: <IAPLayout />,
+      element: (
+        <RequireUserNotDeleted>
+          <IAPLayout />
+        </RequireUserNotDeleted>
+      ),
       errorElement: <ErrorPage />,
       children: [
         {

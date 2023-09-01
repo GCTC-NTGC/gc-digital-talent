@@ -72,6 +72,7 @@ class UserPolicy
                 return false;
             }
         }
+
         // TODO: Right now, for a user to assign-any-role they ALSO need to be able to update-any-user! That doesn't quite match the permissions table.
         return $user->isAbleTo('update-any-user')
             || ($user->isAbleTo('update-own-user') && $user->id === $model->id);
@@ -85,6 +86,16 @@ class UserPolicy
     public function delete(User $user, User $model)
     {
         return $user->isAbleTo('delete-any-user') && $user->id !== $model->id; // Do not allow user to delete their own model.
+    }
+
+    /**
+     * Determine whether the user can restore the model.
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restore(User $user, User $model)
+    {
+        return $user->isAbleTo('delete-any-user') && $user->id !== $model->id; // Do not allow user to restore their own model.
     }
 
     /*******************  APPLICANT QUERIES  *******************/

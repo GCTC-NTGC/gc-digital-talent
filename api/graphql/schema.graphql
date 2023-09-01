@@ -35,6 +35,7 @@ type User {
   sub: String
   createdDate: DateTime @rename(attribute: "created_at")
   updatedDate: DateTime @rename(attribute: "updated_at")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 
   # Personal info
   firstName: String @rename(attribute: "first_name")
@@ -383,8 +384,7 @@ type ScreeningQuestionResponse {
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @can(ability: "view", resolved: true)
-  user: User! @belongsTo(relation: "user", scopes: ["authorizedToView"])
-
+  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   # Expiry date for this candidate being in the pool.
@@ -396,6 +396,7 @@ type PoolCandidate {
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -714,6 +715,7 @@ interface Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 
 type WorkExperience implements Experience {
@@ -729,6 +731,7 @@ type WorkExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -742,6 +745,7 @@ type PersonalExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 type CommunityExperience implements Experience {
   id: ID!
@@ -756,6 +760,7 @@ type CommunityExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 type EducationExperience implements Experience {
   id: ID!
@@ -772,6 +777,7 @@ type EducationExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 type AwardExperience implements Experience {
   id: ID!
@@ -786,6 +792,7 @@ type AwardExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 
 type ExperienceSkillRecord {
@@ -834,6 +841,7 @@ input UserFilterInput {
   name: String @scope
   generalSearch: String @scope
   roles: [ID] @scope(name: "roleAssignments")
+  trashed: Trashed @trashed
 }
 
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
@@ -887,9 +895,14 @@ type CandidateSearchPoolResult {
 
 type Query {
   me: User @auth
-  user(id: UUID! @eq): User @find @guard @can(ability: "view", query: true)
+  user(id: UUID! @eq): User
+    @find
+    @softDeletes
+    @guard
+    @can(ability: "view", query: true)
   users: [User]!
     @all
+    @softDeletes
     @guard
     @can(ability: "viewAny")
     @deprecated(
@@ -1669,6 +1682,10 @@ type Mutation {
     @delete
     @guard
     @can(ability: "delete", find: "id")
+  restoreUser(id: ID! @whereKey): User
+    @restore
+    @guard
+    @can(ability: "restore", find: "id")
   createPoolCandidateAsAdmin(
     poolCandidate: CreatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate

@@ -20,14 +20,14 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  */
 abstract class Experience extends Model
 {
-    use SoftDeletes;
     use HasRelationships;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function userSkills(): MorphToMany

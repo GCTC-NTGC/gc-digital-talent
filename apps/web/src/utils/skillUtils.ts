@@ -232,3 +232,19 @@ export const getSortedSkillLevels = (): SkillLevel[] => {
     SkillLevel.Lead,
   ];
 };
+
+/**
+ * Parse a comma-separated list into an array of strings
+ * @param {string | null | undefined} value A single string, representing a comma-separated list. Or, may be an empty list or undefined.
+ * @returns {string[] | null}
+ */
+export const parseKeywords = (
+  value: string | null | undefined,
+): string[] | null => {
+  return value?.trim()
+    ? value
+        .split(",")
+        .map((word) => word.trim())
+        .filter((word) => word !== "")
+    : null;
+};

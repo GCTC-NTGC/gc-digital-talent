@@ -85,12 +85,12 @@ class PoolCandidate extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function pool(): BelongsTo
     {
-        return $this->belongsTo(Pool::class);
+        return $this->belongsTo(Pool::class)->withTrashed();
     }
 
     public function screeningQuestionResponses(): HasMany

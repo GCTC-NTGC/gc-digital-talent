@@ -14,8 +14,8 @@ use function PHPUnit\Framework\assertEquals;
 
 class DigitalContractingQuestionnaireTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     protected User $user;
