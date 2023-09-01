@@ -3,14 +3,10 @@ import { authExchange } from "@urql/exchange-auth";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import {
   Client,
-  CombinedError,
   createClient,
   cacheExchange,
   fetchExchange,
-  errorExchange,
   Provider,
-  Operation,
-  AnyVariables,
   mapExchange,
 } from "urql";
 import { useIntl } from "react-intl";
@@ -20,11 +16,13 @@ import {
   REFRESH_TOKEN,
   useAuthentication,
 } from "@gc-digital-talent/auth";
+import { uniqueItems } from "@gc-digital-talent/helpers";
 import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 
 import {
   buildValidationErrorMessageNode,
+  containsAuthenticationError,
   extractErrorMessages,
   extractValidationMessageKeys,
 } from "../../utils/errors";
@@ -72,24 +70,9 @@ const ClientProvider = ({
         url: apiUri,
         requestPolicy: "cache-and-network",
         exchanges: [
-          errorExchange({
-            onError: (
-              error: CombinedError,
-              operation: Operation<unknown, AnyVariables>,
-            ) => {
-              let errorMessages = extractErrorMessages(error);
-
-              const validationMessageKeys = extractValidationMessageKeys(error);
-              if (validationMessageKeys.length > 0) {
-                errorMessages = validationMessageKeys;
-              }
-
-              const errorMessageNode = buildValidationErrorMessageNode(
-                errorMessages,
-                intl,
-              );
-              if (errorMessageNode) toast.error(errorMessageNode);
-
+          cacheExchange,
+          mapExchange({
+            onError(error, operation) {
               if (error.graphQLErrors || error.networkError) {
                 logger.error(
                   JSON.stringify({
@@ -99,15 +82,24 @@ const ClientProvider = ({
                   }),
                 );
               }
-            },
-          }),
-          cacheExchange,
-          mapExchange({
-            onError(error) {
-              const isAuthError = error.response.status === 401;
+
+              const isAuthError = containsAuthenticationError(error);
               if (isAuthError) {
-                authRef.current.logout(window.location.pathname);
+                authRef.current.logout("/logged-out");
               }
+
+              let errorMessages = extractErrorMessages(error);
+
+              const validationMessageKeys = extractValidationMessageKeys(error);
+              if (validationMessageKeys.length > 0) {
+                errorMessages = validationMessageKeys;
+              }
+
+              const errorMessageNode = buildValidationErrorMessageNode(
+                uniqueItems(errorMessages),
+                intl,
+              );
+              if (errorMessageNode) toast.error(errorMessageNode);
             },
           }),
           authExchange(async (utils) => {

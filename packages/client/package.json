@@ -24,6 +24,7 @@
     "@gc-digital-talent/app-insights": "*",
     "@gc-digital-talent/auth": "*",
     "@gc-digital-talent/graphql": "*",
+    "@gc-digital-talent/helpers": "*",
     "@gc-digital-talent/i18n": "*",
     "@gc-digital-talent/logger": "*",
     "@gc-digital-talent/toast": "*",
