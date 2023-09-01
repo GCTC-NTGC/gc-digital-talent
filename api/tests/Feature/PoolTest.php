@@ -645,4 +645,28 @@ class PoolTest extends TestCase
         )
             ->assertSuccessful();
     }
+
+    public function testPoolScopeCurrentlyActive(): void
+    {
+        Pool::factory()->create([
+            'published_at' => null,
+            'closing_date' => null,
+        ]);
+        Pool::factory()->count(2)->create([
+            'published_at' => config('constants.past_date'),
+            'closing_date' => config('constants.past_date'),
+        ]);
+        Pool::factory()->count(4)->create([
+            'published_at' => config('constants.past_date'),
+            'closing_date' => config('constants.far_future_date'),
+        ]);
+
+        $allPools = Pool::all();
+        assertSame(count($allPools), 7);
+
+        $activePools = Pool::where((function ($query) {
+            Pool::scopeCurrentlyActive($query);
+        }))->get();
+        assertSame(count($activePools), 4); // assert 7 pools present but only 4 are considered "active"
+    }
 }
