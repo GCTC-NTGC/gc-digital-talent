@@ -179,7 +179,7 @@ export const WithValues: Story = {
       ],
       contractingRationalesSecondaryOther: "Some other rationale",
       ocioConfirmedTalentShortage: YesNo.Yes,
-      // talentSearchTrackingNumber: string;
+      talentSearchTrackingNumber: "00000000-0000-0000-0000-000000000000",
       ongoingNeedForKnowledge: YesNo.Yes,
       knowledgeTransferInContract: YesNo.Yes,
       employeesHaveAccessToKnowledge: YesNo.Yes,

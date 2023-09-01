@@ -26,7 +26,12 @@ const TalentSourcingDecisionSection = () => {
   const [
     selectedContractingRationalePrimary,
     selectedContractingRationalesSecondary,
-  ] = watch(["contractingRationalePrimary", "contractingRationalesSecondary"]);
+    selectedOcioConfirmedTalentShortage,
+  ] = watch([
+    "contractingRationalePrimary",
+    "contractingRationalesSecondary",
+    "ocioConfirmedTalentShortage",
+  ]);
   const isContractingRationalePrimaryOther =
     selectedContractingRationalePrimary === ContractingRationale.Other;
   const isContractingRationalePrimaryShortageOfTalent =
@@ -35,6 +40,8 @@ const TalentSourcingDecisionSection = () => {
   const doesContractingRationalesSecondaryIncludeOther =
     Array.isArray(selectedContractingRationalesSecondary) &&
     selectedContractingRationalesSecondary.includes(ContractingRationale.Other);
+  const isOcioConfirmedTalentShortageYes =
+    selectedOcioConfirmedTalentShortage === YesNo.Yes;
 
   React.useEffect(() => {
     const resetDirtyField = (name: string) => {
@@ -51,11 +58,15 @@ const TalentSourcingDecisionSection = () => {
     if (!doesContractingRationalesSecondaryIncludeOther) {
       resetDirtyField("contractingRationalesSecondaryOther");
     }
+    if (!isOcioConfirmedTalentShortageYes) {
+      resetDirtyField("talentSearchTrackingNumber");
+    }
   }, [
     resetField,
     isContractingRationalePrimaryOther,
     doesContractingRationalesSecondaryIncludeOther,
     isContractingRationalePrimaryShortageOfTalent,
+    isOcioConfirmedTalentShortageYes,
   ]);
 
   return (
@@ -125,6 +136,17 @@ const TalentSourcingDecisionSection = () => {
                 label: intl.formatMessage(getYesNo(option.value)),
               };
             })}
+          />
+        ) : null}
+        {isOcioConfirmedTalentShortageYes ? (
+          <Input
+            id="talentSearchTrackingNumber"
+            name="talentSearchTrackingNumber"
+            type="text"
+            label={labels.talentSearchTrackingNumber}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
           />
         ) : null}
         <Checklist

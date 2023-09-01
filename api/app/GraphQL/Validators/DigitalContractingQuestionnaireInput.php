@@ -61,7 +61,7 @@ final class DigitalContractingQuestionnaireInput extends Validator
             'contractingRationalesSecondary' => [
                 new ArrayConsistentWithDetail(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, 'contractingRationalesSecondaryOther'),
             ],
-            // 'talentSearchTrackingNumber' => ['requiredIf:ocioConfirmedTalentShortage,'.DirectiveFormsApiEnums::YESNOUNSURE_YES],
+            'talentSearchTrackingNumber' => ['requiredIf:ocioConfirmedTalentShortage,'.DirectiveFormsApiEnums::YESNOUNSURE_YES],
         ];
     }
 

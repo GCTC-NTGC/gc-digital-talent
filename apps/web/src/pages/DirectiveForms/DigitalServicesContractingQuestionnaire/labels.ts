@@ -367,6 +367,12 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _OCIO confirmed talent shortage_ field in the _digital services contracting questionnaire_",
     }),
+    talentSearchTrackingNumber: intl.formatMessage({
+      defaultMessage: "GC Digital Talent search request tracking number",
+      id: "dVlECR",
+      description:
+        "Label for _talent search tracking number_ fieldset in the _digital services contracting questionnaire_",
+    }),
     contractingRationalesSecondary: intl.formatMessage({
       defaultMessage: "Identify any secondary rationales",
       id: "ckDYuu",

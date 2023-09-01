@@ -126,7 +126,7 @@ export type FormValues = {
   contractingRationalesSecondary: Array<string>;
   contractingRationalesSecondaryOther: string;
   ocioConfirmedTalentShortage: string;
-  // talentSearchTrackingNumber: string;
+  talentSearchTrackingNumber: string;
   ongoingNeedForKnowledge: string;
   knowledgeTransferInContract: string;
   employeesHaveAccessToKnowledge: string;
@@ -335,9 +335,9 @@ export function convertFormValuesToApiInput(
     ocioConfirmedTalentShortage: formValues.ocioConfirmedTalentShortage
       ? stringToEnum(YesNo, formValues.ocioConfirmedTalentShortage)
       : null,
-    // talentSearchTrackingNumber: emptyToNull(
-    //   formValues.talentSearchTrackingNumber,
-    // ),
+    talentSearchTrackingNumber: emptyToNull(
+      formValues.talentSearchTrackingNumber,
+    ),
     ongoingNeedForKnowledge: stringToEnum(
       YesNo,
       formValues.ongoingNeedForKnowledge,
