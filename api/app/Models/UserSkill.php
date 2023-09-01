@@ -50,7 +50,7 @@ class UserSkill extends Model
 
     public function skill(): BelongsTo
     {
-        return $this->belongsTo(Skill::class, 'skill_id');
+        return $this->belongsTo(Skill::class, 'skill_id')->withTrashed();  // include soft deleted skills
     }
 
     public function awardExperiences()

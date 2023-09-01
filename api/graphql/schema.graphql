@@ -1751,6 +1751,8 @@ type Mutation {
     id: ID!
     skillFamily: UpdateSkillFamilyInput! @spread
   ): SkillFamily @update @guard @can(ability: "update", find: "id")
+
+  # skill mutations
   createSkill(skill: CreateSkillInput! @spread): Skill
     @create
     @guard
@@ -1759,6 +1761,11 @@ type Mutation {
     @update
     @guard
     @can(ability: "update", find: "id")
+  deleteSkill(id: UUID! @whereKey): Skill
+    @delete
+    @validator(class: "App\\GraphQL\\Validators\\DeleteSkillValidator")
+    @can(ability: "delete")
+
   createWorkExperience(
     userId: ID! @rename(attribute: "user_id")
     workExperience: WorkExperienceInput! @spread
