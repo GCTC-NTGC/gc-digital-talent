@@ -762,7 +762,14 @@ const createRoute = (
                   children: [
                     {
                       index: true,
-                      element: <ProfileAndApplicationsPage />,
+                      element: (
+                        <RequireAuth
+                          roles={[ROLE_NAME.Applicant]}
+                          loginPath={loginPath}
+                        >
+                          <ProfileAndApplicationsPage />
+                        </RequireAuth>
+                      ),
                     },
                     {
                       path: "skills",
@@ -770,7 +777,12 @@ const createRoute = (
                         {
                           path: ":skillId",
                           element: featureFlags.skillLibrary ? (
-                            <UpdateUserSkillPage />
+                            <RequireAuth
+                              roles={[ROLE_NAME.Applicant]}
+                              loginPath={loginPath}
+                            >
+                              <UpdateUserSkillPage />
+                            </RequireAuth>
                           ) : null,
                         },
                       ],
