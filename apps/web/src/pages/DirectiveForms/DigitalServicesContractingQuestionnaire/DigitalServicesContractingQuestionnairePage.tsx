@@ -99,35 +99,6 @@ export const DigitalServicesContractingQuestionnaire = ({
                     getSectionTitle(PAGE_SECTION_ID.PREAMBLE),
                   )}
                 </TableOfContents.AnchorLink>
-                <TableOfContents.List space="sm">
-                  <TableOfContents.ListItem>
-                    <TableOfContents.AnchorLink
-                      id={PAGE_SECTION_ID.ROLE_OF_THE_CIO}
-                    >
-                      {intl.formatMessage(
-                        getSectionTitle(PAGE_SECTION_ID.ROLE_OF_THE_CIO),
-                      )}
-                    </TableOfContents.AnchorLink>
-                  </TableOfContents.ListItem>
-                  <TableOfContents.ListItem>
-                    <TableOfContents.AnchorLink
-                      id={PAGE_SECTION_ID.WHY_COLLECT}
-                    >
-                      {intl.formatMessage(
-                        getSectionTitle(PAGE_SECTION_ID.WHY_COLLECT),
-                      )}
-                    </TableOfContents.AnchorLink>
-                  </TableOfContents.ListItem>
-                  <TableOfContents.ListItem>
-                    <TableOfContents.AnchorLink
-                      id={PAGE_SECTION_ID.REQUIREMENTS}
-                    >
-                      {intl.formatMessage(
-                        getSectionTitle(PAGE_SECTION_ID.REQUIREMENTS),
-                      )}
-                    </TableOfContents.AnchorLink>
-                  </TableOfContents.ListItem>
-                </TableOfContents.List>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.QUESTIONNAIRE}>
@@ -135,66 +106,6 @@ export const DigitalServicesContractingQuestionnaire = ({
                     getSectionTitle(PAGE_SECTION_ID.QUESTIONNAIRE),
                   )}
                 </TableOfContents.AnchorLink>
-                <TableOfContents.List space="sm">
-                  <TableOfContents.ListItem>
-                    <TableOfContents.AnchorLink
-                      id={PAGE_SECTION_ID.GENERAL_INFORMATION}
-                    >
-                      {intl.formatMessage(
-                        getSectionTitle(PAGE_SECTION_ID.GENERAL_INFORMATION),
-                      )}
-                    </TableOfContents.AnchorLink>
-                  </TableOfContents.ListItem>
-                  <TableOfContents.ListItem>
-                    <TableOfContents.AnchorLink
-                      id={PAGE_SECTION_ID.SCOPE_OF_CONTRACT}
-                    >
-                      {intl.formatMessage(
-                        getSectionTitle(PAGE_SECTION_ID.SCOPE_OF_CONTRACT),
-                      )}
-                    </TableOfContents.AnchorLink>
-                  </TableOfContents.ListItem>
-                  <TableOfContents.ListItem>
-                    <TableOfContents.AnchorLink
-                      id={PAGE_SECTION_ID.CONTRACT_REQUIREMENTS}
-                    >
-                      {intl.formatMessage(
-                        getSectionTitle(PAGE_SECTION_ID.CONTRACT_REQUIREMENTS),
-                      )}
-                    </TableOfContents.AnchorLink>
-                  </TableOfContents.ListItem>
-                  <TableOfContents.ListItem>
-                    <TableOfContents.AnchorLink
-                      id={PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE}
-                    >
-                      {intl.formatMessage(
-                        getSectionTitle(PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE),
-                      )}
-                    </TableOfContents.AnchorLink>
-                  </TableOfContents.ListItem>
-                  <TableOfContents.ListItem>
-                    <TableOfContents.AnchorLink
-                      id={PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS}
-                    >
-                      {intl.formatMessage(
-                        getSectionTitle(
-                          PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS,
-                        ),
-                      )}
-                    </TableOfContents.AnchorLink>
-                  </TableOfContents.ListItem>
-                  <TableOfContents.ListItem>
-                    <TableOfContents.AnchorLink
-                      id={PAGE_SECTION_ID.TALENT_SOURCING_DECISION}
-                    >
-                      {intl.formatMessage(
-                        getSectionTitle(
-                          PAGE_SECTION_ID.TALENT_SOURCING_DECISION,
-                        ),
-                      )}
-                    </TableOfContents.AnchorLink>
-                  </TableOfContents.ListItem>
-                </TableOfContents.List>
               </TableOfContents.ListItem>
             </TableOfContents.List>
             <Link
