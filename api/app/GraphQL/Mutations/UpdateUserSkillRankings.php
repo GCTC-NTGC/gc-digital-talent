@@ -84,9 +84,8 @@ final class UpdateUserSkillRankings
         // set the rankings using the input array of skill ids and chosen rankType
         $rankIterator = 1;
         foreach ($arraySkillIds as $skillId) {
-            UserSkill::where('user_id', $userId)->whereHas('skill', function ($query) use ($skillId) {
-                $query->where('id', $skillId);
-            })->update([$rankType => $rankIterator]);
+            UserSkill::where('user_id', $userId)->where('skill_id', $skillId)
+                ->update([$rankType => $rankIterator]);
             $rankIterator++;
         }
     }
