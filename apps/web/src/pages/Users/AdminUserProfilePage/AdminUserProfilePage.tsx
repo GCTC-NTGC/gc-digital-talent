@@ -29,8 +29,7 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
         data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-text-align="base(right)"
       >
-        {/* leaving anonymous for testing */}
-        <UserProfilePrintButton user={user} anonymous>
+        <UserProfilePrintButton user={user}>
           <span data-h2-display="base(flex)">
             <PrinterIcon style={{ width: "1rem", marginRight: "0.5rem" }} />{" "}
             {intl.formatMessage({
