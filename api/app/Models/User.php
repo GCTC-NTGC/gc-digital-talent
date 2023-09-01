@@ -812,52 +812,52 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function getTopTechnicalSkillsRankingAttribute()
     {
-        $technicalUserSkills = $this->userSkills()
+        $sortedTechnicalUserSkills = $this->userSkills()
             ->whereNotNull('top_skills_rank')
             ->whereHas('skill', function ($query) {
                 $query->where('category', 'TECHNICAL');
             })
+            ->orderBy('top_skills_rank', 'asc')
             ->get();
-        $sortedTechnicalUserSkills = $technicalUserSkills->sortBy('top_skills_rank', SORT_NUMERIC);
 
         return $sortedTechnicalUserSkills;
     }
 
     public function getTopBehaviouralSkillsRankingAttribute()
     {
-        $behaviouralUserSkills = $this->userSkills()
+        $sortedBehaviouralUserSkills = $this->userSkills()
             ->whereNotNull('top_skills_rank')
             ->whereHas('skill', function ($query) {
                 $query->where('category', 'BEHAVIOURAL');
             })
+            ->orderBy('top_skills_rank', 'asc')
             ->get();
-        $sortedBehaviouralUserSkills = $behaviouralUserSkills->sortBy('top_skills_rank', SORT_NUMERIC);
 
         return $sortedBehaviouralUserSkills;
     }
 
     public function getImproveTechnicalSkillsRankingAttribute()
     {
-        $technicalUserSkills = $this->userSkills()
+        $sortedTechnicalUserSkills = $this->userSkills()
             ->whereNotNull('improve_skills_rank')
             ->whereHas('skill', function ($query) {
                 $query->where('category', 'TECHNICAL');
             })
+            ->orderBy('improve_skills_rank', 'asc')
             ->get();
-        $sortedTechnicalUserSkills = $technicalUserSkills->sortBy('improve_skills_rank', SORT_NUMERIC);
 
         return $sortedTechnicalUserSkills;
     }
 
     public function getImproveBehaviouralSkillsRankingAttribute()
     {
-        $behaviouralUserSkills = $this->userSkills()
+        $sortedBehaviouralUserSkills = $this->userSkills()
             ->whereNotNull('improve_skills_rank')
             ->whereHas('skill', function ($query) {
                 $query->where('category', 'BEHAVIOURAL');
             })
+            ->orderBy('improve_skills_rank', 'asc')
             ->get();
-        $sortedBehaviouralUserSkills = $behaviouralUserSkills->sortBy('improve_skills_rank', SORT_NUMERIC);
 
         return $sortedBehaviouralUserSkills;
     }
