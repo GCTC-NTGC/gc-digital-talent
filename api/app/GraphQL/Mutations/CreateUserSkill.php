@@ -10,7 +10,6 @@ final class CreateUserSkill
     /**
      * Create a UserSkill model or restore it
      *
-     * @param  null  $_
      * @param  array{}  $args
      * @return UserSkill
      */

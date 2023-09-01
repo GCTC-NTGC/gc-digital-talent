@@ -20,8 +20,8 @@ use function PHPUnit\Framework\assertEquals;
 
 class PoolCandidateUpdateTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use WithFaker;
 
     protected $guestUser;

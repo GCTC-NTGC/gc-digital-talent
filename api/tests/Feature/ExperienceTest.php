@@ -18,10 +18,10 @@ use function PHPUnit\Framework\assertEquals;
 
 class ExperienceTest extends TestCase
 {
-    use RefreshDatabase;
-    use MakesGraphQLRequests;
-    use RefreshesSchemaCache;
     use InteractsWithExceptionHandling;
+    use MakesGraphQLRequests;
+    use RefreshDatabase;
+    use RefreshesSchemaCache;
 
     protected $platformAdmin;
 

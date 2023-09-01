@@ -13,7 +13,9 @@ interface ExperienceTypeProps {
 
 const ExperienceType = ({ title, experiences }: ExperienceTypeProps) => (
   <div>
-    <Heading level="h4">{title}</Heading>
+    <Heading level="h4" data-h2-font-weight="base(700)">
+      {title}
+    </Heading>
     {experiences.map((experience) => (
       <ExperienceItem key={experience.id} experience={experience} />
     ))}

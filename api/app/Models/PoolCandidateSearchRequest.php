@@ -32,8 +32,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class PoolCandidateSearchRequest extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 

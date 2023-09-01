@@ -46,6 +46,7 @@ class PoolFactory extends Factory
         }
 
         $name = $this->faker->unique()->company();
+
         // this is essentially the draft state
         return [
             'name' => ['en' => $name, 'fr' => $name],

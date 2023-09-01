@@ -18,8 +18,8 @@ use Tests\TestCase;
 
 class PoolCandidateSearchRequestPaginatedTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     protected $adminUser;

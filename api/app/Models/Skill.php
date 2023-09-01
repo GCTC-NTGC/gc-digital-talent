@@ -26,8 +26,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 class Skill extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     use HasRelationships;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 
