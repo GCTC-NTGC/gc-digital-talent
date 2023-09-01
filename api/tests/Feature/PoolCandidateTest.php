@@ -5,24 +5,27 @@ use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
-use App\Models\Skill;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
-use Tests\TestCase;
 use Database\Helpers\ApiEnums;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Tests\TestCase;
 
 class PoolCandidateTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     protected $teamUser;
+
     protected $team;
-    protected $teamName = "application-test-team";
+
+    protected $teamName = 'application-test-team';
+
     protected $pool;
 
     protected function setUp(): void
@@ -38,7 +41,7 @@ class PoolCandidateTest extends TestCase
         ]);
 
         $this->pool = Pool::factory()->create([
-            'team_id' => $this->team->id
+            'team_id' => $this->team->id,
         ]);
 
         $this->teamUser = User::factory()
@@ -68,7 +71,7 @@ class PoolCandidateTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
             'submitted_at' => null,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_id' => $this->pool->id
+            'pool_id' => $this->pool->id,
         ]);
         // set status to EXPIRED manually despite not being submitted
         // this was split into two steps as otherwise PoolCandidateFactory automatically assigns a submitted_at
@@ -92,7 +95,7 @@ class PoolCandidateTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
             'submitted_at' => null,
             'expiry_date' => config('constants.past_date'),
-            'pool_id' => $this->pool->id
+            'pool_id' => $this->pool->id,
         ]);
         // set status to EXPIRED manually despite not being submitted
         $candidateTwo->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_EXPIRED;
@@ -115,18 +118,18 @@ class PoolCandidateTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.past_date'),
-            'pool_id' => $this->pool->id
+            'pool_id' => $this->pool->id,
         ]);
 
         // Assert candidate 3 is PLACED_CASUAL, despite being past expiry date
-        $this->actingAs($this->teamUser, "api")
+        $this->actingAs($this->teamUser, 'api')
             ->graphQL($query, ['id' => $candidateThree->id])
             ->assertJson([
-                "data" => [
-                    "poolCandidate" => [
-                        "status" => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-                    ]
-                ]
+                'data' => [
+                    'poolCandidate' => [
+                        'status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+                    ],
+                ],
             ]);
 
         // 4
@@ -135,7 +138,7 @@ class PoolCandidateTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.past_date'),
-            'pool_id' => $this->pool->id
+            'pool_id' => $this->pool->id,
         ]);
 
         // Assert candidate 2 is DRAFT_EXPIRED, despite being set as EXPIRED, the null submitted_at forces an override
@@ -155,18 +158,18 @@ class PoolCandidateTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
-            'pool_id' => $this->pool->id
+            'pool_id' => $this->pool->id,
         ]);
 
         // Assert candidate 5 is NEW_APPLICATION as it was set
-        $this->actingAs($this->teamUser, "api")
+        $this->actingAs($this->teamUser, 'api')
             ->graphQL($query, ['id' => $candidateFive->id])
             ->assertJson([
-                "data" => [
-                    "poolCandidate" => [
-                        "status" => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
-                    ]
-                ]
+                'data' => [
+                    'poolCandidate' => [
+                        'status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+                    ],
+                ],
             ]);
 
         // 6
@@ -175,18 +178,18 @@ class PoolCandidateTest extends TestCase
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
-            'pool_id' => $this->pool->id
+            'pool_id' => $this->pool->id,
         ]);
 
         // Assert candidate 6 is APPLICATION_REVIEW as it was set
-        $this->actingAs($this->teamUser, "api")
+        $this->actingAs($this->teamUser, 'api')
             ->graphQL($query, ['id' => $candidateSix->id])
             ->assertJson([
-                "data" => [
-                    "poolCandidate" => [
-                        "status" => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
-                    ]
-                ]
+                'data' => [
+                    'poolCandidate' => [
+                        'status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+                    ],
+                ],
             ]);
     }
 
@@ -205,14 +208,14 @@ class PoolCandidateTest extends TestCase
             }
         ';
 
-        $orderByAsc =  [
+        $orderByAsc = [
             'column' => 'skill_count',
-            'order' => 'ASC'
+            'order' => 'ASC',
         ];
 
-        $orderByDesc =  [
+        $orderByDesc = [
             'column' => 'skill_count',
-            'order' => 'DESC'
+            'order' => 'DESC',
         ];
 
         $skills = Skill::factory()->count(10)->create();
@@ -254,16 +257,16 @@ class PoolCandidateTest extends TestCase
         ]);
 
         // Assert skill count matches the number of skills in the subset and orders by skill count in ascending order
-        $this->actingAs($this->teamUser, "api")
+        $this->actingAs($this->teamUser, 'api')
             ->graphQL($query, [
                 'orderBy' => $orderByAsc,
                 'where' => [
                     'applicantFilter' => [
                         'skills' => array_map(function ($id) {
                             return ['id' => $id];
-                        }, $skillSubset)
-                    ]
-                ]
+                        }, $skillSubset),
+                    ],
+                ],
             ])
             ->assertJson([
                 'data' => [
@@ -271,28 +274,28 @@ class PoolCandidateTest extends TestCase
                         'data' => [
                             [
                                 'id' => $userTwoCandidate->id,
-                                'skillCount' => 1
+                                'skillCount' => 1,
                             ],
                             [
                                 'id' => $userOneCandidate->id,
-                                'skillCount' => 2
-                            ]
-                        ]
-                    ]
-                ]
+                                'skillCount' => 2,
+                            ],
+                        ],
+                    ],
+                ],
             ]);
 
         // Assert skill count matches the number of skills in the subset and orders by skill count in descending order
-        $this->actingAs($this->teamUser, "api")
+        $this->actingAs($this->teamUser, 'api')
             ->graphQL($query, [
                 'orderBy' => $orderByDesc,
                 'where' => [
                     'applicantFilter' => [
                         'skills' => array_map(function ($id) {
                             return ['id' => $id];
-                        }, $skillSubset)
-                    ]
-                ]
+                        }, $skillSubset),
+                    ],
+                ],
             ])
             ->assertJson([
                 'data' => [
@@ -300,68 +303,67 @@ class PoolCandidateTest extends TestCase
                         'data' => [
                             [
                                 'id' => $userOneCandidate->id,
-                                'skillCount' => 2
+                                'skillCount' => 2,
                             ],
                             [
                                 'id' => $userTwoCandidate->id,
-                                'skillCount' => 1
-                            ]
-                        ]
-                    ]
-                ]
+                                'skillCount' => 1,
+                            ],
+                        ],
+                    ],
+                ],
             ]);
 
         // Assert no skill count when no overlapping
-        $this->actingAs($this->teamUser, "api")
+        $this->actingAs($this->teamUser, 'api')
             ->graphQL($query, [
                 'orderBy' => $orderByAsc,
                 'where' => [
                     'applicantFilter' => [
                         'skills' => array_map(function ($id) {
                             return ['id' => $id];
-                        }, $missingSkills)
-                    ]
-                ]
+                        }, $missingSkills),
+                    ],
+                ],
             ])->assertJson([
                 'data' => [
                     'poolCandidatesPaginated' => [
-                        'data' => []
-                    ]
-                ]
+                        'data' => [],
+                    ],
+                ],
             ]);
 
         // Assert no skill count when no skills requested
-        $this->actingAs($this->teamUser, "api")
+        $this->actingAs($this->teamUser, 'api')
             ->graphQL($query, [
                 'orderBy' => $orderByAsc,
             ])->assertJsonFragment(['skillCount' => null]);
 
         // Assert skill count only matches one skill overlapping (user two does not exist in the subset)
-        $this->actingAs($this->teamUser, "api")
+        $this->actingAs($this->teamUser, 'api')
             ->graphQL($query, [
                 'orderBy' => $orderByAsc,
                 'where' => [
                     'applicantFilter' => [
-                        'skills' =>
-                        [
+                        'skills' => [
                             ['id' => $skillSubset[0]],
                             ['id' => $missingSkills[0]],
                             ['id' => $missingSkills[1]],
-                            ['id' => $missingSkills[2]]
+                            ['id' => $missingSkills[2]],
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ])->assertJson([
                 'data' => [
                     'poolCandidatesPaginated' => [
                         'data' => [
                             [
                                 'id' => $userOneCandidate->id,
-                                'skillCount' => 1
-                            ]
-                        ]
-                    ]
-                ]
+                                'skillCount' => 1,
+                            ],
+                        ],
+                    ],
+                ],
             ]);
     }
 }

@@ -23,6 +23,7 @@ import {
   UserPaginator,
   useSelectedUsersQuery,
   RoleAssignment,
+  Trashed,
 } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
@@ -91,6 +92,7 @@ function transformFormValuesToUserFilterInput(
       return { poolId: poolString };
     }),
     roles: data.roles,
+    trashed: data.trashed[0] ? Trashed.Only : undefined,
   };
 }
 
@@ -121,6 +123,7 @@ function transformUserFilterInputToFormValues(
         ?.filter(notEmpty)
         .map((poolFilter) => poolFilter.poolId) ?? [],
     roles: input?.roles?.filter(notEmpty) ?? [],
+    trashed: input?.trashed ? ["true"] : [],
   };
 }
 
@@ -281,6 +284,7 @@ const UserTable = ({ title }: { title: string }) => {
       isProfileComplete: fancyFilterState?.isProfileComplete,
       poolFilters: fancyFilterState?.poolFilters,
       roles: fancyFilterState?.roles,
+      trashed: fancyFilterState?.trashed,
     };
   };
 

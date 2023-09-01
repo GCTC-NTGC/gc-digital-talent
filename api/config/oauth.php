@@ -48,7 +48,7 @@ return [
     | based thereupon.
     |
     */
-    'allowable_clock_skew' =>  DateInterval::createFromDateString('4 minutes'),
+    'allowable_clock_skew' => DateInterval::createFromDateString('4 minutes'),
 
     /*
     |--------------------------------------------------------------------------
@@ -66,7 +66,7 @@ return [
      */
     'authorize_uri' => env('OAUTH_URI', null),
     'token_uri' => env('OAUTH_TOKEN_URI', null),
-    'redirect_uri' => env('OAUTH_REDIRECT_URI', config('app.url') . '/auth-callback'),
+    'redirect_uri' => env('OAUTH_REDIRECT_URI', config('app.url').'/auth-callback'),
 
     /**
      * When this request parameter is present, the authorization endpoint implementation should satisfy one of them in authenticating the end-user.

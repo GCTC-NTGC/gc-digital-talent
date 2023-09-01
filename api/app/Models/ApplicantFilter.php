@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * Class ApplicantFilter
  *
  * @property string $id
- * @property boolean $has_diploma
- * @property boolean $has_disability
- * @property boolean $is_indigenous
- * @property boolean $is_visible_minority
- * @property boolean $is_woman
+ * @property bool $has_diploma
+ * @property bool $has_disability
+ * @property bool $is_indigenous
+ * @property bool $is_visible_minority
+ * @property bool $is_woman
  * @property array $position_duration
  * @property string $language_ability
  * @property array $location_preferences
@@ -23,7 +23,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
-
 class ApplicantFilter extends Model
 {
     use HasFactory;
@@ -35,7 +34,6 @@ class ApplicantFilter extends Model
      *
      * @var array
      */
-
     protected $casts = [
         'location_preferences' => 'array',
         'operational_requirements' => 'array',
@@ -47,14 +45,17 @@ class ApplicantFilter extends Model
     {
         return $this->belongsToMany(Classification::class, 'applicant_filter_classification');
     }
+
     public function qualifiedClassifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class, 'applicant_filter_qualified_classification');
     }
+
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class, 'applicant_filter_skill');
     }
+
     public function pools(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'applicant_filter_pool');
@@ -64,10 +65,10 @@ class ApplicantFilter extends Model
     public function getEquityAttribute()
     {
         return [
-            "is_woman" => $this->is_woman,
-            "has_disability" => $this->has_disability,
-            "is_indigenous" => $this->is_indigenous,
-            "is_visible_minority" => $this->is_visible_minority
+            'is_woman' => $this->is_woman,
+            'has_disability' => $this->has_disability,
+            'is_indigenous' => $this->is_indigenous,
+            'is_visible_minority' => $this->is_visible_minority,
         ];
     }
 

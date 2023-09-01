@@ -2,15 +2,14 @@
 
 namespace App\GraphQL\Mutations;
 
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 final class MarkNotificationAsRead
 {
     /**
      * Duplicates a pool
      *
-     * @param  null  $_
      * @param  array{}  $args
      */
     public function __invoke($_, array $args)
@@ -21,9 +20,10 @@ final class MarkNotificationAsRead
             ->notifications()
             ->firstWhere('id', $notificationId);
 
-        if (!is_null($notification)) {
+        if (! is_null($notification)) {
             $notification->markAsRead();
             User::enrichNotification($notification);
+
             return $notification;
         }
     }

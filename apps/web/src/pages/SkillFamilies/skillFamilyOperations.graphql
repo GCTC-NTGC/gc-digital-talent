@@ -17,8 +17,8 @@ query AllSkillFamilies {
         en
         fr
       }
+      category
     }
-    category
   }
 }
 
@@ -41,8 +41,8 @@ query SkillFamily($id: UUID!) {
         en
         fr
       }
+      category
     }
-    category
   }
 }
 
@@ -54,6 +54,7 @@ query getUpdateSkillFamilyData($id: UUID!) {
       en
       fr
     }
+    category
   }
 
   skillFamily(id: $id) {
@@ -74,8 +75,8 @@ query getUpdateSkillFamilyData($id: UUID!) {
         en
         fr
       }
+      category
     }
-    category
   }
 }
 
@@ -87,6 +88,7 @@ query getCreateSkillFamilyData {
       en
       fr
     }
+    category
   }
 }
 

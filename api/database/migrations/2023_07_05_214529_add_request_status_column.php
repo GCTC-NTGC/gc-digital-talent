@@ -3,8 +3,8 @@
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('request_status')->nullable(false)->default(ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW);
         });
         DB::statement(
-            <<<SQL
+            <<<'SQL'
                 UPDATE pool_candidate_search_requests
                     SET request_status =
                         case when done_at
@@ -27,11 +27,11 @@ return new class extends Migration
             SQL,
             [
                 'new' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW,
-                'done' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE
+                'done' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE,
             ]
         );
         DB::statement(
-            <<<SQL
+            <<<'SQL'
                 ALTER TABLE pool_candidate_search_requests
                     ADD COLUMN request_status_weight INT
                     GENERATED ALWAYS AS

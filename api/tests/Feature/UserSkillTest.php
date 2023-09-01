@@ -2,15 +2,15 @@
 
 use App\Models\ExperienceSkill;
 use App\Models\Skill;
-use App\Models\WorkExperience;
 use App\Models\User;
 use App\Models\UserSkill;
+use App\Models\WorkExperience;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertNotNull;
@@ -18,11 +18,12 @@ use function PHPUnit\Framework\assertNull;
 
 class UserSkillTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     protected $user;
+
     protected $differentUser;
 
     protected function setUp(): void

@@ -1,25 +1,28 @@
 <?php
 
 use App\Models\Pool;
+use App\Models\ScreeningQuestion;
 use App\Models\Team;
 use App\Models\User;
-use App\Models\ScreeningQuestion;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertSame;
 
 class ScreeningQuestionTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     protected $teamUser;
+
     protected $team;
-    protected $teamName = "application-test-team";
+
+    protected $teamName = 'application-test-team';
+
     protected $pool;
 
     protected $updatePoolMutation =
@@ -62,21 +65,20 @@ class ScreeningQuestionTest extends TestCase
     {
         // create a question and assert it appears in the response
 
-        $this->actingAs($this->teamUser, "api")->graphQL($this->updatePoolMutation, [
+        $this->actingAs($this->teamUser, 'api')->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
             'pool' => [
                 'screeningQuestions' => [
-                    'create' =>
-                    [
+                    'create' => [
                         [
                             'question' => [
                                 'en' => 'hardcoded english',
                                 'fr' => 'hardcoded french',
                             ],
                         ],
-                    ]
+                    ],
                 ],
-            ]
+            ],
         ])->assertJsonFragment([
             'en' => 'hardcoded english',
         ]);
@@ -93,12 +95,11 @@ class ScreeningQuestionTest extends TestCase
 
         // update a question and assert it changed in the response
 
-        $this->actingAs($this->teamUser, "api")->graphQL($this->updatePoolMutation, [
+        $this->actingAs($this->teamUser, 'api')->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
             'pool' => [
                 'screeningQuestions' => [
-                    'update' =>
-                    [
+                    'update' => [
                         [
                             'id' => $questionId,
                             'question' => [
@@ -106,9 +107,9 @@ class ScreeningQuestionTest extends TestCase
                                 'fr' => 'hardcoded french',
                             ],
                         ],
-                    ]
+                    ],
                 ],
-            ]
+            ],
         ])->assertJsonFragment([
             'en' => 'hardcoded english',
         ]);
@@ -125,16 +126,15 @@ class ScreeningQuestionTest extends TestCase
 
         // delete a question and assert it isn't present in the response
 
-        $this->actingAs($this->teamUser, "api")->graphQL($this->updatePoolMutation, [
+        $this->actingAs($this->teamUser, 'api')->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
             'pool' => [
                 'screeningQuestions' => [
-                    'delete' =>
-                    [
+                    'delete' => [
                         'id' => $questionId,
-                    ]
+                    ],
                 ],
-            ]
+            ],
         ])->assertJsonMissing([
             'id' => $questionId,
         ]);

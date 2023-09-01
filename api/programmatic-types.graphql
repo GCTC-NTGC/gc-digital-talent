@@ -84,7 +84,6 @@ type PoolCandidateSearchRequestPaginator {
 "Allowed column names for Query.poolCandidatesPaginated.orderBy."
 enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   PRIORITY_WEIGHT
-  JOB_LOOKING_STATUS
   FIRST_NAME
   EMAIL
   PREFERRED_LANG

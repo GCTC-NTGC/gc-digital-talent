@@ -6,16 +6,16 @@ use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 
 class DigitalContractingQuestionnaireTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     protected User $user;
@@ -54,98 +54,98 @@ class DigitalContractingQuestionnaireTest extends TestCase
         $skill = Skill::factory()->create();
 
         $questionnaireTableFields = [
-            "readPreamble" => true,
-            "departmentOther" => null,
-            "branchOther" => "branch_other",
-            "businessOwnerName" => "business_owner_name",
-            "businessOwnerJobTitle" => "business_owner_job_title",
-            "businessOwnerEmail" => "owner@example.org",
-            "financialAuthorityName" => "financial_authority_name",
-            "financialAuthorityJobTitle" => "financial_authority_job_title",
-            "financialAuthorityEmail" => "authority@example.org",
-            "authoritiesInvolved" => ["HR", "OTHER"],
-            "authorityInvolvedOther" => "authority_involved_other",
-            "contractBehalfOfGc" => "YES",
-            "contractServiceOfGc" => "YES",
-            "contractForDigitalInitiative" => "YES",
-            "digitalInitiativeName" => "digital_initiative_name",
-            "digitalInitiativePlanSubmitted" => "YES",
-            "digitalInitiativePlanUpdated" => "YES",
-            "digitalInitiativePlanComplemented" => "YES",
-            "contractTitle" => "contract_title",
-            "contractStartDate" => "1900-01-01",
-            "contractEndDate" => "2099-12-31",
-            "contractExtendable" => "YES",
-            "contractAmendable" => "YES",
-            "contractMultiyear" => "YES",
-            "contractValue" => "FROM_0_TO_10K",
-            "contractResourcesStartTimeframe" => "FROM_0_TO_3M",
-            "commodityType" => "OTHER",
-            "commodityTypeOther" => "commodity_type_other",
-            "instrumentType" => "SUPPLY_ARRANGEMENT",
-            "methodOfSupply" => "OTHER",
-            "methodOfSupplyOther" => "method_of_supply_other",
-            "solicitationProcedure" => "ADVANCE_CONTRACT_AWARD_NOTICE",
-            "subjectToTradeAgreement" => "YES",
-            "workRequirementDescription" => "work_requirement_description",
-            "qualificationRequirement" => "qualification_requirement",
-            "requirementAccessToSecure" => "YES",
-            "requirementScreeningLevels" => ["RELIABILITY", "OTHER"],
-            "requirementScreeningLevelOther" => "requirement_screening_level_other",
-            "requirementWorkLanguages" => ["ENGLISH_ONLY", "OTHER"],
-            "requirementWorkLanguageOther" => "requirement_work_language_other",
-            "requirementWorkLocations" => ["GC_PREMISES", "OFFSITE_SPECIFIC"],
-            "requirementWorkLocationSpecific" => "requirement_work_location_specific",
-            "requirementOthers" => ["SHIFT_WORK", "OTHER"],
-            "requirementOtherOther" => "requirement_other_other",
-            "hasPersonnelRequirements" => "YES",
-            "isTechnologicalChange" => "YES",
-            "hasImpactOnYourDepartment" => "YES",
-            "hasImmediateImpactOnOtherDepartments" => "YES",
-            "hasFutureImpactOnOtherDepartments" => "YES",
-            "operationsConsiderations" => ["FINANCE_VEHICLE_NOT_USABLE", "OTHER"],
-            "operationsConsiderationsOther" => "operations_considerations_other",
-            "contractingRationalePrimary" => "SHORTAGE_OF_TALENT",
-            "contractingRationalePrimaryOther" => null,
-            "contractingRationalesSecondary" => ["TIMING_REQUIREMENTS", "OTHER"],
-            "contractingRationalesSecondaryOther" => "contracting_rationales_secondary_other",
-            "ocioConfirmedTalentShortage" => "YES",
-            "talentSearchTrackingNumber" => "talent_search_tracking_number",
-            "ongoingNeedForKnowledge" => "YES",
-            "knowledgeTransferInContract" => "YES",
-            "employeesHaveAccessToKnowledge" => "YES",
-            "ocioEngagedForTraining" => "YES",
+            'readPreamble' => true,
+            'departmentOther' => null,
+            'branchOther' => 'branch_other',
+            'businessOwnerName' => 'business_owner_name',
+            'businessOwnerJobTitle' => 'business_owner_job_title',
+            'businessOwnerEmail' => 'owner@example.org',
+            'financialAuthorityName' => 'financial_authority_name',
+            'financialAuthorityJobTitle' => 'financial_authority_job_title',
+            'financialAuthorityEmail' => 'authority@example.org',
+            'authoritiesInvolved' => ['HR', 'OTHER'],
+            'authorityInvolvedOther' => 'authority_involved_other',
+            'contractBehalfOfGc' => 'YES',
+            'contractServiceOfGc' => 'YES',
+            'contractForDigitalInitiative' => 'YES',
+            'digitalInitiativeName' => 'digital_initiative_name',
+            'digitalInitiativePlanSubmitted' => 'YES',
+            'digitalInitiativePlanUpdated' => 'YES',
+            'digitalInitiativePlanComplemented' => 'YES',
+            'contractTitle' => 'contract_title',
+            'contractStartDate' => '1900-01-01',
+            'contractEndDate' => '2099-12-31',
+            'contractExtendable' => 'YES',
+            'contractAmendable' => 'YES',
+            'contractMultiyear' => 'YES',
+            'contractValue' => 'FROM_0_TO_10K',
+            'contractResourcesStartTimeframe' => 'FROM_0_TO_3M',
+            'commodityType' => 'OTHER',
+            'commodityTypeOther' => 'commodity_type_other',
+            'instrumentType' => 'SUPPLY_ARRANGEMENT',
+            'methodOfSupply' => 'OTHER',
+            'methodOfSupplyOther' => 'method_of_supply_other',
+            'solicitationProcedure' => 'ADVANCE_CONTRACT_AWARD_NOTICE',
+            'subjectToTradeAgreement' => 'YES',
+            'workRequirementDescription' => 'work_requirement_description',
+            'qualificationRequirement' => 'qualification_requirement',
+            'requirementAccessToSecure' => 'YES',
+            'requirementScreeningLevels' => ['RELIABILITY', 'OTHER'],
+            'requirementScreeningLevelOther' => 'requirement_screening_level_other',
+            'requirementWorkLanguages' => ['ENGLISH_ONLY', 'OTHER'],
+            'requirementWorkLanguageOther' => 'requirement_work_language_other',
+            'requirementWorkLocations' => ['GC_PREMISES', 'OFFSITE_SPECIFIC'],
+            'requirementWorkLocationSpecific' => 'requirement_work_location_specific',
+            'requirementOthers' => ['SHIFT_WORK', 'OTHER'],
+            'requirementOtherOther' => 'requirement_other_other',
+            'hasPersonnelRequirements' => 'YES',
+            'isTechnologicalChange' => 'YES',
+            'hasImpactOnYourDepartment' => 'YES',
+            'hasImmediateImpactOnOtherDepartments' => 'YES',
+            'hasFutureImpactOnOtherDepartments' => 'YES',
+            'operationsConsiderations' => ['FINANCE_VEHICLE_NOT_USABLE', 'OTHER'],
+            'operationsConsiderationsOther' => 'operations_considerations_other',
+            'contractingRationalePrimary' => 'SHORTAGE_OF_TALENT',
+            'contractingRationalePrimaryOther' => null,
+            'contractingRationalesSecondary' => ['TIMING_REQUIREMENTS', 'OTHER'],
+            'contractingRationalesSecondaryOther' => 'contracting_rationales_secondary_other',
+            'ocioConfirmedTalentShortage' => 'YES',
+            'talentSearchTrackingNumber' => 'talent_search_tracking_number',
+            'ongoingNeedForKnowledge' => 'YES',
+            'knowledgeTransferInContract' => 'YES',
+            'employeesHaveAccessToKnowledge' => 'YES',
+            'ocioEngagedForTraining' => 'YES',
         ];
 
         $personnelRequirementFields = [
-            "language" => "OTHER",
-            "languageOther" => "language_other",
-            "security" => "OTHER",
-            "securityOther" => "security_other",
-            "telework" => "FULL_TIME",
-            "quantity" => 1,
+            'language' => 'OTHER',
+            'languageOther' => 'language_other',
+            'security' => 'OTHER',
+            'securityOther' => 'security_other',
+            'telework' => 'FULL_TIME',
+            'quantity' => 1,
         ];
 
         $skillRequirementFields = [
-            "level" => "BEGINNER",
+            'level' => 'BEGINNER',
         ];
 
         // build the expected object with relationship fields
         $expectedObject = $questionnaireTableFields;
-        Arr::set($expectedObject, "department.id", $department->id);
-        Arr::set($expectedObject, "personnelRequirements.0", $personnelRequirementFields);
-        Arr::set($expectedObject, "personnelRequirements.0.skillRequirements.0", $skillRequirementFields);
-        Arr::set($expectedObject, "personnelRequirements.0.skillRequirements.0.skill.id", $skill->id);
+        Arr::set($expectedObject, 'department.id', $department->id);
+        Arr::set($expectedObject, 'personnelRequirements.0', $personnelRequirementFields);
+        Arr::set($expectedObject, 'personnelRequirements.0.skillRequirements.0', $skillRequirementFields);
+        Arr::set($expectedObject, 'personnelRequirements.0.skillRequirements.0.skill.id', $skill->id);
 
         // graphql inputs have to be tweaked a bit for relationships (connect, create)
         $graphqlInput = $questionnaireTableFields;
-        Arr::set($graphqlInput, "department.connect", $department->id);
-        Arr::set($graphqlInput, "personnelRequirements.create.0", $personnelRequirementFields);
-        Arr::set($graphqlInput, "personnelRequirements.create.0.skillRequirements.create.0", $skillRequirementFields);
-        Arr::set($graphqlInput, "personnelRequirements.create.0.skillRequirements.create.0.skill.connect", $skill->id);
+        Arr::set($graphqlInput, 'department.connect', $department->id);
+        Arr::set($graphqlInput, 'personnelRequirements.create.0', $personnelRequirementFields);
+        Arr::set($graphqlInput, 'personnelRequirements.create.0.skillRequirements.create.0', $skillRequirementFields);
+        Arr::set($graphqlInput, 'personnelRequirements.create.0.skillRequirements.create.0.skill.connect', $skill->id);
 
         // create it in the database and check what comes back
-        $this->actingAs($this->user, "api")
+        $this->actingAs($this->user, 'api')
             ->graphQL(
                 /** @lang GraphQL */
                 '
@@ -231,12 +231,12 @@ class DigitalContractingQuestionnaireTest extends TestCase
                     }
                 }
         ',
-                ["questionnaire" => $graphqlInput]
+                ['questionnaire' => $graphqlInput]
             )
             ->assertJson([
-                "data" => [
-                    "createDigitalContractingQuestionnaire" => $expectedObject
-                ]
+                'data' => [
+                    'createDigitalContractingQuestionnaire' => $expectedObject,
+                ],
             ]);
     }
 }

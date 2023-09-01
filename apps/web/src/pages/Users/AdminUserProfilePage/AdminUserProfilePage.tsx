@@ -97,7 +97,7 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
         }}
       />
       <ProfileDocument
-        documentWithIdentifyingInformation={documentWithIdentifyingInformation}
+        anonymous={documentWithIdentifyingInformation}
         results={[user]}
         ref={componentRef}
       />

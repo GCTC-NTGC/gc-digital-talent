@@ -119,6 +119,10 @@
     "defaultMessage": "Créé",
     "description": "Title displayed for the User table Date Created column"
   },
+  "+s+emq": {
+    "defaultMessage": "Nom d'utilisateur :",
+    "description": "Label for the user name input in the delete user dialog"
+  },
   "+svnC6": {
     "defaultMessage": "Publier",
     "description": "Heading for the publish pool dialog"
@@ -1155,6 +1159,14 @@
     "defaultMessage": "Erreur : Échec de la création de la classification",
     "description": "Message displayed to user after classification fails to get created."
   },
+  "5jm/N7": {
+    "defaultMessage": "Supprimer cet utilisateur",
+    "description": "Label on the button to open the delete user dialog"
+  },
+  "5l+q/p": {
+    "defaultMessage": "Supprimer un utilisateur",
+    "description": "Submit button in delete user dialog"
+  },
   "5lHi37": {
     "defaultMessage": "Communiquez avec nous<hidden> au sujet de l’expérience d’embauche</hidden>",
     "description": "Link text to email about the gaining hiring experience"
@@ -1290,6 +1302,10 @@
   "6l9YH+": {
     "defaultMessage": "Les demandeurs doivent répondre aux exigences suivantes :",
     "description": "Heading for the applicant requirements dialog"
+  },
+  "6mCorq": {
+    "defaultMessage": "La valeur doit correspondre au nom au complet de l'utilisateur : {name}",
+    "description": "Placeholder text for user name input in the delete user dialog"
   },
   "6ofORn": {
     "defaultMessage": "Famille de compétences",
@@ -1903,6 +1919,10 @@
     "defaultMessage": "Trouvez des offres d’emploi de cadres numériques au sein du gouvernement du Canada et posez votre candidature.",
     "description": "Subtitle for the executive homepage"
   },
+  "B164SZ": {
+    "defaultMessage": "Écrire le nom ici",
+    "description": "Placeholder text for user name input in the delete user dialog"
+  },
   "B6SqfX": {
     "defaultMessage": "Sauvegarder le changement d’état",
     "description": "Button label displayed that saves the users status selection."
@@ -2278,6 +2298,10 @@
   "DZ775N": {
     "defaultMessage": "Expérience ajoutée avec succès!",
     "description": "Success message displayed after adding experience to profile"
+  },
+  "DZfLMk": {
+    "defaultMessage": "Ce compte d'utilisateur a été supprimé. Veuillez <inlineLink>communiquer avec nous</inlineLink> si vous avez des questions.",
+    "description": "Message displayed to a user after signing into a deleted account"
   },
   "DcEinN": {
     "defaultMessage": "Erreur, incapable de charger le bassin",
@@ -3143,6 +3167,9 @@
     "defaultMessage": "Équipe",
     "description": "Title displayed for the teams table team column."
   },
+  "KQvWvD": {
+    "defaultMessage": "Supprimé"
+  },
   "KRkZS6": {
     "defaultMessage": "Aucune compétence comportementale facultative n’est prise en compte pour ce poste.",
     "description": "Message displayed when a pool advertisement has no optional behavioural skills"
@@ -3213,6 +3240,10 @@
   },
   "KnvA3d": {
     "defaultMessage": "Établir un lien entre une expérience et {skillName}"
+  },
+  "KoKXUw": {
+    "defaultMessage": "Outils avancés",
+    "description": "Heading for making major changes to a user"
   },
   "KoPFx4": {
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
@@ -3658,6 +3689,10 @@
     "defaultMessage": "Changer votre disponibilité dans ce processus de recrutement",
     "description": "Header text for dialog to change availability in a recruitment"
   },
+  "OHRL9N": {
+    "defaultMessage": "Informations générales",
+    "description": "Title for general info"
+  },
   "OI7Bc7": {
     "defaultMessage": "Titre du poste",
     "description": "Label for an opportunity's job title."
@@ -3696,6 +3731,10 @@
   "OZe0NZ": {
     "defaultMessage": "Options des compétences techniques",
     "description": "Heading for optional technical skills section"
+  },
+  "OaF7ls": {
+    "defaultMessage": "Supprimer un utilisateur",
+    "description": "Heading for section to delete a user"
   },
   "OaaW6Y": {
     "defaultMessage": "Montrer les options d'équité offertes ({optionCount})",
@@ -4268,6 +4307,10 @@
   "TJ+5Xn": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez perfectionné vos compétences et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, un profil solide vous préparera pour de nouvelles possibilités.",
     "description": "Description of how application profiles work for managers."
+  },
+  "TJzeDj": {
+    "defaultMessage": "Cela changera le statut d'un utilisateur pour « Archivé ». L'utilisateur n'apparaîtra plus où que ce soit sur la plateforme. <strong>Cette action ne peut pas être annulée</strong>.",
+    "description": "Heading for section to delete a user"
   },
   "TLl20s": {
     "defaultMessage": "Créer un nouveau bassin",
@@ -5001,6 +5044,10 @@
     "defaultMessage": "Enregistrement des notes réussi!",
     "description": "Message displayed to user after the personal notes have been saved successfully on the single search request page."
   },
+  "YUx5ti": {
+    "defaultMessage": "Compte supprimé",
+    "description": "Title for the page users land on if their account was deleted."
+  },
   "YVhQ4t": {
     "defaultMessage": "Erreur : La suppression de l’expérience a échoué",
     "description": "Message displayed to user after experience fails to be deleted."
@@ -5016,6 +5063,10 @@
   "Yc2A2Q": {
     "defaultMessage": "{skill} sélectionnée.",
     "description": "Message displayed when a skill was selected"
+  },
+  "YexsZi": {
+    "defaultMessage": "Pour confirmer, veuillez écrire le nom de l'utilisateur au complet :",
+    "description": "Lead in text for the delete user form."
   },
   "Yg2TIH": {
     "defaultMessage": "Rôles individuels",
@@ -5313,6 +5364,10 @@
   "agiL8L": {
     "defaultMessage": "Afficher les candidatures en cours ({applicationCount})",
     "description": "Heading for applications in progress accordion on profile and applications."
+  },
+  "aiYTNf": {
+    "defaultMessage": "Cet utilisateur a été supprimé.",
+    "description": "Message displayed when admin views a deleted user."
   },
   "ak4twG": {
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes bilingues (français et anglais).",
@@ -5840,6 +5895,10 @@
   "eLXTfi": {
     "defaultMessage": "Je ne suis pas un employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
+  },
+  "eMrYDr": {
+    "defaultMessage": "Compte d'utilisateur supprimé",
+    "description": "Title for the alert displayed after a user signs into a deleted account"
   },
   "eN8J/9": {
     "defaultMessage": "Langue de communication préférée",
@@ -6514,6 +6573,10 @@
   "ikYbDD": {
     "defaultMessage": "L’étape suivante est la partie la plus importante de votre candidature. Il vous sera demandé de dire comment vous répondez aux exigences de compétences pour ce rôle.",
     "description": "Application step for skill requirements, introduction, description, paragraph one"
+  },
+  "inxVq8": {
+    "defaultMessage": "Vous êtes sur le point de supprimer le nom d'utilisateur suivant de la plateforme :",
+    "description": "Lead in text for the delete user form."
   },
   "inyUex": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} =1 {1 expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
@@ -7637,6 +7700,10 @@
     "defaultMessage": "Langue préférée de l'examen écrit :",
     "description": "Preferred Language for exams label and colon"
   },
+  "rTnjej": {
+    "defaultMessage": "Utilisateur supprimé avec succès",
+    "description": "Message displayed when a user has been deleted"
+  },
   "rVgBGi": {
     "defaultMessage": "La soumission de votre demande est réussie.",
     "description": "Subtitle for the request confirmation page."
@@ -8219,10 +8286,6 @@
   "w6jDaJ": {
     "defaultMessage": "Il manque des renseignements à ces compétences nécessaires :",
     "description": "Text that appears when a user is missing required skills on their profile."
-  },
-  "w6vHXf": {
-    "defaultMessage": "Recherche...",
-    "description": "Message to display when a search is in progress."
   },
   "w7E0He": {
     "defaultMessage": "Compétences essentielles",

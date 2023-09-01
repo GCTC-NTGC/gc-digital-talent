@@ -17,15 +17,15 @@ final class DigitalContractingPersonnelRequirementInput extends Validator
     {
         return [
             'language' => [
-                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, 'languageOther')
+                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, 'languageOther'),
             ],
             'security' => [
-                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, 'securityOther')
+                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, 'securityOther'),
             ],
             'quantity' => [
                 'integer',
-                'min:1'
-            ]
+                'min:1',
+            ],
         ];
     }
 

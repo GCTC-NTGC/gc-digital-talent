@@ -105,7 +105,7 @@ const DateInput = ({
 
   return (
     <Field.Wrapper>
-      <Field.Fieldset aria-describedby={ariaDescribedBy} flat {...rest}>
+      <Field.Fieldset aria-describedby={ariaDescribedBy} {...rest}>
         <Field.Legend
           required={required}
           data-h2-font-size="base(copy)"
@@ -116,19 +116,21 @@ const DateInput = ({
         >
           {legend}
         </Field.Legend>
-        <Controller
-          control={control}
-          name={name}
-          rules={{
-            ...omit(rules, "min", "max"),
-            validate: {
-              isValidDate,
-              isAfterMin,
-              isBeforeMax,
-            },
-          }}
-          render={(props) => <ControlledInput {...props} show={show} />}
-        />
+        <Field.BoundingBox flat>
+          <Controller
+            control={control}
+            name={name}
+            rules={{
+              ...omit(rules, "min", "max"),
+              validate: {
+                isValidDate,
+                isAfterMin,
+                isBeforeMax,
+              },
+            }}
+            render={(props) => <ControlledInput {...props} show={show} />}
+          />
+        </Field.BoundingBox>
       </Field.Fieldset>
       <Field.Descriptions ids={descriptionIds} {...{ error, context }} />
     </Field.Wrapper>

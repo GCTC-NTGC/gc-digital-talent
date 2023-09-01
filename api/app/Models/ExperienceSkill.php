@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -20,14 +20,13 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $deleted_at
  */
-
 class ExperienceSkill extends Model
 {
-    use SoftDeletes;
     use HasRelationships;
-
+    use SoftDeletes;
 
     protected $keyType = 'string';
+
     protected $table = 'experience_skill';
 
     public function experience(): MorphTo

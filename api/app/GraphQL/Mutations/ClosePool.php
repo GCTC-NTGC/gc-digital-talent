@@ -9,13 +9,14 @@ final class ClosePool
 {
     /**
      * Closes the pool by setting the closing_date to now().
-     * @param  null  $_
+     *
      * @param  array{}  $args
      */
     public function __invoke($_, array $args)
     {
         $pool = Pool::find($args['id']);
         $pool->update(['closing_date' => Carbon::now()]);
+
         return $pool;
     }
 }

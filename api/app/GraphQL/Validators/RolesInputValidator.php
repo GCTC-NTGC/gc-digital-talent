@@ -2,14 +2,11 @@
 
 namespace App\GraphQL\Validators;
 
-use App\Rules\RolesAreTeamBased;
-use Nuwave\Lighthouse\Validation\Validator;
 use Illuminate\Validation\Rule;
-
+use Nuwave\Lighthouse\Validation\Validator;
 
 final class RolesInputValidator extends Validator
 {
-
     public function __construct()
     {
     }
@@ -21,7 +18,7 @@ final class RolesInputValidator extends Validator
      */
     public function rules(): array
     {
-        if (!empty($this->arg('team'))) {
+        if (! empty($this->arg('team'))) {
             // We have a team ID provided.  We'll need to ensure all the roles are team based.
             return [
                 'roles.*' => [

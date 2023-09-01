@@ -6,7 +6,6 @@ import Field from "../Field";
 import type { CommonInputProps, HTMLInputProps } from "../../types";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 
 export type CheckboxProps = HTMLInputProps &
   CommonInputProps & {
@@ -37,7 +36,6 @@ const Checkbox = ({
     register,
     formState: { errors },
   } = useFormContext();
-  const baseStyles = useCommonInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
@@ -52,41 +50,37 @@ const Checkbox = ({
 
   const asFieldset = boundingBox && boundingBoxLabel;
   const Wrapper = asFieldset ? Field.Fieldset : React.Fragment;
+  const BoundingBox = asFieldset ? Field.BoundingBox : React.Fragment;
 
   return (
     <Field.Wrapper>
-      <Wrapper
-        {...(asFieldset
-          ? {
-              ...baseStyles,
-              ...stateStyles,
-            }
-          : {})}
-      >
+      <Wrapper>
         {asFieldset && (
           <Field.Legend required={!!rules.required}>
             {boundingBoxLabel}
           </Field.Legend>
         )}
-        <Field.Label
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(flex-start)"
-          data-h2-gap="base(0 x.25)"
-        >
-          <input
-            id={id}
-            type="checkbox"
-            aria-describedby={ariaDescribedBy}
-            aria-required={!!rules.required && !inCheckList}
-            aria-invalid={!!error}
-            {...register(name, rules)}
-            {...rest}
-          />
-          <span data-h2-margin-top="base(-x.125)">{label}</span>
-          {!asFieldset && !inCheckList && (
-            <Field.Required required={!!rules.required} />
-          )}
-        </Field.Label>
+        <BoundingBox {...(asFieldset ? stateStyles : {})}>
+          <Field.Label
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(flex-start)"
+            data-h2-gap="base(0 x.25)"
+          >
+            <input
+              id={id}
+              type="checkbox"
+              aria-describedby={ariaDescribedBy}
+              aria-required={!!rules.required && !inCheckList}
+              aria-invalid={!!error}
+              {...register(name, rules)}
+              {...rest}
+            />
+            <span data-h2-margin-top="base(-x.125)">{label}</span>
+            {!asFieldset && !inCheckList && (
+              <Field.Required required={!!rules.required} />
+            )}
+          </Field.Label>
+        </BoundingBox>
       </Wrapper>
       {!inCheckList && (
         <Field.Descriptions
