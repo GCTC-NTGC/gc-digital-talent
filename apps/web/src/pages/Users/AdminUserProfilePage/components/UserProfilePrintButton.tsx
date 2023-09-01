@@ -11,11 +11,13 @@ import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 interface UserProfilePrintButtonProps {
   user: User;
   children?: React.ReactNode;
+  anonymous?: boolean;
 }
 
 const UserProfilePrintButton = ({
   user,
   children,
+  anonymous,
 }: UserProfilePrintButtonProps) => {
   const intl = useIntl();
 
@@ -35,7 +37,11 @@ const UserProfilePrintButton = ({
       <Button color="primary" type="button" onClick={handlePrint}>
         {children}
       </Button>
-      <ProfileDocument results={[user]} ref={componentRef} />
+      <ProfileDocument
+        results={[user]}
+        ref={componentRef}
+        anonymous={anonymous}
+      />
     </>
   );
 };
