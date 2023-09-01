@@ -499,7 +499,7 @@ class UserSkillTest extends TestCase
                 [
                     'userId' => $this->user->id,
                     'userSkillRanking' => [
-                        'topTechnicalSkillsRanked' => [$userSkillTechnicalTop2->id, $userSkillTechnicalTop1->id, $userSkillTechnicalTop4->id],
+                        'topTechnicalSkillsRanked' => [$userSkillTechnicalTop2->skill_id, $userSkillTechnicalTop1->skill_id, $userSkillTechnicalTop4->skill_id],
                     ],
                 ]
             );
@@ -572,7 +572,7 @@ class UserSkillTest extends TestCase
                 [
                     'userId' => $this->user->id,
                     'userSkillRanking' => [
-                        'topBehaviouralSkillsRanked' => [$userSkillBehaviouralTop2->id, $userSkillBehaviouralTop1->id, $userSkillBehaviouralTop4->id],
+                        'topBehaviouralSkillsRanked' => [$userSkillBehaviouralTop2->skill_id, $userSkillBehaviouralTop1->skill_id, $userSkillBehaviouralTop4->skill_id],
                     ],
                 ]
             );
@@ -645,7 +645,7 @@ class UserSkillTest extends TestCase
                 [
                     'userId' => $this->user->id,
                     'userSkillRanking' => [
-                        'improveTechnicalSkillsRanked' => [$userSkillTechnicalImprove2->id, $userSkillTechnicalImprove1->id, $userSkillTechnicalImprove4->id],
+                        'improveTechnicalSkillsRanked' => [$userSkillTechnicalImprove2->skill_id, $userSkillTechnicalImprove1->skill_id, $userSkillTechnicalImprove4->skill_id],
                     ],
                 ]
             );
@@ -718,7 +718,7 @@ class UserSkillTest extends TestCase
                 [
                     'userId' => $this->user->id,
                     'userSkillRanking' => [
-                        'improveBehaviouralSkillsRanked' => [$userSkillBehaviouralImprove2->id, $userSkillBehaviouralImprove1->id, $userSkillBehaviouralImprove4->id],
+                        'improveBehaviouralSkillsRanked' => [$userSkillBehaviouralImprove2->skill_id, $userSkillBehaviouralImprove1->skill_id, $userSkillBehaviouralImprove4->skill_id],
                     ],
                 ]
             );
@@ -795,8 +795,8 @@ class UserSkillTest extends TestCase
                 [
                     'userId' => $this->user->id,
                     'userSkillRanking' => [
-                        'topTechnicalSkillsRanked' => [$userSkillTechnicalTop2->id, $userSkillTechnicalTop1->id],
-                        'improveTechnicalSkillsRanked' => [$userSkillTechnicalTop1->id, $userSkillTechnicalTop2->id],
+                        'topTechnicalSkillsRanked' => [$userSkillTechnicalTop2->skill_id, $userSkillTechnicalTop1->skill_id],
+                        'improveTechnicalSkillsRanked' => [$userSkillTechnicalTop1->skill_id, $userSkillTechnicalTop2->skill_id],
                     ],
                 ]
             );
