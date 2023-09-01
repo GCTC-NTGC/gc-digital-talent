@@ -72,6 +72,7 @@ class UserPolicy
                 return false;
             }
         }
+
         // TODO: Right now, for a user to assign-any-role they ALSO need to be able to update-any-user! That doesn't quite match the permissions table.
         return $user->isAbleTo('update-any-user')
             || ($user->isAbleTo('update-own-user') && $user->id === $model->id);

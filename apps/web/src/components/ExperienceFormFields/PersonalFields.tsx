@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useWatch } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import {
   Checkbox,
@@ -17,10 +17,21 @@ import { SubExperienceFormProps } from "~/types/experience";
 const PersonalFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
   const todayDate = new Date();
+  const {
+    setValue,
+    formState: { defaultValues },
+  } = useFormContext();
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
   const watchStartDate = useWatch({ name: "startDate" });
+  const watchDescription = useWatch({ name: "experienceDescription" });
+
+  React.useEffect(() => {
+    if (watchDescription !== defaultValues?.experienceDescription) {
+      setValue("disclaimer", false);
+    }
+  }, [defaultValues?.experienceDescription, setValue, watchDescription]);
 
   return (
     <div

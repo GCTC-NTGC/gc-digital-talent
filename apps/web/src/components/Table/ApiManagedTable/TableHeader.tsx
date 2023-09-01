@@ -109,28 +109,31 @@ function TableHeader<T extends Record<string, unknown>>({
                         </Dialog.Header>
                         <Dialog.Body>
                           <FormProvider {...methods}>
-                            <Field.Fieldset boundingBox>
+                            <Field.Fieldset>
                               <Field.Legend>
                                 {intl.formatMessage(
                                   adminMessages.showHideTableColumns,
                                 )}
                               </Field.Legend>
-                              <div data-h2-margin="base(x.125, 0)">
-                                <IndeterminateCheckbox
-                                  checked={hiddenColumnIds.length === 0}
-                                  indeterminate={
-                                    hiddenColumnIds.length > 0 &&
-                                    hiddenColumnIds.length < columns.length
-                                  }
-                                  onChange={() => {
-                                    if (onColumnHiddenChange) {
-                                      onColumnHiddenChange({
-                                        setHidden: hiddenColumnIds.length === 0,
-                                      });
+                              <Field.BoundingBox>
+                                <div data-h2-margin="base(x.125, 0)">
+                                  <IndeterminateCheckbox
+                                    checked={hiddenColumnIds.length === 0}
+                                    indeterminate={
+                                      hiddenColumnIds.length > 0 &&
+                                      hiddenColumnIds.length < columns.length
                                     }
-                                  }}
-                                />
-                              </div>
+                                    onChange={() => {
+                                      if (onColumnHiddenChange) {
+                                        onColumnHiddenChange({
+                                          setHidden:
+                                            hiddenColumnIds.length === 0,
+                                        });
+                                      }
+                                    }}
+                                  />
+                                </div>
+                              </Field.BoundingBox>
                               {columns.map((column) => (
                                 <div
                                   key={column.id}

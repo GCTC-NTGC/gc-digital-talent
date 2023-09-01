@@ -21,8 +21,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Department extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 
