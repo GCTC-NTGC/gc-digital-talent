@@ -16,19 +16,21 @@ class SkillNotUsedByActivePool implements ValidationRule
     {
         // validation fails if skill is in use by an active pool
         $skillId = $value;
-        $activePools = Pool::where((function ($query) {
+        $activePoolsUsingSkill = Pool::where((function ($query) {
             Pool::scopeCurrentlyActive($query);
-        }))->get()
-            ->load(['essentialSkills', 'nonessentialSkills']);
+        }))
+            ->where(function ($query) use ($skillId) {
+                $query->whereHas('essentialSkills', function ($query) use ($skillId) {
+                    return $query->where('skill_id', $skillId);
+                })
+                    ->orWhereHas('nonessentialSkills', function ($query) use ($skillId) {
+                        return $query->where('skill_id', $skillId);
+                    });
+            })
+            ->get();
 
-        foreach ($activePools as $pool) {
-            $essentialSkillsIds = $pool->essentialSkills->pluck('id')->toArray();
-            $nonessentialSkillsIds = $pool->nonessentialSkills->pluck('id')->toArray();
-            $poolSkillsIds = array_merge($essentialSkillsIds, $nonessentialSkillsIds);
-
-            if (in_array($skillId, $poolSkillsIds)) {
-                $fail(ApiErrorEnums::SKILL_USED_ACTIVE_POSTER);
-            }
+        if (isset($activePoolsUsingSkill) && count($activePoolsUsingSkill) > 0) {
+            $fail(ApiErrorEnums::SKILL_USED_ACTIVE_POSTER);
         }
     }
 }
