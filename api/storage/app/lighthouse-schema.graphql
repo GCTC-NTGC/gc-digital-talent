@@ -1556,7 +1556,6 @@ type DigitalContractingPersonnelRequirement {
 
 type DigitalContractingQuestionnaire {
   id: UUID!
-  readPreamble: Boolean
   department: Department
   departmentOther: String
   branchOther: String
@@ -1669,7 +1668,6 @@ input DigitalContractingPersonnelRequirementBelongsToMany {
 }
 
 input DigitalContractingQuestionnaireInput {
-  readPreamble: Boolean
   department: DepartmentBelongsTo
   departmentOther: String
   branchOther: String

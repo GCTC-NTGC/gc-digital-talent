@@ -22,7 +22,6 @@ class DigitalContractingQuestionnaireFactory extends Factory
     public function definition(): array
     {
         return [
-            'read_preamble' => $this->faker->boolean(),
             'department_id' => $this->faker->boolean(75)
                 ? Department::inRandomOrder()
                     ->limit(1)

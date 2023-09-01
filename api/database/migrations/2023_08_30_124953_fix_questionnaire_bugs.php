@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -20,6 +21,7 @@ return new class extends Migration
             // this is a one-to-many out to another table, not an enum array
             $table->dropColumn('personnel_requirements'); // column isn't being used yet - no need to save data
 
+            $table->dropColumn('read_preamble'); // column isn't being used yet - no need to save data
         });
     }
 
@@ -34,6 +36,8 @@ return new class extends Migration
             $table->string('requirement_work_location_specific')->nullable();
 
             $table->jsonb('personnel_requirements')->default(new Expression('\'[]\'::jsonb'));
+
+            $table->boolean('read_preamble')->nullable();
         });
     }
 };

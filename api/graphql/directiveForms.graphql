@@ -142,7 +142,6 @@ type DigitalContractingPersonnelRequirement {
 
 type DigitalContractingQuestionnaire {
   id: UUID!
-  readPreamble: Boolean @rename(attribute: "read_preamble")
   department: Department @belongsTo
   departmentOther: String @rename(attribute: "department_other")
   branchOther: String @rename(attribute: "branch_other")
@@ -300,7 +299,6 @@ input DigitalContractingQuestionnaireInput
   @validator(
     class: "App\\GraphQL\\Validators\\DigitalContractingQuestionnaireInput"
   ) {
-  readPreamble: Boolean @rename(attribute: "read_preamble")
   department: DepartmentBelongsTo
   departmentOther: String @rename(attribute: "department_other")
   branchOther: String @rename(attribute: "branch_other")

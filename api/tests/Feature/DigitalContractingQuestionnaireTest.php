@@ -54,7 +54,6 @@ class DigitalContractingQuestionnaireTest extends TestCase
         $skill = Skill::factory()->create();
 
         $questionnaireTableFields = [
-            'readPreamble' => true,
             'departmentOther' => null,
             'branchOther' => 'branch_other',
             'businessOwnerName' => 'business_owner_name',
@@ -215,7 +214,6 @@ class DigitalContractingQuestionnaireTest extends TestCase
                             telework
                         }
                         qualificationRequirement
-                        readPreamble
                         requirementAccessToSecure
                         requirementOtherOther
                         requirementOthers

@@ -137,8 +137,7 @@ export function convertFormValuesToApiInput(
   formValues: FormValues,
 ): DigitalContractingQuestionnaireInput {
   return {
-    // preamble
-    readPreamble: !!formValues.readPreamble,
+    // preamble not sent to api
 
     // general information
     department:

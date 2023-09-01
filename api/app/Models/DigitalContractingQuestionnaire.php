@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Class DigitalContractingQuestionnaire
  *
  * @property string id
- * @property bool read_preamble
  * @property string department_other
  * @property string branch_other
  * @property string business_owner_name

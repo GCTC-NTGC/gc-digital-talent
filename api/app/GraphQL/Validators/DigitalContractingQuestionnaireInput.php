@@ -18,7 +18,6 @@ final class DigitalContractingQuestionnaireInput extends Validator
     public function rules(): array
     {
         return [
-            'readPreamble' => ['accepted'],
             'departmentOther' => [
                 'required_without:department',
                 Rule::prohibitedIf(! empty($this->arg('department'))),
