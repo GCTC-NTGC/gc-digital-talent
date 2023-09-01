@@ -15,7 +15,7 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Experience, Skill } from "~/api/generated";
 import { getExperienceSkills } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
-import SkillFormDialog from "~/components/SkillFormDialog/SkillFormDialog";
+import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 
 const filterExperienceSkills = (experience: Experience, skill: Skill) => {
   return {
@@ -148,7 +148,7 @@ const SkillTree = ({
           </TreeView.Item>
         ) : null}
       </TreeView.Root>
-      <SkillFormDialog
+      <ExperienceSkillFormDialog
         open={isFormOpen}
         onOpenChange={handleFormOpenChange}
         skill={skill}

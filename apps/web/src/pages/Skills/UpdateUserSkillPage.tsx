@@ -46,7 +46,7 @@ import { toast } from "@gc-digital-talent/toast";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
-import SkillFormDialog from "~/components/SkillFormDialog/SkillFormDialog";
+import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import { getSortedSkillLevels } from "~/utils/skillUtils";
 import useRoutes from "~/hooks/useRoutes";
 
@@ -602,7 +602,7 @@ const UpdateUserSkillForm = ({
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
-      <SkillFormDialog
+      <ExperienceSkillFormDialog
         open={isFormDialogOpen}
         onOpenChange={handleFormOpenChange}
         skill={skill}
@@ -619,7 +619,7 @@ type RouteParams = {
   skillId: Scalars["ID"];
 };
 
-const SkillEvaluationPage = () => {
+const UpdateUserSkillPage = () => {
   const intl = useIntl();
   const { skillId } = useParams<RouteParams>();
 
@@ -654,4 +654,4 @@ const SkillEvaluationPage = () => {
   );
 };
 
-export default SkillEvaluationPage;
+export default UpdateUserSkillPage;
