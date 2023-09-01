@@ -878,4 +878,71 @@ class UserSkillTest extends TestCase
                     )
             );
     }
+
+    public function testUserSkillRankingAutoCreation(): void
+    {
+        UserSkill::truncate();
+        $skill1 = Skill::factory()->create(['category' => 'TECHNICAL']);
+        $skill2 = Skill::factory()->create(['category' => 'TECHNICAL']);
+        $skill3 = Skill::factory()->create(['category' => 'TECHNICAL']);
+
+        // no UserSkill models present, pass in 3 skills for the mutation, skill 2 then 1 then 3
+        $this->actingAs($this->user, 'api')
+            ->graphQL(
+                $this->updateUserSkillRankings,
+                [
+                    'userId' => $this->user->id,
+                    'userSkillRanking' => [
+                        'topTechnicalSkillsRanked' => [$skill2->id, $skill1->id, $skill3->id],
+                    ],
+                ]
+            )->assertSuccessful();
+
+        // assert 3 UserSkill models were created, and sorted in the order of 2 then 1 then 3
+        $response = $this->actingAs($this->user, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+            query user($id: UUID!) {
+                user(id: $id) {
+                    topTechnicalSkillsRanking {
+                        topSkillsRank
+                        skill {
+                            id
+                        }
+                    }
+                }
+            }
+            ',
+                [
+                    'id' => $this->user->id,
+                ]
+            )->assertJson(
+                fn (AssertableJson $json) => $json->has('data.user.topTechnicalSkillsRanking', 3)
+                    ->has(
+                        'data.user.topTechnicalSkillsRanking.0',
+                        fn ($json) => $json->where('topSkillsRank', 1)
+                            ->has(
+                                'skill',
+                                fn ($json) => $json->where('id', $skill2->id)
+                            )
+                    )
+                    ->has(
+                        'data.user.topTechnicalSkillsRanking.1',
+                        fn ($json) => $json->where('topSkillsRank', 2)
+                            ->has(
+                                'skill',
+                                fn ($json) => $json->where('id', $skill1->id)
+                            )
+                    )
+                    ->has(
+                        'data.user.topTechnicalSkillsRanking.2',
+                        fn ($json) => $json->where('topSkillsRank', 3)
+                            ->has(
+                                'skill',
+                                fn ($json) => $json->where('id', $skill3->id)
+                            )
+                    )
+            );
+    }
 }

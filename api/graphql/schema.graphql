@@ -1550,6 +1550,7 @@ input UpdateUserSkillInput {
 }
 
 input UpdateUserSkillRankingsInput {
+  # array of skill ids
   topTechnicalSkillsRanked: [UUID]
   topBehaviouralSkillsRanked: [UUID]
   improveTechnicalSkillsRanked: [UUID]
