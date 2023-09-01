@@ -95,12 +95,12 @@ const ThemeProvider = ({
     let themeString: string | undefined = "";
     // TO DO: Add mode back once dark mode is done
     if (mode && key) {
-      // themeString = `${key} ${mode}`;
+      themeString = `${key} ${mode}`;
       themeString = key;
     } else if (key) {
       themeString = key;
     } else if (mode) {
-      // themeString = mode;
+      themeString = mode;
     } else {
       themeString = undefined;
     }

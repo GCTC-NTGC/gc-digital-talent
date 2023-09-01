@@ -182,7 +182,7 @@
             "modifiers": []
           },
           "dark": {
-            "color": "#2a2b38",
+            "color": "#4D5166",
             "modifiers": []
           }
         },
@@ -198,12 +198,21 @@
               {
                 "key": "darker",
                 "color": "#909fbd"
+              },
+              {
+                "key": "darkest",
+                "color": "#333c4f"
               }
             ]
           },
           "dark": {
             "color": "#212130",
-            "modifiers": []
+            "modifiers": [
+              {
+                "key": "dark",
+                "color": "#3b3b48"
+              }
+            ]
           }
         },
         {

@@ -107,8 +107,7 @@ const getBorders = (
           ...borderStyle,
         }
       : {
-          "data-h2-border-color":
-            "base(black.lightest) base:focus-visible(focus)",
+          "data-h2-border-color": "base(gray.darker) base:focus-visible(focus)",
           ...borderStyle,
         };
   }
@@ -191,7 +190,7 @@ const getBorders = (
       "primary",
       {
         "data-h2-border":
-          "base:children[.ButtonLink__Icon](3px solid primary.light) base:children[>span>span:not(.ButtonLink__Icon)](3px solid foreground) base:focus-visible:children[>span>span:not(.ButtonLink__Icon)](3px solid focus)",
+          "base:all:children[.ButtonLink__Icon](3px solid primary.light) base:focus-visible:children[.ButtonLink__Icon](3px solid focus) base:children[>span>span:not(.ButtonLink__Icon)](3px solid foreground)",
       },
     ],
     [
@@ -294,7 +293,7 @@ const getBackground = (
   if (disabled) {
     return {
       "data-h2-background-color":
-        "base(white) base:children[.ButtonLink__Icon](black.lightest) base:hover:children[.ButtonLink__Icon](white)  base:dark(black.lightest) base:focus-visible(focus)",
+        "base(gray.lightest) base:children[.ButtonLink__Icon](black.lightest) base:hover:children[.ButtonLink__Icon](white) base:focus-visible(focus)",
     };
   }
 
@@ -310,7 +309,7 @@ const getBackground = (
       "cta",
       {
         "data-h2-background-color":
-          "base:children[span:not(.ButtonLink__Icon)](foreground) base:focus-visible:children[span:not(.ButtonLink__Icon)](focus) base:children[.ButtonLink__Icon](primary.light) base:hover:children[.ButtonLink__Icon](primary.lightest)",
+          "base:children[span:not(.ButtonLink__Icon)](foreground) base:all:children[.ButtonLink__Icon](primary.light) base:hover:children[.ButtonLink__Icon](primary.lightest) base:focus-visible:children[.ButtonLink__Icon](focus)",
       },
     ],
   ]);
@@ -503,7 +502,7 @@ const getFontColor = (
   if (disabled) {
     return {
       "data-h2-color":
-        "base(black.light) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black)",
+        "base(gray.darker) base:focus-visible(black) base:dark:focus-visible(white)",
     };
   }
 
@@ -512,7 +511,7 @@ const getFontColor = (
       "solid",
       {
         "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black) base:admin(white) base:admin:hover(black) base:admin:focus-visible(black) base:admin:dark(white) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
+          "base:all(black) base:dark:hover(black) base:focus-visible(black) base:dark:focus-visible(white) base:admin(white) base:admin:hover(black) base:admin:focus-visible(black) base:admin:dark(white) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark:focus-visible(black)",
       },
     ],
     [
@@ -526,7 +525,7 @@ const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>.ButtonLink__Icon]:admin(white) base:children[>.ButtonLink__Icon]:admin:hover(black)",
+          "base(black) base:all:children[.ButtonLink__Icon](black) base:dark:hover:children[.ButtonLink__Icon](black) base:children[>.ButtonLink__Icon]:admin(white) base:children[>.ButtonLink__Icon]:admin:hover(black)",
       },
     ],
   ]);
@@ -536,7 +535,7 @@ const getFontColor = (
       "solid",
       {
         "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black) base:admin(white) base:admin:hover(black) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark(white) base:iap:dark:hover(white) base:iap:dark:focus-visible(black)",
+          "base:all(black) base:dark:hover(black) base:focus-visible(black) base:dark:focus-visible(white) base:admin(white) base:admin:hover(black) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark(white) base:iap:dark:hover(white) base:iap:dark:focus-visible(black)",
       },
     ],
     [
@@ -550,7 +549,7 @@ const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>.ButtonLink__Icon]:admin(white) base:children[>.ButtonLink__Icon]:admin:hover(black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
+          "base(black) base:all:children[.ButtonLink__Icon](black) base:dark:hover:children[.ButtonLink__Icon](black) base:children[>.ButtonLink__Icon]:admin:hover(black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
       },
     ],
   ]);
@@ -560,7 +559,7 @@ const getFontColor = (
       "solid",
       {
         "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark(white) base:iap:dark:hover(white) base:iap:dark:focus-visible(black)",
+          "base:all(black) base:dark:hover(black) base:focus-visible(black) base:dark:focus-visible(white) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark(white) base:iap:dark:hover(white) base:iap:dark:focus-visible(black)",
       },
     ],
     [
@@ -574,7 +573,7 @@ const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
+          "base(black) base:all:children[.ButtonLink__Icon](black) base:dark:hover:children[.ButtonLink__Icon](black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
       },
     ],
   ]);
@@ -584,7 +583,7 @@ const getFontColor = (
       "solid",
       {
         "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark(white) base:iap:dark:hover(white) base:iap:dark:focus-visible(black)",
+          "base:all(black) base:dark:hover(black) base:focus-visible(black) base:dark:focus-visible(white) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark(white) base:iap:dark:hover(white) base:iap:dark:focus-visible(black)",
       },
     ],
     [
@@ -598,7 +597,7 @@ const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
+          "base(black) base:all:children[.ButtonLink__Icon](black) base:dark:hover:children[.ButtonLink__Icon](black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
       },
     ],
   ]);
@@ -608,7 +607,7 @@ const getFontColor = (
       "solid",
       {
         "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark(white) base:iap:dark:hover(white) base:iap:dark:focus-visible(black)",
+          "base:all(black) base:dark:hover(black) base:focus-visible(black) base:dark:focus-visible(white) base:admin:focus-visible(black) base:admin:dark:focus-visible(black) base:iap(white) base:iap:hover(black) base:iap:focus-visible(black) base:iap:dark(white) base:iap:dark:hover(white) base:iap:dark:focus-visible(black)",
       },
     ],
     [
@@ -618,6 +617,13 @@ const getFontColor = (
           "base(quinary.darker) base:hover(quinary.dark) base:focus-visible(black) base:dark(quinary.lighter) base:dark:hover(quinary.light) base:dark:focus-visible(black) base:admin(quinary.dark) base:admin:hover(quinary) base:admin:focus-visible(black) base:admin:dark(quinary.light) base:admin:dark:hover(quinary) base:admin:dark:focus-visible(black) base:iap:hover(quinary.light) base:iap:focus-visible(black) base:iap:dark:hover(quinary.light) base:iap:dark:focus-visible(black)",
       },
     ],
+    [
+      "cta",
+      {
+        "data-h2-color":
+          "base(black) base:all:children[.ButtonLink__Icon](black) base:dark:hover:children[.ButtonLink__Icon](black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
+      },
+    ],
   ]);
 
   const successFontColorMap = new Map<ButtonLinkMode, StyleRecord>([
@@ -625,7 +631,7 @@ const getFontColor = (
       "solid",
       {
         "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black)",
+          "base:all(black) base:dark:hover(black) base:focus-visible(black) base:dark:focus-visible(white)",
       },
     ],
     [
@@ -639,7 +645,7 @@ const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
+          "base(black) base:all:children[.ButtonLink__Icon](black) base:dark:hover:children[.ButtonLink__Icon](black)",
       },
     ],
   ]);
@@ -649,7 +655,7 @@ const getFontColor = (
       "solid",
       {
         "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black)",
+          "base:all(black) base:dark:hover(black) base:focus-visible(black) base:dark:focus-visible(white)",
       },
     ],
     [
@@ -663,7 +669,7 @@ const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
+          "base(black) base:all:children[.ButtonLink__Icon](black) base:dark:hover:children[.ButtonLink__Icon](black)",
       },
     ],
   ]);
@@ -673,7 +679,7 @@ const getFontColor = (
       "solid",
       {
         "data-h2-color":
-          "base(black) base:focus-visible(black) base:dark(black) base:dark:hover(white) base:dark:focus-visible(black)",
+          "base:all(black) base:dark:hover(black) base:focus-visible(black) base:dark:focus-visible(white)",
       },
     ],
     [
@@ -687,7 +693,7 @@ const getFontColor = (
       "cta",
       {
         "data-h2-color":
-          "base(black) base:children[>.ButtonLink__Icon]:iap(white) base:children[>.ButtonLink__Icon]:iap:hover(black)",
+          "base(black) base:all:children[.ButtonLink__Icon](black) base:dark:hover:children[.ButtonLink__Icon](black)",
       },
     ],
   ]);
@@ -830,7 +836,7 @@ const useCommonButtonLinkStyles: UseCommonButtonLinkStyles = ({
     "data-h2-outline-offset": "base(4px)",
     "data-h2-radius": "base(s)",
     "data-h2-text-align": "base(center)",
-    "data-h2-text-decoration": "base(underline) base:hover(none)",
+    "data-h2-text-decoration": "base(underline)",
     "data-h2-transition": "base(all ease 50ms) base:children[*](all ease 50ms)",
     ...getFontSize(mode),
     ...getWeight(mode),

@@ -13,7 +13,6 @@ type Story = StoryObj<typeof Styleguide>;
 export const Primary: Story = {
   render: () => (
     <Styleguide>
-      <p>Hello</p>
       <br />
     </Styleguide>
   ),
