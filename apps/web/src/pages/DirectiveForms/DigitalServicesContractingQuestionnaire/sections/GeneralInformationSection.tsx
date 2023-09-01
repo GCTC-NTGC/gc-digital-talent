@@ -162,33 +162,35 @@ const GeneralInformationSection = ({
                   "Label for _business owner_ fieldset in the _digital services contracting questionnaire_",
               })}
             </Field.Legend>
-            <Input
-              id="businessOwnerName"
-              name="businessOwnerName"
-              type="text"
-              label={labels.businessOwnerName}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="businessOwnerJobTitle"
-              name="businessOwnerJobTitle"
-              type="text"
-              label={labels.businessOwnerJobTitle}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="businessOwnerEmail"
-              name="businessOwnerEmail"
-              type="email"
-              label={labels.businessOwnerEmail}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
+            <Field.BoundingBox>
+              <Input
+                id="businessOwnerName"
+                name="businessOwnerName"
+                type="text"
+                label={labels.businessOwnerName}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <Input
+                id="businessOwnerJobTitle"
+                name="businessOwnerJobTitle"
+                type="text"
+                label={labels.businessOwnerJobTitle}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <Input
+                id="businessOwnerEmail"
+                name="businessOwnerEmail"
+                type="email"
+                label={labels.businessOwnerEmail}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            </Field.BoundingBox>
           </Field.Fieldset>
         </Field.Wrapper>
         <Field.Wrapper>
@@ -202,33 +204,35 @@ const GeneralInformationSection = ({
                   "Label for _financial authority_ fieldset in the _digital services contracting questionnaire_",
               })}
             </Field.Legend>
-            <Input
-              id="financialAuthorityName"
-              name="financialAuthorityName"
-              type="text"
-              label={labels.financialAuthorityName}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="financialAuthorityJobTitle"
-              name="financialAuthorityJobTitle"
-              type="text"
-              label={labels.financialAuthorityJobTitle}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="financialAuthorityEmail"
-              name="financialAuthorityEmail"
-              type="email"
-              label={labels.financialAuthorityEmail}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
+            <Field.BoundingBox>
+              <Input
+                id="financialAuthorityName"
+                name="financialAuthorityName"
+                type="text"
+                label={labels.financialAuthorityName}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <Input
+                id="financialAuthorityJobTitle"
+                name="financialAuthorityJobTitle"
+                type="text"
+                label={labels.financialAuthorityJobTitle}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <Input
+                id="financialAuthorityEmail"
+                name="financialAuthorityEmail"
+                type="email"
+                label={labels.financialAuthorityEmail}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            </Field.BoundingBox>
           </Field.Fieldset>
         </Field.Wrapper>
         <Checklist
