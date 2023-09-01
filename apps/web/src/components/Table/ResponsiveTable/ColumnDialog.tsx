@@ -45,23 +45,25 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
           {intl.formatMessage(adminMessages.showHideColumns)}
         </Dialog.Header>
         <Dialog.Body>
-          <Field.Fieldset boundingBox>
+          <Field.Fieldset>
             <Field.Legend>
               {intl.formatMessage(adminMessages.showHideTableColumns)}
             </Field.Legend>
-            <div data-h2-margin="base(x.125, 0)">
-              <label>
-                <input
-                  ref={allColumnsRef}
-                  {...{
-                    type: "checkbox",
-                    checked: table.getIsAllColumnsVisible(),
-                    onChange: table.getToggleAllColumnsVisibilityHandler(),
-                  }}
-                />{" "}
-                {intl.formatMessage(adminMessages.toggleAll)}
-              </label>
-            </div>
+            <Field.BoundingBox>
+              <div data-h2-margin="base(x.125, 0)">
+                <label>
+                  <input
+                    ref={allColumnsRef}
+                    {...{
+                      type: "checkbox",
+                      checked: table.getIsAllColumnsVisible(),
+                      onChange: table.getToggleAllColumnsVisibilityHandler(),
+                    }}
+                  />{" "}
+                  {intl.formatMessage(adminMessages.toggleAll)}
+                </label>
+              </div>
+            </Field.BoundingBox>
             {table
               .getAllLeafColumns()
               .filter((c) => c.getCanHide())
