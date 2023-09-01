@@ -22,71 +22,62 @@ final class UpdateUserSkillRankings
         // execute blocks depending on whether the value at args.userSkillRankingInput.X is non-null
         if (isset($userSkillRankingInput['topTechnicalSkillsRanked'])) {
 
-            // wipe existing technical top skills ranking
-            $arrayUserSkillId = $userSkillRankingInput['topTechnicalSkillsRanked'];
-            $userSkillsCollection->where('skill.category', 'TECHNICAL')
-                ->each
-                ->update(['top_skills_rank' => null]);
-
-            // set the rankings using the input array of UserSkill ids
-            $rankIterator = 1;
-            foreach ($arrayUserSkillId as $userSkillId) {
-                $userSkillsCollection->where('id', $userSkillId)->each
-                    ->update(['top_skills_rank' => $rankIterator]);
-                $rankIterator++;
-            }
+            $this->syncRankings(
+                $userSkillsCollection,
+                $userSkillRankingInput['topTechnicalSkillsRanked'],
+                'TECHNICAL',
+                'top_skills_rank'
+            );
         }
 
         if (isset($userSkillRankingInput['topBehaviouralSkillsRanked'])) {
 
-            // wipe existing behavioural top skills ranking
-            $arrayUserSkillId = $userSkillRankingInput['topBehaviouralSkillsRanked'];
-            $userSkillsCollection->where('skill.category', 'BEHAVIOURAL')
-                ->each
-                ->update(['top_skills_rank' => null]);
-
-            $rankIterator = 1;
-            foreach ($arrayUserSkillId as $userSkillId) {
-                $userSkillsCollection->where('id', $userSkillId)->each
-                    ->update(['top_skills_rank' => $rankIterator]);
-                $rankIterator++;
-            }
+            $this->syncRankings(
+                $userSkillsCollection,
+                $userSkillRankingInput['topBehaviouralSkillsRanked'],
+                'BEHAVIOURAL',
+                'top_skills_rank'
+            );
         }
 
         if (isset($userSkillRankingInput['improveTechnicalSkillsRanked'])) {
 
-            // wipe existing technical improve skills ranking
-            $arrayUserSkillId = $userSkillRankingInput['improveTechnicalSkillsRanked'];
-            $userSkillsCollection->where('skill.category', 'TECHNICAL')
-                ->each
-                ->update(['improve_skills_rank' => null]);
-
-            $rankIterator = 1;
-            foreach ($arrayUserSkillId as $userSkillId) {
-                $userSkillsCollection->where('id', $userSkillId)->each
-                    ->update(['improve_skills_rank' => $rankIterator]);
-                $rankIterator++;
-            }
+            $this->syncRankings(
+                $userSkillsCollection,
+                $userSkillRankingInput['improveTechnicalSkillsRanked'],
+                'TECHNICAL',
+                'improve_skills_rank'
+            );
         }
 
         if (isset($userSkillRankingInput['improveBehaviouralSkillsRanked'])) {
 
-            // wipe existing behavioural improve skills ranking
-            $arrayUserSkillId = $userSkillRankingInput['improveBehaviouralSkillsRanked'];
-            $userSkillsCollection->where('skill.category', 'BEHAVIOURAL')
-                ->each
-                ->update(['improve_skills_rank' => null]);
-
-            $rankIterator = 1;
-            foreach ($arrayUserSkillId as $userSkillId) {
-                $userSkillsCollection->where('id', $userSkillId)->each
-                    ->update(['improve_skills_rank' => $rankIterator]);
-                $rankIterator++;
-            }
+            $this->syncRankings(
+                $userSkillsCollection,
+                $userSkillRankingInput['improveBehaviouralSkillsRanked'],
+                'BEHAVIOURAL',
+                'improve_skills_rank'
+            );
         }
 
         $user->refresh();
 
         return $user;
+    }
+
+    private function syncRankings(object $userSkillsCollection, array $arrayUserSkillIds, string $skillCategory, string $rankType)
+    {
+        // clear existing ranking for the category and type passed in
+        $userSkillsCollection->where('skill.category', $skillCategory)
+            ->each
+            ->update([$rankType => null]);
+
+        // set the rankings using the input array of UserSkill ids and chosen rankType
+        $rankIterator = 1;
+        foreach ($arrayUserSkillIds as $userSkillId) {
+            $userSkillsCollection->where('id', $userSkillId)->each
+                ->update([$rankType => $rankIterator]);
+            $rankIterator++;
+        }
     }
 }
