@@ -103,3 +103,19 @@ export const isUuidError = (combinedError: CombinedError | undefined) => {
     },
   );
 };
+
+/**
+ * Contains auth error
+ *
+ * Determine if one of the errors we received
+ * is related to authentication
+ */
+export const containsAuthenticationError = (
+  combinedError: CombinedError | undefined,
+) => {
+  return combinedError?.graphQLErrors.some((graphQLError) => {
+    return Object.values(graphQLError.extensions).some((extension) => {
+      return ["invalid_token", "token_validation"].includes(String(extension));
+    });
+  });
+};
