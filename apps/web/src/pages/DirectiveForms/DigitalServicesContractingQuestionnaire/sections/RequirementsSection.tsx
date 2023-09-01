@@ -136,7 +136,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x.5)"
+        data-h2-gap="base(x1)"
       >
         <TextArea
           id="workRequirementDescription"
@@ -144,13 +144,47 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
           wordLimit={200}
           label={labels.workRequirementDescription}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          context={intl.formatMessage({
-            defaultMessage:
-              "List the tasks that the contractor is expected to perform within the contract.",
-            id: "+TSGAR",
-            description:
-              "Context for _work requirement description_ textbox in the _digital services contracting questionnaire_",
-          })}
+          context={
+            <>
+              <p data-h2-font-size="base(inherit)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "List the tasks that the contractor is expected to perform within the contract.",
+                  id: "+TSGAR",
+                  description:
+                    "Context for _work requirement description_ textbox in the _digital services contracting questionnaire_",
+                })}
+              </p>
+              <p data-h2-font-size="base(inherit)">
+                {intl.formatMessage({
+                  defaultMessage: "For example, the contractor will:",
+                  id: "I+GYIo",
+                  description:
+                    "Context for _work requirement description_ textbox in the _digital services contracting questionnaire_",
+                })}
+              </p>
+              <ul>
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "tag and augment provided datasets as may be required for reporting",
+                    id: "eeyR6R",
+                    description:
+                      "Context example for _work requirement description_ textbox in the _digital services contracting questionnaire_",
+                  })}
+                </li>
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "manipulate and perform calculations against the dataset",
+                    id: "tDwAB0",
+                    description:
+                      "Context example for _work requirement description_ textbox in the _digital services contracting questionnaire_",
+                  })}
+                </li>
+              </ul>
+            </>
+          }
         />
         <TextArea
           id="qualificationRequirement"

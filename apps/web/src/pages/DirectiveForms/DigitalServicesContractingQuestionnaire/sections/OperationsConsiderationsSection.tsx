@@ -56,17 +56,8 @@ const OperationsConsiderationsSection = () => {
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x.5)"
+        data-h2-gap="base(x1)"
       >
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "This data is aggregated and used for identification of trends across departments. It is not used for analysis of any individual contracting decision.",
-            id: "fEYR33",
-            description:
-              "Context for _operations considerations_ section in the _digital services contracting questionnaire_",
-          })}
-        </p>
         <Checklist
           idPrefix="operationsConsiderations"
           id="operationsConsiderations"
@@ -86,13 +77,28 @@ const OperationsConsiderationsSection = () => {
               ),
             };
           })}
-          context={intl.formatMessage({
-            defaultMessage:
-              "If any of the following factors have influenced the decision to contract, select all that apply.",
-            id: "fug6/h",
-            description:
-              "Context for _influencing factors_ fieldset in the _digital services contracting questionnaire_",
-          })}
+          context={
+            <>
+              <p data-h2-font-size="base(inherit)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "If any of the following factors have influenced the decision to contract, select all that apply.",
+                  id: "fug6/h",
+                  description:
+                    "Context for _influencing factors_ fieldset in the _digital services contracting questionnaire_",
+                })}
+              </p>
+              <p data-h2-font-size="base(inherit)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "This data is aggregated and used for identification of trends across departments. It is not used for analysis of any individual contracting decision.",
+                  id: "4f/Y+A",
+                  description:
+                    "Context for _influencing factors_ fieldset in the _digital services contracting questionnaire_",
+                })}
+              </p>
+            </>
+          }
         />
         {doesOperationsConsiderationsIncludeOther ? (
           <Input
