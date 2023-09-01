@@ -3,7 +3,12 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
-import { Checklist, Input, RadioGroup } from "@gc-digital-talent/forms";
+import {
+  Checklist,
+  Input,
+  RadioGroup,
+  TextArea,
+} from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { ContractingRationale, YesNo } from "@gc-digital-talent/graphql";
 
@@ -139,14 +144,14 @@ const TalentSourcingDecisionSection = () => {
           />
         ) : null}
         {isOcioConfirmedTalentShortageYes ? (
-          <Input
+          <TextArea
             id="talentSearchTrackingNumber"
             name="talentSearchTrackingNumber"
-            type="text"
             label={labels.talentSearchTrackingNumber}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
+            context="TODO"
           />
         ) : null}
         <Checklist

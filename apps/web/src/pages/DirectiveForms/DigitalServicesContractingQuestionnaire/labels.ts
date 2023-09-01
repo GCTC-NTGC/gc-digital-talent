@@ -308,9 +308,8 @@ const getLabels = (intl: IntlShape): FieldLabels => {
 
     // Technological change section
     isTechnologicalChange: intl.formatMessage({
-      defaultMessage:
-        "If applicable, please indicate whether the work is being contracted out for the following reasons.",
-      id: "jF4Ukw",
+      defaultMessage: 'Select "yes" if any of the above apply.',
+      id: "8WbmyN",
       description:
         "Label for _is technological change_ fieldset in the _digital services contracting questionnaire_",
     }),
