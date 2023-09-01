@@ -1,7 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 import React from "react";
+import { IntlShape } from "react-intl";
 
 import { Link } from "@gc-digital-talent/ui";
+import { getLocale } from "@gc-digital-talent/i18n";
+import { assertUnreachable } from "@gc-digital-talent/helpers/src/utils/util";
 
 // build an external link to use with a formatjs message
 export function buildExternalLink(
@@ -9,10 +12,22 @@ export function buildExternalLink(
   chunks: React.ReactNode,
 ): React.ReactElement {
   return (
-    <Link href={href} external>
+    <Link href={href} external newTab>
       {chunks}
     </Link>
   );
+}
+
+export function getDirectiveUrl(intl: IntlShape): string {
+  const locale = getLocale(intl);
+  switch (locale) {
+    case "en":
+      return "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32749";
+    case "fr":
+      return "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32749";
+    default:
+      return assertUnreachable(locale);
+  }
 }
 
 // placeholder ID for fake option "other"

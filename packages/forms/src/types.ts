@@ -1,3 +1,4 @@
+import React from "react";
 import {
   RegisterOptions,
   FieldError,
@@ -29,7 +30,7 @@ export type CommonInputProps = {
   /** HTML id used to identify the element. */
   id: string;
   /** Optional context which user can view by toggling a button. */
-  context?: string;
+  context?: React.ReactNode;
   /** Holds text for the label associated with the input element */
   label: string | React.ReactNode;
   /** A string specifying a name for the input control. */

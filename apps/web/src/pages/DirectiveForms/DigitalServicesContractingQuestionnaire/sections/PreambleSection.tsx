@@ -14,7 +14,7 @@ import { Checkbox } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
-import { buildExternalLink } from "../../util";
+import { buildExternalLink, getDirectiveUrl } from "../../util";
 import getLabels from "../labels";
 
 const PreambleSection = () => {
@@ -184,13 +184,19 @@ const PreambleSection = () => {
           {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.REQUIREMENTS))}
         </Heading>
         <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "As set out in the Mandatory Procedures for Digital Talent, the business owner is responsible for completing and submitting the Digital Services Contracting Questionnaire if they are procuring digital services.",
-            id: "kc730N",
-            description:
-              "Paragraph one of the _requirements_ section of the _digital services contracting questionnaire_",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "As set out in the <link>Mandatory Procedures for Digital Talent</link>, the business owner is responsible for completing and submitting the Digital Services Contracting Questionnaire if they are procuring digital services.",
+              id: "O1pLzX",
+              description:
+                "Paragraph one of the _requirements_ section of the _digital services contracting questionnaire_",
+            },
+            {
+              link: (chunks: React.ReactNode) =>
+                buildExternalLink(getDirectiveUrl(intl), chunks),
+            },
+          )}
         </p>
         <p data-h2-margin-top="base(x.5)">
           {intl.formatMessage({

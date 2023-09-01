@@ -15,7 +15,12 @@ import { ContractAuthority, YesNoUnsure } from "@gc-digital-talent/graphql";
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 
 import { IdNamePair } from "../types";
-import { enumToOptions, OTHER_ID } from "../../util";
+import {
+  buildExternalLink,
+  enumToOptions,
+  getDirectiveUrl,
+  OTHER_ID,
+} from "../../util";
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import {
   contractAuthoritySortOrder,
@@ -333,13 +338,19 @@ const GeneralInformationSection = ({
                   };
                 },
               )}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "For more information on the digital initiative forward talent plan, refer to requirement A.2.4 of the <italic>Mandatory Procedures on Digital Talent</italic>.",
-                id: "trLrTy",
-                description:
-                  "Context for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_",
-              })}
+              context={intl.formatMessage(
+                {
+                  defaultMessage:
+                    "For more information on the digital initiative forward talent plan, refer to requirement A.2.4 of the <link>Mandatory Procedures on Digital Talent</link>.",
+                  id: "zSjmgi",
+                  description:
+                    "Context for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_",
+                },
+                {
+                  link: (chunks: React.ReactNode) =>
+                    buildExternalLink(getDirectiveUrl(intl), chunks),
+                },
+              )}
             />
             {isPlanSubmitted ? (
               <RadioGroup
