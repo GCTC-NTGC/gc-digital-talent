@@ -129,7 +129,7 @@ function TableFooter({
                             <DropdownMenu.ItemIndicator>
                               <CheckIcon />
                             </DropdownMenu.ItemIndicator>
-                            Profiles include identifying information
+                            Print with all information
                           </DropdownMenu.RadioItem>
                           <DropdownMenu.RadioItem
                             key="no-identifying"
@@ -138,7 +138,7 @@ function TableFooter({
                             <DropdownMenu.ItemIndicator>
                               <CheckIcon />
                             </DropdownMenu.ItemIndicator>
-                            Profiles do not include identifying information
+                            Print with unidentified information
                           </DropdownMenu.RadioItem>
                         </DropdownMenu.RadioGroup>
                       </DropdownMenu.Content>

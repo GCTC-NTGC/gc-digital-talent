@@ -68,14 +68,14 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
                 setDocumentWithIdentifyingInformation(true);
               }}
             >
-              Profile includes identifying information
+              Print with all information
             </DropdownMenu.Item>
             <DropdownMenu.Item
               onSelect={() => {
                 setDocumentWithIdentifyingInformation(false);
               }}
             >
-              Profile does not include identifying information
+              Print with unidentified information
             </DropdownMenu.Item>
           </DropdownMenu.Content>
         </DropdownMenu.Root>
