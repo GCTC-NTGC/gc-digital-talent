@@ -536,7 +536,7 @@ const UpdateUserSkillForm = ({
               >
                 {sections.featuredExperiences.title}
               </TableOfContents.Heading>
-              <p>
+              <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "Any experience you've added to your career timeline that features this skill can be managed in this section. You can also link this skill to other experiences using the button provided.",
