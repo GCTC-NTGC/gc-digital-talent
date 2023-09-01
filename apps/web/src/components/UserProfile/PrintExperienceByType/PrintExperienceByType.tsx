@@ -43,28 +43,6 @@ const PrintExperienceByType = ({ experiences }: PrintExperienceByTypeProps) => {
 
   return (
     <>
-      {personalExperiences.length ? (
-        <ExperienceType
-          title={intl.formatMessage({
-            defaultMessage: "Personal experiences",
-            id: "6VyRZ/",
-            description:
-              "Heading for personal experiences in experience by type listing",
-          })}
-          experiences={personalExperiences}
-        />
-      ) : null}
-      {communityExperiences.length ? (
-        <ExperienceType
-          title={intl.formatMessage({
-            defaultMessage: "Community experiences",
-            id: "iWD2Pz",
-            description:
-              "Heading for community experiences in experience by type listing",
-          })}
-          experiences={communityExperiences}
-        />
-      ) : null}
       {workExperiences.length ? (
         <ExperienceType
           title={intl.formatMessage({
@@ -85,6 +63,28 @@ const PrintExperienceByType = ({ experiences }: PrintExperienceByTypeProps) => {
               "Heading for education experiences in experience by type listing",
           })}
           experiences={educationExperiences}
+        />
+      ) : null}
+      {communityExperiences.length ? (
+        <ExperienceType
+          title={intl.formatMessage({
+            defaultMessage: "Community experiences",
+            id: "iWD2Pz",
+            description:
+              "Heading for community experiences in experience by type listing",
+          })}
+          experiences={communityExperiences}
+        />
+      ) : null}
+      {personalExperiences.length ? (
+        <ExperienceType
+          title={intl.formatMessage({
+            defaultMessage: "Personal experiences",
+            id: "6VyRZ/",
+            description:
+              "Heading for personal experiences in experience by type listing",
+          })}
+          experiences={personalExperiences}
         />
       ) : null}
       {awardExperiences.length ? (

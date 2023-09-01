@@ -1,4 +1,4 @@
-import { Client, getOperationName, Provider as GraphqlProvider } from "urql";
+import { Client, Provider as GraphqlProvider } from "urql";
 import { fromValue, pipe, delay } from "wonka";
 import { useParameter } from "@storybook/addons";
 import { StoryContext, StoryFn } from "@storybook/react";
@@ -36,7 +36,13 @@ const mockRequest = (
   responseData: Record<string, unknown>,
   config: DelayConfig,
 ) => {
-  const operationName = getOperationName(doc);
+  let operationName: string | undefined;
+  for (const node of doc.definitions) {
+    if (node.kind === "OperationDefinition") {
+      operationName = node.name ? node.name.value : undefined;
+      break;
+    }
+  }
   const response = operationName && responseData[operationName];
 
   const operationResult = !!response

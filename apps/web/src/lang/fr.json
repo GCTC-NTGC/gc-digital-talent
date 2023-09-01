@@ -3729,6 +3729,10 @@
     "defaultMessage": "Changer votre disponibilité dans ce processus de recrutement",
     "description": "Header text for dialog to change availability in a recruitment"
   },
+  "OHRL9N": {
+    "defaultMessage": "Informations générales",
+    "description": "Title for general info"
+  },
   "OI7Bc7": {
     "defaultMessage": "Titre du poste",
     "description": "Label for an opportunity's job title."
