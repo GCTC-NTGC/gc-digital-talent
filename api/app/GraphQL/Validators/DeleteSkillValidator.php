@@ -25,6 +25,6 @@ final class DeleteSkillValidator extends Validator
      */
     public function messages(): array
     {
-        return [];
+        return []; // leave empty to not override message bubbling up from the Rule
     }
 }
