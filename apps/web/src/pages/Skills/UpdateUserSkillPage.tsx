@@ -68,7 +68,7 @@ interface UpdateUserSkillFormProps {
   userSkill?: Maybe<UserSkill>;
 }
 
-const UpdateUserSkillForm = ({
+export const UpdateUserSkillForm = ({
   userId,
   experiences,
   skill,
