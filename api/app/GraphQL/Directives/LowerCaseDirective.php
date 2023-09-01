@@ -6,7 +6,7 @@ use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgSanitizerDirective;
 
-final class LowerCaseDirective extends BaseDirective implements ArgSanitizerDirective, ArgDirective
+final class LowerCaseDirective extends BaseDirective implements ArgDirective, ArgSanitizerDirective
 {
     public static function definition(): string
     {

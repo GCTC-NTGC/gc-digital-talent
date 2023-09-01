@@ -38,6 +38,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import { parseKeywords } from "~/utils/skillUtils";
 
 type Option<V> = { value: V; label: string };
 
@@ -84,14 +85,8 @@ export const UpdateSkillForm = ({
   const formValuesToSubmitData = (values: FormValues): UpdateSkillInput => ({
     ...values,
     keywords: {
-      en: values.keywords.en
-        .split(",")
-        .map((key) => key.trim())
-        .filter((key) => key !== ""),
-      fr: values.keywords.fr
-        .split(",")
-        .map((key) => key.trim())
-        .filter((key) => key !== ""),
+      en: parseKeywords(values.keywords.en),
+      fr: parseKeywords(values.keywords.fr),
     },
     families: {
       sync: values.families,
@@ -232,9 +227,6 @@ export const UpdateSkillForm = ({
                   "Additional context describing the purpose of the skills 'keyword' field.",
               })}
               type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Input
               id="keywords_fr"
@@ -253,9 +245,6 @@ export const UpdateSkillForm = ({
                   "Additional context describing the purpose of the skills 'keyword' field.",
               })}
               type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Select
               id="category"

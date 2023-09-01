@@ -25,8 +25,8 @@ use function PHPUnit\Framework\assertNotNull;
 
 class PoolApplicationTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
     use WithFaker;
 

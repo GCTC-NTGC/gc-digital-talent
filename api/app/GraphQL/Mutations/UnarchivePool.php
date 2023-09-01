@@ -11,7 +11,6 @@ final class UnarchivePool
     /**
      * Un-archives the pool by clearing the archived_at timestamp.
      *
-     * @param  null  $_
      * @param  array{}  $args
      */
     public function __invoke($_, array $args)
