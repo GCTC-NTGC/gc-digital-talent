@@ -9,7 +9,6 @@ final class UpdateUserSkillRankings
     /**
      * Update a user's UserSkill rankings
      *
-     * @param  null  $_
      * @param  array{userId: UUID, userSkillRanking: UpdateUserSkillRankingsInput}  $args
      * @return User
      */
@@ -18,6 +17,19 @@ final class UpdateUserSkillRankings
         $user = User::find($args['userId'])->load(['userSkills', 'userSkills.skill']);
         $userSkillsCollection = $user->userSkills;
         $userSkillRankingInput = $args['userSkillRanking'];
+
+        // ensure UserSkill models exist for all input skills
+        $combinedSkillsId = array_merge(
+            $userSkillRankingInput['topTechnicalSkillsRanked'] ?? [],
+            $userSkillRankingInput['topBehaviouralSkillsRanked'] ?? [],
+            $userSkillRankingInput['improveTechnicalSkillsRanked'] ?? [],
+            $userSkillRankingInput['improveBehaviouralSkillsRanked'] ?? [],
+        );
+        $user->addSkills($combinedSkillsId);
+
+        // re-grab fresh User model with eager loaded new UserSkills
+        $user = User::find($args['userId'])->load(['userSkills', 'userSkills.skill']);
+        $userSkillsCollection = $user->userSkills;
 
         // execute blocks depending on whether the value at args.userSkillRankingInput.X is non-null
         if (isset($userSkillRankingInput['topTechnicalSkillsRanked'])) {
@@ -65,17 +77,17 @@ final class UpdateUserSkillRankings
         return $user;
     }
 
-    private function syncRankings(object $userSkillsCollection, array $arrayUserSkillIds, string $skillCategory, string $rankType)
+    private function syncRankings(object $userSkillsCollection, array $arraySkillIds, string $skillCategory, string $rankType)
     {
         // clear existing ranking for the category and type passed in
         $userSkillsCollection->where('skill.category', $skillCategory)
             ->each
             ->update([$rankType => null]);
 
-        // set the rankings using the input array of UserSkill ids and chosen rankType
+        // set the rankings using the input array of skill ids and chosen rankType
         $rankIterator = 1;
-        foreach ($arrayUserSkillIds as $userSkillId) {
-            $userSkillsCollection->where('id', $userSkillId)->each
+        foreach ($arraySkillIds as $skillId) {
+            $userSkillsCollection->where('skill_id', $skillId)->each
                 ->update([$rankType => $rankIterator]);
             $rankIterator++;
         }
