@@ -3,7 +3,6 @@
 namespace App\Rules;
 
 use App\Models\Pool;
-use Carbon\Carbon;
 use Closure;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -17,9 +16,9 @@ class SkillNotUsedByActivePool implements ValidationRule
     {
         // validation fails if skill is in use by an active pool
         $skillId = $value;
-        $activePools = Pool::where('published_at', '<=', Carbon::now()->toDateTimeString())
-            ->where('closing_date', '>', Carbon::now()->toDateTimeString())
-            ->get()
+        $activePools = Pool::where((function ($query) {
+            Pool::scopeCurrentlyActive($query);
+        }))->get()
             ->load(['essentialSkills', 'nonessentialSkills']);
 
         foreach ($activePools as $pool) {

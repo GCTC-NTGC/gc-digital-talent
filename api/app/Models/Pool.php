@@ -152,6 +152,14 @@ class Pool extends Model
         return $query;
     }
 
+    public static function scopeCurrentlyActive(Builder $query)
+    {
+        $query->where('published_at', '<=', Carbon::now()->toDateTimeString())
+            ->where('closing_date', '>', Carbon::now()->toDateTimeString());
+
+        return $query;
+    }
+
     public function scopeAuthorizedToView(Builder $query)
     {
         $user = Auth::user();
