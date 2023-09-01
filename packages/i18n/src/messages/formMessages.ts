@@ -146,11 +146,6 @@ const formMessages = defineMessages({
     id: "spoY2L",
     description: "Select the option to sort or filter by all types",
   },
-  specifyOther: {
-    defaultMessage: "Please specify",
-    id: "x7fYPu",
-    description: "A field for the user to specify another option",
-  },
   other: {
     defaultMessage: "Other",
     id: "E6JTyY",

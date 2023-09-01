@@ -144,6 +144,18 @@ const PersonnelRequirementFieldset = ({
               ? selectedSkillModel?.families[0]
               : null;
             const levelName = getSkillLevel(requirement.level);
+            const displayName = intl.formatMessage(
+              {
+                defaultMessage: "{skillName} at {skillLevel}",
+                id: "TPHO1i",
+                description:
+                  "Display of skill requirement in the _digital services contracting questionnaire_",
+              },
+              {
+                skillName: getLocalizedName(selectedSkillModel?.name, intl),
+                skillLevel: intl.formatMessage(levelName),
+              },
+            );
             return (
               <div
                 key={requirement.skillId}
@@ -151,34 +163,23 @@ const PersonnelRequirementFieldset = ({
                 data-h2-justify-content="base(flex-end)"
                 data-h2-gap="base(x0.5)"
               >
-                <span data-h2-flex-grow="base(2)">
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "{skillName} at {skillLevel}",
-                      id: "TPHO1i",
-                      description:
-                        "Display of skill requirement in the _digital services contracting questionnaire_",
-                    },
-                    {
-                      skillName: getLocalizedName(
-                        selectedSkillModel?.name,
-                        intl,
-                      ),
-                      skillLevel: intl.formatMessage(levelName),
-                    },
-                  )}
-                </span>
+                <span data-h2-flex-grow="base(2)">{displayName}</span>
                 <SkillDialog
                   skills={skills}
                   context="directive_forms"
                   onSave={handleSkillDialogSave}
                   trigger={{
-                    label: intl.formatMessage({
-                      defaultMessage: "Edit",
-                      id: "vXwT4K",
-                      description:
-                        "Generic link text to edit a miscellaneous item",
-                    }),
+                    label: intl.formatMessage(
+                      {
+                        defaultMessage: "Edit<hidden> {displayName}</hidden>",
+                        id: "KVx/9C",
+                        description:
+                          "Button text to edit a personnel skill requirement",
+                      },
+                      {
+                        displayName,
+                      },
+                    ),
                     icon: null,
                     mode: "text",
                   }}
@@ -194,11 +195,17 @@ const PersonnelRequirementFieldset = ({
                   icon={XMarkIcon}
                   mode="inline"
                   color="error"
-                  aria-label={intl.formatMessage({
-                    defaultMessage: "Delete",
-                    id: "IUQGA0",
-                    description: "Link text to delete.",
-                  })}
+                  aria-label={intl.formatMessage(
+                    {
+                      defaultMessage: "Delete {displayName}",
+                      id: "XOTpWf",
+                      description:
+                        "Hidden button text to delete a personnel skill requirement",
+                    },
+                    {
+                      displayName,
+                    },
+                  )}
                 />
               </div>
             );

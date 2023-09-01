@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { useIntl } from "react-intl";
 
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
@@ -14,6 +14,7 @@ import getLabels from "../labels";
 const TechnologicalChangeSection = () => {
   const intl = useIntl();
   const labels = getLabels(intl);
+  const technologicalChangeDescriptionId = useId();
 
   return (
     <TableOfContents.Section
@@ -30,7 +31,7 @@ const TechnologicalChangeSection = () => {
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1)"
       >
-        <div>
+        <div id={technologicalChangeDescriptionId}>
           <p data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage:
@@ -93,6 +94,7 @@ const TechnologicalChangeSection = () => {
               label: intl.formatMessage(getYesNo(option.value)),
             };
           })}
+          aria-describedby={technologicalChangeDescriptionId}
         />
         <RadioGroup
           legend={labels.hasImpactOnYourDepartment}

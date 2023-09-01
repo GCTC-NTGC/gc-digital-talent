@@ -1,7 +1,6 @@
 import { IntlShape } from "react-intl";
 
 import { FieldLabels } from "@gc-digital-talent/forms";
-import { formMessages } from "@gc-digital-talent/i18n";
 
 const getLabels = (intl: IntlShape): FieldLabels => {
   return {
@@ -20,7 +19,12 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _department / agency_ field in the _digital services contracting questionnaire_",
     }),
-    departmentOther: intl.formatMessage(formMessages.specifyOther),
+    departmentOther: intl.formatMessage({
+      defaultMessage: "Please specify the department / agency",
+      id: "2Z40aW",
+      description:
+        "Label for _ other department / agency_ field in the _digital services contracting questionnaire_",
+    }),
     branchOther: intl.formatMessage({
       defaultMessage: "Branch",
       id: "FXJMDV",
@@ -69,7 +73,12 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _authorities involved_ fieldset in the _digital services contracting questionnaire_",
     }),
-    authorityInvolvedOther: intl.formatMessage(formMessages.specifyOther),
+    authorityInvolvedOther: intl.formatMessage({
+      defaultMessage: "Please specify the authority",
+      id: "uIWCnb",
+      description:
+        "Label for _other authorities involved_ fieldset in the _digital services contracting questionnaire_",
+    }),
     contractBehalfOfGc: intl.formatMessage({
       defaultMessage:
         "Is this contract being put in place on behalf of another Government of Canada department or agency?",
@@ -176,7 +185,12 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _commodity type_ fieldset in the _digital services contracting questionnaire_",
     }),
-    commodityTypeOther: intl.formatMessage(formMessages.specifyOther),
+    commodityTypeOther: intl.formatMessage({
+      defaultMessage: "Please specify the commodity",
+      id: "BfU5BR",
+      description:
+        "Label for _other commodity type_ fieldset in the _digital services contracting questionnaire_",
+    }),
     instrumentType: intl.formatMessage({
       defaultMessage: "Instrument type",
       id: "5pyCTN",
@@ -189,7 +203,12 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _method of supply_ fieldset in the _digital services contracting questionnaire_",
     }),
-    methodOfSupplyOther: intl.formatMessage(formMessages.specifyOther),
+    methodOfSupplyOther: intl.formatMessage({
+      defaultMessage: "Please specify the method",
+      id: "4QXiPk",
+      description:
+        "Label for _other method of supply_ fieldset in the _digital services contracting questionnaire_",
+    }),
     solicitationProcedure: intl.formatMessage({
       defaultMessage: "Solicitation procedure",
       id: "GsHDxH",
@@ -230,16 +249,24 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _contractor screening levels_ fieldset in the _digital services contracting questionnaire_",
     }),
-    requirementScreeningLevelOther: intl.formatMessage(
-      formMessages.specifyOther,
-    ),
+    requirementScreeningLevelOther: intl.formatMessage({
+      defaultMessage: "Please specify the screening level",
+      id: "76vo/V",
+      description:
+        "Label for _other contractor screening levels_ fieldset in the _digital services contracting questionnaire_",
+    }),
     requirementWorkLanguages: intl.formatMessage({
       defaultMessage: "Language of work",
       id: "6Zf2AE",
       description:
         "Label for _required work languages_ fieldset in the _digital services contracting questionnaire_",
     }),
-    requirementWorkLanguageOther: intl.formatMessage(formMessages.specifyOther),
+    requirementWorkLanguageOther: intl.formatMessage({
+      defaultMessage: "Please specify the language of work",
+      id: "BSkVBd",
+      description:
+        "Label for _other required work languages_ fieldset in the _digital services contracting questionnaire_",
+    }),
     requirementWorkLocations: intl.formatMessage({
       defaultMessage: "Location of work",
       id: "sK7D+S",
@@ -264,7 +291,12 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _other requirements_ fieldset in the _digital services contracting questionnaire_",
     }),
-    requirementOtherOther: intl.formatMessage(formMessages.specifyOther),
+    requirementOtherOther: intl.formatMessage({
+      defaultMessage: "Please specify the other requirement",
+      id: "guIFRq",
+      description:
+        "Label for _other other requirements_ fieldset in the _digital services contracting questionnaire_",
+    }),
     hasPersonnelRequirements: intl.formatMessage({
       defaultMessage: "Does the contract have specific personnel requirements?",
       id: "uK+4La",
@@ -285,14 +317,24 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _official language requirement_ fieldset in the _digital services contracting questionnaire_",
     }),
-    languageOther: intl.formatMessage(formMessages.specifyOther),
+    languageOther: intl.formatMessage({
+      defaultMessage: "Please specify the language requirement",
+      id: "P6jGb4",
+      description:
+        "Label for _other official language requirement_ fieldset in the _digital services contracting questionnaire_",
+    }),
     security: intl.formatMessage({
       defaultMessage: "Security level",
       id: "zemp3H",
       description:
         "Label for _security level_ fieldset in the _digital services contracting questionnaire_",
     }),
-    securityOther: intl.formatMessage(formMessages.specifyOther),
+    securityOther: intl.formatMessage({
+      defaultMessage: "Please specify the security level",
+      id: "yXWaAj",
+      description:
+        "Label for _other security level_ fieldset in the _digital services contracting questionnaire_",
+    }),
     telework: intl.formatMessage({
       defaultMessage: "Telework allowed",
       id: "DeQTkE",
@@ -342,9 +384,12 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _influencing factors_ fieldset in the _digital services contracting questionnaire_",
     }),
-    operationsConsiderationsOther: intl.formatMessage(
-      formMessages.specifyOther,
-    ),
+    operationsConsiderationsOther: intl.formatMessage({
+      defaultMessage: "Please specify the factor",
+      id: "omVUgU",
+      description:
+        "Label for _other influencing factors_ fieldset in the _digital services contracting questionnaire_",
+    }),
 
     // Talent sourcing decision
     contractingRationalePrimary: intl.formatMessage({
