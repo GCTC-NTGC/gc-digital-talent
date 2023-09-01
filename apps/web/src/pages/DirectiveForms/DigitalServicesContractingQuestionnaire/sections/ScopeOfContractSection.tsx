@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
 import { Input, RadioGroup, DateInput } from "@gc-digital-talent/forms";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import { errorMessages } from "@gc-digital-talent/i18n";
 import {
   ContractCommodity,
   ContractInstrument,
