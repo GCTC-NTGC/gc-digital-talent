@@ -19,7 +19,6 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import type { User } from "~/api/generated";
 
-import StatusItem from "../StatusItem/StatusItem";
 import ExperienceSection from "./ExperienceSection";
 import AboutSection from "./ProfileSections/AboutSection";
 import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
@@ -137,56 +136,37 @@ const UserProfile = ({
             {showSection("about") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ABOUT}>
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(navigationMessages.aboutMe)}
-                  />
+                  {intl.formatMessage(navigationMessages.aboutMe)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
             {showSection("employmentEquity") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.DEI}>
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(
-                      navigationMessages.diversityEquityInclusion,
-                    )}
-                  />
+                  {intl.formatMessage(
+                    navigationMessages.diversityEquityInclusion,
+                  )}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
             {showSection("language") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.LANGUAGE}>
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(
-                      navigationMessages.languageInformation,
-                    )}
-                  />
+                  {intl.formatMessage(navigationMessages.languageInformation)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
             {showSection("government") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.GOVERNMENT}>
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(
-                      navigationMessages.governmentInformation,
-                    )}
-                  />
+                  {intl.formatMessage(navigationMessages.governmentInformation)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
             {showSection("workLocation") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.WORK_LOCATION}>
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(navigationMessages.workLocation)}
-                  />
+                  {intl.formatMessage(navigationMessages.workLocation)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
@@ -195,12 +175,7 @@ const UserProfile = ({
                 <TableOfContents.AnchorLink
                   id={PAGE_SECTION_ID.WORK_PREFERENCES}
                 >
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(
-                      navigationMessages.workPreferences,
-                    )}
-                  />
+                  {intl.formatMessage(navigationMessages.workPreferences)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
