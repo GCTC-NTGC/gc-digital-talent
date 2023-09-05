@@ -18,16 +18,8 @@ import {
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import type { User } from "~/api/generated";
-import {
-  aboutSectionHasEmptyRequiredFields,
-  diversityEquityInclusionSectionHasEmptyRequiredFields,
-  governmentInformationSectionHasEmptyRequiredFields,
-  languageInformationSectionHasEmptyRequiredFields,
-  workLocationSectionHasEmptyRequiredFields,
-  workPreferencesSectionHasEmptyRequiredFields,
-} from "~/validators/profile";
 
-import StatusItem, { Status } from "../StatusItem/StatusItem";
+import StatusItem from "../StatusItem/StatusItem";
 import ExperienceSection from "./ExperienceSection";
 import AboutSection from "./ProfileSections/AboutSection";
 import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
@@ -137,14 +129,6 @@ const UserProfile = ({
     return sections[key] && sections[key]?.isVisible;
   };
 
-  const sectionStatus = (
-    hasEmptyRequiredFields: (user: User) => boolean,
-  ): Status | undefined => {
-    if (hasEmptyRequiredFields(user)) return "error";
-
-    return "success";
-  };
-
   return (
     <Container show={isNavigationVisible}>
       {isNavigationVisible && (
@@ -156,7 +140,6 @@ const UserProfile = ({
                   <StatusItem
                     asListItem={false}
                     title={intl.formatMessage(navigationMessages.aboutMe)}
-                    status={sectionStatus(aboutSectionHasEmptyRequiredFields)}
                   />
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
@@ -168,9 +151,6 @@ const UserProfile = ({
                     asListItem={false}
                     title={intl.formatMessage(
                       navigationMessages.diversityEquityInclusion,
-                    )}
-                    status={sectionStatus(
-                      diversityEquityInclusionSectionHasEmptyRequiredFields,
                     )}
                   />
                 </TableOfContents.AnchorLink>
@@ -184,9 +164,6 @@ const UserProfile = ({
                     title={intl.formatMessage(
                       navigationMessages.languageInformation,
                     )}
-                    status={sectionStatus(
-                      languageInformationSectionHasEmptyRequiredFields,
-                    )}
                   />
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
@@ -199,9 +176,6 @@ const UserProfile = ({
                     title={intl.formatMessage(
                       navigationMessages.governmentInformation,
                     )}
-                    status={sectionStatus(
-                      governmentInformationSectionHasEmptyRequiredFields,
-                    )}
                   />
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
@@ -212,9 +186,6 @@ const UserProfile = ({
                   <StatusItem
                     asListItem={false}
                     title={intl.formatMessage(navigationMessages.workLocation)}
-                    status={sectionStatus(
-                      workLocationSectionHasEmptyRequiredFields,
-                    )}
                   />
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
@@ -228,9 +199,6 @@ const UserProfile = ({
                     asListItem={false}
                     title={intl.formatMessage(
                       navigationMessages.workPreferences,
-                    )}
-                    status={sectionStatus(
-                      workPreferencesSectionHasEmptyRequiredFields,
                     )}
                   />
                 </TableOfContents.AnchorLink>
