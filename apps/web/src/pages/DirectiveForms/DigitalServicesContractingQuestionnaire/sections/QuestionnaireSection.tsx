@@ -42,7 +42,12 @@ const QuestionnaireSection = ({
       <TechnologicalChangeSection />
       <OperationsConsiderationsSection />
       <TalentSourcingDecisionSection />
-
+      <hr
+        data-h2-margin-top="base(x2)"
+        data-h2-border="base(none)"
+        data-h2-height="base(1px)"
+        data-h2-background-color="base(gray)"
+      />
       <Submit data-h2-margin-top="base(x2)" isSubmitting={isSubmitting} />
     </TableOfContents.Section>
   );

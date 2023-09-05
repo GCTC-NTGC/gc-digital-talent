@@ -225,7 +225,7 @@ const PreambleSection = () => {
               "Paragraph four of the _requirements_ section of the _digital services contracting questionnaire_",
           })}
         </p>
-        <div data-h2-margin-top="base(x.5)">
+        <div data-h2-margin-top="base(x1.25)">
           <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
             <Collapsible.Trigger asChild>
               <Button
