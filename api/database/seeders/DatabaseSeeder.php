@@ -88,7 +88,7 @@ class DatabaseSeeder extends Seeder
         $pool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
         $this->seedPoolCandidate($applicant, $pool);
         $this->seedAwardExperienceForPool($applicant, $digitalTalentPool);
-        $applicantUserSkills = $applicant->userSkills->load(['skill']);
+        $applicantUserSkills = $applicant->userSkills;
         foreach ($applicantUserSkills as $applicantUserSkill) {
             if ($faker->boolean(75)) {
                 $applicantUserSkill->skill_level = $faker->randomElement(ApiEnums::skillLevels());
