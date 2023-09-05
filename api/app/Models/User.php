@@ -810,6 +810,58 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $notifications;
     }
 
+    public function getTopTechnicalSkillsRankingAttribute()
+    {
+        $sortedTechnicalUserSkills = $this->userSkills()
+            ->whereNotNull('top_skills_rank')
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'TECHNICAL');
+            })
+            ->orderBy('top_skills_rank', 'asc')
+            ->get();
+
+        return $sortedTechnicalUserSkills;
+    }
+
+    public function getTopBehaviouralSkillsRankingAttribute()
+    {
+        $sortedBehaviouralUserSkills = $this->userSkills()
+            ->whereNotNull('top_skills_rank')
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'BEHAVIOURAL');
+            })
+            ->orderBy('top_skills_rank', 'asc')
+            ->get();
+
+        return $sortedBehaviouralUserSkills;
+    }
+
+    public function getImproveTechnicalSkillsRankingAttribute()
+    {
+        $sortedTechnicalUserSkills = $this->userSkills()
+            ->whereNotNull('improve_skills_rank')
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'TECHNICAL');
+            })
+            ->orderBy('improve_skills_rank', 'asc')
+            ->get();
+
+        return $sortedTechnicalUserSkills;
+    }
+
+    public function getImproveBehaviouralSkillsRankingAttribute()
+    {
+        $sortedBehaviouralUserSkills = $this->userSkills()
+            ->whereNotNull('improve_skills_rank')
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'BEHAVIOURAL');
+            })
+            ->orderBy('improve_skills_rank', 'asc')
+            ->get();
+
+        return $sortedBehaviouralUserSkills;
+    }
+
     public function scopeAuthorizedToView(Builder $query)
     {
         $user = Auth::user();
