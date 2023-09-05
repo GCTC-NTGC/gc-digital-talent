@@ -10,6 +10,7 @@ return [
     |
     */
     'far_future_date' => '2050-01-01',
+    'far_future_datetime' => '2050-01-01 01:23:45',
     /* PAST DATE
         | value is used for testing
         */

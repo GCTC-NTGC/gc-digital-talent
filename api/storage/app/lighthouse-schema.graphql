@@ -96,6 +96,7 @@ type Mutation {
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
   updateSkill(id: ID!, skill: UpdateSkillInput!): Skill
+  deleteSkill(id: UUID!): Skill
   createWorkExperience(userId: ID!, workExperience: WorkExperienceInput!): WorkExperience
   createPersonalExperience(userId: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
   createCommunityExperience(userId: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
@@ -132,6 +133,7 @@ type Mutation {
   markNotificationAsRead(id: UUID!): Notification
   createUserSkill(userId: UUID!, skillId: UUID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
+  updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
   deleteUserSkill(id: UUID!): UserSkill
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
@@ -223,6 +225,10 @@ type User {
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
   userSkills(includeSkillIds: [UUID]): [UserSkill]
+  topTechnicalSkillsRanking: [UserSkill]
+  topBehaviouralSkillsRanking: [UserSkill]
+  improveTechnicalSkillsRanking: [UserSkill]
+  improveBehaviouralSkillsRanking: [UserSkill]
   pools: [Pool] @deprecated(reason: "pools is deprecated. user.roles.team.pools instead. Remove in #7664.")
   isProfileComplete: Boolean
   expectedGenericJobTitles: [GenericJobTitle] @deprecated(reason: "expectedGenericJobTitles is deprecated. Remove in #7645.")
@@ -676,6 +682,8 @@ type UserSkill {
   skill: Skill!
   skillLevel: SkillLevel
   whenSkillUsed: WhenSkillUsed
+  topSkillsRank: Int
+  improveSkillsRank: Int
   experiences: [Experience!]
   awardExperiences: [AwardExperience!]
   communityExperiences: [CommunityExperience!]
@@ -1300,6 +1308,13 @@ input CreateUserSkillInput {
 input UpdateUserSkillInput {
   skillLevel: SkillLevel
   whenSkillUsed: WhenSkillUsed
+}
+
+input UpdateUserSkillRankingsInput {
+  topTechnicalSkillsRanked: [UUID]
+  topBehaviouralSkillsRanked: [UUID]
+  improveTechnicalSkillsRanked: [UUID]
+  improveBehaviouralSkillsRanked: [UUID]
 }
 
 input WorkExperienceHasMany {
