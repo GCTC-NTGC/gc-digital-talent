@@ -317,7 +317,12 @@ export const UpdateUserSkillForm = ({
                     )}
                     {intl.formatMessage(commonMessages.dividingColon)}
                   </p>
-                  <p>{skillDescription}</p>
+                  <p
+                    data-h2-color="base(black.light)"
+                    data-h2-font-size="base(caption)"
+                  >
+                    {skillDescription}
+                  </p>
                 </Well>
               )}
               <BasicForm
@@ -532,7 +537,7 @@ export const UpdateUserSkillForm = ({
               <TableOfContents.Heading
                 icon={BookmarkSquareIcon}
                 color="tertiary"
-                data-h2-margin-bottom="base(x1)"
+                data-h2-margin="base(x3 0 x1 0)"
               >
                 {sections.featuredExperiences.title}
               </TableOfContents.Heading>
@@ -549,7 +554,7 @@ export const UpdateUserSkillForm = ({
                 <div
                   data-h2-display="base(flex)"
                   data-h2-justify-content="base(flex-end)"
-                  data-h2-margin="base(x1 0)"
+                  data-h2-margin="base(x.5 0)"
                 >
                   <Button
                     color="secondary"
@@ -569,7 +574,7 @@ export const UpdateUserSkillForm = ({
                 <div
                   data-h2-display="base(flex)"
                   data-h2-flex-direction="base(column)"
-                  data-h2-gap="base(x1 0)"
+                  data-h2-gap="base(x.5 0)"
                 >
                   {linkedExperiences.map((experience) => (
                     <ExperienceCard
