@@ -235,7 +235,7 @@ const QualifiedRecruitmentCard = ({
               <ul
                 data-h2-display="base(grid)"
                 data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-                data-h2-gap="base(x.125 x.5)"
+                data-h2-gap="base(x.125 x1.5)"
               >
                 {categorizedSkills[SkillCategory.Technical]?.map((skill) => (
                   <li key={skill.id}>{getLocalizedName(skill.name, intl)}</li>
