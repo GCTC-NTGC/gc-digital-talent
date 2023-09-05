@@ -61,6 +61,54 @@ type FormValues = {
   whenSkillUsed: WhenSkillUsed;
 };
 
+interface NullExperienceMessageProps {
+  hasExperiences: boolean;
+}
+
+const NullExperienceMessage = ({
+  hasExperiences,
+}: NullExperienceMessageProps) => {
+  const intl = useIntl();
+  return (
+    <Well data-h2-text-align="base(center)">
+      <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
+        {hasExperiences
+          ? intl.formatMessage({
+              defaultMessage:
+                "You haven't featured this skill on any of your experiences yet.",
+              id: "rF/VIw",
+              description:
+                "Message displayed when user has experiences but hasn't featured any",
+            })
+          : intl.formatMessage({
+              defaultMessage:
+                "You haven't created any career experiences on your career timeline.",
+              id: "a0VxCM",
+              description:
+                "Message displayed when user has no experiences to feature on a skill.",
+            })}
+      </p>
+      <p>
+        {hasExperiences
+          ? intl.formatMessage({
+              defaultMessage:
+                'You can use the "Link an experience" button provided to feature this skill.',
+              id: "TK0b6n",
+              description:
+                "Instructions displayed when user has experiences but hasn't featured any.",
+            })
+          : intl.formatMessage({
+              defaultMessage:
+                "After you've added a few, you'll be able to feature this skill on one or more of your experiences.",
+              id: "QZeoHp",
+              description:
+                "Instructions displayed when user has no experiences to feature on a skill.",
+            })}
+      </p>
+    </Well>
+  );
+};
+
 interface UpdateUserSkillFormProps {
   userId: Scalars["UUID"];
   skill: Skill;
@@ -103,7 +151,11 @@ export const UpdateUserSkillForm = ({
     value: skillLevel,
     label: <strong>{intl.formatMessage(levelGetter(skillLevel))}</strong>,
     contentBelow: (
-      <p data-h2-margin="base(x.15, 0, x.5, x1)">
+      <p
+        data-h2-margin="base(x.15, 0, x.5, x1)"
+        data-h2-color="base(black.light)"
+        data-h2-font-size="base(caption)"
+      >
         {intl.formatMessage(levelDefinitionGetter(skillLevel))}
       </p>
     ),
@@ -304,7 +356,7 @@ export const UpdateUserSkillForm = ({
               {skillDescription && (
                 <Well data-h2-margin="base(x1 0)">
                   <p
-                    data-h2-font-weight="base(800)"
+                    data-h2-font-weight="base(700)"
                     data-h2-margin-bottom="base(x.5)"
                   >
                     {intl.formatMessage(
@@ -317,12 +369,7 @@ export const UpdateUserSkillForm = ({
                     )}
                     {intl.formatMessage(commonMessages.dividingColon)}
                   </p>
-                  <p
-                    data-h2-color="base(black.light)"
-                    data-h2-font-size="base(caption)"
-                  >
-                    {skillDescription}
-                  </p>
+                  <p>{skillDescription}</p>
                 </Well>
               )}
               <BasicForm
@@ -591,17 +638,9 @@ export const UpdateUserSkillForm = ({
                   ))}
                 </div>
               ) : (
-                <Well>
-                  <p data-h2-text-align="base(center)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Link experiences from your career timeline to this skill to see them here.",
-                      id: "HRiS0K",
-                      description:
-                        "Message displayed when no experiences have been linked to a skill",
-                    })}
-                  </p>
-                </Well>
+                <NullExperienceMessage
+                  hasExperiences={availableExperiences.length > 0}
+                />
               )}
             </TableOfContents.Section>
           </TableOfContents.Content>

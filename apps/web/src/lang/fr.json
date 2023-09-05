@@ -2851,10 +2851,6 @@
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>.",
     "description": "Message for the completed english bilingual evaluation option"
   },
-  "HRiS0K": {
-    "defaultMessage": "Associez les expériences de votre parcours professionnel à cette compétence pour les voir ici.",
-    "description": "Message displayed when no experiences have been linked to a skill"
-  },
   "HUCIzc": {
     "defaultMessage": "Nom",
     "description": "Title displayed for the Classification table Name column."
@@ -4052,6 +4048,10 @@
     "defaultMessage": "Vous avez mis à jour l’exigence relative aux études que vous devez remplir",
     "description": "Message displayed to users when saving education requirement is successful."
   },
+  "QZeoHp": {
+    "defaultMessage": "Une fois que vous en aurez ajouté quelques-unes, vous pourrez compter cette compétence selon l’une ou plusieurs de vos expériences.",
+    "description": "Instructions displayed when user has no experiences to feature on a skill."
+  },
   "QagkWo": {
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.</strong>",
     "description": "Alert message informing user to add education experience in application education page."
@@ -4367,6 +4367,10 @@
   "TJzeDj": {
     "defaultMessage": "Cela changera le statut d'un utilisateur pour « Archivé ». L'utilisateur n'apparaîtra plus où que ce soit sur la plateforme. <strong>Cette action ne peut pas être annulée</strong>.",
     "description": "Heading for section to delete a user"
+  },
+  "TK0b6n": {
+    "defaultMessage": "Vous pouvez vous server du bouton \"Lier une expérience\" qui sert à mettre cette compétence en évidence.",
+    "description": "Instructions displayed when user has experiences but hasn't featured any."
   },
   "TLl20s": {
     "defaultMessage": "Créer un nouveau bassin",
@@ -5342,6 +5346,10 @@
   "a+j1+H": {
     "defaultMessage": "Formulez votre demande d’ici le",
     "description": "Label for showing the closing date of a job posting."
+  },
+  "a0VxCM": {
+    "defaultMessage": "Vous n’avez pas créé d’expériences de carrière sur votre chronologie de carrière.",
+    "description": "Message displayed when user has no experiences to feature on a skill."
   },
   "a1Cych": {
     "defaultMessage": "Partagez comment la participation est venue améliorer votre croissance, y compris le bénévolat, les cérémonies, les événements et la collaboration virtuelle.",
@@ -7771,6 +7779,10 @@
   "rE/TUL": {
     "defaultMessage": "Communiquez avec nous<hidden> À propos du EXposition</hidden>",
     "description": "Link text to email the team about EXposition"
+  },
+  "rF/VIw": {
+    "defaultMessage": "Vous n’avez toujours pas compté cette compétences dans aucune de vos expériences.",
+    "description": "Message displayed when user has experiences but hasn't featured any"
   },
   "rGE0gj": {
     "defaultMessage": "Votre incidence",
