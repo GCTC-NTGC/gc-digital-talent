@@ -145,6 +145,7 @@ const SkillLibraryTable = ({
       caption={caption}
       data={data}
       columns={columns}
+      urlSync={false}
       add={{
         component: (
           <SkillDialog
