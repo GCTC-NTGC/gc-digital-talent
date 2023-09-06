@@ -10,6 +10,7 @@ import {
 import { Loading } from "@gc-digital-talent/ui";
 import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
+import { useFeatureFlags, FeatureFlags } from "@gc-digital-talent/env";
 
 import Layout from "~/components/Layout/Layout";
 import AdminLayout from "~/components/Layout/AdminLayout";
@@ -625,6 +626,14 @@ const UpdateSkillPage = React.lazy(() =>
       ),
   ),
 );
+const UpdateUserSkillPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsUpdateUserSkillPage" */ "../pages/Skills/UpdateUserSkillPage"
+      ),
+  ),
+);
 
 /** Search Requests */
 const IndexSearchRequestPage = React.lazy(() =>
@@ -644,7 +653,11 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
-const createRoute = (locale: Locales, loginPath: string) =>
+const createRoute = (
+  locale: Locales,
+  loginPath: string,
+  featureFlags: FeatureFlags,
+) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -763,7 +776,35 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
                 {
                   path: "profile-and-applications",
-                  element: <ProfileAndApplicationsPage />,
+                  children: [
+                    {
+                      index: true,
+                      element: (
+                        <RequireAuth
+                          roles={[ROLE_NAME.Applicant]}
+                          loginPath={loginPath}
+                        >
+                          <ProfileAndApplicationsPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "skills",
+                      children: [
+                        {
+                          path: ":skillId",
+                          element: featureFlags.skillLibrary ? (
+                            <RequireAuth
+                              roles={[ROLE_NAME.Applicant]}
+                              loginPath={loginPath}
+                            >
+                              <UpdateUserSkillPage />
+                            </RequireAuth>
+                          ) : null,
+                        },
+                      ],
+                    },
+                  ],
                 },
               ],
             },
@@ -1560,7 +1601,8 @@ const createRoute = (locale: Locales, loginPath: string) =>
 const Router = () => {
   const { locale } = useLocale();
   const routes = useRoutes();
-  const router = createRoute(locale, routes.login());
+  const featureFlags = useFeatureFlags();
+  const router = createRoute(locale, routes.login(), featureFlags);
   return (
     <RouterProvider
       router={router}

@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from "react";
 
 import Heading, { type HeadingLevel } from "../Heading";
-import { IconType } from "../../types";
+import { IconType, Color } from "../../types";
 
 import "./heading.css";
 
@@ -9,6 +9,7 @@ export interface HeadingProps {
   as?: HeadingLevel;
   size?: HeadingLevel;
   icon?: IconType;
+  color?: Color;
 }
 
 const TOCHeading = ({
