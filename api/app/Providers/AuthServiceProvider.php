@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Exceptions\AuthenticationException;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\CommunityExperience;
@@ -21,7 +22,6 @@ use App\Policies\PoolPolicy;
 use App\Policies\UserPolicy;
 use App\Services\OpenIdBearerTokenService;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
 use Throwable;
@@ -62,7 +62,15 @@ class AuthServiceProvider extends ServiceProvider
         Gate::policy(AwardExperience::class, ExperiencePolicy::class);
 
         $this->app['auth']->viaRequest('api', function ($request) use ($tokenService) {
-            return $this->resolveUserOrAbort($request->bearerToken(), $tokenService);
+            $user = null;
+            $errorPool = app(\Nuwave\Lighthouse\Execution\ErrorPool::class);
+            try {
+                $user = $this->resolveUserOrAbort($request->bearerToken(), $tokenService);
+            } catch (Throwable $e) {
+                $errorPool->record($e);
+            }
+
+            return $user;
         });
     }
 
@@ -80,19 +88,19 @@ class AuthServiceProvider extends ServiceProvider
                 foreach ($e->violations() as $violationError) {
                     array_push($violations, $violationError->getMessage());
                 }
-                Log::notice('Authorization token not valid: ', $violations);
-
-                return abort(401, 'Authorization token not valid.');
+                throw new AuthenticationException('Authorization token not valid: '.$violations, 'invalid_token');
             } catch (Throwable $e) {
-                Log::notice('Error while validating authorization token: '.$e->getMessage());
-
-                return abort(401, 'Error while validating authorization token.');
+                throw new AuthenticationException('Error while validating authorization token: '.$e->getMessage(), 'token_validation');
             }
 
             // By this point we have verified that the token is legitimate
 
-            $userMatch = User::where('sub', $sub)->first(); // 3. match "sub" claim to user 'sub' field.
+            $userMatch = User::where('sub', $sub)->withTrashed()->first(); // 3. match "sub" claim to user 'sub' field.
             if ($userMatch) {
+                if ($userMatch->deleted_at != null) {
+                    throw new AuthenticationException('Login as deleted user: '.$userMatch->sub, 'user_deleted');
+                }
+
                 return $userMatch;
             } else {
                 // No user found for given subscriber - lets auto-register them

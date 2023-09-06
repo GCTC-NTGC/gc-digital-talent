@@ -1,5 +1,20 @@
-query AllSkills {
-  skills {
+fragment skillFragment on Skill {
+  id
+  key
+  category
+  name {
+    en
+    fr
+  }
+  description {
+    en
+    fr
+  }
+  keywords {
+    en
+    fr
+  }
+  families {
     id
     key
     name {
@@ -10,51 +25,63 @@ query AllSkills {
       en
       fr
     }
-    keywords {
-      en
-      fr
-    }
-    category
-    families {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
+  }
+}
+
+fragment userSkillExperienceFragment on Experience {
+  id
+  __typename
+  details
+  user {
+    id
+  }
+  ... on AwardExperience {
+    title
+    issuedBy
+    awardedDate
+    awardedTo
+    awardedScope
+  }
+  ... on CommunityExperience {
+    title
+    organization
+    project
+    startDate
+    endDate
+  }
+  ... on EducationExperience {
+    institution
+    areaOfStudy
+    thesisTitle
+    startDate
+    endDate
+    type
+    status
+  }
+  ... on PersonalExperience {
+    title
+    description
+    startDate
+    endDate
+  }
+  ... on WorkExperience {
+    role
+    organization
+    division
+    startDate
+    endDate
+  }
+}
+
+query AllSkills {
+  skills {
+    ...skillFragment
   }
 }
 
 query Skill($id: UUID!) {
   skill(id: $id) {
-    id
-    key
-    category
-    name {
-      en
-      fr
-    }
-    description {
-      en
-      fr
-    }
-    keywords {
-      en
-      fr
-    }
-    families {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-    }
+    ...skillFragment
   }
 }
 
@@ -103,10 +130,10 @@ query GetUpdateSkillData($id: UUID!) {
   }
 }
 
-query UserSkills {
+query UserSkill($skillId: UUID!) {
   me {
     id
-    userSkills {
+    userSkills(includeSkillIds: [$skillId]) {
       id
       whenSkillUsed
       skillLevel
@@ -121,37 +148,30 @@ query UserSkills {
           en
           fr
         }
-        families {
+      }
+      experiences {
+        ...userSkillExperienceFragment
+        skills {
           id
           key
+          category
+          name {
+            en
+            fr
+          }
+          experienceSkillRecord {
+            details
+          }
         }
       }
     }
-  }
-  skills {
-    id
-    key
-    category
-    name {
-      en
-      fr
-    }
-    description {
-      en
-      fr
-    }
-    keywords {
-      en
-      fr
-    }
-    families {
+    experiences {
       id
-      key
-      name {
-        en
-        fr
-      }
+      ...userSkillExperienceFragment
     }
+  }
+  skill(id: $skillId) {
+    ...skillFragment
   }
 }
 
@@ -187,5 +207,27 @@ mutation CreateSkill($skill: CreateSkillInput!) {
       en
       fr
     }
+  }
+}
+
+mutation CreateUserSkill(
+  $userId: UUID!
+  $skillId: UUID!
+  $userSkill: CreateUserSkillInput
+) {
+  createUserSkill(userId: $userId, skillId: $skillId, userSkill: $userSkill) {
+    id
+  }
+}
+
+mutation UpdateUserSkill($id: UUID!, $userSkill: UpdateUserSkillInput) {
+  updateUserSkill(id: $id, userSkill: $userSkill) {
+    id
+  }
+}
+
+mutation DeleteUserSkill($id: UUID!) {
+  deleteUserSkill(id: $id) {
+    id
   }
 }

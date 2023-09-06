@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Classification;
 use App\Models\Pool;
+use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
@@ -14,8 +16,8 @@ use function PHPUnit\Framework\assertSame;
 
 class PoolTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     protected $team;
@@ -550,5 +552,121 @@ class PoolTest extends TestCase
             ]
         )
             ->assertGraphQLErrorMessage('You cannot un-archive a pool unless it is in the archived status.');
+    }
+
+    public function testCannotPublishWithDeletedSkill(): void
+    {
+        // create complete but unpublished pool with a deleted skill
+        $classification = Classification::factory()->create();
+        $pool = Pool::factory()->published()->create([
+            'published_at' => null,
+            'closing_date' => config('constants.far_future_datetime'),
+        ]);
+        $pool->classifications()->sync([$classification->id]);
+        $skill1 = Skill::factory()->create();
+        $skill2 = Skill::factory()->create(['deleted_at' => config('constants.past_datetime')]);
+        $pool->essentialSkills()->sync([$skill1->id, $skill2->id]);
+
+        // assert cannot publish due to soft deleted essential skill $skill2
+        $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                mutation PublishPool($id: ID!) {
+                    publishPool(id: $id) {
+                        id
+                    }
+                }
+        ',
+            [
+                'id' => $pool->id,
+            ]
+        )
+            ->assertGraphQLErrorMessage('EssentialSkillsContainsDeleted');
+
+        $pool->essentialSkills()->sync([$skill1->id]);
+
+        // assert can now publish with $skill2 removed
+        $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                        mutation PublishPool($id: ID!) {
+                            publishPool(id: $id) {
+                                id
+                            }
+                        }
+                ',
+            [
+                'id' => $pool->id,
+            ]
+        )
+            ->assertSuccessful();
+    }
+
+    public function testCannotReopenWithDeletedSkill(): void
+    {
+        $pool = Pool::factory()->published()->closed()->create(['team_id' => $this->team->id]);
+        $skill1 = Skill::factory()->create();
+        $skill2 = Skill::factory()->create(['deleted_at' => config('constants.past_datetime')]);
+        $pool->essentialSkills()->sync([$skill1->id, $skill2->id]);
+
+        // assert cannot reopen due to soft deleted essential skill $skill2
+        $this->actingAs($this->poolOperator, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                mutation changePoolClosingDate($id: ID!, $newClosingDate: DateTime!) {
+                    changePoolClosingDate(id: $id, newClosingDate: $newClosingDate) {
+                        id
+                    }
+                }
+        ',
+            [
+                'id' => $pool->id,
+                'newClosingDate' => config('constants.far_future_datetime'),
+            ]
+        )
+            ->assertGraphQLErrorMessage('CannotReopenUsingDeletedSkill');
+
+        $pool->essentialSkills()->sync([$skill1->id]);
+
+        // assert can reopen now with the deleted skill gone
+        $this->actingAs($this->poolOperator, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                        mutation changePoolClosingDate($id: ID!, $newClosingDate: DateTime!) {
+                            changePoolClosingDate(id: $id, newClosingDate: $newClosingDate) {
+                                id
+                            }
+                        }
+                ',
+            [
+                'id' => $pool->id,
+                'newClosingDate' => config('constants.far_future_datetime'),
+            ]
+        )
+            ->assertSuccessful();
+    }
+
+    public function testPoolScopeCurrentlyActive(): void
+    {
+        Pool::factory()->create([
+            'published_at' => null,
+            'closing_date' => null,
+        ]);
+        Pool::factory()->count(2)->create([
+            'published_at' => config('constants.past_date'),
+            'closing_date' => config('constants.past_date'),
+        ]);
+        Pool::factory()->count(4)->create([
+            'published_at' => config('constants.past_date'),
+            'closing_date' => config('constants.far_future_date'),
+        ]);
+
+        $allPools = Pool::all();
+        assertSame(count($allPools), 7);
+
+        $activePools = Pool::where((function ($query) {
+            Pool::scopeCurrentlyActive($query);
+        }))->get();
+        assertSame(count($activePools), 4); // assert 7 pools present but only 4 are considered "active"
     }
 }

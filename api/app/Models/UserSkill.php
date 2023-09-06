@@ -15,11 +15,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $skill_id
  * @property string $skill_level
  * @property string $when_skill_used
+ * @property int $top_skills_rank
+ * @property int $improve_skills_rank
  */
 class UserSkill extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 
@@ -28,6 +30,8 @@ class UserSkill extends Model
         'skill_id',
         'skill_level',
         'when_skill_used',
+        'top_skills_rank',
+        'improve_skills_rank',
     ];
 
     /**
@@ -50,7 +54,7 @@ class UserSkill extends Model
 
     public function skill(): BelongsTo
     {
-        return $this->belongsTo(Skill::class, 'skill_id');
+        return $this->belongsTo(Skill::class, 'skill_id')->withTrashed();  // include soft deleted skills
     }
 
     public function awardExperiences()

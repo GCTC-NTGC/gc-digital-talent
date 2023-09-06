@@ -35,6 +35,7 @@ type User {
   sub: String
   createdDate: DateTime @rename(attribute: "created_at")
   updatedDate: DateTime @rename(attribute: "updated_at")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 
   # Personal info
   firstName: String @rename(attribute: "first_name")
@@ -131,7 +132,11 @@ type User {
   personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Skill Library
-  userSkills: [UserSkill!] @hasMany
+  userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
+  topTechnicalSkillsRanking: [UserSkill]
+  topBehaviouralSkillsRanking: [UserSkill]
+  improveTechnicalSkillsRanking: [UserSkill]
+  improveBehaviouralSkillsRanking: [UserSkill]
   # Pool Manager info
   pools: [Pool]
     @hasMany
@@ -383,8 +388,7 @@ type ScreeningQuestionResponse {
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @can(ability: "view", resolved: true)
-  user: User! @belongsTo(relation: "user", scopes: ["authorizedToView"])
-
+  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   # Expiry date for this candidate being in the pool.
@@ -396,6 +400,7 @@ type PoolCandidate {
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -640,7 +645,8 @@ type UserSkill {
   skill: Skill! @belongsTo
   skillLevel: SkillLevel @rename(attribute: "skill_level")
   whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
-
+  topSkillsRank: Int @rename(attribute: "top_skills_rank")
+  improveSkillsRank: Int @rename(attribute: "improve_skills_rank")
   # Experiences
   experiences: [Experience!]
     @with(relation: "awardExperiences")
@@ -658,7 +664,7 @@ type UserSkill {
 enum SkillLevel {
   BEGINNER
   INTERMEDIATE
-  EXPERT
+  ADVANCED
   LEAD
 }
 
@@ -714,6 +720,7 @@ interface Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 
 type WorkExperience implements Experience {
@@ -729,6 +736,7 @@ type WorkExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -742,6 +750,7 @@ type PersonalExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 type CommunityExperience implements Experience {
   id: ID!
@@ -756,6 +765,7 @@ type CommunityExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 type EducationExperience implements Experience {
   id: ID!
@@ -772,6 +782,7 @@ type EducationExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 type AwardExperience implements Experience {
   id: ID!
@@ -786,6 +797,7 @@ type AwardExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 
 type ExperienceSkillRecord {
@@ -834,6 +846,7 @@ input UserFilterInput {
   name: String @scope
   generalSearch: String @scope
   roles: [ID] @scope(name: "roleAssignments")
+  trashed: Trashed @trashed
 }
 
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
@@ -887,9 +900,14 @@ type CandidateSearchPoolResult {
 
 type Query {
   me: User @auth
-  user(id: UUID! @eq): User @find @guard @can(ability: "view", query: true)
+  user(id: UUID! @eq): User
+    @find
+    @softDeletes
+    @guard
+    @can(ability: "view", query: true)
   users: [User]!
     @all
+    @softDeletes
     @guard
     @can(ability: "viewAny")
     @deprecated(
@@ -1531,6 +1549,14 @@ input UpdateUserSkillInput {
   whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
 }
 
+input UpdateUserSkillRankingsInput {
+  # array of skill ids
+  topTechnicalSkillsRanked: [UUID]
+  topBehaviouralSkillsRanked: [UUID]
+  improveTechnicalSkillsRanked: [UUID]
+  improveBehaviouralSkillsRanked: [UUID]
+}
+
 input WorkExperienceHasMany {
   create: [WorkExperienceInput!]
 }
@@ -1669,6 +1695,10 @@ type Mutation {
     @delete
     @guard
     @can(ability: "delete", find: "id")
+  restoreUser(id: ID! @whereKey): User
+    @restore
+    @guard
+    @can(ability: "restore", find: "id")
   createPoolCandidateAsAdmin(
     poolCandidate: CreatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate
@@ -1734,6 +1764,8 @@ type Mutation {
     id: ID!
     skillFamily: UpdateSkillFamilyInput! @spread
   ): SkillFamily @update @guard @can(ability: "update", find: "id")
+
+  # skill mutations
   createSkill(skill: CreateSkillInput! @spread): Skill
     @create
     @guard
@@ -1742,6 +1774,11 @@ type Mutation {
     @update
     @guard
     @can(ability: "update", find: "id")
+  deleteSkill(id: UUID! @whereKey): Skill
+    @delete
+    @validator(class: "App\\GraphQL\\Validators\\DeleteSkillValidator")
+    @can(ability: "delete")
+
   createWorkExperience(
     userId: ID! @rename(attribute: "user_id")
     workExperience: WorkExperienceInput! @spread
@@ -1878,14 +1915,19 @@ type Mutation {
 
   # UserSkill mutations
   createUserSkill(
-    userId: ID! @rename(attribute: "user_id")
-    skillId: ID! @rename(attribute: "skill_id")
+    userId: UUID! @rename(attribute: "user_id")
+    skillId: UUID! @rename(attribute: "skill_id")
     userSkill: CreateUserSkillInput @spread
   ): UserSkill @can(ability: "create", injectArgs: true)
-  updateUserSkill(id: ID!, userSkill: UpdateUserSkillInput @spread): UserSkill
-    @update
-    @can(ability: "update", find: "id")
-  deleteUserSkill(id: ID! @whereKey): UserSkill
+  updateUserSkill(
+    id: UUID!
+    userSkill: UpdateUserSkillInput @spread
+  ): UserSkill @update @can(ability: "update", find: "id")
+  updateUserSkillRankings(
+    userId: UUID!
+    userSkillRanking: UpdateUserSkillRankingsInput!
+  ): User @can(ability: "update", find: "userId")
+  deleteUserSkill(id: UUID! @whereKey): UserSkill
     @can(ability: "delete", find: "id")
     @delete
 }

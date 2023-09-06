@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Events\ApplicationSubmitted;
 use App\Models\AwardExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -24,8 +23,8 @@ use function PHPUnit\Framework\assertSameSize;
 
 class SnapshotTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
     use WithFaker;
 
@@ -69,7 +68,8 @@ class SnapshotTest extends TestCase
 
         assertNotNull($expectedSnapshot);
 
-        ApplicationSubmitted::dispatch($poolCandidate);
+        $poolCandidate->setApplicationSnapshot();
+        $poolCandidate->save();
 
         // get the just-created snapshot
         $actualSnapshot = $this->actingAs($user, 'api')->graphQL(
@@ -132,7 +132,8 @@ class SnapshotTest extends TestCase
         $unusedSkillIds = Skill::whereNotIn('id', $poolSkillIds)->pluck('id')->toArray();
 
         // submit the application, re-grab the model so as to access profile_snapshot
-        ApplicationSubmitted::dispatch($poolCandidate);
+        $poolCandidate->setApplicationSnapshot();
+        $poolCandidate->save();
         $updatedPoolCandidate = PoolCandidate::findOrFail($poolCandidate->id);
         $snapshot = $updatedPoolCandidate->profile_snapshot;
 

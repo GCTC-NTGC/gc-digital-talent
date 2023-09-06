@@ -80,7 +80,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.issuedBy}
         </p>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {experienceLabels.awardedScope}
           {intl.formatMessage(commonMessages.dividingColon)}
           {intl.formatMessage(
@@ -103,12 +103,12 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
     dateRange = normalizedDateRange(experience.startDate, experience.endDate);
     content = (
       <>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {experienceLabels.project}
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.project}
         </p>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {experienceLabels.details}
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
@@ -136,12 +136,12 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
               : commonMessages.notAvailable,
           )}
         </p>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {experienceLabels.thesisTitle}
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.thesisTitle}
         </p>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {experienceLabels.details}
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
@@ -155,7 +155,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
     dateRange = normalizedDateRange(experience.startDate, experience.endDate);
     content = (
       <>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {intl.formatMessage({
             defaultMessage: "Learning description",
             id: "szVmh/",
@@ -165,7 +165,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.description}
         </p>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {experienceLabels.details}
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
@@ -179,12 +179,12 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
     dateRange = normalizedDateRange(experience.startDate, experience.endDate);
     content = (
       <>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {experienceLabels.team}
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.division}
         </p>
-        <p>
+        <p data-h2-margin-bottom="base(x1)">
           {experienceLabels.details}
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
@@ -196,8 +196,14 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
 
   return (
     <div data-h2-break-inside="base(avoid) base:print(avoid)">
-      {title && <Heading level="h5">{title}</Heading>}
-      {dateRange && <p>{dateRange}</p>}
+      <div data-h2-margin-bottom="base(x1)">
+        {title && (
+          <Heading level="h5" data-h2-font-weight="base(700)">
+            {title}
+          </Heading>
+        )}
+        {dateRange && <p>{dateRange}</p>}
+      </div>
       {content && content}
     </div>
   );

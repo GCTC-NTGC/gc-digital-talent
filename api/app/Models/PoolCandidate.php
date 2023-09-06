@@ -85,12 +85,12 @@ class PoolCandidate extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function pool(): BelongsTo
     {
-        return $this->belongsTo(Pool::class);
+        return $this->belongsTo(Pool::class)->withTrashed();
     }
 
     public function screeningQuestionResponses(): HasMany
@@ -691,5 +691,55 @@ class PoolCandidate extends Model
                 })
                 ->select(DB::raw('count(*) as skills')),
         ]);
+    }
+
+    public function setApplicationSnapshot()
+    {
+        $user = User::with([
+            'department',
+            'currentClassification',
+            'userSkills.skill',
+            'awardExperiences',
+            'awardExperiences.skills',
+            'communityExperiences',
+            'communityExperiences.skills',
+            'educationExperiences',
+            'educationExperiences.skills',
+            'personalExperiences',
+            'personalExperiences.skills',
+            'workExperiences',
+            'workExperiences.skills',
+            'poolCandidates',
+            'poolCandidates.pool',
+            'poolCandidates.pool.classifications',
+            'poolCandidates.educationRequirementAwardExperiences.skills',
+            'poolCandidates.educationRequirementCommunityExperiences.skills',
+            'poolCandidates.educationRequirementEducationExperiences.skills',
+            'poolCandidates.educationRequirementPersonalExperiences.skills',
+            'poolCandidates.educationRequirementWorkExperiences.skills',
+            'poolCandidates.screeningQuestionResponses',
+            'poolCandidates.screeningQuestionResponses.screeningQuestion',
+        ])->findOrFail($this->user_id);
+
+        // collect skills attached to the Pool to pass into resource collection
+        $pool = Pool::with([
+            'essentialSkills',
+            'nonessentialSkills',
+        ])->findOrFail($this->pool_id);
+        $essentialSkillIds = $pool->essentialSkills()->pluck('id')->toArray();
+        $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('id')->toArray();
+        $poolSkillIds = array_merge($essentialSkillIds, $nonessentialSkillIds);
+
+        // filter out any non-applicable PoolCandidate models attached to User
+        $poolCandidateCollection = $user->poolCandidates;
+        $filteredPoolCandidateCollection = $poolCandidateCollection->filter(function ($individualPoolCandidate) {
+            return $individualPoolCandidate->id === $this->id;
+        });
+        $user->poolCandidates = $filteredPoolCandidateCollection;
+
+        $profile = new UserResource($user);
+        $profile = $profile->poolSkillIds($poolSkillIds);
+
+        $this->profile_snapshot = $profile;
     }
 }

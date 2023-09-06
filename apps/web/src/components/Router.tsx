@@ -10,6 +10,7 @@ import {
 import { Loading } from "@gc-digital-talent/ui";
 import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
+import { useFeatureFlags, FeatureFlags } from "@gc-digital-talent/env";
 
 import Layout from "~/components/Layout/Layout";
 import AdminLayout from "~/components/Layout/AdminLayout";
@@ -17,6 +18,7 @@ import IAPLayout from "~/components/Layout/IAPLayout";
 import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
 import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
 import useRoutes from "~/hooks/useRoutes";
+import RequireUserNotDeleted from "~/pages/Auth/UserDeletedPage/RequireUserNotDeleted";
 
 /** Home */
 const HomePage = React.lazy(() =>
@@ -116,6 +118,14 @@ const SignedOutPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "tsSignedOutPage" */ "../pages/Auth/SignedOutPage/SignedOutPage"
+      ),
+  ),
+);
+const UserDeletedPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsUserDeletedPage" */ "../pages/Auth/UserDeletedPage/UserDeletedPage"
       ),
   ),
 );
@@ -624,6 +634,14 @@ const SkillLibraryPage = React.lazy(() =>
       ),
   ),
 );
+const UpdateUserSkillPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsUpdateUserSkillPage" */ "../pages/Skills/UpdateUserSkillPage"
+      ),
+  ),
+);
 
 /** Search Requests */
 const IndexSearchRequestPage = React.lazy(() =>
@@ -643,11 +661,19 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
-const createRoute = (locale: Locales, loginPath: string) =>
+const createRoute = (
+  locale: Locales,
+  loginPath: string,
+  featureFlags: FeatureFlags,
+) =>
   createBrowserRouter([
     {
       path: `/`,
-      element: <Layout />,
+      element: (
+        <RequireUserNotDeleted>
+          <Layout />
+        </RequireUserNotDeleted>
+      ),
       errorElement: <ErrorPage />,
       children: [
         {
@@ -723,6 +749,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
               element: <SignedOutPage />,
             },
             {
+              path: "user-deleted",
+              element: <UserDeletedPage />,
+            },
+            {
               path: "login-info",
               element: <SignInPage />,
             },
@@ -757,11 +787,41 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   children: [
                     {
                       index: true,
-                      element: <ProfileAndApplicationsPage />,
+                      element: (
+                        <RequireAuth
+                          roles={[ROLE_NAME.Applicant]}
+                          loginPath={loginPath}
+                        >
+                          <ProfileAndApplicationsPage />
+                        </RequireAuth>
+                      ),
                     },
                     {
                       path: "skills",
-                      element: <SkillLibraryPage />,
+                      children: [
+                        {
+                          index: true,
+                          element: featureFlags.skillLibrary ? (
+                            <RequireAuth
+                              roles={[ROLE_NAME.Applicant]}
+                              loginPath={loginPath}
+                            >
+                              <SkillLibraryPage />
+                            </RequireAuth>
+                          ) : null,
+                        },
+                        {
+                          path: ":skillId",
+                          element: featureFlags.skillLibrary ? (
+                            <RequireAuth
+                              roles={[ROLE_NAME.Applicant]}
+                              loginPath={loginPath}
+                            >
+                              <UpdateUserSkillPage />
+                            </RequireAuth>
+                          ) : null,
+                        },
+                      ],
                     },
                   ],
                 },
@@ -1004,7 +1064,11 @@ const createRoute = (locale: Locales, loginPath: string) =>
     },
     {
       path: `${locale}/admin`,
-      element: <AdminLayout />,
+      element: (
+        <RequireUserNotDeleted>
+          <AdminLayout />
+        </RequireUserNotDeleted>
+      ),
       errorElement: <AdminErrorPage />,
       children: [
         {
@@ -1532,7 +1596,11 @@ const createRoute = (locale: Locales, loginPath: string) =>
     },
     {
       path: `${locale}/indigenous-it-apprentice`,
-      element: <IAPLayout />,
+      element: (
+        <RequireUserNotDeleted>
+          <IAPLayout />
+        </RequireUserNotDeleted>
+      ),
       errorElement: <ErrorPage />,
       children: [
         {
@@ -1552,7 +1620,8 @@ const createRoute = (locale: Locales, loginPath: string) =>
 const Router = () => {
   const { locale } = useLocale();
   const routes = useRoutes();
-  const router = createRoute(locale, routes.login());
+  const featureFlags = useFeatureFlags();
+  const router = createRoute(locale, routes.login(), featureFlags);
   return (
     <RouterProvider
       router={router}

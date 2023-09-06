@@ -10,6 +10,7 @@ import {
   InvertedSkillExperience,
   invertSkillExperienceTree,
   invertSkillSkillFamilyTree,
+  parseKeywords,
 } from "./skillUtils";
 
 const fakeApplicant = fakeApplicants(1)[0];
@@ -474,5 +475,29 @@ describe("skill util tests", () => {
     ];
     const actual = invertSkillExperienceTree(experiences);
     expect(actual).toEqual(expected);
+  });
+  describe("parseKeywords", () => {
+    test("returns null for falsy inputs", () => {
+      expect(parseKeywords("")).toBeNull();
+      expect(parseKeywords(null)).toBeNull();
+      expect(parseKeywords(undefined)).toBeNull();
+      expect(parseKeywords("  ")).toBeNull();
+    });
+    test("splits a nicely formatted list", () => {
+      expect(parseKeywords("hello,world,nice,day")).toEqual([
+        "hello",
+        "world",
+        "nice",
+        "day",
+      ]);
+    });
+    test("trims each list item", () => {
+      expect(parseKeywords("hello  ,world,   nice,   day   ")).toEqual([
+        "hello",
+        "world",
+        "nice",
+        "day",
+      ]);
+    });
   });
 });

@@ -7,7 +7,7 @@ import { Skill } from "@gc-digital-talent/graphql";
 
 import { Experience, Scalars } from "~/api/generated";
 
-import SkillForm from "./SkillForm";
+import ExperienceSkillForm from "./ExperienceSkillForm";
 
 type FormValues = {
   experience?: Scalars["ID"];
@@ -29,7 +29,7 @@ const deriveDefaultValues = (
   };
 };
 
-interface SkillFormDialogProps {
+interface ExperienceSkillFormDialogProps {
   open: boolean;
   onOpenChange: (newOpen: boolean) => void;
   skill?: Skill;
@@ -37,13 +37,13 @@ interface SkillFormDialogProps {
   availableExperiences: Experience[];
 }
 
-const SkillFormDialog = ({
+const ExperienceSkillFormDialog = ({
   open,
   onOpenChange,
   skill,
   experience,
   availableExperiences,
-}: SkillFormDialogProps) => {
+}: ExperienceSkillFormDialogProps) => {
   const intl = useIntl();
 
   return (
@@ -61,7 +61,7 @@ const SkillFormDialog = ({
           )}
         </Dialog.Header>
         <Dialog.Body>
-          <SkillForm
+          <ExperienceSkillForm
             experiences={availableExperiences}
             defaultValues={deriveDefaultValues(skill, experience)}
             onSuccess={() => onOpenChange(false)}
@@ -72,4 +72,4 @@ const SkillFormDialog = ({
   );
 };
 
-export default SkillFormDialog;
+export default ExperienceSkillFormDialog;

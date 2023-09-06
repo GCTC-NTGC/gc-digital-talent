@@ -13,8 +13,8 @@ use Tests\TestCase;
 
 class ClassificationTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
     use WithFaker;
 
