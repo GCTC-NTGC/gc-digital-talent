@@ -9,7 +9,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SortButton from "./SortButton";
 import styles, { getCellStyles } from "./styles";
-import { AddDef, AddLinkProps } from "./types";
+import { AddDef } from "./types";
 import { getColumnHeader } from "./utils";
 
 type WrapperProps = React.DetailedHTMLProps<

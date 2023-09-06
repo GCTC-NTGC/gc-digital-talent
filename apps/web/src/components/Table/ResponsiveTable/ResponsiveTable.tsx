@@ -30,7 +30,6 @@ import TablePagination from "./TablePagination";
 import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
 import type {
   AddDef,
-  AddLinkProps,
   DatasetDownload,
   DatasetPrint,
   PaginationDef,

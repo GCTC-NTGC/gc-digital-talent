@@ -77,8 +77,7 @@ const SkillLibraryTable = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { user } = useAuthorization();
-  const [addDialogOpen, setAddDialogOpen] = React.useState<boolean>(false);
-  const [{ fetching }, executeCreateMutation] = useCreateUserSkillMutation();
+  const [, executeCreateMutation] = useCreateUserSkillMutation();
 
   const levelGetter = isTechnical
     ? getTechnicalSkillLevel

@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import GlobeAmericasIcon from "@heroicons/react/24/outline/GlobeAmericasIcon";
 import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
 
-import { TableOfContents, Pending, Button } from "@gc-digital-talent/ui";
+import { TableOfContents, Pending } from "@gc-digital-talent/ui";
 import {
   Skill,
   SkillCategory,
