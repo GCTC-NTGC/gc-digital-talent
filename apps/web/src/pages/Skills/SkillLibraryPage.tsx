@@ -120,6 +120,7 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
             <TableOfContents.Section id={sections.behavioural.id}>
               <TableOfContents.Heading
                 icon={GlobeAmericasIcon}
+                color="primary"
                 data-h2-margin-top="base(0)"
               >
                 {sections.behavioural.title}
@@ -147,7 +148,11 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
               />
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.technical.id}>
-              <TableOfContents.Heading icon={CpuChipIcon}>
+              <TableOfContents.Heading
+                icon={CpuChipIcon}
+                color="secondary"
+                data-h2-margin-top="base(x3)"
+              >
                 {sections.technical.title}
               </TableOfContents.Heading>
               <p data-h2-margin="base(x1 0)">
@@ -167,6 +172,7 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
                 })}
               </p>
               <SkillLibraryTable
+                isTechnical
                 caption={sections.technical.title}
                 data={categorizedUserSkills[SkillCategory.Technical] ?? []}
                 allSkills={categorizedSkills[SkillCategory.Technical] ?? []}

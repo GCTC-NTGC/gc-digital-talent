@@ -7,9 +7,19 @@ import {
   Row,
 } from "@tanstack/react-table";
 
-import { Skill, SkillLevel, UserSkill } from "@gc-digital-talent/graphql";
+import {
+  Skill,
+  SkillLevel,
+  UserSkill,
+  useCreateUserSkillMutation,
+} from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
+import {
+  getBehaviouralSkillLevel,
+  getTechnicalSkillLevel,
+} from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+import { useAuthorization } from "@gc-digital-talent/auth";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import useRoutes from "~/hooks/useRoutes";
@@ -24,7 +34,7 @@ const skillLevelSort = (a: Row<UserSkill>, b: Row<UserSkill>) => {
   const order = [
     SkillLevel.Beginner,
     SkillLevel.Intermediate,
-    SkillLevel.Expert,
+    SkillLevel.Advanced,
     SkillLevel.Lead,
   ];
 
@@ -46,7 +56,7 @@ const skillNameCell = (
   intl: IntlShape,
   paths: ReturnType<typeof useRoutes>,
 ) => (
-  <Link href={paths.home()}>
+  <Link href={paths.editUserSkill(cell.row.original.skill.id)}>
     {getLocalizedName(cell.row.original.skill.name, intl)}
   </Link>
 );
@@ -66,6 +76,13 @@ const SkillLibraryTable = ({
 }: SkillLibraryTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { user } = useAuthorization();
+  const [addDialogOpen, setAddDialogOpen] = React.useState<boolean>(false);
+  const [{ fetching }, executeCreateMutation] = useCreateUserSkillMutation();
+
+  const levelGetter = isTechnical
+    ? getTechnicalSkillLevel
+    : getBehaviouralSkillLevel;
 
   const columns = [
     columnHelper.accessor((row) => getLocalizedName(row.skill.name, intl), {
@@ -82,7 +99,7 @@ const SkillLibraryTable = ({
         isRowTitle: true,
       },
     }),
-    columnHelper.accessor(() => "1 experience", {
+    columnHelper.accessor((row) => row.experiences?.length || 0, {
       id: "experiences",
       header: intl.formatMessage({
         defaultMessage: "Career experience",
@@ -90,6 +107,18 @@ const SkillLibraryTable = ({
         description:
           "Experience count column header for the skill library table",
       }),
+      cell: (cell: UserSkillCell) =>
+        intl.formatMessage(
+          {
+            defaultMessage:
+              "{count, plural, =0 {0 experiences} =1 {1 experience} other {# experiences}}",
+            id: "/ldR5A",
+            description: "Number of experiences linked to a skill",
+          },
+          {
+            count: cell.row.original.experiences?.length || 0,
+          },
+        ),
       enableHiding: false,
       enableColumnFilter: false,
     }),
@@ -100,6 +129,12 @@ const SkillLibraryTable = ({
         id: "00tmhW",
         description: "Skill level column header for the skill library table",
       }),
+      cell: ({
+        row: {
+          original: { skillLevel },
+        },
+      }: UserSkillCell) =>
+        skillLevel ? intl.formatMessage(levelGetter(skillLevel)) : null,
       enableHiding: false,
       enableColumnFilter: false,
       sortingFn: skillLevelSort,
@@ -118,7 +153,14 @@ const SkillLibraryTable = ({
             showCategory={false}
             skills={allSkills}
             onSave={async (value) => {
-              console.log(value);
+              executeCreateMutation({
+                userId: user?.id,
+                skillId: value?.skill,
+                userSkill: {
+                  skillLevel: value.skillLevel,
+                  whenSkillUsed: value.whenSkillUsed,
+                },
+              });
             }}
           />
         ),
