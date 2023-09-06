@@ -7,7 +7,13 @@ import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircle
 import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ArrowDownCircleIcon from "@heroicons/react/24/solid/ArrowDownCircleIcon";
 
-import { Heading, Link } from "@gc-digital-talent/ui";
+import {
+  Accordion,
+  Heading,
+  Link,
+  Separator,
+  StandardAccordionHeader,
+} from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useTheme } from "@gc-digital-talent/theme";
@@ -198,6 +204,62 @@ const SignInPage = () => {
                   "Heading for Frequently Asked Questions section on sign in page",
               })}
             </Heading>
+            <Accordion.Root type="single" mode="simple" collapsible>
+              <Accordion.Item value="one">
+                <StandardAccordionHeader headingAs="h4">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "What if I deleted the app or changed phone and I don't have the recovery codes?",
+                    id: "m+IDnG",
+                    description:
+                      "First of the Frequently Asked Questions for logging in",
+                  })}
+                </StandardAccordionHeader>
+                <Accordion.Content>
+                  <Separator
+                    orientation="horizontal"
+                    decorative
+                    data-h2-background-color="base(gray.lighter)"
+                    data-h2-margin="base(x0.5, 0, x1, 0)"
+                  />
+                  {intl.formatMessage({
+                    defaultMessage:
+                      // TODO: Add help desk link
+                      "Although your login cannot be recovered, you can contact our Help Desk, and they can help you recover your account.",
+                    id: "oN0EC5",
+                    description:
+                      "First answer of the Frequently Asked Questions for logging in",
+                  })}
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="two">
+                <StandardAccordionHeader headingAs="h4">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Can you remove the two-factor authentication from my account so I can reset it?",
+                    id: "Val79M",
+                    description:
+                      "Second of the Frequently Asked Questions for logging in",
+                  })}
+                </StandardAccordionHeader>
+                <Accordion.Content>
+                  <Separator
+                    orientation="horizontal"
+                    decorative
+                    data-h2-background-color="base(gray.lighter)"
+                    data-h2-margin="base(x0.5, 0, x1, 0)"
+                  />
+                  {intl.formatMessage({
+                    defaultMessage:
+                      // TODO: Add help desk link
+                      "We cannot remove the two factor authentication from your account, but you can contact our Help Desk and they can assist you with account recovery.",
+                    id: "03p1u4",
+                    description:
+                      "First answer of the Frequently Asked Questions for logging in",
+                  })}
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion.Root>
           </>
         ) : (
           <>
