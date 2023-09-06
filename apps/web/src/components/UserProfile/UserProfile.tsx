@@ -18,16 +18,7 @@ import {
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import type { User } from "~/api/generated";
-import {
-  aboutSectionHasEmptyRequiredFields,
-  diversityEquityInclusionSectionHasEmptyRequiredFields,
-  governmentInformationSectionHasEmptyRequiredFields,
-  languageInformationSectionHasEmptyRequiredFields,
-  workLocationSectionHasEmptyRequiredFields,
-  workPreferencesSectionHasEmptyRequiredFields,
-} from "~/validators/profile";
 
-import StatusItem, { Status } from "../StatusItem/StatusItem";
 import ExperienceSection from "./ExperienceSection";
 import AboutSection from "./ProfileSections/AboutSection";
 import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
@@ -137,14 +128,6 @@ const UserProfile = ({
     return sections[key] && sections[key]?.isVisible;
   };
 
-  const sectionStatus = (
-    hasEmptyRequiredFields: (user: User) => boolean,
-  ): Status | undefined => {
-    if (hasEmptyRequiredFields(user)) return "error";
-
-    return "success";
-  };
-
   return (
     <Container show={isNavigationVisible}>
       {isNavigationVisible && (
@@ -153,69 +136,37 @@ const UserProfile = ({
             {showSection("about") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.ABOUT}>
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(navigationMessages.aboutMe)}
-                    status={sectionStatus(aboutSectionHasEmptyRequiredFields)}
-                  />
+                  {intl.formatMessage(navigationMessages.aboutMe)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
             {showSection("employmentEquity") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.DEI}>
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(
-                      navigationMessages.diversityEquityInclusion,
-                    )}
-                    status={sectionStatus(
-                      diversityEquityInclusionSectionHasEmptyRequiredFields,
-                    )}
-                  />
+                  {intl.formatMessage(
+                    navigationMessages.diversityEquityInclusion,
+                  )}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
             {showSection("language") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.LANGUAGE}>
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(
-                      navigationMessages.languageInformation,
-                    )}
-                    status={sectionStatus(
-                      languageInformationSectionHasEmptyRequiredFields,
-                    )}
-                  />
+                  {intl.formatMessage(navigationMessages.languageInformation)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
             {showSection("government") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.GOVERNMENT}>
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(
-                      navigationMessages.governmentInformation,
-                    )}
-                    status={sectionStatus(
-                      governmentInformationSectionHasEmptyRequiredFields,
-                    )}
-                  />
+                  {intl.formatMessage(navigationMessages.governmentInformation)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
             {showSection("workLocation") && (
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.WORK_LOCATION}>
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(navigationMessages.workLocation)}
-                    status={sectionStatus(
-                      workLocationSectionHasEmptyRequiredFields,
-                    )}
-                  />
+                  {intl.formatMessage(navigationMessages.workLocation)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
@@ -224,15 +175,7 @@ const UserProfile = ({
                 <TableOfContents.AnchorLink
                   id={PAGE_SECTION_ID.WORK_PREFERENCES}
                 >
-                  <StatusItem
-                    asListItem={false}
-                    title={intl.formatMessage(
-                      navigationMessages.workPreferences,
-                    )}
-                    status={sectionStatus(
-                      workPreferencesSectionHasEmptyRequiredFields,
-                    )}
-                  />
+                  {intl.formatMessage(navigationMessages.workPreferences)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
