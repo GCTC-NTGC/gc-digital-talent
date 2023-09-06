@@ -111,6 +111,10 @@ const SignInPage = () => {
     }
   }, [iapMode, themeKey, setThemeKey]);
 
+  const helpLink = (chunks: React.ReactNode) => (
+    <Link href={paths.support()}>{chunks}</Link>
+  );
+
   return (
     <>
       <SEO title={pageTitle} />
@@ -204,7 +208,12 @@ const SignInPage = () => {
                   "Heading for Frequently Asked Questions section on sign in page",
               })}
             </Heading>
-            <Accordion.Root type="single" mode="simple" collapsible>
+            <Accordion.Root
+              type="single"
+              mode="simple"
+              collapsible
+              data-h2-margin-left="base(-x1)"
+            >
               <Accordion.Item value="one">
                 <StandardAccordionHeader headingAs="h4">
                   {intl.formatMessage({
@@ -222,14 +231,18 @@ const SignInPage = () => {
                     data-h2-background-color="base(gray.lighter)"
                     data-h2-margin="base(x0.5, 0, x1, 0)"
                   />
-                  {intl.formatMessage({
-                    defaultMessage:
-                      // TODO: Add help desk link
-                      "Although your login cannot be recovered, you can contact our Help Desk, and they can help you recover your account.",
-                    id: "oN0EC5",
-                    description:
-                      "First answer of the Frequently Asked Questions for logging in",
-                  })}
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "Although your login cannot be recovered, you can contact our <helpLink>Help Desk</helpLink>, and they can help you recover your account.",
+                      id: "KpR9l5",
+                      description:
+                        "First answer of the Frequently Asked Questions for logging in",
+                    },
+                    {
+                      helpLink,
+                    },
+                  )}
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="two">
@@ -249,17 +262,242 @@ const SignInPage = () => {
                     data-h2-background-color="base(gray.lighter)"
                     data-h2-margin="base(x0.5, 0, x1, 0)"
                   />
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "We cannot remove the two factor authentication from your account, but you can contact our <helpLink>Help Desk</helpLink> and they can assist you with account recovery.",
+                      id: "G1bgOX",
+                      description:
+                        "First answer of the Frequently Asked Questions for logging in",
+                    },
+                    {
+                      helpLink,
+                    },
+                  )}
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="three">
+                <StandardAccordionHeader headingAs="h4">
                   {intl.formatMessage({
                     defaultMessage:
-                      // TODO: Add help desk link
-                      "We cannot remove the two factor authentication from your account, but you can contact our Help Desk and they can assist you with account recovery.",
-                    id: "03p1u4",
+                      "What can I do if my authenticator codes are no longer being accepted?",
+                    id: "5myYda",
                     description:
-                      "First answer of the Frequently Asked Questions for logging in",
+                      "Third of the Frequently Asked Questions for logging in",
+                  })}
+                </StandardAccordionHeader>
+                <Accordion.Content>
+                  <Separator
+                    orientation="horizontal"
+                    decorative
+                    data-h2-background-color="base(gray.lighter)"
+                    data-h2-margin="base(x0.5, 0, x1, 0)"
+                  />
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "Please contact our <helpLink>Help Desk</helpLink>, and they can help you recover your account.",
+                      id: "qQgtWZ",
+                      description:
+                        "Third answer of the Frequently Asked Questions for logging in",
+                    },
+                    {
+                      helpLink,
+                    },
+                  )}
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="four">
+                <StandardAccordionHeader headingAs="h4">
+                  {intl.formatMessage({
+                    defaultMessage: "Already have a GCKey account?",
+                    id: "ACa+rP",
+                    description:
+                      "Fourth of the Frequently Asked Questions for logging in",
+                  })}
+                </StandardAccordionHeader>
+                <Accordion.Content>
+                  <Separator
+                    orientation="horizontal"
+                    decorative
+                    data-h2-background-color="base(gray.lighter)"
+                    data-h2-margin="base(x0.5, 0, x1, 0)"
+                  />
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "If you already have a GCKey account you can sign in to your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
+                      id: "3/YwR9",
+                      description:
+                        "Fourth answer of the Frequently Asked Questions for logging in - paragraph 1",
+                    })}
+                  </p>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "If you're unsure whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
+                      id: "n4eLy+",
+                      description:
+                        "Fourth answer of the Frequently Asked Questions for logging in - paragraph 2",
+                    })}
+                  </p>
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="five">
+                <StandardAccordionHeader headingAs="h4">
+                  {intl.formatMessage({
+                    defaultMessage: "What is a GCKey?",
+                    id: "w3vO23",
+                    description:
+                      "Fifth of the Frequently Asked Questions for logging in",
+                  })}
+                </StandardAccordionHeader>
+                <Accordion.Content>
+                  <Separator
+                    orientation="horizontal"
+                    decorative
+                    data-h2-background-color="base(gray.lighter)"
+                    data-h2-margin="base(x0.5, 0, x1, 0)"
+                  />
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "A GCKey is a central credential not managed by the GC Digital Talent team. The Government of Canada offers it as a way for you to communicate securely with many online-enabled Government programs and services.",
+                    id: "1NliRt",
+                    description:
+                      "Fifth answer of the Frequently Asked Questions for logging in",
+                  })}
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="six">
+                <StandardAccordionHeader headingAs="h4">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Who do I contact if I have questions about GCKey?",
+                    id: "13Cbkq",
+                    description:
+                      "Sixth of the Frequently Asked Questions for logging in",
+                  })}
+                </StandardAccordionHeader>
+                <Accordion.Content>
+                  <Separator
+                    orientation="horizontal"
+                    decorative
+                    data-h2-background-color="base(gray.lighter)"
+                    data-h2-margin="base(x0.5, 0, x1, 0)"
+                  />
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "If you have questions about GCKey, please contact the GCKey team at:",
+                      id: "gw/WSP",
+                      description:
+                        "Sixth answer of the Frequently Asked Questions for logging in - intro sentence",
+                    })}
+                  </p>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Canada and the United States",
+                      id: "8NNqcv",
+                      description:
+                        "Sixth answer of the Frequently Asked Questions for logging in - valid area for phone number",
+                    })}
+                  </p>
+                  <p>1-855-438-1102</p>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Text Telephone (TTY/TDD)",
+                      id: "g1MMTj",
+                      description:
+                        "Sixth answer of the Frequently Asked Questions for logging in - second way to 'contact us'",
+                    })}
+                  </p>
+                  <p>1-855-438-1103</p>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Outside Canada and the United States",
+                      id: "ConlR5",
+                      description:
+                        "Sixth answer of the Frequently Asked Questions for logging in - valid area for phone number",
+                    })}
+                  </p>
+                  <p>1-800-2318-6290</p>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Customer Service Representatives are available to assist you by phone, year round, 24 hours a day, 7 days a week.",
+                      id: "HqQzy1",
+                      description:
+                        "Sixth answer of the Frequently Asked Questions for logging in - final sentence",
+                    })}
+                  </p>
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="seven">
+                <StandardAccordionHeader headingAs="h4">
+                  {intl.formatMessage({
+                    defaultMessage: "Which authenticator app should I install?",
+                    id: "YWxGL/",
+                    description:
+                      "Seventh of the Frequently Asked Questions for logging in",
+                  })}
+                </StandardAccordionHeader>
+                <Accordion.Content>
+                  <Separator
+                    orientation="horizontal"
+                    decorative
+                    data-h2-background-color="base(gray.lighter)"
+                    data-h2-margin="base(x0.5, 0, x1, 0)"
+                  />
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "As the Government of Canada we cannot recommend any specific third-party vendors or apps. Well known digital vendors, like Google Authenticator and Microsoft Authenticator, provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
+                    id: "DL/hpF",
+                    description:
+                      "Seventh answer of the Frequently Asked Questions for logging in",
+                  })}
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="eight">
+                <StandardAccordionHeader headingAs="h4">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Can I use SMS or email authentication instead of an app?",
+                    id: "ClrNAj",
+                    description:
+                      "Eighth of the Frequently Asked Questions for logging in",
+                  })}
+                </StandardAccordionHeader>
+                <Accordion.Content>
+                  <Separator
+                    orientation="horizontal"
+                    decorative
+                    data-h2-background-color="base(gray.lighter)"
+                    data-h2-margin="base(x0.5, 0, x1, 0)"
+                  />
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Currently, our site only supports authentication through an authenticator app.",
+                    id: "CIkGjy",
+                    description:
+                      "Eighth answer of the Frequently Asked Questions for logging in",
                   })}
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion.Root>
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Read all the FAQ's and still stuck? <helpLink>Contact our team for help</helpLink>",
+                  id: "3M1/4Y",
+                  description:
+                    "Sentence following the Frequently Asked Questions about logging in",
+                },
+                {
+                  helpLink,
+                },
+              )}
+            </p>
           </>
         ) : (
           <>
