@@ -115,7 +115,7 @@ export const SkillShowcase = ({
       }),
     },
     improveSkills: {
-      id: "improve-skills",
+      id: "skills-to-improve",
       title: intl.formatMessage({
         defaultMessage: "Skills you'd like to improve",
         id: "sgaZcd",
