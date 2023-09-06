@@ -37,8 +37,8 @@ const MaintenanceBanner = () => {
 
   const showMaintenanceBanner =
     maintenanceBannerPublicDate && serverMaintenanceDate
-      ? (isEqual(parseDateTimeUtc(maintenanceBannerPublicDate), new Date()) ||
-          isAfter(parseDateTimeUtc(maintenanceBannerPublicDate), new Date())) &&
+      ? (isEqual(new Date(), parseDateTimeUtc(maintenanceBannerPublicDate)) ||
+          isAfter(new Date(), parseDateTimeUtc(maintenanceBannerPublicDate))) &&
         isBefore(
           parseDateTimeUtc(maintenanceBannerPublicDate),
           parseDateTimeUtc(serverMaintenanceDate),
