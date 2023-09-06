@@ -132,7 +132,7 @@ type User {
   personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Skill Library
-  userSkills: [UserSkill!] @hasMany
+  userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
   topTechnicalSkillsRanking: [UserSkill]
   topBehaviouralSkillsRanking: [UserSkill]
   improveTechnicalSkillsRanking: [UserSkill]
@@ -664,7 +664,7 @@ type UserSkill {
 enum SkillLevel {
   BEGINNER
   INTERMEDIATE
-  EXPERT
+  ADVANCED
   LEAD
 }
 
@@ -1915,18 +1915,19 @@ type Mutation {
 
   # UserSkill mutations
   createUserSkill(
-    userId: ID! @rename(attribute: "user_id")
-    skillId: ID! @rename(attribute: "skill_id")
+    userId: UUID! @rename(attribute: "user_id")
+    skillId: UUID! @rename(attribute: "skill_id")
     userSkill: CreateUserSkillInput @spread
   ): UserSkill @can(ability: "create", injectArgs: true)
-  updateUserSkill(id: ID!, userSkill: UpdateUserSkillInput @spread): UserSkill
-    @update
-    @can(ability: "update", find: "id")
+  updateUserSkill(
+    id: UUID!
+    userSkill: UpdateUserSkillInput @spread
+  ): UserSkill @update @can(ability: "update", find: "id")
   updateUserSkillRankings(
     userId: UUID!
     userSkillRanking: UpdateUserSkillRankingsInput!
   ): User @can(ability: "update", find: "userId")
-  deleteUserSkill(id: ID! @whereKey): UserSkill
+  deleteUserSkill(id: UUID! @whereKey): UserSkill
     @can(ability: "delete", find: "id")
     @delete
 }

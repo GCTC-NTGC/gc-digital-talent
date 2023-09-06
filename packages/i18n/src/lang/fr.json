@@ -19,6 +19,10 @@
     "defaultMessage": "Fermer le menu",
     "description": "Text label for button that closes side menu."
   },
+  "/62GQm": {
+    "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de complexité faible à modérée sous une supervision minimale et des tâches de complexité plus élevée sous une supervision et un mentorat modérés. Généralement associée à des postes intermédiaires.",
+    "description": "The technical skill level definition for intermediate"
+  },
   "/EWDdn": {
     "defaultMessage": "Octobre",
     "description": "Name of the tenth month"
@@ -26,6 +30,10 @@
   "/I9tx9": {
     "defaultMessage": "Cette demande ne peut pas être supprimée. Vous pouvez uniquement supprimer les demandes avant leur soumission.",
     "description": "Error message that the application cannot be deleted."
+  },
+  "/OQLmo": {
+    "defaultMessage": "Maîtrise approfondie",
+    "description": "The behavioural skill level for lead"
   },
   "/SBJ7g": {
     "defaultMessage": "Sélectionnez {label}",
@@ -186,6 +194,10 @@
     "defaultMessage": "International",
     "description": "The scope of the award was international."
   },
+  "5/C1lJ": {
+    "defaultMessage": "Avancé",
+    "description": "The technical skill level for expert"
+  },
   "55rtyE": {
     "defaultMessage": "IT-03 (Conseiller technique)",
     "description": "The name of the Technical advisor classification with group and level."
@@ -321,6 +333,10 @@
     "defaultMessage": "Placé Occasionnels",
     "description": "The pool candidate's status is Placed Casual."
   },
+  "AOJjMk": {
+    "defaultMessage": "Niveau d’entrée",
+    "description": "The technical skill level for beginner"
+  },
   "AvBSV+": {
     "defaultMessage": "Oh non... ",
     "description": "Title displayed for a table error loading state."
@@ -361,6 +377,10 @@
     "defaultMessage": "Région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.)",
     "description": "The work region of Canada described as Atlantic."
   },
+  "CrzH4k": {
+    "defaultMessage": "Constamment démontrée comme étant bien développée auprès de tous les publics, même dans des conditions de stress important et dans des situations difficiles. Le comportement est nuancé et adapté à la situation sans s’éloigner de sa valeur fondamentale.",
+    "description": "The behavioural skill level definition for lead"
+  },
   "DUuisY": {
     "defaultMessage": "Oui, évaluation en français terminée",
     "description": "Completed a French language evaluation"
@@ -368,6 +388,10 @@
   "DdOEWx": {
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
+  },
+  "EPEKU2": {
+    "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
+    "description": "The technical skill level definition for expert"
   },
   "EdAaI7": {
     "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
@@ -392,6 +416,10 @@
   "Gc9PeN": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler par quarts.",
     "description": "The operational requirement described as shift work."
+  },
+  "Glb1Te": {
+    "defaultMessage": "Diriger",
+    "description": "The technical skill level for lead"
   },
   "GqmxO8": {
     "defaultMessage": "Termine demain, à {time}",
@@ -477,6 +505,10 @@
     "defaultMessage": "Autre",
     "description": "Priority text for users with no priority"
   },
+  "K9SPL+": {
+    "defaultMessage": "À un stade initial de développement",
+    "description": "The behavioural skill level for beginner"
+  },
   "KC/sxi": {
     "defaultMessage": "Ce champ est obligatoire.",
     "description": "Error message that this field must filled for the form to be valid."
@@ -484,6 +516,10 @@
   "KMSWLW": {
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for button that opens side menu."
+  },
+  "Ko0JX/": {
+    "defaultMessage": "Constamment démontrée comme étant bien développée dans des conditions quotidiennes auprès de tous les publics, fréquemment démontrée dans des situations de stress et dans des situations modérément difficiles auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress important et dans des situations difficiles.",
+    "description": "The behavioural skill level definition for expert"
   },
   "KzhnAz": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement).",
@@ -812,6 +848,10 @@
     "defaultMessage": "Nouveau-Brunswick",
     "description": "New Brunswick selection for province or territory input"
   },
+  "Y3FL2a": {
+    "defaultMessage": "Démontrée, mais la constance varie considérablement selon le public et les circonstances. Démontrée par intermittence dans des situations quotidiennes et démontrée de façon inconstante auprès de certains publics ou dans des conditions de stress ou dans des situations modérément difficiles. Le potentiel est là, mais il reste encore beaucoup à apprendre.",
+    "description": "The behavioural skill level definition for beginner"
+  },
   "YHqVoj": {
     "defaultMessage": "Soumettre",
     "description": "Default text for submit button."
@@ -904,6 +944,10 @@
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
     "description": "Button text to expand truncated text to view all contents"
   },
+  "clDpR4": {
+    "defaultMessage": "Modérément développée",
+    "description": "The behavioural skill level for intermediate"
+  },
   "cnFVR1": {
     "defaultMessage": "m'oblige à faire des <strong>heures supplémentaires sans préavis</strong>.",
     "description": "The operational requirement described as overtime."
@@ -919,6 +963,10 @@
   "dIZ4oj": {
     "defaultMessage": "m'exige de <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
     "description": "The operational requirement described as transport equipment up to 20kg."
+  },
+  "dXiRk8": {
+    "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
+    "description": "The technical skill level definition for beginner"
   },
   "dnGlXQ": {
     "defaultMessage": "Accepté",
@@ -959,6 +1007,10 @@
   "fUF8rg": {
     "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select input"
+  },
+  "fdv2bM": {
+    "defaultMessage": "Capacité démontrée à déterminer, définir, entreprendre et exécuter des tâches d’une grande complexité avec de vastes domaines de répercussions, même dans des circonstances difficiles. Capacité démontrée à diriger le développement de tâches, et potentiellement d’équipes, pour l’organisation dans ce domaine. Généralement associée à des postes de gestionnaire ou de responsable technique.",
+    "description": "The technical skill level definition for lead"
   },
   "g08hvq": {
     "defaultMessage": "Étape 1",
@@ -1087,6 +1139,10 @@
   "lDeaXK": {
     "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
     "description": "The operational requirement described as scheduled overtime."
+  },
+  "lYtXQJ": {
+    "defaultMessage": "Souvent démontrée comme étant bien développée dans la plupart des situations quotidiennes auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress et dans des situations modérément difficiles.",
+    "description": "The behavioural skill level definition for intermediate"
   },
   "ldthVj": {
     "defaultMessage": "Août",
@@ -1266,6 +1322,10 @@
   "rsxrMs": {
     "defaultMessage": "Retirer {label}",
     "description": "Button text for a dismissible chip"
+  },
+  "rt4mVU": {
+    "defaultMessage": "Intermédiaire",
+    "description": "The technical skill level for intermediate"
   },
   "sJ+F9z": {
     "defaultMessage": "Sauter pour ajouter un élément",
@@ -1504,6 +1564,10 @@
   "zafWLP": {
     "defaultMessage": "Suspendu",
     "description": "Suspended status"
+  },
+  "zdxy8s": {
+    "defaultMessage": "Fortement développée",
+    "description": "The behavioural skill level for expert"
   },
   "zhzuZu": {
     "defaultMessage": "Je suis un(e) <strong>étudiant(e)</strong>.",

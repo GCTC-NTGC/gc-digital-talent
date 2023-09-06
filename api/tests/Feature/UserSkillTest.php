@@ -50,7 +50,7 @@ class UserSkillTest extends TestCase
     protected $createUserSkill =
     /** @lang GraphQL */
     '
-        mutation createUserSkill($userId: ID!, $skillId: ID!, $userSkill: CreateUserSkillInput){
+        mutation createUserSkill($userId: UUID!, $skillId: UUID!, $userSkill: CreateUserSkillInput){
             createUserSkill(userId: $userId, skillId: $skillId, userSkill: $userSkill) {
                 id
                 user {
@@ -68,7 +68,7 @@ class UserSkillTest extends TestCase
     protected $updateUserSkill =
     /** @lang GraphQL */
     '
-        mutation updateUserSkill($id: ID!, $userSkill: UpdateUserSkillInput){
+        mutation updateUserSkill($id: UUID!, $userSkill: UpdateUserSkillInput){
             updateUserSkill(id :$id, userSkill: $userSkill) {
                 id
                 skillLevel
@@ -80,7 +80,7 @@ class UserSkillTest extends TestCase
     protected $deleteUserSkill =
     /** @lang GraphQL */
     '
-        mutation deleteUserSkill($id: ID!){
+        mutation deleteUserSkill($id: UUID!){
             deleteUserSkill(id :$id) {
                 id
             }
@@ -326,14 +326,14 @@ class UserSkillTest extends TestCase
                 [
                     'id' => $userSkillModel->id,
                     'userSkill' => [
-                        'skillLevel' => ApiEnums::SKILL_LEVEL_EXPERT,
+                        'skillLevel' => ApiEnums::SKILL_LEVEL_ADVANCED,
                         'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
                     ],
                 ]
             )
             ->assertJsonFragment([
                 'id' => $userSkillModel->id,
-                'skillLevel' => ApiEnums::SKILL_LEVEL_EXPERT,
+                'skillLevel' => ApiEnums::SKILL_LEVEL_ADVANCED,
                 'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
             ]);
     }
