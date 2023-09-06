@@ -5,6 +5,7 @@ import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import ArrowLeftOnRectangleIcon from "@heroicons/react/24/outline/ArrowLeftOnRectangleIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
+import ArrowDownCircleIcon from "@heroicons/react/24/solid/ArrowDownCircleIcon";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
@@ -28,20 +29,47 @@ const buildExternalLink = (path: string, chunks: React.ReactNode) => (
 
 export interface StepProps {
   image: string;
+  includeArrow?: boolean;
   children: React.ReactNode;
 }
 
-const Step = ({ image, children }: StepProps) => {
+const Step = ({ image, includeArrow = true, children }: StepProps) => {
   return (
-    <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
-      {image && <img src={image} alt="" />}
+    <div
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-flex-item="base(1of1) p-tablet(1of4)"
+    >
+      <div data-h2-display="base(flex)" data-h2-flex-direction="base(row)">
+        {image && <img src={image} alt="" />}
+        {includeArrow && (
+          <ArrowRightCircleIcon
+            data-h2-display="base(none) p-tablet(block)"
+            data-h2-vertical-align="base(middle)"
+            data-h2-height="base(auto)"
+            data-h2-width="base(x1.5)"
+            data-h2-overflow="base(visible)"
+            data-h2-padding-left="base(x0.5)"
+          />
+        )}
+      </div>
       <div
         data-h2-flex-grow="base(1)"
-        data-h2-padding="base(x1)"
         data-h2-flex="base(1)"
+        data-h2-text-indent="base(-1em)"
+        data-h2-padding-left="base(1em)"
       >
         {children}
       </div>
+      {includeArrow && (
+        <ArrowDownCircleIcon
+          data-h2-display="base(block) p-tablet(none)"
+          data-h2-height="base(auto)"
+          data-h2-width="base(x1.5)"
+          data-h2-margin="base(auto)"
+          data-h2-padding="base(x0.5, 0)"
+        />
+      )}
     </div>
   );
 };
@@ -128,48 +156,40 @@ const SignInPage = () => {
                 description: "Subtitle for a section explaining sign in steps",
               })}
             </h4>
-            <ol data-h2-flex-grid="base(flex-start, x2, x2)">
-              <li data-h2-flex-item="base(1of2) p-tablet(1of4)">
-                <Step image={step1Image}>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Sign in with your username and password. Remember, <strong>your username is separate from your email address</strong>.",
-                    id: "LIiJJ1",
-                    description: "Text for first sign in step.",
-                  })}
-                </Step>
-              </li>
-              <li data-h2-flex-item="base(1of2) p-tablet(1of4)">
-                <Step image={step2Image}>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "<strong>Open the authenticator app</strong> on your device.",
-                    id: "YrJFSw",
-                    description: "Text for second sign in step.",
-                  })}
-                </Step>
-              </li>
-              <li data-h2-flex-item="base(1of2) p-tablet(1of4)">
-                <Step image={step3Image}>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Enter your <strong>unique one-time six-digit code</strong> from your <strong>authenticator app</strong> into the verification bar.",
-                    id: "sQepi4",
-                    description: "Text for third sign in step.",
-                  })}
-                </Step>
-              </li>
-              <li data-h2-flex-item="base(1of2) p-tablet(1of4)">
-                <Step image={step4Image}>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Hooray! <strong>You've signed in with GCKey</strong> and will be returned to the <strong>GC Digital Talent platform</strong>.",
-                    id: "TSZedg",
-                    description: "Text for final sign in step.",
-                  })}
-                </Step>
-              </li>
-            </ol>
+            <div data-h2-flex-grid="base(flex-start, x2, x2)">
+              <Step image={step1Image}>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "1. Sign in with your username and password. Remember, <strong>your username is separate from your email address</strong>.",
+                  id: "oR+6vE",
+                  description: "Text for first sign in step.",
+                })}
+              </Step>
+              <Step image={step2Image}>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "2. <strong>Open the authenticator app</strong> on your device.",
+                  id: "QuHfUJ",
+                  description: "Text for second sign in step.",
+                })}
+              </Step>
+              <Step image={step3Image}>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "3. Enter your <strong>unique one-time six-digit code</strong> from your <strong>authenticator app</strong> into the verification bar.",
+                  id: "oacrTu",
+                  description: "Text for third sign in step.",
+                })}
+              </Step>
+              <Step image={step4Image} includeArrow={false}>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "4. Hooray! <strong>You've signed in with GCKey</strong> and will be returned to the <strong>GC Digital Talent platform</strong>.",
+                  id: "eO9buR",
+                  description: "Text for final sign in step.",
+                })}
+              </Step>
+            </div>
             <Heading Icon={InformationCircleIcon} color="error" level="h3">
               {intl.formatMessage({
                 defaultMessage: "Frequently Asked Questions (FAQs)",
