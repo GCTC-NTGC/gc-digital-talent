@@ -3,22 +3,21 @@
 namespace Tests\Feature;
 
 use App\Models\AwardExperience;
-use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
+use Database\Helpers\ApiEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
-use Database\Helpers\ApiEnums;
 
 class CountPoolCandidatesByPoolTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
 
     protected function setUp(): void
@@ -64,12 +63,12 @@ class CountPoolCandidatesByPoolTest extends TestCase
               }
             ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertSimilarJson([
             'data' => [
-                'countPoolCandidatesByPool' => []
-            ]
+                'countPoolCandidatesByPool' => [],
+            ],
         ]);
     }
 
@@ -92,17 +91,17 @@ class CountPoolCandidatesByPoolTest extends TestCase
               }
             ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool->id],
-                        'candidateCount' => 1
-                    ]
-                ]
-            ]
+                        'candidateCount' => 1,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -113,8 +112,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $pool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
             'name' => [
                 'en' => 'Test Pool EN',
-                'fr' => 'Test Pool FR'
-            ]
+                'fr' => 'Test Pool FR',
+            ],
         ]);
         $user = User::factory()->create([]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
@@ -133,7 +132,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
               }
             ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertSimilarJson([
             'data' => [
@@ -143,13 +142,13 @@ class CountPoolCandidatesByPoolTest extends TestCase
                             'id' => $pool->id,
                             'name' => [
                                 'en' => $pool->name['en'],
-                                'fr' => $pool->name['fr']
-                            ]
+                                'fr' => $pool->name['fr'],
+                            ],
                         ],
-                        'candidateCount' => 1
-                    ]
-                ]
-            ]
+                        'candidateCount' => 1,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -174,21 +173,21 @@ class CountPoolCandidatesByPoolTest extends TestCase
                   }
                 ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool1->id],
-                        'candidateCount' => 1
+                        'candidateCount' => 1,
                     ],
                     [
                         'pool' => ['id' => $pool2->id],
-                        'candidateCount' => 1
-                    ]
-                ]
-            ]
+                        'candidateCount' => 1,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -198,13 +197,13 @@ class CountPoolCandidatesByPoolTest extends TestCase
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
-            'has_diploma' => true
+            'has_diploma' => true,
         ]);
         $user2 = User::factory()->create([
-            'has_diploma' => false
+            'has_diploma' => false,
         ]);
         $user3 = User::factory()->create([
-            'has_diploma' => null
+            'has_diploma' => null,
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
@@ -222,18 +221,18 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 ',
             [
                 'where' => [
-                    'hasDiploma' => true
-                ]
+                    'hasDiploma' => true,
+                ],
             ]
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool->id],
-                        'candidateCount' => 1
-                    ]
-                ]
-            ]
+                        'candidateCount' => 1,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -243,13 +242,13 @@ class CountPoolCandidatesByPoolTest extends TestCase
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
-            'is_woman' => true
+            'is_woman' => true,
         ]);
         $user2 = User::factory()->create([
-            'is_woman' => false
+            'is_woman' => false,
         ]);
         $user3 = User::factory()->create([
-            'is_woman' => null
+            'is_woman' => null,
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
@@ -268,19 +267,19 @@ class CountPoolCandidatesByPoolTest extends TestCase
             [
                 'where' => [
                     'equity' => [
-                        'isWoman' => true
-                    ]
-                ]
+                        'isWoman' => true,
+                    ],
+                ],
             ]
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool->id],
-                        'candidateCount' => 1
-                    ]
-                ]
-            ]
+                        'candidateCount' => 1,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -322,18 +321,18 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 ',
             [
                 'where' => [
-                    'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
-                ]
+                    'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                ],
             ]
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool->id],
-                        'candidateCount' => 1
-                    ]
-                ]
-            ]
+                        'candidateCount' => 1,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -345,20 +344,20 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $user1 = User::factory()->create([
             'accepted_operational_requirements' => [
                 ApiEnums::OPERATIONAL_REQUIREMENT_DRIVERS_LICENSE,
-                ApiEnums::OPERATIONAL_REQUIREMENT_ON_CALL
-            ]
+                ApiEnums::OPERATIONAL_REQUIREMENT_ON_CALL,
+            ],
         ]);
         $user2 = User::factory()->create([
             'accepted_operational_requirements' => [
                 ApiEnums::OPERATIONAL_REQUIREMENT_DRIVERS_LICENSE,
                 ApiEnums::OPERATIONAL_REQUIREMENT_ON_CALL,
-                ApiEnums::OPERATIONAL_REQUIREMENT_OVERTIME_OCCASIONAL
-            ]
+                ApiEnums::OPERATIONAL_REQUIREMENT_OVERTIME_OCCASIONAL,
+            ],
         ]);
         $user3 = User::factory()->create([
             'accepted_operational_requirements' => [
-                ApiEnums::OPERATIONAL_REQUIREMENT_OVERTIME_OCCASIONAL
-            ]
+                ApiEnums::OPERATIONAL_REQUIREMENT_OVERTIME_OCCASIONAL,
+            ],
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
@@ -378,19 +377,19 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'where' => [
                     'operationalRequirements' => [
                         ApiEnums::OPERATIONAL_REQUIREMENT_DRIVERS_LICENSE,
-                        ApiEnums::OPERATIONAL_REQUIREMENT_ON_CALL
-                    ]
-                ]
+                        ApiEnums::OPERATIONAL_REQUIREMENT_ON_CALL,
+                    ],
+                ],
             ]
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool->id],
-                        'candidateCount' => 2
-                    ]
-                ]
-            ]
+                        'candidateCount' => 2,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -402,20 +401,20 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $user1 = User::factory()->create([
             'location_preferences' => [
                 ApiEnums::WORK_REGION_ATLANTIC,
-                ApiEnums::WORK_REGION_BRITISH_COLUMBIA
-            ]
+                ApiEnums::WORK_REGION_BRITISH_COLUMBIA,
+            ],
         ]);
         $user2 = User::factory()->create([
             'location_preferences' => [
                 ApiEnums::WORK_REGION_ATLANTIC,
                 ApiEnums::WORK_REGION_BRITISH_COLUMBIA,
-                ApiEnums::WORK_REGION_NATIONAL_CAPITAL
-            ]
+                ApiEnums::WORK_REGION_NATIONAL_CAPITAL,
+            ],
         ]);
         $user3 = User::factory()->create([
             'location_preferences' => [
-                ApiEnums::WORK_REGION_NATIONAL_CAPITAL
-            ]
+                ApiEnums::WORK_REGION_NATIONAL_CAPITAL,
+            ],
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
@@ -435,19 +434,19 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'where' => [
                     'locationPreferences' => [
                         ApiEnums::WORK_REGION_ATLANTIC,
-                        ApiEnums::WORK_REGION_BRITISH_COLUMBIA
-                    ]
-                ]
+                        ApiEnums::WORK_REGION_BRITISH_COLUMBIA,
+                    ],
+                ],
             ]
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool->id],
-                        'candidateCount' => 2
-                    ]
-                ]
-            ]
+                        'candidateCount' => 2,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -482,17 +481,17 @@ class CountPoolCandidatesByPoolTest extends TestCase
             [
                 'where' => [
                     'positionDuration' => [ApiEnums::POSITION_DURATION_TEMPORARY],
-                ]
+                ],
             ]
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool->id],
-                        'candidateCount' => 1
-                    ]
-                ]
-            ]
+                        'candidateCount' => 1,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -516,10 +515,10 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $users[1]->awardExperiences()->sole()->syncSkills([
             $skills[0],
             $skills[1],
-            $skills[2]
+            $skills[2],
         ]);
         $users[2]->awardExperiences()->sole()->syncSkills([
-            $skills[2]
+            $skills[2],
         ]);
 
         // ensure 2 candidates returned despite two skills being passed in
@@ -537,19 +536,19 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'where' => [
                     'skills' => [
                         ['id' => $skills[1]->id],
-                        ['id' => $skills[2]->id]
-                    ]
-                ]
+                        ['id' => $skills[2]->id],
+                    ],
+                ],
             ]
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool->id],
-                        'candidateCount' => 2
-                    ]
-                ]
-            ]
+                        'candidateCount' => 2,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -578,25 +577,25 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 ',
             [
                 'where' => [
-                    "pools" => [
-                        ["id" => $pool1->id],
-                        ["id" => $pool2->id]
-                    ]
-                ]
+                    'pools' => [
+                        ['id' => $pool1->id],
+                        ['id' => $pool2->id],
+                    ],
+                ],
             ]
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool1->id],
-                        'candidateCount' => 1
+                        'candidateCount' => 1,
                     ],
                     [
                         'pool' => ['id' => $pool2->id],
-                        'candidateCount' => 1
-                    ]
-                ]
-            ]
+                        'candidateCount' => 1,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -609,7 +608,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'pool_id' => $pool,
                 'user_id' => $user,
                 'pool_candidate_status' => $status,
-                'expiry_date' => config('constants.far_future_date')
+                'expiry_date' => config('constants.far_future_date'),
             ]);
         }
 
@@ -620,14 +619,14 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'user_id' => $user2,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'expiry_date' => config('constants.far_future_date'),
-            'suspended_at' => config('constants.far_future_date')
+            'suspended_at' => config('constants.far_future_date'),
         ]);
         PoolCandidate::factory()->create([
             'pool_id' => $pool,
             'user_id' => $user3,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
             'expiry_date' => config('constants.far_future_date'),
-            'suspended_at' => config('constants.past_date')
+            'suspended_at' => config('constants.past_date'),
         ]);
 
         $this->graphQL(
@@ -641,17 +640,17 @@ class CountPoolCandidatesByPoolTest extends TestCase
                   }
                 ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool->id],
-                        'candidateCount' => 3
-                    ]
-                ]
-            ]
+                        'candidateCount' => 3,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -675,17 +674,17 @@ class CountPoolCandidatesByPoolTest extends TestCase
                   }
                 ',
             [
-                'where' => []
+                'where' => [],
             ]
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $pool1->id],
-                        'candidateCount' => 1
-                    ]
-                ]
-            ]
+                        'candidateCount' => 1,
+                    ],
+                ],
+            ],
         ]);
     }
 
@@ -695,20 +694,20 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
         $itPool = Pool::factory()->create([
             ...$this->poolData(),
-            'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS
+            'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS,
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($itPool, $user, true));
 
         $itOngoingPool = Pool::factory()->create([
             ...$this->poolData(),
-            'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING
+            'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($itOngoingPool, $user, true));
 
         // Note: Should not appear in results
         $execPool = Pool::factory()->create([
             ...$this->poolData(),
-            'publishing_group' => ApiEnums::PUBLISHING_GROUP_EXECUTIVE_JOBS
+            'publishing_group' => ApiEnums::PUBLISHING_GROUP_EXECUTIVE_JOBS,
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($execPool, $user, true));
 
@@ -724,26 +723,26 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 ',
             [
                 'where' => [
-                    "pools" => [
-                        ["id" => $itPool->id],
-                        ["id" => $itOngoingPool->id],
-                        ["id" => $execPool->id], // Should not show up
-                    ]
-                ]
+                    'pools' => [
+                        ['id' => $itPool->id],
+                        ['id' => $itOngoingPool->id],
+                        ['id' => $execPool->id], // Should not show up
+                    ],
+                ],
             ]
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
                     [
                         'pool' => ['id' => $itOngoingPool->id],
-                        'candidateCount' => 1
+                        'candidateCount' => 1,
                     ],
                     [
                         'pool' => ['id' => $itPool->id],
-                        'candidateCount' => 1
-                    ]
-                ]
-            ]
+                        'candidateCount' => 1,
+                    ],
+                ],
+            ],
         ]);
     }
 }

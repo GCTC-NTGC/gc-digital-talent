@@ -2,31 +2,29 @@
 
 namespace Tests\Feature;
 
-use App\Events\ApplicationSubmitted;
-use App\Models\PoolCandidate;
-use App\Models\User;
-use App\Models\Skill;
-use App\Models\Pool;
 use App\Models\AwardExperience;
+use App\Models\Pool;
+use App\Models\PoolCandidate;
+use App\Models\Skill;
+use App\Models\User;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\RolePermissionSeeder;
+use Faker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Illuminate\Foundation\Testing\WithFaker;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertSameSize;
 
-use Faker;
-
 class SnapshotTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
     use WithFaker;
 
@@ -53,27 +51,28 @@ class SnapshotTest extends TestCase
         $pool2 = Pool::factory()->published()->create();
 
         $poolCandidate = PoolCandidate::factory()->create([
-            "user_id" => $user->id,
-            "pool_id" => $pool1->id,
-            "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
+            'user_id' => $user->id,
+            'pool_id' => $pool1->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
         $poolCandidateUnrelated = PoolCandidate::factory()->create([
-            "user_id" => $user->id,
-            "pool_id" => $pool2->id,
-            "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
+            'user_id' => $user->id,
+            'pool_id' => $pool2->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
 
         // get what the snapshot should look like
-        $expectedSnapshot = $this->actingAs($user, "api")
-            ->graphQL($snapshotQuery, ["userId" => $user->id])
-            ->json("data.user");
+        $expectedSnapshot = $this->actingAs($user, 'api')
+            ->graphQL($snapshotQuery, ['userId' => $user->id])
+            ->json('data.user');
 
         assertNotNull($expectedSnapshot);
 
-        ApplicationSubmitted::dispatch($poolCandidate);
+        $poolCandidate->setApplicationSnapshot();
+        $poolCandidate->save();
 
         // get the just-created snapshot
-        $actualSnapshot = $this->actingAs($user, "api")->graphQL(
+        $actualSnapshot = $this->actingAs($user, 'api')->graphQL(
             /** @lang GraphQL */
             '
             query getSnapshot($poolCandidateId:UUID!) {
@@ -82,8 +81,8 @@ class SnapshotTest extends TestCase
                 }
               }
             ',
-            ["poolCandidateId" => $poolCandidate->id]
-        )->json("data.poolCandidate.profileSnapshot");
+            ['poolCandidateId' => $poolCandidate->id]
+        )->json('data.poolCandidate.profileSnapshot');
 
         $decodedActual = json_decode($actualSnapshot, true);
 
@@ -116,14 +115,14 @@ class SnapshotTest extends TestCase
 
         // pool is created and essential/nonessential skills attached implicitly
         $poolCandidate = PoolCandidate::factory()->create([
-            "user_id" => $user->id,
-            "pool_candidate_status" => ApiEnums::CANDIDATE_STATUS_DRAFT
+            'user_id' => $user->id,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
         ]);
 
         // collect skills attached to the Pool
         $pool = Pool::with([
             'essentialSkills',
-            'nonessentialSkills'
+            'nonessentialSkills',
         ])->findOrFail($poolCandidate->pool_id);
         $essentialSkillIds = $pool->essentialSkills()->pluck('id')->toArray();
         $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('id')->toArray();
@@ -133,7 +132,8 @@ class SnapshotTest extends TestCase
         $unusedSkillIds = Skill::whereNotIn('id', $poolSkillIds)->pluck('id')->toArray();
 
         // submit the application, re-grab the model so as to access profile_snapshot
-        ApplicationSubmitted::dispatch($poolCandidate);
+        $poolCandidate->setApplicationSnapshot();
+        $poolCandidate->save();
         $updatedPoolCandidate = PoolCandidate::findOrFail($poolCandidate->id);
         $snapshot = $updatedPoolCandidate->profile_snapshot;
 
@@ -168,10 +168,11 @@ class SnapshotTest extends TestCase
         }
 
         // remove empty lines
-        $arrayWithoutEmptyLines = array_filter($lines, fn ($line) => !empty($line));
+        $arrayWithoutEmptyLines = array_filter($lines, fn ($line) => ! empty($line));
 
         return array_values($arrayWithoutEmptyLines);
     }
+
     /**
      * A test to ensure that that the query used in PHP to make profile snapshots matches the query
      * used to display live snapshots.  The two queries need to stay in sync to ensure the snapshots
@@ -195,12 +196,14 @@ class SnapshotTest extends TestCase
             $frontendLine = $frontendQueryNormalized[$i];
 
             // some expected diffs
-            if ($i == 0 && $backendLine == 'query getProfile($userId: UUID!) {' && $frontendLine == 'query getMe {')
+            if ($i == 0 && $backendLine == 'query getProfile($userId: UUID!) {' && $frontendLine == 'query getMe {') {
                 continue;
-            if ($i == 1 && $backendLine == 'user(id: $userId) {' && $frontendLine == 'me {')
+            }
+            if ($i == 1 && $backendLine == 'user(id: $userId) {' && $frontendLine == 'me {') {
                 continue;
+            }
 
-            assertSame($backendLine, $frontendLine, 'Mismatch on line ' . $i + 1 . '.');
+            assertSame($backendLine, $frontendLine, 'Mismatch on line '.$i + 1 .'.');
         }
 
         assertSameSize($backendQueryNormalized, $frontendQueryNormalized, 'The queries should have the same number of lines.');

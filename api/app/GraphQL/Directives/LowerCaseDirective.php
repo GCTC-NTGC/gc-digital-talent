@@ -6,7 +6,7 @@ use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgSanitizerDirective;
 
-final class LowerCaseDirective extends BaseDirective implements ArgSanitizerDirective, ArgDirective
+final class LowerCaseDirective extends BaseDirective implements ArgDirective, ArgSanitizerDirective
 {
     public static function definition(): string
     {
@@ -25,7 +25,6 @@ GRAPHQL;
      * Sanitize the value of an argument given to a field.
      *
      * @param  mixed  $argumentValue  The value given by the client
-     *
      * @return mixed the sanitized value
      */
     public function sanitize(mixed $argumentValue): mixed
@@ -33,6 +32,7 @@ GRAPHQL;
         if (is_string($argumentValue)) {
             return strtolower($argumentValue);
         }
+
         return $argumentValue;
     }
 }

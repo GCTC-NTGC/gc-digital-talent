@@ -17,11 +17,17 @@ class UserPolicyTest extends TestCase
     use WithFaker;
 
     protected $guest;
+
     protected $applicant;
+
     protected $otherApplicant;
+
     protected $poolOperator;
+
     protected $requestResponder;
+
     protected $platformAdmin;
+
     protected $team;
 
     protected function setUp(): void
@@ -59,7 +65,7 @@ class UserPolicyTest extends TestCase
             ]);
 
         $this->team = Team::factory()->create([
-            'name' => 'test-team'
+            'name' => 'test-team',
         ]);
         $this->poolOperator = User::factory()
             ->asPoolOperator($this->team->name)
@@ -168,22 +174,22 @@ class UserPolicyTest extends TestCase
      * Pool Operators can view an applicant profile if they have applied to a pool in their team.
      *
      * @return void
-    */
+     */
     public function viewApplicant()
     {
         $pool = Pool::factory()->create([
-            'team_id' => $this->team->id
+            'team_id' => $this->team->id,
         ]);
         PoolCandidate::factory()->create([
             'user_id' => $this->applicant->id,
-            'pool_id' => $pool->id
+            'pool_id' => $pool->id,
         ]);
 
         // This pool is in a different team than $this->poolOperator
         $otherPool = Pool::factory()->create();
         PoolCandidate::factory()->create([
             'user_id' => $this->otherApplicant->id,
-            'pool_id' => $otherPool->id
+            'pool_id' => $otherPool->id,
         ]);
 
         $this->assertFalse($this->guest->can('viewApplicant', $this->applicant));

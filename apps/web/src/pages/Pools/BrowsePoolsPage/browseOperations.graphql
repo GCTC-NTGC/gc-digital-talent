@@ -43,6 +43,7 @@ query browsePools($closingAfter: DateTime) {
         en
         fr
       }
+      category
       families {
         id
         key
@@ -54,7 +55,6 @@ query browsePools($closingAfter: DateTime) {
           en
           fr
         }
-        category
       }
     }
     nonessentialSkills {
@@ -64,6 +64,7 @@ query browsePools($closingAfter: DateTime) {
         en
         fr
       }
+      category
       families {
         id
         key
@@ -75,7 +76,6 @@ query browsePools($closingAfter: DateTime) {
           en
           fr
         }
-        category
       }
     }
     isRemote

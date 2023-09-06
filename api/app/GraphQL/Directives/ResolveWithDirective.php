@@ -9,7 +9,6 @@ use Nuwave\Lighthouse\Support\Contracts\ArgResolver;
 
 final class ResolveWithDirective extends BaseDirective implements ArgDirective, ArgResolver
 {
-
     public static function definition(): string
     {
         return
@@ -44,6 +43,7 @@ GRAPHQL;
     {
         $arg = new Argument();
         $arg->value = $value;
+
         return $arg->toPlain();
     }
 
@@ -58,6 +58,7 @@ GRAPHQL;
         $method = $this->directiveArgValue('method');
         if ($this->directiveHasArgument('class')) {
             $class = $this->directiveArgValue('class');
+
             return $class::$method($plainValue);
         } else {
             return $root->$method($plainValue);

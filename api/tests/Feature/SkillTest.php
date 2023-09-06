@@ -4,26 +4,30 @@ namespace Tests\Feature;
 
 use App\Models\CommunityExperience;
 use App\Models\ExperienceSkill;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
-use Tests\TestCase;
+use App\Models\Pool;
 use App\Models\Skill;
 use App\Models\User;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
+use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Testing\Fluent\AssertableJson;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Tests\TestCase;
 
 class SkillTest extends TestCase
 {
-    use RefreshDatabase;
     use MakesGraphQLRequests;
+    use RefreshDatabase;
     use RefreshesSchemaCache;
     use WithFaker;
 
     protected $baseUser;
+
     protected $adminUser;
+
     protected $uuid;
 
     protected function setUp(): void
@@ -39,22 +43,22 @@ class SkillTest extends TestCase
             'sub' => 'base-user@test.com',
         ]);
         $this->baseUser->syncRoles([
-            "guest",
-            "base_user",
-            "pool_operator",
-            "request_responder"
+            'guest',
+            'base_user',
+            'pool_operator',
+            'request_responder',
         ]);
 
         $this->adminUser = User::create([
             'email' => 'admin-user@test.com',
             'sub' => 'admin-user@test.com',
         ]);
-        $this->adminUser->addRole("platform_admin");
+        $this->adminUser->addRole('platform_admin');
 
         $this->uuid = $this->faker->UUID();
 
         Skill::factory()->create([
-            'id' => $this->uuid
+            'id' => $this->uuid,
         ]);
     }
 
@@ -105,9 +109,9 @@ class SkillTest extends TestCase
             'skill' => [
                 'name' => [
                     'en' => 'New Name (EN)',
-                    'fr' => 'New Name (FR)'
-                ]
-            ]
+                    'fr' => 'New Name (FR)',
+                ],
+            ],
         ];
 
         $mutation =
@@ -145,9 +149,10 @@ class SkillTest extends TestCase
                 'key' => 'key',
                 'name' => [
                     'en' => 'New Name (EN)',
-                    'fr' => 'New Name (FR)'
+                    'fr' => 'New Name (FR)',
                 ],
-            ]
+                'category' => 'TECHNICAL',
+            ],
         ];
 
         $mutation =
@@ -160,6 +165,7 @@ class SkillTest extends TestCase
                         en
                         fr
                     }
+                    category
                 }
             }
         ';
@@ -186,5 +192,83 @@ class SkillTest extends TestCase
         $pivot->save();
         // assert that the soft-deleted relationship is ignored
         $this->assertCount(0, $skill->fresh()->userSkills->first()->communityExperiences);
+    }
+
+    public function testDeletingUsedPoolSkill(): void
+    {
+        $skill1 = Skill::factory()->create();
+        $skill2 = Skill::factory()->create();
+        $pool = Pool::factory()->create([
+            'published_at' => config('constants.past_datetime'),
+            'closing_date' => config('constants.far_future_datetime'),
+        ]);
+        $pool->essentialSkills()->sync([$skill1->id, $skill2->id]);
+        $mutation =
+            /** @lang GraphQL */
+            '
+            mutation deleteSkill($id: UUID!) {
+                deleteSkill(id: $id) {
+                    id
+                }
+            }
+        ';
+
+        // assert you can't delete skill if active poster is using it
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($mutation, ['id' => $skill1->id])
+            ->assertGraphQLValidationError('id', ApiErrorEnums::SKILL_USED_ACTIVE_POSTER);
+
+        $pool->update(['closing_date' => config('constants.past_datetime')]);
+
+        // assert once poster is closed, you can delete the skill
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($mutation, ['id' => $skill1->id])
+            ->assertJsonFragment(['id' => $skill1->id]);
+    }
+
+    public function testSkillsQueryIgnoresDeleted(): void
+    {
+        Skill::truncate();
+        $skill1 = Skill::factory()->create();
+        $skill2 = Skill::factory()->create();
+        $query =
+            /** @lang GraphQL */
+            '
+            query skills {
+                skills {
+                    id
+              }
+            }
+        ';
+        $mutation =
+            /** @lang GraphQL */
+            '
+            mutation deleteSkill($id: UUID!) {
+                deleteSkill(id: $id) {
+                    id
+                }
+            }
+        ';
+
+        // assert querying for all skills does not fetch soft deleted
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query)
+            ->assertJson(
+                fn (AssertableJson $json) => $json->has(
+                    'data.skills',
+                    2
+                )
+            );
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($mutation, ['id' => $skill1->id])
+            ->assertSuccessful();
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query)
+            ->assertJson(
+                fn (AssertableJson $json) => $json->has(
+                    'data.skills',
+                    1
+                )
+            );
     }
 }

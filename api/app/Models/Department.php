@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class Department
@@ -19,11 +19,10 @@ use Illuminate\Database\Eloquent\Builder;
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $deleted_at
  */
-
 class Department extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 
@@ -55,9 +54,8 @@ class Department extends Model
 
     /**
      * Re-useable scope to filter by an array of department ids
-     * @param Builder $query
-     * @param array<string>|null $departmentIds An array of department ids
-     * @return Builder
+     *
+     * @param  array<string>|null  $departmentIds An array of department ids
      */
     public static function scopeDepartmentsByIds(Builder $query, ?array $departmentIds): Builder
     {
@@ -66,6 +64,7 @@ class Department extends Model
         }
 
         $query->whereIn('id', $departmentIds);
+
         return $query;
     }
 }

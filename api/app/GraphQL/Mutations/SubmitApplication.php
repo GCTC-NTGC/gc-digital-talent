@@ -2,19 +2,18 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Events\ApplicationSubmitted;
+use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
 use App\Models\PoolCandidate;
 use Carbon\Carbon;
+use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
-use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
-use Database\Helpers\ApiEnums;
 
 final class SubmitApplication
 {
     /**
      * Submit an application
-     * @param  null  $_
+     *
      * @param  array{}  $args
      */
     public function __invoke($_, array $args)
@@ -36,10 +35,9 @@ final class SubmitApplication
         $application->submitted_at = $dateNow;
         $application->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
         $application->setInsertSubmittedStepAttribute(ApiEnums::APPLICATION_STEP_REVIEW_AND_SUBMIT);
+        $application->setApplicationSnapshot();
 
-        $success = $application->save();
-
-        ApplicationSubmitted::dispatchIf($success, $application);
+        $application->save();
 
         return $application;
     }

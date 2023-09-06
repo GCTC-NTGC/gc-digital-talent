@@ -33,7 +33,7 @@ const generateUserSkill = (
     user,
     skillLevel: faker.helpers.arrayElement<SkillLevel | undefined>([
       SkillLevel.Beginner,
-      SkillLevel.Expert,
+      SkillLevel.Advanced,
       SkillLevel.Intermediate,
       SkillLevel.Lead,
       undefined,

@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Builder;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -36,7 +36,6 @@ use Illuminate\Support\Facades\Auth;
  * @property Illuminate\Support\Carbon $published_at
  * @property Illuminate\Support\Carbon $archived_at
  */
-
 class Pool extends Model
 {
     use HasFactory;
@@ -89,18 +88,22 @@ class Pool extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
     }
+
     public function classifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class);
     }
+
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class);
     }
+
     public function publishedPoolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class)->notDraft();
@@ -108,12 +111,12 @@ class Pool extends Model
 
     public function essentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_essential_skills');
+        return $this->belongsToMany(Skill::class, 'pools_essential_skills')->withTrashed(); // always fetch all skills for a pool
     }
 
     public function nonessentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_nonessential_skills');
+        return $this->belongsToMany(Skill::class, 'pools_nonessential_skills')->withTrashed();
     }
 
     public function screeningQuestions(): HasMany
@@ -125,15 +128,19 @@ class Pool extends Model
     public function getStatusAttribute()
     {
         // override if no publish date
-        if (is_null($this->published_at))
+        if (is_null($this->published_at)) {
             return ApiEnums::POOL_IS_DRAFT;
+        }
 
-        if (Carbon::now()->gte($this->archived_at))
+        if (Carbon::now()->gte($this->archived_at)) {
             return ApiEnums::POOL_IS_ARCHIVED;
-        if (Carbon::now()->gte($this->closing_date))
+        }
+        if (Carbon::now()->gte($this->closing_date)) {
             return ApiEnums::POOL_IS_CLOSED;
-        if (Carbon::now()->gte($this->published_at))
+        }
+        if (Carbon::now()->gte($this->published_at)) {
             return ApiEnums::POOL_IS_PUBLISHED;
+        }
 
         return ApiEnums::POOL_IS_DRAFT;
     }
@@ -141,6 +148,15 @@ class Pool extends Model
     public function scopeWasPublished(Builder $query, ?array $args)
     {
         $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
+
+        return $query;
+    }
+
+    public static function scopeCurrentlyActive(Builder $query)
+    {
+        $query->where('published_at', '<=', Carbon::now()->toDateTimeString())
+            ->where('closing_date', '>', Carbon::now()->toDateTimeString());
+
         return $query;
     }
 
@@ -148,19 +164,19 @@ class Pool extends Model
     {
         $user = Auth::user();
 
-        if (!$user) {
+        if (! $user) {
             return $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
         }
 
-        if (!$user->isAbleTo("view-any-pool")) {
+        if (! $user->isAbleTo('view-any-pool')) {
             $query->where(function (Builder $query) use ($user) {
 
-                if ($user->isAbleTo("view-team-pool")) {
+                if ($user->isAbleTo('view-team-pool')) {
                     // Only add teams the user can view pools in to the query for `whereHAs`
                     $teams = $user->rolesTeams()->get();
                     $teamIds = [];
                     foreach ($teams as $team) {
-                        if ($user->isAbleTo("view-team-pool", $team)) {
+                        if ($user->isAbleTo('view-team-pool', $team)) {
                             $teamIds[] = $team->id;
                         }
                     }
@@ -170,7 +186,7 @@ class Pool extends Model
                     });
                 }
 
-                if ($user->isAbleTo("view-any-publishedPool")) {
+                if ($user->isAbleTo('view-any-publishedPool')) {
                     $query->orWhere('published_at', '<=', Carbon::now()->toDateTimeString());
                 }
 
@@ -187,6 +203,7 @@ class Pool extends Model
             $query->whereNull('archived_at');
             $query->orWhere('archived_at', '>', Carbon::now()->toDateTimeString());
         });
+
         return $query;
     }
 }

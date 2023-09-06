@@ -1,14 +1,15 @@
 <?php
 
-use App\Models\User;
+use App\Exceptions\AuthenticationException;
 use App\Models\Role;
+use App\Models\User;
 use App\Providers\AuthServiceProvider;
 use App\Services\OpenIdBearerTokenService;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lcobucci\JWT\Token\DataSet;
-use Tests\TestCase;
 use Mockery\MockInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class AuthServiceProviderTest extends TestCase
 {
@@ -49,7 +50,7 @@ class AuthServiceProviderTest extends TestCase
      * @test
      * The test checks a an HttpException with status 401 is thrown if an exception occurs during token validation
      */
-    public function test401IfException()
+    public function testAuthenticationExceptionWithInvalidToken()
     {
         $fakeToken = 'fake-token';
         $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
@@ -60,8 +61,8 @@ class AuthServiceProviderTest extends TestCase
         try {
             $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
             $this->fail('HttpException was not thrown');
-        } catch (HttpException $e) {
-            $this->assertEquals(401, $e->getStatusCode(), 'Unexpected status code on HttpException');
+        } catch (AuthenticationException $e) {
+            $this->assertEquals('token_validation', $e->getExtensions()['reason'], 'Unexpected reason on AuthenticationException');
         }
     }
 
@@ -69,7 +70,7 @@ class AuthServiceProviderTest extends TestCase
      * @test
      * The test checks a an HttpException with status 401 is thrown if an error occurs during token validation
      */
-    public function test401IfError()
+    public function testAuthenticationExceptionOnTokenValidation()
     {
         $fakeToken = 'fake-token';
         $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
@@ -80,8 +81,8 @@ class AuthServiceProviderTest extends TestCase
         try {
             $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
             $this->fail('HttpException was not thrown');
-        } catch (HttpException $e) {
-            $this->assertEquals(401, $e->getStatusCode(), 'Unexpected status code on HttpException');
+        } catch (AuthenticationException $e) {
+            $this->assertEquals('token_validation', $e->getExtensions()['reason'], 'Unexpected reason on AuthenticationException');
         }
     }
 
@@ -134,7 +135,7 @@ class AuthServiceProviderTest extends TestCase
     public function testUserIsNotAutoCreatedWhenAlreadyExisting()
     {
         $testSub = 'test-sub';
-        $testRoles = ["TEST"];
+        $testRoles = ['TEST'];
 
         $mockClaims = Mockery::mock(new DataSet(['sub' => $testSub], ''));
 

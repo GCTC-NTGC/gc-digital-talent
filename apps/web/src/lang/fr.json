@@ -119,6 +119,10 @@
     "defaultMessage": "Créé",
     "description": "Title displayed for the User table Date Created column"
   },
+  "+s+emq": {
+    "defaultMessage": "Nom d'utilisateur :",
+    "description": "Label for the user name input in the delete user dialog"
+  },
   "+svnC6": {
     "defaultMessage": "Publier",
     "description": "Heading for the publish pool dialog"
@@ -380,6 +384,10 @@
   "0Ma07A": {
     "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre parcours professionnel pour confirmer les exigences en matière d’expérience et d’études, nous vous demanderons de décrire une ou plusieurs expériences de votre parcours professionnel au cours desquelles vous avez activement utilisé la compétence requise.",
     "description": "Application step for skill requirements, introduction, description, paragraph two"
+  },
+  "0NbdGD": {
+    "defaultMessage": "Erreur : Échec de la suppression de la compétence",
+    "description": "Message displayed to user after skill fails to be deleted."
   },
   "0OLsay": {
     "defaultMessage": "CléGC est un service qui vous permet de vous connecter à <a>de nombreux services gouvernementaux différents</a> avec un seul nom d’utilisateur et un seul mot de passe. Le bouton ci-dessous vous mènera au site Web de CléGC, où vous pourrez créer un compte si vous n’en avez pas encore un. Une fois que vous vous serez inscrit(e) à CléGC, vous reviendrez ici pour compléter votre profil.",
@@ -1139,6 +1147,10 @@
     "defaultMessage": "Pourquoi vous demande-t-on de déclarer votre statut?",
     "description": "Heading for the self-declaration explanation dialog"
   },
+  "5dhDA+": {
+    "defaultMessage": "Rappelez-vous que, {skillName} est défini comme",
+    "description": "Lead-in text to a skill description"
+  },
   "5g49WB": {
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>je n'ai PAS</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle.",
     "description": "Message for the haven't completed bilingual evaluation option"
@@ -1154,6 +1166,14 @@
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
     "description": "Message displayed to user after classification fails to get created."
+  },
+  "5jm/N7": {
+    "defaultMessage": "Supprimer cet utilisateur",
+    "description": "Label on the button to open the delete user dialog"
+  },
+  "5l+q/p": {
+    "defaultMessage": "Supprimer un utilisateur",
+    "description": "Submit button in delete user dialog"
   },
   "5lHi37": {
     "defaultMessage": "Communiquez avec nous<hidden> au sujet de l’expérience d’embauche</hidden>",
@@ -1290,6 +1310,10 @@
   "6l9YH+": {
     "defaultMessage": "Les demandeurs doivent répondre aux exigences suivantes :",
     "description": "Heading for the applicant requirements dialog"
+  },
+  "6mCorq": {
+    "defaultMessage": "La valeur doit correspondre au nom au complet de l'utilisateur : {name}",
+    "description": "Placeholder text for user name input in the delete user dialog"
   },
   "6ofORn": {
     "defaultMessage": "Famille de compétences",
@@ -1887,6 +1911,10 @@
     "defaultMessage": "Vous avez une question précise? Vous souhaitez faire part de vos commentaires ou signaler un bogue? Envoyez-nous un message au moyen de ce formulaire.",
     "description": "Support form paragraph one"
   },
+  "Awtr05": {
+    "defaultMessage": "Veuillez prendre note qu’en supprimant une compétence de votre profil :",
+    "description": "Lead-in text to points of concern when deleting a skill and what will happen"
+  },
   "AwzZwe": {
     "defaultMessage": "Renseignements sur les fonctionnaires",
     "description": "Heading for the government information section on the application profile"
@@ -1902,6 +1930,10 @@
   "AzCfxE": {
     "defaultMessage": "Trouvez des offres d’emploi de cadres numériques au sein du gouvernement du Canada et posez votre candidature.",
     "description": "Subtitle for the executive homepage"
+  },
+  "B164SZ": {
+    "defaultMessage": "Écrire le nom ici",
+    "description": "Placeholder text for user name input in the delete user dialog"
   },
   "B6SqfX": {
     "defaultMessage": "Sauvegarder le changement d’état",
@@ -2131,6 +2163,10 @@
     "defaultMessage": "Formulaire d’auto-déclaration des peuples autochtones",
     "description": "Page title for the self-declaration page"
   },
+  "CUxHd8": {
+    "defaultMessage": "Erreur : Échec de la mise à jour de la compétence",
+    "description": "Message displayed to user after skill fails to be updated."
+  },
   "CWy2xr": {
     "defaultMessage": "Vous pouvez autodéclarer votre appartenance à une ou plusieurs des communautés énumérées alphabétiquement ci-dessous.",
     "description": "Text that appears before employment equity form options."
@@ -2259,6 +2295,10 @@
     "defaultMessage": "Emplacement actuel :",
     "description": "Display text for the current location field on users"
   },
+  "DPfJ30": {
+    "defaultMessage": "La compétence <strong>sera associée aux expériences auxquelles elle était précédemment associée.</strong>",
+    "description": "Notice that re-adding a skill will re-add it to any linked experiences"
+  },
   "DRYl88": {
     "defaultMessage": "Prix et reconnaissance",
     "description": "Title for award experience section"
@@ -2278,6 +2318,10 @@
   "DZ775N": {
     "defaultMessage": "Expérience ajoutée avec succès!",
     "description": "Success message displayed after adding experience to profile"
+  },
+  "DZfLMk": {
+    "defaultMessage": "Ce compte d'utilisateur a été supprimé. Veuillez <inlineLink>communiquer avec nous</inlineLink> si vous avez des questions.",
+    "description": "Message displayed to a user after signing into a deleted account"
   },
   "DcEinN": {
     "defaultMessage": "Erreur, incapable de charger le bassin",
@@ -2883,6 +2927,10 @@
     "defaultMessage": "Date de clôture",
     "description": "Sub title for pool closing date"
   },
+  "ID6PLP": {
+    "defaultMessage": "<strong>Non </strong>, c’est une compétence que j’ai utilisée dans le passé.",
+    "description": "Option for when a skill was only used in the past"
+  },
   "IDNjBI": {
     "defaultMessage": "Statut de priorité",
     "description": "Priority entitlement label"
@@ -2994,6 +3042,10 @@
   "J+MAUg": {
     "defaultMessage": "Vos renseignements personnels et vos coordonnées ont été mis à jour avec succès!",
     "description": "Message displayed when a user successfully updates their personal and contact information."
+  },
+  "J/oofb": {
+    "defaultMessage": "À mesure que votre niveau de compétence augmente, vous pouvez utiliser ce formulaire pour effectuer une mise à jour de votre niveau de compétence, qui a été évalué par vous-même. Vous trouverez la définition de la compétence donnée par le gouvernement, ainsi que des explications pour chaque niveau de compétence afin de vous aider à faire votre choix.",
+    "description": "Help text for updating a skill level"
   },
   "J2uivT": {
     "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. L’objectif du programme d’apprentissage en TI destiné aux peuples autochtones est de faire entendre la voix des autochtones en créant des occasions pour les membres des Premières Nations, les Inuits et les Métis de faire partie de la fonction publique fédérale.",
@@ -3143,6 +3195,9 @@
     "defaultMessage": "Équipe",
     "description": "Title displayed for the teams table team column."
   },
+  "KQvWvD": {
+    "defaultMessage": "Supprimé"
+  },
   "KRkZS6": {
     "defaultMessage": "Aucune compétence comportementale facultative n’est prise en compte pour ce poste.",
     "description": "Message displayed when a pool advertisement has no optional behavioural skills"
@@ -3213,6 +3268,10 @@
   },
   "KnvA3d": {
     "defaultMessage": "Établir un lien entre une expérience et {skillName}"
+  },
+  "KoKXUw": {
+    "defaultMessage": "Outils avancés",
+    "description": "Heading for making major changes to a user"
   },
   "KoPFx4": {
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
@@ -3377,6 +3436,10 @@
   "M051tF": {
     "defaultMessage": "Retirer une compétence",
     "description": "Message in skills in details section to remove skill from the experience."
+  },
+  "M1Q9CE": {
+    "defaultMessage": "Supprimez  « {skillName} » de votre profil",
+    "description": "Title for the confirmation alert to delete a skill"
   },
   "M2LfhH": {
     "defaultMessage": "Modifier<hidden> une compétence</hidden>",
@@ -3630,6 +3693,10 @@
     "defaultMessage": "Retour à demandes",
     "description": "Button label displayed on the search request form which returns the user back to requests."
   },
+  "O98p6J": {
+    "defaultMessage": "Supprimé avec succès du profil.",
+    "description": "Message displayed to user when removing a skill from their profile"
+  },
   "OAOnyY": {
     "defaultMessage": "Expérience actuelle",
     "description": "Label displayed on Personal Experience form for current experience bounded box"
@@ -3657,6 +3724,10 @@
   "OF7SCg": {
     "defaultMessage": "Changer votre disponibilité dans ce processus de recrutement",
     "description": "Header text for dialog to change availability in a recruitment"
+  },
+  "OHRL9N": {
+    "defaultMessage": "Informations générales",
+    "description": "Title for general info"
   },
   "OI7Bc7": {
     "defaultMessage": "Titre du poste",
@@ -3697,6 +3768,10 @@
     "defaultMessage": "Options des compétences techniques",
     "description": "Heading for optional technical skills section"
   },
+  "OaF7ls": {
+    "defaultMessage": "Supprimer un utilisateur",
+    "description": "Heading for section to delete a user"
+  },
   "OaaW6Y": {
     "defaultMessage": "Montrer les options d'équité offertes ({optionCount})",
     "description": "Heading for opening the accordion with available employment equity options."
@@ -3724,6 +3799,10 @@
   "OgizOq": {
     "defaultMessage": "Vous êtes à l'aise de partager vos renseignements sur l'équité en matière d'emploi pour des possibilités de recrutement et à des fins de statistiques anonymisées.",
     "description": "Second condition for selecting an employment equity group"
+  },
+  "Oi6fll": {
+    "defaultMessage": "Bibliothèque de compétences",
+    "description": "Breadcrumb for skill library page."
   },
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",
@@ -3857,6 +3936,10 @@
     "defaultMessage": "N'a pas été identifié comme membre d'un groupe d'équité en matière d'emploi.",
     "description": "Text on view-user page that the user isn't part of any employment equity groups"
   },
+  "PmDeul": {
+    "defaultMessage": "Utilisez-vous actuellement cette compétence?",
+    "description": "Label for field asking if a skill is currently being used"
+  },
   "PmMr9l": {
     "defaultMessage": "Durée de l’emploi",
     "description": "Title for work language on summary of filters section"
@@ -3965,6 +4048,10 @@
     "defaultMessage": "Vous avez mis à jour l’exigence relative aux études que vous devez remplir",
     "description": "Message displayed to users when saving education requirement is successful."
   },
+  "QZeoHp": {
+    "defaultMessage": "Une fois que vous en aurez ajouté quelques-unes, vous pourrez compter cette compétence selon l’une ou plusieurs de vos expériences.",
+    "description": "Instructions displayed when user has no experiences to feature on a skill."
+  },
   "QagkWo": {
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.</strong>",
     "description": "Alert message informing user to add education experience in application education page."
@@ -4020,6 +4107,10 @@
   "QtzRCh": {
     "defaultMessage": "Statut",
     "description": "Title for status"
+  },
+  "QuLbBU": {
+    "defaultMessage": "Expériences mettant en avant cette compétence",
+    "description": "Title for the experience section of the user skill page"
   },
   "R+Zm3X": {
     "defaultMessage": "Imprimer le profil",
@@ -4225,6 +4316,10 @@
     "defaultMessage": "Gérer la disponibilité",
     "description": "Link text to direct a user to change the availability of the specific recruitment process"
   },
+  "Sm9Ml5": {
+    "defaultMessage": "Cette compétence   <strong>sera supprimée de toutes les expériences associées</strong>",
+    "description": "Notice that deleting a skill removes it from any linked experiences"
+  },
   "SnnuD+": {
     "defaultMessage": "Nous vous inviterons à créer un profil qui sera sauvegardé et présenté comme étant votre demande.",
     "description": "How it works, step 2 content sentence 2"
@@ -4268,6 +4363,14 @@
   "TJ+5Xn": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez perfectionné vos compétences et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, un profil solide vous préparera pour de nouvelles possibilités.",
     "description": "Description of how application profiles work for managers."
+  },
+  "TJzeDj": {
+    "defaultMessage": "Cela changera le statut d'un utilisateur pour « Archivé ». L'utilisateur n'apparaîtra plus où que ce soit sur la plateforme. <strong>Cette action ne peut pas être annulée</strong>.",
+    "description": "Heading for section to delete a user"
+  },
+  "TK0b6n": {
+    "defaultMessage": "Vous pouvez vous server du bouton \"Lier une expérience\" qui sert à mettre cette compétence en évidence.",
+    "description": "Instructions displayed when user has experiences but hasn't featured any."
   },
   "TLl20s": {
     "defaultMessage": "Créer un nouveau bassin",
@@ -4545,6 +4648,10 @@
     "defaultMessage": "<heavyPrimary>Fermée</heavyPrimary>",
     "description": "Status name of a pool in CLOSED status"
   },
+  "VD/o5X": {
+    "defaultMessage": "Aucune compétence trouvée.",
+    "description": "Messaged displayed when no skill exists."
+  },
   "VHG9Gm": {
     "defaultMessage": "Désélectionner <hidden> rangées sélectionnées</hidden>",
     "description": "Button text to deselect all table rows"
@@ -4624,6 +4731,10 @@
   "Vf+lsG": {
     "defaultMessage": "Nom de l’équipe (Français)",
     "description": "Label for the French team display name input"
+  },
+  "Vfa3Ek": {
+    "defaultMessage": "Compétence mise à jour avec succès! ",
+    "description": "Message displayed when a user updates a skill"
   },
   "VhBuJ/": {
     "defaultMessage": "Affichage",
@@ -4809,6 +4920,10 @@
     "defaultMessage": "Dans cette section, vous trouverez les ébauches et les candidatures qui ont été présentées et qui sont toujours en cours de traitement.",
     "description": "Introductory text displayed in applications in progress section."
   },
+  "WvKRKa": {
+    "defaultMessage": "Garder cette compétence dans mon profil",
+    "description": "Button text to cancel deleting a skill"
+  },
   "Wwb8Lb": {
     "defaultMessage": "Sélecteur de mode de couleur du thème",
     "description": "Label for the group of buttons to change the current colour mode"
@@ -4953,6 +5068,10 @@
     "defaultMessage": "Sélectionnez un groupe des publications",
     "description": "Placeholder for publishing group field"
   },
+  "Y2ULHN": {
+    "defaultMessage": "Associer une expérience",
+    "description": "Button text to open the form allowing a user to link an experience to a skill"
+  },
   "Y7l4/n": {
     "defaultMessage": "Veuillez indiquer les niveaux linguistiques obtenus lors de votre évaluation linguistique du Gouvernement du Canada.",
     "description": "Text requesting language levels given from bilingual evaluation in language information form"
@@ -5001,6 +5120,10 @@
     "defaultMessage": "Enregistrement des notes réussi!",
     "description": "Message displayed to user after the personal notes have been saved successfully on the single search request page."
   },
+  "YUx5ti": {
+    "defaultMessage": "Compte supprimé",
+    "description": "Title for the page users land on if their account was deleted."
+  },
   "YVhQ4t": {
     "defaultMessage": "Erreur : La suppression de l’expérience a échoué",
     "description": "Message displayed to user after experience fails to be deleted."
@@ -5009,6 +5132,10 @@
     "defaultMessage": "<strong>Cheminement en gestion</strong> : les gestionnaires de la <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) sont responsables de la gestion du développement et de la prestation des services et des activités de <abbreviation>TI</abbreviation> par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-04 manager path description"
   },
+  "YW3A7H": {
+    "defaultMessage": "Si vous décidez d’ajouter cette compétence à votre profil ultérieurement :",
+    "description": "Lead-in text to points of concern when deleting a skill on how to re-add it"
+  },
   "YbkM7u": {
     "defaultMessage": "Architecture intégrée de la TI",
     "description": "Label for the 'enterprise architecture' IT work stream"
@@ -5016,6 +5143,10 @@
   "Yc2A2Q": {
     "defaultMessage": "{skill} sélectionnée.",
     "description": "Message displayed when a skill was selected"
+  },
+  "YexsZi": {
+    "defaultMessage": "Pour confirmer, veuillez écrire le nom de l'utilisateur au complet :",
+    "description": "Lead in text for the delete user form."
   },
   "Yg2TIH": {
     "defaultMessage": "Rôles individuels",
@@ -5216,6 +5347,10 @@
     "defaultMessage": "Formulez votre demande d’ici le",
     "description": "Label for showing the closing date of a job posting."
   },
+  "a0VxCM": {
+    "defaultMessage": "Vous n’avez pas créé d’expériences de carrière sur votre chronologie de carrière.",
+    "description": "Message displayed when user has no experiences to feature on a skill."
+  },
   "a1Cych": {
     "defaultMessage": "Partagez comment la participation est venue améliorer votre croissance, y compris le bénévolat, les cérémonies, les événements et la collaboration virtuelle.",
     "description": "Description for community experience section"
@@ -5313,6 +5448,10 @@
   "agiL8L": {
     "defaultMessage": "Afficher les candidatures en cours ({applicationCount})",
     "description": "Heading for applications in progress accordion on profile and applications."
+  },
+  "aiYTNf": {
+    "defaultMessage": "Cet utilisateur a été supprimé.",
+    "description": "Message displayed when admin views a deleted user."
   },
   "ak4twG": {
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes bilingues (français et anglais).",
@@ -5473,6 +5612,10 @@
     "defaultMessage": "Voir ma demande",
     "description": "Link text to view an existing, submitted application"
   },
+  "bu0Hi1": {
+    "defaultMessage": "Auto-évaluation du niveau de compétence",
+    "description": "Title for the skill level self-evaluation form"
+  },
   "bz6geU": {
     "defaultMessage": "Ce volet comprend des compétences spécialisées en matière de sécurité, axées sur la programmation, l’infrastructure, les applications commerciales et les données.",
     "description": "Title for the 'security' IT work stream"
@@ -5536,6 +5679,10 @@
   "cOJVBW": {
     "defaultMessage": "Rôles des membres",
     "description": "Label for the input to add roles to a user's team membership"
+  },
+  "cPOQCk": {
+    "defaultMessage": "Toute expérience que vous avez ajoutée à votre parcours professionnel et qui met en avant cette compétence peut être gérée dans cette section. Vous pouvez également associer cette compétence à d’autres expériences à l’aide du bouton à cet effet.",
+    "description": "Lead-in text describing how to link experiences to a skill"
   },
   "cS73MC": {
     "defaultMessage": "Je consens à travailler dans",
@@ -5841,6 +5988,10 @@
     "defaultMessage": "Je ne suis pas un employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
   },
+  "eMrYDr": {
+    "defaultMessage": "Compte d'utilisateur supprimé",
+    "description": "Title for the alert displayed after a user signs into a deleted account"
+  },
   "eN8J/9": {
     "defaultMessage": "Langue de communication préférée",
     "description": "Title displayed on the Pool Candidates table Preferred Communication Language column."
@@ -5905,6 +6056,10 @@
     "defaultMessage": "Filtres avancés",
     "description": "Title for the additional filters"
   },
+  "epqtpM": {
+    "defaultMessage": "Le cas échéant, cette compétence <strong>sera supprimée de toutes vos présentations de compétences.</strong>",
+    "description": "Notice that deleting a skill removes it from a users skill showcase"
+  },
   "evxvnW": {
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
@@ -5944,6 +6099,10 @@
   "fFznH0": {
     "defaultMessage": "Postes en anglais ou en français",
     "description": "English or French Positions message"
+  },
+  "fK+EvE": {
+    "defaultMessage": "Supprimer cette compétence",
+    "description": "Button text to remove a skill from a users profile"
   },
   "fKaw5B": {
     "defaultMessage": "Plus précisément, nous voulons non seulement connaître vos <strong>antécédents professionnels</strong>, mais nous attachons une grande importance <strong>à votre expérience communautaire</strong>, <strong>aux récompenses que vous avez reçues </strong>, <strong>à vos initiatives personnelles</strong>, ainsi qu’à <strong>vos études</strong> !",
@@ -6515,6 +6674,10 @@
     "defaultMessage": "L’étape suivante est la partie la plus importante de votre candidature. Il vous sera demandé de dire comment vous répondez aux exigences de compétences pour ce rôle.",
     "description": "Application step for skill requirements, introduction, description, paragraph one"
   },
+  "inxVq8": {
+    "defaultMessage": "Vous êtes sur le point de supprimer le nom d'utilisateur suivant de la plateforme :",
+    "description": "Lead in text for the delete user form."
+  },
   "inyUex": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} =1 {1 expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
     "description": "list a number of award experiences"
@@ -6642,6 +6805,10 @@
   "jaMIil": {
     "defaultMessage": "Votre disponibilité",
     "description": "Label for available for opportunities radio group"
+  },
+  "jb7PvU": {
+    "defaultMessage": "Je comprends, supprimer cette compétence",
+    "description": "Button text to confirm deleting a skill"
   },
   "jdD/iA": {
     "defaultMessage": "Désarchiver ce bassin",
@@ -7350,6 +7517,10 @@
     "defaultMessage": "Thèse : {thesisTitle}",
     "description": "Thesis, if applicable"
   },
+  "opkSia": {
+    "defaultMessage": "Gérer « {skillName} »",
+    "description": "Page title for the skill self evaluation page"
+  },
   "osGGIt": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones + Portail des talents autochtones",
     "description": "heading for indigenous talent portal section"
@@ -7430,6 +7601,10 @@
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
     "description": "First paragraph about the program"
   },
+  "pYXeXV": {
+    "defaultMessage": "Avant de supprimer la compétence, veuillez lire attentivement ce qui suit.",
+    "description": "Subtitle for confirmation to delete a skill"
+  },
   "paLFgh": {
     "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",
     "description": "Message for the advanced language ability option"
@@ -7449,6 +7624,10 @@
   "pg1S01": {
     "defaultMessage": "Sauter la liste des compétences.",
     "description": "Link text to skip the list of add skill links"
+  },
+  "pgQl5t": {
+    "defaultMessage": "Expérience actuelle associée à cette compétence",
+    "description": "Label for a specific skills experience level"
   },
   "piZjS+": {
     "defaultMessage": "Catégorie de compétences",
@@ -7601,6 +7780,10 @@
     "defaultMessage": "Communiquez avec nous<hidden> À propos du EXposition</hidden>",
     "description": "Link text to email the team about EXposition"
   },
+  "rF/VIw": {
+    "defaultMessage": "Vous n’avez toujours pas compté cette compétences dans aucune de vos expériences.",
+    "description": "Message displayed when user has experiences but hasn't featured any"
+  },
   "rGE0gj": {
     "defaultMessage": "Votre incidence",
     "description": "Title for pool advertisement impact section"
@@ -7636,6 +7819,10 @@
   "rSymh2": {
     "defaultMessage": "Langue préférée de l'examen écrit :",
     "description": "Preferred Language for exams label and colon"
+  },
+  "rTnjej": {
+    "defaultMessage": "Utilisateur supprimé avec succès",
+    "description": "Message displayed when a user has been deleted"
   },
   "rVgBGi": {
     "defaultMessage": "La soumission de votre demande est réussie.",
@@ -8352,6 +8539,10 @@
     "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu!",
     "description": "Text displayed when there are no pool advertisements to display"
   },
+  "xJfPRe": {
+    "defaultMessage": "Mettez à jour votre niveau de compétence et gérez les expériences professionnelles associées à cette compétence.",
+    "description": "Subtitle for the self skill evaluation page"
+  },
   "xLIImd": {
     "defaultMessage": "Les compétences suivantes ont été liées à cette expérience par l’entremise des compétences que vous avez démontrées ou dans le cadre de vos demandes d’emploi. Vous pouvez lier vos compétences en modifier cette expérience ou en ajouter la compétence à votre bibliothèque dans la présente mise en évidence. ",
     "description": "Lead in text for list of skills linked to a specific experience"
@@ -8367,6 +8558,10 @@
   "xXwUGs": {
     "defaultMessage": "Directive sur les talents numériques",
     "description": "Title for the digital talent directive page"
+  },
+  "xYJi2Y": {
+    "defaultMessage": "La compétence <strong>ne sera pas ajoutée à vos présentations de compétences</strong>",
+    "description": "Notice that re-adding a skill will not add it back to a users skill showcase"
   },
   "xd9+6O": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi",
@@ -8523,6 +8718,10 @@
   "yiJYdP": {
     "defaultMessage": "Archiver la candidature",
     "description": "Titre du modèle qui apparaît lorsqu’un utilisateur tente d’archiver une candidature"
+  },
+  "yiqfHr": {
+    "defaultMessage": "<strong>Oui </strong>, J’utilise cette compétence dans mon rôle actuel.",
+    "description": "Option for when a skill is currently being used"
   },
   "ytTGvb": {
     "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une famille de compétences. Elle devrait être fondée sur le nom anglais de la famille de compétences et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",

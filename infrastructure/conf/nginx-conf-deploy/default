@@ -165,6 +165,12 @@ server {
         rewrite "^(?:/[a-z]{2})?/logged-out(/.*|$)" /apps/web/dist/index.html break;
     }
 
+    # rewrite possible lang prefix then "user-deleted" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/user-deleted(/.*|$)" {
+          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
+        rewrite "^(?:/[a-z]{2})?/user-deleted(/.*|$)" /apps/web/dist/index.html break;
+    }
+
     # rewrite possible lang prefix then "browse" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/browse(/.*|$)" {
       add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
