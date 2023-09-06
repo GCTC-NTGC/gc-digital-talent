@@ -66,7 +66,7 @@ class Skill extends Model
 
     public function poolsNonessentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Pool::class, 'pools_essential_skills');
+        return $this->belongsToMany(Pool::class, 'pools_nonessential_skills');
     }
 
     public function getDetailsAttribute()

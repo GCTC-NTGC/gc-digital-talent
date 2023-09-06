@@ -4,6 +4,57 @@ import { useParameter } from "@storybook/addons";
 import { StoryContext, StoryFn } from "@storybook/react";
 import random from "lodash/random";
 import merge from "lodash/merge";
+import { DocumentNode } from "graphql";
+
+type DelayConfig = {
+  latency: {
+    min: number;
+    max: number;
+  };
+};
+
+// Random latency delay added to each GraphQL API operation (in milliseconds).
+// Default: 0. (no latency)
+const defaultConfig = {
+  latency: {
+    min: 0,
+    max: 0,
+  },
+};
+const defaultNullResponse = { data: null };
+
+/**
+ * Mock API request that can be used with queries and mutations
+ * to return a specific response with simulated latency
+ *
+ * @param DocumentNode The graphql document
+ * @param Record<string, unknown> The mock response
+ * @param DelayConfig Configuration for the simulated latency
+ */
+const mockRequest = (
+  doc: DocumentNode,
+  responseData: Record<string, unknown>,
+  config: DelayConfig,
+) => {
+  let operationName: string | undefined;
+  for (const node of doc.definitions) {
+    if (node.kind === "OperationDefinition") {
+      operationName = node.name ? node.name.value : undefined;
+      break;
+    }
+  }
+  const response = operationName && responseData[operationName];
+
+  const operationResult = !!response
+    ? pipe(
+        fromValue(response),
+        // Simulate latency in returning response.
+        delay(random(config.latency.min, config.latency.max)),
+      )
+    : fromValue(defaultNullResponse);
+
+  return operationResult;
+};
 
 /**
  * MockGraphqlDecorator
@@ -28,44 +79,16 @@ export default function MockGraphqlDecorator(
   // Source: https://johnclarke73.medium.com/mocking-react-context-in-storybook-bb57304f2f6c
   // See: https://storybook.js.org/docs/react/addons/addons-api#useparameter
   const responseData: any = useParameter("apiResponses", {});
-  // Random latency delay added to each GraphQL API operation (in milliseconds).
-  // Default: 0. (no latency)
-  const defaultConfig = {
-    latency: {
-      min: 0,
-      max: 0,
-    },
-  };
   const config = useParameter("apiResponsesConfig", defaultConfig);
-
-  const defaultNullResponse = { data: null };
+  const mergedConfig = merge(defaultConfig, config);
 
   // Mocks Graphql client passed to Provider to fake API responses.
   // See: https://formidable.com/open-source/urql/docs/advanced/testing/#response-success
   const mockClient = {
     // Allow custom responses to GraphQL queries.
-    executeQuery: ({ query }) => {
-      let operationName: string | undefined;
-      for (const node of query.definitions) {
-        if (node.kind === "OperationDefinition") {
-          operationName = node.name ? node.name.value : undefined;
-          break;
-        }
-      }
-      const response = operationName && responseData[operationName];
-      const mergedConfig = merge(defaultConfig, config);
-
-      const operationResult = !!response
-        ? pipe(
-            fromValue(response),
-            // Simulate latency in returning response.
-            delay(random(mergedConfig.latency.min, mergedConfig.latency.max)),
-          )
-        : fromValue(defaultNullResponse);
-
-      return operationResult;
-    },
-    // TODO: Implement for mutations when required.
+    executeQuery: ({ query }) => mockRequest(query, responseData, mergedConfig),
+    executeMutation: ({ query }) =>
+      mockRequest(query, responseData, mergedConfig),
   } as Client;
 
   return (

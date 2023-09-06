@@ -119,27 +119,27 @@ class User extends Model implements Authenticatable, LaratrustUser
     // All the relationships for experiences
     public function awardExperiences(): HasMany
     {
-        return $this->hasMany(AwardExperience::class)->withTrashed();
+        return $this->hasMany(AwardExperience::class);
     }
 
     public function communityExperiences(): HasMany
     {
-        return $this->hasMany(CommunityExperience::class)->withTrashed();
+        return $this->hasMany(CommunityExperience::class);
     }
 
     public function educationExperiences(): HasMany
     {
-        return $this->hasMany(EducationExperience::class)->withTrashed();
+        return $this->hasMany(EducationExperience::class);
     }
 
     public function personalExperiences(): HasMany
     {
-        return $this->hasMany(PersonalExperience::class)->withTrashed();
+        return $this->hasMany(PersonalExperience::class);
     }
 
     public function workExperiences(): HasMany
     {
-        return $this->hasMany(WorkExperience::class)->withTrashed();
+        return $this->hasMany(WorkExperience::class);
     }
 
     public function getExperiencesAttribute()
@@ -808,6 +808,58 @@ class User extends Model implements Authenticatable, LaratrustUser
         });
 
         return $notifications;
+    }
+
+    public function getTopTechnicalSkillsRankingAttribute()
+    {
+        $sortedTechnicalUserSkills = $this->userSkills()
+            ->whereNotNull('top_skills_rank')
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'TECHNICAL');
+            })
+            ->orderBy('top_skills_rank', 'asc')
+            ->get();
+
+        return $sortedTechnicalUserSkills;
+    }
+
+    public function getTopBehaviouralSkillsRankingAttribute()
+    {
+        $sortedBehaviouralUserSkills = $this->userSkills()
+            ->whereNotNull('top_skills_rank')
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'BEHAVIOURAL');
+            })
+            ->orderBy('top_skills_rank', 'asc')
+            ->get();
+
+        return $sortedBehaviouralUserSkills;
+    }
+
+    public function getImproveTechnicalSkillsRankingAttribute()
+    {
+        $sortedTechnicalUserSkills = $this->userSkills()
+            ->whereNotNull('improve_skills_rank')
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'TECHNICAL');
+            })
+            ->orderBy('improve_skills_rank', 'asc')
+            ->get();
+
+        return $sortedTechnicalUserSkills;
+    }
+
+    public function getImproveBehaviouralSkillsRankingAttribute()
+    {
+        $sortedBehaviouralUserSkills = $this->userSkills()
+            ->whereNotNull('improve_skills_rank')
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'BEHAVIOURAL');
+            })
+            ->orderBy('improve_skills_rank', 'asc')
+            ->get();
+
+        return $sortedBehaviouralUserSkills;
     }
 
     public function scopeAuthorizedToView(Builder $query)

@@ -111,12 +111,12 @@ class Pool extends Model
 
     public function essentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_essential_skills');
+        return $this->belongsToMany(Skill::class, 'pools_essential_skills')->withTrashed(); // always fetch all skills for a pool
     }
 
     public function nonessentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_nonessential_skills');
+        return $this->belongsToMany(Skill::class, 'pools_nonessential_skills')->withTrashed();
     }
 
     public function screeningQuestions(): HasMany
@@ -148,6 +148,14 @@ class Pool extends Model
     public function scopeWasPublished(Builder $query, ?array $args)
     {
         $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
+
+        return $query;
+    }
+
+    public static function scopeCurrentlyActive(Builder $query)
+    {
+        $query->where('published_at', '<=', Carbon::now()->toDateTimeString())
+            ->where('closing_date', '>', Carbon::now()->toDateTimeString());
 
         return $query;
     }

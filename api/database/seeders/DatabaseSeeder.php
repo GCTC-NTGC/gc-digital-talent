@@ -16,6 +16,7 @@ use App\Models\Skill;
 use App\Models\SkillFamily;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
@@ -89,16 +90,37 @@ class DatabaseSeeder extends Seeder
         $this->seedAwardExperienceForPool($applicant, $digitalTalentPool);
         $applicantUserSkills = $applicant->userSkills;
         foreach ($applicantUserSkills as $applicantUserSkill) {
-            $isSkillLevelSet = $faker->boolean(75);
-            $isWhenSkillUsedSet = $faker->boolean(75);
-            if ($isSkillLevelSet) {
+            if ($faker->boolean(75)) {
                 $applicantUserSkill->skill_level = $faker->randomElement(ApiEnums::skillLevels());
             }
-            if ($isWhenSkillUsedSet) {
+            if ($faker->boolean(75)) {
                 $applicantUserSkill->when_skill_used = $faker->randomElement(ApiEnums::whenSkillUsed());
             }
             $applicantUserSkill->save();
         }
+        // Add skills to showcase lists
+        // technical skills
+        $applicantUserTechnicalSkills = UserSkill::where('user_id', $applicant->id)->whereHas('skill', function ($query) {
+            $query->where('category', 'TECHNICAL');
+        })->get();
+        $applicantUserTechnicalSkills[0]->top_skills_rank = 1;
+        $applicantUserTechnicalSkills[0]->save();
+        $applicantUserTechnicalSkills[1]->top_skills_rank = 2;
+        $applicantUserTechnicalSkills[1]->save();
+        $applicantUserTechnicalSkills[2]->top_skills_rank = 3;
+        $applicantUserTechnicalSkills[2]->improve_skills_rank = 1;
+        $applicantUserTechnicalSkills[2]->save();
+        // behavioural skills
+        $applicantUserBehaviouralSkills = UserSkill::where('user_id', $applicant->id)->whereHas('skill', function ($query) {
+            $query->where('category', 'BEHAVIOURAL');
+        })->get();
+        $applicantUserBehaviouralSkills[0]->top_skills_rank = 1;
+        $applicantUserBehaviouralSkills[0]->save();
+        $applicantUserBehaviouralSkills[1]->top_skills_rank = 2;
+        $applicantUserBehaviouralSkills[1]->save();
+        $applicantUserBehaviouralSkills[2]->top_skills_rank = 3;
+        $applicantUserBehaviouralSkills[2]->improve_skills_rank = 1;
+        $applicantUserBehaviouralSkills[2]->save();
 
         // Not government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()

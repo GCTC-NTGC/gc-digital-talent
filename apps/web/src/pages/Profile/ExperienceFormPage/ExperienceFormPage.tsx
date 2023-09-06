@@ -241,7 +241,9 @@ export const ExperienceForm = ({
             id: "mJ1HE4",
             description: "Display text for add experience form in breadcrumbs",
           }),
-      url: window.location.pathname || "#",
+      url: experience
+        ? paths.editExperience(userId, experienceType, experience.id)
+        : "#",
     },
   ];
 

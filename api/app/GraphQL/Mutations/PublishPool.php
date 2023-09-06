@@ -18,7 +18,15 @@ final class PublishPool
     public function __invoke($_, array $args)
     {
         $pool = Pool::find($args['id'])
-            ->load(['classifications', 'essentialSkills', 'nonessentialSkills']);
+            ->load([
+                'classifications',
+                'essentialSkills' => function ($query) {
+                    $query->withTrashed(); // eager load soft deleted skills too
+                },
+                'nonessentialSkills' => function ($query) {
+                    $query->withTrashed();
+                },
+            ]);
         $poolValidation = new PublishPoolValidator;
         $validator = Validator::make($pool->toArray(), $poolValidation->rules(), $poolValidation->messages()); // First validate pool before updating.
         if ($validator->fails()) {
