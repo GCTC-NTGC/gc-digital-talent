@@ -1,14 +1,11 @@
+/* eslint-disable import/no-duplicates */
 import React from "react";
 import { useIntl } from "react-intl";
 import isAfter from "date-fns/isAfter";
 import isBefore from "date-fns/isBefore";
 import isEqual from "date-fns/isEqual";
 
-import {
-  currentDate,
-  parseDateTimeUtc,
-  relativeClosingDate,
-} from "@gc-digital-talent/date-helpers";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 import { Alert } from "@gc-digital-talent/ui";
 
@@ -25,22 +22,29 @@ const MaintenanceBanner = () => {
     "MAINTENANCE_BANNER_DURATION",
   );
 
-  console.log(serverMaintenanceDate);
+  const startDate = serverMaintenanceDate
+    ? formatDate({
+        date: parseDateTimeUtc(serverMaintenanceDate),
+        formatString: `PPPPpp`,
+        intl,
+      })
+    : null;
+
+  const duration =
+    serverMaintenanceDuration && !!Math.abs(+serverMaintenanceDuration)
+      ? Math.abs(+serverMaintenanceDuration)
+      : null;
+
   const showMaintenanceBanner =
     maintenanceBannerPublicDate && serverMaintenanceDate
-      ? (isEqual(
-          parseDateTimeUtc(maintenanceBannerPublicDate),
-          parseDateTimeUtc(currentDate()),
-        ) ||
-          isAfter(
-            parseDateTimeUtc(maintenanceBannerPublicDate),
-            parseDateTimeUtc(currentDate()),
-          )) &&
+      ? (isEqual(parseDateTimeUtc(maintenanceBannerPublicDate), new Date()) ||
+          isAfter(parseDateTimeUtc(maintenanceBannerPublicDate), new Date())) &&
         isBefore(
           parseDateTimeUtc(maintenanceBannerPublicDate),
           parseDateTimeUtc(serverMaintenanceDate),
         )
       : false;
+
   return showMaintenanceBanner &&
     serverMaintenanceDate &&
     serverMaintenanceDuration ? (
@@ -56,17 +60,13 @@ const MaintenanceBanner = () => {
         {intl.formatMessage(
           {
             defaultMessage:
-              "Please note that GC Digital Talent will be unavailable for an expected period of <strong>{serverMaintenanceDuration} hour(s)</strong> on <strong>{serverMaintenanceDate}</strong>. We apologize for any inconvenience.",
-            id: "3Qe99S",
+              "Please note that GC Digital Talent will be unavailable for an expected period of <strong>{duration} hour(s)</strong> on <strong>{startDate}</strong>. We apologize for any inconvenience.",
+            id: "2oqp21",
             description: "Description for a server maintenance banner.",
           },
           {
-            serverMaintenanceDuration,
-            serverMaintenanceDate: relativeClosingDate({
-              closingDate: parseDateTimeUtc(serverMaintenanceDate),
-              intl,
-              customFormat: `PPPPpp`,
-            }),
+            duration,
+            startDate,
           },
         )}
       </p>
