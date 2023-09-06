@@ -28,6 +28,23 @@ fragment skillFragment on Skill {
   }
 }
 
+fragment skillShowcaseFragment on UserSkill {
+  id
+  skillLevel
+  user {
+    id
+  }
+  skill {
+    id
+    key
+    category
+    name {
+      en
+      fr
+    }
+  }
+}
+
 fragment userSkillExperienceFragment on Experience {
   id
   __typename
@@ -172,6 +189,24 @@ query UserSkill($skillId: UUID!) {
   }
   skill(id: $skillId) {
     ...skillFragment
+  }
+}
+
+query UserSkillShowcase {
+  me {
+    id
+    topTechnicalSkillsRanking {
+      ...skillShowcaseFragment
+    }
+    topBehaviouralSkillsRanking {
+      ...skillShowcaseFragment
+    }
+    improveTechnicalSkillsRanking {
+      ...skillShowcaseFragment
+    }
+    improveBehaviouralSkillsRanking {
+      ...skillShowcaseFragment
+    }
   }
 }
 

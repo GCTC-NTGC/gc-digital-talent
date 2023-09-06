@@ -634,6 +634,14 @@ const UpdateUserSkillPage = React.lazy(() =>
       ),
   ),
 );
+const SkillShowcasePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsSkillShowcasePage" */ "../pages/Skills/SkillShowcasePage"
+      ),
+  ),
+);
 
 /** Search Requests */
 const IndexSearchRequestPage = React.lazy(() =>
@@ -801,6 +809,22 @@ const createRoute = (
                               <UpdateUserSkillPage />
                             </RequireAuth>
                           ) : null,
+                        },
+                        {
+                          path: "showcase",
+                          children: [
+                            {
+                              index: true,
+                              element: featureFlags.skillLibrary ? (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.Applicant]}
+                                  loginPath={loginPath}
+                                >
+                                  <SkillShowcasePage />
+                                </RequireAuth>
+                              ) : null,
+                            },
+                          ],
                         },
                       ],
                     },
