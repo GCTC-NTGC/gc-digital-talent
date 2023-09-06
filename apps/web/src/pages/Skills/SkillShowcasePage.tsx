@@ -67,7 +67,7 @@ interface SkillShowcaseProps {
   improveBehaviouralSkills: UserSkill[];
 }
 
-const SkillShowcase = ({
+export const SkillShowcase = ({
   topBehaviouralSkills,
   topTechnicalSkills,
   improveTechnicalSkills,
