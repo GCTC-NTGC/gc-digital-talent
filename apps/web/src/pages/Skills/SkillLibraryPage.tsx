@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import GlobeAmericasIcon from "@heroicons/react/24/outline/GlobeAmericasIcon";
 import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
+import { OperationContext } from "urql";
 
 import { TableOfContents, Pending } from "@gc-digital-talent/ui";
 import {
@@ -185,8 +186,12 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["UserSkill"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+};
+
 const SkillLibraryPage = () => {
-  const [{ data, fetching, error }] = useUserSkillsQuery();
+  const [{ data, fetching, error }] = useUserSkillsQuery({ context });
 
   const userSkills = data?.me?.userSkills?.filter(notEmpty);
   const skills = data?.skills.filter(notEmpty);
