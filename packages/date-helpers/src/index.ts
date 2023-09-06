@@ -63,6 +63,7 @@ export type relativeClosingDateOptions = {
   now?: Date;
   intl: IntlShape;
   timeZone?: string;
+  customFormat?: string;
 };
 
 /**
@@ -74,6 +75,7 @@ export const relativeClosingDate = ({
   now = new Date(),
   intl,
   timeZone,
+  customFormat,
 }: relativeClosingDateOptions): string => {
   // A date formatting function that can use time zones optionally
   const myFormatFunc = timeZone
@@ -87,7 +89,7 @@ export const relativeClosingDate = ({
   const time = myFormatFunc(closingDate, `p`, {
     locale,
   });
-  const dateTime = myFormatFunc(closingDate, `PPP p`, {
+  const dateTime = myFormatFunc(closingDate, customFormat || `PPP p`, {
     locale,
   });
 
