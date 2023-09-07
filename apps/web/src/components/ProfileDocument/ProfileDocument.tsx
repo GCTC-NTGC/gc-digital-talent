@@ -12,9 +12,11 @@ import {
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
   getIndigenousCommunity,
+  getLanguage,
   getLanguageProficiency,
   getLocale,
   getOperationalRequirement,
+  getProvinceOrTerritory,
   getSimpleGovEmployeeType,
   getWorkRegion,
   navigationMessages,
@@ -187,6 +189,89 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           )}
                         </Heading>
                       </PageSection>
+                      {!anonymous && (
+                        <PageSection>
+                          <Heading level="h3" data-h2-font-weight="base(700)">
+                            {intl.formatMessage({
+                              defaultMessage: "Contact information",
+                              id: "XqF3wS",
+                              description:
+                                "Profile section title for contact information",
+                            })}
+                          </Heading>
+                          {result.email && (
+                            <p>
+                              {intl.formatMessage(commonMessages.email)}
+                              {intl.formatMessage(commonMessages.dividingColon)}
+                              {result.email}
+                            </p>
+                          )}
+                          {result.telephone && (
+                            <p>
+                              {intl.formatMessage(commonMessages.telephone)}
+                              {intl.formatMessage(commonMessages.dividingColon)}
+                              {result.telephone}
+                            </p>
+                          )}
+                          {result.currentCity && result.currentProvince && (
+                            <p>
+                              {intl.formatMessage({
+                                defaultMessage: "City",
+                                id: "QjO3Y0",
+                                description:
+                                  "Label for city and province/territory",
+                              })}
+                              {intl.formatMessage(commonMessages.dividingColon)}
+                              {result.currentCity},{" "}
+                              {intl.formatMessage(
+                                getProvinceOrTerritory(result.currentProvince),
+                              )}
+                            </p>
+                          )}
+                          {result.preferredLang && (
+                            <p>
+                              {intl.formatMessage({
+                                defaultMessage: "Communication language",
+                                id: "BzKGyK",
+                                description: "Label for communication language",
+                              })}
+                              {intl.formatMessage(commonMessages.dividingColon)}
+                              {intl.formatMessage(
+                                getLanguage(result.preferredLang),
+                              )}
+                            </p>
+                          )}
+                          {result.preferredLanguageForInterview && (
+                            <p>
+                              {intl.formatMessage({
+                                defaultMessage: "Spoken Interview language",
+                                id: "TrMCjk",
+                                description:
+                                  "Label for spoken interview language",
+                              })}
+                              {intl.formatMessage(commonMessages.dividingColon)}
+                              {intl.formatMessage(
+                                getLanguage(
+                                  result.preferredLanguageForInterview,
+                                ),
+                              )}
+                            </p>
+                          )}
+                          {result.preferredLanguageForExam && (
+                            <p>
+                              {intl.formatMessage({
+                                defaultMessage: "Written Exam language",
+                                id: "diYxg+",
+                                description: "Label for written exam language",
+                              })}
+                              {intl.formatMessage(commonMessages.dividingColon)}
+                              {intl.formatMessage(
+                                getLanguage(result.preferredLanguageForExam),
+                              )}
+                            </p>
+                          )}
+                        </PageSection>
+                      )}
                       <PageSection>
                         <Heading level="h3" data-h2-font-weight="base(700)">
                           {intl.formatMessage({
@@ -232,18 +317,6 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           intl.formatMessage(commonMessages.notProvided)
                         )}
                       </PageSection>
-                      {documentWithIdentifyingInformation ?? (
-                        <PageSection>
-                          <Heading level="h3">
-                            {intl.formatMessage({
-                              defaultMessage: "Contact information",
-                              id: "XqF3wS",
-                              description:
-                                "Profile section title for contact information",
-                            })}
-                          </Heading>
-                        </PageSection>
-                      )}
                       <PageSection>
                         <Heading level="h4" data-h2-font-weight="base(700)">
                           {intl.formatMessage(
