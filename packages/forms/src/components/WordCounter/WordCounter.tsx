@@ -11,16 +11,19 @@ export interface WordCounterProps {
   name: string;
   /** Maximum amount of words before passing the optimal range. The Progress Ring color correlates with this number. */
   wordLimit: number;
+  /** Override the current word count (used in rich text to omit tags) */
+  currentCount?: number;
 }
 
 const WordCounter = ({
   name,
   wordLimit,
+  currentCount,
   ...rest
 }: WordCounterProps): React.ReactElement => {
   const intl = useIntl();
   const currentValue = useWatch({ name });
-  const wordCount = countNumberOfWords(currentValue);
+  const wordCount = currentCount ?? countNumberOfWords(currentValue);
   const wordsLeft = wordLimit - wordCount;
   return (
     <span

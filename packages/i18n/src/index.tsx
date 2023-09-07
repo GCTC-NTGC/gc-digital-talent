@@ -25,6 +25,7 @@ import {
   tryFindMessageDescriptor,
   uiMessages,
   formMessages,
+  richTextMessages,
 } from "./messages";
 import {
   getEmploymentEquityGroup,
@@ -94,6 +95,7 @@ export {
   navigationMessages,
   uiMessages,
   formMessages,
+  richTextMessages,
   tryFindMessageDescriptor,
   LanguageProvider,
   LocaleProvider,
