@@ -42,7 +42,7 @@ jobs:
         run: rm -rf /usr/local/android /usr/share/dotnet /usr/local/share/boost /opt/ghc
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # We no longer user docker layer caching as it made runs take longer.
       # See: https://github.com/satackey/action-docker-layer-caching/issues/305
