@@ -98,7 +98,7 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
             aria-describedby={customAlertId}
           />
           {formState.errors.firstNationsCustom && (
-            <Field.Error id={customAlertId}>
+            <Field.Error id={customAlertId} data-h2-margin-top="base(x.25)">
               {formState.errors.firstNationsCustom.message?.toString()}
             </Field.Error>
           )}
