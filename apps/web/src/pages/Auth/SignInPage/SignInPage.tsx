@@ -46,8 +46,9 @@ const Step = ({ image, includeArrow = true, children }: StepProps) => {
           <ArrowRightCircleIcon
             data-h2-display="base(none) p-tablet(block)"
             data-h2-vertical-align="base(middle)"
+            data-h2-color="base(black.lighter)"
             data-h2-height="base(auto)"
-            data-h2-width="base(x2)"
+            data-h2-width="base(x1.5)"
             data-h2-overflow="base(visible)"
             data-h2-padding-left="base(x0.5)"
           />
@@ -64,8 +65,9 @@ const Step = ({ image, includeArrow = true, children }: StepProps) => {
       {includeArrow && (
         <ArrowDownCircleIcon
           data-h2-display="base(block) p-tablet(none)"
+          data-h2-color="base(black.lighter)"
           data-h2-height="base(auto)"
-          data-h2-width="base(x2)"
+          data-h2-width="base(x1.5)"
           data-h2-margin="base(auto)"
           data-h2-padding="base(x0.5, 0)"
         />
@@ -172,7 +174,7 @@ const SignInPage = () => {
                 description: "Subtitle for a section explaining sign in steps",
               })}
             </Heading>
-            <div data-h2-flex-grid="base(flex-start, x2.5, x2)">
+            <div data-h2-flex-grid="base(flex-start, x2, x2)">
               <Step image={step1Image}>
                 {intl.formatMessage({
                   defaultMessage:
