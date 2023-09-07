@@ -7,11 +7,13 @@ on:
       - .github/workflows/*lint*.yml
       - apps/**
       - packages/**
+      - api/**
   pull_request:
     paths:
       - .github/workflows/*lint*.yml
       - apps/**
       - packages/**
+      - api/**
   merge_group:
     branches: [main]
 jobs:
