@@ -15,7 +15,7 @@ import {
 
 import { PoolCandidate, Scalars } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import { isApplicationInProgress } from "~/utils/applicationUtils";
+import { isApplicationInProgress, notRemoved } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 
 import TrackApplicationsCard from "./TrackApplicationsCard";
@@ -40,13 +40,13 @@ const TrackApplications = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const inProgressApplications = applications.filter((a) => {
-    return isApplicationInProgress(a);
-  });
+  const inProgressApplications = applications.filter(isApplicationInProgress);
 
-  const pastApplications = applications.filter((a) => {
-    return !isApplicationInProgress(a);
-  });
+  const pastApplications = applications
+    .filter((a) => {
+      return !isApplicationInProgress(a);
+    })
+    .filter(notRemoved);
 
   const [currentAccordionItems, setCurrentAccordionItems] =
     React.useState<AccordionItems>(["in_progress", "past"]); // start with both open
