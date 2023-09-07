@@ -1287,6 +1287,10 @@
     "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires occasionnelles</strong>.",
     "description": "The operational requirement described as occasional overtime."
   },
+  "skfKnv": {
+    "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
+    "description": "Error message that the user has selected both status and non-status first nations."
+  },
   "spP+Tz": {
     "defaultMessage": "Nunavut",
     "description": "Nunavut selection for province or territory input"
@@ -1465,9 +1469,6 @@
   "yRxy3a": {
     "defaultMessage": "Retrait qualifié",
     "description": "The pool candidate's status is Qualified Withdrew."
-  },
-  "ybzpGb": {
-    "defaultMessage": "BothStatusNonStatus"
   },
   "ylHC90": {
     "defaultMessage": "Chargement...",

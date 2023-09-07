@@ -7876,6 +7876,10 @@
     "defaultMessage": "Langue",
     "description": "Legend for the Working Language Ability radio buttons"
   },
+  "skfKnv": {
+    "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
+    "description": "Error message that the user has selected both status and non-status first nations."
+  },
   "sr20Tb": {
     "defaultMessage": "Citoyenneté",
     "description": "Citizenship label"
