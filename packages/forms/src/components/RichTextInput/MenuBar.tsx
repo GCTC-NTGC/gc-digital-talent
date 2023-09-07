@@ -18,7 +18,7 @@ const MenuButton = ({ active, ...rest }: MenuButtonProps) => {
   return (
     <Button
       mode="solid"
-      color={active ? "secondary" : "white"}
+      color={active ? "white" : "black"}
       data-h2-padding="base(x.125 x.25)"
       data-h2-font-size="base(caption)"
       disabled={!editor?.isEditable}
@@ -33,7 +33,7 @@ const MenuBar = () => {
 
   return (
     <div
-      data-h2-background="base(black)"
+      data-h2-background="base(background.darkest)"
       data-h2-padding="base(x.25)"
       data-h2-display="base(flex)"
       data-h2-gap="base(x.25)"

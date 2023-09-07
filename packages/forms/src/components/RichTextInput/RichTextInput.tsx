@@ -41,7 +41,6 @@ const RichTextInput = ({
     formState: { errors },
   } = useFormContext();
   const intl = useIntl();
-  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   // To grab errors in nested objects we need to use lodash's get helper.
@@ -93,9 +92,9 @@ const RichTextInput = ({
             {...props}
             editable={!readOnly}
             wordLimit={wordLimit}
+            trackUnsaved={trackUnsaved}
             inputProps={{
               id,
-              ...stateStyles,
               ...wordLimitStyles,
               "aria-labelledBy": `${labelId}${
                 labelledBy ? ` ${labelledBy}` : ``

@@ -11,6 +11,7 @@ import {
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 import MenuBar from "./MenuBar";
 import Footer from "./Footer";
+import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
@@ -18,6 +19,8 @@ interface ControlledInputProps {
   editable?: boolean;
   /** Sets a limit on how many words can be submitted with this input */
   wordLimit?: number;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
   inputProps?: {
     [name: string]: string;
   };
@@ -29,8 +32,10 @@ const ControlledInput = ({
   inputProps,
   editable,
   wordLimit,
+  trackUnsaved,
 }: ControlledInputProps) => {
   const inputStyles = useCommonInputStyles();
+  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
 
   const content = defaultValues ? defaultValues[name] : undefined;
   const extensions = [
@@ -56,11 +61,14 @@ const ControlledInput = ({
       contenteditable: editable ? "true" : "false",
       ...inputStyles,
       "data-h2-radius": "base(0 0 rounded rounded)",
+      "data-h2-margin-top": "base:children[:not(:first-child):not(li)](x.5)",
+      "data-h2-margin-bottom": "base:children[:not(:last-child):not(li)](x.5)",
       ...(!editable && {
         "data-h2-cursor": "base(not-allowed)",
         "data-h2-color": "base(black.light)",
       }),
       ...inputProps,
+      ...stateStyles,
     },
   };
 
