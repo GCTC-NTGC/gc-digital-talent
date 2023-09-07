@@ -30,10 +30,7 @@ const MaintenanceBanner = () => {
       })
     : null;
 
-  const duration =
-    serverMaintenanceDuration && !!Math.abs(+serverMaintenanceDuration)
-      ? Math.abs(+serverMaintenanceDuration)
-      : null;
+  const duration = serverMaintenanceDuration || null;
 
   const showMaintenanceBanner =
     maintenanceBannerPublicDate && serverMaintenanceDate
