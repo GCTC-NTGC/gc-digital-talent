@@ -59,7 +59,7 @@
     "jest-environment-jsdom": "^29.6.4",
     "jest-presets": "*",
     "react": "^18.2.0",
-    "react-hook-form": "^7.45.4",
+    "react-hook-form": "^7.46.1",
     "react-intl": "^6.4.4",
     "rimraf": "^5.0.1",
     "tsconfig": "*",
