@@ -12,7 +12,7 @@ class LoggingErrorHandler implements ErrorHandler
     public function __invoke(?Error $error, Closure $next): ?array
     {
         // pass nulls through
-        if (null === $error) {
+        if ($error === null) {
             return $next(null);
         }
 
