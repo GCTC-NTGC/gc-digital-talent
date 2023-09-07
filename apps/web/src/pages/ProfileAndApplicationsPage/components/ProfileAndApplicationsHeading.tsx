@@ -130,9 +130,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       subtitle={intl.formatMessage(
         {
           defaultMessage:
-            // TODO: split career timeline and skills into two separate links when the sections exist
-            "Manage your <a1>profile</a1>, <a2>career timeline, skills</a2>, and <a3>track applications</a3>.",
-          id: "dwspOv",
+            "Manage your <a1>profile</a1>, <a2>career timeline</a2>, <a3>skills</a3>, and <a3>track applications</a3>.",
+          id: "Wm8DeM",
           description: "Subtitle for profile and applications hero",
         },
         {
@@ -145,6 +144,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               "white",
             ),
           a3: (chunks: React.ReactNode) =>
+            buildLink(paths.skillLibrary(), chunks, "white"),
+          a4: (chunks: React.ReactNode) =>
             buildScrollToLink("track-applications-section", chunks, "white"),
         },
       )}

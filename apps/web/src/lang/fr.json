@@ -63,10 +63,6 @@
     "defaultMessage": "Emplois dans le gouvernement numérique",
     "description": "Heading for the digital government job opportunities"
   },
-  "+clYLj": {
-    "defaultMessage": "Sélectionnez votre expérience de cette compétence",
-    "description": "Description for the skill level radio group"
-  },
   "+cn9MN": {
     "defaultMessage": "Les personnes qui se voient offrir des postes avec la possibilité de travailler à domicile doivent avoir un accès Internet adéquat pour le travail à distance.",
     "description": "IAP Requirement list item six"
@@ -1663,10 +1659,6 @@
     "defaultMessage": "Ce formulaire vous permet de modifier une expérience en particulier, ses détails et les compétences qui s’y rattachent. N’oubliez pas que dans vos expériences de travail, vous devez décrire vos expériences de travail à temps partiel, de travail à temps plein, de travailleur autonome, de travail en tant que boursier, de travail au sein d’un organisme sans but lucratif ou de stagiaire.",
     "description": "Instructions on how to add an experience to your career timeline"
   },
-  "9LwRRx": {
-    "defaultMessage": "Responsable",
-    "description": "Label for the lead skill level"
-  },
   "9LyLWf": {
     "defaultMessage": "la conformité avec les Règles d’accessibilité pour les outils d’édition <atagLink>(ATAG) 2.0</atagLink>",
     "description": "List item two, things developers consider for accessibility"
@@ -2310,10 +2302,6 @@
   "DXtgrn": {
     "defaultMessage": "Révisez votre candidature et envoyez-la",
     "description": "Link text for the application review page."
-  },
-  "DYpwKZ": {
-    "defaultMessage": "Utilisez-vous actuellement cette compétence?",
-    "description": "Description for the current skill radio group"
   },
   "DZ775N": {
     "defaultMessage": "Expérience ajoutée avec succès!",
@@ -3130,10 +3118,6 @@
   "JxVREd": {
     "defaultMessage": "Familles",
     "description": "Label displayed on the skill form families field."
-  },
-  "JzK3m/": {
-    "defaultMessage": "Intermédiaire",
-    "description": "Label for the intermediate skill level"
   },
   "K+F5H7": {
     "defaultMessage": "Lieux de travail",
@@ -4032,10 +4016,6 @@
     "defaultMessage": "Solutions logicielles de la TI",
     "description": "Label for the 'software solutions' IT work stream"
   },
-  "QU2NLF": {
-    "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel",
-    "description": "Label for the current skill yes option"
-  },
   "QVWGaL": {
     "defaultMessage": "Formulaire d’octroi de contrat de services numériques",
     "description": "Heading for the digital Services contracting form"
@@ -4395,10 +4375,6 @@
   "TUi+jx": {
     "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats au niveau débutant pour des occasions d’apprentissage et de perfectionnement en matière de TI au sein du gouvernement.",
     "description": "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage"
-  },
-  "TVoXiS": {
-    "defaultMessage": "<strong>Non</strong>, ce n’est pas une compétence que j’ai déjà utilisée",
-    "description": "Label for the current skill no option"
   },
   "TXl1qY": {
     "defaultMessage": "Gestionnaire",
@@ -4891,6 +4867,10 @@
   "WlMSeh": {
     "defaultMessage": "En apprendre davantage sur les cotes de sécurité",
     "description": "Link text for security clearance information"
+  },
+  "Wm8DeM": {
+    "defaultMessage": "Gérer <a1>votre profil</a1>, <a2>votre parcours professionnel</a2> et <a3>vos compétences</a3>, et <a3>faire le suivi de vos candidatures</a3>.",
+    "description": "Subtitle for profile and applications hero"
   },
   "Wmuizf": {
     "defaultMessage": "Langue préférée pour l'entretien parlé :",
@@ -5920,10 +5900,6 @@
     "defaultMessage": "{count} candidats répondent à vos critères.",
     "description": "Message announced to assistive technology users when the estimated candidate count changes."
   },
-  "dwspOv": {
-    "defaultMessage": "Gérer <a1>votre profil</a1>, <a2>votre parcours professionnel et vos compétences</a2>, et <a3>faire le suivi de vos candidatures</a3>.",
-    "description": "Subtitle for profile and applications hero"
-  },
   "dxv7Jx": {
     "defaultMessage": "Nous utilisons ce filtre pour apparier les candidats qui expriment de l’intérêt pour un niveau de classification, ou certains salaires prévus dans ces classifications.",
     "description": "Message describing the classification filter of the search form."
@@ -6942,10 +6918,6 @@
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
   },
-  "karCOz": {
-    "defaultMessage": "Débutant",
-    "description": "Label for the beginner skill level"
-  },
   "kf5Td+": {
     "defaultMessage": "Assurez-vous de sauvegarder ou de fermer tout formulaire ouvert avant de continuer.",
     "description": "Message displayed to users when they attempt to quit the profile form with unsaved changes"
@@ -7496,10 +7468,6 @@
   "oXYnZN": {
     "defaultMessage": "Communiquez avec nous",
     "description": "Support form title"
-  },
-  "oZvIAg": {
-    "defaultMessage": "Avancé",
-    "description": "Label for the advanced skill level"
   },
   "obD2sw": {
     "defaultMessage": "Compétences transférables requises",
