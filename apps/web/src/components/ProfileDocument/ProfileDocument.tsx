@@ -244,8 +244,8 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           {result.preferredLanguageForInterview && (
                             <p>
                               {intl.formatMessage({
-                                defaultMessage: "Spoken Interview language",
-                                id: "TrMCjk",
+                                defaultMessage: "Spoken interview language",
+                                id: "HUy0EA",
                                 description:
                                   "Label for spoken interview language",
                               })}
@@ -260,8 +260,8 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           {result.preferredLanguageForExam && (
                             <p>
                               {intl.formatMessage({
-                                defaultMessage: "Written Exam language",
-                                id: "diYxg+",
+                                defaultMessage: "Written exam language",
+                                id: "Yh1Y7Z",
                                 description: "Label for written exam language",
                               })}
                               {intl.formatMessage(commonMessages.dividingColon)}
