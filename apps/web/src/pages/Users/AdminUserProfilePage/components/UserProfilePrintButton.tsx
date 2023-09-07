@@ -14,6 +14,8 @@ import { PoolCandidate, User } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 
+type UserProfileDocumentTypes = "all-info" | "anonymous";
+
 interface UserProfilePrintButtonProps {
   users: User[] | PoolCandidate[];
   color: Color;
@@ -29,7 +31,9 @@ const UserProfilePrintButton = ({
 }: UserProfilePrintButtonProps) => {
   const intl = useIntl();
 
-  const [isAnonymous, setAnonymous] = useState("");
+  const [isAnonymous, setAnonymous] = useState<UserProfileDocumentTypes | "">(
+    "",
+  );
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -53,7 +57,7 @@ const UserProfilePrintButton = ({
   });
 
   const handlePrintChange = (value: string) => {
-    setAnonymous(value);
+    if (value === "all-info" || value === "anonymous") setAnonymous(value);
   };
 
   useEffect(() => {
