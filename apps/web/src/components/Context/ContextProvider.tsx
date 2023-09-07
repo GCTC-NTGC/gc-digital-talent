@@ -1,5 +1,6 @@
 import React from "react";
 import { HelmetProvider } from "react-helmet-async";
+import { MotionConfig } from "framer-motion";
 
 import { AppInsightsProvider } from "@gc-digital-talent/app-insights";
 import {
@@ -21,23 +22,25 @@ interface ContextContainerProps {
 }
 
 const ContextContainer = ({ messages, children }: ContextContainerProps) => (
-  <HelmetProvider>
-    <LocaleProvider>
-      <AuthenticationProvider>
-        <LanguageProvider messages={messages}>
-          <ThemeProvider>
-            <ClientProvider>
-              <AppInsightsProvider>
-                <AuthorizationProvider>
-                  <Announcer>{children}</Announcer>
-                </AuthorizationProvider>
-              </AppInsightsProvider>
-            </ClientProvider>
-          </ThemeProvider>
-        </LanguageProvider>
-      </AuthenticationProvider>
-    </LocaleProvider>
-  </HelmetProvider>
+  <MotionConfig reducedMotion="user">
+    <HelmetProvider>
+      <LocaleProvider>
+        <AuthenticationProvider>
+          <LanguageProvider messages={messages}>
+            <ThemeProvider>
+              <ClientProvider>
+                <AppInsightsProvider>
+                  <AuthorizationProvider>
+                    <Announcer>{children}</Announcer>
+                  </AuthorizationProvider>
+                </AppInsightsProvider>
+              </ClientProvider>
+            </ThemeProvider>
+          </LanguageProvider>
+        </AuthenticationProvider>
+      </LocaleProvider>
+    </HelmetProvider>
+  </MotionConfig>
 );
 
 export default ContextContainer;
