@@ -32,8 +32,8 @@ const InstructionsSection = () => {
         {intl.formatMessage(
           {
             defaultMessage:
-              "All questions in this questionnaire are marked as required (<red>*</red>) unless otherwise specified. A copy of your submission will be emailed to you upon completion. Please note that you can also optionally download a blank copy of this form and submit it to the <link>GC Digital Talent mailbox</link> through email.",
-            id: "kj2Qkb",
+              "All questions in this questionnaire are marked as required (<red>*</red>) unless otherwise specified. A copy of your submission will be emailed to you upon completion.",
+            id: "xoT1eU",
             description:
               "Paragraph two of the _instructions_ section of the _digital services contracting questionnaire_",
           },
@@ -47,10 +47,25 @@ const InstructionsSection = () => {
         {intl.formatMessage(
           {
             defaultMessage:
-              "For any questions or concerns regarding the questionnaire, contact <link>GC Digital Talent</link> for more information.",
-            id: "Vjf463",
+              "There are two ways to submit this questionnaire. The first way is to complete this questionnaire online here. Please note that the questionnaire needs to be completed and submitted in one go. You cannot save your answers as draft. The second way to complete this questionnaire is by downloading it as a file, completing it off the platform, and submitting it via email to the <link>GC Digital Talent mailbox</link>.",
+            id: "WNqXQa",
             description:
               "Paragraph three of the _instructions_ section of the _digital services contracting questionnaire_",
+          },
+          {
+            link: (text: React.ReactNode) =>
+              buildExternalLink("mailto:GCTalentGC@tbs-sct.gc.ca", text),
+          },
+        )}
+      </p>
+      <p data-h2-margin-top="base(x.5)">
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "For any questions or concerns regarding the questionnaire, contact <link>GC Digital Talent</link> for more information.",
+            id: "4l+jIq",
+            description:
+              "Paragraph four of the _instructions_ section of the _digital services contracting questionnaire_",
           },
           {
             link: (text: React.ReactNode) =>

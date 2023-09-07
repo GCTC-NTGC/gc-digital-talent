@@ -13,6 +13,8 @@ import {
 import { Checkbox } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
+import useRoutes from "~/hooks/useRoutes";
+
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import { buildExternalLink, getDirectiveUrl } from "../../util";
 import getLabels from "../labels";
@@ -21,6 +23,7 @@ const PreambleSection = () => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const labels = getLabels(intl);
+  const paths = useRoutes();
   return (
     <>
       <TableOfContents.Section
@@ -32,19 +35,21 @@ const PreambleSection = () => {
         </Heading>
       </TableOfContents.Section>
       <TableOfContents.Section
-        id={PAGE_SECTION_ID.ROLE_OF_THE_CIO}
+        id={PAGE_SECTION_ID.SUPPORTING_THE_COMMUNITY}
         data-h2-padding-top="base(x1)"
       >
         <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
-          {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.ROLE_OF_THE_CIO))}
+          {intl.formatMessage(
+            getSectionTitle(PAGE_SECTION_ID.SUPPORTING_THE_COMMUNITY),
+          )}
         </Heading>
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "OCIO of the Treasury Board of Canada Secretariat (TBS) is responsible for the sustainability and development in the GC digital community, including:",
-            id: "LiB2FV",
+              "The Office of the Chief Information Officer of Canada (OCIO) of the Treasury Board of Canada Secretariat (TBS) is responsible for the sustainability and development of the Government of Canada (GC) digital community, including:",
+            id: "maMA3/",
             description:
-              "Introduction to the _role of the cio_ section of the _digital services contracting questionnaire_",
+              "Introduction to the _supporting the community_ section of the _digital services contracting questionnaire_",
           })}
         </p>
         <ul data-h2-margin-top="base(x.5)">
@@ -52,10 +57,10 @@ const PreambleSection = () => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Developing <link>generic suite of HR products</link> (accessible on the GC network only), such as standardized job descriptions, for the digital community",
-                id: "brgSNx",
+                  "Developing a <link>generic suite of HR products</link> (accessible on the GC network only), such as standardized job descriptions, for the digital community",
+                id: "cLwQgK",
                 description:
-                  "An OCIO role in the _role of the cio_ section of the _digital services contracting questionnaire_",
+                  "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_",
               },
               {
                 link: (text: React.ReactNode) =>
@@ -70,44 +75,44 @@ const PreambleSection = () => {
             {intl.formatMessage({
               defaultMessage:
                 "Running government-wide recruitment processes for digital talent",
-              id: "CrqCDE",
+              id: "hvG6bH",
               description:
-                "An OCIO role in the _role of the cio_ section of the _digital services contracting questionnaire_",
+                "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_",
             })}
           </li>
           <li data-h2-margin-top="base(x.25)">
             {intl.formatMessage({
               defaultMessage:
                 "Implementing and supporting initiatives to advance diversity, equity and inclusion in the digital community",
-              id: "+5twwC",
+              id: "0jfEjz",
               description:
-                "An OCIO role in the _role of the cio_ section of the _digital services contracting questionnaire_",
+                "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_",
             })}
           </li>
           <li data-h2-margin-top="base(x.25)">
             {intl.formatMessage({
               defaultMessage:
                 "Maintaining pools of digital talent accessible by all departments",
-              id: "yp6OCO",
+              id: "uvYhZD",
               description:
-                "An OCIO role in the _role of the cio_ section of the _digital services contracting questionnaire_",
+                "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_",
             })}
           </li>
           <li data-h2-margin-top="base(x.25)">
             {intl.formatMessage({
               defaultMessage: "Developing career pathways for digital talent",
-              id: "VlQ7r/",
+              id: "pBAHrf",
               description:
-                "An OCIO role in the _role of the cio_ section of the _digital services contracting questionnaire_",
+                "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_",
             })}
           </li>
           <li data-h2-margin-top="base(x.25)">
             {intl.formatMessage({
               defaultMessage:
                 "Identifying and coordinating government-wide training and upskilling opportunities",
-              id: "RiF2sQ",
+              id: "qsuIJa",
               description:
-                "An OCIO role in the _role of the cio_ section of the _digital services contracting questionnaire_",
+                "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_",
             })}
           </li>
         </ul>
@@ -122,8 +127,8 @@ const PreambleSection = () => {
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "This data collection enables business intelligence on the GC Digital Talent ecosystem. The information helps to identify emerging digital skills requirements and potential gaps in the GC digital community.",
-            id: "RZDprq",
+              "This data collection enables business intelligence on the GC digital talent ecosystem. The information helps to identify emerging digital skills requirements and potential gaps in the GC digital community.",
+            id: "iasn5H",
             description:
               "Paragraph one of the introduction to the _why collect this data_ section of the _digital services contracting questionnaire_",
           })}
@@ -141,8 +146,8 @@ const PreambleSection = () => {
           <li>
             {intl.formatMessage({
               defaultMessage:
-                "Creating a GC-wide pool of pre-qualified digital talent, informed by departmental needs",
-              id: "kOpORd",
+                "Creating a government-wide pool of pre-qualified digital talent, informed by departmental needs",
+              id: "bDnBF9",
               description:
                 "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_",
             })}
@@ -187,8 +192,8 @@ const PreambleSection = () => {
           {intl.formatMessage(
             {
               defaultMessage:
-                "As set out in the <link>Mandatory Procedures for Digital Talent</link>, the business owner is responsible for completing and submitting the Digital Services Contracting Questionnaire if they are procuring digital services.",
-              id: "O1pLzX",
+                "As set out in the <link>Mandatory Procedures on Digital Talent</link>, the business owner is responsible for completing and submitting the Digital Services Contracting Questionnaire if they are procuring digital services.",
+              id: "xPaVvi",
               description:
                 "Paragraph one of the _requirements_ section of the _digital services contracting questionnaire_",
             },
@@ -199,13 +204,19 @@ const PreambleSection = () => {
           )}
         </p>
         <p data-h2-margin-top="base(x.5)">
-          {intl.formatMessage({
-            defaultMessage:
-              "Prior to concluding that a shortage of available or qualified digital talent is the primary rationale for procurement, the business owner must confirm with OCIO that there is no available pre-qualified talent in an OCIO-coordinated talent pool that could meet the need in the timeframe provided.",
-            id: "58vxwx",
-            description:
-              "Paragraph two of the _requirements_ section of the _digital services contracting questionnaire_",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Prior to concluding that a shortage of available or qualified digital talent is the primary rationale for procurement, the business owner must confirm with OCIO that there is no available pre-qualified talent in an <link>OCIO-coordinated talent pool</link> that could meet the need in the timeframe provided.",
+              id: "YZMi8D",
+              description:
+                "Paragraph two of the _requirements_ section of the _digital services contracting questionnaire_",
+            },
+            {
+              link: (chunks: React.ReactNode) =>
+                buildExternalLink(paths.search(), chunks),
+            },
+          )}
         </p>
         <p data-h2-margin-top="base(x.5)">
           {intl.formatMessage({

@@ -75,8 +75,8 @@ export const DigitalServicesContractingQuestionnaire = ({
         title={intl.formatMessage(pageTitle)}
         subtitle={intl.formatMessage({
           defaultMessage:
-            "Complete this form as a part of your role in the Directive on Digital Talent.",
-          id: "RNGz7i",
+            "A requirement under the Directive on Digital Talent.",
+          id: "PB2VIT",
           description:
             "Subtitle for the _digital services contracting questionnaire_ page",
         })}

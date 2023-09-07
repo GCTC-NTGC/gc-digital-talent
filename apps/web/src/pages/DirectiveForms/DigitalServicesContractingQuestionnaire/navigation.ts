@@ -5,7 +5,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 export const PAGE_SECTION_ID = {
   INSTRUCTIONS: "instructions",
   PREAMBLE: "preamble",
-  ROLE_OF_THE_CIO: "role-of-the-cio",
+  SUPPORTING_THE_COMMUNITY: "supporting-the-community",
   WHY_COLLECT: "why-collect",
   REQUIREMENTS: "requirements",
   QUESTIONNAIRE: "questionnaire",
@@ -42,13 +42,12 @@ const sectionTitles = new Map<PageSectionId, MessageDescriptor>([
     }),
   ],
   [
-    PAGE_SECTION_ID.ROLE_OF_THE_CIO,
+    PAGE_SECTION_ID.SUPPORTING_THE_COMMUNITY,
     defineMessage({
-      defaultMessage:
-        "Role of the Office of the Chief Information Officer (OCIO) of Canada in digital talent",
-      id: "yQaS6x",
+      defaultMessage: "Supporting the GC digital community",
+      id: "mEvIF8",
       description:
-        "Heading for the Role of the CIO section on the digital services contracting questionnaire",
+        "Heading for the Supporting The Community section on the digital services contracting questionnaire",
     }),
   ],
   [

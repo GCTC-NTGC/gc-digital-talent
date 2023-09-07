@@ -14,8 +14,8 @@ const getLabels = (intl: IntlShape): FieldLabels => {
 
     // General information section
     department: intl.formatMessage({
-      defaultMessage: "Department / agency",
-      id: "uDwGwb",
+      defaultMessage: "Please specify your department or agency",
+      id: "VYwOyz",
       description:
         "Label for _department / agency_ field in the _digital services contracting questionnaire_",
     }),
@@ -108,8 +108,8 @@ const getLabels = (intl: IntlShape): FieldLabels => {
     }),
     digitalInitiativePlanSubmitted: intl.formatMessage({
       defaultMessage:
-        'Has a digital initiative "Forward Talent Plan" been submitted previously for the initiative?',
-      id: "kpQom6",
+        "Has a digital initiative forward talent plan been submitted previously for the initiative?",
+      id: "aH4Suk",
       description:
         "Label for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_",
     }),
@@ -424,8 +424,8 @@ const getLabels = (intl: IntlShape): FieldLabels => {
         "Label for _secondary contracting rationales_ fieldset in the _digital services contracting questionnaire_",
     }),
     contractingRationalesSecondaryOther: intl.formatMessage({
-      defaultMessage: "Other rationale",
-      id: "N9dBBh",
+      defaultMessage: "Please specify the rationale",
+      id: "LGaq9d",
       description:
         "Label for _an other contracting rationale_ field in the _digital services contracting questionnaire_",
     }),

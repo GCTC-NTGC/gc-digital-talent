@@ -193,8 +193,8 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           context={intl.formatMessage({
             defaultMessage:
-              "List the specific skill, education, or experience that are required to perform the tasks listed above.",
-            id: "46Qrea",
+              "List the specific skill, education, or experience that are required to perform the work required.",
+            id: "rtzp80",
             description:
               "Context for _qualification requirement_ textbox in the _digital services contracting questionnaire_",
           })}

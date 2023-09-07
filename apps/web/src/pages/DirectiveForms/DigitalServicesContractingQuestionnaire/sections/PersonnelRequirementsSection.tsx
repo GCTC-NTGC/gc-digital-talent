@@ -37,8 +37,8 @@ const PersonnelRequirementsSection = ({
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "Provide information on each type of personnel required under the contract. Add more rows as needed.",
-          id: "wPOfsS",
+            "Provide information on each type of personnel required under the contract. Add more as needed.",
+          id: "iZ922O",
           description: "Context for the personnel requirements section",
         })}
       </p>
