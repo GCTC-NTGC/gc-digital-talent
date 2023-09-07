@@ -22,25 +22,25 @@ interface ContextContainerProps {
 }
 
 const ContextContainer = ({ messages, children }: ContextContainerProps) => (
-  <MotionConfig reducedMotion="user">
-    <HelmetProvider>
-      <LocaleProvider>
-        <AuthenticationProvider>
-          <LanguageProvider messages={messages}>
-            <ThemeProvider>
-              <ClientProvider>
-                <AppInsightsProvider>
-                  <AuthorizationProvider>
+  <HelmetProvider>
+    <LocaleProvider>
+      <AuthenticationProvider>
+        <LanguageProvider messages={messages}>
+          <ThemeProvider>
+            <ClientProvider>
+              <AppInsightsProvider>
+                <AuthorizationProvider>
+                  <MotionConfig reducedMotion="user">
                     <Announcer>{children}</Announcer>
-                  </AuthorizationProvider>
-                </AppInsightsProvider>
-              </ClientProvider>
-            </ThemeProvider>
-          </LanguageProvider>
-        </AuthenticationProvider>
-      </LocaleProvider>
-    </HelmetProvider>
-  </MotionConfig>
+                  </MotionConfig>
+                </AuthorizationProvider>
+              </AppInsightsProvider>
+            </ClientProvider>
+          </ThemeProvider>
+        </LanguageProvider>
+      </AuthenticationProvider>
+    </LocaleProvider>
+  </HelmetProvider>
 );
 
 export default ContextContainer;

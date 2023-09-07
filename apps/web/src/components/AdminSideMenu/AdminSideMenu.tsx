@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useReducedMotion } from "framer-motion";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import BuildingOfficeIcon from "@heroicons/react/24/outline/BuildingOfficeIcon";
