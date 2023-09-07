@@ -50,6 +50,12 @@ const ControlledInput = ({
       italic: false,
       orderedList: false,
       strike: false,
+
+      // Customize existing nodes
+      bulletList: {
+        keepMarks: false,
+        keepAttributes: false,
+      },
     }),
     CharacterCount,
   ];
@@ -75,7 +81,10 @@ const ControlledInput = ({
   return (
     <EditorProvider
       {...{ extensions, content, editorProps }}
-      onUpdate={({ editor }) => onChange(editor.getHTML())}
+      onUpdate={(args) => {
+        console.log(args);
+        onChange(args.editor.getHTML());
+      }}
       slotBefore={<MenuBar />}
       slotAfter={<Footer wordLimit={wordLimit} name={name} />}
     >

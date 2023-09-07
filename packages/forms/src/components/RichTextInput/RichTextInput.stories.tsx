@@ -6,7 +6,7 @@ import Form from "../BasicForm";
 import Submit from "../Submit";
 import RichTextInput from "./RichTextInput";
 
-const defaultValue = `
+const defaultContent = `
 <p>Paragraph</p>
 <ul>
   <li>List item 1</li>
@@ -57,7 +57,7 @@ export const Default = Template.bind({});
 
 export const DefaultValue = Template.bind({});
 DefaultValue.args = {
-  defaultValue,
+  defaultValue: defaultContent,
 };
 
 export const Required = Template.bind({});
@@ -69,13 +69,13 @@ Required.args = {
 
 export const ReadOnly = Template.bind({});
 ReadOnly.args = {
-  defaultValue,
+  defaultValue: defaultContent,
   readOnly: true,
 };
 
 export const WordLimit = Template.bind({});
 WordLimit.args = {
-  defaultValue,
+  defaultValue: defaultContent,
   wordLimit: 5,
 };
 
