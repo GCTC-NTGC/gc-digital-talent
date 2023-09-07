@@ -7,13 +7,7 @@ import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircle
 import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ArrowDownCircleIcon from "@heroicons/react/24/solid/ArrowDownCircleIcon";
 
-import {
-  Accordion,
-  Heading,
-  Link,
-  Separator,
-  StandardAccordionHeader,
-} from "@gc-digital-talent/ui";
+import { Accordion, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useTheme } from "@gc-digital-talent/theme";
@@ -53,7 +47,7 @@ const Step = ({ image, includeArrow = true, children }: StepProps) => {
             data-h2-display="base(none) p-tablet(block)"
             data-h2-vertical-align="base(middle)"
             data-h2-height="base(auto)"
-            data-h2-width="base(x1.5)"
+            data-h2-width="base(x2)"
             data-h2-overflow="base(visible)"
             data-h2-padding-left="base(x0.5)"
           />
@@ -71,7 +65,7 @@ const Step = ({ image, includeArrow = true, children }: StepProps) => {
         <ArrowDownCircleIcon
           data-h2-display="base(block) p-tablet(none)"
           data-h2-height="base(auto)"
-          data-h2-width="base(x1.5)"
+          data-h2-width="base(x2)"
           data-h2-margin="base(auto)"
           data-h2-padding="base(x0.5, 0)"
         />
@@ -161,6 +155,7 @@ const SignInPage = () => {
               level="h3"
               size="h4"
               data-h2-font-weight="base(700)"
+              data-h2-margin-top="base(x2.5)"
             >
               {intl.formatMessage({
                 defaultMessage: "Signing in to your account",
@@ -177,7 +172,7 @@ const SignInPage = () => {
                 description: "Subtitle for a section explaining sign in steps",
               })}
             </Heading>
-            <div data-h2-flex-grid="base(flex-start, x2, x2)">
+            <div data-h2-flex-grid="base(flex-start, x2.5, x2)">
               <Step image={step1Image}>
                 {intl.formatMessage({
                   defaultMessage:
@@ -217,6 +212,7 @@ const SignInPage = () => {
               level="h3"
               size="h4"
               data-h2-font-weight="base(700)"
+              data-h2-margin-top="base(x2.5)"
             >
               {intl.formatMessage({
                 defaultMessage: "Frequently Asked Questions (FAQs)",
