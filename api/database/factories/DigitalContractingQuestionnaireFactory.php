@@ -61,6 +61,7 @@ class DigitalContractingQuestionnaireFactory extends Factory
             'contract_amendable' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             'contract_multiyear' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             'contract_value' => $this->faker->randomElement(DirectiveFormsApiEnums::contractValueRanges()),
+            'contract_ftes' => $this->faker->randomElement(DirectiveFormsApiEnums::contractFteRanges()),
             'contract_resources_start_timeframe' => $this->faker->randomElement(DirectiveFormsApiEnums::contractStartTimeframes()),
             'commodity_type' => $this->faker->randomElement(DirectiveFormsApiEnums::contractCommodities()),
             'commodity_type_other' => function (array $attributes) {

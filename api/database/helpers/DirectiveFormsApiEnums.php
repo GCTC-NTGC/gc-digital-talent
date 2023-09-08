@@ -108,6 +108,32 @@ class DirectiveFormsApiEnums
         ];
     }
 
+    const CONTRACT_FTE_RANGE_FROM_1_TO_5 = 'FROM_1_TO_5';
+
+    const CONTRACT_FTE_RANGE_FROM_6_TO_10 = 'FROM_6_TO_10';
+
+    const CONTRACT_FTE_RANGE_FROM_11_TO_30 = 'FROM_11_TO_30';
+
+    const CONTRACT_FTE_RANGE_FROM_31_TO_50 = 'FROM_31_TO_50';
+
+    const CONTRACT_FTE_RANGE_FROM_51_TO_100 = 'FROM_51_TO_100';
+
+    /**
+     * A collection of enums for ContractFteRange in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function contractFteRanges(): array
+    {
+        return [
+            self::CONTRACT_FTE_RANGE_FROM_1_TO_5,
+            self::CONTRACT_FTE_RANGE_FROM_6_TO_10,
+            self::CONTRACT_FTE_RANGE_FROM_11_TO_30,
+            self::CONTRACT_FTE_RANGE_FROM_31_TO_50,
+            self::CONTRACT_FTE_RANGE_FROM_51_TO_100,
+        ];
+    }
+
     const CONTRACT_START_TIMEFRAME_FROM_0_TO_3M = 'FROM_0_TO_3M';
 
     const CONTRACT_START_TIMEFRAME_FROM_3M_TO_6M = 'FROM_3M_TO_6M';

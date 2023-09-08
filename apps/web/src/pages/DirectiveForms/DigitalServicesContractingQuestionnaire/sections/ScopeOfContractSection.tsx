@@ -6,6 +6,7 @@ import { Input, RadioGroup, DateInput } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import {
   ContractCommodity,
+  ContractFteRange,
   ContractInstrument,
   ContractSolicitationProcedure,
   ContractStartTimeframe,
@@ -19,6 +20,7 @@ import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import { enumToOptions } from "../../util";
 import {
+  contractFteRangeSortOrder,
   contractInstrumentSortOrder,
   contractSolicitationProcedureSortOrder,
   contractStartTimeframeSortOrder,
@@ -26,6 +28,7 @@ import {
   contractValueRangeSortOrder,
   getContractCommodity,
   getContractCommoditySortOrder,
+  getContractFteRange,
   getContractInstrument,
   getContractSolicitationProcedure,
   getContractStartTimeframe,
@@ -176,6 +179,23 @@ const ScopeOfContractSection = () => {
             description:
               "Context for _contract value_ fieldset in the _digital services contracting questionnaire_",
           })}
+        />
+        <RadioGroup
+          legend={labels.contractFtes}
+          id="contractFtes"
+          name="contractFtes"
+          idPrefix="contractFtes"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={enumToOptions(ContractFteRange, contractFteRangeSortOrder).map(
+            (option) => {
+              return {
+                value: option.value as string,
+                label: intl.formatMessage(getContractFteRange(option.value)),
+              };
+            },
+          )}
         />
         <RadioGroup
           legend={labels.contractResourcesStartTimeframe}

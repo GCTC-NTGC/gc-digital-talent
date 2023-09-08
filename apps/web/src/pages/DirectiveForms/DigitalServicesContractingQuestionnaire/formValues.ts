@@ -7,6 +7,7 @@ import {
   ContractStartTimeframe,
   ContractSupplyMethod,
   ContractValueRange,
+  ContractFteRange,
   DigitalContractingQuestionnaireInput,
   OperationsConsideration,
   PersonnelLanguage,
@@ -83,6 +84,7 @@ export type FormValues = {
   contractAmendable: string;
   contractMultiyear: string;
   contractValue: string;
+  contractFtes: string;
   contractResourcesStartTimeframe: string;
   commodityType: string;
   commodityTypeOther: string;
@@ -194,6 +196,7 @@ export function convertFormValuesToApiInput(
     contractAmendable: stringToEnum(YesNo, formValues.contractAmendable),
     contractMultiyear: stringToEnum(YesNo, formValues.contractMultiyear),
     contractValue: stringToEnum(ContractValueRange, formValues.contractValue),
+    contractFtes: stringToEnum(ContractFteRange, formValues.contractFtes),
     contractResourcesStartTimeframe: stringToEnum(
       ContractStartTimeframe,
       formValues.contractResourcesStartTimeframe,

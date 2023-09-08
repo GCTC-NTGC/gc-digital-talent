@@ -3,6 +3,7 @@ import { defineMessages, MessageDescriptor } from "react-intl";
 import {
   ContractAuthority,
   ContractCommodity,
+  ContractFteRange,
   ContractingRationale,
   ContractInstrument,
   ContractSolicitationProcedure,
@@ -197,6 +198,57 @@ export const contractValueRangeSortOrder = [
   ContractValueRange.From_10MTo_15M,
   ContractValueRange.From_15MTo_25M,
   ContractValueRange.GreaterThan_25M,
+];
+
+const ContractFteRanges = defineMessages({
+  [ContractFteRange.From_1To_5]: {
+    defaultMessage: "1 to 5",
+    id: "wXLoar",
+    description: "Contract FTE range between one and five",
+  },
+  [ContractFteRange.From_6To_10]: {
+    defaultMessage: "6 to 10",
+    id: "OWD/ns",
+    description: "Contract FTE range between six and ten",
+  },
+  [ContractFteRange.From_11To_30]: {
+    defaultMessage: "11 to 30",
+    id: "Xhq/96",
+    description: "Contract FTE range between eleven and thirty",
+  },
+  [ContractFteRange.From_31To_50]: {
+    defaultMessage: "31 to 50",
+    id: "DUlWNu",
+    description: "Contract FTE range between thirty-one and fifty",
+  },
+  [ContractFteRange.From_51To_100]: {
+    defaultMessage: "51 to 100",
+    id: "pgPBbf",
+    description: "Contract FTE range between fifty-one and one-hundred",
+  },
+  [ContractFteRange.GreaterThan_100]: {
+    defaultMessage: "> 100",
+    id: "G6pLud",
+    description: "Contract FTE range greater than one-hundred",
+  },
+});
+
+export const getContractFteRange = (
+  enumKey: keyof typeof ContractFteRanges,
+): MessageDescriptor =>
+  getOrThrowError(
+    ContractFteRanges,
+    enumKey,
+    `Invalid contract FTE range '${enumKey}'`,
+  );
+
+export const contractFteRangeSortOrder = [
+  ContractFteRange.From_1To_5,
+  ContractFteRange.From_6To_10,
+  ContractFteRange.From_11To_30,
+  ContractFteRange.From_31To_50,
+  ContractFteRange.From_51To_100,
+  ContractFteRange.GreaterThan_100,
 ];
 
 const contractStartTimeframes = defineMessages({

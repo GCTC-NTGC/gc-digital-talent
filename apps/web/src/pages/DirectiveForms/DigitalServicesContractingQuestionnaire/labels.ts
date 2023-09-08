@@ -173,6 +173,13 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _contract value_ fieldset in the _digital services contracting questionnaire_",
     }),
+    contractFtes: intl.formatMessage({
+      defaultMessage:
+        "In terms of full-time-equivalents (FTEs), the estimated total number of resources expected from the contract, or required to produce contract deliverables",
+      id: "G8cmgj",
+      description:
+        "Label for _contract FTEs_ fieldset in the _digital services contracting questionnaire_",
+    }),
     contractResourcesStartTimeframe: intl.formatMessage({
       defaultMessage: "Contract resources expected to start work in",
       id: "5GUCh4",

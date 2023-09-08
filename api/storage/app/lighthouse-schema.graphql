@@ -1459,6 +1459,15 @@ enum ContractValueRange {
   GREATER_THAN_25M
 }
 
+enum ContractFteRange {
+  FROM_1_TO_5
+  FROM_6_TO_10
+  FROM_11_TO_30
+  FROM_31_TO_50
+  FROM_51_TO_100
+  GREATER_THAN_100
+}
+
 enum ContractStartTimeframe {
   FROM_0_TO_3M
   FROM_3M_TO_6M
@@ -1596,6 +1605,7 @@ type DigitalContractingQuestionnaire {
   contractAmendable: YesNo
   contractMultiyear: YesNo
   contractValue: ContractValueRange
+  contractFtes: ContractFteRange
   contractResourcesStartTimeframe: ContractStartTimeframe
   commodityType: ContractCommodity
   commodityTypeOther: String
@@ -1708,6 +1718,7 @@ input DigitalContractingQuestionnaireInput {
   contractAmendable: YesNo
   contractMultiyear: YesNo
   contractValue: ContractValueRange
+  contractFtes: ContractFteRange
   contractResourcesStartTimeframe: ContractStartTimeframe
   commodityType: ContractCommodity
   commodityTypeOther: String

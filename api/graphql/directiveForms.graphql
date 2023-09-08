@@ -30,6 +30,15 @@ enum ContractValueRange {
   GREATER_THAN_25M
 }
 
+enum ContractFteRange {
+  FROM_1_TO_5
+  FROM_6_TO_10
+  FROM_11_TO_30
+  FROM_31_TO_50
+  FROM_51_TO_100
+  GREATER_THAN_100
+}
+
 enum ContractStartTimeframe {
   FROM_0_TO_3M
   FROM_3M_TO_6M
@@ -174,6 +183,7 @@ type DigitalContractingQuestionnaire {
   contractAmendable: YesNo @rename(attribute: "contract_amendable")
   contractMultiyear: YesNo @rename(attribute: "contract_multiyear")
   contractValue: ContractValueRange @rename(attribute: "contract_value")
+  contractFtes: ContractFteRange @rename(attribute: "contract_ftes")
   contractResourcesStartTimeframe: ContractStartTimeframe
     @rename(attribute: "contract_resources_start_timeframe")
   commodityType: ContractCommodity @rename(attribute: "commodity_type")
@@ -331,6 +341,7 @@ input DigitalContractingQuestionnaireInput
   contractAmendable: YesNo @rename(attribute: "contract_amendable")
   contractMultiyear: YesNo @rename(attribute: "contract_multiyear")
   contractValue: ContractValueRange @rename(attribute: "contract_value")
+  contractFtes: ContractFteRange @rename(attribute: "contract_ftes")
   contractResourcesStartTimeframe: ContractStartTimeframe
     @rename(attribute: "contract_resources_start_timeframe")
   commodityType: ContractCommodity @rename(attribute: "commodity_type")

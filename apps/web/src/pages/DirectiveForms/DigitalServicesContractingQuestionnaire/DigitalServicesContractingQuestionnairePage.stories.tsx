@@ -5,6 +5,7 @@ import { fakeDepartments, getStaticSkills } from "@gc-digital-talent/fake-data";
 import {
   ContractAuthority,
   ContractCommodity,
+  ContractFteRange,
   ContractInstrument,
   ContractSolicitationProcedure,
   ContractStartTimeframe,
@@ -83,6 +84,7 @@ export const WithValues: Story = {
       contractAmendable: YesNo.Yes,
       contractMultiyear: YesNo.Yes,
       contractValue: ContractValueRange.From_50KTo_1M,
+      contractFtes: ContractFteRange.From_11To_30,
       contractResourcesStartTimeframe: ContractStartTimeframe.Unknown,
       commodityType: ContractCommodity.Other,
       commodityTypeOther: "Some other commodity",

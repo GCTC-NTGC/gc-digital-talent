@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string contract_amendable
  * @property string contract_multiyear
  * @property string contract_value
+ * @property string contract_ftes
  * @property string contract_resources_start_timeframe
  * @property string commodity_type
  * @property string commodity_type_other
