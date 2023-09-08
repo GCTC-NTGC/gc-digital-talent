@@ -90,7 +90,11 @@ const SignUpPage = () => {
                   "Heading at the top of the sign up page for applicant profiles",
               })}
             </Heading>
-            <ul data-h2-margin="base(x1, 0, x1, -x.75)">
+            <ul
+              data-h2-margin="base(x1, 0, x1, 0)"
+              data-h2-padding-left="base(x.25)"
+              data-h2-list-style="base(inside)"
+            >
               <li data-h2-margin-top="base(x.25)">
                 {intl.formatMessage({
                   defaultMessage:
