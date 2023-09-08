@@ -63,10 +63,6 @@
     "defaultMessage": "Emplois dans le gouvernement numérique",
     "description": "Heading for the digital government job opportunities"
   },
-  "+clYLj": {
-    "defaultMessage": "Sélectionnez votre expérience de cette compétence",
-    "description": "Description for the skill level radio group"
-  },
   "+cn9MN": {
     "defaultMessage": "Les personnes qui se voient offrir des postes avec la possibilité de travailler à domicile doivent avoir un accès Internet adéquat pour le travail à distance.",
     "description": "IAP Requirement list item six"
@@ -286,6 +282,10 @@
     "defaultMessage": "Avez-vous un droit de priorité?",
     "description": "Priority Entitlement Status in Government Info Form"
   },
+  "/ldR5A": {
+    "defaultMessage": "{count, plural, =0 {0 expériences} =1 {1 expérience} other {# expériences}}",
+    "description": "Number of experiences linked to a skill"
+  },
   "/mFrpj": {
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
     "description": "Education level message when candidate has a diploma found on the request page."
@@ -336,6 +336,10 @@
   "00lloL": {
     "defaultMessage": "Les compétences qui ne sont pas liées à cette demande seront dissimulées dans le cadre de l’évaluation initiale de votre demande, mais elles seront toujours visibles dans votre profil.",
     "description": "Text that appears during an application to explain skills appearing missing from their profile."
+  },
+  "00tmhW": {
+    "defaultMessage": "Niveau de compétence",
+    "description": "Skill level column header for the skill library table"
   },
   "044hi7": {
     "defaultMessage": "Copier le lien",
@@ -1131,6 +1135,10 @@
     "defaultMessage": "IT-04: Conseiller principal ou Gestionnaire (101 000 $ à 126 000 $)",
     "description": "IT-04 classification label including titles and salaries"
   },
+  "5Z/SAX": {
+    "defaultMessage": "Les compétences techniques désignent les connaissances et les capacités techniques associées à des postes ou des rôles précis au sein de l’organisation. Les compétences techniques sont habituellement acquises dans le cadre d’une formation ou d’une expérience de travail particulières où la personne met en application ses connaissances et compétences.",
+    "description": "Definition of technical skills"
+  },
   "5bdLGy": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the executive opportunities"
@@ -1275,6 +1283,10 @@
     "defaultMessage": "Laissez notre équipe vous épargner du temps et de l’énergie en associant vos besoins à des professionnels des <abbreviation>TI</abbreviation> préalablement sélectionnés et possédant les compétences requises pour le poste. Tous les talents de nos bassins de dotation ont été sélectionnés à l’issue d’un processus concurrentiel. Vous pouvez donc passer directement à l’entrevue et décider s’ils conviennent à votre équipe.",
     "description": "Summary for to go to the search page on Browse IT jobs page"
   },
+  "6Uyhp2": {
+    "defaultMessage": "Vos compétences comportementales",
+    "description": "Title for the skill library behavioural skills section"
+  },
   "6VyRZ/": {
     "defaultMessage": "Expériences personnelles",
     "description": "Heading for personal experiences in experience by type listing"
@@ -1290,6 +1302,10 @@
   "6bvAQ+": {
     "defaultMessage": "Rétroaction et coordonnées",
     "description": "Title for the accessibility feedback section"
+  },
+  "6cFJ2w": {
+    "defaultMessage": "Cette section vous permet de gérer toutes les compétences techniques associées à votre profil, vos expériences et vos réalisations. Cliquez sur le nom d’une compétence pour obtenir une description détaillée.",
+    "description": "Description on how to use technical skills"
   },
   "6eA/CF": {
     "defaultMessage": "Langue :",
@@ -1662,10 +1678,6 @@
   "9Eh1nm": {
     "defaultMessage": "Ce formulaire vous permet de modifier une expérience en particulier, ses détails et les compétences qui s’y rattachent. N’oubliez pas que dans vos expériences de travail, vous devez décrire vos expériences de travail à temps partiel, de travail à temps plein, de travailleur autonome, de travail en tant que boursier, de travail au sein d’un organisme sans but lucratif ou de stagiaire.",
     "description": "Instructions on how to add an experience to your career timeline"
-  },
-  "9LwRRx": {
-    "defaultMessage": "Responsable",
-    "description": "Label for the lead skill level"
   },
   "9LyLWf": {
     "defaultMessage": "la conformité avec les Règles d’accessibilité pour les outils d’édition <atagLink>(ATAG) 2.0</atagLink>",
@@ -2091,6 +2103,10 @@
     "defaultMessage": "Statut",
     "description": "CSV Header, Status column"
   },
+  "C1wuXs": {
+    "defaultMessage": "Cette section vous permet de gérer toutes les compétences comportementales associées à votre profil, vos expériences et vos réalisations. Cliquez sur le nom d’une compétence pour obtenir une description détaillée.",
+    "description": "Description on how to use behavioural skills"
+  },
   "C6YPk3": {
     "defaultMessage": "Postulez maintenant",
     "description": "Title for the apply button section of a pool advertisement"
@@ -2311,10 +2327,6 @@
     "defaultMessage": "Révisez votre candidature et envoyez-la",
     "description": "Link text for the application review page."
   },
-  "DYpwKZ": {
-    "defaultMessage": "Utilisez-vous actuellement cette compétence?",
-    "description": "Description for the current skill radio group"
-  },
   "DZ775N": {
     "defaultMessage": "Expérience ajoutée avec succès!",
     "description": "Success message displayed after adding experience to profile"
@@ -2434,6 +2446,10 @@
   "EPF4Ac": {
     "defaultMessage": "Le processus de demande repose sur la collecte et l’examen des renseignements de manière linéaire. Par conséquent, il n’est pas encore possible de passer à cette étape. La dernière étape sur laquelle vous travailliez est mise en surbrillance dans la zone des étapes de la page, ou vous pouvez utiliser le bouton fourni pour y accéder directement.",
     "description": "Application step skipped page details"
+  },
+  "ERDq0Q": {
+    "defaultMessage": "Ajouter, modifier ou gérer des compétences comportementales et techniques dans votre profil.",
+    "description": "Page description for the skill library page"
   },
   "ETrCOq": {
     "defaultMessage": "Statut du candidat",
@@ -2791,6 +2807,10 @@
   "GwbTAz": {
     "defaultMessage": "Volets"
   },
+  "GxBGcz": {
+    "defaultMessage": "Vos compétences techniques ",
+    "description": "Title for the skill library technical skills section"
+  },
   "H/aUwM": {
     "defaultMessage": "Vous êtes un cadre supérieur de la collectivité du numérique du GC et vous êtes à la recherche de talents, contactez notre équipe afin d’obtenir des recommandations, une liste de candidats préqualifiés ainsi que leurs profils.",
     "description": "Description for the digital government executive talent search"
@@ -3130,10 +3150,6 @@
   "JxVREd": {
     "defaultMessage": "Familles",
     "description": "Label displayed on the skill form families field."
-  },
-  "JzK3m/": {
-    "defaultMessage": "Intermédiaire",
-    "description": "Label for the intermediate skill level"
   },
   "K+F5H7": {
     "defaultMessage": "Lieux de travail",
@@ -4032,10 +4048,6 @@
     "defaultMessage": "Solutions logicielles de la TI",
     "description": "Label for the 'software solutions' IT work stream"
   },
-  "QU2NLF": {
-    "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel",
-    "description": "Label for the current skill yes option"
-  },
   "QVWGaL": {
     "defaultMessage": "Formulaire d’octroi de contrat de services numériques",
     "description": "Heading for the digital Services contracting form"
@@ -4128,6 +4140,10 @@
     "defaultMessage": "Révisé",
     "description": "Title displayed for the User table Date Updated column"
   },
+  "R4Z9FQ": {
+    "defaultMessage": "Les compétences comportementales désignent les principales qualités interpersonnelles et personnelles nécessaires pour occuper des emplois précis au sein de l’organisation. Ces compétences se rapportent généralement à la façon dont une personne agit, communique et interagit avec les autres.",
+    "description": "Definition of behavioural skills"
+  },
   "R75HsV": {
     "defaultMessage": "Aidez-nous à vous apparier avec les meilleurs candidats en partageant de plus amples renseignements avec notre équipe sur les compétences particulières dont vous recherchez.",
     "description": "Describing the purpose of the skill filters on the Search page."
@@ -4175,6 +4191,10 @@
   "RggAL8": {
     "defaultMessage": "Modifiez vos options concernant la diversité, l’équité et l’inclusion",
     "description": "Link text to edit diversity, equity and inclusion information on profile."
+  },
+  "RjYGPw": {
+    "defaultMessage": "Chercher une compétence",
+    "description": "Label for the skill library table search input"
   },
   "Rl+0Er": {
     "defaultMessage": "Afficher les candidats",
@@ -4395,10 +4415,6 @@
   "TUi+jx": {
     "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats au niveau débutant pour des occasions d’apprentissage et de perfectionnement en matière de TI au sein du gouvernement.",
     "description": "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage"
-  },
-  "TVoXiS": {
-    "defaultMessage": "<strong>Non</strong>, ce n’est pas une compétence que j’ai déjà utilisée",
-    "description": "Label for the current skill no option"
   },
   "TXl1qY": {
     "defaultMessage": "Gestionnaire",
@@ -5920,10 +5936,6 @@
     "defaultMessage": "{count} candidats répondent à vos critères.",
     "description": "Message announced to assistive technology users when the estimated candidate count changes."
   },
-  "dwspOv": {
-    "defaultMessage": "Gérer <a1>votre profil</a1>, <a2>votre parcours professionnel et vos compétences</a2>, et <a3>faire le suivi de vos candidatures</a3>.",
-    "description": "Subtitle for profile and applications hero"
-  },
   "dxv7Jx": {
     "defaultMessage": "Nous utilisons ce filtre pour apparier les candidats qui expriment de l’intérêt pour un niveau de classification, ou certains salaires prévus dans ces classifications.",
     "description": "Message describing the classification filter of the search form."
@@ -6520,6 +6532,10 @@
     "defaultMessage": "Courriel",
     "description": "Title displayed on the search request table email column."
   },
+  "hjxxaQ": {
+    "defaultMessage": "Titres des compétences",
+    "description": "Skill name column header for the skill library table"
+  },
   "hlcd+5": {
     "defaultMessage": "Résultats du tableau"
   },
@@ -6941,10 +6957,6 @@
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
-  },
-  "karCOz": {
-    "defaultMessage": "Débutant",
-    "description": "Label for the beginner skill level"
   },
   "kf5Td+": {
     "defaultMessage": "Assurez-vous de sauvegarder ou de fermer tout formulaire ouvert avant de continuer.",
@@ -7496,10 +7508,6 @@
   "oXYnZN": {
     "defaultMessage": "Communiquez avec nous",
     "description": "Support form title"
-  },
-  "oZvIAg": {
-    "defaultMessage": "Avancé",
-    "description": "Label for the advanced skill level"
   },
   "obD2sw": {
     "defaultMessage": "Compétences transférables requises",
@@ -8235,6 +8243,10 @@
     "defaultMessage": "Le statut de candidat du bassin a été mis à jour avec succès",
     "description": "Message displayed when a pool candidate has been updated by and admin"
   },
+  "uWdGeZ": {
+    "defaultMessage": "Expérience professionnelle",
+    "description": "Experience count column header for the skill library table"
+  },
   "ugRTOW": {
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled GovernmentInformation section."
@@ -8691,6 +8703,10 @@
     "defaultMessage": "Choisissez le critère auquel vous répondez.",
     "description": "Heading for radio group section in application education page."
   },
+  "ySkRmX": {
+    "defaultMessage": "Bibliothèque des compétences",
+    "description": "Page title for the skill library page"
+  },
   "yXXj1D": {
     "defaultMessage": "Commencez <hidden> à remplir la section sur vos renseignements en tant que fonctionnaire </hidden>",
     "description": "Call to action to begin editing government information"
@@ -8810,6 +8826,10 @@
   "zS2PN+": {
     "defaultMessage": "Toutes les catégories ({count})",
     "description": "Label for removing the skill category filter"
+  },
+  "zTJ2DT": {
+    "defaultMessage": "Gérer <a1>votre profil</a1>, <a2>votre parcours professionnel</a2> et <a3>vos compétences</a3>, et <a4>faire le suivi de vos candidatures</a4>.",
+    "description": "Subtitle for profile and applications hero"
   },
   "zd/ve4": {
     "defaultMessage": "Renseignements du profil",

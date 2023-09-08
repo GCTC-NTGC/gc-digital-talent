@@ -1,11 +1,18 @@
 import flatMap from "lodash/flatMap";
 import uniqBy from "lodash/uniqBy";
 import { IntlShape } from "react-intl";
+import React from "react";
 
-import { getLocale } from "@gc-digital-talent/i18n";
+import {
+  getLocale,
+  getBehaviouralSkillLevel,
+  getBehaviouralSkillLevelDefinition,
+  getTechnicalSkillLevel,
+  getTechnicalSkillLevelDefinition,
+} from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-import { SkillLevel } from "@gc-digital-talent/graphql";
+import { UserSkill, SkillLevel } from "@gc-digital-talent/graphql";
 
 import {
   Experience,
@@ -91,6 +98,17 @@ export function filterSkillsByCategory(
     .filter(notEmpty);
 }
 
+export function filterUserSkillsByCategory(
+  userSkills: Maybe<Array<UserSkill>>,
+  category: SkillCategory,
+) {
+  return userSkills
+    ?.filter((userSkill) => {
+      return userSkill.skill.category === category;
+    })
+    .filter(notEmpty);
+}
+
 export function categorizeSkill(
   skills: Maybe<Array<Skill>>,
 ): Record<SkillCategory, Maybe<Array<Skill>>> {
@@ -101,6 +119,21 @@ export function categorizeSkill(
     ),
     [SkillCategory.Behavioural]: filterSkillsByCategory(
       skills,
+      SkillCategory.Behavioural,
+    ),
+  };
+}
+
+export function categorizeUserSkill(
+  userSkills: Maybe<Array<UserSkill>>,
+): Record<SkillCategory, Maybe<Array<UserSkill>>> {
+  return {
+    [SkillCategory.Technical]: filterUserSkillsByCategory(
+      userSkills,
+      SkillCategory.Technical,
+    ),
+    [SkillCategory.Behavioural]: filterUserSkillsByCategory(
+      userSkills,
       SkillCategory.Behavioural,
     ),
   };
@@ -247,4 +280,38 @@ export const parseKeywords = (
         .map((word) => word.trim())
         .filter((word) => word !== "")
     : null;
+};
+
+type GetUserSkillLevelAndDefinitionReturn = {
+  level: React.ReactNode;
+  definition: React.ReactNode;
+};
+
+/**
+ * Get both name and definition
+ * for skill levels based on if it is
+ * technical or not
+ *
+ * @param skillLevel SkillLevel
+ * @param isTechnical boolean
+ * @param intl IntlShape
+ * @returns GetUserSkillLevelAndDefinitionReturn
+ */
+export const getUserSkillLevelAndDefinition = (
+  skillLevel: SkillLevel,
+  isTechnical: boolean,
+  intl: IntlShape,
+): GetUserSkillLevelAndDefinitionReturn => {
+  return {
+    level: intl.formatMessage(
+      isTechnical
+        ? getTechnicalSkillLevel(skillLevel)
+        : getBehaviouralSkillLevel(skillLevel),
+    ),
+    definition: intl.formatMessage(
+      isTechnical
+        ? getTechnicalSkillLevelDefinition(skillLevel)
+        : getBehaviouralSkillLevelDefinition(skillLevel),
+    ),
+  };
 };
