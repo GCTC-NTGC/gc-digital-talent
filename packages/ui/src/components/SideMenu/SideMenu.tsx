@@ -4,7 +4,7 @@ import FocusLock from "react-focus-lock";
 import { RemoveScroll } from "react-remove-scroll";
 import Bars3Icon from "@heroicons/react/24/outline/Bars3Icon";
 import { useIntl } from "react-intl";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
@@ -30,6 +30,8 @@ export interface SideMenuProps {
   triggerRef?: React.RefObject<HTMLButtonElement>;
   /** Main menu items */
   children?: React.ReactNode;
+  /** Reduce motion (needs to be here for context) */
+  shouldReduceMotion?: boolean | null;
 }
 
 const SideMenu = ({
@@ -43,6 +45,7 @@ const SideMenu = ({
   triggerRef,
 }: SideMenuProps) => {
   const intl = useIntl();
+  const shouldReduceMotion = useReducedMotion();
   const [open = false, setOpen] = useControllableState<boolean>({
     controlledProp: openProp,
     defaultValue: defaultOpen,
@@ -66,6 +69,14 @@ const SideMenu = ({
   const showMenu = !isSmallScreen || open;
   const showOverlay = isSmallScreen && open;
 
+  const animConfig = shouldReduceMotion
+    ? {}
+    : {
+        initial: { transform: "translateX(-100%)" },
+        animate: { transform: "translateX(0)" },
+        exit: { transform: "translateX(-100%)" },
+      };
+
   return (
     <SideMenuProvider
       open={open}
@@ -79,9 +90,7 @@ const SideMenu = ({
             data-h2-position="base(fixed) p-tablet(static)"
             data-h2-location="base(0, auto, auto, auto) p-tablet(auto)"
             data-h2-z-index="base(9999)"
-            initial={{ transform: "translateX(-100%)" }}
-            animate={{ transform: "translateX(0)" }}
-            exit={{ transform: "translateX(-100%)" }}
+            {...animConfig}
           >
             <div
               data-h2-position="base(sticky) p-tablet(sticky)"
