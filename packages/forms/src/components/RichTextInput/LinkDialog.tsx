@@ -22,6 +22,7 @@ const validLinkRegex =
 type FormValues = {
   href: string;
   newTab?: boolean;
+  action: "add" | "remove";
 };
 
 interface LinkDialogProps {
@@ -32,19 +33,24 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
-  const handleSubmit = ({ href, newTab }: FormValues) => {
-    editor
-      ?.chain()
-      .focus()
-      .setLink({
-        href: sanitizeUrl(href) ?? "",
-        target: newTab ? "_blank" : "__self",
-      })
-      .run();
+  const handleSubmit = ({ href, newTab, action }: FormValues) => {
+    if (action === "add") {
+      editor
+        ?.chain()
+        .focus()
+        .setLink({
+          href: sanitizeUrl(href) ?? "",
+          target: newTab ? "_blank" : "__self",
+        })
+        .run();
+    } else {
+      editor?.chain().focus().unsetLink().run();
+    }
     setIsOpen(false);
   };
 
   const methods = useForm<FormValues>();
+  const actionProps = methods.register("action");
 
   const handleOpenChange = (newOpen: boolean) => {
     const attributes = editor?.getAttributes("link");
@@ -75,7 +81,7 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
           icon={LinkIcon}
           disabled={!editor?.isEditable || !editor?.can().setLink({ href: "" })}
         >
-          {intl.formatMessage(richTextMessages.addLink)}
+          {intl.formatMessage(richTextMessages.link)}
         </MenuButton>
       </Dialog.Trigger>
       <Dialog.Content>
@@ -108,15 +114,32 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
                   label={intl.formatMessage(richTextMessages.newTab)}
                 />
               </div>
-              <Dialog.Footer>
+              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+                <Button
+                  type="submit"
+                  color="secondary"
+                  {...actionProps}
+                  value="add"
+                  onClick={() => methods.setValue("action", "add")}
+                >
+                  {intl.formatMessage(richTextMessages.addLink)}
+                </Button>
+                {editor?.getAttributes("link").href && (
+                  <Button
+                    type="submit"
+                    color="error"
+                    {...actionProps}
+                    value="remove"
+                    onClick={() => methods.setValue("action", "remove")}
+                  >
+                    {intl.formatMessage(richTextMessages.removeLink)}
+                  </Button>
+                )}
                 <Dialog.Close>
                   <Button mode="inline" color="black">
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </Dialog.Close>
-                <Button type="submit" color="secondary">
-                  {intl.formatMessage(richTextMessages.addLink)}
-                </Button>
               </Dialog.Footer>
             </form>
           </FormProvider>

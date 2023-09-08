@@ -37,14 +37,6 @@ const MenuBar = ({ editor }: MenuBarProps) => {
           {intl.formatMessage(richTextMessages.bulletList)}
         </MenuButton>
         <LinkDialog editor={editor} />
-        <MenuButton
-          active={editor?.isActive("link") ?? false}
-          onClick={() => editor?.chain().focus().unsetLink().run()}
-          disabled={!editor?.isEditable || !editor?.can().unsetLink()}
-          icon={XMarkIcon}
-        >
-          {intl.formatMessage(richTextMessages.removeLink)}
-        </MenuButton>
       </div>
       <div data-h2-display="base(flex)" data-h2-gap="base(x.25)">
         <MenuButton

@@ -16,10 +16,15 @@ const richTextMessages = defineMessages({
     id: "F6j96P",
     description: "Label for redoing an action in the rich text editor",
   },
+  link: {
+    defaultMessage: "Link",
+    id: "XCKYVJ",
+    description: "Label for adding a link in the rich text editor",
+  },
   addLink: {
     defaultMessage: "Add link",
-    id: "IKaY3w",
-    description: "Label for adding a link in the rich text editor",
+    id: "Z0bYQD",
+    description: "Button text for adding a link in the rich text editor",
   },
   removeLink: {
     defaultMessage: "Remove link",
