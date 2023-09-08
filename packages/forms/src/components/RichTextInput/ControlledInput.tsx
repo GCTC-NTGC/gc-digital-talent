@@ -2,6 +2,7 @@ import React from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import CharacterCount from "@tiptap/extension-character-count";
+import Link from "@tiptap/extension-link";
 import {
   ControllerRenderProps,
   FieldValues,
@@ -61,6 +62,9 @@ const ControlledInput = ({
       },
     }),
     CharacterCount,
+    Link.configure({
+      openOnClick: false,
+    }),
   ];
   const editorProps = React.useMemo(
     () => ({
@@ -69,6 +73,8 @@ const ControlledInput = ({
         "aria-multiline": "true",
         contenteditable: editable ? "true" : "false",
         ...inputStyles,
+        "data-h2-color":
+          "base:children[a](secondary.darker) base:children:hover[a](secondary.darkest)",
         "data-h2-radius": "base(0 0 rounded rounded)",
         "data-h2-margin-top": "base:children[:not(:first-child):not(li)](x.5)",
         "data-h2-margin-bottom":

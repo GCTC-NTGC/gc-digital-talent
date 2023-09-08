@@ -104,6 +104,11 @@ const commonMessages = defineMessages({
     id: "QtzRCh",
     description: "Title for status",
   },
+  cancel: {
+    defaultMessage: "Cancel",
+    id: "atqjXB",
+    description: "Stop the current action",
+  },
 });
 
 export default commonMessages;

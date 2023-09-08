@@ -16,6 +16,32 @@ const richTextMessages = defineMessages({
     id: "F6j96P",
     description: "Label for redoing an action in the rich text editor",
   },
+  addLink: {
+    defaultMessage: "Add link",
+    id: "IKaY3w",
+    description: "Label for adding a link in the rich text editor",
+  },
+  removeLink: {
+    defaultMessage: "Remove link",
+    id: "MidGAP",
+    description: "Label for removing a link in the rich text editor",
+  },
+  url: {
+    defaultMessage: "URL",
+    id: "Qru7mF",
+    description: "Label for entering a URL in the rich text editor",
+  },
+  newTab: {
+    defaultMessage: "Opens in a new tab",
+    id: "3I2Qke",
+    description:
+      "Label for setting a link to open in a new tab in the rich text editor",
+  },
+  invalidLink: {
+    defaultMessage: "Please enter a valid URL",
+    id: "dh6K/x",
+    description: "Error message for an invalid link in the rich text editor",
+  },
 });
 
 export default richTextMessages;

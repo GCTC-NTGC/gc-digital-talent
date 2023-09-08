@@ -8,7 +8,6 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import { CommonInputProps } from "../../types";
 import Field from "../Field";
 import ControlledInput from "./ControlledInput";
-import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import { countNumberOfWords } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
