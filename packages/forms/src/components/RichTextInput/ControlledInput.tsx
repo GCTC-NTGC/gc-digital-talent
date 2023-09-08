@@ -11,7 +11,7 @@ import MenuBar from "./MenuBar";
 import Footer from "./Footer";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import { FieldState } from "../../types";
-import { extensions } from "./utils";
+import { contentStyles, extensions } from "./utils";
 
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
@@ -48,15 +48,7 @@ const ControlledInput = ({
         "aria-multiline": "true",
         contenteditable: editable ? "true" : "false",
         ...inputStyles,
-        "data-h2-color":
-          "base:children[a](secondary.darker) base:children:hover[a](secondary.darkest)",
-        "data-h2-radius": "base(0 0 rounded rounded)",
-        "data-h2-margin-top": "base:children[:not(:first-child):not(li)](x.5)",
-        "data-h2-margin-bottom":
-          "base:children[:not(:last-child):not(li)](x.5)",
-        "data-h2-min-height": "base(8rem)",
-        "data-h2-max-height": "base(24rem)",
-        "data-h2-overflow": "base(auto)",
+        ...contentStyles,
         ...(!editable && {
           "data-h2-cursor": "base(not-allowed)",
           "data-h2-color": "base(black.light)",

@@ -37,4 +37,7 @@ export const contentStyles = {
     "base:children[a](underline) base:hover:children[a](none)",
   "data-h2-transition":
     "base:children[a](all ease 50ms) base:children[a](all ease 50ms)",
+  "data-h2-min-height": "base(8rem)",
+  "data-h2-max-height": "base(24rem)",
+  "data-h2-overflow": "base(auto)",
 };
