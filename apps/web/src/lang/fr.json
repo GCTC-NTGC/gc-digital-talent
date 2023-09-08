@@ -728,6 +728,10 @@
     "defaultMessage": "La mise à jour de l’équipe a été réussie!",
     "description": "Message displayed after a team is updated"
   },
+  "2oqp21": {
+    "defaultMessage": "Veuillez prendre note que le site des Talents numériques du GC ne sera pas accessible pour une période prévue de <strong>{duration} heure(s)</strong> le <strong>{startDate}</strong>. Nous nous excusons de tout contretemps.",
+    "description": "Description for a server maintenance banner."
+  },
   "2wmzS1": {
     "defaultMessage": "Nom",
     "description": "Title displayed for the Department table Name column."
@@ -2798,6 +2802,10 @@
   "H02JZe": {
     "defaultMessage": "Courriel",
     "description": "CSV Header, Email column"
+  },
+  "H0RLNn": {
+    "defaultMessage": "Maintenance du serveur prevue",
+    "description": "Heading for a server maintenance banner."
   },
   "H1wLfA": {
     "defaultMessage": "Sélectionnez une province ou un territoire",
