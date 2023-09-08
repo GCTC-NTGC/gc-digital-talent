@@ -24,7 +24,7 @@ jobs:
     env:
       NPM_VERSION: "8.11.0"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # Chromatic requires full git history.
           fetch-depth: 0

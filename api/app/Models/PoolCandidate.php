@@ -370,6 +370,17 @@ class PoolCandidate extends Model
         return $query;
     }
 
+    public static function scopeIsGovEmployee(Builder $query, ?bool $isGovEmployee): Builder
+    {
+        if ($isGovEmployee) {
+            $query->whereHas('user', function ($query) {
+                User::scopeIsGovEmployee($query, true);
+            });
+        }
+
+        return $query;
+    }
+
     public static function scopeNotes(Builder $query, ?string $notes): Builder
     {
 

@@ -5,6 +5,7 @@ import {
 import {
   HelmetDecorator,
   MockGraphqlDecorator,
+  ReducedMotionDecorator,
   RouterDecorator,
   ThemeDecorator,
   themeKey,
@@ -66,6 +67,7 @@ export const globalTypes = {
 
 export const decorators = [
   HelmetDecorator,
+  ReducedMotionDecorator,
   MockGraphqlDecorator,
   ThemeDecorator,
   RouterDecorator,

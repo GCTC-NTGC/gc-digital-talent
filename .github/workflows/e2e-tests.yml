@@ -42,7 +42,7 @@ jobs:
         run: rm -rf /usr/local/android /usr/share/dotnet /usr/local/share/boost /opt/ghc
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # We no longer user docker layer caching as it made runs take longer.
       # See: https://github.com/satackey/action-docker-layer-caching/issues/305
@@ -63,7 +63,7 @@ jobs:
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
       - name: "Run Cypress tests: all"
-        uses: cypress-io/github-action@v6.2.0
+        uses: cypress-io/github-action@v6.4.0
         with:
           spec: "**/*.cy.js"
           browser: electron
@@ -76,7 +76,7 @@ jobs:
       # NOTE: screenshots will be generated only if E2E test failed
       # thus we store screenshots only on failures
       - name: Save screenshot artifacts
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3.1.3
         if: failure()
         with:
           name: cypress-screenshots
