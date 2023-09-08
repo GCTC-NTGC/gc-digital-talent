@@ -8,13 +8,7 @@ import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import ShieldCheckIcon from "@heroicons/react/24/outline/ShieldCheckIcon";
 
-import {
-  Accordion,
-  Heading,
-  Link,
-  Separator,
-  StandardAccordionHeader,
-} from "@gc-digital-talent/ui";
+import { Accordion, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useTheme } from "@gc-digital-talent/theme";
@@ -61,6 +55,7 @@ const Step = ({ image, includeArrow = true, children }: StepProps) => {
           <ArrowRightCircleIcon
             data-h2-display="base(none) p-tablet(block)"
             data-h2-vertical-align="base(middle)"
+            data-h2-color="base(black.lighter)"
             data-h2-height="base(auto)"
             data-h2-width="base(x1.5)"
             data-h2-overflow="base(visible)"
@@ -79,6 +74,7 @@ const Step = ({ image, includeArrow = true, children }: StepProps) => {
       {includeArrow && (
         <ArrowDownCircleIcon
           data-h2-display="base(block) p-tablet(none)"
+          data-h2-color="base(black.lighter)"
           data-h2-height="base(auto)"
           data-h2-width="base(x1.5)"
           data-h2-margin="base(auto)"
@@ -131,7 +127,12 @@ const SignUpPage = () => {
         {!iapMode ? (
           <>
             {/* Standard copy */}
-            <Heading Icon={MapIcon} color="primary" level="h2">
+            <Heading
+              Icon={MapIcon}
+              color="primary"
+              level="h2"
+              data-h2-font-weight="base(400)"
+            >
               {intl.formatMessage({
                 defaultMessage: "What to expect when creating an account",
                 id: "mV1/kq",
@@ -189,7 +190,14 @@ const SignUpPage = () => {
                 description: "GCKey sign up link text on the sign up page",
               })}
             </Link>
-            <Heading Icon={PencilSquareIcon} color="secondary" level="h3">
+            <Heading
+              Icon={PencilSquareIcon}
+              color="secondary"
+              level="h3"
+              size="h4"
+              data-h2-font-weight="base(700)"
+              data-h2-margin-top="base(x2.5)"
+            >
               {intl.formatMessage({
                 defaultMessage: "Part 1: Creating a GCKey account",
                 id: "u98IOx",
@@ -197,14 +205,14 @@ const SignUpPage = () => {
                   "Heading for section of the sign up page showing the create steps",
               })}
             </Heading>
-            <h4 data-h2-margin="base(x1, 0, x1, 0)">
+            <Heading level="h4" size="h5" data-h2-margin="base(x1, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage: "Steps to create your GCKey account",
                 id: "lZwkcR",
                 description:
                   "Subtitle for a section explaining the create steps",
               })}
-            </h4>
+            </Heading>
             <div data-h2-flex-grid="base(flex-start, x2, x2)">
               <Step image={createStep1Image}>
                 {intl.formatMessage({
@@ -239,7 +247,14 @@ const SignUpPage = () => {
                 })}
               </Step>
             </div>
-            <Heading Icon={ShieldCheckIcon} color="quaternary" level="h3">
+            <Heading
+              Icon={ShieldCheckIcon}
+              color="quaternary"
+              level="h3"
+              size="h4"
+              data-h2-font-weight="base(700)"
+              data-h2-margin-top="base(x2.5)"
+            >
               {intl.formatMessage({
                 defaultMessage: "Part 2: Setting up two-factor authentication",
                 id: "wf3e6C",
@@ -247,14 +262,14 @@ const SignUpPage = () => {
                   "Heading for section of the sign up page showing the mfa steps",
               })}
             </Heading>
-            <h4 data-h2-margin="base(x1, 0, x1, 0)">
+            <Heading level="h4" size="h5" data-h2-margin="base(x1, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage: "Why set up a two-factor authentication?",
                 id: "mjUxjN",
                 description:
                   "Subtitle for a section explaining why to set up mfa",
               })}
-            </h4>
+            </Heading>
             <p>
               {intl.formatMessage({
                 defaultMessage:
@@ -263,13 +278,13 @@ const SignUpPage = () => {
                 description: "Copy explaining why to set up mfa",
               })}
             </p>
-            <h4 data-h2-margin="base(x1, 0, x1, 0)">
+            <Heading level="h4" size="h5" data-h2-margin="base(x1, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage: "You will need an authenticator app.",
                 id: "/WLsRj",
                 description: "Subtitle for a section explaining mfa apps",
               })}
-            </h4>
+            </Heading>
             <p>
               {intl.formatMessage({
                 defaultMessage:
@@ -278,13 +293,13 @@ const SignUpPage = () => {
                 description: "Copy explaining mfa apps",
               })}
             </p>
-            <h4 data-h2-margin="base(x1, 0, x1, 0)">
+            <Heading level="h4" size="h5" data-h2-margin="base(x1, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage: "Setting up your two-factor authentication app",
                 id: "eamuiH",
                 description: "Subtitle for a section explaining setting up mfa",
               })}
-            </h4>
+            </Heading>
             <div data-h2-flex-grid="base(flex-start, x2, x2)">
               <Step image={mfaStep1Image}>
                 {intl.formatMessage({
@@ -319,7 +334,14 @@ const SignUpPage = () => {
                 })}
               </Step>
             </div>
-            <Heading Icon={InformationCircleIcon} color="error" level="h3">
+            <Heading
+              Icon={InformationCircleIcon}
+              color="error"
+              level="h3"
+              size="h4"
+              data-h2-font-weight="base(700)"
+              data-h2-margin-top="base(x2.5)"
+            >
               {intl.formatMessage({
                 defaultMessage: "Frequently Asked Questions (FAQs)",
                 id: "AUtIo9",
@@ -334,14 +356,20 @@ const SignUpPage = () => {
               data-h2-margin-left="base(-x1)"
             >
               <Accordion.Item value="one">
-                <StandardAccordionHeader headingAs="h4">
-                  {intl.formatMessage({
-                    defaultMessage: "What is a GCKey?",
-                    id: "rrKF85",
-                    description:
-                      "First of the Frequently Asked Questions for sign up",
-                  })}
-                </StandardAccordionHeader>
+                <Accordion.Header
+                  headingAs="h4"
+                  data-h2-font-size="base(copy)"
+                  data-h2-text-decoration="base(underline)"
+                >
+                  <Accordion.Trigger data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage: "What is a GCKey?",
+                      id: "rrKF85",
+                      description:
+                        "First of the Frequently Asked Questions for sign up",
+                    })}
+                  </Accordion.Trigger>
+                </Accordion.Header>
                 <Accordion.Content>
                   <Separator
                     orientation="horizontal"
@@ -359,15 +387,21 @@ const SignUpPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="two">
-                <StandardAccordionHeader headingAs="h4">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Who do I contact if I have questions about GCKey?",
-                    id: "WJM32F",
-                    description:
-                      "Second of the Frequently Asked Questions for sign up",
-                  })}
-                </StandardAccordionHeader>
+                <Accordion.Header
+                  headingAs="h4"
+                  data-h2-font-size="base(copy)"
+                  data-h2-text-decoration="base(underline)"
+                >
+                  <Accordion.Trigger data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Who do I contact if I have questions about GCKey?",
+                      id: "WJM32F",
+                      description:
+                        "Second of the Frequently Asked Questions for sign up",
+                    })}
+                  </Accordion.Trigger>
+                </Accordion.Header>
                 <Accordion.Content>
                   <Separator
                     orientation="horizontal"
@@ -444,14 +478,21 @@ const SignUpPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="three">
-                <StandardAccordionHeader headingAs="h4">
-                  {intl.formatMessage({
-                    defaultMessage: "Which authenticator app should I install?",
-                    id: "00tsn/",
-                    description:
-                      "Third of the Frequently Asked Questions for sign up",
-                  })}
-                </StandardAccordionHeader>
+                <Accordion.Header
+                  headingAs="h4"
+                  data-h2-font-size="base(copy)"
+                  data-h2-text-decoration="base(underline)"
+                >
+                  <Accordion.Trigger data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Which authenticator app should I install?",
+                      id: "00tsn/",
+                      description:
+                        "Third of the Frequently Asked Questions for sign up",
+                    })}
+                  </Accordion.Trigger>
+                </Accordion.Header>
                 <Accordion.Content>
                   <Separator
                     orientation="horizontal"
@@ -469,15 +510,21 @@ const SignUpPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="four">
-                <StandardAccordionHeader headingAs="h4">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "What if I deleted the app or changed phone and I don’t have the recovery codes?",
-                    id: "Jd/ZvJ",
-                    description:
-                      "Fourth of the Frequently Asked Questions for sign up",
-                  })}
-                </StandardAccordionHeader>
+                <Accordion.Header
+                  headingAs="h4"
+                  data-h2-font-size="base(copy)"
+                  data-h2-text-decoration="base(underline)"
+                >
+                  <Accordion.Trigger data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "What if I deleted the app or changed phone and I don’t have the recovery codes?",
+                      id: "Jd/ZvJ",
+                      description:
+                        "Fourth of the Frequently Asked Questions for sign up",
+                    })}
+                  </Accordion.Trigger>
+                </Accordion.Header>
                 <Accordion.Content>
                   <Separator
                     orientation="horizontal"
@@ -501,15 +548,21 @@ const SignUpPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="five">
-                <StandardAccordionHeader headingAs="h4">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Can I use SMS or email authentication instead of an app?",
-                    id: "utILRB",
-                    description:
-                      "Fifth of the Frequently Asked Questions for sign up",
-                  })}
-                </StandardAccordionHeader>
+                <Accordion.Header
+                  headingAs="h4"
+                  data-h2-font-size="base(copy)"
+                  data-h2-text-decoration="base(underline)"
+                >
+                  <Accordion.Trigger data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Can I use SMS or email authentication instead of an app?",
+                      id: "utILRB",
+                      description:
+                        "Fifth of the Frequently Asked Questions for sign up",
+                    })}
+                  </Accordion.Trigger>
+                </Accordion.Header>
                 <Accordion.Content>
                   <Separator
                     orientation="horizontal"
@@ -527,15 +580,21 @@ const SignUpPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="six">
-                <StandardAccordionHeader headingAs="h4">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Can you remove the two-factor authentication from my account so I can reset it?",
-                    id: "EqHa4y",
-                    description:
-                      "Sixth of the Frequently Asked Questions for sign up",
-                  })}
-                </StandardAccordionHeader>
+                <Accordion.Header
+                  headingAs="h4"
+                  data-h2-font-size="base(copy)"
+                  data-h2-text-decoration="base(underline)"
+                >
+                  <Accordion.Trigger data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Can you remove the two-factor authentication from my account so I can reset it?",
+                      id: "EqHa4y",
+                      description:
+                        "Sixth of the Frequently Asked Questions for sign up",
+                    })}
+                  </Accordion.Trigger>
+                </Accordion.Header>
                 <Accordion.Content>
                   <Separator
                     orientation="horizontal"
@@ -559,15 +618,21 @@ const SignUpPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="seven">
-                <StandardAccordionHeader headingAs="h4">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "What can I do if my authenticator codes are no longer being accepted?",
-                    id: "e1KnGs",
-                    description:
-                      "Seventh of the Frequently Asked Questions for sign up",
-                  })}
-                </StandardAccordionHeader>
+                <Accordion.Header
+                  headingAs="h4"
+                  data-h2-font-size="base(copy)"
+                  data-h2-text-decoration="base(underline)"
+                >
+                  <Accordion.Trigger data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "What can I do if my authenticator codes are no longer being accepted?",
+                      id: "e1KnGs",
+                      description:
+                        "Seventh of the Frequently Asked Questions for sign up",
+                    })}
+                  </Accordion.Trigger>
+                </Accordion.Header>
                 <Accordion.Content>
                   <Separator
                     orientation="horizontal"
@@ -591,14 +656,20 @@ const SignUpPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="eight">
-                <StandardAccordionHeader headingAs="h4">
-                  {intl.formatMessage({
-                    defaultMessage: "Already have a GCKey account?",
-                    id: "1qLpE3",
-                    description:
-                      "Eighth of the Frequently Asked Questions for sign up",
-                  })}
-                </StandardAccordionHeader>
+                <Accordion.Header
+                  headingAs="h4"
+                  data-h2-font-size="base(copy)"
+                  data-h2-text-decoration="base(underline)"
+                >
+                  <Accordion.Trigger data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage: "Already have a GCKey account?",
+                      id: "1qLpE3",
+                      description:
+                        "Eighth of the Frequently Asked Questions for sign up",
+                    })}
+                  </Accordion.Trigger>
+                </Accordion.Header>
                 <Accordion.Content>
                   <Separator
                     orientation="horizontal"
