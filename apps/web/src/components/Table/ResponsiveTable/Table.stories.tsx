@@ -100,8 +100,10 @@ export const Default = Template.bind({});
 Default.args = {
   caption: "Default table",
   add: {
-    label: "Add an item",
-    href: "#add",
+    linkProps: {
+      label: "Add an item",
+      href: "#add",
+    },
   },
   search: {
     ...defaultSearchProps,
@@ -126,8 +128,10 @@ export const InitialState = Template.bind({});
 InitialState.args = {
   caption: "Default table",
   add: {
-    label: "Add an item",
-    href: "#add",
+    linkProps: {
+      label: "Add an item",
+      href: "#add",
+    },
   },
   pagination: {
     ...defaultPaginationProps,

@@ -29,25 +29,18 @@ import {
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
-  errorMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { BasicForm, RadioGroup } from "@gc-digital-talent/forms";
-import {
-  getTechnicalSkillLevel,
-  getBehaviouralSkillLevel,
-  getTechnicalSkillLevelDefinition,
-  getBehaviouralSkillLevelDefinition,
-} from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
+import UserSkillFormFields from "~/components/UserSkillFormFields/UserSkillFormFields";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
-import { getSortedSkillLevels } from "~/utils/skillUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 type PageSection = {
@@ -131,6 +124,7 @@ export const UpdateUserSkillForm = ({
   const skillName = getLocalizedName(skill.name, intl);
   const skillDescription = getLocalizedName(skill.description, intl);
   const hasUserSkill = notEmpty(userSkill);
+  const isTechnical = skill.category === SkillCategory.Technical;
   const linkedExperiences = userSkill?.experiences?.filter(notEmpty);
 
   const availableExperiences = experiences.filter(
@@ -139,27 +133,6 @@ export const UpdateUserSkillForm = ({
         (existingExperience) => existingExperience.id === exp.id,
       ),
   );
-
-  const isTechnical = skill.category === SkillCategory.Technical;
-  const levelGetter = isTechnical
-    ? getTechnicalSkillLevel
-    : getBehaviouralSkillLevel;
-  const levelDefinitionGetter = isTechnical
-    ? getTechnicalSkillLevelDefinition
-    : getBehaviouralSkillLevelDefinition;
-  const levelOptions = getSortedSkillLevels().map((skillLevel) => ({
-    value: skillLevel,
-    label: <strong>{intl.formatMessage(levelGetter(skillLevel))}</strong>,
-    contentBelow: (
-      <p
-        data-h2-margin="base(x.15, 0, x.5, x1)"
-        data-h2-color="base(black.light)"
-        data-h2-font-size="base(caption)"
-      >
-        {intl.formatMessage(levelDefinitionGetter(skillLevel))}
-      </p>
-    ),
-  }));
 
   const [{ fetching: creating }, executeCreateMutation] =
     useCreateUserSkillMutation();
@@ -389,55 +362,7 @@ export const UpdateUserSkillForm = ({
                   data-h2-gap="base(x1 0)"
                   data-h2-margin="base(x1, 0, x2, 0)"
                 >
-                  <RadioGroup
-                    idPrefix="skillLevel"
-                    name="skillLevel"
-                    legend={intl.formatMessage({
-                      defaultMessage: "Current experience in skill",
-                      id: "pgQl5t",
-                      description:
-                        "Label for a specific skills experience level",
-                    })}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                    items={levelOptions}
-                  />
-                  <RadioGroup
-                    idPrefix="whenSkillUsed"
-                    name="whenSkillUsed"
-                    legend={intl.formatMessage({
-                      defaultMessage: "Do you currently use this skill?",
-                      id: "PmDeul",
-                      description:
-                        "Label for field asking if a skill is currently being used",
-                    })}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                    items={[
-                      {
-                        value: WhenSkillUsed.Current,
-                        label: intl.formatMessage({
-                          defaultMessage:
-                            "<strong>Yes</strong>, I use this skill in my current role.",
-                          id: "yiqfHr",
-                          description:
-                            "Option for when a skill is currently being used",
-                        }),
-                      },
-                      {
-                        value: WhenSkillUsed.Past,
-                        label: intl.formatMessage({
-                          defaultMessage:
-                            "<strong>No</strong>, this is a skill I've used in the past.",
-                          id: "ID6PLP",
-                          description:
-                            "Option for when a skill was only used in the past",
-                        }),
-                      },
-                    ]}
-                  />
+                  <UserSkillFormFields isTechnical={isTechnical} />
                   <div
                     data-h2-display="base(flex)"
                     data-h2-flex-wrap="base(wrap)"
