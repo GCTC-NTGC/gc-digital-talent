@@ -124,6 +124,12 @@ const PersonnelRequirementFieldset = ({
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
+        placeholder={intl.formatMessage({
+          defaultMessage: "e.g., software developer",
+          id: "rSlYQA",
+          description:
+            "Placeholder for _type of resource_ field in the _digital services contracting questionnaire_",
+        })}
       />
       <Field.Wrapper>
         <Field.Fieldset>

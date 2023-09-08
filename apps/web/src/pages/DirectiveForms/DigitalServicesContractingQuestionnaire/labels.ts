@@ -319,8 +319,8 @@ const getLabels = (intl: IntlShape): FieldLabels => {
 
     // Personnel requirements section
     resourceType: intl.formatMessage({
-      defaultMessage: "Type of resource",
-      id: "UW3Z2a",
+      defaultMessage: "Type of personnel",
+      id: "Yik/xN",
       description:
         "Label for _type of resource_ fieldset in the _digital services contracting questionnaire_",
     }),
