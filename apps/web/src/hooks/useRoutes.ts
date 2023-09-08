@@ -283,6 +283,8 @@ const getRoutes = (lang: Locales) => {
       path.join(applicantUrl, "profile-and-applications", "skills"),
     skillShowcase: () =>
       path.join(applicantUrl, "profile-and-applications", "skills", "showcase"),
+    editUserSkill: (skillId: string) =>
+      path.join(applicantUrl, "profile-and-applications", "skills", skillId),
 
     // Directive on digital talent
     directive: () => path.join(baseUrl, "directive-on-digital-talent"),

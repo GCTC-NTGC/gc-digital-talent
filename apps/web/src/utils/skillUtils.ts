@@ -5,6 +5,7 @@ import { IntlShape } from "react-intl";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import { SkillLevel } from "@gc-digital-talent/graphql";
 
 import {
   Experience,
@@ -213,6 +214,23 @@ export const getExperiencesSkillIds = (experiences: Experience[]): string[] => {
   const deDupedIdCollection = uniqueItems(idCollection);
 
   return deDupedIdCollection;
+};
+
+/**
+ * Get sorted skill levels
+ *
+ * Note: Codegen is sorting the enum alphabetically
+ * We use this to sort them back into the proper oder
+ *
+ * @returns SkillLevel[]
+ */
+export const getSortedSkillLevels = (): SkillLevel[] => {
+  return [
+    SkillLevel.Beginner,
+    SkillLevel.Intermediate,
+    SkillLevel.Advanced,
+    SkillLevel.Lead,
+  ];
 };
 
 /**

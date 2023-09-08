@@ -27,7 +27,7 @@ class GraphQLClient
     ) {
         $params = ['query' => $query];
 
-        if ([] !== $variables) {
+        if ($variables !== []) {
             $params += ['variables' => $variables];
         }
 

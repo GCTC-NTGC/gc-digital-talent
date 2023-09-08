@@ -73,17 +73,17 @@ type FormValues = {
   action?: FormAction;
 };
 
-interface SkillFormProps {
+interface ExperienceSkillFormProps {
   defaultValues: FormValues;
   experiences: Experience[];
   onSuccess: () => void;
 }
 
-const SkillForm = ({
+const ExperienceSkillForm = ({
   defaultValues,
   onSuccess,
   experiences,
-}: SkillFormProps) => {
+}: ExperienceSkillFormProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
     defaultValues,
@@ -334,4 +334,4 @@ const SkillForm = ({
   );
 };
 
-export default SkillForm;
+export default ExperienceSkillForm;

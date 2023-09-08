@@ -43,7 +43,8 @@ abstract class Experience extends Model
     {
         return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill())
             ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
-            ->whereNull('experience_skill.deleted_at');
+            ->whereNull('experience_skill.deleted_at')
+            ->withTrashed(); // from the deep relation $this->userSkills->skills fetch soft deleted skills but not userSkills
     }
 
     public function experienceSkills(): MorphMany

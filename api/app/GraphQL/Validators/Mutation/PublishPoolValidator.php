@@ -2,8 +2,10 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Rules\SkillNotDeleted;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
+use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -37,10 +39,17 @@ final class PublishPoolValidator extends Validator
 
             // Essential skills and Asset skills
             'essential_skills' => ['required', 'array', 'min:1'],
-            'essential_skills.*.id' => ['required', 'uuid', 'exists:skills,id'],
+            'essential_skills.*.id' => [
+                'required',
+                'uuid',
+                'exists:skills,id',
+                new SkillNotDeleted,
+            ],
             'nonessential_skills' => ['array'],
-            'nonessential_skills.*.id' => ['uuid', 'exists:skills,id'],
-
+            'nonessential_skills.*.id' => ['uuid',
+                'exists:skills,id',
+                new SkillNotDeleted,
+            ],
             // Other requirements
             'advertisement_language' => ['required', Rule::in(ApiEnums::poolLanguages())],
             'security_clearance' => ['required', Rule::in(ApiEnums::poolSecurity())],
@@ -62,6 +71,8 @@ final class PublishPoolValidator extends Validator
             'advertisement_location.*.required_with' => 'You must enter both french and english fields for the advertisement_location',
             'in' => ':attribute does not contain a valid value.',
             'essential_skills.required' => 'EssentialSkillRequired',
+            'essential_skills.*.id.'.SkillNotDeleted::class => ApiErrorEnums::ESSENTIAL_SKILLS_CONTAINS_DELETED,
+            'nonessential_skills.*.id.'.SkillNotDeleted::class => ApiErrorEnums::NONESSENTIAL_SKILLS_CONTAINS_DELETED,
             'key_tasks.en.required' => 'EnglishWorkTasksRequired',
             'key_tasks.fr.required' => 'FrenchWorkTasksRequired',
             'your_impact.en.required' => 'EnglishYourImpactRequired',

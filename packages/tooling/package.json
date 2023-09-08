@@ -16,7 +16,7 @@
     "lint": "eslint \"src/**/*.ts*\""
   },
   "devDependencies": {
-    "@swc/core": "^1.3.81",
+    "@swc/core": "^1.3.82",
     "eslint": "^8.48.0",
     "eslint-config-custom": "*",
     "tsconfig": "*",
