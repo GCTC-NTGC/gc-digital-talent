@@ -93,6 +93,7 @@ const RichTextInput = ({
             editable={!readOnly}
             wordLimit={wordLimit}
             trackUnsaved={trackUnsaved}
+            fieldState={fieldState}
             inputProps={{
               id,
               ...wordLimitStyles,

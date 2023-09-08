@@ -1,17 +1,17 @@
 import React from "react";
-import { useCurrentEditor } from "@tiptap/react";
+import { Editor } from "@tiptap/react";
 
 import WordCounter from "../WordCounter";
 
 interface FooterProps {
   name: string;
   wordLimit?: number;
+  editor: Editor | null;
 }
 
-const Footer = ({ wordLimit, name }: FooterProps) => {
-  const { editor } = useCurrentEditor();
-
+const Footer = ({ wordLimit, name, editor }: FooterProps) => {
   if (!wordLimit) return null;
+
   return (
     <div data-h2-text-align="base(right)">
       <WordCounter
