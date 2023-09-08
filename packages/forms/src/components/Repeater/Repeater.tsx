@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useIntl } from "react-intl";
 import ChevronUpIcon from "@heroicons/react/24/solid/ChevronUpIcon";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
@@ -91,6 +91,7 @@ const Fieldset = ({
   disabled,
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
+  const shouldReduceMotion = useReducedMotion();
   const { announce } = useAnnouncer();
   // Non-zero index position of the fieldset for humans
   const position = index + 1;
@@ -129,11 +130,15 @@ const Fieldset = ({
   return (
     <MotionFieldset
       layout
-      transition={{
-        type: "tween",
-        ease: "anticipate",
-        duration: 0.4,
-      }}
+      transition={
+        shouldReduceMotion
+          ? {}
+          : {
+              type: "tween",
+              ease: "anticipate",
+              duration: 0.4,
+            }
+      }
     >
       <Field.Legend data-h2-visually-hidden="base(invisible)">
         {legend}
@@ -186,6 +191,7 @@ const Fieldset = ({
                 disabled={disabled || index <= 0}
                 onClick={decrement}
                 decrement
+                animate={!shouldReduceMotion}
                 aria-label={intl.formatMessage(formMessages.repeaterMove, {
                   from: position,
                   to: position - 1,
@@ -206,6 +212,7 @@ const Fieldset = ({
               <ActionButton
                 disabled={disabled || index === total - 1}
                 onClick={increment}
+                animate={!shouldReduceMotion}
                 aria-label={intl.formatMessage(formMessages.repeaterMove, {
                   from: position,
                   to: position + 1,

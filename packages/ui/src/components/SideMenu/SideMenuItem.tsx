@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { NavLink, NavLinkProps, useNavigate } from "react-router-dom";
 
 import { sanitizeUrl, useIsSmallScreen } from "@gc-digital-talent/helpers";
@@ -29,11 +29,15 @@ interface SideMenuItemChildProps {
 const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
   const Icon = icon || null;
   const ctx = useSideMenuContext();
+  const shouldReduceMotion = useReducedMotion();
+
+  const transitionConfig = { duration: shouldReduceMotion ? 0 : undefined };
 
   return (
     <motion.span
       data-h2-display="base(grid)"
       data-h2-grid-template-columns="base(x1 1fr)"
+      transition={transitionConfig}
       animate={
         ctx?.open
           ? {
@@ -54,6 +58,7 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
         ) : null}
       </span>
       <motion.span
+        transition={transitionConfig}
         animate={
           ctx?.open
             ? {
