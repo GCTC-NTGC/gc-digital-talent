@@ -10,6 +10,7 @@ import {
   errorMessages,
   commonMessages,
 } from "@gc-digital-talent/i18n";
+import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
 import Input from "../Input";
 import Checkbox from "../Checkbox";
@@ -35,7 +36,10 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
     editor
       ?.chain()
       .focus()
-      .setLink({ href, target: newTab ? "_blank" : undefined })
+      .setLink({
+        href: sanitizeUrl(href) ?? "",
+        target: newTab ? "_blank" : "__self",
+      })
       .run();
     setIsOpen(false);
   };
