@@ -4,7 +4,6 @@ import { Editor } from "@tiptap/react";
 import ListBulletIcon from "@heroicons/react/20/solid/ListBulletIcon";
 import ArrowUturnLeftIcon from "@heroicons/react/20/solid/ArrowUturnLeftIcon";
 import ArrowUturnRightIcon from "@heroicons/react/20/solid/ArrowUturnRightIcon";
-import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 
 import { richTextMessages } from "@gc-digital-talent/i18n";
 
