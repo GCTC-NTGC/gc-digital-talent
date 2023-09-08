@@ -8,7 +8,7 @@ import {
   errorMessages,
   formMessages,
   getLocalizedName,
-  getSkillLevel,
+  getDirectiveFormSkillLevel as getSkillLevel,
 } from "@gc-digital-talent/i18n";
 import {
   PersonnelLanguage,

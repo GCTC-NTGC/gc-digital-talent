@@ -145,7 +145,7 @@ export const WithValues: Story = {
           skillRequirements: [
             {
               skillId: mockSkills[2].id,
-              level: SkillLevel.Expert,
+              level: SkillLevel.Advanced,
             },
           ],
           language: PersonnelLanguage.Other,

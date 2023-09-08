@@ -71,7 +71,7 @@ import {
   poolCandidatePriorities,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
-  getSkillLevel,
+  getDirectiveFormSkillLevel,
 } from "./messages/localizedConstants";
 import { STORED_LOCALE } from "./const";
 import type { Locales, Messages } from "./types";
@@ -148,7 +148,7 @@ export {
   getAbbreviations,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
-  getSkillLevel,
+  getDirectiveFormSkillLevel,
 };
 
 export type { Locales, Messages };

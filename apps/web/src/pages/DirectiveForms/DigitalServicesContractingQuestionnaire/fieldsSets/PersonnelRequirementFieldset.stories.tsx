@@ -81,7 +81,7 @@ export const WithValues: Story = {
           },
           {
             skillId: mockSkills[1].id,
-            level: SkillLevel.Expert,
+            level: SkillLevel.Advanced,
           },
         ],
         language: PersonnelLanguage.BilingualAdvanced,

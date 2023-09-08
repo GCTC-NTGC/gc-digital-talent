@@ -2,7 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { RadioGroup } from "@gc-digital-talent/forms";
-import { errorMessages, getSkillLevel } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  getDirectiveFormSkillLevel as getSkillLevel,
+} from "@gc-digital-talent/i18n";
 import { SkillLevel } from "@gc-digital-talent/graphql";
 
 import { SkillDialogContext } from "./types";
@@ -67,8 +70,8 @@ const SkillDetails = ({ context }: SkillDetailsProps) => {
               label: intl.formatMessage(getSkillLevel(SkillLevel.Intermediate)),
             },
             {
-              value: SkillLevel.Expert,
-              label: intl.formatMessage(getSkillLevel(SkillLevel.Expert)),
+              value: SkillLevel.Advanced,
+              label: intl.formatMessage(getSkillLevel(SkillLevel.Advanced)),
             },
             {
               value: SkillLevel.Lead,
