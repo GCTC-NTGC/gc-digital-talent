@@ -345,13 +345,13 @@
     "defaultMessage": "Les compétences qui ne sont pas liées à cette demande seront dissimulées dans le cadre de l’évaluation initiale de votre demande, mais elles seront toujours visibles dans votre profil.",
     "description": "Text that appears during an application to explain skills appearing missing from their profile."
   },
-  "00tsn/": {
-    "defaultMessage": "Quelle application d’authentification devrais-je installer?",
-    "description": "Third of the Frequently Asked Questions for sign up"
-  },
   "00tmhW": {
     "defaultMessage": "Niveau de compétence",
     "description": "Skill level column header for the skill library table"
+  },
+  "00tsn/": {
+    "defaultMessage": "Quelle application d’authentification devrais-je installer?",
+    "description": "Third of the Frequently Asked Questions for sign up"
   },
   "044hi7": {
     "defaultMessage": "Copier le lien",
