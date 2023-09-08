@@ -585,6 +585,7 @@ const SignInPage = () => {
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-align-items="base(center)"
           data-h2-justify-content="base(space-between)"
+          data-h2-gap="base(x1)"
         >
           <p>
             <Link href={paths.register()} mode="inline">

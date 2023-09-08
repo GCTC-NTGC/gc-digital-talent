@@ -34,6 +34,7 @@ const Heading = React.forwardRef<HeadingRef, HeadingProps>(
             data-h2-vertical-align="base(middle)"
             data-h2-height="base(auto)"
             data-h2-width="base(1em)"
+            data-h2-flex-shrink="base(0)"
             {...(color ? iconStyles[color] : {})}
           />
         )}
