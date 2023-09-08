@@ -86,7 +86,6 @@ const RichTextRenderer = ({
 
   // We do not have a renderer for this
   if (!(node.type in renderMap)) {
-    console.warn(`No NodeRender mapped to ${node.type}`);
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return <NoNode node={node}>{children}</NoNode>;
   }
