@@ -1,8 +1,5 @@
 import React from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import CharacterCount from "@tiptap/extension-character-count";
-import Link from "@tiptap/extension-link";
 import {
   ControllerRenderProps,
   FieldValues,
@@ -14,6 +11,7 @@ import MenuBar from "./MenuBar";
 import Footer from "./Footer";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import { FieldState } from "../../types";
+import { extensions } from "./utils";
 
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
@@ -42,30 +40,7 @@ const ControlledInput = ({
   const inputStyles = useCommonInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const content = defaultValues ? defaultValues[name] : undefined;
-  const extensions = [
-    // REF: https://tiptap.dev/api/extensions/starter-kit
-    StarterKit.configure({
-      // Disabled Nodes
-      blockquote: false,
-      bold: false,
-      code: false,
-      codeBlock: false,
-      heading: false,
-      italic: false,
-      orderedList: false,
-      strike: false,
 
-      // Customize existing nodes
-      bulletList: {
-        keepMarks: false,
-        keepAttributes: false,
-      },
-    }),
-    CharacterCount,
-    Link.configure({
-      openOnClick: false,
-    }),
-  ];
   const editorProps = React.useMemo(
     () => ({
       attributes: {

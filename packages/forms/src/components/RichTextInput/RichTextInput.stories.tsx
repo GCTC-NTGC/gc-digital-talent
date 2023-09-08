@@ -2,9 +2,13 @@ import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
+import { Heading } from "@gc-digital-talent/ui";
+
 import Form from "../BasicForm";
 import Submit from "../Submit";
 import RichTextInput from "./RichTextInput";
+import RichTextRenderer from "./RichTextRenderer";
+import { htmlToRichTextJSON } from "../../utils";
 
 const defaultContent = `
 <p>Paragraph</p>
@@ -20,7 +24,7 @@ export default {
   component: RichTextInput,
   title: "Form/Rich Text",
   args: {
-    name: "rich-text",
+    name: "richText",
     id: "rich-text",
     label: "Rich Text",
   },
@@ -33,23 +37,39 @@ type DefaultValueRichTextInputArgs = RichTextInputArgs & {
 
 const Template: StoryFn<DefaultValueRichTextInputArgs> = (args) => {
   const { defaultValue, ...rest } = args;
+  const [output, setOutput] = React.useState<string>(
+    defaultValue ? String(defaultValue) : "",
+  );
   return (
-    <Form
-      options={{
-        mode: "onSubmit",
-        defaultValues: defaultValue
-          ? {
-              [rest.name]: defaultValue,
-            }
-          : undefined,
-      }}
-      onSubmit={(data) => action("Submit Form")(data)}
-    >
-      <RichTextInput {...rest} />
-      <p data-h2-margin-top="base(x1)">
-        <Submit />
-      </p>
-    </Form>
+    <>
+      <Form
+        options={{
+          mode: "onSubmit",
+          defaultValues: defaultValue
+            ? {
+                [rest.name]: defaultValue,
+              }
+            : undefined,
+        }}
+        onSubmit={(data) => {
+          action("Submit Form")(data);
+          setOutput(String(data.richText));
+        }}
+      >
+        <RichTextInput {...rest} />
+        <p data-h2-margin-top="base(x1)">
+          <Submit />
+        </p>
+      </Form>
+      <Heading>Preview</Heading>
+      <div
+        data-h2-radius="base(s)"
+        data-h2-border="base(thin solid black)"
+        data-h2-padding="base(0 x1)"
+      >
+        <RichTextRenderer node={htmlToRichTextJSON(output)} />
+      </div>
+    </>
   );
 };
 
@@ -81,7 +101,7 @@ WordLimit.args = {
 
 export const WithContext = Template.bind({});
 WithContext.args = {
-  context: "Only lists are available.",
+  context: "Only lists and links are available.",
 };
 
 export const LongContent = Template.bind({});

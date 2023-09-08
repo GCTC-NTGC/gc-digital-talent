@@ -1,4 +1,7 @@
 import { IntlShape } from "react-intl";
+import { generateJSON } from "@tiptap/react";
+import Link from "@tiptap/extension-link";
+import StarterKit from "@tiptap/starter-kit";
 
 import {
   LocalizedString,
@@ -9,6 +12,8 @@ import {
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { getId, notEmpty } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
+
+import { Node } from "./components/RichTextInput/types";
 
 /**
  * Filters out empty data from data response.
@@ -195,4 +200,8 @@ export function enumToOptionsWorkRegionSorted(
     WorkRegion.Prairie,
     WorkRegion.BritishColumbia,
   ]);
+}
+
+export function htmlToRichTextJSON(html: string): Node {
+  return generateJSON(html, [StarterKit, Link]) as Node;
 }

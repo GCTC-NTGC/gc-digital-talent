@@ -48,6 +48,7 @@ import {
   matchStringsCaseDiacriticInsensitive,
   countNumberOfWords,
   objectsToSortedOptions,
+  htmlToRichTextJSON,
 } from "./utils";
 import useCommonInputStyles from "./hooks/useCommonInputStyles";
 
@@ -112,4 +113,5 @@ export {
   countNumberOfWords,
   objectsToSortedOptions,
   useCommonInputStyles,
+  htmlToRichTextJSON,
 };
