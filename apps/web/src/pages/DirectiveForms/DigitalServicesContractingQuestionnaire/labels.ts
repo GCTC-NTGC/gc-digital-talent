@@ -204,6 +204,12 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _instrument type_ fieldset in the _digital services contracting questionnaire_",
     }),
+    instrumentTypeOther: intl.formatMessage({
+      defaultMessage: "Please specify the instrument",
+      id: "z5YYOk",
+      description:
+        "Label for _instrument type other_ fieldset in the _digital services contracting questionnaire_",
+    }),
     methodOfSupply: intl.formatMessage({
       defaultMessage: "Method of supply",
       id: "YRZ5Cx",

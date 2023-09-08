@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string commodity_type
  * @property string commodity_type_other
  * @property string instrument_type
+ * @property string instrument_type_other
  * @property string method_of_supply
  * @property string method_of_supply_other
  * @property string solicitation_procedure

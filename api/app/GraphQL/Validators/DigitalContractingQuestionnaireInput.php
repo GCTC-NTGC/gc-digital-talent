@@ -31,6 +31,9 @@ final class DigitalContractingQuestionnaireInput extends Validator
             'commodityType' => [
                 new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_COMMODITY_OTHER, 'commodityTypeOther'),
             ],
+            'instrumentType' => [
+                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_INSTRUMENT_OTHER, 'instrumentTypeOther'),
+            ],
             'methodOfSupply' => [
                 new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_SUPPLY_METHOD_OTHER, 'methodOfSupplyOther'),
             ],

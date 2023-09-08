@@ -191,6 +191,8 @@ class DirectiveFormsApiEnums
 
     const CONTRACT_INSTRUMENT_AMENDMENT = 'AMENDMENT';
 
+    const CONTRACT_INSTRUMENT_OTHER = 'OTHER';
+
     /**
      * A collection of enums for ContractInstrument in factories and seeders
      *
@@ -203,6 +205,7 @@ class DirectiveFormsApiEnums
             self::CONTRACT_INSTRUMENT_STANDING_OFFER,
             self::CONTRACT_INSTRUMENT_CONTRACT,
             self::CONTRACT_INSTRUMENT_AMENDMENT,
+            self::CONTRACT_INSTRUMENT_OTHER,
         ];
     }
 

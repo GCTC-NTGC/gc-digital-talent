@@ -14,6 +14,7 @@ return new class extends Migration
         // add new columns for late changes
         Schema::table('digital_contracting_questionnaires', function (Blueprint $table) {
             $table->string('contract_ftes')->nullable();
+            $table->string('instrument_type_other')->nullable();
         });
     }
 
@@ -25,6 +26,7 @@ return new class extends Migration
         // remove the new columns
         Schema::table('digital_contracting_questionnaires', function (Blueprint $table) {
             $table->dropColumn('contract_ftes');
+            $table->dropColumn('instrument_type_other');
         });
     }
 };

@@ -68,6 +68,9 @@ class DigitalContractingQuestionnaireFactory extends Factory
                 return $attributes['commodity_type'] == DirectiveFormsApiEnums::CONTRACT_COMMODITY_OTHER ? $this->faker->word() : null;
             },
             'instrument_type' => $this->faker->randomElement(DirectiveFormsApiEnums::contractInstruments()),
+            'instrument_type_other' => function (array $attributes) {
+                return $attributes['instrument_type'] == DirectiveFormsApiEnums::CONTRACT_INSTRUMENT_OTHER ? $this->faker->word() : null;
+            },
             'method_of_supply' => $this->faker->randomElement(DirectiveFormsApiEnums::contractSupplyMethods()),
             'method_of_supply_other' => function (array $attributes) {
                 return $attributes['method_of_supply'] == DirectiveFormsApiEnums::CONTRACT_SUPPLY_METHOD_OTHER ? $this->faker->word() : null;

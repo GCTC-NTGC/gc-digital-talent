@@ -89,6 +89,7 @@ export type FormValues = {
   commodityType: string;
   commodityTypeOther: string;
   instrumentType: string;
+  instrumentTypeOther: string;
   methodOfSupply: string;
   methodOfSupplyOther: string;
   solicitationProcedure: string;
@@ -204,6 +205,7 @@ export function convertFormValuesToApiInput(
     commodityType: stringToEnum(ContractCommodity, formValues.commodityType),
     commodityTypeOther: emptyToNull(formValues.commodityTypeOther),
     instrumentType: stringToEnum(ContractInstrument, formValues.instrumentType),
+    instrumentTypeOther: emptyToNull(formValues.instrumentTypeOther),
     methodOfSupply: stringToEnum(
       ContractSupplyMethod,
       formValues.methodOfSupply,

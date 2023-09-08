@@ -47,14 +47,17 @@ const ScopeOfContractSection = () => {
   const labels = getLabels(intl);
 
   // hooks to watch, needed for conditional rendering
-  const [selectedCommodityType, selectedMethodOfSupply] = watch([
-    "commodityType",
-    "methodOfSupply",
-  ]);
+  const [
+    selectedCommodityType,
+    selectedMethodOfSupply,
+    selectedInstrumentType,
+  ] = watch(["commodityType", "methodOfSupply", "instrumentType"]);
   const isCommodityTypeOther =
     selectedCommodityType === ContractCommodity.Other;
   const isMethodOfSupplyOther =
     selectedMethodOfSupply === ContractSupplyMethod.Other;
+  const isInstrumentTypeOther =
+    selectedInstrumentType === ContractInstrument.Other;
 
   React.useEffect(() => {
     const resetDirtyField = (name: string) => {
@@ -68,7 +71,15 @@ const ScopeOfContractSection = () => {
     if (!isMethodOfSupplyOther) {
       resetDirtyField("methodOfSupplyOther");
     }
-  }, [resetField, isCommodityTypeOther, isMethodOfSupplyOther]);
+    if (!isInstrumentTypeOther) {
+      resetDirtyField("instrumentTypeOther");
+    }
+  }, [
+    resetField,
+    isCommodityTypeOther,
+    isMethodOfSupplyOther,
+    isInstrumentTypeOther,
+  ]);
 
   return (
     <TableOfContents.Section
@@ -264,6 +275,17 @@ const ScopeOfContractSection = () => {
             };
           })}
         />
+        {isInstrumentTypeOther ? (
+          <Input
+            id="instrumentTypeOther"
+            name="instrumentTypeOther"
+            type="text"
+            label={labels.instrumentTypeOther}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+        ) : null}
         <RadioGroup
           legend={labels.methodOfSupply}
           id="methodOfSupply"

@@ -1488,6 +1488,7 @@ enum ContractInstrument {
   STANDING_OFFER
   CONTRACT
   AMENDMENT
+  OTHER
 }
 
 enum ContractSupplyMethod {
@@ -1610,6 +1611,7 @@ type DigitalContractingQuestionnaire {
   commodityType: ContractCommodity
   commodityTypeOther: String
   instrumentType: ContractInstrument
+  instrumentTypeOther: String
   methodOfSupply: ContractSupplyMethod
   methodOfSupplyOther: String
   solicitationProcedure: ContractSolicitationProcedure
@@ -1723,6 +1725,7 @@ input DigitalContractingQuestionnaireInput {
   commodityType: ContractCommodity
   commodityTypeOther: String
   instrumentType: ContractInstrument
+  instrumentTypeOther: String
   methodOfSupply: ContractSupplyMethod
   methodOfSupplyOther: String
   solicitationProcedure: ContractSolicitationProcedure

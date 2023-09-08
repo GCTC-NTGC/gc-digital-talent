@@ -353,6 +353,7 @@ const contractInstruments = defineMessages({
     id: "mieIXc",
     description: "Amendment contract instrument",
   },
+  [ContractInstrument.Other]: formMessages.other,
 });
 
 export const getContractInstrument = (
@@ -369,6 +370,7 @@ export const contractInstrumentSortOrder = [
   ContractInstrument.StandingOffer,
   ContractInstrument.Contract,
   ContractInstrument.Amendment,
+  ContractInstrument.Other,
 ];
 
 const contractSupplyMethods = defineMessages({

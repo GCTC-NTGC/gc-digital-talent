@@ -59,6 +59,7 @@ enum ContractInstrument {
   STANDING_OFFER
   CONTRACT
   AMENDMENT
+  OTHER
 }
 
 enum ContractSupplyMethod {
@@ -189,6 +190,7 @@ type DigitalContractingQuestionnaire {
   commodityType: ContractCommodity @rename(attribute: "commodity_type")
   commodityTypeOther: String @rename(attribute: "commodity_type_other")
   instrumentType: ContractInstrument @rename(attribute: "instrument_type")
+  instrumentTypeOther: String @rename(attribute: "instrument_type_other")
   methodOfSupply: ContractSupplyMethod @rename(attribute: "method_of_supply")
   methodOfSupplyOther: String @rename(attribute: "method_of_supply_other")
   solicitationProcedure: ContractSolicitationProcedure
@@ -347,6 +349,7 @@ input DigitalContractingQuestionnaireInput
   commodityType: ContractCommodity @rename(attribute: "commodity_type")
   commodityTypeOther: String @rename(attribute: "commodity_type_other")
   instrumentType: ContractInstrument @rename(attribute: "instrument_type")
+  instrumentTypeOther: String @rename(attribute: "instrument_type_other")
   methodOfSupply: ContractSupplyMethod @rename(attribute: "method_of_supply")
   methodOfSupplyOther: String @rename(attribute: "method_of_supply_other")
   solicitationProcedure: ContractSolicitationProcedure

@@ -78,10 +78,12 @@ class DigitalContractingQuestionnaireTest extends TestCase
             'contractAmendable' => 'YES',
             'contractMultiyear' => 'YES',
             'contractValue' => 'FROM_0_TO_10K',
+            'contractFtes' => 'FROM_11_TO_30',
             'contractResourcesStartTimeframe' => 'FROM_0_TO_3M',
             'commodityType' => 'OTHER',
             'commodityTypeOther' => 'commodity_type_other',
-            'instrumentType' => 'SUPPLY_ARRANGEMENT',
+            'instrumentType' => 'OTHER',
+            'instrumentTypeOther' => 'instrument_type_other',
             'methodOfSupply' => 'OTHER',
             'methodOfSupplyOther' => 'method_of_supply_other',
             'solicitationProcedure' => 'ADVANCE_CONTRACT_AWARD_NOTICE',
@@ -172,6 +174,7 @@ class DigitalContractingQuestionnaireTest extends TestCase
                         contractStartDate
                         contractTitle
                         contractValue
+                        contractFtes
                         contractingRationalePrimary
                         contractingRationalePrimaryOther
                         contractingRationalesSecondary
@@ -191,6 +194,7 @@ class DigitalContractingQuestionnaireTest extends TestCase
                         hasImpactOnYourDepartment
                         hasPersonnelRequirements
                         instrumentType
+                        instrumentTypeOther
                         isTechnologicalChange
                         knowledgeTransferInContract
                         methodOfSupply
