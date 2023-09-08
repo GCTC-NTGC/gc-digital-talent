@@ -45,38 +45,39 @@ const MaintenanceBanner = () => {
   return showMaintenanceBanner &&
     serverMaintenanceDate &&
     serverMaintenanceDuration ? (
-    <Alert.Root
-      type="warning"
-      live
-      banner
-      data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
-      data-h2-shadow="base(none)"
-      data-h2-background-color="base:all(warning.lightest)"
-      data-h2-margin="base(0, -x3, 0, -x3)"
-      style={{ maxWidth: "100%" }}
-    >
-      <Alert.Title>
-        {intl.formatMessage({
-          defaultMessage: "Scheduled server maintenance",
-          id: "H0RLNn",
-          description: "Heading for a server maintenance banner.",
-        })}
-      </Alert.Title>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "Please note that GC Digital Talent will be unavailable for an expected period of <strong>{duration} hour(s)</strong> on <strong>{startDate}</strong>. We apologize for any inconvenience.",
-            id: "2oqp21",
-            description: "Description for a server maintenance banner.",
-          },
-          {
-            duration,
-            startDate,
-          },
-        )}
-      </p>
-    </Alert.Root>
+    <div data-h2-background-color="base:all(warning.lightest)">
+      <div data-h2-container="base(center, large, x1)">
+        <Alert.Root
+          type="warning"
+          live
+          banner
+          data-h2-shadow="base(none)"
+          data-h2-margin="base(0, -x1, 0, -x1)"
+        >
+          <Alert.Title>
+            {intl.formatMessage({
+              defaultMessage: "Scheduled server maintenance",
+              id: "H0RLNn",
+              description: "Heading for a server maintenance banner.",
+            })}
+          </Alert.Title>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Please note that GC Digital Talent will be unavailable for an expected period of <strong>{duration} hour(s)</strong> on <strong>{startDate}</strong>. We apologize for any inconvenience.",
+                id: "2oqp21",
+                description: "Description for a server maintenance banner.",
+              },
+              {
+                duration,
+                startDate,
+              },
+            )}
+          </p>
+        </Alert.Root>
+      </div>
+    </div>
   ) : null;
 };
 
