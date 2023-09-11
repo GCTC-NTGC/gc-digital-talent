@@ -115,6 +115,7 @@ export const WithValues: Story = {
       ],
       requirementWorkLocationGcSpecific: "The Town",
       requirementWorkLocationOffsiteSpecific: "The City",
+      hasOtherRequirements: YesNo.Yes,
       requirementOthers: [
         PersonnelOtherRequirement.OvertimeShortNotice,
         PersonnelOtherRequirement.Other,

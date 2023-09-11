@@ -314,6 +314,13 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _offsite specific work locations_ fieldset in the _digital services contracting questionnaire_",
     }),
+    hasOtherRequirements: intl.formatMessage({
+      defaultMessage:
+        "Are there other requirements (e.g., shift work, on-call 24/7, as and when needed, overtime, etc.) for this contract?",
+      id: "Y9N3Fw",
+      description:
+        "Label for _has other requirements_ fieldset in the _digital services contracting questionnaire_",
+    }),
     requirementOthers: intl.formatMessage({
       defaultMessage: "Other requirements",
       id: "RSmwUx",

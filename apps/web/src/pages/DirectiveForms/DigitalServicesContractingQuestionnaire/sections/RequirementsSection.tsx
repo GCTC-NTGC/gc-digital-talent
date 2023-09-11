@@ -50,12 +50,14 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
     selectedRequirementScreeningLevels,
     selectedRequirementWorkLanguages,
     selectedRequirementWorkLocations,
+    selectHasOtherRequirements,
     selectedRequirementOthers,
     selectedHasPersonnelRequirements,
   ] = watch([
     "requirementScreeningLevels",
     "requirementWorkLanguages",
     "requirementWorkLocations",
+    "hasOtherRequirements",
     "requirementOthers",
     "hasPersonnelRequirements",
   ]);
@@ -77,6 +79,8 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
     selectedRequirementWorkLocations.includes(
       PersonnelWorkLocation.OffsiteSpecific,
     );
+
+  const hasOtherRequirementsIsYes = selectHasOtherRequirements === YesNo.Yes;
 
   const doesPersonnelOtherRequirementIncludeOther =
     Array.isArray(selectedRequirementOthers) &&
@@ -108,6 +112,10 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
     if (!doesRequirementWorkLocationsIncludeOffsiteSpecific) {
       resetDirtyField("requirementWorkLocationOffsiteSpecific");
     }
+    if (!hasOtherRequirementsIsYes) {
+      resetDirtyField("requirementOthers");
+      resetDirtyField("requirementOtherOther");
+    }
     if (!doesPersonnelOtherRequirementIncludeOther) {
       resetDirtyField("requirementOtherOther");
     }
@@ -126,6 +134,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
     doesPersonnelOtherRequirementIncludeOther,
     isHasPersonnelRequirementsYes,
     isHasPersonnelRequirementsNo,
+    hasOtherRequirementsIsYes,
   ]);
 
   return (
@@ -320,42 +329,61 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
             }}
           />
         ) : null}
-        <Checklist
-          idPrefix="requirementOthers"
-          id="requirementOthers"
-          name="requirementOthers"
-          legend={labels.requirementOthers}
+        <RadioGroup
+          legend={labels.hasOtherRequirements}
+          id="hasOtherRequirements"
+          name="hasOtherRequirements"
+          idPrefix="hasOtherRequirements"
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(
-            PersonnelOtherRequirement,
-            personnelOtherRequirementSortOrder,
-          ).map((option) => {
+          items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
             return {
               value: option.value as string,
-              label: intl.formatMessage(
-                getPersonnelOtherRequirement(option.value),
-              ),
+              label: intl.formatMessage(getYesNo(option.value)),
             };
           })}
-          context={intl.formatMessage({
-            defaultMessage: "Select all that apply.",
-            id: "q+Xcc+",
-            description:
-              "Context for _other requirements_ fieldset in the _digital services contracting questionnaire_",
-          })}
         />
-        {doesPersonnelOtherRequirementIncludeOther ? (
-          <Input
-            id="requirementOtherOther"
-            name="requirementOtherOther"
-            type="text"
-            label={labels.requirementOtherOther}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
+        {hasOtherRequirementsIsYes ? (
+          <>
+            <Checklist
+              idPrefix="requirementOthers"
+              id="requirementOthers"
+              name="requirementOthers"
+              legend={labels.requirementOthers}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(
+                PersonnelOtherRequirement,
+                personnelOtherRequirementSortOrder,
+              ).map((option) => {
+                return {
+                  value: option.value as string,
+                  label: intl.formatMessage(
+                    getPersonnelOtherRequirement(option.value),
+                  ),
+                };
+              })}
+              context={intl.formatMessage({
+                defaultMessage: "Select all that apply.",
+                id: "q+Xcc+",
+                description:
+                  "Context for _other requirements_ fieldset in the _digital services contracting questionnaire_",
+              })}
+            />
+            {doesPersonnelOtherRequirementIncludeOther ? (
+              <Input
+                id="requirementOtherOther"
+                name="requirementOtherOther"
+                type="text"
+                label={labels.requirementOtherOther}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            ) : null}
+          </>
         ) : null}
         <RadioGroup
           legend={labels.hasPersonnelRequirements}

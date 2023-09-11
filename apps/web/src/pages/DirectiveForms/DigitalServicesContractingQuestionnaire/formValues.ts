@@ -106,6 +106,7 @@ export type FormValues = {
   requirementWorkLocations: Array<string>;
   requirementWorkLocationGcSpecific: string;
   requirementWorkLocationOffsiteSpecific: string;
+  hasOtherRequirements: string;
   requirementOthers: Array<string>;
   requirementOtherOther: string;
 
@@ -251,6 +252,7 @@ export function convertFormValuesToApiInput(
     requirementWorkLocationOffsiteSpecific: emptyToNull(
       formValues.requirementWorkLocationOffsiteSpecific,
     ),
+    // hasOtherRequirements not sent to API
     requirementOthers: formValues.requirementOthers?.map((a) =>
       stringToEnum(PersonnelOtherRequirement, a),
     ),
