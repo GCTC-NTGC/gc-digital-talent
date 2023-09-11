@@ -1,14 +1,18 @@
-import { IntlShape } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 
 import { FieldLabels } from "@gc-digital-talent/forms";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import talentPlanEn from "~/assets/documents/Forward_Talent_Plan_EN.docx";
 import talentPlanFr from "~/assets/documents/Plan_prospectif_sur_les_talents_FR.docx";
+import useRoutes from "~/hooks/useRoutes";
 
 import { buildExternalLink } from "../util";
 
-const getLabels = (intl: IntlShape): FieldLabels => {
+const getLabels = (
+  intl: IntlShape,
+  paths: ReturnType<typeof useRoutes>,
+): FieldLabels => {
   return {
     // Preamble section
     readPreamble: intl.formatMessage({
@@ -453,13 +457,19 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _an other contracting rationale_ field in the _digital services contracting questionnaire_",
     }),
-    ocioConfirmedTalentShortage: intl.formatMessage({
-      defaultMessage:
-        "OCIO has confirmed that there is no available pre-qualified talent in an OCIO-coordinated talent pool that could meet the need in the timeframe provided.",
-      id: "0uahrx",
-      description:
-        "Label for _OCIO confirmed talent shortage_ field in the _digital services contracting questionnaire_",
-    }),
+    ocioConfirmedTalentShortage: intl.formatMessage(
+      {
+        defaultMessage:
+          "Has OCIO confirmed that there is no available pre-qualified talent in an <link>OCIO-coordinated talent pool</link> that could meet the need in the timeframe provided?",
+        id: "yGW8Y5",
+        description:
+          "Label for _OCIO confirmed talent shortage_ field in the _digital services contracting questionnaire_",
+      },
+      {
+        link: (chunks: React.ReactNode) =>
+          buildExternalLink(paths.search(), chunks),
+      },
+    ),
     talentSearchTrackingNumber: intl.formatMessage({
       defaultMessage: "GC Digital Talent search request tracking number",
       id: "dVlECR",
@@ -509,4 +519,11 @@ const getLabels = (intl: IntlShape): FieldLabels => {
   };
 };
 
-export default getLabels;
+const useLabels = () => {
+  const intl = useIntl();
+  const paths = useRoutes();
+
+  return getLabels(intl, paths);
+};
+
+export default useLabels;

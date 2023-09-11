@@ -28,7 +28,7 @@ import InstructionsSection from "./sections/InstructionsSection";
 import PreambleSection from "./sections/PreambleSection";
 import QuestionnaireSection from "./sections/QuestionnaireSection";
 import { convertFormValuesToApiInput, FormValues } from "./formValues";
-import getLabels from "./labels";
+import useLabels from "./useLabels";
 
 export const pageTitle = defineMessage({
   defaultMessage: "Digital Services Contracting Questionnaire",
@@ -67,7 +67,7 @@ export const DigitalServicesContractingQuestionnaire = ({
     },
   ]);
 
-  const labels = getLabels(intl);
+  const labels = useLabels();
 
   return (
     <>

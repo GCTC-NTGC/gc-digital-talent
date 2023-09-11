@@ -39,12 +39,12 @@ import {
   yesNoSortOrder,
   yesNoUnsureSortOrder,
 } from "../../localizedConstants";
-import getLabels from "../labels";
+import useLabels from "../useLabels";
 
 const ScopeOfContractSection = () => {
   const intl = useIntl();
   const { watch, resetField } = useFormContext();
-  const labels = getLabels(intl);
+  const labels = useLabels();
 
   // hooks to watch, needed for conditional rendering
   const [

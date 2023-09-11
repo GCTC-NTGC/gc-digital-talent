@@ -34,7 +34,7 @@ import {
   yesNoSortOrder,
 } from "../../localizedConstants";
 import PersonnelRequirementsSection from "./PersonnelRequirementsSection";
-import getLabels from "../labels";
+import useLabels from "../useLabels";
 
 type RequirementsSectionProps = {
   skills: Array<Skill>;
@@ -43,7 +43,7 @@ type RequirementsSectionProps = {
 const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
   const intl = useIntl();
   const { watch, resetField } = useFormContext();
-  const labels = getLabels(intl);
+  const labels = useLabels();
 
   // hooks to watch, needed for conditional rendering
   const [

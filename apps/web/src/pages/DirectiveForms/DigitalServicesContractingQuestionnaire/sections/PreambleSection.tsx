@@ -17,12 +17,12 @@ import useRoutes from "~/hooks/useRoutes";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import { buildExternalLink, getDirectiveUrl } from "../../util";
-import getLabels from "../labels";
+import useLabels from "../useLabels";
 
 const PreambleSection = () => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const labels = getLabels(intl);
+  const labels = useLabels();
   const paths = useRoutes();
   return (
     <>

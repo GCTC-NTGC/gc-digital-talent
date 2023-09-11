@@ -15,13 +15,13 @@ import {
   operationsConsiderationsSortOrder,
   yesNoSortOrder,
 } from "../../localizedConstants";
-import getLabels from "../labels";
+import useLabels from "../useLabels";
 
 const OperationsConsiderationsSection = () => {
   const intl = useIntl();
   const { watch, resetField } = useFormContext();
   const influencingFactorsDescriptionId = useId();
-  const labels = getLabels(intl);
+  const labels = useLabels();
 
   // hooks to watch, needed for conditional rendering
   const [

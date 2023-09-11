@@ -35,7 +35,7 @@ import {
   isSkillRequirementFormValues,
   SkillRequirementFormValues,
 } from "../formValues";
-import getLabels from "../labels";
+import useLabels from "../useLabels";
 
 export type PersonnelRequirementFieldsetProps = {
   fieldsetName: string;
@@ -49,7 +49,7 @@ const PersonnelRequirementFieldset = ({
   const intl = useIntl();
   const { watch, resetField, register, setValue } = useFormContext();
   register(`${fieldsetName}.skillRequirements`);
-  const labels = getLabels(intl);
+  const labels = useLabels();
 
   // hooks to watch, needed for conditional rendering
   const [selectedSkillRequirementsUntyped, selectedLanguage, selectedSecurity] =

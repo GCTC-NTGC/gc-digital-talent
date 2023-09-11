@@ -15,12 +15,12 @@ import {
   technologicalChangeFactorSortOrder,
   yesNoSortOrder,
 } from "../../localizedConstants";
-import getLabels from "../labels";
+import useLabels from "../useLabels";
 
 const TechnologicalChangeSection = () => {
   const intl = useIntl();
   const { watch, resetField } = useFormContext();
-  const labels = getLabels(intl);
+  const labels = useLabels();
   const technologicalChangeDescriptionId = useId();
 
   // hooks to watch, needed for conditional rendering

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
@@ -12,20 +12,25 @@ import {
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { ContractingRationale, YesNo } from "@gc-digital-talent/graphql";
 
+import useRoutes from "~/hooks/useRoutes";
+
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
-import { enumToOptions } from "../../util";
+import { buildExternalLink, enumToOptions } from "../../util";
 import {
   contractingRationaleSortOrder,
   getContractingRationale,
   getYesNo,
   yesNoSortOrder,
 } from "../../localizedConstants";
-import getLabels from "../labels";
+import useLabels from "../useLabels";
 
 const TalentSourcingDecisionSection = () => {
   const intl = useIntl();
   const { watch, resetField } = useFormContext();
-  const labels = getLabels(intl);
+  const paths = useRoutes();
+  const labels = useLabels();
+  const ocioConfirmedDescriptionId = useId();
+  const trackingNumberConfirmedDescriptionId = useId();
 
   // hooks to watch, needed for conditional rendering
   const [
@@ -127,32 +132,74 @@ const TalentSourcingDecisionSection = () => {
           />
         ) : null}
         {isContractingRationalePrimaryShortageOfTalent ? (
-          <RadioGroup
-            legend={labels.ocioConfirmedTalentShortage}
-            id="ocioConfirmedTalentShortage"
-            name="ocioConfirmedTalentShortage"
-            idPrefix="ocioConfirmedTalentShortage"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
-              return {
-                value: option.value as string,
-                label: intl.formatMessage(getYesNo(option.value)),
-              };
-            })}
-          />
+          <>
+            <p id={ocioConfirmedDescriptionId}>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "If “{choice}” is selected as the primary rationale, you are required to verify that no talent is available through a <link>GC Digital Talent search</link>.",
+                  id: "eADpIl",
+                  description:
+                    "introduction to needing more information about the talent search",
+                },
+                {
+                  choice: intl.formatMessage(
+                    getContractingRationale(
+                      ContractingRationale.ShortageOfTalent,
+                    ),
+                  ),
+                  link: (chunks: React.ReactNode) =>
+                    buildExternalLink(paths.search(), chunks),
+                },
+              )}
+            </p>
+            <RadioGroup
+              legend={labels.ocioConfirmedTalentShortage}
+              id="ocioConfirmedTalentShortage"
+              name="ocioConfirmedTalentShortage"
+              idPrefix="ocioConfirmedTalentShortage"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
+                return {
+                  value: option.value as string,
+                  label: intl.formatMessage(getYesNo(option.value)),
+                };
+              })}
+              aria-describedby={ocioConfirmedDescriptionId}
+            />
+          </>
         ) : null}
         {isOcioConfirmedTalentShortageYes ? (
-          <TextArea
-            id="talentSearchTrackingNumber"
-            name="talentSearchTrackingNumber"
-            label={labels.talentSearchTrackingNumber}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            context="TODO"
-          />
+          <>
+            <p id={trackingNumberConfirmedDescriptionId}>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "If multiple types of resources have been identified under {sectionName}, please include one tracking number for each resource that fall under distinct IT workstreams and/or levels. Separate each tracking number with a comma.",
+                  id: "ozKHDz",
+                  description: "introduction to needing tracking IDs",
+                },
+                {
+                  sectionName: intl.formatMessage(
+                    getSectionTitle(PAGE_SECTION_ID.PERSONNEL_REQUIREMENTS),
+                  ),
+                  link: (chunks: React.ReactNode) =>
+                    buildExternalLink(paths.search(), chunks),
+                },
+              )}
+            </p>
+            <TextArea
+              id="talentSearchTrackingNumber"
+              name="talentSearchTrackingNumber"
+              label={labels.talentSearchTrackingNumber}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              aria-describedby={trackingNumberConfirmedDescriptionId}
+            />
+          </>
         ) : null}
         <Checklist
           legend={labels.contractingRationalesSecondary}
