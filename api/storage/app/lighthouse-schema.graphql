@@ -1536,6 +1536,13 @@ enum PersonnelOtherRequirement {
   OTHER
 }
 
+enum TechnologicalChangeFactor {
+  DIFFERENT_NATURE
+  CHANGE_DEPARTMENT_OPERATION
+  NEW_TECHNOLOGICAL_SYSTEM
+  CHANGED_TECHNOLOGICAL_SYSTEM
+}
+
 enum PersonnelTeleworkOption {
   FULL_TIME
   PART_TIME
@@ -1631,7 +1638,7 @@ type DigitalContractingQuestionnaire {
   hasPersonnelRequirements: YesNo
   personnelRequirements: [DigitalContractingPersonnelRequirement!]
   qualificationRequirement: String
-  isTechnologicalChange: YesNo
+  technologicalChangeFactors: [TechnologicalChangeFactor!]
   hasImpactOnYourDepartment: YesNo
   hasImmediateImpactOnOtherDepartments: YesNo
   hasFutureImpactOnOtherDepartments: YesNo
@@ -1745,7 +1752,7 @@ input DigitalContractingQuestionnaireInput {
   hasPersonnelRequirements: YesNo
   personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
   qualificationRequirement: String
-  isTechnologicalChange: YesNo
+  technologicalChangeFactors: [TechnologicalChangeFactor!]
   hasImpactOnYourDepartment: YesNo
   hasImmediateImpactOnOtherDepartments: YesNo
   hasFutureImpactOnOtherDepartments: YesNo

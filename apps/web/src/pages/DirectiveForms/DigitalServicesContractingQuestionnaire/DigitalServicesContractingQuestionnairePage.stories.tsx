@@ -19,6 +19,7 @@ import {
   PersonnelTeleworkOption,
   PersonnelWorkLocation,
   SkillLevel,
+  TechnologicalChangeFactor,
   YesNo,
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
@@ -163,12 +164,17 @@ export const WithValues: Story = {
       qualificationRequirement: "Super special qualifications",
 
       // technological change section
-      isTechnologicalChange: YesNo.Yes,
+      hasTechnologicalChangeFactors: YesNo.Yes,
+      technologicalChangeFactors: [
+        TechnologicalChangeFactor.ChangeDepartmentOperation,
+        TechnologicalChangeFactor.ChangedTechnologicalSystem,
+      ],
       hasImpactOnYourDepartment: YesNo.Yes,
       hasImmediateImpactOnOtherDepartments: YesNo.Yes,
       hasFutureImpactOnOtherDepartments: YesNo.Yes,
 
       // operations considerations section
+      hasOperationsConsiderations: YesNo.Yes,
       operationsConsiderations: [
         OperationsConsideration.StaffingFreeze,
         OperationsConsideration.Other,

@@ -391,11 +391,18 @@ const getLabels = (intl: IntlShape): FieldLabels => {
     }),
 
     // Technological change section
-    isTechnologicalChange: intl.formatMessage({
+    hasTechnologicalChangeFactors: intl.formatMessage({
       defaultMessage: 'Select "yes" if any of the above apply.',
-      id: "8WbmyN",
+      id: "dyl3r0",
       description:
-        "Label for _is technological change_ fieldset in the _digital services contracting questionnaire_",
+        "Label for _has technological change factors_ field in the _digital services contracting questionnaire_",
+    }),
+    technologicalChangeFactors: intl.formatMessage({
+      defaultMessage:
+        "If applicable, please indicate whether the work is being contracted out for the following reasons.",
+      id: "42zd8W",
+      description:
+        "Label for _technological change factors_ fieldset in the _digital services contracting questionnaire_",
     }),
     hasImpactOnYourDepartment: intl.formatMessage({
       defaultMessage:

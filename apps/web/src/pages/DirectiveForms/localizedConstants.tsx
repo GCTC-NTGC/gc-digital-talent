@@ -16,6 +16,7 @@ import {
   PersonnelScreeningLevel,
   PersonnelTeleworkOption,
   PersonnelWorkLocation,
+  TechnologicalChangeFactor,
   YesNo,
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
@@ -605,6 +606,50 @@ export const personnelOtherRequirementSortOrder = [
   PersonnelOtherRequirement.OvertimeShortNotice,
   PersonnelOtherRequirement.AsNeeded,
   PersonnelOtherRequirement.Other,
+];
+
+const technologicalChangeFactors = defineMessages({
+  [TechnologicalChangeFactor.DifferentNature]: {
+    defaultMessage:
+      "equipment or material of a substantially different nature than that previously utilized",
+    id: "sKqKYS",
+    description: "technological change factor - different nature",
+  },
+  [TechnologicalChangeFactor.ChangeDepartmentOperation]: {
+    defaultMessage:
+      "a major change in your department’s operation directly related to the introduction of that equipment or material",
+    id: "Eht9xP",
+    description: "technological change factor - change department's operation",
+  },
+  [TechnologicalChangeFactor.NewTechnologicalSystem]: {
+    defaultMessage:
+      "a new technological system, software or hardware of a substantially different nature than that previously utilized",
+    id: "j12uou",
+    description: "technological change factor - new technological system",
+  },
+  [TechnologicalChangeFactor.ChangedTechnologicalSystem]: {
+    defaultMessage:
+      "a technological change to a system, software or hardware of a substantially different nature than that previously utilized",
+    id: "XVI4qU",
+    description:
+      "technological change factor - technological change to a system",
+  },
+});
+
+export const getTechnologicalChangeFactor = (
+  enumKey: keyof typeof technologicalChangeFactors,
+): MessageDescriptor =>
+  getOrThrowError(
+    technologicalChangeFactors,
+    enumKey,
+    `Invalid technological change factor '${enumKey}'`,
+  );
+
+export const technologicalChangeFactorSortOrder = [
+  TechnologicalChangeFactor.DifferentNature,
+  TechnologicalChangeFactor.ChangeDepartmentOperation,
+  TechnologicalChangeFactor.NewTechnologicalSystem,
+  TechnologicalChangeFactor.ChangedTechnologicalSystem,
 ];
 
 const personnelTeleworkOptions = defineMessages({

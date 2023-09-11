@@ -1,20 +1,49 @@
 import React, { useId } from "react";
 import { useIntl } from "react-intl";
+import { useFormContext } from "react-hook-form";
 
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
-import { RadioGroup } from "@gc-digital-talent/forms";
+import { Checklist, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { YesNo } from "@gc-digital-talent/graphql";
+import { TechnologicalChangeFactor, YesNo } from "@gc-digital-talent/graphql";
 
 import { enumToOptions } from "../../util";
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
-import { getYesNo, yesNoSortOrder } from "../../localizedConstants";
+import {
+  getTechnologicalChangeFactor,
+  getYesNo,
+  technologicalChangeFactorSortOrder,
+  yesNoSortOrder,
+} from "../../localizedConstants";
 import getLabels from "../labels";
 
 const TechnologicalChangeSection = () => {
   const intl = useIntl();
+  const { watch, resetField } = useFormContext();
   const labels = getLabels(intl);
   const technologicalChangeDescriptionId = useId();
+
+  // hooks to watch, needed for conditional rendering
+  const [selectedHasTechnologicalChangeFactors] = watch([
+    "hasTechnologicalChangeFactors",
+  ]);
+
+  const hasTechnologicalChangeFactorsIsYes =
+    selectedHasTechnologicalChangeFactors === YesNo.Yes;
+
+  /**
+   * Reset un-rendered fields
+   */
+  React.useEffect(() => {
+    const resetDirtyField = (name: string) => {
+      resetField(name, { keepDirty: false, defaultValue: null });
+    };
+
+    // Reset all optional fields
+    if (!hasTechnologicalChangeFactorsIsYes) {
+      resetDirtyField("technologicalChangeFactors");
+    }
+  }, [resetField, hasTechnologicalChangeFactorsIsYes]);
 
   return (
     <TableOfContents.Section
@@ -43,48 +72,40 @@ const TechnologicalChangeSection = () => {
           </p>
           <ul>
             <li>
-              {intl.formatMessage({
-                defaultMessage:
-                  "equipment or material of a substantially different nature than that previously utilized",
-                id: "/6+2X4",
-                description:
-                  "List item for _technological change_ section in the _digital services contracting questionnaire_",
-              })}
+              {intl.formatMessage(
+                getTechnologicalChangeFactor(
+                  TechnologicalChangeFactor.DifferentNature,
+                ),
+              )}
             </li>
             <li>
-              {intl.formatMessage({
-                defaultMessage:
-                  "a major change in your department’s operation directly related to the introduction of that equipment or material",
-                id: "TgHKdu",
-                description:
-                  "List item for _technological change_ section in the _digital services contracting questionnaire_",
-              })}
+              {intl.formatMessage(
+                getTechnologicalChangeFactor(
+                  TechnologicalChangeFactor.ChangeDepartmentOperation,
+                ),
+              )}
             </li>
             <li>
-              {intl.formatMessage({
-                defaultMessage:
-                  "a new technological system, software or hardware of a substantially different nature than that previously utilized",
-                id: "YCtHn2",
-                description:
-                  "List item for _technological change_ section in the _digital services contracting questionnaire_",
-              })}
+              {intl.formatMessage(
+                getTechnologicalChangeFactor(
+                  TechnologicalChangeFactor.NewTechnologicalSystem,
+                ),
+              )}
             </li>
             <li>
-              {intl.formatMessage({
-                defaultMessage:
-                  "a technological change to a system, software or hardware of a substantially different nature than that previously utilized",
-                id: "9V1mVx",
-                description:
-                  "List item for _technological change_ section in the _digital services contracting questionnaire_",
-              })}
+              {intl.formatMessage(
+                getTechnologicalChangeFactor(
+                  TechnologicalChangeFactor.ChangedTechnologicalSystem,
+                ),
+              )}
             </li>
           </ul>
         </div>
         <RadioGroup
-          legend={labels.isTechnologicalChange}
-          id="isTechnologicalChange"
-          name="isTechnologicalChange"
-          idPrefix="isTechnologicalChange"
+          legend={labels.hasTechnologicalChangeFactors}
+          id="hasTechnologicalChangeFactors"
+          name="hasTechnologicalChangeFactors"
+          idPrefix="hasTechnologicalChangeFactors"
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -96,6 +117,34 @@ const TechnologicalChangeSection = () => {
           })}
           aria-describedby={technologicalChangeDescriptionId}
         />
+        {hasTechnologicalChangeFactorsIsYes ? (
+          <Checklist
+            idPrefix="technologicalChangeFactors"
+            id="technologicalChangeFactors"
+            name="technologicalChangeFactors"
+            legend={labels.technologicalChangeFactors}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            items={enumToOptions(
+              TechnologicalChangeFactor,
+              technologicalChangeFactorSortOrder,
+            ).map((option) => {
+              return {
+                value: option.value as string,
+                label: intl.formatMessage(
+                  getTechnologicalChangeFactor(option.value),
+                ),
+              };
+            })}
+            context={intl.formatMessage({
+              defaultMessage: "Select all that apply.",
+              id: "LIhpxW",
+              description:
+                "Context for _technological change factors_ fieldset in the _digital services contracting questionnaire_",
+            })}
+          />
+        ) : null}
         <RadioGroup
           legend={labels.hasImpactOnYourDepartment}
           id="hasImpactOnYourDepartment"

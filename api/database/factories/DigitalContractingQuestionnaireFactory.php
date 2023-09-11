@@ -113,7 +113,7 @@ class DigitalContractingQuestionnaireFactory extends Factory
             },
             'has_personnel_requirements' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             // personnel_requirements added in configure method
-            'is_technological_change' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
+            'technological_change_factors' => $this->faker->randomElement(DirectiveFormsApiEnums::technologicalChangeFactors()),
             'has_impact_on_your_department' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             'has_immediate_impact_on_other_departments' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             'has_future_impact_on_other_departments' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
