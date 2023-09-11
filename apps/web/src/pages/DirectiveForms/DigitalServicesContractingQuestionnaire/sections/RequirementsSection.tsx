@@ -84,6 +84,8 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
 
   const isHasPersonnelRequirementsYes =
     selectedHasPersonnelRequirements === YesNo.Yes;
+  const isHasPersonnelRequirementsNo =
+    selectedHasPersonnelRequirements === YesNo.No;
 
   /**
    * Reset un-rendered fields
@@ -109,9 +111,11 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
     if (!doesPersonnelOtherRequirementIncludeOther) {
       resetDirtyField("requirementOtherOther");
     }
-
     if (!isHasPersonnelRequirementsYes) {
       resetDirtyField("personnelRequirements");
+    }
+    if (!isHasPersonnelRequirementsNo) {
+      resetDirtyField("qualificationRequirement");
     }
   }, [
     resetField,
@@ -121,6 +125,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
     doesRequirementWorkLocationsIncludeOffsiteSpecific,
     doesPersonnelOtherRequirementIncludeOther,
     isHasPersonnelRequirementsYes,
+    isHasPersonnelRequirementsNo,
   ]);
 
   return (
@@ -185,19 +190,6 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
               </ul>
             </>
           }
-        />
-        <TextArea
-          id="qualificationRequirement"
-          name="qualificationRequirement"
-          label={labels.qualificationRequirement}
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
-          context={intl.formatMessage({
-            defaultMessage:
-              "List the specific skill, education, or experience that are required to perform the work required.",
-            id: "rtzp80",
-            description:
-              "Context for _qualification requirement_ textbox in the _digital services contracting questionnaire_",
-          })}
         />
         <RadioGroup
           legend={labels.requirementAccessToSecure}
@@ -380,9 +372,24 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
             };
           })}
         />
-        {isHasPersonnelRequirementsYes ? (
+        {isHasPersonnelRequirementsYes && (
           <PersonnelRequirementsSection skills={skills} />
-        ) : null}
+        )}
+        {isHasPersonnelRequirementsNo && (
+          <TextArea
+            id="qualificationRequirement"
+            name="qualificationRequirement"
+            label={labels.qualificationRequirement}
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            context={intl.formatMessage({
+              defaultMessage:
+                "List the specific skill, education, or experience that are required to perform the work required.",
+              id: "rtzp80",
+              description:
+                "Context for _qualification requirement_ textbox in the _digital services contracting questionnaire_",
+            })}
+          />
+        )}
       </div>
     </TableOfContents.Section>
   );

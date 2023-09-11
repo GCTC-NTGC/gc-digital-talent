@@ -63,6 +63,7 @@ export const WithValues: Story = {
       financialAuthorityName: "Ms. Financial Authority",
       financialAuthorityJobTitle: "Authority of Finance",
       financialAuthorityEmail: "financial.authority@example.org",
+      isAuthorityInvolved: YesNo.Yes,
       authoritiesInvolved: [
         ContractAuthority.Procurement,
         ContractAuthority.Other,
@@ -97,7 +98,6 @@ export const WithValues: Story = {
 
       // requirements section
       workRequirementDescription: "Super important requirements.",
-      qualificationRequirement: "Super special qualifications",
       requirementAccessToSecure: YesNo.Yes,
       requirementScreeningLevels: [
         PersonnelScreeningLevel.TopSecret,
@@ -159,6 +159,7 @@ export const WithValues: Story = {
           quantity: "7",
         },
       ],
+      qualificationRequirement: "Super special qualifications",
 
       // technological change section
       isTechnologicalChange: YesNo.Yes,

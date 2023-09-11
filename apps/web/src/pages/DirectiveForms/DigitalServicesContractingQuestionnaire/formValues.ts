@@ -66,6 +66,7 @@ export type FormValues = {
   financialAuthorityName: string;
   financialAuthorityJobTitle: string;
   financialAuthorityEmail: string;
+  isAuthorityInvolved: string;
   authoritiesInvolved: Array<string>;
   authorityInvolvedOther: string;
   contractBehalfOfGc: string;
@@ -97,7 +98,6 @@ export type FormValues = {
 
   // requirements section
   workRequirementDescription: string;
-  qualificationRequirement: string;
   requirementAccessToSecure: string;
   requirementScreeningLevels: Array<string>;
   requirementScreeningLevelOther: string;
@@ -112,6 +112,7 @@ export type FormValues = {
   // personnel requirements section
   hasPersonnelRequirements: string;
   personnelRequirements: Array<PersonnelRequirementFormValues>;
+  qualificationRequirement: string;
 
   // technological change section
   isTechnologicalChange: string;
@@ -159,6 +160,7 @@ export function convertFormValuesToApiInput(
       formValues.financialAuthorityJobTitle,
     ),
     financialAuthorityEmail: emptyToNull(formValues.financialAuthorityEmail),
+    // otherAuthoritiesInvolved not sent to api
     authoritiesInvolved: formValues.authoritiesInvolved?.map((a) =>
       stringToEnum(ContractAuthority, a),
     ),
@@ -224,7 +226,6 @@ export function convertFormValuesToApiInput(
     workRequirementDescription: emptyToNull(
       formValues.workRequirementDescription,
     ),
-    qualificationRequirement: emptyToNull(formValues.qualificationRequirement),
     requirementAccessToSecure: stringToEnum(
       YesNo,
       formValues.requirementAccessToSecure,
@@ -294,6 +295,7 @@ export function convertFormValuesToApiInput(
         };
       }),
     },
+    qualificationRequirement: emptyToNull(formValues.qualificationRequirement),
 
     // Technological change section
     isTechnologicalChange: stringToEnum(

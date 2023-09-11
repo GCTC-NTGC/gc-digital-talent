@@ -11,7 +11,11 @@ import {
   RadioGroup,
 } from "@gc-digital-talent/forms";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
-import { ContractAuthority, YesNoUnsure } from "@gc-digital-talent/graphql";
+import {
+  ContractAuthority,
+  YesNo,
+  YesNoUnsure,
+} from "@gc-digital-talent/graphql";
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 
 import { IdNamePair } from "../types";
@@ -25,7 +29,9 @@ import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import {
   contractAuthoritySortOrder,
   getContractAuthorities,
+  getYesNo,
   getYesNoUnsure,
+  yesNoSortOrder,
   yesNoUnsureSortOrder,
 } from "../../localizedConstants";
 import getLabels from "../labels";
@@ -44,17 +50,20 @@ const GeneralInformationSection = ({
   // hooks to watch, needed for conditional rendering
   const [
     selectedDepartment,
+    selectedIsAuthorityInvolved,
     selectedAuthoritiesInvolved,
     selectedContractForDigitalInitiative,
     selectedDigitalInitiativePlanSubmitted,
   ] = watch([
     "department",
+    "isAuthorityInvolved",
     "authoritiesInvolved",
     "contractForDigitalInitiative",
     "digitalInitiativePlanSubmitted",
   ]);
 
   const isDepartmentOther = selectedDepartment === OTHER_ID;
+  const isAuthorityInvolvedYes = selectedIsAuthorityInvolved === YesNo.Yes;
   const doesAuthorityInvolvedIncludeOther =
     Array.isArray(selectedAuthoritiesInvolved) &&
     selectedAuthoritiesInvolved.includes(ContractAuthority.Other);
@@ -75,6 +84,10 @@ const GeneralInformationSection = ({
     if (!isDepartmentOther) {
       resetDirtyField("departmentOther");
     }
+    if (!isAuthorityInvolvedYes) {
+      resetDirtyField("authoritiesInvolved");
+      resetDirtyField("authorityInvolvedOther");
+    }
     if (!doesAuthorityInvolvedIncludeOther) {
       resetDirtyField("authorityInvolvedOther");
     }
@@ -93,6 +106,7 @@ const GeneralInformationSection = ({
     doesAuthorityInvolvedIncludeOther,
     isContractForSpecificInitiative,
     isPlanSubmitted,
+    isAuthorityInvolvedYes,
   ]);
 
   return (
@@ -235,34 +249,55 @@ const GeneralInformationSection = ({
             </Field.BoundingBox>
           </Field.Fieldset>
         </Field.Wrapper>
-        <Checklist
-          idPrefix="authoritiesInvolved"
-          id="authoritiesInvolved"
-          name="authoritiesInvolved"
-          legend={labels.authoritiesInvolved}
+        <RadioGroup
+          legend={labels.isAuthorityInvolved}
+          id="isAuthorityInvolved"
+          name="isAuthorityInvolved"
+          idPrefix="isAuthorityInvolved"
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          items={enumToOptions(
-            ContractAuthority,
-            contractAuthoritySortOrder,
-          ).map((option) => {
+          items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
             return {
               value: option.value as string,
-              label: intl.formatMessage(getContractAuthorities(option.value)),
+              label: intl.formatMessage(getYesNo(option.value)),
             };
           })}
         />
-        {doesAuthorityInvolvedIncludeOther ? (
-          <Input
-            id="authorityInvolvedOther"
-            name="authorityInvolvedOther"
-            type="text"
-            label={labels.authorityInvolvedOther}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
+        {isAuthorityInvolvedYes ? (
+          <>
+            <Checklist
+              idPrefix="authoritiesInvolved"
+              id="authoritiesInvolved"
+              name="authoritiesInvolved"
+              legend={labels.authoritiesInvolved}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(
+                ContractAuthority,
+                contractAuthoritySortOrder,
+              ).map((option) => {
+                return {
+                  value: option.value as string,
+                  label: intl.formatMessage(
+                    getContractAuthorities(option.value),
+                  ),
+                };
+              })}
+            />
+            {doesAuthorityInvolvedIncludeOther ? (
+              <Input
+                id="authorityInvolvedOther"
+                name="authorityInvolvedOther"
+                type="text"
+                label={labels.authorityInvolvedOther}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            ) : null}
+          </>
         ) : null}
         <RadioGroup
           legend={labels.contractBehalfOfGc}

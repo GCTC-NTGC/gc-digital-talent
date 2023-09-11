@@ -46,7 +46,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string solicitation_procedure
  * @property string subject_to_trade_agreement
  * @property string work_requirement_description
- * @property string qualification_requirement
  * @property string requirement_access_to_secure
  * @property array requirement_screening_levels
  * @property string requirement_screening_level_other
@@ -59,6 +58,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string requirement_other_other
  * @property string has_personnel_requirements
  * @property array personnel_requirements
+ * @property string qualification_requirement
  * @property string is_technological_change
  * @property string has_impact_on_your_department
  * @property string has_immediate_impact_on_other_departments

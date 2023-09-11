@@ -73,6 +73,13 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _financial authority email_ field in the _digital services contracting questionnaire_",
     }),
+    isAuthorityInvolved: intl.formatMessage({
+      defaultMessage:
+        "Are there any other authorities involved or engaged on this contract?",
+      id: "2QDT5C",
+      description:
+        "Label for _ is authorities involved_ fieldset in the _digital services contracting questionnaire_",
+    }),
     authoritiesInvolved: intl.formatMessage({
       defaultMessage: "Other authorities involved / engaged on this contract",
       id: "nfcDvX",
@@ -257,12 +264,6 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       description:
         "Label for _work requirement description_ textbox in the _digital services contracting questionnaire_",
     }),
-    qualificationRequirement: intl.formatMessage({
-      defaultMessage: "Qualification requirement",
-      id: "8v/v3u",
-      description:
-        "Label for _qualification requirement_ textbox in the _digital services contracting questionnaire_",
-    }),
     requirementAccessToSecure: intl.formatMessage({
       defaultMessage:
         "Will the supplier and its employees require access to protected and/or classified information or assets?",
@@ -330,6 +331,12 @@ const getLabels = (intl: IntlShape): FieldLabels => {
       id: "uK+4La",
       description:
         "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_",
+    }),
+    qualificationRequirement: intl.formatMessage({
+      defaultMessage: "Qualification requirement",
+      id: "8v/v3u",
+      description:
+        "Label for _qualification requirement_ textbox in the _digital services contracting questionnaire_",
     }),
 
     // Personnel requirements section
