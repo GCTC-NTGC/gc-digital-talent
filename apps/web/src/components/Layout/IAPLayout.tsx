@@ -19,6 +19,8 @@ import * as crkMessages from "~/lang/crkCompiled.json";
 import * as ojwMessages from "~/lang/ojwCompiled.json";
 import * as micMessages from "~/lang/micCompiled.json";
 
+import MaintenanceBanner from "./MaintenanceBanner";
+
 const messages: Map<string, Messages> = new Map([
   ["crg", crgMessages],
   ["crk", crkMessages],
@@ -83,6 +85,7 @@ const Layout = () => {
           >
             <div>
               <Header />
+              <MaintenanceBanner />
               <IAPNavMenu {...{ loggedIn, user }} />
             </div>
             <main id="main">

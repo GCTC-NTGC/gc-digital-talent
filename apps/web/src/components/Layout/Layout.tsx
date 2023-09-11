@@ -21,6 +21,7 @@ import authMessages from "~/messages/authMessages";
 
 import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import LogoutButton from "./LogoutButton";
+import MaintenanceBanner from "./MaintenanceBanner";
 
 const Layout = () => {
   const intl = useIntl();
@@ -141,6 +142,7 @@ const Layout = () => {
       >
         <div>
           <Header />
+          <MaintenanceBanner />
           {!iapPersonality ? (
             <NavMenu mainItems={menuItems} utilityItems={authLinks} />
           ) : (

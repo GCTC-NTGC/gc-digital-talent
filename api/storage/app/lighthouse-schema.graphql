@@ -894,6 +894,7 @@ input PoolCandidateSearchInput {
   generalSearch: String
   name: String
   notes: String
+  isGovEmployee: Boolean
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter

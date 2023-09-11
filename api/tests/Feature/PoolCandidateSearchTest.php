@@ -410,4 +410,79 @@ class PoolCandidateSearchTest extends TestCase
             ],
         ]);
     }
+
+    public function testPoolCandidatesSearchGovEmployee(): void
+    {
+        PoolCandidate::factory()->count(5)->create([
+            'pool_id' => $this->pool->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'suspended_at' => null,
+            'user_id' => User::factory([
+                'is_gov_employee' => true,
+            ]),
+        ]);
+        PoolCandidate::factory()->count(3)->create([
+            'pool_id' => $this->pool->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'suspended_at' => null,
+            'user_id' => User::factory([
+                'is_gov_employee' => false,
+            ]),
+        ]);
+
+        $query =
+            /** @lang GraphQL */
+            '
+            query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginated (
+                  where: $where
+                  orderBy: [
+                  { column: "status_weight", order: ASC }
+                  { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+                ]) {
+                    paginatorInfo {
+                        count
+                    }
+                }
+            }
+        ';
+
+        // assert all 8 returned
+        $this->actingAs($this->teamUser, 'api')->graphQL(
+            $query,
+            [
+                'where' => [
+                    'isGovEmployee' => null,
+                ],
+            ]
+        )->assertJson([
+            'data' => [
+                'poolCandidatesPaginated' => [
+                    'paginatorInfo' => [
+                        'count' => 8,
+                    ],
+                ],
+            ],
+        ]);
+
+        // assert the 5 govEmployee = true models returned
+        $this->actingAs($this->teamUser, 'api')->graphQL(
+            $query,
+            [
+                'where' => [
+                    'isGovEmployee' => true,
+                ],
+            ]
+        )->assertJson([
+            'data' => [
+                'poolCandidatesPaginated' => [
+                    'paginatorInfo' => [
+                        'count' => 5,
+                    ],
+                ],
+            ],
+        ]);
+    }
 }

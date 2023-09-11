@@ -1,5 +1,6 @@
 import React from "react";
 import { HelmetProvider } from "react-helmet-async";
+import { MotionConfig } from "framer-motion";
 
 import { AppInsightsProvider } from "@gc-digital-talent/app-insights";
 import {
@@ -29,7 +30,9 @@ const ContextContainer = ({ messages, children }: ContextContainerProps) => (
             <ClientProvider>
               <AppInsightsProvider>
                 <AuthorizationProvider>
-                  <Announcer>{children}</Announcer>
+                  <MotionConfig reducedMotion="user">
+                    <Announcer>{children}</Announcer>
+                  </MotionConfig>
                 </AuthorizationProvider>
               </AppInsightsProvider>
             </ClientProvider>

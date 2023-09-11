@@ -2,7 +2,7 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { FieldLabels, Checklist } from "@gc-digital-talent/forms";
+import { FieldLabels, Checklist, Field } from "@gc-digital-talent/forms";
 import { Alert, Chip, Chips } from "@gc-digital-talent/ui";
 
 import HelpLink from "./HelpLink";
@@ -18,7 +18,8 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
   const [isAlertOpen, setIsAlertOpen] = React.useState<boolean>(false);
   const [hasDismissedAlert, setHasDismissedAlert] =
     React.useState<boolean>(false);
-  const { watch, setValue } = useFormContext();
+  const { watch, setValue, setError, clearErrors, formState } =
+    useFormContext();
 
   const communityLabels = getCommunityLabels(intl);
 
@@ -30,6 +31,27 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
     // Is not represented and has at least on other community selected
     setIsAlertOpen(!!(isOtherAndHasCommunity && !hasDismissedAlert));
   }, [isOtherAndHasCommunity, setIsAlertOpen, hasDismissedAlert]);
+
+  React.useEffect(() => {
+    if (
+      communitiesValue.includes("status") &&
+      communitiesValue.includes("nonStatus")
+    ) {
+      setError("firstNationsCustom", {
+        type: "validation",
+        message: intl.formatMessage({
+          defaultMessage:
+            "Please select either Status First Nations or Non-Status First Nations.",
+          id: "skfKnv",
+          description:
+            "Error message that the user has selected both status and non-status first nations.",
+        }),
+      });
+    } else {
+      clearErrors("firstNationsCustom");
+    }
+  }, [clearErrors, communitiesValue, intl, setError]);
+  const customAlertId = React.useId();
 
   const handleAlertDismiss = () => {
     setIsAlertOpen(false);
@@ -73,7 +95,13 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
                 }),
               },
             ]}
+            aria-describedby={customAlertId}
           />
+          {formState.errors.firstNationsCustom && (
+            <Field.Error id={customAlertId} data-h2-margin-top="base(x.25)">
+              {formState.errors.firstNationsCustom.message?.toString()}
+            </Field.Error>
+          )}
         </div>
         <div data-h2-flex-item="base(1of4)" data-h2-align-self="base(center)">
           <CommunityIcon

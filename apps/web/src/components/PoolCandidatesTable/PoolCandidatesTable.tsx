@@ -120,6 +120,7 @@ function transformPoolCandidateSearchInputToFormValues(
     suspendedStatus: input?.suspendedStatus
       ? [input.suspendedStatus]
       : [CandidateSuspendedFilter.Active],
+    govEmployee: input?.isGovEmployee ? ["true"] : [],
   };
 }
 
@@ -381,6 +382,7 @@ const PoolCandidatesTable = ({
         suspendedStatus: initialFilterInput?.suspendedStatus
           ? initialFilterInput.suspendedStatus
           : CandidateSuspendedFilter.Active,
+        isGovEmployee: undefined,
       },
     }),
     [initialFilterInput],
@@ -487,6 +489,7 @@ const PoolCandidatesTable = ({
       priorityWeight: fancyFilterState?.priorityWeight,
       expiryStatus: fancyFilterState?.expiryStatus,
       suspendedStatus: fancyFilterState?.suspendedStatus,
+      isGovEmployee: fancyFilterState?.isGovEmployee,
       publishingGroups: fancyFilterState?.publishingGroups,
     };
   };
@@ -538,6 +541,7 @@ const PoolCandidatesTable = ({
       suspendedStatus: data.suspendedStatus[0]
         ? stringToEnumCandidateSuspended(data.suspendedStatus[0])
         : undefined,
+      isGovEmployee: data.govEmployee[0] ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
       publishingGroups: data.publishingGroups as PublishingGroup[],
     };
 
