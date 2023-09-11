@@ -2039,10 +2039,6 @@
     "defaultMessage": "Cette base de données sur les talents est ouverte à la plupart des ministères et organismes. Les candidats de la base de données varient, soit de ceux qui débutent leur carrière, aux professionnels chevronnés qui comptent plusieurs années d’expérience de travail. Il existe de multiples processus de recrutement en cours, ce qui veut donc dire qu’on ajoute de nouveaux candidats chaque semaine.",
     "description": "Content displayed in the About area of the hero section of the Search page."
   },
-  "BXR24h": {
-    "defaultMessage": "Profils des candidats",
-    "description": "Document title for printing Pool Candidate table results"
-  },
   "BYGKiT": {
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title of the 'Employment equity' section of the view-user page"
@@ -2118,6 +2114,10 @@
   "ByposT": {
     "defaultMessage": "Le gouvernement du Canada ne peut pas recommander de fournisseurs ou d’applications de tiers en particulier. Des fournisseurs numériques bien connus, comme Google Authenticator et Microsoft Authenticator, offrent des applications d’authentification. Quelle que soit l’application que vous choisissez, veillez à ce qu’elle provienne d’un fournisseur réputé.",
     "description": "Third answer of the Frequently Asked Questions for sign up"
+  },
+  "BzKGyK": {
+    "defaultMessage": "Langue de communication",
+    "description": "Label for communication language"
   },
   "BzaGwp": {
     "defaultMessage": "Texte anglais sur l’incidence",
@@ -2922,6 +2922,10 @@
   "HUCIzc": {
     "defaultMessage": "Nom",
     "description": "Title displayed for the Classification table Name column."
+  },
+  "HUy0EA": {
+    "defaultMessage": "Langue de l'entrevue de vive voix",
+    "description": "Label for spoken interview language"
   },
   "HYSPug": {
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes en anglais.",
@@ -4152,6 +4156,10 @@
     "defaultMessage": "Menu Principal",
     "description": "Label for the main menu on the pool manager admin portal."
   },
+  "QjO3Y0": {
+    "defaultMessage": "Ville",
+    "description": "Label for city and province/territory"
+  },
   "QjOom4": {
     "defaultMessage": "Je ne suis pas identifié comme membre d'un groupe d'équité en matière d'emploi.",
     "description": "Message on Admin side when user not filled DiversityEquityInclusion section."
@@ -4191,10 +4199,6 @@
   "QuLbBU": {
     "defaultMessage": "Expériences mettant en avant cette compétence",
     "description": "Title for the experience section of the user skill page"
-  },
-  "R+Zm3X": {
-    "defaultMessage": "Imprimer le profil",
-    "description": "Text for button to print a user profile"
   },
   "R1BcTP": {
     "defaultMessage": "Rechercher{column}",
@@ -4675,10 +4679,6 @@
   "UrsGGK": {
     "defaultMessage": "{areaOfStudy} à {institution}",
     "description": "Study at institution"
-  },
-  "UsFTGT": {
-    "defaultMessage": "Télécharger les profils",
-    "description": "Text label for button to print items in a table."
   },
   "UvKDXK": {
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
@@ -5164,6 +5164,10 @@
     "defaultMessage": "Compétences utiles",
     "description": "Title for the optional skills snapshot section"
   },
+  "XqF3wS": {
+    "defaultMessage": "Coordonnées",
+    "description": "Profile section title for contact information"
+  },
   "XrfkBm": {
     "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
     "description": "Message displayed when no experiences have been attached to a skill"
@@ -5264,6 +5268,10 @@
     "defaultMessage": "Rétablir la recherche",
     "description": "Button text to reset search field on tables"
   },
+  "Yh1Y7Z": {
+    "defaultMessage": "Examen de langue écrit",
+    "description": "Label for written exam language"
+  },
   "Yhd/hk": {
     "defaultMessage": "Aucune expérience trouvée.",
     "description": "Message displayed when no experience is found for experience form."
@@ -5286,6 +5294,10 @@
   "YqWNkT": {
     "defaultMessage": "n'importe quelle durée (court terme, long terme, période indéterminée).",
     "description": "Label displayed on Work Preferences form for any duration option"
+  },
+  "Yr0nVZ": {
+    "defaultMessage": "Imprimer le profil",
+    "description": "Text label for button to print items in a table"
   },
   "Ysf8wI": {
     "defaultMessage": "Modification des renseignements gouvernementaux",
@@ -5763,6 +5775,10 @@
   "c39xT8": {
     "defaultMessage": "Modifier les options de votre expérience.",
     "description": "Link text to edit experience information on profile."
+  },
+  "c795MO": {
+    "defaultMessage": "Imprimer sans coordonnées",
+    "description": "Button label for print user anonymous profile."
   },
   "c7At4h": {
     "defaultMessage": "Langue parlée préférée pour l'entretien :",
@@ -7828,6 +7844,10 @@
   "qGyD4w": {
     "defaultMessage": "Questions de sélection",
     "description": "Heading for screening questions section of the application review page."
+  },
+  "qN+dwB": {
+    "defaultMessage": "Imprimer avec toutes informations",
+    "description": "Button label for print user profile."
   },
   "qN9zOb": {
     "defaultMessage": "<strong>J’ai un diplôme d’études secondaires</strong>",
