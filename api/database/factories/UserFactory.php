@@ -11,6 +11,9 @@ use App\Models\PersonalExperience;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
+use App\Providers\GovEmployeeType;
+use App\Providers\Language;
+use App\Providers\ProvinceOrTerritory;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -59,24 +62,10 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'sub' => $this->faker->boolean(75) ? $this->faker->unique()->uuid() : null,
             'telephone' => $this->faker->e164PhoneNumber(),
-            'preferred_lang' => $this->faker->randomElement(['en', 'fr']),
-            'preferred_language_for_interview' => $this->faker->randomElement(['en', 'fr']),
-            'preferred_language_for_exam' => $this->faker->randomElement(['en', 'fr']),
-            'current_province' => $this->faker->randomElement([
-                'BRITISH_COLUMBIA',
-                'ALBERTA',
-                'SASKATCHEWAN',
-                'MANITOBA',
-                'ONTARIO',
-                'QUEBEC',
-                'NEW_BRUNSWICK',
-                'NOVA_SCOTIA',
-                'PRINCE_EDWARD_ISLAND',
-                'NEWFOUNDLAND_AND_LABRADOR',
-                'YUKON',
-                'NORTHWEST_TERRITORIES',
-                'NUNAVUT',
-            ]),
+            'preferred_lang' => $this->faker->randomElement(Language::cases())->value,
+            'preferred_language_for_interview' => $this->faker->randomElement(Language::cases())->value,
+            'preferred_language_for_exam' => $this->faker->randomElement(Language::cases())->value,
+            'current_province' => $this->faker->randomElement(ProvinceOrTerritory::cases())->name,
             'current_city' => $this->faker->city(),
             'looking_for_english' => $lookingEnglish,
             'looking_for_french' => $lookingFrench,
@@ -125,7 +114,7 @@ class UserFactory extends Factory
                 [ApiEnums::POSITION_DURATION_PERMANENT, ApiEnums::POSITION_DURATION_TEMPORARY]
                 : [ApiEnums::POSITION_DURATION_PERMANENT], // always accepting PERMANENT
             'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
-            'gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(ApiEnums::govEmployeeTypes()) : null,
+            'gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(GovEmployeeType::cases())->name : null,
             'citizenship' => $this->faker->randomElement(ApiEnums::citizenshipStatuses()),
             'armed_forces_status' => $this->faker->randomElement(ApiEnums::armedForcesStatuses()),
             'has_priority_entitlement' => $hasPriorityEntitlement,
@@ -196,7 +185,7 @@ class UserFactory extends Factory
             return [
                 'is_gov_employee' => true,
                 'current_classification' => $randomClassification ? $randomClassification->id : null,
-                'gov_employee_type' => $this->faker->randomElement(ApiEnums::govEmployeeTypes()),
+                'gov_employee_type' => $this->faker->randomElement(GovEmployeeType::cases())->name,
                 'department' => $randomDepartment ? $randomDepartment->id : null,
 
             ];

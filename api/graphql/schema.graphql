@@ -25,11 +25,6 @@ type LocalizedString {
   fr: String
 }
 
-enum Language {
-  EN @enum(value: "en")
-  FR @enum(value: "fr")
-}
-
 type User {
   id: ID!
   sub: String
@@ -161,22 +156,6 @@ type User {
   notifications: [Notification!] @rename(attribute: "enriched_notifications")
 }
 
-enum ProvinceOrTerritory {
-  BRITISH_COLUMBIA
-  ALBERTA
-  SASKATCHEWAN
-  MANITOBA
-  ONTARIO
-  QUEBEC
-  NEW_BRUNSWICK
-  NOVA_SCOTIA
-  PRINCE_EDWARD_ISLAND
-  NEWFOUNDLAND_AND_LABRADOR
-  YUKON
-  NORTHWEST_TERRITORIES
-  NUNAVUT
-}
-
 enum BilingualEvaluation {
   COMPLETED_ENGLISH
   COMPLETED_FRENCH
@@ -196,13 +175,6 @@ enum EstimatedLanguageAbility {
   BEGINNER
   INTERMEDIATE
   ADVANCED
-}
-
-enum GovEmployeeType {
-  STUDENT
-  CASUAL
-  TERM
-  INDETERMINATE
 }
 
 enum CitizenshipStatus {
