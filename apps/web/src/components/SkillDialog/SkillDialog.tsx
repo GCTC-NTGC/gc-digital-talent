@@ -7,7 +7,7 @@ import { Button, ButtonProps, Dialog, IconType } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
-import { Skill } from "~/api/generated";
+import { Skill, SkillCategory } from "~/api/generated";
 
 import SkillDetails from "./SkillDetails";
 import SkillSelection from "./SkillSelection";
@@ -88,6 +88,7 @@ const SkillDialog = ({
     if (result)
       await onSave(values).then(() => {
         setIsOpen(false);
+        reset();
         toast.success(selected(getLocalizedName(selectedSkill?.name, intl)));
       });
   };
@@ -140,7 +141,11 @@ const SkillDialog = ({
                 onSelectSkill={setSelectedSkill}
               />
               {selectedSkill && shouldShowDetails && (
-                <SkillDetails context={context} />
+                <SkillDetails
+                  isTechnical={
+                    selectedSkill.category === SkillCategory.Technical
+                  }
+                />
               )}
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Button

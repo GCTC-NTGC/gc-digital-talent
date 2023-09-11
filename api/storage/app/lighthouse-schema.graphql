@@ -894,6 +894,7 @@ input PoolCandidateSearchInput {
   generalSearch: String
   name: String
   notes: String
+  isGovEmployee: Boolean
   priorityWeight: [Int]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
@@ -1617,7 +1618,6 @@ type DigitalContractingQuestionnaire {
   solicitationProcedure: ContractSolicitationProcedure
   subjectToTradeAgreement: YesNoUnsure
   workRequirementDescription: String
-  qualificationRequirement: String
   requirementAccessToSecure: YesNo
   requirementScreeningLevels: [PersonnelScreeningLevel!]
   requirementScreeningLevelOther: String
@@ -1630,6 +1630,7 @@ type DigitalContractingQuestionnaire {
   requirementOtherOther: String
   hasPersonnelRequirements: YesNo
   personnelRequirements: [DigitalContractingPersonnelRequirement!]
+  qualificationRequirement: String
   isTechnologicalChange: YesNo
   hasImpactOnYourDepartment: YesNo
   hasImmediateImpactOnOtherDepartments: YesNo
@@ -1731,7 +1732,6 @@ input DigitalContractingQuestionnaireInput {
   solicitationProcedure: ContractSolicitationProcedure
   subjectToTradeAgreement: YesNoUnsure
   workRequirementDescription: String
-  qualificationRequirement: String
   requirementAccessToSecure: YesNo
   requirementScreeningLevels: [PersonnelScreeningLevel!]
   requirementScreeningLevelOther: String
@@ -1744,6 +1744,7 @@ input DigitalContractingQuestionnaireInput {
   requirementOtherOther: String
   hasPersonnelRequirements: YesNo
   personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
+  qualificationRequirement: String
   isTechnologicalChange: YesNo
   hasImpactOnYourDepartment: YesNo
   hasImmediateImpactOnOtherDepartments: YesNo

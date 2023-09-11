@@ -17,6 +17,7 @@ import SEO, { Favicon } from "~/components/SEO/SEO";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 import AdminSideMenu from "../AdminSideMenu/AdminSideMenu";
+import MaintenanceBanner from "./MaintenanceBanner";
 
 interface OpenMenuButtonProps extends React.HTMLProps<HTMLButtonElement> {
   show: boolean;
@@ -89,6 +90,7 @@ const AdminLayout = () => {
             data-h2-flex-direction="base(column)"
           >
             <Header width="full" />
+            <MaintenanceBanner />
             <OpenMenuButton
               onClick={() => setMenuOpen(true)}
               show={isSmallScreen}

@@ -1,4 +1,9 @@
-import { Scalars, SkillCategory, SkillLevel } from "@gc-digital-talent/graphql";
+import {
+  Scalars,
+  SkillCategory,
+  SkillLevel,
+  WhenSkillUsed,
+} from "@gc-digital-talent/graphql";
 
 export type SkillDialogContext =
   | "experience"
@@ -11,6 +16,6 @@ export interface FormValues {
   family?: Scalars["ID"];
   skill?: Scalars["ID"];
   details?: string;
-  level?: SkillLevel;
-  current?: string;
+  skillLevel?: SkillLevel;
+  whenSkillUsed?: WhenSkillUsed;
 }

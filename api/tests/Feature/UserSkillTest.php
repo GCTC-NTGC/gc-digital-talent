@@ -311,6 +311,64 @@ class UserSkillTest extends TestCase
             ]);
     }
 
+    public function testUserSkillCreationRestoringPersistsNewValues(): void
+    {
+        $skill = Skill::factory()->create();
+
+        // create a UserSkill with all fields set
+        $this->actingAs($this->user, 'api')
+            ->graphQL(
+                $this->createUserSkill,
+                [
+                    'userId' => $this->user->id,
+                    'skillId' => $skill->id,
+                    'userSkill' => [
+                        'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
+                        'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+                    ],
+                ]
+            )
+            ->assertJsonFragment([
+                'user' => [
+                    'id' => $this->user->id,
+                ],
+                'skill' => [
+                    'id' => $skill->id,
+                ],
+                'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
+                'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+            ]);
+
+        // soft delete the model
+        $userSkillModel = UserSkill::where('user_id', $this->user->id)->first();
+        $userSkillModel->deleted_at = Carbon::now();
+        $userSkillModel->save();
+
+        // attempt to create again with the same user and skill, but with one optional field passed in
+        // assert the soft deleted model is returned and that it persists the new value for the updated one, and kept the other the same
+        $this->actingAs($this->user, 'api')
+            ->graphQL(
+                $this->createUserSkill,
+                [
+                    'userId' => $this->user->id,
+                    'skillId' => $skill->id,
+                    'userSkill' => [
+                        'skillLevel' => ApiEnums::SKILL_LEVEL_LEAD,
+                    ],
+                ]
+            )
+            ->assertJsonFragment([
+                'user' => [
+                    'id' => $this->user->id,
+                ],
+                'skill' => [
+                    'id' => $skill->id,
+                ],
+                'skillLevel' => ApiEnums::SKILL_LEVEL_LEAD,
+                'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+            ]);
+    }
+
     public function testUserSkillUpdating(): void
     {
         $skill = Skill::factory()->create();

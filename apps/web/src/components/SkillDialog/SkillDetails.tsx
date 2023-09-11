@@ -1,28 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { RadioGroup } from "@gc-digital-talent/forms";
-import {
-  errorMessages,
-  getDirectiveFormSkillLevel as getSkillLevel,
-} from "@gc-digital-talent/i18n";
-import { SkillLevel } from "@gc-digital-talent/graphql";
-
-import { SkillDialogContext } from "./types";
-
-// this section looks a little different when part of the profile vs part of the directive forms
-const isProfileContext = (context: SkillDialogContext | undefined): boolean => {
-  const profileContexts: SkillDialogContext[] = ["library", "showcase"];
-
-  return context ? profileContexts.includes(context) : false;
-};
+import UserSkillFormFields from "../UserSkillFormFields/UserSkillFormFields";
 
 interface SkillDetailsProps {
-  // The context in which the dialog is being used
-  context?: SkillDialogContext;
+  isTechnical?: boolean;
 }
 
-const SkillDetails = ({ context }: SkillDetailsProps) => {
+const SkillDetails = ({ isTechnical = false }: SkillDetailsProps) => {
   const intl = useIntl();
 
   return (
@@ -42,76 +27,7 @@ const SkillDetails = ({ context }: SkillDetailsProps) => {
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1 0)"
       >
-        <RadioGroup
-          name="level"
-          id="level"
-          idPrefix="level"
-          legend={intl.formatMessage(
-            isProfileContext(context)
-              ? {
-                  defaultMessage: "Select your experience in this skill",
-                  id: "+clYLj",
-                  description: "Description for the skill level radio group",
-                }
-              : {
-                  defaultMessage: "Select the skill level",
-                  id: "+clYLj",
-                  description: "Description for the skill level radio group",
-                },
-          )}
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
-          items={[
-            {
-              value: SkillLevel.Beginner,
-              label: intl.formatMessage(getSkillLevel(SkillLevel.Beginner)),
-            },
-            {
-              value: SkillLevel.Intermediate,
-              label: intl.formatMessage(getSkillLevel(SkillLevel.Intermediate)),
-            },
-            {
-              value: SkillLevel.Advanced,
-              label: intl.formatMessage(getSkillLevel(SkillLevel.Advanced)),
-            },
-            {
-              value: SkillLevel.Lead,
-              label: intl.formatMessage(getSkillLevel(SkillLevel.Lead)),
-            },
-          ]}
-        />
-        {isProfileContext(context) && (
-          <RadioGroup
-            name="current"
-            id="current"
-            idPrefix="current"
-            legend={intl.formatMessage({
-              defaultMessage: "Do you currently use this skill?",
-              id: "DYpwKZ",
-              description: "Description for the current skill radio group",
-            })}
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-            items={[
-              {
-                value: "yes",
-                label: intl.formatMessage({
-                  defaultMessage:
-                    "<strong>Yes</strong>, I use this skill in my current role",
-                  id: "QU2NLF",
-                  description: "Label for the current skill yes option",
-                }),
-              },
-              {
-                value: "no",
-                label: intl.formatMessage({
-                  defaultMessage:
-                    "<strong>No</strong>, this is a skill I have used in the past",
-                  id: "TVoXiS",
-                  description: "Label for the current skill no option",
-                }),
-              },
-            ]}
-          />
-        )}
+        <UserSkillFormFields isTechnical={isTechnical} />
       </div>
     </>
   );

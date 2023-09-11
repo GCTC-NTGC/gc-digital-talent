@@ -618,6 +618,14 @@ const UpdateSkillPage = React.lazy(() =>
       ),
   ),
 );
+const SkillLibraryPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsSkillLibraryPage" */ "../pages/Skills/SkillLibraryPage"
+      ),
+  ),
+);
 const UpdateUserSkillPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -817,6 +825,17 @@ const createRoute = (
                     {
                       path: "skills",
                       children: [
+                        {
+                          index: true,
+                          element: featureFlags.skillLibrary ? (
+                            <RequireAuth
+                              roles={[ROLE_NAME.Applicant]}
+                              loginPath={loginPath}
+                            >
+                              <SkillLibraryPage />
+                            </RequireAuth>
+                          ) : null,
+                        },
                         {
                           path: ":skillId",
                           element: featureFlags.skillLibrary ? (
