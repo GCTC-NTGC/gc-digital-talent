@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
-import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
-import ArrowDownCircleIcon from "@heroicons/react/24/solid/ArrowDownCircleIcon";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import ShieldCheckIcon from "@heroicons/react/24/outline/ShieldCheckIcon";
@@ -25,6 +23,7 @@ import mfaStep1Image from "~/assets/img/sign-up-mfa-step-1.jpg";
 import mfaStep2Image from "~/assets/img/sign-up-mfa-step-2.jpg";
 import mfaStep3Image from "~/assets/img/sign-up-mfa-step-3.jpg";
 import mfaStep4Image from "~/assets/img/sign-up-mfa-step-4.jpg";
+import Instructions from "~/components/Instructions";
 
 const buildLink = (path: string, chunks: React.ReactNode) => (
   <Link href={path}>{chunks}</Link>
@@ -35,55 +34,6 @@ const buildExternalLink = (path: string, chunks: React.ReactNode) => (
     {chunks}
   </Link>
 );
-
-export interface StepProps {
-  image: string;
-  includeArrow?: boolean;
-  children: React.ReactNode;
-}
-
-const Step = ({ image, includeArrow = true, children }: StepProps) => {
-  return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-flex-item="base(1of1) p-tablet(1of4)"
-    >
-      <div data-h2-display="base(flex)" data-h2-flex-direction="base(row)">
-        {image && <img src={image} alt="" />}
-        {includeArrow && (
-          <ArrowRightCircleIcon
-            data-h2-display="base(none) p-tablet(block)"
-            data-h2-vertical-align="base(middle)"
-            data-h2-color="base(black.lighter)"
-            data-h2-height="base(auto)"
-            data-h2-width="base(x1.5)"
-            data-h2-overflow="base(visible)"
-            data-h2-padding-left="base(x0.5)"
-          />
-        )}
-      </div>
-      <div
-        data-h2-flex-grow="base(1)"
-        data-h2-flex="base(1)"
-        data-h2-text-indent="base(-1em)"
-        data-h2-padding-left="base(1em)"
-      >
-        {children}
-      </div>
-      {includeArrow && (
-        <ArrowDownCircleIcon
-          data-h2-display="base(block) p-tablet(none)"
-          data-h2-color="base(black.lighter)"
-          data-h2-height="base(auto)"
-          data-h2-width="base(x1.5)"
-          data-h2-margin="base(auto)"
-          data-h2-padding="base(x0.5, 0)"
-        />
-      )}
-    </div>
-  );
-};
 
 const SignUpPage = () => {
   const intl = useIntl();
@@ -140,7 +90,11 @@ const SignUpPage = () => {
                   "Heading at the top of the sign up page for applicant profiles",
               })}
             </Heading>
-            <ul data-h2-margin="base(x1, 0, x1, -x.75)">
+            <ul
+              data-h2-margin="base(x1, 0, x1, 0)"
+              data-h2-padding-left="base(x.25)"
+              data-h2-list-style="base(inside)"
+            >
               <li data-h2-margin-top="base(x.25)">
                 {intl.formatMessage({
                   defaultMessage:
@@ -213,40 +167,40 @@ const SignUpPage = () => {
                   "Subtitle for a section explaining the create steps",
               })}
             </Heading>
-            <div data-h2-flex-grid="base(flex-start, x2, x2)">
-              <Step image={createStep1Image}>
+            <Instructions.List>
+              <Instructions.Step image={createStep1Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "1. Select <strong>sign up</strong> on the welcome page. This is <strong>located after the sign in</strong> section. ",
                   id: "+rZvoD",
                   description: "Text for first sign up -> create step.",
                 })}
-              </Step>
-              <Step image={createStep2Image}>
+              </Instructions.Step>
+              <Instructions.Step image={createStep2Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "2. Create a username and password. Don’t forget to <strong>save your username</strong> separately from your <strong>email address</strong>.",
                   id: "Jp/oeD",
                   description: "Text for second sign up -> create step.",
                 })}
-              </Step>
-              <Step image={createStep3Image}>
+              </Instructions.Step>
+              <Instructions.Step image={createStep3Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "3. Complete your <strong>recovery questions</strong>. You are required to use a memorable <strong>person</strong> and <strong>date</strong>.",
                   id: "3GkMHE",
                   description: "Text for third sign up -> create step.",
                 })}
-              </Step>
-              <Step image={createStep4Image} includeArrow={false}>
+              </Instructions.Step>
+              <Instructions.Step image={createStep4Image} includeArrow={false}>
                 {intl.formatMessage({
                   defaultMessage:
                     "4. Complete the email verification process. <strong>A unique one time code</strong> will be emailed to you to enter into GCKey.",
                   id: "LbtstO",
                   description: "Text for fourth sign up -> create step.",
                 })}
-              </Step>
-            </div>
+              </Instructions.Step>
+            </Instructions.List>
             <Heading
               Icon={ShieldCheckIcon}
               color="quaternary"
@@ -300,40 +254,40 @@ const SignUpPage = () => {
                 description: "Subtitle for a section explaining setting up mfa",
               })}
             </Heading>
-            <div data-h2-flex-grid="base(flex-start, x2, x2)">
-              <Step image={mfaStep1Image}>
+            <Instructions.List>
+              <Instructions.Step image={mfaStep1Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "1. <strong>Prepare your device</strong> by downloading your preferred two-factor authentication app.",
                   id: "D6f8hs",
                   description: "Text for first sign up -> mfa step.",
                 })}
-              </Step>
-              <Step image={mfaStep2Image}>
+              </Instructions.Step>
+              <Instructions.Step image={mfaStep2Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "2. <strong>Scan the QR code</strong> or <strong>enter your secret code</strong> using your two-factor authenticator app.",
                   id: "mVqKm+",
                   description: "Text for second sign up -> mfa step.",
                 })}
-              </Step>
-              <Step image={mfaStep3Image}>
+              </Instructions.Step>
+              <Instructions.Step image={mfaStep3Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "3. <strong>Enter</strong> the code generated <strong>from your authenticator app</strong> into the verification bar.",
                   id: "W5vrNy",
                   description: "Text for third sign up -> mfa step.",
                 })}
-              </Step>
-              <Step image={mfaStep4Image} includeArrow={false}>
+              </Instructions.Step>
+              <Instructions.Step image={mfaStep4Image} includeArrow={false}>
                 {intl.formatMessage({
                   defaultMessage:
                     "4. Hooray! You’ve completed your GCKey account and will be <strong>returned to the GC Digital Talent platform</strong>.",
                   id: "d0EUOF",
                   description: "Text for fourth sign up -> mfa step.",
                 })}
-              </Step>
-            </div>
+              </Instructions.Step>
+            </Instructions.List>
             <Heading
               Icon={InformationCircleIcon}
               color="error"
@@ -418,7 +372,7 @@ const SignUpPage = () => {
                         "Second answer of the Frequently Asked Questions for sign up, contact info",
                     })}
                   </p>
-                  <p>
+                  <p data-h2-margin-top="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage: "Canada and the United States",
                       id: "11HdYI",
@@ -431,10 +385,11 @@ const SignUpPage = () => {
                     external
                     href="tel:1-855-438-1102"
                     aria-label="1 8 5 5 4 3 8 1 1 0 2"
+                    data-h2-margin-top="base(x0.5)"
                   >
                     1-855-438-1102
                   </Link>
-                  <p>
+                  <p data-h2-margin-top="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage: "Text Telephone (TTY/TDD)",
                       id: "s2OefW",
@@ -447,10 +402,11 @@ const SignUpPage = () => {
                     external
                     href="tel:1-855-438-1103"
                     aria-label="1 8 5 5 4 3 8 1 1 0 3"
+                    data-h2-margin-top="base(x0.5)"
                   >
                     1-855-438-1103
                   </Link>
-                  <p>
+                  <p data-h2-margin-top="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage: "Outside Canada and the United States",
                       id: "aVILlG",
@@ -463,10 +419,11 @@ const SignUpPage = () => {
                     external
                     href="tel:1-800-2318-6290"
                     aria-label="1 8 0 0 2 3 1 8 6 2 9 0"
+                    data-h2-margin-top="base(x0.5)"
                   >
                     1-800-2318-6290
                   </Link>
-                  <p>
+                  <p data-h2-margin-top="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Customer Service Representatives are available to assist you by phone, year round, 24 hours a day, 7 days a week.",
@@ -687,7 +644,7 @@ const SignUpPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion.Root>
-            <p>
+            <p data-h2-margin-top="base(x1)">
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -775,6 +732,7 @@ const SignUpPage = () => {
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-align-items="base(center)"
           data-h2-justify-content="base(space-between)"
+          data-h2-gap="base(x1)"
         >
           <p>
             <Link href={loginPath} mode="inline" external>
