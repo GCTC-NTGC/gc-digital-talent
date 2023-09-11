@@ -12,13 +12,13 @@ import { useTheme } from "@gc-digital-talent/theme";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
-import Step from "~/components/Steps/Steps";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import step1Image from "~/assets/img/sign-in-steps-1.jpg";
 import step2Image from "~/assets/img/sign-in-steps-2.jpg";
 import step3Image from "~/assets/img/sign-in-steps-3.jpg";
 import step4Image from "~/assets/img/sign-in-steps-4.jpg";
+import Instructions from "~/components/Instructions";
 
 const buildExternalLink = (path: string, chunks: React.ReactNode) => (
   <Link external href={path}>
@@ -124,40 +124,40 @@ const SignInPage = () => {
                 description: "Subtitle for a section explaining sign in steps",
               })}
             </Heading>
-            <div data-h2-flex-grid="base(flex-start, x2, x2)">
-              <Step image={step1Image}>
+            <Instructions.List>
+              <Instructions.Step image={step1Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "1. Sign in with your username and password. Remember, <strong>your username is separate from your email address</strong>.",
                   id: "oR+6vE",
                   description: "Text for first sign in step.",
                 })}
-              </Step>
-              <Step image={step2Image}>
+              </Instructions.Step>
+              <Instructions.Step image={step2Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "2. <strong>Open the authenticator app</strong> on your device.",
                   id: "QuHfUJ",
                   description: "Text for second sign in step.",
                 })}
-              </Step>
-              <Step image={step3Image}>
+              </Instructions.Step>
+              <Instructions.Step image={step3Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "3. Enter your <strong>unique one-time six-digit code</strong> from your <strong>authenticator app</strong> into the verification bar.",
                   id: "oacrTu",
                   description: "Text for third sign in step.",
                 })}
-              </Step>
-              <Step image={step4Image} includeArrow={false}>
+              </Instructions.Step>
+              <Instructions.Step image={step4Image} includeArrow={false}>
                 {intl.formatMessage({
                   defaultMessage:
                     "4. Hooray! <strong>You've signed in with GCKey</strong> and will be returned to the <strong>GC Digital Talent platform</strong>.",
                   id: "eO9buR",
                   description: "Text for final sign in step.",
                 })}
-              </Step>
-            </div>
+              </Instructions.Step>
+            </Instructions.List>
             <Heading
               Icon={InformationCircleIcon}
               color="error"

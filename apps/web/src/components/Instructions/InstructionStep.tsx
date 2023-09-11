@@ -2,15 +2,19 @@ import React from "react";
 import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ArrowDownCircleIcon from "@heroicons/react/24/solid/ArrowDownCircleIcon";
 
-interface StepProps {
+export interface InstructionStepProps {
   image: string;
   includeArrow?: boolean;
   children: React.ReactNode;
 }
 
-const Step = ({ image, includeArrow = true, children }: StepProps) => {
+export const InstructionStep = ({
+  image,
+  includeArrow = true,
+  children,
+}: InstructionStepProps) => {
   return (
-    <div
+    <li
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-flex-item="base(1of1) p-tablet(1of4)"
@@ -47,8 +51,6 @@ const Step = ({ image, includeArrow = true, children }: StepProps) => {
           data-h2-padding="base(x0.5, 0)"
         />
       )}
-    </div>
+    </li>
   );
 };
-
-export default Step;

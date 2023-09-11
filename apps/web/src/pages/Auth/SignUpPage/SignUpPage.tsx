@@ -13,7 +13,6 @@ import { useTheme } from "@gc-digital-talent/theme";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
-import Step from "~/components/Steps/Steps";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import createStep1Image from "~/assets/img/sign-up-create-step-1.jpg";
@@ -24,6 +23,7 @@ import mfaStep1Image from "~/assets/img/sign-up-mfa-step-1.jpg";
 import mfaStep2Image from "~/assets/img/sign-up-mfa-step-2.jpg";
 import mfaStep3Image from "~/assets/img/sign-up-mfa-step-3.jpg";
 import mfaStep4Image from "~/assets/img/sign-up-mfa-step-4.jpg";
+import Instructions from "~/components/Instructions";
 
 const buildLink = (path: string, chunks: React.ReactNode) => (
   <Link href={path}>{chunks}</Link>
@@ -167,40 +167,40 @@ const SignUpPage = () => {
                   "Subtitle for a section explaining the create steps",
               })}
             </Heading>
-            <div data-h2-flex-grid="base(flex-start, x2, x2)">
-              <Step image={createStep1Image}>
+            <Instructions.List>
+              <Instructions.Step image={createStep1Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "1. Select <strong>sign up</strong> on the welcome page. This is <strong>located after the sign in</strong> section. ",
                   id: "+rZvoD",
                   description: "Text for first sign up -> create step.",
                 })}
-              </Step>
-              <Step image={createStep2Image}>
+              </Instructions.Step>
+              <Instructions.Step image={createStep2Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "2. Create a username and password. Don’t forget to <strong>save your username</strong> separately from your <strong>email address</strong>.",
                   id: "Jp/oeD",
                   description: "Text for second sign up -> create step.",
                 })}
-              </Step>
-              <Step image={createStep3Image}>
+              </Instructions.Step>
+              <Instructions.Step image={createStep3Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "3. Complete your <strong>recovery questions</strong>. You are required to use a memorable <strong>person</strong> and <strong>date</strong>.",
                   id: "3GkMHE",
                   description: "Text for third sign up -> create step.",
                 })}
-              </Step>
-              <Step image={createStep4Image} includeArrow={false}>
+              </Instructions.Step>
+              <Instructions.Step image={createStep4Image} includeArrow={false}>
                 {intl.formatMessage({
                   defaultMessage:
                     "4. Complete the email verification process. <strong>A unique one time code</strong> will be emailed to you to enter into GCKey.",
                   id: "LbtstO",
                   description: "Text for fourth sign up -> create step.",
                 })}
-              </Step>
-            </div>
+              </Instructions.Step>
+            </Instructions.List>
             <Heading
               Icon={ShieldCheckIcon}
               color="quaternary"
@@ -254,40 +254,40 @@ const SignUpPage = () => {
                 description: "Subtitle for a section explaining setting up mfa",
               })}
             </Heading>
-            <div data-h2-flex-grid="base(flex-start, x2, x2)">
-              <Step image={mfaStep1Image}>
+            <Instructions.List>
+              <Instructions.Step image={mfaStep1Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "1. <strong>Prepare your device</strong> by downloading your preferred two-factor authentication app.",
                   id: "D6f8hs",
                   description: "Text for first sign up -> mfa step.",
                 })}
-              </Step>
-              <Step image={mfaStep2Image}>
+              </Instructions.Step>
+              <Instructions.Step image={mfaStep2Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "2. <strong>Scan the QR code</strong> or <strong>enter your secret code</strong> using your two-factor authenticator app.",
                   id: "mVqKm+",
                   description: "Text for second sign up -> mfa step.",
                 })}
-              </Step>
-              <Step image={mfaStep3Image}>
+              </Instructions.Step>
+              <Instructions.Step image={mfaStep3Image}>
                 {intl.formatMessage({
                   defaultMessage:
                     "3. <strong>Enter</strong> the code generated <strong>from your authenticator app</strong> into the verification bar.",
                   id: "W5vrNy",
                   description: "Text for third sign up -> mfa step.",
                 })}
-              </Step>
-              <Step image={mfaStep4Image} includeArrow={false}>
+              </Instructions.Step>
+              <Instructions.Step image={mfaStep4Image} includeArrow={false}>
                 {intl.formatMessage({
                   defaultMessage:
                     "4. Hooray! You’ve completed your GCKey account and will be <strong>returned to the GC Digital Talent platform</strong>.",
                   id: "d0EUOF",
                   description: "Text for fourth sign up -> mfa step.",
                 })}
-              </Step>
-            </div>
+              </Instructions.Step>
+            </Instructions.List>
             <Heading
               Icon={InformationCircleIcon}
               color="error"
