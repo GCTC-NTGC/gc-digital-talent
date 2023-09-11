@@ -372,7 +372,7 @@ const SignUpPage = () => {
                         "Second answer of the Frequently Asked Questions for sign up, contact info",
                     })}
                   </p>
-                  <p>
+                  <p data-h2-margin-top="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage: "Canada and the United States",
                       id: "11HdYI",
@@ -385,10 +385,11 @@ const SignUpPage = () => {
                     external
                     href="tel:1-855-438-1102"
                     aria-label="1 8 5 5 4 3 8 1 1 0 2"
+                    data-h2-margin-top="base(x0.5)"
                   >
                     1-855-438-1102
                   </Link>
-                  <p>
+                  <p data-h2-margin-top="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage: "Text Telephone (TTY/TDD)",
                       id: "s2OefW",
@@ -401,10 +402,11 @@ const SignUpPage = () => {
                     external
                     href="tel:1-855-438-1103"
                     aria-label="1 8 5 5 4 3 8 1 1 0 3"
+                    data-h2-margin-top="base(x0.5)"
                   >
                     1-855-438-1103
                   </Link>
-                  <p>
+                  <p data-h2-margin-top="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage: "Outside Canada and the United States",
                       id: "aVILlG",
@@ -417,10 +419,11 @@ const SignUpPage = () => {
                     external
                     href="tel:1-800-2318-6290"
                     aria-label="1 8 0 0 2 3 1 8 6 2 9 0"
+                    data-h2-margin-top="base(x0.5)"
                   >
                     1-800-2318-6290
                   </Link>
-                  <p>
+                  <p data-h2-margin-top="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Customer Service Representatives are available to assist you by phone, year round, 24 hours a day, 7 days a week.",
@@ -641,7 +644,7 @@ const SignUpPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion.Root>
-            <p>
+            <p data-h2-margin-top="base(x1)">
               {intl.formatMessage(
                 {
                   defaultMessage:

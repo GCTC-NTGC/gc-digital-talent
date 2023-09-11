@@ -321,7 +321,7 @@ const SignInPage = () => {
                         "Fourth answer of the Frequently Asked Questions for logging in - paragraph 1",
                     })}
                   </p>
-                  <p>
+                  <p data-h2-margin-top="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage:
                         "If you're unsure whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
@@ -395,7 +395,7 @@ const SignInPage = () => {
                         "Sixth answer of the Frequently Asked Questions for logging in - intro sentence",
                     })}
                   </p>
-                  <p>
+                  <p data-h2-margin-top="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage: "Canada and the United States",
                       id: "8NNqcv",
@@ -403,8 +403,16 @@ const SignInPage = () => {
                         "Sixth answer of the Frequently Asked Questions for logging in - valid area for phone number",
                     })}
                   </p>
-                  <p>1-855-438-1102</p>
-                  <p>
+                  <Link
+                    color="black"
+                    external
+                    href="tel:1-855-438-1102"
+                    aria-label="1 8 5 5 4 3 8 1 1 0 2"
+                    data-h2-margin-top="base(x0.5)"
+                  >
+                    1-855-438-1102
+                  </Link>
+                  <p data-h2-margin-top="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage: "Text Telephone (TTY/TDD)",
                       id: "g1MMTj",
@@ -412,8 +420,16 @@ const SignInPage = () => {
                         "Sixth answer of the Frequently Asked Questions for logging in - second way to 'contact us'",
                     })}
                   </p>
-                  <p>1-855-438-1103</p>
-                  <p>
+                  <Link
+                    color="black"
+                    external
+                    href="tel:1-855-438-1103"
+                    aria-label="1 8 5 5 4 3 8 1 1 0 3"
+                    data-h2-margin-top="base(x0.5)"
+                  >
+                    1-855-438-1103
+                  </Link>
+                  <p data-h2-margin-top="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage: "Outside Canada and the United States",
                       id: "ConlR5",
@@ -421,8 +437,16 @@ const SignInPage = () => {
                         "Sixth answer of the Frequently Asked Questions for logging in - valid area for phone number",
                     })}
                   </p>
-                  <p>1-800-2318-6290</p>
-                  <p>
+                  <Link
+                    color="black"
+                    external
+                    href="tel:1-800-2318-6290"
+                    aria-label="1 8 0 0 2 3 1 8 6 2 9 0"
+                    data-h2-margin-top="base(x0.5)"
+                  >
+                    1-800-2318-6290
+                  </Link>
+                  <p data-h2-margin-top="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Customer Service Representatives are available to assist you by phone, year round, 24 hours a day, 7 days a week.",
@@ -498,7 +522,7 @@ const SignInPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion.Root>
-            <p>
+            <p data-h2-margin-top="base(x1)">
               {intl.formatMessage(
                 {
                   defaultMessage:
