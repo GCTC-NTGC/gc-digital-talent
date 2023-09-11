@@ -89,10 +89,10 @@ const PersonnelRequirementFieldset = ({
   const handleSkillDialogSave = (
     values: SkillDialogFormValues,
   ): Promise<void> => {
-    if (values.skill && values.level) {
+    if (values.skill && values.skillLevel) {
       const newEntry: SkillRequirementFormValues = {
         skillId: values.skill,
-        level: values.level,
+        level: values.skillLevel,
       };
       setValue(`${fieldsetName}.skillRequirements`, [
         ...(selectedSkillRequirements ?? []),
@@ -191,7 +191,7 @@ const PersonnelRequirementFieldset = ({
                   }}
                   initialState={{
                     skill: requirement.skillId,
-                    level: stringToEnum(SkillLevel, requirement.level),
+                    skillLevel: stringToEnum(SkillLevel, requirement.level),
                     category: selectedSkillModel?.category,
                     family: selectedSkillFamilyModel?.id,
                   }}
