@@ -93,8 +93,8 @@ const UserProfilePrintButton = ({
             </DropdownMenu.RadioItem>
             <DropdownMenu.RadioItem value="anonymous">
               {intl.formatMessage({
-                defaultMessage: "Print with unidentified information",
-                id: "LPusEn",
+                defaultMessage: "Print without contact information",
+                id: "c795MO",
                 description: "Button label for print user anonymous profile.",
               })}
             </DropdownMenu.RadioItem>
