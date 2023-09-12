@@ -39,7 +39,7 @@ const ManageLink = ({ asButton = false }: ManageLinkProps) => {
       {...(asButton
         ? {
             mode: "solid",
-            block: true,
+            block: false,
             icon: PencilSquareIcon,
           }
         : { mode: "inline" })}
@@ -158,7 +158,7 @@ export const SkillShowcase = ({
                 <TableOfContents.Heading
                   icon={BoltIcon}
                   color="quaternary"
-                  data-h2-margin="base(0)"
+                  data-h2-margin="base(x2 0 x1 0)"
                 >
                   {sections.topSkills.title}
                 </TableOfContents.Heading>

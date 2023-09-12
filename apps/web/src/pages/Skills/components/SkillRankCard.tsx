@@ -9,7 +9,7 @@ import {
   Separator,
   Well,
 } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   getBehaviouralSkillLevel,
   getTechnicalSkillLevel,
@@ -56,7 +56,15 @@ const SkillRankListItem = ({
           >
             {intl.formatMessage(levelGetter(skillLevel))}
           </span>
-        ) : null}
+        ) : (
+          <span
+            data-h2-font-size="base(caption, calc(var(--h2-line-height-body) + .4))"
+            data-h2-color="base(black.light)"
+            data-h2-flex-shrink="base(0)"
+          >
+            {intl.formatMessage(commonMessages.unspecified)}
+          </span>
+        )}
       </span>
     </li>
   );
