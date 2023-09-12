@@ -23,7 +23,7 @@ import { useDigitalServicesContractingQuestionnairePageDataQuery } from "~/api/g
 
 import { pageTitle as directiveHomePageTitle } from "../../DirectivePage/DirectivePage";
 import { getSectionTitle, PAGE_SECTION_ID } from "./navigation";
-import { IdNamePair } from "./types";
+import { IdNamePair } from "../types";
 import InstructionsSection from "./sections/InstructionsSection";
 import PreambleSection from "./sections/PreambleSection";
 import QuestionnaireSection from "./sections/QuestionnaireSection";

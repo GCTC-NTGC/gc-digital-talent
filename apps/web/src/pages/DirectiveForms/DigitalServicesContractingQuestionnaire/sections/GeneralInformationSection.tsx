@@ -18,7 +18,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 
-import { IdNamePair } from "../types";
+import { IdNamePair } from "../../types";
 import {
   buildExternalLink,
   enumToOptions,

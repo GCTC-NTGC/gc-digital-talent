@@ -7,7 +7,7 @@ import { Submit } from "@gc-digital-talent/forms";
 import { Skill } from "@gc-digital-talent/graphql";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
-import { IdNamePair } from "../types";
+import { IdNamePair } from "../../types";
 import GeneralInformationSection from "./GeneralInformationSection";
 import ScopeOfContractSection from "./ScopeOfContractSection";
 import RequirementsSection from "./RequirementsSection";
