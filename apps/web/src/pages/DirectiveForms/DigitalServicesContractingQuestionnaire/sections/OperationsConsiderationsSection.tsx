@@ -136,7 +136,7 @@ const OperationsConsiderationsSection = () => {
           </ul>
         </div>
         <RadioGroup
-          legend={labels.hasTechnologicalChangeFactors}
+          legend={labels.hasOperationsConsiderations}
           id="hasOperationsConsiderations"
           name="hasOperationsConsiderations"
           idPrefix="hasOperationsConsiderations"

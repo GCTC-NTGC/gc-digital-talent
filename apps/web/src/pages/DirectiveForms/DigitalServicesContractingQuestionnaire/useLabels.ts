@@ -429,17 +429,24 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
     }),
 
     // Operations considerations
+    hasOperationsConsiderations: intl.formatMessage({
+      defaultMessage:
+        "Do any of the following factors have influence on the decision to contract?",
+      id: "7UGwQj",
+      description:
+        "Label for _has operations considerations_ fieldset in the _digital services contracting questionnaire_",
+    }),
     operationsConsiderations: intl.formatMessage({
       defaultMessage: "Influencing factors",
-      id: "1J3/aR",
+      id: "kqHzeD",
       description:
-        "Label for _influencing factors_ fieldset in the _digital services contracting questionnaire_",
+        "Label for _operations considerations_ fieldset in the _digital services contracting questionnaire_",
     }),
     operationsConsiderationsOther: intl.formatMessage({
       defaultMessage: "Please specify the factor",
-      id: "omVUgU",
+      id: "1MtuHa",
       description:
-        "Label for _other influencing factors_ fieldset in the _digital services contracting questionnaire_",
+        "Label for _other operations considerations_ fieldset in the _digital services contracting questionnaire_",
     }),
 
     // Talent sourcing decision
