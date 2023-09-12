@@ -9,10 +9,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import { buildExternalLink } from "../util";
 
-const getLabels = (
-  intl: IntlShape,
-  paths: ReturnType<typeof useRoutes>,
-): FieldLabels => {
+const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
   return {
     // Preamble section
     readPreamble: intl.formatMessage({
@@ -255,8 +252,9 @@ const getLabels = (
         "Label for _solicitation procedure_ fieldset in the _digital services contracting questionnaire_",
     }),
     subjectToTradeAgreement: intl.formatMessage({
-      defaultMessage: "This contract is subject to trade agreement",
-      id: "wbLfq4",
+      defaultMessage:
+        "Select whether this contract is subject to trade agreements",
+      id: "1FO10/",
       description:
         "Label for _trade agreement_ fieldset in the _digital services contracting questionnaire_",
     }),
@@ -516,14 +514,14 @@ const getLabels = (
       description:
         "Label for _OCIO engaged for training_ fieldset in the _digital services contracting questionnaire_",
     }),
-  };
+  } as const;
 };
 
 const useLabels = () => {
   const intl = useIntl();
   const paths = useRoutes();
-
-  return getLabels(intl, paths);
+  const labels = getLabels(intl, paths) satisfies FieldLabels;
+  return labels;
 };
 
 export default useLabels;

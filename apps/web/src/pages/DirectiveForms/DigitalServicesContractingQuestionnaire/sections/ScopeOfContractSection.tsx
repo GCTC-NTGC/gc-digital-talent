@@ -40,6 +40,7 @@ import {
   yesNoUnsureSortOrder,
 } from "../../localizedConstants";
 import useLabels from "../useLabels";
+import CompoundQuestion from "../../CompoundQuestion";
 
 const ScopeOfContractSection = () => {
   const intl = useIntl();
@@ -335,29 +336,39 @@ const ScopeOfContractSection = () => {
             };
           })}
         />
-        <RadioGroup
-          legend={labels.subjectToTradeAgreement}
-          id="subjectToTradeAgreement"
-          name="subjectToTradeAgreement"
-          idPrefix="subjectToTradeAgreement"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          items={enumToOptions(YesNoUnsure, yesNoUnsureSortOrder).map(
-            (option) => {
-              return {
-                value: option.value as string,
-                label: intl.formatMessage(getYesNoUnsure(option.value)),
-              };
-            },
-          )}
-          context={intl.formatMessage({
-            defaultMessage:
-              "For example, North American Free Trade Agreement (NAFTA) or U.S. – Mexico – Canada Agreement (USMCA).",
-            id: "t9Gb89",
+        <CompoundQuestion
+          title={intl.formatMessage({
+            defaultMessage: "Trade agreement information",
+            id: "ekDavD",
             description:
-              "Context for _trade agreement_ fieldset in the _digital services contracting questionnaire_",
+              "Title for _trade agreement_ fieldset in the _digital services contracting questionnaire_",
           })}
+          introduction={intl.formatMessage({
+            defaultMessage:
+              "Is this contract subject to trade agreements such as the North American Free Trade Agreement (NAFTA) or U.S. – Mexico – Canada Agreement (USMCA)?",
+            id: "lGUfLc",
+            description:
+              "Introduction for _trade agreement_ fieldset in the _digital services contracting questionnaire_",
+          })}
+          inputElement={
+            <RadioGroup
+              legend={labels.subjectToTradeAgreement}
+              id="subjectToTradeAgreement"
+              name="subjectToTradeAgreement"
+              idPrefix="subjectToTradeAgreement"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(YesNoUnsure, yesNoUnsureSortOrder).map(
+                (option) => {
+                  return {
+                    value: option.value as string,
+                    label: intl.formatMessage(getYesNoUnsure(option.value)),
+                  };
+                },
+              )}
+            />
+          }
         />
       </div>
     </TableOfContents.Section>
