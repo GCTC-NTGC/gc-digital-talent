@@ -254,6 +254,10 @@
     "defaultMessage": "Créer un bassin",
     "description": "Heading displayed above the Create Pool form."
   },
+  "/YaoWc": {
+    "defaultMessage": "Vos principales compétences",
+    "description": "Title for the top skills section of a users skill showcase"
+  },
   "/YiBdv": {
     "defaultMessage": "Numéro de ministère",
     "description": "Label displayed on the create a department form department number field."
@@ -480,6 +484,10 @@
   "0oqRIl": {
     "defaultMessage": "Nom (français)",
     "description": "Label displayed on the create a skill family form name (French) field."
+  },
+  "0ox2XB": {
+    "defaultMessage": "Compétences techniques",
+    "description": "Title for the technical skill rank card"
   },
   "0qKFaP": {
     "defaultMessage": "Ce bassin est actuellement en cours de publication et ouvert à la réception de nouvelles candidatures.",
@@ -779,6 +787,10 @@
   "2yXxyQ": {
     "defaultMessage": "« ... inclut les personnes dont le genre déclaré est celui de femme. Cela inclut les femmes cisgenres (cis) et les femmes transgenres (trans). »",
     "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
+  },
+  "2yvjfA": {
+    "defaultMessage": "Cette liste permet de mettre en évidence <strong>jusqu’à 10 compétences techniques</strong> qui donnent une image claire de votre ensemble de compétences. Montrez-nous ce que vous savez faire de mieux! »",
+    "description": "Description of a users top technical skills"
   },
   "3/YwR9": {
     "defaultMessage": "Si vous avez déjà un compte CléGC, vous pouvez vous connecter à votre profil Talent numérique du GC en utilisant votre CléGC, même si vous n'avez jamais utilisé cette plateforme auparavant.",
@@ -1634,6 +1646,10 @@
   "8V8WwR": {
     "defaultMessage": "Bassins additionnels",
     "description": "Label displayed on the additional pools field of the change candidate status dialog"
+  },
+  "8W/am2": {
+    "defaultMessage": "Cette liste vous permet de mettre en évidence <strong>jusqu’à 5 comportements ou compétences « générales »</strong> que vous maîtrisez. Montrez-nous qui vous êtes!",
+    "description": "Description of a users top behavioural skills"
   },
   "8XIYUA": {
     "defaultMessage": "Aucune compétence technique facultative n’est prise en compte pour poste.",
@@ -2507,6 +2523,10 @@
     "defaultMessage": "Lien copié!",
     "description": "Button text to be displayed after link was copied"
   },
+  "EB70Il": {
+    "defaultMessage": "Cette section vous permet de présenter les compétences dans lesquelles vous êtes le plus fort. Vous pouvez spécifier jusqu’à 5 compétences comportementales et jusqu’à 10 compétences techniques pour vous aider à créer une image complète de vos talents. Les compétences que vous présentez ici aident les recruteurs potentiels à mieux comprendre vos points forts et la manière dont vous pourriez répondre aux besoins de leur équipe",
+    "description": "Description of the top skills section and how to use it."
+  },
   "EBmWyo": {
     "defaultMessage": "Accueil",
     "description": "Link text for the home link in breadcrumbs."
@@ -2530,6 +2550,10 @@
   "ETrCOq": {
     "defaultMessage": "Statut du candidat",
     "description": "Title for admin editing a pool candidates status"
+  },
+  "EVkmeA": {
+    "defaultMessage": "Modifier les principales compétences comportementales",
+    "description": "Link text for editing a users top behavioural skills"
   },
   "EdUZaX": {
     "defaultMessage": "Candidats",
@@ -2602,6 +2626,10 @@
   "F4RHJu": {
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
+  },
+  "F6Rwd+": {
+    "defaultMessage": "Vitrine des compétences",
+    "description": "Title for the skill showcase page"
   },
   "F7RkOA": {
     "defaultMessage": "<strong>Pour commencer, nous vous demanderons de vérifier les renseignements de base de votre profil</strong>. Si vous n’avez pas encore créé votre profil, pas de problème! Vous pouvez ajouter tous les renseignements pertinents à l’étape suivante.",
@@ -3143,6 +3171,10 @@
     "defaultMessage": "« Identité autochtone désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35 (2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
     "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
   },
+  "Iw+DU/": {
+    "defaultMessage": "Modifier les compétences techniques pour améliorer",
+    "description": "Link text for editing a users technical skills to improve"
+  },
   "Ix0KgU": {
     "defaultMessage": "Conseiller principal ou Gestionnaire I T 4 (101 000 $ à 126 000 $)",
     "description": "IT-04 classification aria label including titles and salaries"
@@ -3198,6 +3230,10 @@
   "JUejJU": {
     "defaultMessage": "Le bureau de gestion de la collectivité du numérique souhaite vous aider à trouver le bon talent.",
     "description": "Text telling users that Digital Community Management can still help them"
+  },
+  "JWAyQT": {
+    "defaultMessage": "Le gouvernement du Canada offre parfois des possibilités de formation. Cette section vous permet de mettre en évidence <strong>jusqu’à 5 compétences techniques</strong> que vous souhaitez apprendre ou perfectionner",
+    "description": "Description of a users technical skills to be improved"
   },
   "JZk4NZ": {
     "defaultMessage": "{candidateCount, plural, one {Il y a environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères dans ce bassin.} other {Il y a environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères dans ce bassin.}}",
@@ -3693,6 +3729,10 @@
     "defaultMessage": "Veillez à fournir <strong>au moins une expérience de parcours professionnel</strong> pour chaque compétence requise, ainsi qu’une description concise des raisons pour lesquelles cette expérience met en évidence vos capacités dans cette compétence.",
     "description": "Instructions on requiring information for skills"
   },
+  "N6DlK/": {
+    "defaultMessage": "Modifier les compétences techniques de haut niveau",
+    "description": "Link text for editing a users top technical skills"
+  },
   "N6kGOU": {
     "defaultMessage": "Vous devez indiquer dans cette section vos connaissances linguistiques dans les deux langues officielles",
     "description": "Descriptive text explaining the language profile section of the application profile"
@@ -3800,6 +3840,10 @@
   "NwpZNj": {
     "defaultMessage": "<heavyPrimary>Publiée</heavyPrimary>",
     "description": "Status name of a pool in PUBLISHED status"
+  },
+  "NzbVyB": {
+    "defaultMessage": "Compétences comportementales",
+    "description": "Title for the behavioural skill rank card"
   },
   "O+Lj1u": {
     "defaultMessage": "Paramètres du compte et de confidentialité",
@@ -4307,6 +4351,10 @@
   "RalbOM": {
     "defaultMessage": "En plus de CléGC, vous devrez avoir configuré une application d’authentification à deux facteurs comme couche de sécurité supplémentaire. (Pour les détails, voir la section sur la configuration de l’authentification à deux facteurs)",
     "description": "A _what to expect_ point on the sign up page"
+  },
+  "RcMbGk": {
+    "defaultMessage": "Gérer toutes les compétences",
+    "description": "Link text to navigate from skill showcase to the skill library page"
   },
   "Re8emH": {
     "defaultMessage": "Ajouter <hidden>{title} </hidden>à mon profil",
@@ -5296,6 +5344,10 @@
     "defaultMessage": "Compte supprimé",
     "description": "Title for the page users land on if their account was deleted."
   },
+  "YV3EoS": {
+    "defaultMessage": "Modifier les compétences comportementales pour les améliorer",
+    "description": "Link text for editing a users behavioural skills to be improved"
+  },
   "YVhQ4t": {
     "defaultMessage": "Erreur : La suppression de l’expérience a échoué",
     "description": "Message displayed to user after experience fails to be deleted."
@@ -6108,6 +6160,10 @@
     "defaultMessage": "Les gestionnaires peuvent demander à consulter des candidats selon leur groupe d’équité en matière d’emploi afin de traiter de certaines lacunes actuelles ou futures par rapport à leur représentation dans le cadre des effectifs. Les catégories reflètent les données sur l’équité en matière d’emploi telles qu’elles sont définies par la Loi sur l’emploi dans la fonction publique, et qui sont recueillies par l’entremise du processus de dotation de la Commission de la fonction publique (CFP). À des fins d’uniformité, la présente plateforme reflète la terminologie de la CFP par rapport aux catégories.",
     "description": "Message describing the employment equity filter in the search form."
   },
+  "dnKWUf": {
+    "defaultMessage": "Ajouter des compétences à cette liste.",
+    "description": "Text displayed when no skills have been added to a ranking"
+  },
   "doatZI": {
     "defaultMessage": "Les conseillers techniques sont des travailleurs individuels qui fournissent des conseils et des recommandations afin d’appuyer la prestation de services.",
     "description": "Description for the 'IT-03 Advisor' classification, paragraph 2"
@@ -6572,6 +6628,10 @@
     "defaultMessage": "0 des 0",
     "description": "Title displayed on the candidate skill count column when no skills are selected."
   },
+  "gn1vl8": {
+    "defaultMessage": "Si vos compétences principales mettent en évidence vos points forts, cette section vous permet de nous donner un aperçu des compétences que vous vous efforcez d’améliorer. Les compétences énumérées ci-dessous ne doivent pas nécessairement être des faiblesses. Si vous souhaitez améliorer une compétence grâce à l’expérience ou à la formation, mentionnez-la ici.",
+    "description": "Description of the skills to improve section and how to use it."
+  },
   "gnGAe8": {
     "defaultMessage": "Niveau de classification actuel",
     "description": "Label displayed on classification level input"
@@ -6897,6 +6957,10 @@
   "igTx2a": {
     "defaultMessage": "Les candidatures pour le bassin de talents et les possibilités de recrutement en cours peuvent être gérées et suivies ici. Vous pourrez voir les dates limites de présentation des candidatures, le statut de votre candidature au fil du temps et les candidatures antérieures.",
     "description": "Description for the track applications section on the profile and applications, paragraph one."
+  },
+  "igcM7/": {
+    "defaultMessage": "Modifier",
+    "description": "Link text for editing a list of skill rankings"
   },
   "iiEGjW": {
     "defaultMessage": "Nous avons bien reçu votre message.",
@@ -7937,6 +8001,10 @@
     "defaultMessage": "Non",
     "description": "Message for when a value is false"
   },
+  "qBHA+W": {
+    "defaultMessage": "Cette liste vous permet de spécifier <strong>jusqu’à 3 compétences comportementales ou « générales »</strong> que vous vous efforcez activement de développer et d’améliorer grâce à votre expérience ou à des occasions de perfectionnement.",
+    "description": "Description of a users behavioural skills to improve"
+  },
   "qEvJjr": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
     "description": "Paragraph three for the self-declaration explanation dialog"
@@ -8271,6 +8339,10 @@
   "sfyaOe": {
     "defaultMessage": "De nouvelles possibilités d’emploi sont publiées tout au long de l’année. En créant votre profil dès maintenant, vous serez mieux préparé pour présenter une candidature solide le moment venu.",
     "description": "Message displayed when there are no executive opportunities available"
+  },
+  "sgaZcd": {
+    "defaultMessage": "Compétences que vous souhaitez améliorer",
+    "description": "Title for the skills to improve section of a users skill showcase"
   },
   "shwFSK": {
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>FRANÇAIS</strong>.",
@@ -8706,6 +8778,10 @@
   "w4SSBu": {
     "defaultMessage": "<strong>Le terme autochtone </strong>: désigne une personne reconnue comme membre « d’un des peuples autochtones du Canada » au sens de l’article 35 de la Loi constitutionnelle de 1982, qui stipule en outre qu’aux fins de la Constitution, les « peuples autochtones du Canada comprennent les Autochtones, les Inuits et les Métis du Canada ». Cette politique (conforme aux pratiques canadiennes générales) considère que le terme « Autochtones » dans la Constitution est désormais remplacé par le terme « Premières Nations ».",
     "description": "Content for the definition of Indigenous dialog"
+  },
+  "w5mV/m": {
+    "defaultMessage": "Rassemblez vos meilleures compétences et mettez en évidence celles que vous aimeriez améliorer",
+    "description": "Subtitle for the skill showcase page"
   },
   "w63YYp": {
     "defaultMessage": "Modification des préférences en matière de travail",
