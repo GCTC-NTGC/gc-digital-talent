@@ -63,10 +63,6 @@
     "defaultMessage": "Emplois dans le gouvernement numérique",
     "description": "Heading for the digital government job opportunities"
   },
-  "+clYLj": {
-    "defaultMessage": "Sélectionnez votre expérience de cette compétence",
-    "description": "Description for the skill level radio group"
-  },
   "+cn9MN": {
     "defaultMessage": "Les personnes qui se voient offrir des postes avec la possibilité de travailler à domicile doivent avoir un accès Internet adéquat pour le travail à distance.",
     "description": "IAP Requirement list item six"
@@ -118,6 +114,10 @@
   "+pgXHm": {
     "defaultMessage": "Créé",
     "description": "Title displayed for the User table Date Created column"
+  },
+  "+rZvoD": {
+    "defaultMessage": "1. Sélectionnez l’option d’<strong>inscription</strong> à partir de la page d’accueil. Elle <strong>se trouve après la section d’ouverture de séance</strong>.",
+    "description": "Text for first sign up -> create step."
   },
   "+s+emq": {
     "defaultMessage": "Nom d'utilisateur :",
@@ -242,6 +242,10 @@
     "defaultMessage": "Compétences",
     "description": "Title for skills"
   },
+  "/WLsRj": {
+    "defaultMessage": "Vous aurez besoin d’une application d’authentification.",
+    "description": "Subtitle for a section explaining mfa apps"
+  },
   "/WvEvL": {
     "defaultMessage": "Information relative au stage",
     "description": "Page title for the user placement information page"
@@ -285,6 +289,10 @@
   "/h9mNu": {
     "defaultMessage": "Avez-vous un droit de priorité?",
     "description": "Priority Entitlement Status in Government Info Form"
+  },
+  "/ldR5A": {
+    "defaultMessage": "{count, plural, =0 {0 expériences} =1 {1 expérience} other {# expériences}}",
+    "description": "Number of experiences linked to a skill"
   },
   "/mFrpj": {
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
@@ -337,6 +345,14 @@
     "defaultMessage": "Les compétences qui ne sont pas liées à cette demande seront dissimulées dans le cadre de l’évaluation initiale de votre demande, mais elles seront toujours visibles dans votre profil.",
     "description": "Text that appears during an application to explain skills appearing missing from their profile."
   },
+  "00tmhW": {
+    "defaultMessage": "Niveau de compétence",
+    "description": "Skill level column header for the skill library table"
+  },
+  "00tsn/": {
+    "defaultMessage": "Quelle application d’authentification devrais-je installer?",
+    "description": "Third of the Frequently Asked Questions for sign up"
+  },
   "044hi7": {
     "defaultMessage": "Copier le lien",
     "description": "Button text to copy a url"
@@ -388,10 +404,6 @@
   "0NbdGD": {
     "defaultMessage": "Erreur : Échec de la suppression de la compétence",
     "description": "Message displayed to user after skill fails to be deleted."
-  },
-  "0OLsay": {
-    "defaultMessage": "CléGC est un service qui vous permet de vous connecter à <a>de nombreux services gouvernementaux différents</a> avec un seul nom d’utilisateur et un seul mot de passe. Le bouton ci-dessous vous mènera au site Web de CléGC, où vous pourrez créer un compte si vous n’en avez pas encore un. Une fois que vous vous serez inscrit(e) à CléGC, vous reviendrez ici pour compléter votre profil.",
-    "description": "Instructions on how to register with GCKey paragraph 2- IAP variant"
   },
   "0PeEzR": {
     "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour le développer et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
@@ -481,6 +493,10 @@
     "defaultMessage": "Demande soumise",
     "description": "Link text for request confirmation breadcrumb"
   },
+  "1/LVZf": {
+    "defaultMessage": "Considérez l’ouverture de séance comme une porte de sécurité qui donne sur votre compte et qui ne peut être ouverte qu’avec une clé (votre mot de passe) et un code secret (provenant de votre application d’authentification à deux facteurs). Même si quelqu’un trouve ou copie votre clé, il ne pourra toujours pas entrer, car il n’a pas votre code secret.",
+    "description": "Copy explaining why to set up mfa"
+  },
   "1/Q9jX": {
     "defaultMessage": "Comment décrire au mieux une expérience professionnelle",
     "description": "Title for instructions on how to describe a skill"
@@ -488,6 +504,14 @@
   "114gjj": {
     "defaultMessage": "Préférences de lieux",
     "description": "CSV Header, Location Preferences column"
+  },
+  "11HdYI": {
+    "defaultMessage": "Le Canada et les États-Unis",
+    "description": "Second answer of the Frequently Asked Questions for sign up, contact info"
+  },
+  "13Cbkq": {
+    "defaultMessage": "Qui dois-je contacter si j'ai des questions sur la CléGC?",
+    "description": "Sixth of the Frequently Asked Questions for logging in"
   },
   "13fSK+": {
     "defaultMessage": "La date de soumission est dépassée",
@@ -520,6 +544,10 @@
   "1JCjTP": {
     "defaultMessage": "Aucun courriel fourni",
     "description": "Fallback for email value"
+  },
+  "1NliRt": {
+    "defaultMessage": "Une CléGC est une identité centrale qui n'est pas gérée par l'équipe des Talents numériques du GC. Le gouvernement du Canada l'offre comme moyen d'accéder, en toute sécurité, à de nombreux programmes et services gouvernementaux en ligne.",
+    "description": "Fifth answer of the Frequently Asked Questions for logging in"
   },
   "1PVIbX": {
     "defaultMessage": "Je consens à travailler dans...",
@@ -591,6 +619,10 @@
   "1q/MmU": {
     "defaultMessage": "À vous de découvrir",
     "description": "Heading for featured items on the homepage"
+  },
+  "1qLpE3": {
+    "defaultMessage": "Vous avez déjà un compte CléGC?",
+    "description": "Eighth of the Frequently Asked Questions for sign up"
   },
   "1sPszf": {
     "defaultMessage": "Emplacement actuel",
@@ -728,6 +760,10 @@
     "defaultMessage": "La mise à jour de l’équipe a été réussie!",
     "description": "Message displayed after a team is updated"
   },
+  "2oqp21": {
+    "defaultMessage": "Veuillez prendre note que le site des Talents numériques du GC ne sera pas accessible pour une période prévue de <strong>{duration} heure(s)</strong> le <strong>{startDate}</strong>. Nous nous excusons de tout contretemps.",
+    "description": "Description for a server maintenance banner."
+  },
   "2wmzS1": {
     "defaultMessage": "Nom",
     "description": "Title displayed for the Department table Name column."
@@ -743,6 +779,10 @@
   "2yXxyQ": {
     "defaultMessage": "« ... inclut les personnes dont le genre déclaré est celui de femme. Cela inclut les femmes cisgenres (cis) et les femmes transgenres (trans). »",
     "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
+  },
+  "3/YwR9": {
+    "defaultMessage": "Si vous avez déjà un compte CléGC, vous pouvez vous connecter à votre profil Talent numérique du GC en utilisant votre CléGC, même si vous n'avez jamais utilisé cette plateforme auparavant.",
+    "description": "Fourth answer of the Frequently Asked Questions for logging in - paragraph 1"
   },
   "3/lHSy": {
     "defaultMessage": "Courriel",
@@ -795,6 +835,10 @@
     "defaultMessage": "Développez des connaissances sur les données",
     "description": "Heading for the direct on digital talent section"
   },
+  "3GkMHE": {
+    "defaultMessage": "3. Remplissez vos <strong>questions de récupération</strong>. Vous devez utiliser une <strong>personne</strong> et <strong>une date mémorables</strong>.",
+    "description": "Text for third sign up -> create step."
+  },
   "3HJ51b": {
     "defaultMessage": "Femme",
     "description": "Text on view-user page that the user is a woman"
@@ -810,6 +854,10 @@
   "3JL02L": {
     "defaultMessage": "Décerné à :",
     "description": "The award was given to"
+  },
+  "3M1/4Y": {
+    "defaultMessage": "Vous avez parcouru toute la FAQ et vous êtes toujours bloqué(e)? <helpLink>Contactez notre équipe pour obtenir de l'aide</helpLink>",
+    "description": "Sentence following the Frequently Asked Questions about logging in"
   },
   "3OfvwW": {
     "defaultMessage": "Emplacement : Option à distance",
@@ -1131,6 +1179,10 @@
     "defaultMessage": "IT-04: Conseiller principal ou Gestionnaire (101 000 $ à 126 000 $)",
     "description": "IT-04 classification label including titles and salaries"
   },
+  "5Z/SAX": {
+    "defaultMessage": "Les compétences techniques désignent les connaissances et les capacités techniques associées à des postes ou des rôles précis au sein de l’organisation. Les compétences techniques sont habituellement acquises dans le cadre d’une formation ou d’une expérience de travail particulières où la personne met en application ses connaissances et compétences.",
+    "description": "Definition of technical skills"
+  },
   "5bdLGy": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the executive opportunities"
@@ -1178,6 +1230,10 @@
   "5lHi37": {
     "defaultMessage": "Communiquez avec nous<hidden> au sujet de l’expérience d’embauche</hidden>",
     "description": "Link text to email about the gaining hiring experience"
+  },
+  "5myYda": {
+    "defaultMessage": "Que faire si mes codes d'authentification ne sont plus acceptés?",
+    "description": "Third of the Frequently Asked Questions for logging in"
   },
   "5nlauT": {
     "defaultMessage": "Question filtre {index} : {question}",
@@ -1267,13 +1323,13 @@
     "defaultMessage": "Vous pouvez vous connecter à votre profil de Programme d'apprentissage en TI pour les personnes autochtones à l'aide de votre CléGC actuelle, même si vous n'avez jamais utilisé cette plateforme auparavant.",
     "description": "Instructions on how to sign in with GCKey - IAP variant"
   },
-  "6TKE1K": {
-    "defaultMessage": "Pour commencer à établir votre profil dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones, vous devez <strong>devez d’abord vous inscrire à la plateforme en utilisant CléGC</strong>.",
-    "description": "Instructions on how to register with GCKey - IAP variant"
-  },
   "6UVZOY": {
     "defaultMessage": "Laissez notre équipe vous épargner du temps et de l’énergie en associant vos besoins à des professionnels des <abbreviation>TI</abbreviation> préalablement sélectionnés et possédant les compétences requises pour le poste. Tous les talents de nos bassins de dotation ont été sélectionnés à l’issue d’un processus concurrentiel. Vous pouvez donc passer directement à l’entrevue et décider s’ils conviennent à votre équipe.",
     "description": "Summary for to go to the search page on Browse IT jobs page"
+  },
+  "6Uyhp2": {
+    "defaultMessage": "Vos compétences comportementales",
+    "description": "Title for the skill library behavioural skills section"
   },
   "6VyRZ/": {
     "defaultMessage": "Expériences personnelles",
@@ -1290,6 +1346,10 @@
   "6bvAQ+": {
     "defaultMessage": "Rétroaction et coordonnées",
     "description": "Title for the accessibility feedback section"
+  },
+  "6cFJ2w": {
+    "defaultMessage": "Cette section vous permet de gérer toutes les compétences techniques associées à votre profil, vos expériences et vos réalisations. Cliquez sur le nom d’une compétence pour obtenir une description détaillée.",
+    "description": "Description on how to use technical skills"
   },
   "6eA/CF": {
     "defaultMessage": "Langue :",
@@ -1354,10 +1414,6 @@
   "79m9jN": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Page title for the application success page"
-  },
-  "7CtKdX": {
-    "defaultMessage": "<strong>Vous avez déjà un compte CléGC?</strong> <a>Connectez-vous plutôt</a>.",
-    "description": "Instruction on what to do if user already has a GCKey"
   },
   "7DUfu+": {
     "defaultMessage": "Statut de citoyenneté",
@@ -1559,6 +1615,10 @@
     "defaultMessage": "<strong>Service de relais vidéo :</strong>La CCDP accepte les appels utilisant le service de relais vidéo effectués par l’intermédiaire de <relayServiceLink>SRV Canada</relayServiceLink>.",
     "description": "VRS contact info"
   },
+  "8NNqcv": {
+    "defaultMessage": "Canada et États-Unis",
+    "description": "Sixth answer of the Frequently Asked Questions for logging in - valid area for phone number"
+  },
   "8Otaw9": {
     "defaultMessage": "Ministère {departmentId} introuvable.",
     "description": "Message displayed for department not found."
@@ -1590,10 +1650,6 @@
   "8cRL8r": {
     "defaultMessage": "Durée permanente",
     "description": "Permanent duration only"
-  },
-  "8diKHR": {
-    "defaultMessage": "Si vous n’êtes pas sûr(e) d’avoir un compte CléGC existant, rendez-vous sur le site Web et essayez de vous connecter. Si vous ne vous souvenez pas de votre mot de passe, vous pouvez également le réinitialiser à cet endroit.",
-    "description": "Instructions on what to do if user doesn't know if they have a GCKey"
   },
   "8ea9ne": {
     "defaultMessage": "Niveau d’écriture",
@@ -1663,10 +1719,6 @@
     "defaultMessage": "Ce formulaire vous permet de modifier une expérience en particulier, ses détails et les compétences qui s’y rattachent. N’oubliez pas que dans vos expériences de travail, vous devez décrire vos expériences de travail à temps partiel, de travail à temps plein, de travailleur autonome, de travail en tant que boursier, de travail au sein d’un organisme sans but lucratif ou de stagiaire.",
     "description": "Instructions on how to add an experience to your career timeline"
   },
-  "9LwRRx": {
-    "defaultMessage": "Responsable",
-    "description": "Label for the lead skill level"
-  },
   "9LyLWf": {
     "defaultMessage": "la conformité avec les Règles d’accessibilité pour les outils d’édition <atagLink>(ATAG) 2.0</atagLink>",
     "description": "List item two, things developers consider for accessibility"
@@ -1710,10 +1762,6 @@
   "9Vzxgu": {
     "defaultMessage": "Services d’orientation",
     "description": "Button text to open section describing referrals services"
-  },
-  "9XSqNG": {
-    "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique du GC en utilisant votre CléGC, même si vous n’avez jamais utilisé cette plateforme auparavant.",
-    "description": "Instructions on how to sign in with GCKey"
   },
   "9YuUR/": {
     "defaultMessage": "Ajouter une expérience à votre parcours professionnel",
@@ -1779,6 +1827,10 @@
     "defaultMessage": "Demande de renseignements",
     "description": "Heading for the request information section of the single search request view."
   },
+  "ACa+rP": {
+    "defaultMessage": "Vous avez déjà un compte CléGC?",
+    "description": "Fourth of the Frequently Asked Questions for logging in"
+  },
   "AFuhfl": {
     "defaultMessage": "Aucune compétence technique obligatoire n’est prise en compte pour ce poste.",
     "description": "Message displayed when a pool advertisement has no required technical skills"
@@ -1830,6 +1882,10 @@
   "AUOq9D": {
     "defaultMessage": "Nom",
     "description": "Title displayed for the team members table Name column."
+  },
+  "AUtIo9": {
+    "defaultMessage": "Foire aux questions (FAQ)",
+    "description": "Heading for Frequently Asked Questions section on sign in page"
   },
   "AWiMVP": {
     "defaultMessage": "Contactez-nous",
@@ -2003,10 +2059,6 @@
     "defaultMessage": "Cette base de données sur les talents est ouverte à la plupart des ministères et organismes. Les candidats de la base de données varient, soit de ceux qui débutent leur carrière, aux professionnels chevronnés qui comptent plusieurs années d’expérience de travail. Il existe de multiples processus de recrutement en cours, ce qui veut donc dire qu’on ajoute de nouveaux candidats chaque semaine.",
     "description": "Content displayed in the About area of the hero section of the Search page."
   },
-  "BXR24h": {
-    "defaultMessage": "Profils des candidats",
-    "description": "Document title for printing Pool Candidate table results"
-  },
   "BYGKiT": {
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title of the 'Employment equity' section of the view-user page"
@@ -2026,6 +2078,10 @@
   "BdsZwe": {
     "defaultMessage": "Candidature formulée le cv",
     "description": "Label for showing the submitted date of an application."
+  },
+  "BfrCXV": {
+    "defaultMessage": "Attendez-vous à passer environ 20 minutes à configurer la CléGC et l’application d’authentification.",
+    "description": "A _what to expect_ point on the sign up page"
   },
   "Bg1Pga": {
     "defaultMessage": "Cela permettra de rendre ce bassin au public. Tous les utilisateurs associés à ce bassin pourront le voir dans les informations de leur profil.",
@@ -2075,6 +2131,14 @@
     "defaultMessage": "Ce volet comprend le développement et la maintenance de modèles de données, la conception de bases de données, la planification des capacités, la gestion des performances et la garantie de l’intégrité des données.",
     "description": "Title for the 'database management' IT work stream"
   },
+  "ByposT": {
+    "defaultMessage": "Le gouvernement du Canada ne peut pas recommander de fournisseurs ou d’applications de tiers en particulier. Des fournisseurs numériques bien connus, comme Google Authenticator et Microsoft Authenticator, offrent des applications d’authentification. Quelle que soit l’application que vous choisissez, veillez à ce qu’elle provienne d’un fournisseur réputé.",
+    "description": "Third answer of the Frequently Asked Questions for sign up"
+  },
+  "BzKGyK": {
+    "defaultMessage": "Langue de communication",
+    "description": "Label for communication language"
+  },
   "BzaGwp": {
     "defaultMessage": "Texte anglais sur l’incidence",
     "description": "Title for English pool advertisement impact"
@@ -2090,6 +2154,10 @@
   "C0ABZu": {
     "defaultMessage": "Statut",
     "description": "CSV Header, Status column"
+  },
+  "C1wuXs": {
+    "defaultMessage": "Cette section vous permet de gérer toutes les compétences comportementales associées à votre profil, vos expériences et vos réalisations. Cliquez sur le nom d’une compétence pour obtenir une description détaillée.",
+    "description": "Description on how to use behavioural skills"
   },
   "C6YPk3": {
     "defaultMessage": "Postulez maintenant",
@@ -2126,6 +2194,10 @@
   "CH6FQA": {
     "defaultMessage": "Supprimer la demande<hidden> ({name})</hidden>",
     "description": "Link text to delete a specific application"
+  },
+  "CIkGjy": {
+    "defaultMessage": "Actuellement, notre site ne prend en charge que l'authentification par l'entremise d'une application d'authentification.",
+    "description": "Eighth answer of the Frequently Asked Questions for logging in"
   },
   "CJy0kS": {
     "defaultMessage": "Compétences constituant un atout",
@@ -2219,6 +2291,10 @@
     "defaultMessage": "Informations sur le bassin",
     "description": "Title for the pool info page"
   },
+  "ClrNAj": {
+    "defaultMessage": "Puis-je utiliser l'authentification par texto ou par courriel au lieu d'une application?",
+    "description": "Eighth of the Frequently Asked Questions for logging in"
+  },
   "Cn73yN": {
     "defaultMessage": "Sélectionnez les rôles",
     "description": "Placeholder text for role selection input"
@@ -2230,6 +2306,10 @@
   "CoUFQ5": {
     "defaultMessage": "Notes mises à jour pour le candidat dans le {poolName}",
     "description": "Toast notification for successful update of candidates notes in specified pool"
+  },
+  "ConlR5": {
+    "defaultMessage": "À l'extérieur du Canada et des États-Unis",
+    "description": "Sixth answer of the Frequently Asked Questions for logging in - valid area for phone number"
   },
   "Cq+1U7": {
     "defaultMessage": "Ce volet comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.",
@@ -2258,6 +2338,10 @@
   "D6HIId": {
     "defaultMessage": "Modifier<hidden> le bassin</hidden>",
     "description": "Edit pool breadcrumb text"
+  },
+  "D6f8hs": {
+    "defaultMessage": "1. <strong>Préparez votre appareil</strong> en téléchargeant votre application d’authentification à deux facteurs préférée.",
+    "description": "Text for first sign up -> mfa step."
   },
   "D753gS": {
     "defaultMessage": "Modifier",
@@ -2291,6 +2375,10 @@
     "defaultMessage": "Compte créé avec succès.",
     "description": "Message displayed to user if account is created successfully."
   },
+  "DL/hpF": {
+    "defaultMessage": "En tant que gouvernement du Canada, nous ne pouvons pas recommander d'applications ou de fournisseurs tiers précis. Des fournisseurs en matière de numérique bien connus, comme Google Authenticator et Microsoft Authenticator, proposent des applica3tions d'authentification. Quelle que soit l'application choisie, veillez à ce qu'elle provienne d'un fournisseur fiable.",
+    "description": "Seventh answer of the Frequently Asked Questions for logging in"
+  },
   "DMdCkf": {
     "defaultMessage": "Emplacement actuel :",
     "description": "Display text for the current location field on users"
@@ -2310,10 +2398,6 @@
   "DXtgrn": {
     "defaultMessage": "Révisez votre candidature et envoyez-la",
     "description": "Link text for the application review page."
-  },
-  "DYpwKZ": {
-    "defaultMessage": "Utilisez-vous actuellement cette compétence?",
-    "description": "Description for the current skill radio group"
   },
   "DZ775N": {
     "defaultMessage": "Expérience ajoutée avec succès!",
@@ -2346,6 +2430,10 @@
   "DlBusi": {
     "defaultMessage": "Nom de famille",
     "description": "CSV Header, Last Name column"
+  },
+  "Dqsq+M": {
+    "defaultMessage": "Pour vous inscrire (ou vous authentifier) à Talents numériques du GC, vous devez utiliser CléGC.",
+    "description": "A _what to expect_ point on the sign up page"
   },
   "DsUtfO": {
     "defaultMessage": "Mise en œuvre de 573 entretiens personnalisés de gestion et d’accompagnement de carrière avec des candidats à l’emploi et des cadres au cours de l’exercice financier de 2022-2023.",
@@ -2435,6 +2523,10 @@
     "defaultMessage": "Le processus de demande repose sur la collecte et l’examen des renseignements de manière linéaire. Par conséquent, il n’est pas encore possible de passer à cette étape. La dernière étape sur laquelle vous travailliez est mise en surbrillance dans la zone des étapes de la page, ou vous pouvez utiliser le bouton fourni pour y accéder directement.",
     "description": "Application step skipped page details"
   },
+  "ERDq0Q": {
+    "defaultMessage": "Ajouter, modifier ou gérer des compétences comportementales et techniques dans votre profil.",
+    "description": "Page description for the skill library page"
+  },
   "ETrCOq": {
     "defaultMessage": "Statut du candidat",
     "description": "Title for admin editing a pool candidates status"
@@ -2466,6 +2558,10 @@
   "EnvwAC": {
     "defaultMessage": "Téléphone :",
     "description": "Display text for the phone number field on users"
+  },
+  "EqHa4y": {
+    "defaultMessage": "Pouvez-vous enlever l’authentification à deux facteurs de mon compte afin que je puisse le réinitialiser?",
+    "description": "Sixth of the Frequently Asked Questions for sign up"
   },
   "Ewa83p": {
     "defaultMessage": "Les compétences suivantes sont essentielles à ce rôle et doivent être évidentes dans le cadre de votre demande.",
@@ -2639,6 +2735,10 @@
     "defaultMessage": "Accueil",
     "description": "Link to the Homepage in the nav menu."
   },
+  "G1bgOX": {
+    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs de votre compte, mais vous pouvez contacter notre <helpLink>service d'assistance</helpLink> , qui pourra vous aider à récupérer l'accès à votre compte.",
+    "description": "First answer of the Frequently Asked Questions for logging in"
+  },
   "G1jegJ": {
     "defaultMessage": "Veuillez remplir toutes les zones obligatoires avant de continuer",
     "description": "Error message displayed when user attempts to submit incomplete profile"
@@ -2791,6 +2891,10 @@
   "GwbTAz": {
     "defaultMessage": "Volets"
   },
+  "GxBGcz": {
+    "defaultMessage": "Vos compétences techniques ",
+    "description": "Title for the skill library technical skills section"
+  },
   "H/aUwM": {
     "defaultMessage": "Vous êtes un cadre supérieur de la collectivité du numérique du GC et vous êtes à la recherche de talents, contactez notre équipe afin d’obtenir des recommandations, une liste de candidats préqualifiés ainsi que leurs profils.",
     "description": "Description for the digital government executive talent search"
@@ -2798,6 +2902,10 @@
   "H02JZe": {
     "defaultMessage": "Courriel",
     "description": "CSV Header, Email column"
+  },
+  "H0RLNn": {
+    "defaultMessage": "Maintenance du serveur prevue",
+    "description": "Heading for a server maintenance banner."
   },
   "H1wLfA": {
     "defaultMessage": "Sélectionnez une province ou un territoire",
@@ -2855,6 +2963,10 @@
     "defaultMessage": "Nom",
     "description": "Title displayed for the Classification table Name column."
   },
+  "HUy0EA": {
+    "defaultMessage": "Langue de l'entrevue de vive voix",
+    "description": "Label for spoken interview language"
+  },
   "HYSPug": {
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes en anglais.",
     "description": "English Positions message"
@@ -2886,6 +2998,10 @@
   "HocLRh": {
     "defaultMessage": "Nom du bassin",
     "description": "Title displayed for the Pool table pool name column."
+  },
+  "HqQzy1": {
+    "defaultMessage": "Les représentants du service à la clientèle sont disponibles pour vous aider par téléphone, tout au long de l'année, 24 heures sur 24 et 7 jours sur 7.",
+    "description": "Sixth answer of the Frequently Asked Questions for logging in - final sentence"
   },
   "HrRgTT": {
     "defaultMessage": "Veuillez sélectionner une compétence pour continuer.",
@@ -3091,6 +3207,10 @@
     "defaultMessage": "Premières Nations non inscrites",
     "description": "The indigenous community for non-status First Nations"
   },
+  "Jd/ZvJ": {
+    "defaultMessage": "Que se passe-t-il si j’ai supprimé l’application ou que j’ai changé de téléphone et je n’ai pas les codes de récupération?",
+    "description": "Fourth of the Frequently Asked Questions for sign up"
+  },
   "Jdlnz6": {
     "defaultMessage": "ᓀᐦᐃᔭᐍᐏᐣ nēhiyawēwin (Cris des Plaines)",
     "description": "Name of Plains Cree language"
@@ -3119,6 +3239,10 @@
     "defaultMessage": "Vous êtes sur le point de modifier la date d'expiration pour cet utilisateur :",
     "description": "First section of text on the change candidate expiry date dialog"
   },
+  "Jp/oeD": {
+    "defaultMessage": "2. Créez un nom d’utilisateur et un mot de passe. N’oubliez pas d’ <strong>enregistrer votre nom d’utilisateur</strong> à part de votre <strong>adresse de courriel</strong>.",
+    "description": "Text for second sign up -> create step."
+  },
   "Jp0Beg": {
     "defaultMessage": "Archiver ce bassin ",
     "description": "Button to archive the pool in the archive pool dialog"
@@ -3130,10 +3254,6 @@
   "JxVREd": {
     "defaultMessage": "Familles",
     "description": "Label displayed on the skill form families field."
-  },
-  "JzK3m/": {
-    "defaultMessage": "Intermédiaire",
-    "description": "Label for the intermediate skill level"
   },
   "K+F5H7": {
     "defaultMessage": "Lieux de travail",
@@ -3281,6 +3401,10 @@
     "defaultMessage": "Gestionnaires et conseillers principaux (<abbreviation>TI-04</abbreviation>)",
     "description": "Title for the 'IT-04 Manager' classification"
   },
+  "KpR9l5": {
+    "defaultMessage": "Bien que vos identifiants ne puissent être récupérés, vous pouvez contacter notre<helpLink>service d'assistance</helpLink>, qui pourra vous aider à récupérer l'accès à votre compte.",
+    "description": "First answer of the Frequently Asked Questions for logging in"
+  },
   "KqAp09": {
     "defaultMessage": "Poursuivre l’ébauche de votre demande pour le poste {applicationTitle}",
     "description": "Link text to apply for a pool advertisement"
@@ -3380,6 +3504,10 @@
   "LazN9T": {
     "defaultMessage": "Toutes les compétences suivantes sont facultativement bénéfiques pour le rôle, et leur démonstration pourrait vous être bénéfique lorsqu’elles sont envisagées.",
     "description": "Instructions on  optional skills for a pool advertisement"
+  },
+  "LbtstO": {
+    "defaultMessage": "4. Suivez le processus de vérification de l’adresse de courriel. <strong>Un code unique</strong> vous sera envoyé par courriel et vous devrez le saisir dans la CléGC.",
+    "description": "Text for fourth sign up -> create step."
   },
   "LccTZJ": {
     "defaultMessage": "Compétences essentielles (exigence)",
@@ -3540,6 +3668,10 @@
   "Mz61q/": {
     "defaultMessage": "Chercher un nouveau membre à partir de la liste des gestionnaires approuvés.",
     "description": "Help text for user field on the add member to team form"
+  },
+  "N+rELF": {
+    "defaultMessage": "Une CléGC est un justificatif centralisé qui n’est pas géré par l’équipe des Talents numériques du GC. Le gouvernement du Canada l’offre pour vous permettre de communiquer de façon sécurisée avec de nombreux programmes et services gouvernementaux en ligne.",
+    "description": "First answer of the Frequently Asked Questions for sign up"
   },
   "N/Vcp3": {
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
@@ -3744,10 +3876,6 @@
     "defaultMessage": "Statut",
     "description": "Label displayed on Education form for status input"
   },
-  "OT0QP3": {
-    "defaultMessage": "Annuler",
-    "description": "Link text to cancel logging in and return to talent search home."
-  },
   "OUXmYd": {
     "defaultMessage": "Vos réponses seront évaluées dans le cadre de votre candidature, alors assurez-vous de donner à chaque question le temps et la réflexion nécessaires pour une réponse qui vous représente vraiment, vous et votre expérience.",
     "description": "Application step for screening questions, introduction description, paragraph two"
@@ -3775,6 +3903,10 @@
   "OaaW6Y": {
     "defaultMessage": "Montrer les options d'équité offertes ({optionCount})",
     "description": "Heading for opening the accordion with available employment equity options."
+  },
+  "Oajyw/": {
+    "defaultMessage": "À l’heure actuelle, notre site ne prend en charge que l’authentification faite au moyen d’une application d’authentification.",
+    "description": "Fifth answer of the Frequently Asked Questions for sign up"
   },
   "OcIvN1": {
     "defaultMessage": "Une fois le programme terminé, on espère que les apprentis envisageront de rester au gouvernement du Canada.",
@@ -4020,6 +4152,10 @@
     "defaultMessage": "Sélectionnez un volet",
     "description": "Placeholder for stream filter in search form."
   },
+  "QNMqSh": {
+    "defaultMessage": "Étapes pour se connecter avec une CléGC et compléter l'authentification à deux facteurs",
+    "description": "Subtitle for a section explaining sign in steps"
+  },
   "QOvS1b": {
     "defaultMessage": "Numéro de ministère",
     "description": "Title displayed for the Department table Department # column."
@@ -4031,10 +4167,6 @@
   "QSTaWO": {
     "defaultMessage": "Solutions logicielles de la TI",
     "description": "Label for the 'software solutions' IT work stream"
-  },
-  "QU2NLF": {
-    "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel",
-    "description": "Label for the current skill yes option"
   },
   "QVWGaL": {
     "defaultMessage": "Formulaire d’octroi de contrat de services numériques",
@@ -4072,6 +4204,10 @@
     "defaultMessage": "Menu Principal",
     "description": "Label for the main menu on the pool manager admin portal."
   },
+  "QjO3Y0": {
+    "defaultMessage": "Ville",
+    "description": "Label for city and province/territory"
+  },
   "QjOom4": {
     "defaultMessage": "Je ne suis pas identifié comme membre d'un groupe d'équité en matière d'emploi.",
     "description": "Message on Admin side when user not filled DiversityEquityInclusion section."
@@ -4108,13 +4244,13 @@
     "defaultMessage": "Statut",
     "description": "Title for status"
   },
+  "QuHfUJ": {
+    "defaultMessage": "2. <strong>Ouvrez l'application d'authentification</strong> sur votre appareil.",
+    "description": "Text for second sign in step."
+  },
   "QuLbBU": {
     "defaultMessage": "Expériences mettant en avant cette compétence",
     "description": "Title for the experience section of the user skill page"
-  },
-  "R+Zm3X": {
-    "defaultMessage": "Imprimer le profil",
-    "description": "Text for button to print a user profile"
   },
   "R1BcTP": {
     "defaultMessage": "Rechercher{column}",
@@ -4127,6 +4263,10 @@
   "R2sSy9": {
     "defaultMessage": "Révisé",
     "description": "Title displayed for the User table Date Updated column"
+  },
+  "R4Z9FQ": {
+    "defaultMessage": "Les compétences comportementales désignent les principales qualités interpersonnelles et personnelles nécessaires pour occuper des emplois précis au sein de l’organisation. Ces compétences se rapportent généralement à la façon dont une personne agit, communique et interagit avec les autres.",
+    "description": "Definition of behavioural skills"
   },
   "R75HsV": {
     "defaultMessage": "Aidez-nous à vous apparier avec les meilleurs candidats en partageant de plus amples renseignements avec notre équipe sur les compétences particulières dont vous recherchez.",
@@ -4164,6 +4304,10 @@
     "defaultMessage": "Erreur : la fermeture du bassin a échoué",
     "description": "Message displayed to user after pool fails to get deleted."
   },
+  "RalbOM": {
+    "defaultMessage": "En plus de CléGC, vous devrez avoir configuré une application d’authentification à deux facteurs comme couche de sécurité supplémentaire. (Pour les détails, voir la section sur la configuration de l’authentification à deux facteurs)",
+    "description": "A _what to expect_ point on the sign up page"
+  },
   "Re8emH": {
     "defaultMessage": "Ajouter <hidden>{title} </hidden>à mon profil",
     "description": "Text label for button to add employment equity category to profile."
@@ -4175,6 +4319,10 @@
   "RggAL8": {
     "defaultMessage": "Modifiez vos options concernant la diversité, l’équité et l’inclusion",
     "description": "Link text to edit diversity, equity and inclusion information on profile."
+  },
+  "RjYGPw": {
+    "defaultMessage": "Chercher une compétence",
+    "description": "Label for the skill library table search input"
   },
   "Rl+0Er": {
     "defaultMessage": "Afficher les candidats",
@@ -4396,13 +4544,13 @@
     "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats au niveau débutant pour des occasions d’apprentissage et de perfectionnement en matière de TI au sein du gouvernement.",
     "description": "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage"
   },
-  "TVoXiS": {
-    "defaultMessage": "<strong>Non</strong>, ce n’est pas une compétence que j’ai déjà utilisée",
-    "description": "Label for the current skill no option"
-  },
   "TXl1qY": {
     "defaultMessage": "Gestionnaire",
     "description": "Title for manager full name"
+  },
+  "TY7KLv": {
+    "defaultMessage": "Vous avez lu la FAQ et vous ne savez toujours pas quoi faire? <link>Communiquez avec notre équipe pour obtenir de l’aide</link>",
+    "description": "Seventh answer of the Frequently Asked Questions for sign up"
   },
   "Tdr8r5": {
     "defaultMessage": "Quelques questions sur le sujet",
@@ -4576,13 +4724,13 @@
     "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> (CCDP) traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
     "description": "Description of complaints to the Canadian Human Rights Commission"
   },
+  "UpwY5+": {
+    "defaultMessage": "Pour vous aider, nous avons préparé d’autres conseils dans la prochaine section.",
+    "description": "A _what to expect_ point on the sign up page"
+  },
   "UrsGGK": {
     "defaultMessage": "{areaOfStudy} à {institution}",
     "description": "Study at institution"
-  },
-  "UsFTGT": {
-    "defaultMessage": "Télécharger les profils",
-    "description": "Text label for button to print items in a table."
   },
   "UvKDXK": {
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
@@ -4708,6 +4856,10 @@
     "defaultMessage": "Erreur : Échec de la création du ministère",
     "description": "Message displayed to user after department fails to get created."
   },
+  "Val79M": {
+    "defaultMessage": "Pouvez-vous supprimer l'authentification à deux facteurs de mon compte pour que je puisse le réinitialiser?",
+    "description": "Second of the Frequently Asked Questions for logging in"
+  },
   "Vbt/G1": {
     "defaultMessage": "Il y a une exigence linguistique manquante",
     "description": "Title that appears when a user is missing a language requirement."
@@ -4812,6 +4964,10 @@
     "defaultMessage": "Cet utilisateur n'est encore dans aucun bassin",
     "description": "Message on view-user page that the user is not in any pools"
   },
+  "W5vrNy": {
+    "defaultMessage": "3. <strong>Saisissez</strong> le code généré <strong>par votre application d’authentification</strong> dans la barre de vérification.",
+    "description": "Text for third sign up -> mfa step."
+  },
   "W6Jh6N": {
     "defaultMessage": "Retirer cette compétence<hidden> : {skillName}</hidden>",
     "description": "Button label to remove the adjacent skill on skill result block."
@@ -4839,6 +4995,10 @@
   "WFhX9m": {
     "defaultMessage": "{skillsCount} des {filteredSkillsTotal}",
     "description": "Title displayed on the candidate skill count column."
+  },
+  "WJM32F": {
+    "defaultMessage": "Avec qui puis-je communiquer si j’ai des questions au sujet de CléGC?",
+    "description": "Second of the Frequently Asked Questions for sign up"
   },
   "WJSVBr": {
     "defaultMessage": "Copier l’identification de votre demande {title}",
@@ -4895,6 +5055,10 @@
   "Wmuizf": {
     "defaultMessage": "Langue préférée pour l'entretien parlé :",
     "description": "Display text for the preferred spoken interview language field on users"
+  },
+  "Wnid+N": {
+    "defaultMessage": "Connexion à votre compte",
+    "description": "Heading for section of the sign in page showing the sign in steps"
   },
   "WoAuKA": {
     "defaultMessage": "Mettre à jour une compétence",
@@ -5028,6 +5192,10 @@
     "defaultMessage": "Nous aimerions savoir ci-dessous si vous êtes déjà un(e) employé(e) du gouvernement du Canada. Nous recueillons ces renseignements parce qu'ils nous aident à comprendre, au niveau global, comment les compétences numériques sont réparties entre les ministères.",
     "description": "First message before is a government of canada radio group in create account form."
   },
+  "XkA6s1": {
+    "defaultMessage": "CléGC est un justificatif du gouvernement du Canada qui vous permet d’effectuer de façon sécurisée des transactions en ligne avec divers programmes et services gouvernementaux.",
+    "description": "A _what to expect_ point on the sign up page"
+  },
   "XlmRZH": {
     "defaultMessage": "S'enregistrer",
     "description": "Message displayed to users to sign up for an account"
@@ -5055,6 +5223,10 @@
   "Xpo+u6": {
     "defaultMessage": "Compétences utiles",
     "description": "Title for the optional skills snapshot section"
+  },
+  "XqF3wS": {
+    "defaultMessage": "Coordonnées",
+    "description": "Profile section title for contact information"
   },
   "XrfkBm": {
     "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
@@ -5136,6 +5308,10 @@
     "defaultMessage": "Si vous décidez d’ajouter cette compétence à votre profil ultérieurement :",
     "description": "Lead-in text to points of concern when deleting a skill on how to re-add it"
   },
+  "YWxGL/": {
+    "defaultMessage": "Quelle application d'authentification dois-je installer?",
+    "description": "Seventh of the Frequently Asked Questions for logging in"
+  },
   "YbkM7u": {
     "defaultMessage": "Architecture intégrée de la TI",
     "description": "Label for the 'enterprise architecture' IT work stream"
@@ -5155,6 +5331,10 @@
   "Yh/4po": {
     "defaultMessage": "Rétablir la recherche",
     "description": "Button text to reset search field on tables"
+  },
+  "Yh1Y7Z": {
+    "defaultMessage": "Examen de langue écrit",
+    "description": "Label for written exam language"
   },
   "Yhd/hk": {
     "defaultMessage": "Aucune expérience trouvée.",
@@ -5178,6 +5358,10 @@
   "YqWNkT": {
     "defaultMessage": "n'importe quelle durée (court terme, long terme, période indéterminée).",
     "description": "Label displayed on Work Preferences form for any duration option"
+  },
+  "Yr0nVZ": {
+    "defaultMessage": "Imprimer le profil",
+    "description": "Text label for button to print items in a table"
   },
   "Ysf8wI": {
     "defaultMessage": "Modification des renseignements gouvernementaux",
@@ -5335,6 +5519,10 @@
     "defaultMessage": "IT-01: Technicien(ne) (60 000 $ à 78 000 $)",
     "description": "IT-01 classification label including titles and salaries"
   },
+  "ZwvgeK": {
+    "defaultMessage": "Veuillez communiquer avec notre <link>Service de dépannage</link>, qui pourra vous aider à récupérer votre compte.",
+    "description": "Seventh answer of the Frequently Asked Questions for sign up"
+  },
   "Zzd/sJ": {
     "defaultMessage": "Dans ce champ, veuillez inclure tous les détails et qualifications supplémentaires que vous recherchez auprès des candidats, comme les langages de programmation, les certifications, les connaissances ou un lieu de travail particulier.",
     "description": "Blurb before additional comments textarea in the request form."
@@ -5417,6 +5605,10 @@
     "defaultMessage": "Que signifie {classification} {genericTitle}?",
     "description": "Title for description of a pool advertisements classification group/level"
   },
+  "aVILlG": {
+    "defaultMessage": "À l’extérieur du Canada et des États-Unis",
+    "description": "Second answer of the Frequently Asked Questions for sign up, contact info"
+  },
   "aVp6q7": {
     "defaultMessage": "Consultez la CléGC",
     "description": "Link text for visiting the GCKey website"
@@ -5460,6 +5652,10 @@
   "amxWPg": {
     "defaultMessage": "Votre numéro de suivi pour cette demande est : <strong>{requestId}</strong>",
     "description": "Message to the user about the ID of their request for referencing the request"
+  },
+  "aqkSW2": {
+    "defaultMessage": "Inscrivez-vous plutôt",
+    "description": "Link text to register instead of signing in"
   },
   "at11n5": {
     "defaultMessage": "Êtes-vous sûr de vouloir sélectionner : « Je suis autochtone, mais je ne trouve pas ma communauté ici? »",
@@ -5648,6 +5844,10 @@
     "defaultMessage": "Modifier les options de votre expérience.",
     "description": "Link text to edit experience information on profile."
   },
+  "c795MO": {
+    "defaultMessage": "Imprimer sans coordonnées",
+    "description": "Button label for print user anonymous profile."
+  },
   "c7At4h": {
     "defaultMessage": "Langue parlée préférée pour l'entretien :",
     "description": "Preferred Language for interviews label and colon"
@@ -5732,6 +5932,10 @@
     "defaultMessage": "Type d’expérience",
     "description": "Label for the type of experience a user is creating"
   },
+  "ci1JMn": {
+    "defaultMessage": "À titre de rappel, vous allez quitter notre site pour vous connecter avec une CléGC. Si vous éprouvez des problèmes, nous avons quelques conseils supplémentaires pour vous.",
+    "description": "Instructions on what to do if user doesn't know if they have a GCKey"
+  },
   "cktAfD": {
     "defaultMessage": "Planification et établissement de rapports",
     "description": "Heading for the directives planning and reporting component"
@@ -5755,6 +5959,10 @@
   "d03yTk": {
     "defaultMessage": "Bienvenue à votre profil de talent numérique et à votre page de candidature",
     "description": "Title for notification that a draft IAP application was saved"
+  },
+  "d0EUOF": {
+    "defaultMessage": "4. Hourra! Vous avez terminé de configurer votre compte CléGC et serez <strong>ramené à la plateforme Talents numériques du GC</strong>.",
+    "description": "Text for fourth sign up -> mfa step."
   },
   "d3HIMV": {
     "defaultMessage": "Renseignez-vous sur CléGC et trouvez des liens vers des renseignements sur les comptes.",
@@ -5835,6 +6043,10 @@
   "dYBwCh": {
     "defaultMessage": "Erreur : la fermeture du bassin a échoué",
     "description": "Message displayed to user after pool fails to get closed."
+  },
+  "db3ZDX": {
+    "defaultMessage": "Bon retour!",
+    "description": "Heading at the top of the sign in page for applicant profiles"
   },
   "dc5TeX": {
     "defaultMessage": "Modifier - bassin",
@@ -5920,10 +6132,6 @@
     "defaultMessage": "{count} candidats répondent à vos critères.",
     "description": "Message announced to assistive technology users when the estimated candidate count changes."
   },
-  "dwspOv": {
-    "defaultMessage": "Gérer <a1>votre profil</a1>, <a2>votre parcours professionnel et vos compétences</a2>, et <a3>faire le suivi de vos candidatures</a3>.",
-    "description": "Subtitle for profile and applications hero"
-  },
   "dxv7Jx": {
     "defaultMessage": "Nous utilisons ce filtre pour apparier les candidats qui expriment de l’intérêt pour un niveau de classification, ou certains salaires prévus dans ces classifications.",
     "description": "Message describing the classification filter of the search form."
@@ -5931,6 +6139,10 @@
   "e/nr9L": {
     "defaultMessage": "Rôles et structures numériques des cadres",
     "description": "Heading for the directives digital executive roles and structures component"
+  },
+  "e1KnGs": {
+    "defaultMessage": "Que puis-je faire si mes codes d’authentification ne sont plus acceptés?",
+    "description": "Seventh of the Frequently Asked Questions for sign up"
   },
   "e2qUId": {
     "defaultMessage": "Processus exécuté par {team} à {departments}",
@@ -5996,6 +6208,10 @@
     "defaultMessage": "Langue de communication préférée",
     "description": "Title displayed on the Pool Candidates table Preferred Communication Language column."
   },
+  "eO9buR": {
+    "defaultMessage": "4. Félicitations! <strong>Vous vous êtes connecté avec une CléGC</strong> et vous serez redirigé vers la <strong>plateforme de talents numériques du GC</strong>.",
+    "description": "Text for final sign in step."
+  },
   "eP8dfW": {
     "defaultMessage": "Afficher l’utilisateur",
     "description": "Title for the user information page"
@@ -6023,6 +6239,10 @@
   "eZYP/W": {
     "defaultMessage": "Gérer votre parcours professionnel",
     "description": "Titles for a page section to manage your career timeline"
+  },
+  "eamuiH": {
+    "defaultMessage": "Configuration de votre application d’authentification à deux facteurs",
+    "description": "Subtitle for a section explaining setting up mfa"
   },
   "eeWkWi": {
     "defaultMessage": "{totalCandidateCount, plural, =0 {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{totalCandidateCount}</testId> candidat correspondant à vos critères} other {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères}}",
@@ -6184,6 +6404,10 @@
     "defaultMessage": "Courriel",
     "description": "Label for user table search dropdown (email)."
   },
+  "foidJi": {
+    "defaultMessage": "Bien que votre identifiant ne puisse pas être récupéré, vous pouvez communiquer avec notre <link>Service de dépannage</link>, qui pourra vous aider à récupérer votre compte.",
+    "description": "Fourth answer of the Frequently Asked Questions for sign up"
+  },
   "fpdcE/": {
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez lancer un processus d’acquisition de talents numériques, en particulier si vous envisagez d’établir un contrat parce que vous avez du mal à trouver les bons talents à embaucher. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
     "description": "Description for the digital Services contracting form"
@@ -6243,6 +6467,10 @@
   "g1++nq": {
     "defaultMessage": "Adresse de courriel personnelle",
     "description": "Label for email field"
+  },
+  "g1MMTj": {
+    "defaultMessage": "Envoyez un texto par téléphone (TTY/ATS)",
+    "description": "Sixth answer of the Frequently Asked Questions for logging in - second way to 'contact us'"
   },
   "g5JeNf": {
     "defaultMessage": "Poursuivre ma demande",
@@ -6388,6 +6616,10 @@
     "defaultMessage": "Commencez l'affiche d'emploi vide",
     "description": "Form header to create new pool"
   },
+  "gw/WSP": {
+    "defaultMessage": "Si vous avez des questions sur la CléGC, veuillez contacter l'équipe responsable de CléGC à l'adresse suivante :",
+    "description": "Sixth answer of the Frequently Asked Questions for logging in - intro sentence"
+  },
   "gyZV/3": {
     "defaultMessage": "Veuillez ajouter au moins une expérience.",
     "description": "Error message if there are no experiences"
@@ -6519,6 +6751,10 @@
   "hiZAeF": {
     "defaultMessage": "Courriel",
     "description": "Title displayed on the search request table email column."
+  },
+  "hjxxaQ": {
+    "defaultMessage": "Titres des compétences",
+    "description": "Skill name column header for the skill library table"
   },
   "hlcd+5": {
     "defaultMessage": "Résultats du tableau"
@@ -6942,10 +7178,6 @@
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
   },
-  "karCOz": {
-    "defaultMessage": "Débutant",
-    "description": "Label for the beginner skill level"
-  },
   "kf5Td+": {
     "defaultMessage": "Assurez-vous de sauvegarder ou de fermer tout formulaire ouvert avant de continuer.",
     "description": "Message displayed to users when they attempt to quit the profile form with unsaved changes"
@@ -7053,6 +7285,10 @@
     "defaultMessage": "Sauvegarder les questions filtres",
     "description": "Text on a button to save the pool screening questions"
   },
+  "lZwkcR": {
+    "defaultMessage": "Étapes à suivre pour créer votre compte CléGC",
+    "description": "Subtitle for a section explaining the create steps"
+  },
   "laGCzG": {
     "defaultMessage": "Conditions d’emploi/Exigences opérationnelles",
     "description": "Heading for operational requirements section of the search form."
@@ -7073,6 +7309,10 @@
     "defaultMessage": "À propos du Portail des talents autochtones",
     "description": "Talent Portal information heading"
   },
+  "lr6PWk": {
+    "defaultMessage": "Si vous n’avez pas encore d’application d’authentification, vous devrez en télécharger une. Des fournisseurs numériques comme Google Authenticator et Microsoft Authenticator offrent des applications d’authentification. Quelle que soit l’application que vous choisissez, veillez à ce qu’elle provienne d’un fournisseur réputé.",
+    "description": "Copy explaining mfa apps"
+  },
   "ls7b2p": {
     "defaultMessage": "Plage de salaire :",
     "description": "Label for pool advertisement salary range"
@@ -7092,6 +7332,10 @@
   "lxDgNf": {
     "defaultMessage": "* Veuillez prendre note que votre numéro de confirmation peut également se trouver dans la section « Suivi de vos candidatures » à partir de votre page de profil et de candidature.",
     "description": "Note that the application confirmation number is available on the profile and applications page"
+  },
+  "m+IDnG": {
+    "defaultMessage": "Que puis-je faire si j'ai supprimé l'application ou changé de téléphone et que je n'ai plus les codes de récupération?",
+    "description": "First of the Frequently Asked Questions for logging in"
   },
   "m0JFE/": {
     "defaultMessage": "Code",
@@ -7201,9 +7445,17 @@
     "defaultMessage": "{resultCount, plural, =1 {Profil du candidat} other {Profils des candidats} }",
     "description": "Document title for printing profiles"
   },
+  "mV1/kq": {
+    "defaultMessage": "À quoi s’attendre au moment de créer un compte",
+    "description": "Heading at the top of the sign up page for applicant profiles"
+  },
   "mVmrEn": {
     "defaultMessage": "Profil du candidat",
     "description": "Document title for printing User profile"
+  },
+  "mVqKm+": {
+    "defaultMessage": "2. <strong>Balayez le code QR</strong> ou <strong>saisissez votre code secret</strong> au moyen de votre application d’authentification à deux facteurs.",
+    "description": "Text for second sign up -> mfa step."
   },
   "mWnekb": {
     "defaultMessage": "Prix et reconnaissances",
@@ -7236,6 +7488,10 @@
   "mhtcMd": {
     "defaultMessage": "La plupart des emplois dans la collectivité numérique n’exigent pas de diplôme. Modifiez cette information seulement si le poste nécessite un diplôme.",
     "description": "Message describing the education requirement filter of the search form."
+  },
+  "mjUxjN": {
+    "defaultMessage": "Pourquoi doit-on configurer l’authentification à deux facteurs?",
+    "description": "Subtitle for a section explaining why to set up mfa"
   },
   "mmCU6z": {
     "defaultMessage": "Cote de sécurité :",
@@ -7292,6 +7548,10 @@
   "n+tkit": {
     "defaultMessage": "Aller à la première page ",
     "description": "Label for first page button in pagination nav"
+  },
+  "n4eLy+": {
+    "defaultMessage": "Si vous n'êtes pas sûr d'avoir un compte CléGC, continuez sur le site Web et essayez de vous connecter. Si vous avez oublié votre mot de passe, vous pourrez également le réinitialiser.",
+    "description": "Fourth answer of the Frequently Asked Questions for logging in - paragraph 2"
   },
   "n4pt+y": {
     "defaultMessage": "Nom de l’équipe (Anglais)",
@@ -7477,6 +7737,10 @@
     "defaultMessage": "Nom de famille",
     "description": "Label displayed on the user form last name field."
   },
+  "oR+6vE": {
+    "defaultMessage": "1. Connectez-vous avec votre nom d'utilisateur et votre mot de passe. N'oubliez pas, <strong>votre nom d'utilisateur est différent de votre adresse électronique</strong>.",
+    "description": "Text for first sign in step."
+  },
   "oSPdz1": {
     "defaultMessage": "Consulter les possibilités offertes pour commencer à remplir une candidature.",
     "description": "Additional text displayed in the applications in progress section when empty."
@@ -7497,9 +7761,9 @@
     "defaultMessage": "Communiquez avec nous",
     "description": "Support form title"
   },
-  "oZvIAg": {
-    "defaultMessage": "Avancé",
-    "description": "Label for the advanced skill level"
+  "oacrTu": {
+    "defaultMessage": "3. Saisissez votre <strong>code unique à six chiffres</strong> à partir de votre <strong>application d'authentification</strong> dans la barre de vérification.",
+    "description": "Text for third sign in step."
   },
   "obD2sw": {
     "defaultMessage": "Compétences transférables requises",
@@ -7552,6 +7816,10 @@
   "p2sBh3": {
     "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
+  },
+  "p4KrU2": {
+    "defaultMessage": "Si vous avez déjà un compte CléGC, vous pouvez ouvrir une séance dans votre profil Talents numériques du GC à l’aide de votre CléGC existante, même si vous n’avez jamais utilisé cette plateforme auparavant. Si vous n’êtes pas certain d’avoir un compte CléGC existant, rendez-vous sur le site Web et essayez d’ouvrir une séance. Si vous ne vous souvenez plus de votre mot de passe, vous pouvez également le réinitialiser.",
+    "description": "Eighth answer of the Frequently Asked Questions for sign up"
   },
   "p72C40": {
     "defaultMessage": "Compétence linguistique au travail",
@@ -7681,6 +7949,10 @@
     "defaultMessage": "Questions de sélection",
     "description": "Heading for screening questions section of the application review page."
   },
+  "qN+dwB": {
+    "defaultMessage": "Imprimer avec toutes informations",
+    "description": "Button label for print user profile."
+  },
   "qN9zOb": {
     "defaultMessage": "<strong>J’ai un diplôme d’études secondaires</strong>",
     "description": "Radio group option for education requirement filter in application education form."
@@ -7696,6 +7968,10 @@
   "qQZQj+": {
     "defaultMessage": "L'adéquation des compétences en détail",
     "description": "Heading displayed on the candidate skill match dialog."
+  },
+  "qQgtWZ": {
+    "defaultMessage": "Veuillez contacter notre <helpLink>service d'assistance</helpLink>, qui pourra vous aider à récupérer l'accès à votre compte.",
+    "description": "Third answer of the Frequently Asked Questions for logging in"
   },
   "qSTIKZ": {
     "defaultMessage": "Échec de la mise à jour de la date d'expiration",
@@ -7856,6 +8132,10 @@
     "defaultMessage": "La clôture automatique de ce bassin est programmés pour le :",
     "description": "First paragraph for the close pool dialog"
   },
+  "rrKF85": {
+    "defaultMessage": "Qu’est-ce qu’une CléGC?",
+    "description": "First of the Frequently Asked Questions for sign up"
+  },
   "ruEs9/": {
     "defaultMessage": "Cette demande n’a résulté en aucun appariement. Veuillez nous en parler davantage dans le champ réservé aux commentaires, à la fin du présent formulaire.",
     "description": "Message to admins that a search request resulted in no candidates being found"
@@ -7899,6 +8179,10 @@
   "s1h7Mc": {
     "defaultMessage": "Emplacement actuel :",
     "description": "Current Location label and colon"
+  },
+  "s2OefW": {
+    "defaultMessage": "Texte sur le téléphone (téléimprimeur/ATS)",
+    "description": "Second answer of the Frequently Asked Questions for sign up, contact info"
   },
   "s5hTYo": {
     "defaultMessage": "Rôles des membres",
@@ -7995,6 +8279,10 @@
   "sk9CeW": {
     "defaultMessage": "Langue",
     "description": "Legend for the Working Language Ability radio buttons"
+  },
+  "skfKnv": {
+    "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
+    "description": "Error message that the user has selected both status and non-status first nations."
   },
   "sr20Tb": {
     "defaultMessage": "Citoyenneté",
@@ -8175,6 +8463,10 @@
     "defaultMessage": "Expérience en matière d’éducation",
     "description": "Title for education experience section"
   },
+  "u98IOx": {
+    "defaultMessage": "Partie 1 : Création d’un compte CléGC",
+    "description": "Heading for section of the sign up page showing the create steps"
+  },
   "uAmdiU": {
     "defaultMessage": "Nom (français)",
     "description": "Label displayed on the classification form name (French) field."
@@ -8231,6 +8523,10 @@
     "defaultMessage": "Le statut de candidat du bassin a été mis à jour avec succès",
     "description": "Message displayed when a pool candidate has been updated by and admin"
   },
+  "uWdGeZ": {
+    "defaultMessage": "Expérience professionnelle",
+    "description": "Experience count column header for the skill library table"
+  },
   "ugRTOW": {
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled GovernmentInformation section."
@@ -8258,6 +8554,10 @@
   "usb0gM": {
     "defaultMessage": "Bien que le libellé de ces catégories ait besoin d'être mis à jour, le gouvernement du Canada utilisera parfois ces catégories lors de l'embauche afin de s'assurer qu'il respecte les objectifs de l'équité en matière d'emploi.",
     "description": "Description of how the Government of Canada uses employment equity categories in hiring."
+  },
+  "utILRB": {
+    "defaultMessage": "Puis-je utiliser l’authentification par messagerie texte ou par courriel au lieu d’une application?",
+    "description": "Fifth of the Frequently Asked Questions for sign up"
   },
   "utl6O/": {
     "defaultMessage": "Gérer le recrutement {title}",
@@ -8363,6 +8663,10 @@
     "defaultMessage": "Réussite : Vous avez réussi à dupliquer ce bassin.",
     "description": "Message displayed to user after pool is deleted"
   },
+  "vm0KOb": {
+    "defaultMessage": "Les représentants du service à la clientèle sont prêts à vous aider par téléphone, tout au long de l’année, 24 heures sur 24, 7 jours sur 7.",
+    "description": "Second answer of the Frequently Asked Questions for sign up, contact info"
+  },
   "vyyfX6": {
     "defaultMessage": "Créer une nouvelle équipe",
     "description": "Page title for the create team page"
@@ -8395,6 +8699,10 @@
     "defaultMessage": "Passer en revue votre parcours professionnel",
     "description": "Page title for the application career timeline page"
   },
+  "w3vO23": {
+    "defaultMessage": "Qu'est-ce qu'une CléGC?",
+    "description": "Fifth of the Frequently Asked Questions for logging in"
+  },
   "w4SSBu": {
     "defaultMessage": "<strong>Le terme autochtone </strong>: désigne une personne reconnue comme membre « d’un des peuples autochtones du Canada » au sens de l’article 35 de la Loi constitutionnelle de 1982, qui stipule en outre qu’aux fins de la Constitution, les « peuples autochtones du Canada comprennent les Autochtones, les Inuits et les Métis du Canada ». Cette politique (conforme aux pratiques canadiennes générales) considère que le terme « Autochtones » dans la Constitution est désormais remplacé par le terme « Premières Nations ».",
     "description": "Content for the definition of Indigenous dialog"
@@ -8406,6 +8714,10 @@
   "w6jDaJ": {
     "defaultMessage": "Il manque des renseignements à ces compétences nécessaires :",
     "description": "Text that appears when a user is missing required skills on their profile."
+  },
+  "w79+Ww": {
+    "defaultMessage": "Nous ne pouvons pas enlever l’authentification à deux facteurs de votre compte, mais vous pouvez communiquer avec notre <link>Service de dépannage</link>, qui vous aidera à récupérer votre compte.",
+    "description": "Sixth answer of the Frequently Asked Questions for sign up"
   },
   "w7E0He": {
     "defaultMessage": "Compétences essentielles",
@@ -8474,6 +8786,10 @@
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
     "description": "Link text for the search page breadcrumb"
+  },
+  "wf3e6C": {
+    "defaultMessage": "Partie 2 : Configuration de l’authentification à deux facteurs",
+    "description": "Heading for section of the sign up page showing the mfa steps"
   },
   "wgIThY": {
     "defaultMessage": "Avoir un diplôme d’études secondaires ou l’équivalent (formation générale)",
@@ -8659,6 +8975,10 @@
     "defaultMessage": "Obtenez du soutien pour le poste {title}",
     "description": "Link text to direct a user to the support page"
   },
+  "yEYCHL": {
+    "defaultMessage": "Si vous avez des questions sur la CléGC, veuillez communiquer avec l’équipe de CléGC à l’adresse suivante :",
+    "description": "Second answer of the Frequently Asked Questions for sign up, contact info"
+  },
   "yExs/j": {
     "defaultMessage": "Nous sommes désolés, mais nous ne pouvons pas trouver la page que vous cherchez.",
     "description": "Title for the 404 page not found page."
@@ -8686,6 +9006,10 @@
   "yJnGeT": {
     "defaultMessage": "Choisissez le critère auquel vous répondez.",
     "description": "Heading for radio group section in application education page."
+  },
+  "ySkRmX": {
+    "defaultMessage": "Bibliothèque des compétences",
+    "description": "Page title for the skill library page"
   },
   "yXXj1D": {
     "defaultMessage": "Commencez <hidden> à remplir la section sur vos renseignements en tant que fonctionnaire </hidden>",
@@ -8806,6 +9130,10 @@
   "zS2PN+": {
     "defaultMessage": "Toutes les catégories ({count})",
     "description": "Label for removing the skill category filter"
+  },
+  "zTJ2DT": {
+    "defaultMessage": "Gérer <a1>votre profil</a1>, <a2>votre parcours professionnel</a2> et <a3>vos compétences</a3>, et <a4>faire le suivi de vos candidatures</a4>.",
+    "description": "Subtitle for profile and applications hero"
   },
   "zd/ve4": {
     "defaultMessage": "Renseignements du profil",

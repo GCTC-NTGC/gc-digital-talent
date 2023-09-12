@@ -1466,16 +1466,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.21.0",
+            "version": "v10.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "96b15c7ac382a9adb4a56d40c640e782d669a112"
+                "reference": "9234388a895206d4e1df37342b61adc67e5c5d31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/96b15c7ac382a9adb4a56d40c640e782d669a112",
-                "reference": "96b15c7ac382a9adb4a56d40c640e782d669a112",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/9234388a895206d4e1df37342b61adc67e5c5d31",
+                "reference": "9234388a895206d4e1df37342b61adc67e5c5d31",
                 "shasum": ""
             },
             "require": {
@@ -1662,7 +1662,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-08-29T13:55:56+00:00"
+            "time": "2023-09-05T13:20:01+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -1714,16 +1714,16 @@
         },
         {
             "name": "laravel/sanctum",
-            "version": "v3.2.6",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sanctum.git",
-                "reference": "217e8a2bc5aa6a827ced97fcb76504029d3115d7"
+                "reference": "95a0181900019e2d79acbd3e2ee7d57e3d0a086b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sanctum/zipball/217e8a2bc5aa6a827ced97fcb76504029d3115d7",
-                "reference": "217e8a2bc5aa6a827ced97fcb76504029d3115d7",
+                "url": "https://api.github.com/repos/laravel/sanctum/zipball/95a0181900019e2d79acbd3e2ee7d57e3d0a086b",
+                "reference": "95a0181900019e2d79acbd3e2ee7d57e3d0a086b",
                 "shasum": ""
             },
             "require": {
@@ -1776,7 +1776,7 @@
                 "issues": "https://github.com/laravel/sanctum/issues",
                 "source": "https://github.com/laravel/sanctum"
             },
-            "time": "2023-08-22T13:21:11+00:00"
+            "time": "2023-09-04T14:26:54+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -3065,16 +3065,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v6.17.0",
+            "version": "v6.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "00d80dd73b419e9e89fd85675bb1177fe7ee8357"
+                "reference": "1e00f2cd8ca9d6de75297e49f2aca1ea476c51a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/00d80dd73b419e9e89fd85675bb1177fe7ee8357",
-                "reference": "00d80dd73b419e9e89fd85675bb1177fe7ee8357",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/1e00f2cd8ca9d6de75297e49f2aca1ea476c51a8",
+                "reference": "1e00f2cd8ca9d6de75297e49f2aca1ea476c51a8",
                 "shasum": ""
             },
             "require": {
@@ -3103,6 +3103,7 @@
                 "laravel/framework": "^9 || ^10",
                 "laravel/legacy-factories": "^1.1.1",
                 "laravel/lumen-framework": "^9 || ^10 || dev-master",
+                "laravel/pennant": "^1",
                 "laravel/scout": "^8 || ^9 || ^10",
                 "mattiasgeniar/phpunit-query-count-assertions": "^1.1",
                 "mll-lab/graphql-php-scalars": "^6",
@@ -3124,6 +3125,7 @@
             },
             "suggest": {
                 "bensampo/laravel-enum": "Convenient enum definitions that can easily be registered in your Schema",
+                "laravel/pennant": "Required for the @feature directive",
                 "laravel/scout": "Required for the @search directive",
                 "mll-lab/graphql-php-scalars": "Useful scalar types, required for @whereConditions",
                 "mll-lab/laravel-graphiql": "A graphical interactive in-browser GraphQL IDE - integrated with Laravel",
@@ -3191,7 +3193,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-08-29T08:12:53+00:00"
+            "time": "2023-09-06T11:01:01+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -7183,16 +7185,16 @@
         },
         {
             "name": "webonyx/graphql-php",
-            "version": "v15.6.2",
+            "version": "v15.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webonyx/graphql-php.git",
-                "reference": "0a917058620a197530b357c46d8d5943a054a37e"
+                "reference": "3f045a4626d179ea6462e1a11744619860b55eb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/0a917058620a197530b357c46d8d5943a054a37e",
-                "reference": "0a917058620a197530b357c46d8d5943a054a37e",
+                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/3f045a4626d179ea6462e1a11744619860b55eb8",
+                "reference": "3f045a4626d179ea6462e1a11744619860b55eb8",
                 "shasum": ""
             },
             "require": {
@@ -7209,14 +7211,14 @@
                 "nyholm/psr7": "^1.5",
                 "phpbench/phpbench": "^1.2",
                 "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan": "1.10.28",
-                "phpstan/phpstan-phpunit": "1.3.13",
+                "phpstan/phpstan": "1.10.32",
+                "phpstan/phpstan-phpunit": "1.3.14",
                 "phpstan/phpstan-strict-rules": "1.5.1",
                 "phpunit/phpunit": "^9.5 || ^10",
                 "psr/http-message": "^1 || ^2",
                 "react/http": "^1.6",
                 "react/promise": "^2.9",
-                "rector/rector": "^0.17",
+                "rector/rector": "^0.18",
                 "symfony/polyfill-php81": "^1.23",
                 "symfony/var-exporter": "^5 || ^6",
                 "thecodingmachine/safe": "^1.3 || ^2"
@@ -7244,7 +7246,7 @@
             ],
             "support": {
                 "issues": "https://github.com/webonyx/graphql-php/issues",
-                "source": "https://github.com/webonyx/graphql-php/tree/v15.6.2"
+                "source": "https://github.com/webonyx/graphql-php/tree/v15.6.3"
             },
             "funding": [
                 {
@@ -7252,7 +7254,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-08-08T17:15:12+00:00"
+            "time": "2023-09-01T08:13:33+00:00"
         }
     ],
     "packages-dev": [
@@ -7448,16 +7450,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.12.0",
+            "version": "v1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "08bcf51e520a5e5aea458fc600ac4869f6934a66"
+                "reference": "22f204242d68095b3ba7dab5d3ef0240454a4652"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/08bcf51e520a5e5aea458fc600ac4869f6934a66",
-                "reference": "08bcf51e520a5e5aea458fc600ac4869f6934a66",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/22f204242d68095b3ba7dab5d3ef0240454a4652",
+                "reference": "22f204242d68095b3ba7dab5d3ef0240454a4652",
                 "shasum": ""
             },
             "require": {
@@ -7510,20 +7512,20 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2023-08-30T07:53:32+00:00"
+            "time": "2023-09-06T11:03:34+00:00"
         },
         {
             "name": "laravel/sail",
-            "version": "v1.24.0",
+            "version": "v1.24.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "c8a621d7b69ab2e568d97a20f837ca733a224006"
+                "reference": "3a373bb2845623aed2017c672dc61c84ae974890"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/c8a621d7b69ab2e568d97a20f837ca733a224006",
-                "reference": "c8a621d7b69ab2e568d97a20f837ca733a224006",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/3a373bb2845623aed2017c672dc61c84ae974890",
+                "reference": "3a373bb2845623aed2017c672dc61c84ae974890",
                 "shasum": ""
             },
             "require": {
@@ -7575,7 +7577,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2023-08-27T14:26:11+00:00"
+            "time": "2023-09-01T14:05:17+00:00"
         },
         {
             "name": "mockery/mockery",

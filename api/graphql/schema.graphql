@@ -872,6 +872,7 @@ input PoolCandidateSearchInput {
   generalSearch: String @scope
   name: String @scope
   notes: String @scope
+  isGovEmployee: Boolean @scope
   priorityWeight: [Int] @scope(name: "priorityWeight")
   poolCandidateStatus: [PoolCandidateStatus]
     @scope(name: "poolCandidateStatuses")

@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 export interface LoadingProps extends React.HTMLProps<HTMLDivElement> {
   inline?: boolean;
@@ -28,6 +28,7 @@ const Loading = ({
   children,
   ...rest
 }: LoadingProps): JSX.Element => {
+  const shouldReduceMotion = useReducedMotion();
   const inlineWrapper = {
     inline: {
       "data-h2-background-color": "base(white)",
@@ -75,17 +76,18 @@ const Loading = ({
             data-h2-border-width="base(6px)"
             data-h2-border-style="base(solid)"
             data-h2-border-color="base(primary transparent primary transparent)"
-            {...(!pause && {
-              animate: {
-                rotate: [0, 360],
-              },
-              transition: {
-                ease: "linear",
-                duration: 1,
-                repeat: Infinity,
-                repeatDelay: 0,
-              },
-            })}
+            {...(!pause &&
+              !shouldReduceMotion && {
+                animate: {
+                  rotate: [0, 360],
+                },
+                transition: {
+                  ease: "linear",
+                  duration: 1,
+                  repeat: Infinity,
+                  repeatDelay: 0,
+                },
+              })}
           />
         </span>
       </div>

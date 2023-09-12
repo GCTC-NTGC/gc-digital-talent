@@ -1,7 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
-import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
@@ -9,6 +8,7 @@ import { getLanguage, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Pending } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { toast } from "@gc-digital-talent/toast";
 
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 import { FromArray } from "~/types/utility";
@@ -25,7 +25,6 @@ import {
   RoleAssignment,
   Trashed,
 } from "~/api/generated";
-import printStyles from "~/styles/printStyles";
 import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
 import TableFooter from "~/components/Table/ApiManagedTable/TableFooter";
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";
@@ -49,7 +48,6 @@ import {
   stringToEnumLocation,
   stringToEnumOperational,
 } from "~/utils/userUtils";
-import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 import adminMessages from "~/messages/adminMessages";
 import tableCommaList from "~/components/Table/ClientManagedTable/tableCommaList";
 
@@ -57,6 +55,7 @@ import useUserCsvData from "../hooks/useUserCsvData";
 import UserTableFilterDialog, {
   FormValues,
 } from "./UserTableFilterDialog/UserTableFilterDialog";
+import UserProfilePrintButton from "../../AdminUserProfilePage/components/UserProfilePrintButton";
 
 type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
@@ -163,7 +162,7 @@ const rolesAccessor = (
   return null;
 };
 
-const phoneAccessor = (telephone: string | null | undefined) => {
+export const phoneAccessor = (telephone: string | null | undefined) => {
   if (telephone) {
     return (
       <Link
@@ -466,16 +465,6 @@ const UserTable = ({ title }: { title: string }) => {
     },
   });
 
-  const componentRef = useRef(null);
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-    pageStyle: printStyles,
-    documentTitle: intl.formatMessage({
-      defaultMessage: "Candidate profiles",
-      id: "scef3o",
-      description: "Document title for printing User table results",
-    }),
-  });
   const selectedApplicants =
     selectedUsersData?.applicants.filter(notEmpty) ?? [];
 
@@ -524,6 +513,25 @@ const UserTable = ({ title }: { title: string }) => {
     setTableState({
       hiddenColumnIds: newCols,
     });
+  };
+
+  const handlePrint = (onPrint: () => void) => {
+    if (
+      selectedUsersFetching ||
+      !!selectedUsersError ||
+      !selectedUsersData?.applicants.length
+    ) {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage: "Download failed: No rows selected",
+          id: "k4xm25",
+          description:
+            "Alert message displayed when a user attempts to print without selecting items first",
+        }),
+      );
+    } else if (onPrint) {
+      onPrint();
+    }
   };
 
   return (
@@ -606,7 +614,6 @@ const UserTable = ({ title }: { title: string }) => {
           paginatorInfo={data?.usersPaginated?.paginatorInfo}
           onCurrentPageChange={handleCurrentPageChange}
           onPageSizeChange={handlePageSizeChange}
-          onPrint={handlePrint}
           csv={{
             ...csv,
             fileName: intl.formatMessage(
@@ -620,6 +627,14 @@ const UserTable = ({ title }: { title: string }) => {
               },
             ),
           }}
+          additionalActions={
+            <UserProfilePrintButton
+              users={selectedApplicants}
+              beforePrint={handlePrint}
+              color="white"
+              mode="inline"
+            />
+          }
           hasSelection
           fetchingSelected={selectedUsersFetching}
           selectionError={selectedUsersError}
@@ -629,7 +644,6 @@ const UserTable = ({ title }: { title: string }) => {
             !selectedUsersData?.applicants.length
           }
         />
-        <ProfileDocument results={selectedApplicants} ref={componentRef} />
       </div>
     </div>
   );

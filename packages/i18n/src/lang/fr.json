@@ -964,6 +964,10 @@
     "defaultMessage": "m'exige de <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
+  "dJd5/f": {
+    "defaultMessage": "Courriel",
+    "description": "Title for email"
+  },
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
     "description": "The technical skill level definition for beginner"
@@ -1067,6 +1071,10 @@
   "ijGl5r": {
     "defaultMessage": "Souhaitez-vous poursuivre?",
     "description": "A request to confirm that the user wants to continue"
+  },
+  "imR1U4": {
+    "defaultMessage": "Numéro de téléphone",
+    "description": "Title displayed telephone"
   },
   "iqD8qE": {
     "defaultMessage": "Erreur inconnue",
@@ -1347,6 +1355,10 @@
     "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires occasionnelles</strong>.",
     "description": "The operational requirement described as occasional overtime."
   },
+  "skfKnv": {
+    "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
+    "description": "Error message that the user has selected both status and non-status first nations."
+  },
   "spP+Tz": {
     "defaultMessage": "Nunavut",
     "description": "Nunavut selection for province or territory input"
@@ -1525,9 +1537,6 @@
   "yRxy3a": {
     "defaultMessage": "Retrait qualifié",
     "description": "The pool candidate's status is Qualified Withdrew."
-  },
-  "ybzpGb": {
-    "defaultMessage": "BothStatusNonStatus"
   },
   "ylHC90": {
     "defaultMessage": "Chargement...",
