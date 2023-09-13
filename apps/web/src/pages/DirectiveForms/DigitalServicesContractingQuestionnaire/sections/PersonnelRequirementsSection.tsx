@@ -35,7 +35,7 @@ const PersonnelRequirementsSection = ({
           getSectionTitle(PAGE_SECTION_ID.PERSONNEL_REQUIREMENTS),
         )}
       </Heading>
-      <p>
+      <p data-h2-margin-bottom="base(x.5)">
         {intl.formatMessage({
           defaultMessage:
             "Provide information on each type of personnel required under the contract. Add more as needed.",

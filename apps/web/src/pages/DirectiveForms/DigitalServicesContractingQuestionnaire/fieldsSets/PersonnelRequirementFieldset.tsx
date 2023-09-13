@@ -1,9 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
-import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
 
-import { Field, Input, Select } from "@gc-digital-talent/forms";
+import { Input, Select } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   formMessages,
@@ -19,7 +18,7 @@ import {
   SkillCategory,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
-import { Button } from "@gc-digital-talent/ui";
+import { Button, Separator } from "@gc-digital-talent/ui";
 
 import SkillDialog from "~/components/SkillDialog/SkillDialog";
 import { FormValues as SkillDialogFormValues } from "~/components/SkillDialog/types";
@@ -38,6 +37,7 @@ import {
   SkillRequirementFormValues,
 } from "../formValues";
 import useLabels from "../useLabels";
+import SignPost from "../../SignPost";
 
 export type PersonnelRequirementFieldsetProps = {
   fieldsetName: string;
@@ -131,7 +131,7 @@ const PersonnelRequirementFieldset = ({
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x.5)"
+      data-h2-gap="base(x1)"
     >
       <Input
         id={`${fieldsetName}.resourceType`}
@@ -148,49 +148,61 @@ const PersonnelRequirementFieldset = ({
             "Placeholder for _type of resource_ field in the _digital services contracting questionnaire_",
         })}
       />
-      <Field.Wrapper>
-        <Field.Fieldset>
-          <Field.Legend>
-            {intl.formatMessage({
-              defaultMessage: "Qualification and level of expertise",
-              id: "0X2Rd2",
-              description:
-                "Label for _skills_ fieldset in the _digital services contracting questionnaire_",
-            })}
-          </Field.Legend>
-          {selectedSkillRequirements.map((requirement, index) => {
-            const selectedSkillModel = skills.find(
-              (s) => s.id === requirement.skillId,
-            );
-            const selectedSkillFamilyModel = selectedSkillModel?.families
-              ?.length
-              ? selectedSkillModel?.families[0]
-              : null;
-            const skillLevel =
-              selectedSkillModel?.category === SkillCategory.Technical
-                ? getTechnicalSkillLevel(requirement.level)
-                : getBehaviouralSkillLevel(requirement.level);
-
-            const displayName = intl.formatMessage(
-              {
-                defaultMessage: "{skillName} ({skillLevel})",
-                id: "Vk870g",
-                description:
-                  "Display of skill requirement in the _digital services contracting questionnaire_",
-              },
-              {
-                skillName: getLocalizedName(selectedSkillModel?.name, intl),
-                skillLevel: intl.formatMessage(skillLevel),
-              },
-            );
-            return (
+      <SignPost
+        title={intl.formatMessage({
+          defaultMessage: "Skill requirements",
+          id: "v27PDJ",
+          description:
+            "Title for _skills_ fieldset in the _digital services contracting questionnaire_",
+        })}
+        introduction={intl.formatMessage({
+          defaultMessage:
+            "Please use the button provided to find and select all of the skills required for this role.",
+          id: "OTuMuQ",
+          description:
+            "Introduction for _skills_ fieldset in the _digital services contracting questionnaire_",
+        })}
+      />
+      {selectedSkillRequirements.map((requirement, index) => {
+        const selectedSkillModel = skills.find(
+          (s) => s.id === requirement.skillId,
+        );
+        const selectedSkillFamilyModel = selectedSkillModel?.families?.length
+          ? selectedSkillModel?.families[0]
+          : null;
+        const skillLevel =
+          selectedSkillModel?.category === SkillCategory.Technical
+            ? getTechnicalSkillLevel(requirement.level)
+            : getBehaviouralSkillLevel(requirement.level);
+        const skillName = getLocalizedName(selectedSkillModel?.name, intl);
+        return (
+          <div
+            key={requirement.skillId}
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+          >
+            <div>
               <div
                 key={requirement.skillId}
                 data-h2-display="base(flex)"
                 data-h2-justify-content="base(flex-end)"
-                data-h2-gap="base(x0.5)"
+                data-h2-gap="base(x.75)"
               >
-                <span data-h2-flex-grow="base(2)">{displayName}</span>
+                <div data-h2-flex-grow="base(2)">
+                  <p>{skillName}</p>
+                  <p data-h2-color="base(black.light)">
+                    {intl.formatMessage(
+                      {
+                        defaultMessage: "Skill level: {skillLevel}",
+                        id: "cRtxUW",
+                        description: "Skill level field label and name",
+                      },
+                      {
+                        skillLevel: intl.formatMessage(skillLevel),
+                      },
+                    )}
+                  </p>
+                </div>
                 <SkillDialog
                   skills={skills}
                   context="directive_forms"
@@ -200,17 +212,17 @@ const PersonnelRequirementFieldset = ({
                   trigger={{
                     label: intl.formatMessage(
                       {
-                        defaultMessage: "Edit<hidden> {displayName}</hidden>",
-                        id: "KVx/9C",
+                        defaultMessage: "Edit<hidden> {skillName}</hidden>",
+                        id: "XRbVxf",
                         description:
                           "Button text to edit a personnel skill requirement",
                       },
                       {
-                        displayName,
+                        skillName,
                       },
                     ),
                     icon: null,
-                    mode: "text",
+                    mode: "inline",
                   }}
                   initialState={{
                     skill: requirement.skillId,
@@ -221,32 +233,55 @@ const PersonnelRequirementFieldset = ({
                 />
                 <Button
                   onClick={() => removeSkill(requirement.skillId)}
-                  icon={XMarkIcon}
                   mode="inline"
                   color="error"
-                  aria-label={intl.formatMessage(
+                >
+                  {intl.formatMessage(
                     {
-                      defaultMessage: "Delete {displayName}",
-                      id: "XOTpWf",
+                      defaultMessage: "Remove<hidden> {skillName}</hidden>",
+                      id: "QgX0vb",
                       description:
-                        "Hidden button text to delete a personnel skill requirement",
+                        "Button text to delete a personnel skill requirement",
                     },
                     {
-                      displayName,
+                      skillName,
                     },
                   )}
-                />
+                </Button>
               </div>
-            );
-          })}
-          <SkillDialog
-            skills={skills}
-            context="directive_forms"
-            onSave={handleSkillDialogNew}
-            trigger={{ block: true }}
-          />
-        </Field.Fieldset>
-      </Field.Wrapper>
+              <Separator
+                orientation="horizontal"
+                decorative
+                data-h2-background-color="base(gray.lighter)"
+                data-h2-margin="base(x.5 0)"
+              />
+            </div>
+          </div>
+        );
+      })}
+      <div data-h2-margin-top="base(x.5)">
+        <SkillDialog
+          skills={skills}
+          context="directive_forms"
+          onSave={handleSkillDialogNew}
+          trigger={{ mode: "inline", icon: null }}
+        />
+      </div>
+      <SignPost
+        title={intl.formatMessage({
+          defaultMessage: "Other requirements",
+          id: "WiyJdK",
+          description:
+            "Title for _other reuquirements_ section in the _digital services contracting questionnaire_",
+        })}
+        introduction={intl.formatMessage({
+          defaultMessage:
+            "Please specify the following requirements for this role.",
+          id: "+lXeYD",
+          description:
+            "Introduction for _other reuquirements_ section in the _digital services contracting questionnaire_",
+        })}
+      />
       <Select
         id={`${fieldsetName}.language`}
         name={`${fieldsetName}.language`}
