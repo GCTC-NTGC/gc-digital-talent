@@ -153,7 +153,7 @@ export const SkillShowcase = ({
                 data-h2-align-items="base(center)"
                 data-h2-justify-content="base(space-between)"
                 data-h2-flex-direction="base(column) p-tablet(row)"
-                data-h2-margin="base(x1.75 0 x1 0)"
+                data-h2-margin="base(x1.75 0 x1 0) l-tablet(0 0 x1 0)"
               >
                 <TableOfContents.Heading
                   icon={BoltIcon}
