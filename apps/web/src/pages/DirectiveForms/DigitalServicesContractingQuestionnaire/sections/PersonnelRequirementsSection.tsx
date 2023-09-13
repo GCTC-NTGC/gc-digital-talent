@@ -22,6 +22,7 @@ const PersonnelRequirementsSection = ({
   const { remove, move, append, fields } = useFieldArray({
     control,
     name: "personnelRequirements",
+    // rules: { required: true, minLength: 1 },  // no error message possible  #7888
   });
 
   return (

@@ -309,7 +309,10 @@ input UpdateDigitalContractingPersonnelRequirementInput
   quantity: Int
 }
 
-input DigitalContractingPersonnelRequirementBelongsToMany {
+input DigitalContractingPersonnelRequirementBelongsToMany
+  @validator(
+    class: "App\\GraphQL\\Validators\\DigitalContractingPersonnelRequirementBelongsToMany"
+  ) {
   create: [CreateDigitalContractingPersonnelRequirementInput!]
   update: [UpdateDigitalContractingPersonnelRequirementInput!]
   delete: [UUID!]

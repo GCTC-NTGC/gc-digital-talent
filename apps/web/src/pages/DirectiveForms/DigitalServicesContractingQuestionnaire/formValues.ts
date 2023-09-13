@@ -113,7 +113,7 @@ export type FormValues = {
 
   // personnel requirements section
   hasPersonnelRequirements: string;
-  personnelRequirements: Array<PersonnelRequirementFormValues>;
+  personnelRequirements: Array<PersonnelRequirementFormValues> | null;
   qualificationRequirement: string;
 
   // technological change section
@@ -266,40 +266,44 @@ export function convertFormValuesToApiInput(
       YesNo,
       formValues.hasPersonnelRequirements,
     ),
-    personnelRequirements: {
-      create: formValues.personnelRequirements.map((personnelRequirement) => {
-        return {
-          resourceType: personnelRequirement.resourceType,
-          skillRequirements: {
-            create: personnelRequirement.skillRequirements.map(
-              (skillRequirement) => {
-                return {
-                  skill: {
-                    connect: skillRequirement.skillId,
-                  },
-                  level: stringToEnum(SkillLevel, skillRequirement.level),
-                };
-              },
-            ),
-          },
-          language: stringToEnum(
-            PersonnelLanguage,
-            personnelRequirement.language,
+    personnelRequirements: formValues.personnelRequirements
+      ? {
+          create: formValues.personnelRequirements.map(
+            (personnelRequirement) => {
+              return {
+                resourceType: personnelRequirement.resourceType,
+                skillRequirements: {
+                  create: personnelRequirement.skillRequirements.map(
+                    (skillRequirement) => {
+                      return {
+                        skill: {
+                          connect: skillRequirement.skillId,
+                        },
+                        level: stringToEnum(SkillLevel, skillRequirement.level),
+                      };
+                    },
+                  ),
+                },
+                language: stringToEnum(
+                  PersonnelLanguage,
+                  personnelRequirement.language,
+                ),
+                languageOther: emptyToNull(personnelRequirement.languageOther),
+                security: stringToEnum(
+                  PersonnelScreeningLevel,
+                  personnelRequirement.security,
+                ),
+                securityOther: emptyToNull(personnelRequirement.securityOther),
+                telework: stringToEnum(
+                  PersonnelTeleworkOption,
+                  personnelRequirement.telework,
+                ),
+                quantity: parseInt(personnelRequirement.quantity, 10) ?? null,
+              };
+            },
           ),
-          languageOther: emptyToNull(personnelRequirement.languageOther),
-          security: stringToEnum(
-            PersonnelScreeningLevel,
-            personnelRequirement.security,
-          ),
-          securityOther: emptyToNull(personnelRequirement.securityOther),
-          telework: stringToEnum(
-            PersonnelTeleworkOption,
-            personnelRequirement.telework,
-          ),
-          quantity: parseInt(personnelRequirement.quantity, 10) ?? null,
-        };
-      }),
-    },
+        }
+      : undefined,
     qualificationRequirement: emptyToNull(formValues.qualificationRequirement),
 
     // Technological change section
