@@ -9,9 +9,9 @@ const SearchHeading = () => {
     <Hero
       centered
       title={intl.formatMessage({
-        defaultMessage: "Search the GC Digital Talent database",
-        id: "nnMkp+",
-        description: "Title displayed in the hero section of the Search page.",
+        defaultMessage: "Find digital talent",
+        id: "9Jkoms",
+        description: "Title displayed on hero for Search and Request pages.",
       })}
     >
       <div
