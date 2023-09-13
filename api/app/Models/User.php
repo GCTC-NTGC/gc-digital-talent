@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Providers\IndigenousCommunity;
+use App\Providers\LanguageAbility;
 use App\Providers\PoolCandidateStatus;
 use App\Providers\PositionDuration;
+use App\Providers\PublishingGroup;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
@@ -384,13 +386,13 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         // $languageAbility comes from enum LanguageAbility
         // filtering on fields looking_for_<english/french/bilingual>
-        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH) {
+        if ($languageAbility == LanguageAbility::ENGLISH->name) {
             $query->where('looking_for_english', true);
         }
-        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
+        if ($languageAbility == LanguageAbility::FRENCH->name) {
             $query->where('looking_for_french', true);
         }
-        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL) {
+        if ($languageAbility == LanguageAbility::BILINGUAL->name) {
             $query->where('looking_for_bilingual', true);
         }
 
@@ -539,8 +541,8 @@ class User extends Model implements Authenticatable, LaratrustUser
     public static function scopeInITPublishingGroup(Builder $query)
     {
         $query = self::scopePublishingGroups($query, [
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS,
+            PublishingGroup::IT_JOBS_ONGOING->name,
+            PublishingGroup::IT_JOBS->name,
         ]);
 
         return $query;
@@ -726,18 +728,18 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         // only english case
         if ($lookingForEnglish && ! $lookingForFrench && ! $lookingForBilingual) {
-            return ApiEnums::LANGUAGE_ABILITY_ENGLISH;
+            return LanguageAbility::ENGLISH->name;
         }
 
         // only french case
         if (! $lookingForEnglish && $lookingForFrench && ! $lookingForBilingual) {
-            return ApiEnums::LANGUAGE_ABILITY_FRENCH;
+            return LanguageAbility::FRENCH->name;
         }
 
         // bilingual case just depends on the one field being true
         // or ignore the field if english and french are both true
         if (($lookingForBilingual) || ($lookingForEnglish && $lookingForFrench)) {
-            return ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
+            return LanguageAbility::BILINGUAL->name;
         }
 
         // in all other cases the field stays null, so cases where all fields tested are false/null for instance

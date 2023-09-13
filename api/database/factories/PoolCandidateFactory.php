@@ -8,6 +8,8 @@ use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestionResponse;
 use App\Models\User;
 use App\Models\WorkExperience;
+use App\Providers\ApplicationStep;
+use App\Providers\EducationRequirementOption;
 use App\Providers\PoolCandidateStatus;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -42,11 +44,11 @@ class PoolCandidateFactory extends Factory
             'suspended_at' => null,
             'signature' => null,
             'submitted_steps' => array_slice(
-                ApiEnums::applicationSteps(),
+                array_column(ApplicationStep::cases(), 'name'),
                 0,
-                $this->faker->numberBetween(0, count(ApiEnums::applicationSteps()) - 1)
+                $this->faker->numberBetween(0, count(ApplicationStep::cases()) - 1)
             ),
-            'education_requirement_option' => ApiEnums::poolCandidateCriteria()[array_rand(ApiEnums::poolCandidateCriteria())],
+            'education_requirement_option' => $this->faker->randomElement(EducationRequirementOption::cases())->name,
         ];
     }
 
@@ -80,13 +82,13 @@ class PoolCandidateFactory extends Factory
                 }
             }
 
-            if ($poolCandidate->education_requirement_option === ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION) {
+            if ($poolCandidate->education_requirement_option === EducationRequirementOption::EDUCATION->name) {
                 //Ensure user has at least one education experience
                 $experience = EducationExperience::factory()->create([
                     'user_id' => $poolCandidate->user_id,
                 ]);
                 $poolCandidate->educationRequirementEducationExperiences()->sync([$experience->id]);
-            } elseif ($poolCandidate->education_requirement_option === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
+            } elseif ($poolCandidate->education_requirement_option === EducationRequirementOption::APPLIED_WORK->name) {
                 //Ensure user has at least one work experience
                 $experience = WorkExperience::factory()->create([
                     'user_id' => $poolCandidate->user_id,
@@ -107,7 +109,7 @@ class PoolCandidateFactory extends Factory
             return [
                 'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
-                'submitted_steps' => ApiEnums::applicationSteps(),
+                'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
             ];
         });
     }
@@ -124,7 +126,7 @@ class PoolCandidateFactory extends Factory
                 'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
                 'suspended_at' => $this->faker->dateTimeBetween('-3 months', '-1 minute'),
-                'submitted_steps' => ApiEnums::applicationSteps(),
+                'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
             ];
         });
     }

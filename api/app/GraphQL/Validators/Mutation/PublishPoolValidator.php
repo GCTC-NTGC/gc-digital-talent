@@ -2,6 +2,9 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Providers\PoolLanguage;
+use App\Providers\PublishingGroup;
+use App\Providers\SecurityStatus;
 use App\Rules\SkillNotDeleted;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
@@ -51,12 +54,12 @@ final class PublishPoolValidator extends Validator
                 new SkillNotDeleted,
             ],
             // Other requirements
-            'advertisement_language' => ['required', Rule::in(ApiEnums::poolLanguages())],
-            'security_clearance' => ['required', Rule::in(ApiEnums::poolSecurity())],
+            'advertisement_language' => ['required', Rule::in(array_column(PoolLanguage::cases(), 'name'))],
+            'security_clearance' => ['required', Rule::in(array_column(SecurityStatus::cases(), 'name'))],
             'is_remote' => ['required', 'boolean'],
             'advertisement_location.en' => ['required_if:is_remote,false', 'required_with:advertisement_location.fr', 'string'],
             'advertisement_location.fr' => ['required_if:is_remote,false', 'required_with:advertisement_location.en', 'string'],
-            'publishing_group' => ['required', Rule::in(ApiEnums::publishingGroups())],
+            'publishing_group' => ['required', Rule::in(array_column(PublishingGroup::cases(), 'name'))],
         ];
     }
 

@@ -7,8 +7,11 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
+use App\Providers\LanguageAbility;
 use App\Providers\PoolCandidateStatus;
 use App\Providers\PositionDuration;
+use App\Providers\PublishingGroup;
+use App\Providers\WorkRegion;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -323,7 +326,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 ',
             [
                 'where' => [
-                    'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                    'languageAbility' => LanguageAbility::ENGLISH->name,
                 ],
             ]
         )->assertSimilarJson([
@@ -402,20 +405,20 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
             'location_preferences' => [
-                ApiEnums::WORK_REGION_ATLANTIC,
-                ApiEnums::WORK_REGION_BRITISH_COLUMBIA,
+                WorkRegion::ATLANTIC->name,
+                WorkRegion::BRITISH_COLUMBIA->name,
             ],
         ]);
         $user2 = User::factory()->create([
             'location_preferences' => [
-                ApiEnums::WORK_REGION_ATLANTIC,
-                ApiEnums::WORK_REGION_BRITISH_COLUMBIA,
-                ApiEnums::WORK_REGION_NATIONAL_CAPITAL,
+                WorkRegion::ATLANTIC->name,
+                WorkRegion::BRITISH_COLUMBIA->name,
+                WorkRegion::NATIONAL_CAPITAL->name,
             ],
         ]);
         $user3 = User::factory()->create([
             'location_preferences' => [
-                ApiEnums::WORK_REGION_NATIONAL_CAPITAL,
+                WorkRegion::NATIONAL_CAPITAL->name,
             ],
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
@@ -435,8 +438,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
             [
                 'where' => [
                     'locationPreferences' => [
-                        ApiEnums::WORK_REGION_ATLANTIC,
-                        ApiEnums::WORK_REGION_BRITISH_COLUMBIA,
+                        WorkRegion::ATLANTIC->name,
+                        WorkRegion::BRITISH_COLUMBIA->name,
                     ],
                 ],
             ]
@@ -696,20 +699,20 @@ class CountPoolCandidatesByPoolTest extends TestCase
 
         $itPool = Pool::factory()->create([
             ...$this->poolData(),
-            'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS,
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($itPool, $user, true));
 
         $itOngoingPool = Pool::factory()->create([
             ...$this->poolData(),
-            'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
+            'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($itOngoingPool, $user, true));
 
         // Note: Should not appear in results
         $execPool = Pool::factory()->create([
             ...$this->poolData(),
-            'publishing_group' => ApiEnums::PUBLISHING_GROUP_EXECUTIVE_JOBS,
+            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($execPool, $user, true));
 

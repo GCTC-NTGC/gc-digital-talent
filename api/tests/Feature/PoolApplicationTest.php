@@ -10,7 +10,9 @@ use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use App\Providers\ArmedForcesStatus;
+use App\Providers\EducationRequirementOption;
 use App\Providers\PoolCandidateStatus;
+use App\Providers\PoolLanguage;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\SkillFamilySeeder;
@@ -159,7 +161,7 @@ class PoolApplicationTest extends TestCase
         $pool = Pool::factory()->create([
             'published_at' => config('constants.past_date'),
             'closing_date' => config('constants.far_future_date'),
-            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
+            'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
 
         $variables = [
@@ -209,7 +211,7 @@ class PoolApplicationTest extends TestCase
             'id' => '3ecf840d-b0ed-4207-8fc4-f45c4a865eaf',
             'published_at' => null,
             'closing_date' => config('constants.far_future_date'),
-            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
+            'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
 
         $variables = [
@@ -237,7 +239,7 @@ class PoolApplicationTest extends TestCase
             'id' => 'f755f7da-c490-4fe1-a1f0-a6c233796442',
             'published_at' => null,
             'closing_date' => config('constants.far_past_date'),
-            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
+            'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
 
         $variables = [
@@ -473,7 +475,7 @@ class PoolApplicationTest extends TestCase
         // pool with no essential skills
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
+            'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -549,7 +551,7 @@ class PoolApplicationTest extends TestCase
     {
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
+            'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -616,7 +618,7 @@ class PoolApplicationTest extends TestCase
         // create a pool, attach one essential skill to it
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
+            'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
         $essentialSkills = Skill::inRandomOrder()->limit(5)->get();
         $newPool->essentialSkills()->sync($essentialSkills);
@@ -680,7 +682,7 @@ class PoolApplicationTest extends TestCase
     {
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
+            'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -710,7 +712,7 @@ class PoolApplicationTest extends TestCase
         //Closed Pool
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->subDays(1),
-            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
+            'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
 
@@ -765,7 +767,7 @@ class PoolApplicationTest extends TestCase
     {
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ENGLISH, // avoid language requirements
+            'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
         ScreeningQuestion::where('pool_id', $newPool->id)->delete();
@@ -777,7 +779,7 @@ class PoolApplicationTest extends TestCase
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
-            'education_requirement_option' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
+            'education_requirement_option' => EducationRequirementOption::EDUCATION->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
@@ -1079,7 +1081,7 @@ class PoolApplicationTest extends TestCase
     {
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ENGLISH,
+            'advertisement_language' => PoolLanguage::ENGLISH->name,
         ]);
         $newPool->essentialSkills()->sync([]);
         $newPoolCandidate = PoolCandidate::factory()->create([
@@ -1142,7 +1144,7 @@ class PoolApplicationTest extends TestCase
     {
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
-            'advertisement_language' => ApiEnums::POOL_ENGLISH,
+            'advertisement_language' => PoolLanguage::ENGLISH->name,
         ]);
         $newPool->essentialSkills()->sync([]);
         $newPoolCandidate = PoolCandidate::factory()->create([
@@ -1165,7 +1167,7 @@ class PoolApplicationTest extends TestCase
                 'id' => [ApiEnums::POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE],
             ]);
 
-        $newPoolCandidate->education_requirement_option = ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION;
+        $newPoolCandidate->education_requirement_option = EducationRequirementOption::EDUCATION->name;
         $newPoolCandidate->save();
 
         // assert still can't submit since requirement is only partially complete

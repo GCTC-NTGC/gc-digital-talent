@@ -8,7 +8,10 @@ use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
+use App\Providers\PoolLanguage;
 use App\Providers\PoolStream;
+use App\Providers\PublishingGroup;
+use App\Providers\SecurityStatus;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -103,13 +106,13 @@ class PoolFactory extends Factory
                 'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'your_impact' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'what_to_expect' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'security_clearance' => $this->faker->randomElement(ApiEnums::poolSecurity()),
-                'advertisement_language' => $this->faker->randomElement(ApiEnums::poolLanguages()),
+                'security_clearance' => $this->faker->randomElement(array_column(SecurityStatus::cases(), 'name')),
+                'advertisement_language' => $this->faker->randomElement(array_column(PoolLanguage::cases(), 'name')),
                 'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
                 'is_remote' => $isRemote,
                 'stream' => $this->faker->randomElement(PoolStream::cases())->name,
                 'process_number' => $this->faker->word(),
-                'publishing_group' => $this->faker->randomElement(ApiEnums::publishingGroups()),
+                'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
             ];
         });
     }
@@ -153,8 +156,8 @@ class PoolFactory extends Factory
         return $this->state(function () {
             return [
                 'publishing_group' => $this->faker->randomElement([
-                    ApiEnums::PUBLISHING_GROUP_IT_JOBS,
-                    ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
+                    PublishingGroup::IT_JOBS->name,
+                    PublishingGroup::IT_JOBS_ONGOING->name,
                 ]),
             ];
         });

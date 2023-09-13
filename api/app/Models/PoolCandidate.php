@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
 use App\Providers\PoolCandidateStatus;
+use App\Providers\PublishingGroup;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
@@ -255,8 +256,8 @@ class PoolCandidate extends Model
     public static function scopeInITPublishingGroup(Builder $query)
     {
         $query = self::scopePublishingGroups($query, [
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS,
+            PublishingGroup::IT_JOBS_ONGOING->name,
+            PublishingGroup::IT_JOBS->name,
         ]);
 
         return $query;

@@ -11,8 +11,10 @@ use App\Models\WorkExperience;
 use App\Providers\ArmedForcesStatus;
 use App\Providers\CitizenshipStatus;
 use App\Providers\IndigenousCommunity;
+use App\Providers\LanguageAbility;
 use App\Providers\PoolCandidateStatus;
 use App\Providers\PositionDuration;
+use App\Providers\PublishingGroup;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -302,7 +304,7 @@ class ApplicantTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']],
                     ],
-                    'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                    'languageAbility' => LanguageAbility::ENGLISH->name,
                 ],
             ]
         )->assertJson([
@@ -324,7 +326,7 @@ class ApplicantTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']],
                     ],
-                    'languageAbility' => ApiEnums::LANGUAGE_ABILITY_FRENCH,
+                    'languageAbility' => LanguageAbility::FRENCH->name,
                 ],
             ]
         )->assertJson([
@@ -346,7 +348,7 @@ class ApplicantTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']],
                     ],
-                    'languageAbility' => ApiEnums::LANGUAGE_ABILITY_BILINGUAL,
+                    'languageAbility' => LanguageAbility::BILINGUAL->name,
                 ],
             ]
         )->assertJson([
@@ -1627,7 +1629,7 @@ class ApplicantTest extends TestCase
         ]);
         $execPool = Pool::factory()->published()->create([
             'user_id' => $this->adminUser->id,
-            'publishing_group' => ApiEnums::PUBLISHING_GROUP_EXECUTIVE_JOBS,
+            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
         ]);
         PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $execPool->id,

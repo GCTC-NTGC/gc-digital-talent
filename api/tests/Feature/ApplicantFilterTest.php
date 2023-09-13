@@ -7,6 +7,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
+use App\Providers\LanguageAbility;
 use App\Providers\PoolStream;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
@@ -428,11 +429,11 @@ class ApplicantFilterTest extends TestCase
         $candidate = $candidates->random();
         $filterLanguage = null; // run through fields and assign the enum for the first one that is true
         if ($candidate->looking_for_english) {
-            $filterLanguage = ApiEnums::LANGUAGE_ABILITY_ENGLISH;
+            $filterLanguage = LanguageAbility::ENGLISH->name;
         } elseif ($candidate->looking_for_french) {
-            $filterLanguage = ApiEnums::LANGUAGE_ABILITY_FRENCH;
+            $filterLanguage = LanguageAbility::FRENCH->name;
         } elseif ($candidate->looking_for_bilingual) {
-            $filterLanguage = ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
+            $filterLanguage = LanguageAbility::BILINGUAL->name;
         }
         $filter = ApplicantFilter::factory()->create(
             [

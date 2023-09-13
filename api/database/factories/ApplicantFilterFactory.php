@@ -6,8 +6,10 @@ use App\Models\ApplicantFilter;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Skill;
+use App\Providers\LanguageAbility;
 use App\Providers\PoolStream;
 use App\Providers\PositionDuration;
+use App\Providers\WorkRegion;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -34,9 +36,9 @@ class ApplicantFilterFactory extends Factory
             'is_visible_minority' => $this->faker->boolean(),
             'is_woman' => $this->faker->boolean(),
             'position_duration' => $this->faker->boolean() ? null : [PositionDuration::TEMPORARY->name], // null or request TEMPORARY
-            'language_ability' => $this->faker->randomElement(ApiEnums::languageAbilities()),
+            'language_ability' => $this->faker->randomElement(array_column(LanguageAbility::cases(), 'name')),
             'location_preferences' => $this->faker->randomElements(
-                ApiEnums::workRegions(),
+                array_column(WorkRegion::cases(), 'name'),
                 $this->faker->numberBetween(1, 3)
             ),
             'operational_requirements' => $this->faker->optional->randomElements(

@@ -8,6 +8,7 @@ use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use App\Notifications\PoolCandidateStatusChanged;
+use App\Providers\EducationRequirementOption;
 use App\Providers\PoolCandidateStatus;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -217,13 +218,13 @@ class PoolCandidateUpdateTest extends TestCase
         $response = $this->actingAs($this->candidateUser, 'api')->graphQL($updateApplication, [
             'id' => $this->poolCandidate->id,
             'application' => [
-                'educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
+                'educationRequirementOption' => EducationRequirementOption::EDUCATION->name,
                 'educationRequirementEducationExperiences' => [
                     'sync' => [$educationExperienceIds[0]],
                 ],
             ],
         ]);
-        $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION]);
+        $response->assertJsonFragment(['educationRequirementOption' => EducationRequirementOption::EDUCATION->name]);
         $response->assertJsonFragment([
             ['id' => $educationExperienceIds[0]],
         ]);
@@ -232,7 +233,7 @@ class PoolCandidateUpdateTest extends TestCase
         $response = $this->actingAs($this->candidateUser, 'api')->graphQL($updateApplication, [
             'id' => $this->poolCandidate->id,
             'application' => [
-                'educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK,
+                'educationRequirementOption' => EducationRequirementOption::APPLIED_WORK->name,
                 'educationRequirementCommunityExperiences' => [
                     'sync' => $communityExperienceIds,
                 ],
@@ -242,7 +243,7 @@ class PoolCandidateUpdateTest extends TestCase
                 'educationRequirementWorkExperiences' => ['sync' => []],
             ],
         ]);
-        $response->assertJsonFragment(['educationRequirementOption' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK]);
+        $response->assertJsonFragment(['educationRequirementOption' => EducationRequirementOption::APPLIED_WORK->name]);
         $response->assertJsonMissing([
             ['id' => $educationExperienceIds[0]],
         ]);

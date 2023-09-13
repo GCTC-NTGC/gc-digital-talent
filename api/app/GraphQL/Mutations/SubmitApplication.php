@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
 use App\Models\PoolCandidate;
+use App\Providers\ApplicationStep;
 use App\Providers\PoolCandidateStatus;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
@@ -35,7 +36,7 @@ final class SubmitApplication
         $dateNow = Carbon::now();
         $application->submitted_at = $dateNow;
         $application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
-        $application->setInsertSubmittedStepAttribute(ApiEnums::APPLICATION_STEP_REVIEW_AND_SUBMIT);
+        $application->setInsertSubmittedStepAttribute(ApplicationStep::REVIEW_AND_SUBMIT->name);
         $application->setApplicationSnapshot();
 
         $application->save();

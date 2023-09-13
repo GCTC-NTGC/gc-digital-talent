@@ -18,7 +18,9 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use App\Providers\EducationRequirementOption;
 use App\Providers\PoolStream;
+use App\Providers\PublishingGroup;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Faker;
@@ -150,13 +152,13 @@ class DatabaseSeeder extends Seeder
             $educationRequirementOption = $poolCandidate->education_requirement_option;
             $user = $poolCandidate->user;
 
-            if ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION) {
+            if ($educationRequirementOption === EducationRequirementOption::EDUCATION->name) {
                 //Ensure user has at least one education experience
                 $experience = EducationExperience::factory()->create([
                     'user_id' => $user->id,
                 ]);
                 $poolCandidate->educationRequirementEducationExperiences()->sync([$experience->id]);
-            } elseif ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
+            } elseif ($educationRequirementOption === EducationRequirementOption::APPLIED_WORK->name) {
                 //Ensure user has at least one work experience
                 $experience = WorkExperience::factory()->create([
                     'user_id' => $user->id,
@@ -235,8 +237,8 @@ class DatabaseSeeder extends Seeder
         $faker = Faker\Factory::create();
 
         $publishingGroups = [
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS,
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
+            PublishingGroup::IT_JOBS->name,
+            PublishingGroup::IT_JOBS_ONGOING->name,
         ];
         $dates = [
             'FAR_PAST' => Carbon::create(1992, 10, 24),

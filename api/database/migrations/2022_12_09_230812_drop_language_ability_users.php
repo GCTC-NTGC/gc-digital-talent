@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\LanguageAbility;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -25,21 +26,21 @@ return new class extends Migration
                 // only override looking_for_english if it is null
                 if ($user->looking_for_english === null) {
                     // play it safe, ENGLISH and BILINGUAL map to true
-                    $lookingForEnglish = ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
+                    $lookingForEnglish = ($languageAbility == LanguageAbility::ENGLISH->name || $languageAbility == LanguageAbility::BILINGUAL->name);
                     DB::table('users')->where('id', $userId)->update(['looking_for_english' => $lookingForEnglish]);
                 }
 
                 // only override looking_for_french if it is null
                 if ($user->looking_for_french === null) {
                     // play it safe, FRENCH and BILINGUAL map to true
-                    $lookingForFrench = ($languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
+                    $lookingForFrench = ($languageAbility == LanguageAbility::FRENCH->name || $languageAbility == LanguageAbility::BILINGUAL->name);
                     DB::table('users')->where('id', $userId)->update(['looking_for_french' => $lookingForFrench]);
                 }
 
                 // only override looking_for_bilingual if it is null
                 if ($user->looking_for_bilingual === null) {
                     // only BILINGUAL maps to true
-                    $lookingForBilingual = ($languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
+                    $lookingForBilingual = ($languageAbility == LanguageAbility::BILINGUAL->name);
                     DB::table('users')->where('id', $userId)->update(['looking_for_bilingual' => $lookingForBilingual]);
                 }
             }
@@ -71,18 +72,18 @@ return new class extends Migration
 
             // only english case
             if ($lookingForEnglish && ! $lookingForFrench && ! $lookingForBilingual) {
-                DB::table('users')->where('id', $userId)->update(['language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH]);
+                DB::table('users')->where('id', $userId)->update(['language_ability' => LanguageAbility::ENGLISH->name]);
             }
 
             // only french case
             if (! $lookingForEnglish && $lookingForFrench && ! $lookingForBilingual) {
-                DB::table('users')->where('id', $userId)->update(['language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH]);
+                DB::table('users')->where('id', $userId)->update(['language_ability' => LanguageAbility::FRENCH->name]);
             }
 
             // bilingual case just depends on the one field being true
             // or ignore the field if english and french are both true
             if (($lookingForBilingual) || ($lookingForEnglish && $lookingForFrench)) {
-                DB::table('users')->where('id', $userId)->update(['language_ability' => ApiEnums::LANGUAGE_ABILITY_BILINGUAL]);
+                DB::table('users')->where('id', $userId)->update(['language_ability' => LanguageAbility::BILINGUAL->name]);
             }
 
             // in all other cases the field stays null, so cases where all fields tested are false/null for instance

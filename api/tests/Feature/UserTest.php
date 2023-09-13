@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use App\Providers\IndigenousCommunity;
+use App\Providers\LanguageAbility;
 use App\Providers\PoolCandidateStatus;
 use App\Providers\PositionDuration;
 use Database\Helpers\ApiEnums;
@@ -1811,7 +1812,7 @@ class UserTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']],
                     ],
-                    'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                    'languageAbility' => LanguageAbility::ENGLISH->name,
                 ],
             ]
         )->assertJson([

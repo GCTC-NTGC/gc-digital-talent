@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\GraphQL\Operators\PostgreSQLOperator;
+use GraphQL\Type\Definition\Description;
 use Illuminate\Support\ServiceProvider;
 use GraphQL\Type\Definition\EnumType;
 use Nuwave\Lighthouse\WhereConditions\Operator;
@@ -127,14 +128,78 @@ enum PoolCandidateStatus
     case REMOVED;
 }
 
-enum IndigenousCommunity {
+enum IndigenousCommunity
+{
     case STATUS_FIRST_NATIONS;
     case NON_STATUS_FIRST_NATIONS;
     case INUIT;
     case METIS;
     case OTHER;
     case LEGACY_IS_INDIGENOUS;
-  }
+}
+
+enum SecurityStatus
+{
+    case RELIABILITY;
+    case SECRET;
+    case TOP_SECRET;
+}
+
+enum PoolLanguage
+{
+    case ENGLISH;
+    case FRENCH;
+    case VARIOUS;
+    case BILINGUAL_INTERMEDIATE;
+    case BILINGUAL_ADVANCED;
+}
+
+enum PublishingGroup
+{
+    case IAP;
+    case IT_JOBS;
+    case IT_JOBS_ONGOING;
+    case EXECUTIVE_JOBS;
+    case OTHER;
+}
+
+enum ApplicationStep
+{
+    case WELCOME;
+    case SELF_DECLARATION;
+    case REVIEW_YOUR_PROFILE;
+    #[Description(description: 'This is the career timeline.')]
+    case REVIEW_YOUR_RESUME;
+    case EDUCATION_REQUIREMENTS;
+    case SKILL_REQUIREMENTS;
+    case SCREENING_QUESTIONS;
+    case REVIEW_AND_SUBMIT;
+}
+
+enum EducationRequirementOption
+{
+    case APPLIED_WORK;
+    case EDUCATION;
+}
+
+enum LanguageAbility
+{
+    case ENGLISH;
+    case FRENCH;
+    case BILINGUAL;
+}
+
+enum WorkRegion
+{
+    case TELEWORK;
+    case NATIONAL_CAPITAL;
+    case ATLANTIC;
+    case QUEBEC;
+    case ONTARIO;
+    case PRAIRIE;
+    case BRITISH_COLUMBIA;
+    case NORTH;
+}
 
 class GraphQLServiceProvider extends ServiceProvider
 {
@@ -257,6 +322,69 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'PoolCandidateStatus',
                     'values' => array_column(PoolCandidateStatus::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'SecurityStatus',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'SecurityStatus',
+                    'values' => array_column(SecurityStatus::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PoolLanguage',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PoolLanguage',
+                    'values' => array_column(PoolLanguage::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PublishingGroup',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PublishingGroup',
+                    'values' => array_column(PublishingGroup::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'ApplicationStep',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'ApplicationStep',
+                    'values' => array_column(ApplicationStep::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'EducationRequirementOption',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'EducationRequirementOption',
+                    'values' => array_column(EducationRequirementOption::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'LanguageAbility',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'LanguageAbility',
+                    'values' => array_column(LanguageAbility::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'WorkRegion',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'WorkRegion',
+                    'values' => array_column(WorkRegion::cases(), 'name'),
                 ]);
             }
         );
