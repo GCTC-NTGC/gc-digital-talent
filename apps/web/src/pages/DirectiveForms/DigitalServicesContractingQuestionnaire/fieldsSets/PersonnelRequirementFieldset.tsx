@@ -8,13 +8,15 @@ import {
   errorMessages,
   formMessages,
   getLocalizedName,
-  getDirectiveFormSkillLevel as getSkillLevel,
+  getBehaviouralSkillLevel,
+  getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 import {
   PersonnelLanguage,
   PersonnelScreeningLevel,
   PersonnelTeleworkOption,
   Skill,
+  SkillCategory,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
@@ -86,7 +88,7 @@ const PersonnelRequirementFieldset = ({
     }
   }, [resetField, isLanguageOther, fieldsetName, isSecurityOther]);
 
-  const handleSkillDialogSave = (
+  const handleSkillDialogNew = (
     values: SkillDialogFormValues,
   ): Promise<void> => {
     if (values.skill && values.skillLevel) {
@@ -98,6 +100,21 @@ const PersonnelRequirementFieldset = ({
         ...(selectedSkillRequirements ?? []),
         newEntry,
       ]);
+      return Promise.resolve();
+    }
+    return Promise.reject();
+  };
+
+  const handleSkillDialogEdit = (
+    values: SkillDialogFormValues,
+    index: number,
+  ): Promise<void> => {
+    if (values.skill && values.skillLevel) {
+      const newEntry: SkillRequirementFormValues = {
+        skillId: values.skill,
+        level: values.skillLevel,
+      };
+      setValue(`${fieldsetName}.skillRequirements.${index}`, newEntry);
       return Promise.resolve();
     }
     return Promise.reject();
@@ -141,7 +158,7 @@ const PersonnelRequirementFieldset = ({
                 "Label for _skills_ fieldset in the _digital services contracting questionnaire_",
             })}
           </Field.Legend>
-          {selectedSkillRequirements.map((requirement) => {
+          {selectedSkillRequirements.map((requirement, index) => {
             const selectedSkillModel = skills.find(
               (s) => s.id === requirement.skillId,
             );
@@ -149,17 +166,21 @@ const PersonnelRequirementFieldset = ({
               ?.length
               ? selectedSkillModel?.families[0]
               : null;
-            const levelName = getSkillLevel(requirement.level);
+            const skillLevel =
+              selectedSkillModel?.category === SkillCategory.Technical
+                ? getTechnicalSkillLevel(requirement.level)
+                : getBehaviouralSkillLevel(requirement.level);
+
             const displayName = intl.formatMessage(
               {
-                defaultMessage: "{skillName} at {skillLevel}",
-                id: "TPHO1i",
+                defaultMessage: "{skillName} ({skillLevel})",
+                id: "Vk870g",
                 description:
                   "Display of skill requirement in the _digital services contracting questionnaire_",
               },
               {
                 skillName: getLocalizedName(selectedSkillModel?.name, intl),
-                skillLevel: intl.formatMessage(levelName),
+                skillLevel: intl.formatMessage(skillLevel),
               },
             );
             return (
@@ -173,7 +194,9 @@ const PersonnelRequirementFieldset = ({
                 <SkillDialog
                   skills={skills}
                   context="directive_forms"
-                  onSave={handleSkillDialogSave}
+                  onSave={(values: SkillDialogFormValues) =>
+                    handleSkillDialogEdit(values, index)
+                  }
                   trigger={{
                     label: intl.formatMessage(
                       {
@@ -219,7 +242,7 @@ const PersonnelRequirementFieldset = ({
           <SkillDialog
             skills={skills}
             context="directive_forms"
-            onSave={handleSkillDialogSave}
+            onSave={handleSkillDialogNew}
             trigger={{ block: true }}
           />
         </Field.Fieldset>

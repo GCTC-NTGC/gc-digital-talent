@@ -1766,39 +1766,6 @@ export const getIndigenousCommunity = (
     `Invalid indigenous community '${indigenousCommunity}'`,
   );
 
-const directiveFormSkillLevels = defineMessages({
-  [SkillLevel.Beginner]: {
-    defaultMessage: "Beginner",
-    id: "karCOz",
-    description: "Label for the beginner skill level",
-  },
-  [SkillLevel.Intermediate]: {
-    defaultMessage: "Intermediate",
-    id: "JzK3m/",
-    description: "Label for the intermediate skill level",
-  },
-
-  [SkillLevel.Advanced]: {
-    defaultMessage: "Expert",
-    id: "YzA4fq",
-    description: "Label for the advanced skill level",
-  },
-  [SkillLevel.Lead]: {
-    defaultMessage: "Lead",
-    id: "9LwRRx",
-    description: "Label for the lead skill level",
-  },
-});
-
-export const getDirectiveFormSkillLevel = (
-  skillLevel: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    directiveFormSkillLevels,
-    skillLevel,
-    `Invalid skill level '${skillLevel}'`,
-  );
-
 const technicalSkillLevels = defineMessages({
   [SkillLevel.Beginner]: {
     defaultMessage: "Entry-level",

@@ -145,6 +145,7 @@ const SkillDialog = ({
                   isTechnical={
                     selectedSkill.category === SkillCategory.Technical
                   }
+                  context={context}
                 />
               )}
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
