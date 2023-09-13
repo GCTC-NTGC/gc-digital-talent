@@ -284,8 +284,8 @@ const SearchContainer = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Use the filters below to specify your hiring needs. At any time you can look at the results located at the bottom of this page to see how many candidates match the requirements you have entered. When you are comfortable with the filters you have selected, click the Request candidates button to add more details and submit a request form.",
-                  id: "AaoxNX",
+                    "Use the filters to specify your requirements. We will show you an estimated number of candidates who match your criteria as you enter your information. Select Request candidates when you are done. Doing so will bring you to a form where you can provide your contact information and submit your request.",
+                  id: "U0b3/+",
                   description:
                     "Content displayed in the How To area of the hero section of the Search page.",
                 })}
