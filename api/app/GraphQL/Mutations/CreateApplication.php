@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\GraphQL\Validators\Mutation\CreateApplicationValidator;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Providers\PoolCandidateStatus;
 use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -40,7 +41,7 @@ final class CreateApplication
             ]);
 
             // set to DRAFT in the database itself, Accessor already returns this as DRAFT if unexpired via API
-            $application->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_DRAFT;
+            $application->pool_candidate_status = PoolCandidateStatus::DRAFT->name;
             $application->save();
         } catch (\Throwable $error) {
             // Add the error to the pool

@@ -6,6 +6,7 @@ use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
+use App\Providers\PoolStream;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Seeder;
 
@@ -54,7 +55,7 @@ class PoolSeeder extends Seeder
                 if ($identifier['name->en'] == 'CMO Digital Careers') {
                     $classificationIT01Id = Classification::where('group', 'ilike', 'IT')->where('level', 1)->first()['id'];
                     $createdPool->classifications()->sync([$classificationIT01Id]);
-                    $createdPool->stream = ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES;
+                    $createdPool->stream = PoolStream::BUSINESS_ADVISORY_SERVICES->name;
                     $createdPool->advertisement_language = ApiEnums::POOL_VARIOUS;
                     $createdPool->save();
                 }

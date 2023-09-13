@@ -156,53 +156,6 @@ type User {
   notifications: [Notification!] @rename(attribute: "enriched_notifications")
 }
 
-enum BilingualEvaluation {
-  COMPLETED_ENGLISH
-  COMPLETED_FRENCH
-  NOT_COMPLETED
-}
-
-enum EvaluatedLanguageAbility {
-  X
-  A
-  B
-  C
-  E
-  P
-}
-
-enum EstimatedLanguageAbility {
-  BEGINNER
-  INTERMEDIATE
-  ADVANCED
-}
-
-enum CitizenshipStatus {
-  CITIZEN
-  PERMANENT_RESIDENT
-  OTHER
-}
-
-enum ArmedForcesStatus {
-  VETERAN
-  MEMBER
-  NON_CAF
-}
-
-enum PositionDuration {
-  TEMPORARY
-  PERMANENT
-}
-
-enum IndigenousCommunity {
-  STATUS_FIRST_NATIONS
-  NON_STATUS_FIRST_NATIONS
-  INUIT
-  METIS
-  OTHER
-  LEGACY_IS_INDIGENOUS
-}
-
 interface Notification {
   id: ID!
   readAt: DateTime @rename(attribute: "read_at")
@@ -269,47 +222,6 @@ type Pool {
   closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
-}
-
-enum PoolStream {
-  ACCESS_INFORMATION_PRIVACY
-  BUSINESS_ADVISORY_SERVICES
-  DATABASE_MANAGEMENT
-  ENTERPRISE_ARCHITECTURE
-  INFRASTRUCTURE_OPERATIONS
-  PLANNING_AND_REPORTING
-  PROJECT_PORTFOLIO_MANAGEMENT
-  SECURITY
-  SOFTWARE_SOLUTIONS
-  INFORMATION_DATA_FUNCTIONS
-}
-
-enum PoolStatus {
-  DRAFT
-  PUBLISHED
-  CLOSED
-  ARCHIVED
-}
-
-enum PoolCandidateStatus {
-  DRAFT
-  DRAFT_EXPIRED
-  NEW_APPLICATION
-  APPLICATION_REVIEW
-  SCREENED_IN
-  SCREENED_OUT_APPLICATION
-  SCREENED_OUT_NOT_INTERESTED
-  SCREENED_OUT_NOT_RESPONSIVE
-  UNDER_ASSESSMENT
-  SCREENED_OUT_ASSESSMENT
-  QUALIFIED_AVAILABLE
-  QUALIFIED_UNAVAILABLE
-  QUALIFIED_WITHDREW
-  PLACED_CASUAL
-  PLACED_TERM
-  PLACED_INDETERMINATE
-  EXPIRED
-  REMOVED
 }
 
 enum SecurityStatus {

@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
 use App\Models\PoolCandidate;
+use App\Providers\PoolCandidateStatus;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Validator;
@@ -33,7 +34,7 @@ final class SubmitApplication
         // add signature and submission, as well as update the set expiry date and status, update([]) not used due to not working correctly
         $dateNow = Carbon::now();
         $application->submitted_at = $dateNow;
-        $application->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
+        $application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $application->setInsertSubmittedStepAttribute(ApiEnums::APPLICATION_STEP_REVIEW_AND_SUBMIT);
         $application->setApplicationSnapshot();
 

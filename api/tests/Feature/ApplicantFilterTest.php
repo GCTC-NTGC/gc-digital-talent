@@ -7,6 +7,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
+use App\Providers\PoolStream;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
@@ -415,7 +416,7 @@ class ApplicantFilterTest extends TestCase
                     'en' => 'Test Pool EN',
                     'fr' => 'Test Pool FR',
                 ],
-                'stream' => ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES,
+                'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
             ]);
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([

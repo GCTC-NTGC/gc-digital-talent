@@ -8,6 +8,7 @@ use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use App\Notifications\PoolCandidateStatusChanged;
+use App\Providers\PoolCandidateStatus;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -266,11 +267,11 @@ class PoolCandidateUpdateTest extends TestCase
         Notification::fake(); // initialize notification facade
 
         // set up submitted candidate
-        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $this->poolCandidate->saveQuietly(); // don't generate events during set up
 
         // simulate screening in
-        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_SCREENED_IN;
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::SCREENED_IN->name;
         $this->poolCandidate->save();
 
         // check that notification was fired
@@ -291,13 +292,13 @@ class PoolCandidateUpdateTest extends TestCase
         $screenInTime = config('constants.far_past_datetime');
 
         // set up submitted candidate
-        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $this->poolCandidate->saveQuietly(); // don't generate events during set up
 
         Carbon::setTestNow($screenInTime);
 
         // simulate screening in
-        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_SCREENED_IN;
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::SCREENED_IN->name;
         $this->poolCandidate->save();
 
         // gather expected notification ID
@@ -338,7 +339,7 @@ class PoolCandidateUpdateTest extends TestCase
                                 'readAt' => null,
                                 'createdAt' => $screenInTime,
                                 'updatedAt' => $screenInTime,
-                                'oldStatus' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+                                'oldStatus' => PoolCandidateStatus::NEW_APPLICATION->name,
                                 'newStatus' => $this->poolCandidate->pool_candidate_status,
                                 'poolId' => $this->poolCandidate->pool->id,
                                 'poolName' => [
@@ -367,13 +368,13 @@ class PoolCandidateUpdateTest extends TestCase
         $dismissNotificationTime = config('constants.past_datetime');
 
         // set up submitted candidate
-        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $this->poolCandidate->saveQuietly(); // don't generate events during set up
 
         Carbon::setTestNow($screenInTime);
 
         // simulate screening in
-        $this->poolCandidate->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_SCREENED_IN;
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::SCREENED_IN->name;
         $this->poolCandidate->save();
 
         $notificationId = $this->candidateUser->notifications()->sole()->id;

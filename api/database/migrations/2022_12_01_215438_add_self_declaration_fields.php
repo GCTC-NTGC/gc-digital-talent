@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\IndigenousCommunity;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -29,7 +30,7 @@ return new class extends Migration
                             when false then :emptyArray::jsonb
                         end
             SQL, [
-                'isIndigenous' => json_encode([ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS]),
+                'isIndigenous' => json_encode([IndigenousCommunity::LEGACY_IS_INDIGENOUS->name]),
                 'emptyArray' => json_encode([]), // empty array maps is_indigenous = false to the new format and enables accurate reversal
             ]
         );

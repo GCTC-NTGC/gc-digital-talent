@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
+use App\Providers\PoolCandidateStatus;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
@@ -171,7 +172,7 @@ class PoolCandidate extends Model
         $query->where(function ($query) {
             $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
         })
-            ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
+            ->whereIn('pool_candidates.pool_candidate_status', [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name]) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
@@ -199,7 +200,7 @@ class PoolCandidate extends Model
         $query->where(function ($query) {
             $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
         })
-            ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
+            ->whereIn('pool_candidates.pool_candidate_status', [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name]) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
@@ -404,7 +405,7 @@ class PoolCandidate extends Model
 
     public static function scopeAvailable(Builder $query): Builder
     {
-        $query->whereIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])
+        $query->whereIn('pool_candidate_status', [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name])
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');

@@ -18,6 +18,7 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use App\Providers\PoolStream;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Faker;
@@ -257,7 +258,7 @@ class DatabaseSeeder extends Seeder
                         'closing_date' => $date,
                         'publishing_group' => $publishingGroup,
                         'published_at' => $faker->dateTimeBetween('-1 year', 'now'),
-                        'stream' => $faker->randomElement(ApiEnums::poolStreams()),
+                        'stream' => $faker->randomElement(PoolStream::cases())->name,
                         'team_id' => $testTeamId,
                     ]);
                 }

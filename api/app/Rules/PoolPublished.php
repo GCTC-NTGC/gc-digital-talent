@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use App\Models\Pool;
+use App\Providers\PoolStatus;
 use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\Rule;
 
@@ -30,8 +31,8 @@ class PoolPublished implements Rule
         $pool = Pool::find($value);
 
         return ! in_array($pool->status, [
-            ApiEnums::POOL_IS_DRAFT,
-            ApiEnums::POOL_IS_CLOSED,
+            PoolStatus::DRAFT->name,
+            PoolStatus::CLOSED->name,
         ]);
     }
 

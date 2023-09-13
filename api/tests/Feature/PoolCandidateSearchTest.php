@@ -4,6 +4,9 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Team;
 use App\Models\User;
+use App\Providers\ArmedForcesStatus;
+use App\Providers\CitizenshipStatus;
+use App\Providers\PoolCandidateStatus;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -57,11 +60,11 @@ class PoolCandidateSearchTest extends TestCase
             'pool_id' => $this->pool->id,
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => true,
-                'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
-                'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
+                'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
+                'citizenship' => CitizenshipStatus::CITIZEN->name,
                 'has_diploma' => false,
                 'is_woman' => false,
             ]),
@@ -72,11 +75,11 @@ class PoolCandidateSearchTest extends TestCase
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => false,
-                'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
-                'citizenship' => ApiEnums::CITIZENSHIP_OTHER,
+                'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
+                'citizenship' => CitizenshipStatus::OTHER->name,
                 'has_diploma' => false,
                 'is_woman' => false,
             ]),
@@ -87,11 +90,11 @@ class PoolCandidateSearchTest extends TestCase
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+            'pool_candidate_status' => PoolCandidateStatus::APPLICATION_REVIEW->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => false,
-                'armed_forces_status' => ApiEnums::ARMED_FORCES_NON_CAF,
-                'citizenship' => ApiEnums::CITIZENSHIP_OTHER,
+                'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
+                'citizenship' => CitizenshipStatus::OTHER->name,
                 'has_diploma' => false,
                 'is_woman' => false,
             ]),
@@ -104,11 +107,11 @@ class PoolCandidateSearchTest extends TestCase
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => false,
-                'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
-                'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
+                'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
+                'citizenship' => CitizenshipStatus::CITIZEN->name,
                 'has_diploma' => true,
                 'is_woman' => true,
             ]),
@@ -120,11 +123,11 @@ class PoolCandidateSearchTest extends TestCase
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
             'expiry_date' => config('constants.far_future_date'),
             'submitted_at' => config('constants.past_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => true,
-                'armed_forces_status' => ApiEnums::ARMED_FORCES_VETERAN,
-                'citizenship' => ApiEnums::CITIZENSHIP_CITIZEN,
+                'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
+                'citizenship' => CitizenshipStatus::CITIZEN->name,
                 'has_diploma' => true,
                 'is_woman' => true,
             ]),
@@ -200,25 +203,25 @@ class PoolCandidateSearchTest extends TestCase
         $candidateActive = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'user_id' => User::factory(),
         ]);
         $candidateActive2 = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'user_id' => User::factory(),
         ]);
         $candidateExpired = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.past_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'user_id' => User::factory(),
         ]);
         $candidateNullExpiry = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => null,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'user_id' => User::factory(),
         ]);
 
@@ -299,25 +302,25 @@ class PoolCandidateSearchTest extends TestCase
         PoolCandidate::factory()->count(5)->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => null,
         ]);
         PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => config('constants.far_past_datetime'),
         ]);
         PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => Carbon::now()->subMinutes(1),
         ]);
         PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => Carbon::now()->addMinutes(1),
         ]);
 
@@ -416,7 +419,7 @@ class PoolCandidateSearchTest extends TestCase
         PoolCandidate::factory()->count(5)->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => null,
             'user_id' => User::factory([
                 'is_gov_employee' => true,
@@ -425,7 +428,7 @@ class PoolCandidateSearchTest extends TestCase
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => null,
             'user_id' => User::factory([
                 'is_gov_employee' => false,

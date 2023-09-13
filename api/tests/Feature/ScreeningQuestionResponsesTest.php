@@ -5,6 +5,7 @@ use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestionResponse;
 use App\Models\Team;
 use App\Models\User;
+use App\Providers\PoolCandidateStatus;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -67,7 +68,7 @@ class ScreeningQuestionResponsesTest extends TestCase
     public function testCreatingScreeningQuestionResponses(): void
     {
         $application = PoolCandidate::factory()->create([
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
             'user_id' => $this->teamUser->id,
         ]);
         ScreeningQuestionResponse::all()->each->delete();
@@ -114,7 +115,7 @@ class ScreeningQuestionResponsesTest extends TestCase
     public function testUpdatingScreeningQuestionResponses(): void
     {
         $application = PoolCandidate::factory()->create([
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
             'user_id' => $this->teamUser->id,
         ]);
         ScreeningQuestionResponse::all()->each->delete();
@@ -160,7 +161,7 @@ class ScreeningQuestionResponsesTest extends TestCase
     public function testDeletingScreeningQuestionResponses(): void
     {
         $application = PoolCandidate::factory()->create([
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
             'user_id' => $this->teamUser->id,
         ]);
         ScreeningQuestionResponse::all()->each->delete();

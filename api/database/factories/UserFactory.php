@@ -11,8 +11,15 @@ use App\Models\PersonalExperience;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
+use App\Providers\ArmedForcesStatus;
+use App\Providers\BilingualEvaluation;
+use App\Providers\CitizenshipStatus;
+use App\Providers\EstimatedLanguageAbility;
+use App\Providers\EvaluatedLanguageAbility;
 use App\Providers\GovEmployeeType;
+use App\Providers\IndigenousCommunity;
 use App\Providers\Language;
+use App\Providers\PositionDuration;
 use App\Providers\ProvinceOrTerritory;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -33,15 +40,6 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $evaluatedLanguageAbility = [
-            'X',
-            'A',
-            'B',
-            'C',
-            'E',
-            'P',
-        ];
-
         $randomDepartment = Department::inRandomOrder()->first();
         $randomClassification = Classification::inRandomOrder()->first();
         $isGovEmployee = $this->faker->boolean();
@@ -71,24 +69,22 @@ class UserFactory extends Factory
             'looking_for_french' => $lookingFrench,
             'looking_for_bilingual' => $lookingBilingual,
             'bilingual_evaluation' => $hasBeenEvaluated ? $this->faker->randomElement([
-                'COMPLETED_ENGLISH',
-                'COMPLETED_FRENCH',
-            ]) : 'NOT_COMPLETED',
+                BilingualEvaluation::COMPLETED_ENGLISH->name,
+                BilingualEvaluation::COMPLETED_FRENCH->name,
+            ]) : BilingualEvaluation::NOT_COMPLETED->name,
 
-            'comprehension_level' => $hasBeenEvaluated ? $this->faker->randomElement(
-                $evaluatedLanguageAbility
-            ) : null,
-            'written_level' => $hasBeenEvaluated ? $this->faker->randomElement(
-                $evaluatedLanguageAbility
-            ) : null,
-            'verbal_level' => $hasBeenEvaluated ? $this->faker->randomElement(
-                $evaluatedLanguageAbility
-            ) : null,
-            'estimated_language_ability' => $hasBeenEvaluated ? null : $this->faker->randomElement([
-                'BEGINNER',
-                'INTERMEDIATE',
-                'ADVANCED',
-            ]),
+            'comprehension_level' => $hasBeenEvaluated ?
+                $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
+                : null,
+            'written_level' => $hasBeenEvaluated ?
+                $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
+                : null,
+            'verbal_level' => $hasBeenEvaluated ?
+                $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
+                : null,
+            'estimated_language_ability' => $hasBeenEvaluated ?
+                null
+                : $this->faker->randomElement(EstimatedLanguageAbility::cases())->name,
             'is_gov_employee' => $isGovEmployee,
             'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
             'current_classification' => $isGovEmployee && $randomClassification ? $randomClassification->id : null,
@@ -111,16 +107,16 @@ class UserFactory extends Factory
             ),
             'location_exemptions' => "{$this->faker->city()}, {$this->faker->city()}, {$this->faker->city()}",
             'position_duration' => $this->faker->boolean() ?
-                [ApiEnums::POSITION_DURATION_PERMANENT, ApiEnums::POSITION_DURATION_TEMPORARY]
-                : [ApiEnums::POSITION_DURATION_PERMANENT], // always accepting PERMANENT
+                array_column(PositionDuration::cases(), 'name')
+                : [PositionDuration::PERMANENT->name], // always accepting PERMANENT
             'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(GovEmployeeType::cases())->name : null,
-            'citizenship' => $this->faker->randomElement(ApiEnums::citizenshipStatuses()),
-            'armed_forces_status' => $this->faker->randomElement(ApiEnums::armedForcesStatuses()),
+            'citizenship' => $this->faker->randomElement(CitizenshipStatus::cases())->name,
+            'armed_forces_status' => $this->faker->randomElement(ArmedForcesStatus::cases())->name,
             'has_priority_entitlement' => $hasPriorityEntitlement,
             'priority_number' => $hasPriorityEntitlement ? $this->faker->word() : null,
             'indigenous_declaration_signature' => $isDeclared ? $this->faker->firstName() : null,
-            'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(ApiEnums::indigenousCommunities())] : [],
+            'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(IndigenousCommunity::cases())->name] : [],
             // mirroring migration where isIndigenous = false maps to []
         ];
     }

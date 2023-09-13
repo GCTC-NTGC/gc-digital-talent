@@ -9,6 +9,8 @@ use App\Models\ScreeningQuestionResponse;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
+use App\Providers\ArmedForcesStatus;
+use App\Providers\PoolCandidateStatus;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\SkillFamilySeeder;
@@ -174,7 +176,7 @@ class PoolApplicationTest extends TestCase
                     'pool' => [
                         'id' => $pool->id,
                     ],
-                    'status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+                    'status' => PoolCandidateStatus::DRAFT->name,
                 ],
             ],
         ];
@@ -261,14 +263,14 @@ class PoolApplicationTest extends TestCase
     {
         // Create pool candidates
         $archivableApplication = PoolCandidate::factory()->create([
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+            'pool_candidate_status' => PoolCandidateStatus::EXPIRED->name,
             'submitted_at' => config('constants.past_date'),
             'user_id' => $this->applicantUser->id,
         ]);
 
         // this one is archived
         $notArchivableApplication = PoolCandidate::factory()->create([
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+            'pool_candidate_status' => PoolCandidateStatus::EXPIRED->name,
             'archived_at' => config('constants.past_date'),
             'submitted_at' => config('constants.past_date'),
             'user_id' => $this->applicantUser->id,
@@ -310,18 +312,18 @@ class PoolApplicationTest extends TestCase
     {
         // array of statuses that should fail the test, as they should not allow archiving
         $statusesThatShouldFail = [
-            ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-            ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE,
-            ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
-            ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
-            ApiEnums::CANDIDATE_STATUS_SCREENED_IN,
-            ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
-            ApiEnums::CANDIDATE_STATUS_DRAFT,
-            ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
-            ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
-            ApiEnums::CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE,
-            ApiEnums::CANDIDATE_STATUS_QUALIFIED_WITHDREW,
+            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            PoolCandidateStatus::PLACED_CASUAL->name,
+            PoolCandidateStatus::PLACED_INDETERMINATE->name,
+            PoolCandidateStatus::PLACED_TERM->name,
+            PoolCandidateStatus::APPLICATION_REVIEW->name,
+            PoolCandidateStatus::SCREENED_IN->name,
+            PoolCandidateStatus::UNDER_ASSESSMENT->name,
+            PoolCandidateStatus::DRAFT->name,
+            PoolCandidateStatus::DRAFT_EXPIRED->name,
+            PoolCandidateStatus::NEW_APPLICATION->name,
+            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
         ];
 
         $shared = [
@@ -478,7 +480,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
@@ -513,7 +515,7 @@ class PoolApplicationTest extends TestCase
             ]);
 
         // make user now complete
-        $this->applicantUser->armed_forces_status = ApiEnums::ARMED_FORCES_VETERAN;
+        $this->applicantUser->armed_forces_status = ArmedForcesStatus::VETERAN->name;
         $this->applicantUser->save();
 
         // assert complete user can submit application
@@ -554,7 +556,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
@@ -627,7 +629,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
@@ -685,7 +687,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
@@ -699,7 +701,7 @@ class PoolApplicationTest extends TestCase
                     'sig' => 'sign',
                 ]
             )->assertJsonFragment([
-                'status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+                'status' =>PoolCandidateStatus::NEW_APPLICATION->name,
             ]);
     }
 
@@ -715,7 +717,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
@@ -774,7 +776,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
             'education_requirement_option' => ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
@@ -824,7 +826,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
             'expiry_date' => config('constants.far_future_date'),
         ]);
 
@@ -842,7 +844,7 @@ class PoolApplicationTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+                        'status' => PoolCandidateStatus::DRAFT->name,
                     ],
                 ],
             ]);
@@ -880,20 +882,20 @@ class PoolApplicationTest extends TestCase
         // RECYCLING FROM ABOVE TESTS
         // array of statuses that should fail the test, as they should not allow deletion
         $statusesThatShouldFail = [
-            ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
-            ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
-            ApiEnums::CANDIDATE_STATUS_SCREENED_IN,
-            ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
-            ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
-            ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
-            ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            ApiEnums::CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE,
-            ApiEnums::CANDIDATE_STATUS_QUALIFIED_WITHDREW,
-            ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
-            ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
-            ApiEnums::CANDIDATE_STATUS_PLACED_INDETERMINATE,
-            ApiEnums::CANDIDATE_STATUS_EXPIRED,
-            ApiEnums::CANDIDATE_STATUS_REMOVED,
+            PoolCandidateStatus::NEW_APPLICATION->name,
+            PoolCandidateStatus::APPLICATION_REVIEW->name,
+            PoolCandidateStatus::SCREENED_IN->name,
+            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+            PoolCandidateStatus::UNDER_ASSESSMENT->name,
+            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+            PoolCandidateStatus::PLACED_CASUAL->name,
+            PoolCandidateStatus::PLACED_INDETERMINATE->name,
+            PoolCandidateStatus::PLACED_TERM->name,
+            PoolCandidateStatus::EXPIRED->name,
+            PoolCandidateStatus::REMOVED->name,
         ];
 
         // Create pool candidates
@@ -1083,7 +1085,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
@@ -1103,7 +1105,7 @@ class PoolApplicationTest extends TestCase
                     'sig' => 'sign',
                 ]
             )->assertJsonFragment([
-                'status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+                'status' => PoolCandidateStatus::NEW_APPLICATION->name,
             ]);
 
         $this->travelTo(Carbon::now()->addMinute()); // to test timestamp related things, gaps in time are required
@@ -1146,7 +1148,7 @@ class PoolApplicationTest extends TestCase
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
             'education_requirement_option' => null,
         ]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);

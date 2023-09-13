@@ -158,66 +158,6 @@ class ApiEnums
         ];
     }
 
-    const CANDIDATE_STATUS_DRAFT = 'DRAFT';
-
-    const CANDIDATE_STATUS_DRAFT_EXPIRED = 'DRAFT_EXPIRED';
-
-    const CANDIDATE_STATUS_NEW_APPLICATION = 'NEW_APPLICATION';
-
-    const CANDIDATE_STATUS_APPLICATION_REVIEW = 'APPLICATION_REVIEW';
-
-    const CANDIDATE_STATUS_SCREENED_IN = 'SCREENED_IN';
-
-    const CANDIDATE_STATUS_SCREENED_OUT_APPLICATION = 'SCREENED_OUT_APPLICATION';
-
-    const CANDIDATE_STATUS_SCREENED_OUT_NOT_INTERESTED = 'SCREENED_OUT_NOT_INTERESTED';
-
-    const CANDIDATE_STATUS_SCREENED_OUT_NOT_RESPONSIVE = 'SCREENED_OUT_NOT_RESPONSIVE';
-
-    const CANDIDATE_STATUS_UNDER_ASSESSMENT = 'UNDER_ASSESSMENT';
-
-    const CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT = 'SCREENED_OUT_ASSESSMENT';
-
-    const CANDIDATE_STATUS_QUALIFIED_AVAILABLE = 'QUALIFIED_AVAILABLE';
-
-    const CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE = 'QUALIFIED_UNAVAILABLE';
-
-    const CANDIDATE_STATUS_QUALIFIED_WITHDREW = 'QUALIFIED_WITHDREW';
-
-    const CANDIDATE_STATUS_PLACED_CASUAL = 'PLACED_CASUAL';
-
-    const CANDIDATE_STATUS_PLACED_TERM = 'PLACED_TERM';
-
-    const CANDIDATE_STATUS_PLACED_INDETERMINATE = 'PLACED_INDETERMINATE';
-
-    const CANDIDATE_STATUS_EXPIRED = 'EXPIRED';
-
-    const CANDIDATE_STATUS_REMOVED = 'REMOVED';
-
-    public static function candidateStatuses(): array
-    {
-        return [
-            self::CANDIDATE_STATUS_DRAFT,
-            self::CANDIDATE_STATUS_DRAFT_EXPIRED,
-            self::CANDIDATE_STATUS_NEW_APPLICATION,
-            self::CANDIDATE_STATUS_APPLICATION_REVIEW,
-            self::CANDIDATE_STATUS_SCREENED_IN,
-            self::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
-            self::CANDIDATE_STATUS_SCREENED_OUT_NOT_INTERESTED,
-            self::CANDIDATE_STATUS_SCREENED_OUT_NOT_RESPONSIVE,
-            self::CANDIDATE_STATUS_UNDER_ASSESSMENT,
-            self::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
-            self::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
-            self::CANDIDATE_STATUS_QUALIFIED_UNAVAILABLE,
-            self::CANDIDATE_STATUS_QUALIFIED_WITHDREW,
-            self::CANDIDATE_STATUS_PLACED_CASUAL,
-            self::CANDIDATE_STATUS_PLACED_TERM,
-            self::CANDIDATE_STATUS_PLACED_INDETERMINATE,
-            self::CANDIDATE_STATUS_EXPIRED,
-            self::CANDIDATE_STATUS_REMOVED,
-        ];
-    }
-
     const POOL_STATUS_NOT_TAKING_APPLICATIONS = 'NOT_TAKING_APPLICATIONS';
 
     const POOL_STATUS_TAKING_APPLICATIONS = 'TAKING_APPLICATIONS';
@@ -300,27 +240,6 @@ class ApiEnums
     }
 
     /**
-     * Pool statuses
-     */
-    const POOL_IS_DRAFT = 'DRAFT';
-
-    const POOL_IS_PUBLISHED = 'PUBLISHED';
-
-    const POOL_IS_CLOSED = 'CLOSED';
-
-    const POOL_IS_ARCHIVED = 'ARCHIVED';
-
-    public static function poolStatuses(): array
-    {
-        return [
-            self::POOL_IS_DRAFT,
-            self::POOL_IS_PUBLISHED,
-            self::POOL_IS_CLOSED,
-            self::POOL_IS_ARCHIVED,
-        ];
-    }
-
-    /**
      * Pool languages
      */
     const POOL_ENGLISH = 'ENGLISH';
@@ -359,81 +278,6 @@ class ApiEnums
             self::POOL_RELIABILITY,
             self::POOL_SECRET,
             self::POOL_TOP_SECRET,
-        ];
-    }
-
-    /**
-     * Pool streams
-     */
-    const POOL_STREAM_ACCESS_INFORMATION_PRIVACY = 'ACCESS_INFORMATION_PRIVACY';
-
-    const POOL_STREAM_BUSINESS_ADVISORY_SERVICES = 'BUSINESS_ADVISORY_SERVICES';
-
-    const POOL_STREAM_DATABASE_MANAGEMENT = 'DATABASE_MANAGEMENT';
-
-    const POOL_STREAM_ENTERPRISE_ARCHITECTURE = 'ENTERPRISE_ARCHITECTURE';
-
-    const POOL_STREAM_INFRASTRUCTURE_OPERATIONS = 'INFRASTRUCTURE_OPERATIONS';
-
-    const POOL_STREAM_PLANNING_AND_REPORTING = 'PLANNING_AND_REPORTING';
-
-    const POOL_STREAM_PROJECT_PORTFOLIO_MANAGEMENT = 'PROJECT_PORTFOLIO_MANAGEMENT';
-
-    const POOL_STREAM_SECURITY = 'SECURITY';
-
-    const POOL_STREAM_SOFTWARE_SOLUTIONS = 'SOFTWARE_SOLUTIONS';
-
-    const POOL_STREAM_INFORMATION_DATA_FUNCTIONS = 'INFORMATION_DATA_FUNCTIONS';
-
-    public static function poolStreams(): array
-    {
-        return [
-            self::POOL_STREAM_ACCESS_INFORMATION_PRIVACY,
-            self::POOL_STREAM_BUSINESS_ADVISORY_SERVICES,
-            self::POOL_STREAM_DATABASE_MANAGEMENT,
-            self::POOL_STREAM_ENTERPRISE_ARCHITECTURE,
-            self::POOL_STREAM_INFRASTRUCTURE_OPERATIONS,
-            self::POOL_STREAM_PLANNING_AND_REPORTING,
-            self::POOL_STREAM_PROJECT_PORTFOLIO_MANAGEMENT,
-            self::POOL_STREAM_SECURITY,
-            self::POOL_STREAM_SOFTWARE_SOLUTIONS,
-            self::POOL_STREAM_INFORMATION_DATA_FUNCTIONS,
-        ];
-    }
-
-    /**
-     * Citizenship
-     */
-    const CITIZENSHIP_CITIZEN = 'CITIZEN';
-
-    const CITIZENSHIP_PR = 'PERMANENT_RESIDENT';
-
-    const CITIZENSHIP_OTHER = 'OTHER';
-
-    public static function citizenshipStatuses(): array
-    {
-        return [
-            self::CITIZENSHIP_CITIZEN,
-            self::CITIZENSHIP_PR,
-            self::CITIZENSHIP_OTHER,
-        ];
-    }
-
-    /**
-     * CAF Status
-     */
-    const ARMED_FORCES_VETERAN = 'VETERAN';
-
-    const ARMED_FORCES_MEMBER = 'MEMBER';
-
-    const ARMED_FORCES_NON_CAF = 'NON_CAF';
-
-    public static function armedForcesStatuses(): array
-    {
-        return [
-            self::ARMED_FORCES_VETERAN,
-            self::ARMED_FORCES_MEMBER,
-            self::ARMED_FORCES_NON_CAF,
         ];
     }
 
@@ -515,48 +359,6 @@ class ApiEnums
             self::POOL_CANDIDATE_SEARCH_STATUS_IN_PROGRESS,
             self::POOL_CANDIDATE_SEARCH_STATUS_WAITING,
             self::POOL_CANDIDATE_SEARCH_STATUS_DONE,
-        ];
-    }
-
-    /**
-     * Position Duration
-     */
-    const POSITION_DURATION_TEMPORARY = 'TEMPORARY';
-
-    const POSITION_DURATION_PERMANENT = 'PERMANENT';
-
-    public static function positionDurations(): array
-    {
-        return [
-            self::POSITION_DURATION_TEMPORARY,
-            self::POSITION_DURATION_PERMANENT,
-        ];
-    }
-
-    /**
-     * Indigenous Communities
-     */
-    const INDIGENOUS_STATUS_FIRST_NATIONS = 'STATUS_FIRST_NATIONS';
-
-    const INDIGENOUS_NON_STATUS_FIRST_NATIONS = 'NON_STATUS_FIRST_NATIONS';
-
-    const INDIGENOUS_INUIT = 'INUIT';
-
-    const INDIGENOUS_METIS = 'METIS';
-
-    const INDIGENOUS_OTHER = 'OTHER';
-
-    const INDIGENOUS_LEGACY_IS_INDIGENOUS = 'LEGACY_IS_INDIGENOUS';
-
-    public static function indigenousCommunities(): array
-    {
-        return [
-            self::INDIGENOUS_STATUS_FIRST_NATIONS,
-            self::INDIGENOUS_NON_STATUS_FIRST_NATIONS,
-            self::INDIGENOUS_INUIT,
-            self::INDIGENOUS_METIS,
-            self::INDIGENOUS_OTHER,
-            self::INDIGENOUS_LEGACY_IS_INDIGENOUS,
         ];
     }
 

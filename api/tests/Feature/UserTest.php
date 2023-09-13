@@ -12,6 +12,9 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use App\Providers\IndigenousCommunity;
+use App\Providers\PoolCandidateStatus;
+use App\Providers\PositionDuration;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
@@ -157,17 +160,17 @@ class UserTest extends TestCase
         PoolCandidate::factory()->count(5)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         ]);
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
+            'pool_candidate_status' => PoolCandidateStatus::EXPIRED->name,
         ]);
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
         ]);
         PoolCandidate::factory()->count(2)->create([
             'pool_id' => $pool2['id'],
@@ -177,7 +180,7 @@ class UserTest extends TestCase
         PoolCandidate::factory()->count(1)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_REMOVED,
+            'pool_candidate_status' => PoolCandidateStatus::REMOVED->name,
         ]);
 
         // Assert query with no pool filter will return all users, including unavailable
@@ -253,7 +256,7 @@ class UserTest extends TestCase
                     'poolFilters' => [
                         [
                             'poolId' => $pool1['id'],
-                            'statuses' => [ApiEnums::CANDIDATE_STATUS_EXPIRED],
+                            'statuses' => [PoolCandidateStatus::EXPIRED->name],
                         ],
                     ],
                 ],
@@ -285,7 +288,7 @@ class UserTest extends TestCase
                     'poolFilters' => [
                         [
                             'poolId' => $pool1['id'],
-                            'statuses' => [ApiEnums::CANDIDATE_STATUS_REMOVED],
+                            'statuses' => [PoolCandidateStatus::REMOVED->name],
                         ],
                     ],
                 ],
@@ -317,7 +320,7 @@ class UserTest extends TestCase
                     'poolFilters' => [
                         [
                             'poolId' => $pool1['id'],
-                            'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_EXPIRED, ApiEnums::CANDIDATE_STATUS_REMOVED],
+                            'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::EXPIRED->name, PoolCandidateStatus::REMOVED->name,],
                         ],
                     ],
                 ],
@@ -381,7 +384,7 @@ class UserTest extends TestCase
                     'poolFilters' => [
                         [
                             'poolId' => '00000000-0000-0000-0000-000000000000',
-                            'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE],
+                            'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name,],
                         ],
                     ],
                 ],
@@ -408,48 +411,48 @@ class UserTest extends TestCase
         PoolCandidate::factory()->count(4)->create([
             'expiry_date' => '3000-05-13',
             'pool_id' => $myPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         ]);
         // A candidate which expires today is not expired YET.
         PoolCandidate::factory()->create([
             'expiry_date' => date('Y-m-d'),
             'pool_id' => $myPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         ]);
         // Candidates without expiry dates are considered active.
         PoolCandidate::factory()->count(3)->create([
             'expiry_date' => null,
             'pool_id' => $myPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         ]);
         // Create some expired users in myPool
         PoolCandidate::factory()->count(2)->create([
             'expiry_date' => '2000-05-13',
             'pool_id' => $myPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         ]);
 
         // Create some valid users in otherPool
         PoolCandidate::factory()->count(5)->create([
             'expiry_date' => '3000-05-13',
             'pool_id' => $otherPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         ]);
         PoolCandidate::factory()->create([
             'expiry_date' => date('Y-m-d'),
             'pool_id' => $otherPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         ]);
         PoolCandidate::factory()->create([
             'expiry_date' => null,
             'pool_id' => $otherPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         ]);
         // Create some expired users in otherPool
         PoolCandidate::factory()->count(3)->create([
             'expiry_date' => '2000-05-13',
             'pool_id' => $otherPool->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         ]);
 
         // Assert query with no parameters returns all users
@@ -492,7 +495,7 @@ class UserTest extends TestCase
                         [
                             'poolId' => $myPool->id,
                             'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-                            'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE],
+                            'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
                         ],
                     ],
                 ],
@@ -525,7 +528,7 @@ class UserTest extends TestCase
                     'poolFilters' => [
                         [
                             'poolId' => $myPool->id,
-                            'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE],
+                            'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
                         ],
                     ],
                 ],
@@ -559,7 +562,7 @@ class UserTest extends TestCase
 
                             'poolId' => $myPool->id,
                             'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
-                            'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE],
+                            'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
                         ],
                     ],
                 ],
@@ -592,7 +595,7 @@ class UserTest extends TestCase
                         [
                             'poolId' => $myPool->id,
                             'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
-                            'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE],
+                            'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
                         ],
                     ],
                 ],
@@ -1109,12 +1112,12 @@ class UserTest extends TestCase
     {
         // Create initial set of 5 users which wouldn't accept temporary.
         User::factory()->count(5)->create([
-            'position_duration' => [ApiEnums::POSITION_DURATION_PERMANENT],
+            'position_duration' => [PositionDuration::PERMANENT->name],
         ]);
 
         // Create two new users who would accept a temporary.
         User::factory()->count(2)->create([
-            'position_duration' => [ApiEnums::POSITION_DURATION_TEMPORARY, ApiEnums::POSITION_DURATION_PERMANENT],
+            'position_duration' => array_column(PositionDuration::cases(), 'name'),
         ]);
 
         // Assert query no positionDuration filter will return all users
@@ -1157,7 +1160,7 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'positionDuration' => [ApiEnums::POSITION_DURATION_TEMPORARY],
+                        'positionDuration' => [PositionDuration::TEMPORARY->name],
                     ],
                 ],
             ]
@@ -1711,7 +1714,7 @@ class UserTest extends TestCase
         PoolCandidate::factory()->count(8)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1721,7 +1724,7 @@ class UserTest extends TestCase
         PoolCandidate::factory()->count(5)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             'user_id' => User::factory([
                 'looking_for_english' => false,
                 'looking_for_french' => true,
@@ -1732,7 +1735,7 @@ class UserTest extends TestCase
         PoolCandidate::factory()->create([
             'pool_id' => $pool2['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1743,7 +1746,7 @@ class UserTest extends TestCase
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => '2000-01-01',
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1754,7 +1757,7 @@ class UserTest extends TestCase
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1765,7 +1768,7 @@ class UserTest extends TestCase
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -2382,29 +2385,29 @@ class UserTest extends TestCase
                 [
                     'id' => $applicant->id,
                     'user' => [
-                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_STATUS_FIRST_NATIONS],
+                        'indigenousCommunities' => [IndigenousCommunity::STATUS_FIRST_NATIONS->name],
                     ],
                 ]
             )
-            ->assertJsonFragment(['indigenousCommunities' => [ApiEnums::INDIGENOUS_STATUS_FIRST_NATIONS]]);
+            ->assertJsonFragment(['indigenousCommunities' => [IndigenousCommunity::STATUS_FIRST_NATIONS->name]]);
         $this->actingAs($applicant, 'api')
             ->graphQL(
                 $updateUserAsUser,
                 [
                     'id' => $applicant->id,
                     'user' => [
-                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_NON_STATUS_FIRST_NATIONS],
+                        'indigenousCommunities' => [IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name],
                     ],
                 ]
             )
-            ->assertJsonFragment(['indigenousCommunities' => [ApiEnums::INDIGENOUS_NON_STATUS_FIRST_NATIONS]]);
+            ->assertJsonFragment(['indigenousCommunities' => [IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name]]);
         $this->actingAs($applicant, 'api')
             ->graphQL(
                 $updateUserAsUser,
                 [
                     'id' => $applicant->id,
                     'user' => [
-                        'indigenousCommunities' => [ApiEnums::INDIGENOUS_STATUS_FIRST_NATIONS, ApiEnums::INDIGENOUS_NON_STATUS_FIRST_NATIONS],
+                        'indigenousCommunities' => [IndigenousCommunity::STATUS_FIRST_NATIONS->name, IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name],
                     ],
                 ]
             )

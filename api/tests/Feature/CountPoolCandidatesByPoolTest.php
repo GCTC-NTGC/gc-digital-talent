@@ -7,6 +7,8 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
+use App\Providers\PoolCandidateStatus;
+use App\Providers\PositionDuration;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -34,7 +36,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
         return [
             'pool_id' => $pool,
             'user_id' => $user,
-            'pool_candidate_status' => $available ? ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE : ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
+            'pool_candidate_status' => $available ? PoolCandidateStatus::QUALIFIED_AVAILABLE->name : PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
             'expiry_date' => $futureDate ? config('constants.far_future_date') : config('constants.past_date'),
         ];
     }
@@ -456,10 +458,10 @@ class CountPoolCandidatesByPoolTest extends TestCase
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
-            'position_duration' => [ApiEnums::POSITION_DURATION_TEMPORARY, ApiEnums::POSITION_DURATION_PERMANENT],
+            'position_duration' => array_column(PositionDuration::cases(), 'name'),
         ]);
         $user2 = User::factory()->create([
-            'position_duration' => [ApiEnums::POSITION_DURATION_PERMANENT],
+            'position_duration' => [PositionDuration::PERMANENT->name],
         ]);
         $user3 = User::factory()->create([
             'position_duration' => null,
@@ -480,7 +482,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 ',
             [
                 'where' => [
-                    'positionDuration' => [ApiEnums::POSITION_DURATION_TEMPORARY],
+                    'positionDuration' => [PositionDuration::TEMPORARY->name],
                 ],
             ]
         )->assertSimilarJson([
@@ -602,12 +604,12 @@ class CountPoolCandidatesByPoolTest extends TestCase
     public function testAvailableScope()
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
-        foreach (ApiEnums::candidateStatuses() as $status) {
+        foreach (PoolCandidateStatus::cases() as $status) {
             $user = User::factory()->create([]);
             PoolCandidate::factory()->create([
                 'pool_id' => $pool,
                 'user_id' => $user,
-                'pool_candidate_status' => $status,
+                'pool_candidate_status' => $status->name,
                 'expiry_date' => config('constants.far_future_date'),
             ]);
         }
@@ -617,14 +619,14 @@ class CountPoolCandidatesByPoolTest extends TestCase
         PoolCandidate::factory()->create([
             'pool_id' => $pool,
             'user_id' => $user2,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             'expiry_date' => config('constants.far_future_date'),
             'suspended_at' => config('constants.far_future_date'),
         ]);
         PoolCandidate::factory()->create([
             'pool_id' => $pool,
             'user_id' => $user3,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             'expiry_date' => config('constants.far_future_date'),
             'suspended_at' => config('constants.past_date'),
         ]);

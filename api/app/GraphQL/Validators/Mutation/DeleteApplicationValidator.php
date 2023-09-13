@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Providers\PoolCandidateStatus;
 use Database\Helpers\ApiEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -18,8 +19,8 @@ final class DeleteApplicationValidator extends Validator
         return [
             // application status check, must be one of these to be deleted
             'pool_candidate_status' => [Rule::in([
-                ApiEnums::CANDIDATE_STATUS_DRAFT,
-                ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
+                PoolCandidateStatus::DRAFT->name,
+                PoolCandidateStatus::DRAFT_EXPIRED->name,
             ])],
         ];
     }

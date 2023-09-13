@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Providers\IndigenousCommunity;
+use App\Providers\PoolCandidateStatus;
+use App\Providers\PositionDuration;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
@@ -365,7 +368,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             $poolFilters[$index] = [
                 'poolId' => $poolId,
                 'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-                'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL],
+                'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name],
                 'suspendedStatus' => ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE,
             ];
         }
@@ -593,7 +596,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         $query->where(function ($query) use ($equityVars) {
             foreach ($equityVars as $index => $equityInstance) {
                 if ($equityInstance === 'is_indigenous') {
-                    $query->orWhereJsonContains('indigenous_communities', ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS);
+                    $query->orWhereJsonContains('indigenous_communities', IndigenousCommunity::LEGACY_IS_INDIGENOUS->name);
                 } else {
                     $query->orWhere($equityVars[$index], true);
                 }
@@ -682,7 +685,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         $positionDuration = $this->position_duration;
 
-        if ($positionDuration && in_array(ApiEnums::POSITION_DURATION_TEMPORARY, $positionDuration)) {
+        if ($positionDuration && in_array(PositionDuration::TEMPORARY->name, $positionDuration)) {
             return true;
         }
 
@@ -698,7 +701,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         $indigenousCommunities = $this->indigenous_communities;
 
-        if ($indigenousCommunities && in_array(ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS, $indigenousCommunities)) {
+        if ($indigenousCommunities && in_array(IndigenousCommunity::LEGACY_IS_INDIGENOUS->name, $indigenousCommunities)) {
             return true;
         }
 

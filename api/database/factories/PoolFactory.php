@@ -8,6 +8,7 @@ use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
+use App\Providers\PoolStream;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -106,7 +107,7 @@ class PoolFactory extends Factory
                 'advertisement_language' => $this->faker->randomElement(ApiEnums::poolLanguages()),
                 'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
                 'is_remote' => $isRemote,
-                'stream' => $this->faker->randomElement(ApiEnums::poolStreams()),
+                'stream' => $this->faker->randomElement(PoolStream::cases())->name,
                 'process_number' => $this->faker->word(),
                 'publishing_group' => $this->faker->randomElement(ApiEnums::publishingGroups()),
             ];

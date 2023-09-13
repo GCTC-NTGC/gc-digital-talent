@@ -7,7 +7,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
+use App\Providers\PoolCandidateStatus;
 use Database\Seeders\RolePermissionSeeder;
 use Faker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -53,12 +53,12 @@ class SnapshotTest extends TestCase
         $poolCandidate = PoolCandidate::factory()->create([
             'user_id' => $user->id,
             'pool_id' => $pool1->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
         $poolCandidateUnrelated = PoolCandidate::factory()->create([
             'user_id' => $user->id,
             'pool_id' => $pool2->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
 
         // get what the snapshot should look like
@@ -116,7 +116,7 @@ class SnapshotTest extends TestCase
         // pool is created and essential/nonessential skills attached implicitly
         $poolCandidate = PoolCandidate::factory()->create([
             'user_id' => $user->id,
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
 
         // collect skills attached to the Pool

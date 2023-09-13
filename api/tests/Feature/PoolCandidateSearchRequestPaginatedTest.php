@@ -7,6 +7,7 @@ use App\Models\Classification;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
+use App\Providers\PoolStream;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
@@ -294,11 +295,11 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
     public function testSearchRequestStreamsFiltering(): void
     {
         $applicantFilter1 = ApplicantFilter::factory()->create([
-            'qualified_streams' => [ApiEnums::POOL_STREAM_SECURITY],
+            'qualified_streams' => [PoolStream::SECURITY->name,],
         ]);
 
         $applicantFilter2 = ApplicantFilter::factory()->create([
-            'qualified_streams' => [ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES],
+            'qualified_streams' => [PoolStream::BUSINESS_ADVISORY_SERVICES->name,],
         ]);
 
         PoolCandidateSearchRequest::factory()->count(1)->create([
@@ -319,7 +320,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [ApiEnums::POOL_STREAM_INFRASTRUCTURE_OPERATIONS],
+                        'streams' => [PoolStream::INFRASTRUCTURE_OPERATIONS->name],
                     ],
                 ]
             )
@@ -331,7 +332,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [ApiEnums::POOL_STREAM_SECURITY],
+                        'streams' => [PoolStream::SECURITY->name],
                     ],
                 ]
             )
@@ -343,7 +344,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [ApiEnums::POOL_STREAM_SECURITY, ApiEnums::POOL_STREAM_INFRASTRUCTURE_OPERATIONS],
+                        'streams' => [PoolStream::SECURITY->name, PoolStream::INFRASTRUCTURE_OPERATIONS->name],
                     ],
                 ]
             )
@@ -355,7 +356,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [ApiEnums::POOL_STREAM_SECURITY, ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES],
+                        'streams' => [PoolStream::SECURITY->name, PoolStream::BUSINESS_ADVISORY_SERVICES->name],
                     ],
                 ]
             )
