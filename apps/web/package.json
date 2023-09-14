@@ -107,7 +107,7 @@
     "hydrogen-webpack-plugin": "*",
     "jest": "^29.6.4",
     "jest-axe": "^8.0.0",
-    "jest-environment-jsdom": "^29.6.4",
+    "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.4.29",
     "prettier": "^2.8.8",
     "storybook-addon-intl": "^3.2.0",
