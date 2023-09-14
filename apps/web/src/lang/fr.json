@@ -1903,10 +1903,6 @@
     "defaultMessage": "L’heure de clôture sera automatiquement fixée à 23 h 59 dans le fuseau horaire du Pacifique.",
     "description": "Helper message for changing the pool closing date"
   },
-  "AaoxNX": {
-    "defaultMessage": "Utilisez les filtres ci-dessous pour préciser vos besoins d’embauche. En tout temps, vous pouvez consulter les résultats situés en bas de cette page pour voir combien de candidats correspondent aux exigences que vous avez entrées. Lorsque vous êtes satisfait des filtres que vous avez sélectionnés, cliquez sur le bouton Demander des candidats pour ajouter des renseignements et soumettre un formulaire de demande.",
-    "description": "Content displayed in the How To area of the hero section of the Search page."
-  },
   "AauSuA": {
     "defaultMessage": "S.O.",
     "description": "Not available message."
@@ -2055,10 +2051,6 @@
     "defaultMessage": "Courriel",
     "description": "Title displayed for the Pool Candidates table Email column."
   },
-  "BVwsnS": {
-    "defaultMessage": "Cette base de données sur les talents est ouverte à la plupart des ministères et organismes. Les candidats de la base de données varient, soit de ceux qui débutent leur carrière, aux professionnels chevronnés qui comptent plusieurs années d’expérience de travail. Il existe de multiples processus de recrutement en cours, ce qui veut donc dire qu’on ajoute de nouveaux candidats chaque semaine.",
-    "description": "Content displayed in the About area of the hero section of the Search page."
-  },
   "BYGKiT": {
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title of the 'Employment equity' section of the view-user page"
@@ -2118,10 +2110,6 @@
   "BruLeg": {
     "defaultMessage": "Erreur : échec de la création du compte.",
     "description": "Message displayed to user if account fails to get updated."
-  },
-  "BunlKD": {
-    "defaultMessage": "Rechercher dans la base de données des Talents numériques du GC",
-    "description": "Main heading displayed at the top of request page."
   },
   "BwEf/S": {
     "defaultMessage": "« Je ne suis pas membre d’un groupe autochtone mais j’aimerais bénéficier d’autres occasions »",
@@ -7649,10 +7637,6 @@
     "defaultMessage": "Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
     "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
-  "nnMkp+": {
-    "defaultMessage": "Rechercher dans la base de données des Talents numériques du GC",
-    "description": "Title displayed in the hero section of the Search page."
-  },
   "nnRlUH": {
     "defaultMessage": "Modifier l’expérience",
     "description": "Breadcrumb link text for the application career timeline edit experience page"
@@ -8003,10 +7987,6 @@
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
-  },
-  "qnECBT": {
-    "defaultMessage": "À propos de la base de données des Talents numériques du GC",
-    "description": "Heading displayed in the About area of the hero section of the Search page."
   },
   "qrDCTV": {
     "defaultMessage": "Catégorie",
