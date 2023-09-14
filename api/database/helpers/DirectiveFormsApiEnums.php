@@ -459,27 +459,4 @@ class DirectiveFormsApiEnums
             self::PERSONNEL_TELEWORK_OPTION_NO,
         ];
     }
-
-    const PERSONNEL_SKILL_EXPERTISE_LEVEL_BEGINNER = 'BEGINNER';
-
-    const PERSONNEL_SKILL_EXPERTISE_LEVEL_INTERMEDIATE = 'INTERMEDIATE';
-
-    const PERSONNEL_SKILL_EXPERTISE_LEVEL_EXPERT = 'EXPERT';
-
-    const PERSONNEL_SKILL_EXPERTISE_LEVEL_LEAD = 'LEAD';
-
-    /**
-     * A collection of enums for PersonnelSkillExpertiseLevel in factories and seeders
-     *
-     * @return string[]
-     */
-    public static function personnelSkillExpertiseLevels(): array
-    {
-        return [
-            self::PERSONNEL_SKILL_EXPERTISE_LEVEL_BEGINNER,
-            self::PERSONNEL_SKILL_EXPERTISE_LEVEL_INTERMEDIATE,
-            self::PERSONNEL_SKILL_EXPERTISE_LEVEL_EXPERT,
-            self::PERSONNEL_SKILL_EXPERTISE_LEVEL_LEAD,
-        ];
-    }
 }
