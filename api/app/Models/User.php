@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Providers\CandidateExpiryFilter;
+use App\Providers\CandidateSuspendedFilter;
 use App\Providers\IndigenousCommunity;
 use App\Providers\LanguageAbility;
 use App\Providers\PoolCandidateStatus;
@@ -316,10 +318,10 @@ class User extends Model implements Authenticatable, LaratrustUser
                         return function ($query) use ($filter) {
                             $query->where('pool_candidates.pool_id', $filter['poolId']);
                             $query->where(function ($query) use ($filter) {
-                                if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+                                if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == CandidateExpiryFilter::ACTIVE->name) {
                                     $query->whereDate('expiry_date', '>=', date('Y-m-d'))
                                         ->orWhereNull('expiry_date');
-                                } elseif (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+                                } elseif (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == CandidateExpiryFilter::EXPIRED->name) {
                                     $query->whereDate('expiry_date', '<', date('Y-m-d'));
                                 }
                             });
@@ -327,10 +329,10 @@ class User extends Model implements Authenticatable, LaratrustUser
                                 $query->whereIn('pool_candidates.pool_candidate_status', $filter['statuses']);
                             }
                             $query->where(function ($query) use ($filter) {
-                                if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
+                                if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == CandidateSuspendedFilter::ACTIVE->name) {
                                     $query->where('suspended_at', '>=', Carbon::now())
                                         ->orWhereNull('suspended_at');
-                                } elseif (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
+                                } elseif (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == CandidateSuspendedFilter::SUSPENDED->name) {
                                     $query->where('suspended_at', '<', Carbon::now());
                                 }
                             });
@@ -369,9 +371,9 @@ class User extends Model implements Authenticatable, LaratrustUser
         foreach ($poolIds as $index => $poolId) {
             $poolFilters[$index] = [
                 'poolId' => $poolId,
-                'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
+                'expiryStatus' => CandidateExpiryFilter::ACTIVE->name,
                 'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name],
-                'suspendedStatus' => ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE,
+                'suspendedStatus' => CandidateSuspendedFilter::ACTIVE->name,
             ];
         }
 

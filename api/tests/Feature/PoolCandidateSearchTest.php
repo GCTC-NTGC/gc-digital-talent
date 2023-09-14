@@ -5,6 +5,8 @@ use App\Models\PoolCandidate;
 use App\Models\Team;
 use App\Models\User;
 use App\Providers\ArmedForcesStatus;
+use App\Providers\CandidateExpiryFilter;
+use App\Providers\CandidateSuspendedFilter;
 use App\Providers\CitizenshipStatus;
 use App\Providers\PoolCandidateStatus;
 use Carbon\Carbon;
@@ -247,7 +249,7 @@ class PoolCandidateSearchTest extends TestCase
             $query,
             [
                 'where' => [
-                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
+                    'expiryStatus' => CandidateExpiryFilter::ACTIVE->name,
                 ],
             ]
         )->assertJson([
@@ -265,7 +267,7 @@ class PoolCandidateSearchTest extends TestCase
             $query,
             [
                 'where' => [
-                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
+                    'expiryStatus' => CandidateExpiryFilter::EXPIRED->name,
                 ],
             ]
         )->assertJson([
@@ -283,7 +285,7 @@ class PoolCandidateSearchTest extends TestCase
             $query,
             [
                 'where' => [
-                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
+                    'expiryStatus' => CandidateExpiryFilter::ALL->name,
                 ],
             ]
         )->assertJson([
@@ -364,7 +366,7 @@ class PoolCandidateSearchTest extends TestCase
             $query,
             [
                 'where' => [
-                    'suspendedStatus' => ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE,
+                    'suspendedStatus' => CandidateSuspendedFilter::ACTIVE->name,
                 ],
             ]
         )->assertJson([
@@ -382,7 +384,7 @@ class PoolCandidateSearchTest extends TestCase
             $query,
             [
                 'where' => [
-                    'suspendedStatus' => ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED,
+                    'suspendedStatus' => CandidateSuspendedFilter::SUSPENDED->name,
                 ],
             ]
         )->assertJson([
@@ -400,7 +402,7 @@ class PoolCandidateSearchTest extends TestCase
             $query,
             [
                 'where' => [
-                    'suspendedStatus' => ApiEnums::CANDIDATE_SUSPENDED_FILTER_ALL,
+                    'suspendedStatus' => CandidateSuspendedFilter::ALL->name,
                 ],
             ]
         )->assertJson([

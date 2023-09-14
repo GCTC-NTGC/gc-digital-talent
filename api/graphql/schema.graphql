@@ -445,40 +445,6 @@ type SkillKeywords {
   fr: [String!]
 }
 
-enum AwardedTo {
-  ME
-  MY_TEAM
-  MY_PROJECT
-  MY_ORGANIZATION
-}
-enum AwardedScope {
-  INTERNATIONAL
-  NATIONAL
-  PROVINCIAL
-  LOCAL
-  COMMUNITY
-  ORGANIZATIONAL
-  SUB_ORGANIZATIONAL
-}
-
-enum EducationType {
-  DIPLOMA
-  BACHELORS_DEGREE
-  MASTERS_DEGREE
-  PHD
-  POST_DOCTORAL_FELLOWSHIP
-  ONLINE_COURSE
-  CERTIFICATION
-  OTHER
-}
-enum EducationStatus {
-  SUCCESS_CREDENTIAL
-  SUCCESS_NO_CREDENTIAL
-  IN_PROGRESS
-  AUDITED
-  DID_NOT_COMPLETE
-}
-
 interface Experience {
   id: ID!
   user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
@@ -582,18 +548,6 @@ input KeyFilterInput {
 
 input IdInput {
   id: ID!
-}
-
-enum CandidateExpiryFilter {
-  ACTIVE
-  EXPIRED
-  ALL
-}
-
-enum CandidateSuspendedFilter {
-  ACTIVE
-  SUSPENDED
-  ALL
 }
 
 input UserPoolFilterInput {

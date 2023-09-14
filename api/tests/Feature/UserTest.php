@@ -12,6 +12,7 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use App\Providers\CandidateExpiryFilter;
 use App\Providers\IndigenousCommunity;
 use App\Providers\LanguageAbility;
 use App\Providers\OperationalRequirement;
@@ -497,7 +498,7 @@ class UserTest extends TestCase
                     'poolFilters' => [
                         [
                             'poolId' => $myPool->id,
-                            'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
+                            'expiryStatus' => CandidateExpiryFilter::ACTIVE->name,
                             'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
                         ],
                     ],
@@ -564,7 +565,7 @@ class UserTest extends TestCase
                         [
 
                             'poolId' => $myPool->id,
-                            'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
+                            'expiryStatus' => CandidateExpiryFilter::EXPIRED->name,
                             'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
                         ],
                     ],
@@ -597,7 +598,7 @@ class UserTest extends TestCase
                     'poolFilters' => [
                         [
                             'poolId' => $myPool->id,
-                            'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
+                            'expiryStatus' => CandidateExpiryFilter::ALL->name,
                             'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
                         ],
                     ],

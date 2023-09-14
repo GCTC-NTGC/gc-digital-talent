@@ -269,6 +269,60 @@ enum WhenSkillUsed
     case PAST;
 }
 
+enum AwardedTo
+{
+    case ME;
+    case MY_TEAM;
+    case MY_PROJECT;
+    case MY_ORGANIZATION;
+}
+
+enum AwardedScope
+{
+    case INTERNATIONAL;
+    case NATIONAL;
+    case PROVINCIAL;
+    case LOCAL;
+    case COMMUNITY;
+    case ORGANIZATIONAL;
+    case SUB_ORGANIZATIONAL;
+}
+
+enum EducationType
+{
+    case DIPLOMA;
+    case BACHELORS_DEGREE;
+    case MASTERS_DEGREE;
+    case PHD;
+    case POST_DOCTORAL_FELLOWSHIP;
+    case ONLINE_COURSE;
+    case CERTIFICATION;
+    case OTHER;
+}
+
+enum EducationStatus
+{
+    case SUCCESS_CREDENTIAL;
+    case SUCCESS_NO_CREDENTIAL;
+    case IN_PROGRESS;
+    case AUDITED;
+    case DID_NOT_COMPLETE;
+}
+
+enum CandidateExpiryFilter
+{
+    case ACTIVE;
+    case EXPIRED;
+    case ALL;
+}
+
+enum CandidateSuspendedFilter
+{
+    case ACTIVE;
+    case SUSPENDED;
+    case ALL;
+}
+
 class GraphQLServiceProvider extends ServiceProvider
 {
     public function boot(TypeRegistry $typeRegistry): void
@@ -525,6 +579,60 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'WhenSkillUsed',
                     'values' => array_column(WhenSkillUsed::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'AwardedTo',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'AwardedTo',
+                    'values' => array_column(AwardedTo::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'AwardedScope',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'AwardedScope',
+                    'values' => array_column(AwardedScope::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'EducationType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'EducationType',
+                    'values' => array_column(EducationType::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'EducationStatus',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'EducationStatus',
+                    'values' => array_column(EducationStatus::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'CandidateExpiryFilter',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'CandidateExpiryFilter',
+                    'values' => array_column(CandidateExpiryFilter::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'CandidateSuspendedFilter',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'CandidateSuspendedFilter',
+                    'values' => array_column(CandidateSuspendedFilter::cases(), 'name'),
                 ]);
             }
         );

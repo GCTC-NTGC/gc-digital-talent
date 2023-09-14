@@ -5,46 +5,6 @@ namespace Database\Helpers;
 // TODO: any way to pull these directly from the graphql schema?
 class ApiEnums
 {
-    const CANDIDATE_EXPIRY_FILTER_ACTIVE = 'ACTIVE';
-
-    const CANDIDATE_EXPIRY_FILTER_EXPIRED = 'EXPIRED';
-
-    const CANDIDATE_EXPIRY_FILTER_ALL = 'ALL';
-
-    /**
-     * A collection of enums for CandidateExpiryStatus in factories and seeders
-     *
-     * @return string[]
-     */
-    public static function candidateExpiryFilters(): array
-    {
-        return [
-            self::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-            self::CANDIDATE_EXPIRY_FILTER_EXPIRED,
-            self::CANDIDATE_EXPIRY_FILTER_ALL,
-        ];
-    }
-
-    const CANDIDATE_SUSPENDED_FILTER_ACTIVE = 'ACTIVE';
-
-    const CANDIDATE_SUSPENDED_FILTER_SUSPENDED = 'SUSPENDED';
-
-    const CANDIDATE_SUSPENDED_FILTER_ALL = 'ALL';
-
-    /**
-     * A collection of enums for CandidateSuspendedFilter
-     *
-     * @return string[]
-     */
-    public static function candidateSuspendedFilters(): array
-    {
-        return [
-            self::CANDIDATE_SUSPENDED_FILTER_ACTIVE,
-            self::CANDIDATE_SUSPENDED_FILTER_SUSPENDED,
-            self::CANDIDATE_SUSPENDED_FILTER_ALL,
-        ];
-    }
-
     // IMPORTANT
     // THE FOLLOWING ENUMS ARE DISTINCT FROM TEAMS ROLES AND EXIST TO MAINTAIN MIGRATION REVERSAL
     // THEY ARE NOT TO BE USED GOING FORWARD, SUPPLANTED BY LEGACY ROLES

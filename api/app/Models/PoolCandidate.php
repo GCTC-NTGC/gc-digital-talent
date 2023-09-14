@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
+use App\Providers\CandidateExpiryFilter;
+use App\Providers\CandidateSuspendedFilter;
 use App\Providers\PoolCandidateStatus;
 use App\Providers\PublishingGroup;
 use Carbon\Carbon;
@@ -430,13 +432,13 @@ class PoolCandidate extends Model
 
     public static function scopeExpiryStatus(Builder $query, ?string $expiryStatus)
     {
-        $expiryStatus = isset($expiryStatus) ? $expiryStatus : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
-        if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+        $expiryStatus = isset($expiryStatus) ? $expiryStatus : CandidateExpiryFilter::ACTIVE->name;
+        if ($expiryStatus == CandidateExpiryFilter::ACTIVE->name) {
             $query->where(function ($query) {
                 $query->whereDate('expiry_date', '>=', date('Y-m-d'))
                     ->orWhereNull('expiry_date');
             });
-        } elseif ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+        } elseif ($expiryStatus == CandidateExpiryFilter::EXPIRED->name) {
             $query->whereDate('expiry_date', '<', date('Y-m-d'));
         }
 
@@ -445,13 +447,13 @@ class PoolCandidate extends Model
 
     public static function scopeSuspendedStatus(Builder $query, ?string $suspendedStatus)
     {
-        $suspendedStatus = isset($suspendedStatus) ? $suspendedStatus : ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE;
-        if ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
+        $suspendedStatus = isset($suspendedStatus) ? $suspendedStatus : CandidateSuspendedFilter::ACTIVE->name;
+        if ($suspendedStatus == CandidateSuspendedFilter::ACTIVE->name) {
             $query->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
             });
-        } elseif ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
+        } elseif ($suspendedStatus == CandidateSuspendedFilter::SUSPENDED->name) {
             $query->where('suspended_at', '<', Carbon::now());
         }
 
