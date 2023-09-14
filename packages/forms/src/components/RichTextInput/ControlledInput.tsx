@@ -51,7 +51,7 @@ const ControlledInput = ({
         ...contentStyles,
         ...(!editable && {
           "data-h2-cursor": "base(not-allowed)",
-          "data-h2-color": "base(black.light)",
+          "data-h2-opacity": "base(.6)",
         }),
         ...inputProps,
         ...stateStyles,
@@ -64,6 +64,7 @@ const ControlledInput = ({
     extensions,
     content,
     editorProps,
+    editable,
     onUpdate: ({ editor: submittedEditor }) => {
       let html = submittedEditor.getHTML();
       // If you remove existing comment, editor leaves behind

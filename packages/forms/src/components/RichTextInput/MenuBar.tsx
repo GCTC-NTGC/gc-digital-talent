@@ -16,6 +16,8 @@ interface MenuBarProps {
 
 const MenuBar = ({ editor }: MenuBarProps) => {
   const intl = useIntl();
+  const readOnly = !editor?.isEditable;
+  console.log({ readOnly });
 
   return (
     <div
@@ -30,7 +32,7 @@ const MenuBar = ({ editor }: MenuBarProps) => {
         <MenuButton
           active={editor?.isActive("bulletList") ?? false}
           onClick={() => editor?.chain().focus().toggleBulletList().run()}
-          disabled={!editor?.isEditable || !editor?.can().toggleBulletList()}
+          disabled={readOnly || !editor?.can().toggleBulletList()}
           icon={ListBulletIcon}
         >
           {intl.formatMessage(richTextMessages.bulletList)}
@@ -40,14 +42,14 @@ const MenuBar = ({ editor }: MenuBarProps) => {
       <div data-h2-display="base(flex)" data-h2-gap="base(x.25)">
         <MenuButton
           onClick={() => editor?.chain().focus().undo().run()}
-          disabled={!editor?.isEditable || !editor?.can().undo()}
+          disabled={readOnly || !editor?.can().undo()}
           icon={ArrowUturnLeftIcon}
         >
           {intl.formatMessage(richTextMessages.undo)}
         </MenuButton>
         <MenuButton
           onClick={() => editor?.chain().focus().redo().run()}
-          disabled={!editor?.isEditable || !editor?.can().redo()}
+          disabled={readOnly || !editor?.can().redo()}
           utilityIcon={ArrowUturnRightIcon}
         >
           {intl.formatMessage(richTextMessages.redo)}
