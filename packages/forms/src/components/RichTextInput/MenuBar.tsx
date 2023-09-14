@@ -17,7 +17,6 @@ interface MenuBarProps {
 const MenuBar = ({ editor }: MenuBarProps) => {
   const intl = useIntl();
   const readOnly = !editor?.isEditable;
-  console.log({ readOnly });
 
   return (
     <div
