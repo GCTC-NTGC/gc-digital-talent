@@ -42,6 +42,8 @@ type Query {
   roles: [Role]!
   digitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
+  departmentSpecificRecruitmentProcessForm(id: UUID!): DepartmentSpecificRecruitmentProcessForm
+  departmentSpecificRecruitmentProcessForms: [DepartmentSpecificRecruitmentProcessForm!]!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
@@ -138,6 +140,9 @@ type Mutation {
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
+  createDepartmentSpecificRecruitmentProcessForm(departmentSpecificRecruitmentProcessForm: DepartmentSpecificRecruitmentProcessFormInput!): DepartmentSpecificRecruitmentProcessForm
+  updateDepartmentSpecificRecruitmentProcessForm(id: UUID!, digitalContractingQuestionnaire: DepartmentSpecificRecruitmentProcessFormInput!): DepartmentSpecificRecruitmentProcessForm
+  deleteDepartmentSpecificRecruitmentProcessForm(id: UUID!): DepartmentSpecificRecruitmentProcessForm
 }
 
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
@@ -1559,6 +1564,30 @@ enum ContractingRationale {
   OTHER
 }
 
+enum PositionEmploymentType {
+  INDETERMINATE
+  TERM
+  LATERAL_DEPLOYMENT
+  SECONDMENT
+  ASSIGNMENT
+  OTHER
+}
+
+enum AdvertisementType {
+  INTERNAL
+  EXTERNAL
+}
+
+enum AdvertisingPlatform {
+  GCJOBS
+  GCCONNEX
+  GCXCHNAGE
+  GC_COLLAB
+  FACEBOOK
+  LINKEDIN
+  OTHER
+}
+
 type DigitalContractingPersonnelSkill {
   id: UUID!
   skill: Skill
@@ -1754,6 +1783,67 @@ input DigitalContractingQuestionnaireInput {
   knowledgeTransferInContract: YesNo
   employeesHaveAccessToKnowledge: YesNo
   ocioEngagedForTraining: YesNo
+}
+
+type DepartmentSpecificRecruitmentProcessPosition {
+  id: UUID!
+  classificationGroup: String
+  classificationLevel: String
+  jobTitle: String
+  employmentTypes: [PositionEmploymentType!]
+  employmentTypesOther: String
+}
+
+type DepartmentSpecificRecruitmentProcessForm {
+  id: UUID!
+  department: Department
+  departmentOther: String
+  recruitmentProcessLeadName: String
+  recruitmentProcessLeadJobTitle: String
+  recruitmentProcessLeadEmail: String
+  postingDate: Date
+  positions: [DepartmentSpecificRecruitmentProcessPosition!]
+  advertisementType: AdvertisementType
+  advertisingPlatforms: [AdvertisingPlatform!]
+  advertisingPlatformsOther: String
+  jobAdvertisementLink: String
+}
+
+input CreateDepartmentSpecificRecruitmentProcessPositionInput {
+  classificationGroup: String
+  classificationLevel: String
+  jobTitle: String
+  employmentTypes: [PositionEmploymentType!]
+  employmentTypesOther: String
+}
+
+input UpdateDepartmentSpecificRecruitmentProcessPositionInput {
+  id: UUID!
+  classificationGroup: String
+  classificationLevel: String
+  jobTitle: String
+  employmentTypes: [PositionEmploymentType!]
+  employmentTypesOther: String
+}
+
+input DepartmentSpecificRecruitmentProcessPositionBelongsToMany {
+  create: [CreateDepartmentSpecificRecruitmentProcessPositionInput!]
+  update: [UpdateDepartmentSpecificRecruitmentProcessPositionInput!]
+  delete: [UUID!]
+}
+
+input DepartmentSpecificRecruitmentProcessFormInput {
+  department: DepartmentBelongsTo
+  departmentOther: String
+  recruitmentProcessLeadName: String
+  recruitmentProcessLeadJobTitle: String
+  recruitmentProcessLeadEmail: String
+  postingDate: Date
+  positions: DepartmentSpecificRecruitmentProcessPositionBelongsToMany
+  advertisementType: AdvertisementType
+  advertisingPlatforms: [AdvertisingPlatform!]
+  advertisingPlatformsOther: String
+  jobAdvertisementLink: String
 }
 
 "Information about pagination using a fully featured paginator."

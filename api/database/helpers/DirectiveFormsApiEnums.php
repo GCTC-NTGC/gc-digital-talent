@@ -430,4 +430,82 @@ class DirectiveFormsApiEnums
             self::PERSONNEL_SKILL_EXPERTISE_LEVEL_LEAD,
         ];
     }
+
+    const POSITION_EMPLOYMENT_TYPE_INDETERMINATE = 'INDETERMINATE';
+
+    const POSITION_EMPLOYMENT_TYPE_TERM = 'TERM';
+
+    const POSITION_EMPLOYMENT_TYPE_LATERAL_DEPLOYMENT = 'LATERAL_DEPLOYMENT';
+
+    const POSITION_EMPLOYMENT_TYPE_SECONDMENT = 'SECONDMENT';
+
+    const POSITION_EMPLOYMENT_TYPE_ASSIGNMENT = 'ASSIGNMENT';
+
+    const POSITION_EMPLOYMENT_TYPE_OTHER = 'OTHER';
+
+    /**
+     * A collection of enums for PositionEmploymentType in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function positionEmploymentTypes(): array
+    {
+        return [
+            self::POSITION_EMPLOYMENT_TYPE_INDETERMINATE,
+            self::POSITION_EMPLOYMENT_TYPE_TERM,
+            self::POSITION_EMPLOYMENT_TYPE_LATERAL_DEPLOYMENT,
+            self::POSITION_EMPLOYMENT_TYPE_SECONDMENT,
+            self::POSITION_EMPLOYMENT_TYPE_ASSIGNMENT,
+            self::POSITION_EMPLOYMENT_TYPE_OTHER,
+        ];
+    }
+
+    const ADVERTISEMENT_TYPE_INTERNAL = 'INTERNAL';
+
+    const ADVERTISEMENT_TYPE_EXTERNAL = 'EXTERNAL';
+
+    /**
+     * A collection of enums for AdvertisementType in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function advertisementTypes(): array
+    {
+        return [
+            self::ADVERTISEMENT_TYPE_INTERNAL,
+            self::ADVERTISEMENT_TYPE_EXTERNAL,
+        ];
+    }
+
+    const ADVERTISING_PLATFORM_GCJOBS = 'GCJOBS';
+
+    const ADVERTISING_PLATFORM_GCCONNEX = 'GCCONNEX';
+
+    const ADVERTISING_PLATFORM_GCXCHNAGE = 'GCXCHNAGE';
+
+    const ADVERTISING_PLATFORM_GC_COLLAB = 'GC_COLLAB';
+
+    const ADVERTISING_PLATFORM_FACEBOOK = 'FACEBOOK';
+
+    const ADVERTISING_PLATFORM_LINKEDIN = 'LINKEDIN';
+
+    const ADVERTISING_PLATFORM_OTHER = 'OTHER';
+
+    /**
+     * A collection of enums for AdvertisingPlatform in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function advertisingPlatforms(): array
+    {
+        return [
+            self::ADVERTISING_PLATFORM_GCJOBS,
+            self::ADVERTISING_PLATFORM_GCCONNEX,
+            self::ADVERTISING_PLATFORM_GCXCHNAGE,
+            self::ADVERTISING_PLATFORM_GC_COLLAB,
+            self::ADVERTISING_PLATFORM_FACEBOOK,
+            self::ADVERTISING_PLATFORM_LINKEDIN,
+            self::ADVERTISING_PLATFORM_OTHER,
+        ];
+    }
 }
