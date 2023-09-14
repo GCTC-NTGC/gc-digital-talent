@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
+use App\Providers\PoolCandidateSearchPositionType;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,17 +19,6 @@ class PoolCandidateSearchRequestTest extends TestCase
     use MakesGraphQLRequests;
     use RefreshDatabase;
     use RefreshesSchemaCache;
-
-    /**
-     * Default required fields
-     */
-    private $defaultInput = [
-        'fullName' => 'Test',
-        'email' => 'test@domain.com',
-        'jobTitle' => 'Job Title',
-        'managerJobTitle' => 'Manager',
-        'positionType' => ApiEnums::POOL_CANDIDATE_SEARCH_POSITION_INDIVIDUAL_CONTRIBUTOR,
-    ];
 
     protected function setUp(): void
     {
@@ -46,7 +35,15 @@ class PoolCandidateSearchRequestTest extends TestCase
      */
     private function getInput($additionalInput)
     {
-        return array_merge($this->defaultInput, $additionalInput);
+        $defaultInput = [
+            'fullName' => 'Test',
+            'email' => 'test@domain.com',
+            'jobTitle' => 'Job Title',
+            'managerJobTitle' => 'Manager',
+            'positionType' => PoolCandidateSearchPositionType::INDIVIDUAL_CONTRIBUTOR->name,
+        ];
+
+        return array_merge($defaultInput, $additionalInput);
     }
 
     /**

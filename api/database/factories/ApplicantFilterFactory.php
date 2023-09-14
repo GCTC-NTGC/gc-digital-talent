@@ -7,6 +7,7 @@ use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Skill;
 use App\Providers\LanguageAbility;
+use App\Providers\OperationalRequirement;
 use App\Providers\PoolStream;
 use App\Providers\PositionDuration;
 use App\Providers\WorkRegion;
@@ -42,7 +43,7 @@ class ApplicantFilterFactory extends Factory
                 $this->faker->numberBetween(1, 3)
             ),
             'operational_requirements' => $this->faker->optional->randomElements(
-                ApiEnums::operationalRequirements(),
+                array_column(OperationalRequirement::cases(), 'name'),
                 $this->faker->numberBetween(1, 4)
             ),
         ];

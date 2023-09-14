@@ -21,6 +21,8 @@ use App\Models\WorkExperience;
 use App\Providers\EducationRequirementOption;
 use App\Providers\PoolStream;
 use App\Providers\PublishingGroup;
+use App\Providers\SkillLevel;
+use App\Providers\WhenSkillUsed;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Faker;
@@ -94,10 +96,10 @@ class DatabaseSeeder extends Seeder
         $applicantUserSkills = $applicant->userSkills;
         foreach ($applicantUserSkills as $applicantUserSkill) {
             if ($faker->boolean(75)) {
-                $applicantUserSkill->skill_level = $faker->randomElement(ApiEnums::skillLevels());
+                $applicantUserSkill->skill_level = $faker->randomElement(SkillLevel::cases())->name;
             }
             if ($faker->boolean(75)) {
-                $applicantUserSkill->when_skill_used = $faker->randomElement(ApiEnums::whenSkillUsed());
+                $applicantUserSkill->when_skill_used = $faker->randomElement(WhenSkillUsed::cases())->name;
             }
             $applicantUserSkill->save();
         }

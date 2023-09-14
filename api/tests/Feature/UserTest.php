@@ -14,8 +14,10 @@ use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use App\Providers\IndigenousCommunity;
 use App\Providers\LanguageAbility;
+use App\Providers\OperationalRequirement;
 use App\Providers\PoolCandidateStatus;
 use App\Providers\PositionDuration;
+use App\Providers\WorkRegion;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
@@ -761,9 +763,9 @@ class UserTest extends TestCase
         User::factory()->count(5)->create([
             'accepted_operational_requirements' => null,
         ]);
-        $operationalRequirement1 = 'OVERTIME_SCHEDULED';
-        $operationalRequirement2 = 'SHIFT_WORK';
-        $operationalRequirement3 = 'ON_CALL';
+        $operationalRequirement1 = OperationalRequirement::OVERTIME_SCHEDULED->name;
+        $operationalRequirement2 = OperationalRequirement::SHIFT_WORK->name;
+        $operationalRequirement3 = OperationalRequirement::ON_CALL->name;
 
         // Create a few with a op_req 1
         User::factory()->count(2)->create([
@@ -921,12 +923,12 @@ class UserTest extends TestCase
     {
         // Create 5 new users with a ONTARIO location preference.
         User::factory()->count(5)->create([
-            'location_preferences' => ['ONTARIO'],
+            'location_preferences' => [WorkRegion::ONTARIO->name],
         ]);
 
         // Create 2 new users with a TELEWORK location preference.
         User::factory()->count(2)->create([
-            'location_preferences' => ['TELEWORK'],
+            'location_preferences' => [WorkRegion::TELEWORK->name],
         ]);
 
         // Assert query with no locationPreferences filter will return all users
@@ -969,7 +971,7 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'locationPreferences' => ['TELEWORK'],
+                        'locationPreferences' => [WorkRegion::TELEWORK->name],
                     ],
                 ],
             ]

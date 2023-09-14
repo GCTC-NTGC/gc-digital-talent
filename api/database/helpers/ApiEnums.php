@@ -5,44 +5,6 @@ namespace Database\Helpers;
 // TODO: any way to pull these directly from the graphql schema?
 class ApiEnums
 {
-    const OPERATIONAL_REQUIREMENT_SHIFT_WORK = 'SHIFT_WORK';
-
-    const OPERATIONAL_REQUIREMENT_ON_CALL = 'ON_CALL';
-
-    const OPERATIONAL_REQUIREMENT_TRAVEL = 'TRAVEL';
-
-    const OPERATIONAL_REQUIREMENT_TRANSPORT_EQUIPMENT = 'TRANSPORT_EQUIPMENT';
-
-    const OPERATIONAL_REQUIREMENT_DRIVERS_LICENSE = 'DRIVERS_LICENSE';
-
-    const OPERATIONAL_REQUIREMENT_OVERTIME_SCHEDULED = 'OVERTIME_SCHEDULED';
-
-    const OPERATIONAL_REQUIREMENT_OVERTIME_SHORT_NOTICE = 'OVERTIME_SHORT_NOTICE';
-
-    const OPERATIONAL_REQUIREMENT_OVERTIME_OCCASIONAL = 'OVERTIME_OCCASIONAL';
-
-    const OPERATIONAL_REQUIREMENT_OVERTIME_REGULAR = 'OVERTIME_REGULAR';
-
-    /**
-     * A collection of enums for operation_requirement in factories and seeders
-     *
-     * @return string[]
-     */
-    public static function operationalRequirements(): array
-    {
-        return [
-            self::OPERATIONAL_REQUIREMENT_SHIFT_WORK,
-            self::OPERATIONAL_REQUIREMENT_ON_CALL,
-            self::OPERATIONAL_REQUIREMENT_TRAVEL,
-            self::OPERATIONAL_REQUIREMENT_TRANSPORT_EQUIPMENT,
-            self::OPERATIONAL_REQUIREMENT_DRIVERS_LICENSE,
-            self::OPERATIONAL_REQUIREMENT_OVERTIME_SCHEDULED,
-            self::OPERATIONAL_REQUIREMENT_OVERTIME_SHORT_NOTICE,
-            self::OPERATIONAL_REQUIREMENT_OVERTIME_OCCASIONAL,
-            self::OPERATIONAL_REQUIREMENT_OVERTIME_REGULAR,
-        ];
-    }
-
     const CANDIDATE_EXPIRY_FILTER_ACTIVE = 'ACTIVE';
 
     const CANDIDATE_EXPIRY_FILTER_EXPIRED = 'EXPIRED';
@@ -101,23 +63,6 @@ class ApiEnums
         ];
     }
 
-    /**
-     * A collection of enums for salary ranges in factories and seeders
-     *
-     * @return string[]
-     */
-    public static function salaryRanges(): array
-    {
-        return [
-            '_50_59K',
-            '_60_69K',
-            '_70_79K',
-            '_80_89K',
-            '_90_99K',
-            '_100K_PLUS',
-        ];
-    }
-
     const POOL_STATUS_NOT_TAKING_APPLICATIONS = 'NOT_TAKING_APPLICATIONS';
 
     const POOL_STATUS_TAKING_APPLICATIONS = 'TAKING_APPLICATIONS';
@@ -132,35 +77,6 @@ class ApiEnums
         return [
             self::POOL_STATUS_NOT_TAKING_APPLICATIONS,
             self::POOL_STATUS_TAKING_APPLICATIONS,
-        ];
-    }
-
-    const GENERIC_JOB_TITLE_KEY_TECHNICIAN_IT01 = 'TECHNICIAN_IT01';
-
-    const GENERIC_JOB_TITLE_KEY_ANALYST_IT02 = 'ANALYST_IT02';
-
-    const GENERIC_JOB_TITLE_KEY_TEAM_LEADER_IT03 = 'TEAM_LEADER_IT03';
-
-    const GENERIC_JOB_TITLE_KEY_TECHNICAL_ADVISOR_IT03 = 'TECHNICAL_ADVISOR_IT03';
-
-    const GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04 = 'SENIOR_ADVISOR_IT04';
-
-    const GENERIC_JOB_TITLE_KEY_MANAGER_IT04 = 'MANAGER_IT04';
-
-    /**
-     * A collection of enums for GenericJobTitles in factories and seeders
-     *
-     * @return string[]
-     */
-    public static function genericJobTitleKeys(): array
-    {
-        return [
-            self::GENERIC_JOB_TITLE_KEY_TECHNICIAN_IT01,
-            self::GENERIC_JOB_TITLE_KEY_ANALYST_IT02,
-            self::GENERIC_JOB_TITLE_KEY_TEAM_LEADER_IT03,
-            self::GENERIC_JOB_TITLE_KEY_TECHNICAL_ADVISOR_IT03,
-            self::GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04,
-            self::GENERIC_JOB_TITLE_KEY_MANAGER_IT04,
         ];
     }
 
@@ -197,93 +113,6 @@ class ApiEnums
             self::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE,
             self::POOL_CANDIDATE_SIGNATURE_REQUIRED,
             self::POOL_CANDIDATE_EDUCATION_REQUIREMENT_INCOMPLETE,
-        ];
-    }
-
-    /**
-     * Pool Candidate Request Statuses
-     */
-    const POOL_CANDIDATE_SEARCH_STATUS_NEW = 'NEW';
-
-    const POOL_CANDIDATE_SEARCH_STATUS_IN_PROGRESS = 'IN_PROGRESS';
-
-    const POOL_CANDIDATE_SEARCH_STATUS_WAITING = 'WAITING';
-
-    const POOL_CANDIDATE_SEARCH_STATUS_DONE = 'DONE';
-
-    public static function poolCandidateSearchStatuses(): array
-    {
-        return [
-            self::POOL_CANDIDATE_SEARCH_STATUS_NEW,
-            self::POOL_CANDIDATE_SEARCH_STATUS_IN_PROGRESS,
-            self::POOL_CANDIDATE_SEARCH_STATUS_WAITING,
-            self::POOL_CANDIDATE_SEARCH_STATUS_DONE,
-        ];
-    }
-
-    /**
-     * Skill Category
-     */
-    const SKILL_CATEGORY_TECHNICAL = 'TECHNICAL';
-
-    const SKILL_CATEGORY_BEHAVIOURAL = 'BEHAVIOURAL';
-
-    public static function skillCategories(): array
-    {
-        return [
-            self::SKILL_CATEGORY_TECHNICAL,
-            self::SKILL_CATEGORY_BEHAVIOURAL,
-        ];
-    }
-
-    /**
-     * PoolCandidate Search Position Types
-     */
-    const POOL_CANDIDATE_SEARCH_POSITION_INDIVIDUAL_CONTRIBUTOR = 'INDIVIDUAL_CONTRIBUTOR';
-
-    const POOL_CANDIDATE_SEARCH_POSITION_TEAM_LEAD = 'TEAM_LEAD';
-
-    public static function poolCandidateSearchPositionTypes(): array
-    {
-        return [
-            self::POOL_CANDIDATE_SEARCH_POSITION_INDIVIDUAL_CONTRIBUTOR,
-            self::POOL_CANDIDATE_SEARCH_POSITION_TEAM_LEAD,
-        ];
-    }
-
-    /**
-     * Skill Level
-     */
-    const SKILL_LEVEL_BEGINNER = 'BEGINNER';
-
-    const SKILL_LEVEL_INTERMEDIATE = 'INTERMEDIATE';
-
-    const SKILL_LEVEL_ADVANCED = 'ADVANCED';
-
-    const SKILL_LEVEL_LEAD = 'LEAD';
-
-    public static function skillLevels(): array
-    {
-        return [
-            self::SKILL_LEVEL_BEGINNER,
-            self::SKILL_LEVEL_INTERMEDIATE,
-            self::SKILL_LEVEL_ADVANCED,
-            self::SKILL_LEVEL_LEAD,
-        ];
-    }
-
-    /**
-     * When Skill Used
-     */
-    const WHEN_SKILL_USED_CURRENT = 'CURRENT';
-
-    const WHEN_SKILL_USED_PAST = 'PAST';
-
-    public static function whenSkillUsed(): array
-    {
-        return [
-            self::WHEN_SKILL_USED_CURRENT,
-            self::WHEN_SKILL_USED_PAST,
         ];
     }
 }

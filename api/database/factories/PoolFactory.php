@@ -8,6 +8,7 @@ use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
+use App\Providers\OperationalRequirement;
 use App\Providers\PoolLanguage;
 use App\Providers\PoolStream;
 use App\Providers\PublishingGroup;
@@ -102,7 +103,7 @@ class PoolFactory extends Factory
                 // published in the past, closes in the future
                 'published_at' => $this->faker->dateTimeBetween('-30 days', '-1 days'),
 
-                'operational_requirements' => $this->faker->randomElements(ApiEnums::operationalRequirements(), 2),
+                'operational_requirements' => $this->faker->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
                 'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'your_impact' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'what_to_expect' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],

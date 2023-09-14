@@ -19,6 +19,7 @@ use App\Providers\EvaluatedLanguageAbility;
 use App\Providers\GovEmployeeType;
 use App\Providers\IndigenousCommunity;
 use App\Providers\Language;
+use App\Providers\OperationalRequirement;
 use App\Providers\PositionDuration;
 use App\Providers\ProvinceOrTerritory;
 use Database\Helpers\ApiEnums;
@@ -109,7 +110,7 @@ class UserFactory extends Factory
             'position_duration' => $this->faker->boolean() ?
                 array_column(PositionDuration::cases(), 'name')
                 : [PositionDuration::PERMANENT->name], // always accepting PERMANENT
-            'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
+            'accepted_operational_requirements' => $this->faker->optional->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
             'gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(GovEmployeeType::cases())->name : null,
             'citizenship' => $this->faker->randomElement(CitizenshipStatus::cases())->name,
             'armed_forces_status' => $this->faker->randomElement(ArmedForcesStatus::cases())->name,

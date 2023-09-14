@@ -8,6 +8,7 @@ use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
 use App\Providers\LanguageAbility;
+use App\Providers\OperationalRequirement;
 use App\Providers\PoolCandidateStatus;
 use App\Providers\PositionDuration;
 use App\Providers\PublishingGroup;
@@ -348,20 +349,20 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
         $user1 = User::factory()->create([
             'accepted_operational_requirements' => [
-                ApiEnums::OPERATIONAL_REQUIREMENT_DRIVERS_LICENSE,
-                ApiEnums::OPERATIONAL_REQUIREMENT_ON_CALL,
+                OperationalRequirement::DRIVERS_LICENSE->name,
+                OperationalRequirement::ON_CALL->name,
             ],
         ]);
         $user2 = User::factory()->create([
             'accepted_operational_requirements' => [
-                ApiEnums::OPERATIONAL_REQUIREMENT_DRIVERS_LICENSE,
-                ApiEnums::OPERATIONAL_REQUIREMENT_ON_CALL,
-                ApiEnums::OPERATIONAL_REQUIREMENT_OVERTIME_OCCASIONAL,
+                OperationalRequirement::DRIVERS_LICENSE->name,
+                OperationalRequirement::ON_CALL->name,
+                OperationalRequirement::OVERTIME_OCCASIONAL->name,
             ],
         ]);
         $user3 = User::factory()->create([
             'accepted_operational_requirements' => [
-                ApiEnums::OPERATIONAL_REQUIREMENT_OVERTIME_OCCASIONAL,
+                OperationalRequirement::OVERTIME_OCCASIONAL->name,
             ],
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
@@ -381,8 +382,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
             [
                 'where' => [
                     'operationalRequirements' => [
-                        ApiEnums::OPERATIONAL_REQUIREMENT_DRIVERS_LICENSE,
-                        ApiEnums::OPERATIONAL_REQUIREMENT_ON_CALL,
+                        OperationalRequirement::DRIVERS_LICENSE->name,
+                        OperationalRequirement::ON_CALL->name,
                     ],
                 ],
             ]

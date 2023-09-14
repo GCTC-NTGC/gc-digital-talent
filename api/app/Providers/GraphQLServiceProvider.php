@@ -201,6 +201,74 @@ enum WorkRegion
     case NORTH;
 }
 
+#[Description(description: 'e.g. Overtime as Required, Shift Work, Travel as Required, etc.')]
+enum OperationalRequirement
+{
+  case SHIFT_WORK;
+  case ON_CALL;
+  case TRAVEL;
+  case TRANSPORT_EQUIPMENT;
+  case DRIVERS_LICENSE;
+  case OVERTIME_SCHEDULED;
+  case OVERTIME_SHORT_NOTICE;
+  case OVERTIME_OCCASIONAL;
+  case OVERTIME_REGULAR;
+}
+
+enum SalaryRange
+{
+    case _50_59K;
+    case _60_69K;
+    case _70_79K;
+    case _80_89K;
+    case _90_99K;
+    case _100K_PLUS;
+}
+
+enum GenericJobTitleKey
+{
+    case TECHNICIAN_IT01;
+    case ANALYST_IT02;
+    case TEAM_LEADER_IT03;
+    case TECHNICAL_ADVISOR_IT03;
+    case SENIOR_ADVISOR_IT04;
+    case MANAGER_IT04;
+}
+
+enum PoolCandidateSearchStatus
+{
+    case NEW;
+    case IN_PROGRESS;
+    case WAITING;
+    case DONE;
+}
+
+enum PoolCandidateSearchPositionType
+{
+    case INDIVIDUAL_CONTRIBUTOR;
+    case TEAM_LEAD;
+}
+
+enum SkillCategory
+{
+    case TECHNICAL;
+    case BEHAVIOURAL;
+}
+
+enum SkillLevel
+{
+    case BEGINNER;
+    case INTERMEDIATE;
+    case ADVANCED;
+    case LEAD;
+}
+
+enum WhenSkillUsed
+{
+    case CURRENT;
+    case PAST;
+}
+
 class GraphQLServiceProvider extends ServiceProvider
 {
     public function boot(TypeRegistry $typeRegistry): void
@@ -385,6 +453,78 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'WorkRegion',
                     'values' => array_column(WorkRegion::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'OperationalRequirement',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'OperationalRequirement',
+                    'values' => array_column(OperationalRequirement::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'SalaryRange',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'SalaryRange',
+                    'values' => array_column(SalaryRange::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'GenericJobTitleKey',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'GenericJobTitleKey',
+                    'values' => array_column(GenericJobTitleKey::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PoolCandidateSearchStatus',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PoolCandidateSearchStatus',
+                    'values' => array_column(PoolCandidateSearchStatus::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PoolCandidateSearchPositionType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PoolCandidateSearchPositionType',
+                    'values' => array_column(PoolCandidateSearchPositionType::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'SkillCategory',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'SkillCategory',
+                    'values' => array_column(SkillCategory::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'SkillLevel',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'SkillLevel',
+                    'values' => array_column(SkillLevel::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'WhenSkillUsed',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'WhenSkillUsed',
+                    'values' => array_column(WhenSkillUsed::cases(), 'name'),
                 ]);
             }
         );

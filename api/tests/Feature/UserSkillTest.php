@@ -5,6 +5,8 @@ use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use App\Providers\SkillLevel;
+use App\Providers\WhenSkillUsed;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -154,8 +156,8 @@ class UserSkillTest extends TestCase
                 [
                     'id' => $userSkillModel->id,
                     'userSkill' => [
-                        'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
-                        'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_PAST,
+                        'skillLevel' => SkillLevel::BEGINNER->name,
+                        'whenSkillUsed' => WhenSkillUsed::PAST->name,
                     ],
                 ]
             )
@@ -224,8 +226,8 @@ class UserSkillTest extends TestCase
                     'userId' => $this->user->id,
                     'skillId' => $skill->id,
                     'userSkill' => [
-                        'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
-                        'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+                        'skillLevel' => SkillLevel::BEGINNER->name,
+                        'whenSkillUsed' => WhenSkillUsed::CURRENT->name,
                     ],
                 ]
             )
@@ -236,8 +238,8 @@ class UserSkillTest extends TestCase
                 'skill' => [
                     'id' => $skill->id,
                 ],
-                'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
-                'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+                'skillLevel' => SkillLevel::BEGINNER->name,
+                'whenSkillUsed' => WhenSkillUsed::CURRENT->name,
             ]);
 
         // assert duplication validation error for re-submitting the above
@@ -248,8 +250,8 @@ class UserSkillTest extends TestCase
                     'userId' => $this->user->id,
                     'skillId' => $skill->id,
                     'userSkill' => [
-                        'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
-                        'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+                        'skillLevel' => SkillLevel::BEGINNER->name,
+                        'whenSkillUsed' => WhenSkillUsed::CURRENT->name,
                     ],
                 ]
             )
@@ -268,8 +270,8 @@ class UserSkillTest extends TestCase
                     'userId' => $this->user->id,
                     'skillId' => $skill->id,
                     'userSkill' => [
-                        'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
-                        'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+                        'skillLevel' => SkillLevel::BEGINNER->name,
+                        'whenSkillUsed' => WhenSkillUsed::CURRENT->name,
                     ],
                 ]
             )
@@ -280,8 +282,8 @@ class UserSkillTest extends TestCase
                 'skill' => [
                     'id' => $skill->id,
                 ],
-                'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
-                'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+                'skillLevel' => SkillLevel::BEGINNER->name,
+                'whenSkillUsed' => WhenSkillUsed::CURRENT->name,
             ]);
 
         // soft delete the model
@@ -306,8 +308,8 @@ class UserSkillTest extends TestCase
                 'skill' => [
                     'id' => $skill->id,
                 ],
-                'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
-                'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+                'skillLevel' => SkillLevel::BEGINNER->name,
+                'whenSkillUsed' => WhenSkillUsed::CURRENT->name,
             ]);
     }
 
@@ -323,8 +325,8 @@ class UserSkillTest extends TestCase
                     'userId' => $this->user->id,
                     'skillId' => $skill->id,
                     'userSkill' => [
-                        'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
-                        'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+                        'skillLevel' => SkillLevel::BEGINNER->name,
+                        'whenSkillUsed' => WhenSkillUsed::CURRENT->name,
                     ],
                 ]
             )
@@ -335,8 +337,8 @@ class UserSkillTest extends TestCase
                 'skill' => [
                     'id' => $skill->id,
                 ],
-                'skillLevel' => ApiEnums::SKILL_LEVEL_BEGINNER,
-                'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+                'skillLevel' => SkillLevel::BEGINNER->name,
+                'whenSkillUsed' => WhenSkillUsed::CURRENT->name,
             ]);
 
         // soft delete the model
@@ -353,7 +355,7 @@ class UserSkillTest extends TestCase
                     'userId' => $this->user->id,
                     'skillId' => $skill->id,
                     'userSkill' => [
-                        'skillLevel' => ApiEnums::SKILL_LEVEL_LEAD,
+                        'skillLevel' => SkillLevel::LEAD->name,
                     ],
                 ]
             )
@@ -364,8 +366,8 @@ class UserSkillTest extends TestCase
                 'skill' => [
                     'id' => $skill->id,
                 ],
-                'skillLevel' => ApiEnums::SKILL_LEVEL_LEAD,
-                'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+                'skillLevel' => SkillLevel::LEAD->name,
+                'whenSkillUsed' => WhenSkillUsed::CURRENT->name,
             ]);
     }
 
@@ -384,15 +386,15 @@ class UserSkillTest extends TestCase
                 [
                     'id' => $userSkillModel->id,
                     'userSkill' => [
-                        'skillLevel' => ApiEnums::SKILL_LEVEL_ADVANCED,
-                        'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+                        'skillLevel' => SkillLevel::ADVANCED->name,
+                        'whenSkillUsed' => WhenSkillUsed::CURRENT->name,
                     ],
                 ]
             )
             ->assertJsonFragment([
                 'id' => $userSkillModel->id,
-                'skillLevel' => ApiEnums::SKILL_LEVEL_ADVANCED,
-                'whenSkillUsed' => ApiEnums::WHEN_SKILL_USED_CURRENT,
+                'skillLevel' => SkillLevel::ADVANCED->name,
+                'whenSkillUsed' => WhenSkillUsed::CURRENT->name,
             ]);
     }
 

@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\PoolCandidateFilter;
+use App\Providers\OperationalRequirement;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -44,7 +45,7 @@ class PoolCandidateFilterFactory extends Factory
                 ],
                 3
             ),
-            'operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
+            'operational_requirements' => $this->faker->optional->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
         ];
     }
 

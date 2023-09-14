@@ -268,30 +268,6 @@ type PoolCandidateWithSkillCount {
   skillCount: Int @rename(attribute: "skill_count") # will always be null unless used with skillsAdditive or skillsIntersectional scope
 }
 
-"""
-e.g. Overtime as Required, Shift Work, Travel as Required, etc.
-"""
-enum OperationalRequirement {
-  SHIFT_WORK
-  ON_CALL
-  TRAVEL
-  TRANSPORT_EQUIPMENT
-  DRIVERS_LICENSE
-  OVERTIME_SCHEDULED
-  OVERTIME_SHORT_NOTICE
-  OVERTIME_OCCASIONAL
-  OVERTIME_REGULAR
-}
-
-enum SalaryRange {
-  _50_59K
-  _60_69K
-  _70_79K
-  _80_89K
-  _90_99K
-  _100K_PLUS
-}
-
 type Classification {
   id: ID!
   name: LocalizedString
@@ -300,15 +276,6 @@ type Classification {
   minSalary: Int @rename(attribute: "min_salary")
   maxSalary: Int @rename(attribute: "max_salary")
   genericJobTitles: [GenericJobTitle] @belongsToMany
-}
-
-enum GenericJobTitleKey {
-  TECHNICIAN_IT01
-  ANALYST_IT02
-  TEAM_LEADER_IT03
-  TECHNICAL_ADVISOR_IT03
-  SENIOR_ADVISOR_IT04
-  MANAGER_IT04
 }
 
 type GenericJobTitle {
@@ -355,18 +322,6 @@ type RoleAssignment {
   role: Role @belongsTo
   team: Team @belongsTo
   user: UserPublicProfile @morphTo
-}
-
-enum PoolCandidateSearchStatus {
-  NEW
-  IN_PROGRESS
-  WAITING
-  DONE
-}
-
-enum PoolCandidateSearchPositionType {
-  INDIVIDUAL_CONTRIBUTOR
-  TEAM_LEAD
 }
 
 # equity selections goes with the pool/applicant filters and not user model
@@ -441,11 +396,6 @@ type PoolCandidateSearchRequest {
     @rename(attribute: "position_type")
 }
 
-enum SkillCategory {
-  TECHNICAL
-  BEHAVIOURAL
-}
-
 type SkillFamily {
   id: ID!
   key: KeyString!
@@ -488,18 +438,6 @@ type UserSkill {
   educationExperiences: [EducationExperience!] @hasMany
   personalExperiences: [PersonalExperience!] @hasMany
   workExperiences: [WorkExperience!] @hasMany
-}
-
-enum SkillLevel {
-  BEGINNER
-  INTERMEDIATE
-  ADVANCED
-  LEAD
-}
-
-enum WhenSkillUsed {
-  CURRENT
-  PAST
 }
 
 type SkillKeywords {

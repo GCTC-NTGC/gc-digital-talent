@@ -12,6 +12,7 @@ use App\Providers\ArmedForcesStatus;
 use App\Providers\CitizenshipStatus;
 use App\Providers\IndigenousCommunity;
 use App\Providers\LanguageAbility;
+use App\Providers\OperationalRequirement;
 use App\Providers\PoolCandidateStatus;
 use App\Providers\PositionDuration;
 use App\Providers\PublishingGroup;
@@ -668,7 +669,7 @@ class ApplicantTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']],
                     ],
-                    'operationalRequirements' => ['SHIFT_WORK'],
+                    'operationalRequirements' => [OperationalRequirement::SHIFT_WORK->name],
                 ],
             ]
         )->assertJson([
@@ -690,7 +691,7 @@ class ApplicantTest extends TestCase
                     'pools' => [
                         ['id' => $pool1['id']],
                     ],
-                    'operationalRequirements' => ['SHIFT_WORK', 'TRAVEL'],
+                    'operationalRequirements' => [OperationalRequirement::SHIFT_WORK->name, OperationalRequirement::TRAVEL->name],
                 ],
             ]
         )->assertJson([

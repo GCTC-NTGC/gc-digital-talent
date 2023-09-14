@@ -7,6 +7,7 @@ use App\Models\Classification;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
+use App\Providers\PoolCandidateSearchStatus;
 use App\Providers\PoolStream;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
@@ -96,13 +97,13 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
     public function testSearchRequestStatusFiltering(): void
     {
         PoolCandidateSearchRequest::factory()->count(2)->create([
-            'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW,
+            'request_status' => PoolCandidateSearchStatus::NEW->name,
         ]);
         PoolCandidateSearchRequest::factory()->count(3)->create([
-            'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE,
+            'request_status' => PoolCandidateSearchStatus::DONE->name,
         ]);
         PoolCandidateSearchRequest::factory()->count(4)->create([
-            'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_WAITING,
+            'request_status' => PoolCandidateSearchStatus::WAITING->name,
         ]);
 
         // no variables results in 9 results
@@ -126,7 +127,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW],
+                        'status' => [PoolCandidateSearchStatus::NEW->name],
                     ],
                 ]
             )
@@ -138,7 +139,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE],
+                        'status' => [PoolCandidateSearchStatus::DONE->name],
                     ],
                 ]
             )
@@ -150,7 +151,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE, ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW],
+                        'status' => [PoolCandidateSearchStatus::DONE->name, PoolCandidateSearchStatus::NEW->name],
                     ],
                 ]
             )

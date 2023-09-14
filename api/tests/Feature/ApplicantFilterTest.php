@@ -8,6 +8,7 @@ use App\Models\PoolCandidate;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
 use App\Providers\LanguageAbility;
+use App\Providers\PoolCandidateSearchStatus;
 use App\Providers\PoolStream;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
@@ -387,7 +388,7 @@ class ApplicantFilterTest extends TestCase
                     'jobTitle' => $request->job_title,
                     'managerJobTitle' => $request->manager_job_title,
                     'positionType' => $request->position_type,
-                    'status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW,
+                    'status' => PoolCandidateSearchStatus::NEW->name,
                     'department' => [
                         'id' => $request->department_id,
                     ],
