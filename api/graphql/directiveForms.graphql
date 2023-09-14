@@ -453,7 +453,7 @@ extend type Mutation {
     @guard
     @can(ability: "update", find: "id")
   deleteDigitalContractingQuestionnaire(
-    id: UUID!
+    id: UUID! @whereKey
   ): DigitalContractingQuestionnaire
     @delete
     @guard
