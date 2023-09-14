@@ -33,6 +33,7 @@ export type FormValues = {
   expiryStatus: Option["value"][];
   suspendedStatus: Option["value"][];
   publishingGroups: Option["value"][];
+  govEmployee: Option["value"][];
 };
 
 const Footer = () => {
@@ -256,6 +257,30 @@ const PoolCandidateTableFilterDialog = ({
                   options={optionsData.poolCandidateStatus}
                 />
               </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
+                <MultiSelectField
+                  id="skills"
+                  name="skills"
+                  label={formatMessage({
+                    defaultMessage: "Skill Filter",
+                    id: "GGaxMx",
+                  })}
+                  options={optionsData.skills}
+                  isLoading={rawGraphqlResults.skills.fetching}
+                />
+              </div>
+              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
+                <MultiSelectFieldBase
+                  forceArrayFormValue
+                  id="govEmployee"
+                  name="govEmployee"
+                  label={formatMessage({
+                    defaultMessage: "Government Employee",
+                    id: "YojrdC",
+                  })}
+                  options={optionsData.govEmployee}
+                />
+              </div>
               <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(1of3)">
                 <MultiSelectField
                   id="priorityWeight"
@@ -267,18 +292,6 @@ const PoolCandidateTableFilterDialog = ({
                       "Title displayed for the Pool Candidates table Priority column.",
                   })}
                   options={optionsData.priorityWeight}
-                />
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) laptop(3of5)">
-                <MultiSelectField
-                  id="skills"
-                  name="skills"
-                  label={formatMessage({
-                    defaultMessage: "Skill Filter",
-                    id: "GGaxMx",
-                  })}
-                  options={optionsData.skills}
-                  isLoading={rawGraphqlResults.skills.fetching}
                 />
               </div>
             </div>

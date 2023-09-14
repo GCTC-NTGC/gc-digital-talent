@@ -109,6 +109,16 @@ const commonMessages = defineMessages({
     id: "atqjXB",
     description: "Stop the current action",
   },
+  email: {
+    defaultMessage: "Email",
+    id: "dJd5/f",
+    description: "Title for email",
+  },
+  telephone: {
+    defaultMessage: "Telephone",
+    id: "imR1U4",
+    description: "Title displayed telephone",
+  },
 });
 
 export default commonMessages;

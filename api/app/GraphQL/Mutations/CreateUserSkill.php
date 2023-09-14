@@ -24,6 +24,13 @@ final class CreateUserSkill
             if (($existingModel->deleted_at !== null)) {
                 $existingModel->restore();
 
+                // if restoring, persist new values if applicable
+                $existingModel->update([
+                    'skill_level' => isset($args['skill_level']) ? $args['skill_level'] : $existingModel->skill_level,
+                    'when_skill_used' => isset($args['when_skill_used']) ? $args['when_skill_used'] : $existingModel->when_skill_used,
+                ]);
+                $existingModel->refresh();
+
                 return $existingModel;
             }
             throw ValidationException::withMessages(['DuplicateUserSkill']);

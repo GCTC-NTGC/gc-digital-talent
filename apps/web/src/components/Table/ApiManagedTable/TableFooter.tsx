@@ -4,11 +4,9 @@ import { CombinedError } from "urql";
 
 import {
   Pending,
-  Button,
   DownloadCsv,
   type DownloadCsvProps,
 } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
 
 import Pagination from "~/components/Pagination";
 import { PaginatorInfo } from "~/api/generated";
@@ -20,6 +18,7 @@ interface TableFooterProps {
   onPageSizeChange: (n: number) => void;
   onPrint?: () => void;
   csv?: Csv;
+  additionalActions?: React.ReactNode;
   hasSelection?: boolean;
   disableActions?: boolean;
   fetchingSelected?: boolean;
@@ -39,29 +38,13 @@ function TableFooter({
   paginatorInfo = defaultPaginationInfo,
   onCurrentPageChange,
   onPageSizeChange,
-  onPrint,
   csv,
-  disableActions,
+  additionalActions,
   hasSelection = false,
   fetchingSelected = false,
   selectionError,
 }: TableFooterProps): ReactElement {
   const intl = useIntl();
-
-  const handlePrint = () => {
-    if (disableActions) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Download failed: No rows selected",
-          id: "k4xm25",
-          description:
-            "Alert message displayed when a user attempts to print without selecting items first",
-        }),
-      );
-    } else if (onPrint) {
-      onPrint();
-    }
-  };
 
   return (
     <div
@@ -98,22 +81,11 @@ function TableFooter({
                       </DownloadCsv>
                     </div>
                   )}
-                  <div data-h2-flex-item="base(content)">
-                    <Button
-                      type="button"
-                      mode="inline"
-                      color="white"
-                      data-h2-font-weight="base(400)"
-                      onClick={handlePrint}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "Download Profiles",
-                        id: "UsFTGT",
-                        description:
-                          "Text label for button to download items in a table.",
-                      })}
-                    </Button>
-                  </div>
+                  {additionalActions && (
+                    <div data-h2-flex-item="base(content)">
+                      {additionalActions}
+                    </div>
+                  )}
                 </Pending>
               </div>
             )}
