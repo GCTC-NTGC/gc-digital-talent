@@ -21,6 +21,7 @@ const defaultArgs = {
 
 type ComboboxType = ComboboxProps & {
   mockSearch?: (term: string) => Promise<Option[]>;
+  defaultValue?: string;
 };
 
 export default {
@@ -29,7 +30,7 @@ export default {
 };
 
 const Template: StoryFn<ComboboxType> = (args) => {
-  const { mockSearch, options, ...rest } = args;
+  const { mockSearch, defaultValue, options, ...rest } = args;
   const [isSearching, setIsSearching] = React.useState<boolean>(false);
   const [filteredOptions, setFilteredOptions] =
     React.useState<Option[]>(options);
@@ -52,7 +53,7 @@ const Template: StoryFn<ComboboxType> = (args) => {
   return (
     <BasicForm
       onSubmit={action("onSubmit")}
-      options={{ defaultValues: { skill: "" } }}
+      options={{ defaultValues: { skill: defaultValue ?? "" } }}
     >
       <Combobox
         {...rest}
@@ -99,4 +100,10 @@ export const Required = Template.bind({});
 Required.args = {
   ...defaultArgs,
   rules: { required: "This field is required" },
+};
+
+export const DefaultValue = Template.bind({});
+DefaultValue.args = {
+  ...defaultArgs,
+  defaultValue: skills[0].value,
 };

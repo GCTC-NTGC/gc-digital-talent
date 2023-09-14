@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { FieldError, useFormContext } from "react-hook-form";
+import { FieldError, useFormContext, useWatch } from "react-hook-form";
 import { Combobox as ComboboxPrimitive } from "@headlessui/react";
 import debounce from "lodash/debounce";
 import orderBy from "lodash/orderBy";
@@ -56,16 +56,17 @@ const Combobox = ({
 }: ComboboxProps) => {
   const intl = useIntl();
   const inputRef = React.useRef<HTMLInputElement>(null);
-  const [selectedOption, setSelectedOption] = React.useState<
-    Scalars["ID"] | null
-  >(null);
-  const [query, setQuery] = React.useState<string>("");
   const {
     setValue,
     resetField,
+    getValues,
     register,
     formState: { errors },
   } = useFormContext();
+  const [selectedOption, setSelectedOption] = React.useState<
+    Scalars["ID"] | null
+  >(getValues(name));
+  const [query, setQuery] = React.useState<string>("");
   const inputProps = register(name, rules);
   const baseStyles = useCommonInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
