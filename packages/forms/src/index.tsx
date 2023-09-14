@@ -22,6 +22,7 @@ import RadioGroup, {
   type Radio,
 } from "./components/RadioGroup";
 import Repeater from "./components/Repeater/Repeater";
+import RichTextInput from "./components/RichTextInput/RichTextInput";
 import Select, {
   MultiSelectFieldBase,
   type MultiSelectFieldBaseProps,
@@ -64,6 +65,7 @@ export {
   MultiSelectField,
   Repeater,
   RadioGroup,
+  RichTextInput,
   Select,
   MultiSelectFieldBase,
   Submit,
