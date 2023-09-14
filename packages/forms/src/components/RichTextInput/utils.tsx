@@ -40,4 +40,5 @@ export const contentStyles = {
   "data-h2-min-height": "base(8rem)",
   "data-h2-max-height": "base(24rem)",
   "data-h2-overflow": "base(auto)",
+  "data-h2-radius": "base(0 0 rounded rounded)",
 };
