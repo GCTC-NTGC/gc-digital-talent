@@ -79,7 +79,11 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
         <MenuButton
           active={isOpen}
           icon={LinkIcon}
-          disabled={!editor?.isEditable || !editor?.can().setLink({ href: "" })}
+          disabled={
+            !editor?.isEditable ||
+            !editor?.can().setLink({ href: "" }) ||
+            editor?.view.state.selection.empty
+          }
         >
           {intl.formatMessage(richTextMessages.link)}
         </MenuButton>
