@@ -13,7 +13,7 @@
     "@gc-digital-talent/web": "*"
   },
   "devDependencies": {
-    "@testing-library/cypress": "^9.0.0",
+    "@testing-library/cypress": "^10.0.1",
     "axe-core": "^4.8.0",
     "cy-verify-downloads": "^0.1.16",
     "cypress": "^13.2.0",
