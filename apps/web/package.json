@@ -102,7 +102,7 @@
     "@types/react-table": "^7.7.15",
     "babel-plugin-formatjs": "^10.5.3",
     "core-js": "^3.32.1",
-    "eslint": "^8.48.0",
+    "eslint": "^8.49.0",
     "eslint-config-custom": "*",
     "hydrogen-webpack-plugin": "*",
     "jest": "^29.6.4",
