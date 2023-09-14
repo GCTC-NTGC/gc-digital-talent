@@ -141,7 +141,7 @@ type Mutation {
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
   createDepartmentSpecificRecruitmentProcessForm(departmentSpecificRecruitmentProcessForm: DepartmentSpecificRecruitmentProcessFormInput!): DepartmentSpecificRecruitmentProcessForm
-  updateDepartmentSpecificRecruitmentProcessForm(id: UUID!, digitalContractingQuestionnaire: DepartmentSpecificRecruitmentProcessFormInput!): DepartmentSpecificRecruitmentProcessForm
+  updateDepartmentSpecificRecruitmentProcessForm(id: UUID!, departmentSpecificRecruitmentProcessForm: DepartmentSpecificRecruitmentProcessFormInput!): DepartmentSpecificRecruitmentProcessForm
   deleteDepartmentSpecificRecruitmentProcessForm(id: UUID!): DepartmentSpecificRecruitmentProcessForm
 }
 

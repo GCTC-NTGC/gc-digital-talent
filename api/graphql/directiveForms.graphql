@@ -567,14 +567,14 @@ extend type Mutation {
     @can(ability: "create")
   updateDepartmentSpecificRecruitmentProcessForm(
     id: UUID!
-    digitalContractingQuestionnaire: DepartmentSpecificRecruitmentProcessFormInput!
+    departmentSpecificRecruitmentProcessForm: DepartmentSpecificRecruitmentProcessFormInput!
       @spread
   ): DepartmentSpecificRecruitmentProcessForm
     @update
     @guard
     @can(ability: "update", find: "id")
   deleteDepartmentSpecificRecruitmentProcessForm(
-    id: UUID!
+    id: UUID! @whereKey
   ): DepartmentSpecificRecruitmentProcessForm
     @delete
     @guard
