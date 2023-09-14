@@ -78,7 +78,6 @@ class DigitalContractingQuestionnaireFactory extends Factory
             'solicitation_procedure' => $this->faker->randomElement(DirectiveFormsApiEnums::contractSolicitationProcedures()),
             'subject_to_trade_agreement' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNoUnsure()),
             'work_requirement_description' => $this->faker->paragraph(),
-            'qualification_requirement' => $this->faker->paragraph(),
             'requirement_access_to_secure' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNoUnsure()),
             'requirement_screening_levels' => $this->faker->randomElements(
                 DirectiveFormsApiEnums::personnelScreeningLevels(),
@@ -113,6 +112,12 @@ class DigitalContractingQuestionnaireFactory extends Factory
             },
             'has_personnel_requirements' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             // personnel_requirements added in configure method
+            'qualification_requirement' => $this->faker->paragraph(),
+
+            'qualification_requirement' => function (array $attributes) {
+                return $attributes['has_personnel_requirements'] === DirectiveFormsApiEnums::YESNO_NO ? $this->faker->word() : null;
+            },
+
             'technological_change_factors' => $this->faker->randomElement(DirectiveFormsApiEnums::technologicalChangeFactors()),
             'has_impact_on_your_department' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             'has_immediate_impact_on_other_departments' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
