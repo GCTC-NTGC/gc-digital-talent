@@ -29,7 +29,7 @@ class GenericJobTitleSeeder extends Seeder
                 ],
             ],
             [
-                'key' =>GenericJobTitleKey::ANALYST_IT02->name,
+                'key' => GenericJobTitleKey::ANALYST_IT02->name,
                 'name' => [
                     'en' => 'Analyst',
                     'fr' => 'Analyste',

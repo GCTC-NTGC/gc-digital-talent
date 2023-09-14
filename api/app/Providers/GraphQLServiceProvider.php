@@ -4,10 +4,10 @@ namespace App\Providers;
 
 use App\GraphQL\Operators\PostgreSQLOperator;
 use GraphQL\Type\Definition\Description;
-use Illuminate\Support\ServiceProvider;
 use GraphQL\Type\Definition\EnumType;
-use Nuwave\Lighthouse\WhereConditions\Operator;
+use Illuminate\Support\ServiceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
+use Nuwave\Lighthouse\WhereConditions\Operator;
 
 enum Language: string
 {
@@ -204,15 +204,15 @@ enum WorkRegion
 #[Description(description: 'e.g. Overtime as Required, Shift Work, Travel as Required, etc.')]
 enum OperationalRequirement
 {
-  case SHIFT_WORK;
-  case ON_CALL;
-  case TRAVEL;
-  case TRANSPORT_EQUIPMENT;
-  case DRIVERS_LICENSE;
-  case OVERTIME_SCHEDULED;
-  case OVERTIME_SHORT_NOTICE;
-  case OVERTIME_OCCASIONAL;
-  case OVERTIME_REGULAR;
+    case SHIFT_WORK;
+    case ON_CALL;
+    case TRAVEL;
+    case TRANSPORT_EQUIPMENT;
+    case DRIVERS_LICENSE;
+    case OVERTIME_SCHEDULED;
+    case OVERTIME_SHORT_NOTICE;
+    case OVERTIME_OCCASIONAL;
+    case OVERTIME_REGULAR;
 }
 
 enum SalaryRange
@@ -335,7 +335,7 @@ class GraphQLServiceProvider extends ServiceProvider
                     'values' => [
                         Language::EN->name => ['value' => Language::EN->value],
                         Language::FR->name => ['value' => Language::FR->value],
-                    ]
+                    ],
                 ]);
             }
         );

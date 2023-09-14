@@ -295,11 +295,11 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
     public function testSearchRequestStreamsFiltering(): void
     {
         $applicantFilter1 = ApplicantFilter::factory()->create([
-            'qualified_streams' => [PoolStream::SECURITY->name,],
+            'qualified_streams' => [PoolStream::SECURITY->name],
         ]);
 
         $applicantFilter2 = ApplicantFilter::factory()->create([
-            'qualified_streams' => [PoolStream::BUSINESS_ADVISORY_SERVICES->name,],
+            'qualified_streams' => [PoolStream::BUSINESS_ADVISORY_SERVICES->name],
         ]);
 
         PoolCandidateSearchRequest::factory()->count(1)->create([

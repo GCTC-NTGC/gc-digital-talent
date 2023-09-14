@@ -104,7 +104,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::PUBLISHED->name
+                    'status' => PoolStatus::PUBLISHED->name,
                 ],
             ],
         ]);

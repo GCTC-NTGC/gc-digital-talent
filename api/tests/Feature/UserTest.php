@@ -323,7 +323,7 @@ class UserTest extends TestCase
                     'poolFilters' => [
                         [
                             'poolId' => $pool1['id'],
-                            'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::EXPIRED->name, PoolCandidateStatus::REMOVED->name,],
+                            'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::EXPIRED->name, PoolCandidateStatus::REMOVED->name],
                         ],
                     ],
                 ],
@@ -387,7 +387,7 @@ class UserTest extends TestCase
                     'poolFilters' => [
                         [
                             'poolId' => '00000000-0000-0000-0000-000000000000',
-                            'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name,],
+                            'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
                         ],
                     ],
                 ],

@@ -703,7 +703,7 @@ class PoolApplicationTest extends TestCase
                     'sig' => 'sign',
                 ]
             )->assertJsonFragment([
-                'status' =>PoolCandidateStatus::NEW_APPLICATION->name,
+                'status' => PoolCandidateStatus::NEW_APPLICATION->name,
             ]);
     }
 
