@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Providers\SkillCategory;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

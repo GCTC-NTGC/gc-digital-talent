@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Skill;
-use App\Providers\SkillCategory;
+use Database\Helpers\ApiEnums;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +18,7 @@ return new class extends Migration
             // Create category column in Skill table, temporarily set category to technical
             $table->string('category')
                 ->nullable(false)
-                ->default(SkillCategory::TECHNICAL->name);
+                ->default(ApiEnums::SKILL_CATEGORY_TECHNICAL);
         });
 
         // Iterate through all skills and update category using data from skill families
@@ -26,10 +26,10 @@ return new class extends Migration
         foreach ($skills as $skill) {
             $category = $skill
                 ->families()
-                ->firstWhere('category', '=', SkillCategory::TECHNICAL->name)?->category;
+                ->firstWhere('category', '=', ApiEnums::SKILL_CATEGORY_TECHNICAL)?->category;
             DB::table('skills')
                 ->where('id', $skill->id)
-                ->update(['category' => $category ? $category : SkillCategory::BEHAVIOURAL->name]);
+                ->update(['category' => $category ? $category : ApiEnums::SKILL_CATEGORY_BEHAVIOURAL]);
         }
 
         // Drop category column from skill categories
@@ -46,7 +46,7 @@ return new class extends Migration
         Schema::table('skill_families', function (Blueprint $table) {
             $table->string('category')
                 ->nullable(false)
-                ->default(SkillCategory::TECHNICAL->name);
+                ->default(ApiEnums::SKILL_CATEGORY_TECHNICAL);
         });
 
         Schema::table('skills', function (Blueprint $table) {

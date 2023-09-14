@@ -10,7 +10,6 @@ use App\Providers\PoolCandidateStatus;
 use App\Providers\PositionDuration;
 use App\Providers\PublishingGroup;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;

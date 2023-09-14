@@ -7,7 +7,6 @@ use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Providers\PoolCandidateSearchPositionType;
 use App\Providers\PoolCandidateSearchStatus;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PoolCandidateSearchRequestFactory extends Factory

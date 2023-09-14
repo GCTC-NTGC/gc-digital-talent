@@ -24,7 +24,6 @@ use App\Providers\PublishingGroup;
 use App\Providers\SkillLevel;
 use App\Providers\WhenSkillUsed;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;

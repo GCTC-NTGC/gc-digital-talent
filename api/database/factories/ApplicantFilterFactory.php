@@ -11,7 +11,6 @@ use App\Providers\OperationalRequirement;
 use App\Providers\PoolStream;
 use App\Providers\PositionDuration;
 use App\Providers\WorkRegion;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicantFilterFactory extends Factory

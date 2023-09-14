@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Providers\PoolStatus;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

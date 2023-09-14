@@ -7,7 +7,6 @@ use App\Models\PoolCandidate;
 use App\Providers\ApplicationStep;
 use App\Providers\PoolCandidateStatus;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 

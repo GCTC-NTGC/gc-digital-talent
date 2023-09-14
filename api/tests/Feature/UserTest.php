@@ -19,7 +19,6 @@ use App\Providers\OperationalRequirement;
 use App\Providers\PoolCandidateStatus;
 use App\Providers\PositionDuration;
 use App\Providers\WorkRegion;
-use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;

@@ -11,7 +11,6 @@ use App\Models\WorkExperience;
 use App\Providers\ApplicationStep;
 use App\Providers\EducationRequirementOption;
 use App\Providers\PoolCandidateStatus;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 

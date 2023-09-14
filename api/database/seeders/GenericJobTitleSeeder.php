@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Classification;
 use App\Models\GenericJobTitle;
 use App\Providers\GenericJobTitleKey;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Seeder;
 
 class GenericJobTitleSeeder extends Seeder

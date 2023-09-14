@@ -10,7 +10,6 @@ use App\Models\User;
 use App\Notifications\PoolCandidateStatusChanged;
 use App\Providers\EducationRequirementOption;
 use App\Providers\PoolCandidateStatus;
-use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;

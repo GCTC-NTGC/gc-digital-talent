@@ -5,7 +5,6 @@ namespace App\GraphQL\Queries;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Providers\CandidateExpiryFilter;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
 
 final class CountPoolCandidatesByPool

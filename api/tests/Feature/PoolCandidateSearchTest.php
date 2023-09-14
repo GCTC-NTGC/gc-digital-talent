@@ -10,7 +10,6 @@ use App\Providers\CandidateSuspendedFilter;
 use App\Providers\CitizenshipStatus;
 use App\Providers\PoolCandidateStatus;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;

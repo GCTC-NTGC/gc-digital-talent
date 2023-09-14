@@ -3,10 +3,8 @@
 namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Validators\Mutation\CreateApplicationValidator;
-use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Providers\PoolCandidateStatus;
-use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 

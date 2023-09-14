@@ -7,7 +7,6 @@ use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
 use App\Providers\PublishingGroup;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Seeder;
 
 class PoolSeederUat extends Seeder

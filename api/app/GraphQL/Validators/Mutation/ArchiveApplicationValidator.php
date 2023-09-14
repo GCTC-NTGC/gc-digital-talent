@@ -3,7 +3,6 @@
 namespace App\GraphQL\Validators\Mutation;
 
 use App\Providers\PoolCandidateStatus;
-use Database\Helpers\ApiEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 

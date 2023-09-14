@@ -13,7 +13,6 @@ use App\Providers\PoolCandidateStatus;
 use App\Providers\PositionDuration;
 use App\Providers\PublishingGroup;
 use App\Providers\WorkRegion;
-use Database\Helpers\ApiEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;

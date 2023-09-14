@@ -22,7 +22,6 @@ use App\Providers\Language;
 use App\Providers\OperationalRequirement;
 use App\Providers\PositionDuration;
 use App\Providers\ProvinceOrTerritory;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory

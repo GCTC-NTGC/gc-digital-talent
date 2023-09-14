@@ -1,6 +1,5 @@
 <?php
 
-use App\Providers\PositionDuration;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -33,8 +32,8 @@ class WouldAcceptTemporaryToPositionDuration extends Migration
                         when null then null
                     end
         SQL, [
-                'wouldAccept' => json_encode([PositionDuration::TEMPORARY->name, PositionDuration::PERMANENT->name]),
-                'wouldNotAccept' => json_encode([PositionDuration::PERMANENT->name]),
+                'wouldAccept' => json_encode([ApiEnums::POSITION_DURATION_TEMPORARY, ApiEnums::POSITION_DURATION_PERMANENT]),
+                'wouldNotAccept' => json_encode([ApiEnums::POSITION_DURATION_PERMANENT]),
             ]); // users always accept PERMANENT
 
         DB::statement(
@@ -47,7 +46,7 @@ class WouldAcceptTemporaryToPositionDuration extends Migration
                         when null then null
                     end
         SQL, [
-                'wouldAccept' => json_encode([PositionDuration::TEMPORARY->name]),
+                'wouldAccept' => json_encode([ApiEnums::POSITION_DURATION_TEMPORARY]),
             ]); // filter does not always have PERMANENT, having both corresponds to accepting ANY, and there is no filtering for PERMANENT
 
         Schema::table('users', function (Blueprint $table) {
@@ -78,7 +77,7 @@ class WouldAcceptTemporaryToPositionDuration extends Migration
                     SET would_accept_temporary = true
                     WHERE position_duration ?? :duration
             SQL, [
-                'duration' => PositionDuration::TEMPORARY->name,
+                'duration' => ApiEnums::POSITION_DURATION_TEMPORARY,
             ]);
 
         DB::statement(
@@ -87,7 +86,7 @@ class WouldAcceptTemporaryToPositionDuration extends Migration
                     SET would_accept_temporary = false
                     WHERE ((position_duration ?? :duration) = false)
             SQL, [
-                'duration' => PositionDuration::TEMPORARY->name,
+                'duration' => ApiEnums::POSITION_DURATION_TEMPORARY,
             ]);
         // can't do a !?? operation
         // WHERE line is true when the ?? operation is false and position_duration is not NULL
@@ -99,7 +98,7 @@ class WouldAcceptTemporaryToPositionDuration extends Migration
                     SET would_accept_temporary = true
                     WHERE position_duration ?? :duration
             SQL, [
-                'duration' => PositionDuration::TEMPORARY->name,
+                'duration' => ApiEnums::POSITION_DURATION_TEMPORARY,
             ]);
         // filter is either looking for TEMPORARY or doing nothing, never both as that equals ANY
         // in which case no point assigning PERMANENT since filtering for it is not a current practice

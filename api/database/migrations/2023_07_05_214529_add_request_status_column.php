@@ -1,6 +1,5 @@
 <?php
 
-use App\Providers\PoolCandidateSearchStatus;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
-            $table->string('request_status')->nullable(false)->default(PoolCandidateSearchStatus::NEW->name);
+            $table->string('request_status')->nullable(false)->default(ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW);
         });
         DB::statement(
             <<<'SQL'
@@ -27,8 +26,8 @@ return new class extends Migration
                         end
             SQL,
             [
-                'new' => PoolCandidateSearchStatus::NEW->name,
-                'done' => PoolCandidateSearchStatus::DONE->name,
+                'new' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW,
+                'done' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE,
             ]
         );
         DB::statement(

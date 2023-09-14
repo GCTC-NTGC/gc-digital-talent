@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\UserSkill;
 use App\Providers\SkillLevel;
 use App\Providers\WhenSkillUsed;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserSkillFactory extends Factory

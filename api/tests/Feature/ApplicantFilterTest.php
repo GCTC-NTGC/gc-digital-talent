@@ -10,7 +10,6 @@ use App\Models\User;
 use App\Providers\LanguageAbility;
 use App\Providers\PoolCandidateSearchStatus;
 use App\Providers\PoolStream;
-use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
