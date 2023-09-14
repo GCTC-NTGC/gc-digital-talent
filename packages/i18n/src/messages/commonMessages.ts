@@ -114,6 +114,11 @@ const commonMessages = defineMessages({
     id: "imR1U4",
     description: "Title displayed telephone",
   },
+  unspecified: {
+    defaultMessage: "Unspecified",
+    id: "zhqK/P",
+    description: "Unspecified, has not been set or defined",
+  },
 });
 
 export default commonMessages;

@@ -1578,6 +1578,10 @@
     "defaultMessage": "Fortement développée",
     "description": "The behavioural skill level for expert"
   },
+  "zhqK/P": {
+    "defaultMessage": "Non précisé",
+    "description": "Unspecified, has not been set or defined"
+  },
   "zhzuZu": {
     "defaultMessage": "Je suis un(e) <strong>étudiant(e)</strong>.",
     "description": "Student selection for government employee type."
