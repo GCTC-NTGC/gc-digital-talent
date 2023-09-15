@@ -6,6 +6,7 @@ export type CompoundQuestionProps = {
   inputElement: React.ReactElement;
 };
 
+// This component is for adding extra information before a form input and ensuring that the aria labels are properly attached.
 const CompoundQuestion = ({
   title,
   introduction,

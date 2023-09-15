@@ -5,6 +5,7 @@ export type SignPostProps = {
   introduction?: React.ReactNode;
 };
 
+// This component is for adding information into a long form to help the user know what's coming up without using a sematic header.
 const SignPost = ({ title, introduction }: SignPostProps) => {
   return (
     <div>

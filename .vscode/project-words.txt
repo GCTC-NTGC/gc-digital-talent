@@ -70,7 +70,7 @@ tanstack
 TELEWORK
 testid
 textbox
-timeframe
+Timeframe
 toastify
 Typenames
 Unencrypted
