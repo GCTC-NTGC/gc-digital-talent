@@ -31,8 +31,10 @@ export default {
 };
 
 const Template: StoryFn<ComboboxType> = (args) => {
-  const { mockSearch, defaultValue, options, ...rest } = args;
-  const [isSearching, setIsSearching] = React.useState<boolean>(false);
+  const { mockSearch, defaultValue, options, fetching, ...rest } = args;
+  const [isSearching, setIsSearching] = React.useState<boolean>(
+    fetching ?? false,
+  );
   const [filteredOptions, setFilteredOptions] =
     React.useState<Option[]>(options);
 
@@ -40,6 +42,7 @@ const Template: StoryFn<ComboboxType> = (args) => {
     return mockSearch
       ? (term: string) => {
           setIsSearching(true);
+          setFilteredOptions([]);
           mockSearch(term)
             .then((newOptions) => {
               setFilteredOptions(newOptions);
@@ -82,15 +85,19 @@ export const APIDriven = Template.bind({});
 APIDriven.args = {
   ...defaultArgs,
   isExternalSearch: true,
+  total: defaultArgs.options.length,
   mockSearch: async (term: string): Promise<Option[]> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const filteredOptions = defaultArgs.options.filter((option) => {
-          return option.label
-            ?.toLocaleString()
-            .toLowerCase()
-            .includes(term.toLowerCase());
-        });
+        const filteredOptions =
+          term.length > 0
+            ? defaultArgs.options.filter((option) => {
+                return option.label
+                  ?.toLocaleString()
+                  .toLowerCase()
+                  .includes(term.toLowerCase());
+              })
+            : defaultArgs.options;
         resolve(filteredOptions);
       }, 1000);
     });

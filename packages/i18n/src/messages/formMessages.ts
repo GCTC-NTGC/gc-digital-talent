@@ -66,10 +66,29 @@ const formMessages = defineMessages({
     id: "U/4a27",
     description: "Button text to reset the combobox input",
   },
+  toggleCombobox: {
+    defaultMessage: "Toggle options menu",
+    id: "Ot5z0u",
+    description: "Button text to toggle the combobox menu",
+  },
   noResultsCombobox: {
     defaultMessage: "No results found.",
     id: "IRCKBP",
     description: "Message displayed when combobox has no options available",
+  },
+  allAvailableCombobox: {
+    defaultMessage:
+      "{total, plural, =0 {<strong>0</strong> available options} =1 {<strong>1</strong> available option} other {<strong>#</strong> available options}}",
+    id: "/hW2c1",
+    description:
+      "Message showing number of all available options inh combobox menu",
+  },
+  subsetAvailableCombobox: {
+    defaultMessage:
+      "{count, plural, =0 {<strong>0</strong> matching results} =1 {1 matching result} other {# matching results}} out of {total, plural, =0 {<strong>0</strong> available options} =1 {1 available option} other {# available options}}",
+    id: "gOq6EB",
+    description:
+      "Message showing number of matching items from all available options inh combobox menu",
   },
   saveChanges: {
     defaultMessage: "Save changes",

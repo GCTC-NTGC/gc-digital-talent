@@ -1,7 +1,13 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
+import { motion, useReducedMotion } from "framer-motion";
+
+import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import { HTMLSpanProps } from "./types";
 
 type WrapperProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -27,6 +33,71 @@ const Wrapper = (props: WrapperProps) => {
   );
 };
 
+const Message = React.forwardRef<HTMLSpanElement, HTMLSpanProps>(
+  (props, forwardedRef) => (
+    <span
+      ref={forwardedRef}
+      data-h2-display="base(flex)"
+      data-h2-align-items="base(center)"
+      data-h2-color="base(black.light)"
+      data-h2-gap="base(0 x.25)"
+      data-h2-padding="base(x.25, x.5)"
+      {...props}
+    />
+  ),
+);
+
+type AvailableProps = HTMLSpanProps & {
+  count: number;
+  total: number;
+};
+
+const Available = ({ count, total, ...rest }: AvailableProps) => {
+  const intl = useIntl();
+
+  return (
+    <Message {...rest}>
+      {count > 0 && count !== total
+        ? intl.formatMessage(formMessages.subsetAvailableCombobox, {
+            total,
+            count,
+          })
+        : intl.formatMessage(formMessages.allAvailableCombobox, {
+            total,
+          })}
+    </Message>
+  );
+};
+
+const AnimatedFetchingIcon = motion(ArrowPathIcon);
+
+const Fetching = React.forwardRef<HTMLSpanElement, HTMLSpanProps>(
+  (props, forwardedRef) => {
+    const intl = useIntl();
+    const shouldReduceMotion = useReducedMotion();
+    return (
+      <Message ref={forwardedRef} {...props}>
+        <AnimatedFetchingIcon
+          data-h2-width="base(1rem)"
+          data-h2-height="base(1rem)"
+          {...(!shouldReduceMotion && {
+            animate: {
+              rotate: [0, 360],
+            },
+            transition: {
+              ease: "linear",
+              duration: 1,
+              repeat: Infinity,
+              repeatDelay: 0,
+            },
+          })}
+        />
+        <span>{intl.formatMessage(uiMessages.loadingResults)}</span>
+      </Message>
+    );
+  },
+);
+
 type HTMLLiProps = React.DetailedHTMLProps<
   React.LiHTMLAttributes<HTMLLIElement>,
   HTMLLIElement
@@ -42,8 +113,9 @@ const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     <li
       ref={forwardedRef}
       data-h2-display="base(flex)"
+      data-h2-align-items="base(center)"
       data-h2-gap="base(0 x.25)"
-      data-h2-padding="base(x.25, x.125)"
+      data-h2-padding="base(x.25, x.5)"
       // Selected + Active
       {...(selected &&
         active && {
@@ -61,7 +133,9 @@ const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       })}
       {...rest}
     >
-      {selected && <CheckIcon />}
+      {selected && (
+        <CheckIcon data-h2-height="base(1rem)" data-h2-width="base(1rem)" />
+      )}
       <span>{children}</span>
     </li>
   ),
@@ -79,15 +153,42 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
       data-h2-list-style="base(none)"
       data-h2-max-height="base(20rem)"
       data-h2-margin="base(0)"
-      data-h2-overflow="base(visible scroll)"
+      data-h2-overflow="base(visible auto)"
       data-h2-padding="base(x.125 0)"
       {...props}
     />
   ),
 );
 
+interface EmptyProps {
+  fetching?: boolean;
+}
+
+const Empty = ({ fetching }: EmptyProps) => {
+  const intl = useIntl();
+
+  return (
+    <p
+      data-h2-cursor="base(pointer)"
+      data-h2-radius="base(input)"
+      data-h2-padding="base(x.25, x.5)"
+      data-h2-display="base(flex)"
+      data-h2-align-items="base(center)"
+      data-h2-gap="base(0, x.25)"
+    >
+      {fetching ? (
+        <Fetching />
+      ) : (
+        intl.formatMessage(formMessages.noResultsCombobox)
+      )}
+    </p>
+  );
+};
+
 export default {
   Wrapper,
   List,
   Item,
+  Empty,
+  Available,
 };

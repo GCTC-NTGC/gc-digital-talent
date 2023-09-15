@@ -1,8 +1,6 @@
-/* eslint-disable import/prefer-default-export */
-import isArray from "lodash/isArray";
 import orderBy from "lodash/orderBy";
 
-import { DefaultValues, Option } from "./types";
+import { Option } from "./types";
 
 const orderItems = (options: Option[]): Option[] => {
   return orderBy(
@@ -74,30 +72,4 @@ export function getMultiFilteredItems({
   }
 
   return orderItems(available);
-}
-
-type GetDefaultValueArgs = {
-  defaultValues: DefaultValues;
-  options: Option[];
-  isMulti?: boolean;
-  name: string;
-};
-
-export function getDefaultValue({
-  defaultValues,
-  isMulti,
-  options,
-  name,
-}: GetDefaultValueArgs): Option | Option[] | null {
-  let defaultValue = null;
-  if (defaultValues && defaultValues[name]) {
-    defaultValue =
-      isArray(defaultValues[name]) && !isMulti
-        ? options.find((option) => defaultValues[name].includes(option.value))
-        : options.filter((option) =>
-            defaultValues[name].includes(option.value),
-          );
-  }
-
-  return defaultValue ?? null;
 }

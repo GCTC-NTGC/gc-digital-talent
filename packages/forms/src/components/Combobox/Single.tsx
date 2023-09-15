@@ -3,6 +3,7 @@ import { useCombobox } from "downshift";
 
 import Field from "../Field";
 import Menu from "./Menu";
+import Input from "./Input";
 import { BaseProps, Option } from "./types";
 import { getSingleFilteredItems } from "./utils";
 
@@ -14,49 +15,62 @@ type SingleProps = BaseProps & {
 const Single = ({
   options,
   label,
+  clearLabel,
+  toggleLabel,
   value,
   onSelectedChange,
   onInputChange,
   inputProps,
+  total,
+  isExternalSearch = false,
+  fetching = false,
   isRequired = false,
 }: SingleProps) => {
-  const [selectedItem, setSelectedItem] = React.useState<Option | null>(
-    value ?? null,
-  );
-  const [items, setItems] = React.useState<Option[]>(options);
+  const [available, setAvailable] = React.useState<Option[]>(options);
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const items = isExternalSearch ? options : available;
 
   const {
     isOpen,
     getLabelProps,
     getMenuProps,
     getInputProps,
+    getToggleButtonProps,
     highlightedIndex,
     getItemProps,
+    selectItem,
+    inputValue,
+    selectedItem,
   } = useCombobox({
     items,
-    selectedItem,
+    initialSelectedItem: value,
     itemToString(item) {
       return item?.label?.toString() ?? "";
     },
-    onInputValueChange({ inputValue }) {
-      setItems(
-        getSingleFilteredItems({
-          options,
-          selected: selectedItem,
-          query: inputValue ?? "",
-        }),
-      );
+    onInputValueChange({ inputValue: newInputValue }) {
+      if (!isExternalSearch) {
+        setAvailable(
+          getSingleFilteredItems({
+            options,
+            query: newInputValue ?? "",
+          }),
+        );
+      }
       if (onInputChange) {
-        onInputChange(inputValue ?? "");
+        onInputChange(newInputValue ?? "");
       }
     },
     onSelectedItemChange({ selectedItem: newSelectedItem }) {
-      setSelectedItem(newSelectedItem ?? null);
-      if (onSelectedChange) {
-        onSelectedChange(newSelectedItem ?? null);
-      }
+      const newItem =
+        newSelectedItem?.value === selectedItem?.value ? null : newSelectedItem;
+      onSelectedChange(newItem ?? null);
     },
   });
+
+  const handleClear = () => {
+    selectItem(null);
+    inputRef?.current?.focus();
+  };
 
   return (
     <>
@@ -64,22 +78,54 @@ const Single = ({
         {label}
       </Field.Label>
       <div data-h2-position="base(relative)" data-h2-width="base(100%)">
-        <input
-          data-h2-width="base(100%)"
-          {...inputProps}
-          {...getInputProps()}
-        />
+        <Input.Wrapper>
+          <Input.Search />
+          <input
+            {...inputProps}
+            {...getInputProps({
+              ref: inputRef,
+            })}
+            {...(inputValue.length > 0
+              ? {
+                  "data-h2-padding": "base(x.5 x3.125 x.5 x1.5)",
+                }
+              : { "data-h2-padding": "base(x.5 x1.5)" })}
+            data-h2-width="base(100%)"
+          />
+          <Input.Actions>
+            {inputValue.length ? (
+              <>
+                <Input.Clear
+                  tabIndex={-1}
+                  aria-label={clearLabel}
+                  onClick={handleClear}
+                />
+                <Input.Separator />
+              </>
+            ) : null}
+            <Input.Toggle
+              isOpen={isOpen}
+              aria-label={toggleLabel}
+              {...getToggleButtonProps()}
+            />
+          </Input.Actions>
+        </Input.Wrapper>
         <Menu.Wrapper
           {...(!isOpen && {
             "data-h2-visually-hidden": "base(invisible)",
           })}
         >
+          <Menu.Available total={total} count={items.length} />
+          {fetching || !items.length ? (
+            <Menu.Empty fetching={fetching} />
+          ) : null}
           <Menu.List {...getMenuProps()}>
-            {options.map((item, index) => (
+            {items.map((item, index) => (
               <Menu.Item
                 // eslint-disable-next-line react/no-array-index-key
                 key={`${item.value}${index}`}
                 active={highlightedIndex === index}
+                selected={selectedItem?.value === item.value}
                 {...getItemProps({ item, index })}
               >
                 {item.label}

@@ -9,19 +9,33 @@ export interface Option {
   label: React.ReactNode;
 }
 
-export type DefaultValues =
-  | Readonly<{
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      [x: string]: any;
-    }>
-  | undefined;
-
-export type Selected = string | string[];
+export type HTMLSpanProps = Omit<
+  React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLSpanElement>,
+    HTMLSpanElement
+  >,
+  "ref"
+>;
 
 export type BaseProps = {
+  /** All available options */
   options: Option[];
+  /** If this input is required or not */
   isRequired?: boolean;
+  /** Label for the input */
   label: React.ReactNode;
+  /** Props to pass to the HTML `input` */
   inputProps?: HTMLInputProps;
+  /** Initial value */
   value?: Option;
+  /** Optional: Set if the options are being fetched */
+  fetching?: boolean;
+  /** Optional: Control the options through external search (API, etc.) */
+  isExternalSearch?: boolean;
+  /** Button text to clear the current text from the input (optional) */
+  clearLabel?: string;
+  /** Button text to toggle the options menu (optional) */
+  toggleLabel?: string;
+  /** Optional: Total number available options (use for API driven where options is not the total length) */
+  total: number;
 };
