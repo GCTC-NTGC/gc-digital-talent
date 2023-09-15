@@ -1,4 +1,5 @@
 import React from "react";
+import debounce from "lodash/debounce";
 import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
@@ -54,6 +55,10 @@ const Template: StoryFn<ComboboxType> = (args) => {
       : undefined;
   }, [mockSearch]);
 
+  const debouncedSearch = handleSearch
+    ? debounce(handleSearch, 300)
+    : undefined;
+
   return (
     <BasicForm
       onSubmit={action("onSubmit")}
@@ -61,7 +66,7 @@ const Template: StoryFn<ComboboxType> = (args) => {
     >
       <Combobox
         {...rest}
-        onSearch={handleSearch}
+        onSearch={debouncedSearch}
         fetching={isSearching}
         options={mockSearch ? filteredOptions : options}
       />
