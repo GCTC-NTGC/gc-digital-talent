@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Rules\PoolIsComplete;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class Pool
@@ -143,6 +145,21 @@ class Pool extends Model
         }
 
         return ApiEnums::POOL_IS_DRAFT;
+    }
+
+    // is the pool considered "complete", filled out entirely by the pool operator
+    public function getIsCompleteAttribute()
+    {
+        $pool = $this->toArray();
+        $validator = Validator::make($pool, [
+            'id' => new PoolIsComplete,
+        ]);
+
+        if ($validator->fails()) {
+            return false;
+        }
+
+        return true;
     }
 
     public function scopeWasPublished(Builder $query, ?array $args)
