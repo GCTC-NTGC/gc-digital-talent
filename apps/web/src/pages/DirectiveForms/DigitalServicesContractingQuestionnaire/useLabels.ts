@@ -21,14 +21,14 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
 
     // General information section
     department: intl.formatMessage({
-      defaultMessage: "Please specify your department or agency",
-      id: "VYwOyz",
+      defaultMessage: "Select your department or agency",
+      id: "fSEfTI",
       description:
         "Label for _department / agency_ field in the _digital services contracting questionnaire_",
     }),
     departmentOther: intl.formatMessage({
-      defaultMessage: "Please specify the department / agency",
-      id: "2Z40aW",
+      defaultMessage: "Please specify your department or agency",
+      id: "BJ38Kf",
       description:
         "Label for _ other department / agency_ field in the _digital services contracting questionnaire_",
     }),
@@ -191,8 +191,8 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
         "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_",
     }),
     contractValue: intl.formatMessage({
-      defaultMessage: "Total contract value",
-      id: "B82PZJ",
+      defaultMessage: "Select the total contract value of this contract",
+      id: "FMJiDY",
       description:
         "Label for _contract value_ fieldset in the _digital services contracting questionnaire_",
     }),
@@ -253,16 +253,17 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
     }),
     subjectToTradeAgreement: intl.formatMessage({
       defaultMessage:
-        "Select whether this contract is subject to trade agreements",
-      id: "1FO10/",
+        "Select whether this contract is subject to any trade agreements",
+      id: "lYLIe5",
       description:
         "Label for _trade agreement_ fieldset in the _digital services contracting questionnaire_",
     }),
 
     // Requirements section
     workRequirementDescription: intl.formatMessage({
-      defaultMessage: "Description of work required",
-      id: "I5kjUN",
+      defaultMessage:
+        "List the tasks that the contractor is expected to perform within the contract.",
+      id: "D3UXq2",
       description:
         "Label for _work requirement description_ textbox in the _digital services contracting questionnaire_",
     }),
@@ -275,8 +276,8 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
     }),
     requirementScreeningLevels: intl.formatMessage({
       defaultMessage:
-        "Personnel security screening level required for the contractor",
-      id: "1Trz2/",
+        "Select the personnel security screening level required for the contractor",
+      id: "RvG69R",
       description:
         "Label for _contractor screening levels_ fieldset in the _digital services contracting questionnaire_",
     }),
@@ -287,8 +288,9 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
         "Label for _other contractor screening levels_ fieldset in the _digital services contracting questionnaire_",
     }),
     requirementWorkLanguages: intl.formatMessage({
-      defaultMessage: "Language of work",
-      id: "6Zf2AE",
+      defaultMessage:
+        "Select the language in which the work will be performed and delivered in.",
+      id: "NMdcCC",
       description:
         "Label for _required work languages_ fieldset in the _digital services contracting questionnaire_",
     }),
@@ -299,8 +301,9 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
         "Label for _other required work languages_ fieldset in the _digital services contracting questionnaire_",
     }),
     requirementWorkLocations: intl.formatMessage({
-      defaultMessage: "Location of work",
-      id: "sK7D+S",
+      defaultMessage:
+        "Select the geographic location where the work is to be performed.",
+      id: "mNfi9b",
       description:
         "Label for _required work locations_ fieldset in the _digital services contracting questionnaire_",
     }),
@@ -324,8 +327,8 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
         "Label for _has other requirements_ fieldset in the _digital services contracting questionnaire_",
     }),
     requirementOthers: intl.formatMessage({
-      defaultMessage: "Other requirements",
-      id: "RSmwUx",
+      defaultMessage: "Select all the other requirements that apply.",
+      id: "52MYM4",
       description:
         "Label for _other requirements_ fieldset in the _digital services contracting questionnaire_",
     }),
@@ -393,18 +396,11 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
     }),
 
     // Technological change section
-    hasTechnologicalChangeFactors: intl.formatMessage({
+    isTechnologicalChange: intl.formatMessage({
       defaultMessage: 'Select "yes" if any of the above apply.',
-      id: "dyl3r0",
+      id: "uoegw6",
       description:
-        "Label for _has technological change factors_ field in the _digital services contracting questionnaire_",
-    }),
-    technologicalChangeFactors: intl.formatMessage({
-      defaultMessage:
-        "If applicable, please indicate whether the work is being contracted out for the following reasons.",
-      id: "42zd8W",
-      description:
-        "Label for _technological change factors_ fieldset in the _digital services contracting questionnaire_",
+        "Label for _is technological change_ field in the _digital services contracting questionnaire_",
     }),
     hasImpactOnYourDepartment: intl.formatMessage({
       defaultMessage:
@@ -437,8 +433,9 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
         "Label for _has operations considerations_ fieldset in the _digital services contracting questionnaire_",
     }),
     operationsConsiderations: intl.formatMessage({
-      defaultMessage: "Influencing factors",
-      id: "kqHzeD",
+      defaultMessage:
+        "Select all the factors that have influenced the decision to contract.",
+      id: "E3lQMA",
       description:
         "Label for _operations considerations_ fieldset in the _digital services contracting questionnaire_",
     }),

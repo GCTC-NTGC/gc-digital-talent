@@ -59,7 +59,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string has_personnel_requirements
  * @property array personnel_requirements
  * @property string qualification_requirement
- * @property array technological_change_factors
+ * @property string is_technological_change
  * @property string has_impact_on_your_department
  * @property string has_immediate_impact_on_other_departments
  * @property string has_future_impact_on_other_departments
@@ -89,7 +89,6 @@ class DigitalContractingQuestionnaire extends Model
         'requirement_work_locations' => 'array',
         'requirement_others' => 'array',
         'personnel_requirements' => 'array',
-        'technological_change_factors' => 'array',
         'operations_considerations' => 'array',
         'contracting_rationales_secondary' => 'array',
     ];

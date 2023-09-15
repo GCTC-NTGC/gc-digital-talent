@@ -2,7 +2,7 @@ import React from "react";
 
 export type SignPostProps = {
   title: string;
-  introduction: string;
+  introduction?: React.ReactNode;
 };
 
 const SignPost = ({ title, introduction }: SignPostProps) => {
@@ -10,7 +10,9 @@ const SignPost = ({ title, introduction }: SignPostProps) => {
     <div>
       <div data-h2-margin-top="base(x.5)">
         <p data-h2-font-weight="base(700)">{title}</p>
-        <p data-h2-margin-top="base(x.25)">{introduction}</p>
+        {introduction ? (
+          <p data-h2-margin-top="base(x.25)">{introduction}</p>
+        ) : null}
       </div>
     </div>
   );

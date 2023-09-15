@@ -167,30 +167,42 @@ const ScopeOfContractSection = () => {
             };
           })}
         />
-        <RadioGroup
-          legend={labels.contractValue}
-          id="contractValue"
-          name="contractValue"
-          idPrefix="contractValue"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          items={enumToOptions(
-            ContractValueRange,
-            contractValueRangeSortOrder,
-          ).map((option) => {
-            return {
-              value: option.value as string,
-              label: intl.formatMessage(getContractValueRange(option.value)),
-            };
+        <CompoundQuestion
+          title={intl.formatMessage({
+            defaultMessage: "Total contract value",
+            id: "2f+IKU",
+            description:
+              "Title for _contract value_ fieldset in the _digital services contracting questionnaire_",
           })}
-          context={intl.formatMessage({
+          introduction={intl.formatMessage({
             defaultMessage:
               "If there has been an amendment to the contract, select the total value after the amendment.",
-            id: "Ux5Nzd",
+            id: "WHMukc",
             description:
-              "Context for _contract value_ fieldset in the _digital services contracting questionnaire_",
+              "introduction for _contract value_ fieldset in the _digital services contracting questionnaire_",
           })}
+          inputElement={
+            <RadioGroup
+              legend={labels.contractValue}
+              id="contractValue"
+              name="contractValue"
+              idPrefix="contractValue"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(
+                ContractValueRange,
+                contractValueRangeSortOrder,
+              ).map((option) => {
+                return {
+                  value: option.value as string,
+                  label: intl.formatMessage(
+                    getContractValueRange(option.value),
+                  ),
+                };
+              })}
+            />
+          }
         />
         <RadioGroup
           legend={labels.contractFtes}

@@ -1,8 +1,8 @@
 import React from "react";
 
 export type CompoundQuestionProps = {
-  title: string;
-  introduction: React.ReactElement | string;
+  title?: string;
+  introduction?: React.ReactElement | React.ReactNode | string;
   inputElement: React.ReactElement;
 };
 
@@ -14,18 +14,20 @@ const CompoundQuestion = ({
   const descriptionId = React.useId();
   const detailsId = React.useId();
   const clonedInput = React.cloneElement(inputElement, {
-    "aria-describedby": descriptionId,
+    "aria-describedby": title ? descriptionId : undefined,
     "aria-details": detailsId,
   });
   return (
     <div>
       <div data-h2-margin-top="base(x.5)">
-        <p data-h2-font-weight="base(700)" id={descriptionId}>
-          {title}
-        </p>
-        <p data-h2-margin-top="base(x.5)" id={detailsId}>
+        {title ? (
+          <div data-h2-font-weight="base(700)" id={descriptionId}>
+            {title}
+          </div>
+        ) : null}
+        <div data-h2-margin-top="base(x.5)" id={detailsId}>
           {introduction}
-        </p>
+        </div>
       </div>
       <div data-h2-margin-top="base(x.5)">{clonedInput}</div>
     </div>

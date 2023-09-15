@@ -35,6 +35,8 @@ import {
 } from "../../localizedConstants";
 import PersonnelRequirementsSection from "./PersonnelRequirementsSection";
 import useLabels from "../useLabels";
+import CompoundQuestion from "../../CompoundQuestion";
+import SignPost from "../../SignPost";
 
 type RequirementsSectionProps = {
   skills: Array<Skill>;
@@ -152,24 +154,25 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1)"
       >
-        <TextArea
-          id="workRequirementDescription"
-          name="workRequirementDescription"
-          wordLimit={200}
-          label={labels.workRequirementDescription}
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
-          context={
+        <CompoundQuestion
+          title={intl.formatMessage({
+            defaultMessage: "Description of the work required",
+            id: "T0JO/F",
+            description:
+              "title for _work requirement description_ textbox in the _digital services contracting questionnaire_",
+          })}
+          introduction={
             <>
-              <p data-h2-font-size="base(inherit)">
+              <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "List the tasks that the contractor is expected to perform within the contract.",
-                  id: "+TSGAR",
+                    "What are the tasks that the contractor is expected to perform within the contract?",
+                  id: "//mFwp",
                   description:
                     "Context for _work requirement description_ textbox in the _digital services contracting questionnaire_",
                 })}
               </p>
-              <p data-h2-font-size="base(inherit)">
+              <p>
                 {intl.formatMessage({
                   defaultMessage: "For example, the contractor will:",
                   id: "I+GYIo",
@@ -198,6 +201,15 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
                 </li>
               </ul>
             </>
+          }
+          inputElement={
+            <TextArea
+              id="workRequirementDescription"
+              name="workRequirementDescription"
+              wordLimit={200}
+              label={labels.workRequirementDescription}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
           }
         />
         <RadioGroup
@@ -263,13 +275,6 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
               label: intl.formatMessage(getPersonnelLanguage(option.value)),
             };
           })}
-          context={intl.formatMessage({
-            defaultMessage:
-              "The language in which the work will be performed and delivered in. Select all that apply.",
-            id: "fB+7R0",
-            description:
-              "Context for _required work languages_ fieldset in the _digital services contracting questionnaire_",
-          })}
         />
         {doesRequirementWorkLanguagesIncludeOther ? (
           <Input
@@ -299,13 +304,6 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
               label: intl.formatMessage(getPersonnelWorkLocation(option.value)),
             };
           })}
-          context={intl.formatMessage({
-            defaultMessage:
-              "Geographic location of where the work is to be performed. Select all that apply.",
-            id: "+8QZQ+",
-            description:
-              "Context for _required work locations_ fieldset in the _digital services contracting questionnaire_",
-          })}
         />
         {doesRequirementWorkLocationsIncludeGc ? (
           <Input
@@ -329,6 +327,14 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
             }}
           />
         ) : null}
+        <SignPost
+          title={intl.formatMessage({
+            defaultMessage: "Other requirements",
+            id: "e+xir3",
+            description:
+              "Signpost title for _work requirement description_ textbox in the _digital services contracting questionnaire_",
+          })}
+        />
         <RadioGroup
           legend={labels.hasOtherRequirements}
           id="hasOtherRequirements"
@@ -364,12 +370,6 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
                     getPersonnelOtherRequirement(option.value),
                   ),
                 };
-              })}
-              context={intl.formatMessage({
-                defaultMessage: "Select all that apply.",
-                id: "q+Xcc+",
-                description:
-                  "Context for _other requirements_ fieldset in the _digital services contracting questionnaire_",
               })}
             />
             {doesPersonnelOtherRequirementIncludeOther ? (

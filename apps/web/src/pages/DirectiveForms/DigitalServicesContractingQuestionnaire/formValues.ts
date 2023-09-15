@@ -18,7 +18,6 @@ import {
   SkillLevel,
   YesNo,
   YesNoUnsure,
-  TechnologicalChangeFactor,
 } from "@gc-digital-talent/graphql";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 
@@ -117,8 +116,7 @@ export type FormValues = {
   qualificationRequirement: string;
 
   // technological change section
-  hasTechnologicalChangeFactors: string;
-  technologicalChangeFactors: Array<string>;
+  isTechnologicalChange: string;
   hasImpactOnYourDepartment: string;
   hasImmediateImpactOnOtherDepartments: string;
   hasFutureImpactOnOtherDepartments: string;
@@ -307,9 +305,9 @@ export function convertFormValuesToApiInput(
     qualificationRequirement: emptyToNull(formValues.qualificationRequirement),
 
     // Technological change section
-    // hasTechnologicalChangeFactors not sent to api
-    technologicalChangeFactors: formValues.technologicalChangeFactors?.map(
-      (a) => stringToEnum(TechnologicalChangeFactor, a),
+    isTechnologicalChange: stringToEnum(
+      YesNo,
+      formValues.isTechnologicalChange,
     ),
     hasImpactOnYourDepartment: stringToEnum(
       YesNo,

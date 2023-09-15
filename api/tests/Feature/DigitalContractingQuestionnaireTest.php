@@ -101,7 +101,7 @@ class DigitalContractingQuestionnaireTest extends TestCase
             'requirementOtherOther' => 'requirement_other_other',
             'hasPersonnelRequirements' => 'YES',
             'qualificationRequirement' => 'qualification_requirement',
-            'technologicalChangeFactors' => ['CHANGE_DEPARTMENT_OPERATION', 'NEW_TECHNOLOGICAL_SYSTEM'],
+            'isTechnologicalChange' => 'YES',
             'hasImpactOnYourDepartment' => 'YES',
             'hasImmediateImpactOnOtherDepartments' => 'YES',
             'hasFutureImpactOnOtherDepartments' => 'YES',
@@ -195,7 +195,7 @@ class DigitalContractingQuestionnaireTest extends TestCase
                         hasPersonnelRequirements
                         instrumentType
                         instrumentTypeOther
-                        technologicalChangeFactors
+                        isTechnologicalChange
                         knowledgeTransferInContract
                         methodOfSupply
                         methodOfSupplyOther

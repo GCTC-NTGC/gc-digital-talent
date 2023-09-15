@@ -118,7 +118,7 @@ class DigitalContractingQuestionnaireFactory extends Factory
                 return $attributes['has_personnel_requirements'] === DirectiveFormsApiEnums::YESNO_NO ? $this->faker->word() : null;
             },
 
-            'technological_change_factors' => $this->faker->randomElement(DirectiveFormsApiEnums::technologicalChangeFactors()),
+            'is_technological_change' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             'has_impact_on_your_department' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             'has_immediate_impact_on_other_departments' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             'has_future_impact_on_other_departments' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),

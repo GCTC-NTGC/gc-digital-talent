@@ -35,6 +35,7 @@ import {
   yesNoUnsureSortOrder,
 } from "../../localizedConstants";
 import useLabels from "../useLabels";
+import SignPost from "../../SignPost";
 
 type GeneralInformationSectionProps = {
   departments: Array<IdNamePair>;
@@ -352,6 +353,27 @@ const GeneralInformationSection = ({
         />
         {isContractForSpecificInitiative ? (
           <>
+            <SignPost
+              title={intl.formatMessage({
+                defaultMessage: "Digital initiative forward talent plan",
+                id: "BkJbK1",
+                description:
+                  "Title for digital initiative signpost in the _digital services contracting questionnaire_",
+              })}
+              introduction={intl.formatMessage(
+                {
+                  defaultMessage:
+                    "For more information on the digital initiative forward talent plan, refer to requirement A.2.4 of the <link>Mandatory Procedures on Digital Talent</link>.",
+                  id: "zSjmgi",
+                  description:
+                    "Context for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_",
+                },
+                {
+                  link: (chunks: React.ReactNode) =>
+                    buildExternalLink(getDirectiveUrl(intl), chunks),
+                },
+              )}
+            />
             <Input
               id="digitalInitiativeName"
               name="digitalInitiativeName"
@@ -375,19 +397,6 @@ const GeneralInformationSection = ({
                     value: option.value as string,
                     label: intl.formatMessage(getYesNoUnsure(option.value)),
                   };
-                },
-              )}
-              context={intl.formatMessage(
-                {
-                  defaultMessage:
-                    "For more information on the digital initiative forward talent plan, refer to requirement A.2.4 of the <link>Mandatory Procedures on Digital Talent</link>.",
-                  id: "zSjmgi",
-                  description:
-                    "Context for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_",
-                },
-                {
-                  link: (chunks: React.ReactNode) =>
-                    buildExternalLink(getDirectiveUrl(intl), chunks),
                 },
               )}
             />

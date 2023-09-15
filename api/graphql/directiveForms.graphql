@@ -106,13 +106,6 @@ enum PersonnelOtherRequirement {
   OTHER
 }
 
-enum TechnologicalChangeFactor {
-  DIFFERENT_NATURE
-  CHANGE_DEPARTMENT_OPERATION
-  NEW_TECHNOLOGICAL_SYSTEM
-  CHANGED_TECHNOLOGICAL_SYSTEM
-}
-
 enum PersonnelTeleworkOption {
   FULL_TIME
   PART_TIME
@@ -230,8 +223,7 @@ type DigitalContractingQuestionnaire {
   personnelRequirements: [DigitalContractingPersonnelRequirement!] @hasMany
   qualificationRequirement: String
     @rename(attribute: "qualification_requirement")
-  technologicalChangeFactors: [TechnologicalChangeFactor!]
-    @rename(attribute: "technological_change_factors")
+  isTechnologicalChange: YesNo @rename(attribute: "is_technological_change")
   hasImpactOnYourDepartment: YesNo
     @rename(attribute: "has_impact_on_your_department")
   hasImmediateImpactOnOtherDepartments: YesNo
@@ -393,8 +385,7 @@ input DigitalContractingQuestionnaireInput
   personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
   qualificationRequirement: String
     @rename(attribute: "qualification_requirement")
-  technologicalChangeFactors: [TechnologicalChangeFactor!]
-    @rename(attribute: "technological_change_factors")
+  isTechnologicalChange: YesNo @rename(attribute: "isTechnologicalChange")
   hasImpactOnYourDepartment: YesNo
     @rename(attribute: "has_impact_on_your_department")
   hasImmediateImpactOnOtherDepartments: YesNo

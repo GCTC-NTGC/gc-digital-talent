@@ -1,4 +1,4 @@
-import React, { useId } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
@@ -16,11 +16,11 @@ import {
   yesNoSortOrder,
 } from "../../localizedConstants";
 import useLabels from "../useLabels";
+import CompoundQuestion from "../../CompoundQuestion";
 
 const OperationsConsiderationsSection = () => {
   const intl = useIntl();
   const { watch, resetField } = useFormContext();
-  const influencingFactorsDescriptionId = useId();
   const labels = useLabels();
 
   // hooks to watch, needed for conditional rendering
@@ -73,128 +73,133 @@ const OperationsConsiderationsSection = () => {
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1)"
       >
-        <div id={influencingFactorsDescriptionId}>
-          <p data-h2-margin-bottom="base(x.5)">
-            {intl.formatMessage({
-              defaultMessage:
-                "Do any of the following factors have influence on the decision to contract?",
-              id: "Aw00Lh",
-              description:
-                "Context for _operations considerations_ section, paragraph 1, in the _digital services contracting questionnaire_",
-            })}
-          </p>
-          <ul>
-            <li>
-              {intl.formatMessage(
-                getOperationsConsideration(
-                  OperationsConsideration.FinanceVehicleNotUsable,
-                ),
-              )}
-            </li>
-            <li>
-              {intl.formatMessage(
-                getOperationsConsideration(
-                  OperationsConsideration.FundingSecuredCostRecoveryBasis,
-                ),
-              )}
-            </li>
-            <li>
-              {intl.formatMessage(
-                getOperationsConsideration(
-                  OperationsConsideration.UnableCreateNewIndeterminate,
-                ),
-              )}
-            </li>
-            <li>
-              {intl.formatMessage(
-                getOperationsConsideration(
-                  OperationsConsideration.UnableCreateNewTerm,
-                ),
-              )}
-            </li>
-            <li>
-              {intl.formatMessage(
-                getOperationsConsideration(
-                  OperationsConsideration.UnableCreateClassificationRestriction,
-                ),
-              )}
-            </li>
-            <li>
-              {intl.formatMessage(
-                getOperationsConsideration(
-                  OperationsConsideration.StaffingFreeze,
-                ),
-              )}
-            </li>
-            <li>
-              {intl.formatMessage({
-                defaultMessage: "Other operations considerations not listed",
-                id: "e3BCAd",
-                description: "Other operations consideration",
-              })}
-            </li>
-          </ul>
-        </div>
-        <RadioGroup
-          legend={labels.hasOperationsConsiderations}
-          id="hasOperationsConsiderations"
-          name="hasOperationsConsiderations"
-          idPrefix="hasOperationsConsiderations"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
-            return {
-              value: option.value as string,
-              label: intl.formatMessage(getYesNo(option.value)),
-            };
-          })}
-          aria-describedby={influencingFactorsDescriptionId}
-        />
-        {hasOperationsConsiderationsIsYes ? (
-          <>
-            <Checklist
-              idPrefix="operationsConsiderations"
-              id="operationsConsiderations"
-              name="operationsConsiderations"
-              legend={labels.operationsConsiderations}
+        <CompoundQuestion
+          introduction={
+            <>
+              <p
+                data-h2-margin-bottom="base(x.5)"
+                data-h2-font-weight="base(700)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Do any of the following factors have influence on the decision to contract?",
+                  id: "Aw00Lh",
+                  description:
+                    "Context for _operations considerations_ section, paragraph 1, in the _digital services contracting questionnaire_",
+                })}
+              </p>
+              <ul>
+                <li>
+                  {intl.formatMessage(
+                    getOperationsConsideration(
+                      OperationsConsideration.FinanceVehicleNotUsable,
+                    ),
+                  )}
+                </li>
+                <li>
+                  {intl.formatMessage(
+                    getOperationsConsideration(
+                      OperationsConsideration.FundingSecuredCostRecoveryBasis,
+                    ),
+                  )}
+                </li>
+                <li>
+                  {intl.formatMessage(
+                    getOperationsConsideration(
+                      OperationsConsideration.UnableCreateNewIndeterminate,
+                    ),
+                  )}
+                </li>
+                <li>
+                  {intl.formatMessage(
+                    getOperationsConsideration(
+                      OperationsConsideration.UnableCreateNewTerm,
+                    ),
+                  )}
+                </li>
+                <li>
+                  {intl.formatMessage(
+                    getOperationsConsideration(
+                      OperationsConsideration.UnableCreateClassificationRestriction,
+                    ),
+                  )}
+                </li>
+                <li>
+                  {intl.formatMessage(
+                    getOperationsConsideration(
+                      OperationsConsideration.StaffingFreeze,
+                    ),
+                  )}
+                </li>
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Other operations considerations not listed",
+                    id: "e3BCAd",
+                    description: "Other operations consideration",
+                  })}
+                </li>
+              </ul>
+            </>
+          }
+          inputElement={
+            <RadioGroup
+              legend={labels.hasOperationsConsiderations}
+              id="hasOperationsConsiderations"
+              name="hasOperationsConsiderations"
+              idPrefix="hasOperationsConsiderations"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              items={enumToOptions(
-                OperationsConsideration,
-                operationsConsiderationsSortOrder,
-              ).map((option) => {
+              items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
                 return {
                   value: option.value as string,
-                  label: intl.formatMessage(
-                    getOperationsConsideration(option.value),
-                  ),
+                  label: intl.formatMessage(getYesNo(option.value)),
                 };
               })}
-              context={
-                <>
-                  <p data-h2-font-size="base(inherit)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "If any of the following factors have influenced the decision to contract, select all that apply.",
-                      id: "fug6/h",
-                      description:
-                        "Context for _influencing factors_ fieldset in the _digital services contracting questionnaire_",
-                    })}
-                  </p>
-                  <p data-h2-font-size="base(inherit)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "This data is aggregated and used for identification of trends across departments. It is not used for analysis of any individual contracting decision.",
-                      id: "4f/Y+A",
-                      description:
-                        "Context for _influencing factors_ fieldset in the _digital services contracting questionnaire_",
-                    })}
-                  </p>
-                </>
+            />
+          }
+        />
+        {hasOperationsConsiderationsIsYes ? (
+          <>
+            <CompoundQuestion
+              title={intl.formatMessage({
+                defaultMessage: "Influencing factors",
+                id: "TySSof",
+                description:
+                  "Title for _influencing factors_ section, in the _digital services contracting questionnaire_",
+              })}
+              introduction={intl.formatMessage({
+                defaultMessage:
+                  "This data is aggregated and used for identification of trends across departments. It is not used for analysis of any individual contracting decision.",
+                id: "7KEfBI",
+                description:
+                  "Introduction for _influencing factors_ section, in the _digital services contracting questionnaire_",
+              })}
+              inputElement={
+                <Checklist
+                  idPrefix="operationsConsiderations"
+                  id="operationsConsiderations"
+                  name="operationsConsiderations"
+                  legend={labels.operationsConsiderations}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  items={enumToOptions(
+                    OperationsConsideration,
+                    operationsConsiderationsSortOrder,
+                  ).map((option) => {
+                    return {
+                      value: option.value as string,
+                      label: intl.formatMessage(
+                        getOperationsConsideration(option.value),
+                      ),
+                    };
+                  })}
+                />
               }
             />
+
             {doesOperationsConsiderationsIncludeOther ? (
               <Input
                 id="operationsConsiderationsOther"

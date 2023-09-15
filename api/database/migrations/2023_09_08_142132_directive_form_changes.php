@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -16,8 +15,6 @@ return new class extends Migration
         Schema::table('digital_contracting_questionnaires', function (Blueprint $table) {
             $table->string('contract_ftes')->nullable();
             $table->string('instrument_type_other')->nullable();
-            $table->dropColumn('is_technological_change');
-            $table->jsonb('technological_change_factors')->default(new Expression('\'[]\'::jsonb'));
         });
     }
 
@@ -30,8 +27,6 @@ return new class extends Migration
         Schema::table('digital_contracting_questionnaires', function (Blueprint $table) {
             $table->dropColumn('contract_ftes');
             $table->dropColumn('instrument_type_other');
-            $table->string('is_technological_change')->nullable();
-            $table->dropColumn('technological_change_factors');
         });
     }
 };
