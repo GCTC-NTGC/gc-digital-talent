@@ -13,12 +13,12 @@ import {
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   ContractAuthority,
+  Department,
   YesNo,
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 
-import { IdNamePair } from "../../types";
 import {
   buildExternalLink,
   enumToOptions,
@@ -38,7 +38,7 @@ import useLabels from "../useLabels";
 import SignPost from "../../SignPost";
 
 type GeneralInformationSectionProps = {
-  departments: Array<IdNamePair>;
+  departments: Array<Omit<Department, "departmentNumber">>;
 };
 
 const GeneralInformationSection = ({

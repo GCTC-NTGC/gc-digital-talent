@@ -8,6 +8,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { useLocale } from "@gc-digital-talent/i18n";
 import {
+  Department,
   DigitalContractingQuestionnaireInput,
   Skill,
   useCreateDigitalContractingQuestionnaireMutation,
@@ -23,7 +24,6 @@ import { useDigitalServicesContractingQuestionnairePageDataQuery } from "~/api/g
 
 import { pageTitle as directiveHomePageTitle } from "../../DirectivePage/DirectivePage";
 import { getSectionTitle, PAGE_SECTION_ID } from "./navigation";
-import { IdNamePair } from "../types";
 import InstructionsSection from "./sections/InstructionsSection";
 import PreambleSection from "./sections/PreambleSection";
 import QuestionnaireSection from "./sections/QuestionnaireSection";
@@ -38,7 +38,7 @@ export const pageTitle = defineMessage({
 });
 
 export type DigitalServicesContractingQuestionnaireProps = {
-  departments: Array<IdNamePair>;
+  departments: Array<Omit<Department, "departmentNumber">>;
   skills: Array<Skill>;
   isSubmitting: boolean;
   onSubmit: SubmitHandler<FormValues>;

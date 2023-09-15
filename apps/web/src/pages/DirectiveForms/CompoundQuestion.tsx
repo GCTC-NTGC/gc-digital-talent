@@ -15,7 +15,7 @@ const CompoundQuestion = ({
   const detailsId = React.useId();
   const clonedInput = React.cloneElement(inputElement, {
     "aria-describedby": title ? descriptionId : undefined,
-    "aria-details": detailsId,
+    "aria-details": introduction ? detailsId : undefined,
   });
   return (
     <div>
@@ -25,9 +25,11 @@ const CompoundQuestion = ({
             {title}
           </div>
         ) : null}
-        <div data-h2-margin-top="base(x.5)" id={detailsId}>
-          {introduction}
-        </div>
+        {introduction ? (
+          <div data-h2-margin-top="base(x.5)" id={detailsId}>
+            {introduction}
+          </div>
+        ) : null}
       </div>
       <div data-h2-margin-top="base(x.5)">{clonedInput}</div>
     </div>

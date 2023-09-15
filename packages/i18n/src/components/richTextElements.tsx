@@ -87,20 +87,6 @@ const emphasize = (text: React.ReactNode) => (
  */
 const softHyphen = () => <>&shy;</>;
 
-/**
- * Wraps text in font styling element to make it italicized.
- * While italics are mainly used to draw attention to certain words
- * or passages, the font also plays an important role in differentiating
- * the titles and names of things—such as novels, movies, and even
- * spaceships—from other text.
- * https://www.grammarly.com/blog/italics/
- *
- * @param text text to wrap.
- */
-const italic = (text: React.ReactNode) => (
-  <span data-h2-font-style="base(italic)">{text}</span>
-);
-
 export default {
   strong,
   hidden,
@@ -111,5 +97,4 @@ export default {
   underline,
   emphasize,
   softHyphen,
-  italic,
 };

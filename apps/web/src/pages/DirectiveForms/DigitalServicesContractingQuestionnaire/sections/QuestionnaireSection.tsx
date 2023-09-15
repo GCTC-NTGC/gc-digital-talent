@@ -4,10 +4,9 @@ import ListBulletIcon from "@heroicons/react/24/outline/ListBulletIcon";
 
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
-import { Skill } from "@gc-digital-talent/graphql";
+import { Department, Skill } from "@gc-digital-talent/graphql";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
-import { IdNamePair } from "../../types";
 import GeneralInformationSection from "./GeneralInformationSection";
 import ScopeOfContractSection from "./ScopeOfContractSection";
 import RequirementsSection from "./RequirementsSection";
@@ -16,7 +15,7 @@ import OperationsConsiderationsSection from "./OperationsConsiderationsSection";
 import TalentSourcingDecisionSection from "./TalentSourcingDecisionSection";
 
 type QuestionnaireSectionProps = {
-  departments: Array<IdNamePair>;
+  departments: Array<Omit<Department, "departmentNumber">>;
   skills: Array<Skill>;
   isSubmitting: boolean;
 };
