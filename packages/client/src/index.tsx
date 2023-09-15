@@ -1,5 +1,5 @@
 import ClientProvider from "./components/ClientProvider/ClientProvider";
-import { isUuidError, containsUserDeletedError } from "./utils/errors";
+import { isUuidError } from "./utils/errors";
 
 export default ClientProvider;
-export { isUuidError, containsUserDeletedError };
+export { isUuidError };

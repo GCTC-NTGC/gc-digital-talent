@@ -1,11 +1,11 @@
 import React from "react";
 
 import { useGetCurrentAuthorizedUserQuery } from "@gc-digital-talent/graphql";
-import { containsUserDeletedError } from "@gc-digital-talent/client";
 import { Pending } from "@gc-digital-talent/ui";
 import { useLogger } from "@gc-digital-talent/logger";
 
 import AuthorizationContainer from "./AuthorizationContainer";
+import { containsUserDeletedError } from "../utils/errors";
 
 interface AuthorizationProviderProps {
   children?: React.ReactNode;
