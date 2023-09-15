@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Editor } from "@tiptap/react";
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import LinkIcon from "@heroicons/react/20/solid/LinkIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
@@ -33,7 +33,11 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
-  const handleSubmit = ({ href, newTab, action }: FormValues) => {
+  const handleSubmit: SubmitHandler<FormValues> = ({
+    href,
+    newTab,
+    action,
+  }) => {
     if (action === "add") {
       editor
         ?.chain()
@@ -51,6 +55,11 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
 
   const methods = useForm<FormValues>();
   const actionProps = methods.register("action");
+
+  const handleSave = (action: FormValues["action"]) => {
+    methods.setValue("action", action);
+    methods.handleSubmit(handleSubmit)();
+  };
 
   const handleOpenChange = (newOpen: boolean) => {
     const attributes = editor?.getAttributes("link");
@@ -88,67 +97,69 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
           {intl.formatMessage(richTextMessages.link)}
         </MenuButton>
       </Dialog.Trigger>
-      <Dialog.Content>
-        <Dialog.Header>
-          {intl.formatMessage(richTextMessages.addLink)}
-        </Dialog.Header>
-        <Dialog.Body>
-          <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(handleSubmit)}>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1 0)"
-              >
-                <Input
-                  id="href"
-                  name="href"
-                  type="text"
-                  label={intl.formatMessage(richTextMessages.url)}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                    validate: {
-                      isValidLink,
-                    },
-                  }}
-                />
-                <Checkbox
-                  id="newTab"
-                  name="newTab"
-                  label={intl.formatMessage(richTextMessages.newTab)}
-                />
-              </div>
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
-                <Button
-                  type="submit"
-                  color="secondary"
-                  {...actionProps}
-                  value="add"
-                  onClick={() => methods.setValue("action", "add")}
+      <Dialog.Portal>
+        <Dialog.Content>
+          <Dialog.Header>
+            {intl.formatMessage(richTextMessages.addLink)}
+          </Dialog.Header>
+          <Dialog.Body>
+            <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(handleSubmit)}>
+                <div
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column)"
+                  data-h2-gap="base(x1 0)"
                 >
-                  {intl.formatMessage(richTextMessages.addLink)}
-                </Button>
-                {editor?.getAttributes("link").href && (
+                  <Input
+                    id="href"
+                    name="href"
+                    type="text"
+                    label={intl.formatMessage(richTextMessages.url)}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                      validate: {
+                        isValidLink,
+                      },
+                    }}
+                  />
+                  <Checkbox
+                    id="newTab"
+                    name="newTab"
+                    label={intl.formatMessage(richTextMessages.newTab)}
+                  />
+                </div>
+                <Dialog.Footer data-h2-justify-content="base(flex-start)">
                   <Button
-                    type="submit"
-                    color="error"
+                    type="button"
+                    color="secondary"
                     {...actionProps}
-                    value="remove"
-                    onClick={() => methods.setValue("action", "remove")}
+                    value="add"
+                    onClick={() => handleSave("add")}
                   >
-                    {intl.formatMessage(richTextMessages.removeLink)}
+                    {intl.formatMessage(richTextMessages.addLink)}
                   </Button>
-                )}
-                <Dialog.Close>
-                  <Button mode="inline" color="black">
-                    {intl.formatMessage(commonMessages.cancel)}
-                  </Button>
-                </Dialog.Close>
-              </Dialog.Footer>
-            </form>
-          </FormProvider>
-        </Dialog.Body>
-      </Dialog.Content>
+                  {editor?.getAttributes("link").href && (
+                    <Button
+                      type="button"
+                      color="error"
+                      {...actionProps}
+                      value="remove"
+                      onClick={() => handleSave("remove")}
+                    >
+                      {intl.formatMessage(richTextMessages.removeLink)}
+                    </Button>
+                  )}
+                  <Dialog.Close>
+                    <Button mode="inline" color="black">
+                      {intl.formatMessage(commonMessages.cancel)}
+                    </Button>
+                  </Dialog.Close>
+                </Dialog.Footer>
+              </form>
+            </FormProvider>
+          </Dialog.Body>
+        </Dialog.Content>
+      </Dialog.Portal>
     </Dialog.Root>
   );
 };

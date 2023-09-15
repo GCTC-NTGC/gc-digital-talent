@@ -16,6 +16,7 @@ const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(
     <Button
       ref={ref}
       mode="solid"
+      type="button"
       color={active ? "white" : "black"}
       data-h2-padding="base(x.125 x.25)"
       data-h2-font-size="base(caption)"
