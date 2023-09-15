@@ -85,8 +85,8 @@ const formMessages = defineMessages({
   },
   subsetAvailableCombobox: {
     defaultMessage:
-      "{count, plural, =0 {<strong>0</strong> matching results} =1 {1 matching result} other {# matching results}} out of {total, plural, =0 {<strong>0</strong> available options} =1 {1 available option} other {# available options}}",
-    id: "gOq6EB",
+      "{count, plural, =0 {<strong>0</strong> matching results} =1 {<strong>1</strong> matching result} other {<strong>#</strong> matching results}} out of {total, plural, =0 {<strong>0</strong> available options} =1 {<strong>1</strong> available option} other {<strong>#</strong> available options}}",
+    id: "FsRA9v",
     description:
       "Message showing number of matching items from all available options inh combobox menu",
   },
