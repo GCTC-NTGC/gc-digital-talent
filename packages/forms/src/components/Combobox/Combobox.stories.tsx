@@ -6,7 +6,8 @@ import { getStaticSkills } from "@gc-digital-talent/fake-data";
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
-import Combobox, { Option, ComboboxProps } from "./Combobox";
+import Combobox, { ComboboxProps } from "./Combobox";
+import { Option } from "./types";
 
 const skills = getStaticSkills().map((skill) => ({
   value: skill.id,
@@ -81,7 +82,7 @@ export const APIDriven = Template.bind({});
 APIDriven.args = {
   ...defaultArgs,
   isExternalSearch: true,
-  mockSearch: async (term): Promise<Option[]> => {
+  mockSearch: async (term: string): Promise<Option[]> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         const filteredOptions = defaultArgs.options.filter((option) => {
