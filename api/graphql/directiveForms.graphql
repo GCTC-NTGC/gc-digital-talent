@@ -385,7 +385,7 @@ input DigitalContractingQuestionnaireInput
   personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
   qualificationRequirement: String
     @rename(attribute: "qualification_requirement")
-  isTechnologicalChange: YesNo @rename(attribute: "isTechnologicalChange")
+  isTechnologicalChange: YesNo @rename(attribute: "is_technological_change")
   hasImpactOnYourDepartment: YesNo
     @rename(attribute: "has_impact_on_your_department")
   hasImmediateImpactOnOtherDepartments: YesNo
