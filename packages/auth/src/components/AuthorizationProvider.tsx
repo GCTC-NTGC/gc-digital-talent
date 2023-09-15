@@ -1,7 +1,9 @@
 import React from "react";
 
 import { useGetCurrentAuthorizedUserQuery } from "@gc-digital-talent/graphql";
+import { containsUserDeletedError } from "@gc-digital-talent/client";
 import { Pending } from "@gc-digital-talent/ui";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import AuthorizationContainer from "./AuthorizationContainer";
 
@@ -13,8 +15,10 @@ const AuthorizationProvider = ({ children }: AuthorizationProviderProps) => {
   const [{ data, fetching, stale, error }] = useGetCurrentAuthorizedUserQuery();
   const isLoaded = !fetching && !stale;
   let deleted = false;
+  const logger = useLogger();
 
-  if (error) {
+  if (error && containsUserDeletedError(error)) {
+    logger.debug("Detected UserDeleted error in AuthorizationProvider");
     deleted = true;
   }
 
