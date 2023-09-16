@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
-use App\Providers\PoolStatus;
+use App\Enums\PoolStatus;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Carbon;

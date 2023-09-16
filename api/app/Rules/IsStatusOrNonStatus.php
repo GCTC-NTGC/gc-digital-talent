@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Providers\IndigenousCommunity;
+use App\Enums\IndigenousCommunity;
 use Closure;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Contracts\Validation\ValidationRule;

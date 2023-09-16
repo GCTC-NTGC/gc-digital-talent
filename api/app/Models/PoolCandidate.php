@@ -4,12 +4,11 @@ namespace App\Models;
 
 use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
-use App\Providers\CandidateExpiryFilter;
-use App\Providers\CandidateSuspendedFilter;
-use App\Providers\PoolCandidateStatus;
-use App\Providers\PublishingGroup;
+use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateSuspendedFilter;
+use App\Enums\PoolCandidateStatus;
+use App\Enums\PublishingGroup;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

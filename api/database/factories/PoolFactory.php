@@ -8,11 +8,11 @@ use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
-use App\Providers\OperationalRequirement;
-use App\Providers\PoolLanguage;
-use App\Providers\PoolStream;
-use App\Providers\PublishingGroup;
-use App\Providers\SecurityStatus;
+use App\Enums\OperationalRequirement;
+use App\Enums\PoolLanguage;
+use App\Enums\PoolStream;
+use App\Enums\PublishingGroup;
+use App\Enums\SecurityStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

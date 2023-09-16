@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Pool;
-use App\Providers\PoolStatus;
+use App\Enums\PoolStatus;
 use Illuminate\Support\Carbon;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 

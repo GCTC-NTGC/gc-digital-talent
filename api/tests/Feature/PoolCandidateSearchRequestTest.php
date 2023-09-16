@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
-use App\Providers\PoolCandidateSearchPositionType;
+use App\Enums\PoolCandidateSearchPositionType;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;

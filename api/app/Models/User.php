@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Providers\CandidateExpiryFilter;
-use App\Providers\CandidateSuspendedFilter;
-use App\Providers\IndigenousCommunity;
-use App\Providers\LanguageAbility;
-use App\Providers\PoolCandidateStatus;
-use App\Providers\PositionDuration;
-use App\Providers\PublishingGroup;
+use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateSuspendedFilter;
+use App\Enums\IndigenousCommunity;
+use App\Enums\LanguageAbility;
+use App\Enums\PoolCandidateStatus;
+use App\Enums\PositionDuration;
+use App\Enums\PublishingGroup;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;

@@ -7,7 +7,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
-use App\Providers\PoolCandidateStatus;
+use App\Enums\PoolCandidateStatus;
 use Database\Seeders\RolePermissionSeeder;
 use Faker;
 use Illuminate\Foundation\Testing\RefreshDatabase;

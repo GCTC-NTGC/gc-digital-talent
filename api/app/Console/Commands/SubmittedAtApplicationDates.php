@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\PoolCandidate;
-use App\Providers\PoolCandidateStatus;
+use App\Enums\PoolCandidateStatus;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 

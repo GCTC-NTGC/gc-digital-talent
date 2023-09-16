@@ -5,8 +5,8 @@ namespace Database\Factories;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserSkill;
-use App\Providers\SkillLevel;
-use App\Providers\WhenSkillUsed;
+use App\Enums\SkillLevel;
+use App\Enums\WhenSkillUsed;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserSkillFactory extends Factory

@@ -8,7 +8,7 @@ use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
-use App\Providers\PoolCandidateStatus;
+use App\Enums\PoolCandidateStatus;
 use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;

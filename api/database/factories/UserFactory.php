@@ -11,17 +11,17 @@ use App\Models\PersonalExperience;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
-use App\Providers\ArmedForcesStatus;
-use App\Providers\BilingualEvaluation;
-use App\Providers\CitizenshipStatus;
-use App\Providers\EstimatedLanguageAbility;
-use App\Providers\EvaluatedLanguageAbility;
-use App\Providers\GovEmployeeType;
-use App\Providers\IndigenousCommunity;
-use App\Providers\Language;
-use App\Providers\OperationalRequirement;
-use App\Providers\PositionDuration;
-use App\Providers\ProvinceOrTerritory;
+use App\Enums\ArmedForcesStatus;
+use App\Enums\BilingualEvaluation;
+use App\Enums\CitizenshipStatus;
+use App\Enums\EstimatedLanguageAbility;
+use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\GovEmployeeType;
+use App\Enums\IndigenousCommunity;
+use App\Enums\Language;
+use App\Enums\OperationalRequirement;
+use App\Enums\PositionDuration;
+use App\Enums\ProvinceOrTerritory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory

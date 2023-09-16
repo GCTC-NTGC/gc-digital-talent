@@ -6,7 +6,7 @@ use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
-use App\Providers\PublishingGroup;
+use App\Enums\PublishingGroup;
 use Illuminate\Database\Seeder;
 
 class PoolSeederUat extends Seeder

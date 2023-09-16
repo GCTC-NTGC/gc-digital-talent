@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use App\Models\Pool;
-use App\Providers\PoolStatus;
+use App\Enums\PoolStatus;
 use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\Rule;
 

@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
-use App\Providers\PoolCandidateStatus;
+use App\Enums\PoolCandidateStatus;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 

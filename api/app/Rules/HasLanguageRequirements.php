@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use App\Models\Pool;
 use App\Models\User;
-use App\Providers\PoolLanguage;
+use App\Enums\PoolLanguage;
 use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\Rule;
 

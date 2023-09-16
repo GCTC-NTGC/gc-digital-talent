@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\PoolCandidateFilter;
-use App\Providers\OperationalRequirement;
+use App\Enums\OperationalRequirement;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PoolCandidateFilterFactory extends Factory

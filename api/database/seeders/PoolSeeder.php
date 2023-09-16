@@ -6,9 +6,9 @@ use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
-use App\Providers\PoolLanguage;
-use App\Providers\PoolStream;
-use App\Providers\PublishingGroup;
+use App\Enums\PoolLanguage;
+use App\Enums\PoolStream;
+use App\Enums\PublishingGroup;
 use Illuminate\Database\Seeder;
 
 class PoolSeeder extends Seeder

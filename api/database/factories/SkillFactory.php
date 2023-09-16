@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Skill;
-use App\Providers\SkillCategory;
+use App\Enums\SkillCategory;
 use Database\Helpers\KeyStringHelpers;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

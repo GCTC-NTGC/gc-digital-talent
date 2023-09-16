@@ -6,11 +6,11 @@ use App\Models\ApplicantFilter;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Skill;
-use App\Providers\LanguageAbility;
-use App\Providers\OperationalRequirement;
-use App\Providers\PoolStream;
-use App\Providers\PositionDuration;
-use App\Providers\WorkRegion;
+use App\Enums\LanguageAbility;
+use App\Enums\OperationalRequirement;
+use App\Enums\PoolStream;
+use App\Enums\PositionDuration;
+use App\Enums\WorkRegion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicantFilterFactory extends Factory

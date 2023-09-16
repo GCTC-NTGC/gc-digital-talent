@@ -4,8 +4,8 @@ namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
 use App\Models\PoolCandidate;
-use App\Providers\ApplicationStep;
-use App\Providers\PoolCandidateStatus;
+use App\Enums\ApplicationStep;
+use App\Enums\PoolCandidateStatus;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;

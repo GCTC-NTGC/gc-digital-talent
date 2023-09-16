@@ -2,326 +2,45 @@
 
 namespace App\Providers;
 
+use App\Enums\ApplicationStep;
+use App\Enums\ArmedForcesStatus;
+use App\Enums\AwardedScope;
+use App\Enums\AwardedTo;
+use App\Enums\BilingualEvaluation;
+use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateSuspendedFilter;
+use App\Enums\CitizenshipStatus;
+use App\Enums\EducationRequirementOption;
+use App\Enums\EducationStatus;
+use App\Enums\EducationType;
+use App\Enums\EstimatedLanguageAbility;
+use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\GenericJobTitleKey;
+use App\Enums\GovEmployeeType;
+use App\Enums\IndigenousCommunity;
+use App\Enums\Language;
+use App\Enums\LanguageAbility;
+use App\Enums\OperationalRequirement;
+use App\Enums\PoolCandidateSearchPositionType;
+use App\Enums\PoolCandidateSearchStatus;
+use App\Enums\PoolCandidateStatus;
+use App\Enums\PoolLanguage;
+use App\Enums\PoolStatus;
+use App\Enums\PoolStream;
+use App\Enums\PositionDuration;
+use App\Enums\ProvinceOrTerritory;
+use App\Enums\PublishingGroup;
+use App\Enums\SalaryRange;
+use App\Enums\SecurityStatus;
+use App\Enums\SkillCategory;
+use App\Enums\SkillLevel;
+use App\Enums\WhenSkillUsed;
+use App\Enums\WorkRegion;
 use App\GraphQL\Operators\PostgreSQLOperator;
-use GraphQL\Type\Definition\Description;
 use GraphQL\Type\Definition\EnumType;
 use Illuminate\Support\ServiceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\WhereConditions\Operator;
-
-enum Language: string
-{
-    case EN = 'en';
-    case FR = 'fr';
-}
-
-enum ProvinceOrTerritory
-{
-    case BRITISH_COLUMBIA;
-    case ALBERTA;
-    case SASKATCHEWAN;
-    case MANITOBA;
-    case ONTARIO;
-    case QUEBEC;
-    case NEW_BRUNSWICK;
-    case NOVA_SCOTIA;
-    case PRINCE_EDWARD_ISLAND;
-    case NEWFOUNDLAND_AND_LABRADOR;
-    case YUKON;
-    case NORTHWEST_TERRITORIES;
-    case NUNAVUT;
-}
-
-enum GovEmployeeType
-{
-    case STUDENT;
-    case CASUAL;
-    case TERM;
-    case INDETERMINATE;
-}
-
-enum BilingualEvaluation
-{
-    case COMPLETED_ENGLISH;
-    case COMPLETED_FRENCH;
-    case NOT_COMPLETED;
-}
-
-enum EvaluatedLanguageAbility
-{
-    case X;
-    case A;
-    case B;
-    case C;
-    case E;
-    case P;
-}
-
-enum EstimatedLanguageAbility
-{
-    case BEGINNER;
-    case INTERMEDIATE;
-    case ADVANCED;
-}
-
-enum CitizenshipStatus
-{
-    case PERMANENT_RESIDENT;
-    case CITIZEN;
-    case OTHER;
-}
-
-enum ArmedForcesStatus
-{
-    case VETERAN;
-    case MEMBER;
-    case NON_CAF;
-}
-
-enum PositionDuration
-{
-    case TEMPORARY;
-    case PERMANENT;
-}
-
-enum PoolStream
-{
-    case ACCESS_INFORMATION_PRIVACY;
-    case BUSINESS_ADVISORY_SERVICES;
-    case DATABASE_MANAGEMENT;
-    case ENTERPRISE_ARCHITECTURE;
-    case INFRASTRUCTURE_OPERATIONS;
-    case PLANNING_AND_REPORTING;
-    case PROJECT_PORTFOLIO_MANAGEMENT;
-    case SECURITY;
-    case SOFTWARE_SOLUTIONS;
-    case INFORMATION_DATA_FUNCTIONS;
-}
-
-enum PoolStatus
-{
-    case DRAFT;
-    case PUBLISHED;
-    case CLOSED;
-    case ARCHIVED;
-}
-
-enum PoolCandidateStatus
-{
-    case DRAFT;
-    case DRAFT_EXPIRED;
-    case NEW_APPLICATION;
-    case APPLICATION_REVIEW;
-    case SCREENED_IN;
-    case SCREENED_OUT_APPLICATION;
-    case SCREENED_OUT_NOT_INTERESTED;
-    case SCREENED_OUT_NOT_RESPONSIVE;
-    case UNDER_ASSESSMENT;
-    case SCREENED_OUT_ASSESSMENT;
-    case QUALIFIED_AVAILABLE;
-    case QUALIFIED_UNAVAILABLE;
-    case QUALIFIED_WITHDREW;
-    case PLACED_CASUAL;
-    case PLACED_TERM;
-    case PLACED_INDETERMINATE;
-    case EXPIRED;
-    case REMOVED;
-}
-
-enum IndigenousCommunity
-{
-    case STATUS_FIRST_NATIONS;
-    case NON_STATUS_FIRST_NATIONS;
-    case INUIT;
-    case METIS;
-    case OTHER;
-    case LEGACY_IS_INDIGENOUS;
-}
-
-enum SecurityStatus
-{
-    case RELIABILITY;
-    case SECRET;
-    case TOP_SECRET;
-}
-
-enum PoolLanguage
-{
-    case ENGLISH;
-    case FRENCH;
-    case VARIOUS;
-    case BILINGUAL_INTERMEDIATE;
-    case BILINGUAL_ADVANCED;
-}
-
-enum PublishingGroup
-{
-    case IAP;
-    case IT_JOBS;
-    case IT_JOBS_ONGOING;
-    case EXECUTIVE_JOBS;
-    case OTHER;
-}
-
-enum ApplicationStep
-{
-    case WELCOME;
-    case SELF_DECLARATION;
-    case REVIEW_YOUR_PROFILE;
-    #[Description(description: 'This is the career timeline.')]
-    case REVIEW_YOUR_RESUME;
-    case EDUCATION_REQUIREMENTS;
-    case SKILL_REQUIREMENTS;
-    case SCREENING_QUESTIONS;
-    case REVIEW_AND_SUBMIT;
-}
-
-enum EducationRequirementOption
-{
-    case APPLIED_WORK;
-    case EDUCATION;
-}
-
-enum LanguageAbility
-{
-    case ENGLISH;
-    case FRENCH;
-    case BILINGUAL;
-}
-
-enum WorkRegion
-{
-    case TELEWORK;
-    case NATIONAL_CAPITAL;
-    case ATLANTIC;
-    case QUEBEC;
-    case ONTARIO;
-    case PRAIRIE;
-    case BRITISH_COLUMBIA;
-    case NORTH;
-}
-
-#[Description(description: 'e.g. Overtime as Required, Shift Work, Travel as Required, etc.')]
-enum OperationalRequirement
-{
-    case SHIFT_WORK;
-    case ON_CALL;
-    case TRAVEL;
-    case TRANSPORT_EQUIPMENT;
-    case DRIVERS_LICENSE;
-    case OVERTIME_SCHEDULED;
-    case OVERTIME_SHORT_NOTICE;
-    case OVERTIME_OCCASIONAL;
-    case OVERTIME_REGULAR;
-}
-
-enum SalaryRange
-{
-    case _50_59K;
-    case _60_69K;
-    case _70_79K;
-    case _80_89K;
-    case _90_99K;
-    case _100K_PLUS;
-}
-
-enum GenericJobTitleKey
-{
-    case TECHNICIAN_IT01;
-    case ANALYST_IT02;
-    case TEAM_LEADER_IT03;
-    case TECHNICAL_ADVISOR_IT03;
-    case SENIOR_ADVISOR_IT04;
-    case MANAGER_IT04;
-}
-
-enum PoolCandidateSearchStatus
-{
-    case NEW;
-    case IN_PROGRESS;
-    case WAITING;
-    case DONE;
-}
-
-enum PoolCandidateSearchPositionType
-{
-    case INDIVIDUAL_CONTRIBUTOR;
-    case TEAM_LEAD;
-}
-
-enum SkillCategory
-{
-    case TECHNICAL;
-    case BEHAVIOURAL;
-}
-
-enum SkillLevel
-{
-    case BEGINNER;
-    case INTERMEDIATE;
-    case ADVANCED;
-    case LEAD;
-}
-
-enum WhenSkillUsed
-{
-    case CURRENT;
-    case PAST;
-}
-
-enum AwardedTo
-{
-    case ME;
-    case MY_TEAM;
-    case MY_PROJECT;
-    case MY_ORGANIZATION;
-}
-
-enum AwardedScope
-{
-    case INTERNATIONAL;
-    case NATIONAL;
-    case PROVINCIAL;
-    case LOCAL;
-    case COMMUNITY;
-    case ORGANIZATIONAL;
-    case SUB_ORGANIZATIONAL;
-}
-
-enum EducationType
-{
-    case DIPLOMA;
-    case BACHELORS_DEGREE;
-    case MASTERS_DEGREE;
-    case PHD;
-    case POST_DOCTORAL_FELLOWSHIP;
-    case ONLINE_COURSE;
-    case CERTIFICATION;
-    case OTHER;
-}
-
-enum EducationStatus
-{
-    case SUCCESS_CREDENTIAL;
-    case SUCCESS_NO_CREDENTIAL;
-    case IN_PROGRESS;
-    case AUDITED;
-    case DID_NOT_COMPLETE;
-}
-
-enum CandidateExpiryFilter
-{
-    case ACTIVE;
-    case EXPIRED;
-    case ALL;
-}
-
-enum CandidateSuspendedFilter
-{
-    case ACTIVE;
-    case SUSPENDED;
-    case ALL;
-}
 
 class GraphQLServiceProvider extends ServiceProvider
 {

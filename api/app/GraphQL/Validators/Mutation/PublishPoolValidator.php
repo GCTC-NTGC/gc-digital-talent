@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
-use App\Providers\PoolLanguage;
-use App\Providers\PublishingGroup;
-use App\Providers\SecurityStatus;
+use App\Enums\PoolLanguage;
+use App\Enums\PublishingGroup;
+use App\Enums\SecurityStatus;
 use App\Rules\SkillNotDeleted;
 use Carbon\Carbon;
 use Database\Helpers\ApiErrorEnums;
