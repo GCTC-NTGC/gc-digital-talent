@@ -10,6 +10,15 @@ use App\Enums\BilingualEvaluation;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
+use App\Enums\DirectiveForms\ContractAuthority;
+use App\Enums\DirectiveForms\ContractCommodity;
+use App\Enums\DirectiveForms\ContractInstrument;
+use App\Enums\DirectiveForms\ContractSolicitationProcedure;
+use App\Enums\DirectiveForms\ContractStartTimeframe;
+use App\Enums\DirectiveForms\ContractSupplyMethod;
+use App\Enums\DirectiveForms\ContractValueRange;
+use App\Enums\DirectiveForms\YesNo;
+use App\Enums\DirectiveForms\YesNoUnsure;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EducationStatus;
 use App\Enums\EducationType;
@@ -352,6 +361,91 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'CandidateSuspendedFilter',
                     'values' => array_column(CandidateSuspendedFilter::cases(), 'name'),
+                ]);
+            }
+        );
+
+        /*
+         * Directive forms
+         */
+        $typeRegistry->registerLazy(
+            'ContractAuthority',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'ContractAuthority',
+                    'values' => array_column(ContractAuthority::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'YesNo',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'YesNo',
+                    'values' => array_column(YesNo::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'YesNoUnsure',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'YesNoUnsure',
+                    'values' => array_column(YesNoUnsure::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'ContractValueRange',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'ContractValueRange',
+                    'values' => array_column(ContractValueRange::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'ContractStartTimeframe',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'ContractStartTimeframe',
+                    'values' => array_column(ContractStartTimeframe::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'ContractCommodity',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'ContractCommodity',
+                    'values' => array_column(ContractCommodity::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'ContractInstrument',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'ContractInstrument',
+                    'values' => array_column(ContractInstrument::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'ContractSupplyMethod',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'ContractSupplyMethod',
+                    'values' => array_column(ContractSupplyMethod::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'ContractSolicitationProcedure',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'ContractSolicitationProcedure',
+                    'values' => array_column(ContractSolicitationProcedure::cases(), 'name'),
                 ]);
             }
         );

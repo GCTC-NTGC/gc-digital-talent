@@ -2,6 +2,10 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\DirectiveForms\ContractAuthority;
+use App\Enums\DirectiveForms\ContractCommodity;
+use App\Enums\DirectiveForms\ContractSupplyMethod;
+use App\Enums\DirectiveForms\YesNoUnsure;
 use App\Rules\ArrayConsistentWithDetail;
 use App\Rules\ScalarConsistentWithDetail;
 use Database\Helpers\DirectiveFormsApiEnums;
@@ -26,14 +30,14 @@ final class DigitalContractingQuestionnaireInput extends Validator
             'businessOwnerEmail' => ['email'],
             'financialAuthorityEmail' => ['email'],
             'authoritiesInvolved' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_AUTHORITY_OTHER, 'authorityInvolvedOther'),
+                new ArrayConsistentWithDetail(ContractAuthority::OTHER->name, 'authorityInvolvedOther'),
             ],
             'contractEndDate' => ['after_or_equal:contractStartDate'],
             'commodityType' => [
-                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_COMMODITY_OTHER, 'commodityTypeOther'),
+                new ScalarConsistentWithDetail(ContractCommodity::OTHER->name, 'commodityTypeOther'),
             ],
             'methodOfSupply' => [
-                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_SUPPLY_METHOD_OTHER, 'methodOfSupplyOther'),
+                new ScalarConsistentWithDetail(ContractSupplyMethod::OTHER->name, 'methodOfSupplyOther'),
             ],
             'requirementScreeningLevels' => [
                 new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, 'requirementScreeningLevelOther'),
@@ -48,8 +52,8 @@ final class DigitalContractingQuestionnaireInput extends Validator
                 new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_OTHER_REQUIREMENT_OTHER, 'requirementOtherOther'),
             ],
             'personnelRequirements' => [
-                'requiredIf:hasPersonnelRequirements,'.DirectiveFormsApiEnums::YESNOUNSURE_YES,
-                'prohibited_unless:hasPersonnelRequirements,'.DirectiveFormsApiEnums::YESNOUNSURE_YES,
+                'requiredIf:hasPersonnelRequirements,'.YesNoUnsure::YES->name,
+                'prohibited_unless:hasPersonnelRequirements,'.YesNoUnsure::YES->name,
             ],
             'operationsConsiderations' => [
                 new ArrayConsistentWithDetail(DirectiveFormsApiEnums::OPERATIONS_CONSIDERATION_OTHER, 'operationsConsiderationsOther'),
@@ -61,7 +65,7 @@ final class DigitalContractingQuestionnaireInput extends Validator
             'contractingRationalesSecondary' => [
                 new ArrayConsistentWithDetail(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, 'contractingRationalesSecondaryOther'),
             ],
-            'talentSearchTrackingNumber' => ['requiredIf:ocioConfirmedTalentShortage,'.DirectiveFormsApiEnums::YESNOUNSURE_YES],
+            'talentSearchTrackingNumber' => ['requiredIf:ocioConfirmedTalentShortage,'.YesNoUnsure::YES->name],
         ];
     }
 

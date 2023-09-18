@@ -2,6 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Enums\DirectiveForms\ContractAuthority;
+use App\Enums\DirectiveForms\ContractCommodity;
+use App\Enums\DirectiveForms\ContractInstrument;
+use App\Enums\DirectiveForms\ContractSolicitationProcedure;
+use App\Enums\DirectiveForms\ContractStartTimeframe;
+use App\Enums\DirectiveForms\ContractSupplyMethod;
+use App\Enums\DirectiveForms\ContractValueRange;
+use App\Enums\DirectiveForms\YesNo;
+use App\Enums\DirectiveForms\YesNoUnsure;
 use App\Models\Department;
 use App\Models\DigitalContractingPersonnelRequirement;
 use App\Models\DigitalContractingQuestionnaire;
@@ -40,43 +49,43 @@ class DigitalContractingQuestionnaireFactory extends Factory
             'financial_authority_job_title' => $this->faker->jobTitle(),
             'financial_authority_email' => $this->faker->email(),
             'authorities_involved' => $this->faker->randomElements(
-                DirectiveFormsApiEnums::contractAuthorities(),
-                $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::contractAuthorities()))
+                array_column(ContractAuthority::cases(), 'name'),
+                $this->faker->numberBetween(1, count(ContractAuthority::cases()))
             ),
             'authority_involved_other' => function (array $attributes) {
-                return in_array(DirectiveFormsApiEnums::CONTRACT_AUTHORITY_OTHER, $attributes['authorities_involved']) ? $this->faker->word() : null;
+                return in_array(ContractAuthority::OTHER->name, $attributes['authorities_involved']) ? $this->faker->word() : null;
             },
-            'contract_behalf_of_gc' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNoUnsure()),
-            'contract_service_of_gc' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNoUnsure()),
-            'contract_for_digital_initiative' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNoUnsure()),
+            'contract_behalf_of_gc' => $this->faker->randomElement(YesNoUnsure::cases())->name,
+            'contract_service_of_gc' => $this->faker->randomElement(YesNoUnsure::cases())->name,
+            'contract_for_digital_initiative' => $this->faker->randomElement(YesNoUnsure::cases())->name,
             'digital_initiative_name' => $this->faker->word(),
-            'digital_initiative_plan_submitted' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNoUnsure()),
-            'digital_initiative_plan_updated' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNoUnsure()),
-            'digital_initiative_plan_complemented' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNoUnsure()),
+            'digital_initiative_plan_submitted' => $this->faker->randomElement(YesNoUnsure::cases())->name,
+            'digital_initiative_plan_updated' => $this->faker->randomElement(YesNoUnsure::cases())->name,
+            'digital_initiative_plan_complemented' => $this->faker->randomElement(YesNoUnsure::cases())->name,
             'contract_title' => $this->faker->word(),
             'contract_start_date' => Carbon::today()->addDays($this->faker->numberBetween(31, 365))->startOfMonth(),
             'contract_end_date' => function (array $attributes) {
                 return $attributes['contract_start_date']->copy()->addDays($this->faker->numberBetween(31, 365))->startOfMonth();
             },
-            'contract_extendable' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
-            'contract_amendable' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
-            'contract_multiyear' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
-            'contract_value' => $this->faker->randomElement(DirectiveFormsApiEnums::contractValueRanges()),
-            'contract_resources_start_timeframe' => $this->faker->randomElement(DirectiveFormsApiEnums::contractStartTimeframes()),
-            'commodity_type' => $this->faker->randomElement(DirectiveFormsApiEnums::contractCommodities()),
+            'contract_extendable' => $this->faker->randomElement(YesNo::cases())->name,
+            'contract_amendable' => $this->faker->randomElement(YesNo::cases())->name,
+            'contract_multiyear' => $this->faker->randomElement(YesNo::cases())->name,
+            'contract_value' => $this->faker->randomElement(ContractValueRange::cases())->name,
+            'contract_resources_start_timeframe' => $this->faker->randomElement(ContractStartTimeframe::cases())->name,
+            'commodity_type' => $this->faker->randomElement(ContractCommodity::cases())->name,
             'commodity_type_other' => function (array $attributes) {
-                return $attributes['commodity_type'] == DirectiveFormsApiEnums::CONTRACT_COMMODITY_OTHER ? $this->faker->word() : null;
+                return $attributes['commodity_type'] == ContractCommodity::OTHER->name ? $this->faker->word() : null;
             },
-            'instrument_type' => $this->faker->randomElement(DirectiveFormsApiEnums::contractInstruments()),
-            'method_of_supply' => $this->faker->randomElement(DirectiveFormsApiEnums::contractSupplyMethods()),
+            'instrument_type' => $this->faker->randomElement(ContractInstrument::cases())->name,
+            'method_of_supply' => $this->faker->randomElement(ContractSupplyMethod::cases())->name,
             'method_of_supply_other' => function (array $attributes) {
-                return $attributes['method_of_supply'] == DirectiveFormsApiEnums::CONTRACT_SUPPLY_METHOD_OTHER ? $this->faker->word() : null;
+                return $attributes['method_of_supply'] == ContractSupplyMethod::OTHER->name ? $this->faker->word() : null;
             },
-            'solicitation_procedure' => $this->faker->randomElement(DirectiveFormsApiEnums::contractSolicitationProcedures()),
-            'subject_to_trade_agreement' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNoUnsure()),
+            'solicitation_procedure' => $this->faker->randomElement(ContractSolicitationProcedure::cases())->name,
+            'subject_to_trade_agreement' => $this->faker->randomElement(YesNoUnsure::cases())->name,
             'work_requirement_description' => $this->faker->paragraph(),
             'qualification_requirement' => $this->faker->paragraph(),
-            'requirement_access_to_secure' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNoUnsure()),
+            'requirement_access_to_secure' => $this->faker->randomElement(YesNoUnsure::cases())->name,
             'requirement_screening_levels' => $this->faker->randomElements(
                 DirectiveFormsApiEnums::personnelScreeningLevels(),
                 $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::personnelScreeningLevels()))
@@ -105,12 +114,12 @@ class DigitalContractingQuestionnaireFactory extends Factory
             'requirement_other_other' => function (array $attributes) {
                 return in_array(DirectiveFormsApiEnums::PERSONNEL_OTHER_REQUIREMENT_OTHER, $attributes['requirement_others']) ? $this->faker->word() : null;
             },
-            'has_personnel_requirements' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
+            'has_personnel_requirements' => $this->faker->randomElement(YesNo::cases())->name,
             // personnel_requirements added in configure method
-            'is_technological_change' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
-            'has_impact_on_your_department' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
-            'has_immediate_impact_on_other_departments' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
-            'has_future_impact_on_other_departments' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
+            'is_technological_change' => $this->faker->randomElement(YesNo::cases())->name,
+            'has_impact_on_your_department' => $this->faker->randomElement(YesNo::cases())->name,
+            'has_immediate_impact_on_other_departments' => $this->faker->randomElement(YesNo::cases())->name,
+            'has_future_impact_on_other_departments' => $this->faker->randomElement(YesNo::cases())->name,
             'operations_considerations' => $this->faker->randomElements(
                 DirectiveFormsApiEnums::operationsConsiderations(),
                 $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::operationsConsiderations()))
@@ -132,22 +141,22 @@ class DigitalContractingQuestionnaireFactory extends Factory
                 return in_array(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, $attributes['contracting_rationales_secondary']) ? $this->faker->word() : null;
             },
             'ocio_confirmed_talent_shortage' => $this->faker->randomElement(
-                DirectiveFormsApiEnums::yesNo()
-            ),
+                YesNo::cases()
+            )->name,
             'talent_search_tracking_number' => function (array $attributes) {
-                return $attributes['ocio_confirmed_talent_shortage'] == DirectiveFormsApiEnums::YESNO_YES ? $this->faker->uuid() : null;
+                return $attributes['ocio_confirmed_talent_shortage'] == YesNo::YES->name ? $this->faker->uuid() : null;
             },
-            'ongoing_need_for_knowledge' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
-            'knowledge_transfer_in_contract' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
-            'employees_have_access_to_knowledge' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
-            'ocio_engaged_for_training' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
+            'ongoing_need_for_knowledge' => $this->faker->randomElement(YesNo::cases())->name,
+            'knowledge_transfer_in_contract' => $this->faker->randomElement(YesNo::cases())->name,
+            'employees_have_access_to_knowledge' => $this->faker->randomElement(YesNo::cases())->name,
+            'ocio_engaged_for_training' => $this->faker->randomElement(YesNo::cases())->name,
         ];
     }
 
     public function configure()
     {
         return $this->afterCreating(function (DigitalContractingQuestionnaire $questionnaire) {
-            if ($questionnaire->has_personnel_requirements == DirectiveFormsApiEnums::YESNO_YES) {
+            if ($questionnaire->has_personnel_requirements == YesNo::YES->name) {
                 DigitalContractingPersonnelRequirement::factory()
                     ->count($this->faker->numberBetween(1, 10))
                     ->for($questionnaire)
