@@ -26,8 +26,6 @@ export type BaseProps = {
   label: React.ReactNode;
   /** Props to pass to the HTML `input` */
   inputProps?: HTMLInputProps;
-  /** Initial value */
-  value?: Option;
   /** Optional: Set if the options are being fetched */
   fetching?: boolean;
   /** Optional: Control the options through external search (API, etc.) */

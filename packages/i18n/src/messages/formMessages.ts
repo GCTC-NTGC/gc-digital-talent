@@ -90,6 +90,19 @@ const formMessages = defineMessages({
     description:
       "Message showing number of matching items from all available options inh combobox menu",
   },
+  itemsSelectedCombobox: {
+    defaultMessage:
+      "{count, plural, =0 {No options selected} =1 {1 option selected} other {# options selected}}",
+    id: "SkGrYA",
+    description:
+      "Message displayed telling user how many items they have selected in a multi-select combobox",
+  },
+  clearSelectedCombobox: {
+    defaultMessage: "Clear all selections",
+    id: "QnlRv0",
+    description:
+      "Button text to clear the current selected items in a multi-select combobox",
+  },
   saveChanges: {
     defaultMessage: "Save changes",
     id: "WGoaKQ",

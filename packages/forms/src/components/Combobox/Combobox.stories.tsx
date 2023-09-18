@@ -120,3 +120,9 @@ DefaultValue.args = {
   ...defaultArgs,
   defaultValue: skills[0].value,
 };
+
+export const Multiselect = Template.bind({});
+Multiselect.args = {
+  ...defaultArgs,
+  isMulti: true,
+};

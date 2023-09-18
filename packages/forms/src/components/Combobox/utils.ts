@@ -73,3 +73,16 @@ export function getMultiFilteredItems({
 
   return orderItems(available);
 }
+
+export function itemToString<T extends Option>(item: T | null): string {
+  return item?.label?.toString() ?? "";
+}
+
+export function isItemSelected<T extends Option>(
+  item: T | null,
+  selectedItems: T[],
+): boolean {
+  return !!selectedItems.find(
+    (selectedItem) => selectedItem.value === item?.value,
+  );
+}

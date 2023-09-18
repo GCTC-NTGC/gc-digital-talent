@@ -12,6 +12,7 @@ import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import { CommonInputProps, HTMLInputProps } from "../../types";
 import { BaseProps } from "./types";
 import Single from "./Single";
+import Multi from "./Multi";
 
 export type ComboboxProps = Omit<HTMLInputProps, "ref"> &
   CommonInputProps & {
@@ -96,17 +97,34 @@ const Combobox = ({
         control={control}
         name={name}
         rules={rules}
-        render={() => (
-          <Single
-            onInputChange={onSearch}
-            onSelectedChange={(item) => setValue(name, item?.value)}
-            value={options.find(
-              (option) =>
-                option.value === (defaultValues && defaultValues[name]),
-            )}
-            {...sharedProps}
-          />
-        )}
+        render={() =>
+          isMulti ? (
+            <Multi
+              onInputChange={onSearch}
+              onSelectedChange={(items) => {
+                setValue(
+                  name,
+                  items?.map((item) => item.value),
+                );
+              }}
+              value={options.filter(
+                (option) =>
+                  option.value === (defaultValues && defaultValues[name]),
+              )}
+              {...sharedProps}
+            />
+          ) : (
+            <Single
+              onInputChange={onSearch}
+              onSelectedChange={(item) => setValue(name, item?.value)}
+              value={options.find(
+                (option) =>
+                  option.value === (defaultValues && defaultValues[name]),
+              )}
+              {...sharedProps}
+            />
+          )
+        }
       />
 
       <Field.Descriptions

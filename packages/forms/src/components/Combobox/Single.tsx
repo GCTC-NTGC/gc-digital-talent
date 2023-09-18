@@ -5,11 +5,13 @@ import Field from "../Field";
 import Menu from "./Menu";
 import Input from "./Input";
 import { BaseProps, Option } from "./types";
-import { getSingleFilteredItems } from "./utils";
+import { getSingleFilteredItems, itemToString } from "./utils";
 
 type SingleProps = BaseProps & {
   onSelectedChange: (item: Option | null) => void;
   onInputChange?: (value: string) => void;
+  /** Initial value */
+  value?: Option;
 };
 
 const Single = ({
@@ -44,9 +46,7 @@ const Single = ({
   } = useCombobox({
     items,
     initialSelectedItem: value,
-    itemToString(item) {
-      return item?.label?.toString() ?? "";
-    },
+    itemToString,
     onInputValueChange({ inputValue: newInputValue }) {
       if (!isExternalSearch) {
         setAvailable(
