@@ -1,7 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
-import { useReactToPrint } from "react-to-print";
 import { SubmitHandler } from "react-hook-form";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -14,6 +13,7 @@ import {
   getPoolCandidateStatus,
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import { FromArray } from "~/types/utility";
 import {
@@ -38,7 +38,6 @@ import {
   useGetSkillsQuery,
   PublishingGroup,
 } from "~/api/generated";
-import printStyles from "~/styles/printStyles";
 import useRoutes from "~/hooks/useRoutes";
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";
 import TableFooter from "~/components/Table/ApiManagedTable/TableFooter";
@@ -62,8 +61,8 @@ import {
   stringToEnumPoolCandidateStatus,
 } from "~/utils/userUtils";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 import adminMessages from "~/messages/adminMessages";
+import UserProfilePrintButton from "~/pages/Users/AdminUserProfilePage/components/UserProfilePrintButton";
 
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import PoolCandidateTableFilterDialog, {
@@ -775,16 +774,6 @@ const PoolCandidatesTable = ({
     },
   });
 
-  const componentRef = useRef(null);
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-    pageStyle: printStyles,
-    documentTitle: intl.formatMessage({
-      defaultMessage: "Candidate profiles",
-      id: "BXR24h",
-      description: "Document title for printing Pool Candidate table results",
-    }),
-  });
   const selectedCandidates =
     selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];
 
@@ -833,6 +822,25 @@ const PoolCandidatesTable = ({
     setTableState({
       hiddenColumnIds: newCols,
     });
+  };
+
+  const handlePrint = (onPrint: () => void) => {
+    if (
+      selectedCandidatesFetching ||
+      !!selectedCandidatesError ||
+      !selectedCandidatesData?.poolCandidates.length
+    ) {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage: "Download failed: No rows selected",
+          id: "k4xm25",
+          description:
+            "Alert message displayed when a user attempts to print without selecting items first",
+        }),
+      );
+    } else if (onPrint) {
+      onPrint();
+    }
   };
 
   return (
@@ -918,7 +926,6 @@ const PoolCandidatesTable = ({
           onCurrentPageChange={handleCurrentPageChange}
           onPageSizeChange={handlePageSizeChange}
           hasSelection
-          onPrint={handlePrint}
           fetchingSelected={selectedCandidatesFetching}
           selectionError={selectedCandidatesError}
           disableActions={
@@ -939,8 +946,15 @@ const PoolCandidatesTable = ({
               },
             ),
           }}
+          additionalActions={
+            <UserProfilePrintButton
+              users={selectedCandidates}
+              beforePrint={handlePrint}
+              color="white"
+              mode="inline"
+            />
+          }
         />
-        <ProfileDocument results={selectedCandidates} ref={componentRef} />
       </div>
     </div>
   );
