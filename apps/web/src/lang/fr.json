@@ -1719,6 +1719,10 @@
     "defaultMessage": "Ce formulaire vous permet de modifier une expérience en particulier, ses détails et les compétences qui s’y rattachent. N’oubliez pas que dans vos expériences de travail, vous devez décrire vos expériences de travail à temps partiel, de travail à temps plein, de travailleur autonome, de travail en tant que boursier, de travail au sein d’un organisme sans but lucratif ou de stagiaire.",
     "description": "Instructions on how to add an experience to your career timeline"
   },
+  "9Jkoms": {
+    "defaultMessage": "Trouver un talent numérique",
+    "description": "Title displayed on hero for Search and Request pages."
+  },
   "9LyLWf": {
     "defaultMessage": "la conformité avec les Règles d’accessibilité pour les outils d’édition <atagLink>(ATAG) 2.0</atagLink>",
     "description": "List item two, things developers consider for accessibility"
@@ -2562,6 +2566,10 @@
   "Eydy42": {
     "defaultMessage": "Mettre à jour l’utilisateur",
     "description": "Page title for the user edit page"
+  },
+  "F+LDbs": {
+    "defaultMessage": "Si vous êtes à la recherche de talent, vous êtes au bon endroit. Notre base de données sur les talents est accessible à la plupart des ministères et organismes. Veuillez remplir la demande pour trouver des candidats qualifiés. Les candidats sont évalués selon leurs compétences, et regroupés en bassins pour répondre à vos besoins en matière de dotation.",
+    "description": "Content displayed in the find talent page explaining the page and what it offers to users."
   },
   "F+WFWB": {
     "defaultMessage": "Région",
@@ -4607,6 +4615,10 @@
   "U/zhJQ": {
     "defaultMessage": "Désarchiver",
     "description": "Text on a button to un-archive the pool"
+  },
+  "U0b3/+": {
+    "defaultMessage": "Utilisez les filtres pour préciser vos exigences. Nous vous montrerons un nombre estimatif de candidats qui répondent à vos critères, au fur et à mesure que vous entrez votre information. Veuillez sélectionner Obtenir des candidats une fois que vous aurez terminé. En ce faisant, vous verrez un formulaire à partir duquel vous pouvez fournir vos coordonnées et soumettre votre demande.",
+    "description": "Content displayed in the How To area of the hero section of the Search page."
   },
   "U0qb7j": {
     "defaultMessage": "Les candidatures qui ne sont plus actives s'affichent ici.",
@@ -9106,6 +9118,10 @@
   "zMZQLY": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
     "description": "Description for editing an experience."
+  },
+  "zMuDSL": {
+    "defaultMessage": "Cherchez-vous à embaucher un talent numérique?",
+    "description": "Heading on find talent page posing question to users."
   },
   "zS2PN+": {
     "defaultMessage": "Toutes les catégories ({count})",
