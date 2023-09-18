@@ -86,3 +86,21 @@ export function isItemSelected<T extends Option>(
     (selectedItem) => selectedItem.value === item?.value,
   );
 }
+
+export function getSingleDefaultValue<T extends Option>(
+  options: T[],
+  defaultValue?: string,
+): Option | undefined {
+  return defaultValue
+    ? options.find((option) => option.value === defaultValue)
+    : undefined;
+}
+
+export function getMultiDefaultValue<T extends Option>(
+  options: T[],
+  defaultValue?: string[],
+): Option[] {
+  return options.filter((option) =>
+    defaultValue?.some((defaultItem) => defaultItem === option.value),
+  );
+}

@@ -2,6 +2,7 @@ import React from "react";
 import debounce from "lodash/debounce";
 import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { faker } from "@faker-js/faker";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 
@@ -9,6 +10,8 @@ import BasicForm from "../BasicForm";
 import Submit from "../Submit";
 import Combobox, { ComboboxProps } from "./Combobox";
 import { Option } from "./types";
+
+faker.seed(0);
 
 const skills = getStaticSkills().map((skill) => ({
   value: skill.id,
@@ -21,9 +24,14 @@ const defaultArgs = {
   options: skills,
 };
 
+const defaultMultiArgs = {
+  ...defaultArgs,
+  isMulti: true,
+};
+
 type ComboboxType = ComboboxProps & {
   mockSearch?: (term: string) => Promise<Option[]>;
-  defaultValue?: string;
+  defaultValue?: string | string[];
 };
 
 export default {
@@ -121,8 +129,13 @@ DefaultValue.args = {
   defaultValue: skills[0].value,
 };
 
-export const Multiselect = Template.bind({});
-Multiselect.args = {
-  ...defaultArgs,
-  isMulti: true,
+export const Multi = Template.bind({});
+Multi.args = defaultMultiArgs;
+
+export const MultiDefault = Template.bind({});
+MultiDefault.args = {
+  ...defaultMultiArgs,
+  defaultValue: faker.helpers
+    .arrayElements(skills, 10)
+    .map((skill) => skill.value),
 };

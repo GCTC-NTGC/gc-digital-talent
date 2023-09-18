@@ -10,6 +10,7 @@ import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import { CommonInputProps, HTMLInputProps } from "../../types";
+import { getMultiDefaultValue, getSingleDefaultValue } from "./utils";
 import { BaseProps } from "./types";
 import Single from "./Single";
 import Multi from "./Multi";
@@ -63,6 +64,7 @@ const Combobox = ({
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
+  const defaultValue = defaultValues && defaultValues[name];
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     show: {
@@ -107,26 +109,19 @@ const Combobox = ({
                   items?.map((item) => item.value),
                 );
               }}
-              value={options.filter(
-                (option) =>
-                  option.value === (defaultValues && defaultValues[name]),
-              )}
+              value={getMultiDefaultValue(options, defaultValue)}
               {...sharedProps}
             />
           ) : (
             <Single
               onInputChange={onSearch}
               onSelectedChange={(item) => setValue(name, item?.value)}
-              value={options.find(
-                (option) =>
-                  option.value === (defaultValues && defaultValues[name]),
-              )}
+              value={getSingleDefaultValue(options, defaultValue)}
               {...sharedProps}
             />
           )
         }
       />
-
       <Field.Descriptions
         ids={descriptionIds}
         error={error}
