@@ -1720,7 +1720,7 @@
     "description": "Instructions on how to add an experience to your career timeline"
   },
   "9Jkoms": {
-    "defaultMessage": "Trouver un talent numérique",
+    "defaultMessage": "Trouver du talent numérique",
     "description": "Title displayed on hero for Search and Request pages."
   },
   "9LyLWf": {
@@ -2568,7 +2568,7 @@
     "description": "Page title for the user edit page"
   },
   "F+LDbs": {
-    "defaultMessage": "Si vous êtes à la recherche de talent, vous êtes au bon endroit. Notre base de données sur les talents est accessible à la plupart des ministères et organismes. Veuillez remplir la demande pour trouver des candidats qualifiés. Les candidats sont évalués selon leurs compétences, et regroupés en bassins pour répondre à vos besoins en matière de dotation.",
+    "defaultMessage": "Si vous êtes à la recherche du talent, vous avez frappé à la bonne porte. Notre base de données de talents est ouverte à la plupart des ministères et des agences. Veuillez remplir une demande pour trouver des candidats qualifiés. Les candidats sont évalués selon leurs compétences et regroupés en bassins pour répondre à vos besoins en matière de dotation.",
     "description": "Content displayed in the find talent page explaining the page and what it offers to users."
   },
   "F+WFWB": {
@@ -4617,7 +4617,7 @@
     "description": "Text on a button to un-archive the pool"
   },
   "U0b3/+": {
-    "defaultMessage": "Utilisez les filtres pour préciser vos exigences. Nous vous montrerons un nombre estimatif de candidats qui répondent à vos critères, au fur et à mesure que vous entrez votre information. Veuillez sélectionner Obtenir des candidats une fois que vous aurez terminé. En ce faisant, vous verrez un formulaire à partir duquel vous pouvez fournir vos coordonnées et soumettre votre demande.",
+    "defaultMessage": "Utilisez les filtres pour préciser vos exigences. Nous vous montrerons un nombre estimatif de candidats qui répondent à vos critères, au fur et à mesure que vous entrez votre information. Veuillez sélectionner Demande de candidats. Vous verrez alors apparaître un formulaire à partir duquel vous pourriez fournir vos coordonnées et soumettre votre demande.",
     "description": "Content displayed in the How To area of the hero section of the Search page."
   },
   "U0qb7j": {
