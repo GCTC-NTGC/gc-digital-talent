@@ -1,13 +1,10 @@
 import React from "react";
-import { useIntl } from "react-intl";
-import { motion, useReducedMotion } from "framer-motion";
-import ArrowPathIcon from "@heroicons/react/24/outline/ArrowPathIcon";
+import { motion } from "framer-motion";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import ChevronDownIcon from "@heroicons/react/24/outline/ChevronDownIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
 
 import { Separator as SeparatorPrimitive } from "@gc-digital-talent/ui";
-import { uiMessages } from "@gc-digital-talent/i18n";
 
 import { HTMLSpanProps } from "./types";
 
