@@ -57,14 +57,16 @@ const Available = ({ count, total, ...rest }: AvailableProps) => {
 
   return (
     <Message {...rest}>
-      {count > 0 && count !== total
-        ? intl.formatMessage(formMessages.subsetAvailableCombobox, {
-            total,
-            count,
-          })
-        : intl.formatMessage(formMessages.allAvailableCombobox, {
-            total,
-          })}
+      <span>
+        {count > 0 && count !== total
+          ? intl.formatMessage(formMessages.subsetAvailableCombobox, {
+              total,
+              count,
+            })
+          : intl.formatMessage(formMessages.allAvailableCombobox, {
+              total,
+            })}
+      </span>
     </Message>
   );
 };

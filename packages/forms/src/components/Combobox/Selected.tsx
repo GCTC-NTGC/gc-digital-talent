@@ -58,15 +58,15 @@ const Item = React.forwardRef<HTMLSpanElement, ItemProps>(
       data-h2-text-decoration="base(underline) base:hover(none)"
       {...rest}
     >
-      <span
-        data-h2-flex-grow="base(1)"
-        data-h2-width="base(100%)"
-        data-h2-text-overflow="base(ellipsis)"
-        data-h2-white-space="base(nowrap)"
-      >
+      <span data-h2-flex-grow="base(1)" data-h2-width="base(100%)">
         {children}
       </span>
-      <XMarkIcon data-h2-height="base(1rem)" data-h2-width="base(1rem)" />
+      <XMarkIcon
+        data-h2-height="base(1rem)"
+        data-h2-width="base(1rem)"
+        data-h2-flex-shrink="base(0)"
+        data-h2-vertical-align="base(top)"
+      />
     </span>
   ),
 );
