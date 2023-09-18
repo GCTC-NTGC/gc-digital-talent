@@ -284,8 +284,8 @@ const SearchContainer = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Use the filters to specify your requirements. We will show you an estimated number of candidates who match your criteria as you enter your information. Select Request candidates when you are done. Doing so will bring you to a form where you can provide your contact information and submit your request.",
-                  id: "U0b3/+",
+                    "Use the filters to specify your requirements. We will show you an estimated number of candidates who match your criteria as you enter your information. Select “<strong>Request candidates</strong>” when you are done. Doing so will bring you to a form where you can provide your contact information and submit your request.",
+                  id: "1pCzp1",
                   description:
                     "Content displayed in the How To area of the hero section of the Search page.",
                 })}
