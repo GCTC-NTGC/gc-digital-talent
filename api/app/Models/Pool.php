@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Rules\PoolIsComplete;
+use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
@@ -150,10 +150,13 @@ class Pool extends Model
     // is the pool considered "complete", filled out entirely by the pool operator
     public function getIsCompleteAttribute()
     {
-        $pool = $this->toArray();
-        $validator = Validator::make($pool, [
-            'id' => new PoolIsComplete,
-        ]);
+        $pool = $this->load(['classifications', 'essentialSkills']);
+
+        $poolCompleteValidation = new PoolIsCompleteValidator;
+        $validator = Validator::make($pool->toArray(),
+            $poolCompleteValidation->rules(),
+            $poolCompleteValidation->messages()
+        );
 
         if ($validator->fails()) {
             return false;
