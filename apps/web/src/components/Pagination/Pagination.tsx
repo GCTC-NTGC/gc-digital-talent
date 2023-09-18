@@ -87,7 +87,7 @@ const Pagination = ({
   const lastPage = paginationRange[paginationRange.length - 1];
   const isLeftArrowDisabled = currentPage === 1;
   const isRightArrowDisabled = currentPage === lastPage;
-  const currentPageIndex = (currentPage - 1) * pageSize + 1;
+  const currentPageStartIndex = (currentPage - 1) * pageSize + 1;
   const currentPageSize = currentPage * pageSize;
 
   const iconStyles = {
@@ -131,14 +131,15 @@ const Pagination = ({
           {intl.formatMessage(
             {
               defaultMessage:
-                "Showing results {currentPageIndex} - {currentPageSize} of {total}",
-              id: "2QxibW",
+                "Showing results {currentPageStartIndex} - {currentPageEndIndex} of {total}",
+              id: "CsPyAD",
               description:
                 "Description of how many items are being displayed out of the total value",
             },
             {
-              currentPageIndex,
-              currentPageSize,
+              currentPageStartIndex,
+              currentPageEndIndex:
+                currentPageSize > totalCount ? totalCount : currentPageSize,
               total: totalCount,
             },
           )}
