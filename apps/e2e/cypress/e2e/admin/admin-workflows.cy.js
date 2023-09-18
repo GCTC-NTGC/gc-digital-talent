@@ -59,7 +59,7 @@ describe("Admin Workflow Tests", () => {
       .and("be.visible")
       .click();
 
-    cy.findByRole("button", { name: /Print Profile/i })
+    cy.findByRole("button", { name: /print profile/i })
       .should("exist")
       .and("be.visible")
       .and("be.enabled");
