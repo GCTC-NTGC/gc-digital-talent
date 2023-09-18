@@ -1,4 +1,5 @@
 import orderBy from "lodash/orderBy";
+import { isArray } from "lodash";
 
 import { Option } from "./types";
 
@@ -98,9 +99,19 @@ export function getSingleDefaultValue<T extends Option>(
 
 export function getMultiDefaultValue<T extends Option>(
   options: T[],
-  defaultValue?: string[],
+  defaultValue?: string[] | string,
 ): Option[] {
-  return options.filter((option) =>
-    defaultValue?.some((defaultItem) => defaultItem === option.value),
-  );
+  let value: Option[] = [];
+  if (isArray(defaultValue)) {
+    value = options.filter((option) =>
+      defaultValue?.some((defaultItem) => defaultItem === option.value),
+    );
+  } else {
+    const singleValue = getSingleDefaultValue(options, defaultValue);
+    if (singleValue) {
+      value = [singleValue];
+    }
+  }
+
+  return value;
 }
