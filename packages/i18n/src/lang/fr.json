@@ -135,6 +135,10 @@
     "defaultMessage": "Oui, évaluation en anglais terminée",
     "description": "Completed an English language evaluation"
   },
+  "3I2Qke": {
+    "defaultMessage": "S’ouvre dans un nouvel onglet",
+    "description": "Label for setting a link to open in a new tab in the rich text editor"
+  },
   "3Nd6dv": {
     "defaultMessage": "Sur cette page",
     "description": "Title for  pages table of contents."
@@ -397,6 +401,10 @@
     "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
     "description": "Message that there are required fields missing"
   },
+  "F6j96P": {
+    "defaultMessage": "Refaire",
+    "description": "Label for redoing an action in the rich text editor"
+  },
   "FEfWEH": {
     "defaultMessage": "Ébauche",
     "description": "The pool candidate's status is Draft."
@@ -553,6 +561,10 @@
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
     "description": "Error message that at least one Essential Skill is required"
   },
+  "MidGAP": {
+    "defaultMessage": "Supprimer le lien",
+    "description": "Label for removing a link in the rich text editor"
+  },
   "Mixlw/": {
     "defaultMessage": "Postes de direction",
     "description": "The publishing group called Executive Jobs"
@@ -643,6 +655,10 @@
   "QrKbH+": {
     "defaultMessage": "Durée",
     "description": "Simple term selection for government employee type."
+  },
+  "Qru7mF": {
+    "defaultMessage": "adresse URL",
+    "description": "Label for entering a URL in the rich text editor"
   },
   "QtzRCh": {
     "defaultMessage": "Statut",
@@ -824,6 +840,10 @@
     "defaultMessage": "Veuillez entrer une date valide",
     "description": "Error message that appears when a user enters an invalid date into a date input"
   },
+  "XCKYVJ": {
+    "defaultMessage": "Lien",
+    "description": "Label for adding a link in the rich text editor"
+  },
   "XNDPQM": {
     "defaultMessage": "Un champ obligatoire est vide : Date de fin",
     "description": "Error message that the pool advertisement must have an expiry date."
@@ -867,6 +887,10 @@
   "Z+6NCp": {
     "defaultMessage": "Sous-organisationnel (direction)",
     "description": "The scope of the award was sub-organizational (branch)."
+  },
+  "Z0bYQD": {
+    "defaultMessage": "Ajouter le lien",
+    "description": "Button text for adding a link in the rich text editor"
   },
   "ZEsIZi": {
     "defaultMessage": "Non",
@@ -920,6 +944,10 @@
     "defaultMessage": "Ce champ doit suivre le modèle +123243234",
     "description": "Error message that the field must contain a phone number validated by the specified pattern."
   },
+  "atqjXB": {
+    "defaultMessage": "Annuler",
+    "description": "Stop the current action"
+  },
   "ayG2k7": {
     "defaultMessage": "Oui",
     "description": "Affirmative answer"
@@ -943,6 +971,10 @@
   "cCWdDX": {
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
     "description": "Button text to expand truncated text to view all contents"
+  },
+  "cP2cZ0": {
+    "defaultMessage": "Défaire",
+    "description": "Label for undoing an action in the rich text editor"
   },
   "clDpR4": {
     "defaultMessage": "Modérément développée",
@@ -971,6 +1003,10 @@
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
     "description": "The technical skill level definition for beginner"
+  },
+  "dh6K/x": {
+    "defaultMessage": "Veuillez entrer une adresse URL valide",
+    "description": "Error message for an invalid link in the rich text editor"
   },
   "dnGlXQ": {
     "defaultMessage": "Accepté",
@@ -1381,6 +1417,10 @@
   },
   "t9i8Ml": {
     "defaultMessage": "Gouvernement du Canada"
+  },
+  "tEUGpL": {
+    "defaultMessage": "Liste",
+    "description": "Label for toggling a bullet list in the rich text editor"
   },
   "tW4k56": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre travail",
