@@ -1,5 +1,5 @@
 import orderBy from "lodash/orderBy";
-import { isArray } from "lodash";
+import isArray from "lodash/isArray";
 
 import { Option } from "./types";
 
