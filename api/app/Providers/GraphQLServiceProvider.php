@@ -12,11 +12,19 @@ use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\DirectiveForms\ContractAuthority;
 use App\Enums\DirectiveForms\ContractCommodity;
+use App\Enums\DirectiveForms\ContractingRationale;
 use App\Enums\DirectiveForms\ContractInstrument;
 use App\Enums\DirectiveForms\ContractSolicitationProcedure;
 use App\Enums\DirectiveForms\ContractStartTimeframe;
 use App\Enums\DirectiveForms\ContractSupplyMethod;
 use App\Enums\DirectiveForms\ContractValueRange;
+use App\Enums\DirectiveForms\OperationsConsideration;
+use App\Enums\DirectiveForms\PersonnelLanguage;
+use App\Enums\DirectiveForms\PersonnelOtherRequirement;
+use App\Enums\DirectiveForms\PersonnelScreeningLevel;
+use App\Enums\DirectiveForms\PersonnelSkillExpertiseLevel;
+use App\Enums\DirectiveForms\PersonnelTeleworkOption;
+use App\Enums\DirectiveForms\PersonnelWorkLocation;
 use App\Enums\DirectiveForms\YesNo;
 use App\Enums\DirectiveForms\YesNoUnsure;
 use App\Enums\EducationRequirementOption;
@@ -446,6 +454,78 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'ContractSolicitationProcedure',
                     'values' => array_column(ContractSolicitationProcedure::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PersonnelScreeningLevel',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PersonnelScreeningLevel',
+                    'values' => array_column(PersonnelScreeningLevel::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PersonnelLanguage',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PersonnelLanguage',
+                    'values' => array_column(PersonnelLanguage::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PersonnelWorkLocation',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PersonnelWorkLocation',
+                    'values' => array_column(PersonnelWorkLocation::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PersonnelOtherRequirement',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PersonnelOtherRequirement',
+                    'values' => array_column(PersonnelOtherRequirement::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PersonnelSkillExpertiseLevel',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PersonnelSkillExpertiseLevel',
+                    'values' => array_column(PersonnelSkillExpertiseLevel::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PersonnelTeleworkOption',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PersonnelTeleworkOption',
+                    'values' => array_column(PersonnelTeleworkOption::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'OperationsConsideration',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'OperationsConsideration',
+                    'values' => array_column(OperationsConsideration::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'ContractingRationale',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'ContractingRationale',
+                    'values' => array_column(ContractingRationale::cases(), 'name'),
                 ]);
             }
         );

@@ -4,11 +4,16 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\DirectiveForms\ContractAuthority;
 use App\Enums\DirectiveForms\ContractCommodity;
+use App\Enums\DirectiveForms\ContractingRationale;
 use App\Enums\DirectiveForms\ContractSupplyMethod;
+use App\Enums\DirectiveForms\OperationsConsideration;
+use App\Enums\DirectiveForms\PersonnelLanguage;
+use App\Enums\DirectiveForms\PersonnelOtherRequirement;
+use App\Enums\DirectiveForms\PersonnelScreeningLevel;
+use App\Enums\DirectiveForms\PersonnelWorkLocation;
 use App\Enums\DirectiveForms\YesNoUnsure;
 use App\Rules\ArrayConsistentWithDetail;
 use App\Rules\ScalarConsistentWithDetail;
-use Database\Helpers\DirectiveFormsApiEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -40,30 +45,30 @@ final class DigitalContractingQuestionnaireInput extends Validator
                 new ScalarConsistentWithDetail(ContractSupplyMethod::OTHER->name, 'methodOfSupplyOther'),
             ],
             'requirementScreeningLevels' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, 'requirementScreeningLevelOther'),
+                new ArrayConsistentWithDetail(PersonnelScreeningLevel::OTHER->name, 'requirementScreeningLevelOther'),
             ],
             'requirementWorkLanguages' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, 'requirementWorkLanguageOther'),
+                new ArrayConsistentWithDetail(PersonnelLanguage::OTHER->name, 'requirementWorkLanguageOther'),
             ],
             'requirementWorkLocations' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_OFFSITE_SPECIFIC, 'requirementWorkLocationSpecific'),
+                new ArrayConsistentWithDetail(PersonnelWorkLocation::OFFSITE_SPECIFIC->name, 'requirementWorkLocationSpecific'),
             ],
             'requirementOthers' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_OTHER_REQUIREMENT_OTHER, 'requirementOtherOther'),
+                new ArrayConsistentWithDetail(PersonnelOtherRequirement::OTHER->name, 'requirementOtherOther'),
             ],
             'personnelRequirements' => [
                 'requiredIf:hasPersonnelRequirements,'.YesNoUnsure::YES->name,
                 'prohibited_unless:hasPersonnelRequirements,'.YesNoUnsure::YES->name,
             ],
             'operationsConsiderations' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::OPERATIONS_CONSIDERATION_OTHER, 'operationsConsiderationsOther'),
+                new ArrayConsistentWithDetail(OperationsConsideration::OTHER->name, 'operationsConsiderationsOther'),
             ],
             'contractingRationalePrimary' => [
                 Rule::notIn($this->arg('contractingRationalesSecondary')),
-                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, 'contractingRationalePrimaryOther'),
+                new ScalarConsistentWithDetail(ContractingRationale::OTHER->name, 'contractingRationalePrimaryOther'),
             ],
             'contractingRationalesSecondary' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, 'contractingRationalesSecondaryOther'),
+                new ArrayConsistentWithDetail(ContractingRationale::OTHER->name, 'contractingRationalesSecondaryOther'),
             ],
             'talentSearchTrackingNumber' => ['requiredIf:ocioConfirmedTalentShortage,'.YesNoUnsure::YES->name],
         ];

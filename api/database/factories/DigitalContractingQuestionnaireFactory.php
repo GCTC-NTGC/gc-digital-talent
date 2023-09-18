@@ -4,17 +4,22 @@ namespace Database\Factories;
 
 use App\Enums\DirectiveForms\ContractAuthority;
 use App\Enums\DirectiveForms\ContractCommodity;
+use App\Enums\DirectiveForms\ContractingRationale;
 use App\Enums\DirectiveForms\ContractInstrument;
 use App\Enums\DirectiveForms\ContractSolicitationProcedure;
 use App\Enums\DirectiveForms\ContractStartTimeframe;
 use App\Enums\DirectiveForms\ContractSupplyMethod;
 use App\Enums\DirectiveForms\ContractValueRange;
+use App\Enums\DirectiveForms\OperationsConsideration;
+use App\Enums\DirectiveForms\PersonnelLanguage;
+use App\Enums\DirectiveForms\PersonnelOtherRequirement;
+use App\Enums\DirectiveForms\PersonnelScreeningLevel;
+use App\Enums\DirectiveForms\PersonnelWorkLocation;
 use App\Enums\DirectiveForms\YesNo;
 use App\Enums\DirectiveForms\YesNoUnsure;
 use App\Models\Department;
 use App\Models\DigitalContractingPersonnelRequirement;
 use App\Models\DigitalContractingQuestionnaire;
-use Database\Helpers\DirectiveFormsApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -87,32 +92,32 @@ class DigitalContractingQuestionnaireFactory extends Factory
             'qualification_requirement' => $this->faker->paragraph(),
             'requirement_access_to_secure' => $this->faker->randomElement(YesNoUnsure::cases())->name,
             'requirement_screening_levels' => $this->faker->randomElements(
-                DirectiveFormsApiEnums::personnelScreeningLevels(),
-                $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::personnelScreeningLevels()))
+                array_column(PersonnelScreeningLevel::cases(), 'name'),
+                $this->faker->numberBetween(1, count(PersonnelScreeningLevel::cases()))
             ),
             'requirement_screening_level_other' => function (array $attributes) {
-                return in_array(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, $attributes['requirement_screening_levels']) ? $this->faker->word() : null;
+                return in_array(PersonnelScreeningLevel::OTHER->name, $attributes['requirement_screening_levels']) ? $this->faker->word() : null;
             },
             'requirement_work_languages' => $this->faker->randomElements(
-                DirectiveFormsApiEnums::personnelLanguages(),
-                $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::personnelLanguages()))
+                array_column(PersonnelLanguage::cases(), 'name'),
+                $this->faker->numberBetween(1, count(PersonnelLanguage::cases()))
             ),
             'requirement_work_language_other' => function (array $attributes) {
-                return in_array(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, $attributes['requirement_work_languages']) ? $this->faker->word() : null;
+                return in_array(PersonnelLanguage::OTHER->name, $attributes['requirement_work_languages']) ? $this->faker->word() : null;
             },
             'requirement_work_locations' => $this->faker->randomElements(
-                DirectiveFormsApiEnums::personnelWorkLocations(),
-                $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::personnelWorkLocations()))
+                array_column(PersonnelWorkLocation::cases(), 'name'),
+                $this->faker->numberBetween(1, count(PersonnelWorkLocation::cases()))
             ),
             'requirement_work_location_specific' => function (array $attributes) {
-                return in_array(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_OFFSITE_SPECIFIC, $attributes['requirement_work_locations']) ? $this->faker->word() : null;
+                return in_array(PersonnelWorkLocation::OFFSITE_SPECIFIC->name, $attributes['requirement_work_locations']) ? $this->faker->word() : null;
             },
             'requirement_others' => $this->faker->randomElements(
-                DirectiveFormsApiEnums::personnelOtherRequirements(),
-                $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::personnelOtherRequirements()))
+                array_column(PersonnelOtherRequirement::cases(), 'name'),
+                $this->faker->numberBetween(1, count(PersonnelOtherRequirement::cases()))
             ),
             'requirement_other_other' => function (array $attributes) {
-                return in_array(DirectiveFormsApiEnums::PERSONNEL_OTHER_REQUIREMENT_OTHER, $attributes['requirement_others']) ? $this->faker->word() : null;
+                return in_array(PersonnelOtherRequirement::OTHER->name, $attributes['requirement_others']) ? $this->faker->word() : null;
             },
             'has_personnel_requirements' => $this->faker->randomElement(YesNo::cases())->name,
             // personnel_requirements added in configure method
@@ -121,24 +126,24 @@ class DigitalContractingQuestionnaireFactory extends Factory
             'has_immediate_impact_on_other_departments' => $this->faker->randomElement(YesNo::cases())->name,
             'has_future_impact_on_other_departments' => $this->faker->randomElement(YesNo::cases())->name,
             'operations_considerations' => $this->faker->randomElements(
-                DirectiveFormsApiEnums::operationsConsiderations(),
-                $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::operationsConsiderations()))
+                array_column(OperationsConsideration::cases(), 'name'),
+                $this->faker->numberBetween(1, count(OperationsConsideration::cases()))
             ),
             'operations_considerations_other' => function (array $attributes) {
-                return in_array(DirectiveFormsApiEnums::OPERATIONS_CONSIDERATION_OTHER, $attributes['operations_considerations']) ? $this->faker->word() : null;
+                return in_array(OperationsConsideration::OTHER->name, $attributes['operations_considerations']) ? $this->faker->word() : null;
             },
             'contracting_rationale_primary' => $this->faker->randomElement(
-                DirectiveFormsApiEnums::contractingRationales()
-            ),
+                ContractingRationale::cases()
+            )->name,
             'contracting_rationale_primary_other' => function (array $attributes) {
-                return $attributes['contracting_rationale_primary'] == DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER ? $this->faker->word() : null;
+                return $attributes['contracting_rationale_primary'] == ContractingRationale::OTHER->name ? $this->faker->word() : null;
             },
             'contracting_rationales_secondary' => $this->faker->randomElements(
-                DirectiveFormsApiEnums::contractingRationales(),
-                $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::contractingRationales()))
+                array_column(ContractingRationale::cases(), 'name'),
+                $this->faker->numberBetween(1, count(ContractingRationale::cases()))
             ),
             'contracting_rationales_secondary_other' => function (array $attributes) {
-                return in_array(DirectiveFormsApiEnums::CONTRACTING_RATIONALE_OTHER, $attributes['contracting_rationales_secondary']) ? $this->faker->word() : null;
+                return in_array(ContractingRationale::OTHER->name, $attributes['contracting_rationales_secondary']) ? $this->faker->word() : null;
             },
             'ocio_confirmed_talent_shortage' => $this->faker->randomElement(
                 YesNo::cases()
