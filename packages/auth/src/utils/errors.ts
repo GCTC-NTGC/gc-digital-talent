@@ -2,7 +2,7 @@
 import { CombinedError } from "urql";
 
 /**
- * Contains auth error
+ * Contains user deleted error
  *
  * Determine if one of the errors we received
  * is related to the user being deleted
@@ -12,7 +12,7 @@ export const containsUserDeletedError = (
 ) => {
   return combinedError?.graphQLErrors.some((graphQLError) => {
     return Object.values(graphQLError.extensions).some((extension) => {
-      return ["user_deleted"].includes(String(extension));
+      return typeof extension === "string" && extension === "user_deleted";
     });
   });
 };
