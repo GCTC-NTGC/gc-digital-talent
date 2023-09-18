@@ -1,11 +1,11 @@
 <?php
 
+use App\Enums\PoolCandidateStatus;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestionResponse;
 use App\Models\Team;
 use App\Models\User;
-use App\Enums\PoolCandidateStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;

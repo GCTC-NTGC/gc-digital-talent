@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Enums\CandidateExpiryFilter;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use App\Enums\CandidateExpiryFilter;
 use Illuminate\Database\Eloquent\Builder;
 
 final class CountPoolCandidatesByPool

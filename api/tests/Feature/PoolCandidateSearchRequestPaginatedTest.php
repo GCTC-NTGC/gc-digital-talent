@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Enums\PoolCandidateSearchStatus;
+use App\Enums\PoolStream;
 use App\Models\ApplicantFilter;
 use App\Models\Classification;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
-use App\Enums\PoolCandidateSearchStatus;
-use App\Enums\PoolStream;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;

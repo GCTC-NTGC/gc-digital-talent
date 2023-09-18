@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
+use App\Enums\OperationalRequirement;
+use App\Enums\PoolLanguage;
+use App\Enums\PoolStream;
+use App\Enums\PublishingGroup;
+use App\Enums\SecurityStatus;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
-use App\Enums\OperationalRequirement;
-use App\Enums\PoolLanguage;
-use App\Enums\PoolStream;
-use App\Enums\PublishingGroup;
-use App\Enums\SecurityStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

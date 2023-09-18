@@ -2,9 +2,9 @@
 
 namespace App\Rules;
 
+use App\Enums\PoolLanguage;
 use App\Models\Pool;
 use App\Models\User;
-use App\Enums\PoolLanguage;
 use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\Rule;
 

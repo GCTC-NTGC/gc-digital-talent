@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Enums\PoolCandidateSearchPositionType;
+use App\Enums\PoolCandidateSearchStatus;
 use App\Models\ApplicantFilter;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
-use App\Enums\PoolCandidateSearchPositionType;
-use App\Enums\PoolCandidateSearchStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PoolCandidateSearchRequestFactory extends Factory

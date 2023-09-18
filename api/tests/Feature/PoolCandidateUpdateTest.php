@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\EducationRequirementOption;
+use App\Enums\PoolCandidateStatus;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
 use App\Models\Pool;
@@ -8,8 +10,6 @@ use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use App\Notifications\PoolCandidateStatusChanged;
-use App\Enums\EducationRequirementOption;
-use App\Enums\PoolCandidateStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;

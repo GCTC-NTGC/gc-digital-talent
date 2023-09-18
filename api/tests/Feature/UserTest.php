@@ -1,5 +1,12 @@
 <?php
 
+use App\Enums\CandidateExpiryFilter;
+use App\Enums\IndigenousCommunity;
+use App\Enums\LanguageAbility;
+use App\Enums\OperationalRequirement;
+use App\Enums\PoolCandidateStatus;
+use App\Enums\PositionDuration;
+use App\Enums\WorkRegion;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
@@ -12,13 +19,6 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
-use App\Enums\CandidateExpiryFilter;
-use App\Enums\IndigenousCommunity;
-use App\Enums\LanguageAbility;
-use App\Enums\OperationalRequirement;
-use App\Enums\PoolCandidateStatus;
-use App\Enums\PositionDuration;
-use App\Enums\WorkRegion;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;

@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\PoolCandidate;
 use App\Enums\PoolCandidateStatus;
+use App\Models\PoolCandidate;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 

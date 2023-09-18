@@ -2,15 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\AwardExperience;
-use App\Models\Classification;
-use App\Models\CommunityExperience;
-use App\Models\Department;
-use App\Models\EducationExperience;
-use App\Models\PersonalExperience;
-use App\Models\Skill;
-use App\Models\User;
-use App\Models\WorkExperience;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\BilingualEvaluation;
 use App\Enums\CitizenshipStatus;
@@ -22,6 +13,15 @@ use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
+use App\Models\AwardExperience;
+use App\Models\Classification;
+use App\Models\CommunityExperience;
+use App\Models\Department;
+use App\Models\EducationExperience;
+use App\Models\PersonalExperience;
+use App\Models\Skill;
+use App\Models\User;
+use App\Models\WorkExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory

@@ -15,4 +15,3 @@ enum ContractValueRange
     case FROM_15M_TO_25M;
     case GREATER_THAN_25M;
 }
-

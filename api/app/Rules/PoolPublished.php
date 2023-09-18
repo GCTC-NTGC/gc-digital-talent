@@ -2,8 +2,8 @@
 
 namespace App\Rules;
 
-use App\Models\Pool;
 use App\Enums\PoolStatus;
+use App\Models\Pool;
 use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\Rule;
 

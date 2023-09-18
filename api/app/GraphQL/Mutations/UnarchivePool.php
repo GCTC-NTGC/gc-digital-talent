@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Models\Pool;
 use App\Enums\PoolStatus;
+use App\Models\Pool;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 final class UnarchivePool

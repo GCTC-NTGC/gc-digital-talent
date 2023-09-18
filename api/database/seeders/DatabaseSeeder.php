@@ -2,6 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Enums\EducationRequirementOption;
+use App\Enums\PoolStream;
+use App\Enums\PublishingGroup;
+use App\Enums\SkillLevel;
+use App\Enums\WhenSkillUsed;
 use App\Models\ApplicantFilter;
 use App\Models\AwardExperience;
 use App\Models\Classification;
@@ -18,11 +23,6 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
-use App\Enums\EducationRequirementOption;
-use App\Enums\PoolStream;
-use App\Enums\PublishingGroup;
-use App\Enums\SkillLevel;
-use App\Enums\WhenSkillUsed;
 use Carbon\Carbon;
 use Faker;
 use Illuminate\Database\Seeder;

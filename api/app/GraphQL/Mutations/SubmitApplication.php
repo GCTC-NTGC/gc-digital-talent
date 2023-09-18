@@ -2,10 +2,10 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
-use App\Models\PoolCandidate;
 use App\Enums\ApplicationStep;
 use App\Enums\PoolCandidateStatus;
+use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
+use App\Models\PoolCandidate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;

@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Enums\ApplicationStep;
+use App\Enums\EducationRequirementOption;
+use App\Enums\PoolCandidateStatus;
 use App\Models\EducationExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestionResponse;
 use App\Models\User;
 use App\Models\WorkExperience;
-use App\Enums\ApplicationStep;
-use App\Enums\EducationRequirementOption;
-use App\Enums\PoolCandidateStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 

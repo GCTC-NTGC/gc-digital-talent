@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Enums\GenericJobTitleKey;
 use App\Models\Classification;
 use App\Models\GenericJobTitle;
-use App\Enums\GenericJobTitleKey;
 use Illuminate\Database\Seeder;
 
 class GenericJobTitleSeeder extends Seeder

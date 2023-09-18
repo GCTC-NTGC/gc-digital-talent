@@ -1,12 +1,12 @@
 <?php
 
+use App\Enums\SkillLevel;
+use App\Enums\WhenSkillUsed;
 use App\Models\ExperienceSkill;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
-use App\Enums\SkillLevel;
-use App\Enums\WhenSkillUsed;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;

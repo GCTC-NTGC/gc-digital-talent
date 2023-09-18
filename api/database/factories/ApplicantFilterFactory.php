@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\ApplicantFilter;
-use App\Models\Classification;
-use App\Models\Pool;
-use App\Models\Skill;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
 use App\Enums\WorkRegion;
+use App\Models\ApplicantFilter;
+use App\Models\Classification;
+use App\Models\Pool;
+use App\Models\Skill;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicantFilterFactory extends Factory

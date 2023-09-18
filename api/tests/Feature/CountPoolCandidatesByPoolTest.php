@@ -2,17 +2,17 @@
 
 namespace Tests\Feature;
 
-use App\Models\AwardExperience;
-use App\Models\Pool;
-use App\Models\PoolCandidate;
-use App\Models\Skill;
-use App\Models\User;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
 use App\Enums\WorkRegion;
+use App\Models\AwardExperience;
+use App\Models\Pool;
+use App\Models\PoolCandidate;
+use App\Models\Skill;
+use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;

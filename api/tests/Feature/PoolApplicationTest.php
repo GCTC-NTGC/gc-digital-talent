@@ -1,5 +1,9 @@
 <?php
 
+use App\Enums\ArmedForcesStatus;
+use App\Enums\EducationRequirementOption;
+use App\Enums\PoolCandidateStatus;
+use App\Enums\PoolLanguage;
 use App\Models\AwardExperience;
 use App\Models\EducationExperience;
 use App\Models\Pool;
@@ -9,10 +13,6 @@ use App\Models\ScreeningQuestionResponse;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
-use App\Enums\ArmedForcesStatus;
-use App\Enums\EducationRequirementOption;
-use App\Enums\PoolCandidateStatus;
-use App\Enums\PoolLanguage;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\SkillFamilySeeder;

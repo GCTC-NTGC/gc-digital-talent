@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Skill;
 use App\Enums\SkillCategory;
+use App\Models\Skill;
 use Database\Helpers\KeyStringHelpers;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

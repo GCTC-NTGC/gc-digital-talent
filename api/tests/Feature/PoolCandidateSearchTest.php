@@ -1,14 +1,14 @@
 <?php
 
-use App\Models\Pool;
-use App\Models\PoolCandidate;
-use App\Models\Team;
-use App\Models\User;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\PoolCandidateStatus;
+use App\Models\Pool;
+use App\Models\PoolCandidate;
+use App\Models\Team;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
