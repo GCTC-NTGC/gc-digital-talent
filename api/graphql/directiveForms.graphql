@@ -274,6 +274,92 @@ input DigitalContractingQuestionnaireInput
   ocioEngagedForTraining: YesNo @rename(attribute: "ocio_engaged_for_training")
 }
 
+type DepartmentSpecificRecruitmentProcessPosition {
+  id: UUID!
+  classificationGroup: String @rename(attribute: "classification_group")
+  classificationLevel: String @rename(attribute: "classification_level")
+  jobTitle: String @rename(attribute: "job_title")
+  employmentTypes: [PositionEmploymentType!]
+    @rename(attribute: "employment_types")
+  employmentTypesOther: String @rename(attribute: "employment_types_other")
+}
+
+type DepartmentSpecificRecruitmentProcessForm {
+  id: UUID!
+  department: Department @belongsTo
+  departmentOther: String @rename(attribute: "department_other")
+  recruitmentProcessLeadName: String
+    @rename(attribute: "recruitment_process_lead_name")
+  recruitmentProcessLeadJobTitle: String
+    @rename(attribute: "recruitment_process_lead_job_title")
+  recruitmentProcessLeadEmail: String
+    @rename(attribute: "recruitment_process_lead_email")
+  postingDate: Date @rename(attribute: "posting_date")
+  positions: [DepartmentSpecificRecruitmentProcessPosition!] @hasMany
+  advertisementType: AdvertisementType @rename(attribute: "advertisement_type")
+  advertisingPlatforms: [AdvertisingPlatform!]
+    @rename(attribute: "advertising_platforms")
+  advertisingPlatformsOther: String
+    @rename(attribute: "advertising_platforms_other")
+  jobAdvertisementLink: String @rename(attribute: "job_advertisement_link")
+}
+
+input CreateDepartmentSpecificRecruitmentProcessPositionInput
+  @validator(
+    class: "App\\GraphQL\\Validators\\DepartmentSpecificRecruitmentProcessPositionInput"
+  ) {
+  classificationGroup: String @rename(attribute: "classification_group")
+  classificationLevel: String @rename(attribute: "classification_level")
+  jobTitle: String @rename(attribute: "job_title")
+  employmentTypes: [PositionEmploymentType!]
+    @rename(attribute: "employment_types")
+  employmentTypesOther: String @rename(attribute: "employment_types_other")
+}
+
+input UpdateDepartmentSpecificRecruitmentProcessPositionInput
+  @validator(
+    class: "App\\GraphQL\\Validators\\DepartmentSpecificRecruitmentProcessPositionInput"
+  ) {
+  id: UUID!
+  classificationGroup: String @rename(attribute: "classification_group")
+  classificationLevel: String @rename(attribute: "classification_level")
+  jobTitle: String @rename(attribute: "job_title")
+  employmentTypes: [PositionEmploymentType!]
+    @rename(attribute: "employment_types")
+  employmentTypesOther: String @rename(attribute: "employment_types_other")
+}
+
+input DepartmentSpecificRecruitmentProcessPositionBelongsToMany
+  @validator(
+    class: "App\\GraphQL\\Validators\\DepartmentSpecificRecruitmentProcessPositionBelongsToMany"
+  ) {
+  create: [CreateDepartmentSpecificRecruitmentProcessPositionInput!]
+  update: [UpdateDepartmentSpecificRecruitmentProcessPositionInput!]
+  delete: [UUID!]
+}
+
+input DepartmentSpecificRecruitmentProcessFormInput
+  @validator(
+    class: "App\\GraphQL\\Validators\\DepartmentSpecificRecruitmentProcessFormInput"
+  ) {
+  department: DepartmentBelongsTo @belongsTo
+  departmentOther: String @rename(attribute: "department_other")
+  recruitmentProcessLeadName: String
+    @rename(attribute: "recruitment_process_lead_name")
+  recruitmentProcessLeadJobTitle: String
+    @rename(attribute: "recruitment_process_lead_job_title")
+  recruitmentProcessLeadEmail: String
+    @rename(attribute: "recruitment_process_lead_email")
+  postingDate: Date @rename(attribute: "posting_date")
+  positions: DepartmentSpecificRecruitmentProcessPositionBelongsToMany
+  advertisementType: AdvertisementType @rename(attribute: "advertisement_type")
+  advertisingPlatforms: [AdvertisingPlatform!]
+    @rename(attribute: "advertising_platforms")
+  advertisingPlatformsOther: String
+    @rename(attribute: "advertising_platforms_other")
+  jobAdvertisementLink: String @rename(attribute: "job_advertisement_link")
+}
+
 extend type Query {
   digitalContractingQuestionnaire(
     id: UUID! @eq
@@ -282,6 +368,16 @@ extend type Query {
     @guard
     @can(ability: "view", query: true)
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
+    @all
+    @guard
+    @can(ability: "viewAny")
+  departmentSpecificRecruitmentProcessForm(
+    id: UUID! @eq
+  ): DepartmentSpecificRecruitmentProcessForm
+    @find
+    @guard
+    @can(ability: "view", query: true)
+  departmentSpecificRecruitmentProcessForms: [DepartmentSpecificRecruitmentProcessForm!]!
     @all
     @guard
     @can(ability: "viewAny")
@@ -303,6 +399,28 @@ extend type Mutation {
   deleteDigitalContractingQuestionnaire(
     id: UUID!
   ): DigitalContractingQuestionnaire
+    @delete
+    @guard
+    @can(ability: "delete", find: "id")
+
+  createDepartmentSpecificRecruitmentProcessForm(
+    departmentSpecificRecruitmentProcessForm: DepartmentSpecificRecruitmentProcessFormInput!
+      @spread
+  ): DepartmentSpecificRecruitmentProcessForm
+    @create
+    @guard
+    @can(ability: "create")
+  updateDepartmentSpecificRecruitmentProcessForm(
+    id: UUID!
+    departmentSpecificRecruitmentProcessForm: DepartmentSpecificRecruitmentProcessFormInput!
+      @spread
+  ): DepartmentSpecificRecruitmentProcessForm
+    @update
+    @guard
+    @can(ability: "update", find: "id")
+  deleteDepartmentSpecificRecruitmentProcessForm(
+    id: UUID! @whereKey
+  ): DepartmentSpecificRecruitmentProcessForm
     @delete
     @guard
     @can(ability: "delete", find: "id")
