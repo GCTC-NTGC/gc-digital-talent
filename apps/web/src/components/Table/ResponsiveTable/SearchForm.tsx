@@ -136,10 +136,10 @@ const SearchForm = <T,>({
               >
                 {intl.formatMessage(
                   {
-                    defaultMessage: "Search {column}",
-                    id: "R1BcTP",
+                    defaultMessage: "Filter by {column}",
+                    id: "tuMmWm",
                     description:
-                      "Button text to search specific columns in table",
+                      "Button text to filter by specific columns in table",
                   },
                   {
                     column: column ? column.label : "",
@@ -178,20 +178,7 @@ const SearchForm = <T,>({
             data-h2-location="base(x.25, auto, x.25, x.25)"
             data-h2-display="base(flex)"
             data-h2-align-items="base(center)"
-          >
-            <span
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-              data-h2-flex-shrink="base(0)"
-              data-h2-padding="base(x.25)"
-            >
-              <MagnifyingGlassIcon
-                data-h2-height="base(1rem)"
-                data-h2-width="base(1rem)"
-                data-h2-color="base(gray)"
-              />
-            </span>
-          </div>
+          />
           <input
             name="search"
             id={id}
