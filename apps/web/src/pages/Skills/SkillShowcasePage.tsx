@@ -217,7 +217,7 @@ export const SkillShowcase = ({
                     description: "Description of a users top technical skills",
                   })}
                   editLink={{
-                    href: paths.topTechnicalSkills(), // TO DO: Update with proper path in #7388
+                    href: paths.topTechnicalSkills(),
                     label: intl.formatMessage({
                       defaultMessage: "Edit top technical skills",
                       id: "N6DlK/",
@@ -299,7 +299,7 @@ export const SkillShowcase = ({
                       "Description of a users technical skills to be improved",
                   })}
                   editLink={{
-                    href: paths.improveTechnicalSkills(), // TO DO: Update with proper path in #7388
+                    href: paths.improveTechnicalSkills(),
                     label: intl.formatMessage({
                       defaultMessage: "Edit technical skills to improve",
                       id: "Iw+DU/",
