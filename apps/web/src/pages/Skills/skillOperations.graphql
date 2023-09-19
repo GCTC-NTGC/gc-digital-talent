@@ -31,6 +31,8 @@ fragment skillFragment on Skill {
 fragment skillShowcaseFragment on UserSkill {
   id
   skillLevel
+  topSkillsRank
+  improveSkillsRank
   user {
     id
   }
@@ -39,6 +41,10 @@ fragment skillShowcaseFragment on UserSkill {
     key
     category
     name {
+      en
+      fr
+    }
+    description {
       en
       fr
     }
@@ -154,6 +160,8 @@ query UserSkill($skillId: UUID!) {
       id
       whenSkillUsed
       skillLevel
+      topSkillsRank
+      improveSkillsRank
       user {
         id
       }
@@ -217,6 +225,8 @@ query UserSkills {
       id
       whenSkillUsed
       skillLevel
+      topSkillsRank
+      improveSkillsRank
       user {
         id
       }
@@ -284,17 +294,69 @@ mutation CreateUserSkill(
 ) {
   createUserSkill(userId: $userId, skillId: $skillId, userSkill: $userSkill) {
     id
+    skillLevel
+    skill {
+      id
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
   }
 }
 
 mutation UpdateUserSkill($id: UUID!, $userSkill: UpdateUserSkillInput) {
   updateUserSkill(id: $id, userSkill: $userSkill) {
     id
+    skillLevel
+    skill {
+      id
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
   }
 }
 
 mutation DeleteUserSkill($id: UUID!) {
   deleteUserSkill(id: $id) {
     id
+  }
+}
+
+mutation updateUserSkillRankings(
+  $userId: UUID!
+  $userSkillRanking: UpdateUserSkillRankingsInput!
+) {
+  updateUserSkillRankings(
+    userId: $userId
+    userSkillRanking: $userSkillRanking
+  ) {
+    id
+    topTechnicalSkillsRanking {
+      id
+      topSkillsRank
+    }
+    topBehaviouralSkillsRanking {
+      id
+      topSkillsRank
+    }
+    improveTechnicalSkillsRanking {
+      id
+      improveSkillsRank
+    }
+    improveBehaviouralSkillsRanking {
+      id
+      improveSkillsRank
+    }
   }
 }
