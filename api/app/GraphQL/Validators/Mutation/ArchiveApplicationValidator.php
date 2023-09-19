@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
-use Database\Helpers\ApiEnums;
+use App\Enums\PoolCandidateStatus;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -18,12 +18,12 @@ final class ArchiveApplicationValidator extends Validator
         return [
             // application status check, must be one of these to be archived see issue #3660
             'pool_candidate_status' => [Rule::in([
-                ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_APPLICATION,
-                ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_ASSESSMENT,
-                ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_NOT_INTERESTED,
-                ApiEnums::CANDIDATE_STATUS_SCREENED_OUT_NOT_RESPONSIVE,
-                ApiEnums::CANDIDATE_STATUS_EXPIRED,
-                ApiEnums::CANDIDATE_STATUS_REMOVED,
+                PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
+                PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
+                PoolCandidateStatus::EXPIRED->name,
+                PoolCandidateStatus::REMOVED->name,
             ])],
             'archived_at' => ['prohibited', 'nullable'],
         ];

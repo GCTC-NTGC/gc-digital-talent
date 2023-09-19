@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateSuspendedFilter;
+use App\Enums\PoolCandidateStatus;
+use App\Enums\PublishingGroup;
 use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -171,7 +174,7 @@ class PoolCandidate extends Model
         $query->where(function ($query) {
             $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
         })
-            ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
+            ->whereIn('pool_candidates.pool_candidate_status', [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name]) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
@@ -199,7 +202,7 @@ class PoolCandidate extends Model
         $query->where(function ($query) {
             $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
         })
-            ->whereIn('pool_candidates.pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) // Where the PoolCandidate is accepted into the pool and not already placed.
+            ->whereIn('pool_candidates.pool_candidate_status', [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name]) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
@@ -254,8 +257,8 @@ class PoolCandidate extends Model
     public static function scopeInITPublishingGroup(Builder $query)
     {
         $query = self::scopePublishingGroups($query, [
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS,
+            PublishingGroup::IT_JOBS_ONGOING->name,
+            PublishingGroup::IT_JOBS->name,
         ]);
 
         return $query;
@@ -404,7 +407,7 @@ class PoolCandidate extends Model
 
     public static function scopeAvailable(Builder $query): Builder
     {
-        $query->whereIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL])
+        $query->whereIn('pool_candidate_status', [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name])
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
@@ -428,13 +431,13 @@ class PoolCandidate extends Model
 
     public static function scopeExpiryStatus(Builder $query, ?string $expiryStatus)
     {
-        $expiryStatus = isset($expiryStatus) ? $expiryStatus : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
-        if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+        $expiryStatus = isset($expiryStatus) ? $expiryStatus : CandidateExpiryFilter::ACTIVE->name;
+        if ($expiryStatus == CandidateExpiryFilter::ACTIVE->name) {
             $query->where(function ($query) {
                 $query->whereDate('expiry_date', '>=', date('Y-m-d'))
                     ->orWhereNull('expiry_date');
             });
-        } elseif ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+        } elseif ($expiryStatus == CandidateExpiryFilter::EXPIRED->name) {
             $query->whereDate('expiry_date', '<', date('Y-m-d'));
         }
 
@@ -443,13 +446,13 @@ class PoolCandidate extends Model
 
     public static function scopeSuspendedStatus(Builder $query, ?string $suspendedStatus)
     {
-        $suspendedStatus = isset($suspendedStatus) ? $suspendedStatus : ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE;
-        if ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
+        $suspendedStatus = isset($suspendedStatus) ? $suspendedStatus : CandidateSuspendedFilter::ACTIVE->name;
+        if ($suspendedStatus == CandidateSuspendedFilter::ACTIVE->name) {
             $query->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
             });
-        } elseif ($suspendedStatus == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
+        } elseif ($suspendedStatus == CandidateSuspendedFilter::SUSPENDED->name) {
             $query->where('suspended_at', '<', Carbon::now());
         }
 

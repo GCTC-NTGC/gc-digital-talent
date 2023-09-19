@@ -30,3 +30,20 @@ DigitalContractingPersonnelRequirement "1" o-- "0..*" DigitalContractingPersonne
 
 DigitalContractingPersonnelSkill "0..*" --> "1" Skill
 ```
+
+## DepartmentSpecificRecruitmentProcessForm
+
+The second form is the Department Specific Recruitment Process Form. It primarily consists of data in the DepartmentSpecificRecruitmentProcessForm entity but could have multiple positions.
+
+```mermaid
+classDiagram
+
+class DepartmentSpecificRecruitmentProcessForm { }
+
+class DepartmentSpecificRecruitmentProcessPosition {
+    string JobTitle
+ }
+
+DepartmentSpecificRecruitmentProcessForm "1" o-- "1..*" DepartmentSpecificRecruitmentProcessPosition
+DepartmentSpecificRecruitmentProcessForm "0..*" --> "1" Department
+```

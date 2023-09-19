@@ -616,6 +616,10 @@
     "defaultMessage": "Je ne suis <strong>pas disponible</strong> et je ne veux pas que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for not available for opportunities option"
   },
+  "1pCzp1": {
+    "defaultMessage": "Utilisez les filtres pour préciser vos exigences. Nous vous montrerons un nombre estimatif de candidats qui répondent à vos critères, au fur et à mesure que vous entrez votre information. Veuillez sélectionner « <strong>Demande de candidats</strong> ». Vous verrez alors apparaître un formulaire à partir duquel vous pourriez fournir vos coordonnées et soumettre votre demande.",
+    "description": "Content displayed in the How To area of the hero section of the Search page."
+  },
   "1pFMSH": {
     "defaultMessage": "Remplir la Formulaire d’autodéclaration à l’intention des peuples autochtones",
     "description": "How it works, step 1 heading"
@@ -1735,6 +1739,10 @@
     "defaultMessage": "Ce formulaire vous permet de modifier une expérience en particulier, ses détails et les compétences qui s’y rattachent. N’oubliez pas que dans vos expériences de travail, vous devez décrire vos expériences de travail à temps partiel, de travail à temps plein, de travailleur autonome, de travail en tant que boursier, de travail au sein d’un organisme sans but lucratif ou de stagiaire.",
     "description": "Instructions on how to add an experience to your career timeline"
   },
+  "9Jkoms": {
+    "defaultMessage": "Trouver du talent numérique",
+    "description": "Title displayed on hero for Search and Request pages."
+  },
   "9LyLWf": {
     "defaultMessage": "la conformité avec les Règles d’accessibilité pour les outils d’édition <atagLink>(ATAG) 2.0</atagLink>",
     "description": "List item two, things developers consider for accessibility"
@@ -1919,10 +1927,6 @@
     "defaultMessage": "L’heure de clôture sera automatiquement fixée à 23 h 59 dans le fuseau horaire du Pacifique.",
     "description": "Helper message for changing the pool closing date"
   },
-  "AaoxNX": {
-    "defaultMessage": "Utilisez les filtres ci-dessous pour préciser vos besoins d’embauche. En tout temps, vous pouvez consulter les résultats situés en bas de cette page pour voir combien de candidats correspondent aux exigences que vous avez entrées. Lorsque vous êtes satisfait des filtres que vous avez sélectionnés, cliquez sur le bouton Demander des candidats pour ajouter des renseignements et soumettre un formulaire de demande.",
-    "description": "Content displayed in the How To area of the hero section of the Search page."
-  },
   "AauSuA": {
     "defaultMessage": "S.O.",
     "description": "Not available message."
@@ -2071,10 +2075,6 @@
     "defaultMessage": "Courriel",
     "description": "Title displayed for the Pool Candidates table Email column."
   },
-  "BVwsnS": {
-    "defaultMessage": "Cette base de données sur les talents est ouverte à la plupart des ministères et organismes. Les candidats de la base de données varient, soit de ceux qui débutent leur carrière, aux professionnels chevronnés qui comptent plusieurs années d’expérience de travail. Il existe de multiples processus de recrutement en cours, ce qui veut donc dire qu’on ajoute de nouveaux candidats chaque semaine.",
-    "description": "Content displayed in the About area of the hero section of the Search page."
-  },
   "BYGKiT": {
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title of the 'Employment equity' section of the view-user page"
@@ -2134,10 +2134,6 @@
   "BruLeg": {
     "defaultMessage": "Erreur : échec de la création du compte.",
     "description": "Message displayed to user if account fails to get updated."
-  },
-  "BunlKD": {
-    "defaultMessage": "Rechercher dans la base de données des Talents numériques du GC",
-    "description": "Main heading displayed at the top of request page."
   },
   "BwEf/S": {
     "defaultMessage": "« Je ne suis pas membre d’un groupe autochtone mais j’aimerais bénéficier d’autres occasions »",
@@ -2598,6 +2594,10 @@
   "Eydy42": {
     "defaultMessage": "Mettre à jour l’utilisateur",
     "description": "Page title for the user edit page"
+  },
+  "F+LDbs": {
+    "defaultMessage": "Si vous êtes à la recherche du talent, vous avez frappé à la bonne porte. Notre base de données de talents est ouverte à la plupart des ministères et des agences. Veuillez remplir une demande pour trouver des candidats qualifiés. Les candidats sont évalués selon leurs compétences et regroupés en bassins pour répondre à vos besoins en matière de dotation.",
+    "description": "Content displayed in the find talent page explaining the page and what it offers to users."
   },
   "F+WFWB": {
     "defaultMessage": "Région",
@@ -7713,10 +7713,6 @@
     "defaultMessage": "Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
     "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
-  "nnMkp+": {
-    "defaultMessage": "Rechercher dans la base de données des Talents numériques du GC",
-    "description": "Title displayed in the hero section of the Search page."
-  },
   "nnRlUH": {
     "defaultMessage": "Modifier l’expérience",
     "description": "Breadcrumb link text for the application career timeline edit experience page"
@@ -8071,10 +8067,6 @@
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
-  },
-  "qnECBT": {
-    "defaultMessage": "À propos de la base de données des Talents numériques du GC",
-    "description": "Heading displayed in the About area of the hero section of the Search page."
   },
   "qrDCTV": {
     "defaultMessage": "Catégorie",
@@ -9202,6 +9194,10 @@
   "zMZQLY": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
     "description": "Description for editing an experience."
+  },
+  "zMuDSL": {
+    "defaultMessage": "Cherchez-vous à embaucher un talent numérique?",
+    "description": "Heading on find talent page posing question to users."
   },
   "zS2PN+": {
     "defaultMessage": "Toutes les catégories ({count})",
