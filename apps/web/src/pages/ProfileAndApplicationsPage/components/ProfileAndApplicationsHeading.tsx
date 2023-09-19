@@ -47,6 +47,7 @@ import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 
 import { PartialUser } from "../types";
+import { categorizeUserSkill } from "../../../utils/skillUtils";
 
 function buildLink(
   href: string,
@@ -103,15 +104,31 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const skillShowcaseUrl = paths.skillShowcase();
   const skillLibraryUrl = paths.skillLibrary();
 
-  const behaviouralSkillLibraryCount = 0;
-  const technicalSkillLibraryCount = 0;
+  const categorizedSkills = categorizeUserSkill(
+    user?.userSkills?.filter(notEmpty) ?? [],
+  );
+
+  const hasTopSkills =
+    user.topBehaviouralSkillsRanking?.length &&
+    user.topTechnicalSkillsRanking?.length;
+  const hasSkillsToImprove =
+    user.improveBehaviouralSkillsRanking?.length &&
+    user.improveTechnicalSkillsRanking?.length;
+
+  const behaviouralSkillLibraryCount =
+    categorizedSkills.BEHAVIOURAL?.length ?? 0;
+  const technicalSkillLibraryCount = categorizedSkills.TECHNICAL?.length ?? 0;
   // The completion states are determined by the following rules:
   //   The skill library items need to have at least 1 skill
   //   The showcase items need to have at least 1 skill added to each of the 4 showcases
-  const behaviouralSkillLibraryStatus = "success";
-  const technicalSkillLibraryStatus = "success";
-  const topSkillsStatus = "success";
-  const skillsToImproveStatus = "success";
+  const behaviouralSkillLibraryStatus = behaviouralSkillLibraryCount
+    ? "success"
+    : "error";
+  const technicalSkillLibraryStatus = technicalSkillLibraryCount
+    ? "success"
+    : "error";
+  const topSkillsStatus = hasTopSkills ? "success" : "error";
+  const skillsToImproveStatus = hasSkillsToImprove ? "success" : "error";
 
   return (
     <Hero
