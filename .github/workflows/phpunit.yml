@@ -29,6 +29,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Enable pgcrypto extension
+        run: |
+          PGPASSWORD=password1234 psql -U postgres -tc "CREATE EXTENSION 'pgcrypto';"
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
