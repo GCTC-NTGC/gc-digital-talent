@@ -153,6 +153,8 @@ const Pagination = ({
                   mode="inline"
                   color={color}
                   utilityIcon={ChevronDownIcon}
+                  data-h2-font-size="base(caption)"
+                  data-h2-font-weight="base(400)"
                 >
                   {intl.formatMessage(
                     {
