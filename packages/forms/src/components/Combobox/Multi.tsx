@@ -34,6 +34,7 @@ const Multi = ({
   isRequired = false,
 }: MultiProps) => {
   const intl = useIntl();
+  const [inputValue, setInputValue] = React.useState<string>("");
   const [available, setAvailable] = React.useState<Option[]>(options);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const items = isExternalSearch ? options : available;
@@ -48,6 +49,7 @@ const Multi = ({
         }),
       );
     }
+    setInputValue(query);
     if (onInputChange) {
       onInputChange(query);
     }
@@ -123,11 +125,11 @@ const Multi = ({
     getToggleButtonProps,
     highlightedIndex,
     getItemProps,
-    inputValue,
   } = useCombobox({
     items,
     itemToString,
     selectedItem: null,
+    inputValue,
     onStateChange({ type, selectedItem, inputValue: newInputValue }) {
       switch (type) {
         case useCombobox.stateChangeTypes.InputChange:
@@ -143,7 +145,7 @@ const Multi = ({
           } else {
             addSelectedItem(selectedItem);
           }
-          handleInputChanged();
+          // handleInputChanged();
           break;
         case useCombobox.stateChangeTypes.InputBlur:
           handleInputChanged();
