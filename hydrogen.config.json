@@ -182,14 +182,14 @@
             "modifiers": []
           },
           "dark": {
-            "color": "#4D5166",
+            "color": "#494D61",
             "modifiers": []
           }
         },
         {
           "key": "background",
           "default": {
-            "color": "#F9FBFF",
+            "color": "#F5F8FD",
             "modifiers": [
               {
                 "key": "dark",
@@ -198,21 +198,12 @@
               {
                 "key": "darker",
                 "color": "#909fbd"
-              },
-              {
-                "key": "darkest",
-                "color": "#333c4f"
               }
             ]
           },
           "dark": {
-            "color": "#212130",
-            "modifiers": [
-              {
-                "key": "dark",
-                "color": "#3b3b48"
-              }
-            ]
+            "color": "#2F313D",
+            "modifiers": []
           }
         },
         {

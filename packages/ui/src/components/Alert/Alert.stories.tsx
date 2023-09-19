@@ -26,31 +26,63 @@ const TemplateAlert: ComponentStory<typeof Alert.Root> = ({
   ...args
 }) => {
   return (
-    <div
-      data-h2-padding="base(x2)"
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-    >
-      {types.map((type) => (
-        <React.Fragment key={type}>
-          <Alert.Root {...args} type={type}>
-            <Alert.Title>
-              {type.charAt(0).toUpperCase() + type.slice(1)}
-            </Alert.Title>
-            <p>{children}</p>
-            {type === "error" && (
-              <Alert.Footer>
-                <p>
-                  <Link external href="/#">
-                    Reach out to our support team
-                  </Link>{" "}
-                  if you have any questions.
-                </p>
-              </Alert.Footer>
-            )}
-          </Alert.Root>
-        </React.Fragment>
-      ))}
+    <div>
+      <div data-h2="light">
+        <div
+          data-h2-display="base(grid)"
+          data-h2-grid-template-columns="base(1fr 1fr)"
+        >
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            {types.map((type) => (
+              <React.Fragment key={type}>
+                <Alert.Root {...args} type={type}>
+                  <Alert.Title>
+                    {type.charAt(0).toUpperCase() + type.slice(1)}
+                  </Alert.Title>
+                  <p>{children}</p>
+                  {type === "error" && (
+                    <Alert.Footer>
+                      <p data-h2-font-size="base(caption)">
+                        <Link external href="/#">
+                          Reach out to our support team
+                        </Link>{" "}
+                        if you have any questions.
+                      </p>
+                    </Alert.Footer>
+                  )}
+                </Alert.Root>
+              </React.Fragment>
+            ))}
+          </div>
+          <div data-h2="dark">
+            <div
+              data-h2-background="base(background)"
+              data-h2-padding="base(x2)"
+            >
+              {types.map((type) => (
+                <React.Fragment key={type}>
+                  <Alert.Root {...args} type={type}>
+                    <Alert.Title>
+                      {type.charAt(0).toUpperCase() + type.slice(1)}
+                    </Alert.Title>
+                    <p>{children}</p>
+                    {type === "error" && (
+                      <Alert.Footer>
+                        <p data-h2-font-size="base(caption)">
+                          <Link external href="/#">
+                            Reach out to our support team
+                          </Link>{" "}
+                          if you have any questions.
+                        </p>
+                      </Alert.Footer>
+                    )}
+                  </Alert.Root>
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

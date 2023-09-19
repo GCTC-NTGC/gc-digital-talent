@@ -132,8 +132,8 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
                 onClick={close}
               >
                 <XCircleIcon
-                  data-h2-width="base(1.5rem)"
-                  data-h2-height="base(1.5rem)"
+                  data-h2-width="base(x1)"
+                  data-h2-height="base(x1)"
                   strokeWidth="2px"
                 />
                 <span data-h2-visually-hidden="base(invisible)">
@@ -191,7 +191,7 @@ const Footer = ({ children }: AlertFooterProps) => (
     <Separator
       orientation="horizontal"
       data-h2-margin="base(x1, 0)"
-      data-h2-background-color="base(gray.lighter)"
+      data-h2-background-color="base(gray)"
     />
     {children}
   </>
