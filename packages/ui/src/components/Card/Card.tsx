@@ -6,10 +6,12 @@ type Color =
   | "tertiary"
   | "quaternary"
   | "quinary"
+  | "black"
   | "white";
 
 export interface CardProps {
   title: string;
+  subtitle?: string;
   color?: Color;
   bold?: boolean;
   children: React.ReactNode;
@@ -17,38 +19,44 @@ export interface CardProps {
 
 const colorMap = {
   primary: {
-    "data-h2-background-color":
-      "base:all(primary.light) base:dark:iap(primary)",
+    "data-h2-background-color": "base:all(primary.light) base:iap:all(primary)",
     "data-h2-color":
       "base:all(black) base:all:admin(white) base:all:iap(white)",
   },
   secondary: {
     "data-h2-background-color":
-      "base(secondary) base:dark:admin(secondary.lighter) base:dark:iap(secondary.light)",
+      "base(secondary) base:dark:admin(secondary.lighter) base:iap:dark(secondary.light)",
     "data-h2-color":
       "base:all(black) base:all:admin(white) base:all:iap(white)",
   },
   tertiary: {
-    "data-h2-background-color": "base(tertiary) base:dark:iap(tertiary.light)",
+    "data-h2-background-color":
+      "base:all(tertiary.light) base:iap(secondary) base:dark:iap(tertiary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   quaternary: {
     "data-h2-background-color":
-      "base(quaternary) base:dark:iap(quaternary.light)",
+      "base:all(quaternary.light) base:iap(secondary) base:dark:iap(quaternary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   quinary: {
     "data-h2-background-color": "base(quinary) base:dark:iap(quinary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
+  black: {
+    "data-h2-background-color":
+      "base(gray.darkest) base:dark(foreground.darker)",
+    "data-h2-color": "base(white)",
+  },
   white: {
-    "data-h2-background-color": "base(white)",
-    "data-h2-color": "base:all(black)",
+    "data-h2-background-color": "base(foreground)",
+    "data-h2-color": "base(black)",
   },
 };
 
 const Card = ({
   title,
+  subtitle,
   color = "primary",
   bold,
   children,
@@ -65,21 +73,25 @@ const Card = ({
       {...rest}
     >
       {title && (
-        <span
+        <div
           className="card__header"
-          data-h2-display="base(block)"
-          data-h2-font-size="base(h5, 1)"
+          data-h2-display="base(block) base:children[>span](block)"
           data-h2-padding="base(x1)"
-          data-h2-margin="base(0)"
-          {...(bold && { "data-h2-font-weight": "base(700)" })}
           {...colorMap[color]}
         >
-          {title}
-        </span>
+          <span
+            data-h2-font-size="base(h6, 1)"
+            {...(bold && { "data-h2-font-weight": "base(700)" })}
+          >
+            {title}
+          </span>
+          {subtitle && <span data-h2-margin="base(x.5 0 0 0)">{subtitle}</span>}
+        </div>
       )}
       <div
         className="card__body"
         data-h2-background-color="base(foreground)"
+        data-h2-color="base(black)"
         data-h2-flex-grow="base(1)"
         data-h2-padding="base(x1)"
         data-h2-flex="base(1)"
