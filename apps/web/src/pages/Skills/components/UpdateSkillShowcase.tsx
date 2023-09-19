@@ -315,7 +315,10 @@ const UpdateSkillShowcase = ({
                                     intl,
                                   )}
                                 </span>
-                                <span>
+                                <span
+                                  data-h2-font-weight="base(400)"
+                                  data-h2-color="base(black.light)"
+                                >
                                   {item.skillLevel
                                     ? intl.formatMessage(
                                         item.category ===
