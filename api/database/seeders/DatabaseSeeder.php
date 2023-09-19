@@ -47,6 +47,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RolePermissionSeeder::class);
         $this->call(ClassificationSeeder::class);
         $this->call(DepartmentSeeder::class);
+        $this->call(GenericJobTitleSeeder::class);
         $this->call(SkillFamilySeeder::class);
         $this->call(SkillSeeder::class);
         $this->call(TeamSeederLocal::class);
