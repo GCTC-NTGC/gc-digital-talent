@@ -92,9 +92,9 @@ const TopBehaviouralSkills = ({
 
   const pageBlurb = intl.formatMessage({
     defaultMessage:
-      "Show managers the 5 strongest behavioural skills that make you an awesome member of the team. You can edit this showcase at any time and are free to order the skills however you like. Skills that you add to the showcase that aren’t already in your library will be added for you automatically.",
+      "Show managers the 5 strongest behavioural skills that make you an awesome member of the team. You can edit this showcase at any time and are free to order the skills however you like. Skills that you add to the showcase that aren't already in your library will be added for you automatically.",
     description: "Page blurb for the top behavioural skills page",
-    id: "ewcgIi",
+    id: "OY6KVG",
   });
 
   const pageInfo = {
