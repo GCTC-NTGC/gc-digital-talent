@@ -182,6 +182,7 @@ const TopBehaviouralSkillsPage = () => {
             skill: userSkill.skill.id,
             skillLevel: userSkill.skillLevel ?? undefined,
             whenSkillUsed: userSkill.whenSkillUsed ?? undefined,
+            category: userSkill.skill.category,
           };
         }) ?? [],
   };
