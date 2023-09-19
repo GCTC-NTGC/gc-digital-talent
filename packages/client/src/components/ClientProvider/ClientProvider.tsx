@@ -19,9 +19,11 @@ import { useIntl } from "react-intl";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
+import { uniqueItems } from "@gc-digital-talent/helpers";
 
 import {
   buildValidationErrorMessageNode,
+  containsAuthenticationError,
   extractErrorMessages,
   extractValidationMessageKeys,
 } from "../../utils/errors";
@@ -159,19 +161,6 @@ const ClientProvider = ({
               error: CombinedError,
               operation: Operation<unknown, AnyVariables>,
             ) => {
-              let errorMessages = extractErrorMessages(error);
-
-              const validationMessageKeys = extractValidationMessageKeys(error);
-              if (validationMessageKeys.length > 0) {
-                errorMessages = validationMessageKeys;
-              }
-
-              const errorMessageNode = buildValidationErrorMessageNode(
-                errorMessages,
-                intl,
-              );
-              if (errorMessageNode) toast.error(errorMessageNode);
-
               if (error.graphQLErrors || error.networkError) {
                 logger.error(
                   JSON.stringify({
@@ -181,6 +170,24 @@ const ClientProvider = ({
                   }),
                 );
               }
+
+              const isAuthError = containsAuthenticationError(error);
+              if (isAuthError) {
+                authRef.current.logout("/logged-out");
+              }
+
+              let errorMessages = extractErrorMessages(error);
+
+              const validationMessageKeys = extractValidationMessageKeys(error);
+              if (validationMessageKeys.length > 0) {
+                errorMessages = validationMessageKeys;
+              }
+
+              const errorMessageNode = buildValidationErrorMessageNode(
+                uniqueItems(errorMessages),
+                intl,
+              );
+              if (errorMessageNode) toast.error(errorMessageNode);
             },
           }),
           dedupExchange,

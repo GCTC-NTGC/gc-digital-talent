@@ -22,6 +22,7 @@ import RadioGroup, {
   type Radio,
 } from "./components/RadioGroup";
 import Repeater from "./components/Repeater/Repeater";
+import RichTextInput from "./components/RichTextInput/RichTextInput";
 import Select, {
   MultiSelectFieldBase,
   type MultiSelectFieldBaseProps,
@@ -48,6 +49,7 @@ import {
   matchStringsCaseDiacriticInsensitive,
   countNumberOfWords,
   objectsToSortedOptions,
+  htmlToRichTextJSON,
 } from "./utils";
 import useCommonInputStyles from "./hooks/useCommonInputStyles";
 
@@ -63,6 +65,7 @@ export {
   MultiSelectField,
   Repeater,
   RadioGroup,
+  RichTextInput,
   Select,
   MultiSelectFieldBase,
   Submit,
@@ -112,4 +115,5 @@ export {
   countNumberOfWords,
   objectsToSortedOptions,
   useCommonInputStyles,
+  htmlToRichTextJSON,
 };
