@@ -47,11 +47,15 @@ const Single = ({
     items,
     initialSelectedItem: value,
     itemToString,
-    onInputValueChange({ inputValue: newInputValue }) {
+    onInputValueChange({
+      inputValue: newInputValue,
+      selectedItem: newSelectedItem,
+    }) {
       if (!isExternalSearch) {
         setAvailable(
           getSingleFilteredItems({
             options,
+            selected: newSelectedItem,
             query: newInputValue ?? "",
           }),
         );

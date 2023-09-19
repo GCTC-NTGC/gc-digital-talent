@@ -11,6 +11,9 @@ const orderItems = (options: Option[]): Option[] => {
   );
 };
 
+const optionQueryMatcher = (option: Option, query: string): boolean =>
+  !!option.label?.toLocaleString().toLowerCase().includes(query.toLowerCase());
+
 type GetFilteredItemsArgs = {
   options: Option[];
   query?: string;
@@ -29,14 +32,18 @@ export function getSingleFilteredItems({
 }: GetSingleFilteredItems): Option[] {
   let available = options;
 
-  if (query) {
+  // Only filter if we have a query and it does not
+  // match the currently selected item
+  if (
+    query &&
+    !(
+      selected &&
+      selected.label?.toLocaleString().toLowerCase() === query.toLowerCase()
+    )
+  ) {
     available = options.filter((option) => {
       return (
-        option.value === selected?.value ||
-        option.label
-          ?.toLocaleString()
-          .toLowerCase()
-          .includes(query.toLowerCase())
+        option.value === selected?.value || optionQueryMatcher(option, query)
       );
     });
   }
@@ -65,10 +72,7 @@ export function getMultiFilteredItems({
 
   if (query) {
     available = options.filter((option) => {
-      return option.label
-        ?.toLocaleString()
-        .toLowerCase()
-        .includes(query.toLowerCase());
+      return optionQueryMatcher(option, query);
     });
   }
 
