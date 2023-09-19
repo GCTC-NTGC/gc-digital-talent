@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
-import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { useCommonInputStyles, Field } from "@gc-digital-talent/forms";
