@@ -51,7 +51,12 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
             </Field.Legend>
             <Field.BoundingBox>
               <div data-h2-margin="base(x.125, 0)">
-                <label>
+                <Field.Label
+                  data-h2-display="base(flex)"
+                  data-h2-align-items="base(flex-start)"
+                  data-h2-gap="base(0 x.25)"
+                  data-h2-font-weight="base(400)"
+                >
                   <input
                     ref={allColumnsRef}
                     {...{
@@ -61,7 +66,7 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
                     }}
                   />{" "}
                   {intl.formatMessage(adminMessages.toggleAll)}
-                </label>
+                </Field.Label>
               </div>
             </Field.BoundingBox>
             {table
