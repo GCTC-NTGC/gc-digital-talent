@@ -9,4 +9,5 @@ enum ContractFteRange
     case FROM_11_TO_30;
     case FROM_31_TO_50;
     case FROM_51_TO_100;
+    case GREATER_THAN_100;
 }

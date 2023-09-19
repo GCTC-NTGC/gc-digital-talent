@@ -1994,6 +1994,7 @@ enum ContractFteRange {
   FROM_11_TO_30
   FROM_31_TO_50
   FROM_51_TO_100
+  GREATER_THAN_100
 }
 
 enum ContractInstrument {
