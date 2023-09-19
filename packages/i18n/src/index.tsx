@@ -25,6 +25,7 @@ import {
   tryFindMessageDescriptor,
   uiMessages,
   formMessages,
+  richTextMessages,
 } from "./messages";
 import {
   getEmploymentEquityGroup,
@@ -71,6 +72,10 @@ import {
   poolCandidatePriorities,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
+  getTechnicalSkillLevel,
+  getTechnicalSkillLevelDefinition,
+  getBehaviouralSkillLevel,
+  getBehaviouralSkillLevelDefinition,
 } from "./messages/localizedConstants";
 import { STORED_LOCALE } from "./const";
 import type { Locales, Messages } from "./types";
@@ -94,6 +99,7 @@ export {
   navigationMessages,
   uiMessages,
   formMessages,
+  richTextMessages,
   tryFindMessageDescriptor,
   LanguageProvider,
   LocaleProvider,
@@ -147,6 +153,10 @@ export {
   getAbbreviations,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
+  getTechnicalSkillLevel,
+  getTechnicalSkillLevelDefinition,
+  getBehaviouralSkillLevel,
+  getBehaviouralSkillLevelDefinition,
 };
 
 export type { Locales, Messages };

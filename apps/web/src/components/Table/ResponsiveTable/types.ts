@@ -72,6 +72,11 @@ export type AddLinkProps = {
   href: string;
 };
 
+export type AddDef = {
+  linkProps?: AddLinkProps;
+  component?: React.ReactNode;
+};
+
 export type ButtonClickEvent = (
   e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
 ) => void;

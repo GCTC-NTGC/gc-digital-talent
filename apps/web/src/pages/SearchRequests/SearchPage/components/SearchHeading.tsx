@@ -9,9 +9,9 @@ const SearchHeading = () => {
     <Hero
       centered
       title={intl.formatMessage({
-        defaultMessage: "Search the GC Digital Talent database",
-        id: "nnMkp+",
-        description: "Title displayed in the hero section of the Search page.",
+        defaultMessage: "Find digital talent",
+        id: "9Jkoms",
+        description: "Title displayed on hero for Search and Request pages.",
       })}
     >
       <div
@@ -23,19 +23,19 @@ const SearchHeading = () => {
       >
         <h2 data-h2-color="base(black)" data-h2-margin="base(0, 0, x1, 0)">
           {intl.formatMessage({
-            defaultMessage: "About the GC Digital Talent database",
-            id: "qnECBT",
+            defaultMessage: "Are you looking to hire digital talent?",
+            id: "zMuDSL",
             description:
-              "Heading displayed in the About area of the hero section of the Search page.",
+              "Heading on find talent page posing question to users.",
           })}
         </h2>
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "This talent database is open to most departments and agencies. Candidates in the database vary from just starting their career to seasoned professionals with several years of work experience. There are several ongoing recruitment processes, which means new candidates are being added every week.",
-            id: "BVwsnS",
+              "If you are looking for talent, you have found the right place. Our talent database is open to most departments and agencies. Complete a request to find qualified candidates. Candidates are assessed for their skills and grouped into pools to meet your staffing needs.",
+            id: "F+LDbs",
             description:
-              "Content displayed in the About area of the hero section of the Search page.",
+              "Content displayed in the find talent page explaining the page and what it offers to users.",
           })}
         </p>
       </div>

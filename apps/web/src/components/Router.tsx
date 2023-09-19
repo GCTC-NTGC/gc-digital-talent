@@ -626,11 +626,27 @@ const UpdateSkillPage = React.lazy(() =>
       ),
   ),
 );
+const SkillLibraryPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsSkillLibraryPage" */ "../pages/Skills/SkillLibraryPage"
+      ),
+  ),
+);
 const UpdateUserSkillPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
         /* webpackChunkName: "tsUpdateUserSkillPage" */ "../pages/Skills/UpdateUserSkillPage"
+      ),
+  ),
+);
+const SkillShowcasePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsSkillShowcasePage" */ "../pages/Skills/SkillShowcasePage"
       ),
   ),
 );
@@ -792,6 +808,17 @@ const createRoute = (
                       path: "skills",
                       children: [
                         {
+                          index: true,
+                          element: featureFlags.skillLibrary ? (
+                            <RequireAuth
+                              roles={[ROLE_NAME.Applicant]}
+                              loginPath={loginPath}
+                            >
+                              <SkillLibraryPage />
+                            </RequireAuth>
+                          ) : null,
+                        },
+                        {
                           path: ":skillId",
                           element: featureFlags.skillLibrary ? (
                             <RequireAuth
@@ -801,6 +828,22 @@ const createRoute = (
                               <UpdateUserSkillPage />
                             </RequireAuth>
                           ) : null,
+                        },
+                        {
+                          path: "showcase",
+                          children: [
+                            {
+                              index: true,
+                              element: featureFlags.skillLibrary ? (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.Applicant]}
+                                  loginPath={loginPath}
+                                >
+                                  <SkillShowcasePage />
+                                </RequireAuth>
+                              ) : null,
+                            },
+                          ],
                         },
                       ],
                     },

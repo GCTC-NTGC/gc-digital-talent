@@ -13,11 +13,11 @@
     "@gc-digital-talent/web": "*"
   },
   "devDependencies": {
-    "@testing-library/cypress": "^9.0.0",
-    "axe-core": "^4.7.2",
-    "cy-verify-downloads": "^0.1.16",
-    "cypress": "^13.0.0",
-    "cypress-axe": "^1.4.0",
+    "@testing-library/cypress": "^10.0.1",
+    "axe-core": "^4.8.0",
+    "cy-verify-downloads": "^0.1.17",
+    "cypress": "^13.2.0",
+    "cypress-axe": "^1.5.0",
     "cypress-multi-reporters": "^1.6.3",
     "cypress-terminal-report": "^5.3.3",
     "eslint-plugin-cypress": "^2.14.0",

@@ -27,9 +27,11 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
         "Error message that the given email address is already in use when updating.",
     },
     BothStatusNonStatus: {
-      // TODO replace with proper message
-      defaultMessage: "BothStatusNonStatus",
-      id: "ybzpGb",
+      defaultMessage:
+        "Please select either Status First Nations or Non-Status First Nations.",
+      id: "skfKnv",
+      description:
+        "Error message that the user has selected both status and non-status first nations.",
     },
 
     // skill validation
