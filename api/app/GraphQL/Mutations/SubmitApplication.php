@@ -36,6 +36,10 @@ final class SubmitApplication
         $application->submitted_at = $dateNow;
         $application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $application->setInsertSubmittedStepAttribute(ApplicationStep::REVIEW_AND_SUBMIT->name);
+
+        // need to save application before setting application snapshot since fields have yet to be saved to the database.
+        $application->save();
+
         $application->setApplicationSnapshot();
 
         $application->save();

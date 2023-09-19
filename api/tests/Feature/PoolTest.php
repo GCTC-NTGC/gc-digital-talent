@@ -669,4 +669,55 @@ class PoolTest extends TestCase
         }))->get();
         assertSame(count($activePools), 4); // assert 7 pools present but only 4 are considered "active"
     }
+
+    public function testPoolIsCompleteAccessor(): void
+    {
+        $queryPool =
+        /** @lang GraphQL */
+        '
+            query pool($id: UUID!){
+                pool(id :$id) {
+                    isComplete
+                }
+            }
+        ';
+        Classification::factory()->create();
+        Skill::factory()->create();
+
+        $completePool = Pool::factory()->published()->create([
+            'closing_date' => config('constants.far_future_date'),
+        ]);
+        $incompletePool = Pool::factory()->create([
+            'closing_date' => null,
+        ]);
+        $clearedRelationsPool = Pool::factory()->create();
+        $clearedRelationsPool->essentialSkills()->sync([]);
+        $clearedRelationsPool->classifications()->sync([]);
+
+        // test complete pool is marked as true, the others marked as false
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL(
+                $queryPool,
+                [
+                    'id' => $completePool->id,
+                ]
+            )
+            ->assertJsonFragment(['isComplete' => true]);
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL(
+                $queryPool,
+                [
+                    'id' => $incompletePool->id,
+                ]
+            )
+            ->assertJsonFragment(['isComplete' => false]);
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL(
+                $queryPool,
+                [
+                    'id' => $clearedRelationsPool->id,
+                ]
+            )
+            ->assertJsonFragment(['isComplete' => false]);
+    }
 }

@@ -222,6 +222,7 @@ type Pool {
   closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
+  isComplete: Boolean
 }
 
 type ScreeningQuestionResponse {
