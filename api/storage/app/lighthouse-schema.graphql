@@ -368,6 +368,7 @@ type Pool {
   closingDate: DateTime
   publishedAt: DateTime
   archivedAt: DateTime
+  isComplete: Boolean
 }
 
 enum PoolStream {
