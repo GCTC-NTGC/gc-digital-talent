@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\DirectiveForms\PositionEmploymentType;
 use App\Rules\ArrayConsistentWithDetail;
-use Database\Helpers\DirectiveFormsApiEnums;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class DepartmentSpecificRecruitmentProcessPositionInput extends Validator
@@ -23,7 +23,7 @@ final class DepartmentSpecificRecruitmentProcessPositionInput extends Validator
                 'required_without:classificationGroup',
             ],
             'employmentTypes' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::POSITION_EMPLOYMENT_TYPE_OTHER, 'employmentTypesOther'),
+                new ArrayConsistentWithDetail(PositionEmploymentType::OTHER->name, 'employmentTypesOther'),
             ],
         ];
     }

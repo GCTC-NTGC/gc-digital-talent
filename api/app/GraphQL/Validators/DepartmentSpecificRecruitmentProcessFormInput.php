@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\DirectiveForms\AdvertisingPlatform;
 use App\Rules\ArrayConsistentWithDetail;
-use Database\Helpers\DirectiveFormsApiEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -23,7 +23,7 @@ final class DepartmentSpecificRecruitmentProcessFormInput extends Validator
             ],
             'recruitmentProcessLeadEmail' => ['email'],
             'advertisingPlatforms' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::ADVERTISING_PLATFORM_OTHER, 'advertisingPlatformsOther'),
+                new ArrayConsistentWithDetail(AdvertisingPlatform::OTHER->name, 'advertisingPlatformsOther'),
             ],
         ];
     }

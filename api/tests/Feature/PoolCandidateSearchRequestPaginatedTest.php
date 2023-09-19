@@ -2,12 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Enums\PoolCandidateSearchStatus;
+use App\Enums\PoolStream;
 use App\Models\ApplicantFilter;
 use App\Models\Classification;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
@@ -95,13 +96,13 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
     public function testSearchRequestStatusFiltering(): void
     {
         PoolCandidateSearchRequest::factory()->count(2)->create([
-            'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW,
+            'request_status' => PoolCandidateSearchStatus::NEW->name,
         ]);
         PoolCandidateSearchRequest::factory()->count(3)->create([
-            'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE,
+            'request_status' => PoolCandidateSearchStatus::DONE->name,
         ]);
         PoolCandidateSearchRequest::factory()->count(4)->create([
-            'request_status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_WAITING,
+            'request_status' => PoolCandidateSearchStatus::WAITING->name,
         ]);
 
         // no variables results in 9 results
@@ -125,7 +126,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW],
+                        'status' => [PoolCandidateSearchStatus::NEW->name],
                     ],
                 ]
             )
@@ -137,7 +138,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE],
+                        'status' => [PoolCandidateSearchStatus::DONE->name],
                     ],
                 ]
             )
@@ -149,7 +150,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'status' => [ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_DONE, ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW],
+                        'status' => [PoolCandidateSearchStatus::DONE->name, PoolCandidateSearchStatus::NEW->name],
                     ],
                 ]
             )
@@ -294,11 +295,11 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
     public function testSearchRequestStreamsFiltering(): void
     {
         $applicantFilter1 = ApplicantFilter::factory()->create([
-            'qualified_streams' => [ApiEnums::POOL_STREAM_SECURITY],
+            'qualified_streams' => [PoolStream::SECURITY->name],
         ]);
 
         $applicantFilter2 = ApplicantFilter::factory()->create([
-            'qualified_streams' => [ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES],
+            'qualified_streams' => [PoolStream::BUSINESS_ADVISORY_SERVICES->name],
         ]);
 
         PoolCandidateSearchRequest::factory()->count(1)->create([
@@ -319,7 +320,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [ApiEnums::POOL_STREAM_INFRASTRUCTURE_OPERATIONS],
+                        'streams' => [PoolStream::INFRASTRUCTURE_OPERATIONS->name],
                     ],
                 ]
             )
@@ -331,7 +332,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [ApiEnums::POOL_STREAM_SECURITY],
+                        'streams' => [PoolStream::SECURITY->name],
                     ],
                 ]
             )
@@ -343,7 +344,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [ApiEnums::POOL_STREAM_SECURITY, ApiEnums::POOL_STREAM_INFRASTRUCTURE_OPERATIONS],
+                        'streams' => [PoolStream::SECURITY->name, PoolStream::INFRASTRUCTURE_OPERATIONS->name],
                     ],
                 ]
             )
@@ -355,7 +356,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 $this->searchRequestQuery,
                 [
                     'where' => [
-                        'streams' => [ApiEnums::POOL_STREAM_SECURITY, ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES],
+                        'streams' => [PoolStream::SECURITY->name, PoolStream::BUSINESS_ADVISORY_SERVICES->name],
                     ],
                 ]
             )

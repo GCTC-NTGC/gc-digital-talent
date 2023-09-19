@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Enums\DirectiveForms\PersonnelLanguage;
+use App\Enums\DirectiveForms\PersonnelScreeningLevel;
+use App\Enums\DirectiveForms\PersonnelTeleworkOption;
 use App\Models\DigitalContractingPersonnelRequirement;
 use App\Models\DigitalContractingPersonnelSkill;
 use App\Models\Skill;
-use Database\Helpers\DirectiveFormsApiEnums;
 use ErrorException;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,15 +25,15 @@ class DigitalContractingPersonnelRequirementFactory extends Factory
     {
         return [
             'resource_type' => $this->faker->word(),
-            'language' => $this->faker->randomElement(DirectiveFormsApiEnums::personnelLanguages()),
+            'language' => $this->faker->randomElement(PersonnelLanguage::cases())->name,
             'language_other' => function (array $attributes) {
-                return $attributes['language'] == DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER ? $this->faker->word() : null;
+                return $attributes['language'] == PersonnelLanguage::OTHER->name ? $this->faker->word() : null;
             },
-            'security' => $this->faker->randomElement(DirectiveFormsApiEnums::personnelScreeningLevels()),
+            'security' => $this->faker->randomElement(PersonnelScreeningLevel::cases())->name,
             'security_other' => function (array $attributes) {
-                return $attributes['security'] == DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER ? $this->faker->word() : null;
+                return $attributes['security'] == PersonnelScreeningLevel::OTHER->name ? $this->faker->word() : null;
             },
-            'telework' => $this->faker->randomElement(DirectiveFormsApiEnums::personnelTeleworkOptions()),
+            'telework' => $this->faker->randomElement(PersonnelTeleworkOption::cases())->name,
             'quantity' => $this->faker->numberBetween(0, 100),
         ];
     }

@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Enums\DirectiveForms\AdvertisementType;
+use App\Enums\DirectiveForms\AdvertisingPlatform;
 use App\Models\Department;
 use App\Models\DepartmentSpecificRecruitmentProcessForm;
 use App\Models\DepartmentSpecificRecruitmentProcessPosition;
-use Database\Helpers\DirectiveFormsApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -35,13 +36,13 @@ class DepartmentSpecificRecruitmentProcessFormFactory extends Factory
             'recruitment_process_lead_job_title' => $this->faker->jobTitle(),
             'recruitment_process_lead_email' => $this->faker->email(),
             'posting_date' => Carbon::today()->addDays($this->faker->numberBetween(31, 365)),
-            'advertisement_type' => $this->faker->randomElement(DirectiveFormsApiEnums::advertisementTypes()),
+            'advertisement_type' => $this->faker->randomElement(AdvertisementType::cases())->name,
             'advertising_platforms' => $this->faker->randomElements(
-                DirectiveFormsApiEnums::advertisingPlatforms(),
-                $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::advertisingPlatforms()))
+                array_column(AdvertisingPlatform::cases(), 'name'),
+                $this->faker->numberBetween(1, count(AdvertisingPlatform::cases()))
             ),
             'advertising_platforms_other' => function (array $attributes) {
-                return in_array(DirectiveFormsApiEnums::ADVERTISING_PLATFORM_OTHER, $attributes['advertising_platforms']) ? $this->faker->word() : null;
+                return in_array(AdvertisingPlatform::OTHER->name, $attributes['advertising_platforms']) ? $this->faker->word() : null;
             },
             'job_advertisement_link' => $this->faker->url(),
 

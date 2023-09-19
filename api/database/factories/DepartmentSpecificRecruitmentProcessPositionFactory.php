@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\DirectiveForms\PositionEmploymentType;
 use App\Models\DepartmentSpecificRecruitmentProcessPosition;
-use Database\Helpers\DirectiveFormsApiEnums;
 use ErrorException;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,11 +24,11 @@ class DepartmentSpecificRecruitmentProcessPositionFactory extends Factory
             'classification_level' => $this->faker->regexify('0[0-9]'),
             'job_title' => $this->faker->jobTitle(),
             'employment_types' => $this->faker->randomElements(
-                DirectiveFormsApiEnums::positionEmploymentTypes(),
-                $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::positionEmploymentTypes()))
+                array_column(PositionEmploymentType::cases(), 'name'),
+                $this->faker->numberBetween(1, count(PositionEmploymentType::cases()))
             ),
             'employment_types_other' => function (array $attributes) {
-                return in_array(DirectiveFormsApiEnums::POSITION_EMPLOYMENT_TYPE_OTHER, $attributes['employment_types']) ? $this->faker->word() : null;
+                return in_array(PositionEmploymentType::OTHER->name, $attributes['employment_types']) ? $this->faker->word() : null;
             },
 
         ];

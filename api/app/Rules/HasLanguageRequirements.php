@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Enums\PoolLanguage;
 use App\Models\Pool;
 use App\Models\User;
 use Database\Helpers\ApiEnums;
@@ -32,7 +33,7 @@ class HasLanguageRequirements implements Rule
     {
         $thisUser = User::findOrFail($value);
         $userLookingForBilingual = $thisUser->looking_for_bilingual;
-        $poolNeedsBilingual = $this->pool->advertisement_language == ApiEnums::POOL_BILINGUAL_INTERMEDIATE || $this->pool->advertisement_language == ApiEnums::POOL_BILINGUAL_ADVANCED;
+        $poolNeedsBilingual = $this->pool->advertisement_language == PoolLanguage::BILINGUAL_INTERMEDIATE->name || $this->pool->advertisement_language == PoolLanguage::BILINGUAL_ADVANCED->name;
 
         $passes = ! $poolNeedsBilingual || ($poolNeedsBilingual && $userLookingForBilingual);
 
